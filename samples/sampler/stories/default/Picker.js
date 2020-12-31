@@ -7,11 +7,6 @@ import Picker from '@enact/sandstone/Picker';
 
 import {decrementIcons, incrementIcons} from './icons';
 
-// Set up some defaults for info and knobs
-const prop = {
-	orientation: ['horizontal', 'vertical'],
-	width: [null, 'small', 'medium', 'large']
-};
 
 const airports = [
 	'San Francisco International Airport Terminal 1',
@@ -22,6 +17,13 @@ const airports = [
 	'Heathrow Terminal 6',
 	'נמל התעופה בן גוריון טרמינל הבינלאומי'
 ];
+
+// Set up some defaults for info and knobs
+const prop = {
+	orientation: ['horizontal', 'vertical'],
+	type: ['string', 'number'],
+	width: [null, 'small', 'medium', 'large']
+};
 
 // const Config = mergeComponentMetadata('FormCheckboxItem', FormCheckboxItem);
 Picker.displayName = 'Picker';
@@ -41,6 +43,7 @@ storiesOf('Sandstone', module)
 				noAnimation={boolean('noAnimation', Picker)}
 				onChange={action('onChange')}
 				orientation={select('orientation', prop.orientation, Picker, prop.orientation[0])}
+				type={select('type', prop.type, Picker, prop.type[0])}
 				width={select('width', prop.width, Picker, prop.width[3])}
 				wrap={boolean('wrap', Picker)}
 			>
