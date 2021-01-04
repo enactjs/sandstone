@@ -52,6 +52,10 @@
 
 	.title {
 		font-style: @sand-dropdown-title-font-style;
+
+		:global(.enact-locale-non-italic) & {
+			font-style: @sand-non-italic-dropdown-title-font-style;
+		}
 	}
 
 	&.hasTitle .button {
