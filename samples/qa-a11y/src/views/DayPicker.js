@@ -6,10 +6,10 @@ import Item from '@enact/sandstone/Item';
 import React from 'react';
 
 import Section from '../components/Section';
-import useEventHandlers from '../components/useEventHandlers';
+import useArrayState from '../components/useArrayState';
 
 const DayPickerItem = (props) => {
-	const [open, handleOpen] = useEventHandlers(1);
+	const [open, handleOpen] = useArrayState(1);
 	const [value, setValue] = React.useState(null);
 
 	const handleSelect = ({content}) => setValue(content);

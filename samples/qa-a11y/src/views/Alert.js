@@ -3,12 +3,12 @@ import Button from '@enact/sandstone/Button';
 import React from 'react';
 
 import Section from '../components/Section';
-import useEventHandlers from '../components/useEventHandlers';
+import useArrayState from '../components/useArrayState';
 
 import appCss from '../App/App.module.less';
 
 const AlertView = () => {
-	const [open, handleOpen] = useEventHandlers(8);
+	const [open, handleOpen] = useArrayState(8);
 
 	return (
 		<>

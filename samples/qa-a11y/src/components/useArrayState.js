@@ -1,6 +1,6 @@
 import React from 'react';
 
-const useEventHandlers = (length, initial = false) => {
+const useArrayState = (length, initial = false) => {
 	const [values, setValue] = React.useState(() => (new Array(length)).fill(initial));
 
 	const handler = (index, bool) => () => setValue([
@@ -12,7 +12,7 @@ const useEventHandlers = (length, initial = false) => {
 	return [values, handler];
 };
 
-export default useEventHandlers;
+export default useArrayState;
 export {
-	useEventHandlers
+	useArrayState
 };

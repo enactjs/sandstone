@@ -7,11 +7,11 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 
 import Section from '../components/Section';
-import useEventHandlers from '../components/useEventHandlers';
+import useArrayState from '../components/useArrayState';
 
 const FlexiblePopupPanelsView = () => {
-	const [open, handleOpen] = useEventHandlers(4);
-	const [index, setIndex] = useEventHandlers(4, 0);
+	const [open, handleOpen] = useArrayState(4);
+	const [index, setIndex] = useArrayState(4, 0);
 
 	const prevButton = <Button icon="closex" aria-label="This is Exit." onClick={handleOpen(0, false)} />;
 	const nextButton = <Button icon="closex" aria-label="This is Quit." onClick={handleOpen(0, false)} />;
