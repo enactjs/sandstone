@@ -35,6 +35,8 @@ storiesOf('ImageItem', module)
 					key={!!dataIndex + ''}
 					label={text('label', Config, 'ImageItem label')}
 					orientation={select('orientation', prop.orientation, Config)}
+					selected={boolean('selected', Config)}
+					showSelection={boolean('showSelection', Config)}
 					src={object('src', Config, src)}
 					style={{
 						width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
