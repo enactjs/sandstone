@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Dropdown` title `font-style` to `normal` where a locale's fonts cannot support italic
+
 ## [1.4.4] - 2020-11-06
 
 ### Fixed
