@@ -7,12 +7,11 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 
 import Section from '../components/Section';
-import useBoolArray from '../components/useBoolArray';
-import useNumberArray from '../components/useNumberArray';
+import useEventHandlers from '../components/useEventHandlers';
 
 const FlexiblePopupPanelsView = () => {
-	const [open, handleOpen] = useBoolArray(4);
-	const [index, setIndex] = useNumberArray(4);
+	const [open, handleOpen] = useEventHandlers(4);
+	const [index, setIndex] = useEventHandlers(4, 0);
 
 	const prevButton = <Button icon="closex" aria-label="This is Exit." onClick={handleOpen(0, false)} />;
 	const nextButton = <Button icon="closex" aria-label="This is Quit." onClick={handleOpen(0, false)} />;

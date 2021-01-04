@@ -6,12 +6,12 @@ import TimePicker, {timeToLocaleString} from '@enact/sandstone/TimePicker';
 import React from 'react';
 
 import Section from '../components/Section';
-import useBoolArray from '../components/useBoolArray';
+import useEventHandlers from '../components/useEventHandlers';
 
 import appCss from '../App/App.module.less';
 
 const TimePickerItem = (props) => {
-	const [open, handleOpen] = useBoolArray(1);
+	const [open, handleOpen] = useEventHandlers(1);
 	const [value, setValue] = React.useState(null);
 
 	const handleChange = ({value: newValue}) => setValue(timeToLocaleString(newValue));

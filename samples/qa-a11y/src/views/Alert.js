@@ -3,12 +3,12 @@ import Button from '@enact/sandstone/Button';
 import React from 'react';
 
 import Section from '../components/Section';
-import useBoolArray from '../components/useBoolArray';
+import useEventHandlers from '../components/useEventHandlers';
 
 import appCss from '../App/App.module.less';
 
 const AlertView = () => {
-	const [open, handleOpen] = useBoolArray(8);
+	const [open, handleOpen] = useEventHandlers(8);
 
 	return (
 		<>

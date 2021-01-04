@@ -7,8 +7,7 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 
 import Section from '../components/Section';
-import useBoolArray from '../components/useBoolArray';
-import useNumberArray from '../components/useNumberArray';
+import useEventHandlers from '../components/useEventHandlers';
 
 const itemData = [];
 for (let i = 0; i < 6; i++) {
@@ -16,8 +15,8 @@ for (let i = 0; i < 6; i++) {
 }
 
 const FixedPopupPanelsView = () => {
-	const [open, handleOpen] = useBoolArray(4);
-	const [index, setIndex] = useNumberArray(4);
+	const [open, handleOpen] = useEventHandlers(4);
+	const [index, setIndex] = useEventHandlers(4, 0);
 
 	return (
 		<>

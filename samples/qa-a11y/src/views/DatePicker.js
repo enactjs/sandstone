@@ -6,12 +6,12 @@ import Item from '@enact/sandstone/Item';
 import React from 'react';
 
 import Section from '../components/Section';
-import useBoolArray from '../components/useBoolArray';
+import useEventHandlers from '../components/useEventHandlers';
 
 import appCss from '../App/App.module.less';
 
 const DatePickerItem = (props) => {
-	const [open, handleOpen] = useBoolArray(1);
+	const [open, handleOpen] = useEventHandlers(1);
 	const [value, setValue] = React.useState(null);
 	const handleChange = ({value: newValue}) => setValue(dateToLocaleString(newValue));
 
