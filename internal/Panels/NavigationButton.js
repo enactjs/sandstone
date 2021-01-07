@@ -33,6 +33,13 @@ const NavigationButton = kind({
 				}
 			});
 
+			// It works. But sometime the old DOM is deleted too quickly so the focus is not visible.
+			// FIXME: Additionally, it is necessary to check the touch-mode with querySelector, etc.
+			if (component.key) {
+				// eslint-disable-next-line enact/prop-types
+				rest.key = component.key;
+			}
+
 			const Type = component.type;
 			return (
 				<Type {...rest} />

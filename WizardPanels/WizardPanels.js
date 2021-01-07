@@ -288,6 +288,7 @@ const WizardPanelsBase = kind({
 
 	handlers: {
 		onNextClick: handle(
+		//	document.activeElement.blur(), // late
 			forwardWithPrevent('onNextClick'),
 			(ev, {index, onChange, totalPanels}) => {
 				if (onChange && index !== totalPanels) {
