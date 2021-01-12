@@ -10,11 +10,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
+        ref: develop
         fetch-depth: 0
     - uses: FantasticFiasco/action-update-license-year@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        path: README.md
+        path: | 
+          README.md
+          samples/sampler/README.md
         branchName: license/{{currentYear}}
         commitTitle: update license
         commitBody: Let's keep legal happy.
