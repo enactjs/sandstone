@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
+
 ### Fixed
 
 - `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
