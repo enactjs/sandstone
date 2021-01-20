@@ -276,12 +276,12 @@ const TabLayoutBase = kind({
 				}
 			}
 		},
-		handleFocus: handle(
-			not(isTouchMode),
-			forward('onExpand')
-		),
 		handleClick: handle(
 			isTouchMode,
+			forward('onExpand')
+		),
+		handleFocus: handle(
+			not(isTouchMode),
 			forward('onExpand')
 		)
 	},
@@ -322,8 +322,8 @@ const TabLayoutBase = kind({
 
 		// Props that are shared between both of the rendered TabGroup components
 		const tabGroupProps = {
-			onFocus: (collapsed ? handleFocus : null),
 			onClick: (collapsed ? handleClick : null),
+			onFocus: (collapsed ? handleFocus : null),
 			onFocusTab: onSelect,
 			onSelect,
 			orientation,
