@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/TabLayout` to not select the first tab via tapping the collapsed tab
+
 ## [1.4.4-experimental-4] - 2021-01-13
 
 ### Fixed 
