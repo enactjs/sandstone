@@ -16,8 +16,9 @@ describe('With Container', function () {
 		// 5-way Up hold for 1 second.
 		browser.keys('Down Arrow');
 		// Spotlight still on any item's starIcon.
-		// As Jenkins'result is unexpectable by performance, make sure that spotlight is in starIcon only.
+		// '5-way down' long pressure is too fast to catch focus element in Jenkins. Therefore, test to catch focus properly with 5-way down.
+		Page.spotlightDown();
 		expect(Page.getElementAttribute('id')).to.equal('starIcon');
-		expect(Number(Page.getElementAttribute('data-index'))).to.above(0);
+		expect(Number(Page.getElementAttribute('data-index'))).to.equal(13);
 	});
 });
