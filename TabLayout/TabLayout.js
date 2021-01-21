@@ -6,7 +6,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
+import {adaptEvent, forward, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -29,6 +29,11 @@ import Tab from './Tab';
 import componentCss from './TabLayout.module.less';
 
 const TouchableCell = Touchable(Cell);
+
+const isTouchMode = () => {
+	const rootContainer = document.querySelector('#root > div');
+	return rootContainer && rootContainer.classList.contains('touch-mode');
+};
 
 /**
  * Tabbed Layout component.
@@ -262,18 +267,23 @@ const TabLayoutBase = kind({
 			)
 		),
 		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand}) => {
-			const rootContainer = document.querySelector('#root > div');
-			const touchMode = rootContainer && rootContainer.classList.contains('touch-mode');
-
 			// See the global class 'touch-mode' to check the input type is touch
-			if (touchMode && direction === 'horizontal') {
+			if (isTouchMode() && direction === 'horizontal') {
 				if (!collapsed && velocityX < 0) {
 					onCollapse();
 				} else if (collapsed && velocityX > 0) {
 					onExpand();
 				}
 			}
-		}
+		},
+		handleClick: handle(
+			isTouchMode,
+			forward('onExpand')
+		),
+		handleFocus: handle(
+			not(isTouchMode),
+			forward('onExpand')
+		)
 	},
 
 	computed: {
@@ -301,8 +311,9 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleFlick, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleClick, handleFlick, handleFocus, handleTabsTransitionEnd, index, onCollapse, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.anchorTo;
+		delete rest.onExpand;
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
@@ -312,7 +323,8 @@ const TabLayoutBase = kind({
 
 		// Props that are shared between both of the rendered TabGroup components
 		const tabGroupProps = {
-			onFocus: (collapsed ? onExpand : null),
+			onClick: (collapsed ? handleClick : null),
+			onFocus: (collapsed ? handleFocus : null),
 			onFocusTab: onSelect,
 			onSelect,
 			orientation,
