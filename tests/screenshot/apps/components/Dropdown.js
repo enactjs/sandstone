@@ -44,7 +44,7 @@ const DropdownTests = [
 	</Dropdown>,
 
 	// direction - 'above', 'below'
-	// 'above' is default
+	// 'below' is default
 	<Dropdown open direction="above" title="Select an option above" style={{marginTop: scaleToRem(300)}}>
 		{children(3)}
 	</Dropdown>,
