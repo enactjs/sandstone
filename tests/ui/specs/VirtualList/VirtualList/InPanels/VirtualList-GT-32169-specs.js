@@ -23,7 +23,7 @@ describe('VirtualList in Panels', function () {
 		expect(Number(Page.getScrollThumbPosition())).to.above(0);
 		// Verify that the list is fully displayed.
 		// Step 4 Verify: Focus on item is not truncated.
-		// should bigger than item isze(78 for 2k, 156 for 4k)
+		// should bigger than item size(78 for 2k, 156 for 4k)
 		expect((Page.getListRect().bottom - Page.activeElementRect().top)).to.above(78);
 	});
 });

@@ -54,9 +54,9 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 			<div style={textStyle}>
 				{children}
 			</div>
-			<Button id="listIcon" icon="list" data-index={index} style={switchStyle} />
-			<Button id="starIcon" icon="star" data-index={index} style={switchStyle} />
-			<Button id="homeIcon" icon="home" data-index={index} style={switchStyle} />
+			<Button id={'listIcon' + index} icon="list" data-index={index} style={switchStyle} />
+			<Button id={'starIcon' + index} icon="star" data-index={index} style={switchStyle} />
+			<Button id={'homeIcon' + index} icon="home" data-index={index} style={switchStyle} />
 		</div>
 	);
 });
@@ -70,11 +70,6 @@ class app extends React.Component {
 		};
 		updateDataSize(this.state.numItems);
 	}
-
-	onToggle = ({currentTarget}) => {
-		const key = currentTarget.getAttribute('id');
-		this.setState((state) => ({[key]: !state[key]}));
-	};
 
 	onChangeNumItems = ({value}) => {
 		this.setState({numItems: value});
