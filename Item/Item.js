@@ -225,12 +225,16 @@ const ItemBase = kind({
 	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 		delete rest.size;
 
+		const keys = Object.keys(rest);
+		const voiceProps = (!keys.includes('data-webos-voice-label') && !keys.includes('data-webos-voice-labels') && label && typeof label === 'string' && children && children[0] && typeof children[0] === 'string') ? {'data-webos-voice-labels': JSON.stringify([label, children[0]])} : {};
+
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
 				component={Row}
 				align={centered ? 'center center' : 'center'}
 				ref={componentRef}
+				{...voiceProps}
 				{...rest}
 				inline={inline}
 				css={css}

@@ -6,14 +6,24 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
 - `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
 
 ### Fixed
 
+- `sandstone/Alert` to read out properly after closing it in a `sandstone/PopupTabLayout`
+- `sandstone/FlexiblePopupPanels` padding in RTL locales
 - `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
 - `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
 - `sandstone/Panel` to not reset scroll position by events from others
+- `sandstone/Panels.Header` to not show back button in the first panel
 - `sandstone/VideoPlayer.Video` to not start a new play before another one completes
+
+## [1.4.5] - 2021-01-05
+
+### Fixed
+
+- `sandstone/Dropdown` title `font-style` to `normal` where a locale's fonts cannot support italic
 
 ## [1.4.4] - 2020-11-06
 
