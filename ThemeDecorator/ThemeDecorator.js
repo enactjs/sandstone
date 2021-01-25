@@ -5,7 +5,7 @@
  * @exports ThemeDecorator
  */
 
-import {setRootId} from '@enact/core/dispatcher';
+import {setDefaultTargetById} from '@enact/core/dispatcher';
 import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
@@ -111,6 +111,7 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
 	 * Specifies the id of the React DOM tree root node
 	 *
 	 * @type {String}
+	 * @default 'root'
 	 * @public
 	 */
 	rootId: 'root',
@@ -235,7 +236,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	});
 
 	// set the DOM node ID of the React DOM tree root
-	setRootId(rootId);
+	setDefaultTargetById(rootId);
 
 	const Decorator = class extends React.Component {
 		static displayName = 'ThemeDecorator';
