@@ -8,6 +8,8 @@ import {storiesOf} from '@storybook/react';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
+import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);
@@ -66,6 +68,36 @@ class DisabledDropdown extends React.Component {
 				<Dropdown title="hello" disabled={this.state.isDisabled} onFocus={this.handleFocus}>
 					{['a', 'b', 'c']}
 				</Dropdown>
+			</div>
+		);
+	}
+}
+
+class PositionChangingDropdown extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			isShow: true
+		};
+	}
+
+	handleSelect = () => {
+		this.setState({
+			isShow: false
+		});
+	}
+
+	render () {
+		return (
+			<div style={{display: 'flex'}}>
+				<Dropdown title="first" onSelect={this.handleSelect}>{['a', 'b', 'c']}</Dropdown>
+				{this.state.isShow ? <Dropdown title="second">{['a', 'b', 'c']}</Dropdown> : null}
+				{this.state.isShow ? <Scroller style={{width: 300, height: 300}}>
+					{
+						[1, 2, 3, 4, 5].map((n) => <Item>{n}</Item>)
+					}
+				</Scroller> : null}
+				<Dropdown title="third">{['a', 'b', 'c']}</Dropdown>
 			</div>
 		);
 	}
@@ -186,5 +218,10 @@ storiesOf('Dropdown', module)
 		'with disabled',
 		() => (
 			<DisabledDropdown />
+		)
+	).add(
+		'with changing position',
+		() => (
+			<PositionChangingDropdown />
 		)
 	);
