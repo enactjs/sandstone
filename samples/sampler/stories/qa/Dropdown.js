@@ -10,6 +10,7 @@ import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import ri from '@enact/ui/resolution';
 
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);
@@ -92,7 +93,7 @@ class PositionChangingDropdown extends React.Component {
 			<div style={{display: 'flex'}}>
 				<Dropdown title="first" onSelect={this.handleSelect}>{['a', 'b', 'c']}</Dropdown>
 				{this.state.isShow ? <Dropdown title="second">{['a', 'b', 'c']}</Dropdown> : null}
-				{this.state.isShow ? <Scroller style={{width: 300, height: 300}}>
+				{this.state.isShow ? <Scroller style={{width: ri.scaleToRem(300), height: ri.scaleToRem(300)}}>
 					{
 						[1, 2, 3, 4, 5].map((n) => <Item>{n}</Item>)
 					}
