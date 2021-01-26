@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update `ContextualPopup` position properly in RTL locales
+
 ## [1.4.5] - 2021-01-05
 
 ### Fixed
