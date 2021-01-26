@@ -86,7 +86,7 @@ class PositionChangingDropdown extends React.Component {
 		this.setState({
 			isShow: false
 		});
-	}
+	};
 
 	render () {
 		return (
