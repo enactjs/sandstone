@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
+- `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
 
 ### Fixed
 
