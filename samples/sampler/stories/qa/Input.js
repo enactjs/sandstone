@@ -131,7 +131,7 @@ storiesOf('Input/Text/Fullscreen', module)
 			<Input
 				popupType="fullscreen"
 				invalid={boolean('invalid', Config, true)}
-				invalidMessage={text('invalidMessage', Config, inputData.longInvalidTooltip)}
+				invalidMessage={inputData.longInvalidTooltip}
 				defaultOpen
 			/>
 		), {
@@ -191,7 +191,7 @@ storiesOf('Input/Text/Overlay', module)
 			<Input
 				popupType="overlay"
 				invalid={boolean('invalid', Config, true)}
-				invalidMessage={text('invalidMessage', Config, inputData.longInvalidTooltip)}
+				invalidMessage={inputData.longInvalidTooltip}
 				defaultOpen
 			/>
 		), {
@@ -310,7 +310,7 @@ storiesOf('Input/Number/Fullscreen', module)
 				popupType="fullscreen"
 				type="number"
 				invalid={boolean('invalid', Config, true)}
-				invalidMessage={text('invalidMessage', Config, inputData.longInvalidTooltip)}
+				invalidMessage={inputData.longInvalidTooltip}
 				defaultOpen
 			/>
 		), {
@@ -404,7 +404,7 @@ storiesOf('Input/Number/Overlay', module)
 				popupType="overlay"
 				type="number"
 				invalid={boolean('invalid', Config, true)}
-				invalidMessage={text('invalidMessage', Config, inputData.longInvalidTooltip)}
+				invalidMessage={inputData.longInvalidTooltip}
 				defaultOpen
 			/>
 		), {
