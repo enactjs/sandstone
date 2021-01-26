@@ -1,27 +1,18 @@
+import kind from '@enact/core/kind';
 import Panels from '@enact/sandstone/Panels';
 import React from 'react';
-import MainPanel from '../views/MainPanel';
-import kind from '@enact/core/kind';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-import compose from 'ramda/src/compose';
+
+import MainPanel from '../views/MainPanel';
 
 const App = kind({
 	name: 'App',
 
-	
-	render: ({updateLocale, ...rest}) => (
-		<div {...rest}>
-			<Panels>
-				<MainPanel updateLocale={updateLocale} />
-			</Panels>
-		</div>
+	render: (props) => (
+		<Panels {...props}>
+			<MainPanel />
+		</Panels>
 	)
 });
 
-const AppDecorator = compose(
-	ThemeDecorator,
-	I18nContextDecorator({rtlProp: 'rtl', updateLocaleProp: 'updateLocale'})
-);
-
-export default AppDecorator(App);
+export default ThemeDecorator(App);
