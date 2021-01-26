@@ -66,7 +66,7 @@ class app extends React.Component {
 		updateDataSize(value);
 	};
 
-	onChangeHeaderChildren = () => {
+	onToggleHeaderChildren = () => {
 		this.setState((state) => ({headerChildren: !state.headerChildren}));
 	};
 
@@ -86,7 +86,7 @@ class app extends React.Component {
 									slot="header"
 									title={'VirtualList in Panel 0'}
 									type="compact"
-									slotAfter={<Button id="headerChildrenButton" onClick={this.onChangeHeaderChildren} size="small">{`${headerChildren ? 'Hide' : 'Show'} Header Children`}</Button>}
+									slotAfter={<Button id="headerChildrenButton" onClick={this.onToggleHeaderChildren} size="small">{`${headerChildren ? 'Hide' : 'Show'} Header Children`}</Button>}
 								>
 									{headerChildren ? <Item id="headerChildrenItem">Header Item</Item> : null}
 								</Header>

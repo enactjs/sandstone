@@ -6,7 +6,7 @@ describe('VirtualList in Panels', function () {
 		Page.open('InPanels');
 	});
 
-	it('should spotlight not be truncated[GT-32169]', function () {
+	it('should spotlight not be truncated [GT-32169]', function () {
 		// Step 3: Click on Show header children button in header.
 		Page.buttonHeaderChildren.moveTo();
 		Page.spotlightSelect();

@@ -1,10 +1,10 @@
-import {Row, Column, Cell} from '@enact/ui/Layout';
-import ri from '@enact/ui/resolution';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {Row, Column, Cell} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
 import React from 'react';
 
-import Button from '../../../../../../Button';
+import Button from '../../../../../../Button/Button';
 import {InputField} from '../../../../../../Input';
 import ThemeDecorator from '../../../../../../ThemeDecorator';
 import VirtualList from '../../../../../../VirtualList';

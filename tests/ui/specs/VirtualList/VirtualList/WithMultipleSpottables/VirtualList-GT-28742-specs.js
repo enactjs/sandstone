@@ -1,11 +1,11 @@
 const Page = require('../VirtualListPage');
 
-describe('With Container', function () {
+describe('VirtualList with multiple spottables in an item', function () {
 	beforeEach(function () {
-		Page.open('WithContainer');
+		Page.open('WithMultipleSpottables');
 	});
 
-	it('should Spotlight Moves between Spottable Controls of Items [GT-28742]', function () {
+	it('should navigates between the same spottable controls of items [GT-28742]', function () {
 		// Step 1: 5-way Spot a star icon (★) of the first ('Item 000').
 		Page.spotlightDown();
 		Page.spotlightRight();
