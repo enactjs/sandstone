@@ -4,7 +4,7 @@ import {Row, Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
-import Button from '../../../../../../Button/Button';
+import Button from '../../../../../../Button';
 import {InputField} from '../../../../../../Input';
 import ThemeDecorator from '../../../../../../ThemeDecorator';
 import VirtualList from '../../../../../../VirtualList';
