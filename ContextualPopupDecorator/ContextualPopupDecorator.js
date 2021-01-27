@@ -259,7 +259,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			super(props);
 			this.state = {
 				arrowPosition: {top: 0, left: 0},
-				containerPosition: {top: 0, left: 0},
+				containerPosition: {top: 0, left: 0, right: 0},
 				containerId: Spotlight.add(this.props.popupSpotlightId),
 				activator: null
 			};
@@ -567,6 +567,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					(this.state.arrowPosition.left !== arrowPosition.left) ||
 					(this.state.arrowPosition.top !== arrowPosition.top) ||
 					(this.state.containerPosition.left !== containerPosition.left) ||
+					(this.state.containerPosition.right !== containerPosition.right) ||
 					(this.state.containerPosition.top !== containerPosition.top)
 				) {
 					this.setState({
