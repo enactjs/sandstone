@@ -129,6 +129,8 @@ storiesOf('Input/Text/Fullscreen', module)
 		'long invalid tooltip',
 		() => (
 			<Input
+				title="Fullscreen Input (invalid tooltip)"
+				subtitle={inputData.textSubtitle}
 				popupType="fullscreen"
 				invalid={boolean('invalid', Config, true)}
 				invalidMessage={inputData.longInvalidTooltip}
@@ -189,6 +191,8 @@ storiesOf('Input/Text/Overlay', module)
 		'long invalid tooltip',
 		() => (
 			<Input
+				title="Overlay Input (invalid tooltip)"
+				subtitle={inputData.textSubtitle}
 				popupType="overlay"
 				invalid={boolean('invalid', Config, true)}
 				invalidMessage={inputData.longInvalidTooltip}
@@ -307,6 +311,8 @@ storiesOf('Input/Number/Fullscreen', module)
 		'long invalid tooltip',
 		() => (
 			<Input
+				title="Fullscreen Input (invalid tooltip)"
+				subtitle={inputData.numberSubtitle}
 				popupType="fullscreen"
 				type="number"
 				invalid={boolean('invalid', Config, true)}
@@ -401,6 +407,8 @@ storiesOf('Input/Number/Overlay', module)
 		'long invalid tooltip',
 		() => (
 			<Input
+				title="Overlay Input (invalid tooltip)"
+				subtitle={inputData.numberSubtitle}
 				popupType="overlay"
 				type="number"
 				invalid={boolean('invalid', Config, true)}
