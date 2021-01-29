@@ -18,6 +18,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.Header` to not show back button in the first panel
 - `sandstone/VideoPlayer.Video` to not start a new play before another one completes
 
+## [1.4.6] - 2021-01-29
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update `ContextualPopup` position properly in RTL locales
+
 ## [1.4.5] - 2021-01-05
 
 ### Fixed
