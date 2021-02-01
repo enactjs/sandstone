@@ -155,14 +155,14 @@ const StorybookDecorator = (story, config = {}) => {
 		groupId: 'Development'
 	};
 
-	if (config.parameters) {
-		if (config.parameters.info && config.parameters.info.text) {
-			config.description = config.parameters.info.text;
-		}
-		if (config.parameters.props) {
-			config.props = config.parameters.props;
-		}
-	}
+	// if (config.parameters) {
+	// 	if (config.parameters.info && config.parameters.info.text) {
+	// 		config.description = config.parameters.info.text;
+	// 	}
+	// 	if (config.parameters.props) {
+	// 		config.props = config.parameters.props;
+	// 	}
+	// }
 
 	const args = getArgs();
 	const classes = {
