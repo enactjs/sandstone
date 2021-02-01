@@ -8,25 +8,25 @@ import Scroller from '@enact/sandstone/Scroller';
 DayPicker.displayName = 'DayPicker';
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _DayPicker = () => (
-  <Scroller>
-    <DayPicker
-      aria-label={text('aria-label', DayPicker)}
-      disabled={boolean('disabled', DayPicker)}
-      onSelect={action('onSelect')}
-    />
-  </Scroller>
+	<Scroller>
+		<DayPicker
+			aria-label={text('aria-label', DayPicker)}
+			disabled={boolean('disabled', DayPicker)}
+			onSelect={action('onSelect')}
+		/>
+	</Scroller>
 );
 
 _DayPicker.story = {
-  name: 'DayPicker',
+	name: 'DayPicker',
 
-  parameters: {
-    info: {
-      text: 'The basic DayPicker',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'The basic DayPicker',
+		},
+	},
 };

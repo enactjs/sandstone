@@ -16,62 +16,62 @@ const Config = mergeComponentMetadata('ContextualPopupDecorator', Button, Contex
 // NOTE: Something about the HOC is inhibiting accessing its defaultProps, so we're adding them here
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
-  direction: 'below center',
-  offset: 'small',
-  open: false,
-  spotlightRestrict: 'self-first',
+	direction: 'below center',
+	offset: 'small',
+	open: false,
+	spotlightRestrict: 'self-first',
 };
 
 const renderPopup = () => (
-  <div>{text('popup string', { groupId: 'Popup' }, 'Hello Contextual Popup')}</div>
+	<div>{text('popup string', { groupId: 'Popup' }, 'Hello Contextual Popup')}</div>
 );
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _ContextualPopupDecorator = () => (
-  <div style={{ textAlign: 'center', marginTop: ri.scaleToRem(198) }}>
-    <ContextualButton
-      direction={select(
-        'direction',
-        [
-          'above',
-          'above center',
-          'above left',
-          'above right',
-          'below',
-          'below center',
-          'below left',
-          'below right',
-          'left middle',
-          'left top',
-          'left bottom',
-          'right middle',
-          'right top',
-          'right bottom',
-        ],
-        Config
-      )}
-      noAutoDismiss={boolean('noAutoDismiss', Config)}
-      offset={select('offset', ['none', 'overlap', 'small'], Config)}
-      onClose={action('onClose')}
-      open={boolean('open', Config)}
-      popupComponent={renderPopup}
-      spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], Config)}
-    >
-      {text('button string', Config, 'Hello Contextual Button')}
-    </ContextualButton>
-    <BodyText centered>Use KNOBS to interact with the ContextualPopup.</BodyText>
-  </div>
+	<div style={{ textAlign: 'center', marginTop: ri.scaleToRem(198) }}>
+		<ContextualButton
+			direction={select(
+				'direction',
+				[
+					'above',
+					'above center',
+					'above left',
+					'above right',
+					'below',
+					'below center',
+					'below left',
+					'below right',
+					'left middle',
+					'left top',
+					'left bottom',
+					'right middle',
+					'right top',
+					'right bottom',
+				],
+				Config
+			)}
+			noAutoDismiss={boolean('noAutoDismiss', Config)}
+			offset={select('offset', ['none', 'overlap', 'small'], Config)}
+			onClose={action('onClose')}
+			open={boolean('open', Config)}
+			popupComponent={renderPopup}
+			spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], Config)}
+		>
+			{text('button string', Config, 'Hello Contextual Button')}
+		</ContextualButton>
+		<BodyText centered>Use KNOBS to interact with the ContextualPopup.</BodyText>
+	</div>
 );
 
 _ContextualPopupDecorator.story = {
-  name: 'ContextualPopupDecorator',
+	name: 'ContextualPopupDecorator',
 
-  parameters: {
-    info: {
-      text: 'Basic usage of ContextualPopupDecorator',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Basic usage of ContextualPopupDecorator',
+		},
+	},
 };

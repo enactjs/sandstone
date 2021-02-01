@@ -18,50 +18,50 @@ Icon.displayName = 'Icon';
 const Config = mergeComponentMetadata('Icon', UiIcon, IconBase, Icon);
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _Icon = () => {
-  const flip = select('flip', ['', 'auto', 'both', 'horizontal', 'vertical'], Config, '');
+	const flip = select('flip', ['', 'auto', 'both', 'horizontal', 'vertical'], Config, '');
 
-  let size = select('size', ['tiny', 'small', 'medium', 'large', 'custom number'], Config);
-  if (size === 'custom number') {
-    size = number('size (number)', Config, { range: true, min: 24, max: 480, step: 6 }, 60);
-  }
+	let size = select('size', ['tiny', 'small', 'medium', 'large', 'custom number'], Config);
+	if (size === 'custom number') {
+		size = number('size (number)', Config, { range: true, min: 24, max: 480, step: 6 }, 60);
+	}
 
-  const iconType = select('icon type', ['glyph', 'url src', 'custom'], Config, 'glyph');
-  let children;
-  switch (iconType) {
-    case 'glyph':
-      children = select('icon', ['', ...iconNames], Config, 'plus');
-      break;
-    case 'url src':
-      children = select('src', [docs, factory, logo], Config, logo);
-      break;
-    default:
-      children = text('custom icon', Config);
-  }
-  return (
-    <Scroller style={{ height: '100%' }}>
-      <Icon flip={flip} size={size}>
-        {children}
-      </Icon>
-      <br />
-      <br />
-      <Heading showLine>All Icons</Heading>
-      {iconNames.map((icon, index) => (
-        <Icon key={index} flip={flip} size={size} title={icon}>
-          {icon}
-        </Icon>
-      ))}
-    </Scroller>
-  );
+	const iconType = select('icon type', ['glyph', 'url src', 'custom'], Config, 'glyph');
+	let children;
+	switch (iconType) {
+		case 'glyph':
+			children = select('icon', ['', ...iconNames], Config, 'plus');
+			break;
+		case 'url src':
+			children = select('src', [docs, factory, logo], Config, logo);
+			break;
+		default:
+			children = text('custom icon', Config);
+	}
+	return (
+		<Scroller style={{ height: '100%' }}>
+			<Icon flip={flip} size={size}>
+				{children}
+			</Icon>
+			<br />
+			<br />
+			<Heading showLine>All Icons</Heading>
+			{iconNames.map((icon, index) => (
+				<Icon key={index} flip={flip} size={size} title={icon}>
+					{icon}
+				</Icon>
+			))}
+		</Scroller>
+	);
 };
 
 _Icon.story = {
-  parameters: {
-    info: {
-      text: 'Basic usage of Icon',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Basic usage of Icon',
+		},
+	},
 };

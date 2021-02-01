@@ -12,49 +12,49 @@ import iconNames from '../helper/icons';
 
 FormCheckboxItem.displayName = 'FormCheckboxItem';
 const Config = mergeComponentMetadata(
-  'FormCheckboxItem',
-  ItemBase,
-  Item,
-  CheckboxBase,
-  Checkbox,
-  FormCheckboxItemBase,
-  FormCheckboxItem
+	'FormCheckboxItem',
+	ItemBase,
+	Item,
+	CheckboxBase,
+	Checkbox,
+	FormCheckboxItemBase,
+	FormCheckboxItem
 );
 Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _FormCheckboxItem = () => {
-  const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
-  const slotBefore = slotBeforeSelection ? (
-    <Icon slot="slotBefore">{slotBeforeSelection}</Icon>
-  ) : null;
+	const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
+	const slotBefore = slotBeforeSelection ? (
+		<Icon slot="slotBefore">{slotBeforeSelection}</Icon>
+	) : null;
 
-  return (
-    <FormCheckboxItem
-      disabled={boolean('disabled', Config)}
-      icon={select('icon', iconNames, Config)}
-      indeterminate={boolean('indeterminate', Config)}
-      indeterminateIcon={select('indeterminateIcon', iconNames, Config)}
-      inline={boolean('inline', Config)}
-      label={text('label', Config)}
-      labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
-      onToggle={action('onToggle')}
-    >
-      {slotBefore}
-      {text('children', Config, 'A Checkbox for a form')}
-    </FormCheckboxItem>
-  );
+	return (
+		<FormCheckboxItem
+			disabled={boolean('disabled', Config)}
+			icon={select('icon', iconNames, Config)}
+			indeterminate={boolean('indeterminate', Config)}
+			indeterminateIcon={select('indeterminateIcon', iconNames, Config)}
+			inline={boolean('inline', Config)}
+			label={text('label', Config)}
+			labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
+			onToggle={action('onToggle')}
+		>
+			{slotBefore}
+			{text('children', Config, 'A Checkbox for a form')}
+		</FormCheckboxItem>
+	);
 };
 
 _FormCheckboxItem.story = {
-  name: 'FormCheckboxItem',
+	name: 'FormCheckboxItem',
 
-  parameters: {
-    info: {
-      text: 'Basic usage of FormCheckboxItem',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Basic usage of FormCheckboxItem',
+		},
+	},
 };

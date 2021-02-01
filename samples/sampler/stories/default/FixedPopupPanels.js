@@ -14,57 +14,57 @@ Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _FixedPopupPanels = () => (
-  <div>
-    <FixedPopupPanels
-      index={number('index', Config, { range: true, min: 0, max: 1 }, 0)}
-      open={boolean('open', Config)}
-      position={select('position', ['left', 'right'], Config)}
-      fullHeight={boolean('fullHeight', Config)}
-      width={select('width', ['narrow', 'half'], Config)}
-      noAnimation={boolean('noAnimation', Config)}
-      noAutoDismiss={boolean('noAutoDismiss', Config)}
-      onBack={action('onBack')}
-      onClose={action('onClose')}
-      onHide={action('onHide')}
-      onShow={action('onShow')}
-      scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
-      spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
-    >
-      <Panel>
-        <Header>
-          <title>FixedPopupPanels Title</title>
-          <subtitle>A panel type for options views</subtitle>
-        </Header>
-        <BodyText>Example text inside an FixedPopupPanels Panel</BodyText>
-        <Item>Example Item 1</Item>
-        <Item>Example Item 2</Item>
-        <Item>Example Item 3</Item>
-      </Panel>
-      <Panel>
-        <Header>
-          <title>Another Panel</title>
-          <subtitle>This is the second page</subtitle>
-        </Header>
-        <BodyText>Woo woo</BodyText>
-        <Item>Example Item 1 on Panel 2</Item>
-        <Item>Example Item 2 on Panel 2</Item>
-        <Item>Example Item 3 on Panel 2</Item>
-      </Panel>
-    </FixedPopupPanels>
-    <BodyText centered>Use KNOBS to interact with FixedPopupPanels.</BodyText>
-  </div>
+	<div>
+		<FixedPopupPanels
+			index={number('index', Config, { range: true, min: 0, max: 1 }, 0)}
+			open={boolean('open', Config)}
+			position={select('position', ['left', 'right'], Config)}
+			fullHeight={boolean('fullHeight', Config)}
+			width={select('width', ['narrow', 'half'], Config)}
+			noAnimation={boolean('noAnimation', Config)}
+			noAutoDismiss={boolean('noAutoDismiss', Config)}
+			onBack={action('onBack')}
+			onClose={action('onClose')}
+			onHide={action('onHide')}
+			onShow={action('onShow')}
+			scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
+			spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+		>
+			<Panel>
+				<Header>
+					<title>FixedPopupPanels Title</title>
+					<subtitle>A panel type for options views</subtitle>
+				</Header>
+				<BodyText>Example text inside an FixedPopupPanels Panel</BodyText>
+				<Item>Example Item 1</Item>
+				<Item>Example Item 2</Item>
+				<Item>Example Item 3</Item>
+			</Panel>
+			<Panel>
+				<Header>
+					<title>Another Panel</title>
+					<subtitle>This is the second page</subtitle>
+				</Header>
+				<BodyText>Woo woo</BodyText>
+				<Item>Example Item 1 on Panel 2</Item>
+				<Item>Example Item 2 on Panel 2</Item>
+				<Item>Example Item 3 on Panel 2</Item>
+			</Panel>
+		</FixedPopupPanels>
+		<BodyText centered>Use KNOBS to interact with FixedPopupPanels.</BodyText>
+	</div>
 );
 
 _FixedPopupPanels.story = {
-  name: 'FixedPopupPanels',
+	name: 'FixedPopupPanels',
 
-  parameters: {
-    info: {
-      text: 'Basic usage of FixedPopupPanels',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Basic usage of FixedPopupPanels',
+		},
+	},
 };

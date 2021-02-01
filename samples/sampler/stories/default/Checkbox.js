@@ -11,27 +11,27 @@ Checkbox.displayName = 'Checkbox';
 const Config = mergeComponentMetadata('Checkbox', CheckboxBase, Checkbox);
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _Checkbox = () => {
-  return (
-    <Checkbox
-      disabled={boolean('disabled', Config)}
-      indeterminate={boolean('indeterminate', Config)}
-      indeterminateIcon={select('indeterminateIcon', ['', ...iconNames], Config)}
-      onToggle={action('onToggle')}
-    >
-      {select('children', ['', ...iconNames], Config)}
-    </Checkbox>
-  );
+	return (
+		<Checkbox
+			disabled={boolean('disabled', Config)}
+			indeterminate={boolean('indeterminate', Config)}
+			indeterminateIcon={select('indeterminateIcon', ['', ...iconNames], Config)}
+			onToggle={action('onToggle')}
+		>
+			{select('children', ['', ...iconNames], Config)}
+		</Checkbox>
+	);
 };
 
 _Checkbox.story = {
-  parameters: {
-    info: {
-      text:
-        'Standalone Checkbox component, for simple toggles. The component used in CheckboxItem and FormCheckboxItem.',
-    },
-  },
+	parameters: {
+		info: {
+			text:
+				'Standalone Checkbox component, for simple toggles. The component used in CheckboxItem and FormCheckboxItem.',
+		},
+	},
 };

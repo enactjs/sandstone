@@ -10,44 +10,44 @@ const Config = mergeComponentMetadata('ImageItem', UiImageItem, ImageItemBase, I
 ImageItem.displayName = 'ImageItem';
 
 const src = {
-  hd: 'http://via.placeholder.com/200x200/7ed31d/ffffff',
-  fhd: 'http://via.placeholder.com/300x300/7ed31d/ffffff',
-  uhd: 'http://via.placeholder.com/600x600/7ed31d/ffffff',
+	hd: 'http://via.placeholder.com/200x200/7ed31d/ffffff',
+	fhd: 'http://via.placeholder.com/300x300/7ed31d/ffffff',
+	uhd: 'http://via.placeholder.com/600x600/7ed31d/ffffff',
 };
 
 const prop = {
-  orientation: ['horizontal', 'vertical'],
+	orientation: ['horizontal', 'vertical'],
 };
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _ImageItem = () => (
-  <ImageItem
-    centered={boolean('centered', Config)}
-    disabled={boolean('disabled', Config)}
-    label={text('label', Config, 'ImageItem label')}
-    orientation={select('orientation', prop.orientation, Config)}
-    selected={boolean('selected', Config)}
-    showSelection={boolean('showSelection', Config)}
-    src={object('src', Config, src)}
-    style={{
-      position: 'absolute',
-      width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
-      height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240),
-    }}
-  >
-    {text('children', Config, 'ImageItem Caption')}
-  </ImageItem>
+	<ImageItem
+		centered={boolean('centered', Config)}
+		disabled={boolean('disabled', Config)}
+		label={text('label', Config, 'ImageItem label')}
+		orientation={select('orientation', prop.orientation, Config)}
+		selected={boolean('selected', Config)}
+		showSelection={boolean('showSelection', Config)}
+		src={object('src', Config, src)}
+		style={{
+			position: 'absolute',
+			width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
+			height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240),
+		}}
+	>
+		{text('children', Config, 'ImageItem Caption')}
+	</ImageItem>
 );
 
 _ImageItem.story = {
-  name: 'ImageItem',
+	name: 'ImageItem',
 
-  parameters: {
-    info: {
-      text: 'The basic ImageItem',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'The basic ImageItem',
+		},
+	},
 };

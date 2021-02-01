@@ -9,27 +9,27 @@ const Config = mergeComponentMetadata('TimePicker', TimePicker);
 TimePicker.displayName = 'TimePicker';
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _TimePicker = () => (
-  <TimePicker
-    disabled={boolean('disabled', Config)}
-    spotlightDisabled={boolean('spotlightDisabled', Config)}
-    hourAriaLabel={text('hourAriaLabel', Config, '')}
-    minuteAriaLabel={text('minuteAriaLabel', Config, '')}
-    meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
-    onChange={action('onChange')}
-    onComplete={action('onComplete')}
-  />
+	<TimePicker
+		disabled={boolean('disabled', Config)}
+		spotlightDisabled={boolean('spotlightDisabled', Config)}
+		hourAriaLabel={text('hourAriaLabel', Config, '')}
+		minuteAriaLabel={text('minuteAriaLabel', Config, '')}
+		meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
+		onChange={action('onChange')}
+		onComplete={action('onComplete')}
+	/>
 );
 
 _TimePicker.story = {
-  name: 'TimePicker',
+	name: 'TimePicker',
 
-  parameters: {
-    info: {
-      text: 'The basic TimePicker',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'The basic TimePicker',
+		},
+	},
 };

@@ -9,17 +9,17 @@ Switch.displayName = 'Switch';
 const Config = mergeComponentMetadata('Switch', SwitchBase, Switch);
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _Switch = () => {
-  return <Switch disabled={boolean('disabled', Config)} onToggle={action('onToggle')} />;
+	return <Switch disabled={boolean('disabled', Config)} onToggle={action('onToggle')} />;
 };
 
 _Switch.story = {
-  parameters: {
-    info: {
-      text: 'Standalone Switch component, for simple toggles. The component used in SwitchItem.',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Standalone Switch component, for simple toggles. The component used in SwitchItem.',
+		},
+	},
 };

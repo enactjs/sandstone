@@ -13,31 +13,31 @@ SwitchItem.displayName = 'SwitchItem';
 const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, SwitchItem);
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _SwitchItem = () => {
-  const slotAfterSelection = select('slotAfter', ['', ...iconNames], Config);
-  const slotAfter = slotAfterSelection ? <Icon slot="slotAfter">{slotAfterSelection}</Icon> : null;
+	const slotAfterSelection = select('slotAfter', ['', ...iconNames], Config);
+	const slotAfter = slotAfterSelection ? <Icon slot="slotAfter">{slotAfterSelection}</Icon> : null;
 
-  return (
-    <SwitchItem
-      disabled={boolean('disabled', Config)}
-      inline={boolean('inline', Config)}
-      onToggle={action('onToggle')}
-    >
-      {text('children', Config, 'Hello SwitchItem')}
-      {slotAfter}
-    </SwitchItem>
-  );
+	return (
+		<SwitchItem
+			disabled={boolean('disabled', Config)}
+			inline={boolean('inline', Config)}
+			onToggle={action('onToggle')}
+		>
+			{text('children', Config, 'Hello SwitchItem')}
+			{slotAfter}
+		</SwitchItem>
+	);
 };
 
 _SwitchItem.story = {
-  name: 'SwitchItem',
+	name: 'SwitchItem',
 
-  parameters: {
-    info: {
-      text: 'Basic usage of SwitchItem',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Basic usage of SwitchItem',
+		},
+	},
 };

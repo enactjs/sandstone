@@ -12,50 +12,50 @@ import iconNames from '../helper/icons';
 
 CheckboxItem.displayName = 'CheckboxItem';
 const Config = mergeComponentMetadata(
-  'CheckboxItem',
-  ItemBase,
-  Item,
-  CheckboxBase,
-  Checkbox,
-  CheckboxItemBase,
-  CheckboxItem
+	'CheckboxItem',
+	ItemBase,
+	Item,
+	CheckboxBase,
+	Checkbox,
+	CheckboxItemBase,
+	CheckboxItem
 );
 Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _CheckboxItem = () => {
-  const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
-  const slotBefore = slotBeforeSelection ? (
-    <Icon slot="slotBefore">{slotBeforeSelection}</Icon>
-  ) : null;
+	const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
+	const slotBefore = slotBeforeSelection ? (
+		<Icon slot="slotBefore">{slotBeforeSelection}</Icon>
+	) : null;
 
-  return (
-    <CheckboxItem
-      // disabled and inline have problems when set to `null` from the internal nullify...
-      disabled={boolean('disabled', Config)}
-      icon={select('icon', iconNames, Config)}
-      indeterminate={boolean('indeterminate', Config)}
-      indeterminateIcon={select('indeterminateIcon', iconNames, Config)}
-      inline={boolean('inline', Config)}
-      label={text('label', Config)}
-      labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
-      onToggle={action('onToggle')}
-    >
-      {slotBefore}
-      {text('children', Config, 'Hello CheckboxItem')}
-    </CheckboxItem>
-  );
+	return (
+		<CheckboxItem
+			// disabled and inline have problems when set to `null` from the internal nullify...
+			disabled={boolean('disabled', Config)}
+			icon={select('icon', iconNames, Config)}
+			indeterminate={boolean('indeterminate', Config)}
+			indeterminateIcon={select('indeterminateIcon', iconNames, Config)}
+			inline={boolean('inline', Config)}
+			label={text('label', Config)}
+			labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
+			onToggle={action('onToggle')}
+		>
+			{slotBefore}
+			{text('children', Config, 'Hello CheckboxItem')}
+		</CheckboxItem>
+	);
 };
 
 _CheckboxItem.story = {
-  name: 'CheckboxItem',
+	name: 'CheckboxItem',
 
-  parameters: {
-    info: {
-      text: 'Basic usage of CheckboxItem',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Basic usage of CheckboxItem',
+		},
+	},
 };

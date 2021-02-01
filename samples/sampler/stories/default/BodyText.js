@@ -7,33 +7,33 @@ import BodyText, { BodyTextBase } from '@enact/sandstone/BodyText';
 
 BodyText.displayName = 'BodyText';
 const Config = mergeComponentMetadata(
-  'BodyText',
-  UiBodyTextBase,
-  UiBodyText,
-  BodyTextBase,
-  BodyText
+	'BodyText',
+	UiBodyTextBase,
+	UiBodyText,
+	BodyTextBase,
+	BodyText
 );
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _BodyText = () => (
-  <BodyText
-    centered={boolean('centered', Config)}
-    noWrap={boolean('noWrap', Config)}
-    size={select('size', ['', 'large', 'small'], Config)}
-  >
-    {text('children', Config, 'This is Body Text')}
-  </BodyText>
+	<BodyText
+		centered={boolean('centered', Config)}
+		noWrap={boolean('noWrap', Config)}
+		size={select('size', ['', 'large', 'small'], Config)}
+	>
+		{text('children', Config, 'This is Body Text')}
+	</BodyText>
 );
 
 _BodyText.story = {
-  name: 'BodyText',
+	name: 'BodyText',
 
-  parameters: {
-    info: {
-      text: 'The basic BodyText',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'The basic BodyText',
+		},
+	},
 };

@@ -12,34 +12,34 @@ RadioItem.displayName = 'RadioItem';
 const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItemBase, RadioItem);
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _RadioItem = () => {
-  const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
-  const slotBefore = slotBeforeSelection ? (
-    <Icon slot="slotBefore">{slotBeforeSelection}</Icon>
-  ) : null;
+	const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
+	const slotBefore = slotBeforeSelection ? (
+		<Icon slot="slotBefore">{slotBeforeSelection}</Icon>
+	) : null;
 
-  return (
-    <RadioItem
-      disabled={boolean('disabled', Config)}
-      inline={boolean('inline', Config)}
-      onToggle={action('onToggle')}
-      icon={select('icon', ['', ...iconNames], Config)}
-    >
-      {slotBefore}
-      {text('children', Config, 'Hello RadioItem')}
-    </RadioItem>
-  );
+	return (
+		<RadioItem
+			disabled={boolean('disabled', Config)}
+			inline={boolean('inline', Config)}
+			onToggle={action('onToggle')}
+			icon={select('icon', ['', ...iconNames], Config)}
+		>
+			{slotBefore}
+			{text('children', Config, 'Hello RadioItem')}
+		</RadioItem>
+	);
 };
 
 _RadioItem.story = {
-  name: 'RadioItem',
+	name: 'RadioItem',
 
-  parameters: {
-    info: {
-      text: 'Basic usage of RadioItem',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Basic usage of RadioItem',
+		},
+	},
 };

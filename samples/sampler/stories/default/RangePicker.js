@@ -11,47 +11,47 @@ const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicke
 
 // Set up some defaults for info and knobs
 const prop = {
-  orientation: ['horizontal', 'vertical'],
-  width: [null, 'small', 'medium', 'large', 1, 2, 3, 4, 5, 6],
+	orientation: ['horizontal', 'vertical'],
+	width: [null, 'small', 'medium', 'large', 1, 2, 3, 4, 5, 6],
 };
 const parseIntOrNullify = (v) => {
-  if (!isNaN(parseInt(v))) {
-    return parseInt(v);
-  } else {
-    return nullify(v);
-  }
+	if (!isNaN(parseInt(v))) {
+		return parseInt(v);
+	} else {
+		return nullify(v);
+	}
 };
 
 RangePicker.displayName = 'RangePicker';
 
 export default {
-  title: 'Sandstone',
+	title: 'Sandstone',
 };
 
 export const _RangePicker = () => (
-  <RangePicker
-    onChange={action('onChange')}
-    min={number('min', Config, 0)}
-    max={number('max', Config, 100)}
-    step={number('step', Config, 5)}
-    defaultValue={0}
-    width={parseIntOrNullify(select('width', prop.width, Config, 'small'))}
-    orientation={select('orientation', prop.orientation, Config, 'horizontal')}
-    wrap={boolean('wrap', Config)}
-    joined={boolean('joined', Config)}
-    noAnimation={boolean('noAnimation', Config)}
-    disabled={boolean('disabled', Config)}
-    incrementIcon={select('incrementIcon', ['', ...incrementIcons], Config)}
-    decrementIcon={select('decrementIcon', ['', ...decrementIcons], Config)}
-  />
+	<RangePicker
+		onChange={action('onChange')}
+		min={number('min', Config, 0)}
+		max={number('max', Config, 100)}
+		step={number('step', Config, 5)}
+		defaultValue={0}
+		width={parseIntOrNullify(select('width', prop.width, Config, 'small'))}
+		orientation={select('orientation', prop.orientation, Config, 'horizontal')}
+		wrap={boolean('wrap', Config)}
+		joined={boolean('joined', Config)}
+		noAnimation={boolean('noAnimation', Config)}
+		disabled={boolean('disabled', Config)}
+		incrementIcon={select('incrementIcon', ['', ...incrementIcons], Config)}
+		decrementIcon={select('decrementIcon', ['', ...decrementIcons], Config)}
+	/>
 );
 
 _RangePicker.story = {
-  name: 'RangePicker',
+	name: 'RangePicker',
 
-  parameters: {
-    info: {
-      text: 'Basic usage of RangePicker',
-    },
-  },
+	parameters: {
+		info: {
+			text: 'Basic usage of RangePicker',
+		},
+	},
 };
