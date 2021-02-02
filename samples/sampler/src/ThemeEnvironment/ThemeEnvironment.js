@@ -155,15 +155,9 @@ const StorybookDecorator = (story, config = {}) => {
 		groupId: 'Development'
 	};
 
-	// if (config.parameters) {
-	// 	if (config.parameters.info && config.parameters.info.text) {
-	// 		config.description = config.parameters.info.text;
-	// 	}
-	// 	if (config.parameters.props) {
-	// 		config.props = config.parameters.props;
-	// 	}
-	// }
-
+    // note : 'config' object is not extensible
+    const hasInfoText = config.parameters && config.parameters.info && config.parameters.info.text;
+    const hasProps = config.parameters && config.parameters.props;
 	const args = getArgs();
 	const classes = {
 		aria: boolean('debug aria', DevelopmentConfig, getKnobFromArgs(args, 'debug aria')),
@@ -179,7 +173,7 @@ const StorybookDecorator = (story, config = {}) => {
 		<Theme
 			className={classnames(classes)}
 			title={`${config.kind} ${config.story}`.trim()}
-			description={config.description}
+            description={hasInfoText ? config.parameters.info.text : null}
 			locale={select('locale', locales, Config)}
 			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
 			highContrast={boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast'))}
@@ -187,7 +181,7 @@ const StorybookDecorator = (story, config = {}) => {
 				'--sand-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
 			}}
 			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
-			{...config.props}
+			{...hasProps ? config.parameters.props : null}
 		>
 			{sample}
 		</Theme>
