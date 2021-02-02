@@ -27,7 +27,7 @@ const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels
 const PanelConfig = mergeComponentMetadata('Panel', PanelBase, Panel);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/FlexiblePopupPanels',
 };
 
 export const _FlexiblePopupPanels = () => {
@@ -122,7 +122,7 @@ export const _FlexiblePopupPanels = () => {
 };
 
 _FlexiblePopupPanels.story = {
-	name: 'FlexiblePopupPanels',
+    name: 'FlexiblePopupPanels',
 
 	parameters: {
 		info: {

@@ -12,7 +12,7 @@ Slider.displayName = 'Slider';
 SliderTooltip.displayName = 'SliderTooltip';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Slider',
 };
 
 export const _Slider = () => {
@@ -79,6 +79,8 @@ export const _Slider = () => {
 };
 
 _Slider.story = {
+    name: 'Slider',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Slider',

@@ -9,7 +9,7 @@ const Config = mergeComponentMetadata('TimePicker', TimePicker);
 TimePicker.displayName = 'TimePicker';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/TimePicker',
 };
 
 export const _TimePicker = () => (
@@ -25,7 +25,7 @@ export const _TimePicker = () => (
 );
 
 _TimePicker.story = {
-	name: 'TimePicker',
+    name: 'TimePicker',
 
 	parameters: {
 		info: {

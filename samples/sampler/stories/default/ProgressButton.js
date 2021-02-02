@@ -48,7 +48,7 @@ const threeWayBoolean = (value) => {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/ProgressButton',
 };
 
 export const _ProgressButton = () => {
@@ -73,7 +73,7 @@ export const _ProgressButton = () => {
 };
 
 _ProgressButton.story = {
-	name: 'ProgressButton',
+    name: 'ProgressButton',
 
 	parameters: {
 		info: {

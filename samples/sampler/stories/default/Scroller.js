@@ -25,7 +25,7 @@ const prop = {
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Scroller',
 };
 
 export const _Scroller = () => {
@@ -87,6 +87,8 @@ export const _Scroller = () => {
 };
 
 _Scroller.story = {
+    name: 'Scroller',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Scroller',

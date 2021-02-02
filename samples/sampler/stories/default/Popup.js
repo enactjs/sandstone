@@ -9,7 +9,7 @@ import BodyText from '@enact/sandstone/BodyText';
 const Config = mergeComponentMetadata('Popup', Popup);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Popup',
 };
 
 export const _Popup = () => (
@@ -42,6 +42,8 @@ export const _Popup = () => (
 );
 
 _Popup.story = {
+    name: 'Popup',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Popup',

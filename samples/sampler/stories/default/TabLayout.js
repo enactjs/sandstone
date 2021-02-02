@@ -34,7 +34,7 @@ const tabSelections = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/TabLayout',
 };
 
 export const _TabLayout = () => {
@@ -95,7 +95,7 @@ export const _TabLayout = () => {
 };
 
 _TabLayout.story = {
-	name: 'TabLayout',
+    name: 'TabLayout',
 
 	parameters: {
 		props: {

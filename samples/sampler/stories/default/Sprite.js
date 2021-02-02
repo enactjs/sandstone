@@ -18,7 +18,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Sprite',
 };
 
 export const _Sprite = () => {
@@ -55,6 +55,8 @@ export const _Sprite = () => {
 };
 
 _Sprite.story = {
+    name: 'Sprite',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Sprite',

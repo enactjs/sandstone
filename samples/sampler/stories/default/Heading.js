@@ -17,7 +17,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Heading',
 };
 
 export const _Heading = () => (
@@ -41,6 +41,8 @@ export const _Heading = () => (
 );
 
 _Heading.story = {
+    name: 'Heading',
+
 	parameters: {
 		info: {
 			text: 'A component for initiating a section of content.',

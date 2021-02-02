@@ -25,7 +25,7 @@ const parseIntOrNullify = (v) => {
 RangePicker.displayName = 'RangePicker';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/RangePicker',
 };
 
 export const _RangePicker = () => (
@@ -47,7 +47,7 @@ export const _RangePicker = () => (
 );
 
 _RangePicker.story = {
-	name: 'RangePicker',
+    name: 'RangePicker',
 
 	parameters: {
 		info: {

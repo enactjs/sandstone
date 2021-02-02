@@ -14,7 +14,7 @@ Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/FixedPopupPanels',
 };
 
 export const _FixedPopupPanels = () => (
@@ -60,7 +60,7 @@ export const _FixedPopupPanels = () => (
 );
 
 _FixedPopupPanels.story = {
-	name: 'FixedPopupPanels',
+    name: 'FixedPopupPanels',
 
 	parameters: {
 		info: {

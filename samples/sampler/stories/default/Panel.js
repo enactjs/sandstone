@@ -75,7 +75,7 @@ const updateDataSize = (dataSize) => {
 updateDataSize(defaultDataSize);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Panels/Panel',
 };
 
 export const PanelsPanel = () => {
@@ -130,7 +130,7 @@ export const PanelsPanel = () => {
 };
 
 PanelsPanel.story = {
-	name: 'Panels.Panel',
+    name: 'Panels/Panel',
 
 	parameters: {
 		props: {

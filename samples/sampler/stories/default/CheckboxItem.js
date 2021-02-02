@@ -23,7 +23,7 @@ const Config = mergeComponentMetadata(
 Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/CheckboxItem',
 };
 
 export const _CheckboxItem = () => {
@@ -51,7 +51,7 @@ export const _CheckboxItem = () => {
 };
 
 _CheckboxItem.story = {
-	name: 'CheckboxItem',
+    name: 'CheckboxItem',
 
 	parameters: {
 		info: {

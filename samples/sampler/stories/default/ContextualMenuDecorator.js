@@ -25,7 +25,7 @@ Config.defaultProps = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/ContextualMenuDecorator',
 };
 
 export const _ContextualMenuDecorator = () => {
@@ -68,7 +68,7 @@ export const _ContextualMenuDecorator = () => {
 };
 
 _ContextualMenuDecorator.story = {
-	name: 'ContextualMenuDecorator',
+    name: 'ContextualMenuDecorator',
 
 	parameters: {
 		info: {

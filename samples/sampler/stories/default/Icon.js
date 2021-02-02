@@ -18,7 +18,7 @@ Icon.displayName = 'Icon';
 const Config = mergeComponentMetadata('Icon', UiIcon, IconBase, Icon);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Icon',
 };
 
 export const _Icon = () => {
@@ -59,6 +59,8 @@ export const _Icon = () => {
 };
 
 _Icon.story = {
+    name: 'Icon',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Icon',

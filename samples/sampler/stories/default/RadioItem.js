@@ -12,7 +12,7 @@ RadioItem.displayName = 'RadioItem';
 const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItemBase, RadioItem);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/RadioItem',
 };
 
 export const _RadioItem = () => {
@@ -35,7 +35,7 @@ export const _RadioItem = () => {
 };
 
 _RadioItem.story = {
-	name: 'RadioItem',
+    name: 'RadioItem',
 
 	parameters: {
 		info: {

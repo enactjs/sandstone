@@ -19,7 +19,7 @@ const Config = mergeComponentMetadata(
 );
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Dropdown',
 };
 
 export const _Dropdown = () => {
@@ -44,6 +44,8 @@ export const _Dropdown = () => {
 };
 
 _Dropdown.story = {
+    name: 'Dropdown',
+
 	parameters: {
 		info: {
 			text: 'A quick, inline, value-selection component',

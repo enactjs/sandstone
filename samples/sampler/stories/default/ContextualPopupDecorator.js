@@ -27,7 +27,7 @@ const renderPopup = () => (
 );
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/ContextualPopupDecorator',
 };
 
 export const _ContextualPopupDecorator = () => (
@@ -67,7 +67,7 @@ export const _ContextualPopupDecorator = () => (
 );
 
 _ContextualPopupDecorator.story = {
-	name: 'ContextualPopupDecorator',
+    name: 'ContextualPopupDecorator',
 
 	parameters: {
 		info: {

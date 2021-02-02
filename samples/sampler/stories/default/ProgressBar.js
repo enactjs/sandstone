@@ -11,7 +11,7 @@ ProgressBar.displayName = 'ProgressBar';
 ProgressBarTooltip.displayName = 'ProgressBarTooltip';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/ProgressBar',
 };
 
 export const _ProgressBar = () => {
@@ -81,7 +81,7 @@ export const _ProgressBar = () => {
 };
 
 _ProgressBar.story = {
-	name: 'ProgressBar',
+    name: 'ProgressBar',
 
 	parameters: {
 		info: {

@@ -31,7 +31,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/TooltipDecorator',
 };
 
 export const _TooltipDecorator = () => (
@@ -53,7 +53,7 @@ export const _TooltipDecorator = () => (
 );
 
 _TooltipDecorator.story = {
-	name: 'TooltipDecorator',
+    name: 'TooltipDecorator',
 
 	parameters: {
 		info: {

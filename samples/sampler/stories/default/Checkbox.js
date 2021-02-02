@@ -11,7 +11,7 @@ Checkbox.displayName = 'Checkbox';
 const Config = mergeComponentMetadata('Checkbox', CheckboxBase, Checkbox);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Checkbox',
 };
 
 export const _Checkbox = () => {
@@ -28,6 +28,8 @@ export const _Checkbox = () => {
 };
 
 _Checkbox.story = {
+    name: 'Checkbox',
+
 	parameters: {
 		info: {
 			text:

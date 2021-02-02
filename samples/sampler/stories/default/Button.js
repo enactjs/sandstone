@@ -43,7 +43,7 @@ const threeWayBoolean = (value) => {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Button',
 };
 
 export const _Button = () => (
@@ -68,6 +68,8 @@ export const _Button = () => (
 );
 
 _Button.story = {
+    name: 'Button',
+
 	parameters: {
 		info: {
 			text: 'The basic Button',

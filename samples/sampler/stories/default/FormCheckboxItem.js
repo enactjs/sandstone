@@ -23,7 +23,7 @@ const Config = mergeComponentMetadata(
 Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/FormCheckboxItem',
 };
 
 export const _FormCheckboxItem = () => {
@@ -50,7 +50,7 @@ export const _FormCheckboxItem = () => {
 };
 
 _FormCheckboxItem.story = {
-	name: 'FormCheckboxItem',
+    name: 'FormCheckboxItem',
 
 	parameters: {
 		info: {

@@ -14,7 +14,7 @@ ActionGuide.displayName = 'ActionGuide';
 const Config = mergeComponentMetadata('ActionGuide', ActionGuideBase, ActionGuide);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/ActionGuide',
 };
 
 export const _ActionGuide = () => {
@@ -39,7 +39,7 @@ export const _ActionGuide = () => {
 };
 
 _ActionGuide.story = {
-	name: 'ActionGuide',
+    name: 'ActionGuide',
 
 	parameters: {
 		info: {

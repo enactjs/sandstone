@@ -15,7 +15,7 @@ const Config = mergeComponentMetadata(
 );
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/BodyText',
 };
 
 export const _BodyText = () => (
@@ -29,8 +29,8 @@ export const _BodyText = () => (
 );
 
 _BodyText.story = {
-	name: 'BodyText',
-
+    name: 'BodyText',
+    
 	parameters: {
 		info: {
 			text: 'The basic BodyText',

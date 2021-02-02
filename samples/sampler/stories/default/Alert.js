@@ -35,7 +35,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Alert',
 };
 
 export const _Alert = () => {
@@ -70,6 +70,8 @@ export const _Alert = () => {
 };
 
 _Alert.story = {
+    name: 'Alert',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Alert',

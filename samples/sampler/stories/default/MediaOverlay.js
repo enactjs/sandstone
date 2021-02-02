@@ -48,7 +48,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/MediaOverlay',
 };
 
 export const _MediaOverlay = () => {
@@ -75,7 +75,7 @@ export const _MediaOverlay = () => {
 };
 
 _MediaOverlay.story = {
-	name: 'MediaOverlay',
+    name: 'MediaOverlay',
 
 	parameters: {
 		info: {

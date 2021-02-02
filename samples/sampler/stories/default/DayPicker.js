@@ -8,7 +8,7 @@ import Scroller from '@enact/sandstone/Scroller';
 DayPicker.displayName = 'DayPicker';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/DayPicker',
 };
 
 export const _DayPicker = () => (
@@ -22,7 +22,7 @@ export const _DayPicker = () => (
 );
 
 _DayPicker.story = {
-	name: 'DayPicker',
+    name: 'DayPicker',
 
 	parameters: {
 		info: {

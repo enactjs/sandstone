@@ -10,7 +10,7 @@ const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item
 Item.displayName = 'Item';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Item',
 };
 
 export const _Item = () => (
@@ -37,6 +37,8 @@ export const _Item = () => (
 );
 
 _Item.story = {
+    name: 'Item',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Item',

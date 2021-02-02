@@ -48,7 +48,7 @@ updateDataSize(defaultDataSize);
 const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/VirtualList',
 };
 
 export const _VirtualList = () => {
@@ -73,7 +73,7 @@ export const _VirtualList = () => {
 };
 
 _VirtualList.story = {
-	name: 'VirtualList',
+    name: 'VirtualList',
 
 	parameters: {
 		info: {

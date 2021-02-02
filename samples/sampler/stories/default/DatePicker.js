@@ -14,7 +14,7 @@ removeProps(
 DatePicker.displayName = 'DatePicker';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/DatePicker',
 };
 
 export const _DatePicker = () => (
@@ -30,7 +30,7 @@ export const _DatePicker = () => (
 );
 
 _DatePicker.story = {
-	name: 'DatePicker',
+    name: 'DatePicker',
 
 	parameters: {
 		info: {

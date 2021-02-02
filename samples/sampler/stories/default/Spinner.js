@@ -11,7 +11,7 @@ Spinner.displayName = 'Spinner';
 const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Spinner',
 };
 
 export const _Spinner = () => (
@@ -80,6 +80,8 @@ export const _Spinner = () => (
 );
 
 _Spinner.story = {
+    name: 'Spinner',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Spinner',

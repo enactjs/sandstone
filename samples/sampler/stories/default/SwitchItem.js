@@ -13,7 +13,7 @@ SwitchItem.displayName = 'SwitchItem';
 const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, SwitchItem);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/SwitchItem',
 };
 
 export const _SwitchItem = () => {
@@ -33,7 +33,7 @@ export const _SwitchItem = () => {
 };
 
 _SwitchItem.story = {
-	name: 'SwitchItem',
+    name: 'SwitchItem',
 
 	parameters: {
 		info: {

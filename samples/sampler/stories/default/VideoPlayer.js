@@ -100,7 +100,7 @@ VideoPlayer.displayName = 'VideoPlayer';
 MediaControls.displayName = 'MediaControls';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/VideoPlayer',
 };
 
 export const _VideoPlayer = () => {
@@ -212,7 +212,7 @@ export const _VideoPlayer = () => {
 };
 
 _VideoPlayer.story = {
-	name: 'VideoPlayer',
+    name: 'VideoPlayer',
 
 	parameters: {
 		info: {

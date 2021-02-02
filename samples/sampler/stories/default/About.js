@@ -64,7 +64,7 @@ const HintDialog = kind({
 });
 
 export default {
-	title: 'About',
+	title: 'About/A Tour of Sampler',
 };
 
 export const ATourOfSampler = () => (

@@ -15,7 +15,7 @@ const Config = mergeComponentMetadata('Image', Image, ImageBase, ImageDecorator)
 Image.displayName = 'Image';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Image',
 };
 
 export const _Image = () => (
@@ -49,6 +49,8 @@ export const _Image = () => (
 );
 
 _Image.story = {
+    name: 'Image',
+
 	parameters: {
 		info: {
 			text: 'The basic Image',

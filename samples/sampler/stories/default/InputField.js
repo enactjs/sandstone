@@ -18,7 +18,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Input/InputField',
 };
 
 export const InputInputField = () => (
@@ -39,7 +39,7 @@ export const InputInputField = () => (
 );
 
 InputInputField.story = {
-	name: 'Input.InputField',
+    name: 'Input/InputField',
 
 	parameters: {
 		info: {

@@ -20,7 +20,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Steps',
 };
 
 export const _Steps = () => {
@@ -39,6 +39,8 @@ export const _Steps = () => {
 };
 
 _Steps.story = {
+    name: 'Steps',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Steps',

@@ -17,7 +17,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Input',
 };
 
 export const _Input = () => {
@@ -71,6 +71,8 @@ export const _Input = () => {
 };
 
 _Input.story = {
+    name: 'Input',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Input',

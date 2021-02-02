@@ -11,7 +11,7 @@ const Config = mergeComponentMetadata('KeyGuide', KeyGuide);
 KeyGuide.displayName = 'KeyGuide';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/KeyGuide',
 };
 
 export const _KeyGuide = () => {
@@ -29,7 +29,7 @@ export const _KeyGuide = () => {
 };
 
 _KeyGuide.story = {
-	name: 'KeyGuide',
+    name: 'KeyGuide',
 
 	parameters: {
 		info: {

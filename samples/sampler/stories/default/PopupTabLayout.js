@@ -34,7 +34,7 @@ const navNext = (callback, value) => () => {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/PopupTabLayout',
 };
 
 export const _PopupTabLayout = () => {
@@ -185,7 +185,7 @@ export const _PopupTabLayout = () => {
 };
 
 _PopupTabLayout.story = {
-	name: 'PopupTabLayout',
+    name: 'PopupTabLayout',
 
 	parameters: {
 		info: {

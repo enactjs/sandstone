@@ -37,7 +37,7 @@ const renderItem = ({ index, ...rest }) => {
 Panels.displayName = 'Panels';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Panels',
 };
 
 export const _Panels = () => {
@@ -182,6 +182,8 @@ export const _Panels = () => {
 };
 
 _Panels.story = {
+    name: 'Panels',
+
 	parameters: {
 		props: {
 			noPanels: true,

@@ -21,7 +21,7 @@ const props = {
 WizardPanels.displayName = 'WizardPanels';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/WizardPanels',
 };
 
 export const _WizardPanels = () => (
@@ -152,7 +152,7 @@ export const _WizardPanels = () => (
 );
 
 _WizardPanels.story = {
-	name: 'WizardPanels',
+    name: 'WizardPanels',
 
 	parameters: {
 		props: {

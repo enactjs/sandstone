@@ -20,7 +20,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/ImageItem',
 };
 
 export const _ImageItem = () => (
@@ -43,7 +43,7 @@ export const _ImageItem = () => (
 );
 
 _ImageItem.story = {
-	name: 'ImageItem',
+    name: 'ImageItem',
 
 	parameters: {
 		info: {

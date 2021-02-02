@@ -6,7 +6,7 @@ import Marquee from '@enact/sandstone/Marquee';
 Marquee.displayName = 'Marquee';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Marquee',
 };
 
 export const _Marquee = () => {
@@ -54,6 +54,8 @@ export const _Marquee = () => {
 };
 
 _Marquee.story = {
+    name: 'Marquee',
+
 	parameters: {
 		info: {
 			text: 'The basic MarqueeText',

@@ -26,7 +26,7 @@ const airports = [
 Picker.displayName = 'Picker';
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Picker',
 };
 
 export const _Picker = () => (
@@ -49,6 +49,8 @@ export const _Picker = () => (
 );
 
 _Picker.story = {
+    name: 'Picker',
+
 	parameters: {
 		info: {
 			text: 'Basic usage of Picker',

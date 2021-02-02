@@ -9,7 +9,7 @@ Switch.displayName = 'Switch';
 const Config = mergeComponentMetadata('Switch', SwitchBase, Switch);
 
 export default {
-	title: 'Sandstone',
+	title: 'Sandstone/Switch',
 };
 
 export const _Switch = () => {
@@ -17,6 +17,8 @@ export const _Switch = () => {
 };
 
 _Switch.story = {
+    name: 'Switch',
+
 	parameters: {
 		info: {
 			text: 'Standalone Switch component, for simple toggles. The component used in SwitchItem.',
