@@ -2,13 +2,12 @@
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
-import React from 'react';
-import PropTypes from 'prop-types';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
-import qs from 'query-string';
-
-import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import PropTypes from 'prop-types';
+import qs from 'query-string';
+import React from 'react';
 
 import css from './ThemeEnvironment.module.less';
 

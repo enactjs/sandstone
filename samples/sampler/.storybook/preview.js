@@ -10,13 +10,13 @@ configureActions();
 addDecorator(withKnobs);
 export const parameters = {
 	knobs: {
-		timestamps: true,
+		timestamps: true
     },
     docs: {
 		container: DocsContainer,
 		page: DocsPage,
 		iframeHeight: 300,
-		theme: themes.light,
+		theme: themes.light
 	}
 };
 export const decorators = [ThemeEnvironment];

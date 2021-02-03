@@ -31,23 +31,23 @@ const HintDialog = kind({
 
 	propTypes: {
 		length: PropTypes.number,
-		pointerPosition: PropTypes.string,
+		pointerPosition: PropTypes.string
 	},
 	defaultProps: {
-		pointerPosition: 'below',
+		pointerPosition: 'below'
 	},
 	styles: {
 		css,
-		className: 'hintDialog',
+		className: 'hintDialog'
 	},
 	computed: {
-		className: ({ pointerPosition, styler }) => styler.append(pointerPosition),
-		style: ({ length, style }) => ({
+		className: ({pointerPosition, styler}) => styler.append(pointerPosition),
+		style: ({length, style}) => ({
 			...style,
 			'--pointer-length': riSafe(length),
-		}),
+		})
 	},
-	render: ({ children, ...rest }) => {
+	render: ({children, ...rest}) => {
 		delete rest.length;
 		delete rest.pointerPosition;
 
@@ -59,7 +59,7 @@ const HintDialog = kind({
 				<div className={css.text}>{children}</div>
 			</aside>
 		);
-	},
+	}
 });
 
 export default {
