@@ -155,9 +155,9 @@ const StorybookDecorator = (story, config = {}) => {
 		groupId: 'Development'
 	};
 
-    // note : 'config' object is not extensible
-    const hasInfoText = config.parameters && config.parameters.info && config.parameters.info.text;
-    const hasProps = config.parameters && config.parameters.props;
+	// NOTE: 'config' object is not extensible
+	const hasInfoText = config.parameters && config.parameters.info && config.parameters.info.text;
+	const hasProps = config.parameters && config.parameters.props;
 	const args = getArgs();
 	const classes = {
 		aria: boolean('debug aria', DevelopmentConfig, getKnobFromArgs(args, 'debug aria')),
@@ -172,8 +172,8 @@ const StorybookDecorator = (story, config = {}) => {
 	return (
 		<Theme
 			className={classnames(classes)}
-			title={`${config.kind} ${config.story}`.trim()}
-            description={hasInfoText ? config.parameters.info.text : null}
+			title={`${config.kind}`.replaceAll('/', ' ').trim()}
+			description={hasInfoText ? config.parameters.info.text : null}
 			locale={select('locale', locales, Config)}
 			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
 			highContrast={boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast'))}

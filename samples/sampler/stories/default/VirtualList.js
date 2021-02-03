@@ -1,12 +1,11 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-import ri from '@enact/ui/resolution';
-import { VirtualListBasic as UiVirtualListBasic } from '@enact/ui/VirtualList';
-
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import Item from '@enact/sandstone/Item';
 import VirtualList from '@enact/sandstone/VirtualList';
+import ri from '@enact/ui/resolution';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
+import React from 'react';
 
 import css from './VirtualList.module.less';
 
@@ -22,9 +21,9 @@ const wrapOption = {
 	items = [],
 	defaultDataSize = 1000,
 	// eslint-disable-next-line enact/prop-types, enact/display-name
-	renderItem = (size) => ({ index, ...rest }) => {
+	renderItem = (size) => ({index, ...rest}) => {
 		return (
-			<Item {...rest} style={{ height: ri.unit(size, 'rem') }}>
+			<Item {...rest} style={{height: ri.unit(size, 'rem')}}>
 				{items[index]}
 			</Item>
 		);
@@ -49,6 +48,7 @@ const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBas
 
 export default {
 	title: 'Sandstone/VirtualList',
+	component: 'VirtualList'
 };
 
 export const _VirtualList = () => {
@@ -72,12 +72,9 @@ export const _VirtualList = () => {
 	);
 };
 
-_VirtualList.story = {
-    name: 'VirtualList',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of VirtualList',
-		},
-	},
+_VirtualList.storyName = 'VirtualList';
+_VirtualList.parameters = {
+	info: {
+		text: 'Basic usage of VirtualList'
+	}
 };

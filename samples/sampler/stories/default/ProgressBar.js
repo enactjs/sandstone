@@ -1,17 +1,16 @@
-import { boolean, number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import ProgressBar, {ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
 import React from 'react';
-
-import ProgressBar, { ProgressBarTooltip } from '@enact/sandstone/ProgressBar';
 
 const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBar);
 const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', ProgressBarTooltip);
-
 ProgressBar.displayName = 'ProgressBar';
 ProgressBarTooltip.displayName = 'ProgressBarTooltip';
 
 export default {
 	title: 'Sandstone/ProgressBar',
+	component: 'ProgressBar'
 };
 
 export const _ProgressBar = () => {
@@ -50,7 +49,7 @@ export const _ProgressBar = () => {
 			backgroundProgress={number(
 				'backgroundProgress',
 				ProgressBarConfig,
-				{ range: true, min: 0, max: 1, step: 0.01 },
+				{range: true, min: 0, max: 1, step: 0.01},
 				0.5
 			)}
 			disabled={disabled}
@@ -64,13 +63,13 @@ export const _ProgressBar = () => {
 			progress={number(
 				'progress',
 				ProgressBarConfig,
-				{ range: true, min: 0, max: 1, step: 0.01 },
+				{range: true, min: 0, max: 1, step: 0.01},
 				0.4
 			)}
 			progressAnchor={number(
 				'progressAnchor',
 				ProgressBarConfig,
-				{ range: true, min: 0, max: 1, step: 0.01 },
+				{range: true, min: 0, max: 1, step: 0.01},
 				0
 			)}
 			showAnchor={boolean('showAnchor', ProgressBarConfig)}
@@ -80,12 +79,9 @@ export const _ProgressBar = () => {
 	);
 };
 
-_ProgressBar.story = {
-    name: 'ProgressBar',
-
-	parameters: {
-		info: {
-			text: 'The basic ProgressBar',
-		},
-	},
+_ProgressBar.storyName = 'ProgressBar';
+_ProgressBar.parameters = {
+	info: {
+		text: 'The basic ProgressBar'
+	}
 };

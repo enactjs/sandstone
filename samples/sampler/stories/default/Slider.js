@@ -1,18 +1,17 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import Slider, {SliderTooltip} from '@enact/sandstone/Slider';
 import React from 'react';
-
-import Slider, { SliderTooltip } from '@enact/sandstone/Slider';
 
 const SliderConfig = mergeComponentMetadata('Slider', Slider);
 const SliderTooltipConfig = mergeComponentMetadata('SliderTooltip', SliderTooltip);
-
 Slider.displayName = 'Slider';
 SliderTooltip.displayName = 'SliderTooltip';
 
 export default {
 	title: 'Sandstone/Slider',
+	component: 'Slider'
 };
 
 export const _Slider = () => {
@@ -53,7 +52,7 @@ export const _Slider = () => {
 			backgroundProgress={number(
 				'backgroundProgress',
 				SliderConfig,
-				{ range: true, min: 0, max: 1, step: 0.01 },
+				{range: true, min: 0, max: 1, step: 0.01},
 				0.5
 			)}
 			disabled={disabled}
@@ -67,7 +66,7 @@ export const _Slider = () => {
 			progressAnchor={number(
 				'progressAnchor',
 				SliderConfig,
-				{ range: true, min: 0, max: 1, step: 0.01 },
+				{range: true, min: 0, max: 1, step: 0.01},
 				0
 			)}
 			showAnchor={boolean('showAnchor', SliderConfig)}
@@ -78,12 +77,9 @@ export const _Slider = () => {
 	);
 };
 
-_Slider.story = {
-    name: 'Slider',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Slider',
-		},
-	},
+_Slider.storyName = 'Slider';
+_Slider.parameters = {
+	info: {
+		text: 'Basic usage of Slider'
+	}
 };

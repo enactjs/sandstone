@@ -1,12 +1,11 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
-import { Panel, Header, HeaderBase } from '@enact/sandstone/Panels';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
+import {Panel, Header, HeaderBase} from '@enact/sandstone/Panels';
 import Steps from '@enact/sandstone/Steps';
+import React from 'react';
 
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
@@ -34,6 +33,7 @@ const prop = {
 
 export default {
 	title: 'Sandstone/Panels/Header',
+	component: 'Header'
 };
 
 export const PanelsHeader = () => {
@@ -92,16 +92,13 @@ export const PanelsHeader = () => {
 	return story;
 };
 
-PanelsHeader.story = {
-    name: 'Panels/Header',
-
-	parameters: {
-		props: {
-			noPanel: true,
-		},
-		info: {
-			text:
-				"A block to use as a screen's title and description. Supports additional buttons and up to two subtitles.",
-		},
+PanelsHeader.storyName = 'Panels/Header';
+PanelsHeader.parameters = {
+	props: {
+		noPanel: true
 	},
+	info: {
+		text:
+			"A block to use as a screen's title and description. Supports additional buttons and up to two subtitles."
+	}
 };

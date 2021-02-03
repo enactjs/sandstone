@@ -1,9 +1,8 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 import React from 'react';
-
-import { InputField, InputFieldBase } from '@enact/sandstone/Input';
 
 import icons from '../helper/icons';
 
@@ -18,10 +17,11 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone/Input/InputField',
+    title: 'Sandstone/Input/InputField',
+    component: 'InputField'
 };
 
-export const InputInputField = () => (
+export const _InputField = () => (
 	<InputField
 		autoFocus={boolean('autoFocus', Config)}
 		onBeforeChange={action('onBeforeChange')}
@@ -38,12 +38,9 @@ export const InputInputField = () => (
 	/>
 );
 
-InputInputField.story = {
-    name: 'Input/InputField',
-
-	parameters: {
-		info: {
-			text: 'The basic InputField',
-		},
-	},
+_InputField.storyName = 'Input/InputField';
+_InputField.parameters = {
+    info: {
+        text: 'The basic InputField'
+    }
 };

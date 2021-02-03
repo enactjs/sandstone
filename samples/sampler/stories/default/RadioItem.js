@@ -1,10 +1,10 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Icon from '@enact/sandstone/Icon';
-import Item, { ItemBase } from '@enact/sandstone/Item';
-import RadioItem, { RadioItemBase } from '@enact/sandstone/RadioItem';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import RadioItem, {RadioItemBase} from '@enact/sandstone/RadioItem';
+import React from 'react';
 
 import iconNames from '../helper/icons';
 
@@ -13,6 +13,7 @@ const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItemBase
 
 export default {
 	title: 'Sandstone/RadioItem',
+	component: 'RadioItem'
 };
 
 export const _RadioItem = () => {
@@ -34,12 +35,9 @@ export const _RadioItem = () => {
 	);
 };
 
-_RadioItem.story = {
-    name: 'RadioItem',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of RadioItem',
-		},
-	},
+_RadioItem.storyName = 'RadioItem';
+_RadioItem.parameters = {
+	info: {
+		text: 'Basic usage of RadioItem'
+	}
 };

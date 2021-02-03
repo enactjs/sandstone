@@ -1,9 +1,8 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import Sprite from '@enact/sandstone/Sprite';
+import React from 'react';
 
 Sprite.displayName = 'Sprite';
 const Config = mergeComponentMetadata('Sprite', Sprite);
@@ -19,6 +18,7 @@ const prop = {
 
 export default {
 	title: 'Sandstone/Sprite',
+	component: 'Sprite'
 };
 
 export const _Sprite = () => {
@@ -34,7 +34,7 @@ export const _Sprite = () => {
 			width={120}
 			orientation="horizontal"
 			stopped={boolean('stopped', Config)}
-			duration={number('duration', Config, { range: true, min: 500, max: 10000, step: 250 }, 1000)}
+			duration={number('duration', Config, {range: true, min: 500, max: 10000, step: 250}, 1000)}
 			iterations={Number(select('iterations', prop.iterations, Config))}
 			onSpriteAnimation={action('onSpriteAnimation')}
 
@@ -54,12 +54,9 @@ export const _Sprite = () => {
 	);
 };
 
-_Sprite.story = {
-    name: 'Sprite',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Sprite',
-		},
-	},
+_Sprite.storyName = 'Sprite';
+_Sprite.parameters = {
+	info: {
+		text: 'Basic usage of Sprite'
+	}
 };

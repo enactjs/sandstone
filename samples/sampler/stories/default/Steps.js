@@ -1,8 +1,7 @@
-import { number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {number, select} from '@enact/storybook-utils/addons/knobs';
+import Steps, {StepsBase} from '@enact/sandstone/Steps';
 import React from 'react';
-
-import Steps, { StepsBase } from '@enact/sandstone/Steps';
 
 import iconNames from '../helper/icons';
 
@@ -21,13 +20,14 @@ const prop = {
 
 export default {
 	title: 'Sandstone/Steps',
+	component: 'Steps'
 };
 
 export const _Steps = () => {
 	return (
 		<Steps
-			current={number('current', Config, { range: true, min: 1, max: 10 }, 3)}
-			total={number('total', Config, { range: true, min: 2, max: 10 }, 5)}
+			current={number('current', Config, {range: true, min: 1, max: 10}, 3)}
+			total={number('total', Config, {range: true, min: 2, max: 10}, 5)}
 			pastIcon={select('pastIcon', prop.icons, Config)}
 			currentIcon={select('currentIcon', prop.icons, Config)}
 			futureIcon={select('futureIcon', prop.icons, Config)}
@@ -38,12 +38,9 @@ export const _Steps = () => {
 	);
 };
 
-_Steps.story = {
-    name: 'Steps',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Steps',
-		},
-	},
+_Steps.storyName = 'Steps';
+_Steps.parameters = {
+	info: {
+		text: 'Basic usage of Steps'
+	}
 };

@@ -1,11 +1,10 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata, nullify } from '@enact/storybook-utils';
+import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import RangePicker, {RangePickerBase} from '@enact/sandstone/RangePicker';
 import React from 'react';
 
-import RangePicker, { RangePickerBase } from '@enact/sandstone/RangePicker';
-
-import { decrementIcons, incrementIcons } from '../helper/icons';
+import {decrementIcons, incrementIcons} from '../helper/icons';
 
 const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicker);
 
@@ -26,6 +25,7 @@ RangePicker.displayName = 'RangePicker';
 
 export default {
 	title: 'Sandstone/RangePicker',
+	component: 'RangePicker'
 };
 
 export const _RangePicker = () => (
@@ -46,12 +46,9 @@ export const _RangePicker = () => (
 	/>
 );
 
-_RangePicker.story = {
-    name: 'RangePicker',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of RangePicker',
-		},
-	},
+_RangePicker.storyName = 'RangePicker';
+_RangePicker.parameters = {
+	info: {
+		text: 'Basic usage of RangePicker'
+	}
 };

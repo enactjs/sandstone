@@ -1,12 +1,11 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {ImageItem} from '@enact/sandstone/ImageItem';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import React from 'react';
-import { VirtualListBasic as UiVirtualListBasic } from '@enact/ui/VirtualList';
-
-import { ImageItem } from '@enact/sandstone/ImageItem';
-import { VirtualGridList } from '@enact/sandstone/VirtualList';
 
 import css from './VirtualGridList.module.less';
 
@@ -16,17 +15,17 @@ const wrapOption = {
 		'&quot;noAnimation&quot;': 'noAnimation',
 	},
 	prop = {
-		direction: { horizontal: 'horizontal', vertical: 'vertical' },
+		direction: {horizontal: 'horizontal', vertical: 'vertical'},
 		scrollbarOption: ['auto', 'hidden', 'visible'],
 		scrollModeOption: ['native', 'translate'],
 	},
 	items = [],
 	defaultDataSize = 1000,
 	longContent = 'Lorem ipsum dolor sit amet',
-	shouldAddLongContent = ({ index, modIndex }) => (index % modIndex === 0 ? ` ${longContent}` : ''),
+	shouldAddLongContent = ({index, modIndex}) => (index % modIndex === 0 ? ` ${longContent}` : ''),
 	// eslint-disable-next-line enact/prop-types
-	renderItem = ({ index, ...rest }) => {
-		const { text, subText, source } = items[index];
+	renderItem = ({index, ...rest}) => {
+		const {text, subText, source} = items[index];
 
 		return (
 			<ImageItem {...rest} label={subText} src={source}>
@@ -43,8 +42,8 @@ const updateDataSize = (dataSize) => {
 
 	for (let i = 0; i < dataSize; i++) {
 		const count = (headingZeros + i).slice(-itemNumberDigits),
-			text = `Item ${count}${shouldAddLongContent({ index: i, modIndex: 2 })}`,
-			subText = `SubItem ${count}${shouldAddLongContent({ index: i, modIndex: 3 })}`,
+			text = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
+			subText = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
 			source = {
 				hd: `http://placehold.it/200x200/${color}/ffffff&text=Image ${i}`,
@@ -52,7 +51,7 @@ const updateDataSize = (dataSize) => {
 				uhd: `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`,
 			};
 
-		items.push({ text, subText, source });
+		items.push({text, subText, source});
 	}
 
 	return dataSize;
@@ -68,9 +67,10 @@ const VirtualGridListConfig = mergeComponentMetadata(
 
 export default {
 	title: 'Sandstone/VirtualList/VirtualGridList',
+	component: 'VirtualGridList'
 };
 
-export const VirtualListVirtualGridList = () => (
+export const _VirtualGridList = () => (
 	<VirtualGridList
 		className={
 			select('direction', prop.direction, VirtualGridListConfig) === 'vertical'
@@ -97,12 +97,9 @@ export const VirtualListVirtualGridList = () => (
 	/>
 );
 
-VirtualListVirtualGridList.story = {
-    name: 'VirtualList/VirtualGridList',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of VirtualGridList',
-		},
-	},
+_VirtualGridList.storyName = 'VirtualList/VirtualGridList';
+_VirtualGridList.parameters = {
+	info: {
+		text: 'Basic usage of VirtualGridList'
+	}
 };

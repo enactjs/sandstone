@@ -1,10 +1,9 @@
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import BodyText from '@enact/sandstone/BodyText';
+import Heading, {HeadingBase} from '@enact/sandstone/Heading';
 import UiHeading from '@enact/ui/Heading';
 import React from 'react';
-
-import BodyText from '@enact/sandstone/BodyText';
-import Heading, { HeadingBase } from '@enact/sandstone/Heading';
 
 Heading.displayName = 'Heading';
 const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading);
@@ -17,7 +16,8 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone/Heading',
+    title: 'Sandstone/Heading',
+    component: 'Heading'
 };
 
 export const _Heading = () => (
@@ -30,7 +30,7 @@ export const _Heading = () => (
 		>
 			{text('children', Config, 'Heading text')}
 		</Heading>
-		<BodyText style={{ marginTop: 0 }}>
+		<BodyText style={{marginTop: 0}}>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi
 			diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis
 			varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum
@@ -40,12 +40,9 @@ export const _Heading = () => (
 	</React.Fragment>
 );
 
-_Heading.story = {
-    name: 'Heading',
-
-	parameters: {
-		info: {
-			text: 'A component for initiating a section of content.',
-		},
-	},
+_Heading.storyName = 'Heading';
+_Heading.parameters = {
+    info: {
+        text: 'A component for initiating a section of content.'
+    }
 };

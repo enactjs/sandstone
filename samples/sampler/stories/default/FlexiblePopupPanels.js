@@ -1,22 +1,21 @@
 /* eslint-disable react/jsx-no-bind */
 
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-import compose from 'ramda/src/compose';
-
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import Button from '@enact/sandstone/Button';
 import {
 	FlexiblePopupPanels,
 	Panel,
 	PanelBase,
 	Header,
 } from '@enact/sandstone/FlexiblePopupPanels';
-import Scroller from '@enact/sandstone/Scroller';
-import ri from '@enact/ui/resolution';
-import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
+import ri from '@enact/ui/resolution';
+import React from 'react';
+import compose from 'ramda/src/compose';
 
 const props = {
 	buttonVisibility: ['auto', 'always', 'never'],
@@ -27,7 +26,8 @@ const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels
 const PanelConfig = mergeComponentMetadata('Panel', PanelBase, Panel);
 
 export default {
-	title: 'Sandstone/FlexiblePopupPanels',
+    title: 'Sandstone/FlexiblePopupPanels',
+    component: 'FlexiblePopupPanels'
 };
 
 export const _FlexiblePopupPanels = () => {
@@ -89,7 +89,7 @@ export const _FlexiblePopupPanels = () => {
 					}
 				>
 					<Header title="First List" />
-					<Scroller style={{ width: size === 'auto' ? ri.scaleToRem(900) : null }}>
+					<Scroller style={{width: size === 'auto' ? ri.scaleToRem(900) : null}}>
 						<Item onClick={nextPanel}>Item 1</Item>
 						<Item onClick={nextPanel}>Item 2</Item>
 						<Item onClick={nextPanel}>Item 3</Item>
@@ -98,7 +98,7 @@ export const _FlexiblePopupPanels = () => {
 				</Panel>
 				<Panel size={size}>
 					<Header title="Second Vertical Slider" />
-					<Slider orientation="vertical" defaultValue={50} style={{ height: ri.scaleToRem(600) }} />
+					<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
 				</Panel>
 				<Panel
 					size={size}
@@ -111,7 +111,7 @@ export const _FlexiblePopupPanels = () => {
 					}
 				>
 					<Header title="Third panel" />
-					<Scroller style={{ width: size === 'auto' ? ri.scaleToRem(900) : null }}>
+					<Scroller style={{width: size === 'auto' ? ri.scaleToRem(900) : null}}>
 						<Item onClick={nextPanel}>Item 1</Item>
 					</Scroller>
 				</Panel>
@@ -121,13 +121,10 @@ export const _FlexiblePopupPanels = () => {
 	);
 };
 
-_FlexiblePopupPanels.story = {
-    name: 'FlexiblePopupPanels',
-
-	parameters: {
-		info: {
-			text:
-				'Intended for use with a single "control" at a time, to maximize the amount of background visible.',
-		},
-	},
+_FlexiblePopupPanels.storyName = 'FlexiblePopupPanels';
+_FlexiblePopupPanels.parameters = {
+    info: {
+        text:
+            'Intended for use with a single "control" at a time, to maximize the amount of background visible.'
+    }
 };

@@ -1,10 +1,10 @@
-import { boolean, number, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import Button from '@enact/sandstone/Button';
+import TooltipDecorator, { Tooltip, TooltipBase } from '@enact/sandstone/TooltipDecorator';
 import React from 'react';
 
-import Button from '@enact/sandstone/Button';
 import iconNames from '../helper/icons';
-import TooltipDecorator, { Tooltip, TooltipBase } from '@enact/sandstone/TooltipDecorator';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
 const TooltipButton = TooltipDecorator({ tooltipDestinationProp: 'decoration' }, Button);
@@ -32,10 +32,11 @@ const prop = {
 
 export default {
 	title: 'Sandstone/TooltipDecorator',
+	component: 'TooltipDecorator'
 };
 
 export const _TooltipDecorator = () => (
-	<div style={{ textAlign: 'center' }}>
+	<div style={{textAlign: 'center'}}>
 		<TooltipButton
 			disabled={boolean('disabled', Config)}
 			icon={select('icon', prop.icons, Config)}
@@ -52,12 +53,9 @@ export const _TooltipDecorator = () => (
 	</div>
 );
 
-_TooltipDecorator.story = {
-    name: 'TooltipDecorator',
-
-	parameters: {
-		info: {
-			text: 'The basic TooltipDecorator',
-		},
-	},
+_TooltipDecorator.storyName = 'TooltipDecorator';
+_TooltipDecorator.parameters = {
+	info: {
+		text: 'The basic TooltipDecorator'
+	}
 };

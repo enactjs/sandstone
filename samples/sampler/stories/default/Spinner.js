@@ -1,17 +1,17 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import UiSpinner, { SpinnerBase as UiSpinnerBase } from '@enact/ui/Spinner';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
 import ri from '@enact/ui/resolution';
+import UiSpinner, {SpinnerBase as UiSpinnerBase} from '@enact/ui/Spinner';
 import React from 'react';
-
-import Spinner, { SpinnerBase } from '@enact/sandstone/Spinner';
 
 Spinner.displayName = 'Spinner';
 const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);
 
 export default {
 	title: 'Sandstone/Spinner',
+	component: 'Spinner'
 };
 
 export const _Spinner = () => (
@@ -79,12 +79,9 @@ export const _Spinner = () => (
 	</div>
 );
 
-_Spinner.story = {
-    name: 'Spinner',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Spinner',
-		},
-	},
+_Spinner.storyName = 'Spinner';
+_Spinner.parameters = {
+	info: {
+		text: 'Basic usage of Spinner'
+	}
 };

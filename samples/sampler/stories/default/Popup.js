@@ -1,15 +1,15 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
-import Popup from '@enact/sandstone/Popup';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
+import Popup from '@enact/sandstone/Popup';
+import React from 'react';
 
 const Config = mergeComponentMetadata('Popup', Popup);
 
 export default {
 	title: 'Sandstone/Popup',
+	component: 'Popup'
 };
 
 export const _Popup = () => (
@@ -41,12 +41,9 @@ export const _Popup = () => (
 	</div>
 );
 
-_Popup.story = {
-    name: 'Popup',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Popup',
-		},
-	},
+_Popup.storyName = 'Popup';
+_Popup.parameters = {
+	info: {
+		text: 'Basic usage of Popup'
+	}
 };

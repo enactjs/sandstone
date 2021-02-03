@@ -1,10 +1,9 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import UIButton, { ButtonBase as UIButtonBase } from '@enact/ui/Button';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
+import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
-
-import Button, { ButtonBase } from '@enact/sandstone/Button';
 
 import iconNames from '../helper/icons';
 
@@ -23,7 +22,7 @@ const prop = {
 	iconFlip: ['', 'auto', 'both', 'horizontal', 'vertical'],
 	iconPosition: ['', 'before', 'after'],
 	icons: ['', ...iconNames],
-	minWidth: { 'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false' },
+	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
 	size: ['', 'small', 'large'],
 	tooltipType: ['', 'balloon', 'transparent'],
 };
@@ -43,7 +42,8 @@ const threeWayBoolean = (value) => {
 };
 
 export default {
-	title: 'Sandstone/Button',
+    title: 'Sandstone/Button',
+    component: 'Button'
 };
 
 export const _Button = () => (
@@ -67,12 +67,9 @@ export const _Button = () => (
 	</React.Fragment>
 );
 
-_Button.story = {
-    name: 'Button',
-
-	parameters: {
-		info: {
-			text: 'The basic Button',
-		},
-	},
+_Button.storyName = 'Button';
+_Button.parameters = {
+    info: {
+        text: 'The basic Button'
+    }
 };

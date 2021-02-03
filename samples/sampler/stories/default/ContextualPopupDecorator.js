@@ -1,16 +1,15 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
+import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
-import { ContextualPopupDecorator } from '@enact/sandstone/ContextualPopupDecorator';
-import BodyText from '@enact/sandstone/BodyText';
-import Button from '@enact/sandstone/Button';
-
 const ContextualButton = ContextualPopupDecorator(Button);
-ContextualButton.displayName = 'ContextualButton';
 
+ContextualButton.displayName = 'ContextualButton';
 const Config = mergeComponentMetadata('ContextualPopupDecorator', Button, ContextualButton);
 
 // NOTE: Something about the HOC is inhibiting accessing its defaultProps, so we're adding them here
@@ -23,15 +22,16 @@ Config.defaultProps = {
 };
 
 const renderPopup = () => (
-	<div>{text('popup string', { groupId: 'Popup' }, 'Hello Contextual Popup')}</div>
+	<div>{text('popup string', {groupId: 'Popup'}, 'Hello Contextual Popup')}</div>
 );
 
 export default {
-	title: 'Sandstone/ContextualPopupDecorator',
+    title: 'Sandstone/ContextualPopupDecorator',
+    component: 'ContextualPopupDecorator'
 };
 
 export const _ContextualPopupDecorator = () => (
-	<div style={{ textAlign: 'center', marginTop: ri.scaleToRem(198) }}>
+	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(198)}}>
 		<ContextualButton
 			direction={select(
 				'direction',
@@ -66,12 +66,9 @@ export const _ContextualPopupDecorator = () => (
 	</div>
 );
 
-_ContextualPopupDecorator.story = {
-    name: 'ContextualPopupDecorator',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of ContextualPopupDecorator',
-		},
-	},
+_ContextualPopupDecorator.storyName = 'ContextualPopupDecorator';
+_ContextualPopupDecorator.parameters = {
+    info: {
+        text: 'Basic usage of ContextualPopupDecorator'
+    }
 };

@@ -1,15 +1,13 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select } from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
-
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
-import { Scroller } from '@enact/sandstone/Scroller';
-import WizardPanels, { WizardPanelsBase } from '@enact/sandstone/WizardPanels';
-
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {Scroller} from '@enact/sandstone/Scroller';
+import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+import React from 'react';
 
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
@@ -18,10 +16,9 @@ const props = {
 	buttonVisibility: ['auto', 'always', 'never'],
 };
 
-WizardPanels.displayName = 'WizardPanels';
-
 export default {
 	title: 'Sandstone/WizardPanels',
+	component: 'WizardPanels'
 };
 
 export const _WizardPanels = () => (
@@ -151,12 +148,9 @@ export const _WizardPanels = () => (
 	</WizardPanels>
 );
 
-_WizardPanels.story = {
-    name: 'WizardPanels',
-
-	parameters: {
-		props: {
-			noPanel: true,
-		},
-	},
+_WizardPanels.storyName = 'WizardPanels';
+_WizardPanels.parameters = {
+	props: {
+		noPanel: true
+	}
 };

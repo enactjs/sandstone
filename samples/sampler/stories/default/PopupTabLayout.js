@@ -1,25 +1,23 @@
 /* eslint-disable react/jsx-no-bind */
 
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-import compose from 'ramda/src/compose';
-import Group from '@enact/ui/Group';
-
-import PopupTabLayout, { Tab, TabPanels, TabPanel } from '@enact/sandstone/PopupTabLayout';
-import Popup, { PopupBase } from '@enact/sandstone/Popup';
-import TabLayout, { TabLayoutBase } from '@enact/sandstone/TabLayout';
-import { Header } from '@enact/sandstone/Panels';
-import Scroller from '@enact/sandstone/Scroller';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
+import Popup, {PopupBase} from '@enact/sandstone/Popup';
+import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
+import {Header} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
+import TabLayout, {TabLayoutBase} from '@enact/sandstone/TabLayout';
+import Group from '@enact/ui/Group';
+import React from 'react';
+import compose from 'ramda/src/compose';
 
 import spriteGear2k from '../../images/sprite-gear-2k.png';
 import spriteGear4k from '../../images/sprite-gear-4k.png';
 
 PopupTabLayout.displayName = 'PopupTabLayout';
-
 const Config = mergeComponentMetadata('PopupTabLayout', PopupBase, Popup, TabLayoutBase, TabLayout);
 
 const navPrev = (callback, value, actionName) => () => {
@@ -35,6 +33,7 @@ const navNext = (callback, value) => () => {
 
 export default {
 	title: 'Sandstone/PopupTabLayout',
+	component: 'PopupTabLayout'
 };
 
 export const _PopupTabLayout = () => {
@@ -184,13 +183,10 @@ export const _PopupTabLayout = () => {
 	);
 };
 
-_PopupTabLayout.story = {
-    name: 'PopupTabLayout',
-
-	parameters: {
-		info: {
-			text:
-				'Intended for use with a single "control" at a time, to maximize the amount of background visible.',
-		},
-	},
+_PopupTabLayout.storyName = 'PopupTabLayout';
+_PopupTabLayout.parameters = {
+	info: {
+		text:
+			'Intended for use with a single "control" at a time, to maximize the amount of background visible.'
+	}
 };

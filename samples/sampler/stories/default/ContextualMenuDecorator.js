@@ -1,15 +1,14 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { number, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {number, select, text} from '@enact/storybook-utils/addons/knobs';
+import Button from '@enact/sandstone/Button';
+import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
-import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
-import Button from '@enact/sandstone/Button';
-
 const ContextualButton = ContextualMenuDecorator(Button);
-ContextualButton.displayName = 'ContextualButton';
 
+ContextualButton.displayName = 'ContextualButton';
 const Config = mergeComponentMetadata(
 	'ContextualMenuDecorator',
 	Button,
@@ -25,11 +24,12 @@ Config.defaultProps = {
 };
 
 export default {
-	title: 'Sandstone/ContextualMenuDecorator',
+    title: 'Sandstone/ContextualMenuDecorator',
+    component: 'ContextualMenuDecorator'
 };
 
 export const _ContextualMenuDecorator = () => {
-	const itemCount = number('items', Config, { range: true, min: 0, max: 10 }, 2);
+	const itemCount = number('items', Config, {range: true, min: 0, max: 10}, 2);
 	const items = new Array(itemCount).fill().map((i, index) => `Option ${index + 1}`);
 
 	return (
@@ -59,7 +59,7 @@ export const _ContextualMenuDecorator = () => {
 				offset={select('offset', ['none', 'overlap', 'small'], Config)}
 				onClose={action('onClose')}
 				popupWidth={select('popupWidth', ['auto', 'small', 'large'], Config)}
-				style={{ width: ri.scaleToRem(1020) }}
+				style={{width: ri.scaleToRem(1020)}}
 			>
 				{text('button string', Config, 'Contextual Button')}
 			</ContextualButton>
@@ -67,12 +67,9 @@ export const _ContextualMenuDecorator = () => {
 	);
 };
 
-_ContextualMenuDecorator.story = {
-    name: 'ContextualMenuDecorator',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of ContextualMenuDecorator',
-		},
-	},
+_ContextualMenuDecorator.storyName = 'ContextualMenuDecorator';
+_ContextualMenuDecorator.parameters = {
+    info: {
+        text: 'Basic usage of ContextualMenuDecorator'
+    }
 };

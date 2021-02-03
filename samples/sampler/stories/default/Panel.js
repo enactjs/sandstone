@@ -1,15 +1,13 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { number, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
-import ImageItem from '@enact/sandstone/ImageItem';
-import { scale } from '@enact/ui/resolution';
-import { Panel } from '@enact/sandstone/Panels';
-import TabLayout, { Tab } from '@enact/sandstone/TabLayout';
-import { VirtualGridList } from '@enact/sandstone/VirtualList';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {number, select, text} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
-import { Header } from '@enact/sandstone/Panels';
+import ImageItem from '@enact/sandstone/ImageItem';
+import {Header, Panel} from '@enact/sandstone/Panels';
+import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {scale} from '@enact/ui/resolution';
+import React from 'react';
 
 import iconNames from '../helper/icons';
 
@@ -37,14 +35,14 @@ const items = [],
 			),
 		},
 		buttonsSelection: ['no buttons', '1 button', '2 buttons'],
-		direction: { horizontal: 'horizontal', vertical: 'vertical' },
+		direction: {horizontal: 'horizontal', vertical: 'vertical'},
 		scrollbarOption: ['auto', 'hidden', 'visible'],
 		scrollModeOption: ['native', 'translate'],
 	},
-	shouldAddLongContent = ({ index, modIndex }) => (index % modIndex === 0 ? ` ${longContent}` : ''),
+	shouldAddLongContent = ({index, modIndex}) => (index % modIndex === 0 ? ` ${longContent}` : ''),
 	// eslint-disable-next-line enact/prop-types
-	renderItem = ({ index, ...rest }) => {
-		const { children, label, src } = items[index];
+	renderItem = ({index, ...rest}) => {
+		const {children, label, src} = items[index];
 
 		return (
 			<ImageItem {...rest} label={label} src={src}>
@@ -61,12 +59,12 @@ const updateDataSize = (dataSize) => {
 
 	for (let i = 0; i < dataSize; i++) {
 		const count = (headingZeros + i).slice(-itemNumberDigits),
-			children = `Item ${count}${shouldAddLongContent({ index: i, modIndex: 2 })}`,
-			label = `SubItem ${count}${shouldAddLongContent({ index: i, modIndex: 3 })}`,
+			children = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
+			label = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
 			src = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
 
-		items.push({ children, label, src });
+		items.push({children, label, src});
 	}
 
 	return dataSize;
@@ -76,6 +74,7 @@ updateDataSize(defaultDataSize);
 
 export default {
 	title: 'Sandstone/Panels/Panel',
+	component: 'Panel'
 };
 
 export const PanelsPanel = () => {
@@ -129,12 +128,9 @@ export const PanelsPanel = () => {
 	);
 };
 
-PanelsPanel.story = {
-    name: 'Panels/Panel',
-
-	parameters: {
-		props: {
-			noPanel: true,
-		},
-	},
+PanelsPanel.storyName = 'Panels/Panel';
+PanelsPanel.parameters = {
+	props: {
+		noPanel: true
+	}
 };

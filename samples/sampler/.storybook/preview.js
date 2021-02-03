@@ -15,7 +15,7 @@ export const parameters = {
     docs: {
 		container: DocsContainer,
 		page: DocsPage,
-		iframeHeight: 200,
+		iframeHeight: 300,
 		theme: themes.light,
 	}
 };

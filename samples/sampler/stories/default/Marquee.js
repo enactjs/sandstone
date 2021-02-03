@@ -1,12 +1,12 @@
-import { boolean, number, select, text } from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
-
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import Marquee from '@enact/sandstone/Marquee';
+import React from 'react';
 
 Marquee.displayName = 'Marquee';
 
 export default {
 	title: 'Sandstone/Marquee',
+	component: 'Marquee'
 };
 
 export const _Marquee = () => {
@@ -34,7 +34,7 @@ export const _Marquee = () => {
 				marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
 				marqueeSpacing={spacing()}
 				marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
-				style={{ width: '800px' }}
+				style={{width: '800px'}}
 			>
 				{text(
 					'children',
@@ -43,7 +43,7 @@ export const _Marquee = () => {
 				)}
 			</Marquee>
 			{disabled ? (
-				<p style={{ fontSize: '70%', fontStyle: 'italic' }}>
+				<p style={{fontSize: '70%', fontStyle: 'italic'}}>
 					<sup>*</sup>Marquee does not visually respond to <code>disabled</code> state.
 				</p>
 			) : (
@@ -53,12 +53,9 @@ export const _Marquee = () => {
 	);
 };
 
-_Marquee.story = {
-    name: 'Marquee',
-
-	parameters: {
-		info: {
-			text: 'The basic MarqueeText',
-		},
-	},
+_Marquee.storyName = 'Marquee';
+_Marquee.parameters = {
+	info: {
+		text: 'The basic MarqueeText'
+	}
 };

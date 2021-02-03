@@ -1,15 +1,15 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
-import Alert, { AlertBase, AlertImage } from '@enact/sandstone/Alert';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
+import React from 'react';
 
 Alert.displayName = 'Alert';
 AlertImage.displayName = 'AlertImage';
 const Config = mergeComponentMetadata('Alert', AlertBase, Alert);
 const ImageConfig = mergeComponentMetadata('AlertImage', AlertImage);
+
 const prop = {
 	buttons: {
 		'no buttons': null,
@@ -35,7 +35,8 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone/Alert',
+    title: 'Sandstone/Alert',
+    component: 'Alert'
 };
 
 export const _Alert = () => {
@@ -69,12 +70,9 @@ export const _Alert = () => {
 	);
 };
 
-_Alert.story = {
-    name: 'Alert',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Alert',
-		},
-	},
+_Alert.storyName = 'Alert';
+_Alert.parameters = {
+    info: {
+        text: 'Basic usage of Alert'
+    }
 };

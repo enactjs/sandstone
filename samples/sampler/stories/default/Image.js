@@ -1,9 +1,8 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { object, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {object, select} from '@enact/storybook-utils/addons/knobs';
+import Image, {ImageBase, ImageDecorator} from '@enact/sandstone/Image';
 import React from 'react';
-
-import Image, { ImageBase, ImageDecorator } from '@enact/sandstone/Image';
 
 const src = {
 	hd: 'http://via.placeholder.com/200x200',
@@ -15,7 +14,8 @@ const Config = mergeComponentMetadata('Image', Image, ImageBase, ImageDecorator)
 Image.displayName = 'Image';
 
 export default {
-	title: 'Sandstone/Image',
+    title: 'Sandstone/Image',
+    component: 'Image'
 };
 
 export const _Image = () => (
@@ -48,12 +48,9 @@ export const _Image = () => (
 	</Image>
 );
 
-_Image.story = {
-    name: 'Image',
-
-	parameters: {
-		info: {
-			text: 'The basic Image',
-		},
-	},
+_Image.storyName = 'Image';
+_Image.parameters = {
+    info: {
+        text: 'The basic Image'
+    }
 };

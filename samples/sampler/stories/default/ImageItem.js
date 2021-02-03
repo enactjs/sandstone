@@ -1,10 +1,9 @@
-import { boolean, object, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import { ImageItem as UiImageItem } from '@enact/ui/ImageItem';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, object, select, text} from '@enact/storybook-utils/addons/knobs';
+import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
+import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
 import React from 'react';
-
-import { ImageItem, ImageItemBase } from '@enact/sandstone/ImageItem';
 
 const Config = mergeComponentMetadata('ImageItem', UiImageItem, ImageItemBase, ImageItem);
 ImageItem.displayName = 'ImageItem';
@@ -20,7 +19,8 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone/ImageItem',
+    title: 'Sandstone/ImageItem',
+    component: 'ImageItem'
 };
 
 export const _ImageItem = () => (
@@ -42,12 +42,9 @@ export const _ImageItem = () => (
 	</ImageItem>
 );
 
-_ImageItem.story = {
-    name: 'ImageItem',
-
-	parameters: {
-		info: {
-			text: 'The basic ImageItem',
-		},
-	},
+_ImageItem.storyName = 'ImageItem';
+_ImageItem.parameters = {
+    info: {
+        text: 'The basic ImageItem'
+    }
 };

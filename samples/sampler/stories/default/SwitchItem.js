@@ -1,11 +1,10 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Icon from '@enact/sandstone/Icon';
-import Item, { ItemBase } from '@enact/sandstone/Item';
+import Item, {ItemBase} from '@enact/sandstone/Item';
 import SwitchItem from '@enact/sandstone/SwitchItem';
+import React from 'react';
 
 import iconNames from '../helper/icons';
 
@@ -14,6 +13,7 @@ const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, SwitchItem);
 
 export default {
 	title: 'Sandstone/SwitchItem',
+	component: 'SwitchItem'
 };
 
 export const _SwitchItem = () => {
@@ -32,12 +32,9 @@ export const _SwitchItem = () => {
 	);
 };
 
-_SwitchItem.story = {
-    name: 'SwitchItem',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of SwitchItem',
-		},
-	},
+_SwitchItem.storyName = 'SwitchItem';
+_SwitchItem.parameters = {
+	info: {
+		text: 'Basic usage of SwitchItem'
+	}
 };

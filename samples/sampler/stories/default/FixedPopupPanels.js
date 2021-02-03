@@ -1,11 +1,10 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
-import { FixedPopupPanels, Panel, Header } from '@enact/sandstone/FixedPopupPanels';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
+import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
+import React from 'react';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 Config.defaultProps.position = 'right';
@@ -14,13 +13,14 @@ Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
 export default {
-	title: 'Sandstone/FixedPopupPanels',
+    title: 'Sandstone/FixedPopupPanels',
+    component: 'FixedPopupPanels'
 };
 
 export const _FixedPopupPanels = () => (
 	<div>
 		<FixedPopupPanels
-			index={number('index', Config, { range: true, min: 0, max: 1 }, 0)}
+			index={number('index', Config, {range: true, min: 0, max: 1}, 0)}
 			open={boolean('open', Config)}
 			position={select('position', ['left', 'right'], Config)}
 			fullHeight={boolean('fullHeight', Config)}
@@ -59,12 +59,9 @@ export const _FixedPopupPanels = () => (
 	</div>
 );
 
-_FixedPopupPanels.story = {
-    name: 'FixedPopupPanels',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of FixedPopupPanels',
-		},
-	},
+_FixedPopupPanels.storyName = 'FixedPopupPanels';
+_FixedPopupPanels.parameters = {
+    info: {
+        text: 'Basic usage of FixedPopupPanels'
+    }
 };

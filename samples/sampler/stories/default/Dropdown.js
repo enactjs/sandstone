@@ -1,11 +1,10 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import UIButton, { ButtonBase as UIButtonBase } from '@enact/ui/Button';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
+import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
+import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
-
-import Dropdown, { DropdownBase } from '@enact/sandstone/Dropdown';
-import Button, { ButtonBase } from '@enact/sandstone/Button';
 
 Dropdown.displayName = 'Dropdown';
 const Config = mergeComponentMetadata(
@@ -19,11 +18,12 @@ const Config = mergeComponentMetadata(
 );
 
 export default {
-	title: 'Sandstone/Dropdown',
+    title: 'Sandstone/Dropdown',
+    component: 'Dropdown'
 };
 
 export const _Dropdown = () => {
-	const itemCount = number('items', Config, { range: true, min: 0, max: 50 }, 5);
+	const itemCount = number('items', Config, {range: true, min: 0, max: 50}, 5);
 	const items = new Array(itemCount).fill().map((i, index) => `Option ${index + 1}`);
 
 	return (
@@ -43,12 +43,9 @@ export const _Dropdown = () => {
 	);
 };
 
-_Dropdown.story = {
-    name: 'Dropdown',
-
-	parameters: {
-		info: {
-			text: 'A quick, inline, value-selection component',
-		},
-	},
+_Dropdown.storyName = 'Dropdown';
+_Dropdown.parameters = {
+    info: {
+        text: 'A quick, inline, value-selection component'
+    }
 };

@@ -1,23 +1,21 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
-import VideoPlayer, { VideoPlayerBase } from '@enact/sandstone/VideoPlayer';
-import { MediaControls } from '@enact/sandstone/MediaPlayer';
-
-import { VirtualGridList } from '@enact/sandstone/VirtualList';
-import { ImageItem } from '@enact/sandstone/ImageItem';
+import {ImageItem} from '@enact/sandstone/ImageItem';
+import {MediaControls} from '@enact/sandstone/MediaPlayer';
+import VideoPlayer, {VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
+import React from 'react';
 
 import icons from '../helper/icons';
 
 const items = [];
 const size = 20;
 // eslint-disable-next-line enact/prop-types
-const renderItem = ({ index, ...rest }) => {
-	const { source } = items[index];
+const renderItem = ({index, ...rest}) => {
+	const {source} = items[index];
 
 	return <ImageItem {...rest} src={source} />;
 };
@@ -29,7 +27,7 @@ const updateDataSize = (dataSize) => {
 		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
 			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
 
-		items.push({ source });
+		items.push({source});
 	}
 
 	return dataSize;
@@ -95,12 +93,12 @@ prop.events.forEach((ev) => {
 
 const Config = mergeComponentMetadata('VideoPlayer', VideoPlayerBase, VideoPlayer);
 const MediaControlsConfig = mergeComponentMetadata('MediaControls', MediaControls);
-
 VideoPlayer.displayName = 'VideoPlayer';
 MediaControls.displayName = 'MediaControls';
 
 export default {
 	title: 'Sandstone/VideoPlayer',
+	component: 'VideoPlayer'
 };
 
 export const _VideoPlayer = () => {
@@ -114,7 +112,7 @@ export const _VideoPlayer = () => {
 				transformOrigin: 'top',
 				transform:
 					'scale(' +
-					number('video scale', Config, { range: true, min: 0.05, max: 1, step: 0.01 }, 1) +
+					number('video scale', Config, {range: true, min: 0.05, max: 1, step: 0.01}, 1) +
 					')',
 				outline: 'teal dashed 1px',
 				height: '70vh',
@@ -188,7 +186,7 @@ export const _VideoPlayer = () => {
 				>
 					<bottomComponents>
 						<VirtualGridList
-							style={{ height: ri.scale(240), marginTop: ri.scale(60) }}
+							style={{height: ri.scale(240), marginTop: ri.scale(60)}}
 							horizontalScrollbar={'hidden'}
 							dataSize={size}
 							direction="horizontal"
@@ -211,12 +209,9 @@ export const _VideoPlayer = () => {
 	);
 };
 
-_VideoPlayer.story = {
-    name: 'VideoPlayer',
-
-	parameters: {
-		info: {
-			text: 'The basic VideoPlayer',
-		},
-	},
+_VideoPlayer.storyName = 'VideoPlayer';
+_VideoPlayer.parameters = {
+	info: {
+		text: 'The basic VideoPlayer'
+	}
 };

@@ -1,26 +1,25 @@
 import React from 'react';
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import compose from 'ramda/src/compose';
-
-import { Header, Panels, Panel } from '@enact/sandstone/Panels';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
-import { Image } from '@enact/sandstone/Image';
 import Icon from '@enact/sandstone/Icon';
+import {Image} from '@enact/sandstone/Image';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
-import { VirtualGridList } from '@enact/sandstone/VirtualList';
+import {Header, Panels, Panel} from '@enact/sandstone/Panels';
+import {Scroller} from '@enact/sandstone/Scroller';
+import {TabLayout} from '@enact/sandstone/TabLayout';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
-import { scale } from '@enact/ui/resolution';
-import { Scroller } from '@enact/sandstone/Scroller';
-import { TabLayout } from '@enact/sandstone/TabLayout';
+import {scale} from '@enact/ui/resolution';
+import compose from 'ramda/src/compose';
 
 const Config = mergeComponentMetadata('Panels', Panels);
 
 // Used to render VirtualGridList into Panels
-const renderItem = ({ index, ...rest }) => {
+const renderItem = ({index, ...rest}) => {
 	// eslint-disable-line enact/prop-types
 	const text = `Item ${index}`,
 		color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
@@ -38,6 +37,7 @@ Panels.displayName = 'Panels';
 
 export default {
 	title: 'Sandstone/Panels',
+	component: 'Panels'
 };
 
 export const _Panels = () => {
@@ -132,36 +132,36 @@ export const _Panels = () => {
 				<TabLayout>
 					<TabLayout.Tab title="Home" icon="home">
 						<Icon>home</Icon>Home
-						<Scroller style={{ height: scale(1000) }}>
+						<Scroller style={{height: scale(1000)}}>
 							<Image
 								caption="Image"
 								src="http://placehold.it/360x240/"
-								style={{ marginTop: '24px' }}
+								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
 								src="http://placehold.it/360x240/"
-								style={{ marginTop: '24px' }}
+								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
 								src="http://placehold.it/360x240/"
-								style={{ marginTop: '24px' }}
+								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
 								src="http://placehold.it/360x240/"
-								style={{ marginTop: '24px' }}
+								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
 								src="http://placehold.it/360x240/"
-								style={{ marginTop: '24px' }}
+								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
 								src="http://placehold.it/360x240/"
-								style={{ marginTop: '24px' }}
+								style={{marginTop: '24px'}}
 							/>
 						</Scroller>
 					</TabLayout.Tab>
@@ -181,12 +181,9 @@ export const _Panels = () => {
 	return story;
 };
 
-_Panels.story = {
-    name: 'Panels',
-
-	parameters: {
-		props: {
-			noPanels: true,
-		},
-	},
+_Panels.storyName = 'Panels';
+_Panels.parameters = {
+	props: {
+		noPanels: true
+	}
 };

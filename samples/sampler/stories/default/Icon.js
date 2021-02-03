@@ -1,24 +1,24 @@
-import { number, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {number, select, text} from '@enact/storybook-utils/addons/knobs';
+import Heading from '@enact/sandstone/Heading';
+import Icon, { IconBase } from '@enact/sandstone/Icon';
+import Scroller from '@enact/sandstone/Scroller';
 import UiIcon from '@enact/ui/Icon';
 import React from 'react';
-
-import Icon, { IconBase } from '@enact/sandstone/Icon';
-import Heading from '@enact/sandstone/Heading';
-import Scroller from '@enact/sandstone/Scroller';
-
-import iconNames from '../helper/icons';
 
 // import icons
 import docs from '../../images/icon-enact-docs.png';
 import factory from '../../images/icon-enact-factory.svg';
 import logo from '../../images/icon-enact-logo.svg';
 
+import iconNames from '../helper/icons';
+
 Icon.displayName = 'Icon';
 const Config = mergeComponentMetadata('Icon', UiIcon, IconBase, Icon);
 
 export default {
-	title: 'Sandstone/Icon',
+    title: 'Sandstone/Icon',
+    component: 'Icon'
 };
 
 export const _Icon = () => {
@@ -26,7 +26,7 @@ export const _Icon = () => {
 
 	let size = select('size', ['tiny', 'small', 'medium', 'large', 'custom number'], Config);
 	if (size === 'custom number') {
-		size = number('size (number)', Config, { range: true, min: 24, max: 480, step: 6 }, 60);
+		size = number('size (number)', Config, {range: true, min: 24, max: 480, step: 6}, 60);
 	}
 
 	const iconType = select('icon type', ['glyph', 'url src', 'custom'], Config, 'glyph');
@@ -42,7 +42,7 @@ export const _Icon = () => {
 			children = text('custom icon', Config);
 	}
 	return (
-		<Scroller style={{ height: '100%' }}>
+		<Scroller style={{height: '100%'}}>
 			<Icon flip={flip} size={size}>
 				{children}
 			</Icon>
@@ -58,12 +58,9 @@ export const _Icon = () => {
 	);
 };
 
-_Icon.story = {
-    name: 'Icon',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Icon',
-		},
-	},
+_Icon.storyName = 'Icon';
+_Icon.parameters = {
+    info: {
+        text: 'Basic usage of Icon'
+    }
 };

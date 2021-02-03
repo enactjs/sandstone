@@ -1,16 +1,15 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { number, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
-import { scaleToRem } from '@enact/ui/resolution';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {number, select} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
-import { Panel, Header } from '@enact/sandstone/Panels';
+import {Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
-import TabLayout, { TabLayoutBase, Tab } from '@enact/sandstone/TabLayout';
+import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
+import {scaleToRem} from '@enact/ui/resolution';
+import React from 'react';
 
 import spriteGear2k from '../../images/sprite-gear-2k.png';
 import spriteGear4k from '../../images/sprite-gear-4k.png';
@@ -21,12 +20,12 @@ const Config = mergeComponentMetadata('TabLayout', TabLayoutBase, TabLayout);
 // `paddingBottom: '56.25%'` is a trick to impose 16:9 aspect ratio on the component, since padding percentage is based on the width, not the height.
 
 const tabsWithIcons = [
-	{ title: 'Home', icon: 'home' },
-	{ title: 'Button', icon: 'gear' },
-	{ title: 'Item', icon: 'trash' },
+	{title: 'Home', icon: 'home'},
+	{title: 'Button', icon: 'gear'},
+	{title: 'Item', icon: 'trash'},
 ];
 
-const tabsWithoutIcons = [{ title: 'Home' }, { title: 'Button' }, { title: 'Item' }];
+const tabsWithoutIcons = [{title: 'Home'}, {title: 'Button'}, {title: 'Item'}];
 
 const tabSelections = {
 	'with icons': tabsWithIcons,
@@ -35,6 +34,7 @@ const tabSelections = {
 
 export default {
 	title: 'Sandstone/TabLayout',
+	component: 'TabLayout'
 };
 
 export const _TabLayout = () => {
@@ -62,7 +62,7 @@ export const _TabLayout = () => {
 				onSelect={action('onSelect')}
 				onTabAnimationEnd={action('onTabAnimationEnd')}
 				orientation={select('orientation', ['vertical', 'horizontal'], Config)}
-				tabSize={number('tabSize', Config, { range: true, min: 0, max: 960, step: 60 }, 0) || null}
+				tabSize={number('tabSize', Config, {range: true, min: 0, max: 960, step: 60}, 0) || null}
 			>
 				<Tab title={tabSelections[tabs][0].title} icon={tabSelections[tabs][0].icon}>
 					<Scroller>{images}</Scroller>
@@ -94,12 +94,9 @@ export const _TabLayout = () => {
 	);
 };
 
-_TabLayout.story = {
-    name: 'TabLayout',
-
-	parameters: {
-		props: {
-			noPanel: true,
-		},
-	},
+_TabLayout.storyName = 'TabLayout';
+_TabLayout.parameters = {
+	props: {
+		noPanel: true
+	}
 };

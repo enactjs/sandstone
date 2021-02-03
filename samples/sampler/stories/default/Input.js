@@ -1,9 +1,8 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, number, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import Input, {InputBase, InputPopup, InputPopupBase} from '@enact/sandstone/Input';
 import React from 'react';
-
-import Input, { InputBase, InputPopup, InputPopupBase } from '@enact/sandstone/Input';
 
 Input.displayName = 'Input';
 const Config = mergeComponentMetadata('Input', InputBase, Input);
@@ -17,7 +16,8 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone/Input',
+    title: 'Sandstone/Input',
+    component: 'Input'
 };
 
 export const _Input = () => {
@@ -49,10 +49,10 @@ export const _Input = () => {
 
 		const minMax = boolean('customize min/max', ConfigPopup, false);
 		if (minMax) {
-			props.maxLength = number('maxLength', ConfigPopup, { range: true, min: 0, max: 20 }, 4);
-			props.minLength = number('minLength', ConfigPopup, { range: true, min: 0, max: 20 }, 0);
+			props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 20}, 4);
+			props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 20}, 0);
 		} else {
-			props.length = number('length', ConfigPopup, { range: true, min: 1, max: 20 }, 4);
+			props.length = number('length', ConfigPopup, {range: true, min: 1, max: 20}, 4);
 		}
 	}
 
@@ -70,12 +70,9 @@ export const _Input = () => {
 	);
 };
 
-_Input.story = {
-    name: 'Input',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Input',
-		},
-	},
+_Input.storyName = 'Input';
+_Input.parameters = {
+    info: {
+        text: 'Basic usage of Input'
+    }
 };

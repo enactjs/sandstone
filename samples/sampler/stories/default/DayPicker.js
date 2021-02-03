@@ -1,14 +1,14 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, text } from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
-
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, text} from '@enact/storybook-utils/addons/knobs';
 import DayPicker from '@enact/sandstone/DayPicker';
 import Scroller from '@enact/sandstone/Scroller';
+import React from 'react';
 
 DayPicker.displayName = 'DayPicker';
 
 export default {
-	title: 'Sandstone/DayPicker',
+    title: 'Sandstone/DayPicker',
+    component: 'DayPicker'
 };
 
 export const _DayPicker = () => (
@@ -21,12 +21,9 @@ export const _DayPicker = () => (
 	</Scroller>
 );
 
-_DayPicker.story = {
-    name: 'DayPicker',
-
-	parameters: {
-		info: {
-			text: 'The basic DayPicker',
-		},
-	},
+_DayPicker.storyName = 'DayPicker';
+_DayPicker.parameters = {
+    info: {
+        text: 'The basic DayPicker'
+    }
 };

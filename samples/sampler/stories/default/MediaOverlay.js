@@ -1,8 +1,7 @@
-import { boolean, number, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import MediaOverlay, {MediaOverlayBase} from '@enact/sandstone/MediaOverlay';
 import React from 'react';
-
-import MediaOverlay, { MediaOverlayBase } from '@enact/sandstone/MediaOverlay';
 
 MediaOverlay.displayName = 'MediaOverlay';
 const Config = mergeComponentMetadata('MediaOverlay', MediaOverlayBase, MediaOverlay);
@@ -49,6 +48,7 @@ const prop = {
 
 export default {
 	title: 'Sandstone/MediaOverlay',
+	component: 'MediaOverlay'
 };
 
 export const _MediaOverlay = () => {
@@ -62,7 +62,7 @@ export const _MediaOverlay = () => {
 			muted={boolean('muted', Config, true)}
 			noAutoPlay={boolean('noAutoPlay', Config)}
 			placeholder={select('placeholder', prop.placeholders, Config)}
-			progress={number('progress', Config, { range: true, min: 0, max: 1, step: 0.05 }, 0.5)}
+			progress={number('progress', Config, {range: true, min: 0, max: 1, step: 0.05}, 0.5)}
 			showProgress={boolean('showProgress', Config)}
 			subtitle={text('subtitle', Config, '07:00 AM - 08:00 AM')}
 			text={select('text', prop.strings, Config)}
@@ -74,12 +74,9 @@ export const _MediaOverlay = () => {
 	);
 };
 
-_MediaOverlay.story = {
-    name: 'MediaOverlay',
-
-	parameters: {
-		info: {
-			text: 'The basic MediaOverlay',
-		},
-	},
+_MediaOverlay.storyName = 'MediaOverlay';
+_MediaOverlay.parameters = {
+	info: {
+		text: 'The basic MediaOverlay'
+	}
 };

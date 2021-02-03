@@ -1,16 +1,16 @@
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import UiItem, { ItemBase as UiItemBase } from '@enact/ui/Item';
-import React from 'react';
-
-import Item, { ItemBase } from '@enact/sandstone/Item';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import Item, {ItemBase} from '@enact/sandstone/Item';
 import Icon from '@enact/sandstone/Icon';
+import UiItem, {ItemBase as UiItemBase} from '@enact/ui/Item';
+import React from 'react';
 
 const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item);
 Item.displayName = 'Item';
 
 export default {
 	title: 'Sandstone/Item',
+	component: 'Item'
 };
 
 export const _Item = () => (
@@ -36,12 +36,9 @@ export const _Item = () => (
 	</Item>
 );
 
-_Item.story = {
-    name: 'Item',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Item',
-		},
-	},
+_Item.storyName = 'Item';
+_Item.parameters = {
+	info: {
+		text: 'Basic usage of Item'
+	}
 };

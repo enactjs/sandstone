@@ -1,20 +1,21 @@
-import { text, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import ActionGuide, { ActionGuideBase } from '@enact/sandstone/ActionGuide';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {text, select} from '@enact/storybook-utils/addons/knobs';
+import ActionGuide, {ActionGuideBase} from '@enact/sandstone/ActionGuide';
 import React from 'react';
-
-import iconNames from '../helper/icons';
 
 // import icons
 import docs from '../../images/icon-enact-docs.png';
 import factory from '../../images/icon-enact-factory.svg';
 import logo from '../../images/icon-enact-logo.svg';
 
+import iconNames from '../helper/icons';
+
 ActionGuide.displayName = 'ActionGuide';
 const Config = mergeComponentMetadata('ActionGuide', ActionGuideBase, ActionGuide);
 
 export default {
-	title: 'Sandstone/ActionGuide',
+    title: 'Sandstone/ActionGuide',
+    component: 'ActionGuide'
 };
 
 export const _ActionGuide = () => {
@@ -38,12 +39,9 @@ export const _ActionGuide = () => {
 	);
 };
 
-_ActionGuide.story = {
-    name: 'ActionGuide',
-
-	parameters: {
-		info: {
-			text: 'Explains the operation of an action',
-		},
-	},
+_ActionGuide.storyName = 'ActionGuide';
+_ActionGuide.parameters = {
+    info: {
+        text: 'Explains the operation of an action'
+    }
 };

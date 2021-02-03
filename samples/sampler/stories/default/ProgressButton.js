@@ -1,10 +1,9 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import { boolean, number, select, text } from '@enact/storybook-utils/addons/knobs';
-import UIButton, { ButtonBase as UIButtonBase } from '@enact/ui/Button';
-
-import ProgressButton, { ProgressButtonBase } from '@enact/sandstone/ProgressButton';
-import Button, { ButtonBase } from '@enact/sandstone/Button';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
+import ProgressButton, {ProgressButtonBase} from '@enact/sandstone/ProgressButton';
+import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
 
 import iconNames from '../helper/icons';
@@ -29,7 +28,7 @@ const prop = {
 	},
 	color: ['', 'red', 'green', 'yellow', 'blue'],
 	icons: ['', ...iconNames],
-	minWidth: { 'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false' },
+	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
 	size: ['', 'small', 'large'],
 };
 
@@ -49,6 +48,7 @@ const threeWayBoolean = (value) => {
 
 export default {
 	title: 'Sandstone/ProgressButton',
+	component: 'ProgressButton'
 };
 
 export const _ProgressButton = () => {
@@ -64,7 +64,7 @@ export const _ProgressButton = () => {
 			icon={select('icon', prop.icons, Config)}
 			minWidth={threeWayBoolean(select('minWidth', prop.minWidth, Config))}
 			onClick={action('onClick')}
-			progress={number('progress', Config, { range: true, min: 0, max: 1, step: 0.01 }, 0.4)}
+			progress={number('progress', Config, {range: true, min: 0, max: 1, step: 0.01}, 0.4)}
 			size={select('size', prop.size, Config)}
 		>
 			{text('children', Config, 'Update')}
@@ -72,12 +72,9 @@ export const _ProgressButton = () => {
 	);
 };
 
-_ProgressButton.story = {
-    name: 'ProgressButton',
-
-	parameters: {
-		info: {
-			text: 'The basic ProgressButton',
-		},
-	},
+_ProgressButton.storyName = 'ProgressButton';
+_ProgressButton.parameters = {
+	info: {
+		text: 'The basic ProgressButton'
+	}
 };

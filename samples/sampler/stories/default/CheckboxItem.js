@@ -1,12 +1,11 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-
-import Checkbox, { CheckboxBase } from '@enact/sandstone/Checkbox';
-import CheckboxItem, { CheckboxItemBase } from '@enact/sandstone/CheckboxItem';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
+import CheckboxItem, {CheckboxItemBase} from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
-import Item, { ItemBase } from '@enact/sandstone/Item';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import React from 'react';
 
 import iconNames from '../helper/icons';
 
@@ -23,7 +22,8 @@ const Config = mergeComponentMetadata(
 Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 export default {
-	title: 'Sandstone/CheckboxItem',
+    title: 'Sandstone/CheckboxItem',
+    component: 'CheckboxItem'
 };
 
 export const _CheckboxItem = () => {
@@ -50,12 +50,9 @@ export const _CheckboxItem = () => {
 	);
 };
 
-_CheckboxItem.story = {
-    name: 'CheckboxItem',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of CheckboxItem',
-		},
-	},
+_CheckboxItem.storyName = 'CheckboxItem';
+_CheckboxItem.parameters = {
+    info: {
+        text: 'Basic usage of CheckboxItem'
+    }
 };

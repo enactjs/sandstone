@@ -1,10 +1,9 @@
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select, text } from '@enact/storybook-utils/addons/knobs';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import Picker from '@enact/sandstone/Picker';
 import React from 'react';
 
-import Picker from '@enact/sandstone/Picker';
-
-import { decrementIcons, incrementIcons } from '../helper/icons';
+import {decrementIcons, incrementIcons} from '../helper/icons';
 
 // Set up some defaults for info and knobs
 const prop = {
@@ -27,6 +26,7 @@ Picker.displayName = 'Picker';
 
 export default {
 	title: 'Sandstone/Picker',
+	component: 'Picker'
 };
 
 export const _Picker = () => (
@@ -48,12 +48,9 @@ export const _Picker = () => (
 	</Picker>
 );
 
-_Picker.story = {
-    name: 'Picker',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Picker',
-		},
-	},
+_Picker.storyName = 'Picker';
+_Picker.parameters = {
+	info: {
+		text: 'Basic usage of Picker'
+	}
 };

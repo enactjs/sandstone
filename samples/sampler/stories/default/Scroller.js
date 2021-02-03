@@ -1,13 +1,12 @@
 import classnames from 'classnames';
-import { action } from '@enact/storybook-utils/addons/actions';
-import { boolean, select } from '@enact/storybook-utils/addons/knobs';
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import React from 'react';
-import ri from '@enact/ui/resolution';
-import { ScrollerBasic as UiScrollerBasic } from '@enact/ui/Scroller';
-
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Scroller from '@enact/sandstone/Scroller';
+import ri from '@enact/ui/resolution';
+import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
+import React from 'react';
 
 import css from './Scroller.module.less';
 
@@ -26,6 +25,7 @@ const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scrol
 
 export default {
 	title: 'Sandstone/Scroller',
+	component: 'Scroller'
 };
 
 export const _Scroller = () => {
@@ -86,12 +86,9 @@ export const _Scroller = () => {
 	);
 };
 
-_Scroller.story = {
-    name: 'Scroller',
-
-	parameters: {
-		info: {
-			text: 'Basic usage of Scroller',
-		},
-	},
+_Scroller.storyName = 'Scroller';
+_Scroller.parameters = {
+	info: {
+		text: 'Basic usage of Scroller'
+	}
 };
