@@ -1,8 +1,6 @@
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
-import {storiesOf} from '@storybook/react';
-
 import BodyText from '@enact/sandstone/BodyText';
+import React from 'react';
 
 BodyText.displayName = 'BodyText';
 
@@ -11,18 +9,18 @@ const stringsToChoose = [
 	'This product is meant for educational purposes only. Any resemblance to real persons, living or dead is purely coincidental. Void where prohibited. Some assembly required. List each check separately by bank number. Batteries not included.',
 	'I am a very short string',
 	'ab',
-	'a'
+	'a',
 ];
 
-storiesOf('BodyText', module)
-	.add(
-		'with long and short strings',
-		(() => (
-			<BodyText
-				centered={boolean('centered', BodyText)}
-				noWrap={boolean('noWrap', BodyText)}
-			>
-				{select('children', stringsToChoose, BodyText, stringsToChoose[0])}
-			</BodyText>
-		))
-	);
+export default {
+	title: 'Sandstone/BodyText',
+	component: 'BodyText'
+};
+
+export const WithLongAndShortStrings = () => (
+	<BodyText centered={boolean('centered', BodyText)} noWrap={boolean('noWrap', BodyText)}>
+	{select('children', stringsToChoose, BodyText, stringsToChoose[0])}
+	</BodyText>
+);
+
+WithLongAndShortStrings.storyName = 'with long and short strings';

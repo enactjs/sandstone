@@ -8,55 +8,60 @@ import {inputData, headerStoryConfig, commonProps} from './common/Header_Common'
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
 
+const wizardDefaultProps = {
+	type: 'wizard',
+	centered: true,
+	noCloseButton: true,
+	slotAbove: 'steps',
+	slotBefore: '1 button',
+	slotAfter: '1 button'
+};
+
 export default {
-	title: 'Sandstone/Header',
+	title: 'Sandstone/Header/Wizard',
 	component: 'Header'
 };
 
-// The Fragment (or any node, really; could be a <div> instead) is actually needed by
-// Storybook to properly apply changes from the knobs to the stories' children that occupy
-// the outermost node. This is most visible when the `noHeader` prop is given and several
-// (not all) of the knobs fail to apply.
-export const JustTitle = () => {
+export const _JustTitle = () => {
 	return (
 		<React.Fragment>
 			<Header
 				title={text('title', Config, inputData.shortTitle)}
-			{...commonProps()}
+			{...commonProps(wizardDefaultProps)}
 			/>
 		</React.Fragment>
 	);
 };
 
-JustTitle.storyName = 'just title';
-JustTitle.parameters = headerStoryConfig;
+_JustTitle.storyName = 'just title';
+_JustTitle.parameters = headerStoryConfig;
 
-export const ShortTitles = () => {
+export const _ShortTitles = () => {
 	return (
 		<React.Fragment>
 			<Header
 				title={text('title', Config, inputData.shortTitle)}
 				subtitle={text('subtitle', Config, inputData.shortSubtitle)}
-			{...commonProps()}
+			{...commonProps(wizardDefaultProps)}
 			/>
 		</React.Fragment>
 	);
 };
 
-ShortTitles.storyName = 'short titles';
-ShortTitles.parameters = headerStoryConfig;
+_ShortTitles.storyName = 'short titles';
+_ShortTitles.parameters = headerStoryConfig;
 
-export const LongTitles = () => {
+export const _LongTitles = () => {
 	return (
 		<React.Fragment>
 			<Header
 				title={text('title', Config, inputData.longTitle)}
 				subtitle={text('subtitle', Config, inputData.longSubtitle)}
-			{...commonProps()}
+			{...commonProps(wizardDefaultProps)}
 			/>
 		</React.Fragment>
 	);
 };
 
-LongTitles.storyName = 'long titles';
-LongTitles.parameters = headerStoryConfig;
+_LongTitles.storyName = 'long titles';
+_LongTitles.parameters = headerStoryConfig;

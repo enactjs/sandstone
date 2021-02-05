@@ -8,55 +8,56 @@ import {inputData, headerStoryConfig, commonProps} from './common/Header_Common'
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
 
+const miniDefaultProps = {
+	type: 'mini',
+	noCloseButton: true
+};
+
 export default {
-	title: 'Sandstone/Header',
+	title: 'Sandstone/Header/Mini',
 	component: 'Header'
 };
 
-// The Fragment (or any node, really; could be a <div> instead) is actually needed by
-// Storybook to properly apply changes from the knobs to the stories' children that occupy
-// the outermost node. This is most visible when the `noHeader` prop is given and several
-// (not all) of the knobs fail to apply.
-export const JustTitle = () => {
+export const ___JustTitle = () => {
 	return (
 		<React.Fragment>
 			<Header
 				title={text('title', Config, inputData.shortTitle)}
-			{...commonProps()}
+			{...commonProps(miniDefaultProps)}
 			/>
 		</React.Fragment>
 	);
 };
 
-JustTitle.storyName = 'just title';
-JustTitle.parameters = headerStoryConfig;
+___JustTitle.storyName = 'just title';
+___JustTitle.parameters = headerStoryConfig;
 
-export const ShortTitles = () => {
+export const ___ShortTitles = () => {
 	return (
 		<React.Fragment>
 			<Header
 				title={text('title', Config, inputData.shortTitle)}
 				subtitle={text('subtitle', Config, inputData.shortSubtitle)}
-			{...commonProps()}
+			{...commonProps(miniDefaultProps)}
 			/>
 		</React.Fragment>
 	);
 };
 
-ShortTitles.storyName = 'short titles';
-ShortTitles.parameters = headerStoryConfig;
+___ShortTitles.storyName = 'short titles';
+___ShortTitles.parameters = headerStoryConfig;
 
-export const LongTitles = () => {
+export const ___LongTitles = () => {
 	return (
 		<React.Fragment>
 			<Header
 				title={text('title', Config, inputData.longTitle)}
 				subtitle={text('subtitle', Config, inputData.longSubtitle)}
-			{...commonProps()}
+			{...commonProps(miniDefaultProps)}
 			/>
 		</React.Fragment>
 	);
 };
 
-LongTitles.storyName = 'long titles';
-LongTitles.parameters = headerStoryConfig;
+___LongTitles.storyName = 'long titles';
+___LongTitles.parameters = headerStoryConfig;

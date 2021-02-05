@@ -1,18 +1,16 @@
-import React from 'react';
-import {storiesOf} from '@storybook/react';
-
 import DayPicker, {getSelectedDayString} from '@enact/sandstone/DayPicker';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import React from 'react';
 
 DayPicker.displayName = 'DayPicker';
 
 class DayPickerWithItem extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
-			selectedDayString: 'None selected'
+			selectedDayString: 'None selected',
 		};
 	}
 
@@ -20,25 +18,28 @@ class DayPickerWithItem extends React.Component {
 		this.setState({selectedDayString: getSelectedDayString(ev.selected, 'None selected')});
 	};
 
-	render () {
+	render() {
 		const {selectedDayString} = this.state;
 
 		return (
 			<Scroller>
-				<Heading size="small">Select several days, every day, every weekday and weekend.<br />
-					Change locale to *es-ES* starting on Monday.
-				</Heading>
-				<Item label={selectedDayString}>{'Selected Day'}</Item>
-				<DayPicker onSelect={this.handleSelect} />
+			<Heading size="small">
+				Select several days, every day, every weekday and weekend.
+				<br />
+				Change locale to *es-ES* starting on Monday.
+			</Heading>
+			<Item label={selectedDayString}>{'Selected Day'}</Item>
+			<DayPicker onSelect={this.handleSelect} />
 			</Scroller>
 		);
 	}
 }
 
-storiesOf('DayPicker', module)
-	.add(
-		'to test getSelectedDayString()',
-		() => (
-			<DayPickerWithItem />
-		)
-	);
+export default {
+	title: 'Sandstone/DayPicker',
+	component: 'DayPicker'
+};
+
+export const ToTestGetSelectedDayString = () => <DayPickerWithItem />;
+
+ToTestGetSelectedDayString.storyName = 'to test getSelectedDayString()';
