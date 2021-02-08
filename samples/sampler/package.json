@@ -22,7 +22,7 @@
   "dependencies": {
     "@enact/core": "^3.4.9",
     "@enact/i18n": "^3.4.9",
-    "@enact/sandstone": "enyojs/sandstone#1.4.4",
+    "@enact/sandstone": "enyojs/sandstone",
     "@enact/spotlight": "^3.4.9",
     "@enact/ui": "^3.4.9",
     "classnames": "^2.2.6",
