@@ -71,6 +71,31 @@ class DisabledDropdown extends React.Component {
 	}
 }
 
+class PositionChangingDropdown extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			isShow: true
+		};
+	}
+
+	handleSelect = () => {
+		this.setState({
+			isShow: false
+		});
+	};
+
+	render () {
+		return (
+			<div style={{display: 'flex'}}>
+				<Dropdown title="first" onSelect={this.handleSelect}>{['a', 'b', 'c']}</Dropdown>
+				{this.state.isShow ? <Dropdown title="second">{['a', 'b', 'c']}</Dropdown> : null}
+				<Dropdown title="third">{['a', 'b', 'c']}</Dropdown>
+			</div>
+		);
+	}
+}
+
 storiesOf('Dropdown', module)
 	.add(
 		'with 2 options for testing direction',
@@ -186,5 +211,10 @@ storiesOf('Dropdown', module)
 		'with disabled',
 		() => (
 			<DisabledDropdown />
+		)
+	).add(
+		'with changing position',
+		() => (
+			<PositionChangingDropdown />
 		)
 	);
