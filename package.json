@@ -1,6 +1,6 @@
 {
   "name": "@enact/sandstone",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,8 @@
     "test-ss-tv": "start-tests tests/screenshot/wdio.tv.conf.js",
     "test-json": "enact test --json",
     "test-watch": "enact test --watch",
-    "transpile": "enact transpile"
+    "transpile": "enact transpile",
+    "validate-docs": "validate-docs --strict --standalone"
   },
   "license": "Apache-2.0",
   "keywords": [
@@ -44,15 +45,17 @@
     "invariant": "^2.2.2",
     "prop-types": "^15.7.2",
     "ramda": "^0.24.1",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "recompose": "^0.26.0",
-    "warning": "^3.0.0"
+    "warning": "^3.0.0",
+    "ilib": "^14.2.0"
   },
   "peerDependencies": {
     "ilib": "^14.4.0 || ^14.6.0-webos"
   },
   "devDependencies": {
+    "@enact/docs-utils": "^0.3.3",
     "@enact/ui-test-utils": "^0.5.3",
     "eslint-config-enact-proxy": "^1.0.0",
     "ilib": "^14.4.0"

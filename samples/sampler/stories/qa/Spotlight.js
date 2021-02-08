@@ -439,16 +439,6 @@ export const KitchenSink = () => (
 				>
 					Button
 				</Button>
-				<Button
-					backgroundOpacity="translucent"
-					onSpotlightDown={action('onSpotlightDown')}
-					onSpotlightLeft={action('onSpotlightLeft')}
-					onSpotlightRight={action('onSpotlightRight')}
-					onSpotlightUp={action('onSpotlightUp')}
-					spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-				>
-					Translucent
-				</Button>
 				</div>
 				<div>
 				<Button
@@ -572,18 +562,14 @@ export const KitchenSink = () => (
 			</Cell>
 			<Cell component={Scroller}>
 				<DatePicker
-				onSpotlightDown={action('onSpotlightDown')}
 				onSpotlightLeft={action('onSpotlightLeft')}
 				onSpotlightRight={action('onSpotlightRight')}
-				onSpotlightUp={action('onSpotlightUp')}
 				spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
 				title="DatePicker"
 				/>
 				<TimePicker
-				onSpotlightDown={action('onSpotlightDown')}
 				onSpotlightLeft={action('onSpotlightLeft')}
 				onSpotlightRight={action('onSpotlightRight')}
-				onSpotlightUp={action('onSpotlightUp')}
 				spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
 				title="TimePicker"
 				/>

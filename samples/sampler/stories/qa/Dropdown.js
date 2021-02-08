@@ -79,6 +79,31 @@ class DisabledDropdown extends React.Component {
 	}
 }
 
+class PositionChangingDropdown extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			isShow: true
+		};
+	}
+
+	handleSelect = () => {
+		this.setState({
+			isShow: false
+		});
+	};
+
+	render () {
+		return (
+			<div style={{display: 'flex'}}>
+				<Dropdown title="first" onSelect={this.handleSelect}>{['a', 'b', 'c']}</Dropdown>
+				{this.state.isShow ? <Dropdown title="second">{['a', 'b', 'c']}</Dropdown> : null}
+				<Dropdown title="third">{['a', 'b', 'c']}</Dropdown>
+			</div>
+		);
+	}
+}
+
 export default {
 	title: 'Sandstone/Dropdown',
 	component: 'Dropdown'
@@ -201,3 +226,7 @@ WithAutoDismiss.storyName = 'with auto dismiss';
 export const WithDisabled = () => <DisabledDropdown />;
 
 WithDisabled.storyName = 'with disabled';
+
+export const WithChangingPosition = () => <PositionChangingDropdown />;
+
+WithChangingPosition.storyName = 'with changing position';
