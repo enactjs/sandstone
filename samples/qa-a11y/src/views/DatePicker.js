@@ -3,7 +3,7 @@
 import DatePicker, {dateToLocaleString} from '@enact/sandstone/DatePicker';
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 import useArrayState from '../components/useArrayState';
@@ -12,7 +12,7 @@ import appCss from '../App/App.module.less';
 
 const DatePickerItem = (props) => {
 	const [open, handleOpen] = useArrayState(1);
-	const [value, setValue] = React.useState(null);
+	const [value, setValue] = useState(null);
 	const handleChange = ({value: newValue}) => setValue(dateToLocaleString(newValue));
 
 	return (

@@ -4,7 +4,7 @@ import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import PropTypes from 'prop-types';
-import React, {forwardRef, useCallback, useEffect, useRef} from 'react';
+import {forwardRef, useCallback, useEffect, useRef} from 'react';
 
 import $L from '../internal/$L';
 

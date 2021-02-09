@@ -1,5 +1,4 @@
 import Input from '@enact/sandstone/Input';
-import React from 'react';
 
 import Section from '../components/Section';
 

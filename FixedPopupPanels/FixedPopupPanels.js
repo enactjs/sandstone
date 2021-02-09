@@ -7,7 +7,6 @@
  * @exports Header
  */
 
-import React from 'react';
 import compose from 'ramda/src/compose';
 
 import {BasicArranger, PopupDecorator, Viewport} from '../internal/Panels';

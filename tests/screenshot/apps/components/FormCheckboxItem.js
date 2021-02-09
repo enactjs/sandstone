@@ -1,6 +1,5 @@
 import Icon from '../../../../Icon';
 import FormCheckboxItem from '../../../../FormCheckboxItem';
-import React from 'react';
 
 import {withConfig} from './utils';
 

@@ -7,7 +7,6 @@ import {add} from '@enact/core/keymap';
 import {handle, oneOf, forKey, forward, adaptEvent} from '@enact/core/handle';
 import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import Button from '../Button';
 

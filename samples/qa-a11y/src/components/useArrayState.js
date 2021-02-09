@@ -1,7 +1,7 @@
-import React from 'react';
+import {useState} from 'react';
 
 const useArrayState = (length, initialValue = false) => {
-	const [values, setValue] = React.useState(() => (new Array(length)).fill(initialValue));
+	const [values, setValue] = useState(() => (new Array(length)).fill(initialValue));
 
 	const handler = (index, bool) => () => setValue([
 		...values.slice(0, index),

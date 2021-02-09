@@ -4,7 +4,6 @@ import Item from '@enact/sandstone/Item';
 import Popup from '@enact/sandstone/Popup';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 
 import Section from '../components/Section';
 import useArrayState from '../components/useArrayState';

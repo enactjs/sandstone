@@ -2,7 +2,6 @@ import Button from '@enact/sandstone/Button';
 import kind from '@enact/core/kind';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import SampleVirtualGridList from '../components/SampleVirtualGridList';
 

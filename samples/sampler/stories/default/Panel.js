@@ -1,7 +1,7 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
+import {Fragment} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import ImageItem from '@enact/sandstone/ImageItem';
@@ -30,10 +30,10 @@ const items = [],
 		buttons: {
 			'no buttons': null,
 			'1 button': <Button icon="ellipsis" />,
-			'2 buttons': <React.Fragment>
+			'2 buttons': <Fragment>
 				<Button icon="search" />
 				<Button icon="ellipsis" />
-			</React.Fragment>
+			</Fragment>
 		},
 		buttonsSelection: ['no buttons', '1 button', '2 buttons'],
 		direction: {horizontal: 'horizontal', vertical: 'vertical'},

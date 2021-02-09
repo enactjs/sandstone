@@ -1,10 +1,10 @@
 import Heading from '@enact/sandstone/Heading';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 
-class DataWebosVoiceChecked extends React.Component {
+class DataWebosVoiceChecked extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

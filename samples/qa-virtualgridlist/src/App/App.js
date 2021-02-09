@@ -1,5 +1,4 @@
 import kind from '@enact/core/kind';
-import React from 'react';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import MainView from '../views/MainView';

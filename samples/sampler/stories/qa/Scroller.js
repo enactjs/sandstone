@@ -3,7 +3,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import Group from '@enact/ui/Group';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -33,7 +33,7 @@ const prop = {
 	scrollModeOption: ['native', 'translate']
 };
 
-class ScrollerResizableItem extends React.Component {
+class ScrollerResizableItem extends Component {
 	static propTypes = {
 		max: PropTypes.number,
 		min: PropTypes.number,
@@ -58,7 +58,7 @@ class ScrollerResizableItem extends React.Component {
 	}
 }
 
-class ScrollerWithLongItem extends React.Component {
+class ScrollerWithLongItem extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -87,7 +87,7 @@ class ScrollerWithLongItem extends React.Component {
 	}
 }
 
-class ScrollerWithResizable extends React.Component {
+class ScrollerWithResizable extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -119,7 +119,7 @@ class ScrollerWithResizable extends React.Component {
 
 const Container = SpotlightContainerDecorator('div');
 
-class ScrollerWithLargeContainer extends React.Component {
+class ScrollerWithLargeContainer extends Component {
 	componentDidMount () {
 		setTimeout(() => {
 			Spotlight.focus('scroller');

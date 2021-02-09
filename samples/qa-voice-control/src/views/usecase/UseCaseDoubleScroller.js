@@ -3,7 +3,7 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
@@ -12,7 +12,7 @@ let itemList = [
 ];
 
 
-class UseCaseDoubleScroller extends React.Component {
+class UseCaseDoubleScroller extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

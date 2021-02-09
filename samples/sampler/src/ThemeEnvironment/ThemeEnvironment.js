@@ -2,7 +2,6 @@
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
-import React from 'react';
 import PropTypes from 'prop-types';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';

@@ -1,12 +1,12 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 
-class IntentSelect extends React.Component {
+class IntentSelect extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

@@ -1,6 +1,5 @@
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import Picker from '@enact/sandstone/Picker';

@@ -1,5 +1,5 @@
 import {VideoPlayer} from '@enact/sandstone/VideoPlayer';
-import React, {Component} from 'react';
+import {Component} from 'react';
 
 
 class UseCaseVideoPlayer extends Component {

@@ -1,7 +1,7 @@
 import {select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
@@ -40,7 +40,7 @@ const renderSuperTallPopup = () => (
 	</div>
 );
 
-class ContextualPopupWithActivator extends React.Component {
+class ContextualPopupWithActivator extends Component {
 	constructor (props) {
 		super(props);
 

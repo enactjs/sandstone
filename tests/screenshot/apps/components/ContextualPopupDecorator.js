@@ -1,5 +1,4 @@
 import ri from '@enact/ui/resolution';
-import React from 'react';
 
 import Button from '../../../../Button';
 import ContextualPopupDecorator from '../../../../ContextualPopupDecorator';

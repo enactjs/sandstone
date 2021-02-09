@@ -1,6 +1,6 @@
 import Dropdown from '../../../../Dropdown';
 import ThemeDecorator from '../../../../ThemeDecorator';
-import React from 'react';
+import {useState, useCallback} from 'react';
 import spotlight from '@enact/spotlight';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
@@ -9,9 +9,9 @@ spotlight.setPointerMode(false);
 const children = Array.from(Array(100), (v, i) => (i + ''));
 
 function DropdownChange ({changeProp, changePropValue, waiting = 500, ...rest}) {
-	const [value, change] = React.useState(rest[changeProp]);
+	const [value, change] = useState(rest[changeProp]);
 
-	const onOpen = React.useCallback(() => {
+	const onOpen = useCallback(() => {
 		const timer = setTimeout(() => {
 			change(changePropValue);
 		}, waiting);

@@ -3,7 +3,7 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
+import {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import compose from 'ramda/src/compose';
 
@@ -27,12 +27,12 @@ storiesOf('Sandstone', module)
 		'FlexiblePopupPanels',
 		() => {
 			const defaultOpen = false;
-			const [open, setOpenState] = React.useState(defaultOpen);
+			const [open, setOpenState] = useState(defaultOpen);
 			const toggleOpen = () => setOpenState(!open);
 			const handleClose = compose(toggleOpen, action('onClose'));
 
 			const defaultIndex = 0;
-			const [index, setPanelIndexState] = React.useState(defaultIndex);
+			const [index, setPanelIndexState] = useState(defaultIndex);
 
 			const nextPanel = () => setPanelIndexState(Math.min(index + 1, 1));
 			const handleNavigation = (type) => (ev) => {

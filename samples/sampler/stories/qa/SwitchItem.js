@@ -1,7 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, text} from '@enact/storybook-utils/addons/knobs';
 import Group from '@enact/ui/Group';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Heading from '@enact/sandstone/Heading';
