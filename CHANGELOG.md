@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/MediaSlider` to not changing bar's color when dragging in touch mode
+
 ## [1.4.4-experimental-5] - 2021-01-26
 
 ### Fixed
@@ -10,7 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [1.4.4-experimental-4] - 2021-01-13
 
-### Fixed 
+### Fixed
 
 - `sandstone/Panels.Header` to not show back button in the first panel
 
