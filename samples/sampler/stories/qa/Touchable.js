@@ -75,7 +75,7 @@ storiesOf('Touchable', module)
 			<Button
 				onHold={action('onHold')}
 				onHoldEnd={action('onHoldEnd')}
-				onHoldPulse={action('onHoldPulse')}
+				onHoldStart={action('onHoldStart')}
 				disabled={boolean('disabled', Button)}
 			>
 				Touchable
@@ -95,7 +95,7 @@ storiesOf('Touchable', module)
 				}}
 				onHold={action('onHold')}
 				onHoldEnd={action('onHoldEnd')}
-				onHoldPulse={action('onHoldPulse')}
+				onHoldStart={action('onHoldStart')}
 				disabled={boolean('disabled', Button)}
 			>
 				LongPress
@@ -115,8 +115,9 @@ storiesOf('Touchable', module)
 					}}
 					moveTolerance={moveTolerance}
 					noResume={boolean('noResume', TouchArea, false)}
-					onHold={action('onHold')}
-					onHoldPulse={action('onHoldPulse', {depth: 0})}
+					onHold={action('onHold', {depth: 0})}
+					onHoldEnd={action('onHoldEnd')}
+					onHoldStart={action('onHoldStart')}
 					disabled={boolean('disabled', TouchArea)}
 					style={{marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', border: '4px dashed #888', width: ri.unit(ri.scale(480), 'rem'), height: ri.unit(ri.scale(480), 'rem')}}
 				>
@@ -132,7 +133,7 @@ storiesOf('Touchable', module)
 				noResume={boolean('noResume', Button, true)}
 				onHold={action('onHold')}
 				onHoldEnd={action('onHoldEnd')}
-				onHoldPulse={action('onHoldPulse')}
+				onHoldStart={action('onHoldStart')}
 				disabled={boolean('disabled', Button)}
 			>
 				Not Resumable

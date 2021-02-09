@@ -630,7 +630,7 @@ const PickerBase = class extends React.Component {
 		this.pickerButtonPressed = 1;
 	};
 
-	handleHoldPulse = () => {
+	handleHold = () => {
 		const {joined} = this.props;
 		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
@@ -955,7 +955,7 @@ const PickerBase = class extends React.Component {
 				onBlur={this.handleBlur}
 				onDown={this.handleDown}
 				onFocus={this.handleFocus}
-				onHoldPulse={this.handleHoldPulse}
+				onHold={this.handleHold}
 				onKeyDown={this.handleKeyDown}
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
@@ -980,7 +980,7 @@ const PickerBase = class extends React.Component {
 						icon={incrementIcon}
 						joined={joined}
 						onDown={this.handleIncrement}
-						onHoldPulse={this.handleIncrement}
+						onHold={this.handleIncrement}
 						onKeyDown={this.handleIncKeyDown}
 						onSpotlightDisappear={onSpotlightDisappear}
 						shrink
@@ -1034,7 +1034,7 @@ const PickerBase = class extends React.Component {
 						icon={decrementIcon}
 						joined={joined}
 						onDown={this.handleDecrement}
-						onHoldPulse={this.handleDecrement}
+						onHold={this.handleDecrement}
 						onKeyDown={this.handleDecKeyDown}
 						onSpotlightDisappear={onSpotlightDisappear}
 						shrink
