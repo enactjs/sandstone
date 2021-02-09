@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 import {objectify} from '@enact/ui/Skinnable/util';
 import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils';
 import spotlight from '@enact/spotlight';
-import {componet as ReactComponent, cloneElement} from 'react';
+import {Component as ReactComponent, cloneElement} from 'react';
 
 import ThemeDecorator from '../../../ThemeDecorator';
 
