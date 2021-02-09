@@ -1,7 +1,7 @@
 import {useI18nContext} from '@enact/i18n/I18nDecorator';
 import Checkbox from '@enact/sandstone/CheckboxItem';
 import PropTypes from 'prop-types';
-import React, {useCallback} from 'react';
+import {useCallback} from 'react';
 
 import Section from '../components/Section';
 

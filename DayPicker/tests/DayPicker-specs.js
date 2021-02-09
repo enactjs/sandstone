@@ -1,5 +1,4 @@
 import ilib from '@enact/i18n';
-import React from 'react';
 import {mount} from 'enzyme';
 
 import DayPicker, {getSelectedDayString} from '../DayPicker';

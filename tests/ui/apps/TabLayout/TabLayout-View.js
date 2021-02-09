@@ -1,4 +1,3 @@
-import React from 'react';
 import spotlight from '@enact/spotlight';
 
 import TabLayout from '../../../../TabLayout';

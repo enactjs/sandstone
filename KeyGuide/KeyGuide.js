@@ -25,7 +25,6 @@ import Pure from '@enact/ui/internal/Pure';
 import Repeater from '@enact/ui/Repeater';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
 
 import Icon from '../Icon';
 import {ItemBase} from '../Item';

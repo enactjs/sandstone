@@ -1,7 +1,6 @@
 import {boolean, text, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UiBodyText, {BodyTextBase as UiBodyTextBase} from '@enact/ui/BodyText';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import BodyText, {BodyTextBase} from '@enact/sandstone/BodyText';

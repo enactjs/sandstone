@@ -1,6 +1,5 @@
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import React from 'react';
 import PropTypes from 'prop-types';
 import {MarqueeControllerContext} from '@enact/ui/Marquee/MarqueeController';
 import Pure from '@enact/ui/internal/Pure';

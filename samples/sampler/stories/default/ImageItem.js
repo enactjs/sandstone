@@ -2,7 +2,6 @@ import {boolean, object, select, text} from '@enact/storybook-utils/addons/knobs
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';

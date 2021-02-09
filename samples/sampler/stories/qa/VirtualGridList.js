@@ -3,7 +3,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
-import React from 'react';
+import {Component} from 'react';
 
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
@@ -74,7 +74,7 @@ const ContextualPopupButton = ContextualPopupDecorator(Button);
 
 let lastIndex = 0;
 
-class MyVirtualList extends React.Component {
+class MyVirtualList extends Component {
 	componentDidMount () {
 		this.scrollTo({index: lastIndex, animate: false, focus: true});
 	}
@@ -121,7 +121,7 @@ class MyVirtualList extends React.Component {
 	}
 }
 
-class ButtonAndVirtualGridList extends React.Component {
+class ButtonAndVirtualGridList extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

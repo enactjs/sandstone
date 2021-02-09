@@ -1,9 +1,9 @@
 import hoc from '@enact/core/hoc';
-import React from 'react';
+import {createContext, useContext} from 'react';
 import pick from 'ramda/src/pick';
 import omit from 'ramda/src/omit';
 
-const PanelsStateContext = React.createContext(null);
+const PanelsStateContext = createContext(null);
 
 const sharedContextProps = [
 	'backButtonAriaLabel',
@@ -29,7 +29,7 @@ const deleteSharedProps = (props) => {
 };
 
 function useContextAsDefaults (props) {
-	const ctx = React.useContext(PanelsStateContext);
+	const ctx = useContext(PanelsStateContext);
 
 	const contextProps = {...ctx, ...getSharedProps(props)};
 

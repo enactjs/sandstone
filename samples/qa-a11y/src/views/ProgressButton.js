@@ -2,14 +2,14 @@
 
 import Button from '@enact/sandstone/Button';
 import ProgressButton from '@enact/sandstone/ProgressButton';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 
 import appCss from '../App/App.module.less';
 
 const ProgressButtonView = () => {
-	const [value, setValue] = React.useState(0);
+	const [value, setValue] = useState(0);
 	let ariaLabel;
 
 	if (value === 0.5) {

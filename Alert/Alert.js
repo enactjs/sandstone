@@ -13,7 +13,7 @@ import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Children} from 'react';
 
 import BodyText from '../BodyText';
 import Heading from '../Heading';
@@ -170,7 +170,7 @@ const AlertBase = kind({
 		},
 		className: ({buttons, image, title, type, styler}) => styler.append(
 			{
-				maxButtons: (buttons && React.Children.toArray(buttons).filter(Boolean).length > 2),
+				maxButtons: (buttons && Children.toArray(buttons).filter(Boolean).length > 2),
 				noImage: !image,
 				noTitle: (type === 'fullscreen') && !title
 			},

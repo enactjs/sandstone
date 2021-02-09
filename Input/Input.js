@@ -9,7 +9,7 @@ import Toggleable from '@enact/ui/Toggleable';
 import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Fragment} from 'react';
 
 import Button from '../Button';
 import Popup from '../Popup';
@@ -482,7 +482,7 @@ const InputBase = kind({
 		const ariaProps = extractAriaProps(rest);
 
 		return (
-			<React.Fragment>
+			<Fragment>
 				<InputPopupBase
 					announce={announce}
 					type={type}
@@ -503,22 +503,22 @@ const InputBase = kind({
 				>
 					{buttonLabel}
 				</Button>
-			</React.Fragment>
+			</Fragment>
 		);
 	}
 });
 
 // eslint-disable-next-line no-shadow
-const AnnounceDecorator = Wrapped => function AnnounceDecorator (props) {
+const AnnounceDecorator = Wrapped => (function AnnounceDecorator (props) {
 	const {announce, children} = useAnnounce();
 
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Wrapped {...props} announce={announce} />
 			{children}
-		</React.Fragment>
+		</Fragment>
 	);
-};
+});
 
 /**
  * Sandstone specific item behaviors to apply to [Input]{@link sandstone/Input.InputBase}.

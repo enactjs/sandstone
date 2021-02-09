@@ -1,7 +1,7 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {Header, Panel} from '@enact/sandstone/Panels';
-import React from 'react';
+import {Component} from 'react';
 import Scroller from '@enact/sandstone/Scroller';
 
 import FontList from '../components/FontList';
@@ -108,7 +108,7 @@ const fonts = {
 	]
 };
 
-class MainPanel extends React.Component {
+class MainPanel extends Component {
 	constructor (props) {
 		super(props);
 	}

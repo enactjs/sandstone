@@ -3,14 +3,14 @@
 import DayPicker from '@enact/sandstone/DayPicker';
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 import useArrayState from '../components/useArrayState';
 
 const DayPickerItem = (props) => {
 	const [open, handleOpen] = useArrayState(1);
-	const [value, setValue] = React.useState(null);
+	const [value, setValue] = useState(null);
 
 	const handleSelect = ({content}) => setValue(content);
 

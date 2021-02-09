@@ -1,4 +1,4 @@
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import DayPicker, {getSelectedDayString} from '@enact/sandstone/DayPicker';
@@ -8,7 +8,7 @@ import Scroller from '@enact/sandstone/Scroller';
 
 DayPicker.displayName = 'DayPicker';
 
-class DayPickerWithItem extends React.Component {
+class DayPickerWithItem extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

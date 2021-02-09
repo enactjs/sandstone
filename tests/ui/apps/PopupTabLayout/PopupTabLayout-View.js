@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import spotlight from '@enact/spotlight';
 
 import {Header} from '../../../../Panels';
@@ -13,8 +13,8 @@ import UrlPropsDecorator from '../../components/UrlPropsDecorator';
 spotlight.setPointerMode(false);
 
 function App (props) {
-	const [index, setIndex] = React.useState(0);
-	const [open, setOpen] = React.useState(true);
+	const [index, setIndex] = useState(0);
+	const [open, setOpen] = useState(true);
 
 	return (
 		<PopupTabLayout

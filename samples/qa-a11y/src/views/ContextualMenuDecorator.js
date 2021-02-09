@@ -1,6 +1,5 @@
 import Button from '@enact/sandstone/Button';
 import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
-import React from 'react';
 
 import Section from '../components/Section';
 

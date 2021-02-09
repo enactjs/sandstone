@@ -1,14 +1,14 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {VoiceControlDecorator} from '@enact/webos/speech';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 const VoiceButton = VoiceControlDecorator(Button);
 
 
-class Sample extends React.Component {
+class Sample extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

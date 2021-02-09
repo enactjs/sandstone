@@ -3,7 +3,7 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
+import {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import compose from 'ramda/src/compose';
 import Group from '@enact/ui/Group';
@@ -40,14 +40,14 @@ storiesOf('Sandstone', module)
 		() => {
 			const includeIcons = boolean('include icons', Config, true);
 
-			const [open, setOpenState] = React.useState(false);
+			const [open, setOpenState] = useState(false);
 			const toggleOpen = () => setOpenState(!open);
 			const handleClose = compose(toggleOpen, action('onClose'));
 
-			const [indexDisplay, setIndexDisplay] = React.useState(0);
-			const [indexGeneral, setIndexGeneral] = React.useState(0);
-			const [indexNetwork, setIndexNetwork] = React.useState(0);
-			const [indexSound, setIndexSound] = React.useState(0);
+			const [indexDisplay, setIndexDisplay] = useState(0);
+			const [indexGeneral, setIndexGeneral] = useState(0);
+			const [indexNetwork, setIndexNetwork] = useState(0);
+			const [indexSound, setIndexSound] = useState(0);
 
 			const handleDisplayNext = navNext(setIndexDisplay, indexDisplay, 'onNext');
 			const handleDisplayPrev = navPrev(setIndexDisplay, indexDisplay, 'onBack');

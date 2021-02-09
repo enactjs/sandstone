@@ -1,6 +1,5 @@
 import Alert, {AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
-import React from 'react';
 
 import Section from '../components/Section';
 import useArrayState from '../components/useArrayState';

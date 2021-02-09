@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
+import {Component, useState} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import BodyText from '@enact/sandstone/BodyText';
@@ -22,7 +22,7 @@ const tabsWithIcons = [
 	{title: 'Item', icon: 'trash'}
 ];
 
-class AddingTabSample extends React.Component {
+class AddingTabSample extends Component {
 	constructor (props) {
 		super(props);
 
@@ -255,7 +255,7 @@ storiesOf('TabLayout', module)
 	).add(
 		'With controlled index',
 		() => {
-			const [selected, setSelected] = React.useState(1);
+			const [selected, setSelected] = useState(1);
 
 			return (
 				<Panel>
