@@ -906,11 +906,12 @@ describe('Popup', function () {
 
 				Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4)
-				$('#buttonCancel').moveTo({xOffset: 200, yOffset: 200});
-				// 5-way to the OK button (step 5) (How to get it to spot Cancel button?)
+				$('#buttonCancel').moveTo({xOffset: 300, yOffset: 0});
 				Page.spotlightLeft();
+				expect(popup.buttonCancel.isFocused()).to.be.true();
 
 				// Spotlight is on OK button (verify step 5)
+				Page.spotlightLeft();
 				expect(popup.buttonOK.isFocused()).to.be.true();
 			});
 		});
