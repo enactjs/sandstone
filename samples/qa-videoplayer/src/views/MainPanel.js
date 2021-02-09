@@ -2,7 +2,8 @@ import Button from '@enact/sandstone/Button';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
-import VideoPlayer, {MediaControls} from '@enact/sandstone/VideoPlayer';
+import VideoPlayer from '@enact/sandstone/VideoPlayer';
+import {MediaControls} from '@enact/sandstone/MediaPlayer';
 
 import componentCss from './MainPanel.module.less';
 

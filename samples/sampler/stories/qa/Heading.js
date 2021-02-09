@@ -21,9 +21,20 @@ storiesOf('Heading', module)
 	.add(
 		'with italics',
 		() => (
-			<Heading className={css.italic}>
-				{text('children', Heading, 'Lorem ipsum dolor sit amet')}
-			</Heading>
+			<>
+				<Heading className={css.italic}>
+					{text('children', Heading, 'Lorem ipsum dolor sit amet')}
+				</Heading>
+				<Heading>
+					{text('children', Heading, 'Lorem ipsum dolor sit amet')}
+				</Heading>
+				<Heading className={css.italic}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Heading>
+				<Heading>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Heading>
+				<Heading className={css.italic}>가나다라마바사아자차카타파하</Heading>
+				<Heading>가나다라마바사아자차카타파하</Heading>
+				<Heading className={css.italic}>نحن اسم المواضيع بعد الأحجار الكريمة</Heading>
+				<Heading>نحن اسم المواضيع بعد الأحجار الكريمة</Heading>
+			</>
 		)
 	)
 

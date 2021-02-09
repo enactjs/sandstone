@@ -48,6 +48,7 @@ const inputData = {
 	shortPlaceholder: 'Placeholder string',
 	longText: 'What could we do with such a very long text string? We could write that novel we\'ve always talked about, or travel the world, or hike a great mountain; the sky\'s the limit!',
 	longPlaceHolder: 'Placeholder - What could we do with such a very long placeholder string? We could write that novel we\'ve always talked about, or travel the world, or hike a great mountain; the sky\'s the limit!',
+	longInvalidTooltip: 'You\'ve entered an invalid value. Please check the value you entered. By the way, this is a long text that can be guided when an invalid value is entered; There would be some filter to validate a value!',
 	tallText: ['नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី'],
 	initialValue: 'Example value',
 	rtlAndLtr: 'abcdeشلاؤيث'
@@ -123,6 +124,23 @@ storiesOf('Input/Text/Fullscreen', module)
 				text: 'No titles, just an input field.'
 			}
 		}
+	)
+	.add(
+		'long invalid tooltip',
+		() => (
+			<Input
+				title="Fullscreen Input (invalid tooltip)"
+				subtitle={inputData.textSubtitle}
+				popupType="fullscreen"
+				invalid={boolean('invalid', Config, true)}
+				invalidMessage={inputData.longInvalidTooltip}
+				defaultOpen
+			/>
+		), {
+			info: {
+				text: 'Test the input popup\'s long invalid tooltip.'
+			}
+		}
 	);
 
 storiesOf('Input/Text/Overlay', module)
@@ -166,6 +184,23 @@ storiesOf('Input/Text/Overlay', module)
 		), {
 			info: {
 				text: 'No titles, just an input field.'
+			}
+		}
+	)
+	.add(
+		'long invalid tooltip',
+		() => (
+			<Input
+				title="Overlay Input (invalid tooltip)"
+				subtitle={inputData.textSubtitle}
+				popupType="overlay"
+				invalid={boolean('invalid', Config, true)}
+				invalidMessage={inputData.longInvalidTooltip}
+				defaultOpen
+			/>
+		), {
+			info: {
+				text: 'Test the input popup\'s long invalid tooltip.'
 			}
 		}
 	);
@@ -271,6 +306,24 @@ storiesOf('Input/Number/Fullscreen', module)
 				text: 'No titles, just an input field.'
 			}
 		}
+	)
+	.add(
+		'long invalid tooltip',
+		() => (
+			<Input
+				title="Fullscreen Input (invalid tooltip)"
+				subtitle={inputData.numberSubtitle}
+				popupType="fullscreen"
+				type="number"
+				invalid={boolean('invalid', Config, true)}
+				invalidMessage={inputData.longInvalidTooltip}
+				defaultOpen
+			/>
+		), {
+			info: {
+				text: 'Test the input popup\'s long invalid tooltip.'
+			}
+		}
 	);
 
 storiesOf('Input/Number/Overlay', module)
@@ -347,6 +400,24 @@ storiesOf('Input/Number/Overlay', module)
 		), {
 			info: {
 				text: 'No titles, just an input field.'
+			}
+		}
+	)
+	.add(
+		'long invalid tooltip',
+		() => (
+			<Input
+				title="Overlay Input (invalid tooltip)"
+				subtitle={inputData.numberSubtitle}
+				popupType="overlay"
+				type="number"
+				invalid={boolean('invalid', Config, true)}
+				invalidMessage={inputData.longInvalidTooltip}
+				defaultOpen
+			/>
+		), {
+			info: {
+				text: 'Test the input popup\'s long invalid tooltip.'
 			}
 		}
 	);
