@@ -6,6 +6,8 @@ import {storiesOf} from '@storybook/react';
 
 import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import ProgressBar from '@enact/sandstone/ProgressBar';
 
 Alert.displayName = 'Alert';
 AlertImage.displayName = 'AlertImage';
@@ -108,6 +110,45 @@ storiesOf('Alert', module)
 						<Button>Yes</Button>
 						<Button>No</Button>
 					</buttons>
+					{text('children', Config, inputData.longChildren)}
+				</Alert>
+			);
+		}
+	)
+	.add(
+		'with different types of components and long children',
+		() => {
+			const open = boolean('open', Config, true); // This is first so the Knob tabs are in a more intuitive order.
+			const image = boolean('image', ImageConfig);
+			const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
+			const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+
+			return (
+				<Alert
+					open={open}
+					onClose={action('onClose')}
+					title={text('title', Config, 'Overlay Alert Title')}
+					type={select('type', ['fullscreen', 'overlay'], Config, 'overlay')}
+				>
+					{image ?
+						<image>
+							<AlertImage
+								src={src}
+								type={type}
+							/>
+						</image> : null
+					}
+					<buttons>
+						<Button>Yes</Button>
+						<Button>No</Button>
+					</buttons>
+					<div>
+						<div>This is progressbar</div>
+						<ProgressBar progress={0.5} />
+					</div>
+					<div>
+						<CheckboxItem>This is CheckboxItem</CheckboxItem>
+					</div>
 					{text('children', Config, inputData.longChildren)}
 				</Alert>
 			);
