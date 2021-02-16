@@ -905,8 +905,10 @@ describe('Popup', function () {
 				expectOpen(popupCommon);
 
 				Page.showPointerByKeycode();
-				// Position the pointer inside popup to the right of the Cancel button (step 4)
+				// Position the pointer inside popup to the right of the Cancel button (step 4-1).
 				$('#buttonCancel').moveTo({xOffset: 300, yOffset: 0});
+				// Click on the blank area to change to 5-way.
+				browser.positionClick();
 				Page.spotlightLeft();
 				expect(popup.buttonCancel.isFocused()).to.be.true();
 
