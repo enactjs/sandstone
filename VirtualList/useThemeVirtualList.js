@@ -114,11 +114,13 @@ const useSpottable = (props, instances) => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	function handleGlobalKeyDown (ev) {
+		console.log('handleGlobalKeyDown>');
 		// To prevent scrolling by native scroller
 		if (scrollMode === 'native') {
 			if (document.querySelector('[data-virtuallist]')) {
 				ev.preventDefault();
 				ev.stopPropagation();
+				console.log('handleGlobalKeyDown>stopPropagation() is called');
 			}
 		}
 
