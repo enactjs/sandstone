@@ -32,7 +32,7 @@ const SpottableDiv = Spottable('div');
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{'aria-label': ariaLabel, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, scrollbarTrackCss, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? SpottableDiv : 'div',
 		announceRef = useRef({});
@@ -89,10 +89,10 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 			}
 		}
 	}, [consumeEventWithScroll, rtl, vertical]);
-
 	return (
-		<div {...rest} className={className} ref={ref}>
-			<ScrollbarThumb aria-label={ariaLabel} className={css.thumb} onKeyDown={onKeyDown}>
+		<div {...rest} className={classNames(className, scrollbarTrackCss.scrollbarTrack)} ref={ref}>
+
+			<ScrollbarThumb aria-label={ariaLabel} className={classNames(css.thumb, scrollbarTrackCss.thumb)} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
 			</ScrollbarThumb>
@@ -107,6 +107,20 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 ScrollbarTrack.displayName = 'ScrollbarTrack';
 
 ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototype */ {
+	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbarTrack` - The scrollbar component class
+	 * * `scrollbarthumb` - The scrollbar component class
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	scrollbarTrackCss: PropTypes.object,
+
 	/**
 	 * `true` if scroll thumb is spottable.
 	 *
@@ -144,6 +158,7 @@ ScrollbarTrack.defaultProps = {
 	focusableScrollbar: false,
 	onInteractionForScroll: nop,
 	rtl: false,
+	scrollbarTrackCss: {},
 	vertical: true
 };
 
