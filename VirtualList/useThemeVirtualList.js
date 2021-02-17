@@ -116,8 +116,10 @@ const useSpottable = (props, instances) => {
 	function handleGlobalKeyDown (ev) {
 		// To prevent scrolling by native scroller
 		if (scrollMode === 'native') {
-			ev.preventDefault();
-			ev.stopPropagation();
+			if (document.querySelector('[data-virtuallist]')) {
+				ev.preventDefault();
+				ev.stopPropagation();
+			}
 		}
 
 		setContainerDisabled(false);
@@ -380,7 +382,8 @@ const useThemeVirtualList = (props) => {
 			});
 		},
 		onUpdateItems: handleRestoreLastFocus,
-		updateStatesAndBounds: updateStatesAndBounds
+		updateStatesAndBounds: updateStatesAndBounds,
+		'data-virtuallist': true
 	};
 };
 
