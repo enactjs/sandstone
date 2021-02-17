@@ -904,9 +904,10 @@ describe('Popup', function () {
 
 				expectOpen(popupCommon);
 
+				const popupSize = $('#popup7').getSize();
 				Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4-1).
-				$('#buttonCancel').moveTo({xOffset: 300, yOffset: 0});
+				$('#popup7').moveTo({xOffset: popupSize.width - 1, yOffset: popupSize.height - 1});
 				// Click on the blank area to change to 5-way.
 				browser.positionClick();
 				Page.spotlightLeft();
