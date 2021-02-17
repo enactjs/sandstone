@@ -16,6 +16,8 @@ import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
 
+let isDestroy = false;
+
 const
 	nop = () => {},
 	getNumberValue = (index) => {
@@ -117,7 +119,7 @@ const useSpottable = (props, instances) => {
 		console.log('handleGlobalKeyDown>');
 		// To prevent scrolling by native scroller
 		if (scrollMode === 'native') {
-			if (document.querySelector('[data-virtuallist]')) {
+			if (document.querySelector('[data-virtuallist]') && !isDestroy) {
 				ev.preventDefault();
 				ev.stopPropagation();
 				console.log('handleGlobalKeyDown>stopPropagation() is called');
@@ -134,6 +136,8 @@ const useSpottable = (props, instances) => {
 			SpotlightAccelerator.reset();
 
 			setContainerDisabled(false);
+
+			isDestroy = true;
 		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
