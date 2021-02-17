@@ -91,8 +91,6 @@ const ScrollbarBase = memo((props) => {
 		scrollbarTrackProps
 	} = useThemeScrollbar(props);
 
-	console.log('어디서세?');
-	console.log(restProps.scrollbartrackcss);
 	return (
 		<div {...restProps} {...scrollbarProps}>
 			<ScrollbarTrack {...scrollbarTrackProps} />
