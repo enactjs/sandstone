@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+##[unreleased]
+
+### Fixed
+
+- `sandstone/VirtualList` to not block key down events after panel transition
+
 ## [2.0.0-alpha.1] - 2021-02-24
 
 -  The framework was updated to support React 17.0.1
