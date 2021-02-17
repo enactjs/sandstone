@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/MediaSlider` to not changing bar's color when dragging in touch mode
+- `sandstone/VirtualList` to not block key down events after panel transition
 
 ## [1.4.4-experimental-5] - 2021-01-26
 
