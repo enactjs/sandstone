@@ -100,7 +100,18 @@ const useSpottable = (props, instances) => {
 		}
 	}
 
-	const setContainerDisabled = useCallback((bool) => {
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const handleGlobalKeyDown = useCallback((ev) => {
+		// To prevent scrolling by native scroller
+		if (scrollMode === 'native') {
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+
+		setContainerDisabled(false);
+	}, [scrollMode, setContainerDisabled]);
+
+	function setContainerDisabled (bool) {
 		if (scrollContainerRef.current) {
 			scrollContainerRef.current.dataset.spotlightContainerDisabled = bool;
 
@@ -110,17 +121,6 @@ const useSpottable = (props, instances) => {
 				removeGlobalKeyDownEventListener();
 			}
 		}
-	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, removeGlobalKeyDownEventListener, scrollContainerRef]);
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	function handleGlobalKeyDown (ev) {
-		// To prevent scrolling by native scroller
-		if (scrollMode === 'native') {
-			ev.preventDefault();
-			ev.stopPropagation();
-		}
-
-		setContainerDisabled(false);
 	}
 
 	useEffect(() => {
