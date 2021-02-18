@@ -129,8 +129,8 @@ ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ 
 	 *
 	 * The following classes are supported:
 	 *
-	 * * `scrollbarTrack` - The scrollbar component class
-	 * * `thumb` - The scrollbar component class
+	 * * `scrollbarTrack` - The scrollbarTrack component class
+	 * * `thumb` - The scrollbar thumb component class
 	 *
 	 * @type {Object}
 	 * @public

@@ -345,8 +345,8 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 *
 	 * The following classes are supported:
 	 *
-	 * * `scrollbarTrack` - The scrollbar component class
-	 * * `thumb` - The scrollbarrack component class
+	 * * `scrollbarTrack` - The scrollbarTrack component class
+	 * * `thumb` - The scrollbar thumb component class
 	 *
 	 * @type {Object}
 	 * @public
