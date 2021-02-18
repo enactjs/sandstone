@@ -32,7 +32,7 @@ const SpottableDiv = Spottable('div');
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{'aria-label': ariaLabel, scrollbarTrackCss, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, focusableScrollbar, onInteractionForScroll, rtl, scrollbarTrackCss, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? SpottableDiv : 'div',
 		announceRef = useRef({});
@@ -108,20 +108,6 @@ ScrollbarTrack.displayName = 'ScrollbarTrack';
 
 ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototype */ {
 	/**
-	 * Customizes the component by mapping the supplied collection of CSS class names to the
-	 * corresponding internal elements and states of this component.
-	 *
-	 * The following classes are supported:
-	 *
-	 * * `scrollbarTrack` - The scrollbar component class
-	 * * `scrollbarthumb` - The scrollbar component class
-	 *
-	 * @type {Object}
-	 * @public
-	 */
-	scrollbarTrackCss: PropTypes.object,
-
-	/**
 	 * `true` if scroll thumb is spottable.
 	 *
 	 * @type {Boolean|'byEnter'}
@@ -144,6 +130,20 @@ ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototy
 	 * @private
 	 */
 	rtl: PropTypes.bool,
+
+	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbarTrack` - The scrollbar component class
+	 * * `scrollbarthumb` - The scrollbar component class
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	scrollbarTrackCss: PropTypes.object,
 
 	/**
 	 * `true` if vertical scroll, `false` if horizontal scroll.

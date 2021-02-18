@@ -139,20 +139,6 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	cbScrollTo: PropTypes.func,
 
 	/**
-	 * Customizes the component by mapping the supplied collection of CSS class names to the
-	 * corresponding internal elements and states of this component.
-	 *
-	 * The following classes are supported:
-	 *
-	 * * `scrollbarTrack` - The scrollbar component class
-	 * * `thumb` - The scrollbarrack component class
-	 *
-	 * @type {Object}
-	 * @public
-	 */
-	scrollbarTrackCss: PropTypes.object,
-
-	/**
 	 * This is set to `true` by SpotlightContainerDecorator
 	 *
 	 * @type {Boolean}
@@ -352,6 +338,20 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 		track: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
+
+	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbarTrack` - The scrollbar component class
+	 * * `thumb` - The scrollbarrack component class
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	scrollbarTrackCss: PropTypes.object,
 
 	/**
 	 * Specifies how to scroll.
