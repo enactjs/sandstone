@@ -39,6 +39,7 @@
     "@enact/core": "3.4.9-experimental-2",
     "@enact/i18n": "3.4.9-experimental-2",
     "@enact/spotlight": "3.4.9-experimental-2",
+    "@enact/webos": "3.4.9-experimental-2",
     "@enact/ui": "3.4.9-experimental-2",
     "classnames": "^2.2.5",
     "invariant": "^2.2.2",
