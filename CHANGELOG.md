@@ -2,11 +2,11 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
-
-- `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
+## [unreleased]track and thumb style
 
 ### Added
+
+- `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll
 
 ## [1.4.6] - 2021-01-29
 
