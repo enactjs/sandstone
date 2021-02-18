@@ -26,6 +26,7 @@
 		"@enact/i18n": "3.4.9-experimental-2",
 		"@enact/sandstone": "../../",
 		"@enact/spotlight": "3.4.9-experimental-2",
+    "@enact/webos": "3.4.9-experimental-2",
 		"@enact/ui": "3.4.9-experimental-2",
 		"@enact/webos": "3.4.9-experimental-2",
 		"ilib": "^14.4.0",
