@@ -18,8 +18,8 @@ const useThemeScrollbar = (props) => {
 		'aria-label': ariaLabel,
 		focusableScrollbar,
 		onInteractionForScroll,
-		scrollbarTrackCss,
 		rtl,
+		scrollbarTrackCss,
 		...rest
 	} = restProps;
 
@@ -70,8 +70,8 @@ const useThemeScrollbar = (props) => {
 			'aria-label': ariaLabel,
 			focusableScrollbar,
 			onInteractionForScroll,
-			scrollbarTrackCss,
-			rtl
+			rtl,
+			scrollbarTrackCss
 		}
 	};
 };

@@ -513,8 +513,8 @@ storiesOf('Scroller', module)
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
-					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 					scrollbarTrackCss={css}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 					style={{height: ri.scaleToRem(804)}}
 				>
 					<div style={{height: ri.scaleToRem(1200)}}>
