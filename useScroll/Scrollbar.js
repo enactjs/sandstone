@@ -19,6 +19,7 @@ const useThemeScrollbar = (props) => {
 		focusableScrollbar,
 		onInteractionForScroll,
 		rtl,
+		scrollbarTrackCss,
 		...rest
 	} = restProps;
 
@@ -69,7 +70,8 @@ const useThemeScrollbar = (props) => {
 			'aria-label': ariaLabel,
 			focusableScrollbar,
 			onInteractionForScroll,
-			rtl
+			rtl,
+			scrollbarTrackCss
 		}
 	};
 };
@@ -120,6 +122,20 @@ ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ 
 	 * @public
 	 */
 	minThumbSize: PropTypes.number,
+
+	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbarTrack` - The scrollbarTrack component class
+	 * * `thumb` - The scrollbar thumb component class
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	scrollbarTrackCss: PropTypes.object,
 
 	/**
 	 * The scrollbar will be oriented vertically.

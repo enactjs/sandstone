@@ -62,7 +62,7 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 };
 
 const useThemeScroll = (props, instances) => {
-	const {scrollMode} = props;
+	const {scrollbarTrackCss, scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const contextSharedState = useContext(SharedState);
 
@@ -106,7 +106,8 @@ const useThemeScroll = (props, instances) => {
 	} = useEventVoice(props, instances);
 
 	const scrollbarProps = {
-		onInteractionForScroll
+		onInteractionForScroll,
+		scrollbarTrackCss
 	};
 
 	// Functions
@@ -297,6 +298,8 @@ const useScroll = (props) => {
 			verticalScrollThumbAriaLabel,
 			...rest
 		} = props;
+
+	delete rest.scrollbarTrackCss;
 
 	// Mutable value
 
