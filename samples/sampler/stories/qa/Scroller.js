@@ -15,6 +15,8 @@ import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 
+import css from './Scroller.module.less';
+
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 const itemData = [];
@@ -500,4 +502,26 @@ storiesOf('Scroller', module)
 				</Scroller>
 			);
 		}
+	)
+	.add(
+		'With Customized Style',
+		() => (
+			<div>
+				<Scroller
+					focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					onKeyDown={action('onKeyDown')}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollbarTrackCss={css}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					style={{height: ri.scaleToRem(804)}}
+				>
+					<div style={{height: ri.scaleToRem(1200)}}>
+						The scrollbar track is displayed in white.
+					</div>
+					The scrollbar thumb is displayed in orangered.
+				</Scroller>
+			</div>
+		)
 	);
