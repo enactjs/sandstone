@@ -90,9 +90,8 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 		}
 	}, [consumeEventWithScroll, rtl, vertical]);
 	return (
-		<div {...rest} className={classNames(className, scrollbarTrackCss.scrollbarTrack)} ref={ref}>
-
-			<ScrollbarThumb aria-label={ariaLabel} className={classNames(css.thumb, scrollbarTrackCss.thumb)} onKeyDown={onKeyDown}>
+		<div {...rest} className={classNames(className, scrollbarTrackCss && scrollbarTrackCss.scrollbarTrack)} ref={ref}>
+			<ScrollbarThumb aria-label={ariaLabel} className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb)} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
 			</ScrollbarThumb>
@@ -158,7 +157,6 @@ ScrollbarTrack.defaultProps = {
 	focusableScrollbar: false,
 	onInteractionForScroll: nop,
 	rtl: false,
-	scrollbarTrackCss: {},
 	vertical: true
 };
 
