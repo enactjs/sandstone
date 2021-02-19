@@ -518,9 +518,9 @@ storiesOf('Scroller', module)
 					style={{height: ri.scaleToRem(804)}}
 				>
 					<div style={{height: ri.scaleToRem(1200)}}>
-						The scrolltrack is displayed in white.
+						The scrollbar track is displayed in white.
 					</div>
-					The scrollThumb is displayed in orange.
+					The scrollbar thumb is displayed in orange.
 				</Scroller>
 			</div>
 		)
