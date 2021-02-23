@@ -6,6 +6,7 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
 import {useCallback, useEffect, useRef} from 'react';
 
+
 const
 	isDown = is('down'),
 	isEnter = is('enter'),
