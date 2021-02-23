@@ -904,13 +904,17 @@ describe('Popup', function () {
 
 				expectOpen(popupCommon);
 
+				const popupSize = $('#popup7').getSize();
 				Page.showPointerByKeycode();
-				// Position the pointer inside popup to the right of the Cancel button (step 4)
-				$('#buttonCancel').moveTo({xOffset: 200, yOffset: 200});
-				// 5-way to the OK button (step 5) (How to get it to spot Cancel button?)
+				// Position the pointer inside popup to the right of the Cancel button (step 4-1).
+				$('#popup7').moveTo({xOffset: popupSize.width - 1, yOffset: popupSize.height - 1});
+				// Click on the blank area to change to 5-way.
+				browser.positionClick();
 				Page.spotlightLeft();
+				expect(popup.buttonCancel.isFocused()).to.be.true();
 
 				// Spotlight is on OK button (verify step 5)
+				Page.spotlightLeft();
 				expect(popup.buttonOK.isFocused()).to.be.true();
 			});
 		});
