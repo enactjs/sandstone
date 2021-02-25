@@ -4,9 +4,9 @@ import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import WizardPanels from '@enact/sandstone/WizardPanels';
-import React from 'react';
+import {Component} from 'react';
 
-class WizardPanelsView extends React.Component {
+class WizardPanelsView extends Component {
 	constructor (props) {
 		super(props);
 

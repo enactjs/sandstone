@@ -1,5 +1,4 @@
 import {TabLayout, Tab} from '../../../../TabLayout';
-import React from 'react';
 
 const SimpleTab = (props) => (
 	<Tab {...props}>

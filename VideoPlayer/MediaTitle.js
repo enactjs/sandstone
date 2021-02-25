@@ -2,7 +2,6 @@ import EnactPropTypes from '@enact/core/internal/prop-types';
 import ForwardRef from '@enact/ui/ForwardRef';
 import kind from '@enact/core/kind';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import Marquee from '../Marquee';

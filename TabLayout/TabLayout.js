@@ -19,7 +19,7 @@ import Toggleable from '@enact/ui/Toggleable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Fragment} from 'react';
 
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
@@ -262,7 +262,7 @@ const TabLayoutBase = kind({
 
 	computed: {
 		children: ({children}) => mapAndFilterChildren(children, (child) => (
-			<React.Fragment>{child.props.children}</React.Fragment>
+			<Fragment>{child.props.children}</Fragment>
 		)),
 		className: ({collapsed, anchorTo, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},

@@ -2,7 +2,7 @@
 
 import Picker from '@enact/sandstone/Picker';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 
@@ -21,7 +21,7 @@ const
 	subjectValue = ['80', '90', '100', '70', '50'];
 
 const CustomPicker = (props) => {
-	const [index, setIndex] = React.useState(0);
+	const [index, setIndex] = useState(0);
 
 	const handleChange = (ev) => setIndex({index: ev.value});
 	const valueText = `${props.children[index]} ${subjectValue[index]}`;

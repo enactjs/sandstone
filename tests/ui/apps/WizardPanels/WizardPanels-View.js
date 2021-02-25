@@ -3,7 +3,6 @@ import Button from '../../../../Button/Button';
 import Scroller from '../../../../Scroller/Scroller';
 import WizardPanels from '../../../../WizardPanels';
 import ThemeDecorator from '../../../../ThemeDecorator/ThemeDecorator';
-import React from 'react';
 import spotlight from '@enact/spotlight';
 import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 

@@ -1,5 +1,4 @@
 import Slider, {SliderTooltip as Tooltip} from '../../../../Slider';
-import React from 'react';
 
 // TODO: RTL, different min/max with visible tooltip
 

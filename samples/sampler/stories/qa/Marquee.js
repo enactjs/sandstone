@@ -3,7 +3,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import Spottable from '@enact/spotlight/Spottable';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
@@ -86,7 +86,7 @@ const MarqueeItem = Spottable(
 	)
 );
 
-class MarqueeWithShortContent extends React.Component {
+class MarqueeWithShortContent extends Component {
 	constructor (props) {
 		super(props);
 
@@ -129,7 +129,7 @@ class MarqueeWithShortContent extends React.Component {
 	}
 }
 
-class MarqueeWithContentChanged extends React.Component {
+class MarqueeWithContentChanged extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

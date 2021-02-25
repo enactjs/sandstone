@@ -6,7 +6,6 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 
 import ProgressButton, {ProgressButtonBase} from '@enact/sandstone/ProgressButton';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
-import React from 'react';
 
 import iconNames from './icons';
 

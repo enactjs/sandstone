@@ -14,7 +14,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
 import Group from '@enact/ui/Group';
 import Toggleable from '@enact/ui/Toggleable';
-import React from 'react';
+import {Component} from 'react';
 
 import Section from '../components/Section';
 
@@ -32,7 +32,7 @@ const keyGuideItems = [
 ];
 const TooltipButton = TooltipDecorator(Button);
 
-class PopupTabLayoutView extends React.Component {
+class PopupTabLayoutView extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

@@ -18,7 +18,6 @@ import {coerceArray} from '@enact/core/util';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Repeater from '@enact/ui/Repeater';
 import PropTypes from 'prop-types';
-import React from 'react';
 import compose from 'ramda/src/compose';
 
 import Icon from '../Icon';

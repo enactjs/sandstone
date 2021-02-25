@@ -6,7 +6,6 @@ import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';

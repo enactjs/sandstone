@@ -6,7 +6,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {Row} from '@enact/ui/Layout';
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import iconNames from '../default/icons';
@@ -70,7 +70,7 @@ const pickerList = {
 };
 
 
-class PickerInPopupTabLayout extends React.Component {
+class PickerInPopupTabLayout extends Component {
 	render () {
 		return (
 			<>

@@ -1,5 +1,4 @@
 import {select} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Row} from '@enact/ui/Layout';
 import Repeater from '@enact/ui/Repeater';

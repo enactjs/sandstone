@@ -1,6 +1,6 @@
 import Resizable from '@enact/ui/Resizable';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component, Fragment} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
@@ -15,7 +15,7 @@ const data = [
 
 const ResizeButton = Resizable({resize: 'onClick'}, Button);
 
-class NoUpdate extends React.Component {
+class NoUpdate extends Component {
 	shouldComponentUpdate () {
 		return false;
 	}
@@ -27,7 +27,7 @@ class NoUpdate extends React.Component {
 	}
 }
 
-class Items extends React.Component {
+class Items extends Component {
 	constructor (props) {
 		super(props);
 
@@ -47,7 +47,7 @@ class Items extends React.Component {
 		const amount = more ? 'Fewer' : 'More';
 
 		return (
-			<React.Fragment>
+			<Fragment>
 				<ResizeButton onClick={this.toggleRenderItems}>Render {amount} Items</ResizeButton>
 				{more ?
 					data.map((item) => {
@@ -55,7 +55,7 @@ class Items extends React.Component {
 					}) :
 					null
 				}
-			</React.Fragment>
+			</Fragment>
 		);
 	}
 }

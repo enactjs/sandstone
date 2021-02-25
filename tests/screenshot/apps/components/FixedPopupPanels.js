@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Item from '../../../../Item';
 import Scroller from '../../../../Scroller';
 import {FixedPopupPanels, Panel, Header} from '../../../../FixedPopupPanels';

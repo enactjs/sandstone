@@ -1,6 +1,6 @@
 import {number} from '@enact/storybook-utils/addons/knobs';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 import PropTypes from 'prop-types';
 import {storiesOf} from '@storybook/react';
 
@@ -10,7 +10,7 @@ import VirtualList from '@enact/sandstone/VirtualList';
 
 Slider.displayName = 'Slider';
 
-class SliderList extends React.Component {
+class SliderList extends Component {
 	static propTypes = {
 		itemSize: PropTypes.number
 	};
