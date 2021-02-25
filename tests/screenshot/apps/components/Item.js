@@ -72,7 +72,7 @@ const ItemTests = [
 		<Item>Focused Item</Item>,
 		<Item slotBefore={<Icon>star</Icon>}>Focused Item</Item>,
 		<Item slotAfter={<Icon>star</Icon>}>Focused Item</Item>,
-		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Focused Item</Item>,
+		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Focused Item</Item>
 	]),
 
 	// Centered
@@ -122,7 +122,7 @@ const ItemTests = [
 
 		...withConfig({focus: true}, [
 			<Item>Customized Focused Item</Item>,
-			<Item label='"label"' slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Focused Item</Item>,
+			<Item label='"label"' slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Focused Item</Item>
 		])
 	]),
 
