@@ -38,7 +38,8 @@ const ItemContent = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'itemContent'
+		className: 'itemContent',
+		publicClassNames: ['itemContent', 'label']
 	},
 
 	computed: {
@@ -214,7 +215,7 @@ const ItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['item', 'bg', 'slotAfter', 'slotBefore', 'selected']
+		publicClassNames: ['item', 'itemContent', 'label', 'bg', 'slotAfter', 'slotBefore', 'selected']
 	},
 
 	computed: {
@@ -242,6 +243,7 @@ const ItemBase = kind({
 					</Cell>
 				) : null}
 				<ItemContent
+					css={css}
 					content={children}
 					label={label}
 					labelPosition={labelPosition}

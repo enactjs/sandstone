@@ -1,0 +1,41 @@
+@import "~@enact/spotlight/styles/mixins.less";
+@import "../../../../styles/skin.less";
+
+.item {
+	.applySkins({
+		border-left: 50px solid orangered;
+
+		.focus({
+			& {
+				border-left: 50px solid green;
+			}
+		});
+
+		.bg {
+			border-radius: 60px;
+		}
+
+		.itemContent,
+		.slotAfter,
+		.slotBefore {
+			color: orange;
+		}
+
+		.label {
+			color: white;
+		}
+
+		.focus({
+			.itemContent,
+			.slotAfter,
+			.slotBefore {
+				color: green;
+			}
+
+			.label {
+				color: blue;
+			}
+		});
+	});
+}
+
