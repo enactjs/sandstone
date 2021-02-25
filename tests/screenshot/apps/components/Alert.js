@@ -1,6 +1,5 @@
 import Alert, {AlertImage}  from '../../../../Alert';
 import Button from '../../../../Button';
-import React from 'react';
 
 import img from '../../images/300x300.png';
 

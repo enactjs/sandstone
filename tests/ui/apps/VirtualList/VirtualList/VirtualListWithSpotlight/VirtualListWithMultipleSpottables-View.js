@@ -2,7 +2,7 @@ import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 import Button from '../../../../../../Button';
 import {InputField} from '../../../../../../Input';
@@ -61,7 +61,7 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 	);
 });
 
-class app extends React.Component {
+class app extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

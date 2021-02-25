@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import {InputField as Input} from '@enact/sandstone/Input';
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import VirtualList from '@enact/sandstone/VirtualList';
 

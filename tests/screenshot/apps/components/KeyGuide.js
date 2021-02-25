@@ -1,5 +1,4 @@
 import KeyGuide from '../../../../KeyGuide';
-import React from 'react';
 
 import {withConfig} from './utils';
 

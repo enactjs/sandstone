@@ -2,7 +2,7 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
-import React from 'react';
+import {Fragment} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button, {ButtonBase} from '@enact/sandstone/Button';
@@ -38,7 +38,7 @@ const threeWayBoolean = (value) => {
 storiesOf('Sandstone', module)
 	.add(
 		'Button',
-		() => (<React.Fragment>
+		() => (<Fragment>
 			<Button
 				onClick={action('onClick')}
 				backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
@@ -55,7 +55,7 @@ storiesOf('Sandstone', module)
 			>
 				{text('children', Config, 'click me')}
 			</Button>
-		</React.Fragment>),
+		</Fragment>),
 		{
 			info: {
 				text: 'The basic Button'

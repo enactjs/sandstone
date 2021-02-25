@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import kind from '@enact/core/kind';

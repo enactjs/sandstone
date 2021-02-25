@@ -1,4 +1,4 @@
-import React from 'react';
+import {Children} from 'react';
 // MediaPlayer utils.js
 //
 
@@ -73,7 +73,7 @@ const secondsToTime = (seconds, durfmt, config) => {
  * @returns {Number} Number of children nodes
  * @private
  */
-const countReactChildren = (children) => React.Children.toArray(children).filter(n => n != null).length;
+const countReactChildren = (children) => Children.toArray(children).filter(n => n != null).length;
 
 export {
 	countReactChildren,

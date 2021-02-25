@@ -1,5 +1,4 @@
 import Image from '../../../../Image';
-import React from 'react';
 
 import hd from '../../images/200x200.png';
 import fhd from '../../images/300x300.png';

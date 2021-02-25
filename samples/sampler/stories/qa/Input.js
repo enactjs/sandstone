@@ -2,7 +2,7 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Fragment} from 'react';
 import {storiesOf} from '@storybook/react';
 import Button from '@enact/sandstone/Button';
 import Input, {InputBase, InputField, InputFieldBase} from '@enact/sandstone/Input';
@@ -22,10 +22,10 @@ const divMargin = {margin: ri.scaleToRem(24)};
 const buttons = {
 	'no buttons': null,
 	'one button': (<Button>Single Button</Button>),
-	'two buttons': (<React.Fragment>
+	'two buttons': (<Fragment>
 		<Button>Button One of Two</Button>
 		<Button>Button Two of Two</Button>
-	</React.Fragment>)
+	</Fragment>)
 };
 const props = {
 	fieldTypes: ['text', 'number', 'password'],

@@ -1,10 +1,10 @@
 import {InputField} from '../../../../Input';
-import React from 'react';
+import {useLayoutEffect} from 'react';
 
 import {LoremString} from './utils';
 
 const SelectionInput = props => {
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		document.querySelector('input').focus();
 		document.querySelector('input').setSelectionRange(2, 7);
 	});

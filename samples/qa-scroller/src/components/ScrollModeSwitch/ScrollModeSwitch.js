@@ -1,5 +1,4 @@
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
-import React from 'react';
 
 const ScrollModeSwitch = (props) => {
 	return (

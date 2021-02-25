@@ -1,4 +1,3 @@
-import React from 'react';
 import {mount, shallow} from 'enzyme';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import {Alert, AlertBase, AlertImage} from '../Alert';

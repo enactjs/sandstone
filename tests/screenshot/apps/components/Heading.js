@@ -1,5 +1,4 @@
 import Heading from '../../../../Heading';
-import React from 'react';
 
 const HeadingTests = [
 	<Heading>tHis is a neW Heading - default</Heading>,

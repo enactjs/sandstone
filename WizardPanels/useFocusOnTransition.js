@@ -1,7 +1,7 @@
 import handle, {forward} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import Spotlight from '@enact/spotlight';
-import React from 'react';
+import {useRef, useState, useEffect} from 'react';
 
 const transition = (complete) => (ev, props, {setTransition}) => {
 	setTransition(complete);
@@ -27,12 +27,12 @@ const transitionHandlers = {
 };
 
 function useFocusOnTransition (config) {
-	const {current} = React.useRef({timerId: null, index: config.index});
-	const [complete, setTransition] = React.useState(false);
+	const {current} = useRef({timerId: null, index: config.index});
+	const [complete, setTransition] = useState(false);
 	const handlers = useHandlers(transitionHandlers, config, {setTransition, current});
 	const focusIndex = current.index !== config.index && config.noAnimation ? config.index : -1;
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (complete) {
 			// FIXME: onTransition fires while the departing view still exists so focusing the Panel
 			// will generally result in focusing a component in the departing view because it is

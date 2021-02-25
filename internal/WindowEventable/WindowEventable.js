@@ -17,7 +17,7 @@
 import hoc from '@enact/core/hoc';
 import {handle, forward} from '@enact/core/handle';
 import {on, off} from '@enact/core/dispatcher';
-import React from 'react';
+import {Component} from 'react';
 
 /*
  * Use the `globalNode` key in the config to change which node the relevant events are attached to.
@@ -28,7 +28,7 @@ const defaultConfig = {
 
 // In config, extract all of the config stuff we know about. Everything else is an event.
 const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) => {
-	return class extends React.Component {
+	return class extends Component {
 
 		static displayName = 'WindowEventable';
 

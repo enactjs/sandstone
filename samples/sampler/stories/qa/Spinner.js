@@ -1,7 +1,7 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
@@ -16,7 +16,7 @@ const
 		longText:'SpinnerWithLongText SpinnerWithLongText SpinnerWithLongText'
 	};
 
-class FocusOnSpinner extends React.Component {
+class FocusOnSpinner extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

@@ -19,7 +19,7 @@ import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 
 import {ContextualPopup} from './ContextualPopup';
@@ -76,7 +76,7 @@ const ContextualPopupContainer = SpotlightContainerDecorator(
 const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {noArrow, noSkin, openProp} = config;
 
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'ContextualPopupDecorator';
 
 		static propTypes = /** @lends sandstone/ContextualPopupDecorator.ContextualPopupDecorator.prototype */ {
@@ -728,7 +728,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						open={open}
 						scrimType={scrimType}
 					>
-						<React.Fragment>
+						<Fragment>
 							{holepunchScrim ? <HolePunchScrim holeBounds={holeBounds} /> : null}
 							<ContextualPopupContainer
 								{...ariaProps}
@@ -747,7 +747,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							>
 								<PopupComponent {...popupPropsRef} />
 							</ContextualPopupContainer>
-						</React.Fragment>
+						</Fragment>
 					</FloatingLayer>
 					<Wrapped ref={this.getClientNode} {...rest} />
 				</div>

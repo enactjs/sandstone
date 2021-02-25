@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import React from 'react';
+import {Children} from 'react';
 import PropTypes from 'prop-types';
 import {Cell, Row} from '@enact/ui/Layout';
 
@@ -33,7 +33,7 @@ const KitchenSinkSectionBase = kind({
 	render: ({children, title, ...rest}) => (
 		<Cell size={1500} {...rest}>
 			<Heading showLine>{title}</Heading>
-			{React.Children.map(children, child => (
+			{Children.map(children, child => (
 				<Row className={css.componentDemo} align="center">
 					<Cell component="label" size="30%">{child.props.alt}</Cell>
 					<Cell>{child}</Cell>

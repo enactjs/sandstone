@@ -1,12 +1,12 @@
 import ImageItem from '@enact/sandstone/ImageItem';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 
 import appCss from '../App/App.module.less';
 
 const SelectableImageItem = (props) => {
-	const [checked, setChecked] = React.useState(false);
+	const [checked, setChecked] = useState(false);
 	const handleClick = () => !props.disabled && setChecked(!checked); // eslint-disable-line enact/prop-types
 
 	return <ImageItem {...props} onClick={handleClick} selected={checked} />; // eslint-disable-line react/jsx-no-bind

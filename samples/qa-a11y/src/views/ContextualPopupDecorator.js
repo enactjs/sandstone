@@ -3,7 +3,6 @@ import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator'
 import RadioItem from '@enact/sandstone/RadioItem';
 import Group from '@enact/ui/Group';
 import Toggleable from '@enact/ui/Toggleable';
-import React from 'react';
 
 import Section from '../components/Section';
 
