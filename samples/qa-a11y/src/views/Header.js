@@ -1,7 +1,6 @@
 import Button from '@enact/sandstone/Button';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import {Cell} from '@enact/ui/Layout';
-import React from 'react';
 
 const HeaderView = () => (
 	<>

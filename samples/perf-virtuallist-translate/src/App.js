@@ -1,5 +1,5 @@
 import Item from '@enact/sandstone/Item';
-import React, {Component} from 'react';
+import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import VirtualList from '@enact/sandstone/VirtualList';

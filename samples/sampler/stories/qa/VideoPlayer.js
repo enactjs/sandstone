@@ -1,12 +1,12 @@
 import {button} from '@storybook/addon-knobs';
 import {storiesOf} from '@storybook/react';
-import React from 'react';
+import {Component} from 'react';
 
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
 
 const videoTabLabel = 'VideoPlayer';
 
-class VideoSourceSwap extends React.Component {
+class VideoSourceSwap extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

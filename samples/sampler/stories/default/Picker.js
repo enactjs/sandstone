@@ -1,6 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Picker from '@enact/sandstone/Picker';

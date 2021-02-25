@@ -12,7 +12,6 @@
 
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import {ButtonBase, ButtonDecorator} from '../Button';
 import Icon from '../Icon';

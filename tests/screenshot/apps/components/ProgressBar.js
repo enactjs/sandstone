@@ -1,5 +1,4 @@
 import ProgressBar, {ProgressBarTooltip as Tooltip} from '../../../../ProgressBar';
-import React from 'react';
 
 // TODO: RTL
 // [GT-28227] - generic to test Progress Bar and Background Progress Bar Colors - no end marked for this test

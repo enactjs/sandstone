@@ -17,6 +17,7 @@ bundle.js
 # Testing
 errorShots
 coverage
+.eslintcache
 
 # Mac
 .DS_Store

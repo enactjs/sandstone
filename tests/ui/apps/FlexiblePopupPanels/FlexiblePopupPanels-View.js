@@ -3,7 +3,6 @@ import spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import Toggleable from '@enact/ui/Toggleable';
 import {scaleToRem} from '@enact/ui/resolution';
-import React from 'react';
 import compose from 'ramda/src/compose';
 
 import Button from '../../../../Button';

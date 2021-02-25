@@ -1,5 +1,4 @@
 import Spinner from '@enact/sandstone/Spinner';
-import React from 'react';
 
 import Section from '../components/Section';
 

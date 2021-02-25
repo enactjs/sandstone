@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 
 import Dropdown from '@enact/sandstone/Dropdown';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 
@@ -24,7 +24,7 @@ const ariaLabelledList = list.map((item, index) => ({...item, ...ariaLabelList[i
 const disabledList = ariaLabelledList.map(item => ({...item, disabled: true}));
 
 const A11yDropdown = (props) => {
-	const [ariaLabel, setAriaLabel] = React.useState(null);
+	const [ariaLabel, setAriaLabel] = useState(null);
 
 	const onSelect = ({selected}) => {
 		setAriaLabel(ariaLabelledList[selected]['aria-label']);

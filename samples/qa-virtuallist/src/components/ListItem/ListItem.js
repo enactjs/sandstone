@@ -2,7 +2,6 @@ import {connect} from 'react-redux';
 import Item from '@enact/sandstone/Item';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const ListItem = kind({
 	name: 'ListItem',

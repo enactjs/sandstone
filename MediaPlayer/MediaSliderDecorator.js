@@ -4,7 +4,7 @@ import platform from '@enact/core/platform';
 import {calcProportion} from '@enact/ui/Slider/utils';
 import clamp from 'ramda/src/clamp';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 
 // decrements the MediaKnob position if we're tracking
 const decrement = (state) => {
@@ -71,7 +71,7 @@ const handleKeyUp = handle(
  * @private
  */
 const MediaSliderDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'MediaSliderDecorator';
 
 		static propTypes = {

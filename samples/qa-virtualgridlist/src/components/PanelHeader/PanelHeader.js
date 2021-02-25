@@ -5,7 +5,6 @@ import {Header} from '@enact/sandstone/Panels';
 import {InputField as Input} from '@enact/sandstone/Input';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import React from 'react';
 import {connect} from 'react-redux';
 
 import LocaleSwitch from '../LocaleSwitch';

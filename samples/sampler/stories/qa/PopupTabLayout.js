@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
 
-import React from 'react';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';

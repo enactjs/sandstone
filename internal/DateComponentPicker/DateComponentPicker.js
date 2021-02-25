@@ -1,7 +1,7 @@
 import kind from '@enact/core/kind';
 import {mapAndFilterChildren} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
-import React from 'react';
+import {Children} from 'react';
 import PropTypes from 'prop-types';
 
 import Picker, {PickerItem} from '../Picker';
@@ -100,7 +100,7 @@ const DateComponentPickerBase = kind({
 		children: ({children}) => mapAndFilterChildren(children, (child) => (
 			<PickerItem marqueeDisabled>{child}</PickerItem>
 		)),
-		max: ({children}) => React.Children.count(children) - 1,
+		max: ({children}) => Children.count(children) - 1,
 		voiceLabel: ({children}) => {
 			return JSON.stringify(children);
 		}

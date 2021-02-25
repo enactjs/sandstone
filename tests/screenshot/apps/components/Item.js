@@ -1,6 +1,5 @@
 import Item from '../../../../Item';
 import Icon from '../../../../Icon';
-import React from 'react';
 
 import {withConfig, withProps, LoremString} from './utils';
 

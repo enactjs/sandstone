@@ -22,7 +22,6 @@ import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
 
 import Icon from '../Icon';
 import {ImageBase as Image} from '../Image';

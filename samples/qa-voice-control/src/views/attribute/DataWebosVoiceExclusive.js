@@ -8,7 +8,7 @@ import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
@@ -16,7 +16,7 @@ const ContextualPopupButton = ContextualPopupDecorator(Button);
 const ContainerDiv = SpotlightContainerDecorator({restrict: 'self-only'}, 'div');
 
 
-class DataWebosVoiceExclusive extends React.Component {
+class DataWebosVoiceExclusive extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

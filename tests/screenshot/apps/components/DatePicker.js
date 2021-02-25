@@ -1,6 +1,5 @@
 import DatePicker from '../../../../DatePicker';
 import {generateDate} from '@enact/ui-test-utils/utils';
-import React from 'react';
 
 
 const jan31 = generateDate('2019-01-31');

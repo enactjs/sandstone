@@ -1,5 +1,4 @@
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import BodyText from '@enact/sandstone/BodyText';

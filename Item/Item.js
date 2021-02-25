@@ -19,7 +19,6 @@ import {Cell, Layout, Row} from '@enact/ui/Layout';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';

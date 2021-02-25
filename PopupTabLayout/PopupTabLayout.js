@@ -12,7 +12,7 @@ import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useEffect} from 'react';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
@@ -385,7 +385,7 @@ const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
  * @ui
  */
 const TabPanel = ({spotlightId, ...rest}) => {
-	React.useEffect(() => {
+	useEffect(() => {
 		Spotlight.set(spotlightId, {partition: true});
 	}, [spotlightId]);
 

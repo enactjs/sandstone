@@ -1,5 +1,4 @@
 import Scroller from '../../../../Scroller';
-import React from 'react';
 
 const ScrollerTests = [
 	<Scroller />,

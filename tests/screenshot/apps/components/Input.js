@@ -1,5 +1,4 @@
 import Input from '../../../../Input';
-import React from 'react';
 
 import {withConfig, withProps} from './utils';
 

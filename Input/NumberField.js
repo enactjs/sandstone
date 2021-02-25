@@ -1,7 +1,7 @@
 import kind from '@enact/core/kind';
 import {handle, adaptEvent, forward, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Fragment} from 'react';
 import compose from 'ramda/src/compose';
 import Changeable from '@enact/ui/Changeable';
 import Repeater from '@enact/ui/Repeater';
@@ -213,7 +213,7 @@ const NumberFieldBase = kind({
 		}
 
 		return (
-			<React.Fragment>
+			<Fragment>
 				<div className={css.fieldWrapper}>
 					{field}
 					{invalidTooltip}
@@ -221,7 +221,7 @@ const NumberFieldBase = kind({
 				<br />
 				{showKeypad ? <Keypad aria-label=" " disabled={disabled} onAdd={onAdd} onRemove={onRemove} /> : null}
 				{submitButton}
-			</React.Fragment>
+			</Fragment>
 		);
 	}
 });

@@ -1,7 +1,7 @@
 import kind from '@enact/core/kind';
 import {mapAndFilterChildren} from '@enact/core/util';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {cloneElement} from 'react';
 
 import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
 
@@ -107,7 +107,7 @@ const FlexiblePopupPanelsBase = kind({
 				prevButtonVisibility
 			};
 
-			return React.cloneElement(child, props);
+			return cloneElement(child, props);
 		}),
 		onBack: ({onChange}) => onChange
 	},

@@ -1,6 +1,5 @@
 import {select, text} from '@enact/storybook-utils/addons/knobs';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Heading from '@enact/sandstone/Heading';
