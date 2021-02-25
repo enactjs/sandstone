@@ -10,6 +10,7 @@
  * @exports ItemDecorator
  */
 
+import classnames from 'classnames';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
@@ -26,60 +27,43 @@ import Skinnable from '../Skinnable';
 
 import componentCss from './Item.module.less';
 
-const ItemContent = kind({
-	name: 'ItemContent',
+// eslint-disable-next-line enact/prop-types
+let ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) => {
+	const LabelPositionClassname = {
+		[css.labelAbove]: labelPosition === 'above',
+		[css.labelAfter]: labelPosition === 'after',
+		[css.labelBefore]: labelPosition === 'before',
+		[css.labelBelow]: labelPosition === 'below'
+	};
 
-	propTypes: {
-		content: PropTypes.any,
-		css: PropTypes.object,
-		label: PropTypes.any,
-		labelPosition: PropTypes.any
-	},
+	const orientation = (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 
-	styles: {
-		css: componentCss,
-		className: 'itemContent',
-		publicClassNames: ['itemContent', 'label']
-	},
-
-	computed: {
-		className: ({labelPosition, styler}) => styler.append({
-			labelAbove: labelPosition === 'above',
-			labelAfter: labelPosition === 'after',
-			labelBefore: labelPosition === 'before',
-			labelBelow: labelPosition === 'below'
-		}),
-		orientation: ({labelPosition}) => {
-			return (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
-		}
-	},
-
-	// eslint-disable-next-line enact/prop-types
-	render: ({orientation, content, css, label, marqueeOn, styler, ...rest}) => {
-		delete rest.labelPosition;
-
-		if (!label) {
-			return (
-				<Cell {...rest} component={Marquee} className={styler.append(css.content)} marqueeOn={marqueeOn}>
+	return (!label ? (
+		<Cell {...rest} component={Marquee} className={classnames(css.itemContent, LabelPositionClassname, css.content)} marqueeOn={marqueeOn}>
+			{content}
+		</Cell>
+	) : (
+		<Cell className={classnames(css.itemContent, LabelPositionClassname)} {...rest}>
+			<Layout orientation={orientation}>
+				<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
 					{content}
 				</Cell>
-			);
-		} else {
-			return (
-				<Cell {...rest}>
-					<Layout orientation={orientation}>
-						<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
-							{content}
-						</Cell>
-						<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
-							{label}
-						</Cell>
-					</Layout>
+				<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
+					{label}
 				</Cell>
-			);
-		}
-	}
-});
+			</Layout>
+		</Cell>
+	));
+};
+
+ItemContent.displayName = 'ItemContent';
+ItemContent.propTypes = {
+	content: PropTypes.any,
+	css: PropTypes.object,
+	label: PropTypes.any,
+	labelPosition: PropTypes.any
+};
+
 
 /**
  * A Sandstone styled item without any behavior.
