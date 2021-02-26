@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Item` public class names `itemContent`, `content`, and `label`
 - `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
 
 ### Fixed
