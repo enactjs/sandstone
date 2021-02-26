@@ -28,7 +28,7 @@ import Skinnable from '../Skinnable';
 import componentCss from './Item.module.less';
 
 // eslint-disable-next-line enact/prop-types
-let ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) => {
+const ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) => {
 	const LabelPositionClassname = {
 		[css.labelAbove]: labelPosition === 'above',
 		[css.labelAfter]: labelPosition === 'after',
@@ -38,12 +38,14 @@ let ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) => 
 
 	const orientation = (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 
+	const itemContentClasses = classnames(css.itemContent, LabelPositionClassname);
+
 	return (!label ? (
-		<Cell {...rest} component={Marquee} className={classnames(css.itemContent, LabelPositionClassname, css.content)} marqueeOn={marqueeOn}>
+		<Cell {...rest} component={Marquee} className={classnames(itemContentClasses, css.content)} marqueeOn={marqueeOn}>
 			{content}
 		</Cell>
 	) : (
-		<Cell className={classnames(css.itemContent, LabelPositionClassname)} {...rest}>
+		<Cell className={itemContentClasses} {...rest}>
 			<Layout orientation={orientation}>
 				<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
 					{content}
