@@ -227,8 +227,8 @@ const ItemBase = kind({
 					</Cell>
 				) : null}
 				<ItemContent
-					css={css}
 					content={children}
+					css={css}
 					label={label}
 					labelPosition={labelPosition}
 					marqueeOn={marqueeOn}
