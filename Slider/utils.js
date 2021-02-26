@@ -18,11 +18,11 @@ const calcStep = (knobStep, step) => {
 };
 
 const isIncrementWheelEvent = ({deltaY}) => {
-	return deltaY > 0;
+	return deltaY < 0;
 };
 
 const isDecrementWheelEvent = ({deltaY}) => {
-	return deltaY < 0;
+	return deltaY > 0;
 };
 
 const isIncrement = ({keyCode}, {orientation}) => {
