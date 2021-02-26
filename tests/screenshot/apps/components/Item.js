@@ -115,7 +115,7 @@ const ItemTests = [
 
 	// Customized Item Style
 	...withProps({css: css}, [
-		<Item label="label">Customized Item Style</Item>,
+		<Item label="label">Customized Item</Item>,
 		<Item label="label" slotBefore={<Icon>star</Icon>}>Customized Item</Item>,
 		<Item label="label" slotAfter={<Icon>star</Icon>}>Customized Item</Item>,
 		<Item label="label" slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Item</Item>,

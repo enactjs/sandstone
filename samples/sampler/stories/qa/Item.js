@@ -220,19 +220,15 @@ storiesOf('Item', module)
 	).add(
 		'with custom style',
 		() => (
-			<Scroller>
-				<div>
-					<Item
-						css={css}
-						disabled={boolean('disabled', Item)}
-						inline={boolean('inline', Item)}
-						label={text('label', Item, inputData.shortLabel)}
-						slotBefore={KsIcon}
-						slotAfter={KsIcon}
-					>
-						{text('children', Item, inputData.shortChildren)}
-					</Item>
-				</div>
-			</Scroller>
+			<Item
+				css={css}
+				disabled={boolean('disabled', Item)}
+				inline={boolean('inline', Item)}
+				label={text('label', Item, inputData.shortLabel)}
+				slotBefore={KsIcon}
+				slotAfter={KsIcon}
+			>
+				{text('children', Item, inputData.shortChildren)}
+			</Item>
 		)
 	);
