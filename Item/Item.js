@@ -45,7 +45,7 @@ const ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) =
 			{content}
 		</Cell>
 	) : (
-		<Cell className={itemContentClasses} {...rest}>
+		<Cell {...rest} className={itemContentClasses}>
 			<Layout orientation={orientation}>
 				<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
 					{content}
