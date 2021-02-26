@@ -37,7 +37,9 @@ import {validateSteppedOnce} from '../internal/validators';
 import SliderBehaviorDecorator from './SliderBehaviorDecorator';
 import {
 	handleDecrement,
-	handleIncrement
+	handleIncrement,
+	handleDecrementByWheel,
+	handleIncrementByWheel
 } from './utils';
 
 import componentCss from './Slider.module.less';
@@ -273,6 +275,14 @@ const SliderBase = kind({
 			forProp('activateOnSelect', true),
 			forKey('enter'),
 			forward('onActivate')
+		),
+		onWheel: handle(
+			forProp('disabled', false),
+			forwardWithPrevent('onWheel'),
+			anyPass([
+				handleIncrementByWheel,
+				handleDecrementByWheel
+			])
 		)
 	},
 
