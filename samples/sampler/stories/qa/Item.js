@@ -222,8 +222,6 @@ storiesOf('Item', module)
 		() => (
 			<Item
 				css={css}
-				disabled={boolean('disabled', Item)}
-				inline={boolean('inline', Item)}
 				label={text('label', Item, inputData.shortLabel)}
 				slotBefore={KsIcon}
 				slotAfter={KsIcon}
