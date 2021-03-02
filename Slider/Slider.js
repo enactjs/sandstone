@@ -37,7 +37,8 @@ import {validateSteppedOnce} from '../internal/validators';
 import SliderBehaviorDecorator from './SliderBehaviorDecorator';
 import {
 	handleDecrement,
-	handleIncrement
+	handleIncrement,
+	setKeyFrequency
 } from './utils';
 
 import componentCss from './Slider.module.less';
@@ -102,6 +103,12 @@ const SliderBase = kind({
 		 * @public
 		 */
 		focused: PropTypes.bool,
+
+		/**
+		 * @type {Number}
+		 * @public
+		 */
+		keyFrequency: PropTypes.number,
 
 		/**
 		 * The amount to increment or decrement the position of the knob via 5-way controls.
@@ -242,6 +249,7 @@ const SliderBase = kind({
 		activateOnSelect: false,
 		active: false,
 		disabled: false,
+		keyFrequency: 1,
 		max: 100,
 		min: 0,
 		step: 1
@@ -294,7 +302,8 @@ const SliderBase = kind({
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
-	render: ({css, disabled, focused, tooltip, ...rest}) => {
+	render: ({css, disabled, focused, keyFrequency, tooltip, ...rest}) => {
+		setKeyFrequency(keyFrequency); // FIXME
 		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;

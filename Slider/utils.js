@@ -1,7 +1,28 @@
 import {adaptEvent, forKey, forProp, forward, handle, oneOf, preventDefault, stop} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {clamp} from '@enact/core/util';
+import Accelerator from '@enact/spotlight/Accelerator';
 import {calcProportion} from '@enact/ui/Slider/utils';
+
+
+let SpotlightAccelerator = new Accelerator();
+const nop = () => {};
+
+const handleAcceleratedKeyDown = (ev) => {
+	if (!ev.repeat) {
+		SpotlightAccelerator.reset();
+	}
+
+	if (SpotlightAccelerator.processKey(ev, nop)) {
+		return false;
+	}
+
+	return true;
+};
+
+const setKeyFrequency = (keyFrequency) => {
+	SpotlightAccelerator.frequency = Array(10).fill(keyFrequency);
+};
 
 const calcStep = (knobStep, step) => {
 	let s;
@@ -55,6 +76,7 @@ const handleIncrement = handle(
 	isIncrement,
 	preventDefault,
 	stop,
+	handleAcceleratedKeyDown,
 	isNotMax,
 	emitChange(1)
 );
@@ -64,6 +86,7 @@ const handleDecrement = handle(
 	isDecrement,
 	preventDefault,
 	stop,
+	handleAcceleratedKeyDown,
 	isNotMin,
 	emitChange(-1)
 );
@@ -96,5 +119,6 @@ export {
 	forwardSpotlightEvents,
 	emitChange,
 	handleDecrement,
-	handleIncrement
+	handleIncrement,
+	setKeyFrequency
 };

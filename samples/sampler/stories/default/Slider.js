@@ -28,6 +28,7 @@ storiesOf('Sandstone', module)
 					activateOnSelect={boolean('activateOnSelect', SliderConfig) || false}
 					backgroundProgress={number('backgroundProgress', SliderConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.5)}
 					disabled={disabled}
+					keyFrequency={number('keyFrequency', SliderConfig, 1)}
 					knobStep={number('knobStep', SliderConfig)}
 					max={number('max', SliderConfig, 10)}
 					min={number('min', SliderConfig, 0)}
