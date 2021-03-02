@@ -5,7 +5,6 @@ import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
 import CheckboxItem, {CheckboxItemBase} from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
-import React from 'react';
 
 import iconNames from '../helper/icons';
 
@@ -22,8 +21,8 @@ const Config = mergeComponentMetadata(
 Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 export default {
-    title: 'Sandstone/CheckboxItem',
-    component: 'CheckboxItem'
+	title: 'Sandstone/CheckboxItem',
+	component: 'CheckboxItem'
 };
 
 export const _CheckboxItem = () => {
@@ -52,7 +51,7 @@ export const _CheckboxItem = () => {
 
 _CheckboxItem.storyName = 'CheckboxItem';
 _CheckboxItem.parameters = {
-    info: {
-        text: 'Basic usage of CheckboxItem'
-    }
+	info: {
+		text: 'Basic usage of CheckboxItem'
+	}
 };

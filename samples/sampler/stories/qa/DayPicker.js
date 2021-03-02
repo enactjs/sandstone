@@ -2,11 +2,11 @@ import DayPicker, {getSelectedDayString} from '@enact/sandstone/DayPicker';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
-import React from 'react';
+import {Component} from 'react';
 
 DayPicker.displayName = 'DayPicker';
 
-class DayPickerWithItem extends React.Component {
+class DayPickerWithItem extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

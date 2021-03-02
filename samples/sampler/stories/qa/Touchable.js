@@ -5,7 +5,7 @@ import Button from '@enact/sandstone/Button';
 import ri from '@enact/ui/resolution';
 import Touchable from '@enact/ui/Touchable';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Fragment} from 'react';
 
 const TouchableDiv = Touchable('div');
 
@@ -39,7 +39,7 @@ const TouchArea = kind({
 	},
 
 	render: ({children, moveTolerance, onInteractionStart, ...rest}) => (
-		<React.Fragment>
+		<Fragment>
 			<TouchableDiv
 				{...rest}
 				onHoldEnd={onHoldEnd}
@@ -64,7 +64,7 @@ const TouchArea = kind({
 				touchAction: 'none',
 			}}
 			/>
-		</React.Fragment>
+		</Fragment>
 	),
 });
 

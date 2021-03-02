@@ -4,7 +4,6 @@ import {number, select, text} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
 import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 
 const ContextualButton = ContextualMenuDecorator(Button);
 
@@ -24,8 +23,8 @@ Config.defaultProps = {
 };
 
 export default {
-    title: 'Sandstone/ContextualMenuDecorator',
-    component: 'ContextualMenuDecorator'
+	title: 'Sandstone/ContextualMenuDecorator',
+	component: 'ContextualMenuDecorator'
 };
 
 export const _ContextualMenuDecorator = () => {
@@ -69,7 +68,7 @@ export const _ContextualMenuDecorator = () => {
 
 _ContextualMenuDecorator.storyName = 'ContextualMenuDecorator';
 _ContextualMenuDecorator.parameters = {
-    info: {
-        text: 'Basic usage of ContextualMenuDecorator'
-    }
+	info: {
+		text: 'Basic usage of ContextualMenuDecorator'
+	}
 };

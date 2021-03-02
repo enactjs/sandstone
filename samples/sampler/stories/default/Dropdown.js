@@ -4,7 +4,6 @@ import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
-import React from 'react';
 
 Dropdown.displayName = 'Dropdown';
 const Config = mergeComponentMetadata(
@@ -18,8 +17,8 @@ const Config = mergeComponentMetadata(
 );
 
 export default {
-    title: 'Sandstone/Dropdown',
-    component: 'Dropdown'
+	title: 'Sandstone/Dropdown',
+	component: 'Dropdown'
 };
 
 export const _Dropdown = () => {
@@ -45,7 +44,7 @@ export const _Dropdown = () => {
 
 _Dropdown.storyName = 'Dropdown';
 _Dropdown.parameters = {
-    info: {
-        text: 'A quick, inline, value-selection component'
-    }
+	info: {
+		text: 'A quick, inline, value-selection component'
+	}
 };

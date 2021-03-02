@@ -1,7 +1,7 @@
 import Spotlight from '@enact/spotlight';
 import {useId} from '@enact/ui/internal/IdProvider';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useLayoutEffect, useEffect, useCallback} from 'react';
 
 import css from './TabGroup.module.less';
 
@@ -30,7 +30,7 @@ const RefocusDecorator = Wrapped => {
 		// config before the new one is mounted
 		spotlightId = spotlightId || generateId(orientation || 'vertical');
 
-		React.useLayoutEffect(() => {
+		useLayoutEffect(() => {
 			if (!Spotlight.getPointerMode() && !Spotlight.isPaused()) {
 				const current = Spotlight.getCurrent(),
 					tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed),
@@ -42,13 +42,13 @@ const RefocusDecorator = Wrapped => {
 			}
 		}, [index]);	// eslint-disable-line react-hooks/exhaustive-deps
 
-		React.useEffect(() => {
+		useEffect(() => {
 			Spotlight.set(spotlightId, {
 				navigableFilter: collapsed && orientation === 'vertical' ? getNavigableFilter(spotlightId, collapsed) : null
 			});
 		}, [collapsed, orientation, spotlightId]);	// eslint-disable-line react-hooks/exhaustive-deps
 
-		const handleTabAnimationEnd = React.useCallback((ev) => {
+		const handleTabAnimationEnd = useCallback((ev) => {
 			if (onTabAnimationEnd) {
 				onTabAnimationEnd(ev);
 			}

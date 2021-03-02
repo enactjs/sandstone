@@ -1,4 +1,3 @@
-import React from 'react';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
@@ -14,6 +13,7 @@ import {TabLayout} from '@enact/sandstone/TabLayout';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {scale} from '@enact/ui/resolution';
+import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
 const Config = mergeComponentMetadata('Panels', Panels);
@@ -43,7 +43,7 @@ export default {
 export const _Panels = () => {
 	// hooks
 	const initialState = 0;
-	const [panelIndex, setState] = React.useState(initialState);
+	const [panelIndex, setState] = useState(initialState);
 	const forward = () => setState(panelIndex + 1);
 	const backward = () => setState(panelIndex - 1);
 

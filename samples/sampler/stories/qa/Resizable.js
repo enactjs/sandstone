@@ -3,14 +3,14 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Resizable from '@enact/ui/Resizable';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component, Fragment} from 'react';
 
 const data = ['a', 'ABCDEFGHIJKLMNOPQRSTUVW12345', 'c'];
 
 const ResizeButton = Resizable({resize: 'onClick'}, Button);
 
-class NoUpdate extends React.Component {
-	shouldComponentUpdate() {
+class NoUpdate extends Component {
+	shouldComponentUpdate () {
 		return false;
 	}
 
@@ -19,8 +19,8 @@ class NoUpdate extends React.Component {
 	}
 }
 
-class Items extends React.Component {
-	constructor(props) {
+class Items extends Component {
+	constructor (props) {
 		super(props);
 
 		this.state = {
@@ -39,14 +39,15 @@ class Items extends React.Component {
 		const amount = more ? 'Fewer' : 'More';
 
 		return (
-			<React.Fragment>
-			<ResizeButton onClick={this.toggleRenderItems}>Render {amount} Items</ResizeButton>
-			{more
-				? data.map((item) => {
-					return <Item key={item}>{item}</Item>;
-				})
-				: null}
-			</React.Fragment>
+			<Fragment>
+				<ResizeButton onClick={this.toggleRenderItems}>Render {amount} Items</ResizeButton>
+				{more ?
+					data.map((item) => {
+						return <Item key={item}>{item}</Item>;
+					}) :
+					null
+				}
+			</Fragment>
 		);
 	}
 }

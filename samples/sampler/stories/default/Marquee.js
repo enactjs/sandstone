@@ -1,6 +1,5 @@
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import Marquee from '@enact/sandstone/Marquee';
-import React from 'react';
 
 Marquee.displayName = 'Marquee';
 

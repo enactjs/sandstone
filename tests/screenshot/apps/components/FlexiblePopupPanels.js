@@ -1,4 +1,3 @@
-import React from 'react';
 import {scaleToRem} from '@enact/ui/resolution';
 
 import Item from '../../../../Item';

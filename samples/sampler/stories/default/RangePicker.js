@@ -2,7 +2,6 @@ import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import RangePicker, {RangePickerBase} from '@enact/sandstone/RangePicker';
-import React from 'react';
 
 import {decrementIcons, incrementIcons} from '../helper/icons';
 

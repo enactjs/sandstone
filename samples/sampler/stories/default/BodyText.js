@@ -2,7 +2,6 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, text, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText, {BodyTextBase} from '@enact/sandstone/BodyText';
 import UiBodyText, {BodyTextBase as UiBodyTextBase} from '@enact/ui/BodyText';
-import React from 'react';
 
 BodyText.displayName = 'BodyText';
 const Config = mergeComponentMetadata(
@@ -14,8 +13,8 @@ const Config = mergeComponentMetadata(
 );
 
 export default {
-    title: 'Sandstone/BodyText',
-    component: 'BodyText'
+	title: 'Sandstone/BodyText',
+	component: 'BodyText'
 };
 
 export const _BodyText = () => (
@@ -30,7 +29,7 @@ export const _BodyText = () => (
 
 _BodyText.storyName = 'BodyText';
 _BodyText.parameters = {
-    info: {
-        text: 'The basic BodyText'
-    }
+	info: {
+		text: 'The basic BodyText'
+	}
 };

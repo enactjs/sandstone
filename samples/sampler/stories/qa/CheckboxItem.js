@@ -4,7 +4,6 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import Group from '@enact/ui/Group';
-import React from 'react';
 
 Group.displayName = 'Group';
 const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItem);

@@ -4,7 +4,6 @@ import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import ProgressButton, {ProgressButtonBase} from '@enact/sandstone/ProgressButton';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
-import React from 'react';
 
 import iconNames from '../helper/icons';
 

@@ -5,7 +5,7 @@ import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
-import React from 'react';
+import {Component} from 'react';
 
 const Config = mergeComponentMetadata(
 	'Dropdown',
@@ -28,7 +28,7 @@ const list = [
 	{children: 'hello 3', key: 'key3', 'aria-label': 'aria 3'},
 ];
 
-class AutoDismissDropdown extends React.Component {
+class AutoDismissDropdown extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -55,8 +55,8 @@ class AutoDismissDropdown extends React.Component {
 	}
 }
 
-class DisabledDropdown extends React.Component {
-	constructor(props) {
+class DisabledDropdown extends Component {
+	constructor (props) {
 		super(props);
 		this.state = {
 			isDisabled: true,
@@ -79,7 +79,7 @@ class DisabledDropdown extends React.Component {
 	}
 }
 
-class PositionChangingDropdown extends React.Component {
+class PositionChangingDropdown extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

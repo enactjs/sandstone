@@ -4,7 +4,6 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
-import React from 'react';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 Config.defaultProps.position = 'right';
@@ -13,8 +12,8 @@ Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
 export default {
-    title: 'Sandstone/FixedPopupPanels',
-    component: 'FixedPopupPanels'
+	title: 'Sandstone/FixedPopupPanels',
+	component: 'FixedPopupPanels'
 };
 
 export const _FixedPopupPanels = () => (
@@ -61,7 +60,7 @@ export const _FixedPopupPanels = () => (
 
 _FixedPopupPanels.storyName = 'FixedPopupPanels';
 _FixedPopupPanels.parameters = {
-    info: {
-        text: 'Basic usage of FixedPopupPanels'
-    }
+	info: {
+		text: 'Basic usage of FixedPopupPanels'
+	}
 };

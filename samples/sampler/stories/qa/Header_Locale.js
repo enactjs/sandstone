@@ -1,7 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {text} from '@enact/storybook-utils/addons/knobs';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
-import React from 'react';
+import {Fragment} from 'react';
 
 import {inputData, headerStoryConfig, commonProps} from './common/Header_Common';
 
@@ -15,13 +15,13 @@ export default {
 
 export const RtlText = () => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Header
 				title={text('title', Config, inputData.shortRtlTitle)}
 				subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 			{...commonProps()}
 			/>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 
@@ -30,13 +30,13 @@ RtlText.parameters = headerStoryConfig;
 
 export const RtlTextLongTitle = () => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Header
 				title={text('title', Config, inputData. longRtlTitle)}
 				subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 			{...commonProps()}
 			/>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 
@@ -45,13 +45,13 @@ RtlTextLongTitle.parameters = headerStoryConfig;
 
 export const TallGlyphs = () => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Header
 				title={text('title', Config, inputData.tallText)}
 				subtitle={text('subtitle', Config, inputData.tallText)}
 			{...commonProps()}
 			/>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 

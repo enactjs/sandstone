@@ -8,7 +8,6 @@ import ComponentOverride from '@enact/ui/ComponentOverride';
 import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
-import React from 'react';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';

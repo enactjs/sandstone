@@ -5,7 +5,6 @@ import {ImageItem} from '@enact/sandstone/ImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
-import React from 'react';
 
 import css from './VirtualGridList.module.less';
 

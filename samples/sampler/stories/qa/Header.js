@@ -1,7 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {text} from '@enact/storybook-utils/addons/knobs';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
-import React from 'react';
+import {Fragment} from 'react';
 
 import {inputData, headerStoryConfig, commonProps} from './common/Header_Common';
 
@@ -19,12 +19,12 @@ export default {
 // (not all) of the knobs fail to apply.
 export const JustTitle = () => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Header
 				title={text('title', Config, inputData.shortTitle)}
 			{...commonProps()}
 			/>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 
@@ -33,13 +33,13 @@ JustTitle.parameters = headerStoryConfig;
 
 export const ShortTitles = () => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Header
 				title={text('title', Config, inputData.shortTitle)}
 				subtitle={text('subtitle', Config, inputData.shortSubtitle)}
 			{...commonProps()}
 			/>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 
@@ -48,13 +48,13 @@ ShortTitles.parameters = headerStoryConfig;
 
 export const LongTitles = () => {
 	return (
-		<React.Fragment>
+		<Fragment>
 			<Header
 				title={text('title', Config, inputData.longTitle)}
 				subtitle={text('subtitle', Config, inputData.longSubtitle)}
 			{...commonProps()}
 			/>
-		</React.Fragment>
+		</Fragment>
 	);
 };
 

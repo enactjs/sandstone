@@ -4,7 +4,6 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import React from 'react';
 
 import iconNames from '../helper/icons';
 

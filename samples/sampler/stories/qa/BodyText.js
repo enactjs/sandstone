@@ -1,6 +1,5 @@
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
-import React from 'react';
 
 BodyText.displayName = 'BodyText';
 

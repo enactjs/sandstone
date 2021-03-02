@@ -6,7 +6,7 @@ import Picker from '@enact/sandstone/Picker';
 import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import Scroller from '@enact/sandstone/Scroller';
 import {Row} from '@enact/ui/Layout';
-import React from 'react';
+import {Component} from 'react';
 
 import iconNames from '../helper/icons';
 
@@ -54,8 +54,8 @@ const pickerList = {
 	],
 };
 
-class PickerInPopupTabLayout extends React.Component {
-	render() {
+class PickerInPopupTabLayout extends Component {
+	render () {
 		return (
 			<>
 			<PopupTabLayout open index={0}>
@@ -88,7 +88,7 @@ class PickerInPopupTabLayout extends React.Component {
 			</PopupTabLayout>
 			</>
 		);
-   }
+	}
 }
 
 export default {

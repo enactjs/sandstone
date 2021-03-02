@@ -1,11 +1,11 @@
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
 import {button} from '@storybook/addon-knobs';
-import React from 'react';
+import {Component} from 'react';
 
 const videoTabLabel = 'VideoPlayer';
 
-class VideoSourceSwap extends React.Component {
-	constructor(props) {
+class VideoSourceSwap extends Component {
+	constructor (props) {
 		super(props);
 
 		this.state = {

@@ -5,7 +5,7 @@ import Item from '@enact/sandstone/Item';
 import {VirtualList} from '@enact/sandstone/VirtualList';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {useState} from 'react';
 
 const items = [];
 // eslint-disable-next-line enact/prop-types, enact/display-name
@@ -20,7 +20,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 const VirtualListView = () => {
-	const [native, setNative] = React.useState(true);
+	const [native, setNative] = useState(true);
 	const scrollMode = native ? 'native' : 'translate';
 
 	const handleToggleScrollMode = () => setNative(!native);

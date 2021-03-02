@@ -6,7 +6,6 @@ import Heading from '@enact/sandstone/Heading';
 import {Row} from '@enact/ui/Layout';
 import Scroller from '@enact/sandstone/Scroller';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
-import React from 'react';
 
 import iconNames from '../helper/icons';
 

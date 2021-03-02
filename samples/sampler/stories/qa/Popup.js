@@ -5,7 +5,6 @@ import Alert from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 import Popup from '@enact/sandstone/Popup';
 import Toggleable from '@enact/ui/Toggleable';
-import React from 'react';
 
 Popup.displayName = 'Popup';
 

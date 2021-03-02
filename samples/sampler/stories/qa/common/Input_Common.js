@@ -1,6 +1,6 @@
 import Button from '@enact/sandstone/Button';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Fragment} from 'react';
 
 import icons from '../../helper/icons';
 
@@ -12,10 +12,12 @@ export const divMargin = {margin: ri.scaleToRem(24)};
 export const buttons = {
 	'no buttons': null,
 	'one button': (<Button>Single Button</Button>),
-	'two buttons': (<React.Fragment>
-		<Button>Button One of Two</Button>
-		<Button>Button Two of Two</Button>
-	</React.Fragment>)
+	'two buttons': (
+		<Fragment>
+			<Button>Button One of Two</Button>
+			<Button>Button Two of Two</Button>
+		</Fragment>
+	)
 };
 
 export const props = {

@@ -3,7 +3,6 @@ import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 
 import css from './Heading.module.less';
 

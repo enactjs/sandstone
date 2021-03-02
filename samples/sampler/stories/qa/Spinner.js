@@ -4,7 +4,7 @@ import Button from '@enact/sandstone/Button';
 import Input from '@enact/sandstone/Input';
 import Spinner from '@enact/sandstone/Spinner';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 Spinner.displayName = 'Spinner';
 
@@ -13,8 +13,8 @@ const prop = {
 	longText: 'SpinnerWithLongText SpinnerWithLongText SpinnerWithLongText',
 };
 
-class FocusOnSpinner extends React.Component {
-	constructor(props) {
+class FocusOnSpinner extends Component {
+	constructor (props) {
 		super(props);
 
 		this.state = {

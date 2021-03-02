@@ -1,7 +1,7 @@
 import Button from '../../../../Button';
 import ContextualMenuDecorator from '../../../../ContextualMenuDecorator';
 import ThemeDecorator from '../../../../ThemeDecorator';
-import React, {Component} from 'react';
+import {Component} from 'react';
 import spotlight from '@enact/spotlight';
 
 const ContextualButton = ContextualMenuDecorator(Button);

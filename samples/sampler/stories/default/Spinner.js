@@ -4,7 +4,6 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
 import ri from '@enact/ui/resolution';
 import UiSpinner, {SpinnerBase as UiSpinnerBase} from '@enact/ui/Spinner';
-import React from 'react';
 
 Spinner.displayName = 'Spinner';
 const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);

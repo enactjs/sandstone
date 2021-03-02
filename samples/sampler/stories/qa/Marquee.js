@@ -9,7 +9,7 @@ import Item from '@enact/sandstone/Item';
 import Marquee, {MarqueeController} from '@enact/sandstone/Marquee';
 import Skinnable from '@enact/sandstone/Skinnable';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 import css from './Marquee.module.less';
 
@@ -86,8 +86,8 @@ const CustomItem = Spottable(
 
 const MarqueeItem = Spottable(Skinnable(MarqueeController({marqueeOnFocus: true}, 'div')));
 
-class MarqueeWithShortContent extends React.Component {
-	constructor(props) {
+class MarqueeWithShortContent extends Component {
+	constructor (props) {
 		super(props);
 
 		this.state = {
@@ -131,8 +131,8 @@ class MarqueeWithShortContent extends React.Component {
 	}
 }
 
-class MarqueeWithContentChanged extends React.Component {
-	constructor(props) {
+class MarqueeWithContentChanged extends Component {
+	constructor (props) {
 		super(props);
 		this.state = {
 			count: 0,

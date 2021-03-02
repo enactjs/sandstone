@@ -9,7 +9,7 @@ import {setDefaultTargetById} from '@enact/core/dispatcher';
 import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
-import React from 'react';
+import {Component} from 'react';
 import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
@@ -238,7 +238,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	// set the DOM node ID of the React DOM tree root
 	setDefaultTargetById(rootId);
 
-	const Decorator = class extends React.Component {
+	const Decorator = class extends Component {
 		static displayName = 'ThemeDecorator';
 
 		render () {

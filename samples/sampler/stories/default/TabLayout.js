@@ -9,7 +9,6 @@ import {Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 import {scaleToRem} from '@enact/ui/resolution';
-import React from 'react';
 
 import spriteGear2k from '../../images/sprite-gear-2k.png';
 import spriteGear4k from '../../images/sprite-gear-4k.png';

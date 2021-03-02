@@ -1,7 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Picker from '@enact/sandstone/Picker';
-import React from 'react';
 
 import {decrementIcons, incrementIcons} from '../helper/icons';
 

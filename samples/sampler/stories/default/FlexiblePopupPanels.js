@@ -4,17 +4,12 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
-import {
-	FlexiblePopupPanels,
-	Panel,
-	PanelBase,
-	Header,
-} from '@enact/sandstone/FlexiblePopupPanels';
+import {FlexiblePopupPanels, Panel, PanelBase, Header} from '@enact/sandstone/FlexiblePopupPanels';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
 const props = {
@@ -26,18 +21,18 @@ const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels
 const PanelConfig = mergeComponentMetadata('Panel', PanelBase, Panel);
 
 export default {
-    title: 'Sandstone/FlexiblePopupPanels',
-    component: 'FlexiblePopupPanels'
+	title: 'Sandstone/FlexiblePopupPanels',
+	component: 'FlexiblePopupPanels'
 };
 
 export const _FlexiblePopupPanels = () => {
 	const defaultOpen = false;
-	const [open, setOpenState] = React.useState(defaultOpen);
+	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
 	const handleClose = compose(toggleOpen, action('onClose'));
 
 	const defaultIndex = 0;
-	const [index, setPanelIndexState] = React.useState(defaultIndex);
+	const [index, setPanelIndexState] = useState(defaultIndex);
 
 	const nextPanel = () => setPanelIndexState(Math.min(index + 1, 1));
 	const handleNavigation = (type) => (ev) => {
@@ -123,8 +118,8 @@ export const _FlexiblePopupPanels = () => {
 
 _FlexiblePopupPanels.storyName = 'FlexiblePopupPanels';
 _FlexiblePopupPanels.parameters = {
-    info: {
-        text:
-            'Intended for use with a single "control" at a time, to maximize the amount of background visible.'
-    }
+	info: {
+		text:
+			'Intended for use with a single "control" at a time, to maximize the amount of background visible.'
+	}
 };

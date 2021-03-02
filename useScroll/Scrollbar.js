@@ -1,6 +1,6 @@
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
-import React, {memo, useCallback} from 'react';
+import {memo, useCallback} from 'react';
 
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';

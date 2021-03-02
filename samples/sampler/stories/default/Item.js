@@ -3,7 +3,6 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import Icon from '@enact/sandstone/Icon';
 import UiItem, {ItemBase as UiItemBase} from '@enact/ui/Item';
-import React from 'react';
 
 const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item);
 Item.displayName = 'Item';

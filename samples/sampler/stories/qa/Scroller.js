@@ -10,7 +10,7 @@ import Group from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
@@ -30,7 +30,7 @@ const prop = {
 	scrollModeOption: ['native', 'translate'],
 };
 
-class ScrollerResizableItem extends React.Component {
+class ScrollerResizableItem extends Component {
 	static propTypes = {
 		max: PropTypes.number,
 		min: PropTypes.number,
@@ -57,8 +57,8 @@ class ScrollerResizableItem extends React.Component {
 	}
 }
 
-class ScrollerWithLongItem extends React.Component {
-	constructor(props) {
+class ScrollerWithLongItem extends Component {
+	constructor (props) {
 		super(props);
 		this.state = {
 			more: false,
@@ -93,8 +93,8 @@ class ScrollerWithLongItem extends React.Component {
 	}
 }
 
-class ScrollerWithResizable extends React.Component {
-	constructor(props) {
+class ScrollerWithResizable extends Component {
+	constructor (props) {
 		super(props);
 		this.state = {
 			more: false,
@@ -125,8 +125,8 @@ class ScrollerWithResizable extends React.Component {
 
 const Container = SpotlightContainerDecorator('div');
 
-class ScrollerWithLargeContainer extends React.Component {
-	componentDidMount() {
+class ScrollerWithLargeContainer extends Component {
+	componentDidMount () {
 		setTimeout(() => {
 			Spotlight.focus('scroller');
 		}, 50);

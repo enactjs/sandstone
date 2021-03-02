@@ -7,7 +7,7 @@ import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
-import React from 'react';
+import {Component, useState} from 'react';
 
 import icons from '../helper/icons';
 
@@ -20,8 +20,8 @@ const tabsWithIcons = [
 	{title: 'Item', icon: 'trash'},
 ];
 
-class AddingTabSample extends React.Component {
-	constructor(props) {
+class AddingTabSample extends Component {
+	constructor (props) {
 		super(props);
 
 		this.state = {
@@ -423,7 +423,7 @@ WithAddingRemovingATab.parameters = {
 };
 
 export const WithControlledIndex = () => {
-	const [selected, setSelected] = React.useState(1);
+	const [selected, setSelected] = useState(1);
 
 	return (
 		<Panel>

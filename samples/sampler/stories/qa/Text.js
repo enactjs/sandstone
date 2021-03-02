@@ -14,7 +14,6 @@ import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import {Row} from '@enact/ui/Layout';
 import Repeater from '@enact/ui/Repeater';
-import React from 'react';
 
 import Section from './components/KitchenSinkSection';
 

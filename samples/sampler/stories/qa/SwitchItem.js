@@ -3,7 +3,6 @@ import {boolean, text} from '@enact/storybook-utils/addons/knobs';
 import Heading from '@enact/sandstone/Heading';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import Group from '@enact/ui/Group';
-import React from 'react';
 
 SwitchItem.displayName = 'SwitchItem';
 

@@ -3,7 +3,6 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Popup from '@enact/sandstone/Popup';
-import React from 'react';
 
 const Config = mergeComponentMetadata('Popup', Popup);
 

@@ -2,7 +2,6 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
 import TooltipDecorator, { Tooltip, TooltipBase } from '@enact/sandstone/TooltipDecorator';
-import React from 'react';
 
 import iconNames from '../helper/icons';
 

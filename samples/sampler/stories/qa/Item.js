@@ -7,7 +7,6 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {Row} from '@enact/ui/Layout';
 import {scale} from '@enact/ui/resolution';
-import React from 'react';
 
 import icons from '../helper/icons';
 

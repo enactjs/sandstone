@@ -1,5 +1,4 @@
 import Picker from '../../../../Picker';
-import React from 'react';
 
 const pickerList = {
 	tall: [

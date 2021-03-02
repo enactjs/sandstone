@@ -5,7 +5,6 @@ import BodyText from '@enact/sandstone/BodyText';
 import Heading from '@enact/sandstone/Heading';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
-import React from 'react';
 
 const MainPanel = kind({
 	name: 'MainPanel',

@@ -1,6 +1,5 @@
 import RangePicker from '@enact/sandstone/RangePicker';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import React from 'react';
 
 import Section from '../components/Section';
 

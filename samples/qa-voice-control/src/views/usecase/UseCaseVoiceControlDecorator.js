@@ -1,6 +1,6 @@
 import Item from '@enact/sandstone/Item';
 import {VoiceControlDecorator} from '@enact/webos/speech';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
@@ -8,7 +8,7 @@ const VoiceDiv = VoiceControlDecorator('div');
 const VoiceItem = VoiceControlDecorator(Item);
 
 
-class UseCaseVoiceControlDecorator extends React.Component {
+class UseCaseVoiceControlDecorator extends Component {
 	handlePlayListControl = (e) => {
 		const {intent, control} = e.detail;
 		console.log('handlePlayControl > ', intent, control);	// eslint-disable-line no-console

@@ -1,5 +1,4 @@
 import Button from '@enact/sandstone/Button';
-import React from 'react';
 
 import Section from '../components/Section';
 

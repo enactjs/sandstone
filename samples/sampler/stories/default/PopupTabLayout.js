@@ -11,7 +11,7 @@ import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase} from '@enact/sandstone/TabLayout';
 import Group from '@enact/ui/Group';
-import React from 'react';
+import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
 import spriteGear2k from '../../images/sprite-gear-2k.png';
@@ -39,14 +39,14 @@ export default {
 export const _PopupTabLayout = () => {
 	const includeIcons = boolean('include icons', Config, true);
 
-	const [open, setOpenState] = React.useState(false);
+	const [open, setOpenState] = useState(false);
 	const toggleOpen = () => setOpenState(!open);
 	const handleClose = compose(toggleOpen, action('onClose'));
 
-	const [indexDisplay, setIndexDisplay] = React.useState(0);
-	const [indexGeneral, setIndexGeneral] = React.useState(0);
-	const [indexNetwork, setIndexNetwork] = React.useState(0);
-	const [indexSound, setIndexSound] = React.useState(0);
+	const [indexDisplay, setIndexDisplay] = useState(0);
+	const [indexGeneral, setIndexGeneral] = useState(0);
+	const [indexNetwork, setIndexNetwork] = useState(0);
+	const [indexSound, setIndexSound] = useState(0);
 
 	const handleDisplayNext = navNext(setIndexDisplay, indexDisplay, 'onNext');
 	const handleDisplayPrev = navPrev(setIndexDisplay, indexDisplay, 'onBack');

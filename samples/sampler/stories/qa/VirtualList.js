@@ -12,7 +12,7 @@ import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import {Component, useState} from 'react';
 
 import css from './VirtualList.module.less';
 
@@ -76,7 +76,7 @@ const updateItemSize = ({minSize, dataSize, size}) => ({
 	size: new Array(dataSize).fill(size)
 });
 
-class StatefulSwitchItem extends React.Component {
+class StatefulSwitchItem extends Component {
 	static propTypes = {
 		index: PropTypes.number,
 	};
@@ -185,7 +185,7 @@ const InPanels = ({className, title, ...rest}) => {
 };
 
 // eslint-disable-next-line enact/prop-types
-class VirtualListWithCBScrollTo extends React.Component {
+class VirtualListWithCBScrollTo extends Component {
 	static propTypes = {
 		dataSize: PropTypes.number
 	};

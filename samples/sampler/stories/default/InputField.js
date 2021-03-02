@@ -2,7 +2,6 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {InputField, InputFieldBase} from '@enact/sandstone/Input';
-import React from 'react';
 
 import icons from '../helper/icons';
 
@@ -17,8 +16,8 @@ const prop = {
 };
 
 export default {
-    title: 'Sandstone/Input/InputField',
-    component: 'InputField'
+	title: 'Sandstone/Input/InputField',
+	component: 'InputField'
 };
 
 export const _InputField = () => (
@@ -40,7 +39,7 @@ export const _InputField = () => (
 
 _InputField.storyName = 'Input/InputField';
 _InputField.parameters = {
-    info: {
-        text: 'The basic InputField'
-    }
+	info: {
+		text: 'The basic InputField'
+	}
 };

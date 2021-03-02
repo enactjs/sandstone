@@ -1,7 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {text, select} from '@enact/storybook-utils/addons/knobs';
 import ActionGuide, {ActionGuideBase} from '@enact/sandstone/ActionGuide';
-import React from 'react';
 
 // import icons
 import docs from '../../images/icon-enact-docs.png';
@@ -14,8 +13,8 @@ ActionGuide.displayName = 'ActionGuide';
 const Config = mergeComponentMetadata('ActionGuide', ActionGuideBase, ActionGuide);
 
 export default {
-    title: 'Sandstone/ActionGuide',
-    component: 'ActionGuide'
+	title: 'Sandstone/ActionGuide',
+	component: 'ActionGuide'
 };
 
 export const _ActionGuide = () => {
@@ -41,7 +40,7 @@ export const _ActionGuide = () => {
 
 _ActionGuide.storyName = 'ActionGuide';
 _ActionGuide.parameters = {
-    info: {
-        text: 'Explains the operation of an action'
-    }
+	info: {
+		text: 'Explains the operation of an action'
+	}
 };

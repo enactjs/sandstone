@@ -13,7 +13,7 @@ import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component, useState} from 'react';
 import compose from 'ramda/src/compose';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
@@ -22,8 +22,8 @@ Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
-class FixedPopupPanelsWithPause extends React.Component {
-	constructor() {
+class FixedPopupPanelsWithPause extends Component {
+	constructor () {
 		super();
 		this.state = {
 			index: 0,
@@ -74,12 +74,12 @@ export default {
 
 export const WithVirtualList = () => {
 	const defaultOpen = true;
-	const [open, setOpenState] = React.useState(defaultOpen);
+	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
 	const handleClose = compose(toggleOpen, action('onClose'));
 
 	const defaultIndex = 0;
-	const [index, setPanelIndexState] = React.useState(defaultIndex);
+	const [index, setPanelIndexState] = useState(defaultIndex);
 
 	const nextPanel = () => setPanelIndexState(Math.min(index + 1, 3));
 	const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));

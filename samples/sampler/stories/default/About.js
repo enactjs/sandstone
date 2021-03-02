@@ -6,7 +6,6 @@ import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import css from './About.module.less';
 

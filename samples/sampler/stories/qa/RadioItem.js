@@ -3,7 +3,6 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean} from '@enact/storybook-utils/addons/knobs';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import RadioItem from '@enact/sandstone/RadioItem';
-import React from 'react';
 
 RadioItem.displayName = 'RadioItem';
 const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItem);

@@ -5,7 +5,6 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 
@@ -26,8 +25,8 @@ const renderPopup = () => (
 );
 
 export default {
-    title: 'Sandstone/ContextualPopupDecorator',
-    component: 'ContextualPopupDecorator'
+	title: 'Sandstone/ContextualPopupDecorator',
+	component: 'ContextualPopupDecorator'
 };
 
 export const _ContextualPopupDecorator = () => (
@@ -68,7 +67,7 @@ export const _ContextualPopupDecorator = () => (
 
 _ContextualPopupDecorator.storyName = 'ContextualPopupDecorator';
 _ContextualPopupDecorator.parameters = {
-    info: {
-        text: 'Basic usage of ContextualPopupDecorator'
-    }
+	info: {
+		text: 'Basic usage of ContextualPopupDecorator'
+	}
 };

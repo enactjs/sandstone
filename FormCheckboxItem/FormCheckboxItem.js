@@ -16,7 +16,7 @@ import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Children} from 'react';
 
 import Skinnable from '../Skinnable';
 import {CheckboxBase} from '../Checkbox';
@@ -28,7 +28,7 @@ const Item = ItemDecorator(ItemBase);
 
 const Checkbox = Skinnable(CheckboxBase);
 
-const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
+const hasChildren = (children) => (Children.toArray(children).filter(Boolean).length > 0);
 
 /**
  * A Sandstone-styled form item with a checkbox component.

@@ -23,7 +23,7 @@ import {ResizeContext} from '@enact/ui/Resizable';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Fragment} from 'react';
 
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
@@ -79,7 +79,7 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : Fragment;
 
 	// Render
 	return (

@@ -2,7 +2,6 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import Input, {InputBase, InputPopup, InputPopupBase} from '@enact/sandstone/Input';
-import React from 'react';
 
 Input.displayName = 'Input';
 const Config = mergeComponentMetadata('Input', InputBase, Input);
@@ -16,8 +15,8 @@ const prop = {
 };
 
 export default {
-    title: 'Sandstone/Input',
-    component: 'Input'
+	title: 'Sandstone/Input',
+	component: 'Input'
 };
 
 export const _Input = () => {
@@ -72,7 +71,7 @@ export const _Input = () => {
 
 _Input.storyName = 'Input';
 _Input.parameters = {
-    info: {
-        text: 'Basic usage of Input'
-    }
+	info: {
+		text: 'Basic usage of Input'
+	}
 };

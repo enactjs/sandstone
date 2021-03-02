@@ -7,7 +7,6 @@ import {MediaControls} from '@enact/sandstone/MediaPlayer';
 import VideoPlayer, {VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 
 import icons from '../helper/icons';
 

@@ -3,7 +3,6 @@ import {boolean, object, select, text} from '@enact/storybook-utils/addons/knobs
 import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 
 const Config = mergeComponentMetadata('ImageItem', UiImageItem, ImageItemBase, ImageItem);
 ImageItem.displayName = 'ImageItem';
@@ -19,8 +18,8 @@ const prop = {
 };
 
 export default {
-    title: 'Sandstone/ImageItem',
-    component: 'ImageItem'
+	title: 'Sandstone/ImageItem',
+	component: 'ImageItem'
 };
 
 export const _ImageItem = () => (
@@ -44,7 +43,7 @@ export const _ImageItem = () => (
 
 _ImageItem.storyName = 'ImageItem';
 _ImageItem.parameters = {
-    info: {
-        text: 'The basic ImageItem'
-    }
+	info: {
+		text: 'The basic ImageItem'
+	}
 };

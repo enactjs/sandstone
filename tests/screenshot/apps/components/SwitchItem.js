@@ -1,6 +1,5 @@
 import Icon from '../../../../Icon';
 import SwitchItem from '../../../../SwitchItem';
-import React from 'react';
 
 import {withConfig} from './utils';
 

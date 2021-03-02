@@ -4,6 +4,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/VirtualList` to not block key down events after panel transition
+
+## [2.0.0-alpha.1] - 2021-02-24
+
+-  The framework was updated to support React 17.0.1
+
+## [1.5.0] - 2021-02-09
+
 ### Added
 
 - `sandstone/Item` prop `data-webos-voice-labels` when `label` is used

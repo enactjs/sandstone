@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useState, useRef, useEffect} from 'react';
 
 // A delay that prevents children from being rendered to some extent
 // when the user continues to wheel through the list
@@ -16,11 +16,11 @@ const delayToRenderChildren = 600;
  * @private
  */
 function AsyncRenderChildren ({children, fallback = '', index}) {
-	const [prevIndex, setPrevIndex] = React.useState(index);
-	const timerRef = React.useRef(null);
+	const [prevIndex, setPrevIndex] = useState(index);
+	const timerRef = useRef(null);
 	const async = (index !== prevIndex);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (async) {
 			timerRef.current = setTimeout(() => {
 				timerRef.current = null;

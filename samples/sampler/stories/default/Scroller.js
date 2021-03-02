@@ -6,7 +6,6 @@ import BodyText from '@enact/sandstone/BodyText';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
-import React from 'react';
 
 import css from './Scroller.module.less';
 

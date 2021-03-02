@@ -3,7 +3,7 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Heading, {HeadingBase} from '@enact/sandstone/Heading';
 import UiHeading from '@enact/ui/Heading';
-import React from 'react';
+import {Fragment} from 'react';
 
 Heading.displayName = 'Heading';
 const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading);
@@ -16,12 +16,12 @@ const prop = {
 };
 
 export default {
-    title: 'Sandstone/Heading',
-    component: 'Heading'
+	title: 'Sandstone/Heading',
+	component: 'Heading'
 };
 
 export const _Heading = () => (
-	<React.Fragment>
+	<Fragment>
 		<Heading
 			marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 			showLine={boolean('showLine', Config)}
@@ -37,12 +37,12 @@ export const _Heading = () => (
 			ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum
 			metus.
 		</BodyText>
-	</React.Fragment>
+	</Fragment>
 );
 
 _Heading.storyName = 'Heading';
 _Heading.parameters = {
-    info: {
-        text: 'A component for initiating a section of content.'
-    }
+	info: {
+		text: 'A component for initiating a section of content.'
+	}
 };

@@ -9,7 +9,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 import Layout, {Cell, Row} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 import Section from './components/KitchenSinkSection';
 
@@ -48,8 +48,8 @@ const inputData = {
 	'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.',
 };
 
-class TooltipTest extends React.Component {
-	constructor(props) {
+class TooltipTest extends Component {
+	constructor (props) {
 		super(props);
 
 		this.state = {
@@ -80,8 +80,8 @@ class TooltipTest extends React.Component {
 	}
 }
 
-class ChangeableTooltip extends React.Component {
-	constructor(props) {
+class ChangeableTooltip extends Component {
+	constructor (props) {
 		super(props);
 
 		this.state = {
@@ -182,8 +182,8 @@ const IconButtonItem = kind({
 	},
 });
 
-class TooltipFollow extends React.Component {
-	constructor(props) {
+class TooltipFollow extends Component {
+	constructor (props) {
 		super(props);
 
 		this.state = {

@@ -4,7 +4,6 @@ import Button from '@enact/sandstone/Button';
 import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 
 const Config = mergeComponentMetadata('ContextualMenuDecorator', ContextualMenuDecorator);
 const MenuButton = ContextualMenuDecorator({tooltipDestinationProp: 'decoration'}, Button);

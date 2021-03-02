@@ -7,7 +7,6 @@ import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import PropTypes from 'prop-types';
 import qs from 'query-string';
-import React from 'react';
 
 import css from './ThemeEnvironment.module.less';
 
@@ -154,7 +153,7 @@ const StorybookDecorator = (story, config = {}) => {
 		groupId: 'Development'
 	};
 
-	// NOTE: 'config' object is not extensible
+	// NOTE: 'config' object is not extensible.
 	const hasInfoText = config.parameters && config.parameters.info && config.parameters.info.text;
 	const hasProps = config.parameters && config.parameters.props;
 	const args = getArgs();

@@ -5,7 +5,6 @@ import Item from '@enact/sandstone/Item';
 import VirtualList from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
-import React from 'react';
 
 import css from './VirtualList.module.less';
 

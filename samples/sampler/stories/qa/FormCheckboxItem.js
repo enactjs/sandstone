@@ -1,9 +1,9 @@
 import Button from '@enact/sandstone/Button';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
-import React from 'react';
+import {Component} from 'react';
 
-class FormCheckboxItemView extends React.Component {
-	constructor(props) {
+class FormCheckboxItemView extends Component {
+	constructor (props) {
 		super(props);
 		this.state = {
 			disabled: false,

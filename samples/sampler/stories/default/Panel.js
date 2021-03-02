@@ -7,7 +7,7 @@ import {Header, Panel} from '@enact/sandstone/Panels';
 import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import {scale} from '@enact/ui/resolution';
-import React from 'react';
+import {Fragment} from 'react';
 
 import iconNames from '../helper/icons';
 
@@ -28,10 +28,10 @@ const items = [],
 			'no buttons': null,
 			'1 button': <Button icon="ellipsis" />,
 			'2 buttons': (
-				<React.Fragment>
+				<Fragment>
 					<Button icon="search" />
 					<Button icon="ellipsis" />
-				</React.Fragment>
+				</Fragment>
 			),
 		},
 		buttonsSelection: ['no buttons', '1 button', '2 buttons'],

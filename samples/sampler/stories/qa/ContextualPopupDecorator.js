@@ -4,7 +4,7 @@ import Button from '@enact/sandstone/Button';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 const Config = mergeComponentMetadata('ContextualButton', ContextualButton);
@@ -33,7 +33,7 @@ const renderSuperTallPopup = () => (
 	</div>
 );
 
-class ContextualPopupWithActivator extends React.Component {
+class ContextualPopupWithActivator extends Component {
 	constructor(props) {
 		super(props);
 

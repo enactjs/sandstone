@@ -1,7 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import KeyGuide from '@enact/sandstone/KeyGuide';
-import React from 'react';
 
 const prop = {
 	icon: ['red', 'green', 'yellow', 'blue', 'gear', 'trash', 'search'],

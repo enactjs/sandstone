@@ -4,11 +4,11 @@ import Slider from '@enact/sandstone/Slider';
 import VirtualList from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 
 Slider.displayName = 'Slider';
 
-class SliderList extends React.Component {
+class SliderList extends Component {
 	static propTypes = {
 		itemSize: PropTypes.number,
 	};

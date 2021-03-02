@@ -1,5 +1,5 @@
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
-import React, {useCallback} from 'react';
+import {useCallback} from 'react';
 import {useI18nContext} from '@enact/i18n/I18nDecorator';
 
 const LocaleSwitch = (props) => {

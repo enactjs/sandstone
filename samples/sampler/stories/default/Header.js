@@ -5,7 +5,7 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {Panel, Header, HeaderBase} from '@enact/sandstone/Panels';
 import Steps from '@enact/sandstone/Steps';
-import React from 'react';
+import {Fragment} from 'react';
 
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
@@ -20,10 +20,10 @@ const prop = {
 		'no buttons': null,
 		'1 button': <Button size="small" icon="ellipsis" />,
 		'2 buttons': (
-			<React.Fragment>
+			<Fragment>
 				<Button size="small" icon="search" />
 				<Button size="small" icon="ellipsis" />
-			</React.Fragment>
+			</Fragment>
 		),
 	},
 	buttonsSelection: ['no buttons', '1 button', '2 buttons'],

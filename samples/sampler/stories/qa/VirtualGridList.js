@@ -8,7 +8,7 @@ import Item from '@enact/sandstone/Item';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
-import React from 'react';
+import {Component} from 'react';
 
 const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
@@ -68,8 +68,8 @@ const ContextualPopupButton = ContextualPopupDecorator(Button);
 
 let lastIndex = 0;
 
-class MyVirtualList extends React.Component {
-	componentDidMount() {
+class MyVirtualList extends Component {
+	componentDidMount () {
 		this.scrollTo({index: lastIndex, animate: false, focus: true});
 	}
 
@@ -112,8 +112,8 @@ class MyVirtualList extends React.Component {
 	}
 }
 
-class ButtonAndVirtualGridList extends React.Component {
-	constructor(props) {
+class ButtonAndVirtualGridList extends Component {
+	constructor (props) {
 		super(props);
 		this.state = {
 			isPopup: false,
