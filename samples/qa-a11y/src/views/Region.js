@@ -3,7 +3,6 @@
 import kind from '@enact/core/kind';
 import Button from '@enact/sandstone/Button';
 import Region from '@enact/sandstone/Region';
-import React from 'react';
 
 import css from './Region.module.less';
 

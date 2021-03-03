@@ -1,5 +1,4 @@
 import Button from '../../../../Button';
-import React from 'react';
 
 import {withConfig} from './utils';
 

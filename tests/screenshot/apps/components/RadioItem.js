@@ -1,6 +1,5 @@
 import Icon from '../../../../Icon';
 import RadioItem from '../../../../RadioItem';
-import React from 'react';
 
 const RadioItemTests = [
 	<RadioItem>RadioItem</RadioItem>,

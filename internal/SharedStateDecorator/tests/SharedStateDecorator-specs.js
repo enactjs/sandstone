@@ -1,4 +1,4 @@
-import React from 'react';
+import {Component as ReactComponent} from 'react';
 import {mount} from 'enzyme';
 
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
@@ -256,7 +256,7 @@ describe('SharedStateDecorator Specs', () => {
 	});
 
 	test('should restore shared state from ancestor', () => {
-		class Base extends React.Component {
+		class Base extends ReactComponent {
 			static contextType = SharedState;
 
 			render () {

@@ -1,5 +1,4 @@
 import WizardPanels, {Panel} from '../../../../WizardPanels';
-import React from 'react';
 
 import {LongerLoremString, withConfig} from './utils';
 

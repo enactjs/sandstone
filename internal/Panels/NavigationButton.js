@@ -1,7 +1,7 @@
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {isValidElement} from 'react';
 
 import Button from '../../Button';
 
@@ -20,7 +20,7 @@ const NavigationButton = kind({
 
 	render: ({component, visible, ...rest}) => {
 
-		if (React.isValidElement(component)) {
+		if (isValidElement(component)) {
 			extractAriaProps(rest);
 
 			Object.keys(component.props).forEach(key => {

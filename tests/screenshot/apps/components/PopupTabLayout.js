@@ -2,7 +2,6 @@ import {scaleToRem} from '@enact/ui/resolution';
 import PopupTabLayout, {Tab, TabPanels, TabPanel} from '../../../../PopupTabLayout';
 import BodyText from '../../../../BodyText';
 import {Header} from '../../../../Panels';
-import React from 'react';
 
 const Block = ({style, ...rest}) => {
 	const blockStyles = ({height = 99, width = 99} = {}) => ({

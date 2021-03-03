@@ -2,7 +2,6 @@ import {Header, Panel} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const View = ({debugProps = false, handleDebug, isAriaHidden = false, isDebugMode = false, isHeader = true, title, view: ComponentView}) => {
 	const

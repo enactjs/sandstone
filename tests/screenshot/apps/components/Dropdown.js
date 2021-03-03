@@ -1,5 +1,4 @@
 import Dropdown from '../../../../Dropdown';
-import React from 'react';
 import {scaleToRem} from '@enact/ui/resolution';
 
 import {withProps} from './utils';

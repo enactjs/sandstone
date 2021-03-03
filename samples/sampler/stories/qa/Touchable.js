@@ -4,7 +4,7 @@ import {boolean, number} from '@enact/storybook-utils/addons/knobs';
 import Touchable from '@enact/ui/Touchable';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Fragment} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
@@ -40,7 +40,7 @@ const TouchArea = kind({
 		}
 	},
 
-	render: ({children, moveTolerance, onInteractionStart, ...rest}) => (<React.Fragment>
+	render: ({children, moveTolerance, onInteractionStart, ...rest}) => (<Fragment>
 		<TouchableDiv
 			{...rest}
 			onHoldEnd={onHoldEnd}
@@ -65,7 +65,7 @@ const TouchArea = kind({
 				touchAction: 'none'
 			}}
 		/>
-	</React.Fragment>)
+	</Fragment>)
 });
 
 storiesOf('Touchable', module)

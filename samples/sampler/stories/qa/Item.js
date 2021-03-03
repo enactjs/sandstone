@@ -1,5 +1,4 @@
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Row} from '@enact/ui/Layout';
 import {scale} from '@enact/ui/resolution';
@@ -13,6 +12,8 @@ import Scroller from '@enact/sandstone/Scroller';
 
 import Section from './components/KitchenSinkSection';
 import icons from '../default/icons';
+
+import css from './Item.module.less';
 
 const iconNames = ['', ...icons];
 
@@ -214,5 +215,17 @@ storiesOf('Item', module)
 
 				</Row>
 			</Scroller>
+		)
+	).add(
+		'with custom style',
+		() => (
+			<Item
+				css={css}
+				label={text('label', Item, inputData.shortLabel)}
+				slotBefore={KsIcon}
+				slotAfter={KsIcon}
+			>
+				{text('children', Item, inputData.shortChildren)}
+			</Item>
 		)
 	);

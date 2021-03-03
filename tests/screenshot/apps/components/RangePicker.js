@@ -1,5 +1,4 @@
 import RangePicker from '../../../../RangePicker';
-import React from 'react';
 
 // ***NOTES:***
 // 'min' and 'max' are required for the image to be valid.

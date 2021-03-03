@@ -1,11 +1,11 @@
 import Heading from '@enact/sandstone/Heading';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 
-class IntentSetToggleItem extends React.Component {
+class IntentSetToggleItem extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

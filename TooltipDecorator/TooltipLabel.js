@@ -1,7 +1,6 @@
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
 import {scaleToRem} from '@enact/ui/resolution';
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import Marquee from '../Marquee';

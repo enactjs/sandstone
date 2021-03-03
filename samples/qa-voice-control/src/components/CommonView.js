@@ -2,7 +2,7 @@ import {Header} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import {Fragment} from 'react';
 
 
 const CommonViewBase = kind({

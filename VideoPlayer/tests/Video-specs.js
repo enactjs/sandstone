@@ -1,6 +1,5 @@
 /* global HTMLMediaElement */
 
-import React from 'react';
 import {mount} from 'enzyme';
 
 import Video from '../Video';

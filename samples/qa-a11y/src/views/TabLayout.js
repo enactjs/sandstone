@@ -6,7 +6,6 @@ import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
 import {scaleToRem} from '@enact/ui/resolution';
-import React from 'react';
 
 const tabsWithIcons = [
 	{title: 'Home', icon: 'home'},

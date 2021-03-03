@@ -16,7 +16,7 @@ import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Children} from 'react';
 
 import {MarqueeController} from '../Marquee';
 import {validateRange} from '../internal/validators';
@@ -201,7 +201,7 @@ const PickerBase = kind({
 	computed: {
 		max: ({children}) => children && children.length ? children.length - 1 : 0,
 		reverse: ({orientation}) => (orientation === 'vertical'),
-		children: ({children, disabled, joined, marqueeDisabled}) => React.Children.map(children, (child) => {
+		children: ({children, disabled, joined, marqueeDisabled}) => Children.map(children, (child) => {
 			const focusOrHover = !disabled && joined ? 'focus' : 'hover';
 			return (
 				<PickerItem
@@ -212,7 +212,7 @@ const PickerBase = kind({
 				</PickerItem>
 			);
 		}),
-		disabled: ({children, disabled}) => React.Children.count(children) > 1 ? disabled : true,
+		disabled: ({children, disabled}) => Children.count(children) > 1 ? disabled : true,
 		value: ({value, children}) => {
 			const max = children && children.length ? children.length - 1 : 0;
 			if (__DEV__) {
@@ -225,7 +225,7 @@ const PickerBase = kind({
 			if (voiceLabelsExt) {
 				voiceLabel = voiceLabelsExt;
 			} else {
-				voiceLabel = React.Children.map(children, (child) => (
+				voiceLabel = Children.map(children, (child) => (
 					(typeof child === 'number' || typeof child === 'string') ? child : '')
 				);
 			}

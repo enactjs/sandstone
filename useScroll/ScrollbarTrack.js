@@ -4,7 +4,7 @@ import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import PropTypes from 'prop-types';
-import React, {forwardRef, useCallback, useEffect, useRef} from 'react';
+import {forwardRef, useCallback, useEffect, useRef} from 'react';
 
 import $L from '../internal/$L';
 
@@ -32,7 +32,7 @@ const SpottableDiv = Spottable('div');
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{'aria-label': ariaLabel, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, focusableScrollbar, onInteractionForScroll, rtl, scrollbarTrackCss, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? SpottableDiv : 'div',
 		announceRef = useRef({});
@@ -89,10 +89,9 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 			}
 		}
 	}, [consumeEventWithScroll, rtl, vertical]);
-
 	return (
-		<div {...rest} className={className} ref={ref}>
-			<ScrollbarThumb aria-label={ariaLabel} className={css.thumb} onKeyDown={onKeyDown}>
+		<div {...rest} className={classNames(className, scrollbarTrackCss && scrollbarTrackCss.scrollbarTrack)} ref={ref}>
+			<ScrollbarThumb aria-label={ariaLabel} className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb)} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
 			</ScrollbarThumb>
@@ -130,6 +129,20 @@ ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototy
 	 * @private
 	 */
 	rtl: PropTypes.bool,
+
+	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbarTrack` - The scrollbarTrack component class
+	 * * `thumb` - The scrollbar thumb component class
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	scrollbarTrackCss: PropTypes.object,
 
 	/**
 	 * `true` if vertical scroll, `false` if horizontal scroll.

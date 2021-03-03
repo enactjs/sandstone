@@ -8,7 +8,7 @@ import ViewManager, {shape} from '@enact/ui/ViewManager';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {createContext, cloneElement, Children, Component} from 'react';
 import ReactDOM from 'react-dom';
 
 import {startCapture, stopCapture} from './captureKeys';
@@ -17,7 +17,7 @@ import {ContextAsDefaults} from './util';
 
 import css from './Viewport.module.less';
 
-const PanelsStateContext = React.createContext({});
+const PanelsStateContext = createContext({});
 
 /**
  * The container for a set of Panels
@@ -26,7 +26,7 @@ const PanelsStateContext = React.createContext({});
  * @memberof sandstone/Panels
  * @private
  */
-const ViewportBase = class extends React.Component {
+const ViewportBase = class extends Component {
 	static displayName = 'Viewport';
 
 	static contextType = SharedState;
@@ -263,7 +263,7 @@ const ViewportBase = class extends React.Component {
 			}
 		}
 
-		return React.cloneElement(child, props);
+		return cloneElement(child, props);
 	});
 
 	getEnteringProp = (noAnimation) => noAnimation ? null : 'hideChildren';
@@ -284,7 +284,7 @@ const ViewportBase = class extends React.Component {
 		const mappedChildren = this.mapChildren(children, generateId);
 		const className = classnames(css.viewport, rest.className);
 
-		const count = React.Children.count(mappedChildren);
+		const count = Children.count(mappedChildren);
 		invariant(
 			index === 0 && count === 0 || index < count,
 			`Panels index, ${index}, is invalid for number of children, ${count}`

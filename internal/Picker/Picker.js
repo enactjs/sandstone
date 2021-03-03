@@ -10,7 +10,7 @@ import {SlideLeftArranger, SlideTopArranger, ViewManager} from '@enact/ui/ViewMa
 import Spotlight, {getDirection} from '@enact/spotlight';
 import PropTypes from 'prop-types';
 import equals from 'ramda/src/equals';
-import React from 'react';
+import {Component as ReactComponent} from 'react';
 import ReactDOM from 'react-dom';
 import shouldUpdate from 'recompose/shouldUpdate';
 
@@ -82,7 +82,7 @@ const allowedClassNames = ['picker', 'valueWrapper', 'joined', 'horizontal', 've
  * @private
  */
 
-const PickerBase = class extends React.Component {
+const PickerBase = class extends ReactComponent {
 	static displayName = 'Picker';
 
 	static propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ {
