@@ -197,7 +197,6 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		componentDidMount () {
 			// eslint-disable-next-line react/no-find-dom-node
 			this.node = ReactDOM.findDOMNode(this);
-
 			Spotlight.set(this.node.dataset.spotlightId, {
 				defaultElement: '[data-selected="true"]',
 				enterTo: 'default-element'
