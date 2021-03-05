@@ -340,6 +340,20 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	}),
 
 	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbarTrack` - The scrollbarTrack component class
+	 * * `thumb` - The scrollbar thumb component class
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	scrollbarTrackCss: PropTypes.object,
+
+	/**
 	 * Specifies how to scroll.
 	 *
 	 * @type {('native'|'translate')}
