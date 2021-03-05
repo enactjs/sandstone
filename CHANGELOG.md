@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
+
 ### Fixed
 
 - `sandstone/VirtualList` to not block key down events after panel transition
