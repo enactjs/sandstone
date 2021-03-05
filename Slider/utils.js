@@ -4,7 +4,6 @@ import {clamp} from '@enact/core/util';
 import Accelerator from '@enact/spotlight/Accelerator';
 import {calcProportion} from '@enact/ui/Slider/utils';
 
-
 let SpotlightAccelerator = new Accelerator();
 const nop = () => {};
 
@@ -21,7 +20,7 @@ const handleAcceleratedKeyDown = (ev) => {
 };
 
 const setKeyFrequency = (keyFrequency) => {
-	SpotlightAccelerator.frequency = Array(10).fill(keyFrequency);
+	SpotlightAccelerator.frequency = keyFrequency;
 };
 
 const calcStep = (knobStep, step) => {

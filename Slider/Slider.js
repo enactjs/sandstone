@@ -29,6 +29,7 @@ import UiSlider from '@enact/ui/Slider';
 import PropTypes from 'prop-types';
 import anyPass from 'ramda/src/anyPass';
 import compose from 'ramda/src/compose';
+import {useEffect} from 'react';
 
 import {ProgressBarTooltip} from '../ProgressBar';
 import Skinnable from '../Skinnable';
@@ -55,6 +56,8 @@ import componentCss from './Slider.module.less';
  */
 const SliderBase = kind({
 	name: 'Slider',
+
+	functional: true,
 
 	propTypes: /** @lends sandstone/Slider.SliderBase.prototype */ {
 		/**
@@ -303,7 +306,11 @@ const SliderBase = kind({
 	},
 
 	render: ({css, disabled, focused, keyFrequency, tooltip, ...rest}) => {
-		setKeyFrequency(keyFrequency); // FIXME
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useEffect(() => {
+			setKeyFrequency(keyFrequency);
+		}, [keyFrequency]);
+
 		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;
