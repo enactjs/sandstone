@@ -20,7 +20,7 @@ const handleAcceleratedKeyDown = (ev) => {
 };
 
 const setKeyFrequency = (keyFrequency) => {
-	SpotlightAccelerator.frequency = keyFrequency;
+	SpotlightAccelerator.frequency = [keyFrequency];
 };
 
 const calcStep = (knobStep, step) => {
