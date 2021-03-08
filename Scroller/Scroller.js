@@ -190,8 +190,8 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 *
 	 * By default, 5-way will not move focus to the scroll thumb.
 	 * If `true`, the scroll thumb will get focus by directional keys.
-	 * If `'byEnter'`, scroll body will get focus first by directional keys,
-	 * then the scroll thumb will get focus by enter key pressed on scroll body.
+	 * If `'byEnter'`, scroll thumb will get focus first by directional keys,
+	 * then the scroll body will get focus by enter key or back key pressed on scroll thumb.
 	 *
 	 * @type {Boolean|'byEnter'}
 	 * @default false
