@@ -39,11 +39,7 @@ describe('Scroller', function () {
 			// Step 4 Verify: Spotlight is on the (x) button.
 			expect(ScrollerPage.buttonTop.isFocused(), 'focus').to.be.true();
 			// Step 5: Press 5-Way Down.
-			ScrollerPage.spotlightDown();
-			// Step 5 Verify: Spotlight is on the box surrounding the item and scrollbars.
-			expect(ScrollerPage.focusableBody.isFocused()).to.be.true();
-			// Step 6: Press 5-Way Select.
-			ScrollerPage.spotlightSelect();
+			ScrollerPage.spotlightRight();
 			// Step 6 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
 			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 			// Step 7: Press 5-Way Left.

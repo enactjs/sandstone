@@ -39,7 +39,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 		if (type === 'focus') {
 			filterTarget = isBody(target) ? 'thumb' : 'body';
 		} else if (type === 'blur') {
-			filterTarget = 'thumb';
+			filterTarget = 'body';
 		} else if (type === 'keydown') {
 			filterTarget =
 				!Spotlight.getPointerMode() && isEnter(keyCode) && isBody(target) && 'body' ||
@@ -81,6 +81,9 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 			ev.nativeEvent.stopImmediatePropagation();
 		}
 	};
+
+	// Initial filter setting
+	setNavigableFilter({filterTarget: 'body'});
 
 	return {
 		'aria-labelledby': contentId,
