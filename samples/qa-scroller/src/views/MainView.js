@@ -5,7 +5,7 @@ import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
 import RadioItem from '@enact/sandstone/RadioItem';
-import React from 'react';
+import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import Scroller from '@enact/sandstone/Scroller';
 import TimePicker from '@enact/sandstone/TimePicker';
@@ -30,7 +30,7 @@ for (let i = 0; i < 50; i++) {
 	itemData.push(`Item ${i}`);
 }
 
-class MainView extends React.Component {
+class MainView extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

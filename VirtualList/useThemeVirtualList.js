@@ -5,7 +5,7 @@ import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {Spottable} from '@enact/spotlight/Spottable';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
-import React, {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 
 import {affordanceSize, dataIndexAttribute} from '../useScroll';
 
@@ -122,6 +122,13 @@ const useSpottable = (props, instances) => {
 
 		setContainerDisabled(false);
 	}
+
+	useEffect(() => {
+		if (scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightContainerDisabled === 'true') {
+			removeGlobalKeyDownEventListener();
+			addGlobalKeyDownEventListener(handleGlobalKeyDown);
+		}
+	}, [handleGlobalKeyDown]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		return () => {

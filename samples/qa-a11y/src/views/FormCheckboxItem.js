@@ -1,5 +1,4 @@
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
-import React from 'react';
 
 import Section from '../components/Section';
 

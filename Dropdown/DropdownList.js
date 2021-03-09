@@ -6,7 +6,7 @@ import Spotlight from '@enact/spotlight';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 import Icon from '../Icon';
@@ -157,7 +157,7 @@ const ReadyState = {
 };
 
 const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'DropdownListSpotlightDecorator';
 
 		static propTypes = {

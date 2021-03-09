@@ -1,7 +1,6 @@
 import kind from '@enact/core/kind';
 import {Knob} from '@enact/ui/Slider';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 /**
  * Knob for the MediaSlider in {@link sandstone/MediaPlayer}.

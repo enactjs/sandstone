@@ -1,6 +1,6 @@
 import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useRef} from 'react';
 
 import css from './FlexiblePopupPanels.module.less';
 
@@ -10,7 +10,7 @@ const nextButtonSelector = `.${css.navCellAfter} .${css.navButton}`;
 function useNavButtonFocus ({index}) {
 	let autoFocus;
 
-	const {current: ref} = React.useRef({
+	const {current: ref} = useRef({
 		index
 	});
 

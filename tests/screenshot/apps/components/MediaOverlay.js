@@ -1,5 +1,4 @@
 import MediaOverlay from '../../../../MediaOverlay';
-import React from 'react';
 
 import img from '../../images/600x600.png';
 

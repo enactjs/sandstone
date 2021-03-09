@@ -2,7 +2,6 @@ import kind from '@enact/core/kind';
 import spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import Toggleable from '@enact/ui/Toggleable';
-import React from 'react';
 import compose from 'ramda/src/compose';
 
 import BodyText from '../../../../BodyText';

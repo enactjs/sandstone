@@ -1,5 +1,4 @@
 import Panels, {Panel, Header} from '../../../../Panels';
-import React from 'react';
 
 // Panel components to show in the Panels
 const PanelComponents = [

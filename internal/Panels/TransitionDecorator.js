@@ -2,7 +2,7 @@ import {forward, handle} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import Pause from '@enact/spotlight/Pause';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 
 /**
  * A higher-order component that manages spotlight pause state for both popup and panels
@@ -14,7 +14,7 @@ import React from 'react';
  * @memberof sandstone/Panels
  */
 const TransitionDecorator = hoc((config, Wrapped) => {
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'TransitionDecorator';
 
 		static propTypes = /** @lends sandstone/Panels.TransitionDecorator.prototype */ {

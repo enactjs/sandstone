@@ -12,7 +12,6 @@ import Repeater from '@enact/ui/Repeater';
 import Toggleable from '@enact/ui/Toggleable';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
 import Item from '../Item';
