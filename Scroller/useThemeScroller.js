@@ -355,11 +355,12 @@ const useSpottable = (props, instances) => {
 };
 
 const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
-	const {className, fadeOut, scrollContainerHandle, scrollContainerRef, ...rest} = scrollContentProps;
+	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
+	delete rest.scrollContainerHandle;
 	delete rest.scrollContentHandle;
 	delete rest.setThemeScrollContentHandle;
 	delete rest.spotlightId;
@@ -382,12 +383,6 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && fadeOut ? css.verticalFadeout : null,
 		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null
 	);
-
-	// Set webos-voice-intent prop
-	if (scrollContainerHandle && scrollContainerHandle.current && scrollContainerHandle.current.getScrollBounds) {
-		const bounds = scrollContainerHandle.current.getScrollBounds();
-		rest['data-webos-voice-intent'] = scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds) ? 'Scroll' : null;
-	}
 
 	return {focusableBodyProps, themeScrollContentProps: rest};
 };

@@ -23,7 +23,7 @@ import {ResizeContext} from '@enact/ui/Resizable';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import {Fragment} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
@@ -51,6 +51,7 @@ let scrollerId = 0;
  */
 let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 	const id = `scroller_${++scrollerId}_content`;
+	const [webosVoiceIntent,  setWebosVoiceIntent] = useState(null);
 
 	// Hooks
 
@@ -81,12 +82,22 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : Fragment;
 
+	useEffect(() => {
+		const {scrollContainerHandle} = scrollContentProps;
+
+		// Set webos-voice-intent prop
+		if (scrollContainerHandle && scrollContainerHandle.current && scrollContainerHandle.current.getScrollBounds) {
+			const bounds = scrollContainerHandle.current.getScrollBounds();
+			setWebosVoiceIntent(scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds) ? 'Scroll' : null);
+		}
+	}, [scrollContentProps, scrollContentProps.scrollContainerHandle]);
+
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
-					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
+					<UiScrollerBasic {...themeScrollContentProps} data-webos-voice-intent={webosVoiceIntent} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
