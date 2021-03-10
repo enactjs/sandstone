@@ -5,7 +5,6 @@
  * @exports VirtualGridList
  * @exports VirtualList
  */
-
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
@@ -13,6 +12,7 @@ import {gridListItemSizeShape, itemSizesShape, VirtualListBasic as UiVirtualList
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import warning from 'warning';
+import {useEffect, useState} from 'react';
 
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
@@ -32,6 +32,8 @@ const nop = () => {};
  * @public
  */
 let VirtualList = ({itemSize, ...rest}) => {
+	const [webosVoiceIntent, setWebosVoiceIntent] = useState(null);
+
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -71,10 +73,20 @@ let VirtualList = ({itemSize, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
+	useEffect(() => {
+		const {scrollContainerHandle} = scrollContentProps;
+
+		// Set webos-voice-intent prop
+		if (scrollContainerHandle && scrollContainerHandle.current && scrollContainerHandle.current.getScrollBounds) {
+			const bounds = scrollContainerHandle.current.getScrollBounds();
+			setWebosVoiceIntent(scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds) ? 'Scroll' : null);
+		}
+	}, [scrollContentProps, scrollContentProps.scrollContainerHandle]);
+
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
-				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} data-webos-voice-intent={webosVoiceIntent} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</ScrollContentWrapper>
@@ -482,6 +494,8 @@ VirtualList.defaultProps = {
  * @public
  */
 let VirtualGridList = (props) => {
+	const [webosVoiceIntent, setWebosVoiceIntent] = useState(null);
+
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -505,10 +519,20 @@ let VirtualGridList = (props) => {
 
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
+	useEffect(() => {
+		const {scrollContainerHandle} = scrollContentProps;
+
+		// Set webos-voice-intent prop
+		if (scrollContainerHandle && scrollContainerHandle.current && scrollContainerHandle.current.getScrollBounds) {
+			const bounds = scrollContainerHandle.current.getScrollBounds();
+			setWebosVoiceIntent(scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds) ? 'Scroll' : null);
+		}
+	}, [scrollContentProps, scrollContentProps.scrollContainerHandle]);
+
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
-				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} data-webos-voice-intent={webosVoiceIntent} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</ScrollContentWrapper>

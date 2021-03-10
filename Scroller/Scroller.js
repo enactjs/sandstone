@@ -93,7 +93,6 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 		}
 	}, [scrollContentProps, scrollContentProps.scrollContainerHandle]);
 
-
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
