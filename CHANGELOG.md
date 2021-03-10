@@ -17,6 +17,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ## [2.0.0-alpha.1] - 2021-02-24
 
 -  The framework was updated to support React 17.0.1
+
+### Added
+
 - `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
 
 ## [1.5.0] - 2021-02-09
