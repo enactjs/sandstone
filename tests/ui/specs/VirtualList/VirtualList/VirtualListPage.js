@@ -91,11 +91,11 @@ class VirtualListPage extends Page {
 	get scrollThumb () {
 		return $(`${scrollThumbSelector}`);
 	}
-	getScrollThumbPosition () {
-		return browser.execute(function (_scrollbarSelector) {
-			const scrollbar = document.querySelector(_scrollbarSelector);
+	getScrollThumbPosition (num = 0) {
+		return browser.execute(function (_scrollbarSelector, _num) {
+			const scrollbar = document.querySelectorAll(_scrollbarSelector)[_num];
 			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
-		}, scrollbarSelector);
+		}, scrollbarSelector, num);
 
 	}
 
