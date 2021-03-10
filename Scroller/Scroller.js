@@ -98,8 +98,7 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
-					<UiScrollerBasic {...themeScrollContentProps} data-webos-voice-intent={webosVoiceIntent}
- aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
+					<UiScrollerBasic {...themeScrollContentProps} data-webos-voice-intent={webosVoiceIntent} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
