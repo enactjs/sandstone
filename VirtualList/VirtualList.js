@@ -81,7 +81,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 			const bounds = scrollContainerHandle.current.getScrollBounds();
 			setWebosVoiceIntent(scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds) ? 'Scroll' : null);
 		}
-	}, [scrollContentProps, scrollContentProps.scrollContainerHandle]);
+	}, [scrollContentProps.scrollContainerHandle]);
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
@@ -527,7 +527,7 @@ let VirtualGridList = (props) => {
 			const bounds = scrollContainerHandle.current.getScrollBounds();
 			setWebosVoiceIntent(scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds) ? 'Scroll' : null);
 		}
-	}, [scrollContentProps, scrollContentProps.scrollContainerHandle]);
+	}, [scrollContentProps.scrollContainerHandle]);
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
