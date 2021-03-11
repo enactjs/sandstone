@@ -3,6 +3,8 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import ProgressBar from '@enact/sandstone/ProgressBar';
 
 Alert.displayName = 'Alert';
 AlertImage.displayName = 'AlertImage';
@@ -86,24 +88,66 @@ export const WithLongTitleAndLongChildren = () => {
 	const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 	return (
-	<Alert
-		open={open}
-		onClose={action('onClose')}
-		title={text('title', Config, inputData.longTitle)}
-		type={select('type', ['fullscreen', 'overlay'], Config)}
-	>
-		{image ? (
-		<image>
-			<AlertImage src={src} type={type} />
-		</image>
-		) : null}
-		<buttons>
-		<Button>Yes</Button>
-		<Button>No</Button>
-		</buttons>
-		{text('children', Config, inputData.longChildren)}
-	</Alert>
+		<Alert
+			open={open}
+			onClose={action('onClose')}
+			title={text('title', Config, inputData.longTitle)}
+			type={select('type', ['fullscreen', 'overlay'], Config)}
+		>
+			{image ? (
+			<image>
+				<AlertImage
+					src={src}
+					type={type} 
+				/>
+			</image>
+			) : null}
+			<buttons>
+				<Button>Yes</Button>
+				<Button>No</Button>
+			</buttons>
+			{text('children', Config, inputData.longChildren)}
+		</Alert>
 	);
 };
 
 WithLongTitleAndLongChildren.storyName = 'with long title and long children';
+
+export const WithDifferentTypesOfComponentsAndLongChildren = () => {
+	const open = boolean('open', Config, true); // This is first so the Knob tabs are in a more intuitive order.
+	const image = boolean('image', ImageConfig);
+	const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
+	const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+
+	return (
+		<Alert
+			open={open}
+			onClose={action('onClose')}
+			title={text('title', Config, 'Overlay Alert Title')}
+			type={select('type', ['fullscreen', 'overlay'], Config, 'overlay')}
+		>
+			{image ?
+				<image>
+					<AlertImage
+						src={src}
+						type={type}
+					/>
+				</image> : null
+			}
+			<buttons>
+				<Button>Yes</Button>
+				<Button>No</Button>
+			</buttons>
+			<div>
+				<div>This is progressbar</div>
+				<ProgressBar progress={0.5} />
+			</div>
+			<div>
+				<CheckboxItem>This is CheckboxItem</CheckboxItem>
+			</div>
+			{text('children', Config, inputData.longChildren)}
+		</Alert>
+	);
+};
+
+WithDifferentTypesOfComponentsAndLongChildren.storyName = 'with different types of components and long children';

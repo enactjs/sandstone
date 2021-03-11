@@ -90,8 +90,8 @@ export const WithACustomLongpressEventAnd1SecondFrequency = () => (
 	<Button
 		holdConfig={{
 			events: [
-			{name: 'hold', time: 1000},
-			{name: 'longpress', time: 2000},
+				{name: 'hold', time: 1000},
+				{name: 'longpress', time: 2000},
 			],
 			frequency: 1000,
 		}}
