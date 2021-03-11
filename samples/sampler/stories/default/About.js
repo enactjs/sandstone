@@ -43,7 +43,7 @@ const HintDialog = kind({
 		className: ({pointerPosition, styler}) => styler.append(pointerPosition),
 		style: ({length, style}) => ({
 			...style,
-			'--pointer-length': riSafe(length),
+			'--pointer-length': riSafe(length)
 		})
 	},
 	render: ({children, ...rest}) => {

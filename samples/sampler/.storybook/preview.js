@@ -11,11 +11,11 @@ addDecorator(withKnobs);
 export const parameters = {
 	knobs: {
 		timestamps: true
-    },
-    docs: {
+	},
+	docs: {
 		container: DocsContainer,
 		page: DocsPage,
-		iframeHeight: 300,
+		iframeHeight: 600,
 		theme: themes.light
 	}
 };

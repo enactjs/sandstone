@@ -11,6 +11,5 @@ addons.setConfig({
 	isFullscreen: false,
 	panelPosition: 'bottom',
 	showNav: true,
-	showPanel: true,
-	storySort: (a, b) => a[1].id.localeCompare(b[1].id, undefined, { numeric: true })
+	showPanel: true
 });
