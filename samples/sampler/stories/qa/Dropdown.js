@@ -220,7 +220,7 @@ storiesOf('Dropdown', module)
 			<PositionChangingDropdown />
 		)
 	).add(
-		'in Scroller',
+		'in Scroller (PLAT-137855)',
 		() => (
 			<Scroller
 				overscrollEffectOn={{
@@ -231,17 +231,17 @@ storiesOf('Dropdown', module)
 					wheel: true
 			}}>
 				<Item>Scroll down to see Dropdown</Item>
-				<Item></Item>
-				<Item>Scroll down to see Dropdown</Item>
-				<Item></Item>
-				<Item></Item>
+				<Item disabled></Item>
+				<Item>Scroller has an overscroll effect intentionally</Item>
+				<Item disabled></Item>
+				<Item disabled></Item>
 				<Dropdown>
 					{['a', 'b', 'c', 'd', 'e', 'f', 'g']}
 				</Dropdown>
-				<Item></Item>
-				<Item></Item>
-				<Item>Scroll up to see Dropdown</Item>
-				<Item></Item>
+				<Item disabled></Item>
+				<Item disabled></Item>
+				<Item>Scroller has an overscroll effect intentionally</Item>
+				<Item disabled></Item>
 				<Item>Scroll up to see Dropdown</Item>
 			</Scroller>
 		)
