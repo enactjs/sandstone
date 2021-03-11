@@ -81,6 +81,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 			const bounds = scrollContainerHandle.current.getScrollBounds();
 			setWebosVoiceIntent(scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds) ? 'Scroll' : null);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [scrollContentProps.scrollContainerHandle]);
 
 	return (
@@ -527,6 +528,7 @@ let VirtualGridList = (props) => {
 			const bounds = scrollContainerHandle.current.getScrollBounds();
 			setWebosVoiceIntent(scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds) ? 'Scroll' : null);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [scrollContentProps.scrollContainerHandle]);
 
 	return (
