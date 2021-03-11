@@ -8,6 +8,8 @@ import {storiesOf} from '@storybook/react';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
+import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);
@@ -186,5 +188,31 @@ storiesOf('Dropdown', module)
 		'with disabled',
 		() => (
 			<DisabledDropdown />
+		)
+	).add(
+		'in Scroller',
+		() => (
+			<Scroller
+				overscrollEffectOn={{
+					arrowKey: true,
+					drag: true,
+					pageKey: true,
+					track: true,
+					wheel: true
+			}}>
+				<Item>Scroll down to see Dropdown</Item>
+				<Item></Item>
+				<Item>Scroll down to see Dropdown</Item>
+				<Item></Item>
+				<Item></Item>
+				<Dropdown>
+					{['a', 'b', 'c', 'd', 'e', 'f', 'g']}
+				</Dropdown>
+				<Item></Item>
+				<Item></Item>
+				<Item>Scroll up to see Dropdown</Item>
+				<Item></Item>
+				<Item>Scroll up to see Dropdown</Item>
+			</Scroller>
 		)
 	);
