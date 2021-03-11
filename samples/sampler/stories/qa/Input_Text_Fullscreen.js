@@ -57,3 +57,21 @@ NoTitles.parameters = {
 		text: 'No titles, just an input field.'
 	}
 };
+
+export const LongInvalidTooltip = () => (
+	<Input
+		title="Fullscreen Input (invalid tooltip)"
+		subtitle={inputData.textSubtitle}
+		popupType="fullscreen"
+		invalid={boolean('invalid', Config, true)}
+		invalidMessage={inputData.longInvalidTooltip}
+		defaultOpen
+	/>
+);
+
+LongInvalidTooltip.storyName = 'long invalid tooltip';
+LongInvalidTooltip.parameters = {
+	info: {
+		text: 'Test the input popup\'s long invalid tooltip.'
+	}
+};
