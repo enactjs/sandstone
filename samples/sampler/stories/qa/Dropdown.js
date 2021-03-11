@@ -199,19 +199,20 @@ storiesOf('Dropdown', module)
 					pageKey: true,
 					track: true,
 					wheel: true
-			}}>
+				}}
+			>
 				<Item>Scroll down to see Dropdown</Item>
-				<Item disabled></Item>
+				<Item disabled />
 				<Item>Scroller has an overscroll effect intentionally</Item>
-				<Item disabled></Item>
-				<Item disabled></Item>
+				<Item disabled />
+				<Item disabled />
 				<Dropdown>
 					{['a', 'b', 'c', 'd', 'e', 'f', 'g']}
 				</Dropdown>
-				<Item disabled></Item>
-				<Item disabled></Item>
+				<Item disabled />
+				<Item disabled />
 				<Item>Scroller has an overscroll effect intentionally</Item>
-				<Item disabled></Item>
+				<Item disabled />
 				<Item>Scroll up to see Dropdown</Item>
 			</Scroller>
 		)
