@@ -22,7 +22,7 @@ const Config = mergeComponentMetadata('PopupTabLayout', PopupBase, Popup, TabLay
 
 const navPrev = (callback, value, actionName) => () => {
 	const index = Math.max(value - 1, 0);
-	action(actionName)({ index });
+	action(actionName)({index});
 	callback(index);
 };
 const navNext = (callback, value) => () => {
@@ -110,7 +110,7 @@ export const _PopupTabLayout = () => {
 										'Custom',
 										'Custom 2',
 										'Expert',
-										'Expert 2',
+										'Expert 2'
 									]}
 								</Group>
 							</Scroller>
@@ -159,8 +159,8 @@ export const _PopupTabLayout = () => {
 						iterations: 1,
 						src: {
 							fhd: spriteGear2k,
-							uhd: spriteGear4k,
-						},
+							uhd: spriteGear4k
+						}
 					}}
 					title="General"
 				>

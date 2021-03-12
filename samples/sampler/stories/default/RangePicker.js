@@ -10,7 +10,7 @@ const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicke
 // Set up some defaults for info and knobs
 const prop = {
 	orientation: ['horizontal', 'vertical'],
-	width: [null, 'small', 'medium', 'large', 1, 2, 3, 4, 5, 6],
+	width: [null, 'small', 'medium', 'large', 1, 2, 3, 4, 5, 6]
 };
 const parseIntOrNullify = (v) => {
 	if (!isNaN(parseInt(v))) {

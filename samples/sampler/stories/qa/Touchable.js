@@ -22,7 +22,7 @@ const TouchArea = kind({
 	name: 'TouchArea',
 
 	propTypes: {
-		moveTolerance: PropTypes.number,
+		moveTolerance: PropTypes.number
 	},
 
 	handlers: {
@@ -35,7 +35,7 @@ const TouchArea = kind({
 			el.style.left = `${x - moveTolerance}px`;
 			el.style.top = `${y - moveTolerance}px`;
 			return false;
-		},
+		}
 	},
 
 	render: ({children, moveTolerance, onInteractionStart, ...rest}) => (
@@ -48,24 +48,24 @@ const TouchArea = kind({
 				onTouchStart={onInteractionStart}
 				onTouchEnd={onInteractionEnd}
 			>
-			{children}
+				{children}
 			</TouchableDiv>
 			<div
-			id="touchRadius"
-			style={{
-				display: 'none',
-				position: 'fixed',
-				height: moveTolerance * 2 + 'px',
-				width: moveTolerance * 2 + 'px',
-				borderRadius: '999px',
-				border: '1px solid orange',
-				backgroundColor: 'rgba(255, 180, 0, 0.3)',
-				pointerEvents: 'none',
-				touchAction: 'none',
-			}}
+				id="touchRadius"
+				style={{
+					display: 'none',
+					position: 'fixed',
+					height: moveTolerance * 2 + 'px',
+					width: moveTolerance * 2 + 'px',
+					borderRadius: '999px',
+					border: '1px solid orange',
+					backgroundColor: 'rgba(255, 180, 0, 0.3)',
+					pointerEvents: 'none',
+					touchAction: 'none'
+				}}
 			/>
 		</Fragment>
-	),
+	)
 });
 
 export default {
@@ -80,7 +80,7 @@ export const WithDefaultHoldEvents = () => (
 		onHoldPulse={action('onHoldPulse')}
 		disabled={boolean('disabled', Button)}
 	>
-	Touchable
+		Touchable
 	</Button>
 );
 
@@ -91,16 +91,16 @@ export const WithACustomLongpressEventAnd1SecondFrequency = () => (
 		holdConfig={{
 			events: [
 				{name: 'hold', time: 1000},
-				{name: 'longpress', time: 2000},
+				{name: 'longpress', time: 2000}
 			],
-			frequency: 1000,
+			frequency: 1000
 		}}
 		onHold={action('onHold')}
 		onHoldEnd={action('onHoldEnd')}
 		onHoldPulse={action('onHoldPulse')}
 		disabled={boolean('disabled', Button)}
 	>
-	LongPress
+		LongPress
 	</Button>
 );
 
@@ -111,14 +111,14 @@ export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = () => {
 		range: true,
 		min: 16,
 		max: 320,
-		step: 16,
+		step: 16
 	});
 	const cancelOnMove = boolean('holdConfig cancelOnMove', Button, true) || false;
 	return (
 		<TouchArea
 			holdConfig={{
 				moveTolerance,
-				cancelOnMove,
+				cancelOnMove
 			}}
 			moveTolerance={moveTolerance}
 			noResume={boolean('noResume', TouchArea, false)}
@@ -131,7 +131,7 @@ export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = () => {
 				textAlign: 'center',
 				border: '4px dashed #888',
 				width: ri.unit(ri.scale(480), 'rem'),
-				height: ri.unit(ri.scale(480), 'rem'),
+				height: ri.unit(ri.scale(480), 'rem')
 			}}
 		>
 			Resumable
@@ -149,7 +149,7 @@ export const ThatDoesNotResumeWhenReEnteringComponent = () => (
 		onHoldPulse={action('onHoldPulse')}
 		disabled={boolean('disabled', Button)}
 	>
-	Not Resumable
+		Not Resumable
 	</Button>
 );
 
@@ -162,10 +162,10 @@ export const WithOnFlickHandler = () => (
 		style={{
 			border: '4px dashed #888',
 			width: ri.unit(ri.scale(1000), 'rem'),
-			height: ri.unit(ri.scale(1000), 'rem'),
+			height: ri.unit(ri.scale(1000), 'rem')
 		}}
 	>
-	Flick within this component
+		Flick within this component
 	</TouchableDiv>
 );
 
@@ -175,7 +175,7 @@ export const WithDragHandlers = () => (
 	<TouchableDiv
 		dragConfig={{
 			global: boolean('dragConfig global', TouchableDiv, false) || false,
-			moveTolerance: number('dragConfig moveTolerance', TouchableDiv, 32),
+			moveTolerance: number('dragConfig moveTolerance', TouchableDiv, 32)
 		}}
 		noResume={boolean('noResume', TouchableDiv, false)}
 		onDragStart={action('onDragStart')}
@@ -185,11 +185,11 @@ export const WithDragHandlers = () => (
 		style={{
 			border: '4px dashed #888',
 			width: ri.unit(ri.scale(1000), 'rem'),
-			height: ri.unit(ri.scale(1000), 'rem'),
+			height: ri.unit(ri.scale(1000), 'rem')
 		}}
 	>
-	Drag within this component. Setting <code>noResume</code> to <code>false</code> should prevent
-	drag from resuming when re-entering this component after leaving.
+		Drag within this component. Setting <code>noResume</code> to <code>false</code> should prevent
+		drag from resuming when re-entering this component after leaving.
 	</TouchableDiv>
 );
 
@@ -209,7 +209,7 @@ export const OnTapWhenClicked = () => (
 		onUp={action('onUp')}
 		style={{border: '4px dashed #888', textAlign: 'center'}}
 	>
-	Click here
+		Click here
 	</TouchableDiv>
 );
 

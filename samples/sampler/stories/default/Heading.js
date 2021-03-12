@@ -12,7 +12,7 @@ const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading
 const prop = {
 	marqueeOn: ['hover', 'render'],
 	size: ['large', 'medium', 'small', 'tiny'],
-	spacing: ['auto', 'large', 'medium', 'small', 'none'],
+	spacing: ['auto', 'large', 'medium', 'small', 'none']
 };
 
 export default {

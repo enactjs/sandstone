@@ -43,13 +43,13 @@ const prop = {
 		'Big Buck Bunny': 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
 		VideoTest: 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
-		'Bad Video Source': 'https://github.com/mderrick/react-html5video',
+		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
 	},
 	posters: {
 		Sintel: 'http://media.w3.org/2010/05/sintel/poster.png',
 		'Big Buck Bunny': 'http://media.w3.org/2010/05/bunny/poster.png',
 		VideoTest: 'http://media.w3.org/2010/05/video/poster.png',
-		'Bad Video Source': 'http://media.w3.org/2010/05/video/poster.png',
+		'Bad Video Source': 'http://media.w3.org/2010/05/video/poster.png'
 	},
 	events: [
 		'onAbort',
@@ -81,8 +81,8 @@ const prop = {
 		'onToggleMore',
 		// 'onTimeUpdate',	// Disabled due to Storybook Actions-reporting having an adverse effect on VideoPlayer performance. Uncomment to view this event.
 		'onVolumeChange',
-		'onWaiting',
-	],
+		'onWaiting'
+	]
 };
 
 prop.eventActions = {};
@@ -114,7 +114,7 @@ export const _VideoPlayer = () => {
 					number('video scale', Config, {range: true, min: 0.05, max: 1, step: 0.01}, 1) +
 					')',
 				outline: 'teal dashed 1px',
-				height: '70vh',
+				height: '70vh'
 			}}
 		>
 			<label
@@ -128,7 +128,7 @@ export const _VideoPlayer = () => {
 					padding: '0.1em 1em',
 					fontWeight: 100,
 					fontStyle: 'italic',
-					fontSize: '32px',
+					fontSize: '32px'
 				}}
 			>
 				VideoPlayer Edge
@@ -191,7 +191,7 @@ export const _VideoPlayer = () => {
 							direction="horizontal"
 							itemSize={{
 								minWidth: ri.scale(320),
-								minHeight: ri.scale(270),
+								minHeight: ri.scale(270)
 							}}
 							itemRenderer={renderItem}
 							spacing={ri.scale(12)}

@@ -26,17 +26,17 @@ class FixedPopupPanelsWithPause extends Component {
 	constructor () {
 		super();
 		this.state = {
-			index: 0,
+			index: 0
 		};
 		this.pause = new Pause('SampleApp');
 		this.pause.pause();
 	}
 
-	componentDidMount() {
+	componentDidMount () {
 		this.deferFocus();
 	}
 
-	deferFocus() {
+	deferFocus () {
 		// simulate a service call to defer focusing
 		setTimeout(() => {
 			// ensure we're in 5-way mode for the purposes of this sample
@@ -46,17 +46,17 @@ class FixedPopupPanelsWithPause extends Component {
 		}, 5000);
 	}
 
-	render() {
+	render () {
 		return (
 			<div {...this.props}>
-			<FixedPopupPanels open index={this.state.index}>
-				<Panel id="panel1" autoFocus="none">
-				<Header title="First Panel" noCloseButton />
-				<Item>Item 1 in Panel 2</Item>
-				<Item>Item 1 in Panel 2</Item>
-				<Item>Item 1 in Panel 2</Item>
-				</Panel>
-			</FixedPopupPanels>
+				<FixedPopupPanels open index={this.state.index}>
+					<Panel id="panel1" autoFocus="none">
+						<Header title="First Panel" noCloseButton />
+						<Item>Item 1 in Panel 2</Item>
+						<Item>Item 1 in Panel 2</Item>
+						<Item>Item 1 in Panel 2</Item>
+					</Panel>
+				</FixedPopupPanels>
 			</div>
 		);
 	}
@@ -105,78 +105,78 @@ export const WithVirtualList = () => {
 				scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
 				spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
 			>
-			<Panel>
-				<Header>
-				<title>Panel 1</title>
-				<subtitle>20-Item VirtualList in a `Layout`</subtitle>
-				<slotAfter>
-					<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
-				</slotAfter>
-				</Header>
-				<Column>
-				<Cell shrink component={BodyText}>
-					A 3-Cell Layout with 4 visible items in a VirtualList
-				</Cell>
-				<Cell
-					size={itemHeight * 4}
-					component={VirtualList}
-					childProps={{onClick: nextPanel}}
-					itemSize={itemSize}
-					itemRenderer={itemRenderer}
-					dataSize={20}
-				/>
-				<Cell shrink component={BodyText}>
-					This text should be visible.
-				</Cell>
-				</Column>
-			</Panel>
-			<Panel>
-				<Header>
-				<title>Panel 2</title>
-				<subtitle>3-Item VirtualList in a `Layout`</subtitle>
-				<slotAfter>
-					<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
-				</slotAfter>
-				</Header>
-				<Column>
-				<Cell shrink>
-					<BodyText>A 3-Cell Layout with fixed height VirtualList</BodyText>
-				</Cell>
-				<Cell size={itemHeight * 3}>
+				<Panel>
+					<Header>
+						<title>Panel 1</title>
+						<subtitle>20-Item VirtualList in a `Layout`</subtitle>
+						<slotAfter>
+							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
+						</slotAfter>
+					</Header>
+					<Column>
+						<Cell shrink component={BodyText}>
+							A 3-Cell Layout with 4 visible items in a VirtualList
+						</Cell>
+						<Cell
+							size={itemHeight * 4}
+							component={VirtualList}
+							childProps={{onClick: nextPanel}}
+							itemSize={itemSize}
+							itemRenderer={itemRenderer}
+							dataSize={20}
+						/>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 2</title>
+						<subtitle>3-Item VirtualList in a `Layout`</subtitle>
+						<slotAfter>
+							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
+						</slotAfter>
+					</Header>
+					<Column>
+						<Cell shrink>
+							<BodyText>A 3-Cell Layout with fixed height VirtualList</BodyText>
+						</Cell>
+						<Cell size={itemHeight * 3}>
+							<VirtualList
+								childProps={{onClick: nextPanel}}
+								itemSize={itemSize}
+								itemRenderer={itemRenderer}
+								dataSize={3}
+							/>
+						</Cell>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 3</title>
+						<subtitle>VirtualList filling the height of the panel</subtitle>
+						<slotAfter>
+							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
+						</slotAfter>
+					</Header>
 					<VirtualList
 						childProps={{onClick: nextPanel}}
 						itemSize={itemSize}
 						itemRenderer={itemRenderer}
-						dataSize={3}
+						dataSize={20}
 					/>
-				</Cell>
-				<Cell shrink component={BodyText}>
-					This text should be visible.
-				</Cell>
-				</Column>
-			</Panel>
-			<Panel>
-				<Header>
-				<title>Panel 3</title>
-				<subtitle>VirtualList filling the height of the panel</subtitle>
-				<slotAfter>
-					<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
-				</slotAfter>
-				</Header>
-				<VirtualList
-					childProps={{onClick: nextPanel}}
-					itemSize={itemSize}
-					itemRenderer={itemRenderer}
-					dataSize={20}
-				/>
-			</Panel>
-			<Panel>
-				<Header>
-				<title>Panel 4</title>
-				<subtitle>2-Item VirtualList filling just the space it needs</subtitle>
-				</Header>
-				<VirtualList itemSize={itemSize} itemRenderer={itemRenderer} dataSize={2} />
-			</Panel>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 4</title>
+						<subtitle>2-Item VirtualList filling just the space it needs</subtitle>
+					</Header>
+					<VirtualList itemSize={itemSize} itemRenderer={itemRenderer} dataSize={2} />
+				</Panel>
 			</FixedPopupPanels>
 			<Button onClick={toggleOpen}>Open FixedPopupPanels</Button>
 		</div>
@@ -214,23 +214,23 @@ export const WithScroller = () => {
 			spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
 		>
 			<Panel>
-			<Header>
-				<title>Press Enter to scroll</title>
-			</Header>
-			<Cell>
-				<Scroller focusableScrollbar="byEnter" style={{height: ri.scaleToRem(333)}}>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante sit amet dui cursus
-				tempus ut nec nisl. In scelerisque, nunc in interdum varius, dolor magna auctor tellus,
-				quis mattis mauris lectus vel metus. Maecenas tempus quam ac dignissim gravida. Integer
-				ut posuere sapien. Duis consequat vitae libero nec posuere. Curabitur sagittis mauris
-				vel massa cursus, et mollis est malesuada. Vestibulum ante libero, gravida id purus
-				eget, varius porttitor ipsum. Suspendisse quis consequat sem, eget gravida est. Morbi
-				pulvinar diam vel mattis lacinia. Integer eget est quis augue tincidunt tincidunt quis
-				at nisi. Duis at massa nunc. Cras malesuada, sem quis aliquet vulputate, ante ipsum
-				congue ante, eu volutpat ipsum sem posuere ante. Suspendisse potenti. Nullam in lacinia
-				mi.
-				</Scroller>
-			</Cell>
+				<Header>
+					<title>Press Enter to scroll</title>
+				</Header>
+				<Cell>
+					<Scroller focusableScrollbar="byEnter" style={{height: ri.scaleToRem(333)}}>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante sit amet dui cursus
+						tempus ut nec nisl. In scelerisque, nunc in interdum varius, dolor magna auctor tellus,
+						quis mattis mauris lectus vel metus. Maecenas tempus quam ac dignissim gravida. Integer
+						ut posuere sapien. Duis consequat vitae libero nec posuere. Curabitur sagittis mauris
+						vel massa cursus, et mollis est malesuada. Vestibulum ante libero, gravida id purus
+						eget, varius porttitor ipsum. Suspendisse quis consequat sem, eget gravida est. Morbi
+						pulvinar diam vel mattis lacinia. Integer eget est quis augue tincidunt tincidunt quis
+						at nisi. Duis at massa nunc. Cras malesuada, sem quis aliquet vulputate, ante ipsum
+						congue ante, eu volutpat ipsum sem posuere ante. Suspendisse potenti. Nullam in lacinia
+						mi.
+					</Scroller>
+				</Cell>
 			</Panel>
 		</FixedPopupPanels>
 	);

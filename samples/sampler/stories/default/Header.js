@@ -14,7 +14,7 @@ const Config = mergeComponentMetadata('Header', HeaderBase, Header);
 const prop = {
 	above: {
 		none: null,
-		steps: <Steps current={3} total={5} />,
+		steps: <Steps current={3} total={5} />
 	},
 	buttons: {
 		'no buttons': null,
@@ -24,11 +24,11 @@ const prop = {
 				<Button size="small" icon="search" />
 				<Button size="small" icon="ellipsis" />
 			</Fragment>
-		),
+		)
 	},
 	buttonsSelection: ['no buttons', '1 button', '2 buttons'],
 	marqueeOn: ['', 'hover', 'render'],
-	type: ['standard', 'compact', 'wizard', 'mini'],
+	type: ['standard', 'compact', 'wizard', 'mini']
 };
 
 export default {

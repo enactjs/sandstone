@@ -15,7 +15,7 @@ export const TheBasicProgressBar = () => (
 			range: true,
 			min: 0,
 			max: 1,
-			step: 0.01,
+			step: 0.01
 		})}
 		tooltip={boolean('tooltip', Config, false)}
 		highlighted={boolean('highlighted', Config, false)}

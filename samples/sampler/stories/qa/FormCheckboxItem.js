@@ -6,7 +6,7 @@ class FormCheckboxItemView extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			disabled: false,
+			disabled: false
 		};
 	}
 
@@ -14,17 +14,17 @@ class FormCheckboxItemView extends Component {
 		this.setState((prevState) => ({disabled: !prevState.disabled}));
 	};
 
-	render() {
+	render () {
 		return (
 			<div>
-			You can change the state by clicking the Button or FormCheckboxItem.
-			<br />
-			<Button size="small" onClick={this.handleClick}>
-				change state
-			</Button>
-			<FormCheckboxItem disabled={this.state.disabled} onClick={this.handleClick}>
-				FormCheckbox Item
-			</FormCheckboxItem>
+				You can change the state by clicking the Button or FormCheckboxItem.
+				<br />
+				<Button size="small" onClick={this.handleClick}>
+					change state
+				</Button>
+				<FormCheckboxItem disabled={this.state.disabled} onClick={this.handleClick}>
+					FormCheckbox Item
+				</FormCheckboxItem>
 			</div>
 		);
 	}

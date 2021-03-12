@@ -13,14 +13,14 @@ const prop = {
 		'Big Buck Bunny': 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
 		VideoTest: 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
-		'Bad Video Source': 'https://github.com/mderrick/react-html5video',
+		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
 	},
 	images: {
 		None: '',
 		Strawberries: 'https://picsum.photos/1280/720?image=1080',
 		Tunnel: 'https://picsum.photos/1280/720?image=1063',
 		Mountains: 'https://picsum.photos/1280/720?image=930',
-		'Bad Image Source': 'imagenotfound.png',
+		'Bad Image Source': 'imagenotfound.png'
 	},
 	strings: [
 		'',
@@ -33,7 +33,7 @@ const prop = {
 		'빠른 갈색 여우가 게으른 개를 뛰어 넘었다.콩 조류 일몰에 파리.',
 		'שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקיעה.',
 		'قفز الثعلب البني السريع فوق الكلب الكسول. الطيور تطير في الفول عند غروب الشمس.',
-		'فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز.',
+		'فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز.'
 	],
 	placeholders: {
 		None: '',
@@ -41,8 +41,8 @@ const prop = {
 			'data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
 			'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
 			'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
-			'4NCg==',
-	},
+			'4NCg=='
+	}
 };
 
 export default {

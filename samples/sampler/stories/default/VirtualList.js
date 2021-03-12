@@ -11,11 +11,11 @@ import css from './VirtualList.module.less';
 const wrapOption = {
 		false: false,
 		true: true,
-		'&quot;noAnimation&quot;': 'noAnimation',
+		'&quot;noAnimation&quot;': 'noAnimation'
 	},
 	prop = {
 		scrollbarOption: ['auto', 'hidden', 'visible'],
-		scrollModeOption: ['native', 'translate'],
+		scrollModeOption: ['native', 'translate']
 	},
 	items = [],
 	defaultDataSize = 1000,

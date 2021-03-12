@@ -1,7 +1,6 @@
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
 import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 
 import {iconNames, divMargin, props, inputData} from './common/Input_Common';

@@ -11,7 +11,7 @@ const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
 	popupType: ['fullscreen', 'overlay'],
 	size: ['small', 'large'],
-	type: ['text', 'password', 'number', 'passwordnumber'],
+	type: ['text', 'password', 'number', 'passwordnumber']
 };
 
 export default {
@@ -39,7 +39,7 @@ export const _Input = () => {
 		title: text('title', ConfigPopup, 'Title Text'),
 		disabled: boolean('disabled', Config),
 		'aria-label': text('aria-label', ConfigPopup, ''),
-		popupAriaLabel: text('popupAriaLabel', ConfigPopup, ''),
+		popupAriaLabel: text('popupAriaLabel', ConfigPopup, '')
 	};
 
 	// Numeric specific props

@@ -14,7 +14,7 @@ class NoUpdate extends Component {
 		return false;
 	}
 
-	render() {
+	render () {
 		return <div>{this.props.children}</div>;
 	}
 }
@@ -24,7 +24,7 @@ class Items extends Component {
 		super(props);
 
 		this.state = {
-			more: false,
+			more: false
 		};
 	}
 
@@ -34,7 +34,7 @@ class Items extends Component {
 		});
 	};
 
-	render() {
+	render () {
 		const {more} = this.state;
 		const amount = more ? 'Fewer' : 'More';
 

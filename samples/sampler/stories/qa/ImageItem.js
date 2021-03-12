@@ -10,14 +10,14 @@ ImageItem.displayName = 'ImageItem';
 const src = {
 	hd: 'http://via.placeholder.com/200x200/7ed31d/ffffff',
 	fhd: 'http://via.placeholder.com/300x300/7ed31d/ffffff',
-	uhd: 'http://via.placeholder.com/600x600/7ed31d/ffffff',
+	uhd: 'http://via.placeholder.com/600x600/7ed31d/ffffff'
 };
 
 const prop = {
-	orientation: ['horizontal', 'vertical'],
+	orientation: ['horizontal', 'vertical']
 };
 const dataIndexProp = {
-	'data-index': 0,
+	'data-index': 0
 };
 
 export default {
@@ -29,25 +29,25 @@ export const WithDataIndex = () => {
 	const dataIndex = boolean('data-index', Config);
 
 	return (
-	<ImageItem
-		{...(dataIndex ? {...dataIndexProp} : null)}
-		key={!!dataIndex + ''}
-		label={text('label', Config, 'ImageItem label')}
-		orientation={select('orientation', prop.orientation, Config)}
-		selected={boolean('selected', Config)}
-		showSelection={boolean('showSelection', Config)}
-		src={object('src', Config, src)}
-		style={{
-		width: ri.scale(
-			select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020
-		),
-		height: ri.scale(
-			select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240
-		),
-	   }}
-	>
-		{text('children', Config, 'ImageItem Caption')}
-	</ImageItem>
+		<ImageItem
+			{...(dataIndex ? {...dataIndexProp} : null)}
+			key={!!dataIndex + ''}
+			label={text('label', Config, 'ImageItem label')}
+			orientation={select('orientation', prop.orientation, Config)}
+			selected={boolean('selected', Config)}
+			showSelection={boolean('showSelection', Config)}
+			src={object('src', Config, src)}
+			style={{
+				width: ri.scale(
+					select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020
+				),
+				height: ri.scale(
+					select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240
+				)
+			}}
+		>
+			{text('children', Config, 'ImageItem Caption')}
+		</ImageItem>
 	);
 };
 

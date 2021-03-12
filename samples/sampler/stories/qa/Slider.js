@@ -10,14 +10,14 @@ Slider.displayName = 'Slider';
 
 class SliderList extends Component {
 	static propTypes = {
-		itemSize: PropTypes.number,
+		itemSize: PropTypes.number
 	};
 
-	constructor(props) {
+	constructor (props) {
 		super(props);
 		this.state = {
 			selectedItems: [],
-			value: 50,
+			value: 50
 		};
 		this.items = [
 			{item: 'Apple', count: 10},
@@ -29,24 +29,24 @@ class SliderList extends Component {
 			{item: 'Pineapple', count: 67},
 			{item: 'Strawberry', count: 70},
 			{item: 'Grapes', count: 44},
-			{item: 'Watermelon', count: 55},
+			{item: 'Watermelon', count: 55}
 		];
 	}
 
-	componentDidMount() {
+	componentDidMount () {
 		this.fillItems(this.state.value);
 	}
 
 	fillItems = (value) => {
 		let selected = this.items.filter((item) => {
 			if (item.count <= value) {
-			return true;
-		}
+				return true;
+			}
 		});
 
 		this.setState({
 			selectedItems: selected,
-			value: value,
+			value: value
 		});
 	};
 
@@ -58,37 +58,37 @@ class SliderList extends Component {
 		const itemStyle = {
 			height: size + 'px',
 			borderBottom: ri.scaleToRem(6) + ' solid #202328',
-			boxSizing: 'border-box',
+			boxSizing: 'border-box'
 		};
 
 		return (
 			<Item {...rest} style={itemStyle}>
-			{this.items[index].item + ': ' + this.items[index].count}
+				{this.items[index].item + ': ' + this.items[index].count}
 			</Item>
 		);
 	};
 
-	render() {
+	render () {
 		return (
 			<div>
-			<Slider
-				backgroundProgress={0}
-				disabled={false}
-				max={100}
-				min={0}
-				onChange={this.handleChange}
-				step={1}
-				tooltip={false}
-				value={this.state.value}
-			/>
-			<VirtualList
-				dataSize={this.state.selectedItems.length}
-				itemRenderer={this.renderItem(this.props.itemSize)}
-				itemSize={this.props.itemSize}
-				style={{
-				height: ri.scaleToRem(1104),
-			}}
-			/>
+				<Slider
+					backgroundProgress={0}
+					disabled={false}
+					max={100}
+					min={0}
+					onChange={this.handleChange}
+					step={1}
+					tooltip={false}
+					value={this.state.value}
+				/>
+				<VirtualList
+					dataSize={this.state.selectedItems.length}
+					itemRenderer={this.renderItem(this.props.itemSize)}
+					itemSize={this.props.itemSize}
+					style={{
+						height: ri.scaleToRem(1104)
+					}}
+				/>
 			</div>
 		);
 	}

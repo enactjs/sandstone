@@ -10,11 +10,11 @@ ImageItem.displayName = 'ImageItem';
 const src = {
 	hd: 'http://via.placeholder.com/200x200/7ed31d/ffffff',
 	fhd: 'http://via.placeholder.com/300x300/7ed31d/ffffff',
-	uhd: 'http://via.placeholder.com/600x600/7ed31d/ffffff',
+	uhd: 'http://via.placeholder.com/600x600/7ed31d/ffffff'
 };
 
 const prop = {
-	orientation: ['horizontal', 'vertical'],
+	orientation: ['horizontal', 'vertical']
 };
 
 export default {
@@ -34,7 +34,7 @@ export const _ImageItem = () => (
 		style={{
 			position: 'absolute',
 			width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
-			height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240),
+			height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240)
 		}}
 	>
 		{text('children', Config, 'ImageItem Caption')}

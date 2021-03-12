@@ -17,7 +17,7 @@ Config.defaultProps = {
 	direction: 'below center',
 	offset: 'small',
 	open: false,
-	spotlightRestrict: 'self-first',
+	spotlightRestrict: 'self-first'
 };
 
 const renderPopup = () => (
@@ -48,7 +48,7 @@ export const _ContextualPopupDecorator = () => (
 					'left bottom',
 					'right middle',
 					'right top',
-					'right bottom',
+					'right bottom'
 				],
 				Config
 			)}

@@ -7,10 +7,10 @@ import {Component} from 'react';
 DayPicker.displayName = 'DayPicker';
 
 class DayPickerWithItem extends Component {
-	constructor(props) {
+	constructor (props) {
 		super(props);
 		this.state = {
-			selectedDayString: 'None selected',
+			selectedDayString: 'None selected'
 		};
 	}
 
@@ -18,18 +18,18 @@ class DayPickerWithItem extends Component {
 		this.setState({selectedDayString: getSelectedDayString(ev.selected, 'None selected')});
 	};
 
-	render() {
+	render () {
 		const {selectedDayString} = this.state;
 
 		return (
 			<Scroller>
-			<Heading size="small">
-				Select several days, every day, every weekday and weekend.
-				<br />
-				Change locale to *es-ES* starting on Monday.
-			</Heading>
-			<Item label={selectedDayString}>{'Selected Day'}</Item>
-			<DayPicker onSelect={this.handleSelect} />
+				<Heading size="small">
+					Select several days, every day, every weekday and weekend.
+					<br />
+					Change locale to *es-ES* starting on Monday.
+				</Heading>
+				<Item label={selectedDayString}>{'Selected Day'}</Item>
+				<DayPicker onSelect={this.handleSelect} />
 			</Scroller>
 		);
 	}

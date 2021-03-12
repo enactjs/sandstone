@@ -16,13 +16,13 @@ const defaultDataSize = 1000;
 
 const prop = {
 	scrollbarOption: ['auto', 'hidden', 'visible'],
-	scrollModeOption: ['native', 'translate'],
+	scrollModeOption: ['native', 'translate']
 };
 
 const wrapOption = {
 	false: false,
 	true: true,
-	'&quot;noAnimation&quot;': 'noAnimation',
+	'&quot;noAnimation&quot;': 'noAnimation'
 };
 
 const items = [];
@@ -33,7 +33,7 @@ const renderItem = ({index, ...rest}) => {
 
 	return (
 		<ImageItem {...rest} label={subText} src={source}>
-		{text}
+			{text}
 		</ImageItem>
 	);
 };
@@ -73,7 +73,7 @@ class MyVirtualList extends Component {
 		this.scrollTo({index: lastIndex, animate: false, focus: true});
 	}
 
-	closePopup(index) {
+	closePopup (index) {
 		lastIndex = index;
 		// eslint-disable-next-line enact/prop-types
 		this.props.closePopup();
@@ -83,7 +83,7 @@ class MyVirtualList extends Component {
 		return (
 			/* eslint-disable react/jsx-no-bind */
 			<Item {...rest} onClick={() => this.closePopup(index)}>
-			{itemList[index]}
+				{itemList[index]}
 			</Item>
 		);
 	};
@@ -92,21 +92,21 @@ class MyVirtualList extends Component {
 		this.scrollTo = scrollTo;
 	};
 
-	render() {
+	render () {
 		let props = {...this.props};
 		delete props.closePopup;
 
 		return (
 			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
-			<VirtualGridList
-				cbScrollTo={this.getScrollTo}
-				dataSize={itemList.length}
-				direction="vertical"
-				itemRenderer={this.renderItem}
-				itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
-				key={select('scrollMode', prop.scrollModeOption, Config)}
-				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-			/>
+				<VirtualGridList
+					cbScrollTo={this.getScrollTo}
+					dataSize={itemList.length}
+					direction="vertical"
+					itemRenderer={this.renderItem}
+					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				/>
 			</div>
 		);
 	}
@@ -116,7 +116,7 @@ class ButtonAndVirtualGridList extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			isPopup: false,
+			isPopup: false
 		};
 	}
 
@@ -132,19 +132,19 @@ class ButtonAndVirtualGridList extends Component {
 		this.setState({isPopup: false});
 	};
 
-	render() {
+	render () {
 		return (
 			<div>
-			<ContextualPopupButton
-				open={this.state.isPopup}
-				popupComponent={this.renderPopup}
-				onClick={this.openPopup}
-				direction="right middle"
-				spotlightRestrict="self-only"
-				onClose={this.closePopup}
-			>
-				Focus here
-			</ContextualPopupButton>
+				<ContextualPopupButton
+					open={this.state.isPopup}
+					popupComponent={this.renderPopup}
+					onClick={this.openPopup}
+					direction="right middle"
+					spotlightRestrict="self-only"
+					onClose={this.closePopup}
+				>
+					Focus here
+				</ContextualPopupButton>
 			</div>
 		);
 	}
@@ -163,7 +163,7 @@ export const HorizontalVirtualGridList = () => (
 		itemRenderer={renderItem}
 		itemSize={{
 			minWidth: ri.scale(number('minWidth', Config, 688)),
-			minHeight: ri.scale(number('minHeight', Config, 570)),
+			minHeight: ri.scale(number('minHeight', Config, 570))
 		}}
 		key={select('scrollMode', prop.scrollModeOption, Config)}
 		noScrollByWheel={boolean('noScrollByWheel', Config)}

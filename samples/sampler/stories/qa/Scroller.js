@@ -24,12 +24,12 @@ for (let i = 0; i < 100; i++) {
 const prop = {
 	direction: ['both', 'horizontal', 'vertical'],
 	focusableScrollbarOption: {
-	false: false,
-	true: true,
-	'&quot;byEnter&quot;': 'byEnter',
+		false: false,
+		true: true,
+		'&quot;byEnter&quot;': 'byEnter'
 	},
 	scrollbarOption: ['auto', 'hidden', 'visible'],
-	scrollModeOption: ['native', 'translate'],
+	scrollModeOption: ['native', 'translate']
 };
 
 class ScrollerResizableItem extends Component {
@@ -37,17 +37,17 @@ class ScrollerResizableItem extends Component {
 		max: PropTypes.number,
 		min: PropTypes.number,
 		more: PropTypes.bool,
-		toggleMore: PropTypes.func,
+		toggleMore: PropTypes.func
 	};
 
-	render() {
+	render () {
 		const {max = 3000, min = 504, more, toggleMore} = this.props;
 		const height = ri.scaleToRem(more ? max : min);
 		const text = more ? 'less' : 'more';
 		const style = {
 			border: 'solid yellow',
 			position: 'relative',
-			width: '90%',
+			width: '90%'
 		};
 		return (
 			<div style={{...style, height}}>
@@ -63,7 +63,7 @@ class ScrollerWithLongItem extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			more: false,
+			more: false
 		};
 	}
 
@@ -71,12 +71,12 @@ class ScrollerWithLongItem extends Component {
 		this.setState((prevState) => ({more: !prevState.more}));
 	};
 
-	render() {
+	render () {
 		return (
 			<Scroller
 				focusableScrollbar={
 					prop.focusableScrollbarOption[
-					select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+						select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
 					]
 				}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
@@ -85,11 +85,11 @@ class ScrollerWithLongItem extends Component {
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 			>
-			<Item>
-				Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long
-				Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Text
-			</Item>
-			<ScrollerResizableItem min={100} more={this.state.more} toggleMore={this.handleClick} />
+				<Item>
+					Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long
+					Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Text
+				</Item>
+				<ScrollerResizableItem min={100} more={this.state.more} toggleMore={this.handleClick} />
 			</Scroller>
 		);
 	}
@@ -99,7 +99,7 @@ class ScrollerWithResizable extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			more: false,
+			more: false
 		};
 	}
 
@@ -107,7 +107,7 @@ class ScrollerWithResizable extends Component {
 		this.setState((prevState) => ({more: !prevState.more}));
 	};
 
-	render() {
+	render () {
 		return (
 			<Scroller
 				key={select('scrollMode', prop.scrollModeOption, Config)}
@@ -117,9 +117,9 @@ class ScrollerWithResizable extends Component {
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				verticalScrollbar="visible"
 			>
-			<Item>Item</Item>
-			<Item>Item</Item>
-			<ScrollerResizableItem more={this.state.more} toggleMore={this.handleClick} />
+				<Item>Item</Item>
+				<Item>Item</Item>
+				<ScrollerResizableItem more={this.state.more} toggleMore={this.handleClick} />
 			</Scroller>
 		);
 	}
@@ -134,33 +134,33 @@ class ScrollerWithLargeContainer extends Component {
 		}, 50);
 	}
 
-	render() {
+	render () {
 		return (
 			<Scroller
-			focusableScrollbar={
-				prop.focusableScrollbarOption[
-				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
-				]
-			}
-			key={select('scrollMode', prop.scrollModeOption, Config)}
-			onKeyDown={action('onKeyDown')}
-			onScrollStart={action('onScrollStart')}
-			onScrollStop={action('onScrollStop')}
-			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-			spotlightId="scroller"
-			style={{height: ri.scaleToRem(600)}}
+				focusableScrollbar={
+					prop.focusableScrollbarOption[
+						select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+					]
+				}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spotlightId="scroller"
+				style={{height: ri.scaleToRem(600)}}
 			>
-			<Container>
-				<Item>Hello</Item>
-				<Item>Hello</Item>
-				<Item>Hello</Item>
-				<Item>Hello</Item>
-				<Item>Hello</Item>
-				<Item>Hello</Item>
-				<Item>Hello</Item>
-				<Item>Hello</Item>
-				<Item>Hello</Item>
-			</Container>
+				<Container>
+					<Item>Hello</Item>
+					<Item>Hello</Item>
+					<Item>Hello</Item>
+					<Item>Hello</Item>
+					<Item>Hello</Item>
+					<Item>Hello</Item>
+					<Item>Hello</Item>
+					<Item>Hello</Item>
+					<Item>Hello</Item>
+				</Container>
 			</Scroller>
 		);
 	}
@@ -175,7 +175,7 @@ export const ListOfThings = () => (
 	<Scroller
 		focusableScrollbar={
 			prop.focusableScrollbarOption[
-			select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
 			]
 		}
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
@@ -188,7 +188,7 @@ export const ListOfThings = () => (
 		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 	>
-	<Group childComponent={Item}>{itemData}</Group>
+		<Group childComponent={Item}>{itemData}</Group>
 	</Scroller>
 );
 
@@ -199,7 +199,7 @@ export const HorizontalScroll = () => (
 		direction={select('direction', prop.direction, Config, 'horizontal')}
 		focusableScrollbar={
 			prop.focusableScrollbarOption[
-			select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
 			]
 		}
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
@@ -212,16 +212,16 @@ export const HorizontalScroll = () => (
 		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 	>
-	<div
-		style={{
-		width: ri.scaleToRem(14400, 'rem'),
-		padding: '1px',
-	   }}
-	>
-		{[...Array(20)].map((x, i) => (
-		<Button key={i + 1}>Button {i + 1}</Button>
-		))}
-	</div>
+		<div
+			style={{
+				width: ri.scaleToRem(14400, 'rem'),
+				padding: '1px'
+			}}
+		>
+			{[...Array(20)].map((x, i) => (
+				<Button key={i + 1}>Button {i + 1}</Button>
+			))}
+		</div>
 	</Scroller>
 );
 
@@ -232,7 +232,7 @@ export const WithSpottableComponents = () => (
 		direction={select('direction', prop.direction, Config)}
 		focusableScrollbar={
 			prop.focusableScrollbarOption[
-			select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
 			]
 		}
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
@@ -245,30 +245,30 @@ export const WithSpottableComponents = () => (
 		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 	>
-	<div
-		style={{
-			width: ri.scaleToRem(8802),
-			height: ri.scaleToRem(8004),
-			padding: '1px',
-		}}
-	>
-		{[...Array(10)].map((y, j) => (
-		<div key={j + 1}>
-			{[...Array(10)].map((x, i) => (
-			<Button
-				key={i + 1}
-				style={{
-					width: ri.scaleToRem(402),
-					height: ri.scaleToRem(102),
-					margin: ri.scaleToRem(51),
-				}}
-			>
-				Button {j * 10 + i + 1}
-			</Button>
+		<div
+			style={{
+				width: ri.scaleToRem(8802),
+				height: ri.scaleToRem(8004),
+				padding: '1px'
+			}}
+		>
+			{[...Array(10)].map((y, j) => (
+				<div key={j + 1}>
+					{[...Array(10)].map((x, i) => (
+						<Button
+							key={i + 1}
+							style={{
+								width: ri.scaleToRem(402),
+								height: ri.scaleToRem(102),
+								margin: ri.scaleToRem(51)
+							}}
+						>
+							Button {j * 10 + i + 1}
+						</Button>
+					))}
+				</div>
 			))}
 		</div>
-		))}
-	</div>
 	</Scroller>
 );
 
@@ -279,7 +279,7 @@ export const WithShortContents = () => (
 		direction={select('direction', prop.direction, Config)}
 		focusableScrollbar={
 			prop.focusableScrollbarOption[
-			select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
 			]
 		}
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
@@ -293,7 +293,7 @@ export const WithShortContents = () => (
 		style={{height: ri.scaleToRem(600)}}
 		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 	>
-	Text
+		Text
 	</Scroller>
 );
 
@@ -337,9 +337,9 @@ export const WithFocusOutsideContainer = () => (
 		<Button>focus to me</Button>
 		<Scroller
 			focusableScrollbar={
-			prop.focusableScrollbarOption[
-				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
-			]
+				prop.focusableScrollbarOption[
+					select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				]
 			}
 			key={select('scrollMode', prop.scrollModeOption, Config)}
 			onKeyDown={action('onKeyDown')}
@@ -377,7 +377,7 @@ export const TestScrollingToBoundaryWithSmallOverflow = () => {
 		>
 			<Item>1</Item>
 			<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>
-			{size}px Spacer
+				{size}px Spacer
 			</div>
 			<Item style={{marginBottom: ri.scaleToRem(36)}}>3</Item>
 		</Scroller>
@@ -391,9 +391,9 @@ export const TestScrollingToBoundaryWithLongOverflow = () => {
 	return (
 		<Scroller
 			focusableScrollbar={
-			prop.focusableScrollbarOption[
-				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
-			]
+				prop.focusableScrollbarOption[
+					select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				]
 			}
 			key={select('scrollMode', prop.scrollModeOption, Config)}
 			onKeyDown={action('onKeyDown')}
@@ -403,15 +403,15 @@ export const TestScrollingToBoundaryWithLongOverflow = () => {
 			style={{height: ri.scaleToRem(402)}}
 		>
 			<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>
-			{size}px Spacer
+				{size}px Spacer
 			</div>
 			<Item>1</Item>
 			<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>
-			{size}px Spacer
+				{size}px Spacer
 			</div>
 			<Item>3</Item>
 			<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>
-			{size}px Spacer
+				{size}px Spacer
 			</div>
 		</Scroller>
 	);
@@ -424,9 +424,9 @@ export const WithSpotlightTargetCalculation = () => (
 		<Button>hello</Button>
 		<Scroller
 			focusableScrollbar={
-			prop.focusableScrollbarOption[
-				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
-			]
+				prop.focusableScrollbarOption[
+					select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				]
 			}
 			key={select('scrollMode', prop.scrollModeOption, Config)}
 			onKeyDown={action('onKeyDown')}
@@ -450,7 +450,7 @@ export const WithOneLongHeightItem = () => (
 	<Scroller
 		focusableScrollbar={
 			prop.focusableScrollbarOption[
-			select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
 			]
 		}
 		key={select('scrollMode', prop.scrollModeOption, Config)}
@@ -459,9 +459,9 @@ export const WithOneLongHeightItem = () => (
 		onScrollStop={action('onScrollStop')}
 		scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 	>
-	<div style={{height: ri.scaleToRem(2442)}}>
-		<Item style={{height: ri.scaleToRem(2400)}}>Long Height Item</Item>
-	</div>
+		<div style={{height: ri.scaleToRem(2442)}}>
+			<Item style={{height: ri.scaleToRem(2400)}}>Long Height Item</Item>
+		</div>
 	</Scroller>
 );
 
@@ -473,9 +473,9 @@ export const WithNestedScroller = () => {
 		<Scroller
 			direction="vertical"
 			focusableScrollbar={
-			prop.focusableScrollbarOption[
-				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
-			]
+				prop.focusableScrollbarOption[
+					select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				]
 			}
 			key={select('scrollMode', prop.scrollModeOption, Config) + '1'}
 			onKeyDown={action('onKeyDown')}
@@ -488,7 +488,7 @@ export const WithNestedScroller = () => {
 				direction="horizontal"
 				focusableScrollbar={
 					prop.focusableScrollbarOption[
-					select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+						select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
 					]
 				}
 				horizontalScrollbar="visible"
@@ -500,32 +500,32 @@ export const WithNestedScroller = () => {
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				style={{
 					height: 'auto',
-					width: '90%',
+					width: '90%'
 				}}
 			>
-			<div
-				style={{
-				backgroundColor: '#444',
-				width: ri.scaleToRem(4800),
-				}}
-			>
-				<Item>The first nested scroller.</Item>
-				<br />
-				<br />
-				<Item>
-				This is the upper horizontal scroller. If noScrollByWheel is not specified, this
-				scroller will be scrolled by wheel and the outer scroller will not be scrolled.
-				</Item>
-				<br />
-				<br />
-				<Item>
-				If noScrollByWheel is specified, this scroller will NOT be scrolled by wheel but the
-				outer scroller will be scrolled.
-				</Item>
-				<br />
-				<br />
-				<Item>To set or unset noScrollByWheel prop, click KNOBS below.</Item>
-			</div>
+				<div
+					style={{
+						backgroundColor: '#444',
+						width: ri.scaleToRem(4800)
+					}}
+				>
+					<Item>The first nested scroller.</Item>
+					<br />
+					<br />
+					<Item>
+						This is the upper horizontal scroller. If noScrollByWheel is not specified, this
+						scroller will be scrolled by wheel and the outer scroller will not be scrolled.
+					</Item>
+					<br />
+					<br />
+					<Item>
+						If noScrollByWheel is specified, this scroller will NOT be scrolled by wheel but the
+						outer scroller will be scrolled.
+					</Item>
+					<br />
+					<br />
+					<Item>To set or unset noScrollByWheel prop, click KNOBS below.</Item>
+				</div>
 			</Scroller>
 			<Scroller
 				direction="horizontal"
@@ -538,32 +538,32 @@ export const WithNestedScroller = () => {
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				style={{
 					height: 'auto',
-					width: '90%',
+					width: '90%'
 				}}
 			>
-			<div
-				style={{
-				backgroundColor: '#444',
-				width: ri.scaleToRem(4800),
-				}}
-			>
-				<Item>The second nested scroller.</Item>
-				<br />
-				<br />
-				<Item>
-				This is the lower horizontal scroller. If noScrollByWheel is not specified, this
-				scroller will be scrolled by wheel and the outer scroller will not be scrolled.
-				</Item>
-				<br />
-				<br />
-				<Item>
-				If noScrollByWheel is specified, this scroller will NOT be scrolled by wheel but the
-				outer scroller will be scrolled.
-				</Item>
-				<br />
-				<br />
-				<Item>To set or unset noScrollByWheel prop, click KNOBS below.</Item>
-			</div>
+				<div
+					style={{
+						backgroundColor: '#444',
+						width: ri.scaleToRem(4800)
+					}}
+				>
+					<Item>The second nested scroller.</Item>
+					<br />
+					<br />
+					<Item>
+						This is the lower horizontal scroller. If noScrollByWheel is not specified, this
+						scroller will be scrolled by wheel and the outer scroller will not be scrolled.
+					</Item>
+					<br />
+					<br />
+					<Item>
+						If noScrollByWheel is specified, this scroller will NOT be scrolled by wheel but the
+						outer scroller will be scrolled.
+					</Item>
+					<br />
+					<br />
+					<Item>To set or unset noScrollByWheel prop, click KNOBS below.</Item>
+				</div>
 			</Scroller>
 		</Scroller>
 	);

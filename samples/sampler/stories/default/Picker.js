@@ -7,7 +7,7 @@ import {decrementIcons, incrementIcons} from '../helper/icons';
 // Set up some defaults for info and knobs
 const prop = {
 	orientation: ['horizontal', 'vertical'],
-	width: [null, 'small', 'medium', 'large'],
+	width: [null, 'small', 'medium', 'large']
 };
 
 const airports = [
@@ -17,7 +17,7 @@ const airports = [
 	'Boston Logan Airport Terminal D',
 	'Tokyo Narita Airport Terminal 5',
 	'Heathrow Terminal 6',
-	'נמל התעופה בן גוריון טרמינל הבינלאומי',
+	'נמל התעופה בן גוריון טרמינל הבינלאומי'
 ];
 
 // const Config = mergeComponentMetadata('FormCheckboxItem', FormCheckboxItem);

@@ -12,7 +12,7 @@ import spriteGear4k from '../../images/sprite-gear-4k.png';
 
 const prop = {
 	orientation: ['horizontal', 'vertical'],
-	iterations: [1, 2, 3, 10, Infinity],
+	iterations: [1, 2, 3, 10, Infinity]
 };
 
 export default {
@@ -25,7 +25,7 @@ export const _Sprite = () => {
 		<Sprite
 			src={{
 				fhd: spriteGear2k,
-				uhd: spriteGear4k,
+				uhd: spriteGear4k
 			}}
 			columns={6}
 			rows={5}

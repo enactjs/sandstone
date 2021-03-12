@@ -21,7 +21,7 @@ const inputData = {
 	longString:
 	'Core, The building blocks of an Enact application. Sandstone, our touch-centric UI library.',
 	longerString:
-	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit.',
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit.'
 };
 
 export default {
@@ -47,21 +47,21 @@ export const LongPrevNextButtons = () => (
 			subtitle="A subtitle for View 1"
 			title="WizardPanel View 1"
 			prevButton={
-			boolean('custom first Panel prevButton', Config) ? (
-				<Button icon="closex" aria-label="exit">
-				Exit
-				</Button>
-			) : (
-				void 0
-			)
-		}
+				boolean('custom first Panel prevButton', Config) ? (
+					<Button icon="closex" aria-label="exit">
+						Exit
+					</Button>
+				) : (
+					void 0
+				)
+			}
 		>
 			<Scroller>
 				<BodyText>This is BodyText.</BodyText>
 			</Scroller>
 			<footer>
-			<Button>OK</Button>
-			<Button>Cancel</Button>
+				<Button>OK</Button>
+				<Button>Cancel</Button>
 			</footer>
 		</WizardPanels.Panel>
 		<WizardPanels.Panel
@@ -71,10 +71,10 @@ export const LongPrevNextButtons = () => (
 			prevButton={<Button>{inputData.longString}</Button>}
 		>
 			<Item>
-			<slotBefore>
-				<Icon>notification</Icon>
-			</slotBefore>
-			A Long title, Previous button has long text, and Next button has short text.
+				<slotBefore>
+					<Icon>notification</Icon>
+				</slotBefore>
+				A Long title, Previous button has long text, and Next button has short text.
 			</Item>
 		</WizardPanels.Panel>
 		<WizardPanels.Panel
@@ -84,10 +84,10 @@ export const LongPrevNextButtons = () => (
 			prevButton={<Button>{inputData.longString}</Button>}
 		>
 			<Item>
-			<slotBefore>
-				<Icon>notification</Icon>
-			</slotBefore>
-			A Long title, Previous button has long text, and Next button has long text.
+				<slotBefore>
+					<Icon>notification</Icon>
+				</slotBefore>
+				A Long title, Previous button has long text, and Next button has long text.
 			</Item>
 		</WizardPanels.Panel>
 		<WizardPanels.Panel
@@ -97,10 +97,10 @@ export const LongPrevNextButtons = () => (
 			prevButton={<Button>{inputData.prevString}</Button>}
 		>
 			<Item>
-			<slotBefore>
-				<Icon>notification</Icon>
-			</slotBefore>
-			A Long title, Previous button has short text, and Next button has long text.
+				<slotBefore>
+					<Icon>notification</Icon>
+				</slotBefore>
+				A Long title, Previous button has short text, and Next button has long text.
 			</Item>
 		</WizardPanels.Panel>
 		<WizardPanels.Panel
@@ -108,20 +108,20 @@ export const LongPrevNextButtons = () => (
 			subtitle="A subtitle for View 5"
 			title="WizardPanel View 5"
 			nextButton={
-			boolean('custom last Panel nextButton', Config) ? (
-				<Button icon="closex" aria-label="quit">
-				Close
-				</Button>
-			) : (
-				void 0
-			)
-		}
+				boolean('custom last Panel nextButton', Config) ? (
+					<Button icon="closex" aria-label="quit">
+						Close
+					</Button>
+				) : (
+					void 0
+				)
+			}
 		>
 			<Icon>support</Icon>
 			<BodyText>A simple view</BodyText>
 			<footer>
-			<Button>OK</Button>
-			<Button>Cancel</Button>
+				<Button>OK</Button>
+				<Button>Cancel</Button>
 			</footer>
 		</WizardPanels.Panel>
 	</WizardPanels>

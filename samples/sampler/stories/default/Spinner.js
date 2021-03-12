@@ -19,7 +19,7 @@ export const _Spinner = () => (
 			outline: 'teal dashed 1px',
 			position: 'relative',
 			padding: ri.scaleToRem(180),
-			backgroundColor: 'rgba(0, 187, 187, 0.5)',
+			backgroundColor: 'rgba(0, 187, 187, 0.5)'
 		}}
 	>
 		<div
@@ -28,7 +28,7 @@ export const _Spinner = () => (
 				height: '100%',
 				width: '100%',
 				top: 0,
-				left: 0,
+				left: 0
 			}}
 			onClick={action('Outside container events')}
 		/>
@@ -37,7 +37,7 @@ export const _Spinner = () => (
 				outline: 'teal dashed 1px',
 				position: 'relative',
 				height: ri.scaleToRem(360),
-				width: '50%',
+				width: '50%'
 			}}
 		>
 			<label
@@ -51,7 +51,7 @@ export const _Spinner = () => (
 					padding: '0.1em 1em',
 					fontWeight: 100,
 					fontStyle: 'italic',
-					fontSize: ri.scaleToRem(30),
+					fontSize: ri.scaleToRem(30)
 				}}
 			>
 				Container
@@ -60,7 +60,7 @@ export const _Spinner = () => (
 				style={{
 					position: 'absolute',
 					height: '100%',
-					width: '100%',
+					width: '100%'
 				}}
 				onClick={action('Inside container events')}
 			/>

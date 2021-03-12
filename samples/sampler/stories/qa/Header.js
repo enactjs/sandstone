@@ -22,7 +22,7 @@ export const JustTitle = () => {
 		<Fragment>
 			<Header
 				title={text('title', Config, inputData.shortTitle)}
-			{...commonProps()}
+				{...commonProps()}
 			/>
 		</Fragment>
 	);
@@ -37,7 +37,7 @@ export const ShortTitles = () => {
 			<Header
 				title={text('title', Config, inputData.shortTitle)}
 				subtitle={text('subtitle', Config, inputData.shortSubtitle)}
-			{...commonProps()}
+				{...commonProps()}
 			/>
 		</Fragment>
 	);
@@ -52,7 +52,7 @@ export const LongTitles = () => {
 			<Header
 				title={text('title', Config, inputData.longTitle)}
 				subtitle={text('subtitle', Config, inputData.longSubtitle)}
-			{...commonProps()}
+				{...commonProps()}
 			/>
 		</Fragment>
 	);

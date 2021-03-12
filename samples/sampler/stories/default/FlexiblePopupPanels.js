@@ -14,7 +14,7 @@ import compose from 'ramda/src/compose';
 
 const props = {
 	buttonVisibility: ['auto', 'always', 'never'],
-	size: ['auto', 'small', 'large'],
+	size: ['auto', 'small', 'large']
 };
 
 const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels);
@@ -53,7 +53,7 @@ export const _FlexiblePopupPanels = () => {
 			['self-first', 'self-only'],
 			Config,
 			'self-only'
-		),
+		)
 	};
 
 	// Knobs are ordered this way so "Panel" comes after the main component

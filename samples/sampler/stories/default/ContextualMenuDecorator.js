@@ -19,7 +19,7 @@ const Config = mergeComponentMetadata(
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
 	direction: 'below right',
-	offset: 'overlap',
+	offset: 'overlap'
 };
 
 export default {
@@ -32,7 +32,7 @@ export const _ContextualMenuDecorator = () => {
 	const items = new Array(itemCount).fill().map((i, index) => `Option ${index + 1}`);
 
 	return (
-		<div style={{ textAlign: 'center', marginTop: ri.scaleToRem(198) }}>
+		<div style={{textAlign: 'center', marginTop: ri.scaleToRem(198)}}>
 			<ContextualButton
 				direction={select(
 					'direction',
@@ -50,7 +50,7 @@ export const _ContextualMenuDecorator = () => {
 						'left bottom',
 						'right middle',
 						'right top',
-						'right bottom',
+						'right bottom'
 					],
 					Config
 				)}

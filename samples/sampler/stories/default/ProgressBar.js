@@ -37,7 +37,7 @@ export const _ProgressBar = () => {
 			'below center',
 			'below right',
 			'below before',
-			'below after',
+			'below after'
 		],
 		ProgressBarTooltipConfig,
 		''

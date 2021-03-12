@@ -32,12 +32,12 @@ const items = [],
 					<Button icon="search" />
 					<Button icon="ellipsis" />
 				</Fragment>
-			),
+			)
 		},
 		buttonsSelection: ['no buttons', '1 button', '2 buttons'],
 		direction: {horizontal: 'horizontal', vertical: 'vertical'},
 		scrollbarOption: ['auto', 'hidden', 'visible'],
-		scrollModeOption: ['native', 'translate'],
+		scrollModeOption: ['native', 'translate']
 	},
 	shouldAddLongContent = ({index, modIndex}) => (index % modIndex === 0 ? ` ${longContent}` : ''),
 	// eslint-disable-next-line enact/prop-types
@@ -105,7 +105,7 @@ export const PanelsPanel = () => {
 						itemRenderer={renderItem}
 						itemSize={{
 							minWidth: scale(number('minWidth', VGLConfig, 640)),
-							minHeight: scale(number('minHeight', VGLConfig, 540)),
+							minHeight: scale(number('minHeight', VGLConfig, 540))
 						}}
 					/>
 				</Tab>
@@ -119,7 +119,7 @@ export const PanelsPanel = () => {
 						itemRenderer={renderItem}
 						itemSize={{
 							minWidth: scale(number('minWidth', VGLConfig, 640)),
-							minHeight: scale(number('minHeight', VGLConfig, 540)),
+							minHeight: scale(number('minHeight', VGLConfig, 540))
 						}}
 					/>
 				</Tab>

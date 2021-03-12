@@ -29,7 +29,7 @@ const inputData = {
 	russian: 'Мы называем темы в честь драгоценных камней',
 	tamil: 'ரத்தினங்களுக்கு பிறகு கருப்பொருள்களுக்கு பெயரிடுகிறோம்',
 	thai: 'เราตั้งชื่อธีมตามอัญมณี',
-	urdu: 'ہم گیسسٹون کے بعد موضوعات کا نام دیتے ہیں',
+	urdu: 'ہم گیسسٹون کے بعد موضوعات کا نام دیتے ہیں'
 };
 
 const mixedText = 'ข้MอiคxวeาdมTผeสxมt - M混i合x文e字d';
@@ -60,25 +60,25 @@ export const TallGlyphSupportInComponents = () => {
 
 				<Row>
 					<Section title="Basic Form controls" size="50%">
-					<Button alt="Button">{children}</Button>
-					<Input alt="Input with Placeholder" placeholder={children} />
-					<Input alt="Input" value={children} />
+						<Button alt="Button">{children}</Button>
+						<Input alt="Input with Placeholder" placeholder={children} />
+						<Input alt="Input" value={children} />
 					</Section>
 					<Section title="Toggleable Items" size="50%">
-					<CheckboxItem alt="CheckboxItem">{children}</CheckboxItem>
-					<FormCheckboxItem alt="FormCheckboxItem">{children}</FormCheckboxItem>
-					<RadioItem alt="RadioItem">{children}</RadioItem>
-					<SwitchItem alt="SwitchItem">{children}</SwitchItem>
+						<CheckboxItem alt="CheckboxItem">{children}</CheckboxItem>
+						<FormCheckboxItem alt="FormCheckboxItem">{children}</FormCheckboxItem>
+						<RadioItem alt="RadioItem">{children}</RadioItem>
+						<SwitchItem alt="SwitchItem">{children}</SwitchItem>
 					</Section>
 				</Row>
 
 				<Section title="Simple Items">
 					<Item alt="Item">{children}</Item>
 					<Item alt="Item with Label" label={children}>
-					{children}
+						{children}
 					</Item>
 					<ImageItem alt="ImageItem" style={{height: 200}}>
-					{children}
+						{children}
 					</ImageItem>
 				</Section>
 
@@ -100,7 +100,7 @@ export const Languages = () => {
 		languagesList.push({
 			slotBefore: <span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>,
 			children: inputData[key],
-			key: 'language' + key,
+			key: 'language' + key
 		});
 	});
 	return (
@@ -118,28 +118,28 @@ export const MixedScripts = () => (
 	<div>
 		<Scroller>
 			<Item style={{fontWeight: 300}}>
-			<slotBefore>
-				<span style={{minWidth: '10ex', display: 'inline-block'}}>light</span>
-			</slotBefore>
-			{mixedText}
+				<slotBefore>
+					<span style={{minWidth: '10ex', display: 'inline-block'}}>light</span>
+				</slotBefore>
+				{mixedText}
 			</Item>
 			<Item style={{fontWeight: 400}}>
-			<slotBefore>
-				<span style={{minWidth: '10ex', display: 'inline-block'}}>regular</span>
-			</slotBefore>
-			{mixedText}
+				<slotBefore>
+					<span style={{minWidth: '10ex', display: 'inline-block'}}>regular</span>
+				</slotBefore>
+				{mixedText}
 			</Item>
 			<Item style={{fontWeight: 600}}>
-			<slotBefore>
-				<span style={{minWidth: '10ex', display: 'inline-block'}}>semi-bold</span>
-			</slotBefore>
-			{mixedText}
+				<slotBefore>
+					<span style={{minWidth: '10ex', display: 'inline-block'}}>semi-bold</span>
+				</slotBefore>
+				{mixedText}
 			</Item>
 			<Item style={{fontWeight: 700}}>
-			<slotBefore>
-				<span style={{minWidth: '10ex', display: 'inline-block'}}>bold</span>
-			</slotBefore>
-			{mixedText}
+				<slotBefore>
+					<span style={{minWidth: '10ex', display: 'inline-block'}}>bold</span>
+				</slotBefore>
+				{mixedText}
 			</Item>
 		</Scroller>
 	</div>

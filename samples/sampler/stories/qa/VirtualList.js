@@ -45,20 +45,20 @@ const wrapOption = {
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
-	const style = vertical
-		? {}
-		: {height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr'};
+	const style = vertical ?
+		{} :
+		{height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr'};
 
 	return (
 		<ItemComponent index={index} style={style} onClick={onClick} {...rest}>
-		{items[index].item}
+			{items[index].item}
 		</ItemComponent>
 	);
 };
 
 const updateDataSize = (dataSize) => {
 	const itemNumberDigits = dataSize > 0 ? (dataSize - 1 + '').length : 0,
-	headingZeros = Array(itemNumberDigits).join('0');
+		headingZeros = Array(itemNumberDigits).join('0');
 
 	items.length = 0;
 
@@ -78,23 +78,23 @@ const updateItemSize = ({minSize, dataSize, size}) => ({
 
 class StatefulSwitchItem extends Component {
 	static propTypes = {
-		index: PropTypes.number,
+		index: PropTypes.number
 	};
 
-	constructor(props) {
+	constructor (props) {
 		super(props);
 
 		this.state = {
 			prevIndex: props.index,
-			selected: items[props.index].selected,
+			selected: items[props.index].selected
 		};
 	}
 
-	static getDerivedStateFromProps(props, state) {
+	static getDerivedStateFromProps (props, state) {
 		if (state.prevIndex !== props.index) {
 			return {
-			prevIndex: props.index,
-			selected: items[props.index].selected,
+				prevIndex: props.index,
+				selected: items[props.index].selected
 			};
 		}
 
@@ -108,13 +108,13 @@ class StatefulSwitchItem extends Component {
 		}));
 	};
 
-	render() {
+	render () {
 		const props = Object.assign({}, this.props);
 		delete props.index;
 
 		return (
 			<SwitchItem {...props} onToggle={this.onToggle} selected={this.state.selected}>
-			{this.props.children}
+				{this.props.children}
 			</SwitchItem>
 		);
 	}
@@ -138,7 +138,7 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 const CustomHeader = (props) => {
 	const [children, setChildren] = useState(false);
 
-	function handleClick() {
+	function handleClick () {
 		setChildren(!children);
 	}
 
@@ -146,9 +146,9 @@ const CustomHeader = (props) => {
 		<Header
 			{...props}
 			slotAfter={
-			<Button onClick={handleClick} size="small">{`${
-				children ? 'Hide' : 'Show'
-			} Header Children`}</Button>
+				<Button onClick={handleClick} size="small">
+					{`${children ? 'Hide' : 'Show'} Header Children`}
+				</Button>
 			}
 		>
 			{children ? <Item>Header Item</Item> : null}
@@ -160,25 +160,25 @@ const CustomHeader = (props) => {
 const InPanels = ({className, title, ...rest}) => {
 	const [index, setIndex] = useState(0);
 
-	function handleSelectItem() {
+	function handleSelectItem () {
 		setIndex(index === 0 ? 1 : 0);
 	}
 
 	return (
 		<Panels className={className} index={index}>
 			<Panel>
-			<CustomHeader slot="header" title={`${title} Panel 0`} type="compact" />
-			<VirtualList
-				id="spotlight-list"
-				// eslint-disable-next-line enact/prop-types
-				itemRenderer={renderItem(Item, rest.itemSize, true, handleSelectItem)}
-				spotlightId="virtual-list"
-				{...rest}
-			/>
+				<CustomHeader slot="header" title={`${title} Panel 0`} type="compact" />
+				<VirtualList
+					id="spotlight-list"
+					// eslint-disable-next-line enact/prop-types
+					itemRenderer={renderItem(Item, rest.itemSize, true, handleSelectItem)}
+					spotlightId="virtual-list"
+					{...rest}
+				/>
 			</Panel>
 			<Panel title={`${title} Panel 1`}>
-			<Header title={`${title} Panel 1`} type="compact" />
-			<Item onClick={handleSelectItem}>Go Back</Item>
+				<Header title={`${title} Panel 1`} type="compact" />
+				<Item onClick={handleSelectItem}>Go Back</Item>
 			</Panel>
 		</Panels>
 	);
@@ -190,7 +190,7 @@ class VirtualListWithCBScrollTo extends Component {
 		dataSize: PropTypes.number
 	};
 
-	componentDidUpdate(prevProps) {
+	componentDidUpdate (prevProps) {
 		if (this.props.dataSize !== prevProps.dataSize) {
 			this.scrollTo({animate: false, focus: false, index: 0});
 		}
@@ -202,7 +202,7 @@ class VirtualListWithCBScrollTo extends Component {
 		this.scrollTo = scrollTo;
 	};
 
-	render() {
+	render () {
 		return <VirtualList {...this.props} cbScrollTo={this.getScrollTo} />;
 	}
 }
@@ -280,9 +280,9 @@ export const WithSmallItemMinSizeAndLargeItemSize = () => {
 			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 			itemRenderer={renderItem(Item, ri.scale(number('size', Config, defaultItemSize)), false)}
 			itemSize={updateItemSize({
-			minSize: ri.scale(number('minSize', Config, defaultMinItemSize)),
-			dataSize: number('dataSize', Config, defaultDataSizeForSmallMinLargeSize),
-			size: ri.scale(number('size', Config, defaultItemSize)),
+				minSize: ri.scale(number('minSize', Config, defaultMinItemSize)),
+				dataSize: number('dataSize', Config, defaultDataSizeForSmallMinLargeSize),
+				size: ri.scale(number('size', Config, defaultItemSize))
 			})}
 			key={select('scrollMode', prop.scrollModeOption, Config)}
 			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
@@ -350,7 +350,7 @@ export const OverscrollEffectOnWherePageKeyIsTrue = () => {
 				drag: false,
 				pageKey: true,
 				track: false,
-				wheel: false,
+				wheel: false
 			}}
 			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 			itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
@@ -388,13 +388,13 @@ export const WithExtraItems = () => {
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 			/>
 			<Cell shrink component={Item}>
-			extra item1
+				extra item1
 			</Cell>
 			<Cell shrink component={Item}>
-			extra item2
+				extra item2
 			</Cell>
 			<Cell shrink component={Item}>
-			extra item3
+				extra item3
 			</Cell>
 		</Column>
 	);

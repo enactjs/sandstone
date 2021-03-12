@@ -25,27 +25,27 @@ const LTR = [
 	"ਤੁਰੰਤ ਭੂਰਾ Fox ਆਲਸੀ ਕੁੱਤੇ ਨੂੰ ਵੱਧ ਗਈ. ਬੀਨ ਪੰਛੀ ਸੂਰਜ ਡੁੱਬਣ 'ਤੇ ਉਡਾਣ ਭਰਦੀ ਹੈ.",
 	'速い茶色のキツネは、怠け者の犬を飛び越えた。豆の鳥は日没で飛ぶ。',
 	'那只敏捷的棕色狐狸跃过那只懒狗。豆鸟飞日落。',
-	'빠른 갈색 여우가 게으른 개를 뛰어 넘었다.콩 조류 일몰에 파리.',
+	'빠른 갈색 여우가 게으른 개를 뛰어 넘었다.콩 조류 일몰에 파리.'
 ];
 const RTL = [
 	'שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקיעה.',
 	'قفز الثعلب البني السريع فوق الكلب الكسول. الطيور تطير في الفول عند غروب الشمس.',
-	'فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز.',
+	'فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز.'
 ];
 
 const texts = [
 	'No marquee no marquee',
 	'Ellipsis show before the initial start of the marquee. Ellipsis will not show on the subsequent starts.',
-	'Second test to show that the Ellipsis show before the initial start of the marquee. Ellipsis will not show on the subsequent starts.',
+	'Second test to show that the Ellipsis show before the initial start of the marquee. Ellipsis will not show on the subsequent starts.'
 ];
 
 const disabledDisclaimer = (disabled) =>
 	disabled ? (
-	<p style={{fontSize: '70%', fontStyle: 'italic'}}>
-		<sup>*</sup>Marquee does not visually respond to <code>disabled</code> state.
-	</p>
+		<p style={{fontSize: '70%', fontStyle: 'italic'}}>
+			<sup>*</sup>Marquee does not visually respond to <code>disabled</code> state.
+		</p>
 	) : (
-	<p />
+		<p />
 	);
 
 const MarqueeI18nSamples = I18nContextDecorator(
@@ -55,28 +55,28 @@ const MarqueeI18nSamples = I18nContextDecorator(
 
 		handlers: {
 			// eslint-disable-next-line enact/prop-types
-			updateLocale: (ev, {updateLocale}) => updateLocale('ar-SA'),
-	},
+			updateLocale: (ev, {updateLocale}) => updateLocale('ar-SA')
+		},
 
-	render: ({updateLocale}) => (
-		<div>
-		<Heading showLine>
-			Remeasure marquee when locale change causes a font change with different metrics
-		</Heading>
-		<Button onClick={updateLocale}>Change locale and marquee stops</Button>
-		</div>
-	),
-   })
+		render: ({updateLocale}) => (
+			<div>
+				<Heading showLine>
+					Remeasure marquee when locale change causes a font change with different metrics
+				</Heading>
+				<Button onClick={updateLocale}>Change locale and marquee stops</Button>
+			</div>
+		)
+	})
 );
 
 // eslint-disable-next-line enact/prop-types
 const CustomItemBase = ({children, ...rest}) => (
 	<div {...rest} style={{display: 'flex', width: 300, alignItems: 'center'}}>
-	<Icon>notification</Icon>
-	<Marquee id="marqueeText" style={{flex: 1, overflow: 'hidden'}}>
-		{children}
-	</Marquee>
-	<Icon>trash</Icon>
+		<Icon>notification</Icon>
+		<Marquee id="marqueeText" style={{flex: 1, overflow: 'hidden'}}>
+			{children}
+		</Marquee>
+		<Icon>trash</Icon>
 	</div>
 );
 
@@ -93,25 +93,25 @@ class MarqueeWithShortContent extends Component {
 		this.state = {
 			long: false,
 			scrollWidth: null,
-			width: null,
+			width: null
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount () {
 		this.node = document.querySelector('#marqueeText');
 		this.updateSizeInfo();
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate () {
 		this.updateSizeInfo();
 	}
 
 	updateSizeInfo = () => {
 		if (this.node.scrollWidth !== this.state.scrollWidth) {
 			this.setState({
-			scrollWidth: this.node.scrollWidth,
-			width: this.node.getBoundingClientRect().width,
-		});
+				scrollWidth: this.node.scrollWidth,
+				width: this.node.getBoundingClientRect().width
+			});
 		}
 	};
 
@@ -119,13 +119,13 @@ class MarqueeWithShortContent extends Component {
 		this.setState((prevState) => ({long: !prevState.long}));
 	};
 
-	render() {
+	render () {
 		return (
 			<div>
-			scrollWidth: {this.state.scrollWidth} width: {this.state.width}
-			<CustomItem className={css.spotlight} onClick={this.handleClick}>
-				{this.state.long ? 'Very very very very very very very very very long text' : 'text'}
-			</CustomItem>
+				scrollWidth: {this.state.scrollWidth} width: {this.state.width}
+				<CustomItem className={css.spotlight} onClick={this.handleClick}>
+					{this.state.long ? 'Very very very very very very very very very long text' : 'text'}
+				</CustomItem>
 			</div>
 		);
 	}
@@ -135,7 +135,7 @@ class MarqueeWithContentChanged extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			count: 0,
+			count: 0
 		};
 	}
 
@@ -143,20 +143,20 @@ class MarqueeWithContentChanged extends Component {
 		this.setState(({count}) => ({count: ++count % 3}));
 	};
 
-	render() {
+	render () {
 		return (
 			<div>
-			<ol>
-				<li>Click once to show the ellipsis just before the text marquees the first time.</li>
-				<li>
-				Click a second time to show the ellipsis just before the text marquees the first time
-				</li>
-				<li>Click again to return to a short string without marquee.</li>
-			</ol>
-			<Button onClick={this.handleClick}>{'Click Me'}</Button>
-			<Marquee style={{width: '800px'}} marqueeOn={'render'}>
-				{texts[this.state.count]}
-			</Marquee>
+				<ol>
+					<li>Click once to show the ellipsis just before the text marquees the first time.</li>
+					<li>
+						Click a second time to show the ellipsis just before the text marquees the first time
+					</li>
+					<li>Click again to return to a short string without marquee.</li>
+				</ol>
+				<Button onClick={this.handleClick}>{'Click Me'}</Button>
+				<Marquee style={{width: '800px'}} marqueeOn={'render'}>
+					{texts[this.state.count]}
+				</Marquee>
 			</div>
 		);
 	}
@@ -182,7 +182,7 @@ export const Ltr = () => {
 				marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
 				marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
 			>
-			{select('children', LTR, Marquee, LTR[0])}
+				{select('children', LTR, Marquee, LTR[0])}
 			</Marquee>
 			{disabledDisclaimer(disabled)}
 		</section>
@@ -206,7 +206,7 @@ export const Rtl = () => {
 				marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
 				marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
 			>
-			{select('children', RTL, Marquee, RTL[0])}
+				{select('children', RTL, Marquee, RTL[0])}
 			</Marquee>
 			{disabledDisclaimer(disabled)}
 		</section>
@@ -220,19 +220,19 @@ export const Synchronized = () => {
 	return (
 		<Controller style={{width: ri.scaleToRem(798)}}>
 			{LTR.map((children, index) => (
-			<Marquee
-				disabled={disabled}
-				forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
-				key={index}
-				marqueeDelay={number('marqueeDelay', Marquee, 1000)}
-				marqueeDisabled={boolean('marqueeDisabled', Marquee, false)}
-				marqueeOn={select('marqueeOn', ['hover', 'render'], Marquee, 'render')}
-				marqueeOnRenderDelay={number('marqueeOnRenderDelay', Marquee, 5000)}
-				marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
-				marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
-			>
-				{children}
-			</Marquee>
+				<Marquee
+					disabled={disabled}
+					forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
+					key={index}
+					marqueeDelay={number('marqueeDelay', Marquee, 1000)}
+					marqueeDisabled={boolean('marqueeDisabled', Marquee, false)}
+					marqueeOn={select('marqueeOn', ['hover', 'render'], Marquee, 'render')}
+					marqueeOnRenderDelay={number('marqueeOnRenderDelay', Marquee, 5000)}
+					marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
+					marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
+				>
+					{children}
+				</Marquee>
 			))}
 			{disabledDisclaimer(disabled)}
 		</Controller>
@@ -256,30 +256,30 @@ export const OnFocus = () => (
 
 export const RestartMarqueeWhenMarqueeCompletes = () => (
 	<SpottableDiv className={css.spotlight}>
-	<Marquee
-		style={{width: ri.scaleToRem(798)}}
-		disabled={false}
-		marqueeDelay={1000}
-		marqueeDisabled={false}
-		marqueeOn="focus"
-		marqueeOnRenderDelay={1000}
-		marqueeResetDelay={1000}
-		marqueeSpeed={60}
-	>
-		{'The quick brown fox.'}
-	</Marquee>
-	<Marquee
-		style={{width: ri.scaleToRem(798)}}
-		disabled={false}
-		marqueeDelay={1000}
-		marqueeDisabled={false}
-		marqueeOn="focus"
-		marqueeOnRenderDelay={1000}
-		marqueeResetDelay={1000}
-		marqueeSpeed={60}
-	>
-		{LTR[0]}
-	</Marquee>
+		<Marquee
+			style={{width: ri.scaleToRem(798)}}
+			disabled={false}
+			marqueeDelay={1000}
+			marqueeDisabled={false}
+			marqueeOn="focus"
+			marqueeOnRenderDelay={1000}
+			marqueeResetDelay={1000}
+			marqueeSpeed={60}
+		>
+			{'The quick brown fox.'}
+		</Marquee>
+		<Marquee
+			style={{width: ri.scaleToRem(798)}}
+			disabled={false}
+			marqueeDelay={1000}
+			marqueeDisabled={false}
+			marqueeOn="focus"
+			marqueeOnRenderDelay={1000}
+			marqueeResetDelay={1000}
+			marqueeSpeed={60}
+		>
+			{LTR[0]}
+		</Marquee>
 	</SpottableDiv>
 );
 
@@ -307,9 +307,9 @@ export const WithTextCentered = () => (
 		<MarqueeItem className={css.spotlight} style={{width: ri.scale(802), padding: ri.scale(24)}}>
 			<div>Sample text</div>
 			<div style={{width: '100%', flex: 1}}>
-			<Marquee alignment="center" style={{width: '100%'}}>
-				{'this is marquee text this is marquee text'}
-			</Marquee>
+				<Marquee alignment="center" style={{width: '100%'}}>
+					{'this is marquee text this is marquee text'}
+				</Marquee>
 			</div>
 		</MarqueeItem>
 		<br />
@@ -320,7 +320,7 @@ export const WithTextCentered = () => (
 		>
 			<div>Sample text</div>
 			<div style={{width: '100%', flex: 1, textAlign: 'center'}}>
-			<Marquee style={{width: '100%'}}>{'this is marquee text this is marquee text'}</Marquee>
+				<Marquee style={{width: '100%'}}>{'this is marquee text this is marquee text'}</Marquee>
 			</div>
 		</MarqueeItem>
 	</div>

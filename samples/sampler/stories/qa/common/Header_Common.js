@@ -3,7 +3,6 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Steps from '@enact/sandstone/Steps';
-import React from 'react';
 import clone from 'ramda/src/clone';
 
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);

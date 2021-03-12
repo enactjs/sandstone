@@ -3,7 +3,7 @@ import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs
 import KeyGuide from '@enact/sandstone/KeyGuide';
 
 const prop = {
-	icon: ['red', 'green', 'yellow', 'blue', 'gear', 'trash', 'search'],
+	icon: ['red', 'green', 'yellow', 'blue', 'gear', 'trash', 'search']
 };
 
 const Config = mergeComponentMetadata('KeyGuide', KeyGuide);
@@ -21,7 +21,7 @@ export const _KeyGuide = () => {
 		{icon, children: text('Item 1 children', Config, 'This is long name item'), key: 1},
 		{icon: 'plus', children: 'Item 1', key: 2},
 		{icon: 'minus', children: 'Item 2', key: 3},
-		{icon: 'music', children: 'Item 3', key: 4},
+		{icon: 'music', children: 'Item 3', key: 4}
 	];
 	const children = items.slice(0, itemCount);
 

@@ -11,12 +11,12 @@ import css from './VirtualGridList.module.less';
 const wrapOption = {
 		false: false,
 		true: true,
-		'&quot;noAnimation&quot;': 'noAnimation',
+		'&quot;noAnimation&quot;': 'noAnimation'
 	},
 	prop = {
 		direction: {horizontal: 'horizontal', vertical: 'vertical'},
 		scrollbarOption: ['auto', 'hidden', 'visible'],
-		scrollModeOption: ['native', 'translate'],
+		scrollModeOption: ['native', 'translate']
 	},
 	items = [],
 	defaultDataSize = 1000,
@@ -47,7 +47,7 @@ const updateDataSize = (dataSize) => {
 			source = {
 				hd: `http://placehold.it/200x200/${color}/ffffff&text=Image ${i}`,
 				fhd: `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`,
-				uhd: `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`,
+				uhd: `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`
 			};
 
 		items.push({text, subText, source});
@@ -72,9 +72,9 @@ export default {
 export const _VirtualGridList = () => (
 	<VirtualGridList
 		className={
-			select('direction', prop.direction, VirtualGridListConfig) === 'vertical'
-				? css.verticalPadding
-				: css.horizontalPadding
+			select('direction', prop.direction, VirtualGridListConfig) === 'vertical' ?
+				css.verticalPadding :
+				css.horizontalPadding
 		}
 		dataSize={updateDataSize(number('dataSize', VirtualGridListConfig, defaultDataSize))}
 		direction={select('direction', prop.direction, VirtualGridListConfig)}
@@ -82,7 +82,7 @@ export const _VirtualGridList = () => (
 		itemRenderer={renderItem}
 		itemSize={{
 			minWidth: ri.scale(number('itemSize.minWidth', VirtualGridListConfig, 688)),
-			minHeight: ri.scale(number('itemSize.minHeight', VirtualGridListConfig, 570)),
+			minHeight: ri.scale(number('itemSize.minHeight', VirtualGridListConfig, 570))
 		}}
 		key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 		noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}

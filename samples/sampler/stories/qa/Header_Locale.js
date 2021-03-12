@@ -19,7 +19,7 @@ export const RtlText = () => {
 			<Header
 				title={text('title', Config, inputData.shortRtlTitle)}
 				subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
-			{...commonProps()}
+				{...commonProps()}
 			/>
 		</Fragment>
 	);
@@ -34,7 +34,7 @@ export const RtlTextLongTitle = () => {
 			<Header
 				title={text('title', Config, inputData. longRtlTitle)}
 				subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
-			{...commonProps()}
+				{...commonProps()}
 			/>
 		</Fragment>
 	);
@@ -49,7 +49,7 @@ export const TallGlyphs = () => {
 			<Header
 				title={text('title', Config, inputData.tallText)}
 				subtitle={text('subtitle', Config, inputData.tallText)}
-			{...commonProps()}
+				{...commonProps()}
 			/>
 		</Fragment>
 	);

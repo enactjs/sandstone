@@ -29,8 +29,8 @@ const prop = {
 				<Button>Button Label</Button>
 				<Button>Button Label</Button>
 			</buttons>
-		),
-	},
+		)
+	}
 };
 
 export default {

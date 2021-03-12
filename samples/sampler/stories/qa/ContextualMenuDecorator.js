@@ -10,23 +10,23 @@ const MenuButton = ContextualMenuDecorator({tooltipDestinationProp: 'decoration'
 
 const prop = {
 	direction: [
-	'above',
-	'above center',
-	'above left',
-	'above right',
-	'below',
-	'below center',
-	'below left',
-	'below right',
-	'left bottom',
-	'left middle',
-	'left top',
-	'right bottom',
-	'right middle',
-	'right top',
+		'above',
+		'above center',
+		'above left',
+		'above right',
+		'below',
+		'below center',
+		'below left',
+		'below right',
+		'left bottom',
+		'left middle',
+		'left top',
+		'right bottom',
+		'right middle',
+		'right top'
 	],
 	offset: ['none', 'overlap', 'small'],
-	popupWidth: ['auto', 'small', 'large'],
+	popupWidth: ['auto', 'small', 'large']
 };
 
 export default {
@@ -51,112 +51,114 @@ export const Overflows = () => {
 			align={buttonAlignment + ' space-between'}
 			className="enact-fit"
 			style={{
-			position: 'fixed',
-			padding: `${ri.unit(ri.scale(36), 'rem')} ${ri.unit(ri.scale(24), 'rem')}`,
-		}}
+				position: 'fixed',
+				padding: `${ri.unit(ri.scale(36), 'rem')} ${ri.unit(ri.scale(24), 'rem')}`
+			}}
 		>
 			<Cell shrink>
-			<Layout align="center space-between">
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Top Left
-				</MenuButton>
-				</Cell>
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Top
-				</MenuButton>
-				</Cell>
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Top Right
-				</MenuButton>
-				</Cell>
-			</Layout>
+				<Layout align="center space-between">
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Top Left
+						</MenuButton>
+					</Cell>
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Top
+						</MenuButton>
+					</Cell>
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Top Right
+						</MenuButton>
+					</Cell>
+				</Layout>
 			</Cell>
 			<Cell shrink>
-			<Layout align="center space-between">
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Left
-				</MenuButton>
-				</Cell>
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Center
-				</MenuButton>
-				</Cell>
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Right
-				</MenuButton>
-				</Cell>
-			</Layout>
+				<Layout align="center space-between">
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Left
+						</MenuButton>
+					</Cell>
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Center
+						</MenuButton>
+					</Cell>
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Right
+						</MenuButton>
+					</Cell>
+				</Layout>
 			</Cell>
 			<Cell shrink>
-			<Layout align="center space-between">
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Bottom Left
-				</MenuButton>
-				</Cell>
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Bottom
-				</MenuButton>
-				</Cell>
-				<Cell shrink>
-				<MenuButton
-					direction={direction}
-					menuItems={items}
-					offset={offset}
-					popupWidth={popupWidth}
-				>
-					Bottom Right
-				</MenuButton>
-				</Cell>
-			</Layout>
+				<Layout align="center space-between">
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Bottom Left
+						</MenuButton>
+					</Cell>
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Bottom
+						</MenuButton>
+					</Cell>
+					<Cell shrink>
+						<MenuButton
+							direction={direction}
+							menuItems={items}
+							offset={offset}
+							popupWidth={popupWidth}
+						>
+							Bottom Right
+						</MenuButton>
+					</Cell>
+				</Layout>
 			</Cell>
 		</Layout>
 	);
 };
+
+Overflows.storyName = 'Overflows';

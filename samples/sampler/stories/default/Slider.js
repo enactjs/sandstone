@@ -39,7 +39,7 @@ export const _Slider = () => {
 			'below center',
 			'below right',
 			'below before',
-			'below after',
+			'below after'
 		],
 		SliderTooltipConfig,
 		''

@@ -13,8 +13,8 @@ const prop = {
 	skip: {
 		'null (Default, skip nothing)': null,
 		'3 (skip just step 3)': 3,
-		'[2, 3, 6] (skip step 2, 3, and 6)': [2, 3, 6],
-	},
+		'[2, 3, 6] (skip step 2, 3, and 6)': [2, 3, 6]
+	}
 };
 
 export default {

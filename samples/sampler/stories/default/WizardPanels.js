@@ -7,13 +7,12 @@ import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
 import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
-import React from 'react';
 
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
 
 const props = {
-	buttonVisibility: ['auto', 'always', 'never'],
+	buttonVisibility: ['auto', 'always', 'never']
 };
 
 export default {

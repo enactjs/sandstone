@@ -14,10 +14,10 @@ const prop = {
 	focusableScrollbarOption: {
 		false: false,
 		true: true,
-		'&quot;byEnter&quot;': 'byEnter',
+		'&quot;byEnter&quot;': 'byEnter'
 	},
 	scrollbarOption: ['auto', 'hidden', 'visible'],
-	scrollModeOption: ['native', 'translate'],
+	scrollModeOption: ['native', 'translate']
 };
 
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
@@ -44,7 +44,7 @@ export const _Scroller = () => {
 				[css.horizontalPadding]:
 					(direction !== 'vertical' && horizontalScrollbar !== 'hidden') ||
 					horizontalScrollbar === 'visible',
-				[css.bodyText]: focusableScrollbar || null,
+				[css.bodyText]: focusableScrollbar || null
 			})}
 			direction={direction}
 			fadeOut={boolean('fadeOut', ScrollerConfig)}
@@ -61,7 +61,7 @@ export const _Scroller = () => {
 			<div
 				style={{
 					height: ri.scaleToRem(2004),
-					width: ri.scaleToRem(4002),
+					width: ri.scaleToRem(4002)
 				}}
 			>
 				<BodyText>
@@ -72,7 +72,7 @@ export const _Scroller = () => {
 				</BodyText>
 				<div
 					style={{
-						marginTop: ri.scaleToRem(1602),
+						marginTop: ri.scaleToRem(1602)
 					}}
 				>
 					<BodyText>

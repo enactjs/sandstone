@@ -6,7 +6,7 @@ import Image, {ImageBase, ImageDecorator} from '@enact/sandstone/Image';
 const src = {
 	hd: 'http://via.placeholder.com/200x200',
 	fhd: 'http://via.placeholder.com/300x300',
-	uhd: 'http://via.placeholder.com/600x600',
+	uhd: 'http://via.placeholder.com/600x600'
 };
 
 const Config = mergeComponentMetadata('Image', Image, ImageBase, ImageDecorator);
@@ -24,7 +24,7 @@ export const _Image = () => (
 		onError={action('error')}
 		onLoad={action('loaded')}
 		style={{
-			border: '#ffa500 dashed 1px',
+			border: '#ffa500 dashed 1px'
 		}}
 	>
 		<label
@@ -39,7 +39,7 @@ export const _Image = () => (
 				padding: '0.1em 1em',
 				fontWeight: 100,
 				fontStyle: 'italic',
-				fontSize: '32px',
+				fontSize: '32px'
 			}}
 		>
 			Image Boundry

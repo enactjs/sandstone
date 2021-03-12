@@ -32,7 +32,7 @@ const inputData = {
 	shortLabel: 'Label',
 	shortChildren: 'Hello LabeledItem',
 	mediumChildren:
-	'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. The End.',
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. The End.'
 };
 
 Item.displayName = 'Item';
@@ -72,7 +72,7 @@ WithExtraSpaces.storyName = 'with extra spaces';
 export const IntegratedWithOtherComponents = () => (
 	<Item disabled={boolean('disabled', Item)}>
 		<Button>Click here</Button>
-			{text('Children', Item, 'Hello Item')}
+		{text('Children', Item, 'Hello Item')}
 		<Button>Click here</Button>
 		<Image src="http://lorempixel.com/512/512/city/1/" sizing="fill" alt="lorempixel" />
 		<p>
@@ -105,16 +105,16 @@ export const SampleForSpotabilityTest = () => (
 				{select('iconBefore', iconNames, Item, 'plus')}
 			</Icon>
 			{text(
-			'Text with iconBefore',
-			Item,
-			'Item with text that is spottable with an icon (at the start of the string)'
+				'Text with iconBefore',
+				Item,
+				'Item with text that is spottable with an icon (at the start of the string)'
 			)}
 		</Item>
 		<Item>
 			{text(
-			'Text with iconAfter',
-			Item,
-			'Item with text that is spottable with an icon(at the end of the string)'
+				'Text with iconAfter',
+				Item,
+				'Item with text that is spottable with an icon(at the end of the string)'
 			)}
 			<Icon size={select('size', ['small', 'large'], Item, 'large')}>
 				{select('iconAfter', iconNames, Item, 'arrowhookright')}

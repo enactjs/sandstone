@@ -123,7 +123,7 @@ export const _Panels = () => {
 					itemRenderer={renderItem}
 					itemSize={{
 						minWidth: ri.scale(640),
-						minHeight: ri.scale(540),
+						minHeight: ri.scale(540)
 					}}
 				/>
 			</Panel>

@@ -13,7 +13,7 @@ const prop = {
 	'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text',
 	tallText: ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី'],
 	extraSpaceText: 'This		Text 		has			extra 		space',
-	rtlText: 'هناك حقيقة مثبتة منذ زمن طويل وهي',
+	rtlText: 'هناك حقيقة مثبتة منذ زمن طويل وهي'
 };
 
 export default {
@@ -27,7 +27,7 @@ export const WithLongText = () => (
 		inline={boolean('inline', Config)}
 		onToggle={action('onToggle')}
 	>
-	{text('children', Config, prop.longText)}
+		{text('children', Config, prop.longText)}
 	</CheckboxItem>
 );
 
@@ -39,7 +39,7 @@ export const WithTallCharacters = () => (
 		inline={boolean('inline', Config)}
 		onToggle={action('onToggle')}
 	>
-	{select('children', prop.tallText, Config, prop.tallText[0])}
+		{select('children', prop.tallText, Config, prop.tallText[0])}
 	</CheckboxItem>
 );
 
@@ -51,7 +51,7 @@ export const WithExtraSpacing = () => (
 		inline={boolean('inline', Config)}
 		onToggle={action('onToggle')}
 	>
-	{text('children', Config, prop.extraSpaceText)}
+		{text('children', Config, prop.extraSpaceText)}
 	</CheckboxItem>
 );
 
@@ -63,7 +63,7 @@ export const WithRightToLeftText = () => (
 		inline={boolean('inline', Config)}
 		onToggle={action('onToggle')}
 	>
-	{text('children', Config, prop.rtlText)}
+		{text('children', Config, prop.rtlText)}
 	</CheckboxItem>
 );
 
@@ -75,14 +75,14 @@ export const Grouped = () => (
 		childSelect="onToggle"
 		itemProps={{
 			inline: boolean('itemProps-inline', Group, false),
-			disabled: boolean('itemProps-disabled', Group, false),
+			disabled: boolean('itemProps-disabled', Group, false)
 		}}
 		select={select('select', ['single', 'radio', 'multiple'], Group, 'multiple')}
 		selectedProp="selected"
 		defaultSelected={0}
 		onSelect={action('onSelect')}
 	>
-	{['Checkbox Item 1', 'Checkbox Item 2', 'Checkbox Item 3']}
+		{['Checkbox Item 1', 'Checkbox Item 2', 'Checkbox Item 3']}
 	</Group>
 );
 

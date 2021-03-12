@@ -8,7 +8,7 @@ const stringsToChoose = [
 	'This product is meant for educational purposes only. Any resemblance to real persons, living or dead is purely coincidental. Void where prohibited. Some assembly required. List each check separately by bank number. Batteries not included.',
 	'I am a very short string',
 	'ab',
-	'a',
+	'a'
 ];
 
 export default {
@@ -18,7 +18,7 @@ export default {
 
 export const WithLongAndShortStrings = () => (
 	<BodyText centered={boolean('centered', BodyText)} noWrap={boolean('noWrap', BodyText)}>
-	{select('children', stringsToChoose, BodyText, stringsToChoose[0])}
+		{select('children', stringsToChoose, BodyText, stringsToChoose[0])}
 	</BodyText>
 );
 

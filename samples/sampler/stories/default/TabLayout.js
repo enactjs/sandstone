@@ -21,14 +21,14 @@ const Config = mergeComponentMetadata('TabLayout', TabLayoutBase, TabLayout);
 const tabsWithIcons = [
 	{title: 'Home', icon: 'home'},
 	{title: 'Button', icon: 'gear'},
-	{title: 'Item', icon: 'trash'},
+	{title: 'Item', icon: 'trash'}
 ];
 
 const tabsWithoutIcons = [{title: 'Home'}, {title: 'Button'}, {title: 'Item'}];
 
 const tabSelections = {
 	'with icons': tabsWithIcons,
-	'without icons': tabsWithoutIcons,
+	'without icons': tabsWithoutIcons
 };
 
 export default {
@@ -47,7 +47,7 @@ export const _TabLayout = () => {
 			src="http://placehold.it/360x240/"
 			style={{
 				width: scaleToRem(768),
-				height: scaleToRem(588),
+				height: scaleToRem(588)
 			}}
 		>
 			{`ImageItem ${i + 1}`}
@@ -75,8 +75,8 @@ export const _TabLayout = () => {
 						iterations: 1,
 						src: {
 							fhd: spriteGear2k,
-							uhd: spriteGear4k,
-						},
+							uhd: spriteGear4k
+						}
 					}}
 				>
 					<Button icon="demosync">Button 1</Button>

@@ -21,12 +21,12 @@ export const _Item = () => (
 		labelPosition={select('labelPosition', ['above', 'below', 'before', 'after'], Config)}
 		size={select('size', ['small', 'large'], Config)}
 		slotBefore={
-			select('slotBefore', { '': '', '<Icon />': 'icon' }, Config) ? (
+			select('slotBefore', {'': '', '<Icon />': 'icon'}, Config) ? (
 				<Icon size="small">speaker</Icon>
 			) : null
 		}
 		slotAfter={
-			select('slotAfter', { '': '', '<Icon />': 'icon' }, Config) ? (
+			select('slotAfter', {'': '', '<Icon />': 'icon'}, Config) ? (
 				<Icon size="small">arrowlargeright</Icon>
 			) : null
 		}

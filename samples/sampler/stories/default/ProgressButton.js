@@ -23,12 +23,12 @@ const prop = {
 	backgroundOpacity: {
 		'undefined/null (automatic)': '',
 		'opaque (Default for text buttons)': 'opaque',
-		'transparent (Default for icon-only buttons)': 'transparent',
+		'transparent (Default for icon-only buttons)': 'transparent'
 	},
 	color: ['', 'red', 'green', 'yellow', 'blue'],
 	icons: ['', ...iconNames],
 	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
-	size: ['', 'small', 'large'],
+	size: ['', 'small', 'large']
 };
 
 // The following is needed to allow us to disambiguate between minWidth=false and minWidth=undefined

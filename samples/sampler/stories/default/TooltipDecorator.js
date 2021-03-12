@@ -1,12 +1,12 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
-import TooltipDecorator, { Tooltip, TooltipBase } from '@enact/sandstone/TooltipDecorator';
+import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 
 import iconNames from '../helper/icons';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
-const TooltipButton = TooltipDecorator({ tooltipDestinationProp: 'decoration' }, Button);
+const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 const prop = {
 	icons: ['', ...iconNames],
@@ -24,9 +24,9 @@ const prop = {
 		'left top',
 		'right bottom',
 		'right middle',
-		'right top',
+		'right top'
 	],
-	tooltipType: ['balloon', 'transparent'],
+	tooltipType: ['balloon', 'transparent']
 };
 
 export default {
