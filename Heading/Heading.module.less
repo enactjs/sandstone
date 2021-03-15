@@ -9,7 +9,11 @@
 	padding: @sand-heading-padding;
 	letter-spacing: @sand-heading-letter-spacing;
 	font-style: @sand-heading-font-style;
-	.sand-font(@sand-heading-large-font-family, @sand-non-latin-heading-font-family);
+
+	:global(.enact-locale-non-italic) & {
+		font-style: @sand-heading-font-style;
+	}
+
 	.enact-locale-line-height(@sand-heading-line-height, @sand-tallglyph-heading-line-height);
 
 	// Only the following sizes get a bottom border

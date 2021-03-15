@@ -1,7 +1,6 @@
 import kind from '@enact/core/kind';
 import {unit} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import React from 'react';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';

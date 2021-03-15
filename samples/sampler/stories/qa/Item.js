@@ -1,5 +1,4 @@
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Row} from '@enact/ui/Layout';
 import {scale} from '@enact/ui/resolution';
@@ -14,13 +13,15 @@ import Scroller from '@enact/sandstone/Scroller';
 import Section from './components/KitchenSinkSection';
 import icons from '../default/icons';
 
+import css from './Item.module.less';
+
 const iconNames = ['', ...icons];
 
 const inputData = {
 	shortText: 'Short',
 	longText : 'The W3C is an international community where Member organizations, a full-time staff, and the public work together to develop Web standards.',
 	extraSpaceText : 'This                                                             text                                                                          has                                                                                        extra                                                                         spaces',
-	tallText : ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير'],
+	tallText : ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير', 'តន្ត្រី'],
 	disabledText : 'This text is disabled',
 	normalText : 'Item with text that is spottable',
 	longLabel : 'label starts - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. In quis mattis purus, quis tristique mi. Mauris vitae tellus tempus, convallis ligula id, laoreet eros. Nullam eu tempus odio, non mollis tellus. Phasellus vitae iaculis nisl. = label ends',
@@ -214,5 +215,17 @@ storiesOf('Item', module)
 
 				</Row>
 			</Scroller>
+		)
+	).add(
+		'with custom style',
+		() => (
+			<Item
+				css={css}
+				label={text('label', Item, inputData.shortLabel)}
+				slotBefore={KsIcon}
+				slotAfter={KsIcon}
+			>
+				{text('children', Item, inputData.shortChildren)}
+			</Item>
 		)
 	);

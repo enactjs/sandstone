@@ -16,7 +16,7 @@ import hoc from '@enact/core/hoc';
 import PropTypes from 'prop-types';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Component} from 'react';
 import Pause from '@enact/spotlight/Pause';
 import UiSpinnerBase from '@enact/ui/Spinner';
 import Spotlight from '@enact/spotlight';
@@ -169,7 +169,7 @@ const SpinnerBase = kind({
  * @private
  */
 const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'SpinnerSpotlightDecorator';
 
 		static propTypes = /** @lends sandstone/Spinner.Spinner.prototype */ {

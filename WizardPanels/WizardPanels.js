@@ -11,7 +11,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {createContext, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
@@ -25,7 +25,7 @@ import useToggleRole from './useToggleRole';
 
 import css from './WizardPanels.module.less';
 
-const WizardPanelsContext = React.createContext(null);
+const WizardPanelsContext = createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 const HeaderContainer = SpotlightContainerDecorator(Header);
 
@@ -442,8 +442,8 @@ const WizardPanelsBase = kind({
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
 function useReverseTransition (index = -1, rtl) {
-	const [prevIndex, setPrevIndex] = React.useState(-1);
-	let [reverse, setReverse] = React.useState(rtl);
+	const [prevIndex, setPrevIndex] = useState(-1);
+	let [reverse, setReverse] = useState(rtl);
 
 	if (prevIndex !== index) {
 		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
@@ -476,7 +476,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		rtl,
 		...rest
 	}) => {
-		const [panel, setPanel] = React.useState(null);
+		const [panel, setPanel] = useState(null);
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
@@ -486,19 +486,19 @@ const WizardPanelsRouter = (Wrapped) => {
 			...transition
 		} = useFocusOnTransition({index, noAnimation, onTransition, onWillTransition, spotlightId});
 
-		const handleWillTransition = React.useCallback((ev) => {
+		const handleWillTransition = useCallback((ev) => {
 			focusOnWillTransition(ev);
 			a11yOnWillTransition(ev);
 		}, [a11yOnWillTransition, focusOnWillTransition]);
 
-		const totalPanels = panel ? React.Children.count(children) : 0;
+		const totalPanels = panel ? Children.count(children) : 0;
 		const currentTitle = panel && panel.title ? panel.title : title;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
 		return (
 			<WizardPanelsContext.Provider value={setPanel}>
-				{React.Children.toArray(children)[index]}
+				{Children.toArray(children)[index]}
 				<Wrapped
 					{...rest}
 					{...panel}

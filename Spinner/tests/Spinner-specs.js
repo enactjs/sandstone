@@ -1,4 +1,3 @@
-import React from 'react';
 import {mount} from 'enzyme';
 import Spinner from '../Spinner';
 import css from '../Spinner.module.less';

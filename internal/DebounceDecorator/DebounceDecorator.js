@@ -8,7 +8,7 @@
 import hoc from '@enact/core/hoc';
 import {Job} from '@enact/core/util';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 
 /**
  * Default config for {@link sandstone/internal/DebounceDecorator.DebounceDecorator}.
@@ -60,7 +60,7 @@ const defaultConfig = {
 const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {cancel, debounce, delay} = config;
 
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'DebounceDecorator';
 
 		static propTypes = /** @lends sandstone/internal/DebounceDecorator.DebounceDecorator.prototype */ {

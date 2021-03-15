@@ -14,7 +14,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
 import Group from '@enact/ui/Group';
 import Toggleable from '@enact/ui/Toggleable';
-import React from 'react';
+import {Component} from 'react';
 
 import Section from '../components/Section';
 
@@ -32,7 +32,7 @@ const keyGuideItems = [
 ];
 const TooltipButton = TooltipDecorator(Button);
 
-class PopupTabLayoutView extends React.Component {
+class PopupTabLayoutView extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -183,13 +183,16 @@ class PopupTabLayoutView extends React.Component {
 									</buttons>
 								</Alert>
 								<KeyGuide open={openKeyGuide} onClick={() => this.setState({openKeyGuide: true})}>{keyGuideItems}</KeyGuide>
-								<Popup
-									onClose={() => this.setState({openPopup: false})}
-									open={openPopup}
-								>
-									<Button>Text 0</Button>
-									<Button>Text 1</Button>
-								</Popup>
+								<div aria-owns="popup">
+									<Popup
+										id="popup"
+										onClose={() => this.setState({openPopup: false})}
+										open={openPopup}
+									>
+										<Button>Text 0</Button>
+										<Button>Text 1</Button>
+									</Popup>
+								</div>
 							</TabPanel>
 						</TabPanels>
 					</Tab>

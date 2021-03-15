@@ -1,5 +1,4 @@
 import Checkbox from '@enact/sandstone/Checkbox';
-import React from 'react';
 
 import Section from '../components/Section';
 

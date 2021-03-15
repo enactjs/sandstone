@@ -1,12 +1,10 @@
 import Dropdown from '../../../../Dropdown';
-import React from 'react';
+import {scaleToRem} from '@enact/ui/resolution';
 
 import {withProps} from './utils';
 
-// TO DO: add children options
-// TO DO: add direction up/down
-// TO DO: add open/close
-// TO DO: add RTL tests
+
+const children = (itemCount) => (new Array(itemCount)).fill().map((i, index) => `Option ${index + 1}`);
 
 const Widths = [
 	<Dropdown placeholder="Dropdown" width="tiny" />,
@@ -37,7 +35,26 @@ const DropdownTests = [
 	// size="large"
 	...withProps({
 		size: 'large'
-	}, Widths)
+	}, Widths),
 
+	// open with children
+	<Dropdown open title="Select an option below">
+		{children(5)}
+	</Dropdown>,
+
+	// direction - 'above', 'below'
+	// 'below' is default
+	<Dropdown open direction="above" title="Select an option above" style={{marginTop: scaleToRem(300)}}>
+		{children(3)}
+	</Dropdown>,
+	<Dropdown title="Select an option below">
+		{children(3)}
+	</Dropdown>,
+
+	// locale = 'ar-SA'
+	{
+		locale: 'ar-SA',
+		component: <Dropdown title="حدد أحد الخيارات أدناه">{children(5)}</Dropdown>
+	}
 ];
 export default DropdownTests;

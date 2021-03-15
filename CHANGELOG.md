@@ -2,6 +2,74 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Item` public class names `itemContent`, `content`, and `label`
+- `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
+
+### Fixed
+
+- `sandstone/VirtualList` to not block key down events after panel transition
+
+## [2.0.0-alpha.1] - 2021-02-24
+
+-  The framework was updated to support React 17.0.1
+
+## [1.5.0] - 2021-02-09
+
+### Added
+
+- `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
+- `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
+
+### Fixed
+
+- `sandstone/Alert` to read out properly after closing it in a `sandstone/PopupTabLayout`
+- `sandstone/FlexiblePopupPanels` padding in RTL locales
+- `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
+- `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
+- `sandstone/Panel` to not reset scroll position by events from others
+- `sandstone/Panels.Header` to not show back button in the first panel
+- `sandstone/VideoPlayer.Video` to not start a new play before another one completes
+
+## [1.4.6] - 2021-01-29
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update `ContextualPopup` position properly in RTL locales
+
+## [1.4.5] - 2021-01-05
+
+### Fixed
+
+- `sandstone/Dropdown` title `font-style` to `normal` where a locale's fonts cannot support italic
+
+## [1.4.4] - 2020-11-06
+
+### Fixed
+
+- `sandstone/ThemeDecorator` font style in non-latin locales
+- `sandstone/TimePicker` to change its value with up/down key when the focus changed by enter key
+
+## [1.4.3] - 2020-10-30
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar to always show
+
+### Fixed
+
+- `sandstone/Heading` `font-style` to `normal` where a locale's fonts cannot support italic
+
+## [1.4.2] - 2020-10-26
+
+### Fixed
+
+- Cambodian(km) language to be classified as a tall-glyph language
+- `sandstone/Item` line-height to support tall-glyph language
+
 ## [1.4.1] - 2020-10-20
 
 ### Fixed

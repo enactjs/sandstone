@@ -1,5 +1,4 @@
 import Item from '@enact/sandstone/Item';
-import React from 'react';
 import Scroller from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 

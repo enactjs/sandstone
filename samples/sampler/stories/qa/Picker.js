@@ -6,7 +6,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {Row} from '@enact/ui/Layout';
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import iconNames from '../default/icons';
@@ -26,7 +26,8 @@ const pickerList = {
 	tall: [
 		'नरेंद्र मोदी',
 		' ฟิ้  ไั  ஒ  து',
-		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
+		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ',
+		'តន្ត្រី'
 	],
 	long: [
 		'1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius sit amet mattis vulputate enim nulla. A pellentesque sit amet porttitor eget dolor morbi non arcu. Text1',
@@ -69,7 +70,7 @@ const pickerList = {
 };
 
 
-class PickerInPopupTabLayout extends React.Component {
+class PickerInPopupTabLayout extends Component {
 	render () {
 		return (
 			<>

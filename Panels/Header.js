@@ -13,7 +13,7 @@ import Toggleable from '@enact/ui/Toggleable';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Children, useContext, useState} from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
@@ -30,7 +30,7 @@ const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, cl
 const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
 const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShowBack'));
 
-const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
+const hasChildren = (children) => (Children.toArray(children).filter(Boolean).length > 0);
 
 // Hides the back button when 5-way navigation when in pointer mode and the target would not be the
 // back button.
@@ -575,10 +575,10 @@ const HeaderBase = kind({
 // Customized ContextAsDefaults HOC to incorporate the backButtonAvailable prop feature
 const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaultsHeader (props) {
+	function ContextAsDefaultsHeader (props) {
 		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
-		const {index, type: panelsType} = React.useContext(PanelsStateContext);
-
+		const {type: panelsType} = useContext(PanelsStateContext);
+		const {'data-index': index} = props;
 		const backButtonAvailable = (index > 0 && panelsType !== 'wizard' || panelsType === 'flexiblePopup');
 
 		return provideContextAsDefaults(
@@ -588,14 +588,26 @@ const ContextAsDefaultsHeader = (Wrapped) => {
 				backButtonAvailable={backButtonAvailable}
 			/>
 		);
+	}
+
+	ContextAsDefaultsHeader.propTypes = {
+		/**
+		 * Used internally to render back button.
+		 *
+		 * @type {Number}
+		 * @private
+		 */
+		'data-index': PropTypes.number
 	};
+
+	return ContextAsDefaultsHeader;
 };
 
 const HeaderMeasurementDecorator = (Wrapped) => {
 	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
 		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
 		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
-		const [{slotSize, prevSlotBeforeWidth, prevSlotAfterWidth}, setSlotSize] = React.useState({});
+		const [{slotSize, prevSlotBeforeWidth, prevSlotAfterWidth}, setSlotSize] = useState({});
 
 		// If the slot width has changed, re-run this.
 		if (slotBeforeWidth !== prevSlotBeforeWidth || slotAfterWidth !== prevSlotAfterWidth) {

@@ -7,10 +7,6 @@
 .scrollbar {
 	background: none;
 	border-color: transparent;
-	opacity: 1;
-
-	transition: opacity 100ms ease-out;
-	will-change: opacity;
 
 	&.horizontal {
 		.enact-locale-rtl({
@@ -18,11 +14,6 @@
 			direction: ltr;
 			transform: scaleX(-1);
 		});
-	}
-
-	/* ScrollbarTrack */
-	.scrollbarTrackShown {
-		opacity: 1;
 	}
 }
 

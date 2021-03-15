@@ -1,7 +1,6 @@
 import {number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UiIcon from '@enact/ui/Icon';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Icon, {IconBase} from '@enact/sandstone/Icon';

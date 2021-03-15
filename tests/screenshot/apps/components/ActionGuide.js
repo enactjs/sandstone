@@ -1,5 +1,4 @@
 import ActionGuide from '../../../../ActionGuide';
-import React from 'react';
 
 import {withConfig} from './utils';
 

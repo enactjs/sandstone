@@ -2,12 +2,14 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
+import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);
@@ -20,7 +22,7 @@ const list = [
 	{children: 'hello 3', 'key': 'key3', 'aria-label': 'aria 3'}
 ];
 
-class AutoDismissDropdown extends React.Component {
+class AutoDismissDropdown extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -47,7 +49,7 @@ class AutoDismissDropdown extends React.Component {
 	}
 }
 
-class DisabledDropdown extends React.Component {
+class DisabledDropdown extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -66,6 +68,31 @@ class DisabledDropdown extends React.Component {
 				<Dropdown title="hello" disabled={this.state.isDisabled} onFocus={this.handleFocus}>
 					{['a', 'b', 'c']}
 				</Dropdown>
+			</div>
+		);
+	}
+}
+
+class PositionChangingDropdown extends Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			isShow: true
+		};
+	}
+
+	handleSelect = () => {
+		this.setState({
+			isShow: false
+		});
+	};
+
+	render () {
+		return (
+			<div style={{display: 'flex'}}>
+				<Dropdown title="first" onSelect={this.handleSelect}>{['a', 'b', 'c']}</Dropdown>
+				{this.state.isShow ? <Dropdown title="second">{['a', 'b', 'c']}</Dropdown> : null}
+				<Dropdown title="third">{['a', 'b', 'c']}</Dropdown>
 			</div>
 		);
 	}
@@ -186,5 +213,37 @@ storiesOf('Dropdown', module)
 		'with disabled',
 		() => (
 			<DisabledDropdown />
+		)
+	).add(
+		'with changing position',
+		() => (
+			<PositionChangingDropdown />
+		)
+	).add(
+		'in Scroller (PLAT-137855)',
+		() => (
+			<Scroller
+				overscrollEffectOn={{
+					arrowKey: true,
+					drag: true,
+					pageKey: true,
+					track: true,
+					wheel: true
+				}}
+			>
+				<Item>Scroll down to see Dropdown</Item>
+				<Item disabled />
+				<Item>Scroller has an overscroll effect intentionally</Item>
+				<Item disabled />
+				<Item disabled />
+				<Dropdown>
+					{['a', 'b', 'c', 'd', 'e', 'f', 'g']}
+				</Dropdown>
+				<Item disabled />
+				<Item disabled />
+				<Item>Scroller has an overscroll effect intentionally</Item>
+				<Item disabled />
+				<Item>Scroll up to see Dropdown</Item>
+			</Scroller>
 		)
 	);

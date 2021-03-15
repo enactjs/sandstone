@@ -1,6 +1,5 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Spottable from '@enact/spotlight/Spottable';
 
 const Div = Spottable('div');

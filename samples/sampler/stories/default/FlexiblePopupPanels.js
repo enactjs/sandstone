@@ -3,7 +3,7 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
+import {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import compose from 'ramda/src/compose';
 
@@ -27,12 +27,12 @@ storiesOf('Sandstone', module)
 		'FlexiblePopupPanels',
 		() => {
 			const defaultOpen = false;
-			const [open, setOpenState] = React.useState(defaultOpen);
+			const [open, setOpenState] = useState(defaultOpen);
 			const toggleOpen = () => setOpenState(!open);
 			const handleClose = compose(toggleOpen, action('onClose'));
 
 			const defaultIndex = 0;
-			const [index, setPanelIndexState] = React.useState(defaultIndex);
+			const [index, setPanelIndexState] = useState(defaultIndex);
 
 			const nextPanel = () => setPanelIndexState(Math.min(index + 1, 1));
 			const handleNavigation = (type) => (ev) => {
@@ -69,7 +69,7 @@ storiesOf('Sandstone', module)
 				>
 					<Panel
 						size={size}
-						prevButton={boolean('custom first Panel prevButton', PanelConfig) ?  <Button icon="closex" aria-label="exit" /> : void 0}
+						prevButton={boolean('custom first Panel prevButton', PanelConfig) ?  <Button icon="jumpbackward" aria-label="go to last" /> : void 0}
 					>
 						<Header title="First List" />
 						<Scroller style={{width: (size === 'auto' ? ri.scaleToRem(900) : null)}}>
@@ -81,13 +81,13 @@ storiesOf('Sandstone', module)
 					</Panel>
 					<Panel
 						size={size}
-						nextButton={boolean('custom last Panel nextButton', PanelConfig) ? <Button icon="closex" aria-label="quit" /> : void 0}
 					>
 						<Header title="Second Vertical Slider" />
 						<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
 					</Panel>
 					<Panel
 						size={size}
+						nextButton={boolean('custom last Panel nextButton', PanelConfig) ? <Button icon="jumpforward" aria-label="go back to first" /> : void 0}
 					>
 						<Header title="Third panel" />
 						<Scroller style={{width: (size === 'auto' ? ri.scaleToRem(900) : null)}}>

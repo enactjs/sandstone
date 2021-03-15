@@ -1,33 +1,26 @@
+/* eslint-disable react/jsx-no-bind */
+
 import Button from '@enact/sandstone/Button';
 import Slider from '@enact/sandstone/Slider';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 
-class CustomSlider extends React.Component {
-	static propTypes = {
-		customText: PropTypes.string
-	};
+const CustomSlider = ({customText, ...rest}) => {
+	const [value, setValue] = useState(0);
+	const valueText = `${customText} ${value}`;
 
-	constructor (props) {
-		super(props);
-		this.state = {
-			value: 0
-		};
-	}
+	const handleChange = (ev) => setValue(ev.value);
 
-	handleChange = (ev) => this.setState({value: ev.value});
+	return (
+		<Slider aria-valuetext={valueText} onChange={handleChange} value={value} {...rest} />
+	);
+};
 
-	render () {
-		const {customText, ...rest} = this.props;
-		const valueText = `${customText} ${this.state.value}`;
-
-		return (
-			<Slider aria-valuetext={valueText} onChange={this.handleChange} value={this.state.value} {...rest} />
-		);
-	}
-}
+CustomSlider.propTypes = {
+	customText: PropTypes.string
+};
 
 const SliderView = () => (
 	<>

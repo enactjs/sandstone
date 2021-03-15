@@ -4,9 +4,9 @@ import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import WizardPanels from '@enact/sandstone/WizardPanels';
-import React from 'react';
+import {Component} from 'react';
 
-class WizardPanelsView extends React.Component {
+class WizardPanelsView extends Component {
 	constructor (props) {
 		super(props);
 
@@ -17,11 +17,11 @@ class WizardPanelsView extends React.Component {
 		};
 	}
 
-	onToggleNoAnimation = () => this.setState((state) => ({noAnimation: !state.noAnimation}));
+	handleToggleNoAnimation = () => this.setState((state) => ({noAnimation: !state.noAnimation}));
 
-	onToggleNoAriaLabel = () => this.setState((state) => ({noAriaLabel: !state.noAriaLabel}));
+	handleToggleNoAriaLabel = () => this.setState((state) => ({noAriaLabel: !state.noAriaLabel}));
 
-	onToggleNoSteps = () => this.setState((state) => ({noSteps: !state.noSteps}));
+	handleToggleNoSteps = () => this.setState((state) => ({noSteps: !state.noSteps}));
 
 	render () {
 		const {noAnimation, noAriaLabel, noSteps} = this.state;
@@ -40,19 +40,19 @@ class WizardPanelsView extends React.Component {
 						<Button>Text 1</Button>
 					</div>
 					<CheckboxItem
-						onClick={this.onToggleNoAnimation}
+						onClick={this.handleToggleNoAnimation}
 						selected={noAnimation}
 					>
 						noAnimation
 					</CheckboxItem>
 					<CheckboxItem
-						onClick={this.onToggleNoAriaLabel}
+						onClick={this.handleToggleNoAriaLabel}
 						selected={noAriaLabel}
 					>
 						noAriaLabel
 					</CheckboxItem>
 					<CheckboxItem
-						onClick={this.onToggleNoSteps}
+						onClick={this.handleToggleNoSteps}
 						selected={noSteps}
 					>
 						noSteps

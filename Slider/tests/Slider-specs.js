@@ -1,5 +1,4 @@
 import {mount} from 'enzyme';
-import React from 'react';
 
 import Slider from '../Slider';
 import css from '../Slider.module.less';

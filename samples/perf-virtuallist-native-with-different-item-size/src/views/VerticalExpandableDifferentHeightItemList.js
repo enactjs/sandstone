@@ -1,7 +1,7 @@
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import {createRef, Component} from 'react';
 import ReactDOM from 'react-dom';
 import ri from '@enact/ui/resolution';
 import {VirtualList} from '@enact/sandstone/VirtualList';
@@ -117,7 +117,7 @@ class ResizableItem extends Component {
 
 	constructor (props) {
 		super(props);
-		this.itemRef = React.createRef();
+		this.itemRef = createRef();
 	}
 
 	componentDidMount () {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {mount} from 'enzyme';
 import ThemeDecorator from '../';
 import Spotlight from '@enact/spotlight';

@@ -2,7 +2,7 @@ import Item from '@enact/sandstone/Item';
 import VirtualList from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VoiceControlDecorator} from '@enact/webos/speech';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
@@ -15,7 +15,7 @@ for (let i = 0; i < 30; i++) {
 
 const itemSize = ri.scale(96);
 
-class DataWebosVoiceLabelIndex extends React.Component {
+class DataWebosVoiceLabelIndex extends Component {
 	constructor (props) {
 		super(props);
 		this.firstVisibleIndex = 0;
