@@ -60,7 +60,7 @@ Length10.parameters = {
 	}
 };
 
-export const __LongTitles = () => (
+export const LongTitles = () => (
 	<Input
 		title={inputData.longText}
 		subtitle={inputData.longText}
@@ -70,14 +70,14 @@ export const __LongTitles = () => (
 	/>
 );
 
-__LongTitles.storyName = 'long titles';
-__LongTitles.parameters = {
+LongTitles.storyName = 'long titles';
+LongTitles.parameters = {
 	info: {
 		text: 'Test the input popup\'s maximum bounds.'
 	}
 };
 
-export const __NoTitles = () => (
+export const NoTitles = () => (
 	<Input
 		popupType="fullscreen"
 		type="number"
@@ -85,8 +85,8 @@ export const __NoTitles = () => (
 	/>
 );
 
-__NoTitles.storyName = 'no titles';
-__NoTitles.parameters = {
+NoTitles.storyName = 'no titles';
+NoTitles.parameters = {
 	info: {
 		text: 'No titles, just an input field.'
 	}

@@ -12,7 +12,7 @@ export default {
 	component: 'InputField'
 };
 
-export const _LongText = () => (
+export const LongText = () => (
 	<Input
 		title="Overlay Input"
 		subtitle={inputData.textSubtitle}
@@ -25,9 +25,9 @@ export const _LongText = () => (
 	/>
 );
 
-_LongText.storyName = 'long text';
+LongText.storyName = 'long text';
 
-export const _LongTitles = () => (
+export const LongTitles = () => (
 	<Input
 		title={inputData.longText}
 		subtitle={inputData.longText}
@@ -36,22 +36,22 @@ export const _LongTitles = () => (
 	/>
 );
 
-_LongTitles.storyName = 'long titles';
-_LongTitles.parameters = {
+LongTitles.storyName = 'long titles';
+LongTitles.parameters = {
 	info: {
 		text: 'Test the input popup\'s maximum bounds.'
 	}
 };
 
-export const _NoTitles = () => (
+export const NoTitles = () => (
 	<Input
 		popupType="overlay"
 		defaultOpen
 	/>
 );
 
-_NoTitles.storyName = 'no titles';
-_NoTitles.parameters = {
+NoTitles.storyName = 'no titles';
+NoTitles.parameters = {
 	info: {
 		text: 'No titles, just an input field.'
 	}

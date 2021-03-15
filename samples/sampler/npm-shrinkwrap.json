@@ -11626,7 +11626,7 @@
         "@enact/dev-utils": "^4.0.0",
         "@storybook/addon-actions": "^6.1.21",
         "@storybook/addon-docs": "^6.1.21",
-        "@storybook/addon-knobs": "^6.1.15",
+        "@storybook/addon-knobs": "^6.1.21",
         "babel-plugin-dev-expression": "^0.2.2",
         "less": "^3.13.0",
         "less-loader": "^6.2.0",

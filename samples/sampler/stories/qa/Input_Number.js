@@ -12,7 +12,7 @@ export default {
 	component: 'InputField'
 };
 
-export const _Basic = () => (
+export const Basic = () => (
 	<Input
 		title={text('title', Config, 'Title')}
 		subtitle={text('subtitle', Config, 'Subtitle')}
@@ -29,8 +29,8 @@ export const _Basic = () => (
 	</Input>
 );
 
-_Basic.storyName = 'basic';
-_Basic.parameters = {
+Basic.storyName = 'basic';
+Basic.parameters = {
 	info: {
 		text: 'Input with all knobs available.'
 	}

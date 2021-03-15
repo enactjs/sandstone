@@ -12,7 +12,7 @@ export default {
 	component: 'InputField'
 };
 
-export const _Length4 = () => (
+export const Length4 = () => (
 	<Input
 		title="Overlay Input (4)"
 		subtitle={inputData.numberSubtitle}
@@ -29,14 +29,14 @@ export const _Length4 = () => (
 	</Input>
 );
 
-_Length4.storyName = 'length 4';
-_Length4.parameters = {
+Length4.storyName = 'length 4';
+Length4.parameters = {
 	info: {
 		text: 'Uses a short-number form of number input.'
 	}
 };
 
-export const _Length10 = () => (
+export const Length10 = () => (
 	<Input
 		title="Overlay Input (10)"
 		subtitle={inputData.numberSubtitle}
@@ -53,14 +53,14 @@ export const _Length10 = () => (
 	</Input>
 );
 
-_Length10.storyName = 'length 10';
-_Length10.parameters = {
+Length10.storyName = 'length 10';
+Length10.parameters = {
 	info: {
 		text: 'Uses a long-number form of number input.'
 	}
 };
 
-export const ___LongTitles = () => (
+export const LongTitles = () => (
 	<Input
 		title={inputData.longText}
 		subtitle={inputData.longText}
@@ -70,14 +70,14 @@ export const ___LongTitles = () => (
 	/>
 );
 
-___LongTitles.storyName = 'long titles';
-___LongTitles.parameters = {
+LongTitles.storyName = 'long titles';
+LongTitles.parameters = {
 	info: {
 		text: 'Test the input popup\'s maximum bounds.'
 	}
 };
 
-export const ___NoTitles = () => (
+export const NoTitles = () => (
 	<Input
 		popupType="overlay"
 		type="number"
@@ -85,8 +85,8 @@ export const ___NoTitles = () => (
 	/>
 );
 
-___NoTitles.storyName = 'no titles';
-___NoTitles.parameters = {
+NoTitles.storyName = 'no titles';
+NoTitles.parameters = {
 	info: {
 		text: 'No titles, just an input field.'
 	}

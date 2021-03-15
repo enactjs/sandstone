@@ -18,7 +18,7 @@ export default {
 	component: 'Header'
 };
 
-export const ___JustTitle = () => {
+export const JustTitle = () => {
 	return (
 		<Fragment>
 			<Header
@@ -29,10 +29,10 @@ export const ___JustTitle = () => {
 	);
 };
 
-___JustTitle.storyName = 'just title';
-___JustTitle.parameters = headerStoryConfig;
+JustTitle.storyName = 'just title';
+JustTitle.parameters = headerStoryConfig;
 
-export const ___ShortTitles = () => {
+export const ShortTitles = () => {
 	return (
 		<Fragment>
 			<Header
@@ -44,10 +44,10 @@ export const ___ShortTitles = () => {
 	);
 };
 
-___ShortTitles.storyName = 'short titles';
-___ShortTitles.parameters = headerStoryConfig;
+ShortTitles.storyName = 'short titles';
+ShortTitles.parameters = headerStoryConfig;
 
-export const ___LongTitles = () => {
+export const LongTitles = () => {
 	return (
 		<Fragment>
 			<Header
@@ -59,5 +59,5 @@ export const ___LongTitles = () => {
 	);
 };
 
-___LongTitles.storyName = 'long titles';
-___LongTitles.parameters = headerStoryConfig;
+LongTitles.storyName = 'long titles';
+LongTitles.parameters = headerStoryConfig;
