@@ -1,5 +1,5 @@
+import {button} from '@enact/storybook-utils/addons/knobs';
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
-import {button} from '@storybook/addon-knobs';
 import {Component} from 'react';
 
 const videoTabLabel = 'VideoPlayer';
