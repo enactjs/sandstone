@@ -1,6 +1,5 @@
 import kind from '@enact/core/kind';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-import React from 'react';
 
 import MainPanel from '../views/MainPanel';
 

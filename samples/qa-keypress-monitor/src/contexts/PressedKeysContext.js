@@ -1,4 +1,5 @@
-import React, {createContext, useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import {createContext, useEffect, useState} from 'react';
 
 import useEventListener from '../hooks/useEventListener';
 
@@ -48,6 +49,10 @@ const PressedKeysProvider = ({children, eventExpirationTime = 1000}) => {
 			{children}
 		</PressedKeysContext.Provider>
 	);
+};
+
+PressedKeysProvider.propTypes = {
+	eventExpirationTime: PropTypes.number
 };
 
 export default PressedKeysContext;

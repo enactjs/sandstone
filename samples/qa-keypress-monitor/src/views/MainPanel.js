@@ -2,13 +2,18 @@ import {Cell, Row} from '@enact/ui/Layout';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import {Heading} from '@enact/sandstone/Heading';
 import kind from '@enact/core/kind';
-import React, {useContext} from 'react';
+import PropTypes from 'prop-types';
+import {useContext} from 'react';
 
 import KeyLogger from '../components/KeyLogger/KeyLogger';
 import PressedKeysContext from '../contexts/PressedKeysContext';
 
 const MainPanelBase = kind({
 	name: 'MainPanel',
+
+	propTypes: {
+		keys: PropTypes.object
+	},
 
 	render: ({keys: {modifiers, nonModifiers}, ...rest}) => (
 		<Panel {...rest} noCloseButton>

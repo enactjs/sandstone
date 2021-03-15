@@ -1,6 +1,5 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Item from '@enact/sandstone/Item';
 
 import componentCss from './KeyItem.module.less';
@@ -16,6 +15,8 @@ const KeyItem = kind({
 		 * - https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/which
 		 */
 		code: PropTypes.string,
+
+		css: PropTypes.object,
 
 		/* Note: the event prop is `key` but Repeater is stomping on that, so it is
 		 * renamed as `keyName` here.
