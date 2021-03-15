@@ -29,7 +29,6 @@ import UiSlider from '@enact/ui/Slider';
 import PropTypes from 'prop-types';
 import anyPass from 'ramda/src/anyPass';
 import compose from 'ramda/src/compose';
-import React from 'react';
 
 import {ProgressBarTooltip} from '../ProgressBar';
 import Skinnable from '../Skinnable';
@@ -86,6 +85,14 @@ const SliderBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * Disables component and does not generate events.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
 
 		/**
 		 * Indicates that the slider has gained focus and if the tooltip is present, it will be
@@ -287,7 +294,7 @@ const SliderBase = kind({
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
-	render: ({css, focused, tooltip, ...rest}) => {
+	render: ({css, disabled, focused, tooltip, ...rest}) => {
 		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;
@@ -297,7 +304,9 @@ const SliderBase = kind({
 		return (
 			<UiSlider
 				{...rest}
+				aria-disabled={disabled}
 				css={css}
+				disabled={disabled}
 				progressBarComponent={
 					<ProgressBar css={css} />
 				}

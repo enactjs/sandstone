@@ -1,6 +1,6 @@
 import Item from '@enact/sandstone/Item';
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import {VirtualList} from '@enact/sandstone/VirtualList';
 

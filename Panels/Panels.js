@@ -4,7 +4,6 @@ import IdProvider from '@enact/ui/internal/IdProvider';
 import {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
 
 import {BasicArranger, CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
@@ -49,7 +48,7 @@ const PanelsBase = kind({
 		 * Hint string read when focusing the back button.
 		 *
 		 * @type {String}
-		 * @default 'Go to previous'
+		 * @default 'go to previous'
 		 * @public
 		 */
 		backButtonAriaLabel: PropTypes.string,

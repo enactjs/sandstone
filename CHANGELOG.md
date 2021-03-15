@@ -4,11 +4,176 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Dropdown` number type `width` prop
+- `sandstone/Item` public class names `itemContent`, `content`, and `label`
+- `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
+
+### Fixed
+
+- `sandstone/VirtualList` to not block key down events after panel transition
+
+## [2.0.0-alpha.1] - 2021-02-24
+
+-  The framework was updated to support React 17.0.1
+
+### Added
+
+- `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
+
+## [1.5.0] - 2021-02-09
+
+### Added
+
+- `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
+
+### Fixed
+
+- `sandstone/Alert` to read out properly after closing it in a `sandstone/PopupTabLayout`
+- `sandstone/FlexiblePopupPanels` padding in RTL locales
+- `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
+- `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
+- `sandstone/Panel` to not reset scroll position by events from others
+- `sandstone/Panels.Header` to not show back button in the first panel
+- `sandstone/VideoPlayer.Video` to not start a new play before another one completes
+
+## [1.4.6] - 2021-01-29
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update `ContextualPopup` position properly in RTL locales
+
+## [1.4.5] - 2021-01-05
+
+### Fixed
+
+- `sandstone/Dropdown` title `font-style` to `normal` where a locale's fonts cannot support italic
+
+## [1.4.4] - 2020-11-06
+
+### Fixed
+
+- `sandstone/ThemeDecorator` font style in non-latin locales
+- `sandstone/TimePicker` to change its value with up/down key when the focus changed by enter key
+
+## [1.4.3] - 2020-10-30
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar to always show
+
+### Fixed
+
+- `sandstone/Heading` `font-style` to `normal` where a locale's fonts cannot support italic
+
+## [1.4.2] - 2020-10-26
+
+### Fixed
+
+- Cambodian(km) language to be classified as a tall-glyph language
+- `sandstone/Item` line-height to support tall-glyph language
+
+## [1.4.1] - 2020-10-20
+
+### Fixed
+
+- `sandstone/WizardPanels` to read `steps` when neither prop `noSteps` nor `aria-label` is present
+
+## [1.4.0] - 2020-10-16
+
+### Added
+
+- `sandstone/TabLayout.Tab` prop `onTabClick` to handle `onClick` event on it
+
+### Fixed
+
+- `sandstone/Input` to match latest designs
+- `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
+- `sandstone/VirtualList` to not show overscroll effect when 5-way key is pressed after scrolling to the bottom by wheel
+- `sandstone/WizardPanels` to read `steps` properly with `noSteps` and `aria-label` props
+
+## [1.3.2] - 2020-09-25
+
+### Changed
+
+- `sandstone/WizardPanels` to read out the content of customized `nextButton` and `prevButton`
+
+### Fixed
+
+- `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` to match latest designs
+- `sandstone/Picker` to move focus on increase or decrease button properly via 5-way
+
+## [1.3.1] - 2020-09-17
+
+### Changed
+
+- `sandstone/Alert` background color for fullscreen type
+- `sandstone/Icon` supported icon list, adding a new icon
+- `sandstone/Icon` and `sandstone/Switch` size to not enlarge when large text mode
+- `sandstone/Scroller` focused body color when `focusableScrollbar` prop is `byEnter`
+
+### Fixed
+
+- `sandstone/TabLayout` to not handle key events from other popup components
+
+## [1.3.0] - 2020-09-14
+
+### Added
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` prop `onComplete` to handle enter key from the last picker
+
+### Changed
+
+- `sandstone/RangePicker` to read out properly when Spotlight is on the next or previous button
+- `sandstone/TooltipDecorator` not to read out audio guidance when showing
+- `sandstone/WizardPanels` footer to lower position
+
+### Fixed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to focus the next picker with enter key
+- `sandstone/DatePicker` and `sandstone/TimePicker` to show arrows when normal
+- `sandstone/Scroller` to not restrict focus movement with 5-way directional keys when `focusableScrollbar` prop is `byEnter` and there is no scrollbar
+
+## [1.2.1] - 2020-09-03
+
+### Changed
+
+- Primary background color to black
+
+### Fixed
+
+- `sandstone/WizardPanels` to revert 1.2.0 fix that render `Panel` contents within the usual render flow
+
+## [1.2.0] - 2020-09-01
+
+### Added
+
+- `sandstone/FlexiblePopupPanels.Panel` `size` property to allow the selection between "auto" sized, "small", and "large" panel presets
+
+### Changed
+
+- `sandstone/Scroller` scrollbar thumb to prevent losing focus with 5-way directional keys when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
+
+### Fixed
+
+- `sandstone/FixedPopupPanels`, `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` to match latest designs
+- `sandstone/Input` number pad layout in right-to-left locales for both overlay and fullscreen `Input`
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to visibly change focus only once when focusing the tabs via 5-way
+- `sandstone/TabLayout` to properly change focus when changing `index` programmatically
+- `sandstone/Tooltip` arrow shape
+- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
+
+## [1.1.4] - 2020-08-24
+
 ### Fixed
 
 - `sandstone/Dropdown` to match latest designs
 - `sandstone/Input` number pad layout in right-to-left locales
+- `sandstone/Item` style to match latest designs
 - `sandstone/Panels.Header` style to match latest designs
+- `sandstone/TabLayout` to not lose focus when changing `index` programmatically
 
 ## [1.1.3] - 2020-08-17
 

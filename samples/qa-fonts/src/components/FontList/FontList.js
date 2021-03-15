@@ -2,7 +2,6 @@ import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import Status from '../Status';
 

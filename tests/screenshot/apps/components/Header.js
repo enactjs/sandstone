@@ -1,7 +1,7 @@
 import {Header} from '../../../../Panels';
 import Button from '../../../../Button';
 import Steps from '../../../../Steps';
-import React from 'react';
+import {Fragment} from 'react';
 
 import {withConfig, withProps} from './utils';
 
@@ -18,10 +18,10 @@ const dropIn = {
 	nextButton: <Button icon="arrowlargeright" />,
 	singleButton: <Button icon="ellipsis" />,
 	doubleButtons: (
-		<React.Fragment>
+		<Fragment>
 			<Button icon="search" />
 			<Button icon="ellipsis" />
-		</React.Fragment>
+		</Fragment>
 	)
 };
 

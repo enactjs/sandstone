@@ -1,5 +1,5 @@
 import Slottable from '@enact/ui/Slottable';
-import React from 'react';
+import {useContext, useEffect} from 'react';
 
 import {WizardPanelsContext} from './WizardPanels';
 
@@ -21,9 +21,9 @@ function PanelBase ({
 	subtitle,
 	title
 }) {
-	const set = React.useContext(WizardPanelsContext);
+	const set = useContext(WizardPanelsContext);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (set) {
 			set({
 				'aria-label': ariaLabel,

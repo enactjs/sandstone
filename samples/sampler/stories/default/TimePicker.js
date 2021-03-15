@@ -1,7 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import TimePicker from '@enact/sandstone/TimePicker';
@@ -20,6 +19,7 @@ storiesOf('Sandstone', module)
 				minuteAriaLabel={text('minuteAriaLabel', Config, '')}
 				meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
 				onChange={action('onChange')}
+				onComplete={action('onComplete')}
 			/>
 		),
 		{

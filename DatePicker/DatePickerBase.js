@@ -1,6 +1,5 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import $L from '../internal/$L';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
@@ -284,9 +283,10 @@ const DatePickerBase = kind({
 									accessibilityHint={dayAccessibilityHint}
 									aria-label={dayAriaLabel}
 									className={css.day}
-									disabled={disabled}
+									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={dayAccessibilityHint}
+									disabled={disabled}
 									key="day-picker"
 									max={maxDays}
 									min={1}
@@ -306,9 +306,10 @@ const DatePickerBase = kind({
 									accessibilityHint={monthAccessibilityHint}
 									aria-label={monthAriaLabel}
 									className={css.month}
-									disabled={disabled}
+									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={monthAccessibilityHint}
+									disabled={disabled}
 									key="month-picker"
 									max={maxMonths}
 									min={1}
@@ -328,9 +329,10 @@ const DatePickerBase = kind({
 									accessibilityHint={yearAccessibilityHint}
 									aria-label={yearAriaLabel}
 									className={css.year}
-									disabled={disabled}
+									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={yearAccessibilityHint}
+									disabled={disabled}
 									key="year-picker"
 									max={maxYear}
 									min={minYear}
@@ -350,6 +352,15 @@ const DatePickerBase = kind({
 		);
 	}
 });
+
+/**
+ * Called when `Enter` key down on the last picker
+ *
+ * @name onComplete
+ * @memberof sandstone/DatePicker.DatePickerBase.prototype
+ * @type {Function}
+ * @public
+ */
 
 export default DatePickerBase;
 export {

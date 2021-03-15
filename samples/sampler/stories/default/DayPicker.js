@@ -1,6 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, text} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import DayPicker from '@enact/sandstone/DayPicker';

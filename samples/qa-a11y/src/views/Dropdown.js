@@ -1,45 +1,43 @@
+/* eslint-disable react/jsx-no-bind */
+
 import Dropdown from '@enact/sandstone/Dropdown';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 
 import appCss from '../App/App.module.less';
 
 const list = [
-	{children: 'Option0', key: 'item0', 'aria-label': 'This is an Option 0.'},
-	{children: 'Option1', key: 'item1', 'aria-label': 'This is an Option 1.'},
-	{children: 'Option2', key: 'item2', 'aria-label': 'This is an Option 2.'}
+	{children: 'Option0', key: 'item0'},
+	{children: 'Option1', key: 'item1'},
+	{children: 'Option2', key: 'item2'}
 ];
 
-const disabledList = list.map(item => ({...item, disabled: true}));
+const ariaLabelList = [
+	{'aria-label': 'This is an Option 0.'},
+	{'aria-label': 'This is an Option 1.'},
+	{'aria-label': 'This is an Option 2.'}
+];
 
-class A11yDropdown extends React.Component {
-	constructor (props) {
-		super(props);
+const ariaLabelledList = list.map((item, index) => ({...item, ...ariaLabelList[index]}));
 
-		this.state = {
-			ariaLabel: null
-		};
-	}
+const disabledList = ariaLabelledList.map(item => ({...item, disabled: true}));
 
-	onSelect = ({selected}) => {
-		this.setState({ariaLabel: list[selected]['aria-label']});
+const A11yDropdown = (props) => {
+	const [ariaLabel, setAriaLabel] = useState(null);
+
+	const onSelect = ({selected}) => {
+		setAriaLabel(ariaLabelledList[selected]['aria-label']);
 	};
 
-	render () {
-		const {children} = this.props;
-
-		return (
-			<Dropdown
-				onSelect={this.onSelect}
-				aria-label={this.state.ariaLabel}
-				{...this.props /* Can be overridden the aria-label with this.props['aria-label'] */}
-			>
-				{children}
-			</Dropdown>
-		);
-	}
-}
+	return (
+		<Dropdown
+			aria-label={ariaLabel}
+			onSelect={onSelect}
+			{...props /* Can be overridden the aria-label with this.props['aria-label'] */}
+		/>
+	);
+};
 
 const DropdownView = () => (
 	<>
@@ -112,7 +110,7 @@ const DropdownView = () => (
 				placeholder="Placeholder"
 				title="Title"
 			>
-				{list}
+				{ariaLabelledList}
 			</A11yDropdown>
 		</Section>
 	</>

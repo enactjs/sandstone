@@ -3,12 +3,13 @@ const {element, Page} = require('@enact/ui-test-utils/utils');
 
 const {focusedElement, waitUntilFocused, waitUntilVisible} = require('../VirtualList-utils');
 
+const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
-const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
-const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
 const scrollContentSelector = '.useScroll_useScroll_scrollContent';
-const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
+const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
+const verticalScrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
+const verticalScrollbarTrackSelector = '.useScroll_ScrollbarTrack_vertical';
 
 class VirtualListPage extends Page {
 
@@ -18,8 +19,8 @@ class VirtualListPage extends Page {
 
 	}
 
-	open (urlExtra) {
-		super.open('VirtualList-View', urlExtra);
+	open (layout = '', urlExtra) {
+		super.open(`VirtualList${layout}-View`, urlExtra);
 	}
 
 	// button api
@@ -56,6 +57,9 @@ class VirtualListPage extends Page {
 	get buttonNativeScroll () {
 		return element('#nativeScroll', browser);
 	}
+	get buttonHeaderChildren () {
+		return element('#headerChildrenButton', browser);
+	}
 
 	// inputField api
 	get inputfieldNumItems () {
@@ -70,22 +74,17 @@ class VirtualListPage extends Page {
 
 	// scrollBar api
 	get scrollbar () {
-		return $(`${verticalscrollbarSelector}`);
+		return $(`${verticalScrollbarSelector}`);
 	}
-	get scrollBarSize () {
-		return $(`${verticalscrollbarSelector}`).getElementSize();
+	getVerticalScrollbarRect () {
+		return browser.execute(function (_verticalScrollbarSelector) {
+			return document.querySelector(_verticalScrollbarSelector).getBoundingClientRect();
+		}, verticalScrollbarSelector);
 	}
-	getScrollOffsetLeft () {
-		return browser.execute(function (_verticalscrollbarSelector) {
-			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
-			return verticalscrollbar.offsetLeft;
-		}, verticalscrollbarSelector);
-	}
-	getScrollbarWidth () {
-		return browser.execute(function (_verticalscrollbarSelector) {
-			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
-			return verticalscrollbar.clientWidth;
-		}, verticalscrollbarSelector);
+	getVerticalScrollbarTrackRect () {
+		return browser.execute(function (_verticalScrollbarTrackSelector) {
+			return document.querySelector(_verticalScrollbarTrackSelector).getBoundingClientRect();
+		}, verticalScrollbarTrackSelector);
 	}
 
 	// scrollThumb api
@@ -104,13 +103,9 @@ class VirtualListPage extends Page {
 	get list () {
 		return element('#list', browser);
 	}
-	get listSize () {
-		return $(`${scrollableSelector}`).getElementSize();
-	}
-	getListwidthSize () {
+	getListRect () {
 		return browser.execute(function (_scrollContentSelector) {
-			const scrollcontent = document.querySelector(_scrollContentSelector);
-			return scrollcontent.clientWidth;
+			return document.querySelector(_scrollContentSelector).getBoundingClientRect();
 		}, scrollContentSelector);
 	}
 
@@ -164,10 +159,15 @@ class VirtualListPage extends Page {
 			return 'unknown';	// we didn't find it?!
 		}, scrollableSelector);
 	}
-	itemOffsetTopById (id) {
-		return browser.execute(function (_element) {
-			return _element.getBoundingClientRect().top;
-		}, this.item(id).value);
+	getElementAttribute (string) {
+		return browser.execute(function (_string) {
+			return document.activeElement.getAttribute(_string);
+		}, string);
+	}
+	activeElementRect () {
+		return browser.execute(function () {
+			return document.activeElement.getBoundingClientRect();
+		});
 	}
 	itemSpacing () {
 		return browser.execute(function (_listItemSelector) {

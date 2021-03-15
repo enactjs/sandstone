@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Item from '../../../../Item';
 import Scroller from '../../../../Scroller';
 import {FixedPopupPanels, Panel, Header} from '../../../../FixedPopupPanels';
@@ -34,6 +32,10 @@ const EachPanel = withConfig(
 		{
 			title: 'with standard Panel Components',
 			component: <FixPopupPanels />
+		},
+		{
+			title: 'with transparent scrim',
+			component: <FixPopupPanels scrimType="transparent" />
 		},
 		{
 			title: 'with standard Panel Components index 1',

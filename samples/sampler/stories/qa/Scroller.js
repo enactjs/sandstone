@@ -3,7 +3,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import Group from '@enact/ui/Group';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -14,6 +14,8 @@ import {storiesOf} from '@storybook/react';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+
+import css from './Scroller.module.less';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
@@ -33,7 +35,7 @@ const prop = {
 	scrollModeOption: ['native', 'translate']
 };
 
-class ScrollerResizableItem extends React.Component {
+class ScrollerResizableItem extends Component {
 	static propTypes = {
 		max: PropTypes.number,
 		min: PropTypes.number,
@@ -58,7 +60,7 @@ class ScrollerResizableItem extends React.Component {
 	}
 }
 
-class ScrollerWithLongItem extends React.Component {
+class ScrollerWithLongItem extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -87,7 +89,7 @@ class ScrollerWithLongItem extends React.Component {
 	}
 }
 
-class ScrollerWithResizable extends React.Component {
+class ScrollerWithResizable extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -119,7 +121,7 @@ class ScrollerWithResizable extends React.Component {
 
 const Container = SpotlightContainerDecorator('div');
 
-class ScrollerWithLargeContainer extends React.Component {
+class ScrollerWithLargeContainer extends Component {
 	componentDidMount () {
 		setTimeout(() => {
 			Spotlight.focus('scroller');
@@ -238,6 +240,27 @@ storiesOf('Scroller', module)
 						))
 					)}</div>)}
 				</div>
+			</Scroller>
+		)
+	)
+	.add(
+		'With short contents',
+		() => (
+			<Scroller
+				direction={select('direction', prop.direction, Config)}
+				focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
+				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
+				noScrollByWheel={boolean('noScrollByWheel', Config)}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+				style={{height: ri.scaleToRem(600)}}
+				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
+			>
+				Text
 			</Scroller>
 		)
 	)
@@ -479,4 +502,26 @@ storiesOf('Scroller', module)
 				</Scroller>
 			);
 		}
+	)
+	.add(
+		'With Customized Style',
+		() => (
+			<div>
+				<Scroller
+					focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					onKeyDown={action('onKeyDown')}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollbarTrackCss={css}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					style={{height: ri.scaleToRem(804)}}
+				>
+					<div style={{height: ri.scaleToRem(1200)}}>
+						The scrollbar track is displayed in white.
+					</div>
+					The scrollbar thumb is displayed in orangered.
+				</Scroller>
+			</div>
+		)
 	);

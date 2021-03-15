@@ -26,10 +26,10 @@ import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Pure from '@enact/ui/internal/Pure';
+import ri from '@enact/ui/resolution';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
 import warning from 'warning';
 
 import $L from '../internal/$L';
@@ -178,7 +178,7 @@ const DropdownBase = kind({
 		 * The placeholder will be replaced by the selected item.
 		 *
 		 * @type {String}
-		 * @default 'No selection'
+		 * @default 'No Selection'
 		 * @public
 		 */
 		placeholder: PropTypes.string,
@@ -219,11 +219,14 @@ const DropdownBase = kind({
 		/**
 		 * Width of the Dropdown.
 		 *
-		 * @type {('huge'|'large'|'x-large'|'medium'|'small'|'tiny')}
+		 * @type {('huge'|'large'|'x-large'|'medium'|'small'|'tiny')|number}
 		 * @default 'medium'
 		 * @public
 		 */
-		width: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'x-large', 'huge'])
+		width: PropTypes.oneOfType([
+			PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'x-large', 'huge']),
+			PropTypes.number
+		])
 	},
 
 	defaultProps: {
@@ -281,9 +284,9 @@ const DropdownBase = kind({
 				};
 			});
 		},
-		className: ({width, title, styler}) => styler.append(`${width}Width`, {hasTitle: Boolean(title)}),
+		className: ({width, title, styler}) => styler.append(typeof width === 'string' ? `${width}Width` : null, {hasTitle: Boolean(title)}),
 		direction: ({direction}) => `${direction} center`,
-		placeholder: ({children, placeholder = $L('No selection'), selected}) => {
+		placeholder: ({children, placeholder = $L('No Selection'), selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
 				return typeof child === 'object' ? child.children : child;
@@ -291,11 +294,12 @@ const DropdownBase = kind({
 
 			return placeholder;
 		},
-		title: ({id, title}) => (title &&
+		title: ({id, title, width}) => (title &&
 			<Heading
 				className={css.title}
 				id={`${id}_title`}
 				size="tiny"
+				style={{width: typeof width === 'number' ? ri.scaleToRem(width) : null}}
 			>
 				{title}
 			</Heading>
@@ -331,6 +335,7 @@ const DropdownBase = kind({
 					open={openDropdown}
 					size={size}
 					spotlightRestrict="self-only"
+					style={{width: typeof width === 'number' ? ri.scaleToRem(width) : null}}
 					{...ariaProps}
 					{...voiceProps}
 				>

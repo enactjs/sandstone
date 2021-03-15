@@ -3,7 +3,7 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
@@ -12,14 +12,19 @@ let itemList = [
 ];
 
 
-class UseCaseDoubleScroller extends React.Component {
+class UseCaseDoubleScroller extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
 			isKoreaFocused: true,
-			isAfricaFocused: false
+			isAfricaFocused: false,
+			result: ''
 		};
 	}
+
+	updateResult = (msg) => () => {
+		this.setState({result: msg});
+	};
 
 	handleKoreaFocus = () => {
 		if (!this.state.isKoreaFocused) {
@@ -28,7 +33,7 @@ class UseCaseDoubleScroller extends React.Component {
 				isAfricaFocused: false
 			});
 		}
-		console.log('handleKoreaFocus > ', this.state);	// eslint-disable-line no-console
+		this.updateResult('handleKoreaFocus > ' + this.state);
 	};
 
 	handleAfricaFocus = () => {
@@ -38,12 +43,12 @@ class UseCaseDoubleScroller extends React.Component {
 				isAfricaFocused: true
 			});
 		}
-		console.log('handleAfricaFocus > ', this.state);	// eslint-disable-line no-console
+		this.updateResult('handleAfricaFocus > ' + this.state);
 	};
 
 	render () {
 		return (
-			<CommonView noScroller title="Double Scroller">
+			<CommonView noScroller title="Double Scroller" subtitle={this.state.result}>
 				<div style={{display: 'flex', flexDirection: 'row'}}>
 					<div>
 						<Heading style={{width: ri.scale(400)}}>{'한국'}</Heading>

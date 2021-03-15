@@ -1,12 +1,12 @@
 import Heading from '@enact/sandstone/Heading';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Group from '@enact/ui/Group';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 
-class IntentSelectRadioItem extends React.Component {
+class IntentSelectRadioItem extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -24,7 +24,7 @@ class IntentSelectRadioItem extends React.Component {
 		return (
 			<CommonView title="Intent to select RadioItem">
 				<Heading>RadioItem</Heading>
-				<RadioItem>필터</RadioItem>
+				<RadioItem data-testid="apple">사과</RadioItem>
 				<Heading>RadioItem Group - radio selection</Heading>
 				<Group
 					childComponent={RadioItem}

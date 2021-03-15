@@ -9,7 +9,7 @@
 
 import {FlexiblePopupPanels, FlexiblePopupPanelsBase} from './FlexiblePopupPanels';
 import Header from './Header';
-import Panel from './Panel';
+import Panel, {PanelBase} from './Panel';
 
 /**
  * A shortcut to access {@link sandstone/FlexiblePopupPanels.Panel}
@@ -34,5 +34,6 @@ export {
 	FlexiblePopupPanels,
 	FlexiblePopupPanelsBase,
 	Header,
-	Panel
+	Panel,
+	PanelBase
 };

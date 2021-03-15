@@ -14,7 +14,6 @@ import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
@@ -265,7 +264,7 @@ const RangePickerBase = kind({
 	render: ({label, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
 		return (
-			<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} value={value} reverse={false}>
+			<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 				<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
 			</Picker>
 		);

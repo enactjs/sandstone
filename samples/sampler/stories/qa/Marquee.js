@@ -3,13 +3,13 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import Spottable from '@enact/spotlight/Spottable';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
-import Item, {ItemBase} from '@enact/sandstone/Item';
+import Item from '@enact/sandstone/Item';
 import Marquee, {MarqueeController} from '@enact/sandstone/Marquee';
 import Skinnable from '@enact/sandstone/Skinnable';
 
@@ -78,13 +78,15 @@ const CustomItem = Spottable(
 );
 
 const MarqueeItem = Spottable(
-	MarqueeController(
-		{marqueeOnFocus: true},
-		ItemBase
+	Skinnable(
+		MarqueeController(
+			{marqueeOnFocus: true},
+			'div'
+		)
 	)
 );
 
-class MarqueeWithShortContent extends React.Component {
+class MarqueeWithShortContent extends Component {
 	constructor (props) {
 		super(props);
 
@@ -127,7 +129,7 @@ class MarqueeWithShortContent extends React.Component {
 	}
 }
 
-class MarqueeWithContentChanged extends React.Component {
+class MarqueeWithContentChanged extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -315,7 +317,7 @@ storiesOf('Marquee', module)
 		() => (
 			<div>
 				<Heading>Focus on below MarqueeController + Marquee center</Heading>
-				<MarqueeItem style={{width: ri.scale(802), display: 'flex', flexDirection: 'column'}}>
+				<MarqueeItem className={css.spotlight} style={{width: ri.scale(802), padding: ri.scale(24)}}>
 					<div>Sample text</div>
 					<div style={{width: '100%', flex: 1}}>
 						<Marquee
@@ -328,7 +330,7 @@ storiesOf('Marquee', module)
 				</MarqueeItem>
 				<br />
 				<Heading>MarqueeController + Marquee not center</Heading>
-				<MarqueeItem style={{width: ri.scale(802), display: 'flex', flexDirection: 'column', border: '1px solid yellow'}}>
+				<MarqueeItem className={css.spotlight} style={{width: ri.scale(802), padding: ri.scale(24), border: '1px solid yellow'}}>
 					<div>Sample text</div>
 					<div style={{width: '100%', flex: 1, textAlign: 'center'}}>
 						<Marquee

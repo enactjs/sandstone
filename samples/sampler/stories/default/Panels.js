@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import {storiesOf} from '@storybook/react';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
@@ -42,7 +42,7 @@ storiesOf('Sandstone', module)
 		() => {
 			// hooks
 			const initialState = 0;
-			const [panelIndex, setState] = React.useState(initialState);
+			const [panelIndex, setState] = useState(initialState);
 			const forward = () => setState(panelIndex + 1);
 			const backward = () => setState(panelIndex - 1);
 

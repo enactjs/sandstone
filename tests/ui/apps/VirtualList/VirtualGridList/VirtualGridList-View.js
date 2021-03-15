@@ -5,7 +5,7 @@ import {InputField} from '../../../../../Input';
 import ImageItem from '../../../../../ImageItem';
 import {VirtualGridList} from '../../../../../VirtualList';
 import ThemeDecorator from '../../../../../ThemeDecorator';
-import React from 'react';
+import {createRef, Component} from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
@@ -19,6 +19,7 @@ spotlight.setPointerMode(false);
 
 const items = [];
 
+// eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = ({index, ...rest}) => {
 	const {source, subText, text} = items[index];
 	return (
@@ -63,7 +64,7 @@ const updateData = (dataSize, noLabel) => {
 	return dataSize;
 };
 
-class app extends React.Component {
+class app extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -78,8 +79,8 @@ class app extends React.Component {
 			translate: false,
 			wrap: false
 		};
-		this.rootRef = React.createRef();
-		this.scrollingRef = React.createRef();
+		this.rootRef = createRef();
+		this.scrollingRef = createRef();
 		updateData(this.state.numItems, this.state.noLabel);
 	}
 

@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import {forward, stopImmediate} from '@enact/core/handle';
+import {forward, stop, stopImmediate} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
 import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
@@ -10,7 +10,7 @@ import {SlideLeftArranger, SlideTopArranger, ViewManager} from '@enact/ui/ViewMa
 import Spotlight, {getDirection} from '@enact/spotlight';
 import PropTypes from 'prop-types';
 import equals from 'ramda/src/equals';
-import React from 'react';
+import {Component as ReactComponent} from 'react';
 import ReactDOM from 'react-dom';
 import shouldUpdate from 'recompose/shouldUpdate';
 
@@ -82,7 +82,7 @@ const allowedClassNames = ['picker', 'valueWrapper', 'joined', 'horizontal', 've
  * @private
  */
 
-const PickerBase = class extends React.Component {
+const PickerBase = class extends ReactComponent {
 	static displayName = 'Picker';
 
 	static propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ {
@@ -368,6 +368,25 @@ const PickerBase = class extends React.Component {
 		step: PropTypes.number,
 
 		/**
+		 * The type of picker. It determines the aria-label for the next and previous buttons.
+		 *
+		 * Depending on the `type`, `joined`, `decrementAriaLabel`, and `incrementAriaLabel`,
+		 * the screen readers read out differently when Spotlight is on the next button, the previous button,
+		 * or the picker itself.
+		 *
+		 * For example, if Spotlight is on the next button, the `joined` prop is false,
+		 * and aria label props(`decrementAriaLabel` and `incrementAriaLabel`) are not defined,
+		 * then the screen readers read out as follows.
+		 *	`'string'` type: `'next item'`
+		 * 	`'number'` type: `'press ok button to increase the value'`
+		 *
+		 * @type {('number'|'string')}
+		 * @default 'string'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['number', 'string']),
+
+		/**
 		 * Index of the selected child
 		 *
 		 * @type {Number}
@@ -408,6 +427,7 @@ const PickerBase = class extends React.Component {
 		orientation: 'horizontal',
 		spotlightDisabled: false,
 		step: 1,
+		type: 'string',
 		value: 0
 	};
 
@@ -569,11 +589,6 @@ const PickerBase = class extends React.Component {
 		}
 	};
 
-	handleIncDown = () => {
-		this.pickerButtonPressed = true;
-		this.handleIncrement();
-	};
-
 	handleWheel = (ev) => {
 		const {step} = this.props;
 		forwardWheel(ev, this.props);
@@ -615,7 +630,7 @@ const PickerBase = class extends React.Component {
 		this.pickerButtonPressed = 1;
 	};
 
-	handleHoldPulse = () => {
+	handleHold = () => {
 		const {joined} = this.props;
 		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
@@ -696,6 +711,8 @@ const PickerBase = class extends React.Component {
 				)
 			) {
 				ev.preventDefault();
+				// prevent parent handler behavior
+				stop(ev);
 				// prevent default spotlight behavior
 				stopImmediate(ev);
 				// set the pointer mode to false on keydown
@@ -722,6 +739,8 @@ const PickerBase = class extends React.Component {
 				)
 			) {
 				ev.preventDefault();
+				// prevent parent handler behavior
+				stop(ev);
 				// prevent default spotlight behavior
 				stopImmediate(ev);
 				// set the pointer mode to false on keydown
@@ -796,7 +815,11 @@ const PickerBase = class extends React.Component {
 			return label;
 		}
 
-		return `${valueText} ${next ? $L('next item') : $L('previous item')}`;
+		if (this.props.type === 'number') {
+			return `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
+		} else {
+			return `${valueText} ${next ? $L('next item') : $L('previous item')}`;
+		}
 	}
 
 	calcDecrementLabel (valueText) {
@@ -932,7 +955,7 @@ const PickerBase = class extends React.Component {
 				onBlur={this.handleBlur}
 				onDown={this.handleDown}
 				onFocus={this.handleFocus}
-				onHoldPulse={this.handleHoldPulse}
+				onHold={this.handleHold}
 				onKeyDown={this.handleKeyDown}
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
@@ -957,7 +980,7 @@ const PickerBase = class extends React.Component {
 						icon={incrementIcon}
 						joined={joined}
 						onDown={this.handleIncrement}
-						onHoldPulse={this.handleIncrement}
+						onHold={this.handleIncrement}
 						onKeyDown={this.handleIncKeyDown}
 						onSpotlightDisappear={onSpotlightDisappear}
 						shrink
@@ -1011,7 +1034,7 @@ const PickerBase = class extends React.Component {
 						icon={decrementIcon}
 						joined={joined}
 						onDown={this.handleDecrement}
-						onHoldPulse={this.handleDecrement}
+						onHold={this.handleDecrement}
 						onKeyDown={this.handleDecKeyDown}
 						onSpotlightDisappear={onSpotlightDisappear}
 						shrink

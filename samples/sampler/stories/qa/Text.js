@@ -1,5 +1,4 @@
 import {select} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Row} from '@enact/ui/Layout';
 import Repeater from '@enact/ui/Repeater';
@@ -42,8 +41,9 @@ Heading.displayName = 'Heading';
 const prop = {
 	tallText: [
 		'नरेंद्र मोदी',
-		'ฟิ้  ไั  ஒ  து',
-		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
+		'ฟิ้  ไั  ஒ  து  ඒ',
+		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ',
+		'តន្ត្រី'
 	]
 };
 
@@ -51,7 +51,7 @@ storiesOf('Text', module)
 	.add(
 		'"Tall Glyph" support in components',
 		() => {
-			const children = select('children', prop.tallText, {groupId: 'Text'}, 'नरेंद्र मोदी');
+			const children = select('children', prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
 
 			return (
 				<div>

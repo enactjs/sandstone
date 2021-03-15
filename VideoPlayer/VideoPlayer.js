@@ -31,7 +31,7 @@ import Touchable from '@enact/ui/Touchable';
 import DurationFmt from 'ilib/lib/DurationFmt';
 import equals from 'ramda/src/equals';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {isValidElement, cloneElement, Component} from 'react';
 import ReactDOM from 'react-dom';
 import shallowEqual from 'recompose/shallowEqual';
 
@@ -177,7 +177,7 @@ const AnnounceState = {
  * @ui
  * @public
  */
-const VideoPlayerBase = class extends React.Component {
+const VideoPlayerBase = class extends Component {
 	static displayName = 'VideoPlayerBase';
 
 	static propTypes = /** @lends sandstone/VideoPlayer.VideoPlayerBase.prototype */ {
@@ -867,7 +867,6 @@ const VideoPlayerBase = class extends React.Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.announceJob.stop();
 		this.renderBottomControl.stop();
-		this.sliderTooltipTimeJob.stop();
 		this.slider5WayPressJob.stop();
 		if (this.floatingLayerController) {
 			this.floatingLayerController.unregister();
@@ -1202,7 +1201,7 @@ const VideoPlayerBase = class extends React.Component {
 		this.showControlsFromPointer
 	);
 
-	handleControlsHandleAboveHoldPulse = () => {
+	handleControlsHandleAboveHold = () => {
 		if (shouldJump(this.props, this.state)) {
 			this.handleJump({keyCode: this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode});
 		}
@@ -1255,7 +1254,7 @@ const VideoPlayerBase = class extends React.Component {
 			loading: el.loading,
 			proportionLoaded: el.proportionLoaded,
 			proportionPlayed: el.proportionPlayed || 0,
-			sliderTooltipTime: this.sliderScrubbing ? (this.sliderKnobProportion * el.duration) : el.currentTime,
+			sliderTooltipTime: el.currentTime,
 			// note: `el.loading && this.state.sourceUnavailable == false` is equivalent to `oncanplaythrough`
 			sourceUnavailable: el.loading && this.state.sourceUnavailable || el.error
 		};
@@ -1694,8 +1693,6 @@ const VideoPlayerBase = class extends React.Component {
 		this.sliderScrubbing = false;
 	};
 
-	sliderTooltipTimeJob = new Job((time) => this.setState({sliderTooltipTime: time}), 20);
-
 	handleKnobMove = (ev) => {
 		this.sliderScrubbing = true;
 
@@ -1706,7 +1703,6 @@ const VideoPlayerBase = class extends React.Component {
 			const seconds = Math.floor(this.sliderKnobProportion * this.video.duration);
 
 			if (!isNaN(seconds)) {
-				this.sliderTooltipTimeJob.throttle(seconds);
 				const knobTime = secondsToTime(seconds, getDurFmt(this.props.locale), {includeHour: true});
 
 				forward('onScrub', {...ev, seconds}, this.props);
@@ -1727,7 +1723,6 @@ const VideoPlayerBase = class extends React.Component {
 		this.stopDelayedFeedbackHide();
 
 		if (!isNaN(seconds)) {
-			this.sliderTooltipTimeJob.throttle(seconds);
 			const knobTime = secondsToTime(seconds, getDurFmt(this.props.locale), {includeHour: true});
 
 			forward('onScrub', {
@@ -1743,10 +1738,9 @@ const VideoPlayerBase = class extends React.Component {
 	handleSliderBlur = () => {
 		this.sliderScrubbing = false;
 		this.startDelayedFeedbackHide();
-		this.setState(({currentTime}) => ({
+		this.setState(() => ({
 			feedbackAction: 'blur',
-			feedbackVisible: true,
-			sliderTooltipTime: currentTime
+			feedbackVisible: true
 		}));
 	};
 
@@ -1933,8 +1927,8 @@ const VideoPlayerBase = class extends React.Component {
 					VideoComponent && (
 						(typeof VideoComponent === 'function' || typeof VideoComponent === 'string') && (
 							<VideoComponent {...mediaProps} />
-						) || React.isValidElement(VideoComponent) && (
-							React.cloneElement(VideoComponent, mediaProps)
+						) || isValidElement(VideoComponent) && (
+							cloneElement(VideoComponent, mediaProps)
 						)
 					) || null
 				}
@@ -2054,7 +2048,7 @@ const VideoPlayerBase = class extends React.Component {
 					className={css.controlsHandleAbove}
 					holdConfig={controlsHandleAboveHoldConfig}
 					onDown={this.handleControlsHandleAboveDown}
-					onHoldPulse={this.handleControlsHandleAboveHoldPulse}
+					onHold={this.handleControlsHandleAboveHold}
 					onKeyDown={this.handleControlsHandleAboveKeyDown}
 					onKeyUp={this.handleControlsHandleAboveKeyUp}
 					onSpotlightDown={this.showControls}

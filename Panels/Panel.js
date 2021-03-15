@@ -8,7 +8,6 @@ import ComponentOverride from '@enact/ui/ComponentOverride';
 import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
-import React from 'react';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
@@ -126,9 +125,11 @@ const PanelBase = kind({
 	handlers: {
 		onScroll: handle(
 			forward('onScroll'),
-			({currentTarget}) => {
-				currentTarget.scrollTop = 0;
-				currentTarget.scrollLeft = 0;
+			({currentTarget, eventTarget}) => {
+				if (currentTarget === eventTarget) {
+					currentTarget.scrollTop = 0;
+					currentTarget.scrollLeft = 0;
+				}
 			}
 		)
 	},
@@ -185,6 +186,7 @@ const PanelBase = kind({
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
+						data-index={rest['data-index']}
 						entering={entering}
 						subtitleId={subtitleId}
 						titleId={titleId}

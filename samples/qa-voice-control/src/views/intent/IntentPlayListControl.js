@@ -1,12 +1,12 @@
 import {Panel} from '@enact/sandstone/Panels';
 import {VoiceControlDecorator} from '@enact/webos/speech';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 const VoicePanel = VoiceControlDecorator(Panel);
 
-class IntentPlayListControl extends React.Component {
+class IntentPlayListControl extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -17,7 +17,6 @@ class IntentPlayListControl extends React.Component {
 
 	showResult = (msg) => {
 		this.setState({result: msg});
-		setTimeout(() => (this.setState({result: ''})), 1500);
 	};
 
 	handleVoice = (e) => {

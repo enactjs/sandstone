@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import {Component, Fragment} from 'react';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
@@ -43,7 +43,7 @@ const views = [
 	{title: 'Horizontal Scroller', view: IntentHorizontalScroller},
 	{title: 'Scroller', view: IntentScroller},
 	{title: 'Select', view: IntentSelect},
-	{title: 'Dropdown', view: IntentSelectCheckboxItem},
+	{title: 'CheckboxItem', view: IntentSelectCheckboxItem},
 	{title: 'RadioItem', view: IntentSelectRadioItem},
 	{title: 'SwitchItem', view: IntentSetToggleItem},
 	{title: 'PlayContent', view: IntentPlayContent},
@@ -63,7 +63,7 @@ const views = [
 	{title: 'VoiceControlDecorator', view: UseCaseVoiceControlDecorator}
 ];
 
-class AppBase extends React.Component {
+class AppBase extends Component {
 	constructor () {
 		super();
 		this.state = {

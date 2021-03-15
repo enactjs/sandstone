@@ -1,10 +1,10 @@
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import Button from '@enact/sandstone/Button';
 
-class FormCheckboxItemView extends React.Component {
+class FormCheckboxItemView extends Component {
 
 	constructor (props) {
 		super(props);

@@ -1,5 +1,4 @@
 import Switch from '@enact/sandstone/Switch';
-import React from 'react';
 
 import Section from '../components/Section';
 

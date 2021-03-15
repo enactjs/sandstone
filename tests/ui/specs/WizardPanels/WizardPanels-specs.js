@@ -77,6 +77,15 @@ describe('WizardPanels', function () {
 
 		});
 
+		it('should focus an eligible navigation button when leaving the contents or footer via 5-way left or right - [GT-33301]', function () {
+			expect('OK').to.be.equal(browser.execute(getFocusedTextContent));
+
+			Page.spotlightRight();
+			Page.spotlightRight();
+
+			expect(wizardPanels.nextButton.isFocused()).to.be.true();
+		});
+
 	});
 
 	describe('Pointer', function () {

@@ -1,6 +1,5 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 /**
  * An item for the TabLayout.
@@ -43,6 +42,14 @@ const Tab = kind({
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
+		 * Called when a tab is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		*/
+		onTabClick: PropTypes.func,
+
+		/**
 		 * Configuration props for a [Sprite]{@link sandstone/Sprite.Sprite} icon.
 		 *
 		 * All props on [Sprite]{@link sandstone/Sprite.Sprite} are supported here. By default,
@@ -50,6 +57,7 @@ const Tab = kind({
 		 * override, pass `stopped` in this object.
 		 *
 		 * @see {@link sandstone/Sprite.Sprite}
+		 * @type {Object}
 		 * @public
 		 */
 		sprite: PropTypes.object,

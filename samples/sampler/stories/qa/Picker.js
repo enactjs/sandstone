@@ -1,9 +1,12 @@
+import Button from '@enact/sandstone/Button';
+import {Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
+import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import Scroller from '@enact/sandstone/Scroller';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {Row} from '@enact/ui/Layout';
-import React from 'react';
+import {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import iconNames from '../default/icons';
@@ -23,7 +26,8 @@ const pickerList = {
 	tall: [
 		'नरेंद्र मोदी',
 		' ฟิ้  ไั  ஒ  து',
-		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
+		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ',
+		'តន្ត្រី'
 	],
 	long: [
 		'1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius sit amet mattis vulputate enim nulla. A pellentesque sit amet porttitor eget dolor morbi non arcu. Text1',
@@ -64,6 +68,47 @@ const pickerList = {
 		'נמל התעופה בן גוריון טרמינל הבינלאומי'
 	]
 };
+
+
+class PickerInPopupTabLayout extends Component {
+	render () {
+		return (
+			<>
+				<PopupTabLayout
+					open
+					index={0}
+				>
+					<Tab title="Display">
+						<TabPanels>
+							<TabPanel>
+								<Header title="Display 0" type="compact">
+									<slotAfter>
+										<Button>hello</Button>
+									</slotAfter>
+								</Header>
+								<div>
+									<Picker
+										onChange={action('onChange')}
+										width={select('width', prop.width, Picker, 'small')}
+										orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
+										wrap={boolean('wrap', Picker)}
+										joined={boolean('joined', Picker)}
+										noAnimation={boolean('noAnimation', Picker)}
+										disabled={boolean('disabled', Picker)}
+										incrementIcon={select('incrementIcon', iconNames, Picker)}
+										decrementIcon={select('decrementIcon', iconNames, Picker)}
+									>
+										{pickerList.vegetables}
+									</Picker>
+								</div>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+				</PopupTabLayout>
+			</>
+		);
+	}
+}
 
 storiesOf('Picker', module)
 	.add(
@@ -248,5 +293,11 @@ storiesOf('Picker', module)
 					</Section>
 				</Row>
 			</Scroller>
+		)
+	)
+	.add(
+		'in PopupTabLayout',
+		() => (
+			<PickerInPopupTabLayout />
 		)
 	);

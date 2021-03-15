@@ -14,7 +14,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {FloatingLayerBase} from '@enact/ui/FloatingLayer';
 import {forward, handle, forProp} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
-import React from 'react';
+import {Component} from 'react';
 import PropTypes from 'prop-types';
 import ri from '@enact/ui/resolution';
 
@@ -78,7 +78,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 	const tooltipDestinationProp = config.tooltipDestinationProp;
 
-	const Decorator = class extends React.Component {
+	const Decorator = class extends Component {
 		static displayName = 'TooltipDecorator';
 
 		static propTypes = /** @lends sandstone/TooltipDecorator.TooltipDecorator.prototype */ {
@@ -454,7 +454,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const {children, tooltipMarquee, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
 			const {top, left} = this.state.position;
 			const tooltipStyle = {
-				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
 				// Moving the position to CSS variables where there are additional offset calculations
 				'--tooltip-position-top': tooltipRelative ? null : ri.unit(top, 'rem'),
 				'--tooltip-position-left': tooltipRelative ? null : ri.unit(left, 'rem')
@@ -463,17 +462,16 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (tooltipText) {
 				let renderedTooltip = (
 					<Tooltip
-						aria-live="off"
-						role="alert"
+						aria-hidden
 						labelOffset={this.state.labelOffset}
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
 						direction={this.state.tooltipDirection}
 						marquee={tooltipMarquee}
-						type={tooltipType}
 						relative={tooltipRelative}
 						style={tooltipStyle}
 						tooltipRef={this.getTooltipRef}
+						type={tooltipType}
 						width={tooltipWidth}
 					>
 						{tooltipText}
@@ -487,6 +485,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 							{renderedTooltip}
 						</FloatingLayerBase>
 					);
+				} else if (!this.state.showing) {
+					renderedTooltip = null;
 				}
 
 				if (tooltipDestinationProp === 'children') {

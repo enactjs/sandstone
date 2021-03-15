@@ -9,9 +9,10 @@
  */
 
 import kind from '@enact/core/kind';
+import {cap} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useEffect} from 'react';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
@@ -194,6 +195,20 @@ const PopupTabLayoutBase = kind({
 		position: PropTypes.oneOf(['left']),
 
 		/**
+		 * Scrim type.
+		 *
+		 * * Values: `'transparent'`, `'translucent'`, or `'none'`.
+		 *
+		 * `'none'` is not compatible with `spotlightRestrict` of `'self-only'`, use a transparent scrim
+		 * to prevent mouse focus when using popup.
+		 *
+		 * @type {('transparent'|'translucent'|'none')}
+		 * @default 'translucent'
+		 * @public
+		 */
+		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
+
+		/**
 		 * The container id for {@link spotlight/Spotlight}.
 		 *
 		 * @type {String}
@@ -226,12 +241,18 @@ const PopupTabLayoutBase = kind({
 				normal: 1320
 			}
 		},
-		position: 'left'
+		orientation: 'vertical',
+		position: 'left',
+		scrimType: 'translucent'
 	},
 
 	styles: {
 		css,
 		className: 'popupTabLayout'
+	},
+
+	computed: {
+		className: ({scrimType, styler}) => styler.append(`scrim${cap(scrimType)}`)
 	},
 
 	render: ({children, ...rest}) => {
@@ -294,7 +315,7 @@ const PopupTabLayoutDecorator = compose(
  * 					<Item>Item 1 in Panel 2</Item>
  * 					<Item>Item 2 in Panel 2</Item>
  * 				</TabPanel>
- * 			</TabPanels
+ * 			</TabPanels>
  * 		</Tab>
  * 		<Tab title="Tab Two">
  * 			<Item>Goodbye</Item>
@@ -313,9 +334,9 @@ const PopupTabLayout = PopupTabLayoutDecorator(PopupTabLayoutBase);
  * A shortcut to access {@link sandstone/PopupTabLayout.Tab}
  *
  * @name Tab
+ * @type {sandstone/PopupTabLayout.Tab}
  * @memberof sandstone/PopupTabLayout.PopupTabLayout
  * @extends sandstone/TabLayout.Tab
- * @ui
  */
 PopupTabLayout.Tab = Tab;
 
@@ -364,7 +385,7 @@ const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
  * @ui
  */
 const TabPanel = ({spotlightId, ...rest}) => {
-	React.useEffect(() => {
+	useEffect(() => {
 		Spotlight.set(spotlightId, {partition: true});
 	}, [spotlightId]);
 

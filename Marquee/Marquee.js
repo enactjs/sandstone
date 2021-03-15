@@ -4,7 +4,7 @@
  * @example
  * <Marquee marqueeOn="render">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Marquee>
  *
- * @see ui/Marquee
+ * @see {@link ui/Marquee}
  * @module sandstone/Marquee
  * @exports Marquee
  * @exports MarqueeBase
@@ -38,7 +38,7 @@ const Marquee = MarqueeDecorator('div');
 export default Marquee;
 export {
 	/**
-	 * A block element which will marquee its contents
+	 * A block element which will marquee its contents.
 	 *
 	 * @see {@link ui/Marquee.Marquee}
 	 * @class Marquee
@@ -50,7 +50,7 @@ export {
 	Marquee,
 
 	/**
-	 * Internal component to provide marquee markup
+	 * Internal component to provide marquee markup.
 	 *
 	 * @see {@link ui/Marquee.Marquee}
 	 * @class MarqueeBase
@@ -62,7 +62,7 @@ export {
 	MarqueeBase,
 
 	/**
-	 * Adds ability to control descendant marquee instances to a component
+	 * Adds ability to control descendant marquee instances to a component.
 	 *
 	 * @see {@link ui/Marquee.MarqueeController}
 	 * @hoc
@@ -74,7 +74,7 @@ export {
 	MarqueeController,
 
 	/**
-	 * Adds marquee behavior to a component
+	 * Adds marquee behavior to a component.
 	 *
 	 * @see {@link ui/Marquee.MarqueeDecorator}
 	 * @hoc

@@ -2,7 +2,6 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import Group from '@enact/ui/Group';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
@@ -13,7 +12,7 @@ const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxIt
 
 const prop = {
 	longText : 'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text',
-	tallText : ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'],
+	tallText : ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី'],
 	extraSpaceText : 'This		Text 		has			extra 		space',
 	rtlText: 'هناك حقيقة مثبتة منذ زمن طويل وهي'
 };
@@ -24,7 +23,6 @@ storiesOf('CheckboxItem', module)
 		() => (
 			<CheckboxItem
 				disabled={boolean('disabled', Config, false)}
-				iconPosition={select('iconPosition', ['before', 'after'], Config)}
 				inline={boolean('inline', Config)}
 				onToggle={action('onToggle')}
 			>
@@ -37,7 +35,6 @@ storiesOf('CheckboxItem', module)
 		() => (
 			<CheckboxItem
 				disabled={boolean('disabled', Config, false)}
-				iconPosition={select('iconPosition', ['before', 'after'], Config)}
 				inline={boolean('inline', Config)}
 				onToggle={action('onToggle')}
 			>
@@ -62,7 +59,6 @@ storiesOf('CheckboxItem', module)
 		() => (
 			<CheckboxItem
 				disabled={boolean('disabled', Config, false)}
-				iconPosition={select('iconPosition', ['before', 'after'], Config)}
 				inline={boolean('inline', Config)}
 				onToggle={action('onToggle')}
 			>

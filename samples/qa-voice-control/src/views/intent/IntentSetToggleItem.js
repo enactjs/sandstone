@@ -1,12 +1,11 @@
 import Heading from '@enact/sandstone/Heading';
-import Switch from '@enact/sandstone/Switch';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 
-class IntentSetToggleItem extends React.Component {
+class IntentSetToggleItem extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -24,8 +23,7 @@ class IntentSetToggleItem extends React.Component {
 		return (
 			<CommonView title="Intent to set ToggleItem">
 				<Heading>SwitchItem</Heading>
-				<SwitchItem>hello</SwitchItem>
-				<Switch />
+				<SwitchItem data-testid="hello">Hello</SwitchItem>
 			</CommonView>
 		);
 	}

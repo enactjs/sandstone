@@ -1,7 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata, removeProps} from '@enact/storybook-utils';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import DatePicker, {DatePickerBase} from '@enact/sandstone/DatePicker';
@@ -22,6 +21,7 @@ storiesOf('Sandstone', module)
 				dayAriaLabel={text('dayAriaLabel', Config)}
 				yearAriaLabel={text('yearAriaLabel', Config)}
 				onChange={action('onChange')}
+				onComplete={action('onComplete')}
 			/>
 		),
 		{

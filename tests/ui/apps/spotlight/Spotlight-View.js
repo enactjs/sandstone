@@ -1,7 +1,7 @@
 import Item from '../../../../Item';
 import ThemeDecorator from '../../../../ThemeDecorator';
 import Button from '../../../../Button';
-import React from 'react';
+import {Component} from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
@@ -33,7 +33,7 @@ window.spotlight = spotlight;
 // runs the same way
 spotlight.setPointerMode(false);
 
-class DisappearTest extends React.Component {
+class DisappearTest extends Component {
 	constructor (props) {
 		super(props);
 

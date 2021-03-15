@@ -1,4 +1,3 @@
-import React from 'react';
 import {mount, shallow} from 'enzyme';
 import {Dropdown, DropdownBase} from '../Dropdown';
 import DropdownList from '../DropdownList';
@@ -15,7 +14,7 @@ describe('Dropdown', () => {
 			</DropdownBase>
 		);
 
-		const expected = 'No selection';
+		const expected = 'No Selection';
 		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);

@@ -1,5 +1,4 @@
 import BodyText from '../../../../BodyText';
-import React from 'react';
 
 import {withConfig, LoremString} from './utils';
 

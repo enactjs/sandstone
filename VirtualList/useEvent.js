@@ -149,6 +149,11 @@ const useEventKey = (props, instances, context) => {
 						if (nextIndex >= 0) { // if the candidate is another item
 							ev.preventDefault();
 							ev.stopPropagation();
+
+							if (props.scrollContainerHandle && props.scrollContainerHandle.current) {
+								props.scrollContainerHandle.current.lastInputType = 'arrowKey';
+							}
+
 							handleDirectionKeyDown(ev, 'acceleratedKeyDown', {isWrapped, keyCode, nextIndex, repeat, target});
 						} else { // if the candidate is not found
 							const {dataSize, focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible} = props;

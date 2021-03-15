@@ -1,4 +1,3 @@
-import React from 'react';
 import {mount} from 'enzyme';
 import ThemeDecorator from '../';
 import Spotlight from '@enact/spotlight';
@@ -119,7 +118,7 @@ describe('ThemeDecorator', () => {
 		);
 
 		test(
-			'should update the skinVariants based on the skinVariatns prop',
+			'should update the skinVariants based on the skinVariants prop',
 			() => {
 				const subject = mount(
 					<A11yApp skinVariants={['grayscale']} />

@@ -12,7 +12,6 @@ import {ResizeContext} from '@enact/ui/Resizable';
 import {gridListItemSizeShape, itemSizesShape, VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
 import warning from 'warning';
 
 import useScroll from '../useScroll';

@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import React from 'react';
+import {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 
 import $L from '../internal/$L';
@@ -27,7 +27,7 @@ const hours12 = [
  * @ui
  * @private
  */
-class HourPicker extends React.Component {
+class HourPicker extends Component {
 	static propTypes = {
 		hasMeridiem: PropTypes.bool,
 		value: PropTypes.number
@@ -317,19 +317,21 @@ const TimePickerBase = kind({
 					const isLeft = rtl && picker === 'a' || isFirst && !rtl;
 					// minute will always be the right-most control in RTL, regardless of the provided order
 					const isRight = rtl && picker === 'm' || isLast && !rtl;
+					const isLastElement = rtl ? isLeft : isLast;
 
 					switch (picker) {
 						case 'h':
 						case 'k':
 							return (
-								<React.Fragment key="hour-picker">
+								<Fragment key="hour-picker">
 									<HourPicker
 										accessibilityHint={hourAccessibilityHint}
 										aria-label={hourAriaLabel}
 										className={css.hourPicker}
-										disabled={disabled}
+										data-last-element={isLastElement}
 										data-webos-voice-disabled={voiceDisabled}
 										data-webos-voice-group-label={hourAccessibilityHint}
+										disabled={disabled}
 										hasMeridiem={hasMeridiem}
 										onChange={onChangeHour}
 										onSpotlightDisappear={onSpotlightDisappear}
@@ -341,7 +343,7 @@ const TimePickerBase = kind({
 										wrap
 									/>
 									<span className={css.timeSeparator}>:</span>
-								</React.Fragment>
+								</Fragment>
 							);
 						case 'm':
 							return (
@@ -349,9 +351,10 @@ const TimePickerBase = kind({
 									accessibilityHint={minuteAccessibilityHint}
 									aria-label={minuteAriaLabel}
 									className={css.minutePicker}
-									disabled={disabled}
+									data-last-element={isLastElement}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={minuteAccessibilityHint}
+									disabled={disabled}
 									key="minute-picker"
 									max={59}
 									min={0}
@@ -372,9 +375,10 @@ const TimePickerBase = kind({
 									aria-label={meridiemAriaLabel}
 									aria-valuetext={meridiems ? meridiems[meridiem] : null}
 									className={css.meridiemPicker}
-									disabled={disabled}
+									data-last-element={isLastElement}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={meridiemLabel}
+									disabled={disabled}
 									key="meridiem-picker"
 									onChange={onChangeMeridiem}
 									onSpotlightDisappear={onSpotlightDisappear}
@@ -397,6 +401,15 @@ const TimePickerBase = kind({
 		);
 	}
 });
+
+/**
+ * Called when `Enter` key down on the last picker
+ *
+ * @name onComplete
+ * @memberof sandstone/TimePicker.TimePickerBase.prototype
+ * @type {Function}
+ * @public
+ */
 
 export default TimePickerBase;
 export {TimePickerBase};

@@ -3,7 +3,6 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UiSpinner, {SpinnerBase as UiSpinnerBase} from '@enact/ui/Spinner';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
@@ -37,7 +36,8 @@ storiesOf('Sandstone', module)
 					style={{
 						outline: 'teal dashed 1px',
 						position: 'relative',
-						height: ri.scaleToRem(360)
+						height: ri.scaleToRem(360),
+						width: '50%'
 					}}
 				>
 					<label

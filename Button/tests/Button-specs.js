@@ -1,4 +1,3 @@
-import React from 'react';
 import {mount, shallow} from 'enzyme';
 
 import Button, {ButtonBase} from '../Button';

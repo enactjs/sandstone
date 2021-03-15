@@ -43,8 +43,22 @@
 		.tabs,
 		.content .panels::before {
 			border-radius: @sand-popuptablayout-tabs-content-border-radius;
-			background-color: @sand-popuptablayout-bg-color;
 			box-shadow: @sand-popuptablayout-shadow;
+		}
+
+		&.scrimTranslucent {
+			.tabs,
+			.content .panels::before {
+				background-color: @sand-popuptablayout-bg-color;
+			}
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.tabs,
+			.content .panels::before {
+				background-color: @sand-popuptablayout-scrimtransparent-bg-color;
+			}
 		}
 	});
 }

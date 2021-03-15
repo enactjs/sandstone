@@ -1,9 +1,10 @@
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
+import {cap} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Children} from 'react';
 
 import Skinnable from '../../Skinnable';
 import Popup from '../../Popup';
@@ -213,12 +214,16 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		computed: {
-			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight}),
+			className: ({fullHeight, scrimType, width, styler}) => styler.append(
+				`scrim${cap(scrimType)}`,
+				width,
+				{fullHeight}
+			),
 			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
-			const count = React.Children.count(children);
+			const count = Children.count(children);
 			invariant(
 				index === 0 && count === 0 || index < count,
 				`Panels index, ${index}, is invalid for number of children, ${count}`

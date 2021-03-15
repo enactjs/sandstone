@@ -1,7 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
@@ -61,7 +60,7 @@ const prop = {
 	],
 	videos: {
 		'Sintel': 'http://media.w3.org/2010/05/sintel/trailer.mp4',
-		'Big Buck Bunny': 'http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_h264.mov',
+		'Big Buck Bunny': 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
 		'VideoTest': 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
