@@ -12,7 +12,7 @@ import ri from '@enact/ui/resolution';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
-const props = {
+const propOptions = {
 	buttonVisibility: ['auto', 'always', 'never'],
 	size: ['auto', 'small', 'large']
 };
@@ -42,11 +42,11 @@ export const _FlexiblePopupPanels = () => {
 
 	const knobs = {
 		fullHeight: boolean('fullHeight', Config),
-		nextButtonVisibility: select('nextButtonVisibility', props.buttonVisibility, Config),
+		nextButtonVisibility: select('nextButtonVisibility', propOptions.buttonVisibility, Config),
 		noAnimation: boolean('noAnimation', Config),
 		noAutoDismiss: boolean('noAutoDismiss', Config),
 		noCloseButton: boolean('noCloseButton', Config),
-		prevButtonVisibility: select('prevButtonVisibility', props.buttonVisibility, Config),
+		prevButtonVisibility: select('prevButtonVisibility', propOptions.buttonVisibility, Config),
 		scrimType: select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent'),
 		spotlightRestrict: select(
 			'spotlightRestrict',
@@ -57,7 +57,7 @@ export const _FlexiblePopupPanels = () => {
 	};
 
 	// Knobs are ordered this way so "Panel" comes after the main component
-	const size = select('size', props.size, PanelConfig);
+	const size = select('size', propOptions.size, PanelConfig);
 
 	return (
 		<div>

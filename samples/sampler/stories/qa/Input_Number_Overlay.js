@@ -2,7 +2,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Input, {InputBase} from '@enact/sandstone/Input';
 
-import {buttons, props, inputData} from './common/Input_Common';
+import {buttons, propOptions, inputData} from './common/Input_Common';
 
 Input.displayName = 'Input';
 const Config = mergeComponentMetadata('Input', InputBase, Input);
@@ -20,12 +20,12 @@ export const _Length4 = () => (
 		invalid={boolean('invalid', Config)}
 		invalidMessage={text('invalidMessage', Config)}
 		placeholder={text('placeholder', Config)}
-		size={select('size', props.size, Config)}
-		type={select('type', props.numberTypes, Config, 'number')}
+		size={select('size', propOptions.size, Config)}
+		type={select('type', propOptions.numberTypes, Config, 'number')}
 		popupType="overlay"
 		length={4}
 	>
-		{buttons[select('buttons', props.buttons, Config)]}
+		{buttons[select('buttons', propOptions.buttons, Config)]}
 	</Input>
 );
 
@@ -44,12 +44,12 @@ export const _Length10 = () => (
 		invalid={boolean('invalid', Config)}
 		invalidMessage={text('invalidMessage', Config)}
 		placeholder={text('placeholder', Config)}
-		size={select('size', props.size, Config)}
-		type={select('type', props.numberTypes, Config, 'number')}
+		size={select('size', propOptions.size, Config)}
+		type={select('type', propOptions.numberTypes, Config, 'number')}
 		popupType="overlay"
 		length={10}
 	>
-		{buttons[select('buttons', props.buttons, Config)]}
+		{buttons[select('buttons', propOptions.buttons, Config)]}
 	</Input>
 );
 

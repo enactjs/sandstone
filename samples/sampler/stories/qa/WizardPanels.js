@@ -11,7 +11,7 @@ import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
 
-const props = {
+const propOptions = {
 	buttonVisibility: ['auto', 'always', 'never']
 };
 
@@ -34,12 +34,12 @@ export const LongPrevNextButtons = () => (
 		current={number('current', Config, 0)}
 		noAnimation={boolean('noAnimation', Config)}
 		noSteps={boolean('noSteps', Config)}
-		nextButtonVisibility={select('nextButtonVisibility', props.buttonVisibility, Config)}
+		nextButtonVisibility={select('nextButtonVisibility', propOptions.buttonVisibility, Config)}
 		onNextClick={action('onNextClick')}
 		onPrevClick={action('onPrevClick')}
 		onTransition={action('onTransition')}
 		onWillTransition={action('onWillTransition')}
-		prevButtonVisibility={select('prevButtonVisibility', props.buttonVisibility, Config)}
+		prevButtonVisibility={select('prevButtonVisibility', propOptions.buttonVisibility, Config)}
 		total={number('total', Config, 0)}
 	>
 		<WizardPanels.Panel

@@ -2,7 +2,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Input, {InputBase} from '@enact/sandstone/Input';
 
-import {props, inputData} from './common/Input_Common';
+import {propOptions, inputData} from './common/Input_Common';
 
 Input.displayName = 'Input';
 const Config = mergeComponentMetadata('Input', InputBase, Input);
@@ -18,8 +18,8 @@ export const LongText = () => (
 		subtitle={inputData.textSubtitle}
 		disabled={boolean('disabled', Config)}
 		placeholder={text('placeholder', Config)}
-		size={select('size', props.size, Config)}
-		type={select('type', props.textTypes, Config)}
+		size={select('size', propOptions.size, Config)}
+		type={select('type', propOptions.textTypes, Config)}
 		popupType="fullscreen"
 		defaultValue={inputData.longText}
 	/>

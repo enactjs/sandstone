@@ -20,7 +20,7 @@ export const buttons = {
 	)
 };
 
-export const props = {
+export const propOptions = {
 	fieldTypes: ['text', 'number', 'password'],
 	numberTypes: ['number', 'passwordnumber'],
 	popupTypes: ['fullscreen', 'overlay'],

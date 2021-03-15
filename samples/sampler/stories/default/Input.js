@@ -20,7 +20,7 @@ export default {
 };
 
 export const _Input = () => {
-	const props = {
+	const propOptions = {
 		// Actions
 		onBeforeChange: action('onBeforeChange'),
 		onChange: action('onChange'),
@@ -43,28 +43,28 @@ export const _Input = () => {
 	};
 
 	// Numeric specific props
-	if (props.type === 'number' || props.type === 'passwordnumber') {
-		props.numberInputField = select('numberInputField', prop.numericKind, ConfigPopup);
+	if (propOptions.type === 'number' || propOptions.type === 'passwordnumber') {
+		propOptions.numberInputField = select('numberInputField', prop.numericKind, ConfigPopup);
 
 		const minMax = boolean('customize min/max', ConfigPopup, false);
 		if (minMax) {
-			props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 20}, 4);
-			props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 20}, 0);
+			propOptions.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 20}, 4);
+			propOptions.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 20}, 0);
 		} else {
-			props.length = number('length', ConfigPopup, {range: true, min: 1, max: 20}, 4);
+			propOptions.length = number('length', ConfigPopup, {range: true, min: 1, max: 20}, 4);
 		}
 	}
 
 	// Modify a11y null strings
-	if (!props['aria-label']) {
-		delete props['aria-label'];
-	} else if (!props.popupAriaLabel) {
-		delete props.popupAriaLabel;
+	if (!propOptions['aria-label']) {
+		delete propOptions['aria-label'];
+	} else if (!propOptions.popupAriaLabel) {
+		delete propOptions.popupAriaLabel;
 	}
 
 	return (
 		<div>
-			<Input {...props} />
+			<Input {...propOptions} />
 		</div>
 	);
 };

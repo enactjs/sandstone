@@ -3,7 +3,7 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 
-import {iconNames, divMargin, props, inputData} from './common/Input_Common';
+import {iconNames, divMargin, propOptions, inputData} from './common/Input_Common';
 
 InputField.displayName = 'InputField';
 const FieldConfig = mergeComponentMetadata('InputField', InputFieldBase, InputField);
@@ -18,8 +18,8 @@ export const WithLongText = () => (
 		disabled={boolean('disabled', FieldConfig)}
 		iconAfter={select('iconAfter', iconNames, FieldConfig)}
 		iconBefore={select('iconBefore', iconNames, FieldConfig)}
-		size={select('size', props.size, FieldConfig)}
-		type={select('type', props.fieldTypes, FieldConfig)}
+		size={select('size', propOptions.size, FieldConfig)}
+		type={select('type', propOptions.fieldTypes, FieldConfig)}
 		defaultValue={inputData.longText}
 	/>
 );
@@ -32,8 +32,8 @@ export const WithLongPlaceholder = () => (
 		iconAfter={select('iconAfter', iconNames, FieldConfig)}
 		iconBefore={select('iconBefore', iconNames, FieldConfig)}
 		placeholder={text('placeholder', FieldConfig, inputData.longPlaceHolder)}
-		type={select('type', props.fieldTypes, FieldConfig)}
-		size={select('size', props.size, FieldConfig)}
+		type={select('type', propOptions.fieldTypes, FieldConfig)}
+		size={select('size', propOptions.size, FieldConfig)}
 	/>
 );
 
@@ -47,7 +47,7 @@ export const MarkedInvalid = () => (
 		invalid={boolean('invalid', FieldConfig, true)}
 		invalidMessage={text('invalidMessage', FieldConfig)}
 		placeholder={text('placeholder', FieldConfig, inputData.shortPlaceholder)}
-		size={select('size', props.size, FieldConfig)}
+		size={select('size', propOptions.size, FieldConfig)}
 		defaultValue={inputData.longText}
 	/>
 );
@@ -63,22 +63,22 @@ export const WithTallCharacters = () => (
 	<div>
 		<InputField
 			style={divMargin}
-			size={select('size', props.size, FieldConfig)}
+			size={select('size', propOptions.size, FieldConfig)}
 			defaultValue={inputData.tallText[0]}
 		/>
 		<InputField
 			style={divMargin}
-			size={select('size', props.size, FieldConfig)}
+			size={select('size', propOptions.size, FieldConfig)}
 			defaultValue={inputData.tallText[1]}
 		/>
 		<InputField
 			style={divMargin}
-			size={select('size', props.size, FieldConfig)}
+			size={select('size', propOptions.size, FieldConfig)}
 			defaultValue={inputData.tallText[2]}
 		/>
 		<InputField
 			style={divMargin}
-			size={select('size', props.size, FieldConfig)}
+			size={select('size', propOptions.size, FieldConfig)}
 			defaultValue={inputData.tallText[3]}
 		/>
 	</div>
@@ -95,7 +95,7 @@ export const WithRtlAndLtrTextTogether = () => (
 	<InputField
 		iconAfter={select('iconAfter', iconNames, FieldConfig)}
 		iconBefore={select('iconBefore', iconNames, FieldConfig)}
-		size={select('size', props.size, FieldConfig)}
+		size={select('size', propOptions.size, FieldConfig)}
 		defaultValue={inputData.rtlAndLtr}
 	/>
 );
@@ -114,14 +114,14 @@ export const _5WayTest = () => {
 					autoFocus={boolean('autoFocus', FieldConfig)}
 					disabled={disable1}
 					onChange={action('onChange')}
-					size={select('size', props.size, FieldConfig)}
+					size={select('size', propOptions.size, FieldConfig)}
 					defaultValue={inputData.initialValue + ' one'}
 				/>
 				<InputField
 					autoFocus={boolean('autoFocus', FieldConfig)}
 					disabled={disable2}
 					onChange={action('onChange')}
-					size={select('size', props.size, FieldConfig)}
+					size={select('size', propOptions.size, FieldConfig)}
 					defaultValue={inputData.initialValue + ' two'}
 				/>
 			</div>
@@ -130,14 +130,14 @@ export const _5WayTest = () => {
 					autoFocus={boolean('autoFocus', FieldConfig)}
 					disabled={disable3}
 					onChange={action('onChange')}
-					size={select('size', props.size, FieldConfig)}
+					size={select('size', propOptions.size, FieldConfig)}
 					defaultValue={inputData.initialValue + ' three'}
 				/>
 				<InputField
 					autoFocus={boolean('autoFocus', FieldConfig)}
 					disabled={disable4}
 					onChange={action('onChange')}
-					size={select('size', props.size, FieldConfig)}
+					size={select('size', propOptions.size, FieldConfig)}
 					defaultValue={inputData.initialValue + ' four'}
 				/>
 			</div>
@@ -156,7 +156,7 @@ export const WithANumber = () => (
 	<InputField
 		onChange={action('onChange')}
 		type="number"
-		size={select('size', props.size, FieldConfig)}
+		size={select('size', propOptions.size, FieldConfig)}
 		defaultValue={0}
 	/>
 );
