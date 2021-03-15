@@ -19,7 +19,11 @@ const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBa
 
 // Set up some defaults for info and knobs
 const prop = {
-	backgroundOpacity: ['', 'translucent', 'lightTranslucent', 'transparent'],
+	backgroundOpacity: {
+		'undefined/null (automatic)': '',
+		'opaque (Default for text buttons)': 'opaque',
+		'transparent (Default for icon-only buttons)': 'transparent'
+	},
 	color: ['', 'red', 'green', 'yellow', 'blue'],
 	focusEffect: ['expand', 'static'],
 	longText: {
