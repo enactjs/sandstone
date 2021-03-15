@@ -32,7 +32,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone/Panels/Header',
+	title: 'Sandstone/Panels.Header',
 	component: 'Header'
 };
 
@@ -92,7 +92,7 @@ export const PanelsHeader = () => {
 	return story;
 };
 
-PanelsHeader.storyName = 'Panels/Header';
+PanelsHeader.storyName = 'Panels.Header';
 PanelsHeader.parameters = {
 	props: {
 		noPanel: true

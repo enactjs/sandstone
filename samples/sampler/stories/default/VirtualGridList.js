@@ -65,7 +65,7 @@ const VirtualGridListConfig = mergeComponentMetadata(
 );
 
 export default {
-	title: 'Sandstone/VirtualList/VirtualGridList',
+	title: 'Sandstone/VirtualList.VirtualGridList',
 	component: 'VirtualGridList'
 };
 
@@ -96,7 +96,7 @@ export const _VirtualGridList = () => (
 	/>
 );
 
-_VirtualGridList.storyName = 'VirtualList/VirtualGridList';
+_VirtualGridList.storyName = 'VirtualList.VirtualGridList';
 _VirtualGridList.parameters = {
 	info: {
 		text: 'Basic usage of VirtualGridList'

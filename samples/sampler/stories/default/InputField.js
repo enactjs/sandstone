@@ -16,7 +16,7 @@ const prop = {
 };
 
 export default {
-	title: 'Sandstone/Input/InputField',
+	title: 'Sandstone/Input.InputField',
 	component: 'InputField'
 };
 
@@ -37,7 +37,7 @@ export const _InputField = () => (
 	/>
 );
 
-_InputField.storyName = 'Input/InputField';
+_InputField.storyName = 'Input.InputField';
 _InputField.parameters = {
 	info: {
 		text: 'The basic InputField'

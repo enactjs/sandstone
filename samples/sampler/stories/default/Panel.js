@@ -73,7 +73,7 @@ const updateDataSize = (dataSize) => {
 updateDataSize(defaultDataSize);
 
 export default {
-	title: 'Sandstone/Panels/Panel',
+	title: 'Sandstone/Panels.Panel',
 	component: 'Panel'
 };
 
@@ -128,7 +128,7 @@ export const PanelsPanel = () => {
 	);
 };
 
-PanelsPanel.storyName = 'Panels/Panel';
+PanelsPanel.storyName = 'Panels.Panel';
 PanelsPanel.parameters = {
 	props: {
 		noPanel: true

@@ -15,8 +15,13 @@ export const parameters = {
 	docs: {
 		container: DocsContainer,
 		page: DocsPage,
-		iframeHeight: 600,
+		iframeHeight: 360,
 		theme: themes.light
+	},
+	options: {
+		storySort: {
+			method: 'alphabetical'
+		}
 	}
 };
 export const decorators = [ThemeEnvironment];
