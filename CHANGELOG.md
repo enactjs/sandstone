@@ -9,6 +9,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Dropdown` number type `width` prop
 - `sandstone/Item` public class names `itemContent`, `content`, and `label`
 - `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
+- `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
 
 ### Fixed
 

@@ -19,6 +19,7 @@
 
 import {forKey, forProp, forward, forwardWithPrevent, handle} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
+import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
 import Changeable from '@enact/ui/Changeable';
 import ComponentOverride from '@enact/ui/ComponentOverride';
@@ -30,6 +31,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import anyPass from 'ramda/src/anyPass';
 import compose from 'ramda/src/compose';
+import {useEffect, useRef} from 'react';
 
 import {ProgressBarTooltip} from '../ProgressBar';
 import Skinnable from '../Skinnable';
@@ -54,7 +56,7 @@ import componentCss from './Slider.module.less';
  * @public
  */
 const SliderBase = (props) => {
-	const {activateOnSelect, active, className, css, disabled, focused, showAnchor, ...rest} = props;
+	const {activateOnSelect, active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = props;
 
 	const knobStep = validateSteppedOnce(p => p.knobStep, {
 		component: 'Slider',
@@ -68,7 +70,9 @@ const SliderBase = (props) => {
 	});
 	const tooltip = props.tooltip === true ? ProgressBarTooltip : props.tooltip;
 
-	const handlers = {
+	let spotlightAccelerator = useRef();
+
+	const handlers = useHandlers({
 		onBlur: handle(
 			forward('onBlur'),
 			forProp('active', true),
@@ -91,8 +95,7 @@ const SliderBase = (props) => {
 			forKey('enter'),
 			forward('onActivate')
 		)
-	};
-	const boundHandlers = useHandlers(handlers, props);
+	}, props, spotlightAccelerator);
 
 	const componentClassName = classnames(
 		componentCss.slider,
@@ -105,6 +108,10 @@ const SliderBase = (props) => {
 		css && css.slider
 	);
 
+	useEffect(() => {
+		spotlightAccelerator.current = new Accelerator(keyFrequency);
+	}, [keyFrequency]);
+
 	delete rest.onActivate;
 	delete rest.knobStep;
 	delete rest.tooltip;
@@ -112,7 +119,7 @@ const SliderBase = (props) => {
 	return (
 		<UiSlider
 			{...rest}
-			{...boundHandlers}
+			{...handlers}
 			aria-disabled={disabled}
 			className={componentClassName}
 			css={componentCss}
@@ -181,6 +188,17 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * @public
 	 */
 	focused: PropTypes.bool,
+
+	/** TBD
+	 *
+	 *  Controls the keydown frequency with which the acceleration will "freeze".
+	 *	While frozen, the value of the slider is not changed via arrow key.
+	 *
+	 * @type {Number[]}
+	 * @default [1]
+	 * @public
+	 */
+	keyFrequency: PropTypes.number,
 
 	/**
 	 * The amount to increment or decrement the position of the knob via 5-way controls.
@@ -321,6 +339,7 @@ SliderBase.defaultProps = {
 	activateOnSelect: false,
 	active: false,
 	disabled: false,
+	keyFrequency: [1],
 	max: 100,
 	min: 0,
 	step: 1
