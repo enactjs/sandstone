@@ -68,11 +68,12 @@ class app extends React.Component {
 			spacing: 0,
 			style: {height: ri.scaleToRem(800)}
 		};
+		const scrollMode = nativeScroll ? 'NativeScroll' : 'TranslateScroll';
 		return (
 			<div {...this.props}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
-						<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.onToggle} selected={nativeScroll}>NativeScroll</Button>
+						<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.onToggle}>{scrollMode}</Button>
 					</Cell>
 					<Scroller key={nativeScroll ? 'native' : 'translate'}>
 						<VirtualList {...listProps} className="list 1" />
