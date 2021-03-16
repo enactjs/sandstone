@@ -3,6 +3,8 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
+import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
 import Heading from '@enact/sandstone/Heading';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import {Component} from 'react';
@@ -230,3 +232,31 @@ WithDisabled.storyName = 'with disabled';
 export const WithChangingPosition = () => <PositionChangingDropdown />;
 
 WithChangingPosition.storyName = 'with changing position';
+
+export const InScroller = () => (
+	<Scroller
+		overscrollEffectOn={{
+			arrowKey: true,
+			drag: true,
+			pageKey: true,
+			track: true,
+			wheel: true
+		}}
+	>
+		<Item>Scroll down to see Dropdown</Item>
+		<Item disabled />
+		<Item>Scroller has an overscroll effect intentionally</Item>
+		<Item disabled />
+		<Item disabled />
+		<Dropdown>
+			{['a', 'b', 'c', 'd', 'e', 'f', 'g']}
+		</Dropdown>
+		<Item disabled />
+		<Item disabled />
+		<Item>Scroller has an overscroll effect intentionally</Item>
+		<Item disabled />
+		<Item>Scroll up to see Dropdown</Item>
+	</Scroller>
+);
+
+InScroller.storyName = 'in Scroller (PLAT-137855)';
