@@ -5,9 +5,10 @@ import {calcProportion} from '@enact/ui/Slider/utils';
 
 const nop = () => {};
 
-const handleAcceleratedKeyDown = (ev, prop , {current: spotlightAccelerator}) => {
-	if (!spotlightAccelerator)
+const handleAcceleratedKeyDown = (ev, prop, {current: spotlightAccelerator}) => {
+	if (!spotlightAccelerator) {
 		return true;
+	}
 
 	if (!ev.repeat) {
 		spotlightAccelerator.reset();
