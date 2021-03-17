@@ -77,7 +77,7 @@ export const WithDefaultHoldEvents = () => (
 	<Button
 		onHold={action('onHold')}
 		onHoldEnd={action('onHoldEnd')}
-		onHoldPulse={action('onHoldPulse')}
+		onHoldStart={action('onHoldStart')}
 		disabled={boolean('disabled', Button)}
 	>
 		Touchable
@@ -97,7 +97,7 @@ export const WithACustomLongpressEventAnd1SecondFrequency = () => (
 		}}
 		onHold={action('onHold')}
 		onHoldEnd={action('onHoldEnd')}
-		onHoldPulse={action('onHoldPulse')}
+		onHoldStart={action('onHoldStart')}
 		disabled={boolean('disabled', Button)}
 	>
 		LongPress
@@ -122,8 +122,9 @@ export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = () => {
 			}}
 			moveTolerance={moveTolerance}
 			noResume={boolean('noResume', TouchArea, false)}
-			onHold={action('onHold')}
-			onHoldPulse={action('onHoldPulse', {depth: 0})}
+			onHold={action('onHold', {depth: 0})}
+			onHoldEnd={action('onHoldEnd')}
+			onHoldStart={action('onHoldStart')}
 			disabled={boolean('disabled', TouchArea)}
 			style={{
 				marginLeft: 'auto',
@@ -146,7 +147,7 @@ export const ThatDoesNotResumeWhenReEnteringComponent = () => (
 		noResume={boolean('noResume', Button, true)}
 		onHold={action('onHold')}
 		onHoldEnd={action('onHoldEnd')}
-		onHoldPulse={action('onHoldPulse')}
+		onHoldStart={action('onHoldStart')}
 		disabled={boolean('disabled', Button)}
 	>
 		Not Resumable
