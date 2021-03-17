@@ -3,7 +3,6 @@ import {scaleToRem} from '@enact/ui/resolution';
 
 import {withProps} from './utils';
 
-
 const children = (itemCount) => (new Array(itemCount)).fill().map((i, index) => `Option ${index + 1}`);
 
 const Widths = [
@@ -36,6 +35,11 @@ const DropdownTests = [
 	...withProps({
 		size: 'large'
 	}, Widths),
+
+	// open with number type width
+	<Dropdown open width={360} title="Number type width">
+		{children(5)}
+	</Dropdown>,
 
 	// open with children
 	<Dropdown open title="Select an option below">
