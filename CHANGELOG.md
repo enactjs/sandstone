@@ -10,6 +10,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Item` public class names `itemContent`, `content`, and `label`
 - `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
 
+### Changed
+
+- `sandstone/Slider` to enable wheeling to change the value
+
 ### Fixed
 
 - `sandstone/VirtualList` to not block key down events after panel transition
