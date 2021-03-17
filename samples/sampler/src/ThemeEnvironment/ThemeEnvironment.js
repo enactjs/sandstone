@@ -170,7 +170,7 @@ const StorybookDecorator = (story, config = {}) => {
 	return (
 		<Theme
 			className={classnames(classes)}
-			title={`${config.kind}`.replaceAll('/', ' ').trim()}
+			title={`${config.kind}`.replace(/\//g, ' ').trim()}
 			description={hasInfoText ? config.parameters.info.text : null}
 			locale={select('locale', locales, Config)}
 			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
