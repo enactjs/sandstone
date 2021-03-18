@@ -12,7 +12,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Scroller` to give focus to the scroll thumb first by directional keys when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
 
 ### Fixed
