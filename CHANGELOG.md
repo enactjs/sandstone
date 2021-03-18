@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Dropdown` number type `width` prop
 - `sandstone/Item` public class names `itemContent`, `content`, and `label`
 - `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
 
@@ -15,18 +16,22 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Dropdown` to not show console error after selecting item
 - `sandstone/VirtualList` to not block key down events after panel transition
 
 ## [2.0.0-alpha.1] - 2021-02-24
 
 -  The framework was updated to support React 17.0.1
 
+### Added
+
+- `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
+
 ## [1.5.0] - 2021-02-09
 
 ### Added
 
 - `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
-- `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
 
 ### Fixed
 

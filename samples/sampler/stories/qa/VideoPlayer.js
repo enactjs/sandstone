@@ -1,20 +1,15 @@
-import {button} from '@storybook/addon-knobs';
-import {storiesOf} from '@storybook/react';
-import {Component} from 'react';
-
+import {button} from '@enact/storybook-utils/addons/knobs';
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
+import {Component} from 'react';
 
 const videoTabLabel = 'VideoPlayer';
 
 class VideoSourceSwap extends Component {
 	constructor (props) {
 		super(props);
+
 		this.state = {
-			videoTitles: [
-				'Big Buck Bunny',
-				'Sintel',
-				'VideoTest'
-			],
+			videoTitles: ['Big Buck Bunny', 'Sintel', 'VideoTest'],
 			playlist: [
 				'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
 				'http://media.w3.org/2010/05/sintel/trailer.mp4',
@@ -48,7 +43,7 @@ class VideoSourceSwap extends Component {
 
 	nextPreloadVideoKeepVideo = () => {
 		this.setState(({preloadCursor}) => ({
-			preloadCursor: preloadCursor ===  this.lastIndex ? 0 : preloadCursor + 1
+			preloadCursor: preloadCursor === this.lastIndex ? 0 : preloadCursor + 1
 		}));
 	};
 
@@ -64,8 +59,16 @@ class VideoSourceSwap extends Component {
 			<div>
 				{button('Next Preload Video', this.nextVideo, videoTabLabel)}
 				{button('Non Preload Video', this.differentVideo, videoTabLabel)}
-				{button('Next Preload Video without changing preload', this.nextVideoKeepPreload, videoTabLabel)}
-				{button('Change Preload without changing video', this.nextPreloadVideoKeepVideo, videoTabLabel)}
+				{button(
+					'Next Preload Video without changing preload',
+					this.nextVideoKeepPreload,
+					videoTabLabel
+				)}
+				{button(
+					'Change Preload without changing video',
+					this.nextPreloadVideoKeepVideo,
+					videoTabLabel
+				)}
 				{button('Reset Sources', this.resetSources, videoTabLabel)}
 				<VideoPlayer
 					muted
@@ -77,18 +80,20 @@ class VideoSourceSwap extends Component {
 						<source src={this.state.playlist[this.state.cursor]} />
 						<source src={this.state.playlist[this.state.preloadCursor]} slot="preloadSource" />
 					</Video>
-					<infoComponents>A video about some things happening to and around some characters. Very exciting stuff.</infoComponents>
+					<infoComponents>
+						A video about some things happening to and around some characters. Very exciting stuff.
+					</infoComponents>
 				</VideoPlayer>
 			</div>
-
 		);
 	}
 }
 
-storiesOf('VideoPlayer', module)
-	.add(
-		'Preload Videos',
-		() => (
-			<VideoSourceSwap />
-		)
-	);
+export default {
+	title: 'Sandstone/VideoPlayer',
+	component: 'VideoPlayer'
+};
+
+export const PreloadVideos = () => <VideoSourceSwap />;
+
+PreloadVideos.storyName = 'Preload Videos';

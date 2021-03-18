@@ -1,11 +1,9 @@
+import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
-import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
-import {storiesOf} from '@storybook/react';
-
 import RangePicker, {RangePickerBase} from '@enact/sandstone/RangePicker';
 
-import {decrementIcons, incrementIcons} from './icons';
+import {decrementIcons, incrementIcons} from '../helper/icons';
 
 const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicker);
 
@@ -24,29 +22,32 @@ const parseIntOrNullify = (v) => {
 
 RangePicker.displayName = 'RangePicker';
 
-storiesOf('Sandstone', module)
-	.add(
-		'RangePicker',
-		() => (
-			<RangePicker
-				onChange={action('onChange')}
-				min={number('min', Config, 0)}
-				max={number('max', Config, 100)}
-				step={number('step', Config, 5)}
-				defaultValue={0}
-				width={parseIntOrNullify(select('width', prop.width, Config, 'small'))}
-				orientation={select('orientation', prop.orientation, Config, 'horizontal')}
-				wrap={boolean('wrap', Config)}
-				joined={boolean('joined', Config)}
-				noAnimation={boolean('noAnimation', Config)}
-				disabled={boolean('disabled', Config)}
-				incrementIcon={select('incrementIcon', ['', ...incrementIcons], Config)}
-				decrementIcon={select('decrementIcon', ['', ...decrementIcons], Config)}
-			/>
-		),
-		{
-			info: {
-				text: 'Basic usage of RangePicker'
-			}
-		}
-	);
+export default {
+	title: 'Sandstone/RangePicker',
+	component: 'RangePicker'
+};
+
+export const _RangePicker = () => (
+	<RangePicker
+		onChange={action('onChange')}
+		min={number('min', Config, 0)}
+		max={number('max', Config, 100)}
+		step={number('step', Config, 5)}
+		defaultValue={0}
+		width={parseIntOrNullify(select('width', prop.width, Config, 'small'))}
+		orientation={select('orientation', prop.orientation, Config, 'horizontal')}
+		wrap={boolean('wrap', Config)}
+		joined={boolean('joined', Config)}
+		noAnimation={boolean('noAnimation', Config)}
+		disabled={boolean('disabled', Config)}
+		incrementIcon={select('incrementIcon', ['', ...incrementIcons], Config)}
+		decrementIcon={select('decrementIcon', ['', ...decrementIcons], Config)}
+	/>
+);
+
+_RangePicker.storyName = 'RangePicker';
+_RangePicker.parameters = {
+	info: {
+		text: 'Basic usage of RangePicker'
+	}
+};
