@@ -19,7 +19,7 @@ const
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = (scrollContainerRef, contentId) => {
+const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -35,6 +35,10 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 	const getNavigableFilterTarget = (ev) => {
 		const {keyCode, target, type} = ev;
 		let filterTarget = null;
+
+		if (!isScrollbarVisible) {
+			return {filterTarget};
+		}
 
 		if (type === 'focus') {
 			filterTarget = isBody(target) ? 'thumb' : 'body';
@@ -348,9 +352,8 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 	delete rest.spotlightId;
 
 	// Hooks
-
-	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
-	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId) : {};
+	const isScrollbarVisible = isHorizontalScrollbarVisible || isVerticalScrollbarVisible;
+	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId, isScrollbarVisible) : {};
 
 	scrollContentProps.setThemeScrollContentHandle({
 		calculatePositionOnFocus,

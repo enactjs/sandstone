@@ -293,6 +293,7 @@ export const WithShortContents = () => (
 		style={{height: ri.scaleToRem(600)}}
 		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 	>
+		<Button>Button</Button>
 		Text
 	</Scroller>
 );
