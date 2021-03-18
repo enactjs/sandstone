@@ -2,12 +2,11 @@
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
-import PropTypes from 'prop-types';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
-import qs from 'query-string';
-
-import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import PropTypes from 'prop-types';
+import qs from 'query-string';
 
 import css from './ThemeEnvironment.module.less';
 
@@ -154,15 +153,9 @@ const StorybookDecorator = (story, config = {}) => {
 		groupId: 'Development'
 	};
 
-	if (config.parameters) {
-		if (config.parameters.info && config.parameters.info.text) {
-			config.description = config.parameters.info.text;
-		}
-		if (config.parameters.props) {
-			config.props = config.parameters.props;
-		}
-	}
-
+	// NOTE: 'config' object is not extensible.
+	const hasInfoText = config.parameters && config.parameters.info && config.parameters.info.text;
+	const hasProps = config.parameters && config.parameters.props;
 	const args = getArgs();
 	const classes = {
 		aria: boolean('debug aria', DevelopmentConfig, getKnobFromArgs(args, 'debug aria')),
@@ -177,8 +170,8 @@ const StorybookDecorator = (story, config = {}) => {
 	return (
 		<Theme
 			className={classnames(classes)}
-			title={`${config.kind} ${config.story}`.trim()}
-			description={config.description}
+			title={`${config.kind}`.replace(/\//g, ' ').trim()}
+			description={hasInfoText ? config.parameters.info.text : null}
 			locale={select('locale', locales, Config)}
 			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
 			highContrast={boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast'))}
@@ -186,7 +179,7 @@ const StorybookDecorator = (story, config = {}) => {
 				'--sand-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
 			}}
 			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
-			{...config.props}
+			{...hasProps ? config.parameters.props : null}
 		>
 			{sample}
 		</Theme>
