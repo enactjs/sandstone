@@ -197,7 +197,16 @@ const TabLayoutBase = kind({
 		 * @type {Number}
 		 * @public
 		 */
-		tabSize: PropTypes.number
+		tabSize: PropTypes.number,
+
+		/**
+		 * Type of TabLayout.
+		 *
+		 * @type {('normal'|'popup')}
+		 * @default 'normal'
+		 * @private
+		 */
+		type: PropTypes.oneOf(['normal', 'popup'])
 	},
 
 	defaultProps: {
@@ -213,7 +222,8 @@ const TabLayoutBase = kind({
 			}
 		},
 		index: 0,
-		orientation: 'vertical'
+		orientation: 'vertical',
+		type: 'normal'
 	},
 
 	styles: {
@@ -285,7 +295,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, type, ...rest}) => {
 		delete rest.anchorTo;
 		delete rest.onTabAnimationEnd;
 
@@ -301,6 +311,9 @@ const TabLayoutBase = kind({
 			selectedIndex: index,
 			tabs
 		};
+
+		const collapsable = (type === 'normal') ? !collapsed :
+			!collapsed && children[index] && children[index].props && children[index].props.children && children[index].props.children.props && children[index].props.children.props.index > 0;
 
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
@@ -330,7 +343,7 @@ const TabLayoutBase = kind({
 					component={ViewManager}
 					index={index}
 					noAnimation
-					onFocus={!collapsed ? onCollapse : null}
+					onFocus={collapsable ? onCollapse : null}
 					orientation={orientation}
 				>
 					{children}
