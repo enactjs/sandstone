@@ -353,7 +353,8 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 
 	// Hooks
 	const isScrollbarVisible = isHorizontalScrollbarVisible || isVerticalScrollbarVisible;
-	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId, isScrollbarVisible) : {};
+	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId, isScrollbarVisible) : {};
 
 	scrollContentProps.setThemeScrollContentHandle({
 		calculatePositionOnFocus,
