@@ -16,6 +16,12 @@ storiesOf('Sandstone', module)
 		() => {
 			const itemCount = number('items', Config, {range: true, min: 0, max: 50}, 5);
 			const items = (new Array(itemCount)).fill().map((i, index) => `Option ${index + 1}`);
+			const widthType = select('width type', ['preset', 'number'], Config, 'preset');
+			let width;
+			switch (widthType) {
+				case 'number': width = number('width', Config); break;
+				case 'preset': width = select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config); break;
+			}
 
 			return (
 				<Dropdown
@@ -27,7 +33,7 @@ storiesOf('Sandstone', module)
 					placeholder={text('placeholder', Config)}
 					size={select('size', ['small', 'large'], Config)}
 					title={text('title', Config, 'Options')}
-					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+					width={width}
 				>
 					{items}
 				</Dropdown>
