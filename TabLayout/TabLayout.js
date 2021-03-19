@@ -7,6 +7,7 @@
  */
 
 import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
+import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -26,6 +27,8 @@ import TabGroup from './TabGroup';
 import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
+
+const isEnter = is('enter');
 
 /**
  * Tabbed Layout component.
@@ -235,7 +238,7 @@ const TabLayoutBase = kind({
 	handlers: {
 		onKeyDown: (ev, props) => {
 			const {keyCode, target} = ev;
-			const {collapsed, orientation, 'data-spotlight-id': spotlightId} = props;
+			const {collapsed, orientation, 'data-spotlight-id': spotlightId, type} = props;
 			const direction = getDirection(keyCode);
 
 			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
@@ -252,6 +255,22 @@ const TabLayoutBase = kind({
 					if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
 						forward('onExpand', ev, props);
 					}
+				}
+			}
+
+			if (forward('onKeyDown', ev, props) && type === 'popup' && isEnter(keyCode) && !collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
+				if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
+					forward('onCollapse', ev, props);
+				}
+			}
+		},
+		onClick: (ev, props) => {
+			const {target} = ev;
+			const {collapsed, orientation, 'data-spotlight-id': spotlightId, type} = props;
+
+			if (forward('onClick', ev, props) && type === 'popup' && !collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
+				if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
+					forward('onCollapse', ev, props);
 				}
 			}
 		},
@@ -312,9 +331,6 @@ const TabLayoutBase = kind({
 			tabs
 		};
 
-		const collapsable = (type === 'normal') ? !collapsed :
-			!collapsed && children[index] && children[index].props && children[index].props.children && children[index].props.children.props && children[index].props.children.props.index > 0;
-
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
 			<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
@@ -343,7 +359,6 @@ const TabLayoutBase = kind({
 					component={ViewManager}
 					index={index}
 					noAnimation
-					onFocus={collapsable ? onCollapse : null}
 					orientation={orientation}
 				>
 					{children}
