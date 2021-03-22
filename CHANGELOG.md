@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Dropdown` to not show console error after selecting item
 - `sandstone/VirtualList` to not block key down events after panel transition
+- `sandstone/Scroller`, `sandstone/VirtualList`, `sandstone/VirtualGridList` to activate voice control intent when scrolling is possible
 
 ## [2.0.0-alpha.1] - 2021-02-24
 
