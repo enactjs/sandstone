@@ -23,22 +23,19 @@ export default {
 };
 
 export const _ImageItem = () => (
-	<ImageItem
-		centered={boolean('centered', Config)}
-		disabled={boolean('disabled', Config)}
-		label={text('label', Config, 'ImageItem label')}
-		orientation={select('orientation', prop.orientation, Config)}
-		selected={boolean('selected', Config)}
-		showSelection={boolean('showSelection', Config)}
-		src={object('src', Config, src)}
-		style={{
-			position: 'absolute',
-			width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
-			height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240)
-		}}
-	>
-		{text('children', Config, 'ImageItem Caption')}
-	</ImageItem>
+	<div style={{width: ri.scaleToRem(400), height: ri.scaleToRem(300)}}>
+		<ImageItem
+			centered={boolean('centered', Config)}
+			disabled={boolean('disabled', Config)}
+			label={text('label', Config, 'ImageItem label')}
+			orientation={select('orientation', prop.orientation, Config)}
+			selected={boolean('selected', Config)}
+			showSelection={boolean('showSelection', Config)}
+			src={object('src', Config, src)}
+		>
+			{text('children', Config, 'ImageItem Caption')}
+		</ImageItem>
+	</div>
 );
 
 _ImageItem.storyName = 'ImageItem';
