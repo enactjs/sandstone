@@ -18,7 +18,7 @@ import Repeater from '@enact/ui/Repeater';
 import Section from './components/KitchenSinkSection';
 
 const Config = {
-	displayName: 'Font-weight'
+	displayName: 'Text'
 };
 
 const inputData = {
