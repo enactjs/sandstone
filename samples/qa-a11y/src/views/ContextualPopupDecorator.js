@@ -69,7 +69,7 @@ const renderPopup5 = () => (
 			size="large"
 			tooltipText="tooltip"
 			tooltipPosition="above center"
-		>Test</Button>
+		>Tooltip button</Button>
 	</div>
 );
 
