@@ -63,16 +63,6 @@ const renderPopup4 = () => (
 	</Group>
 );
 
-const renderPopup5 = () => (
-	<div>
-		<Button
-			size="large"
-			tooltipPosition="above center"
-			tooltipText="tooltip"
-		>Tooltip button</Button>
-	</div>
-);
-
 const ContextualPopupDecoratorView = () => {
 	return (
 		<Section title="Button wrapped with ContextualPopupDecorator">
@@ -81,7 +71,6 @@ const ContextualPopupDecoratorView = () => {
 			<ContextualButton alt="With RadioItems in Group" direction="below" popupComponent={renderPopup3}>Text 2</ContextualButton>
 			<ContextualButton alt="With Disabled RadioItems in Group" direction="below" popupComponent={renderPopup4}>Text 3</ContextualButton>
 			<ContextualButton alt="Disabled" disabled popupComponent={renderPopup1}>Text 4</ContextualButton>
-			<ContextualButton alt="With button that has tooltip" popupComponent={renderPopup5}>Text 5</ContextualButton>
 		</Section>
 	);
 };
