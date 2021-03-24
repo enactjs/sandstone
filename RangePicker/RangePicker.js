@@ -238,6 +238,8 @@ const RangePickerBase = kind({
 	computed: {
 		disabled: ({disabled, max, min}) => min >= max ? true : disabled,
 		label: ({max, min, padded, value}) => {
+			value = clamp(min, max, value);
+
 			if (padded) {
 				const maxDigits = digits(Math.max(Math.abs(min), Math.abs(max)));
 				const valueDigits = digits(value);
@@ -263,6 +265,8 @@ const RangePickerBase = kind({
 
 	render: ({label, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
+		console.log(value);
+		console.log(label);
 		return (
 			<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 				<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
