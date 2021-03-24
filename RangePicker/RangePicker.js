@@ -265,8 +265,7 @@ const RangePickerBase = kind({
 
 	render: ({label, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
-		console.log(value);
-		console.log(label);
+
 		return (
 			<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 				<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
