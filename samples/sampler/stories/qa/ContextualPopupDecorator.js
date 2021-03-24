@@ -180,7 +180,7 @@ export const WithOverflows = () => (
 
 WithOverflows.storyName = 'with overflows';
 
-export const WithButtonThatHasTooltip = () => (
+export const WithButtonTooltip = () => (
 	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
 		<ContextualPopupWithActivator
 			direction="above"
@@ -192,4 +192,4 @@ export const WithButtonThatHasTooltip = () => (
 	</div>
 );
 
-WithButtonThatHasTooltip.storyName = 'with button that has tooltip';
+WithButtonTooltip.storyName = 'with button tooltip';
