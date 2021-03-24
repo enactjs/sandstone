@@ -12,7 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Slider` to enable wheeling to change the value
+- `sandstone/Slider` to change the value by wheeling
 
 ### Fixed
 
