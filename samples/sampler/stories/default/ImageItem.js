@@ -23,7 +23,7 @@ export default {
 };
 
 export const _ImageItem = () => (
-	<div style={{width: ri.scaleToRem(400), height: ri.scaleToRem(300)}}>
+	<div style={{width: ri.scaleToRem(800), height: ri.scaleToRem(600)}}>
 		<ImageItem
 			centered={boolean('centered', Config)}
 			disabled={boolean('disabled', Config)}
