@@ -17,11 +17,11 @@ const calcStep = (knobStep, step) => {
 	return s || 1;
 };
 
-const isIncrementWheelEvent = ({deltaY}) => {
+const isIncrementByWheel = ({deltaY}) => {
 	return deltaY < 0;
 };
 
-const isDecrementWheelEvent = ({deltaY}) => {
+const isDecrementByWheel = ({deltaY}) => {
 	return deltaY > 0;
 };
 
@@ -79,7 +79,7 @@ const handleDecrement = handle(
 
 const handleIncrementByWheel = handle(
 	isActive,
-	isIncrementWheelEvent,
+	isIncrementByWheel,
 	preventDefault,
 	stop,
 	isNotMax,
@@ -88,7 +88,7 @@ const handleIncrementByWheel = handle(
 
 const handleDecrementByWheel = handle(
 	isActive,
-	isDecrementWheelEvent,
+	isDecrementByWheel,
 	preventDefault,
 	stop,
 	isNotMin,
