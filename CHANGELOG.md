@@ -12,7 +12,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Checkbox` background-color for high contrast mode
 - `sandstone/Dropdown` to not show console error after selecting item
+- `sandstone/Switch` background-color for high contrast mode
 - `sandstone/VirtualList` to not block key down events after panel transition
 
 ## [2.0.0-alpha.1] - 2021-02-24
