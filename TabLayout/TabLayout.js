@@ -3,11 +3,13 @@
  *
  * @module sandstone/TabLayout
  * @exports TabLayout
+ * @exports TabLayoutBase
+ * @exports TabLayoutContext
+ * @exports TabLayoutDecorator
  * @exports Tab
  */
 
 import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
-import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -20,7 +22,7 @@ import Toggleable from '@enact/ui/Toggleable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {Fragment} from 'react';
+import {createContext, Fragment} from 'react';
 
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
@@ -28,7 +30,7 @@ import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
 
-const isEnter = is('enter');
+const TabLayoutContext = createContext(null);
 
 /**
  * Tabbed Layout component.
@@ -200,16 +202,7 @@ const TabLayoutBase = kind({
 		 * @type {Number}
 		 * @public
 		 */
-		tabSize: PropTypes.number,
-
-		/**
-		 * Type of TabLayout.
-		 *
-		 * @type {('normal'|'popup')}
-		 * @default 'normal'
-		 * @private
-		 */
-		type: PropTypes.oneOf(['normal', 'popup'])
+		tabSize: PropTypes.number
 	},
 
 	defaultProps: {
@@ -226,7 +219,6 @@ const TabLayoutBase = kind({
 		},
 		index: 0,
 		orientation: 'vertical',
-		type: 'normal'
 	},
 
 	styles: {
@@ -238,7 +230,7 @@ const TabLayoutBase = kind({
 	handlers: {
 		onKeyDown: (ev, props) => {
 			const {keyCode, target} = ev;
-			const {collapsed, orientation, 'data-spotlight-id': spotlightId, type} = props;
+			const {collapsed, orientation, 'data-spotlight-id': spotlightId} = props;
 			const direction = getDirection(keyCode);
 
 			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
@@ -257,22 +249,6 @@ const TabLayoutBase = kind({
 					}
 				}
 			}
-
-			if (forward('onKeyDown', ev, props) && type === 'popup' && isEnter(keyCode) && !collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
-				if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
-					forward('onCollapse', ev, props);
-				}
-			}
-		},
-		onClick: (ev, props) => {
-			const {target} = ev;
-			const {collapsed, orientation, 'data-spotlight-id': spotlightId, type} = props;
-
-			if (forward('onClick', ev, props) && type === 'popup' && !collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
-				if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
-					forward('onCollapse', ev, props);
-				}
-			}
 		},
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
@@ -286,6 +262,9 @@ const TabLayoutBase = kind({
 				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
 				forward('onTabAnimationEnd')
 			)
+		),
+		handleEnter: handle(
+			forward('onCollapse')
 		)
 	},
 
@@ -314,7 +293,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, type, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleEnter, handleTabsTransitionEnd, index, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.anchorTo;
 		delete rest.onTabAnimationEnd;
 
@@ -333,37 +312,39 @@ const TabLayoutBase = kind({
 
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
-			<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
-				<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
-					<TabGroup
-						{...tabGroupProps}
-						collapsed={isVertical}
-						spotlightId={getTabsSpotlightId(spotlightId, isVertical)}
-						tabSize={!isVertical ? tabSize : null}
-						spotlightDisabled={!collapsed && isVertical}
-					/>
-				</Cell>
-				{isVertical ? <Cell
-					className={css.tabs + ' ' + css.tabsExpanded}
-					size={dimensions.tabs.normal}
-				>
-					<TabGroup
-						{...tabGroupProps}
-						spotlightId={getTabsSpotlightId(spotlightId, false)}
-						spotlightDisabled={collapsed}
-					/>
-				</Cell> : null}
-				<Cell
-					size={isVertical ? contentSize : null}
-					className={css.content}
-					component={ViewManager}
-					index={index}
-					noAnimation
-					orientation={orientation}
-				>
-					{children}
-				</Cell>
-			</Layout>
+			<TabLayoutContext.Provider value={handleEnter}>
+				<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
+					<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
+						<TabGroup
+							{...tabGroupProps}
+							collapsed={isVertical}
+							spotlightId={getTabsSpotlightId(spotlightId, isVertical)}
+							tabSize={!isVertical ? tabSize : null}
+							spotlightDisabled={!collapsed && isVertical}
+						/>
+					</Cell>
+					{isVertical ? <Cell
+						className={css.tabs + ' ' + css.tabsExpanded}
+						size={dimensions.tabs.normal}
+					>
+						<TabGroup
+							{...tabGroupProps}
+							spotlightId={getTabsSpotlightId(spotlightId, false)}
+							spotlightDisabled={collapsed}
+						/>
+					</Cell> : null}
+					<Cell
+						size={isVertical ? contentSize : null}
+						className={css.content}
+						component={ViewManager}
+						index={index}
+						noAnimation
+						orientation={orientation}
+					>
+						{children}
+					</Cell>
+				</Layout>
+			</TabLayoutContext.Provider>
 		);
 	}
 });
@@ -398,6 +379,7 @@ export default TabLayout;
 export {
 	TabLayout,
 	TabLayoutBase,
+	TabLayoutContext,
 	TabLayoutDecorator,
 	Tab
 };

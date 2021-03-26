@@ -12,12 +12,12 @@ import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
-import {useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
 import Panels, {Panel} from '../Panels';
-import TabLayout, {Tab} from '../TabLayout';
+import TabLayout, {TabLayoutContext, Tab} from '../TabLayout';
 import Popup from '../Popup';
 
 import css from './PopupTabLayout.module.less';
@@ -272,7 +272,6 @@ const PopupTabLayoutBase = kind({
 					css={css}
 					align="start"
 					anchorTo="left"
-					type="popup"
 				>
 					{children}
 				</TabLayout>
@@ -358,7 +357,10 @@ PopupTabLayout.Tab = Tab;
  * @extends sandstone/Panels.Panels
  * @ui
  */
-const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
+const TabPanels = (props) => {
+	const onTransition = useContext(TabLayoutContext);
+	return <Panels noCloseButton {...props} css={css} onTransition={onTransition}/>;
+}
 
 /**
  * Omits the close button.
