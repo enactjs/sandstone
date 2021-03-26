@@ -474,7 +474,7 @@ const InputBase = kind({
 			return calcAriaLabel('', null, placeholder);
 		},
 		buttonLabel: ({placeholder, type, value}) => {
-			return (isPasswordType(type) ? convertToPasswordFormat(value) : value) || placeholder;
+			return (isPasswordType(type) ? convertToPasswordFormat(value) : value) || typeof value === 'number' ? value.toString() : placeholder;
 		}
 	},
 
