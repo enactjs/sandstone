@@ -61,7 +61,9 @@ let VirtualList = ({itemSize, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		isScrollVertically,
+		isScrollHorizontally
 	} = useScroll({...rest, ...props});
 
 	const {
@@ -74,7 +76,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
-				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} data-webos-voice-intent={isScrollVertically || isScrollHorizontally ? 'Scroll' : null} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</ScrollContentWrapper>
@@ -495,7 +497,9 @@ let VirtualGridList = (props) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		isScrollVertically,
+		isScrollHorizontally
 	} = useScroll(props);
 
 	const {
@@ -508,7 +512,7 @@ let VirtualGridList = (props) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
-				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} data-webos-voice-intent={isScrollVertically || isScrollHorizontally ? 'Scroll' : null} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</ScrollContentWrapper>
