@@ -73,8 +73,8 @@ const ImageBase = kind({
 			UiImageBase.inline({
 				draggable: 'false',
 				...rest,
-				css,
-				ref: componentRef
+				componentRef,
+				css
 			})
 		);
 	}
