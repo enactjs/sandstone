@@ -1,10 +1,7 @@
 {
   "name": "@enact/sandstone",
-<<<<<<< HEAD
   "version": "2.0.0-alpha.1",
-=======
   "version": "2.0.0-alpha.2",
->>>>>>> master
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
