@@ -247,6 +247,8 @@ const RangePickerBase = kind({
 	computed: {
 		disabled: ({disabled, max, min}) => min >= max ? true : disabled,
 		label: ({max, min, padded, value}) => {
+			value = clamp(min, max, value);
+
 			if (padded) {
 				const maxDigits = digits(Math.max(Math.abs(min), Math.abs(max)));
 				const valueDigits = digits(value);
