@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Dropdown` to not show console error after selecting item
+- `sandstone/RangePicker` to display minus sign correctly on RTL
 - `sandstone/RangePicker` to update label when value is out of range
 - `sandstone/VirtualList` to not block key down events after panel transition
 
