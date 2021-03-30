@@ -19,6 +19,7 @@
 
 import {forKey, forProp, forward, forwardWithPrevent, handle} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
+import {mergeClassNameMaps} from '@enact/core/util';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
 import Changeable from '@enact/ui/Changeable';
@@ -56,18 +57,19 @@ import componentCss from './Slider.module.less';
  * @public
  */
 const SliderBase = (props) => {
-	const {activateOnSelect, active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = props;
+	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = props;
 
-	const knobStep = validateSteppedOnce(p => p.knobStep, {
+	validateSteppedOnce(p => p.knobStep, {
 		component: 'Slider',
 		stepName: 'knobStep',
 		valueName: 'max'
-	});
-	knobStep(props);
+	})(props);
+
 	const step = validateSteppedOnce(p => p.step, {
 		component: 'Slider',
 		valueName: 'max'
-	});
+	})(props);
+
 	const tooltip = props.tooltip === true ? ProgressBarTooltip : props.tooltip;
 
 	let spotlightAccelerator = useRef();
@@ -97,11 +99,18 @@ const SliderBase = (props) => {
 		)
 	}, props, spotlightAccelerator);
 
+
+	// if the props includes a css map, merge them together
+	let mergedCss = componentCss;
+	if (css) {
+		const allowedClassNames = Object.keys(componentCss);
+		mergedCss = mergeClassNameMaps(componentCss, css, allowedClassNames);
+	}
+
 	const componentClassName = classnames(
 		componentCss.slider,
 		className,
 		{
-			[componentCss.activateOnSelect]: activateOnSelect,
 			[componentCss.active]: active,
 			[componentCss.showAnchor]: showAnchor
 		},
@@ -112,8 +121,10 @@ const SliderBase = (props) => {
 		spotlightAccelerator.current = new Accelerator(keyFrequency);
 	}, [keyFrequency]);
 
-	delete rest.onActivate;
+	delete rest.activateOnSelect;
 	delete rest.knobStep;
+	delete rest.onActivate;
+	delete rest.step;
 	delete rest.tooltip;
 
 	return (
@@ -122,16 +133,16 @@ const SliderBase = (props) => {
 			{...handlers}
 			aria-disabled={disabled}
 			className={componentClassName}
-			css={componentCss}
+			css={mergedCss}
 			disabled={disabled}
 			progressBarComponent={
-				<ProgressBar css={componentCss} />
+				<ProgressBar css={mergedCss} />
 			}
-			step={step(props)}
+			step={step}
 			tooltipComponent={
 				<ComponentOverride
 					component={tooltip}
-					css={componentCss}
+					css={mergedCss}
 					visible={focused}
 				/>
 			}
@@ -189,16 +200,15 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 */
 	focused: PropTypes.bool,
 
-	/** TBD
-	 *
-	 *  Controls the keydown frequency with which the acceleration will "freeze".
-	 *	While frozen, the value of the slider is not changed via arrow key.
+	/**
+	 * Controls the keydown frequency with which the acceleration will "freeze".
+	 * While frozen, the value of the slider is not changed via arrow key.
 	 *
 	 * @type {Number[]}
 	 * @default [1]
 	 * @public
 	 */
-	keyFrequency: PropTypes.number,
+	keyFrequency: PropTypes.arrayOf(PropTypes.number),
 
 	/**
 	 * The amount to increment or decrement the position of the knob via 5-way controls.
