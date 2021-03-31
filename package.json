@@ -1,6 +1,6 @@
 {
   "name": "@enact/sandstone",
-  "version": "1.4.4-touch-alpha",
+  "version": "1.4.4-experimental-6",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
@@ -36,10 +36,10 @@
     "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^3.4.9-experimental-1",
-    "@enact/i18n": "^3.4.9-experimental-1",
-    "@enact/spotlight": "^3.4.9-experimental-1",
-    "@enact/ui": "^3.4.9-experimental-1",
+    "@enact/core": "3.4.9-experimental-4",
+    "@enact/i18n": "3.4.9-experimental-4",
+    "@enact/spotlight": "3.4.9-experimental-4",
+    "@enact/ui": "3.4.9-experimental-4",
     "classnames": "^2.2.5",
     "invariant": "^2.2.2",
     "prop-types": "^15.7.2",
@@ -47,7 +47,8 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "recompose": "^0.26.0",
-    "warning": "^3.0.0"
+    "warning": "^3.0.0",
+    "ilib": "^14.2.0"
   },
   "peerDependencies": {
     "ilib": "^14.4.0 || ^14.6.0-webos"

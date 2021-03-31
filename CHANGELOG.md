@@ -8,6 +8,46 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Panels.Header` to move focus in header properly via 5-way
 
+## [1.4.4-experimental-6] - 2021-02-23
+
+### Fixed
+
+- `sandstone/MediaSlider` to not changing bar's color when dragging in touch mode
+- `sandstone/VirtualList` to not block key down events after panel transition
+
+## [1.4.4-experimental-5] - 2021-01-26
+
+### Fixed
+
+- `sandstone/TabLayout` to not select the first tab via tapping the collapsed tab
+
+## [1.4.4-experimental-4] - 2021-01-13
+
+### Fixed
+
+- `sandstone/Panels.Header` to not show back button in the first panel
+
+## [1.4.4-experimental-3] - 2020-12-16
+
+### Changed
+
+- `sandstone/Icon` supported icon list
+
+## [1.4.4-experimental-2] - 2020-12-03
+
+### Added
+
+- `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player
+
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to not joined picker
+- `sandstone/VideoPlayer` to not expand video player using key down via 5way
+
+### Fixed
+
+- `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
+
 ## [1.4.4-touch-alpha] - 2020-11-19
 
 ### Added
@@ -20,6 +60,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` layout for portrait mode
 - `sandstone/Input` to add a back button
 - `sandstone/Panels.Header` to always show back button
+- `sandstone/Panels.Header` and `sandstone/RadioItem` to use `onClick` rather than `onTap` for handling touch exception
 - `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
 - `sandstone/Slider` to show active style when touch dragging

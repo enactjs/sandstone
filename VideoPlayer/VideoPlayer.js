@@ -36,6 +36,7 @@ import ReactDOM from 'react-dom';
 import shallowEqual from 'recompose/shallowEqual';
 
 import $L from '../internal/$L';
+import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Spinner from '../Spinner';
 import {
@@ -85,7 +86,7 @@ const RootContainer = SpotlightContainerDecorator(
 
 const ControlsContainer = SpotlightContainerDecorator(
 	{
-		enterTo: '',
+		enterTo: 'default-element',
 		straightOnly: true
 	},
 	'div'
@@ -394,6 +395,14 @@ const VideoPlayerBase = class extends React.Component {
 		 * @public
 		 */
 		noSpinner: PropTypes.bool,
+
+		/**
+		 * Called when the back button is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBack: PropTypes.func,
 
 		/**
 		 * Called when the player's controls change availability, whether they are shown
@@ -1672,11 +1681,6 @@ const VideoPlayerBase = class extends React.Component {
 		};
 	};
 
-	disablePointerMode = () => {
-		Spotlight.setPointerMode(false);
-		return true;
-	};
-
 	//
 	// Player Interaction events
 	//
@@ -1764,8 +1768,6 @@ const VideoPlayerBase = class extends React.Component {
 			}
 		} else if (is('up', keyCode)) {
 			Spotlight.setPointerMode(false);
-			preventDefault(ev);
-			stopImmediate(ev);
 		}
 	};
 
@@ -1856,6 +1858,7 @@ const VideoPlayerBase = class extends React.Component {
 			noMiniFeedback,
 			noSlider,
 			noSpinner,
+			onBack,
 			selection,
 			spotlightDisabled,
 			spotlightId,
@@ -1950,6 +1953,16 @@ const VideoPlayerBase = class extends React.Component {
 						>
 							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
 						</FeedbackContent>
+						{
+							this.state.mediaControlsVisible ?
+								<Button
+									className={css.back}
+									icon="arrowhookleft"
+									onClick={onBack}
+									size="small"
+								/> :
+								null
+						}
 						<ControlsContainer
 							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.lift : '')}
 							spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
@@ -1993,7 +2006,6 @@ const VideoPlayerBase = class extends React.Component {
 										onFocus={this.handleSliderFocus}
 										onKeyDown={this.handleSliderKeyDown}
 										onKnobMove={this.handleKnobMove}
-										onSpotlightUp={this.handleSpotlightUpFromSlider}
 										selection={proportionSelection}
 										spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
 										value={this.state.proportionPlayed}

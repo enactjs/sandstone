@@ -74,6 +74,7 @@ const prop = {
 	},
 	events: [
 		'onAbort',
+		'onBack',
 		'onCanPlay',
 		'onCanPlayThrough',
 		'onControlsAvailable',
