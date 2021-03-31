@@ -6,7 +6,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
+import {adaptEvent, forward, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -16,6 +16,7 @@ import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {scaleToRem} from '@enact/ui/resolution';
 import Toggleable from '@enact/ui/Toggleable';
+import Touchable from '@enact/ui/Touchable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -26,6 +27,13 @@ import TabGroup from './TabGroup';
 import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
+
+const TouchableCell = Touchable(Cell);
+
+const isTouchMode = () => {
+	const rootContainer = document.querySelector('#root > div');
+	return rootContainer && rootContainer.classList.contains('spotlight-on-active');
+};
 
 /**
  * Tabbed Layout component.
@@ -257,6 +265,24 @@ const TabLayoutBase = kind({
 				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
 				forward('onTabAnimationEnd')
 			)
+		),
+		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand}) => {
+			// See the global class 'spotlight-on-active' to check the input type is touch
+			if (isTouchMode() && direction === 'horizontal') {
+				if (!collapsed && velocityX < 0) {
+					onCollapse();
+				} else if (collapsed && velocityX > 0) {
+					onExpand();
+				}
+			}
+		},
+		handleClick: handle(
+			isTouchMode,
+			forward('onExpand')
+		),
+		handleFocus: handle(
+			not(isTouchMode),
+			forward('onExpand')
 		)
 	},
 
@@ -285,16 +311,20 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleClick, handleFlick, handleFocus, handleTabsTransitionEnd, index, onCollapse, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.anchorTo;
+		delete rest.onExpand;
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		const isVertical = orientation === 'vertical';
+		const ContentCell = isVertical ? TouchableCell : Cell;
+		const contentCellProps = isVertical ? {onFlick: handleFlick} : null;
 
 		// Props that are shared between both of the rendered TabGroup components
 		const tabGroupProps = {
-			onFocus: (collapsed ? onExpand : null),
+			onClick: (collapsed ? handleClick : null),
+			onFocus: (collapsed ? handleFocus : null),
 			onFocusTab: onSelect,
 			onSelect,
 			orientation,
@@ -324,7 +354,7 @@ const TabLayoutBase = kind({
 						spotlightDisabled={collapsed}
 					/>
 				</Cell> : null}
-				<Cell
+				<ContentCell
 					size={isVertical ? contentSize : null}
 					className={css.content}
 					component={ViewManager}
@@ -332,9 +362,10 @@ const TabLayoutBase = kind({
 					noAnimation
 					onFocus={!collapsed ? onCollapse : null}
 					orientation={orientation}
+					{...contentCellProps}
 				>
 					{children}
-				</Cell>
+				</ContentCell>
 			</Layout>
 		);
 	}

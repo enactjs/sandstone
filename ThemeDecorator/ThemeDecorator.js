@@ -8,12 +8,14 @@
 import {setDefaultTargetById} from '@enact/core/dispatcher';
 import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
+import platform from '@enact/core/platform';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
 import {Component} from 'react';
 import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import SpotlightRootDecorator from '@enact/spotlight/SpotlightRootDecorator';
+import LS2Request from '@enact/webos/LS2Request/LS2Request';
 
 import Skinnable from '../Skinnable';
 
@@ -175,6 +177,10 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		[css.bg]: !overlay
 	});
 
+	const spotlightRootDecoratorController = spotlight ? {
+		configEffect: null
+	} : {};
+
 	let App = Wrapped;
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
 	if (ri) App = ResolutionDecorator(ri, App);
@@ -196,7 +202,15 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			)
 		);
 	}
-	if (spotlight) App = SpotlightRootDecorator({noAutoFocus}, App);
+	if (spotlight) {
+		App = SpotlightRootDecorator({
+			getConfigEffect: (fn) => {
+				spotlightRootDecoratorController.configEffect = fn;
+			},
+			noAutoFocus,
+			rootId // set the DOM node ID of the React DOM tree root
+		}, App);
+	}
 	if (skin) App = Skinnable({defaultSkin: 'neutral'}, App);
 	if (accessible) App = AccessibilityDecorator(App);
 
@@ -240,6 +254,22 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 	const Decorator = class extends Component {
 		static displayName = 'ThemeDecorator';
+
+		componentDidMount () {
+			if (spotlight && platform.webos) {
+				new LS2Request().send({
+					service: 'luna://com.webos.surfacemanager',
+					method: 'getLastInputType',
+					subscribe: true,
+					onSuccess: function (res) {
+						spotlightRootDecoratorController.configEffect(res.lastInputType);
+					},
+					onFailure: function () {
+						// Do nothing to hide the internal LS2Request
+					}
+				});
+			}
+		}
 
 		render () {
 			const className = classNames(css.root, this.props.className, 'enact-unselectable', {
