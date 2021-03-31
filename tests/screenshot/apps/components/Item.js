@@ -3,6 +3,8 @@ import Icon from '../../../../Icon';
 
 import {withConfig, withProps, LoremString} from './utils';
 
+import css from './Item.module.less';
+
 // Short text
 const commonItemTests = [
 	<Item>Default Item</Item>,
@@ -64,6 +66,14 @@ const ItemTests = [
 	...longTextItemTests,
 	...rtlItemTests,
 
+	// Focused
+	...withConfig({focus: true}, [
+		<Item>Focused Item</Item>,
+		<Item slotBefore={<Icon>star</Icon>}>Focused Item</Item>,
+		<Item slotAfter={<Icon>star</Icon>}>Focused Item</Item>,
+		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Focused Item</Item>
+	]),
+
 	// Centered
 	...withProps({centered: true}, [
 		<Item>Centered Item</Item>,
@@ -99,6 +109,19 @@ const ItemTests = [
 		...tallglyphItemTests,
 		...withProps({size: 'small'}, [
 			...commonItemTests
+		])
+	]),
+
+	// Customized Item Style
+	...withProps({css: css}, [
+		<Item label="label">Customized Item</Item>,
+		<Item label="label" slotBefore={<Icon>star</Icon>}>Customized Item</Item>,
+		<Item label="label" slotAfter={<Icon>star</Icon>}>Customized Item</Item>,
+		<Item label="label" slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Item</Item>,
+
+		...withConfig({focus: true}, [
+			<Item>Customized Focused Item</Item>,
+			<Item label='"label"' slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Focused Item</Item>
 		])
 	]),
 

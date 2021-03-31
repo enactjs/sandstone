@@ -124,6 +124,13 @@ const useSpottable = (props, instances) => {
 	}
 
 	useEffect(() => {
+		if (scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightContainerDisabled === 'true') {
+			removeGlobalKeyDownEventListener();
+			addGlobalKeyDownEventListener(handleGlobalKeyDown);
+		}
+	}, [handleGlobalKeyDown]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
 		return () => {
 			// TODO: Fix eslint
 			pause.resume(); // eslint-disable-line react-hooks/exhaustive-deps
