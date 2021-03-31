@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller`, `sandstone/VirtualList`, `sandstone/VirtualGridList` to activate voice control intent when scrolling is possible
+
 ## [2.0.0-alpha.3] - 2021-03-31
 
 ### Added
@@ -15,7 +21,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Dropdown` to not show console error after selecting item
 - `sandstone/RangePicker` to update label when value is out of range
 - `sandstone/VirtualList` to not block key down events after panel transition
-- `sandstone/Scroller`, `sandstone/VirtualList`, `sandstone/VirtualGridList` to activate voice control intent when scrolling is possible
 
 ## [2.0.0-alpha.2] - 2021-03-26
 
