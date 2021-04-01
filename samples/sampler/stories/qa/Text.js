@@ -25,6 +25,10 @@ import Section from './components/KitchenSinkSection';
 import iconNames from '../helper/icons';
 import {divMargin, propOptions} from './common/Input_Common';
 
+const Config = {
+	displayName: 'Text'
+};
+
 const inputData = {
 	english: 'We name themes after gemstones',
 	arabic: 'نحن اسم المواضيع بعد الأحجار الكريمة',
@@ -227,7 +231,26 @@ export const Languages = () => {
 	Object.keys(inputData).forEach((key) => {
 		languagesList.push({
 			slotBefore: <span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>,
-			children: inputData[key],
+			children: <span
+				style={{
+					fontWeight: select(
+						'font-weight',
+						[
+							'100',
+							'200',
+							'300',
+							'400',
+							'500',
+							'600',
+							'700',
+							'800',
+							'900'
+						],
+						Config,
+						'400'
+					)
+				}}
+			>{inputData[key]}</span>,
 			key: 'language' + key
 		});
 	});
