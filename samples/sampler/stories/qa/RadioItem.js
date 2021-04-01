@@ -16,7 +16,6 @@ const radioData = {
 		'FirstLongTextWithoutSpace_Lorem_ipsum_dolor_sit_amet,consectetur_adipiscing_elit.Aenean_ac_tellus_in_velit_ornare_commodo.Nam_dignissim_fringilla_nulla,sit_amet_hendrerit_sapien_laoreet_quis.Praesent_quis_tellus_non_diam_viverra_feugiat.FirstLongTextWithoutSpace_End',
 		'SecondLongTextWithoutSpace_Lorem_ipsum_dolor_sit_amet,consectetur_adipiscing_elit.Aenean_ac_tellus_in_velit_ornare_commodo.Nam_dignissim_fringilla_nulla,sit_amet_hendrerit_sapien_laoreet_quis.Praesent_quis_tellus_non_diam_viverra_feugiat.SecondLongTextWithoutSpace_End.'
 	],
-	tallText: ['இந்தியா', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី'],
 	rightToLeft: ['صباح الخير', 'مساء الخير']
 };
 
@@ -66,34 +65,6 @@ export const WithLongTextAndNoSpaces = () => (
 );
 
 WithLongTextAndNoSpaces.storyName = 'with long text and no spaces';
-
-export const WithTallCharacters = () => (
-	<div>
-		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
-			onToggle={action('onToggle')}
-		>
-			{radioData.tallText[0]}
-		</RadioItem>
-		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
-			onToggle={action('onToggle')}
-		>
-			{radioData.tallText[1]}
-		</RadioItem>
-		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
-			onToggle={action('onToggle')}
-		>
-			{radioData.tallText[2]}
-		</RadioItem>
-	</div>
-);
-
-WithTallCharacters.storyName = 'with tall characters';
 
 export const WithRightToLeftText = () => (
 	<div>

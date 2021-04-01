@@ -1,21 +1,29 @@
-import {select} from '@enact/storybook-utils/addons/knobs';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
-import Input from '@enact/sandstone/Input';
-import Item from '@enact/sandstone/Item';
+import Input, {InputField} from '@enact/sandstone/Input';
+import Item, {ItemBase} from '@enact/sandstone/Item';
 import Marquee from '@enact/sandstone/Marquee';
 import {Header} from '@enact/sandstone/Panels';
+import Picker from '@enact/sandstone/Picker';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import {Row} from '@enact/ui/Layout';
 import Repeater from '@enact/ui/Repeater';
+import {Component} from 'react';
 
 import Section from './components/KitchenSinkSection';
+
+import iconNames from '../helper/icons';
+import {divMargin, propOptions} from './common/Input_Common';
 
 const inputData = {
 	english: 'We name themes after gemstones',
@@ -37,8 +45,55 @@ const mixedText = 'ข้MอiคxวeาdมTผeสxมt - M混i合x文e字d';
 Heading.displayName = 'Heading';
 
 const prop = {
+	backgroundOpacity: {
+		'undefined/null (automatic)': '',
+		'opaque (Default for text buttons)': 'opaque',
+		'transparent (Default for icon-only buttons)': 'transparent'
+	},
+	buttonTallText: {
+		' ฟิ้ ไั  ஒ  து': ' ฟิ้ ไั  ஒ  து',
+		ÁÉÍÓÚÑÜ: 'ÁÉÍÓÚÑÜ',
+		'Bản văn': 'Bản văn',
+		តន្ត្រី: 'តន្ត្រី'
+	},
+	contextualPopupDirection: [
+		'above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'],
+	icons: ['', ...iconNames],
+	focusEffect: ['expand', 'static'],
+	pickerOrientation: ['horizontal', 'vertical'],
+	pickerWidth: [null, 'small', 'medium', 'large'],
 	tallText: ['नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து  ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី']
 };
+
+const CheckboxItemConfig = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItem);
+
+const ContextualButton = ContextualPopupDecorator(Button);
+const ContextualPopupConfig = mergeComponentMetadata('ContextualButton', ContextualButton);
+
+const renderPopup = () => <div style={{textAlign: 'center'}}>{select('popupText', prop.tallText, ContextualPopupConfig, prop.tallText[0])}</div>;
+
+class ContextualPopupWithActivator extends Component {
+	constructor (props) {
+		super(props);
+
+		this.state = {open: false};
+	}
+
+	handleOpenToggle = () => {
+		this.setState(({open}) => ({open: !open}));
+	};
+
+	render () {
+		return (
+			<ContextualButton
+				{...this.props}
+				onClose={this.handleOpenToggle}
+				onClick={this.handleOpenToggle}
+				open={this.state.open}
+			/>
+		);
+	}
+}
 
 export default {
 	title: 'Sandstone/Text',
@@ -86,6 +141,79 @@ export const TallGlyphSupportInComponents = () => {
 					<Header alt="Header Standard" type="standard" title={children} subtitle={children} />
 					<br />
 					<Header alt="Header Compact" type="compact" title={children} subtitle={children} />
+				</Section>
+
+				<Section title="Different components with tall characters as children">
+					<Button
+						alt="Button"
+						onClick={action('onClick')}
+						backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Button)}
+						disabled={boolean('disabled', Button)}
+						focusEffect={select('focusEffect', prop.focusEffect, Button)}
+						icon={select('icon', prop.icons, Button)}
+						minWidth={boolean('minWidth', Button, true) ? void 0 : false}
+						selected={boolean('selected', Button)}
+						size={select('size', ['small', 'large'], Button)}
+					>
+						{select('value', prop.buttonTallText, Button, 'ฟิ้  ไั  ஒ  து')}
+					</Button>
+					<CheckboxItem
+						alt="CheckboxItem"
+						disabled={boolean('disabled', CheckboxItemConfig, false)}
+						inline={boolean('inline', CheckboxItemConfig)}
+						onToggle={action('onToggle')}
+					>
+						{select('children', prop.tallText, CheckboxItemConfig, prop.tallText[0])}
+					</CheckboxItem>
+					<InputField
+						alt="InputField"
+						style={divMargin}
+						size={select('size', propOptions.size, InputField)}
+						value={select('value', prop.tallText, InputField, prop.tallText[0])}
+					/>
+					<Item
+						alt="Item with tall characters"
+						disabled={boolean('disabled', Item)}
+					>
+						{select('value', prop.tallText, Item, prop.tallText[2])}
+					</Item>
+					<Picker
+						alt="Picker"
+						onChange={action('onChange')}
+						width={select('width', prop.pickerWidth, Picker, 'large')}
+						orientation={select('orientation', prop.pickerOrientation, Picker, 'horizontal')}
+						wrap={boolean('wrap', Picker)}
+						joined={boolean('joined', Picker)}
+						noAnimation={boolean('noAnimation', Picker)}
+						disabled={boolean('disabled', Picker)}
+						incrementIcon={select('incrementIcon', iconNames, Picker)}
+						decrementIcon={select('decrementIcon', iconNames, Picker)}
+					>
+						{prop.tallText}
+					</Picker>
+					<RadioItem
+						alt="RadioItem"
+						disabled={boolean('disabled', RadioItem)}
+						inline={boolean('inline', RadioItem)}
+						onToggle={action('onToggle')}
+					>
+						{select('children', prop.tallText, RadioItem, prop.tallText[0])}
+					</RadioItem>
+					<SwitchItem
+						alt="SwitchItem"
+						disabled={boolean('disabled', SwitchItem)}
+						inline={boolean('inline', SwitchItem)}
+						onToggle={action('onToggle')}
+					>
+						{select('children', prop.tallText, SwitchItem, prop.tallText[0])}
+					</SwitchItem>
+					<ContextualPopupWithActivator
+						alt="ContextualPopupDecorator"
+						direction={select('direction', prop.contextualPopupDirection, ContextualPopupConfig, 'above')}
+						popupComponent={renderPopup}
+					>
+						ContextualPopup with tall characters
+					</ContextualPopupWithActivator>
 				</Section>
 			</Scroller>
 		</div>

@@ -11,7 +11,6 @@ const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxIt
 const prop = {
 	longText:
 	'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text',
-	tallText: ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី'],
 	extraSpaceText: 'This		Text 		has			extra 		space',
 	rtlText: 'هناك حقيقة مثبتة منذ زمن طويل وهي'
 };
@@ -32,18 +31,6 @@ export const WithLongText = () => (
 );
 
 WithLongText.storyName = 'with long text';
-
-export const WithTallCharacters = () => (
-	<CheckboxItem
-		disabled={boolean('disabled', Config, false)}
-		inline={boolean('inline', Config)}
-		onToggle={action('onToggle')}
-	>
-		{select('children', prop.tallText, Config, prop.tallText[0])}
-	</CheckboxItem>
-);
-
-WithTallCharacters.storyName = 'with tall characters';
 
 export const WithExtraSpacing = () => (
 	<CheckboxItem
