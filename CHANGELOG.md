@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Panels.Header` to move focus in header properly via 5-way
+- `sandstone/WizardPanels` to not show focus effect on wrong element in `footer`
 
 ## [1.4.4-experimental-6] - 2021-02-23
 
