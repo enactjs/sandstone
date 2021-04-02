@@ -359,8 +359,8 @@ PopupTabLayout.Tab = Tab;
  */
 const TabPanels = (props) => {
 	const onTransition = useContext(TabLayoutContext);
-	return <Panels noCloseButton {...props} css={css} onTransition={onTransition}/>;
-}
+	return <Panels noCloseButton {...props} css={css} onTransition={onTransition} />;
+};
 
 /**
  * Omits the close button.
