@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Panels.Header` to move focus in header properly via 5-way
+
 ## [1.4.4-experimental-6] - 2021-02-23
 
 ### Fixed
