@@ -218,7 +218,7 @@ const TabLayoutBase = kind({
 			}
 		},
 		index: 0,
-		orientation: 'vertical',
+		orientation: 'vertical'
 	},
 
 	styles: {

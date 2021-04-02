@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
+
 ### Fixed
 
 - `sandstone/Input` button label when default value is `0`
