@@ -20,10 +20,10 @@ import {Row} from '@enact/ui/Layout';
 import Repeater from '@enact/ui/Repeater';
 import {Component} from 'react';
 
+import {divMargin, propOptions} from './common/Input_Common';
 import Section from './components/KitchenSinkSection';
 
 import iconNames from '../helper/icons';
-import {divMargin, propOptions} from './common/Input_Common';
 
 const Config = {
 	displayName: 'Text'
