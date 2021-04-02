@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
+
 ## [2.0.0-alpha.3] - 2021-03-31
 
 ### Added
