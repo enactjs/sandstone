@@ -6,7 +6,7 @@ import {getDirection, Spotlight} from '@enact/spotlight';
 import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {Row, Cell} from '@enact/ui/Layout';
-import {MarqueeController} from "@enact/ui/Marquee";
+import {MarqueeController} from '@enact/ui/Marquee';
 import {useMeasurable} from '@enact/ui/Measurable';
 import {unit} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';

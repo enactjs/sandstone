@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Panels.Header` MarqueeController to synchronize marquee of title and subtitle
+
 ### Fixed
 
 - `sandstone/Input` button label when default value is `0`
