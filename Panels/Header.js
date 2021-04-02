@@ -3,6 +3,7 @@ import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
 import {getDirection, Spotlight} from '@enact/spotlight';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {Row, Cell} from '@enact/ui/Layout';
@@ -633,6 +634,7 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 };
 
 const HeaderDecorator = compose(
+	SpotlightContainerDecorator,
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	ContextAsDefaultsHeader,
 	HeaderMeasurementDecorator,
