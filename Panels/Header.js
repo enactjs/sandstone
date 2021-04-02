@@ -6,6 +6,7 @@ import {getDirection, Spotlight} from '@enact/spotlight';
 import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {Row, Cell} from '@enact/ui/Layout';
+import {MarqueeController} from "@enact/ui/Marquee";
 import {useMeasurable} from '@enact/ui/Measurable';
 import {unit} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
@@ -637,6 +638,7 @@ const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	ContextAsDefaultsHeader,
 	HeaderMeasurementDecorator,
+	MarqueeController,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
 );
