@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Input` button label when default value is `0`
 - `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
 
 ## [2.0.0-alpha.3] - 2021-03-31
@@ -19,7 +20,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Dropdown` to not show console error after selecting item
-- `sandstone/Input` button label when default value is `0`
 - `sandstone/RangePicker` to update label when value is out of range
 - `sandstone/VirtualList` to not block key down events after panel transition
 
