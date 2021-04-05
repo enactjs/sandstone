@@ -429,7 +429,7 @@ const WizardPanelsBase = kind({
 							</ViewManager>
 						) : null}
 					</Cell>
-					<Cell className={css.footer} component="footer" shrink>
+					<Cell className={css.footer} component="footer" key={index} shrink>
 						{/* This should probably use portals */}
 						{footer}
 					</Cell>

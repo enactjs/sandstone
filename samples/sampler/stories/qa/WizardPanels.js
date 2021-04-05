@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-no-bind */
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
+import React, {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import BodyText from '@enact/sandstone/BodyText';
@@ -8,6 +9,7 @@ import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
+import {Panel} from '@enact/sandstone/WizardPanels';
 import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
 
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -27,6 +29,47 @@ const inputData = {
 };
 
 WizardPanels.displayName = 'WizardPanels';
+
+class WizardPanelsWidthFooterButtons extends Component {
+	constructor () {
+		super();
+		this.state = {
+			index: 0
+		};
+	}
+
+	onNextClick = (ev) => {
+		this.setState({index: 1});
+		action('onNextClick')(ev);
+	};
+
+	onPrevClick = (ev) => {
+		this.setState({index: 0});
+		action('onPrevClick')(ev);
+	};
+
+	render () {
+		return (
+			<WizardPanels
+				noAnimation index={this.state.index}
+				onNextClick={this.onNextClick}
+				onPrevClick={this.onPrevClick}
+			>
+				<Panel title={'Panel0'} subtitle={'subtitle'} nextButton={<Button>Next</Button>}>
+					<footer>
+						<Button>Dummy</Button>
+						<Button onClick={this.onNextClick}>Next</Button>
+					</footer>
+				</Panel>
+				<Panel title={'Panel1'} subtitle={'subtitle'} prevButton={<Button>Previous</Button>}>
+					<footer>
+						<Button onClick={this.onPrevClick}>Previous</Button>
+					</footer>
+				</Panel>
+			</WizardPanels>
+		);
+	}
+}
 
 storiesOf('WizardPanels', module)
 	.add(
@@ -105,6 +148,16 @@ storiesOf('WizardPanels', module)
 					</footer>
 				</WizardPanels.Panel>
 			</WizardPanels>
+		),
+		{
+			props: {
+				noPanel: true
+			}
+		}
+	).add(
+		'with footter buttons',
+		() => (
+			<WizardPanelsWidthFooterButtons />
 		),
 		{
 			props: {
