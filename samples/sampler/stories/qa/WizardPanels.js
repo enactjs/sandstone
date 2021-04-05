@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
+import React, {Component} from 'react';
 import {storiesOf} from '@storybook/react';
 
 import BodyText from '@enact/sandstone/BodyText';
@@ -30,7 +30,7 @@ const inputData = {
 
 WizardPanels.displayName = 'WizardPanels';
 
-class WizardPanelsWidthFooterButtons extends React.Component {
+class WizardPanelsWidthFooterButtons extends Component {
 	constructor () {
 		super();
 		this.state = {
@@ -38,18 +38,32 @@ class WizardPanelsWidthFooterButtons extends React.Component {
 		};
 	}
 
+	onNextClick = (ev) => {
+		this.setState({index: 1});
+		action('onNextClick')(ev);
+	};
+
+	onPrevClick = (ev) => {
+		this.setState({index: 0});
+		action('onPrevClick')(ev);
+	};
+
 	render () {
 		return (
-			<WizardPanels noAnimation index={this.state.index}>
+			<WizardPanels
+				noAnimation index={this.state.index}
+				onNextClick={this.onNextClick}
+				onPrevClick={this.onPrevClick}
+			>
 				<Panel title={'Panel0'} subtitle={'subtitle'} nextButton={<Button>Next</Button>}>
 					<footer>
 						<Button>Dummy</Button>
-						<Button onClick={() => this.setState({index: 1})}>Next</Button>
+						<Button onClick={this.onNextClick}>Next</Button>
 					</footer>
 				</Panel>
-				<Panel title={'Panel1'} subtitle={'subtitle'}>
+				<Panel title={'Panel1'} subtitle={'subtitle'} prevButton={<Button>Previous</Button>}>
 					<footer>
-						<Button onClick={() => this.setState({index: 0})}>Previous</Button>
+						<Button onClick={this.onPrevClick}>Previous</Button>
 					</footer>
 				</Panel>
 			</WizardPanels>
@@ -144,5 +158,10 @@ storiesOf('WizardPanels', module)
 		'with footter buttons',
 		() => (
 			<WizardPanelsWidthFooterButtons />
-		)
+		),
+		{
+			props: {
+				noPanel: true
+			}
+		}
 	);
