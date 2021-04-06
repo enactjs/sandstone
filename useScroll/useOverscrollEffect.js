@@ -4,7 +4,7 @@ import {constants} from '@enact/ui/useScroll';
 import {useCallback, useEffect, useRef} from 'react';
 
 const
-	{overscrollTypeDone, overscrollTypeHold, overscrollTypeNone, overscrollTypeOnce} = constants,
+	{overscrollDefaultRatio, overscrollTypeDone, overscrollTypeHold, overscrollTypeNone, overscrollTypeOnce} = constants,
 	overscrollTransitionPrefix = '--scroll-overscroll-transition-',
 	overscrollTranslatePrefix = '--scroll-overscroll-translate-',
 	overscrollTransitionStart = 'transform 300ms cubic-bezier(0.5, 1, 0.89, 1)',
@@ -90,7 +90,7 @@ const useOverscrollEffect = (props, instances) => {
 				isRtl = scrollContainerHandle.current.rtl,
 				edge = (direction === 'up' || !isRtl && direction === 'left' || isRtl && direction === 'right') ? 'before' : 'after';
 
-			scrollContainerHandle.current.checkAndApplyOverscrollEffect(orientation, edge, overscrollTypeOnce);
+			scrollContainerHandle.current.checkAndApplyOverscrollEffect(orientation, edge, overscrollTypeOnce, overscrollDefaultRatio);
 		}
 	}
 
