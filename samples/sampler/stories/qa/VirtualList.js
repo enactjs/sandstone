@@ -387,7 +387,7 @@ export const WithExtraItems = () => {
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 			/>
-			<Cell shrink component={Item}>
+			<Cell shrink component={Item} style={{marginTop: '3px'}}>
 				extra item1
 			</Cell>
 			<Cell shrink component={Item}>
