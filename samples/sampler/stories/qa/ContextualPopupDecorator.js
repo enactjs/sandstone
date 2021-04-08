@@ -33,6 +33,16 @@ const renderSuperTallPopup = () => (
 	</div>
 );
 
+const renderButtonWithTooltip = () => (
+	<div style={{textAlign: 'center'}}>
+		<Button
+			size="large"
+			tooltipPosition="below center"
+			tooltipText="Longer tooltip"
+		>Tooltip button</Button>
+	</div>
+);
+
 class ContextualPopupWithActivator extends Component {
 	constructor (props) {
 		super(props);
@@ -169,3 +179,17 @@ export const WithOverflows = () => (
 );
 
 WithOverflows.storyName = 'with overflows';
+
+export const WithButtonTooltip = () => (
+	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
+		<ContextualPopupWithActivator
+			direction="above"
+			popupComponent={renderButtonWithTooltip}
+			spotlightRestrict="self-only"
+		>
+			Contextual Button
+		</ContextualPopupWithActivator>
+	</div>
+);
+
+WithButtonTooltip.storyName = 'with button tooltip';

@@ -4,6 +4,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/Input` button label when default value is `0`
+- `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
+
+## [2.0.0-alpha.3] - 2021-03-31
+
 ### Added
 
 - `sandstone/Dropdown` number type `width` prop
@@ -16,6 +23,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FormCheckboxItem` to show correct color for `slotBefore` icon in disabled state
 - `sandstone/RangePicker` to update label when value is out of range
 - `sandstone/VirtualList` to not block key down events after panel transition
+
+## [2.0.0-alpha.2] - 2021-03-26
+
+- Update Enact dependency
 
 ## [2.0.0-alpha.1] - 2021-02-24
 
