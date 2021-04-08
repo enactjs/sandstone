@@ -22,7 +22,7 @@ export default {
 	component: 'ImageItem'
 };
 
-export const _ImageItem = () => (
+export const _ImageItem = () => ( 
 	<ImageItem
 		centered={boolean('centered', Config)}
 		disabled={boolean('disabled', Config)}
