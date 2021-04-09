@@ -29,6 +29,9 @@
 
 		// Grow the knob when the Slider gets spotted
 		.focus({
+			.knob::before {
+				opacity: 1;
+			}
 			&.active,
 			&.pressed {
 				.knob::before {
