@@ -39,7 +39,7 @@ describe('Scroller', function () {
 			// Step 4 Verify: Spotlight is on the (x) button.
 			expect(ScrollerPage.buttonTop.isFocused(), 'focus').to.be.true();
 			// Step 5: Press 5-Way Down.
-			ScrollerPage.spotlightRight();
+			ScrollerPage.spotlightDown();
 			// Step 6 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
 			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 			// Step 7: Press 5-Way Left.
@@ -54,6 +54,21 @@ describe('Scroller', function () {
 			ScrollerPage.spotlightUp();
 			// Step 9 Verify: Spotlight is on the (x) button.
 			expect(ScrollerPage.buttonTop.isFocused()).to.be.true();
+
+			// Step 10: Press 5-Way Down.
+			ScrollerPage.spotlightDown();
+			// Step 10 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
+			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
+
+			// Step 11: Press 5-Way Select.
+			ScrollerPage.spotlightSelect();
+			// Step 11 Verify: Spotlight is on the box surrounding the item and scrollbars.
+			expect(ScrollerPage.focusableBody.isFocused()).to.be.true();
+
+			// Step 12: Press 5-Way Select.
+			ScrollerPage.spotlightSelect();
+			// Step 12 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
+			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 		});
 
 		it('should focus on scrollthumb with 5-way key and focusableScrollbar `true`[GT-28534]', function () {
