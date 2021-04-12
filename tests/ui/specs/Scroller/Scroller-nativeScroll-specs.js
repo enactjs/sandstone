@@ -40,32 +40,32 @@ describe('Scroller', function () {
 
 			// Step 5: Press 5-Way Right.
 			ScrollerPage.spotlightRight();
-			// Step 6 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
+			// Step 5 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
 			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 
-			// Step 7: Press Back key (or 'esc' with Chrome) or 5-way Select.
+			// Step 6: Press Back key (or 'esc' with Chrome) or 5-way Select.
 			ScrollerPage.backKey();
-			// Step 7 Verify: Spolight is on the box surrounding the item and scrollbars.
+			// Step 6 Verify: Spolight is on the box surrounding the item and scrollbars.
 			expect(ScrollerPage.focusableBody.isFocused()).to.be.true();
 
-			// Step 8: Press 5-Way Up.
+			// Step 7: Press 5-Way Up.
 			ScrollerPage.spotlightUp();
-			// Step 8 Verify: Spotlight is on the (x) button.
+			// Step 7 Verify: Spotlight is on the (x) button.
 			expect(ScrollerPage.buttonTop.isFocused()).to.be.true();
 
-			// Step 9: Press 5-Way Right.
+			// Step 8: Press 5-Way Right.
 			ScrollerPage.spotlightRight();
-			// Step 9 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
+			// Step 8 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
 			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
+
+			// Step 9: Press 5-Way Select.
+			ScrollerPage.spotlightSelect();
+			// Step 9 Verify: Spotlight is on the box surrounding the item and scrollbars.
+			expect(ScrollerPage.focusableBody.isFocused()).to.be.true();
 
 			// Step 10: Press 5-Way Select.
 			ScrollerPage.spotlightSelect();
-			// Step 10 Verify: Spotlight is on the box surrounding the item and scrollbars.
-			expect(ScrollerPage.focusableBody.isFocused()).to.be.true();
-
-			// Step 11: Press 5-Way Select.
-			ScrollerPage.spotlightSelect();
-			// Step 11 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
+			// Step 10 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
 			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 		});
 
