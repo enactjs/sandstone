@@ -72,7 +72,7 @@ const SliderBase = (props) => {
 
 	const tooltip = props.tooltip === true ? ProgressBarTooltip : props.tooltip;
 
-	let spotlightAccelerator = useRef();
+	const spotlightAccelerator = useRef();
 
 	const handlers = useHandlers({
 		onBlur: handle(
@@ -111,8 +111,8 @@ const SliderBase = (props) => {
 		componentCss.slider,
 		className,
 		{
-			[componentCss.active]: active,
-			[componentCss.showAnchor]: showAnchor
+			[mergedCss.active]: active,
+			[mergedCss.showAnchor]: showAnchor
 		},
 		css && css.slider
 	);
@@ -203,6 +203,12 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	/**
 	 * Controls the keydown frequency with which the acceleration will "freeze".
 	 * While frozen, the value of the slider is not changed via arrow key.
+	 *
+	 * To customize the key acceleration speed, pass a array for [frequency]{@link spotlight/Accelerator.Accelerator}.
+	 *
+	 * ```
+	 * <Slider keyFrequency={[3, 3, 3, 2, 2, 2, 1]} />
+	 * ```
 	 *
 	 * @type {Number[]}
 	 * @default [1]

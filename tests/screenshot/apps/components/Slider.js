@@ -42,6 +42,7 @@ const SliderTests = [
 	// Customized style
 	<Slider css={css} value={50} />,
 	<Slider css={css} orientation="vertical" value={50} />,
+	<Slider css={css} orientation="vertical" value={50} showAnchor />,
 
 	// *************************************************************
 	// tooltip - all positions
