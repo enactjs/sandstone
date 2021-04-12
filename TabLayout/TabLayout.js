@@ -202,7 +202,16 @@ const TabLayoutBase = kind({
 		 * @type {Number}
 		 * @public
 		 */
-		tabSize: PropTypes.number
+		tabSize: PropTypes.number,
+
+		/**
+		 * Type of TabLayout.
+		 *
+		 * @type {('normal'|'popup')}
+		 * @default 'normal'
+		 * @private
+		 */
+		 type: PropTypes.oneOf(['normal', 'popup'])
 	},
 
 	defaultProps: {
@@ -218,7 +227,8 @@ const TabLayoutBase = kind({
 			}
 		},
 		index: 0,
-		orientation: 'vertical'
+		orientation: 'vertical',
+		type: 'normal'
 	},
 
 	styles: {
@@ -297,9 +307,8 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleEnter, handleTabsTransitionEnd, index, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleEnter, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, type, ...rest}) => {
 		delete rest.anchorTo;
-		delete rest.onCollapse;
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
@@ -344,6 +353,7 @@ const TabLayoutBase = kind({
 						component={ViewManager}
 						index={index}
 						noAnimation
+						onFocus={(type === 'normal' && !collapsed) ? onCollapse : null}
 						orientation={orientation}
 					>
 						{children}
