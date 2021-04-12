@@ -91,7 +91,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 				SpotlightAccelerator.reset();
 			}
 		}
-	}, [consumeEventWithScroll, rtl, vertical]);
+	}, [consumeEventWithScroll, ref, rtl, vertical]);
 	return (
 		<div {...rest} className={classNames(className, scrollbarTrackCss && scrollbarTrackCss.scrollbarTrack)} ref={ref}>
 			<ScrollbarThumb aria-label={ariaLabel} className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb)} onKeyDown={onKeyDown}>
