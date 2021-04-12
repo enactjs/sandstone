@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/FormCheckboxItem` to show correct color for `slotBefore` icon in disabled state when focused
+- `sandstone/ImageItem` to resize the image properly
 - `sandstone/Input` button label when default value is `0`
 - `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
 
