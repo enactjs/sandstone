@@ -204,10 +204,10 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * Controls the keydown frequency with which the acceleration will "freeze".
 	 * While frozen, the value of the slider is not changed via arrow key.
 	 *
-	 * To customize the key acceleration speed, pass a array for [frequency]{@link spotlight/Accelerator.Accelerator}.
+	 * To customize the key acceleration speed, pass an array for [frequency]{@link spotlight/Accelerator.Accelerator}.
 	 *
 	 * ```
-	 * <Slider keyFrequency={[3, 3, 3, 2, 2, 2, 1]} />
+	 * keyFrequency={[3, 3, 3, 2, 2, 2, 1]}
 	 * ```
 	 *
 	 * @type {Number[]}
