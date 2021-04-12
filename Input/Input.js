@@ -466,7 +466,7 @@ const InputBase = kind({
 
 	computed: {
 		buttonAriaLabel: ({placeholder, type, value}) => {
-			if (value) {
+			if (value || value === 0) {
 				type = isPasswordType(type) ? 'password' : type;
 				return calcAriaLabel('', type, type === 'number' ? value.split('') : value);
 			}
@@ -474,7 +474,11 @@ const InputBase = kind({
 			return calcAriaLabel('', null, placeholder);
 		},
 		buttonLabel: ({placeholder, type, value}) => {
-			return (isPasswordType(type) ? convertToPasswordFormat(value) : value) || placeholder;
+			if (value || value === 0) {
+				return isPasswordType(type) ? convertToPasswordFormat(value) : value.toString();
+			} else {
+				return placeholder;
+			}
 		}
 	},
 

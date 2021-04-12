@@ -530,6 +530,11 @@ export const WithNestedScroller = () => {
 			</Scroller>
 			<Scroller
 				direction="horizontal"
+				focusableScrollbar={
+					prop.focusableScrollbarOption[
+						select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+					]
+				}
 				horizontalScrollbar="visible"
 				key={select('scrollMode', prop.scrollModeOption, Config) + '3'}
 				noScrollByWheel={noScrollByWheel}
