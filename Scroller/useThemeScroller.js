@@ -86,9 +86,6 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 		}
 	};
 
-	// Initial filter setting
-	setNavigableFilter({filterTarget: 'body'});
-
 	return {
 		'aria-labelledby': contentId,
 		className: css.focusableBody,
@@ -105,7 +102,8 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 			forward('onKeyDown'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
 			consumeEventWithFocus
-		)
+		),
+		setNavigableFilter
 	};
 };
 
@@ -354,7 +352,15 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 	// Hooks
 	const isScrollbarVisible = isHorizontalScrollbarVisible || isVerticalScrollbarVisible;
 	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
-	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId, isScrollbarVisible) : {};
+	const {setNavigableFilter, ...focusableBodyProps} = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId, isScrollbarVisible) : {};
+
+	useEffect(() => {
+		// Initial filter setting
+		if (setNavigableFilter) {
+			setNavigableFilter({filterTarget: 'body'});
+		}
+	}, [props.focusableScrollbar]); // eslint-disable-line react-hooks/exhaustive-deps
+
 
 	scrollContentProps.setThemeScrollContentHandle({
 		calculatePositionOnFocus,
