@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, object, select} from '@enact/storybook-utils/addons/knobs';
 import Slider, {SliderTooltip} from '@enact/sandstone/Slider';
 
 const SliderConfig = mergeComponentMetadata('Slider', Slider);
@@ -55,6 +55,7 @@ export const _Slider = () => {
 				0.5
 			)}
 			disabled={disabled}
+			keyFrequency={object('keyFrequency', SliderConfig, [1])}
 			knobStep={number('knobStep', SliderConfig)}
 			max={number('max', SliderConfig, 10)}
 			min={number('min', SliderConfig, 0)}

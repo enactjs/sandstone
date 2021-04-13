@@ -33,8 +33,8 @@ export const _ImageItem = () => (
 		src={object('src', Config, src)}
 		style={{
 			position: 'absolute',
-			width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
-			height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240)
+			width: ri.scaleToRem(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
+			height: ri.scaleToRem(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240)
 		}}
 	>
 		{text('children', Config, 'ImageItem Caption')}

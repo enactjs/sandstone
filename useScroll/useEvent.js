@@ -533,7 +533,13 @@ const useEventVoice = (props, instances) => {
 	function addVoiceEventListener (scrollContentRef) {
 		if (platform.webos) {
 			utilEvent('webOSVoice').addEventListener(scrollContentRef, handleVoice);
-			scrollContentRef.current.setAttribute('data-webos-voice-intent', 'Scroll');
+
+			if (scrollContainerHandle && scrollContainerHandle.current && scrollContainerHandle.current.getScrollBounds) {
+				const bounds = scrollContainerHandle.current.getScrollBounds();
+				if (scrollContainerHandle.current.canScrollVertically(bounds) || scrollContainerHandle.current.canScrollHorizontally(bounds)) {
+					scrollContentRef.current.setAttribute('data-webos-voice-intent', 'Scroll');
+				}
+			}
 		}
 	}
 
