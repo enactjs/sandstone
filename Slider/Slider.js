@@ -205,7 +205,10 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * While frozen, the value of the slider is not changed via arrow key.
 	 *
 	 * To customize the key acceleration speed, pass an array for [frequency]{@link spotlight/Accelerator.Accelerator}.
-	 *
+	 * Each number represents a number of an event for sampling.
+	 * For example, 1 means to process all events while 3 means to process one of the three events.
+	 * If the number is large, the slider value changes slowly.
+	 * Example for accelerating:
 	 * ```
 	 * keyFrequency={[3, 3, 3, 2, 2, 2, 1]}
 	 * ```
