@@ -10,6 +10,7 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Fragment} from 'react';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
 
 import Button from '../Button';
 import Popup from '../Popup';
@@ -241,6 +242,8 @@ const InputPopupBase = kind({
 		 */
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
 
+		useShowPassword: PropTypes.bool,
+
 		/**
 		 * Value of the input.
 		 *
@@ -269,6 +272,7 @@ const InputPopupBase = kind({
 	handlers: {
 		onShow: handle(
 			forward('onShow'),
+			forward('onHidePassword'),
 			(ev, {type}) => type === 'text' || type === 'password',
 			() => Spotlight.setPointerMode(false)
 		),
@@ -290,7 +294,21 @@ const InputPopupBase = kind({
 				forward('onComplete')
 			),
 			forward('onClose')
-		)
+		),
+		onShowPasswordToggle: handle(
+			(ev, {onShowPassword, onHidePassword}) => {
+				if (ev.selected) {
+					onShowPassword();
+				} else {
+					onHidePassword();
+				}
+				return true;
+			}
+		),
+		onShowPasswordClick: () => {
+			Spotlight.setPointerMode(false);
+			Spotlight.focus('inputField');
+		}
 	},
 
 	computed: {
@@ -326,6 +344,10 @@ const InputPopupBase = kind({
 		value,
 		maxLength,
 		minLength,
+		showPassword,
+		useShowPassword,
+		onShowPasswordToggle,
+		onShowPasswordClick,
 		...rest
 	}) => {
 
@@ -379,7 +401,15 @@ const InputPopupBase = kind({
 								placeholder={placeholder}
 								onBeforeChange={onBeforeChange}
 								onKeyDown={onInputKeyDown}
+								spotlightId='inputField'
+								type={showPassword ? 'text' : type}
 							/>
+						}
+						{useShowPassword ?
+							<Cell align='center'>
+								<CheckboxItem onToggle={onShowPasswordToggle} onClick={onShowPasswordClick}>show password</CheckboxItem>
+							</Cell>
+							: null
 						}
 					</Cell>
 					<Cell shrink className={css.buttonArea}>{children}</Cell>
@@ -537,6 +567,7 @@ const AnnounceDecorator = Wrapped => (function AnnounceDecorator (props) {
  */
 const InputDecorator = compose(
 	Pure,
+	Toggleable({activate: 'onShowPassword', deactivate: 'onHidePassword', prop: 'showPassword'}),
 	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
 	AnnounceDecorator,
