@@ -1,5 +1,7 @@
 import Slider, {SliderTooltip as Tooltip} from '../../../../Slider';
 
+import css from './Slider.module.less';
+
 // TODO: RTL, different min/max with visible tooltip
 
 const SliderTests = [
@@ -36,6 +38,12 @@ const SliderTests = [
 	<Slider orientation="vertical" backgroundProgress={0.75} value={25} progressAnchor={0.5} />,
 	<Slider orientation="vertical" backgroundProgress={0.1} value={25} progressAnchor={0.2} />,
 	<Slider orientation="vertical" value={25} progressAnchor={0.5} tooltip />,
+
+	// Customized style
+	<Slider css={css} value={50} />,
+	<Slider css={css} orientation="vertical" value={50} />,
+	<Slider css={css} orientation="vertical" value={50} showAnchor />,
+
 	// *************************************************************
 	// tooltip - all positions
 	// NOTE: Tooltip won't show on slider without focus.  Nothing should show!
