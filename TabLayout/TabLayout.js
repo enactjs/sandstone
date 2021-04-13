@@ -211,7 +211,7 @@ const TabLayoutBase = kind({
 		 * @default 'normal'
 		 * @private
 		 */
-		 type: PropTypes.oneOf(['normal', 'popup'])
+		type: PropTypes.oneOf(['normal', 'popup'])
 	},
 
 	defaultProps: {
