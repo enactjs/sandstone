@@ -39,9 +39,14 @@ export const _WizardPanels = () => (
 			title="WizardPanel View 1"
 			prevButton={
 				boolean('custom first Panel prevButton', Config) ? (
-					<Button icon="closex" aria-label="exit">
-						Exit
-					</Button>
+					<Button icon="closex" aria-label="exit" />
+				) : (
+					void 0
+				)
+			}
+			prevButtonLabel={
+				boolean('custom first Panel prevButton', Config) ? (
+					'Exit'
 				) : (
 					void 0
 				)
@@ -129,9 +134,14 @@ export const _WizardPanels = () => (
 			title="WizardPanel View 4"
 			nextButton={
 				boolean('custom last Panel nextButton', Config) ? (
-					<Button icon="closex" aria-label="quit">
-						Close
-					</Button>
+					<Button icon="closex" aria-label="quit" />
+				) : (
+					void 0
+				)
+			}
+			nextButtonLabel={
+				boolean('custom last Panel nextButton', Config) ? (
+					'Close'
 				) : (
 					void 0
 				)

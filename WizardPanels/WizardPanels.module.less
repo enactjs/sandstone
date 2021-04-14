@@ -18,4 +18,18 @@
 		text-align: center;
 		margin: @sand-wizardpanels-footer-margin;
 	}
+
+	.buttonLabel {
+		.sand-large-button-text();
+		display: inline-block;
+		height: @sand-button-height;
+		max-width: 660px;
+		vertical-align: middle;
+
+		& .label {
+			display: flex;
+			height: 100%;
+			align-items: center;
+		}
+	}
 }

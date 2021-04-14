@@ -17,7 +17,9 @@ function PanelBase ({
 	children,
 	footer,
 	nextButton,
+	nextButtonLabel,
 	prevButton,
+	prevButtonLabel,
 	subtitle,
 	title
 }) {
@@ -30,7 +32,9 @@ function PanelBase ({
 				children,
 				footer,
 				nextButton,
+				nextButtonLabel,
 				prevButton,
+				prevButtonLabel,
 				subtitle,
 				title
 			});
@@ -40,7 +44,9 @@ function PanelBase ({
 		children,
 		footer,
 		nextButton,
+		nextButtonLabel,
 		prevButton,
+		prevButtonLabel,
 		subtitle,
 		set,
 		title

@@ -28,6 +28,11 @@ import css from './WizardPanels.module.less';
 const WizardPanelsContext = createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 const HeaderContainer = SpotlightContainerDecorator(Header);
+const ButtonLabel = (props) => (
+	<div className={css.buttonLabel}>
+		<div className={css.label} {...props} />
+	</div>
+);
 
 /**
  * A WizardPanels that has steps with corresponding panels.
@@ -122,6 +127,8 @@ const WizardPanelsBase = kind({
 		 */
 		nextButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
+		nextButtonLabel: PropTypes.string,
+
 		/**
 		 * Specifies when and how to show `nextButton` on WizardPanel.
 		 *
@@ -215,6 +222,8 @@ const WizardPanelsBase = kind({
 		 * @private
 		 */
 		prevButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
+
+		prevButtonLabel: PropTypes.string,
 
 		/**
 		 * Specifies when and how to show `prevButton` on WizardPanel.
@@ -348,6 +357,7 @@ const WizardPanelsBase = kind({
 		footer,
 		index,
 		nextButton,
+		nextButtonLabel,
 		nextButtonVisibility,
 		noAnimation,
 		onNextClick,
@@ -355,6 +365,7 @@ const WizardPanelsBase = kind({
 		onTransition,
 		onWillTransition,
 		prevButton,
+		prevButtonLabel,
 		prevButtonVisibility,
 		reverseTransition,
 		steps,
@@ -385,29 +396,37 @@ const WizardPanelsBase = kind({
 						type="wizard"
 					>
 						{steps}
-						<NavigationButton
-							aria-label={$L('Previous')}
-							backgroundOpacity="transparent"
-							component={prevButton}
-							icon="arrowlargeleft"
-							iconFlip="auto"
-							minWidth={false}
-							onClick={onPrevClick}
+						<div
 							slot="slotBefore"
-							visible={isPrevButtonVisible}
-						/>
-						<NavigationButton
-							aria-label={$L('Next')}
-							backgroundOpacity="transparent"
-							component={nextButton}
-							icon="arrowlargeright"
-							iconFlip="auto"
-							iconPosition="after"
-							minWidth={false}
-							onClick={onNextClick}
+						>
+							<NavigationButton
+								aria-label={$L('Previous')}
+								backgroundOpacity="transparent"
+								component={prevButton}
+								icon="arrowlargeleft"
+								iconFlip="auto"
+								minWidth={false}
+								onClick={onPrevClick}
+								visible={isPrevButtonVisible}
+							/>
+							{prevButtonLabel ? <ButtonLabel>{prevButtonLabel}</ButtonLabel> : null}
+						</div>
+						<div
 							slot="slotAfter"
-							visible={isNextButtonVisible}
-						/>
+						>
+							{nextButtonLabel ? <ButtonLabel>{nextButtonLabel}</ButtonLabel> : null}
+							<NavigationButton
+								aria-label={$L('Next')}
+								backgroundOpacity="transparent"
+								component={nextButton}
+								icon="arrowlargeright"
+								iconFlip="auto"
+								iconPosition="after"
+								minWidth={false}
+								onClick={onNextClick}
+								visible={isNextButtonVisible}
+							/>
+						</div>
 					</HeaderContainer>
 				}
 				panelType="wizard"
