@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 
+import {is} from '@enact/core/keymap';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
@@ -20,13 +21,16 @@ import spriteGear4k from '../../images/sprite-gear-4k.png';
 PopupTabLayout.displayName = 'PopupTabLayout';
 const Config = mergeComponentMetadata('PopupTabLayout', PopupBase, Popup, TabLayoutBase, TabLayout);
 
+const isLeft = is('left');
+const isRight = is('right');
+
 const navPrev = (callback, value, actionName) => () => {
 	const index = Math.max(value - 1, 0);
 	action(actionName)({index});
 	callback(index);
 };
 const navNext = (callback, value) => () => {
-	const index = Math.min(value + 1, 5);
+	const index = Math.min(value + 1, 1);
 	// action(actionName)({index});
 	callback(index);
 };
@@ -56,6 +60,14 @@ export const _PopupTabLayout = () => {
 	const handleNetworkPrev = navPrev(setIndexNetwork, indexNetwork, 'onBack');
 	const handleSoundNext = navNext(setIndexSound, indexSound, 'onNext');
 	const handleSoundPrev = navPrev(setIndexSound, indexSound, 'onBack');
+
+	const handleKeyDown = (setState, state) => ({keyCode}) => {
+		if (isLeft(keyCode)) {
+			navPrev(setState, state, 'onBack')();
+		} else if (isRight(keyCode)) {
+			navNext(setState, state, 'onNext')();
+		}
+	};
 
 	return (
 		<div>
@@ -89,7 +101,7 @@ export const _PopupTabLayout = () => {
 					onTabClick={action('onTabClick')}
 					title="Display"
 				>
-					<TabPanels index={indexDisplay} onBack={handleDisplayPrev} onClose={handleClose}>
+					<TabPanels index={indexDisplay} onBack={handleDisplayPrev} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>
 						<TabPanel>
 							<Header title="Display Settings" type="compact" />
 							<Item onClick={handleDisplayNext}>Picture Modes</Item>
@@ -118,7 +130,7 @@ export const _PopupTabLayout = () => {
 					</TabPanels>
 				</Tab>
 				<Tab icon={includeIcons ? 'speaker' : null} onTabClick={action('onTabClick')} title="Sound">
-					<TabPanels index={indexSound} onBack={handleSoundPrev} onClose={handleClose}>
+					<TabPanels index={indexSound} onBack={handleSoundPrev} onKeyDown={handleKeyDown(setIndexSound, indexSound)}>
 						<TabPanel>
 							<Header title="Sound Settings" type="compact" />
 							<Item onClick={handleSoundNext}>Advanced Audio</Item>
@@ -136,7 +148,7 @@ export const _PopupTabLayout = () => {
 					onTabClick={action('onTabClick')}
 					title="Network"
 				>
-					<TabPanels index={indexNetwork} onBack={handleNetworkPrev} onClose={handleClose}>
+					<TabPanels index={indexNetwork} onBack={handleNetworkPrev} onKeyDown={handleKeyDown(setIndexNetwork, indexNetwork)}>
 						<TabPanel>
 							<Header title="Network Settings" type="compact" />
 							<Item onClick={handleNetworkNext}>Wired</Item>
@@ -164,7 +176,7 @@ export const _PopupTabLayout = () => {
 					}}
 					title="General"
 				>
-					<TabPanels index={indexGeneral} onBack={handleGeneralPrev} onClose={handleClose}>
+					<TabPanels index={indexGeneral} onBack={handleGeneralPrev} onKeyDown={handleKeyDown(setIndexGeneral, indexGeneral)}>
 						<TabPanel>
 							<Header title="General Settings" type="compact" />
 							<Item onClick={handleGeneralNext}>About</Item>
