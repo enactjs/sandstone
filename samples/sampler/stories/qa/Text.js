@@ -54,27 +54,19 @@ const prop = {
 		'opaque (Default for text buttons)': 'opaque',
 		'transparent (Default for icon-only buttons)': 'transparent'
 	},
-	buttonTallText: {
-		' ฟิ้ ไั  ஒ  து': ' ฟิ้ ไั  ஒ  து',
-		ÁÉÍÓÚÑÜ: 'ÁÉÍÓÚÑÜ',
-		'Bản văn': 'Bản văn',
-		តន្ត្រី: 'តន្ត្រី'
-	},
 	contextualPopupDirection: [
 		'above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'],
 	icons: ['', ...iconNames],
 	focusEffect: ['expand', 'static'],
 	pickerOrientation: ['horizontal', 'vertical'],
 	pickerWidth: [null, 'small', 'medium', 'large'],
-	tallText: ['नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து  ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី']
+	tallText: ['नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து  ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី', 'ฟิ้ ไั  ஒ  து', 'ÁÉÍÓÚÑÜ', 'Bản văn', 'តន្ត្រី']
 };
 
 const CheckboxItemConfig = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItem);
 
 const ContextualButton = ContextualPopupDecorator(Button);
 const ContextualPopupConfig = mergeComponentMetadata('ContextualButton', ContextualButton);
-
-const renderPopup = () => <div style={{textAlign: 'center'}}>{select('popupText', prop.tallText, ContextualPopupConfig, prop.tallText[0])}</div>;
 
 class ContextualPopupWithActivator extends Component {
 	constructor (props) {
@@ -106,6 +98,7 @@ export default {
 
 export const TallGlyphSupportInComponents = () => {
 	const children = select('children', prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
+	const renderPopup = () => <div style={{textAlign: 'center'}}>{children}</div>;
 
 	return (
 		<div>
@@ -119,20 +112,58 @@ export const TallGlyphSupportInComponents = () => {
 
 				<Row>
 					<Section title="Basic Form controls" size="50%">
-						<Button alt="Button">{children}</Button>
+						<Button
+							alt="Button"
+							onClick={action('onClick')}
+							backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Button)}
+							disabled={boolean('disabled', Button)}
+							focusEffect={select('focusEffect', prop.focusEffect, Button)}
+							icon={select('icon', prop.icons, Button)}
+							minWidth={boolean('minWidth', Button, true) ? void 0 : false}
+							selected={boolean('selected', Button)}
+							size={select('size', ['small', 'large'], Button)}
+						>
+							{children}
+						</Button>
 						<Input alt="Input with Placeholder" placeholder={children} />
 						<Input alt="Input" value={children} />
 					</Section>
 					<Section title="Toggleable Items" size="50%">
-						<CheckboxItem alt="CheckboxItem">{children}</CheckboxItem>
+						<CheckboxItem
+							alt="CheckboxItem"
+							disabled={boolean('disabled', CheckboxItemConfig, false)}
+							inline={boolean('inline', CheckboxItemConfig)}
+							onToggle={action('onToggle')}
+						>
+							{children}
+						</CheckboxItem>
 						<FormCheckboxItem alt="FormCheckboxItem">{children}</FormCheckboxItem>
-						<RadioItem alt="RadioItem">{children}</RadioItem>
-						<SwitchItem alt="SwitchItem">{children}</SwitchItem>
+						<RadioItem
+							alt="RadioItem"
+							disabled={boolean('disabled', RadioItem)}
+							inline={boolean('inline', RadioItem)}
+							onToggle={action('onToggle')}
+						>
+							{children}
+						</RadioItem>
+						<SwitchItem
+							alt="SwitchItem"
+							disabled={boolean('disabled', SwitchItem)}
+							inline={boolean('inline', SwitchItem)}
+							onToggle={action('onToggle')}
+						>
+							{children}
+						</SwitchItem>
 					</Section>
 				</Row>
 
 				<Section title="Simple Items">
-					<Item alt="Item">{children}</Item>
+					<Item
+						alt="Item"
+						disabled={boolean('disabled', Item)}
+					>
+						{children}
+					</Item>
 					<Item alt="Item with Label" label={children}>
 						{children}
 					</Item>
@@ -148,39 +179,12 @@ export const TallGlyphSupportInComponents = () => {
 				</Section>
 
 				<Section title="Different components with tall characters as children">
-					<Button
-						alt="Button"
-						onClick={action('onClick')}
-						backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Button)}
-						disabled={boolean('disabled', Button)}
-						focusEffect={select('focusEffect', prop.focusEffect, Button)}
-						icon={select('icon', prop.icons, Button)}
-						minWidth={boolean('minWidth', Button, true) ? void 0 : false}
-						selected={boolean('selected', Button)}
-						size={select('size', ['small', 'large'], Button)}
-					>
-						{select('value', prop.buttonTallText, Button, 'ฟิ้  ไั  ஒ  து')}
-					</Button>
-					<CheckboxItem
-						alt="CheckboxItem"
-						disabled={boolean('disabled', CheckboxItemConfig, false)}
-						inline={boolean('inline', CheckboxItemConfig)}
-						onToggle={action('onToggle')}
-					>
-						{select('children', prop.tallText, CheckboxItemConfig, prop.tallText[0])}
-					</CheckboxItem>
 					<InputField
 						alt="InputField"
 						style={divMargin}
 						size={select('size', propOptions.size, InputField)}
 						value={select('value', prop.tallText, InputField, prop.tallText[0])}
 					/>
-					<Item
-						alt="Item with tall characters"
-						disabled={boolean('disabled', Item)}
-					>
-						{select('value', prop.tallText, Item, prop.tallText[2])}
-					</Item>
 					<Picker
 						alt="Picker"
 						onChange={action('onChange')}
@@ -195,26 +199,11 @@ export const TallGlyphSupportInComponents = () => {
 					>
 						{prop.tallText}
 					</Picker>
-					<RadioItem
-						alt="RadioItem"
-						disabled={boolean('disabled', RadioItem)}
-						inline={boolean('inline', RadioItem)}
-						onToggle={action('onToggle')}
-					>
-						{select('children', prop.tallText, RadioItem, prop.tallText[0])}
-					</RadioItem>
-					<SwitchItem
-						alt="SwitchItem"
-						disabled={boolean('disabled', SwitchItem)}
-						inline={boolean('inline', SwitchItem)}
-						onToggle={action('onToggle')}
-					>
-						{select('children', prop.tallText, SwitchItem, prop.tallText[0])}
-					</SwitchItem>
 					<ContextualPopupWithActivator
 						alt="ContextualPopupDecorator"
 						direction={select('direction', prop.contextualPopupDirection, ContextualPopupConfig, 'above')}
 						popupComponent={renderPopup}
+						spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], ContextualPopupConfig, 'self-only')}
 					>
 						ContextualPopup with tall characters
 					</ContextualPopupWithActivator>

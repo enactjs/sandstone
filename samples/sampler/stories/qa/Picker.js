@@ -22,6 +22,7 @@ const prop = {
 };
 
 const pickerList = {
+	tall: ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី'],
 	long: [
 		'1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius sit amet mattis vulputate enim nulla. A pellentesque sit amet porttitor eget dolor morbi non arcu. Text1',
 		'2 Sit amet consectetur adipiscing elit. Ac turpis egestas integer eget aliquet nibh. Est ullamcorper eget nulla facilisi etiam dignissim. Pellentesque dignissim enim sit amet. Non blandit massa enim nec dui nunc mattis. Text2',
@@ -112,6 +113,24 @@ export const WithLongText = () => (
 );
 
 WithLongText.storyName = 'with long text';
+
+export const WithTallCharacters = () => (
+	<Picker
+		onChange={action('onChange')}
+		width={select('width', prop.width, Picker, 'large')}
+		orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
+		wrap={boolean('wrap', Picker)}
+		joined={boolean('joined', Picker)}
+		noAnimation={boolean('noAnimation', Picker)}
+		disabled={boolean('disabled', Picker)}
+		incrementIcon={select('incrementIcon', iconNames, Picker)}
+		decrementIcon={select('decrementIcon', iconNames, Picker)}
+	>
+		{pickerList.tall}
+	</Picker>
+);
+
+WithTallCharacters.storyName = 'with tall characters';
 
 export const WithADefaultValue = () => (
 	<Picker

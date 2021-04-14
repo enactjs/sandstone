@@ -30,6 +30,12 @@ const prop = {
 		'A Loooooooooooooooooog Button': 'A Loooooooooooooooooog Button',
 		'BUTTON   WITH   EXTRA   SPACES': 'BUTTON   WITH   EXTRA   SPACES'
 	},
+	tallText: {
+		' ฟิ้ ไั  ஒ  து': ' ฟิ้ ไั  ஒ  து',
+		ÁÉÍÓÚÑÜ: 'ÁÉÍÓÚÑÜ',
+		'Bản văn': 'Bản văn',
+		តន្ត្រី: 'តន្ត្រី'
+	},
 	icons: ['', ...iconNames]
 };
 
@@ -54,6 +60,23 @@ export const WithLongText = () => (
 );
 
 WithLongText.storyName = 'with long text';
+
+export const WithTallCharacters = () => (
+	<Button
+		onClick={action('onClick')}
+		backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
+		disabled={boolean('disabled', Config)}
+		focusEffect={select('focusEffect', prop.focusEffect, Config)}
+		icon={select('icon', prop.icons, Config)}
+		minWidth={boolean('minWidth', Config, true) ? void 0 : false}
+		selected={boolean('selected', Config)}
+		size={select('size', ['small', 'large'], Config)}
+	>
+		{select('value', prop.tallText, Config, 'ฟิ้  ไั  ஒ  து')}
+	</Button>
+);
+
+WithTallCharacters.storyName = 'with tall characters';
 
 export const ToValidateMinWidthWithASingleCharacter = () => (
 	<Button

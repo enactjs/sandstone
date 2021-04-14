@@ -59,6 +59,38 @@ MarkedInvalid.parameters = {
 	}
 };
 
+export const WithTallCharacters = () => (
+	<div>
+		<InputField
+			style={divMargin}
+			size={select('size', propOptions.size, FieldConfig)}
+			defaultValue={inputData.tallText[0]}
+		/>
+		<InputField
+			style={divMargin}
+			size={select('size', propOptions.size, FieldConfig)}
+			defaultValue={inputData.tallText[1]}
+		/>
+		<InputField
+			style={divMargin}
+			size={select('size', propOptions.size, FieldConfig)}
+			defaultValue={inputData.tallText[2]}
+		/>
+		<InputField
+			style={divMargin}
+			size={select('size', propOptions.size, FieldConfig)}
+			defaultValue={inputData.tallText[3]}
+		/>
+	</div>
+);
+
+WithTallCharacters.storyName = 'with tall characters';
+WithTallCharacters.parameters = {
+	info: {
+		text: 'Fields that include text which has historically required special handling.'
+	}
+};
+
 export const WithRtlAndLtrTextTogether = () => (
 	<InputField
 		iconAfter={select('iconAfter', iconNames, FieldConfig)}
