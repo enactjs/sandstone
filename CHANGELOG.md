@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
 
+### Changed
+
+- `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
+
 ### Fixed
 
 - `sandstone/FormCheckboxItem` to show correct color for `slotBefore` icon in disabled state when focused
