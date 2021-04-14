@@ -202,7 +202,7 @@ export const TallGlyphSupportInComponents = () => {
 					<ContextualPopupWithActivator
 						alt="ContextualPopupDecorator"
 						direction={select('direction', prop.contextualPopupDirection, ContextualPopupConfig, 'above')}
-						popupComponent={renderPopup}
+						popupComponent={renderPopup} // eslint-disable-line
 						spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], ContextualPopupConfig, 'self-only')}
 					>
 						ContextualPopup with tall characters
