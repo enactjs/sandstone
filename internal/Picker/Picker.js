@@ -14,6 +14,7 @@ import {Component as ReactComponent} from 'react';
 import ReactDOM from 'react-dom';
 import shouldUpdate from 'recompose/shouldUpdate';
 
+import Heading from '../../Heading';
 import Skinnable from '../../Skinnable';
 
 import $L from '../$L';
@@ -252,6 +253,14 @@ const PickerBase = class extends ReactComponent {
 		incrementIcon: PropTypes.string,
 
 		/**
+		 * Applies inline styling to the title.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inlineTitle: PropTypes.bool,
+
+		/**
 		 * Determines the user interaction of the control. A joined picker allows the user to use
 		 * the arrow keys to adjust the picker's value. The user may no longer use those arrow keys
 		 * to navigate, while this control is focused. A split control allows full navigation,
@@ -366,6 +375,14 @@ const PickerBase = class extends ReactComponent {
 		 * @public
 		 */
 		step: PropTypes.number,
+
+		/**
+		 * The primary text of the `Picker`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
 
 		/**
 		 * The type of picker. It determines the aria-label for the next and previous buttons.
@@ -860,6 +877,7 @@ const PickerBase = class extends ReactComponent {
 			disabled,
 			id,
 			index,
+			inlineTitle,
 			joined,
 			max,
 			min,
@@ -868,6 +886,7 @@ const PickerBase = class extends ReactComponent {
 			reverse,
 			spotlightDisabled,
 			step,
+			title,
 			value,
 			width,
 			...rest
@@ -938,110 +957,113 @@ const PickerBase = class extends ReactComponent {
 		}
 
 		return (
-			<Layout
-				{...voiceProps}
-				{...rest}
-				align="center space-around"
-				aria-controls={joined ? id : null}
-				aria-disabled={disabled}
-				aria-label={this.calcAriaLabel(valueText)}
-				className={className}
-				component={Component}
-				data-webos-voice-intent="Select"
-				data-webos-voice-labels-ext={voiceLabelsExt}
-				disabled={disabled}
-				holdConfig={holdConfig}
-				inline
-				onBlur={this.handleBlur}
-				onDown={this.handleDown}
-				onFocus={this.handleFocus}
-				onHold={this.handleHold}
-				onKeyDown={this.handleKeyDown}
-				onKeyUp={this.handleKeyUp}
-				onUp={this.handleUp}
-				onMouseDown={this.handleMouseDown}
-				onMouseLeave={this.clearPressedState}
-				orientation={orientation}
-				ref={this.initContainerRef}
-				{...spottablePickerProps}
-			>
-				{isHorizontalJoined ?
-					null :
-					<Cell
-						{...voiceProps}
-						align={joined ? 'stretch' : null}
-						aria-controls={!joined ? incrementerAriaControls : null}
-						aria-label={this.calcIncrementLabel(valueText)}
-						className={css.incrementer}
-						component={PickerButton}
-						data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
-						disabled={incrementerDisabled}
-						holdConfig={holdConfig}
-						icon={incrementIcon}
-						joined={joined}
-						onDown={this.handleIncrement}
-						onHold={this.handleIncrement}
-						onKeyDown={this.handleIncKeyDown}
-						onSpotlightDisappear={onSpotlightDisappear}
-						shrink
-						spotlightDisabled={spotlightDisabled}
-					/>
-				}
-				<Cell
+			<>
+				{title ? <Heading className={classnames(componentCss.title, {[componentCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				<Layout
+					{...voiceProps}
+					{...rest}
+					align="center space-around"
+					aria-controls={joined ? id : null}
 					aria-disabled={disabled}
-					aria-hidden={!active}
-					aria-valuetext={valueText}
-					className={css.valueWrapper}
-					id={id}
-					role="spinbutton"
-					shrink
+					aria-label={this.calcAriaLabel(valueText)}
+					className={className}
+					component={Component}
+					data-webos-voice-intent="Select"
+					data-webos-voice-labels-ext={voiceLabelsExt}
+					disabled={disabled}
+					holdConfig={holdConfig}
+					inline
+					onBlur={this.handleBlur}
+					onDown={this.handleDown}
+					onFocus={this.handleFocus}
+					onHold={this.handleHold}
+					onKeyDown={this.handleKeyDown}
+					onKeyUp={this.handleKeyUp}
+					onUp={this.handleUp}
+					onMouseDown={this.handleMouseDown}
+					onMouseLeave={this.clearPressedState}
+					orientation={orientation}
+					ref={this.initContainerRef}
+					{...spottablePickerProps}
 				>
-					{sizingPlaceholder}
-					<PickerViewManager
-						aria-hidden
-						arranger={arranger}
-						className={css.viewManager}
-						duration={100}
-						index={index}
-						noAnimation={noAnimation}
-						reverseTransition={this.reverseTransition}
-					>
-						{children}
-					</PickerViewManager>
-					{showIndicators && (
-						<div className={css.indicatorContainer} {...voiceProps}>
-							{children.map((c, indicator) => (
-								<div
-									key={`indicator${indicator}`}
-									className={classnames(css.indicator, {[css.active]: (index === indicator)})}
-								/>
-							))}
-						</div>
-					)}
-				</Cell>
-				{isHorizontalJoined ?
-					null :
+					{isHorizontalJoined ?
+						null :
+						<Cell
+							{...voiceProps}
+							align={joined ? 'stretch' : null}
+							aria-controls={!joined ? incrementerAriaControls : null}
+							aria-label={this.calcIncrementLabel(valueText)}
+							className={css.incrementer}
+							component={PickerButton}
+							data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
+							disabled={incrementerDisabled}
+							holdConfig={holdConfig}
+							icon={incrementIcon}
+							joined={joined}
+							onDown={this.handleIncrement}
+							onHold={this.handleIncrement}
+							onKeyDown={this.handleIncKeyDown}
+							onSpotlightDisappear={onSpotlightDisappear}
+							shrink
+							spotlightDisabled={spotlightDisabled}
+						/>
+					}
 					<Cell
-						{...voiceProps}
-						align={joined ? 'stretch' : null}
-						aria-controls={!joined ? decrementerAriaControls : null}
-						aria-label={this.calcDecrementLabel(valueText)}
-						className={css.decrementer}
-						component={PickerButton}
-						data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
-						disabled={decrementerDisabled}
-						holdConfig={holdConfig}
-						icon={decrementIcon}
-						joined={joined}
-						onDown={this.handleDecrement}
-						onHold={this.handleDecrement}
-						onKeyDown={this.handleDecKeyDown}
-						onSpotlightDisappear={onSpotlightDisappear}
+						aria-disabled={disabled}
+						aria-hidden={!active}
+						aria-valuetext={valueText}
+						className={css.valueWrapper}
+						id={id}
+						role="spinbutton"
 						shrink
-						spotlightDisabled={spotlightDisabled}
-					/>
-				}
-			</Layout>
+					>
+						{sizingPlaceholder}
+						<PickerViewManager
+							aria-hidden
+							arranger={arranger}
+							className={css.viewManager}
+							duration={100}
+							index={index}
+							noAnimation={noAnimation}
+							reverseTransition={this.reverseTransition}
+						>
+							{children}
+						</PickerViewManager>
+						{showIndicators && (
+							<div className={css.indicatorContainer} {...voiceProps}>
+								{children.map((c, indicator) => (
+									<div
+										key={`indicator${indicator}`}
+										className={classnames(css.indicator, {[css.active]: (index === indicator)})}
+									/>
+								))}
+							</div>
+						)}
+					</Cell>
+					{isHorizontalJoined ?
+						null :
+						<Cell
+							{...voiceProps}
+							align={joined ? 'stretch' : null}
+							aria-controls={!joined ? decrementerAriaControls : null}
+							aria-label={this.calcDecrementLabel(valueText)}
+							className={css.decrementer}
+							component={PickerButton}
+							data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
+							disabled={decrementerDisabled}
+							holdConfig={holdConfig}
+							icon={decrementIcon}
+							joined={joined}
+							onDown={this.handleDecrement}
+							onHold={this.handleDecrement}
+							onKeyDown={this.handleDecKeyDown}
+							onSpotlightDisappear={onSpotlightDisappear}
+							shrink
+							spotlightDisabled={spotlightDisabled}
+						/>
+					}
+				</Layout>
+			</>
 		);
 	}
 };

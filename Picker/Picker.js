@@ -103,6 +103,14 @@ const PickerBase = kind({
 		incrementIcon: PropTypes.string,
 
 		/**
+		 * Applies inline styling to the title.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inlineTitle: PropTypes.bool,
+
+		/**
 		 * Allows the user to use the arrow keys to adjust the picker's value.
 		 *
 		 * Key presses are captured in the directions of the increment and decrement buttons but
@@ -152,6 +160,14 @@ const PickerBase = kind({
 		 * @public
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
+		 * The primary text of the `Picker`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
 
 		/**
 		 * Index of the selected child.

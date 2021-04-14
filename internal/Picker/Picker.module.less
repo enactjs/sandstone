@@ -4,6 +4,17 @@
 @import "../../styles/mixins.less";
 @import "../../styles/skin.less";
 
+.title {
+	.margin-start-end(@sand-picker-title-margin-left, .extract(@sand-heading-margin, right)[]);
+
+	&.inline {
+		display: inline-block;
+		line-height: @sand-picker-value-height;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+}
+
 .picker {
 	vertical-align: bottom;
 	position: relative;

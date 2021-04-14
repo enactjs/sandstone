@@ -133,6 +133,14 @@ const RangePickerBase = kind({
 		incrementIcon: PropTypes.string,
 
 		/**
+		 * Applies inline styling to the title.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inlineTitle: PropTypes.bool,
+
+		/**
 		 * Allows the user can use the arrow keys to adjust the picker's value.
 		 *
 		 * The user may no longer use those arrow keys to navigate while this control is focused.
@@ -196,6 +204,14 @@ const RangePickerBase = kind({
 		 * @public
 		 */
 		step: PropTypes.number,
+
+		/**
+		 * The primary text of the `Picker`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
 
 		/**
 		 * The width of the picker.
