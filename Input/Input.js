@@ -242,6 +242,14 @@ const InputPopupBase = kind({
 		 */
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
 
+		/**
+		 * Activate password showing checkbox
+		 *
+		 * This option only works with `password` type.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		useShowPassword: PropTypes.bool,
 
 		/**
