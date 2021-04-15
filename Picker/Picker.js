@@ -26,6 +26,7 @@ import {validateRange} from '../internal/validators';
 import PickerCore, {PickerItem} from '../internal/Picker';
 
 import titlePickerCss from '../internal/Picker/TitlePicker.module.less';
+
 /**
  * The base `Picker` component.
  *

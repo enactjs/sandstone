@@ -860,7 +860,6 @@ const PickerBase = class extends ReactComponent {
 			disabled,
 			id,
 			index,
-			inlineTitle,
 			joined,
 			max,
 			min,
@@ -869,7 +868,6 @@ const PickerBase = class extends ReactComponent {
 			reverse,
 			spotlightDisabled,
 			step,
-			title,
 			value,
 			width,
 			...rest
