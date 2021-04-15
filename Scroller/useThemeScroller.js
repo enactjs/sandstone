@@ -30,6 +30,8 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 			});
 			return true;
 		}
+
+		return false;
 	};
 
 	const getNavigableFilterTarget = (ev) => {
