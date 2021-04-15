@@ -61,11 +61,16 @@ export const _PopupTabLayout = () => {
 	const handleSoundNext = navNext(setIndexSound, indexSound, 'onNext');
 	const handleSoundPrev = navPrev(setIndexSound, indexSound, 'onBack');
 
-	const handleKeyDown = (setState, state) => ({keyCode}) => {
-		if (isLeft(keyCode)) {
+	// Navigate menus with left and right key.
+	// We need to stopPropagation to prevent tabs to be expanded by this action.
+	const handleKeyDown = (setState, state) => (ev) => {
+		const {keyCode} = ev;
+		if (state > 0 && isLeft(keyCode)) {
 			navPrev(setState, state, 'onBack')();
+			ev.stopPropagation();
 		} else if (isRight(keyCode)) {
 			navNext(setState, state, 'onNext')();
+			ev.stopPropagation();
 		}
 	};
 
