@@ -6,7 +6,7 @@ import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
-import Layout, {Cell} from '@enact/ui/Layout';
+import Layout, {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Fragment} from 'react';
@@ -405,10 +405,10 @@ const InputPopupBase = kind({
 								type={showPassword ? 'text' : type}
 							/>
 						}
-						{useShowPassword ?
-							<Cell align='center'>
-								<CheckboxItem onToggle={onShowPasswordToggle} onClick={onShowPasswordClick}>show password</CheckboxItem>
-							</Cell>
+						{useShowPassword & type === 'password'?
+							<Row align='center center'>
+								<CheckboxItem className={css.showPassword} onToggle={onShowPasswordToggle} onClick={onShowPasswordClick}>show password</CheckboxItem>
+							</Row>
 							: null
 						}
 					</Cell>
