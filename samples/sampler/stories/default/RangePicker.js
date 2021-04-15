@@ -35,7 +35,7 @@ export const _RangePicker = () => (
 		defaultValue={0}
 		disabled={boolean('disabled', Config)}
 		incrementIcon={select('incrementIcon', ['', ...incrementIcons], Config)}
-		inlineTitle={boolean('inlineTitle', Picker)}
+		inlineTitle={boolean('inlineTitle', Config)}
 		joined={boolean('joined', Config)}
 		noAnimation={boolean('noAnimation', Config)}
 		onChange={action('onChange')}
