@@ -429,11 +429,11 @@ const RangePickerTests = [
 	// title
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} title="Title" />
+		component: <RangePicker min={0} max={5} value={0} title="Title" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} inlineTitle title="Title" />
+		component: <RangePicker min={0} max={5} value={0} inlineTitle title="Title" />
 	}
 ];
 export default RangePickerTests;

@@ -9,16 +9,19 @@
  * @exports RangePickerBase
  */
 
+import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 
+import Heading from '../Heading';
 import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 
 import css from './RangePicker.module.less';
+import titlePickerCss from '../internal/Picker/TitlePicker.module.less';
 
 const digits = (num) => {
 	// minor optimization
@@ -279,12 +282,15 @@ const RangePickerBase = kind({
 		}
 	},
 
-	render: ({label, value, voiceLabel, ...rest}) => {
+	render: ({label, inlineTitle, title, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
 		return (
-			<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
-				<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
-			</Picker>
+			<>
+				{title ? <Heading className={classnames(titlePickerCss.title, {[titlePickerCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
+					<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
+				</Picker>
+			</>
 		);
 	}
 });

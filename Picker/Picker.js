@@ -11,6 +11,7 @@
  * @exports PickerBase
  */
 
+import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
@@ -18,11 +19,13 @@ import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import {Children} from 'react';
 
+import Heading from '../Heading';
 import {MarqueeController} from '../Marquee';
 import {validateRange} from '../internal/validators';
 
 import PickerCore, {PickerItem} from '../internal/Picker';
 
+import titlePickerCss from '../internal/Picker/TitlePicker.module.less';
 /**
  * The base `Picker` component.
  *
@@ -249,13 +252,16 @@ const PickerBase = kind({
 		}
 	},
 
-	render: ({children, max, value, voiceLabel, ...rest}) => {
+	render: ({children, inlineTitle, max, title, value, voiceLabel, ...rest}) => {
 		delete rest.marqueeDisabled;
 
 		return (
-			<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
-				{children}
-			</PickerCore>
+			<>
+				{title ? <Heading className={classnames(titlePickerCss.title, {[titlePickerCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
+					{children}
+				</PickerCore>
+			</>
 		);
 	}
 });
