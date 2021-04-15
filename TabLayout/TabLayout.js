@@ -3,6 +3,9 @@
  *
  * @module sandstone/TabLayout
  * @exports TabLayout
+ * @exports TabLayoutBase
+ * @exports TabLayoutContext
+ * @exports TabLayoutDecorator
  * @exports Tab
  */
 
@@ -19,13 +22,15 @@ import Toggleable from '@enact/ui/Toggleable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {Fragment} from 'react';
+import {createContext, Fragment} from 'react';
 
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
+
+const TabLayoutContext = createContext(null);
 
 /**
  * Tabbed Layout component.
@@ -197,7 +202,16 @@ const TabLayoutBase = kind({
 		 * @type {Number}
 		 * @public
 		 */
-		tabSize: PropTypes.number
+		tabSize: PropTypes.number,
+
+		/**
+		 * Type of TabLayout.
+		 *
+		 * @type {('normal'|'popup')}
+		 * @default 'normal'
+		 * @private
+		 */
+		type: PropTypes.oneOf(['normal', 'popup'])
 	},
 
 	defaultProps: {
@@ -213,7 +227,8 @@ const TabLayoutBase = kind({
 			}
 		},
 		index: 0,
-		orientation: 'vertical'
+		orientation: 'vertical',
+		type: 'normal'
 	},
 
 	styles: {
@@ -257,7 +272,14 @@ const TabLayoutBase = kind({
 				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
 				forward('onTabAnimationEnd')
 			)
-		)
+		),
+		handleEnter: (ev, props) => {
+			const {index, previousIndex} = ev;
+
+			if (index > previousIndex) {
+				forward('onCollapse', ev, props);
+			}
+		}
 	},
 
 	computed: {
@@ -285,7 +307,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleEnter, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, type, ...rest}) => {
 		delete rest.anchorTo;
 		delete rest.onTabAnimationEnd;
 
@@ -304,38 +326,40 @@ const TabLayoutBase = kind({
 
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
-			<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
-				<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
-					<TabGroup
-						{...tabGroupProps}
-						collapsed={isVertical}
-						spotlightId={getTabsSpotlightId(spotlightId, isVertical)}
-						tabSize={!isVertical ? tabSize : null}
-						spotlightDisabled={!collapsed && isVertical}
-					/>
-				</Cell>
-				{isVertical ? <Cell
-					className={css.tabs + ' ' + css.tabsExpanded}
-					size={dimensions.tabs.normal}
-				>
-					<TabGroup
-						{...tabGroupProps}
-						spotlightId={getTabsSpotlightId(spotlightId, false)}
-						spotlightDisabled={collapsed}
-					/>
-				</Cell> : null}
-				<Cell
-					size={isVertical ? contentSize : null}
-					className={css.content}
-					component={ViewManager}
-					index={index}
-					noAnimation
-					onFocus={!collapsed ? onCollapse : null}
-					orientation={orientation}
-				>
-					{children}
-				</Cell>
-			</Layout>
+			<TabLayoutContext.Provider value={handleEnter}>
+				<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
+					<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
+						<TabGroup
+							{...tabGroupProps}
+							collapsed={isVertical}
+							spotlightId={getTabsSpotlightId(spotlightId, isVertical)}
+							tabSize={!isVertical ? tabSize : null}
+							spotlightDisabled={!collapsed && isVertical}
+						/>
+					</Cell>
+					{isVertical ? <Cell
+						className={css.tabs + ' ' + css.tabsExpanded}
+						size={dimensions.tabs.normal}
+					>
+						<TabGroup
+							{...tabGroupProps}
+							spotlightId={getTabsSpotlightId(spotlightId, false)}
+							spotlightDisabled={collapsed}
+						/>
+					</Cell> : null}
+					<Cell
+						size={isVertical ? contentSize : null}
+						className={css.content}
+						component={ViewManager}
+						index={index}
+						noAnimation
+						onFocus={(type === 'normal' && !collapsed) ? onCollapse : null}
+						orientation={orientation}
+					>
+						{children}
+					</Cell>
+				</Layout>
+			</TabLayoutContext.Provider>
 		);
 	}
 });
@@ -370,6 +394,7 @@ export default TabLayout;
 export {
 	TabLayout,
 	TabLayoutBase,
+	TabLayoutContext,
 	TabLayoutDecorator,
 	Tab
 };

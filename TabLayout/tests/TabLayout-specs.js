@@ -21,7 +21,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const expected = 'collapsed';
-		const actual = subject.prop('className');
+		const actual = subject.find('.tabLayout').prop('className');
 
 		expect(actual).toContain(expected);
 	});
@@ -42,7 +42,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const expected = 'vertical';
-		const actual = subject.prop('className');
+		const actual = subject.find('.tabLayout').prop('className');
 
 		expect(actual).toContain(expected);
 	});
@@ -65,7 +65,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const expected = 'horizontal';
-		const actual = subject.prop('className');
+		const actual = subject.find('.tabLayout').prop('className');
 
 		expect(actual).toContain(expected);
 	});
