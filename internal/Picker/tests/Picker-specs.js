@@ -23,6 +23,32 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should have an heading element when \'title\'', () => {
+		const subject = mount(
+			<Picker title="title text" />
+		);
+
+		expect(subject.find('h6')).toHaveLength(1);
+
+		const expected = 'title';
+		const actual = subject.find('h6').prop('className');
+
+		expect(actual).toContain(expected);
+	});
+
+	test('should have an heading element with inline class when \'title\' and \'inlineTitle\'', () => {
+		const subject = mount(
+			<Picker title="title text" inlineTitle />
+		);
+
+		expect(subject.find('h6')).toHaveLength(1);
+
+		const expected = 'inline';
+		const actual = subject.find('h6').prop('className');
+
+		expect(actual).toContain(expected);
+	});
+
 	test(
 		'should return an object {value: Number} that represents the next value of the Picker component when pressing the increment <span>',
 		() => {
