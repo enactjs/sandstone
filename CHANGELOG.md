@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
+- `sandstone/Input` prop `useShowPassword` to provide checkbox for control visibility of password
 
 ### Fixed
 
