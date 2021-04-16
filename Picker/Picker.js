@@ -24,7 +24,7 @@ import PickerCore, {PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 import {MarqueeController} from '../Marquee';
 
-import titlePickerCss from '../internal/Picker/TitlePicker.module.less';
+import pickerTitleCss from '../internal/Picker/PickerTitle.module.less';
 
 /**
  * The base `Picker` component.
@@ -257,7 +257,7 @@ const PickerBase = kind({
 
 		return (
 			<>
-				{title ? <Heading className={classnames(titlePickerCss.title, {[titlePickerCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
 				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
 					{children}
 				</PickerCore>

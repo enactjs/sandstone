@@ -21,7 +21,7 @@ import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 
 import css from './RangePicker.module.less';
-import titlePickerCss from '../internal/Picker/TitlePicker.module.less';
+import pickerTitleCss from '../internal/Picker/PickerTitle.module.less';
 
 const digits = (num) => {
 	// minor optimization
@@ -286,7 +286,7 @@ const RangePickerBase = kind({
 		delete rest.padded;
 		return (
 			<>
-				{title ? <Heading className={classnames(titlePickerCss.title, {[titlePickerCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
 				<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 					<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
 				</Picker>
