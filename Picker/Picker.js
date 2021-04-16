@@ -20,10 +20,9 @@ import PropTypes from 'prop-types';
 import {Children} from 'react';
 
 import Heading from '../Heading';
-import {MarqueeController} from '../Marquee';
-import {validateRange} from '../internal/validators';
-
 import PickerCore, {PickerItem} from '../internal/Picker';
+import {validateRange} from '../internal/validators';
+import {MarqueeController} from '../Marquee';
 
 import titlePickerCss from '../internal/Picker/TitlePicker.module.less';
 
