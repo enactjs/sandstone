@@ -434,17 +434,15 @@ const HeaderBase = kind({
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
-			<div className={css.backContainer}>
-				<Button
-					aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
-					backgroundOpacity={backButtonBackgroundOpacity}
-					className={css.back}
-					icon="arrowhookleft"
-					iconFlip="auto"
-					onClick={onBack}
-					size="small"
-				/>
-			</div>
+			<Button
+				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
+				backgroundOpacity={backButtonBackgroundOpacity}
+				className={css.back}
+				icon="arrowhookleft"
+				iconFlip="auto"
+				onClick={onBack}
+				size="small"
+			/>
 		) : null);
 
 		// Set up the close button
