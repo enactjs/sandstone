@@ -123,8 +123,8 @@ const RangePickerTests = [
 	<RangePicker decrementIcon="backward" min={0} max={10} value={5} />,
 
 	// title
-	<RangePicker min={0} max={5} title="Title" />,
-	<RangePicker min={0} max={5} inlineTitle title="Title" />,
+	<RangePicker min={0} max={5} value={0} title="Title" />,
+	<RangePicker min={0} max={5} value={0} inlineTitle title="Title" />,
 
 	// *************************************************************
 	// locale = 'ar-SA'
