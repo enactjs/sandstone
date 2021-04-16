@@ -32,7 +32,7 @@ const TouchableCell = Touchable(Cell);
 
 const isTouchMode = () => {
 	const rootContainer = document.querySelector('#root > div');
-	return rootContainer && rootContainer.classList.contains('spotlight-on-active');
+	return rootContainer && rootContainer.classList.contains('spotlight-input-touch');
 };
 
 /**
@@ -267,7 +267,7 @@ const TabLayoutBase = kind({
 			)
 		),
 		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand}) => {
-			// See the global class 'spotlight-on-active' to check the input type is touch
+			// See the global class 'spotlight-input-touch' to check the input type is touch
 			if (isTouchMode() && direction === 'horizontal') {
 				if (!collapsed && velocityX < 0) {
 					onCollapse();

@@ -132,3 +132,4 @@ export const WithoutIcon = () => {
 };
 
 WithoutIcon.storyName = 'without icon';
+

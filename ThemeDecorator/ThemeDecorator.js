@@ -177,9 +177,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		[css.bg]: !overlay
 	});
 
-	const spotlightRootDecoratorController = spotlight ? {
-		configEffect: null
-	} : {};
+	let spotlightInputType = {};
 
 	let App = Wrapped;
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
@@ -204,8 +202,11 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	}
 	if (spotlight) {
 		App = SpotlightRootDecorator({
-			getConfigEffect: (fn) => {
-				spotlightRootDecoratorController.configEffect = fn;
+			getInputTypeSetter: (setInputType, activateInputType) => {
+				spotlightInputType = {
+					set: setInputType,
+					activate: activateInputType
+				};
 			},
 			noAutoFocus,
 			rootId // set the DOM node ID of the React DOM tree root
@@ -257,15 +258,16 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		componentDidMount () {
 			if (spotlight && platform.webos) {
+				spotlightInputType.activate(true);
 				new LS2Request().send({
 					service: 'luna://com.webos.surfacemanager',
 					method: 'getLastInputType',
 					subscribe: true,
 					onSuccess: function (res) {
-						spotlightRootDecoratorController.configEffect(res.lastInputType);
+						spotlightInputType.set(res.lastInputType);
 					},
 					onFailure: function () {
-						// Do nothing to hide the internal LS2Request
+						spotlightInputType.activate(false);
 					}
 				});
 			}
