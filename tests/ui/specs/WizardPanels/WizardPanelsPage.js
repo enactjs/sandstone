@@ -16,7 +16,7 @@ class WizardPanelsInterface {
 		this['view' + view].waitForExist({timeout});
 	}
 
-	waitForLeave (view, timeout = 1000) {
+	waitForLeave (view, timeout = 2000) {
 		this['view' + view].waitForExist({timeout, reverse: true});
 	}
 
