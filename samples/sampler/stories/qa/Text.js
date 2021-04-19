@@ -60,7 +60,7 @@ const prop = {
 	focusEffect: ['expand', 'static'],
 	pickerOrientation: ['horizontal', 'vertical'],
 	pickerWidth: [null, 'small', 'medium', 'large'],
-	tallText: ['नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து  ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី', 'ฟิ้ ไั  ஒ  து', 'ÁÉÍÓÚÑÜ', 'Bản văn', 'តន្ត្រី']
+	tallText: ['नरेंद्र मोदी', 'ଇନପୁଟଗୁଡିକ', 'ฟิ้ ไั ஒ  து  ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី', 'ÁÉÍÓÚÑÜ', 'Bản văn']
 };
 
 const CheckboxItemConfig = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItem);
@@ -97,17 +97,17 @@ export default {
 };
 
 export const TallGlyphSupportInComponents = () => {
-	const children = select('children', prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
-	const renderPopup = () => <div style={{textAlign: 'center'}}>{children}</div>;
+	const text = select('text', prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
+	const renderPopup = () => <div style={{textAlign: 'center'}}>{text}</div>;
 
 	return (
 		<div>
 			<Scroller style={{height: '100%'}}>
 				<Section title="Text controls">
-					<div alt="Basic div">{children}</div>
-					<Heading alt="Heading">{children}</Heading>
-					<BodyText alt="BodyText">{children}</BodyText>
-					<Marquee alt="Marquee">{children}</Marquee>
+					<div alt="Basic div">{text}</div>
+					<Heading alt="Heading">{text}</Heading>
+					<BodyText alt="BodyText">{text}</BodyText>
+					<Marquee alt="Marquee">{text}</Marquee>
 				</Section>
 
 				<Row>
@@ -123,10 +123,10 @@ export const TallGlyphSupportInComponents = () => {
 							selected={boolean('selected', Button)}
 							size={select('size', ['small', 'large'], Button)}
 						>
-							{children}
+							{text}
 						</Button>
-						<Input alt="Input with Placeholder" placeholder={children} />
-						<Input alt="Input" value={children} />
+						<Input alt="Input with Placeholder" placeholder={text} />
+						<Input alt="Input" value={text} />
 					</Section>
 					<Section title="Toggleable Items" size="50%">
 						<CheckboxItem
@@ -135,16 +135,16 @@ export const TallGlyphSupportInComponents = () => {
 							inline={boolean('inline', CheckboxItemConfig)}
 							onToggle={action('onToggle')}
 						>
-							{children}
+							{text}
 						</CheckboxItem>
-						<FormCheckboxItem alt="FormCheckboxItem">{children}</FormCheckboxItem>
+						<FormCheckboxItem alt="FormCheckboxItem">{text}</FormCheckboxItem>
 						<RadioItem
 							alt="RadioItem"
 							disabled={boolean('disabled', RadioItem)}
 							inline={boolean('inline', RadioItem)}
 							onToggle={action('onToggle')}
 						>
-							{children}
+							{text}
 						</RadioItem>
 						<SwitchItem
 							alt="SwitchItem"
@@ -152,7 +152,7 @@ export const TallGlyphSupportInComponents = () => {
 							inline={boolean('inline', SwitchItem)}
 							onToggle={action('onToggle')}
 						>
-							{children}
+							{text}
 						</SwitchItem>
 					</Section>
 				</Row>
@@ -162,20 +162,20 @@ export const TallGlyphSupportInComponents = () => {
 						alt="Item"
 						disabled={boolean('disabled', Item)}
 					>
-						{children}
+						{text}
 					</Item>
-					<Item alt="Item with Label" label={children}>
-						{children}
+					<Item alt="Item with Label" label={text}>
+						{text}
 					</Item>
 					<ImageItem alt="ImageItem" style={{height: 200}}>
-						{children}
+						{text}
 					</ImageItem>
 				</Section>
 
 				<Section title="Headers">
-					<Header alt="Header Standard" type="standard" title={children} subtitle={children} />
+					<Header alt="Header Standard" type="standard" title={text} subtitle={text} />
 					<br />
-					<Header alt="Header Compact" type="compact" title={children} subtitle={children} />
+					<Header alt="Header Compact" type="compact" title={text} subtitle={text} />
 				</Section>
 
 				<Section title="Different components with tall characters as children">
@@ -183,7 +183,7 @@ export const TallGlyphSupportInComponents = () => {
 						alt="InputField"
 						style={divMargin}
 						size={select('size', propOptions.size, InputField)}
-						value={select('value', prop.tallText, InputField, prop.tallText[0])}
+						value={text}
 					/>
 					<Picker
 						alt="Picker"
