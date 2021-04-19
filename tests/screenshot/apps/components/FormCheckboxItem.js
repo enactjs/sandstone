@@ -3,6 +3,19 @@ import FormCheckboxItem from '../../../../FormCheckboxItem';
 
 import {withConfig} from './utils';
 
+const slotBeforeFormCheckboxItemTests = [
+	<FormCheckboxItem><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem disabled selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem disabled selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>
+];
+
 const FormCheckboxItemTests = [
 	<FormCheckboxItem />,
 	<FormCheckboxItem>FormCheckboxItem</FormCheckboxItem>, 					// not selected
@@ -25,11 +38,8 @@ const FormCheckboxItemTests = [
 	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>, 					// not selected
 
 	// Icon slotBefore
-	<FormCheckboxItem><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	...slotBeforeFormCheckboxItemTests,
+	...withConfig({focus: true}, slotBeforeFormCheckboxItemTests),
 
 	// Centered
 	<FormCheckboxItem centered>Hello FormCheckboxItem</FormCheckboxItem>,
