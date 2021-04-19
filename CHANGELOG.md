@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/WizardPanels` to not show focus effect on wrong element in `footer`
 - `sandstone/FormCheckboxItem` to show correct color for `slotBefore` icon in disabled state when focused
 - `sandstone/ImageItem` to resize the image properly
 - `sandstone/Input` button label when default value is `0`
