@@ -15,7 +15,7 @@ import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import SpotlightRootDecorator from '@enact/spotlight/SpotlightRootDecorator';
-import LS2Request from '@enact/webos/LS2Request/LS2Request';
+import LS2Request from '@enact/webos/LS2Request';
 
 import Skinnable from '../Skinnable';
 
