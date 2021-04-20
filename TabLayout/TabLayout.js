@@ -267,7 +267,7 @@ const TabLayoutBase = kind({
 			const {collapsed, 'data-spotlight-id': spotlightId, type} = props;
 			const popupPanelRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${popupTabLayoutComponentCss.panel}`);
 
-			if (forward('onKeyUp', ev, props) && type === 'popup' && is('cancel')(keyCode) && popupPanelRef.contains(target) && popupPanelRef.dataset.index === "0") {
+			if (forward('onKeyUp', ev, props) && type === 'popup' && is('cancel')(keyCode) && popupPanelRef.contains(target) && popupPanelRef.dataset.index === '0') {
 				if (collapsed) {
 					forward('onExpand', ev, props);
 				}
