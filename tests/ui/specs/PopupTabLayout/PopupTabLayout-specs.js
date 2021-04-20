@@ -214,16 +214,16 @@ describe('PopupTabLayout', function () {
 			it('should collapse tab only when user enters a menu ', function () {
 				Page.spotlightRight();
 				Page.delay(500);
-				expect(popupTabLayout.isCollapsed()).to.be.false();
+				expect(popupTabLayout.isCollapsed).to.be.false();
 
 				Page.spotlightRight();
 				Page.spotlightSelect();
 				Page.delay(500);
-				expect(popupTabLayout.isCollapsed()).to.be.true();
+				expect(popupTabLayout.isCollapsed).to.be.true();
 
 				Page.spotlightLeft();
 				Page.delay(500);
-				expect(popupTabLayout.isCollapsed()).to.be.false();
+				expect(popupTabLayout.isCollapsed).to.be.false();
 			});
 		});
 	});

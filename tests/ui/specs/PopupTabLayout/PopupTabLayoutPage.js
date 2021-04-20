@@ -1,5 +1,5 @@
 'use strict';
-const {getComponent, Page} = require('@enact/ui-test-utils/utils');
+const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getTabPanels = getComponent({component: 'PopupTabLayout', child: 'panels'});
@@ -20,11 +20,6 @@ class PopupTabLayoutInterface {
 		return $(this.tabs.selector).moveTo();
 	}
 
-	/* eslint-disable no-undefined */
-	isCollapsed () {
-		return	$('.TabLayout_TabLayout_collapsed').elementId !== undefined;
-	}
-
 	get self () {
 		return browser.$(this.selector);
 	}
@@ -36,6 +31,9 @@ class PopupTabLayoutInterface {
 	}
 	get tabLayout () {
 		return getTabLayout(this.self);
+	}
+	get isCollapsed () {
+		return hasClass('collapsed', this.tabLayout);
 	}
 	// get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
 	get tabItems () {
