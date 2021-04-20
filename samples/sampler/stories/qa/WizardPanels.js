@@ -6,8 +6,7 @@ import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
-import {Panel} from '@enact/sandstone/WizardPanels';
-import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+import WizardPanels, {Panel, WizardPanelsBase} from '@enact/sandstone/WizardPanels';
 import {Component} from 'react';
 
 WizardPanels.displayName = 'WizardPanels';
