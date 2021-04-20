@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- Enhanced touch support
+
 ### Added
 
 - `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
@@ -12,7 +14,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
 - `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
-- `sandstone/Slider` to show active style when touch dragging
 
 ### Fixed
 
