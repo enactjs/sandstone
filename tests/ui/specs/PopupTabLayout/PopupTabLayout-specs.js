@@ -40,6 +40,7 @@ describe('PopupTabLayout', function () {
 				it('should show the collapsed tabs when focus enters the content', function () {
 					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
 						Page.spotlightRight();
+						Page.spotlightSelect();
 					});
 
 					// Example of getting the DOM from the browser to debug. browser.execute()
@@ -60,6 +61,7 @@ describe('PopupTabLayout', function () {
 				it('should expand the tabs when focus returns to the tabs', function () {
 					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
 						Page.spotlightRight();
+						Page.spotlightSelect();
 					});
 					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
 						Page.spotlightLeft();
@@ -77,9 +79,7 @@ describe('PopupTabLayout', function () {
 					Page.spotlightDown();
 					Page.waitForExist(`#${soundId}`);
 
-					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
-						Page.spotlightRight();
-					});
+					Page.spotlightRight();
 					Page.spotlightUp();
 
 					const expected = 'Advanced Audio';
@@ -170,9 +170,7 @@ describe('PopupTabLayout', function () {
 
 				expect(browser.execute(getFocusedText)).to.equal('Display');
 
-				Page.waitTransitionEnd(1500, 'waiting for tabs to collapse', () => {
-					Page.spotlightRight();
-				});
+				Page.spotlightRight();
 
 				// Color Adjust is the default element
 				expect(browser.execute(getFocusedText)).to.equal('Color Adjust');
@@ -182,15 +180,11 @@ describe('PopupTabLayout', function () {
 
 				expect(browser.execute(getFocusedText)).to.equal('Picture Modes');
 
-				Page.waitTransitionEnd(1500, 'waiting for tabs to expand', () => {
-					Page.spotlightLeft();
-				});
+				Page.spotlightLeft();
 
 				expect(browser.execute(getFocusedText)).to.equal('Display');
 
-				Page.waitTransitionEnd(1500, 'waiting for tabs to collapse', () => {
-					Page.spotlightRight();
-				});
+				Page.spotlightRight();
 
 				// expect to return to Picture Modes
 				const expected = 'Picture Modes';
@@ -215,6 +209,21 @@ describe('PopupTabLayout', function () {
 				const actual = browser.execute(getFocusedText);
 
 				expect(actual).to.equal(expected);
+			});
+
+			it('should collapse tab only when user enters a menu ', function () {
+				Page.spotlightRight();
+				Page.delay(500);
+				expect(popupTabLayout.isCollapsed()).to.be.false();
+
+				Page.spotlightRight();
+				Page.spotlightSelect();
+				Page.delay(500);
+				expect(popupTabLayout.isCollapsed()).to.be.true();
+
+				Page.spotlightLeft();
+				Page.delay(500);
+				expect(popupTabLayout.isCollapsed()).to.be.false();
 			});
 		});
 	});
