@@ -60,9 +60,6 @@ const HeaderBase = kind({
 		 *
 		 * This does not represent whether it is showing, just whether it can or not.
 		 *
-		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
-		 * be set to `true` when being hovered.
-		 *
 		 * @type {Boolean}
 		 * @default false
 		 * @private
@@ -343,7 +340,6 @@ const HeaderBase = kind({
 			{
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
-				showBack: (backButtonAvailable && !noBackButton),
 				withChildren: hasChildren(children)
 			},
 			type
