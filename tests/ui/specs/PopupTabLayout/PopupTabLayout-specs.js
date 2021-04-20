@@ -37,7 +37,7 @@ describe('PopupTabLayout', function () {
 					expect(actual).to.equal(expected);
 				});
 
-				it('should show the collapsed tabs when focus enters the content', function () {
+				it('should show the collapsed tabs when a user enters a menu', function () {
 					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
 						Page.spotlightRight();
 						Page.spotlightSelect();
@@ -216,7 +216,6 @@ describe('PopupTabLayout', function () {
 				Page.delay(500);
 				expect(popupTabLayout.isCollapsed).to.be.false();
 
-				Page.spotlightRight();
 				Page.spotlightSelect();
 				Page.delay(500);
 				expect(popupTabLayout.isCollapsed).to.be.true();
