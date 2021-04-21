@@ -46,7 +46,8 @@ class WizardPanelsWidthFooterButtons extends Component {
 	render () {
 		return (
 			<WizardPanels
-				noAnimation index={this.state.index}
+				index={this.state.index}
+				noAnimation
 				onNextClick={this.onNextClick}
 				onPrevClick={this.onPrevClick}
 			>
