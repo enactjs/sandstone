@@ -80,7 +80,7 @@ const Panel = Slottable(
  *
  * Example:
  * ```
- * nextButton={<Button icon="closex" aria-label="Quit">Close</Button>}
+ * nextButton={<Button icon="closex" aria-label="Quit" />}
  * ```
  *
  * @name nextButton
@@ -109,7 +109,7 @@ const Panel = Slottable(
  *
  * Example:
  * ```
- * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
+ * prevButton={<Button icon="closex" aria-label="Back" />}
  * ```
  *
  * @name prevButton
