@@ -140,7 +140,6 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
-		entering: ({hideChildren}) => (hideChildren && Spotlight.getPointerMode()),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
@@ -173,7 +172,6 @@ const PanelBase = kind({
 		componentRef,
 		css,
 		floatingLayerId,
-		entering,
 		header,
 		ids: {headerId = null, labelledby = null, subtitleId = null, titleId = null},
 		...rest
@@ -187,7 +185,6 @@ const PanelBase = kind({
 					<ComponentOverride
 						component={header}
 						data-index={rest['data-index']}
-						entering={entering}
 						subtitleId={subtitleId}
 						titleId={titleId}
 					/>

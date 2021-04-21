@@ -130,16 +130,6 @@ const HeaderBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
-		 * be set automatically to `true` on render and `false` after animating into view.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
-		 */
-		entering: PropTypes.bool,
-
-		/**
 		 * Determines what triggers the header content to start its animation.
 		 *
 		 * @type {('focus'|'hover'|'render')}
@@ -420,7 +410,6 @@ const HeaderBase = kind({
 		...rest
 	}) => {
 		delete rest.arranger;
-		delete rest.entering;
 		delete rest.marqueeOn;
 		delete rest.subtitle;
 		delete rest.subtitleId;
