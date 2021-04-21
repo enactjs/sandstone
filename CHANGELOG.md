@@ -20,7 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` button label when default value is `0`
 - `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
 - `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
-- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer` when touch
+- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
 
 ## [2.0.0-alpha.3] - 2021-03-31
 
