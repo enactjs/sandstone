@@ -90,6 +90,15 @@ const Panel = Slottable(
  */
 
 /**
+ * The label for the next button.
+ *
+ * @name nextButtonLabel
+ * @memberof sandstone/WizardPanels.Panel.prototype
+ * @type {String}
+ * @public
+ */
+
+/**
  * The button to use in place of the standard prev button.
  *
  * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
@@ -103,9 +112,18 @@ const Panel = Slottable(
  * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
  * ```
  *
- * @name PrevButton
+ * @name prevButton
  * @memberof sandstone/WizardPanels.Panel.prototype
  * @type {Boolean|Component}
+ * @public
+ */
+
+/**
+ * The label for the prev button.
+ *
+ * @name prevButtonLabel
+ * @memberof sandstone/WizardPanels.Panel.prototype
+ * @type {String}
  * @public
  */
 

@@ -119,7 +119,7 @@ const WizardPanelsBase = kind({
 		 *
  		 * Example:
  		 * ```
-		 * nextButton={<Button icon="closex" aria-label="Quit">Close</Button>}
+		 * nextButton={<Button icon="closex" aria-label="Quit" />}
 		 * ```
 		 *
 		 * @type {Boolean|Component}
@@ -127,6 +127,12 @@ const WizardPanelsBase = kind({
 		 */
 		nextButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
+		/**
+		 * The label for the next button.
+		 *
+		 * @type {String}
+		 * @private
+		 */
 		nextButtonLabel: PropTypes.string,
 
 		/**
@@ -215,7 +221,7 @@ const WizardPanelsBase = kind({
 		 *
  		 * Example:
  		 * ```
-		 * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
+		 * prevButton={<Button icon="closex" aria-label="Back" />}
 		 * ```
 		 *
 		 * @type {Boolean|Component}
@@ -223,6 +229,12 @@ const WizardPanelsBase = kind({
 		 */
 		prevButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
+		/**
+		 * The label for the prev button.
+		 *
+		 * @type {String}
+		 * @private
+		 */
 		prevButtonLabel: PropTypes.string,
 
 		/**
