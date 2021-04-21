@@ -11,7 +11,6 @@
 
 import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {is} from '@enact/core/keymap';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
@@ -241,30 +240,23 @@ const TabLayoutBase = kind({
 	handlers: {
 		onKeyDown: (ev, props) => {
 			const {keyCode, target} = ev;
-			const {collapsed, orientation, 'data-spotlight-id': spotlightId, type} = props;
-			const contentRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`);
+			const {collapsed, orientation, 'data-spotlight-id': spotlightId} = props;
 			const direction = getDirection(keyCode);
 
-			if (forwardWithPrevent('onKeyDown', ev, props)) {
-				if (direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
-					Spotlight.setPointerMode(false);
-					ev.preventDefault();
+			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
+				Spotlight.setPointerMode(false);
+				ev.preventDefault();
 
-					if (Spotlight.move(direction)) {
-						ev.stopPropagation();
-					} else if (contentRef.contains(target)) {
-						Spotlight.set(spotlightId, {navigableFilter: null});
-						const nextTarget = getTargetByDirectionFromElement(direction, target);
-						Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
+				if (Spotlight.move(direction)) {
+					ev.stopPropagation();
+				} else if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
+					Spotlight.set(spotlightId, {navigableFilter: null});
+					const nextTarget = getTargetByDirectionFromElement(direction, target);
+					Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
 
-						if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
-							forward('onExpand', ev, props);
-						}
+					if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
+						forward('onExpand', ev, props);
 					}
-				}
-				if (is('cancel')(keyCode) && type === 'popup' && contentRef.contains(target)) {
-					Spotlight.move('left');
-					ev.nativeEvent.stopImmediatePropagation();
 				}
 			}
 		},
