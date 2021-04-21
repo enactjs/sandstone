@@ -70,7 +70,6 @@ export const _PopupTabLayout = () => {
 			ev.stopPropagation();
 		} else if (isRight(keyCode)) {
 			navNext(setState, state, 'onNext')();
-			ev.stopPropagation();
 		}
 	};
 
