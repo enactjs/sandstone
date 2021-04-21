@@ -10,6 +10,7 @@
  */
 
 import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
+import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -29,6 +30,7 @@ import TabGroup from './TabGroup';
 import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
+import popupTabLayoutComponentCss from '../PopupTabLayout/PopupTabLayout.module.less';
 
 const TabLayoutContext = createContext(null);
 
@@ -258,6 +260,19 @@ const TabLayoutBase = kind({
 						forward('onExpand', ev, props);
 					}
 				}
+			}
+		},
+		onKeyUp: (ev, props) => {
+			const {keyCode, target} = ev;
+			const {collapsed, 'data-spotlight-id': spotlightId, type} = props;
+			const popupPanelRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${popupTabLayoutComponentCss.panel}`);
+
+			if (forward('onKeyUp', ev, props) && type === 'popup' && is('cancel')(keyCode) && popupPanelRef.contains(target) && popupPanelRef.dataset.index === '0') {
+				if (collapsed) {
+					forward('onExpand', ev, props);
+				}
+				Spotlight.move('left');
+				ev.stopPropagation();
 			}
 		},
 		onSelect: handle(
