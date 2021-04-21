@@ -54,6 +54,23 @@ const WizardPanelTests = withConfig({
 		)
 	},
 
+	// Test to prevButtonLabel and nextButtonLabel
+	<WizardPanels index={1} title="WizardPanel">
+		<Panel>View 1</Panel>
+		<Panel prevButtonLabel="Prev Button Label" nextButtonLabel="Next Button Label">View 2</Panel>
+		<Panel>View 3</Panel>
+	</WizardPanels>,
+	{
+		locale: 'ar-SA',
+		component: (
+			<WizardPanels index={1} title="WizardPanel">
+				<Panel>View 1</Panel>
+				<Panel prevButtonLabel="Prev Button Label" nextButtonLabel="Next Button Label">View 2</Panel>
+				<Panel>View 3</Panel>
+			</WizardPanels>
+		)
+	},
+
 	// RTL
 	{
 		component: (
