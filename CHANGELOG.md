@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Input` to add a back button and props `backButtonAriaLabel`, `noBackButton` to customize a back button aria label and to not show a back button
 - `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
 
 ### Changed
