@@ -269,7 +269,7 @@ const InputPopupBase = kind({
 	handlers: {
 		onShow: handle(
 			forward('onShow'),
-			(ev, {type}) => type === 'text' || type === 'password' || type === 'url',
+			(ev, {type}) => !type.includes('number'),
 			() => Spotlight.setPointerMode(false)
 		),
 		onNumberComplete: handle(
