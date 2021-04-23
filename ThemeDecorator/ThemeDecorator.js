@@ -205,7 +205,8 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			getInputTypeSetter: (setInputType, activateInputType) => {
 				spotlightInputType = {
 					set: setInputType,
-					activate: activateInputType
+					activate: activateInputType,
+					request: null
 				};
 			},
 			noAutoFocus,
@@ -259,7 +260,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		componentDidMount () {
 			if (spotlight && platform.webos) {
 				spotlightInputType.activate(true);
-				new LS2Request().send({
+				spotlightInputType.request = new LS2Request().send({
 					service: 'luna://com.webos.surfacemanager',
 					method: 'getLastInputType',
 					subscribe: true,
@@ -270,6 +271,12 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						spotlightInputType.activate(false);
 					}
 				});
+			}
+		}
+
+		componentWillUnmount () {
+			if (spotlightInputType.request) {
+				spotlightInputType.request.cancel();
 			}
 		}
 
