@@ -1,10 +1,9 @@
 import {connect} from 'react-redux';
-import Heading from '@enact/moonstone/Heading';
-import ExpandableItem from '@enact/moonstone/ExpandableItem';
-import Picker from '@enact/moonstone/Picker';
 import PropTypes from 'prop-types';
 import React from 'react';
-import SwitchItem from '@enact/moonstone/SwitchItem';
+import Heading from '@enact/sandstone/Heading';
+import Picker from '@enact/sandstone/Picker';
+import SwitchItem from '@enact/sandstone/SwitchItem';
 
 import {activateEvent, isSyntheticEventOn, setEventCapturing, setDelayMs} from '../../../actions/actions';
 import eventCategory from '../../../constants/eventCategory';
@@ -63,51 +62,47 @@ class FilterBase extends React.Component {
 			});
 		return (
 			<div>
-				<ExpandableItem
-					title="Filter by:"
+				<Heading
+					showLine
+					spacing="medium"
 				>
-					<Heading
-						showLine
-						spacing="medium"
-					>
-						Events
-					</Heading>
-					<div className={css.eventGroup}>
-						{eventItems}
-					</div>
+					Events
+				</Heading>
+				<div className={css.eventGroup}>
+					{eventItems}
+				</div>
 
-					<Heading
-						showLine
-						spacing="medium"
+				<Heading
+					showLine
+					spacing="medium"
+				>
+					Other filters
+				</Heading>
+				<div className={css.eventGroup}>
+					<SwitchItem
+						css={switchItemComponent}
+						onToggle={this.handleEventCapturing}
 					>
-						Other filters
-					</Heading>
-					<div className={css.eventGroup}>
-						<SwitchItem
-							css={switchItemComponent}
-							onToggle={this.handleEventCapturing}
+						Event Capturing
+					</SwitchItem>
+					<SwitchItem
+						css={switchItemComponent}
+						onToggle={this.handleSyntheticEventOn}
+					>
+						React Synthetic Event
+					</SwitchItem>
+					<div className={css.timer}>
+						Timer
+						<Picker
+							className={css.timerPicker}
+							onChange={this.handleTimePicker}
+							orientation="horizontal"
+							width="medium"
 						>
-							Event Capturing
-						</SwitchItem>
-						<SwitchItem
-							css={switchItemComponent}
-							onToggle={this.handleSyntheticEventOn}
-						>
-							React Synthetic Event
-						</SwitchItem>
-						<div className={css.timer}>
-							Timer
-							<Picker
-								className={css.timerPicker}
-								onChange={this.handleTimePicker}
-								orientation="horizontal"
-								width="medium"
-							>
-								{timergroup}
-							</Picker>
-						</div>
+							{timergroup}
+						</Picker>
 					</div>
-				</ExpandableItem>
+				</div>
 			</div>
 		);
 	}
