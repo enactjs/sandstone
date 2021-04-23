@@ -2,6 +2,7 @@
 //
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
+@import "../styles/skin.less";
 
 .wizardPanels {
 	&.noSteps {
@@ -20,16 +21,27 @@
 	}
 
 	.buttonLabel {
-		.sand-large-button-text();
-		display: inline-block;
-		height: @sand-button-height;
-		max-width: 660px;
-		vertical-align: middle;
+		position: absolute;
+		height: 100%;
+		padding-top: @sand-wizardpanels-button-label-padding-top;
+		top: 0;
+		content: attr(data-label);
+	}
 
-		& .label {
-			display: flex;
-			height: 100%;
-			align-items: center;
-		}
+	.prevButtonLabel::after {
+		.buttonLabel;
+		.position-start-end(@sand-wizardpanels-button-label-position-left-right, auto);
+	}
+
+	.nextButtonLabel::after {
+		.buttonLabel;
+		.position-start-end(auto, @sand-wizardpanels-button-label-position-left-right);
 	}
 }
+
+.applySkins({
+	.prevButtonLabel::after,
+	.nextButtonLabel::after {
+		color: @sand-button-text-color;
+	}
+});

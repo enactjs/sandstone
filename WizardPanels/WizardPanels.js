@@ -28,11 +28,6 @@ import css from './WizardPanels.module.less';
 const WizardPanelsContext = createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 const HeaderContainer = SpotlightContainerDecorator(Header);
-const ButtonLabel = (props) => (
-	<div className={css.buttonLabel}>
-		<div className={css.label} {...props} />
-	</div>
-);
 
 /**
  * A WizardPanels that has steps with corresponding panels.
@@ -408,37 +403,33 @@ const WizardPanelsBase = kind({
 						type="wizard"
 					>
 						{steps}
-						<div
+						<NavigationButton
+							aria-label={$L('Previous')}
+							backgroundOpacity="transparent"
+							className={prevButtonLabel ? css.prevButtonLabel : null}
+							component={prevButton}
+							data-label={prevButtonLabel}
+							icon="arrowlargeleft"
+							iconFlip="auto"
+							minWidth={false}
+							onClick={onPrevClick}
 							slot="slotBefore"
-						>
-							<NavigationButton
-								aria-label={$L('Previous')}
-								backgroundOpacity="transparent"
-								component={prevButton}
-								icon="arrowlargeleft"
-								iconFlip="auto"
-								minWidth={false}
-								onClick={onPrevClick}
-								visible={isPrevButtonVisible}
-							/>
-							{prevButtonLabel ? <ButtonLabel>{prevButtonLabel}</ButtonLabel> : null}
-						</div>
-						<div
+							visible={isPrevButtonVisible}
+						/>
+						<NavigationButton
+							aria-label={$L('Next')}
+							backgroundOpacity="transparent"
+							className={nextButtonLabel ? css.nextButtonLabel : null}
+							component={nextButton}
+							data-label={nextButtonLabel}
+							icon="arrowlargeright"
+							iconFlip="auto"
+							iconPosition="after"
+							minWidth={false}
+							onClick={onNextClick}
 							slot="slotAfter"
-						>
-							{nextButtonLabel ? <ButtonLabel>{nextButtonLabel}</ButtonLabel> : null}
-							<NavigationButton
-								aria-label={$L('Next')}
-								backgroundOpacity="transparent"
-								component={nextButton}
-								icon="arrowlargeright"
-								iconFlip="auto"
-								iconPosition="after"
-								minWidth={false}
-								onClick={onNextClick}
-								visible={isNextButtonVisible}
-							/>
-						</div>
+							visible={isNextButtonVisible}
+						/>
 					</HeaderContainer>
 				}
 				panelType="wizard"

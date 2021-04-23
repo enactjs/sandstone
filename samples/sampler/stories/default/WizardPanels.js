@@ -1,15 +1,17 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
 import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+import {Panel, PanelBase} from '@enact/sandstone/WizardPanels/Panel';
 
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
+const ConfigPanel = mergeComponentMetadata('Second Panel', PanelBase, Panel);
 
 const propOptions = {
 	buttonVisibility: ['auto', 'always', 'never']
@@ -44,13 +46,7 @@ export const _WizardPanels = () => (
 					void 0
 				)
 			}
-			prevButtonLabel={
-				boolean('custom first Panel prevButton', Config) ? (
-					'Exit'
-				) : (
-					void 0
-				)
-			}
+			prevButtonLabel="Exit"
 		>
 			<Scroller>
 				<BodyText>
@@ -110,6 +106,8 @@ export const _WizardPanels = () => (
 		<WizardPanels.Panel
 			subtitle="A subtitle for View 2 that is really, really way too long for its own good.    In fact, it's so long that it probably goes to multiple lines, unless your screen is so large that it somehow fits.    That seems unlikely, though, unless you're in the year 2030 or something."
 			title="WizardPanel View 2"
+			prevButtonLabel={text('prevButtonLabel', ConfigPanel, '')}
+			nextButtonLabel={text('nextButtonLabel', ConfigPanel, '')}
 		>
 			<BodyText>Several buttons!</BodyText>
 			<Button icon="list">Button A</Button>
@@ -120,7 +118,10 @@ export const _WizardPanels = () => (
 				<Button>OK</Button>
 			</footer>
 		</WizardPanels.Panel>
-		<WizardPanels.Panel subtitle="A subtitle for View 3" title="WizardPanel View 3">
+		<WizardPanels.Panel
+			subtitle="A subtitle for View 3"
+			title="WizardPanel View 3"
+		>
 			<Item>
 				<slotBefore>
 					<Icon>notification</Icon>
@@ -139,13 +140,7 @@ export const _WizardPanels = () => (
 					void 0
 				)
 			}
-			nextButtonLabel={
-				boolean('custom last Panel nextButton', Config) ? (
-					'Close'
-				) : (
-					void 0
-				)
-			}
+			nextButtonLabel="Close"
 		>
 			<Icon>support</Icon>
 			<BodyText>A simple view</BodyText>

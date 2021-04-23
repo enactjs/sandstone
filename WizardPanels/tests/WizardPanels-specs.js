@@ -691,4 +691,46 @@ describe('WizardPanel Specs', () => {
 			expect(actual).toBe(expected);
 		}
 	);
+
+	test(
+		'should show previous button label on the second Panel when `prevButtonLabel` prop is added',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels index={1}>
+					<Panel>A panel does not have button labels.</Panel>
+					<Panel prevButtonLabel="prev">A panel has a previous button label.</Panel>
+					<Panel>A panel does not have button labels.</Panel>
+				</WizardPanels>
+			);
+
+			const prevButtonLabel = findPrevButton(wizardPanel);
+
+			const expected = true;
+			const actual = prevButtonLabel.exists();
+
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should show next button label on the second Panel when `nextButtonLabel` prop is added',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels index={1}>
+					<Panel>A panel does not have button labels.</Panel>
+					<Panel nextButtonLabel="next">A panel has a next button label.</Panel>
+					<Panel>A panel does not have button labels.</Panel>
+				</WizardPanels>
+			);
+
+			const nextButtonLabel = findPrevButton(wizardPanel);
+
+			const expected = true;
+			const actual = nextButtonLabel.exists();
+
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
 });
