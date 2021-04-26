@@ -16,11 +16,9 @@ const LogsBase = kind({
 	render: ({eventLogs}) => {
 		const logs = eventLogs.map(log => <Log key={log.timeoutId} className={css.log} log={log} />);
 		return (
-			<div className={css.content}>
-				<Scroller className={css.content}>
-					{logs}
-				</Scroller>
-			</div>
+			<Scroller className={css.content}>
+				{logs}
+			</Scroller>
 		);
 	}
 });

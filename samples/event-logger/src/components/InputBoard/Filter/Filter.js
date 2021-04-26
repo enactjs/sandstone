@@ -9,7 +9,6 @@ import {activateEvent, isSyntheticEventOn, setEventCapturing, setDelayMs} from '
 import eventCategory from '../../../constants/eventCategory';
 
 import css from './Filter.module.less';
-import switchItemComponent from './SwitchItemComponent.module.less';
 
 class FilterBase extends React.Component {
 	static propTypes = {
@@ -31,7 +30,7 @@ class FilterBase extends React.Component {
 		};
 	}
 
-	handleTimePicker = ({value}) => {
+	handleTimerPicker = ({value}) => {
 		const timergroup = [3000, 5000, 10000];
 		this.props.onSetDelayMs(timergroup[value]);
 	}
@@ -51,8 +50,8 @@ class FilterBase extends React.Component {
 				const handler = this.handleEventCategory(i);
 				return (
 					<SwitchItem
+						className={css.switchItem}
 						key={i}
-						css={switchItemComponent}
 						inline
 						onToggle={handler}
 					>
@@ -63,8 +62,10 @@ class FilterBase extends React.Component {
 		return (
 			<div>
 				<Heading
+					className={css.heading}
 					showLine
-					spacing="medium"
+					size="tiny"
+					spacing="small"
 				>
 					Events
 				</Heading>
@@ -73,31 +74,35 @@ class FilterBase extends React.Component {
 				</div>
 
 				<Heading
+					className={css.heading}
 					showLine
-					spacing="medium"
+					size="tiny"
+					spacing="small"
 				>
 					Other filters
 				</Heading>
 				<div className={css.eventGroup}>
 					<SwitchItem
-						css={switchItemComponent}
+						className={css.switchItem}
+						inline
 						onToggle={this.handleEventCapturing}
 					>
 						Event Capturing
 					</SwitchItem>
 					<SwitchItem
-						css={switchItemComponent}
+						className={css.switchItem}
+						inline
 						onToggle={this.handleSyntheticEventOn}
 					>
 						React Synthetic Event
 					</SwitchItem>
-					<div className={css.timer}>
-						Timer
+					<div className={css.pickerItem}>
 						<Picker
 							className={css.timerPicker}
-							onChange={this.handleTimePicker}
+							inlineTitle
+							onChange={this.handleTimerPicker}
 							orientation="horizontal"
-							width="medium"
+							title="Timer"
 						>
 							{timergroup}
 						</Picker>

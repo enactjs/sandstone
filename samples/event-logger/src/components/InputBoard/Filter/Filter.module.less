@@ -1,13 +1,23 @@
-.timer {
-	font-size: 24px;
-	line-height: 52px;
-	padding: 0 12px;
-	position: relative;
-	.timerPicker {
-		transform: scale(0.8);
-	}
+.heading {
+	margin-bottom: 0
+}
+
+.timerPicker {
+	transform: scale(0.8);
 }
 
 .eventGroup {
-	padding: 12px;
+	display: flex;
+	.pickerItem {
+		display: inline-flex;
+		align-items: center;
+		line-height: 72px;
+		margin-bottom: 30px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+	.switchItem {
+		font-size: 48px;
+		max-width: 840px; 
+	}
 }
