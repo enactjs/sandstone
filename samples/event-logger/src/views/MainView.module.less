@@ -1,23 +1,24 @@
-@backgroundColor: #abaeb3;
-@fontColor: #4c5059;
+@background-color: #e6e6e6;
+@hover-background-color:#abaeb3;
+@font-color: #4c5059;
 
 .mainView {
 	display: flex;
-	flex-direction: column;
 	width: 100%;
 	height: 100%;
+	flex-direction: column;
 }
 
 .inputBoard {
-	background-color: #E9E9E9;
-	border-radius: 6px;
-	color: @fontColor;
-	font-size: 36px;
+	background-color: @background-color;
 	height: 144px;
-	line-height: 36px;
 	padding: 6px;
+	border-radius: 6px;
+	color: @font-color;
+	line-height: 36px;
+	font-size: 36px;
 	&:hover {
-		background-color: @backgroundColor;
-		color: @fontColor;
+		background-color: @hover-background-color;
+		color: @font-color;
 	}
 }

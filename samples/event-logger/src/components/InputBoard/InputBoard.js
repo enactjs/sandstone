@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
+import {createRef, Component} from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import {addEventLog, removeEventLog, updateEventLog} from '../../actions/actions';
+import eventCategory from '../../constants/eventCategory';
 
 import eventRegData from './Event/EventRegistrationData';
-import eventCategory from '../../constants/eventCategory';
 import Filter from './Filter/Filter';
 
 function extractLogObjectFromEventObject (ev, type, properties) {
@@ -41,7 +41,7 @@ function findLastIndexOfMatchingEvent (array, eventName, isDOMElement, isCapturi
 	return nomatch;
 }
 
-class InputBoardBase extends React.Component {
+class InputBoardBase extends Component {
 	static propTypes = {
 		activeEvents: PropTypes.array,
 		delayMs: PropTypes.number,
@@ -51,11 +51,11 @@ class InputBoardBase extends React.Component {
 		onRemoveEventLog: PropTypes.func,
 		onUpdateEventLog: PropTypes.func,
 		syntheticEventOn: PropTypes.bool
-	}
+	};
 
 	constructor (props) {
 		super(props);
-		this.divRef = React.createRef();
+		this.divRef = createRef();
 		this.isCapturing = true;
 		this.listenersCache = {bubble: {}, capture: {}};
 	}
@@ -134,7 +134,7 @@ class InputBoardBase extends React.Component {
 			() => onRemoveEventLog(ev.type, isDOMElement, isCapturing),
 			delayMs);
 		onAddEventLog(timeoutId, ev.type, isDOMElement, isCapturing, eventObject);
-	}
+	};
 
 	handleEvent = (eventType, isDOMElement) => {
 		const send = this.sendEventLog;
@@ -147,7 +147,7 @@ class InputBoardBase extends React.Component {
 				);
 			};
 		};
-	}
+	};
 
 	registerEventHandlerForDOM = (type, isCapturing = false) => {
 		const
@@ -166,7 +166,7 @@ class InputBoardBase extends React.Component {
 			}
 			this.divRef.current.addEventListener(name, bubblingListener);
 		}
-	}
+	};
 
 	unRegisterEventHandlerForDOM = (type, isCapturing = false) => {
 		for (let name of eventRegData.domEventNames[type]) {
@@ -180,7 +180,7 @@ class InputBoardBase extends React.Component {
 		if (isCapturing) {
 			delete this.listenersCache.capture[type];
 		}
-	}
+	};
 
 	registerEventHandlerForReact = (type, isCapturing = false) => {
 		const handle = this.handleEvent(type, false);
@@ -194,7 +194,7 @@ class InputBoardBase extends React.Component {
 		}
 
 		return results;
-	}
+	};
 
 
 	render () {

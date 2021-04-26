@@ -1,11 +1,9 @@
 import {connect} from 'react-redux';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Scroller from '@enact/ui/Scroller';
 
 import Log from './Log';
-
 import css from './Log.module.less';
 
 const LogsBase = kind({

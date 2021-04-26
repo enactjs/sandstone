@@ -1,12 +1,12 @@
+import {Component} from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import css from './Log.module.less';
 
-class Log extends React.Component {
+class Log extends Component {
 	static propTypes = {
 		log: PropTypes.object
-	}
+	};
 
 	render () {
 		const {eventName, isDOMElement, isCapturing, eventObject} = this.props.log;

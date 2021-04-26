@@ -1,5 +1,4 @@
 import kind from '@enact/core/kind';
-import React from 'react';
 
 import InputBoard from '../components/InputBoard/InputBoard';
 import Logs from '../components/Log/Logs';

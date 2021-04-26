@@ -1,6 +1,6 @@
+import {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Heading from '@enact/sandstone/Heading';
 import Picker from '@enact/sandstone/Picker';
 import SwitchItem from '@enact/sandstone/SwitchItem';
@@ -10,13 +10,13 @@ import eventCategory from '../../../constants/eventCategory';
 
 import css from './Filter.module.less';
 
-class FilterBase extends React.Component {
+class FilterBase extends Component {
 	static propTypes = {
 		onActivateEvent: PropTypes.func,
 		onIsSyntheticEventOn: PropTypes.func,
 		onSetDelayMs: PropTypes.func,
 		onSetEventCapturing: PropTypes.func
-	}
+	};
 
 	constructor (props) {
 		super(props);
@@ -28,20 +28,20 @@ class FilterBase extends React.Component {
 		return function ({selected}) {
 			onActivateEvent(index, selected);
 		};
-	}
+	};
 
 	handleTimerPicker = ({value}) => {
 		const timergroup = [3000, 5000, 10000];
 		this.props.onSetDelayMs(timergroup[value]);
-	}
+	};
 
 	handleEventCapturing = ({selected}) => {
 		this.props.onSetEventCapturing(selected);
-	}
+	};
 
 	handleSyntheticEventOn = ({selected}) => {
 		this.props.onIsSyntheticEventOn(selected);
-	}
+	};
 
 	render () {
 		const
