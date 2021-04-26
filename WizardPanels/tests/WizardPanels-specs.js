@@ -703,7 +703,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const prevButtonLabel = findPrevButton(wizardPanel);
+			const prevButtonLabel = wizardPanel.find('.prevButtonLabel');
 
 			const expected = true;
 			const actual = prevButtonLabel.exists();
@@ -724,7 +724,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const nextButtonLabel = findPrevButton(wizardPanel);
+			const nextButtonLabel = wizardPanel.find('.nextButtonLabel');
 
 			const expected = true;
 			const actual = nextButtonLabel.exists();
