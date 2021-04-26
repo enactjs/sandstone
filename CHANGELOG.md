@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- Enhanced touch support
+
 ### Added
 
 - `sandstone/Input` and `sandstone/Input.InputPopup` `url` to prop `type`
