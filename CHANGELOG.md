@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unrelease]
+
+### Fixed
+
+- `sandstone/Panels.Header` to remeasure marquee metrics when the size of slots changed
+
 ## [1.4.7] - 2021-03-03
 
 ### Added

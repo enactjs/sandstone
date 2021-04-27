@@ -430,11 +430,12 @@ const HeaderBase = kind({
 			},
 			type
 		),
-		titleCell: ({arranger, centered, css, marqueeOn, subtitle, subtitleId, title, titleId, type}) => {
+		titleCell: ({arranger, centered, css, marqueeOn, slotSize, subtitle, subtitleId, title, titleId, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
 			const titleHeading = (
 				<Heading
+					{...centered ? {slotSize} : {}}
 					id={titleId}
 					size="title"
 					spacing="auto"
@@ -449,6 +450,7 @@ const HeaderBase = kind({
 
 			const subtitleHeading = (
 				<Heading
+					{...centered ? {slotSize} : {}}
 					id={subtitleId}
 					size="subtitle"
 					spacing="auto"
