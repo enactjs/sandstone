@@ -103,3 +103,33 @@ export const WithInput = () => {
 };
 
 WithInput.storyName = 'with input';
+
+export const WithoutIcon = () => {
+	return (
+		<Panel>
+			<PopupTabLayout
+				open
+			>
+				<Tab title="First">
+					<TabPanels index={0}>
+						<TabPanel>
+							<Header title="First" type="compact" />
+							<Button>First Tab</Button>
+						</TabPanel>
+					</TabPanels>
+				</Tab>
+				<Tab title="Second">
+					<TabPanels index={0}>
+						<TabPanel>
+							<Header title="Second" type="compact" />
+							<Button>Second Tab</Button>
+						</TabPanel>
+					</TabPanels>
+				</Tab>
+			</PopupTabLayout>
+		</Panel>
+	);
+};
+
+WithoutIcon.storyName = 'without icon';
+

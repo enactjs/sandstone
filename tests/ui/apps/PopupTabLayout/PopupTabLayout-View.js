@@ -38,10 +38,15 @@ function App (props) {
 				</TabPanels>
 			</Tab>
 			<Tab title="Sound">
-				<TabPanels id="sound" noCloseButton>
+				<TabPanels id="sound" index={index} noCloseButton onBack={() => setIndex(0)} >
 					<TabPanel>
 						<Header title="Sound Settings" type="compact" />
-						<Item>Advanced Audio</Item>
+						<Item id="advancedAudio" onClick={() => setIndex(1)}>Advanced Audio</Item>
+					</TabPanel>
+					<TabPanel>
+						<Header title="Advanced Audio Settings" type="compact" />
+						<Item>Balance</Item>
+						<Item>Fade</Item>
 					</TabPanel>
 				</TabPanels>
 			</Tab>
