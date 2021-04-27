@@ -139,15 +139,22 @@ class VirtualGridListPage extends Page {
 		return browser.execute(function (_listItemSelector, _scrollableSelector, _index) {
 			const itemContent = document.querySelectorAll(_listItemSelector)[_index];
 			const scroller = document.querySelector(_scrollableSelector);
-			return Math.round(scroller.getBoundingClientRect().height - itemContent.getBoundingClientRect().top);
+			return Math.round(scroller.getBoundingClientRect().height + scroller.getBoundingClientRect().top - itemContent.getBoundingClientRect().top);
+		}, listItemSelector, scrollableSelector, index);
+	}
+
+	itemOffsetBottomById (index) {
+		return browser.execute(function (_listItemSelector, _scrollableSelector, _index) {
+			const itemContent = document.querySelectorAll(_listItemSelector)[_index];
+			const scroller = document.querySelector(_scrollableSelector);
+			return Math.round(itemContent.getBoundingClientRect().bottom - scroller.getBoundingClientRect().top);
 		}, listItemSelector, scrollableSelector, index);
 	}
 
 	getItemSize (index = 0) {
 		return browser.execute(function (_listItemSelector, _index) {
 			const itemContent = document.querySelectorAll(_listItemSelector)[_index];
-			const itemHeight = itemContent.getBoundingClientRect().height;
-			const itemWidth = itemContent.getBoundingClientRect().width;
+			const {height: itemHeight, width: itemWidth}  = itemContent.getBoundingClientRect();
 			return {
 				height: itemHeight,
 				width: itemWidth
