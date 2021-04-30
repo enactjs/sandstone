@@ -50,7 +50,7 @@ class FilterBase extends Component {
 				const handler = this.handleEventCategory(i);
 				return (
 					<SwitchItem
-						className={css.switchItem}
+						className={[css.switchItem, css.small]}
 						key={i}
 						inline
 						onToggle={handler}
@@ -83,14 +83,14 @@ class FilterBase extends Component {
 				</Heading>
 				<div className={css.eventGroup}>
 					<SwitchItem
-						className={css.switchItem}
+						className={[css.switchItem, css.large]}
 						inline
 						onToggle={this.handleEventCapturing}
 					>
 						Event Capturing
 					</SwitchItem>
 					<SwitchItem
-						className={css.switchItem}
+						className={[css.switchItem, css.large]}
 						inline
 						onToggle={this.handleSyntheticEventOn}
 					>

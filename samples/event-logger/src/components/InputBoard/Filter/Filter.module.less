@@ -10,14 +10,24 @@
 	display: flex;
 	.pickerItem {
 		display: inline-flex;
+		margin-bottom: 30px;
 		align-items: center;
 		line-height: 72px;
-		padding-top: 3px;
-		padding-bottom: 3px;
-		margin-bottom: 30px;
 	}
 	.switchItem {
-		max-width: 840px;
 		font-size: 48px;
+		&.small {
+			width: 480px;
+		}
+		&.large {
+			max-width: 840px;
+		}
+	}
+}
+
+@media (max-width: 1284px) {
+	.eventGroup {
+		flex-direction: row;
+		flex-wrap: wrap;
 	}
 }
