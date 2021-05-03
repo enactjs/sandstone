@@ -11,7 +11,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 
 const ListContainer = SpotlightContainerDecorator('div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
-const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
+const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'auto';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
@@ -72,8 +72,8 @@ class app extends Component {
 			horizontal: false,
 			noLabel: false,
 			numItems: 100,
-			minHeight: 400,
-			minWidth: 600,
+			minHeight: 500,
+			minWidth: 650,
 			spacing: 24,
 			spotlightDisabled: false,
 			translate: false,
@@ -149,9 +149,6 @@ class app extends Component {
 					</Cell>
 					<Cell component={ListContainer}>
 						<Row align="center">
-							<Cell component={Button} shrink id="left">
-								Left
-							</Cell>
 							<Cell align="stretch">
 								<Column align="center">
 									<Cell component={Button} shrink id="top">
@@ -174,7 +171,7 @@ class app extends Component {
 											scrollMode={(translate ? 'translate' : 'native')}
 											spacing={ri.scale(spacing)}
 											spotlightDisabled={spotlightDisabled}
-											style={{height: ri.scaleToRem(minHeight * 3)}}
+											style={{height: ri.scaleToRem(500 * 3)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>
@@ -183,9 +180,6 @@ class app extends Component {
 										Bottom
 									</Cell>
 								</Column>
-							</Cell>
-							<Cell component={Button} shrink id="right">
-								Right
 							</Cell>
 						</Row>
 					</Cell>
