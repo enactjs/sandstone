@@ -154,10 +154,10 @@ class VirtualGridListPage extends Page {
 	getItemSize (index = 0) {
 		return browser.execute(function (_listItemSelector, _index) {
 			const itemContent = document.querySelectorAll(_listItemSelector)[_index];
-			const {height: itemHeight, width: itemWidth}  = itemContent.getBoundingClientRect();
+			const {height, width}  = itemContent.getBoundingClientRect();
 			return {
-				height: itemHeight,
-				width: itemWidth
+				height,
+				width
 			};
 		}, listItemSelector, index);
 	}
