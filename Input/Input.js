@@ -2,15 +2,18 @@ import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
+import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import Layout, {Cell} from '@enact/ui/Layout';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Fragment} from 'react';
 
+import $L from '../internal/$L';
 import Button from '../Button';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
@@ -44,6 +47,15 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		announce: PropTypes.func,
+
+		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
 
 		/**
 		 * Customize component style
@@ -115,6 +127,14 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		minLength: PropTypes.number,
+
+		/**
+		 * Omits the back button.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noBackButton: PropTypes.bool,
 
 		/**
 		 * The type of numeric input to use.
@@ -306,8 +326,10 @@ const InputPopupBase = kind({
 
 	render: ({
 		announce,
+		backButtonAriaLabel,
 		children,
 		css,
+		noBackButton,
 		numberInputField,
 		onBeforeChange,
 		onClose,
@@ -331,6 +353,18 @@ const InputPopupBase = kind({
 
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
+		// Set up the back button
+		const backButton = (!noBackButton ? (
+			<Button
+				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
+				className={css.back}
+				icon="arrowhookleft"
+				iconFlip="auto"
+				onClick={onClose}
+				size="small"
+			/>
+		) : null);
+		const heading = <Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>;
 
 		delete rest.length;
 		delete rest.onComplete;
@@ -346,9 +380,16 @@ const InputPopupBase = kind({
 				noAnimation
 				open={open}
 			>
+				{popupType === 'fullscreen' ? backButton : null}
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
 					<Cell shrink className={css.titles}>
-						<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
+						{popupType === 'fullscreen' ?
+							heading :
+							<>
+								{backButton}
+								{heading}
+							</>
+						}
 						<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 					</Cell>
 					<Cell shrink className={css.inputArea}>
@@ -367,7 +408,7 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
-								className={css.textField}
+								className={classnames(css.textField, spotlightDefaultClass)}
 								css={css}
 								maxLength={maxLength}
 								minLength={minLength}
