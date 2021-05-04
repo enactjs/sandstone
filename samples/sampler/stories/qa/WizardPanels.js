@@ -6,7 +6,8 @@ import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
-import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+import WizardPanels, {Panel, WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+import {Component} from 'react';
 
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
@@ -23,6 +24,48 @@ const inputData = {
 	longerString:
 	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit.'
 };
+
+class WizardPanelsWidthFooterButtons extends Component {
+	constructor () {
+		super();
+		this.state = {
+			index: 0
+		};
+	}
+
+	onNextClick = (ev) => {
+		this.setState({index: 1});
+		action('onNextClick')(ev);
+	};
+
+	onPrevClick = (ev) => {
+		this.setState({index: 0});
+		action('onPrevClick')(ev);
+	};
+
+	render () {
+		return (
+			<WizardPanels
+				index={this.state.index}
+				noAnimation
+				onNextClick={this.onNextClick}
+				onPrevClick={this.onPrevClick}
+			>
+				<Panel title={'Panel0'} subtitle={'subtitle'} nextButton={<Button>Next</Button>}>
+					<footer>
+						<Button>Dummy</Button>
+						<Button onClick={this.onNextClick}>Next</Button>
+					</footer>
+				</Panel>
+				<Panel title={'Panel1'} subtitle={'subtitle'} prevButton={<Button>Previous</Button>}>
+					<footer>
+						<Button onClick={this.onPrevClick}>Previous</Button>
+					</footer>
+				</Panel>
+			</WizardPanels>
+		);
+	}
+}
 
 export default {
 	title: 'Sandstone/WizardPanels',
@@ -129,6 +172,15 @@ export const LongPrevNextButtons = () => (
 
 LongPrevNextButtons.storyName = 'long prev next buttons';
 LongPrevNextButtons.parameters = {
+	props: {
+		noPanel: true
+	}
+};
+
+export const WithFooterButtons = () => <WizardPanelsWidthFooterButtons />;
+
+WithFooterButtons.storyName = 'with footer buttons';
+WithFooterButtons.parameters = {
 	props: {
 		noPanel: true
 	}
