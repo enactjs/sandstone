@@ -5,6 +5,7 @@ import {withConfig, withProps} from './utils';
 const BaseTests = [
 	<Input />,
 	<Input open title="Input Test" subtitle="Additional text" />,
+	<Input open title="Input Test" subtitle="Additional text" noBackButton />,
 	<Input open title="Input Test" subtitle="Additional text" placeholder="placeholder" />,
 	<Input open title="Input Test" subtitle="Additional text" value="value" />,
 	<Input open title="Input Test" subtitle="Additional text" value="value" type="password" />,
