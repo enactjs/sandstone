@@ -91,6 +91,19 @@ describe('Input specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should set type to url at input when input type is "url"', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input open type="url" />
+			</FloatingLayerController>
+		);
+
+		const expected = 'url';
+		const actual = subject.find('input').prop('type');
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should set disabled at button when popup is disabled', () => {
 		const subject = mount(<Input disabled />);
 

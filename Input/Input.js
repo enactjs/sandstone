@@ -255,11 +255,11 @@ const InputPopupBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'url')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url']),
 
 		/**
 		 * Value of the input.
@@ -289,7 +289,7 @@ const InputPopupBase = kind({
 	handlers: {
 		onShow: handle(
 			forward('onShow'),
-			(ev, {type}) => type === 'text' || type === 'password',
+			(ev, {type}) => !type.includes('number'),
 			() => Spotlight.setPointerMode(false)
 		),
 		onNumberComplete: handle(
@@ -479,11 +479,11 @@ const InputBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'url')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url']),
 
 		/**
 		 * Value of the input.

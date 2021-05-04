@@ -4,7 +4,7 @@ import {constants} from '@enact/ui/useScroll';
 import {useCallback, useEffect, useRef} from 'react';
 
 const
-	{overscrollTypeDone, overscrollTypeNone, overscrollTypeOnce} = constants,
+	{overscrollTypeDone, overscrollTypeHold, overscrollTypeNone, overscrollTypeOnce} = constants,
 	overscrollTransitionPrefix = '--scroll-overscroll-transition-',
 	overscrollTranslatePrefix = '--scroll-overscroll-translate-',
 	overscrollTransitionStart = 'transform 300ms cubic-bezier(0.5, 1, 0.89, 1)',
@@ -29,7 +29,7 @@ const useOverscrollEffect = (props, instances) => {
 	const applyOverscrollEffect = useCallback((orientation, edge, type, ratio) => {
 		const isHorizontal = orientation === 'horizontal';
 
-		if (scrollContentRef.current) {
+		if (type !== overscrollTypeHold && scrollContentRef.current) {
 			const
 				effectSize = ratio * (edge === 'before' ? 1 : -1) * (isHorizontal && scrollContainerHandle.current.rtl ? -1 : 1) * overscrollMaxTranslate,
 				translate = `translate${isHorizontal ? 'X' : 'Y'}(${effectSize}px)`,
