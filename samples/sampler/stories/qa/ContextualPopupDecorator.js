@@ -3,6 +3,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import Button from '@enact/sandstone/Button';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
+import Slider from '@enact/sandstone/Slider';
 import ri from '@enact/ui/resolution';
 import {Component} from 'react';
 
@@ -11,6 +12,7 @@ const Config = mergeComponentMetadata('ContextualButton', ContextualButton);
 ContextualButton.displayName = 'ContextualButton';
 
 const buttonMargin = () => ({margin: ri.scaleToRem(24)});
+const sliderMargin = () => ({margin: ri.scaleToRem(30)});
 
 const renderPopup = () => (
 	<div>
@@ -30,6 +32,30 @@ const renderTallPopup = () => (
 const renderSuperTallPopup = () => (
 	<div style={{height: ri.scaleToRem(1140)}}>
 		This is a super tall popup. Note: this popup does not overflow in full screen mode.
+	</div>
+);
+
+const renderPopupWithSlider = () => (
+	<div style={{textAlign: 'center', minWidth: ri.scaleToRem(600)}}>
+		<Slider
+			backgroundProgress={0}
+			disabled={false}
+			max={100}
+			min={0}
+			step={1}
+			style={sliderMargin()}
+			tooltip
+		/>
+	</div>
+);
+
+const renderButtonWithTooltip = () => (
+	<div style={{textAlign: 'center'}}>
+		<Button
+			size="large"
+			tooltipPosition="below center"
+			tooltipText="Longer tooltip"
+		>Tooltip button</Button>
 	</div>
 );
 
@@ -169,3 +195,56 @@ export const WithOverflows = () => (
 );
 
 WithOverflows.storyName = 'with overflows';
+
+export const WithButtonTooltip = () => (
+	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
+		<ContextualPopupWithActivator
+			direction="above"
+			popupComponent={renderButtonWithTooltip}
+			spotlightRestrict="self-only"
+		>
+			Contextual Button
+		</ContextualPopupWithActivator>
+	</div>
+);
+
+WithButtonTooltip.storyName = 'with button tooltip';
+
+export const WithSliderTooltip = () => (
+	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
+		<ContextualPopupWithActivator
+			direction={select(
+				'direction',
+				[
+					'above',
+					'above center',
+					'above left',
+					'above right',
+					'below',
+					'below center',
+					'below left',
+					'below right',
+					'left middle',
+					'left top',
+					'left bottom',
+					'right middle',
+					'right top',
+					'right bottom'
+				],
+				Config,
+				'below center'
+			)}
+			popupComponent={renderPopupWithSlider}
+			spotlightRestrict={select(
+				'spotlightRestrict',
+				['none', 'self-first', 'self-only'],
+				Config,
+				'self-only'
+			)}
+		>
+			Hello Contextual Slider
+		</ContextualPopupWithActivator>
+	</div>
+);
+
+WithSliderTooltip.storyName = 'with Slider Tooltip';

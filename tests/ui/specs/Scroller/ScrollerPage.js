@@ -32,12 +32,20 @@ class ScrollerPage extends Page {
 	get button3 () {
 		return element('#Page_3_Button', browser);
 	}
+
+	get buttonLeft () {
+		return element('#left', browser);
+	}
+	get buttonRight () {
+		return element('#right', browser);
+	}
 	get buttonTop () {
 		return element('#top', browser);
 	}
 	get buttonBottom () {
 		return element('#bottom', browser);
 	}
+
 	get buttonHideScrollbar () {
 		return element('#hideScrollbar', browser);
 	}

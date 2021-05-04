@@ -2,6 +2,32 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+- Enhanced touch support
+
+### Added
+
+- `sandstone/Input` and `sandstone/Input.InputPopup` `url` to prop `type`
+- `sandstone/Picker` and `sandstone/RangePicker` props `title` and `inlineTitle`
+- `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
+
+### Changed
+
+- `sandstone/Panels.Header` to always show back button
+- `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
+- `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds
+
+### Fixed
+
+- `sandstone/FormCheckboxItem` to show correct color for `slotBefore` icon in disabled state when focused
+- `sandstone/ImageItem` to resize the image properly
+- `sandstone/Input` button label when default value is `0`
+- `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
+- `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
+- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
+
 ## [2.0.0-alpha.3] - 2021-03-31
 
 ### Added

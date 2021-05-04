@@ -32,12 +32,13 @@ const SpottableDiv = Spottable('div');
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{'aria-label': ariaLabel, focusableScrollbar, onInteractionForScroll, rtl, scrollbarTrackCss, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, scrollbarTrackCss, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? SpottableDiv : 'div',
 		announceRef = useRef({});
 
 	useEffect (() => {
+		cbAlertScrollbarTrack();
 		SpotlightAccelerator.reset();
 
 		return () => {
@@ -67,7 +68,8 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 					isPagination: isPageKey,
 					isForward: (!rtl && isRight(keyCode)) || (rtl && isLeft(keyCode)) || isDown(keyCode) || isPageDown(keyCode),
 					isVerticalScrollBar: vertical
-				};
+				},
+				scrollProgress = Number(ref.current && ref.current.style.getPropertyValue('--scrollbar-thumb-progress-ratio'));
 
 			if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
 				// Do nothing when (!vertical && pageKey)
@@ -81,14 +83,16 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 					);
 				}
 
-				consumeEventWithScroll(scrollParam, ev);
+				if (ev.repeat || (scrollParam.isForward && scrollProgress !== 1) || (!scrollParam.isForward && scrollProgress !== 0)) {
+					consumeEventWithScroll(scrollParam, ev);
+				}
 			}
 
 			if (!ev.repeat) {
 				SpotlightAccelerator.reset();
 			}
 		}
-	}, [consumeEventWithScroll, rtl, vertical]);
+	}, [consumeEventWithScroll, ref, rtl, vertical]);
 	return (
 		<div {...rest} className={classNames(className, scrollbarTrackCss && scrollbarTrackCss.scrollbarTrack)} ref={ref}>
 			<ScrollbarThumb aria-label={ariaLabel} className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb)} onKeyDown={onKeyDown}>
@@ -106,6 +110,14 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 ScrollbarTrack.displayName = 'ScrollbarTrack';
 
 ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototype */ {
+	/**
+	 * Called when [ScrollbarTrack]{@link sandstone/useScroll.ScrollbarTrack} is updated.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	cbAlertScrollbarTrack: PropTypes.func,
+
 	/**
 	 * `true` if scroll thumb is spottable.
 	 *
@@ -154,6 +166,7 @@ ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototy
 };
 
 ScrollbarTrack.defaultProps = {
+	cbAlertScrollbarTrack: nop,
 	focusableScrollbar: false,
 	onInteractionForScroll: nop,
 	rtl: false,
