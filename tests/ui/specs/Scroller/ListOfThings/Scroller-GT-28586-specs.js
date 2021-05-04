@@ -11,6 +11,7 @@ describe('Scroller List Of Things', function () {
 		ScrollerPage.spotlightSelect();
 
 		// Step 4-1: Wheel Down on the items. Wheel action is replaced PageDown key in this test.
+		ScrollerPage.verticalScrollThumb.moveTo();
 		for (let i = 0; i < 5; i++) {
 			ScrollerPage.pageDown();
 			ScrollerPage.delay(700);
