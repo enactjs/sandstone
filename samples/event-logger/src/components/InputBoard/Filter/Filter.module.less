@@ -1,18 +1,9 @@
-.heading {
-	margin-bottom: 0
-}
-
-.timerPicker {
-	transform: scale(0.8);
-}
-
 .eventGroup {
 	display: flex;
 	.pickerItem {
 		display: inline-flex;
 		margin-bottom: 30px;
 		align-items: center;
-		line-height: 72px;
 	}
 	.switchItem {
 		font-size: 48px;
@@ -25,9 +16,9 @@
 	}
 }
 
+// Allow items to wrap onto multiple lines on mobile devices
 @media (max-width: 1284px) {
 	.eventGroup {
-		flex-direction: row;
 		flex-wrap: wrap;
 	}
 }
