@@ -38,6 +38,15 @@ const renderItem = ({index, ...rest}) => {
 	);
 };
 
+// eslint-disable-next-line enact/prop-types
+const renderItemWithoutLabels = ({index, ...rest}) => {
+	const {source} = items[index];
+
+	return (
+		<ImageItem {...rest} src={source} />
+	);
+};
+
 const updateDataSize = (dataSize) => {
 	const itemNumberDigits = dataSize > 0 ? (dataSize - 1 + '').length : 0;
 	const headingZeros = Array(itemNumberDigits).join('0');
@@ -187,3 +196,35 @@ HorizontalVirtualGridList.parameters = {
 export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridList />;
 
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
+
+export const HorizontalSquaredVirtualGridList = () => (
+	<VirtualGridList
+		dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+		direction="horizontal"
+		horizontalScrollbar="hidden"
+		itemRenderer={renderItemWithoutLabels}
+		itemSize={{
+			minWidth: ri.scale(number('minSize', Config, 804)),
+			minHeight: ri.scale(number('minSize', Config, 804))
+		}}
+		key={select('scrollMode', prop.scrollModeOption, Config)}
+		noScrollByWheel={boolean('noScrollByWheel', Config)}
+		onKeyDown={action('onKeyDown')}
+		onScrollStart={action('onScrollStart')}
+		onScrollStop={action('onScrollStop')}
+		scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+		spacing={ri.scale(number('spacing', Config, 0))}
+		style={{
+			width: ri.scaleToRem(804),
+			height: ri.scaleToRem(804),
+			backgroundColor: 'white'
+		}}
+		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+		wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+	/>
+);
+
+HorizontalSquaredVirtualGridList.storyName = 'Horizontal Squared VirtualGridList';
+HorizontalSquaredVirtualGridList.parameters = {
+	propTables: [Config]
+};
