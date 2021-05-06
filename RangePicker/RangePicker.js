@@ -9,16 +9,19 @@
  * @exports RangePickerBase
  */
 
+import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 
+import Heading from '../Heading';
 import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 
 import css from './RangePicker.module.less';
+import pickerTitleCss from '../internal/Picker/PickerTitle.module.less';
 
 const digits = (num) => {
 	// minor optimization
@@ -133,6 +136,14 @@ const RangePickerBase = kind({
 		incrementIcon: PropTypes.string,
 
 		/**
+		 * Applies inline styling to the title.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inlineTitle: PropTypes.bool,
+
+		/**
 		 * Allows the user can use the arrow keys to adjust the picker's value.
 		 *
 		 * The user may no longer use those arrow keys to navigate while this control is focused.
@@ -198,6 +209,14 @@ const RangePickerBase = kind({
 		step: PropTypes.number,
 
 		/**
+		 * The primary text of the `Picker`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
+
+		/**
 		 * The width of the picker.
 		 *
 		 * A number can be used to set the minimum number of characters to be shown. Setting a
@@ -238,6 +257,8 @@ const RangePickerBase = kind({
 	computed: {
 		disabled: ({disabled, max, min}) => min >= max ? true : disabled,
 		label: ({max, min, padded, value}) => {
+			value = clamp(min, max, value);
+
 			if (padded) {
 				const maxDigits = digits(Math.max(Math.abs(min), Math.abs(max)));
 				const valueDigits = digits(value);
@@ -261,12 +282,15 @@ const RangePickerBase = kind({
 		}
 	},
 
-	render: ({label, value, voiceLabel, ...rest}) => {
+	render: ({label, inlineTitle, title, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
 		return (
-			<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
-				<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
-			</Picker>
+			<>
+				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
+					<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
+				</Picker>
+			</>
 		);
 	}
 });

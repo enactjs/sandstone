@@ -5,11 +5,13 @@ import {withConfig, withProps} from './utils';
 const BaseTests = [
 	<Input />,
 	<Input open title="Input Test" subtitle="Additional text" />,
+	<Input open title="Input Test" subtitle="Additional text" noBackButton />,
 	<Input open title="Input Test" subtitle="Additional text" placeholder="placeholder" />,
 	<Input open title="Input Test" subtitle="Additional text" value="value" />,
 	<Input open title="Input Test" subtitle="Additional text" value="value" type="password" />,
 	<Input open title="Input Test" subtitle="Additional text" value="1234" type="number" />,
 	<Input open title="Input Test" subtitle="Additional text" value="1234" type="passwordnumber" />,
+	<Input open title="Input Test" subtitle="Additional text" value="http://enactjs.com" type="url" />,
 	<Input open title="Input Test" subtitle="Additional text" value="1234" type="number" length={10} />
 ];
 

@@ -1,15 +1,11 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
-import {getDirection, Spotlight} from '@enact/spotlight';
-import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
-import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Row, Cell} from '@enact/ui/Layout';
 import {useMeasurable} from '@enact/ui/Measurable';
 import {unit} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
-import Toggleable from '@enact/ui/Toggleable';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -18,41 +14,13 @@ import {Children, useContext, useState} from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
-import WindowEventable from '../internal/WindowEventable';
 
 import {PanelsStateContext} from '../internal/Panels';
 import {useContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Header.module.less';
 
-const isBackButton = ({target: node}) => node && node.classList.contains(componentCss.back);
-const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
-const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
-const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShowBack'));
-
 const hasChildren = (children) => (Children.toArray(children).filter(Boolean).length > 0);
-
-// Hides the back button when 5-way navigation when in pointer mode and the target would not be the
-// back button.
-const handleWindowKeyPress = handle(
-	Spotlight.getPointerMode,
-	forProp('backButtonAvailable', true),
-	({keyCode}) => {
-		const current = Spotlight.getCurrent();
-		const target = getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition());
-
-		// when in pointer mode and back button is visible but focused, if 5-way would blur the back
-		// button, it should hide the back button.
-		if (isBackButton({target: current})) {
-			return target && target !== current;
-		}
-
-		// when in pointer mode and back button is visible but not focused, if 5-way would not focus
-		// the back button, it should hide the back button
-		return !isBackButton({target});
-	},
-	forwardHideBack
-);
 
 /**
  * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
@@ -91,9 +59,6 @@ const HeaderBase = kind({
 		 * Informs Header that the back button as allowed to be shown.
 		 *
 		 * This does not represent whether it is showing, just whether it can or not.
-		 *
-		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
-		 * be set to `true` when being hovered.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -165,27 +130,6 @@ const HeaderBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
-		 * be set automatically to `true` on render and `false` after animating into view.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
-		 */
-		entering: PropTypes.bool,
-
-		/**
-		 * Sets the "hover" state.
-		 *
-		 * This is linked to displaying the "back" button.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
-		 */
-		hover: PropTypes.bool,
-
-		/**
 		 * Determines what triggers the header content to start its animation.
 		 *
 		 * @type {('focus'|'hover'|'render')}
@@ -227,22 +171,6 @@ const HeaderBase = kind({
 		 * @public
 		 */
 		onClose: PropTypes.func,
-
-		/**
-		 * Called when the user leaves the header to hide the back button.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onHideBack: PropTypes.func,
-
-		/**
-		 * Called when the user enters the header to show the back button.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onShowBack: PropTypes.func,
 
 		/**
 		 * A location for arbitrary elements to be placed above the title
@@ -397,44 +325,21 @@ const HeaderBase = kind({
 		publicClassNames: ['header']
 	},
 
-	handlers: {
-		onBlur: handle(
-			isBackButton,
-			not(Spotlight.getPointerMode),
-			forwardHideBack
-		),
-		onMouseEnter: handle(
-			forward('onMouseEnter'),
-			Spotlight.getPointerMode,
-			forwardShowBack
-		),
-		onMouseLeave: handle(
-			forward('onMouseLeave'),
-			Spotlight.getPointerMode,
-			forwardHideBack
-		),
-		onMouseMove: handle(
-			forward('onMouseMove'),
-			isNewPointerPosition,
-			forwardShowBack
-		)
-	},
-
 	computed: {
-		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
+		className: ({centered, children, type, styler}) => styler.append(
 			{
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
-				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
 				withChildren: hasChildren(children)
 			},
 			type
 		),
-		titleCell: ({arranger, centered, css, marqueeOn, subtitle, subtitleId, title, titleId, type}) => {
+		titleCell: ({arranger, centered, css, marqueeOn, slotSize, subtitle, subtitleId, title, titleId, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
 			const titleHeading = (
 				<Heading
+					{...centered ? {slotSize} : {}}
 					id={titleId}
 					size="title"
 					spacing="auto"
@@ -449,6 +354,7 @@ const HeaderBase = kind({
 
 			const subtitleHeading = (
 				<Heading
+					{...centered ? {slotSize} : {}}
 					id={subtitleId}
 					size="subtitle"
 					spacing="auto"
@@ -492,7 +398,6 @@ const HeaderBase = kind({
 		closeButtonAriaLabel,
 		closeButtonBackgroundOpacity,
 		css,
-		hover,
 		noBackButton,
 		noCloseButton,
 		onBack,
@@ -507,10 +412,7 @@ const HeaderBase = kind({
 		...rest
 	}) => {
 		delete rest.arranger;
-		delete rest.entering;
 		delete rest.marqueeOn;
-		delete rest.onHideBack;
-		delete rest.onShowBack;
 		delete rest.subtitle;
 		delete rest.subtitleId;
 		delete rest.title;
@@ -519,18 +421,15 @@ const HeaderBase = kind({
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
-			<div className={css.backContainer}>
-				<Button
-					aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
-					backgroundOpacity={backButtonBackgroundOpacity}
-					className={css.back}
-					icon="arrowhookleft"
-					iconFlip="auto"
-					onClick={onBack}
-					size="small"
-					spotlightDisabled={!(backButtonAvailable && !noBackButton && hover)}
-				/>
-			</div>
+			<Button
+				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
+				backgroundOpacity={backButtonBackgroundOpacity}
+				className={css.back}
+				icon="arrowhookleft"
+				iconFlip="auto"
+				onClick={onBack}
+				size="small"
+			/>
 		) : null);
 
 		// Set up the close button
@@ -634,11 +533,10 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 };
 
 const HeaderDecorator = compose(
+	SpotlightContainerDecorator,
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	ContextAsDefaultsHeader,
-	HeaderMeasurementDecorator,
-	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
-	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
+	HeaderMeasurementDecorator
 );
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.

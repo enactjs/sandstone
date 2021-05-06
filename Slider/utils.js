@@ -3,6 +3,24 @@ import {is} from '@enact/core/keymap';
 import {clamp} from '@enact/core/util';
 import {calcProportion} from '@enact/ui/Slider/utils';
 
+const nop = () => {};
+
+const handleAcceleratedKeyDown = (ev, prop, {current: spotlightAccelerator}) => {
+	if (!spotlightAccelerator) {
+		return true;
+	}
+
+	if (!ev.repeat) {
+		spotlightAccelerator.reset();
+	}
+
+	if (spotlightAccelerator.processKey(ev, nop)) {
+		return false;
+	}
+
+	return true;
+};
+
 const calcStep = (knobStep, step) => {
 	let s;
 
@@ -63,6 +81,7 @@ const handleIncrement = handle(
 	isIncrement,
 	preventDefault,
 	stop,
+	handleAcceleratedKeyDown,
 	isNotMax,
 	emitChange(1)
 );
@@ -72,6 +91,7 @@ const handleDecrement = handle(
 	isDecrement,
 	preventDefault,
 	stop,
+	handleAcceleratedKeyDown,
 	isNotMin,
 	emitChange(-1)
 );
