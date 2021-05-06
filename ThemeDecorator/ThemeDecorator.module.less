@@ -39,6 +39,8 @@
 	font-weight: normal;
 	font-style: normal;
 	letter-spacing: normal;
+	// Prevent Chrome from highlighting tapped elements
+	-webkit-tap-highlight-color: transparent;
 
 	&.bg,
 	& > .bg {
@@ -52,8 +54,6 @@
 	:focus {
 		// Prevent Chrome's default focus treatment
 		outline: none;
-		// Prevent Android Chrome from highlighting tapped elements
-		-webkit-tap-highlight-color: transparent;
 	}
 }
 

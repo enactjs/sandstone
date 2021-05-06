@@ -1,7 +1,7 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
-import Input from '@enact/sandstone/Input';
+import {InputField} from '@enact/sandstone/Input';
 import Spinner from '@enact/sandstone/Spinner';
 import ri from '@enact/ui/resolution';
 import {Component} from 'react';
@@ -41,7 +41,7 @@ class FocusOnSpinner extends Component {
 					<li>Focus and Click on the Input field.</li>
 					<li>Click Enter key on the VKB.</li>
 				</ol>
-				<Input dismissOnEnter onDeactivate={this.handleDeactivate} />
+				<InputField dismissOnEnter onDeactivate={this.handleDeactivate} />
 				{this.state.isLoading ? <Spinner blockClickOn="screen" onClick={this.hideSpinner} /> : null}
 			</div>
 		);

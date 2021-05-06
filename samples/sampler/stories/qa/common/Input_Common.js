@@ -21,11 +21,11 @@ export const buttons = {
 };
 
 export const propOptions = {
-	fieldTypes: ['text', 'number', 'password'],
+	fieldTypes: ['text', 'number', 'password', 'url'],
 	numberTypes: ['number', 'passwordnumber'],
 	popupTypes: ['fullscreen', 'overlay'],
 	size: ['small', 'large'],
-	textTypes: ['text', 'password'],
+	textTypes: ['text', 'password', 'url'],
 	buttons: Object.keys(buttons),
 	lengths: {
 		'2 (separate)': 2,
