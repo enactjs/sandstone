@@ -352,11 +352,6 @@ PopupTabLayout.Tab = Tab;
  * @ui
  */
 
-
-/**
- * Handlers for sandstone/PopupTabLayout.TabPanels.
- *
- */
 const tabPanelsHandlers = {
 	onTransition: handle(
 		forward('onTransition'),
