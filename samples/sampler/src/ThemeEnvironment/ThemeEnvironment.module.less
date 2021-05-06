@@ -34,26 +34,6 @@
 			margin-top: 0;
 		}
 	}
-
-	// Hack into the Info - Don't try this at home, kids
-	main > article > section > :nth-child(2) > :nth-child(3) {
-		.enact-selectable();
-
-		background-color: black !important;
-
-		h1, h2, h3, p, div {
-			color: inherit !important;
-			font-family: @sand-font-family !important;
-		}
-
-		pre {
-			background-color: #222 !important;
-			font-weight: bold;
-			border-radius: 1em;
-			border: 6px solid #444;
-			overflow-x: auto !important;
-		}
-	}
 }
 
 // Fix for the +/- buttons
