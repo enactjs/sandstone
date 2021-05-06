@@ -21,7 +21,6 @@ import spriteGear4k from '../../images/sprite-gear-4k.png';
 PopupTabLayout.displayName = 'PopupTabLayout';
 const Config = mergeComponentMetadata('PopupTabLayout', PopupBase, Popup, TabLayoutBase, TabLayout);
 
-const isLeft = is('left');
 const isRight = is('right');
 
 const navPrev = (callback, value, actionName) => () => {
@@ -65,10 +64,8 @@ export const _PopupTabLayout = () => {
 	// We need to stopPropagation to prevent tabs to be expanded by this action.
 	const handleKeyDown = (setState, state) => (ev) => {
 		const {keyCode} = ev;
-		if (state > 0 && isLeft(keyCode)) {
-			navPrev(setState, state, 'onBack')();
-			ev.stopPropagation();
-		} else if (isRight(keyCode)) {
+
+		if (isRight(keyCode)) {
 			navNext(setState, state, 'onNext')();
 		}
 	};

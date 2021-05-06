@@ -8,7 +8,9 @@
  * @exports TabPanel
  */
 
+import {forKey, forward, handle, stop} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
@@ -350,6 +352,27 @@ PopupTabLayout.Tab = Tab;
  * @ui
  */
 
+
+/**
+ * Handlers for sandstone/PopupTabLayout.TabPanels.
+ *
+ */
+const tabPanelsHandlers = {
+	onTransition: handle(
+		forward('onTransition'),
+		(ev, props, {onTransition}) => {
+			onTransition(ev);
+		}
+	),
+	onKeyDown: handle(
+		forward('onKeyDown'),
+		forKey('left'),
+		(ev, {index}) => (index > 0),
+		forward('onBack'),
+		stop
+	)
+};
+
 /**
  * A customized version of Panels for use inside this component.
  *
@@ -360,7 +383,9 @@ PopupTabLayout.Tab = Tab;
  */
 const TabPanels = (props) => {
 	const onTransition = useContext(TabLayoutContext);
-	return <Panels noCloseButton {...props} css={css} onTransition={onTransition} />;
+	const handlers = useHandlers(tabPanelsHandlers, props, {onTransition});
+
+	return <Panels noCloseButton {...props} css={css} {...handlers} />;
 };
 
 /**
