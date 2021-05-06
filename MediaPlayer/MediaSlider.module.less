@@ -29,11 +29,14 @@
 
 		// Grow the knob when the Slider gets spotted
 		.focus({
+			.knob::before {
+				opacity: 1;
+			}
+
 			&.active,
 			&.pressed {
 				.knob::before {
 					transform: @knob-transform-active;
-					opacity: 1;
 				}
 			}
 		});
@@ -108,6 +111,22 @@
 					}
 				});
 			});
+
+			:global(.spotlight-input-touch) &.pressed {
+				.bar {
+					background-color: @sand-mediaslider-bar-bg-color;
+				}
+
+				.fill {
+					background-color: @sand-mediaslider-fill-bg-color;
+				}
+
+				.knob {
+					&::before {
+						background-color: @sand-mediaplayer-slider-knob-color;
+					}
+				}
+			}
 
 			.disabled({
 				.bar {
