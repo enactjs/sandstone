@@ -172,7 +172,7 @@ export const HorizontalVirtualGridList = () => (
 		onScrollStop={action('onScrollStop')}
 		scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 		spacing={ri.scale(number('spacing', Config, 0))}
-		style={{paddingBottom: ri.unit(ri.scale(24) + 'px', 'rem')}}
+		style={{paddingBottom: ri.unit(ri.scale(90) + 'px', 'rem')}}
 		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 		wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
