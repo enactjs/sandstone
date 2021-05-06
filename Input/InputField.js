@@ -104,7 +104,7 @@ const InputFieldBase = kind({
 		 * The tooltip text to be displayed when the input is
 		 * [invalid]{@link sandstone/Input.InputFieldBase.invalid}.
 		 *
-		 * If this value is *falsy*, the tooltip will not be shown.
+		 * If this value is *falsy*, the tooltip will be shown with default message.
 		 *
 		 * @type {String}
 		 * @default ''
