@@ -181,8 +181,8 @@ export const HorizontalVirtualGridList = () => (
 		onScrollStop={action('onScrollStop')}
 		scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 		spacing={ri.scale(number('spacing', Config, 0))}
-		style={{paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')}}
 		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+		style={{paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')}}
 		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 		wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 	/>
@@ -214,12 +214,12 @@ export const HorizontalSquaredVirtualGridList = () => (
 		onScrollStop={action('onScrollStop')}
 		scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 		spacing={ri.scale(number('spacing', Config, 0))}
+		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 		style={{
 			width: ri.scaleToRem(804),
 			height: ri.scaleToRem(804),
 			backgroundColor: 'white'
 		}}
-		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 		wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 	/>
 );
