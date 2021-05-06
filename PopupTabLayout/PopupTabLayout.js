@@ -363,6 +363,7 @@ const tabPanelsHandlers = {
 		forward('onKeyDown'),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
+		() => !Spotlight.move('left'),
 		forward('onBack'),
 		stop
 	)
