@@ -23,7 +23,8 @@ const itemData = [];
 for (let i = 0; i < 100; i++) {
 	itemData.push({
 		children: `Item${i}`,
-		id: `item${i}`
+		id: `item${i}`,
+		key: i
 	});
 }
 
@@ -123,7 +124,6 @@ class app extends Component {
 										>
 											<Group
 												childComponent={Item}
-												// itemProps={{id: `item${itemData.index}`}}
 											>
 												{itemData}
 											</Group>

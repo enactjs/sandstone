@@ -1,4 +1,4 @@
-const {expectFocusedItem} = require('../../VirtualList/VirtualList-utils');
+const {expectFocusedItem, expectNoFocusedItem} = require('../../VirtualList/VirtualList-utils');
 const ScrollerPage = require('../ScrollerPage');
 
 describe('Scroller List Of Things', function () {
@@ -64,5 +64,21 @@ describe('Scroller List Of Things', function () {
 		expectFocusedItem(0);
 		// Step 9 Verify: Spotlight is on the Item closest to the previously focused Item's location.
 		expect(Math.floor(ScrollerPage.getActiveElementRect().top / 100) * 100).to.equal(thirdPrevItemLocation);
+
+		// Step 10: Wave the Pointer.
+		ScrollerPage.showPointerByKeycode();
+		// Step 11: Hover on an item.
+		$('#item3').moveTo();
+		// Step 11 Verify: Spotlight is on item.
+		expectFocusedItem(3);
+
+		// Step 12: Press Channel down.
+		ScrollerPage.pageDown();
+		ScrollerPage.delay(500);
+		// Step 12-4 Verify: Spotlight still hides.
+		expectNoFocusedItem();
+		// Spotlight will display again when the pointer hides.
+		ScrollerPage.hidePointerByKeycode();
+		expectFocusedItem(8);
 	});
 });
