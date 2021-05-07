@@ -30,13 +30,13 @@ describe('Scroller List Of Things', function () {
 		// Step 4-1: 5-way Up several times until reaching to the item which is upper the screen.
 		const topVisibleItemId = Number(ScrollerPage.topVisibleItemId().slice(4));
 		let keydownEvent = 7;
-		while (--index >= topVisibleItemId) {
+		while (index > topVisibleItemId) {
 			ScrollerPage.spotlightUp();
 			ScrollerPage.delay(100);
 			keydownEvent++;
 
 			// Step 4-2 Verify: onKeyDown event is added for each 5-way Up.
-			expectFocusedItem(index);
+			expectFocusedItem(--index);
 			expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(keydownEvent);
 		}
 
@@ -48,13 +48,13 @@ describe('Scroller List Of Things', function () {
 		// 5-way Left a few times.
 		ScrollerPage.spotlightLeft();
 		// One (1) onKeyDown event is added for each 5-way Left.
-		expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(keydownEvent + 1);
+		expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(++keydownEvent);
 
 		$('#item2').moveTo();
 		expectFocusedItem(2);
 		// 5-way Right a few times.
 		ScrollerPage.spotlightRight();
 		// One (1) onKeyDown event is added for each 5-way Left.
-		expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(keydownEvent + 2);
+		expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(++keydownEvent);
 	});
 });
