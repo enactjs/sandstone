@@ -107,7 +107,7 @@ const InputFieldBase = kind({
 		 * If this value is *falsy*, the tooltip will be shown with default message.
 		 *
 		 * @type {String}
-		 * @default ''
+		 * @default 'Please enter a valid value.'
 		 * @public
 		 */
 		invalidMessage: PropTypes.string,
