@@ -103,7 +103,7 @@ const SliderBase = (props) => {
 		)
 	}, props, spotlightAccelerator);
 
-	const passiveHandlers = useHandlers({
+	const nativeEventHandlers = useHandlers({
 		onWheel: handle(
 			forProp('disabled', false),
 			forwardWithPrevent('onWheel'),
@@ -137,13 +137,13 @@ const SliderBase = (props) => {
 
 	useLayoutEffect(() => {
 		if (ref.current) {
-			utilEvent('wheel').addEventListener(ref, passiveHandlers.onWheel, {passive: false});
+			utilEvent('wheel').addEventListener(ref, nativeEventHandlers.onWheel, {passive: false});
 		}
 		return () => {
-			utilEvent('wheel').removeEventListener(ref, passiveHandlers.onWheel, {passive: false});
+			utilEvent('wheel').removeEventListener(ref, nativeEventHandlers.onWheel, {passive: false});
 		};
 
-	}, [ref, passiveHandlers.onWheel]);
+	}, [ref, nativeEventHandlers.onWheel]);
 
 	delete rest.activateOnSelect;
 	delete rest.knobStep;
