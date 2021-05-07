@@ -3,6 +3,7 @@ const {element, Page} = require('@enact/ui-test-utils/utils');
 
 const focusableBodySelector = '.Scroller_Scroller_focusableBody';
 const horizontalscrollbarSelector = '.useScroll_useScroll_horizontalScrollbar';
+const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollContentSelector = '.enact_ui_Scroller_Scroller_scroller';
 const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar .useScroll_ScrollbarTrack_thumb';
@@ -41,12 +42,18 @@ class ScrollerPage extends Page {
 	get buttonTop () {
 		return element('#top', browser);
 	}
+	get buttonBottom () {
+		return element('#bottom', browser);
+	}
 
 	get buttonHideScrollbar () {
 		return element('#hideScrollbar', browser);
 	}
 	get buttonNativeScroll () {
 		return element('#nativeScroll', browser);
+	}
+	get buttonSpotlightDisabled () {
+		return element('#spotlightDisabled', browser);
 	}
 
 	// dropdown api
@@ -55,6 +62,9 @@ class ScrollerPage extends Page {
 	}
 
 	// scrollable api
+	get scroller () {
+		return element('#scroller', browser);
+	}
 	get focusableBody () {
 		return $(`${focusableBodySelector}`);
 	}
@@ -64,6 +74,7 @@ class ScrollerPage extends Page {
 	get horizontalScrollThumb () {
 		return $(`${scrollHorizontalThumbSelector}`);
 	}
+
 	getScrollThumbPosition () {
 		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector);
@@ -119,6 +130,60 @@ class ScrollerPage extends Page {
 			const horizontalscrollbar = document.querySelector(_horizontalscrollbarSelector);
 			return horizontalscrollbar.offsetTop + horizontalscrollbar.clientHeight;
 		}, horizontalscrollbarSelector);
+	}
+
+	topVisibleItemId () {
+		return browser.execute(function (_scrollableSelector) {
+			const scroller = document.querySelector(_scrollableSelector),
+				{top, left, width} = scroller.getBoundingClientRect();
+			let currentY = top + 1,
+				middle = left + Math.floor((left + width) / 2);
+			for (let i = 0; i < 10; i++) {
+				let el = document.elementFromPoint(middle, currentY + i);
+				// Search parents for the row ID
+				while (el && el !== scroller && el !== document.body) {
+					if (el.id) {
+						return el.id;
+					} else {
+						el = el.parentNode;
+					}
+				}
+				// else, it's inside the list itself, increment y and try again
+			}
+			return 'unknown';	// we didn't find it?!
+		}, scrollableSelector);
+	}
+
+	bottomVisibleItemId () {
+		return browser.execute(function (_scrollableSelector) {
+			const scroller = document.querySelector(_scrollableSelector),
+				{bottom, left, width} = scroller.getBoundingClientRect();
+			// affordance space to draw the bottom shadow. affordanceSize is 48 for 4k and 24 for FHD.
+			const affordanceSize = 24;
+			let currentY = bottom - affordanceSize - 1,
+				middle = left + Math.floor((left + width) / 2);
+
+			for (let i = 0; i < 10; i++) {
+				let el = document.elementFromPoint(middle, currentY - i);
+
+				// Search parents for the row ID
+				while (el && el !== scroller && el !== document.body) {
+					if (el.id) {
+						return el.id;
+					} else {
+						el = el.parentNode;
+					}
+				}
+				// else, it's inside the list itself, decrement y and try again
+			}
+			return 'unknown';	// we didn't find it?!
+		}, scrollableSelector);
+	}
+
+	getActiveElementRect () {
+		return browser.execute(function () {
+			return document.activeElement.getBoundingClientRect();
+		});
 	}
 }
 
