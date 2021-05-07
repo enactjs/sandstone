@@ -144,7 +144,8 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			this.state = {
 				focused: null,
-				node: null
+				node: null,
+				mouseDowned: null
 			};
 
 			this.ariaHidden = props.noReadoutOnFocus || null;
@@ -176,6 +177,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		updateFocus = (prevState) => {
 			// focus node if `InputSpotlightDecorator` is pausing Spotlight or if Spotlight is paused
 			if (
+				!this.state.mouseDowned &&
 				this.state.node &&
 				Spotlight.getCurrent() !== this.state.node &&
 				(this.paused.isPaused() || !Spotlight.isPaused())
@@ -202,7 +204,13 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		focus = (focused, node) => {
-			this.setState({focused, node});
+			this.setState((state) => (
+				{
+					focused,
+					node,
+					mouseDowned: state.mouseDowned
+				}
+			));
 		};
 
 		blur = () => {
@@ -249,6 +257,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		onMouseDown = (ev) => {
 			const {disabled, spotlightDisabled} = this.props;
 
+			this.setState((state) => (
+				{
+					focused: state.focused,
+					node: state.node,
+					mouseDowned: true
+				}
+			));
+
 			this.setDownTarget(ev);
 			// focus the <input> whenever clicking on any part of the component to ensure both that
 			// the <input> has focus and Spotlight is paused.
@@ -257,6 +273,16 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			forwardMouseDown(ev, this.props);
+		};
+
+		onMouseUp = () => {
+			this.setState((state) => (
+				{
+					focused: state.focused,
+					node: state.node,
+					mouseDowned: false
+				}
+			));
 		};
 
 		onFocus = (ev) => {
@@ -372,6 +398,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					{...props}
 					onBlur={this.onBlur}
 					onMouseDown={this.onMouseDown}
+					onMouseUp={this.onMouseUp}
 					onFocus={this.onFocus}
 					onKeyDown={this.handleKeyDown}
 					onKeyUp={this.onKeyUp}
