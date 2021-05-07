@@ -35,10 +35,12 @@ export const _Picker = () => (
 		disabled={boolean('disabled', Picker)}
 		incrementAriaLabel={text('incrementAriaLabel', Picker, '')}
 		incrementIcon={select('incrementIcon', ['', ...incrementIcons], Picker)}
+		inlineTitle={boolean('inlineTitle', Picker)}
 		joined={boolean('joined', Picker)}
 		noAnimation={boolean('noAnimation', Picker)}
 		onChange={action('onChange')}
 		orientation={select('orientation', prop.orientation, Picker, prop.orientation[0])}
+		title={text('title', Picker)}
 		width={select('width', prop.width, Picker, prop.width[3])}
 		wrap={boolean('wrap', Picker)}
 	>

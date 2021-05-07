@@ -112,6 +112,22 @@
 				});
 			});
 
+			:global(.spotlight-input-touch) &.pressed {
+				.bar {
+					background-color: @sand-mediaslider-bar-bg-color;
+				}
+
+				.fill {
+					background-color: @sand-mediaslider-fill-bg-color;
+				}
+
+				.knob {
+					&::before {
+						background-color: @sand-mediaplayer-slider-knob-color;
+					}
+				}
+			}
+
 			.disabled({
 				.bar {
 					opacity: @sand-mediaslider-disabled-bar-opacity;
