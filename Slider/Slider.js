@@ -28,11 +28,12 @@ import ProgressBar from '@enact/ui/ProgressBar';
 import Pure from '@enact/ui/internal/Pure';
 import Slottable from '@enact/ui/Slottable';
 import UiSlider from '@enact/ui/Slider';
+import utilEvent from '@enact/ui/useScroll/utilEvent';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import anyPass from 'ramda/src/anyPass';
 import compose from 'ramda/src/compose';
-import {useEffect, useRef} from 'react';
+import {useEffect, useLayoutEffect, useRef} from 'react';
 
 import {ProgressBarTooltip} from '../ProgressBar';
 import Skinnable from '../Skinnable';
@@ -75,6 +76,7 @@ const SliderBase = (props) => {
 	const tooltip = props.tooltip === true ? ProgressBarTooltip : props.tooltip;
 
 	const spotlightAccelerator = useRef();
+	const ref = useRef();
 
 	const handlers = useHandlers({
 		onBlur: handle(
@@ -98,7 +100,10 @@ const SliderBase = (props) => {
 			forProp('activateOnSelect', true),
 			forKey('enter'),
 			forward('onActivate')
-		),
+		)
+	}, props, spotlightAccelerator);
+
+	const passiveHandlers = useHandlers({
 		onWheel: handle(
 			forProp('disabled', false),
 			forwardWithPrevent('onWheel'),
@@ -107,8 +112,7 @@ const SliderBase = (props) => {
 				handleDecrementByWheel
 			])
 		)
-	}, props, spotlightAccelerator);
-
+	}, props);
 
 	// if the props includes a css map, merge them together
 	let mergedCss = componentCss;
@@ -131,6 +135,16 @@ const SliderBase = (props) => {
 		spotlightAccelerator.current = new Accelerator(keyFrequency);
 	}, [keyFrequency]);
 
+	useLayoutEffect(() => {
+		if (ref.current) {
+			utilEvent('wheel').addEventListener(ref, passiveHandlers.onWheel, {passive: false});
+		}
+		return () => {
+			utilEvent('wheel').removeEventListener(ref, passiveHandlers.onWheel, {passive: false});
+		};
+
+	}, [ref, passiveHandlers.onWheel]);
+
 	delete rest.activateOnSelect;
 	delete rest.knobStep;
 	delete rest.onActivate;
@@ -148,6 +162,7 @@ const SliderBase = (props) => {
 			progressBarComponent={
 				<ProgressBar css={mergedCss} />
 			}
+			ref={ref}
 			step={step}
 			tooltipComponent={
 				<ComponentOverride
