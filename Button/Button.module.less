@@ -38,6 +38,23 @@
 		border-radius: @sand-button-border-radius;
 	}
 
+	&.hasIcon.focusIconOnly {
+		&.large .bg {
+			.position-start-end(calc(100% - @sand-icon-large-size - @sand-button-icon-margin-end - @sand-button-with-icon-h-padding), 0);
+		}
+		&.small .bg {
+			.position-start-end(calc(100% - @sand-icon-small-size - @sand-button-icon-margin-end - @sand-button-with-icon-h-padding), 0);
+		}
+		&.hasColor {
+			&.large .bg {
+				.position-start-end(calc(100% - @sand-icon-large-size - @sand-button-icon-margin-end - @sand-button-with-icon-h-padding - @sand-button-colordot-width), 0);
+			}
+			&.small .bg {
+				.position-start-end(calc(100% - @sand-icon-small-size - @sand-button-icon-margin-end - @sand-button-with-icon-h-padding - @sand-button-colordot-width), 0);
+			}
+		}
+	}
+
 	.client {
 		padding: @sand-button-border-width 0;	// We account for the button border-width here, since that is applied to .bg, not .client. Having these match means the text doesn't overlap the border
 		border-radius: inherit;
