@@ -7,6 +7,10 @@
  * @exports Header
  */
 
+import {forKey, forward, handle, stop} from '@enact/core/handle';
+import useHandlers from '@enact/core/useHandlers';
+import Spotlight from '@enact/spotlight';
+import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
 import compose from 'ramda/src/compose';
 
 import {BasicArranger, PopupDecorator, Viewport} from '../internal/Panels';
@@ -25,6 +29,31 @@ const FixedPopupPanelsDecorator = compose(
 	})
 );
 
+const FixedPopupPanelsBase = FixedPopupPanelsDecorator(Viewport);
+
+const fixedPopupPanelsHandlers = {
+	onKeyDown: handle(
+		forward('onKeyDown'),
+		forKey('left'),
+		(ev, {index}) => (index > 0),
+		(ev) => {
+			if (Spotlight.move('left')) {
+				ev.stopPropagation();
+				return false;
+			}
+			return true;
+		},
+		(ev) => {
+			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
+				ev.stopPropagation();
+				return false;
+			}
+			return true;
+		},
+		forward('onBack'),
+		stop
+	)
+};
 /**
  * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the right
  * or left side of the screen inside a popup. Typically used for overlaying panels over other
@@ -35,7 +64,11 @@ const FixedPopupPanelsDecorator = compose(
  * @ui
  * @public
  */
-const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
+const FixedPopupPanels = (props) => {
+	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
+
+	return <FixedPopupPanelsBase {...props} {...handlers} />
+}
 
 /**
  * Size of the popup.
