@@ -101,11 +101,11 @@ export const _PopupTabLayout = () => {
 					onTabClick={action('onTabClick')}
 					title="Display"
 				>
-					<TabPanels index={indexDisplay} onBack={handleDisplayPrev} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>
+					<TabPanels index={indexDisplay} onBack={handleDisplayPrev}>
 						<TabPanel>
 							<Header title="Display Settings" type="compact" />
-							<Item onClick={handleDisplayNext}>Picture Modes</Item>
-							<Item onClick={handleDisplayNext}>Color Adjust</Item>
+							<Item onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Picture Modes</Item>
+							<Item onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Color Adjust</Item>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Picture Modes" type="compact" />
@@ -130,10 +130,10 @@ export const _PopupTabLayout = () => {
 					</TabPanels>
 				</Tab>
 				<Tab icon={includeIcons ? 'speaker' : null} onTabClick={action('onTabClick')} title="Sound">
-					<TabPanels index={indexSound} onBack={handleSoundPrev} onKeyDown={handleKeyDown(setIndexSound, indexSound)}>
+					<TabPanels index={indexSound} onBack={handleSoundPrev}>
 						<TabPanel>
 							<Header title="Sound Settings" type="compact" />
-							<Item onClick={handleSoundNext}>Advanced Audio</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)}>Advanced Audio</Item>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Advanced Audio Settings" type="compact" />
@@ -148,11 +148,11 @@ export const _PopupTabLayout = () => {
 					onTabClick={action('onTabClick')}
 					title="Network"
 				>
-					<TabPanels index={indexNetwork} onBack={handleNetworkPrev} onKeyDown={handleKeyDown(setIndexNetwork, indexNetwork)}>
+					<TabPanels index={indexNetwork} onBack={handleNetworkPrev}>
 						<TabPanel>
 							<Header title="Network Settings" type="compact" />
-							<Item onClick={handleNetworkNext}>Wired</Item>
-							<Item onClick={handleNetworkNext}>Wireless</Item>
+							<Item onClick={handleNetworkNext} onKeyDown={handleKeyDown(setIndexNetwork, indexNetwork)}>Wired</Item>
+							<Item onClick={handleNetworkNext} onKeyDown={handleKeyDown(setIndexNetwork, indexNetwork)}>Wireless</Item>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Wired Settings" type="compact" />
@@ -176,11 +176,11 @@ export const _PopupTabLayout = () => {
 					}}
 					title="General"
 				>
-					<TabPanels index={indexGeneral} onBack={handleGeneralPrev} onKeyDown={handleKeyDown(setIndexGeneral, indexGeneral)}>
+					<TabPanels index={indexGeneral} onBack={handleGeneralPrev}>
 						<TabPanel>
 							<Header title="General Settings" type="compact" />
-							<Item onClick={handleGeneralNext}>About</Item>
-							<Item onClick={handleGeneralNext}>Reset</Item>
+							<Item onClick={handleGeneralNext} onKeyDown={handleKeyDown(setIndexGeneral, indexGeneral)}>About</Item>
+							<Item onClick={handleGeneralNext} onKeyDown={handleKeyDown(setIndexGeneral, indexGeneral)}>Reset</Item>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Wired Settings" type="compact" />

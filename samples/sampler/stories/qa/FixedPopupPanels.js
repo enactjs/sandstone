@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 
+import {is} from '@enact/core/keymap';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
@@ -21,6 +22,8 @@ Config.defaultProps.position = 'right';
 Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
+
+const isRight = is('right');
 
 class FixedPopupPanelsWithPause extends Component {
 	constructor () {
@@ -85,6 +88,15 @@ export const WithVirtualList = () => {
 	const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
 	const handleBack = compose(prevPanel, action('onBack'));
 
+	// Navigate menus with the right key. The left key is handled by framework.
+	const handleKeyDown = (ev) => {
+		const {keyCode} = ev;
+
+		if (isRight(keyCode)) {
+			nextPanel();
+		}
+	};
+
 	const itemHeight = 156;
 	const itemSize = ri.scale(itemHeight);
 
@@ -120,7 +132,7 @@ export const WithVirtualList = () => {
 						<Cell
 							size={itemHeight * 4}
 							component={VirtualList}
-							childProps={{onClick: nextPanel}}
+							childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
 							itemSize={itemSize}
 							itemRenderer={itemRenderer}
 							dataSize={20}
@@ -144,7 +156,7 @@ export const WithVirtualList = () => {
 						</Cell>
 						<Cell size={itemHeight * 3}>
 							<VirtualList
-								childProps={{onClick: nextPanel}}
+								childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
 								itemSize={itemSize}
 								itemRenderer={itemRenderer}
 								dataSize={3}
@@ -164,7 +176,7 @@ export const WithVirtualList = () => {
 						</slotAfter>
 					</Header>
 					<VirtualList
-						childProps={{onClick: nextPanel}}
+						childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
 						itemSize={itemSize}
 						itemRenderer={itemRenderer}
 						dataSize={20}
