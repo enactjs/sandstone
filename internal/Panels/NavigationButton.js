@@ -21,10 +21,6 @@ const NavigationButton = kind({
 		visible: PropTypes.bool
 	},
 
-	defaultProps: {
-		focusIconOnly: false
-	},
-
 	render: ({component, focusIconOnly, visible, ...rest}) => {
 
 		if (isValidElement(component)) {
