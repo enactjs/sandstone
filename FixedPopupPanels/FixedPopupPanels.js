@@ -47,6 +47,7 @@ const fixedPopupPanelsHandlers = {
 		stop
 	)
 };
+
 /**
  * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the right
  * or left side of the screen inside a popup. Typically used for overlaying panels over other
@@ -60,8 +61,8 @@ const fixedPopupPanelsHandlers = {
 const FixedPopupPanels = (props) => {
 	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
 
-	return <FixedPopupPanelsBase {...props} {...handlers} />
-}
+	return <FixedPopupPanelsBase {...props} {...handlers} />;
+};
 
 /**
  * Size of the popup.
