@@ -37,14 +37,7 @@ const fixedPopupPanelsHandlers = {
 		forKey('left'),
 		(ev, {index}) => (index > 0),
 		(ev) => {
-			if (Spotlight.move('left')) {
-				ev.stopPropagation();
-				return false;
-			}
-			return true;
-		},
-		(ev) => {
-			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
+			if (Spotlight.move('left') || getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
 				ev.stopPropagation();
 				return false;
 			}
