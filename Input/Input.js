@@ -78,7 +78,6 @@ const InputPopupBase = kind({
 		 * [invalidMessage]{@link sandstone/Input.InputPopupBase.invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		invalid: PropTypes.bool,
@@ -87,7 +86,7 @@ const InputPopupBase = kind({
 		 * The tooltip text to be displayed when the input is
 		 * [invalid]{@link sandstone/Input.InputPopupBase.invalid}.
 		 *
-		 * If this value is *falsy*, the tooltip will be shown with default message.
+		 * If this value is *falsy*, the tooltip will be shown with the default message.
 		 *
 		 * @type {String}
 		 * @default 'Please enter a valid value.'
