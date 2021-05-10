@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
-import eventCategory from '../constants/eventCategory';
 import types from '../constants/actionTypes';
+import eventCategory from '../constants/eventCategory';
 
 function findFirstIndexMatchingEvent (logs, eventName) {
 	for (let i = 0; i < logs.length; i++) {

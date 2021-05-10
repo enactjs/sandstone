@@ -155,6 +155,6 @@ const properties = {
 
 export default {
 	domEventNames,
-	reactSyntheticEventNames,
-	properties
+	properties,
+	reactSyntheticEventNames
 };

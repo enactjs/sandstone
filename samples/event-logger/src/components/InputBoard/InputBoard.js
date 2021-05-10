@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
-import {createRef, Component} from 'react';
 import PropTypes from 'prop-types';
+import {createRef, Component} from 'react';
+import {connect} from 'react-redux';
 
 import {addEventLog, removeEventLog, updateEventLog} from '../../actions/actions';
 import eventCategory from '../../constants/eventCategory';
@@ -202,9 +202,9 @@ class InputBoardBase extends Component {
 			<div>
 				<Filter />
 				<div
+					className={this.props.className}
 					ref={this.divRef}
 					tabIndex="0"
-					className={this.props.className}
 					{...this.reactHandlers}
 				>
 					{'You can trigger variable events here. For detecting keyboard event, mouse click is needed on it.'}

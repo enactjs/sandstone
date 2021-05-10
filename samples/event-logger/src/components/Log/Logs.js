@@ -1,9 +1,10 @@
-import {connect} from 'react-redux';
 import kind from '@enact/core/kind';
+import Scroller from '@enact/sandstone/Scroller';
 import PropTypes from 'prop-types';
-import Scroller from '@enact/ui/Scroller';
+import {connect} from 'react-redux';
 
 import Log from './Log';
+
 import css from './Log.module.less';
 
 const LogsBase = kind({
@@ -12,7 +13,7 @@ const LogsBase = kind({
 		eventLogs: PropTypes.array
 	},
 	render: ({eventLogs}) => {
-		const logs = eventLogs.map(log => <Log key={log.timeoutId} className={css.log} log={log} />);
+		const logs = eventLogs.map(log => <Log className={css.log} key={log.timeoutId} log={log} />);
 		return (
 			<Scroller className={css.content}>
 				{logs}

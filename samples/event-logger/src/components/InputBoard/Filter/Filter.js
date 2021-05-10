@@ -1,11 +1,11 @@
-import {Component} from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import Heading from '@enact/sandstone/Heading';
 import Picker from '@enact/sandstone/Picker';
 import SwitchItem from '@enact/sandstone/SwitchItem';
+import PropTypes from 'prop-types';
+import {Component} from 'react';
+import {connect} from 'react-redux';
 
-import {activateEvent, isSyntheticEventOn, setEventCapturing, setDelayMs} from '../../../actions/actions';
+import {activateEvent, isSyntheticEventOn, setDelayMs, setEventCapturing} from '../../../actions/actions';
 import eventCategory from '../../../constants/eventCategory';
 
 import css from './Filter.module.less';
@@ -51,8 +51,8 @@ class FilterBase extends Component {
 				return (
 					<SwitchItem
 						className={[css.switchItem, css.small]}
-						key={i}
 						inline
+						key={i}
 						onToggle={handler}
 					>
 						{e}
