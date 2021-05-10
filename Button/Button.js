@@ -128,15 +128,6 @@ const ButtonBase = kind({
 		focusEffect: PropTypes.oneOf(['expand', 'static']),
 
 		/**
-		 * Set the visual effect target when focused.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
-		 */
-		focusIconOnly: PropTypes.bool,
-
-		/**
 		 * The component used to render the [icon]{@link sandstone/Button.ButtonBase.icon}.
 		 *
 		 * This component will receive the `icon` class to customize its styling.
@@ -187,7 +178,6 @@ const ButtonBase = kind({
 		collapsable: false,
 		collapsed: false,
 		focusEffect: 'expand',
-		focusIconOnly: false,
 		iconComponent: Icon,
 		iconOnly: false,
 		iconPosition: 'before',
@@ -196,14 +186,13 @@ const ButtonBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small']
+		publicClassNames: ['button', 'bg', 'client', 'hasIcon', 'icon', 'iconAfter', 'iconBefore', 'large', 'pressed', 'selected', 'small']
 	},
 
 	computed: {
-		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, focusIconOnly, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, styler}) => styler.append(
 			{
 				hasColor: color,
-				focusIconOnly: focusIconOnly && !iconOnly,
 				iconOnly,
 				collapsable,
 				collapsed
@@ -226,7 +215,6 @@ const ButtonBase = kind({
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.focusEffect;
-		delete rest.focusIconOnly;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',

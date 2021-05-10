@@ -5,6 +5,8 @@ import {isValidElement} from 'react';
 
 import Button from '../../Button';
 
+import componentCss from './NavigationButton.module.less';
+
 const NavigationButton = kind({
 	name: 'NavigationButton',
 
@@ -14,11 +16,20 @@ const NavigationButton = kind({
 			PropTypes.element,
 			PropTypes.func
 		]),
+		focusIconOnly: PropTypes.bool,
 		onClick: PropTypes.func,
 		visible: PropTypes.bool
 	},
 
-	render: ({component, visible, ...rest}) => {
+	defaultProps: {
+		focusIconOnly: false
+	},
+
+	styles: {
+		css: componentCss
+	},
+
+	render: ({component, focusIconOnly, visible, ...rest}) => {
 
 		if (isValidElement(component)) {
 			extractAriaProps(rest);
@@ -35,7 +46,7 @@ const NavigationButton = kind({
 
 			const Type = component.type;
 			return (
-				<Type {...rest} />
+				<Type css={focusIconOnly ? componentCss : null} {...rest} />
 			);
 		} else if (
 			// Explicitly disabled via false/null or visible is set to false
@@ -49,7 +60,7 @@ const NavigationButton = kind({
 		const Component = (typeof component === 'function') ? component : Button;
 
 		return (
-			<Component {...rest} />
+			<Component css={focusIconOnly ? componentCss : null} {...rest} />
 		);
 	}
 });
