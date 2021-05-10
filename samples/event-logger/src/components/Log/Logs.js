@@ -9,9 +9,11 @@ import css from './Log.module.less';
 
 const LogsBase = kind({
 	name: 'LogBase',
+
 	propTypes: {
 		eventLogs: PropTypes.array
 	},
+
 	render: ({eventLogs}) => {
 		const logs = eventLogs.map(log => <Log className={css.log} key={log.timeoutId} log={log} />);
 		return (

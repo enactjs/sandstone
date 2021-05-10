@@ -2,7 +2,7 @@ import {render} from 'react-dom';
 import {Provider} from 'react-redux';
 
 import App from './App';
-import storeFactory from './store/store';
+import storeFactory from './store';
 
 const store = storeFactory();
 const appElement = (

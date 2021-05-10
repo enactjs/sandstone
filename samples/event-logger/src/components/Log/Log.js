@@ -1,18 +1,20 @@
+import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
 
 import css from './Log.module.less';
 
-class Log extends Component {
-	static propTypes = {
-		log: PropTypes.object
-	};
+const Log = kind({
+	name: 'Log',
 
-	render () {
-		const {eventName, isDOMElement, isCapturing, eventObject} = this.props.log;
+	propTypes: {
+		log: PropTypes.object
+	},
+
+	render: ({log, ...rest}) => {
+		const {eventName, isDOMElement, isCapturing, eventObject} = log;
 		return (
 			<div
-				{...this.props}
+				{...rest}
 			>
 				<div className={css.name}>{eventName}</div>
 				<div className={css.elementKind}>{isDOMElement ? 'DOM' : 'React'}</div>
@@ -21,6 +23,6 @@ class Log extends Component {
 			</div>
 		);
 	}
-}
+});
 
 export default Log;
