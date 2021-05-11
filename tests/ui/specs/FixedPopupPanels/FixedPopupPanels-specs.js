@@ -67,7 +67,7 @@ describe('FixedPopupPanels', function () {
 
 			Page.spotlightDown();
 
-			const expected = "Example Item 1 on Panel 2";
+			const expected = 'Example Item 1 on Panel 2';
 			const actual = browser.execute(getFocusedText);
 
 			expect(actual).to.equal(expected);
