@@ -224,14 +224,11 @@ const useEventKey = (props, instances, context) => {
 						x = clamp(contentRect.left, contentRect.right, (clientRect.right + clientRect.left) / 2);
 					let y = 0;
 
-					if (scrollMode === 'translate') {
-						y = bounds.maxTop <= scrollTop + pageDistance || 0 >= scrollTop + pageDistance ?
-							contentRect[isUp ? 'top' : 'bottom'] + yAdjust :
-							clamp(contentRect.top, contentRect.bottom, (clientRect.bottom + clientRect.top) / 2);
+					if (bounds.maxTop - epsilon < scrollTop + pageDistance || epsilon > scrollTop + pageDistance) {
+						y = contentRect[isUp ? 'top' : 'bottom'] + yAdjust;
+						direction = isUp ? 'down' : 'up'; // Change direction to find target in the content
 					} else {
-						y = bounds.maxTop - epsilon < scrollTop + pageDistance || epsilon > scrollTop + pageDistance ?
-							contentNode.getBoundingClientRect()[isUp ? 'top' : 'bottom'] + yAdjust :
-							clamp(contentRect.top, contentRect.bottom, (clientRect.bottom + clientRect.top) / 2);
+						y = clamp(contentRect.top, contentRect.bottom, (clientRect.bottom + clientRect.top) / 2);
 					}
 
 					focusedItem.blur();
