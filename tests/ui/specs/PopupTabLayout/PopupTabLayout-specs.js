@@ -59,16 +59,53 @@ describe('PopupTabLayout', function () {
 				});
 
 				it('should expand the tabs when focus returns to the tabs', function () {
-					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
-						Page.spotlightRight();
-						Page.spotlightSelect();
-					});
-					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
-						Page.spotlightLeft();
-					});
+					Page.spotlightRight();
+					Page.spotlightSelect();
+					Page.delay(500);
+
+					// To the upper menu
+					Page.spotlightLeft();
+					Page.delay(500);
+
+					Page.spotlightLeft();
+					Page.delay(500);
 
 					const expected = false;
 					const actual = popupTabLayout.isCollapsed;
+
+					expect(actual).to.equal(expected);
+				});
+
+				it('should go to the upper menu with the left key', function () {
+					Page.spotlightRight();
+					Page.spotlightSelect();
+					Page.delay(500);
+
+					// To the upper menu
+					Page.spotlightLeft();
+					Page.delay(500);
+
+					const expected = 'Color Adjust';
+					const actual = browser.execute(getFocusedText);
+
+					expect(actual).to.equal(expected);
+				});
+
+				it('should not move the focus with the left key on the back button', function () {
+					Page.spotlightRight();
+					Page.spotlightSelect();
+					Page.delay(500);
+
+					// To the back button
+					Page.spotlightUp();
+
+					Page.spotlightLeft();
+					Page.delay(500);
+
+					Page.spotlightDown();
+
+					const expected = $('#brightness').isFocused();
+					const actual = true;
 
 					expect(actual).to.equal(expected);
 				});
@@ -217,6 +254,11 @@ describe('PopupTabLayout', function () {
 				expect(popupTabLayout.isCollapsed).to.be.false();
 
 				Page.spotlightSelect();
+				Page.delay(500);
+				expect(popupTabLayout.isCollapsed).to.be.true();
+
+				// To the upper menu
+				Page.spotlightLeft();
 				Page.delay(500);
 				expect(popupTabLayout.isCollapsed).to.be.true();
 

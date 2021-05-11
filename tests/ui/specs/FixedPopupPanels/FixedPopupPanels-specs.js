@@ -1,5 +1,6 @@
-const Page = require('./FixedPopupPanelsPage');
+const {getFocusedText} = require('../utils');
 
+const Page = require('./FixedPopupPanelsPage');
 
 describe('FixedPopupPanels', function () {
 	const Interface = Page.fixedPopupPanels;
@@ -24,6 +25,52 @@ describe('FixedPopupPanels', function () {
 
 			Page.backKey();
 			Interface.waitForClose();
+		});
+
+		it('should navigate to the previous panel with left key on an Item', function () {
+			Page.open();
+
+			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+
+			Page.spotlightSelect();
+
+			Page.waitForFocused(Interface.item1);
+
+			Interface.waitForEnter(2, () => {
+				Page.spotlightSelect();
+			});
+
+			Interface.waitForEnter(1, () => {
+				Page.spotlightLeft();
+			});
+
+			Page.backKey();
+			Interface.waitForClose();
+		});
+
+		it('should not go to the previous panel with left key on the back button', function () {
+			Page.open();
+
+			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+
+			Page.spotlightSelect();
+
+			Page.waitForFocused(Interface.item1);
+
+			Interface.waitForEnter(2, () => {
+				Page.spotlightSelect();
+			});
+
+			Page.spotlightUp();
+			Page.spotlightLeft();
+			Page.delay(500);
+
+			Page.spotlightDown();
+
+			const expected = "Example Item 1 on Panel 2";
+			const actual = browser.execute(getFocusedText);
+
+			expect(actual).to.equal(expected);
 		});
 
 		it('should not duplicate 5-way actions', function () {
