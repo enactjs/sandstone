@@ -177,16 +177,12 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		updateFocus = (prevState) => {
 			// focus node if `InputSpotlightDecorator` is pausing Spotlight or if Spotlight is paused
 			if (
-				!this.state.mouseDowned &&
 				this.state.node &&
 				Spotlight.getCurrent() !== this.state.node &&
 				(this.paused.isPaused() || !Spotlight.isPaused())
 			) {
-				// focus prev node if it is 'input' so that the blur event is occurred
-				if (this.state.focused && prevState.focused === 'input') {
-					prevState.node.focus();
-				}
-				this.state.node.focus();
+				if (this.state.mouseDowned) this.state.node.focus({preventScroll: true});
+				else this.state.node.focus();
 			}
 
 			const focusChanged = this.state.focused !== prevState.focused;
