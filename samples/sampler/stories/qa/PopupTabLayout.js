@@ -1,16 +1,34 @@
 /* eslint-disable react/jsx-no-bind */
 
+import {is} from '@enact/core/keymap';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
+import Icon from '@enact/sandstone/Icon';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {useState} from 'react';
+import compose from 'ramda/src/compose';
 
 PopupTabLayout.displayName = 'PopupTabLayout';
+
+const isRight = is('right');
+
+const navPrev = (callback, value, actionName) => () => {
+	const index = Math.max(value - 1, 0);
+	action(actionName)({index});
+	callback(index);
+};
+const navNext = (callback, value) => () => {
+	const index = Math.min(value + 1, 1);
+	// action(actionName)({index});
+	callback(index);
+};
 
 export default {
 	title: 'Sandstone/PopupTabLayout',
@@ -132,4 +150,74 @@ export const WithoutIcon = () => {
 };
 
 WithoutIcon.storyName = 'without icon';
+
+export const WithVariousItems = () => {
+	const defaultOpen = true;
+	const [open, setOpenState] = useState(defaultOpen);
+	const toggleOpen = () => setOpenState(!open);
+	const handleClose = compose(toggleOpen, action('onClose'));
+
+	const [indexDisplay, setIndexDisplay] = useState(0);
+	const [indexSound, setIndexSound] = useState(0);
+
+	const handleDisplayNext = navNext(setIndexDisplay, indexDisplay, 'onNext');
+	const handleDisplayPrev = navPrev(setIndexDisplay, indexDisplay, 'onBack');
+	const handleSoundNext = navNext(setIndexSound, indexSound, 'onNext');
+	const handleSoundPrev = navPrev(setIndexSound, indexSound, 'onBack');
+
+	// Navigate menus with the right key. The left key is handled by framework.
+	const handleKeyDown = (setState, state) => (ev) => {
+		const {keyCode} = ev;
+
+		if (isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
+			navNext(setState, state, 'onNext')();
+		}
+	};
+
+	return (
+		<div>
+			<PopupTabLayout
+				open={open}
+				onClose={handleClose}
+			>
+				<Tab icon="picture" title="Display">
+					<TabPanels index={indexDisplay} onBack={handleDisplayPrev}>
+						<TabPanel>
+							<Header title="Display Settings" type="compact" />
+							<SwitchItem>Picture Modes</SwitchItem>
+							<Button size="small" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>button1</Button>
+							<Button size="small" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)} disabled>button2</Button>
+							<Heading>heading</Heading>
+							<Item onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)} slotAfter={<Icon>arrowsmallright</Icon>}>Color Adjust</Item>
+							<Button>button</Button>
+						</TabPanel>
+						<TabPanel>
+							<Header title="Color Adjust" type="compact" />
+							<SwitchItem>Picture Modes</SwitchItem>
+							<Button size="small" disabled>button1</Button>
+							<Button size="small">button2</Button>
+							<Heading>heading</Heading>
+							<Item>Color Adjust</Item>
+							<Button>button</Button>
+						</TabPanel>
+					</TabPanels>
+				</Tab>
+				<Tab icon="sound" title="Sound">
+					<TabPanels index={indexSound} onBack={handleSoundPrev}>
+						<TabPanel>
+							<Header title="Sound Settings" type="compact" />
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Advanced Audio</Item>
+						</TabPanel>
+						<TabPanel>
+							<Header title="Advanced Audio" type="compact" />
+							<Item>Balance</Item>
+						</TabPanel>
+					</TabPanels>
+				</Tab>
+			</PopupTabLayout>
+		</div>
+	);
+};
+
+WithVariousItems.storyName = 'with various items';
 

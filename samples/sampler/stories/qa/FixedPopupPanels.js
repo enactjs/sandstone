@@ -7,6 +7,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
+import Dropdown from '@enact/sandstone/Dropdown';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {VirtualList} from '@enact/sandstone/VirtualList';
@@ -252,5 +253,182 @@ WithScroller.storyName = 'with Scroller';
 WithScroller.parameters = {
 	info: {
 		text: 'QA -  Scroller with text inside FixedPopupPanels'
+	}
+};
+
+export const WithVariousItems = () => {
+	const defaultOpen = true;
+	const [open, setOpenState] = useState(defaultOpen);
+	const toggleOpen = () => setOpenState(!open);
+	const handleClose = compose(toggleOpen, action('onClose'));
+
+	const defaultIndex = 0;
+	const [index, setPanelIndexState] = useState(defaultIndex);
+
+	const nextPanel = () => setPanelIndexState(Math.min(index + 1, 3));
+	const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
+	const handleBack = compose(prevPanel, action('onBack'));
+
+	// Navigate menus with the right key. The left key is handled by framework.
+	const handleKeyDown = (ev) => {
+		const {keyCode} = ev;
+
+		if (isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
+			nextPanel();
+		}
+	};
+
+	return (
+		<div>
+			<FixedPopupPanels
+				index={index}
+				open={open}
+				position={select('position', ['left', 'right'], Config)}
+				fullHeight={boolean('fullHeight', Config)}
+				width={select('width', ['narrow', 'half'], Config)}
+				noAnimation={boolean('noAnimation', Config)}
+				noAutoDismiss={boolean('noAutoDismiss', Config)}
+				onBack={handleBack}
+				onClose={handleClose}
+				onHide={action('onHide')}
+				onShow={action('onShow')}
+				scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
+				spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+			>
+				<Panel>
+					<Header>
+						<title>Panel 1</title>
+						<subtitle>This is the subtitle</subtitle>
+						<slotAfter>
+							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
+						</slotAfter>
+					</Header>
+					<Column>
+						<Cell shrink component={BodyText}>
+							A 3-Cell Layout with various items
+						</Cell>
+						<Cell>
+							<span>This is a text.</span>
+							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+							<br />
+							<br />
+							<Button size="small">Button2</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+							<br />
+							<br />
+							<Button size="small" disabled>Button4</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+								{['a', 'b', 'c', 'd', 'e', 'f']}
+							</Dropdown>
+							<br />
+						</Cell>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 2</title>
+						<subtitle>This is the subtitle</subtitle>
+						<slotAfter>
+							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
+						</slotAfter>
+					</Header>
+					<Column>
+						<Cell shrink component={BodyText}>
+							A 3-Cell Layout with various items
+						</Cell>
+						<Cell>
+							<span>This is a text.</span>
+							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+							<br />
+							<br />
+							<Button size="small">Button2</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+							<br />
+							<br />
+							<Button size="small" disabled>Button4</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+								{['a', 'b', 'c', 'd', 'e', 'f']}
+							</Dropdown>
+							<br />
+						</Cell>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 3</title>
+						<subtitle>This is the subtitle</subtitle>
+						<slotAfter>
+							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
+						</slotAfter>
+					</Header>
+					<Column>
+						<Cell shrink component={BodyText}>
+							A 3-Cell Layout with various items
+						</Cell>
+						<Cell>
+							<span>This is a text.</span>
+							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+							<br />
+							<br />
+							<Button size="small">Button2</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+							<br />
+							<br />
+							<Button size="small" disabled>Button4</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+								{['a', 'b', 'c', 'd', 'e', 'f']}
+							</Dropdown>
+							<br />
+						</Cell>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 4</title>
+						<subtitle>This is the subtitle</subtitle>
+					</Header>
+					<Column>
+						<Cell shrink component={BodyText}>
+							A 3-Cell Layout with various items
+						</Cell>
+						<Cell>
+							<span>This is a text.</span>
+							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+							<br />
+							<br />
+							<Button size="small">Button2</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+							<br />
+							<br />
+							<Button size="small" disabled>Button4</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+								{['a', 'b', 'c', 'd', 'e', 'f']}
+							</Dropdown>
+							<br />
+						</Cell>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+			</FixedPopupPanels>
+			<Button onClick={toggleOpen}>Open FixedPopupPanels</Button>
+		</div>
+	);
+};
+
+WithVariousItems.storyName = 'with various items';
+WithVariousItems.parameters = {
+	info: {
+		text: 'QA - Various items inside FixedPopupPanels'
 	}
 };
