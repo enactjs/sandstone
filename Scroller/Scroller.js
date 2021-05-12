@@ -65,7 +65,8 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		additionalChildren
 	} = useScroll(rest);
 
 	const {
@@ -89,6 +90,7 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+					{additionalChildren}
 				</ScrollBody>
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
@@ -216,6 +218,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
+	 * Enables scroll by hover on edges
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	hoverToScroll: PropTypes.bool,
 
 	/**
 	 * Unique identifier for the component.
@@ -402,6 +413,7 @@ Scroller.defaultProps = {
 	fadeOut: false,
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
+	hoverToScroll: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

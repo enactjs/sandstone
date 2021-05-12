@@ -10,6 +10,24 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
 
+import {getLastInputType} from '../ThemeDecorator';
+
+const nop = () => {};
+const propertyNames = (direction) => {
+	return direction === 'vertical' ? {
+		axis: 'y',
+		client: 'clientHeight',
+		maxPosition: 'maxTop',
+		scrollPosition: 'scrollTop'
+	} : {
+		axis: 'x',
+		client: 'clientWidth',
+		maxPosition: 'maxLeft',
+		scrollPosition: 'scrollLeft'
+	};
+};
+const hoverToScrollMultiplier = 0.04;
+
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
@@ -365,6 +383,10 @@ const useEventMouse = (props, instances) => {
 	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContainerHandle} = instances;
 
+	// Mutable value
+
+	const mutableRef = useRef({hoverToScrollRafId: null});
+
 	// Functions
 
 	function handleFlick ({direction}) {
@@ -393,11 +415,68 @@ const useEventMouse = (props, instances) => {
 		}
 	}
 
+	function hoverToScrollStart (direction, position) {
+		if (typeof window === 'object') {
+			const bounds = scrollContainerHandle.current.getScrollBounds();
+			const {axis, client, maxPosition, scrollPosition} = propertyNames(direction);
+			const distance =
+				(position === 'before' ? -1 : 1) * // scroll direction
+				bounds[client] * // scroll page size
+				hoverToScrollMultiplier; // a scrolling speed factor
+
+			return function (ev) {
+				if (ev.pointerType === 'mouse') {
+					const scrollByHover = () => {
+						if (getLastInputType() === 'mouse') {
+							scrollContainerHandle.current.scrollTo({
+								position: {
+									[axis]: clamp(
+										0,
+										bounds[maxPosition],
+										scrollContainerHandle.current[scrollPosition] + distance
+									)
+								},
+								animate: false
+							});
+							mutableRef.current.hoverToScrollRafId = window.requestAnimationFrame(scrollByHover);
+						} else {
+							mutableRef.current.hoverToScrollRafId = null;
+						}
+					};
+					scrollByHover();
+				}
+			};
+		} else {
+			return nop;
+		}
+	}
+
+	function hoverToScrollEnd () {
+		if (typeof window === 'object') {
+			return function () {
+				window.cancelAnimationFrame(mutableRef.current.hoverToScrollRafId);
+				mutableRef.current.hoverToScrollRafId = null;
+			};
+		} else {
+			return nop;
+		}
+	}
+
+	function hoverToScrollReset () {
+		if (typeof window === 'object') {
+			window.cancelAnimationFrame(mutableRef.current.hoverToScrollRafId);
+			mutableRef.current.hoverToScrollRafId = null;
+		}
+	}
+
 	// Return
 
 	return {
 		handleFlick,
-		handleMouseDown
+		handleMouseDown,
+		hoverToScrollEnd,
+		hoverToScrollReset,
+		hoverToScrollStart
 	};
 };
 

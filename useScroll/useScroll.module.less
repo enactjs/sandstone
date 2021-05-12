@@ -43,6 +43,29 @@
 		padding: 0 @sand-scrollbar-padding;
 	}
 
+	.hoverToScroll {
+		position: absolute;
+		z-index: 10;
+		pointer-events: none;
+		:global(.spotlight-input-mouse) & {
+			pointer-events: auto;
+		}
+		&.vertical {
+			width: 100%;
+			height: @sand-scroll-hover-scroll-width;
+			&.after {
+				bottom: 0;
+			}
+		}
+		&.horizontal {
+			width: @sand-scroll-hover-scroll-width;
+			height: 100%;
+			&.after {
+				right: 0;
+			}
+		}
+	}
+
 	&.bidirectional {
 		.verticalScrollbar {
 			height: calc(100% - 2 * @sand-scrollbar-padding - var(--scroll-scrollbar-size));

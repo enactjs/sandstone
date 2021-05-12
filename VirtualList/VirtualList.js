@@ -61,7 +61,8 @@ let VirtualList = ({itemSize, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		additionalChildren
 	} = useScroll({...rest, ...props});
 
 	const {
@@ -77,6 +78,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				{additionalChildren}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -187,6 +189,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
+	 * Enables scroll by hover on edges
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	hoverToScroll: PropTypes.bool,
 
 	/**
 	 * Unique identifier for the component.
@@ -452,6 +463,7 @@ VirtualList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
+	hoverToScroll: false,
 	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
@@ -495,7 +507,8 @@ let VirtualGridList = (props) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		additionalChildren
 	} = useScroll(props);
 
 	const {
@@ -511,6 +524,7 @@ let VirtualGridList = (props) => {
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				{additionalChildren}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -623,6 +637,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
+	 * Enables scroll by hover on edges
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	hoverToScroll: PropTypes.bool,
 
 	/**
 	 * Unique identifier for the component.
@@ -883,6 +906,7 @@ VirtualGridList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
+	hoverToScroll: false,
 	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
