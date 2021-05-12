@@ -74,7 +74,8 @@ const InputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * Indicates value is invalid and shows `invalidMessage`.
+		 * Indicates [value]{@link sandstone/Input.InputPopupBase.value} is invalid and shows
+		 * [invalidMessage]{@link sandstone/Input.InputPopupBase.invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -82,9 +83,13 @@ const InputPopupBase = kind({
 		invalid: PropTypes.bool,
 
 		/**
-		 * The tooltip text to be displayed when the input is `invalid`.
+		 * The tooltip text to be displayed when the input is
+		 * [invalid]{@link sandstone/Input.InputPopupBase.invalid}.
+		 *
+		 * If this value is *falsy*, the tooltip will be shown with the default message.
 		 *
 		 * @type {String}
+		 * @default 'Please enter a valid value.'
 		 * @public
 		 */
 		invalidMessage: PropTypes.string,
@@ -142,7 +147,7 @@ const InputPopupBase = kind({
 		 * The default is to display separated digits when `length` is less than `7`. If `field` is
 		 * set, a standard `InputField` will be used instead of the normal number input.
 		 *
-		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.prototype#type}.
+		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.type}.
 		 *
 		 * @type {('auto'|'separated'|'joined'|'field')}
 		 * @default 'auto'
