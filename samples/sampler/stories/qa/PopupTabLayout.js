@@ -10,6 +10,7 @@ import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import Scroller from '@enact/sandstone/Scroller';
+import Slider from '@enact/sandstone/Slider';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {useState} from 'react';
@@ -190,6 +191,7 @@ export const WithVariousItems = () => {
 							<Heading>heading</Heading>
 							<Item onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)} slotAfter={<Icon>arrowsmallright</Icon>}>Color Adjust</Item>
 							<Button>button</Button>
+							<Slider style={{display: 'inline-block', width: '30%'}} />
 						</TabPanel>
 						<TabPanel>
 							<Header title="Color Adjust" type="compact" />
@@ -199,6 +201,7 @@ export const WithVariousItems = () => {
 							<Heading>heading</Heading>
 							<Item>Color Adjust</Item>
 							<Button>button</Button>
+							<Slider style={{display: 'inline-block', width: '30%'}} />
 						</TabPanel>
 					</TabPanels>
 				</Tab>

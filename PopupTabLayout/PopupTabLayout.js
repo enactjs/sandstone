@@ -14,6 +14,7 @@ import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import PropTypes from 'prop-types';
 import {useContext, useEffect} from 'react';
 import compose from 'ramda/src/compose';
@@ -365,12 +366,13 @@ const tabPanelsHandlers = {
 		forKey('left'),
 		(ev, {index}) => (index > 0),
 		(ev) => {
-			if (Spotlight.move('left') || getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
+			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
 				ev.stopPropagation();
 				return false;
 			}
 			return true;
 		},
+		({target}) => (getTargetByDirectionFromElement('left', target) === null),
 		forward('onBack'),
 		stop
 	)

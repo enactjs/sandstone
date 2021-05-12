@@ -10,6 +10,7 @@ import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels
 import Dropdown from '@enact/sandstone/Dropdown';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import Slider from '@enact/sandstone/Slider';
 import {VirtualList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
@@ -321,6 +322,7 @@ export const WithVariousItems = () => {
 								{['a', 'b', 'c', 'd', 'e', 'f']}
 							</Dropdown>
 							<br />
+							<Slider />
 						</Cell>
 						<Cell shrink component={BodyText}>
 							This text should be visible.
@@ -353,6 +355,7 @@ export const WithVariousItems = () => {
 								{['a', 'b', 'c', 'd', 'e', 'f']}
 							</Dropdown>
 							<br />
+							<Button size="small">Slider</Button><Slider style={{display: 'inline-block', width: '30%'}} />
 						</Cell>
 						<Cell shrink component={BodyText}>
 							This text should be visible.
@@ -385,6 +388,7 @@ export const WithVariousItems = () => {
 								{['a', 'b', 'c', 'd', 'e', 'f']}
 							</Dropdown>
 							<br />
+							<Slider />
 						</Cell>
 						<Cell shrink component={BodyText}>
 							This text should be visible.

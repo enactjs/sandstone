@@ -9,8 +9,8 @@
 
 import {forKey, forward, handle, stop} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
-import Spotlight from '@enact/spotlight';
 import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import compose from 'ramda/src/compose';
 
 import {BasicArranger, PopupDecorator, Viewport} from '../internal/Panels';
@@ -36,13 +36,8 @@ const fixedPopupPanelsHandlers = {
 		forward('onKeyDown'),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
-		(ev) => {
-			if (Spotlight.move('left') || getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
-				ev.stopPropagation();
-				return false;
-			}
-			return true;
-		},
+		({target}) => (getContainerNode(getContainersForNode(target).pop()).tagName !== 'HEADER'),
+		({target}) => (getTargetByDirectionFromElement('left', target) === null),
 		forward('onBack'),
 		stop
 	)
