@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` left key handler to go to the previous panel
 - `sandstone/Input` a back button and props `backButtonAriaLabel` and `noBackButton`
 - `sandstone/Input` and `sandstone/Input.InputPopup` `url` to prop `type`
 - `sandstone/Picker` and `sandstone/RangePicker` props `title` and `inlineTitle`
