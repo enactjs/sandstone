@@ -3,6 +3,7 @@
 import {is} from '@enact/core/keymap';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
+import Dropdown from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
 import Input from '@enact/sandstone/Input';
@@ -13,6 +14,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import {action} from '@enact/storybook-utils/addons/actions';
+import {Cell} from '@enact/ui/Layout';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
@@ -185,23 +187,44 @@ export const WithVariousItems = () => {
 					<TabPanels index={indexDisplay} onBack={handleDisplayPrev}>
 						<TabPanel>
 							<Header title="Display Settings" type="compact" />
-							<SwitchItem>Picture Modes</SwitchItem>
-							<Button size="small" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>button1</Button>
-							<Button size="small" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)} disabled>button2</Button>
-							<Heading>heading</Heading>
-							<Item onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)} slotAfter={<Icon>arrowsmallright</Icon>}>Color Adjust</Item>
-							<Button>button</Button>
-							<Slider style={{display: 'inline-block', width: '30%'}} />
+							<Cell>
+								<span>This is the first panel.</span>
+								<Button size="small" disabled onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Button1</Button>
+								<br />
+								<br />
+								<Button size="small">Button2</Button>
+								<Button size="small" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Button3</Button>
+								<br />
+								<br />
+								<Item onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)} slotAfter={<Icon>arrowlargeright</Icon>}>Color Adjust</Item>
+								<Slider />
+								<br />
+								<Button size="small" disabled>Button4</Button>
+								<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+									{['a', 'b', 'c', 'd', 'e', 'f']}
+								</Dropdown>
+								<br />
+								<br />
+							</Cell>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Color Adjust" type="compact" />
-							<SwitchItem>Picture Modes</SwitchItem>
-							<Button size="small" disabled>button1</Button>
-							<Button size="small">button2</Button>
-							<Heading>heading</Heading>
-							<Item>Color Adjust</Item>
-							<Button>button</Button>
-							<Slider style={{display: 'inline-block', width: '30%'}} />
+							<Cell>
+								<span>This is the second panel.</span>
+								<Button size="small" disabled>Button1</Button>
+								<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+									{['a', 'b', 'c', 'd', 'e', 'f']}
+								</Dropdown>
+								<br />
+								<br />
+								<Button size="small" disabled>Button2</Button>
+								<Button size="small">Button3</Button>
+								<br />
+								<br />
+								<Button size="small">Slider</Button><Slider style={{display: 'inline-block', width: '30%'}} />
+								<br />
+								<br />
+							</Cell>
 						</TabPanel>
 					</TabPanels>
 				</Tab>

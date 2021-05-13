@@ -8,6 +8,7 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Dropdown from '@enact/sandstone/Dropdown';
+import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
@@ -309,7 +310,7 @@ export const WithVariousItems = () => {
 							A 3-Cell Layout with various items
 						</Cell>
 						<Cell>
-							<span>This is a text.</span>
+							<span>This is the first panel.</span>
 							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
 							<br />
 							<br />
@@ -317,12 +318,14 @@ export const WithVariousItems = () => {
 							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
 							<br />
 							<br />
+							<Slider />
+							<br />
 							<Button size="small" disabled>Button4</Button>
 							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
 								{['a', 'b', 'c', 'd', 'e', 'f']}
 							</Dropdown>
 							<br />
-							<Slider />
+							<br />
 						</Cell>
 						<Cell shrink component={BodyText}>
 							This text should be visible.
@@ -342,20 +345,21 @@ export const WithVariousItems = () => {
 							A 3-Cell Layout with various items
 						</Cell>
 						<Cell>
-							<span>This is a text.</span>
-							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+							<span>This is the second panel.</span>
+							<Item onClick={nextPanel} onKeyDown={handleKeyDown} slotAfter={<Icon>arrowlargeright</Icon>}>Go to the next</Item>
+							<Button size="small" disabled>Button1</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+								{['a', 'b', 'c', 'd', 'e', 'f']}
+							</Dropdown>
 							<br />
 							<br />
 							<Button size="small">Button2</Button>
 							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
 							<br />
 							<br />
-							<Button size="small" disabled>Button4</Button>
-							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
-								{['a', 'b', 'c', 'd', 'e', 'f']}
-							</Dropdown>
-							<br />
 							<Button size="small">Slider</Button><Slider style={{display: 'inline-block', width: '30%'}} />
+							<br />
+							<br />
 						</Cell>
 						<Cell shrink component={BodyText}>
 							This text should be visible.
@@ -366,57 +370,21 @@ export const WithVariousItems = () => {
 					<Header>
 						<title>Panel 3</title>
 						<subtitle>This is the subtitle</subtitle>
-						<slotAfter>
-							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
-						</slotAfter>
 					</Header>
 					<Column>
 						<Cell shrink component={BodyText}>
 							A 3-Cell Layout with various items
 						</Cell>
 						<Cell>
-							<span>This is a text.</span>
-							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+							<span>This is the last panel.</span>
+							<Button>Button1</Button>
 							<br />
 							<br />
-							<Button size="small">Button2</Button>
-							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+							<Button size="small" disabled>Button2</Button>
 							<br />
-							<br />
-							<Button size="small" disabled>Button4</Button>
-							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
-								{['a', 'b', 'c', 'd', 'e', 'f']}
-							</Dropdown>
 							<br />
 							<Slider />
-						</Cell>
-						<Cell shrink component={BodyText}>
-							This text should be visible.
-						</Cell>
-					</Column>
-				</Panel>
-				<Panel>
-					<Header>
-						<title>Panel 4</title>
-						<subtitle>This is the subtitle</subtitle>
-					</Header>
-					<Column>
-						<Cell shrink component={BodyText}>
-							A 3-Cell Layout with various items
-						</Cell>
-						<Cell>
-							<span>This is a text.</span>
-							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
 							<br />
-							<br />
-							<Button size="small">Button2</Button>
-							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
-							<br />
-							<br />
-							<Button size="small" disabled>Button4</Button>
-							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
-								{['a', 'b', 'c', 'd', 'e', 'f']}
-							</Dropdown>
 							<br />
 						</Cell>
 						<Cell shrink component={BodyText}>
