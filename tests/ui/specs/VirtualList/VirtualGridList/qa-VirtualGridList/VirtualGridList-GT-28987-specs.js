@@ -16,11 +16,10 @@ describe('qa-VirtualGridList', function () {
 		Page.spotlightRight();
 		expectFocusedItem(0);
 		// Step 3-2: 5-way Left to Item 16.
-		for (let i = 0; i < 7; i++) {
+		for (let i = 0; i < 8; i++) {
 			Page.spotlightLeft();
 			Page.delay(200);
 		}
-		Page.spotlightLeft();
 		Page.delay(500);
 		// Step 3-2 Verify: Spotlight is on item 16.
 		expectFocusedItem(16);
