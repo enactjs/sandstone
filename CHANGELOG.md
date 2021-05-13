@@ -20,6 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
 - `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds
+- `sandstone/WizardPanels.Panel` `nextButton` and `prevButton` to show labels separately to match latest designs
 
 ### Fixed
 

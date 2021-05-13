@@ -389,6 +389,7 @@ const WizardPanelsBase = kind({
 							aria-label={$L('Previous')}
 							backgroundOpacity="transparent"
 							component={prevButton}
+							focusEffectIconOnly
 							icon="arrowlargeleft"
 							iconFlip="auto"
 							minWidth={false}
@@ -400,6 +401,7 @@ const WizardPanelsBase = kind({
 							aria-label={$L('Next')}
 							backgroundOpacity="transparent"
 							component={nextButton}
+							focusEffectIconOnly
 							icon="arrowlargeright"
 							iconFlip="auto"
 							iconPosition="after"
