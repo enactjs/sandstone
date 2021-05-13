@@ -22,7 +22,7 @@ const itemSize = 156;
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (size) => ({index, ...rest}) => {
-	const style = {height: '100%', width: ri.scale(size, 'rem'), writingMode: 'vertical-lr'};
+	const style = {height: '100%', width: ri.scale(size, 'rem'), writingMode: 'vertical-lr', margin: '0'};
 	return (
 		<Item index={index} style={style} {...rest} id={`item${index}`}>
 			{items[index].item}

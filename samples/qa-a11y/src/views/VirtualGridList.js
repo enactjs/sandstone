@@ -7,6 +7,8 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import {useState} from 'react';
 
+import css from './VirtualGridList.module.less';
+
 const items = [];
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = ({index, ...rest}) => {
@@ -63,6 +65,7 @@ const VirtualGridListView = () => {
 				</CheckboxItem>
 			</Cell>
 			<VirtualGridList
+				className={horizontal ? css.horizontalPadding : css.verticalPadding}
 				dataSize={items.length}
 				direction={horizontal ? 'horizontal' : 'vertical'}
 				itemRenderer={renderItem}
