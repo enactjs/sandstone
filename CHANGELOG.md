@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Panels.Header` to always show back button
+- `sandstone/PopupTabLayout` back key behavior to match the latest UX
 - `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
 - `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds

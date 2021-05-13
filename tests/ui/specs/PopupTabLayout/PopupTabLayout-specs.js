@@ -110,7 +110,7 @@ describe('PopupTabLayout', function () {
 					expect(actual).to.equal(expected);
 				});
 
-				it('should close the popup on back', function () {
+				it('should close the popup on back when the focus is on the tabs', function () {
 					Page.waitTransitionEnd(1500, 'waiting for popup to close', () => {
 						Page.backKey();
 					});
@@ -136,6 +136,52 @@ describe('PopupTabLayout', function () {
 
 					expect(actual).to.equal(expected);
 				});
+
+				it('should collapse tab only when user enters a menu', function () {
+					Page.spotlightRight();
+					Page.delay(500);
+					expect(popupTabLayout.isCollapsed).to.be.false();
+
+					Page.spotlightSelect();
+					Page.delay(500);
+					expect(popupTabLayout.isCollapsed).to.be.true();
+
+					Page.spotlightLeft();
+					Page.delay(500);
+					expect(popupTabLayout.isCollapsed).to.be.false();
+				});
+
+				it('should not close the popup when pressing back key on the first panel of content', function () {
+					// Go to the second depth of the content
+					Page.spotlightRight();
+					Page.spotlightSelect();
+					Page.delay(500);
+
+					// Press back key to go to the first panel
+					Page.backKey();
+					Page.delay(500);
+
+					// Make sure the focus is on the first panel
+					expect(browser.execute(getFocusedText)).to.equal('Color Adjust');
+
+					// Press back key to move the focus on the tabs
+					Page.backKey();
+					Page.delay(500);
+
+					// Make sure the focus is on the tabs
+					expect(browser.execute(getFocusedText)).to.equal('Display');
+
+					// Press back key to close the popup
+					Page.waitTransitionEnd(1500, 'waiting for popup to close', () => {
+						Page.backKey();
+					});
+
+					const expected = $('#tabLayout').isExisting();
+					const actual = false;
+
+					expect(actual).to.equal(expected);
+				});
+
 			});
 
 			// describe('pointer interaction', function () {
@@ -209,20 +255,6 @@ describe('PopupTabLayout', function () {
 				const actual = browser.execute(getFocusedText);
 
 				expect(actual).to.equal(expected);
-			});
-
-			it('should collapse tab only when user enters a menu ', function () {
-				Page.spotlightRight();
-				Page.delay(500);
-				expect(popupTabLayout.isCollapsed).to.be.false();
-
-				Page.spotlightSelect();
-				Page.delay(500);
-				expect(popupTabLayout.isCollapsed).to.be.true();
-
-				Page.spotlightLeft();
-				Page.delay(500);
-				expect(popupTabLayout.isCollapsed).to.be.false();
 			});
 		});
 	});
