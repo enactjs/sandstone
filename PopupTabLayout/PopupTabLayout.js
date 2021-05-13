@@ -372,7 +372,13 @@ const tabPanelsHandlers = {
 			}
 			return true;
 		},
-		({target}) => (getTargetByDirectionFromElement('left', target) === null),
+		({target}) => {
+			const next = getTargetByDirectionFromElement('left', target);
+			if (next === null || (next && !getContainerNode(getContainersForNode(target).pop()).contains(next))) {
+				return true;
+			}
+			return false;
+		},
 		forward('onBack'),
 		stop
 	)
