@@ -136,6 +136,7 @@ const SliderBase = (props) => {
 
 	useLayoutEffect(() => {
 		const sliderRef = ref.current;
+
 		if (sliderRef) {
 			sliderRef.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
 		}
