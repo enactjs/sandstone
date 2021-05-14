@@ -7,6 +7,7 @@ import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
+import classnames from 'classnames';
 
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
@@ -291,13 +292,13 @@ const InputFieldBase = kind({
 				<input
 					{...inputProps}
 					{...voiceProps}
-					className={css.input}
+					className={type === 'passwordtel' ? classnames(css.input, css.passwordtel) : css.input}
 					dir={dir}
 					disabled={disabled}
 					onChange={onChange}
 					placeholder={placeholder}
 					tabIndex={-1}
-					type={type}
+					type={type === 'passwordtel' ? 'tel' : type}
 					value={value}
 				/>
 				<InputFieldDecoratorIcon position="after" size={size}>{iconAfter}</InputFieldDecoratorIcon>
