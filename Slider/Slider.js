@@ -28,7 +28,6 @@ import ProgressBar from '@enact/ui/ProgressBar';
 import Pure from '@enact/ui/internal/Pure';
 import Slottable from '@enact/ui/Slottable';
 import UiSlider from '@enact/ui/Slider';
-import utilEvent from '@enact/ui/useScroll/utilEvent';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import anyPass from 'ramda/src/anyPass';
@@ -136,11 +135,14 @@ const SliderBase = (props) => {
 	}, [keyFrequency]);
 
 	useLayoutEffect(() => {
-		if (ref.current) {
-			utilEvent('wheel').addEventListener(ref, nativeEventHandlers.onWheel, {passive: false});
+		const sliderRef = ref.current;
+		if (sliderRef) {
+			sliderRef.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
 		}
 		return () => {
-			utilEvent('wheel').removeEventListener(ref, nativeEventHandlers.onWheel, {passive: false});
+			if (sliderRef) {
+				sliderRef.removeEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+			}
 		};
 
 	}, [ref, nativeEventHandlers.onWheel]);
