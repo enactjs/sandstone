@@ -5,7 +5,7 @@ sudo: false
 cache: npm
 install:
     - npm config set prefer-offline true
-    - npm install -g enactjs/cli@3.0.6
+    - npm install -g @enact/cli@3.0.6
     - npm install -g codecov
     - git clone --branch=3.5.0 --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
