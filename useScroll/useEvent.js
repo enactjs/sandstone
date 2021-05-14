@@ -188,17 +188,16 @@ const useEventKey = (props, instances, context) => {
 		}
 	}
 
-	function scrollByPage (direction) {
+	function scrollByPage (pageKeyDirection) {
 		const
 			{scrollTop} = scrollContainerHandle.current,
 			focusedItem = Spotlight.getCurrent(),
 			bounds = scrollContainerHandle.current.getScrollBounds(),
-			isUp = direction === 'up',
+			isUp = pageKeyDirection === 'up',
 			directionFactor = isUp ? -1 : 1,
 			pageDistance = directionFactor * bounds.clientHeight * paginationPageMultiplier;
-		let
-			computedDirection = direction,
-			scrollPossible = false;
+		let direction = pageKeyDirection;
+		let scrollPossible = false;
 
 		if (scrollMode === 'translate') {
 			scrollPossible = isUp ? scrollTop > 0 : bounds.maxTop > scrollTop;
@@ -228,7 +227,7 @@ const useEventKey = (props, instances, context) => {
 
 					if (bounds.maxTop - epsilon < scrollTop + pageDistance || epsilon > scrollTop + pageDistance) {
 						y = contentRect[isUp ? 'top' : 'bottom'] + yAdjust;
-						computedDirection = isUp ? 'down' : 'up'; // Change direction to find target in the content
+						direction = isUp ? 'down' : 'up'; // Change direction to find target in the content
 					} else {
 						y = clamp(contentRect.top, contentRect.bottom, (clientRect.bottom + clientRect.top) / 2);
 					}
@@ -243,10 +242,10 @@ const useEventKey = (props, instances, context) => {
 						themeScrollContentHandle.current.pauseSpotlight(true);
 					}
 
-					spottable.current.pointToFocus = {direction: computedDirection, x, y};
+					spottable.current.pointToFocus = {direction, x, y};
 				}
 			} else {
-				spottable.current.pointToFocus = {direction: computedDirection, x: lastPointer.x, y: lastPointer.y};
+				spottable.current.pointToFocus = {direction, x: lastPointer.x, y: lastPointer.y};
 			}
 
 			scrollContainerHandle.current.scrollToAccumulatedTarget(pageDistance, true, props.overscrollEffectOn.pageKey);
