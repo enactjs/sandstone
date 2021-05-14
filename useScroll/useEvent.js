@@ -10,7 +10,7 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
 
-const {animationDuration, epsilon, isPageDown, isPageUp, overscrollDefaultRatio, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
+const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances) => {
@@ -624,13 +624,13 @@ const useEventWheel = (props, instances) => {
 
 					ev.preventDefault();
 				} else if (overscrollEffectRequired) {
-					scrollContainerHandle.current.checkAndApplyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce, overscrollDefaultRatio);
+					scrollContainerHandle.current.checkAndApplyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
 
 				ev.stopPropagation();
 			} else {
 				if (overscrollEffectRequired && (negativeDelta && scrollTop <= 0 || positiveDelta && scrollTop >= bounds.maxTop)) {
-					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce, overscrollDefaultRatio);
+					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
 
 				needToHideScrollbarTrack = true;
@@ -648,7 +648,7 @@ const useEventWheel = (props, instances) => {
 				ev.stopPropagation();
 			} else {
 				if (overscrollEffectRequired && (negativeDelta && scrollLeft <= 0 || positiveDelta && scrollLeft >= bounds.maxLeft)) {
-					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce, overscrollDefaultRatio);
+					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
 
 				needToHideScrollbarTrack = true;
