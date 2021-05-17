@@ -15,7 +15,7 @@ const Config = mergeComponentMetadata('InputField', InputFieldBase, InputField);
 
 // Set up some defaults for info and knobs
 const prop = {
-	type: ['text', 'number', 'password']
+	type: ['text', 'number', 'password', 'tel', 'passwordtel']
 };
 
 storiesOf('Sandstone', module)

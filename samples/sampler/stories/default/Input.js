@@ -14,7 +14,7 @@ const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
 	popupType: ['fullscreen', 'overlay'],
 	size: ['small', 'large'],
-	type: ['text', 'password', 'number', 'passwordnumber']
+	type: ['text', 'password', 'number', 'passwordnumber', 'tel', 'passwordtel']
 };
 
 storiesOf('Sandstone', module)

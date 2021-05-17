@@ -252,8 +252,10 @@ const InputFieldBase = kind({
 				}),
 				forwardWithPrevent('onBeforeChange')
 			),
-			returnsTrue((ev, {announce, disabled, type}) => {
-				if (type === 'passwordtel' && !disabled) announce($L('hidden'));
+			returnsTrue((ev, {announce, type}) => {
+				if (type === 'passwordtel') {
+					announce($L('hidden'));
+				}
 			}),
 			forwardCustom('onChange', ev => ({
 				stopPropagation: () => ev.stopPropagation(),
