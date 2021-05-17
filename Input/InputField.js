@@ -7,7 +7,6 @@ import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
-import classnames from 'classnames';
 import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 
 import $L from '../internal/$L';
