@@ -23,7 +23,7 @@ import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFiel
 import componentCss from './Input.module.less';
 
 const prepareInputEventPayload = ev => ({value: ev.target.value});
-const isPasswordType = type => type === 'password' || type === 'passwordnumber' || type === 'passwordtel';
+const isPasswordType = type => type.includes('password');
 
 /**
  * Base component for providing text input in the form of a popup without button.

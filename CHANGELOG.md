@@ -2,6 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Input` type `tel` and `passwordtel`
+
+
 ## [1.4.8] - 2021-05-06
 
 ### Fixed

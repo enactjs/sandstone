@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forwardCustom, forwardWithPrevent} from '@enact/core/handle';
+import {handle, adaptEvent, forwardCustom, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
 import Changeable from '@enact/ui/Changeable';
@@ -8,6 +8,7 @@ import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
+import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
@@ -34,6 +35,14 @@ const InputFieldBase = kind({
 	name: 'InputField',
 
 	propTypes: /** @lends sandstone/Input.InputFieldBase.prototype */ {
+		/**
+		 * Passed by AnnounceDecorator for accessibility.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		announce: PropTypes.func,
+
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -244,6 +253,9 @@ const InputFieldBase = kind({
 				}),
 				forwardWithPrevent('onBeforeChange')
 			),
+			returnsTrue((ev, {announce, disabled, type}) => {
+				if (type === 'passwordtel' && !disabled) announce($L('hidden'));
+			}),
 			forwardCustom('onChange', ev => ({
 				stopPropagation: () => ev.stopPropagation(),
 				value: ev.target.value
@@ -258,6 +270,7 @@ const InputFieldBase = kind({
 		},
 		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
+		inputClassName: ({styler, type}) => styler.append('input', {'passwordtel': (type === 'passwordtel')}),
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
@@ -271,9 +284,10 @@ const InputFieldBase = kind({
 		value: ({value}) => typeof value === 'number' ? value : (value || '')
 	},
 
-	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
+	render: ({css, dir, disabled, iconAfter, iconBefore, inputClassName, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
 		const inputProps = extractInputProps(rest);
 		const voiceProps = extractVoiceProps(rest);
+		delete rest.announce;
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
 		delete rest.invalidMessage;
@@ -292,14 +306,15 @@ const InputFieldBase = kind({
 				<input
 					{...inputProps}
 					{...voiceProps}
-					className={type === 'passwordtel' ? classnames(css.input, css.passwordtel) : css.input}
+					className={inputClassName}
 					dir={dir}
 					disabled={disabled}
 					onChange={onChange}
 					placeholder={placeholder}
 					tabIndex={-1}
-					type={type === 'passwordtel' ? 'tel' : type}
 					value={value}
+					type={type === 'passwordtel' ? 'tel' : type}
+					aria-hidden={type === 'passwordtel'}
 				/>
 				<InputFieldDecoratorIcon position="after" size={size}>{iconAfter}</InputFieldDecoratorIcon>
 				{invalidTooltip}
@@ -307,6 +322,18 @@ const InputFieldBase = kind({
 		);
 	}
 });
+
+// eslint-disable-next-line no-shadow
+const AnnounceDecorator = Wrapped => function AnnounceDecorator (props) {
+	const {announce, children} = useAnnounce();
+
+	return (
+		<React.Fragment>
+			<Wrapped {...props} announce={announce} />
+			{children}
+		</React.Fragment>
+	);
+};
 
 /**
  * Sandstone specific item behaviors to apply to [InputField]{@link sandstone/Input.InputFieldBase}.
@@ -323,6 +350,7 @@ const InputFieldDecorator = compose(
 	I18nContextDecorator({rtlProp: 'rtl'}),
 	Changeable,
 	InputFieldSpotlightDecorator,
+	AnnounceDecorator,
 	Skinnable
 );
 
