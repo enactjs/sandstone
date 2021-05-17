@@ -47,7 +47,7 @@ const wrapOption = {
 const renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 	const style = vertical ?
 		{} :
-		{height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr'};
+		{height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr', margin: '0'};
 
 	return (
 		<ItemComponent index={index} style={style} onClick={onClick} {...rest}>
