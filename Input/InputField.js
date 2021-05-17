@@ -8,6 +8,8 @@ import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {useAnnounce} from '@enact/ui/AnnounceDecorator';
+import {readAlert} from '@enact/webos/speech';
+import platform from '@enact/core/platform';
 
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
@@ -254,7 +256,11 @@ const InputFieldBase = kind({
 			),
 			returnsTrue((ev, {announce, type}) => {
 				if (type === 'passwordtel') {
-					announce($L('hidden'));
+					if (platform.webos) {
+						readAlert($L('hidden'));
+					} else {
+						announce($L('hidden'));
+					}
 				}
 			}),
 			forwardCustom('onChange', ev => ({
