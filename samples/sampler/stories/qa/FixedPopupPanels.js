@@ -1,13 +1,17 @@
 /* eslint-disable react/jsx-no-bind */
 
+import {is} from '@enact/core/keymap';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
+import Dropdown from '@enact/sandstone/Dropdown';
+import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import Slider from '@enact/sandstone/Slider';
 import {VirtualList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
@@ -21,6 +25,8 @@ Config.defaultProps.position = 'right';
 Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
+
+const isRight = is('right');
 
 class FixedPopupPanelsWithPause extends Component {
 	constructor () {
@@ -85,6 +91,15 @@ export const WithVirtualList = () => {
 	const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
 	const handleBack = compose(prevPanel, action('onBack'));
 
+	// Navigate menus with the right key. The left key is handled by framework.
+	const handleKeyDown = (ev) => {
+		const {keyCode} = ev;
+
+		if (isRight(keyCode)) {
+			nextPanel();
+		}
+	};
+
 	const itemHeight = 156;
 	const itemSize = ri.scale(itemHeight);
 
@@ -120,7 +135,7 @@ export const WithVirtualList = () => {
 						<Cell
 							size={itemHeight * 4}
 							component={VirtualList}
-							childProps={{onClick: nextPanel}}
+							childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
 							itemSize={itemSize}
 							itemRenderer={itemRenderer}
 							dataSize={20}
@@ -144,7 +159,7 @@ export const WithVirtualList = () => {
 						</Cell>
 						<Cell size={itemHeight * 3}>
 							<VirtualList
-								childProps={{onClick: nextPanel}}
+								childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
 								itemSize={itemSize}
 								itemRenderer={itemRenderer}
 								dataSize={3}
@@ -164,7 +179,7 @@ export const WithVirtualList = () => {
 						</slotAfter>
 					</Header>
 					<VirtualList
-						childProps={{onClick: nextPanel}}
+						childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
 						itemSize={itemSize}
 						itemRenderer={itemRenderer}
 						dataSize={20}
@@ -240,5 +255,152 @@ WithScroller.storyName = 'with Scroller';
 WithScroller.parameters = {
 	info: {
 		text: 'QA -  Scroller with text inside FixedPopupPanels'
+	}
+};
+
+export const WithVariousItems = () => {
+	const defaultOpen = true;
+	const [open, setOpenState] = useState(defaultOpen);
+	const toggleOpen = () => setOpenState(!open);
+	const handleClose = compose(toggleOpen, action('onClose'));
+
+	const defaultIndex = 0;
+	const [index, setPanelIndexState] = useState(defaultIndex);
+
+	const nextPanel = () => setPanelIndexState(Math.min(index + 1, 3));
+	const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
+	const handleBack = compose(prevPanel, action('onBack'));
+
+	// Navigate menus with the right key. The left key is handled by framework.
+	const handleKeyDown = (ev) => {
+		const {keyCode} = ev;
+
+		if (isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
+			nextPanel();
+		}
+	};
+
+	return (
+		<div>
+			<FixedPopupPanels
+				index={index}
+				open={open}
+				position={select('position', ['left', 'right'], Config)}
+				fullHeight={boolean('fullHeight', Config)}
+				width={select('width', ['narrow', 'half'], Config)}
+				noAnimation={boolean('noAnimation', Config)}
+				noAutoDismiss={boolean('noAutoDismiss', Config)}
+				onBack={handleBack}
+				onClose={handleClose}
+				onHide={action('onHide')}
+				onShow={action('onShow')}
+				scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
+				spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+			>
+				<Panel>
+					<Header>
+						<title>Panel 1</title>
+						<subtitle>This is the subtitle</subtitle>
+						<slotAfter>
+							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
+						</slotAfter>
+					</Header>
+					<Column>
+						<Cell shrink component={BodyText}>
+							A 3-Cell Layout with various items
+						</Cell>
+						<Cell>
+							<span>This is the first panel.</span>
+							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+							<br />
+							<br />
+							<Button size="small">Button2</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+							<br />
+							<br />
+							<Slider />
+							<br />
+							<Button size="small" disabled>Button4</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+								{['a', 'b', 'c', 'd', 'e', 'f']}
+							</Dropdown>
+							<br />
+							<br />
+						</Cell>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 2</title>
+						<subtitle>This is the subtitle</subtitle>
+						<slotAfter>
+							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
+						</slotAfter>
+					</Header>
+					<Column>
+						<Cell shrink component={BodyText}>
+							A 3-Cell Layout with various items
+						</Cell>
+						<Cell>
+							<span>This is the second panel.</span>
+							<Item onClick={nextPanel} onKeyDown={handleKeyDown} slotAfter={<Icon>arrowlargeright</Icon>}>Go to the next</Item>
+							<Button size="small" disabled>Button1</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+								{['a', 'b', 'c', 'd', 'e', 'f']}
+							</Dropdown>
+							<br />
+							<br />
+							<Button size="small">Button2</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+							<br />
+							<br />
+							<Button size="small">Slider</Button><Slider style={{display: 'inline-block', width: '30%'}} />
+							<br />
+							<br />
+						</Cell>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 3</title>
+						<subtitle>This is the subtitle</subtitle>
+					</Header>
+					<Column>
+						<Cell shrink component={BodyText}>
+							A 3-Cell Layout with various items
+						</Cell>
+						<Cell>
+							<span>This is the last panel.</span>
+							<Button>Button1</Button>
+							<br />
+							<br />
+							<Button size="small" disabled>Button2</Button>
+							<br />
+							<br />
+							<Slider />
+							<br />
+							<br />
+						</Cell>
+						<Cell shrink component={BodyText}>
+							This text should be visible.
+						</Cell>
+					</Column>
+				</Panel>
+			</FixedPopupPanels>
+			<Button onClick={toggleOpen}>Open FixedPopupPanels</Button>
+		</div>
+	);
+};
+
+WithVariousItems.storyName = 'with various items';
+WithVariousItems.parameters = {
+	info: {
+		text: 'QA - Various items inside FixedPopupPanels'
 	}
 };
