@@ -145,7 +145,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.state = {
 				focused: null,
 				node: null,
-				mouseDowned: null
+				fromMouse: false
 			};
 
 			this.ariaHidden = props.noReadoutOnFocus || null;
@@ -181,8 +181,11 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				Spotlight.getCurrent() !== this.state.node &&
 				(this.paused.isPaused() || !Spotlight.isPaused())
 			) {
-				if (this.state.mouseDowned) this.state.node.focus({preventScroll: true});
-				else this.state.node.focus();
+				if (this.state.fromMouse) {
+					this.state.node.focus({preventScroll: true});
+				} else {
+					this.state.node.focus();
+				}
 			}
 
 			const focusChanged = this.state.focused !== prevState.focused;
@@ -203,12 +206,12 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		};
 
-		focus = (focused, node, calledFromMouseDown) => {
+		focus = (focused, node, fromMouse) => {
 			this.setState(() => (
 				{
 					focused,
 					node,
-					mouseDowned: calledFromMouseDown
+					fromMouse: fromMouse
 				}
 			));
 		};
@@ -223,8 +226,8 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.focus('decorator', decorator, false);
 		};
 
-		focusInput = (decorator, calledFromMouseDown) => {
-			this.focus('input', decorator.querySelector('input'), calledFromMouseDown);
+		focusInput = (decorator, fromMouse) => {
+			this.focus('input', decorator.querySelector('input'), fromMouse);
 		};
 
 		onBlur = (ev) => {
