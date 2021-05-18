@@ -313,6 +313,7 @@ const InputFieldBase = kind({
 				<input
 					{...inputProps}
 					{...voiceProps}
+					aria-hidden={type === 'passwordtel'}
 					className={inputClassName}
 					dir={dir}
 					disabled={disabled}
@@ -321,7 +322,6 @@ const InputFieldBase = kind({
 					tabIndex={-1}
 					value={value}
 					type={type === 'passwordtel' ? 'tel' : type}
-					aria-hidden={type === 'passwordtel'}
 				/>
 				<InputFieldDecoratorIcon position="after" size={size}>{iconAfter}</InputFieldDecoratorIcon>
 				{invalidTooltip}
