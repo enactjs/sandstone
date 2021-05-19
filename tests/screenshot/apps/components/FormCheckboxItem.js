@@ -45,9 +45,9 @@ const FormCheckboxItemTests = [
 
 	// With Label
 	...withProps({label: 'This is a label'}, defaultFormCheckboxItemTests),
-	...withProps({label: 'This is a label', labelPosition: 'above'}, defaultFormCheckboxItemTests),
-	...withProps({label: 'This is a label', labelPosition: 'after'}, defaultFormCheckboxItemTests),
-	...withProps({label: 'This is a label', labelPosition: 'before'}, defaultFormCheckboxItemTests),
+	// ...withProps({label: 'This is a label', labelPosition: 'above'}, defaultFormCheckboxItemTests),
+	// ...withProps({label: 'This is a label', labelPosition: 'after'}, defaultFormCheckboxItemTests),
+	// ...withProps({label: 'This is a label', labelPosition: 'before'}, defaultFormCheckboxItemTests),
 
 	// Icon slotBefore
 	...slotBeforeFormCheckboxItemTests,
