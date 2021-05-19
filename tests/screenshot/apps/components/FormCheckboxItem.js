@@ -1,7 +1,7 @@
 import Icon from '../../../../Icon';
 import FormCheckboxItem from '../../../../FormCheckboxItem';
 
-import {withConfig} from './utils';
+import {withConfig, withProps} from './utils';
 
 const slotBeforeFormCheckboxItemTests = [
 	<FormCheckboxItem><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
@@ -13,10 +13,11 @@ const slotBeforeFormCheckboxItemTests = [
 	<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
 	<FormCheckboxItem disabled selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
 	<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem disabled indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>
+	<FormCheckboxItem disabled indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled indeterminate inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>
 ];
 
-const FormCheckboxItemTests = [
+const defaultFormCheckboxItemTests = [
 	<FormCheckboxItem />,
 	<FormCheckboxItem>FormCheckboxItem</FormCheckboxItem>, 					// not selected
 	<FormCheckboxItem disabled>FormCheckboxItem</FormCheckboxItem>,	// not selected
@@ -36,10 +37,20 @@ const FormCheckboxItemTests = [
 	<FormCheckboxItem selected inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem selected disabled inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>, 					// not selected
+];
 
+const FormCheckboxItemTests = [
+
+	// Default tests
+	...defaultFormCheckboxItemTests,
 	// Icon slotBefore
 	...slotBeforeFormCheckboxItemTests,
 	...withConfig({focus: true}, slotBeforeFormCheckboxItemTests),
+	// With Label
+	...withProps({label: "This is a label"}, defaultFormCheckboxItemTests),
+	...withProps({label: "This is a label", labelPosition: 'above'}, defaultFormCheckboxItemTests),
+	...withProps({label: "This is a label", labelPosition: 'after'}, defaultFormCheckboxItemTests),
+	...withProps({label: "This is a label", labelPosition: 'before'}, defaultFormCheckboxItemTests),
 
 	// Centered
 	<FormCheckboxItem centered>Hello FormCheckboxItem</FormCheckboxItem>,
