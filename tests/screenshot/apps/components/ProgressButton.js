@@ -1,6 +1,6 @@
 import ProgressButton from '../../../../ProgressButton';
 
-import {withConfig} from "./utils";
+import {withConfig} from './utils';
 
 const LtrTests = [
 	<ProgressButton />,
@@ -88,7 +88,7 @@ const LtrTests = [
 	<ProgressButton backgroundOpacity="transparent" color="red" minWidth={false}>Update</ProgressButton>,
 	<ProgressButton backgroundOpacity="transparent" color="green" minWidth={false}>Update</ProgressButton>,
 	<ProgressButton backgroundOpacity="transparent" color="yellow" minWidth={false}>Update</ProgressButton>,
-	<ProgressButton backgroundOpacity="transparent" color="blue" minWidth={false}>Update</ProgressButton>,
+	<ProgressButton backgroundOpacity="transparent" color="blue" minWidth={false}>Update</ProgressButton>
 ];
 
 const ProgressButtonTests = [
