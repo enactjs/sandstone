@@ -2,7 +2,7 @@ import TimePicker from '../../../../TimePicker';
 
 const TimePickerTests = [
 	<TimePicker defaultValue={new Date(2009, 5, 6)} />,
-	<TimePicker disabled value={new Date()} />,
+	<TimePicker defaultValue={new Date(2009, 5, 6)} disabled />,
 	// RTL
 	{
 		locale: 'ar-SA',
@@ -10,12 +10,12 @@ const TimePickerTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <TimePicker disabled value={new Date()} />
+		component: <TimePicker defaultValue={new Date(2009, 5, 6)} disabled />
 	},
 	// long meridiem characters
 	{
 		locale: 'ta-IN',
-		component: <TimePicker disabled value={new Date()} />
+		component: <TimePicker defaultValue={new Date(2009, 5, 6)} />
 	}
 ];
 export default TimePickerTests;
