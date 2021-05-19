@@ -18,7 +18,7 @@ const BaseTests = [
 const InputTests = [
 	...BaseTests,
 
-	//Large input
+	// Large input
 	...withProps({size: 'large'}, BaseTests),
 
 	// Disabled tests
