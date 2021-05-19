@@ -39,7 +39,6 @@ const defaultFormCheckboxItemTests = [
 ];
 
 const FormCheckboxItemTests = [
-
 	// Default tests
 	...defaultFormCheckboxItemTests,
 
