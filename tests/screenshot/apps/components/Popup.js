@@ -3,6 +3,8 @@ import {withConfig} from './utils';
 
 const PopupTests = [
 	<Popup open>Popup!</Popup>,
+	<Popup open scrimType="transparent">Popup!</Popup>,
+	<Popup open scrimType="none">Popup!</Popup>,
 
 	// [GT-28270]
 	<Popup open position="fullscreen">Fullscreen Popup!</Popup>,
@@ -19,6 +21,26 @@ const PopupTests = [
 	{
 		locale: 'ar-SA',
 		component: <Popup open>Popup!</Popup>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Popup open position="fullscreen">Fullscreen Popup!</Popup>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Popup open position="center">Center Popup!</Popup>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Popup open position="left">Left Popup!</Popup>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Popup open position="right">Right Popup!</Popup>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Popup open position="top">Top Popup!</Popup>
 	}
 ];
 
