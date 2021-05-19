@@ -18,6 +18,9 @@ const BaseTests = [
 const InputTests = [
 	...BaseTests,
 
+	//Large input
+	...withProps({size: 'large'}, BaseTests),
+
 	// Disabled tests
 	...withProps({disabled: true, popupType: 'fullscreen'}, BaseTests),
 	...withProps({disabled: true, popupType: 'overlay'}, BaseTests),
