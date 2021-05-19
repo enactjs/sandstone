@@ -80,6 +80,10 @@ const EachPanel = withConfig(
 			component: <FlexPopupPanels open scrimType="transparent" />
 		},
 		{
+			title: 'with transparent scrim',
+			component: <FlexPopupPanels open scrimType="translucent" />
+		},
+		{
 			title: 'with standard Panel Components index 1',
 			component: <FlexPopupPanels open index={1} />,
 			wrapper: {full: true}
@@ -132,6 +136,18 @@ const FlexiblePopupPanelsTests = [
 	...withProps(
 		{fullHeight: true},
 		EachPanel.map(o => ({...o, title: `${o.title} fullHeight`}))
+	),
+	...withProps(
+		{nextButtonVisibility: false},
+		EachPanel.map(o => ({...o, title: `${o.title} nextButtonVisibility`}))
+	),
+	...withProps(
+		{noCloseButton: true},
+		EachPanel.map(o => ({...o, title: `${o.title} noCloseButton`}))
+	),
+	...withProps(
+		{prevButtonVisibility: false},
+		EachPanel.map(o => ({...o, title: `${o.title} prevButtonVisibility`}))
 	),
 	...withConfig(
 		{locale: 'ar-SA'},
