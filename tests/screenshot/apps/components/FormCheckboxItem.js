@@ -27,7 +27,6 @@ const defaultFormCheckboxItemTests = [
 	<FormCheckboxItem selected disabled>FormCheckboxItem Checked</FormCheckboxItem>,
 	<FormCheckboxItem selected inline>FormCheckboxItem Checked</FormCheckboxItem>,
 	<FormCheckboxItem selected disabled inline>FormCheckboxItem Checked</FormCheckboxItem>,
-
 	<FormCheckboxItem indeterminate>FormCheckboxItem</FormCheckboxItem>, 					// not selected
 	<FormCheckboxItem disabled indeterminate>FormCheckboxItem</FormCheckboxItem>,	// not selected
 	<FormCheckboxItem inline indeterminate>FormCheckboxItem</FormCheckboxItem>,		// not selected
@@ -36,7 +35,7 @@ const defaultFormCheckboxItemTests = [
 	<FormCheckboxItem selected disabled indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem selected inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem selected disabled inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>, 					// not selected
+	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem> 					// not selected
 ];
 
 const FormCheckboxItemTests = [
