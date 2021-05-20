@@ -16,7 +16,7 @@ const wrapper = {
 
 const ContextualMenuDecoratorTests = [
 	...withConfig({wrapper}, [
-		//closed
+		// closed
 		<ContextualMenuButton open={false}>Button</ContextualMenuButton>,
 
 		// directions
@@ -35,13 +35,13 @@ const ContextualMenuDecoratorTests = [
 		<ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="right middle">Button</ContextualMenuButton>,
 		<ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="right bottom">Button</ContextualMenuButton>,
 
-		//offset - none
+		// offset - none
 		<ContextualMenuButton offset="none" popupProps={popupProps} menuItems={menuItems} open direction="above center">Button</ContextualMenuButton>,
 		<ContextualMenuButton offset="none" popupProps={popupProps} menuItems={menuItems} open direction="below center">Button</ContextualMenuButton>,
 		<ContextualMenuButton offset="none" popupProps={popupProps} menuItems={menuItems} open direction="left middle">Button</ContextualMenuButton>,
 		<ContextualMenuButton offset="none" popupProps={popupProps} menuItems={menuItems} open direction="right middle">Button</ContextualMenuButton>,
 
-		//offset - small
+		// offset - small
 		<ContextualMenuButton offset="small" popupProps={popupProps} menuItems={menuItems} open direction="above center">Button</ContextualMenuButton>,
 		<ContextualMenuButton offset="small" popupProps={popupProps} menuItems={menuItems} open direction="below center">Button</ContextualMenuButton>,
 		<ContextualMenuButton offset="small" popupProps={popupProps} menuItems={menuItems} open direction="left middle">Button</ContextualMenuButton>,
