@@ -74,7 +74,7 @@ const CheckboxItemTests = [
 		<CheckboxItem label="label"><Icon slot="slotBefore">home</Icon>CheckboxItem</CheckboxItem>,
 		<CheckboxItem inline label="label"><Icon slot="slotBefore">home</Icon>CheckboxItem</CheckboxItem>,
 		<CheckboxItem indeterminat>Hello Focused CheckboxItem</CheckboxItem>,
-		<CheckboxItem inline indeterminat>Hello Focused CheckboxItem</CheckboxItem>,
+		<CheckboxItem inline indeterminat>Hello Focused CheckboxItem</CheckboxItem>
 	]),
 
 	// *************************************************************

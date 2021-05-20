@@ -21,7 +21,7 @@ const CheckboxTests = [
 		<Checkbox selected>star</Checkbox>,
 		<Checkbox indeterminate />,
 		<Checkbox indeterminate indeterminateIcon="star" />,
-		<Checkbox indeterminate disabled />,
+		<Checkbox indeterminate disabled />
 	])
 ];
 export default CheckboxTests;
