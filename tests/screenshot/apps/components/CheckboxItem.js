@@ -60,9 +60,9 @@ const CheckboxItemTests = [
 	<CheckboxItem label="label" labelPosition="below">CheckboxItem</CheckboxItem>,
 	<CheckboxItem label="label" labelPosition="before">CheckboxItem</CheckboxItem>,
 	<CheckboxItem label="label" labelPosition="after">CheckboxItem</CheckboxItem>,
-	<CheckboxItem inline label="label" labelPosition="after">Inline CheckboxItem</CheckboxItem>,
-	<CheckboxItem inline label="label" labelPosition="after">CheckboxItem</CheckboxItem>,
-	<CheckboxItem inline label="label" labelPosition="after">CheckboxItem</CheckboxItem>,
+	<CheckboxItem inline label="label" labelPosition="above">Inline CheckboxItem</CheckboxItem>,
+	<CheckboxItem inline label="label" labelPosition="below">CheckboxItem</CheckboxItem>,
+	<CheckboxItem inline label="label" labelPosition="before">CheckboxItem</CheckboxItem>,
 	<CheckboxItem inline label="label" labelPosition="after">CheckboxItem</CheckboxItem>,
 
 	// Focused
