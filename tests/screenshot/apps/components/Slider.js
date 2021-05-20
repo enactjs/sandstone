@@ -5,9 +5,9 @@ import css from './Slider.module.less';
 const SliderTests = [
 	<Slider />,
 	<Slider disabled />,
-	<Slider active />,
 	<Slider min={0} max={20} progressAnchor={0.4} />,
 	<Slider value={50} />,
+	<Slider value={50} noFill />,
 	<Slider value={50} showAnchor />,
 	<Slider value={100} />,
 	<Slider backgroundProgress={0.5} />,
@@ -222,15 +222,15 @@ const SliderTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <Slider active />
-	},
-	{
-		locale: 'ar-SA',
 		component: <Slider min={0} max={20} progressAnchor={0.4} />
 	},
 	{
 		locale: 'ar-SA',
 		component: <Slider value={60} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider value={60} noFill />
 	},
 	{
 		locale: 'ar-SA',
