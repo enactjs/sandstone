@@ -4,7 +4,6 @@ import ImageItem from '../../../../ImageItem';
 
 import {withProps} from './utils';
 
-
 import img from '../../images/600x600.png';
 
 // vertical ImageItem doesn't render well without defined styles right now.
