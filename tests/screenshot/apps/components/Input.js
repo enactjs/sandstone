@@ -25,9 +25,13 @@ const InputTests = [
 	...withProps({disabled: true, popupType: 'fullscreen'}, BaseTests),
 	...withProps({disabled: true, popupType: 'overlay'}, BaseTests),
 
+	// RTL large input
+	...withConfig({locale: 'ar-SA'}, [
+		...withProps({size: 'large'}, BaseTests)
+	]),
+
 	// RTL overlay number input tests
 	...withConfig({locale: 'ar-SA'}, [
-		...withProps({size: 'large'}, BaseTests),
 		...withProps({popupType: 'overlay'}, BaseTests.slice(5))
 	])
 ];
