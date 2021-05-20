@@ -40,6 +40,25 @@ const RadioItemTests = [
 	// Long text selected - LTR [GT-28204]
 	<RadioItem selected>-Lorem</RadioItem>,
 
+	// Custom icon
+	// [GT-28207]
+	<RadioItem selected icon="arrowup">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
+	// [GT-28207]
+	<RadioItem selected icon="arrowup">តន្ត្រី</RadioItem>,
+	// [GT-28207]
+	<RadioItem selected icon="arrowup">ฟิ้  ไั  ஒ  து</RadioItem>,
+	// Selected - disabled
+	// [GT-28198]
+	<RadioItem selected disabled icon="arrowup">RadioItem Checked</RadioItem>,
+	// Selected - disabled - inline
+	<RadioItem selected disabled inline icon="arrowup">RadioItem Checked</RadioItem>,
+	// Selected - inline
+	// [GT-28199]
+	<RadioItem selected inline icon="arrowup">RadioItem Checked</RadioItem>,
+	<RadioItem selected icon="arrowup">RadioItem Checked</RadioItem>,
+	// Long text selected - LTR [GT-28204]
+	<RadioItem selected icon="arrowup">-Lorem</RadioItem>,
+
 	// Icon slotBefore
 	<RadioItem><Icon slot="slotBefore">home</Icon>RadioItem</RadioItem>,
 	<RadioItem inline><Icon slot="slotBefore">home</Icon>RadioItem</RadioItem>,
@@ -125,6 +144,44 @@ const RadioItemTests = [
 	{
 		locale: 'ar-SA',
 		component: <RadioItem selected>-Lorem</RadioItem>
+	},
+
+	// custom icon RTL
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">តន្ត្រី</RadioItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">ฟิ้  ไั  ஒ  து</RadioItem>
+	},
+	// RadioItem* is selected
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">RadioItem Checked</RadioItem>
+	},
+	// Selected - disabled
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected disabled icon="arrowup">RadioItem Checked</RadioItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected disabled inline icon="arrowup">RadioItem Checked</RadioItem>
+	},
+	// Selected - inline
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected inline icon="arrowup">RadioItem Checked</RadioItem>
+	},
+	// Long text selected
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">-Lorem</RadioItem>
 	}
 ];
 export default RadioItemTests;
