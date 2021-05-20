@@ -4,7 +4,7 @@ const DayPickerTests = [
 	<DayPicker />,
 	<DayPicker selected={1} />,
 	<DayPicker disabled />,
-	<DayPicker disabled  selected={1} />,
+	<DayPicker disabled selected={1} />,
 	// *************************************************************
 	// locale = 'ar-SA'
 	{
