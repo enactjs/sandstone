@@ -47,6 +47,12 @@ const ContextualMenuDecoratorTests = [
 		<ContextualMenuButton offset="small" popupProps={popupProps} menuItems={menuItems} open direction="left middle">Button</ContextualMenuButton>,
 		<ContextualMenuButton offset="small" popupProps={popupProps} menuItems={menuItems} open direction="right middle">Button</ContextualMenuButton>,
 
+		// popupWidth - large
+		<ContextualMenuButton popupWidth="large" popupProps={popupProps} menuItems={menuItems} open direction="above center">Button</ContextualMenuButton>,
+		<ContextualMenuButton popupWidth="large" popupProps={popupProps} menuItems={menuItems} open direction="below center">Button</ContextualMenuButton>,
+		<ContextualMenuButton popupWidth="large" popupProps={popupProps} menuItems={menuItems} open direction="left middle">Button</ContextualMenuButton>,
+		<ContextualMenuButton popupWidth="large" popupProps={popupProps} menuItems={menuItems} open direction="right middle">Button</ContextualMenuButton>,
+
 		// *************************************************************
 		// locale = 'ar-SA'
 		// *************************************************************
