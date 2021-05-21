@@ -13,13 +13,8 @@ const CheckboxTests = [
 
 	// Focused
 	...withConfig({focus: true}, [
-		<Checkbox />,
-		<Checkbox selected />,
-		<Checkbox selected disabled />,
-		<Checkbox selected>star</Checkbox>,
-		<Checkbox indeterminate />,
-		<Checkbox indeterminate indeterminateIcon="star" />,
-		<Checkbox indeterminate disabled />
+		<Checkbox selected>home</Checkbox>,
+		<Checkbox indeterminate indeterminateIcon="home" />
 	])
 ];
 export default CheckboxTests;
