@@ -1,8 +1,9 @@
 import ProgressBar, {ProgressBarTooltip as Tooltip} from '../../../../ProgressBar';
 
-// TODO: RTL
+import {withConfig} from './utils';
+
 // [GT-28227] - generic to test Progress Bar and Background Progress Bar Colors - no end marked for this test
-const ProgressBarTests = [
+const ProgressBarLTRTests = [
 	<ProgressBar />,
 	<ProgressBar highlighted />,
 	<ProgressBar progress={0.5} />,
@@ -207,7 +208,7 @@ const ProgressBarTests = [
 	<ProgressBar orientation="radial" backgroundProgress={0.5} progress={0.25} />,
 	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} />,
 	<ProgressBar orientation="radial" highlighted backgroundProgress={1} />,
-	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} progress={0.25} />,
+	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} progress={0.25} />
 	/* Disabling progressAnchor tests for radial as it's not supported yet
 	<ProgressBar orientation="radial" progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar orientation="radial" progress={0.25} progressAnchor={0.5} />,
@@ -216,14 +217,15 @@ const ProgressBarTests = [
 	<ProgressBar orientation="radial" backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
 	<ProgressBar orientation="radial" progress={0.25} progressAnchor={0.5} tooltip />,
 	*/
+];
+
+const ProgressBarTests = [
+	...ProgressBarLTRTests,
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
 	// [GT-28226]
-	{
-		locale: 'ar-SA',
-		component: <ProgressBar progress={0.4} backgroundProgress={0.5} />
-	}
-	// end of [GT-28226]
+	...withConfig({locale: 'ar-SA'}, ProgressBarLTRTests)
 ];
+
 export default ProgressBarTests;
