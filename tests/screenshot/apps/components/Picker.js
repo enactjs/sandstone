@@ -152,6 +152,50 @@ const PickerTests = [
 	<Picker inlineTitle title="Title">{['Hello', 'Hello']}</Picker>,
 
 	// *************************************************************
+	// joined and focused
+	// *************************************************************
+	{
+		focus: 'true',
+		component: <Picker joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component: <Picker disabled joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component: <Picker width="small" joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component: <Picker width="medium" joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component: <Picker width="large" joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component: <Picker orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component: <Picker disabled orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component:<Picker width="small" orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component:<Picker width="medium" orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+	{
+		focus: 'true',
+		component:<Picker width="large" orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+
+	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
 
@@ -456,6 +500,60 @@ const PickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <Picker inlineTitle title="Title">{pickerList.vegetables}</Picker>
+	},
+
+	// *************************************************************
+	// joined and focused
+	// *************************************************************
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <Picker joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <Picker disabled joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <Picker width="small" joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <Picker width="medium" joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <Picker width="large" joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <Picker orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <Picker disabled orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component:<Picker width="small" orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component:<Picker width="medium" orientation="vertical" joined>{pickerList.airports}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component:<Picker width="large" orientation="vertical" joined>{pickerList.airports}</Picker>
 	}
 ];
 

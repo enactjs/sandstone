@@ -127,6 +127,58 @@ const RangePickerTests = [
 	<RangePicker min={0} max={5} value={0} inlineTitle title="Title" />,
 
 	// *************************************************************
+	// joined and focused
+	// *************************************************************
+	{
+		focus: 'true',
+		component: <RangePicker joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component: <RangePicker disabled joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component: <RangePicker width="small" joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component: <RangePicker width="medium" joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component: <RangePicker width="large" joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component: <RangePicker width={3} joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component: <RangePicker orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component: <RangePicker disabled orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component:<RangePicker width="small" orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component:<RangePicker width="medium" orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component:<RangePicker width="large" orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		focus: 'true',
+		component:<RangePicker width={3} orientation="vertical" joined min={0} max={5} value={2} />
+	},
+
+	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
 	{
@@ -434,6 +486,68 @@ const RangePickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <RangePicker min={0} max={5} value={0} inlineTitle title="Title" />
+	},
+
+	// joined and focused
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <RangePicker joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <RangePicker disabled joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <RangePicker width="small" joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <RangePicker width="medium" joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <RangePicker width="large" joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <RangePicker width={3} joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <RangePicker orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component: <RangePicker disabled orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component:<RangePicker width="small" orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component:<RangePicker width="medium" orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component:<RangePicker width="large" orientation="vertical" joined min={0} max={5} value={2} />
+	},
+	{
+		locale: 'ar-SA',
+		focus: 'true',
+		component:<RangePicker width={3} orientation="vertical" joined min={0} max={5} value={2} />
 	}
 ];
 export default RangePickerTests;
