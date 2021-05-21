@@ -24,7 +24,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
 import Icon from '../Icon';
-import {ImageBase as Image} from '../Image';
+import Image from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 

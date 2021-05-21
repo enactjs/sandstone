@@ -11,6 +11,7 @@
  * @exports PickerBase
  */
 
+import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
@@ -18,10 +19,12 @@ import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import {Children} from 'react';
 
-import {MarqueeController} from '../Marquee';
-import {validateRange} from '../internal/validators';
-
+import Heading from '../Heading';
 import PickerCore, {PickerItem} from '../internal/Picker';
+import {validateRange} from '../internal/validators';
+import {MarqueeController} from '../Marquee';
+
+import pickerTitleCss from '../internal/Picker/PickerTitle.module.less';
 
 /**
  * The base `Picker` component.
@@ -103,6 +106,14 @@ const PickerBase = kind({
 		incrementIcon: PropTypes.string,
 
 		/**
+		 * Applies inline styling to the title.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inlineTitle: PropTypes.bool,
+
+		/**
 		 * Allows the user to use the arrow keys to adjust the picker's value.
 		 *
 		 * Key presses are captured in the directions of the increment and decrement buttons but
@@ -152,6 +163,14 @@ const PickerBase = kind({
 		 * @public
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
+		 * The primary text of the `Picker`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
 
 		/**
 		 * Index of the selected child.
@@ -233,13 +252,16 @@ const PickerBase = kind({
 		}
 	},
 
-	render: ({children, max, value, voiceLabel, ...rest}) => {
+	render: ({children, inlineTitle, max, title, value, voiceLabel, ...rest}) => {
 		delete rest.marqueeDisabled;
 
 		return (
-			<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
-				{children}
-			</PickerCore>
+			<>
+				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
+					{children}
+				</PickerCore>
+			</>
 		);
 	}
 });

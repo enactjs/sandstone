@@ -143,10 +143,11 @@ const useSpottable = (props, instances) => {
 	// Functions
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
-		const {cbScrollTo, wrap} = props;
+		const {cbScrollTo, wrap, direction: orientation} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 		const direction = getDirection(keyCode);
+		const allowAffordance = !(noAffordance || orientation === 'horizontal');
 
 		mutableRef.current.isScrolledBy5way = false;
 		mutableRef.current.isScrolledByJump = false;
@@ -158,7 +159,7 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : ri.scale(affordanceSize));
+				endBoundary = startBoundary + clientSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -185,7 +186,7 @@ const useSpottable = (props, instances) => {
 				cbScrollTo({
 					index: nextIndex,
 					stickTo,
-					offset: (!noAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
+					offset: (allowAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
@@ -236,12 +237,11 @@ const useSpottable = (props, instances) => {
 	}
 
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
-		const
-
-			{pageScroll} = props,
-			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
-			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
+		const {pageScroll, direction} = props;
+		const {state: {numOfItems}, primary} = scrollContentHandle.current;
+		const allowAffordance = !(noAffordance || direction === 'horizontal');
+		const offsetToClientEnd = primary.clientSize - primary.itemSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
+		const focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (focusedIndex >= 0) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);

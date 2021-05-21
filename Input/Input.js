@@ -2,15 +2,18 @@ import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
+import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import Layout, {Cell} from '@enact/ui/Layout';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Fragment} from 'react';
 
+import $L from '../internal/$L';
 import Button from '../Button';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
@@ -46,6 +49,15 @@ const InputPopupBase = kind({
 		announce: PropTypes.func,
 
 		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
+
+		/**
 		 * Customize component style
 		 *
 		 * @type {Object}
@@ -62,7 +74,8 @@ const InputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * Indicates value is invalid and shows `invalidMessage`.
+		 * Indicates [value]{@link sandstone/Input.InputPopupBase.value} is invalid and shows
+		 * [invalidMessage]{@link sandstone/Input.InputPopupBase.invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -70,9 +83,13 @@ const InputPopupBase = kind({
 		invalid: PropTypes.bool,
 
 		/**
-		 * The tooltip text to be displayed when the input is `invalid`.
+		 * The tooltip text to be displayed when the input is
+		 * [invalid]{@link sandstone/Input.InputPopupBase.invalid}.
+		 *
+		 * If this value is *falsy*, the tooltip will be shown with the default message.
 		 *
 		 * @type {String}
+		 * @default 'Please enter a valid value.'
 		 * @public
 		 */
 		invalidMessage: PropTypes.string,
@@ -117,12 +134,20 @@ const InputPopupBase = kind({
 		minLength: PropTypes.number,
 
 		/**
+		 * Omits the back button.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noBackButton: PropTypes.bool,
+
+		/**
 		 * The type of numeric input to use.
 		 *
 		 * The default is to display separated digits when `length` is less than `7`. If `field` is
 		 * set, a standard `InputField` will be used instead of the normal number input.
 		 *
-		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.prototype#type}.
+		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.type}.
 		 *
 		 * @type {('auto'|'separated'|'joined'|'field')}
 		 * @default 'auto'
@@ -235,11 +260,11 @@ const InputPopupBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'url')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url']),
 
 		/**
 		 * Value of the input.
@@ -269,7 +294,7 @@ const InputPopupBase = kind({
 	handlers: {
 		onShow: handle(
 			forward('onShow'),
-			(ev, {type}) => type === 'text' || type === 'password',
+			(ev, {type}) => !type.includes('number'),
 			() => Spotlight.setPointerMode(false)
 		),
 		onNumberComplete: handle(
@@ -306,8 +331,10 @@ const InputPopupBase = kind({
 
 	render: ({
 		announce,
+		backButtonAriaLabel,
 		children,
 		css,
+		noBackButton,
 		numberInputField,
 		onBeforeChange,
 		onClose,
@@ -331,6 +358,18 @@ const InputPopupBase = kind({
 
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
+		// Set up the back button
+		const backButton = (!noBackButton ? (
+			<Button
+				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
+				className={css.back}
+				icon="arrowhookleft"
+				iconFlip="auto"
+				onClick={onClose}
+				size="small"
+			/>
+		) : null);
+		const heading = <Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>;
 
 		delete rest.length;
 		delete rest.onComplete;
@@ -346,9 +385,16 @@ const InputPopupBase = kind({
 				noAnimation
 				open={open}
 			>
+				{popupType === 'fullscreen' ? backButton : null}
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
 					<Cell shrink className={css.titles}>
-						<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
+						{popupType === 'fullscreen' ?
+							heading :
+							<>
+								{backButton}
+								{heading}
+							</>
+						}
 						<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 					</Cell>
 					<Cell shrink className={css.inputArea}>
@@ -367,7 +413,7 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
-								className={css.textField}
+								className={classnames(css.textField, spotlightDefaultClass)}
 								css={css}
 								maxLength={maxLength}
 								minLength={minLength}
@@ -438,11 +484,11 @@ const InputBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'url')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url']),
 
 		/**
 		 * Value of the input.
@@ -466,7 +512,7 @@ const InputBase = kind({
 
 	computed: {
 		buttonAriaLabel: ({placeholder, type, value}) => {
-			if (value) {
+			if (value || value === 0) {
 				type = isPasswordType(type) ? 'password' : type;
 				return calcAriaLabel('', type, type === 'number' ? value.split('') : value);
 			}
@@ -474,7 +520,11 @@ const InputBase = kind({
 			return calcAriaLabel('', null, placeholder);
 		},
 		buttonLabel: ({placeholder, type, value}) => {
-			return (isPasswordType(type) ? convertToPasswordFormat(value) : value) || placeholder;
+			if (value || value === 0) {
+				return isPasswordType(type) ? convertToPasswordFormat(value) : value.toString();
+			} else {
+				return placeholder;
+			}
 		}
 	},
 

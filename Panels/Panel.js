@@ -2,7 +2,6 @@ import {forward, handle} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import ComponentOverride from '@enact/ui/ComponentOverride';
 import ForwardRef from '@enact/ui/ForwardRef';
@@ -140,7 +139,6 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
-		entering: ({hideChildren}) => (hideChildren && Spotlight.getPointerMode()),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
@@ -173,7 +171,6 @@ const PanelBase = kind({
 		componentRef,
 		css,
 		floatingLayerId,
-		entering,
 		header,
 		ids: {headerId = null, labelledby = null, subtitleId = null, titleId = null},
 		...rest
@@ -187,7 +184,6 @@ const PanelBase = kind({
 					<ComponentOverride
 						component={header}
 						data-index={rest['data-index']}
-						entering={entering}
 						subtitleId={subtitleId}
 						titleId={titleId}
 					/>

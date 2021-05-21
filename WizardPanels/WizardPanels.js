@@ -389,6 +389,7 @@ const WizardPanelsBase = kind({
 							aria-label={$L('Previous')}
 							backgroundOpacity="transparent"
 							component={prevButton}
+							focusEffectIconOnly
 							icon="arrowlargeleft"
 							iconFlip="auto"
 							minWidth={false}
@@ -400,6 +401,7 @@ const WizardPanelsBase = kind({
 							aria-label={$L('Next')}
 							backgroundOpacity="transparent"
 							component={nextButton}
+							focusEffectIconOnly
 							icon="arrowlargeright"
 							iconFlip="auto"
 							iconPosition="after"
@@ -429,7 +431,7 @@ const WizardPanelsBase = kind({
 							</ViewManager>
 						) : null}
 					</Cell>
-					<Cell className={css.footer} component="footer" shrink>
+					<Cell className={css.footer} component="footer" key={index} shrink>
 						{/* This should probably use portals */}
 						{footer}
 					</Cell>
