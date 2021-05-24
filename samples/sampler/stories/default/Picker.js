@@ -7,6 +7,7 @@ import {decrementIcons, incrementIcons} from '../helper/icons';
 // Set up some defaults for info and knobs
 const prop = {
 	orientation: ['horizontal', 'vertical'],
+	type: ['string', 'number'],
 	width: [null, 'small', 'medium', 'large']
 };
 
@@ -41,6 +42,7 @@ export const _Picker = () => (
 		onChange={action('onChange')}
 		orientation={select('orientation', prop.orientation, Picker, prop.orientation[0])}
 		title={text('title', Picker)}
+		type={select('type', prop.type, Picker, prop.type[0])}
 		width={select('width', prop.width, Picker, prop.width[3])}
 		wrap={boolean('wrap', Picker)}
 	>
