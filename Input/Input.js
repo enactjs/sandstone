@@ -437,7 +437,7 @@ const InputBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'tel'|'passwordtel')}
 		 * @default 'text'
 		 * @public
 		 */

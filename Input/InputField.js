@@ -1,15 +1,15 @@
 import kind from '@enact/core/kind';
+import platform from '@enact/core/platform';
 import {handle, adaptEvent, forwardCustom, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
+import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
+import {readAlert} from '@enact/webos/speech';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
-import {useAnnounce} from '@enact/ui/AnnounceDecorator';
-import {readAlert} from '@enact/webos/speech';
-import platform from '@enact/core/platform';
 
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
@@ -39,7 +39,7 @@ const InputFieldBase = kind({
 		/**
 		 * Passed by AnnounceDecorator for accessibility.
 		 *
-		 * @type {Object}
+		 * @type {Function}
 		 * @public
 		 */
 		announce: PropTypes.func,
@@ -277,7 +277,7 @@ const InputFieldBase = kind({
 		},
 		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		inputClassName: ({styler, type}) => styler.append('input', {'passwordtel': (type === 'passwordtel')}),
+		inputClassName: ({styler, type}) => styler.append('input', {passwordtel: (type === 'passwordtel')}),
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
@@ -320,8 +320,8 @@ const InputFieldBase = kind({
 					onChange={onChange}
 					placeholder={placeholder}
 					tabIndex={-1}
-					value={value}
 					type={type === 'passwordtel' ? 'tel' : type}
+					value={value}
 				/>
 				<InputFieldDecoratorIcon position="after" size={size}>{iconAfter}</InputFieldDecoratorIcon>
 				{invalidTooltip}
