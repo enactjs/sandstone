@@ -8,7 +8,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Input` type `tel` and `passwordtel`
 
-
 ## [1.4.8] - 2021-05-06
 
 ### Fixed
