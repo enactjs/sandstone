@@ -5,6 +5,7 @@ import {withConfig} from './utils';
 // [GT-28227] - generic to test Progress Bar and Background Progress Bar Colors - no end marked for this test
 const ProgressBarLTRTests = [
 	<ProgressBar />,
+	<ProgressBar disabled />,
 	<ProgressBar highlighted />,
 	<ProgressBar progress={0.5} />,
 	<ProgressBar progress={0.5} showAnchor />,
@@ -23,6 +24,7 @@ const ProgressBarLTRTests = [
 	// end of [GT-28224]
 	<ProgressBar tooltip />,
 	<ProgressBar tooltip progress={0.5} />,
+	<ProgressBar disabled tooltip progress={0.5} />,
 	<ProgressBar tooltip percent progress={0.5} />,
 	<ProgressBar progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar progress={0.25} progressAnchor={0.5} />,
@@ -32,6 +34,7 @@ const ProgressBarLTRTests = [
 	<ProgressBar backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
 	<ProgressBar progress={0.25} progressAnchor={0.5} tooltip />,
 	<ProgressBar orientation="vertical" />,
+	<ProgressBar orientation="vertical" disabled />,
 	<ProgressBar orientation="vertical" highlighted />,
 	<ProgressBar orientation="vertical" progress={0.5} />, // [GT-28230]
 	<ProgressBar orientation="vertical" progress={0.5} showAnchor />,
@@ -52,6 +55,7 @@ const ProgressBarLTRTests = [
 	<ProgressBar orientation="vertical" backgroundProgress={0.75} progress={0.25} progressAnchor={0.5} />,
 	<ProgressBar orientation="vertical" backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
 	<ProgressBar orientation="vertical" progress={0.25} progressAnchor={0.5} tooltip />,
+	<ProgressBar orientation="vertical" progress={0.25} progressAnchor={0.5} tooltip disabled />,
 	// *************************************************************
 	// tooltip - all positions
 	// *************************************************************
@@ -197,6 +201,7 @@ const ProgressBarLTRTests = [
 	// end of tooltip - all positions
 	// *************************************************************
 	<ProgressBar orientation="radial" />,
+	<ProgressBar orientation="radial" disabled />,
 	<ProgressBar orientation="radial" highlighted />,
 	<ProgressBar orientation="radial" progress={0.5} />,
 	<ProgressBar orientation="radial" progress={1} />,
