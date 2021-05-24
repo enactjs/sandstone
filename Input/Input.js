@@ -23,7 +23,7 @@ import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFiel
 import componentCss from './Input.module.less';
 
 const prepareInputEventPayload = ev => ({value: ev.target.value});
-const isPasswordType = type => type === 'password' || type === 'passwordnumber';
+const isPasswordType = type => type.includes('password');
 
 /**
  * Base component for providing text input in the form of a popup without button.
@@ -235,11 +235,11 @@ const InputPopupBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'tel'|'passwordtel')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'tel', 'passwordtel']),
 
 		/**
 		 * Value of the input.
@@ -437,11 +437,11 @@ const InputBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'tel'|'passwordtel')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'tel', 'passwordtel']),
 
 		/**
 		 * Value of the input.
