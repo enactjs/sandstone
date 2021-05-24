@@ -35,10 +35,10 @@ const LTR = [
 const SpriteTests = [
     ...LTR,
 
-    //RTL
+    // RTL
     ...withConfig({locale: 'ar-SA'}, LTR),
 
-    //Tallglyphs
+    // Tallglyphs
     ...withConfig({locale: 'vi-VN'}, LTR)
 ];
 
