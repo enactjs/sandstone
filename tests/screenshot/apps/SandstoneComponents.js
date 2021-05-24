@@ -42,7 +42,8 @@ import SwitchItem from './components/SwitchItem';
 import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
 import Tooltip from './components/Tooltip';
-import VirtualList, {VirtualGridList} from './components/VirtualList';
+import VirtualList from './components/VirtualList';
+import VirtualGridList from './components/VirtualGridList';
 import WizardPanels from './components/WizardPanels';
 
 const components = {

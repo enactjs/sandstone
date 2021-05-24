@@ -1,13 +1,10 @@
 import ImageItem from '../../../../ImageItem';
 import {VirtualGridList} from '../../../../VirtualList';
+
 import ri from '@enact/ui/resolution';
 
-// import img from '../../images/600x600.png';
-// import img1 from '../../images/300x300.png';
-// import img2 from '../../images/200x200.png';
-
 const items = [];
-const defaultDataSize = 1000;
+const defaultDataSize = 10;
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = ({index, ...rest}) => {
@@ -55,15 +52,32 @@ const VirtualGridListTests = [
 			itemRenderer={renderItem}
 		/>
 	</div>,
-	// <div>
-	// 	<VirtualGridList
-	// 		dataSize={items.length}
-	// 		horizontalScrollbar="visible"
-	// 		itemSize={{minWidth: ri.scale(688), minHeight: ri.scale(570)}}
-	// 		itemRenderer={renderItem}
-	// 		verticalScrollbar="visible"
-	// 	/>
-	// </div>
+	<div>
+		<VirtualGridList
+			dataSize={items.length}
+			horizontalScrollbar="visible"
+			itemSize={{minWidth: ri.scale(688), minHeight: ri.scale(570)}}
+			itemRenderer={renderItem}
+			verticalScrollbar="visible"
+		/>
+	</div>,
+	<div>
+		<VirtualGridList
+			dataSize={items.length}
+			direction="horizontal"
+			itemSize={{minWidth: ri.scale(688), minHeight: ri.scale(570)}}
+			itemRenderer={renderItem}
+		/>
+	</div>,
+	<div>
+		<VirtualGridList
+			dataSize={items.lengthupdate}
+			direction="horizontal"
+			itemSize={{minWidth: ri.scale(688), minHeight: ri.scale(570)}}
+			itemRenderer={renderItem}
+			spacing={ri.scale(30)}
+		/>
+	</div>
 ];
 
 export default VirtualGridListTests;
