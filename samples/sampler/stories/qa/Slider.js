@@ -1,16 +1,14 @@
 import {number} from '@enact/storybook-utils/addons/knobs';
-import ri from '@enact/ui/resolution';
-import React from 'react';
-import PropTypes from 'prop-types';
-import {storiesOf} from '@storybook/react';
-
 import Item from '@enact/sandstone/Item';
 import Slider from '@enact/sandstone/Slider';
 import VirtualList from '@enact/sandstone/VirtualList';
+import ri from '@enact/ui/resolution';
+import PropTypes from 'prop-types';
+import {Component} from 'react';
 
 Slider.displayName = 'Slider';
 
-class SliderList extends React.Component {
+class SliderList extends Component {
 	static propTypes = {
 		itemSize: PropTypes.number
 	};
@@ -96,13 +94,14 @@ class SliderList extends React.Component {
 	}
 }
 
-storiesOf('Slider', module)
-	.add(
-		'Add and Remove ',
-		() => {
-			const itemSize = ri.scale(number('itemSize', Slider, 144));
-			return (
-				<SliderList itemSize={itemSize} />
-			);
-		}
-	);
+export default {
+	title: 'Sandstone/Slider',
+	component: 'Slider'
+};
+
+export const AddAndRemove = () => {
+	const itemSize = ri.scale(number('itemSize', Slider, 144));
+	return <SliderList itemSize={itemSize} />;
+};
+
+AddAndRemove.storyName = 'Add and Remove ';

@@ -1,4 +1,3 @@
-import React from 'react';
 import {mount} from 'enzyme';
 import {RangePicker, RangePickerBase} from '../RangePicker';
 
@@ -76,5 +75,31 @@ describe('RangePicker Specs', () => {
 
 		const actual = picker.find('Picker').last().prop('disabled');
 		expect(actual).toBe(true);
+	});
+
+	test('should have an heading element when \'title\'', () => {
+		const subject = mount(
+			<RangePickerBase min={0} max={0} value={0} title="title text" />
+		);
+
+		expect(subject.find('Heading')).toHaveLength(1);
+
+		const expected = 'title';
+		const actual = subject.find('Heading').prop('className');
+
+		expect(actual).toContain(expected);
+	});
+
+	test('should have an heading element with inline class when \'title\' and \'inlineTitle\'', () => {
+		const subject = mount(
+			<RangePickerBase min={0} max={0} value={0} inlineTitle title="title text" />
+		);
+
+		expect(subject.find('Heading')).toHaveLength(1);
+
+		const expected = 'inline';
+		const actual = subject.find('Heading').prop('className');
+
+		expect(actual).toContain(expected);
 	});
 });

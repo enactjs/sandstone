@@ -1,5 +1,4 @@
 import Input from '@enact/sandstone/Input';
-import React from 'react';
 
 import Section from '../components/Section';
 
@@ -21,6 +20,8 @@ const InputView = () => (
 			<Input alt="Disabled Passwordnumber Type with Title, Subtitle, and Value" disabled subtitle="Subtitle" title="Title" type="passwordnumber" value="1234" />
 			<Input alt="Password Type With Title, Subtitle, and Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="password" />
 			<Input alt="Disabled Password Type With Title, Subtitle, and Value" disabled subtitle="Subtitle" title="Title" type="password" value="1234" />
+			<Input alt="Url Type With Title, Subtitle, and Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="url" />
+			<Input alt="Disabled Url Type With Title, Subtitle, and Value" disabled subtitle="Subtitle" title="Title" type="url" value="http://enactjs.com" />
 		</Section>
 
 		<Section className={appCss.marginTop} title="With iconAfter">
@@ -38,6 +39,7 @@ const InputView = () => (
 			<Input alt="Aria-labelled and Disabled" aria-label="This is a Label 1." disabled />
 			<Input alt="With popupAriaLabel" popupAriaLabel="This is a Label 2." />
 			<Input alt="Number Type With Title, Subtitle, and Placeholder" aria-label="This is a Label 3." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
+			<Input alt="Number Type and backButtonAriaLabel With Title, Subtitle, and Placeholder" aria-label="This is a Label 4." backButtonAriaLabel="This is a Back." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
 		</Section>
 	</>
 );

@@ -1,8 +1,33 @@
 import Icon from '../../../../Icon';
 import FormCheckboxItem from '../../../../FormCheckboxItem';
-import React from 'react';
 
 import {withConfig} from './utils';
+
+const slotBeforeFormCheckboxItemTests = [
+	<FormCheckboxItem><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem disabled selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem disabled selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>
+];
+
+const slotBeforeFocusedFormCheckboxItemTests = [
+	<FormCheckboxItem><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem inline><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled inline><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem selected><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem disabled selected><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem disabled selected inline><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem disabled indeterminate><Icon slot="slotBefore">home</Icon>Focused FormCheckboxItem</FormCheckboxItem>
+];
 
 const FormCheckboxItemTests = [
 	<FormCheckboxItem />,
@@ -26,11 +51,8 @@ const FormCheckboxItemTests = [
 	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>, 					// not selected
 
 	// Icon slotBefore
-	<FormCheckboxItem><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	...slotBeforeFormCheckboxItemTests,
+	...withConfig({focus: true}, slotBeforeFocusedFormCheckboxItemTests),
 
 	// Centered
 	<FormCheckboxItem centered>Hello FormCheckboxItem</FormCheckboxItem>,

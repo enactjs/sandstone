@@ -4,6 +4,70 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
+
+## [2.0.0-beta.1] - 2021-05-21
+
+- Enhanced touch support
+
+### Added
+
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` left key handler to go to the previous panel
+- `sandstone/Input` a back button and props `backButtonAriaLabel` and `noBackButton`
+- `sandstone/Input` and `sandstone/Input.InputPopup` `url` to prop `type`
+- `sandstone/Picker` and `sandstone/RangePicker` props `title` and `inlineTitle`
+- `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
+
+### Changed
+
+- `sandstone/Panels.Header` to always show back button
+- `sandstone/PopupTabLayout` back key behavior to match the latest UX
+- `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
+- `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds
+- `sandstone/WizardPanels.Panel` `nextButton` and `prevButton` to show labels separately to match latest designs
+
+### Fixed
+
+- `sandstone/FormCheckboxItem` to show correct color for `slotBefore` icon in disabled state when focused
+- `sandstone/ImageItem` to resize the image properly
+- `sandstone/Input` button label when default value is `0`
+- `sandstone/Panels.Header` to remeasure marquee metrics when the size of slots changed
+- `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
+- `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
+- horizontal `sandstone/VirtualList` to align items well when navigating with 5-way
+- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
+
+## [2.0.0-alpha.3] - 2021-03-31
+
+### Added
+
+- `sandstone/Dropdown` number type `width` prop
+- `sandstone/Item` public class names `itemContent`, `content`, and `label`
+- `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
+
+### Fixed
+
+- `sandstone/Dropdown` to not show console error after selecting item
+- `sandstone/RangePicker` to update label when value is out of range
+- `sandstone/VirtualList` to not block key down events after panel transition
+
+## [2.0.0-alpha.2] - 2021-03-26
+
+- Update Enact dependency
+
+## [2.0.0-alpha.1] - 2021-02-24
+
+-  The framework was updated to support React 17.0.1
+
+### Added
+
+- `sandstone/ThemeDecorator` config `rootId` to specify React DOM tree root for global event handlers
+
+## [1.5.0] - 2021-02-09
+
 ### Added
 
 - `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
@@ -11,11 +75,24 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Alert` to read out properly after closing it in a `sandstone/PopupTabLayout`
+- `sandstone/FlexiblePopupPanels` padding in RTL locales
 - `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
 - `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
 - `sandstone/Panel` to not reset scroll position by events from others
 - `sandstone/Panels.Header` to not show back button in the first panel
 - `sandstone/VideoPlayer.Video` to not start a new play before another one completes
+
+## [1.4.6] - 2021-01-29
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update `ContextualPopup` position properly in RTL locales
+
+## [1.4.5] - 2021-01-05
+
+### Fixed
+
+- `sandstone/Dropdown` title `font-style` to `normal` where a locale's fonts cannot support italic
 
 ## [1.4.4] - 2020-11-06
 

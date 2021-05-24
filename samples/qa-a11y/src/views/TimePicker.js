@@ -1,48 +1,42 @@
+/* eslint-disable react/jsx-no-bind */
+
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
 import TimePicker, {timeToLocaleString} from '@enact/sandstone/TimePicker';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
+import useArrayState from '../components/useArrayState';
 
 import appCss from '../App/App.module.less';
 
-class TimePickerItem extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			open: false,
-			value: null
-		};
-	}
+const TimePickerItem = (props) => {
+	const [open, handleOpen] = useArrayState(1);
+	const [value, setValue] = useState(null);
 
-	handleClose = () => this.setState({open: false});
-	handleOpen = () => this.setState({open: true});
-	handleChange = ({value}) => this.setState({value: timeToLocaleString(value)});
+	const handleChange = ({value: newValue}) => setValue(timeToLocaleString(newValue));
 
-	render () {
-		return (
-			<>
-				<Item label={this.state.value || 'Not selected'} onClick={this.handleOpen}>Time</Item>
-				<FixedPopupPanels
-					onClose={this.handleClose}
-					open={this.state.open}
-				>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-							<subtitle>Subtitle</subtitle>
-						</Header>
-						<TimePicker
-							{...this.props}
-							onChange={this.handleChange}
-						/>
-					</Panel>
-				</FixedPopupPanels>
-			</>
-		);
-	}
-}
+	return (
+		<>
+			<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Time</Item>
+			<FixedPopupPanels
+				onClose={handleOpen(0, false)}
+				open={open[0]}
+			>
+				<Panel>
+					<Header>
+						<title>Header Title</title>
+						<subtitle>Subtitle</subtitle>
+					</Header>
+					<TimePicker
+						{...props}
+						onChange={handleChange}
+					/>
+				</Panel>
+			</FixedPopupPanels>
+		</>
+	);
+};
 
 const TimePickerView = () => (
 	<>

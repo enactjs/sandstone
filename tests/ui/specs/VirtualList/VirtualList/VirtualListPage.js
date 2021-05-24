@@ -57,6 +57,9 @@ class VirtualListPage extends Page {
 	get buttonNativeScroll () {
 		return element('#nativeScroll', browser);
 	}
+	get buttonHeaderChildren () {
+		return element('#headerChildrenButton', browser);
+	}
 
 	// inputField api
 	get inputfieldNumItems () {
@@ -88,11 +91,11 @@ class VirtualListPage extends Page {
 	get scrollThumb () {
 		return $(`${scrollThumbSelector}`);
 	}
-	getScrollThumbPosition () {
-		return browser.execute(function (_scrollbarSelector) {
-			const scrollbar = document.querySelector(_scrollbarSelector);
+	getScrollThumbPosition (index = 0) {
+		return browser.execute(function (_scrollbarSelector, _index) {
+			const scrollbar = document.querySelectorAll(_scrollbarSelector)[_index];
 			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
-		}, scrollbarSelector);
+		}, scrollbarSelector, index);
 
 	}
 
@@ -156,10 +159,15 @@ class VirtualListPage extends Page {
 			return 'unknown';	// we didn't find it?!
 		}, scrollableSelector);
 	}
-	itemOffsetTopById (id) {
-		return browser.execute(function (_element) {
-			return _element.getBoundingClientRect().top;
-		}, this.item(id).value);
+	getElementAttribute (string) {
+		return browser.execute(function (_string) {
+			return document.activeElement.getAttribute(_string);
+		}, string);
+	}
+	activeElementRect () {
+		return browser.execute(function () {
+			return document.activeElement.getBoundingClientRect();
+		});
 	}
 	itemSpacing () {
 		return browser.execute(function (_listItemSelector) {

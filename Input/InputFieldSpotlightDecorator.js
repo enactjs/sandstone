@@ -5,7 +5,7 @@ import {getDirection, Spotlight} from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component as ReactComponent} from 'react';
 
 import {lockPointer, releasePointer} from './pointer';
 
@@ -62,7 +62,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const forwardFocus = forward('onFocus');
 	const forwardKeyUp = forward('onKeyUp');
 
-	return class extends React.Component {
+	return class extends ReactComponent {
 		static displayName = 'InputSpotlightDecorator';
 
 		static propTypes = /** @lends sandstone/Input/InputSpotlightDecorator.InputSpotlightDecorator.prototype */ {

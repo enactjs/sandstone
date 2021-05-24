@@ -1,12 +1,12 @@
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 import {ImageItem} from '../../../../../../ImageItem';
 import {Panels, Panel} from '../../../../../../Panels';
 import ThemeDecorator from '../../../../../../ThemeDecorator';
 import {VirtualGridList} from '../../../../../../VirtualList';
 
-class App extends React.Component {
+class App extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

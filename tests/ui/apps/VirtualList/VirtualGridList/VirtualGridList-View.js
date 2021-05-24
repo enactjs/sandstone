@@ -5,13 +5,13 @@ import {InputField} from '../../../../../Input';
 import ImageItem from '../../../../../ImageItem';
 import {VirtualGridList} from '../../../../../VirtualList';
 import ThemeDecorator from '../../../../../ThemeDecorator';
-import React from 'react';
+import {createRef, Component} from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
 const ListContainer = SpotlightContainerDecorator('div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
-const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
+const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'auto';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
@@ -64,7 +64,7 @@ const updateData = (dataSize, noLabel) => {
 	return dataSize;
 };
 
-class app extends React.Component {
+class app extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -72,15 +72,15 @@ class app extends React.Component {
 			horizontal: false,
 			noLabel: false,
 			numItems: 100,
-			minHeight: 400,
-			minWidth: 600,
+			minHeight: 500,
+			minWidth: 650,
 			spacing: 24,
 			spotlightDisabled: false,
 			translate: false,
 			wrap: false
 		};
-		this.rootRef = React.createRef();
-		this.scrollingRef = React.createRef();
+		this.rootRef = createRef();
+		this.scrollingRef = createRef();
 		updateData(this.state.numItems, this.state.noLabel);
 	}
 
@@ -149,9 +149,6 @@ class app extends React.Component {
 					</Cell>
 					<Cell component={ListContainer}>
 						<Row align="center">
-							<Cell component={Button} shrink id="left">
-								Left
-							</Cell>
 							<Cell align="stretch">
 								<Column align="center">
 									<Cell component={Button} shrink id="top">
@@ -174,7 +171,7 @@ class app extends React.Component {
 											scrollMode={(translate ? 'translate' : 'native')}
 											spacing={ri.scale(spacing)}
 											spotlightDisabled={spotlightDisabled}
-											style={{height: ri.scaleToRem(minHeight * 3)}}
+											style={{height: ri.scaleToRem(500 * 3)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>
@@ -183,9 +180,6 @@ class app extends React.Component {
 										Bottom
 									</Cell>
 								</Column>
-							</Cell>
-							<Cell component={Button} shrink id="right">
-								Right
 							</Cell>
 						</Row>
 					</Cell>

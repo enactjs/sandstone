@@ -2,12 +2,12 @@ import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import Group from '@enact/ui/Group';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 
-class IntentSelectCheckboxItem extends React.Component {
+class IntentSelectCheckboxItem extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

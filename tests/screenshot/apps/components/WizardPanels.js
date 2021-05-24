@@ -1,7 +1,10 @@
+import Button from '../../../../Button';
 import WizardPanels, {Panel} from '../../../../WizardPanels';
-import React from 'react';
 
 import {LongerLoremString, withConfig} from './utils';
+
+const customPrevButton = (<Button>Previous</Button>);
+const customNextButton = (<Button>Next</Button>);
 
 const WizardPanelTests = withConfig({
 	wrapper: {
@@ -51,6 +54,22 @@ const WizardPanelTests = withConfig({
 			<WizardPanels noSteps>
 				<Panel title="My Title" subtitle={LongerLoremString}>View 1</Panel>
 				<Panel>View 2</Panel>
+			</WizardPanels>
+		)
+	},
+	// Test custom buttons
+	<WizardPanels index={1} title="WizardPanel">
+		<Panel>View 1</Panel>
+		<Panel prevButton={customPrevButton} nextButton={customNextButton}>View 2</Panel>
+		<Panel>View 3</Panel>
+	</WizardPanels>,
+	{
+		locale: 'ar-SA',
+		component: (
+			<WizardPanels index={1} title="WizardPanel">
+				<Panel>View 1</Panel>
+				<Panel prevButton={customPrevButton} nextButton={customNextButton}>View 2</Panel>
+				<Panel>View 3</Panel>
 			</WizardPanels>
 		)
 	},

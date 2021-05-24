@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import spotlight from '@enact/spotlight';
 
 import Button from '../../../../../Button';
@@ -12,7 +12,7 @@ spotlight.setPointerMode(false);
 // Note: The timeout for the delay is set high to avoid the refocus of the tab from initiating an
 // index change
 const App = (props) => {
-	const [index, setIndex] = React.useState(1);
+	const [index, setIndex] = useState(1);
 
 	return <div {...props}>
 		<TabLayout

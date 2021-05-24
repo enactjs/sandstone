@@ -2,7 +2,7 @@ import Button from '@enact/sandstone/Button';
 import Dropdown from '@enact/sandstone/Dropdown';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 import $L from '@enact/i18n/$L';
 import Text, {TextDecorator} from '@enact/i18n/Text';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
@@ -15,7 +15,7 @@ const AsyncILib = I18nContextDecorator(
 	{localeProp: 'locale', updateLocaleProp: 'updateLocale'},
 
 	// eslint-disable-next-line enact/display-name
-	class extends React.Component {
+	class extends Component {
 		static propTypes = {
 			locale: PropTypes.string,
 			updateLocale: PropTypes.func

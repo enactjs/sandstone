@@ -1,5 +1,4 @@
 import RangePicker from '../../../../RangePicker';
-import React from 'react';
 
 // ***NOTES:***
 // 'min' and 'max' are required for the image to be valid.
@@ -122,6 +121,10 @@ const RangePickerTests = [
 
 	// A 'value' is needed for the decrementIcon to show, else decrementIcon will not show.
 	<RangePicker decrementIcon="backward" min={0} max={10} value={5} />,
+
+	// title
+	<RangePicker min={0} max={5} value={0} title="Title" />,
+	<RangePicker min={0} max={5} value={0} inlineTitle title="Title" />,
 
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -421,6 +424,16 @@ const RangePickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <RangePicker decrementIcon="backward" min={0} max={10} value={5} />
+	},
+
+	// title
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} title="Title" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} inlineTitle title="Title" />
 	}
 ];
 export default RangePickerTests;

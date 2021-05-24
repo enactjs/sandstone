@@ -31,7 +31,7 @@ import Touchable from '@enact/ui/Touchable';
 import DurationFmt from 'ilib/lib/DurationFmt';
 import equals from 'ramda/src/equals';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {isValidElement, cloneElement, Component} from 'react';
 import ReactDOM from 'react-dom';
 import shallowEqual from 'recompose/shallowEqual';
 
@@ -177,7 +177,7 @@ const AnnounceState = {
  * @ui
  * @public
  */
-const VideoPlayerBase = class extends React.Component {
+const VideoPlayerBase = class extends Component {
 	static displayName = 'VideoPlayerBase';
 
 	static propTypes = /** @lends sandstone/VideoPlayer.VideoPlayerBase.prototype */ {
@@ -1201,7 +1201,7 @@ const VideoPlayerBase = class extends React.Component {
 		this.showControlsFromPointer
 	);
 
-	handleControlsHandleAboveHoldPulse = () => {
+	handleControlsHandleAboveHold = () => {
 		if (shouldJump(this.props, this.state)) {
 			this.handleJump({keyCode: this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode});
 		}
@@ -1927,8 +1927,8 @@ const VideoPlayerBase = class extends React.Component {
 					VideoComponent && (
 						(typeof VideoComponent === 'function' || typeof VideoComponent === 'string') && (
 							<VideoComponent {...mediaProps} />
-						) || React.isValidElement(VideoComponent) && (
-							React.cloneElement(VideoComponent, mediaProps)
+						) || isValidElement(VideoComponent) && (
+							cloneElement(VideoComponent, mediaProps)
 						)
 					) || null
 				}
@@ -2048,7 +2048,7 @@ const VideoPlayerBase = class extends React.Component {
 					className={css.controlsHandleAbove}
 					holdConfig={controlsHandleAboveHoldConfig}
 					onDown={this.handleControlsHandleAboveDown}
-					onHoldPulse={this.handleControlsHandleAboveHoldPulse}
+					onHold={this.handleControlsHandleAboveHold}
 					onKeyDown={this.handleControlsHandleAboveKeyDown}
 					onKeyUp={this.handleControlsHandleAboveKeyUp}
 					onSpotlightDown={this.showControls}

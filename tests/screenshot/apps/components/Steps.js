@@ -1,5 +1,4 @@
 import Steps from '../../../../Steps';
-import React from 'react';
 
 const StepsTests = [
 	<Steps />, // default `size` is "small"

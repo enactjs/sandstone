@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import defaultProps from 'recompose/defaultProps';
 import setPropTypes from 'recompose/setPropTypes';
-import UiHeading from '@enact/ui/Heading';
+import {HeadingBase as UiHeadingBase} from '@enact/ui/Heading';
 
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
@@ -52,6 +52,15 @@ const HeadingBase = kind({
 		 * @public
 		 */
 		showLine: PropTypes.bool,
+
+		/**
+		 * The size for slotBefore and slotAfter.
+		 * This size is used for remeasuring marquee metrics for Panels.Header.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		slotSize: PropTypes.string,
 
 		/**
 		 * The size of the spacing around the Heading.
@@ -85,7 +94,9 @@ const HeadingBase = kind({
 
 	render: ({css, ...rest}) => {
 		delete rest.showLine;
-		return UiHeading.inline({css, ...rest});
+		delete rest.slotSize;
+
+		return UiHeadingBase.inline({css, ...rest});
 	}
 });
 
@@ -106,7 +117,7 @@ const HeadingDecorator = compose(
 		marqueeOn: 'render'
 	}),
 	Pure,
-	MarqueeDecorator,
+	MarqueeDecorator({invalidateProps: ['remeasure', 'slotSize']}),
 	Skinnable
 );
 

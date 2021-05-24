@@ -1,4 +1,3 @@
-import React from 'react';
 import {mount} from 'enzyme';
 import {Picker, PickerBase} from '../Picker';
 
@@ -67,5 +66,35 @@ describe('Picker Specs', () => {
 		const actual = picker.find('PickerButton').at(1).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
+	});
+
+	test('should have an heading element when \'title\'', () => {
+		const subject = mount(
+			<PickerBase title="title text">
+				{[1, 2, 3, 4]}
+			</PickerBase>
+		);
+
+		expect(subject.find('Heading')).toHaveLength(1);
+
+		const expected = 'title';
+		const actual = subject.find('Heading').prop('className');
+
+		expect(actual).toContain(expected);
+	});
+
+	test('should have an heading element with inline class when \'title\' and \'inlineTitle\'', () => {
+		const subject = mount(
+			<PickerBase title="title text" inlineTitle>
+				{[1, 2, 3, 4]}
+			</PickerBase>
+		);
+
+		expect(subject.find('Heading')).toHaveLength(1);
+
+		const expected = 'inline';
+		const actual = subject.find('Heading').prop('className');
+
+		expect(actual).toContain(expected);
 	});
 });

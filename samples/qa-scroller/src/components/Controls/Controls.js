@@ -2,12 +2,12 @@ import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {InputField as Input} from '@enact/sandstone/Input';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 
 import LocaleSwitch from '../LocaleSwitch';
 import ScrollModeSwitch from '../ScrollModeSwitch';
 
-class Controls extends React.Component {
+class Controls extends Component {
 	static propTypes = {
 		handleFocusableScrollbar: PropTypes.func,
 		handleHeight: PropTypes.func,

@@ -2,13 +2,11 @@
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
-import React from 'react';
-import PropTypes from 'prop-types';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
-import qs from 'query-string';
-
-import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import PropTypes from 'prop-types';
+import qs from 'query-string';
 
 import css from './ThemeEnvironment.module.less';
 
@@ -135,6 +133,8 @@ const StorybookDecorator = (story, config = {}) => {
 	// Executing `story` here allows the story knobs to register and render before the global knobs below.
 	const sample = story();
 
+	const {globals} = config;
+
 	const Config = {
 		defaultProps: {
 			locale: 'en-US',
@@ -155,15 +155,9 @@ const StorybookDecorator = (story, config = {}) => {
 		groupId: 'Development'
 	};
 
-	if (config.parameters) {
-		if (config.parameters.info && config.parameters.info.text) {
-			config.description = config.parameters.info.text;
-		}
-		if (config.parameters.props) {
-			config.props = config.parameters.props;
-		}
-	}
-
+	// NOTE: 'config' object is not extensible.
+	const hasInfoText = config.parameters && config.parameters.info && config.parameters.info.text;
+	const hasProps = config.parameters && config.parameters.props;
 	const args = getArgs();
 	const classes = {
 		aria: boolean('debug aria', DevelopmentConfig, getKnobFromArgs(args, 'debug aria')),
@@ -175,19 +169,25 @@ const StorybookDecorator = (story, config = {}) => {
 		classes.debug = true;
 	}
 
+	globals.locale = select('locale', locales, Config, globals.locale);
+	globals.largeText = boolean('large text', Config, getKnobFromArgs(args, 'large text', globals.largeText));
+	globals.highContrast = boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast', globals.highContrast));
+	globals.background = select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background', globals.background));
+	globals.skin = select('skin', skins, Config, getKnobFromArgs(args, 'skin', globals.skin));
+
 	return (
 		<Theme
 			className={classnames(classes)}
-			title={`${config.kind} ${config.story}`.trim()}
-			description={config.description}
-			locale={select('locale', locales, Config)}
-			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
-			highContrast={boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast'))}
+			title={`${config.kind}`.replace(/\//g, ' ').trim()}
+			description={hasInfoText ? config.parameters.info.text : null}
+			locale={globals.locale}
+			textSize={globals.largeText ? 'large' : 'normal'}
+			highContrast={globals.highContrast}
 			style={{
-				'--sand-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
+				'--sand-env-background': backgroundLabelMap[globals.background]
 			}}
-			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
-			{...config.props}
+			skin={globals.skin}
+			{...hasProps ? config.parameters.props : null}
 		>
 			{sample}
 		</Theme>

@@ -1,5 +1,4 @@
 import Picker from '../../../../Picker';
-import React from 'react';
 
 const pickerList = {
 	tall: [
@@ -147,6 +146,10 @@ const PickerTests = [
 	<Picker width="medium" orientation="vertical" wrap joined noAnimation disabled>{pickerList.vegetables}</Picker>,
 	<Picker width="medium" orientation="vertical" wrap joined noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
 	<Picker width="medium" orientation="vertical" wrap joined noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
+
+	// title
+	<Picker title="Title">{['Hello', 'Hello']}</Picker>,
+	<Picker inlineTitle title="Title">{['Hello', 'Hello']}</Picker>,
 
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -444,8 +447,16 @@ const PickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <Picker width="medium" orientation="vertical" wrap joined noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>
+	},
+	// title
+	{
+		locale: 'ar-SA',
+		component: <Picker title="Title">{pickerList.vegetables}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker inlineTitle title="Title">{pickerList.vegetables}</Picker>
 	}
-
 ];
 
 export default PickerTests;

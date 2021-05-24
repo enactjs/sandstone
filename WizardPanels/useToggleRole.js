@@ -1,9 +1,9 @@
-import React from 'react';
+import {useRef, useCallback} from 'react';
 
 function useToggleRole ({role = 'region', event = 'onWillTransition'} = {}) {
-	const ref = React.useRef(null);
+	const ref = useRef(null);
 
-	const handler = React.useCallback(() => {
+	const handler = useCallback(() => {
 		if (ref.current) {
 			// To workaround not reading title when panel transition ends
 			ref.current.setAttribute('role', null);

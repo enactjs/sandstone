@@ -19,7 +19,7 @@ import Pure from '@enact/ui/internal/Pure';
 import {selectSrc} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Component} from 'react';
 
 import Skinnable from '../Skinnable';
 
@@ -73,8 +73,8 @@ const ImageBase = kind({
 			UiImageBase.inline({
 				draggable: 'false',
 				...rest,
-				css,
-				ref: componentRef
+				componentRef,
+				css
 			})
 		);
 	}
@@ -91,7 +91,7 @@ const ImageBase = kind({
 // This is ripe for refactoring, and could probably move into UI to be generalized, but that's for
 // another time. -B 2018-05-01
 const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'ResponsiveImageDecorator';
 
 		static propTypes = {

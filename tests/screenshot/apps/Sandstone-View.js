@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 import {objectify} from '@enact/ui/Skinnable/util';
 import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils';
 import spotlight from '@enact/spotlight';
-import React from 'react';
+import {Component as ReactComponent, cloneElement, useEffect} from 'react';
 
 import ThemeDecorator from '../../../ThemeDecorator';
 
@@ -69,7 +69,7 @@ function prepareTest (componentName, testId) {
 	};
 
 	return {
-		testElement: React.cloneElement(component, ElementProps, children),
+		testElement: cloneElement(component, ElementProps, children),
 		wrapperClasses: getWrapperClasses(componentMetadata),
 		wrapperStyle: getWrapperStyle(componentMetadata)
 	};
@@ -95,7 +95,7 @@ function prepareFromUrl () {
 	};
 }
 
-class App extends React.Component {
+class App extends ReactComponent {
 	static getDerivedStateFromError () {
 		// Update state so the next render will show the fallback UI.
 		return {hasError: true};
@@ -172,6 +172,11 @@ const ExportedApp = (props) => {
 	}
 
 	const WrappedApp = ThemeDecorator({noAutoFocus}, App);
+
+	useEffect(() => {
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		document.querySelector('#root > div').classList.add('spotlight-input-key');
+	}, []);
 
 	return (
 		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} />

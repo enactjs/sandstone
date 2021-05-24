@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-    - "10"
+    - "lts/*"
 sudo: false
 cache: npm
 install:
@@ -11,7 +11,7 @@ install:
     - pushd ../enact
     - npm install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
-    - npm run lerna link -- --ignore enact-sampler
+    - npm run lerna link
     - popd
     - rm -fr node_modules/@enact
     - npm install
@@ -24,3 +24,6 @@ script:
     - echo -e "\x1b\x5b35;1m*** Starting eslint...\x1b\x5b0m"
     - npm run lint -- -- --max-warnings 0 .
     - echo -e "\x1b\x5b35;1m*** eslint complete\x1b\x5b0m"
+    - echo -e "\x1b\x5b35;1m*** Starting docs validation...\x1b\x5b0m"
+    - npm run validate-docs
+    - echo -e "\x1b\x5b35;1m*** Docs validation complete\x1b\x5b0m"

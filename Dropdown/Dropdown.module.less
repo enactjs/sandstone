@@ -7,6 +7,7 @@
 .dropdown {
 	display: inline-block;
 	margin: @sand-dropdown-margin;
+	min-width: @sand-dropdown-min-width;
 
 	&.tinyWidth {
 		.title,
@@ -51,7 +52,12 @@
 	}
 
 	.title {
+		min-width: @sand-dropdown-min-width;
 		font-style: @sand-dropdown-title-font-style;
+
+		:global(.enact-locale-non-italic) & {
+			font-style: @sand-non-italic-dropdown-title-font-style;
+		}
 	}
 
 	&.hasTitle .button {
@@ -85,6 +91,7 @@
 .dropdownList {
 	border-radius: @sand-dropdown-border-radius;
 	max-height: @sand-dropdown-list-max-height;
+	min-width: @sand-dropdown-list-min-width;
 
 	&.tiny {
 		width: @sand-dropdown-list-tiny-width;

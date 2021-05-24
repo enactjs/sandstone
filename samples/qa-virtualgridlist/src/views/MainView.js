@@ -1,10 +1,10 @@
 import {Panel} from '@enact/sandstone/Panels';
-import React from 'react';
+import {Component} from 'react';
 
 import ImageList from '../components/ImageList';
 import PanelHeader from '../components/PanelHeader';
 
-class MainView extends React.Component {
+class MainView extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
