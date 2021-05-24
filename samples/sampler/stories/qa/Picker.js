@@ -40,6 +40,7 @@ const pickerList = {
 		'Spinach contains manganese'
 	],
 	numberList: ['0', '1', '2', '3', '4'],
+	irreqularNumberList: ['4', '13', '15', '20', '22'],
 	oneAirport: ['San Francisco International Airport Terminal 1'],
 	emptyList: [],
 	orderedList: ['A', 'B', 'C', 'D', 'E', 'F'],
@@ -363,6 +364,20 @@ export const KitchenSink = () => (
 		</Row>
 	</Scroller>
 );
+
+
+export const ForIrregularNumbers = () => (
+	<Picker
+		reverse={boolean('reverse', Picker)}
+		type={select('type', ['',], Picker)}
+		joined={boolean('joined', Picker)}
+		orientation={select('orientation', prop.orientation, Picker)}
+	>
+		{pickerList.irreqularNumberList}
+	</Picker>
+);
+
+ForIrregularNumbers.storyName = 'for irregular numbers';
 
 export const InPopupTabLayout = () => <PickerInPopupTabLayout />;
 
