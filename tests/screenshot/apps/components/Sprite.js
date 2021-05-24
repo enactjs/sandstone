@@ -14,10 +14,7 @@ const SpriteTests = [
 	...LTR,
 
 	// RTL
-	...withConfig({locale: 'ar-SA'}, LTR),
-
-	// Tallglyphs
-	...withConfig({locale: 'vi-VN'}, LTR)
+	...withConfig({locale: 'ar-SA'}, LTR)
 ];
 
 export default SpriteTests;
