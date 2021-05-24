@@ -4,6 +4,12 @@ import Picker from '@enact/sandstone/Picker';
 
 import {decrementIcons, incrementIcons} from '../helper/icons';
 
+// Set up some defaults for info and knobs
+const prop = {
+	orientation: ['horizontal', 'vertical'],
+	type: ['string', 'number'],
+	width: [null, 'small', 'medium', 'large']
+};
 
 const airports = [
 	'San Francisco International Airport Terminal 1',
@@ -19,7 +25,6 @@ Picker.displayName = 'Picker';
 
 export default {
 	title: 'Sandstone/Picker',
-	type: ['string', 'number'],
 	component: 'Picker'
 };
 
