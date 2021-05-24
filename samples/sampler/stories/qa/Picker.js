@@ -368,10 +368,10 @@ export const KitchenSink = () => (
 
 export const ForIrregularNumbers = () => (
 	<Picker
-		reverse={boolean('reverse', Picker)}
-		type={select('type', ['',], Picker)}
 		joined={boolean('joined', Picker)}
 		orientation={select('orientation', prop.orientation, Picker)}
+		reverse={false}
+		type="number"
 	>
 		{pickerList.irreqularNumberList}
 	</Picker>

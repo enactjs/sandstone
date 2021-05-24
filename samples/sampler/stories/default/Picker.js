@@ -9,7 +9,7 @@ const prop = {
 	orientation: ['horizontal', 'vertical'],
 	reverse: {
 		' ': null,
-		false: false,
+		false: 'false',
 		true: true
 	},
 	type: ['number', 'string'],
@@ -46,7 +46,7 @@ export const _Picker = () => (
 		noAnimation={boolean('noAnimation', Picker)}
 		onChange={action('onChange')}
 		orientation={select('orientation', prop.orientation, Picker, prop.orientation[0])}
-		reverse={select('reverse', prop.reverse, Picker)} //{boolean('reverse', Picker)}
+		reverse={select('reverse', prop.reverse, Picker) === 'false' ? false : select('reverse', prop.reverse, Picker)}
 		title={text('title', Picker)}
 		type={select('type', prop.type, Picker)}
 		width={select('width', prop.width, Picker, prop.width[3])}
