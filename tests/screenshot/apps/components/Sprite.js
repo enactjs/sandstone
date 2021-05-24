@@ -1,4 +1,5 @@
 import Sprite from '../../../../Sprite';
+
 import {withConfig} from './utils';
 
 import spriteGear2k from '../../images/sprite-gear-2k.png';
