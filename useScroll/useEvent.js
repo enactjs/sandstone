@@ -630,7 +630,7 @@ const useEventWheel = (props, instances) => {
 				ev.stopPropagation();
 			} else {
 				if (overscrollEffectRequired && (negativeDelta && scrollTop <= 0 || positiveDelta && scrollTop >= bounds.maxTop)) {
-					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce, 1);
+					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
 
 				needToHideScrollbarTrack = true;
@@ -648,7 +648,7 @@ const useEventWheel = (props, instances) => {
 				ev.stopPropagation();
 			} else {
 				if (overscrollEffectRequired && (negativeDelta && scrollLeft <= 0 || positiveDelta && scrollLeft >= bounds.maxLeft)) {
-					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce, 1);
+					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
 
 				needToHideScrollbarTrack = true;
