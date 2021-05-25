@@ -217,6 +217,6 @@ describe('RangePicker', function () {
 					});
 				});
 			});
-		})
+		});
 	});
 });

@@ -2,7 +2,7 @@ import RangePicker from '../../../../RangePicker';
 import ThemeDecorator from '../../../../ThemeDecorator';
 
 const app = (props) => <div {...props}>
-	<div style={{margin: "20px 0"}}>
+	<div style={{margin: '20px 0'}}>
 		<RangePicker defaultValue={0} className="rangePickerDefault" min={0} max={10} step={5} />
 		<RangePicker defaultValue={5} disabled className="rangePickerDisabled" min={0} max={10} step={5} />
 		<RangePicker defaultValue={0} className="rangePickerWithNegativeValues" min={-10} max={10} />
