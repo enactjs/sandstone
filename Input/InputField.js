@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import {handle, adaptEvent, forwardCustom, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import platform from '@enact/core/platform';
@@ -277,7 +278,6 @@ const InputFieldBase = kind({
 		},
 		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		inputClassName: ({styler, type}) => styler.append('input', {passwordtel: (type === 'passwordtel')}),
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
@@ -291,9 +291,10 @@ const InputFieldBase = kind({
 		value: ({value}) => typeof value === 'number' ? value : (value || '')
 	},
 
-	render: ({css, dir, disabled, iconAfter, iconBefore, inputClassName, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
+	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
 		const inputProps = extractInputProps(rest);
 		const voiceProps = extractVoiceProps(rest);
+		const isPasswordtel = type === 'passwordtel';
 		delete rest.announce;
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
@@ -313,14 +314,14 @@ const InputFieldBase = kind({
 				<input
 					{...inputProps}
 					{...voiceProps}
-					aria-hidden={type === 'passwordtel'}
-					className={inputClassName}
+					aria-hidden={isPasswordtel}
+					className={classnames(css.input, {[css.passwordtel]: isPasswordtel})}
 					dir={dir}
 					disabled={disabled}
 					onChange={onChange}
 					placeholder={placeholder}
 					tabIndex={-1}
-					type={type === 'passwordtel' ? 'tel' : type}
+					type={isPasswordtel ? 'tel' : type}
 					value={value}
 				/>
 				<InputFieldDecoratorIcon position="after" size={size}>{iconAfter}</InputFieldDecoratorIcon>
