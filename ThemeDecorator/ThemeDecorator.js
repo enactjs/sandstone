@@ -284,4 +284,4 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 export default ThemeDecorator;
-export {ThemeDecorator, getInputType as getLastInputType};
+export {ThemeDecorator, getInputType};
