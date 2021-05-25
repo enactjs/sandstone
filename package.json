@@ -40,6 +40,7 @@
     "@enact/i18n": "^3.4.11",
     "@enact/spotlight": "^3.4.11",
     "@enact/ui": "^3.4.11",
+    "@enact/webos": "^3.4.11",
     "classnames": "^2.2.5",
     "invariant": "^2.2.2",
     "prop-types": "^15.7.2",
