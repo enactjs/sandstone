@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import {handle, adaptEvent, forwardCustom, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import platform from '@enact/core/platform';
@@ -8,6 +7,7 @@ import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import {readAlert} from '@enact/webos/speech';
+import classnames from 'classnames';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
