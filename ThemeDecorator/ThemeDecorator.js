@@ -14,7 +14,7 @@ import {Component} from 'react';
 import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
-import SpotlightRootDecorator from '@enact/spotlight/SpotlightRootDecorator';
+import SpotlightRootDecorator, {activateInputType, getInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
 import LS2Request from '@enact/webos/LS2Request';
 
 import Skinnable from '../Skinnable';
@@ -177,7 +177,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		[css.bg]: !overlay
 	});
 
-	let spotlightInputType = {};
+	const spotlightInputType = {request: null};
 
 	let App = Wrapped;
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
@@ -200,19 +200,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			)
 		);
 	}
-	if (spotlight) {
-		App = SpotlightRootDecorator({
-			getInputTypeSetter: (setInputType, activateInputType) => {
-				spotlightInputType = {
-					set: setInputType,
-					activate: activateInputType,
-					request: null
-				};
-			},
-			noAutoFocus,
-			rootId // set the DOM node ID of the React DOM tree root
-		}, App);
-	}
+	if (spotlight) App = SpotlightRootDecorator({noAutoFocus}, App);
 	if (skin) App = Skinnable({defaultSkin: 'neutral'}, App);
 	if (accessible) App = AccessibilityDecorator(App);
 
@@ -259,16 +247,16 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		componentDidMount () {
 			if (spotlight && platform.webos) {
-				spotlightInputType.activate(true);
+				activateInputType(true);
 				spotlightInputType.request = new LS2Request().send({
 					service: 'luna://com.webos.surfacemanager',
 					method: 'getLastInputType',
 					subscribe: true,
 					onSuccess: function (res) {
-						spotlightInputType.set(res.lastInputType);
+						setInputType(res.lastInputType);
 					},
 					onFailure: function () {
-						spotlightInputType.activate(false);
+						activateInputType(false);
 					}
 				});
 			}
@@ -296,4 +284,4 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 export default ThemeDecorator;
-export {ThemeDecorator};
+export {ThemeDecorator, getInputType as getLastInputType};
