@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
 
+### Fixed
+
+- `sandstone/FixedPopupPanels` to keep focus inside of popup with 5-way
+
 ## [2.0.0-beta.1] - 2021-05-21
 
 - Enhanced touch support
