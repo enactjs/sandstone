@@ -171,6 +171,31 @@ const TabLayoutTests = [
 	{
 		component: <TabLayout type="popup">{tabs}</TabLayout>,
 		wrapper: {full: true}
+	},
+
+	// *************************************************************
+	// RTL
+	// locale = 'ar-SA'
+	// *************************************************************
+	{
+		locale: 'ar-SA',
+		component: <TabLayout selected={1}>{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		component: <TabLayout selected={1}>{tabsWithIcons}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		component: <TabLayout collapsed selected={1}>{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		component: <TabLayout orientation="horizontal" selected={1}>{tabs}</TabLayout>,
+		wrapper: {full: true}
 	}
 ];
 export default TabLayoutTests;
