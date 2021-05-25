@@ -1,7 +1,7 @@
+import ri from '@enact/ui/resolution';
+
 import ImageItem from '../../../../ImageItem';
 import {VirtualGridList} from '../../../../VirtualList';
-
-import ri from '@enact/ui/resolution';
 
 const items = [];
 const defaultDataSize = 10;
@@ -65,17 +65,19 @@ const VirtualGridListTests = [
 		<VirtualGridList
 			dataSize={items.length}
 			direction="horizontal"
-			itemSize={{minWidth: ri.scale(688), minHeight: ri.scale(570)}}
+			itemSize={{minWidth: ri.scale(270), minHeight: ri.scale(270)}}
 			itemRenderer={renderItem}
+			style={{height: ri.scale(300)}}
 		/>
 	</div>,
 	<div>
 		<VirtualGridList
-			dataSize={items.lengthupdate}
+			dataSize={items.length}
 			direction="horizontal"
-			itemSize={{minWidth: ri.scale(688), minHeight: ri.scale(570)}}
+			itemSize={{minWidth: ri.scale(270), minHeight: ri.scale(270)}}
 			itemRenderer={renderItem}
-			spacing={ri.scale(30)}
+			spacing={ri.scale(60)}
+			style={{height: ri.scale(300)}}
 		/>
 	</div>
 ];

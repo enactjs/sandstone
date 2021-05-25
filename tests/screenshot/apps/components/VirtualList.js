@@ -23,6 +23,7 @@ const VirtualListTests = [
 			dataSize={10}
 			itemSize={ri.scale( 144)}
 			itemRenderer={renderItem(ri.scale(144))}
+			spacing={ri.scale(60)}
 		/>
 	</div>,
 	<div>
