@@ -7,6 +7,7 @@ import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import {readAlert} from '@enact/webos/speech';
+import classnames from 'classnames';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -277,7 +278,6 @@ const InputFieldBase = kind({
 		},
 		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		inputClassName: ({styler, type}) => styler.append('input', {passwordtel: (type === 'passwordtel')}),
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
@@ -291,9 +291,10 @@ const InputFieldBase = kind({
 		value: ({value}) => typeof value === 'number' ? value : (value || '')
 	},
 
-	render: ({css, dir, disabled, iconAfter, iconBefore, inputClassName, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
+	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
 		const inputProps = extractInputProps(rest);
 		const voiceProps = extractVoiceProps(rest);
+		const isPasswordtel = type === 'passwordtel';
 		delete rest.announce;
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
@@ -313,14 +314,14 @@ const InputFieldBase = kind({
 				<input
 					{...inputProps}
 					{...voiceProps}
-					aria-hidden={type === 'passwordtel'}
-					className={inputClassName}
+					aria-hidden={isPasswordtel}
+					className={classnames(css.input, {[css.passwordtel]: isPasswordtel})}
 					dir={dir}
 					disabled={disabled}
 					onChange={onChange}
 					placeholder={placeholder}
 					tabIndex={-1}
-					type={type === 'passwordtel' ? 'tel' : type}
+					type={isPasswordtel ? 'tel' : type}
 					value={value}
 				/>
 				<InputFieldDecoratorIcon position="after" size={size}>{iconAfter}</InputFieldDecoratorIcon>

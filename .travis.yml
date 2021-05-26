@@ -5,13 +5,13 @@ sudo: false
 cache: npm
 install:
     - npm config set prefer-offline true
-    - npm install -g enactjs/cli#develop
+    - npm install -g enactjs/cli#3.0.6
     - npm install -g codecov
-    - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
+    - git clone --branch=3.4.11 --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
-    - npm run lerna link -- --ignore enact-sampler
+    - npm run lerna link
     - popd
     - rm -fr node_modules/@enact
     - npm install
