@@ -133,6 +133,8 @@ const StorybookDecorator = (story, config = {}) => {
 	// Executing `story` here allows the story knobs to register and render before the global knobs below.
 	const sample = story();
 
+	const {globals} = config;
+
 	const Config = {
 		defaultProps: {
 			locale: 'en-US',
@@ -167,18 +169,24 @@ const StorybookDecorator = (story, config = {}) => {
 		classes.debug = true;
 	}
 
+	globals.locale = select('locale', locales, Config, globals.locale);
+	globals.largeText = boolean('large text', Config, getKnobFromArgs(args, 'large text', globals.largeText));
+	globals.highContrast = boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast', globals.highContrast));
+	globals.background = select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background', globals.background));
+	globals.skin = select('skin', skins, Config, getKnobFromArgs(args, 'skin', globals.skin));
+
 	return (
 		<Theme
 			className={classnames(classes)}
 			title={`${config.kind}`.replace(/\//g, ' ').trim()}
 			description={hasInfoText ? config.parameters.info.text : null}
-			locale={select('locale', locales, Config)}
-			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
-			highContrast={boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast'))}
+			locale={globals.locale}
+			textSize={globals.largeText ? 'large' : 'normal'}
+			highContrast={globals.highContrast}
 			style={{
-				'--sand-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
+				'--sand-env-background': backgroundLabelMap[globals.background]
 			}}
-			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
+			skin={globals.skin}
 			{...hasProps ? config.parameters.props : null}
 		>
 			{sample}
