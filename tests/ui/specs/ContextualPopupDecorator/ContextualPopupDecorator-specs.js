@@ -8,7 +8,8 @@ describe('ContextualPopupDecorator', function () {
 
 	const {
 		button1,
-		button2
+		button2,
+		button3
 	} = Page.components;
 
 	describe('not using open', function () {
@@ -25,20 +26,6 @@ describe('ContextualPopupDecorator', function () {
 			it('should focus second button on 5-way right', function () {
 				Page.spotlightRight();
 				expect(button2.self.isFocused()).to.be.true();
-			});
-		});
-
-		describe('using 5-way', function () {
-			// The menu is open and the first item has focus
-			beforeEach(function () {
-				Page.spotlightSelect();
-			});
-
-			// [GT-28291] - 5-waySelectableActivator: Button Retains Spotlight when Popup Hides
-			it('should have Spotlight on close button when ContextualPopup opens', function () {
-				let popupButton = $('#popupButton1');
-
-				expect(popupButton.isFocused()).to.be.true();
 			});
 		});
 	});
@@ -59,12 +46,42 @@ describe('ContextualPopupDecorator', function () {
 				Page.spotlightSelect();
 				expect(popupButton.isFocused()).to.be.true();
 			});
+
+			it('should close the popup and should have Spotlight on button on auto dismiss the ContexualPopup2', function () {
+				let popupButton = $('#popupButton2');
+
+				button2.focus();
+				Page.spotlightSelect();
+				expect(popupButton.isFocused()).to.be.true();
+
+				Page.backKey();
+				expect(button2.isOpen).to.be.false();
+				expect(button2.self.isFocused()).to.be.true();
+			});
+
+			it('should not close the popup and should not have Spotlight on button on auto dismiss the ContexualPopup3', function () {
+				let popupButton = $('#popupButton3');
+
+				button3.focus();
+				Page.spotlightSelect();
+				expect(popupButton.isFocused()).to.be.true();
+
+				Page.backKey();
+				expect(button1.isOpen).to.be.true();
+				expect(button1.self.isFocused()).to.be.false();
+			});
 		});
 
 		describe('using pointer', function () {
 			it('should open when clicked', function () {
 				button1.self.click();
 				expect(button1.isOpen).to.be.true();
+			});
+
+			it('should close when clicking twice', function () {
+				button1.self.click();
+				button1.self.click();
+				expect(button1.isOpen).to.be.false();
 			});
 
 			it('should close when clicking outside', function () {

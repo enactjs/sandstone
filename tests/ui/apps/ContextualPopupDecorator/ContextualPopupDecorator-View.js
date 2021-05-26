@@ -18,18 +18,23 @@ const renderPopup2 = () => (
 	<Button id="popupButton2">Hello Contextual Popup2</Button>
 );
 
+const renderPopup3 = () => (
+	<Button id="popupButton3">Hello Contextual Popup3</Button>
+);
+
 class app extends Component {
 
 	state = {
 		button1Open: false,
-		button2Open: false
+		button2Open: false,
+		button3Open: false
 	};
 
 	clickHandler = (st) =>  this.setState(st);
 
 	render () {
-		const {button1Open, button2Open} = this.state;
-		
+		const {button1Open, button2Open, button3Open} = this.state;
+
 		return (
 			<div {...this.props}>
 				<ContextualButton
@@ -38,7 +43,6 @@ class app extends Component {
 					onClose={() => this.clickHandler({button1Open: false})}
 					open={button1Open}
 					popupComponent={renderPopup1}
-					spotlightRestrict="self-only"
 				>
 					Contextual Popup Button1
 				</ContextualButton>
@@ -51,6 +55,16 @@ class app extends Component {
 					spotlightRestrict="self-only"
 				>
 					Contextual Popup Button2
+				</ContextualButton>
+				<ContextualButton
+					id="button3"
+					noAutoDismiss
+					onClick={() => this.clickHandler({button3Open: !button3Open})}
+					onClose={() => this.clickHandler({button3Open: false})}
+					open={button3Open}
+					popupComponent={renderPopup3}
+				>
+					Contextual Popup Button3
 				</ContextualButton>
 			</div>
 		);
