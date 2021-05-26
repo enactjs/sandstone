@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Picker` props `reverse` and `type` to support for number list
+
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
