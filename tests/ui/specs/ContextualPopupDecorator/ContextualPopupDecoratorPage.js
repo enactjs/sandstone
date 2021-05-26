@@ -18,8 +18,13 @@ class ButtonInterface {
 	get self () {
 		return $(this.selector);
 	}
+	
 	get isButtonExist () {
 		return this.self.isExisting();
+	}
+
+	get isOpen () {
+		return $('.ContextualPopupDecorator_ContextualPopup_container').isExisting();
 	}
 }
 
@@ -28,10 +33,9 @@ class ContextualPopupDecoratorPage extends Page {
 		super();
 		this.title = 'ContextualPopupDecorator Test';
 		const button1 = new ButtonInterface('button1');
+		const button2 = new ButtonInterface('button2');
 
-		this.components = {
-			button1
-		};
+		this.components = {button1, button2};
 	}
 
 	open (urlExtra) {
