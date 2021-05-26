@@ -40,7 +40,7 @@ const pickerList = {
 		'Spinach contains manganese'
 	],
 	numberList: ['0', '1', '2', '3', '4'],
-	irreqularNumberList: ['4', '13', '15', '20', '22'],
+	irregularNumberList: ['4', '13', '15', '20', '22'],
 	oneAirport: ['San Francisco International Airport Terminal 1'],
 	emptyList: [],
 	orderedList: ['A', 'B', 'C', 'D', 'E', 'F'],
@@ -373,7 +373,7 @@ export const ForIrregularNumbers = () => (
 		reverse={false}
 		type="number"
 	>
-		{pickerList.irreqularNumberList}
+		{pickerList.irregularNumberList}
 	</Picker>
 );
 

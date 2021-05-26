@@ -170,9 +170,9 @@ const PickerBase = kind({
 		 * for vertical lists of text options where "up" implies a spatial change rather than
 		 * incrementing the value.
 		 *
-		 * If this prop is omitted, it will be determined by the orientation direction.
-		 * For example, if `orientation` is `vertical`, the `reverse` is true.
-		 * Conversely, if the `orientation` is `horizontal`, `reverse` is false.
+		 * If this prop is omitted, it will be determined by `orientation`.
+		 * For example, if `orientation` is `vertical`, `reverse` is `true`.
+		 * Conversely, if `orientation` is `horizontal`, `reverse` is `false`.
 		 *
 		 * @type {Boolean}
 		 * @public
