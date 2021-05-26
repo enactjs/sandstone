@@ -22,6 +22,7 @@ const app = (props) => <div {...props}>
 		<Picker defaultValue={1} className="pickerWithDefaultValueVertical" orientation="vertical">{pickerList}</Picker>
 		<Picker className="pickerWrapVertical" orientation="vertical" wrap>{pickerList}</Picker>
 		<Picker className="pickerJoinedVertical" joined orientation="vertical">{pickerList}</Picker>
+		<Picker className="pickerVerticalWrapJoined" joined orientation="vertical" wrap>{pickerList}</Picker>
 	</div>
 </div>;
 

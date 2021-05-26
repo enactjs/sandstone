@@ -33,7 +33,7 @@ class RangePickerInterface {
 		return element('.internal_Picker_Picker_incrementer', rangePicker);
 	}
 
-	active (rangePicker) {
+	currentValue (rangePicker) {
 		return element('.internal_Picker_Picker_valueWrapper', rangePicker);
 	}
 }
@@ -52,7 +52,8 @@ class RangePickerPage extends Page {
 		const rangePickerWithNegativeValuesVertical = new RangePickerInterface('rangePickerWithNegativeValuesVertical');
 		const rangePickerVerticalWrap = new RangePickerInterface('rangePickerVerticalWrap');
 		const rangePickerVerticalJoined = new RangePickerInterface('rangePickerVerticalJoined');
-		this.components = {rangePickerDefault, rangePickerDisabled, rangePickerWithNegativeValues, rangePickerWrap, rangePickerJoined, rangePickerVertical, rangePickerVerticalDisabled, rangePickerWithNegativeValuesVertical, rangePickerVerticalWrap, rangePickerVerticalJoined};
+		const rangePickerVerticalWrapJoined = new RangePickerInterface('rangePickerVerticalWrapJoined');
+		this.components = {rangePickerDefault, rangePickerDisabled, rangePickerWithNegativeValues, rangePickerWrap, rangePickerJoined, rangePickerVertical, rangePickerVerticalDisabled, rangePickerWithNegativeValuesVertical, rangePickerVerticalWrap, rangePickerVerticalJoined, rangePickerVerticalWrapJoined};
 	}
 
 	open (urlExtra) {

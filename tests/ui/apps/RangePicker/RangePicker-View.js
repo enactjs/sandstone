@@ -15,6 +15,7 @@ const app = (props) => <div {...props}>
 		<RangePicker defaultValue={0} className="rangePickerWithNegativeValuesVertical" orientation="vertical" min={-10} max={10} />
 		<RangePicker defaultValue={0} className="rangePickerVerticalWrap" min={0} max={10} orientation="vertical" step={5} wrap />
 		<RangePicker defaultValue={0} className="rangePickerVerticalJoined" joined min={0} max={10} orientation="vertical" step={5} />
+		<RangePicker defaultValue={0} className="rangePickerVerticalWrapJoined" joined min={0} max={10} orientation="vertical" step={5} wrap />
 	</div>
 </div>;
 

@@ -1,7 +1,7 @@
 // Utility methods for testing
 
 const extractValue = (rangePicker) => {
-	return parseInt(rangePicker.active(rangePicker.self).getText());
+	return parseInt(rangePicker.currentValue(rangePicker.self).getText());
 };
 
 module.exports = {

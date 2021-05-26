@@ -32,7 +32,7 @@ class PickerInterface {
 		return element('.internal_Picker_Picker_incrementer', picker);
 	}
 
-	active (picker) {
+	currentValue (picker) {
 		return element('.internal_Picker_Picker_valueWrapper', picker);
 	}
 }
@@ -51,7 +51,8 @@ class PickerPage extends Page {
 		const pickerWithDefaultValueVertical = new PickerInterface('pickerWithDefaultValueVertical');
 		const pickerWrapVertical = new PickerInterface('pickerWrapVertical');
 		const pickerJoinedVertical = new PickerInterface('pickerJoinedVertical');
-		this.components = {pickerDefault, pickerDisabled, pickerWithDefaultValue, pickerWrap, pickerJoined, pickerVertical, pickerDisabledVertical, pickerWithDefaultValueVertical, pickerWrapVertical, pickerJoinedVertical};
+		const pickerVerticalWrapJoined = new PickerInterface('pickerVerticalWrapJoined');
+		this.components = {pickerDefault, pickerDisabled, pickerWithDefaultValue, pickerWrap, pickerJoined, pickerVertical, pickerDisabledVertical, pickerWithDefaultValueVertical, pickerWrapVertical, pickerJoinedVertical, pickerVerticalWrapJoined};
 	}
 
 	open (urlExtra) {
