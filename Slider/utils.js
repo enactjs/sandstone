@@ -96,7 +96,6 @@ const handleDecrement = handle(
 	emitChange(-1)
 );
 
-
 const handleIncrementByWheel = handle(
 	isActive,
 	isIncrementByWheel,
