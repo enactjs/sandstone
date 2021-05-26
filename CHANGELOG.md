@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
+- `sandstone/Slider` to interact by wheel
 
 ## [2.0.0-beta.1] - 2021-05-21
 
@@ -27,7 +28,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
 - `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds
-- `sandstone/Slider` to interact by wheel
 - `sandstone/WizardPanels.Panel` `nextButton` and `prevButton` to show labels separately to match latest designs
 
 ### Fixed
