@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
+- `sandstone/Slider` to interact by wheel
 
 ## [2.0.0-beta.1] - 2021-05-21
 
