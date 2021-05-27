@@ -26,6 +26,8 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {createContext, Fragment} from 'react';
 
+import {getLastInputType} from '../ThemeDecorator';
+
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
@@ -37,10 +39,7 @@ const TabLayoutContext = createContext(null);
 
 const TouchableCell = Touchable(Cell);
 
-const isTouchMode = () => {
-	const rootContainer = document.querySelector('#root > div');
-	return rootContainer && rootContainer.classList.contains('spotlight-input-touch');
-};
+const isTouchMode = () => (getLastInputType() === 'touch');
 
 /**
  * Tabbed Layout component.
