@@ -365,19 +365,19 @@ const tabPanelsHandlers = {
 		forward('onKeyDown'),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
-		(ev) => {
-			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
-				ev.stopPropagation();
-				return false;
-			}
-			return true;
-		},
 		({target}) => {
 			const next = getTargetByDirectionFromElement('left', target);
 			if (next === null || (next && !getContainerNode(getContainersForNode(target).pop()).contains(next))) {
 				return true;
 			}
 			return false;
+		},
+		(ev) => {
+			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
+				ev.stopPropagation();
+				return false;
+			}
+			return true;
 		},
 		forward('onBack'),
 		stop
