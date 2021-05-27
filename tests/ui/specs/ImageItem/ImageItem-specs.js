@@ -23,7 +23,7 @@ describe('ImageItem', function () {
 		describe('5-way', function () {
 			it('should be able to focus the image item', function () {
 				Page.components.imageItemLongCaption.focus();
-				Page.spotlightUp();
+				Page.spotlightLeft();
 
 				expect(imageItem.self.isFocused()).to.be.true();
 			});
@@ -44,7 +44,7 @@ describe('ImageItem', function () {
 		describe('5-way', function () {
 			it('should be able to focus the image item', function () {
 				Page.components.imageItemDefault.focus();
-				Page.spotlightDown();
+				Page.spotlightRight();
 
 				expect(imageItem.self.isFocused()).to.be.true();
 			});
@@ -55,7 +55,7 @@ describe('ImageItem', function () {
 		const imageItem = Page.components.imageItemCentered;
 
 		it('should display correct text', function () {
-			expect(imageItem.textContent).to.equal('Image Item centered');
+			expect(imageItem.textContent).to.equal('Centered');
 		});
 
 		it('should display an image', function () {
@@ -65,7 +65,7 @@ describe('ImageItem', function () {
 		describe('5-way', function () {
 			it('should be able to focus the image item', function () {
 				Page.components.imageItemLongCaption.focus();
-				Page.spotlightDown();
+				Page.spotlightRight();
 
 				expect(imageItem.self.isFocused()).to.be.true();
 			});
@@ -85,7 +85,7 @@ describe('ImageItem', function () {
 
 		describe('5-way', function () {
 			it('should be able to focus the image item', function () {
-				Page.components.imageItemCentered.focus();
+				Page.components.imageItemDefault.focus();
 				Page.spotlightDown();
 
 				expect(imageItem.self.isFocused()).to.be.true();
@@ -104,10 +104,14 @@ describe('ImageItem', function () {
 			expect(imageItem.image).to.be.true();
 		});
 
+		it('should have "selected" class', function () {
+			expect(imageItem.isSelected).to.be.true();
+		});
+
 		describe('5-way', function () {
 			it('should be able to focus the image item', function () {
 				Page.components.imageItemDisabled.focus();
-				Page.spotlightDown();
+				Page.spotlightRight();
 
 				expect(imageItem.self.isFocused()).to.be.true();
 			});
@@ -121,10 +125,14 @@ describe('ImageItem', function () {
 			expect(imageItem.image).to.be.true();
 		});
 
+		it('should have a label', function () {
+			expect(imageItem.hasLabel).to.be.true();
+		});
+
 		describe('5-way', function () {
 			it('should be able to focus the image item', function () {
 				Page.components.imageItemSelected.focus();
-				Page.spotlightDown();
+				Page.spotlightRight();
 
 				expect(imageItem.self.isFocused()).to.be.true();
 			});
