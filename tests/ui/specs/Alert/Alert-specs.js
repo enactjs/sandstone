@@ -52,7 +52,7 @@ describe('Alert', () => {
 
 			setTimeout(() => {}, 100);
 			expectOpen(alertCommon);
-			validateTitle(components.alertFullscreen, 'Fullscreen Alert\n\nOk\nCancel');
+			validateTitle(components.alertFullscreen, 'Fullscreen Alert\nOk\nCancel');
 		});
 		it('should open and close the fullscreen alert', () => {
 			alertCommon.buttonFullscreen.click();
@@ -69,7 +69,7 @@ describe('Alert', () => {
 
 			setTimeout(() => {}, 100);
 			expectOpen(alertCommon);
-			validateTitle(components.alertOverlay, 'Overlay Alert\n\nOk\nCancel');
+			validateTitle(components.alertOverlay, 'Overlay Alert\nOk\nCancel');
 		});
 		it('should open and close the overlay alert', () => {
 			alertCommon.buttonOverlay.click();
