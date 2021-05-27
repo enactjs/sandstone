@@ -1,5 +1,5 @@
 import spotlight from '@enact/spotlight';
-import {Row, Column, Cell} from '@enact/ui/Layout';
+import {Row, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 
 import Heading from '../../../../Heading';
