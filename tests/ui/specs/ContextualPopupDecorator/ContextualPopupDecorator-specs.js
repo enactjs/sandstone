@@ -47,6 +47,30 @@ describe('ContextualPopupDecorator', function () {
 				expect(popupButton.isFocused()).to.be.true();
 			});
 
+			it('should close popup and move Spotlight on button on Spotlight up', function () {
+				let popupButton = $('#popupButton3');
+
+				button3.focus();
+				Page.spotlightSelect();
+				expect(popupButton.isFocused()).to.be.true();
+
+				Page.spotlightUp();
+				expect(button3.isOpen).to.be.false();
+				expect(button3.self.isFocused()).to.be.true();
+			});
+
+			it('with SpotlightRestrict="self-only", should not close popup and move Spotlight on button on Spotlight up', function () {
+				let popupButton = $('#popupButton2');
+
+				button2.focus();
+				Page.spotlightSelect();
+				expect(popupButton.isFocused()).to.be.true();
+
+				Page.spotlightUp();
+				expect(button2.isOpen).to.be.true();
+				expect(button2.self.isFocused()).to.be.false();
+			});
+
 			it('should close the popup and should have Spotlight on button on auto dismiss the ContexualPopup2', function () {
 				let popupButton = $('#popupButton2');
 
@@ -92,6 +116,16 @@ describe('ContextualPopupDecorator', function () {
 				wrapper.click({x: 0, y: 0});
 
 				expect(button1.isOpen).to.be.false();
+			});
+
+			it('should not close when clicking outside', function () {
+				button3.self.click();
+
+				// Click in the area outside the ContextualPopupDecorator (in the empty space created by the wrapper)
+				const wrapper = $('.ThemeDecorator_ThemeDecorator_bg');
+				wrapper.click({x: 0, y: 0});
+
+				expect(button3.isOpen).to.be.true();
 			});
 		});
 	});
