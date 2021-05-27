@@ -42,7 +42,7 @@ function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 			// within the panel using a (currently) private Spotlight API with the enterTo parameter
 			// to influence which configuration is used to find said target.
 			const enterTo = isSelector(autoFocus) || autoFocus === 'default-element' ? 'default-element' : 'last-focused';
-			Spotlight.focus(spotlightId, enterTo);
+			Spotlight.focus(spotlightId, {enterTo});
 		}
 	}, [autoFocus, hideChildren, ref]);
 }
