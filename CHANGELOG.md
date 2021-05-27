@@ -17,6 +17,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/InputField` cursor not to jump unexpectedly when mouse down
 - `sandstone/PopupTabLayout` to move focus via 5-way left in the header
+- `sandstone/MediaPlayer` to show `MediaControls` via wheel
+
 
 ## [2.0.0-beta.1] - 2021-05-21
 
