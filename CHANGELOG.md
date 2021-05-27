@@ -4,6 +4,22 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Picker` props `reverse` and `type` to support for number list
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
+- `sandstone/Slider` to interact by wheel
+
+### Fixed
+
+- `sandstone/InputField` cursor not to jump unexpectedly when mouse down
+- `sandstone/PopupTabLayout` to move focus via 5-way left in the header
+
+## [2.0.0-beta.1] - 2021-05-21
+
 - Enhanced touch support
 
 ### Added
@@ -54,7 +70,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [2.0.0-alpha.1] - 2021-02-24
 
--  The framework was updated to support React 17.0.1
+- The framework was updated to support React 17.0.1
 
 ### Added
 
