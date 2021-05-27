@@ -50,36 +50,36 @@ describe('Alert', () => {
 		it('should open the fullscreen alert', () => {
 			alertCommon.buttonFullscreen.click();
 
-			setTimeout(() => {}, 100);
+			browser.pause(100);
 			expectOpen(alertCommon);
 			validateTitle(components.alertFullscreen, 'Fullscreen Alert\nOk\nCancel');
 		});
 		it('should open and close the fullscreen alert', () => {
 			alertCommon.buttonFullscreen.click();
 
-			setTimeout(() => {}, 100);
+			browser.pause(100);
 			expectOpen(alertCommon);
 			components.alertFullscreen.buttonOK.click();
 
-			setTimeout(() => {}, 100);
+			browser.pause(100);
 			expectClosed(alertCommon);
 		});
 		it('should open the overlay alert', () => {
 			alertCommon.buttonOverlay.click();
 
-			setTimeout(() => {}, 100);
+			browser.pause(100);
 			expectOpen(alertCommon);
 			validateTitle(components.alertOverlay, 'Overlay Alert\nOk\nCancel');
 		});
 		it('should open and close the overlay alert', () => {
 			alertCommon.buttonOverlay.click();
 
-			setTimeout(() => {}, 100);
+			browser.pause(100);
 			expectOpen(alertCommon);
 
 			components.alertOverlay.buttonOK.click();
 
-			setTimeout(() => {}, 100);
+			browser.pause(100);
 			expectClosed(alertCommon);
 		});
 	});
