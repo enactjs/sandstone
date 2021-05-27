@@ -20,41 +20,33 @@ class app extends Component {
     clickHandler = (st) => this.setState(st);
 
     render () {
-    	return <div id="alertMain" {...this.props}>
-	<p>
-	UI testing for Alert Fullscreen and Alert Overlay
-    		</p>
-	<div>
-	<Button id="openFullscreen" onClick={() => this.clickHandler({openFullscreen: true})}>Open Fullscreen Alert</Button>
-	<Button id="openOverlay" onClick={() => this.clickHandler({openOverlay: true})}>Open Overlay Alert</Button>
+    	return (
+			<div id="alertMain" {...this.props}>
+				<p>
+					UI testing for Alert Fullscreen and Alert Overlay
+				</p>
+				<div>
+					<Button id="openFullscreen" onClick={() => this.clickHandler({openFullscreen: true})}>Open Fullscreen Alert</Button>
+					<Button id="openOverlay" onClick={() => this.clickHandler({openOverlay: true})}>Open Overlay Alert</Button>
+				</div>
+				<Alert id="alertFullscreen" open={this.state.openFullscreen} type="fullscreen" onClose={() => this.clickHandler({openFullscreen: false})}>
+					<div>Fullscreen Alert</div>
+					<br />
+					<Container>
+						<Button id="buttonOK" onClick={() => this.clickHandler({openFullscreen: false})}>Ok</Button>
+						<Button id="buttonCancel" onClick={() => this.clickHandler({openFullscreen: false})}>Cancel</Button>
+    				</Container>
+    			</Alert>
+				<Alert id="alertOverlay" open={this.state.openOverlay} type="overlay" onClose={() => this.clickHandler({openOverlay: false})}>
+					<div>Overlay Alert</div>
+					<br />
+					<Container>
+						<Button id="buttonOK" onClick={() => this.clickHandler({openOverlay: false})}>Ok</Button>
+						<Button id="buttonCancel" onClick={() => this.clickHandler({openOverlay: false})}>Cancel</Button>
+					</Container>
+    			</Alert>
     		</div>
-	<Alert
-	id="alertFullscreen"
-	open={this.state.openFullscreen}
-	type="fullscreen"
-	onClose={() => this.clickHandler({openFullscreen: false})}
-    		>
-	<div>Fullscreen Alert</div>
-	<br />
-	<Container>
-	<Button id="buttonOK" onClick={() => this.clickHandler({openFullscreen: false})}>Ok</Button>
-	<Button id="buttonCancel" onClick={() => this.clickHandler({openFullscreen: false})}>Cancel</Button>
-    			</Container>
-    		</Alert>
-	<Alert
-	id="alertOverlay"
-	open={this.state.openOverlay}
-	type="overlay"
-	onClose={() => this.clickHandler({openOverlay: false})}
-    		>
-	<div>Overlay Alert</div>
-	<br />
-	<Container>
-	<Button id="buttonOK" onClick={() => this.clickHandler({openOverlay: false})}>Ok</Button>
-	<Button id="buttonCancel" onClick={() => this.clickHandler({openOverlay: false})}>Cancel</Button>
-    			</Container>
-    		</Alert>
-    	</div>;
+    	);
     }
 }
 
