@@ -1,5 +1,5 @@
 'use strict';
-const {getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
+const {getSubComponent, getText, Page} = require('@enact/ui-test-utils/utils');
 
 const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});
 
@@ -7,6 +7,7 @@ class MediaOverlayInterface {
 	constructor (id) {
 		this.id = id;
 		this.selector = `#${this.id}`;
+		this.marqueeAnimatedSelector = `#${this.id} > div .enact_ui_Marquee_Marquee_animate`;
 	}
 
 	focus () {
@@ -22,9 +23,8 @@ class MediaOverlayInterface {
 	}
 
 	get isMarqueeAnimated () {
-		return hasClass('enact_ui_Marquee_Marquee_animate', getMarqueeText(this.self));
+		return $(this.marqueeAnimatedSelector).isExisting();
 	}
-
 }
 
 class MediaOverlayPage extends Page {

@@ -20,6 +20,7 @@ describe('MediaOverlay', function () {
 
 	it('should have animated Marquee when having long text', function () {
 		expect(mediaOverlay2LongText.valueText).to.equal('Media Overlay very long text');
+		browser.pause(2000);
 		expect(mediaOverlay2LongText.isMarqueeAnimated).to.be.true();
 	});
 
