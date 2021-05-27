@@ -164,6 +164,14 @@ const MediaControlsBase = kind({
 		onClose: PropTypes.func,
 
 		/**
+		 * Called when the user flicks on the action guide.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onFlickFromActionGuide: PropTypes.func,
+
+		/**
 		 * Called when the user clicks the JumpBackward button
 		 *
 		 * @type {Function}
