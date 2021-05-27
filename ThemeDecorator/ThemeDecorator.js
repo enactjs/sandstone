@@ -14,7 +14,7 @@ import {Component} from 'react';
 import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
-import SpotlightRootDecorator, {activateInputType, getInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
+import SpotlightRootDecorator, {activateInputType, getInputType as getLastInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
 import LS2Request from '@enact/webos/LS2Request';
 
 import Skinnable from '../Skinnable';
@@ -177,7 +177,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		[css.bg]: !overlay
 	});
 
-	const spotlightInputType = {request: null};
+	let requestInputType = null;
 
 	let App = Wrapped;
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
@@ -248,7 +248,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		componentDidMount () {
 			if (spotlight && platform.webos) {
 				activateInputType(true);
-				spotlightInputType.request = new LS2Request().send({
+				requestInputType = new LS2Request().send({
 					service: 'luna://com.webos.surfacemanager',
 					method: 'getLastInputType',
 					subscribe: true,
@@ -263,8 +263,8 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		componentWillUnmount () {
-			if (spotlightInputType.request) {
-				spotlightInputType.request.cancel();
+			if (requestInputType) {
+				requestInputType.cancel();
 			}
 		}
 
@@ -284,4 +284,4 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 export default ThemeDecorator;
-export {ThemeDecorator, getInputType};
+export {ThemeDecorator, getLastInputType};

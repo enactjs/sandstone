@@ -26,7 +26,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {createContext, Fragment} from 'react';
 
-import {getInputType as getLastInputType} from '../ThemeDecorator';
+import {getLastInputType} from '../ThemeDecorator';
 
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
