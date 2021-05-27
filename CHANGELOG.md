@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
 - `sandstone/InputField` cursor not to jump unexpectedly when mouse down
 - `sandstone/PopupTabLayout` to move focus via 5-way left in the header
 
