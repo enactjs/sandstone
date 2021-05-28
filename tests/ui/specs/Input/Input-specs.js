@@ -38,6 +38,14 @@ describe('Input test', () => {
 			expect(components.input1.self.getText()).equals('placeholder');
 		});
 
+		it('should exit Text Input using 5-way on escape key', () => {
+			Page.spotlightSelect();
+			Page.backKey();
+
+			expect(components.input1.self.isFocused()).to.be.true();
+			expect(components.input1.self.getText()).equals('placeholder');
+		});
+
 		it('should exit Text Input using BackButton', () => {
 			Page.spotlightSelect();
 			Page.spotlightUp();
@@ -75,6 +83,15 @@ describe('Input test', () => {
 			Page.spotlightRight();
 			Page.spotlightSelect();
 			Page.spotlightSelect();
+
+			expect(components.input2.self.isFocused()).to.be.true();
+			expect(components.input2.self.getText()).equals('placeholder');
+		});
+
+		it('should exit Password Input using 5-way escape key', () => {
+			Page.spotlightRight();
+			Page.spotlightSelect();
+			Page.backKey();
 
 			expect(components.input2.self.isFocused()).to.be.true();
 			expect(components.input2.self.getText()).equals('placeholder');
@@ -130,6 +147,15 @@ describe('Input test', () => {
 			expect(components.input3.self.getText()).equals('1111');
 		});
 
+		it('should exit Number Input using 5-way escape key', () => {
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.backKey();
+
+			expect(components.input3.self.isFocused()).to.be.true();
+			expect(components.input3.self.getText()).equals('placeholder');
+		});
+
 		it('should exit Number Input using BackButton', () => {
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -183,6 +209,17 @@ describe('Input test', () => {
 
 			expect(components.input4.self.isFocused()).to.be.true();
 			expect(components.input4.self.getText()).equals('****');
+		});
+
+		it('should exit Password Number Input using 5-way escape key', () => {
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightSelect();
+			Page.backKey();
+
+			expect(components.input4.self.isFocused()).to.be.true();
+			expect(components.input4.self.getText()).equals('placeholder');
 		});
 
 		it('should exit Password Input using BackButton', () => {
@@ -242,6 +279,18 @@ describe('Input test', () => {
 			expect(components.input5.self.getText()).equals('placeholder');
 		});
 
+		it('should exit URL Input using 5-way escape key', () => {
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightSelect();
+			Page.backKey();
+
+			expect(components.input5.self.isFocused()).to.be.true();
+			expect(components.input5.self.getText()).equals('placeholder');
+		});
+
 		it('should exit URL Input using BackButton', () => {
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -283,6 +332,15 @@ describe('Input test', () => {
 			Page.spotlightDown();
 			Page.spotlightSelect();
 			Page.spotlightSelect();
+
+			expect(components.input6.self.isFocused()).to.be.true();
+			expect(components.input6.self.getText()).equals('placeholder');
+		});
+
+		it('should exit Invalid Input using 5-way escape key', () => {
+			Page.spotlightDown();
+			Page.spotlightSelect();
+			Page.backKey();
 
 			expect(components.input6.self.isFocused()).to.be.true();
 			expect(components.input6.self.getText()).equals('placeholder');
@@ -336,6 +394,16 @@ describe('Input test', () => {
 			expect(components.input7.self.getText()).equals('placeholder');
 		});
 
+		it('should exit NoBackButton Input using 5-way escape key', () => {
+			Page.spotlightDown();
+			Page.spotlightRight();
+			Page.spotlightSelect();
+			Page.backKey();
+
+			expect(components.input7.self.isFocused()).to.be.true();
+			expect(components.input7.self.getText()).equals('placeholder');
+		});
+
 		// Size Large Input
 		it('should focus the Size Large Input Button', () => {
 			Page.spotlightDown();
@@ -372,6 +440,17 @@ describe('Input test', () => {
 			Page.spotlightRight();
 			Page.spotlightSelect();
 			Page.spotlightSelect();
+
+			expect(components.input8.self.isFocused()).to.be.true();
+			expect(components.input8.self.getText()).equals('placeholder');
+		});
+
+		it('should exit Size Large Input using 5-way escape key', () => {
+			Page.spotlightDown();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightSelect();
+			Page.backKey();
 
 			expect(components.input8.self.isFocused()).to.be.true();
 			expect(components.input8.self.getText()).equals('placeholder');
@@ -454,6 +533,19 @@ describe('Input test', () => {
 			Page.spotlightRight();
 			Page.spotlightSelect();
 			Page.spotlightSelect();
+
+			expect(components.input10.self.isFocused()).to.be.true();
+			expect(components.input10.self.getText()).equals('placeholder');
+		});
+
+		it('should exit Overlay Input using 5-way escape key', () => {
+			Page.spotlightDown();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightSelect();
+			Page.backKey();
 
 			expect(components.input10.self.isFocused()).to.be.true();
 			expect(components.input10.self.getText()).equals('placeholder');
