@@ -1,7 +1,6 @@
 'use strict';
 
-const {Page} = require('@enact/ui-test-utils/utils');
-const {element} = require('@enact/ui-test-utils/utils');
+const {element, Page} = require('@enact/ui-test-utils/utils');
 
 class RangePickerInterface {
 	constructor (className) {
