@@ -8,7 +8,7 @@ import {Component} from 'react';
 spotlight.setPointerMode(false);
 
 class app extends Component {
-
+	
 	render () {
 		return (
 			<div id="inputMain" {...this.props} style={{display:'flex', flexDirection:'column'}}>
