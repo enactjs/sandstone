@@ -17,6 +17,7 @@ const
 		'Tokyo Airport Terminal Gate 3',
 		'נמל התעופה בן גוריון טרמינל הבינלאומי'
 	],
+	irregularNumbers = ['4', '13', '15', '20', '22'],
 	subjects = ['English', 'Maths', 'Korean', 'Science', 'History'],
 	subjectValue = ['80', '90', '100', '70', '50'];
 
@@ -327,6 +328,25 @@ const PickerView = () => (
 			>
 				{subjects}
 			</CustomPicker>
+		</Section>
+
+		<Section className={appCss.marginTop} title="With irregular numbers">
+			<Picker
+				alt="Vertical"
+				orientation="vertical"
+				reverse={false}
+				type="number"
+			>
+				{irregularNumbers}
+			</Picker>
+			<Picker
+				alt="Horizontal"
+				orientation="horizontal"
+				reverse={false}
+				type="number"
+			>
+				{irregularNumbers}
+			</Picker>
 		</Section>
 	</>
 );
