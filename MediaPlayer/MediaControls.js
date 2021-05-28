@@ -167,7 +167,7 @@ const MediaControlsBase = kind({
 		 * Called when the user flicks on the action guide.
 		 *
 		 * @type {Function}
-		 * @public
+		 * @private
 		 */
 		onFlickFromActionGuide: PropTypes.func,
 
@@ -652,17 +652,17 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
 		};
 
-		ableToShowMoreComponents = () => (!this.props.moreActionDisabled && !this.state.showMoreComponents);
+		moreComponentsAvailable = () => (!this.props.moreActionDisabled && !this.state.showMoreComponents);
 
 		handleKeyDownFromMediaButtons = (ev) => {
-			if (is('down', ev.keyCode) && this.ableToShowMoreComponents()) {
+			if (is('down', ev.keyCode) && this.moreComponentsAvailable()) {
 				this.showMoreComponents();
 				ev.stopPropagation();
 			}
 		};
 
 		handleFlickFromActionGuide = ({direction, velocityY}) => {
-			if (direction === 'vertical' && velocityY < 0 && this.ableToShowMoreComponents()) {
+			if (direction === 'vertical' && velocityY < 0 && this.moreComponentsAvailable()) {
 				this.showMoreComponents();
 			}
 		};
@@ -724,7 +724,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		};
 
 		handleWheel = (ev) => {
-			if (this.ableToShowMoreComponents() && this.props.visible && ev.deltaY > 0) {
+			if (this.moreComponentsAvailable() && this.props.visible && ev.deltaY > 0) {
 				this.showMoreComponents();
 			}
 		};
