@@ -10,14 +10,13 @@ describe('Input test', () => {
 	});
 
 	describe('using 5-way', () => {
-
 		// Text Input
 		it('should focus the Text Input Button', () => {
 			expect(components.input1.self.isFocused()).to.be.true();
 			expect(components.input1.self.getText()).equals('placeholder');
 		});
 
-		it('should enter Text Input', () => {
+		it('should open Text Input popup using 5-way enter', () => {
 			Page.spotlightSelect();
 
 			expect(components.input1.title.getText()).equals('Text Input');
@@ -31,7 +30,7 @@ describe('Input test', () => {
 			expect(components.input1.backButton.isFocused()).to.be.true();
 		});
 
-		it('should exit Text Input using Select', () => {
+		it('should exit Text Input using 5-way enter', () => {
 			Page.spotlightSelect();
 			Page.spotlightSelect();
 
@@ -42,8 +41,8 @@ describe('Input test', () => {
 		it('should exit Text Input using BackButton', () => {
 			Page.spotlightSelect();
 			Page.spotlightUp();
+			expect(components.input1.backButton.isFocused()).to.be.true();
 			Page.spotlightSelect();
-
 			expect(components.input1.self.isFocused()).to.be.true();
 			expect(components.input1.self.getText()).equals('placeholder');
 		});
@@ -56,7 +55,7 @@ describe('Input test', () => {
 			expect(components.input2.self.getText()).equals('placeholder');
 		});
 
-		it('should enter Password Input', () => {
+		it('should open Password Input using 5-way enter', () => {
 			Page.spotlightRight();
 			Page.spotlightSelect();
 
@@ -64,7 +63,7 @@ describe('Input test', () => {
 			expect(components.input2.inputField.isFocused()).to.be.true();
 		});
 
-		it('should focus Password BackButton', () => {
+		it('should focus Password Input popup back button', () => {
 			Page.spotlightRight();
 			Page.spotlightSelect();
 			Page.spotlightUp();
@@ -72,7 +71,7 @@ describe('Input test', () => {
 			expect(components.input2.backButton.isFocused()).to.be.true();
 		});
 
-		it('should exit Password Input using Select', () => {
+		it('should exit Password Input using 5-way enter', () => {
 			Page.spotlightRight();
 			Page.spotlightSelect();
 			Page.spotlightSelect();
@@ -100,7 +99,7 @@ describe('Input test', () => {
 			expect(components.input3.self.getText()).equals('placeholder');
 		});
 
-		it('should enter Number Input', () => {
+		it('should open Number Input popup using 5-way enter', () => {
 			Page.spotlightRight();
 			Page.spotlightRight();
 			Page.spotlightSelect();
@@ -117,7 +116,7 @@ describe('Input test', () => {
 			expect(components.input3.backButton.isFocused()).to.be.true();
 		});
 
-		it('should exit Number Input using Select', () => {
+		it('should exit Number Input using 5-way enter', () => {
 			Page.spotlightRight();
 			Page.spotlightRight();
 			Page.spotlightSelect();
@@ -152,7 +151,7 @@ describe('Input test', () => {
 			expect(components.input4.self.getText()).equals('placeholder');
 		});
 
-		it('should enter Password Number Input', () => {
+		it('should open Password Number Input popup using 5-way enter', () => {
 			Page.spotlightRight();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -171,7 +170,7 @@ describe('Input test', () => {
 			expect(components.input4.backButton.isFocused()).to.be.true();
 		});
 
-		it('should exit Password Number Input using Select', () => {
+		it('should exit Password Number Input using 5-way enter', () => {
 			Page.spotlightRight();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -209,7 +208,7 @@ describe('Input test', () => {
 			expect(components.input5.self.getText()).equals('placeholder');
 		});
 
-		it('should enter URL Input', () => {
+		it('should open URL Input popup using 5-way enter', () => {
 			Page.spotlightRight();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -231,7 +230,7 @@ describe('Input test', () => {
 			expect(components.input5.backButton.isFocused()).to.be.true();
 		});
 
-		it('should exit URL Input using Select', () => {
+		it('should exit URL Input using 5-way enter', () => {
 			Page.spotlightRight();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -264,7 +263,7 @@ describe('Input test', () => {
 			expect(components.input6.self.getText()).equals('placeholder');
 		});
 
-		it('should enter Invalid Input', () => {
+		it('should open Invalid Input popup using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightSelect();
 
@@ -280,7 +279,7 @@ describe('Input test', () => {
 			expect(components.input6.backButton.isFocused()).to.be.true();
 		});
 
-		it('should exit Invalid Input using Select', () => {
+		it('should exit Invalid Input using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightSelect();
 			Page.spotlightSelect();
@@ -308,7 +307,7 @@ describe('Input test', () => {
 			expect(components.input7.self.getText()).equals('placeholder');
 		});
 
-		it('should enter NoBackButton Input', () => {
+		it('should open NoBackButton Input popup using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightRight();
 			Page.spotlightSelect();
@@ -327,7 +326,7 @@ describe('Input test', () => {
 			expect(components.input7.inputField.isFocused()).to.be.true();
 		});
 
-		it('should exit NoBackButton Input using Select', () => {
+		it('should exit NoBackButton Input using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightRight();
 			Page.spotlightSelect();
@@ -347,7 +346,7 @@ describe('Input test', () => {
 			expect(components.input8.self.getText()).equals('placeholder');
 		});
 
-		it('should enter Size Large Input', () => {
+		it('should open Size Large Input using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -367,7 +366,7 @@ describe('Input test', () => {
 			expect(components.input8.backButton.isFocused()).to.be.true();
 		});
 
-		it('should exit Size Large Input using Select', () => {
+		it('should exit Size Large Input using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -401,7 +400,7 @@ describe('Input test', () => {
 			expect(components.input9.self.getText()).equals('placeholder');
 		});
 
-		it('should enter Disabled Input', () => {
+		it('should open Disabled Input using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -424,7 +423,7 @@ describe('Input test', () => {
 			expect(components.input10.self.getText()).equals('placeholder');
 		});
 
-		it('should enter Overlay Input', () => {
+		it('should open Overlay Input popup using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -447,7 +446,7 @@ describe('Input test', () => {
 			expect(components.input10.backButton.isFocused()).to.be.true();
 		});
 
-		it('should exit Overlay Input using Select', () => {
+		it('should exit Overlay Input using 5-way enter', () => {
 			Page.spotlightDown();
 			Page.spotlightRight();
 			Page.spotlightRight();
@@ -476,9 +475,8 @@ describe('Input test', () => {
 	});
 
 	describe('using pointer', () => {
-
 		// Text Input
-		it('should enter Text Input', () => {
+		it('should open Text Input on click', () => {
 			components.input1.self.click();
 			components.input1.inputField.click();
 
@@ -497,7 +495,7 @@ describe('Input test', () => {
 		});
 
 		// Password Input
-		it('should enter Password Input', () => {
+		it('should open Password Input on click', () => {
 			components.input2.self.click();
 			components.input2.inputField.click();
 
@@ -516,7 +514,7 @@ describe('Input test', () => {
 		});
 
 		// Number Input
-		it('should enter Number Input', () => {
+		it('should open Number Input on click', () => {
 			components.input3.self.click();
 			components.input3.numberButton.click();
 
@@ -534,7 +532,7 @@ describe('Input test', () => {
 		});
 
 		// Password Number Input
-		it('should enter Password Number Input', () => {
+		it('should open Password Number Input on click', () => {
 			components.input4.self.click();
 			components.input4.numberButton.click();
 
@@ -553,7 +551,7 @@ describe('Input test', () => {
 		});
 
 		// URL Input
-		it('should enter URL Input', () => {
+		it('should open URL Input on click', () => {
 			components.input5.self.click();
 			components.input5.inputField.click();
 
@@ -572,7 +570,7 @@ describe('Input test', () => {
 		});
 
 		// Invalid Input
-		it('should enter Invalid Input', () => {
+		it('should open Invalid Input on click', () => {
 			components.input6.self.click();
 			components.input6.inputField.click();
 
@@ -591,7 +589,7 @@ describe('Input test', () => {
 		});
 
 		// NoBackButton Input
-		it('should enter NoBackButton Input', () => {
+		it('should open NoBackButton Input on click', () => {
 			components.input7.self.click();
 			components.input7.inputField.click();
 
@@ -600,7 +598,7 @@ describe('Input test', () => {
 		});
 
 		// Size Large Input
-		it('should enter Size Large Input', () => {
+		it('should open Size Large Input on click', () => {
 			components.input8.self.click();
 			components.input8.inputField.click();
 
@@ -621,8 +619,6 @@ describe('Input test', () => {
 		// Disabled Input
 		it('should try to enter Disabled Input', () => {
 			components.input9.self.click();
-
-			Page.spotlightSelect();
 
 			expect(components.input9.self.isFocused()).to.be.true();
 			expect(components.input9.self.getText()).equals('placeholder');
