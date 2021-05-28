@@ -11,6 +11,9 @@ class AlertCommon {
 	get alertLayer () {
 		return element('#floatLayer', browser);
 	}
+	get outsideOverlay () {
+		return element('.outsideOverlay', browser);
+	}
 	get isAlertExist () {
 		return this.alertLayer.$('.Alert_Alert_alert').isExisting();
 	}

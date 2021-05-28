@@ -23,7 +23,7 @@ class app extends Component {
 	render () {
 		return (
 			<div id="alertMain" {...this.props}>
-				<div>
+				<div className="outsideOverlay">
 					UI testing for Alert Fullscreen and Alert Overlay
 				</div>
 				<div>
