@@ -8,20 +8,6 @@ import {Component} from 'react';
 spotlight.setPointerMode(false);
 
 class app extends Component {
-	state = {
-		open1: false,
-		open2: false,
-		open3: false,
-		open4: false,
-		open5: false,
-		open6: false,
-		open7: false,
-		open8: false,
-		open9: false,
-		open10: false
-	};
-
-	clickHandler = (st) =>  this.setState(st);
 
 	render () {
 		return (
