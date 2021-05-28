@@ -62,6 +62,7 @@ export const _Slider = () => {
 			noFill={boolean('noFill', SliderConfig)}
 			onActivate={action('onActivate')}
 			onChange={action('onChange')}
+			onWheel={action('onWheel')}
 			orientation={select('orientation', ['horizontal', 'vertical'], SliderConfig, 'horizontal')}
 			progressAnchor={number(
 				'progressAnchor',
