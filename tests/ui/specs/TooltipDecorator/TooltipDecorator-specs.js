@@ -43,8 +43,12 @@ describe('TooltipDecorator', function () {
 	describe('pointer', function () {
 		it('should focus second button and display correct tooltipText after 1000ms delay on hover', function () {
 			tooltipButtonDelayed.hover();
-			Page.delay(1000);
 
+			// testing that tooltip is not showing after 500ms
+			Page.delay(500);
+			expect(tooltipButtonDelayed.isTooltipShowing).to.be.false();
+
+			Page.delay(1000);
 			expect(tooltipButtonDelayed.tooltipText).to.equal('Hello Tooltip Button Delayed');
 		});
 	});
