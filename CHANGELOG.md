@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/FixedPopupPanels` to keep focus inside of popup with 5-way
+- `sandstone/FixedPopupPanels` to keep focus inside of popup when pressing 5-way after click
 
 ## [2.0.0-beta.1] - 2021-05-21
 
