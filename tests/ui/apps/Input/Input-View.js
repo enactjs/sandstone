@@ -9,8 +9,6 @@ spotlight.setPointerMode(false);
 
 class app extends Component {
 	
-	clickHandler = (st) =>  this.setState(st);
-
 	render () {
 		return (
 			<div id="inputMain" {...this.props} style={{display:'flex', flexDirection:'column'}}>
