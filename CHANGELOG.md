@@ -4,10 +4,29 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Picker` props `reverse` and `type` to support for number list
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
+- `sandstone/Slider` to interact by wheel
+
+### Fixed
+
+- `sandstone/InputField` cursor not to jump unexpectedly when mouse down
+- `sandstone/MediaPlayer` to show `MediaControls` via wheel properly when isomorphic build
+- `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
+- `sandstone/PopupTabLayout` to move focus via 5-way left in the header
+
+## [2.0.0-beta.1] - 2021-05-21
+
 - Enhanced touch support
 
 ### Added
 
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` left key handler to go to the previous panel
 - `sandstone/Input` a back button and props `backButtonAriaLabel` and `noBackButton`
 - `sandstone/Input` and `sandstone/Input.InputPopup` `url` to prop `type`
 - `sandstone/Picker` and `sandstone/RangePicker` props `title` and `inlineTitle`
@@ -16,9 +35,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Panels.Header` to always show back button
+- `sandstone/PopupTabLayout` back key behavior to match the latest UX
 - `sandstone/PopupTabLayout` to collapse its tab only when a user enters a menu
 - `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds
+- `sandstone/WizardPanels.Panel` `nextButton` and `prevButton` to show labels separately to match latest designs
 
 ### Fixed
 
@@ -28,6 +49,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.Header` to remeasure marquee metrics when the size of slots changed
 - `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
 - `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
+- horizontal `sandstone/VirtualList` to align items well when navigating with 5-way
 - `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
 
 ## [2.0.0-alpha.3] - 2021-03-31
@@ -50,7 +72,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [2.0.0-alpha.1] - 2021-02-24
 
--  The framework was updated to support React 17.0.1
+- The framework was updated to support React 17.0.1
 
 ### Added
 

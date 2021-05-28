@@ -13,7 +13,7 @@ describe('Horizontal VirtualList in Scroller', function () {
 		Page.delay(500);
 		const initialVerticalThumbPosition = Page.getScrollThumbPosition(3);
 		// 5-way Right until occur scrolling in last Horizontal VirtualList.
-		for (let i = 0; i < 23; i++) {
+		for (let i = 0; i < 24; i++) {
 			Page.spotlightRight();
 		}
 		Page.delay(300);

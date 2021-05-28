@@ -10,6 +10,7 @@
  */
 
 import {adaptEvent, forward, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
+import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -25,20 +26,20 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {createContext, Fragment} from 'react';
 
+import {getLastInputType} from '../ThemeDecorator';
+
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
+import popupTabLayoutComponentCss from '../PopupTabLayout/PopupTabLayout.module.less';
 
 const TabLayoutContext = createContext(null);
 
 const TouchableCell = Touchable(Cell);
 
-const isTouchMode = () => {
-	const rootContainer = document.querySelector('#root > div');
-	return rootContainer && rootContainer.classList.contains('spotlight-input-touch');
-};
+const isTouchMode = () => (getLastInputType() === 'touch');
 
 /**
  * Tabbed Layout component.
@@ -266,6 +267,19 @@ const TabLayoutBase = kind({
 						forward('onExpand', ev, props);
 					}
 				}
+			}
+		},
+		onKeyUp: (ev, props) => {
+			const {keyCode, target} = ev;
+			const {collapsed, 'data-spotlight-id': spotlightId, type} = props;
+			const popupPanelRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${popupTabLayoutComponentCss.panel}`);
+
+			if (forwardWithPrevent('onKeyUp', ev, props) && type === 'popup' && is('cancel')(keyCode) && popupPanelRef.contains(target) && popupPanelRef.dataset.index === '0') {
+				if (collapsed) {
+					forward('onExpand', ev, props);
+				}
+				Spotlight.move('left');
+				ev.stopPropagation();
 			}
 		},
 		onSelect: handle(
