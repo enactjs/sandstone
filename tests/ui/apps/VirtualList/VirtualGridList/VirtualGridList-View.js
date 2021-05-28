@@ -115,11 +115,7 @@ class app extends Component {
 		updateData(value);
 	};
 
-	onAddNumItem = () => {
-		const value = this.state.numItems + 1;
-		this.setState({numItems: Number(value)});
-		updateData(value);
-	};
+	onAddNumItem = () => this.onChangeNumItems({value: this.state.numItems + 1});
 
 	onChangeSpacing = (obj) => {
 		this.setState({spacing: obj.value});
