@@ -564,7 +564,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			on('keydown', this.handleKeyDown);
 			on('keyup', this.handleKeyUp);
 			on('blur', this.handleBlur, window);
-			on('wheel', this.handleWheel);
+			on('wheel', this.handleWheel, document);
 		}
 
 		componentDidUpdate (prevProps, prevState) {
@@ -619,7 +619,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			off('keydown', this.handleKeyDown);
 			off('keyup', this.handleKeyUp);
 			off('blur', this.handleBlur, window);
-			off('wheel', this.handleWheel);
+			off('wheel', this.handleWheel, document);
 			this.stopListeningForPulses();
 			this.moreComponentsRenderingJob.stop();
 			if (this.animation) {
