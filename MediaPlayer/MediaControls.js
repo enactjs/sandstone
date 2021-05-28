@@ -652,17 +652,17 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
 		};
 
-		moreComponentsAvailable = () => (!this.props.moreActionDisabled && !this.state.showMoreComponents);
+		canShowMoreComponents = () => (!this.props.moreActionDisabled && !this.state.showMoreComponents);
 
 		handleKeyDownFromMediaButtons = (ev) => {
-			if (is('down', ev.keyCode) && this.moreComponentsAvailable()) {
+			if (is('down', ev.keyCode) && this.canShowMoreComponents()) {
 				this.showMoreComponents();
 				ev.stopPropagation();
 			}
 		};
 
 		handleFlickFromActionGuide = ({direction, velocityY}) => {
-			if (direction === 'vertical' && velocityY < 0 && this.moreComponentsAvailable()) {
+			if (direction === 'vertical' && velocityY < 0 && this.canShowMoreComponents()) {
 				this.showMoreComponents();
 			}
 		};
@@ -724,7 +724,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		};
 
 		handleWheel = (ev) => {
-			if (this.moreComponentsAvailable() && this.props.visible && ev.deltaY > 0) {
+			if (this.canShowMoreComponents() && this.props.visible && ev.deltaY > 0) {
 				this.showMoreComponents();
 			}
 		};
