@@ -10,11 +10,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/MediaPlayer.MediaControls` to show more components when a user flicks on action guide
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
 - `sandstone/Slider` to interact by wheel
 
 ### Fixed
 
+- `sandstone/FixedPopupPanels` to keep focus inside of popup when pressing 5-way after click
 - `sandstone/InputField` cursor not to jump unexpectedly when mouse down
 - `sandstone/MediaPlayer` to show `MediaControls` via wheel properly when isomorphic build
 - `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
