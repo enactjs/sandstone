@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Picker` props `reverse` and `type` to support for number list
+- `sandstone/Picker` `marqueeOn="hover"` on `Heading` so that Picker value does not marquee when Picker has title and value is not focused
 
 ### Changed
 
