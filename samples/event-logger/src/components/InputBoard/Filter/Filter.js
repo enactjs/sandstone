@@ -5,17 +5,21 @@ import PropTypes from 'prop-types';
 import {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {activateEvent, isSyntheticEventOn, setDelayMs, setEventCapturing} from '../../../actions/actions';
+import {activateEvent, isSyntheticEventOn, setTimerIndex, setEventCapturing} from '../../../actions';
 import eventCategory from '../../../constants/eventCategory';
 
 import css from './Filter.module.less';
 
 class FilterBase extends Component {
 	static propTypes = {
+		activeEvents: PropTypes.array,
+		eventCapturingOn: PropTypes.bool,
 		onActivateEvent: PropTypes.func,
 		onIsSyntheticEventOn: PropTypes.func,
-		onSetDelayMs: PropTypes.func,
-		onSetEventCapturing: PropTypes.func
+		onSetEventCapturing: PropTypes.func,
+		onSetTimerIndex: PropTypes.func,
+		syntheticEventOn: PropTypes.bool,
+		timerIndex: PropTypes.number
 	};
 
 	constructor (props) {
@@ -31,8 +35,7 @@ class FilterBase extends Component {
 	};
 
 	handleTimerPicker = ({value}) => {
-		const timergroup = [3000, 5000, 10000];
-		this.props.onSetDelayMs(timergroup[value]);
+		this.props.onSetTimerIndex(value);
 	};
 
 	handleEventCapturing = ({selected}) => {
@@ -53,6 +56,8 @@ class FilterBase extends Component {
 						className={[css.switchItem, css.small]}
 						inline
 						key={i}
+						selected={this.props.activeEvents[i]}
+						size="small"
 						onToggle={handler}
 					>
 						{e}
@@ -72,7 +77,6 @@ class FilterBase extends Component {
 				<div className={css.eventGroup}>
 					{eventItems}
 				</div>
-
 				<Heading
 					className={css.heading}
 					showLine
@@ -85,6 +89,8 @@ class FilterBase extends Component {
 					<SwitchItem
 						className={[css.switchItem, css.large]}
 						inline
+						selected={this.props.eventCapturingOn}
+						size="small"
 						onToggle={this.handleEventCapturing}
 					>
 						Event Capturing
@@ -92,6 +98,8 @@ class FilterBase extends Component {
 					<SwitchItem
 						className={[css.switchItem, css.large]}
 						inline
+						selected={this.props.syntheticEventOn}
+						size="small"
 						onToggle={this.handleSyntheticEventOn}
 					>
 						React Synthetic Event
@@ -103,6 +111,7 @@ class FilterBase extends Component {
 							onChange={this.handleTimerPicker}
 							orientation="horizontal"
 							title="Timer"
+							value={this.props.timerIndex}
 						>
 							{timergroup}
 						</Picker>
@@ -124,8 +133,8 @@ const mapDispatchToProps = dispatch => ({
 	onSetEventCapturing (value) {
 		dispatch(setEventCapturing(value));
 	},
-	onSetDelayMs (delay) {
-		dispatch(setDelayMs(delay));
+	onSetTimerIndex (delay) {
+		dispatch(setTimerIndex(delay));
 	}
 });
 

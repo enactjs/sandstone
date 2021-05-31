@@ -5,7 +5,7 @@ import rootReducer from '../reducers/rootReducer';
 
 const initialState = {
 	activeEvents: new Array(eventCategory.length).fill(false),
-	delayMs: 3000
+	timerIndex: 0
 };
 const storeFactory = () =>
 	createStore(

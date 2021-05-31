@@ -1,12 +1,13 @@
+import SwitchItem from '@enact/sandstone/SwitchItem';
 import PropTypes from 'prop-types';
 import {createRef, Component} from 'react';
 import {connect} from 'react-redux';
 
-import {addEventLog, removeEventLog, updateEventLog} from '../../actions/actions';
+import {addEventLog, removeEventLog, updateEventLog} from '../../actions';
 import eventCategory from '../../constants/eventCategory';
 
 import eventRegData from './Event/EventRegistrationData';
-import Filter from './Filter/Filter';
+import Filter from './Filter';
 
 function extractLogObjectFromEventObject (ev, type, properties) {
 	let obj = Object.create(null);
@@ -44,13 +45,13 @@ function findLastIndexOfMatchingEvent (array, eventName, isDOMElement, isCapturi
 class InputBoardBase extends Component {
 	static propTypes = {
 		activeEvents: PropTypes.array,
-		delayMs: PropTypes.number,
 		eventCapturingOn: PropTypes.bool,
 		eventLogs: PropTypes.array,
 		onAddEventLog: PropTypes.func,
 		onRemoveEventLog: PropTypes.func,
 		onUpdateEventLog: PropTypes.func,
-		syntheticEventOn: PropTypes.bool
+		syntheticEventOn: PropTypes.bool,
+		timerIndex: PropTypes.number
 	};
 
 	constructor (props) {
@@ -58,6 +59,9 @@ class InputBoardBase extends Component {
 		this.divRef = createRef();
 		this.isCapturing = true;
 		this.listenersCache = {bubble: {}, capture: {}};
+		this.state = {
+			showFilter: true
+		};
 	}
 
 	componentDidUpdate (prevProps) {
@@ -101,8 +105,8 @@ class InputBoardBase extends Component {
 	}
 
 	sendEventLog = (ev, isDOMElement, eventObject, isCapturing) => {
-		const {delayMs, eventCapturingOn, eventLogs, onAddEventLog, onRemoveEventLog, onUpdateEventLog, syntheticEventOn} = this.props;
-
+		const {eventCapturingOn, eventLogs, onAddEventLog, onRemoveEventLog, onUpdateEventLog, syntheticEventOn, timerIndex} = this.props;
+		const timergroup = [3000, 5000, 10000];
 		if (eventLogs && eventLogs.length > 0) {
 			const lastLog = eventLogs[eventLogs.length - 1];
 
@@ -113,7 +117,7 @@ class InputBoardBase extends Component {
 					window.clearTimeout(eventLogs[index].timeoutId);
 					onUpdateEventLog(
 						eventLogs[index].timeoutId,
-						window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), delayMs),
+						window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndex]),
 						eventObject
 					);
 					return;
@@ -132,7 +136,7 @@ class InputBoardBase extends Component {
 
 		const timeoutId = window.setTimeout(
 			() => onRemoveEventLog(ev.type, isDOMElement, isCapturing),
-			delayMs);
+			timergroup[timerIndex]);
 		onAddEventLog(timeoutId, ev.type, isDOMElement, isCapturing, eventObject);
 	};
 
@@ -196,11 +200,22 @@ class InputBoardBase extends Component {
 		return results;
 	};
 
+	handleShowFilter = ({selected}) => {
+		this.setState({showFilter: selected});
+	};
 
 	render () {
 		return (
 			<div>
-				<Filter />
+				<SwitchItem
+					selected={this.state.showFilter}
+					size="small"
+					style={{padding: '0px'}}
+					onToggle={this.handleShowFilter}
+				>
+					Filters
+				</SwitchItem>
+				{this.state.showFilter ? <Filter /> : null}
 				<div
 					className={this.props.className}
 					ref={this.divRef}
@@ -216,7 +231,7 @@ class InputBoardBase extends Component {
 
 const mapStateToProps = state => ({
 	activeEvents: state.activeEvents,
-	delayMs: state.delayMs,
+	timerIndex: state.timerIndex,
 	eventCapturingOn: state.eventCapturingOn,
 	eventLogs: state.eventLogs,
 	syntheticEventOn: state.syntheticEventOn

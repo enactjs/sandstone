@@ -44,9 +44,9 @@ const isSyntheticEventOn = (value) => ({
 });
 
 // TIME
-const setDelayMs = (delayMs) => ({
-	type: types.SET_DELAY_MS,
-	delayMs
+const setTimerIndex = (index) => ({
+	type: types.SET_TIMER_INDEX,
+	index
 });
 
 export {
@@ -54,7 +54,7 @@ export {
 	addEventLog,
 	isSyntheticEventOn,
 	removeEventLog,
-	setDelayMs,
 	setEventCapturing,
+	setTimerIndex,
 	updateEventLog
 };

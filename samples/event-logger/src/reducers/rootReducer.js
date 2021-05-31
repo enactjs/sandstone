@@ -22,9 +22,9 @@ const activeEvents = (state = new Array(eventCategory.length), action) => {
 	return state;
 };
 
-const delayMs = (state = 3000, action) => {
-	if (action.type === types.SET_DELAY_MS) {
-		return action.delayMs;
+const timerIndex = (state = 0, action) => {
+	if (action.type === types.SET_TIMER_INDEX) {
+		return action.index;
 	}
 	return state;
 };
@@ -100,10 +100,10 @@ const syntheticEventOn = (state = false, action) => {
 
 const rootReducer = combineReducers({
 	activeEvents,
-	delayMs,
 	eventCapturingOn,
 	eventLogs,
-	syntheticEventOn
+	syntheticEventOn,
+	timerIndex
 });
 
 export default rootReducer;

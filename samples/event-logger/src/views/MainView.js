@@ -1,7 +1,7 @@
 import kind from '@enact/core/kind';
 
-import InputBoard from '../components/InputBoard/InputBoard';
-import Logs from '../components/Log/Logs';
+import InputBoard from '../components/InputBoard';
+import Logs from '../components/Log';
 
 import css from './MainView.module.less';
 

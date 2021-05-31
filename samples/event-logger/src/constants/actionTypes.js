@@ -14,7 +14,7 @@ const types = {
 	IS_SYNTHETIC_EVENT_ON: 'IS_SYNTHETIC_EVENT_ON',
 
 	// TIME
-	SET_DELAY_MS: 'SET_DELAY_MS'
+	SET_TIMER_INDEX: 'SET_TIMER_INDEX'
 };
 
 export default types;
