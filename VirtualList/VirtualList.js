@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import warning from 'warning';
 
 import useScroll from '../useScroll';
+import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
@@ -60,9 +61,10 @@ let VirtualList = ({itemSize, ...rest}) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
-		verticalScrollbarProps,
 		horizontalScrollbarProps,
-		additionalChildren
+		verticalScrollbarProps,
+		horizontalHoverToScrollProps,
+		verticalHoverToScrollProps
 	} = useScroll({...rest, ...props});
 
 	const {
@@ -78,7 +80,8 @@ let VirtualList = ({itemSize, ...rest}) => {
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				{additionalChildren}
+				<HoverToScroll {...horizontalHoverToScrollProps} />
+				<HoverToScroll {...verticalHoverToScrollProps} />
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -194,7 +197,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * Enables scroll by hover on edges
 	 *
 	 * @type {Boolean}
-	 * @default false
 	 * @public
 	 */
 	hoverToScroll: PropTypes.bool,
@@ -463,7 +465,6 @@ VirtualList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	hoverToScroll: false,
 	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
@@ -506,9 +507,10 @@ let VirtualGridList = (props) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
-		verticalScrollbarProps,
 		horizontalScrollbarProps,
-		additionalChildren
+		verticalScrollbarProps,
+		horizontalHoverToScrollProps,
+		verticalHoverToScrollProps
 	} = useScroll(props);
 
 	const {
@@ -524,7 +526,8 @@ let VirtualGridList = (props) => {
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				{additionalChildren}
+				<HoverToScroll {...horizontalHoverToScrollProps} />
+				<HoverToScroll {...verticalHoverToScrollProps} />
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -642,7 +645,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * Enables scroll by hover on edges
 	 *
 	 * @type {Boolean}
-	 * @default false
 	 * @public
 	 */
 	hoverToScroll: PropTypes.bool,
@@ -906,7 +908,6 @@ VirtualGridList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	hoverToScroll: false,
 	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,

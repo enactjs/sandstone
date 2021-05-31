@@ -26,6 +26,7 @@ import PropTypes from 'prop-types';
 import {Fragment} from 'react';
 
 import useScroll from '../useScroll';
+import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
@@ -64,9 +65,10 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
-		verticalScrollbarProps,
 		horizontalScrollbarProps,
-		additionalChildren
+		verticalScrollbarProps,
+		horizontalHoverToScrollProps,
+		verticalHoverToScrollProps
 	} = useScroll(rest);
 
 	const {
@@ -90,7 +92,8 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-					{additionalChildren}
+					<HoverToScroll {...horizontalHoverToScrollProps} />
+					<HoverToScroll {...verticalHoverToScrollProps} />
 				</ScrollBody>
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
@@ -223,7 +226,6 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * Enables scroll by hover on edges
 	 *
 	 * @type {Boolean}
-	 * @default false
 	 * @public
 	 */
 	hoverToScroll: PropTypes.bool,
@@ -413,7 +415,6 @@ Scroller.defaultProps = {
 	fadeOut: false,
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
-	hoverToScroll: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

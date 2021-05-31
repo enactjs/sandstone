@@ -17,8 +17,6 @@ import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import {useContext, useRef} from 'react';
 
 import $L from '../internal/$L';
@@ -97,7 +95,7 @@ const useThemeScroll = (props, instances) => {
 
 	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown, hoverToScrollEnd, hoverToScrollReset, hoverToScrollStart} = useEventMouse({}, instances);
+	const {handleFlick, handleMouseDown} = useEventMouse({}, instances);
 
 	const {handleTouchStart} = useEventTouch();
 
@@ -274,9 +272,6 @@ const useThemeScroll = (props, instances) => {
 		handleScrollerUpdate,
 		handleTouchStart,
 		handleWheel,
-		hoverToScrollEnd,
-		hoverToScrollReset,
-		hoverToScrollStart,
 		removeEventListeners,
 		scrollbarProps,
 		scrollStopOnScroll,
@@ -284,22 +279,6 @@ const useThemeScroll = (props, instances) => {
 		start,
 		stop
 	};
-};
-
-const HoverArea = ({direction, position, hoverToScrollStart, hoverToScrollEnd}) => (
-	<div
-		key={'hover' + direction + position}
-		className={classNames(css.hoverToScroll, css[direction], css[position])}
-		onPointerEnter={hoverToScrollStart(direction, position)}
-		onPointerLeave={hoverToScrollEnd()}
-	/>
-);
-
-HoverArea.propTypes = {
-	direction: PropTypes.string,
-	hoverToScrollEnd: PropTypes.func,
-	hoverToScrollStart: PropTypes.func,
-	position: PropTypes.string
 };
 
 /**
@@ -339,8 +318,6 @@ const useScroll = (props) => {
 
 	const horizontalScrollbarHandle = useRef();
 	const verticalScrollbarHandle = useRef();
-
-	const mutableRef = useRef({additionalChildren: null});
 
 	// Handles
 
@@ -410,9 +387,6 @@ const useScroll = (props) => {
 		handleScrollerUpdate,
 		handleTouchStart,
 		handleWheel,
-		hoverToScrollEnd,
-		hoverToScrollReset,
-		hoverToScrollStart,
 		removeEventListeners,
 		scrollbarProps,
 		scrollStopOnScroll, // scrollMode 'native'
@@ -420,40 +394,6 @@ const useScroll = (props) => {
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
 	} = useThemeScroll(props, instance);
-
-	if (hoverToScroll) {
-		const {getScrollBounds, canScrollVertically, canScrollHorizontally} = scrollContainerHandle.current;
-		if (getScrollBounds) {
-			const bounds = getScrollBounds();
-			const renderHoverArea = (direction, position) => {
-				return (
-					<HoverArea
-						direction={direction}
-						position={position}
-						hoverToScrollStart={hoverToScrollStart}
-						hoverToScrollEnd={hoverToScrollEnd}
-					/>
-				);
-			};
-			const getHoverAreaElements = (direction) => {
-				return (
-					<>
-						{renderHoverArea(direction, 'before')}
-						{renderHoverArea(direction, 'after')}
-					</>
-				);
-			};
-			mutableRef.current.additionalChildren = (
-				<>
-					{canScrollHorizontally(bounds) ? getHoverAreaElements('horizontal') : null}
-					{canScrollVertically(bounds) ? getHoverAreaElements('vertical') : null}
-				</>
-			);
-		}
-	} else {
-		hoverToScrollReset();
-		mutableRef.current.additionalChildren = null;
-	}
 
 	// Render
 
@@ -526,14 +466,6 @@ const useScroll = (props) => {
 		scrollContentRef
 	});
 
-	assignProperties('verticalScrollbarProps', {
-		...scrollbarProps,
-		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
-		className: [css.verticalScrollbar],
-		focusableScrollbar,
-		scrollbarHandle: verticalScrollbarHandle
-	});
-
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
 		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
@@ -542,13 +474,32 @@ const useScroll = (props) => {
 		scrollbarHandle: horizontalScrollbarHandle
 	});
 
+	assignProperties('verticalScrollbarProps', {
+		...scrollbarProps,
+		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
+		className: [css.verticalScrollbar],
+		focusableScrollbar,
+		scrollbarHandle: verticalScrollbarHandle
+	});
+
+	assignProperties('horizontalHoverToScrollProps', {
+		direction: 'horizontal',
+		hoverToScroll,
+		scrollContainerHandle
+	});
+
+	assignProperties('verticalHoverToScrollProps', {
+		direction: 'vertical',
+		hoverToScroll,
+		scrollContainerHandle
+	});
+
 	return {
 		...collectionOfProperties,
 		scrollContentWrapper,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible,
-		additionalChildren: mutableRef.current.additionalChildren
+		isVerticalScrollbarVisible
 	};
 };
 
