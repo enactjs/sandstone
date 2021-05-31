@@ -50,7 +50,7 @@ let scrollerId = 0;
  * @ui
  * @public
  */
-let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
+let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	const id = `scroller_${++scrollerId}_content`;
 
 	// Hooks
@@ -67,8 +67,7 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 		scrollContentProps,
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
-		horizontalHoverToScrollProps,
-		verticalHoverToScrollProps
+		hoverToScrollProps
 	} = useScroll(rest);
 
 	const {
@@ -92,8 +91,7 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-					<HoverToScroll {...horizontalHoverToScrollProps} />
-					<HoverToScroll {...verticalHoverToScrollProps} />
+					{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
 				</ScrollBody>
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>

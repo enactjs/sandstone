@@ -299,7 +299,6 @@ const useScroll = (props) => {
 			focusableScrollbar,
 			fadeOut,
 			horizontalScrollThumbAriaLabel,
-			hoverToScroll,
 			noAffordance,
 			scrollMode,
 			style,
@@ -482,15 +481,7 @@ const useScroll = (props) => {
 		scrollbarHandle: verticalScrollbarHandle
 	});
 
-	assignProperties('horizontalHoverToScrollProps', {
-		direction: 'horizontal',
-		hoverToScroll,
-		scrollContainerHandle
-	});
-
-	assignProperties('verticalHoverToScrollProps', {
-		direction: 'vertical',
-		hoverToScroll,
+	assignProperties('hoverToScrollProps', {
 		scrollContainerHandle
 	});
 

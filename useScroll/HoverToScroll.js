@@ -1,7 +1,7 @@
 import {clamp} from '@enact/core/util';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import {useCallback, useRef} from 'react';
+import {useCallback, useLayoutEffect, useRef} from 'react';
 
 import {getLastInputType} from '../ThemeDecorator';
 
@@ -24,21 +24,16 @@ const propertyNames = (direction) => {
 const hoverToScrollMultiplier = 0.04;
 
 /**
- * A hover area to scroll
+ * A hover area to scroll for a single direction
  *
- * @class HoverToScroll
- * @memberof sandstone/useScroll
+ * @class HoverToScrollBase
+ * @memberof sandstone/useScroll/HoverToScroll
  * @ui
  * @private
  */
-const HoverToScroll = (props) => {
-	const {direction, hoverToScroll, scrollContainerHandle} = props;
-	const {canScrollHorizontally, canScrollVertically, getScrollBounds, scrollTo} = scrollContainerHandle.current;
-	const bounds = getScrollBounds && getScrollBounds() || null;
-	const enabled = hoverToScroll && bounds && (direction === 'vertical' ?
-		canScrollVertically(bounds) :
-		canScrollHorizontally(bounds)
-	);
+const HoverToScrollBase = (props) => {
+	const {direction, scrollContainerHandle} = props;
+	const bounds = scrollContainerHandle.current.getScrollBounds();
 
 	// Mutable value
 
@@ -62,7 +57,7 @@ const HoverToScroll = (props) => {
 	}, []);
 
 	const scrollJob = useCallback((position) => {
-		if (enabled && typeof window === 'object') {
+		if (typeof window === 'object') {
 			const {axis, client, maxPosition, scrollPosition} = propertyNames(direction);
 			const distance =
 				(position === 'before' ? -1 : 1) * // scroll direction
@@ -73,7 +68,7 @@ const HoverToScroll = (props) => {
 				if (ev.pointerType === 'mouse') {
 					const scrollByHover = () => {
 						if (getLastInputType() === 'mouse') {
-							scrollTo({
+							scrollContainerHandle.current.scrollTo({
 								position: {
 									[axis]: clamp(
 										0,
@@ -94,39 +89,68 @@ const HoverToScroll = (props) => {
 		} else {
 			return nop;
 		}
-	}, [bounds, direction, enabled, scrollContainerHandle, scrollTo, startRaf, stopRaf]);
+	}, [bounds, direction, scrollContainerHandle, startRaf, stopRaf]);
+
+	// Hooks
+
+	useLayoutEffect(() => {
+		return () => {
+			stopRaf(); // for hoverToScroll prop change during hovering
+		};
+	}, [stopRaf]);
 
 	// Render
 
-	if (enabled) {
-		const renderHoverArea = (position) => {
-			return (
-				<div
-					key={'hover' + direction + position}
-					className={classNames(css.hoverToScroll, css[direction], css[position])}
-					onPointerEnter={scrollJob(position)}
-					onPointerLeave={stopRaf}
-				/>
-			);
-		};
-
+	const renderHoverArea = useCallback((position) => {
 		return (
-			<>
-				{renderHoverArea('before')}
-				{renderHoverArea('after')}
-			</>
+			<div
+				key={'hover' + direction + position}
+				className={classNames(css.hoverToScroll, css[direction], css[position])}
+				onPointerEnter={scrollJob(position)}
+				onPointerLeave={stopRaf}
+			/>
 		);
-	} else {
-		stopRaf(); // for hover condition change during hovering
-		return null;
-	}
+	}, [direction, scrollJob, stopRaf]);
+
+	return (
+		<>
+			{renderHoverArea('before')}
+			{renderHoverArea('after')}
+		</>
+	);
+};
+
+HoverToScrollBase.displayName = 'HoverToScrollBase';
+
+HoverToScrollBase.propTypes = /** @lends sandstone/useScroll.HoverToScroll.HoverToScrollBase.prototype */ {
+	direction: PropTypes.string,
+	scrollContainerHandle: PropTypes.object
+};
+
+/**
+ * A hover area to scroll
+ *
+ * @class HoverToScroll
+ * @memberof sandstone/useScroll
+ * @ui
+ * @private
+ */
+const HoverToScroll = (props) => {
+	const {scrollContainerHandle} = props;
+	const {canScrollHorizontally, canScrollVertically, getScrollBounds} = scrollContainerHandle.current;
+	const bounds = getScrollBounds && getScrollBounds() || null;
+
+	return (
+		<>
+			{bounds && canScrollHorizontally(bounds) ? <HoverToScrollBase {...props} direction="horizontal" /> : null}
+			{bounds && canScrollVertically(bounds) ? <HoverToScrollBase {...props} direction="vertical" /> : null}
+		</>
+	);
 };
 
 HoverToScroll.displayName = 'HoverToScroll';
 
 HoverToScroll.propTypes = /** @lends sandstone/useScroll.HoverToScroll.prototype */ {
-	direction: PropTypes.string,
-	hoverToScroll: PropTypes.bool,
 	scrollContainerHandle: PropTypes.object
 };
 

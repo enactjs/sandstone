@@ -32,7 +32,7 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, ...rest}) => {
+let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -63,8 +63,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 		scrollContentProps,
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
-		horizontalHoverToScrollProps,
-		verticalHoverToScrollProps
+		hoverToScrollProps
 	} = useScroll({...rest, ...props});
 
 	const {
@@ -80,8 +79,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<HoverToScroll {...horizontalHoverToScrollProps} />
-				<HoverToScroll {...verticalHoverToScrollProps} />
+				{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -494,7 +492,7 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = (props) => {
+let VirtualGridList = ({hoverToScroll, ...rest}) => {
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -509,9 +507,8 @@ let VirtualGridList = (props) => {
 		scrollContentProps,
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
-		horizontalHoverToScrollProps,
-		verticalHoverToScrollProps
-	} = useScroll(props);
+		hoverToScrollProps
+	} = useScroll(rest);
 
 	const {
 		className,
@@ -526,8 +523,7 @@ let VirtualGridList = (props) => {
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<HoverToScroll {...horizontalHoverToScrollProps} />
-				<HoverToScroll {...verticalHoverToScrollProps} />
+				{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
