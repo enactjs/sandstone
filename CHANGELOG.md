@@ -50,6 +50,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` button label when default value is `0`
 - `sandstone/Panels.Header` to remeasure marquee metrics when the size of slots changed
 - `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
+- `sandstone/Scroller` and `sandstone/VirtualList` to move focus properly via page key
 - `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
 - horizontal `sandstone/VirtualList` to align items well when navigating with 5-way
 - `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
