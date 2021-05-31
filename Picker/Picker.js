@@ -292,7 +292,7 @@ const PickerBase = kind({
 
 		return (
 			<>
-				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny" marqueeOn="hover">{title}</Heading> : null}
 				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
 					{children}
 				</PickerCore>
