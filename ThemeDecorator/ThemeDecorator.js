@@ -8,12 +8,14 @@
 import {setDefaultTargetById} from '@enact/core/dispatcher';
 import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
+import platform from '@enact/core/platform';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
 import {Component} from 'react';
 import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
-import SpotlightRootDecorator from '@enact/spotlight/SpotlightRootDecorator';
+import SpotlightRootDecorator, {activateInputType, getInputType as getLastInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
+import LS2Request from '@enact/webos/LS2Request';
 
 import Skinnable from '../Skinnable';
 
@@ -175,6 +177,8 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		[css.bg]: !overlay
 	});
 
+	let requestInputType = null;
+
 	let App = Wrapped;
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
 	if (ri) App = ResolutionDecorator(ri, App);
@@ -241,6 +245,29 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const Decorator = class extends Component {
 		static displayName = 'ThemeDecorator';
 
+		componentDidMount () {
+			if (spotlight && platform.webos) {
+				activateInputType(true);
+				requestInputType = new LS2Request().send({
+					service: 'luna://com.webos.surfacemanager',
+					method: 'getLastInputType',
+					subscribe: true,
+					onSuccess: function (res) {
+						setInputType(res.lastInputType);
+					},
+					onFailure: function () {
+						activateInputType(false);
+					}
+				});
+			}
+		}
+
+		componentWillUnmount () {
+			if (requestInputType) {
+				requestInputType.cancel();
+			}
+		}
+
 		render () {
 			const className = classNames(css.root, this.props.className, 'enact-unselectable', {
 				[bgClassName]: !float,
@@ -257,4 +284,4 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 export default ThemeDecorator;
-export {ThemeDecorator};
+export {ThemeDecorator, getLastInputType};

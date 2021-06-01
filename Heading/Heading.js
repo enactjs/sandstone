@@ -54,6 +54,15 @@ const HeadingBase = kind({
 		showLine: PropTypes.bool,
 
 		/**
+		 * The size for slotBefore and slotAfter.
+		 * This size is used for remeasuring marquee metrics for Panels.Header.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		slotSize: PropTypes.string,
+
+		/**
 		 * The size of the spacing around the Heading.
 		 *
 		 * Allowed values include:
@@ -85,6 +94,8 @@ const HeadingBase = kind({
 
 	render: ({css, ...rest}) => {
 		delete rest.showLine;
+		delete rest.slotSize;
+
 		return UiHeadingBase.inline({css, ...rest});
 	}
 });
@@ -106,7 +117,7 @@ const HeadingDecorator = compose(
 		marqueeOn: 'render'
 	}),
 	Pure,
-	MarqueeDecorator,
+	MarqueeDecorator({invalidateProps: ['remeasure', 'slotSize']}),
 	Skinnable
 );
 

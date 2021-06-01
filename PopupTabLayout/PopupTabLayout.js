@@ -8,9 +8,13 @@
  * @exports TabPanel
  */
 
+import {forKey, forward, handle, stop} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
+import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import PropTypes from 'prop-types';
 import {useContext, useEffect} from 'react';
 import compose from 'ramda/src/compose';
@@ -350,6 +354,36 @@ PopupTabLayout.Tab = Tab;
  * @ui
  */
 
+const tabPanelsHandlers = {
+	onTransition: handle(
+		forward('onTransition'),
+		(ev, props, {onTransition}) => {
+			onTransition(ev);
+		}
+	),
+	onKeyDown: handle(
+		forward('onKeyDown'),
+		forKey('left'),
+		(ev, {index}) => (index > 0),
+		({target}) => {
+			const next = getTargetByDirectionFromElement('left', target);
+			if (next === null || (next && !getContainerNode(getContainersForNode(target).pop()).contains(next))) {
+				return true;
+			}
+			return false;
+		},
+		(ev) => {
+			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
+				ev.stopPropagation();
+				return false;
+			}
+			return true;
+		},
+		forward('onBack'),
+		stop
+	)
+};
+
 /**
  * A customized version of Panels for use inside this component.
  *
@@ -360,7 +394,9 @@ PopupTabLayout.Tab = Tab;
  */
 const TabPanels = (props) => {
 	const onTransition = useContext(TabLayoutContext);
-	return <Panels noCloseButton {...props} css={css} onTransition={onTransition} />;
+	const handlers = useHandlers(tabPanelsHandlers, props, {onTransition});
+
+	return <Panels noCloseButton {...props} css={css} {...handlers} />;
 };
 
 /**

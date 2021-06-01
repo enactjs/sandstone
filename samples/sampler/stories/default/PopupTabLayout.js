@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 
+import {is} from '@enact/core/keymap';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
@@ -20,13 +21,15 @@ import spriteGear4k from '../../images/sprite-gear-4k.png';
 PopupTabLayout.displayName = 'PopupTabLayout';
 const Config = mergeComponentMetadata('PopupTabLayout', PopupBase, Popup, TabLayoutBase, TabLayout);
 
+const isRight = is('right');
+
 const navPrev = (callback, value, actionName) => () => {
 	const index = Math.max(value - 1, 0);
 	action(actionName)({index});
 	callback(index);
 };
 const navNext = (callback, value) => () => {
-	const index = Math.min(value + 1, 5);
+	const index = Math.min(value + 1, 1);
 	// action(actionName)({index});
 	callback(index);
 };
@@ -56,6 +59,15 @@ export const _PopupTabLayout = () => {
 	const handleNetworkPrev = navPrev(setIndexNetwork, indexNetwork, 'onBack');
 	const handleSoundNext = navNext(setIndexSound, indexSound, 'onNext');
 	const handleSoundPrev = navPrev(setIndexSound, indexSound, 'onBack');
+
+	// Navigate menus with the right key. The left key is handled by framework.
+	const handleKeyDown = (setState, state) => (ev) => {
+		const {keyCode} = ev;
+
+		if (isRight(keyCode)) {
+			navNext(setState, state, 'onNext')();
+		}
+	};
 
 	return (
 		<div>
@@ -89,11 +101,11 @@ export const _PopupTabLayout = () => {
 					onTabClick={action('onTabClick')}
 					title="Display"
 				>
-					<TabPanels index={indexDisplay} onBack={handleDisplayPrev} onClose={handleClose}>
+					<TabPanels index={indexDisplay} onBack={handleDisplayPrev}>
 						<TabPanel>
 							<Header title="Display Settings" type="compact" />
-							<Item onClick={handleDisplayNext}>Picture Modes</Item>
-							<Item onClick={handleDisplayNext}>Color Adjust</Item>
+							<Item onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Picture Modes</Item>
+							<Item onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Color Adjust</Item>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Picture Modes" type="compact" />
@@ -118,10 +130,10 @@ export const _PopupTabLayout = () => {
 					</TabPanels>
 				</Tab>
 				<Tab icon={includeIcons ? 'speaker' : null} onTabClick={action('onTabClick')} title="Sound">
-					<TabPanels index={indexSound} onBack={handleSoundPrev} onClose={handleClose}>
+					<TabPanels index={indexSound} onBack={handleSoundPrev}>
 						<TabPanel>
 							<Header title="Sound Settings" type="compact" />
-							<Item onClick={handleSoundNext}>Advanced Audio</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)}>Advanced Audio</Item>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Advanced Audio Settings" type="compact" />
@@ -136,11 +148,11 @@ export const _PopupTabLayout = () => {
 					onTabClick={action('onTabClick')}
 					title="Network"
 				>
-					<TabPanels index={indexNetwork} onBack={handleNetworkPrev} onClose={handleClose}>
+					<TabPanels index={indexNetwork} onBack={handleNetworkPrev}>
 						<TabPanel>
 							<Header title="Network Settings" type="compact" />
-							<Item onClick={handleNetworkNext}>Wired</Item>
-							<Item onClick={handleNetworkNext}>Wireless</Item>
+							<Item onClick={handleNetworkNext} onKeyDown={handleKeyDown(setIndexNetwork, indexNetwork)}>Wired</Item>
+							<Item onClick={handleNetworkNext} onKeyDown={handleKeyDown(setIndexNetwork, indexNetwork)}>Wireless</Item>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Wired Settings" type="compact" />
@@ -164,11 +176,11 @@ export const _PopupTabLayout = () => {
 					}}
 					title="General"
 				>
-					<TabPanels index={indexGeneral} onBack={handleGeneralPrev} onClose={handleClose}>
+					<TabPanels index={indexGeneral} onBack={handleGeneralPrev}>
 						<TabPanel>
 							<Header title="General Settings" type="compact" />
-							<Item onClick={handleGeneralNext}>About</Item>
-							<Item onClick={handleGeneralNext}>Reset</Item>
+							<Item onClick={handleGeneralNext} onKeyDown={handleKeyDown(setIndexGeneral, indexGeneral)}>About</Item>
+							<Item onClick={handleGeneralNext} onKeyDown={handleKeyDown(setIndexGeneral, indexGeneral)}>Reset</Item>
 						</TabPanel>
 						<TabPanel>
 							<Header title="Wired Settings" type="compact" />
