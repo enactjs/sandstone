@@ -210,7 +210,6 @@ class InputBoardBase extends Component {
 				<SwitchItem
 					selected={this.state.showFilter}
 					size="small"
-					style={{padding: '0px'}}
 					onToggle={this.handleShowFilter}
 				>
 					Filters
