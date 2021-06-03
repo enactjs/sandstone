@@ -292,7 +292,7 @@ const PickerBase = kind({
 
 		return (
 			<>
-				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} marqueeOn="hover" size="tiny">{title}</Heading> : null}
+				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
 				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
 					{children}
 				</PickerCore>
@@ -312,16 +312,12 @@ const PickerBase = kind({
  * @memberof sandstone/Picker
  * @extends sandstone/Picker.PickerBase
  * @mixes ui/Changeable.Changeable
- * @mixes sandstone/Marquee.MarqueeController
  * @ui
  * @public
  */
 const Picker = Pure(
 	Changeable(
-		MarqueeController(
-			{marqueeOnFocus: true},
-			PickerBase
-		)
+		PickerBase
 	)
 );
 

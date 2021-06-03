@@ -7,7 +7,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Picker` props `reverse` and `type` to support for number list
-- `sandstone/Picker` `marqueeOn="hover"` on `Heading` so that Picker value does not marquee when Picker has title and value is not focused
 
 ### Changed
 
@@ -20,6 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` to keep focus inside of popup when pressing 5-way after click
 - `sandstone/InputField` cursor not to jump unexpectedly when mouse down
 - `sandstone/MediaPlayer` to show `MediaControls` via wheel properly when isomorphic build
+- `sandstone/Picker` to not marquee text value when title is added
 - `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
 - `sandstone/PopupTabLayout` to move focus via 5-way left in the header
 
