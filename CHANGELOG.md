@@ -9,6 +9,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Picker` props `reverse` and `type` to support for number list
 
 ### Changed
+
 - Shadow effect to using box-shadow instead of drop-shadow for performance on embedded environment
 - `sandstone/MediaPlayer.MediaControls` to show more components when a user flicks on action guide
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
