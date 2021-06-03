@@ -12,6 +12,7 @@ import {forKey, forward, handle, stop} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
 import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
@@ -392,12 +393,25 @@ const tabPanelsHandlers = {
  * @extends sandstone/Panels.Panels
  * @ui
  */
-const TabPanels = (props) => {
+const TabPanelsBase = (props) => {
+	const {rtl, ...rest} = props;
+	const tabPanelsHandlersRef = Object.assign({}, tabPanelsHandlers);
 	const onTransition = useContext(TabLayoutContext);
-	const handlers = useHandlers(tabPanelsHandlers, props, {onTransition});
-
-	return <Panels noCloseButton {...props} css={css} {...handlers} />;
+	if (rtl) {
+		delete tabPanelsHandlersRef.onKeyDown;
+	}
+	const handlers = useHandlers(tabPanelsHandlersRef, rest, {onTransition});
+	return <Panels noCloseButton {...rest} css={css} {...handlers} />;
 };
+
+TabPanelsBase.propTypes = {
+	rtl: PropTypes.bool
+};
+
+const TabPanels = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	TabPanelsBase
+);
 
 /**
  * Omits the close button.

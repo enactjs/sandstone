@@ -9,6 +9,7 @@
 
 import {forKey, forward, handle, stop} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import compose from 'ramda/src/compose';
@@ -53,11 +54,13 @@ const fixedPopupPanelsHandlers = {
  * @ui
  * @public
  */
-const FixedPopupPanels = (props) => {
-	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
-
-	return <FixedPopupPanelsBase {...props} {...handlers} />;
-};
+const FixedPopupPanels = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	(props) => {
+		const handlers = props.rtl ? null : useHandlers(fixedPopupPanelsHandlers, props);
+		return <FixedPopupPanelsBase {...props} {...handlers} />;
+	}
+);
 
 /**
  * Size of the popup.
