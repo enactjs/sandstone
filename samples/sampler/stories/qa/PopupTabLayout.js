@@ -208,7 +208,7 @@ export const WithVariousItems = () => {
 							</Cell>
 						</TabPanel>
 						<TabPanel>
-							<Header title="Color Adjust" type="compact" />
+							<Header title="Color Adjust" type="compact" slotAfter={<Button iconOnly icon="help" />} />
 							<Cell>
 								<span>This is the second panel.</span>
 								<Button size="small" disabled>Button1</Button>
