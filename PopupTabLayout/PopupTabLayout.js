@@ -385,14 +385,6 @@ const tabPanelsHandlers = {
 	)
 };
 
-/**
- * A customized version of Panels for use inside this component.
- *
- * @class
- * @memberof sandstone/PopupTabLayout
- * @extends sandstone/Panels.Panels
- * @ui
- */
 const TabPanelsBase = (props) => {
 	const {rtl, ...rest} = props;
 	const tabPanelsHandlersRef = Object.assign({}, tabPanelsHandlers);
@@ -408,6 +400,14 @@ TabPanelsBase.propTypes = {
 	rtl: PropTypes.bool
 };
 
+/**
+ * A customized version of Panels for use inside this component.
+ *
+ * @class
+ * @memberof sandstone/PopupTabLayout
+ * @extends sandstone/Panels.Panels
+ * @ui
+ */
 const TabPanels = I18nContextDecorator(
 	{rtlProp: 'rtl'},
 	TabPanelsBase
