@@ -10,12 +10,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/MediaPlayer.MediaControls` to show more components when a user flicks on action guide
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
 - `sandstone/Slider` to interact by wheel
 
 ### Fixed
 
+- `sandstone/FixedPopupPanels` to keep focus inside of popup when pressing 5-way after click
 - `sandstone/InputField` cursor not to jump unexpectedly when mouse down
+- `sandstone/MediaPlayer` to show `MediaControls` via wheel properly when isomorphic build
+- `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
 - `sandstone/PopupTabLayout` to move focus via 5-way left in the header
 
 ## [2.0.0-beta.1] - 2021-05-21
@@ -46,6 +50,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` button label when default value is `0`
 - `sandstone/Panels.Header` to remeasure marquee metrics when the size of slots changed
 - `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
+- `sandstone/Scroller` and `sandstone/VirtualList` to move focus properly via page key
 - `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
 - horizontal `sandstone/VirtualList` to align items well when navigating with 5-way
 - `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
