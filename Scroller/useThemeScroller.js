@@ -272,14 +272,15 @@ const useSpottable = (props, instances) => {
 
 		const
 			{rtl} = props,
-			negativeCoordinate = rtl && (platform.ios || platform.safari || platform.chrome >= 85) ? -1 : 1,
+			// For above chrome 85+ or Safari that use negative coordinate sysmte for RTL
+			coordinateoCoefficient = rtl && (platform.ios || platform.safari || platform.chrome >= 85) ? -1 : 1,
 			{clientWidth} = scrollContentHandle.current.scrollBounds,
 			rtlDirection = rtl ? -1 : 1,
 			{left: containerLeft} = scrollContentNode.getBoundingClientRect(),
 			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
-			currentScrollLeft = rtl && negativeCoordinate === 1 ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
+			currentScrollLeft = rtl && coordinateoCoefficient === 1 ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
 			// calculation based on client position
-			newItemLeft = negativeCoordinate * scrollContentNode.scrollLeft + (itemLeft - containerLeft);
+			newItemLeft = coordinateoCoefficient * scrollContentNode.scrollLeft + (itemLeft - containerLeft);
 		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
 		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
