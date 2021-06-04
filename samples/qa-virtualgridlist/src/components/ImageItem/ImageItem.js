@@ -11,9 +11,17 @@ const mapStateToProps = ({data: {data: allItems, selectedItems}}, {['data-index'
 		src
 	} = allItems[dataIndex];
 
+	let style;
+	if (dataIndex === 0) {
+		style = {
+			visibility: 'hidden'
+		}
+	}
+
 	return {
-		children,
-		label,
+		//children,
+		//label,
+		//style,
 		selected: selectedItems.has(dataIndex),
 		showSelection,
 		src

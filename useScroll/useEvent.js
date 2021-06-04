@@ -558,8 +558,8 @@ const useEventVoice = (props, instances) => {
 };
 
 const useEventWheel = (props, instances) => {
-	const {scrollMode} = props;
-	const {themeScrollContentHandle, scrollContainerHandle, scrollContentRef, spottable} = instances;
+	const {scrollMode, snapToCenter} = props;
+	const {themeScrollContentHandle, scrollContainerHandle, scrollContentHandle, scrollContentRef, spottable} = instances;
 
 	// Functions
 	function initializeWheeling () {
@@ -616,7 +616,7 @@ const useEventWheel = (props, instances) => {
 				}
 
 				// If ev.target is a descendant of scrollContent, the event will be handled on scroll event handler.
-				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target)) {
+				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target) || snapToCenter) {
 					delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
 					needToHideScrollbarTrack = !delta;
 
@@ -665,7 +665,26 @@ const useEventWheel = (props, instances) => {
 				scrollContainerHandle.current.wheelDirection = direction;
 			}
 
-			scrollContainerHandle.current.scrollToAccumulatedTarget(delta, canScrollVertically, overscrollEffectRequired);
+			console.log("direction ", direction);
+
+			if (!snapToCenter) {
+				scrollContainerHandle.current.scrollToAccumulatedTarget(delta, canScrollVertically, overscrollEffectRequired);
+			} else {
+				const currentIndex = scrollContentHandle.current.getCenterItemIndexFromScrollPosition(scrollTop);
+				const nextIndex = currentIndex + direction;
+
+				const currentTarget = document.querySelector(`[data-index="${currentIndex}"] div`);
+				const target = document.querySelector(`[data-index="${nextIndex}"] div`);
+				currentTarget.style.transform = '';
+				target.style.transform = 'scale(1.2)';
+
+				//console.log(target);
+
+				scrollContainerHandle.current.scrollTo({
+					index: nextIndex,
+					stickTo: 'center'
+				});
+			}
 		}
 
 		if (needToHideScrollbarTrack) {

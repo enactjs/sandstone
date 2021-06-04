@@ -143,7 +143,7 @@ const useSpottable = (props, instances) => {
 	// Functions
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
-		const {cbScrollTo, wrap, direction: orientation} = props;
+		const {cbScrollTo, wrap, direction: orientation, snapToCenter} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 		const direction = getDirection(keyCode);
@@ -172,7 +172,8 @@ const useSpottable = (props, instances) => {
 				focusByIndex(nextIndex, direction);
 			} else {
 				const itemNode = getItemNode(nextIndex);
-				const stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
+				let stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
+				stickTo = snapToCenter ? 'center' : stickTo;
 
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
@@ -367,6 +368,7 @@ const useThemeVirtualList = (props) => {
 	delete rest.scrollContainerHandle;
 	delete rest.scrollContainerRef;
 	delete rest.scrollContentHandle;
+	delete rest.snapToCenter;
 	delete rest.spotlightId;
 	delete rest.wrap;
 

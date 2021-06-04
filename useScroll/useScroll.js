@@ -301,6 +301,7 @@ const useScroll = (props) => {
 			horizontalScrollThumbAriaLabel,
 			noAffordance,
 			scrollMode,
+			snapToCenter,
 			style,
 			verticalScrollThumbAriaLabel,
 			...rest
@@ -429,6 +430,7 @@ const useScroll = (props) => {
 		scrollContentHandle,
 		scrollContentRef,
 		scrollContainerRef,
+		snapToCenter,
 		spotlightContainerDisabled,
 		verticalScrollbarHandle
 	});
@@ -462,7 +464,8 @@ const useScroll = (props) => {
 		spotlightId,
 		scrollContainerHandle,
 		scrollContentHandle,
-		scrollContentRef
+		scrollContentRef,
+		snapToCenter
 	});
 
 	assignProperties('verticalScrollbarProps', {
