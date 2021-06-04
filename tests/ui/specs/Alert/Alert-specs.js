@@ -1,5 +1,6 @@
 const Page = require('./AlertPage');
 const {expectClosed, expectOpen, validateTitle} = require('./Alert-utils.js');
+
 describe('Alert', () => {
 
 	const {alertCommon, components} = Page;
