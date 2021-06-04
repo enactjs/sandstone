@@ -1,4 +1,7 @@
+import {is} from '@enact/core/keymap';
 import {clamp} from '@enact/core/util';
+import Spotlight, {getDirection} from '@enact/spotlight';
+import {getLastPointerPosition} from '@enact/spotlight/src/pointer';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {useCallback, useLayoutEffect, useRef} from 'react';
@@ -22,6 +25,16 @@ const propertyNames = (direction) => {
 	};
 };
 const hoverToScrollMultiplier = 0.04;
+const directionToFocus = {
+	horizontal: {
+		before: 'right',
+		after: 'left'
+	},
+	vertical: {
+		before: 'down',
+		after: 'up'
+	}
+};
 
 /**
  * A hover area to scroll for a single direction
@@ -38,23 +51,47 @@ const HoverToScrollBase = (props) => {
 	// Mutable value
 
 	const mutableRef = useRef({
-		hoverToScrollRafId: null
+		hoverToScrollRafId: null,
+		hoveredPosition: null
 	});
 
 	// Functions
 
+	const handleGlobalKeyDown = useCallback((ev) => {
+		const keyCode = ev.keyCode;
+		let position = mutableRef.current.hoveredPosition;
+
+		if (scrollContainerHandle.current.rtl && direction === 'horizontal') {
+			position = position === 'after' ? 'before' : 'after';
+		}
+
+		if (getDirection(keyCode) || is('enter', keyCode)) {
+			Spotlight.focusNextFromPoint(
+				directionToFocus[direction][position],
+				getLastPointerPosition()
+			);
+			scrollContainerHandle.current.stop();
+		}
+	}, [direction, scrollContainerHandle]);
+
 	const startRaf = useCallback((job) => {
 		if (typeof window === 'object') {
 			mutableRef.current.hoverToScrollRafId = window.requestAnimationFrame(job);
+			if (typeof document === 'object') {
+				document.addEventListener('keydown', handleGlobalKeyDown, {capture: true});
+			}
 		}
-	}, []);
+	}, [handleGlobalKeyDown]);
 
 	const stopRaf = useCallback(() => {
 		if (typeof window === 'object' && mutableRef.current.hoverToScrollRafId !== null) {
 			window.cancelAnimationFrame(mutableRef.current.hoverToScrollRafId);
 			mutableRef.current.hoverToScrollRafId = null;
+			if (typeof document === 'object') {
+				document.removeEventListener('keydown', handleGlobalKeyDown, {capture: true});
+			}
 		}
-	}, []);
+	}, [handleGlobalKeyDown]);
 
 	const scrollJob = useCallback((position) => {
 		if (typeof window === 'object') {
@@ -66,6 +103,7 @@ const HoverToScrollBase = (props) => {
 
 			return function (ev) {
 				if (ev.pointerType === 'mouse') {
+					mutableRef.current.hoveredPosition = position;
 					const scrollByHover = () => {
 						if (getLastInputType() === 'mouse') {
 							scrollContainerHandle.current.scrollTo({
