@@ -1,9 +1,10 @@
-import Alert from '../../../../Alert';
-import Button from '../../../../Button';
-import ThemeDecorator from '../../../../ThemeDecorator';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Component} from 'react';
+
+import Alert from '../../../../Alert';
+import Button from '../../../../Button';
+import ThemeDecorator from '../../../../ThemeDecorator';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
