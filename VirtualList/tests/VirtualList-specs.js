@@ -47,7 +47,7 @@ describe('VirtualList', () => {
 			testCase();
 			done();
 		};
-		renderItem = ({index, ...rest}) => {
+		renderItem = ({index, ...rest}) => { // eslint-disable-line enact/display-name 
 			return (
 				<Item {...rest}>
 					{items[index].name}

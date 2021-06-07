@@ -43,6 +43,7 @@ const wrapOption = {
 	'&quot;noAnimation&quot;': 'noAnimation'
 };
 
+// eslint-disable-next-line enact/prop-types
 const renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 	const style = vertical ?
 		{} :
