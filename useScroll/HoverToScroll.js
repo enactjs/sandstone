@@ -65,12 +65,12 @@ const HoverToScrollBase = (props) => {
 			position = position === 'after' ? 'before' : 'after';
 		}
 
-		if (getDirection(keyCode) || is('enter', keyCode) || is('cancel', keyCode) || is('nonModal', keyCode)) {
-			scrollContainerHandle.current.stop();
+		if (getDirection(keyCode) || is('enter', keyCode)) {
 			Spotlight.focusNextFromPoint(
 				directionToFocus[direction][position],
 				getLastPointerPosition()
 			);
+			scrollContainerHandle.current.stop();
 		}
 	}, [direction, scrollContainerHandle]);
 
