@@ -60,6 +60,7 @@ const LtrTests = [
 	// Wizard Type Slots
 	...withProps({type: 'wizard', centered: true, slotAbove: dropIn.steps}, baseTests),
 	...withProps({type: 'wizard', centered: true, slotBefore: dropIn.backButton, slotAfter: dropIn.nextButton}, baseTests),
+	...withProps({type: 'wizard', centered: true, slotAbove: dropIn.steps, slotBefore: dropIn.backButton, slotAfter: dropIn.nextButton}, baseTests),
 
 	// Mini Type Slots
 	...withProps({type: 'mini'}, headerWithChildrenTests)
