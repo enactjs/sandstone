@@ -7,7 +7,7 @@
  * @exports Header
  */
 
-import {forKey, forward, handle, stop} from '@enact/core/handle';
+import {forKey, forProp, forward, handle, stop} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
@@ -21,6 +21,7 @@ import DefaultHeader from '../Panels/Header';
 import css from './FixedPopupPanels.module.less';
 
 const FixedPopupPanelsDecorator = compose(
+	I18nContextDecorator({rtlProp: 'rtl'}),
 	PopupDecorator({
 		className: 'fixedPopupPanels',
 		css,
@@ -30,11 +31,10 @@ const FixedPopupPanelsDecorator = compose(
 	})
 );
 
-const FixedPopupPanelsBase = FixedPopupPanelsDecorator(Viewport);
-
 const fixedPopupPanelsHandlers = {
 	onKeyDown: handle(
 		forward('onKeyDown'),
+		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
 		({target}) => (getContainerNode(getContainersForNode(target).pop()).tagName !== 'HEADER'),
@@ -44,6 +44,11 @@ const fixedPopupPanelsHandlers = {
 	)
 };
 
+const FixedPopupPanelsBase = (props) => {
+	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
+	return <Viewport {...props} {...handlers} />;
+};
+
 /**
  * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the right
  * or left side of the screen inside a popup. Typically used for overlaying panels over other
@@ -51,16 +56,11 @@ const fixedPopupPanelsHandlers = {
  *
  * @class FixedPopupPanels
  * @memberof sandstone/FixedPopupPanels
+ * @mixes i18n/I18nDecorator.I18nContextDecorator
  * @ui
  * @public
  */
-const FixedPopupPanels = I18nContextDecorator(
-	{rtlProp: 'rtl'},
-	(props) => {
-		const handlers = props.rtl ? null : useHandlers(fixedPopupPanelsHandlers, props);
-		return <FixedPopupPanelsBase {...props} {...handlers} />;
-	}
-);
+const FixedPopupPanels = FixedPopupPanelsDecorator(FixedPopupPanelsBase);
 
 /**
  * Size of the popup.

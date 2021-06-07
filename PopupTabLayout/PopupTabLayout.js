@@ -8,7 +8,7 @@
  * @exports TabPanel
  */
 
-import {forKey, forward, handle, stop} from '@enact/core/handle';
+import {forKey, forProp, forward, handle, stop} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
@@ -364,6 +364,7 @@ const tabPanelsHandlers = {
 	),
 	onKeyDown: handle(
 		forward('onKeyDown'),
+		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
 		({target}) => {
@@ -385,27 +386,28 @@ const tabPanelsHandlers = {
 	)
 };
 
-const TabPanelsBase = (props) => {
-	const {rtl, ...rest} = props;
-	const tabPanelsHandlersRef = Object.assign({}, tabPanelsHandlers);
-	const onTransition = useContext(TabLayoutContext);
-	if (rtl) {
-		delete tabPanelsHandlersRef.onKeyDown;
-	}
-	const handlers = useHandlers(tabPanelsHandlersRef, rest, {onTransition});
-	return <Panels noCloseButton {...rest} css={css} {...handlers} />;
-};
-
-TabPanelsBase.propTypes = {
-	rtl: PropTypes.bool
-};
-
 /**
  * A customized version of Panels for use inside this component.
  *
- * @class
+ * @class TabPanelsBase
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/Panels.Panels
+ * @ui
+ * @public
+ */
+const TabPanelsBase = (props) => {
+	const onTransition = useContext(TabLayoutContext);
+	const handlers = useHandlers(tabPanelsHandlers, props, {onTransition});
+	return <Panels noCloseButton {...props} css={css} {...handlers} />;
+};
+
+/**
+ * A customized version of Panels for use inside this component, I18nDecorator applied.
+ *
+ * @class
+ * @memberof sandstone/PopupTabLayout
+ * @extends sandstone/PopupTabLayout.TabPanelsBase
+ * @mixes i18n/I18nDecorator.I18nContextDecorator
  * @ui
  */
 const TabPanels = I18nContextDecorator(
@@ -466,5 +468,6 @@ export {
 	PopupTabLayoutDecorator,
 	Tab,
 	TabPanels,
+	TabPanelsBase,
 	TabPanel
 };
