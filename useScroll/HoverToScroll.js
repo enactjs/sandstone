@@ -93,7 +93,7 @@ const HoverToScrollBase = (props) => {
 		}
 	}, [handleGlobalKeyDown]);
 
-	const scrollJob = useCallback((position) => {
+	const getPointerEnterHandler = useCallback((position) => {
 		if (typeof window === 'object') {
 			const {axis, client, maxPosition, scrollPosition} = propertyNames(direction);
 			const distance =
@@ -144,11 +144,11 @@ const HoverToScrollBase = (props) => {
 			<div
 				key={'hover' + direction + position}
 				className={classNames(css.hoverToScroll, css[direction], css[position])}
-				onPointerEnter={scrollJob(position)}
+				onPointerEnter={getPointerEnterHandler(position)}
 				onPointerLeave={stopRaf}
 			/>
 		);
-	}, [direction, scrollJob, stopRaf]);
+	}, [direction, getPointerEnterHandler, stopRaf]);
 
 	return (
 		<>
