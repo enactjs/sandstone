@@ -23,7 +23,6 @@ const itemSize = 156;
 const listSize = itemSize * 9;
 const itemStyle = {margin: 0};
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (size, onClick) => ({index, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
 	return (

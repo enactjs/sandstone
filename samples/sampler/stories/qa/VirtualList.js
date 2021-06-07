@@ -43,7 +43,6 @@ const wrapOption = {
 	'&quot;noAnimation&quot;': 'noAnimation'
 };
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 	const style = vertical ?
 		{} :
@@ -184,7 +183,6 @@ const InPanels = ({className, title, ...rest}) => {
 	);
 };
 
-// eslint-disable-next-line enact/prop-types
 class VirtualListWithCBScrollTo extends Component {
 	static propTypes = {
 		dataSize: PropTypes.number
