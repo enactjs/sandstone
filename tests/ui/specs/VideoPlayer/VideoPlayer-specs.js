@@ -208,18 +208,18 @@ describe('VideoPlayer', function () {
 
 		it('should jump 10 seconds on next/previous button click', function () {
 			Page.delay(1000);
-			expect(videoPlayerProps.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
+			expect(videoPlayerProps.mediaControlsTime.getText()).to.equal('00:00');
 			videoPlayerProps.nextButton.click();
 
-			expect(videoPlayerProps.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:10');
+			expect(videoPlayerProps.mediaControlsTime.getText()).to.equal('00:10');
 			videoPlayerProps.previousButton.click();
-			expect(videoPlayerProps.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
+			expect(videoPlayerProps.mediaControlsTime.getText()).to.equal('00:00');
 
 		});
 
 		it('should have title', function () {
 			Page.delay(1000);
-			expect(videoPlayerProps.title.getAttribute('innerHTML')).to.equal('Sandstone VideoPlayer Sample Video');
+			expect(videoPlayerProps.title.getText()).to.equal('Sandstone VideoPlayer Sample Video');
 		});
 
 		it('should hide title after 1 second', function () {
@@ -266,7 +266,7 @@ describe('VideoPlayer', function () {
 			Page.spotlightDown();
 			videoPlayerProps2.nextButton.click();
 			Page.delay(250);
-			expect(videoPlayerProps2.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
+			expect(videoPlayerProps2.mediaControlsTime.getText()).to.equal('00:00');
 		});
 
 		it('should display info component', function () {
