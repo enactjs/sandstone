@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-
 import {is} from '@enact/core/keymap';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
@@ -208,7 +206,7 @@ export const WithVariousItems = () => {
 							</Cell>
 						</TabPanel>
 						<TabPanel>
-							<Header title="Color Adjust" type="compact" />
+							<Header title="Color Adjust" type="compact" slotAfter={<Button iconOnly icon="help" />} />
 							<Cell>
 								<span>This is the second panel.</span>
 								<Button size="small" disabled>Button1</Button>

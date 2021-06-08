@@ -1,0 +1,19 @@
+.eventGroup {
+	display: flex;
+	.pickerItem {
+		display: inline-flex;
+		margin-bottom: 30px;
+		align-items: center;
+	}
+	.switchItem {
+		font-size: 48px;
+		max-width: 840px;
+	}
+}
+
+// Allow items to wrap onto multiple lines on mobile devices
+@media (max-width: 1284px) {
+	.eventGroup {
+		flex-wrap: wrap;
+	}
+}
