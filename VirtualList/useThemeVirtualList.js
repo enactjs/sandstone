@@ -132,7 +132,6 @@ const useSpottable = (props, instances) => {
 
 	useEffect(() => {
 		return () => {
-			// TODO: Fix eslint
 			pause.resume();
 			SpotlightAccelerator.reset();
 
