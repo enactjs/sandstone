@@ -69,7 +69,6 @@ const MarqueeI18nSamples = I18nContextDecorator(
 	})
 );
 
-// eslint-disable-next-line enact/prop-types
 const CustomItemBase = ({children, ...rest}) => (
 	<div {...rest} style={{display: 'flex', width: 300, alignItems: 'center'}}>
 		<Icon>notification</Icon>

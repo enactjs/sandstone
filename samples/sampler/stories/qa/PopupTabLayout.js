@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-
 import {is} from '@enact/core/keymap';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
