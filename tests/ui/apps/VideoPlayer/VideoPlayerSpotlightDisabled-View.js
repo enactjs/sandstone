@@ -3,7 +3,7 @@ import spotlight from '@enact/spotlight';
 import ThemeDecorator from '../../../../ThemeDecorator';
 
 import videoPlayer from './VideoPlayerComponents';
-import {posterUrl, videoUrl} from "./VideoPlayerVariables";
+import {posterUrl, videoUrl} from './VideoPlayerVariables';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way

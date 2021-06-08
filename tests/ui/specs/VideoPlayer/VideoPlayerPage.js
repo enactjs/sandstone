@@ -1,5 +1,5 @@
 'use strict';
-const {getComponent,Page} = require('@enact/ui-test-utils/utils');
+const {getComponent, Page} = require('@enact/ui-test-utils/utils');
 
 class VideoPlayerInterface {
 	constructor (id) {
