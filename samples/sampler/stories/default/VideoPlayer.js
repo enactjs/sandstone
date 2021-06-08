@@ -134,7 +134,7 @@ export const _VideoPlayer = () => {
 				VideoPlayer Edge
 			</label>
 			<VideoPlayer
-				autoCloseTimeout={number('autoCloseTimeout', Config, 30000)}
+				autoCloseTimeout={number('autoCloseTimeout', Config, 7000)}
 				disabled={boolean('disabled', Config)}
 				feedbackHideDelay={number('feedbackHideDelay', Config, 3000)}
 				initialJumpDelay={number('initialJumpDelay', Config, 400)}
@@ -155,7 +155,7 @@ export const _VideoPlayer = () => {
 				thumbnailSrc={poster}
 				thumbnailUnavailable={boolean('thumbnailUnavailable', Config)}
 				title={text('title', Config, 'Sandstone VideoPlayer Sample Video')}
-				titleHideDelay={number('titleHideDelay', Config, 29000)}
+				titleHideDelay={number('titleHideDelay', Config, 4000)}
 				{...prop.eventActions}
 			>
 				<source src={videoSource} type="video/mp4" />

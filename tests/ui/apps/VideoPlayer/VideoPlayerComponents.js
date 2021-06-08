@@ -1,8 +1,8 @@
-import VideoPlayer from '@enact/sandstone/VideoPlayer';
-import {MediaControls} from '@enact/sandstone/MediaPlayer';
 import Button from '../../../../Button';
+import {MediaControls} from '../../../../MediaPlayer';
+import VideoPlayer from '../../../../VideoPlayer';
 
-const _videoPlayer = (props) => (
+const videoPlayer = (props) => (
 	<div
 		style={{
 			transformOrigin: 'top',
@@ -42,4 +42,4 @@ const _videoPlayer = (props) => (
 	</div>
 );
 
-export default _videoPlayer;
+export default videoPlayer;

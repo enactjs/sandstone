@@ -6,8 +6,8 @@ describe('VideoPlayer', function () {
 		videoPlayerDefault,
 		videoPlayerDisabled,
 		videoPlayerSpotlightDisabled,
-		videoPlayerCustom,
-		videoPlayerCustom2
+		videoPlayerProps,
+		videoPlayerProps2
 	} = Page.components;
 
 	describe('default', function () {
@@ -196,42 +196,42 @@ describe('VideoPlayer', function () {
 		});
 	});
 
-	describe('custom', function () {
+	describe('props', function () {
 		beforeEach(function () {
-			Page.open('Custom');
+			Page.open('Props');
 		});
 
 		it('should hide controls after 3 seconds', function () {
 			Page.delay(3500);
-			expect(videoPlayerCustom.mediaControlsFrame.getCSSProperty('opacity').value).to.equal(0);
+			expect(videoPlayerProps.mediaControlsFrame.getCSSProperty('opacity').value).to.equal(0);
 		});
 
 		it('should jump 10 seconds on next/previous button click', function () {
 			Page.delay(1000);
-			expect(videoPlayerCustom.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
-			videoPlayerCustom.nextButton.click();
+			expect(videoPlayerProps.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
+			videoPlayerProps.nextButton.click();
 
-			expect(videoPlayerCustom.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:10');
-			videoPlayerCustom.previousButton.click();
-			expect(videoPlayerCustom.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
+			expect(videoPlayerProps.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:10');
+			videoPlayerProps.previousButton.click();
+			expect(videoPlayerProps.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
 
 		});
 
 		it('should have title', function () {
 			Page.delay(1000);
-			expect(videoPlayerCustom.title.getAttribute('innerHTML')).to.equal('Sandstone VideoPlayer Sample Video');
+			expect(videoPlayerProps.title.getAttribute('innerHTML')).to.equal('Sandstone VideoPlayer Sample Video');
 		});
 
 		it('should hide title after 1 second', function () {
 			Page.delay(2200);
-			expect(videoPlayerCustom.titleFrame.getCSSProperty('opacity').value).to.equal(0);
+			expect(videoPlayerProps.titleFrame.getCSSProperty('opacity').value).to.equal(0);
 		});
 
 		describe('5-way', function () {
 			it('should not jump on 5-way right', function () {
 				Page.delay(1000);
 
-				if (videoPlayerCustom.mediaControlsFrame.getCSSProperty('opacity').value === 1) {
+				if (videoPlayerProps.mediaControlsFrame.getCSSProperty('opacity').value === 1) {
 					Page.backKey();
 					Page.delay(250);
 				}
@@ -239,34 +239,34 @@ describe('VideoPlayer', function () {
 				Page.spotlightRight();
 				Page.delay(250);
 
-				expect(videoPlayerCustom.slider.getCSSProperty('width').value).to.equal('0px');
+				expect(videoPlayerProps.slider.getCSSProperty('width').value).to.equal('0px');
 			});
 		});
 	});
 
-	describe('custom2', function () {
+	describe('props2', function () {
 		beforeEach(function () {
-			Page.open('Custom2');
+			Page.open('Props2');
 		});
 
 		it('should not autoshow controls', function () {
 			Page.delay(1000);
-			expect(videoPlayerCustom2.mediaControlsFrame.isExisting()).to.equal(false);
+			expect(videoPlayerProps2.mediaControlsFrame.isExisting()).to.equal(false);
 		});
 
 		it('should not display slider controls', function () {
 			Page.delay(1000);
 			Page.spotlightDown();
 			Page.delay(250);
-			expect(videoPlayerCustom2.slider.isExisting()).to.equal(false);
+			expect(videoPlayerProps2.slider.isExisting()).to.equal(false);
 		});
 
 		it('should have seek functionality disabled', function () {
 			Page.delay(1000);
 			Page.spotlightDown();
-			videoPlayerCustom2.nextButton.click();
+			videoPlayerProps2.nextButton.click();
 			Page.delay(250);
-			expect(videoPlayerCustom2.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
+			expect(videoPlayerProps2.mediaControlsTime.getAttribute('innerHTML')).to.equal('00:00');
 		});
 
 		it('should display info component', function () {
@@ -275,7 +275,7 @@ describe('VideoPlayer', function () {
 			Page.spotlightDown();
 			Page.delay(250);
 
-			expect(videoPlayerCustom2.mediaTitleInfoComponent.isExisting()).to.equal(true);
+			expect(videoPlayerProps2.mediaTitleInfoComponent.isExisting()).to.equal(true);
 		});
 
 	});
