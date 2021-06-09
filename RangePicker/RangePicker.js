@@ -11,7 +11,7 @@
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
-import {clamp} from '@enact/core/util';
+import {clamp, mergeClassNameMaps} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
@@ -20,7 +20,7 @@ import Heading from '../Heading';
 import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 
-import css from './RangePicker.module.less';
+import componentCss from './RangePicker.module.less';
 import pickerTitleCss from '../internal/Picker/PickerTitle.module.less';
 
 const digits = (num) => {
@@ -102,6 +102,20 @@ const RangePickerBase = kind({
 		 * @public
 		 */
 		className: PropTypes.string,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `title` - The `Heading` component class
+		 * * `inlineTitle` - The `Heading` component class when inlineTitle
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * A custom icon for the decrementer.
@@ -250,8 +264,9 @@ const RangePickerBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'rangePicker'
+		css: {...componentCss, ...pickerTitleCss},
+		className: 'rangePicker',
+		publicClassNames: ['inlineTitle', 'title']
 	},
 
 	computed: {
@@ -282,11 +297,11 @@ const RangePickerBase = kind({
 		}
 	},
 
-	render: ({label, inlineTitle, title, value, voiceLabel, ...rest}) => {
+	render: ({css, label, inlineTitle, title, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
 		return (
 			<>
-				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} size="tiny">{title}</Heading> : null}
 				<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 					<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
 				</Picker>
