@@ -13,7 +13,7 @@ import {Component} from 'react';
  * @hoc
  * @public
  */
-const AccessibilityDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
+const AccessibilityDecorator = hoc((config, Wrapped) => {
 	return class extends Component {
 		static contextType = ResizeContext;
 
