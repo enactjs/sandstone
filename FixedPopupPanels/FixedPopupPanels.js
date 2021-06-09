@@ -3,6 +3,8 @@
  *
  * @module sandstone/FixedPopupPanels
  * @exports FixedPopupPanels
+ * @exports FixedPopupPanelsBase
+ * @exports FixedPopupPanelsDecorator
  * @exports Panel
  * @exports Header
  */
@@ -20,6 +22,15 @@ import DefaultHeader from '../Panels/Header';
 
 import css from './FixedPopupPanels.module.less';
 
+/**
+ * Adds popup functionality and `rtl` prop to [`FixedPopupPanels`]{@link sandstone/FixedPopupPanels}.
+ *
+ * @class FixedPopupPanelsDecorator
+ * @memberof sandstone/FixedPopupPanels
+ * @mixes i18n/I18nDecorator.I18nContextDecorator
+ * @hoc
+ * @public
+ */
 const FixedPopupPanelsDecorator = compose(
 	I18nContextDecorator({rtlProp: 'rtl'}),
 	PopupDecorator({
@@ -44,6 +55,15 @@ const fixedPopupPanelsHandlers = {
 	)
 };
 
+/**
+ * A base panels component for [`FixedPopupPanels`]{@link sandstone/FixedPopupPanels} that has
+ * left key handler to navigate panels.
+ *
+ * @class FixedPopupPanelsBase
+ * @memberof sandstone/FixedPopupPanels
+ * @ui
+ * @public
+ */
 const FixedPopupPanelsBase = (props) => {
 	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
 	return <Viewport {...props} {...handlers} />;
@@ -56,7 +76,8 @@ const FixedPopupPanelsBase = (props) => {
  *
  * @class FixedPopupPanels
  * @memberof sandstone/FixedPopupPanels
- * @mixes i18n/I18nDecorator.I18nContextDecorator
+ * @extends sandstone/FixedPopupPanels.FixedPopupPanelsBase
+ * @mixes sandstone/FixedPopupPanels.FixedPopupPanelsDecorator
  * @ui
  * @public
  */
@@ -119,6 +140,8 @@ FixedPopupPanels.Header = Header;
 export default FixedPopupPanels;
 export {
 	FixedPopupPanels,
+	FixedPopupPanelsBase,
+	FixedPopupPanelsDecorator,
 	Header,
 	Panel
 };

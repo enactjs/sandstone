@@ -5,6 +5,7 @@
  * @exports PopupTabLayout
  * @exports Tab
  * @exports TabPanels
+ * @exports TabPanelsBase
  * @exports TabPanel
  */
 
@@ -290,9 +291,10 @@ const PopupTabLayoutBase = kind({
 /**
  * Add behaviors to PopupTabLayout.
  *
- * @hoc
+ * @class PopupTabLayoutDecorator
  * @memberof sandstone/PopupTabLayout
  * @mixes sandstone/Skinnable.Skinnable
+ * @hoc
  * @public
  */
 const PopupTabLayoutDecorator = compose(
@@ -387,7 +389,8 @@ const tabPanelsHandlers = {
 };
 
 /**
- * A customized version of Panels for use inside this component.
+ * A base component for [`TabPanels`]{@link sandstone/PopupTabLayout.TabPanels} which has
+ * left key handler to navigate panels.
  *
  * @class TabPanelsBase
  * @memberof sandstone/PopupTabLayout
@@ -398,17 +401,19 @@ const tabPanelsHandlers = {
 const TabPanelsBase = (props) => {
 	const onTransition = useContext(TabLayoutContext);
 	const handlers = useHandlers(tabPanelsHandlers, props, {onTransition});
+
 	return <Panels noCloseButton {...props} css={css} {...handlers} />;
 };
 
 /**
- * A customized version of Panels for use inside this component, I18nDecorator applied.
+ * A customized version of Panels for use inside this component.
  *
- * @class
+ * @class TabPanels
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/PopupTabLayout.TabPanelsBase
  * @mixes i18n/I18nDecorator.I18nContextDecorator
  * @ui
+ * @public
  */
 const TabPanels = I18nContextDecorator(
 	{rtlProp: 'rtl'},
@@ -435,10 +440,11 @@ const TabPanels = I18nContextDecorator(
 /**
  * A customized version of Panel for use inside this component.
  *
- * @class
+ * @class TabPanel
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/Panels.Panel
  * @ui
+ * @public
  */
 const TabPanel = ({spotlightId, ...rest}) => {
 	useEffect(() => {
