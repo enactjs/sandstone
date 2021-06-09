@@ -11,15 +11,15 @@ import {getLastInputType} from '../ThemeDecorator';
 import css from './HoverToScroll.module.less';
 
 const nop = () => {};
-const propertyNames = (direction) => {
+const getBoundsPropertyNames = (direction) => {
 	return direction === 'vertical' ? {
 		axis: 'y',
-		client: 'clientHeight',
+		clientSize: 'clientHeight',
 		maxPosition: 'maxTop',
 		scrollPosition: 'scrollTop'
 	} : {
 		axis: 'x',
-		client: 'clientWidth',
+		clientSize: 'clientWidth',
 		maxPosition: 'maxLeft',
 		scrollPosition: 'scrollLeft'
 	};
@@ -57,8 +57,7 @@ const HoverToScrollBase = (props) => {
 
 	// Functions
 
-	const handleGlobalKeyDown = useCallback((ev) => {
-		const keyCode = ev.keyCode;
+	const handleGlobalKeyDown = useCallback(({keyCode}) => {
 		let position = mutableRef.current.hoveredPosition;
 
 		if (scrollContainerHandle.current.rtl && direction === 'horizontal') {
@@ -95,14 +94,14 @@ const HoverToScrollBase = (props) => {
 
 	const getPointerEnterHandler = useCallback((position) => {
 		if (typeof window === 'object') {
-			const {axis, client, maxPosition, scrollPosition} = propertyNames(direction);
+			const {axis, clientSize, maxPosition, scrollPosition} = getBoundsPropertyNames(direction);
 			const distance =
 				(position === 'before' ? -1 : 1) * // scroll direction
-				bounds[client] * // scroll page size
+				bounds[clientSize] * // scroll page size
 				hoverToScrollMultiplier; // a scrolling speed factor
 
-			return function (ev) {
-				if (ev.pointerType === 'mouse') {
+			return function ({pointerType}) {
+				if (pointerType === 'mouse') {
 					mutableRef.current.hoveredPosition = position;
 					const scrollByHover = () => {
 						if (getLastInputType() === 'mouse') {
