@@ -192,7 +192,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
-	 * Enables scroll by hover on edges
+	 * Enables scroll by hover on edges in scroll direction.
 	 *
 	 * @type {Boolean}
 	 * @public
@@ -638,7 +638,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
-	 * Enables scroll by hover on edges
+	 * Enables scroll by hover on edges in scroll direction.
 	 *
 	 * @type {Boolean}
 	 * @public

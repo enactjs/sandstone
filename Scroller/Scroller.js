@@ -221,7 +221,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
-	 * Enables scroll by hover on edges
+	 * Enables scroll by hover on edges in scroll direction.
 	 *
 	 * @type {Boolean}
 	 * @public
