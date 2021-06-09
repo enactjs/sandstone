@@ -10,7 +10,7 @@ import {useState} from 'react';
 import css from './VirtualGridList.module.less';
 
 const items = [];
-// eslint-disable-next-line enact/prop-types, enact/display-name
+// eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => {
 	const {caption, label, src} = items[index];
 
