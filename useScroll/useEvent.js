@@ -673,12 +673,16 @@ const useEventWheel = (props, instances) => {
 				const currentIndex = scrollContentHandle.current.getCenterItemIndexFromScrollPosition(scrollTop);
 				const nextIndex = currentIndex + direction;
 
-				const currentTarget = document.querySelector(`[data-index="${currentIndex}"] div`);
-				const target = document.querySelector(`[data-index="${nextIndex}"] div`);
-				currentTarget.style.transform = '';
-				target.style.transform = 'scale(1.2)';
+				if (typeof document === 'object') {
+					const currentTarget = document.querySelector(`[data-index="${currentIndex}"] div`);
+					const target = document.querySelector(`[data-index="${nextIndex}"] div`);
 
-				//console.log(target);
+					currentTarget.style.transform = '';
+					target.style.transform = 'scale(1.2)';
+
+					// Save the target to reset the style
+					scrollContentHandle.current.scaledTarget = target;
+				}
 
 				scrollContainerHandle.current.scrollTo({
 					index: nextIndex,

@@ -246,6 +246,9 @@ const useEventFocus = (props, instances) => {
 			// We need to find out the general solution for multiple spottable inside of one item
 			if (ev.target && scrollContentHandle.current && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', 1);
+				if (scrollContentHandle.current.scaledTarget) {
+					scrollContentHandle.current.scaledTarget.style.transform = '';
+				}
 			}
 		}
 
