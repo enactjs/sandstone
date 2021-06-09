@@ -225,7 +225,7 @@ describe('VideoPlayer', function () {
 		});
 
 		it('should hide title after 1 second', function () {
-			Page.delay(700)
+			Page.delay(700);
 			expect(videoPlayerProps.titleFrame.getCSSProperty('opacity').value).to.equal(1);
 			Page.delay(2000);
 			expect(videoPlayerProps.titleFrame.getCSSProperty('opacity').value).to.equal(0);
