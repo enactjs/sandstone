@@ -37,10 +37,10 @@ const directionToFocus = {
 };
 
 /**
- * A hover area to scroll for a single direction
+ * A hover area to scroll for a single direction.
  *
  * @class HoverToScrollBase
- * @memberof sandstone/useScroll/HoverToScroll
+ * @memberof sandstone/useScroll.HoverToScroll
  * @ui
  * @private
  */
@@ -166,7 +166,7 @@ HoverToScrollBase.propTypes = /** @lends sandstone/useScroll.HoverToScroll.Hover
 };
 
 /**
- * A hover area to scroll
+ * A hover area to scroll.
  *
  * @class HoverToScroll
  * @memberof sandstone/useScroll
