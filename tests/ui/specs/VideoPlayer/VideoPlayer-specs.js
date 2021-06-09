@@ -202,7 +202,9 @@ describe('VideoPlayer', function () {
 		});
 
 		it('should hide controls after 3 seconds', function () {
-			Page.delay(3500);
+			Page.delay(1000);
+			expect(videoPlayerProps.mediaControlsFrame.getCSSProperty('opacity').value).to.equal(1);
+			Page.delay(2500);
 			expect(videoPlayerProps.mediaControlsFrame.getCSSProperty('opacity').value).to.equal(0);
 		});
 
@@ -223,7 +225,9 @@ describe('VideoPlayer', function () {
 		});
 
 		it('should hide title after 1 second', function () {
-			Page.delay(2200);
+			Page.delay(700)
+			expect(videoPlayerProps.titleFrame.getCSSProperty('opacity').value).to.equal(1);
+			Page.delay(2000);
 			expect(videoPlayerProps.titleFrame.getCSSProperty('opacity').value).to.equal(0);
 		});
 
