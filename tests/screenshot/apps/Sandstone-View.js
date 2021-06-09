@@ -174,7 +174,6 @@ const ExportedApp = (props) => {
 	const WrappedApp = ThemeDecorator({noAutoFocus}, App);
 
 	useEffect(() => {
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 		document.querySelector('#root > div').classList.add('spotlight-input-key');
 	}, []);
 
