@@ -411,7 +411,6 @@ const TabPanelsBase = (props) => {
  * @class TabPanels
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/PopupTabLayout.TabPanelsBase
- * @mixes i18n/I18nDecorator.I18nContextDecorator
  * @ui
  * @public
  */

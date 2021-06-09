@@ -27,7 +27,6 @@ import css from './FixedPopupPanels.module.less';
  *
  * @class FixedPopupPanelsDecorator
  * @memberof sandstone/FixedPopupPanels
- * @mixes i18n/I18nDecorator.I18nContextDecorator
  * @hoc
  * @public
  */
