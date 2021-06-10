@@ -147,7 +147,7 @@ const useSpottable = (props, instances) => {
 		const index = getNumberValue(target.dataset.index);
 		const direction = getDirection(keyCode);
 		const allowAffordance = !(noAffordance || orientation === 'horizontal');
-		const shouldMove = snapToCenter ? nextIndex > 0 && nextIndex < (dataSize - 1) && index > 0 : nextIndex >= 0 && index >= 0
+		const shouldMove = snapToCenter ? nextIndex > 0 && nextIndex < (dataSize - 1) && index > 0 : nextIndex >= 0 && index >= 0;
 
 		mutableRef.current.isScrolledBy5way = false;
 		mutableRef.current.isScrolledByJump = false;

@@ -240,7 +240,7 @@ class SnapToCenterVGL extends Component {
 		if (index === 0 || index === items.length - 1) {
 			style = {
 				visibility: 'hidden'
-			}
+			};
 		}
 
 		return (
