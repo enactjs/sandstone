@@ -179,6 +179,7 @@ export const ListOfThings = () => (
 			]
 		}
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+		hoverToScroll={boolean('hoverToScroll', Config)}
 		key={select('scrollMode', prop.scrollModeOption, Config)}
 		noScrollByWheel={boolean('noScrollByWheel', Config)}
 		onKeyDown={action('onKeyDown')}
@@ -203,6 +204,7 @@ export const HorizontalScroll = () => (
 			]
 		}
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+		hoverToScroll={boolean('hoverToScroll', Config)}
 		key={select('scrollMode', prop.scrollModeOption, Config)}
 		noScrollByWheel={boolean('noScrollByWheel', Config)}
 		onKeyDown={action('onKeyDown')}
@@ -236,6 +238,7 @@ export const WithSpottableComponents = () => (
 			]
 		}
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+		hoverToScroll={boolean('hoverToScroll', Config)}
 		key={select('scrollMode', prop.scrollModeOption, Config)}
 		noScrollByWheel={boolean('noScrollByWheel', Config)}
 		onKeyDown={action('onKeyDown')}
