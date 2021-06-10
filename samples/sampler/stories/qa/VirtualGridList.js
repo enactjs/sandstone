@@ -5,9 +5,12 @@ import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
+import {Panel, Panels} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
@@ -228,3 +231,102 @@ HorizontalSquaredVirtualGridList.storyName = 'Horizontal Squared VirtualGridList
 HorizontalSquaredVirtualGridList.parameters = {
 	propTables: [Config]
 };
+
+class VirtualGridListInScroller extends Component {
+	renderItem = ({index, ...rest}) => {
+		const
+			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
+			source = {
+				'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${index}`,
+				'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
+				'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${index}`
+			},
+			text = `Item ${index}`;
+
+		return (
+			<ImageItem {...rest} label={text} onClick={this.props.onClick} src={source} />
+		);
+	};
+
+	render () {
+		const props = Object.assign({}, this.props);
+		delete props.onClick;
+
+		const virtualGridListProps = {
+			dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
+			direction: 'horizontal',
+			itemRenderer: this.renderItem,
+			itemSize: {
+				minWidth: ri.scale(number('minWidth', Config, 688)),
+				minHeight: ri.scale(number('minHeight', Config, 570))
+			},
+			spacing: ri.scale(number('spacing', Config, 0)),
+			style: {
+				height: ri.scale(number('minHeight', Config, 570)),
+				paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')
+			}
+		};
+
+		const virtualGridLists = [];
+
+		for (let i = 0; i < 4; i++) {
+			const id = `vgl_${i}`;
+
+			virtualGridLists.push(
+				<VirtualGridList
+					{...props}
+					{...virtualGridListProps}
+					id={id}
+					key={id}
+					spotlightId={id}
+				/>
+			);
+		}
+
+		return (
+			<Scroller>
+				{virtualGridLists}
+			</Scroller>
+		);
+	}
+}
+
+VirtualGridListInScroller.propTypes = {
+	onClick: PropTypes.func
+};
+
+class VirtualGridListInScrollerSamples extends Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			index: 0
+		};
+	}
+
+	onBack = () => {
+		this.setState(prevState => ({
+			index: prevState.index - 1
+		}));
+	};
+
+	onClick = () => {
+		this.setState(prevState => ({
+			index: prevState.index + 1
+		}));
+	};
+
+	render () {
+		return (
+			<Panels onBack={this.onBack} index={this.state.index}>
+				<Panel>
+					<VirtualGridListInScroller onClick={this.onClick} />
+				</Panel>
+				<Panel>Second Panel</Panel>
+			</Panels>
+		);
+	}
+}
+
+export const RestoreFocusInScroller = () => <VirtualGridListInScrollerSamples />;
+
+RestoreFocusInScroller.storyName = 'VirtualGridList in Scroller restore focus';
