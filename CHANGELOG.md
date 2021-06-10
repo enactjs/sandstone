@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to disable left key handler to go to the previous panel in RTL locales
 - `sandstone/MediaPlayer.MediaControls` to show more components when a user flicks on action guide
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
 - `sandstone/Slider` to interact by wheel
