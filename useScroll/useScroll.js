@@ -453,7 +453,7 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
+		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {fadeOut}),
 		className: [
 			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
@@ -464,8 +464,7 @@ const useScroll = (props) => {
 		spotlightId,
 		scrollContainerHandle,
 		scrollContentHandle,
-		scrollContentRef,
-		snapToCenter
+		scrollContentRef
 	});
 
 	assignProperties('verticalScrollbarProps', {
