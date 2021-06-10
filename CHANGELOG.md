@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Picker` props `reverse` and `type` to support for number list
+- `sandstone/VirtualList` prop `snapToCenter`
 
 ### Changed
 
