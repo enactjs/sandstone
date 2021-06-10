@@ -11,7 +11,7 @@
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
-import {clamp, mergeClassNameMaps} from '@enact/core/util';
+import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
