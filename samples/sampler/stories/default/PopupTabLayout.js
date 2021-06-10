@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 
 import {is} from '@enact/core/keymap';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
@@ -12,6 +13,7 @@ import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase} from '@enact/sandstone/TabLayout';
 import Group from '@enact/ui/Group';
+import PropTypes from 'prop-types';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
@@ -39,7 +41,7 @@ export default {
 	component: 'PopupTabLayout'
 };
 
-export const _PopupTabLayout = () => {
+const PopupTabLayoutSamplesBase = ({rtl}) => {
 	const includeIcons = boolean('include icons', Config, true);
 
 	const [open, setOpenState] = useState(false);
@@ -64,7 +66,7 @@ export const _PopupTabLayout = () => {
 	const handleKeyDown = (setState, state) => (ev) => {
 		const {keyCode} = ev;
 
-		if (isRight(keyCode)) {
+		if (!rtl && isRight(keyCode)) {
 			navNext(setState, state, 'onNext')();
 		}
 	};
@@ -194,6 +196,16 @@ export const _PopupTabLayout = () => {
 		</div>
 	);
 };
+
+PopupTabLayoutSamplesBase.propTypes = {
+	rtl: PropTypes.bool
+};
+
+const PopupTabLayoutSamples = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	PopupTabLayoutSamplesBase
+);
+export const _PopupTabLayout = () => <PopupTabLayoutSamples />;
 
 _PopupTabLayout.storyName = 'PopupTabLayout';
 _PopupTabLayout.parameters = {

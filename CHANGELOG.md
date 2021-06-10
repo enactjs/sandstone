@@ -7,10 +7,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Picker` props `reverse` and `type` to support for number list
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `hoverToScroll` to scroll by hover
 
 ### Changed
 
 - Shadow effect to using box-shadow instead of drop-shadow for performance on embedded environment
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to disable left key handler to go to the previous panel in RTL locales
 - `sandstone/MediaPlayer.MediaControls` to show more components when a user flicks on action guide
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
 - `sandstone/Slider` to interact by wheel
@@ -20,8 +22,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` to keep focus inside of popup when pressing 5-way after click
 - `sandstone/InputField` cursor not to jump unexpectedly when mouse down
 - `sandstone/MediaPlayer` to show `MediaControls` via wheel properly when isomorphic build
+- `sandstone/Panels.Header` to not overlap subtitle and children when header type is `mini`
 - `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
 - `sandstone/PopupTabLayout` to move focus via 5-way left in the header
+- `sandstone/Scroller` to scroll correctly on Chrome 85 or higher in RTL locales via 5way
 
 ## [2.0.0-beta.1] - 2021-05-21
 
