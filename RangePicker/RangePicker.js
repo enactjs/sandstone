@@ -264,7 +264,7 @@ const RangePickerBase = kind({
 	},
 
 	styles: {
-		css: {...componentCss, ...pickerTitleCss},
+		css: pickerTitleCss,
 		className: 'rangePicker',
 		publicClassNames: ['inlineTitle', 'title']
 	},
@@ -302,7 +302,7 @@ const RangePickerBase = kind({
 		return (
 			<>
 				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} size="tiny">{title}</Heading> : null}
-				<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
+				<Picker {...rest} css={componentCss} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 					<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
 				</Picker>
 			</>
