@@ -269,7 +269,7 @@ const RangePickerBase = kind({
 	},
 
 	computed: {
-		className: () => componentCss.rangePicker,
+		className: ({className}) => classnames(componentCss.rangePicker, className),
 		disabled: ({disabled, max, min}) => min >= max ? true : disabled,
 		label: ({max, min, padded, value}) => {
 			value = clamp(min, max, value);
