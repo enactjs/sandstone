@@ -317,7 +317,7 @@ class VirtualGridListInScrollerSamples extends Component {
 
 	render () {
 		return (
-			<Panels onBack={this.onBack} index={this.state.index}>
+			<Panels index={this.state.index} onBack={this.onBack}>
 				<Panel>
 					<VirtualGridListInScroller onClick={this.onClick} />
 				</Panel>
