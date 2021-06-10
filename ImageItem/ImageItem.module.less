@@ -74,6 +74,11 @@
 				transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
 				will-change: transform, filter;
 
+				&.centered {
+					transform: @sand-imageitem-vertical-focus-image-transform;
+					filter: drop-shadow(@sand-imageitem-focus-bg-shadow);
+				}
+
 				.selectionIcon {
 					transition: transform 200ms ease-in-out;
 				}

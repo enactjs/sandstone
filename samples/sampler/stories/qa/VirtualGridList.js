@@ -228,3 +228,61 @@ HorizontalSquaredVirtualGridList.storyName = 'Horizontal Squared VirtualGridList
 HorizontalSquaredVirtualGridList.parameters = {
 	propTables: [Config]
 };
+
+class SnapToCenterVGL extends Component {
+	componentDidMount () {
+		this.scrollTo({index: 1, animate: false, focus: true, stickTo: 'center'});
+	}
+
+	renderItem = ({index, ...rest}) => {
+		const {source} = items[index];
+		let style;
+		if (index === 0 || index === items.length - 1) {
+			style = {
+				visibility: 'hidden'
+			}
+		}
+
+		return (
+			<ImageItem {...rest} src={source} style={style} />
+		);
+	};
+
+	getScrollTo = (scrollTo) => {
+		this.scrollTo = scrollTo;
+	};
+
+	render () {
+		return (
+			<VirtualGridList
+				cbScrollTo={this.getScrollTo}
+				dataSize={updateDataSize(number('dataSize', Config, 10))}
+				itemRenderer={this.renderItem}
+				itemSize={{
+					minWidth: ri.scale(number('minWidth', Config, 1300)),
+					minHeight: ri.scale(number('minHeight', Config, 540))
+				}}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				snapToCenter
+				spacing={ri.scale(number('spacing', Config, 0))}
+				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+				style={{
+					width: ri.scaleToRem(2400),
+					backgroundColor: 'white'
+				}}
+				verticalScrollbar="hidden"
+			/>
+		);
+	}
+}
+
+export const SnapToCenterVirtualGridList = () => (
+	<SnapToCenterVGL />
+);
+
+SnapToCenterVirtualGridList.storyName = 'Snap to center VirtualGridList';
+SnapToCenterVirtualGridList.parameters = {
+	propTables: [Config]
+};
