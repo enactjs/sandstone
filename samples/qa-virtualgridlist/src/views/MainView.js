@@ -14,7 +14,7 @@ class MainView extends Component {
 	}
 
 	componentDidUpdate () {
-		//this.scrollTo({index: 2, animate: false, focus: true});
+		this.scrollTo({index: 0, animate: false, focus: true});
 	}
 
 	onChangeDirection = () => {
@@ -33,8 +33,16 @@ class MainView extends Component {
 		const {horizontal, nativeScroll} = this.state;
 		return (
 			<Panel>
+				<PanelHeader
+					nativeScroll={nativeScroll}
+					onChangeDirection={this.onChangeDirection}
+					onChangeScrollMode={this.onChangeScrollMode}
+					slot="header"
+					title="VirtualGridList"
+					type="mini"
+				/>
 				<ImageList
-					//cbScrollTo={this.getScrollTo}
+					cbScrollTo={this.getScrollTo}
 					direction={horizontal ? 'horizontal' : 'vertical'}
 					key={nativeScroll ? 'native' : 'translate'}
 					scrollMode={nativeScroll ? 'native' : 'translate'}

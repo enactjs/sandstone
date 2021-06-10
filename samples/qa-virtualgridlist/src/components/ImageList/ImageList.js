@@ -21,13 +21,6 @@ class ImageList extends Component {
 
 	renderItem = ({...rest}) => (<ImageItem {...rest} />);
 
-	componentDidUpdate () {
-		//this.scrollTo({index: 2, animate: false, focus: true});
-	}
-
-	getScrollTo = (scrollTo) => {
-		this.scrollTo = scrollTo;
-	}
 	render = () => {
 		const
 			{imageitems, spacing, minHeight, minWidth, ...rest} = this.props;
@@ -37,13 +30,10 @@ class ImageList extends Component {
 		return (
 			<VirtualGridList
 				{...rest}
-				cbScrollTo={this.getScrollTo}
 				className={rest.direction === 'horizontal' ? css.horizontalPadding : css.verticalPadding}
 				dataSize={imageitems.length}
 				itemRenderer={this.renderItem}
 				itemSize={{minHeight: this.calculateOfSize(minHeight), minWidth: this.calculateOfSize(minWidth)}}
-				snapToCenter
-				style={{width: '30%'}}
 				spacing={this.calculateOfSize(spacing)}
 			/>
 		);
