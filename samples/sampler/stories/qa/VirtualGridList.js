@@ -169,6 +169,7 @@ export const HorizontalVirtualGridList = () => (
 		dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 		direction="horizontal"
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+		hoverToScroll={boolean('hoverToScroll', Config)}
 		itemRenderer={renderItem}
 		itemSize={{
 			minWidth: ri.scale(number('minWidth', Config, 688)),

@@ -250,6 +250,7 @@ export const WithMoreItems = () => {
 		<VirtualList
 			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+			hoverToScroll={boolean('hoverToScroll', Config)}
 			itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
 			itemSize={ri.scale(number('itemSize', Config, 156))}
 			key={select('scrollMode', prop.scrollModeOption, Config)}
@@ -277,6 +278,7 @@ export const WithSmallItemMinSizeAndLargeItemSize = () => {
 			dataSize={updateDataSize(number('dataSize', Config, defaultDataSizeForSmallMinLargeSize))}
 			direction="horizontal"
 			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+			hoverToScroll={boolean('hoverToScroll', Config)}
 			itemRenderer={renderItem(Item, ri.scale(number('size', Config, defaultItemSize)), false)}
 			itemSize={updateItemSize({
 				minSize: ri.scale(number('minSize', Config, defaultMinItemSize)),
@@ -302,6 +304,7 @@ export const _InPanels = (context) => {
 			title={title}
 			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+			hoverToScroll={boolean('hoverToScroll', Config)}
 			itemSize={ri.scale(number('itemSize', Config, 156))}
 			key={select('scrollMode', prop.scrollModeOption, Config)}
 			noScrollByWheel={boolean('noScrollByWheel', Config)}
