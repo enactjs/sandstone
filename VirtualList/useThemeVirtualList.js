@@ -171,7 +171,7 @@ const useSpottable = (props, instances) => {
 				mutableRef.current.isScrolledBy5way = false;
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex, direction);
-			} else if (!snapToCenter || !mutableRef.current.isScrolledBySnapToCenter){
+			} else if (!snapToCenter || !mutableRef.current.isScrolledBySnapToCenter) {
 				const itemNode = getItemNode(nextIndex);
 				let stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
 				stickTo = snapToCenter ? 'center' : stickTo;
@@ -193,7 +193,7 @@ const useSpottable = (props, instances) => {
 					stickTo,
 					offset: (allowAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
 					animate: !(isWrapped && wrap === 'noAnimation'),
-					focus: snapToCenter ? true : false
+					focus: snapToCenter
 				});
 			}
 		} else if (!repeat && Spotlight.move(direction)) {
@@ -209,7 +209,7 @@ const useSpottable = (props, instances) => {
 		return false;
 	}
 
-	function focusByIndex (index, direction, snapToCenter) {
+	function focusByIndex (index, direction, waiting) {
 		const itemNode = getItemNode(index);
 		let returnVal = false;
 
@@ -237,7 +237,7 @@ const useSpottable = (props, instances) => {
 			}
 			mutableRef.current.isScrolledBy5way = false;
 			mutableRef.current.isScrolledByJump = false;
-			if (!snapToCenter) {
+			if (!waiting) {
 				mutableRef.current.isScrolledBySnapToCenter = false;
 			}
 		}

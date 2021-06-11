@@ -237,9 +237,9 @@ class SnapToCenterVGL extends Component {
 
 	renderItem = ({index, ...rest}) => {
 		const {source} = items[index];
-		let props = {};
+		let customProps = {};
 		if (index === 0 || index === items.length - 1) {
-			props = {
+			customProps = {
 				style: {
 					visibility: 'hidden'
 				},
@@ -248,7 +248,15 @@ class SnapToCenterVGL extends Component {
 		}
 
 		return (
-			<ImageItem {...rest} src={source} {...props} />
+			<ImageItem
+				{...rest}
+				src={source}
+				style={{
+					paddingLeft: ri.scaleToRem(240),
+					paddingRight: ri.scaleToRem(240)
+				}}
+				{...customProps}
+			/>
 		);
 	};
 
@@ -263,7 +271,7 @@ class SnapToCenterVGL extends Component {
 				dataSize={updateDataSize(number('dataSize', Config, 10))}
 				itemRenderer={this.renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', Config, 1300)),
+					minWidth: ri.scale(number('minWidth', Config, 1200)),
 					minHeight: ri.scale(number('minHeight', Config, 540))
 				}}
 				onKeyDown={action('onKeyDown')}
