@@ -560,7 +560,7 @@ const useEventVoice = (props, instances) => {
 };
 
 const useEventWheel = (props, instances) => {
-	const {scrollMode, snapToCenter} = props;
+	const {dataSize, scrollMode, snapToCenter} = props;
 	const {themeScrollContentHandle, scrollContainerHandle, scrollContentHandle, scrollContentRef, spottable} = instances;
 
 	// Functions
@@ -673,25 +673,27 @@ const useEventWheel = (props, instances) => {
 				const currentIndex = scrollContentHandle.current.getCenterItemIndexFromScrollPosition(canScrollVertically ? scrollTop : scrollLeft);
 				const nextIndex = currentIndex + (direction * dimensionToExtent);
 
-				if (typeof document === 'object') {
-					const currentTarget = document.querySelector(`[data-index="${currentIndex}"] div`);
-					const target = document.querySelector(`[data-index="${nextIndex}"] div`);
+				if (nextIndex > 0 && nextIndex < dataSize - 1) {
+					if (typeof document === 'object') {
+						const currentTarget = document.querySelector(`[data-index="${currentIndex}"] div`);
+						const target = document.querySelector(`[data-index="${nextIndex}"] div`);
 
-					if (currentTarget) {
-						currentTarget.classList.remove(ImageItemCss.centered);
-					}
-					if (target) {
-						target.classList.add(ImageItemCss.centered);
+						if (currentTarget) {
+							currentTarget.classList.remove(ImageItemCss.centered);
+						}
+						if (target) {
+							target.classList.add(ImageItemCss.centered);
 
-						// Save the target to reset the style
-						scrollContentHandle.current.scaledTarget = target;
+							// Save the target to reset the style
+							scrollContentHandle.current.scaledTarget = target;
+						}
 					}
+
+					scrollContainerHandle.current.scrollTo({
+						index: nextIndex,
+						stickTo: 'center'
+					});
 				}
-
-				scrollContainerHandle.current.scrollTo({
-					index: nextIndex,
-					stickTo: 'center'
-				});
 			}
 		}
 
