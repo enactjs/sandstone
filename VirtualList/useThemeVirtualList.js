@@ -238,11 +238,12 @@ const useSpottable = (props, instances) => {
 	}
 
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
-		const {pageScroll, direction} = props;
+		const {pageScroll, direction, snapToCenter} = props;
 		const {state: {numOfItems}, primary} = scrollContentHandle.current;
 		const allowAffordance = !(noAffordance || direction === 'horizontal');
-		const offsetToClientEnd = primary.clientSize - primary.itemSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
+		const offsetToClientEnd = primary.clientSize - primary.gridSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
 		const focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
+		const offsetToCenter = snapToCenter ? (primary.clientSize / 2 - primary.gridSize / 2) : 0;
 
 		if (focusedIndex >= 0) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
@@ -259,7 +260,7 @@ const useSpottable = (props, instances) => {
 
 			if (primary.clientSize >= primary.itemSize) {
 				if (gridPosition.primaryPosition > scrollPosition + offsetToClientEnd) { // forward over
-					gridPosition.primaryPosition -= pageScroll ? 0 : offsetToClientEnd;
+					gridPosition.primaryPosition -= pageScroll ? 0 : offsetToClientEnd - offsetToCenter;
 				} else if (gridPosition.primaryPosition >= scrollPosition) { // inside of client
 					if (scrollMode === 'translate') {
 						gridPosition.primaryPosition = scrollPosition;
@@ -269,7 +270,7 @@ const useSpottable = (props, instances) => {
 						gridPosition.primaryPosition = scrollPosition + (scrollContentHandle.current.scrollPosition === scrollPosition ? 0.1 : 0);
 					}
 				} else { // backward over
-					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : 0;
+					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : offsetToCenter;
 				}
 			}
 
