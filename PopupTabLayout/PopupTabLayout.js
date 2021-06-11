@@ -398,11 +398,15 @@ const tabPanelsHandlers = {
  * @ui
  * @public
  */
-const TabPanelsBase = (props) => {
+const TabPanelsBase = ({rtl, ... rest}) => {
 	const onTransition = useContext(TabLayoutContext);
-	const handlers = useHandlers(tabPanelsHandlers, props, {onTransition});
+	const handlers = useHandlers(tabPanelsHandlers, {rtl, ...rest}, {onTransition});
 
-	return <Panels noCloseButton {...props} css={css} {...handlers} />;
+	return <Panels noCloseButton {...rest} css={css} {...handlers} />;
+};
+
+TabPanelsBase.propTypes = {
+	rtl: PropTypes.bool
 };
 
 /**
