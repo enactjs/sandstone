@@ -38,6 +38,7 @@ const useSpottable = (props, instances) => {
 	const mutableRef = useRef({
 		isScrolledBy5way: false,
 		isScrolledByJump: false,
+		isScrolledBySnapToCenter: false,
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
 		pause: new Pause('VirtualListBasic')
@@ -124,14 +125,6 @@ const useSpottable = (props, instances) => {
 	}
 
 	useEffect(() => {
-		if (snapToCenter) {
-			SpotlightAccelerator.setFrequency([7]);
-		} else {
-			SpotlightAccelerator.setFrequency([3, 3, 3, 2, 2, 2, 1]);
-		}
-	}, [snapToCenter]);
-
-	useEffect(() => {
 		if (scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightContainerDisabled === 'true') {
 			removeGlobalKeyDownEventListener();
 			addGlobalKeyDownEventListener(handleGlobalKeyDown);
@@ -178,25 +171,29 @@ const useSpottable = (props, instances) => {
 				mutableRef.current.isScrolledBy5way = false;
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex, direction);
-			} else {
+			} else if (!snapToCenter || !mutableRef.current.isScrolledBySnapToCenter){
 				const itemNode = getItemNode(nextIndex);
 				let stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
 				stickTo = snapToCenter ? 'center' : stickTo;
 
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
+				if (snapToCenter) {
+					mutableRef.current.isScrolledBySnapToCenter = true;
+				}
 
 				if (isWrapped && wrap === true && itemNode === null) {
 					pause.pause();
 					target.blur();
 				}
-				focusByIndex(nextIndex, direction);
+				focusByIndex(nextIndex, direction, true);
 
 				cbScrollTo({
 					index: nextIndex,
 					stickTo,
 					offset: (allowAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
-					animate: !(isWrapped && wrap === 'noAnimation')
+					animate: !(isWrapped && wrap === 'noAnimation'),
+					focus: snapToCenter ? true : false
 				});
 			}
 		} else if (!repeat && Spotlight.move(direction)) {
@@ -212,7 +209,7 @@ const useSpottable = (props, instances) => {
 		return false;
 	}
 
-	function focusByIndex (index, direction) {
+	function focusByIndex (index, direction, snapToCenter) {
 		const itemNode = getItemNode(index);
 		let returnVal = false;
 
@@ -240,6 +237,9 @@ const useSpottable = (props, instances) => {
 			}
 			mutableRef.current.isScrolledBy5way = false;
 			mutableRef.current.isScrolledByJump = false;
+			if (!snapToCenter) {
+				mutableRef.current.isScrolledBySnapToCenter = false;
+			}
 		}
 
 		return returnVal;
