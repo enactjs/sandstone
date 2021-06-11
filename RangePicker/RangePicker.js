@@ -11,7 +11,7 @@
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
-import {clamp, mergeClassNameMaps} from '@enact/core/util';
+import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
@@ -21,7 +21,6 @@ import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 
 import componentCss from './RangePicker.module.less';
-import pickerTitleCss from '../internal/Picker/PickerTitle.module.less';
 
 const digits = (num) => {
 	// minor optimization
@@ -265,7 +264,8 @@ const RangePickerBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'rangePicker'
+		className: 'rangePickerWrapper',
+		publicClassNames: ['inlineTitle', 'title']
 	},
 
 	computed: {
@@ -284,7 +284,6 @@ const RangePickerBase = kind({
 
 			return value;
 		},
-		mergedPickerTitleCss: ({css}) => mergeClassNameMaps(pickerTitleCss, css),
 		width: ({max, min, width}) => (width || Math.max(max.toString().length, min.toString().length)),
 		value: ({min, max, value}) => {
 			if (__DEV__) {
@@ -297,12 +296,12 @@ const RangePickerBase = kind({
 		}
 	},
 
-	render: ({css, label, inlineTitle, mergedPickerTitleCss, title, value, voiceLabel, ...rest}) => {
+	render: ({css, label, inlineTitle, title, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
 		return (
 			<>
-				{title ? <Heading className={classnames(mergedPickerTitleCss.title, {[mergedPickerTitleCss.inlineTitle]: inlineTitle})} size="tiny">{title}</Heading> : null}
-				<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
+				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				<Picker {...rest} css={css} className={css.rangePicker} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 					<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
 				</Picker>
 			</>

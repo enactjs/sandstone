@@ -14,7 +14,7 @@ import Section from './components/KitchenSinkSection';
 import PickerAddRemove from './components/PickerAddRemove';
 import PickerRTL from './components/PickerRTL';
 
-import css from './PickerTitle.module.less';
+import css from './Picker.module.less';
 
 Picker.displayName = 'Picker';
 
@@ -396,6 +396,7 @@ export const WithCustomizedTitleStyle = () => (
 		noAnimation={boolean('noAnimation', Picker)}
 		onChange={action('onChange')}
 		title={text('title', Picker, 'Long title with customized style')}
+		width={select('width', prop.width, Picker, 'large')}
 		wrap={boolean('wrap', Picker)}
 	>
 		{pickerList.airports}

@@ -1,6 +1,6 @@
 import Picker from '../../../../Picker';
 
-import css from './PickerTitle.module.less';
+import css from './Picker.module.less';
 
 const pickerList = {
 	tall: [

@@ -3,7 +3,7 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import RangePicker, {RangePickerBase} from '@enact/sandstone/RangePicker';
 
-import css from './PickerTitle.module.less';
+import css from './Picker.module.less';
 
 const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicker);
 

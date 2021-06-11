@@ -1,6 +1,6 @@
 import RangePicker from '../../../../RangePicker';
 
-import css from './PickerTitle.module.less';
+import css from './Picker.module.less';
 
 // ***NOTES:***
 // 'min' and 'max' are required for the image to be valid.

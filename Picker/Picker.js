@@ -24,7 +24,7 @@ import PickerCore, {PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 import {MarqueeController} from '../Marquee';
 
-import pickerTitleCss from '../internal/Picker/PickerTitle.module.less';
+import pickerTitleCss from './Picker.module.less';
 
 /**
  * The base `Picker` component.
