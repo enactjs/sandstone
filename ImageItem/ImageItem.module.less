@@ -74,6 +74,11 @@
 				transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
 				will-change: transform, box-shadow;
 
+				&.scaled {
+					transform: @sand-imageitem-vertical-focus-image-transform;
+					box-shadow: @sand-imageitem-focus-bg-shadow;
+				}
+
 				.selectionIcon {
 					transition: transform 200ms ease-in-out;
 				}

@@ -301,6 +301,7 @@ const useScroll = (props) => {
 			horizontalScrollThumbAriaLabel,
 			noAffordance,
 			scrollMode,
+			snapToCenter,
 			style,
 			verticalScrollThumbAriaLabel,
 			...rest
@@ -429,6 +430,7 @@ const useScroll = (props) => {
 		scrollContentHandle,
 		scrollContentRef,
 		scrollContainerRef,
+		snapToCenter,
 		spotlightContainerDisabled,
 		verticalScrollbarHandle
 	});
@@ -451,7 +453,7 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
+		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {fadeOut}),
 		className: [
 			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
