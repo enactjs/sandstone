@@ -49,12 +49,6 @@ const useSpottable = (props, instances) => {
 
 	useSpotlightConfig(props, {spottable: mutableRef});
 
-	if (snapToCenter) {
-		SpotlightAccelerator.setFrequency([7]);
-	} else {
-		SpotlightAccelerator.setFrequency([3, 3, 3, 2, 2, 2, 1]);
-	}
-
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey(props, instances, {
 		handlePageUpDownKeyDown: () => {
 			mutableRef.current.isScrolledBy5way = false;
@@ -128,6 +122,14 @@ const useSpottable = (props, instances) => {
 
 		setContainerDisabled(false);
 	}
+
+	useEffect(() => {
+		if (snapToCenter) {
+			SpotlightAccelerator.setFrequency([7]);
+		} else {
+			SpotlightAccelerator.setFrequency([3, 3, 3, 2, 2, 2, 1]);
+		}
+	}, [snapToCenter]);
 
 	useEffect(() => {
 		if (scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightContainerDisabled === 'true') {
