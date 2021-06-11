@@ -833,6 +833,14 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	scrollMode: PropTypes.string,
 
 	/**
+	 * When it's true, the item snaps to center.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	snapToCenter: PropTypes.bool,
+
+	/**
 	 * Spotlight Id.
 	 *
 	 * @type {String}
