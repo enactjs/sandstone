@@ -237,15 +237,18 @@ class SnapToCenterVGL extends Component {
 
 	renderItem = ({index, ...rest}) => {
 		const {source} = items[index];
-		let style;
+		let props = {};
 		if (index === 0 || index === items.length - 1) {
-			style = {
-				visibility: 'hidden'
+			props = {
+				style: {
+					visibility: 'hidden'
+				},
+				spotlightDisabled: true
 			};
 		}
 
 		return (
-			<ImageItem {...rest} src={source} style={style} />
+			<ImageItem {...rest} src={source} {...props} />
 		);
 	};
 
