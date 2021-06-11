@@ -270,8 +270,7 @@ class SnapToCenterVGL extends Component {
 				spacing={ri.scale(number('spacing', Config, 0))}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				style={{
-					width: ri.scaleToRem(2400),
-					backgroundColor: 'white'
+					width: ri.scaleToRem(2400)
 				}}
 				verticalScrollbar="hidden"
 			/>
