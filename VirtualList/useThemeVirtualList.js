@@ -38,7 +38,7 @@ const useSpottable = (props, instances) => {
 	const mutableRef = useRef({
 		isScrolledBy5way: false,
 		isScrolledByJump: false,
-		isScrolledBySnapToCenter: false,
+		isScrollingBySnapToCenter: false,
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
 		pause: new Pause('VirtualListBasic')
@@ -171,7 +171,7 @@ const useSpottable = (props, instances) => {
 				mutableRef.current.isScrolledBy5way = false;
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex, direction);
-			} else if (!snapToCenter || !mutableRef.current.isScrolledBySnapToCenter) {
+			} else if (!snapToCenter || !mutableRef.current.isScrollingBySnapToCenter) {
 				const itemNode = getItemNode(nextIndex);
 				let stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
 				stickTo = snapToCenter ? 'center' : stickTo;
@@ -179,7 +179,7 @@ const useSpottable = (props, instances) => {
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
 				if (snapToCenter) {
-					mutableRef.current.isScrolledBySnapToCenter = true;
+					mutableRef.current.isScrollingBySnapToCenter = true;
 				}
 
 				if (isWrapped && wrap === true && itemNode === null) {
@@ -238,7 +238,7 @@ const useSpottable = (props, instances) => {
 			mutableRef.current.isScrolledBy5way = false;
 			mutableRef.current.isScrolledByJump = false;
 			if (!waiting) {
-				mutableRef.current.isScrolledBySnapToCenter = false;
+				mutableRef.current.isScrollingBySnapToCenter = false;
 			}
 		}
 
