@@ -11,7 +11,7 @@
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
-import {clamp} from '@enact/core/util';
+import {clamp, mergeClassNameMaps} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
@@ -264,12 +264,11 @@ const RangePickerBase = kind({
 	},
 
 	styles: {
-		css: pickerTitleCss,
-		publicClassNames: ['inlineTitle', 'title']
+		css: componentCss,
+		className: 'rangePicker'
 	},
 
 	computed: {
-		className: ({className}) => classnames(componentCss.rangePicker, className),
 		disabled: ({disabled, max, min}) => min >= max ? true : disabled,
 		label: ({max, min, padded, value}) => {
 			value = clamp(min, max, value);
@@ -285,6 +284,7 @@ const RangePickerBase = kind({
 
 			return value;
 		},
+		mergedPickerTitleCss: ({css}) => mergeClassNameMaps(pickerTitleCss, css),
 		width: ({max, min, width}) => (width || Math.max(max.toString().length, min.toString().length)),
 		value: ({min, max, value}) => {
 			if (__DEV__) {
@@ -297,12 +297,12 @@ const RangePickerBase = kind({
 		}
 	},
 
-	render: ({css, label, inlineTitle, title, value, voiceLabel, ...rest}) => {
+	render: ({css, label, inlineTitle, mergedPickerTitleCss, title, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
 		return (
 			<>
-				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} size="tiny">{title}</Heading> : null}
-				<Picker {...rest} css={componentCss} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
+				{title ? <Heading className={classnames(mergedPickerTitleCss.title, {[mergedPickerTitleCss.inlineTitle]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 					<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
 				</Picker>
 			</>
