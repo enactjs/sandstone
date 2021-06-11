@@ -148,7 +148,7 @@ const useSpottable = (props, instances) => {
 	// Functions
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
-		const {cbScrollTo, dataSize, wrap, direction: orientation, snapToCenter} = props;
+		const {cbScrollTo, dataSize, wrap, direction: orientation} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 		const direction = getDirection(keyCode);
@@ -244,7 +244,7 @@ const useSpottable = (props, instances) => {
 	}
 
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
-		const {pageScroll, direction, snapToCenter} = props;
+		const {pageScroll, direction} = props;
 		const {state: {numOfItems}, primary} = scrollContentHandle.current;
 		const allowAffordance = !(noAffordance || direction === 'horizontal');
 		const offsetToClientEnd = primary.clientSize - primary.gridSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
