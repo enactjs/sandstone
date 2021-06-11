@@ -385,7 +385,6 @@ export const InPopupTabLayout = () => <PickerInPopupTabLayout />;
 
 InPopupTabLayout.storyName = 'in PopupTabLayout';
 
-
 export const WithCustomizedTitleStyle = () => (
 	<Picker
 		aria-label={text('aria-label', Picker, '')}

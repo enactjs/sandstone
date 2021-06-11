@@ -24,7 +24,7 @@ import PickerCore, {PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 import {MarqueeController} from '../Marquee';
 
-import pickerTitleCss from './Picker.module.less';
+import componentCss from './Picker.module.less';
 
 /**
  * The base `Picker` component.
@@ -66,8 +66,8 @@ const PickerBase = kind({
 		 *
 		 * The following classes are supported:
 		 *
-		 * * `title` - The `Heading` component class
-		 * * `inlineTitle` - The `Heading` component class when inlineTitle
+		 * * `title` - The title component class
+		 * * `inlineTitle` - The title component class when `inlineTitle` is true
 		 *
 		 * @type {Object}
 		 * @public
@@ -267,7 +267,7 @@ const PickerBase = kind({
 	},
 
 	styles: {
-		css: pickerTitleCss,
+		css: componentCss,
 		publicClassNames: ['inlineTitle', 'title']
 	},
 

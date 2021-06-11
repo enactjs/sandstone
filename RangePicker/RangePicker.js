@@ -108,8 +108,8 @@ const RangePickerBase = kind({
 		 *
 		 * The following classes are supported:
 		 *
-		 * * `title` - The `Heading` component class
-		 * * `inlineTitle` - The `Heading` component class when inlineTitle
+		 * * `title` - The title component class
+		 * * `inlineTitle` - The title component class when `inlineTitle` is true
 		 *
 		 * @type {Object}
 		 * @public

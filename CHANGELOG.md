@@ -7,7 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Picker` props `reverse` and `type` to support for number list
-- `sandstone/Picker` public class names `title` and `inlineTitle`
+- `sandstone/Picker` and `sandstone/RangePicker` public class names `title` and `inlineTitle`
 - `sandstone/Scroller` and `sandstone/VirtualList` prop `hoverToScroll` to scroll by hover
 
 ### Changed
