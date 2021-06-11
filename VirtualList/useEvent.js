@@ -249,7 +249,8 @@ const useEventFocus = (props, instances) => {
 			if (ev.target && scrollContentHandle.current && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', 1);
 				if (scrollContentHandle.current.scaledTarget) {
-					scrollContentHandle.current.scaledTarget.classList.remove(ImageItemCss.centered);
+					scrollContentHandle.current.scaledTarget.classList.remove(ImageItemCss.scaled);
+					scrollContentHandle.current.scaledTarget = null;
 				}
 			}
 		}

@@ -51,6 +51,8 @@ const useSpottable = (props, instances) => {
 
 	if (snapToCenter) {
 		SpotlightAccelerator.setFrequency([7]);
+	} else {
+		SpotlightAccelerator.setFrequency([3, 3, 3, 2, 2, 2, 1]);
 	}
 
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey(props, instances, {

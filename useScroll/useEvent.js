@@ -679,10 +679,10 @@ const useEventWheel = (props, instances) => {
 						const target = document.querySelector(`[data-index="${nextIndex}"] div`);
 
 						if (currentTarget) {
-							currentTarget.classList.remove(ImageItemCss.centered);
+							currentTarget.classList.remove(ImageItemCss.scaled);
 						}
 						if (target) {
-							target.classList.add(ImageItemCss.centered);
+							target.classList.add(ImageItemCss.scaled);
 
 							// Save the target to reset the style
 							scrollContentHandle.current.scaledTarget = target;
