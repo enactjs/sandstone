@@ -271,7 +271,7 @@ class SnapToCenterVGL extends Component {
 				dataSize={updateDataSize(number('dataSize', Config, 10))}
 				itemRenderer={this.renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', Config, 1200)),
+					minWidth: ri.scale(number('minWidth', Config, 1230)),
 					minHeight: ri.scale(number('minHeight', Config, 540))
 				}}
 				onKeyDown={action('onKeyDown')}
