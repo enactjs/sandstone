@@ -26,7 +26,7 @@ const
 	};
 
 const useSpottable = (props, instances) => {
-	const {noAffordance, scrollMode} = props;
+	const {noAffordance, scrollMode, snapToCenter} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const getItemNode = (index) => {
 		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
@@ -48,6 +48,10 @@ const useSpottable = (props, instances) => {
 	// Hooks
 
 	useSpotlightConfig(props, {spottable: mutableRef});
+
+	if (snapToCenter) {
+		SpotlightAccelerator.setFrequency([7]);
+	}
 
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey(props, instances, {
 		handlePageUpDownKeyDown: () => {
