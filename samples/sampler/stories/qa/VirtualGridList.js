@@ -5,7 +5,7 @@ import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
-import {Panel, Panels} from '@enact/sandstone/Panels';
+import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
@@ -313,13 +313,13 @@ class VirtualGridListInScroller extends Component {
 			text = `Item ${index}`;
 
 		return (
-			<ImageItem {...rest} label={text} onClick={this.props.onClick} src={source} />
+			<ImageItem {...rest} label={text} onClick={this.props.onNext} src={source} />
 		);
 	};
 
 	render () {
 		const props = Object.assign({}, this.props);
-		delete props.onClick;
+		delete props.onNext;
 
 		const virtualGridListProps = {
 			dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
@@ -361,7 +361,7 @@ class VirtualGridListInScroller extends Component {
 }
 
 VirtualGridListInScroller.propTypes = {
-	onClick: PropTypes.func
+	onNext: PropTypes.func
 };
 
 class VirtualGridListInScrollerSamples extends Component {
@@ -378,20 +378,22 @@ class VirtualGridListInScrollerSamples extends Component {
 		}));
 	};
 
-	onClick = () => {
+	onNext = () => {
 		this.setState(prevState => ({
 			index: prevState.index + 1
 		}));
-  };
+	};
 
 	render () {
 		return (
-      	<Panels index={this.state.index} onBack={this.onBack}>
-				  <Panel>
-					  <VirtualGridListInScroller onClick={this.onClick} />
-				  </Panel>
-				  <Panel>Second Panel</Panel>
-			  </Panels>
+			<Panels index={this.state.index} onBack={this.onBack}>
+				<Panel>
+					<VirtualGridListInScroller onNext={this.onNext} />
+				</Panel>
+				<Panel>
+					<Header noCloseButton title="Second Panel" type="compact" />
+				</Panel>
+			</Panels>
 		);
 	}
 }
