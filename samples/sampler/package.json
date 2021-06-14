@@ -10,10 +10,11 @@
     "cleanall": "enact clean --all",
     "lint": "enact lint --strict",
     "test": "echo \"No test suite\" && exit 0",
-    "pack": "build-storybook -c .storybook -o dist",
-    "pack-qa": "build-storybook -c .qa-storybook -o dist",
-    "serve": "start-storybook -p 8080 -c .storybook --ci",
-    "serve-qa": "start-storybook -p 8080 -c .qa-storybook --ci"
+    "link-internal":"npm link ../../node_modules/@enact/core && npm link ../../node_modules/@enact/i18n && npm link ../../node_modules/@enact/spotlight && npm link ../../node_modules/@enact/ui",
+    "pack": "npm run link-internal && build-storybook -c .storybook -o dist",
+    "pack-qa": "npm run link-internal && build-storybook -c .qa-storybook -o dist",
+    "serve": "npm run link-internal && start-storybook -p 8080 -c .storybook --ci",
+    "serve-qa": "npm run link-internal && start-storybook -p 8080 -c .qa-storybook --ci"
   },
   "license": "Apache-2.0",
   "enact": {
