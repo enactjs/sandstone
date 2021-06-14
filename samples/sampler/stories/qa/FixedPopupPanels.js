@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 
 import {is} from '@enact/core/keymap';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
@@ -17,6 +18,7 @@ import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
+import PropTypes from 'prop-types';
 import {Component, useState} from 'react';
 import compose from 'ramda/src/compose';
 
@@ -78,7 +80,7 @@ export default {
 	component: 'FixedPopupPanels'
 };
 
-export const WithVirtualList = () => {
+const WithVirtualListSamplesBase = ({rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -95,7 +97,7 @@ export const WithVirtualList = () => {
 	const handleKeyDown = (ev) => {
 		const {keyCode} = ev;
 
-		if (isRight(keyCode)) {
+		if (!rtl && isRight(keyCode)) {
 			nextPanel();
 		}
 	};
@@ -198,6 +200,16 @@ export const WithVirtualList = () => {
 	);
 };
 
+WithVirtualListSamplesBase.propTypes = {
+	rtl: PropTypes.bool
+};
+
+const WithVirtualListSamples = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	WithVirtualListSamplesBase
+);
+export const WithVirtualList = () => <WithVirtualListSamples />;
+
 WithVirtualList.storyName = 'with VirtualList';
 WithVirtualList.parameters = {
 	info: {
@@ -258,7 +270,7 @@ WithScroller.parameters = {
 	}
 };
 
-export const WithVariousItems = () => {
+const WithVariousItemsSamplesBase = ({rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -274,8 +286,7 @@ export const WithVariousItems = () => {
 	// Navigate menus with the right key. The left key is handled by framework.
 	const handleKeyDown = (ev) => {
 		const {keyCode} = ev;
-
-		if (isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
+		if (!rtl && isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
 			nextPanel();
 		}
 	};
@@ -397,6 +408,16 @@ export const WithVariousItems = () => {
 		</div>
 	);
 };
+
+WithVariousItemsSamplesBase.propTypes = {
+	rtl: PropTypes.bool
+};
+
+const WithVariousItemsSamples = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	WithVariousItemsSamplesBase
+);
+export const WithVariousItems = () => <WithVariousItemsSamples />;
 
 WithVariousItems.storyName = 'with various items';
 WithVariousItems.parameters = {
