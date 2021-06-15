@@ -28,6 +28,7 @@ import {FloatingLayerContext} from '@enact/ui/FloatingLayer/FloatingLayerDecorat
 import Media from '@enact/ui/Media';
 import Slottable from '@enact/ui/Slottable';
 import Touchable from '@enact/ui/Touchable';
+import classNames from 'classnames';
 import DurationFmt from 'ilib/lib/DurationFmt';
 import equals from 'ramda/src/equals';
 import PropTypes from 'prop-types';
@@ -1914,7 +1915,7 @@ const VideoPlayerBase = class extends Component {
 
 		return (
 			<RootContainer
-				className={css.videoPlayer + ' enact-fit' + (className ? ' ' + className : '')}
+				className={classNames(css.videoPlayer, 'enact-fit', className)}
 				onClick={this.activityDetected}
 				ref={this.setPlayerRef}
 				spotlightDisabled={spotlightDisabled}
@@ -1937,111 +1938,99 @@ const VideoPlayerBase = class extends Component {
 					bottomControlsVisible={this.state.mediaControlsVisible}
 					onClick={this.onVideoClick}
 				>
-					{!noSpinner && (this.state.loading || loading) ? <Spinner centered /> : null}
+					<Spinner centered className={classNames({[css.hidden]: noSpinner || !(this.state.loading || loading)})} />
 				</Overlay>
 
-				{this.state.bottomControlsRendered ?
-					<div className={css.fullscreen} {...controlsAriaProps}>
-						<FeedbackContent
-							className={css.miniFeedback}
-							playbackRate={this.pulsedPlaybackRate || this.selectPlaybackRate(this.speedIndex)}
-							playbackState={this.pulsedPlaybackState || this.prevCommand}
-							visible={this.state.miniFeedbackVisible && !noMiniFeedback}
-						>
-							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
-						</FeedbackContent>
-						<ControlsContainer
-							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.lift : '')}
-							spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
-						>
-							{/*
-								Info Section: Title, Description, Times
-								Only render when `this.state.mediaControlsVisible` is true in order for `Marquee`
-								to make calculations correctly in `MediaTitle`.
-							*/}
-							{this.state.mediaSliderVisible ?
-								<div className={css.infoFrame}>
-									<MediaTitle
-										id={`${this.id}_mediaTitle`}
-										infoVisible={this.state.infoVisible}
-										ref={this.setTitleRef}
-										title={title}
-										visible={this.state.titleVisible && this.state.mediaControlsVisible}
-									>
-										{infoComponents}
-									</MediaTitle>
-									{noSlider ?
-										<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} /> :
-										null
-									}
-								</div> :
-								null
+				<div className={classNames(css.fullscreen, {[css.hidden]: !this.state.bottomControlsRendered})} {...controlsAriaProps}>
+					<FeedbackContent
+						className={css.miniFeedback}
+						playbackRate={this.pulsedPlaybackRate || this.selectPlaybackRate(this.speedIndex)}
+						playbackState={this.pulsedPlaybackState || this.prevCommand}
+						visible={this.state.miniFeedbackVisible && !noMiniFeedback}
+					>
+						{secondsToTime(this.state.sliderTooltipTime, durFmt)}
+					</FeedbackContent>
+					<ControlsContainer
+						className={classNames(
+							css.bottom,
+							{
+								[css.containerHidden]: !this.state.mediaControlsVisible,
+								[css.lift]: this.state.infoVisible
 							}
-							{noSlider ?
-								null :
-								<div className={css.sliderContainer}>
-									{this.state.mediaSliderVisible ?
-										<Times noTotalTime current={this.state.currentTime} formatter={durFmt} /> :
-										null
-									}
-									<MediaSlider
-										backgroundProgress={this.state.proportionLoaded}
-										disabled={disabled || this.state.sourceUnavailable}
-										forcePressed={this.state.slider5WayPressed}
-										onBlur={this.handleSliderBlur}
-										onChange={this.onSliderChange}
-										onFocus={this.handleSliderFocus}
-										onKeyDown={this.handleSliderKeyDown}
-										onKnobMove={this.handleKnobMove}
-										onSpotlightUp={this.handleSpotlightUpFromSlider}
-										selection={proportionSelection}
-										spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
-										value={this.state.proportionPlayed}
-										visible={this.state.mediaSliderVisible}
-									>
-										<FeedbackTooltip
-											action={this.state.feedbackAction}
-											duration={this.state.duration}
-											formatter={durFmt}
-											hidden={!this.state.feedbackVisible || this.state.sourceUnavailable}
-											playbackRate={this.selectPlaybackRate(this.speedIndex)}
-											playbackState={this.prevCommand}
-											thumbnailComponent={thumbnailComponent}
-											thumbnailDeactivated={this.props.thumbnailUnavailable}
-											thumbnailSrc={thumbnailSrc}
-										/>
-									</MediaSlider>
-									{this.state.mediaSliderVisible ?
-										<Times noCurrentTime total={this.state.duration} formatter={durFmt} /> :
-										null
-									}
-								</div>
-							}
-							<ComponentOverride
-								component={mediaControlsComponent}
-								id={`${this.id}_mediaControls`}
-								initialJumpDelay={initialJumpDelay}
-								jumpDelay={jumpDelay}
-								mediaDisabled={disabled || this.state.sourceUnavailable}
-								no5WayJump={no5WayJump}
-								onClose={this.handleMediaControlsClose}
-								onFastForward={this.handleFastForward}
-								onJump={this.handleJump}
-								onJumpBackwardButtonClick={this.onJumpBackward}
-								onJumpForwardButtonClick={this.onJumpForward}
-								onPause={this.handlePause}
-								onPlay={this.handlePlay}
-								onRewind={this.handleRewind}
-								onToggleMore={this.handleToggleMore}
-								paused={this.state.paused}
-								spotlightId={this.mediaControlsSpotlightId}
-								spotlightDisabled={!this.state.mediaControlsVisible || spotlightDisabled}
-								visible={this.state.mediaControlsVisible}
-							/>
-						</ControlsContainer>
-					</div> :
-					null
-				}
+						)}
+						spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
+					>
+						{/*
+							Info Section: Title, Description, Times
+							Only render when `this.state.mediaControlsVisible` is true in order for `Marquee`
+							to make calculations correctly in `MediaTitle`.
+						*/}
+						<div className={classNames(css.infoFrame, {[css.hidden]: !this.state.mediaSliderVisible})}>
+							<MediaTitle
+								id={`${this.id}_mediaTitle`}
+								infoVisible={this.state.infoVisible}
+								ref={this.setTitleRef}
+								title={title}
+								visible={this.state.titleVisible && this.state.mediaControlsVisible}
+							>
+								{infoComponents}
+							</MediaTitle>
+							<Times className={classNames({[css.hidden]: !noSlider})} current={this.state.currentTime} total={this.state.duration} formatter={durFmt} /> :
+						</div>
+						<div className={classNames(css.sliderContainer, {[css.hidden]: noSlider})}>
+							<Times className={classNames({[css.hidden]: !this.state.mediaSliderVisible})} noTotalTime current={this.state.currentTime} formatter={durFmt} />
+							<MediaSlider
+								backgroundProgress={this.state.proportionLoaded}
+								disabled={disabled || this.state.sourceUnavailable}
+								forcePressed={this.state.slider5WayPressed}
+								onBlur={this.handleSliderBlur}
+								onChange={this.onSliderChange}
+								onFocus={this.handleSliderFocus}
+								onKeyDown={this.handleSliderKeyDown}
+								onKnobMove={this.handleKnobMove}
+								onSpotlightUp={this.handleSpotlightUpFromSlider}
+								selection={proportionSelection}
+								spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
+								value={this.state.proportionPlayed}
+								visible={this.state.mediaSliderVisible}
+							>
+								<FeedbackTooltip
+									action={this.state.feedbackAction}
+									duration={this.state.duration}
+									formatter={durFmt}
+									hidden={!this.state.feedbackVisible || this.state.sourceUnavailable}
+									playbackRate={this.selectPlaybackRate(this.speedIndex)}
+									playbackState={this.prevCommand}
+									thumbnailComponent={thumbnailComponent}
+									thumbnailDeactivated={this.props.thumbnailUnavailable}
+									thumbnailSrc={thumbnailSrc}
+								/>
+							</MediaSlider>
+							<Times className={classNames({[css.hidden]: !this.state.mediaSliderVisible})} noCurrentTime total={this.state.duration} formatter={durFmt} />
+						</div>
+						<ComponentOverride
+							component={mediaControlsComponent}
+							id={`${this.id}_mediaControls`}
+							initialJumpDelay={initialJumpDelay}
+							jumpDelay={jumpDelay}
+							mediaDisabled={disabled || this.state.sourceUnavailable}
+							no5WayJump={no5WayJump}
+							onClose={this.handleMediaControlsClose}
+							onFastForward={this.handleFastForward}
+							onJump={this.handleJump}
+							onJumpBackwardButtonClick={this.onJumpBackward}
+							onJumpForwardButtonClick={this.onJumpForward}
+							onPause={this.handlePause}
+							onPlay={this.handlePlay}
+							onRewind={this.handleRewind}
+							onToggleMore={this.handleToggleMore}
+							paused={this.state.paused}
+							spotlightId={this.mediaControlsSpotlightId}
+							spotlightDisabled={!this.state.mediaControlsVisible || spotlightDisabled}
+							visible={this.state.mediaControlsVisible}
+						/>
+					</ControlsContainer>
+				</div>
 				<SpottableDiv
 					// This captures spotlight focus for use with 5-way.
 					// It's non-visible but lives at the top of the VideoPlayer.
