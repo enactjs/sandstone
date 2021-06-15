@@ -425,6 +425,7 @@ const InputPopupBase = kind({
 								placeholder={placeholder}
 								onBeforeChange={onBeforeChange}
 								onKeyDown={onInputKeyDown}
+								spotlightId='inputField'
 							/>
 						}
 					</Cell>
