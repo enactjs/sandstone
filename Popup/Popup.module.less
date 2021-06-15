@@ -12,7 +12,7 @@
 
 	.body {
 		.sand-text-base();
-		.padding-start-end(@sand-popup-padding);
+		.padding-start-end(.extract(@sand-popup-padding, left)[], .extract(@sand-popup-padding, right)[]);
 		box-sizing: border-box;
 		pointer-events: auto;
 		.locale-japanese-line-break();
