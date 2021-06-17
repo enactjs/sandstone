@@ -174,6 +174,11 @@ HoverToScrollBase.propTypes = /** @lends sandstone/useScroll.HoverToScroll.Hover
  */
 const HoverToScroll = (props) => {
 	const {scrollContainerHandle} = props;
+
+	if (!scrollContainerHandle) {
+		return null;
+	}
+
 	const {canScrollHorizontally, canScrollVertically, getScrollBounds} = scrollContainerHandle.current;
 	const bounds = getScrollBounds && getScrollBounds() || null;
 
