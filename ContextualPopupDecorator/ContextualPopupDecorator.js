@@ -710,6 +710,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				holeBounds = this.clientNode.getBoundingClientRect();
 			}
 
+			delete rest.direction;
 			delete rest.onOpen;
 			delete rest.popupSpotlightId;
 			delete rest.rtl;
