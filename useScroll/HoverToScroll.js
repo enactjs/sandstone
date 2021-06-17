@@ -46,7 +46,6 @@ const directionToFocus = {
  */
 const HoverToScrollBase = (props) => {
 	const {direction, scrollContainerHandle} = props;
-	const bounds = scrollContainerHandle.current.getScrollBounds();
 
 	// Mutable value
 
@@ -95,6 +94,7 @@ const HoverToScrollBase = (props) => {
 	const getPointerEnterHandler = useCallback((position) => {
 		if (typeof window === 'object') {
 			const {axis, clientSize, maxPosition, scrollPosition} = getBoundsPropertyNames(direction);
+			const bounds = scrollContainerHandle.current.getScrollBounds();
 			const distance =
 				(position === 'before' ? -1 : 1) * // scroll direction
 				bounds[clientSize] * // scroll page size
@@ -126,7 +126,7 @@ const HoverToScrollBase = (props) => {
 		} else {
 			return nop;
 		}
-	}, [bounds, direction, scrollContainerHandle, startRaf, stopRaf]);
+	}, [direction, scrollContainerHandle, startRaf, stopRaf]);
 
 	// Hooks
 
