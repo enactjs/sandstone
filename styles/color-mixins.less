@@ -68,7 +68,7 @@
 
 		background-color: @sand-spotlight-bg-color;
 		// transition+: @transition-filter;
-		will-change+: filter;
+		will-change+: box-shadow;
 
 		@bg();
 		@shadow();
@@ -80,7 +80,7 @@
 	opacity: 1;
 	.sand-bg-colors({
 		background-color: @sand-spotlight-bg-color;
-		filter+: drop-shadow(@sand-spotlight-focus-shadow);
+		box-shadow: @sand-spotlight-focus-shadow;
 		@bg();
 		@shadow();
 	});
@@ -156,7 +156,7 @@
 .sand-button-resting-bg-colors (@bg: {}, @shadow: {}) {
 	.sand-spotlight-resting-bg-colors(@opacity: 0, @bg: {
 		.sand-button-resting-bg-color();
-		will-change+: transform;
+		will-change+: transform, filter;
 		transition+: transform @sand-button-focus-duration ease-out;
 		@bg();
 	}, @shadow);

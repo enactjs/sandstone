@@ -514,14 +514,14 @@ const InputBase = kind({
 		buttonAriaLabel: ({placeholder, type, value}) => {
 			if (value || value === 0) {
 				type = isPasswordType(type) ? 'password' : type;
-				return calcAriaLabel('', type, type === 'number' ? value.split('') : value);
+				return calcAriaLabel('', type, type === 'number' ? value.toString().split('') : value.toString());
 			}
 
 			return calcAriaLabel('', null, placeholder);
 		},
 		buttonLabel: ({placeholder, type, value}) => {
 			if (value || value === 0) {
-				return isPasswordType(type) ? convertToPasswordFormat(value) : value.toString();
+				return isPasswordType(type) ? convertToPasswordFormat(value.toString()) : value.toString();
 			} else {
 				return placeholder;
 			}
