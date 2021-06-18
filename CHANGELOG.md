@@ -2,7 +2,7 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.0.0-rc.1] - 2021-06-18
 
 ### Added
 
@@ -60,7 +60,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to move focus properly via page key
 - `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
 - horizontal `sandstone/VirtualList` to align items well when navigating with 5-way
-- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
+- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
 
 ## [2.0.0-alpha.3] - 2021-03-31
 
