@@ -301,64 +301,61 @@ SnapToCenterVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-class VirtualGridListInScroller extends Component {
-	renderItem = ({index, ...rest}) => {
-		const
-			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = {
-				'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${index}`,
-				'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
-				'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${index}`
-			},
-			text = `Item ${index}`;
+// eslint-disable-next-line enact/prop-types
+const renderItemWithRandomSrc = ({index, ...rest}) => {
+	const
+		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
+		source = {
+			'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${index}`,
+			'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
+			'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${index}`
+		},
+		text = `Item ${index}`;
 
-		return (
-			<ImageItem {...rest} label={text} onClick={this.props.onNext} src={source} />
-		);
+	return (
+		<ImageItem {...rest} label={text} src={source} />
+	);
+};
+
+const VirtualGridListInScroller = ({onNext, ...rest}) => {
+	const virtualGridListProps = {
+		dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
+		direction: 'horizontal',
+		itemRenderer: renderItemWithRandomSrc,
+		itemSize: {
+			minWidth: ri.scale(number('minWidth', Config, 688)),
+			minHeight: ri.scale(number('minHeight', Config, 570))
+		},
+		spacing: ri.scale(number('spacing', Config, 0)),
+		style: {
+			height: ri.scale(number('minHeight', Config, 570)),
+			paddingBottom: ri.scaleToRem(36)
+		}
 	};
 
-	render () {
-		const props = Object.assign({}, this.props);
-		delete props.onNext;
+	const virtualGridLists = [];
 
-		const virtualGridListProps = {
-			dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
-			direction: 'horizontal',
-			itemRenderer: this.renderItem,
-			itemSize: {
-				minWidth: ri.scale(number('minWidth', Config, 688)),
-				minHeight: ri.scale(number('minHeight', Config, 570))
-			},
-			spacing: ri.scale(number('spacing', Config, 0)),
-			style: {
-				height: ri.scale(number('minHeight', Config, 570)),
-				paddingBottom: ri.scaleToRem(36)
-			}
-		};
+	for (let i = 0; i < 4; i++) {
+		const id = `vgl_${i}`;
 
-		const virtualGridLists = [];
-
-		for (let i = 0; i < 4; i++) {
-			const id = `vgl_${i}`;
-
-			virtualGridLists.push(
-				<VirtualGridList
-					{...props}
-					{...virtualGridListProps}
-					id={id}
-					key={id}
-					spotlightId={id}
-				/>
-			);
-		}
-
-		return (
-			<Scroller>
-				{virtualGridLists}
-			</Scroller>
+		virtualGridLists.push(
+			<VirtualGridList
+				{...rest}
+				{...virtualGridListProps}
+				childProps={{onClick: onNext}}
+				id={id}
+				key={id}
+				spotlightId={id}
+			/>
 		);
 	}
-}
+
+	return (
+		<Scroller>
+			{virtualGridLists}
+		</Scroller>
+	);
+};
 
 VirtualGridListInScroller.propTypes = {
 	onNext: PropTypes.func
