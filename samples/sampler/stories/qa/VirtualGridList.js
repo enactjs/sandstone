@@ -301,27 +301,13 @@ SnapToCenterVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-// eslint-disable-next-line enact/prop-types
-const renderItemWithRandomSrc = ({index, ...rest}) => {
-	const
-		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-		source = {
-			'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${index}`,
-			'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
-			'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${index}`
-		},
-		text = `Item ${index}`;
-
-	return (
-		<ImageItem {...rest} label={text} src={source} />
-	);
-};
-
 const VirtualGridListInScroller = ({onNext, ...rest}) => {
 	const virtualGridListProps = {
+		...rest,
+		childProps: {onClick: onNext},
 		dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
 		direction: 'horizontal',
-		itemRenderer: renderItemWithRandomSrc,
+		itemRenderer: renderItem,
 		itemSize: {
 			minWidth: ri.scale(number('minWidth', Config, 688)),
 			minHeight: ri.scale(number('minHeight', Config, 570))
@@ -340,9 +326,7 @@ const VirtualGridListInScroller = ({onNext, ...rest}) => {
 
 		virtualGridLists.push(
 			<VirtualGridList
-				{...rest}
 				{...virtualGridListProps}
-				childProps={{onClick: onNext}}
 				id={id}
 				key={id}
 				spotlightId={id}
