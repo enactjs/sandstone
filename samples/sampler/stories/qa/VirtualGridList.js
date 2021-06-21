@@ -332,7 +332,7 @@ class VirtualGridListInScroller extends Component {
 			spacing: ri.scale(number('spacing', Config, 0)),
 			style: {
 				height: ri.scale(number('minHeight', Config, 570)),
-				paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')
+				paddingBottom: ri.scaleToRem(36)
 			}
 		};
 
@@ -400,4 +400,4 @@ class VirtualGridListInScrollerSamples extends Component {
 
 export const RestoreFocusInScroller = () => <VirtualGridListInScrollerSamples />;
 
-RestoreFocusInScroller.storyName = 'VirtualGridList in Scroller restore focus';
+RestoreFocusInScroller.storyName = 'in Scroller with restoring focus';
