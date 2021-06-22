@@ -59,22 +59,15 @@ const HoverToScrollBase = (props) => {
 
 	// Hooks
 
-	const [isActive, setIsActive] = useState(false);
+	const [isActive, setIsActive] = useState();
 
 	useLayoutEffect(() => {
 		if (scrollHandle) {
-			const {
-				[getBoundsPropertyNames(direction).canScroll]: canScroll,
-				getScrollBounds
-			} = scrollHandle;
-			const bounds = getScrollBounds && getScrollBounds() || null;
-			const isActiveCurrently = bounds && canScroll(bounds);
-
-			if (isActiveCurrently !== isActive) {
-				setIsActive(isActiveCurrently);
-			}
+			const {[getBoundsPropertyNames(direction).canScroll]: canScroll, getScrollBounds} = scrollHandle;
+			const isActiveCurrently = canScroll && getScrollBounds ? canScroll(getScrollBounds()) : null;
+			setIsActive(isActiveCurrently);
 		}
-	});
+	}, [direction, isActive, scrollHandle]);
 
 	// Functions
 
