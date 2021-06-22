@@ -4,12 +4,23 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/Picker` to not marquee text value when title is added
+
+## [2.0.0-rc.1] - 2021-06-18
+
 ### Added
 
 - `sandstone/Picker` props `reverse` and `type` to support for number list
+- `sandstone/Picker` and `sandstone/RangePicker` public class names `title` and `inlineTitle`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `hoverToScroll` to scroll by hover
+- `sandstone/VirtualList` prop `snapToCenter`
 
 ### Changed
 
+- Shadow effect to using box-shadow instead of drop-shadow for performance on embedded environment
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to disable left key handler to go to the previous panel in RTL locales
 - `sandstone/MediaPlayer.MediaControls` to show more components when a user flicks on action guide
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
 - `sandstone/Slider` to interact by wheel
@@ -19,9 +30,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` to keep focus inside of popup when pressing 5-way after click
 - `sandstone/InputField` cursor not to jump unexpectedly when mouse down
 - `sandstone/MediaPlayer` to show `MediaControls` via wheel properly when isomorphic build
-- `sandstone/Picker` to not marquee text value when title is added
+- `sandstone/Panels.Header` to not overlap subtitle and children when header type is `mini`
 - `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
 - `sandstone/PopupTabLayout` to move focus via 5-way left in the header
+- `sandstone/Scroller` to scroll correctly on Chrome 85 or higher in RTL locales via 5way
 
 ## [2.0.0-beta.1] - 2021-05-21
 
@@ -54,7 +66,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to move focus properly via page key
 - `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
 - horizontal `sandstone/VirtualList` to align items well when navigating with 5-way
-- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
+- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
 
 ## [2.0.0-alpha.3] - 2021-03-31
 

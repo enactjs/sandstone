@@ -24,7 +24,7 @@ import PickerCore, {PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 import {MarqueeController} from '../Marquee';
 
-import pickerTitleCss from '../internal/Picker/PickerTitle.module.less';
+import componentCss from './Picker.module.less';
 
 const MarqueePicker = MarqueeController(
 	{marqueeOnFocus: true},
@@ -64,6 +64,20 @@ const PickerBase = kind({
 		 * @public
 		 */
 		'aria-valuetext': PropTypes.string,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `title` - The title component class
+		 * * `inlineTitle` - The title component class when `inlineTitle` is true
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * The voice control labels for the `children`.
@@ -257,6 +271,11 @@ const PickerBase = kind({
 		value: 0
 	},
 
+	styles: {
+		css: componentCss,
+		publicClassNames: ['inlineTitle', 'title']
+	},
+
 	computed: {
 		max: ({children}) => children && children.length ? children.length - 1 : 0,
 		reverse: ({orientation, reverse}) => (typeof reverse === 'boolean' ? reverse : orientation === 'vertical'),
@@ -292,12 +311,11 @@ const PickerBase = kind({
 		}
 	},
 
-	render: ({children, inlineTitle, max, title, value, voiceLabel, ...rest}) => {
+	render: ({children, css, inlineTitle, max, title, value, voiceLabel, ...rest}) => {
 		delete rest.marqueeDisabled;
-
 		return (
 			<>
-				{title ? <Heading className={classnames(pickerTitleCss.title, {[pickerTitleCss.inline]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} size="tiny">{title}</Heading> : null}
 				<MarqueePicker {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
 					{children}
 				</MarqueePicker>
