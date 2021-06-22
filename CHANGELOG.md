@@ -7,7 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Picker` value to not marquee when changing `title`
-- `sandstone/Scroller` and `sandstone/VirtualList` to scroll by hover when there is no scrollbar
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll by hover when scrollbar is hidden
 
 ## [2.0.0-rc.1] - 2021-06-18
 

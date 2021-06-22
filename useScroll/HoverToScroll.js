@@ -47,7 +47,7 @@ const directionToFocus = {
  * @private
  */
 const HoverToScrollBase = (props) => {
-	const {direction, scrollContainerHandle: {current: scrollHandle = null} = {}} = props;
+	const {direction, scrollContainerHandle: {current: scrollContainer = null} = {}} = props;
 
 	// Mutable value
 
@@ -59,22 +59,21 @@ const HoverToScrollBase = (props) => {
 
 	// Hooks
 
-	const [isActive, setIsActive] = useState();
+	const [enable, setEnable] = useState();
 
 	useLayoutEffect(() => {
-		if (scrollHandle) {
-			const {[getBoundsPropertyNames(direction).canScroll]: canScroll, getScrollBounds} = scrollHandle;
-			const isActiveCurrently = canScroll && getScrollBounds ? canScroll(getScrollBounds()) : null;
-			setIsActive(isActiveCurrently);
+		if (scrollContainer) {
+			const {[getBoundsPropertyNames(direction).canScroll]: canScroll, getScrollBounds} = scrollContainer;
+			setEnable(canScroll && getScrollBounds ? canScroll(getScrollBounds()) : null);
 		}
-	}, [direction, isActive, scrollHandle]);
+	}, [direction, enable, scrollContainer]);
 
 	// Functions
 
 	const handleGlobalKeyDown = useCallback(({keyCode}) => {
 		let position = mutableRef.current.hoveredPosition;
 
-		if (scrollHandle.rtl && direction === 'horizontal') {
+		if (scrollContainer.rtl && direction === 'horizontal') {
 			position = position === 'after' ? 'before' : 'after';
 		}
 
@@ -83,9 +82,9 @@ const HoverToScrollBase = (props) => {
 				directionToFocus[direction][position],
 				getLastPointerPosition()
 			);
-			scrollHandle.stop();
+			scrollContainer.stop();
 		}
-	}, [direction, scrollHandle]);
+	}, [direction, scrollContainer]);
 
 	const startRaf = useCallback((job) => {
 		if (typeof window === 'object') {
@@ -109,7 +108,7 @@ const HoverToScrollBase = (props) => {
 	const getPointerEnterHandler = useCallback((position) => {
 		if (typeof window === 'object') {
 			const {axis, clientSize, maxPosition, scrollPosition} = getBoundsPropertyNames(direction);
-			const bounds = scrollHandle.getScrollBounds();
+			const bounds = scrollContainer.getScrollBounds();
 			const distance =
 				(position === 'before' ? -1 : 1) * // scroll direction
 				bounds[clientSize] * // scroll page size
@@ -120,12 +119,12 @@ const HoverToScrollBase = (props) => {
 					mutableRef.current.hoveredPosition = position;
 					const scrollByHover = () => {
 						if (getLastInputType() === 'mouse') {
-							scrollHandle.scrollTo({
+							scrollContainer.scrollTo({
 								position: {
 									[axis]: clamp(
 										0,
 										bounds[maxPosition],
-										scrollHandle[scrollPosition] + distance
+										scrollContainer[scrollPosition] + distance
 									)
 								},
 								animate: false
@@ -141,7 +140,7 @@ const HoverToScrollBase = (props) => {
 		} else {
 			return nop;
 		}
-	}, [direction, scrollHandle, startRaf, stopRaf]);
+	}, [direction, scrollContainer, startRaf, stopRaf]);
 
 	// Hooks
 
@@ -164,7 +163,7 @@ const HoverToScrollBase = (props) => {
 		);
 	}, [direction, getPointerEnterHandler, stopRaf]);
 
-	return (isActive ? (
+	return (enable ? (
 		<>
 			{renderHoverArea('before')}
 			{renderHoverArea('after')}
