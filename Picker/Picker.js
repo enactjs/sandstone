@@ -310,7 +310,7 @@ const PickerBase = kind({
 		delete rest.marqueeDisabled;
 		return (
 			<>
-				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} size="tiny">{title}</Heading> : null}
+				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} marqueeOn="hover" size="tiny">{title}</Heading> : null}
 				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
 					{children}
 				</PickerCore>
