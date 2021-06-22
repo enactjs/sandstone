@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Picker` value to not marquee when changing `title`
+
 ## [2.0.0-rc.1] - 2021-06-18
 
 ### Added
