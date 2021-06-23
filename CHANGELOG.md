@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Picker` and `sandstone/RangePicker` public class names `title` and `inlineTitle`
 - `sandstone/Scroller` and `sandstone/VirtualList` prop `hoverToScroll` to scroll by hover
 - `sandstone/VirtualList` prop `snapToCenter`
-- `sandstone/Input` spotlightId in `InputField` to support VKB reopen
+- `sandstone/Input` prop `inputFieldSpotlightId` to set `spotlightId` in `InputField`
 
 ### Changed
 
