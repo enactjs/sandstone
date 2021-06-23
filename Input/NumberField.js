@@ -31,6 +31,7 @@ const NumberCell = kind({
 		active: PropTypes.bool,
 		children: PropTypes.string,
 		disabled: PropTypes.bool,
+		noSubmitButton: PropTypes.bool,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
 	},
@@ -152,10 +153,10 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, disabled, invalid, maxLength, minLength, onSubmit, value, numberInputField}) => {
+		submitButton: ({css, disabled, invalid, maxLength, minLength, noSubmitButton, onSubmit, value, numberInputField}) => {
 			const isDisabled = disabled || invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
-			if (minLength !== maxLength || !getSeparated(numberInputField, maxLength)) {
+			if (!noSubmitButton && (minLength !== maxLength || !getSeparated(numberInputField, maxLength))) {
 				return <Button className={css.submitButton} disabled={isDisabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
