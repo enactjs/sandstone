@@ -74,7 +74,7 @@ const InputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * Set spotlightId in InputField
+		 * Set spotlightId to InputField.
 		 *
 		 * @type {String}
 		 * @public
