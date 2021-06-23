@@ -74,6 +74,14 @@ const InputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
+		 * Sets spotlightId to InputField.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		inputFieldSpotlightId: PropTypes.string,
+
+		/**
 		 * Indicates [value]{@link sandstone/Input.InputPopupBase.value} is invalid and shows
 		 * [invalidMessage]{@link sandstone/Input.InputPopupBase.invalidMessage}, if set.
 		 *
@@ -334,6 +342,7 @@ const InputPopupBase = kind({
 		backButtonAriaLabel,
 		children,
 		css,
+		inputFieldSpotlightId,
 		noBackButton,
 		numberInputField,
 		onBeforeChange,
@@ -425,6 +434,7 @@ const InputPopupBase = kind({
 								placeholder={placeholder}
 								onBeforeChange={onBeforeChange}
 								onKeyDown={onInputKeyDown}
+								spotlightId={inputFieldSpotlightId}
 							/>
 						}
 					</Cell>
