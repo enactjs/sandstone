@@ -19,7 +19,7 @@ spotlight.setPointerMode(false);
 const items = [],
 	itemStyle = {margin: 0};
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
+// eslint-disable-next-line enact/display-name
 const renderItem = (ItemComponent, size) => ({index, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
 

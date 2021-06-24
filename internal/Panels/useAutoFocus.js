@@ -2,7 +2,6 @@ import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
 import Spotlight from '@enact/spotlight';
-import {getTargetByContainer} from '@enact/spotlight/src/target';
 import PropTypes from 'prop-types';
 import {useRef, useCallback} from 'react';
 
@@ -43,11 +42,7 @@ function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 			// within the panel using a (currently) private Spotlight API with the enterTo parameter
 			// to influence which configuration is used to find said target.
 			const enterTo = isSelector(autoFocus) || autoFocus === 'default-element' ? 'default-element' : 'last-focused';
-			const target = getTargetByContainer(spotlightId, enterTo);
-
-			if (target) {
-				Spotlight.focus(target);
-			}
+			Spotlight.focus(spotlightId, {enterTo});
 		}
 	}, [autoFocus, hideChildren, ref]);
 }
