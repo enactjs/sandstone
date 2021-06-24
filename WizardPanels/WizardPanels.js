@@ -11,7 +11,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext, useState, useCallback, Children} from 'react';
+import {useEffect, useRef, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
@@ -444,18 +444,24 @@ const WizardPanelsBase = kind({
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
 function useReverseTransition (index = -1, rtl) {
-	const [prevIndex, setPrevIndex] = useState(-1);
-	let [reverse, setReverse] = useState(rtl);
+	const prevIndex = useRef(index);
+	let reverse = rtl;
 
-	if (prevIndex !== index) {
-		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
-		setReverse(reverse);
-		setPrevIndex(index);
+	if (prevIndex.current !== index) {
+		reverse = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
+		prevIndex.current = index;
 	}
 
 	return reverse;
 }
 
+function useIndexChanged (index = -1) {
+	const prevIndex = useRef(-1);
+	const changed = (prevIndex.current !== index)
+	prevIndex.current = index;
+
+	return changed;
+}
 /**
  * WizardPanelsRouter passes the children, footer, subtitle, and title from
  * [WizardPanel]{@link sandstone/WizardPanels.Panel} to
@@ -498,29 +504,49 @@ const WizardPanelsRouter = (Wrapped) => {
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
+		const changedIndex = useIndexChanged(index);
+		if (changedIndex) {
+			const {
+				'aria-label': ariaLabel,
+				children: panelChildren,
+				footer,
+				nextButton,
+				prevButton,
+				subtitle,
+				title: panelTitle
+			} = children[index].props;
+
+			setPanel({
+				'aria-label': ariaLabel,
+				children: panelChildren,
+				footer,
+				nextButton,
+				prevButton,
+				subtitle,
+				title: panelTitle
+			});
+		}
+
 		return (
-			<WizardPanelsContext.Provider value={setPanel}>
-				{Children.toArray(children)[index]}
-				<Wrapped
-					{...rest}
-					{...panel}
-					{...transition}
-					componentRef={ref}
-					data-spotlight-id={spotlightId}
-					index={index}
-					noAnimation={noAnimation}
-					onWillTransition={handleWillTransition}
-					title={currentTitle}
-					totalPanels={totalPanels}
-					reverseTransition={reverseTransition}
-				>
-					{panel && panel.children ? (
-						<div className="enact-fit" key={`panel${index}`}>
-							{panel.children}
-						</div>
-					) : null}
-				</Wrapped>
-			</WizardPanelsContext.Provider>
+			<Wrapped
+				{...rest}
+				{...panel}
+				{...transition}
+				componentRef={ref}
+				data-spotlight-id={spotlightId}
+				index={index}
+				noAnimation={noAnimation}
+				onWillTransition={handleWillTransition}
+				title={currentTitle}
+				totalPanels={totalPanels}
+				reverseTransition={reverseTransition}
+			>
+				{panel && panel.children ? (
+					<div className="enact-fit" key={`panel${index}`}>
+						{panel.children}
+					</div>
+				) : null}
+			</Wrapped>
 		);
 	};
 
@@ -655,6 +681,5 @@ export default WizardPanels;
 export {
 	WizardPanels,
 	WizardPanelsBase,
-	WizardPanelsContext,
 	WizardPanelsDecorator
 };
