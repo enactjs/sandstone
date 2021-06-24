@@ -370,7 +370,6 @@ const useThemeVirtualList = (props) => {
 
 	props.setThemeScrollContentHandle(handle);
 
-
 	function getAffordance () {
 		// To add space for the last item margin bottom
 		return props.noAffordance ? 0 : ri.scale(30);
