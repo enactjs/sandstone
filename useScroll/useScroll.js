@@ -408,7 +408,7 @@ const useScroll = (props) => {
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 		scrollContentWrapper,
-		scrollWatcher
+		scrollObserver
 	} = useScrollBase({
 		...rest,
 		...scrollProps,
@@ -486,7 +486,7 @@ const useScroll = (props) => {
 
 	assignProperties('hoverToScrollProps', {
 		scrollContainerHandle,
-		scrollWatcher
+		scrollObserver
 	});
 
 	return {

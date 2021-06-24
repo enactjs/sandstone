@@ -52,7 +52,7 @@ const HoverToScrollBase = (props) => {
 	const {
 		direction,
 		scrollContainerHandle: {current = null} = {},
-		scrollWatcher: {addWatcherOnScroll = nop, removeWatcherOnScroll = nop} = {}
+		scrollObserver: {addObserverOnScroll = nop, removeObserverOnScroll = nop} = {}
 	} = props;
 
 	// Mutable value
@@ -172,11 +172,11 @@ const HoverToScrollBase = (props) => {
 	// Hooks
 
 	useLayoutEffect(() => {
-		addWatcherOnScroll(activate);
+		addObserverOnScroll(activate);
 		return () => {
-			removeWatcherOnScroll(activate);
+			removeObserverOnScroll(activate);
 		};
-	}, [activate, addWatcherOnScroll, removeWatcherOnScroll]);
+	}, [activate, addObserverOnScroll, removeObserverOnScroll]);
 
 	useLayoutEffect(() => {
 		const scrollContainer = mutableRef.current.scrollContainer;
