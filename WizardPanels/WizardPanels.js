@@ -25,7 +25,6 @@ import useToggleRole from './useToggleRole';
 
 import css from './WizardPanels.module.less';
 
-const WizardPanelsContext = createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 const HeaderContainer = SpotlightContainerDecorator(Header);
 
