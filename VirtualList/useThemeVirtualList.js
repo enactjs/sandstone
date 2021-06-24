@@ -235,6 +235,7 @@ const useSpottable = (props, instances) => {
 			} else {
 				returnVal = focusOnNode(itemNode);
 			}
+
 			mutableRef.current.isScrolledBy5way = false;
 			mutableRef.current.isScrolledByJump = false;
 			if (!waiting) {
@@ -302,6 +303,10 @@ const useSpottable = (props, instances) => {
 		mutableRef.current.lastFocusedIndex = node.dataset && getNumberValue(node.dataset.index);
 	}
 
+	function resetSnapToCenterStatus() {
+		mutableRef.current.isScrollingBySnapToCenter = false;
+	}
+
 	function getScrollBounds () {
 		return scrollContentHandle.current.getScrollBounds();
 	}
@@ -316,6 +321,7 @@ const useSpottable = (props, instances) => {
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
 		pauseSpotlight,
+		resetSnapToCenterStatus,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
@@ -339,6 +345,7 @@ const useThemeVirtualList = (props) => {
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
 		pauseSpotlight,
+		resetSnapToCenterStatus,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
@@ -354,6 +361,7 @@ const useThemeVirtualList = (props) => {
 		focusOnNode,
 		getScrollBounds,
 		pauseSpotlight,
+		resetSnapToCenterStatus,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,

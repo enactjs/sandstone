@@ -113,6 +113,9 @@ const useEventFocus = (props, instances) => {
 				spottable.current.animateOnFocus = false;
 			}
 		}
+		if (themeScrollContentHandle.current.resetSnapToCenterStatus) {
+			themeScrollContentHandle.current.resetSnapToCenterStatus();
+		}
 
 		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging || spottable.current.indexToFocus)) {
 			const
