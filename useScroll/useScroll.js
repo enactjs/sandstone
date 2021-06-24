@@ -301,6 +301,7 @@ const useScroll = (props) => {
 			horizontalScrollThumbAriaLabel,
 			noAffordance,
 			scrollMode,
+			snapToCenter,
 			style,
 			verticalScrollThumbAriaLabel,
 			...rest
@@ -429,6 +430,7 @@ const useScroll = (props) => {
 		scrollContentHandle,
 		scrollContentRef,
 		scrollContainerRef,
+		snapToCenter,
 		spotlightContainerDisabled,
 		verticalScrollbarHandle
 	});
@@ -451,7 +453,7 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
+		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {fadeOut}),
 		className: [
 			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
@@ -465,6 +467,14 @@ const useScroll = (props) => {
 		scrollContentRef
 	});
 
+	assignProperties('horizontalScrollbarProps', {
+		...scrollbarProps,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
+		className: [css.horizontalScrollbar],
+		focusableScrollbar,
+		scrollbarHandle: horizontalScrollbarHandle
+	});
+
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
 		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
@@ -473,12 +483,8 @@ const useScroll = (props) => {
 		scrollbarHandle: verticalScrollbarHandle
 	});
 
-	assignProperties('horizontalScrollbarProps', {
-		...scrollbarProps,
-		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
-		className: [css.horizontalScrollbar],
-		focusableScrollbar,
-		scrollbarHandle: horizontalScrollbarHandle
+	assignProperties('hoverToScrollProps', {
+		scrollContainerHandle
 	});
 
 	return {

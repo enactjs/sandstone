@@ -28,6 +28,16 @@ const PanelsTests = [
 		component: <Panels index={2}>{PanelComponents}</Panels>,
 		wrapper: {full: true}
 	},
+	{
+		title: 'with header and no close button',
+		component: <Panels index={1} noCloseButton>{PanelComponents}</Panels>,
+		wrapper: {full: true}
+	},
+	{
+		title: 'with header and no back button',
+		component: <Panels index={1} noBackButton>{PanelComponents}</Panels>,
+		wrapper: {full: true}
+	},
 	// RTL
 	{
 		locale: 'ar-SA',
@@ -51,6 +61,18 @@ const PanelsTests = [
 		locale: 'ar-SA',
 		title: 'locale = ar-SA, with standard Panel Components index 2',
 		component: <Panels index={2}>{PanelComponents}</Panels>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		title: 'locale = ar-SA, with header and no close button',
+		component: <Panels index={1} noCloseButton>{PanelComponents}</Panels>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		title: 'locale = ar-SA,,with header and no back button',
+		component: <Panels index={1} noBackButton>{PanelComponents}</Panels>,
 		wrapper: {full: true}
 	}
 ];
