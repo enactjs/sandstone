@@ -303,7 +303,7 @@ const useSpottable = (props, instances) => {
 		mutableRef.current.lastFocusedIndex = node.dataset && getNumberValue(node.dataset.index);
 	}
 
-	function resetSnapToCenterStatus() {
+	function resetSnapToCenterStatus () {
 		mutableRef.current.isScrollingBySnapToCenter = false;
 	}
 

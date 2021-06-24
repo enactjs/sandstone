@@ -113,9 +113,6 @@ const useEventFocus = (props, instances) => {
 				spottable.current.animateOnFocus = false;
 			}
 		}
-		if (themeScrollContentHandle.current.resetSnapToCenterStatus) {
-			themeScrollContentHandle.current.resetSnapToCenterStatus();
-		}
 
 		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging || spottable.current.indexToFocus)) {
 			const
@@ -690,6 +687,10 @@ const useEventWheel = (props, instances) => {
 							// Save the target to reset the style
 							scrollContentHandle.current.scaledTarget = target;
 						}
+					}
+
+					if (themeScrollContentHandle.current.resetSnapToCenterStatus) {
+						themeScrollContentHandle.current.resetSnapToCenterStatus();
 					}
 
 					scrollContainerHandle.current.scrollTo({
