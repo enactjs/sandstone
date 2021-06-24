@@ -176,6 +176,7 @@ const NumberFieldBase = kind({
 		delete rest.invalid;
 		delete rest.invalidMessage;
 		delete rest.minLength;
+		delete rest.noSubmitButton;
 		delete rest.onBeforeChange;
 		delete rest.onComplete;
 		delete rest.onSubmit;
