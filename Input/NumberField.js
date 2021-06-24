@@ -31,7 +31,6 @@ const NumberCell = kind({
 		active: PropTypes.bool,
 		children: PropTypes.string,
 		disabled: PropTypes.bool,
-		noSubmitButton: PropTypes.bool,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
 	},
@@ -75,6 +74,7 @@ const NumberFieldBase = kind({
 		invalidMessage: PropTypes.string,
 		maxLength: PropTypes.number,
 		minLength: PropTypes.number,
+		noSubmitButton: PropTypes.bool,
 		numberInputField: PropTypes.string,
 		onBeforeChange: PropTypes.func,
 		onComplete: PropTypes.func,
