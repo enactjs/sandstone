@@ -1,4 +1,7 @@
 import Slottable from '@enact/ui/Slottable';
+import {useContext, useEffect} from 'react';
+
+import {WizardPanelsContext} from './WizardPanels';
 
 /**
  * Panel that sets the children, footer, subtitle, and title for
@@ -9,7 +12,39 @@ import Slottable from '@enact/ui/Slottable';
  * @ui
  * @private
  */
-function PanelBase () {
+function PanelBase ({
+	'aria-label': ariaLabel,
+	children,
+	footer,
+	nextButton,
+	prevButton,
+	subtitle,
+	title
+}) {
+	const set = useContext(WizardPanelsContext);
+
+	useEffect(() => {
+		if (set) {
+			set({
+				'aria-label': ariaLabel,
+				children,
+				footer,
+				nextButton,
+				prevButton,
+				subtitle,
+				title
+			});
+		}
+	}, [
+		ariaLabel,
+		children,
+		footer,
+		nextButton,
+		prevButton,
+		subtitle,
+		set,
+		title
+	]);
 	return null;
 }
 

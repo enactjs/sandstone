@@ -11,7 +11,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useEffect, useRef, useState, useCallback, Children} from 'react';
+import {createContext, useEffect, useRef, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
@@ -25,6 +25,7 @@ import useToggleRole from './useToggleRole';
 
 import css from './WizardPanels.module.less';
 
+const WizardPanelsContext = createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 const HeaderContainer = SpotlightContainerDecorator(Header);
 
@@ -504,48 +505,30 @@ const WizardPanelsRouter = (Wrapped) => {
 		delete rest.onBack;
 
 		const changedIndex = useIndexChanged(index);
-		if (changedIndex) {
-			const {
-				'aria-label': ariaLabel,
-				children: panelChildren,
-				footer,
-				nextButton,
-				prevButton,
-				subtitle,
-				title: panelTitle
-			} = children[index].props;
-
-			setPanel({
-				'aria-label': ariaLabel,
-				children: panelChildren,
-				footer,
-				nextButton,
-				prevButton,
-				subtitle,
-				title: panelTitle
-			});
-		}
 
 		return (
-			<Wrapped
-				{...rest}
-				{...panel}
-				{...transition}
-				componentRef={ref}
-				data-spotlight-id={spotlightId}
-				index={index}
-				noAnimation={noAnimation}
-				onWillTransition={handleWillTransition}
-				title={currentTitle}
-				totalPanels={totalPanels}
-				reverseTransition={reverseTransition}
-			>
-				{panel && panel.children ? (
-					<div className="enact-fit" key={`panel${index}`}>
-						{panel.children}
-					</div>
-				) : null}
-			</Wrapped>
+			<WizardPanelsContext.Provider value={setPanel}>
+				{Children.toArray(children)[index]}
+				<Wrapped
+					{...rest}
+					{...panel}
+					{...transition}
+					componentRef={ref}
+					data-spotlight-id={spotlightId}
+					index={index}
+					noAnimation={noAnimation}
+					onWillTransition={handleWillTransition}
+					title={currentTitle}
+					totalPanels={totalPanels}
+					reverseTransition={reverseTransition}
+				>
+					{panel && panel.children && (!noAnimation || !changedIndex) ? (
+						<div className="enact-fit" key={`panel${index}`}>
+							{panel.children}
+						</div>
+					) : null}
+				</Wrapped>
+			</WizardPanelsContext.Provider>
 		);
 	};
 
@@ -680,5 +663,6 @@ export default WizardPanels;
 export {
 	WizardPanels,
 	WizardPanelsBase,
+	WizardPanelsContext,
 	WizardPanelsDecorator
 };
