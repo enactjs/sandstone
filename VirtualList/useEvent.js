@@ -6,8 +6,6 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
 import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
 
-import ImageItemCss from '../ImageItem/ImageItem.module.less';
-
 const
 	isDown = is('down'),
 	isEnter = is('enter'),
