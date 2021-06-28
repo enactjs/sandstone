@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Input` prop `noSubmitButton` to omit submit button of number key pad
+
 ## [1.4.4-experimental-9] - 2021-11-25
 
 - The distribution 1.4.4-experimental-8 was broken due to changes in the dependencies
