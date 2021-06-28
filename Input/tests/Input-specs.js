@@ -1,4 +1,3 @@
-import React from 'react';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import {mount} from 'enzyme';
 
@@ -87,6 +86,19 @@ describe('Input specs', () => {
 		);
 
 		const expected = 'password';
+		const actual = subject.find('input').prop('type');
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should set type to url at input when input type is "url"', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input open type="url" />
+			</FloatingLayerController>
+		);
+
+		const expected = 'url';
 		const actual = subject.find('input').prop('type');
 
 		expect(actual).toBe(expected);
@@ -432,6 +444,19 @@ describe('Input specs', () => {
 
 		const expected = 1;
 		const actual = spy.mock.calls.length;
+		expect(actual).toBe(expected);
+	});
+
+	test('should not include a submit button when noSubmitButton is used', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" length={4} open numberInputField="joined" noSubmitButton />
+			</FloatingLayerController>
+		);
+
+		const expected = 0;
+		const actual = subject.find('.submitButton').first().length;
+
 		expect(actual).toBe(expected);
 	});
 });

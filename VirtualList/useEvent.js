@@ -4,7 +4,9 @@ import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
+
+import ImageItemCss from '../ImageItem/ImageItem.module.less';
 
 const
 	isDown = is('down'),
@@ -239,20 +241,24 @@ const useEventKey = (props, instances, context) => {
 const useEventFocus = (props, instances) => {
 	const {scrollContainerRef, scrollContentHandle} = instances;
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		function handleFocus (ev) {
 			// only for VirtualGridList
 			// To make the focused item cover other near items
 			// We need to find out the general solution for multiple spottable inside of one item
-			if (ev.target && scrollContentHandle.current.isItemSized) {
+			if (ev.target && scrollContentHandle.current && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', 1);
+				if (scrollContentHandle.current.scaledTarget) {
+					scrollContentHandle.current.scaledTarget.classList.remove(ImageItemCss.scaled);
+					scrollContentHandle.current.scaledTarget = null;
+				}
 			}
 		}
 
 		function handleBlur (ev) {
 			// only for VirtualGridList
 			// To make the blurred item normal
-			if (ev.target && scrollContentHandle.current.isItemSized) {
+			if (ev.target && scrollContentHandle.current && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', null);
 			}
 		}

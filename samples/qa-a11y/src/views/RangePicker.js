@@ -1,6 +1,5 @@
 import RangePicker from '@enact/sandstone/RangePicker';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import React from 'react';
 
 import Section from '../components/Section';
 
@@ -59,7 +58,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} horizontal title="Vertical">
 			<RangePicker
 				alt="Vertical"
 				defaultValue={0}
@@ -162,7 +161,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} horizontal title="Vertical">
 			<RangePicker
 				alt="Vertical"
 				decrementAriaLabel="This is a Label 9."
@@ -270,7 +269,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} horizontal title="Vertical">
 			<RangePicker
 				alt="Vertical"
 				aria-label="This is a Label 21."

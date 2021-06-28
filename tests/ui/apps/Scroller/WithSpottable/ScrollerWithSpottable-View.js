@@ -1,6 +1,6 @@
 import spotlight from '@enact/spotlight';
 import {Row, Column, Cell} from '@enact/ui/Layout';
-import React from 'react';
+import {Component} from 'react';
 
 import {Button} from '../../../../../Button';
 import {Panel, Header} from '../../../../../Panels';
@@ -27,7 +27,7 @@ const Page = ({children, ...rest}) => (
 	</div>
 );
 
-class app extends React.Component {
+class app extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -40,7 +40,7 @@ class app extends React.Component {
 
 	render () {
 		return (
-			<Panel className="enact-fit" {...this.props}>
+			<Panel className="enact-fit" style={{position: 'absolute'}} {...this.props}>
 				<Header title="Header" />
 				<Scroller>
 					<Page>

@@ -6,7 +6,6 @@ import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
@@ -105,10 +104,10 @@ const InputFieldBase = kind({
 		 * The tooltip text to be displayed when the input is
 		 * [invalid]{@link sandstone/Input.InputFieldBase.invalid}.
 		 *
-		 * If this value is *falsy*, the tooltip will not be shown.
+		 * If this value is *falsy*, the tooltip will be shown with the default message.
 		 *
 		 * @type {String}
-		 * @default ''
+		 * @default 'Please enter a valid value.'
 		 * @public
 		 */
 		invalidMessage: PropTypes.string,

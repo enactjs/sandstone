@@ -62,7 +62,7 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 };
 
 const useThemeScroll = (props, instances) => {
-	const {scrollMode} = props;
+	const {scrollbarTrackCss, scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const contextSharedState = useContext(SharedState);
 
@@ -106,7 +106,9 @@ const useThemeScroll = (props, instances) => {
 	} = useEventVoice(props, instances);
 
 	const scrollbarProps = {
-		onInteractionForScroll
+		cbAlertScrollbarTrack: alertScrollbarTrack,
+		onInteractionForScroll,
+		scrollbarTrackCss
 	};
 
 	// Functions
@@ -161,6 +163,12 @@ const useThemeScroll = (props, instances) => {
 		}
 
 		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * distance, isVerticalScrollBar, props.overscrollEffectOn[inputType]);
+	}
+
+	function alertScrollbarTrack () {
+		const bounds = scrollContainerHandle.current.getScrollBounds();
+		scrollContainerHandle.current.showScrollbarTrack(bounds);
+		scrollContainerHandle.current.startHidingScrollbarTrack();
 	}
 
 	function focusOnItem () {
@@ -293,10 +301,13 @@ const useScroll = (props) => {
 			horizontalScrollThumbAriaLabel,
 			noAffordance,
 			scrollMode,
+			snapToCenter,
 			style,
 			verticalScrollThumbAriaLabel,
 			...rest
 		} = props;
+
+	delete rest.scrollbarTrackCss;
 
 	// Mutable value
 
@@ -335,7 +346,9 @@ const useScroll = (props) => {
 		scrollToInfo: null,
 		scrollTop: null,
 		setOverscrollStatus: null,
+		showScrollbarTrack: null,
 		start: null,
+		startHidingScrollbarTrack: null,
 		stop: null,
 		wheelDirection: null
 	});
@@ -417,6 +430,7 @@ const useScroll = (props) => {
 		scrollContentHandle,
 		scrollContentRef,
 		scrollContainerRef,
+		snapToCenter,
 		spotlightContainerDisabled,
 		verticalScrollbarHandle
 	});
@@ -439,7 +453,7 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
+		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {fadeOut}),
 		className: [
 			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
@@ -453,6 +467,14 @@ const useScroll = (props) => {
 		scrollContentRef
 	});
 
+	assignProperties('horizontalScrollbarProps', {
+		...scrollbarProps,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
+		className: [css.horizontalScrollbar],
+		focusableScrollbar,
+		scrollbarHandle: horizontalScrollbarHandle
+	});
+
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
 		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
@@ -461,12 +483,8 @@ const useScroll = (props) => {
 		scrollbarHandle: verticalScrollbarHandle
 	});
 
-	assignProperties('horizontalScrollbarProps', {
-		...scrollbarProps,
-		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
-		className: [css.horizontalScrollbar],
-		focusableScrollbar,
-		scrollbarHandle: horizontalScrollbarHandle
+	assignProperties('hoverToScrollProps', {
+		scrollContainerHandle
 	});
 
 	return {

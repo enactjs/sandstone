@@ -1,10 +1,10 @@
 import {InputField} from '../../../../Input';
-import React from 'react';
+import {useLayoutEffect} from 'react';
 
 import {LoremString} from './utils';
 
 const SelectionInput = props => {
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		document.querySelector('input').focus();
 		document.querySelector('input').setSelectionRange(2, 7);
 	});
@@ -25,6 +25,8 @@ const InputFieldTests = [
 	<InputField value="1234567890" type="number" disabled />,
 	<InputField value="Simple value" type="password" />,
 	<InputField value="Simple value" type="password" disabled />,
+	<InputField value="http://enactjs.com" type="url" />,
+	<InputField value="http://enactjs.com" type="url" disabled />,
 
 	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-28621]
 	<InputField value={LoremString} />,
@@ -118,6 +120,14 @@ const InputFieldTests = [
 	{
 		locale: 'ar-SA',
 		component: <InputField value="Simple value" type="password" disabled />
+	},
+	{
+		locale: 'ar-SA',
+		component: <InputField value="http://enactjs.com" type="url" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <InputField value="http://enactjs.com" type="url" disabled />
 	},
 
 	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-28621]

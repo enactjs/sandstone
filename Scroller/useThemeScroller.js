@@ -1,11 +1,12 @@
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
+import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useLayoutEffect} from 'react';
 
 import {affordanceSize} from '../useScroll';
 
@@ -23,30 +24,15 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
-		if (!spotlightId || filterTarget === 'preserve') {
-			return false;
-		}
-
-		if (filterTarget) {
-			const bodyFiltered = (filterTarget === 'body');
-			const targetClassName = bodyFiltered ? css.focusableBody : scrollbarTrackCss.thumb;
-
+		if (spotlightId && filterTarget) {
+			const targetClassName = (filterTarget === 'body') ? css.focusableBody : scrollbarTrackCss.thumb;
 			Spotlight.set(spotlightId, {
-				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
-				// Focus should not leave scrollbar with directional keys
-				restrict: bodyFiltered ? 'self-only' : 'self-first'
+				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName))
 			});
-
 			return true;
-		} else {
-			// Reset the navigation filter and restrict option
-			Spotlight.set(spotlightId, {
-				navigableFilter: null,
-				restrict: 'self-first'
-			});
-
-			return false;
 		}
+
+		return false;
 	};
 
 	const getNavigableFilterTarget = (ev) => {
@@ -60,13 +46,13 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 		if (type === 'focus') {
 			filterTarget = isBody(target) ? 'thumb' : 'body';
 		} else if (type === 'blur') {
-			filterTarget = 'thumb';
+			filterTarget = 'body';
 		} else if (type === 'keydown') {
 			filterTarget =
 				!Spotlight.getPointerMode() && isEnter(keyCode) && isBody(target) && 'body' ||
 				isEnter(keyCode) && !isBody(target) && 'thumb' ||
 				isCancel(keyCode) && !isBody(target) && 'thumb' ||
-				'preserve';
+				null;
 		}
 
 		return {
@@ -119,7 +105,8 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 			forward('onKeyDown'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
 			consumeEventWithFocus
-		)
+		),
+		setNavigableFilter
 	};
 };
 
@@ -285,13 +272,15 @@ const useSpottable = (props, instances) => {
 
 		const
 			{rtl} = props,
+			// For Chrome 85+ or Safari that use negative coordinate system for RTL
+			coordinateCoefficient = rtl && (platform.ios || platform.safari || platform.chrome >= 85) ? -1 : 1,
 			{clientWidth} = scrollContentHandle.current.scrollBounds,
 			rtlDirection = rtl ? -1 : 1,
 			{left: containerLeft} = scrollContentNode.getBoundingClientRect(),
 			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
-			currentScrollLeft = rtl ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
+			currentScrollLeft = rtl && coordinateCoefficient === 1 ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
 			// calculation based on client position
-			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft);
+			newItemLeft = coordinateCoefficient * scrollContentNode.scrollLeft + (itemLeft - containerLeft);
 		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
 		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
@@ -368,7 +357,15 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 	// Hooks
 	const isScrollbarVisible = isHorizontalScrollbarVisible || isVerticalScrollbarVisible;
 	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
-	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId, isScrollbarVisible) : {};
+	const {setNavigableFilter, ...focusableBodyProps} = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId, isScrollbarVisible) : {};
+
+	useLayoutEffect(() => {
+		// Initial filter setting
+		if (setNavigableFilter) {
+			setNavigableFilter({filterTarget: 'body'});
+		}
+	}, [props.focusableScrollbar, scrollContainerRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
+
 
 	scrollContentProps.setThemeScrollContentHandle({
 		calculatePositionOnFocus,

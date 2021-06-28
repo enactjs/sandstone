@@ -2,9 +2,8 @@ import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
 import Spotlight from '@enact/spotlight';
-import {getTargetByContainer} from '@enact/spotlight/src/target';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useRef, useCallback} from 'react';
 
 const isSelector = (autoFocus) => autoFocus && autoFocus !== 'last-focused' && autoFocus !== 'default-element' && autoFocus !== 'none';
 
@@ -24,9 +23,9 @@ function configureContainer (ref, autoFocus, spotlightId) {
 }
 
 function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
-	const ref = React.useRef({id: null, autoFocus: null});
+	const ref = useRef({id: null, autoFocus: null});
 
-	return React.useCallback((node) => {
+	return useCallback((node) => {
 		if (!node) return;
 
 		// FIXME: This is a candidate to move to the decorator once hooks have been fully
@@ -43,11 +42,7 @@ function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 			// within the panel using a (currently) private Spotlight API with the enterTo parameter
 			// to influence which configuration is used to find said target.
 			const enterTo = isSelector(autoFocus) || autoFocus === 'default-element' ? 'default-element' : 'last-focused';
-			const target = getTargetByContainer(spotlightId, enterTo);
-
-			if (target) {
-				Spotlight.focus(target);
-			}
+			Spotlight.focus(spotlightId, {enterTo});
 		}
 	}, [autoFocus, hideChildren, ref]);
 }

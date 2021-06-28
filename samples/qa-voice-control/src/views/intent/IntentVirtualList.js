@@ -2,7 +2,7 @@ import Item from '@enact/sandstone/Item';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import {VirtualList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
-import React from 'react';
+import {Component} from 'react';
 
 let items = [];
 for (let i = 0; i < 30; i++) {
@@ -10,7 +10,7 @@ for (let i = 0; i < 30; i++) {
 }
 
 
-class IntentVirtualList extends React.Component {
+class IntentVirtualList extends Component {
 	renderItem = ({index, ...rest}) => {
 		return (
 			<Item

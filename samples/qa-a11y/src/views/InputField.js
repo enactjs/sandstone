@@ -1,5 +1,4 @@
 import {InputField} from '@enact/sandstone/Input';
-import React from 'react';
 
 import Section from '../components/Section';
 
@@ -20,6 +19,8 @@ const InputFieldView = () => (
 			<InputField alt="Disabled Number type with Placeholder" disabled placeholder="Placeholder" type="number" />
 			<InputField alt="Password type with Placeholder" placeholder="Placeholder" type="password" />
 			<InputField alt="Disabled Password type with Placeholder" disabled placeholder="Placeholder" type="password" />
+			<InputField alt="Url type with Placeholder" placeholder="Placeholder" type="url" />
+			<InputField alt="Disabled Url type with Placeholder" disabled placeholder="Placeholder" type="url" />
 		</Section>
 
 		<Section className={appCss.marginTop} title="With iconBefore">

@@ -13,7 +13,7 @@ import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Children} from 'react';
 
 import BodyText from '../BodyText';
 import Heading from '../Heading';
@@ -170,7 +170,7 @@ const AlertBase = kind({
 		},
 		className: ({buttons, image, title, type, styler}) => styler.append(
 			{
-				maxButtons: (buttons && React.Children.toArray(buttons).filter(Boolean).length > 2),
+				maxButtons: (buttons && Children.toArray(buttons).filter(Boolean).length > 2),
 				noImage: !image,
 				noTitle: (type === 'fullscreen') && !title
 			},
@@ -186,28 +186,31 @@ const AlertBase = kind({
 		const showTitle = (fullscreen && title);
 		const ariaLabelledBy = (showTitle ? `${id}_title ` : '') + `${id}_content ${id}_buttons`;
 		return (
-			<Popup
-				{...rest}
-				noAnimation
-				aria-labelledby={ariaLabelledBy}
-				css={css}
-				position={position}
-			>
-				<Layout align="center center" orientation={layoutOrientation}>
-					{image ? <Cell shrink className={css.alertImage}>{image}</Cell> : null}
-					{showTitle ? <Cell shrink><Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading></Cell> : null}
-					<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`}>
-						{children}
-					</Cell>
-					{buttons ?
-						<Cell align={fullscreen ? '' : 'end'} shrink className={css.buttonContainer}>
-							<Layout align="center" orientation="vertical" id={`${id}_buttons`}>
-								{buttons}
-							</Layout>
-						</Cell> : null
-					}
-				</Layout>
-			</Popup>
+			<div aria-owns={id}>
+				<Popup
+					{...rest}
+					id={id}
+					noAnimation
+					aria-labelledby={ariaLabelledBy}
+					css={css}
+					position={position}
+				>
+					<Layout align="center center" orientation={layoutOrientation}>
+						{image ? <Cell shrink className={css.alertImage}>{image}</Cell> : null}
+						{showTitle ? <Cell shrink><Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading></Cell> : null}
+						<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`}>
+							{children}
+						</Cell>
+						{buttons ?
+							<Cell align={fullscreen ? '' : 'end'} shrink className={css.buttonContainer}>
+								<Layout align="center" orientation="vertical" id={`${id}_buttons`}>
+									{buttons}
+								</Layout>
+							</Cell> : null
+						}
+					</Layout>
+				</Popup>
+			</div>
 		);
 	}
 });

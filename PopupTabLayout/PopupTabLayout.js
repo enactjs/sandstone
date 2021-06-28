@@ -5,19 +5,25 @@
  * @exports PopupTabLayout
  * @exports Tab
  * @exports TabPanels
+ * @exports TabPanelsBase
  * @exports TabPanel
  */
 
+import {forKey, forProp, forward, handle, stop} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
+import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useContext, useEffect} from 'react';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
 import Panels, {Panel} from '../Panels';
-import TabLayout, {Tab} from '../TabLayout';
+import TabLayout, {TabLayoutContext, Tab} from '../TabLayout';
 import Popup from '../Popup';
 
 import css from './PopupTabLayout.module.less';
@@ -272,6 +278,7 @@ const PopupTabLayoutBase = kind({
 					css={css}
 					align="start"
 					anchorTo="left"
+					type="popup"
 				>
 					{children}
 				</TabLayout>
@@ -284,9 +291,10 @@ const PopupTabLayoutBase = kind({
 /**
  * Add behaviors to PopupTabLayout.
  *
- * @hoc
+ * @class PopupTabLayoutDecorator
  * @memberof sandstone/PopupTabLayout
  * @mixes sandstone/Skinnable.Skinnable
+ * @hoc
  * @public
  */
 const PopupTabLayoutDecorator = compose(
@@ -349,15 +357,71 @@ PopupTabLayout.Tab = Tab;
  * @ui
  */
 
+const tabPanelsHandlers = {
+	onTransition: handle(
+		forward('onTransition'),
+		(ev, props, {onTransition}) => {
+			onTransition(ev);
+		}
+	),
+	onKeyDown: handle(
+		forward('onKeyDown'),
+		forProp('rtl', false),
+		forKey('left'),
+		(ev, {index}) => (index > 0),
+		({target}) => {
+			const next = getTargetByDirectionFromElement('left', target);
+			if (next === null || (next && !getContainerNode(getContainersForNode(target).pop()).contains(next))) {
+				return true;
+			}
+			return false;
+		},
+		(ev) => {
+			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
+				ev.stopPropagation();
+				return false;
+			}
+			return true;
+		},
+		forward('onBack'),
+		stop
+	)
+};
+
 /**
- * A customized version of Panels for use inside this component.
+ * A base component for [`TabPanels`]{@link sandstone/PopupTabLayout.TabPanels} which has
+ * left key handler to navigate panels.
  *
- * @class
+ * @class TabPanelsBase
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/Panels.Panels
  * @ui
+ * @public
  */
-const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
+const TabPanelsBase = ({rtl, ... rest}) => {
+	const onTransition = useContext(TabLayoutContext);
+	const handlers = useHandlers(tabPanelsHandlers, {rtl, ...rest}, {onTransition});
+
+	return <Panels noCloseButton {...rest} css={css} {...handlers} />;
+};
+
+TabPanelsBase.propTypes = {
+	rtl: PropTypes.bool
+};
+
+/**
+ * A customized version of Panels for use inside this component.
+ *
+ * @class TabPanels
+ * @memberof sandstone/PopupTabLayout
+ * @extends sandstone/PopupTabLayout.TabPanelsBase
+ * @ui
+ * @public
+ */
+const TabPanels = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	TabPanelsBase
+);
 
 /**
  * Omits the close button.
@@ -379,13 +443,14 @@ const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
 /**
  * A customized version of Panel for use inside this component.
  *
- * @class
+ * @class TabPanel
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/Panels.Panel
  * @ui
+ * @public
  */
 const TabPanel = ({spotlightId, ...rest}) => {
-	React.useEffect(() => {
+	useEffect(() => {
 		Spotlight.set(spotlightId, {partition: true});
 	}, [spotlightId]);
 
@@ -412,5 +477,6 @@ export {
 	PopupTabLayoutDecorator,
 	Tab,
 	TabPanels,
+	TabPanelsBase,
 	TabPanel
 };

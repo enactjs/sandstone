@@ -4,7 +4,7 @@ import {Row, Column, Cell} from '@enact/ui/Layout';
 import SwitchItem from '../../../../../SwitchItem';
 import VirtualList from '../../../../../VirtualList';
 import ThemeDecorator from '../../../../../ThemeDecorator';
-import React from 'react';
+import {Component, createRef} from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {InputField} from '../../../../../Input';
@@ -21,7 +21,7 @@ spotlight.setPointerMode(false);
 const items = [],
 	itemStyle = {margin: 0};
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
+// eslint-disable-next-line enact/display-name
 const renderItem = (size, disabled) => ({index, text, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
 	return (
@@ -45,7 +45,7 @@ const updateDataSize = (dataSize) => {
 	return dataSize;
 };
 
-class StatefulSwitchItem extends React.Component {
+class StatefulSwitchItem extends Component {
 	static displayName = 'StatefulSwitchItem';
 	static propTypes = {
 		index: PropTypes.number
@@ -88,7 +88,7 @@ class StatefulSwitchItem extends React.Component {
 	}
 }
 
-class app extends React.Component {
+class app extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -101,8 +101,8 @@ class app extends React.Component {
 			itemSize: 156,
 			wrap: false
 		};
-		this.rootRef = React.createRef();
-		this.scrollingRef = React.createRef();
+		this.rootRef = createRef();
+		this.scrollingRef = createRef();
 		updateDataSize(this.state.numItems);
 	}
 

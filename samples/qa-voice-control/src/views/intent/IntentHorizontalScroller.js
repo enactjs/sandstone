@@ -1,5 +1,5 @@
 import Item from '@enact/sandstone/Item';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
@@ -8,7 +8,7 @@ for (let i = 0; i < 60; i++) {
 	itemList.push('item' + i);
 }
 
-class IntentHorizontalScroller extends React.Component {
+class IntentHorizontalScroller extends Component {
 	render () {
 		return (
 			<CommonView title="Intent to scroll horizontally" scrollerDirection="horizontal" style={{width: '100%', height: '400px'}}>

@@ -6,7 +6,7 @@ import Spotlight from '@enact/spotlight';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 import Icon from '../Icon';
@@ -84,9 +84,12 @@ const DropdownListBase = kind({
 		/*
 		 * The width of DropdownList.
 		 *
-		 * @type {('huge'|'x-large'|'large'|'medium'|'small'|'tiny')}
+		 * @type {('huge'|'x-large'|'large'|'medium'|'small'|'tiny')|number}
 		 */
-		width: PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'x-large', 'huge'])
+		width: PropTypes.oneOfType([
+			PropTypes.oneOf(['tiny', 'small', 'medium', 'large', 'x-large', 'huge']),
+			PropTypes.number
+		])
 	},
 
 	styles: {
@@ -121,14 +124,14 @@ const DropdownListBase = kind({
 	},
 
 	computed: {
-		className: ({width, styler}) => styler.append(width),
+		className: ({width, styler}) => styler.append(typeof width === 'string' ? width : null),
 		dataSize: ({children}) => children ? children.length : 0,
 		// Note: Retaining this in case we need to support different item sizes for large text mode:
 		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 126 : 126)
 		itemSize: () => 126
 	},
 
-	render: ({dataSize, itemSize, scrollTo, ...rest}) => {
+	render: ({dataSize, itemSize, scrollTo, width, ...rest}) => {
 		delete rest.children;
 		delete rest.onSelect;
 		delete rest.selected;
@@ -141,7 +144,10 @@ const DropdownListBase = kind({
 				cbScrollTo={scrollTo}
 				dataSize={dataSize}
 				itemSize={ri.scale(itemSize)}
-				style={{height: ri.scaleToRem((itemSize * dataSize) + 36)}}
+				style={{
+					height: ri.scaleToRem((itemSize * dataSize) + 36),
+					width: typeof width === 'number' ? ri.scaleToRem(width) : null
+				}}
 			/>
 		);
 	}
@@ -157,7 +163,7 @@ const ReadyState = {
 };
 
 const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'DropdownListSpotlightDecorator';
 
 		static propTypes = {

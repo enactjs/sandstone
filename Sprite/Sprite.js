@@ -22,7 +22,7 @@
 import kind from '@enact/core/kind';
 import {scaleToRem} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {useRef, useMemo, useLayoutEffect} from 'react';
 
 import Image from '../Image';
 
@@ -249,12 +249,12 @@ const SpriteBase = kind({
 		delete rest.offsetLeft;
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const imageRef = React.useRef();
+		const imageRef = useRef();
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const animation = React.useRef();
+		const animation = useRef();
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const keyframes = React.useMemo(() => {
+		const keyframes = useMemo(() => {
 			const framesets = [];
 
 			const vertical = (orientation === 'vertical');
@@ -294,7 +294,7 @@ const SpriteBase = kind({
 		]);
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		React.useLayoutEffect(
+		useLayoutEffect(
 			() => {
 				if (imageRef && imageRef.current) {
 					const node = imageRef.current;

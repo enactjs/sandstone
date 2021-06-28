@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-no-bind */
+
 import Picker from '@enact/sandstone/Picker';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import React from 'react';
+import {useState} from 'react';
 
 import Section from '../components/Section';
 
@@ -15,30 +17,20 @@ const
 		'Tokyo Airport Terminal Gate 3',
 		'נמל התעופה בן גוריון טרמינל הבינלאומי'
 	],
+	irregularNumbers = ['4', '13', '15', '20', '22'],
 	subjects = ['English', 'Maths', 'Korean', 'Science', 'History'],
 	subjectValue = ['80', '90', '100', '70', '50'];
 
-class CustomPicker extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			index: 0
-		};
-	}
+const CustomPicker = (props) => {
+	const [index, setIndex] = useState(0);
 
-	handleChange = (ev) => this.setState({index: ev.value});
+	const handleChange = (ev) => setIndex({index: ev.value});
+	const valueText = `${props.children[index]} ${subjectValue[index]}`;
 
-	render () {
-		const
-			{index} = this.state,
-			{children} = this.props,
-			valueText = `${children[index]} ${subjectValue[index]}`;
-
-		return (
-			<Picker {...this.props} aria-valuetext={valueText} onChange={this.handleChange}>{children}</Picker>
-		);
-	}
-}
+	return (
+		<Picker {...props} aria-valuetext={valueText} onChange={handleChange} />
+	);
+};
 
 const PickerView = () => (
 	<>
@@ -84,7 +76,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} horizontal title="Vertical">
 			<Picker
 				alt="Vertical"
 				orientation="vertical"
@@ -172,7 +164,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} horizontal title="Vertical">
 			<Picker
 				alt="Vertical"
 				decrementAriaLabel="Decrement"
@@ -264,7 +256,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} horizontal title="Vertical">
 			<Picker
 				alt="Vertical"
 				aria-label="This is a Label 4."
@@ -336,6 +328,25 @@ const PickerView = () => (
 			>
 				{subjects}
 			</CustomPicker>
+		</Section>
+
+		<Section className={appCss.marginTop} title="With irregular numbers">
+			<Picker
+				alt="Vertical"
+				orientation="vertical"
+				reverse={false}
+				type="number"
+			>
+				{irregularNumbers}
+			</Picker>
+			<Picker
+				alt="Horizontal"
+				orientation="horizontal"
+				reverse={false}
+				type="number"
+			>
+				{irregularNumbers}
+			</Picker>
 		</Section>
 	</>
 );

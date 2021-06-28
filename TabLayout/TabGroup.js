@@ -7,7 +7,7 @@ import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {useMemo} from 'react';
 
 import DebounceDecorator from '../internal/DebounceDecorator';
 import Button from '../Button';
@@ -184,9 +184,9 @@ const TabGroupBase = kind({
 		delete rest.children;
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const itemProps = React.useMemo(() => ({collapsed, orientation, size: tabSize}), [collapsed, orientation, tabSize]);
+		const itemProps = useMemo(() => ({collapsed, orientation, size: tabSize}), [collapsed, orientation, tabSize]);
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const children = React.useMemo(() => tabs.map(tab => {
+		const children = useMemo(() => tabs.map(tab => {
 			if (tab) {
 				// eslint-disable-next-line no-shadow
 				const {icon, title, tabKey, sprite, ...rest} = tab;

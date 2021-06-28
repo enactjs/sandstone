@@ -1,0 +1,38 @@
+// NavigationButton.module.less
+//
+@import "../../styles/mixins.less";
+@import "../../styles/variables.less";
+@import "../../styles/skin.less";
+
+.button.hasIcon {
+	&.small {
+		padding: @sand-button-icon-small-padding;
+		& .bg {
+			width: @sand-button-small-height;
+		}
+	}
+	&.large {
+		padding: @sand-button-icon-padding;
+		& .bg {
+			width: @sand-button-height;
+		}
+	}
+	&.iconAfter {
+		.bg {
+			.position-start-end(auto, 0);
+		}
+		.icon {
+			.margin-start-end(@sand-wizardpanels-button-icon-text-gap, 0);
+		}
+	}
+	&.iconBefore {
+		.icon {
+			.margin-start-end(0, @sand-wizardpanels-button-icon-text-gap);
+		}
+	}
+	.applySkins({
+		.client :not(.icon) {
+			color: @sand-button-text-color;
+		}
+	});
+}

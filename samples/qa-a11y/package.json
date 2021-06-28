@@ -22,15 +22,15 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^3.4.7",
-    "@enact/i18n": "^3.4.7",
+    "@enact/core": "^4.0.0",
+    "@enact/i18n": "^4.0.0",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^3.4.7",
-    "@enact/ui": "^3.4.7",
-    "@enact/webos": "^3.4.7",
+    "@enact/spotlight": "^4.0.0",
+    "@enact/ui": "^4.0.0",
+    "@enact/webos": "^4.0.0",
     "ilib": "^14.4.0",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   }
 }

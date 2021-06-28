@@ -19,7 +19,7 @@ import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component, Fragment} from 'react';
 import ReactDOM from 'react-dom';
 
 import {ContextualPopup} from './ContextualPopup';
@@ -76,7 +76,7 @@ const ContextualPopupContainer = SpotlightContainerDecorator(
 const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {noArrow, noSkin, openProp} = config;
 
-	return class extends React.Component {
+	return class extends Component {
 		static displayName = 'ContextualPopupDecorator';
 
 		static propTypes = /** @lends sandstone/ContextualPopupDecorator.ContextualPopupDecorator.prototype */ {
@@ -259,7 +259,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			super(props);
 			this.state = {
 				arrowPosition: {top: 0, left: 0},
-				containerPosition: {top: 0, left: 0},
+				containerPosition: {top: 0, left: 0, right: 0},
 				containerId: Spotlight.add(this.props.popupSpotlightId),
 				activator: null
 			};
@@ -567,6 +567,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					(this.state.arrowPosition.left !== arrowPosition.left) ||
 					(this.state.arrowPosition.top !== arrowPosition.top) ||
 					(this.state.containerPosition.left !== containerPosition.left) ||
+					(this.state.containerPosition.right !== containerPosition.right) ||
 					(this.state.containerPosition.top !== containerPosition.top)
 				) {
 					this.setState({
@@ -709,6 +710,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				holeBounds = this.clientNode.getBoundingClientRect();
 			}
 
+			delete rest.direction;
 			delete rest.onOpen;
 			delete rest.popupSpotlightId;
 			delete rest.rtl;
@@ -727,7 +729,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						open={open}
 						scrimType={scrimType}
 					>
-						<React.Fragment>
+						<Fragment>
 							{holepunchScrim ? <HolePunchScrim holeBounds={holeBounds} /> : null}
 							<ContextualPopupContainer
 								{...ariaProps}
@@ -746,7 +748,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							>
 								<PopupComponent {...popupPropsRef} />
 							</ContextualPopupContainer>
-						</React.Fragment>
+						</Fragment>
 					</FloatingLayer>
 					<Wrapped ref={this.getClientNode} {...rest} />
 				</div>

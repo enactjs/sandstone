@@ -3,7 +3,7 @@ import Registry from '@enact/core/internal/Registry';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {objectify} from '@enact/ui/Skinnable/util';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Component} from 'react';
 
 /**
  * A higher-order component that classifies an application with a target set of font sizing rules.
@@ -13,8 +13,8 @@ import React from 'react';
  * @hoc
  * @public
  */
-const AccessibilityDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
-	return class extends React.Component {
+const AccessibilityDecorator = hoc((config, Wrapped) => {
+	return class extends Component {
 		static contextType = ResizeContext;
 
 		static displayName = 'AccessibilityDecorator';

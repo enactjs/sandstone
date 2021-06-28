@@ -16,8 +16,16 @@
 	width: 100%;
 	background-color: @sand-scrollbar-track-bg-color;
 	border-radius: @sand-scrollbar-track-border-radius;
+	opacity: 0;
+	transition: opacity 100ms ease-out;
+
+	&:hover {
+		opacity: 1;
+	}
 
 	&.focusableScrollbar {
+		// Always show the scrollbar
+		opacity: 1;
 		--scrollbar-track-margin: @sand-scrollbar-track-focusable-margin;
 	}
 
@@ -32,7 +40,7 @@
 		.focus({
 			position: absolute;
 			background-color: @sand-scrollbar-thumb-focus-bg-color;
-			filter: drop-shadow(@sand-scrollbar-thumb-focus-box-shadow @sand-scrollbar-thumb-focus-box-shadow-color);
+			box-shadow: @sand-scrollbar-thumb-focus-box-shadow @sand-scrollbar-thumb-focus-box-shadow-color;
 			border-radius: @sand-scrollbar-thumb-focus-border-radius;
 
 			.directionIndicator {
@@ -44,7 +52,11 @@
 				border-right: @sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
 				border-left: @sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
 			}
-		})
+		});
+
+		:global(.spotlight-input-touch) & {
+			pointer-events: none;
+		}
 	}
 
 	&.vertical {

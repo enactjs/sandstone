@@ -19,7 +19,7 @@ import {ButtonBase as UiButtonBase, ButtonDecorator as UiButtonDecorator} from '
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import React from 'react';
+import {Children} from 'react';
 
 import Icon from '../Icon';
 import {MarqueeDecorator} from '../Marquee';
@@ -186,7 +186,7 @@ const ButtonBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small']
+		publicClassNames: ['button', 'bg', 'client', 'hasIcon', 'icon', 'iconAfter', 'iconBefore', 'large', 'pressed', 'selected', 'small']
 	},
 
 	computed: {
@@ -238,7 +238,7 @@ const IconButtonDecorator = hoc((config, Wrapped) => {
 		name: 'IconButtonDecorator',
 
 		computed: {
-			iconOnly: ({children}) => (React.Children.toArray(children).filter(Boolean).length === 0)
+			iconOnly: ({children}) => (Children.toArray(children).filter(Boolean).length === 0)
 		},
 
 		render: (props) => {

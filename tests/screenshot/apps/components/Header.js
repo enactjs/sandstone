@@ -1,7 +1,7 @@
 import {Header} from '../../../../Panels';
 import Button from '../../../../Button';
 import Steps from '../../../../Steps';
-import React from 'react';
+import {Fragment} from 'react';
 
 import {withConfig, withProps} from './utils';
 
@@ -18,19 +18,24 @@ const dropIn = {
 	nextButton: <Button icon="arrowlargeright" />,
 	singleButton: <Button icon="ellipsis" />,
 	doubleButtons: (
-		<React.Fragment>
+		<Fragment>
 			<Button icon="search" />
 			<Button icon="ellipsis" />
-		</React.Fragment>
+		</Fragment>
 	)
 };
 
+const headerWithChildrenTests = [
+	<Header type="standard" title="Title">{dropIn.doubleButtons}</Header>,
+	<Header type="standard" title="Title" subtitle="Subtitle">{dropIn.doubleButtons}</Header>
+];
 
 const LtrTests = [
 	// Initial
 	...withProps({type: 'standard'}, baseTests),
 	...withProps({type: 'compact'}, baseTests),
 	...withProps({type: 'wizard', centered: true}, baseTests),
+	...withProps({type: 'mini'}, baseTests),
 
 	// Centered
 	...withProps({type: 'standard', centered: true}, baseTests),
@@ -55,7 +60,10 @@ const LtrTests = [
 	// Wizard Type Slots
 	...withProps({type: 'wizard', centered: true, slotAbove: dropIn.steps}, baseTests),
 	...withProps({type: 'wizard', centered: true, slotBefore: dropIn.backButton, slotAfter: dropIn.nextButton}, baseTests),
-	...withProps({type: 'wizard', centered: true, slotAbove: dropIn.steps, slotBefore: dropIn.backButton, slotAfter: dropIn.nextButton}, baseTests)
+	...withProps({type: 'wizard', centered: true, slotAbove: dropIn.steps, slotBefore: dropIn.backButton, slotAfter: dropIn.nextButton}, baseTests),
+
+	// Mini Type Slots
+	...withProps({type: 'mini'}, headerWithChildrenTests)
 ];
 
 const HeaderTests = [

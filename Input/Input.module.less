@@ -12,12 +12,21 @@
 		/* Available for customization */
 	}
 
+	.back {
+		position: absolute;
+
+		.sand-custom-text({
+			.sand-small-button-text();
+		});
+	}
+
 	.body {
 		line-height: 0; // This removes an undesirable layout shift occurring when a number is entered into the numberCells (Popup adds a line-height to all children).
 	}
 
 	.titles {
 		max-width: 100%;
+		width: 100%;
 	}
 
 	.fieldWrapper {
@@ -77,6 +86,12 @@
 	}
 
 	&.fullscreen {
+		.back {
+			top: @sand-input-fullscreen-back-button-top;
+
+			.position-start-end(@sand-input-fullscreen-back-button-start, initial);
+		}
+
 		.body {
 			padding: @sand-input-fullscreen-padding;
 		}
@@ -134,7 +149,8 @@
 		}
 
 		&.text,
-		&.password {
+		&.password,
+		&.url {
 			.inputArea {
 				margin: @sand-input-fullscreen-inputarea-margin;
 			}
@@ -142,11 +158,19 @@
 	}
 
 	&.overlay {
+		.back {
+			top: @sand-input-overlay-back-button-top;
+
+			.position-start-end(@sand-input-overlay-back-button-start, initial);
+		}
+
 		.body {
 			padding: @sand-input-overlay-padding;
 		}
 
 		.title {
+			margin: @sand-input-overlay-title-margin;
+
 			.sand-font-size(@sand-input-overlay-title-font-size, @sand-non-latin-input-overlay-title-font-size);
 		}
 
@@ -213,7 +237,7 @@
 			&::before {
 				.sand-spotlight-focus-bg-colors();
 				// Remove drop shadow for this input-like field
-				filter: none;
+				box-shadow: none;
 			}
 
 			.sand-disabled({

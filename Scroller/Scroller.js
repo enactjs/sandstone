@@ -23,9 +23,10 @@ import {ResizeContext} from '@enact/ui/Resizable';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Fragment} from 'react';
 
 import useScroll from '../useScroll';
+import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
@@ -49,7 +50,7 @@ let scrollerId = 0;
  * @ui
  * @public
  */
-let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
+let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	const id = `scroller_${++scrollerId}_content`;
 
 	// Hooks
@@ -64,8 +65,9 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
+		horizontalScrollbarProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		hoverToScrollProps
 	} = useScroll(rest);
 
 	const {
@@ -79,7 +81,7 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : Fragment;
 
 	// Render
 	return (
@@ -89,6 +91,7 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+					{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
 				</ScrollBody>
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
@@ -190,8 +193,8 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 *
 	 * By default, 5-way will not move focus to the scroll thumb.
 	 * If `true`, the scroll thumb will get focus by directional keys.
-	 * If `'byEnter'`, scroll body will get focus first by directional keys,
-	 * then the scroll thumb will get focus by enter key pressed on scroll body.
+	 * If `'byEnter'`, scroll thumb will get focus first by directional keys,
+	 * then the scroll body will get focus by enter key or back key pressed on scroll thumb.
 	 *
 	 * @type {Boolean|'byEnter'}
 	 * @default false
@@ -216,6 +219,14 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
+	 * Enables scroll by hover on edges in scroll direction.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	hoverToScroll: PropTypes.bool,
 
 	/**
 	 * Unique identifier for the component.
@@ -338,6 +349,20 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 		track: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
+
+	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbarTrack` - The scrollbarTrack component class
+	 * * `thumb` - The scrollbar thumb component class
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	scrollbarTrackCss: PropTypes.object,
 
 	/**
 	 * Specifies how to scroll.

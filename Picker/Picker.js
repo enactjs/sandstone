@@ -11,17 +11,20 @@
  * @exports PickerBase
  */
 
+import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
-import React from 'react';
+import {Children} from 'react';
 
-import {MarqueeController} from '../Marquee';
-import {validateRange} from '../internal/validators';
-
+import Heading from '../Heading';
 import PickerCore, {PickerItem} from '../internal/Picker';
+import {validateRange} from '../internal/validators';
+import {MarqueeController} from '../Marquee';
+
+import componentCss from './Picker.module.less';
 
 /**
  * The base `Picker` component.
@@ -56,6 +59,20 @@ const PickerBase = kind({
 		 * @public
 		 */
 		'aria-valuetext': PropTypes.string,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `title` - The title component class
+		 * * `inlineTitle` - The title component class when `inlineTitle` is true
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * The voice control labels for the `children`.
@@ -101,6 +118,14 @@ const PickerBase = kind({
 		 * @public
 		 */
 		incrementIcon: PropTypes.string,
+
+		/**
+		 * Applies inline styling to the title.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inlineTitle: PropTypes.bool,
 
 		/**
 		 * Allows the user to use the arrow keys to adjust the picker's value.
@@ -154,6 +179,48 @@ const PickerBase = kind({
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
+		 * When `true`, the picker buttons operate in the reverse direction such that pressing
+		 * up/left decrements the value and down/right increments the value. This is more natural
+		 * for vertical lists of text options where "up" implies a spatial change rather than
+		 * incrementing the value.
+		 *
+		 * If this prop is omitted, it will be determined by `orientation`.
+		 * For example, if `orientation` is `vertical`, `reverse` is `true`.
+		 * Conversely, if `orientation` is `horizontal`, `reverse` is `false`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		reverse: PropTypes.bool,
+
+		/**
+		 * The primary text of the `Picker`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
+
+		/**
+		 * The type of picker. It determines the aria-label for the next and previous buttons.
+		 *
+		 * Depending on the `type`, `joined`, `decrementAriaLabel`, and `incrementAriaLabel`,
+		 * the screen readers read out differently when Spotlight is on the next button, the previous button,
+		 * or the picker itself.
+		 *
+		 * For example, if Spotlight is on the next button, the `joined` prop is false,
+		 * and aria label props(`decrementAriaLabel` and `incrementAriaLabel`) are not defined,
+		 * then the screen readers read out as follows.
+		 *	`'string'` type: `'next item'`
+		 * 	`'number'` type: `'press ok button to increase the value'`
+		 *
+		 * @type {('number'|'string')}
+		 * @default 'string'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['number', 'string']),
+
+		/**
 		 * Index of the selected child.
 		 *
 		 * @type {Number}
@@ -195,13 +262,19 @@ const PickerBase = kind({
 	},
 
 	defaultProps: {
+		type: 'string',
 		value: 0
+	},
+
+	styles: {
+		css: componentCss,
+		publicClassNames: ['inlineTitle', 'title']
 	},
 
 	computed: {
 		max: ({children}) => children && children.length ? children.length - 1 : 0,
-		reverse: ({orientation}) => (orientation === 'vertical'),
-		children: ({children, disabled, joined, marqueeDisabled}) => React.Children.map(children, (child) => {
+		reverse: ({orientation, reverse}) => (typeof reverse === 'boolean' ? reverse : orientation === 'vertical'),
+		children: ({children, disabled, joined, marqueeDisabled}) => Children.map(children, (child) => {
 			const focusOrHover = !disabled && joined ? 'focus' : 'hover';
 			return (
 				<PickerItem
@@ -212,7 +285,7 @@ const PickerBase = kind({
 				</PickerItem>
 			);
 		}),
-		disabled: ({children, disabled}) => React.Children.count(children) > 1 ? disabled : true,
+		disabled: ({children, disabled}) => Children.count(children) > 1 ? disabled : true,
 		value: ({value, children}) => {
 			const max = children && children.length ? children.length - 1 : 0;
 			if (__DEV__) {
@@ -225,7 +298,7 @@ const PickerBase = kind({
 			if (voiceLabelsExt) {
 				voiceLabel = voiceLabelsExt;
 			} else {
-				voiceLabel = React.Children.map(children, (child) => (
+				voiceLabel = Children.map(children, (child) => (
 					(typeof child === 'number' || typeof child === 'string') ? child : '')
 				);
 			}
@@ -233,13 +306,15 @@ const PickerBase = kind({
 		}
 	},
 
-	render: ({children, max, value, voiceLabel, ...rest}) => {
+	render: ({children, css, inlineTitle, max, title, value, voiceLabel, ...rest}) => {
 		delete rest.marqueeDisabled;
-
 		return (
-			<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
-				{children}
-			</PickerCore>
+			<>
+				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} marqueeOn="hover" size="tiny">{title}</Heading> : null}
+				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
+					{children}
+				</PickerCore>
+			</>
 		);
 	}
 });

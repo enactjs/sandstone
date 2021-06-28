@@ -1,6 +1,5 @@
 import Button from '../../../../Button';
 import ContextualMenuDecorator from '../../../../ContextualMenuDecorator';
-import React from 'react';
 
 const ContextualMenuButton = ContextualMenuDecorator(Button);
 const popupProps = {

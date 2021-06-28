@@ -5,7 +5,7 @@ describe('Scrollbar Size', function () {
 		Page.open();
 	});
 
-	it('should have 30px padding for the top and bottom of the scrollbar[GT-29036]', function () {
+	it('should have 30px padding for the top and bottom of the scrollbar[GT-29036], [GT-28472]', function () {
 		// Verify: The scrollbar size fit to the size of the list.
 		expect(Page.getListRect().height).to.equal(Page.getVerticalScrollbarRect().height);
 		// There is 30px padding of the top and bottom of the Scrollbar.

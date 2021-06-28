@@ -5,7 +5,7 @@ import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {Spottable} from '@enact/spotlight/Spottable';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
-import React, {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 
 import {affordanceSize, dataIndexAttribute} from '../useScroll';
 
@@ -26,7 +26,7 @@ const
 	};
 
 const useSpottable = (props, instances) => {
-	const {noAffordance, scrollMode} = props;
+	const {noAffordance, scrollMode, snapToCenter} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const getItemNode = (index) => {
 		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
@@ -38,6 +38,7 @@ const useSpottable = (props, instances) => {
 	const mutableRef = useRef({
 		isScrolledBy5way: false,
 		isScrolledByJump: false,
+		isScrollingBySnapToCenter: false,
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
 		pause: new Pause('VirtualListBasic')
@@ -124,9 +125,15 @@ const useSpottable = (props, instances) => {
 	}
 
 	useEffect(() => {
+		if (scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightContainerDisabled === 'true') {
+			removeGlobalKeyDownEventListener();
+			addGlobalKeyDownEventListener(handleGlobalKeyDown);
+		}
+	}, [handleGlobalKeyDown]); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
 		return () => {
-			// TODO: Fix eslint
-			pause.resume(); // eslint-disable-line react-hooks/exhaustive-deps
+			pause.resume();
 			SpotlightAccelerator.reset();
 
 			setContainerDisabled(false);
@@ -136,22 +143,24 @@ const useSpottable = (props, instances) => {
 	// Functions
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
-		const {cbScrollTo, wrap} = props;
+		const {cbScrollTo, dataSize, wrap, direction: orientation} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 		const direction = getDirection(keyCode);
+		const allowAffordance = !(noAffordance || orientation === 'horizontal');
+		const shouldMove = snapToCenter ? nextIndex > 0 && nextIndex < (dataSize - 1) && index > 0 : nextIndex >= 0 && index >= 0;
 
 		mutableRef.current.isScrolledBy5way = false;
 		mutableRef.current.isScrolledByJump = false;
 
-		if (nextIndex >= 0 && index >= 0) {
+		if (shouldMove) {
 			const
 				row = Math.floor(index / dimensionToExtent),
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : ri.scale(affordanceSize));
+				endBoundary = startBoundary + clientSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -162,24 +171,29 @@ const useSpottable = (props, instances) => {
 				mutableRef.current.isScrolledBy5way = false;
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex, direction);
-			} else {
+			} else if (!snapToCenter || !mutableRef.current.isScrollingBySnapToCenter) {
 				const itemNode = getItemNode(nextIndex);
-				const stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
+				let stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
+				stickTo = snapToCenter ? 'center' : stickTo;
 
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
+				if (snapToCenter) {
+					mutableRef.current.isScrollingBySnapToCenter = true;
+				}
 
 				if (isWrapped && wrap === true && itemNode === null) {
 					pause.pause();
 					target.blur();
 				}
-				focusByIndex(nextIndex, direction);
+				focusByIndex(nextIndex, direction, true);
 
 				cbScrollTo({
 					index: nextIndex,
 					stickTo,
-					offset: (!noAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
-					animate: !(isWrapped && wrap === 'noAnimation')
+					offset: (allowAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
+					animate: !(isWrapped && wrap === 'noAnimation'),
+					focus: snapToCenter
 				});
 			}
 		} else if (!repeat && Spotlight.move(direction)) {
@@ -195,7 +209,7 @@ const useSpottable = (props, instances) => {
 		return false;
 	}
 
-	function focusByIndex (index, direction) {
+	function focusByIndex (index, direction, waiting) {
 		const itemNode = getItemNode(index);
 		let returnVal = false;
 
@@ -223,18 +237,21 @@ const useSpottable = (props, instances) => {
 			}
 			mutableRef.current.isScrolledBy5way = false;
 			mutableRef.current.isScrolledByJump = false;
+			if (!waiting) {
+				mutableRef.current.isScrollingBySnapToCenter = false;
+			}
 		}
 
 		return returnVal;
 	}
 
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
-		const
-
-			{pageScroll} = props,
-			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
-			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
+		const {pageScroll, direction} = props;
+		const {state: {numOfItems}, primary} = scrollContentHandle.current;
+		const allowAffordance = !(noAffordance || direction === 'horizontal');
+		const offsetToClientEnd = primary.clientSize - primary.gridSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
+		const focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
+		const offsetToCenter = snapToCenter ? (primary.clientSize / 2 - primary.gridSize / 2) : 0;
 
 		if (focusedIndex >= 0) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
@@ -251,7 +268,7 @@ const useSpottable = (props, instances) => {
 
 			if (primary.clientSize >= primary.itemSize) {
 				if (gridPosition.primaryPosition > scrollPosition + offsetToClientEnd) { // forward over
-					gridPosition.primaryPosition -= pageScroll ? 0 : offsetToClientEnd;
+					gridPosition.primaryPosition -= pageScroll ? 0 : offsetToClientEnd - offsetToCenter;
 				} else if (gridPosition.primaryPosition >= scrollPosition) { // inside of client
 					if (scrollMode === 'translate') {
 						gridPosition.primaryPosition = scrollPosition;
@@ -261,7 +278,7 @@ const useSpottable = (props, instances) => {
 						gridPosition.primaryPosition = scrollPosition + (scrollContentHandle.current.scrollPosition === scrollPosition ? 0.1 : 0);
 					}
 				} else { // backward over
-					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : 0;
+					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : offsetToCenter;
 				}
 			}
 
@@ -360,6 +377,7 @@ const useThemeVirtualList = (props) => {
 	delete rest.scrollContainerHandle;
 	delete rest.scrollContainerRef;
 	delete rest.scrollContentHandle;
+	delete rest.snapToCenter;
 	delete rest.spotlightId;
 	delete rest.wrap;
 

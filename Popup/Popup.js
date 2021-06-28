@@ -13,7 +13,7 @@ import {is} from '@enact/core/keymap';
 import {on, off} from '@enact/core/dispatcher';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import kind from '@enact/core/kind';
-import React from 'react';
+import {Component} from 'react';
 import PropTypes from 'prop-types';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
@@ -277,7 +277,7 @@ const OpenState = {
  * @ui
  * @public
  */
-class Popup extends React.Component {
+class Popup extends Component {
 
 	static propTypes = /** @lends sandstone/Popup.Popup.prototype */ {
 		/**
@@ -435,6 +435,11 @@ class Popup extends React.Component {
 					prevOpen: props.open
 				};
 			} else {
+				// Disables the spotlight conatiner of popup when `noAnimation` set
+				if (props.noAnimation) {
+					getContainerNode(state.containerId).dataset['spotlightContainerDisabled'] = true;
+				}
+
 				return {
 					popupOpen: OpenState.CLOSED,
 					floatLayerOpen: state.popupOpen === OpenState.OPEN ? !props.noAnimation : false,

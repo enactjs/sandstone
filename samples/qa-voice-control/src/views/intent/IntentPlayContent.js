@@ -1,14 +1,14 @@
 import Item from '@enact/sandstone/Item';
 import Repeater from '@enact/ui/Repeater';
 import {VoiceControlDecorator} from '@enact/webos/speech';
-import React from 'react';
+import {Component} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 
 const VoiceItem = VoiceControlDecorator(Item);
 
-class IntentPlayContent extends React.Component {
+class IntentPlayContent extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {

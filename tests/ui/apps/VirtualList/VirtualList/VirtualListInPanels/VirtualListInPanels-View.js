@@ -2,8 +2,9 @@ import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import React from 'react';
+import {Component} from 'react';
 
+import {Button} from '../../../../../../Button';
 import {InputField} from '../../../../../../Input';
 import Item from '../../../../../../Item';
 import {Header, Panel, Panels} from '../../../../../../Panels';
@@ -22,7 +23,7 @@ const itemSize = 156;
 const listSize = itemSize * 9;
 const itemStyle = {margin: 0};
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
+// eslint-disable-next-line enact/display-name
 const renderItem = (size, onClick) => ({index, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
 	return (
@@ -45,10 +46,11 @@ const updateDataSize = (dataSize) => {
 	return dataSize;
 };
 
-class app extends React.Component {
+class app extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
+			headerChildren: false,
 			index: 0,
 			numItems: 100
 		};
@@ -64,8 +66,12 @@ class app extends React.Component {
 		updateDataSize(value);
 	};
 
+	onToggleHeaderChildren = () => {
+		this.setState((state) => ({headerChildren: !state.headerChildren}));
+	};
+
 	render () {
-		const {index, numItems} = this.state;
+		const {headerChildren, index, numItems} = this.state;
 		const inputStyle = {width: ri.scaleToRem(300)};
 		return (
 			<div {...this.props}>
@@ -76,7 +82,14 @@ class app extends React.Component {
 					<Cell>
 						<Panels index={index}>
 							<Panel>
-								<Header title={'VirtualList in Panel 0'} type="compact" />
+								<Header
+									slot="header"
+									title={'VirtualList in Panel 0'}
+									type="compact"
+									slotAfter={<Button id="headerChildrenButton" onClick={this.onToggleHeaderChildren} size="small">{`${headerChildren ? 'Hide' : 'Show'} Header Children`}</Button>}
+								>
+									{headerChildren ? <Item id="headerChildrenItem">Header Item</Item> : null}
+								</Header>
 								<Cell component={ListContainer}>
 									<VirtualList
 										dataSize={this.state.numItems}

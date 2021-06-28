@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import spotlight from '@enact/spotlight';
 
 import {Header} from '../../../../Panels';
@@ -13,8 +13,8 @@ import UrlPropsDecorator from '../../components/UrlPropsDecorator';
 spotlight.setPointerMode(false);
 
 function App (props) {
-	const [index, setIndex] = React.useState(0);
-	const [open, setOpen] = React.useState(true);
+	const [index, setIndex] = useState(0);
+	const [open, setOpen] = useState(true);
 
 	return (
 		<PopupTabLayout
@@ -38,10 +38,15 @@ function App (props) {
 				</TabPanels>
 			</Tab>
 			<Tab title="Sound">
-				<TabPanels id="sound" noCloseButton>
+				<TabPanels id="sound" index={index} noCloseButton onBack={() => setIndex(0)} >
 					<TabPanel>
 						<Header title="Sound Settings" type="compact" />
-						<Item>Advanced Audio</Item>
+						<Item id="advancedAudio" onClick={() => setIndex(1)}>Advanced Audio</Item>
+					</TabPanel>
+					<TabPanel>
+						<Header title="Advanced Audio Settings" type="compact" />
+						<Item>Balance</Item>
+						<Item>Fade</Item>
 					</TabPanel>
 				</TabPanels>
 			</Tab>

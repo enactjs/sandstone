@@ -4,7 +4,7 @@ import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import PropTypes from 'prop-types';
-import React, {forwardRef, useCallback, useEffect, useRef} from 'react';
+import {forwardRef, useCallback, useEffect, useRef} from 'react';
 
 import $L from '../internal/$L';
 
@@ -32,12 +32,13 @@ const SpottableDiv = Spottable('div');
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{'aria-label': ariaLabel, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, scrollbarTrackCss, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? SpottableDiv : 'div',
 		announceRef = useRef({});
 
 	useEffect (() => {
+		cbAlertScrollbarTrack();
 		SpotlightAccelerator.reset();
 
 		return () => {
@@ -67,7 +68,8 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 					isPagination: isPageKey,
 					isForward: (!rtl && isRight(keyCode)) || (rtl && isLeft(keyCode)) || isDown(keyCode) || isPageDown(keyCode),
 					isVerticalScrollBar: vertical
-				};
+				},
+				scrollProgress = Number(ref.current && ref.current.style.getPropertyValue('--scrollbar-thumb-progress-ratio'));
 
 			if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
 				// Do nothing when (!vertical && pageKey)
@@ -81,18 +83,19 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 					);
 				}
 
-				consumeEventWithScroll(scrollParam, ev);
+				if (ev.repeat || (scrollParam.isForward && scrollProgress !== 1) || (!scrollParam.isForward && scrollProgress !== 0)) {
+					consumeEventWithScroll(scrollParam, ev);
+				}
 			}
 
 			if (!ev.repeat) {
 				SpotlightAccelerator.reset();
 			}
 		}
-	}, [consumeEventWithScroll, rtl, vertical]);
-
+	}, [consumeEventWithScroll, ref, rtl, vertical]);
 	return (
-		<div {...rest} className={className} ref={ref}>
-			<ScrollbarThumb aria-label={ariaLabel} className={css.thumb} onKeyDown={onKeyDown}>
+		<div {...rest} className={classNames(className, scrollbarTrackCss && scrollbarTrackCss.scrollbarTrack)} ref={ref}>
+			<ScrollbarThumb aria-label={ariaLabel} className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb)} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
 			</ScrollbarThumb>
@@ -107,6 +110,14 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 ScrollbarTrack.displayName = 'ScrollbarTrack';
 
 ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototype */ {
+	/**
+	 * Called when [ScrollbarTrack]{@link sandstone/useScroll.ScrollbarTrack} is updated.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	cbAlertScrollbarTrack: PropTypes.func,
+
 	/**
 	 * `true` if scroll thumb is spottable.
 	 *
@@ -132,6 +143,20 @@ ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototy
 	rtl: PropTypes.bool,
 
 	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbarTrack` - The scrollbarTrack component class
+	 * * `thumb` - The scrollbar thumb component class
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	scrollbarTrackCss: PropTypes.object,
+
+	/**
 	 * `true` if vertical scroll, `false` if horizontal scroll.
 	 *
 	 * @type {Boolean}
@@ -141,6 +166,7 @@ ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototy
 };
 
 ScrollbarTrack.defaultProps = {
+	cbAlertScrollbarTrack: nop,
 	focusableScrollbar: false,
 	onInteractionForScroll: nop,
 	rtl: false,

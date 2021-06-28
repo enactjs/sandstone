@@ -5,13 +5,13 @@ import {InputField} from '../../../../../Input';
 import ImageItem from '../../../../../ImageItem';
 import {VirtualGridList} from '../../../../../VirtualList';
 import ThemeDecorator from '../../../../../ThemeDecorator';
-import React from 'react';
+import {createRef, Component} from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
 const ListContainer = SpotlightContainerDecorator('div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
-const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
+const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'auto';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
@@ -19,7 +19,6 @@ spotlight.setPointerMode(false);
 
 const items = [];
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = ({index, ...rest}) => {
 	const {source, subText, text} = items[index];
 	return (
@@ -64,7 +63,7 @@ const updateData = (dataSize, noLabel) => {
 	return dataSize;
 };
 
-class app extends React.Component {
+class app extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -72,15 +71,15 @@ class app extends React.Component {
 			horizontal: false,
 			noLabel: false,
 			numItems: 100,
-			minHeight: 400,
-			minWidth: 600,
+			minHeight: 500,
+			minWidth: 650,
 			spacing: 24,
 			spotlightDisabled: false,
 			translate: false,
 			wrap: false
 		};
-		this.rootRef = React.createRef();
-		this.scrollingRef = React.createRef();
+		this.rootRef = createRef();
+		this.scrollingRef = createRef();
 		updateData(this.state.numItems, this.state.noLabel);
 	}
 
@@ -111,9 +110,11 @@ class app extends React.Component {
 	};
 
 	onChangeNumItems = ({value}) => {
-		this.setState({numItems: value});
+		this.setState({numItems: Number(value)});
 		updateData(value);
 	};
+
+	onAddNumItem = () => this.onChangeNumItems({value: this.state.numItems + 1});
 
 	onChangeSpacing = (obj) => {
 		this.setState({spacing: obj.value});
@@ -141,7 +142,8 @@ class app extends React.Component {
 						<Button id="noLabel" onClick={this.onToggleLabel} selected={noLabel} size="small">Media item</Button>
 						<Button id="translate" onClick={this.onToggle} selected={translate} size="small">translate Mode</Button>
 						<Button id="spotlightDisabled" onClick={this.onToggle} selected={spotlightDisabled} size="small"> spotlightDisabled</Button>
-						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
+						<Button id="plus" icon="plus" onClick={this.onAddNumItem} size="small" />
+						<InputField id="numItems" type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} value={numItems} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="minWidth" defaultValue={minWidth} type="number" onChange={this.onChangeWidth} size="small" style={inputStyle} />
 						<InputField id="minHeight" defaultValue={minHeight} type="number" onChange={this.onChangeHeight} size="small" style={inputStyle} />
@@ -149,9 +151,6 @@ class app extends React.Component {
 					</Cell>
 					<Cell component={ListContainer}>
 						<Row align="center">
-							<Cell component={Button} shrink id="left">
-								Left
-							</Cell>
 							<Cell align="stretch">
 								<Column align="center">
 									<Cell component={Button} shrink id="top">
@@ -174,7 +173,7 @@ class app extends React.Component {
 											scrollMode={(translate ? 'translate' : 'native')}
 											spacing={ri.scale(spacing)}
 											spotlightDisabled={spotlightDisabled}
-											style={{height: ri.scaleToRem(minHeight * 3)}}
+											style={{height: ri.scaleToRem(500 * 3)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>
@@ -183,9 +182,6 @@ class app extends React.Component {
 										Bottom
 									</Cell>
 								</Column>
-							</Cell>
-							<Cell component={Button} shrink id="right">
-								Right
 							</Cell>
 						</Row>
 					</Cell>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 function UrlPropsDecorator (Wrapped) {
 	const UrlDecorator = (props) => {
 		const updated = {...props};

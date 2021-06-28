@@ -3,6 +3,24 @@ import {is} from '@enact/core/keymap';
 import {clamp} from '@enact/core/util';
 import {calcProportion} from '@enact/ui/Slider/utils';
 
+const nop = () => {};
+
+const handleAcceleratedKeyDown = (ev, prop, {current: spotlightAccelerator}) => {
+	if (!spotlightAccelerator) {
+		return true;
+	}
+
+	if (!ev.repeat) {
+		spotlightAccelerator.reset();
+	}
+
+	if (spotlightAccelerator.processKey(ev, nop)) {
+		return false;
+	}
+
+	return true;
+};
+
 const calcStep = (knobStep, step) => {
 	let s;
 
@@ -15,6 +33,14 @@ const calcStep = (knobStep, step) => {
 	// default to a step of 1 if neither are set or are set to 0
 	// otherwise, increment/decrement would be no-ops
 	return s || 1;
+};
+
+const isIncrementByWheel = ({deltaY}) => {
+	return deltaY < 0;
+};
+
+const isDecrementByWheel = ({deltaY}) => {
+	return deltaY > 0;
 };
 
 const isIncrement = ({keyCode}, {orientation}) => {
@@ -55,6 +81,7 @@ const handleIncrement = handle(
 	isIncrement,
 	preventDefault,
 	stop,
+	handleAcceleratedKeyDown,
 	isNotMax,
 	emitChange(1)
 );
@@ -62,6 +89,25 @@ const handleIncrement = handle(
 const handleDecrement = handle(
 	isActive,
 	isDecrement,
+	preventDefault,
+	stop,
+	handleAcceleratedKeyDown,
+	isNotMin,
+	emitChange(-1)
+);
+
+const handleIncrementByWheel = handle(
+	isActive,
+	isIncrementByWheel,
+	preventDefault,
+	stop,
+	isNotMax,
+	emitChange(1)
+);
+
+const handleDecrementByWheel = handle(
+	isActive,
+	isDecrementByWheel,
 	preventDefault,
 	stop,
 	isNotMin,
@@ -96,5 +142,7 @@ export {
 	forwardSpotlightEvents,
 	emitChange,
 	handleDecrement,
-	handleIncrement
+	handleIncrement,
+	handleDecrementByWheel,
+	handleIncrementByWheel
 };

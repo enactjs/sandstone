@@ -1,15 +1,18 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
-import React from 'react';
-import {storiesOf} from '@storybook/react';
-
 import Picker from '@enact/sandstone/Picker';
 
-import {decrementIcons, incrementIcons} from './icons';
+import {decrementIcons, incrementIcons} from '../helper/icons';
 
 // Set up some defaults for info and knobs
 const prop = {
 	orientation: ['horizontal', 'vertical'],
+	reverse: {
+		' ': null,
+		false: false,
+		true: true
+	},
+	type: ['number', 'string'],
 	width: [null, 'small', 'medium', 'large']
 };
 
@@ -23,33 +26,39 @@ const airports = [
 	'נמל התעופה בן גוריון טרמינל הבינלאומי'
 ];
 
-// const Config = mergeComponentMetadata('FormCheckboxItem', FormCheckboxItem);
 Picker.displayName = 'Picker';
 
-storiesOf('Sandstone', module)
-	.add(
-		'Picker',
-		() => (
-			<Picker
-				aria-label={text('aria-label', Picker, '')}
-				decrementAriaLabel={text('decrementAriaLabel', Picker, '')}
-				decrementIcon={select('decrementIcon', ['', ...decrementIcons], Picker)}
-				disabled={boolean('disabled', Picker)}
-				incrementAriaLabel={text('incrementAriaLabel', Picker, '')}
-				incrementIcon={select('incrementIcon', ['', ...incrementIcons], Picker)}
-				joined={boolean('joined', Picker)}
-				noAnimation={boolean('noAnimation', Picker)}
-				onChange={action('onChange')}
-				orientation={select('orientation', prop.orientation, Picker, prop.orientation[0])}
-				width={select('width', prop.width, Picker, prop.width[3])}
-				wrap={boolean('wrap', Picker)}
-			>
-				{airports}
-			</Picker>
-		),
-		{
-			info: {
-				text: 'Basic usage of Picker'
-			}
-		}
-	);
+export default {
+	title: 'Sandstone/Picker',
+	component: 'Picker'
+};
+
+export const _Picker = () => (
+	<Picker
+		aria-label={text('aria-label', Picker, '')}
+		decrementAriaLabel={text('decrementAriaLabel', Picker, '')}
+		decrementIcon={select('decrementIcon', ['', ...decrementIcons], Picker)}
+		disabled={boolean('disabled', Picker)}
+		incrementAriaLabel={text('incrementAriaLabel', Picker, '')}
+		incrementIcon={select('incrementIcon', ['', ...incrementIcons], Picker)}
+		inlineTitle={boolean('inlineTitle', Picker)}
+		joined={boolean('joined', Picker)}
+		noAnimation={boolean('noAnimation', Picker)}
+		onChange={action('onChange')}
+		orientation={select('orientation', prop.orientation, Picker, prop.orientation[0])}
+		reverse={prop.reverse[select('reverse', [' ', 'false', 'true'], Picker)]}
+		title={text('title', Picker)}
+		type={select('type', prop.type, Picker)}
+		width={select('width', prop.width, Picker, prop.width[3])}
+		wrap={boolean('wrap', Picker)}
+	>
+		{airports}
+	</Picker>
+);
+
+_Picker.storyName = 'Picker';
+_Picker.parameters = {
+	info: {
+		text: 'Basic usage of Picker'
+	}
+};
