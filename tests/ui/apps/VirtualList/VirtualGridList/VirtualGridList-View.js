@@ -19,7 +19,6 @@ spotlight.setPointerMode(false);
 
 const items = [];
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = ({index, ...rest}) => {
 	const {source, subText, text} = items[index];
 	return (
@@ -111,9 +110,11 @@ class app extends Component {
 	};
 
 	onChangeNumItems = ({value}) => {
-		this.setState({numItems: value});
+		this.setState({numItems: Number(value)});
 		updateData(value);
 	};
+
+	onAddNumItem = () => this.onChangeNumItems({value: this.state.numItems + 1});
 
 	onChangeSpacing = (obj) => {
 		this.setState({spacing: obj.value});
@@ -141,7 +142,8 @@ class app extends Component {
 						<Button id="noLabel" onClick={this.onToggleLabel} selected={noLabel} size="small">Media item</Button>
 						<Button id="translate" onClick={this.onToggle} selected={translate} size="small">translate Mode</Button>
 						<Button id="spotlightDisabled" onClick={this.onToggle} selected={spotlightDisabled} size="small"> spotlightDisabled</Button>
-						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
+						<Button id="plus" icon="plus" onClick={this.onAddNumItem} size="small" />
+						<InputField id="numItems" type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} value={numItems} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="minWidth" defaultValue={minWidth} type="number" onChange={this.onChangeWidth} size="small" style={inputStyle} />
 						<InputField id="minHeight" defaultValue={minHeight} type="number" onChange={this.onChangeHeight} size="small" style={inputStyle} />

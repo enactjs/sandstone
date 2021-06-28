@@ -70,7 +70,7 @@ const handleKeyUp = handle(
  * @hoc
  * @private
  */
-const MediaSliderDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
+const MediaSliderDecorator = hoc((config, Wrapped) => {
 	return class extends Component {
 		static displayName = 'MediaSliderDecorator';
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import {fontOverrideGenerator} from './fontGenerator';
 
-const I18nFontDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
+const I18nFontDecorator = hoc((config, Wrapped) => {
 	return class I18nDecorator extends Component {
 		static displayName = 'I18nFontDecorator';
 
