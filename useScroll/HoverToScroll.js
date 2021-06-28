@@ -146,14 +146,11 @@ const HoverToScrollBase = (props) => {
 		const {[canScrollFunc]: canScroll, getScrollBounds, [scrollPosition]: currentPosition} = scrollContainer;
 		const bounds = getScrollBounds();
 		const position = mutableRef.current.hoveredPosition;
-		let curAfter, curBefore;
+		let curAfter = false, curBefore = false;
 
 		if (canScroll(bounds)) {
 			curAfter = currentPosition < bounds[maxPosition] - epsilon;
 			curBefore = currentPosition > 0;
-		} else {
-			curAfter = false;
-			curBefore = false;
 		}
 
 		if (after !== curAfter && position === 'after' || before !== curBefore && position === 'before') {
