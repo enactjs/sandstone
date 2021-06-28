@@ -4,6 +4,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Input` prop `inputFieldSpotlightId` to set `spotlightId` of `InputField`
+- `sandstone/Input` prop `noSubmitButton` to omit submit button of number key pad
+
 ### Fixed
 
 - `sandstone/Picker` value to not marquee when changing `title`
