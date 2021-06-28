@@ -13,6 +13,8 @@ import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
+import ImageItemCss from '../ImageItem/ImageItem.module.less';
+
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
 
@@ -41,7 +43,8 @@ const useSpottable = (props, instances) => {
 		isScrollingBySnapToCenter: false,
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
-		pause: new Pause('VirtualListBasic')
+		pause: new Pause('VirtualListBasic'),
+		scaledTarget: null
 	});
 
 	const {pause} = mutableRef.current;
@@ -84,7 +87,7 @@ const useSpottable = (props, instances) => {
 		}
 	});
 
-	useEventFocus(props, instances);
+	useEventFocus(props, instances, {removeScaleEffect: removeScaleEffect.bind(this)});
 
 	const {
 		handlePlaceholderFocus,
@@ -307,6 +310,17 @@ const useSpottable = (props, instances) => {
 		mutableRef.current.isScrollingBySnapToCenter = false;
 	}
 
+	function addScaleEffect (elem) {
+		elem.classList.add(ImageItemCss.scaled);
+		mutableRef.current.scaledTarget = elem;
+	}
+
+	function removeScaleEffect () {
+		if (mutableRef.current.scaledTarget) {
+			mutableRef.current.scaledTarget.classList.remove(ImageItemCss.scaled);
+		}
+	}
+
 	function getScrollBounds () {
 		return scrollContentHandle.current.getScrollBounds();
 	}
@@ -314,6 +328,7 @@ const useSpottable = (props, instances) => {
 	// Return
 
 	return {
+		addScaleEffect,
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,
@@ -321,6 +336,7 @@ const useSpottable = (props, instances) => {
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
 		pauseSpotlight,
+		removeScaleEffect,
 		resetSnapToCenterStatus,
 		setContainerDisabled,
 		setLastFocusedNode,
@@ -338,6 +354,7 @@ const useThemeVirtualList = (props) => {
 	const instance = {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef};
 
 	const {
+		addScaleEffect,
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,
@@ -345,6 +362,7 @@ const useThemeVirtualList = (props) => {
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
 		pauseSpotlight,
+		removeScaleEffect,
 		resetSnapToCenterStatus,
 		setContainerDisabled,
 		setLastFocusedNode,
@@ -356,11 +374,13 @@ const useThemeVirtualList = (props) => {
 	usePreventScroll(props, instance);
 
 	const handle = {
+		addScaleEffect,
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,
 		getScrollBounds,
 		pauseSpotlight,
+		removeScaleEffect,
 		resetSnapToCenterStatus,
 		setContainerDisabled,
 		setLastFocusedNode,

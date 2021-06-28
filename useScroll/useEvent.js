@@ -10,8 +10,6 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
 
-import ImageItemCss from '../ImageItem/ImageItem.module.less';
-
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
@@ -675,18 +673,12 @@ const useEventWheel = (props, instances) => {
 
 				if (nextIndex > 0 && nextIndex < dataSize - 1) {
 					if (typeof document === 'object') {
-						const currentTarget = document.querySelector(`[data-index="${currentIndex}"] div`);
 						const target = document.querySelector(`[data-index="${nextIndex}"] div`);
 
-						if (currentTarget) {
-							currentTarget.classList.remove(ImageItemCss.scaled);
-						}
-						if (target) {
-							target.classList.add(ImageItemCss.scaled);
-
-							// Save the target to reset the style
-							scrollContentHandle.current.scaledTarget = target;
-						}
+						// remove effect
+						themeScrollContentHandle.current.removeScaleEffect();
+						// add effect
+						themeScrollContentHandle.current.addScaleEffect(target);
 					}
 
 					if (themeScrollContentHandle.current.resetSnapToCenterStatus) {
