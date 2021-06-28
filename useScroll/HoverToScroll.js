@@ -52,7 +52,7 @@ const HoverToScrollBase = (props) => {
 	const {
 		direction,
 		scrollContainerHandle: {current: scrollContainer},
-		scrollObserver: {addObserverOnScroll = nop, removeObserverOnScroll = nop} = {}
+		scrollObserver: {addObserverOnScroll, removeObserverOnScroll}
 	} = props;
 
 	// Mutable value
