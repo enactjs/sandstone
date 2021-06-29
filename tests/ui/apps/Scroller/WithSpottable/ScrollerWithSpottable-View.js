@@ -40,7 +40,7 @@ class app extends Component {
 
 	render () {
 		return (
-			<Panel className="enact-fit" {...this.props}>
+			<Panel className="enact-fit" style={{position: 'absolute'}} {...this.props}>
 				<Header title="Header" />
 				<Scroller>
 					<Page>

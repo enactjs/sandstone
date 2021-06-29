@@ -71,8 +71,13 @@
 			padding: @sand-imageitem-vertical-full-image-padding;
 
 			.image {
-				transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
-				will-change: transform, filter;
+				transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+				will-change: transform, box-shadow;
+
+				&.scaled {
+					transform: @sand-imageitem-vertical-focus-image-transform;
+					box-shadow: @sand-imageitem-focus-bg-shadow;
+				}
 
 				.selectionIcon {
 					transition: transform 200ms ease-in-out;
@@ -193,7 +198,7 @@
 			&.vertical {
 				&.fullImage .image {
 					transform: @sand-imageitem-vertical-focus-image-transform;
-					filter: drop-shadow(@sand-imageitem-focus-bg-shadow);
+					box-shadow: @sand-imageitem-focus-bg-shadow;
 				}
 			}
 

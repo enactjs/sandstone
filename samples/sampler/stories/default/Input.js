@@ -42,6 +42,7 @@ export const _Input = () => {
 		'aria-label': text('aria-label', ConfigPopup, ''),
 		popupAriaLabel: text('popupAriaLabel', ConfigPopup, ''),
 		noBackButton: boolean('noBackButton', ConfigPopup),
+		noSubmitButton: boolean('noSubmitButton', ConfigPopup),
 		backButtonAriaLabel: select('backButtonAriaLabel', prop.backButtonAriaLabel, ConfigPopup)
 	};
 
