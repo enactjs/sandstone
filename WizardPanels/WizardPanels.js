@@ -445,16 +445,16 @@ const WizardPanelsBase = kind({
 // because the index is always 0 from its perspective.
 function useReverseTransition (index = -1, rtl) {
 	const prevIndex = useRef(index);
-	const reverseTransition = useRef(rtl);
+	const reverse = useRef(rtl);
 	// If the index was changed, the panel transition is occured on the next cycle by `Panel`
-	let prevTransition = reverseTransition.current;
+	let prevReverse = reverse.current;
 
 	if (prevIndex.current !== index) {
-		reverseTransition.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
+		reverse.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
 		prevIndex.current = index;
 	}
 
-	return prevTransition;
+	return prevReverse;
 }
 
 /**

@@ -21,7 +21,7 @@ function PanelBase ({
 	subtitle,
 	title
 }) {
-	const {setPanel: set, index} = useContext(WizardPanelsContext);
+	const {index, setPanel: set} = useContext(WizardPanelsContext);
 
 	useEffect(() => {
 		if (set) {
@@ -43,12 +43,12 @@ function PanelBase ({
 		ariaLabel,
 		children,
 		footer,
+		index,
 		nextButton,
 		prevButton,
 		subtitle,
 		set,
-		title,
-		index
+		title
 	]);
 	return null;
 }
