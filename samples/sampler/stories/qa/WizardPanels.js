@@ -7,7 +7,7 @@ import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
 import WizardPanels, {Panel, WizardPanelsBase} from '@enact/sandstone/WizardPanels';
-import {Component, PureComponent} from 'react';
+import {Component} from 'react';
 
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
@@ -181,70 +181,6 @@ export const WithFooterButtons = () => <WizardPanelsWidthFooterButtons />;
 
 WithFooterButtons.storyName = 'with footer buttons';
 WithFooterButtons.parameters = {
-	props: {
-		noPanel: true
-	}
-};
-
-class PureComponentItem extends PureComponent {
-
-	constructor (props) {
-		super(props);
-		action('constructor')(props.children);
-	}
-
-	componentDidMount () {
-		action('componentDidMount')(this.props.children);
-	}
-
-	componentWillUnmount () {
-		action('componentWillUnmount')(this.props.children);
-	}
-
-	render () {
-		action('render')(this.props.children);
-		return (
-			<Item>{this.props.children}</Item>
-		);
-	}
-}
-
-export const WithPureComponent = () => (
-	<WizardPanels
-		current={number('current', Config, 0)}
-		noAnimation={boolean('noAnimation', Config)}
-		noSteps={boolean('noSteps', Config)}
-		nextButtonVisibility={select('nextButtonVisibility', propOptions.buttonVisibility, Config)}
-		onNextClick={action('onNextClick')}
-		onPrevClick={action('onPrevClick')}
-		onTransition={action('onTransition')}
-		onWillTransition={action('onWillTransition')}
-		prevButtonVisibility={select('prevButtonVisibility', propOptions.buttonVisibility, Config)}
-		total={number('total', Config, 0)}
-	>
-		<WizardPanels.Panel
-			footer="Footer in View 1"
-			subtitle="A subtitle for View 1"
-			title="WizardPanel View 1"
-		>
-			<PureComponentItem>Item1</PureComponentItem>
-			<footer>
-				<Button>OK</Button>
-				<Button>Cancel</Button>
-			</footer>
-		</WizardPanels.Panel>
-		<WizardPanels.Panel
-			footer="Footer in View 2"
-			subtitle="A subtitle for View 2"
-			title="WizardPanel View 2"
-		>
-			<PureComponentItem>Item2</PureComponentItem>
-		</WizardPanels.Panel>
-	</WizardPanels>
-);
-
-WithPureComponent.storyName = 'with pure component';
-WithPureComponent.parameters = {
 	props: {
 		noPanel: true
 	}
