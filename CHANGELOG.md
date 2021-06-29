@@ -14,7 +14,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Picker` value to not marquee when changing `title`
 - `sandstone/Scroller` and `sandstone/VirtualList` to scroll by hover when scrollbar is hidden
 - `sandstone/Scroller` and `sandstone/VirtualList` to focus elements at scroll boundaries when `hoverToScroll` is `true`
-- `sandstone/WizardPanels` to reduce meaningless rendering
+- `sandstone/VirtualList` to scroll properly when `snapToCenter`
+- `sandstone/WizardPanels` to prevent rerendering of previous panel
 
 ## [2.0.0-rc.1] - 2021-06-18
 
