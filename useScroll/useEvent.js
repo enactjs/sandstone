@@ -49,7 +49,7 @@ const useEventFocus = (props, instances) => {
 					scrollContainerHandle.current.start({
 						targetX: left,
 						targetY: top,
-						animate: spottable.current.animateOnFocus || snapToCenter,
+						animate: snapToCenter ? snapToCenter : spottable.current.animateOnFocus,
 						overscrollEffect: props.overscrollEffectOn[scrollContainerHandle.current.lastInputType] &&
 							(!themeScrollContentHandle.current.shouldPreventOverscrollEffect || !themeScrollContentHandle.current.shouldPreventOverscrollEffect())
 					});
