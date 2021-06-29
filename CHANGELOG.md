@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` prop `noSubmitButton` to omit submit button of number key pad
 
 ### Changed
+
 - `sandstone/Slider` to expand hover area
 
 ### Fixed
