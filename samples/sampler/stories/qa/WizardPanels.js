@@ -243,8 +243,6 @@ export const WithPureComponent = () => (
 	</WizardPanels>
 );
 
-// export const WithPureComponent = () => <WithPureComponent />;
-
 WithPureComponent.storyName = 'with pure component';
 WithPureComponent.parameters = {
 	props: {
