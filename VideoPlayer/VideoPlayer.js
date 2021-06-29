@@ -156,7 +156,7 @@ const AnnounceState = {
  * faster. If it is negative, it will play backward.
  *
  * The order of numbers represents the incremental order of rates that will be used for each
- * operation. Note that rates can be expressed as decimals, strings and also fractions if needed.
+ * operation. Note that rates can be expressed as decimals, strings, and fractions.
  * (e.g.: `0.5`, `'0.5'`, `'1/2'`).
  *
  * @typedef {Object} playbackRateHash
@@ -515,7 +515,7 @@ const VideoPlayerBase = class extends Component {
 		pauseAtEnd: PropTypes.bool,
 
 		/**
-		 * Mapping of keys which are playback rate types to array of playback rate values.
+		 * Mapping of playback rate names to playback rate values that may be set.
 		 *
 		 * @type {sandstone/VideoPlayer.playbackRateHash}
 		 * @default {
@@ -1374,7 +1374,7 @@ const VideoPlayerBase = class extends Component {
 
 	/**
 	 * Step a given amount of time away from the current playback position.
-	 * Like [seek]{@link sandstone/VideoPlayer.VideoPlayer#seek} but relative.
+	 * Like [seek]{@link sandstone/VideoPlayer.VideoPlayerBase.seek} but relative.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1395,7 +1395,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Changes the playback speed via [selectPlaybackRate()]{@link sandstone/VideoPlayer.VideoPlayer#selectPlaybackRate}.
+	 * Changes the playback speed.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1452,7 +1452,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Changes the playback speed via [selectPlaybackRate()]{@link sandstone/VideoPlayer.VideoPlayer#selectPlaybackRate}.
+	 * Changes the playback speed.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1575,17 +1575,17 @@ const VideoPlayerBase = class extends Component {
 	 * Retrieves the playback rate value.
 	 *
 	 * @param {Number} idx - The index of the desired playback rate.
-	 * @returns {Number} The playback rate value.
+	 * @returns {Number|String} The playback rate value.
 	 * @private
 	 */
 	selectPlaybackRate = (idx) => {
-		return calcNumberValueOfPlaybackRate(this.playbackRates[idx]);
+		return this.playbackRates[idx];
 	};
 
 	/**
 	 * Sets [playbackRate]{@link sandstone/VideoPlayer.VideoPlayer#playbackRate}.
 	 *
-	 * @param {Number} rate - The desired playback rate.
+	 * @param {Number|String} rate - The desired playback rate.
 	 * @private
 	 */
 	setPlaybackRate = (rate) => {
@@ -1594,18 +1594,19 @@ const VideoPlayerBase = class extends Component {
 
 		// Make sure rate is a string
 		this.playbackRate = String(rate);
+		const pbNumber = calcNumberValueOfPlaybackRate(this.playbackRate);
 
 		if (!platform.webos) {
 			// ReactDOM throws error for setting negative value for playbackRate
-			this.video.playbackRate = rate < 0 ? 0 : rate;
+			this.video.playbackRate = pbNumber < 0 ? 0 : pbNumber;
 
 			// For supporting cross browser behavior
-			if (rate < 0) {
+			if (pbNumber < 0) {
 				this.beginRewind();
 			}
 		} else {
 			// Set native playback rate
-			this.video.playbackRate = rate;
+			this.video.playbackRate = pbNumber;
 		}
 	};
 

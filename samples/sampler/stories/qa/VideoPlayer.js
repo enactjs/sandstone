@@ -113,6 +113,10 @@ class VideoPlayerWithfastForwardMode extends Component {
 		this.videoPlayer.fastForward();
 	};
 
+	rewind = () => {
+		this.videoPlayer.rewind();
+	};
+
 	render () {
 		return (
 			<div>
@@ -131,7 +135,11 @@ class VideoPlayerWithfastForwardMode extends Component {
 					<Video>
 						<source src={'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'} />
 					</Video>
-					<MediaControls actionGuideLabel="Press down button to fastforward">
+					<MediaControls actionGuideLabel="Press Down Button">
+						<Button
+							icon="backward"
+							onClick={this.rewind}
+						/>
 						<Button
 							icon="forward"
 							onClick={this.fastforward}
