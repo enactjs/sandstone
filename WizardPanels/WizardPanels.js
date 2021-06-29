@@ -445,24 +445,18 @@ const WizardPanelsBase = kind({
 // because the index is always 0 from its perspective.
 function useReverseTransition (index = -1, rtl) {
 	const prevIndex = useRef(index);
-	let reverse = rtl;
+	const reverseTransition = useRef(rtl);
+	// If the index was changed, the panel transition is occured on the next cycle by `Panel`
+	let prevTransition = reverseTransition.current;
 
 	if (prevIndex.current !== index) {
-		reverse = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
+		reverseTransition.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
 		prevIndex.current = index;
 	}
 
-	return reverse;
+	return prevTransition;
 }
 
-function useIndexChanged (index = -1) {
-	const prevIndex = useRef(-1);
-	const changed = (prevIndex.current !== index);
-	const prev = prevIndex.current;
-	prevIndex.current = index;
-
-	return [changed, prev];
-}
 /**
  * WizardPanelsRouter passes the children, footer, subtitle, and title from
  * [WizardPanel]{@link sandstone/WizardPanels.Panel} to
@@ -489,9 +483,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
-		const [changedIndex, prevIndex] = useIndexChanged(index);
-		// If the index was changed, the panel should be updated on the next cycle by `Panel`
-		const reverseTransition = useReverseTransition(changedIndex ? prevIndex : index, rtl);
+		const reverseTransition = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
