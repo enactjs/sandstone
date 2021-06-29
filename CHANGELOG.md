@@ -4,16 +4,21 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Input` prop `inputFieldSpotlightId` to set `spotlightId` of `InputField`
+- `sandstone/Input` prop `noSubmitButton` to omit submit button of number key pad
+
 ### Fixed
 
 - `sandstone/Picker` value to not marquee when changing `title`
 - `sandstone/Scroller` and `sandstone/VirtualList` to scroll by hover when scrollbar is hidden
+- `sandstone/Scroller` and `sandstone/VirtualList` to focus elements at scroll boundaries when `hoverToScroll` is `true`
 
 ## [2.0.0-rc.1] - 2021-06-18
 
 ### Added
 
-- `sandstone/Input` prop `inputFieldSpotlightId` to set `spotlightId` of `InputField`
 - `sandstone/Picker` props `reverse` and `type` to support for number list
 - `sandstone/Picker` and `sandstone/RangePicker` public class names `title` and `inlineTitle`
 - `sandstone/Scroller` and `sandstone/VirtualList` prop `hoverToScroll` to scroll by hover
