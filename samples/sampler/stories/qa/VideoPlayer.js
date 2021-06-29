@@ -1,5 +1,7 @@
-import {button} from '@enact/storybook-utils/addons/knobs';
+import Button from '@enact/sandstone/Button';
+import {MediaControls} from '@enact/sandstone/MediaPlayer';
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
+import {button} from '@enact/storybook-utils/addons/knobs';
 import {Component} from 'react';
 
 const videoTabLabel = 'VideoPlayer';
@@ -97,3 +99,58 @@ export default {
 export const PreloadVideos = () => <VideoSourceSwap />;
 
 PreloadVideos.storyName = 'Preload Videos';
+
+class VideoPlayerWithfastForwardMode extends Component {
+	constructor (props) {
+		super(props);
+	}
+
+	setVideoPlayer = (node) => {
+		this.videoPlayer = node;
+	};
+
+	fastforward = () => {
+		this.videoPlayer.fastForward();
+	};
+
+	rewind = () => {
+		this.videoPlayer.rewind();
+	};
+
+	render () {
+		return (
+			<div>
+				<VideoPlayer
+					feedbackHideDelay={0}
+					muted
+					playbackRateHash={{
+						fastForward: [1.25, '3/2', '2', '2.5', '4', '8'],
+						rewind: ['-2', '-4', '-8', '-16'],
+						slowForward: ['1/4', '1/2'],
+						slowRewind: ['-1/2', '-1']
+					}}
+					ref={this.setVideoPlayer}
+					title={'Big Buck Bunny'}
+				>
+					<Video>
+						<source src={'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'} />
+					</Video>
+					<MediaControls actionGuideLabel="Press Down Button">
+						<Button
+							icon="backward"
+							onClick={this.rewind}
+						/>
+						<Button
+							icon="forward"
+							onClick={this.fastforward}
+						/>
+					</MediaControls>
+				</VideoPlayer>
+			</div>
+		);
+	}
+}
+
+export const FastForwardWithVariousPlaybackRates = () => <VideoPlayerWithfastForwardMode />;
+
+FastForwardWithVariousPlaybackRates.storyName = 'Fastforward with various playback rates';
