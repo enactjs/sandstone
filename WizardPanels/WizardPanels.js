@@ -11,7 +11,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext, useEffect, useRef, useState, useCallback, Children} from 'react';
+import {createContext, useRef, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
