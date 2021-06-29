@@ -6,8 +6,6 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
 import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
 
-import ImageItemCss from '../ImageItem/ImageItem.module.less';
-
 const
 	isDown = is('down'),
 	isEnter = is('enter'),
@@ -238,8 +236,9 @@ const useEventKey = (props, instances, context) => {
 	};
 };
 
-const useEventFocus = (props, instances) => {
+const useEventFocus = (props, instances, context) => {
 	const {scrollContainerRef, scrollContentHandle} = instances;
+	const {removeScaleEffect} = context;
 
 	useLayoutEffect(() => {
 		function handleFocus (ev) {
@@ -248,10 +247,7 @@ const useEventFocus = (props, instances) => {
 			// We need to find out the general solution for multiple spottable inside of one item
 			if (ev.target && scrollContentHandle.current && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', 1);
-				if (scrollContentHandle.current.scaledTarget) {
-					scrollContentHandle.current.scaledTarget.classList.remove(ImageItemCss.scaled);
-					scrollContentHandle.current.scaledTarget = null;
-				}
+				removeScaleEffect();
 			}
 		}
 
