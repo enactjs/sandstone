@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Picker` value to not marquee when changing `title`
 - `sandstone/Scroller` and `sandstone/VirtualList` to scroll by hover when scrollbar is hidden
+- `sandstone/VideoPlayer` to handle playback rate with decimal point
 
 ## [2.0.0-rc.1] - 2021-06-18
 

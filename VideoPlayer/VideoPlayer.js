@@ -71,7 +71,7 @@ const shouldJump = ({disabled, no5WayJump}, {mediaControlsVisible, sourceUnavail
 );
 const calcNumberValueOfPlaybackRate = (rate) => {
 	const pbArray = String(rate).split('/');
-	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseInt(rate);
+	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseFloat(rate);
 };
 
 const SpottableDiv = Touchable(Spottable('div'));
@@ -156,15 +156,15 @@ const AnnounceState = {
  * faster. If it is negative, it will play backward.
  *
  * The order of numbers represents the incremental order of rates that will be used for each
- * operation. Note that all rates are expressed as strings and fractions are used rather than decimals
- * (e.g.: `'1/2'`, not `'0.5'`).
+ * operation. Note that rates can be expressed as decimals, strings and also fractions if needed.
+ * (e.g.: `0.5`, `'0.5'`, `'1/2'`).
  *
  * @typedef {Object} playbackRateHash
  * @memberof sandstone/VideoPlayer
- * @property {String[]} fastForward - An array of playback rates when media fast forwards
- * @property {String[]} rewind - An array of playback rates when media rewinds
- * @property {String[]} slowForward - An array of playback rates when media slow-forwards
- * @property {String[]} slowRewind - An array of playback rates when media slow-rewinds
+ * @property {[]} fastForward - An array of playback rates when media fast forwards
+ * @property {[]} rewind - An array of playback rates when media rewinds
+ * @property {[]} slowForward - An array of playback rates when media slow-forwards
+ * @property {[]} slowRewind - An array of playback rates when media slow-rewinds
  *
  * @public
  */
@@ -515,7 +515,7 @@ const VideoPlayerBase = class extends Component {
 		pauseAtEnd: PropTypes.bool,
 
 		/**
-		 * Mapping of playback rate names to playback rate values that may be set.
+		 * Mapping of keys which are playback rate types to array of playback rate values.
 		 *
 		 * @type {sandstone/VideoPlayer.playbackRateHash}
 		 * @default {
@@ -527,10 +527,10 @@ const VideoPlayerBase = class extends Component {
 		 * @public
 		 */
 		playbackRateHash: PropTypes.shape({
-			fastForward: PropTypes.arrayOf(PropTypes.string),
-			rewind: PropTypes.arrayOf(PropTypes.string),
-			slowForward: PropTypes.arrayOf(PropTypes.string),
-			slowRewind: PropTypes.arrayOf(PropTypes.string)
+			fastForward: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+			rewind: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+			slowForward: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+			slowRewind: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
 		}),
 
 		/**
@@ -1572,20 +1572,20 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Retrieves the playback rate name.
+	 * Retrieves the playback rate value.
 	 *
 	 * @param {Number} idx - The index of the desired playback rate.
-	 * @returns {String} The playback rate name.
+	 * @returns {Number} The playback rate value.
 	 * @private
 	 */
 	selectPlaybackRate = (idx) => {
-		return this.playbackRates[idx];
+		return calcNumberValueOfPlaybackRate(this.playbackRates[idx]);
 	};
 
 	/**
 	 * Sets [playbackRate]{@link sandstone/VideoPlayer.VideoPlayer#playbackRate}.
 	 *
-	 * @param {String} rate - The desired playback rate.
+	 * @param {Number} rate - The desired playback rate.
 	 * @private
 	 */
 	setPlaybackRate = (rate) => {
@@ -1593,20 +1593,19 @@ const VideoPlayerBase = class extends Component {
 		this.stopRewindJob();
 
 		// Make sure rate is a string
-		this.playbackRate = rate = String(rate);
-		const pbNumber = calcNumberValueOfPlaybackRate(rate);
+		this.playbackRate = String(rate);
 
 		if (!platform.webos) {
 			// ReactDOM throws error for setting negative value for playbackRate
-			this.video.playbackRate = pbNumber < 0 ? 0 : pbNumber;
+			this.video.playbackRate = rate < 0 ? 0 : rate;
 
 			// For supporting cross browser behavior
-			if (pbNumber < 0) {
+			if (rate < 0) {
 				this.beginRewind();
 			}
 		} else {
 			// Set native playback rate
-			this.video.playbackRate = pbNumber;
+			this.video.playbackRate = rate;
 		}
 	};
 
