@@ -150,6 +150,14 @@ const InputPopupBase = kind({
 		noBackButton: PropTypes.bool,
 
 		/**
+		 * Omits the submit button.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noSubmitButton: PropTypes.bool,
+
+		/**
 		 * The type of numeric input to use.
 		 *
 		 * The default is to display separated digits when `length` is less than `7`. If `field` is
@@ -344,6 +352,7 @@ const InputPopupBase = kind({
 		css,
 		inputFieldSpotlightId,
 		noBackButton,
+		noSubmitButton,
 		numberInputField,
 		onBeforeChange,
 		onClose,
@@ -419,6 +428,7 @@ const InputPopupBase = kind({
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
 								numberInputField={numberInputField}
+								noSubmitButton={noSubmitButton}
 							/> :
 							<InputField
 								{...inputProps}
