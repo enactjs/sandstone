@@ -325,7 +325,7 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
 							<br />
 							<br />
-							<Button size="small" onClick={handleClose}>Button2</Button>
+							<Button size="small">Button2</Button>
 							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
 							<br />
 							<br />
