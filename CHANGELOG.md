@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Picker` value to not marquee when changing `title`
+- `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
 - `sandstone/Scroller` and `sandstone/VirtualList` to scroll by hover when scrollbar is hidden
 - `sandstone/Scroller` and `sandstone/VirtualList` to focus elements at scroll boundaries when `hoverToScroll` is `true`
 - `sandstone/VideoPlayer` to handle decimal playback rate
