@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Popup` to revert 2.0.0-rc.1 fix that having proper focus when `noAnimation`
+
 ## [2.0.0-rc.1] - 2021-06-18
 
 ### Added
