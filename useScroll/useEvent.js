@@ -10,13 +10,11 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
 
-import ImageItemCss from '../ImageItem/ImageItem.module.less';
-
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances) => {
-	const {scrollMode} = props;
+	const {scrollMode, snapToCenter} = props;
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
 
 	// Functions
@@ -51,7 +49,7 @@ const useEventFocus = (props, instances) => {
 					scrollContainerHandle.current.start({
 						targetX: left,
 						targetY: top,
-						animate: spottable.current.animateOnFocus,
+						animate: snapToCenter ? snapToCenter : spottable.current.animateOnFocus,
 						overscrollEffect: props.overscrollEffectOn[scrollContainerHandle.current.lastInputType] &&
 							(!themeScrollContentHandle.current.shouldPreventOverscrollEffect || !themeScrollContentHandle.current.shouldPreventOverscrollEffect())
 					});
@@ -675,18 +673,16 @@ const useEventWheel = (props, instances) => {
 
 				if (nextIndex > 0 && nextIndex < dataSize - 1) {
 					if (typeof document === 'object') {
-						const currentTarget = document.querySelector(`[data-index="${currentIndex}"] div`);
 						const target = document.querySelector(`[data-index="${nextIndex}"] div`);
 
-						if (currentTarget) {
-							currentTarget.classList.remove(ImageItemCss.scaled);
-						}
-						if (target) {
-							target.classList.add(ImageItemCss.scaled);
+						// remove effect
+						themeScrollContentHandle.current.removeScaleEffect();
+						// add effect
+						themeScrollContentHandle.current.addScaleEffect(target);
+					}
 
-							// Save the target to reset the style
-							scrollContentHandle.current.scaledTarget = target;
-						}
+					if (themeScrollContentHandle.current.resetSnapToCenterStatus) {
+						themeScrollContentHandle.current.resetSnapToCenterStatus();
 					}
 
 					scrollContainerHandle.current.scrollTo({
