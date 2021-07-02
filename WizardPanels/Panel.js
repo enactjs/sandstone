@@ -21,13 +21,17 @@ function PanelBase ({
 	subtitle,
 	title
 }) {
-	const set = useContext(WizardPanelsContext);
+	const {index, setPanel: set} = useContext(WizardPanelsContext);
 
 	useEffect(() => {
 		if (set) {
 			set({
 				'aria-label': ariaLabel,
-				children,
+				children: (
+					<div className="enact-fit" data-index={index} key={`panel${index}`}>
+						{children}
+					</div>
+				),
 				footer,
 				nextButton,
 				prevButton,
@@ -39,6 +43,7 @@ function PanelBase ({
 		ariaLabel,
 		children,
 		footer,
+		index,
 		nextButton,
 		prevButton,
 		subtitle,
