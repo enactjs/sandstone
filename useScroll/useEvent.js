@@ -14,7 +14,7 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances) => {
-	const {scrollMode, snapToCenter} = props;
+	const {scrollMode} = props;
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
 
 	// Functions
