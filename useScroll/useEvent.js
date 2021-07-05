@@ -14,7 +14,7 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances) => {
-	const {scrollMode, snapToCenter} = props;
+	const {scrollMode} = props;
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
 
 	// Functions
@@ -49,7 +49,7 @@ const useEventFocus = (props, instances) => {
 					scrollContainerHandle.current.start({
 						targetX: left,
 						targetY: top,
-						animate: snapToCenter ? snapToCenter : spottable.current.animateOnFocus,
+						animate: spottable.current.animateOnFocus,
 						overscrollEffect: props.overscrollEffectOn[scrollContainerHandle.current.lastInputType] &&
 							(!themeScrollContentHandle.current.shouldPreventOverscrollEffect || !themeScrollContentHandle.current.shouldPreventOverscrollEffect())
 					});
