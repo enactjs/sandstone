@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Imageitem` public classname `imageIcon`
+
 ## [2.0.0-rc.3] - 2021-07-02
 
 ### Added
