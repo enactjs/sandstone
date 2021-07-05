@@ -1,29 +1,29 @@
-import {mount} from 'enzyme';
+import {render} from '@testing-library/react';
+
 import ProgressBar from '../ProgressBar';
 
 describe('ProgressBar Specs', () => {
 	test('should only show tooltip when tooltip is true', () => {
-		const progressBar = mount(
+		const {getByRole} = render(
 			<ProgressBar tooltip />
 		);
 
-		const expected = 1;
-		const actual = progressBar.find('ProgressBarTooltip').length;
-
-		expect(actual).toBe(expected);
+		const progressBar = getByRole('progressbar');
+		expect(progressBar.children.length).toBe(2);
+		const className = getByRole('progressbar').children.item(1).className;
+		expect(className).toContain('tooltip');
 	});
 
 	test('should have tooltip show progress as percentage', () => {
-		const progressBar = mount(
+		const expected = '60%';
+		const {getByRole} = render(
 			<ProgressBar
 				tooltip
 				progress={0.6}
 			/>
 		);
 
-		const expected = '60%';
-		const actual = progressBar.find('ProgressBarTooltip').text();
-
+		const actual = getByRole('progressbar').textContent;
 		expect(actual).toBe(expected);
 	});
 });
