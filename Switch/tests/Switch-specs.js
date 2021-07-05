@@ -1,43 +1,47 @@
-import {shallow} from 'enzyme';
+import {fireEvent, render} from '@testing-library/react';
 
-import {SwitchBase} from '../Switch';
-import css from '../Switch.module.less';
+import Switch, {SwitchBase} from '../Switch';
 
 describe('Switch Specs', () => {
 
-	test('should have selected', () => {
+	test('should not have "selected" className', () => {
 
-		const switchIcon = shallow(
-			<SwitchBase selected />
-		);
+		const {getByRole} = render(<SwitchBase />);
+		const SwitchSelected = getByRole('button');
 
-		const expected = css.selected;
-		const actual = switchIcon.prop('className');
-
-		expect(actual).toContain(expected);
+		expect(SwitchSelected.className).not.toContain('selected');
 	});
 
-	test('should have animated', () => {
+	test('should have "selected" className', () => {
 
-		const switchIcon = shallow(
-			<SwitchBase />
-		);
+		const {getByRole} = render(<SwitchBase selected />);
+		const SwitchNotSelected = getByRole('button');
 
-		const expected = css.animated;
-		const actual = switchIcon.prop('className');
-
-		expect(actual).toContain(expected);
+		expect(SwitchNotSelected.className).toContain('selected');
 	});
 
-	test('should have not animated', () => {
+	test('should have "animated" className', () => {
 
-		const switchIcon = shallow(
-			<SwitchBase noAnimation />
-		);
+		const {getByRole} = render(<SwitchBase />);
+		const SwitchAnimated = getByRole('button');
 
-		const expected = css.animated;
-		const actual = switchIcon.prop('className');
+		expect(SwitchAnimated.className).toContain('animated');
+	});
 
-		expect(actual).not.toContain(expected);
+	test('should not have "animated" className', () => {
+
+		const {getByRole} = render(<SwitchBase noAnimation />);
+		const SwitchNotAnimated = getByRole('button');
+
+		expect(SwitchNotAnimated.className).not.toContain('animated');
+	});
+
+	test('toggle Switch', () => {
+		const {getByRole} = render(<Switch />);
+		const SwitchElement = getByRole('button');
+
+		fireEvent.click(SwitchElement);
+
+		expect(SwitchElement.className).toContain('selected');
 	});
 });

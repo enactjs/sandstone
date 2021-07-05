@@ -1,33 +1,40 @@
-import {shallow} from 'enzyme';
-import {SwitchItemBase} from '../SwitchItem';
+import '@testing-library/jest-dom';
+import {fireEvent, render} from '@testing-library/react';
+
+import SwitchItem, {SwitchItemBase} from '../SwitchItem';
 
 describe('SwitchItem Specs', () => {
 
 	test('should contain a Switch', () => {
 
-		const subject = shallow(
-			<SwitchItemBase>
-				SwitchItem
-			</SwitchItemBase>
-		);
+		const {getAllByRole} = render(<SwitchItemBase />);
+		const Buttons = getAllByRole('button');
 
-		const expected = 1;
-		const actual = subject.find('Switch').length;
-
-		expect(actual).toBe(expected);
+		expect(Buttons[1].className).toContain('switch');
 	});
 
 	test('should pass selected to Switch element', () => {
 
-		const subject = shallow(
-			<SwitchItemBase selected>
-				SwitchItem
-			</SwitchItemBase>
-		);
+		const {getAllByRole} = render(<SwitchItemBase selected/>);
+		const Buttons = getAllByRole('button');
 
-		const expected = true;
-		const actual = subject.find('Switch').prop('selected');
+		expect(Buttons[0].className).toContain('selected');
+		expect(Buttons[1].className).toContain('selected');
+	});
 
-		expect(actual).toBe(expected);
+	test('should toggle Switch', () => {
+		const {getAllByRole} = render(<SwitchItem />);
+		const Buttons = getAllByRole('button');
+
+		fireEvent.click(Buttons[1]);
+
+		expect(Buttons[1].className).toContain('selected');
+	});
+
+	test('should render correct children', () => {
+		const {getByText} = render(<SwitchItem>Hello SwitchItem</SwitchItem>);
+		const Child = getByText(/Hello SwitchItem/i);
+
+		expect(Child).toBeInTheDocument();
 	});
 });
