@@ -84,9 +84,8 @@ describe('DatePicker', () => {
 
 		const dayPicker = getByLabelText('1 day change a value with up down button');
 		const expected = 'data-webos-voice-disabled';
-		const actual = dayPicker.getAttributeNames();
 
-		expect(actual).toContain(expected);
+		expect(dayPicker).toHaveAttribute(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to month picker when voice control is disabled', () => {
@@ -96,9 +95,8 @@ describe('DatePicker', () => {
 
 		const monthPicker = getByLabelText('1 month change a value with up down button');
 		const expected = 'data-webos-voice-disabled';
-		const actual = monthPicker.getAttributeNames();
 
-		expect(actual).toContain(expected);
+		expect(monthPicker).toHaveAttribute(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to year picker when voice control is disabled', () => {
@@ -109,9 +107,8 @@ describe('DatePicker', () => {
 		const yearPicker = getByLabelText('1900 year change a value with up down button');
 		// The year is 1900 because it does not change based on props, prob. a bug
 		const expected = 'data-webos-voice-disabled';
-		const actual = yearPicker.getAttributeNames();
 
-		expect(actual).toContain(expected);
+		expect(yearPicker).toHaveAttribute(expected);
 	});
 
 	test('should format a date the same as the label', () => {
