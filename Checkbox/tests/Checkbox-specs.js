@@ -1,61 +1,64 @@
-import {shallow} from 'enzyme';
+import {render, fireEvent} from '@testing-library/react';
 
-import {CheckboxBase} from '../Checkbox';
-import css from '../Checkbox.module.less';
+import Checkbox, {CheckboxBase} from '../Checkbox';
 
 describe('CheckboxItem Specs', () => {
+
 	test('should not include the selected class when not selected', () => {
-		const subject = shallow(
-			<CheckboxBase />
-		);
+		const {getByRole} = render(<CheckboxBase />);
+		const checkboxElement = getByRole('checkbox');
 
-		const expected = css.selected;
-		const actual = subject.prop('className');
+		expect(checkboxElement.className).not.toContain('selected');
+	});
 
-		expect(actual).not.toContain(expected);
+	test('should not be checked', () => {
+		const {getByRole} = render(<CheckboxBase />);
+		expect(getByRole('checkbox', {checked: false}));
 	});
 
 	test('should add the selected class when given the selected prop', () => {
-		const subject = shallow(
-			<CheckboxBase selected />
-		);
+		const {getByRole} = render(<CheckboxBase selected />);
+		const checkboxElement = getByRole('checkbox');
 
-		const expected = css.selected;
-		const actual = subject.prop('className');
-
-		expect(actual).toContain(expected);
+		expect(checkboxElement.className).toContain('selected');
 	});
 
-	test('should not include the indeterminate class when not indeterminate', () => {
-		const subject = shallow(
-			<CheckboxBase />
-		);
-
-		const expected = css.indeterminate;
-		const actual = subject.prop('className');
-
-		expect(actual).not.toContain(expected);
+	test('should be checked when initiated with `selected` prop', () => {
+		const {getByRole} = render(<CheckboxBase selected />);
+		expect(getByRole('checkbox', {checked: true}));
 	});
 
 	test('should add the indeterminate class when given the indeterminate prop', () => {
-		const subject = shallow(
-			<CheckboxBase indeterminate />
-		);
+		const {getByRole} = render(<CheckboxBase indeterminate />);
+		expect(getByRole('checkbox').className).toContain('indeterminate');
+	});
 
-		const expected = css.indeterminate;
-		const actual = subject.prop('className');
-
-		expect(actual).toContain(expected);
+	test('should not include the indeterminate class when not indeterminate', () => {
+		const {getByRole} = render(<CheckboxBase />);
+		expect(getByRole('checkbox').className).not.toContain('indeterminate');
 	});
 
 	test('should prioritize indeterminate over selected', () => {
-		const subject = shallow(
-			<CheckboxBase indeterminate selected indeterminateIcon="Ind">Sel</CheckboxBase>
-		);
+		const {getByRole} = render(<CheckboxBase indeterminate selected indeterminateIcon="Ind" />);
+		expect(getByRole('checkbox').textContent).toBe("Ind")
+	});
 
-		const expected = 'Ind';
-		const actual = subject.find('.icon').prop('children');
+	test('should check the checkbox with one click', () => {
+		const {getByRole} = render(<Checkbox />);
+		const checkboxElement = getByRole('checkbox');
 
-		expect(actual).toBe(expected);
+		fireEvent.click(checkboxElement);
+
+		expect(checkboxElement.className).toContain('selected');
+	});
+
+	test('should uncheck the checkbox with two clicks', () => {
+		const {getByRole} = render(<Checkbox />);
+		const checkboxElement = getByRole('checkbox');
+
+		fireEvent.click(checkboxElement);
+		fireEvent.click(checkboxElement);
+
+		expect(checkboxElement.className).not.toContain('selected');
 	});
 });
