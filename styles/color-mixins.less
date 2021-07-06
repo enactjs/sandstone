@@ -131,25 +131,15 @@
 	});
 }
 
-// The technique below is special handling for opaque buttons, which have an opaque
-// color defined for the initial background-color. This means we can't use the
-// traditional opacity change to animate the difference. Instead, this smoothly applies
-// (via transition) a series of filters that match the spotlight-focus bg color. The
-// values were manually calculated to perfectly match, taking the resting bg-color and
-// adjusting it to become the focus-bg-color. If either color value changes, these
-// adjustments must be recalculated. This is not automatic. It may be possible to
-// autonomously calculate this in the future...
 // Button single-color mixins
 .sand-button-resting-bg-color () {
 	background-color: @sand-button-bg-color;
 }
 .sand-button-selected-bg-color () {
-	background-color: @sand-button-bg-color;
-	filter+_: saturate(1.5) brightness(0.5); // Simulates #3e454d, the spec color
+	background-color: @sand-button-selected-bg-color;
 }
 .sand-button-focus-bg-color () {
-	background-color: @sand-button-bg-color;
-	filter+_: saturate(0) brightness(1.755); // Simulates @sand-spotlight-bg-color
+	background-color: @sand-button-focus-bg-color;
 }
 
 // Button state mixins

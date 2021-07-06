@@ -8,7 +8,7 @@
 @sand-gray:        #abaeb3;
 @sand-light-gray:  #e6e6e6;
 @sand-black:       #000;
-@sand-accent:      @sand-light-gray;
+@sand-accent:      var(--sand-accent-color, @sand-light-gray);
 @sand-white:       #fff;
 @sand-red:         #f00;
 @sand-green:       #30ad6b;
@@ -67,6 +67,8 @@
 // ---------------------------------------
 @sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
+@sand-button-focus-bg-color: @sand-accent;
+@sand-button-selected-bg-color: #3d454d;
 @sand-button-transparent-text-color: @sand-text-color;
 
 // Checkbox
