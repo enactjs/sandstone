@@ -8,11 +8,10 @@ describe('ProgressBar Specs', () => {
 			<ProgressBar tooltip />
 		);
 
-		const progressBar = getByRole('progressbar');
-		expect(progressBar.children.length).toBe(2);
-		
 		const expected = 'tooltip';
+		const progressBar = getByRole('progressbar');		
 		const className = getByRole('progressbar').children.item(1).className;
+		
 		expect(className).toContain(expected);
 	});
 
