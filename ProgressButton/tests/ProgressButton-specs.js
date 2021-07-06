@@ -49,11 +49,11 @@ describe('ProgressButton Specs', () => {
 			</ProgressButtonBase>
 		);
 
-		const expected = 0.5;
+		const expected = '0.5';
 		const styleValues = getByRole('progressbar').style._values;
 		const {'--ui-progressbar-proportion-end':actual} = styleValues;
 	
-		expect(actual).toBe(expected.toString());
+		expect(actual).toBe(expected);
 	});
 
 	test('should show default icon `stop`', () => {
