@@ -4,9 +4,7 @@ import {fireEvent, render} from '@testing-library/react';
 import SwitchItem, {SwitchItemBase} from '../SwitchItem';
 
 describe('SwitchItem Specs', () => {
-
 	test('should contain a Switch', () => {
-
 		const {getAllByRole} = render(<SwitchItemBase />);
 		const Buttons = getAllByRole('button');
 
@@ -14,7 +12,6 @@ describe('SwitchItem Specs', () => {
 	});
 
 	test('should pass selected to Switch element', () => {
-
 		const {getAllByRole} = render(<SwitchItemBase selected />);
 		const Buttons = getAllByRole('button');
 
