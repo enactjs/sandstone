@@ -9,10 +9,10 @@ describe('ProgressButton Specs', () => {
 				Progress Button
 			</ProgressButtonBase>
 		);
-		
+
 		const expected = 'Progress Button';
 		const actual = getByRole('button').textContent;
-		
+
 		expect(actual).toBe(expected);
 	});
 
@@ -25,7 +25,7 @@ describe('ProgressButton Specs', () => {
 
 		const expected = 'progressButton';
 		const actual = getByRole('button').className;
-		
+
 		expect(actual).toContain(expected);
 	});
 
@@ -38,7 +38,7 @@ describe('ProgressButton Specs', () => {
 
 		const expected = 'radial';
 		const actual = getByRole('progressbar').className;
-		
+
 		expect(actual).toContain(expected);
 	});
 
@@ -52,7 +52,7 @@ describe('ProgressButton Specs', () => {
 		const expected = '0.5';
 		const styleValues = getByRole('progressbar').style._values;
 		const {'--ui-progressbar-proportion-end':actual} = styleValues;
-	
+
 		expect(actual).toBe(expected);
 	});
 
