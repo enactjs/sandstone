@@ -275,7 +275,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			});
 
 			return (
-				<App {...this.props} className={className} />
+				<App {...this.props} skin={(typeof window === 'object') && window.CUSTOM_SKIN} className={className} />
 			);
 		}
 	};
