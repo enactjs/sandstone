@@ -1,83 +1,61 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render} from '@testing-library/react';
+
 import Spinner from '../Spinner';
-import css from '../Spinner.module.less';
 
 describe('Spinner Specs', () => {
-	test(
-		'should not have client node when Spinner has no children',
-		() => {
-			const spinner = mount(
-				<Spinner />
-			);
 
-			const expected = false;
-			const actual = spinner.find(`div.${css.client}`).exists();
+	test('should not have client node when Spinner has no children', () => {
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const {getByRole} = render(<Spinner />);
+		const spinner = getByRole('alert');
+
+		const children = spinner.children;
+
+		expect(children.length).toEqual(1);
+		expect(children.item(0).className).toContain('bg');
+		expect(children.item(1)).not.toBeInTheDocument();
+	});
 
 	test('should have a client node when Spinner has children', () => {
-		const spinner = mount(
-			<Spinner>
-				Loading...
-			</Spinner>
-		);
 
-		const expected = true;
-		const actual = spinner.find(`div.${css.client}`).exists();
+		const {getByRole} = render(<Spinner>Loading...</Spinner>);
+		const spinner = getByRole('alert');
 
-		expect(actual).toBe(expected);
+		const childClient = spinner.children.item(1);
+
+		expect(childClient.className).toContain('client');
 	});
 
 	test('should have content class when Spinner has children', () => {
-		const spinner = mount(
-			<Spinner>
-				Loading...
-			</Spinner>
-		);
 
-		const expected = true;
-		const actual = spinner.find(`div.${css.spinner}`).hasClass(css.content);
+		const {getByRole} = render(<Spinner>Loading...</Spinner>);
+		const spinner = getByRole('alert');
 
-		expect(actual).toBe(expected);
+		expect(spinner.className).toContain('content');
 	});
 
-	test(
-		'should have transparent class when transparent prop equals true',
-		() => {
-			const spinner = mount(
-				<Spinner transparent>
-					Loading...
-				</Spinner>
-			);
+	test('should have transparent class when transparent prop equals true', () => {
 
-			const expected = true;
-			const actual = spinner.find(`div.${css.spinner}`).hasClass(css.transparent);
+		const {getByRole} = render(<Spinner transparent>Loading...</Spinner>);
+		const spinner = getByRole('alert');
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(spinner.className).toContain('transparent');
+	});
 
 	test('should set role to alert by default', () => {
-		const spinner = mount(
-			<Spinner />
-		);
 
-		const expected = 'alert';
-		const actual = spinner.find(`div.${css.spinner}`).prop('role');
+		const {getByLabelText} = render(<Spinner />);
+		const spinner = getByLabelText('Loading');
 
-		expect(actual).toBe(expected);
+		expect(spinner).toHaveAttribute('role', 'alert');
 	});
 
 	test('should set aria-live to off by default', () => {
-		const spinner = mount(
-			<Spinner />
-		);
 
-		const expected = 'off';
-		const actual = spinner.find(`div.${css.spinner}`).prop('aria-live');
+		const {getByRole} = render(<Spinner />);
+		const spinner = getByRole('alert');
 
-		expect(actual).toBe(expected);
+		expect(spinner).toHaveAttribute('aria-live', 'off');
 	});
 });
