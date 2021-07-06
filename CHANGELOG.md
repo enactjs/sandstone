@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Imageitem` public classname `imageIcon`
+- `sandstone/ImageItem` public classname `imageIcon`
 
 ### Fixed
 
