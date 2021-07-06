@@ -15,7 +15,7 @@ describe('SwitchItem Specs', () => {
 
 	test('should pass selected to Switch element', () => {
 
-		const {getAllByRole} = render(<SwitchItemBase selected/>);
+		const {getAllByRole} = render(<SwitchItemBase selected />);
 		const Buttons = getAllByRole('button');
 
 		expect(Buttons[0].className).toContain('selected');
