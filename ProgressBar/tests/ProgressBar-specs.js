@@ -10,20 +10,22 @@ describe('ProgressBar Specs', () => {
 
 		const progressBar = getByRole('progressbar');
 		expect(progressBar.children.length).toBe(2);
+		
 		const className = getByRole('progressbar').children.item(1).className;
 		expect(className).toContain('tooltip');
 	});
 
 	test('should have tooltip show progress as percentage', () => {
-		const expected = '60%';
 		const {getByRole} = render(
 			<ProgressBar
 				tooltip
 				progress={0.6}
 			/>
 		);
-
+	
+		const expected = '60%';
 		const actual = getByRole('progressbar').textContent;
+	
 		expect(actual).toBe(expected);
 	});
 });
