@@ -1,0 +1,69 @@
+// colors-custom.less (custom skin)
+//
+@sand-custom-skin-main-color:    #A50034;
+
+// ---------------------------------------
+// Universal Color Definitions
+// ---------------------------------------
+@sand-accent:      black;
+
+
+// UI Conceptual Colors
+// ---------------------------------------
+@sand-bg-color:      @sand-white;
+@sand-text-color:    @sand-custom-skin-main-color;
+@sand-border-color:  pink;
+@sand-feature-color: black;  // Used to draw special attention, like an secondary accent color (eg.selected checkbox)
+@sand-overlay-bg-color: lightgray; // (eg. Popup background color)
+
+
+// Spotlight and State
+// ---------------------------------------
+@sand-spotlight-text-color:           @sand-white;
+@sand-spotlight-bg-color:             #A70007;	// If this changes, update Button bg-color mixins (@sand-button-bg-color, @sand-button-focus-filter)
+@sand-spotlight-color:                @sand-accent; // It is used on the dropdown selected text color only
+@sand-selection-color: @sand-spotlight-text-color;
+
+
+// ---------------------------------------
+// Component Colors
+// ---------------------------------------
+
+// Button
+// ---------------------------------------
+@sand-button-text-color: @sand-white;
+@sand-button-bg-color: #68020f;
+@sand-button-focus-filter: saturate(180%);  // #A70007
+@sand-button-selected-filter: saturate(1.5) brightness(0.5);
+@sand-button-transparent-text-color: @sand-text-color;
+
+// Checkbox
+// ---------------------------------------
+@sand-checkbox-border-color: #858b92;
+@sand-checkbox-disabled-focus-bg-color: #989ca2;
+@sand-checkbox-disabled-selected-color: @sand-white;
+@sand-checkbox-disabled-selected-bg-color: #788688;
+@sand-checkbox-focus-border-color: #4C5059;
+@sand-checkbox-indeterminate-color: @sand-checkbox-border-color;
+@sand-checkbox-indeterminate-focus-color: @sand-dark-gray;
+
+// Dropdown
+// ---------------------------------------
+@sand-dropdown-title-color: @sand-text-color;
+
+// FormCheckboxItem
+// ---------------------------------------
+@sand-formcheckboxitem-focus-text-color: @sand-spotlight-bg-color;
+@sand-formcheckboxitem-disabled-text-color: inherit;
+@sand-formcheckboxitem-disabled-focus-text-color: inherit;
+
+// Item
+// ---------------------------------------
+@sand-item-label-color: fade(@sand-custom-skin-main-color, 30%);;
+
+// ProgressBar
+// ---------------------------------------
+@sand-progressbar-bar-bg-color: #a1a1a1;
+@sand-progressbar-load-bg-color: fade(@sand-custom-skin-main-color, 30%);
+@sand-progressbar-fill-bg-color: @sand-custom-skin-main-color;
+@sand-progressbar-highlighted-fill-bg-color: @sand-progressbar-fill-bg-color;
