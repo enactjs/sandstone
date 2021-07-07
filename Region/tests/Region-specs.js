@@ -16,7 +16,7 @@ describe('Region', () => {
 			test('should use title when aria-label is not set', () => {
 				const {getByRole} = render(<Region title="Title" />);
 				const region = getByRole('region');
-				
+
 				expect(region).toHaveAttribute('aria-label', 'Title');
 			});
 		});
