@@ -72,6 +72,7 @@ export const _Slider = () => {
 			)}
 			showAnchor={boolean('showAnchor', SliderConfig)}
 			step={number('step', SliderConfig, 1)}
+			wheelEventInterval={number('wheelEventInterval', SliderConfig, 200)}
 		>
 			{tooltip ? <SliderTooltip percent={percent} position={position} /> : null}
 		</Slider>

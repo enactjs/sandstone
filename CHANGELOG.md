@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/ImageItem` public classname `imageIcon`
+- `sandstone/Slider` prop `wheelEventInterval` to control speed of the wheel on the slider
 
 ### Fixed
 

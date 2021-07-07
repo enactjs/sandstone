@@ -76,6 +76,7 @@ const SliderBase = (props) => {
 
 	const spotlightAccelerator = useRef();
 	const ref = useRef();
+	const lastWheelEventTimeStamp = useRef(0);
 
 	const handlers = useHandlers({
 		onBlur: handle(
@@ -106,6 +107,14 @@ const SliderBase = (props) => {
 		onWheel: handle(
 			forProp('disabled', false),
 			forwardWithPrevent('onWheel'),
+			(ev, {wheelEventInterval}) => {
+				if (ev.timeStamp - lastWheelEventTimeStamp.current < wheelEventInterval) {
+					ev.stopPropagation();
+					return false;
+				}
+				lastWheelEventTimeStamp.current = ev.timeStamp;
+				return true;
+			},
 			anyPass([
 				handleIncrementByWheel,
 				handleDecrementByWheel
@@ -153,6 +162,7 @@ const SliderBase = (props) => {
 	delete rest.onActivate;
 	delete rest.step;
 	delete rest.tooltip;
+	delete rest.wheelEventInterval;
 
 	return (
 		<UiSlider
@@ -379,7 +389,20 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * @type {Number}
 	 * @public
 	 */
-	value: PropTypes.number
+	value: PropTypes.number,
+
+	/**
+	 * The interval (in milliseconds) between valid wheel events.
+	 *
+	 * For example, 200 means to ignore wheel events occurred witnin 200ms
+	 * of the last processed wheel event while 0 means to process all wheel events.
+	 * If the number is large, the slider value changes slowly.
+	 *
+	 * @type {Number}
+	 * @default 0
+	 * @public
+	 */
+	wheelEventInterval: PropTypes.number
 };
 
 SliderBase.defaultProps = {
@@ -389,7 +412,8 @@ SliderBase.defaultProps = {
 	keyFrequency: [1],
 	max: 100,
 	min: 0,
-	step: 1
+	step: 1,
+	wheelEventInterval: 0
 };
 
 /**
