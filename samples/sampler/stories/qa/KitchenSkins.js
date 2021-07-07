@@ -10,6 +10,7 @@ import ProgressBar from '@enact/sandstone/ProgressBar';
 import Scroller from '@enact/sandstone/Scroller';
 import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
 import {Row} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
 
 import Section from './components/KitchenSinkSection';
 
