@@ -40,7 +40,7 @@ describe('CheckboxItem Specs', () => {
 
 	test('should prioritize indeterminate over selected', () => {
 		const {getByRole} = render(<CheckboxBase indeterminate selected indeterminateIcon="Ind" />);
-		expect(getByRole('checkbox').textContent).toBe("Ind")
+		expect(getByRole('checkbox').textContent).toBe('Ind');
 	});
 
 	test('should check the checkbox with one click', () => {
