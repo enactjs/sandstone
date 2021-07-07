@@ -437,7 +437,10 @@ class Popup extends Component {
 			} else {
 				// Disables the spotlight conatiner of popup when `noAnimation` set
 				if (props.noAnimation) {
-					getContainerNode(state.containerId).dataset['spotlightContainerDisabled'] = true;
+					const node = getContainerNode(state.containerId);
+					if (node) {
+						node.dataset['spotlightContainerDisabled'] = true;
+					}
 				}
 
 				return {
