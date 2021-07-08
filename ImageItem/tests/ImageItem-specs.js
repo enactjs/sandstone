@@ -1,4 +1,6 @@
-import {mount, shallow} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+
 import {ImageItemBase} from '../ImageItem';
 
 function SelectionComponent () {
@@ -8,152 +10,141 @@ function SelectionComponent () {
 describe('ImageItem', () => {
 	test('should support `centered` prop', () => {
 		const children = 'caption';
-		const subject = mount(
-			<ImageItemBase centered>{children}</ImageItemBase>
-		);
+		const {getByText} = render(<ImageItemBase centered>{children}</ImageItemBase>);
 
 		const expected = 'center';
-		const actual = subject.find('.text').prop('style');
+		const actual = getByText('caption').style;
 
 		expect(actual).toHaveProperty('textAlign', expected);
 	});
 
 	test('should support `centered` prop to label', () => {
 		const label = 'label';
-		const subject = mount(
-			<ImageItemBase centered label={label} />
-		);
+		const {getByText} = render(<ImageItemBase centered label={label} />);
 
 		const expected = 'center';
-		const actual = subject.find('.label .text').prop('style');
+		const actual = getByText('label').style;
 
 		expect(actual).toHaveProperty('textAlign', expected);
 	});
 
 	test('should support not apply `centered` with horizontal', () => {
 		const children = 'caption';
-		const subject = mount(
-			<ImageItemBase centered orientation="horizontal">{children}</ImageItemBase>
-		);
+		const {getByText} = render(<ImageItemBase centered orientation="horizontal">{children}</ImageItemBase>);
 
 		const unexpected = 'center';
-		const actual = subject.find('.text').prop('style');
+		const actual = getByText('caption').style;
 
 		expect(actual).not.toHaveProperty('textAlign', unexpected);
 	});
 
 	test('should support `children` prop', () => {
 		const children = 'caption';
-		const subject = shallow(
-			<ImageItemBase>{children}</ImageItemBase>
-		);
+		const {getByText} = render(<ImageItemBase>{children}</ImageItemBase>);
 
 		const expected = children;
-		const actual = subject.find('.caption').prop('children');
+		const actual = getByText('caption');
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveTextContent(expected);
 	});
 
 	test('should support `label` prop', () => {
 		const label = 'label';
-		const subject = shallow(
-			<ImageItemBase label={label} />
-		);
+		const {getByText} = render(<ImageItemBase centered label={label} />);
 
 		const expected = label;
-		const actual = subject.find('.label').prop('children');
+		const actual = getByText('label');
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveTextContent(expected);
 	});
 
 	test('should support `imageIconSrc` prop when `orientation="vertical"`', () => {
 		const imageIconSrc = 'imageIconSrc';
-		const subject = shallow(
-			<ImageItemBase imageIconSrc={imageIconSrc} orientation="vertical" />
-		);
+		const {getAllByRole} = render(<ImageItemBase imageIconSrc={imageIconSrc} orientation="vertical" />);
 
 		const expected = imageIconSrc;
-		const actual = subject.find('.imageIcon').prop('src');
+		const actual = getAllByRole('img')[2].children.item(0).src;
 
-		expect(actual).toBe(expected);
+		expect(actual).toContain(expected);
 	});
 
 	test('should not support `imageIconSrc` prop when `orientation="horizontal"`', () => {
 		const imageIconSrc = 'imageIconSrc';
-		const subject = shallow(
-			<ImageItemBase imageIconSrc={imageIconSrc} orientation="horizontal" />
-		);
+		const {getAllByRole} = render(<ImageItemBase imageIconSrc={imageIconSrc} orientation="horizontal" />);
 
-		const expected = false;
-		const actual = subject.find('.imageIcon').exists();
+		const unexpected = 3;
+		const actual = getAllByRole('img');
 
-		expect(actual).toBe(expected);
+		expect(actual.length).not.toBe(unexpected);
 	});
 
 	test('should omit `.imageIcon` when `imageIconSrc` is unset and `caption` is set', () => {
 		const children = 'caption';
-		const subject = shallow(
-			<ImageItemBase>{children}</ImageItemBase>
-		);
+		const {getAllByRole} = render(<ImageItemBase>{children}</ImageItemBase>);
 
-		const actual = subject.find('.imageIcon');
+		const unexpected = 'imageIcon';
+		const actual = getAllByRole('img')[0];
 
-		expect(actual).toHaveLength(0);
+		expect(actual.className).not.toContain(unexpected);
 	});
 
 	test('should omit `.imageIcon` when `imageIconSrc` is unset and `label` is set', () => {
-		const subject = shallow(
-			<ImageItemBase label="label" />
-		);
+		const {getAllByRole} = render(<ImageItemBase label="label" />);
 
-		const actual = subject.find('.imageIcon');
+		const unexpected = 'imageIcon';
+		const actual = getAllByRole('img')[0];
 
-		expect(actual).toHaveLength(0);
+		expect(actual.className).not.toContain(unexpected);
 	});
 
 	test('should omit children when `imageIconSrc`, `children`, and `label` are unset', () => {
-		const subject = shallow(
-			<ImageItemBase />
-		);
+		render(<ImageItemBase />);
 
-		const actual = subject.prop('children');
+		const actual = screen.queryByText('caption');
 
-		expect(actual).toBeUndefined();
+		expect(actual).toBeNull();
 	});
 
 	test('should omit `.selectionContainer` when `showSelection` is unset', () => {
-		const subject = shallow(
-			<ImageItemBase />
-		);
+		const {getAllByRole} = render(<ImageItemBase />);
 
-		const imageSubject = shallow(subject.prop('imageComponent'));
+		const unexpected = 'selectionContainer';
+		const actual = getAllByRole('img')[0].children.item(0);
 
-		const actual = imageSubject.find('.selectionContainer');
-
-		expect(actual).toHaveLength(0);
+		expect(actual.className).not.toContain(unexpected);
 	});
 
 	test('should include `.selectionContainer` when `showSelection`', () => {
-		const subject = shallow(
-			<ImageItemBase showSelection />
-		);
+		const {getAllByRole} = render(<ImageItemBase showSelection />);
 
-		const imageSubject = shallow(subject.prop('imageComponent'));
+		const expected = 'selectionContainer';
+		const actual = getAllByRole('img')[0].children.item(0);
 
-		const actual = imageSubject.find('.selectionContainer');
-
-		expect(actual).toHaveLength(1);
+		expect(actual.className).toContain(expected);
 	});
 
 	test('should support `selectionComponent` prop', () => {
-		const subject = shallow(
-			<ImageItemBase showSelection selectionComponent={SelectionComponent} />
-		);
+		const {getAllByRole} = render(<ImageItemBase selectionComponent={SelectionComponent} showSelection />);
 
-		const imageSubject = shallow(subject.prop('imageComponent'));
+		const expected = 'selectionContainer';
+		const actual = getAllByRole('img')[0].children.item(0);
 
-		const actual = imageSubject.find(SelectionComponent);
+		expect(actual.className).toContain(expected);
+	});
 
-		expect(actual).toHaveLength(1);
+	test('should have `checkbox` role when `showSelection` is true', () => {
+		const {getByRole} = render(<ImageItemBase showSelection />);
+
+		const actual = getByRole('checkbox');
+
+		expect(actual).toBeInTheDocument();
+	});
+
+	test('should be `checked` when `showSelection` and `selected` props are true', () => {
+		const {getByRole} = render(<ImageItemBase selected showSelection />);
+
+		const actual = getByRole('checkbox');
+
+		expect(actual).toBeChecked();
 	});
 });
