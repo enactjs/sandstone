@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
-import {fireEvent, render} from '@testing-library/react';
+import {render} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import SwitchItem, {SwitchItemBase} from '../SwitchItem';
 
@@ -8,24 +9,40 @@ describe('SwitchItem Specs', () => {
 		const {getAllByRole} = render(<SwitchItemBase />);
 		const Buttons = getAllByRole('button');
 
-		expect(Buttons[1].className).toContain('switch');
+		const expected = 'switch';
+		const actual = Buttons[1].className;
+
+		expect(actual).toContain(expected);
 	});
 
-	test('should pass selected to Switch element', () => {
+	test('should pass `selected` to Switch element', () => {
 		const {getAllByRole} = render(<SwitchItemBase selected />);
 		const Buttons = getAllByRole('button');
 
-		expect(Buttons[0].className).toContain('selected');
-		expect(Buttons[1].className).toContain('selected');
+		const expected = 'selected';
+		const SwitchItem = Buttons[0].className;
+		const Switch = Buttons[1].className;
+
+		expect(SwitchItem).toContain(expected);
+		expect(Switch).toContain(expected);
 	});
 
 	test('should toggle Switch', () => {
-		const {getAllByRole} = render(<SwitchItem />);
+		const handleToggle = jest.fn();
+		const {getAllByRole} = render(<SwitchItem onToggle={handleToggle} />);
 		const Buttons = getAllByRole('button');
+		const Switch = Buttons[1];
 
-		fireEvent.click(Buttons[1]);
+		userEvent.click(Switch);
 
-		expect(Buttons[1].className).toContain('selected');
+		const expected = 'selected';
+		const actual = Switch.className;
+
+		expect(actual).toContain(expected);
+
+		const expectedTimes = 1;
+
+		expect(handleToggle).toBeCalledTimes(expectedTimes);
 	});
 
 	test('should render correct children', () => {
