@@ -1,4 +1,5 @@
 import {render} from '@testing-library/react';
+
 import {SpriteBase as Sprite} from '../Sprite';
 
 describe('Sprite Specs', () => {
