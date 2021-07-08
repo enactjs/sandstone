@@ -3,7 +3,6 @@ import {fireEvent, render} from '@testing-library/react';
 
 import DayPicker, {getSelectedDayString} from '../DayPicker';
 
-
 describe('DayPicker', () => {
 
 	test('should not select any item when there is no passed prop `selected`', () => {
@@ -25,17 +24,8 @@ describe('DayPicker', () => {
 		const item = getAllByRole('checkbox')[2];
 
 		fireEvent.click(item);
+
 		expect(handleSelect).toHaveBeenCalled();
-	});
-
-	test('should not emit an onSelect event when disabled', () => {
-		const handleSelect = jest.fn();
-		const {getAllByRole} = render(<DayPicker onSelect={handleSelect} disabled />);
-		const item = getAllByRole('checkbox')[2];
-
-		fireEvent.click(item);
-
-		expect(handleSelect).not.toHaveBeenCalled();
 	});
 
 	test('should include `content` in onSelect event payload which respects dayNameLength', () => {
