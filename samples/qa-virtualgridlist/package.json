@@ -19,7 +19,8 @@
   "repository": "",
   "enact": {
     "title": "QA VirtualGridList",
-    "theme": "sandstone"
+    "theme": "sandstone",
+    "template": "template.ejs"
   },
   "dependencies": {
     "@enact/core": "^4.0.0",
