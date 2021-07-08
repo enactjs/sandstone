@@ -18,7 +18,7 @@ describe('Sprite Specs', () => {
 				const expected = 1;
 				const actual = handleAnimation.mock.calls.length;
 
-				expect(actual).toBe(expected)
+				expect(actual).toBe(expected);
 			});
 
 			test('should call onSpriteAnimation and default to "playing"', () => {
