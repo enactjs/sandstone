@@ -8,21 +8,22 @@ describe('DayPicker', () => {
 
 	test('should not select any item when there is no passed prop `selected`', () => {
 		const {getAllByRole} = render(<DayPicker />);
+
 		expect(getAllByRole('checkbox', {checked: false}));
 	});
 
 	test('should select day when passed prop `selected`', () => {
 		const {getAllByRole} = render(<DayPicker selected={[1]} />);
-
 		const selectedDay = getAllByRole('checkbox')[2];
+
 		expect(selectedDay.className).toContain('selected');
 	});
 
 	test('should emit an onSelect event when selecting days', () => {
 		const handleSelect = jest.fn();
 		const {getAllByRole} = render(<DayPicker onSelect={handleSelect} />);
-
 		const item = getAllByRole('checkbox')[2];
+
 		fireEvent.click(item);
 		expect(handleSelect).toHaveBeenCalled();
 	});
@@ -30,9 +31,10 @@ describe('DayPicker', () => {
 	test('should not emit an onSelect event when disabled', () => {
 		const handleSelect = jest.fn();
 		const {getAllByRole} = render(<DayPicker onSelect={handleSelect} disabled />);
-
 		const item = getAllByRole('checkbox')[2];
+
 		fireEvent.click(item);
+
 		expect(handleSelect).not.toHaveBeenCalled();
 	});
 
@@ -56,12 +58,14 @@ describe('DayPicker', () => {
 	test('should return `None` when selected is null', () => {
 		const label = getSelectedDayString(null, 'None');
 		const expected = 'None';
+
 		expect(label).toBe(expected);
 	});
 
 	test('should return `None` when selected is empty', () => {
 		const label = getSelectedDayString([], 'None');
 		const expected = 'None';
+
 		expect(label).toBe(expected);
 	});
 
@@ -69,6 +73,7 @@ describe('DayPicker', () => {
 		const selected = [0, 6];
 		const label = getSelectedDayString(selected);
 		const expected = 'Every Weekend';
+
 		expect(label).toBe(expected);
 	});
 
@@ -76,6 +81,15 @@ describe('DayPicker', () => {
 		const selected = [1, 2, 3, 4, 5];
 		const label = getSelectedDayString(selected);
 		const expected = 'Every Weekday';
+
+		expect(label).toBe(expected);
+	});
+
+	test('should return `Every Day` when all selected', () => {
+		const selected = [0, 1, 2, 3, 4, 5, 6];
+		const label = getSelectedDayString(selected);
+		const expected = 'Every Day';
+
 		expect(label).toBe(expected);
 	});
 
