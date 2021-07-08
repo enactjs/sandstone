@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/WizardPanels` to revert 2.0.0-rc.3 fix that prevent re-rendering
+
 ## [2.0.0-rc.3] - 2021-07-02
 
 ### Added
@@ -21,6 +27,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to focus elements at scroll boundaries when `hoverToScroll` is `true`
 - `sandstone/VideoPlayer` to handle decimal playback rate
 - `sandstone/VirtualList` to scroll properly when `snapToCenter`
+- `sandstone/WizardPanels` to prevent re-rendering of previous panel
 
 ## [2.0.0-rc.2] - 2021-07-01
 
