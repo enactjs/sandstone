@@ -7,24 +7,22 @@ describe('CheckboxItem Specs', () => {
 
 	test('should support a custom icon', () => {
 		const {getAllByRole} = render(<CheckboxItemBase icon="trash">Hello CheckboxItem</CheckboxItemBase>);
-
 		const checkboxItemElement = getAllByRole('checkbox');
 		const actual = checkboxItemElement[1].textContent.codePointAt();
-		const expected = 983077;
+		const expected = 983077; // decimal converted charCode of Unicode 'trash' character
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should have correct text', () => {
 		const {getByText} = render(<CheckboxItemBase>Hello CheckboxItem</CheckboxItemBase>);
-
 		const element = getByText(/Hello CheckboxItem/i);
+
 		expect(element).toBeInTheDocument();
 	});
 
 	test('should select with click', () => {
 		const {getAllByRole} = render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
-
 		const checkboxItemElement = getAllByRole('checkbox');
 
 		fireEvent.click(checkboxItemElement[0]);
@@ -34,7 +32,6 @@ describe('CheckboxItem Specs', () => {
 
 	test('should select with click', () => {
 		const {getAllByRole} = render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
-
 		const checkboxItemElement = getAllByRole('checkbox');
 
 		fireEvent.click(checkboxItemElement[0]);

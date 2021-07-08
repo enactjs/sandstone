@@ -1,4 +1,4 @@
-import {render, fireEvent} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 
 import Checkbox, {CheckboxBase} from '../Checkbox';
 
@@ -13,6 +13,7 @@ describe('CheckboxItem Specs', () => {
 
 	test('should not be checked', () => {
 		const {getByRole} = render(<CheckboxBase />);
+
 		expect(getByRole('checkbox', {checked: false}));
 	});
 
@@ -25,21 +26,25 @@ describe('CheckboxItem Specs', () => {
 
 	test('should be checked when initiated with `selected` prop', () => {
 		const {getByRole} = render(<CheckboxBase selected />);
+
 		expect(getByRole('checkbox', {checked: true}));
 	});
 
 	test('should add the indeterminate class when given the indeterminate prop', () => {
 		const {getByRole} = render(<CheckboxBase indeterminate />);
+
 		expect(getByRole('checkbox').className).toContain('indeterminate');
 	});
 
 	test('should not include the indeterminate class when not indeterminate', () => {
 		const {getByRole} = render(<CheckboxBase />);
+
 		expect(getByRole('checkbox').className).not.toContain('indeterminate');
 	});
 
 	test('should prioritize indeterminate over selected', () => {
 		const {getByRole} = render(<CheckboxBase indeterminate selected indeterminateIcon="Ind" />);
+
 		expect(getByRole('checkbox').textContent).toBe('Ind');
 	});
 
