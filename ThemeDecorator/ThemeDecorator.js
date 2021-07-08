@@ -201,7 +201,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		);
 	}
 	if (spotlight) App = SpotlightRootDecorator({noAutoFocus}, App);
-	if (skin) App = Skinnable({defaultSkin: 'neutral'}, App);
+	if (skin) App = Skinnable({}, App);
 	if (accessible) App = AccessibilityDecorator(App);
 
 	// add webOS-specific key maps
@@ -269,7 +269,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		render () {
-			const className = classNames(css.root, this.props.className, 'enact-unselectable', {
+			const className = classNames(css.root, this.props.className, typeof window === 'object' && window.CUSTOM_SKIN || 'neutral', 'sandstone-theme', 'enact-unselectable', {
 				[bgClassName]: !float,
 				'enact-fit': !disableFullscreen
 			});
