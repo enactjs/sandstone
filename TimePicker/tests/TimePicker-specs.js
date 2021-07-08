@@ -108,7 +108,7 @@ describe('TimePicker', () => {
 		);
 
 		const minutePicker = getByLabelText('0 minute change a value with up down button');
-		// The minute is 0 because it does not change based on props, prob. a bug
+		// The minute is 0 because it does not change based on props, this needs to be fixed in timePicker
 		const expected = 'data-webos-voice-disabled';
 
 		expect(minutePicker).toHaveAttribute(expected);
