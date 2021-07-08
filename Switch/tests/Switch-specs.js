@@ -3,9 +3,7 @@ import {fireEvent, render} from '@testing-library/react';
 import Switch, {SwitchBase} from '../Switch';
 
 describe('Switch Specs', () => {
-
 	test('should not have "selected" className', () => {
-
 		const {getByRole} = render(<SwitchBase />);
 		const SwitchSelected = getByRole('button');
 
@@ -13,7 +11,6 @@ describe('Switch Specs', () => {
 	});
 
 	test('should have "selected" className', () => {
-
 		const {getByRole} = render(<SwitchBase selected />);
 		const SwitchNotSelected = getByRole('button');
 
@@ -21,7 +18,6 @@ describe('Switch Specs', () => {
 	});
 
 	test('should have "animated" className', () => {
-
 		const {getByRole} = render(<SwitchBase />);
 		const SwitchAnimated = getByRole('button');
 
@@ -29,7 +25,6 @@ describe('Switch Specs', () => {
 	});
 
 	test('should not have "animated" className', () => {
-
 		const {getByRole} = render(<SwitchBase noAnimation />);
 		const SwitchNotAnimated = getByRole('button');
 
