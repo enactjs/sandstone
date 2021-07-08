@@ -8,10 +8,10 @@ describe('Switch Specs', () => {
 		const {getByRole} = render(<SwitchBase />);
 		const SwitchNotSelected = getByRole('button');
 
-		const expected = 'selected';
+		const unexpected = 'selected';
 		const actual = SwitchNotSelected.className;
 
-		expect(actual).not.toContain(expected);
+		expect(actual).not.toContain(unexpected);
 	});
 
 	test('should have `selected` className', () => {
@@ -38,10 +38,10 @@ describe('Switch Specs', () => {
 		const {getByRole} = render(<SwitchBase noAnimation />);
 		const SwitchNotAnimated = getByRole('button');
 
-		const expected = 'animated';
+		const unexpected = 'animated';
 		const actual = SwitchNotAnimated.className;
 
-		expect(actual).not.toContain(expected);
+		expect(actual).not.toContain(unexpected);
 	});
 
 	test('toggle Switch', () => {
