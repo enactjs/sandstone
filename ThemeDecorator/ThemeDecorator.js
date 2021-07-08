@@ -269,7 +269,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		render () {
-			const className = classNames(css.root, this.props.className, 'sandstone-theme', 'enact-unselectable', {
+			const className = classNames(css.root, this.props.className, 'enact-unselectable', {
 				[bgClassName]: !float,
 				'enact-fit': !disableFullscreen
 			});
