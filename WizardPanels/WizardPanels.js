@@ -11,7 +11,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext, useRef, useState, useCallback, Children} from 'react';
+import {createContext, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
@@ -444,17 +444,16 @@ const WizardPanelsBase = kind({
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
 function useReverseTransition (index = -1, rtl) {
-	const prevIndex = useRef(index);
-	const reverse = useRef(rtl);
-	// If the index was changed, the panel transition is occured on the next cycle by `Panel`
-	const prevReverse = reverse.current;
+	const [prevIndex, setPrevIndex] = useState(-1);
+	let [reverse, setReverse] = useState(rtl);
 
-	if (prevIndex.current !== index) {
-		reverse.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
-		prevIndex.current = index;
+	if (prevIndex !== index) {
+		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
+		setReverse(reverse);
+		setPrevIndex(index);
 	}
 
-	return prevReverse;
+	return reverse;
 }
 
 /**
@@ -500,7 +499,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		delete rest.onBack;
 
 		return (
-			<WizardPanelsContext.Provider value={{setPanel, index}}>
+			<WizardPanelsContext.Provider value={setPanel}>
 				{Children.toArray(children)[index]}
 				<Wrapped
 					{...rest}
@@ -515,7 +514,11 @@ const WizardPanelsRouter = (Wrapped) => {
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
-					{panel && panel.children ? panel.children : null}
+					{panel && panel.children ? (
+						<div className="enact-fit" key={`panel${index}`}>
+							{panel.children}
+						</div>
+					) : null}
 				</Wrapped>
 			</WizardPanelsContext.Provider>
 		);
