@@ -105,7 +105,7 @@ describe('DatePicker', () => {
 		);
 
 		const yearPicker = getByLabelText('1900 year change a value with up down button');
-		// The year is 1900 because it does not change based on props, prob. a bug
+		// The year is 1900 because it does not change based on props, this needs to be fixed in datePicker
 		const expected = 'data-webos-voice-disabled';
 
 		expect(yearPicker).toHaveAttribute(expected);
