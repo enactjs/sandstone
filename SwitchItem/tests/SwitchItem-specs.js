@@ -20,11 +20,11 @@ describe('SwitchItem Specs', () => {
 		const Buttons = getAllByRole('button');
 
 		const expected = 'selected';
-		const SwitchItem = Buttons[0].className;
-		const Switch = Buttons[1].className;
+		const SwitchItemElement = Buttons[0].className;
+		const SwitchElement = Buttons[1].className;
 
-		expect(SwitchItem).toContain(expected);
-		expect(Switch).toContain(expected);
+		expect(SwitchItemElement).toContain(expected);
+		expect(SwitchElement).toContain(expected);
 	});
 
 	test('should toggle Switch', () => {
