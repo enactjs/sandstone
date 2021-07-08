@@ -26,6 +26,7 @@ describe('Picker Specs', () => {
 					{[1, 2, 3, 4]}
 				</Picker>
 			);
+
 			const arrowForward = getAllByRole('button')[0];
 			const expected = 'true';
 			const actual = arrowForward.attributes.getNamedItem('aria-disabled').value;
@@ -79,6 +80,7 @@ describe('Picker Specs', () => {
 				{[1, 2, 3, 4]}
 			</PickerBase>
 		);
+
 		const heading = getByText('title text');
 
 		expect(heading).toBeInTheDocument();
