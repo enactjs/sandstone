@@ -12,6 +12,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to show scroll animation properly with 5-way directional keys
 
+## [2.0.0-rc.4] - 2021-07-08
+
+### Fixed
+
+- `sandstone/WizardPanels` to revert 2.0.0-rc.3 fix that prevent re-rendering
+
 ## [2.0.0-rc.3] - 2021-07-02
 
 ### Added
