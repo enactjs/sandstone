@@ -63,6 +63,7 @@ describe('ProgressButton Specs', () => {
 			</ProgressButtonBase>
 		);
 
+		// decimal converted charCode of Unicode 'stop' character
 		const expectedCode = 983004;
 		const actualCode = getByRole('button').textContent.codePointAt();
 
@@ -77,6 +78,7 @@ describe('ProgressButton Specs', () => {
 			</ProgressButtonBase>
 		);
 
+		// decimal converted charCode of Unicode 'star' character
 		const expectedCode = 983080;
 		const actualCode = getByRole('button').textContent.codePointAt();
 
