@@ -39,7 +39,10 @@ describe('ContextualPopupDecorator Specs', () => {
 		);
 		const contextualPopup = getByRole('alert');
 
-		expect(contextualPopup.children.item(0)).toHaveTextContent(message);
+		const expected = message;
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveTextContent(expected);
 	});
 
 	test('should not render into FloatingLayer if not open', () => {
@@ -90,6 +93,9 @@ describe('ContextualPopupDecorator Specs', () => {
 		);
 		const contextualPopup = getByRole('alert');
 
-		expect(contextualPopup.children.item(0).className).toContain('below right');
+		const expected = 'below right';
+		const actual = contextualPopup.children.item(0).className;
+
+		expect(actual).toContain(expected);
 	});
 });
