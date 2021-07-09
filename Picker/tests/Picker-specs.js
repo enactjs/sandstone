@@ -79,8 +79,11 @@ describe('Picker Specs', () => {
 		);
 
 		const heading = getByText('title text');
+		const expected = 'heading';
+		const actual = heading.parentElement.parentElement.className;
 
 		expect(heading).toBeInTheDocument();
+		expect(actual).toContain(expected);
 	});
 
 	test('should have a heading element with inline class when \'title\' and \'inlineTitle\'', () => {
@@ -93,10 +96,10 @@ describe('Picker Specs', () => {
 		);
 
 		const heading = getByTestId('testContainer').children.item(0);
-		const expected = 'inlineTitle';
+		const expected = ['inlineTitle', 'heading'];
 		const actual = heading.className;
 
 		expect(heading).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(actual).toContain(expected[0], expected[1]);
 	});
 });
