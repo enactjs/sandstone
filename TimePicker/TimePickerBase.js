@@ -108,14 +108,6 @@ const TimePickerBase = kind({
 		 */
 		minute: PropTypes.number.isRequired,
 
-		/**
-		 * Hides the label that displays the time.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		 noLabel: PropTypes.bool,
 
 		/**
 		 * The order in which the component pickers are displayed.
@@ -202,6 +194,15 @@ const TimePickerBase = kind({
 		 * @public
 		 */
 		minuteAriaLabel: PropTypes.string,
+
+		/**
+		 * Hides the label that displays the time.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		 noLabel: PropTypes.bool,
 
 		/**
 		 * Called on changes in the `hour` component of the time.
@@ -315,7 +316,7 @@ const TimePickerBase = kind({
 		const
 			hourAccessibilityHint = $L('hour'),
 			minuteAccessibilityHint = $L('minute');
-		
+
 		if (noLabel) {
 			delete rest.label;
 		}

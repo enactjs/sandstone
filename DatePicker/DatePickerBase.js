@@ -62,14 +62,6 @@ const DatePickerBase = kind({
 		 */
 		month: PropTypes.number.isRequired,
 
-		/**
-		 * Hides the label that displays the date.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		noLabel: PropTypes.bool,
 
 		/**
 		 * The order in which the component pickers are displayed.
@@ -155,6 +147,15 @@ const DatePickerBase = kind({
 		 * @public
 		 */
 		monthAriaLabel: PropTypes.string,
+
+		/**
+		 * Hides the label that displays the date.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		 noLabel: PropTypes.bool,
 
 		/**
 		 * Called when the `date` component of the Date changes.
@@ -277,7 +278,7 @@ const DatePickerBase = kind({
 			dayAccessibilityHint = $L('day'),
 			monthAccessibilityHint = $L('month'),
 			yearAccessibilityHint = $L('year');
-		
+
 		if (noLabel) {
 			delete rest.label;
 		}
