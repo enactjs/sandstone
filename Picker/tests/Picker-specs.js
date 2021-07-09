@@ -18,9 +18,7 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should set the max of <Picker> to be one less than the number of children',
-		() => {
+	test('should set the max of <Picker> to be one less than the number of children', () => {
 			const {getAllByRole} = render(
 				<Picker value={3}>
 					{[1, 2, 3, 4]}
