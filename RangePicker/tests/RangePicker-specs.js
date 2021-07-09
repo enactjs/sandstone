@@ -86,7 +86,7 @@ describe('RangePicker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should have an heading element when \'title\'', () => {
+	test('should have a heading element when \'title\'', () => {
 		const {getByText} = render(
 			<RangePickerBase min={0} max={0} value={0} title="title text" />
 		);
@@ -99,7 +99,7 @@ describe('RangePicker Specs', () => {
 		expect(actual).toContain(expected);
 	});
 
-	test('should have an heading element with inline class when \'title\' and \'inlineTitle\'', () => {
+	test('should have a heading element with inline class when \'title\' and \'inlineTitle\'', () => {
 		const {getByTestId} = render(
 			<div data-testid="rangePickerBase">
 				<RangePickerBase inlineTitle min={0} max={0} value={0} title="title text" />
