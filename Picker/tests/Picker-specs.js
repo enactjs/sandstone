@@ -19,19 +19,18 @@ describe('Picker Specs', () => {
 	});
 
 	test('should set the max of <Picker> to be one less than the number of children', () => {
-			const {getAllByRole} = render(
-				<Picker value={3}>
-					{[1, 2, 3, 4]}
-				</Picker>
-			);
+		const {getAllByRole} = render(
+			<Picker value={3}>
+				{[1, 2, 3, 4]}
+			</Picker>
+		);
 
-			const arrowForward = getAllByRole('button')[0];
-			const expected = 'true';
-			const actual = arrowForward.attributes.getNamedItem('aria-disabled').value;
+		const arrowForward = getAllByRole('button')[0];
+		const expected = 'true';
+		const actual = arrowForward.attributes.getNamedItem('aria-disabled').value;
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(actual).toBe(expected);
+	});
 
 	test('should be disabled when empty', () => {
 		const {getByTestId} = render(
