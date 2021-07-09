@@ -143,7 +143,7 @@ const StorybookDecorator = (story, config = {}) => {
 			locale: 'en-US',
 			'large text': false,
 			'high contrast': false,
-			skin: 'custom'
+			skin: 'neutral'
 		},
 		groupId: globalGroup
 	};
