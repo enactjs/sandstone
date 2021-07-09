@@ -202,7 +202,7 @@ const TimePickerBase = kind({
 		 * @default false
 		 * @public
 		 */
-		 noLabel: PropTypes.bool,
+		noLabel: PropTypes.bool,
 
 		/**
 		 * Called on changes in the `hour` component of the time.

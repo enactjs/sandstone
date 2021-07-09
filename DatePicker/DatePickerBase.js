@@ -155,7 +155,7 @@ const DatePickerBase = kind({
 		 * @default false
 		 * @public
 		 */
-		 noLabel: PropTypes.bool,
+		noLabel: PropTypes.bool,
 
 		/**
 		 * Called when the `date` component of the Date changes.
