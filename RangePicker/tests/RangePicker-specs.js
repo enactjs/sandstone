@@ -82,6 +82,7 @@ describe('RangePicker Specs', () => {
 		const rangePicker = getByTestId('rangePickerBase');
 		const expected = 'true';
 		const actual = rangePicker.getAttribute('aria-disabled');
+
 		expect(actual).toBe(expected);
 	});
 
