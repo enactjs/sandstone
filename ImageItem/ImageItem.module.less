@@ -1,6 +1,5 @@
 // ImageItem.module.less
 //
-@import '../styles/colors.less';
 @import '../styles/mixins.less';
 @import '../styles/variables.less';
 @import '../styles/skin.less';
@@ -76,7 +75,6 @@
 
 				&.scaled {
 					transform: @sand-imageitem-vertical-focus-image-transform;
-					box-shadow: @sand-imageitem-focus-bg-shadow;
 				}
 
 				.selectionIcon {
@@ -172,6 +170,10 @@
 				background-color: @sand-imageitem-selected-selection-icon-bg-color;
 				color: @sand-imageitem-selected-selection-icon-color;
 			}
+		}
+
+		&.vertical.fullImage .image.scaled {
+			box-shadow: @sand-imageitem-focus-bg-shadow;
 		}
 
 		.focus({
