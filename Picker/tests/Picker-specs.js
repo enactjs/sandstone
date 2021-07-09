@@ -72,7 +72,7 @@ describe('Picker Specs', () => {
 		expect(picker).toHaveAttribute(expected);
 	});
 
-	test('should have an heading element when \'title\'', () => {
+	test('should have a heading element when \'title\'', () => {
 		const {getByText} = render(
 			<PickerBase title="title text">
 				{[1, 2, 3, 4]}
@@ -84,7 +84,7 @@ describe('Picker Specs', () => {
 		expect(heading).toBeInTheDocument();
 	});
 
-	test('should have an heading element with inline class when \'title\' and \'inlineTitle\'', () => {
+	test('should have a heading element with inline class when \'title\' and \'inlineTitle\'', () => {
 		const {getByTestId} = render(
 			<div data-testid="testContainer">
 				<PickerBase inlineTitle title="title text">
