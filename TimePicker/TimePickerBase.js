@@ -109,6 +109,15 @@ const TimePickerBase = kind({
 		minute: PropTypes.number.isRequired,
 
 		/**
+		 * Hides the label that displays the time.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		 noLabel: PropTypes.bool,
+
+		/**
 		 * The order in which the component pickers are displayed.
 		 *
 		 * Should be an array of 2 or 3 strings containing one of `'h'`, `'k'`, `'m'`, and `'a'`.
@@ -291,6 +300,7 @@ const TimePickerBase = kind({
 		meridiems,
 		minute,
 		minuteAriaLabel,
+		noLabel,
 		onChangeHour,
 		onChangeMeridiem,
 		onChangeMinute,
@@ -305,6 +315,10 @@ const TimePickerBase = kind({
 		const
 			hourAccessibilityHint = $L('hour'),
 			minuteAccessibilityHint = $L('minute');
+		
+		if (noLabel) {
+			delete rest.label;
+		}
 
 		return (
 			<DateTime {...rest} css={css}>

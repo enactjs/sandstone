@@ -63,6 +63,15 @@ const DatePickerBase = kind({
 		month: PropTypes.number.isRequired,
 
 		/**
+		 * Hides the label that displays the date.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noLabel: PropTypes.bool,
+
+		/**
 		 * The order in which the component pickers are displayed.
 		 *
 		 * The value should be an array of 3 strings containing one of `'m'`, `'d'`, and `'y'`.
@@ -250,6 +259,7 @@ const DatePickerBase = kind({
 		minYear,
 		month,
 		monthAriaLabel,
+		noLabel,
 		onChangeDate,
 		onChangeMonth,
 		onChangeYear,
@@ -267,6 +277,10 @@ const DatePickerBase = kind({
 			dayAccessibilityHint = $L('day'),
 			monthAccessibilityHint = $L('month'),
 			yearAccessibilityHint = $L('year');
+		
+		if (noLabel) {
+			delete rest.label;
+		}
 
 		return (
 			<DateTime {...rest}>
