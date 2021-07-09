@@ -10,11 +10,11 @@ describe('RangePicker Specs', () => {
 			<RangePicker min={-10} max={20} value={10} />
 		);
 
-		const textContent = getByText('10');
+		const value = getByText('10');
 		const expected = 'item';
-		const actual = textContent.className;
+		const actual = value.className;
 
-		expect(textContent).toBeInTheDocument();
+		expect(value).toBeInTheDocument();
 		expect(actual).toContain(expected);
 	});
 
@@ -25,11 +25,11 @@ describe('RangePicker Specs', () => {
 
 		userEvent.click(getByText('▶'));
 
-		const textContent = getByText('11');
+		const value = getByText('11');
 		const expected = 'item';
-		const actual = textContent.className;
+		const actual = value.className;
 
-		expect(textContent).toBeInTheDocument();
+		expect(value).toBeInTheDocument();
 		expect(actual).toContain(expected);
 	});
 
@@ -40,11 +40,11 @@ describe('RangePicker Specs', () => {
 
 		userEvent.click(getByText('◀'));
 
-		const textContent = getByText('9');
+		const value = getByText('9');
 		const expected = 'item';
-		const actual = textContent.className;
+		const actual = value.className;
 
-		expect(textContent).toBeInTheDocument();
+		expect(value).toBeInTheDocument();
 		expect(actual).toContain(expected);
 	});
 
@@ -53,11 +53,11 @@ describe('RangePicker Specs', () => {
 			<RangePicker min={0} max={100} value={10} step={1} padded />
 		);
 
-		const textContent = getByText('010');
+		const value = getByText('010');
 		const expected = 'item';
-		const actual = textContent.className;
+		const actual = value.className;
 
-		expect(textContent).toBeInTheDocument();
+		expect(value).toBeInTheDocument();
 		expect(actual).toContain(expected);
 	});
 
@@ -66,11 +66,11 @@ describe('RangePicker Specs', () => {
 			<RangePicker min={-1000} max={100} value={10} step={1} padded />
 		);
 
-		const textContent = getByText('0010');
+		const value = getByText('0010');
 		const expected = 'item';
-		const actual = textContent.className;
+		const actual = value.className;
 
-		expect(textContent).toBeInTheDocument();
+		expect(value).toBeInTheDocument();
 		expect(actual).toContain(expected);
 	});
 
