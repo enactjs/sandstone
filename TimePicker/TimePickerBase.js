@@ -108,7 +108,6 @@ const TimePickerBase = kind({
 		 */
 		minute: PropTypes.number.isRequired,
 
-
 		/**
 		 * The order in which the component pickers are displayed.
 		 *

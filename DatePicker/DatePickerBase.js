@@ -62,7 +62,6 @@ const DatePickerBase = kind({
 		 */
 		month: PropTypes.number.isRequired,
 
-
 		/**
 		 * The order in which the component pickers are displayed.
 		 *
