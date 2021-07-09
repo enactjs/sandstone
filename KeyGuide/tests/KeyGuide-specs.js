@@ -10,7 +10,7 @@ describe('KeyGuide Specs', () => {
 	test('should not error with undefined children', () => {
 		const {queryAllByRole} = render(
 			<FloatingLayerController>
-				<KeyGuide data-testid="emptyKeyGuide" open />
+				<KeyGuide open />
 			</FloatingLayerController>
 		);
 
