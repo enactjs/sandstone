@@ -37,7 +37,7 @@ describe('Steps Specs', () => {
 		expect(steps).toHaveLength(expected);
 	});
 
-	test('should correctly set the size', () => {
+	test('should correctly set the `size`', () => {
 		const {getByRole} = render(<Steps size="medium" />);
 		const firstStepElement = getByRole('list').children.item(0).className;
 
@@ -46,7 +46,7 @@ describe('Steps Specs', () => {
 		expect(firstStepElement).toContain(expected);
 	});
 
-	test('should correctly indicate the current even if that\'s the only prop set', () => {
+	test('should correctly indicate the `current` even if that\'s the only prop set', () => {
 		const {getByText} = render(<Steps current={2} />);
 		const firstStepElement = getByText('✓');
 		const secondStepElement = getByText('2');
@@ -57,7 +57,7 @@ describe('Steps Specs', () => {
 		expect(secondStepElement.className).toContain(expected);
 	});
 
-	test('should support custom pastIcon', () => {
+	test('should support custom `pastIcon`', () => {
 		const {getByRole} = render(<Steps current={2} total={3} pastIcon="bookmark" />);
 		const pastStepIcon = getByRole('list').children.item(0).textContent.codePointAt();
 
@@ -66,7 +66,7 @@ describe('Steps Specs', () => {
 		expect(pastStepIcon).toBe(expected);
 	});
 
-	test('should support custom currentIcon', () => {
+	test('should support custom `currentIcon`', () => {
 		const {getByRole} = render(<Steps current={2} total={3} currentIcon="edit" />);
 		const currentStepIcon = getByRole('list').children.item(1).textContent.codePointAt();
 
@@ -75,7 +75,7 @@ describe('Steps Specs', () => {
 		expect(currentStepIcon).toBe(expected);
 	});
 
-	test('should support custom futureIcon', () => {
+	test('should support custom `futureIcon`', () => {
 		const {getByRole} = render(<Steps current={2} total={3} futureIcon="arrowup" />);
 		const futureStepIcon = getByRole('list').children.item(2).textContent.codePointAt();
 
@@ -84,7 +84,7 @@ describe('Steps Specs', () => {
 		expect(futureStepIcon).toBe(expected);
 	});
 
-	test('should support numeric step identifier for pastIcon', () => {
+	test('should support numeric step identifier for `pastIcon`', () => {
 		const {getByRole} = render(<Steps current={2} total={3} pastIcon="numbers" />);
 		const pastIcon = getByRole('list').children.item(0).textContent;
 
@@ -93,7 +93,7 @@ describe('Steps Specs', () => {
 		expect(pastIcon).toBe(expected);
 	});
 
-	test('should support numeric step identifier for currentIcon', () => {
+	test('should support numeric step identifier for `currentIcon`', () => {
 		const {getByRole} = render(<Steps current={2} total={3} currentIcon="numbers" />);
 		const currentIcon = getByRole('list').children.item(1).textContent;
 
@@ -102,7 +102,7 @@ describe('Steps Specs', () => {
 		expect(currentIcon).toBe(expected);
 	});
 
-	test('should support numeric step identifier for futureIcon', () => {
+	test('should support numeric step identifier for `futureIcon`', () => {
 		const {getByRole} = render(<Steps current={2} total={3} futureIcon="numbers" />);
 		const futureIcon = getByRole('list').children.item(2).textContent;
 
@@ -120,7 +120,7 @@ describe('Steps Specs', () => {
 		expect(skippedStep.className).toContain(expected);
 	});
 
-	test('should support custom skipIcon', () => {
+	test('should support custom `skipIcon`', () => {
 		const {getByRole} = render(<Steps skip={2} skipIcon="skip" current={3} total={5} />);
 		const skippedStepIcon = getByRole('list').children.item(1).textContent.codePointAt();
 
@@ -149,7 +149,7 @@ describe('Steps Specs', () => {
 		expect(forthSkippedStep).toBe(expected);
 	});
 
-	test('should not show a skip icon if the current step is in the skip list', () => {
+	test('should not show a skip icon if the `current` step is in the skip list', () => {
 		const {getByRole} = render(<Steps skip={[2, 3]} skipIcon="testIconName" current={3} currentIcon="numbers" total={5} />);
 		const currentStep = getByRole('list').children.item(2).textContent;
 
