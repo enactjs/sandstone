@@ -1,6 +1,6 @@
-// colors-custom.less (custom skin)
+// colors-custom-brown.less (custom skin)
 //
-@sand-custom-skin-main-color:    #A50034;
+@sand-custom-skin-main-color:    #582f00;
 
 // ---------------------------------------
 // Universal Color Definitions
@@ -12,17 +12,17 @@
 // ---------------------------------------
 @sand-bg-color:      @sand-white;
 @sand-text-color:    @sand-custom-skin-main-color;
-@sand-border-color:  pink;
+@sand-border-color:  #b16a00;
 @sand-feature-color: black;  // Used to draw special attention, like an secondary accent color (eg.selected checkbox)
 @sand-overlay-bg-color: lightgray; // (eg. Popup background color)
 @sand-label-color:      @sand-custom-skin-main-color;
-@sand-caption-color:      #ad385d;
+@sand-caption-color:      #aa6a09;
 
 
 // Spotlight and State
 // ---------------------------------------
 @sand-spotlight-text-color:           @sand-white;
-@sand-spotlight-bg-color:             #A70007;	// If this changes, update Button bg-color mixins (@sand-button-bg-color, @sand-button-focus-filter)
+@sand-spotlight-bg-color:             #946528;	// If this changes, update Button bg-color mixins (@sand-button-bg-color, @sand-button-focus-filter)
 @sand-spotlight-color:                @sand-accent; // It is used on the dropdown selected text color only
 @sand-selection-color: @sand-spotlight-text-color;
 
@@ -31,8 +31,8 @@
 // Component Colors
 // ---------------------------------------
 @sand-component-text-color: @sand-white;
-@sand-component-bg-color: #68020f;
-@sand-component-transparent-text-color: @sand-component-bg-color;
+@sand-component-bg-color: #c78813;
+@sand-component-transparent-text-color: @sand-text-color;
 
 // Use Label color
 // ---------------------------------------
@@ -75,8 +75,8 @@
 // ---------------------------------------
 @sand-button-text-color: @sand-component-text-color;
 @sand-button-bg-color: @sand-component-bg-color;
-@sand-button-focus-filter: saturate(180%);  // #A70007
-@sand-button-selected-filter: saturate(1.5) brightness(1.5);
+@sand-button-focus-filter: saturate(130%) brightness(0.7);
+@sand-button-selected-filter: saturate(1.5) brightness(1.2);
 @sand-button-transparent-text-color: @sand-component-transparent-text-color;
 
 // FormCheckboxItem

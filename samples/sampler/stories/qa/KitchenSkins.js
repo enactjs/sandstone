@@ -23,7 +23,7 @@ export default {
 };
 
 export const KitchenSink = () => (
-	<Scroller>
+	<Scroller focusableScrollbar="byEnter">
 		<Row wrap>
 			<Section title="Buttons" size="50%">
 				<Button alt="Normal" icon="home">
@@ -33,6 +33,9 @@ export const KitchenSink = () => (
 					Button
 				</Button>
 				<Button alt="Disabled" icon="home" disabled>
+					Button
+				</Button>
+				<Button alt="Disabled Selected" icon="home" disabled selected>
 					Button
 				</Button>
 			</Section>
@@ -45,6 +48,9 @@ export const KitchenSink = () => (
 					Button
 				</Button>
 				<Button alt="Disabled" backgroundOpacity="transparent" icon="home" disabled>
+					Button
+				</Button>
+				<Button alt="Disabled Selected" backgroundOpacity="transparent" icon="home" disabled selected>
 					Button
 				</Button>
 			</Section>
@@ -85,10 +91,10 @@ export const KitchenSink = () => (
 					selected
 					showSelection
 					style={{
-						width: ri.scale(768),
-						height: ri.scale(588)
+						width: ri.scale(600),
+						height: ri.scale(480)
 					}}
-					src='http://via.placeholder.com/200x200/7ed31d/ffffff'
+					src="http://via.placeholder.com/200x200/7ed31d/ffffff"
 				>
 					ImageItem Caption
 				</ImageItem>
@@ -106,10 +112,17 @@ export const KitchenSink = () => (
 
 			<Section title="ProgressBar" size="100%">
 				<ProgressBar
+					alt="Normal"
 					backgroundProgress={0.5}
 					highlighted
 					progress={0.4}
-					// disabled
+				/>
+				<ProgressBar
+					alt="Disabled"
+					backgroundProgress={0.5}
+					highlighted
+					progress={0.4}
+					disabled
 				/>
 			</Section>
 		</Row>

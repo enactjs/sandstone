@@ -106,7 +106,9 @@ const backgroundLabelMap = {
 const skins = {
 	'Neutral': 'neutral',
 	'Light': 'light',
-	'Custom': 'custom'
+	'Custom': 'custom',
+	'Custom green': 'customGreen',
+	'Custom brown': 'customBrown'
 };
 
 const getArgs = (str) => {
@@ -141,7 +143,7 @@ const StorybookDecorator = (story, config = {}) => {
 			locale: 'en-US',
 			'large text': false,
 			'high contrast': false,
-			skin: 'neutral'
+			skin: 'custom'
 		},
 		groupId: globalGroup
 	};

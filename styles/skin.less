@@ -36,4 +36,20 @@
 
 		@componentRules();
 	}
+
+	// Custom Green Skin
+	&:global(.customGreen) {
+		@import (multiple) "./colors.less";
+		@import "./colors-custom-green.less";
+
+		@componentRules();
+	}
+
+	// Custom Brown Skin
+	&:global(.customBrown) {
+		@import (multiple) "./colors.less";
+		@import "./colors-custom-brown.less";
+
+		@componentRules();
+	}
 }

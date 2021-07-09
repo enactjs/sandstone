@@ -13,7 +13,9 @@ const defaultConfig = {
 	skins: {
 		neutral: 'neutral',
 		light: 'light',
-		custom: 'custom'
+		custom: 'custom',
+		customGreen: 'customGreen',
+		customBrown: 'customBrown'
 	},
 	defaultVariants: ['highContrast'],
 	allowedVariants: ['highContrast', 'largeText', 'grayscale']
