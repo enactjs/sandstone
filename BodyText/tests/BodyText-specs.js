@@ -1,39 +1,51 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render} from '@testing-library/react';
+
 import BodyText from '../BodyText';
-import css from '../BodyText.module.less';
 
 describe('BodyText Specs', () => {
 
-	test('should support multi-line content', () => {
-		const subject = mount(
-			<BodyText />
-		);
+	test('should render a text', () => {
+		const {getByTestId} = render(<BodyText data-testid="bodyText" />);
+		const bodyText = getByTestId('bodyText');
 
-		const expected = 1;
-		const actual = subject.find('p').length;
-
-		expect(actual).toBe(expected);
+		expect(bodyText).toBeInTheDocument();
 	});
 
 	test('should support single-line marqueeing content when `noWrap` is true', () => {
-		const subject = mount(
-			<BodyText noWrap />
-		);
+		const {getByTestId} = render(<BodyText data-testid="bodyText" noWrap />);
+		const bodyText = getByTestId('bodyText');
+		const marquee = bodyText.children.item(0);
 
-		const expected = true;
-		const actual = subject.findWhere(c => c.name() === 'ui:Marquee').exists();
+		const expected = 'marquee';
 
-		expect(actual).toBe(expected);
+		expect(marquee.className).toBe(expected);
 	});
 
 	test('should include the noWrap class if `noWrap` is true', () => {
-		const subject = mount(
-			<BodyText noWrap />
-		);
+		const {getByTestId} = render(<BodyText data-testid="bodyText" noWrap />);
+		const bodyText = getByTestId('bodyText');
 
 		const expected = 'noWrap';
-		const actual = subject.find(`.${css.bodyText}`).prop('className');
 
-		expect(actual).toContain(expected);
+		expect(bodyText.className).toContain(expected);
+	});
+
+	test('should have small class if `size` is true', () => {
+		const {getByTestId} = render(<BodyText data-testid="bodyText" size="small" />);
+		const bodyText = getByTestId('bodyText');
+
+		const expected = 'small';
+
+		expect(bodyText.className).toContain(expected);
+	});
+
+	test('should have center class if `center` is true', () => {
+		const {getByTestId} = render(<BodyText data-testid="bodyText" centered />);
+		const bodyText = getByTestId('bodyText');
+
+		const expected = 'centered';
+
+		expect(bodyText.className).toContain(expected);
 	});
 });
