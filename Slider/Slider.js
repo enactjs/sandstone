@@ -386,7 +386,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	/**
 	 * The interval (in milliseconds) between valid wheel events.
 	 *
-	 * For example, 200 means to ignore wheel events occurred witnin 200ms
+	 * For example, 200 means to ignore wheel events occurred within 200ms
 	 * of the last processed wheel event while 0 means to process all wheel events.
 	 * If the number is large, the slider value changes slowly.
 	 *
