@@ -59,11 +59,11 @@ const isNotMin = (ev, {min, value = min}) => {
 	return value !== min;
 };
 
-const checkInterval = (ev, {wheelInterval}, {current}) => {
-	if (ev.timeStamp - current.lastWheelEventTimeStamp < wheelInterval) {
+const checkInterval = (ev, {wheelInterval}, context) => {
+	if (ev.timeStamp - context.lastWheelTimeStamp < wheelInterval) {
 		return false;
 	}
-	current.lastWheelEventTimeStamp = ev.timeStamp;
+	context.lastWheelTimeStamp = ev.timeStamp;
 	return true;
 };
 

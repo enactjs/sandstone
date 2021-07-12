@@ -76,7 +76,7 @@ const SliderBase = (props) => {
 
 	const spotlightAccelerator = useRef();
 	const ref = useRef();
-	const {current} = useRef({lastWheelEventTimeStamp: 0});
+	const {current: context} = useRef({lastWheelTimeStamp: 0});
 
 	const handlers = useHandlers({
 		onBlur: handle(
@@ -112,7 +112,7 @@ const SliderBase = (props) => {
 				handleDecrementByWheel
 			])
 		)
-	}, props, {current});
+	}, props, context);
 
 	// if the props includes a css map, merge them together
 	let mergedCss = componentCss;
