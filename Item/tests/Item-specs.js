@@ -5,15 +5,14 @@ import {ItemBase} from '../Item';
 
 import css from '../Item.module.less';
 
-
 describe('Item Specs', () => {
 	test('should support adding text as a child', () => {
 		const expected = 'Hello Item';
 
 		const {getByText} = render(<ItemBase>{expected}</ItemBase>);
-		const Child = getByText(expected);
+		const actual = getByText(expected).textContent;
 
-		expect(Child).toBeInTheDocument();
+		expect(actual).toBe(expected);
 	});
 
 	test('should support adding a `label`', () => {
@@ -104,5 +103,4 @@ describe('Item Specs', () => {
 
 		expect(actual).toHaveProperty('direction', expected);
 	});
-
 });
