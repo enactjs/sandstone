@@ -59,6 +59,14 @@ const isNotMin = (ev, {min, value = min}) => {
 	return value !== min;
 };
 
+const checkInterval = (ev, {wheelInterval}, context) => {
+	if (ev.timeStamp - context.lastWheelTimeStamp < wheelInterval) {
+		return false;
+	}
+	context.lastWheelTimeStamp = ev.timeStamp;
+	return true;
+};
+
 const emitChange = (direction) =>  adaptEvent(
 	(ev, {knobStep, max, min, step, value = min}) => {
 		const newValue = clamp(min, max, value + (calcStep(knobStep, step) * direction));
@@ -102,6 +110,7 @@ const handleIncrementByWheel = handle(
 	preventDefault,
 	stop,
 	isNotMax,
+	checkInterval,
 	emitChange(1)
 );
 
@@ -111,6 +120,7 @@ const handleDecrementByWheel = handle(
 	preventDefault,
 	stop,
 	isNotMin,
+	checkInterval,
 	emitChange(-1)
 );
 
