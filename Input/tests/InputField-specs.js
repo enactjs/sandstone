@@ -13,10 +13,8 @@ describe('InputField Specs', () => {
 		);
 
 		const inputField = getByTestId('inputField');
-		const expected = 'inputField';
-		const actual = inputField.className;
 
-		expect(actual).toContain(expected);
+		expect(inputField).toBeInTheDocument();
 	});
 
 	test('should include a placeholder if specified', () => {
