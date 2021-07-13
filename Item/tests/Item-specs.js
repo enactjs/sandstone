@@ -85,7 +85,7 @@ describe('Item Specs', () => {
 	});
 
 	test('should have apply small class when small', function () {
-		const {getByTestId} = render(<ItemBase data-testid="item" size="small">Hello Item</ItemBase>);
+		const {getByTestId} = render(<ItemBase data-testid="item" size="small" />);
 
 		const expected = 'small';
 		const actual = getByTestId('item').className;
