@@ -26,6 +26,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {createContext, Fragment} from 'react';
 
+import Delayable from '../internal/Delayable';
 import {getLastInputType} from '../ThemeDecorator';
 
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
@@ -40,6 +41,8 @@ const TabLayoutContext = createContext(null);
 const TouchableCell = Touchable(Cell);
 
 const isTouchMode = () => (getLastInputType() === 'touch');
+
+const DelayedTabGroup = Delayable({delay: 200}, TabGroup);
 
 /**
  * Tabbed Layout component.
@@ -373,22 +376,24 @@ const TabLayoutBase = kind({
 			<TabLayoutContext.Provider value={handleEnter}>
 				<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
 					<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
-						<TabGroup
+						<DelayedTabGroup
 							{...tabGroupProps}
 							collapsed={isVertical}
 							spotlightId={getTabsSpotlightId(spotlightId, isVertical)}
 							tabSize={!isVertical ? tabSize : null}
 							spotlightDisabled={!collapsed && isVertical}
+							instant={collapsed}
 						/>
 					</Cell>
 					{isVertical ? <Cell
 						className={css.tabs + ' ' + css.tabsExpanded}
 						size={dimensions.tabs.normal}
 					>
-						<TabGroup
+						<DelayedTabGroup
 							{...tabGroupProps}
 							spotlightId={getTabsSpotlightId(spotlightId, false)}
 							spotlightDisabled={collapsed}
+							instant={!collapsed}
 						/>
 					</Cell> : null}
 					<ContentCell
