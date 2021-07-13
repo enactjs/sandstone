@@ -195,10 +195,6 @@ const TimePickerBase = kind({
 		minuteAriaLabel: PropTypes.string,
 
 		/**
-		 * Hides the label that displays the time.
-		 *
-		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		noLabel: PropTypes.bool,

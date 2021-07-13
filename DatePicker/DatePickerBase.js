@@ -148,10 +148,6 @@ const DatePickerBase = kind({
 		monthAriaLabel: PropTypes.string,
 
 		/**
-		 * Hides the label that displays the date.
-		 *
-		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		noLabel: PropTypes.bool,
