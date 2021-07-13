@@ -18,8 +18,9 @@ describe('BodyText Specs', () => {
 		const marquee = bodyText.children.item(0);
 
 		const expected = 'marquee';
+		const actual = marquee.className;
 
-		expect(marquee.className).toBe(expected);
+		expect(actual).toBe(expected);
 	});
 
 	test('should include the noWrap class if `noWrap` is true', () => {
@@ -27,8 +28,9 @@ describe('BodyText Specs', () => {
 		const bodyText = getByTestId('bodyText');
 
 		const expected = 'noWrap';
+		const actual = bodyText.className;
 
-		expect(bodyText.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 
 	test('should have small class if `size` is true', () => {
@@ -36,8 +38,9 @@ describe('BodyText Specs', () => {
 		const bodyText = getByTestId('bodyText');
 
 		const expected = 'small';
+		const actual = bodyText.className
 
-		expect(bodyText.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 
 	test('should have center class if `center` is true', () => {
@@ -45,7 +48,8 @@ describe('BodyText Specs', () => {
 		const bodyText = getByTestId('bodyText');
 
 		const expected = 'centered';
+		const actual = bodyText.className;
 
-		expect(bodyText.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 });

@@ -17,8 +17,9 @@ describe('Heading Specs', () => {
 		const heading = getByTestId('heading');
 
 		const expected = 'showLine';
+		const actual = heading.className;
 
-		expect(heading.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 
 	test('should have large class if `size` is large', () => {
@@ -26,8 +27,9 @@ describe('Heading Specs', () => {
 		const heading = getByTestId('heading');
 
 		const expected = 'large';
+		const actual = heading.className;
 
-		expect(heading.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 
 	test('should have small class if `size` is small', () => {
@@ -35,8 +37,9 @@ describe('Heading Specs', () => {
 		const heading = getByTestId('heading');
 
 		const expected = 'small';
+		const actual = heading.className;
 
-		expect(heading.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 
 	test('should have tiny class if `size` is tiny', () => {
@@ -44,7 +47,8 @@ describe('Heading Specs', () => {
 		const heading = getByTestId('heading');
 
 		const expected = 'tiny';
+		const actual = heading.className;
 
-		expect(heading.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 });
