@@ -83,7 +83,7 @@ describe('Input specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should set type to password at input when input type is "password"', () => {
+	test('should set type to password at input when input type is `password`', () => {
 		const str = 'placeholder text';
 		const {getAllByText} = render(
 			<FloatingLayerController>
@@ -98,7 +98,7 @@ describe('Input specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should set type to url at input when input type is "url"', () => {
+	test('should set type to url at input when input type is `url`', () => {
 		const str = 'placeholder text';
 		const {getAllByText} = render(
 			<FloatingLayerController>
@@ -225,6 +225,8 @@ describe('Input specs', () => {
 		);
 
 		const expected = 14;
+		// We use 14 because there are 14 total buttons when the input is open
+		// 0 input button, 1 the back button 2-11 the numeric buttons and 12 the backspace button 13 submit button
 		const actual = getAllByRole('button').length;
 
 		expect(actual).toBe(expected);
@@ -238,6 +240,8 @@ describe('Input specs', () => {
 		);
 
 		const expected = 14;
+		// We use 14 because there are 14 total buttons when the input is open
+		// 0 input button, 1 the back button 2-11 the numeric buttons and 12 the backspace button 13 submit button
 		const actual = getAllByRole('button').length;
 
 		expect(actual).toBe(expected);
@@ -251,6 +255,8 @@ describe('Input specs', () => {
 		);
 
 		const expected = 13;
+		// We use 13 because there are 13 total buttons when the input is open and the submit button is missing
+		// 0 input button, 1 the back button 2-11 the numeric buttons and 12 the backspace button
 		const actual = getAllByRole('button').length;
 
 		expect(actual).toBe(expected);
@@ -264,6 +270,8 @@ describe('Input specs', () => {
 		);
 
 		const expected = 13;
+		// We use 13 because there are 13 total buttons when the input is open and the submit button is missing
+		// 0 input button, 1 the back button 2-11 the numeric buttons and 12 the backspace button
 		const actual = getAllByRole('button').length;
 
 		expect(actual).toBe(expected);
@@ -429,6 +437,8 @@ describe('Input specs', () => {
 		);
 
 		const expected = 13;
+		// We use 13 because there are 13 total buttons when the input is open and the submit button is missing
+		// 0 input button, 1 the back button 2-11 the numeric buttons and 12 the backspace button
 		const actual = getAllByRole('button').length;
 
 		expect(actual).toBe(expected);
