@@ -11,7 +11,6 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" />
 		);
-
 		const inputField = getByTestId('inputField');
 
 		expect(inputField).toBeInTheDocument();
@@ -21,8 +20,8 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" placeholder="hello" />
 		);
-
 		const inputField = getByTestId('inputField');
+
 		const expected = 'hello';
 		const actual = inputField.textContent;
 
@@ -36,8 +35,8 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" onChange={handleChange} />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
+
 		fireEvent.change(inputField, evt);
 
 		expect(handleChange).toHaveBeenCalled();
@@ -54,8 +53,8 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" onChange={handleChange} />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
+
 		fireEvent.change(inputField, evt);
 
 		const actual = typeof handleChange.mock.calls[0][0].stopPropagation === 'function';
@@ -74,8 +73,8 @@ describe('InputField Specs', () => {
 				<InputField data-testid="inputField" onChange={stop} />
 			</div>
 		);
-
 		const inputText = getByTestId('inputField').children.item(2);
+
 		fireEvent.change(inputText, {target:{value:'smt'}});
 
 		expect(handleChange).not.toHaveBeenCalled();
@@ -88,8 +87,8 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" onBeforeChange={handleBeforeChange} />
 		);
-
 		const inputText = getByTestId('inputField').children.item(2);
+
 		fireEvent.change(inputText, evt);
 
 		expect(handleBeforeChange).toHaveBeenCalled();
@@ -103,8 +102,8 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" onBeforeChange={handleBeforeChange} onChange={handleChange} />
 		);
-
 		const inputText = getByTestId('inputField').children.item(2);
+
 		fireEvent.change(inputText, evt);
 
 		expect(handleChange).not.toHaveBeenCalled();
@@ -116,8 +115,8 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" onBlur={handleChange} dismissOnEnter />
 		);
-
 		const inputText = getByTestId('inputField').children.item(2);
+
 		fireEvent.mouseDown(inputText);
 		fireEvent.keyUp(inputText, {which: 13, keyCode: 13, code: 13});
 
@@ -130,8 +129,8 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" onActivate={handleChange} />
 		);
-
 		const inputText = getByTestId('inputField').children.item(2);
+
 		fireEvent.keyDown(inputText, {which: 13, keyCode: 13, code: 13});
 		fireEvent.keyUp(inputText, {which: 13, keyCode: 13, code: 13});
 
@@ -145,8 +144,8 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" disabled onActivate={handleChange} />
 		);
-
 		const inputText = getByTestId('inputField').children.item(2);
+
 		fireEvent.keyDown(inputText, {which: 13, keyCode: 13, code: 13});
 		fireEvent.keyUp(inputText, {which: 13, keyCode: 13, code: 13});
 
@@ -181,48 +180,48 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
-		const actual = inputField.getAttribute('dir');
-		const expected = 'rtl';
 
-		expect(actual).toBe(expected);
+		const expectedAttribute = 'dir';
+		const expectedValue = 'rtl';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should have dir equal to ltr when there is ltr text', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" value="content" />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
-		const actual = inputField.getAttribute('dir');
-		const expected = 'ltr';
 
-		expect(actual).toBe(expected);
+		const expectedAttribute = 'dir';
+		const expectedValue = 'ltr';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should have dir equal to rtl when there is rtl text in the placeholder', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" placeholder="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
-		const actual = inputField.getAttribute('dir');
-		const expected = 'rtl';
 
-		expect(actual).toBe(expected);
+		const expectedAttribute = 'dir';
+		const expectedValue = 'rtl';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should have dir equal to ltr when there is ltr text in the placeholder', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" placeholder="content" />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
-		const actual = inputField.getAttribute('dir');
-		const expected = 'ltr';
 
-		expect(actual).toBe(expected);
+		const expectedAttribute = 'dir';
+		const expectedValue = 'ltr';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should have dir equal to rtl when there is ltr text in the placeholder, but rtl text in value', () => {
@@ -233,12 +232,12 @@ describe('InputField Specs', () => {
 				value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי"
 			/>
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
-		const actual = inputField.getAttribute('dir');
-		const expected = 'rtl';
 
-		expect(actual).toBe(expected);
+		const expectedAttribute = 'dir';
+		const expectedValue = 'rtl';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should have dir equal to ltr when there is rtl text in the placeholder, but ltr text in value', () => {
@@ -249,20 +248,20 @@ describe('InputField Specs', () => {
 				value="content"
 			/>
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
-		const actual = inputField.getAttribute('dir');
-		const expected = 'ltr';
 
-		expect(actual).toBe(expected);
+		const expectedAttribute = 'dir';
+		const expectedValue = 'ltr';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should pause spotlight when input has focus', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
+
 		fireEvent.mouseDown(inputField);
 
 		const expected = 'paused';
@@ -277,8 +276,8 @@ describe('InputField Specs', () => {
 		const {getByTestId, unmount} = render(
 			<InputField data-testid="inputField" />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
+
 		fireEvent.mouseDown(inputField);
 
 		unmount();
@@ -295,13 +294,12 @@ describe('InputField Specs', () => {
 		const {getByText} = render(
 			<InputField invalid invalidMessage="invalid message" />
 		);
-
 		const invalidText = getByText('invalid message').parentElement.parentElement;
+
 		const expected = 'tooltipLabel';
-		const actual = invalidText.className;
 
 		expect(invalidText).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(invalidText).toHaveClass(expected);
 	});
 
 	test('should not display invalid message if it is valid', () => {
@@ -318,24 +316,24 @@ describe('InputField Specs', () => {
 		const {getByTestId} = render(
 			<InputField data-testid="inputField" data-webos-voice-intent="Select" />
 		);
-
 		const inputField = getByTestId('inputField').children.item(2);
-		const expected = 'Select';
-		const actual = inputField.getAttribute('data-webos-voice-intent');
 
-		expect(actual).toBe(expected);
+		const expectedAttribute = 'data-webos-voice-intent';
+		const expectedValue = 'Select';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should set voice label if specified', () => {
-		const label = 'input label';
+		const customLabel = 'input label';
 		const {getByTestId} = render(
-			<InputField data-testid="inputField" data-webos-voice-label={label} />
+			<InputField data-testid="inputField" data-webos-voice-label={customLabel} />
 		);
 
 		const inputField = getByTestId('inputField').children.item(2);
-		const expected = label;
-		const actual = inputField.getAttribute('data-webos-voice-label');
 
-		expect(actual).toBe(expected);
+		const expectedAttribute = 'data-webos-voice-label';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, customLabel);
 	});
 });
