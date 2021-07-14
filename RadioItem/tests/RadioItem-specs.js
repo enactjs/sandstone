@@ -45,7 +45,7 @@ describe('RadioItem Specs', () => {
 
 		const expected = 'selected';
 
-		expect(radioItem[0].className).toContain(expected);
+		expect(radioItem[0]).toHaveClass(expected);
 	});
 
 	test('should not select RadioItem with click when disabled', () => {
@@ -56,6 +56,6 @@ describe('RadioItem Specs', () => {
 
 		const expected = 'selected';
 
-		expect(radioItem[0].className).not.toContain(expected);
+		expect(radioItem[0]).not.toHaveClass(expected);
 	});
 });

@@ -30,7 +30,7 @@ describe('ActionGuide', () => {
 			const expected = css.actionGuide;
 			const actual = getByTestId('actionGuide');
 
-			expect(actual.className).toContain(expected);
+			expect(actual).toHaveClass(expected);
 		});
 	});
 });
