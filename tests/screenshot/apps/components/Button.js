@@ -91,6 +91,11 @@ const ButtonTests = [
 	// [GT-28183]
 	<Button icon="rotate">click me</Button>,
 
+	// Focused with light wrapper
+	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
+		<Button>Focused button</Button>,
+		<Button disabled>Focused button</Button>
+	]),
 
 	// *************************************************************
 	// Tallglyph validation

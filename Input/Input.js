@@ -74,6 +74,14 @@ const InputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
+		 * Sets spotlightId to InputField.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		inputFieldSpotlightId: PropTypes.string,
+
+		/**
 		 * Indicates [value]{@link sandstone/Input.InputPopupBase.value} is invalid and shows
 		 * [invalidMessage]{@link sandstone/Input.InputPopupBase.invalidMessage}, if set.
 		 *
@@ -140,6 +148,14 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		noBackButton: PropTypes.bool,
+
+		/**
+		 * Omits the submit button.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noSubmitButton: PropTypes.bool,
 
 		/**
 		 * The type of numeric input to use.
@@ -334,7 +350,9 @@ const InputPopupBase = kind({
 		backButtonAriaLabel,
 		children,
 		css,
+		inputFieldSpotlightId,
 		noBackButton,
+		noSubmitButton,
 		numberInputField,
 		onBeforeChange,
 		onClose,
@@ -410,6 +428,7 @@ const InputPopupBase = kind({
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
 								numberInputField={numberInputField}
+								noSubmitButton={noSubmitButton}
 							/> :
 							<InputField
 								{...inputProps}
@@ -425,6 +444,7 @@ const InputPopupBase = kind({
 								placeholder={placeholder}
 								onBeforeChange={onBeforeChange}
 								onKeyDown={onInputKeyDown}
+								spotlightId={inputFieldSpotlightId}
 							/>
 						}
 					</Cell>

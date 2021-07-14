@@ -22,6 +22,9 @@ describe('VirtualList Samples', function () {
 		Page.buttonLeft.moveTo();
 		Page.spotlightRight();
 
+		// Wait for scroll animation
+		Page.delay(300);
+
 		// Verify Spotlight displays on the 21st item ('Itme 20');
 		expectFocusedItem(Number((Page.bottomVisibleItemId().slice(4))));
 	});
