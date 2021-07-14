@@ -7,7 +7,7 @@ const FloatingLayerController = FloatingLayerDecorator('div');
 
 describe('FixedPopupPanels', () => {
 
-	it('should have the default width when nothing is assigned', function () {
+	test('should have the default width when nothing is assigned', function () {
 		const {getByTestId} = render(
 			<FloatingLayerController>
 				<FixedPopupPanels data-testid="panels-id" open />
@@ -15,12 +15,12 @@ describe('FixedPopupPanels', () => {
 		);
 
 		const expected = 'narrow';
-		const actual = getByTestId('panels-id').parentElement.parentElement;
+		const actual = getByTestId('panels-id').parentElement.parentElement.className;
 
-		expect(actual.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 
-	it('should have narrow width applied when width="narrow"', function () {
+	test('should have narrow width applied when width="narrow"', function () {
 		const {getByTestId} = render(
 			<FloatingLayerController>
 				<FixedPopupPanels data-testid="panels-id" open width="narrow" />
@@ -28,12 +28,12 @@ describe('FixedPopupPanels', () => {
 		);
 
 		const expected = 'narrow';
-		const actual = getByTestId('panels-id').parentElement.parentElement;
+		const actual = getByTestId('panels-id').parentElement.parentElement.className;
 
-		expect(actual.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 
-	it('should have half width applied when width="half"', function () {
+	test('should have half width applied when width="half"', function () {
 		const {getByTestId} = render(
 			<FloatingLayerController>
 				<FixedPopupPanels data-testid="panels-id" open width="half" />
@@ -41,12 +41,12 @@ describe('FixedPopupPanels', () => {
 		);
 
 		const expected = 'half';
-		const actual = getByTestId('panels-id').parentElement.parentElement;
+		const actual = getByTestId('panels-id').parentElement.parentElement.className;
 
-		expect(actual.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 
-	it('should correctly assign the fullHeight class', function () {
+	test('should correctly assign the fullHeight class', function () {
 		const {getByTestId} = render(
 			<FloatingLayerController>
 				<FixedPopupPanels data-testid="panels-id" fullHeight open />
@@ -54,8 +54,8 @@ describe('FixedPopupPanels', () => {
 		);
 
 		const expected = 'fullHeight';
-		const actual = getByTestId('panels-id').parentElement.parentElement;
+		const actual = getByTestId('panels-id').parentElement.parentElement.className;
 
-		expect(actual.className).toContain(expected);
+		expect(actual).toContain(expected);
 	});
 });
