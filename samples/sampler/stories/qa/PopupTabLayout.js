@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-no-bind */
-
 import {is} from '@enact/core/keymap';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Dropdown from '@enact/sandstone/Dropdown';
@@ -15,6 +14,7 @@ import Slider from '@enact/sandstone/Slider';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {Cell} from '@enact/ui/Layout';
+import PropTypes from 'prop-types';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
@@ -154,7 +154,7 @@ export const WithoutIcon = () => {
 
 WithoutIcon.storyName = 'without icon';
 
-export const WithVariousItems = () => {
+const WithVariousItemsSamplesBase = ({rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -172,7 +172,7 @@ export const WithVariousItems = () => {
 	const handleKeyDown = (setState, state) => (ev) => {
 		const {keyCode} = ev;
 
-		if (isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
+		if (!rtl && isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
 			navNext(setState, state, 'onNext')();
 		}
 	};
@@ -208,7 +208,7 @@ export const WithVariousItems = () => {
 							</Cell>
 						</TabPanel>
 						<TabPanel>
-							<Header title="Color Adjust" type="compact" />
+							<Header title="Color Adjust" type="compact" slotAfter={<Button iconOnly icon="help" />} />
 							<Cell>
 								<span>This is the second panel.</span>
 								<Button size="small" disabled>Button1</Button>
@@ -244,6 +244,16 @@ export const WithVariousItems = () => {
 		</div>
 	);
 };
+
+WithVariousItemsSamplesBase.propTypes = {
+	rtl: PropTypes.bool
+};
+
+const WithVariousItemsSamples = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	WithVariousItemsSamplesBase
+);
+export const WithVariousItems = () => <WithVariousItemsSamples />;
 
 WithVariousItems.storyName = 'with various items';
 

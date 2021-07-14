@@ -1,5 +1,7 @@
 import Picker from '../../../../Picker';
 
+import css from './Picker.module.less';
+
 const pickerList = {
 	tall: [
 		'नरेंद्र मोदी',
@@ -150,6 +152,7 @@ const PickerTests = [
 	// title
 	<Picker title="Title">{['Hello', 'Hello']}</Picker>,
 	<Picker inlineTitle title="Title">{['Hello', 'Hello']}</Picker>,
+	<Picker css={css} inlineTitle title="Title">{['Hello', 'Hello']}</Picker>,
 
 	// *************************************************************
 	// locale = 'ar-SA'

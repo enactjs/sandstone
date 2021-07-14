@@ -35,6 +35,14 @@ const calcStep = (knobStep, step) => {
 	return s || 1;
 };
 
+const isIncrementByWheel = ({deltaY}) => {
+	return deltaY < 0;
+};
+
+const isDecrementByWheel = ({deltaY}) => {
+	return deltaY > 0;
+};
+
 const isIncrement = ({keyCode}, {orientation}) => {
 	return orientation === 'vertical' ? is('up', keyCode) : is('right', keyCode);
 };
@@ -49,6 +57,14 @@ const isNotMax = (ev, {value, max}) => {
 
 const isNotMin = (ev, {min, value = min}) => {
 	return value !== min;
+};
+
+const checkInterval = (ev, {wheelInterval}, context) => {
+	if (ev.timeStamp - context.lastWheelTimeStamp < wheelInterval) {
+		return false;
+	}
+	context.lastWheelTimeStamp = ev.timeStamp;
+	return true;
 };
 
 const emitChange = (direction) =>  adaptEvent(
@@ -88,6 +104,26 @@ const handleDecrement = handle(
 	emitChange(-1)
 );
 
+const handleIncrementByWheel = handle(
+	isActive,
+	isIncrementByWheel,
+	preventDefault,
+	stop,
+	isNotMax,
+	checkInterval,
+	emitChange(1)
+);
+
+const handleDecrementByWheel = handle(
+	isActive,
+	isDecrementByWheel,
+	preventDefault,
+	stop,
+	isNotMin,
+	checkInterval,
+	emitChange(-1)
+);
+
 const either = (a, b) => (...args) => a(...args) || b(...args);
 const atMinimum = (ev, {min, value = min}) => value <= min;
 const atMaximum = (ev, {max, min, value = min}) => value >= max;
@@ -116,5 +152,7 @@ export {
 	forwardSpotlightEvents,
 	emitChange,
 	handleDecrement,
-	handleIncrement
+	handleIncrement,
+	handleDecrementByWheel,
+	handleIncrementByWheel
 };
