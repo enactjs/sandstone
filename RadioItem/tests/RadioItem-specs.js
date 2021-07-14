@@ -25,8 +25,9 @@ describe('RadioItem Specs', () => {
 
 	test('should render a disabled RadioItem when `disabled` is true', () => {
 		const {getByRole} = render(<RadioItemBase disabled>Hello RadioItem</RadioItemBase>);
+		const radioItem = getByRole('checkbox');
 
-		expect(getByRole('checkbox', {disabled: true}));
+		expect(radioItem).toHaveAttribute('disabled');
 	});
 
 	test('should render a `slot before`', () => {
