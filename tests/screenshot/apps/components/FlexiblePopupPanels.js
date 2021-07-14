@@ -80,10 +80,6 @@ const EachPanel = withConfig(
 			component: <FlexPopupPanels open scrimType="transparent" />
 		},
 		{
-			title: 'with translucent scrim',
-			component: <FlexPopupPanels open scrimType="translucent" />
-		},
-		{
 			title: 'with standard Panel Components index 1',
 			component: <FlexPopupPanels open index={1} />,
 			wrapper: {full: true}
