@@ -260,7 +260,6 @@ describe('SharedStateDecorator Specs', () => {
 			static contextType = SharedState;
 
 			render () {
-				// eslint-disable-next-line enact/prop-types
 				const {children, value: propValue, ...rest} = this.props;
 
 				if (propValue) {
