@@ -45,7 +45,7 @@ describe('Item Specs', () => {
 	test('should support `slotBefore`', () => {
 		const expected = 'slot before';
 
-		render(<ItemBase data-testid="item" slotBefore={expected}>Hello Item</ItemBase>);
+		render(<ItemBase slotBefore={expected}>Hello Item</ItemBase>);
 		const actual = screen.getByText(expected);
 
 		expect(actual).toBeInTheDocument();
@@ -54,7 +54,7 @@ describe('Item Specs', () => {
 	test('should support `slotAfter`', () => {
 		const expected = 'slot after';
 
-		render(<ItemBase data-testid="item" slotAfter={expected}>Hello Item</ItemBase>);
+		render(<ItemBase slotAfter={expected}>Hello Item</ItemBase>);
 		const actual = screen.getByText(expected);
 
 		expect(actual).toBeInTheDocument();
