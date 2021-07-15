@@ -208,10 +208,7 @@ describe('Button', () => {
 
 			userEvent.click(button);
 
-			const expected = 1;
-			const actual = handleClick.mock.calls.length;
-
-			expect(actual).toBe(expected);
+			expect(handleClick).toBeCalled();
 		});
 
 		test('should not call onClick when disabled', () => {
@@ -221,10 +218,7 @@ describe('Button', () => {
 
 			userEvent.click(button);
 
-			const expected = 0;
-			const actual = handleClick.mock.calls.length;
-
-			expect(actual).toBe(expected);
+			expect(handleClick).not.toBeCalled();
 		});
 
 		test('should have "Select" voice intent in the node of "role=button"', () => {
