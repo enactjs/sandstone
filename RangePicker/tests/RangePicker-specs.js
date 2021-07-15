@@ -1,116 +1,113 @@
 import '@testing-library/jest-dom';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {RangePicker, RangePickerBase} from '../RangePicker';
 
 describe('RangePicker Specs', () => {
 	test('should render a single child with the current value', () => {
-		const {getByText} = render(
+		render(
 			<RangePicker min={-10} max={20} value={10} />
 		);
+		const textField = screen.getByText('10');
 
-		const value = getByText('10');
 		const expected = 'item';
-		const actual = value.className;
 
-		expect(value).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(textField).toBeInTheDocument();
+		expect(textField).toHaveClass(expected);
 	});
 
 	test('should increase by step amount on increment press', () => {
-		const {getByText} = render(
+		render(
 			<RangePicker min={0} max={100} defaultValue={10} step={1} noAnimation />
 		);
+		const incrementButton = screen.getByText('▶');
 
-		userEvent.click(getByText('▶'));
+		userEvent.click(incrementButton);
 
-		const value = getByText('11');
+		const textField = screen.getByText('11');
 		const expected = 'item';
-		const actual = value.className;
 
-		expect(value).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(textField).toBeInTheDocument();
+		expect(textField).toHaveClass(expected);
 	});
 
 	test('should decrease by step amount on decrement press', () => {
-		const {getByText} = render(
+		render(
 			<RangePicker min={0} max={100} defaultValue={10} step={1} noAnimation />
 		);
+		const decrementButton = screen.getByText('◀');
 
-		userEvent.click(getByText('◀'));
+		userEvent.click(decrementButton);
 
-		const value = getByText('9');
+		const textField = screen.getByText('9');
 		const expected = 'item';
-		const actual = value.className;
 
-		expect(value).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(textField).toBeInTheDocument();
+		expect(textField).toHaveClass(expected);
 	});
 
 	test('should pad the value', () => {
-		const {getByText} = render(
+		render(
 			<RangePicker min={0} max={100} value={10} step={1} padded />
 		);
+		const textField = screen.getByText('010');
 
-		const value = getByText('010');
 		const expected = 'item';
-		const actual = value.className;
 
-		expect(value).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(textField).toBeInTheDocument();
+		expect(textField).toHaveClass(expected);
 	});
 
 	test('should pad the value when min has more digits than max', () => {
-		const {getByText} = render(
+		render(
 			<RangePicker min={-1000} max={100} value={10} step={1} padded />
 		);
+		const textField = screen.getByText('0010');
 
-		const value = getByText('0010');
 		const expected = 'item';
-		const actual = value.className;
 
-		expect(value).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(textField).toBeInTheDocument();
+		expect(textField).toHaveClass(expected);
 	});
 
 	test('should be disabled when limited to a single value', () => {
-		const {getByTestId} = render(
+		render(
 			<RangePickerBase data-testid="rangePickerBase" min={0} max={0} value={0} />
 		);
+		const rangePicker = screen.getByTestId('rangePickerBase');
 
-		const rangePicker = getByTestId('rangePickerBase');
-		const expected = 'true';
-		const actual = rangePicker.getAttribute('aria-disabled');
+		const expectedAttribute = 'aria-disabled';
+		const expectedValue = 'true';
 
-		expect(actual).toBe(expected);
+		expect(rangePicker).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should have an heading element when \'title\'', () => {
-		const {getByText} = render(
+		render(
 			<RangePickerBase min={0} max={0} value={0} title="title text" />
 		);
+		const title = screen.getByText('title text');
 
-		const title = getByText('title text');
 		const expected = 'heading';
-		const actual = title.parentElement.parentElement.className;
+		const actual = title.parentElement.parentElement;
 
 		expect(title).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
 	test('should have an heading element with inline class when \'title\' and \'inlineTitle\'', () => {
-		const {getByTestId} = render(
-			<div data-testid="rangePickerBase">
-				<RangePickerBase inlineTitle min={0} max={0} value={0} title="title text" />
-			</div>
+		render(
+			<RangePickerBase inlineTitle min={0} max={0} value={0} title="title text" />
 		);
+		const title = screen.getByText('title text');
 
-		const title = getByTestId('rangePickerBase').children.item(0);
-		const expected = ['inlineTitle', 'header'];
-		const actual = title.className;
+		const expectedInline = 'inlineTitle';
+		const expectedHeader = 'header';
+		const actual = title.parentElement.parentElement;
 
 		expect(title).toBeInTheDocument();
-		expect(actual).toContain(expected[0], expected[1]);
+		expect(actual).toHaveClass(expectedInline);
+		expect(actual).toHaveClass(expectedHeader);
 	});
 });
