@@ -145,7 +145,7 @@ describe('Button', () => {
 	});
 
 	describe('with color', () => {
-		test('should have hasColor class', () => {
+		test('should have hasColor class when a color is specified', () => {
 			render(<Button color="red">abc</Button>);
 			const button = screen.getByRole('button');
 
@@ -154,9 +154,9 @@ describe('Button', () => {
 			expect(button).toHaveClass(expected);
 		});
 
-		test('should have not hasColor class', () => {
-			render(<Button data-testid="button">abc</Button>);
-			const button = screen.getByTestId('button');
+		test('should not have not hasColor when no color is specified', () => {
+			render(<Button>abc</Button>);
+			const button = screen.getByRole('button');
 
 			const expected = css.hasColor;
 
