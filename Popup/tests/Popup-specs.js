@@ -8,13 +8,13 @@ const FloatingLayerController = FloatingLayerDecorator('div');
 
 describe('Popup specs', () => {
 	test('should be rendered opened if open is set to true', () => {
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Popup open><div>popup</div></Popup>
 			</FloatingLayerController>
 		);
 
-		const popup = getByText('popup');
+		const popup = screen.getByText('popup');
 
 		expect(popup).toBeInTheDocument();
 	});
@@ -32,233 +32,233 @@ describe('Popup specs', () => {
 	});
 
 	test('should set role to alert by default', () => {
-		const {getByRole} = render(
+		render(
 			<FloatingLayerController>
 				<Popup open><div>popup</div></Popup>
 			</FloatingLayerController>
 		);
 
-		const popup = getByRole('alert');
+		const popup = screen.getByRole('alert');
 
 		expect(popup).toBeInTheDocument();
 	});
 
 	test('should allow role to be overridden', () => {
-		const {getByRole} = render(
+		render(
 			<FloatingLayerController>
 				<Popup open role="dialog"><div>popup</div></Popup>
 			</FloatingLayerController>
 		);
 
-		const popup = getByRole('dialog');
+		const popup = screen.getByRole('dialog');
 
 		expect(popup).toBeInTheDocument();
 	});
 
 	test('should set "data-webos-voice-exclusive" when popup is open', () => {
-		const {getByRole} = render(
+		render(
 			<FloatingLayerController>
 				<Popup open><div>popup</div></Popup>
 			</FloatingLayerController>
 		);
 
-		const popup = getByRole('alert');
+		const popup = screen.getByRole('alert');
 
 		expect(popup).toHaveAttribute('data-webos-voice-exclusive');
 	});
 
 	test('should set "data-webos-voice-disabled" when voice control is disabled', () => {
-		const {getByRole} = render(
+		render(
 			<FloatingLayerController>
 				<Popup data-webos-voice-disabled open><div>popup</div></Popup>
 			</FloatingLayerController>
 		);
 
-		const popup = getByRole('alert');
+		const popup = screen.getByRole('alert');
 
 		expect(popup).toHaveAttribute('data-webos-voice-disabled');
 	});
 
 	describe('with position bottom', function () {
 		test('should have bottom class', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="bottom"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const popup = getByRole('alert');
+			const popup = screen.getByRole('alert');
 
-			expect(popup.className).toContain('bottom');
+			expect(popup).toHaveClass('bottom');
 		});
 
 		test('should have bottom class in popup transition container', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="bottom"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const transitionContainer = getByRole('alert').parentElement.parentElement;
+			const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
 
-			expect(transitionContainer.className).toContain('bottom');
+			expect(transitionContainer).toHaveClass('bottom');
 		});
 	});
 
 	describe('with position left', function () {
 		test('should have left class', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="left"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const popup = getByRole('alert');
+			const popup = screen.getByRole('alert');
 
-			expect(popup.className).toContain('left');
+			expect(popup).toHaveClass('left');
 		});
 
 		test('should have left class in popup transition container', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="left"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const transitionContainer = getByRole('alert').parentElement.parentElement;
+			const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
 
-			expect(transitionContainer.className).toContain('left');
+			expect(transitionContainer).toHaveClass('left');
 		});
 	});
 
-	describe('with position top', function () {
+	describe('with position right', function () {
 		test('should have right class', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="right"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const popup = getByRole('alert');
+			const popup = screen.getByRole('alert');
 
-			expect(popup.className).toContain('right');
+			expect(popup).toHaveClass('right');
 		});
 
 		test('should have right class in popup transition container', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="right"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const transitionContainer = getByRole('alert').parentElement.parentElement;
+			const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
 
-			expect(transitionContainer.className).toContain('right');
+			expect(transitionContainer).toHaveClass('right');
 		});
 	});
 
 	describe('with position top', function () {
 		test('should have top class', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="top"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const popup = getByRole('alert');
+			const popup = screen.getByRole('alert');
 
-			expect(popup.className).toContain('top');
+			expect(popup).toHaveClass('top');
 		});
 
 		test('should have top class popup transition container', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="top"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const transitionContainer = getByRole('alert').parentElement.parentElement;
+			const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
 
-			expect(transitionContainer.className).toContain('top');
+			expect(transitionContainer).toHaveClass('top');
 		});
 	});
 
 	describe('with position center', function () {
 		test('should have center class', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="center"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const popup = getByRole('alert');
+			const popup = screen.getByRole('alert');
 
-			expect(popup.className).toContain('center');
+			expect(popup).toHaveClass('center');
 		});
 
 		test('should have center class popup transition container', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="center"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const transitionContainer = getByRole('alert').parentElement.parentElement;
+			const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
 
-			expect(transitionContainer.className).toContain('center');
+			expect(transitionContainer).toHaveClass('center');
 		});
 	});
 
 	describe('with position fullscreen', function () {
 		test('should have fullscreen class', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="fullscreen"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const popup = getByRole('alert');
+			const popup = screen.getByRole('alert');
 
-			expect(popup.className).toContain('fullscreen');
+			expect(popup).toHaveClass('fullscreen');
 		});
 
 		test('should have fullscreen class popup transition container', () => {
-			const {getByRole} = render(
+			render(
 				<FloatingLayerController>
 					<Popup open position="fullscreen"><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const transitionContainer = getByRole('alert').parentElement.parentElement;
+			const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
 
-			expect(transitionContainer.className).toContain('fullscreen');
+			expect(transitionContainer).toHaveClass('fullscreen');
 		});
 	});
 
-	describe('with position changes dynamically', function () {
+	describe('with position changes dynamically - [GT-28270]', function () {
 		test('should not have top class when position change from top to any other position', () => {
 			const firstPosition = 'top';
-			const {getByRole, rerender} = render(
+			const {rerender} = render(
 				<FloatingLayerController>
 					<Popup open position={firstPosition}><div>popup</div></Popup>
 				</FloatingLayerController>
 			);
 
-			const popup = getByRole('alert');
-			const transitionContainer = getByRole('alert').parentElement.parentElement;
+			const popup = screen.getByRole('alert');
+			const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
 
-			expect(popup.className).toContain(firstPosition);
-			expect(transitionContainer.className).toContain(firstPosition);
-			expect(popup.className).not.toContain('fullscreen');
-			expect(transitionContainer.className).not.toContain('fullscreen');
-			expect(popup.className).not.toContain('center');
-			expect(transitionContainer.className).not.toContain('center');
-			expect(popup.className).not.toContain('bottom');
-			expect(transitionContainer.className).not.toContain('bottom');
-			expect(popup.className).not.toContain('right');
-			expect(transitionContainer.className).not.toContain('right');
-			expect(popup.className).not.toContain('left');
-			expect(transitionContainer.className).not.toContain('left');
+			expect(popup).toHaveClass(firstPosition);
+			expect(transitionContainer).toHaveClass(firstPosition);
+			expect(popup).not.toHaveClass('fullscreen');
+			expect(transitionContainer).not.toHaveClass('fullscreen');
+			expect(popup).not.toHaveClass('center');
+			expect(transitionContainer).not.toHaveClass('center');
+			expect(popup).not.toHaveClass('bottom');
+			expect(transitionContainer).not.toHaveClass('bottom');
+			expect(popup).not.toHaveClass('right');
+			expect(transitionContainer).not.toHaveClass('right');
+			expect(popup).not.toHaveClass('left');
+			expect(transitionContainer).not.toHaveClass('left');
 
 			rerender(
 				<FloatingLayerController>
@@ -266,8 +266,8 @@ describe('Popup specs', () => {
 				</FloatingLayerController>
 			);
 
-			expect(popup.className).not.toContain(firstPosition);
-			expect(transitionContainer.className).not.toContain(firstPosition);
+			expect(popup).not.toHaveClass(firstPosition);
+			expect(transitionContainer).not.toHaveClass(firstPosition);
 
 			rerender(
 				<FloatingLayerController>
@@ -275,8 +275,8 @@ describe('Popup specs', () => {
 				</FloatingLayerController>
 			);
 
-			expect(popup.className).not.toContain(firstPosition);
-			expect(transitionContainer.className).not.toContain(firstPosition);
+			expect(popup).not.toHaveClass(firstPosition);
+			expect(transitionContainer).not.toHaveClass(firstPosition);
 
 			rerender(
 				<FloatingLayerController>
@@ -284,8 +284,8 @@ describe('Popup specs', () => {
 				</FloatingLayerController>
 			);
 
-			expect(popup.className).not.toContain(firstPosition);
-			expect(transitionContainer.className).not.toContain(firstPosition);
+			expect(popup).not.toHaveClass(firstPosition);
+			expect(transitionContainer).not.toHaveClass(firstPosition);
 
 			rerender(
 				<FloatingLayerController>
@@ -293,8 +293,8 @@ describe('Popup specs', () => {
 				</FloatingLayerController>
 			);
 
-			expect(popup.className).not.toContain(firstPosition);
-			expect(transitionContainer.className).not.toContain(firstPosition);
+			expect(popup).not.toHaveClass(firstPosition);
+			expect(transitionContainer).not.toHaveClass(firstPosition);
 
 			rerender(
 				<FloatingLayerController>
@@ -302,8 +302,8 @@ describe('Popup specs', () => {
 				</FloatingLayerController>
 			);
 
-			expect(popup.className).not.toContain(firstPosition);
-			expect(transitionContainer.className).not.toContain(firstPosition);
+			expect(popup).not.toHaveClass(firstPosition);
+			expect(transitionContainer).not.toHaveClass(firstPosition);
 		});
 	});
 });
