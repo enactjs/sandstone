@@ -1,6 +1,6 @@
 // colors-custom.less (custom skin)
 //
-@sand-custom-skin-main-color:    #A50034;
+@sand-custom-skin-main-color:    white;
 
 // ---------------------------------------
 // Universal Color Definitions
@@ -9,27 +9,28 @@
 
 // UI Conceptual Colors
 // ---------------------------------------
-@sand-bg-color:      @sand-white;
-@sand-text-color:    @sand-custom-skin-main-color;
-@sand-border-color:  pink;
-@sand-feature-color: black;  // Used to draw special attention, like an secondary accent color (eg.selected checkbox)
-@sand-overlay-bg-color: lightgray; // (eg. Popup background color)
-@sand-label-color:      @sand-custom-skin-main-color;
-@sand-caption-color:      #ad385d;
+@sand-bg-color:      var(--sand-bg-color, @sand-black); // 1
+@sand-text-color:    var(--sand-text-color, @sand-light-gray); // 2
+@sand-border-color:  var(--sand-border-color, @sand-light-gray); // 4
+@sand-feature-color: var(--sand-feature-color, #30ad6b);  // 7 Used to draw special attention, like an secondary accent color (eg.selected checkbox)
+@sand-overlay-bg-color: var(--sand-overlay-bg-color, #575e66E6); // 3 (eg. Popup background color)
+@sand-label-color:      @sand-text-color;
+@sand-caption-color:      lightgray;
 
 // Spotlight and State
 // ---------------------------------------
-@sand-spotlight-text-color:           @sand-white;
-@sand-spotlight-bg-color:             #A70007;	// If this changes, update Button bg-color mixins (@sand-button-bg-color, @sand-button-focus-filter)
+@sand-spotlight-text-color:           var(--sand-spotlight-text-color, @sand-dark-gray); // 6
+@sand-spotlight-bg-color:             var(--sand-spotlight-bg-color, @sand-white);	// 5. If this changes, update Button bg-color mixins (@sand-button-bg-color, @sand-button-focus-filter)
 @sand-spotlight-color:                @sand-accent; // It is used on the dropdown selected text color only
-@sand-selection-color: @sand-spotlight-text-color;
+@sand-selection-color: @sand-dark-gray;
 
 // ---------------------------------------
 // Component Colors
 // ---------------------------------------
-@sand-component-text-color: @sand-white;
-@sand-component-bg-color: #68020f;
-@sand-component-transparent-text-color: @sand-component-bg-color;
+@sand-component-text-color: var(--sand-component-text-color, @sand-white);    // 8
+@sand-component-bg-color: var(--sand-component-bg-color, #7d848c);  // 9
+@sand-component-transparent-text-color:  var(--sand-component-transparent-text-color, @sand-text-color);   // 11
+@sand-button-selected-color:  var(--spotlight-selected-color, #3e454d); //10
 
 // Use Label color
 // ---------------------------------------

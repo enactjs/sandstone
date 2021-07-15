@@ -25,7 +25,7 @@
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  @sand-light-gray;
 @sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
-@sand-overlay-bg-color: #575e66;
+@sand-overlay-bg-color: #575e66E6;
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
 @sand-overlay-bg-shadow: 0 42px 24px fade(@sand-black, 30%);
 
@@ -68,6 +68,7 @@
 @sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
 @sand-button-focus-filter: saturate(0) brightness(1.755);
+@sand-button-selected-color: #3e454d;
 @sand-button-selected-filter: saturate(1.5) brightness(0.5);
 @sand-button-transparent-text-color: @sand-text-color;
 
@@ -161,7 +162,7 @@
 @sand-input-overlay-background-color: @sand-popup-bg-color;
 @sand-input-numbercell-background-color: fade(@sand-light-gray, 20%);
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
-@sand-input-numberfield-disabled-color: fade(@sand-inputfield-focus-text-color, @sand-disabled-focus-content-opacity * 100%);
+@sand-input-numberfield-disabled-color: @sand-inputfield-focus-text-color;
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
@@ -222,8 +223,8 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: fade(@sand-overlay-bg-color, 90%);
-@sand-popup-scrimtransparent-bg-color: fade(@sand-overlay-bg-color, 95%);
+@sand-popup-bg-color: @sand-overlay-bg-color;   // TODO: set alpha
+@sand-popup-scrimtransparent-bg-color: @sand-overlay-bg-color;
 
 // PopupTabLayout
 // ---------------------------------------
