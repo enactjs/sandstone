@@ -28,7 +28,6 @@ describe('KeyGuide Specs', () => {
 		);
 		const keyGuide = screen.queryByRole('list');
 
-
 		expect(keyGuide).toBeNull();
 	});
 
