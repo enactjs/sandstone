@@ -1,6 +1,7 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {fireEvent, render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Input from '../Input';
 
@@ -8,25 +9,24 @@ const FloatingLayerController = FloatingLayerDecorator('div');
 
 describe('Input specs', () => {
 	test('should be rendered opened if open is set to true', () => {
-		const {getByTestId} = render(
-			<FloatingLayerController data-testid="floatingLayer">
+		render(
+			<FloatingLayerController>
 				<Input open />
 			</FloatingLayerController>
 		);
-
-		const actual = getByTestId('floatingLayer').children.item(0).children.length > 0;
+		const actual = screen.getAllByLabelText('- Input field')[0].parentElement.nextElementSibling.children.length > 0;
 
 		expect(actual).toBeTruthy();
 	});
 
 	test('should set title when there is title text', () => {
 		const str = 'title text';
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input open title={str} />
 			</FloatingLayerController>
 		);
-		const titleField = getByText(str).parentElement.parentElement;
+		const titleField = screen.getByText(str).parentElement.parentElement;
 
 		const expected = 'title';
 
@@ -36,12 +36,12 @@ describe('Input specs', () => {
 
 	test('should set title below when there is title below text', () => {
 		const str = 'title below text';
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input open subtitle={str} />
 			</FloatingLayerController>
 		);
-		const subtitleField = getByText(str).parentElement.parentElement;
+		const subtitleField = screen.getByText(str).parentElement.parentElement;
 
 		const expected = 'subtitle';
 
@@ -51,12 +51,12 @@ describe('Input specs', () => {
 
 	test('should set value at input when there is value text', () => {
 		const str = 'value text';
-		const {getAllByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input open value={str} />
 			</FloatingLayerController>
 		);
-		const inputField = getAllByText(str)[1].parentElement;
+		const inputField = screen.getAllByLabelText('value text Input field')[1];
 
 		const expected = 'inputField';
 
@@ -66,12 +66,12 @@ describe('Input specs', () => {
 
 	test('should set placeholder at input when there is placeholder text', () => {
 		const str = 'placeholder text';
-		const {getAllByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input open placeholder={str} />
 			</FloatingLayerController>
 		);
-		const inputField = getAllByText(str)[1].nextElementSibling;
+		const inputField = screen.getAllByText(str)[1].nextElementSibling;
 
 		const expectedAttribute = 'placeholder';
 
@@ -80,12 +80,12 @@ describe('Input specs', () => {
 
 	test('should set type to password at input when input type is `password`', () => {
 		const str = 'placeholder text';
-		const {getAllByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input open placeholder={str} type="password" />
 			</FloatingLayerController>
 		);
-		const inputField = getAllByText(str)[1].nextElementSibling;
+		const inputField = screen.getAllByText(str)[1].nextElementSibling;
 
 		const expectedAttribute = 'type';
 		const expectedValue = 'password';
@@ -95,12 +95,12 @@ describe('Input specs', () => {
 
 	test('should set type to url at input when input type is `url`', () => {
 		const str = 'placeholder text';
-		const {getAllByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input open placeholder={str} type="url" />
 			</FloatingLayerController>
 		);
-		const inputField = getAllByText(str)[1].nextElementSibling;
+		const inputField = screen.getAllByText(str)[1].nextElementSibling;
 
 		const expectedAttribute = 'type';
 		const expectedValue = 'url';
@@ -109,8 +109,8 @@ describe('Input specs', () => {
 	});
 
 	test('should set disabled at button when popup is disabled', () => {
-		const {getByRole} = render(<Input disabled />);
-		const buttonInput = getByRole('button');
+		render(<Input disabled />);
+		const buttonInput = screen.getByRole('button');
 
 		const expectedAttribute = 'aria-disabled';
 		const expectedValue = 'true';
@@ -120,25 +120,24 @@ describe('Input specs', () => {
 
 	// Type = number
 	test('should be rendered opened if open is set to true', () => {
-		const {getByTestId} = render(
-			<FloatingLayerController data-testid="floatingLayer">
+		render(
+			<FloatingLayerController>
 				<Input type="number" open length={4} />
 			</FloatingLayerController>
 		);
-
-		const actual = getByTestId('floatingLayer').children.item(0).children.length > 0;
+		const actual = screen.getAllByLabelText('- Input field')[0].parentElement.nextElementSibling.children.length > 0;
 
 		expect(actual).toBeTruthy();
 	});
 
 	test('should set title when there is title text', () => {
 		const str = 'title text';
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={4} title={str} />
 			</FloatingLayerController>
 		);
-		const titleField = getByText(str).parentElement.parentElement;
+		const titleField = screen.getByText(str).parentElement.parentElement;
 
 		const expected = 'title';
 
@@ -148,12 +147,12 @@ describe('Input specs', () => {
 
 	test('should set title below when there is title below text', () => {
 		const str = 'title below text';
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={4} subtitle={str} />
 			</FloatingLayerController>
 		);
-		const subtitleField = getByText(str).parentElement.parentElement;
+		const subtitleField = screen.getByText(str).parentElement.parentElement;
 
 		const expected = 'subtitle';
 
@@ -163,21 +162,21 @@ describe('Input specs', () => {
 
 	test('should set value at input when there is value text', () => {
 		const str = '1234';
-		const {getByRole} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={4} value={str} />
 			</FloatingLayerController>
 		);
 
 		const expected = str;
-		const actual = getByRole('list').textContent;
+		const actual = screen.getByRole('list').textContent;
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should set disabled at button when the component is disabled', () => {
-		const {getByRole} = render(<Input type="number" length={4} disabled />);
-		const buttonInput = getByRole('button');
+		render(<Input type="number" length={4} disabled />);
+		const buttonInput = screen.getByRole('button');
 
 		const expectedAttribute = 'aria-disabled';
 		const expectedValue = 'true';
@@ -187,24 +186,25 @@ describe('Input specs', () => {
 
 	test('should not be able to add more characters when the maxlength is reached', () => {
 		const spy = jest.fn();
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" minLength={1} maxLength={4} open onChange={spy} value="1234" />
 			</FloatingLayerController>
 		);
+		const numberButton = screen.getByText('6');
 
-		fireEvent.click(getByText('6'));
+		userEvent.click(numberButton);
 
 		expect(spy).not.toHaveBeenCalled();
 	});
 
 	test('should have the submit button disabled if value\'s length is smaller than minLength', () => {
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" minLength={3} maxLength={4} open value="1" />
 			</FloatingLayerController>
 		);
-		const buttonSubmit = getByText('Submit').parentElement.parentElement.parentElement;
+		const buttonSubmit = screen.getByText('Submit').parentElement.parentElement.parentElement;
 
 		const expected = 'disabled';
 
@@ -212,56 +212,56 @@ describe('Input specs', () => {
 	});
 
 	test('should include a submit button for implicit joined number input', () => {
-		const {queryByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={10} open />
 			</FloatingLayerController>
 		);
-		const buttonSubmit = queryByText('Submit');
+		const buttonSubmit = screen.getByText('Submit');
 
 		expect(buttonSubmit).not.toBeNull();
 	});
 
 	test('should include a submit button for explicit joined number input', () => {
-		const {queryByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={4} open numberInputField="joined" />
 			</FloatingLayerController>
 		);
-		const buttonSubmit = queryByText('Submit');
+		const buttonSubmit = screen.getByText('Submit');
 
 		expect(buttonSubmit).not.toBeNull();
 	});
 
 	test('should exclude a submit button when separated number input', () => {
-		const {queryByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={4} open />
 			</FloatingLayerController>
 		);
-		const buttonSubmit = queryByText('Submit');
+		const buttonSubmit = screen.queryByText('Submit');
 
 		expect(buttonSubmit).toBeNull();
 	});
 
 	test('should exclude a submit button for explicit separated number input', () => {
-		const {queryByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={10} open numberInputField="separated" />
 			</FloatingLayerController>
 		);
-		const buttonSubmit = queryByText('Submit');
+		const buttonSubmit = screen.queryByText('Submit');
 
 		expect(buttonSubmit).toBeNull();
 	});
 
 	test('should show an invalid tooltip if invalid and message supplied', () => {
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} invalid invalidMessage="Invalid" />
 			</FloatingLayerController>
 		);
-		const invalidTextField = getByText('Invalid').parentElement.parentElement;
+		const invalidTextField = screen.getByText('Invalid').parentElement.parentElement;
 
 		const expected = 'tooltipLabel';
 
@@ -269,24 +269,24 @@ describe('Input specs', () => {
 	});
 
 	test('should not show invalid tooltip if not invalid but message supplied', () => {
-		const {queryByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} invalidMessage="Invalid" />
 			</FloatingLayerController>
 		);
 
-		const actual = queryByText('Invalid');
+		const actual = screen.queryByText('Invalid');
 
 		expect(actual).toBeNull();
 	});
 
 	test('should show an invalid tooltip if invalid and no message supplied', () => {
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} invalid />
 			</FloatingLayerController>
 		);
-		const invalidTextField = getByText('Please enter a valid value.').parentElement.parentElement;
+		const invalidTextField = screen.getByText('Please enter a valid value.').parentElement.parentElement;
 
 		const expected = 'tooltipLabel';
 
@@ -294,28 +294,30 @@ describe('Input specs', () => {
 	});
 
 	test('should not show an invalid tooltip if invalid and message is falsy', () => {
-		const {getAllByRole} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} invalid invalidMessage="" />
 			</FloatingLayerController>
 		);
 
 		const expected = 1;
-		const actual = getAllByRole('button')[2].parentElement.previousElementSibling.previousElementSibling.children.length;
+		const actual = screen.getAllByRole('button')[2].parentElement.previousElementSibling.previousElementSibling.children.length;
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should call onComplete when submit button clicked', (done) => {
 		const spy = jest.fn();
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" minLength={1} maxLength={4} open onComplete={spy} />
 			</FloatingLayerController>
 		);
+		const numberButton = screen.getByText('2');
+		const submitButton = screen.getByText('Submit');
 
-		fireEvent.click(getByText('2'));
-		fireEvent.click(getByText('Submit'));
+		userEvent.click(numberButton);
+		userEvent.click(submitButton);
 
 		setTimeout(() => {
 			expect(spy).toHaveBeenCalled();
@@ -325,27 +327,30 @@ describe('Input specs', () => {
 
 	test('should call onChange when submit button clicked', () => {
 		const spy = jest.fn();
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" minLength={1} maxLength={4} open onChange={spy} />
 			</FloatingLayerController>
 		);
+		const numberButton = screen.getByText('2');
+		const submitButton = screen.getByText('Submit');
 
-		fireEvent.click(getByText('2'));
-		fireEvent.click(getByText('Submit'));
+		userEvent.click(numberButton);
+		userEvent.click(submitButton);
 
 		expect(spy).toHaveBeenCalled();
 	});
 
 	test('should call onBeforeChange once when input occurs', () => {
 		const spy = jest.fn();
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} onBeforeChange={spy} />
 			</FloatingLayerController>
 		);
+		const numberButton = screen.getByText('2');
 
-		fireEvent.click(getByText('2'));
+		userEvent.click(numberButton);
 
 		expect(spy).toHaveBeenCalled();
 	});
@@ -357,31 +362,36 @@ describe('Input specs', () => {
 				ev.preventDefault();
 			}
 		});
-		const {getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" minLength={1} maxLength={4} open onBeforeChange={mock} onChange={spy} />
 			</FloatingLayerController>
 		);
 
-		fireEvent.click(getByText('2'));
-		fireEvent.click(getByText('1'));
-		fireEvent.click(getByText('Submit'));
+		const numberButton2 = screen.getByText('2');
+		const numberButton1 = screen.getByText('1');
+		const submitButton = screen.getByText('Submit');
+
+		userEvent.click(numberButton2);
+		userEvent.click(numberButton1);
+		userEvent.click(submitButton);
 
 		expect(spy).toHaveBeenCalled();
 	});
 
 	test('should delete an input when delete button clicked', () => {
 		const spy = jest.fn();
-		const {getByRole, getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" value="12" minLength={1} maxLength={4} open onChange={spy} />
 			</FloatingLayerController>
 		);
+		const backspaceButton = screen.getByText('␈');
 
-		fireEvent.click(getByText('␈'));
+		userEvent.click(backspaceButton);
 
 		const expected = '1';
-		const actual = getByRole('list').textContent;
+		const actual = screen.getByRole('list').textContent;
 
 		expect(spy).toHaveBeenCalled();
 		expect(actual).toBe(expected);
@@ -390,28 +400,29 @@ describe('Input specs', () => {
 	test('should call onBeforeChange when delete button clicked', () => {
 		const spy = jest.fn();
 
-		const {getByRole, getByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" value="12" minLength={1} maxLength={4} open onBeforeChange={spy} />
 			</FloatingLayerController>
 		);
+		const backspaceButton = screen.getByText('␈');
 
-		fireEvent.click(getByText('␈'));
+		userEvent.click(backspaceButton);
 
 		const expected = '1';
-		const actual = getByRole('list').textContent;
+		const actual = screen.getByRole('list').textContent;
 
 		expect(spy).toHaveBeenCalled();
 		expect(actual).toBe(expected);
 	});
 
 	test('should not include a submit button when noSubmitButton is used', () => {
-		const {queryByText} = render(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={4} open numberInputField="joined" noSubmitButton />
 			</FloatingLayerController>
 		);
-		const buttonSubmit = queryByText('Submit');
+		const buttonSubmit = screen.queryByText('Submit');
 
 		expect(buttonSubmit).toBeNull();
 	});
