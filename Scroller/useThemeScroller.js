@@ -21,9 +21,11 @@ const
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
 const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible) => {
-	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+	let spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
+		spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+
 		if (spotlightId && filterTarget) {
 			const targetClassName = (filterTarget === 'body') ? css.focusableBody : scrollbarTrackCss.thumb;
 			Spotlight.set(spotlightId, {

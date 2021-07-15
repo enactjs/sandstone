@@ -7,10 +7,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/ImageItem` public classname `imageIcon`
+- `sandstone/Slider` prop `wheelInterval` to throttle the wheel input
 
 ### Fixed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to show scroll animation properly with 5-way directional keys
+- `sandstone/Scroller` to not focus the body at the initial rendering when `focusableScrollbar` prop is `byEnter`
 
 ## [2.0.0-rc.4] - 2021-07-08
 
