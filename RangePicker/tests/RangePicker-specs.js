@@ -103,7 +103,7 @@ describe('RangePicker Specs', () => {
 		const title = screen.getByText('title text');
 
 		const expectedInline = 'inlineTitle';
-		const expectedHeader = 'header';
+		const expectedHeader = 'heading';
 		const actual = title.parentElement.parentElement;
 
 		expect(title).toBeInTheDocument();
