@@ -135,13 +135,12 @@ describe('DatePicker', () => {
 
 	test('should not display Heading', () => {
 		const date = new Date(2000, 0, 1);
-		const subject = mount(
+		ilib.setLocale('en-US');
+		render(
 			<DatePicker value={date} locale="en-US" noLabel />
 		);
+		const header = screen.queryByText(dateToLocaleString(date));
 
-		const expected = false;
-		const actual = subject.find('Heading').exists();
-
-		expect(actual).toBe(expected);
+		expect(header).toBeNull();
 	});
 });
