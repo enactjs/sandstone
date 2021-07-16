@@ -137,14 +137,13 @@ describe('TimePicker', () => {
 	});
 
 	test('should not display Heading', () => {
+		ilib.setLocale('en-US');
 		const time = new Date(2000, 0, 1, 12, 30);
-		const subject = mount(
+		render(
 			<TimePicker value={time} locale="en-US" noLabel />
 		);
+		const header = screen.queryByText(timeToLocaleString(time));
 
-		const expected = false;
-		const actual = subject.find('Heading').exists();
-
-		expect(actual).toBe(expected);
+		expect(header).toBeNull();
 	});
 });
