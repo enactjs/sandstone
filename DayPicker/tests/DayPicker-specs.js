@@ -1,40 +1,48 @@
 import ilib from '@enact/i18n';
-import {fireEvent, render} from '@testing-library/react';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import DayPicker, {getSelectedDayString} from '../DayPicker';
 
 describe('DayPicker', () => {
 
 	test('should not select any item when there is no passed prop `selected`', () => {
-		const {getAllByRole} = render(<DayPicker />);
+		render(<DayPicker />);
 
-		expect(getAllByRole('checkbox', {checked: false}));
+		const allDays = screen.getAllByRole('checkbox');
+
+		for (const day of allDays) {
+			expect(day).toHaveAttribute('aria-checked', 'false');
+		}
 	});
 
 	test('should select day when passed prop `selected`', () => {
-		const {getAllByRole} = render(<DayPicker selected={[1]} />);
-		const selectedDay = getAllByRole('checkbox')[2];
+		render(<DayPicker selected={[1]} />);
+		const selectedDay = screen.getAllByRole('checkbox')[2];
 
-		expect(selectedDay.className).toContain('selected');
+		const expected = 'selected';
+
+		expect(selectedDay).toHaveClass(expected);
 	});
 
 	test('should emit an onSelect event when selecting days', () => {
 		const handleSelect = jest.fn();
-		const {getAllByRole} = render(<DayPicker onSelect={handleSelect} />);
-		const item = getAllByRole('checkbox')[2];
+		render(<DayPicker onSelect={handleSelect} />);
+		const item = screen.getAllByRole('checkbox')[2];
 
-		fireEvent.click(item);
+		userEvent.click(item);
 
 		expect(handleSelect).toHaveBeenCalled();
 	});
 
 	test('should include `content` in onSelect event payload which respects dayNameLength', () => {
 		const handleSelect = jest.fn();
-		const {getByText} = render(<DayPicker onSelect={handleSelect} dayNameLength="short" />);
+		render(<DayPicker onSelect={handleSelect} dayNameLength="short" />);
 
 		// select Monday
-		const item = getByText('Monday');
-		fireEvent.click(item);
+		const item = screen.getByText('Monday');
+		userEvent.click(item);
 
 		const expected = {
 			// M is the "short" value from ilib for Monday
@@ -89,11 +97,11 @@ describe('DayPicker', () => {
 			ilib.setLocale('es-ES');
 
 			const handleSelect = jest.fn();
-			const {getAllByRole} = render(<DayPicker onSelect={handleSelect} defaultSelected={[0]} />);
+			render(<DayPicker onSelect={handleSelect} defaultSelected={[0]} />);
 
 			// select Lunes (Monday) which is the first day of the week for es-ES
-			const item = getAllByRole('checkbox')[0];
-			fireEvent.click(item);
+			const item = screen.getAllByRole('checkbox')[0];
+			userEvent.click(item);
 
 			const expected = {
 				// Expect Sunday (0) and Monday (1) to be selected
