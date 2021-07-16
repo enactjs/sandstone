@@ -262,7 +262,7 @@ describe('Picker Specs', () => {
 	test('should increment keyboard select when \'joined\' and \'horizontal\' and wrap successfully', () => {
 		const handleChange = jest.fn();
 		render(
-			<Picker data-testid="picker" index={2} joined max={3} min={0} onChange={handleChange} value={3} />
+			<Picker index={2} joined max={3} min={0} onChange={handleChange} value={3} />
 		);
 		const picker = screen.getByLabelText('3 press ok button to change the value');
 
@@ -318,7 +318,7 @@ describe('Picker Specs', () => {
 	test('should allow keyboard decrement via up arrow keys when \'joined\' and \'vertical\'', () => {
 		const handleChange = jest.fn();
 		render(
-			<Picker data-testid="picker" index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
 		);
 		const picker = screen.getByLabelText('0 change a value with up down button');
 
@@ -334,7 +334,7 @@ describe('Picker Specs', () => {
 	test('should not allow keyboard decrement via left arrow keys when \'joined\' and \'vertical\'', () => {
 		const handleChange = jest.fn();
 		render(
-			<Picker data-testid="picker" index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
 		);
 		const picker = screen.getByLabelText('0 change a value with up down button');
 
@@ -360,7 +360,7 @@ describe('Picker Specs', () => {
 	test('should not allow keyboard decrement via down arrow keys when \'joined\' and \'horizontal\'', () => {
 		const handleChange = jest.fn();
 		render(
-			<Picker data-testid="picker" index={0} joined max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0}  />
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0}  />
 		);
 		const picker = screen.getByLabelText('0 press ok button to change the value');
 
@@ -500,7 +500,7 @@ describe('Picker Specs', () => {
 
 		test('should be aria-hidden=false when \'joined\' and active', () => {
 			render(
-				<Picker data-testid="picker" index={1} joined max={3} min={0} value={1}>
+				<Picker index={1} joined max={3} min={0} value={1}>
 					<PickerItem>1</PickerItem>
 					<PickerItem>2</PickerItem>
 					<PickerItem>3</PickerItem>
