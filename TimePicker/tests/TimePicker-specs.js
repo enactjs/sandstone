@@ -146,4 +146,16 @@ describe('TimePicker', () => {
 
 		expect(actual).toBe(expected);
 	});
+
+	test('should not display Heading', () => {
+		const time = new Date(2000, 0, 1, 12, 30);
+		const subject = mount(
+			<TimePicker value={time} locale="en-US" noLabel />
+		);
+
+		const expected = false;
+		const actual = subject.find('Heading').exists();
+
+		expect(actual).toBe(expected);
+	});
 });
