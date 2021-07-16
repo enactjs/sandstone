@@ -1,105 +1,104 @@
 import '@testing-library/jest-dom';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 
 import {Picker, PickerBase} from '../Picker';
 
 describe('Picker Specs', () => {
 	test('should render selected child wrapped with <PickerItem/>', () => {
-		const {getByTestId} = render(
-			<Picker data-testid="picker" value={1}>
+		render(
+			<Picker value={1}>
 				{[1, 2, 3, 4]}
 			</Picker>
 		);
+		const pickerText = screen.getByText('2').parentElement.parentElement;
 
-		const picker = getByTestId('picker');
-		const expected = '2';
-		const actual = picker.children.item(1).textContent;
+		const expected = 'item';
 
-		expect(actual).toBe(expected);
+		expect(pickerText).toHaveClass(expected);
 	});
 
 	test('should set the max of <Picker> to be one less than the number of children', () => {
-		const {getAllByRole} = render(
+		render(
 			<Picker value={3}>
 				{[1, 2, 3, 4]}
 			</Picker>
 		);
+		const arrowForward = screen.getAllByRole('button')[0];
 
-		const arrowForward = getAllByRole('button')[0];
-		const expected = 'true';
-		const actual = arrowForward.attributes.getNamedItem('aria-disabled').value;
+		const expectedValue = 'true';
+		const expectedAttribute = 'aria-disabled';
 
-		expect(actual).toBe(expected);
+		expect(arrowForward).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should be disabled when empty', () => {
-		const {getByTestId} = render(
-			<PickerBase data-testid="picker">
+		render(
+			<PickerBase>
 				{[]}
 			</PickerBase>
 		);
+		const picker = screen.getAllByRole('button')[0].parentElement;
 
-		const picker = getByTestId('picker');
 		const expected = 'disabled';
 
 		expect(picker).toHaveAttribute(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to decrement button when voice control is disabled', () => {
-		const {getAllByRole} = render(
+		render(
 			<PickerBase data-webos-voice-disabled>
 				{[1, 2, 3, 4]}
 			</PickerBase>
 		);
+		const picker = screen.getAllByRole('button')[1];
 
-		const picker = getAllByRole('button')[1];
 		const expected = 'data-webos-voice-disabled';
 
 		expect(picker).toHaveAttribute(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to increment button when voice control is disabled', () => {
-		const {getAllByRole} = render(
+		render(
 			<PickerBase data-webos-voice-disabled>
 				{[1, 2, 3, 4]}
 			</PickerBase>
 		);
+		const picker = screen.getAllByRole('button')[0];
 
-		const picker = getAllByRole('button')[0];
 		const expected = 'data-webos-voice-disabled';
 
 		expect(picker).toHaveAttribute(expected);
 	});
 
 	test('should have a heading element when \'title\'', () => {
-		const {getByText} = render(
+		render(
 			<PickerBase title="title text">
 				{[1, 2, 3, 4]}
 			</PickerBase>
 		);
+		const heading = screen.getByText('title text');
 
-		const heading = getByText('title text');
 		const expected = 'heading';
-		const actual = heading.parentElement.parentElement.className;
+		const actual = heading.parentElement.parentElement;
 
 		expect(heading).toBeInTheDocument();
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
 	test('should have a heading element with inline class when \'title\' and \'inlineTitle\'', () => {
-		const {getByTestId} = render(
-			<div data-testid="testContainer">
-				<PickerBase inlineTitle title="title text">
-					{[1, 2, 3, 4]}
-				</PickerBase>
-			</div>
+		render(
+			<PickerBase inlineTitle title="title text">
+				{[1, 2, 3, 4]}
+			</PickerBase>
 		);
+		const heading = screen.getByText('title text');
 
-		const heading = getByTestId('testContainer').children.item(0);
-		const expected = ['inlineTitle', 'heading'];
-		const actual = heading.className;
+		const expectedInline = 'inlineTitle';
+		const expectedHeader = 'heading';
+		const actual = heading.parentElement.parentElement;
 
 		expect(heading).toBeInTheDocument();
-		expect(actual).toContain(expected[0], expected[1]);
+		expect(actual).toHaveClass(expectedInline);
+		expect(actual).toHaveClass(expectedHeader);
 	});
 });

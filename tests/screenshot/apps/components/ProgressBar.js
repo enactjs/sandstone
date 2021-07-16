@@ -1,9 +1,11 @@
 import ProgressBar, {ProgressBarTooltip as Tooltip} from '../../../../ProgressBar';
 
-// TODO: RTL
+import {withConfig} from './utils';
+
 // [GT-28227] - generic to test Progress Bar and Background Progress Bar Colors - no end marked for this test
-const ProgressBarTests = [
+const ProgressBarLTRTests = [
 	<ProgressBar />,
+	<ProgressBar disabled />,
 	<ProgressBar highlighted />,
 	<ProgressBar progress={0.5} />,
 	<ProgressBar progress={0.5} showAnchor />,
@@ -22,6 +24,7 @@ const ProgressBarTests = [
 	// end of [GT-28224]
 	<ProgressBar tooltip />,
 	<ProgressBar tooltip progress={0.5} />,
+	<ProgressBar disabled tooltip progress={0.5} />,
 	<ProgressBar tooltip percent progress={0.5} />,
 	<ProgressBar progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar progress={0.25} progressAnchor={0.5} />,
@@ -31,6 +34,7 @@ const ProgressBarTests = [
 	<ProgressBar backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
 	<ProgressBar progress={0.25} progressAnchor={0.5} tooltip />,
 	<ProgressBar orientation="vertical" />,
+	<ProgressBar orientation="vertical" disabled />,
 	<ProgressBar orientation="vertical" highlighted />,
 	<ProgressBar orientation="vertical" progress={0.5} />, // [GT-28230]
 	<ProgressBar orientation="vertical" progress={0.5} showAnchor />,
@@ -51,6 +55,7 @@ const ProgressBarTests = [
 	<ProgressBar orientation="vertical" backgroundProgress={0.75} progress={0.25} progressAnchor={0.5} />,
 	<ProgressBar orientation="vertical" backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
 	<ProgressBar orientation="vertical" progress={0.25} progressAnchor={0.5} tooltip />,
+	<ProgressBar orientation="vertical" progress={0.25} progressAnchor={0.5} tooltip disabled />,
 	// *************************************************************
 	// tooltip - all positions
 	// *************************************************************
@@ -196,6 +201,7 @@ const ProgressBarTests = [
 	// end of tooltip - all positions
 	// *************************************************************
 	<ProgressBar orientation="radial" />,
+	<ProgressBar orientation="radial" disabled />,
 	<ProgressBar orientation="radial" highlighted />,
 	<ProgressBar orientation="radial" progress={0.5} />,
 	<ProgressBar orientation="radial" progress={1} />,
@@ -207,7 +213,7 @@ const ProgressBarTests = [
 	<ProgressBar orientation="radial" backgroundProgress={0.5} progress={0.25} />,
 	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} />,
 	<ProgressBar orientation="radial" highlighted backgroundProgress={1} />,
-	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} progress={0.25} />,
+	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} progress={0.25} />
 	/* Disabling progressAnchor tests for radial as it's not supported yet
 	<ProgressBar orientation="radial" progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar orientation="radial" progress={0.25} progressAnchor={0.5} />,
@@ -216,14 +222,15 @@ const ProgressBarTests = [
 	<ProgressBar orientation="radial" backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
 	<ProgressBar orientation="radial" progress={0.25} progressAnchor={0.5} tooltip />,
 	*/
+];
+
+const ProgressBarTests = [
+	...ProgressBarLTRTests,
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
 	// [GT-28226]
-	{
-		locale: 'ar-SA',
-		component: <ProgressBar progress={0.4} backgroundProgress={0.5} />
-	}
-	// end of [GT-28226]
+	...withConfig({locale: 'ar-SA'}, ProgressBarLTRTests)
 ];
+
 export default ProgressBarTests;

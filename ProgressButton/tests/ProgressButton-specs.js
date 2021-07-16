@@ -1,63 +1,63 @@
-import {render} from '@testing-library/react';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
 
 import {ProgressButtonBase} from '../ProgressButton';
 
 describe('ProgressButton Specs', () => {
 	test('should show text', () => {
-		const {getByRole} = render(
+		render(
 			<ProgressButtonBase>
 				Progress Button
 			</ProgressButtonBase>
 		);
 
 		const expected = 'Progress Button';
-		const actual = getByRole('button').textContent;
+		const actual = screen.getByRole('button').textContent;
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should have a root className `progressButton`', () => {
-		const {getByRole} = render(
+		render(
 			<ProgressButtonBase>
 				Progress Button
 			</ProgressButtonBase>
 		);
+		const button = screen.getByRole('button');
 
 		const expected = 'progressButton';
-		const actual = getByRole('button').className;
 
-		expect(actual).toContain(expected);
+		expect(button).toHaveClass(expected);
 	});
 
 	test('should show radial progress', () => {
-		const {getByRole} = render(
+		render(
 			<ProgressButtonBase showProgress>
 				Progress Button
 			</ProgressButtonBase>
 		);
+		const progressBar = screen.getByRole('progressbar');
 
 		const expected = 'radial';
-		const actual = getByRole('progressbar').className;
 
-		expect(actual).toContain(expected);
+		expect(progressBar).toHaveClass(expected);
 	});
 
 	test('should show 0.5 progress', () => {
-		const {getByRole} = render(
+		render(
 			<ProgressButtonBase showProgress progress={0.5}>
 				Progress Button
 			</ProgressButtonBase>
 		);
+		const progressBar = screen.getByRole('progressbar');
 
-		const expected = '0.5';
-		const styleValues = getByRole('progressbar').style._values;
-		const {'--ui-progressbar-proportion-end':actual} = styleValues;
+		const expectedValue = '0.5';
 
-		expect(actual).toBe(expected);
+		expect(progressBar).toHaveStyle({'--ui-progressbar-proportion-end': expectedValue});
 	});
 
 	test('should show default icon `stop`', () => {
-		const {getByRole} = render(
+		render(
 			<ProgressButtonBase showProgress progress={0.5}>
 				Progress Button
 			</ProgressButtonBase>
@@ -65,14 +65,14 @@ describe('ProgressButton Specs', () => {
 
 		// decimal converted charCode of Unicode 'stop' character
 		const expectedCode = 983004;
-		const actualCode = getByRole('button').textContent.codePointAt();
+		const actualCode = screen.getByRole('button').textContent.codePointAt();
 
 		expect(actualCode).toBe(expectedCode);
 	});
 
 	test('should support a custom icon', () => {
 		const customIcon = 'star';
-		const {getByRole} = render(
+		render(
 			<ProgressButtonBase showProgress progress={0.5} icon={customIcon}>
 				Progress Button
 			</ProgressButtonBase>
@@ -80,7 +80,7 @@ describe('ProgressButton Specs', () => {
 
 		// decimal converted charCode of Unicode 'star' character
 		const expectedCode = 983080;
-		const actualCode = getByRole('button').textContent.codePointAt();
+		const actualCode = screen.getByRole('button').textContent.codePointAt();
 
 		expect(actualCode).toBe(expectedCode);
 	});

@@ -1,21 +1,21 @@
-import {render} from '@testing-library/react';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
 
 import ProgressBar from '../ProgressBar';
 
 describe('ProgressBar Specs', () => {
 	test('should only show tooltip when tooltip is true', () => {
-		const {getByRole} = render(
+		render(
 			<ProgressBar tooltip />
 		);
-
+		const progressBar = screen.getByRole('progressbar').children.item(1);
 		const expected = 'tooltip';
-		const actual = getByRole('progressbar').children.item(1).className;
 
-		expect(actual).toContain(expected);
+		expect(progressBar).toHaveClass(expected);
 	});
 
 	test('should have tooltip show progress as percentage', () => {
-		const {getByRole} = render(
+		render(
 			<ProgressBar
 				tooltip
 				progress={0.6}
@@ -23,7 +23,7 @@ describe('ProgressBar Specs', () => {
 		);
 
 		const expected = '60%';
-		const actual = getByRole('progressbar').textContent;
+		const actual = screen.getByRole('progressbar').textContent;
 
 		expect(actual).toBe(expected);
 	});
