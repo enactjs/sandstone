@@ -1,22 +1,22 @@
 import '@testing-library/jest-dom';
-import {getByLabelText, render, waitFor} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {Panel, WizardPanels} from '../';
+import {Panel, WizardPanels, WizardPanelsBase} from '../';
 
 describe('WizardPanel Specs', () => {
 	test(
 		'should have title in `Header`',
 		() => {
 			const title = 'WizardPanel title';
-			const {getByText} = render(
+			render(
 				<WizardPanels title={title}>
 					<Panel />
 				</WizardPanels>
 			);
 
 			const expected = 'heading title';
-			const actual = getByText(title).parentElement.parentElement;
+			const actual = screen.getByText(title).parentElement.parentElement;
 
 			expect(actual).toHaveClass(expected);
 		}
@@ -27,13 +27,13 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const wizardTitle = 'WizardPanel title';
 			const viewTitle = 'View title';
-			const {getByLabelText} = render(
+			render(
 				<WizardPanels title={wizardTitle}>
 					<Panel title={viewTitle} />
 				</WizardPanels>
 			);
 
-			const headerTitle = getByLabelText('step 1 View title undefined');
+			const headerTitle = screen.getByLabelText('step 1 View title undefined');
 
 			expect(headerTitle).toHaveClass('wizard');
 		}
@@ -43,14 +43,14 @@ describe('WizardPanel Specs', () => {
 		'should have subtitle from `View`',
 		() => {
 			const viewSubtitle = 'View subtitle';
-			const {getByText} = render(
+			render(
 				<WizardPanels>
 					<Panel subtitle={viewSubtitle} />
 				</WizardPanels>
 			);
 
 			const expected = 'subtitle';
-			const actual = getByText(viewSubtitle);
+			const actual = screen.getByText(viewSubtitle);
 
 			expect(actual).toHaveClass(expected);
 		}
@@ -59,7 +59,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should have View buttons rendered in footer',
 		() => {
-			const {getAllByRole} = render(
+			render(
 				<WizardPanels>
 					<Panel>
 						<footer>
@@ -70,7 +70,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = getAllByRole('button');
+			const buttons = screen.getAllByRole('button');
 			const prevButtonContainer = buttons[0].parentElement;
 			const nextButtonContainer = buttons[1].parentElement;
 
@@ -87,7 +87,7 @@ describe('WizardPanel Specs', () => {
 		'should have View contents rendered in `.content`',
 		() => {
 			const contentText = 'content';
-			const {getByText} = render(
+			render(
 				<WizardPanels>
 					<Panel>
 						{contentText}
@@ -96,7 +96,7 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const expected = 'content';
-			const actual = getByText(contentText).parentElement.parentElement;
+			const actual = screen.getByText(contentText).parentElement.parentElement;
 
 			expect(actual).toHaveClass(expected);
 		}
@@ -105,7 +105,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should not hide next button on the last view when `nextButtonVisibility` prop is set to "always"',
 		() => {
-			const {getAllByRole} = render(
+			render(
 				<WizardPanels index={2} nextButtonVisibility="always">
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
@@ -114,7 +114,7 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const expected = 'Next';
-			const actual = getAllByRole('button')[1];
+			const actual = screen.getAllByRole('button')[1];
 
 			expect(actual).toHaveAttribute('aria-label', expected);
 		}
@@ -123,7 +123,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should hide next button on the last view',
 		() => {
-			const {getAllByRole} = render(
+			render(
 				<WizardPanels index={2}>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
@@ -131,7 +131,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = getAllByRole('button');
+			const buttons = screen.getAllByRole('button');
 
 			const expected = 1;
 			const actual = buttons.length;
@@ -143,8 +143,8 @@ describe('WizardPanel Specs', () => {
 
 	test(
 		'should hide previous button on the first view',
-		() => {
-			const {getAllByRole, unmount} = render(
+		async () => {
+			render(
 				<WizardPanels index={0}>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
@@ -152,21 +152,22 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = getAllByRole('button');
+			const buttons = screen.getAllByRole('button');
 
 			const expected = 1;
 			const actual = buttons.length;
 
-			unmount();
-			expect(actual).toBe(expected);
-			expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			await waitFor(() => {
+				expect(actual).toBe(expected);
+				expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			});
 		}
 	);
 
 	test(
 		'should show next button on the first view',
 		async () => {
-			const {getByLabelText} = render(
+			render(
 				<WizardPanels index={0}>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
@@ -174,7 +175,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const nextButton = getByLabelText('Next');
+			const nextButton = screen.getByLabelText('Next');
 
 			await waitFor(() => {
 				expect(nextButton).toBeInTheDocument();
@@ -185,7 +186,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should not hide previous button on the first view when `prevButton` prop is added on the first Panel',
 		async () => {
-			const {getByLabelText} = render(
+			render(
 				<WizardPanels index={0}>
 					<Panel prevButton>Panel 1</Panel>
 					<Panel>Panel 2</Panel>
@@ -193,7 +194,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const prevButton = getByLabelText('Previous');
+			const prevButton = screen.getByLabelText('Previous');
 
 			await waitFor(() => {
 				expect(prevButton).toBeInTheDocument();
@@ -203,8 +204,8 @@ describe('WizardPanel Specs', () => {
 
 	test(
 		'should hide next nextButton on all the panels with `nextButtonVisibility` set to never',
-		() => {
-			const {getAllByRole, rerender, unmount} = render(
+		async () => {
+			const {rerender} = render(
 				<WizardPanels index={2} nextButtonVisibility="never">
 					<Panel>Panel 1</Panel>
 					<Panel>Panel 2</Panel>
@@ -212,11 +213,12 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const panel3Buttons = getAllByRole('button');
+			const panel3Buttons = screen.getAllByRole('button');
 
-			unmount();
-			expect(panel3Buttons.length).toBe(1);
-			expect(panel3Buttons[0]).not.toHaveAttribute('aria-label', 'Next');
+			await waitFor(() => {
+				expect(panel3Buttons.length).toBe(1);
+				expect(panel3Buttons[0]).not.toHaveAttribute('aria-label', 'Next');
+			});
 
 			rerender(
 				<WizardPanels index={1} nextButtonVisibility="never">
@@ -226,18 +228,19 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const panel2Buttons = getAllByRole('button');
+			const panel2Buttons = screen.getAllByRole('button');
 
-			unmount();
-			expect(panel2Buttons.length).toBe(1);
-			expect(panel2Buttons[0]).not.toHaveAttribute('aria-label', 'Next');
+			await waitFor(() => {
+				expect(panel2Buttons.length).toBe(1);
+				expect(panel2Buttons[0]).not.toHaveAttribute('aria-label', 'Next');
+			});
 		}
 	);
 
 	test(
 		'should hide previous button on all the panels with `prevButtonVisibility` set to never',
-		() => {
-			const {getAllByRole, rerender, unmount} = render(
+		async () => {
+			const {rerender} = render(
 				<WizardPanels index={0} prevButtonVisibility="never">
 					<Panel>Panel 1</Panel>
 					<Panel>Panel 2</Panel>
@@ -245,11 +248,12 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const panel1Buttons = getAllByRole('button');
+			const panel1Buttons = screen.getAllByRole('button');
 
-			unmount();
-			expect(panel1Buttons.length).toBe(1);
-			expect(panel1Buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			await waitFor(() => {
+				expect(panel1Buttons.length).toBe(1);
+				expect(panel1Buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			});
 
 			rerender(
 				<WizardPanels index={1} prevButtonVisibility="never">
@@ -259,18 +263,19 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const panel2Buttons = getAllByRole('button');
+			const panel2Buttons = screen.getAllByRole('button');
 
-			unmount();
-			expect(panel2Buttons.length).toBe(1);
-			expect(panel2Buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			await waitFor(() => {
+				expect(panel2Buttons.length).toBe(1);
+				expect(panel2Buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			});
 		}
 	);
 
 	test(
 		'should hide previous button on the second Panel when panel overrides',
-		() => {
-			const {getAllByRole, unmount} = render(
+		async () => {
+			render(
 				<WizardPanels defaultIndex={1}>
 					<Panel>Panel 1</Panel>
 					<Panel prevButton={false}>Panel 2</Panel>
@@ -278,21 +283,22 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = getAllByRole('button');
+			const buttons = screen.getAllByRole('button');
 
 			const expected = 1;
 			const actual = buttons.length;
 
-			unmount();
-			expect(actual).toBe(expected);
-			expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			await waitFor(() => {
+				expect(actual).toBe(expected);
+				expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			});
 		}
 	);
 
 	test(
 		'should show previous button on the first view when `prevButtonVisibility` prop is set to always',
-		() => {
-			const {getAllByRole, unmount} = render(
+		async () => {
+			render(
 				<WizardPanels index={0} prevButtonVisibility="always">
 					<Panel>Panel 1</Panel>
 					<Panel>Panel 2</Panel>
@@ -300,21 +306,22 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = getAllByRole('button');
+			const buttons = screen.getAllByRole('button');
 
 			const expected = 2;
 			const actual = buttons.length;
 
-			unmount();
-			expect(actual).toBe(expected);
-			expect(buttons[0]).toHaveAttribute('aria-label', 'Previous');
+			await waitFor(() => {
+				expect(actual).toBe(expected);
+				expect(buttons[0]).toHaveAttribute('aria-label', 'Previous');
+			});
 		}
 	);
 
 	test(
 		'should hide previous button on the first view when `prevButtonVisibility` prop is set to always and panel overrides',
-		() => {
-			const {getAllByRole, unmount} = render(
+		async () => {
+			render(
 				<WizardPanels index={0} prevButtonVisibility="always">
 					<Panel prevButton={false} >Panel 1</Panel>
 					<Panel>Panel 2</Panel>
@@ -322,21 +329,22 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = getAllByRole('button');
+			const buttons = screen.getAllByRole('button');
 
 			const expected = 1;
 			const actual = buttons.length;
 
-			unmount();
-			expect(actual).toBe(expected);
-			expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			await waitFor(() => {
+				expect(actual).toBe(expected);
+				expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
+			});
 		}
 	);
 
 	test(
 		'should show next button on the last view when `nextButtonVisibility` prop is set to always',
 		async () => {
-			const {getAllByRole, unmount} = render(
+			render(
 				<WizardPanels index={2} nextButtonVisibility="always">
 					<Panel>Panel 1</Panel>
 					<Panel>Panel 2</Panel>
@@ -344,21 +352,22 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = getAllByRole('button');
+			const buttons = screen.getAllByRole('button');
 
 			const expected = 2;
 			const actual = buttons.length;
 
-			unmount();
-			expect(actual).toBe(expected);
-			expect(buttons[1]).toHaveAttribute('aria-label', 'Next');
+			await waitFor(() => {
+				expect(actual).toBe(expected);
+				expect(buttons[1]).toHaveAttribute('aria-label', 'Next');
+			});
 		}
 	);
 
 	test(
 		'should hide next button on the last view when `nextButtonVisibility` prop is set to always and panel overrides',
 		async () => {
-			const {getAllByRole, unmount} = render(
+			render(
 				<WizardPanels index={2} nextButtonVisibility="always">
 					<Panel>Panel 1</Panel>
 					<Panel>Panel 2</Panel>
@@ -366,23 +375,24 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = getAllByRole('button');
+			const buttons = screen.getAllByRole('button');
 
 			const expected = 1;
 			const actual = buttons.length;
 
-			unmount();
-			expect(actual).toBe(expected);
-			expect(buttons[0]).not.toHaveAttribute('aria-label', 'Next');
+			await waitFor(() => {
+				expect(actual).toBe(expected);
+				expect(buttons[0]).not.toHaveAttribute('aria-label', 'Next');
+			});
 		}
 	);
 
 	test(
 		'should fire onWillTransition with target index',
-		() => {
+		async () => {
 			const spy = jest.fn();
 			let index = 0;
-			const {rerender, unmount} = render(
+			const {rerender} = render(
 				<WizardPanels index={index} onWillTransition={spy} noAnimation>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
@@ -402,17 +412,18 @@ describe('WizardPanel Specs', () => {
 			const expected = {index};
 			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
-			unmount();
-			expect(actual).toMatchObject(expected);
+			await waitFor(() => {
+				expect(actual).toMatchObject(expected);
+			});
 		}
 	);
 
 	test(
 		'should fire onTransition with target index',
-		() => {
+		async () => {
 			const spy = jest.fn();
 			let index = 0;
-			const {rerender, unmount} = render(
+			const {rerender} = render(
 				<WizardPanels index={index} onTransition={spy} noAnimation>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
@@ -432,15 +443,16 @@ describe('WizardPanel Specs', () => {
 			const expected = {index};
 			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
-			unmount();
-			expect(actual).toMatchObject(expected);
+			await waitFor(() => {
+				expect(actual).toMatchObject(expected);
+			});
 		}
 	);
 
 	test(
 		'should advance on next click',
 		async () => {
-			const {getByLabelText, getByText} = render(
+			render(
 				<WizardPanels index={1}>
 					<Panel />
 					<Panel />
@@ -448,12 +460,12 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const nextButton = getByLabelText('Next');
+			const nextButton = screen.getByLabelText('Next');
 
 			await waitFor(() => {
 				userEvent.click(nextButton);
 
-				const actual = getByText('2');
+				const actual = screen.getByText('2');
 
 				expect(actual).toHaveClass('current');
 			});
@@ -463,7 +475,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should go back on prev click',
 		async () => {
-			const {getByLabelText, getByText} = render(
+			render(
 				<WizardPanels defaultIndex={1}>
 					<Panel />
 					<Panel />
@@ -471,12 +483,12 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const prevButton = getByLabelText('Previous');
+			const prevButton = screen.getByLabelText('Previous');
 
 			await waitFor(() => {
 				userEvent.click(prevButton);
 
-				const actual = getByText('1');
+				const actual = screen.getByText('1');
 
 				expect(actual).toHaveClass('current');
 			});
@@ -486,7 +498,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should go back on back key',
 		async () => {
-			const {getByText} = render(
+			render(
 				<WizardPanels defaultIndex={1}>
 					<Panel />
 					<Panel />
@@ -497,7 +509,7 @@ describe('WizardPanel Specs', () => {
 			await waitFor(() => {
 				userEvent.keyboard('{esc}');
 
-				const actual = getByText('1');
+				const actual = screen.getByText('1');
 
 				expect(actual).toHaveClass('current');
 			});
@@ -507,7 +519,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should go back on back key when prevButtonVisibility set to show never',
 		async () => {
-			const {getByText} = render(
+			render(
 				<WizardPanels defaultIndex={1} prevButtonVisibility="never">
 					<Panel />
 					<Panel />
@@ -518,7 +530,7 @@ describe('WizardPanel Specs', () => {
 			await waitFor(() => {
 				userEvent.keyboard('{esc}');
 
-				const actual = getByText('1');
+				const actual = screen.getByText('1');
 
 				expect(actual).toHaveClass('current');
 			});
@@ -529,7 +541,7 @@ describe('WizardPanel Specs', () => {
 		'should go back on back key when onBack does not call preventDefault',
 		async () => {
 			const spy = jest.fn();
-			const {getByText} = render(
+			render(
 				<WizardPanels defaultIndex={1} onBack={spy}>
 					<Panel />
 					<Panel />
@@ -540,7 +552,7 @@ describe('WizardPanel Specs', () => {
 			await waitFor(() => {
 				userEvent.keyboard('{esc}');
 
-				const actual = getByText('1');
+				const actual = screen.getByText('1');
 
 				expect(actual).toHaveClass('current');
 			});
@@ -551,7 +563,7 @@ describe('WizardPanel Specs', () => {
 		'should not go back on back key when onBack calls preventDefault',
 		async () => {
 			const spy = jest.fn((ev) => ev.preventDefault());
-			const {getByText} = render(
+			render(
 				<WizardPanels defaultIndex={1} onBack={spy}>
 					<Panel />
 					<Panel />
@@ -562,23 +574,27 @@ describe('WizardPanel Specs', () => {
 			await waitFor(() => {
 				userEvent.keyboard('{esc}');
 
-				const actual = getByText('2');
+				const actual = screen.getByText('2');
 
 				expect(actual).toHaveClass('current');
 			});
 		}
 	);
 
-	// test(
-	// 	'should support noAnimation',
-	// 	() => {
-			// const {getByText, debug} = render(
-			// 	<WizardPanelsBase noAnimation>
-			// 		<Panel />
-			// 	</WizardPanelsBase>
-			// );
+	test(
+		'should support noAnimation',
+		() => {
+			render(
+				<WizardPanelsBase noAnimation>
+					<Panel />
+					<Panel />
+				</WizardPanelsBase>
+			);
 
-			// debug()
+			screen.debug()
+
+			// expect(screen.getByRole('region')).toHaveAttribute('noAnimation', true);
+			
 		// 	// FIXME: Temporary selector until our components have corrected display names
 		// 	const viewManager = '.content > *';
 		// 	const wizardPanel = shallow(
@@ -594,14 +610,14 @@ describe('WizardPanel Specs', () => {
 		//
 		// 	actual = wizardPanel.find(viewManager).prop('noAnimation');
 		// 	expect(actual).toBe(true);
-		// }
-	// );
+		}
+	);
 
 	test(
 		'should reflect the current index in Steps when "current" is not specified',
 		async () => {
 			const index = 1;
-			const {getByText} = render(
+			render(
 				<WizardPanels index={index}>
 					<Panel />
 					<Panel />
@@ -612,7 +628,7 @@ describe('WizardPanel Specs', () => {
 			);
 
 			await waitFor(() => {
-				const actual = getByText(index + 1);
+				const actual = screen.getByText(index + 1);
 
 				expect(actual).toHaveClass('current');
 			});
@@ -623,7 +639,7 @@ describe('WizardPanel Specs', () => {
 		'should reflect the specified index in Steps when "current" is set',
 		async () => {
 			const current = 3;
-			const {getByText} = render(
+			render(
 				<WizardPanels index={0} current={current}>
 					<Panel />
 					<Panel />
@@ -634,7 +650,7 @@ describe('WizardPanel Specs', () => {
 			);
 
 			await waitFor(() => {
-				const actual = getByText(current);
+				const actual = screen.getByText(current);
 
 				expect(actual).toHaveClass('current');
 			});
@@ -644,7 +660,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should reflect the total views in Steps when "total" is not specified',
 		async () => {
-			const {getByText} = render(
+			render(
 				<WizardPanels>
 					<Panel />
 					<Panel />
@@ -654,7 +670,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const steps = getByText('1' && '2' && '3' && '4' && '5')
+			const steps = screen.getByText('1' && '2' && '3' && '4' && '5')
 
 			await waitFor(() => {
 				expect(steps).toBeInTheDocument();
@@ -666,7 +682,7 @@ describe('WizardPanel Specs', () => {
 		'should reflect the specified total in Steps when "total" is set',
 		async () => {
 			const total = 3;
-			const {getByText} =  render(
+			render(
 				<WizardPanels index={1} current={1} total={total}>
 					<Panel />
 					<Panel />
@@ -676,7 +692,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const steps = getByText('1' && '2' && '3')
+			const steps = screen.getByText('1' && '2' && '3')
 
 			await waitFor(() => {
 				expect(steps).toBeInTheDocument();
