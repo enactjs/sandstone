@@ -19,6 +19,7 @@ export const _DatePicker = () => (
 	<DatePicker
 		disabled={boolean('disabled', Config)}
 		spotlightDisabled={boolean('spotlightDisabled', Config)}
+		noLabel={boolean('noLabel', Config)}
 		monthAriaLabel={text('monthAriaLabel', Config)}
 		dayAriaLabel={text('dayAriaLabel', Config)}
 		yearAriaLabel={text('yearAriaLabel', Config)}

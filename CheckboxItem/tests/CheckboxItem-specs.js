@@ -1,13 +1,16 @@
 import '@testing-library/jest-dom';
-import {render, fireEvent} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import CheckboxItem, {CheckboxItemBase} from '../CheckboxItem';
 
 describe('CheckboxItem Specs', () => {
 
 	test('should support a custom icon', () => {
-		const {getAllByRole} = render(<CheckboxItemBase icon="trash">Hello CheckboxItem</CheckboxItemBase>);
-		const checkboxItemElement = getAllByRole('checkbox');
+		render(<CheckboxItemBase icon="trash">Hello CheckboxItem</CheckboxItemBase>);
+
+		const checkboxItemElement = screen.getAllByRole('checkbox');
+
 		const actual = checkboxItemElement[1].textContent.codePointAt();
 		const expected = 983077; // decimal converted charCode of Unicode 'trash' character
 
@@ -15,28 +18,33 @@ describe('CheckboxItem Specs', () => {
 	});
 
 	test('should have correct text', () => {
-		const {getByText} = render(<CheckboxItemBase>Hello CheckboxItem</CheckboxItemBase>);
-		const element = getByText(/Hello CheckboxItem/i);
+		render(<CheckboxItemBase>Hello CheckboxItem</CheckboxItemBase>);
+
+		const element = screen.getByText(/Hello CheckboxItem/i);
 
 		expect(element).toBeInTheDocument();
 	});
 
 	test('should select with click', () => {
-		const {getAllByRole} = render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
-		const checkboxItemElement = getAllByRole('checkbox');
+		render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
 
-		fireEvent.click(checkboxItemElement[0]);
+		const checkboxItemElement = screen.getAllByRole('checkbox')[0];
+		const expected = 'selected';
 
-		expect(checkboxItemElement[0].className).toContain('selected');
+		userEvent.click(checkboxItemElement);
+
+		expect(checkboxItemElement).toHaveClass(expected);
 	});
 
 	test('should select with click', () => {
-		const {getAllByRole} = render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
-		const checkboxItemElement = getAllByRole('checkbox');
+		render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
 
-		fireEvent.click(checkboxItemElement[0]);
-		fireEvent.click(checkboxItemElement[0]);
+		const checkboxItemElement = screen.getAllByRole('checkbox')[0];
+		const expected = 'selected';
 
-		expect(checkboxItemElement[0].className).not.toContain('selected');
+		userEvent.click(checkboxItemElement);
+		userEvent.click(checkboxItemElement);
+
+		expect(checkboxItemElement).not.toHaveClass(expected);
 	});
 });
