@@ -13,14 +13,14 @@ describe('ContextualPopupDecorator Specs', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
-		const {getByRole} = render(
+		render(
 			<Root>
 				<ContextualButton onClose={handleClose} open popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
-		const contextualButton = getByRole('button');
+		const contextualButton = screen.getByRole('button');
 
 		userEvent.click(contextualButton);
 
@@ -30,14 +30,14 @@ describe('ContextualPopupDecorator Specs', () => {
 	test('should render component into FloatingLayer if open', () => {
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
-		const {getByRole} = render(
+		render(
 			<Root>
 				<ContextualButton open popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
-		const contextualPopup = getByRole('alert');
+		const contextualPopup = screen.getByRole('alert');
 
 		const expected = message;
 		const actual = contextualPopup.children.item(0);
@@ -48,7 +48,6 @@ describe('ContextualPopupDecorator Specs', () => {
 	test('should not render into FloatingLayer if not open', () => {
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
-
 		render(
 			<Root>
 				<ContextualButton popupComponent={() => message}>
@@ -66,14 +65,14 @@ describe('ContextualPopupDecorator Specs', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
-		const {getByTestId} = render(
+		render(
 			<Root data-testid="outsideArea">
 				<ContextualButton noAutoDismiss onClose={handleClose} open popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
-		const outsideArea = getByTestId('outsideArea');
+		const outsideArea = screen.getByTestId('outsideArea');
 
 		userEvent.click(outsideArea);
 
@@ -84,18 +83,18 @@ describe('ContextualPopupDecorator Specs', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
-		const {getByRole} = render(
+		render(
 			<Root>
 				<ContextualButton direction="below right" onClose={handleClose} open popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
-		const contextualPopup = getByRole('alert');
+		const contextualPopup = screen.getByRole('alert');
 
 		const expected = 'below right';
-		const actual = contextualPopup.children.item(0).className;
+		const actual = contextualPopup.children.item(0);
 
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 });
