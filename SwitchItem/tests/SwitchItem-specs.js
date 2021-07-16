@@ -1,53 +1,48 @@
 import '@testing-library/jest-dom';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import SwitchItem, {SwitchItemBase} from '../SwitchItem';
 
 describe('SwitchItem Specs', () => {
 	test('should contain a Switch', () => {
-		const {getAllByRole} = render(<SwitchItemBase />);
-		const Buttons = getAllByRole('button');
+		render(<SwitchItemBase />);
 
 		const expected = 'switch';
-		const actual = Buttons[1].className;
+		const actual = screen.getAllByRole('button')[1];
 
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
 	test('should pass `selected` to Switch element', () => {
-		const {getAllByRole} = render(<SwitchItemBase selected />);
-		const Buttons = getAllByRole('button');
+		render(<SwitchItemBase selected />);
 
 		const expected = 'selected';
-		const SwitchItemElement = Buttons[0].className;
-		const SwitchElement = Buttons[1].className;
+		const SwitchItemElement = screen.getAllByRole('button')[0];
+		const SwitchElement = screen.getAllByRole('button')[1];
 
-		expect(SwitchItemElement).toContain(expected);
-		expect(SwitchElement).toContain(expected);
+		expect(SwitchItemElement).toHaveClass(expected);
+		expect(SwitchElement).toHaveClass(expected);
 	});
 
 	test('should toggle Switch', () => {
 		const handleToggle = jest.fn();
-		const {getAllByRole} = render(<SwitchItem onToggle={handleToggle} />);
-		const Buttons = getAllByRole('button');
-		const Switch = Buttons[1];
+		render(<SwitchItem onToggle={handleToggle} />);
 
-		userEvent.click(Switch);
+		const actual = screen.getAllByRole('button')[1];
 
-		const expected = 'selected';
-		const actual = Switch.className;
+		userEvent.click(actual);
 
-		expect(actual).toContain(expected);
+		const expectedClass = 'selected';
+		expect(actual).toHaveClass(expectedClass);
 
 		const expectedTimes = 1;
-
 		expect(handleToggle).toBeCalledTimes(expectedTimes);
 	});
 
 	test('should render correct children', () => {
-		const {getByText} = render(<SwitchItem>Hello SwitchItem</SwitchItem>);
-		const Child = getByText(/Hello SwitchItem/i);
+		render(<SwitchItem>Hello SwitchItem</SwitchItem>);
+		const Child = screen.getByText(/Hello SwitchItem/i);
 
 		expect(Child).toBeInTheDocument();
 	});
