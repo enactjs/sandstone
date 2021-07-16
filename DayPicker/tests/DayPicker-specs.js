@@ -10,9 +10,9 @@ describe('DayPicker', () => {
 	test('should not select any item when there is no passed prop `selected`', () => {
 		render(<DayPicker />);
 
-		const actual = screen.getAllByRole('checkbox', {checked: false});
+		const actual = screen.getAllByRole('checkbox')[0];
 
-		expect(actual).toBeTruthy();
+		expect(actual).toHaveAttribute('aria-checked', 'false');
 	});
 
 	test('should select day when passed prop `selected`', () => {
