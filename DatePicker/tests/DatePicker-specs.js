@@ -135,6 +135,7 @@ describe('DatePicker', () => {
 
 	test('should not display Heading', () => {
 		const date = new Date(2000, 0, 1);
+		ilib.setLocale('en-US');
 		render(
 			<DatePicker value={date} locale="en-US" noLabel />
 		);

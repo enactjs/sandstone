@@ -137,6 +137,7 @@ describe('TimePicker', () => {
 	});
 
 	test('should not display Heading', () => {
+		ilib.setLocale('en-US');
 		const time = new Date(2000, 0, 1, 12, 30);
 		render(
 			<TimePicker value={time} locale="en-US" noLabel />
