@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/DatePicker` and `sandstone/TimePicker` prop `noLabel` to hide label
 - `sandstone/ImageItem` public classname `imageIcon`
 - `sandstone/Slider` prop `wheelInterval` to throttle the wheel input
 
