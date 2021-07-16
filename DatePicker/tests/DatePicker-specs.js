@@ -132,4 +132,16 @@ describe('DatePicker', () => {
 
 		expect(header).toHaveClass(expected);
 	});
+
+	test('should not display Heading', () => {
+		const date = new Date(2000, 0, 1);
+		const subject = mount(
+			<DatePicker value={date} locale="en-US" noLabel />
+		);
+
+		const expected = false;
+		const actual = subject.find('Heading').exists();
+
+		expect(actual).toBe(expected);
+	});
 });
