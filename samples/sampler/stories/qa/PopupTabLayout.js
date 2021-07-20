@@ -1,4 +1,4 @@
-import {is} from '@enact/core/keymap';
+import {add, is} from '@enact/core/keymap';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
@@ -8,6 +8,7 @@ import Icon from '@enact/sandstone/Icon';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
+import Popup from '@enact/sandstone/Popup';
 import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
@@ -15,11 +16,13 @@ import SwitchItem from '@enact/sandstone/SwitchItem';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import compose from 'ramda/src/compose';
 
 PopupTabLayout.displayName = 'PopupTabLayout';
 
+add('cancel', 27);
+const isCancel = is('cancel');
 const isRight = is('right');
 
 const navPrev = (callback, value, actionName) => () => {
@@ -157,6 +160,7 @@ WithoutIcon.storyName = 'without icon';
 const WithVariousItemsSamplesBase = ({rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
+	const [popupOpen, setPopupOpenState] = useState(false);
 	const toggleOpen = () => setOpenState(!open);
 	const handleClose = compose(toggleOpen, action('onClose'));
 
@@ -167,6 +171,12 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 	const handleDisplayPrev = navPrev(setIndexDisplay, indexDisplay, 'onBack');
 	const handleSoundNext = navNext(setIndexSound, indexSound, 'onNext');
 	const handleSoundPrev = navPrev(setIndexSound, indexSound, 'onBack');
+	const handleOpenPopup = useCallback(() => {
+		setPopupOpenState(true);
+	}, [setPopupOpenState]);
+	const handleClosePopup = useCallback(() => {
+		setPopupOpenState(false);
+	}, [setPopupOpenState]);
 
 	// Navigate menus with the right key. The left key is handled by framework.
 	const handleKeyDown = (setState, state) => (ev) => {
@@ -176,6 +186,14 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 			navNext(setState, state, 'onNext')();
 		}
 	};
+
+	const handleKeyUpOnPopup = useCallback((ev) => {
+		if ((isCancel(ev.keyCode)) && popupOpen) {
+			setPopupOpenState(false);
+			ev.stopPropagation();
+			ev.preventDefault();
+		}
+	}, [popupOpen, setPopupOpenState]);
 
 	return (
 		<div>
@@ -237,6 +255,12 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 						<TabPanel>
 							<Header title="Advanced Audio" type="compact" />
 							<Item>Balance</Item>
+							<Input size="small" value="Input" noBackButton />
+							<Button onClick={handleOpenPopup} size="small" >open</Button>
+							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
+								<Button onClick={handleClosePopup}>Close</Button>
+								<Button>Dummy</Button>
+							</Popup>
 						</TabPanel>
 					</TabPanels>
 				</Tab>

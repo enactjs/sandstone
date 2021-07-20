@@ -12,7 +12,6 @@
 import {forKey, forProp, forward, handle, stop} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import compose from 'ramda/src/compose';
 
@@ -47,7 +46,7 @@ const fixedPopupPanelsHandlers = {
 		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
-		({target}) => (getContainerNode(getContainersForNode(target).pop()).tagName !== 'HEADER'),
+		({target}) => (document.querySelector(`section.${css.body}`).contains(target)),
 		({target}) => (getTargetByDirectionFromElement('left', target) === null),
 		forward('onBack'),
 		stop
