@@ -1,11 +1,14 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
 
 import TabGroup from '../TabGroup';
 
 describe('TabGroup specs', () => {
-	it('should only have one icon item when collapsed and vertical orientation when there is a tab without an icon', () => {
-		const subject = mount(
+
+	test('should only have one icon item when collapsed and vertical orientation when there is a tab without an icon', () => {
+		render(
 			<TabGroup
+				data-testid="tabGroup"
 				orientation="vertical"
 				collapsed
 				tabs={[
@@ -15,15 +18,14 @@ describe('TabGroup specs', () => {
 				]}
 			/>
 		);
+		const homeIconElement = screen.getByTestId('tabGroup').children.item(0).children.item(1).children.item(0).textContent;
+		const homeIcon = screen.getByText(homeIconElement);
 
-		const expected = 1;
-		const actual = subject.find('Tab').length;
-
-		expect(actual).toEqual(expected);
+		expect(homeIcon).toBeInTheDocument();
 	});
 
-	it('should only have 3 item tabs when 3 tabs were specified', () => {
-		const subject = mount(
+	test('should only have 3 item tabs when 3 tabs were specified', () => {
+		render(
 			<TabGroup
 				tabs={[
 					{title: 'Home', icon: 'home'},
@@ -32,15 +34,17 @@ describe('TabGroup specs', () => {
 				]}
 			/>
 		);
+		const firstTab = screen.getByRole('group').children.item(0);
+		const secondTab = screen.getByRole('group').children.item(1);
+		const thirdTab = screen.getByRole('group').children.item(2);
 
-		const expected = 3;
-		const actual = subject.find('Tab').length;
-
-		expect(actual).toEqual(expected);
+		expect(firstTab).toBeInTheDocument();
+		expect(secondTab).toBeInTheDocument();
+		expect(thirdTab).toBeInTheDocument();
 	});
 
-	it('should render icons', () => {
-		const subject = mount(
+	test('should render icons', () => {
+		render(
 			<TabGroup
 				tabs={[
 					{title: 'Home', icon: 'home'},
@@ -49,16 +53,22 @@ describe('TabGroup specs', () => {
 				]}
 			/>
 		);
+		const actualHomeIcon = screen.getByRole('group').children.item(0).children.item(1).children.item(0).textContent.codePointAt();
+		const expectedHomeIcon = 983227; // decimal converted charCode of Unicode 'home' character
+		const actualDemosyncIcon = screen.getByRole('group').children.item(1).children.item(1).children.item(0).textContent.codePointAt();
+		const expectedDemosyncIcon = 983355; // decimal converted charCode of Unicode 'demosync' character
+		const actualPlayCircleIcon = screen.getByRole('group').children.item(2).children.item(1).children.item(0).textContent.codePointAt();
+		const expectedPlayCircleIcon = 983312; // decimal converted charCode of Unicode 'playcircle' character
 
-		const expected = 3;
-		const actual = subject.find('Icon').length;
-
-		expect(actual).toEqual(expected);
+		expect(actualHomeIcon).toBe(expectedHomeIcon);
+		expect(actualDemosyncIcon).toBe(expectedDemosyncIcon);
+		expect(actualPlayCircleIcon).toBe(expectedPlayCircleIcon);
 	});
 
-	it('should disable the list icon when collapsed and all tabs are disabled', () => {
-		const subject = mount(
+	test('should disable the list icon when collapsed and all tabs are disabled', () => {
+		render(
 			<TabGroup
+				data-testid="tabGroup"
 				collapsed
 				orientation="vertical"
 				tabs={[
@@ -68,16 +78,15 @@ describe('TabGroup specs', () => {
 				]}
 			/>
 		);
+		const iconList = screen.getByTestId('tabGroup').children.item(0);
 
-		const expected = true;
-		const actual = subject.find('Tab').prop('disabled');
-
-		expect(actual).toBe(expected);
+		expect(iconList).toHaveAttribute('aria-disabled', 'true');
 	});
 
-	it('should not disable the list icon when collapsed and all tabs are not disabled', () => {
-		const subject = mount(
+	test('should not disable the list icon when collapsed and all tabs are not disabled', () => {
+		render(
 			<TabGroup
+				data-testid="tabGroup"
 				collapsed
 				orientation="vertical"
 				tabs={[
@@ -87,61 +96,8 @@ describe('TabGroup specs', () => {
 				]}
 			/>
 		);
+		const iconList = screen.getByTestId('tabGroup').children.item(0);
 
-		const expected = false;
-		const actual = subject.find('Tab').prop('disabled');
-
-		expect(actual).toBe(expected);
-	});
-
-	it('should generate keys automatically', () => {
-		const subject = mount(
-			<TabGroup
-				tabs={[
-					{title: 'Home', icon: 'home'},
-					{title: 'Button', icon: 'demosync'},
-					{title: 'Item', icon: 'playcircle'}
-				]}
-			/>
-		);
-
-		const expected = 'tabs_Homehome';
-		const actual = subject.find('GroupItem').first().key();
-
-		expect(actual).toEqual(expected);
-	});
-
-	it('should use a custom key if supplied', () => {
-		const subject = mount(
-			<TabGroup
-				tabs={[
-					{title: 'Home', icon: 'home', tabKey: 'myCustomKey'},
-					{title: 'Button', icon: 'demosync'},
-					{title: 'Item', icon: 'playcircle'}
-				]}
-			/>
-		);
-
-		const expected = 'myCustomKey';
-		const actual = subject.find('GroupItem').first().key();
-
-		expect(actual).toEqual(expected);
-	});
-
-	it('should support zero as a custom key', () => {
-		const subject = mount(
-			<TabGroup
-				tabs={[
-					{title: 'Home', icon: 'home', tabKey: 0},
-					{title: 'Button', icon: 'demosync'},
-					{title: 'Item', icon: 'playcircle'}
-				]}
-			/>
-		);
-
-		const expected = '0';
-		const actual = subject.find('GroupItem').first().key();
-
-		expect(actual).toEqual(expected);
+		expect(iconList).toHaveAttribute('aria-disabled', 'false');
 	});
 });

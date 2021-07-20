@@ -1,11 +1,13 @@
-import {mount, shallow} from 'enzyme';
+import '@testing-library/jest-dom';
+import {fireEvent, render, screen} from '@testing-library/react';
 
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
 describe('TabLayout specs', () => {
-	it('should be collapsed when collapsed is true', () => {
-		const subject = shallow(
+	test('should be collapsed when collapsed is true', () => {
+		render(
 			<TabLayoutBase
+				data-testid="tabLayout"
 				collapsed
 			>
 				<Tab title="Home" icon="home">
@@ -21,14 +23,14 @@ describe('TabLayout specs', () => {
 		);
 
 		const expected = 'collapsed';
-		const actual = subject.find('.tabLayout').prop('className');
+		const actual = screen.getByTestId('tabLayout');
 
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
-	it('should have default orientation of vertical', () => {
-		const subject = shallow(
-			<TabLayoutBase>
+	test('should have default orientation of vertical', () => {
+		render(
+			<TabLayoutBase data-testid="tabLayout">
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
@@ -42,14 +44,15 @@ describe('TabLayout specs', () => {
 		);
 
 		const expected = 'vertical';
-		const actual = subject.find('.tabLayout').prop('className');
+		const actual = screen.getByTestId('tabLayout');
 
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
-	it('should have orientation of horizontal when orientation is set to horizontal', () => {
-		const subject = shallow(
+	test('should have orientation of horizontal when orientation is set to horizontal', () => {
+		render(
 			<TabLayoutBase
+				data-testid="tabLayout"
 				orientation="horizontal"
 			>
 				<Tab title="Home" icon="home">
@@ -65,39 +68,39 @@ describe('TabLayout specs', () => {
 		);
 
 		const expected = 'horizontal';
-		const actual = subject.find('.tabLayout').prop('className');
+		const actual = screen.getByTestId('tabLayout');
 
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
-	it('should call onTabAnimationEnd for vertical tabs', () => {
+	test('should call onTabAnimationEnd for vertical tabs', () => {
 		const spy = jest.fn();
-		const subject = mount(
-			<TabLayout orientation="vertical" onTabAnimationEnd={spy}>
+		render(
+			<TabLayout data-testid="tabLayout" orientation="vertical" onTabAnimationEnd={spy}>
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
 		);
 
-		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
+		const tabs = screen.getByTestId('tabLayout').children.item(0);
+		fireEvent.transitionEnd(tabs);
 
 		expect(spy).toHaveBeenCalledTimes(1);
 	});
 
-	it('should include expected payload in onTabAnimationEnd', () => {
+	test('should include expected payload in onTabAnimationEnd', () => {
 		const spy = jest.fn();
-		const subject = mount(
-			<TabLayout orientation="vertical" onTabAnimationEnd={spy} collapsed>
+		render(
+			<TabLayout data-testid="tabLayout" orientation="vertical" onTabAnimationEnd={spy} collapsed>
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
 		);
 
-		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
+		const tabs = screen.getByTestId('tabLayout').children.item(0);
+		fireEvent.transitionEnd(tabs);
 
 		const expected = {
 			type: 'onTabAnimationEnd',
@@ -108,18 +111,18 @@ describe('TabLayout specs', () => {
 		expect(actual).toEqual(expected);
 	});
 
-	it('should not call onTabAnimationEnd for horizontal tabs', () => {
+	test('should not call onTabAnimationEnd for horizontal tabs', () => {
 		const spy = jest.fn();
-		const subject = mount(
-			<TabLayout orientation="horizontal" onTabAnimationEnd={spy}>
+		render(
+			<TabLayout data-testid="tabLayout" orientation="horizontal" onTabAnimationEnd={spy}>
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
 		);
 
-		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
+		const tabs = screen.getByTestId('tabLayout').children.item(0);
+		fireEvent.transitionEnd(tabs);
 
 		expect(spy).not.toHaveBeenCalled();
 	});
