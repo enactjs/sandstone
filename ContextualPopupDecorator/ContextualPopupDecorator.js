@@ -624,6 +624,19 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			Spotlight.setPointerMode(false);
 		}
 
+		getFiveWayDirection = () => {
+			const direction = this.adjustedDirection.split(' ')[0];
+
+			switch (direction) {
+				case 'below':
+					return 'down';
+				case 'above':
+					return 'up';
+				default:
+					return direction;
+			}
+		};
+
 		// handle key event from outside (i.e. the activator) to the popup container
 		handleKeyDown = (ev) => {
 			const {activator, containerId} = this.state;
@@ -635,7 +648,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			const hasSpottables = Spotlight.getSpottableDescendants(containerId).length > 0;
 			const spotlessSpotlightModal = spotlightRestrict === 'self-only' && !hasSpottables;
-			const shouldSpotPopup = current === activator && direction === this.adjustedDirection && hasSpottables;
+			const shouldSpotPopup = current === activator && direction === this.getFiveWayDirection() && hasSpottables;
 
 			if (shouldSpotPopup || spotlessSpotlightModal) {
 				this.handleDirectionalKey(ev);

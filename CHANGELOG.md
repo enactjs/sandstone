@@ -12,6 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ContextualPopupDecorator` to focus elements in `ContextualPopup` when `spotlightRestrict` is `self-first`
 - `sandstone/Scroller` and `sandstone/VirtualList` to show scroll animation properly with 5-way directional keys
 - `sandstone/Scroller` to not focus the body at the initial rendering when `focusableScrollbar` prop is `byEnter`
 
