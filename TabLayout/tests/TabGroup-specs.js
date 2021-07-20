@@ -8,7 +8,6 @@ describe('TabGroup specs', () => {
 	test('should only have one icon item when collapsed and vertical orientation when there is a tab without an icon', () => {
 		render(
 			<TabGroup
-				data-testid="tabGroup"
 				orientation="vertical"
 				collapsed
 				tabs={[
