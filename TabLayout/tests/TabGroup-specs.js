@@ -18,10 +18,11 @@ describe('TabGroup specs', () => {
 				]}
 			/>
 		);
-		const homeIconElement = screen.getByTestId('tabGroup').children.item(0).children.item(1).children.item(0).textContent;
-		const homeIcon = screen.getByText(homeIconElement);
 
-		expect(homeIcon).toBeInTheDocument();
+		// When one of the tabs doesn't have an icon, the role='group' is not applied to the component
+		const actual = screen.queryByRole('group');
+
+		expect(actual).toBeNull();
 	});
 
 	test('should only have 3 item tabs when 3 tabs were specified', () => {
@@ -37,10 +38,12 @@ describe('TabGroup specs', () => {
 		const firstTab = screen.getByRole('group').children.item(0);
 		const secondTab = screen.getByRole('group').children.item(1);
 		const thirdTab = screen.getByRole('group').children.item(2);
+		const fourthTab = screen.queryByRole('group').children.item(3);
 
 		expect(firstTab).toBeInTheDocument();
 		expect(secondTab).toBeInTheDocument();
 		expect(thirdTab).toBeInTheDocument();
+		expect(fourthTab).toBeNull();
 	});
 
 	test('should render icons', () => {
