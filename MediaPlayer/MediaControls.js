@@ -570,8 +570,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 		}
 
 		componentDidMount () {
-			on('keydown', this.handleKeyDown);
-			on('keyup', this.handleKeyUp);
+			on('keydown', this.handleKeyDown, document);
+			on('keyup', this.handleKeyUp, document);
 			on('blur', this.handleBlur, window);
 			on('wheel', this.handleWheel, document);
 		}
@@ -625,8 +625,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 		}
 
 		componentWillUnmount () {
-			off('keydown', this.handleKeyDown);
-			off('keyup', this.handleKeyUp);
+			off('keydown', this.handleKeyDown, document);
+			off('keyup', this.handleKeyUp, document);
 			off('blur', this.handleBlur, window);
 			off('wheel', this.handleWheel, document);
 			this.stopListeningForPulses();
