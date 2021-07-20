@@ -37,7 +37,7 @@ describe('TabGroup specs', () => {
 		const firstTab = screen.getByRole('group').children.item(0);
 		const secondTab = screen.getByRole('group').children.item(1);
 		const thirdTab = screen.getByRole('group').children.item(2);
-		const fourthTab = screen.queryByRole('group').children.item(3);
+		const fourthTab = screen.getByRole('group').children.item(3);
 
 		expect(firstTab).toBeInTheDocument();
 		expect(secondTab).toBeInTheDocument();
