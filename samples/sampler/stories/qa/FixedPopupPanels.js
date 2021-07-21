@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 
-import {is} from '@enact/core/keymap';
+import {add, is} from '@enact/core/keymap';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
@@ -10,7 +10,9 @@ import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Dropdown from '@enact/sandstone/Dropdown';
 import Icon from '@enact/sandstone/Icon';
+import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
+import Popup from '@enact/sandstone/Popup';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
 import {VirtualList} from '@enact/sandstone/VirtualList';
@@ -19,7 +21,7 @@ import Pause from '@enact/spotlight/Pause';
 import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import {Component, useState} from 'react';
+import {Component, useCallback, useState} from 'react';
 import compose from 'ramda/src/compose';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
@@ -28,6 +30,8 @@ Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
+add('cancel', 27);
+const isCancel = is('cancel');
 const isRight = is('right');
 
 class FixedPopupPanelsWithPause extends Component {
@@ -273,6 +277,7 @@ WithScroller.parameters = {
 const WithVariousItemsSamplesBase = ({rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
+	const [popupOpen, setPopupOpenState] = useState(false);
 	const toggleOpen = () => setOpenState(!open);
 	const handleClose = compose(toggleOpen, action('onClose'));
 
@@ -282,6 +287,12 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 	const nextPanel = () => setPanelIndexState(Math.min(index + 1, 3));
 	const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
 	const handleBack = compose(prevPanel, action('onBack'));
+	const handleOpenPopup = useCallback(() => {
+		setPopupOpenState(true);
+	}, [setPopupOpenState]);
+	const handleClosePopup = useCallback(() => {
+		setPopupOpenState(false);
+	}, [setPopupOpenState]);
 
 	// Navigate menus with the right key. The left key is handled by framework.
 	const handleKeyDown = (ev) => {
@@ -290,6 +301,14 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 			nextPanel();
 		}
 	};
+
+	const handleKeyUpOnPopup = useCallback((ev) => {
+		if ((isCancel(ev.keyCode)) && popupOpen) {
+			setPopupOpenState(false);
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+	}, [popupOpen, setPopupOpenState]);
 
 	return (
 		<div>
@@ -393,8 +412,12 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 							<br />
 							<Button size="small" disabled>Button2</Button>
 							<br />
-							<br />
-							<Slider />
+							<Input size="small" value="Input" noBackButton />
+							<Button onClick={handleOpenPopup} size="small">Open</Button>
+							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
+								<Button onClick={handleClosePopup}>Close</Button>
+								<Button>Dummy</Button>
+							</Popup>
 							<br />
 							<br />
 						</Cell>
