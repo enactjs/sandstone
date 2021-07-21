@@ -14,14 +14,14 @@ describe('DebounceDecorator', () => {
 			const Component = DebounceDecorator(
 				{debounce: 'onClick', delay: 100},
 				function Base () {
-					return <div />;
+					return <div onClick={spy} data-testid="component" />;
 				}
 			);
 
-			render(<div onClick={spy} data-testid="component"><Component onClick={spy} data-testid="component" /></div>);
+			render(<div><Component onClick={spy} /></div>);
 			screen.debug();
 
-			fireEvent.click(screen.getByTestId("component").children.item(0));
+			fireEvent.click(screen.getByTestId("component"));
 
 			expect(spy).not.toHaveBeenCalled();
 
