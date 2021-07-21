@@ -190,8 +190,8 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 	const handleKeyUpOnPopup = useCallback((ev) => {
 		if ((isCancel(ev.keyCode)) && popupOpen) {
 			setPopupOpenState(false);
-			ev.stopPropagation();
 			ev.preventDefault();
+			ev.stopPropagation();
 		}
 	}, [popupOpen, setPopupOpenState]);
 
@@ -256,7 +256,7 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 							<Header title="Advanced Audio" type="compact" />
 							<Item>Balance</Item>
 							<Input size="small" value="Input" noBackButton />
-							<Button onClick={handleOpenPopup} size="small" >open</Button>
+							<Button onClick={handleOpenPopup} size="small" >Open</Button>
 							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
 								<Button onClick={handleClosePopup}>Close</Button>
 								<Button>Dummy</Button>

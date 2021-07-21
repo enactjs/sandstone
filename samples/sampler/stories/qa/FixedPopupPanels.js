@@ -24,14 +24,14 @@ import PropTypes from 'prop-types';
 import {Component, useCallback, useState} from 'react';
 import compose from 'ramda/src/compose';
 
-add('cancel', 27);
-const isCancel = is('cancel');
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 Config.defaultProps.position = 'right';
 Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
+add('cancel', 27);
+const isCancel = is('cancel');
 const isRight = is('right');
 
 class FixedPopupPanelsWithPause extends Component {
@@ -305,8 +305,8 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 	const handleKeyUpOnPopup = useCallback((ev) => {
 		if ((isCancel(ev.keyCode)) && popupOpen) {
 			setPopupOpenState(false);
-			ev.stopPropagation();
 			ev.preventDefault();
+			ev.stopPropagation();
 		}
 	}, [popupOpen, setPopupOpenState]);
 
@@ -413,7 +413,7 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 							<Button size="small" disabled>Button2</Button>
 							<br />
 							<Input size="small" value="Input" noBackButton />
-							<Button onClick={handleOpenPopup} size="small">open</Button>
+							<Button onClick={handleOpenPopup} size="small">Open</Button>
 							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
 								<Button onClick={handleClosePopup}>Close</Button>
 								<Button>Dummy</Button>
