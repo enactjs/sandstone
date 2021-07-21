@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {Panel, WizardPanels, WizardPanelsBase} from '../';
+import {Panel, WizardPanels} from '../';
 
 describe('WizardPanel Specs', () => {
 	test(
@@ -584,32 +584,18 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should support noAnimation',
 		() => {
+			const viewSubtitle = 'View subtitle';
 			render(
-				<WizardPanelsBase noAnimation>
-					<Panel />
-					<Panel />
-				</WizardPanelsBase>
+				<WizardPanels noAnimation>
+					<Panel subtitle={viewSubtitle} />
+				</WizardPanels>
 			);
 
-			screen.debug()
+			// check if animation container exists
+			const notExpected = 'titleContainer';
+			const actual = screen.getByText(viewSubtitle).parentElement;
 
-			// expect(screen.getByRole('region')).toHaveAttribute('noAnimation', true);
-			
-		// 	// FIXME: Temporary selector until our components have corrected display names
-		// 	const viewManager = '.content > *';
-		// 	const wizardPanel = shallow(
-		// 		<WizardPanelsBase>
-		// 			<Panel />
-		// 		</WizardPanelsBase>
-		// 	);
-		//
-		// 	let actual = wizardPanel.find(viewManager).prop('noAnimation');
-		// 	expect(actual).toBeFalsy();
-		//
-		// 	wizardPanel.setProps({noAnimation: true});
-		//
-		// 	actual = wizardPanel.find(viewManager).prop('noAnimation');
-		// 	expect(actual).toBe(true);
+			expect(actual).not.toHaveClass(notExpected);
 		}
 	);
 
@@ -670,7 +656,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const steps = screen.getByText('1' && '2' && '3' && '4' && '5')
+			const steps = screen.getByText('1' && '2' && '3' && '4' && '5');
 
 			await waitFor(() => {
 				expect(steps).toBeInTheDocument();
@@ -692,7 +678,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const steps = screen.getByText('1' && '2' && '3')
+			const steps = screen.getByText('1' && '2' && '3');
 
 			await waitFor(() => {
 				expect(steps).toBeInTheDocument();
