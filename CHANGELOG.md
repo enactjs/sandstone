@@ -12,6 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to not go back to the previous panel by left key on popup opened inside
 - `sandstone/MediaPlayer` to work trick play via key
 - `sandstone/Scroller` and `sandstone/VirtualList` to show scroll animation properly with 5-way directional keys
 - `sandstone/Scroller` to not focus the body at the initial rendering when `focusableScrollbar` prop is `byEnter`

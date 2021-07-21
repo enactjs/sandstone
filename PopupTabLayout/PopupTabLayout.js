@@ -381,7 +381,7 @@ const tabPanelsHandlers = {
 				ev.stopPropagation();
 				return false;
 			}
-			return true;
+			return document.querySelector(`section.${css.body}`).contains(ev.target);
 		},
 		forward('onBack'),
 		stop
