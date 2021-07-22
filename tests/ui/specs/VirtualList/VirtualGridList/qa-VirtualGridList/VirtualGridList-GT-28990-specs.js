@@ -22,6 +22,10 @@ describe('qa-VirtualGridList', function () {
 		}
 		// Step 3-1 Verify: Spotlight is on the 101th item with 'Image 100'.
 		expectFocusedItem(100);
+
+		// Wait for scroll animation
+		Page.delay(300);
+
 		expect(Page.scrollThumbPosition()).to.equal('1');
 		// Step 3-2 Verify: The 101th item with 'Image 100' sticks to the bottom in the list.
 		Page.spotlightDown();

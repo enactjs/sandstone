@@ -148,6 +148,14 @@ const DatePickerBase = kind({
 		monthAriaLabel: PropTypes.string,
 
 		/**
+		 * Hides the label that displays the date.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noLabel: PropTypes.bool,
+
+		/**
 		 * Called when the `date` component of the Date changes.
 		 *
 		 * @type {Function}
@@ -250,6 +258,7 @@ const DatePickerBase = kind({
 		minYear,
 		month,
 		monthAriaLabel,
+		noLabel,
 		onChangeDate,
 		onChangeMonth,
 		onChangeYear,
@@ -267,6 +276,10 @@ const DatePickerBase = kind({
 			dayAccessibilityHint = $L('day'),
 			monthAccessibilityHint = $L('month'),
 			yearAccessibilityHint = $L('year');
+
+		if (noLabel) {
+			delete rest.label;
+		}
 
 		return (
 			<DateTime {...rest}>

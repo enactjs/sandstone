@@ -2,6 +2,21 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.0.0-rc.5] - 2021-07-22
+
+### Added
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` prop `noLabel` to hide label
+- `sandstone/ImageItem` public classname `imageIcon`
+- `sandstone/Slider` prop `wheelInterval` to throttle the wheel input
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to not go back to the previous panel by left key on popup opened inside
+- `sandstone/MediaPlayer` to work trick play via key
+- `sandstone/Scroller` and `sandstone/VirtualList` to show scroll animation properly with 5-way directional keys
+- `sandstone/Scroller` to not focus the body at the initial rendering when `focusableScrollbar` prop is `byEnter`
+
 ## [2.0.0-rc.4] - 2021-07-08
 
 ### Fixed

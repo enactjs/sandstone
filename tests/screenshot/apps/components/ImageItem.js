@@ -6,6 +6,8 @@ import img from '../../images/600x600.png';
 
 import {withConfig} from './utils';
 
+import css from './ImageItem.module.less';
+
 // vertical ImageItem doesn't render well without defined styles right now.
 const verticalStyle = {height: ri.scale(540), width: ri.scale(640)};
 
@@ -18,6 +20,7 @@ const ImageItemTests = [
 	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short" imageIconSrc={img}>Short</ImageItem>,
 	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short" showSelection>Short</ImageItem>,
 	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short" selected showSelection>Short</ImageItem>,
+	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short" imageIconSrc={img} css={css}>Short</ImageItem>,
 
 	<ImageItem src={img} orientation="horizontal" />,
 	<ImageItem src={img} orientation="horizontal">Short</ImageItem>,
