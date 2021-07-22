@@ -7,8 +7,8 @@ describe('Steps Specs', () => {
 
 	test('should render two steps with no props specified', () => {
 		render(<Steps />);
-		const firstStep = screen.getByText("1");
-		const secondStep = screen.getByText("2");
+		const firstStep = screen.getByText('1');
+		const secondStep = screen.getByText('2');
 
 
 		expect(firstStep).toBeInTheDocument();
@@ -26,12 +26,12 @@ describe('Steps Specs', () => {
 
 	test('should render six steps with `total` set to 6', () => {
 		render(<Steps total={6} />);
-		const firstStep = screen.getByText('1' )
-		const secondStep = screen.getByText('2' )
-		const thirdStep = screen.getByText('3' )
-		const forthStep = screen.getByText('4' )
-		const fifthStep = screen.getByText('5' )
-		const sixthStep = screen.getByText('6' )
+		const firstStep = screen.getByText('1');
+		const secondStep = screen.getByText('2');
+		const thirdStep = screen.getByText('3');
+		const forthStep = screen.getByText('4');
+		const fifthStep = screen.getByText('5');
+		const sixthStep = screen.getByText('6');
 
 		expect(firstStep).toBeInTheDocument();
 		expect(secondStep).toBeInTheDocument();
