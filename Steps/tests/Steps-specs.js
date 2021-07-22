@@ -1,20 +1,23 @@
 import '@testing-library/jest-dom';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 
 import {StepsBase as Steps} from '../Steps';
 
 describe('Steps Specs', () => {
 
 	test('should render two steps with no props specified', () => {
-		const {getByText} = render(<Steps />);
-		const steps = getByText('1' && '2');
+		render(<Steps />);
+		const firstStep = screen.getByText("1");
+		const secondStep = screen.getByText("2");
 
-		expect(steps).toBeInTheDocument();
+
+		expect(firstStep).toBeInTheDocument();
+		expect(secondStep).toBeInTheDocument();
 	});
 
 	test('should indicate a two step process with no props specified', () => {
-		const {getByRole} = render(<Steps />);
-		const actual = getByRole('list').children;
+		render(<Steps />);
+		const actual = screen.getByRole('list').children;
 
 		const expected = 2;
 
@@ -22,15 +25,25 @@ describe('Steps Specs', () => {
 	});
 
 	test('should render six steps with `total` set to 6', () => {
-		const {getByText} = render(<Steps total={6} />);
-		const steps = getByText('1' && '2' && '3' && '4' && '5' && '6');
+		render(<Steps total={6} />);
+		const firstStep = screen.getByText('1' )
+		const secondStep = screen.getByText('2' )
+		const thirdStep = screen.getByText('3' )
+		const forthStep = screen.getByText('4' )
+		const fifthStep = screen.getByText('5' )
+		const sixthStep = screen.getByText('6' )
 
-		expect(steps).toBeInTheDocument();
+		expect(firstStep).toBeInTheDocument();
+		expect(secondStep).toBeInTheDocument();
+		expect(thirdStep).toBeInTheDocument();
+		expect(forthStep).toBeInTheDocument();
+		expect(fifthStep).toBeInTheDocument();
+		expect(sixthStep).toBeInTheDocument();
 	});
 
 	test('should indicate a 6 step process with `total` set to 6', () => {
-		const {getByRole} = render(<Steps total={6} />);
-		const steps = getByRole('list').children;
+		render(<Steps total={6} />);
+		const steps = screen.getByRole('list').children;
 
 		const expected = 6;
 
@@ -38,28 +51,28 @@ describe('Steps Specs', () => {
 	});
 
 	test('should correctly set the `size`', () => {
-		const {getByRole} = render(<Steps size="medium" />);
-		const firstStepElement = getByRole('list').children.item(0).className;
+		render(<Steps size="medium" />);
+		const firstStepElement = screen.getByText('1');
 
 		const expected = 'medium'; // `size` actually comes from Icon, which we aren't accessing, so we use the bare class name.
 
-		expect(firstStepElement).toContain(expected);
+		expect(firstStepElement).toHaveClass(expected);
 	});
 
 	test('should correctly indicate the `current` even if that\'s the only prop set', () => {
-		const {getByText} = render(<Steps current={2} />);
-		const firstStepElement = getByText('✓');
-		const secondStepElement = getByText('2');
+		render(<Steps current={2} />);
+		const firstStepElement = screen.getByText('✓');
+		const secondStepElement = screen.getByText('2');
 
 		const expected = 'current';
 
-		expect(firstStepElement.className).not.toContain(expected);
-		expect(secondStepElement.className).toContain(expected);
+		expect(firstStepElement).not.toHaveClass(expected);
+		expect(secondStepElement).toHaveClass(expected);
 	});
 
 	test('should support custom `pastIcon`', () => {
-		const {getByRole} = render(<Steps current={2} total={3} pastIcon="bookmark" />);
-		const pastStepIcon = getByRole('list').children.item(0).textContent.codePointAt();
+		render(<Steps current={2} total={3} pastIcon="bookmark" />);
+		const pastStepIcon = screen.getByRole('list').children.item(0).textContent.codePointAt();
 
 		const expected = 983364; // decimal converted charCode of Unicode 'bookmark' character
 
@@ -67,8 +80,8 @@ describe('Steps Specs', () => {
 	});
 
 	test('should support custom `currentIcon`', () => {
-		const {getByRole} = render(<Steps current={2} total={3} currentIcon="edit" />);
-		const currentStepIcon = getByRole('list').children.item(1).textContent.codePointAt();
+		render(<Steps current={2} total={3} currentIcon="edit" />);
+		const currentStepIcon = screen.getByRole('list').children.item(1).textContent.codePointAt();
 
 		const expected = 983369; // decimal converted charCode of Unicode 'edit' character
 
@@ -76,8 +89,8 @@ describe('Steps Specs', () => {
 	});
 
 	test('should support custom `futureIcon`', () => {
-		const {getByRole} = render(<Steps current={2} total={3} futureIcon="arrowup" />);
-		const futureStepIcon = getByRole('list').children.item(2).textContent.codePointAt();
+		render(<Steps current={2} total={3} futureIcon="arrowup" />);
+		const futureStepIcon = screen.getByRole('list').children.item(2).textContent.codePointAt();
 
 		const expected = 8593; // decimal converted charCode of Unicode 'arrowup' character
 
@@ -85,8 +98,8 @@ describe('Steps Specs', () => {
 	});
 
 	test('should support numeric step identifier for `pastIcon`', () => {
-		const {getByRole} = render(<Steps current={2} total={3} pastIcon="numbers" />);
-		const pastIcon = getByRole('list').children.item(0).textContent;
+		render(<Steps current={2} total={3} pastIcon="numbers" />);
+		const pastIcon = screen.getByRole('list').children.item(0).textContent;
 
 		const expected = '1';
 
@@ -94,8 +107,8 @@ describe('Steps Specs', () => {
 	});
 
 	test('should support numeric step identifier for `currentIcon`', () => {
-		const {getByRole} = render(<Steps current={2} total={3} currentIcon="numbers" />);
-		const currentIcon = getByRole('list').children.item(1).textContent;
+		render(<Steps current={2} total={3} currentIcon="numbers" />);
+		const currentIcon = screen.getByRole('list').children.item(1).textContent;
 
 		const expected = '2';
 
@@ -103,8 +116,8 @@ describe('Steps Specs', () => {
 	});
 
 	test('should support numeric step identifier for `futureIcon`', () => {
-		const {getByRole} = render(<Steps current={2} total={3} futureIcon="numbers" />);
-		const futureIcon = getByRole('list').children.item(2).textContent;
+		render(<Steps current={2} total={3} futureIcon="numbers" />);
+		const futureIcon = screen.getByRole('list').children.item(2).textContent;
 
 		const expected = '3';
 
@@ -112,8 +125,8 @@ describe('Steps Specs', () => {
 	});
 
 	test('should support number for `skip` prop', () => {
-		const {getByRole} = render(<Steps skip={2} current={3} total={5} />);
-		const skippedStep = getByRole('list').children.item(1);
+		render(<Steps skip={2} current={3} total={5} />);
+		const skippedStep = screen.getByRole('list').children.item(1);
 
 		const expected = 'skip';
 
@@ -121,8 +134,8 @@ describe('Steps Specs', () => {
 	});
 
 	test('should support custom `skipIcon`', () => {
-		const {getByRole} = render(<Steps skip={2} skipIcon="skip" current={3} total={5} />);
-		const skippedStepIcon = getByRole('list').children.item(1).textContent.codePointAt();
+		render(<Steps skip={2} skipIcon="skip" current={3} total={5} />);
+		const skippedStepIcon = screen.getByRole('list').children.item(1).textContent.codePointAt();
 
 		const expected = 983017; // decimal converted charCode of Unicode 'skip' character
 
@@ -132,8 +145,8 @@ describe('Steps Specs', () => {
 	test('should support number for `skip` prop', () => {
 		const expected = 'testIconName';
 
-		const {getByRole} = render(<Steps skip={2} skipIcon={expected} current={3} total={5} />);
-		const skipStep = getByRole('list').children.item(1).textContent;
+		render(<Steps skip={2} skipIcon={expected} current={3} total={5} />);
+		const skipStep = screen.getByRole('list').children.item(1).textContent;
 
 		expect(skipStep).toBe(expected);
 	});
@@ -141,17 +154,17 @@ describe('Steps Specs', () => {
 	test('should support array of numbers for `skip` prop', () => {
 		const expected = 'testIconName';
 
-		const {getByRole} = render(<Steps skip={[2, 4]} skipIcon={expected} current={3} total={5} />);
-		const secondSkippedStep = getByRole('list').children.item(1).textContent;
-		const forthSkippedStep = getByRole('list').children.item(3).textContent;
+		render(<Steps skip={[2, 4]} skipIcon={expected} current={3} total={5} />);
+		const secondSkippedStep = screen.getByRole('list').children.item(1).textContent;
+		const forthSkippedStep = screen.getByRole('list').children.item(3).textContent;
 
 		expect(secondSkippedStep).toBe(expected);
 		expect(forthSkippedStep).toBe(expected);
 	});
 
 	test('should not show a skip icon if the `current` step is in the skip list', () => {
-		const {getByRole} = render(<Steps skip={[2, 3]} skipIcon="testIconName" current={3} currentIcon="numbers" total={5} />);
-		const currentStep = getByRole('list').children.item(2).textContent;
+		render(<Steps skip={[2, 3]} skipIcon="testIconName" current={3} currentIcon="numbers" total={5} />);
+		const currentStep = screen.getByRole('list').children.item(2).textContent;
 
 		const expected = '3';
 
