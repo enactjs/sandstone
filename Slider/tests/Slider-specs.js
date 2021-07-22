@@ -15,9 +15,7 @@ const downKeyDown = keyDown(40);
 
 describe('Slider', () => {
 	test('should set "aria-valuetext" to hint string for the first render when vertical is false', () => {
-		render(
-			<Slider />
-		);
+		render(<Slider />);
 		const slider = screen.getByRole('slider');
 
 		const expectedAttribute = 'aria-valuetext';
@@ -27,9 +25,7 @@ describe('Slider', () => {
 	});
 
 	test('should set "aria-valuetext" to hint string for the first render when vertical is true', () => {
-		render(
-			<Slider orientation="vertical" />
-		);
+		render(<Slider orientation="vertical" />);
 		const slider = screen.getByRole('slider');
 
 		const expectedAttribute = 'aria-valuetext';
@@ -39,9 +35,7 @@ describe('Slider', () => {
 	});
 
 	test('should set "aria-valuetext" to value when value is changed', () => {
-		render(
-			<Slider defaultValue={10} />
-		);
+		render(<Slider defaultValue={10} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -54,9 +48,7 @@ describe('Slider', () => {
 	});
 
 	test('should activate the slider on enter keyup', () => {
-		render(
-			<Slider activateOnSelect />
-		);
+		render(<Slider activateOnSelect />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
@@ -67,23 +59,22 @@ describe('Slider', () => {
 	});
 
 	test('should deactivate the slider on blur', () => {
-		render(
-			<Slider activateOnSelect />
-		);
+		render(<Slider activateOnSelect />);
 		const slider = screen.getByRole('slider');
 
-		activate(slider);
-		blur(slider);
-
 		const notExpected = 'active';
+
+		activate(slider);
+
+		expect(slider).toHaveClass(notExpected);
+
+		blur(slider);
 
 		expect(slider).not.toHaveClass(notExpected);
 	});
 
 	test('should not activate the slider on enter', () => {
-		render(
-			<Slider />
-		);
+		render(<Slider />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
@@ -94,9 +85,7 @@ describe('Slider', () => {
 	});
 
 	test('should decrement the value of horizontal slider on key left when active', () => {
-		render(
-			<Slider activateOnSelect defaultValue={50} />
-		);
+		render(<Slider activateOnSelect defaultValue={50} />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
@@ -109,9 +98,7 @@ describe('Slider', () => {
 	});
 
 	test('should decrement the value of horizontal slider on key left', () => {
-		render(
-			<Slider defaultValue={50} />
-		);
+		render(<Slider defaultValue={50} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -124,9 +111,7 @@ describe('Slider', () => {
 	});
 
 	test('should decrement the value of vertical slider on key down when active', () => {
-		render(
-			<Slider activateOnSelect defaultValue={50} orientation="vertical" />
-		);
+		render(<Slider activateOnSelect defaultValue={50} orientation="vertical" />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
@@ -139,9 +124,7 @@ describe('Slider', () => {
 	});
 
 	test('should decrement the value of vertical slider on key down', () => {
-		render(
-			<Slider defaultValue={50} orientation="vertical" />
-		);
+		render(<Slider defaultValue={50} orientation="vertical" />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -154,9 +137,7 @@ describe('Slider', () => {
 	});
 
 	test('should increment the value of horizontal slider on key right when active', () => {
-		render(
-			<Slider activateOnSelect defaultValue={50} />
-		);
+		render(<Slider activateOnSelect defaultValue={50} />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
@@ -169,9 +150,7 @@ describe('Slider', () => {
 	});
 
 	test('should increment the value of horizontal slider on key right', () => {
-		render(
-			<Slider defaultValue={50} />
-		);
+		render(<Slider defaultValue={50} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -184,9 +163,7 @@ describe('Slider', () => {
 	});
 
 	test('should increment the value of vertical slider on key up when active', () => {
-		render(
-			<Slider activateOnSelect defaultValue={50} orientation="vertical" />
-		);
+		render(<Slider activateOnSelect defaultValue={50} orientation="vertical" />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
@@ -198,10 +175,8 @@ describe('Slider', () => {
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	test('should increment the value of vertical slider on key up when', () => {
-		render(
-			<Slider defaultValue={50} orientation="vertical" />
-		);
+	test('should increment the value of vertical slider on key up', () => {
+		render(<Slider defaultValue={50} orientation="vertical" />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -216,9 +191,7 @@ describe('Slider', () => {
 	// these tests validate behavior relating to `value` defaulting to `min`
 	test('should not emit onChange when decrementing at the lower bound when value is unset', () => {
 		const handleChange = jest.fn();
-		render(
-			<Slider activateOnSelect min={0} max={10} onChange={handleChange} />
-		);
+		render(<Slider activateOnSelect min={0} max={10} onChange={handleChange} />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
@@ -229,9 +202,7 @@ describe('Slider', () => {
 
 	test('should increment from the lower bound when value is unset', () => {
 		const handleChange = jest.fn();
-		render(
-			<Slider activateOnSelect min={0} max={10} onChange={handleChange} />
-		);
+		render(<Slider activateOnSelect min={0} max={10} onChange={handleChange} />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
@@ -245,9 +216,7 @@ describe('Slider', () => {
 
 	test('should call onSpotlightLeft on horizontal slider at min value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={0} onSpotlightLeft={handleSpotlight} />
-		);
+		render(<Slider defaultValue={0} onSpotlightLeft={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -260,9 +229,7 @@ describe('Slider', () => {
 
 	test('should call onSpotlightLeft on vertical slider at any value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={50} orientation="vertical" onSpotlightLeft={handleSpotlight} />
-		);
+		render(<Slider defaultValue={50} orientation="vertical" onSpotlightLeft={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -275,9 +242,7 @@ describe('Slider', () => {
 
 	test('should not call onSpotlightLeft on horizontal slider at greater than min value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={1} onSpotlightLeft={handleSpotlight} />
-		);
+		render(<Slider defaultValue={1} onSpotlightLeft={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -288,9 +253,7 @@ describe('Slider', () => {
 
 	test('should call onSpotlightDown on vertical slider at min value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={0} orientation="vertical" onSpotlightDown={handleSpotlight} />
-		);
+		render(<Slider defaultValue={0} orientation="vertical" onSpotlightDown={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -303,9 +266,7 @@ describe('Slider', () => {
 
 	test('should call onSpotlightDown on horizontal slider at any value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={50} onSpotlightDown={handleSpotlight} />
-		);
+		render(<Slider defaultValue={50} onSpotlightDown={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -318,9 +279,7 @@ describe('Slider', () => {
 
 	test('should not call onSpotlightDown on vertical slider at greater than min value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={1} orientation="vertical" onSpotlightDown={handleSpotlight} />
-		);
+		render(<Slider defaultValue={1} orientation="vertical" onSpotlightDown={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -331,9 +290,7 @@ describe('Slider', () => {
 
 	test('should call onSpotlightRight on horizontal slider at max value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={100} onSpotlightRight={handleSpotlight} />
-		);
+		render(<Slider defaultValue={100} onSpotlightRight={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -346,9 +303,7 @@ describe('Slider', () => {
 
 	test('should call onSpotlightRight on vertical slider at any value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={50} orientation="vertical" onSpotlightRight={handleSpotlight} />
-		);
+		render(<Slider defaultValue={50} orientation="vertical" onSpotlightRight={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -361,9 +316,7 @@ describe('Slider', () => {
 
 	test('should not call onSpotlightRight on horizontal slider at less than max value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={99} onSpotlightRight={handleSpotlight} />
-		);
+		render(<Slider defaultValue={99} onSpotlightRight={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -374,9 +327,7 @@ describe('Slider', () => {
 
 	test('should call onSpotlightUp on vertical slider at max value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={100} max={100} orientation="vertical" onSpotlightUp={handleSpotlight} />
-		);
+		render(<Slider defaultValue={100} max={100} orientation="vertical" onSpotlightUp={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -389,9 +340,7 @@ describe('Slider', () => {
 
 	test('should call onSpotlightUp on horizontal slider at any value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={50} onSpotlightUp={handleSpotlight} />
-		);
+		render(<Slider defaultValue={50} onSpotlightUp={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -404,9 +353,7 @@ describe('Slider', () => {
 
 	test('should not call onSpotlightUp on vertical slider at less than max value', () => {
 		const handleSpotlight = jest.fn();
-		render(
-			<Slider defaultValue={99} orientation="vertical" onSpotlightUp={handleSpotlight} />
-		);
+		render(<Slider defaultValue={99} orientation="vertical" onSpotlightUp={handleSpotlight} />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -416,9 +363,7 @@ describe('Slider', () => {
 	});
 
 	test('should set the tooltip to visible when focused', () => {
-		render(
-			<Slider tooltip />
-		);
+		render(<Slider tooltip />);
 		const slider = screen.getByRole('slider');
 
 		focus(slider);
@@ -430,9 +375,7 @@ describe('Slider', () => {
 	});
 
 	test('should set the tooltip to not visible when unfocused', () => {
-		render(
-			<Slider tooltip />
-		);
+		render(<Slider tooltip />);
 
 		const tooltip = screen.queryByText('0');
 
