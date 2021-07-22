@@ -103,20 +103,22 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should not hide next button on the last view when `nextButtonVisibility` prop is set to "always"',
-		() => {
+		'should not hide next button on the last view when `nextButton` prop is added on the last Panel',
+		async () => {
 			render(
-				<WizardPanels index={2} nextButtonVisibility="always">
+				<WizardPanels index={2}>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
-					<Panel>Last</Panel>
+					<Panel nextButton>Last</Panel>
 				</WizardPanels>
 			);
 
 			const expected = 'Next';
 			const actual = screen.getAllByRole('button')[1];
 
-			expect(actual).toHaveAttribute('aria-label', expected);
+			await waitFor(() => {
+				expect(actual).toHaveAttribute('aria-label', expected);
+			});
 		}
 	);
 
@@ -656,10 +658,11 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const steps = screen.getByText('1' && '2' && '3' && '4' && '5');
+			const expected = 5;
+			const actual = screen.getByRole('list').children.length;
 
 			await waitFor(() => {
-				expect(steps).toBeInTheDocument();
+				expect(actual).toBe(expected);
 			});
 		}
 	);
@@ -678,10 +681,10 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const steps = screen.getByText('1' && '2' && '3');
+			const steps = screen.getByRole('list').children.length;
 
 			await waitFor(() => {
-				expect(steps).toBeInTheDocument();
+				expect(steps).toBe(total);
 			});
 		}
 	);
