@@ -175,10 +175,11 @@ describe('Panels Specs', () => {
 			);
 
 			const backButton = screen.getByLabelText(label);
+			const backButtonContainer = backButton.parentElement.parentElement;
 			const expectedClass = 'slotBefore';
 
 			expect(backButton).toBeInTheDocument();
-			expect(backButton.parentElement.parentElement).toHaveClass(expectedClass);
+			expect(backButtonContainer).toHaveClass(expectedClass);
 		});
 
 		test('should set back button "aria-label" to backButtonAriaLabel when defined only on a panel', () => {
@@ -195,10 +196,11 @@ describe('Panels Specs', () => {
 			);
 
 			const backButton = screen.getByLabelText(label);
+			const backButtonContainer = backButton.parentElement.parentElement;
 			const expectedClass = 'slotBefore';
 
 			expect(backButton).toBeInTheDocument();
-			expect(backButton.parentElement.parentElement).toHaveClass(expectedClass);
+			expect(backButtonContainer).toHaveClass(expectedClass);
 		});
 
 		test('should render close button', () => {
@@ -211,10 +213,11 @@ describe('Panels Specs', () => {
 			);
 
 			const backButton = screen.getByLabelText('Exit app');
+			const backButtonContainer = backButton.parentElement.parentElement;
 			const expectedClass = 'slotAfter';
 
 			expect(backButton).toBeInTheDocument();
-			expect(backButton.parentElement.parentElement).toHaveClass(expectedClass);
+			expect(backButtonContainer).toHaveClass(expectedClass);
 		});
 
 		test('should not render close button when \'noCloseButton\' is set to true', () => {
@@ -242,10 +245,11 @@ describe('Panels Specs', () => {
 			);
 
 			const backButton = screen.getByLabelText(label);
+			const backButtonContainer = backButton.parentElement.parentElement;
 			const expectedClass = 'slotAfter';
 
 			expect(backButton).toBeInTheDocument();
-			expect(backButton.parentElement.parentElement).toHaveClass(expectedClass);
+			expect(backButtonContainer).toHaveClass(expectedClass);
 		});
 	});
 });
