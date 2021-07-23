@@ -27,6 +27,13 @@ import HolePunchScrim from './HolePunchScrim';
 
 import css from './ContextualPopupDecorator.module.less';
 
+const PositionToDirection = {
+	above: 'up',
+	below: 'down',
+	left: 'left',
+	right: 'right'
+};
+
 /**
  * Default config for {@link sandstone/ContextualPopupDecorator.ContextualPopupDecorator}
  *
@@ -624,19 +631,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			Spotlight.setPointerMode(false);
 		}
 
-		getFiveWayDirection = () => {
-			const direction = this.adjustedDirection.split(' ')[0];
-
-			switch (direction) {
-				case 'below':
-					return 'down';
-				case 'above':
-					return 'up';
-				default:
-					return direction;
-			}
-		};
-
 		// handle key event from outside (i.e. the activator) to the popup container
 		handleKeyDown = (ev) => {
 			const {activator, containerId} = this.state;
@@ -648,7 +642,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			const hasSpottables = Spotlight.getSpottableDescendants(containerId).length > 0;
 			const spotlessSpotlightModal = spotlightRestrict === 'self-only' && !hasSpottables;
-			const shouldSpotPopup = current === activator && direction === this.getFiveWayDirection() && hasSpottables;
+			const shouldSpotPopup = current === activator && direction === PositionToDirection[this.adjustedDirection.split(' ')[0]] && hasSpottables;
 
 			if (shouldSpotPopup || spotlessSpotlightModal) {
 				this.handleDirectionalKey(ev);
