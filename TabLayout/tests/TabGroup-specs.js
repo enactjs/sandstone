@@ -47,16 +47,16 @@ describe('TabGroup specs', () => {
 			<TabGroup
 				tabs={[
 					{title: '', icon: 'home', 'data-testid': 'homeIcon'},
-					{title: '', icon: 'demosync', 'data-testid': 'homeDemosync'},
-					{title: '', icon: 'playcircle', 'data-testid': 'homePlaycircle'}
+					{title: '', icon: 'demosync', 'data-testid': 'demosyncIcon'},
+					{title: '', icon: 'playcircle', 'data-testid': 'playcircleIcon'}
 				]}
 			/>
 		);
 		const actualHomeIcon = screen.getByTestId('homeIcon').textContent.codePointAt();
 		const expectedHomeIcon = 983227; // decimal converted charCode of Unicode 'home' character
-		const actualDemosyncIcon = screen.getByTestId('homeDemosync').textContent.codePointAt();
+		const actualDemosyncIcon = screen.getByTestId('demosyncIcon').textContent.codePointAt();
 		const expectedDemosyncIcon = 983355; // decimal converted charCode of Unicode 'demosync' character
-		const actualPlayCircleIcon = screen.getByTestId('homePlaycircle').textContent.codePointAt();
+		const actualPlayCircleIcon = screen.getByTestId('playcircleIcon').textContent.codePointAt();
 		const expectedPlayCircleIcon = 983312; // decimal converted charCode of Unicode 'playcircle' character
 
 		expect(actualHomeIcon).toBe(expectedHomeIcon);
