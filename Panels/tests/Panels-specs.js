@@ -1,6 +1,5 @@
-import {mount} from 'enzyme';
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 
 import Header from '../Header';
 import Panel from '../Panel';
@@ -16,7 +15,7 @@ describe('Panels Specs', () => {
 		);
 
 		const expected = 'default-element';
-		const actual = screen.getByTestId("panel").textContent;
+		const actual = screen.getByTestId('panel').textContent;
 
 		expect(actual).toBe(expected);
 	});
@@ -38,7 +37,7 @@ describe('Panels Specs', () => {
 		);
 
 		const expected = 'default-element';
-		const actual = screen.getAllByTestId("panel")[0].textContent;
+		const actual = screen.getAllByTestId('panel')[0].textContent;
 
 		expect(actual).toBe(expected);
 	});
@@ -60,10 +59,10 @@ describe('Panels Specs', () => {
 		);
 
 		const expected = 'last-focused';
-		const panel = screen.getAllByTestId("panel")[0];
+		const panel = screen.getAllByTestId('panel')[0];
 
 		expect(panel.textContent).toBe(expected);
-		expect(panel.id).toBe("p2");
+		expect(panel.id).toBe('p2');
 	});
 
 	test('should return a ref to the root Panel node', () => {
@@ -103,7 +102,7 @@ describe('Panels Specs', () => {
 				</Panels>
 			);
 
-			const backButton = screen.queryByLabelText('go to previous');
+			const backButton = screen.getByLabelText('go to previous');
 
 			expect(backButton).toBeInTheDocument();
 		});
@@ -125,131 +124,124 @@ describe('Panels Specs', () => {
 			expect(backButton).toBeNull();
 		});
 
-		// test('should not render back button when \'noBackButton\' is set on `Panel` 2', () => {
-		// 	const panels = mount(
-		// 		<Panels index={1}>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 			<Panel noBackButton>
-		// 				<Header />
-		// 			</Panel>
-		// 		</Panels>
-		// 	);
-		//
-		// 	const backButton = panels.find('Header .slotBefore').find('Button');
-		// 	const expected = 0;
-		// 	const actual = backButton.length;
-		//
-		// 	expect(actual).toBe(expected);
-		// });
-		//
-		// test('should render back button on panel 3 when \'noBackButton\' is set on panel 2', () => {
-		// 	const panels = mount(
-		// 		<Panels index={2}>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 			<Panel noBackButton>
-		// 				<Header />
-		// 			</Panel>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 		</Panels>
-		// 	);
-		//
-		// 	const backButton = panels.find('Header .slotBefore').find('Button');
-		// 	const expected = 1;
-		// 	const actual = backButton.length;
-		//
-		// 	expect(actual).toBe(expected);
-		// });
-		//
-		// test('should set back button "aria-label" to backButtonAriaLabel', () => {
-		// 	const label = 'custom back button label';
-		// 	const panels = mount(
-		// 		<Panels backButtonAriaLabel={label} index={1}>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 		</Panels>
-		// 	);
-		//
-		// 	const expected = label;
-		// 	const actual = panels.find('Header .slotBefore').find('Button').prop('aria-label');
-		//
-		// 	expect(actual).toBe(expected);
-		// });
-		//
-		// test('should set back button "aria-label" to backButtonAriaLabel when defined only on a panel', () => {
-		// 	const label = 'custom back button label';
-		// 	const panels = mount(
-		// 		<Panels index={1}>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 			<Panel backButtonAriaLabel={label}>
-		// 				<Header />
-		// 			</Panel>
-		// 		</Panels>
-		// 	);
-		//
-		// 	const expected = label;
-		// 	const actual = panels.find('Header .slotBefore').find('Button').prop('aria-label');
-		//
-		// 	expect(actual).toBe(expected);
-		// });
-		//
-		// test('should render close button', () => {
-		// 	const panels = mount(
-		// 		<Panels index={0}>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 		</Panels>
-		// 	);
-		//
-		// 	const closeButton = panels.find('Header .slotAfter').find('Button');
-		// 	const expected = 1;
-		// 	const actual = closeButton.length;
-		//
-		// 	expect(actual).toBe(expected);
-		// });
-		//
-		// test('should not render close button when \'noCloseButton\' is set to true', () => {
-		// 	const panels = mount(
-		// 		<Panels index={0} noCloseButton>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 		</Panels>
-		// 	);
-		//
-		// 	const backButton = panels.find('Header .slotAfter').find('Button');
-		// 	const expected = 0;
-		// 	const actual = backButton.length;
-		//
-		// 	expect(actual).toBe(expected);
-		// });
-		//
-		// test('should set close button "aria-label" to closeButtonAriaLabel', () => {
-		// 	const label = 'custom close button label';
-		// 	const panels = mount(
-		// 		<Panels closeButtonAriaLabel={label} index={0}>
-		// 			<Panel>
-		// 				<Header />
-		// 			</Panel>
-		// 		</Panels>
-		// 	);
-		//
-		// 	const expected = label;
-		// 	const actual = panels.find('Header .slotAfter').find('Button').prop('aria-label');
-		//
-		// 	expect(actual).toBe(expected);
-		// });
+		test('should not render back button when \'noBackButton\' is set on `Panel` 2', () => {
+			render(
+				<Panels index={1}>
+					<Panel>
+						<Header />
+					</Panel>
+					<Panel noBackButton>
+						<Header />
+					</Panel>
+				</Panels>
+			);
+
+			const backButton = screen.queryByLabelText('go to previous');
+
+			expect(backButton).toBeNull();
+		});
+
+		test('should render back button on panel 3 when \'noBackButton\' is set on panel 2', () => {
+			render(
+				<Panels index={2}>
+					<Panel>
+						<Header />
+					</Panel>
+					<Panel noBackButton>
+						<Header />
+					</Panel>
+					<Panel>
+						<Header />
+					</Panel>
+				</Panels>
+			);
+
+			const backButton = screen.getByLabelText('go to previous');
+
+			expect(backButton).toBeInTheDocument();
+		});
+
+		test('should set back button "aria-label" to backButtonAriaLabel', () => {
+			const label = 'custom back button label';
+			render(
+				<Panels backButtonAriaLabel={label} index={1}>
+					<Panel>
+						<Header />
+					</Panel>
+					<Panel>
+						<Header />
+					</Panel>
+				</Panels>
+			);
+
+			const backButton = screen.getByLabelText(label);
+
+			expect(backButton).toBeInTheDocument();
+			expect(backButton.parentElement.parentElement).toHaveClass('slotBefore');
+		});
+
+		test('should set back button "aria-label" to backButtonAriaLabel when defined only on a panel', () => {
+			const label = 'custom back button label';
+			render(
+				<Panels index={1}>
+					<Panel>
+						<Header />
+					</Panel>
+					<Panel backButtonAriaLabel={label}>
+						<Header />
+					</Panel>
+				</Panels>
+			);
+
+			const backButton = screen.getByLabelText(label);
+
+			expect(backButton).toBeInTheDocument();
+			expect(backButton.parentElement.parentElement).toHaveClass('slotBefore');
+		});
+
+		test('should render close button', () => {
+			render(
+				<Panels index={0}>
+					<Panel>
+						<Header />
+					</Panel>
+				</Panels>
+			);
+
+			const backButton = screen.getByLabelText('Exit app');
+
+			expect(backButton).toBeInTheDocument();
+			expect(backButton.parentElement.parentElement).toHaveClass('slotAfter');
+		});
+
+		test('should not render close button when \'noCloseButton\' is set to true', () => {
+			render(
+				<Panels index={0} noCloseButton>
+					<Panel>
+						<Header />
+					</Panel>
+				</Panels>
+			);
+
+			const backButton = screen.queryByLabelText('Exit app');
+
+			expect(backButton).toBeNull();
+		});
+
+		test('should set close button "aria-label" to closeButtonAriaLabel', () => {
+			const label = 'custom close button label';
+			render(
+				<Panels closeButtonAriaLabel={label} index={0}>
+					<Panel>
+						<Header />
+					</Panel>
+				</Panels>
+			);
+
+			const backButton = screen.getByLabelText(label);
+
+			expect(backButton).toBeInTheDocument();
+			expect(backButton.parentElement.parentElement).toHaveClass('slotAfter');
+		});
 	});
 });
