@@ -25,13 +25,18 @@ const inputData = {
 	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit.'
 };
 
-class WizardPanelsWidthFooterButtons extends Component {
+class WizardPanelsWithFooterButtons extends Component {
 	constructor () {
 		super();
 		this.state = {
-			index: 0
+			index: 0,
+			value: 0
 		};
 	}
+
+	onClick = () => {
+		this.setState(prevState => ({value: prevState.value + 1}));
+	};
 
 	onNextClick = (ev) => {
 		this.setState({index: 1});
@@ -47,17 +52,23 @@ class WizardPanelsWidthFooterButtons extends Component {
 		return (
 			<WizardPanels
 				index={this.state.index}
-				noAnimation
+				noAnimation={boolean('noAnimation', Config)}
 				onNextClick={this.onNextClick}
 				onPrevClick={this.onPrevClick}
 			>
 				<Panel title={'Panel0'} subtitle={'subtitle'} nextButton={<Button>Next</Button>}>
+					Panel 0
+					<Button onClick={this.onClick}>+1</Button>
+					{this.state.value}
 					<footer>
 						<Button>Dummy</Button>
 						<Button onClick={this.onNextClick}>Next</Button>
 					</footer>
 				</Panel>
 				<Panel title={'Panel1'} subtitle={'subtitle'} prevButton={<Button>Previous</Button>}>
+					Panel 1
+					<Button onClick={this.onClick}>+1</Button>
+					{this.state.value}
 					<footer>
 						<Button onClick={this.onPrevClick}>Previous</Button>
 					</footer>
@@ -177,7 +188,7 @@ LongPrevNextButtons.parameters = {
 	}
 };
 
-export const WithFooterButtons = () => <WizardPanelsWidthFooterButtons />;
+export const WithFooterButtons = () => <WizardPanelsWithFooterButtons />;
 
 WithFooterButtons.storyName = 'with footer buttons';
 WithFooterButtons.parameters = {
