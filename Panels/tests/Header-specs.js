@@ -22,7 +22,6 @@ describe('Header Specs', () => {
 		const header = screen.getByTestId('header');
 
 		expect(header).toHaveClass(expected);
-
 	});
 
 	test('should support "compact" type', () => {
@@ -32,7 +31,6 @@ describe('Header Specs', () => {
 		const header = screen.getByTestId('header');
 
 		expect(header).toHaveClass(expected);
-
 	});
 
 	test('should have centered class applied when the centered prop is true', () => {
@@ -42,7 +40,6 @@ describe('Header Specs', () => {
 		const header = screen.getByTestId('header');
 
 		expect(header).toHaveClass(expected);
-
 	});
 
 	test('should support `slotAbove`', () => {
@@ -127,10 +124,7 @@ describe('Header Specs', () => {
 		fireEvent.mouseDown(screen.getByRole('button'));
 		fireEvent.mouseUp(screen.getByRole('button'));
 
-		const expected = 1;
-		const actual = handleClose.mock.calls.length;
-
-		expect(actual).toBe(expected);
+		expect(handleClose).toHaveBeenCalled();
 	});
 
 	test('should set close button "aria-label" to closeButtonAriaLabel', () => {
