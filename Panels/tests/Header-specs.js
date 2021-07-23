@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 
 import Header from '../Header';
 import css from '../Header.module.less';
@@ -55,8 +55,9 @@ describe('Header Specs', () => {
 		);
 
 		const slotAbove = screen.getByText(expected);
+		const expectedClass = css.slotAbove;
 
-		expect(slotAbove).toHaveClass(css.slotAbove);
+		expect(slotAbove).toHaveClass(expectedClass);
 	});
 
 	test('should support `slotBefore`', () => {
@@ -72,8 +73,9 @@ describe('Header Specs', () => {
 		);
 
 		const slotBefore = screen.getByText(expected).parentElement;
+		const expectedClass = css.slotBefore;
 
-		expect(slotBefore).toHaveClass(css.slotBefore);
+		expect(slotBefore).toHaveClass(expectedClass);
 	});
 
 	test('should support `slotAfter`', () => {
@@ -89,8 +91,9 @@ describe('Header Specs', () => {
 		);
 
 		const slotAfter = screen.getByText(expected).parentElement;
+		const expectedClass = css.slotAfter;
 
-		expect(slotAfter).toHaveClass(css.slotAfter);
+		expect(slotAfter).toHaveClass(expectedClass);
 	});
 
 	test('should not render back button', () => {
@@ -117,7 +120,7 @@ describe('Header Specs', () => {
 		expect(closeButton).toBeNull();
 	});
 
-	test('should call onClose when close button is clicked', () => {
+	test('should call onClose when close button is clicked', async () => {
 		const handleClose = jest.fn();
 		render(<Header onClose={handleClose} />);
 
@@ -125,6 +128,10 @@ describe('Header Specs', () => {
 		fireEvent.mouseUp(screen.getByRole('button'));
 
 		expect(handleClose).toHaveBeenCalled();
+
+		await waitFor(() => {
+			expect(handleClose).toHaveBeenCalledTimes(1);
+		});
 	});
 
 	test('should set close button "aria-label" to closeButtonAriaLabel', () => {
