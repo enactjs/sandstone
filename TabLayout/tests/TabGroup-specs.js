@@ -4,24 +4,25 @@ import {render, screen} from '@testing-library/react';
 import TabGroup from '../TabGroup';
 
 describe('TabGroup specs', () => {
-
 	test('should only have one icon item when collapsed and vertical orientation when there is a tab without an icon', () => {
 		render(
 			<TabGroup
+				data-testid="tabs"
 				orientation="vertical"
 				collapsed
 				tabs={[
 					{title: 'Home', icon: 'home'},
 					{title: 'Button'},
-					{title: 'Item', icon: 'playcircle'}
+					{title: 'Item', icon: 'plus'}
 				]}
 			/>
 		);
+		const tabGroup = screen.getByTestId('tabs');
 
-		// When one of the tabs doesn't have an icon, the role='group' is not applied to the component
-		const actual = screen.queryByRole('group');
+		const expectedCode = 983019;  // decimal converted charCode of Unicode 'horizontal lines' character
+		const actualCode = tabGroup.textContent.codePointAt();
 
-		expect(actual).toBeNull();
+		expect(actualCode).toBe(expectedCode);
 	});
 
 	test('should only have 3 item tabs when 3 tabs were specified', () => {
@@ -34,32 +35,28 @@ describe('TabGroup specs', () => {
 				]}
 			/>
 		);
-		const firstTab = screen.getByRole('group').children.item(0);
-		const secondTab = screen.getByRole('group').children.item(1);
-		const thirdTab = screen.getByRole('group').children.item(2);
-		const fourthTab = screen.getByRole('group').children.item(3);
 
-		expect(firstTab).toBeInTheDocument();
-		expect(secondTab).toBeInTheDocument();
-		expect(thirdTab).toBeInTheDocument();
-		expect(fourthTab).toBeNull();
+		const expected = 3;
+		const actual = screen.getByRole('group').children;
+
+		expect(actual).toHaveLength(expected);
 	});
 
 	test('should render icons', () => {
 		render(
 			<TabGroup
 				tabs={[
-					{title: 'Home', icon: 'home'},
-					{title: 'Button', icon: 'demosync'},
-					{title: 'Item', icon: 'playcircle'}
+					{title: '', icon: 'home', 'data-testid': 'homeIcon'},
+					{title: '', icon: 'demosync', 'data-testid': 'homeDemosync'},
+					{title: '', icon: 'playcircle', 'data-testid': 'homePlaycircle'}
 				]}
 			/>
 		);
-		const actualHomeIcon = screen.getByRole('group').children.item(0).children.item(1).children.item(0).textContent.codePointAt();
+		const actualHomeIcon = screen.getByTestId('homeIcon').textContent.codePointAt();
 		const expectedHomeIcon = 983227; // decimal converted charCode of Unicode 'home' character
-		const actualDemosyncIcon = screen.getByRole('group').children.item(1).children.item(1).children.item(0).textContent.codePointAt();
+		const actualDemosyncIcon = screen.getByTestId('homeDemosync').textContent.codePointAt();
 		const expectedDemosyncIcon = 983355; // decimal converted charCode of Unicode 'demosync' character
-		const actualPlayCircleIcon = screen.getByRole('group').children.item(2).children.item(1).children.item(0).textContent.codePointAt();
+		const actualPlayCircleIcon = screen.getByTestId('homePlaycircle').textContent.codePointAt();
 		const expectedPlayCircleIcon = 983312; // decimal converted charCode of Unicode 'playcircle' character
 
 		expect(actualHomeIcon).toBe(expectedHomeIcon);
