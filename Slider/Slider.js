@@ -105,8 +105,8 @@ const SliderBase = (props) => {
 
 	const nativeEventHandlers = useHandlers({
 		onWheel: handle(
-			forProp('noWheelEvent', false),
 			forProp('disabled', false),
+			forProp('noWheelEvent', false),
 			forwardWithPrevent('onWheel'),
 			anyPass([
 				handleIncrementByWheel,
@@ -284,6 +284,14 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * @public
 	 */
 	min: PropTypes.number,
+
+	/**
+	 * Block the wheel event.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	noWheelEvent: PropTypes.bool,
 
 	/**
 	 * The handler when the knob is activated or deactivated by selecting it via 5-way
