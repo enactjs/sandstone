@@ -15,6 +15,7 @@ export const _TimePicker = () => (
 	<TimePicker
 		disabled={boolean('disabled', Config)}
 		spotlightDisabled={boolean('spotlightDisabled', Config)}
+		noLabel={boolean('noLabel', Config)}
 		hourAriaLabel={text('hourAriaLabel', Config, '')}
 		minuteAriaLabel={text('minuteAriaLabel', Config, '')}
 		meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
