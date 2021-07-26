@@ -500,7 +500,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		delete rest.onBack;
 
 		return (
-			<WizardPanelsContext.Provider value={{setPanel, index}}>
+			<WizardPanelsContext.Provider value={setPanel}>
 				{Children.toArray(children)[index]}
 				<Wrapped
 					{...rest}

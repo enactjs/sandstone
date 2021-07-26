@@ -21,7 +21,7 @@ function PanelBase ({
 	subtitle,
 	title
 }) {
-	const {setPanel: set} = useContext(WizardPanelsContext);
+	const set = useContext(WizardPanelsContext);
 
 	useEffect(() => {
 		if (set) {
