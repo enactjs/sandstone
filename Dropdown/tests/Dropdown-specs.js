@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import {render, screen, within} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {Dropdown, DropdownBase} from '../Dropdown';
+import {DropdownBase} from '../Dropdown';
 import DropdownList from '../DropdownList';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
@@ -164,25 +164,44 @@ describe('Dropdown', () => {
 		expect(actual).toHaveAttribute('aria-disabled', expected);
 	});
 
-	test('should update when children are added', () => {
+	test('should update when children are removed or added', () => {
 		const {rerender} = render(
-			<Dropdown title={title}>
-				{children}
-			</Dropdown>
+			<FloatingLayerController>
+				<DropdownBase open title={title}>
+					{children}
+				</DropdownBase>
+			</FloatingLayerController>
 		);
 
-		const updatedChildren = children.concat('option4', 'option5');
+		const lessChildren = children.slice(0, -1);
 
 		rerender(
-			<Dropdown title={title}>
-				{updatedChildren}
-			</Dropdown>
+			<FloatingLayerController>
+				<DropdownBase open title={title}>
+					{lessChildren}
+				</DropdownBase>
+			</FloatingLayerController>
 		);
 
-		const expected = 5;
-		const actual = updatedChildren.length;
+		const lessChildrenExpected = 2;
+		const lessChildrenActual = screen.getByRole('list').children;
 
-		expect(actual).toBe(expected);
+		expect(lessChildrenActual).toHaveLength(lessChildrenExpected);
+
+		const moreChildren = children.concat('option3');
+
+		rerender(
+			<FloatingLayerController>
+				<DropdownBase open title={title}>
+					{moreChildren}
+				</DropdownBase>
+			</FloatingLayerController>
+		);
+
+		const moreChildrenExpected = 3;
+		const moreChildrenActual = screen.getByRole('list').children;
+
+		expect(moreChildrenActual).toHaveLength(moreChildrenExpected);
 	});
 
 	test('should set the `role` of items to "checkbox"', () => {
