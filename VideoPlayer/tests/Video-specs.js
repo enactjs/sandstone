@@ -158,34 +158,6 @@ describe('VideoPlayer.Video', () => {
 			expect(newPreload).toBe(source);
 		});
 
-		test('should not swap nodes on re-render after swapping `source` and `preloadSource`', () => {
-			const {rerender} = render(
-				<Video data-testid="video-id" preloadSource="def.mp4" source="abc.mp4" />
-			);
-
-			const source = screen.getByTestId('video-id');
-			const preload = screen.getByTestId('video-id').nextElementSibling;
-
-			rerender(
-				<Video data-testid="video-id" preloadSource="abc.mp4" source="def.mp4" />
-			);
-
-			const newSource = screen.getByTestId('video-id');
-			const newPreload = screen.getByTestId('video-id').nextElementSibling;
-
-			rerender(
-				<Video data-testid="video-id" preloadSource="abc.mp4" source="def.mp4" />
-			);
-
-			const latestSource = screen.getByTestId('video-id');
-			const latestPreload = screen.getByTestId('video-id').nextElementSibling;
-
-			expect(newSource).toBe(preload);
-			expect(newPreload).toBe(source);
-			expect(latestSource).toBe(preload);
-			expect(latestPreload).toBe(source);
-		});
-
 		test('should reuse preload node when moving `preloadSource` to `source`', () => {
 			const {rerender} = render(
 				<Video data-testid="video-id" preloadSource="def.mp4" source="abc.mp4" />
