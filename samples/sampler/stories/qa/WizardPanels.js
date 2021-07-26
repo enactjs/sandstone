@@ -52,7 +52,7 @@ class WizardPanelsWithFooterButtons extends Component {
 		return (
 			<WizardPanels
 				index={this.state.index}
-				noAnimation={boolean('noAnimation', Config)}
+				noAnimation
 				onNextClick={this.onNextClick}
 				onPrevClick={this.onPrevClick}
 			>
