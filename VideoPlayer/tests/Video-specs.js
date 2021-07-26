@@ -174,11 +174,16 @@ describe('VideoPlayer.Video', () => {
 			const newPreload = screen.getByTestId('video-id').nextElementSibling;
 
 			rerender(
-				<Video />
+				<Video data-testid="video-id" />
 			);
+
+			const latestSource = screen.getByTestId('video-id');
+			const latestPreload = screen.getByTestId('video-id').nextElementSibling;
 
 			expect(newSource).toBe(preload);
 			expect(newPreload).toBe(source);
+			expect(latestSource).not.toBe(newPreload);
+			expect(latestPreload).not.toBe(newSource);
 		});
 
 		test('should reuse preload node when moving `preloadSource` to `source`', () => {
