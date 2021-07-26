@@ -447,14 +447,14 @@ function useReverseTransition (index = -1, rtl) {
 	const prevIndex = useRef(index);
 	const reverse = useRef(rtl);
 	// If the index was changed, the panel transition is occured on the next cycle by `Panel`
-	const prevReverse = reverse.current;
+	const returnValue = {reverseTransition: reverse.current, prevIndex: prevIndex.current};
 
 	if (prevIndex.current !== index) {
 		reverse.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
 		prevIndex.current = index;
 	}
 
-	return prevReverse;
+	return returnValue;
 }
 
 /**
@@ -483,7 +483,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
-		const reverseTransition = useReverseTransition(index, rtl);
+		const {reverseTransition, prevIndex} = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
@@ -515,7 +515,11 @@ const WizardPanelsRouter = (Wrapped) => {
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
-					{panel && panel.children ? panel.children : null}
+					{panel && panel.children ? (
+						<div className="enact-fit" key={`panel${prevIndex}`}>
+							{panel.children}
+						</div>
+					) : null}
 				</Wrapped>
 			</WizardPanelsContext.Provider>
 		);
