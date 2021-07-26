@@ -105,6 +105,7 @@ const SliderBase = (props) => {
 
 	const nativeEventHandlers = useHandlers({
 		onWheel: handle(
+			forProp('noWheelEvent', false),
 			forProp('disabled', false),
 			forwardWithPrevent('onWheel'),
 			anyPass([
