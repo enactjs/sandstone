@@ -3,13 +3,15 @@
  *
  * @module sandstone/FixedPopupPanels
  * @exports FixedPopupPanels
+ * @exports FixedPopupPanelsBase
+ * @exports FixedPopupPanelsDecorator
  * @exports Panel
  * @exports Header
  */
 
-import {forKey, forward, handle, stop} from '@enact/core/handle';
+import {forKey, forProp, forward, handle, stop} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
-import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import compose from 'ramda/src/compose';
 
@@ -19,7 +21,16 @@ import DefaultHeader from '../Panels/Header';
 
 import css from './FixedPopupPanels.module.less';
 
+/**
+ * Adds popup functionality and `rtl` prop to [`FixedPopupPanels`]{@link sandstone/FixedPopupPanels}.
+ *
+ * @class FixedPopupPanelsDecorator
+ * @memberof sandstone/FixedPopupPanels
+ * @hoc
+ * @public
+ */
 const FixedPopupPanelsDecorator = compose(
+	I18nContextDecorator({rtlProp: 'rtl'}),
 	PopupDecorator({
 		className: 'fixedPopupPanels',
 		css,
@@ -29,18 +40,31 @@ const FixedPopupPanelsDecorator = compose(
 	})
 );
 
-const FixedPopupPanelsBase = FixedPopupPanelsDecorator(Viewport);
-
 const fixedPopupPanelsHandlers = {
 	onKeyDown: handle(
 		forward('onKeyDown'),
+		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
-		({target}) => (getContainerNode(getContainersForNode(target).pop()).tagName !== 'HEADER'),
+		({target}) => (document.querySelector(`section.${css.body}`).contains(target)),
 		({target}) => (getTargetByDirectionFromElement('left', target) === null),
 		forward('onBack'),
 		stop
 	)
+};
+
+/**
+ * A base panels component for [`FixedPopupPanels`]{@link sandstone/FixedPopupPanels} that has
+ * left key handler to navigate panels.
+ *
+ * @class FixedPopupPanelsBase
+ * @memberof sandstone/FixedPopupPanels
+ * @ui
+ * @public
+ */
+const FixedPopupPanelsBase = (props) => {
+	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
+	return <Viewport {...props} {...handlers} />;
 };
 
 /**
@@ -50,14 +74,12 @@ const fixedPopupPanelsHandlers = {
  *
  * @class FixedPopupPanels
  * @memberof sandstone/FixedPopupPanels
+ * @extends sandstone/FixedPopupPanels.FixedPopupPanelsBase
+ * @mixes sandstone/FixedPopupPanels.FixedPopupPanelsDecorator
  * @ui
  * @public
  */
-const FixedPopupPanels = (props) => {
-	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
-
-	return <FixedPopupPanelsBase {...props} {...handlers} />;
-};
+const FixedPopupPanels = FixedPopupPanelsDecorator(FixedPopupPanelsBase);
 
 /**
  * Size of the popup.
@@ -116,6 +138,8 @@ FixedPopupPanels.Header = Header;
 export default FixedPopupPanels;
 export {
 	FixedPopupPanels,
+	FixedPopupPanelsBase,
+	FixedPopupPanelsDecorator,
 	Header,
 	Panel
 };

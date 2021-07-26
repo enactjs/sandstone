@@ -17,9 +17,10 @@ describe('Navigate with 5-way', function () {
 		Page.numPad(4);
 		Page.numPad(0);
 		Page.numPad(0);
+		Page.spotlightRight();
 
 		// Adjust MinHeight
-		Page.spotlightRight();
+		Page.inputMinHeight.moveTo();
 		Page.spotlightSelect();
 		Page.backSpace();
 		Page.backSpace();
@@ -40,6 +41,10 @@ describe('Navigate with 5-way', function () {
 		// Step 4: Focus on the last item.
 		Page.item(Number(Page.bottomRightVisibleItemId().slice(4))).moveTo();
 		Page.spotlightDown();
+
+		// Wait for scroll animation
+		Page.delay(300);
+
 		// check if the previous item partially cut off.
 		expect(Page.itemOffsetBottomById(10)).to.be.below(Page.getItemSize().height);
 		// Step 4 Verify: Spotlight is on the last item.
