@@ -8,7 +8,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Slider` prop `noWheelEvent` to disable wheel event handler
 
-
 ## [2.0.0-rc.5] - 2021-07-22
 
 ### Added

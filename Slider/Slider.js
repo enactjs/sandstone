@@ -286,7 +286,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	min: PropTypes.number,
 
 	/**
-	 * Block the wheel event.
+	 * Disable wheel event.
 	 *
 	 * @type {Boolean}
 	 * @public
