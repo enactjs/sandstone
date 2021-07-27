@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Slider` prop `noWheel` to disable wheel event handler
+
 ## [2.0.0-rc.5] - 2021-07-22
 
 ### Added
@@ -12,6 +18,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ContextualPopupDecorator` to focus elements in `ContextualPopup` when `spotlightRestrict` is `self-first` via 5way
 - `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to not go back to the previous panel by left key on popup opened inside
 - `sandstone/MediaPlayer` to work trick play via key
 - `sandstone/Scroller` and `sandstone/VirtualList` to show scroll animation properly with 5-way directional keys
