@@ -17,7 +17,7 @@
  * @exports SliderTooltip
  */
 
-import {forKey, forProp, forward, forwardWithPrevent, handle} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {mergeClassNameMaps} from '@enact/core/util';
 import Accelerator from '@enact/spotlight/Accelerator';
@@ -106,7 +106,7 @@ const SliderBase = (props) => {
 	const nativeEventHandlers = useHandlers({
 		onWheel: handle(
 			forProp('disabled', false),
-			forProp('noWheelEvent', false),
+			not(forProp('noWheel', true)),
 			forwardWithPrevent('onWheel'),
 			anyPass([
 				handleIncrementByWheel,
@@ -152,6 +152,7 @@ const SliderBase = (props) => {
 
 	delete rest.activateOnSelect;
 	delete rest.knobStep;
+	delete rest.noWheel;
 	delete rest.onActivate;
 	delete rest.step;
 	delete rest.tooltip;
@@ -291,7 +292,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * @type {Boolean}
 	 * @public
 	 */
-	noWheelEvent: PropTypes.bool,
+	noWheel: PropTypes.bool,
 
 	/**
 	 * The handler when the knob is activated or deactivated by selecting it via 5-way

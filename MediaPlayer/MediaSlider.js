@@ -85,7 +85,6 @@ const MediaSliderBase = kind({
 			<div className={className}>
 				<Slider
 					{...rest}
-					noWheelEvent
 					aria-hidden="true"
 					className={sliderClassName}
 					css={css}
@@ -94,6 +93,7 @@ const MediaSliderBase = kind({
 					}
 					max={1}
 					min={0}
+					noWheel
 					step={0.00001}
 				/>
 			</div>
