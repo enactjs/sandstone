@@ -49,17 +49,14 @@ describe('Icon Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should support preset size "large"',
-		() => {
-			render(<Icon data-testid="icon" size="large">star</Icon>);
+	test('should support preset size "large"', () => {
+		render(<Icon data-testid="icon" size="large">star</Icon>);
 
-			const expected = 'large';
-			const icon = screen.getByTestId('icon');
+		const expected = 'large';
+		const icon = screen.getByTestId('icon');
 
-			expect(icon).toHaveClass(expected);
-		}
-	);
+		expect(icon).toHaveClass(expected);
+	});
 
 	test('should support preset size "medium"', () => {
 		render(<Icon data-testid="icon" size="medium">star</Icon>);
@@ -68,8 +65,7 @@ describe('Icon Specs', () => {
 		const icon = screen.getByTestId('icon');
 
 		expect(icon).toHaveClass(expected);
-	}
-	);
+	});
 
 	test('should support preset size "small"', () => {
 		render(<Icon data-testid="icon" size="small">star</Icon>);
@@ -78,8 +74,7 @@ describe('Icon Specs', () => {
 		const icon = screen.getByTestId('icon');
 
 		expect(icon).toHaveClass(expected);
-	}
-	);
+	});
 
 	test('should support preset size "tiny"', () => {
 		render(<Icon data-testid="icon" size="tiny">star</Icon>);
@@ -88,8 +83,7 @@ describe('Icon Specs', () => {
 		const icon = screen.getByTestId('icon');
 
 		expect(icon).toHaveClass(expected);
-	}
-	);
+	});
 
 	test('should support arbitrary custom numeric sizes', () => {
 		render(<Icon data-testid="icon" size={96}>star</Icon>);
@@ -98,8 +92,7 @@ describe('Icon Specs', () => {
 		const icon = screen.getByTestId('icon').style;
 
 		expect(icon).toHaveProperty('0', expected);
-	}
-	);
+	});
 
 	test('should support arbitrary custom numeric sizes that scale to the correct value', () => {
 		render(<Icon data-testid="icon" size={96}>star</Icon>);
@@ -110,6 +103,5 @@ describe('Icon Specs', () => {
 		// with a base pxToRem value of 48px, which would be 2rem.
 		// Tests must run at a tiny simulated screen size.
 		expect(icon).toHaveStyle({'--icon-size': '8rem'});
-	}
-	);
+	});
 });
