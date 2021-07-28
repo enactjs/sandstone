@@ -29,6 +29,5 @@ describe('DateTimeDecorator', () => {
 		const expected = '45';
 		const actual = screen.getByTitle('Date').textContent;
 		expect(actual).toBe(expected);
-	}
-	);
+	});
 });
