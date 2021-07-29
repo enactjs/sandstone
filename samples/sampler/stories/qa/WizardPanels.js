@@ -226,7 +226,6 @@ WithChangingChildren.parameters = {
 };
 
 class PureComponentItem extends PureComponent {
-
 	constructor (props) {
 		super(props);
 		action('constructor')(props.children);

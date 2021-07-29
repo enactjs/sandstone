@@ -447,14 +447,14 @@ function useReverseTransition (index = -1, rtl) {
 	const prevIndex = useRef(index);
 	const reverse = useRef(rtl);
 	// If the index was changed, the panel transition is occured on the next cycle by `Panel`
-	const returnValue = {reverseTransition: reverse.current, prevIndex: prevIndex.current};
+	const prev = {reverseTransition: reverse.current, prevIndex: prevIndex.current};
 
 	if (prevIndex.current !== index) {
 		reverse.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
 		prevIndex.current = index;
 	}
 
-	return returnValue;
+	return prev;
 }
 
 /**
