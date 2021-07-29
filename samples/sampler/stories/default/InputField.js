@@ -12,7 +12,7 @@ const Config = mergeComponentMetadata('InputField', InputFieldBase, InputField);
 
 // Set up some defaults for info and knobs
 const prop = {
-	type: ['text', 'number', 'password', 'url']
+	type: ['text', 'number', 'password', 'url', 'tel', 'passwordtel']
 };
 
 export default {
