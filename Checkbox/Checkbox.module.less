@@ -189,26 +189,26 @@
 
 // The following target instances where the checkbox is inside another component and that
 // component is receiving the disabled/focused etc states, rather than checkbox directly.
-.focus({
-	& .checkbox {
-		.applySkins({
+.applySkins({
+	.focus({
+		& .checkbox {
 			@checkbox-focus();
-		});
-	}
+		}
+	});
 });
 
-.disabled({
-	& .checkbox {
-		.applySkins({
-			@checkbox-disabled-resting();
-		});
-	}
-});
-
-.focus({
+.applySkins({
 	.disabled({
 		& .checkbox {
-			.applySkins({
+			@checkbox-disabled-resting();
+		}
+	});
+});
+
+.applySkins({
+	.focus({
+		.disabled({
+			& .checkbox {
 				@checkbox-disabled-focus();
 
 				&.standalone {
@@ -216,7 +216,7 @@
 						.sand-disabled-focus-content-colors();
 					}
 				}
-			});
-		}
+			}
+		});
 	});
 });

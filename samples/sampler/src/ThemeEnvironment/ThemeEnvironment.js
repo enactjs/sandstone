@@ -105,7 +105,8 @@ const backgroundLabelMap = {
 
 const skins = {
 	'Neutral': 'neutral',
-	'Light': 'light'
+	'Light': 'light',
+	'Custom': 'custom'
 };
 
 const getArgs = (str) => {
