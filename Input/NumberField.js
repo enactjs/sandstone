@@ -1,17 +1,17 @@
-import kind from '@enact/core/kind';
 import {handle, adaptEvent, forward, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
-import PropTypes from 'prop-types';
-import {Fragment} from 'react';
-import compose from 'ramda/src/compose';
-import Changeable from '@enact/ui/Changeable';
-import Repeater from '@enact/ui/Repeater';
-import Layout, {Cell} from '@enact/ui/Layout';
-import Tooltip from '../TooltipDecorator/Tooltip';
+import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Changeable from '@enact/ui/Changeable';
+import Layout, {Cell} from '@enact/ui/Layout';
+import Repeater from '@enact/ui/Repeater';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import {Fragment} from 'react';
 
 import Button from '../Button';
 import Icon from '../Icon';
 import $L from '../internal/$L';
+import Tooltip from '../TooltipDecorator/Tooltip';
 
 import Keypad from './Keypad';
 import {DEFAULT_LENGTH, SEPARATE_DIGITS_LIMIT, convertToPasswordFormat} from './util';
