@@ -4,7 +4,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-## Fixed
+### Added
+
+- `sandstone/Slider` prop `noWheel` to disable wheel event handler
+
+### Changed
+
+- `sandstone/Input` type `tel` and `passwordtel`
+
+### Fixed
 
 - `sandstone/ContextualPopupDecorator` to focus elements in `ContextualPopup` when `spotlightRestrict` is `self-first` via 5way
 
@@ -103,6 +111,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` focus rule to match latest UX when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds
 - `sandstone/WizardPanels.Panel` `nextButton` and `prevButton` to show labels separately to match latest designs
+
+## [1.4.8] - 2021-05-06
 
 ### Fixed
 
