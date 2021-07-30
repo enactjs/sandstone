@@ -12,7 +12,7 @@ const transitionHandlers = {
 				if (spotlightId && !currentSpotlight) {
 					Spotlight.focus(spotlightId);
 				}
-			});
+			}, 16);
 		}
 	),
 	onWillTransition: handle(
@@ -29,7 +29,7 @@ const transitionHandlers = {
 };
 
 function useFocusOnTransition (config) {
-	const {current} = useRef({timerId: null, index: config.index});
+	const {current} = useRef({timerId: null});
 	const handlers = useHandlers(transitionHandlers, config, {current});
 
 	return handlers;
