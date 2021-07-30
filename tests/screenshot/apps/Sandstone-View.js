@@ -174,7 +174,7 @@ const ExportedApp = (props) => {
 	const WrappedApp = ThemeDecorator({noAutoFocus}, App);
 
 	useEffect(() => {
-		document.querySelector('#root > div').classList.add('spotlight-input-key');
+		document.querySelector('#root').classList.add('spotlight-input-key');
 	}, []);
 
 	return (
