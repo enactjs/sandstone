@@ -12,7 +12,7 @@ const transitionHandlers = {
 				if (spotlightId && !currentSpotlight) {
 					Spotlight.focus(spotlightId);
 				}
-			}, 16);
+			});
 		}
 	),
 	onWillTransition: handle(
