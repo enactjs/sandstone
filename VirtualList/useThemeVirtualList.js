@@ -31,8 +31,12 @@ const useSpottable = (props, instances) => {
 	const {noAffordance, scrollMode, snapToCenter} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const getItemNode = (index) => {
-		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
-		return (itemNode && parseInt(itemNode.dataset.index) === index) ? itemNode : null;
+		const itemContainerRef = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
+		if (itemContainerRef) {
+			const itemNode = itemContainerRef.children[0];
+			return (parseInt(itemNode.dataset.index) === index) ? itemNode : itemContainerRef.querySelector(`[data-index="${index}"]`);
+		}
+		return null;
 	};
 
 	// Mutable value
