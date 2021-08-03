@@ -7,7 +7,7 @@
 	@import "./color-mixins.less";
 
 	// Neutral Skin
-	&:global(.neutral) {
+	:global(.neutral) & {
 		// Load the sandstone neutral rules into this scope
 		@import (multiple) "./colors.less";
 
@@ -22,9 +22,17 @@
 	}
 
 	// Light Skin
-	&:global(.light) {
+	:global(.light) & {
 		@import (multiple) "./colors.less";
 		@import "./colors-light.less";
+
+		@componentRules();
+	}
+
+	// Custom Skin
+	:global(.custom) & {
+		@import (multiple) "./colors.less";
+		@import "./colors-custom.less";
 
 		@componentRules();
 	}
