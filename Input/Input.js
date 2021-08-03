@@ -520,7 +520,8 @@ const InputBase = kind({
 	},
 
 	defaultProps: {
-		placeholder: '-'
+		placeholder: '-',
+		type: 'text'
 	},
 
 	handlers: {
