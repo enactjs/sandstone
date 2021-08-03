@@ -21,7 +21,7 @@
 
 // UI Conceptual Colors
 // ---------------------------------------
-@sand-bg-color:      @sand-black;
+@sand-fullscreen-bg-color:      @sand-black;
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  @sand-light-gray;
 @sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
@@ -67,6 +67,8 @@
 // ---------------------------------------
 @sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
+@sand-button-focus-bg-color: @sand-button-bg-color;
+@sand-button-selected-bg-color: @sand-button-bg-color;
 @sand-button-focus-filter: saturate(0) brightness(1.755); // Simulates @sand-spotlight-bg-color
 @sand-button-selected-filter: saturate(1.5) brightness(0.5); // Simulates #3e454d, the spec color
 @sand-button-transparent-text-color: @sand-text-color;
@@ -98,7 +100,6 @@
 @sand-checkbox-indeterminate-focus-color: @sand-spotlight-text-color;
 @sand-checkbox-indeterminate-focus-bg-color: @sand-checkbox-focus-bg-color;
 @sand-checkbox-indeterminate-focus-border-color: @sand-checkbox-focus-border-color;
-@sand-checkbox-standalone-bg-disabled-focus-bg-color: @sand-gray;
 
 // ContextualPopup
 // ---------------------------------------
@@ -157,11 +158,11 @@
 
 // Input
 // ---------------------------------------
-@sand-input-fullscreen-background-color: @sand-bg-color;
+@sand-input-fullscreen-background-color: @sand-fullscreen-bg-color;
 @sand-input-overlay-background-color: @sand-popup-bg-color;
 @sand-input-numbercell-background-color: fade(@sand-light-gray, 20%);
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
-@sand-input-numberfield-disabled-color: fade(@sand-inputfield-focus-text-color, @sand-disabled-focus-content-opacity * 100%);
+@sand-input-numberfield-disabled-color: fade(@sand-dark-gray/*@sand-inputfield-focus-text-color*/, @sand-disabled-focus-content-opacity * 100%);
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
@@ -209,7 +210,7 @@
 // ---------------------------------------
 @sand-picker-text-color: @sand-text-color;
 @sand-picker-indicators-active-bg-color: @sand-text-color;
-@sand-picker-indicators-active-focus-bg-color: #4c4f59;
+@sand-picker-indicators-active-focus-bg-color: @sand-dark-gray;
 @sand-picker-indicators-inactive-bg-color: #9da2a7;
 @sand-picker-indicators-inactive-focus-bg-color: #b8b9bb;
 @sand-picker-joined-horizontal-bg-color: @sand-button-bg-color;
@@ -223,8 +224,8 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: fade(@sand-overlay-bg-color, 90%);
-@sand-popup-scrimtransparent-bg-color: fade(@sand-overlay-bg-color, 95%);
+@sand-popup-bg-color: fade(#575e66, 90%); // @sand-overlay-bg-color
+@sand-popup-scrimtransparent-bg-color: fade(#575e66, 95%); // @sand-overlay-bg-color
 
 // PopupTabLayout
 // ---------------------------------------
@@ -313,7 +314,7 @@
 // Switch
 // ---------------------------------------
 @sand-switch-color: #aeaeae;
-@sand-switch-bg-color: #777777;
+@sand-switch-bg-color: #777;
 @sand-switch-selected-color: @sand-light-gray;
 @sand-switch-selected-bg-color: @sand-feature-color;
 @sand-switch-focus-color: @sand-switch-color;
@@ -336,6 +337,7 @@
 // ---------------------------------------
 @sand-video-feedback-mini-bg-color: fade(#000000, 50%);
 @sand-video-feedback-mini-text-color: @sand-white;
+@sand-video-slider-tooltip-color: @sand-light-gray;
 @sand-video-slider-tooltip-thumbnail-border-color: @sand-light-gray;
 @sand-video-player-bottom-bg-color: transparent;
 @sand-video-player-redicon-bg-color: transparent;
