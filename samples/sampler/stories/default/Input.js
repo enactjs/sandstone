@@ -11,7 +11,7 @@ const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
 	popupType: ['fullscreen', 'overlay'],
 	size: ['small', 'large'],
-	type: ['text', 'password', 'number', 'passwordnumber', 'url'],
+	type: ['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel'],
 	backButtonAriaLabel: [null, 'Back']
 };
 
