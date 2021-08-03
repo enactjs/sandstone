@@ -20,11 +20,11 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.0.4",
-    "@enact/i18n": "^4.0.4",
+    "@enact/core": "^4.0.5",
+    "@enact/i18n": "^4.0.5",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.0.4",
-    "@enact/ui": "^4.0.4",
+    "@enact/spotlight": "^4.0.5",
+    "@enact/ui": "^4.0.5",
     "classnames": "^2.2.6",
     "ilib": "^14.4.0",
     "query-string": "^6.7.0",
