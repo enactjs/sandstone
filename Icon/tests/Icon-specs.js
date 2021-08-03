@@ -85,15 +85,6 @@ describe('Icon Specs', () => {
 		expect(icon).toHaveClass(expected);
 	});
 
-	test('should support arbitrary custom numeric sizes', () => {
-		render(<Icon data-testid="icon" size={96}>star</Icon>);
-
-		const expected = '--icon-size';
-		const icon = screen.getByTestId('icon').style;
-
-		expect(icon).toHaveProperty('0', expected);
-	});
-
 	test('should support arbitrary custom numeric sizes that scale to the correct value', () => {
 		render(<Icon data-testid="icon" size={96}>star</Icon>);
 
