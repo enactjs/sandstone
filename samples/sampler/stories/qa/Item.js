@@ -7,6 +7,7 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {Row} from '@enact/ui/Layout';
 import {scale} from '@enact/ui/resolution';
+import {useState} from 'react';
 
 import icons from '../helper/icons';
 
@@ -260,3 +261,26 @@ export const WithCustomStyle = () => (
 );
 
 WithCustomStyle.storyName = 'with custom style';
+
+export const WithChangingSlots = () => {
+	const [check, setcheck] = useState(false);
+	function handleClick () {
+		setcheck(!check);
+	}
+
+	return (
+		<div className={css.itemContainer}>
+			<Button onClick={handleClick}>Button</Button>
+			<Item
+				onClick={handleClick}
+				slotBefore={<Icon>{'soccer'}</Icon>}
+				slotAfter={check ? <Icon>{'check'}</Icon> : null}
+			>Medium Item Title</Item>
+			<Item
+				onClick={handleClick}
+				slotBefore={<Icon>{'soccer'}</Icon>}
+				slotAfter={check ? <Icon>{'check'}</Icon> : null}
+			>Medium Item Title</Item>
+		</div>
+	);
+};
