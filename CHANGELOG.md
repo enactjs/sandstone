@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VirtualList` 5-way navigation between items properly when item's content is updated
+
 ## [2.0.0-rc.6] - 2021-08-03
 
 ### Added
