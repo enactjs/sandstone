@@ -206,6 +206,47 @@ class VirtualListWithCBScrollTo extends Component {
 	}
 }
 
+const randomKey = () => (Math.random().toString(36).substr(2, 10));
+
+class UpdatableItem extends Component {
+	static propTypes = {
+		index: PropTypes.number
+	};
+
+	constructor (props) {
+		super(props);
+
+		this.state = {
+			key: randomKey(),
+			updated: false
+		};
+	}
+
+	componentDidMount () {
+		if (this.props.index % 3 === 1) { // Update condition
+			setTimeout(() => {
+				this.setState(() => ({
+					key: randomKey(),
+					updated: true
+				}));
+			}, 0);
+		}
+	}
+
+	render () {
+		const props = Object.assign({}, this.props);
+		const {key, updated} = this.state;
+		delete props.children;
+		delete props.index;
+
+		return (
+			<Item {...props} key={key}>
+				{this.props.children + (updated ? ' : key updated after mounting' : '')}
+			</Item>
+		);
+	}
+}
+
 export default {
 	title: 'Sandstone/VirtualList',
 	component: 'VirtualList'
@@ -433,5 +474,34 @@ export const WithContainerItemsHaveSpottableControls = () => {
 
 WithContainerItemsHaveSpottableControls.storyName = 'with container items have spottable controls';
 WithContainerItemsHaveSpottableControls.parameters = {
+	propTables: [Config]
+};
+
+export const WithUpdatableItems = () => {
+	return (
+		<VirtualList
+			overscrollEffectOn={{
+				arrowKey: false,
+				drag: false,
+				pageKey: true,
+				track: false,
+				wheel: false
+			}}
+			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+			itemRenderer={renderItem(
+				UpdatableItem,
+				ri.scale(number('itemSize', Config, 156)),
+				true
+			)}
+			itemSize={ri.scale(number('itemSize', Config, 156))}
+			key={select('scrollMode', prop.scrollModeOption, Config)}
+			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+			wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+		/>
+	);
+};
+
+WithUpdatableItems.storyName = 'with updatable items';
+WithUpdatableItems.parameters = {
 	propTables: [Config]
 };
