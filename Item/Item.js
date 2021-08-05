@@ -21,13 +21,23 @@ import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 
-import {Marquee, MarqueeController} from '../Marquee';
+import {MarqueeDecorator, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Item.module.less';
 
+const MarqueeBase = ({...rest}) => {
+	// eslint-disable-next-line enact/prop-types
+	delete rest.slotAfter;
+	// eslint-disable-next-line enact/prop-types
+	delete rest.slotBefore;
+
+	return <div {...rest} />;
+};
+const Marquee = MarqueeDecorator({invalidateProps: ['remeasure', 'shrink', 'slotAfter', 'slotBefore']}, MarqueeBase);
+
 // eslint-disable-next-line enact/prop-types
-const ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) => {
+const ItemContent = ({content, css, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 	const LabelPositionClassname = {
 		[css.labelAbove]: labelPosition === 'above',
 		[css.labelAfter]: labelPosition === 'after',
@@ -38,18 +48,23 @@ const ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) =
 	const orientation = (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 
 	const itemContentClasses = classnames(css.itemContent, LabelPositionClassname);
+	const marqueeProps = {
+		marqueeOn: marqueeOn,
+		slotAfter: slotAfter,
+		slotBefore: slotBefore
+	};
 
 	return (!label ? (
-		<Cell {...rest} component={Marquee} className={classnames(itemContentClasses, css.content)} marqueeOn={marqueeOn}>
+		<Cell {...rest} component={Marquee} className={classnames(itemContentClasses, css.content)} {...marqueeProps}>
 			{content}
 		</Cell>
 	) : (
 		<Cell {...rest} className={itemContentClasses}>
 			<Layout orientation={orientation}>
-				<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
+				<Cell component={Marquee} className={css.content} {...marqueeProps} shrink>
 					{content}
 				</Cell>
-				<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
+				<Cell component={Marquee} className={css.label} {...marqueeProps} shrink>
 					{label}
 				</Cell>
 			</Layout>
@@ -64,7 +79,6 @@ ItemContent.propTypes = {
 	label: PropTypes.any,
 	labelPosition: PropTypes.any
 };
-
 
 /**
  * A Sandstone styled item without any behavior.
@@ -238,6 +252,8 @@ const ItemBase = kind({
 					labelPosition={labelPosition}
 					marqueeOn={marqueeOn}
 					shrink={inline}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				/>
 				{slotAfter ? (
 					<Cell className={css.slotAfter} shrink>
@@ -266,7 +282,7 @@ const ItemDecorator = compose(
 	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Spottable,
-	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline']}),
+	MarqueeController({marqueeOnFocus: true}),
 	Skinnable
 );
 
