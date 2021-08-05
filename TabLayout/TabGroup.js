@@ -115,6 +115,7 @@ const TabBase = kind({
 					<Button
 						{...rest}
 						{...commonProps}
+						marqueeDisabled
 					/>
 				);
 			}
