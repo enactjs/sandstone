@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Item` to marquee properly when `slotAfter` or `slotBefore` changed
 - `sandstone/VirtualList` 5-way navigation between items properly when item's content is updated
 
 ## [2.0.0-rc.6] - 2021-08-03
