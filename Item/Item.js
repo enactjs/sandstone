@@ -52,10 +52,10 @@ const ItemContent = ({content, css, inline, label, labelPosition, marqueeOn, slo
 
 	const itemContentClasses = classnames(css.itemContent, LabelPositionClassname);
 	const marqueeProps = {
-		inline: inline,
-		marqueeOn: marqueeOn,
-		slotAfterSize: slotAfterSize,
-		slotBeforeSize: slotBeforeSize
+		inline,
+		marqueeOn,
+		slotAfterSize,
+		slotBeforeSize
 	};
 
 	return (!label ? (
@@ -280,10 +280,8 @@ const ItemBase = kind({
 				css={css}
 			>
 				<div className={css.bg} />
-				<Cell className={slotBefore ? css.slotBefore : null} shrink>
-					<span ref={slotBeforeRef} className={css.slotSizer}>
-						{slotBefore}
-					</span>
+				<Cell className={slotBefore ? css.slotBefore : null} ref={slotBeforeRef} shrink>
+					{slotBefore}
 				</Cell>
 				<ItemContent
 					content={children}
@@ -296,10 +294,8 @@ const ItemBase = kind({
 					slotAfterSize={slotAfterSize}
 					slotBeforeSize={slotBeforeSize}
 				/>
-				<Cell className={slotAfter ? css.slotAfter : null} shrink>
-					<span ref={slotAfterRef} className={css.slotSizer}>
-						{slotAfter}
-					</span>
+				<Cell className={slotAfter ? css.slotAfter : null} ref={slotAfterRef} shrink>
+					{slotAfter}
 				</Cell>
 			</UiItemBase>
 		);

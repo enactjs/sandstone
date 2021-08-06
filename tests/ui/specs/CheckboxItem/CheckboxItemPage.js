@@ -6,7 +6,7 @@ class CheckboxItemInterface {
 		this.id = id;
 		this.marqueeTextSelector = `#${this.id} > div .enact_ui_Marquee_Marquee_text`;
 		this.checkboxIconSelector = `#${this.id} > .Item_Item_slotBefore .Checkbox_Checkbox_icon`;
-		this.slotBeforeNodeSelector = `#${this.id} >  .Item_Item_slotBefore > span > div:last-child`;
+		this.slotBeforeNodeSelector = `#${this.id} >  .Item_Item_slotBefore > div:last-child`;
 	}
 
 	focus () {
