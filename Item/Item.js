@@ -264,14 +264,14 @@ const ItemBase = kind({
 					</Cell>
 				) : null}
 				<ItemContent
+					componentRef={contentRef}
 					content={children}
+					contentSize={contentSize}
 					css={css}
 					label={label}
 					labelPosition={labelPosition}
 					marqueeOn={marqueeOn}
-					componentRef={contentRef}
 					shrink={inline}
-					contentSize={contentSize}
 				/>
 				{slotAfter ? (
 					<Cell className={css.slotAfter} shrink>
