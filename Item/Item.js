@@ -211,10 +211,10 @@ const ItemBase = kind({
 		 * The size for slotAfter.
 		 * This size is set by ItemMeasurementDecorator for invalidating Marquee.
 		 *
-		 * @type {String}
+		 * @type {Number}
 		 * @private
 		 */
-		slotAfterSize: PropTypes.string,
+		slotAfterSize: PropTypes.number,
 
 		/**
 		 * Nodes to be inserted before `children` and `label`.
@@ -241,10 +241,10 @@ const ItemBase = kind({
 		 * The size for slotBefore.
 		 * This size is set by ItemMeasurementDecorator for invalidating Marquee.
 		 *
-		 * @type {String}
+		 * @type {Number}
 		 * @private
 		 */
-		slotBeforeSize: PropTypes.string
+		slotBeforeSize: PropTypes.number
 	},
 
 	defaultProps: {
