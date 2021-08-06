@@ -304,8 +304,8 @@ const ItemBase = kind({
 
 const ItemMeasurementDecorator = (Wrapped) => {
 	return function ItemMeasurementDecorator (props) { // eslint-disable-line no-shadow
-		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
-		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
+		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable();
+		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable();
 
 		const measurableProps = {
 			slotAfterRef,
