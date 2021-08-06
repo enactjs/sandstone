@@ -29,18 +29,14 @@ import componentCss from './Item.module.less';
 
 const MarqueeBase = ({...rest}) => {
 	// eslint-disable-next-line enact/prop-types
-	delete rest.inline;
-	// eslint-disable-next-line enact/prop-types
-	delete rest.slotAfterSize;
-	// eslint-disable-next-line enact/prop-types
-	delete rest.slotBeforeSize;
+	delete rest.contentSize;
 
 	return <div {...rest} />;
 };
-const Marquee = MarqueeDecorator({invalidateProps: ['remeasure', 'inline', 'slotAfterSize', 'slotBeforeSize']}, MarqueeBase);
+const Marquee = MarqueeDecorator({invalidateProps: ['remeasure', 'contentSize']}, MarqueeBase);
 
 // eslint-disable-next-line enact/prop-types
-const ItemContent = ({content, css, inline, label, labelPosition, marqueeOn, slotAfterSize, slotBeforeSize, ...rest}) => {
+const ItemContent = ({componentRef, content, contentSize, css, label, labelPosition, marqueeOn, ...rest}) => {
 	const LabelPositionClassname = {
 		[css.labelAbove]: labelPosition === 'above',
 		[css.labelAfter]: labelPosition === 'after',
@@ -52,32 +48,32 @@ const ItemContent = ({content, css, inline, label, labelPosition, marqueeOn, slo
 
 	const itemContentClasses = classnames(css.itemContent, LabelPositionClassname);
 	const marqueeProps = {
-		inline,
-		marqueeOn,
-		slotAfterSize,
-		slotBeforeSize
+		contentSize,
+		marqueeOn
 	};
 
-	return (!label ? (
-		<Cell {...rest} component={Marquee} className={classnames(itemContentClasses, css.content)} {...marqueeProps}>
-			{content}
-		</Cell>
-	) : (
-		<Cell {...rest} className={itemContentClasses}>
-			<Layout orientation={orientation}>
-				<Cell component={Marquee} className={css.content} {...marqueeProps} shrink>
+	return (
+		<Cell {...rest} ref={componentRef} className={itemContentClasses}>
+			{(!label ?
+				<Cell component={Marquee} className={css.content} {...marqueeProps}>
 					{content}
-				</Cell>
-				<Cell component={Marquee} className={css.label} {...marqueeProps} shrink>
-					{label}
-				</Cell>
-			</Layout>
+				</Cell> :
+				<Layout orientation={orientation}>
+					<Cell component={Marquee} className={css.content} {...marqueeProps} shrink>
+						{content}
+					</Cell>
+					<Cell component={Marquee} className={css.label} {...marqueeProps} shrink>
+						{label}
+					</Cell>
+				</Layout>
+			)}
 		</Cell>
-	));
+	);
 };
 
 ItemContent.displayName = 'ItemContent';
 ItemContent.propTypes = {
+	componentRef: EnactPropTypes.ref,
 	content: PropTypes.any,
 	css: PropTypes.object,
 	label: PropTypes.any,
@@ -112,6 +108,24 @@ const ItemBase = kind({
 		 * @public
 		 */
 		componentRef: EnactPropTypes.ref,
+
+		/**
+		 * The method which receives the reference node to the content element, used to determine
+		 * the `contentSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		contentRef: EnactPropTypes.ref,
+
+		/**
+		  * The size for content.
+		  * This size is set by ItemMeasurementDecorator for invalidating Marquee.
+		  *
+		  * @type {Number}
+		  * @private
+		  */
+		contentSize: PropTypes.number,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -199,24 +213,6 @@ const ItemBase = kind({
 		slotAfter: PropTypes.node,
 
 		/**
-		 * The method which receives the reference node to the slotAfter element, used to determine
-		 * the `slotAfterSize`.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		slotAfterRef: EnactPropTypes.ref,
-
-		/**
-		 * The size for slotAfter.
-		 * This size is set by ItemMeasurementDecorator for invalidating Marquee.
-		 *
-		 * @type {Number}
-		 * @private
-		 */
-		slotAfterSize: PropTypes.number,
-
-		/**
 		 * Nodes to be inserted before `children` and `label`.
 		 *
 		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
@@ -226,25 +222,7 @@ const ItemBase = kind({
 		 * @type {Node}
 		 * @public
 		 */
-		slotBefore: PropTypes.node,
-
-		/**
-		 * The method which receives the reference node to the slotBefore element, used to determine
-		 * the `slotBeforeSize`.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		slotBeforeRef: EnactPropTypes.ref,
-
-		/**
-		 * The size for slotBefore.
-		 * This size is set by ItemMeasurementDecorator for invalidating Marquee.
-		 *
-		 * @type {Number}
-		 * @private
-		 */
-		slotBeforeSize: PropTypes.number
+		slotBefore: PropTypes.node
 	},
 
 	defaultProps: {
@@ -262,7 +240,7 @@ const ItemBase = kind({
 		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 
-	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotAfterRef, slotAfterSize, slotBefore, slotBeforeRef, slotBeforeSize, ...rest}) => {
+	render: ({centered, children, componentRef, contentRef, contentSize, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 		delete rest.size;
 
 		const keys = Object.keys(rest);
@@ -280,23 +258,26 @@ const ItemBase = kind({
 				css={css}
 			>
 				<div className={css.bg} />
-				<Cell className={slotBefore ? css.slotBefore : null} ref={slotBeforeRef} shrink>
-					{slotBefore}
-				</Cell>
+				{slotBefore ? (
+					<Cell className={css.slotBefore} shrink>
+						{slotBefore}
+					</Cell>
+				) : null}
 				<ItemContent
 					content={children}
 					css={css}
 					label={label}
 					labelPosition={labelPosition}
 					marqueeOn={marqueeOn}
+					componentRef={contentRef}
 					shrink={inline}
-					inline={inline}
-					slotAfterSize={slotAfterSize}
-					slotBeforeSize={slotBeforeSize}
+					contentSize={contentSize}
 				/>
-				<Cell className={slotAfter ? css.slotAfter : null} ref={slotAfterRef} shrink>
-					{slotAfter}
-				</Cell>
+				{slotAfter ? (
+					<Cell className={css.slotAfter} shrink>
+						{slotAfter}
+					</Cell>
+				) : null}
 			</UiItemBase>
 		);
 	}
@@ -304,14 +285,11 @@ const ItemBase = kind({
 
 const ItemMeasurementDecorator = (Wrapped) => {
 	return function ItemMeasurementDecorator (props) { // eslint-disable-line no-shadow
-		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable();
-		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable();
+		const {ref: contentRef, measurement: {width: contentWidth = 0} = {}} = useMeasurable();
 
 		const measurableProps = {
-			slotAfterRef,
-			slotBeforeRef,
-			slotAfterSize: slotAfterWidth,
-			slotBeforeSize: slotBeforeWidth
+			contentRef,
+			contentSize: contentWidth
 		};
 
 		return <Wrapped {...props} {...measurableProps} />;
