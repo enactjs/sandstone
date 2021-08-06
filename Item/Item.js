@@ -14,11 +14,11 @@ import classnames from 'classnames';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import Pure from '@enact/ui/internal/Pure';
+import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
 import {useMeasurable} from '@enact/ui/Measurable';
-import Slottable from '@enact/ui/Slottable';
+import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 
