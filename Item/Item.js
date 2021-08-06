@@ -14,10 +14,11 @@ import classnames from 'classnames';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import Slottable from '@enact/ui/Slottable';
+import Pure from '@enact/ui/internal/Pure';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
-import Pure from '@enact/ui/internal/Pure';
+import {useMeasurable} from '@enact/ui/Measurable';
+import Slottable from '@enact/ui/Slottable';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 
@@ -28,16 +29,18 @@ import componentCss from './Item.module.less';
 
 const MarqueeBase = ({...rest}) => {
 	// eslint-disable-next-line enact/prop-types
-	delete rest.slotAfter;
+	delete rest.inline;
 	// eslint-disable-next-line enact/prop-types
-	delete rest.slotBefore;
+	delete rest.slotAfterSize;
+	// eslint-disable-next-line enact/prop-types
+	delete rest.slotBeforeSize;
 
 	return <div {...rest} />;
 };
-const Marquee = MarqueeDecorator({invalidateProps: ['remeasure', 'shrink', 'slotAfter', 'slotBefore']}, MarqueeBase);
+const Marquee = MarqueeDecorator({invalidateProps: ['remeasure', 'inline', 'slotAfterSize', 'slotBeforeSize']}, MarqueeBase);
 
 // eslint-disable-next-line enact/prop-types
-const ItemContent = ({content, css, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+const ItemContent = ({content, css, inline, label, labelPosition, marqueeOn, slotAfterSize, slotBeforeSize, ...rest}) => {
 	const LabelPositionClassname = {
 		[css.labelAbove]: labelPosition === 'above',
 		[css.labelAfter]: labelPosition === 'after',
@@ -49,9 +52,10 @@ const ItemContent = ({content, css, label, labelPosition, marqueeOn, slotAfter, 
 
 	const itemContentClasses = classnames(css.itemContent, LabelPositionClassname);
 	const marqueeProps = {
+		inline: inline,
 		marqueeOn: marqueeOn,
-		slotAfter: slotAfter,
-		slotBefore: slotBefore
+		slotAfterSize: slotAfterSize,
+		slotBeforeSize: slotBeforeSize
 	};
 
 	return (!label ? (
@@ -195,6 +199,24 @@ const ItemBase = kind({
 		slotAfter: PropTypes.node,
 
 		/**
+		 * The method which receives the reference node to the slotAfter element, used to determine
+		 * the `slotAfterSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		slotAfterRef: EnactPropTypes.ref,
+
+		/**
+		 * The size for slotAfter.
+		 * This size is set by ItemMeasurementDecorator for invalidating Marquee.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		slotAfterSize: PropTypes.string,
+
+		/**
 		 * Nodes to be inserted before `children` and `label`.
 		 *
 		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
@@ -204,7 +226,25 @@ const ItemBase = kind({
 		 * @type {Node}
 		 * @public
 		 */
-		slotBefore: PropTypes.node
+		slotBefore: PropTypes.node,
+
+		/**
+		 * The method which receives the reference node to the slotBefore element, used to determine
+		 * the `slotBeforeSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		slotBeforeRef: EnactPropTypes.ref,
+
+		/**
+		 * The size for slotBefore.
+		 * This size is set by ItemMeasurementDecorator for invalidating Marquee.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		slotBeforeSize: PropTypes.string
 	},
 
 	defaultProps: {
@@ -222,7 +262,7 @@ const ItemBase = kind({
 		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 
-	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotAfterRef, slotAfterSize, slotBefore, slotBeforeRef, slotBeforeSize, ...rest}) => {
 		delete rest.size;
 
 		const keys = Object.keys(rest);
@@ -240,11 +280,11 @@ const ItemBase = kind({
 				css={css}
 			>
 				<div className={css.bg} />
-				{slotBefore ? (
-					<Cell className={css.slotBefore} shrink>
+				<Cell className={slotBefore ? css.slotBefore : null} shrink>
+					<span ref={slotBeforeRef} className={css.slotSizer}>
 						{slotBefore}
-					</Cell>
-				) : null}
+					</span>
+				</Cell>
 				<ItemContent
 					content={children}
 					css={css}
@@ -252,18 +292,35 @@ const ItemBase = kind({
 					labelPosition={labelPosition}
 					marqueeOn={marqueeOn}
 					shrink={inline}
-					slotAfter={slotAfter}
-					slotBefore={slotBefore}
+					inline={inline}
+					slotAfterSize={slotAfterSize}
+					slotBeforeSize={slotBeforeSize}
 				/>
-				{slotAfter ? (
-					<Cell className={css.slotAfter} shrink>
+				<Cell className={slotAfter ? css.slotAfter : null} shrink>
+					<span ref={slotAfterRef} className={css.slotSizer}>
 						{slotAfter}
-					</Cell>
-				) : null}
+					</span>
+				</Cell>
 			</UiItemBase>
 		);
 	}
 });
+
+const ItemMeasurementDecorator = (Wrapped) => {
+	return function ItemMeasurementDecorator (props) { // eslint-disable-line no-shadow
+		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
+		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
+
+		const measurableProps = {
+			slotAfterRef,
+			slotBeforeRef,
+			slotAfterSize: slotAfterWidth,
+			slotBeforeSize: slotBeforeWidth
+		};
+
+		return <Wrapped {...props} {...measurableProps} />;
+	};
+};
 
 /**
  * Sandstone specific item behaviors to apply to [Item]{@link sandstone/Item.ItemBase}.
@@ -283,6 +340,7 @@ const ItemDecorator = compose(
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Spottable,
 	MarqueeController({marqueeOnFocus: true}),
+	ItemMeasurementDecorator,
 	Skinnable
 );
 
