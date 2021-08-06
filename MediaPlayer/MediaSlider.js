@@ -93,6 +93,7 @@ const MediaSliderBase = kind({
 					}
 					max={1}
 					min={0}
+					noWheel
 					step={0.00001}
 				/>
 			</div>

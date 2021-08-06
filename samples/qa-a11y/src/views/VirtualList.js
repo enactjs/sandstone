@@ -8,7 +8,7 @@ import ri from '@enact/ui/resolution';
 import {useState} from 'react';
 
 const items = [];
-// eslint-disable-next-line enact/prop-types, enact/display-name
+// eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => (
 	<Item {...rest}>
 		{items[index]}

@@ -11,7 +11,7 @@ const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
 	popupType: ['fullscreen', 'overlay'],
 	size: ['small', 'large'],
-	type: ['text', 'password', 'number', 'passwordnumber', 'url'],
+	type: ['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel'],
 	backButtonAriaLabel: [null, 'Back']
 };
 
@@ -42,6 +42,7 @@ export const _Input = () => {
 		'aria-label': text('aria-label', ConfigPopup, ''),
 		popupAriaLabel: text('popupAriaLabel', ConfigPopup, ''),
 		noBackButton: boolean('noBackButton', ConfigPopup),
+		noSubmitButton: boolean('noSubmitButton', ConfigPopup),
 		backButtonAriaLabel: select('backButtonAriaLabel', prop.backButtonAriaLabel, ConfigPopup)
 	};
 

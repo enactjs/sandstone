@@ -7,7 +7,7 @@ import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
 import WizardPanels, {Panel, WizardPanelsBase} from '@enact/sandstone/WizardPanels';
-import {Component} from 'react';
+import {Component, PureComponent} from 'react';
 
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
@@ -25,7 +25,12 @@ const inputData = {
 	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit.'
 };
 
-class WizardPanelsWidthFooterButtons extends Component {
+export default {
+	title: 'Sandstone/WizardPanels',
+	component: 'WizardPanels'
+};
+
+class WizardPanelsWithFooterButtons extends Component {
 	constructor () {
 		super();
 		this.state = {
@@ -67,9 +72,13 @@ class WizardPanelsWidthFooterButtons extends Component {
 	}
 }
 
-export default {
-	title: 'Sandstone/WizardPanels',
-	component: 'WizardPanels'
+export const WithFooterButtons = () => <WizardPanelsWithFooterButtons />;
+
+WithFooterButtons.storyName = 'with footer buttons';
+WithFooterButtons.parameters = {
+	props: {
+		noPanel: true
+	}
 };
 
 export const LongPrevNextButtons = () => (
@@ -177,10 +186,103 @@ LongPrevNextButtons.parameters = {
 	}
 };
 
-export const WithFooterButtons = () => <WizardPanelsWidthFooterButtons />;
+class WizardPanelsWithChangingChildren extends Component {
+	constructor () {
+		super();
+		this.state = {
+			clickCount: 0
+		};
+	}
 
-WithFooterButtons.storyName = 'with footer buttons';
-WithFooterButtons.parameters = {
+	onClick = () => {
+		this.setState(prevState => ({clickCount: prevState.clickCount + 1}));
+	};
+
+	render () {
+		return (
+			<WizardPanels
+				noAnimation={boolean('noAnimation', Config)}
+			>
+				<Panel title={'Panel0'} subtitle={'subtitle'} nextButton={<Button>Next</Button>}>
+					<Button onClick={this.onClick}>Click</Button>
+					{`ClickCount: ${this.state.clickCount}`}
+				</Panel>
+				<Panel title={'Panel1'} subtitle={'subtitle'} prevButton={<Button>Previous</Button>}>
+					<Button onClick={this.onClick}>Click</Button>
+					{`ClickCount: ${this.state.clickCount}`}
+				</Panel>
+			</WizardPanels>
+		);
+	}
+}
+
+export const WithChangingChildren = () => <WizardPanelsWithChangingChildren />;
+
+WithChangingChildren.storyName = 'with changing children';
+WithChangingChildren.parameters = {
+	props: {
+		noPanel: true
+	}
+};
+
+class PureComponentItem extends PureComponent {
+	constructor (props) {
+		super(props);
+		action('constructor')(props.children);
+	}
+
+	componentDidMount () {
+		action('componentDidMount')(this.props.children);
+	}
+
+	componentWillUnmount () {
+		action('componentWillUnmount')(this.props.children);
+	}
+
+	render () {
+		action('render')(this.props.children);
+		return (
+			<Item>{this.props.children}</Item>
+		);
+	}
+}
+
+export const WithPureComponent = () => (
+	<WizardPanels
+		current={number('current', Config, 0)}
+		noAnimation={boolean('noAnimation', Config)}
+		noSteps={boolean('noSteps', Config)}
+		nextButtonVisibility={select('nextButtonVisibility', propOptions.buttonVisibility, Config)}
+		onNextClick={action('onNextClick')}
+		onPrevClick={action('onPrevClick')}
+		onTransition={action('onTransition')}
+		onWillTransition={action('onWillTransition')}
+		prevButtonVisibility={select('prevButtonVisibility', propOptions.buttonVisibility, Config)}
+		total={number('total', Config, 0)}
+	>
+		<WizardPanels.Panel
+			footer="Footer in View 1"
+			subtitle="A subtitle for View 1"
+			title="WizardPanel View 1"
+		>
+			<PureComponentItem>Item1</PureComponentItem>
+			<footer>
+				<Button>OK</Button>
+				<Button>Cancel</Button>
+			</footer>
+		</WizardPanels.Panel>
+		<WizardPanels.Panel
+			footer="Footer in View 2"
+			subtitle="A subtitle for View 2"
+			title="WizardPanel View 2"
+		>
+			<PureComponentItem>Item2</PureComponentItem>
+		</WizardPanels.Panel>
+	</WizardPanels>
+);
+
+WithPureComponent.storyName = 'with pure component';
+WithPureComponent.parameters = {
 	props: {
 		noPanel: true
 	}
