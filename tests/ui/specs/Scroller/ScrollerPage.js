@@ -119,6 +119,17 @@ class ScrollerPage extends Page {
 			$(`${horizontalscrollbarSelector}`).moveTo({xOffset: Math.round(horizontalScroll), yOffset: 0});
 		}
 	}
+
+	clickScrollTrack (direction, way) {
+		if (direction === 'vertical') {
+			const clickPositionFromCenter = way === 'Down' ? 300 : -300;
+			$(`${verticalscrollbarSelector}`).click({y: clickPositionFromCenter});
+		} else if (direction === 'horizontal') {
+			const clickPositionFromCenter = way === 'Left' ? -500 : 500;
+			$(`${horizontalscrollbarSelector}`).click({x: clickPositionFromCenter});
+		}
+	}
+
 	getVerticalScrollOffsetLeft () {
 		return browser.execute(function (_verticalscrollbarSelector) {
 			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);

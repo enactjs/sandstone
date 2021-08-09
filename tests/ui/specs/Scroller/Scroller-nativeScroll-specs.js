@@ -216,27 +216,23 @@ describe('Scroller', function () {
 			ScrollerPage.spotlightDown();
 			ScrollerPage.spotlightSelect();
 			// Step 4: Click on the Left Padding area of the verticalScrollbar and below the Scroll thumb.
-			ScrollerPage.moveToScrollTrack('vertical', 'Down');
-			browser.positionClick();
+			ScrollerPage.clickScrollTrack('vertical', 'Down');
 			ScrollerPage.delay(1000);
 			// Step 4-1 Verify: The Scroller scrolls Down.
 			expect(ScrollerPage.getScrollThumbPosition().vertical).to.equal('1');
 			// Step 5: Click on the Right Padding area of the verticalScrollbar and above the Scroll thumb.
-			ScrollerPage.moveToScrollTrack('vertical', 'Up');
-			browser.positionClick();
+			ScrollerPage.clickScrollTrack('vertical', 'Up');
 			ScrollerPage.delay(1000);
 			// Step 5-1 Verify: The Scroller scrolls Down.
 			expect(ScrollerPage.getScrollThumbPosition().vertical).to.equal('0');
 			// Step 6: Click on the Top Padding area of the horizontalScrollbar and to the Right of the Scroll thumb.
 			const initialHorizontalScrollThumbPosition = ScrollerPage.getScrollThumbPosition().horizontal;
-			ScrollerPage.moveToScrollTrack('horizontal', 'Right');
-			browser.positionClick();
+			ScrollerPage.clickScrollTrack('horizontal', 'Right');
 			ScrollerPage.delay(1000);
 			// Step 6-1 Verify: The Scroller scrolls Left to Right.
 			expect(ScrollerPage.getScrollThumbPosition().horizontal > initialHorizontalScrollThumbPosition).to.be.true();
 			// Step 7: Click on the Bottom Padding area of the horizontalScrollbar and to the Left of the Scroll thumb.
-			ScrollerPage.moveToScrollTrack('horizontal', 'Left');
-			browser.positionClick();
+			ScrollerPage.clickScrollTrack('horizontal', 'Left');
 			ScrollerPage.delay(1000);
 			// Step 7-1 Verify: The Scroller scrolls Right to Left.
 			expect(ScrollerPage.getScrollThumbPosition().horizontal).to.equal('0');
@@ -257,18 +253,16 @@ describe('Scroller', function () {
 			// Since the visual part of UI Test cannot be checked, it is judged by the position of the scrollbar.
 			expect(ScrollerPage.getHorizontalScrollOffsetTop()).to.equal(ScrollerPage.getScrollerRect().height);
 			// Step 5: Click on the verticalScrollbar below the scroll thumb a few times until the bottom text displays.
-			for (let i; i < 3; i++) {
-				ScrollerPage.moveToScrollTrack('vertical', 'Down');
-				browser.positionClick();
+			for (let i = 0; i < 3; i++) {
+				ScrollerPage.clickScrollTrack('vertical', 'Down');
 				ScrollerPage.delay(1000);
 			}
 			// Step 5-1 Verify: The Scroller does not scroll Up.
 			// Step 5-2 Verify: The top text still displays.
 			expect(ScrollerPage.getScrollThumbPosition().vertical).to.equal('0');
 			// Step 6: Click on the horizontalScrollbar on the left of the scroll thumb a few times (some text still displays).
-			for (let i; i < 3; i++) {
-				ScrollerPage.moveToScrollTrack('horizontal', 'Left');
-				browser.positionClick();
+			for (let i = 0; i < 3; i++) {
+				ScrollerPage.clickScrollTrack('horizontal', 'Left');
 				ScrollerPage.delay(1000);
 			}
 			// Step 6 Verify: The scroller does not scroll Left to Right.
@@ -293,14 +287,12 @@ describe('Scroller', function () {
 			// Step 4-5 Verify: Upon hover, Spotlight is on the horizontalScroll thumb.
 			expect(ScrollerPage.horizontalScrollThumb.isFocused()).to.be.true();
 			// Step 5: Click on the verticalScrollbar below the scroll thumb a few times until the bottom text displays.
-			ScrollerPage.moveToScrollTrack('vertical', 'Down');
-			browser.positionClick();
+			ScrollerPage.clickScrollTrack('vertical', 'Down');
 			ScrollerPage.delay(1000);
 			expect(ScrollerPage.getScrollThumbPosition().vertical).to.equal('1');
 			// Step 6: Click on the horizontalScrollbar on the left of the scroll thumb a few times (some text still displays).
 			const initialHorizontalScrollThumbPosition = ScrollerPage.getScrollThumbPosition().horizontal;
-			ScrollerPage.moveToScrollTrack('horizontal', 'Left');
-			browser.positionClick();
+			ScrollerPage.clickScrollTrack('horizontal', 'Left');
 			ScrollerPage.delay(1000);
 			// Step 6 Verify: The scroller Scrolls Left to Right.
 			expect(ScrollerPage.getScrollThumbPosition().horizontal > initialHorizontalScrollThumbPosition).to.be.true();

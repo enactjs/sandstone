@@ -18,7 +18,7 @@ describe('Focus after calling scrollTo()', function () {
 		Page.showPointerByKeycode();
 		Page.item(20).moveTo();
 		// Step 3: Click 'Click me' item.
-		browser.positionClick();
+		Page.item(20).click();
 		Page.delay(500);
 		// Step 3-1 Verify: list is scrolled to first item.
 		expect(Page.topLeftVisibleItemId()).to.equal('item0');

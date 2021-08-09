@@ -23,7 +23,7 @@ describe('Scroller List Of Things', function () {
 		expectNoFocusedItem();
 
 		// Step 5: Click item 0.
-		browser.positionClick();
+		$('#item0').click();
 		// Step 5's Verify: Spotlight is not on the 'Item 0'.
 		expectNoFocusedItem();
 	});
