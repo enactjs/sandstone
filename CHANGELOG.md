@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.0.0-rc.7] - 2021-08-09
+
+### Fixed
+
+- `sandstone/Item` to marquee properly when `slotAfter` or `slotBefore` changed
+
 ## [2.0.0-rc.6] - 2021-08-03
 
 ### Added
