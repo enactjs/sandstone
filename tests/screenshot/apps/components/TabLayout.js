@@ -59,8 +59,18 @@ const TabLayoutTests = [
 		wrapper: {full: true}
 	},
 	{
+		component: <TabLayout selected={0}>{tabs}</TabLayout>,
+		wrapper: {full: true},
+		focus: true
+	},
+	{
 		component: <TabLayout>{tabsWithIcons}</TabLayout>,
 		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout selected={0}>{tabsWithIcons}</TabLayout>,
+		wrapper: {full: true},
+		focus: true
 	},
 	{
 		component: <TabLayout>{someTabsWithIcons}</TabLayout>,
@@ -73,6 +83,11 @@ const TabLayoutTests = [
 	{
 		component: <TabLayout collapsed>{tabs}</TabLayout>,
 		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout collapsed selected={0}>{tabs}</TabLayout>,
+		wrapper: {full: true},
+		focus: true
 	},
 	{
 		component: <TabLayout collapsed>{tabsWithIcons}</TabLayout>,
@@ -91,11 +106,95 @@ const TabLayoutTests = [
 		wrapper: {full: true}
 	},
 	{
+		component: <TabLayout collapsed selected={0}>{tabsWithIconsDisabled}</TabLayout>,
+		wrapper: {full: true},
+		focus: true
+	},
+	{
 		component: <TabLayout orientation="horizontal">{tabs}</TabLayout>,
 		wrapper: {full: true}
 	},
 	{
 		component: <TabLayout orientation="horizontal" selected={3}>{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout anchorTo="left">{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout anchorTo="right">{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout anchorTo="start">{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout anchorTo="end">{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout
+			dimensions={{
+				tabs: {
+					collapsed: 300,
+					normal: 900
+				},
+				content: {
+					expanded: null,
+					normal: null
+				}
+			}}
+		>{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout
+			dimensions={{
+				tabs: {
+					collapsed: 300,
+					normal: 800
+				},
+				content: {
+					expanded: null,
+					normal: null
+				}
+			}}
+		>{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout tabSize={500}>{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout type="popup">{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+
+	// *************************************************************
+	// RTL
+	// locale = 'ar-SA'
+	// *************************************************************
+	{
+		locale: 'ar-SA',
+		component: <TabLayout selected={1}>{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		component: <TabLayout selected={1}>{tabsWithIcons}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		component: <TabLayout collapsed selected={1}>{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		component: <TabLayout orientation="horizontal" selected={1}>{tabs}</TabLayout>,
 		wrapper: {full: true}
 	}
 ];
