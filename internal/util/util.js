@@ -1,4 +1,3 @@
-import {shallowEqual} from '@enact/core/util';
 import equals from 'ramda/src/equals';
 import {memo} from 'react';
 
@@ -54,29 +53,6 @@ const compareChildren = (a, b) => {
 };
 
 /**
- * Returns an object that has given keys.
- *
- * @function
- * @param   {Object} obj    An object to find keys
-*  @param   {Array}  keys   An array of strings
- *
- * @returns {Object}        A new object that contains only given keys
- * @memberof sandstone/internal/util
- * @private
- */
-const pick = (obj, keys) => {
-	const picked = {};
-
-	for (let i = 0; i < keys.length; i++) {
-		const key = keys[i];
-		if (Object.prototype.hasOwnProperty.call(obj, key)) {
-			picked[key] = obj[key];
-		}
-	}
-	return picked;
-};
-
-/**
  * Updates component only when given props are not shallowly equivalent, not updating otherwise.
  *
  * @function
@@ -88,7 +64,15 @@ const pick = (obj, keys) => {
  * @private
  */
 const onlyUpdateForProps = (wrapped, propKeys) => memo(wrapped, (prevProps, nextProps) => {
-	return shallowEqual(pick(prevProps, propKeys), pick(nextProps, propKeys));
+	const hasOwn = Object.prototype.hasOwnProperty;
+
+	for (let i = 0; i < propKeys.length; i++) {
+		const key = propKeys[i];
+		if (!hasOwn.call(prevProps, key) || !hasOwn.call(nextProps, key) || !Object.is(prevProps[key], nextProps[key])) {
+			return false;
+		}
+	}
+	return true;
 });
 
 export {
