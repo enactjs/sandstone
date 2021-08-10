@@ -98,7 +98,7 @@ class PopupPage extends Page {
 	}
 
 	clickPopupFloatLayer () {
-		$('#floatLayer>div').click();
+		$('#floatLayer > div').click();
 	}
 
 	clickPopupMain () {
