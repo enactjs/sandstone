@@ -2,9 +2,9 @@ import kind from '@enact/core/kind';
 import ComponentOverride from '@enact/ui/ComponentOverride';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import PropTypes from 'prop-types';
-import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 
 import Image from '../Image';
+import {onlyUpdateForProps} from '../internal/util';
 import Skinnable from '../Skinnable';
 
 import FeedbackContent from './FeedbackContent';
@@ -218,12 +218,8 @@ const FeedbackTooltipBase = kind({
 	}
 });
 
-const FeedbackTooltip = onlyUpdateForKeys(
+const FeedbackTooltip = onlyUpdateForProps(Skinnable(FeedbackTooltipBase),
 	['action', 'children', 'hidden', 'playbackState', 'playbackRate', 'thumbnailComponent', 'thumbnailDeactivated', 'thumbnailSrc', 'visible']
-)(
-	Skinnable(
-		FeedbackTooltipBase
-	)
 );
 
 FeedbackTooltip.defaultSlot = 'tooltip';

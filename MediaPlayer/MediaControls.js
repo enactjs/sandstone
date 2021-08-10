@@ -10,14 +10,12 @@ import Spotlight from '@enact/spotlight';
 import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {forward} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
-
-import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
-import {compareChildren} from '../internal/util';
+import {compareChildren, onlyUpdateForProps} from '../internal/util';
 import ActionGuide from '../ActionGuide';
 import Button from '../Button';
 
@@ -33,14 +31,14 @@ const OuterContainer = SpotlightContainerDecorator({
 const Container = SpotlightContainerDecorator({
 	enterTo: 'default-element'
 }, 'div');
-const MediaButton = onlyUpdateForKeys([
+const MediaButton = onlyUpdateForProps(Button, [
 	'children',
 	'className',
 	'disabled',
 	'icon',
 	'onClick',
 	'spotlightDisabled'
-])(Button);
+]);
 
 const forwardToggleMore = forward('onToggleMore');
 

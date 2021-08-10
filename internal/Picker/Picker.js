@@ -9,16 +9,14 @@ import Touchable from '@enact/ui/Touchable';
 import {SlideLeftArranger, SlideTopArranger, ViewManager} from '@enact/ui/ViewManager';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import PropTypes from 'prop-types';
-import equals from 'ramda/src/equals';
 import {Component as ReactComponent} from 'react';
 import ReactDOM from 'react-dom';
-import shouldUpdate from 'recompose/shouldUpdate';
 
 import Skinnable from '../../Skinnable';
 
 import $L from '../$L';
 import {validateRange, validateStepped} from '../validators';
-import {extractVoiceProps} from '../util';
+import {extractVoiceProps, onlyUpdateForProps} from '../util';
 
 import PickerButton from './PickerButton';
 import SpottablePicker from './SpottablePicker';
@@ -40,12 +38,7 @@ const isUp = is('up');
 const Div = Touchable('div');
 const SpottableDiv = Touchable(SpottablePicker);
 
-const PickerViewManager = shouldUpdate((props, nextProps) => {
-	return (
-		props.index !== nextProps.index ||
-		!equals(props.children, nextProps.children)
-	);
-})(ViewManager);
+const PickerViewManager = onlyUpdateForProps(ViewManager, ['index', 'children']);
 
 const wrapRange = (min, max, value) => {
 	if (value > max) {

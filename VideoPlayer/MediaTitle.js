@@ -1,9 +1,9 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import ForwardRef from '@enact/ui/ForwardRef';
 import kind from '@enact/core/kind';
-import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
 
+import {onlyUpdateForProps} from '../internal/util';
 import Marquee from '../Marquee';
 
 import css from './MediaTitle.module.less';
@@ -121,9 +121,7 @@ const MediaTitleBase = kind({
 });
 
 const MediaTitle = ForwardRef(
-	onlyUpdateForKeys(['children', 'title', 'infoVisible', 'visible'])(
-		MediaTitleBase
-	)
+	onlyUpdateForProps(MediaTitleBase, ['children', 'title', 'infoVisible', 'visible'])
 );
 
 export default MediaTitle;

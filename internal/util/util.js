@@ -1,4 +1,6 @@
+import {shallowEqual} from '@enact/core/util';
 import equals from 'ramda/src/equals';
+import {memo} from 'react';
 
 /**
  * Removes voice control related props from `props` and returns them in a new object.
@@ -51,7 +53,46 @@ const compareChildren = (a, b) => {
 	return true;
 };
 
+/**
+ * Returns an object that has given keys.
+ *
+ * @function
+ * @param   {Object} obj    An object to find keys
+*  @param   {Array}  keys   An array of strings
+ *
+ * @returns {Object}        A new object that contains only given keys
+ * @memberof sandstone/internal/util
+ * @private
+ */
+const pick = (obj, keys) => {
+	const picked = {};
+
+	for (let i = 0; i < keys.length; i++) {
+		const key = keys[i];
+		if (Object.prototype.hasOwnProperty.call(obj, key)) {
+			picked[key] = obj[key];
+		}
+	}
+	return picked;
+};
+
+/**
+ * Updates component only when given props are not shallowly equivalent, not updating otherwise.
+ *
+ * @function
+ * @param   {any}    wrapped    A component
+*  @param   {Array}  propKeys   Prop keys to compare
+ *
+ * @returns {any}               Conditionally memoized component
+ * @memberof sandstone/internal/util
+ * @private
+ */
+const onlyUpdateForProps = (wrapped, propKeys) => memo(wrapped, (prevProps, nextProps) => {
+	return shallowEqual(pick(prevProps, propKeys), pick(nextProps, propKeys));
+});
+
 export {
 	compareChildren,
-	extractVoiceProps
+	extractVoiceProps,
+	onlyUpdateForProps
 };
