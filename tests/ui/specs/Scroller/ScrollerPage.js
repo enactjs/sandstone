@@ -108,17 +108,6 @@ class ScrollerPage extends Page {
 			};
 		}, scrollbarSelector);
 	}
-	moveToScrollTrack (direction, way) {
-		if (direction === 'vertical') {
-			const verticalScroll = way === 'Down' ? this.getScrollThumbRect().vertical.bottom - this.getScrollBarRect().vertical.top + 50 :
-				this.getScrollThumbRect().vertical.top - this.getScrollBarRect().vertical.top - 50;
-			$(`${verticalscrollbarSelector}`).moveTo({xOffset: 0, yOffset: Math.round(verticalScroll)});
-		} else if (direction === 'horizontal') {
-			const horizontalScroll = way === 'Left' ? this.getScrollThumbRect().horizontal.left - this.getScrollBarRect().horizontal.left - 50 :
-				this.getScrollThumbRect().horizontal.right - this.getScrollBarRect().horizontal.left + 50;
-			$(`${horizontalscrollbarSelector}`).moveTo({xOffset: Math.round(horizontalScroll), yOffset: 0});
-		}
-	}
 
 	clickScrollTrack (direction, way) {
 		if (direction === 'vertical') {
