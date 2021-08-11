@@ -66,13 +66,11 @@ const compareChildren = (a, b) => {
 const onlyUpdateForProps = (wrapped, propKeys) => memo(wrapped, (prevProps, nextProps) => {
 	const hasOwn = Object.prototype.hasOwnProperty;
 
-	for (let i = 0; i < propKeys.length; i++) {
-		const key = propKeys[i];
-		if (!hasOwn.call(prevProps, key) || !hasOwn.call(nextProps, key) || !Object.is(prevProps[key], nextProps[key])) {
-			return false;
-		}
+	if (Array.isArray(propKeys)) {
+		return propKeys.every((key) => hasOwn.call(prevProps, key) && hasOwn.call(nextProps, key) && Object.is(prevProps[key], nextProps[key]));
 	}
-	return true;
+
+	return false;
 });
 
 export {
