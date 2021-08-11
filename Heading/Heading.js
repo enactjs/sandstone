@@ -115,10 +115,9 @@ const HeadingDecorator = compose(
 
 HeadingDecorator.PropTypes = /** @lends sandstone/Heading.HeadingDecorator.prototype */ {
 	/**
-	 * Determines what triggers the header content to start its animation. Valid values are
-	 * `'hover'` and `'render'`. The default is `'render'`.
+	 * Determines what triggers the header content to start its animation.
 	 *
-	 * @type {String}
+	 * @type {('hover'|'render')}
 	 * @default 'render'
 	 * @public
 	 */
