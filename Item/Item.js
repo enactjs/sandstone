@@ -17,17 +17,26 @@ import Spottable from '@enact/spotlight/Spottable';
 import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
+import {useMeasurable} from '@enact/ui/Measurable';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 
-import {Marquee, MarqueeController} from '../Marquee';
+import {MarqueeDecorator, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Item.module.less';
 
+const MarqueeBase = ({...rest}) => {
+	// eslint-disable-next-line enact/prop-types
+	delete rest.contentSize;
+
+	return <div {...rest} />;
+};
+const Marquee = MarqueeDecorator({invalidateProps: ['remeasure', 'contentSize']}, MarqueeBase);
+
 // eslint-disable-next-line enact/prop-types
-const ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) => {
+const ItemContent = ({componentRef, content, contentSize, css, label, labelPosition, marqueeOn, ...rest}) => {
 	const LabelPositionClassname = {
 		[css.labelAbove]: labelPosition === 'above',
 		[css.labelAfter]: labelPosition === 'after',
@@ -38,33 +47,38 @@ const ItemContent = ({content, css, label, labelPosition, marqueeOn, ...rest}) =
 	const orientation = (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 
 	const itemContentClasses = classnames(css.itemContent, LabelPositionClassname);
+	const marqueeProps = {
+		contentSize,
+		marqueeOn
+	};
 
-	return (!label ? (
-		<Cell {...rest} component={Marquee} className={classnames(itemContentClasses, css.content)} marqueeOn={marqueeOn}>
-			{content}
-		</Cell>
-	) : (
-		<Cell {...rest} className={itemContentClasses}>
-			<Layout orientation={orientation}>
-				<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
+	return (
+		<Cell {...rest} ref={componentRef} className={itemContentClasses}>
+			{(!label ?
+				<Cell component={Marquee} className={css.content} {...marqueeProps}>
 					{content}
-				</Cell>
-				<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
-					{label}
-				</Cell>
-			</Layout>
+				</Cell> :
+				<Layout orientation={orientation}>
+					<Cell component={Marquee} className={css.content} {...marqueeProps} shrink>
+						{content}
+					</Cell>
+					<Cell component={Marquee} className={css.label} {...marqueeProps} shrink>
+						{label}
+					</Cell>
+				</Layout>
+			)}
 		</Cell>
-	));
+	);
 };
 
 ItemContent.displayName = 'ItemContent';
 ItemContent.propTypes = {
+	componentRef: EnactPropTypes.ref,
 	content: PropTypes.any,
 	css: PropTypes.object,
 	label: PropTypes.any,
 	labelPosition: PropTypes.any
 };
-
 
 /**
  * A Sandstone styled item without any behavior.
@@ -94,6 +108,24 @@ const ItemBase = kind({
 		 * @public
 		 */
 		componentRef: EnactPropTypes.ref,
+
+		/**
+		 * The method which receives the reference node to the content element, used to determine
+		 * the `contentSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		contentRef: EnactPropTypes.ref,
+
+		/**
+		  * The size for content.
+		  * This size is set by ItemMeasurementDecorator for invalidating Marquee.
+		  *
+		  * @type {Number}
+		  * @private
+		  */
+		contentSize: PropTypes.number,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -208,7 +240,7 @@ const ItemBase = kind({
 		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 
-	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+	render: ({centered, children, componentRef, contentRef, contentSize, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 		delete rest.size;
 
 		const keys = Object.keys(rest);
@@ -232,7 +264,9 @@ const ItemBase = kind({
 					</Cell>
 				) : null}
 				<ItemContent
+					componentRef={contentRef}
 					content={children}
+					contentSize={contentSize}
 					css={css}
 					label={label}
 					labelPosition={labelPosition}
@@ -248,6 +282,19 @@ const ItemBase = kind({
 		);
 	}
 });
+
+const ItemMeasurementDecorator = (Wrapped) => {
+	return function ItemMeasurementDecorator (props) { // eslint-disable-line no-shadow
+		const {ref: contentRef, measurement: {width: contentWidth = 0} = {}} = useMeasurable();
+
+		const measurableProps = {
+			contentRef,
+			contentSize: contentWidth
+		};
+
+		return <Wrapped {...props} {...measurableProps} />;
+	};
+};
 
 /**
  * Sandstone specific item behaviors to apply to [Item]{@link sandstone/Item.ItemBase}.
@@ -266,7 +313,8 @@ const ItemDecorator = compose(
 	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Spottable,
-	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline']}),
+	MarqueeController({marqueeOnFocus: true}),
+	ItemMeasurementDecorator,
 	Skinnable
 );
 
