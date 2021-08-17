@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import FormCheckboxItem, {FormCheckboxItemBase} from '../FormCheckboxItem';
 import Icon from '../../Icon';
 
-describe('CheckboxItem Specs', () => {
+describe('FormCheckboxItem Specs', () => {
 	test('should support a custom icon', () => {
 		render(<FormCheckboxItemBase icon="trash">Hello FormCheckboxItem</FormCheckboxItemBase>);
 		const formCheckboxItemElement = screen.getAllByRole('checkbox');
@@ -34,7 +34,7 @@ describe('CheckboxItem Specs', () => {
 		expect(formCheckboxItemElement).toHaveClass(expected);
 	});
 
-	test('should deselect with click', () => {
+	test('should deselect by clicking twice', () => {
 		render(<FormCheckboxItem>Hello FormCheckboxItem</FormCheckboxItem>);
 		const formCheckboxItemElement = screen.getAllByRole('checkbox')[0];
 
@@ -46,7 +46,7 @@ describe('CheckboxItem Specs', () => {
 		expect(formCheckboxItemElement).not.toHaveClass(expected);
 	});
 
-	test('should be disabled when it has prop `disabled`', () => {
+	test('should be disabled when `disabled` prop is true', () => {
 		render(<FormCheckboxItem disabled>Hello FormCheckboxItem</FormCheckboxItem>);
 		const formCheckboxItemElement = screen.getAllByRole('checkbox')[0];
 
@@ -55,7 +55,7 @@ describe('CheckboxItem Specs', () => {
 		expect(formCheckboxItemElement).toHaveAttribute(expected);
 	});
 
-	test('should be have the icon `-` when indeterminate', () => {
+	test('should have the `-` icon when indeterminate', () => {
 		render(<FormCheckboxItem indeterminate>Hello FormCheckboxItem</FormCheckboxItem>);
 		const formCheckboxItemIcon = screen.getAllByRole('checkbox')[1];
 
@@ -64,7 +64,7 @@ describe('CheckboxItem Specs', () => {
 		expect(formCheckboxItemIcon).toHaveTextContent(expected);
 	});
 
-	test('should be have the icon `-` when indeterminate even when clicked', () => {
+	test('should have the `-` icon when indeterminate even when clicked', () => {
 		render(<FormCheckboxItem indeterminate>Hello FormCheckboxItem</FormCheckboxItem>);
 		const formCheckboxItemElement = screen.getAllByRole('checkbox')[0];
 
@@ -101,7 +101,7 @@ describe('CheckboxItem Specs', () => {
 		expect(formCheckboxItemElement).toHaveLength(expected);
 	});
 
-	test('should have inline class when it has prop `inline`', () => {
+	test('should have inline class when `inline` prop is true', () => {
 		render(<FormCheckboxItem inline>Hello FormCheckboxItem</FormCheckboxItem>);
 		const formCheckboxItem = screen.getAllByRole('checkbox')[0];
 
