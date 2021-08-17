@@ -26,7 +26,7 @@ describe('MediaOverlay', () => {
 
 	test('should render a text', () => {
 		const text = 'The quick brown fox jumped over the lazy dog. The bean bird flies at sundown.';
-		render(<MediaOverlay text={text} source="abc.mp4" />);
+		render(<MediaOverlay source="abc.mp4" text={text} />);
 
 		const mediaOverlayText = screen.getByText(text);
 
@@ -66,7 +66,7 @@ describe('MediaOverlay', () => {
 
 	test('should render a subtitle', () => {
 		const subtitle = '07:00 AM - 08:00 AM';
-		render(<MediaOverlay subtitle={subtitle} source="abc.mp4" />);
+		render(<MediaOverlay source="abc.mp4" subtitle={subtitle} />);
 
 		const mediaOverlaySubtitle = screen.getByText(subtitle);
 		const subtitleContainer = screen.getByText(subtitle).parentElement.parentElement;
