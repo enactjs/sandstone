@@ -1,6 +1,6 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {PopupTabLayout} from '../PopupTabLayout';
@@ -58,18 +58,18 @@ describe('PopupTabLayout specs', () => {
 		expect(actual).not.toHaveClass(expected);
 	});
 
-	test('should not close popupTabLayout when clicking outside if noAutoDismiss is true', () => {
-		const handleHide = jest.fn();
-		const Root = FloatingLayerDecorator('div');
+	test('should not close popupTabLayout on escape if noAutoDismiss is true', async () => {
+		const handleClose = jest.fn();
 		render(
-			<Root data-testid="outsideArea">
-				<PopupTabLayout noAutoDismiss onHide={handleHide} open><div>popupTabLayout</div></PopupTabLayout>
-			</Root>
+			<FloatingLayerController>
+				<PopupTabLayout noAutoDismiss onClose={handleClose} open><div>popupTabLayout</div></PopupTabLayout>
+			</FloatingLayerController>
 		);
-		const outsideArea = screen.getByTestId('outsideArea');
 
-		userEvent.click(outsideArea);
+		await waitFor(() => {
+			userEvent.keyboard('{esc}');
 
-		expect(handleHide).not.toHaveBeenCalled();
+			expect(handleClose).not.toHaveBeenCalled();
+		});
 	});
 });
