@@ -7,11 +7,11 @@ import {ContextualMenuDecorator} from '../ContextualMenuDecorator';
 import Button from '../../Button';
 
 const ContextualButton = ContextualMenuDecorator(Button);
+const Root = FloatingLayerDecorator('div');
 const items = new Array(3).fill().map((i, index) => `Option ${index + 1}`);
 
 describe('ContextualMenuDecorator Specs', () => {
 	test('should render component into FloatingLayer if open', () => {
-		const Root = FloatingLayerDecorator('div');
 		render(
 			<Root>
 				<ContextualButton menuItems={items} open>
@@ -28,7 +28,6 @@ describe('ContextualMenuDecorator Specs', () => {
 	});
 
 	test('should not render into FloatingLayer if not open', () => {
-		const Root = FloatingLayerDecorator('div');
 		render(
 			<Root>
 				<ContextualButton menuItems={items}>
@@ -44,7 +43,6 @@ describe('ContextualMenuDecorator Specs', () => {
 
 	test('should emit onClose event when clicking outside the contextual menu', () => {
 		const handleClose = jest.fn();
-		const Root = FloatingLayerDecorator('div');
 
 		render(
 			<Root data-testid="contextualMenu">
@@ -62,7 +60,6 @@ describe('ContextualMenuDecorator Specs', () => {
 
 	test('should not close menu when clicking outside if noAutoDismiss is true', () => {
 		const handleClose = jest.fn();
-		const Root = FloatingLayerDecorator('div');
 
 		render(
 			<Root data-testid="contextualMenu">
@@ -80,7 +77,6 @@ describe('ContextualMenuDecorator Specs', () => {
 
 	test('should have "below right" className when direction is set to "below right"', () => {
 		const handleClose = jest.fn();
-		const Root = FloatingLayerDecorator('div');
 
 		render(
 			<Root>
@@ -99,7 +95,6 @@ describe('ContextualMenuDecorator Specs', () => {
 
 	test('should have offset "none" when offset is set to "none"', () => {
 		const handleClose = jest.fn();
-		const Root = FloatingLayerDecorator('div');
 
 		render(
 			<Root>
@@ -117,7 +112,6 @@ describe('ContextualMenuDecorator Specs', () => {
 
 	test('should have "large" className when popupWidth is set to "large"', () => {
 		const handleClose = jest.fn();
-		const Root = FloatingLayerDecorator('div');
 
 		render(
 			<Root>
