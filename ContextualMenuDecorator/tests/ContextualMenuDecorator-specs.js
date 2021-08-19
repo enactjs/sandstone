@@ -12,7 +12,6 @@ const items = new Array(3).fill().map((i, index) => `Option ${index + 1}`);
 describe('ContextualMenuDecorator Specs', () => {
 	test('should render component into FloatingLayer if open', () => {
 		const Root = FloatingLayerDecorator('div');
-
 		render(
 			<Root>
 				<ContextualButton menuItems={items} open>
@@ -30,7 +29,6 @@ describe('ContextualMenuDecorator Specs', () => {
 
 	test('should not render into FloatingLayer if not open', () => {
 		const Root = FloatingLayerDecorator('div');
-
 		render(
 			<Root>
 				<ContextualButton menuItems={items}>
