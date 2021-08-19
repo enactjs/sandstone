@@ -40,7 +40,7 @@ const prop = {
 	videoTitles: ['Sintel', 'Big Buck Bunny', 'VideoTest', 'Bad Video Source'],
 	videos: {
 		Sintel: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
-		'Big Buck Bunny': 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+		'Big Buck Bunny': 'http://media.w3.org/2010/05/bunny/trailer.mp4',
 		VideoTest: 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
