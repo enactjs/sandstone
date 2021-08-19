@@ -49,7 +49,7 @@ describe('ContextualMenuDecorator Specs', () => {
 		const Root = FloatingLayerDecorator('div');
 
 		render(
-			<Root>
+			<Root data-testid="contextualMenu">
 				<ContextualButton menuItems={items} onClose={handleClose} open>
 					Hello
 				</ContextualButton>
