@@ -10,24 +10,6 @@ const ContextualButton = ContextualMenuDecorator(Button);
 const items = new Array(3).fill().map((i, index) => `Option ${index + 1}`);
 
 describe('ContextualMenuDecorator Specs', () => {
-	test('should emit onClose event when clicking on outside the contextual menu', () => {
-		const handleClose = jest.fn();
-		const Root = FloatingLayerDecorator('div');
-
-		render(
-			<Root data-testid="contextualMenu">
-				<ContextualButton menuItems={items} onClose={handleClose} open>
-					Hello
-				</ContextualButton>
-			</Root>
-		);
-		const floatingLayerScrim = screen.getByTestId('contextualMenu').nextElementSibling.children.item(0).children.item(0).children.item(0);
-
-		userEvent.click(floatingLayerScrim);
-
-		expect(handleClose).toHaveBeenCalled();
-	});
-
 	test('should render component into FloatingLayer if open', () => {
 		const Root = FloatingLayerDecorator('div');
 
@@ -60,6 +42,24 @@ describe('ContextualMenuDecorator Specs', () => {
 		const menu = screen.queryByText('Option 1');
 
 		expect(menu).toBeNull();
+	});
+
+	test('should emit onClose event when clicking outside the contextual menu', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+
+		render(
+			<Root>
+				<ContextualButton menuItems={items} onClose={handleClose} open>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const floatingLayerScrim = screen.getByTestId('contextualMenu').nextElementSibling.children.item(0).children.item(0).children.item(0);
+
+		userEvent.click(floatingLayerScrim);
+
+		expect(handleClose).toHaveBeenCalled();
 	});
 
 	test('should not close menu when clicking outside if noAutoDismiss is true', () => {
