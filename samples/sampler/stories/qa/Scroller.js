@@ -278,26 +278,29 @@ export const WithSpottableComponents = () => (
 WithSpottableComponents.storyName = 'With Spottable Components';
 
 export const WithShortContents = () => (
-	<Scroller
-		direction={select('direction', prop.direction, Config)}
-		focusableScrollbar={
-			prop.focusableScrollbarOption[
-				select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
-			]
-		}
-		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-		key={select('scrollMode', prop.scrollModeOption, Config)}
-		noScrollByWheel={boolean('noScrollByWheel', Config)}
-		onKeyDown={action('onKeyDown')}
-		onScrollStart={action('onScrollStart')}
-		onScrollStop={action('onScrollStop')}
-		scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
-		style={{height: ri.scaleToRem(600)}}
-		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-	>
-		Text
-	</Scroller>
+	<>
+		<Scroller
+			direction={select('direction', prop.direction, Config)}
+			focusableScrollbar={
+				prop.focusableScrollbarOption[
+					select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)
+				]
+			}
+			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+			key={select('scrollMode', prop.scrollModeOption, Config)}
+			noScrollByWheel={boolean('noScrollByWheel', Config)}
+			onKeyDown={action('onKeyDown')}
+			onScrollStart={action('onScrollStart')}
+			onScrollStop={action('onScrollStop')}
+			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+			spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+			style={{height: ri.scaleToRem(600)}}
+			verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
+		>
+			Text
+		</Scroller>
+		<Button>Button</Button>
+	</>
 );
 
 WithShortContents.storyName = 'With short contents';
