@@ -364,6 +364,7 @@ const TimePickerBase = kind({
 									accessibilityHint={minuteAccessibilityHint}
 									aria-label={minuteAriaLabel}
 									className={css.minutePicker}
+									css={css}
 									data-last-element={isLastElement}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={minuteAccessibilityHint}
