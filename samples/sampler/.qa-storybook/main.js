@@ -4,7 +4,7 @@ const webpack = require('@enact/storybook-utils/configs/webpack');
 
 module.exports = {
 	features: {
-	  postcss: false,
+		postcss: false
 	},
 	stories: ['./../stories/qa/*.js'],
 	addons: [
