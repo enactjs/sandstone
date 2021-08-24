@@ -202,7 +202,9 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		}
 
 		componentDidMount () {
-			this.props.handleSpotlightPause(false);
+			if (this.props.handleSpotlightPause) {
+				this.props.handleSpotlightPause(false);
+			}
 
 			// eslint-disable-next-line react/no-find-dom-node
 			this.node = ReactDOM.findDOMNode(this);
