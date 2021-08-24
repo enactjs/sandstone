@@ -1,6 +1,7 @@
-import React from 'react';
+import Button from '@enact/sandstone/Button';
 import Dropdown from '@enact/sandstone/Dropdown';
 import {WizardPanels, Panel} from '@enact/sandstone/WizardPanels';
+import React from 'react';
 
 class MainPanel extends React.Component {
 	constructor () {
@@ -22,12 +23,12 @@ class MainPanel extends React.Component {
 		return (
 			<WizardPanels>
 				<Panel title="QA Sample - Dropdown">
-					<Dropdown title="language" open={this.state.open} onOpen={this.handleOpen} onClose={this.handleClose}>
-						{['aaa', 'bbb', 'ccc', 'aaa', 'bbb', 'ccc', 'aaa', 'bbb', 'ccc', 'aaa', 'bbb', 'ccc']}
+					<Dropdown size="large" title="language" open={this.state.open} onOpen={this.handleOpen} onClose={this.handleClose}>
+						{['English', 'Korean', 'Spanish', 'Amharic', 'Thai', 'Arabic', 'Urdu', 'Simplified Chinese', 'Traditional Chinese', 'Vietnamese']}
 					</Dropdown>
-					<Dropdown disabled size="large">
-						{['ddd', 'eee', 'fff']}
-					</Dropdown>
+					<Button size="large">
+						Enter
+					</Button>
 				</Panel>
 			</WizardPanels>
 		);
