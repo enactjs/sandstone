@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Dropdown` to restore focus within `dropdownList` when moving mouse after clicking `dropdownButton` 
+
 ## [2.0.0-rc.7] - 2021-08-09
 
 ### Fixed
