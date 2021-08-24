@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
+
 ## [2.0.0-rc.7] - 2021-08-09
 
 ### Fixed
