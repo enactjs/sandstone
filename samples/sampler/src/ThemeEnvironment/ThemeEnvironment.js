@@ -155,7 +155,7 @@ const StorybookDecorator = (story, config = {}) => {
 		groupId: 'Development'
 	};
 
-	const componentName = config.kind.replace(/^([^\/]+)\//, '');
+	const componentName = config.kind.replace(/^([^/]+)\//, '');
 
 	// NOTE: 'config' object is not extensible.
 	const hasInfoText = config.parameters && config.parameters.info && config.parameters.info.text;
