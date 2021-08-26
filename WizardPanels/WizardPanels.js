@@ -474,6 +474,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		index,
 		onTransition,
 		onWillTransition,
+		subtitle,
 		title,
 		rtl,
 		...rest
@@ -495,6 +496,7 @@ const WizardPanelsRouter = (Wrapped) => {
 
 		const totalPanels = panel ? Children.count(children) : 0;
 		const currentTitle = panel && panel.title ? panel.title : title;
+		const currentSubTitle = panel && panel.subtitle ? panel.subtitle : subtitle;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
@@ -510,6 +512,7 @@ const WizardPanelsRouter = (Wrapped) => {
 					index={index}
 					onWillTransition={handleWillTransition}
 					title={currentTitle}
+					subtitle={currentSubTitle}
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
@@ -582,6 +585,21 @@ const WizardPanelsRouter = (Wrapped) => {
 		rtl: PropTypes.bool,
 
 		/**
+		* The "default" subtitle for WizardPanels if subtitle isn't explicitly set in
+		* [Panel]{@link sandstone/WizardPanels.Panel}.
+		* @example
+		* 	<WizardPanels subtitle="Subtitle">
+		*		<WizardPanels.Panel>
+		*			lorem ipsum ...
+		*		</WizardPanels.Panel>
+		*	</WizardPanels>
+		*
+		* @type {String}
+		* @private
+		*/
+		subtitle: PropTypes.string,
+
+		/**
 		* The "default" title for WizardPanels if title isn't explicitly set in
 		* [Panel]{@link sandstone/WizardPanels.Panel}.
 		* @example
@@ -591,7 +609,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		*		</WizardPanels.Panel>
 		*	</WizardPanels>
 		*
-		* @type {Number}
+		* @type {String}
 		* @private
 		*/
 		title: PropTypes.string
@@ -599,6 +617,7 @@ const WizardPanelsRouter = (Wrapped) => {
 
 	WizardPanelsProvider.defaultProps = {
 		index: 0,
+		subtitle: '',
 		title: ''
 	};
 

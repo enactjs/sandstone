@@ -59,7 +59,6 @@ class WizardPanelsView extends Component {
 					</CheckboxItem>
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
-					subtitle="A subtitle for View 1 that is really, really way too long for its own good.  In fact, it's so long that it probably goes to multiple lines, unless your screen is so large that it somehow fits.  That seems unlikely, though, unless you're in the year 2030 or something."
 					title="WizardPanels View 1"
 				>
 					<BodyText>Several buttons!</BodyText>
