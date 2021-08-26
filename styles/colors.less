@@ -21,7 +21,8 @@
 
 // UI Conceptual Colors
 // ---------------------------------------
-@sand-fullscreen-bg-color:      @sand-black;
+@sand-bg-color:            @sand-black;
+@sand-fullscreen-bg-color: @sand-bg-color;
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  @sand-light-gray;
 @sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
@@ -163,7 +164,7 @@
 @sand-input-overlay-background-color: @sand-popup-bg-color;
 @sand-input-numbercell-background-color: fade(@sand-light-gray, 20%);
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
-@sand-input-numberfield-disabled-color: fade(@sand-dark-gray/*@sand-inputfield-focus-text-color*/, @sand-disabled-focus-content-opacity * 100%);
+@sand-input-numberfield-disabled-color: fade(@sand-dark-gray, @sand-disabled-focus-content-opacity * 100%); // @sand-inputfield-focus-text-color
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
@@ -315,7 +316,7 @@
 // Switch
 // ---------------------------------------
 @sand-switch-color: #aeaeae;
-@sand-switch-bg-color: #777;
+@sand-switch-bg-color: #777777;
 @sand-switch-selected-color: @sand-light-gray;
 @sand-switch-selected-bg-color: @sand-feature-color;
 @sand-switch-focus-color: @sand-switch-color;
