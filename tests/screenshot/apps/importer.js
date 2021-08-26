@@ -8,6 +8,7 @@ import CheckboxItem from '../../../CheckboxItem';
 import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
+import DayPicker from '../../../DayPicker';
 import Dropdown from '../../../Dropdown';
 import FixedPopupPanels from '../../../FixedPopupPanels';
 import FlexiblePopupPanels from '../../../FlexiblePopupPanels';
@@ -53,6 +54,7 @@ const components = {
 	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
+	DayPicker,
 	Dropdown,
 	FixedPopupPanels,
 	FlexiblePopupPanels,
