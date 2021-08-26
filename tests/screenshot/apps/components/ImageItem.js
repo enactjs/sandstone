@@ -52,7 +52,7 @@ const ImageItemTests = [
 	// Disabled
 	...withProps({disabled: true}, defaultImageItemTests),
 
-	// Centered and disabled
+	// Centered and disabled.
 	...withProps({centered: true, disabled: true}, defaultImageItemTests)
 ];
 
