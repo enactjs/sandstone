@@ -171,6 +171,7 @@ describe('Slider', function () {
 			describe('pointer', function () {
 				it('should not change the value of horizontal disabled slider on slider click at position', function () {
 					slider.focus();
+					Page.delay(300);
 					const originalValue = slider.knobPositionHorizontal;
 					slider.self.click();
 					// expect knob `left` css prop to be equal to original one
@@ -210,6 +211,7 @@ describe('Slider', function () {
 			describe('pointer', function () {
 				it('should not change the value of vertical disabled slider on slider click at position', function () {
 					slider.focus();
+					Page.delay(300);
 					const originalValue = slider.knobPositionVertical;
 					slider.self.click();
 					// expect knob `left` css prop to be equal to original one

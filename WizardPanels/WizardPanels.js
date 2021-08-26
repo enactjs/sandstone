@@ -11,7 +11,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext, useState, useCallback, Children} from 'react';
+import {createContext, useRef, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
@@ -444,16 +444,17 @@ const WizardPanelsBase = kind({
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
 function useReverseTransition (index = -1, rtl) {
-	const [prevIndex, setPrevIndex] = useState(-1);
-	let [reverse, setReverse] = useState(rtl);
+	const prevIndex = useRef(index);
+	const reverse = useRef(rtl);
+	// If the index was changed, the panel transition is occured on the next cycle by `Panel`
+	const prev = {reverseTransition: reverse.current, prevIndex: prevIndex.current};
 
-	if (prevIndex !== index) {
-		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
-		setReverse(reverse);
-		setPrevIndex(index);
+	if (prevIndex.current !== index) {
+		reverse.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
+		prevIndex.current = index;
 	}
 
-	return reverse;
+	return prev;
 }
 
 /**
@@ -471,7 +472,6 @@ const WizardPanelsRouter = (Wrapped) => {
 		componentRef,
 		'data-spotlight-id': spotlightId,
 		index,
-		noAnimation,
 		onTransition,
 		onWillTransition,
 		title,
@@ -482,11 +482,11 @@ const WizardPanelsRouter = (Wrapped) => {
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
-		const reverseTransition = useReverseTransition(index, rtl);
+		const {reverseTransition, prevIndex} = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
-		} = useFocusOnTransition({index, noAnimation, onTransition, onWillTransition, spotlightId});
+		} = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
 
 		const handleWillTransition = useCallback((ev) => {
 			focusOnWillTransition(ev);
@@ -508,14 +508,13 @@ const WizardPanelsRouter = (Wrapped) => {
 					componentRef={ref}
 					data-spotlight-id={spotlightId}
 					index={index}
-					noAnimation={noAnimation}
 					onWillTransition={handleWillTransition}
 					title={currentTitle}
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
 					{panel && panel.children ? (
-						<div className="enact-fit" key={`panel${index}`}>
+						<div className="enact-fit" key={`panel${prevIndex}`}>
 							{panel.children}
 						</div>
 					) : null}

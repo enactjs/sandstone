@@ -5,7 +5,6 @@ describe('WizardPanels', function () {
 	const wizardPanels = Page.components.wizardPanels;
 
 	function getFocusedTextContent () {
-		// eslint-disable-next-line no-undef
 		return document.activeElement.textContent;
 	}
 

@@ -7,7 +7,9 @@ const commonTests = [
 	<BodyText size="small">This is some text small</BodyText>, // [GT-28440]
 	<BodyText centered>This is some text</BodyText>, // [GT-28438]
 	<BodyText centered>{LoremString}</BodyText>,
-	<BodyText centered size="small">This is some text</BodyText> // [GT-28443]
+	<BodyText centered size="small">This is some text</BodyText>, // [GT-28443]
+	<BodyText noWrap size="small">{LoremString}</BodyText>,
+	<BodyText noWrap>{LoremString}</BodyText>
 ];
 
 const BodyTextTests = [

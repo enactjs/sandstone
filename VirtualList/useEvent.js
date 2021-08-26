@@ -236,8 +236,9 @@ const useEventKey = (props, instances, context) => {
 	};
 };
 
-const useEventFocus = (props, instances) => {
+const useEventFocus = (props, instances, context) => {
 	const {scrollContainerRef, scrollContentHandle} = instances;
+	const {removeScaleEffect} = context;
 
 	useLayoutEffect(() => {
 		function handleFocus (ev) {
@@ -246,6 +247,7 @@ const useEventFocus = (props, instances) => {
 			// We need to find out the general solution for multiple spottable inside of one item
 			if (ev.target && scrollContentHandle.current && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', 1);
+				removeScaleEffect();
 			}
 		}
 

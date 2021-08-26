@@ -20,11 +20,11 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.0.0",
-    "@enact/i18n": "^4.0.0",
+    "@enact/core": "^4.0.5",
+    "@enact/i18n": "^4.0.5",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.0.0",
-    "@enact/ui": "^4.0.0",
+    "@enact/spotlight": "^4.0.5",
+    "@enact/ui": "^4.0.5",
     "classnames": "^2.2.6",
     "ilib": "^14.4.0",
     "query-string": "^6.7.0",
@@ -33,9 +33,9 @@
   },
   "devDependencies": {
     "@enact/storybook-utils": "^4.0.0",
-    "@storybook/addons": "^6.1.21",
-    "@storybook/react": "^6.1.21",
-    "@storybook/theming": "^6.1.21",
+    "@storybook/addons": "6.2.9",
+    "@storybook/react": "6.2.9",
+    "@storybook/theming": "6.2.9",
     "babel-loader": "^8.2.2",
     "core-js": "^3.8.1"
   }

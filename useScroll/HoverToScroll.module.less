@@ -1,0 +1,30 @@
+// HoverToScroll.module.less
+//
+@import "../styles/variables.less";
+@import "../styles/mixins.less";
+
+.hoverToScroll {
+	position: absolute;
+	z-index: 10;
+	pointer-events: none;
+	:global(.spotlight-input-mouse) & {
+		pointer-events: auto;
+	}
+	&.vertical {
+		width: 100%;
+		height: @sand-scroll-hover-area-size;
+		&.after {
+			bottom: 0;
+		}
+	}
+	&.horizontal {
+		width: @sand-scroll-hover-area-size;
+		height: 100%;
+		&.before {
+			.position-start-end(0, auto);
+		}
+		&.after {
+			.position-start-end(auto, 0);
+		}
+	}
+}

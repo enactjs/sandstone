@@ -74,6 +74,11 @@ const ItemTests = [
 		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Focused Item</Item>
 	]),
 
+	// Focused with light wrapper
+	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
+		<Item>Focused Item</Item>
+	]),
+
 	// Centered
 	...withProps({centered: true}, [
 		<Item>Centered Item</Item>,

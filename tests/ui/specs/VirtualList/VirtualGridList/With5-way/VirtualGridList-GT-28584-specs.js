@@ -35,6 +35,10 @@ describe('Navigate with 5-way', function () {
 		Page.spotlightDown();
 		// Step 4-3 Verify: Spotlight is on Image 16(In case, 13).
 		expectFocusedItem(13);
+
+		// Wait for scroll animation
+		Page.delay(300);
+
 		// check if the previous item partially cut off.
 		expect(Page.itemOffsetBottomById(8)).to.be.below(Page.getItemSize().height);
 	});
@@ -77,6 +81,10 @@ describe('Navigate with 5-way', function () {
 			Page.spotlightDown();
 			// Step 6-3 Verify: Spotlight is on Image 16(In case, 13).
 			expectFocusedItem(13);
+
+			// Wait for scroll animation
+			Page.delay(300);
+
 			// check if the previous item partially cut off.
 			expect(Page.itemOffsetBottomById(8)).to.be.below(Page.getItemSize().height);
 		});

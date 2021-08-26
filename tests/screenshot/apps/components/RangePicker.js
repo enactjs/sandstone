@@ -1,5 +1,7 @@
 import RangePicker from '../../../../RangePicker';
 
+import css from './Picker.module.less';
+
 // ***NOTES:***
 // 'min' and 'max' are required for the image to be valid.
 // 'value' is needed if we want to display a value
@@ -125,6 +127,7 @@ const RangePickerTests = [
 	// title
 	<RangePicker min={0} max={5} value={0} title="Title" />,
 	<RangePicker min={0} max={5} value={0} inlineTitle title="Title" />,
+	<RangePicker min={0} max={5} value={0} css={css} inlineTitle title="Title" />,
 
 	// *************************************************************
 	// locale = 'ar-SA'
