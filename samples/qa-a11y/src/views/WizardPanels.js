@@ -60,6 +60,7 @@ class WizardPanelsView extends Component {
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
 					title="WizardPanels View 1"
+					subtitle="A subtitle for View 1 that is really, really way too long for its own good. In fact, it's so long that it probably goes to multiple lines, unless your screen is so large that it somehow fits. That seems unlikely, though, unless you're in the year 2030 or something."
 				>
 					<BodyText>Several buttons!</BodyText>
 					<Button icon="list">Button A</Button>
@@ -85,7 +86,6 @@ class WizardPanelsView extends Component {
 				<WizardPanels.Panel
 					footer="Footer in View 3"
 					nextButton={<Button icon="closex" aria-label="This is Quit.">Close</Button>}
-					subtitle="A subtitle for View 3"
 					title="WizardPanels View 3"
 				>
 					<Icon>support</Icon>

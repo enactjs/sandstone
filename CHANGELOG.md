@@ -7,7 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
-- `sandstone/WizardPanels` to not read out `undefined` when there is no prop `subtitle`
+- `sandstone/WizardPanels` to not read out `undefined` when there is no `subtitle` prop
 
 ## [2.0.0-rc.7] - 2021-08-09
 
