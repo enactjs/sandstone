@@ -86,7 +86,6 @@ class WizardPanelsView extends Component {
 				<WizardPanels.Panel
 					footer="Footer in View 3"
 					nextButton={<Button icon="closex" aria-label="This is Quit.">Close</Button>}
-					subtitle="A subtitle for View 3"
 					title="WizardPanels View 3"
 				>
 					<Icon>support</Icon>

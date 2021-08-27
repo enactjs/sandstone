@@ -265,7 +265,7 @@ const RangePickerBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'rangePicker',
-		publicClassNames: ['inlineTitle', 'title']
+		publicClassNames: ['inlineTitle', 'sizingPlaceholder', 'title']
 	},
 
 	computed: {
