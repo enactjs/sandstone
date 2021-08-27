@@ -49,8 +49,9 @@ const pause = new Pause('dropdown');
 function pauseSpotlight (bool) {
 	if (bool) {
 		pause.pause();
+		return true;
 	} else {
-		pause.resume();
+		return pause.resume();
 	}
 }
 
@@ -256,10 +257,7 @@ const DropdownBase = kind({
 			forward('onClick'),
 			not(forProp('disabled', true)),
 			not(forProp('open', true)),
-			() => {
-				pauseSpotlight(true);
-				return true;
-			},
+			() => pauseSpotlight(true),
 			forward('onOpen')
 		)
 	},

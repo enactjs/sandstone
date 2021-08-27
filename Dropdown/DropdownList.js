@@ -168,7 +168,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		static propTypes = {
 			/*
-			 * Passed by Dropdownbase to resume Spotlight
+			 * Passed by DropdownBase to resume Spotlight
 			 *
 			 * @type {Function}
 			 */
