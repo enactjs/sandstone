@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Dropdown` to restore focus within the list when moving mouse after clicking dropdown button
 - `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
 - `sandstone/TimePicker` abnormal minute animation in some locales
 - `sandstone/WizardPanels` to not read out `undefined` when there is no `subtitle` prop
