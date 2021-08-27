@@ -695,7 +695,8 @@ describe('Popup', function () {
 
 				Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4)
-				$('#buttonCancel').moveTo({xOffset: 200, yOffset: 200});
+				$('#popup6').moveTo({xOffset: 800, yOffset: 200});
+
 				// 5-way to the Cancel button
 				Page.spotlightLeft();
 
@@ -727,7 +728,7 @@ describe('Popup', function () {
 				// Wave the pointer to change to cursor mode (step 5)
 				Page.showPointerByKeycode();
 				// Position the pointer on the right of the Cancel button inside popup
-				$('#buttonCancel').moveTo({xOffset: 200, yOffset: 200});
+				$('#popup6').moveTo({xOffset: 800, yOffset: 200});
 
 				// Spotlight on button in popup is blur (verify step 5)
 				expect(popup.buttonOK.isFocused()).to.be.false();
@@ -909,7 +910,7 @@ describe('Popup', function () {
 				// Position the pointer inside popup to the right of the Cancel button (step 4-1).
 				$('#popup7').moveTo({xOffset: popupSize.width - 1, yOffset: popupSize.height - 1});
 				// Click on the blank area to change to 5-way.
-				browser.positionClick();
+				$('#popup7').click();
 				Page.spotlightLeft();
 				expect(popup.buttonCancel.isFocused()).to.be.true();
 
