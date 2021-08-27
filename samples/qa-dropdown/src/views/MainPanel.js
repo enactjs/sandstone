@@ -1,9 +1,9 @@
 import Button from '@enact/sandstone/Button';
 import Dropdown from '@enact/sandstone/Dropdown';
 import {WizardPanels, Panel} from '@enact/sandstone/WizardPanels';
-import React from 'react';
+import {Component} from 'react';
 
-class MainPanel extends React.Component {
+class MainPanel extends Component {
 	constructor () {
 		super();
 		this.state = {
