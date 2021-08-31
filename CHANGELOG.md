@@ -2,6 +2,10 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.0.0-experimental.2] - 2021-08-31
+
+No significant changes.
+
 ## [2.0.0-experimental.1] - 2021-08-27
 
 - Experimental support for external skin customization
