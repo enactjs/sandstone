@@ -42,8 +42,7 @@ describe('TabLayout', function () {
 
 			describe('pointer interaction', function () {
 
-				// this covers GT-28261
-				it('should render a tab\'s associated view when it is selected via pointer click', function () {
+				it('should render a tab\'s associated view when it is selected via pointer click - [QWT-2754]', function () {
 					const expected = 'view5';
 					const originalView = Page.tabLayout.currentView.getAttribute('id');
 

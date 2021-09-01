@@ -11,8 +11,7 @@ describe('TabLayout', function () {
 		describe('collapsing/expanding behavior', function () {
 			describe('5-way interaction', function () {
 
-				// this covers GT-28257 step 3
-				it('should collapse tabs when focus is moved to a Spottable component in the content container', function () {
+				it('should collapse tabs when focus is moved to a Spottable component in the content container - [QWT-2758]', function () {
 					// 5-way down to second tab
 					Page.spotlightDown();
 					Page.tabLayout.view(2).waitForExist();
@@ -24,8 +23,7 @@ describe('TabLayout', function () {
 					expect(Page.tabLayout.isCollapsed).to.be.true();
 				});
 
-				// this covers GT-28257 step 4
-				it('should expand tabs when focus is moved to a Spottable component in the tabs container', function () {
+				it('should expand tabs when focus is moved to a Spottable component in the tabs container - [QWT-2758]', function () {
 					// 5-way down to second tab
 					Page.spotlightDown();
 					Page.tabLayout.view(2).waitForExist();
@@ -62,8 +60,7 @@ describe('TabLayout', function () {
 			});
 			describe('pointer interaction', function () {
 
-				// this covers GT-28256
-				it('should collapse and expand tabs when focus is moved between `Spottable` components in the content and tabs containers via pointer move', function () {
+				it('should collapse and expand tabs when focus is moved between `Spottable` components in the content and tabs containers via pointer move - [QWT-2759]', function () {
 					// focus the layout's tabs
 					Page.tabLayout.hoverTabs();
 					// select the second tab
