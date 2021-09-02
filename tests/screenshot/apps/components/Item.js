@@ -64,123 +64,123 @@ const tallglyphItemTests = [
 const ItemTests = [
 	...commonItemTests,
 	...longTextItemTests,
-	...rtlItemTests,
+	// ...rtlItemTests,
 
-	// Focused
-	...withConfig({focus: true}, [
-		<Item>Focused Item</Item>,
-		<Item slotBefore={<Icon>star</Icon>}>Focused Item</Item>,
-		<Item slotAfter={<Icon>star</Icon>}>Focused Item</Item>,
-		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Focused Item</Item>
-	]),
+	// // Focused
+	// ...withConfig({focus: true}, [
+	// 	<Item>Focused Item</Item>,
+	// 	<Item slotBefore={<Icon>star</Icon>}>Focused Item</Item>,
+	// 	<Item slotAfter={<Icon>star</Icon>}>Focused Item</Item>,
+	// 	<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Focused Item</Item>
+	// ]),
 
-	// Focused with light wrapper
-	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
-		<Item>Focused Item</Item>
-	]),
+	// // Focused with light wrapper
+	// ...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
+	// 	<Item>Focused Item</Item>
+	// ]),
 
-	// Centered
-	...withProps({centered: true}, [
-		<Item>Centered Item</Item>,
-		<Item>{LoremString}</Item>,
-		// Just slotBefore
-		<Item slotBefore={<Icon>star</Icon>}>Centered Item</Item>,
-		<Item slotBefore={<Icon>star</Icon>}>{LoremString}</Item>,
-		// Just slotAfter
-		<Item slotAfter={<Icon>star</Icon>}>Centered Item</Item>,
-		<Item slotAfter={<Icon>star</Icon>}>{LoremString}</Item>,
-		// Both slotBefore and slotAfter
-		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Centered Item</Item>,
-		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>{LoremString}</Item>,
+	// // Centered
+	// ...withProps({centered: true}, [
+	// 	<Item>Centered Item</Item>,
+	// 	<Item>{LoremString}</Item>,
+	// 	// Just slotBefore
+	// 	<Item slotBefore={<Icon>star</Icon>}>Centered Item</Item>,
+	// 	<Item slotBefore={<Icon>star</Icon>}>{LoremString}</Item>,
+	// 	// Just slotAfter
+	// 	<Item slotAfter={<Icon>star</Icon>}>Centered Item</Item>,
+	// 	<Item slotAfter={<Icon>star</Icon>}>{LoremString}</Item>,
+	// 	// Both slotBefore and slotAfter
+	// 	<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Centered Item</Item>,
+	// 	<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>{LoremString}</Item>,
 
-		...rtlItemTests
-	]),
+	// 	...rtlItemTests
+	// ]),
 
-	// Small
-	...withProps({size: 'small'}, [
-		...commonItemTests,
-		...rtlItemTests
-	]),
+	// // Small
+	// ...withProps({size: 'small'}, [
+	// 	...commonItemTests,
+	// 	...rtlItemTests
+	// ]),
 
-	// With tall characters and disabled [GT-28165]
-	...tallglyphItemTests,
+	// // With tall characters and disabled [GT-28165]
+	// ...tallglyphItemTests,
 
-	// LargeText mode
-	...withConfig({
-		textSize: 'large'
-	}, [
-		...commonItemTests,
-		...rtlItemTests,
-		...tallglyphItemTests,
-		...withProps({size: 'small'}, [
-			...commonItemTests
-		])
-	]),
+	// // LargeText mode
+	// ...withConfig({
+	// 	textSize: 'large'
+	// }, [
+	// 	...commonItemTests,
+	// 	...rtlItemTests,
+	// 	...tallglyphItemTests,
+	// 	...withProps({size: 'small'}, [
+	// 		...commonItemTests
+	// 	])
+	// ]),
 
-	// Customized Item Style
-	...withProps({css: css}, [
-		<Item label="label">Customized Item</Item>,
-		<Item label="label" slotBefore={<Icon>star</Icon>}>Customized Item</Item>,
-		<Item label="label" slotAfter={<Icon>star</Icon>}>Customized Item</Item>,
-		<Item label="label" slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Item</Item>,
+	// // Customized Item Style
+	// ...withProps({css: css}, [
+	// 	<Item label="label">Customized Item</Item>,
+	// 	<Item label="label" slotBefore={<Icon>star</Icon>}>Customized Item</Item>,
+	// 	<Item label="label" slotAfter={<Icon>star</Icon>}>Customized Item</Item>,
+	// 	<Item label="label" slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Item</Item>,
 
-		...withConfig({focus: true}, [
-			<Item>Customized Focused Item</Item>,
-			<Item label='"label"' slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Focused Item</Item>
-		])
-	]),
-
-
-	// *************************************************************
-	// locale = 'ar-SA'
-	// Item Functionality RTL [GT-28162]
-	...withConfig({locale: 'ar-SA'}, [
-		...commonItemTests,
-		...rtlItemTests,
-
-		// Centered
-		...withProps({centered: true}, [
-			<Item>Hello Item</Item>,
-			<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Hello Item</Item>
-		]),
-
-		// Small
-		...withProps({size: 'small'}, commonItemTests),
-
-		// With tall characters and disabled [GT-28165]
-		...tallglyphItemTests
-	]),
-
-	// RTL and LargeText mode
-	...withConfig({
-		locale: 'ar-SA',
-		textSize: 'large'
-	}, [
-		...commonItemTests,
-		...rtlItemTests,
-		...tallglyphItemTests
-	]),
+	// 	...withConfig({focus: true}, [
+	// 		<Item>Customized Focused Item</Item>,
+	// 		<Item label='"label"' slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Customized Focused Item</Item>
+	// 	])
+	// ]),
 
 
-	// *************************************************************
-	// Tallglyph Validation
-	// locale = 'vi-VN'
-	...withConfig({
-		locale: 'vi-VN'
-	}, [
-		...commonItemTests,
-		...tallglyphItemTests,
-		...withProps({size: 'small'}, commonItemTests)
-	]),
+	// // *************************************************************
+	// // locale = 'ar-SA'
+	// // Item Functionality RTL [GT-28162]
+	// ...withConfig({locale: 'ar-SA'}, [
+	// 	...commonItemTests,
+	// 	...rtlItemTests,
 
-	...withConfig({
-		locale: 'vi-VN',
-		textSize: 'large'
-	}, [
-		...commonItemTests,
-		...tallglyphItemTests,
-		...withProps({size: 'small'}, commonItemTests)
-	])
+	// 	// Centered
+	// 	...withProps({centered: true}, [
+	// 		<Item>Hello Item</Item>,
+	// 		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Hello Item</Item>
+	// 	]),
+
+	// 	// Small
+	// 	...withProps({size: 'small'}, commonItemTests),
+
+	// 	// With tall characters and disabled [GT-28165]
+	// 	...tallglyphItemTests
+	// ]),
+
+	// // RTL and LargeText mode
+	// ...withConfig({
+	// 	locale: 'ar-SA',
+	// 	textSize: 'large'
+	// }, [
+	// 	...commonItemTests,
+	// 	...rtlItemTests,
+	// 	...tallglyphItemTests
+	// ]),
+
+
+	// // *************************************************************
+	// // Tallglyph Validation
+	// // locale = 'vi-VN'
+	// ...withConfig({
+	// 	locale: 'vi-VN'
+	// }, [
+	// 	...commonItemTests,
+	// 	...tallglyphItemTests,
+	// 	...withProps({size: 'small'}, commonItemTests)
+	// ]),
+
+	// ...withConfig({
+	// 	locale: 'vi-VN',
+	// 	textSize: 'large'
+	// }, [
+	// 	...commonItemTests,
+	// 	...tallglyphItemTests,
+	// 	...withProps({size: 'small'}, commonItemTests)
+	// ])
 ];
 
 export default ItemTests;
