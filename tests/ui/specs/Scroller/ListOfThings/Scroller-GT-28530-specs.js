@@ -21,7 +21,7 @@ describe('Scroller List Of Things', function () {
 		// Step 4-2: 5-way Right.
 		ScrollerPage.spotlightRight();
 		// Step 4 Verify: Spotlight is on the verticalScrollbar Scroll Thumb..
-		expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
+		expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.false();
 
 		// Step 5-1: Knobs > Scroller > spotlightDisabled > check
 		ScrollerPage.buttonSpotlightDisabled.moveTo();

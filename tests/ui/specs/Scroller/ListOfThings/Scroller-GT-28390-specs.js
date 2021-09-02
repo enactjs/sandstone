@@ -15,7 +15,7 @@ describe('Scroller List Of Things', function () {
 
 		// Step 4-1: Knobs > Scroller > spotlightDisabled > Check.
 		ScrollerPage.buttonSpotlightDisabled.moveTo();
-		ScrollerPage.spotlightSelect();
+		ScrollerPage.spotlightSelect2();
 
 		// Step 4=2: Hover item 0.
 		$('#item0').moveTo();
