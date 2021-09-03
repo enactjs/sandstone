@@ -66,7 +66,7 @@ const components = {
 // 	ImageItem,
 // 	Input,
 // 	InputField,
-	Item
+	Item,
 // 	KeyGuide,
 // 	Marquee,
 // 	MediaOverlay,
@@ -93,7 +93,7 @@ const components = {
 // 	// TooltipDecorator,
 // 	// VideoPlayer,
 // 	// VirtualList,
-// 	WizardPanels
+ 	WizardPanels
 };
 
 const testMetadata = {};
