@@ -8,12 +8,12 @@ const IconTests = [
 	<Icon size="medium">minus</Icon>,
 	<Icon size="large">minus</Icon>,
 	<Icon size={120}>minus</Icon>,
-	<Icon>💣</Icon>, // [GT-28730] testing 'custom-icon' using unicode character
+	<Icon>💣</Icon>, // [QWT-2398] testing 'custom-icon' using unicode character
 	<Icon size="tiny">💣</Icon>,
 	<Icon size="medium">💣</Icon>,
 	<Icon size="large">💣</Icon>,
 	<Icon size={120}>💣</Icon>,
-	<Icon>{buttonstate}</Icon>,  // [GT-28730]
+	<Icon>{buttonstate}</Icon>,  // [QWT-2398]
 	<Icon size="tiny">{buttonstate}</Icon>,
 	<Icon size="medium">{buttonstate}</Icon>,
 	<Icon size="large">{buttonstate}</Icon>,
@@ -53,12 +53,12 @@ const IconTests = [
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
-	// [GT-28211] - Icon Functionality RTL
+	// [QWT-2794] - Icon Functionality RTL
 	{
 		locale: 'ar-SA',
 		component: <Icon>minus</Icon>
 	},
-	// end of [GT-28211]
+	// end of [QWT-2794]
 	{
 		locale: 'ar-SA',
 		component: <Icon size="tiny">minus</Icon>

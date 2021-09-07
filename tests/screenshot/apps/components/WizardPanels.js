@@ -24,7 +24,7 @@ const WizardPanelTests = withConfig({
 		<Panel>View 1</Panel>
 		<Panel>View 2</Panel>
 	</WizardPanels>,
-	// [GT-28274] - 'nextButton' and 'prevButton' to show on all the panels
+	// [QWT-2742] - 'nextButton' and 'prevButton' to show on all the panels
 	<WizardPanels index={1} prevButtonVisibility="always" nextButtonVisibility="always" title="WizardPanel">
 		<Panel>View 1</Panel>
 		<Panel>View 2</Panel>
