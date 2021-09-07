@@ -2,11 +2,16 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [2.0.0-rc.8] - 2021-08-31
+## [unreleased]
 
 ### Fixed
 
 - `sandstone/Alert` to remove default display `block` from the wrapper `div`
+
+## [2.0.0-rc.8] - 2021-08-31
+
+### Fixed
+
 - `sandstone/Dropdown` to restore focus within the list when moving mouse after clicking dropdown button
 - `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
 - `sandstone/TimePicker` abnormal minute animation in some locales
