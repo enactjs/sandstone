@@ -3,6 +3,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Spottable from '@enact/spotlight/Spottable';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
@@ -23,6 +24,8 @@ import PropTypes from 'prop-types';
 import {Component, cloneElement} from 'react';
 
 import docs from '../../images/icon-enact-docs.png';
+import css from './Spotlight.module.less';
+
 
 const Container = SpotlightContainerDecorator({enterTo: 'last-focused'}, 'div');
 
@@ -304,6 +307,32 @@ export const MultipleButtons = () => (
 		</Cell>
 	</Row>
 );
+
+const SimpleDiv = () => {
+        action('Render')();
+        return <h1 className={css.bgColor}>Hello</h1>
+};
+
+const SpottableComponent = Spottable('div');
+export const CheckRerender = () => (
+	<div>
+		<p>
+			A spottable component must not be re-rendered when a focus change occurs.
+			So 'Render' action message must be displayed only once when it is first loaded.
+		</p>
+		<Row align="center space-evenly">
+			<SpottableComponent onSpotlightDown={action('onSpotlightDown')}
+				onSpotlightLeft={action('onSpotlightLeft')}
+				onSpotlightRight={action('onSpotlightRight')}
+				onSpotlightUp={action('onSpotlightUp')}
+			>
+				<SimpleDiv />
+			</SpottableComponent>
+		</Row>
+	</div>
+);
+
+CheckRerender.storyName = 'Check Re-render';
 
 export const MultipleContainers = () => (
 	<Scroller>
