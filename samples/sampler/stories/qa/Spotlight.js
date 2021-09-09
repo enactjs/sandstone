@@ -4,6 +4,7 @@ import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Spottable from '@enact/spotlight/Spottable';
+import Skinnable from '@enact/sandstone/Skinnable';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
@@ -299,7 +300,7 @@ const SimpleDiv = () => {
 	return <div>Spottable Component</div>
 };
 
-const SpottableItem = Spottable('div');
+const SpottableItem = Spottable(Skinnable('div'));
 export const CheckRerender = () => (
 	<div>
 		<p>

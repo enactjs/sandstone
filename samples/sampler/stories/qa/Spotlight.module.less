@@ -1,10 +1,12 @@
-@import "~@enact/sandstone/styles/mixins.less";
+@import "~@enact/sandstone/styles/skin.less";
 
 .spottableitem {
-	background-color: transparent;
-	color: #e6e6e6;
-	.focus({
-		background-color:  #e6e6e6;
-		color: #4c5059;
+	.applySkins({
+		background-color: transparent;
+		color: @sand-text-color;
+		.focus({
+			background-color: @sand-spotlight-bg-color;
+			color: @sand-spotlight-text-color;
+		});
 	});
 }
