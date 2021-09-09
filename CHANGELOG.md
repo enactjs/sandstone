@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VirtualList` to not focus to the item again if focus moved out of the list via 5way when `snapToCenter`
+
 ## [2.0.0-rc.8] - 2021-08-31
 
 ### Fixed
