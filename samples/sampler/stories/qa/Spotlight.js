@@ -294,6 +294,28 @@ export default {
 	component: 'Spotlight'
 };
 
+const SimpleDiv = () => {
+	action('Render')();
+	return <div>Spottable Component</div>
+};
+
+const SpottableComponent = Spottable('div');
+export const CheckRerender = () => (
+	<div>
+		<p>
+			A spottable component must not be re-rendered when a focus change occurs.
+			So 'Render' action message must be displayed only once when it is first loaded.
+		</p>
+		<Row align="center space-evenly">
+			<SpottableComponent className={css.spottablediv}>
+				<SimpleDiv />
+			</SpottableComponent>
+		</Row>
+	</div>
+);
+
+CheckRerender.storyName = 'Check Re-render';
+
 export const MultipleButtons = () => (
 	<Row align="center space-evenly">
 		<Cell shrink>
@@ -307,32 +329,6 @@ export const MultipleButtons = () => (
 		</Cell>
 	</Row>
 );
-
-const SimpleDiv = () => {
-        action('Render')();
-        return <h1 className={css.bgColor}>Hello</h1>
-};
-
-const SpottableComponent = Spottable('div');
-export const CheckRerender = () => (
-	<div>
-		<p>
-			A spottable component must not be re-rendered when a focus change occurs.
-			So 'Render' action message must be displayed only once when it is first loaded.
-		</p>
-		<Row align="center space-evenly">
-			<SpottableComponent onSpotlightDown={action('onSpotlightDown')}
-				onSpotlightLeft={action('onSpotlightLeft')}
-				onSpotlightRight={action('onSpotlightRight')}
-				onSpotlightUp={action('onSpotlightUp')}
-			>
-				<SimpleDiv />
-			</SpottableComponent>
-		</Row>
-	</div>
-);
-
-CheckRerender.storyName = 'Check Re-render';
 
 export const MultipleContainers = () => (
 	<Scroller>

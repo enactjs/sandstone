@@ -1,9 +1,13 @@
-.bgColor {
-	background-color: rgb(255, 0, 0);
-}
-.bgColor.spottable:focus {
-	background-color: rgb(0, 0, 255);
-}
-.bgColor:hover {
-	background-color: rgb(0, 255, 0);
+@import "~@enact/sandstone/styles/mixins.less";
+
+.spottablediv {
+	display: inline-block;
+	padding: 24px;
+	text-align: center;
+	background-color: transparent;
+	color: #e6e6e6;
+	.focus({
+		background-color:  #e6e6e6;
+		color: #4c5059;
+	});
 }
