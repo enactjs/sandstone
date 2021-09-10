@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` styling to match updated GUI
+
 ## [2.0.0-rc.8] - 2021-08-31
 
 ### Fixed
