@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@enact/docs-utils": "^0.3.3",
-    "@enact/ui-test-utils": "^0.6.0",
+    "@enact/ui-test-utils": "^0.7.0",
     "eslint-config-enact-proxy": "^1.0.1",
     "ilib": "^14.4.0"
   }
