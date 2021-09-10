@@ -4,7 +4,6 @@ import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Spottable from '@enact/spotlight/Spottable';
-import Skinnable from '@enact/sandstone/Skinnable';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
@@ -15,6 +14,7 @@ import Item from '@enact/sandstone/Item';
 import Picker from '@enact/sandstone/Picker';
 import Popup from '@enact/sandstone/Popup';
 import RadioItem from '@enact/sandstone/RadioItem';
+import Skinnable from '@enact/sandstone/Skinnable';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import TimePicker from '@enact/sandstone/TimePicker';
 import Scroller from '@enact/sandstone/Scroller';
@@ -24,9 +24,9 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {Component, cloneElement} from 'react';
 
-import docs from '../../images/icon-enact-docs.png';
 import css from './Spotlight.module.less';
 
+import docs from '../../images/icon-enact-docs.png';
 
 const Container = SpotlightContainerDecorator({enterTo: 'last-focused'}, 'div');
 
