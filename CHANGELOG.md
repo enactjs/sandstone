@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` styling to match updated GUI
+
 ### Fixed
 
 - `sandstone/VirtualList` to not focus the item again if focus moved out of the list via 5way when `snapToCenter`
