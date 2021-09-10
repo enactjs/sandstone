@@ -297,7 +297,7 @@ export default {
 
 const SimpleDiv = () => {
 	action('Render')(true);
-	return <div>Spottable Component</div>
+	return <div>Spottable Component</div>;
 };
 
 const SpottableItem = Spottable(Skinnable('div'));
@@ -305,7 +305,7 @@ export const CheckRerender = () => (
 	<div>
 		<p>
 			A spottable component must not be re-rendered when a focus change occurs.
-			So the message 'Render' in the Actions tab should be displayed only once when it is first loaded.
+			So the message of the Actions tab(&apos;Render: true&apos;) should be displayed only once when it is first loaded.
 		</p>
 		<Row align="center space-evenly">
 			<SpottableItem className={css.spottableitem}>
