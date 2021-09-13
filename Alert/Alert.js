@@ -186,7 +186,7 @@ const AlertBase = kind({
 		const showTitle = (fullscreen && title);
 		const ariaLabelledBy = (showTitle ? `${id}_title ` : '') + `${id}_content ${id}_buttons`;
 		return (
-			<div aria-owns={id}>
+			<div aria-owns={id} className={css.alertWrapper}>
 				<Popup
 					{...rest}
 					id={id}

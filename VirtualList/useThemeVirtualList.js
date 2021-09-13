@@ -235,7 +235,7 @@ const useSpottable = (props, instances) => {
 			pause.resume();
 			if (utilDOM.containsDangerously(itemNode, candidate)) {
 				returnVal = focusOnNode(candidate);
-			} else {
+			} else if (!mutableRef.current.isScrollingBySnapToCenter || props.scrollContainerContainsDangerously(current)) {
 				returnVal = focusOnNode(itemNode);
 			}
 			mutableRef.current.isScrolledBy5way = false;

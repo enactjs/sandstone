@@ -21,6 +21,7 @@ import {handle, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
@@ -42,6 +43,17 @@ import Skinnable from '../Skinnable';
 import DropdownList, {isSelectedValid} from './DropdownList';
 
 import css from './Dropdown.module.less';
+
+const pause = new Pause('dropdown');
+
+function pauseSpotlight (bool) {
+	if (bool) {
+		pause.pause();
+		return true;
+	} else {
+		return pause.resume();
+	}
+}
 
 const DropdownButtonBase = kind({
 	name: 'DropdownButtonBase',
@@ -245,6 +257,7 @@ const DropdownBase = kind({
 			forward('onClick'),
 			not(forProp('disabled', true)),
 			not(forProp('open', true)),
+			() => pauseSpotlight(true),
 			forward('onOpen')
 		)
 	},
@@ -286,6 +299,7 @@ const DropdownBase = kind({
 		},
 		className: ({width, title, styler}) => styler.append(typeof width === 'string' ? `${width}Width` : null, {hasTitle: Boolean(title)}),
 		direction: ({direction}) => `${direction} center`,
+		handleSpotlightPause: () => (pauseSpotlight),
 		placeholder: ({children, placeholder = $L('No Selection'), selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
@@ -306,12 +320,12 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({'aria-label': ariaLabel, ariaLabelledBy, children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+	render: ({'aria-label': ariaLabel, ariaLabelledBy, children, direction, disabled, handleSpotlightPause, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
 		const ariaProps = extractAriaProps(rest);
 		const calcAriaProps = ariaLabel != null ? null : {role: 'region', 'aria-labelledby': ariaLabelledBy};
-		const popupProps = {'aria-live': null, children, onSelect, selected, width, role: null};
+		const popupProps = {'aria-live': null, children, handleSpotlightPause, onSelect, selected, width, role: null};
 		const voiceProps = extractVoiceProps(rest);
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and

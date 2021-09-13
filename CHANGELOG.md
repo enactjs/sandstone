@@ -2,6 +2,25 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.0.0-rc.9] - 2021-09-13
+
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` styling to match updated GUI
+
+### Fixed
+
+- `sandstone/VirtualList` to not focus the item again if focus moved out of the list via 5way when `snapToCenter`
+
+## [2.0.0-rc.8] - 2021-08-31
+
+### Fixed
+
+- `sandstone/Dropdown` to restore focus within the list when moving mouse after clicking dropdown button
+- `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
+- `sandstone/TimePicker` abnormal minute animation in some locales
+- `sandstone/WizardPanels` to not read out `undefined` when there is no `subtitle` prop
+
 ## [2.0.0-rc.7] - 2021-08-09
 
 ### Fixed

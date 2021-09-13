@@ -83,7 +83,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 					);
 				}
 
-				if (ev.repeat || (scrollParam.isForward && scrollProgress !== 1) || (!scrollParam.isForward && scrollProgress !== 0)) {
+				if (ev.repeat || !isNaN(scrollProgress) && ((scrollParam.isForward && scrollProgress !== 1) || (!scrollParam.isForward && scrollProgress !== 0))) {
 					consumeEventWithScroll(scrollParam, ev);
 				}
 			}
