@@ -8,11 +8,16 @@ const callbacks = [];
 const idle = (callback) => {
 	callbacks.push(callback);
 	if (callbacks.length === 1) {
-		const next = typeof window !== 'undefined' && window.requestIdleCallback || setTimeout;
-		next(() => {
+		const idleCallback = () => {
 			callbacks.forEach(fn => fn());
 			callbacks.length = 0;
-		});
+		};
+
+		if (typeof window !== 'undefined') {
+			window.requestIdleCallback(idleCallback, {timeout: 400});
+		} else {
+			setTimeout(idleCallback);
+		}
 	}
 };
 
