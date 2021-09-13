@@ -14,10 +14,10 @@ const commonItemTests = [
 ];
 // Long text
 const longTextItemTests = [
-	<Item>Default Item with text long enough to invoke a marquee</Item>,
-	<Item disabled>Disabled Item with text long enough to invoke a marquee</Item>,
-	<Item inline>Inline Item with text long enough to invoke a marquee</Item>,
-	<Item inline disabled>Disabled Inline Item with text long enough to invoke a marquee</Item>
+	<Item>Long Default Item to invoke a marquee</Item>,
+	<Item disabled>Long Disabled Item to invoke a marquee</Item>,
+	<Item inline>Long Inline Item with to invoke a marquee</Item>,
+	<Item inline disabled>Long Disabled to invoke a marquee</Item>
 ];
 
 const rtlStrings = {
