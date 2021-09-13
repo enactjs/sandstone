@@ -180,7 +180,7 @@ const StorybookDecorator = (story, config = {}) => {
 	return (
 		<Theme
 			className={classnames(classes)}
-			title={componentName === config.name ? `Sandstone ${componentName}` : `${componentName} ${config.name}`}
+			title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
 			description={hasInfoText ? config.parameters.info.text : null}
 			locale={globals.locale}
 			textSize={globals.largeText ? 'large' : 'normal'}
