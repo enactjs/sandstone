@@ -13,7 +13,7 @@ const idle = (callback) => {
 			callbacks.length = 0;
 		};
 
-		if (typeof window !== 'undefined') {
+		if (typeof window !== 'undefined' && typeof window.requestIdleCallback === 'function') {
 			window.requestIdleCallback(idleCallback, {timeout: 400});
 		} else {
 			setTimeout(idleCallback);
