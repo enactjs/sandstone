@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/DatePicker` and `sandstone/TimePikcer`abnormal animation
 - `sandstone/Panels` to perform transition without delay when wheeling
 
 ## [2.0.0-rc.9] - 2021-09-13
