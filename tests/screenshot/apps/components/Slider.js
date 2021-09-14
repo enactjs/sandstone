@@ -2,11 +2,12 @@ import Slider, {SliderTooltip as Tooltip} from '../../../../Slider';
 
 import css from './Slider.module.less';
 
-// TODO: RTL, different min/max with visible tooltip
-
 const SliderTests = [
 	<Slider />,
+	<Slider disabled />,
+	<Slider min={0} max={20} progressAnchor={0.4} />,
 	<Slider value={50} />,
+	<Slider value={50} noFill />,
 	<Slider value={50} showAnchor />,
 	<Slider value={100} />,
 	<Slider backgroundProgress={0.5} />,
@@ -46,8 +47,7 @@ const SliderTests = [
 
 	// *************************************************************
 	// tooltip - all positions
-	// NOTE: Tooltip won't show on slider without focus.  Nothing should show!
-	// TODO: Add focus support
+	// NOTE: Tooltip won't show on slider without focus. Nothing should show!
 	// *************************************************************
 	{
 		component: <Slider tooltip percent value={50} />,
@@ -58,6 +58,13 @@ const SliderTests = [
 	},
 	{
 		component: <Slider tooltip min={-60.0} max={60.0} step={0.5} value={4.5} />,
+		wrapper: {
+			padded: true
+		},
+		focus: true
+	},
+	{
+		component: <Slider tooltip min={0} max={100} step={5} value={20} focused />,
 		wrapper: {
 			padded: true
 		},
@@ -204,12 +211,50 @@ const SliderTests = [
 		},
 		focus: true
 	},
-	// *************************************************************
-	// locale = 'ar-SA'
-	// *************************************************************
+	// RTL
 	{
 		locale: 'ar-SA',
-		component: <Slider value={40} backgroundProgress={0.5} />
+		component: <Slider />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider disabled />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider min={0} max={20} progressAnchor={0.4} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider value={60} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider value={60} noFill />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider progressAnchor={0.7} value={60} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider progressAnchor={0.6} value={60} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider progressAnchor={0.4} value={60} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider backgroundProgress={0.5} value={40} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider backgroundProgress={0.25} value={75} progressAnchor={0.5} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Slider disabled backgroundProgress={0.25} value={50} />
 	}
 ];
 export default SliderTests;
