@@ -15,7 +15,7 @@ describe('TabLayout', function () {
 					// 5-way down to second tab
 					Page.spotlightDown();
 					Page.tabLayout.view(2).waitForExist();
-					// 5-way right to Spottable component
+					// Step 3-2: 5-way right to Spottable component
 					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
 						Page.spotlightRight();
 					});
@@ -32,7 +32,7 @@ describe('TabLayout', function () {
 						Page.spotlightRight();
 					});
 					expect(Page.tabLayout.isCollapsed).to.be.true();
-					// Back to the tabs
+					// Step 4: Back to the tabs
 					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
 						Page.spotlightLeft();
 					});
