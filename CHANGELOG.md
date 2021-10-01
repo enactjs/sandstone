@@ -421,7 +421,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ImageItem` to re-render properly when `data-index` prop is the same
 - `sandstone/Scroller` to set its height correctly
-- `sandstone/Scroller` and `sandstone/VirtualList` overscroll style to match latest designs`sandstone/Icon` supported icon list, adding new icons
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll style to match latest designs
 - `sandstone/Scroller` and `sandstone/VirtualList` to properly support `spotlightDisabled` prop
 - `sandstone/VirtualList` to preserve focus in panels
 
