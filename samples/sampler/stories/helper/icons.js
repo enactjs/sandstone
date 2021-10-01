@@ -125,6 +125,7 @@ export const settingsIcons = [
 	'plug',
 	'powercircle',
 	'screenpower',
+	'spanner',
 	'subtitle',
 	'support'
 ].sort();
