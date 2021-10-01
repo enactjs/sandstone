@@ -21,6 +21,8 @@ const
 		return number >= 0 ? number : -1;
 	};
 
+let prevKeyDownIndex = -1;
+
 const useEventKey = (props, instances, context) => {
 	// Mutable value
 
@@ -150,6 +152,13 @@ const useEventKey = (props, instances, context) => {
 							ev.preventDefault();
 							ev.stopPropagation();
 
+							if (repeat && prevKeyDownIndex !== -1 &&
+								((isDownKey && prevKeyDownIndex > index) || (isUpKey && prevKeyDownIndex < index))) {
+								// Ignore keyEvent from item with wrong data-index (Workaround for data-index bug)
+								// Sometimes keyDown event occurs before the data-index updated, it causes reverse focus change
+								return;
+							}
+
 							if (props.scrollContainerHandle && props.scrollContainerHandle.current) {
 								props.scrollContainerHandle.current.lastInputType = 'arrowKey';
 							}
@@ -191,6 +200,8 @@ const useEventKey = (props, instances, context) => {
 							}
 						}
 					}
+
+					prevKeyDownIndex = index;
 
 					if (isLeaving) {
 						handleDirectionKeyDown(ev, 'keyLeave');

@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VirtualList` to not move focus to an unexpected item when 5-way directional key hold
+
 ## [2.0.1] - 2021-09-28
 
 ### Fixed
