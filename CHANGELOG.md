@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/ProgressBar` bar color for light skin
+- `sandstone/ProgressBar` bar color for `sandstone/Alert`
 
 ### Fixed
 
