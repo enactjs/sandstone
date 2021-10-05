@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Icon` supported icon list, adding a new icon `spanner`
 
+### Changed
+
+- `sandstone/ProgressBar` bar color for `sandstone/Alert`
+
 ### Fixed
 
 - `sandstone/VirtualList` to not move focus to an unexpected item when 5-way directional key hold
