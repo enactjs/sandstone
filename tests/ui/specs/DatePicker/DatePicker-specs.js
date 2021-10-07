@@ -24,7 +24,7 @@ describe('DatePicker', function () {
 			});
 
 			describe('5-way', function () {
-				// Start of [GT-28597] - Month, Day, Year pickers Animate with 5-way - LTR
+				// Start of [QWT-2553] - Month, Day, Year pickers Animate with 5-way - LTR
 				it('should increase the month when incrementing the picker', function () {
 					const {month} = extractValues(datePicker);
 					expect(datePicker.month.isFocused()).to.be.true();
@@ -86,7 +86,7 @@ describe('DatePicker', function () {
 					const expected = year - 1;
 					expect(value).to.equal(expected);
 				});
-				// End of [GT-28597] - Month, Day, Year pickers Animate with 5-way - LTR
+				// End of [QWT-2553] - Month, Day, Year pickers Animate with 5-way - LTR
 			});
 
 			describe('pointer', function () {
@@ -96,7 +96,7 @@ describe('DatePicker', function () {
 					expect(datePicker.month.isFocused()).to.be.true();
 				});
 
-				// Start of [GT-28541] - Month, Day, Year pickers Animate with Pointer Click - LTR
+				// Start of [QWT-2555] - Month, Day, Year pickers Animate with Pointer Click - LTR
 				it('should increase the month when incrementing the picker', function () {
 					const {month} = extractValues(datePicker);
 					datePicker.month.click();
@@ -158,7 +158,7 @@ describe('DatePicker', function () {
 					const expected = year - 1;
 					expect(value).to.equal(expected);
 				});
-				// End of [GT-28541] - Month, Day, Year pickers Animate with Pointer Click - LTR
+				// End of [QWT-2555] - Month, Day, Year pickers Animate with Pointer Click - LTR
 			});
 		});
 

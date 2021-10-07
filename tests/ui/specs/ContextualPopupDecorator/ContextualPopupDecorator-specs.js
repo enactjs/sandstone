@@ -26,8 +26,8 @@ describe('ContextualPopupDecorator', function () {
 				Page.spotlightSelect();
 			});
 
-			// [GT-28291] - 5-waySelectableActivator: Button Retains Spotlight when Popup Hides
-			it('should have Spotlight on close button when ContextualPopup opens', function () {
+			it('should have Spotlight on close button when ContextualPopup opens - [QWT-2731]', function () {
+				// 5-waySelectableActivator: Button Retains Spotlight when Popup Hides
 				let popupButton = $('#popupButton');
 
 				expect(popupButton.isFocused()).to.be.true();

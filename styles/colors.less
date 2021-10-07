@@ -232,7 +232,8 @@
 
 // ProgressBar
 // ---------------------------------------
-@sand-progressbar-bar-bg-color: #373A41;
+@sand-progressbar-bg-color: #373A41;
+@sand-progressbar-bar-bg-color: @sand-progressbar-bg-color;
 @sand-progressbar-load-bg-color: fade(@sand-light-gray, 30%);
 @sand-progressbar-fill-bg-color: @sand-spotlight-bg-color;
 @sand-progressbar-highlighted-fill-bg-color: @sand-white;
@@ -281,7 +282,7 @@
 
 // Slider
 // ---------------------------------------
-@sand-slider-bar-bg-color: @sand-progressbar-bar-bg-color;
+@sand-slider-bar-bg-color: @sand-progressbar-bg-color;
 @sand-slider-fill-bg-color: #8d9298;
 @sand-slider-load-bg-color: @sand-progressbar-load-bg-color;
 @sand-slider-knob-bg-color: @sand-slider-fill-bg-color;

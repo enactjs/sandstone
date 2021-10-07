@@ -24,7 +24,7 @@ describe('TimePicker', function () {
 			});
 
 			describe('5-way', function () {
-				// Start of [GT-28551] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
+				// Start of [QWT-2546] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
 				it('should increase the hour when incrementing the picker', function () {
 					const {hour} = extractValues(timePicker);
 					browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  interval: 100});
@@ -84,7 +84,7 @@ describe('TimePicker', function () {
 					const value = time !== newTime;
 					expect(value).to.equal(true);
 				});
-				// End of [GT-28551] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
+				// End of [QWT-2546] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
 
 				it('should change the meridiem on hour boundaries', function () {
 					const {meridiem} = extractValues(timePicker);
@@ -103,7 +103,7 @@ describe('TimePicker', function () {
 					browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  interval: 100});
 				});
 
-				// Start of [GT-28545] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
+				// Start of [QWT-2552] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
 				it('should increase the hour when incrementing the picker', function () {
 					const {hour} = extractValues(timePicker);
 					timePicker.incrementer(timePicker.hour).click();
@@ -139,9 +139,9 @@ describe('TimePicker', function () {
 					const expected = minute !== 0 ? minute - 1 : 59;
 					expect(value).to.equal(expected);
 				});
-				// End of [GT-28545] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
+				// End of [QWT-2552] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
 
-				it('should change the meridiem on hour boundaries - [GT-28546]', function () {
+				it('should change the meridiem on hour boundaries - [QWT-2551]', function () {
 					const value = timePicker.timeLabel;
 					// 12 hours ought to change the value text if meridiem changes
 					for (let i = 12; i; i -= 1) {
