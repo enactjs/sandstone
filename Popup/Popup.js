@@ -435,6 +435,14 @@ class Popup extends Component {
 					prevOpen: props.open
 				};
 			} else {
+				// Disables the spotlight conatiner of popup when `noAnimation` set
+				if (props.noAnimation) {
+					const node = getContainerNode(state.containerId);
+					if (node) {
+						node.dataset['spotlightContainerDisabled'] = true;
+					}
+				}
+
 				return {
 					popupOpen: OpenState.CLOSED,
 					floatLayerOpen: state.popupOpen === OpenState.OPEN ? !props.noAnimation : false,

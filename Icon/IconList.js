@@ -192,5 +192,6 @@ export default {
 	ftp               : 0x0F0178, // ftp
 	profile           : 0x0F0179, // profile
 	profilecheck      : 0x0F017A, // profilecheck
-	mediaserver       : 0x0F017B  // mediaserver
+	mediaserver       : 0x0F017B, // mediaserver
+	spanner           : 0x0F0180  // spanner
 };

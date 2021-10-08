@@ -37,7 +37,7 @@ const DateTimeBase = kind({
 
 	render: ({children, css, label, ...rest}) => (
 		<div {...rest}>
-			<Heading className={css.heading}>{label}</Heading>
+			{label ? <Heading className={css.heading}>{label}</Heading> : null}
 			<div className={css.pickers}>
 				{children}
 			</div>

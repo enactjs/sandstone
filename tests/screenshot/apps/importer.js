@@ -34,6 +34,7 @@ import Region from '../../../Region';
 import Scroller from '../../../Scroller';
 import Slider from '../../../Slider';
 import Spinner from '../../../Spinner';
+import Sprite from '../../../Sprite';
 import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
@@ -82,6 +83,7 @@ const components = {
 	Scroller,
 	Slider,
 	Spinner,
+	Sprite,
 	Steps,
 	Switch,
 	SwitchItem,

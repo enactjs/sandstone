@@ -25,7 +25,7 @@ describe('VirtualGridList', function () {
 			Page.open();
 		});
 
-		it('should not display scrollbar when minimal datasize [GT-28499]', function () {
+		it('should not display scrollbar when minimal datasize [QWT-2583]', function () {
 			// Step 3: Knobs > VirtualGridList > dataSize > 4
 			Page.inputNumItems.moveTo();
 			Page.spotlightSelect();
