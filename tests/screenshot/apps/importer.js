@@ -27,12 +27,14 @@ import Picker from '../../../Picker';
 import Popup from '../../../Popup';
 import PopupTabLayout from '../../../PopupTabLayout';
 import ProgressBar from '../../../ProgressBar';
+import ProgressButton from '../../../ProgressButton';
 import RadioItem from '../../../RadioItem';
 import RangePicker from '../../../RangePicker';
 import Region from '../../../Region';
 import Scroller from '../../../Scroller';
 import Slider from '../../../Slider';
 import Spinner from '../../../Spinner';
+import Sprite from '../../../Sprite';
 import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
@@ -74,12 +76,14 @@ const components = {
 	Popup,
 	PopupTabLayout,
 	ProgressBar,
+	ProgressButton,
 	RadioItem,
 	RangePicker,
 	Region,
 	Scroller,
 	Slider,
 	Spinner,
+	Sprite,
 	Steps,
 	Switch,
 	SwitchItem,

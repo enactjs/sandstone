@@ -5,7 +5,7 @@ import $L from '../internal/$L';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
 import DateTime from '../internal/DateTime';
 
-import css from './DatePicker.module.less';
+import componentCss from './DatePicker.module.less';
 
 /**
  * A date selection component.
@@ -83,6 +83,15 @@ const DatePickerBase = kind({
 		year: PropTypes.number.isRequired,
 
 		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * @type {Object}
+		 * @private
+		 */
+		css: PropTypes.object,
+
+		/**
 		 * Disables voice control.
 		 *
 		 * @type {Boolean}
@@ -146,6 +155,14 @@ const DatePickerBase = kind({
 		 * @public
 		 */
 		monthAriaLabel: PropTypes.string,
+
+		/**
+		 * Hides the label that displays the date.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noLabel: PropTypes.bool,
 
 		/**
 		 * Called when the `date` component of the Date changes.
@@ -235,11 +252,12 @@ const DatePickerBase = kind({
 	},
 
 	styles: {
-		css,
+		css: componentCss,
 		className: 'datePicker'
 	},
 
 	render: ({
+		css,
 		'data-webos-voice-disabled': voiceDisabled,
 		disabled,
 		day,
@@ -250,6 +268,7 @@ const DatePickerBase = kind({
 		minYear,
 		month,
 		monthAriaLabel,
+		noLabel,
 		onChangeDate,
 		onChangeMonth,
 		onChangeYear,
@@ -268,6 +287,10 @@ const DatePickerBase = kind({
 			monthAccessibilityHint = $L('month'),
 			yearAccessibilityHint = $L('year');
 
+		if (noLabel) {
+			delete rest.label;
+		}
+
 		return (
 			<DateTime {...rest}>
 				{order.map((picker, index) => {
@@ -283,6 +306,7 @@ const DatePickerBase = kind({
 									accessibilityHint={dayAccessibilityHint}
 									aria-label={dayAriaLabel}
 									className={css.day}
+									css={css}
 									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={dayAccessibilityHint}
@@ -306,6 +330,7 @@ const DatePickerBase = kind({
 									accessibilityHint={monthAccessibilityHint}
 									aria-label={monthAriaLabel}
 									className={css.month}
+									css={css}
 									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={monthAccessibilityHint}
@@ -329,6 +354,7 @@ const DatePickerBase = kind({
 									accessibilityHint={yearAccessibilityHint}
 									aria-label={yearAriaLabel}
 									className={css.year}
+									css={css}
 									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={yearAccessibilityHint}

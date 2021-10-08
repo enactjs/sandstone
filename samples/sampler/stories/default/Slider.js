@@ -1,9 +1,9 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, object, select} from '@enact/storybook-utils/addons/knobs';
-import Slider, {SliderTooltip} from '@enact/sandstone/Slider';
+import Slider, {SliderBase, SliderTooltip} from '@enact/sandstone/Slider';
 
-const SliderConfig = mergeComponentMetadata('Slider', Slider);
+const SliderConfig = mergeComponentMetadata('Slider', SliderBase, Slider);
 const SliderTooltipConfig = mergeComponentMetadata('SliderTooltip', SliderTooltip);
 Slider.displayName = 'Slider';
 SliderTooltip.displayName = 'SliderTooltip';
@@ -72,6 +72,7 @@ export const _Slider = () => {
 			)}
 			showAnchor={boolean('showAnchor', SliderConfig)}
 			step={number('step', SliderConfig, 1)}
+			wheelInterval={number('wheelInterval', SliderConfig)}
 		>
 			{tooltip ? <SliderTooltip percent={percent} position={position} /> : null}
 		</Slider>

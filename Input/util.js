@@ -24,7 +24,7 @@ const FULLSCREEN_JOINED_DIGITS_LIMIT = 25;
 const calcAriaLabel = function (prefix, type, value = '') {
 	const hint = $L('Input field');
 
-	if (type === 'password' && value) {
+	if ((type === 'password' || type === 'passwordtel') && value) {
 		const character = value.length > 1 ? $L('characters') : $L('character');
 		value = `${value.length} ${character}`;
 	}

@@ -17,7 +17,7 @@
  * @exports SliderTooltip
  */
 
-import {forKey, forProp, forward, forwardWithPrevent, handle} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {mergeClassNameMaps} from '@enact/core/util';
 import Accelerator from '@enact/spotlight/Accelerator';
@@ -76,6 +76,7 @@ const SliderBase = (props) => {
 
 	const spotlightAccelerator = useRef();
 	const ref = useRef();
+	const {current: context} = useRef({lastWheelTimeStamp: 0});
 
 	const handlers = useHandlers({
 		onBlur: handle(
@@ -105,13 +106,14 @@ const SliderBase = (props) => {
 	const nativeEventHandlers = useHandlers({
 		onWheel: handle(
 			forProp('disabled', false),
+			not(forProp('noWheel', true)),
 			forwardWithPrevent('onWheel'),
 			anyPass([
 				handleIncrementByWheel,
 				handleDecrementByWheel
 			])
 		)
-	}, props);
+	}, props, context);
 
 	// if the props includes a css map, merge them together
 	let mergedCss = componentCss;
@@ -150,9 +152,11 @@ const SliderBase = (props) => {
 
 	delete rest.activateOnSelect;
 	delete rest.knobStep;
+	delete rest.noWheel;
 	delete rest.onActivate;
 	delete rest.step;
 	delete rest.tooltip;
+	delete rest.wheelInterval;
 
 	return (
 		<UiSlider
@@ -283,6 +287,14 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	min: PropTypes.number,
 
 	/**
+	 * Disable wheel event.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	noWheel: PropTypes.bool,
+
+	/**
 	 * The handler when the knob is activated or deactivated by selecting it via 5-way
 	 *
 	 * @type {Function}
@@ -379,7 +391,20 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * @type {Number}
 	 * @public
 	 */
-	value: PropTypes.number
+	value: PropTypes.number,
+
+	/**
+	 * The interval (in milliseconds) between valid wheel events.
+	 *
+	 * For example, 200 means to ignore wheel events occurred within 200ms
+	 * of the last processed wheel event while 0 means to process all wheel events.
+	 * If the number is large, the slider value changes slowly.
+	 *
+	 * @type {Number}
+	 * @default 0
+	 * @public
+	 */
+	wheelInterval: PropTypes.number
 };
 
 SliderBase.defaultProps = {
@@ -389,7 +414,8 @@ SliderBase.defaultProps = {
 	keyFrequency: [1],
 	max: 100,
 	min: 0,
-	step: 1
+	step: 1,
+	wheelInterval: 0
 };
 
 /**

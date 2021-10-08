@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import Button from '@enact/sandstone/Button';
 import {Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
@@ -13,6 +13,8 @@ import iconNames from '../helper/icons';
 import Section from './components/KitchenSinkSection';
 import PickerAddRemove from './components/PickerAddRemove';
 import PickerRTL from './components/PickerRTL';
+
+import css from './Picker.module.less';
 
 Picker.displayName = 'Picker';
 
@@ -382,3 +384,22 @@ ForIrregularNumbers.storyName = 'for irregular numbers';
 export const InPopupTabLayout = () => <PickerInPopupTabLayout />;
 
 InPopupTabLayout.storyName = 'in PopupTabLayout';
+
+export const WithCustomizedTitleStyle = () => (
+	<Picker
+		aria-label={text('aria-label', Picker, '')}
+		css={css}
+		disabled={boolean('disabled', Picker)}
+		inlineTitle={boolean('inlineTitle', Picker)}
+		joined={boolean('joined', Picker)}
+		noAnimation={boolean('noAnimation', Picker)}
+		onChange={action('onChange')}
+		title={text('title', Picker, 'Long title with customized style')}
+		width={select('width', prop.width, Picker, 'large')}
+		wrap={boolean('wrap', Picker)}
+	>
+		{pickerList.airports}
+	</Picker>
+);
+
+WithCustomizedTitleStyle.storyName = 'With Customized Style';

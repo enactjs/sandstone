@@ -1,6 +1,7 @@
 import kind from '@enact/core/kind';
-import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
+
+import {onlyUpdateForProps} from '../internal/util';
 
 import Feedback from './Feedback';
 import states from './FeedbackIcons.js';
@@ -83,7 +84,7 @@ const FeedbackContentBase = kind({
 	}
 });
 
-const FeedbackContent = onlyUpdateForKeys(['children', 'feedbackVisible', 'playbackRate', 'playbackState', 'visible'])(FeedbackContentBase);
+const FeedbackContent = onlyUpdateForProps(FeedbackContentBase, ['children', 'feedbackVisible', 'playbackRate', 'playbackState', 'visible']);
 
 export default FeedbackContent;
 export {

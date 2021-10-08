@@ -168,6 +168,13 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		static propTypes = {
 			/*
+			 * Passed by DropdownBase to resume Spotlight
+			 *
+			 * @type {Function}
+			 */
+			handleSpotlightPause: PropTypes.func,
+
+			/*
 			 * Called when an item receives focus.
 			 *
 			 * @type {Function}
@@ -195,6 +202,10 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		}
 
 		componentDidMount () {
+			if (this.props.handleSpotlightPause) {
+				this.props.handleSpotlightPause(false);
+			}
+
 			// eslint-disable-next-line react/no-find-dom-node
 			this.node = ReactDOM.findDOMNode(this);
 			Spotlight.set(this.node.dataset.spotlightId, {
@@ -284,8 +295,11 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		};
 
 		render () {
+			const props = {...this.props};
+			delete props.handleSpotlightPause;
+
 			return (
-				<Wrapped {...this.props} onFocus={this.handleFocus} scrollTo={this.setScrollTo} />
+				<Wrapped {...props} onFocus={this.handleFocus} scrollTo={this.setScrollTo} />
 			);
 		}
 	};

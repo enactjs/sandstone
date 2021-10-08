@@ -21,14 +21,14 @@ describe('Item', function () {
 
 			describe('5-way', function () {
 			// Step 3 - 5-way Up
-				it('should focus the first item with 5-way Up - [GT-28153]', function () {
+				it('should focus the first item with 5-way Up - [QWT-2831]', function () {
 					item2Disabled.focus();
 					Page.spotlightUp();
 					expect(item1.self.isFocused()).to.be.true();
 				});
 
 				// Step 5 - 5-way Down
-				it('should focus an item with a label with 5-way Down - [GT-28153]', function () {
+				it('should focus an item with a label with 5-way Down - [QWT-2831]', function () {
 					item2Disabled.focus();
 					Page.spotlightDown();
 					expect(item3WithLabel.self.isFocused()).to.be.true();
@@ -50,7 +50,7 @@ describe('Item', function () {
 
 			describe('pointer', function () {
 			// Step 3 - Focus on the Item title. In sampler, the item has no label. Here we focusing on an item with a label.
-				it('should focus the third item when hovered - [GT-28154]', function () {
+				it('should focus the third item when hovered - [QWT-2830]', function () {
 					item3WithLabel.hover();
 					expect(item3WithLabel.self.isFocused()).to.be.true();
 				});
@@ -67,14 +67,14 @@ describe('Item', function () {
 
 			describe('5-way', function () {
 			// Step 7 - 5-way Up
-				it('should focus a disabled item with 5-way Up - [GT-28153]', function () {
+				it('should focus a disabled item with 5-way Up - [QWT-2831]', function () {
 					item3WithLabel.focus();
 					Page.spotlightUp();
 					expect(item2Disabled.self.isFocused()).to.be.true();
 				});
 
 				// Step 8 - 5-way Down
-				it('should focus a disabled item with 5-way Down - [GT-28153]', function () {
+				it('should focus a disabled item with 5-way Down - [QWT-2831]', function () {
 					item1.focus();
 					Page.spotlightDown();
 					expect(item2Disabled.self.isFocused()).to.be.true();
@@ -89,7 +89,7 @@ describe('Item', function () {
 
 			// Step 4 - Focus on the disabled Item title
 			describe('pointer', function () {
-				it('should focus the disabled item with hover - [GT-28154]', function () {
+				it('should focus the disabled item with hover - [QWT-2830]', function () {
 					item2Disabled.hover();
 					expect(item2Disabled.self.isFocused()).to.be.true();
 				});

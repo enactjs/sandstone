@@ -1,0 +1,17 @@
+// Picker.module.less
+//
+
+@import "../styles/variables.less";
+@import "../styles/mixins.less";
+
+.title {
+	.margin-start-end(@sand-picker-title-margin-left, .extract(@sand-heading-margin, right)[]);
+
+	&.inlineTitle {
+		display: inline-block;
+		max-width: @sand-picker-title-max-width;
+		line-height: @sand-picker-value-height;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+}

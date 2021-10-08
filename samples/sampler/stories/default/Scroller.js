@@ -50,6 +50,7 @@ export const _Scroller = () => {
 			fadeOut={boolean('fadeOut', ScrollerConfig)}
 			focusableScrollbar={focusableScrollbar}
 			horizontalScrollbar={horizontalScrollbar}
+			hoverToScroll={boolean('hoverToScroll', ScrollerConfig)}
 			key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 			noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
 			onScrollStart={action('onScrollStart')}
