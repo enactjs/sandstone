@@ -6,7 +6,6 @@ import {VirtualGridList} from '../../../../VirtualList';
 const items = [];
 const defaultDataSize = 10;
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = ({index, ...rest}) => {
 	const {caption, label, src} = items[index];
 

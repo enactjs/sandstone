@@ -3,7 +3,7 @@ import ri from '@enact/ui/resolution';
 import Item from '../../../../Item';
 import VirtualList from '../../../../VirtualList';
 
-const renderItem = () => ({index, ...rest}) => { // eslint-disable-line enact/display-name, enact/prop-types
+const renderItem = () => ({index, ...rest}) => {
 	const items = ['Item 000', 'Item 001', 'Item 002', 'Item 003', 'Item 004', 'Item 005', 'Item 006', 'Item 007', 'Item 008', 'Item 009'];
 	const itemStyle = {
 		height: ri.unit(144, 'rem')
