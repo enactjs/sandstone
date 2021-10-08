@@ -226,9 +226,10 @@ describe('PopupTabLayout', function () {
 
 			});
 
+			// Note: To verify that testing is not possible.
 			// describe('pointer interaction', function () {
 
-			// 	// this covers GT-28261
+			// 	// this covers QWT-2754
 			// 	it('should render a tab\'s associated view when it is selected via pointer click', function () {
 			// 		const expected = 'view5';
 			// 		const originalView = popupTabLayout.currentView.getAttribute('id');

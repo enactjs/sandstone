@@ -1,7 +1,8 @@
 import kind from '@enact/core/kind';
 import Touchable from '@enact/ui/Touchable';
-import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
+
+import {onlyUpdateForProps} from '../internal/util';
 
 import css from './VideoPlayer.module.less';
 
@@ -38,11 +39,7 @@ const OverlayBase = kind({
 	}
 });
 
-const Overlay = onlyUpdateForKeys(['bottomControlsVisible', 'children'])(
-	Touchable(
-		OverlayBase
-	)
-);
+const Overlay = onlyUpdateForProps(Touchable(OverlayBase), ['bottomControlsVisible', 'children']);
 
 export default Overlay;
 export {

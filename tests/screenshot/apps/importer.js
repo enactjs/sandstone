@@ -27,6 +27,7 @@ import Picker from '../../../Picker';
 import Popup from '../../../Popup';
 import PopupTabLayout from '../../../PopupTabLayout';
 import ProgressBar from '../../../ProgressBar';
+import ProgressButton from '../../../ProgressButton';
 import RadioItem from '../../../RadioItem';
 import RangePicker from '../../../RangePicker';
 import Region from '../../../Region';
@@ -75,6 +76,7 @@ const components = {
 	Popup,
 	PopupTabLayout,
 	ProgressBar,
+	ProgressButton,
 	RadioItem,
 	RangePicker,
 	Region,

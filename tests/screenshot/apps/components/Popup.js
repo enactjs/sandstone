@@ -4,13 +4,13 @@ import {withConfig, withProps} from './utils';
 const PopupBaseTests = [
 	<Popup open>Popup!</Popup>,
 
-	// [GT-28270]
+	// [QWT-2746]
 	<Popup open position="fullscreen">Fullscreen Popup!</Popup>,
 	<Popup open position="center">Center Popup!</Popup>,
 	<Popup open position="left">Left Popup!</Popup>,
 	<Popup open position="right">Right Popup!</Popup>,
 	<Popup open position="top">Top Popup!</Popup>
-	// End of [GT-28270]
+	// End of [QWT-2746]
 ];
 
 const PopupTests = [
@@ -21,7 +21,7 @@ const PopupTests = [
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
-	// [GT-28262]
+	// [QWT-2753]
 	...withConfig({locale: 'ar-SA'}, [
 		...withProps({scrimType: 'translucent'}, PopupBaseTests),
 		...withProps({scrimType: 'transparent'}, PopupBaseTests),
