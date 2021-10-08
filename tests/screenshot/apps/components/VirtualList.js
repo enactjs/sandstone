@@ -6,8 +6,6 @@ import VirtualList from '../../../../VirtualList';
 const renderItem = () => ({index, ...rest}) => { // eslint-disable-line enact/display-name, enact/prop-types
 	const items = ['Item 000', 'Item 001', 'Item 002', 'Item 003', 'Item 004', 'Item 005', 'Item 006', 'Item 007', 'Item 008', 'Item 009'];
 	const itemStyle = {
-		borderBottom: ri.unit(6, 'rem') + ' solid #202328',
-		boxSizing: 'border-box',
 		height: ri.unit(144, 'rem')
 	};
 
@@ -30,6 +28,7 @@ const VirtualListTests = [
 	<div>
 		<VirtualList
 			dataSize={10}
+			focusableScrollbar
 			horizontalScrollbar="visible"
 			itemSize={ri.scale( 144)}
 			itemRenderer={renderItem(ri.scale(144))}

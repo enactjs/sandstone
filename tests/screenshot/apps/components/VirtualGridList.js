@@ -55,6 +55,7 @@ const VirtualGridListTests = [
 	<div>
 		<VirtualGridList
 			dataSize={items.length}
+			focusableScrollbar
 			horizontalScrollbar="visible"
 			itemSize={{minWidth: ri.scale(688), minHeight: ri.scale(570)}}
 			itemRenderer={renderItem}
