@@ -327,6 +327,7 @@ const IconBase = kind({
  * profile
  * profilecheck
  * mediaserver
+ * spanner
  * ```
  *
  * @name iconList

@@ -2,6 +2,52 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.0.2] - 2021-10-07
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `spanner`
+
+### Changed
+
+- `sandstone/ProgressBar` bar color for `sandstone/Alert`
+
+### Fixed
+
+- `sandstone/VirtualList` to not move focus to an unexpected item when 5-way directional key hold
+
+## [2.0.1] - 2021-09-28
+
+### Fixed
+
+- `samples/sampler` not to fail in sampler build
+
+## [2.0.0] - 2021-09-28
+
+### Fixed
+
+- `sandstone/DatePicker` and `sandstone/TimePikcer`abnormal animation
+- `sandstone/Panels` to perform transition without delay when wheeling
+
+## [2.0.0-rc.9] - 2021-09-13
+
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` styling to match updated GUI
+
+### Fixed
+
+- `sandstone/VirtualList` to not focus the item again if focus moved out of the list via 5way when `snapToCenter`
+
+## [2.0.0-rc.8] - 2021-08-31
+
+### Fixed
+
+- `sandstone/Dropdown` to restore focus within the list when moving mouse after clicking dropdown button
+- `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
+- `sandstone/TimePicker` abnormal minute animation in some locales
+- `sandstone/WizardPanels` to not read out `undefined` when there is no `subtitle` prop
+
 ## [2.0.0-experimental.2] - 2021-08-31
 
 No significant changes.
@@ -9,6 +55,12 @@ No significant changes.
 ## [2.0.0-experimental.1] - 2021-08-27
 
 - Experimental support for external skin customization
+
+## [2.0.0-rc.7] - 2021-08-09
+
+### Fixed
+
+- `sandstone/Item` to marquee properly when `slotAfter` or `slotBefore` changed
 
 ## [2.0.0-rc.6] - 2021-08-03
 

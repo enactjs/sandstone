@@ -12,7 +12,7 @@ describe('Scroller', function () {
 			ScrollerPage.open();
 		});
 
-		it('should focus on scrollthumb with focusableScrollbar `true`[GT-28585]', function () {
+		it('should focus on scrollthumb with focusableScrollbar `true`[QWT-2517]', function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > true
 			ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			ScrollerPage.spotlightSelect();
@@ -25,7 +25,7 @@ describe('Scroller', function () {
 			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 		});
 
-		it('should focus on scrollthumb with focusableScrollbar `byEnter`[GT-28588]', function () {
+		it('should focus on scrollthumb with focusableScrollbar `byEnter`[QWT-2514]', function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > byEnter
 			ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			ScrollerPage.spotlightSelect();
@@ -69,7 +69,8 @@ describe('Scroller', function () {
 			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 		});
 
-		it('should move its focus from scrollbar with directional keys when focusableScrollbar is `byEnter`[GT-33977]', function () {
+		// Note: suitable TC is required.
+		it('should move its focus from scrollbar with directional keys when focusableScrollbar is `byEnter`', function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > byEnter
 			ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			ScrollerPage.spotlightSelect();
@@ -130,7 +131,7 @@ describe('Scroller', function () {
 			expect(ScrollerPage.buttonTop.isFocused()).to.be.true();
 		});
 
-		it('should focus on scrollthumb with 5-way key and focusableScrollbar `true`[GT-28534]', function () {
+		it('should focus on scrollthumb with 5-way key and focusableScrollbar `true`[QWT-2561]', function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > true
 			ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			ScrollerPage.spotlightSelect();
@@ -165,7 +166,7 @@ describe('Scroller', function () {
 			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 		});
 
-		it('should Scrolling via 5-way Key with Spotlight on the ScrollThumb [GT-28587]', function () {
+		it('should Scrolling via 5-way Key with Spotlight on the ScrollThumb [QWT-2515]', function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > true
 			ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			ScrollerPage.spotlightSelect();
@@ -209,7 +210,7 @@ describe('Scroller', function () {
 			expect(ScrollerPage.getScrollThumbPosition().horizontal).to.equal('0');
 		});
 
-		it('Content animates with Click on scrollbar [GT-29589]', function () {
+		it('Content animates with Click on scrollbar [QWT-2263]', function () {
 			// Step 3-3: Knobs > Scroller > focusableScrollbar > true
 			ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			ScrollerPage.spotlightSelect();
@@ -245,7 +246,7 @@ describe('Scroller', function () {
 		});
 
 		// In this Test Case, only checked RTL Mode.
-		it('should not scroll with Click on Scrollbar [GT-28492]', function () {
+		it('should not scroll with Click on Scrollbar [QWT-2586]', function () {
 			// Step 4-2 Verify:Upon hover, the verticalScrollbar displays on the Left side.
 			// Since the visual part of UI Test cannot be checked, it is judged by the position of the scrollbar according to locale.
 			expect(ScrollerPage.getVerticalScrollOffsetLeft()).to.equal(0);
@@ -269,7 +270,7 @@ describe('Scroller', function () {
 			expect(ScrollerPage.getScrollThumbPosition().horizontal).to.equal('0');
 		});
 
-		it('should scroll with Click on Scrollbar with focusableScrollbar [GT-29078]', function () {
+		it('should scroll with Click on Scrollbar with focusableScrollbar [QWT-2314]', function () {
 			// Step 3-3: Knobs > Scroller > focusableScrollbar > true
 			ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			ScrollerPage.spotlightSelect();
