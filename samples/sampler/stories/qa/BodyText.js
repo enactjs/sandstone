@@ -8,7 +8,11 @@ const stringsToChoose = [
 	'This product is meant for educational purposes only. Any resemblance to real persons, living or dead is purely coincidental. Void where prohibited. Some assembly required. List each check separately by bank number. Batteries not included.',
 	'I am a very short string',
 	'ab',
-	'a'
+	'a',
+	'পারে।',
+	'পারেন।',
+	'ரத்தினங்களுக்குপারে।',
+	'ரத்தினங்களுக்கு பிறகு கருப்பொருள்களுக்கு பெயரிடுகிறோம்'
 ];
 
 export default {
