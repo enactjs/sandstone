@@ -4,15 +4,18 @@
 // ---------------------------------------
 // Universal Color Definitions
 // ---------------------------------------
-@sand-black: #2e3239;
 
 
 // UI Conceptual Colors
 // ---------------------------------------
-@sand-bg-color:            #cacbcc;
-@sand-fullscreen-bg-color: @sand-bg-color;
-@sand-text-color:          @sand-black;
-@sand-border-color:        @sand-black;
+@sand-bg-color: var(--sand-bg-color, #cacbcc);
+@sand-text-color: var(--sand-text-color, #2e3239);
+@sand-text-sub-color: var(--sand-text-sub-color, #2e3239);
+@sand-shadow-color-rgb: var(--sand-shadow-color-rgb, 46, 50, 57); // #2e3239
+@sand-shadow-color: rgb(@sand-shadow-color-rgb, 30%);
+
+@sand-progress-color-rgb: var(--sand-progress-color-rgb, 55, 58, 65); // #373a41
+@sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 161, 161, 161); // #a1a1a1
 
 
 // ---------------------------------------
@@ -21,38 +24,17 @@
 
 // Alert
 // ---------------------------------------
-@sand-alert-bg-color: @sand-fullscreen-bg-color;
-@sand-alert-overlay-bg-color: fade(@sand-alert-bg-color, 95%);
+@sand-alert-overlay-bg-color: rgb(@sand-untypical-color-13-rgb, 95%); // TBD
 
 // Checkbox
 // ---------------------------------------
-@sand-checkbox-border-color: #858b92;
-@sand-checkbox-disabled-selected-color: @sand-white;
-@sand-checkbox-disabled-selected-bg-color: #788688;
-@sand-checkbox-focus-border-color: #4C5059;
-@sand-checkbox-indeterminate-color: @sand-checkbox-border-color;
-@sand-checkbox-indeterminate-focus-color: @sand-dark-gray;
-
-// Dropdown
-// ---------------------------------------
-@sand-dropdown-title-color: @sand-dark-gray;
-
-// FormCheckboxItem
-// ---------------------------------------
-@sand-formcheckboxitem-focus-text-color: #575e66;
-@sand-formcheckboxitem-disabled-text-color: @sand-black;
-
-// Heading
-// ---------------------------------------
-@sand-heading-subtitle-text-color: @sand-text-color;
+@sand-checkbox-border-color: #858b92; // TBD
+@sand-checkbox-disabled-selected-color: #ffffff; // TBD
 
 // Item
 // ---------------------------------------
-@sand-item-disabled-focus-bg-color: #989ca2;
+@sand-item-disabled-focus-bg-color: #989ca2; // TBD
 
 // ProgressBar
 // ---------------------------------------
-@sand-progressbar-bg-color: #a1a1a1;
-@sand-progressbar-bar-bg-color: fade(@sand-progressbar-bg-color, 40%);
-@sand-progressbar-load-bg-color: fade(#373a41, 30%);
-@sand-progressbar-fill-bg-color: #373a41;
+@sand-progressbar-bar-bg-color: rgb(@sand-progress-bg-color-rgb, 40%);

@@ -176,11 +176,7 @@ const AlertBase = kind({
 			},
 			type
 		),
-		skin: ({skin, type}) => (
-			skin ||
-			(typeof document === 'object' && document.querySelector('.sandstone-theme') && document.querySelector('.sandstone-theme').classList.contains('custom') && 'custom') ||
-			(type === 'overlay' ? 'light' : 'neutral')
-		)
+		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral'))
 	},
 
 	render: ({buttons, contentComponent, children, id, image, title, type, ...rest}) => {

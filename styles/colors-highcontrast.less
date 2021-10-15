@@ -7,9 +7,7 @@
 
 // UI Conceptual Colors
 // ---------------------------------------
-@sand-bg-color:            @sand-black;
-@sand-fullscreen-bg-color: @sand-bg-color;
-@sand-highcontrast-overlay-bg-color: @sand-overlay-bg-color;
+@sand-highcontrast-overlay-bg-color: rgb(@sand-overlay-bg-color-rgb);
 
 
 // ---------------------------------------
@@ -20,13 +18,9 @@
 // ---------------------------------------
 @sand-alert-overlay-bg-color: @sand-alert-bg-color;
 
-// ContextualPopup
-// ---------------------------------------
-@sand-contextualpopup-bg-color: @sand-highcontrast-overlay-bg-color;
-
 // Input
 // ---------------------------------------
-@sand-input-fullscreen-background-color: @sand-highcontrast-overlay-bg-color;
+@sand-input-fullscreen-background-color: @sand-highcontrast-overlay-bg-color; // TBD
 
 // KeyGuide
 // ---------------------------------------
@@ -35,4 +29,4 @@
 // Popup
 // ---------------------------------------
 @sand-popup-bg-color: @sand-highcontrast-overlay-bg-color;
-@sand-popup-scrimtransparent-bg-color: @sand-popup-bg-color;
+@sand-popup-scrimtransparent-bg-color: @sand-highcontrast-overlay-bg-color;
