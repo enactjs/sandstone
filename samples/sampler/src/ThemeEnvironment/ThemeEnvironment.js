@@ -72,7 +72,7 @@ const locales = {
 	'ta-IN - Tamil, custom Indian font': 'ta-IN',
 	'bn-IN - Bengali': 'bn-IN',
 	'hi-IN - Hindi': 'hi-IN',
-	'te-IN - Tegulu': 'te-IN',
+	'te-IN - Telugu': 'te-IN',
 	'ja-JP - Japanese, custom Japanese font': 'ja-JP',
 	'en-JP - English, custom Japanese font': 'en-JP',
 	'si-LK - Sinhala, external font family with tallglyph characters': 'si-LK',
