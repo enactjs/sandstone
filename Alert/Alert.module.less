@@ -114,7 +114,20 @@
 		background-color: @sand-alert-bg-color;
 
 		&.overlay {
-			background-color: @sand-alert-overlay-bg-color;
+			/* Override colors inside overlay type Alert */
+			--sand-bg-color: @sand-alert-overlay-bg-color;
+			--sand-text-color: @sand-alert-overlay-text-color;
+			--sand-text-sub-color: @sand-alert-overlay-text-sub-color;
+			--sand-shadow-color-rgb: @sand-alert-overlay-shadow-color-rgb;
+			--sand-focus-text-color: @sand-alert-overlay-focus-text-color;
+			--sand-progress-color-rgb: @sand-alert-overlay-progress-color-rgb;
+			--sand-progress-bg-color: @sand-alert-overlay-progress-bg-color;
+			--sand-checkbox-border-color: @sand-alert-overlay-checkbox-border-color;
+			--sand-checkbox-disabled-selected-color: @sand-alert-overlay-checkbox-disabled-selected-color;
+			--sand-formcheckboxitem-focus-text-color: @sand-alert-overlay-formcheckboxitem-focus-text-color;
+			--sand-item-disabled-focus-bg-color: @sand-alert-overlay-item-disabled-focus-bg-color;
+
+			background-color: rgb(@sand-alert-overlay-bg-color-rgb, 95%);
 			box-shadow: @sand-alert-overlay-shadow;
 		}
 	});

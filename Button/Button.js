@@ -237,24 +237,13 @@ const IconButtonDecorator = hoc((config, Wrapped) => {
 	return kind({
 		name: 'IconButtonDecorator',
 
-		propTypes: /** @lends sandstone/Button.IconButtonDecorator.prototype */ {
-			/**
-			 * Assign a skin.
-			 *
-			 * @type {String}
-			 * @private
-			 */
-			skin: PropTypes.string
-		},
-
 		computed: {
 			iconOnly: ({children}) => (Children.toArray(children).filter(Boolean).length === 0)
 		},
 
-		render: ({iconOnly, skin, ...rest}) => {
-			const skinProp = iconOnly ? skin : 'neutral';
+		render: (props) => {
 			return (
-				<Wrapped {...rest} iconOnly={iconOnly} skin={skinProp} />
+				<Wrapped {...props} />
 			);
 		}
 	});

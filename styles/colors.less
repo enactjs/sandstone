@@ -14,15 +14,14 @@
 @sand-untypical-color-08: #bbbbbb; // @sand-contextualpopup-border-color
 @sand-untypical-color-09: #abaeb3; // @sand-gray; @sand-progressbutton-bar-color @sand-picker-joined-incrementer-color
 @sand-untypical-color-10: #e6e6e6; // @sand-light-gray; @sand-scrollbar-thumb-focus-bg-color @sand-tooltip-bg-color
-@sand-untypical-color-11: #ffffff; // @sand-white; @sand-formcheckboxitem-focus-text-color @sand-progressbar-highlighted-fill-bg-color @sand-spinner-color @sand-spinner-text-color @sand-video-feedback-mini-text-color @sand-video-player-title-color
+@sand-untypical-color-11: #ffffff; // @sand-white; @sand-progressbar-highlighted-fill-bg-color @sand-spinner-color @sand-video-feedback-mini-text-color @sand-video-player-title-color
 @sand-untypical-color-12: #fe4a4b; // @sand-video-player-redicon-text-color
 
 // colors in form of comma-separated RGB values
-@sand-untypical-color-01-rgb: 55, 58, 65; // #373a41; @sand-alert-overlay-bg-color @sand-keyguide-bg-color
+@sand-untypical-color-01-rgb: 55, 58, 65; // #373a41; @sand-keyguide-bg-color
 @sand-untypical-color-02-rgb: 65, 70, 76; // #41464c; @sand-scrollbar-track-bg-color
 @sand-untypical-color-03-rgb: 76, 80, 89; // @sand-dark-gray; @sand-inputfield-placeholder-active-color
 @sand-untypical-color-10-rgb: 230, 230, 230; // @sand-light-gray; @sand-input-numbercell-background-color @sand-inputfield-placeholder-color @sand-inputfield-bg-color @sand-scrollbar-thumb-bg-color @sand-scroll-focusablebody-focus-bg-color @sand-tablayout-tab-horizontal-border-color
-@sand-untypical-color-13-rgb: 202, 203, 204; // #cacbcc from light skin; @sand-alert-overlay-bg-color
 
 
 // Remote button colors
@@ -42,11 +41,13 @@
 @sand-text-sub-color: var(--sand-text-sub-color, #abaeb3);
 @sand-shadow-color-rgb: var(--sand-shadow-color-rgb, 0, 0, 0);
 @sand-shadow-color: rgb(@sand-shadow-color-rgb, 30%);
+@sand-component-text-color: var(--sand-component-text-color, #e6e6e6);
 @sand-component-bg-color: var(--sand-component-bg-color, #7d848c);
 
-@sand-focus-text-color-rgb: var(--sand-focus-text-color-rgb, 76, 80, 89); // #4c5059
-@sand-focus-text-color: rgb(@sand-focus-text-color-rgb);
+@sand-focus-text-color: var(--sand-focus-text-color, #ffffff);
 @sand-focus-bg-color: var(--sand-focus-bg-color, #e6e6e6);
+@sand-component-focus-text-color-rgb: var(--sand-component-focus-text-color-rgb, 76, 80, 89); // #4c5059
+@sand-component-focus-text-color: rgb(@sand-component-focus-text-color-rgb);
 
 @sand-selected-color-rgb: var(--sand-selected-color-rgb, 230, 230, 230); // #e6e6e6 // @sand-text-color
 @sand-selected-color: rgb(@sand-selected-color-rgb);
@@ -85,7 +86,7 @@
 @sand-toggle-on-color: var(--sand-toggle-on-color, @sand-selected-color);
 @sand-toggle-on-bg-color: var(--sand-toggle-on-bg-color, #30ad6b);
 
-@sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230);
+@sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230); // #e6e6e6
 @sand-progress-color: rgb(@sand-progress-color-rgb);
 @sand-progress-buffer-color: var(--sand-progress-buffer-color, #6b6d73); // @sand-progress-color with opacity 30% on @sand-progress-bg-color
 @sand-progress-bg-color: var(--sand-progress-bg-color, #373a41);
@@ -93,6 +94,24 @@
 
 @sand-invalid-color: #ff0000;
 @sand-invalid-sub-color: #fb5656;
+
+
+// Overlay Alert
+// ---------------------------------------
+
+@sand-alert-overlay-bg-color-rgb: var(--sand-alert-overlay-bg-color-rgb, 202, 203, 204); // #cacbcc
+@sand-alert-overlay-bg-color: rgb(@sand-alert-overlay-bg-color-rgb);
+@sand-alert-overlay-text-color: var(--sand-alert-overlay-text-color, #2e3239);
+@sand-alert-overlay-text-sub-color: var(--sand-alert-overlay-text-sub-color, #2e3239);
+@sand-alert-overlay-shadow-color-rgb: var(--sand-alert-overlay-shadow-color-rgb, 46, 50, 57); // #2e3239
+@sand-alert-overlay-focus-text-color: var(--sand-alert-overlay-focus-text-color, #575e66);
+
+@sand-alert-overlay-progress-color-rgb: var(--sand-alert-overlay-progress-color-rgb, 55, 58, 65); // #373a41
+@sand-alert-overlay-progress-bg-color: var(--sand-alert-overlay-progress-bg-color, #a1a1a166); // 40% alpha by default
+@sand-alert-overlay-checkbox-border-color: var(--sand-alert-overlay-checkbox-border-color, #858b92);
+@sand-alert-overlay-checkbox-disabled-selected-color: var(--sand-alert-overlay-checkbox-disabled-selected-color, #ffffff);
+@sand-alert-overlay-formcheckboxitem-focus-text-color: var(--sand-alert-overlay-formcheckboxitem-focus-text-color, #575e66);
+@sand-alert-overlay-item-disabled-focus-bg-color: var(--sand-alert-overlay-item-disabled-focus-bg-color, #989ca2);
 
 
 // Disabled Opacity
@@ -105,7 +124,7 @@
 
 // Spotlight and State
 // ---------------------------------------
-@sand-spotlight-text-color:           @sand-focus-text-color; // Used in color-mixins.less, QA Sampler Marquee
+@sand-spotlight-text-color:           @sand-component-focus-text-color; // Used in color-mixins.less, QA Sampler Marquee
 @sand-spotlight-bg-color:             @sand-focus-bg-color; // If this changes, update Button bg-color mixins in color-mixins.less
 @sand-spotlight-focus-shadow:         0 36px 36px @sand-shadow-color; // Used in color-mixins.less
 
@@ -122,12 +141,11 @@
 // Alert
 // ---------------------------------------
 @sand-alert-bg-color: @sand-fullscreen-bg-color;
-@sand-alert-overlay-bg-color: rgb(@sand-untypical-color-01-rgb, 95%);
 @sand-alert-overlay-shadow: 0 36px 36px @sand-shadow-color;
 
 // Button
 // ---------------------------------------
-@sand-button-text-color: @sand-text-color;
+@sand-button-text-color: @sand-component-text-color;
 @sand-button-bg-color: @sand-component-bg-color;
 @sand-button-focus-bg-color: @sand-focus-bg-color;
 @sand-button-selected-bg-color: @sand-selected-bg-color;
@@ -148,7 +166,7 @@
 @sand-checkbox-focus-disabled-selected-border-color: @sand-checkbox-focus-disabled-selected-bg-color;
 @sand-checkbox-focus-color: @sand-checkbox-color;
 @sand-checkbox-focus-bg-color: @sand-checkbox-bg-color;
-@sand-checkbox-focus-border-color: @sand-focus-text-color;
+@sand-checkbox-focus-border-color: @sand-component-focus-text-color;
 @sand-checkbox-selected-color: @sand-selected-color;
 @sand-checkbox-selected-bg-color: @sand-toggle-on-bg-color;
 @sand-checkbox-selected-border-color: @sand-checkbox-selected-bg-color;
@@ -158,7 +176,7 @@
 @sand-checkbox-indeterminate-color: @sand-checkbox-border-color;
 @sand-checkbox-indeterminate-bg-color: @sand-checkbox-bg-color;
 @sand-checkbox-indeterminate-border-color: @sand-checkbox-border-color;
-@sand-checkbox-indeterminate-focus-color: @sand-focus-text-color;
+@sand-checkbox-indeterminate-focus-color: @sand-component-focus-text-color;
 @sand-checkbox-indeterminate-focus-bg-color: @sand-checkbox-focus-bg-color;
 @sand-checkbox-indeterminate-focus-border-color: @sand-checkbox-focus-border-color;
 @sand-checkbox-standalone-bg-disabled-focus-bg-color: @sand-disabled-focus-bg-color;
@@ -188,7 +206,7 @@
 
 // FormCheckboxItem
 // ---------------------------------------
-@sand-formcheckboxitem-focus-text-color: @sand-untypical-color-11;
+@sand-formcheckboxitem-focus-text-color: @sand-focus-text-color;
 @sand-formcheckboxitem-disabled-text-color: inherit;
 @sand-formcheckboxitem-disabled-focus-text-color: @sand-formcheckboxitem-disabled-text-color;
 
@@ -232,8 +250,8 @@
 @sand-inputfield-text-color: @sand-text-color;
 @sand-inputfield-placeholder-color: rgb(@sand-untypical-color-10-rgb, 20%);
 @sand-inputfield-placeholder-active-color: rgb(@sand-untypical-color-03-rgb, 40%);
-@sand-inputfield-focus-text-color-rgb: @sand-focus-text-color-rgb;
-@sand-inputfield-focus-text-color: @sand-focus-text-color;
+@sand-inputfield-focus-text-color-rgb: @sand-component-focus-text-color-rgb;
+@sand-inputfield-focus-text-color: @sand-component-focus-text-color;
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-bg-color: rgb(@sand-untypical-color-10-rgb, 20%);
 @sand-inputfield-invalid-color: @sand-invalid-color;
@@ -276,6 +294,7 @@
 @sand-picker-indicators-active-focus-bg-color: @sand-untypical-color-03;
 @sand-picker-indicators-inactive-bg-color: @sand-untypical-color-06;
 @sand-picker-indicators-inactive-focus-bg-color: @sand-untypical-color-07;
+@sand-picker-joined-horizontal-text-color: @sand-component-text-color;
 @sand-picker-joined-horizontal-bg-color: @sand-component-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
 @sand-picker-joined-incrementer-color: fade(@sand-untypical-color-09, 50%);
@@ -311,7 +330,7 @@
 // ---------------------------------------
 @sand-progressbutton-bar-color: @sand-untypical-color-09;
 @sand-progressbutton-fill-color: @sand-button-text-color;
-@sand-progressbutton-focus-fill-color: @sand-focus-text-color;
+@sand-progressbutton-focus-fill-color: @sand-component-focus-text-color;
 
 // RadioItem
 // ---------------------------------------
@@ -320,7 +339,7 @@
 @sand-radioitem-indicator-border-color: @sand-text-color;
 @sand-radioitem-focus-indicator-color: transparent;
 @sand-radioitem-focus-indicator-bg-color: transparent;
-@sand-radioitem-focus-indicator-border-color: @sand-focus-text-color;
+@sand-radioitem-focus-indicator-border-color: @sand-component-focus-text-color;
 @sand-radioitem-selected-indicator-color: @sand-selected-color;
 @sand-radioitem-selected-indicator-bg-color: @sand-toggle-on-bg-color;
 @sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-bg-color;
@@ -372,7 +391,7 @@
 @sand-spinner-head-color: @sand-spinner-color;
 @sand-spinner-empty-color: fade(@sand-spinner-color, 20%);
 @sand-spinner-bg-color: @sand-component-bg-color;
-@sand-spinner-text-color: @sand-untypical-color-11;
+@sand-spinner-text-color: @sand-component-text-color;
 @sand-spinner-text-shadow-color: @sand-shadow-color;
 
 // Switch
