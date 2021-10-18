@@ -2131,6 +2131,7 @@ const VideoPlayer = ApiDecorator(
 			FloatingLayerDecorator(
 				{floatLayerId: 'videoPlayerFloatingLayer'},
 				Skinnable(
+					{defaultSkin: 'neutral'},
 					VideoPlayerBase
 				)
 			)

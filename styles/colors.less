@@ -87,8 +87,8 @@
 
 @sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230);
 @sand-progress-color: rgb(@sand-progress-color-rgb);
-@sand-progress-buffer-color: var(--sand-progress-buffer-color, #6b6d73); // @sand-progress-color with opacity 30% on @sand-progress-bg-color-rgb
-@sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
+@sand-progress-buffer-color: var(--sand-progress-buffer-color, #6b6d73); // @sand-progress-color with opacity 30% on @sand-progress-bg-color
+@sand-progress-bg-color: var(--sand-progress-bg-color, #373a41);
 @sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
 
 @sand-invalid-color: #ff0000;
@@ -299,7 +299,7 @@
 
 // ProgressBar
 // ---------------------------------------
-@sand-progressbar-bar-bg-color: rgb(@sand-progress-bg-color-rgb);
+@sand-progressbar-bar-bg-color: @sand-progress-bg-color;
 @sand-progressbar-load-bg-color: rgb(@sand-progress-color-rgb, 30%);
 @sand-progressbar-fill-bg-color: @sand-progress-color;
 @sand-progressbar-highlighted-fill-bg-color: @sand-untypical-color-11;
