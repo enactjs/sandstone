@@ -1,6 +1,7 @@
 // TimePicker.module.less
 //
 @import "../styles/mixins.less";
+@import "../styles/skin.less";
 @import "../styles/variables.less";
 
 .timePicker {
@@ -33,6 +34,14 @@
 			}
 		});
 	}
+
+	.applySkins({
+		.timeSeparator {
+			.sand-disabled({
+				.sand-disabled-colors();
+			});
+		}
+	});
 }
 
 .sizingPlaceholder {
