@@ -1,4 +1,5 @@
 import kind from '@enact/core/kind';
+import classNames from 'classnames';
 import {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 
@@ -367,7 +368,7 @@ const TimePickerBase = kind({
 										width={4}
 										wrap
 									/>
-									<span className={css.timeSeparator}>:</span>
+									<span className={css.timeSeparator} disabled={disabled}>:</span>
 								</Fragment>
 							);
 						case 'm':
