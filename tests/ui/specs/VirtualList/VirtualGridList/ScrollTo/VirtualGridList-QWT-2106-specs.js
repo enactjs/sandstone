@@ -1,5 +1,5 @@
 const Page = require('../VirtualGridListPage');
-const {expectFocusedItem, waitUntilFocused, waitUntilVisible, expectNoFocusedItem} = require('../../VirtualList-utils');
+const {expectFocusedItem, waitUntilFocused, waitUntilVisible, isKeyMode} = require('../../VirtualList-utils');
 
 describe('Focus after calling scrollTo()', function () {
 	beforeEach(function () {
@@ -22,8 +22,9 @@ describe('Focus after calling scrollTo()', function () {
 		Page.delay(500);
 		// Step 3-1 Verify: list is scrolled to first item.
 		expect(Page.topLeftVisibleItemId()).to.equal('item0');
-		// Step 3-2 Verify: There is no spotlight on any item.
-		expectNoFocusedItem();
+		// Step 3-2 Verify: Keep pointer mode after ScrollTo()
+		expect(isKeyMode()).to.be.false();
+		Page.item(0).moveTo();
 		// Step 4: Press 5-way Left.
 		// Step 4-1 Verify: Set to 5-way mode.
 		Page.hidePointerByKeycode();

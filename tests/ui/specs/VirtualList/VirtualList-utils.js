@@ -43,6 +43,12 @@ function waitUntilVisible (itemNum) {
 	},  {timeout: 1500, timeoutMsg: `timed out waiting until visible index ${itemNum}`});
 }
 
+function isKeyMode () {
+	return browser.execute(function () {
+		return document.querySelector('.spotlight-input-key') !== null;
+	});
+}
+
 function isScrolling () {
 	return $('#scrolling').getText() === 'Scrolling';
 }
@@ -64,6 +70,7 @@ function waitForScrollStartStop (timeout = 3000) {
 exports.expectFocusedItem = expectFocusedItem;
 exports.expectNoFocusedItem = expectNoFocusedItem;
 exports.focusedElement = focusedElement;
+exports.isKeyMode = isKeyMode;
 exports.waitForScrollStartStop = waitForScrollStartStop;
 exports.waitUntilFocused = waitUntilFocused;
 exports.waitUntilVisible = waitUntilVisible;

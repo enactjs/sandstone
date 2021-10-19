@@ -1036,6 +1036,7 @@ describe('Popup', function () {
 
 				expectClosed(popupCommon);
 				// The ESC button (Back Key) does not switch out of pointer mode [ENYO-5865] [ENYO-5882]
+				$('#buttonPopup8').moveTo({xOffset: 200, yOffset: 200});
 				expect(popupCommon.buttonPopup8.isFocused()).to.be.false();
 			});
 
