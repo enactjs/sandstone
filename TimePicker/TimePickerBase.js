@@ -1,5 +1,4 @@
 import kind from '@enact/core/kind';
-import classNames from 'classnames';
 import {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 
