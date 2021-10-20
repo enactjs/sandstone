@@ -211,7 +211,8 @@
 @sand-picker-indicators-inactive-focus-bg-color: #b8b9bb;
 @sand-picker-joined-horizontal-bg-color: @sand-button-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
-@sand-picker-joined-incrementer-color: @sand-dark-gray;
+@sand-picker-joined-incrementer-color: fade(@sand-gray, 50%);
+@sand-picker-joined-focus-incrementer-color: @sand-dark-gray;
 @sand-picker-joined-focus-disabled-text-color: @sand-picker-indicators-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicators-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-opacity: 0.9;
@@ -231,7 +232,8 @@
 
 // ProgressBar
 // ---------------------------------------
-@sand-progressbar-bar-bg-color: #373A41;
+@sand-progressbar-bg-color: #373A41;
+@sand-progressbar-bar-bg-color: @sand-progressbar-bg-color;
 @sand-progressbar-load-bg-color: fade(@sand-light-gray, 30%);
 @sand-progressbar-fill-bg-color: @sand-spotlight-bg-color;
 @sand-progressbar-highlighted-fill-bg-color: @sand-white;
@@ -280,7 +282,7 @@
 
 // Slider
 // ---------------------------------------
-@sand-slider-bar-bg-color: @sand-progressbar-bar-bg-color;
+@sand-slider-bar-bg-color: @sand-progressbar-bg-color;
 @sand-slider-fill-bg-color: #8d9298;
 @sand-slider-load-bg-color: @sand-progressbar-load-bg-color;
 @sand-slider-knob-bg-color: @sand-slider-fill-bg-color;

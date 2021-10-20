@@ -8,7 +8,7 @@ describe('FlexiblePopupPanels', function () {
 	});
 
 	describe('5-way', function () {
-		it('should open FlexiblePopupPanels and navigate to Panel', function () {
+		it('should open FlexiblePopupPanels and navigate to Panel - [QWT-2143]', function () {
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
 			Page.spotlightSelect();
@@ -23,7 +23,7 @@ describe('FlexiblePopupPanels', function () {
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(2);
 
-			// should retain focus on navigation buttons - [GT-32184]
+			// should retain focus on navigation buttons
 			Page.waitForFocused(Interface.nextButton, {targetName: 'next button 2'});
 
 			Page.spotlightLeft();
@@ -33,12 +33,11 @@ describe('FlexiblePopupPanels', function () {
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(1);
 
-			// should retain focus on navigation buttons - [GT-32184]
+			// should retain focus on navigation buttons
 			Page.waitForFocused(Interface.prevButton, {targetName: 'prev button 2'});
 		});
 
-		// [GT-32185]
-		it('should respect Panel autoFocus setting', function () {
+		it('should respect Panel autoFocus setting - [QWT-2142]', function () {
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
 			Page.spotlightSelect();
