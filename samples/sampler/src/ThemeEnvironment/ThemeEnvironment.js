@@ -175,6 +175,7 @@ const StorybookDecorator = (story, config = {}) => {
 	}
 
 	globals.locale = select('locale', locales, Config, globals.locale);
+	globals.animationOff = boolean('animation off', Config, getKnobFromArgs(args, 'large text', globals.animationOff));
 	globals.largeText = boolean('large text', Config, getKnobFromArgs(args, 'large text', globals.largeText));
 	globals.highContrast = boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast', globals.highContrast));
 	globals.background = select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background', globals.background));
@@ -182,6 +183,7 @@ const StorybookDecorator = (story, config = {}) => {
 
 	return (
 		<Theme
+			animationOff={globals.animationOff}
 			className={classnames(classes)}
 			title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
 			description={hasInfoText ? config.parameters.info.text : null}
@@ -204,6 +206,7 @@ const FullscreenStorybookDecorator = (story, config = {}) => {
 	const args = getArgs();
 	return (
 		<ThemeFullscreen
+			animationOff={boolean('animation off', getKnobFromArgs(args, 'animation off'))}
 			title={`${config.kind} ${config.story}`.trim()}
 			description={config.description}
 			locale={select('locale', locales, 'en-US')}

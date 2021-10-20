@@ -15,7 +15,7 @@ const defaultConfig = {
 		light: 'light'
 	},
 	defaultVariants: ['highContrast'],
-	allowedVariants: ['highContrast', 'largeText', 'grayscale']
+	allowedVariants: ['highContrast', 'largeText', 'grayscale', 'animationOff']
 };
 
 /**
