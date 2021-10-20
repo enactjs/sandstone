@@ -21,6 +21,15 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 
 		static propTypes =  /** @lends sandstone/ThemeDecorator.AccessibilityDecorator.prototype */ {
 			/**
+			 * Disabled Enables animation effects that degrade performance.
+			 *
+			 * @type {Boolean}
+			 * @default false
+			 * @public
+			 */
+			 animationOff: PropTypes.bool,
+
+			/**
 			 * Enables additional features to help users visually differentiate components.
 			 *
 			 * The UI library will be responsible for using this information to add focus ring
@@ -117,11 +126,12 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		resizeRegistry = Registry.create();
 
 		render () {
-			const {className, focusRing, highContrast, skinVariants, textSize, ...props} = this.props;
+			const {animationOff, className, focusRing, highContrast, skinVariants, textSize, ...props} = this.props;
 			let accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
 			accessibilityClassName = focusRing ? `enact-a11y-focus-ring ${accessibilityClassName}` : `${accessibilityClassName}`;
 			const combinedClassName = className ? `${className} ${accessibilityClassName}` : accessibilityClassName;
 			const variants = objectify(skinVariants);
+			if (animationOff) variants.animationOff = true;
 			if (highContrast) variants.highContrast = true;
 			if (textSize === 'large') variants.largeText = true;
 			if (focusRing) variants.focusRing = true;

@@ -96,6 +96,7 @@ const StorybookDecorator = (story, config = {}) => {
 
 	return (
 		<Theme
+			animationOff={globals.animationOff}
 			className={classnames(classes)}
 			title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
 			description={hasInfoText ? config.parameters.info.text : null}

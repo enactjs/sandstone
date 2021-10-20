@@ -176,6 +176,13 @@
 	.enact-locale(non-latin, @rules, @target);
 }
 
+// 1 arg: Generic rule applicator, accepts an entire rule-set to add for animation off
+.sand-animation-off(@lrules) when (isruleset(@lrules)) {
+	&:global(.animation-off) {
+		@lrules();
+	}
+}
+
 //
 // Custom Text Size Mixins
 //
