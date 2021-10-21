@@ -19,7 +19,6 @@ import kind from '@enact/core/kind';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import defaultProps from 'recompose/defaultProps';
 import {HeadingBase as UiHeadingBase} from '@enact/ui/Heading';
 
 import {MarqueeDecorator} from '../Marquee';
@@ -109,24 +108,10 @@ const HeadingBase = kind({
  * @public
  */
 const HeadingDecorator = compose(
-	defaultProps({
-		marqueeOn: 'render'
-	}),
 	Pure,
 	MarqueeDecorator({invalidateProps: ['remeasure', 'slotSize']}),
 	Skinnable
 );
-
-HeadingDecorator.PropTypes = /** @lends sandstone/Heading.HeadingDecorator.prototype */ {
-	/**
-	 * Determines what triggers the header content to start its animation.
-	 *
-	 * @type {('hover'|'render')}
-	 * @default 'render'
-	 * @public
-	 */
-	marqueeOn: PropTypes.oneOf(['hover', 'render'])
-};
 
 /**
  * A labeled Heading component, ready to use in Sandstone applications.
@@ -167,6 +152,10 @@ const Heading = HeadingDecorator(HeadingBase);
  * @see {@link sandstone/Marquee.Marquee}
  * @public
  */
+
+Heading.defaultProps = {
+	marqueeOn: 'render'
+};
 
 export default Heading;
 export {
