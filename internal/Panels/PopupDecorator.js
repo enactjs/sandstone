@@ -188,6 +188,15 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 */
 			scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
+			/*
+			* State of possible skin variants.
+			*
+			* Used to scale the `itemSize` of the `VirtualList` based on large-text mode
+			*
+			* @type {Object}
+			*/
+			skinVariants: PropTypes.object,
+
 			/**
 			 * Restricts or prioritizes navigation when focus attempts to leave the popup.
 			 *
@@ -228,6 +237,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				width,
 				{fullHeight}
 			),
+			noAnimation: ({noAnimation, skinVariants}) => skinVariants.animationOff ? true : noAnimation,
 			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
@@ -248,6 +258,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			delete rest.fullHeight;
+			delete rest.skinVariants;
 			delete rest.width;
 
 			return (
@@ -274,6 +285,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	return TransitionDecorator(
 		IdProvider(
 			Skinnable(
+				{variantsProp: 'skinVariants'},
 				Decorator
 			)
 		)
