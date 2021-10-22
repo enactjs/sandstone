@@ -1,6 +1,6 @@
 import {mergeComponentMetadata, removeProps} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import DatePicker, {DatePickerBase} from '@enact/sandstone/DatePicker';
 
 DatePicker.displayName = 'DatePicker';
@@ -15,18 +15,25 @@ export default {
 	component: 'DatePicker'
 };
 
-export const _DatePicker = () => (
+export const _DatePicker = (args) => (
 	<DatePicker
-		disabled={boolean('disabled', Config)}
-		spotlightDisabled={boolean('spotlightDisabled', Config)}
-		noLabel={boolean('noLabel', Config)}
-		monthAriaLabel={text('monthAriaLabel', Config)}
-		dayAriaLabel={text('dayAriaLabel', Config)}
-		yearAriaLabel={text('yearAriaLabel', Config)}
+		disabled={args['disabled']}
+		spotlightDisabled={args['spotlightDisabled']}
+		noLabel={args['noLabel']}
+		monthAriaLabel={args['monthAriaLabel']}
+		dayAriaLabel={args['dayAriaLabel']}
+		yearAriaLabel={args['yearAriaLabel']}
 		onChange={action('onChange')}
 		onComplete={action('onComplete')}
 	/>
 );
+
+boolean('disabled', _DatePicker, Config);
+boolean('spotlightDisabled', _DatePicker, Config);
+boolean('noLabel', _DatePicker, Config);
+text('monthAriaLabel', _DatePicker, Config);
+text('dayAriaLabel', _DatePicker, Config);
+text('yearAriaLabel', _DatePicker, Config);
 
 _DatePicker.storyName = 'DatePicker';
 _DatePicker.parameters = {

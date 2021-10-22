@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {number, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {Header, Panel} from '@enact/sandstone/Panels';
@@ -77,18 +77,14 @@ export default {
 	component: 'Panel'
 };
 
-export const PanelsPanel = () => {
+export const PanelsPanel = (args) => {
 	return (
 		<Panel>
 			<Header
-				title={text('title', HeaderConfig, 'The Matrix')}
-				subtitle={text(
-					'subtitle',
-					HeaderConfig,
-					'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.'
-				)}
+				title={args['title']}
+				subtitle={args['subtitle']}
 			>
-				{prop.buttons[select('children', prop.buttonsSelection, HeaderConfig)]}
+				{prop.buttons[args['children']]}
 			</Header>
 			<TabLayout
 				onSelect={action('onSelect')}
@@ -96,30 +92,30 @@ export const PanelsPanel = () => {
 				// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
 			>
 				<Tab
-					icon={select('First View icon', iconNames, TabConfig, 'circle')}
-					title={text('First View title', TabConfig, 'List one')}
+					icon={args['First View icon']}
+					title={args['First View title']}
 				>
 					<VirtualGridList
-						dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
-						direction={select('direction', prop.direction, VGLConfig)}
+						dataSize={updateDataSize(args['dataSize'])}
+						direction={args['direction']}
 						itemRenderer={renderItem}
 						itemSize={{
-							minWidth: scale(number('minWidth', VGLConfig, 640)),
-							minHeight: scale(number('minHeight', VGLConfig, 540))
+							minWidth: scale(args['minWidth']),
+							minHeight: scale(args['minHeight'])
 						}}
 					/>
 				</Tab>
 				<Tab
-					icon={select('Second View icon', iconNames, TabConfig, 'star')}
-					title={text('Second View title', TabConfig, 'List two')}
+					icon={args['Second View icon']}
+					title={args['Second View title']}
 				>
 					<VirtualGridList
-						dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
-						direction={select('direction', prop.direction, VGLConfig)}
+						dataSize={updateDataSize(args['dataSize'])}
+						direction={args['direction']}
 						itemRenderer={renderItem}
 						itemSize={{
-							minWidth: scale(number('minWidth', VGLConfig, 640)),
-							minHeight: scale(number('minHeight', VGLConfig, 540))
+							minWidth: scale(args['minWidth']),
+							minHeight: scale(args['minHeight'])
 						}}
 					/>
 				</Tab>
@@ -127,6 +123,27 @@ export const PanelsPanel = () => {
 		</Panel>
 	);
 };
+
+text('title', PanelsPanel, HeaderConfig, 'The Matrix');
+text(
+	'subtitle',
+	PanelsPanel,
+	HeaderConfig,
+	'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.'
+);
+select('children', PanelsPanel, prop.buttonsSelection, HeaderConfig);
+select('First View icon', PanelsPanel, iconNames, TabConfig, 'circle');
+text('First View title', PanelsPanel, TabConfig, 'List one');
+number('dataSize', PanelsPanel, VGLConfig, defaultDataSize);
+select('direction', PanelsPanel, prop.direction, VGLConfig);
+number('minWidth', PanelsPanel, VGLConfig, 640);
+number('minHeight', PanelsPanel, VGLConfig, 540);
+select('Second View icon', PanelsPanel, iconNames, TabConfig, 'star');
+text('Second View title', PanelsPanel, TabConfig, 'List two');
+number('dataSize', PanelsPanel, VGLConfig, defaultDataSize);
+select('direction', PanelsPanel, prop.direction, VGLConfig);
+number('minWidth', PanelsPanel, VGLConfig, 640);
+number('minHeight', PanelsPanel, VGLConfig, 540);
 
 PanelsPanel.storyName = 'Panels.Panel';
 PanelsPanel.parameters = {

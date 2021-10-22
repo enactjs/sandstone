@@ -1,6 +1,6 @@
 import kind from '@enact/core/kind';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean} from '@enact/storybook-utils/addons/knobs';
+import {boolean} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
@@ -65,12 +65,12 @@ export default {
 	title: 'About/A Tour of Sampler'
 };
 
-export const ATourOfSampler = () => (
+export const ATourOfSampler = (args) => (
 	<div style={{overflow: 'hidden', height: '100%'}}>
-		<BodyText centered={boolean('text centered', BodyText)}>
+		<BodyText centered={args['text centered']}>
 			Welcome to the Sandstone sampler! Explore Sandstone components.
 		</BodyText>
-		<Button onClick={action('onClick')} selected={boolean('button selected', Button)}>
+		<Button onClick={action('onClick')} selected={args['button selected']}>
 			Click me
 		</Button>
 		<HintDialog style={{top: 3, left: 99}} length={234} pointerPosition="above">
@@ -94,9 +94,11 @@ export const ATourOfSampler = () => (
 			for a demonstration
 		</HintDialog>
 		<HintDialog style={{bottom: riSafe(edgeDotKeepout), left: 114, top: 582}} length={348}>
-			<b>Knobs</b> tab lets you adjust component properties
+			<b>Controls</b> tab lets you adjust component properties
 		</HintDialog>
 	</div>
 );
+
+boolean('text centered', ATourOfSampler);
 
 ATourOfSampler.storyName = 'A Tour of Sampler';

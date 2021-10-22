@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 import Sprite from '@enact/sandstone/Sprite';
 
 Sprite.displayName = 'Sprite';
@@ -20,7 +20,7 @@ export default {
 	component: 'Sprite'
 };
 
-export const _Sprite = () => {
+export const _Sprite = (args) => {
 	return (
 		<Sprite
 			src={{
@@ -32,9 +32,9 @@ export const _Sprite = () => {
 			height={120}
 			width={120}
 			orientation="horizontal"
-			stopped={boolean('stopped', Config)}
-			duration={number('duration', Config, {range: true, min: 500, max: 10000, step: 250}, 1000)}
-			iterations={Number(select('iterations', prop.iterations, Config))}
+			stopped={args['stopped']}
+			duration={args['duration']}
+			iterations={Number(args['iterations'])}
 			onSpriteAnimation={action('onSpriteAnimation')}
 
 			// These are design-time props, which don't make sense to be modified
@@ -52,6 +52,10 @@ export const _Sprite = () => {
 		/>
 	);
 };
+
+boolean('stopped', _Sprite, Config);
+range('duration', _Sprite, Config, {min: 500, max: 10000, step: 250}, 1000);
+select('iterations', _Sprite, prop.iterations, Config);
 
 _Sprite.storyName = 'Sprite';
 _Sprite.parameters = {

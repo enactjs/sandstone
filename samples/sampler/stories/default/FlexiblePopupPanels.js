@@ -2,7 +2,7 @@
 
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import {FlexiblePopupPanels, Panel, PanelBase, Header} from '@enact/sandstone/FlexiblePopupPanels';
 import Item from '@enact/sandstone/Item';
@@ -25,7 +25,7 @@ export default {
 	component: 'FlexiblePopupPanels'
 };
 
-export const _FlexiblePopupPanels = () => {
+export const _FlexiblePopupPanels = (args) => {
 	const defaultOpen = false;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -41,23 +41,18 @@ export const _FlexiblePopupPanels = () => {
 	};
 
 	const knobs = {
-		fullHeight: boolean('fullHeight', Config),
-		nextButtonVisibility: select('nextButtonVisibility', propOptions.buttonVisibility, Config),
-		noAnimation: boolean('noAnimation', Config),
-		noAutoDismiss: boolean('noAutoDismiss', Config),
-		noCloseButton: boolean('noCloseButton', Config),
-		prevButtonVisibility: select('prevButtonVisibility', propOptions.buttonVisibility, Config),
-		scrimType: select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent'),
-		spotlightRestrict: select(
-			'spotlightRestrict',
-			['self-first', 'self-only'],
-			Config,
-			'self-only'
-		)
+		fullHeight: args['fullHeight'],
+		nextButtonVisibility: args['nextButtonVisibility'],
+		noAnimation: args['noAnimation'],
+		noAutoDismiss: args['noAutoDismiss'],
+		noCloseButton: args['noCloseButton'],
+		prevButtonVisibility: args['prevButtonVisibility'],
+		scrimType: args['scrimType'],
+		spotlightRestrict: args['spotlightRestrict']
 	};
 
 	// Knobs are ordered this way so "Panel" comes after the main component
-	const size = select('size', propOptions.size, PanelConfig);
+	const size = args['size'];
 
 	return (
 		<div>
@@ -76,7 +71,7 @@ export const _FlexiblePopupPanels = () => {
 				<Panel
 					size={size}
 					prevButton={
-						boolean('custom first Panel prevButton', PanelConfig) ? (
+						args['custom first Panel prevButton'] ? (
 							<Button icon="jumpbackward" aria-label="go to last" />
 						) : (
 							void 0
@@ -98,7 +93,7 @@ export const _FlexiblePopupPanels = () => {
 				<Panel
 					size={size}
 					nextButton={
-						boolean('custom last Panel nextButton', PanelConfig) ? (
+						args['custom last Panel nextButton'] ? (
 							<Button icon="jumpforward" aria-label="go back to first" />
 						) : (
 							void 0
@@ -115,6 +110,24 @@ export const _FlexiblePopupPanels = () => {
 		</div>
 	);
 };
+
+boolean('fullHeight', _FlexiblePopupPanels, Config);
+select('nextButtonVisibility', _FlexiblePopupPanels, propOptions.buttonVisibility, Config);
+boolean('noAnimation', _FlexiblePopupPanels, Config);
+boolean('noAutoDismiss', _FlexiblePopupPanels, Config);
+boolean('noCloseButton', _FlexiblePopupPanels, Config);
+select('prevButtonVisibility', _FlexiblePopupPanels, propOptions.buttonVisibility, Config);
+select('scrimType', _FlexiblePopupPanels, ['none', 'translucent', 'transparent'], Config, 'translucent');
+select(
+	'spotlightRestrict',
+	_FlexiblePopupPanels,
+	['self-first', 'self-only'],
+	Config,
+	'self-only'
+);
+select('size', _FlexiblePopupPanels, propOptions.size, PanelConfig);
+boolean('custom first Panel prevButton', _FlexiblePopupPanels, PanelConfig);
+boolean('custom last Panel nextButton', _FlexiblePopupPanels, PanelConfig);
 
 _FlexiblePopupPanels.storyName = 'FlexiblePopupPanels';
 _FlexiblePopupPanels.parameters = {

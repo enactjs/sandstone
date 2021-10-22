@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Picker from '@enact/sandstone/Picker';
 
 import {decrementIcons, incrementIcons} from '../helper/icons';
@@ -33,28 +33,44 @@ export default {
 	component: 'Picker'
 };
 
-export const _Picker = () => (
+export const _Picker = (args) => (
 	<Picker
-		aria-label={text('aria-label', Picker, '')}
-		decrementAriaLabel={text('decrementAriaLabel', Picker, '')}
-		decrementIcon={select('decrementIcon', ['', ...decrementIcons], Picker)}
-		disabled={boolean('disabled', Picker)}
-		incrementAriaLabel={text('incrementAriaLabel', Picker, '')}
-		incrementIcon={select('incrementIcon', ['', ...incrementIcons], Picker)}
-		inlineTitle={boolean('inlineTitle', Picker)}
-		joined={boolean('joined', Picker)}
-		noAnimation={boolean('noAnimation', Picker)}
+		aria-label={args['aria-label']}
+		decrementAriaLabel={args['decrementAriaLabel']}
+		decrementIcon={args['decrementIcon']}
+		disabled={args['disabled']}
+		incrementAriaLabel={args['incrementAriaLabel']}
+		incrementIcon={args['incrementIcon']}
+		inlineTitle={args['inlineTitle']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
 		onChange={action('onChange')}
-		orientation={select('orientation', prop.orientation, Picker, prop.orientation[0])}
-		reverse={prop.reverse[select('reverse', [' ', 'false', 'true'], Picker)]}
-		title={text('title', Picker)}
-		type={select('type', prop.type, Picker)}
-		width={select('width', prop.width, Picker, prop.width[3])}
-		wrap={boolean('wrap', Picker)}
+		orientation={args['orientation']}
+		reverse={prop.reverse[args['reverse']]}
+		title={args['title']}
+		type={args['type']}
+		width={args['width']}
+		wrap={args['wrap']}
 	>
 		{airports}
 	</Picker>
 );
+
+text('aria-label', _Picker, Picker, '');
+text('decrementAriaLabel', _Picker, Picker, '');
+select('decrementIcon', _Picker, ['', ...decrementIcons], Picker);
+boolean('disabled', _Picker, Picker);
+text('incrementAriaLabel', _Picker, Picker, '');
+select('incrementIcon', _Picker, ['', ...incrementIcons], Picker);
+boolean('inlineTitle', _Picker, Picker);
+boolean('joined', _Picker, Picker);
+boolean('noAnimation', _Picker, Picker);
+select('orientation', _Picker, prop.orientation, Picker, prop.orientation[0]);
+select('reverse', _Picker, [' ', 'false', 'true'], Picker);
+text('title', _Picker, Picker);
+select('type', _Picker, prop.type, Picker);
+select('width', _Picker, prop.width, Picker, prop.width[3]);
+boolean('wrap', _Picker, Picker);
 
 _Picker.storyName = 'Picker';
 _Picker.parameters = {

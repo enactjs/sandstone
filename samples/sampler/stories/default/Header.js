@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {Panel, Header, HeaderBase} from '@enact/sandstone/Panels';
@@ -36,14 +36,14 @@ export default {
 	component: 'Header'
 };
 
-export const PanelsHeader = () => {
-	const slotAboveSelection = select('slotAbove', ['none', 'steps'], Config);
+export const PanelsHeader = (args) => {
+	const slotAboveSelection = args['slotAbove'];
 	const slotAbove = prop.above[slotAboveSelection];
-	const slotBeforeSelection = select('slotBefore', prop.buttonsSelection, Config);
+	const slotBeforeSelection = args['slotBefore'];
 	const slotBefore = prop.buttons[slotBeforeSelection];
-	const slotAfterSelection = select('slotAfter', prop.buttonsSelection, Config);
+	const slotAfterSelection = args['slotAfter'];
 	const slotAfter = prop.buttons[slotAfterSelection];
-	const childrenSelection = select('children', prop.buttonsSelection, Config);
+	const childrenSelection = args['children'];
 	const children = prop.buttons[childrenSelection];
 
 	// Panel is used here to circumvent a quirk of Storybook that inserts an unwanted DOM
@@ -52,28 +52,14 @@ export const PanelsHeader = () => {
 	const story = (
 		<Panel>
 			<Header
-				title={text('title', Config, 'The Matrix')}
-				subtitle={text(
-					'subtitle',
-					Config,
-					'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.'
-				)}
-				type={select('type', prop.type, Config)}
-				backButtonBackgroundOpacity={select(
-					'backButtonBackgroundOpacity',
-					['opaque', 'transparent'],
-					Config,
-					'transparent'
-				)}
-				centered={boolean('centered', Config)}
-				closeButtonBackgroundOpacity={select(
-					'closeButtonBackgroundOpacity',
-					['opaque', 'transparent'],
-					Config,
-					'transparent'
-				)}
-				marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
-				noCloseButton={boolean('noCloseButton', Config)}
+				title={args['title']}
+				subtitle={args['subtitle']}
+				type={args['type']}
+				backButtonBackgroundOpacity={args['backButtonBackgroundOpacity']}
+				centered={args['centered']}
+				closeButtonBackgroundOpacity={args['closeButtonBackgroundOpacity']}
+				marqueeOn={args['marqueeOn']}
+				noCloseButton={args['noCloseButton']}
 				onClose={action('onClose')}
 				slotAbove={slotAbove}
 				slotBefore={slotBefore}
@@ -91,6 +77,36 @@ export const PanelsHeader = () => {
 
 	return story;
 };
+
+select('slotAbove', PanelsHeader, ['none', 'steps'], Config);
+select('slotBefore', PanelsHeader, prop.buttonsSelection, Config);
+select('slotAfter', PanelsHeader, prop.buttonsSelection, Config);
+select('children', PanelsHeader, prop.buttonsSelection, Config);
+text('title', PanelsHeader, Config, 'The Matrix');
+text(
+	'subtitle',
+	PanelsHeader,
+	Config,
+	'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.'
+);
+select('type', PanelsHeader, prop.type, Config);
+select(
+	'backButtonBackgroundOpacity',
+	PanelsHeader,
+	['opaque', 'transparent'],
+	Config,
+	'transparent'
+);
+boolean('centered', PanelsHeader, Config);
+select(
+	'closeButtonBackgroundOpacity',
+	PanelsHeader,
+	['opaque', 'transparent'],
+	Config,
+	'transparent'
+);
+select('marqueeOn', PanelsHeader, prop.marqueeOn, Config);
+boolean('noCloseButton', PanelsHeader, Config);
 
 PanelsHeader.storyName = 'Panels.Header';
 PanelsHeader.parameters = {

@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {text, select} from '@enact/storybook-utils/addons/knobs';
+import {text, select} from '@enact/storybook-utils/addons/controls';
 import ActionGuide, {ActionGuideBase} from '@enact/sandstone/ActionGuide';
 
 // import icons
@@ -17,26 +17,32 @@ export default {
 	component: 'ActionGuide'
 };
 
-export const _ActionGuide = () => {
-	const iconType = select('icon type', ['glyph', 'url src', 'custom'], Config, 'glyph');
+export const _ActionGuide = (args) => {
+	const iconType = args['icon type'];
 	let icon;
 	switch (iconType) {
 		case 'glyph':
-			icon = select('icon', ['', ...iconNames], Config, 'arrowsmalldown');
+			icon = args['icon'];
 			break;
 		case 'url src':
-			icon = select('src', [docs, factory, logo], Config, logo);
+			icon = args['src'];
 			break;
 		default:
-			icon = text('custom icon', Config);
+			icon = args['custom icon'];
 	}
 
 	return (
 		<ActionGuide icon={icon}>
-			{text('children', Config, 'Press some key to do something')}
+			{args['children']}
 		</ActionGuide>
 	);
 };
+
+select('icon type', _ActionGuide, ['glyph', 'url src', 'custom'], Config, 'glyph');
+select('icon', _ActionGuide, ['', ...iconNames], Config, 'arrowsmalldown');
+select('src', _ActionGuide, [docs, factory, logo], Config, logo);
+text('custom icon', _ActionGuide, Config);
+text('children', _ActionGuide, Config, 'Press some key to do something');
 
 _ActionGuide.storyName = 'ActionGuide';
 _ActionGuide.parameters = {

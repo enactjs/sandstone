@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import Item from '@enact/sandstone/Item';
 import VirtualList from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
@@ -50,27 +50,40 @@ export default {
 	component: 'VirtualList'
 };
 
-export const _VirtualList = () => {
+export const _VirtualList = (args) => {
 	return (
 		<VirtualList
 			className={css.verticalPadding}
-			dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
-			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
-			hoverToScroll={boolean('hoverToScroll', VirtualListConfig)}
-			itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 156)))}
-			itemSize={ri.scale(number('itemSize', VirtualListConfig, 156))}
-			key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
-			noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
+			dataSize={updateDataSize(args['dataSize'])}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			itemRenderer={renderItem(ri.scale(args['itemSize']))}
+			itemSize={ri.scale(args['itemSize'])}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
-			scrollMode={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
-			spacing={ri.scale(number('spacing', VirtualListConfig))}
-			spotlightDisabled={boolean('spotlightDisabled', VirtualListConfig, false)}
-			verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualListConfig)}
-			wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
+			scrollMode={args['scrollMode']}
+			spacing={ri.scale(args['spacing'])}
+			spotlightDisabled={args['spotlightDisabled']}
+			verticalScrollbar={args['verticalScrollbar']}
+			wrap={wrapOption[args['wrap']]}
 		/>
 	);
 };
+
+number('dataSize', _VirtualList, VirtualListConfig, defaultDataSize);
+select('horizontalScrollbar', _VirtualList, prop.scrollbarOption, VirtualListConfig);
+boolean('hoverToScroll', _VirtualList, VirtualListConfig);
+number('itemSize', _VirtualList, VirtualListConfig, 156);
+number('itemSize', _VirtualList, VirtualListConfig, 156);
+select('scrollMode', _VirtualList, prop.scrollModeOption, VirtualListConfig);
+boolean('noScrollByWheel', _VirtualList, VirtualListConfig);
+select('scrollMode', _VirtualList, prop.scrollModeOption, VirtualListConfig);
+number('spacing', _VirtualList, VirtualListConfig);
+boolean('spotlightDisabled', _VirtualList, VirtualListConfig, false);
+select('verticalScrollbar', _VirtualList, prop.scrollbarOption, VirtualListConfig);
+select('wrap', _VirtualList, ['false', 'true', '"noAnimation"'], VirtualListConfig);
 
 _VirtualList.storyName = 'VirtualList';
 _VirtualList.parameters = {

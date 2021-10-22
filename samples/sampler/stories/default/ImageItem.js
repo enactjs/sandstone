@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, object, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, object, select, text} from '@enact/storybook-utils/addons/controls';
 import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
@@ -22,24 +22,34 @@ export default {
 	component: 'ImageItem'
 };
 
-export const _ImageItem = () => (
+export const _ImageItem = (args) => (
 	<ImageItem
-		centered={boolean('centered', Config)}
-		disabled={boolean('disabled', Config)}
-		label={text('label', Config, 'ImageItem label')}
-		orientation={select('orientation', prop.orientation, Config)}
-		selected={boolean('selected', Config)}
-		showSelection={boolean('showSelection', Config)}
-		src={object('src', Config, src)}
+		centered={args['centered']}
+		disabled={args['disabled']}
+		label={args['label']}
+		orientation={args['orientation']}
+		selected={args['selected']}
+		showSelection={args['showSelection']}
+		src={args['src']}
 		style={{
 			position: 'absolute',
-			width: ri.scaleToRem(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
-			height: ri.scaleToRem(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240)
+			width: ri.scaleToRem(args['orientation'] === 'vertical' ? 768 : 1020),
+			height: ri.scaleToRem(args['orientation'] === 'vertical' ? 588 : 240)
 		}}
 	>
-		{text('children', Config, 'ImageItem Caption')}
+		{args['children']}
 	</ImageItem>
 );
+
+boolean('centered', _ImageItem, Config);
+boolean('disabled', _ImageItem, Config);
+text('label', _ImageItem, Config, 'ImageItem label');
+select('orientation', _ImageItem, prop.orientation, Config);
+boolean('selected', _ImageItem, Config);
+boolean('showSelection', _ImageItem, Config);
+object('src', _ImageItem, Config, src);
+select('orientation', _ImageItem, prop.orientation, Config);
+text('children', _ImageItem, Config, 'ImageItem Caption');
 
 _ImageItem.storyName = 'ImageItem';
 _ImageItem.parameters = {

@@ -4,7 +4,7 @@ import {is} from '@enact/core/keymap';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Popup, {PopupBase} from '@enact/sandstone/Popup';
@@ -16,6 +16,7 @@ import Group from '@enact/ui/Group';
 import PropTypes from 'prop-types';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
+import {useArgs} from '@storybook/client-api';
 
 import spriteGear2k from '../../images/sprite-gear-2k.png';
 import spriteGear4k from '../../images/sprite-gear-4k.png';
@@ -42,7 +43,9 @@ export default {
 };
 
 const PopupTabLayoutSamplesBase = ({rtl}) => {
-	const includeIcons = boolean('include icons', Config, true);
+	const [args] = useArgs();
+
+	const includeIcons = args['include icons'];
 
 	const [open, setOpenState] = useState(false);
 	const toggleOpen = () => setOpenState(!open);
@@ -80,23 +83,13 @@ const PopupTabLayoutSamplesBase = ({rtl}) => {
 			<PopupTabLayout
 				open={open}
 				onClose={handleClose}
-				noAnimation={boolean('noAnimation', Config)}
-				noAutoDismiss={boolean('noAutoDismiss', Config)}
+				noAnimation={args['noAnimation']}
+				noAutoDismiss={args['noAutoDismiss']}
 				onTabAnimationEnd={action('onTabAnimationEnd')}
 				onHide={action('onHide')}
 				onShow={action('onShow')}
-				scrimType={select(
-					'scrimType',
-					['none', 'translucent', 'transparent'],
-					Config,
-					'translucent'
-				)}
-				spotlightRestrict={select(
-					'spotlightRestrict',
-					['self-first', 'self-only'],
-					Config,
-					'self-only'
-				)}
+				scrimType={args['scrimType']}
+				spotlightRestrict={args['spotlightRestrict']}
 			>
 				<Tab
 					icon={includeIcons ? 'picture' : null}
@@ -206,6 +199,24 @@ const PopupTabLayoutSamples = I18nContextDecorator(
 	PopupTabLayoutSamplesBase
 );
 export const _PopupTabLayout = () => <PopupTabLayoutSamples />;
+
+boolean('include icons', _PopupTabLayout, Config, true);
+boolean('noAnimation', _PopupTabLayout, Config);
+boolean('noAutoDismiss', _PopupTabLayout, Config);
+select(
+	'scrimType',
+	_PopupTabLayout,
+	['none', 'translucent', 'transparent'],
+	Config,
+	'translucent'
+);
+select(
+	'spotlightRestrict',
+	_PopupTabLayout,
+	['self-first', 'self-only'],
+	Config,
+	'self-only'
+);
 
 _PopupTabLayout.storyName = 'PopupTabLayout';
 _PopupTabLayout.parameters = {
