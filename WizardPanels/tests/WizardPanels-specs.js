@@ -33,9 +33,10 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const headerTitle = screen.getByLabelText('step 1 View title undefined');
+			const headerTitle = screen.queryByText(viewTitle);
 
-			expect(headerTitle).toHaveClass('wizard');
+			expect(headerTitle).toBeInTheDocument();
+			expect(headerTitle.parentElement.parentElement).toHaveClass('title');
 		}
 	);
 
