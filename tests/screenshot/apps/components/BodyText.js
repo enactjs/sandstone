@@ -28,7 +28,17 @@ const BodyTextTests = [
 		locale: 'ar-SA'
 	}, [
 		...commonTests
-	])
+	]),
+
+	// Indian
+	{
+		locale: 'bn-IN',
+		component: <BodyText>পারেন।</BodyText>  // [QWT - 4248]
+	},
+	{
+		locale: 'te-IN',
+		component: <BodyText>পারেন।</BodyText>  // [QWT - 4248]
+	}
 ];
 
 export default BodyTextTests;
