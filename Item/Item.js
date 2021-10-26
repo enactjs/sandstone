@@ -200,6 +200,15 @@ const ItemBase = kind({
 		 */
 		size: PropTypes.oneOf(['large', 'small']),
 
+		/*
+		 * State of possible skin variants.
+		 *
+		 * Used to scale the `itemSize` of the `VirtualList` based on large-text mode
+		 *
+		 * @type {Object}
+		 */
+		skinVariants: PropTypes.object,
+
 		/**
 		 * Nodes to be inserted after `children`.
 		 *
@@ -240,7 +249,7 @@ const ItemBase = kind({
 		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 
-	render: ({centered, children, componentRef, contentRef, contentSize, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+	render: ({centered, children, componentRef, contentRef, contentSize, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, skinVariants, ...rest}) => {
 		delete rest.size;
 
 		const keys = Object.keys(rest);
@@ -270,7 +279,7 @@ const ItemBase = kind({
 					css={css}
 					label={label}
 					labelPosition={labelPosition}
-					marqueeOn={marqueeOn}
+					marqueeOn={skinVariants.animationOff ? 'off' : marqueeOn}
 					shrink={inline}
 				/>
 				{slotAfter ? (
@@ -315,7 +324,7 @@ const ItemDecorator = compose(
 	Spottable,
 	MarqueeController({marqueeOnFocus: true}),
 	ItemMeasurementDecorator,
-	Skinnable
+	Skinnable({variantsProp: 'skinVariants'})
 );
 
 /**
