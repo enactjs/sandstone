@@ -213,7 +213,8 @@ const PanelsBase = kind({
 		arranger: BasicArranger,
 		index: 0,
 		noAnimation: false,
-		noSharedState: false
+		noSharedState: false,
+		skinVariants: {}
 	},
 
 	styles: {

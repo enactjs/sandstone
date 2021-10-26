@@ -258,7 +258,8 @@ const PopupTabLayoutBase = kind({
 		},
 		orientation: 'vertical',
 		position: 'left',
-		scrimType: 'translucent'
+		scrimType: 'translucent',
+		skinVariants: {}
 	},
 
 	styles: {

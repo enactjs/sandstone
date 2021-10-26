@@ -236,7 +236,8 @@ const ItemBase = kind({
 
 	defaultProps: {
 		labelPosition: 'below',
-		size: 'large'
+		size: 'large',
+		skinVariants: {}
 	},
 
 	styles: {
