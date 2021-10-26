@@ -222,6 +222,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			noAnimation: false,
 			position: 'right',
 			scrimType: 'translucent',
+			skinVariants: {},
 			spotlightRestrict: 'self-only',
 			width: 'narrow'
 		},
