@@ -138,7 +138,7 @@ const KeyGuideBase = kind({
 const KeyGuideDecorator = compose(
 	MarqueeController({marqueeOnFocus: true}),
 	Pure,
-	Skinnable({defaultSkin: 'neutral'})
+	Skinnable
 );
 
 /**
