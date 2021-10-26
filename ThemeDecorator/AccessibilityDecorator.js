@@ -27,7 +27,7 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 			 * @default false
 			 * @public
 			 */
-			 animationOff: PropTypes.bool,
+			animationOff: PropTypes.bool,
 
 			/**
 			 * Enables additional features to help users visually differentiate components.

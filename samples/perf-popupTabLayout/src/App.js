@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import {is} from '@enact/core/keymap';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
@@ -14,7 +15,7 @@ import spriteGear4k from '../webos-meta/sprite-gear-4k.png';
 
 const isRight = is('right');
 
-const navPrev = (callback, value, actionName) => () => {
+const navPrev = (callback, value) => () => {
 	const index = Math.max(value - 1, 0);
 	callback(index);
 };
