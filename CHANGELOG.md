@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone` to select correct font when font-weight changes in some Indian locales
+
 ## [2.0.3] - 2021-10-21
 
 ### Fixed
