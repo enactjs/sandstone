@@ -16,7 +16,7 @@ const defaultConfig = {
 		game: 'game'
 	},
 	allowedVariants: ['focusRing', 'highContrast', 'largeText', 'grayscale', 'animationOff'],
-	defaultVariants: null
+	defaultVariants: ['animationOff']
 };
 
 /**
