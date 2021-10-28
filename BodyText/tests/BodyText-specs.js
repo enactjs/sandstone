@@ -31,7 +31,7 @@ describe('BodyText Specs', () => {
 		expect(bodyText).toHaveClass(expected);
 	});
 
-	test('should have small class if `size` is true', () => {
+	test('should have small class if `size` is small', () => {
 		render(<BodyText data-testid="bodyText" size="small" />);
 		const bodyText = screen.getByTestId('bodyText');
 
