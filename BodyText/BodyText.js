@@ -101,6 +101,7 @@ const BodyTextBase = kind({
 
 	render: ({centered, css, noWrap, ...rest}) => {
 		delete rest.size;
+		console.log('test');
 
 		if (noWrap) {
 			return (
