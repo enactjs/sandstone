@@ -120,7 +120,7 @@ describe('VirtualList', () => {
 			/>
 		);
 
-		const expected = 2;
+		const expected = 2; // One for the list and another for the horizontal scrollbar
 		const actual = screen.getByRole('list').parentElement.parentElement.children.length;
 
 		expect(actual).toBe(expected);
