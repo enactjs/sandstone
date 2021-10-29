@@ -114,11 +114,14 @@ export const deviceIcons = [
 ].sort();
 
 export const settingsIcons = [
+	'bluetooth',
+	'changepassword',
 	'checker',
 	'demosync',
 	'dns',
 	'gear',
 	'home',
+	'moodmode',
 	'miniplayer',
 	'newfeature',
 	'picture',
