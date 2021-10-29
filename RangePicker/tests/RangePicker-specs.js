@@ -6,9 +6,7 @@ import {RangePicker, RangePickerBase} from '../RangePicker';
 
 describe('RangePicker Specs', () => {
 	test('should render a single child with the current value', () => {
-		render(
-			<RangePicker min={-10} max={20} value={10} />
-		);
+		render(<RangePicker min={-10} max={20} value={10} />);
 		const textField = screen.getByText('10');
 
 		const expected = 'item';
@@ -18,9 +16,7 @@ describe('RangePicker Specs', () => {
 	});
 
 	test('should increase by step amount on increment press', () => {
-		render(
-			<RangePicker min={0} max={100} defaultValue={10} step={1} noAnimation />
-		);
+		render(<RangePicker min={0} max={100} defaultValue={10} step={1} noAnimation />);
 		const incrementButton = screen.getByText('▶');
 
 		userEvent.click(incrementButton);
@@ -33,9 +29,7 @@ describe('RangePicker Specs', () => {
 	});
 
 	test('should decrease by step amount on decrement press', () => {
-		render(
-			<RangePicker min={0} max={100} defaultValue={10} step={1} noAnimation />
-		);
+		render(<RangePicker min={0} max={100} defaultValue={10} step={1} noAnimation />);
 		const decrementButton = screen.getByText('◀');
 
 		userEvent.click(decrementButton);
@@ -48,9 +42,7 @@ describe('RangePicker Specs', () => {
 	});
 
 	test('should pad the value', () => {
-		render(
-			<RangePicker min={0} max={100} value={10} step={1} padded />
-		);
+		render(<RangePicker min={0} max={100} value={10} step={1} padded />);
 		const textField = screen.getByText('010');
 
 		const expected = 'item';
@@ -60,9 +52,7 @@ describe('RangePicker Specs', () => {
 	});
 
 	test('should pad the value when min has more digits than max', () => {
-		render(
-			<RangePicker min={-1000} max={100} value={10} step={1} padded />
-		);
+		render(<RangePicker min={-1000} max={100} value={10} step={1} padded />);
 		const textField = screen.getByText('0010');
 
 		const expected = 'item';
@@ -72,10 +62,8 @@ describe('RangePicker Specs', () => {
 	});
 
 	test('should be disabled when limited to a single value', () => {
-		render(
-			<RangePickerBase min={0} max={0} value={0} />
-		);
-		const rangePicker = screen.getAllByRole('button')[0].parentElement;
+		render(<RangePickerBase data-testid="rangePicker" min={0} max={0} value={0} />);
+		const rangePicker = screen.getByTestId('rangePicker');
 
 		const expectedAttribute = 'aria-disabled';
 		const expectedValue = 'true';
@@ -84,9 +72,7 @@ describe('RangePicker Specs', () => {
 	});
 
 	test('should have an heading element when \'title\'', () => {
-		render(
-			<RangePickerBase min={0} max={0} value={0} title="title text" />
-		);
+		render(<RangePickerBase min={0} max={0} value={0} title="title text" />);
 		const title = screen.getByText('title text');
 
 		const expected = 'heading';
@@ -97,9 +83,7 @@ describe('RangePicker Specs', () => {
 	});
 
 	test('should have an heading element with inline class when \'title\' and \'inlineTitle\'', () => {
-		render(
-			<RangePickerBase inlineTitle min={0} max={0} value={0} title="title text" />
-		);
+		render(<RangePickerBase inlineTitle min={0} max={0} value={0} title="title text" />);
 		const title = screen.getByText('title text');
 
 		const expectedInline = 'inlineTitle';

@@ -4,8 +4,6 @@ import userEvent from '@testing-library/user-event';
 
 import Button, {ButtonBase} from '../Button';
 
-import css from '../Button.module.less';
-
 describe('Button', () => {
 	test('should have \'disabled\' HTML attribute when \'disabled\' prop is provided', () => {
 		render(<Button disabled>I am a disabled Button</Button>);
@@ -18,7 +16,7 @@ describe('Button', () => {
 		render(<ButtonBase />);
 		const button = screen.getByRole('button');
 
-		const expected = css.opaque;
+		const expected = 'opaque';
 
 		expect(button).toHaveClass(expected);
 	});
@@ -45,7 +43,7 @@ describe('Button', () => {
 		render(<ButtonBase />);
 		const button = screen.getByRole('button');
 
-		const expected = css.minWidth;
+		const expected = 'minWidth';
 
 		expect(button).toHaveClass(expected);
 	});
@@ -54,7 +52,7 @@ describe('Button', () => {
 		render(<ButtonBase />);
 		const button = screen.getByRole('button');
 
-		const expected = css.large;
+		const expected = 'large';
 
 		expect(button).toHaveClass(expected);
 	});
@@ -64,7 +62,7 @@ describe('Button', () => {
 			render(<ButtonBase minWidth={false} />);
 			const button = screen.getByRole('button');
 
-			const expected = css.minWidth;
+			const expected = 'minWidth';
 
 			expect(button).not.toHaveClass(expected);
 		});
@@ -75,7 +73,7 @@ describe('Button', () => {
 			render(<ButtonBase backgroundOpacity="transparent" />);
 			const button = screen.getByRole('button');
 
-			const expected = css.transparent;
+			const expected = 'transparent';
 
 			expect(button).toHaveClass(expected);
 		});
@@ -84,7 +82,7 @@ describe('Button', () => {
 			render(<ButtonBase backgroundOpacity="transparent" />);
 			const button = screen.getByRole('button');
 
-			const expected = css.opaque;
+			const expected = 'opaque';
 
 			expect(button).not.toHaveClass(expected);
 		});
@@ -103,7 +101,7 @@ describe('Button', () => {
 			render(<Button icon="check" />);
 			const button = screen.getByRole('button');
 
-			const expected = css.minWidth;
+			const expected = 'minWidth';
 
 			expect(button).not.toHaveClass(expected);
 		});
@@ -112,7 +110,7 @@ describe('Button', () => {
 			render(<Button icon="check" iconPosition="after">text</Button>);
 			const button = screen.getByRole('button');
 
-			const expected = css.iconAfter;
+			const expected = 'iconAfter';
 
 			expect(button).toHaveClass(expected);
 		});
@@ -121,7 +119,7 @@ describe('Button', () => {
 			render(<Button icon="check" iconPosition="before">text</Button>);
 			const button = screen.getByRole('button');
 
-			const expected = css.iconBefore;
+			const expected = 'iconBefore';
 
 			expect(button).toHaveClass(expected);
 		});
@@ -130,15 +128,15 @@ describe('Button', () => {
 			render(<Button icon="check" />);
 			const button = screen.getByRole('button');
 
-			expect(button).not.toHaveClass(css.iconBefore);
-			expect(button).not.toHaveClass(css.iconAfter);
+			expect(button).not.toHaveClass('iconBefore');
+			expect(button).not.toHaveClass('iconAfter');
 		});
 
 		test('should have iconOnly class when there is no children', () => {
 			render(<Button icon="check" />);
 			const button = screen.getByRole('button');
 
-			const expected = css.iconOnly;
+			const expected = 'iconOnly';
 
 			expect(button).toHaveClass(expected);
 		});
@@ -149,7 +147,7 @@ describe('Button', () => {
 			render(<Button color="red">abc</Button>);
 			const button = screen.getByRole('button');
 
-			const expected = css.hasColor;
+			const expected = 'hasColor';
 
 			expect(button).toHaveClass(expected);
 		});
@@ -158,7 +156,7 @@ describe('Button', () => {
 			render(<Button>abc</Button>);
 			const button = screen.getByRole('button');
 
-			const expected = css.hasColor;
+			const expected = 'hasColor';
 
 			expect(button).not.toHaveClass(expected);
 		});
@@ -167,7 +165,7 @@ describe('Button', () => {
 			render(<Button color="red">abc</Button>);
 			const button = screen.getByRole('button');
 
-			const expected = css.red;
+			const expected = 'red';
 
 			expect(button).toHaveClass(expected);
 		});
@@ -176,7 +174,7 @@ describe('Button', () => {
 			render(<Button color="blue">abc</Button>);
 			const button = screen.getByRole('button');
 
-			const expected = css.blue;
+			const expected = 'blue';
 
 			expect(button).toHaveClass(expected);
 		});
@@ -185,7 +183,7 @@ describe('Button', () => {
 			render(<Button color="yellow">abc</Button>);
 			const button = screen.getByRole('button');
 
-			const expected = css.yellow;
+			const expected = 'yellow';
 
 			expect(button).toHaveClass(expected);
 		});
@@ -194,7 +192,7 @@ describe('Button', () => {
 			render(<Button color="green">abc</Button>);
 			const button = screen.getByRole('button');
 
-			const expected = css.green;
+			const expected = 'green';
 
 			expect(button).toHaveClass(expected);
 		});

@@ -212,12 +212,12 @@ describe('Panels Specs', () => {
 				</Panels>
 			);
 
-			const backButton = screen.getByLabelText('Exit app');
-			const backButtonContainer = backButton.parentElement.parentElement;
+			const closeButton = screen.getByLabelText('Exit app');
+			const closeButtonContainer = closeButton.parentElement.parentElement;
 			const expectedClass = 'slotAfter';
 
-			expect(backButton).toBeInTheDocument();
-			expect(backButtonContainer).toHaveClass(expectedClass);
+			expect(closeButton).toBeInTheDocument();
+			expect(closeButtonContainer).toHaveClass(expectedClass);
 		});
 
 		test('should not render close button when \'noCloseButton\' is set to true', () => {
@@ -229,9 +229,9 @@ describe('Panels Specs', () => {
 				</Panels>
 			);
 
-			const backButton = screen.queryByLabelText('Exit app');
+			const closeButton = screen.queryByLabelText('Exit app');
 
-			expect(backButton).toBeNull();
+			expect(closeButton).toBeNull();
 		});
 
 		test('should set close button "aria-label" to closeButtonAriaLabel', () => {

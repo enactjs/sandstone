@@ -3,8 +3,6 @@ import {render, screen} from '@testing-library/react';
 
 import {ItemBase} from '../Item';
 
-import css from '../Item.module.less';
-
 describe('Item Specs', () => {
 	test('should support adding text as a child', () => {
 		const expected = 'Hello Item';
@@ -19,7 +17,7 @@ describe('Item Specs', () => {
 		const expected = 'Example Label';
 
 		render(<ItemBase label={expected}>Hello Item</ItemBase>);
-		const label = screen.getByText('Hello Item');
+		const label = screen.getByText(expected);
 
 		expect(label).toBeInTheDocument();
 	});
@@ -64,13 +62,13 @@ describe('Item Specs', () => {
 		render(<ItemBase data-testid="item" labelPosition="above" label="my label">Hello Item</ItemBase>);
 		const itemLabel = screen.getByTestId('item').children.item(1);
 
-		expect(itemLabel).toHaveClass(css.labelAbove);
+		expect(itemLabel).toHaveClass('labelAbove');
 	});
 
 	test('should not include the selected class when not selected', () => {
 		render(<ItemBase data-testid="item">Hello Item</ItemBase>);
 
-		const expected = css.selected;
+		const expected = 'selected';
 		const actual = screen.getByTestId('item');
 
 		expect(actual).not.toHaveClass(expected);
@@ -79,7 +77,7 @@ describe('Item Specs', () => {
 	test('should add the selected class when given the selected prop', () => {
 		render(<ItemBase data-testid="item" selected>Hello Item</ItemBase>);
 
-		const expected = css.selected;
+		const expected = 'selected';
 		const actual = screen.getByTestId('item');
 
 		expect(actual).toHaveClass(expected);

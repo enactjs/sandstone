@@ -32,7 +32,7 @@ describe('Switch Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should not have `animated` className', () => {
+	test('should not have `animated` className when `noAnimation`', () => {
 		render(<SwitchBase noAnimation />);
 
 		const unexpected = 'animated';

@@ -45,14 +45,14 @@ describe('KeyGuide Specs', () => {
 	});
 
 	test('should render open floating layer if open with children', () => {
-		const {getByRole} = render(
+		render(
 			<FloatingLayerController>
 				<KeyGuide open>
 					{[{icon: 'red', children: 'a', key: 'a'}]}
 				</KeyGuide>
 			</FloatingLayerController>
 		);
-		const keyGuide = getByRole('list');
+		const keyGuide = screen.getByRole('list');
 
 		const expected = 'keyGuide';
 
@@ -61,14 +61,14 @@ describe('KeyGuide Specs', () => {
 	});
 
 	test('should apply color class if a color key is in the icon slot', () => {
-		const {getByRole} = render(
+		render(
 			<FloatingLayerController>
 				<KeyGuide open>
 					{[{icon: 'red', children: 'a', key: 'a'}]}
 				</KeyGuide>
 			</FloatingLayerController>
 		);
-		const item = getByRole('list').children.item(0);
+		const item = screen.getByRole('list').children.item(0);
 
 		const expected = 'red';
 		const actual = item.children.item(1).children.item(0);

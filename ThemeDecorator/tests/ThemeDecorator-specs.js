@@ -4,8 +4,6 @@ import {render, screen} from '@testing-library/react';
 
 import ThemeDecorator from '../';
 
-import css from '../ThemeDecorator.module.less';
-
 describe('ThemeDecorator', () => {
 	const AppRoot = (props) => <div data-app {...props} />;
 	const a11yConfig = {float: false, ri18n: false, ri: false, spotlight: false};
@@ -21,7 +19,7 @@ describe('ThemeDecorator', () => {
 		const appRoot = screen.getByTestId('app');
 
 		expect(appRoot).toHaveClass('neutral');
-		expect(appRoot).toHaveClass(css.bg);
+		expect(appRoot).toHaveClass('bg');
 	});
 
 	test('should add author classes to wrapped component', () => {
@@ -60,7 +58,7 @@ describe('ThemeDecorator', () => {
 
 		const appRoot = screen.getByTestId('app');
 
-		expect(appRoot).not.toHaveClass(css.bg);
+		expect(appRoot).not.toHaveClass('bg');
 	});
 
 	describe('AccessibilityDecorator', () => {

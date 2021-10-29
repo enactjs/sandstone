@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 
 import Header from '../Header';
-import css from '../Header.module.less';
 
 describe('Header Specs', () => {
 	test('should render with title text without changing case', () => {
@@ -18,7 +17,7 @@ describe('Header Specs', () => {
 	test('should support "wizard" type', () => {
 		render(<Header data-testid="header" type="wizard"><title>Wizard Header</title></Header>);
 
-		const expected = css.wizard;
+		const expected = 'wizard';
 		const header = screen.getByTestId('header');
 
 		expect(header).toHaveClass(expected);
@@ -27,7 +26,7 @@ describe('Header Specs', () => {
 	test('should support "compact" type', () => {
 		render(<Header data-testid="header" type="compact"><title>Compact Header</title></Header>);
 
-		const expected = css.compact;
+		const expected = 'compact';
 		const header = screen.getByTestId('header');
 
 		expect(header).toHaveClass(expected);
@@ -36,7 +35,7 @@ describe('Header Specs', () => {
 	test('should have centered class applied when the centered prop is true', () => {
 		render(<Header data-testid="header" centered><title>Centered Header</title></Header>);
 
-		const expected = css.centered;
+		const expected = 'centered';
 		const header = screen.getByTestId('header');
 
 		expect(header).toHaveClass(expected);
@@ -55,7 +54,7 @@ describe('Header Specs', () => {
 		);
 
 		const slotAbove = screen.getByText(expected);
-		const expectedClass = css.slotAbove;
+		const expectedClass = 'slotAbove';
 
 		expect(slotAbove).toHaveClass(expectedClass);
 	});
@@ -73,7 +72,7 @@ describe('Header Specs', () => {
 		);
 
 		const slotBefore = screen.getByText(expected).parentElement;
-		const expectedClass = css.slotBefore;
+		const expectedClass = 'slotBefore';
 
 		expect(slotBefore).toHaveClass(expectedClass);
 	});
@@ -91,7 +90,7 @@ describe('Header Specs', () => {
 		);
 
 		const slotAfter = screen.getByText(expected).parentElement;
-		const expectedClass = css.slotAfter;
+		const expectedClass = 'slotAfter';
 
 		expect(slotAfter).toHaveClass(expectedClass);
 	});
@@ -142,6 +141,6 @@ describe('Header Specs', () => {
 		const slotAfter = closeButtonAriaLabel.parentElement.parentElement;
 
 		expect(closeButtonAriaLabel).toBeInTheDocument();
-		expect(slotAfter).toHaveClass(css.slotAfter);
+		expect(slotAfter).toHaveClass('slotAfter');
 	});
 });

@@ -29,14 +29,14 @@ describe('Steps Specs', () => {
 		const firstStep = screen.getByText('1');
 		const secondStep = screen.getByText('2');
 		const thirdStep = screen.getByText('3');
-		const forthStep = screen.getByText('4');
+		const fourthStep = screen.getByText('4');
 		const fifthStep = screen.getByText('5');
 		const sixthStep = screen.getByText('6');
 
 		expect(firstStep).toBeInTheDocument();
 		expect(secondStep).toBeInTheDocument();
 		expect(thirdStep).toBeInTheDocument();
-		expect(forthStep).toBeInTheDocument();
+		expect(fourthStep).toBeInTheDocument();
 		expect(fifthStep).toBeInTheDocument();
 		expect(sixthStep).toBeInTheDocument();
 	});
@@ -142,24 +142,15 @@ describe('Steps Specs', () => {
 		expect(skippedStepIcon).toBe(expected);
 	});
 
-	test('should support number for `skip` prop', () => {
-		const expected = 'testIconName';
-
-		render(<Steps skip={2} skipIcon={expected} current={3} total={5} />);
-		const skipStep = screen.getByRole('list').children.item(1).textContent;
-
-		expect(skipStep).toBe(expected);
-	});
-
 	test('should support array of numbers for `skip` prop', () => {
 		const expected = 'testIconName';
 
 		render(<Steps skip={[2, 4]} skipIcon={expected} current={3} total={5} />);
 		const secondSkippedStep = screen.getByRole('list').children.item(1).textContent;
-		const forthSkippedStep = screen.getByRole('list').children.item(3).textContent;
+		const fourthSkippedStep = screen.getByRole('list').children.item(3).textContent;
 
 		expect(secondSkippedStep).toBe(expected);
-		expect(forthSkippedStep).toBe(expected);
+		expect(fourthSkippedStep).toBe(expected);
 	});
 
 	test('should not show a skip icon if the `current` step is in the skip list', () => {
