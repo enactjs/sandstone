@@ -51,7 +51,8 @@ describe('ContextualMenuDecorator Specs', () => {
 				</ContextualButton>
 			</Root>
 		);
-		const floatingLayerScrim = screen.getByTestId('contextualMenu').nextElementSibling.children.item(0).children.item(0).children.item(0);
+
+		const floatingLayerScrim = screen.getByTestId('contextualMenu').nextElementSibling.querySelector('.scrim');
 
 		userEvent.click(floatingLayerScrim);
 
@@ -68,7 +69,7 @@ describe('ContextualMenuDecorator Specs', () => {
 				</ContextualButton>
 			</Root>
 		);
-		const floatingLayerScrim = screen.getByTestId('contextualMenu').nextElementSibling.children.item(0).children.item(0).children.item(0);
+		const floatingLayerScrim = screen.getByTestId('contextualMenu').nextElementSibling.querySelector('.scrim');
 
 		userEvent.click(floatingLayerScrim);
 

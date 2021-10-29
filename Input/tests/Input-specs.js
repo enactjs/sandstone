@@ -56,12 +56,9 @@ describe('Input specs', () => {
 				<Input open value={str} />
 			</FloatingLayerController>
 		);
-		const inputField = screen.getAllByLabelText('value text Input field')[1];
+		const inputField = screen.getByPlaceholderText('-');
 
-		const expected = 'inputField';
-
-		expect(inputField).toBeInTheDocument();
-		expect(inputField).toHaveClass(expected);
+		expect(inputField).toHaveValue(str);
 	});
 
 	test('should set placeholder at input when there is placeholder text', () => {
@@ -71,7 +68,7 @@ describe('Input specs', () => {
 				<Input open placeholder={str} />
 			</FloatingLayerController>
 		);
-		const inputField = screen.getAllByText(str)[1].nextElementSibling;
+		const inputField = screen.getByPlaceholderText(str);
 
 		const expectedAttribute = 'placeholder';
 
@@ -198,17 +195,24 @@ describe('Input specs', () => {
 		expect(spy).not.toHaveBeenCalled();
 	});
 
-	test('should have the submit button disabled if value\'s length is smaller than minLength', () => {
+	test('should include a submit button when `minLength` !== `maxLength` for number input', () => {
 		render(
-			<FloatingLayerController>
-				<Input type="number" minLength={3} maxLength={4} open value="1" />
+			<FloatingLayerController data-testid="input">
+				<Input type="number" minLength={4} maxLength={6} open />
 			</FloatingLayerController>
 		);
-		const buttonSubmit = screen.getByText('Submit').parentElement.parentElement.parentElement;
 
-		const expected = 'disabled';
+		const buttonList = screen.getAllByRole('button');
+		const expected = 'submitButton';
+		let submitButtonExists = false;
 
-		expect(buttonSubmit).toHaveAttribute(expected);
+		for (let button of buttonList) {
+			if (button.className.includes(expected)) {
+				submitButtonExists = true;
+			}
+		}
+
+		expect(submitButtonExists).toBeTruthy();
 	});
 
 	test('should include a submit button for implicit joined number input', () => {
@@ -376,7 +380,8 @@ describe('Input specs', () => {
 		userEvent.click(numberButton1);
 		userEvent.click(submitButton);
 
-		expect(spy).toHaveBeenCalled();
+		const expected = 1;
+		expect(spy).toHaveBeenCalledTimes(expected);
 	});
 
 	test('should delete an input when delete button clicked', () => {

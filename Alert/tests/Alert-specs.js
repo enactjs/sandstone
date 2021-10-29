@@ -70,12 +70,12 @@ describe('Alert', () => {
 		);
 		const alert = screen.getByRole('alert');
 
-		const actual = alert.children.item(0).children.item(0).children.item(1).hasChildNodes();
+		const actual = alert.querySelector('#undefined_content').hasChildNodes();
 
 		expect(actual).toBeFalsy();
 	});
 
-	test('should render icon type of image if `image` prop is set to `icon`', () => {
+	test('should have `icon` className if `type` prop is set to `icon`', () => {
 		render(
 			<FloatingLayerController>
 				<Alert open title="alert title">
@@ -88,15 +88,14 @@ describe('Alert', () => {
 				</Alert>
 			</FloatingLayerController>
 		);
-		const image = screen.getAllByRole('img')[0].children.item(0);
+		const image = screen.getAllByRole('img')[0];
 
-		const expectedAttribute = 'src';
-		const expectedValue = 'testIconImage.png';
+		const expectedClass = 'icon';
 
-		expect(image).toHaveAttribute(expectedAttribute, expectedValue);
+		expect(image).toHaveClass(expectedClass);
 	});
 
-	test('should render icon type of image if `image` prop is set to `thumbnail`', () => {
+	test('should have `thumbnail` className if `type` prop is set to `thumbnail`', () => {
 		render(
 			<FloatingLayerController>
 				<Alert open title="alert title">
@@ -109,12 +108,11 @@ describe('Alert', () => {
 				</Alert>
 			</FloatingLayerController>
 		);
-		const image = screen.getAllByRole('img')[0].children.item(0);
+		const image = screen.getAllByRole('img')[0];
 
-		const expectedAttribute = 'src';
-		const expectedValue = 'testThumbnailImage.png';
+		const expectedClass = 'thumbnail';
 
-		expect(image).toHaveAttribute(expectedAttribute, expectedValue);
+		expect(image).toHaveClass(expectedClass);
 	});
 });
 
@@ -172,12 +170,12 @@ describe('AlertOverlay specs', () => {
 		);
 		const alert = screen.getByRole('alert');
 
-		const actual = alert.children.item(0).children.item(0).children.item(0).hasChildNodes();
+		const actual = alert.querySelector('#undefined_content').hasChildNodes();
 
 		expect(actual).toBeFalsy();
 	});
 
-	test('should render icon type of image if `image` prop is set to `icon`', () => {
+	test('should have `icon` classname if `type` prop is set to `icon`', () => {
 		render(
 			<FloatingLayerController>
 				<Alert open type="overlay">
@@ -190,15 +188,14 @@ describe('AlertOverlay specs', () => {
 				</Alert>
 			</FloatingLayerController>
 		);
-		const image = screen.getAllByRole('img')[0].children.item(0);
+		const image = screen.getAllByRole('img')[0];
 
-		const expectedAttribute = 'src';
-		const expectedValue = 'testIconImage.png';
+		const expectedClass = 'icon';
 
-		expect(image).toHaveAttribute(expectedAttribute, expectedValue);
+		expect(image).toHaveClass(expectedClass);
 	});
 
-	test('should render icon type of image if `image` prop is set to `thumbnail`', () => {
+	test('should have `icon` classname if `type` prop is set to `thumbnail`', () => {
 		render(
 			<FloatingLayerController>
 				<Alert open type="overlay">
@@ -211,11 +208,10 @@ describe('AlertOverlay specs', () => {
 				</Alert>
 			</FloatingLayerController>
 		);
-		const image = screen.getAllByRole('img')[0].children.item(0);
+		const image = screen.getAllByRole('img')[0];
 
-		const expectedAttribute = 'src';
-		const expectedValue = 'testThumbnailImage.png';
+		const expectedClass = 'thumbnail';
 
-		expect(image).toHaveAttribute(expectedAttribute, expectedValue);
+		expect(image).toHaveClass(expectedClass);
 	});
 });

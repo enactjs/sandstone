@@ -154,7 +154,7 @@ describe('Button', () => {
 			expect(button).toHaveClass(expected);
 		});
 
-		test('should not have not hasColor when no color is specified', () => {
+		test('should not have hasColor when no color is specified', () => {
 			render(<Button>abc</Button>);
 			const button = screen.getByRole('button');
 

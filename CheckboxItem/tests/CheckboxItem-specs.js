@@ -36,7 +36,7 @@ describe('CheckboxItem Specs', () => {
 		expect(checkboxItemElement).toHaveClass(expected);
 	});
 
-	test('should select with click', () => {
+	test('should unselect with click twice', () => {
 		render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
 
 		const checkboxItemElement = screen.getAllByRole('checkbox')[0];

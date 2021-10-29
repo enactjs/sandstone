@@ -78,7 +78,7 @@ describe('Dropdown', () => {
 		expect(titleContainer).toHaveAttribute('id', 'drop_title');
 	});
 
-	test('should apply aria-labeled-by to dropdown with title', () => {
+	test('should apply aria-labelled-by to dropdown with title', () => {
 		render(
 			<DropdownBase title={title} id="drop">
 				{children}

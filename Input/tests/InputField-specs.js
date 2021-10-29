@@ -9,18 +9,14 @@ const isPaused = () => Spotlight.isPaused() ? 'paused' : 'not paused';
 
 describe('InputField Specs', () => {
 	test('should have an input element', () => {
-		render(
-			<InputField />
-		);
+		render(<InputField />);
 		const inputField = screen.getByLabelText('Input field');
 
 		expect(inputField).toBeInTheDocument();
 	});
 
 	test('should include a placeholder if specified', () => {
-		render(
-			<InputField placeholder="hello" />
-		);
+		render(<InputField placeholder="hello" />);
 		const inputField = screen.getByLabelText('hello Input field');
 
 		const expected = 'hello';
@@ -32,10 +28,8 @@ describe('InputField Specs', () => {
 	test('should callback onChange when the text changes', () => {
 		const handleChange = jest.fn();
 		const value = 'blah';
-		render(
-			<InputField onChange={handleChange} />
-		);
-		const inputField = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField onChange={handleChange} />);
+		const inputField = screen.getByPlaceholderText('');
 
 		userEvent.type(inputField, value);
 
@@ -46,14 +40,12 @@ describe('InputField Specs', () => {
 		const handleChange = jest.fn();
 		const value = 'blah';
 		const evt = {
-			target: {value: value},
+			target: {value},
 			stopPropagation: jest.fn()
 		};
 
-		render(
-			<InputField onChange={handleChange} />
-		);
-		const inputField = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField onChange={handleChange} />);
+		const inputField = screen.getByPlaceholderText('');
 
 		fireEvent.change(inputField, evt);
 
@@ -74,9 +66,9 @@ describe('InputField Specs', () => {
 				<InputField onChange={stop} />
 			</div>
 		);
-		const inputText = screen.getByLabelText('Input field').children.item(2);
+		const inputField = screen.getByPlaceholderText('');
 
-		userEvent.type(inputText, value);
+		userEvent.type(inputField, value);
 
 		expect(handleChange).not.toHaveBeenCalled();
 	});
@@ -84,12 +76,10 @@ describe('InputField Specs', () => {
 	test('should callback onBeforeChange before the text changes', () => {
 		const handleBeforeChange = jest.fn();
 		const value = 'blah';
-		render(
-			<InputField onBeforeChange={handleBeforeChange} />
-		);
-		const inputText = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField onBeforeChange={handleBeforeChange} />);
+		const inputField = screen.getByPlaceholderText('');
 
-		userEvent.type(inputText, value);
+		userEvent.type(inputField, value);
 
 		expect(handleBeforeChange).toHaveBeenCalled();
 	});
@@ -98,12 +88,10 @@ describe('InputField Specs', () => {
 		const handleBeforeChange = jest.fn(ev => ev.preventDefault());
 		const handleChange = jest.fn();
 		const value = 'blah';
-		render(
-			<InputField onBeforeChange={handleBeforeChange} onChange={handleChange} />
-		);
-		const inputText = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField onBeforeChange={handleBeforeChange} onChange={handleChange} />);
+		const inputField = screen.getByPlaceholderText('');
 
-		userEvent.type(inputText, value);
+		userEvent.type(inputField, value);
 
 		expect(handleChange).not.toHaveBeenCalled();
 	});
@@ -111,13 +99,11 @@ describe('InputField Specs', () => {
 	test('should blur input on enter if dismissOnEnter', () => {
 		const handleChange = jest.fn();
 
-		render(
-			<InputField onBlur={handleChange} dismissOnEnter />
-		);
-		const inputText = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField onBlur={handleChange} dismissOnEnter />);
+		const inputField = screen.getByPlaceholderText('');
 
-		fireEvent.mouseDown(inputText);
-		fireEvent.keyUp(inputText, {which: 13, keyCode: 13, code: 13});
+		fireEvent.mouseDown(inputField);
+		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
 
 		expect(handleChange).toHaveBeenCalled();
 	});
@@ -125,13 +111,11 @@ describe('InputField Specs', () => {
 	test('should activate input on enter', () => {
 		const handleChange = jest.fn();
 
-		render(
-			<InputField onActivate={handleChange} />
-		);
-		const inputText = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField onActivate={handleChange} />);
+		const inputField = screen.getByPlaceholderText('');
 
-		fireEvent.keyDown(inputText, {which: 13, keyCode: 13, code: 13});
-		fireEvent.keyUp(inputText, {which: 13, keyCode: 13, code: 13});
+		fireEvent.keyDown(inputField, {which: 13, keyCode: 13, code: 13});
+		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
 
 
 		expect(handleChange).toHaveBeenCalled();
@@ -140,22 +124,18 @@ describe('InputField Specs', () => {
 	test('should not activate input on enter when disabled', () => {
 		const handleChange = jest.fn();
 
-		render(
-			<InputField disabled onActivate={handleChange} />
-		);
-		const inputText = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField disabled onActivate={handleChange} />);
+		const inputField = screen.getByPlaceholderText('');
 
-		fireEvent.keyDown(inputText, {which: 13, keyCode: 13, code: 13});
-		fireEvent.keyUp(inputText, {which: 13, keyCode: 13, code: 13});
+		fireEvent.keyDown(inputField, {which: 13, keyCode: 13, code: 13});
+		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
 
 
 		expect(handleChange).not.toHaveBeenCalled();
 	});
 
 	test('should be able to be disabled', () => {
-		render(
-			<InputField disabled />
-		);
+		render(<InputField disabled />);
 
 		const actual = screen.getByLabelText('Input field');
 		const expected = 'disabled';
@@ -164,9 +144,7 @@ describe('InputField Specs', () => {
 	});
 
 	test('should reflect the value if specified', () => {
-		render(
-			<InputField value="hello" />
-		);
+		render(<InputField value="hello" />);
 
 		const inputField = screen.getByLabelText('hello Input field');
 		const actual = inputField.textContent;
@@ -176,9 +154,7 @@ describe('InputField Specs', () => {
 	});
 
 	test('should have dir equal to rtl when there is rtl text', () => {
-		render(
-			<InputField value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
-		);
+		render(<InputField value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />);
 		const inputField = screen.getByLabelText( 'שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי' + ' Input field').children.item(2);
 
 		const expectedAttribute = 'dir';
@@ -188,10 +164,8 @@ describe('InputField Specs', () => {
 	});
 
 	test('should have dir equal to ltr when there is ltr text', () => {
-		render(
-			<InputField value="content" />
-		);
-		const inputField = screen.getByLabelText('content Input field').children.item(2);
+		render(<InputField value="content" />);
+		const inputField = screen.getByPlaceholderText('');
 
 		const expectedAttribute = 'dir';
 		const expectedValue = 'ltr';
@@ -200,10 +174,8 @@ describe('InputField Specs', () => {
 	});
 
 	test('should have dir equal to rtl when there is rtl text in the placeholder', () => {
-		render(
-			<InputField placeholder="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
-		);
-		const inputField = screen.getByLabelText('שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי' + ' Input field').children.item(2);
+		render(<InputField placeholder="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />);
+		const inputField = screen.getByPlaceholderText('שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי');
 
 		const expectedAttribute = 'dir';
 		const expectedValue = 'rtl';
@@ -212,10 +184,8 @@ describe('InputField Specs', () => {
 	});
 
 	test('should have dir equal to ltr when there is ltr text in the placeholder', () => {
-		render(
-			<InputField placeholder="content" />
-		);
-		const inputField = screen.getByLabelText('content Input field').children.item(2);
+		render(<InputField placeholder="content" />);
+		const inputField = screen.getByPlaceholderText('content');
 
 		const expectedAttribute = 'dir';
 		const expectedValue = 'ltr';
@@ -230,7 +200,7 @@ describe('InputField Specs', () => {
 				value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי"
 			/>
 		);
-		const inputField = screen.getByLabelText('שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי' + ' Input field').children.item(2);
+		const inputField = screen.getByPlaceholderText('content');
 
 		const expectedAttribute = 'dir';
 		const expectedValue = 'rtl';
@@ -239,13 +209,14 @@ describe('InputField Specs', () => {
 	});
 
 	test('should have dir equal to ltr when there is rtl text in the placeholder, but ltr text in value', () => {
+		const placeholder = 'שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי';
 		render(
 			<InputField
-				placeholder="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי"
+				placeholder={placeholder}
 				value="content"
 			/>
 		);
-		const inputField = screen.getByLabelText('content Input field').children.item(2);
+		const inputField = screen.getByPlaceholderText(placeholder);
 
 		const expectedAttribute = 'dir';
 		const expectedValue = 'ltr';
@@ -254,10 +225,8 @@ describe('InputField Specs', () => {
 	});
 
 	test('should pause spotlight when input has focus', () => {
-		render(
-			<InputField />
-		);
-		const inputField = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField />);
+		const inputField = screen.getByPlaceholderText('');
 
 		fireEvent.mouseDown(inputField);
 
@@ -270,10 +239,8 @@ describe('InputField Specs', () => {
 	});
 
 	test('should resume spotlight on unmount', () => {
-		const {unmount} = render(
-			<InputField />
-		);
-		const inputField = screen.getByLabelText('Input field').children.item(2);
+		const {unmount} = render(<InputField />);
+		const inputField = screen.getByPlaceholderText('');
 
 		fireEvent.mouseDown(inputField);
 
@@ -288,9 +255,7 @@ describe('InputField Specs', () => {
 	});
 
 	test('should display invalid message if it invalid and invalid message exists', () => {
-		render(
-			<InputField invalid invalidMessage="invalid message" />
-		);
+		render(<InputField invalid invalidMessage="invalid message" />);
 		const invalidText = screen.getByText('invalid message').parentElement.parentElement;
 
 		const expected = 'tooltipLabel';
@@ -300,9 +265,7 @@ describe('InputField Specs', () => {
 	});
 
 	test('should not display invalid message if it is valid', () => {
-		render(
-			<InputField invalidMessage="invalid message" />
-		);
+		render(<InputField invalidMessage="invalid message" />);
 
 		const actual = screen.queryByText('invalid message');
 
@@ -310,10 +273,8 @@ describe('InputField Specs', () => {
 	});
 
 	test('should set voice intent if specified', () => {
-		render(
-			<InputField data-webos-voice-intent="Select" />
-		);
-		const inputField = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField data-webos-voice-intent="Select" />);
+		const inputField = screen.getByPlaceholderText('');
 
 		const expectedAttribute = 'data-webos-voice-intent';
 		const expectedValue = 'Select';
@@ -323,10 +284,8 @@ describe('InputField Specs', () => {
 
 	test('should set voice label if specified', () => {
 		const customLabel = 'input label';
-		render(
-			<InputField data-webos-voice-label={customLabel} />
-		);
-		const inputField = screen.getByLabelText('Input field').children.item(2);
+		render(<InputField data-webos-voice-label={customLabel} />);
+		const inputField = screen.getByPlaceholderText('');
 
 		const expectedAttribute = 'data-webos-voice-label';
 

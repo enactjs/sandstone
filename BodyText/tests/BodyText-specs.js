@@ -5,11 +5,13 @@ import BodyText from '../BodyText';
 
 describe('BodyText Specs', () => {
 
-	test('should render a text', () => {
+	test('should support multi-line content', () => {
 		render(<BodyText data-testid="bodyText" />);
 		const bodyText = screen.getByTestId('bodyText');
 
-		expect(bodyText).toBeInTheDocument();
+		const expected = 'P';
+		const actual = bodyText.nodeName;
+		expect(actual).toBe(expected);
 	});
 
 	test('should support single-line marqueeing content when `noWrap` is true', () => {
@@ -40,7 +42,7 @@ describe('BodyText Specs', () => {
 		expect(bodyText).toHaveClass(expected);
 	});
 
-	test('should have center class if `center` is true', () => {
+	test('should have `centered` class if `centered` is true', () => {
 		render(<BodyText data-testid="bodyText" centered />);
 		const bodyText = screen.getByTestId('bodyText');
 

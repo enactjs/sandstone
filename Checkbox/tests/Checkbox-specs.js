@@ -10,7 +10,7 @@ describe('CheckboxItem Specs', () => {
 		render(<CheckboxBase />);
 		const checkboxElement = screen.getByRole('checkbox');
 
-		expect(checkboxElement.className).not.toContain('selected');
+		expect(checkboxElement).not.toHaveClass('selected');
 	});
 
 	test('should not be checked', () => {

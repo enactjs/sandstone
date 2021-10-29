@@ -72,29 +72,33 @@ describe('ImageItem', () => {
 		const imageIconSrc = 'imageIconSrc';
 		render(<ImageItemBase imageIconSrc={imageIconSrc} orientation="horizontal" />);
 
-		const unexpected = 3;
+		const expected = 2;
 		const actual = screen.getAllByRole('img').length;
 
-		expect(actual).not.toBe(unexpected);
+		expect(actual).toBe(expected);
 	});
 
 	test('should omit `.imageIcon` when `imageIconSrc` is unset and `caption` is set', () => {
 		const children = 'caption';
 		render(<ImageItemBase>{children}</ImageItemBase>);
 
-		const unexpected = 'imageIcon';
-		const actual = screen.getAllByRole('img')[0];
+		const className = 'imageIcon';
+		const images = screen.getAllByRole('img');
 
-		expect(actual).not.toHaveClass(unexpected);
+		for (let image of images) {
+			expect(image).not.toHaveClass(className);
+		}
 	});
 
 	test('should omit `.imageIcon` when `imageIconSrc` is unset and `label` is set', () => {
 		render(<ImageItemBase label="label" />);
 
-		const unexpected = 'imageIcon';
-		const actual = screen.getAllByRole('img')[0];
+		const className = 'imageIcon';
+		const images = screen.getAllByRole('img');
 
-		expect(actual).not.toHaveClass(unexpected);
+		for (let image of images) {
+			expect(image).not.toHaveClass(className);
+		}
 	});
 
 	test('should omit children when `imageIconSrc`, `children`, and `label` are unset', () => {
