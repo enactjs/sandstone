@@ -91,7 +91,7 @@ describe('Dropdown', () => {
 		expect(actual).toHaveAttribute('aria-labelledby', expected);
 	});
 
-	test('should not apply aria-labeled-by when no title exists', () => {
+	test('should not apply aria-labelled-by when no title exists', () => {
 		render(
 			<DropdownBase id="drop">
 				{children}

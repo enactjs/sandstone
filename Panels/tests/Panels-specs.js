@@ -244,12 +244,12 @@ describe('Panels Specs', () => {
 				</Panels>
 			);
 
-			const backButton = screen.getByLabelText(label);
-			const backButtonContainer = backButton.parentElement.parentElement;
+			const closeButton = screen.getByLabelText(label);
+			const closeButtonContainer = closeButton.parentElement.parentElement;
 			const expectedClass = 'slotAfter';
 
-			expect(backButton).toBeInTheDocument();
-			expect(backButtonContainer).toHaveClass(expectedClass);
+			expect(closeButton).toBeInTheDocument();
+			expect(closeButtonContainer).toHaveClass(expectedClass);
 		});
 	});
 });

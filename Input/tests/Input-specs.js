@@ -82,7 +82,7 @@ describe('Input specs', () => {
 				<Input open placeholder={str} type="password" />
 			</FloatingLayerController>
 		);
-		const inputField = screen.getAllByText(str)[1].nextElementSibling;
+		const inputField = screen.getByPlaceholderText(str);
 
 		const expectedAttribute = 'type';
 		const expectedValue = 'password';
@@ -97,7 +97,7 @@ describe('Input specs', () => {
 				<Input open placeholder={str} type="url" />
 			</FloatingLayerController>
 		);
-		const inputField = screen.getAllByText(str)[1].nextElementSibling;
+		const inputField = screen.getByPlaceholderText(str);
 
 		const expectedAttribute = 'type';
 		const expectedValue = 'url';
@@ -122,6 +122,8 @@ describe('Input specs', () => {
 				<Input type="number" open length={4} />
 			</FloatingLayerController>
 		);
+
+		screen.debug();
 		const actual = screen.getAllByLabelText('- Input field')[0].parentElement.nextElementSibling.children.length > 0;
 
 		expect(actual).toBeTruthy();
@@ -202,17 +204,9 @@ describe('Input specs', () => {
 			</FloatingLayerController>
 		);
 
-		const buttonList = screen.getAllByRole('button');
-		const expected = 'submitButton';
-		let submitButtonExists = false;
+		const buttonSubmit = screen.getByText('Submit');
 
-		for (let button of buttonList) {
-			if (button.className.includes(expected)) {
-				submitButtonExists = true;
-			}
-		}
-
-		expect(submitButtonExists).toBeTruthy();
+		expect(buttonSubmit).not.toBeNull();
 	});
 
 	test('should include a submit button for implicit joined number input', () => {

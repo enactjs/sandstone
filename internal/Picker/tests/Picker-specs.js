@@ -401,12 +401,12 @@ describe('Picker Specs', () => {
 				<PickerItem>Test one picker</PickerItem>
 			</Picker>
 		);
-		const picker = screen.getByLabelText('0 press ok button to change the value');
+		const picker = screen.getByRole('spinbutton', {hidden: true});
 
 		const expected = 1;
 		// The indicator will be a child of picker's children
 		// With it there will be 2 child elements
-		const actual = picker.children.item(0).children.length;
+		const actual = picker.children.length;
 
 		expect(actual).toBe(expected);
 	});
@@ -419,10 +419,11 @@ describe('Picker Specs', () => {
 				<PickerItem>Test three picker</PickerItem>
 			</Picker>
 		);
-		const picker = screen.getByLabelText('Test one picker press ok button to change the value');
+		// const picker = screen.getByLabelText('Test one picker press ok button to change the value');
+		const picker = screen.getByRole('spinbutton', {hidden: true});
 
 		const expected = 3;
-		const actual = picker.children.item(0).children.item(1).children.length;
+		const actual = picker.children.item(1).children.length;
 
 		expect(actual).toBe(expected);
 	});
