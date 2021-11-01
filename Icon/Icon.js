@@ -328,6 +328,9 @@ const IconBase = kind({
  * profilecheck
  * mediaserver
  * spanner
+ * bluetooth
+ * moodmode
+ * changepassword
  * ```
  *
  * @name iconList
