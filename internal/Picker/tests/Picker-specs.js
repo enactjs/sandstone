@@ -1,115 +1,104 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {fireEvent, render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import Picker from '../Picker';
 import PickerItem from '../PickerItem';
-import css from '../Picker.module.less';
 
-const tap = (node) => {
-	node.simulate('mousedown');
-	node.simulate('mouseup');
-};
-const decrement = (slider) => tap(slider.find('Button').last());
-const increment = (slider) => tap(slider.find('Button').first());
+const increment = (slider) => userEvent.click(slider.firstElementChild);
+const decrement = (slider) => userEvent.click(slider.lastElementChild);
 
 describe('Picker Specs', () => {
-
 	test('should have a default \'value\' of 0', () => {
-		const picker = mount(
+		render(
 			<Picker index={0} max={0} min={0} />
 		);
+		const valueText = screen.getAllByRole('button')[0].nextElementSibling;
 
-		const expected = 0;
-		const actual = picker.find('Picker').prop('value');
+		const expectedValue = '0';
+		const expectedAttribute = 'aria-valuetext';
 
-		expect(actual).toBe(expected);
+		expect(valueText).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	test(
-		'should return an object {value: Number} that represents the next value of the Picker component when pressing the increment <span>',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} max={1} min={-1} onChange={handleChange} value={0} />
-			);
-
-			increment(picker);
-
-			const expected = 1;
-			const actual = handleChange.mock.calls[0][0].value;
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should return an object {value: Number} that represents the next value of the Picker component when pressing the decrement <span>',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} max={1} min={-1} onChange={handleChange} value={0} />
-			);
-
-			decrement(picker);
-
-			const expected = -1;
-			const actual = handleChange.mock.calls[0][0].value;
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test('should not run the onChange handler when disabled', () => {
+	test('should return an object {value: Number} that represents the next value of the Picker component when pressing the increment <span>', () => {
 		const handleChange = jest.fn();
-		const picker = mount(
-			<Picker disabled index={0} max={0} min={0} onChange={handleChange} value={0} />
+		render(
+			<Picker index={0} max={1} min={-1} onChange={handleChange} value={0} />
 		);
+		const picker = screen.getByLabelText('0 next item').parentElement;
 
 		increment(picker);
 
-		const expected = 0;
-		const actual = handleChange.mock.calls.length;
+		const expected = 1;
+		const actual = handleChange.mock.calls[0][0].value;
 
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should wrap to the beginning of the value range if \'wrap\' is true',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} max={0} min={-1} onChange={handleChange} value={0} wrap />
-			);
+	test('should return an object {value: Number} that represents the next value of the Picker component when pressing the decrement <span>', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} max={1} min={-1} onChange={handleChange} value={0} />
+		);
+		const picker = screen.getByLabelText('0 next item').parentElement;
 
-			increment(picker);
+		decrement(picker);
 
-			const expected = -1;
-			const actual = handleChange.mock.calls[0][0].value;
+		const expected = -1;
+		const actual = handleChange.mock.calls[0][0].value;
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(actual).toBe(expected);
+	});
 
-	test(
-		'should wrap to the end of the value range if \'wrap\' is true',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} max={1} min={0} onChange={handleChange} value={0} wrap />
-			);
+	test('should not run the onChange handler when disabled', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker disabled index={0} max={0} min={0} onChange={handleChange} value={0} />
+		);
+		const picker = screen.getByLabelText('0 next item').parentElement;
 
-			decrement(picker);
+		increment(picker);
 
-			const expected = 1;
-			const actual = handleChange.mock.calls[0][0].value;
+		expect(handleChange).not.toHaveBeenCalled();
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should wrap to the beginning of the value range if \'wrap\' is true', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} max={0} min={-1} onChange={handleChange} value={0} wrap />
+		);
+		const picker = screen.getByLabelText('0 next item').parentElement;
+
+		increment(picker);
+
+		const expected = -1;
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should wrap to the end of the value range if \'wrap\' is true', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} max={1} min={0} onChange={handleChange} value={0} wrap />
+		);
+		const picker = screen.getByLabelText('0 next item').parentElement;
+
+		decrement(picker);
+
+		const expected = 1;
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
 
 	test('should increment by \'step\' value', () => {
 		const handleChange = jest.fn();
-		const picker = mount(
+		render(
 			<Picker index={0} max={6} min={0} onChange={handleChange} step={3} value={0} />
 		);
+		const picker = screen.getByLabelText('0 next item').parentElement;
 
 		increment(picker);
 
@@ -121,9 +110,10 @@ describe('Picker Specs', () => {
 
 	test('should decrement by \'step\' value', () => {
 		const handleChange = jest.fn();
-		const picker = mount(
+		render(
 			<Picker index={0} max={3} min={0} onChange={handleChange} step={3} value={3} />
 		);
+		const picker = screen.getByLabelText('3 next item').parentElement;
 
 		decrement(picker);
 
@@ -135,9 +125,10 @@ describe('Picker Specs', () => {
 
 	test('should increment by \'step\' value and wrap successfully', () => {
 		const handleChange = jest.fn();
-		const picker = mount(
+		render(
 			<Picker index={0} max={3} min={0} onChange={handleChange} step={3} value={3} wrap />
 		);
+		const picker = screen.getByLabelText('3 next item').parentElement;
 
 		increment(picker);
 
@@ -149,9 +140,10 @@ describe('Picker Specs', () => {
 
 	test('should decrement by \'step\' value and wrap successfully', () => {
 		const handleChange = jest.fn();
-		const picker = mount(
+		render(
 			<Picker index={0} max={9} min={0} onChange={handleChange} step={3} value={0} wrap />
 		);
+		const picker = screen.getByLabelText('0 next item').parentElement;
 
 		decrement(picker);
 
@@ -161,120 +153,105 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should enable the increment button when there is a wrapped value to increment',
-		() => {
-			const picker = mount(
-				<Picker index={0} max={2} min={0} value={2} wrap />
-			);
+	test('should enable the increment button when there is a wrapped value to increment', () => {
+		render(
+			<Picker index={0} max={2} min={0} value={2} wrap />
+		);
 
-			const expected = false;
-			const actual = picker.find(`PickerButton.${css.incrementer}`).prop('disabled');
+		const expectedAttribute = 'aria-disabled';
+		const expectedValue = 'false';
+		const actual = screen.getAllByRole('button')[0];
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(actual).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-	test(
-		'should enable the decrement button when there is a wrapped value to decrement',
-		() => {
-			const picker = mount(
-				<Picker index={0} max={2} min={0} value={2} wrap />
-			);
+	test('should enable the decrement button when there is a wrapped value to decrement', () => {
+		render(
+			<Picker index={0} max={2} min={0} value={2} wrap />
+		);
 
-			const expected = false;
-			const actual = picker.find(`PickerButton.${css.incrementer}`).prop('disabled');
+		const expectedAttribute = 'aria-disabled';
+		const expectedValue = 'false';
+		const actual = screen.getAllByRole('button')[1];
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(actual).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-	test(
-		'should disable the increment button when there is no value to increment',
-		() => {
-			const picker = mount(
-				<Picker index={0} max={2} min={0} value={2} />
-			);
+	test('should disable the increment button when there is no value to increment', () => {
+		render(
+			<Picker index={0} max={2} min={0} value={2} />
+		);
 
-			const expected = true;
-			const actual = picker.find(`PickerButton.${css.incrementer}`).prop('disabled');
+		const expectedAttribute = 'disabled';
+		const actual = screen.getAllByRole('button')[0];
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(actual).toHaveAttribute(expectedAttribute);
+	});
 
-	test(
-		'should disable the decrement button when there is no value to decrement',
-		() => {
-			const picker = mount(
-				<Picker index={0} max={2} min={0} value={0} />
-			);
+	test('should disable the decrement button when there is no value to decrement', () => {
+		render(
+			<Picker index={0} max={2} min={0} value={0} />
+		);
 
-			const expected = true;
-			const actual = picker.find(`PickerButton.${css.decrementer}`).prop('disabled');
+		const expectedAttribute = 'disabled';
+		const actual = screen.getAllByRole('button')[1];
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(actual).toHaveAttribute(expectedAttribute);
+	});
 
-	test(
-		'should disable the increment and decrement buttons when wrapped and there is a single value',
-		() => {
-			const picker = mount(
-				<Picker index={0} max={0} min={0} value={0} wrap />
-			);
+	test('should disable the increment and decrement buttons when wrapped and there is a single value', () => {
+		render(
+			<Picker index={0} max={0} min={0} value={0} wrap />
+		);
+		const incrementButton = screen.getAllByRole('button')[0];
+		const decrementButton = screen.getAllByRole('button')[1];
 
-			const expected = true;
-			const actual = picker.find(`PickerButton.${css.decrementer}`).prop('disabled') &&
-                picker.find(`PickerButton.${css.incrementer}`).prop('disabled');
+		const expectedAttribute = 'disabled';
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(incrementButton).toHaveAttribute(expectedAttribute);
+		expect(decrementButton).toHaveAttribute(expectedAttribute);
+	});
 
 	// TODO: ui-tests for select keys for joined horizontal pickers
 	// Note: Because of the limitation of the unit test environment, simulating `keyCode: 13` or the select/enter key will not forward the mouse events that'll trigger `onChange` like it's supposed to
-	test(
-		'should allow keyboard increment via enter key when \'joined\' and \'horizontal\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
-			);
+	test('should allow keyboard increment via enter key when \'joined\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+		);
+		const picker = screen.getByLabelText('0 press ok button to change the value');
 
-			const expected = 1;
-			picker.simulate('keyDown', {keyCode: 13});
-			picker.simulate('mousedown');
-			const actual = handleChange.mock.calls.length;
+		fireEvent.keyDown(picker, {keyCode: 13});
+		fireEvent.mouseDown(picker);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(handleChange).toHaveBeenCalled();
+	});
 
-	test(
-		'should increment via mousedown when \'joined\' and \'horizontal\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
-			);
+	test('should increment via mousedown when \'joined\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+		);
+		const picker = screen.getByLabelText('0 press ok button to change the value');
 
-			const expected = 1;
-			picker.simulate('mousedown');
-			const actual = handleChange.mock.calls[0][0].value;
+		fireEvent.mouseDown(picker);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expected = 1;
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
 
 	test('should increment via mousedown when \'joined\' and \'horizontal\' and wrap successfully', () => {
 		const handleChange = jest.fn();
-		const picker = mount(
+		render(
 			<Picker index={2} joined max={3} min={0} onChange={handleChange} value={3} />
 		);
+		const picker = screen.getByLabelText('3 press ok button to change the value');
+
+		fireEvent.mouseDown(picker);
 
 		const expected = 0;
-		picker.simulate('mousedown');
 		const actual = handleChange.mock.calls[0][0].value;
 
 		expect(actual).toBe(expected);
@@ -284,278 +261,227 @@ describe('Picker Specs', () => {
 	// Note: Because of the limitation of the unit test environment, simulating `keyCode: 13` or the select/enter key will not forward the mouse events that'll trigger `onChange` like it's supposed to
 	test('should increment keyboard select when \'joined\' and \'horizontal\' and wrap successfully', () => {
 		const handleChange = jest.fn();
-		const picker = mount(
+		render(
 			<Picker index={2} joined max={3} min={0} onChange={handleChange} value={3} />
 		);
+		const picker = screen.getByLabelText('3 press ok button to change the value');
+
+		fireEvent.keyDown(picker, {keyCode: 13});
+		fireEvent.mouseDown(picker);
 
 		const expected = 0;
-		picker.simulate('keyDown', {keyCode: 13});
-		picker.simulate('mousedown');
 		const actual = handleChange.mock.calls[0][0].value;
 
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should not allow keyboard decrement via left arrow keys when \'joined\' and \'horizontal\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
-			);
+	test('should not allow keyboard decrement via left arrow keys when \'joined\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+		);
+		const picker = screen.getByLabelText('0 press ok button to change the value');
 
-			const expected = 0;
-			picker.simulate('keyDown', {keyCode: 37});
-			const actual = handleChange.mock.calls.length;
+		fireEvent.keyDown(picker, {keyCode: 37});
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(handleChange).not.toHaveBeenCalled();
+	});
 
-	test(
-		'should not allow keyboard increment via right arrow keys when \'joined\' and \'horizontal\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
-			);
+	test('should not allow keyboard increment via right arrow keys when \'joined\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+		);
+		const picker = screen.getByLabelText('0 press ok button to change the value');
 
-			const expected = 0;
-			picker.simulate('keyDown', {keyCode: 39});
-			const actual = handleChange.mock.calls.length;
+		fireEvent.keyDown(picker, {keyCode: 39});
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(handleChange).not.toHaveBeenCalled();
+	});
 
-	test(
-		'should allow keyboard decrement via down arrow keys when \'joined\' and \'vertical\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
-			);
+	test('should allow keyboard decrement via down arrow keys when \'joined\' and \'vertical\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
+		);
+		const picker = screen.getByLabelText('0 change a value with up down button');
 
-			const expected = -1;
-			picker.simulate('keyDown', {keyCode: 40});
-			picker.simulate('mousedown');
-			const actual = handleChange.mock.calls[0][0].value;
+		fireEvent.keyDown(picker, {keyCode: 40});
+		fireEvent.mouseDown(picker);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expected = -1;
+		const actual = handleChange.mock.calls[0][0].value;
 
-	test(
-		'should allow keyboard decrement via up arrow keys when \'joined\' and \'vertical\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
-			);
+		expect(actual).toBe(expected);
+	});
 
-			const expected = 1;
-			picker.simulate('keyDown', {keyCode: 38});
-			picker.simulate('mousedown');
-			const actual = handleChange.mock.calls[0][0].value;
+	test('should allow keyboard decrement via up arrow keys when \'joined\' and \'vertical\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
+		);
+		const picker = screen.getByLabelText('0 change a value with up down button');
 
-			expect(actual).toBe(expected);
-		}
-	);
+		fireEvent.keyDown(picker, {keyCode: 38});
+		fireEvent.mouseDown(picker);
 
-	test(
-		'should not allow keyboard decrement via left arrow keys when \'joined\' and \'vertical\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
-			);
+		const expected = 1;
+		const actual = handleChange.mock.calls[0][0].value;
 
-			const expected = 0;
-			picker.simulate('keyDown', {keyCode: 37});
-			picker.simulate('mousedown');
-			const actual = handleChange.mock.calls.length;
+		expect(actual).toBe(expected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should not allow keyboard decrement via left arrow keys when \'joined\' and \'vertical\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
+		);
+		const picker = screen.getByLabelText('0 change a value with up down button');
 
-	test(
-		'should not allow keyboard increment via right arrow keys when \'joined\' and \'vertical\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
-			);
+		fireEvent.keyDown(picker, {keyCode: 37});
+		fireEvent.mouseDown(picker);
 
-			const expected = 0;
-			picker.simulate('keyDown', {keyCode: 39});
-			picker.simulate('mousedown');
-			const actual = handleChange.mock.calls.length;
+		expect(handleChange).not.toHaveBeenCalled();
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should not allow keyboard increment via right arrow keys when \'joined\' and \'vertical\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="vertical" value={0} />
+		);
+		const picker = screen.getByLabelText('0 change a value with up down button');
 
-	test(
-		'should not allow keyboard decrement via down arrow keys when \'joined\' and \'horizontal\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0}  />
-			);
+		fireEvent.keyDown(picker, {keyCode: 39});
+		fireEvent.mouseDown(picker);
 
-			const expected = 0;
-			picker.simulate('keyDown', {keyCode: 40});
-			const actual = handleChange.mock.calls.length;
+		expect(handleChange).not.toHaveBeenCalled();
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should not allow keyboard decrement via down arrow keys when \'joined\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0}  />
+		);
+		const picker = screen.getByLabelText('0 press ok button to change the value');
 
-	test(
-		'should not allow keyboard increment via up arrow keys when \'joined\' and \'horizontal\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0} />
-			);
+		fireEvent.keyDown(picker, {keyCode: 40});
 
-			const expected = 0;
-			picker.simulate('keyDown', {keyCode: 38});
-			const actual = handleChange.mock.calls.length;
+		expect(handleChange).not.toHaveBeenCalled();
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should not allow keyboard increment via up arrow keys when \'joined\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0} />
+		);
+		const picker = screen.getByLabelText('0 press ok button to change the value');
 
-	test(
-		'indicator Container should not show any indicator when \'joined\' and \'horizontal\' and has no children',
-		() => {
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} orientation="horizontal" />
-			);
+		fireEvent.keyDown(picker, {keyCode: 38});
 
-			const expected = 0;
-			const actual = picker.find(`.${css.indicator}`).length;
+		expect(handleChange).not.toHaveBeenCalled();
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('indicator Container should not show any indicator when \'joined\' and \'horizontal\' and has no children', () => {
+		render(
+			<Picker index={0} joined max={1} min={-1} orientation="horizontal" />
+		);
+		const picker = screen.getByLabelText('0 press ok button to change the value');
 
-	test(
-		'indicator Container should not show any indicator when \'joined\' and \'horizontal\' and has one children',
-		() => {
-			const picker = mount(
-				<Picker index={0} max={1} min={-1} joined orientation="horizontal">
-					<PickerItem>Test one picker</PickerItem>
-				</Picker>
-			);
+		const expected = 1;
+		// The indicator will be a child of picker's children
+		// With it there will be 2 child elements
+		const actual = picker.children.item(0).children.length;
 
-			const expected = 0;
-			const actual = picker.find(`.${css.indicator}`).length;
+		expect(actual).toBe(expected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('indicator Container should not show any indicator when \'joined\' and \'horizontal\' and has one children', () => {
+		render(
+			<Picker index={0} max={1} min={-1} joined orientation="horizontal">
+				<PickerItem>Test one picker</PickerItem>
+			</Picker>
+		);
+		const picker = screen.getByRole('spinbutton', {hidden: true});
 
-	test(
-		'indicator Container should show with the exact number of children indicator when \'joined\' and \'horizontal\'',
-		() => {
-			const picker = mount(
-				<Picker index={0} max={2} min={0} joined orientation="horizontal">
-					<PickerItem>Test one picker</PickerItem>
-					<PickerItem>Test two picker</PickerItem>
-					<PickerItem>Test three picker</PickerItem>
-				</Picker>
-			);
+		const expected = 1;
+		// The indicator will be a child of picker's children
+		// With it there will be 2 child elements
+		const actual = picker.children.length;
 
-			const expected = 3;
-			const actual = picker.find(`.${css.indicator}`).length;
+		expect(actual).toBe(expected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('indicator Container should show with the exact number of children indicator when \'joined\' and \'horizontal\'', () => {
+		render(
+			<Picker index={0} max={2} min={0} joined orientation="horizontal">
+				<PickerItem>Test one picker</PickerItem>
+				<PickerItem>Test two picker</PickerItem>
+				<PickerItem>Test three picker</PickerItem>
+			</Picker>
+		);
+		const picker = screen.getByRole('spinbutton', {hidden: true});
+
+		const expected = 3;
+		const actual = picker.children.item(1).children.length;
+
+		expect(actual).toBe(expected);
+	});
 
 	describe('accessibility', () => {
+		test('should set the aria-label attribute properly in the next icon button', () => {
+			render(
+				<Picker index={1} max={3} min={0} value={1}>
+					<PickerItem>1</PickerItem>
+					<PickerItem>2</PickerItem>
+					<PickerItem>3</PickerItem>
+					<PickerItem>4</PickerItem>
+				</Picker>
+			);
+			const incrementButton = screen.getAllByRole('button')[0];
 
-		test(
-			'should set the aria-label attribute properly in the next icon button',
-			() => {
-				const picker = mount(
-					<Picker index={1} max={3} min={0} value={1}>
-						<PickerItem>1</PickerItem>
-						<PickerItem>2</PickerItem>
-						<PickerItem>3</PickerItem>
-						<PickerItem>4</PickerItem>
-					</Picker>
-				);
+			const expectedAttribute = 'aria-label';
+			const expectedValue = '2 next item';
 
-				const expected = '2 next item';
-				const actual = picker.find(`PickerButton.${css.incrementer}`).prop('aria-label');
+			expect(incrementButton).toHaveAttribute(expectedAttribute, expectedValue);
+		});
 
-				expect(actual).toBe(expected);
-			}
-		);
+		test('should set the aria-label attribute properly in the previous icon button', () => {
+			render(
+				<Picker index={1} max={3} min={0} value={1}>
+					<PickerItem>1</PickerItem>
+					<PickerItem>2</PickerItem>
+					<PickerItem>3</PickerItem>
+					<PickerItem>4</PickerItem>
+				</Picker>
+			);
+			const decrementButton = screen.getAllByRole('button')[1];
 
-		test(
-			'should set the aria-label attribute properly in the previous icon button',
-			() => {
-				const picker = mount(
-					<Picker index={1} max={3} min={0} value={1}>
-						<PickerItem>1</PickerItem>
-						<PickerItem>2</PickerItem>
-						<PickerItem>3</PickerItem>
-						<PickerItem>4</PickerItem>
-					</Picker>
-				);
+			const expectedAttribute = 'aria-label';
+			const expectedValue = '2 previous item';
 
-				const expected = '2 previous item';
-				const actual = picker.find(`PickerButton.${css.decrementer}`).prop('aria-label');
+			expect(decrementButton).toHaveAttribute(expectedAttribute, expectedValue);
+		});
 
-				expect(actual).toBe(expected);
-			}
-		);
+		test('should set the aria-valuetext attribute properly to read it when changing the value', () => {
+			render(
+				<Picker index={1} max={3} min={0} value={1}>
+					<PickerItem>1</PickerItem>
+					<PickerItem>2</PickerItem>
+					<PickerItem>3</PickerItem>
+					<PickerItem>4</PickerItem>
+				</Picker>
+			);
+			const pickerItem = screen.getByLabelText('2 next item').nextElementSibling;
+			// I chosen this and not getByText because in get by test you have to go 4 parentElements up
 
-		test(
-			'should set the aria-valuetext attribute properly to read it when changing the value',
-			() => {
-				const picker = mount(
-					<Picker index={1} max={3} min={0} value={1}>
-						<PickerItem>1</PickerItem>
-						<PickerItem>2</PickerItem>
-						<PickerItem>3</PickerItem>
-						<PickerItem>4</PickerItem>
-					</Picker>
-				);
+			const expectedAttribute = 'aria-valuetext';
+			const expectedValue = '2';
 
-				const expected = '2';
-				const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-valuetext');
+			expect(pickerItem).toHaveAttribute(expectedAttribute, expectedValue);
+		});
 
-				expect(actual).toBe(expected);
-			}
-		);
-
-		test(
-			'should have aria-hidden=true when \'joined\' and not active',
-			() => {
-				const picker = mount(
-					<Picker index={1} joined max={3} min={0} value={1}>
-						<PickerItem>1</PickerItem>
-						<PickerItem>2</PickerItem>
-						<PickerItem>3</PickerItem>
-						<PickerItem>4</PickerItem>
-					</Picker>
-				);
-
-				const expected = true;
-				const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-hidden');
-
-				expect(actual).toBe(expected);
-			}
-		);
-
-		test('should be aria-hidden=false when \'joined\' and active', () => {
-			const picker = mount(
+		test('should have aria-hidden=true when \'joined\' and not active', () => {
+			render(
 				<Picker index={1} joined max={3} min={0} value={1}>
 					<PickerItem>1</PickerItem>
 					<PickerItem>2</PickerItem>
@@ -563,64 +489,82 @@ describe('Picker Specs', () => {
 					<PickerItem>4</PickerItem>
 				</Picker>
 			);
+			const picker = screen.getByLabelText('2 press ok button to change the value').children.item(0);
+			// I chosen this and not getByText because in get by test you have to go 4 parentElements up
 
-			picker.simulate('focus');
+			const expectedAttribute = 'aria-hidden';
+			const expectedValue = 'true';
 
-			const expected = false;
-			const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-hidden');
-
-			expect(actual).toBe(expected);
+			expect(picker).toHaveAttribute(expectedAttribute, expectedValue);
 		});
 
-		test('should set picker "decrementAriaLabel" to decrement button', () => {
-			const label = 'custom decrement aria-label';
-			const picker = mount(
-				<Picker decrementAriaLabel={label} index={1} max={3} min={0} value={1}>
+		test('should be aria-hidden=false when \'joined\' and active', () => {
+			render(
+				<Picker index={1} joined max={3} min={0} value={1}>
 					<PickerItem>1</PickerItem>
 					<PickerItem>2</PickerItem>
 					<PickerItem>3</PickerItem>
 					<PickerItem>4</PickerItem>
 				</Picker>
 			);
+			const picker = screen.getByLabelText('2 press ok button to change the value').children.item(0);
+			// I chosen this and not getByText because in get by test you have to go 4 parentElements up
 
-			const expected = label;
-			const actual = picker.find(`PickerButton.${css.decrementer}`).prop('aria-label');
+			fireEvent.focus(picker);
 
-			expect(actual).toBe(expected);
+			const expectedAttribute = 'aria-hidden';
+			const expectedValue = 'false';
+
+			expect(picker).toHaveAttribute(expectedAttribute, expectedValue);
 		});
 
-		test('should set picker "incrementAriaLabel" to decrement button', () => {
-			const label = 'custom increment aria-label';
-			const picker = mount(
-				<Picker incrementAriaLabel={label} index={1} max={3} min={0} value={1}>
+		test('should set picker `decrementAriaLabel` to decrement button', () => {
+			const customLabel = 'custom decrement aria-label';
+			render(
+				<Picker decrementAriaLabel={customLabel} index={1} max={3} min={0} value={1}>
 					<PickerItem>1</PickerItem>
 					<PickerItem>2</PickerItem>
 					<PickerItem>3</PickerItem>
 					<PickerItem>4</PickerItem>
 				</Picker>
 			);
+			const picker = screen.getAllByRole('button')[1];
 
-			const expected = label;
-			const actual = picker.find(`PickerButton.${css.incrementer}`).prop('aria-label');
+			const expectedAttribute = 'aria-label';
 
-			expect(actual).toBe(expected);
+			expect(picker).toHaveAttribute(expectedAttribute, customLabel);
 		});
 
-		test('should set "aria-label" to joined picker', () => {
-			const label = 'custom joined picker aria-label';
-			const picker = mount(
-				<Picker aria-label={label} index={1} joined max={3} min={0} value={1}>
+		test('should set picker `incrementAriaLabel` to decrement button', () => {
+			const customLabel = 'custom increment aria-label';
+			render(
+				<Picker incrementAriaLabel={customLabel} index={1} max={3} min={0} value={1}>
 					<PickerItem>1</PickerItem>
 					<PickerItem>2</PickerItem>
 					<PickerItem>3</PickerItem>
 					<PickerItem>4</PickerItem>
 				</Picker>
 			);
+			const picker = screen.getAllByRole('button')[0];
 
-			const expected = label;
-			const actual = picker.find(`.${css.valueWrapper}`).first().parent().prop('aria-label');
+			const expectedAttribute = 'aria-label';
 
-			expect(actual).toBe(expected);
+			expect(picker).toHaveAttribute(expectedAttribute, customLabel);
+		});
+
+		test('should set `aria-label` to joined picker', () => {
+			const customLabel = 'custom joined picker aria-label';
+			render(
+				<Picker aria-label={customLabel} index={1} joined max={3} min={0} value={1}>
+					<PickerItem>1</PickerItem>
+					<PickerItem>2</PickerItem>
+					<PickerItem>3</PickerItem>
+					<PickerItem>4</PickerItem>
+				</Picker>
+			);
+			const picker = screen.getByLabelText(customLabel);
+
+			expect(picker).toBeInTheDocument();
 		});
 	});
 });
