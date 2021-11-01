@@ -2,13 +2,11 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.0.4] - 2021-11-01
 
 ### Added
 
 - `sandstone/Icon` supported icon list, adding new icons `bluetooth`, `moodmode`, and `changepassword`
-
-## [2.0.4] - 2021-10-29
 
 ### Fixed
 
