@@ -123,7 +123,6 @@ describe('Input specs', () => {
 			</FloatingLayerController>
 		);
 
-		screen.debug();
 		const actual = screen.getAllByLabelText('- Input field')[0].parentElement.nextElementSibling.children.length > 0;
 
 		expect(actual).toBeTruthy();
