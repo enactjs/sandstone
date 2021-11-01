@@ -419,7 +419,6 @@ describe('Picker Specs', () => {
 				<PickerItem>Test three picker</PickerItem>
 			</Picker>
 		);
-		// const picker = screen.getByLabelText('Test one picker press ok button to change the value');
 		const picker = screen.getByRole('spinbutton', {hidden: true});
 
 		const expected = 3;
