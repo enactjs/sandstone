@@ -111,14 +111,6 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Assign a skin.
-		 *
-		 * @type {String}
-		 * @private
-		 */
-		skin: PropTypes.string,
-
-		/**
 		 * The primary text displayed.
 		 *
 		 * Only shown when `type="fullscreen"`.
@@ -175,11 +167,6 @@ const AlertBase = kind({
 				noTitle: (type === 'fullscreen') && !title
 			},
 			type
-		),
-		skin: ({skin, type}) => (
-			skin ||
-			(typeof document === 'object' && document.querySelector('.sandstone-theme') && document.querySelector('.sandstone-theme').classList.contains('custom') && 'custom') ||
-			(type === 'overlay' ? 'light' : 'neutral')
 		)
 	},
 
