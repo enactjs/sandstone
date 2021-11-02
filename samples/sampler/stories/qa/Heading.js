@@ -1,4 +1,4 @@
-import {select, text} from '@enact/storybook-utils/addons/knobs';
+import {select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
@@ -23,12 +23,12 @@ export default {
 	component: 'Heading'
 };
 
-export const WithItalics = () => (
+export const WithItalics = (args) => (
 	<>
 		<Heading className={css.italic}>
-			{text('children', Heading, 'Lorem ipsum dolor sit amet')}
+			{args['children']}
 		</Heading>
-		<Heading>{text('children', Heading, 'Lorem ipsum dolor sit amet')}</Heading>
+		<Heading>{args['children']}</Heading>
 		<Heading className={css.italic}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Heading>
 		<Heading>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Heading>
 		<Heading className={css.italic}>가나다라마바사아자차카타파하</Heading>
@@ -38,10 +38,12 @@ export const WithItalics = () => (
 	</>
 );
 
+text('children', WithItalics, Heading, 'Lorem ipsum dolor sit amet');
+
 WithItalics.storyName = 'with italics';
 
-export const WithLongText = () => (
-	<Heading marqueeOn={select('marqueeOn', prop.marqueeOn, Heading)}>
+export const WithLongText = (args) => (
+	<Heading marqueeOn={args['marqueeOn']}>
 		{text(
 			'children',
 			Heading,
@@ -50,11 +52,15 @@ export const WithLongText = () => (
 	</Heading>
 );
 
+select('marqueeOn', WithLongText, prop.marqueeOn, Heading);
+
 WithLongText.storyName = 'with long text';
 
-export const WithTallCharacters = () => (
-	<Heading>{select('children', prop.tallText, Heading, 'नरेंद्र मोदी')}</Heading>
+export const WithTallCharacters = (args) => (
+	<Heading>{args['children']}</Heading>
 );
+
+select('children', WithTallCharacters, prop.tallText, Heading, 'नरेंद्र मोदी');
 
 WithTallCharacters.storyName = 'with tall characters';
 

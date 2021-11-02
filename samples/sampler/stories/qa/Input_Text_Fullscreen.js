@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Input, {InputBase} from '@enact/sandstone/Input';
 
 import {propOptions, inputData} from './common/Input_Common';
@@ -12,18 +12,23 @@ export default {
 	component: 'InputField'
 };
 
-export const LongText = () => (
+export const LongText = (args) => (
 	<Input
 		title="Fullscreen Input"
 		subtitle={inputData.textSubtitle}
-		disabled={boolean('disabled', Config)}
-		placeholder={text('placeholder', Config)}
-		size={select('size', propOptions.size, Config)}
-		type={select('type', propOptions.textTypes, Config)}
+		disabled={args['disabled']}
+		placeholder={args['placeholder']}
+		size={args['size']}
+		type={args['type']}
 		popupType="fullscreen"
 		defaultValue={inputData.longText}
 	/>
 );
+
+boolean('disabled', LongText, Config);
+text('placeholder', LongText, Config);
+select('size', LongText, propOptions.size, Config);
+select('type', LongText, propOptions.textTypes, Config);
 
 LongText.storyName = 'long text';
 
@@ -40,6 +45,9 @@ LongTitles.storyName = 'long titles';
 LongTitles.parameters = {
 	info: {
 		text: 'Test the input popup\'s maximum bounds.'
+	},
+  controls: {
+		hideNoControlsWarning: true
 	}
 };
 
@@ -54,19 +62,24 @@ NoTitles.storyName = 'no titles';
 NoTitles.parameters = {
 	info: {
 		text: 'No titles, just an input field.'
+	},
+  controls: {
+		hideNoControlsWarning: true
 	}
 };
 
-export const LongInvalidTooltip = () => (
+export const LongInvalidTooltip = (args) => (
 	<Input
 		title="Fullscreen Input (invalid tooltip)"
 		subtitle={inputData.textSubtitle}
 		popupType="fullscreen"
-		invalid={boolean('invalid', Config, true)}
+		invalid={args['invalid']}
 		invalidMessage={inputData.longInvalidTooltip}
 		defaultOpen
 	/>
 );
+
+boolean('invalid', LongInvalidTooltip, Config, true);
 
 LongInvalidTooltip.storyName = 'long invalid tooltip';
 LongInvalidTooltip.parameters = {

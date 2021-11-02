@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Steps from '@enact/sandstone/Steps';
@@ -46,7 +46,7 @@ export const headerStoryConfig = {
 	}
 };
 
-export const commonProps = (customDefaults) => {
+export const commonProps = (customDefaults, args) => {
 	const customizedConfig = Object.assign({}, Config); // Shallow copy this fn into a normal object
 	customizedConfig.defaultProps = Object.assign(
 		{}, // Fresh new defaltProps object
@@ -65,17 +65,30 @@ export const commonProps = (customDefaults) => {
 		customDefaults // Individual story defaults, preferences
 	);
 	return {
-		type: select('type', prop.type, customizedConfig),
-		centered: boolean('centered', customizedConfig),
-		backButtonAvailable: boolean('backButtonAvailable', customizedConfig),
-		backButtonBackgroundOpacity: select('backButtonBackgroundOpacity', prop.backgroundOpacity, customizedConfig),
-		closeButtonBackgroundOpacity: select('closeButtonBackgroundOpacity', prop.backgroundOpacity, customizedConfig),
-		noBackButton: boolean('noBackButton', customizedConfig),
-		noCloseButton: boolean('noCloseButton', customizedConfig),
-		marqueeOn: select('marqueeOn', prop.marqueeOn, customizedConfig),
-		slotAbove: prop.above[select('slotAbove', prop.aboveSelection, customizedConfig)],
-		slotBefore: prop.buttons[select('slotBefore', prop.buttonsSelection, customizedConfig)],
-		slotAfter: prop.buttons[select('slotAfter', prop.buttonsSelection, customizedConfig)],
-		children: prop.buttons[select('children', prop.buttonsSelection, customizedConfig)]
+		type: args['type'],
+		centered: args['centered'],
+		backButtonAvailable: args['backButtonAvailable'],
+		backButtonBackgroundOpacity: args['backButtonBackgroundOpacity'],
+		closeButtonBackgroundOpacity: args['closeButtonBackgroundOpacity'],
+		noBackButton: args['noBackButton'],
+		noCloseButton: args['noCloseButton'],
+		marqueeOn: args['marqueeOn'],
+		slotAbove: prop.above[args['slotAbove']],
+		slotBefore: prop.buttons[args['slotBefore']],
+		slotAfter: prop.buttons[args['slotAfter']],
+		children: prop.buttons[args['children']]
 	};
 };
+
+select('type', commonProps, prop.type, customizedConfig);
+boolean('centered', commonProps, customizedConfig);
+boolean('backButtonAvailable', commonProps, customizedConfig);
+select('backButtonBackgroundOpacity', commonProps, prop.backgroundOpacity, customizedConfig);
+select('closeButtonBackgroundOpacity', commonProps, prop.backgroundOpacity, customizedConfig);
+boolean('noBackButton', commonProps, customizedConfig);
+boolean('noCloseButton', commonProps, customizedConfig);
+select('marqueeOn', commonProps, prop.marqueeOn, customizedConfig);
+select('slotAbove', commonProps, prop.aboveSelection, customizedConfig);
+select('slotBefore', commonProps, prop.buttonsSelection, customizedConfig);
+select('slotAfter', commonProps, prop.buttonsSelection, customizedConfig);
+select('children', commonProps, prop.buttonsSelection, customizedConfig);

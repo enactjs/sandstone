@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {text} from '@enact/storybook-utils/addons/knobs';
+import {text} from '@enact/storybook-utils/addons/controls';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import {Fragment} from 'react';
 
@@ -13,47 +13,56 @@ export default {
 	component: 'Header'
 };
 
-export const RtlText = () => {
+export const RtlText = (args) => {
 	return (
 		<Fragment>
 			<Header
-				title={text('title', Config, inputData.shortRtlTitle)}
-				subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
+				title={args['title']}
+				subtitle={args['subtitle']}
 				{...commonProps()}
 			/>
 		</Fragment>
 	);
 };
+
+text('title', RtlText, Config, inputData.shortRtlTitle);
+text('subtitle', RtlText, Config, inputData.shortRtlSubtitle);
 
 RtlText.storyName = 'RTL text';
 RtlText.parameters = headerStoryConfig;
 
-export const RtlTextLongTitle = () => {
+export const RtlTextLongTitle = (args) => {
 	return (
 		<Fragment>
 			<Header
-				title={text('title', Config, inputData. longRtlTitle)}
-				subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
+				title={args['title']}
+				subtitle={args['subtitle']}
 				{...commonProps()}
 			/>
 		</Fragment>
 	);
 };
+
+text('title', RtlTextLongTitle, Config, inputData. longRtlTitle);
+text('subtitle', RtlTextLongTitle, Config, inputData.shortRtlSubtitle);
 
 RtlTextLongTitle.storyName = 'RTL text, long title';
 RtlTextLongTitle.parameters = headerStoryConfig;
 
-export const TallGlyphs = () => {
+export const TallGlyphs = (args) => {
 	return (
 		<Fragment>
 			<Header
-				title={text('title', Config, inputData.tallText)}
-				subtitle={text('subtitle', Config, inputData.tallText)}
+				title={args['title']}
+				subtitle={args['subtitle']}
 				{...commonProps()}
 			/>
 		</Fragment>
 	);
 };
+
+text('title', TallGlyphs, Config, inputData.tallText);
+text('subtitle', TallGlyphs, Config, inputData.tallText);
 
 TallGlyphs.storyName = 'tall-glyphs';
 TallGlyphs.parameters = headerStoryConfig;

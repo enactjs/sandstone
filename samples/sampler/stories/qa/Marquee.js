@@ -1,6 +1,6 @@
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import Spottable from '@enact/spotlight/Spottable';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
@@ -166,69 +166,89 @@ export default {
 	component: 'Marquee'
 };
 
-export const Ltr = () => {
-	const disabled = boolean('disabled', Marquee, false);
+export const Ltr = (args) => {
+	const disabled = args['disabled'];
 	return (
 		<section>
 			<Marquee
 				style={{width: ri.scaleToRem(798)}}
 				disabled={disabled}
-				forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
-				marqueeDelay={number('marqueeDelay', Marquee, 1000)}
-				marqueeDisabled={boolean('marqueeDisabled', Marquee, false)}
-				marqueeOn={select('marqueeOn', ['hover', 'render'], Marquee, 'render')}
-				marqueeOnRenderDelay={number('marqueeOnRenderDelay', Marquee, 1000)}
-				marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
-				marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
+				forceDirection={args['forceDirection']}
+				marqueeDelay={args['marqueeDelay']}
+				marqueeDisabled={args['marqueeDisabled']}
+				marqueeOn={args['marqueeOn']}
+				marqueeOnRenderDelay={args['marqueeOnRenderDelay']}
+				marqueeResetDelay={args['marqueeResetDelay']}
+				marqueeSpeed={args['marqueeSpeed']}
 			>
-				{select('children', LTR, Marquee, LTR[0])}
+				{args['children']}
 			</Marquee>
 			{disabledDisclaimer(disabled)}
 		</section>
 	);
 };
+
+boolean('disabled', Ltr, Marquee, false);
+select('forceDirection', Ltr, ['', 'ltr', 'rtl'], Marquee, '');
+number('marqueeDelay', Ltr, Marquee, 1000);
+boolean('marqueeDisabled', Ltr, Marquee, false);
+select('marqueeOn', Ltr, ['hover', 'render'], Marquee, 'render');
+number('marqueeOnRenderDelay', Ltr, Marquee, 1000);
+number('marqueeResetDelay', Ltr, Marquee, 1000);
+number('marqueeSpeed', Ltr, Marquee, 60);
+select('children', Ltr, LTR, Marquee, LTR[0]);
 
 Ltr.storyName = 'LTR';
 
-export const Rtl = () => {
-	const disabled = boolean('disabled', Marquee, false);
+export const Rtl = (args) => {
+	const disabled = args['disabled'];
 	return (
 		<section>
 			<Marquee
 				style={{width: ri.scaleToRem(798)}}
 				disabled={disabled}
-				forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
-				marqueeDelay={number('marqueeDelay', Marquee, 1000)}
-				marqueeDisabled={boolean('marqueeDisabled', Marquee, false)}
-				marqueeOn={select('marqueeOn', ['hover', 'render'], Marquee, 'render')}
-				marqueeOnRenderDelay={number('marqueeOnRenderDelay', Marquee, 1000)}
-				marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
-				marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
+				forceDirection={args['forceDirection']}
+				marqueeDelay={args['marqueeDelay']}
+				marqueeDisabled={args['marqueeDisabled']}
+				marqueeOn={args['marqueeOn']}
+				marqueeOnRenderDelay={args['marqueeOnRenderDelay']}
+				marqueeResetDelay={args['marqueeResetDelay']}
+				marqueeSpeed={args['marqueeSpeed']}
 			>
-				{select('children', RTL, Marquee, RTL[0])}
+				{args['children']}
 			</Marquee>
 			{disabledDisclaimer(disabled)}
 		</section>
 	);
 };
 
+boolean('disabled', Rtl, Marquee, false);
+select('forceDirection', Rtl, ['', 'ltr', 'rtl'], Marquee, '');
+number('marqueeDelay', Rtl, Marquee, 1000);
+boolean('marqueeDisabled', Rtl, Marquee, false);
+select('marqueeOn', Rtl, ['hover', 'render'], Marquee, 'render');
+number('marqueeOnRenderDelay', Rtl, Marquee, 1000);
+number('marqueeResetDelay', Rtl, Marquee, 1000);
+number('marqueeSpeed', Rtl, Marquee, 60);
+select('children', Rtl, RTL, Marquee, RTL[0]);
+
 Rtl.storyName = 'RTL';
 
-export const Synchronized = () => {
-	const disabled = boolean('disabled', Marquee, false);
+export const Synchronized = (args) => {
+	const disabled = args['disabled'];
 	return (
 		<Controller style={{width: ri.scaleToRem(798)}}>
 			{LTR.map((children, index) => (
 				<Marquee
 					disabled={disabled}
-					forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
+					forceDirection={args['forceDirection']}
 					key={index}
-					marqueeDelay={number('marqueeDelay', Marquee, 1000)}
-					marqueeDisabled={boolean('marqueeDisabled', Marquee, false)}
-					marqueeOn={select('marqueeOn', ['hover', 'render'], Marquee, 'render')}
-					marqueeOnRenderDelay={number('marqueeOnRenderDelay', Marquee, 5000)}
-					marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
-					marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
+					marqueeDelay={args['marqueeDelay']}
+					marqueeDisabled={args['marqueeDisabled']}
+					marqueeOn={args['marqueeOn']}
+					marqueeOnRenderDelay={args['marqueeOnRenderDelay']}
+					marqueeResetDelay={args['marqueeResetDelay']}
+					marqueeSpeed={args['marqueeSpeed']}
 				>
 					{children}
 				</Marquee>
@@ -237,6 +257,15 @@ export const Synchronized = () => {
 		</Controller>
 	);
 };
+
+boolean('disabled', Synchronized, Marquee, false);
+select('forceDirection', Synchronized, ['', 'ltr', 'rtl'], Marquee, '');
+number('marqueeDelay', Synchronized, Marquee, 1000);
+boolean('marqueeDisabled', Synchronized, Marquee, false);
+select('marqueeOn', Synchronized, ['hover', 'render'], Marquee, 'render');
+number('marqueeOnRenderDelay', Synchronized, Marquee, 1000);
+number('marqueeResetDelay', Synchronized, Marquee, 1000);
+number('marqueeSpeed', Synchronized, Marquee, 60);
 
 export const OnFocus = () => (
 	<div>
@@ -252,6 +281,12 @@ export const OnFocus = () => (
 		</SpottableMarquee>
 	</div>
 );
+
+OnFocus.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const RestartMarqueeWhenMarqueeCompletes = () => (
 	<SpottableDiv className={css.spotlight}>
@@ -283,10 +318,20 @@ export const RestartMarqueeWhenMarqueeCompletes = () => (
 );
 
 RestartMarqueeWhenMarqueeCompletes.storyName = 'Restart Marquee when Marquee completes';
+RestartMarqueeWhenMarqueeCompletes.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const I18N = () => <MarqueeI18nSamples />;
 
 I18N.storyName = 'I18n';
+I18N.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithShortContent = () => (
 	<div>
@@ -295,10 +340,20 @@ export const WithShortContent = () => (
 );
 
 WithShortContent.storyName = 'with Short Content';
+WithShortContent.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithContentChanged = () => <MarqueeWithContentChanged />;
 
 WithContentChanged.storyName = 'with Content Changed';
+WithContentChanged.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithTextCentered = () => (
 	<div>
@@ -326,3 +381,8 @@ export const WithTextCentered = () => (
 );
 
 WithTextCentered.storyName = 'with Text Centered';
+WithTextCentered.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

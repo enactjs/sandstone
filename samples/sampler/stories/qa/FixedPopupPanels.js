@@ -4,7 +4,7 @@ import {add, is} from '@enact/core/keymap';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
@@ -23,6 +23,7 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {Component, useCallback, useState} from 'react';
 import compose from 'ramda/src/compose';
+import {useArgs} from '@storybook/client-api';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 Config.defaultProps.position = 'right';
@@ -85,6 +86,7 @@ export default {
 };
 
 const WithVirtualListSamplesBase = ({rtl}) => {
+  const [args] = useArgs();
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -114,17 +116,17 @@ const WithVirtualListSamplesBase = ({rtl}) => {
 			<FixedPopupPanels
 				index={index}
 				open={open}
-				position={select('position', ['left', 'right'], Config)}
-				fullHeight={boolean('fullHeight', Config)}
-				width={select('width', ['narrow', 'half'], Config)}
-				noAnimation={boolean('noAnimation', Config)}
-				noAutoDismiss={boolean('noAutoDismiss', Config)}
+				position={args['position']}
+				fullHeight={args['fullHeight']}
+				width={args['width']}
+				noAnimation={args['noAnimation']}
+				noAutoDismiss={args['noAutoDismiss']}
 				onBack={handleBack}
 				onClose={handleClose}
 				onHide={action('onHide')}
 				onShow={action('onShow')}
-				scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
-				spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+				scrimType={args['scrimType']}
+				spotlightRestrict={args['spotlightRestrict']}
 			>
 				<Panel>
 					<Header>
@@ -214,6 +216,14 @@ const WithVirtualListSamples = I18nContextDecorator(
 );
 export const WithVirtualList = () => <WithVirtualListSamples />;
 
+select('position', WithVirtualList, ['left', 'right'], Config);
+boolean('fullHeight', WithVirtualList, Config);
+select('width', WithVirtualList, ['narrow', 'half'], Config);
+boolean('noAnimation', WithVirtualList, Config);
+boolean('noAutoDismiss', WithVirtualList, Config);
+select('scrimType', WithVirtualList, ['none', 'translucent', 'transparent'], Config);
+select('spotlightRestrict', WithVirtualList, ['self-first', 'self-only'], Config);
+
 WithVirtualList.storyName = 'with VirtualList';
 WithVirtualList.parameters = {
 	info: {
@@ -229,20 +239,23 @@ WithPauseAndAutoFocusNone.storyName = 'with Pause and autoFocus="none"';
 WithPauseAndAutoFocusNone.parameters = {
 	info: {
 		text: 'QA -  Manage focus with Pause in FixedPopupPanels'
+	},
+  controls: {
+		hideNoControlsWarning: true
 	}
 };
 
-export const WithScroller = () => {
+export const WithScroller = (args) => {
 	return (
 		<FixedPopupPanels
 			open
-			position={select('position', ['left', 'right'], Config)}
-			fullHeight={boolean('fullHeight', Config)}
-			width={select('width', ['narrow', 'half'], Config)}
-			noAnimation={boolean('noAnimation', Config)}
-			noAutoDismiss={boolean('noAutoDismiss', Config)}
-			scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
-			spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+			position={args['position']}
+			fullHeight={args['fullHeight']}
+			width={args['width']}
+			noAnimation={args['noAnimation']}
+			noAutoDismiss={args['noAutoDismiss']}
+			scrimType={args['scrimType']}
+			spotlightRestrict={args['spotlightRestrict']}
 		>
 			<Panel>
 				<Header>
@@ -267,6 +280,14 @@ export const WithScroller = () => {
 	);
 };
 
+select('position', WithScroller, ['left', 'right'], Config);
+boolean('fullHeight', WithScroller, Config);
+select('width', WithScroller, ['narrow', 'half'], Config);
+boolean('noAnimation', WithScroller, Config);
+boolean('noAutoDismiss', WithScroller, Config);
+select('scrimType', WithScroller, ['none', 'translucent', 'transparent'], Config);
+select('spotlightRestrict', WithScroller, ['self-first', 'self-only'], Config);
+
 WithScroller.storyName = 'with Scroller';
 WithScroller.parameters = {
 	info: {
@@ -275,6 +296,7 @@ WithScroller.parameters = {
 };
 
 const WithVariousItemsSamplesBase = ({rtl}) => {
+  const [args] = useArgs();
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const [popupOpen, setPopupOpenState] = useState(false);
@@ -315,17 +337,17 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 			<FixedPopupPanels
 				index={index}
 				open={open}
-				position={select('position', ['left', 'right'], Config)}
-				fullHeight={boolean('fullHeight', Config)}
-				width={select('width', ['narrow', 'half'], Config)}
-				noAnimation={boolean('noAnimation', Config)}
-				noAutoDismiss={boolean('noAutoDismiss', Config)}
+				position={args['position']}
+				fullHeight={args['fullHeight']}
+				width={args['width']}
+				noAnimation={args['noAnimation']}
+				noAutoDismiss={args['noAutoDismiss']}
 				onBack={handleBack}
 				onClose={handleClose}
 				onHide={action('onHide')}
 				onShow={action('onShow')}
-				scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
-				spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+				scrimType={args['scrimType']}
+				spotlightRestrict={args['spotlightRestrict']}
 			>
 				<Panel>
 					<Header>
@@ -441,6 +463,14 @@ const WithVariousItemsSamples = I18nContextDecorator(
 	WithVariousItemsSamplesBase
 );
 export const WithVariousItems = () => <WithVariousItemsSamples />;
+
+select('position', WithVariousItems, ['left', 'right'], Config);
+boolean('fullHeight', WithVariousItems, Config);
+select('width', WithVariousItems, ['narrow', 'half'], Config);
+boolean('noAnimation', WithVariousItems, Config);
+boolean('noAutoDismiss', WithVariousItems, Config);
+select('scrimType', WithVariousItems, ['none', 'translucent', 'transparent'], Config);
+select('spotlightRestrict', WithVariousItems, ['self-first', 'self-only'], Config);
 
 WithVariousItems.storyName = 'with various items';
 WithVariousItems.parameters = {

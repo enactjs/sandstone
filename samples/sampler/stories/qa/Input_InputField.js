@@ -1,4 +1,4 @@
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {InputField, InputFieldBase} from '@enact/sandstone/Input';
@@ -13,44 +13,66 @@ export default {
 	component: 'InputField'
 };
 
-export const WithLongText = () => (
+export const WithLongText = (args) => (
 	<InputField
-		disabled={boolean('disabled', FieldConfig)}
-		iconAfter={select('iconAfter', iconNames, FieldConfig)}
-		iconBefore={select('iconBefore', iconNames, FieldConfig)}
-		size={select('size', propOptions.size, FieldConfig)}
-		type={select('type', propOptions.fieldTypes, FieldConfig)}
+		disabled={args['disabled']}
+		iconAfter={args['iconAfter']}
+		iconBefore={args['iconBefore']}
+		size={args['size']}
+		type={args['type']}
 		defaultValue={inputData.longText}
 	/>
 );
+
+boolean('disabled', WithLongText, FieldConfig);
+select('iconAfter', WithLongText, iconNames, FieldConfig);
+select('iconBefore', WithLongText, iconNames, FieldConfig);
+select('size', WithLongText, propOptions.size, FieldConfig);
+select('type', WithLongText, propOptions.fieldTypes, FieldConfig);
+
 
 WithLongText.storyName = 'with long text';
 
-export const WithLongPlaceholder = () => (
+export const WithLongPlaceholder = (args) => (
 	<InputField
-		disabled={boolean('disabled', FieldConfig)}
-		iconAfter={select('iconAfter', iconNames, FieldConfig)}
-		iconBefore={select('iconBefore', iconNames, FieldConfig)}
-		placeholder={text('placeholder', FieldConfig, inputData.longPlaceHolder)}
-		type={select('type', propOptions.fieldTypes, FieldConfig)}
-		size={select('size', propOptions.size, FieldConfig)}
+		disabled={args['disabled']}
+		iconAfter={args['iconAfter']}
+		iconBefore={args['iconBefore']}
+		placeholder={args['placeholder']}
+		type={args['type']}
+		size={args['size']}
 	/>
 );
+
+boolean('disabled', WithLongPlaceholder, FieldConfig);
+select('iconAfter', WithLongPlaceholder, iconNames, FieldConfig);
+select('iconBefore', WithLongPlaceholder, iconNames, FieldConfig);
+text('placeholder', WithLongPlaceholder, FieldConfig, inputData.longPlaceHolder);
+select('size', WithLongPlaceholder, propOptions.size, FieldConfig);
+select('type', WithLongPlaceholder, propOptions.fieldTypes, FieldConfig);
 
 WithLongPlaceholder.storyName = 'with long placeholder';
 
-export const MarkedInvalid = () => (
+export const MarkedInvalid = (args) => (
 	<InputField
-		disabled={boolean('disabled', FieldConfig)}
-		iconAfter={select('iconAfter', iconNames, FieldConfig)}
-		iconBefore={select('iconBefore', iconNames, FieldConfig)}
-		invalid={boolean('invalid', FieldConfig, true)}
-		invalidMessage={text('invalidMessage', FieldConfig)}
-		placeholder={text('placeholder', FieldConfig, inputData.shortPlaceholder)}
-		size={select('size', propOptions.size, FieldConfig)}
+		disabled={args['disabled']}
+		iconAfter={args['iconAfter']}
+		iconBefore={args['iconBefore']}
+		invalid={args['invalid']}
+		invalidMessage={args['invalidMessage']}
+		placeholder={args['placeholder']}
+		size={args['size']}
 		defaultValue={inputData.longText}
 	/>
 );
+
+boolean('disabled', MarkedInvalid, FieldConfig);
+select('iconAfter', MarkedInvalid, iconNames, FieldConfig);
+select('iconBefore', MarkedInvalid, iconNames, FieldConfig);
+boolean('invalid', MarkedInvalid, FieldConfig, true);
+text('invalidMessage', MarkedInvalid, FieldConfig);
+text('placeholder', MarkedInvalid, FieldConfig, inputData.longPlaceHolder);
+select('size', MarkedInvalid, propOptions.size, FieldConfig);
 
 MarkedInvalid.storyName = 'marked invalid';
 MarkedInvalid.parameters = {
@@ -59,30 +81,32 @@ MarkedInvalid.parameters = {
 	}
 };
 
-export const WithTallCharacters = () => (
+export const WithTallCharacters = (args) => (
 	<div>
 		<InputField
 			style={divMargin}
-			size={select('size', propOptions.size, FieldConfig)}
+			size={args['size']}
 			defaultValue={inputData.tallText[0]}
 		/>
 		<InputField
 			style={divMargin}
-			size={select('size', propOptions.size, FieldConfig)}
+			size={args['size']}
 			defaultValue={inputData.tallText[1]}
 		/>
 		<InputField
 			style={divMargin}
-			size={select('size', propOptions.size, FieldConfig)}
+			size={args['size']}
 			defaultValue={inputData.tallText[2]}
 		/>
 		<InputField
 			style={divMargin}
-			size={select('size', propOptions.size, FieldConfig)}
+			size={args['size']}
 			defaultValue={inputData.tallText[3]}
 		/>
 	</div>
 );
+
+select('size', WithTallCharacters, propOptions.size, FieldConfig);
 
 WithTallCharacters.storyName = 'with tall characters';
 WithTallCharacters.parameters = {
@@ -91,59 +115,70 @@ WithTallCharacters.parameters = {
 	}
 };
 
-export const WithRtlAndLtrTextTogether = () => (
+export const WithRtlAndLtrTextTogether = (args) => (
 	<InputField
-		iconAfter={select('iconAfter', iconNames, FieldConfig)}
-		iconBefore={select('iconBefore', iconNames, FieldConfig)}
-		size={select('size', propOptions.size, FieldConfig)}
+		iconAfter={args['iconAfter']}
+		iconBefore={args['iconBefore']}
+		size={args['size']}
 		defaultValue={inputData.rtlAndLtr}
 	/>
 );
 
+select('iconAfter', WithRtlAndLtrTextTogether, iconNames, FieldConfig);
+select('iconBefore', WithRtlAndLtrTextTogether, iconNames, FieldConfig);
+select('size', WithRtlAndLtrTextTogether, propOptions.size, FieldConfig);
+
 WithRtlAndLtrTextTogether.storyName = 'with RTL and LTR text together';
 
-export const _5WayTest = () => {
-	const disable1 = boolean('disable field one', FieldConfig);
-	const disable2 = boolean('disable field two', FieldConfig);
-	const disable3 = boolean('disable field three', FieldConfig);
-	const disable4 = boolean('disable field four', FieldConfig);
+export const _5WayTest = (args) => {
+	const disable1 = args['disable field one'];
+	const disable2 = args['disable field two'];
+	const disable3 = args['disable field three'];
+	const disable4 = args['disable field four'];
 	return (
 		<div>
 			<div style={divMargin}>
 				<InputField
-					autoFocus={boolean('autoFocus', FieldConfig)}
+					autoFocus={args['autoFocus']}
 					disabled={disable1}
 					onChange={action('onChange')}
-					size={select('size', propOptions.size, FieldConfig)}
+					size={args['size']}
 					defaultValue={inputData.initialValue + ' one'}
 				/>
 				<InputField
-					autoFocus={boolean('autoFocus', FieldConfig)}
+					autoFocus={args['autoFocus']}
 					disabled={disable2}
 					onChange={action('onChange')}
-					size={select('size', propOptions.size, FieldConfig)}
+					size={args['size']}
 					defaultValue={inputData.initialValue + ' two'}
 				/>
 			</div>
 			<div style={divMargin}>
 				<InputField
-					autoFocus={boolean('autoFocus', FieldConfig)}
+					autoFocus={args['autoFocus']}
 					disabled={disable3}
 					onChange={action('onChange')}
-					size={select('size', propOptions.size, FieldConfig)}
+					size={args['size']}
 					defaultValue={inputData.initialValue + ' three'}
 				/>
 				<InputField
-					autoFocus={boolean('autoFocus', FieldConfig)}
+					autoFocus={args['autoFocus']}
 					disabled={disable4}
 					onChange={action('onChange')}
-					size={select('size', propOptions.size, FieldConfig)}
+					size={args['size'])}
 					defaultValue={inputData.initialValue + ' four'}
 				/>
 			</div>
 		</div>
 	);
 };
+
+boolean('disable field one', _5WayTest, FieldConfig);
+boolean('disable field two', _5WayTest, FieldConfig);
+boolean('disable field three', _5WayTest, FieldConfig);
+boolean('disable field four', _5WayTest, FieldConfig);
+boolean('autoFocus', _5WayTest, FieldConfig);
+select('size', _5WayTest, propOptions.size, FieldConfig);
 
 _5WayTest.storyName = '5 way test';
 _5WayTest.parameters = {
@@ -152,13 +187,15 @@ _5WayTest.parameters = {
 	}
 };
 
-export const WithANumber = () => (
+export const WithANumber = (args) => (
 	<InputField
 		onChange={action('onChange')}
 		type="number"
-		size={select('size', propOptions.size, FieldConfig)}
+		size={args['size']}
 		defaultValue={0}
 	/>
 );
+
+select('size', WithANumber, propOptions.size, FieldConfig);
 
 WithANumber.storyName = 'with a number';

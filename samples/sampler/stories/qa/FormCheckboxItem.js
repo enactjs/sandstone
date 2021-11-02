@@ -38,3 +38,8 @@ export default {
 export const ThatIsFocusedAndDisabled = () => <FormCheckboxItemView />;
 
 ThatIsFocusedAndDisabled.storyName = 'that is focused and disabled';
+ThatIsFocusedAndDisabled.parameters = {
+  controls: {
+		hideNoControlsWarning: true
+	}
+};

@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Input, {InputBase} from '@enact/sandstone/Input';
 
 import {buttons, propOptions, inputData} from './common/Input_Common';
@@ -12,22 +12,30 @@ export default {
 	component: 'InputField'
 };
 
-export const Length4 = () => (
+export const Length4 = (args) => (
 	<Input
 		title="Fullscreen Input (4)"
 		subtitle={inputData.numberSubtitle}
-		disabled={boolean('disabled', Config)}
-		invalid={boolean('invalid', Config)}
-		invalidMessage={text('invalidMessage', Config)}
-		placeholder={text('placeholder', Config)}
-		size={select('size', propOptions.size, Config)}
-		type={select('type', propOptions.numberTypes, Config, 'number')}
+		disabled={args['disabled']}
+		invalid={args['invalid']}
+		invalidMessage={args['invalidMessage']}
+		placeholder={args['placeholder']}
+		size={args['size']}
+		type={args['type']}
 		popupType="fullscreen"
 		length={4}
 	>
-		{buttons[select('buttons', propOptions.buttons, Config)]}
+		{buttons[args['buttons']]}
 	</Input>
 );
+
+boolean('disabled', Length4, Config);
+boolean('invalid', Length4, Config);
+text('invalidMessage', Length4, Config);
+text('placeholder', Length4, Config);
+select('size', Length4, propOptions.size, Config);
+select('type', Length4, propOptions.numberTypes, Config, 'number');
+select('buttons', Length4, propOptions.buttons, Config);
 
 Length4.storyName = 'length 4';
 Length4.parameters = {
@@ -36,22 +44,30 @@ Length4.parameters = {
 	}
 };
 
-export const Length10 = () => (
+export const Length10 = (args) => (
 	<Input
 		title="Fullscreen Input (10)"
 		subtitle={inputData.numberSubtitle}
-		disabled={boolean('disabled', Config)}
-		invalid={boolean('invalid', Config)}
-		invalidMessage={text('invalidMessage', Config)}
-		placeholder={text('placeholder', Config)}
-		size={select('size', propOptions.size, Config)}
-		type={select('type', propOptions.numberTypes, Config, 'number')}
+		disabled={args['disabled']}
+		invalid={args['invalid']}
+		invalidMessage={args['invalidMessage']}
+		placeholder={args['placeholder']}
+		size={args['size']}
+		type={args['type']}
 		popupType="fullscreen"
 		length={10}
 	>
-		{buttons[select('buttons', propOptions.buttons, Config)]}
+		{buttons[args['buttons']]}
 	</Input>
 );
+
+boolean('disabled', Length10, Config);
+boolean('invalid', Length10, Config);
+text('invalidMessage', Length10, Config);
+text('placeholder', Length10, Config);
+select('size', Length10, propOptions.size, Config);
+select('type', Length10, propOptions.numberTypes, Config, 'number');
+select('buttons', Length10, propOptions.buttons, Config);
 
 Length10.storyName = 'length 10';
 Length10.parameters = {
@@ -74,6 +90,9 @@ LongTitles.storyName = 'long titles';
 LongTitles.parameters = {
 	info: {
 		text: 'Test the input popup\'s maximum bounds.'
+	},
+  controls: {
+		hideNoControlsWarning: true
 	}
 };
 
@@ -89,20 +108,25 @@ NoTitles.storyName = 'no titles';
 NoTitles.parameters = {
 	info: {
 		text: 'No titles, just an input field.'
+	},
+  controls: {
+		hideNoControlsWarning: true
 	}
 };
 
-export const LongInvalidTooltip = () => (
+export const LongInvalidTooltip = (args) => (
 	<Input
 		title="Fullscreen Input (invalid tooltip)"
 		subtitle={inputData.numberSubtitle}
 		popupType="fullscreen"
 		type="number"
-		invalid={boolean('invalid', Config, true)}
+		invalid={args['invalid']}
 		invalidMessage={inputData.longInvalidTooltip}
 		defaultOpen
 	/>
 );
+
+boolean('invalid', LongInvalidTooltip, Config, true);
 
 LongInvalidTooltip.storyName = 'long invalid tooltip';
 LongInvalidTooltip.parameters = {
