@@ -6,7 +6,7 @@ import $L from '../internal/$L';
 import {DateComponentPicker, DateComponentRangePicker} from '../internal/DateComponentPicker';
 import DateTime from '../internal/DateTime';
 
-import componentCss from './TimePicker.module.less';
+import css from './TimePicker.module.less';
 
 // values to use in hour picker for 24 and 12 hour locales
 const hours24 = [
@@ -29,7 +29,6 @@ const hours12 = [
  */
 class HourPicker extends Component {
 	static propTypes = {
-		css: PropTypes.object,
 		hasMeridiem: PropTypes.bool,
 		value: PropTypes.number
 	};
@@ -57,11 +56,11 @@ class HourPicker extends Component {
 	}
 
 	render () {
-		const {css, hasMeridiem, ...rest} = this.props;
+		const {hasMeridiem, ...rest} = this.props;
 		const hours = hasMeridiem ? hours12 : hours24;
 
 		return (
-			<DateComponentPicker {...rest} css={css} noAnimation={this.state.noAnimation}>
+			<DateComponentPicker {...rest} noAnimation={this.state.noAnimation}>
 				{hours}
 			</DateComponentPicker>
 		);
@@ -119,15 +118,6 @@ const TimePickerBase = kind({
 		 * @public
 		 */
 		order: PropTypes.arrayOf(PropTypes.oneOf(['h', 'k', 'm', 'a'])).isRequired,
-
-		/**
-		 * Customizes the component by mapping the supplied collection of CSS class names to the
-		 * corresponding internal elements and states of this component.
-		 *
-		 * @type {Object}
-		 * @private
-		 */
-		css: PropTypes.object,
 
 		/**
 		 * Disables voice control.
@@ -287,7 +277,7 @@ const TimePickerBase = kind({
 	},
 
 	styles: {
-		css: componentCss,
+		css,
 		className: 'timePicker'
 	},
 
@@ -297,7 +287,6 @@ const TimePickerBase = kind({
 	},
 
 	render: ({
-		css,
 		'data-webos-voice-disabled': voiceDisabled,
 		disabled,
 		hasMeridiem,
@@ -352,7 +341,6 @@ const TimePickerBase = kind({
 										accessibilityHint={hourAccessibilityHint}
 										aria-label={hourAriaLabel}
 										className={css.hourPicker}
-										css={css}
 										data-last-element={isLastElement}
 										data-webos-voice-disabled={voiceDisabled}
 										data-webos-voice-group-label={hourAccessibilityHint}
@@ -376,7 +364,6 @@ const TimePickerBase = kind({
 									accessibilityHint={minuteAccessibilityHint}
 									aria-label={minuteAriaLabel}
 									className={css.minutePicker}
-									css={css}
 									data-last-element={isLastElement}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={minuteAccessibilityHint}
