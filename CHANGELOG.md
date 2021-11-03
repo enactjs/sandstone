@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Video` prop `playsInline` to control whether video is played inline
+- 
 ## [2.0.4] - 2021-11-01
 
 ### Added
