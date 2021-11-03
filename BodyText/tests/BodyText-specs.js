@@ -1,39 +1,53 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+
 import BodyText from '../BodyText';
-import css from '../BodyText.module.less';
 
 describe('BodyText Specs', () => {
 
 	test('should support multi-line content', () => {
-		const subject = mount(
-			<BodyText />
-		);
+		render(<BodyText data-testid="bodyText" />);
+		const bodyText = screen.getByTestId('bodyText');
 
-		const expected = 1;
-		const actual = subject.find('p').length;
-
+		const expected = 'P';
+		const actual = bodyText.nodeName;
 		expect(actual).toBe(expected);
 	});
 
 	test('should support single-line marqueeing content when `noWrap` is true', () => {
-		const subject = mount(
-			<BodyText noWrap />
-		);
+		render(<BodyText data-testid="bodyText" noWrap />);
+		const bodyText = screen.getByTestId('bodyText');
+		const marquee = bodyText.children.item(0);
 
-		const expected = true;
-		const actual = subject.findWhere(c => c.name() === 'ui:Marquee').exists();
+		const expected = 'marquee';
 
-		expect(actual).toBe(expected);
+		expect(marquee).toHaveClass(expected);
 	});
 
 	test('should include the noWrap class if `noWrap` is true', () => {
-		const subject = mount(
-			<BodyText noWrap />
-		);
+		render(<BodyText data-testid="bodyText" noWrap />);
+		const bodyText = screen.getByTestId('bodyText');
 
 		const expected = 'noWrap';
-		const actual = subject.find(`.${css.bodyText}`).prop('className');
 
-		expect(actual).toContain(expected);
+		expect(bodyText).toHaveClass(expected);
+	});
+
+	test('should have small class if `size` is small', () => {
+		render(<BodyText data-testid="bodyText" size="small" />);
+		const bodyText = screen.getByTestId('bodyText');
+
+		const expected = 'small';
+
+		expect(bodyText).toHaveClass(expected);
+	});
+
+	test('should have `centered` class if `centered` is true', () => {
+		render(<BodyText data-testid="bodyText" centered />);
+		const bodyText = screen.getByTestId('bodyText');
+
+		const expected = 'centered';
+
+		expect(bodyText).toHaveClass(expected);
 	});
 });
