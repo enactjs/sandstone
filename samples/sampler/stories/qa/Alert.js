@@ -98,7 +98,7 @@ text('children', WithLongChildren, Config, inputData.longChildren);
 
 WithLongChildren.storyName = 'with long children';
 
-export const WithLongTitleAndLongChildren = () => {
+export const WithLongTitleAndLongChildren = (args) => {
 	const open = args['open']; // This is first so the Knob tabs are in a more intuitive order.
 	const image = args['image'];
 	const type = args['type'];
