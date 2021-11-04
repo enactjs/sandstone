@@ -23,7 +23,6 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {Component, useCallback, useState} from 'react';
 import compose from 'ramda/src/compose';
-import {useArgs} from '@storybook/client-api';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 Config.defaultProps.position = 'right';
@@ -85,8 +84,7 @@ export default {
 	component: 'FixedPopupPanels'
 };
 
-const WithVirtualListSamplesBase = ({rtl}) => {
-  const [args] = useArgs();
+const WithVirtualListSamplesBase = ({rtl, args}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -214,7 +212,7 @@ const WithVirtualListSamples = I18nContextDecorator(
 	{rtlProp: 'rtl'},
 	WithVirtualListSamplesBase
 );
-export const WithVirtualList = () => <WithVirtualListSamples />;
+export const WithVirtualList = (args) => <WithVirtualListSamples args={args}/>;
 
 select('position', WithVirtualList, ['left', 'right'], Config);
 boolean('fullHeight', WithVirtualList, Config);
@@ -240,7 +238,7 @@ WithPauseAndAutoFocusNone.parameters = {
 	info: {
 		text: 'QA -  Manage focus with Pause in FixedPopupPanels'
 	},
-  controls: {
+	controls: {
 		hideNoControlsWarning: true
 	}
 };
@@ -295,8 +293,7 @@ WithScroller.parameters = {
 	}
 };
 
-const WithVariousItemsSamplesBase = ({rtl}) => {
-  const [args] = useArgs();
+const WithVariousItemsSamplesBase = ({rtl,args}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const [popupOpen, setPopupOpenState] = useState(false);
@@ -462,7 +459,7 @@ const WithVariousItemsSamples = I18nContextDecorator(
 	{rtlProp: 'rtl'},
 	WithVariousItemsSamplesBase
 );
-export const WithVariousItems = () => <WithVariousItemsSamples />;
+export const WithVariousItems = (args) => <WithVariousItemsSamples args={args}/>;
 
 select('position', WithVariousItems, ['left', 'right'], Config);
 boolean('fullHeight', WithVariousItems, Config);

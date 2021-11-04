@@ -97,3 +97,8 @@ export const MultipleScroller = () => (
 		</div>
 	</Scroller>
 );
+MultipleScroller.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

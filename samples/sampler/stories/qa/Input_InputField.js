@@ -165,7 +165,7 @@ export const _5WayTest = (args) => {
 					autoFocus={args['autoFocus']}
 					disabled={disable4}
 					onChange={action('onChange')}
-					size={args['size'])}
+					size={args['size']}
 					defaultValue={inputData.initialValue + ' four'}
 				/>
 			</div>

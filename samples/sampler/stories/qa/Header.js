@@ -1,17 +1,18 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {text} from '@enact/storybook-utils/addons/controls';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import {Fragment} from 'react';
-
-import {inputData, headerStoryConfig, commonProps} from './common/Header_Common';
+import {commonProps, headerStoryConfig, inputData, makeCustomizedConfig, prop} from './common/Header_Common';
 
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
+const customizedConfig = makeCustomizedConfig();
 
 export default {
 	title: 'Sandstone/Header',
 	component: 'Header'
 };
+
 
 // The Fragment (or any node, really; could be a <div> instead) is actually needed by
 // Storybook to properly apply changes from the knobs to the stories' children that occupy
@@ -22,24 +23,36 @@ export const JustTitle = (args) => {
 		<Fragment>
 			<Header
 				title={args['title']}
-				{...commonProps()}
+				{...commonProps(args)}
 			/>
 		</Fragment>
 	);
 };
 
 text('title', JustTitle, Config, inputData.shortTitle);
+select('type', JustTitle, prop.type, customizedConfig);
+boolean('centered', JustTitle, customizedConfig);
+boolean('backButtonAvailable', JustTitle, customizedConfig);
+select('backButtonBackgroundOpacity', JustTitle, prop.backgroundOpacity, customizedConfig);
+select('closeButtonBackgroundOpacity', JustTitle, prop.backgroundOpacity, customizedConfig);
+boolean('noBackButton', JustTitle, customizedConfig);
+boolean('noCloseButton', JustTitle, customizedConfig);
+select('marqueeOn', JustTitle, prop.marqueeOn, customizedConfig);
+select('slotAbove', JustTitle, prop.aboveSelection, customizedConfig);
+select('slotBefore', JustTitle, prop.buttonsSelection, customizedConfig);
+select('slotAfter', JustTitle, prop.buttonsSelection, customizedConfig);
+select('children', JustTitle, prop.buttonsSelection, customizedConfig);
 
 JustTitle.storyName = 'just title';
 JustTitle.parameters = headerStoryConfig;
 
-export const ShortTitles = () => {
+export const ShortTitles = (args) => {
 	return (
 		<Fragment>
 			<Header
 				title={args['title']}
 				subtitle={args['subtitle']}
-				{...commonProps()}
+				{...commonProps(args)}
 			/>
 		</Fragment>
 	);
@@ -47,6 +60,18 @@ export const ShortTitles = () => {
 
 text('title', ShortTitles, Config, inputData.shortTitle);
 text('subtitle', ShortTitles, Config, inputData.shortSubtitle);
+select('type', ShortTitles, prop.type, customizedConfig);
+boolean('centered', ShortTitles, customizedConfig);
+boolean('backButtonAvailable', ShortTitles, customizedConfig);
+select('backButtonBackgroundOpacity', ShortTitles, prop.backgroundOpacity, customizedConfig);
+select('closeButtonBackgroundOpacity', ShortTitles, prop.backgroundOpacity, customizedConfig);
+boolean('noBackButton', ShortTitles, customizedConfig);
+boolean('noCloseButton', ShortTitles, customizedConfig);
+select('marqueeOn', ShortTitles, prop.marqueeOn, customizedConfig);
+select('slotAbove', ShortTitles, prop.aboveSelection, customizedConfig);
+select('slotBefore', ShortTitles, prop.buttonsSelection, customizedConfig);
+select('slotAfter', ShortTitles, prop.buttonsSelection, customizedConfig);
+select('children', ShortTitles, prop.buttonsSelection, customizedConfig);
 
 ShortTitles.storyName = 'short titles';
 ShortTitles.parameters = headerStoryConfig;
@@ -57,7 +82,7 @@ export const LongTitles = (args) => {
 			<Header
 				title={args['title']}
 				subtitle={args['subtitle']}
-				{...commonProps()}
+				{...commonProps(args)}
 			/>
 		</Fragment>
 	);
@@ -65,6 +90,18 @@ export const LongTitles = (args) => {
 
 text('title', LongTitles, Config, inputData.longTitle);
 text('subtitle', LongTitles, Config, inputData.longSubtitle);
+select('type', LongTitles, prop.type, customizedConfig);
+boolean('centered', LongTitles, customizedConfig);
+boolean('backButtonAvailable', LongTitles, customizedConfig);
+select('backButtonBackgroundOpacity', LongTitles, prop.backgroundOpacity, customizedConfig);
+select('closeButtonBackgroundOpacity', LongTitles, prop.backgroundOpacity, customizedConfig);
+boolean('noBackButton', LongTitles, customizedConfig);
+boolean('noCloseButton', LongTitles, customizedConfig);
+select('marqueeOn', LongTitles, prop.marqueeOn, customizedConfig);
+select('slotAbove', LongTitles, prop.aboveSelection, customizedConfig);
+select('slotBefore', LongTitles, prop.buttonsSelection, customizedConfig);
+select('slotAfter', LongTitles, prop.buttonsSelection, customizedConfig);
+select('children', LongTitles, prop.buttonsSelection, customizedConfig);
 
 LongTitles.storyName = 'long titles';
 LongTitles.parameters = headerStoryConfig;

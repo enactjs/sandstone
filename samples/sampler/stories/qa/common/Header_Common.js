@@ -1,5 +1,4 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Steps from '@enact/sandstone/Steps';
@@ -46,9 +45,9 @@ export const headerStoryConfig = {
 	}
 };
 
-export const commonProps = (customDefaults, args) => {
-	const customizedConfig = Object.assign({}, Config); // Shallow copy this fn into a normal object
-	customizedConfig.defaultProps = Object.assign(
+export const makeCustomizedConfig = (customDefaults) => {
+  const customizedConfig = Object.assign({}, Config); // Shallow copy this fn into a normal object
+  customizedConfig.defaultProps = Object.assign(
 		{}, // Fresh new defaltProps object
 		clone(Config.defaultProps), // Deep copy the defaultProps from our object into a fresh defaultProps object of our shallow copy (preserving all other props as their original references)
 		{
@@ -64,7 +63,12 @@ export const commonProps = (customDefaults, args) => {
 		}, // Story global defaults (things not represented by defaultProps on the real component)
 		customDefaults // Individual story defaults, preferences
 	);
-	return {
+
+  return customizedConfig;
+};
+  
+export const commonProps = (args) => {
+return {
 		type: args['type'],
 		centered: args['centered'],
 		backButtonAvailable: args['backButtonAvailable'],
@@ -79,16 +83,3 @@ export const commonProps = (customDefaults, args) => {
 		children: prop.buttons[args['children']]
 	};
 };
-
-select('type', commonProps, prop.type, customizedConfig);
-boolean('centered', commonProps, customizedConfig);
-boolean('backButtonAvailable', commonProps, customizedConfig);
-select('backButtonBackgroundOpacity', commonProps, prop.backgroundOpacity, customizedConfig);
-select('closeButtonBackgroundOpacity', commonProps, prop.backgroundOpacity, customizedConfig);
-boolean('noBackButton', commonProps, customizedConfig);
-boolean('noCloseButton', commonProps, customizedConfig);
-select('marqueeOn', commonProps, prop.marqueeOn, customizedConfig);
-select('slotAbove', commonProps, prop.aboveSelection, customizedConfig);
-select('slotBefore', commonProps, prop.buttonsSelection, customizedConfig);
-select('slotAfter', commonProps, prop.buttonsSelection, customizedConfig);
-select('children', commonProps, prop.buttonsSelection, customizedConfig);
