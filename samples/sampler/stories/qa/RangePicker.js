@@ -7,7 +7,7 @@ import css from './Picker.module.less';
 
 const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicker);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	orientation: ['horizontal', 'vertical'],
 	width: [null, 'small', 'medium', 'large', 1, 2, 3, 4, 5, 6]

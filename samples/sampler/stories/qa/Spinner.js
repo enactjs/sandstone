@@ -8,7 +8,7 @@ import {Component} from 'react';
 
 Spinner.displayName = 'Spinner';
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	longText: 'SpinnerWithLongText SpinnerWithLongText SpinnerWithLongText'
 };

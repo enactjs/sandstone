@@ -222,7 +222,7 @@ class PopupFocusTest extends Component {
 					return to the button used to originally open the popup. Verify this behavior for each of
 					the buttons.
 				</p>
-				<p>Use the knobs to verify 5-way behavior under different Popup configurations.</p>
+				<p>Use the controls to verify 5-way behavior under different Popup configurations.</p>
 				<Button onClick={this.handleOpenPopup}>Open Popup</Button>
 				<Button onClick={this.handleOpenPopup}>Open Popup</Button>
 				<Popup
@@ -497,7 +497,7 @@ NavigatingIntoOverflowContainers.parameters = {
 export const KitchenSink = (args) => (
 	<Column>
 		<Cell component="p" shrink>
-			Use the knobs to test the available behaviors for the spottable components below.
+			Use the controls to test the available behaviors for the spottable components below.
 		</Cell>
 		<Cell
 			component={Container}

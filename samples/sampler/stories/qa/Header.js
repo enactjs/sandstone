@@ -15,9 +15,9 @@ export default {
 
 
 // The Fragment (or any node, really; could be a <div> instead) is actually needed by
-// Storybook to properly apply changes from the knobs to the stories' children that occupy
+// Storybook to properly apply changes from the controls to the stories' children that occupy
 // the outermost node. This is most visible when the `noHeader` prop is given and several
-// (not all) of the knobs fail to apply.
+// (not all) of the controls fail to apply.
 export const JustTitle = (args) => {
 	return (
 		<Fragment>

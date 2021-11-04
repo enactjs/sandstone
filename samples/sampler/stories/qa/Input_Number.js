@@ -44,6 +44,6 @@ select('buttons', Basic, propOptions.buttons, Config);
 Basic.storyName = 'basic';
 Basic.parameters = {
 	info: {
-		text: 'Input with all knobs available.'
+		text: 'Input with all controls available.'
 	}
 };
