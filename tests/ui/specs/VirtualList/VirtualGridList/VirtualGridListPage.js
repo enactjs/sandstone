@@ -48,6 +48,9 @@ class VirtualGridListPage extends Page {
 	get buttonSpotlightDisabled () {
 		return element('#spotlightDisabled', browser);
 	}
+	get buttonAddItem () {
+		return element('#plus', browser);
+	}
 
 	get inputNumItems () {
 		return element('#numItems', browser);

@@ -56,6 +56,7 @@ export const _VirtualList = () => {
 			className={css.verticalPadding}
 			dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
 			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
+			hoverToScroll={boolean('hoverToScroll', VirtualListConfig)}
 			itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 156)))}
 			itemSize={ri.scale(number('itemSize', VirtualListConfig, 156))}
 			key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
