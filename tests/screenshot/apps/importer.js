@@ -41,7 +41,7 @@ import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
 import TooltipDecorator, {Tooltip} from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
-import VirtualList from '../../../VirtualList';
+import VirtualList, {VirtualGridList} from '../../../VirtualList';
 import WizardPanels from '../../../WizardPanels';
 
 const components = {
@@ -92,6 +92,7 @@ const components = {
 	TooltipDecorator,
 	VideoPlayer,
 	VirtualList,
+	VirtualGridList,
 	WizardPanels
 };
 

@@ -367,7 +367,7 @@ const TimePickerBase = kind({
 										width={4}
 										wrap
 									/>
-									<span className={css.timeSeparator}>:</span>
+									<span className={css.timeSeparator} disabled={disabled}>:</span>
 								</Fragment>
 							);
 						case 'm':

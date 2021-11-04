@@ -1,77 +1,87 @@
-import {shallow} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
 
 import {ProgressButtonBase} from '../ProgressButton';
 
 describe('ProgressButton Specs', () => {
 	test('should show text', () => {
-		const expected = 'Progress Button';
-		const progressButton = shallow(
+		render(
 			<ProgressButtonBase>
 				Progress Button
 			</ProgressButtonBase>
 		);
-		const actual = progressButton.prop('children');
+
+		const expected = 'Progress Button';
+		const actual = screen.getByRole('button').textContent;
+
 		expect(actual).toBe(expected);
 	});
 
 	test('should have a root className `progressButton`', () => {
-		const expected = 'progressButton';
-		const progressButton = shallow(
+		render(
 			<ProgressButtonBase>
 				Progress Button
 			</ProgressButtonBase>
 		);
-		const actual = progressButton.prop('className');
-		expect(actual).toBe(expected);
+		const button = screen.getByRole('button');
+
+		const expected = 'progressButton';
+
+		expect(button).toHaveClass(expected);
 	});
 
 	test('should show radial progress', () => {
-		const expected = 'radial';
-		const progressButton = shallow(
+		render(
 			<ProgressButtonBase showProgress>
 				Progress Button
 			</ProgressButtonBase>
 		);
+		const progressBar = screen.getByRole('progressbar');
 
-		const actual = progressButton.find('.progressContainer').childAt(0).prop('orientation');
-		expect(actual).toBe(expected);
+		const expected = 'radial';
+
+		expect(progressBar).toHaveClass(expected);
 	});
 
 	test('should show 0.5 progress', () => {
-		const expected = 0.5;
-		const progressButton = shallow(
+		render(
 			<ProgressButtonBase showProgress progress={0.5}>
 				Progress Button
 			</ProgressButtonBase>
 		);
+		const progressBar = screen.getByRole('progressbar');
 
-		const actual = progressButton.find('.progressContainer').childAt(0).prop('progress');
-		expect(actual).toBe(expected);
+		const expectedValue = '0.5';
+
+		expect(progressBar).toHaveStyle({'--ui-progressbar-proportion-end': expectedValue});
 	});
 
 	test('should show default icon `stop`', () => {
-		const expected = 'stop';
-
-		const progressButton = shallow(
+		render(
 			<ProgressButtonBase showProgress progress={0.5}>
 				Progress Button
 			</ProgressButtonBase>
 		);
 
-		const actual = progressButton.find('.icon').prop('children');
-		expect(actual).toBe(expected);
+		// decimal converted charCode of Unicode 'stop' character
+		const expectedCode = 983004;
+		const actualCode = screen.getByRole('button').textContent.codePointAt();
+
+		expect(actualCode).toBe(expectedCode);
 	});
 
 	test('should support a custom icon', () => {
-		const expected = 'play';
-
-		const progressButton = shallow(
-			<ProgressButtonBase showProgress progress={0.5} icon={expected}>
+		const customIcon = 'star';
+		render(
+			<ProgressButtonBase showProgress progress={0.5} icon={customIcon}>
 				Progress Button
 			</ProgressButtonBase>
 		);
 
-		const actual = progressButton.find('.icon').prop('children');
-		expect(actual).toBe(expected);
+		// decimal converted charCode of Unicode 'star' character
+		const expectedCode = 983080;
+		const actualCode = screen.getByRole('button').textContent.codePointAt();
+
+		expect(actualCode).toBe(expectedCode);
 	});
 });

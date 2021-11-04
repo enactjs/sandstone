@@ -1,43 +1,58 @@
-import {shallow} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import {SwitchBase} from '../Switch';
-import css from '../Switch.module.less';
+import Switch, {SwitchBase} from '../Switch';
 
 describe('Switch Specs', () => {
+	test('should not have `selected` className', () => {
+		render(<SwitchBase />);
 
-	test('should have selected', () => {
+		const unexpected = 'selected';
+		const actual = screen.getByRole('button');
 
-		const switchIcon = shallow(
-			<SwitchBase selected />
-		);
-
-		const expected = css.selected;
-		const actual = switchIcon.prop('className');
-
-		expect(actual).toContain(expected);
+		expect(actual).not.toHaveClass(unexpected);
 	});
 
-	test('should have animated', () => {
+	test('should have `selected` className', () => {
+		render(<SwitchBase selected />);
 
-		const switchIcon = shallow(
-			<SwitchBase />
-		);
+		const expected = 'selected';
+		const actual = screen.getByRole('button');
 
-		const expected = css.animated;
-		const actual = switchIcon.prop('className');
-
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have not animated', () => {
+	test('should have `animated` className', () => {
+		render(<SwitchBase />);
 
-		const switchIcon = shallow(
-			<SwitchBase noAnimation />
-		);
+		const expected = 'animated';
+		const actual = screen.getByRole('button');
 
-		const expected = css.animated;
-		const actual = switchIcon.prop('className');
+		expect(actual).toHaveClass(expected);
+	});
 
-		expect(actual).not.toContain(expected);
+	test('should not have `animated` className when `noAnimation`', () => {
+		render(<SwitchBase noAnimation />);
+
+		const unexpected = 'animated';
+		const actual = screen.getByRole('button');
+
+		expect(actual).not.toHaveClass(unexpected);
+	});
+
+	test('toggle Switch', () => {
+		const handleToggle = jest.fn();
+		render(<Switch onToggle={handleToggle} />);
+
+		const actual = screen.getByRole('button');
+
+		userEvent.click(actual);
+
+		const expectedClass = 'selected';
+		expect(actual).toHaveClass(expectedClass);
+
+		const expectedTimes = 1;
+		expect(handleToggle).toBeCalledTimes(expectedTimes);
 	});
 });
