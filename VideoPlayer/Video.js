@@ -69,18 +69,6 @@ const VideoBase = class extends Component {
 		mediaComponent: EnactPropTypes.renderableOverride,
 
 		/**
-		 * A Boolean attribute indicating that the video is to be played "inline",
-		 * that is within the element's playback area.
-		 *
-		 * Note that the absence of this attribute does not imply that the video will always be played in fullscreen.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 * @default true
-		 */
-		playsInline: PropTypes.bool,
-
-		/**
 		 * The video source to be preloaded. Expects a `<source>` node.
 		 *
 		 * @type {Node}

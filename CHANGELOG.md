@@ -6,8 +6,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Video` prop `playsInline` to control whether video is played inline
-- 
+- `sandstone/Video` attribute `playsInline` to allow playing videos on iOS devices without requiring fullscreen mode
+
 ## [2.0.4] - 2021-11-01
 
 ### Added
