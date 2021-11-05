@@ -15,6 +15,7 @@ import DateFactory from 'ilib/lib/DateFactory';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 
+import {themeInfo} from '../../ThemeDecorator';
 /*
  * Converts a JavaScript Date to unix time
  *
@@ -253,13 +254,16 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			const rest = Object.assign({}, this.props);
 			delete rest.onComplete;
 
+			const cssOverrideJoined = themeInfo.customizationNode && getComputedStyle(themeInfo.customizationNode).getPropertyValue('--sand-datetimepicker-no-join').trim() !== 'true';
+
 			return (
 				<Wrapped
 					{...rest}
 					{...props}
 					{...this.handlers}
+					joined={cssOverrideJoined}
 					label={label}
-					onKeyDown={this.handleKeyDown}
+					onKeyDown={cssOverrideJoined ? null : this.handleKeyDown}
 					order={order}
 					value={value}
 				/>

@@ -26,6 +26,17 @@ import screenTypes from './screenTypes.json';
 import css from './ThemeDecorator.module.less';
 import {configure} from '@enact/ui/Touchable';
 
+const customizationNodeClass = 'sandstone-theme';
+
+const themeInfo = {rootNode: null, customizationNode: null};
+function setCustomizationNode (rootId) {
+	const rootNode = document.getElementById(rootId);
+	if (rootNode) {
+		themeInfo.rootNode = rootNode;
+		themeInfo.customizationNode = rootNode.getElementsByClassName(customizationNodeClass)[0];
+	}
+}
+
 /**
  * Default config for `ThemeDecorator`.
  *
@@ -271,6 +282,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					}
 				});
 			}
+			setCustomizationNode(rootId);
 		}
 
 		componentWillUnmount () {
@@ -282,7 +294,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		render () {
 			const {skin: skinProp, ...rest} = this.props;
 			const skinName = skinProp || 'neutral';
-			const className = classNames(css.root, this.props.className, 'sandstone-theme', 'enact-unselectable', {
+			const className = classNames(css.root, this.props.className, customizationNodeClass, 'enact-unselectable', {
 				[bgClassName]: !float,
 				'enact-fit': !disableFullscreen
 			});
@@ -297,4 +309,4 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 export default ThemeDecorator;
-export {ThemeDecorator, getLastInputType};
+export {ThemeDecorator, getLastInputType, themeInfo};

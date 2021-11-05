@@ -120,6 +120,18 @@ const DatePickerBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
+		 * Allows the user can use the arrow keys to adjust the picker's value.
+		 *
+		 * The user may no longer use those arrow keys to navigate while this control is focused.
+		 * A default control allows full navigation, but requires individual ENTER presses on the
+		 * incrementer and decrementer buttons. Pointer interaction is the same for both formats.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		joined: PropTypes.bool,
+
+		/**
 		 * The primary text of the `DatePicker`.
 		 *
 		 * @type {String}
@@ -262,6 +274,7 @@ const DatePickerBase = kind({
 		disabled,
 		day,
 		dayAriaLabel,
+		joined,
 		maxDays,
 		maxMonths,
 		maxYear,
@@ -311,6 +324,7 @@ const DatePickerBase = kind({
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={dayAccessibilityHint}
 									disabled={disabled}
+									joined={joined}
 									key="day-picker"
 									max={maxDays}
 									min={1}
@@ -335,6 +349,7 @@ const DatePickerBase = kind({
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={monthAccessibilityHint}
 									disabled={disabled}
+									joined={joined}
 									key="month-picker"
 									max={maxMonths}
 									min={1}
@@ -359,6 +374,7 @@ const DatePickerBase = kind({
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={yearAccessibilityHint}
 									disabled={disabled}
+									joined={joined}
 									key="year-picker"
 									max={maxYear}
 									min={minYear}
