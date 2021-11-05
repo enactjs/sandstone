@@ -121,7 +121,7 @@ export const TallGlyphSupportInComponents = (args) => {
 							disabled={args['disabled']}
 							focusEffect={args['focusEffect']}
 							icon={args['icon']}
-							minWidth={args['minWidth']}
+							minWidth={args['minWidth'] ? void 0 : false}
 							selected={args['selected']}
 							size={args['size']}
 						>
@@ -220,7 +220,7 @@ select('backgroundOpacity', TallGlyphSupportInComponents, prop.backgroundOpacity
 boolean('disabled', TallGlyphSupportInComponents, Button);
 select('focusEffect', TallGlyphSupportInComponents, prop.focusEffect, Button);
 select('icon', TallGlyphSupportInComponents, prop.icons, Button);
-boolean('minWidth', TallGlyphSupportInComponents, Button, true) ? void 0 : false;
+boolean('minWidth', TallGlyphSupportInComponents, Button, true);
 boolean('selected', TallGlyphSupportInComponents, Button);
 select('size', TallGlyphSupportInComponents, ['small', 'large'], Button);
 boolean('disabled', TallGlyphSupportInComponents, CheckboxItemConfig, false);

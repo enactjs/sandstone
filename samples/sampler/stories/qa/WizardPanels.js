@@ -212,7 +212,7 @@ class WizardPanelsWithChangingChildren extends Component {
 	};
 
 	render () {
-    const args = this.props.args;
+		const args = this.props.args;
 		return (
 			<WizardPanels
 				noAnimation={args['noAnimation']}

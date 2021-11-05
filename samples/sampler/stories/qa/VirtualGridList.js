@@ -416,7 +416,11 @@ class VirtualGridListInScrollerSamples extends Component {
 	}
 }
 
-export const RestoreFocusInScroller = (args) => <VirtualGridListInScrollerSamples args={args}/>;
+VirtualGridListInScrollerSamples.propTypes = {
+	args: PropTypes.object
+};
+
+export const RestoreFocusInScroller = (args) => <VirtualGridListInScrollerSamples args={args} />;
 
 number('dataSize', RestoreFocusInScroller, Config, defaultDataSize);
 number('minWidth', RestoreFocusInScroller, Config, 688);

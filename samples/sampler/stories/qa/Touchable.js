@@ -229,6 +229,6 @@ export const OnTapWhenClicked = (args) => (
 );
 
 boolean('disabled', OnTapWhenClicked, TouchableDiv);
-boolean('noResume', OnTapWhenClicked, TouchableDiv, false); 
+boolean('noResume', OnTapWhenClicked, TouchableDiv, false);
 
 OnTapWhenClicked.storyName = 'onTap when clicked';

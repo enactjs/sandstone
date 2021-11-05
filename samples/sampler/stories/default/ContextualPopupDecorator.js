@@ -26,9 +26,11 @@ export default {
 };
 
 export const _ContextualPopupDecorator = (args) => {
-	const renderPopup = () => (
-		<div>{args['popup string']}</div>
-	);
+	function renderPopup () {
+		return (
+			<div>{args['popup string']}</div>
+		)
+	}
 
 	return (
 		<div style={{textAlign: 'center', marginTop: ri.scaleToRem(198)}}>

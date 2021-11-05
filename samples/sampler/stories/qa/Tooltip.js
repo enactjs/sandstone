@@ -9,6 +9,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 import Layout, {Cell, Row} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 import Section from './components/KitchenSinkSection';
@@ -132,7 +133,7 @@ class ChangeableTooltip extends Component {
 			left: '50%',
 			transform: 'translateX(-50%)'
 		};
-    const args = this.props.args;
+		const args = this.props.args;
 
 		return (
 			<div>
@@ -278,7 +279,11 @@ ThatShowsAfterButtonIsUnmountedEnyo3809.parameters = {
 	}
 };
 
-export const TooltipDecoratorWithChangeableTooltipText = (args) => <ChangeableTooltip args={args}/>;
+ChangeableTooltip.propTypes = {
+	args: PropTypes.object
+};
+
+export const TooltipDecoratorWithChangeableTooltipText = (args) => <ChangeableTooltip args={args} />;
 
 select('tooltipPosition', TooltipDecoratorWithChangeableTooltipText, prop.tooltipPosition, Config, 'above');
 

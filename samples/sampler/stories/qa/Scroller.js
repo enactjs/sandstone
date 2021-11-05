@@ -77,7 +77,7 @@ class ScrollerWithLongItem extends Component {
 			<Scroller
 				focusableScrollbar={
 					prop.focusableScrollbarOption[
-						args['focusableScrollbar']						
+						args['focusableScrollbar']
 					]
 				}
 				key={args['scrollMode']}
@@ -379,6 +379,10 @@ export const WithTwoUiScroller = (args) => (
 select('scrollMode', WithTwoUiScroller, prop.scrollModeOption, Config);
 
 WithTwoUiScroller.storyName = 'With Two ui:Scroller';
+
+ScrollerWithLargeContainer.propTypes = {
+	args: PropTypes.object
+};
 
 export const WithLargeContainer = (args) => <ScrollerWithLargeContainer args={args} />;
 
