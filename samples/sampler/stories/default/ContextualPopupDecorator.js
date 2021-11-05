@@ -29,7 +29,7 @@ export const _ContextualPopupDecorator = (args) => {
 	function renderPopup () {
 		return (
 			<div>{args['popup string']}</div>
-		)
+		);
 	}
 
 	return (
