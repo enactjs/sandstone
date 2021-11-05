@@ -100,33 +100,33 @@ export const With5WaySelectableActivator = (args) => (
 );
 
 select(
-				'direction',
-        With5WaySelectableActivator,
-				[
-					'above',
-					'above center',
-					'above left',
-					'above right',
-					'below',
-					'below center',
-					'below left',
-					'below right',
-					'left middle',
-					'left top',
-					'left bottom',
-					'right middle',
-					'right top',
-					'right bottom'
-				],
-				Config,
-				'below'
+	'direction',
+	With5WaySelectableActivator,
+	[
+		'above',
+		'above center',
+		'above left',
+		'above right',
+		'below',
+		'below center',
+		'below left',
+		'below right',
+		'left middle',
+		'left top',
+		'left bottom',
+		'right middle',
+		'right top',
+		'right bottom'
+	],
+	Config,
+	'below'
 );
 select(
-				'spotlightRestrict',
-        With5WaySelectableActivator,
-				['none', 'self-first', 'self-only'],
-				Config,
-				'self-only'
+	'spotlightRestrict',
+	With5WaySelectableActivator,
+	['none', 'self-first', 'self-only'],
+	Config,
+	'self-only'
 );
 
 With5WaySelectableActivator.storyName = 'with 5-way selectable activator';
@@ -228,33 +228,33 @@ export const WithSliderTooltip = (args) => (
 );
 
 select(
-				'direction',
-        WithSliderTooltip,
-				[
-					'above',
-					'above center',
-					'above left',
-					'above right',
-					'below',
-					'below center',
-					'below left',
-					'below right',
-					'left middle',
-					'left top',
-					'left bottom',
-					'right middle',
-					'right top',
-					'right bottom'
-				],
-				Config,
-				'below center'
+	'direction',
+	WithSliderTooltip,
+	[
+		'above',
+		'above center',
+		'above left',
+		'above right',
+		'below',
+		'below center',
+		'below left',
+		'below right',
+		'left middle',
+		'left top',
+		'left bottom',
+		'right middle',
+		'right top',
+		'right bottom'
+	],
+	Config,
+	'below center'
 );
 select(
-				'spotlightRestrict',
-        WithSliderTooltip,
-				['none', 'self-first', 'self-only'],
-				Config,
-				'self-only'
+	'spotlightRestrict',
+	WithSliderTooltip,
+	['none', 'self-first', 'self-only'],
+	Config,
+	'self-only'
 );
 
 WithSliderTooltip.storyName = 'with Slider Tooltip';

@@ -7,6 +7,7 @@ import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
 import WizardPanels, {Panel, WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+import PropTypes from 'prop-types';
 import {Component, PureComponent} from 'react';
 
 WizardPanels.displayName = 'WizardPanels';
@@ -79,7 +80,7 @@ WithFooterButtons.parameters = {
 	props: {
 		noPanel: true
 	},
-  controls: {
+	controls: {
 		hideNoControlsWarning: true
 	}
 };
@@ -102,7 +103,7 @@ export const LongPrevNextButtons = (args) => (
 			subtitle="A subtitle for View 1"
 			title="WizardPanel View 1"
 			prevButton={
-			  args['custom first Panel prevButton'] ? (
+				args['custom first Panel prevButton'] ? (
 					<Button icon="closex" aria-label="exit">
 						Exit
 					</Button>
@@ -229,7 +230,11 @@ class WizardPanelsWithChangingChildren extends Component {
 	}
 }
 
-export const WithChangingChildren = (args) => <WizardPanelsWithChangingChildren args={args}/>;
+WizardPanelsWithChangingChildren.propTypes = {
+	args: PropTypes.object
+};
+
+export const WithChangingChildren = (args) => <WizardPanelsWithChangingChildren args={args} />;
 
 boolean('noAnimation', WithChangingChildren, Config);
 

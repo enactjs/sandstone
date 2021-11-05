@@ -2,15 +2,16 @@ import Button from '@enact/sandstone/Button';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
 import {select} from '@enact/storybook-utils/addons/controls';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 const videoPlayerOption =  [
-  '',
-  'Next Proload Video',
-  'Non Preload Video',
-  'Next Preload Video without changing preload',
-  'Change Preload without changing video',
-  'Reset Sources'
+	'',
+	'Next Proload Video',
+	'Non Preload Video',
+	'Next Preload Video without changing preload',
+	'Change Preload without changing video',
+	'Reset Sources'
 ];
 
 const videoTabLabel = 'VideoPlayer';
@@ -31,24 +32,24 @@ class VideoSourceSwap extends Component {
 		};
 		this.lastIndex = this.state.playlist.length - 1;
 	}
-  
-  componentDidUpdate (prevProps) {
-    const args = this.props.args;
-    const videoPlayerOption = args['videoPlayerOption'];
-    
-	if (videoPlayerOption !== prevProps.args.videoPlayerOption) {
-      if (videoPlayerOption == 'Next Proload Video') {
-        this.nextVideo();
-      } else if (videoPlayerOption == 'Non Preload Video') {
-        this.differentVideo();
-      } else if (videoPlayerOption == 'Next Preload Video without changing preload') {
-        this.nextPreloadVideoKeepVideo();
-      } else if (videoPlayerOption == 'Change Preload without changing video') {
-        this.nextPreloadVideoKeepVideo();
-      } else if (videoPlayerOption == 'Reset Sources') {
-        this.resetSources();
-      }
-    }
+
+	componentDidUpdate (prevProps) {
+		const args = this.props.args;
+		const Option = args['videoPlayerOption'];
+
+		if (Option !== prevProps.args.videoPlayerOption) {
+			if (Option === 'Next Proload Video') {
+				this.nextVideo();
+			} else if (Option === 'Non Preload Video') {
+				this.differentVideo();
+			} else if (Option === 'Next Preload Video without changing preload') {
+				this.nextPreloadVideoKeepVideo();
+			} else if (Option === 'Change Preload without changing video') {
+				this.nextPreloadVideoKeepVideo();
+			} else if (Option === 'Reset Sources') {
+				this.resetSources();
+			}
+		}
 	}
 
 	nextVideo = () => {
@@ -85,7 +86,7 @@ class VideoSourceSwap extends Component {
 	};
 
 	render () {
-    
+
 		return (
 			<div>
 
@@ -113,7 +114,11 @@ export default {
 	component: 'VideoPlayer'
 };
 
-export const PreloadVideos = (args) => <VideoSourceSwap args={args}/>;
+VideoSourceSwap.propTypes = {
+	args: PropTypes.object
+};
+
+export const PreloadVideos = (args) => <VideoSourceSwap args={args} />;
 
 select('videoPlayerOption', PreloadVideos, videoPlayerOption, videoTabLabel, '');
 

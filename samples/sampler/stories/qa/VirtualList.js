@@ -453,7 +453,7 @@ number('dataSize', WithExtraItems, Config, 10);
 select('horizontalScrollbar', WithExtraItems, prop.scrollbarOption, Config);
 number('size', WithExtraItems, Config, 156);
 number('itemSize', WithExtraItems, Config, 156);
-select('scrollMode', WithExtraItems, prop.scrollModeOption, Config)
+select('scrollMode', WithExtraItems, prop.scrollModeOption, Config);
 boolean('noScrollByWheel', WithExtraItems, Config);
 number('spacing', WithExtraItems, Config, 0);
 boolean('spotlightDisabled(for all items)', WithExtraItems, Config, false);

@@ -91,7 +91,7 @@ LongTitles.parameters = {
 	info: {
 		text: 'Test the input popup\'s maximum bounds.'
 	},
-  controls: {
+	controls: {
 		hideNoControlsWarning: true
 	}
 };
@@ -109,7 +109,7 @@ NoTitles.parameters = {
 	info: {
 		text: 'No titles, just an input field.'
 	},
-  controls: {
+	controls: {
 		hideNoControlsWarning: true
 	}
 };

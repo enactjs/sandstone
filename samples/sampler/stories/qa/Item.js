@@ -141,7 +141,7 @@ select('iconBefore', SampleForSpotabilityTest, iconNames, Item, 'plus');
 text('Text with iconBefore', SampleForSpotabilityTest, Item, 'Item with text that is spottable with an icon (at the start of the string)');
 text('Text with iconAfter', SampleForSpotabilityTest, Item, 'Item with text that is spottable with an icon(at the end of the string)');
 select('iconAfter', SampleForSpotabilityTest, iconNames, Item, 'arrowhookright');
-   
+
 SampleForSpotabilityTest.storyName = 'sample for spotability test';
 
 export const WithDifferentTextLength = (args) => (

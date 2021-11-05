@@ -46,8 +46,8 @@ export const headerStoryConfig = {
 };
 
 export const makeCustomizedConfig = (customDefaults) => {
-  const customizedConfig = Object.assign({}, Config); // Shallow copy this fn into a normal object
-  customizedConfig.defaultProps = Object.assign(
+	const customizedConfig = Object.assign({}, Config); // Shallow copy this fn into a normal object
+	customizedConfig.defaultProps = Object.assign(
 		{}, // Fresh new defaltProps object
 		clone(Config.defaultProps), // Deep copy the defaultProps from our object into a fresh defaultProps object of our shallow copy (preserving all other props as their original references)
 		{
@@ -64,11 +64,11 @@ export const makeCustomizedConfig = (customDefaults) => {
 		customDefaults // Individual story defaults, preferences
 	);
 
-  return customizedConfig;
+	return customizedConfig;
 };
-  
+
 export const commonProps = (args) => {
-return {
+	return {
 		type: args['type'],
 		centered: args['centered'],
 		backButtonAvailable: args['backButtonAvailable'],

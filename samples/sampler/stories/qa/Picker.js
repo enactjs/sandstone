@@ -156,7 +156,7 @@ WithTallCharacters.storyName = 'with tall characters';
 export const WithADefaultValue = (args) => (
 	<Picker
 		onChange={action('onChange')}
-    width={args['width']}
+		width={args['width']}
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
@@ -184,7 +184,7 @@ WithADefaultValue.storyName = 'with a default value';
 export const WithNoItemsPlat30963 = (args) => (
 	<Picker
 		onChange={action('onChange')}
-    width={args['width']}
+		width={args['width']}
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
@@ -211,7 +211,7 @@ WithNoItemsPlat30963.storyName = 'with no items (PLAT-30963)';
 export const WithOneItem = (args) => (
 	<Picker
 		onChange={action('onChange')}
-    width={args['width']}
+		width={args['width']}
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
@@ -237,7 +237,7 @@ WithOneItem.storyName = 'with one item';
 
 export const WithItemAddRemoveEnyo2448 = (args) => (
 	<PickerAddRemove
-    width={args['width']}
+		width={args['width']}
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
@@ -259,7 +259,7 @@ WithItemAddRemoveEnyo2448.storyName = 'with item add/remove (ENYO-2448)';
 
 export const RtlLayoutPlat28123 = (args) => (
 	<PickerRTL
-    width={args['width']}
+		width={args['width']}
 		wrap={args['wrap']}
 		joined={args['joined']}
 		noAnimation={args['noAnimation']}

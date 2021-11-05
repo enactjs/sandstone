@@ -39,7 +39,7 @@ export const ThatIsFocusedAndDisabled = () => <FormCheckboxItemView />;
 
 ThatIsFocusedAndDisabled.storyName = 'that is focused and disabled';
 ThatIsFocusedAndDisabled.parameters = {
-  controls: {
+	controls: {
 		hideNoControlsWarning: true
 	}
 };

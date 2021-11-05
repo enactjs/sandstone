@@ -192,7 +192,7 @@ export const HorizontalVirtualGridList = (args) => (
 	/>
 );
 
-number('dataSize', HorizontalVirtualGridList, Config, defaultDataSize)
+number('dataSize', HorizontalVirtualGridList, Config, defaultDataSize);
 select('horizontalScrollbar', HorizontalVirtualGridList, prop.scrollbarOption, Config);
 boolean('hoverToScroll', HorizontalVirtualGridList, Config);
 number('minWidth', HorizontalVirtualGridList, Config, 688);
@@ -293,7 +293,7 @@ class SnapToCenterVGL extends Component {
 	};
 
 	render () {
-    const args = this.props.args;
+		const args = this.props.args;
 		return (
 			<VirtualGridList
 				cbScrollTo={this.getScrollTo}
@@ -318,8 +318,12 @@ class SnapToCenterVGL extends Component {
 	}
 }
 
+SnapToCenterVGL.propTypes = {
+	args: PropTypes.object
+};
+
 export const SnapToCenterVirtualGridList = (args) => (
-	<SnapToCenterVGL args={args}/>
+	<SnapToCenterVGL args={args} />
 );
 
 number('dataSize', SnapToCenterVirtualGridList, Config, 10);
@@ -333,7 +337,7 @@ SnapToCenterVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-const VirtualGridListInScroller = ({onNext, args, ...rest}) => {
+const VirtualGridListInScroller = ({args, onNext, ...rest}) => {
 	const virtualGridListProps = {
 		...rest,
 		childProps: {onClick: onNext},
@@ -374,6 +378,7 @@ const VirtualGridListInScroller = ({onNext, args, ...rest}) => {
 };
 
 VirtualGridListInScroller.propTypes = {
+	args: PropTypes.object,
 	onNext: PropTypes.func
 };
 
@@ -401,7 +406,7 @@ class VirtualGridListInScrollerSamples extends Component {
 		return (
 			<Panels index={this.state.index} onBack={this.onBack}>
 				<Panel>
-					<VirtualGridListInScroller onNext={this.onNext} args={this.props.args}/>
+					<VirtualGridListInScroller args={this.props.args} onNext={this.onNext} />
 				</Panel>
 				<Panel>
 					<Header noCloseButton title="Second Panel" type="compact" />

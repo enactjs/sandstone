@@ -413,7 +413,7 @@ WithAddingRemovingATab.parameters = {
 	props: {
 		noPanel: true
 	},
-  controls: {
+	controls: {
 		hideNoControlsWarning: true
 	}
 };

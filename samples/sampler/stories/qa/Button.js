@@ -13,7 +13,7 @@ import Section from './components/KitchenSinkSection';
 
 import css from './Button.module.less';
 
-// Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean control and return `void 0` when `true`.
+// Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean knob and return `void 0` when `true`.
 Button.displayName = 'Button';
 const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBase, Button);
 
@@ -55,7 +55,7 @@ export const WithLongText = (args) => (
 		selected={args['selected']}
 		size={args['size']}
 	>
-	  {args['value']}
+		{args['value']}
 	</Button>
 );
 

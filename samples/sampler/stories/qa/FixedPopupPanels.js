@@ -84,7 +84,7 @@ export default {
 	component: 'FixedPopupPanels'
 };
 
-const WithVirtualListSamplesBase = ({rtl, args}) => {
+const WithVirtualListSamplesBase = ({args, rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -205,6 +205,7 @@ const WithVirtualListSamplesBase = ({rtl, args}) => {
 };
 
 WithVirtualListSamplesBase.propTypes = {
+	args: PropTypes.object,
 	rtl: PropTypes.bool
 };
 
@@ -212,7 +213,7 @@ const WithVirtualListSamples = I18nContextDecorator(
 	{rtlProp: 'rtl'},
 	WithVirtualListSamplesBase
 );
-export const WithVirtualList = (args) => <WithVirtualListSamples args={args}/>;
+export const WithVirtualList = (args) => <WithVirtualListSamples args={args} />;
 
 select('position', WithVirtualList, ['left', 'right'], Config);
 boolean('fullHeight', WithVirtualList, Config);
@@ -293,7 +294,7 @@ WithScroller.parameters = {
 	}
 };
 
-const WithVariousItemsSamplesBase = ({rtl,args}) => {
+const WithVariousItemsSamplesBase = ({args, rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const [popupOpen, setPopupOpenState] = useState(false);
@@ -452,6 +453,7 @@ const WithVariousItemsSamplesBase = ({rtl,args}) => {
 };
 
 WithVariousItemsSamplesBase.propTypes = {
+	args: PropTypes.object,
 	rtl: PropTypes.bool
 };
 
@@ -459,7 +461,7 @@ const WithVariousItemsSamples = I18nContextDecorator(
 	{rtlProp: 'rtl'},
 	WithVariousItemsSamplesBase
 );
-export const WithVariousItems = (args) => <WithVariousItemsSamples args={args}/>;
+export const WithVariousItems = (args) => <WithVariousItemsSamples args={args} />;
 
 select('position', WithVariousItems, ['left', 'right'], Config);
 boolean('fullHeight', WithVariousItems, Config);
