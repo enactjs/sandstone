@@ -32,6 +32,7 @@ const pickerList = {
 const PickerTests = [
 	<Picker>{[]}</Picker>,
 	<Picker>{['Hello', 'Hello']}</Picker>,
+	// Icon is not displayed (since it is invalid value)
 	<Picker decrementIcon incrementIcon>hello</Picker>,
 	<Picker>hello</Picker>,
 	<Picker disabled>hello</Picker>,
