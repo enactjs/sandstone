@@ -22,7 +22,13 @@ const SliderTests = [
 	<Slider backgroundProgress={0.25} value={75} progressAnchor={0.5} />,
 	<Slider backgroundProgress={0.75} value={25} progressAnchor={0.5} />,
 	<Slider backgroundProgress={0.1} value={25} progressAnchor={0.2} />,
-	<Slider value={25} progressAnchor={0.5} tooltip />,
+	{
+		component: <Slider value={25} progressAnchor={0.5} tooltip />,
+		wrapper: {
+			padded: true
+		},
+		focus: true
+	},	
 	<Slider orientation="vertical" />,
 	<Slider orientation="vertical" value={50} />,
 	<Slider orientation="vertical" value={50} showAnchor />,
@@ -38,7 +44,7 @@ const SliderTests = [
 	<Slider orientation="vertical" backgroundProgress={0.25} value={75} progressAnchor={0.5} />,
 	<Slider orientation="vertical" backgroundProgress={0.75} value={25} progressAnchor={0.5} />,
 	<Slider orientation="vertical" backgroundProgress={0.1} value={25} progressAnchor={0.2} />,
-	<Slider orientation="vertical" value={25} progressAnchor={0.5} tooltip />,
+	<Slider orientation="vertical" value={25} progressAnchor={0.5} tooltip focused />,
 
 	// Customized style
 	<Slider css={css} value={50} />,
