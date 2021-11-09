@@ -1,4 +1,5 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
 
 import Scroller from '../Scroller';
 
@@ -22,7 +23,7 @@ describe('Scroller', () => {
 		test(
 			'should render both horizontal and vertical scrollbars when \'horizontalScrollbar\' and \'verticalScrollbar\' are "visible"',
 			() => {
-				const subject = mount(
+				render(
 					<Scroller
 						horizontalScrollbar="visible"
 						verticalScrollbar="visible"
@@ -31,17 +32,18 @@ describe('Scroller', () => {
 					</Scroller>
 				);
 
-				const expected = 2;
-				const actual = subject.find('Scrollbar').length;
+				const verticalScrollbar = screen.getByLabelText('scroll up or down with up down button');
+				const horizontalScrollbar = screen.getByLabelText('scroll left or right with left right button');
 
-				expect(actual).toBe(expected);
+				expect(verticalScrollbar).toBeInTheDocument();
+				expect(horizontalScrollbar).toBeInTheDocument();
 			}
 		);
 
 		test(
 			'should render only vertical scrollbar when \'verticalScrollbar\' is "visible" and \'horizontalScrollbar\' is "hidden"',
 			() => {
-				const subject = mount(
+				render(
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="visible"
@@ -50,17 +52,18 @@ describe('Scroller', () => {
 					</Scroller>
 				);
 
-				const expected = 1;
-				const actual = subject.find('Scrollbar').length;
+				const verticalScrollbar = screen.getByLabelText('scroll up or down with up down button');
+				const horizontalScrollbar = screen.queryByLabelText('scroll left or right with left right button');
 
-				expect(actual).toBe(expected);
+				expect(verticalScrollbar).toBeInTheDocument();
+				expect(horizontalScrollbar).toBeNull();
 			}
 		);
 
 		test(
 			'should not render any scrollbar when when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
 			() => {
-				const subject = mount(
+				render(
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
@@ -69,10 +72,11 @@ describe('Scroller', () => {
 					</Scroller>
 				);
 
-				const expected = 0;
-				const actual = subject.find('Scrollbar').length;
+				const verticalScrollbar = screen.queryByLabelText('scroll up or down with up down button');
+				const horizontalScrollbar = screen.queryByLabelText('scroll left or right with left right button');
 
-				expect(actual).toBe(expected);
+				expect(verticalScrollbar).toBeNull();
+				expect(horizontalScrollbar).toBeNull();
 			}
 		);
 	});
@@ -82,7 +86,7 @@ describe('Scroller', () => {
 			'should set a custom "aria-label" to the scroll thumb in the horizontal scroll bar',
 			() => {
 				const label = 'custom button aria label';
-				const subject = mount(
+				render(
 					<Scroller
 						horizontalScrollbar="visible"
 						horizontalScrollThumbAriaLabel={label}
@@ -92,10 +96,11 @@ describe('Scroller', () => {
 					</Scroller>
 				);
 
-				const expected = label;
-				const actual = subject.find('ScrollbarTrack').at(1).prop('aria-label');
+				const horizontalScrollbarLabel = screen.getByLabelText(label);
+				const horizontalScrollbar = screen.getByLabelText(label).parentElement.parentElement;
 
-				expect(actual).toBe(expected);
+				expect(horizontalScrollbarLabel).toBeInTheDocument();
+				expect(horizontalScrollbar).toHaveClass('horizontal');
 			}
 		);
 
@@ -103,7 +108,7 @@ describe('Scroller', () => {
 			'should set a custom "aria-label" to the scroll thumb in the vertical scroll bar',
 			() => {
 				const label = 'custom button aria label';
-				const subject = mount(
+				render(
 					<Scroller
 						horizontalScrollbar="visible"
 						verticalScrollThumbAriaLabel={label}
@@ -113,10 +118,11 @@ describe('Scroller', () => {
 					</Scroller>
 				);
 
-				const expected = label;
-				const actual = subject.find('ScrollbarTrack').at(0).prop('aria-label');
+				const verticalScrollbarLabel = screen.getByLabelText(label);
+				const verticalScrollbar = screen.getByLabelText(label).parentElement.parentElement;
 
-				expect(actual).toBe(expected);
+				expect(verticalScrollbarLabel).toBeInTheDocument();
+				expect(verticalScrollbar).toHaveClass('vertical');
 			}
 		);
 
@@ -124,7 +130,7 @@ describe('Scroller', () => {
 			'should set a null string "aria-label" to the scroll thumb in the horizontal scroll bar',
 			() => {
 				const label = '';
-				const subject = mount(
+				render(
 					<Scroller
 						horizontalScrollbar="visible"
 						horizontalScrollThumbAriaLabel={label}
@@ -134,10 +140,11 @@ describe('Scroller', () => {
 					</Scroller>
 				);
 
-				const expected = label;
-				const actual = subject.find('ScrollbarTrack').at(1).prop('aria-label');
+				const horizontalScrollbarLabel = screen.getByLabelText(label);
+				const horizontalScrollbar = screen.getByLabelText(label).parentElement.parentElement;
 
-				expect(actual).toBe(expected);
+				expect(horizontalScrollbarLabel).toBeInTheDocument();
+				expect(horizontalScrollbar).toHaveClass('horizontal');
 			}
 		);
 
@@ -145,7 +152,7 @@ describe('Scroller', () => {
 			'should set a null string "aria-label" to the scroll thumb in the vertical scroll bar',
 			() => {
 				const label = '';
-				const subject = mount(
+				render(
 					<Scroller
 						horizontalScrollbar="visible"
 						verticalScrollThumbAriaLabel={label}
@@ -155,10 +162,11 @@ describe('Scroller', () => {
 					</Scroller>
 				);
 
-				const expected = label;
-				const actual = subject.find('ScrollbarTrack').at(0).prop('aria-label');
+				const verticalScrollbarLabel = screen.getByLabelText(label);
+				const verticalScrollbar = screen.getByLabelText(label).parentElement.parentElement;
 
-				expect(actual).toBe(expected);
+				expect(verticalScrollbarLabel).toBeInTheDocument();
+				expect(verticalScrollbar).toHaveClass('vertical');
 			}
 		);
 	});
