@@ -16,7 +16,6 @@ import Group from '@enact/ui/Group';
 import PropTypes from 'prop-types';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
-import {useArgs} from '@storybook/client-api';
 
 import spriteGear2k from '../../images/sprite-gear-2k.png';
 import spriteGear4k from '../../images/sprite-gear-4k.png';
@@ -42,8 +41,7 @@ export default {
 	component: 'PopupTabLayout'
 };
 
-const PopupTabLayoutSamplesBase = ({rtl}) => {
-	const [args] = useArgs();
+const PopupTabLayoutSamplesBase = ({args, rtl}) => {
 
 	const includeIcons = args['include icons'];
 
@@ -191,6 +189,7 @@ const PopupTabLayoutSamplesBase = ({rtl}) => {
 };
 
 PopupTabLayoutSamplesBase.propTypes = {
+	args: PropTypes.object,
 	rtl: PropTypes.bool
 };
 
@@ -198,7 +197,7 @@ const PopupTabLayoutSamples = I18nContextDecorator(
 	{rtlProp: 'rtl'},
 	PopupTabLayoutSamplesBase
 );
-export const _PopupTabLayout = () => <PopupTabLayoutSamples />;
+export const _PopupTabLayout = (args) => <PopupTabLayoutSamples args={args} />;
 
 boolean('include icons', _PopupTabLayout, Config, true);
 boolean('noAnimation', _PopupTabLayout, Config);

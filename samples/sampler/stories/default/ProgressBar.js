@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 import ProgressBar, {ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
 
 const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBar);
@@ -62,11 +62,11 @@ select(
 	ProgressBarTooltipConfig,
 	''
 );
-number(
+range(
 	'backgroundProgress',
 	_ProgressBar,
 	ProgressBarConfig,
-	{range: true, min: 0, max: 1, step: 0.01},
+	{min: 0, max: 1, step: 0.01},
 	0.5
 );
 boolean('highlighted', _ProgressBar, ProgressBarConfig);
@@ -77,18 +77,18 @@ select(
 	ProgressBarConfig,
 	'horizontal'
 );
-number(
+range(
 	'progress',
 	_ProgressBar,
 	ProgressBarConfig,
-	{range: true, min: 0, max: 1, step: 0.01},
+	{min: 0, max: 1, step: 0.01},
 	0.4
 );
-number(
+range(
 	'progressAnchor',
 	_ProgressBar,
 	ProgressBarConfig,
-	{range: true, min: 0, max: 1, step: 0.01},
+	{min: 0, max: 1, step: 0.01},
 	0
 );
 boolean('showAnchor', _ProgressBar, ProgressBarConfig);
