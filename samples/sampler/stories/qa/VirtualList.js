@@ -326,7 +326,7 @@ WithSmallItemMinSizeAndLargeItemSize.parameters = {
 };
 
 export const _InPanels = (args) => {
-	const title = `${args.kind} ${args.story}`.trim();
+	const title = `VirtualList in panels`;
 	return (
 		<InPanels
 			title={title}
