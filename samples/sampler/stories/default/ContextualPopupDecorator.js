@@ -43,12 +43,12 @@ export const _ContextualPopupDecorator = (args) => {
 			>
 				{args['button string']}
 			</ContextualButton>
-			<BodyText centered>Use KNOBS to interact with the ContextualPopup.</BodyText>
+			<BodyText centered>Use CONTROLS to interact with the ContextualPopup.</BodyText>
 		</div>
 	);
 };
 
-text('popup string', _ContextualPopupDecorator, {groupId: 'Popup'}, 'Hello Contextual Popup');
+boolean('open', _ContextualPopupDecorator, Config);
 select(
 	'direction',
 	_ContextualPopupDecorator,
@@ -72,9 +72,9 @@ select(
 );
 boolean('noAutoDismiss', _ContextualPopupDecorator, Config);
 select('offset', _ContextualPopupDecorator, ['none', 'overlap', 'small'], Config);
-boolean('open', _ContextualPopupDecorator, Config);
 select('spotlightRestrict', _ContextualPopupDecorator, ['none', 'self-first', 'self-only'], Config);
 text('button string', _ContextualPopupDecorator, Config, 'Hello Contextual Button');
+text('popup string', _ContextualPopupDecorator, {groupId: 'Popup'}, 'Hello Contextual Popup');
 
 _ContextualPopupDecorator.storyName = 'ContextualPopupDecorator';
 _ContextualPopupDecorator.parameters = {

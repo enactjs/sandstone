@@ -9,7 +9,6 @@ export default {
 };
 
 export const _Marquee = (args) => {
-	// fn to parse the padding value which is invoked later to keep the knob ordered
 	const spacing = () => {
 		const value = args['marqueeSpacing'];
 		if (value && value.indexOf('%') > 0) {
@@ -48,7 +47,6 @@ export const _Marquee = (args) => {
 	);
 };
 
-text('marqueeSpacing', _Marquee, Marquee, '50%');
 boolean('disabled', _Marquee, Marquee);
 select('alignment', _Marquee, [null, 'left', 'right', 'center'], Marquee);
 select('forceDirection', _Marquee, [null, 'rtl', 'ltr'], Marquee);
@@ -56,6 +54,7 @@ number('marqueeDelay', _Marquee, Marquee, 1000);
 boolean('marqueeDisabled', _Marquee, Marquee);
 select('marqueeOn', _Marquee, ['hover', 'render'], Marquee, 'render');
 number('marqueeResetDelay', _Marquee, Marquee, 1000);
+text('marqueeSpacing', _Marquee, Marquee, '50%');
 number('marqueeSpeed', _Marquee, Marquee, 60);
 text(
 	'children',

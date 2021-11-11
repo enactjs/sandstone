@@ -8,7 +8,7 @@ import {Fragment} from 'react';
 Heading.displayName = 'Heading';
 const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	marqueeOn: ['hover', 'render'],
 	size: ['large', 'medium', 'small', 'tiny'],
@@ -42,7 +42,7 @@ export const _Heading = (args) => (
 
 select('marqueeOn', _Heading, prop.marqueeOn, Config);
 boolean('showLine', _Heading, Config);
-select('size', _Heading, prop.size, Config);
+select('size', _Heading, prop.size, Config, 'medium');
 select('spacing', _Heading, prop.spacing, Config);
 text('children', _Heading, Config, 'Heading text');
 

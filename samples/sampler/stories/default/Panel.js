@@ -19,7 +19,7 @@ const TabConfig = mergeComponentMetadata('Tab', Tab);
 VirtualGridList.displayName = 'VirtualGridList';
 const VGLConfig = mergeComponentMetadata('VirtualGridList', VirtualGridList);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const items = [],
 	defaultDataSize = 1000,
 	longContent = 'Lorem ipsum dolor sit amet',
@@ -77,52 +77,50 @@ export default {
 	component: 'Panel'
 };
 
-export const PanelsPanel = (args) => {
-	return (
-		<Panel>
-			<Header
-				title={args['title']}
-				subtitle={args['subtitle']}
+export const PanelsPanel = (args) => (
+	<Panel>
+		<Header
+			title={args['title']}
+			subtitle={args['subtitle']}
+		>
+			{prop.buttons[args['children']]}
+		</Header>
+		<TabLayout
+			onSelect={action('onSelect')}
+			// leaving this control out for now until we build out horizontal tabs
+			// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
+		>
+			<Tab
+				icon={args['First View icon']}
+				title={args['First View title']}
 			>
-				{prop.buttons[args['children']]}
-			</Header>
-			<TabLayout
-				onSelect={action('onSelect')}
-				// leaving this knob out for now until we build out horizontal tabs
-				// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
+				<VirtualGridList
+					dataSize={updateDataSize(args['dataSize'])}
+					direction={args['direction']}
+					itemRenderer={renderItem}
+					itemSize={{
+						minWidth: scale(args['minWidth']),
+						minHeight: scale(args['minHeight'])
+					}}
+				/>
+			</Tab>
+			<Tab
+				icon={args['Second View icon']}
+				title={args['Second View title']}
 			>
-				<Tab
-					icon={args['First View icon']}
-					title={args['First View title']}
-				>
-					<VirtualGridList
-						dataSize={updateDataSize(args['dataSize'])}
-						direction={args['direction']}
-						itemRenderer={renderItem}
-						itemSize={{
-							minWidth: scale(args['minWidth']),
-							minHeight: scale(args['minHeight'])
-						}}
-					/>
-				</Tab>
-				<Tab
-					icon={args['Second View icon']}
-					title={args['Second View title']}
-				>
-					<VirtualGridList
-						dataSize={updateDataSize(args['dataSize'])}
-						direction={args['direction']}
-						itemRenderer={renderItem}
-						itemSize={{
-							minWidth: scale(args['minWidth']),
-							minHeight: scale(args['minHeight'])
-						}}
-					/>
-				</Tab>
-			</TabLayout>
-		</Panel>
-	);
-};
+				<VirtualGridList
+					dataSize={updateDataSize(args['dataSize'])}
+					direction={args['direction']}
+					itemRenderer={renderItem}
+					itemSize={{
+						minWidth: scale(args['minWidth']),
+						minHeight: scale(args['minHeight'])
+					}}
+				/>
+			</Tab>
+		</TabLayout>
+	</Panel>
+);
 
 text('title', PanelsPanel, HeaderConfig, 'The Matrix');
 text(
@@ -131,7 +129,7 @@ text(
 	HeaderConfig,
 	'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.'
 );
-select('children', PanelsPanel, prop.buttonsSelection, HeaderConfig);
+select('children', PanelsPanel, prop.buttonsSelection, HeaderConfig, 'no buttons');
 select('First View icon', PanelsPanel, iconNames, TabConfig, 'circle');
 text('First View title', PanelsPanel, TabConfig, 'List one');
 number('dataSize', PanelsPanel, VGLConfig, defaultDataSize);

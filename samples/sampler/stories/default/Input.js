@@ -4,8 +4,9 @@ import {boolean, range, select, text} from '@enact/storybook-utils/addons/contro
 import Input, {InputBase, InputPopup, InputPopupBase} from '@enact/sandstone/Input';
 
 Input.displayName = 'Input';
-const Config = mergeComponentMetadata('Input', InputBase, Input);
+const Config = mergeComponentMetadata('Input', InputPopupBase, InputBase, Input);
 const ConfigPopup = mergeComponentMetadata('InputPopup', InputPopupBase, InputPopup);
+const ConfigNumberPopup = mergeComponentMetadata('InputNumberTypePopup', InputPopupBase, InputPopup);
 
 const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
@@ -75,23 +76,23 @@ export const _Input = (args) => {
 
 select('type', _Input, prop.type, ConfigPopup);
 select('popupType', _Input, prop.popupType, ConfigPopup);
-select('size', _Input, prop.size, Config);
 boolean('invalid', _Input, ConfigPopup);
 text('invalidMessage', _Input, ConfigPopup, 'This is a bad value');
-text('placeholder', _Input, Config, 'placeholder string');
 text('subtitle', _Input, ConfigPopup, 'Title Below Text');
 text('title', _Input, ConfigPopup, 'Title Text');
-boolean('disabled', _Input, Config);
 text('aria-label', _Input, ConfigPopup, '');
 text('popupAriaLabel', _Input, ConfigPopup, '');
 boolean('noBackButton', _Input, ConfigPopup);
 boolean('noSubmitButton', _Input, ConfigPopup);
 select('backButtonAriaLabel', _Input, prop.backButtonAriaLabel, ConfigPopup);
-select('numberInputField', _Input, prop.numericKind, ConfigPopup);
-boolean('customize min/max', _Input, ConfigPopup, false);
-range('maxLength', _Input, ConfigPopup, {min: 0, max: 20}, 4);
-range('minLength', _Input, ConfigPopup, {min: 0, max: 20}, 0);
-range('length', _Input, ConfigPopup, {min: 1, max: 20}, 4);
+select('numberInputField', _Input, prop.numericKind, ConfigNumberPopup);
+boolean('customize min/max', _Input, ConfigNumberPopup, false);
+range('maxLength', _Input, ConfigNumberPopup, {min: 0, max: 20}, 4);
+range('minLength', _Input, ConfigNumberPopup, {min: 0, max: 20}, 0);
+range('length', _Input, ConfigNumberPopup, {min: 1, max: 20}, 4);
+select('size', _Input, prop.size, Config);
+text('placeholder', _Input, Config, 'placeholder string');
+boolean('disabled', _Input, Config);
 
 _Input.storyName = 'Input';
 _Input.parameters = {

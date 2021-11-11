@@ -12,28 +12,19 @@ export default {
 	component: 'ProgressBar'
 };
 
-export const _ProgressBar = (args) => {
-	// added here to force Storybook to put the ProgressBar tab first
-	const disabled = args['disabled'];
-
-	// tooltip is first so it appears at the top of the tab. the rest are alphabetical
-	const tooltip = args['tooltip'];
-	const position = args['position'];
-
-	return (
-		<ProgressBar
-			backgroundProgress={args['backgroundProgress']}
-			disabled={disabled}
-			highlighted={args['highlighted']}
-			orientation={args['orientation']}
-			progress={args['progress']}
-			progressAnchor={args['progressAnchor']}
-			showAnchor={args['showAnchor']}
-		>
-			{tooltip ? <ProgressBarTooltip position={position} /> : null}
-		</ProgressBar>
-	);
-};
+export const _ProgressBar = (args) => (
+	<ProgressBar
+		backgroundProgress={args['backgroundProgress']}
+		disabled={args['disabled']}
+		highlighted={args['highlighted']}
+		orientation={args['orientation']}
+		progress={args['progress']}
+		progressAnchor={args['progressAnchor']}
+		showAnchor={args['showAnchor']}
+	>
+		{args['tooltip'] ? <ProgressBarTooltip position={args['position']} /> : null}
+	</ProgressBar>
+);
 
 boolean('disabled', _ProgressBar, ProgressBarConfig);
 boolean('tooltip', _ProgressBar, ProgressBarTooltipConfig);

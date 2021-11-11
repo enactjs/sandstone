@@ -13,38 +13,28 @@ export default {
 	component: 'Slider'
 };
 
-export const _Slider = (args) => {
-	// added here to force Storybook to put the Slider tab first
-	const disabled = args['disabled'];
-
-	// tooltip is first so it appears at the top of the tab. the rest are alphabetical
-	const tooltip = args['tooltip'];
-	const percent = args['percent'];
-	const position = args['position'];
-
-	return (
-		<Slider
-			activateOnSelect={args['activateOnSelect'] || false}
-			backgroundProgress={args['backgroundProgress']}
-			disabled={disabled}
-			keyFrequency={args['keyFrequency']}
-			knobStep={args['knobStep']}
-			max={args['max']}
-			min={args['min']}
-			noFill={args['noFill']}
-			onActivate={action('onActivate')}
-			onChange={action('onChange')}
-			onWheel={action('onWheel')}
-			orientation={args['orientation']}
-			progressAnchor={args['progressAnchor']}
-			showAnchor={args['showAnchor']}
-			step={args['step']}
-			wheelInterval={args['wheelInterval']}
-		>
-			{tooltip ? <SliderTooltip percent={percent} position={position} /> : null}
-		</Slider>
-	);
-};
+export const _Slider = (args) => (
+	<Slider
+		activateOnSelect={args['activateOnSelect'] || false}
+		backgroundProgress={args['backgroundProgress']}
+		disabled={args['disabled']}
+		keyFrequency={args['keyFrequency']}
+		knobStep={args['knobStep']}
+		max={args['max']}
+		min={args['min']}
+		noFill={args['noFill']}
+		onActivate={action('onActivate')}
+		onChange={action('onChange')}
+		onWheel={action('onWheel')}
+		orientation={args['orientation']}
+		progressAnchor={args['progressAnchor']}
+		showAnchor={args['showAnchor']}
+		step={args['step']}
+		wheelInterval={args['wheelInterval']}
+	>
+		{args['tooltip'] ? <SliderTooltip percent={args['percent']} position={args['position']} /> : null}
+	</Slider>
+);
 
 boolean('disabled', _Slider, SliderConfig);
 boolean('tooltip', _Slider, SliderTooltipConfig);

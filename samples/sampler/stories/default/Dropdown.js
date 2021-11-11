@@ -27,8 +27,8 @@ export const _Dropdown = (args) => {
 	const widthType = args['width type'];
 	let width;
 	switch (widthType) {
-		case 'number': width = args['width_number']; break;
-		case 'preset': width = args['width_preset']; break;
+		case 'number': width = args['width (number)']; break;
+		case 'preset': width = args['width']; break;
 	}
 
 	return (
@@ -50,8 +50,8 @@ export const _Dropdown = (args) => {
 
 range('items', _Dropdown, Config, {min: 0, max: 50}, 5);
 select('width type', _Dropdown, ['preset', 'number'], Config, 'preset');
-number('width_number', _Dropdown, Config);
-select('width_preset', _Dropdown, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
+select('width', _Dropdown, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
+number('width (number)', _Dropdown, Config);
 select('direction', _Dropdown, ['above', 'below'], Config);
 boolean('disabled', _Dropdown, Config);
 text('placeholder', _Dropdown, Config);

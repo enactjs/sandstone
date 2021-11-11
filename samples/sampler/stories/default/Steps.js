@@ -22,20 +22,18 @@ export default {
 	component: 'Steps'
 };
 
-export const _Steps = (args) => {
-	return (
-		<Steps
-			current={args['current']}
-			total={args['total']}
-			pastIcon={args['pastIcon']}
-			currentIcon={args['currentIcon']}
-			futureIcon={args['futureIcon']}
-			size={args['size']}
-			skip={args['skip']}
-			skipIcon={args['skipIcon']}
-		/>
-	);
-};
+export const _Steps = (args) => (
+	<Steps
+		current={args['current']}
+		total={args['total']}
+		pastIcon={args['pastIcon']}
+		currentIcon={args['currentIcon']}
+		futureIcon={args['futureIcon']}
+		size={args['size']}
+		skip={args['skip']}
+		skipIcon={args['skipIcon']}
+	/>
+);
 
 range('current', _Steps, Config, {min: 1, max: 10}, 3);
 range('total', _Steps, Config, {min: 2, max: 10}, 5);

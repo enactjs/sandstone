@@ -10,7 +10,7 @@ import {Fragment} from 'react';
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	above: {
 		none: null,
@@ -78,10 +78,10 @@ export const PanelsHeader = (args) => {
 	return story;
 };
 
-select('slotAbove', PanelsHeader, ['none', 'steps'], Config);
-select('slotBefore', PanelsHeader, prop.buttonsSelection, Config);
-select('slotAfter', PanelsHeader, prop.buttonsSelection, Config);
-select('children', PanelsHeader, prop.buttonsSelection, Config);
+select('slotAbove', PanelsHeader, ['none', 'steps'], Config, 'none');
+select('slotBefore', PanelsHeader, prop.buttonsSelection, Config, 'no buttons');
+select('slotAfter', PanelsHeader, prop.buttonsSelection, Config, 'no buttons');
+select('children', PanelsHeader, prop.buttonsSelection, Config, 'no buttons');
 text('title', PanelsHeader, Config, 'The Matrix');
 text(
 	'subtitle',

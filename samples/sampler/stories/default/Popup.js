@@ -26,7 +26,7 @@ export const _Popup = (args) => (
 		>
 			<div>{args['children']}</div>
 		</Popup>
-		<BodyText centered>Use KNOBS to interact with Popup.</BodyText>
+		<BodyText centered>Use CONTROLS to interact with Popup.</BodyText>
 	</div>
 );
 
