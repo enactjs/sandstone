@@ -50,28 +50,26 @@ export default {
 	component: 'MediaOverlay'
 };
 
-export const _MediaOverlay = (args) => {
-	return (
-		<MediaOverlay
-			caption={args['caption']}
-			disabled={args['disabled']}
-			imageOverlay={args['imageOverlay']}
-			loop={args['loop']}
-			marqueeOn={args['marqueeOn']}
-			muted={args['muted']}
-			noAutoPlay={args['noAutoPlay']}
-			placeholder={args['placeholder']}
-			progress={args['progress']}
-			showProgress={args['showProgress']}
-			subtitle={args['subtitle']}
-			text={args['text']}
-			textAlign={args['textAlign']}
-			title={args['title']}
-		>
-			<source src={args['source']} />
-		</MediaOverlay>
-	);
-};
+export const _MediaOverlay = (args) => (
+	<MediaOverlay
+		caption={args['caption']}
+		disabled={args['disabled']}
+		imageOverlay={args['imageOverlay']}
+		loop={args['loop']}
+		marqueeOn={args['marqueeOn']}
+		muted={args['muted']}
+		noAutoPlay={args['noAutoPlay']}
+		placeholder={args['placeholder']}
+		progress={args['progress']}
+		showProgress={args['showProgress']}
+		subtitle={args['subtitle']}
+		text={args['text']}
+		textAlign={args['textAlign']}
+		title={args['title']}
+	>
+		<source src={args['source']} />
+	</MediaOverlay>
+);
 
 text('caption', _MediaOverlay, Config, 'DTV 7-1');
 boolean('disabled', _MediaOverlay, Config);

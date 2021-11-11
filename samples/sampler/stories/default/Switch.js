@@ -11,9 +11,7 @@ export default {
 	component: 'Switch'
 };
 
-export const _Switch = (args) => {
-	return <Switch disabled={args['disabled']} onToggle={action('onToggle')} />;
-};
+export const _Switch = (args) => (<Switch disabled={args['disabled']} onToggle={action('onToggle')} />);
 
 boolean('disabled', _Switch, Config);
 

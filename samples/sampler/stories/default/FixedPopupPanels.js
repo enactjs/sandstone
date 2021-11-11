@@ -54,7 +54,7 @@ export const _FixedPopupPanels = (args) => (
 				<Item>Example Item 3 on Panel 2</Item>
 			</Panel>
 		</FixedPopupPanels>
-		<BodyText centered>Use KNOBS to interact with FixedPopupPanels.</BodyText>
+		<BodyText centered>Use CONTROLS to interact with FixedPopupPanels.</BodyText>
 	</div>
 );
 

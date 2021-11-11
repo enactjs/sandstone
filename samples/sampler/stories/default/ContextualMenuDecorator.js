@@ -19,7 +19,8 @@ const Config = mergeComponentMetadata(
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
 	direction: 'below right',
-	offset: 'overlap'
+	offset: 'overlap',
+	popupWidth: 'auto'
 };
 
 export default {

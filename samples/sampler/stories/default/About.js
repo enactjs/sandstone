@@ -10,6 +10,8 @@ import PropTypes from 'prop-types';
 import css from './About.module.less';
 
 const edgeDotKeepout = 12;
+BodyText.displayName = 'BodyText';
+Button.displayName = 'Button';
 
 const riSafe = (style) => {
 	switch (typeof style) {
@@ -99,6 +101,7 @@ export const ATourOfSampler = (args) => (
 	</div>
 );
 
-boolean('text centered', ATourOfSampler);
+boolean('text centered', ATourOfSampler, BodyText);
+boolean('button selected', ATourOfSampler, Button);
 
 ATourOfSampler.storyName = 'A Tour of Sampler';

@@ -10,7 +10,7 @@ const iconNames = ['', ...icons];
 InputField.displayName = 'InputField';
 const Config = mergeComponentMetadata('InputField', InputFieldBase, InputField);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	type: ['text', 'number', 'password', 'url', 'tel', 'passwordtel']
 };

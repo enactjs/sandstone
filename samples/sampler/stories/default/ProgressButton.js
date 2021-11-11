@@ -18,7 +18,7 @@ const Config = mergeComponentMetadata(
 	ProgressButton
 );
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	backgroundOpacity: {
 		'undefined/null (automatic)': '',
@@ -50,26 +50,21 @@ export default {
 	component: 'ProgressButton'
 };
 
-export const _ProgressButton = (args) => {
-	// added here to force Storybook to put the ProgressButton tab first
-	const disabled = args['disabled'];
-
-	return (
-		<ProgressButton
-			showProgress={args['showProgress']}
-			backgroundOpacity={args['backgroundOpacity']}
-			color={args['color']}
-			disabled={disabled}
-			icon={args['icon']}
-			minWidth={threeWayBoolean(args['minWidth'])}
-			onClick={action('onClick')}
-			progress={args['progress']}
-			size={args['size']}
-		>
-			{args['children']}
-		</ProgressButton>
-	);
-};
+export const _ProgressButton = (args) => (
+	<ProgressButton
+		showProgress={args['showProgress']}
+		backgroundOpacity={args['backgroundOpacity']}
+		color={args['color']}
+		disabled={args['disabled']}
+		icon={args['icon']}
+		minWidth={threeWayBoolean(args['minWidth'])}
+		onClick={action('onClick')}
+		progress={args['progress']}
+		size={args['size']}
+	>
+		{args['children']}
+	</ProgressButton>
+);
 
 boolean('disabled', _ProgressButton, Config);
 boolean('showProgress', _ProgressButton, Config);

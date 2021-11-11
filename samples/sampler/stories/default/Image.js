@@ -2,6 +2,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {object, select} from '@enact/storybook-utils/addons/controls';
 import Image, {ImageBase, ImageDecorator} from '@enact/sandstone/Image';
+import {ImageBase as UiImageBase} from '@enact/ui/Image';
 
 const src = {
 	hd: 'http://via.placeholder.com/200x200',
@@ -9,7 +10,7 @@ const src = {
 	uhd: 'http://via.placeholder.com/600x600'
 };
 
-const Config = mergeComponentMetadata('Image', Image, ImageBase, ImageDecorator);
+const Config = mergeComponentMetadata('Image', UiImageBase, ImageBase, Image, ImageDecorator);
 Image.displayName = 'Image';
 
 export default {
@@ -48,7 +49,7 @@ export const _Image = (args) => (
 );
 
 object('src', _Image, Config, src);
-select('sizing', _Image, ['fill', 'fit', 'none'], Config, 'fill');
+select('sizing', _Image, ['fill', 'fit', 'none'], Config);
 
 _Image.storyName = 'Image';
 _Image.parameters = {

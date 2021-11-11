@@ -14,7 +14,7 @@ const prop = {
 	focusableScrollbarOption: {
 		false: false,
 		true: true,
-		'&quot;byEnter&quot;': 'byEnter'
+		byEnter: 'byEnter'
 	},
 	scrollbarOption: ['auto', 'hidden', 'visible'],
 	scrollModeOption: ['native', 'translate']
@@ -87,12 +87,11 @@ export const _Scroller = (args) => {
 };
 
 select('direction', _Scroller, prop.direction, ScrollerConfig);
-select('focusableScrollbar', _Scroller, ['false', 'true', '"byEnter"'], ScrollerConfig);
+select('focusableScrollbar', _Scroller, prop.focusableScrollbarOption, ScrollerConfig);
 select('horizontalScrollbar', _Scroller, prop.scrollbarOption, ScrollerConfig);
 select('verticalScrollbar', _Scroller, prop.scrollbarOption, ScrollerConfig);
 boolean('fadeOut', _Scroller, ScrollerConfig);
 boolean('hoverToScroll', _Scroller, ScrollerConfig);
-select('scrollMode', _Scroller, prop.scrollModeOption, ScrollerConfig);
 boolean('noScrollByWheel', _Scroller, ScrollerConfig);
 select('scrollMode', _Scroller, prop.scrollModeOption, ScrollerConfig);
 boolean('spotlightDisabled', _Scroller, ScrollerConfig, false);

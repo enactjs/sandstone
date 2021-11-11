@@ -8,15 +8,15 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
 import css from './VirtualGridList.module.less';
 
-const wrapOption = {
-		false: false,
-		true: true,
-		'&quot;noAnimation&quot;': 'noAnimation'
-	},
-	prop = {
+const prop = {
 		direction: {horizontal: 'horizontal', vertical: 'vertical'},
 		scrollbarOption: ['auto', 'hidden', 'visible'],
-		scrollModeOption: ['native', 'translate']
+		scrollModeOption: ['native', 'translate'],
+		wrapOption: {
+			false: false,
+			true: true,
+			noAnimation: 'noAnimation'
+		}
 	},
 	items = [],
 	defaultDataSize = 1000,
@@ -93,7 +93,7 @@ export const _VirtualGridList = (args) => (
 		spacing={ri.scale(args['spacing'])}
 		spotlightDisabled={args['spotlightDisabled']}
 		verticalScrollbar={args['verticalScrollbar']}
-		wrap={wrapOption[args['wrap']]}
+		wrap={args['wrap']}
 	/>
 );
 
@@ -104,13 +104,12 @@ select('horizontalScrollbar', _VirtualGridList, prop.scrollbarOption, VirtualGri
 boolean('hoverToScroll', _VirtualGridList, VirtualGridListConfig);
 number('itemSize.minWidth', _VirtualGridList, VirtualGridListConfig, 688);
 number('itemSize.minHeight', _VirtualGridList, VirtualGridListConfig, 570);
-select('scrollMode', _VirtualGridList, prop.scrollModeOption, VirtualGridListConfig);
 boolean('noScrollByWheel', _VirtualGridList, VirtualGridListConfig);
 select('scrollMode', _VirtualGridList, prop.scrollModeOption, VirtualGridListConfig);
 number('spacing', _VirtualGridList, VirtualGridListConfig, 0);
 boolean('spotlightDisabled', _VirtualGridList, VirtualGridListConfig, false);
 select('verticalScrollbar', _VirtualGridList, prop.scrollbarOption, VirtualGridListConfig);
-select('wrap', _VirtualGridList, ['false', 'true', '"noAnimation"'], VirtualGridListConfig);
+select('wrap', _VirtualGridList, prop.wrapOption, VirtualGridListConfig);
 
 _VirtualGridList.storyName = 'VirtualList.VirtualGridList';
 _VirtualGridList.parameters = {

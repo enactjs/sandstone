@@ -34,7 +34,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(size);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	moreButtonColor: ['', 'red', 'green', 'yellow', 'blue'],
 	videoTitles: ['Sintel', 'Big Buck Bunny', 'VideoTest', 'Bad Video Source'],

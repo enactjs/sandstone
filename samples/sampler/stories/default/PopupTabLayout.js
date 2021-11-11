@@ -42,7 +42,6 @@ export default {
 };
 
 const PopupTabLayoutSamplesBase = ({args, rtl}) => {
-
 	const includeIcons = args['include icons'];
 
 	const [open, setOpenState] = useState(false);

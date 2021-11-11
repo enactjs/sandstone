@@ -1,10 +1,13 @@
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import Picker from '@enact/sandstone/Picker';
+import {Picker, PickerBase} from '@enact/sandstone/Picker';
 
 import {decrementIcons, incrementIcons} from '../helper/icons';
 
-// Set up some defaults for info and knobs
+const Config = mergeComponentMetadata('Picker', PickerBase, Picker);
+
+// Set up some defaults for info and controls
 const prop = {
 	orientation: ['horizontal', 'vertical'],
 	reverse: {
@@ -56,21 +59,21 @@ export const _Picker = (args) => (
 	</Picker>
 );
 
-text('aria-label', _Picker, Picker, '');
-text('decrementAriaLabel', _Picker, Picker, '');
-select('decrementIcon', _Picker, ['', ...decrementIcons], Picker);
-boolean('disabled', _Picker, Picker);
-text('incrementAriaLabel', _Picker, Picker, '');
-select('incrementIcon', _Picker, ['', ...incrementIcons], Picker);
-boolean('inlineTitle', _Picker, Picker);
-boolean('joined', _Picker, Picker);
-boolean('noAnimation', _Picker, Picker);
-select('orientation', _Picker, prop.orientation, Picker, prop.orientation[0]);
-select('reverse', _Picker, [' ', 'false', 'true'], Picker);
-text('title', _Picker, Picker);
-select('type', _Picker, prop.type, Picker);
-select('width', _Picker, prop.width, Picker, prop.width[3]);
-boolean('wrap', _Picker, Picker);
+text('aria-label', _Picker, Config, '');
+text('decrementAriaLabel', _Picker, Config, '');
+select('decrementIcon', _Picker, ['', ...decrementIcons], Config);
+boolean('disabled', _Picker, Config);
+text('incrementAriaLabel', _Picker, Config, '');
+select('incrementIcon', _Picker, ['', ...incrementIcons], Config);
+boolean('inlineTitle', _Picker, Config);
+boolean('joined', _Picker, Config);
+boolean('noAnimation', _Picker, Config);
+select('orientation', _Picker, prop.orientation, Config, prop.orientation[0]);
+select('reverse', _Picker, [' ', 'false', 'true'], Config);
+text('title', _Picker, Config);
+select('type', _Picker, prop.type, Config);
+select('width', _Picker, prop.width, Config, prop.width[3]);
+boolean('wrap', _Picker, Config);
 
 _Picker.storyName = 'Picker';
 _Picker.parameters = {

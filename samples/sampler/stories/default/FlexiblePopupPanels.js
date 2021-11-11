@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
-import {FlexiblePopupPanels, Panel, PanelBase, Header} from '@enact/sandstone/FlexiblePopupPanels';
+import {FlexiblePopupPanelsBase, FlexiblePopupPanels, Panel, PanelBase, Header} from '@enact/sandstone/FlexiblePopupPanels';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
@@ -17,7 +17,7 @@ const propOptions = {
 	size: ['auto', 'small', 'large']
 };
 
-const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels);
+const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanelsBase, FlexiblePopupPanels);
 const PanelConfig = mergeComponentMetadata('Panel', PanelBase, Panel);
 
 export default {
@@ -40,7 +40,7 @@ export const _FlexiblePopupPanels = (args) => {
 		action(type)(ev);
 	};
 
-	const knobs = {
+	const controls = {
 		fullHeight: args['fullHeight'],
 		nextButtonVisibility: args['nextButtonVisibility'],
 		noAnimation: args['noAnimation'],
@@ -50,8 +50,6 @@ export const _FlexiblePopupPanels = (args) => {
 		scrimType: args['scrimType'],
 		spotlightRestrict: args['spotlightRestrict']
 	};
-
-	// Knobs are ordered this way so "Panel" comes after the main component
 	const size = args['size'];
 
 	return (
@@ -66,7 +64,7 @@ export const _FlexiblePopupPanels = (args) => {
 				onNextClick={action('onNextClick')}
 				onPrevClick={action('onPrevClick')}
 				onShow={action('onShow')}
-				{...knobs}
+				{...controls}
 			>
 				<Panel
 					size={size}

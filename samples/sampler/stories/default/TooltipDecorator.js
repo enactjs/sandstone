@@ -5,7 +5,7 @@ import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDe
 
 import iconNames from '../helper/icons';
 
-const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
+const Config = mergeComponentMetadata('TooltipDecorator', TooltipBase, Tooltip, TooltipDecorator);
 const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 const prop = {
@@ -56,10 +56,10 @@ boolean('disabled', _TooltipDecorator, Config);
 select('icon', _TooltipDecorator, prop.icons, Config);
 number('tooltipDelay', _TooltipDecorator, Config, 500);
 boolean('tooltipMarquee', _TooltipDecorator, Config);
-select('tooltipPosition', _TooltipDecorator, prop.tooltipPosition, Config);
+select('tooltipPosition', _TooltipDecorator, prop.tooltipPosition, Config, prop.tooltipPosition[0]);
 boolean('tooltipRelative', _TooltipDecorator, Config);
 text('tooltipText', _TooltipDecorator, Config, 'tooltip!');
-select('tooltipType', _TooltipDecorator, prop.tooltipType, Config);
+select('tooltipType', _TooltipDecorator, prop.tooltipType, Config, prop.tooltipType[0]);
 number('tooltipWidth', _TooltipDecorator, Config);
 text('children', _TooltipDecorator, Config, 'click me');
 
