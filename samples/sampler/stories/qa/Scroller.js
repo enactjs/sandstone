@@ -558,7 +558,7 @@ export const WithNestedScroller = (args) => {
 					</Item>
 					<br />
 					<br />
-					<Item>To set or unset noScrollByWheel prop, click KNOBS below.</Item>
+					<Item>To set or unset noScrollByWheel prop, click CONTROLS below.</Item>
 				</div>
 			</Scroller>
 			<Scroller
@@ -597,7 +597,7 @@ export const WithNestedScroller = (args) => {
 					</Item>
 					<br />
 					<br />
-					<Item>To set or unset noScrollByWheel prop, click KNOBS below.</Item>
+					<Item>To set or unset noScrollByWheel prop, click CONTROLS below.</Item>
 				</div>
 			</Scroller>
 		</Scroller>
