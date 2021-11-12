@@ -13,11 +13,11 @@ import Section from './components/KitchenSinkSection';
 
 import css from './Button.module.less';
 
-// Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean knob and return `void 0` when `true`.
+// Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean control and return `void 0` when `true`.
 Button.displayName = 'Button';
 const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBase, Button);
 
-// Set up some defaults for info and constols
+// Set up some defaults for info and controls
 const prop = {
 	backgroundOpacity: {
 		'undefined/null (automatic)': '',
@@ -31,7 +31,7 @@ const prop = {
 		'BUTTON   WITH   EXTRA   SPACES': 'BUTTON   WITH   EXTRA   SPACES'
 	},
 	tallText: {
-		' ฟิ้ ไั  ஒ  து': ' ฟิ้ ไั  ஒ  து',
+		'ฟิ้ ไั  ஒ  து': 'ฟิ้ ไั  ஒ  து',
 		ÁÉÍÓÚÑÜ: 'ÁÉÍÓÚÑÜ',
 		'Bản văn': 'Bản văn',
 		តន្ត្រី: 'តន្ត្រី'
@@ -92,7 +92,7 @@ select('icon', WithTallCharacters, prop.icons, Config);
 boolean('minWidth', WithTallCharacters, Config, true);
 boolean('selected', WithTallCharacters, Config);
 select('size', WithTallCharacters, ['small', 'large'], Config);
-select('value', WithTallCharacters, prop.tallText, Config, 'ฟิ้  ไั  ஒ  து');
+select('value', WithTallCharacters, prop.tallText, Config, 'ฟิ้ ไั  ஒ  து');
 
 WithTallCharacters.storyName = 'with tall characters';
 
@@ -309,3 +309,10 @@ export const KitchenSink = () => (
 		</Row>
 	</Scroller>
 );
+
+KitchenSink.storyName = 'kitchen sink';
+KitchenSink.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

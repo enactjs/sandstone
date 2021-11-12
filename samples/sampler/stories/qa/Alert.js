@@ -23,164 +23,129 @@ export default {
 	component: 'Alert'
 };
 
-export const WithLongTitle = (args) => {
-	const open = args['open']; // This is first so the Knob tabs are in a more intuitive order.
-	const image = args['image'];
-	const type = args['type'];
-	const src = args['src'];
-
-	return (
-		<Alert
-			open={open}
-			onClose={action('onClose')}
-			title={args['title']}
-			type={args['type']}
-		>
-			{image ? (
-				<image>
-					<AlertImage src={src} type={type} />
-				</image>
-			) : null}
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			{args['children']}
-		</Alert>
-	);
-};
-
+export const WithLongTitle = (args) => (
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ? (
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image>
+		) : null}
+		<buttons>
+			<Button>Yes</Button>
+			<Button>No</Button>
+		</buttons>
+		{args['children']}
+	</Alert>
+);
 
 boolean('open', WithLongTitle, Config);
-boolean('image', WithLongTitle, ImageConfig);
-select('type', WithLongTitle, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', WithLongTitle, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 text('title', WithLongTitle, Config, inputData.longTitle);
 select('type', WithLongTitle, ['fullscreen', 'overlay'], Config);
 text('children', WithLongTitle, Config, 'Additional text content for Alert');
+boolean('image', WithLongTitle, ImageConfig);
+select('type (image)', WithLongTitle, ['icon', 'thumbnail'], ImageConfig, 'icon');
+text('src', WithLongTitle, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 WithLongTitle.storyName = 'with long title';
 
-export const WithLongChildren = (args) => {
-	const open = args['open']; // This is first so the Knob tabs are in a more intuitive order.
-	const image = args['image'];
-	const type = args['type'];
-	const src = args['src'];
-
-	return (
-		<Alert
-			open={open}
-			onClose={action('onClose')}
-			title={args['title']}
-			type={args['type']}
-		>
-			{image ? (
-				<image>
-					<AlertImage src={src} type={type} />
-				</image>
-			) : null}
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			{args['children']}
-		</Alert>
-	);
-};
+export const WithLongChildren = (args) => (
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ? (
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image>
+		) : null}
+		<buttons>
+			<Button>Yes</Button>
+			<Button>No</Button>
+		</buttons>
+		{args['children']}
+	</Alert>
+);
 
 boolean('open', WithLongChildren, Config);
-boolean('image', WithLongChildren, ImageConfig);
-select('type', WithLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', WithLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 text('title', WithLongChildren, Config, 'Fullscreen Alert Title');
 select('type', WithLongChildren, ['fullscreen', 'overlay'], Config);
 text('children', WithLongChildren, Config, inputData.longChildren);
+boolean('image', WithLongChildren, ImageConfig);
+select('type (image)', WithLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
+text('src', WithLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 WithLongChildren.storyName = 'with long children';
 
-export const WithLongTitleAndLongChildren = (args) => {
-	const open = args['open']; // This is first so the Knob tabs are in a more intuitive order.
-	const image = args['image'];
-	const type = args['type'];
-	const src = args['src'];
-
-	return (
-		<Alert
-			open={open}
-			onClose={action('onClose')}
-			title={args['title']}
-			type={args['type']}
-		>
-			{image ? (
-				<image>
-					<AlertImage
-						src={src}
-						type={type}
-					/>
-				</image>
-			) : null}
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			{args['children']}
-		</Alert>
-	);
-};
+export const WithLongTitleAndLongChildren = (args) => (
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ? (
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image>
+		) : null}
+		<buttons>
+			<Button>Yes</Button>
+			<Button>No</Button>
+		</buttons>
+		{args['children']}
+	</Alert>
+);
 
 boolean('open', WithLongTitleAndLongChildren, Config);
-boolean('image', WithLongTitleAndLongChildren, ImageConfig);
-select('type', WithLongTitleAndLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', WithLongTitleAndLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 text('title', WithLongTitleAndLongChildren, Config, inputData.longTitle);
 select('type', WithLongTitleAndLongChildren, ['fullscreen', 'overlay'], Config);
 text('children', WithLongTitleAndLongChildren, Config, inputData.longChildren);
+boolean('image', WithLongTitleAndLongChildren, ImageConfig);
+select('type (image)', WithLongTitleAndLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
+text('src', WithLongTitleAndLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 WithLongTitleAndLongChildren.storyName = 'with long title and long children';
 
-export const WithDifferentTypesOfComponentsAndLongChildren = (args) => {
-	const open = args['open']; // This is first so the Knob tabs are in a more intuitive order.
-	const image = args['image'];
-	const type = args['type'];
-	const src = args['src'];
-
-	return (
-		<Alert
-			open={open}
-			onClose={action('onClose')}
-			title={args['title']}
-			type={args['type']}
-		>
-			{image ?
-				<image>
-					<AlertImage
-						src={src}
-						type={type}
-					/>
-				</image> : null
-			}
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			<div>
-				<div>This is progressbar</div>
-				<ProgressBar progress={0.5} />
-			</div>
-			<div>
-				<CheckboxItem>This is CheckboxItem</CheckboxItem>
-			</div>
-			{args['children']}
-		</Alert>
-	);
-};
+export const WithDifferentTypesOfComponentsAndLongChildren = (args) => (
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ?
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image> : null
+		}
+		<buttons>
+			<Button>Yes</Button>
+			<Button>No</Button>
+		</buttons>
+		<div>
+			<div>This is progressbar</div>
+			<ProgressBar progress={0.5} />
+		</div>
+		<div>
+			<CheckboxItem>This is CheckboxItem</CheckboxItem>
+		</div>
+		{args['children']}
+	</Alert>
+);
 
 boolean('open', WithDifferentTypesOfComponentsAndLongChildren, Config, true);
-boolean('image', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig);
-select('type', WithDifferentTypesOfComponentsAndLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 text('title', WithDifferentTypesOfComponentsAndLongChildren, Config, 'Overlay Alert Title');
 select('type', WithDifferentTypesOfComponentsAndLongChildren, ['fullscreen', 'overlay'], Config, 'overlay');
 text('children', WithDifferentTypesOfComponentsAndLongChildren, Config, inputData.longChildren);
+boolean('image', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig);
+select('type (image)', WithDifferentTypesOfComponentsAndLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
+text('src', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 WithDifferentTypesOfComponentsAndLongChildren.storyName = 'with different types of components and long children';

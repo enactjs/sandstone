@@ -198,7 +198,7 @@ export const WithNoItemsPlat30963 = (args) => (
 );
 
 select('width', WithNoItemsPlat30963, prop.width, Picker, 'large');
-select('orientation', WithNoItemsPlat30963, prop.orientation, Picker);
+select('orientation', WithNoItemsPlat30963, prop.orientation, Picker, 'horizontal');
 boolean('wrap', WithNoItemsPlat30963, Picker, true);
 boolean('joined', WithNoItemsPlat30963, Picker);
 boolean('noAnimation', WithNoItemsPlat30963, Picker);
@@ -225,7 +225,7 @@ export const WithOneItem = (args) => (
 );
 
 select('width', WithOneItem, prop.width, Picker, 'large');
-select('orientation', WithOneItem, prop.orientation, Picker);
+select('orientation', WithOneItem, prop.orientation, Picker, 'horizontal');
 boolean('wrap', WithOneItem, Picker, true);
 boolean('joined', WithOneItem, Picker);
 boolean('noAnimation', WithOneItem, Picker);

@@ -7,7 +7,7 @@ import {Component} from 'react';
 
 const videoPlayerOption =  [
 	'',
-	'Next Proload Video',
+	'Next Preload Video',
 	'Non Preload Video',
 	'Next Preload Video without changing preload',
 	'Change Preload without changing video',
@@ -34,19 +34,18 @@ class VideoSourceSwap extends Component {
 	}
 
 	componentDidUpdate (prevProps) {
-		const args = this.props.args;
-		const Option = args['videoPlayerOption'];
+		const option = this.props.args['videoPlayerOption'];
 
-		if (Option !== prevProps.args.videoPlayerOption) {
-			if (Option === 'Next Proload Video') {
+		if (option !== prevProps.args.videoPlayerOption) {
+			if (option === 'Next Preload Video') {
 				this.nextVideo();
-			} else if (Option === 'Non Preload Video') {
+			} else if (option === 'Non Preload Video') {
 				this.differentVideo();
-			} else if (Option === 'Next Preload Video without changing preload') {
+			} else if (option === 'Next Preload Video without changing preload') {
 				this.nextPreloadVideoKeepVideo();
-			} else if (Option === 'Change Preload without changing video') {
+			} else if (option === 'Change Preload without changing video') {
 				this.nextPreloadVideoKeepVideo();
-			} else if (Option === 'Reset Sources') {
+			} else if (option === 'Reset Sources') {
 				this.resetSources();
 			}
 		}
@@ -86,10 +85,8 @@ class VideoSourceSwap extends Component {
 	};
 
 	render () {
-
 		return (
 			<div>
-
 				<VideoPlayer
 					muted
 					onJumpBackward={this.differentVideo}

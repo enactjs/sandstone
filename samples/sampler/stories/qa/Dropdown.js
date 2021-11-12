@@ -259,14 +259,29 @@ WithArrayOfChildrenObjects.storyName = 'with array of children objects';
 export const WithAutoDismiss = () => <AutoDismissDropdown />;
 
 WithAutoDismiss.storyName = 'with auto dismiss';
+WithAutoDismiss.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithDisabled = () => <DisabledDropdown />;
 
 WithDisabled.storyName = 'with disabled';
+WithDisabled.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithChangingPosition = () => <PositionChangingDropdown />;
 
 WithChangingPosition.storyName = 'with changing position';
+WithChangingPosition.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const InScroller = () => (
 	<Scroller

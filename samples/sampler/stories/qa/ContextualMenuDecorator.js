@@ -8,6 +8,12 @@ import ri from '@enact/ui/resolution';
 const Config = mergeComponentMetadata('ContextualMenuDecorator', ContextualMenuDecorator);
 const MenuButton = ContextualMenuDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
+Config.defaultProps = {
+	direction: 'below right',
+	offset: 'overlap',
+	popupWidth: 'auto'
+};
+
 const prop = {
 	direction: [
 		'above',
@@ -35,11 +41,7 @@ export default {
 };
 
 export const Overflows = (args) => {
-	const buttonAlignment = select(
-		'button alignment',
-		{'': null, start: 'start', end: 'end'},
-		Config
-	);
+	const buttonAlignment = args['button alignment'];
 	const direction = args['direction'];
 	const itemCount = args['items'];
 	const items = new Array(itemCount).fill().map((i, index) => `Option ${index + 1}`);
@@ -161,6 +163,7 @@ export const Overflows = (args) => {
 	);
 };
 
+select('button alignment', Overflows, {'': null, start: 'start', end: 'end'}, Config);
 select('direction', Overflows, prop.direction, Config, 'below right');
 range('items', Overflows, Config, {min: 0, max: 10}, 2);
 select('offset', Overflows, prop.offset, Config);

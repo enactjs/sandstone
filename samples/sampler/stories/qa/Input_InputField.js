@@ -30,7 +30,6 @@ select('iconBefore', WithLongText, iconNames, FieldConfig);
 select('size', WithLongText, propOptions.size, FieldConfig);
 select('type', WithLongText, propOptions.fieldTypes, FieldConfig);
 
-
 WithLongText.storyName = 'with long text';
 
 export const WithLongPlaceholder = (args) => (
@@ -48,8 +47,8 @@ boolean('disabled', WithLongPlaceholder, FieldConfig);
 select('iconAfter', WithLongPlaceholder, iconNames, FieldConfig);
 select('iconBefore', WithLongPlaceholder, iconNames, FieldConfig);
 text('placeholder', WithLongPlaceholder, FieldConfig, inputData.longPlaceHolder);
-select('size', WithLongPlaceholder, propOptions.size, FieldConfig);
 select('type', WithLongPlaceholder, propOptions.fieldTypes, FieldConfig);
+select('size', WithLongPlaceholder, propOptions.size, FieldConfig);
 
 WithLongPlaceholder.storyName = 'with long placeholder';
 

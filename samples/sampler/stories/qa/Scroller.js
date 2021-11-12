@@ -26,7 +26,7 @@ const prop = {
 	focusableScrollbarOption: {
 		false: false,
 		true: true,
-		'&quot;byEnter&quot;': 'byEnter'
+		byEnter: 'byEnter'
 	},
 	scrollbarOption: ['auto', 'hidden', 'visible'],
 	scrollModeOption: ['native', 'translate']
@@ -75,11 +75,7 @@ class ScrollerWithLongItem extends Component {
 		const args = this.props.args;
 		return (
 			<Scroller
-				focusableScrollbar={
-					prop.focusableScrollbarOption[
-						args['focusableScrollbar']
-					]
-				}
+				focusableScrollbar={args['focusableScrollbar']}
 				key={args['scrollMode']}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -140,11 +136,7 @@ class ScrollerWithLargeContainer extends Component {
 		const args = this.props.args;
 		return (
 			<Scroller
-				focusableScrollbar={
-					prop.focusableScrollbarOption[
-						args['focusableScrollbar']
-					]
-				}
+				focusableScrollbar={args['focusableScrollbar']}
 				key={args['scrollMode']}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -176,11 +168,7 @@ export default {
 
 export const ListOfThings = (args) => (
 	<Scroller
-		focusableScrollbar={
-			prop.focusableScrollbarOption[
-				args['focusableScrollbar']
-			]
-		}
+		focusableScrollbar={args['focusableScrollbar']}
 		horizontalScrollbar={args['horizontalScrollbar']}
 		hoverToScroll={args['hoverToScroll']}
 		key={args['scrollMode']}
@@ -196,11 +184,11 @@ export const ListOfThings = (args) => (
 	</Scroller>
 );
 
-select('focusableScrollbar', ListOfThings, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', ListOfThings, prop.focusableScrollbarOption, Config);
 select('horizontalScrollbar', ListOfThings, prop.scrollbarOption, Config);
 boolean('hoverToScroll', ListOfThings, Config);
-select('scrollMode', ListOfThings, prop.scrollModeOption, Config);
 boolean('noScrollByWheel', ListOfThings, Config);
+select('scrollMode', ListOfThings, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', ListOfThings, Config, false);
 select('verticalScrollbar', ListOfThings, prop.scrollbarOption, Config);
 
@@ -209,11 +197,7 @@ ListOfThings.storyName = 'List of things';
 export const HorizontalScroll = (args) => (
 	<Scroller
 		direction={args['direction']}
-		focusableScrollbar={
-			prop.focusableScrollbarOption[
-				args['focusableScrollbar']
-			]
-		}
+		focusableScrollbar={args['focusableScrollbar']}
 		horizontalScrollbar={args['horizontalScrollbar']}
 		hoverToScroll={args['hoverToScroll']}
 		key={args['scrollMode']}
@@ -239,11 +223,11 @@ export const HorizontalScroll = (args) => (
 );
 
 select('direction', HorizontalScroll, prop.direction, Config, 'horizontal');
-select('focusableScrollbar', HorizontalScroll, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', HorizontalScroll, prop.focusableScrollbarOption, Config);
 select('horizontalScrollbar', HorizontalScroll, prop.scrollbarOption, Config);
 boolean('hoverToScroll', HorizontalScroll, Config);
-select('scrollMode', HorizontalScroll, prop.scrollModeOption, Config);
 boolean('noScrollByWheel', HorizontalScroll, Config);
+select('scrollMode', HorizontalScroll, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', HorizontalScroll, Config, false);
 select('verticalScrollbar', HorizontalScroll, prop.scrollbarOption, Config);
 
@@ -252,11 +236,7 @@ HorizontalScroll.storyName = 'Horizontal scroll';
 export const WithSpottableComponents = (args) => (
 	<Scroller
 		direction={args['direction']}
-		focusableScrollbar={
-			prop.focusableScrollbarOption[
-				args['focusableScrollbar']
-			]
-		}
+		focusableScrollbar={args['focusableScrollbar']}
 		horizontalScrollbar={args['horizontalScrollbar']}
 		hoverToScroll={args['hoverToScroll']}
 		key={args['scrollMode']}
@@ -296,11 +276,11 @@ export const WithSpottableComponents = (args) => (
 );
 
 select('direction', WithSpottableComponents, prop.direction, Config);
-select('focusableScrollbar', WithSpottableComponents, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithSpottableComponents, prop.focusableScrollbarOption, Config);
 select('horizontalScrollbar', WithSpottableComponents, prop.scrollbarOption, Config);
 boolean('hoverToScroll', WithSpottableComponents, Config);
-select('scrollMode', WithSpottableComponents, prop.scrollModeOption, Config);
 boolean('noScrollByWheel', WithSpottableComponents, Config);
+select('scrollMode', WithSpottableComponents, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', WithSpottableComponents, Config, false);
 select('verticalScrollbar', WithSpottableComponents, prop.scrollbarOption, Config);
 
@@ -310,11 +290,7 @@ export const WithShortContents = (args) => (
 	<>
 		<Scroller
 			direction={args['direction']}
-			focusableScrollbar={
-				prop.focusableScrollbarOption[
-					args['focusableScrollbar']
-				]
-			}
+			focusableScrollbar={args['focusableScrollbar']}
 			horizontalScrollbar={args['horizontalScrollbar']}
 			key={args['scrollMode']}
 			noScrollByWheel={args['noScrollByWheel']}
@@ -333,11 +309,11 @@ export const WithShortContents = (args) => (
 );
 
 select('direction', WithShortContents, prop.direction, Config);
-select('focusableScrollbar', WithShortContents, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithShortContents, prop.focusableScrollbarOption, Config);
 select('horizontalScrollbar', WithShortContents, prop.scrollbarOption, Config);
 boolean('hoverToScroll', WithShortContents, Config);
-select('scrollMode', WithShortContents, prop.scrollModeOption, Config);
 boolean('noScrollByWheel', WithShortContents, Config);
+select('scrollMode', WithShortContents, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', WithShortContents, Config, false);
 select('verticalScrollbar', WithShortContents, prop.scrollbarOption, Config);
 
@@ -386,7 +362,7 @@ ScrollerWithLargeContainer.propTypes = {
 
 export const WithLargeContainer = (args) => <ScrollerWithLargeContainer args={args} />;
 
-select('focusableScrollbar', WithLargeContainer, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithLargeContainer, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithLargeContainer, prop.scrollModeOption, Config);
 
 WithLargeContainer.storyName = 'With Large Container';
@@ -395,11 +371,7 @@ export const WithFocusOutsideContainer = (args) => (
 	<div style={{display: 'flex'}}>
 		<Button>focus to me</Button>
 		<Scroller
-			focusableScrollbar={
-				prop.focusableScrollbarOption[
-					args['focusableScrollbar']
-				]
-			}
+			focusableScrollbar={args['focusableScrollbar']}
 			key={args['scrollMode']}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
@@ -421,7 +393,7 @@ export const WithFocusOutsideContainer = (args) => (
 	</div>
 );
 
-select('focusableScrollbar', WithFocusOutsideContainer, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithFocusOutsideContainer, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithFocusOutsideContainer, prop.scrollModeOption, Config);
 
 WithFocusOutsideContainer.storyName = 'With Focus outside Container';
@@ -455,11 +427,7 @@ export const TestScrollingToBoundaryWithLongOverflow = (args) => {
 	const size = args['Spacer size'];
 	return (
 		<Scroller
-			focusableScrollbar={
-				prop.focusableScrollbarOption[
-					args['focusableScrollbar']
-				]
-			}
+			focusableScrollbar={args['focusableScrollbar']}
 			key={args['scrollMode']}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
@@ -482,9 +450,9 @@ export const TestScrollingToBoundaryWithLongOverflow = (args) => {
 	);
 };
 
-select('focusableScrollbar', TestScrollingToBoundaryWithLongOverflow, ['false', 'true', '"byEnter"'], Config);
-select('scrollMode', TestScrollingToBoundaryWithLongOverflow, prop.scrollModeOption, Config);
 range('Spacer size', TestScrollingToBoundaryWithLongOverflow, Config, {max: 600, min: 0}, 402);
+select('focusableScrollbar', TestScrollingToBoundaryWithLongOverflow, prop.focusableScrollbarOption, Config);
+select('scrollMode', TestScrollingToBoundaryWithLongOverflow, prop.scrollModeOption, Config);
 
 TestScrollingToBoundaryWithLongOverflow.storyName = 'Test scrolling to boundary with long overflow';
 
@@ -492,11 +460,7 @@ export const WithSpotlightTargetCalculation = (args) => (
 	<div>
 		<Button>hello</Button>
 		<Scroller
-			focusableScrollbar={
-				prop.focusableScrollbarOption[
-					args['focusableScrollbar']
-				]
-			}
+			focusableScrollbar={args['focusableScrollbar']}
 			key={args['scrollMode']}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
@@ -509,7 +473,7 @@ export const WithSpotlightTargetCalculation = (args) => (
 	</div>
 );
 
-select('focusableScrollbar', WithSpotlightTargetCalculation, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithSpotlightTargetCalculation, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithSpotlightTargetCalculation, prop.scrollModeOption, Config);
 
 WithSpotlightTargetCalculation.storyName = 'With Spotlight Target Calculation';
@@ -520,18 +484,14 @@ ScrollerWithLongItem.propTypes = {
 
 export const WithLongItem = (args) => <ScrollerWithLongItem args={args} />;
 
-select('focusableScrollbar', WithLongItem, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithLongItem, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithLongItem, prop.scrollModeOption, Config);
 
 WithLongItem.storyName = 'With Long Item';
 
 export const WithOneLongHeightItem = (args) => (
 	<Scroller
-		focusableScrollbar={
-			prop.focusableScrollbarOption[
-				args['focusableScrollbar']
-			]
-		}
+		focusableScrollbar={args['focusableScrollbar']}
 		key={args['scrollMode']}
 		onKeyDown={action('onKeyDown')}
 		onScrollStart={action('onScrollStart')}
@@ -544,7 +504,7 @@ export const WithOneLongHeightItem = (args) => (
 	</Scroller>
 );
 
-select('focusableScrollbar', WithOneLongHeightItem, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithOneLongHeightItem, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithOneLongHeightItem, prop.scrollModeOption, Config);
 
 WithOneLongHeightItem.storyName = 'With One Long Height Item';
@@ -554,11 +514,7 @@ export const WithNestedScroller = (args) => {
 	return (
 		<Scroller
 			direction="vertical"
-			focusableScrollbar={
-				prop.focusableScrollbarOption[
-					args['focusableScrollbar']
-				]
-			}
+			focusableScrollbar={args['focusableScrollbar']}
 			key={args['scrollMode'] + '1'}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
@@ -568,11 +524,7 @@ export const WithNestedScroller = (args) => {
 		>
 			<Scroller
 				direction="horizontal"
-				focusableScrollbar={
-					prop.focusableScrollbarOption[
-						args['focusableScrollbar']
-					]
-				}
+				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar="visible"
 				key={args['scrollMode'] + '2'}
 				noScrollByWheel={noScrollByWheel}
@@ -611,11 +563,7 @@ export const WithNestedScroller = (args) => {
 			</Scroller>
 			<Scroller
 				direction="horizontal"
-				focusableScrollbar={
-					prop.focusableScrollbarOption[
-						args['focusableScrollbar']
-					]
-				}
+				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar="visible"
 				key={args['scrollMode'] + '3'}
 				noScrollByWheel={noScrollByWheel}
@@ -656,7 +604,7 @@ export const WithNestedScroller = (args) => {
 	);
 };
 
-select('focusableScrollbar', WithNestedScroller, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithNestedScroller, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithNestedScroller, prop.scrollModeOption, Config);
 
 WithNestedScroller.storyName = 'With Nested Scroller';
@@ -664,7 +612,7 @@ WithNestedScroller.storyName = 'With Nested Scroller';
 export const WithCustomizedStyle = (args) => (
 	<div>
 		<Scroller
-			focusableScrollbar={prop.focusableScrollbarOption[args['focusableScrollbar']]}
+			focusableScrollbar={args['focusableScrollbar']}
 			key={args['scrollMode']}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
@@ -681,7 +629,7 @@ export const WithCustomizedStyle = (args) => (
 	</div>
 );
 
-select('focusableScrollbar', WithCustomizedStyle, ['false', 'true', '"byEnter"'], Config);
+select('focusableScrollbar', WithCustomizedStyle, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithCustomizedStyle, prop.scrollModeOption, Config);
 
 WithCustomizedStyle.storyName = 'With Customized Style';

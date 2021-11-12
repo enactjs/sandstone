@@ -4,7 +4,7 @@ import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
 
-const Config = mergeComponentMetadata('ImageItem', UiImageItem, ImageItemBase, ImageItem);
+const Config = mergeComponentMetadata('ImageItem', ImageItemBase, UiImageItem, ImageItem);
 ImageItem.displayName = 'ImageItem';
 
 const src = {
@@ -39,10 +39,10 @@ export const WithDataIndex = (args) => {
 			src={args['src']}
 			style={{
 				width: ri.scale(
-					args['selected'] === 'vertical' ? 768 : 1020
+					args['orientation'] === 'vertical' ? 768 : 1020
 				),
 				height: ri.scale(
-					args['selected'] === 'vertical' ? 588 : 240
+					args['orientation'] === 'vertical' ? 588 : 240
 				)
 			}}
 		>

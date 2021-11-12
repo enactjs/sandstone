@@ -422,6 +422,13 @@ export const DirectionalEvents = () => (
 	</div>
 );
 
+DirectionalEvents.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
+
 export const DisappearingSpottable = () => <DisappearTest />;
 
 DisappearingSpottable.parameters = {

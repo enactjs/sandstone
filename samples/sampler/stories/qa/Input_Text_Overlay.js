@@ -27,7 +27,7 @@ export const LongText = (args) => (
 
 boolean('disabled', LongText, Config);
 text('placeholder', LongText, Config);
-select('size', LongText, propOptions.size, Config);
+select('size', LongText, propOptions.size, Config, 'large');
 select('type', LongText, propOptions.textTypes, Config);
 
 LongText.storyName = 'long text';

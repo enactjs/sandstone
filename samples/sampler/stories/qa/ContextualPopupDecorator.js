@@ -200,6 +200,11 @@ export const WithOverflows = () => (
 );
 
 WithOverflows.storyName = 'with overflows';
+WithOverflows.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithButtonTooltip = () => (
 	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
@@ -214,6 +219,11 @@ export const WithButtonTooltip = () => (
 );
 
 WithButtonTooltip.storyName = 'with button tooltip';
+WithButtonTooltip.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithSliderTooltip = (args) => (
 	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>

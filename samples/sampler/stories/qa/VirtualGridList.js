@@ -19,13 +19,12 @@ const defaultDataSize = 1000;
 
 const prop = {
 	scrollbarOption: ['auto', 'hidden', 'visible'],
-	scrollModeOption: ['native', 'translate']
-};
-
-const wrapOption = {
-	false: false,
-	true: true,
-	'&quot;noAnimation&quot;': 'noAnimation'
+	scrollModeOption: ['native', 'translate'],
+	wrapOption: {
+		false: false,
+		true: true,
+		noAnimation: 'noAnimation'
+	}
 };
 
 const items = [];
@@ -188,7 +187,7 @@ export const HorizontalVirtualGridList = (args) => (
 		spotlightDisabled={args['spotlightDisabled']}
 		style={{paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')}}
 		verticalScrollbar={args['verticalScrollbar']}
-		wrap={wrapOption[args['wrap']]}
+		wrap={args['wrap']}
 	/>
 );
 
@@ -202,7 +201,7 @@ boolean('noScrollByWheel', HorizontalVirtualGridList, Config);
 number('spacing', HorizontalVirtualGridList, Config, 0);
 boolean('spotlightDisabled', HorizontalVirtualGridList, Config, false);
 select('verticalScrollbar', HorizontalVirtualGridList, prop.scrollbarOption, Config);
-select('wrap', HorizontalVirtualGridList, ['false', 'true', '"noAnimation"'], Config);
+select('wrap', HorizontalVirtualGridList, prop.wrapOption, Config);
 
 HorizontalVirtualGridList.storyName = 'Horizontal VirtualGridList';
 HorizontalVirtualGridList.parameters = {
@@ -241,7 +240,7 @@ export const HorizontalSquaredVirtualGridList = (args) => (
 			height: ri.scaleToRem(804),
 			backgroundColor: 'white'
 		}}
-		wrap={wrapOption[args['wrap']]}
+		wrap={args['wrap']}
 	/>
 );
 
@@ -251,7 +250,7 @@ select('scrollMode', HorizontalSquaredVirtualGridList, prop.scrollModeOption, Co
 boolean('noScrollByWheel', HorizontalSquaredVirtualGridList, Config);
 number('spacing', HorizontalSquaredVirtualGridList, Config, 0);
 boolean('spotlightDisabled', HorizontalSquaredVirtualGridList, Config, false);
-select('wrap', HorizontalSquaredVirtualGridList, ['false', 'true', '"noAnimation"'], Config);
+select('wrap', HorizontalSquaredVirtualGridList, prop.wrapOption, Config);
 
 HorizontalSquaredVirtualGridList.storyName = 'Horizontal Squared VirtualGridList';
 HorizontalSquaredVirtualGridList.parameters = {

@@ -33,9 +33,9 @@ boolean('disabled', Length4, Config);
 boolean('invalid', Length4, Config);
 text('invalidMessage', Length4, Config);
 text('placeholder', Length4, Config);
-select('size', Length4, propOptions.size, Config);
+select('size', Length4, propOptions.size, Config, 'large');
 select('type', Length4, propOptions.numberTypes, Config, 'number');
-select('buttons', Length4, propOptions.buttons, Config);
+select('buttons', Length4, propOptions.buttons, Config, propOptions.buttons[0]);
 
 Length4.storyName = 'length 4';
 Length4.parameters = {
@@ -65,9 +65,9 @@ boolean('disabled', Length10, Config);
 boolean('invalid', Length10, Config);
 text('invalidMessage', Length10, Config);
 text('placeholder', Length10, Config);
-select('size', Length10, propOptions.size, Config);
+select('size', Length10, propOptions.size, Config, 'large');
 select('type', Length10, propOptions.numberTypes, Config, 'number');
-select('buttons', Length10, propOptions.buttons, Config);
+select('buttons', Length10, propOptions.buttons, Config, propOptions.buttons[0]);
 
 Length10.storyName = 'length 10';
 Length10.parameters = {

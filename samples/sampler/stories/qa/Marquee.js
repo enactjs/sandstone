@@ -263,7 +263,7 @@ select('forceDirection', Synchronized, ['', 'ltr', 'rtl'], Marquee, '');
 number('marqueeDelay', Synchronized, Marquee, 1000);
 boolean('marqueeDisabled', Synchronized, Marquee, false);
 select('marqueeOn', Synchronized, ['hover', 'render'], Marquee, 'render');
-number('marqueeOnRenderDelay', Synchronized, Marquee, 1000);
+number('marqueeOnRenderDelay', Synchronized, Marquee, 5000);
 number('marqueeResetDelay', Synchronized, Marquee, 1000);
 number('marqueeSpeed', Synchronized, Marquee, 60);
 

@@ -44,15 +44,12 @@ WithItalics.storyName = 'with italics';
 
 export const WithLongText = (args) => (
 	<Heading marqueeOn={args['marqueeOn']}>
-		{text(
-			'children',
-			Heading,
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. In quis mattis purus, quis tristique mi.'
-		)}
+		{args['children']}
 	</Heading>
 );
 
 select('marqueeOn', WithLongText, prop.marqueeOn, Heading);
+text('children', WithLongText, Heading, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. In quis mattis purus, quis tristique mi.');
 
 WithLongText.storyName = 'with long text';
 
@@ -97,6 +94,8 @@ export const MultipleScroller = () => (
 		</div>
 	</Scroller>
 );
+
+MultipleScroller.storyName = 'multiple in scroller';
 MultipleScroller.parameters = {
 	controls: {
 		hideNoControlsWarning: true

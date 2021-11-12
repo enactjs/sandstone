@@ -142,7 +142,7 @@ export const WithVariableNumberOfTabs = (args) => {
 	);
 };
 
-range('Number of Tabs',	WithVariableNumberOfTabs, {groupId: 'TabLayout'},	{min: 0, max: 20, step: 1},	3);
+range('Number of Tabs', WithVariableNumberOfTabs, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
 boolean('collapsed', WithVariableNumberOfTabs, TabLayout);
 select('orientation', WithVariableNumberOfTabs, ['vertical', 'horizontal'], TabLayout, 'vertical');
 

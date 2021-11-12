@@ -34,13 +34,12 @@ const defaultMinItemSize = 200;
 
 const prop = {
 	scrollbarOption: ['auto', 'hidden', 'visible'],
-	scrollModeOption: ['native', 'translate']
-};
-
-const wrapOption = {
-	false: false,
-	true: true,
-	'&quot;noAnimation&quot;': 'noAnimation'
+	scrollModeOption: ['native', 'translate'],
+	wrapOption: {
+		false: false,
+		true: true,
+		noAnimation: 'noAnimation'
+	}
 };
 
 // eslint-disable-next-line enact/prop-types
@@ -228,7 +227,7 @@ export const HorizontalScrollInScroller = (args) => {
 		spacing: ri.scale(args['spacing']),
 		style: listStyle,
 		verticalScrollbar: args['verticalScrollbar'],
-		wrap: wrapOption[args['wrap']]
+		wrap: args['wrap']
 	};
 
 	return (
@@ -247,7 +246,7 @@ select('scrollMode', HorizontalScrollInScroller, prop.scrollModeOption, Config);
 boolean('noScrollByWheel', HorizontalScrollInScroller, Config);
 number('spacing', HorizontalScrollInScroller, Config);
 select('verticalScrollbar', HorizontalScrollInScroller, prop.scrollbarOption, Config);
-select('wrap', HorizontalScrollInScroller, ['false', 'true', '"noAnimation"'], Config);
+select('wrap', HorizontalScrollInScroller, prop.wrapOption, Config);
 
 HorizontalScrollInScroller.storyName = 'horizontal scroll in Scroller';
 HorizontalScrollInScroller.parameters = {
@@ -271,7 +270,7 @@ export const WithMoreItems = (args) => {
 			spacing={ri.scale(args['spacing'])}
 			spotlightDisabled={args['spotlightDisabled']}
 			verticalScrollbar={args['verticalScrollbar']}
-			wrap={wrapOption[args['wrap']]}
+			wrap={args['wrap']}
 		/>
 	);
 };
@@ -285,7 +284,7 @@ boolean('noScrollByWheel', WithMoreItems, Config);
 number('spacing', WithMoreItems, Config);
 boolean('spotlightDisabled', WithMoreItems, Config, false);
 select('verticalScrollbar', WithMoreItems, prop.scrollbarOption, Config);
-select('wrap', WithMoreItems, ['false', 'true', '"noAnimation"'], Config);
+select('wrap', WithMoreItems, prop.wrapOption, Config);
 
 WithMoreItems.storyName = 'with more items';
 WithMoreItems.parameters = {
@@ -343,7 +342,7 @@ export const _InPanels = (args) => {
 			spacing={ri.scale(args['spacing'])}
 			spotlightDisabled={args['spotlightDisabled']}
 			verticalScrollbar={args['verticalScrollbar']}
-			wrap={wrapOption[args['wrap']]}
+			wrap={args['wrap']}
 		/>
 	);
 };
@@ -357,7 +356,7 @@ boolean('noScrollByWheel', _InPanels, Config);
 number('spacing', _InPanels, Config);
 boolean('spotlightDisabled', _InPanels, Config, false);
 select('verticalScrollbar', _InPanels, prop.scrollbarOption, Config);
-select('wrap', _InPanels, ['false', 'true', '"noAnimation"'], Config);
+select('wrap', _InPanels, prop.wrapOption, Config);
 
 _InPanels.storyName = 'in Panels';
 _InPanels.parameters = {
@@ -434,7 +433,7 @@ export const WithExtraItems = (args) => {
 				spacing={ri.scale(args['spacing'])}
 				spotlightDisabled={args['spotlightDisabled(for all items)']}
 				verticalScrollbar={args['verticalScrollbar']}
-				wrap={wrapOption[args['wrap']]}
+				wrap={args['wrap']}
 			/>
 			<Cell shrink component={Item}>
 				extra item1
@@ -458,7 +457,7 @@ boolean('noScrollByWheel', WithExtraItems, Config);
 number('spacing', WithExtraItems, Config, 0);
 boolean('spotlightDisabled(for all items)', WithExtraItems, Config, false);
 select('verticalScrollbar', WithExtraItems, prop.scrollbarOption, Config);
-select('wrap', WithExtraItems, ['false', 'true', '"noAnimation"'], Config);
+select('wrap', WithExtraItems, prop.wrapOption, Config);
 
 WithExtraItems.storyName = 'with extra items';
 WithExtraItems.parameters = {
@@ -484,15 +483,15 @@ export const WithContainerItemsHaveSpottableControls = (args) => {
 			itemSize={ri.scale(args['itemSize'])}
 			key={args['scrollMode']}
 			scrollMode={args['scrollMode']}
-			wrap={wrapOption[args['wrap']]}
+			wrap={args['wrap']}
 		/>
 	);
 };
 
-number('dataSize', Config, defaultDataSize);
-number('itemSize', Config, 156);
-select('scrollMode', prop.scrollModeOption, Config);
-select('wrap', ['false', 'true', '"noAnimation"'], Config);
+number('dataSize', WithContainerItemsHaveSpottableControls, Config, defaultDataSize);
+number('itemSize', WithContainerItemsHaveSpottableControls, Config, 156);
+select('scrollMode', WithContainerItemsHaveSpottableControls, prop.scrollModeOption, Config);
+select('wrap', WithContainerItemsHaveSpottableControls, prop.wrapOption, Config);
 
 WithContainerItemsHaveSpottableControls.storyName = 'with container items have spottable controls';
 WithContainerItemsHaveSpottableControls.parameters = {

@@ -13,7 +13,6 @@ export default {
 	component: 'Header'
 };
 
-
 // The Fragment (or any node, really; could be a <div> instead) is actually needed by
 // Storybook to properly apply changes from the controls to the stories' children that occupy
 // the outermost node. This is most visible when the `noHeader` prop is given and several

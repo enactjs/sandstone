@@ -2,7 +2,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
-import Button from '@enact/sandstone/Button';
+import {Button, ButtonBase} from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
@@ -65,6 +65,7 @@ const prop = {
 	tallText: ['नरेंद्र मोदी', 'ଇନପୁଟଗୁଡିକ', 'ฟิ้ ไั ஒ  து  ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី', 'ÁÉÍÓÚÑÜ', 'Bản văn']
 };
 
+const ButtonConfig = mergeComponentMetadata('Button', ButtonBase, Button);
 const CheckboxItemConfig = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItem);
 
 const ContextualButton = ContextualPopupDecorator(Button);
@@ -118,12 +119,12 @@ export const TallGlyphSupportInComponents = (args) => {
 							alt="Button"
 							onClick={action('onClick')}
 							backgroundOpacity={args['backgroundOpacity']}
-							disabled={args['disabled']}
+							disabled={args['disabled (Button)']}
 							focusEffect={args['focusEffect']}
 							icon={args['icon']}
 							minWidth={args['minWidth'] ? void 0 : false}
 							selected={args['selected']}
-							size={args['size']}
+							size={args['size (Button)']}
 						>
 							{text}
 						</Button>
@@ -133,8 +134,8 @@ export const TallGlyphSupportInComponents = (args) => {
 					<Section title="Toggleable Items" size="50%">
 						<CheckboxItem
 							alt="CheckboxItem"
-							disabled={args['disabled']}
-							inline={args['inline']}
+							disabled={args['disabled (CheckboxItem)']}
+							inline={args['inline (CheckboxItem)']}
 							onToggle={action('onToggle')}
 						>
 							{text}
@@ -142,16 +143,16 @@ export const TallGlyphSupportInComponents = (args) => {
 						<FormCheckboxItem alt="FormCheckboxItem">{text}</FormCheckboxItem>
 						<RadioItem
 							alt="RadioItem"
-							disabled={args['disabled']}
-							inline={args['inline']}
+							disabled={args['disabled (RadioItem)']}
+							inline={args['inline (RadioItem)']}
 							onToggle={action('onToggle')}
 						>
 							{text}
 						</RadioItem>
 						<SwitchItem
 							alt="SwitchItem"
-							disabled={args['disabled']}
-							inline={args['inline']}
+							disabled={args['disabled (SwitchItem)']}
+							inline={args['inline (SwitchItem)']}
 							onToggle={action('onToggle')}
 						>
 							{text}
@@ -162,7 +163,7 @@ export const TallGlyphSupportInComponents = (args) => {
 				<Section title="Simple Items">
 					<Item
 						alt="Item"
-						disabled={args['disabled']}
+						disabled={args['disabled (Item)']}
 					>
 						{text}
 					</Item>
@@ -184,7 +185,7 @@ export const TallGlyphSupportInComponents = (args) => {
 					<InputField
 						alt="InputField"
 						style={divMargin}
-						size={args['size']}
+						size={args['size (InputField)']}
 						value={text}
 					/>
 					<Picker
@@ -195,7 +196,7 @@ export const TallGlyphSupportInComponents = (args) => {
 						wrap={args['wrap']}
 						joined={args['joined']}
 						noAnimation={args['noAnimation']}
-						disabled={args['disabled']}
+						disabled={args['disabled (Picker)']}
 						incrementIcon={args['incrementIcon']}
 						decrementIcon={args['decrementIcon']}
 					>
@@ -216,27 +217,27 @@ export const TallGlyphSupportInComponents = (args) => {
 };
 
 select('text', TallGlyphSupportInComponents, prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
-select('backgroundOpacity', TallGlyphSupportInComponents, prop.backgroundOpacity, Button);
-boolean('disabled', TallGlyphSupportInComponents, Button);
-select('focusEffect', TallGlyphSupportInComponents, prop.focusEffect, Button);
-select('icon', TallGlyphSupportInComponents, prop.icons, Button);
-boolean('minWidth', TallGlyphSupportInComponents, Button, true);
-boolean('selected', TallGlyphSupportInComponents, Button);
-select('size', TallGlyphSupportInComponents, ['small', 'large'], Button);
-boolean('disabled', TallGlyphSupportInComponents, CheckboxItemConfig, false);
-boolean('inline', TallGlyphSupportInComponents, CheckboxItemConfig);
-boolean('disabled', TallGlyphSupportInComponents, RadioItem);
-boolean('inline', TallGlyphSupportInComponents, RadioItem);
-boolean('disabled', TallGlyphSupportInComponents, SwitchItem);
-boolean('inline', TallGlyphSupportInComponents, SwitchItem);
-boolean('disabled', TallGlyphSupportInComponents, Item);
-select('size', TallGlyphSupportInComponents, propOptions.size, InputField);
+select('backgroundOpacity', TallGlyphSupportInComponents, prop.backgroundOpacity, ButtonConfig);
+boolean('disabled (Button)', TallGlyphSupportInComponents, ButtonConfig);
+select('focusEffect', TallGlyphSupportInComponents, prop.focusEffect, ButtonConfig);
+select('icon', TallGlyphSupportInComponents, prop.icons, ButtonConfig);
+boolean('minWidth', TallGlyphSupportInComponents, ButtonConfig, true);
+boolean('selected', TallGlyphSupportInComponents, ButtonConfig);
+select('size (Button)', TallGlyphSupportInComponents, ['small', 'large'], ButtonConfig);
+boolean('disabled (CheckboxItem)', TallGlyphSupportInComponents, CheckboxItemConfig, false);
+boolean('inline (CheckboxItem', TallGlyphSupportInComponents, CheckboxItemConfig);
+boolean('disabled (RadioItem)', TallGlyphSupportInComponents, RadioItem);
+boolean('inline (RadioItem)', TallGlyphSupportInComponents, RadioItem);
+boolean('disabled (SwitchItem)', TallGlyphSupportInComponents, SwitchItem);
+boolean('inline (SwitchItem)', TallGlyphSupportInComponents, SwitchItem);
+boolean('disabled (Item)', TallGlyphSupportInComponents, Item);
+select('size (InputField)', TallGlyphSupportInComponents, propOptions.size, InputField);
 select('width', TallGlyphSupportInComponents, prop.pickerWidth, Picker, 'large');
 select('orientation', TallGlyphSupportInComponents, prop.pickerOrientation, Picker, 'horizontal');
 boolean('wrap', TallGlyphSupportInComponents, Picker);
 boolean('joined', TallGlyphSupportInComponents, Picker);
 boolean('noAnimation', TallGlyphSupportInComponents, Picker);
-boolean('disabled', TallGlyphSupportInComponents, Picker);
+boolean('disabled (Picker)', TallGlyphSupportInComponents, Picker);
 select('incrementIcon', TallGlyphSupportInComponents, iconNames, Picker);
 select('decrementIcon', TallGlyphSupportInComponents, iconNames, Picker);
 select('direction', TallGlyphSupportInComponents, prop.contextualPopupDirection, ContextualPopupConfig, 'above');
