@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VideoPlayer` to return the current state of the media when handling event
+
 ## [2.0.4] - 2021-11-01
 
 ### Added

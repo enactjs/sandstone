@@ -1148,27 +1148,27 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	handlePlay = this.handle(
-		forwardPlay,
 		this.shouldShowMiniFeedback,
-		() => this.play()
+		() => this.play(),
+		forwardPlay
 	);
 
 	handlePause = this.handle(
-		forwardPause,
 		this.shouldShowMiniFeedback,
-		() => this.pause()
+		() => this.pause(),
+		forwardPause
 	);
 
 	handleRewind = this.handle(
-		forwardRewind,
 		this.shouldShowMiniFeedback,
-		() => this.rewind()
+		() => this.rewind(),
+		forwardRewind
 	);
 
 	handleFastForward = this.handle(
-		forwardFastForward,
 		this.shouldShowMiniFeedback,
-		() => this.fastForward()
+		() => this.fastForward(),
+		forwardFastForward
 	);
 
 	handleJump = ({keyCode}) => {
@@ -1287,12 +1287,12 @@ const VideoPlayerBase = class extends Component {
 	 */
 	getMediaState = () => {
 		return {
-			currentTime       : this.state.currentTime,
+			currentTime       : this.video.currentTime,
 			duration          : this.state.duration,
-			paused            : this.state.paused,
+			paused            : this.video.playbackRate !== 1 || this.video.paused,
 			playbackRate      : this.video.playbackRate,
-			proportionLoaded  : this.state.proportionLoaded,
-			proportionPlayed  : this.state.proportionPlayed
+			proportionLoaded  : this.video.proportionLoaded,
+			proportionPlayed  : this.video.proportionPlayed || 0
 		};
 	};
 
@@ -1331,10 +1331,11 @@ const VideoPlayerBase = class extends Component {
 		this.send('play');
 		this.announce($L('Play'));
 		this.startDelayedMiniFeedbackHide(5000);
+		return true;
 	};
 
 	/**
-	 * Programmatically plays the current media.
+	 * Programmatically pauses the current media.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1353,6 +1354,7 @@ const VideoPlayerBase = class extends Component {
 		this.send('pause');
 		this.announce($L('Pause'));
 		this.stopDelayedMiniFeedbackHide();
+		return true;
 	};
 
 	/**
@@ -1391,6 +1393,7 @@ const VideoPlayerBase = class extends Component {
 		this.startDelayedFeedbackHide();
 		this.seek(this.state.currentTime + distance);
 		this.startDelayedMiniFeedbackHide();
+		return true;
 	};
 
 	/**
@@ -1448,6 +1451,7 @@ const VideoPlayerBase = class extends Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.clearPulsedPlayback();
 		this.showFeedback();
+		return true;
 	};
 
 	/**
@@ -1512,6 +1516,7 @@ const VideoPlayerBase = class extends Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.clearPulsedPlayback();
 		this.showFeedback();
+		return true;
 	};
 
 	// Creates a proxy to the video node if Proxy is supported
@@ -1769,12 +1774,13 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	onJumpBackward = this.handle(
-		forwardJumpBackward,
-		() => this.jump(-1 * this.props.jumpBy)
+		() => this.jump(-1 * this.props.jumpBy),
+		forwardJumpBackward
 	);
+
 	onJumpForward = this.handle(
-		forwardJumpForward,
-		() => this.jump(this.props.jumpBy)
+		() => this.jump(this.props.jumpBy),
+		forwardJumpForward
 	);
 
 	handleToggleMore = (ev) => {
