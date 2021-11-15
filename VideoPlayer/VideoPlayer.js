@@ -107,11 +107,17 @@ const forwardToggleMore = forward('onToggleMore');
 // provide forwarding of events on media controls
 const forwardControlsAvailable = forward('onControlsAvailable');
 const forwardPlay = forwardWithState('onPlay');
+const forwardWillPlay = forwardWithState('onWillPlay');
 const forwardPause = forwardWithState('onPause');
+const forwardWillPause = forwardWithState('onWillPause');
 const forwardRewind = forwardWithState('onRewind');
+const forwardWillRewind = forwardWithState('onWillRewind');
 const forwardFastForward = forwardWithState('onFastForward');
+const forwardWillFastForward = forwardWithState('onWillFastForward');
 const forwardJumpBackward = forwardWithState('onJumpBackward');
+const forwardWillJumpBackward = forwardWithState('onWillJumpBackward');
 const forwardJumpForward = forwardWithState('onJumpForward');
+const forwardWillJumpForward = forwardWithState('onWillJumpForward');
 
 const AnnounceState = {
 	// Video is loaded but additional announcements have not been made
@@ -1148,24 +1154,28 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	handlePlay = this.handle(
+		forwardWillPlay,
 		this.shouldShowMiniFeedback,
 		() => this.play(),
 		forwardPlay
 	);
 
 	handlePause = this.handle(
+		forwardWillPause,
 		this.shouldShowMiniFeedback,
 		() => this.pause(),
 		forwardPause
 	);
 
 	handleRewind = this.handle(
+		forwardWillRewind,
 		this.shouldShowMiniFeedback,
 		() => this.rewind(),
 		forwardRewind
 	);
 
 	handleFastForward = this.handle(
+		forwardWillFastForward,
 		this.shouldShowMiniFeedback,
 		() => this.fastForward(),
 		forwardFastForward
@@ -1774,11 +1784,13 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	onJumpBackward = this.handle(
+		forwardWillJumpBackward,
 		() => this.jump(-1 * this.props.jumpBy),
 		forwardJumpBackward
 	);
 
 	onJumpForward = this.handle(
+		forwardWillJumpForward,
 		() => this.jump(this.props.jumpBy),
 		forwardJumpForward
 	);
@@ -1887,6 +1899,12 @@ const VideoPlayerBase = class extends Component {
 		delete mediaProps.onPause;
 		delete mediaProps.onPlay;
 		delete mediaProps.onRewind;
+		delete mediaProps.onWillFastForward;
+		delete mediaProps.onWillJumpBackward;
+		delete mediaProps.onWillJumpForward;
+		delete mediaProps.onWillPause;
+		delete mediaProps.onWillPlay;
+		delete mediaProps.onWillRewind;
 		delete mediaProps.onScrub;
 		delete mediaProps.onSeekFailed;
 		delete mediaProps.onSeekOutsideSelection;
