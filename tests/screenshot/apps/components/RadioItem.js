@@ -42,23 +42,17 @@ const RadioItemTests = [
 	// Long text selected - LTR [QWT-2801]
 	<RadioItem selected>-Lorem</RadioItem>,
 
-	// Custom icon
-	// [GT-28207]
 	<RadioItem selected icon="arrowup">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
-	// [GT-28207]
 	<RadioItem selected icon="arrowup">តន្ត្រី</RadioItem>,
-	// [GT-28207]
 	<RadioItem selected icon="arrowup">ฟิ้  ไั  ஒ  து</RadioItem>,
 	// Selected - disabled
-	// [GT-28198]
 	<RadioItem selected disabled icon="arrowup">RadioItem Checked</RadioItem>,
 	// Selected - disabled - inline
 	<RadioItem selected disabled inline icon="arrowup">RadioItem Checked</RadioItem>,
 	// Selected - inline
-	// [GT-28199]
 	<RadioItem selected inline icon="arrowup">RadioItem Checked</RadioItem>,
 	<RadioItem selected icon="arrowup">RadioItem Checked</RadioItem>,
-	// Long text selected - LTR [GT-28204]
+	// Long text selected - LTR
 	<RadioItem selected icon="arrowup">-Lorem</RadioItem>,
 
 	// Icon slotBefore
