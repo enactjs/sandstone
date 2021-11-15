@@ -5,9 +5,12 @@ import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
+import {Header, Panel, Panels} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
@@ -169,6 +172,7 @@ export const HorizontalVirtualGridList = () => (
 		dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 		direction="horizontal"
 		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+		hoverToScroll={boolean('hoverToScroll', Config)}
 		itemRenderer={renderItem}
 		itemSize={{
 			minWidth: ri.scale(number('minWidth', Config, 688)),
@@ -228,3 +232,153 @@ HorizontalSquaredVirtualGridList.storyName = 'Horizontal Squared VirtualGridList
 HorizontalSquaredVirtualGridList.parameters = {
 	propTables: [Config]
 };
+
+class SnapToCenterVGL extends Component {
+	componentDidMount () {
+		this.scrollTo({index: 1, animate: false, focus: true, stickTo: 'center'});
+	}
+
+	renderItem = ({index, ...rest}) => {
+		const {source} = items[index];
+		let customProps = {};
+		if (index === 0 || index === items.length - 1) {
+			customProps = {
+				style: {
+					visibility: 'hidden'
+				},
+				spotlightDisabled: true
+			};
+		}
+
+		return (
+			<ImageItem
+				{...rest}
+				src={source}
+				style={{
+					paddingLeft: ri.scaleToRem(240),
+					paddingRight: ri.scaleToRem(240)
+				}}
+				{...customProps}
+			/>
+		);
+	};
+
+	getScrollTo = (scrollTo) => {
+		this.scrollTo = scrollTo;
+	};
+
+	render () {
+		return (
+			<VirtualGridList
+				cbScrollTo={this.getScrollTo}
+				dataSize={updateDataSize(number('dataSize', Config, 10))}
+				itemRenderer={this.renderItem}
+				itemSize={{
+					minWidth: ri.scale(number('minWidth', Config, 1230)),
+					minHeight: ri.scale(number('minHeight', Config, 540))
+				}}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				snapToCenter
+				spacing={ri.scale(number('spacing', Config, 0))}
+				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+				style={{
+					width: ri.scaleToRem(2400)
+				}}
+				verticalScrollbar="hidden"
+			/>
+		);
+	}
+}
+
+export const SnapToCenterVirtualGridList = () => (
+	<SnapToCenterVGL />
+);
+
+SnapToCenterVirtualGridList.storyName = 'Snap to center VirtualGridList';
+SnapToCenterVirtualGridList.parameters = {
+	propTables: [Config]
+};
+
+const VirtualGridListInScroller = ({onNext, ...rest}) => {
+	const virtualGridListProps = {
+		...rest,
+		childProps: {onClick: onNext},
+		dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
+		direction: 'horizontal',
+		itemRenderer: renderItem,
+		itemSize: {
+			minWidth: ri.scale(number('minWidth', Config, 688)),
+			minHeight: ri.scale(number('minHeight', Config, 570))
+		},
+		spacing: ri.scale(number('spacing', Config, 0)),
+		style: {
+			height: ri.scale(number('minHeight', Config, 570)),
+			paddingBottom: ri.scaleToRem(36)
+		}
+	};
+
+	const virtualGridLists = [];
+
+	for (let i = 0; i < 4; i++) {
+		const id = `vgl_${i}`;
+
+		virtualGridLists.push(
+			<VirtualGridList
+				{...virtualGridListProps}
+				id={id}
+				key={id}
+				spotlightId={id}
+			/>
+		);
+	}
+
+	return (
+		<Scroller>
+			{virtualGridLists}
+		</Scroller>
+	);
+};
+
+VirtualGridListInScroller.propTypes = {
+	onNext: PropTypes.func
+};
+
+class VirtualGridListInScrollerSamples extends Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			index: 0
+		};
+	}
+
+	onBack = () => {
+		this.setState(prevState => ({
+			index: prevState.index - 1
+		}));
+	};
+
+	onNext = () => {
+		this.setState(prevState => ({
+			index: prevState.index + 1
+		}));
+	};
+
+	render () {
+		return (
+			<Panels index={this.state.index} onBack={this.onBack}>
+				<Panel>
+					<VirtualGridListInScroller onNext={this.onNext} />
+				</Panel>
+				<Panel>
+					<Header noCloseButton title="Second Panel" type="compact" />
+				</Panel>
+			</Panels>
+		);
+	}
+}
+
+export const RestoreFocusInScroller = () => <VirtualGridListInScrollerSamples />;
+
+RestoreFocusInScroller.storyName = 'in Scroller with restoring focus';

@@ -199,7 +199,7 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
  * @omit defaultValue
  * @private
  */
-const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
+const DaySelectorDecorator = hoc((config, Wrapped) => {
 	return class extends Component {
 
 		static displayName = 'DaySelectorDecorator';

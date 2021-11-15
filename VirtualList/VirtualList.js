@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import warning from 'warning';
 
 import useScroll from '../useScroll';
+import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
@@ -31,7 +32,7 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, ...rest}) => {
+let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -60,8 +61,9 @@ let VirtualList = ({itemSize, ...rest}) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
+		horizontalScrollbarProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		hoverToScrollProps
 	} = useScroll({...rest, ...props});
 
 	const {
@@ -77,6 +79,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -187,6 +190,14 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
+	 * Enables scroll by hover on edges in scroll direction.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	hoverToScroll: PropTypes.bool,
 
 	/**
 	 * Unique identifier for the component.
@@ -481,7 +492,7 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = (props) => {
+let VirtualGridList = ({hoverToScroll, ...rest}) => {
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -494,9 +505,10 @@ let VirtualGridList = (props) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
+		horizontalScrollbarProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
-	} = useScroll(props);
+		hoverToScrollProps
+	} = useScroll(rest);
 
 	const {
 		className,
@@ -511,6 +523,7 @@ let VirtualGridList = (props) => {
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -623,6 +636,14 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
+	 * Enables scroll by hover on edges in scroll direction.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	hoverToScroll: PropTypes.bool,
 
 	/**
 	 * Unique identifier for the component.
@@ -810,6 +831,14 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	scrollMode: PropTypes.string,
+
+	/**
+	 * When it's true, the item snaps to center.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	snapToCenter: PropTypes.bool,
 
 	/**
 	 * Spotlight Id.

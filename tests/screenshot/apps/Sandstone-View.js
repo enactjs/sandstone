@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 import {objectify} from '@enact/ui/Skinnable/util';
 import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils';
 import spotlight from '@enact/spotlight';
-import {Component as ReactComponent, cloneElement} from 'react';
+import {Component as ReactComponent, cloneElement, useEffect} from 'react';
 
 import ThemeDecorator from '../../../ThemeDecorator';
 
@@ -172,6 +172,10 @@ const ExportedApp = (props) => {
 	}
 
 	const WrappedApp = ThemeDecorator({noAutoFocus}, App);
+
+	useEffect(() => {
+		document.querySelector('#root').classList.add('spotlight-input-key');
+	}, []);
 
 	return (
 		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} />
