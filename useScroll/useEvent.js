@@ -188,14 +188,15 @@ const useEventKey = (props, instances, context) => {
 		}
 	}
 
-	function scrollByPage (direction) {
+	function scrollByPage (pageKeyDirection) {
 		const
 			{scrollTop} = scrollContainerHandle.current,
 			focusedItem = Spotlight.getCurrent(),
 			bounds = scrollContainerHandle.current.getScrollBounds(),
-			isUp = direction === 'up',
+			isUp = pageKeyDirection === 'up',
 			directionFactor = isUp ? -1 : 1,
 			pageDistance = directionFactor * bounds.clientHeight * paginationPageMultiplier;
+		let direction = pageKeyDirection;
 		let scrollPossible = false;
 
 		if (scrollMode === 'translate') {
@@ -224,14 +225,11 @@ const useEventKey = (props, instances, context) => {
 						x = clamp(contentRect.left, contentRect.right, (clientRect.right + clientRect.left) / 2);
 					let y = 0;
 
-					if (scrollMode === 'translate') {
-						y = bounds.maxTop <= scrollTop + pageDistance || 0 >= scrollTop + pageDistance ?
-							contentRect[isUp ? 'top' : 'bottom'] + yAdjust :
-							clamp(contentRect.top, contentRect.bottom, (clientRect.bottom + clientRect.top) / 2);
+					if (bounds.maxTop - epsilon < scrollTop + pageDistance || epsilon > scrollTop + pageDistance) {
+						y = contentRect[isUp ? 'top' : 'bottom'] + yAdjust;
+						direction = isUp ? 'down' : 'up'; // Change direction to find target in the content
 					} else {
-						y = bounds.maxTop - epsilon < scrollTop + pageDistance || epsilon > scrollTop + pageDistance ?
-							contentNode.getBoundingClientRect()[isUp ? 'top' : 'bottom'] + yAdjust :
-							clamp(contentRect.top, contentRect.bottom, (clientRect.bottom + clientRect.top) / 2);
+						y = clamp(contentRect.top, contentRect.bottom, (clientRect.bottom + clientRect.top) / 2);
 					}
 
 					focusedItem.blur();
@@ -560,8 +558,8 @@ const useEventVoice = (props, instances) => {
 };
 
 const useEventWheel = (props, instances) => {
-	const {scrollMode} = props;
-	const {themeScrollContentHandle, scrollContainerHandle, scrollContentRef, spottable} = instances;
+	const {dataSize, scrollMode, snapToCenter} = props;
+	const {themeScrollContentHandle, scrollContainerHandle, scrollContentHandle, scrollContentRef, spottable} = instances;
 
 	// Functions
 	function initializeWheeling () {
@@ -589,19 +587,18 @@ const useEventWheel = (props, instances) => {
 	 * - for vertical scroll, supports wheel action on scrollbars only
 	 */
 	function handleWheelNative (ev) {
-		const
-			overscrollEffectRequired = props.overscrollEffectOn.wheel,
-			bounds = scrollContainerHandle.current.getScrollBounds(),
-			canScrollHorizontally = scrollContainerHandle.current.canScrollHorizontally(bounds),
-			canScrollVertically = scrollContainerHandle.current.canScrollVertically(bounds),
-			eventDeltaMode = ev.deltaMode,
-			eventDelta = (-ev.wheelDeltaY || ev.deltaY),
-			positiveDelta = eventDelta > 0,
-			negativeDelta = eventDelta < 0,
-			{scrollTop, scrollLeft} = scrollContainerHandle.current;
-		let
-			delta = 0,
-			needToHideScrollbarTrack = false;
+		const overscrollEffectRequired = props.overscrollEffectOn.wheel;
+		const bounds = scrollContainerHandle.current.getScrollBounds();
+		const canScrollHorizontally = scrollContainerHandle.current.canScrollHorizontally(bounds);
+		const canScrollVertically = scrollContainerHandle.current.canScrollVertically(bounds);
+		const eventDeltaMode = ev.deltaMode;
+		const eventDelta = (-ev.wheelDeltaY || ev.deltaY);
+		const positiveDelta = eventDelta > 0;
+		const negativeDelta = eventDelta < 0;
+		const {scrollTop, scrollLeft} = scrollContainerHandle.current;
+		const offset = snapToCenter ? scrollContentHandle.current.primary.gridSize : 0;
+		let delta = 0;
+		let needToHideScrollbarTrack = false;
 
 		if (typeof window !== 'undefined') {
 			window.document.activeElement.blur();
@@ -612,13 +609,13 @@ const useEventWheel = (props, instances) => {
 		// FIXME This routine is a temporary support for horizontal wheel scroll.
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
 		if (canScrollVertically) { // This routine handles wheel events on scrollbars for vertical scroll.
-			if (negativeDelta && scrollTop > 0 || positiveDelta && scrollTop < bounds.maxTop) {
+			if (negativeDelta && scrollTop > 0 + offset || positiveDelta && scrollTop < bounds.maxTop - offset) {
 				if (!spottable.current.isWheeling) {
 					initializeWheeling();
 				}
 
 				// If ev.target is a descendant of scrollContent, the event will be handled on scroll event handler.
-				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target)) {
+				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target) || snapToCenter) {
 					delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
 					needToHideScrollbarTrack = !delta;
 
@@ -630,13 +627,13 @@ const useEventWheel = (props, instances) => {
 				ev.stopPropagation();
 			} else {
 				if (overscrollEffectRequired && (negativeDelta && scrollTop <= 0 || positiveDelta && scrollTop >= bounds.maxTop)) {
-					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce, 1);
+					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
 
 				needToHideScrollbarTrack = true;
 			}
 		} else if (canScrollHorizontally) { // this routine handles wheel events on any children for horizontal scroll.
-			if (negativeDelta && scrollLeft > 0 || positiveDelta && scrollLeft < bounds.maxLeft) {
+			if (negativeDelta && scrollLeft > 0 + offset || positiveDelta && scrollLeft < bounds.maxLeft - offset) {
 				if (!spottable.current.isWheeling) {
 					initializeWheeling();
 				}
@@ -648,7 +645,7 @@ const useEventWheel = (props, instances) => {
 				ev.stopPropagation();
 			} else {
 				if (overscrollEffectRequired && (negativeDelta && scrollLeft <= 0 || positiveDelta && scrollLeft >= bounds.maxLeft)) {
-					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce, 1);
+					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
 
 				needToHideScrollbarTrack = true;
@@ -667,7 +664,33 @@ const useEventWheel = (props, instances) => {
 				scrollContainerHandle.current.wheelDirection = direction;
 			}
 
-			scrollContainerHandle.current.scrollToAccumulatedTarget(delta, canScrollVertically, overscrollEffectRequired);
+			if (!snapToCenter) {
+				scrollContainerHandle.current.scrollToAccumulatedTarget(delta, canScrollVertically, overscrollEffectRequired);
+			} else {
+				const {dimensionToExtent} = scrollContentHandle.current;
+				const currentIndex = scrollContentHandle.current.getCenterItemIndexFromScrollPosition(canScrollVertically ? scrollTop : scrollLeft);
+				const nextIndex = currentIndex + (direction * dimensionToExtent);
+
+				if (nextIndex > 0 && nextIndex < dataSize - 1) {
+					if (typeof document === 'object') {
+						const target = document.querySelector(`[data-index="${nextIndex}"] div`);
+
+						// remove effect
+						themeScrollContentHandle.current.removeScaleEffect();
+						// add effect
+						themeScrollContentHandle.current.addScaleEffect(target);
+					}
+
+					if (themeScrollContentHandle.current.resetSnapToCenterStatus) {
+						themeScrollContentHandle.current.resetSnapToCenterStatus();
+					}
+
+					scrollContainerHandle.current.scrollTo({
+						index: nextIndex,
+						stickTo: 'center'
+					});
+				}
+			}
 		}
 
 		if (needToHideScrollbarTrack) {

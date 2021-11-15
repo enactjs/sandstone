@@ -326,11 +326,12 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, type, styler}) => styler.append(
+		className: ({centered, children, type, styler, subtitle}) => styler.append(
 			{
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
-				withChildren: hasChildren(children)
+				withChildren: hasChildren(children),
+				withSubtitle: subtitle
 			},
 			type
 		),

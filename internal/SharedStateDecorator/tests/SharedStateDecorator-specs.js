@@ -1,13 +1,13 @@
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
 import {Component as ReactComponent} from 'react';
-import {mount} from 'enzyme';
 
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
 
 describe('SharedStateDecorator Specs', () => {
-
 	test('should provide a set method via context', () => {
 		const fn = jest.fn();
-		const Component = SharedStateDecorator(() => (
+		const ComponentSet = SharedStateDecorator(() => (
 			<SharedState.Consumer>
 				{value => {
 					fn(value.set);
@@ -17,7 +17,7 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		mount(<Component />);
+		render(<ComponentSet />);
 
 		const expected = 'function';
 		const actual = typeof fn.mock.calls[0][0];
@@ -27,7 +27,7 @@ describe('SharedStateDecorator Specs', () => {
 
 	test('should provide a get method via context', () => {
 		const fn = jest.fn();
-		const Component = SharedStateDecorator(() => (
+		const ComponentGet = SharedStateDecorator(() => (
 			<SharedState.Consumer>
 				{value => {
 					fn(value.get);
@@ -37,7 +37,7 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		mount(<Component />);
+		render(<ComponentGet />);
 
 		const expected = 'function';
 		const actual = typeof fn.mock.calls[0][0];
@@ -47,7 +47,7 @@ describe('SharedStateDecorator Specs', () => {
 
 	test('should provide a delete method via context', () => {
 		const fn = jest.fn();
-		const Component = SharedStateDecorator(() => (
+		const ComponentDelete = SharedStateDecorator(() => (
 			<SharedState.Consumer>
 				{value => {
 					fn(value.delete);
@@ -57,7 +57,7 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		mount(<Component />);
+		render(<ComponentDelete />);
 
 		const expected = 'function';
 		const actual = typeof fn.mock.calls[0][0];
@@ -76,12 +76,11 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(<Component id="outer" />);
+		render(<Component id="outer" />);
 
-		const expected = 'value';
-		const actual = subject.text();
+		const actual = screen.getByText('value');
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
 
 	test('should supporting setting and getting a value by key when {id} is set to a non-zero value', () => {
@@ -95,12 +94,11 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(<Component id={-1} />);
+		render(<Component id={-1} />);
 
-		const expected = 'value';
-		const actual = subject.text();
+		const actual = screen.getByText('value');
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
 
 	test('should supporting setting and getting a value by key when {id} is set to zero', () => {
@@ -114,12 +112,11 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(<Component id={0} />);
+		render(<Component id={0} />);
 
-		const expected = 'value';
-		const actual = subject.text();
+		const actual = screen.getByText('value');
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
 
 	test('should not set or return values when {id} is not set', () => {
@@ -133,11 +130,11 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(<Component />);
+		render(<Component />);
 
-		const actual = subject.text();
+		const actual = screen.queryByText('value');
 
-		expect(actual).toBeFalsy();
+		expect(actual).toBeNull();
 	});
 
 	test('should not set or return values when {id} is set to an empty string', () => {
@@ -151,11 +148,11 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(<Component id="" />);
+		render(<Component id="" />);
 
-		const actual = subject.text();
+		const actual = screen.queryByText('value');
 
-		expect(actual).toBeFalsy();
+		expect(actual).toBeNull();
 	});
 
 	test('should not set or return values when {id} is set to null', () => {
@@ -169,11 +166,11 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(<Component id={null} />);
+		render(<Component id={null} />);
 
-		const actual = subject.text();
+		const actual = screen.queryByText('value');
 
-		expect(actual).toBeFalsy();
+		expect(actual).toBeNull();
 	});
 
 	test('should not set or return values when {id} and {noSharedState} are set', () => {
@@ -187,11 +184,11 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(<Component id="outer" noSharedState />);
+		render(<Component id="outer" noSharedState />);
 
-		const actual = subject.text();
+		const actual = screen.queryByText('value');
 
-		expect(actual).toBeFalsy();
+		expect(actual).toBeNull();
 	});
 
 	test('should supporting deleting a value by key when {id} is set', () => {
@@ -206,11 +203,11 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(<Component id="outer" />);
+		render(<Component id="outer" />);
 
-		const actual = subject.text();
+		const actual = screen.queryByText('value');
 
-		expect(actual).toBeFalsy();
+		expect(actual).toBeNull();
 	});
 
 	test('should share data upstream when inside another SharedStateDecorator', () => {
@@ -229,28 +226,14 @@ describe('SharedStateDecorator Specs', () => {
 			</SharedState.Consumer>
 		));
 
-		const subject = mount(
+		render(
 			<Component id="outer">
 				<Component id="inner" />
 			</Component>
 		);
 
-		const expected = {
-			// "data" is grouped by id so the top level key is the current id
-			outer: {
-				// this is set by value.set('key', 'value');
-				key: 'value',
-				// when a descendant is added, it pushes its data upstream stored by its id
-				inner: {
-					// like above, the data is grouped again by the id
-					inner: {
-						// from the descendant's set()
-						key: 'value'
-					}
-				}
-			}
-		};
-		const actual = subject.instance().data;
+		const expected = '<div id="outer"><span>value</span><div id="inner"><span>value</span></div></div>';
+		const actual = screen.getAllByText('value')[0].parentElement.parentElement.innerHTML;
 
 		expect(actual).toEqual(expected);
 	});
@@ -260,7 +243,6 @@ describe('SharedStateDecorator Specs', () => {
 			static contextType = SharedState;
 
 			render () {
-				// eslint-disable-next-line enact/prop-types
 				const {children, value: propValue, ...rest} = this.props;
 
 				if (propValue) {
@@ -277,24 +259,28 @@ describe('SharedStateDecorator Specs', () => {
 		}
 		const Component = SharedStateDecorator({updateOnMount: true}, Base);
 
-		const subject = mount(
+		const {rerender} = render(
 			<Component id="outer" value="value">
 				<Component id="inner" value="from-prop" />
 			</Component>
 		);
 
 		// remove the children which drops inner's shared state
-		subject.setProps({children: null});
+		rerender(
+			<Component id="outer" value="value" />
+		);
 
 		// recreate it with the same id but no initial value to validate the previous state is
 		// restored. updateOnMount is used above to coerce a re-render on mount since the shared
 		// state value is used in the render method and isn't available on first render otherwise.
-		subject.setProps({children: <Component id="inner" />});
+		rerender(
+			<Component id="outer" value="value">
+				<Component id="inner" />
+			</Component>
+		);
 
-		const expected = 'from-prop';
-		const actual = subject.find('div#inner').text();
+		const actual = screen.getByText('from-prop');
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
-
 });

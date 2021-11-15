@@ -30,6 +30,12 @@ const ScrollerTests = [
 			tall: true
 		},
 		component: <Scroller horizontalScrollbar="visible" verticalScrollbar="visible">Scroller</Scroller>
+	},
+	{
+		wrapper: {
+			tall: true
+		},
+		component: <Scroller focusableScrollbar horizontalScrollbar="visible" verticalScrollbar="visible">Scroller</Scroller>
 	}
 ];
 export default ScrollerTests;

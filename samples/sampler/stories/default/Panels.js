@@ -128,7 +128,15 @@ export const _Panels = () => {
 				/>
 			</Panel>
 			<Panel>
-				<Header title="Panel with TabLayout" />
+				<Header title="Panel with TabLayout" >
+					<Button
+						icon="arrowlargeright"
+						iconFlip="auto"
+						size="small"
+						slot="slotAfter"
+						onClick={forward} // eslint-disable-line react/jsx-no-bind
+					/>
+				</Header>
 				<TabLayout>
 					<TabLayout.Tab title="Home" icon="home">
 						<Icon>home</Icon>Home
@@ -175,6 +183,18 @@ export const _Panels = () => {
 						<Item slotBefore={<Icon>playcircle</Icon>}>Hello Item</Item>
 					</TabLayout.Tab>
 				</TabLayout>
+			</Panel>
+			<Panel>
+				<Header title="Panel with Scroller" />
+				<Scroller focusableScrollbar="byEnter" verticalScrollbar="visible">
+					<div style={{height: ri.scaleToRem(2004)}}>
+						<BodyText>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt.
+							Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
+						</BodyText>
+					</div>
+				</Scroller>
 			</Panel>
 		</Panels>
 	);

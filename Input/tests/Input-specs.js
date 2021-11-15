@@ -1,393 +1,355 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Input from '../Input';
-import {DEFAULT_LENGTH} from '../util';
-
-import css from '../Input.module.less';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
 describe('Input specs', () => {
 	test('should be rendered opened if open is set to true', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input open />
 			</FloatingLayerController>
 		);
+		const actual = screen.getAllByLabelText('- Input field')[0].parentElement.nextElementSibling.children.length > 0;
 
-		const expected = true;
-		const actual = subject.find('FloatingLayer').prop('open');
-
-		expect(actual).toBe(expected);
+		expect(actual).toBeTruthy();
 	});
 
 	test('should set title when there is title text', () => {
 		const str = 'title text';
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input open title={str} />
 			</FloatingLayerController>
 		);
+		const titleField = screen.getByText(str).parentElement.parentElement;
 
-		const expected = str;
-		const actual = subject.find(`.${css.title}`).first().text();
+		const expected = 'title';
 
-		expect(actual).toBe(expected);
+		expect(titleField).toBeInTheDocument();
+		expect(titleField).toHaveClass(expected);
 	});
 
 	test('should set title below when there is title below text', () => {
 		const str = 'title below text';
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input open subtitle={str} />
 			</FloatingLayerController>
 		);
+		const subtitleField = screen.getByText(str).parentElement.parentElement;
 
-		const expected = str;
-		const actual = subject.find(`.${css.subtitle}`).first().text();
+		const expected = 'subtitle';
 
-		expect(actual).toBe(expected);
+		expect(subtitleField).toBeInTheDocument();
+		expect(subtitleField).toHaveClass(expected);
 	});
 
 	test('should set value at input when there is value text', () => {
 		const str = 'value text';
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input open value={str} />
 			</FloatingLayerController>
 		);
+		const inputField = screen.getByPlaceholderText('-');
 
-		const expected = str;
-		const actual = subject.find('input').prop('value');
-
-		expect(actual).toBe(expected);
+		expect(inputField).toHaveValue(str);
 	});
 
 	test('should set placeholder at input when there is placeholder text', () => {
 		const str = 'placeholder text';
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input open placeholder={str} />
 			</FloatingLayerController>
 		);
+		const inputField = screen.getByPlaceholderText(str);
 
-		const expected = str;
-		const actual = subject.find('input').prop('placeholder');
+		const expectedAttribute = 'placeholder';
 
-		expect(actual).toBe(expected);
+		expect(inputField).toHaveAttribute(expectedAttribute, str);
 	});
 
-	test('should set type to password at input when input type is "password"', () => {
-		const subject = mount(
+	test('should set type to password at input when input type is `password`', () => {
+		const str = 'placeholder text';
+		render(
 			<FloatingLayerController>
-				<Input open type="password" />
+				<Input open placeholder={str} type="password" />
 			</FloatingLayerController>
 		);
+		const inputField = screen.getByPlaceholderText(str);
 
-		const expected = 'password';
-		const actual = subject.find('input').prop('type');
+		const expectedAttribute = 'type';
+		const expectedValue = 'password';
 
-		expect(actual).toBe(expected);
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	test('should set type to url at input when input type is "url"', () => {
-		const subject = mount(
+	test('should set type to url at input when input type is `url`', () => {
+		const str = 'placeholder text';
+		render(
 			<FloatingLayerController>
-				<Input open type="url" />
+				<Input open placeholder={str} type="url" />
 			</FloatingLayerController>
 		);
+		const inputField = screen.getByPlaceholderText(str);
 
-		const expected = 'url';
-		const actual = subject.find('input').prop('type');
+		const expectedAttribute = 'type';
+		const expectedValue = 'url';
 
-		expect(actual).toBe(expected);
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should set disabled at button when popup is disabled', () => {
-		const subject = mount(<Input disabled />);
+		render(<Input disabled />);
+		const buttonInput = screen.getByRole('button');
 
-		const expected = true;
-		const actual = subject.find('[role="button"]').prop('disabled');
+		const expectedAttribute = 'aria-disabled';
+		const expectedValue = 'true';
 
-		expect(actual).toBe(expected);
+		expect(buttonInput).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	// describe('Input specs', () => {
+	// Type = number
 	test('should be rendered opened if open is set to true', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={4} />
 			</FloatingLayerController>
 		);
 
-		const expected = true;
-		const actual = subject.find('FloatingLayer').prop('open');
+		const actual = screen.getAllByLabelText('- Input field')[0].parentElement.nextElementSibling.children.length > 0;
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeTruthy();
 	});
 
 	test('should set title when there is title text', () => {
 		const str = 'title text';
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={4} title={str} />
 			</FloatingLayerController>
 		);
+		const titleField = screen.getByText(str).parentElement.parentElement;
 
-		const expected = str;
-		const actual = subject.find(`.${css.title}`).first().text();
+		const expected = 'title';
 
-		expect(actual).toBe(expected);
+		expect(titleField).toBeInTheDocument();
+		expect(titleField).toHaveClass(expected);
 	});
 
 	test('should set title below when there is title below text', () => {
 		const str = 'title below text';
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={4} subtitle={str} />
 			</FloatingLayerController>
 		);
+		const subtitleField = screen.getByText(str).parentElement.parentElement;
 
-		const expected = str;
-		const actual = subject.find(`.${css.subtitle}`).first().text();
+		const expected = 'subtitle';
 
-		expect(actual).toBe(expected);
+		expect(subtitleField).toBeInTheDocument();
+		expect(subtitleField).toHaveClass(expected);
 	});
 
 	test('should set value at input when there is value text', () => {
 		const str = '1234';
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={4} value={str} />
 			</FloatingLayerController>
 		);
 
 		const expected = str;
-		const actual = subject.find(`.${css.numberField}`).first().text();
+		const actual = screen.getByRole('list').textContent;
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should set disabled at button when the component is disabled', () => {
-		const subject = mount(<Input type="number" length={4} disabled />);
+		render(<Input type="number" length={4} disabled />);
+		const buttonInput = screen.getByRole('button');
 
-		const expected = true;
-		const actual = subject.find('[role="button"]').prop('disabled');
+		const expectedAttribute = 'aria-disabled';
+		const expectedValue = 'true';
 
-		expect(actual).toBe(expected);
+		expect(buttonInput).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	// Length, maxLength, and minLength checks
-	const prettyProps = (props) => {
-		return Object.entries(props).map(([prop, val]) => `${prop}={${val}}`)
-			.join(', ')
-			.replace(/(?:,)\W*([^,]*)$/, (Object.getOwnPropertyNames(props).length > 2 ? ',' : '') + ' and $1');
-	};
-	const isAre = (props) => {
-		return Object.getOwnPropertyNames(props).length > 1 ? 'are' : 'is';
-	};
-	const lengthChecks = [
-		// [ {Input props}, {expected values to verify, one prop at a time} ]
-		[{length: void 0},                         {maxLength: DEFAULT_LENGTH, minLength: DEFAULT_LENGTH}],
-		[{length: 3},                              {maxLength: 3, minLength: 3}],
-		[{length: 3, maxLength: 6, minLength: 2},  {maxLength: 3, minLength: 3}],
-		[{length: 3, maxLength: 6},                {maxLength: 3, minLength: 3}],
-		[{length: 3, minLength: 2},                {maxLength: 3, minLength: 3}],
-		[{maxLength: 0},                           {maxLength: 0, minLength: 0}],
-		[{minLength: 0},                           {maxLength: DEFAULT_LENGTH, minLength: 0}],
-		[{minLength: 3},                           {maxLength: DEFAULT_LENGTH, minLength: 3}],
-		[{maxLength: 6, minLength: 3},             {maxLength: 6, minLength: 3}],
-		[{maxLength: 2, minLength: 5},             {maxLength: 2, minLength: 5}]
-	];
-	lengthChecks.forEach(checklist => {
-		const props = checklist[0];
-		Object.entries(checklist[1]).forEach(([prop, val]) => {
-			test(`should set \`${prop}\` to be \`${val}\` for "number" type, when ${prettyProps(props)} ${isAre(props)} set`, () => {
+	test('should not be able to add more characters when the maxlength is reached', () => {
+		const spy = jest.fn();
+		render(
+			<FloatingLayerController>
+				<Input type="number" minLength={1} maxLength={4} open onChange={spy} value="1234" />
+			</FloatingLayerController>
+		);
+		const numberButton = screen.getByText('6');
 
-				const subject = mount(
-					<FloatingLayerController>
-						<Input type="number" open {...props} />
-					</FloatingLayerController>
-				);
+		userEvent.click(numberButton);
 
-				const expected = val;
-				const actual = subject.find('NumberField').first().prop(prop);
-
-				expect(actual).toBe(expected);
-			});
-		});
+		expect(spy).not.toHaveBeenCalled();
 	});
 
 	test('should include a submit button when `minLength` !== `maxLength` for number input', () => {
-		const subject = mount(
-			<FloatingLayerController>
+		render(
+			<FloatingLayerController data-testid="input">
 				<Input type="number" minLength={4} maxLength={6} open />
 			</FloatingLayerController>
 		);
 
-		const expected = 1;
-		const actual = subject.find('.submitButton').first().length;
+		const buttonSubmit = screen.getByText('Submit');
 
-		expect(actual).toBe(expected);
+		expect(buttonSubmit).not.toBeNull();
 	});
 
 	test('should include a submit button for implicit joined number input', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={10} open />
 			</FloatingLayerController>
 		);
+		const buttonSubmit = screen.getByText('Submit');
 
-		const expected = 1;
-		const actual = subject.find('.submitButton').first().length;
-
-		expect(actual).toBe(expected);
+		expect(buttonSubmit).not.toBeNull();
 	});
 
 	test('should include a submit button for explicit joined number input', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={4} open numberInputField="joined" />
 			</FloatingLayerController>
 		);
+		const buttonSubmit = screen.getByText('Submit');
 
-		const expected = 1;
-		const actual = subject.find('.submitButton').first().length;
-
-		expect(actual).toBe(expected);
+		expect(buttonSubmit).not.toBeNull();
 	});
 
 	test('should exclude a submit button when separated number input', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={4} open />
 			</FloatingLayerController>
 		);
+		const buttonSubmit = screen.queryByText('Submit');
 
-		const expected = 0;
-		const actual = subject.find('.submitButton').first().length;
-
-		expect(actual).toBe(expected);
+		expect(buttonSubmit).toBeNull();
 	});
 
 	test('should exclude a submit button for explicit separated number input', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" length={10} open numberInputField="separated" />
 			</FloatingLayerController>
 		);
+		const buttonSubmit = screen.queryByText('Submit');
 
-		const expected = 0;
-		const actual = subject.find('.submitButton').first().length;
-
-		expect(actual).toBe(expected);
+		expect(buttonSubmit).toBeNull();
 	});
 
 	test('should show an invalid tooltip if invalid and message supplied', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} invalid invalidMessage="Invalid" />
 			</FloatingLayerController>
 		);
+		const invalidTextField = screen.getByText('Invalid').parentElement.parentElement;
 
-		const expected = true;
-		const actual = subject.find('Tooltip').exists();
+		const expected = 'tooltipLabel';
 
-		expect(actual).toBe(expected);
+		expect(invalidTextField).toHaveClass(expected);
 	});
 
 	test('should not show invalid tooltip if not invalid but message supplied', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} invalidMessage="Invalid" />
 			</FloatingLayerController>
 		);
 
-		const expected = false;
-		const actual = subject.find('Tooltip').exists();
+		const actual = screen.queryByText('Invalid');
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeNull();
 	});
 
 	test('should show an invalid tooltip if invalid and no message supplied', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} invalid />
 			</FloatingLayerController>
 		);
+		const invalidTextField = screen.getByText('Please enter a valid value.').parentElement.parentElement;
 
-		const expected = true;
-		const actual = subject.find('Tooltip').exists();
+		const expected = 'tooltipLabel';
 
-		expect(actual).toBe(expected);
+		expect(invalidTextField).toHaveClass(expected);
 	});
 
 	test('should not show an invalid tooltip if invalid and message is falsy', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} invalid invalidMessage="" />
 			</FloatingLayerController>
 		);
 
-		const expected = false;
-		const actual = subject.find('Tooltip').exists();
+		const expected = 1;
+		const actual = screen.getAllByRole('button')[2].parentElement.previousElementSibling.previousElementSibling.children.length;
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should call onComplete when submit button clicked', (done) => {
 		const spy = jest.fn();
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" minLength={1} maxLength={4} open onComplete={spy} />
 			</FloatingLayerController>
 		);
+		const numberButton = screen.getByText('2');
+		const submitButton = screen.getByText('Submit');
 
-		subject.find({children: '1'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+		userEvent.click(numberButton);
+		userEvent.click(submitButton);
 
-		subject.find('.submitButton').first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
-
-		// 250 ms. delay before it's called!
 		setTimeout(() => {
-			const expected = 1;
-			const actual = spy.mock.calls.length;
-			expect(actual).toBe(expected);
+			expect(spy).toHaveBeenCalled();
 			done();
 		}, 300);
 	});
 
 	test('should call onChange when submit button clicked', () => {
 		const spy = jest.fn();
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" minLength={1} maxLength={4} open onChange={spy} />
 			</FloatingLayerController>
 		);
+		const numberButton = screen.getByText('2');
+		const submitButton = screen.getByText('Submit');
 
-		subject.find({children: '1'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+		userEvent.click(numberButton);
+		userEvent.click(submitButton);
 
-		subject.find('.submitButton').first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
-
-		const expected = '1';
-		const actual = spy.mock.calls[0][0].value;
-		expect(actual).toBe(expected);
+		expect(spy).toHaveBeenCalled();
 	});
 
 	test('should call onBeforeChange once when input occurs', () => {
 		const spy = jest.fn();
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" open length={10} onBeforeChange={spy} />
 			</FloatingLayerController>
 		);
+		const numberButton = screen.getByText('2');
 
-		subject.find({children: '1'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+		userEvent.click(numberButton);
 
-		const expected = 1;
-		const actual = spy.mock.calls.length;
-
-		expect(actual).toBe(expected);
+		expect(spy).toHaveBeenCalled();
 	});
 
 	test('should prevent input when onBeforeChange calls preventDefault', () => {
@@ -397,53 +359,69 @@ describe('Input specs', () => {
 				ev.preventDefault();
 			}
 		});
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" minLength={1} maxLength={4} open onBeforeChange={mock} onChange={spy} />
 			</FloatingLayerController>
 		);
 
-		subject.find({children: '2'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+		const numberButton2 = screen.getByText('2');
+		const numberButton1 = screen.getByText('1');
+		const submitButton = screen.getByText('Submit');
 
-		subject.find({children: '1'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+		userEvent.click(numberButton2);
+		userEvent.click(numberButton1);
+		userEvent.click(submitButton);
 
-		subject.find('.submitButton').first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
-
-		const expected = '1';
-		const actual = spy.mock.calls[0][0].value;
-		expect(actual).toBe(expected);
+		const expected = 1;
+		expect(spy).toHaveBeenCalledTimes(expected);
 	});
 
 	test('should delete an input when delete button clicked', () => {
 		const spy = jest.fn();
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" value="12" minLength={1} maxLength={4} open onChange={spy} />
 			</FloatingLayerController>
 		);
+		const backspaceButton = screen.getByText('␈');
 
-		subject.find({children: 'backspace'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
-
-		subject.find('.submitButton').first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+		userEvent.click(backspaceButton);
 
 		const expected = '1';
-		const actual = spy.mock.calls[0][0].value;
+		const actual = screen.getByRole('list').textContent;
+
+		expect(spy).toHaveBeenCalled();
 		expect(actual).toBe(expected);
 	});
 
 	test('should call onBeforeChange when delete button clicked', () => {
 		const spy = jest.fn();
 
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<Input type="number" value="12" minLength={1} maxLength={4} open onBeforeChange={spy} />
 			</FloatingLayerController>
 		);
+		const backspaceButton = screen.getByText('␈');
 
-		subject.find({children: 'backspace'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+		userEvent.click(backspaceButton);
 
-		const expected = 1;
-		const actual = spy.mock.calls.length;
+		const expected = '1';
+		const actual = screen.getByRole('list').textContent;
+
+		expect(spy).toHaveBeenCalled();
 		expect(actual).toBe(expected);
+	});
+
+	test('should not include a submit button when noSubmitButton is used', () => {
+		render(
+			<FloatingLayerController>
+				<Input type="number" length={4} open numberInputField="joined" noSubmitButton />
+			</FloatingLayerController>
+		);
+		const buttonSubmit = screen.queryByText('Submit');
+
+		expect(buttonSubmit).toBeNull();
 	});
 });
