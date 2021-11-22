@@ -1,5 +1,6 @@
 import ri from '@enact/ui/resolution';
 
+import img from '../../images/600x600.png';
 import ImageItem from '../../../../ImageItem';
 import {VirtualGridList} from '../../../../VirtualList';
 
@@ -12,8 +13,8 @@ const renderItem = ({index, ...rest}) => {
 	return (
 		<ImageItem
 			{...rest}
-			src={src}
 			label={label}
+			src={src}
 		>
 			{caption}
 		</ImageItem>
@@ -27,13 +28,8 @@ const updateDataSize = (dataSize) => {
 		const
 			count = ('00' + i).slice(-3),
 			caption = `Item ${count}`,
-			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
 			label = `SubItem ${count}`,
-			src = {
-				hd: `http://placehold.it/200x200/${color}/ffffff&text=Image ${i}`,
-				fhd: `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`,
-				uhd: `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`
-			};
+			src = img;
 
 		items.push({caption, label, src});
 	}
