@@ -413,7 +413,7 @@ const VideoPlayerBase = class extends Component {
 		onControlsAvailable: PropTypes.func,
 
 		/**
-		 * Called when the video is fast forwarded.
+		 * Called when the video has been fast forwarded.
 		 *
 		 * @type {Function}
 		 * @public
@@ -441,7 +441,7 @@ const VideoPlayerBase = class extends Component {
 		onJumpForward: PropTypes.func,
 
 		/**
-		 * Called when video is paused
+		 * Called when the video has been paused.
 		 *
 		 * @type {Function}
 		 * @public
@@ -449,7 +449,7 @@ const VideoPlayerBase = class extends Component {
 		onPause: PropTypes.func,
 
 		/**
-		 * Called when video is played
+		 * Called when the video has been played.
 		 *
 		 * @type {Function}
 		 * @public
@@ -457,7 +457,7 @@ const VideoPlayerBase = class extends Component {
 		onPlay: PropTypes.func,
 
 		/**
-		 * Called when video is rewound.
+		 * Called when the video has been rewound.
 		 *
 		 * @type {Function}
 		 * @public
@@ -508,6 +508,58 @@ const VideoPlayerBase = class extends Component {
 		 * @public
 		 */
 		onToggleMore: PropTypes.func,
+
+		/**
+		 * Called once before the video is forwarded.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onWillFastForward: PropTypes.func,
+
+		/**
+		  * Called once before the video is jump backwarded.
+		  *
+		  * Is passed a {@link sandstone/VideoPlayer.videoStatus} as the first argument.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillJumpBackward: PropTypes.func,
+
+		/**
+		  * Called once before the video is jump forwarded.
+		  *
+		  * Is passed a {@link sandstone/VideoPlayer.videoStatus} as the first argument.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillJumpForward: PropTypes.func,
+
+		/**
+		  * Called once before the video is paused.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillPause: PropTypes.func,
+
+		/**
+		  * Called once before the video is played
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillPlay: PropTypes.func,
+
+		/**
+		  * Called once before the video is rewound.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillRewind: PropTypes.func,
 
 		/**
 		 * Pauses the video when it reaches either the start or the end of the video during rewind,
