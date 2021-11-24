@@ -1,6 +1,6 @@
 {
   "name": "@enact/sandstone",
-  "version": "1.4.4-experimental-7",
+  "version": "1.4.4-experimental-8",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
