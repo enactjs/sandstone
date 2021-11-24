@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/ActionGuide` prop `buttonAriaLabel` and `sandstone/MediaControls` prop `actionGuideButtonAriaLabel` to override aria-label of `ActionGuide` button
+
 ## [1.4.4-experimental-7] - 2021-04-07
 
 ### Fixed
