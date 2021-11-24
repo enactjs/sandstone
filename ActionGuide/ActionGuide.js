@@ -38,6 +38,14 @@ const ActionGuideBase = kind({
 
 	propTypes: /** @lends sandstone/ActionGuide.ActionGuideBase.prototype */ {
 		/**
+		 * The "aria-label" for the button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		buttonAriaLabel: PropTypes.string,
+
+		/**
 		 * The contents for the action guide.
 		 *
 		 * @type {String}
@@ -95,10 +103,10 @@ const ActionGuideBase = kind({
 		publicClassNames: ['actionGuide']
 	},
 
-	render: ({children, css, disabled, icon, onClick, ...rest}) => {
+	render: ({buttonAriaLabel, children, css, disabled, icon, onClick, ...rest}) => {
 		return (
 			<div {...rest}>
-				<Button className={css.icon} disabled={disabled} icon={icon} minWidth={false} onClick={onClick} size="small" />
+				<Button aria-label={buttonAriaLabel ? buttonAriaLabel : null} className={css.icon} disabled={disabled} icon={icon} minWidth={false} onClick={onClick} size="small" />
 				<Marquee className={css.label} marqueeOn="render" alignment="center">{children}</Marquee>
 			</div>
 		);

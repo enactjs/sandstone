@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import {ActionGuideBase} from '../ActionGuide';
 
 describe('ActionGuide', () => {
@@ -30,6 +30,20 @@ describe('ActionGuide', () => {
 			expect(actual).toBe(expected);
 		}
 	);
+
+	test('should set "buttonAriaLabel" to action guide', () => {
+		const label = 'custom aria-label';
+		const subject = mount(
+			<ActionGuideBase buttonAriaLabel={label}>content</ActionGuideBase>
+		);
+
+		const actionGuideButton = subject.find('.button');
+
+		const expected = label;
+		const actual = actionGuideButton.prop('aria-label');
+
+		expect(actual).toBe(expected);
+	});
 
 	describe('CSS override', () => {
 		test(

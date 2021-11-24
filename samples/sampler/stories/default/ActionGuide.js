@@ -27,7 +27,7 @@ storiesOf('Sandstone', module)
 			}
 
 			return (
-				<ActionGuide icon={icon}>
+				<ActionGuide buttonAriaLabel={text('buttonAriaLabel', Config)} icon={icon}>
 					{text('children', Config, 'Press some key to do something')}
 				</ActionGuide>
 			);
