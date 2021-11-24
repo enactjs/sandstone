@@ -23,12 +23,12 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "3.4.9-experimental-6",
-    "@enact/i18n": "3.4.9-experimental-6",
+    "@enact/core": "3.4.9-experimental-7",
+    "@enact/i18n": "3.4.9-experimental-7",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "3.4.9-experimental-6",
-    "@enact/ui": "3.4.9-experimental-6",
-    "@enact/webos": "3.4.9-experimental-6",
+    "@enact/spotlight": "3.4.9-experimental-7",
+    "@enact/ui": "3.4.9-experimental-7",
+    "@enact/webos": "3.4.9-experimental-7",
     "classnames": "^2.2.6",
     "ilib": "^14.4.0",
     "react": "^16.8.6",
