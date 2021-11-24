@@ -113,17 +113,6 @@ const HeadingDecorator = compose(
 	Skinnable
 );
 
-HeadingDecorator.PropTypes = /** @lends sandstone/Heading.HeadingDecorator.prototype */ {
-	/**
-	 * Determines what triggers the header content to start its animation.
-	 *
-	 * @type {('hover'|'render')}
-	 * @default 'render'
-	 * @public
-	 */
-	marqueeOn: PropTypes.oneOf(['hover', 'render'])
-};
-
 /**
  * A labeled Heading component, ready to use in Sandstone applications.
  *
