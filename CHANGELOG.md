@@ -2,6 +2,10 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+- Support color customization
+
 ## [2.0.4] - 2021-11-01
 
 ### Added
@@ -11,12 +15,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone` to select correct font when font-weight changes in some Indian locales
-
-## [2.0.0-experimental.3] - 2021-10-28
-
-### Fixed
-
-- `sandstone/Alert` background color for overly type when high contrast mode
 
 ## [2.0.3] - 2021-10-21
 
@@ -70,14 +68,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
 - `sandstone/TimePicker` abnormal minute animation in some locales
 - `sandstone/WizardPanels` to not read out `undefined` when there is no `subtitle` prop
-
-## [2.0.0-experimental.2] - 2021-08-31
-
-No significant changes.
-
-## [2.0.0-experimental.1] - 2021-08-27
-
-- Experimental support for external skin customization
 
 ## [2.0.0-rc.7] - 2021-08-09
 
