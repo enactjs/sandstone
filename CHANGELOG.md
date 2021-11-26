@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- Support color customization
+
 ### Fixed
 
 - `sandstone/FormCheckboxItem` to show correct color for a checkbox in disabled and focused state when `slotBefore` is given
