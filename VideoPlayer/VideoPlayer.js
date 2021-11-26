@@ -1382,7 +1382,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	play = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.speedIndex = 0;
@@ -1393,6 +1393,7 @@ const VideoPlayerBase = class extends Component {
 		this.send('play');
 		this.announce($L('Play'));
 		this.startDelayedMiniFeedbackHide(5000);
+
 		return true;
 	};
 
@@ -1405,7 +1406,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	pause = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.speedIndex = 0;
@@ -1416,6 +1417,7 @@ const VideoPlayerBase = class extends Component {
 		this.send('pause');
 		this.announce($L('Pause'));
 		this.stopDelayedMiniFeedbackHide();
+
 		return true;
 	};
 
@@ -1446,7 +1448,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	jump = (distance) => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.pulsedPlaybackRate = toUpperCase(new DurationFmt({length: 'long'}).format({second: this.props.jumpBy}));
@@ -1455,6 +1457,7 @@ const VideoPlayerBase = class extends Component {
 		this.startDelayedFeedbackHide();
 		this.seek(this.state.currentTime + distance);
 		this.startDelayedMiniFeedbackHide();
+
 		return true;
 	};
 
@@ -1467,7 +1470,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	fastForward = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		let shouldResumePlayback = false;
@@ -1513,6 +1516,7 @@ const VideoPlayerBase = class extends Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.clearPulsedPlayback();
 		this.showFeedback();
+
 		return true;
 	};
 
@@ -1525,7 +1529,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	rewind = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		const rateForSlowRewind = this.props.playbackRateHash['slowRewind'];
@@ -1534,8 +1538,9 @@ const VideoPlayerBase = class extends Component {
 
 		if (this.video.currentTime === 0) {
 			// Do not rewind if currentTime is 0. We're already at the beginning.
-			return;
+			return true;
 		}
+
 		switch (this.prevCommand) {
 			case 'slowRewind':
 				if (this.speedIndex === this.playbackRates.length - 1) {
@@ -1578,6 +1583,7 @@ const VideoPlayerBase = class extends Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.clearPulsedPlayback();
 		this.showFeedback();
+
 		return true;
 	};
 

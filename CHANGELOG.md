@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/VideoPlayer` to return the current state of the media when handling event
+- `sandstone/VideoPlayer` to return the current state of the media when handling event and not to invoke the mediaControl related callback when video source is unavailable
 
 ## [2.0.4] - 2021-11-01
 
