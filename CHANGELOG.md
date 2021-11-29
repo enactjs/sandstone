@@ -6,6 +6,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - Support color customization
 
+### Added
+- `sandstone/VideoPlayer` props `onWillFastForward`, `onWillJumpBackward`, `onWillJumpForward`, `onWillPause`, `onWillPlay`, and `onWillRewind`
+
+### Fixed
+
+- `sandstone/VideoPlayer` to handle media related callbacks properly
+
 ## [2.0.4] - 2021-11-01
 
 ### Added
