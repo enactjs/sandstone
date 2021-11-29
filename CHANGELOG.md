@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- Support color customization
+
 ### Fixed
 
 - `sandstone/VideoPlayer` to return the current state of the media when handling event and not to invoke the mediaControl related callback when video source is unavailable
