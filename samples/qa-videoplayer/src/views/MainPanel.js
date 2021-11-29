@@ -1,30 +1,22 @@
 import Button from '@enact/sandstone/Button';
 import kind from '@enact/core/kind';
-import PropTypes from 'prop-types';
 import {Component} from 'react';
 import VideoPlayer from '@enact/sandstone/VideoPlayer';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
-
-import componentCss from './MainPanel.module.less';
 
 const SelectableVideoPlayer = class extends Component {
 
 	static displayName = 'SelectableVideoPlayer';
 
-	static propTypes = {
-		css: PropTypes.object
-	};
-
 	state = {
-		selection: null
+		selection: []
 	};
 
 	handleToggleSelection = () => {
 		const {selection} = this.state;
-
 		const {currentTime} = this.video.getMediaState();
 
-		if (selection == null || selection.length === 2) {
+		if (selection.length !== 1) {
 			this.setState({
 				selection: [currentTime],
 				selecting: true
@@ -38,19 +30,18 @@ const SelectableVideoPlayer = class extends Component {
 	};
 
 	handleTimeUpdate = () => {
-		const {selection} = this.state;
+		const {selecting, selection} = this.state;
 		const {currentTime} = this.video.getMediaState();
 
-		if (selection != null) {
-			const [selectionEnd] = selection;
-			// const [selectionStart] = selection; // commented to suppress build warnings; uncomment for seek code below if necessary
+		if (!selecting && selection.length === 2) {
+			const [selectionStart, selectionEnd] = selection;
 
-			if (currentTime >= selectionEnd) {
+			if (currentTime > selectionEnd || currentTime < selectionStart) {
 				// seek to start
-				// this.video.seek(selectionStart);
+				this.video.seek(selectionStart);
 
 				// ... or pause() and lock at end
-				this.video.pause();
+				// this.video.pause();
 				// this.video.seek(selectionEnd);
 			}
 		}
@@ -59,21 +50,24 @@ const SelectableVideoPlayer = class extends Component {
 	handleSeekOutsideSelection = (ev) => {
 
 		// prevent the action and seek to the beginning or end
-		const {selection} = this.state;
+		const {selecting, selection} = this.state;
 		const [selectionStart, selectionEnd] = selection;
 		ev.preventDefault();
 
-		if (ev.time < selectionStart) {
-			this.video.seek(selectionStart);
-		} else if (ev.time > selectionStart) {
-			// this.video.pause();
-			this.video.seek(selectionEnd);
-		}
+		if (!selecting) {
+			if (ev.time < selectionStart) {
+				// this.video.pause();
+				this.video.seek(selectionStart);
+			} else if (ev.time > selectionEnd) {
+				// this.video.pause();
+				this.video.seek(selectionEnd);
+			}
 
-		// or remove the selection and allow the default behavior
-		// this.setState({
-		// 	selection: null
-		// });
+			// or remove the selection and allow the default behavior
+			// this.setState({
+			// 	selection: []
+			// });
+		}
 	};
 
 	setVideo = (video) => {
@@ -81,7 +75,6 @@ const SelectableVideoPlayer = class extends Component {
 	};
 
 	render () {
-		const {css} = this.props;
 		const {selecting} = this.state;
 
 		return (
@@ -94,7 +87,7 @@ const SelectableVideoPlayer = class extends Component {
 				ref={this.setVideo}
 			>
 				<MediaControls>
-					<Button className={selecting ? css.selecting : ''} onTap={this.handleToggleSelection}>repeat</Button>
+					<Button onTap={this.handleToggleSelection} selected={selecting}>{selecting ? 'Play Loop' : 'Set End Time'}</Button>
 				</MediaControls>
 				<source src="http://media.w3.org/2010/05/video/movie_300.mp4" />
 			</VideoPlayer>
@@ -106,7 +99,7 @@ const MainPanel = kind({
 	name: 'MainPanel',
 
 	render: () => (
-		<SelectableVideoPlayer css={componentCss} />
+		<SelectableVideoPlayer />
 	)
 });
 
