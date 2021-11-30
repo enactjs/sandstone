@@ -2,6 +2,10 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [1.4.4-experimental-9] - 2021-11-25
+
+- The distribution 1.4.4-experimental-8 was broken due to changes in the dependencies
+
 ## [1.4.4-experimental-8] - 2021-11-24
 
 ### Added
