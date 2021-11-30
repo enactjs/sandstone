@@ -11,12 +11,11 @@ describe('TabLayout', function () {
 		describe('collapsing/expanding behavior', function () {
 			describe('5-way interaction', function () {
 
-				// this covers GT-28259 step 3
-				it('should collapse tabs when focus is moved to a Spottable component in the content container', function () {
+				it('should collapse tabs when focus is moved to a Spottable component in the content container - [QWT-2756]', function () {
 					// 5-way down to second tab
 					Page.spotlightDown();
 					Page.tabLayout.view(2).waitForExist();
-					// 5-way right to Spottable component
+					// Step 3-2: 5-way right to Spottable component
 					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
 						Page.spotlightRight();
 					});
@@ -24,8 +23,7 @@ describe('TabLayout', function () {
 					expect(Page.tabLayout.isCollapsed).to.be.true();
 				});
 
-				// this covers GT-28259 step 4
-				it('should expand tabs when focus is moved to a Spottable component in the tabs container', function () {
+				it('should expand tabs when focus is moved to a Spottable component in the tabs container - [QWT-2756]', function () {
 					// 5-way down to second tab
 					Page.spotlightDown();
 					Page.tabLayout.view(2).waitForExist();
@@ -34,7 +32,7 @@ describe('TabLayout', function () {
 						Page.spotlightRight();
 					});
 					expect(Page.tabLayout.isCollapsed).to.be.true();
-					// Back to the tabs
+					// Step 4: Back to the tabs
 					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
 						Page.spotlightLeft();
 					});
@@ -44,8 +42,7 @@ describe('TabLayout', function () {
 			});
 			describe('pointer interaction', function () {
 
-				// this covers GT-28258
-				it('should collapse and expand tabs when focus is moved between `Spottable` components in the content and tabs containers via pointer move', function () {
+				it('should collapse and expand tabs when focus is moved between `Spottable` components in the content and tabs containers via pointer move - [QWT-2757]', function () {
 					// focus the layout's tabs
 					Page.tabLayout.hoverTabs();
 					// select the second tab

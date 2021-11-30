@@ -2,6 +2,80 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+- Support color customization
+
+### Added
+- `sandstone/VideoPlayer` props `onWillFastForward`, `onWillJumpBackward`, `onWillJumpForward`, `onWillPause`, `onWillPlay`, and `onWillRewind`
+
+### Fixed
+
+- `sandstone/VideoPlayer` to handle media related callbacks properly
+
+## [2.0.4] - 2021-11-01
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icons `bluetooth`, `moodmode`, and `changepassword`
+
+### Fixed
+
+- `sandstone` to select correct font when font-weight changes in some Indian locales
+
+## [2.0.3] - 2021-10-21
+
+### Fixed
+
+- `sandstone` to support India region font correctly
+- `sandstone/TimePicker` to apply disabled color to the separator
+
+## [2.0.2] - 2021-10-07
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `spanner`
+
+### Changed
+
+- `sandstone/ProgressBar` bar color for `sandstone/Alert`
+
+### Fixed
+
+- `sandstone/VirtualList` to not move focus to an unexpected item when 5-way directional key hold
+
+## [2.0.1] - 2021-09-28
+
+### Fixed
+
+- `samples/sampler` not to fail in sampler build
+
+## [2.0.0] - 2021-09-28
+
+### Fixed
+
+- `sandstone/DatePicker` and `sandstone/TimePikcer`abnormal animation
+- `sandstone/Panels` to perform transition without delay when wheeling
+
+## [2.0.0-rc.9] - 2021-09-13
+
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` styling to match updated GUI
+
+### Fixed
+
+- `sandstone/VirtualList` to not focus the item again if focus moved out of the list via 5way when `snapToCenter`
+
+## [2.0.0-rc.8] - 2021-08-31
+
+### Fixed
+
+- `sandstone/Dropdown` to restore focus within the list when moving mouse after clicking dropdown button
+- `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
+- `sandstone/TimePicker` abnormal minute animation in some locales
+- `sandstone/WizardPanels` to not read out `undefined` when there is no `subtitle` prop
+
 ## [2.0.0-rc.7] - 2021-08-09
 
 ### Fixed

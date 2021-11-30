@@ -3,6 +3,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Spottable from '@enact/spotlight/Spottable';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
@@ -13,6 +14,7 @@ import Item from '@enact/sandstone/Item';
 import Picker from '@enact/sandstone/Picker';
 import Popup from '@enact/sandstone/Popup';
 import RadioItem from '@enact/sandstone/RadioItem';
+import Skinnable from '@enact/sandstone/Skinnable';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import TimePicker from '@enact/sandstone/TimePicker';
 import Scroller from '@enact/sandstone/Scroller';
@@ -21,6 +23,8 @@ import {Row, Cell, Column} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {Component, cloneElement} from 'react';
+
+import css from './Spotlight.module.less';
 
 import docs from '../../images/icon-enact-docs.png';
 
@@ -290,6 +294,29 @@ export default {
 	title: 'Sandstone/Spotlight',
 	component: 'Spotlight'
 };
+
+const SimpleDiv = () => {
+	action('Render')(true);
+	return <div>Spottable Component</div>;
+};
+
+const SpottableItem = Spottable(Skinnable('div'));
+
+export const CheckRerender = () => (
+	<div>
+		<p>
+			A spottable component must not be re-rendered when a focus change occurs.
+			So the message of the Actions tab(&apos;Render: true&apos;) should be displayed only once.
+		</p>
+		<Row align="center space-evenly">
+			<SpottableItem className={css.spottableitem}>
+				<SimpleDiv />
+			</SpottableItem>
+		</Row>
+	</div>
+);
+
+CheckRerender.storyName = 'Check Re-render';
 
 export const MultipleButtons = () => (
 	<Row align="center space-evenly">

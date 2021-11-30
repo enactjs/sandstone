@@ -1,100 +1,100 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+
 import {Picker, PickerBase} from '../Picker';
 
 describe('Picker Specs', () => {
 	test('should render selected child wrapped with <PickerItem/>', () => {
-		const picker = mount(
+		render(
 			<Picker value={1}>
 				{[1, 2, 3, 4]}
 			</Picker>
 		);
+		const pickerText = screen.getByText('2').parentElement.parentElement;
 
-		const expected = '2';
-		const actual = picker.find('PickerItem').text();
+		const expected = 'item';
 
-		expect(actual).toBe(expected);
+		expect(pickerText).toHaveClass(expected);
 	});
 
-	test(
-		'should set the max of <Picker> to be one less than the number of children',
-		() => {
-			const picker = mount(
-				<Picker value={1}>
-					{[1, 2, 3, 4]}
-				</Picker>
-			);
+	test('should set the max of <Picker> to be one less than the number of children', () => {
+		render(
+			<Picker value={3}>
+				{[1, 2, 3, 4]}
+			</Picker>
+		);
+		const arrowForward = screen.getAllByRole('button')[0];
 
-			const expected = 3;
-			const actual = picker.find('Picker').last().prop('max');
+		const expectedValue = 'true';
+		const expectedAttribute = 'aria-disabled';
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(arrowForward).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
 	test('should be disabled when empty', () => {
-		const picker = mount(
-			<PickerBase>
-				{[]}
-			</PickerBase>
-		);
+		render(<PickerBase data-testid="picker">{[]}</PickerBase>);
+		const picker = screen.getByTestId('picker');
 
-		const actual = picker.find('Picker').last().prop('disabled');
-		expect(actual).toBe(true);
+		const expected = 'disabled';
+
+		expect(picker).toHaveAttribute(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to decrement button when voice control is disabled', () => {
-		const picker = mount(
+		render(
 			<PickerBase data-webos-voice-disabled>
 				{[1, 2, 3, 4]}
 			</PickerBase>
 		);
+		const decrementButton = screen.getAllByRole('button')[1];
 
-		const expected = true;
-		const actual = picker.find('PickerButton').at(0).prop('data-webos-voice-disabled');
+		const expected = 'data-webos-voice-disabled';
 
-		expect(actual).toBe(expected);
+		expect(decrementButton).toHaveAttribute(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to increment button when voice control is disabled', () => {
-		const picker = mount(
+		render(
 			<PickerBase data-webos-voice-disabled>
 				{[1, 2, 3, 4]}
 			</PickerBase>
 		);
+		const incrementButton = screen.getAllByRole('button')[0];
 
-		const expected = true;
-		const actual = picker.find('PickerButton').at(1).prop('data-webos-voice-disabled');
+		const expected = 'data-webos-voice-disabled';
 
-		expect(actual).toBe(expected);
+		expect(incrementButton).toHaveAttribute(expected);
 	});
 
-	test('should have an heading element when \'title\'', () => {
-		const subject = mount(
+	test('should have a heading element when \'title\'', () => {
+		render(
 			<PickerBase title="title text">
 				{[1, 2, 3, 4]}
 			</PickerBase>
 		);
+		const heading = screen.getByText('title text');
 
-		expect(subject.find('Heading')).toHaveLength(1);
+		const expected = 'heading';
+		const actual = heading.parentElement.parentElement;
 
-		const expected = 'title';
-		const actual = subject.find('Heading').prop('className');
-
-		expect(actual).toContain(expected);
+		expect(heading).toBeInTheDocument();
+		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have an heading element with inline class when \'title\' and \'inlineTitle\'', () => {
-		const subject = mount(
-			<PickerBase title="title text" inlineTitle>
+	test('should have a heading element with inline class when \'title\' and \'inlineTitle\'', () => {
+		render(
+			<PickerBase inlineTitle title="title text">
 				{[1, 2, 3, 4]}
 			</PickerBase>
 		);
+		const heading = screen.getByText('title text');
 
-		expect(subject.find('Heading')).toHaveLength(1);
+		const expectedInline = 'inlineTitle';
+		const expectedHeader = 'heading';
+		const actual = heading.parentElement.parentElement;
 
-		const expected = 'inline';
-		const actual = subject.find('Heading').prop('className');
-
-		expect(actual).toContain(expected);
+		expect(heading).toBeInTheDocument();
+		expect(actual).toHaveClass(expectedInline);
+		expect(actual).toHaveClass(expectedHeader);
 	});
 });

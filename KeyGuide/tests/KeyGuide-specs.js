@@ -1,5 +1,6 @@
-import {mount} from 'enzyme';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
 
 import KeyGuide from '../KeyGuide';
 
@@ -7,105 +8,101 @@ const FloatingLayerController = FloatingLayerDecorator('div');
 
 describe('KeyGuide Specs', () => {
 	test('should not error with undefined children', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<KeyGuide open />
 			</FloatingLayerController>
 		);
+		const keyGuide = screen.queryByRole('list');
 
-		const expected = true;
-		const actual = subject.exists();
-
-		expect(actual).toBe(expected);
+		expect(keyGuide).toBeNull();
 	});
 
 	test('should not render open floating layer if open with no children', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<KeyGuide open>
 					{[]}
 				</KeyGuide>
 			</FloatingLayerController>
 		);
+		const keyGuide = screen.queryByRole('list');
 
-		const expected = false;
-		const actual = subject.find('FloatingLayer').prop('open');
-
-		expect(actual).toBe(expected);
+		expect(keyGuide).toBeNull();
 	});
 
 	test('should not render open floating layer if not open with children', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<KeyGuide>
 					{[{icon: 'red', children: 'a', key: 'a'}]}
 				</KeyGuide>
 			</FloatingLayerController>
 		);
+		const keyGuide = screen.queryByRole('list');
 
-		const expected = false;
-		const actual = subject.find('FloatingLayer').prop('open');
-
-		expect(actual).toBe(expected);
+		expect(keyGuide).toBeNull();
 	});
 
-	test('should not render open floating layer if open with children', () => {
-		const subject = mount(
+	test('should render open floating layer if open with children', () => {
+		render(
 			<FloatingLayerController>
 				<KeyGuide open>
 					{[{icon: 'red', children: 'a', key: 'a'}]}
 				</KeyGuide>
 			</FloatingLayerController>
 		);
+		const keyGuide = screen.getByRole('list');
 
-		const expected = true;
-		const actual = subject.find('FloatingLayer').prop('open');
+		const expected = 'keyGuide';
 
-		expect(actual).toBe(expected);
+		expect(keyGuide).toBeInTheDocument();
+		expect(keyGuide).toHaveClass(expected);
 	});
 
 	test('should apply color class if a color key is in the icon slot', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<KeyGuide open>
 					{[{icon: 'red', children: 'a', key: 'a'}]}
 				</KeyGuide>
 			</FloatingLayerController>
 		);
+		const item = screen.getByRole('list').children.item(0);
 
-		const expected = true;
-		const actual = subject.find('.red').exists();
+		const expected = 'red';
+		const actual = item.children.item(1).children.item(0);
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
 	test('should create an icon if asked to', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<KeyGuide open>
 					{[{icon: 'plus', children: 'a', key: 'a'}]}
 				</KeyGuide>
 			</FloatingLayerController>
 		);
+		const icon = screen.getByText('+');
 
-		const expected = true;
-		const actual = subject.find('Icon').exists();
+		const expected = 'icon';
 
-		expect(actual).toBe(expected);
+		expect(icon).toHaveClass(expected);
 	});
 
 	test('should not create an icon if a color is specified', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<KeyGuide open>
 					{[{icon: 'green', children: 'a', key: 'a'}]}
 				</KeyGuide>
 			</FloatingLayerController>
 		);
+		const item = screen.getByRole('list').children.item(0);
+		const expected = 'icon';
+		const actual = item.children.item(1).children.item(0);
 
-		const expected = false;
-		const actual = subject.find('Icon').exists();
-
-		expect(actual).toBe(expected);
+		expect(actual).not.toHaveClass(expected);
 	});
 });

@@ -19,8 +19,6 @@ import kind from '@enact/core/kind';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import defaultProps from 'recompose/defaultProps';
-import setPropTypes from 'recompose/setPropTypes';
 import {HeadingBase as UiHeadingBase} from '@enact/ui/Heading';
 
 import {MarqueeDecorator} from '../Marquee';
@@ -110,12 +108,6 @@ const HeadingBase = kind({
  * @public
  */
 const HeadingDecorator = compose(
-	setPropTypes({
-		marqueeOn: PropTypes.oneOf(['hover', 'render'])
-	}),
-	defaultProps({
-		marqueeOn: 'render'
-	}),
 	Pure,
 	MarqueeDecorator({invalidateProps: ['remeasure', 'slotSize']}),
 	Skinnable
@@ -160,6 +152,10 @@ const Heading = HeadingDecorator(HeadingBase);
  * @see {@link sandstone/Marquee.Marquee}
  * @public
  */
+
+Heading.defaultProps = {
+	marqueeOn: 'render'
+};
 
 export default Heading;
 export {

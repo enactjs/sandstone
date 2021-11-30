@@ -14,10 +14,10 @@ const commonItemTests = [
 ];
 // Long text
 const longTextItemTests = [
-	<Item>Default Item with text long enough to invoke a marquee</Item>,
-	<Item disabled>Disabled Item with text long enough to invoke a marquee</Item>,
-	<Item inline>Inline Item with text long enough to invoke a marquee</Item>,
-	<Item inline disabled>Disabled Inline Item with text long enough to invoke a marquee</Item>
+	<Item>Long Default Item to invoke a marquee</Item>,
+	<Item disabled>Long Disabled Item to invoke a marquee</Item>,
+	<Item inline>Long Inline Item with to invoke a marquee</Item>,
+	<Item inline disabled>Long Disabled to invoke a marquee</Item>
 ];
 
 const rtlStrings = {
@@ -102,7 +102,7 @@ const ItemTests = [
 		...rtlItemTests
 	]),
 
-	// With tall characters and disabled [GT-28165]
+	// With tall characters and disabled [QWT-2824]
 	...tallglyphItemTests,
 
 	// LargeText mode
@@ -133,7 +133,7 @@ const ItemTests = [
 
 	// *************************************************************
 	// locale = 'ar-SA'
-	// Item Functionality RTL [GT-28162]
+	// Item Functionality RTL [QWT-1162]
 	...withConfig({locale: 'ar-SA'}, [
 		...commonItemTests,
 		...rtlItemTests,
@@ -147,7 +147,7 @@ const ItemTests = [
 		// Small
 		...withProps({size: 'small'}, commonItemTests),
 
-		// With tall characters and disabled [GT-28165]
+		// With tall characters and disabled [QWT-2824]
 		...tallglyphItemTests
 	]),
 

@@ -81,7 +81,13 @@ const prop = {
 		'onToggleMore',
 		// 'onTimeUpdate',	// Disabled due to Storybook Actions-reporting having an adverse effect on VideoPlayer performance. Uncomment to view this event.
 		'onVolumeChange',
-		'onWaiting'
+		'onWaiting',
+		'onWillFastForward',
+		'onWillJumpBackward',
+		'onWillJumpForward',
+		'onWillPause',
+		'onWillPlay',
+		'onWillRewind'
 	]
 };
 

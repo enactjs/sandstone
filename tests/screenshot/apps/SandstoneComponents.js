@@ -31,11 +31,13 @@ import Picker from './components/Picker';
 import Popup from './components/Popup';
 import PopupTabLayout from './components/PopupTabLayout';
 import ProgressBar from './components/ProgressBar';
+import ProgressButton from './components/ProgressButton';
 import RadioItem from './components/RadioItem';
 import RangePicker from './components/RangePicker';
 import Region from './components/Region';
 import Scroller from './components/Scroller';
 import Slider from './components/Slider';
+import Spinner from './components/Spinner';
 import Sprite from './components/Sprite';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
@@ -43,6 +45,8 @@ import SwitchItem from './components/SwitchItem';
 import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
 import Tooltip from './components/Tooltip';
+import VirtualList from './components/VirtualList';
+import VirtualGridList from './components/VirtualGridList';
 import WizardPanels from './components/WizardPanels';
 
 const components = {
@@ -76,13 +80,14 @@ const components = {
 	Popup,
 	PopupTabLayout,
 	ProgressBar,
+	ProgressButton,
 	RadioItem,
 	RangePicker,
 	Region,
 	Scroller,
 	// Skinnable,
 	Slider,
-	// Spinner,
+	Spinner,
 	Sprite,
 	Steps,
 	Switch,
@@ -92,7 +97,8 @@ const components = {
 	Tooltip,
 	// TooltipDecorator,
 	// VideoPlayer,
-	// VirtualList,
+	VirtualList,
+	VirtualGridList,
 	WizardPanels
 };
 

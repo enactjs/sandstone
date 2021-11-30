@@ -16,21 +16,21 @@ const RangePickerTests = [
 	<RangePicker min={0} max={100} value={5} />,
 
 	// Width: 'small' is default
-	// Start of [GT-28598] - 'orientation' is 'horizontal' and 'width' changed to 'medium', 'large'
+	// Start of [QWT-2507] - 'orientation' is 'horizontal' and 'width' changed to 'medium', 'large'
 	<RangePicker width="medium" min={0} max={100} value={0} />,
 	<RangePicker width="large" min={0} max={100} value={0} />,
-	// End of [GT-28598]
+	// End of [QWT-2507]
 
 	<RangePicker orientation="vertical" min={0} max={100} />,
 	<RangePicker width="medium" min={0} max={100} value={5} />,
 	<RangePicker width="large" min={0} max={100} value={5} />,
 	<RangePicker orientation="vertical" min={-10} max={10} value={0} />,
 
-	// 'orientation" changed to 'vertical' and 'width' changed to 'large' - [GT-28599]
+	// 'orientation" changed to 'vertical' and 'width' changed to 'large' - [QWT-2506]
 	<RangePicker orientation="vertical" min={0} max={100} value={0} />,
 	<RangePicker orientation="vertical" width="medium" min={0} max={100} value={0} />,
 	<RangePicker orientation="vertical" width="large" min={0} max={100} value={0} />,
-	// end GT test
+	// end [QWT-2506] test
 
 	<RangePicker orientation="vertical" min={0} max={100} value={5} />,
 	<RangePicker orientation="vertical" width="large" min={0} max={100} value={5} />,
@@ -150,7 +150,7 @@ const RangePickerTests = [
 	},
 
 	// Width: 'small' is default
-	// Start of [GT-28598] - 'orientation' is 'horizontal' and 'width' changed to 'medium', 'large'
+	// Start of [QWT-2507] - 'orientation' is 'horizontal' and 'width' changed to 'medium', 'large'
 	{
 		locale: 'ar-SA',
 		component: <RangePicker width="medium" min={0} max={100} value={0} />
@@ -159,7 +159,7 @@ const RangePickerTests = [
 		locale: 'ar-SA',
 		component: <RangePicker width="large" min={0} max={100} value={0} />
 	},
-	// End of [GT-28598]
+	// End of [QWT-2507]
 
 	{
 		locale: 'ar-SA',
@@ -178,7 +178,7 @@ const RangePickerTests = [
 		component: <RangePicker orientation="vertical" min={-10} max={10} value={0} />
 	},
 
-	// Start of [GT-28599] - 'orientation" changed to 'vertical' and 'width' changed to 'large'
+	// Start of [QWT-2506] - 'orientation" changed to 'vertical' and 'width' changed to 'large'
 	{
 		locale: 'ar-SA',
 		component: <RangePicker orientation="vertical" min={0} max={100} value={0} />
@@ -187,7 +187,7 @@ const RangePickerTests = [
 		locale: 'ar-SA',
 		component: <RangePicker orientation="vertical" width="large" min={0} max={100} value={0} />
 	},
-	// End of [GT-28599]
+	// End of [QWT-2506]
 
 	{
 		locale: 'ar-SA',

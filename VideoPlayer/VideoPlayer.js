@@ -15,7 +15,7 @@ import {adaptEvent, call, forKey, forward, forwardWithPrevent, handle, preventDe
 import {is} from '@enact/core/keymap';
 import {platform} from '@enact/core/platform';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {perfNow, Job} from '@enact/core/util';
+import {perfNow, Job, shallowEqual} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {toUpperCase} from '@enact/i18n/util';
 import {getDirection, Spotlight} from '@enact/spotlight';
@@ -33,7 +33,6 @@ import equals from 'ramda/src/equals';
 import PropTypes from 'prop-types';
 import {isValidElement, cloneElement, Component} from 'react';
 import ReactDOM from 'react-dom';
-import shallowEqual from 'recompose/shallowEqual';
 
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
@@ -108,11 +107,17 @@ const forwardToggleMore = forward('onToggleMore');
 // provide forwarding of events on media controls
 const forwardControlsAvailable = forward('onControlsAvailable');
 const forwardPlay = forwardWithState('onPlay');
+const forwardWillPlay = forwardWithState('onWillPlay');
 const forwardPause = forwardWithState('onPause');
+const forwardWillPause = forwardWithState('onWillPause');
 const forwardRewind = forwardWithState('onRewind');
+const forwardWillRewind = forwardWithState('onWillRewind');
 const forwardFastForward = forwardWithState('onFastForward');
+const forwardWillFastForward = forwardWithState('onWillFastForward');
 const forwardJumpBackward = forwardWithState('onJumpBackward');
+const forwardWillJumpBackward = forwardWithState('onWillJumpBackward');
 const forwardJumpForward = forwardWithState('onJumpForward');
+const forwardWillJumpForward = forwardWithState('onWillJumpForward');
 
 const AnnounceState = {
 	// Video is loaded but additional announcements have not been made
@@ -408,7 +413,7 @@ const VideoPlayerBase = class extends Component {
 		onControlsAvailable: PropTypes.func,
 
 		/**
-		 * Called when the video is fast forwarded.
+		 * Called when the video has been fast forwarded.
 		 *
 		 * @type {Function}
 		 * @public
@@ -436,7 +441,7 @@ const VideoPlayerBase = class extends Component {
 		onJumpForward: PropTypes.func,
 
 		/**
-		 * Called when video is paused
+		 * Called when the video has been paused.
 		 *
 		 * @type {Function}
 		 * @public
@@ -444,7 +449,7 @@ const VideoPlayerBase = class extends Component {
 		onPause: PropTypes.func,
 
 		/**
-		 * Called when video is played
+		 * Called when the video has been played.
 		 *
 		 * @type {Function}
 		 * @public
@@ -452,7 +457,7 @@ const VideoPlayerBase = class extends Component {
 		onPlay: PropTypes.func,
 
 		/**
-		 * Called when video is rewound.
+		 * Called when the video has been rewound.
 		 *
 		 * @type {Function}
 		 * @public
@@ -503,6 +508,58 @@ const VideoPlayerBase = class extends Component {
 		 * @public
 		 */
 		onToggleMore: PropTypes.func,
+
+		/**
+		 * Called once before the video is forwarded.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onWillFastForward: PropTypes.func,
+
+		/**
+		  * Called once before the video is jump backwarded.
+		  *
+		  * Is passed a {@link sandstone/VideoPlayer.videoStatus} as the first argument.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillJumpBackward: PropTypes.func,
+
+		/**
+		  * Called once before the video is jump forwarded.
+		  *
+		  * Is passed a {@link sandstone/VideoPlayer.videoStatus} as the first argument.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillJumpForward: PropTypes.func,
+
+		/**
+		  * Called once before the video is paused.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillPause: PropTypes.func,
+
+		/**
+		  * Called once before the video is played
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillPlay: PropTypes.func,
+
+		/**
+		  * Called once before the video is rewound.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillRewind: PropTypes.func,
 
 		/**
 		 * Pauses the video when it reaches either the start or the end of the video during rewind,
@@ -1149,27 +1206,31 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	handlePlay = this.handle(
-		forwardPlay,
+		forwardWillPlay,
 		this.shouldShowMiniFeedback,
-		() => this.play()
+		() => this.play(),
+		forwardPlay
 	);
 
 	handlePause = this.handle(
-		forwardPause,
+		forwardWillPause,
 		this.shouldShowMiniFeedback,
-		() => this.pause()
+		() => this.pause(),
+		forwardPause
 	);
 
 	handleRewind = this.handle(
-		forwardRewind,
+		forwardWillRewind,
 		this.shouldShowMiniFeedback,
-		() => this.rewind()
+		() => this.rewind(),
+		forwardRewind
 	);
 
 	handleFastForward = this.handle(
-		forwardFastForward,
+		forwardWillFastForward,
 		this.shouldShowMiniFeedback,
-		() => this.fastForward()
+		() => this.fastForward(),
+		forwardFastForward
 	);
 
 	handleJump = ({keyCode}) => {
@@ -1288,12 +1349,12 @@ const VideoPlayerBase = class extends Component {
 	 */
 	getMediaState = () => {
 		return {
-			currentTime       : this.state.currentTime,
+			currentTime       : this.video.currentTime,
 			duration          : this.state.duration,
-			paused            : this.state.paused,
+			paused            : this.video.playbackRate !== 1 || this.video.paused,
 			playbackRate      : this.video.playbackRate,
-			proportionLoaded  : this.state.proportionLoaded,
-			proportionPlayed  : this.state.proportionPlayed
+			proportionLoaded  : this.video.proportionLoaded,
+			proportionPlayed  : this.video.proportionPlayed || 0
 		};
 	};
 
@@ -1321,7 +1382,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	play = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.speedIndex = 0;
@@ -1332,10 +1393,12 @@ const VideoPlayerBase = class extends Component {
 		this.send('play');
 		this.announce($L('Play'));
 		this.startDelayedMiniFeedbackHide(5000);
+
+		return true;
 	};
 
 	/**
-	 * Programmatically plays the current media.
+	 * Programmatically pauses the current media.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1343,7 +1406,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	pause = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.speedIndex = 0;
@@ -1354,6 +1417,8 @@ const VideoPlayerBase = class extends Component {
 		this.send('pause');
 		this.announce($L('Pause'));
 		this.stopDelayedMiniFeedbackHide();
+
+		return true;
 	};
 
 	/**
@@ -1383,7 +1448,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	jump = (distance) => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.pulsedPlaybackRate = toUpperCase(new DurationFmt({length: 'long'}).format({second: this.props.jumpBy}));
@@ -1392,6 +1457,8 @@ const VideoPlayerBase = class extends Component {
 		this.startDelayedFeedbackHide();
 		this.seek(this.state.currentTime + distance);
 		this.startDelayedMiniFeedbackHide();
+
+		return true;
 	};
 
 	/**
@@ -1403,7 +1470,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	fastForward = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		let shouldResumePlayback = false;
@@ -1449,6 +1516,8 @@ const VideoPlayerBase = class extends Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.clearPulsedPlayback();
 		this.showFeedback();
+
+		return true;
 	};
 
 	/**
@@ -1460,7 +1529,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	rewind = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		const rateForSlowRewind = this.props.playbackRateHash['slowRewind'];
@@ -1469,8 +1538,9 @@ const VideoPlayerBase = class extends Component {
 
 		if (this.video.currentTime === 0) {
 			// Do not rewind if currentTime is 0. We're already at the beginning.
-			return;
+			return true;
 		}
+
 		switch (this.prevCommand) {
 			case 'slowRewind':
 				if (this.speedIndex === this.playbackRates.length - 1) {
@@ -1513,6 +1583,8 @@ const VideoPlayerBase = class extends Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.clearPulsedPlayback();
 		this.showFeedback();
+
+		return true;
 	};
 
 	// Creates a proxy to the video node if Proxy is supported
@@ -1770,12 +1842,15 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	onJumpBackward = this.handle(
-		forwardJumpBackward,
-		() => this.jump(-1 * this.props.jumpBy)
+		forwardWillJumpBackward,
+		() => this.jump(-1 * this.props.jumpBy),
+		forwardJumpBackward
 	);
+
 	onJumpForward = this.handle(
-		forwardJumpForward,
-		() => this.jump(this.props.jumpBy)
+		forwardWillJumpForward,
+		() => this.jump(this.props.jumpBy),
+		forwardJumpForward
 	);
 
 	handleToggleMore = (ev) => {
@@ -1882,6 +1957,12 @@ const VideoPlayerBase = class extends Component {
 		delete mediaProps.onPause;
 		delete mediaProps.onPlay;
 		delete mediaProps.onRewind;
+		delete mediaProps.onWillFastForward;
+		delete mediaProps.onWillJumpBackward;
+		delete mediaProps.onWillJumpForward;
+		delete mediaProps.onWillPause;
+		delete mediaProps.onWillPlay;
+		delete mediaProps.onWillRewind;
 		delete mediaProps.onScrub;
 		delete mediaProps.onSeekFailed;
 		delete mediaProps.onSeekOutsideSelection;

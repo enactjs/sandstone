@@ -4,6 +4,10 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
+.alertWrapper {
+	display: inline;
+}
+
 .alert {
 
 	&.noImage { /* Needed to prevent global class being added in the DOM */ }
@@ -110,7 +114,23 @@
 		background-color: @sand-alert-bg-color;
 
 		&.overlay {
-			background-color: @sand-alert-overlay-bg-color;
+			/* Override colors inside overlay type Alert */
+			--sand-bg-color: @sand-alert-overlay-bg-color;
+			--sand-text-color: @sand-alert-overlay-text-color;
+			--sand-text-sub-color: @sand-alert-overlay-text-sub-color;
+			--sand-focus-text-color: @sand-alert-overlay-focus-text-color;
+			--sand-disabled-selected-color: @sand-alert-overlay-disabled-selected-color;
+			--sand-disabled-selected-bg-color: @sand-alert-overlay-disabled-selected-bg-color;
+			--sand-disabled-selected-focus-color: @sand-alert-overlay-disabled-selected-focus-color;
+			--sand-disabled-selected-focus-bg-color: @sand-alert-overlay-disabled-selected-focus-bg-color;
+			--sand-progress-color-rgb: @sand-alert-overlay-progress-color-rgb;
+			--sand-progress-bg-color: @sand-alert-overlay-progress-bg-color;
+			--sand-checkbox-color: @sand-alert-overlay-checkbox-color;
+			--sand-checkbox-disabled-selected-color: @sand-alert-overlay-checkbox-disabled-selected-color;
+			--sand-formcheckboxitem-focus-text-color: @sand-alert-overlay-formcheckboxitem-focus-text-color;
+			--sand-item-disabled-focus-bg-color: @sand-alert-overlay-item-disabled-focus-bg-color;
+
+			background-color: rgb(@sand-alert-overlay-bg-color-rgb, 95%);
 			box-shadow: @sand-alert-overlay-shadow;
 		}
 	});
