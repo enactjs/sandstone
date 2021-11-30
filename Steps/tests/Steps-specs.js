@@ -1,225 +1,164 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
 
 import {StepsBase as Steps} from '../Steps';
-import css from '../Steps.module.less';
-
-const stepSelector = `.${css.steps} > .${css.step}`;
 
 describe('Steps Specs', () => {
 
-	test(
-		'should indicate a two step process with no props specified',
-		() => {
-			const subject = mount(
-				<Steps />
-			);
+	test('should render two steps with no props specified', () => {
+		render(<Steps />);
+		const firstStep = screen.getByText('1');
+		const secondStep = screen.getByText('2');
 
-			const expected = 2;
-			const actual = subject.find(stepSelector);
 
-			expect(actual).toHaveLength(expected);
-		}
-	);
+		expect(firstStep).toBeInTheDocument();
+		expect(secondStep).toBeInTheDocument();
+	});
 
-	test(
-		'should indicate a 6 step process with `total` set to 6',
-		() => {
-			const subject = mount(
-				<Steps total={6} />
-			);
+	test('should indicate a two step process with no props specified', () => {
+		render(<Steps />);
+		const actual = screen.getByRole('list').children;
 
-			const expected = 6;
-			const actual = subject.find(stepSelector);
+		const expected = 2;
 
-			expect(actual).toHaveLength(expected);
-		}
-	);
+		expect(actual).toHaveLength(expected);
+	});
 
-	test(
-		'should correctly set the size',
-		() => {
-			const subject = mount(
-				<Steps size="medium" />
-			);
+	test('should render six steps with `total` set to 6', () => {
+		render(<Steps total={6} />);
+		const firstStep = screen.getByText('1');
+		const secondStep = screen.getByText('2');
+		const thirdStep = screen.getByText('3');
+		const fourthStep = screen.getByText('4');
+		const fifthStep = screen.getByText('5');
+		const sixthStep = screen.getByText('6');
 
-			const expected = 'medium';  // `size` actually comes from Icon, which we aren't accessing, so we use the bare class name.
-			const actual = subject.find(`${stepSelector} div`).first().prop('className');
+		expect(firstStep).toBeInTheDocument();
+		expect(secondStep).toBeInTheDocument();
+		expect(thirdStep).toBeInTheDocument();
+		expect(fourthStep).toBeInTheDocument();
+		expect(fifthStep).toBeInTheDocument();
+		expect(sixthStep).toBeInTheDocument();
+	});
 
-			expect(actual).toContain(expected);
-		}
-	);
+	test('should indicate a 6 step process with `total` set to 6', () => {
+		render(<Steps total={6} />);
+		const steps = screen.getByRole('list').children;
 
-	test(
-		'should correctly indicate the current even if that\'s the only prop set',
-		() => {
-			const subject = mount(
-				<Steps current={2} />
-			);
+		const expected = 6;
 
-			const expected = 1;
-			const actual = subject.find(`${stepSelector}.${css.current}`).first().prop('data-index');
+		expect(steps).toHaveLength(expected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should correctly set the `size`', () => {
+		render(<Steps size="medium" />);
+		const firstStepElement = screen.getByText('1');
 
-	test(
-		'should support custom pastIcon',
-		() => {
-			const expected = 'testIconName';
+		const expected = 'medium'; // `size` actually comes from Icon, which we aren't accessing, so we use the bare class name.
 
-			const subject = mount(
-				<Steps current={2} total={3} pastIcon={expected} />
-			);
+		expect(firstStepElement).toHaveClass(expected);
+	});
 
-			const actual = subject.find(`${stepSelector}.${css.past}`).first().text();
+	test('should correctly indicate the `current` even if that\'s the only prop set', () => {
+		render(<Steps current={2} />);
+		const firstStepElement = screen.getByText('✓');
+		const secondStepElement = screen.getByText('2');
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expected = 'current';
 
-	test(
-		'should support custom currentIcon',
-		() => {
-			const expected = 'testIconName';
+		expect(firstStepElement).not.toHaveClass(expected);
+		expect(secondStepElement).toHaveClass(expected);
+	});
 
-			const subject = mount(
-				<Steps current={2} total={3} currentIcon={expected} />
-			);
+	test('should support custom `pastIcon`', () => {
+		render(<Steps current={2} total={3} pastIcon="bookmark" />);
+		const pastStepIcon = screen.getByRole('list').children.item(0).textContent.codePointAt();
 
-			const actual = subject.find(`${stepSelector}.${css.current}`).first().text();
+		const expected = 983364; // decimal converted charCode of Unicode 'bookmark' character
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(pastStepIcon).toBe(expected);
+	});
 
-	test(
-		'should support custom futureIcon',
-		() => {
-			const expected = 'testIconName';
+	test('should support custom `currentIcon`', () => {
+		render(<Steps current={2} total={3} currentIcon="edit" />);
+		const currentStepIcon = screen.getByRole('list').children.item(1).textContent.codePointAt();
 
-			const subject = mount(
-				<Steps current={2} total={3} futureIcon={expected} />
-			);
+		const expected = 983369; // decimal converted charCode of Unicode 'edit' character
 
-			const actual = subject.find(`${stepSelector}.${css.future}`).first().text();
+		expect(currentStepIcon).toBe(expected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should support custom `futureIcon`', () => {
+		render(<Steps current={2} total={3} futureIcon="arrowup" />);
+		const futureStepIcon = screen.getByRole('list').children.item(2).textContent.codePointAt();
 
-	test(
-		'should support numeric step identifier for pastIcon',
-		() => {
-			const subject = mount(
-				<Steps current={2} total={3} pastIcon="numbers" />
-			);
+		const expected = 8593; // decimal converted charCode of Unicode 'arrowup' character
 
-			const expected = '1';
-			const actual = subject.find(`${stepSelector}.${css.past}`).first().text();
+		expect(futureStepIcon).toBe(expected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should support numeric step identifier for `pastIcon`', () => {
+		render(<Steps current={2} total={3} pastIcon="numbers" />);
+		const pastIcon = screen.getByRole('list').children.item(0).textContent;
 
-	test(
-		'should support numeric step identifier for currentIcon',
-		() => {
-			const subject = mount(
-				<Steps current={2} total={3} currentIcon="numbers" />
-			);
+		const expected = '1';
 
-			const expected = '2';
-			const actual = subject.find(`${stepSelector}.${css.current}`).first().text();
+		expect(pastIcon).toBe(expected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should support numeric step identifier for `currentIcon`', () => {
+		render(<Steps current={2} total={3} currentIcon="numbers" />);
+		const currentIcon = screen.getByRole('list').children.item(1).textContent;
 
-	test(
-		'should support numeric step identifier for futureIcon',
-		() => {
-			const subject = mount(
-				<Steps current={2} total={3} futureIcon="numbers" />
-			);
+		const expected = '2';
 
-			const expected = '3';
-			const actual = subject.find(`${stepSelector}.${css.future}`).first().text();
+		expect(currentIcon).toBe(expected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should support numeric step identifier for `futureIcon`', () => {
+		render(<Steps current={2} total={3} futureIcon="numbers" />);
+		const futureIcon = screen.getByRole('list').children.item(2).textContent;
 
-	test(
-		'should support number for `skip` prop',
-		() => {
-			const subject = mount(
-				<Steps skip={2} current={3} total={5} />
-			);
+		const expected = '3';
 
-			const expected = css.skip;
-			const actual = subject.find(stepSelector).at(1).prop('className');
+		expect(futureIcon).toBe(expected);
+	});
 
-			expect(actual).toContain(expected);
-		}
-	);
+	test('should support number for `skip` prop', () => {
+		render(<Steps skip={2} current={3} total={5} />);
+		const skippedStep = screen.getByRole('list').children.item(1);
 
-	test(
-		'should support custom skipIcon',
-		() => {
-			const expected = 'testIconName';
+		const expected = 'skip';
 
-			const subject = mount(
-				<Steps skip={2} skipIcon={expected} current={3} total={5} />
-			);
+		expect(skippedStep.className).toContain(expected);
+	});
 
-			const actual = subject.find(stepSelector).at(1).text();
+	test('should support custom `skipIcon`', () => {
+		render(<Steps skip={2} skipIcon="skip" current={3} total={5} />);
+		const skippedStepIcon = screen.getByRole('list').children.item(1).textContent.codePointAt();
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expected = 983017; // decimal converted charCode of Unicode 'skip' character
 
-	test(
-		'should support number for `skip` prop',
-		() => {
-			const expected = 'testIconName';
+		expect(skippedStepIcon).toBe(expected);
+	});
 
-			const subject = mount(
-				<Steps skip={2} skipIcon={expected} current={3} total={5} />
-			);
+	test('should support array of numbers for `skip` prop', () => {
+		const expected = 'testIconName';
 
-			const actual = subject.find(stepSelector).at(1).text();
+		render(<Steps skip={[2, 4]} skipIcon={expected} current={3} total={5} />);
+		const secondSkippedStep = screen.getByRole('list').children.item(1).textContent;
+		const fourthSkippedStep = screen.getByRole('list').children.item(3).textContent;
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(secondSkippedStep).toBe(expected);
+		expect(fourthSkippedStep).toBe(expected);
+	});
 
-	test(
-		'should support array of numbers for `skip` prop',
-		() => {
-			const expected = 'testIconName';
+	test('should not show a skip icon if the `current` step is in the skip list', () => {
+		render(<Steps skip={[2, 3]} skipIcon="testIconName" current={3} currentIcon="numbers" total={5} />);
+		const currentStep = screen.getByRole('list').children.item(2).textContent;
 
-			const subject = mount(
-				<Steps skip={[2, 4]} skipIcon={expected} current={3} total={5} />
-			);
+		const expected = '3';
 
-			const actual = subject.find(stepSelector).at(1).text();
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should not show a skip icon if the current step is in the skip list',
-		() => {
-			const subject = mount(
-				<Steps skip={[2, 3]} skipIcon="testIconName" current={3} currentIcon="numbers" total={5} />
-			);
-
-			const expected = '3';
-			const actual = subject.find(`${stepSelector}.${css.current}`).first().text();
-
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(currentStep).toBe(expected);
+	});
 });

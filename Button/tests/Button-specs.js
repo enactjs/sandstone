@@ -1,248 +1,229 @@
-import {mount, shallow} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Button, {ButtonBase} from '../Button';
-import css from '../Button.module.less';
 
 describe('Button', () => {
+	test('should have \'disabled\' HTML attribute when \'disabled\' prop is provided', () => {
+		render(<Button disabled>I am a disabled Button</Button>);
+		const button = screen.getByRole('button');
 
-	test(
-		'should have \'disabled\' HTML attribute when \'disabled\' prop is provided',
-		() => {
-			const button = mount(
-				<Button disabled>I am a disabled Button</Button>
-			);
-
-			const expected = true;
-			const actual = button.find('div').at(0).prop('disabled');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	it('should have default backgroundOpacity opaque', function () {
-		const subject = shallow(<ButtonBase />);
-
-		const expected = css.opaque;
-		const actual = subject.first().prop('className');
-
-		expect(actual).toContain(expected);
+		expect(button).toHaveAttribute('disabled');
 	});
 
-	it('should expand by default', function () {
-		const subject = shallow(<ButtonBase />);
+	test('should have default backgroundOpacity opaque', () => {
+		render(<ButtonBase />);
+		const button = screen.getByRole('button');
+
+		const expected = 'opaque';
+
+		expect(button).toHaveClass(expected);
+	});
+
+	test('should expand by default', function () {
+		render(<ButtonBase />);
+		const button = screen.getByRole('button');
 
 		const expected = 'focusExpand';
-		const actual = subject.first().prop('className');
 
-		expect(actual).toContain(expected);
+		expect(button).toHaveClass(expected);
 	});
 
-	it('should be able to disable the expand focus effect', function () {
-		const subject = shallow(<ButtonBase focusEffect="static" />);
+	test('should be able to disable the expand focus effect', () => {
+		render(<ButtonBase focusEffect="static" />);
+		const button = screen.getByRole('button');
 
 		const expected = 'focusStatic';
-		const actual = subject.first().prop('className');
 
-		expect(actual).toContain(expected);
+		expect(button).toHaveClass(expected);
 	});
 
-	it('should have default minWidth', function () {
-		const subject = shallow(<ButtonBase />);
+	test('should have default minWidth', function () {
+		render(<ButtonBase />);
+		const button = screen.getByRole('button');
 
-		const expected = css.minWidth;
-		const actual = subject.first().prop('className');
+		const expected = 'minWidth';
 
-		expect(actual).toContain(expected);
+		expect(button).toHaveClass(expected);
 	});
 
-	it('should have default size large', function () {
-		const subject = shallow(<ButtonBase />);
+	test('should have default size large', function () {
+		render(<ButtonBase />);
+		const button = screen.getByRole('button');
 
-		const expected = css.large;
-		const actual = subject.first().prop('className');
+		const expected = 'large';
 
-		expect(actual).toContain(expected);
+		expect(button).toHaveClass(expected);
 	});
 
 	describe('with no minWidth', function () {
-		it('should not have minWidth class', function () {
-			const subject = shallow(<ButtonBase minWidth={false} />);
+		test('should not have minWidth class', () => {
+			render(<ButtonBase minWidth={false} />);
+			const button = screen.getByRole('button');
 
-			const expected = css.minWidth;
-			const actual = subject.first().prop('className');
+			const expected = 'minWidth';
 
-			expect(actual).not.toContain(expected);
+			expect(button).not.toHaveClass(expected);
 		});
 	});
 
-	describe('with transparent backgroundOpacity', function () {
-		it('should have transparent class', function () {
-			const subject = shallow(<ButtonBase backgroundOpacity="transparent" />);
+	describe('with transparent backgroundOpacity', () => {
+		test('should have transparent class', function () {
+			render(<ButtonBase backgroundOpacity="transparent" />);
+			const button = screen.getByRole('button');
 
-			const expected = css.transparent;
-			const actual = subject.first().prop('className');
+			const expected = 'transparent';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 
-		it('should not have have opaque class', function () {
-			const subject = shallow(<ButtonBase backgroundOpacity="transparent" />);
+		test('should not have have opaque class', () => {
+			render(<ButtonBase backgroundOpacity="transparent" />);
+			const button = screen.getByRole('button');
 
-			const expected = css.opaque;
-			const actual = subject.first().prop('className');
+			const expected = 'opaque';
 
-			expect(actual).not.toContain(expected);
+			expect(button).not.toHaveClass(expected);
 		});
 	});
 
 	describe('with icon', function () {
-		it('should have check icon when specified', function () {
-			const subject = mount(<Button icon="check">abc</Button>);
+		test('should have check icon when specified', () => {
+			render(<Button icon="check">abc</Button>);
+			const icon = screen.getByText('✓');
 
-			const expected = '✓';
-			const actual = subject.find('Icon').first().text();
-
-			expect(actual).toEqual(expected);
+			expect(icon).toBeInTheDocument();
+			expect(icon).toHaveClass('icon');
 		});
 
-		it('should not have minWidth class with only icon', function () {
-			const subject = mount(<Button icon="check" />);
+		test('should not have minWidth class with only icon', () => {
+			render(<Button icon="check" />);
+			const button = screen.getByRole('button');
 
-			const expected = css.minWidth;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'minWidth';
 
-			expect(actual).not.toContain(expected);
+			expect(button).not.toHaveClass(expected);
 		});
 
-		it('should have iconAfter class with text and icon', function () {
-			const subject = mount(<Button icon="check" iconPosition="after">text</Button>);
+		test('should have iconAfter class with text and icon', () => {
+			render(<Button icon="check" iconPosition="after">text</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = css.iconAfter;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'iconAfter';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 
-		it('should have iconBefore class with text and icon', function () {
-			const subject = mount(<Button icon="check" iconPosition="before">text</Button>);
+		test('should have iconBefore class with text and icon', () => {
+			render(<Button icon="check" iconPosition="before">text</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = css.iconBefore;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'iconBefore';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 
-		it('should not have iconPosition classes with only icon', function () {
-			const subject = mount(<Button icon="check" />);
+		test('should not have iconPosition classes with only icon', () => {
+			render(<Button icon="check" />);
+			const button = screen.getByRole('button');
 
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
-
-			expect(actual).not.toContain(css.iconBefore);
-			expect(actual).not.toContain(css.iconAfter);
+			expect(button).not.toHaveClass('iconBefore');
+			expect(button).not.toHaveClass('iconAfter');
 		});
 
-		it('should have iconOnly class when there is no children', function () {
-			const subject = mount(<Button icon="check" />);
+		test('should have iconOnly class when there is no children', () => {
+			render(<Button icon="check" />);
+			const button = screen.getByRole('button');
 
-			const expected = css.iconOnly;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'iconOnly';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 	});
 
 	describe('with color', () => {
-		it('should have hasColor class', () => {
-			const subject = mount(<Button color="red">abc</Button>);
+		test('should have hasColor class when a color is specified', () => {
+			render(<Button color="red">abc</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = css.hasColor;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'hasColor';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 
-		it('should have not hasColor class', () => {
-			const subject = mount(<Button>abc</Button>);
+		test('should not have hasColor when no color is specified', () => {
+			render(<Button>abc</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = css.hasColor;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'hasColor';
 
-			expect(actual).not.toContain(expected);
+			expect(button).not.toHaveClass(expected);
 		});
 
-		it('should have red class', () => {
-			const subject = mount(<Button color="red">abc</Button>);
+		test('should have red class', () => {
+			render(<Button color="red">abc</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = css.red;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'red';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 
-		it('should have blue class', () => {
-			const subject = mount(<Button color="blue">abc</Button>);
+		test('should have blue class', () => {
+			render(<Button color="blue">abc</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = css.blue;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'blue';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 
-		it('should have yellow class', () => {
-			const subject = mount(<Button color="yellow">abc</Button>);
+		test('should have yellow class', () => {
+			render(<Button color="yellow">abc</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = css.yellow;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'yellow';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 
-		it('should have green class', () => {
-			const subject = mount(<Button color="green">abc</Button>);
+		test('should have green class', () => {
+			render(<Button color="green">abc</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = css.green;
-			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+			const expected = 'green';
 
-			expect(actual).toContain(expected);
+			expect(button).toHaveClass(expected);
 		});
 	});
 
 	describe('events', () => {
 		test('should call onClick when not disabled', () => {
 			const handleClick = jest.fn();
-			const subject = mount(
-				<Button onClick={handleClick}>I am a disabled Button</Button>
-			);
+			render(<Button onClick={handleClick}>I am not a disabled Button</Button>);
+			const button = screen.getByText('I am not a disabled Button');
 
-			subject.simulate('click');
+			userEvent.click(button);
 
-			const expected = 1;
-			const actual = handleClick.mock.calls.length;
-
-			expect(actual).toBe(expected);
+			expect(handleClick).toBeCalled();
 		});
 
 		test('should not call onClick when disabled', () => {
 			const handleClick = jest.fn();
-			const subject = mount(
-				<Button disabled onClick={handleClick}>I am a disabled Button</Button>
-			);
+			render(<Button disabled onClick={handleClick}>I am a disabled Button</Button>);
+			const button = screen.getByText('I am a disabled Button');
 
-			subject.simulate('click');
+			userEvent.click(button);
 
-			const expected = 0;
-			const actual = handleClick.mock.calls.length;
-
-			expect(actual).toBe(expected);
+			expect(handleClick).not.toBeCalled();
 		});
 
 		test('should have "Select" voice intent in the node of "role=button"', () => {
-			const button = mount(<Button>Hello</Button>);
+			render(<Button>Hello</Button>);
+			const button = screen.getByRole('button');
 
-			const expected = 'Select';
-			const actual = button.find('[role="button"]').prop('data-webos-voice-intent');
-
-			expect(actual).toBe(expected);
+			expect(button).toHaveAttribute('data-webos-voice-intent', 'Select');
 		});
 	});
 });

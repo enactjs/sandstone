@@ -144,12 +144,12 @@
 	background-color: @sand-button-bg-color;
 }
 .sand-button-selected-bg-color () {
-	background-color: @sand-button-bg-color;
-	filter+_: saturate(1.5) brightness(0.5); // Simulates #3e454d, the spec color
+	background-color: @sand-button-selected-bg-color;
+	filter+_: @sand-button-selected-filter;
 }
 .sand-button-focus-bg-color () {
-	background-color: @sand-button-bg-color;
-	filter+_: saturate(0) brightness(1.755); // Simulates @sand-spotlight-bg-color
+	background-color: @sand-button-focus-bg-color;
+	filter+_: @sand-button-focus-filter;
 }
 
 // Button state mixins
