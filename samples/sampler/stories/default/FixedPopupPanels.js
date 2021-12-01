@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
@@ -16,22 +16,22 @@ export default {
 	component: 'FixedPopupPanels'
 };
 
-export const _FixedPopupPanels = () => (
+export const _FixedPopupPanels = (args) => (
 	<div>
 		<FixedPopupPanels
-			index={number('index', Config, {range: true, min: 0, max: 1}, 0)}
-			open={boolean('open', Config)}
-			position={select('position', ['left', 'right'], Config)}
-			fullHeight={boolean('fullHeight', Config)}
-			width={select('width', ['narrow', 'half'], Config)}
-			noAnimation={boolean('noAnimation', Config)}
-			noAutoDismiss={boolean('noAutoDismiss', Config)}
+			index={args['index']}
+			open={args['open']}
+			position={args['position']}
+			fullHeight={args['fullHeight']}
+			width={args['width']}
+			noAnimation={args['noAnimation']}
+			noAutoDismiss={args['noAutoDismiss']}
 			onBack={action('onBack')}
 			onClose={action('onClose')}
 			onHide={action('onHide')}
 			onShow={action('onShow')}
-			scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
-			spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+			scrimType={args['scrimType']}
+			spotlightRestrict={args['spotlightRestrict']}
 		>
 			<Panel>
 				<Header>
@@ -54,9 +54,19 @@ export const _FixedPopupPanels = () => (
 				<Item>Example Item 3 on Panel 2</Item>
 			</Panel>
 		</FixedPopupPanels>
-		<BodyText centered>Use KNOBS to interact with FixedPopupPanels.</BodyText>
+		<BodyText centered>Use CONTROLS to interact with FixedPopupPanels.</BodyText>
 	</div>
 );
+
+range('index', _FixedPopupPanels, Config, {min: 0, max: 1}, 0);
+boolean('open', _FixedPopupPanels, Config);
+select('position', _FixedPopupPanels, ['left', 'right'], Config);
+boolean('fullHeight', _FixedPopupPanels, Config);
+select('width', _FixedPopupPanels, ['narrow', 'half'], Config);
+boolean('noAnimation', _FixedPopupPanels, Config);
+boolean('noAutoDismiss', _FixedPopupPanels, Config);
+select('scrimType', _FixedPopupPanels, ['none', 'translucent', 'transparent'], Config);
+select('spotlightRestrict', _FixedPopupPanels, ['self-first', 'self-only'], Config);
 
 _FixedPopupPanels.storyName = 'FixedPopupPanels';
 _FixedPopupPanels.parameters = {

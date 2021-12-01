@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import TimePicker from '@enact/sandstone/TimePicker';
 
 const Config = mergeComponentMetadata('TimePicker', TimePicker);
@@ -11,18 +11,25 @@ export default {
 	component: 'TimePicker'
 };
 
-export const _TimePicker = () => (
+export const _TimePicker = (args) => (
 	<TimePicker
-		disabled={boolean('disabled', Config)}
-		spotlightDisabled={boolean('spotlightDisabled', Config)}
-		noLabel={boolean('noLabel', Config)}
-		hourAriaLabel={text('hourAriaLabel', Config, '')}
-		minuteAriaLabel={text('minuteAriaLabel', Config, '')}
-		meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
+		disabled={args['disabled']}
+		spotlightDisabled={args['spotlightDisabled']}
+		noLabel={args['noLabel']}
+		hourAriaLabel={args['hourAriaLabel']}
+		minuteAriaLabel={args['minuteAriaLabel']}
+		meridiemAriaLabel={args['meridiemAriaLabel']}
 		onChange={action('onChange')}
 		onComplete={action('onComplete')}
 	/>
 );
+
+boolean('disabled', _TimePicker, Config);
+boolean('spotlightDisabled', _TimePicker, Config);
+boolean('noLabel', _TimePicker, Config);
+text('hourAriaLabel', _TimePicker, Config, '');
+text('minuteAriaLabel', _TimePicker, Config, '');
+text('meridiemAriaLabel', _TimePicker, Config, '');
 
 _TimePicker.storyName = 'TimePicker';
 _TimePicker.parameters = {

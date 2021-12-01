@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import RadioItem, {RadioItemBase} from '@enact/sandstone/RadioItem';
@@ -15,24 +15,30 @@ export default {
 	component: 'RadioItem'
 };
 
-export const _RadioItem = () => {
-	const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
+export const _RadioItem = (args) => {
+	const slotBeforeSelection = args['slotBefore'];
 	const slotBefore = slotBeforeSelection ? (
 		<Icon slot="slotBefore">{slotBeforeSelection}</Icon>
 	) : null;
 
 	return (
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
-			icon={select('icon', ['', ...iconNames], Config)}
+			icon={args['icon']}
 		>
 			{slotBefore}
-			{text('children', Config, 'Hello RadioItem')}
+			{args['children']}
 		</RadioItem>
 	);
 };
+
+select('slotBefore', _RadioItem, ['', ...iconNames], Config);
+boolean('disabled', _RadioItem, Config);
+boolean('inline', _RadioItem, Config);
+select('icon', _RadioItem, ['', ...iconNames], Config);
+text('children', _RadioItem, Config, 'Hello RadioItem');
 
 _RadioItem.storyName = 'RadioItem';
 _RadioItem.parameters = {
