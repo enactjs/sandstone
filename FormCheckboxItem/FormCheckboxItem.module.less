@@ -40,10 +40,9 @@
 					// Standalone Checkbox handles this coloration on its own, so that rule isn't
 					// needed, so we reset it back to default here.
 					opacity: initial;
-
-					> :last-child {
-						opacity: @sand-disabled-focus-content-opacity;
-					}
+				}
+				&.hasSlotBefore .slotBefore > :last-child {
+					opacity: @sand-disabled-focus-content-opacity;
 				}
 			});
 		});
