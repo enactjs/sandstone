@@ -111,14 +111,6 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Assign a skin.
-		 *
-		 * @type {String}
-		 * @private
-		 */
-		skin: PropTypes.string,
-
-		/**
 		 * The primary text displayed.
 		 *
 		 * Only shown when `type="fullscreen"`.
@@ -175,8 +167,7 @@ const AlertBase = kind({
 				noTitle: (type === 'fullscreen') && !title
 			},
 			type
-		),
-		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral'))
+		)
 	},
 
 	render: ({buttons, contentComponent, children, id, image, title, type, ...rest}) => {

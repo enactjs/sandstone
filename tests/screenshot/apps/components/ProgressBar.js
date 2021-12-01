@@ -22,17 +22,48 @@ const ProgressBarLTRTests = [
 	// [QWT-2784]
 	<ProgressBar highlighted backgroundProgress={0.5} progress={0.25} />,
 	// end of [QWT-2784]
-	<ProgressBar tooltip />,
-	<ProgressBar tooltip progress={0.5} />,
-	<ProgressBar disabled tooltip progress={0.5} />,
-	<ProgressBar tooltip percent progress={0.5} />,
+	{
+		component: <ProgressBar tooltip />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar tooltip progress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar disabled tooltip progress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar tooltip percent progress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar progress={0.25} progressAnchor={0.5} tooltip />,
+		wrapper: {
+			padded: true
+		}
+	},
 	<ProgressBar progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar progress={0.25} progressAnchor={0.5} />,
 	<ProgressBar progress={0.25} progressAnchor={0.5} showAnchor />,
 	<ProgressBar backgroundProgress={0.25} progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar backgroundProgress={0.75} progress={0.25} progressAnchor={0.5} />,
 	<ProgressBar backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
-	<ProgressBar progress={0.25} progressAnchor={0.5} tooltip />,
+	{
+		component: <ProgressBar progress={0.25} progressAnchor={0.5} tooltip />,
+		wrapper: {
+			padded: true
+		}
+	},
 	<ProgressBar orientation="vertical" />,
 	<ProgressBar orientation="vertical" disabled />,
 	<ProgressBar orientation="vertical" highlighted />,
