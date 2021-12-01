@@ -32,6 +32,7 @@ const pickerList = {
 const PickerTests = [
 	<Picker>{[]}</Picker>,
 	<Picker>{['Hello', 'Hello']}</Picker>,
+	// Icon is not displayed (since it is invalid value)
 	<Picker decrementIcon incrementIcon>hello</Picker>,
 	<Picker>hello</Picker>,
 	<Picker disabled>hello</Picker>,
@@ -102,6 +103,7 @@ const PickerTests = [
 	<Picker orientation="vertical">{[]}</Picker>,
 	<Picker orientation="vertical">{['Hello', 'Hello']}</Picker>,
 	<Picker decrementIcon incrementIcon orientation="vertical">hello</Picker>,
+	<Picker decrementIcon="minus" incrementIcon="plus" orientation="vertical">hello</Picker>,
 	<Picker orientation="vertical">hello</Picker>,
 	<Picker disabled orientation="vertical">hello</Picker>,
 	<Picker orientation="vertical">{pickerList.vegetables}</Picker>,
@@ -329,6 +331,10 @@ const PickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <Picker decrementIcon incrementIcon orientation="vertical">hello</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker decrementIcon="minus" incrementIcon="plus" orientation="vertical">hello</Picker>
 	},
 	{
 		locale: 'ar-SA',

@@ -18,16 +18,22 @@ import compose from 'ramda/src/compose';
 
 const Config = mergeComponentMetadata('Panels', Panels);
 
+const items = [];
+
+for (let i = 0; i < 100; i++) {
+	const text = `Item ${i}`,
+		color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
+		source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`,
+		caption = 'Sample list';
+	items.push({text, source, caption});
+}
+
 // Used to render VirtualGridList into Panels
 // eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => {
-	const text = `Item ${index}`,
-		color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
-		source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
-		caption = 'Sample list';
-
+	const {caption, source, text} = items[index];
 	return (
-		<ImageItem {...rest} src={source} label={caption}>
+		<ImageItem {...rest} label={caption} src={source}>
 			{text}
 		</ImageItem>
 	);
