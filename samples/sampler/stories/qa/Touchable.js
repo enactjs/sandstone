@@ -1,6 +1,6 @@
 import kind from '@enact/core/kind';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, range} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import ri from '@enact/ui/resolution';
 import Touchable from '@enact/ui/Touchable';
@@ -73,20 +73,22 @@ export default {
 	component: 'Touchable'
 };
 
-export const WithDefaultHoldEvents = () => (
+export const WithDefaultHoldEvents = (args) => (
 	<Button
 		onHold={action('onHold')}
 		onHoldEnd={action('onHoldEnd')}
 		onHoldStart={action('onHoldStart')}
-		disabled={boolean('disabled', Button)}
+		disabled={args['disabled']}
 	>
 		Touchable
 	</Button>
 );
 
+boolean('disabled', WithDefaultHoldEvents, Button);
+
 WithDefaultHoldEvents.storyName = 'with default hold events';
 
-export const WithACustomLongpressEventAnd1SecondFrequency = () => (
+export const WithACustomLongpressEventAnd1SecondFrequency = (args) => (
 	<Button
 		holdConfig={{
 			events: [
@@ -98,22 +100,19 @@ export const WithACustomLongpressEventAnd1SecondFrequency = () => (
 		onHold={action('onHold')}
 		onHoldEnd={action('onHoldEnd')}
 		onHoldStart={action('onHoldStart')}
-		disabled={boolean('disabled', Button)}
+		disabled={args['disabled']}
 	>
 		LongPress
 	</Button>
 );
 
+boolean('disabled', WithACustomLongpressEventAnd1SecondFrequency, Button);
+
 WithACustomLongpressEventAnd1SecondFrequency.storyName = 'with a custom longpress event and 1 second frequency';
 
-export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = () => {
-	const moveTolerance = number('holdConfig moveTolerance', Button, 32, {
-		range: true,
-		min: 16,
-		max: 320,
-		step: 16
-	});
-	const cancelOnMove = boolean('holdConfig cancelOnMove', Button, true) || false;
+export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = (args) => {
+	const moveTolerance = args['holdConfig moveTolerance'];
+	const cancelOnMove =  args['holdConfig cancelOnMove'] || false;
 	return (
 		<TouchArea
 			holdConfig={{
@@ -121,11 +120,11 @@ export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = () => {
 				cancelOnMove
 			}}
 			moveTolerance={moveTolerance}
-			noResume={boolean('noResume', TouchArea, false)}
+			noResume={args['noResume']}
 			onHold={action('onHold', {depth: 0})}
 			onHoldEnd={action('onHoldEnd')}
 			onHoldStart={action('onHoldStart')}
-			disabled={boolean('disabled', TouchArea)}
+			disabled={args['disabled']}
 			style={{
 				marginLeft: 'auto',
 				marginRight: 'auto',
@@ -140,26 +139,34 @@ export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = () => {
 	);
 };
 
+range('holdConfig moveTolerance', ThatPausesTheHoldWhenMovingBeyondTolerance32Px, Button, 32, {min: 16,	max: 320,	step: 16});
+boolean('holdConfig cancelOnMove', ThatPausesTheHoldWhenMovingBeyondTolerance32Px, Button, true);
+boolean('noResume', ThatPausesTheHoldWhenMovingBeyondTolerance32Px, TouchArea, false);
+boolean('disabled', ThatPausesTheHoldWhenMovingBeyondTolerance32Px, TouchArea);
+
 ThatPausesTheHoldWhenMovingBeyondTolerance32Px.storyName = 'that pauses the hold when moving beyond tolerance (32px)';
 
-export const ThatDoesNotResumeWhenReEnteringComponent = () => (
+export const ThatDoesNotResumeWhenReEnteringComponent = (args) => (
 	<Button
-		noResume={boolean('noResume', Button, true)}
+		noResume={args['noResume']}
 		onHold={action('onHold')}
 		onHoldEnd={action('onHoldEnd')}
 		onHoldStart={action('onHoldStart')}
-		disabled={boolean('disabled', Button)}
+		disabled={args['disabled']}
 	>
 		Not Resumable
 	</Button>
 );
 
+boolean('noResume', ThatDoesNotResumeWhenReEnteringComponent, Button, true);
+boolean('disabled', ThatDoesNotResumeWhenReEnteringComponent, Button);
+
 ThatDoesNotResumeWhenReEnteringComponent.storyName = 'that does not resume when re-entering component';
 
-export const WithOnFlickHandler = () => (
+export const WithOnFlickHandler = (args) => (
 	<TouchableDiv
 		onFlick={action('onFlick')}
-		disabled={boolean('disabled', TouchableDiv)}
+		disabled={args['disabled']}
 		style={{
 			border: '4px dashed #888',
 			width: ri.unit(ri.scale(1000), 'rem'),
@@ -170,19 +177,21 @@ export const WithOnFlickHandler = () => (
 	</TouchableDiv>
 );
 
+boolean('disabled', WithOnFlickHandler, TouchableDiv);
+
 WithOnFlickHandler.storyName = 'with onFlick handler';
 
-export const WithDragHandlers = () => (
+export const WithDragHandlers = (args) => (
 	<TouchableDiv
 		dragConfig={{
-			global: boolean('dragConfig global', TouchableDiv, false) || false,
-			moveTolerance: number('dragConfig moveTolerance', TouchableDiv, 32)
+			global:  args['dragConfig global'] || false,
+			moveTolerance: args['dragConfig moveTolerance']
 		}}
-		noResume={boolean('noResume', TouchableDiv, false)}
+		noResume={args['noResume']}
 		onDragStart={action('onDragStart')}
 		onDrag={action('onDrag')}
 		onDragEnd={action('onDragEnd')}
-		disabled={boolean('disabled', TouchableDiv)}
+		disabled={args['disabled']}
 		style={{
 			border: '4px dashed #888',
 			width: ri.unit(ri.scale(1000), 'rem'),
@@ -194,12 +203,17 @@ export const WithDragHandlers = () => (
 	</TouchableDiv>
 );
 
+boolean('dragConfig global', WithDragHandlers, TouchableDiv, false);
+number('dragConfig moveTolerance', WithDragHandlers, TouchableDiv, 32);
+boolean('noResume', WithDragHandlers, TouchableDiv, false);
+boolean('disabled', WithDragHandlers, TouchableDiv);
+
 WithDragHandlers.storyName = 'with drag handlers';
 
-export const OnTapWhenClicked = () => (
+export const OnTapWhenClicked = (args) => (
 	<TouchableDiv
-		disabled={boolean('disabled', TouchableDiv)}
-		noResume={boolean('noResume', TouchableDiv, false)}
+		disabled={args['disabled']}
+		noResume={args['noResume']}
 		onClick={action('onClick')}
 		onDown={action('onDown')}
 		onMouseDown={action('onMouseDown')}
@@ -213,5 +227,8 @@ export const OnTapWhenClicked = () => (
 		Click here
 	</TouchableDiv>
 );
+
+boolean('disabled', OnTapWhenClicked, TouchableDiv);
+boolean('noResume', OnTapWhenClicked, TouchableDiv, false);
 
 OnTapWhenClicked.storyName = 'onTap when clicked';

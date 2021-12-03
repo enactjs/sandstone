@@ -1,4 +1,4 @@
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 
 BodyText.displayName = 'BodyText';
@@ -16,10 +16,14 @@ export default {
 	component: 'BodyText'
 };
 
-export const WithLongAndShortStrings = () => (
-	<BodyText centered={boolean('centered', BodyText)} noWrap={boolean('noWrap', BodyText)}>
-		{select('children', stringsToChoose, BodyText, stringsToChoose[0])}
+export const WithLongAndShortStrings = (args) => (
+	<BodyText centered={args['centered']} noWrap={args['noWrap']}>
+		{args['children']}
 	</BodyText>
 );
+
+boolean('centered', WithLongAndShortStrings, BodyText);
+boolean('noWrap', WithLongAndShortStrings, BodyText);
+select('children', WithLongAndShortStrings, stringsToChoose, BodyText, stringsToChoose[0]);
 
 WithLongAndShortStrings.storyName = 'with long and short strings';

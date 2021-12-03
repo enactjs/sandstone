@@ -1,4 +1,4 @@
-import {select, text} from '@enact/storybook-utils/addons/knobs';
+import {select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
@@ -23,12 +23,12 @@ export default {
 	component: 'Heading'
 };
 
-export const WithItalics = () => (
+export const WithItalics = (args) => (
 	<>
 		<Heading className={css.italic}>
-			{text('children', Heading, 'Lorem ipsum dolor sit amet')}
+			{args['children']}
 		</Heading>
-		<Heading>{text('children', Heading, 'Lorem ipsum dolor sit amet')}</Heading>
+		<Heading>{args['children']}</Heading>
 		<Heading className={css.italic}>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Heading>
 		<Heading>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Heading>
 		<Heading className={css.italic}>가나다라마바사아자차카타파하</Heading>
@@ -38,23 +38,26 @@ export const WithItalics = () => (
 	</>
 );
 
+text('children', WithItalics, Heading, 'Lorem ipsum dolor sit amet');
+
 WithItalics.storyName = 'with italics';
 
-export const WithLongText = () => (
-	<Heading marqueeOn={select('marqueeOn', prop.marqueeOn, Heading)}>
-		{text(
-			'children',
-			Heading,
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. In quis mattis purus, quis tristique mi.'
-		)}
+export const WithLongText = (args) => (
+	<Heading marqueeOn={args['marqueeOn']}>
+		{args['children']}
 	</Heading>
 );
 
+select('marqueeOn', WithLongText, prop.marqueeOn, Heading);
+text('children', WithLongText, Heading, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. In quis mattis purus, quis tristique mi.');
+
 WithLongText.storyName = 'with long text';
 
-export const WithTallCharacters = () => (
-	<Heading>{select('children', prop.tallText, Heading, 'नरेंद्र मोदी')}</Heading>
+export const WithTallCharacters = (args) => (
+	<Heading>{args['children']}</Heading>
 );
+
+select('children', WithTallCharacters, prop.tallText, Heading, 'नरेंद्र मोदी');
 
 WithTallCharacters.storyName = 'with tall characters';
 
@@ -91,3 +94,10 @@ export const MultipleScroller = () => (
 		</div>
 	</Scroller>
 );
+
+MultipleScroller.storyName = 'multiple in scroller';
+MultipleScroller.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

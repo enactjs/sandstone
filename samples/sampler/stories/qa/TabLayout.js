@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
@@ -70,20 +70,15 @@ export default {
 	component: 'TabLayout'
 };
 
-export const WithVariableNumberOfTabs = () => {
-	const tabs = number(
-		'Number of Tabs',
-		{groupId: 'TabLayout'},
-		{range: true, min: 0, max: 20, step: 1},
-		3
-	);
+export const WithVariableNumberOfTabs = (args) => {
+	const tabs = args['Number of Tabs'];
 
 	return (
 		<Panel>
 			<Header title="TabLayout" subtitle="With variable number of tabs" />
 			<TabLayout
-				collapsed={boolean('collapsed', TabLayout)}
-				orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
+				collapsed={args['collapsed']}
+				orientation={args['orientation']}
 			>
 				{Array.from({length: tabs}, (v, i) => (
 					<TabLayout.Tab title={`Tab ${i}`} icon={icons[i % icons.length]} key={`tab${i}`}>
@@ -147,6 +142,10 @@ export const WithVariableNumberOfTabs = () => {
 	);
 };
 
+range('Number of Tabs', WithVariableNumberOfTabs, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
+boolean('collapsed', WithVariableNumberOfTabs, TabLayout);
+select('orientation', WithVariableNumberOfTabs, ['vertical', 'horizontal'], TabLayout, 'vertical');
+
 WithVariableNumberOfTabs.storyName = 'With variable number of tabs';
 WithVariableNumberOfTabs.parameters = {
 	props: {
@@ -154,19 +153,14 @@ WithVariableNumberOfTabs.parameters = {
 	}
 };
 
-export const WithTabsWithoutIcons = () => {
-	const tabs = number(
-		'Number of Tabs',
-		{groupId: 'TabLayout'},
-		{range: true, min: 0, max: 20, step: 1},
-		3
-	);
+export const WithTabsWithoutIcons = (args) => {
+	const tabs = args['Number of Tabs'];
 
 	return (
 		<Panel>
 			<Header title="TabLayout" subtitle="With tabs without icons" />
 			<TabLayout
-				orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
+				orientation={args['orientation']}
 			>
 				{Array.from({length: tabs}, (v, i) => (
 					<TabLayout.Tab title={`Tab ${i}`} key={`tab${i}`}>
@@ -230,6 +224,9 @@ export const WithTabsWithoutIcons = () => {
 	);
 };
 
+range('Number of Tabs', WithTabsWithoutIcons, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
+select('orientation', WithTabsWithoutIcons, ['vertical', 'horizontal'], TabLayout, 'vertical');
+
 WithTabsWithoutIcons.storyName = 'With tabs without icons';
 WithTabsWithoutIcons.parameters = {
 	props: {
@@ -237,19 +234,14 @@ WithTabsWithoutIcons.parameters = {
 	}
 };
 
-export const WithDisabledTabs = () => {
-	const tabs = number(
-		'Number of Tabs',
-		{groupId: 'TabLayout'},
-		{range: true, min: 0, max: 20, step: 1},
-		3
-	);
+export const WithDisabledTabs = (args) => {
+	const tabs = args['Number of Tabs'];
 
 	return (
 		<Panel>
 			<Header title="TabLayout" subtitle="With disabled tabs" />
 			<TabLayout
-				orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
+				orientation={args['orientation']}
 			>
 				{Array.from({length: tabs}, (v, i) => (
 					<TabLayout.Tab
@@ -318,6 +310,9 @@ export const WithDisabledTabs = () => {
 	);
 };
 
+range('Number of Tabs', WithDisabledTabs, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
+select('orientation', WithDisabledTabs, ['vertical', 'horizontal'], TabLayout, 'vertical');
+
 WithDisabledTabs.storyName = 'With disabled tabs';
 WithDisabledTabs.parameters = {
 	props: {
@@ -325,19 +320,14 @@ WithDisabledTabs.parameters = {
 	}
 };
 
-export const WithAllDisabledTabs = () => {
-	const tabs = number(
-		'Number of Tabs',
-		{groupId: 'TabLayout'},
-		{range: true, min: 0, max: 20, step: 1},
-		3
-	);
+export const WithAllDisabledTabs = (args) => {
+	const tabs = args['Number of Tabs'];
 
 	return (
 		<Panel>
 			<Header title="TabLayout" subtitle="With all disabled tabs" />
 			<TabLayout
-				orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
+				orientation={args['orientation']}
 			>
 				{Array.from({length: tabs}, (v, i) => (
 					<TabLayout.Tab disabled icon={icons[i % icons.length]} title={`Tab ${i}`} key={`tab${i}`}>
@@ -401,6 +391,9 @@ export const WithAllDisabledTabs = () => {
 	);
 };
 
+range('Number of Tabs', WithAllDisabledTabs, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
+select('orientation', WithAllDisabledTabs, ['vertical', 'horizontal'], TabLayout, 'vertical');
+
 WithAllDisabledTabs.storyName = 'With all disabled tabs';
 WithAllDisabledTabs.parameters = {
 	props: {
@@ -419,10 +412,13 @@ WithAddingRemovingATab.storyName = 'With adding/removing a tab';
 WithAddingRemovingATab.parameters = {
 	props: {
 		noPanel: true
+	},
+	controls: {
+		hideNoControlsWarning: true
 	}
 };
 
-export const WithControlledIndex = () => {
+export const WithControlledIndex = (args) => {
 	const [selected, setSelected] = useState(1);
 
 	return (
@@ -431,7 +427,7 @@ export const WithControlledIndex = () => {
 			<TabLayout
 				index={selected}
 				onSelect={({index}) => setSelected(index)}
-				orientation={select('orientation', ['vertical', 'horizontal'], Config)}
+				orientation={args['orientation']}
 			>
 				<Tab title={tabsWithIcons[0].title} icon={tabsWithIcons[0].icon}>
 					<Button icon="demosync" onClick={() => setSelected(1)}>
@@ -453,6 +449,8 @@ export const WithControlledIndex = () => {
 		</Panel>
 	);
 };
+
+select('orientation', WithControlledIndex, ['vertical', 'horizontal'], Config);
 
 WithControlledIndex.storyName = 'With controlled index';
 WithControlledIndex.parameters = {
