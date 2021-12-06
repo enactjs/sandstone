@@ -31,9 +31,9 @@ const SelectableVideoPlayer = class extends Component {
 	};
 
 	handleTimeUpdate = () => {
-		const {selecting, selection} = this.state;
+		const {selection} = this.state;
 
-		if (!selecting && selection.length === 2) {
+		if (selection.length === 2) {
 			const [selectionStart, selectionEnd] = selection;
 			const {currentTime} = this.video.getMediaState();
 
