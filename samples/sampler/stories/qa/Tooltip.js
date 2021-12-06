@@ -1,6 +1,6 @@
 import kind from '@enact/core/kind';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
@@ -9,6 +9,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 import Layout, {Cell, Row} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 import Section from './components/KitchenSinkSection';
@@ -132,6 +133,7 @@ class ChangeableTooltip extends Component {
 			left: '50%',
 			transform: 'translateX(-50%)'
 		};
+		const args = this.props.args;
 
 		return (
 			<div>
@@ -150,7 +152,7 @@ class ChangeableTooltip extends Component {
 				</div>
 				<Button
 					icon="list"
-					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'above')}
+					tooltipPosition={args['tooltipPosition']}
 					tooltipText={this.state.text}
 					onClick={this.changeTooltipText}
 					style={{
@@ -271,26 +273,38 @@ export default {
 export const ThatShowsAfterButtonIsUnmountedEnyo3809 = () => <TooltipTest />;
 
 ThatShowsAfterButtonIsUnmountedEnyo3809.storyName = 'that shows after Button is unmounted (ENYO-3809)';
+ThatShowsAfterButtonIsUnmountedEnyo3809.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
-export const TooltipDecoratorWithChangeableTooltipText = () => <ChangeableTooltip />;
+ChangeableTooltip.propTypes = {
+	args: PropTypes.object
+};
+
+export const TooltipDecoratorWithChangeableTooltipText = (args) => <ChangeableTooltip args={args} />;
+
+select('tooltipPosition', TooltipDecoratorWithChangeableTooltipText, prop.tooltipPosition, Config, 'above');
 
 TooltipDecoratorWithChangeableTooltipText.storyName = 'tooltipDecorator with changeable tooltipText';
 
 export const TooltipToFollowComponentWhenChanged = () => <TooltipFollow />;
 
 TooltipToFollowComponentWhenChanged.storyName = 'tooltip to follow component when changed';
+TooltipToFollowComponentWhenChanged.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
-export const TooltipOverflows = () => {
-	const buttonAlignment = select(
-		'button alignment',
-		{'': null, start: 'start', end: 'end'},
-		Config
-	);
-	const tooltipDelay = number('tooltipDelay', Config, 500);
-	const tooltipText = text('tooltipText', Config, 'tooltip position!');
-	const tooltipPosition = select('tooltipPosition', prop.tooltipPosition, Config, 'above');
-	const tooltipProps = object('tooltipProps', Config, prop.ariaObject);
-	const tooltipRelative = boolean('tooltipRelative', Config);
+export const TooltipOverflows = (args) => {
+	const buttonAlignment = args['button alignment'];
+	const tooltipDelay = args['tooltipDelay'];
+	const tooltipText = args['tooltipText'];
+	const tooltipPosition = args['tooltipPosition'];
+	const tooltipProps = args['tooltipProps'];
+	const tooltipRelative = args['tooltipRelative'];
 	return (
 		<Layout
 			orientation="vertical"
@@ -416,11 +430,18 @@ export const TooltipOverflows = () => {
 	);
 };
 
+select('button alignment', TooltipOverflows, {'': null, start: 'start', end: 'end'}, Config);
+number('tooltipDelay', TooltipOverflows, Config, 500);
+text('tooltipText', TooltipOverflows, Config, 'tooltip position!');
+select('tooltipPosition', TooltipOverflows, prop.tooltipPosition, Config, 'above');
+object('tooltipProps', TooltipOverflows, Config, prop.ariaObject);
+boolean('tooltipRelative', TooltipOverflows, Config);
+
 TooltipOverflows.storyName = 'tooltip overflows';
 
-export const LongTooltipMarquees = () => {
-	const disabled = boolean('disabled', Config);
-	const tooltipText = text('tooltipText', Config, inputData.longerText);
+export const LongTooltipMarquees = (args) => {
+	const disabled = args['disabled'];
+	const tooltipText = args['tooltipText'];
 
 	return (
 		<Scroller>
@@ -556,5 +577,8 @@ export const LongTooltipMarquees = () => {
 		</Scroller>
 	);
 };
+
+boolean('disabled', LongTooltipMarquees, Config);
+text('tooltipText', LongTooltipMarquees, Config, inputData.longerText);
 
 LongTooltipMarquees.storyName = 'Long tooltip marquees';

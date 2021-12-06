@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
 import CheckboxItem, {CheckboxItemBase} from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
@@ -25,8 +25,8 @@ export default {
 	component: 'CheckboxItem'
 };
 
-export const _CheckboxItem = () => {
-	const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
+export const _CheckboxItem = (args) => {
+	const slotBeforeSelection = args['slotBefore'];
 	const slotBefore = slotBeforeSelection ? (
 		<Icon slot="slotBefore">{slotBeforeSelection}</Icon>
 	) : null;
@@ -34,20 +34,30 @@ export const _CheckboxItem = () => {
 	return (
 		<CheckboxItem
 			// disabled and inline have problems when set to `null` from the internal nullify...
-			disabled={boolean('disabled', Config)}
-			icon={select('icon', iconNames, Config)}
-			indeterminate={boolean('indeterminate', Config)}
-			indeterminateIcon={select('indeterminateIcon', iconNames, Config)}
-			inline={boolean('inline', Config)}
-			label={text('label', Config)}
-			labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
+			disabled={args['disabled']}
+			icon={args['icon']}
+			indeterminate={args['indeterminate']}
+			indeterminateIcon={args['indeterminateIcon']}
+			inline={args['inline']}
+			label={args['label']}
+			labelPosition={args['labelPosition']}
 			onToggle={action('onToggle')}
 		>
 			{slotBefore}
-			{text('children', Config, 'Hello CheckboxItem')}
+			{args['children']}
 		</CheckboxItem>
 	);
 };
+
+select('slotBefore', _CheckboxItem, ['', ...iconNames], Config);
+boolean('disabled', _CheckboxItem, Config);
+select('icon', _CheckboxItem, iconNames, Config);
+boolean('indeterminate', _CheckboxItem, Config);
+select('indeterminateIcon', _CheckboxItem, iconNames, Config);
+boolean('inline', _CheckboxItem, Config);
+text('label', _CheckboxItem, Config);
+select('labelPosition', _CheckboxItem, ['above', 'after', 'before', 'below'], Config);
+text('children', _CheckboxItem, Config, 'Hello CheckboxItem');
 
 _CheckboxItem.storyName = 'CheckboxItem';
 _CheckboxItem.parameters = {

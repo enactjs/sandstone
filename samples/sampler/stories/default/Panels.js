@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
@@ -46,7 +46,7 @@ export default {
 	component: 'Panels'
 };
 
-export const _Panels = () => {
+export const _Panels = (args) => {
 	// hooks
 	const initialState = 0;
 	const [panelIndex, setState] = useState(initialState);
@@ -57,22 +57,12 @@ export const _Panels = () => {
 
 	const story = (
 		<Panels
-			backButtonBackgroundOpacity={select(
-				'backButtonBackgroundOpacity',
-				['opaque', 'transparent'],
-				Config,
-				'transparent'
-			)}
-			closeButtonBackgroundOpacity={select(
-				'closeButtonBackgroundOpacity',
-				['opaque', 'transparent'],
-				Config,
-				'transparent'
-			)}
+			backButtonBackgroundOpacity={args['backButtonBackgroundOpacity']}
+			closeButtonBackgroundOpacity={args['closeButtonBackgroundOpacity']}
 			index={panelIndex}
-			noAnimation={boolean('noAnimation', Panels, false)}
-			noBackButton={boolean('noBackButton', Panels, false)}
-			noCloseButton={boolean('noCloseButton', Panels, false)}
+			noAnimation={args['noAnimation']}
+			noBackButton={args['noBackButton']}
+			noCloseButton={args['noCloseButton']}
 			onBack={handleBack}
 			onClose={action('onClose')}
 			onTransition={action('onTransition')}
@@ -206,6 +196,24 @@ export const _Panels = () => {
 	);
 	return story;
 };
+
+select(
+	'backButtonBackgroundOpacity',
+	_Panels,
+	['opaque', 'transparent'],
+	Config,
+	'transparent'
+);
+select(
+	'closeButtonBackgroundOpacity',
+	_Panels,
+	['opaque', 'transparent'],
+	Config,
+	'transparent'
+);
+boolean('noAnimation', _Panels, Panels, false);
+boolean('noBackButton', _Panels, Panels, false);
+boolean('noCloseButton', _Panels, Panels, false);
 
 _Panels.storyName = 'Panels';
 _Panels.parameters = {

@@ -1,4 +1,4 @@
-import {number} from '@enact/storybook-utils/addons/knobs';
+import {number} from '@enact/storybook-utils/addons/controls';
 import Item from '@enact/sandstone/Item';
 import Slider from '@enact/sandstone/Slider';
 import VirtualList from '@enact/sandstone/VirtualList';
@@ -99,9 +99,11 @@ export default {
 	component: 'Slider'
 };
 
-export const AddAndRemove = () => {
-	const itemSize = ri.scale(number('itemSize', Slider, 144));
+export const AddAndRemove = (args) => {
+	const itemSize = ri.scale(args['itemSize']);
 	return <SliderList itemSize={itemSize} />;
 };
+
+number('itemSize', AddAndRemove, Slider, 144);
 
 AddAndRemove.storyName = 'Add and Remove ';

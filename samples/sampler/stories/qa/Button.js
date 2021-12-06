@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {Row} from '@enact/ui/Layout';
@@ -13,11 +13,11 @@ import Section from './components/KitchenSinkSection';
 
 import css from './Button.module.less';
 
-// Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean knob and return `void 0` when `true`.
+// Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean control and return `void 0` when `true`.
 Button.displayName = 'Button';
 const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBase, Button);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	backgroundOpacity: {
 		'undefined/null (automatic)': '',
@@ -31,7 +31,7 @@ const prop = {
 		'BUTTON   WITH   EXTRA   SPACES': 'BUTTON   WITH   EXTRA   SPACES'
 	},
 	tallText: {
-		' ฟิ้ ไั  ஒ  து': ' ฟิ้ ไั  ஒ  து',
+		'ฟิ้ ไั  ஒ  து': 'ฟิ้ ไั  ஒ  து',
 		ÁÉÍÓÚÑÜ: 'ÁÉÍÓÚÑÜ',
 		'Bản văn': 'Bản văn',
 		តន្ត្រី: 'តន្ត្រី'
@@ -44,83 +44,118 @@ export default {
 	component: 'Button'
 };
 
-export const WithLongText = () => (
+export const WithLongText = (args) => (
 	<Button
 		onClick={action('onClick')}
-		backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
-		disabled={boolean('disabled', Config)}
-		focusEffect={select('focusEffect', prop.focusEffect, Config)}
-		icon={select('icon', prop.icons, Config)}
-		minWidth={boolean('minWidth', Config, true) ? void 0 : false}
-		selected={boolean('selected', Config)}
-		size={select('size', ['small', 'large'], Config)}
+		backgroundOpacity={args['backgroundOpacity']}
+		disabled={args['disabled']}
+		focusEffect={args['focusEffect']}
+		icon={args['icon']}
+		minWidth={args['minWidth'] ? void 0 : false}
+		selected={args['selected']}
+		size={args['size']}
 	>
-		{select('value', prop.longText, Config, 'A Loooooooooooooooooog Button')}
+		{args['value']}
 	</Button>
 );
+
+select('backgroundOpacity', WithLongText, prop.backgroundOpacity, Config);
+boolean('disabled', WithLongText, Config);
+select('focusEffect', WithLongText, prop.focusEffect, Config);
+select('icon', WithLongText, prop.icons, Config);
+boolean('minWidth', WithLongText, Config, true);
+boolean('selected', WithLongText, Config);
+select('size', WithLongText, ['small', 'large'], Config);
+select('value', WithLongText, prop.longText, Config, 'A Loooooooooooooooooog Button');
 
 WithLongText.storyName = 'with long text';
 
-export const WithTallCharacters = () => (
+export const WithTallCharacters = (args) => (
 	<Button
 		onClick={action('onClick')}
-		backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
-		disabled={boolean('disabled', Config)}
-		focusEffect={select('focusEffect', prop.focusEffect, Config)}
-		icon={select('icon', prop.icons, Config)}
-		minWidth={boolean('minWidth', Config, true) ? void 0 : false}
-		selected={boolean('selected', Config)}
-		size={select('size', ['small', 'large'], Config)}
+		backgroundOpacity={args['backgroundOpacity']}
+		disabled={args['disabled']}
+		focusEffect={args['focusEffect']}
+		icon={args['icon']}
+		minWidth={args['minWidth'] ? void 0 : false}
+		selected={args['selected']}
+		size={args['size']}
 	>
-		{select('value', prop.tallText, Config, 'ฟิ้  ไั  ஒ  து')}
+		{args['value']}
 	</Button>
 );
+
+select('backgroundOpacity', WithTallCharacters, prop.backgroundOpacity, Config);
+boolean('disabled', WithTallCharacters, Config);
+select('focusEffect', WithTallCharacters, prop.focusEffect, Config);
+select('icon', WithTallCharacters, prop.icons, Config);
+boolean('minWidth', WithTallCharacters, Config, true);
+boolean('selected', WithTallCharacters, Config);
+select('size', WithTallCharacters, ['small', 'large'], Config);
+select('value', WithTallCharacters, prop.tallText, Config, 'ฟิ้ ไั  ஒ  து');
 
 WithTallCharacters.storyName = 'with tall characters';
 
-export const ToValidateMinWidthWithASingleCharacter = () => (
+export const ToValidateMinWidthWithASingleCharacter = (args) => (
 	<Button
 		onClick={action('onClick')}
-		backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
-		disabled={boolean('disabled', Config)}
-		focusEffect={select('focusEffect', prop.focusEffect, Config)}
-		icon={select('icon', prop.icons, Config)}
-		minWidth={boolean('minWidth', Config, false) ? void 0 : false}
-		selected={boolean('selected', Config)}
-		size={select('size', ['small', 'large'], Config)}
+		backgroundOpacity={args['backgroundOpacity']}
+		disabled={args['disabled']}
+		focusEffect={args['focusEffect']}
+		icon={args['icon']}
+		minWidth={args['minWidth'] ? void 0 : false}
+		selected={args['selected']}
+		size={args['size']}
 	>
-		{text('value', Config, 'A')}
+		{args['value']}
 	</Button>
 );
 
+select('backgroundOpacity', ToValidateMinWidthWithASingleCharacter, prop.backgroundOpacity, Config);
+boolean('disabled', ToValidateMinWidthWithASingleCharacter, Config);
+select('focusEffect', ToValidateMinWidthWithASingleCharacter, prop.focusEffect, Config);
+select('icon', ToValidateMinWidthWithASingleCharacter, prop.icons, Config);
+boolean('minWidth', ToValidateMinWidthWithASingleCharacter, Config, false);
+boolean('selected', ToValidateMinWidthWithASingleCharacter, Config);
+select('size', ToValidateMinWidthWithASingleCharacter, ['small', 'large'], Config);
+text('value', ToValidateMinWidthWithASingleCharacter, Config, 'A');
+
 ToValidateMinWidthWithASingleCharacter.storyName = 'to validate minWidth with a single character';
 
-export const ToTestIfTheParentElementsBackgroundCausesOcclusion = () => (
+export const ToTestIfTheParentElementsBackgroundCausesOcclusion = (args) => (
 	<div className={css.bgColor}>
 		<Button
 			onClick={action('onClick')}
-			backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
-			disabled={boolean('disabled', Config)}
-			focusEffect={select('focusEffect', prop.focusEffect, Config)}
-			icon={select('icon', prop.icons, Config)}
-			minWidth={boolean('minWidth', Config, true) ? void 0 : false}
-			selected={boolean('selected', Config)}
-			size={select('size', ['small', 'large'], Config)}
+			backgroundOpacity={args['backgroundOpacity']}
+			disabled={args['disabled']}
+			focusEffect={args['focusEffect']}
+			icon={args['icon']}
+			minWidth={args['minWidth'] ? void 0 : false}
+			selected={args['selected']}
+			size={args['size']}
 		>
 			Normal Button
 		</Button>
 	</div>
 );
 
+select('backgroundOpacity', ToTestIfTheParentElementsBackgroundCausesOcclusion, prop.backgroundOpacity, Config);
+boolean('disabled', ToTestIfTheParentElementsBackgroundCausesOcclusion, Config);
+select('focusEffect', ToTestIfTheParentElementsBackgroundCausesOcclusion, prop.focusEffect, Config);
+select('icon', ToTestIfTheParentElementsBackgroundCausesOcclusion, prop.icons, Config);
+boolean('minWidth', ToTestIfTheParentElementsBackgroundCausesOcclusion, Config, true);
+boolean('selected', ToTestIfTheParentElementsBackgroundCausesOcclusion, Config);
+select('size', ToTestIfTheParentElementsBackgroundCausesOcclusion, ['small', 'large'], Config);
+
 ToTestIfTheParentElementsBackgroundCausesOcclusion.storyName = "to test if the parent element's background causes occlusion";
 
-export const WithTapAreaDisplayed = () => (
+export const WithTapAreaDisplayed = (args) => (
 	<div>
 		<Heading>Button</Heading>
 		<Button
 			className={css.tapArea}
 			onClick={action('onClick')}
-			disabled={boolean('disabled', Config)}
+			disabled={args['disabled']}
 			size="large"
 		>
 			Normal Button
@@ -128,7 +163,7 @@ export const WithTapAreaDisplayed = () => (
 		<Button
 			className={css.tapArea}
 			onClick={action('onClick')}
-			disabled={boolean('disabled', Config)}
+			disabled={args['disabled']}
 			size="small"
 		>
 			Small Button
@@ -136,20 +171,22 @@ export const WithTapAreaDisplayed = () => (
 		<Heading>Button with icons</Heading>
 		<Button
 			className={css.tapArea}
-			disabled={boolean('disabled', Config)}
+			disabled={args['disabled']}
 			onClick={action('onClick')}
 			size="large"
 			icon="star"
 		/>
 		<Button
 			className={css.tapArea}
-			disabled={boolean('disabled', Config)}
+			disabled={args['disabled']}
 			onClick={action('onClick')}
 			size="small"
 			icon="star"
 		/>
 	</div>
 );
+
+boolean('disabled', WithTapAreaDisplayed, Config);
 
 WithTapAreaDisplayed.storyName = 'with tap area displayed';
 
@@ -272,3 +309,10 @@ export const KitchenSink = () => (
 		</Row>
 	</Scroller>
 );
+
+KitchenSink.storyName = 'kitchen sink';
+KitchenSink.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
