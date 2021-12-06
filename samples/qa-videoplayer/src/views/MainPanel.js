@@ -9,8 +9,7 @@ const SelectableVideoPlayer = class extends Component {
 	static displayName = 'SelectableVideoPlayer';
 
 	state = {
-		selection: [],
-		selecting: false
+		selection: []
 	};
 
 	handleToggleSelection = () => {
@@ -19,13 +18,11 @@ const SelectableVideoPlayer = class extends Component {
 
 		if (selection.length !== 1) {
 			this.setState({
-				selection: [currentTime],
-				selecting: true
+				selection: [currentTime]
 			});
 		} else {
 			this.setState({
-				selection: [selection[0], currentTime].sort((a, b) => a - b),
-				selecting: false
+				selection: [selection[0], currentTime].sort((a, b) => a - b)
 			});
 		}
 	};
@@ -46,10 +43,10 @@ const SelectableVideoPlayer = class extends Component {
 
 	handleSeekOutsideSelection = (ev) => {
 		// prevent the action and seek to the beginning or end
-		const {selecting, selection} = this.state;
+		const {selection} = this.state;
 		ev.preventDefault();
 
-		if (!selecting && selection.length === 2) {
+		if (selection.length === 2) {
 			const [selectionStart, selectionEnd] = selection;
 			const {time: currentTime} = ev;
 
@@ -69,7 +66,8 @@ const SelectableVideoPlayer = class extends Component {
 	};
 
 	render () {
-		const {selecting} = this.state;
+		const {selection} = this.state;
+		const selecting = selection.length === 1;
 
 		return (
 			<VideoPlayer
@@ -77,7 +75,7 @@ const SelectableVideoPlayer = class extends Component {
 				loop
 				onSeekOutsideSelection={this.handleSeekOutsideSelection}
 				onTimeUpdate={this.handleTimeUpdate}
-				selection={this.state.selection}
+				selection={selection}
 				ref={this.setVideo}
 			>
 				<MediaControls>
