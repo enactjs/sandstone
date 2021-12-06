@@ -9,7 +9,8 @@ const SelectableVideoPlayer = class extends Component {
 	static displayName = 'SelectableVideoPlayer';
 
 	state = {
-		selection: []
+		selection: [],
+		selecting: false
 	};
 
 	handleToggleSelection = () => {
@@ -31,42 +32,35 @@ const SelectableVideoPlayer = class extends Component {
 
 	handleTimeUpdate = () => {
 		const {selecting, selection} = this.state;
-		const {currentTime} = this.video.getMediaState();
 
 		if (!selecting && selection.length === 2) {
 			const [selectionStart, selectionEnd] = selection;
+			const {currentTime} = this.video.getMediaState();
 
 			if (currentTime > selectionEnd || currentTime < selectionStart) {
-				// seek to start
+				// Seek to starting position if current time is out of selection during playback
 				this.video.seek(selectionStart);
-
-				// ... or pause() and lock at end
-				// this.video.pause();
-				// this.video.seek(selectionEnd);
 			}
 		}
 	};
 
 	handleSeekOutsideSelection = (ev) => {
-
 		// prevent the action and seek to the beginning or end
 		const {selecting, selection} = this.state;
-		const [selectionStart, selectionEnd] = selection;
 		ev.preventDefault();
 
-		if (!selecting) {
-			if (ev.time < selectionStart) {
-				// this.video.pause();
+		if (!selecting && selection.length === 2) {
+			const [selectionStart, selectionEnd] = selection;
+			const {time: currentTime} = ev;
+
+			// Seek to nearest selection position among starting and ending if current time is out of selection
+			if (currentTime < selectionStart) {
 				this.video.seek(selectionStart);
-			} else if (ev.time > selectionEnd) {
-				// this.video.pause();
+			} else if (currentTime > selectionEnd) {
+				// If a video is playing, position will be moved to starting point by handleTimeUpdate().
+				// If a video is paused, position will remain at ending position.
 				this.video.seek(selectionEnd);
 			}
-
-			// or remove the selection and allow the default behavior
-			// this.setState({
-			// 	selection: []
-			// });
 		}
 	};
 
