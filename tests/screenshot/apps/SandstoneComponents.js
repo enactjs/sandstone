@@ -37,6 +37,7 @@ import RangePicker from './components/RangePicker';
 import Region from './components/Region';
 import Scroller from './components/Scroller';
 import Slider from './components/Slider';
+import Spinner from './components/Spinner';
 import Sprite from './components/Sprite';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
@@ -86,7 +87,7 @@ const components = {
 	Scroller,
 	// Skinnable,
 	Slider,
-	// Spinner,
+	Spinner,
 	Sprite,
 	Steps,
 	Switch,
