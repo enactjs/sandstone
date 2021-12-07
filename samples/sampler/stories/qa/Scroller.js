@@ -647,10 +647,7 @@ export const WithLongContents = (args) => {
 	Adaptable
 	Enact was designed to produce native quality applications for a wide variety embedded web platforms. Read about Enact’s use cases and how it helps solve problems for Automotive, Robotics, TV and more.
 	`;
-	let longContents = '';
-	for (let i = 0; i < 50; i++) {
-		longContents += content;
-	}
+	const longContents = content.repeat(50);
 
 	return (
 		<Scroller
