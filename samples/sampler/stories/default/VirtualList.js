@@ -43,6 +43,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
+const ConfigOverscroll = mergeComponentMetadata('ConfigOverscroll', UiVirtualListBasic, VirtualList);
 const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
 export default {
@@ -62,6 +63,13 @@ export const _VirtualList = (args) => (
 		noScrollByWheel={args['noScrollByWheel']}
 		onScrollStart={action('onScrollStart')}
 		onScrollStop={action('onScrollStop')}
+		overscrollEffectOn={{
+			arrowKey: args['overscrollEffectOnArrowKey'],
+			drag: args['overscrollEffectOnDrag'],
+			pageKey: args['overscrollEffectOnPageKey'],
+			track: args['overscrollEffectOnTrack'],
+			wheel: args['overscrollEffectOnWheel']
+		}}
 		scrollMode={args['scrollMode']}
 		spacing={ri.scale(args['spacing'])}
 		spotlightDisabled={args['spotlightDisabled']}
@@ -76,6 +84,11 @@ boolean('hoverToScroll', _VirtualList, VirtualListConfig);
 number('itemSize', _VirtualList, VirtualListConfig, 156);
 number('itemSize', _VirtualList, VirtualListConfig, 156);
 boolean('noScrollByWheel', _VirtualList, VirtualListConfig);
+boolean('overscrollEffectOnArrowKey', _VirtualList, ConfigOverscroll, false);
+boolean('overscrollEffectOnDrag', _VirtualList, ConfigOverscroll, true);
+boolean('overscrollEffectOnPageKey', _VirtualList, ConfigOverscroll, false);
+boolean('overscrollEffectOnTrack', _VirtualList, ConfigOverscroll, false);
+boolean('overscrollEffectOnWheel', _VirtualList, ConfigOverscroll, true);
 select('scrollMode', _VirtualList, prop.scrollModeOption, VirtualListConfig);
 number('spacing', _VirtualList, VirtualListConfig);
 boolean('spotlightDisabled', _VirtualList, VirtualListConfig, false);

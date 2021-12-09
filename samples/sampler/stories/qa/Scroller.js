@@ -16,11 +16,20 @@ import {Component} from 'react';
 import css from './Scroller.module.less';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
+const ConfigOverscroll = mergeComponentMetadata('Overscroll', UiScrollerBasic, Scroller);
 
 const itemData = [];
 for (let i = 0; i < 100; i++) {
 	itemData.push(`Item ${i}`);
 }
+
+const setOverscroll = (story) => {
+	boolean('overscrollEffectOnArrowKey', story, ConfigOverscroll, false);
+	boolean('overscrollEffectOnDrag', story, ConfigOverscroll, true);
+	boolean('overscrollEffectOnPageKey', story, ConfigOverscroll, false);
+	boolean('overscrollEffectOnTrack', story, ConfigOverscroll, false);
+	boolean('overscrollEffectOnWheel', story, ConfigOverscroll, true);
+};
 
 const prop = {
 	direction: ['both', 'horizontal', 'vertical'],
@@ -81,6 +90,13 @@ class ScrollerWithLongItem extends Component {
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				overscrollEffectOn={{
+					arrowKey: args['overscrollEffectOnArrowKey'],
+					drag: args['overscrollEffectOnDrag'],
+					pageKey: args['overscrollEffectOnPageKey'],
+					track: args['overscrollEffectOnTrack'],
+					wheel: args['overscrollEffectOnWheel']
+				}}
 				scrollMode={args['scrollMode']}
 			>
 				<Item>
@@ -113,6 +129,13 @@ class ScrollerWithResizable extends Component {
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				overscrollEffectOn={{
+					arrowKey: args['overscrollEffectOnArrowKey'],
+					drag: args['overscrollEffectOnDrag'],
+					pageKey: args['overscrollEffectOnPageKey'],
+					track: args['overscrollEffectOnTrack'],
+					wheel: args['overscrollEffectOnWheel']
+				}}
 				scrollMode={args['scrollMode']}
 				verticalScrollbar="visible"
 			>
@@ -142,6 +165,13 @@ class ScrollerWithLargeContainer extends Component {
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				overscrollEffectOn={{
+					arrowKey: args['overscrollEffectOnArrowKey'],
+					drag: args['overscrollEffectOnDrag'],
+					pageKey: args['overscrollEffectOnPageKey'],
+					track: args['overscrollEffectOnTrack'],
+					wheel: args['overscrollEffectOnWheel']
+				}}
 				scrollMode={args['scrollMode']}
 				spotlightId="scroller"
 				style={{height: ri.scaleToRem(600)}}
@@ -177,6 +207,13 @@ export const ListOfThings = (args) => (
 		onKeyDown={action('onKeyDown')}
 		onScrollStart={action('onScrollStart')}
 		onScrollStop={action('onScrollStop')}
+		overscrollEffectOn={{
+			arrowKey: args['overscrollEffectOnArrowKey'],
+			drag: args['overscrollEffectOnDrag'],
+			pageKey: args['overscrollEffectOnPageKey'],
+			track: args['overscrollEffectOnTrack'],
+			wheel: args['overscrollEffectOnWheel']
+		}}
 		scrollMode={args['scrollMode']}
 		spotlightDisabled={args['spotlightDisabled']}
 		verticalScrollbar={args['verticalScrollbar']}
@@ -192,6 +229,7 @@ boolean('noScrollByWheel', ListOfThings, Config);
 select('scrollMode', ListOfThings, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', ListOfThings, Config, false);
 select('verticalScrollbar', ListOfThings, prop.scrollbarOption, Config);
+setOverscroll(ListOfThings);
 
 ListOfThings.storyName = 'List of things';
 
@@ -206,6 +244,13 @@ export const HorizontalScroll = (args) => (
 		onKeyDown={action('onKeyDown')}
 		onScrollStart={action('onScrollStart')}
 		onScrollStop={action('onScrollStop')}
+		overscrollEffectOn={{
+			arrowKey: args['overscrollEffectOnArrowKey'],
+			drag: args['overscrollEffectOnDrag'],
+			pageKey: args['overscrollEffectOnPageKey'],
+			track: args['overscrollEffectOnTrack'],
+			wheel: args['overscrollEffectOnWheel']
+		}}
 		scrollMode={args['scrollMode']}
 		spotlightDisabled={args['spotlightDisabled']}
 		verticalScrollbar={args['verticalScrollbar']}
@@ -231,6 +276,7 @@ boolean('noScrollByWheel', HorizontalScroll, Config);
 select('scrollMode', HorizontalScroll, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', HorizontalScroll, Config, false);
 select('verticalScrollbar', HorizontalScroll, prop.scrollbarOption, Config);
+setOverscroll(HorizontalScroll);
 
 HorizontalScroll.storyName = 'Horizontal scroll';
 
@@ -245,6 +291,13 @@ export const WithSpottableComponents = (args) => (
 		onKeyDown={action('onKeyDown')}
 		onScrollStart={action('onScrollStart')}
 		onScrollStop={action('onScrollStop')}
+		overscrollEffectOn={{
+			arrowKey: args['overscrollEffectOnArrowKey'],
+			drag: args['overscrollEffectOnDrag'],
+			pageKey: args['overscrollEffectOnPageKey'],
+			track: args['overscrollEffectOnTrack'],
+			wheel: args['overscrollEffectOnWheel']
+		}}
 		scrollMode={args['scrollMode']}
 		spotlightDisabled={args['spotlightDisabled']}
 		verticalScrollbar={args['verticalScrollbar']}
@@ -284,6 +337,7 @@ boolean('noScrollByWheel', WithSpottableComponents, Config);
 select('scrollMode', WithSpottableComponents, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', WithSpottableComponents, Config, false);
 select('verticalScrollbar', WithSpottableComponents, prop.scrollbarOption, Config);
+setOverscroll(WithSpottableComponents);
 
 WithSpottableComponents.storyName = 'With Spottable Components';
 
@@ -298,6 +352,13 @@ export const WithShortContents = (args) => (
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			overscrollEffectOn={{
+				arrowKey: args['overscrollEffectOnArrowKey'],
+				drag: args['overscrollEffectOnDrag'],
+				pageKey: args['overscrollEffectOnPageKey'],
+				track: args['overscrollEffectOnTrack'],
+				wheel: args['overscrollEffectOnWheel']
+			}}
 			scrollMode={args['scrollMode']}
 			spotlightDisabled={args['spotlightDisabled']}
 			style={{height: ri.scaleToRem(600)}}
@@ -317,6 +378,7 @@ boolean('noScrollByWheel', WithShortContents, Config);
 select('scrollMode', WithShortContents, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', WithShortContents, Config, false);
 select('verticalScrollbar', WithShortContents, prop.scrollbarOption, Config);
+setOverscroll(WithShortContents);
 
 WithShortContents.storyName = 'With short contents';
 
@@ -327,6 +389,7 @@ ScrollerWithResizable.propTypes = {
 export const WithResizable = (args) => <ScrollerWithResizable args={args} />;
 
 select('scrollMode', WithResizable, prop.scrollModeOption, Config);
+setOverscroll(WithResizable);
 
 WithResizable.storyName = 'With Resizable';
 
@@ -365,6 +428,7 @@ export const WithLargeContainer = (args) => <ScrollerWithLargeContainer args={ar
 
 select('focusableScrollbar', WithLargeContainer, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithLargeContainer, prop.scrollModeOption, Config);
+setOverscroll(WithLargeContainer);
 
 WithLargeContainer.storyName = 'With Large Container';
 
@@ -377,6 +441,13 @@ export const WithFocusOutsideContainer = (args) => (
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			overscrollEffectOn={{
+				arrowKey: args['overscrollEffectOnArrowKey'],
+				drag: args['overscrollEffectOnDrag'],
+				pageKey: args['overscrollEffectOnPageKey'],
+				track: args['overscrollEffectOnTrack'],
+				wheel: args['overscrollEffectOnWheel']
+			}}
 			scrollMode={args['scrollMode']}
 			style={{height: ri.scaleToRem(840), width: ri.scaleToRem(600), display: 'inline-block'}}
 		>
@@ -396,6 +467,7 @@ export const WithFocusOutsideContainer = (args) => (
 
 select('focusableScrollbar', WithFocusOutsideContainer, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithFocusOutsideContainer, prop.scrollModeOption, Config);
+setOverscroll(WithFocusOutsideContainer);
 
 WithFocusOutsideContainer.storyName = 'With Focus outside Container';
 
@@ -407,6 +479,13 @@ export const TestScrollingToBoundaryWithSmallOverflow = (args) => {
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			overscrollEffectOn={{
+				arrowKey: args['overscrollEffectOnArrowKey'],
+				drag: args['overscrollEffectOnDrag'],
+				pageKey: args['overscrollEffectOnPageKey'],
+				track: args['overscrollEffectOnTrack'],
+				wheel: args['overscrollEffectOnWheel']
+			}}
 			scrollMode={args['scrollMode']}
 			style={{height: ri.scaleToRem(480)}}
 		>
@@ -421,6 +500,7 @@ export const TestScrollingToBoundaryWithSmallOverflow = (args) => {
 
 range('Spacer size', TestScrollingToBoundaryWithSmallOverflow, Config, {max: 600, min: 0}, 200);
 select('scrollMode', TestScrollingToBoundaryWithSmallOverflow, prop.scrollModeOption, Config);
+setOverscroll(TestScrollingToBoundaryWithSmallOverflow);
 
 TestScrollingToBoundaryWithSmallOverflow.storyName = 'Test scrolling to boundary with small overflow';
 
@@ -433,6 +513,13 @@ export const TestScrollingToBoundaryWithLongOverflow = (args) => {
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			overscrollEffectOn={{
+				arrowKey: args['overscrollEffectOnArrowKey'],
+				drag: args['overscrollEffectOnDrag'],
+				pageKey: args['overscrollEffectOnPageKey'],
+				track: args['overscrollEffectOnTrack'],
+				wheel: args['overscrollEffectOnWheel']
+			}}
 			scrollMode={args['scrollMode']}
 			style={{height: ri.scaleToRem(402)}}
 		>
@@ -454,6 +541,7 @@ export const TestScrollingToBoundaryWithLongOverflow = (args) => {
 range('Spacer size', TestScrollingToBoundaryWithLongOverflow, Config, {max: 600, min: 0}, 402);
 select('focusableScrollbar', TestScrollingToBoundaryWithLongOverflow, prop.focusableScrollbarOption, Config);
 select('scrollMode', TestScrollingToBoundaryWithLongOverflow, prop.scrollModeOption, Config);
+setOverscroll(TestScrollingToBoundaryWithLongOverflow);
 
 TestScrollingToBoundaryWithLongOverflow.storyName = 'Test scrolling to boundary with long overflow';
 
@@ -466,6 +554,13 @@ export const WithSpotlightTargetCalculation = (args) => (
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			overscrollEffectOn={{
+				arrowKey: args['overscrollEffectOnArrowKey'],
+				drag: args['overscrollEffectOnDrag'],
+				pageKey: args['overscrollEffectOnPageKey'],
+				track: args['overscrollEffectOnTrack'],
+				wheel: args['overscrollEffectOnWheel']
+			}}
 			scrollMode={args['scrollMode']}
 			style={{height: ri.scaleToRem(804)}}
 		>
@@ -476,6 +571,7 @@ export const WithSpotlightTargetCalculation = (args) => (
 
 select('focusableScrollbar', WithSpotlightTargetCalculation, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithSpotlightTargetCalculation, prop.scrollModeOption, Config);
+setOverscroll(WithSpotlightTargetCalculation);
 
 WithSpotlightTargetCalculation.storyName = 'With Spotlight Target Calculation';
 
@@ -487,6 +583,7 @@ export const WithLongItem = (args) => <ScrollerWithLongItem args={args} />;
 
 select('focusableScrollbar', WithLongItem, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithLongItem, prop.scrollModeOption, Config);
+setOverscroll(WithLongItem);
 
 WithLongItem.storyName = 'With Long Item';
 
@@ -497,6 +594,13 @@ export const WithOneLongHeightItem = (args) => (
 		onKeyDown={action('onKeyDown')}
 		onScrollStart={action('onScrollStart')}
 		onScrollStop={action('onScrollStop')}
+		overscrollEffectOn={{
+			arrowKey: args['overscrollEffectOnArrowKey'],
+			drag: args['overscrollEffectOnDrag'],
+			pageKey: args['overscrollEffectOnPageKey'],
+			track: args['overscrollEffectOnTrack'],
+			wheel: args['overscrollEffectOnWheel']
+		}}
 		scrollMode={args['scrollMode']}
 	>
 		<div style={{height: ri.scaleToRem(2442)}}>
@@ -507,6 +611,7 @@ export const WithOneLongHeightItem = (args) => (
 
 select('focusableScrollbar', WithOneLongHeightItem, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithOneLongHeightItem, prop.scrollModeOption, Config);
+setOverscroll(WithOneLongHeightItem);
 
 WithOneLongHeightItem.storyName = 'With One Long Height Item';
 
@@ -519,13 +624,6 @@ export const WithNestedScroller = (args) => {
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
-			overscrollEffectOn={{
-				arrowKey: false,
-				drag: true,
-				pageKey: false,
-				track: false,
-				wheel: true
-			}}
 			scrollMode={args['scrollMode']}
 			verticalScrollbar="visible"
 		>
@@ -539,11 +637,11 @@ export const WithNestedScroller = (args) => {
 				onScrollStart={action('onScrollStart (Nested 1st Scroller)')}
 				onScrollStop={action('onScrollStop (Nested 1st Scroller)')}
 				overscrollEffectOn={{
-					arrowKey: false,
-					drag: true,
-					pageKey: false,
-					track: false,
-					wheel: true
+					arrowKey: args['overscrollEffectOnArrowKey'],
+					drag: args['overscrollEffectOnDrag'],
+					pageKey: args['overscrollEffectOnPageKey'],
+					track: args['overscrollEffectOnTrack'],
+					wheel: args['overscrollEffectOnWheel']
 				}}
 				scrollMode={args['scrollMode']}
 				style={{
@@ -585,11 +683,11 @@ export const WithNestedScroller = (args) => {
 				onScrollStart={action('onScrollStart (Nested 2nd Scroller)')}
 				onScrollStop={action('onScrollStop (Nested 2nd Scroller)')}
 				overscrollEffectOn={{
-					arrowKey: false,
-					drag: true,
-					pageKey: false,
-					track: false,
-					wheel: true
+					arrowKey: args['overscrollEffectOnArrowKey'],
+					drag: args['overscrollEffectOnDrag'],
+					pageKey: args['overscrollEffectOnPageKey'],
+					track: args['overscrollEffectOnTrack'],
+					wheel: args['overscrollEffectOnWheel']
 				}}
 				scrollMode={args['scrollMode']}
 				style={{
@@ -628,6 +726,7 @@ export const WithNestedScroller = (args) => {
 select('focusableScrollbar', WithNestedScroller, prop.focusableScrollbarOption, Config);
 boolean('noScrollByWheel', WithNestedScroller, Config, false);
 select('scrollMode', WithNestedScroller, prop.scrollModeOption, Config);
+setOverscroll(WithNestedScroller);
 
 WithNestedScroller.storyName = 'With Nested Scroller';
 
@@ -639,6 +738,13 @@ export const WithCustomizedStyle = (args) => (
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			overscrollEffectOn={{
+				arrowKey: args['overscrollEffectOnArrowKey'],
+				drag: args['overscrollEffectOnDrag'],
+				pageKey: args['overscrollEffectOnPageKey'],
+				track: args['overscrollEffectOnTrack'],
+				wheel: args['overscrollEffectOnWheel']
+			}}
 			scrollbarTrackCss={css}
 			scrollMode={args['scrollMode']}
 			style={{height: ri.scaleToRem(804)}}
@@ -653,6 +759,7 @@ export const WithCustomizedStyle = (args) => (
 
 select('focusableScrollbar', WithCustomizedStyle, prop.focusableScrollbarOption, Config);
 select('scrollMode', WithCustomizedStyle, prop.scrollModeOption, Config);
+setOverscroll(WithCustomizedStyle);
 
 WithCustomizedStyle.storyName = 'With Customized Style';
 
@@ -677,6 +784,13 @@ export const WithLongContents = (args) => {
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			overscrollEffectOn={{
+				arrowKey: args['overscrollEffectOnArrowKey'],
+				drag: args['overscrollEffectOnDrag'],
+				pageKey: args['overscrollEffectOnPageKey'],
+				track: args['overscrollEffectOnTrack'],
+				wheel: args['overscrollEffectOnWheel']
+			}}
 		>
 			<BodyText style={{whiteSpace: 'pre-line'}}>
 				{longContents}
@@ -687,5 +801,6 @@ export const WithLongContents = (args) => {
 
 select('focusableScrollbar', WithLongContents, prop.focusableScrollbarOption, Config, 'byEnter');
 select('scrollMode', WithLongContents, prop.scrollModeOption, Config);
+setOverscroll(WithLongContents);
 
 WithLongContents.storyName = 'With Long Contents';

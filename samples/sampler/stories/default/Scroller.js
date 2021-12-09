@@ -20,6 +20,7 @@ const prop = {
 	scrollModeOption: ['native', 'translate']
 };
 
+const ConfigOverscroll = mergeComponentMetadata('ConfigOverscroll', UiScrollerBasic, Scroller);
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 export default {
@@ -55,6 +56,13 @@ export const _Scroller = (args) => {
 			noScrollByWheel={args['noScrollByWheel']}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			overscrollEffectOn={{
+				arrowKey: args['overscrollEffectOnArrowKey'],
+				drag: args['overscrollEffectOnDrag'],
+				pageKey: args['overscrollEffectOnPageKey'],
+				track: args['overscrollEffectOnTrack'],
+				wheel: args['overscrollEffectOnWheel']
+			}}
 			scrollMode={args['scrollMode']}
 			spotlightDisabled={args['spotlightDisabled']}
 			verticalScrollbar={verticalScrollbar}
@@ -93,6 +101,11 @@ select('verticalScrollbar', _Scroller, prop.scrollbarOption, ScrollerConfig);
 boolean('fadeOut', _Scroller, ScrollerConfig);
 boolean('hoverToScroll', _Scroller, ScrollerConfig);
 boolean('noScrollByWheel', _Scroller, ScrollerConfig);
+boolean('overscrollEffectOnArrowKey', _Scroller, ConfigOverscroll, false);
+boolean('overscrollEffectOnDrag', _Scroller, ConfigOverscroll, true);
+boolean('overscrollEffectOnPageKey', _Scroller, ConfigOverscroll, false);
+boolean('overscrollEffectOnTrack', _Scroller, ConfigOverscroll, false);
+boolean('overscrollEffectOnWheel', _Scroller, ConfigOverscroll, true);
 select('scrollMode', _Scroller, prop.scrollModeOption, ScrollerConfig);
 boolean('spotlightDisabled', _Scroller, ScrollerConfig, false);
 
