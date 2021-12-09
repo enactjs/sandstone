@@ -16,7 +16,7 @@ import {Component} from 'react';
 import css from './Scroller.module.less';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
-const ConfigOverscroll = mergeComponentMetadata('Overscroll', UiScrollerBasic, Scroller);
+const ConfigOverscroll = mergeComponentMetadata('Config Overscroll', UiScrollerBasic, Scroller);
 
 const itemData = [];
 for (let i = 0; i < 100; i++) {

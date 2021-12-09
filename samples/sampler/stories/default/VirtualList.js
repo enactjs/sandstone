@@ -43,7 +43,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-const ConfigOverscroll = mergeComponentMetadata('ConfigOverscroll', UiVirtualListBasic, VirtualList);
+const ConfigOverscroll = mergeComponentMetadata('Config Overscroll', UiVirtualListBasic, VirtualList);
 const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
 export default {

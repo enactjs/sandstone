@@ -20,7 +20,7 @@ const prop = {
 	scrollModeOption: ['native', 'translate']
 };
 
-const ConfigOverscroll = mergeComponentMetadata('ConfigOverscroll', UiScrollerBasic, Scroller);
+const ConfigOverscroll = mergeComponentMetadata('Config Overscroll', UiScrollerBasic, Scroller);
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 export default {
