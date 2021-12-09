@@ -54,7 +54,7 @@ const TabBase = kind({
 			forward('onClick'),
 			not(forProp('disabled', true)),
 			adaptEvent(
-				(ev, {index}) => ({selected: index}),
+				(ev, {index}) => ({type: 'onTabClick', selected: index}),
 				forward('onTabClick')
 			)
 		),
@@ -63,7 +63,7 @@ const TabBase = kind({
 			not(forProp('disabled', true)),
 			() => !Spotlight.getPointerMode(),
 			adaptEvent(
-				(ev, {index}) => ({selected: index}),
+				(ev, {index}) => ({type: 'onFocusTab', selected: index}),
 				forward('onFocusTab')
 			)
 		)

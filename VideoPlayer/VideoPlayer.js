@@ -11,7 +11,7 @@ import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
 import {memoize} from '@enact/core/util';
 
-import {adaptEvent, call, forKey, forward, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
+import {adaptEvent, call, forKey, forward, forwardCustom, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {platform} from '@enact/core/platform';
 import EnactPropTypes from '@enact/core/internal/prop-types';
@@ -100,12 +100,12 @@ const getDurFmt = (locale) => {
 	return memoGetDurFmt(locale);
 };
 
-const forwardWithState = (type) => adaptEvent(call('addStateToEvent'), forwardWithPrevent(type));
+const forwardWithState = (type) => adaptEvent(() => ({type}), handle(adaptEvent(call('addStateToEvent'), forwardWithPrevent(type))));
 
 const forwardToggleMore = forward('onToggleMore');
 
 // provide forwarding of events on media controls
-const forwardControlsAvailable = forward('onControlsAvailable');
+const forwardControlsAvailable = forwardCustom('onControlsAvailable');
 const forwardPlay = forwardWithState('onPlay');
 const forwardWillPlay = forwardWithState('onWillPlay');
 const forwardPause = forwardWithState('onPause');
