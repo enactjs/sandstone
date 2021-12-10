@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller` and `sandstone/VirtualList` to not restore focus after scroll with voice control scroll in pointer mode
+- `sandstone/Scroller` and `sandstone/VirtualList` to not restore focus after scroll with voice control in pointer mode
 
 ## [2.0.4] - 2021-11-01
 
