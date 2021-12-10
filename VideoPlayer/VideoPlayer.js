@@ -1235,7 +1235,7 @@ const VideoPlayerBase = class extends Component {
 
 	handleJump = ({keyCode}) => {
 		if (this.props.seekDisabled) {
-			forward('onSeekFailed', {}, this.props);
+			forwardCustom('onSeekFailed')(null, this.props);
 		} else {
 			const jumpBy = (is('left', keyCode) ? -1 : 1) * this.props.jumpBy;
 			const time = Math.min(this.state.duration, Math.max(0, this.state.currentTime + jumpBy));
@@ -1433,7 +1433,7 @@ const VideoPlayerBase = class extends Component {
 		if (!this.props.seekDisabled && !isNaN(this.video.duration) && !this.state.sourceUnavailable) {
 			this.video.currentTime = timeIndex;
 		} else {
-			forward('onSeekFailed', {}, this.props);
+			forwardCustom('onSeekFailed')(null, this.props);
 		}
 	};
 
@@ -1777,7 +1777,7 @@ const VideoPlayerBase = class extends Component {
 			if (!isNaN(seconds)) {
 				const knobTime = secondsToTime(seconds, getDurFmt(this.props.locale), {includeHour: true});
 
-				forward('onScrub', {...ev, seconds}, this.props);
+				forward('onScrub', {...ev, seconds, type: 'onScrub'}, this.props);
 
 				this.announce(`${$L('jump to')} ${knobTime}`, true);
 			}
@@ -1800,7 +1800,9 @@ const VideoPlayerBase = class extends Component {
 			forward('onScrub', {
 				detached: this.sliderScrubbing,
 				proportion: this.sliderKnobProportion,
-				seconds},
+				seconds,
+				type: 'onScrub'
+			},
 			this.props);
 
 			this.announce(`${$L('jump to')} ${knobTime}`, true);

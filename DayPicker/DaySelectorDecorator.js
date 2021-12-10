@@ -275,7 +275,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 			selected = generalizeSelected(selected, state);
 			const content = getSelectedDayString(selected, '', dayNameLength);
 
-			forwardSelect({selected, content}, this.props);
+			forwardSelect({type: 'onSelect', selected, content}, this.props);
 		};
 
 		render () {

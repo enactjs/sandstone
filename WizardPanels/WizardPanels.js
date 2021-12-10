@@ -1,4 +1,4 @@
-import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
+import handle, {adaptEvent, forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
@@ -288,33 +288,33 @@ const WizardPanelsBase = kind({
 
 	handlers: {
 		onNextClick: handle(
-			forwardWithPrevent('onNextClick'),
+			adaptEvent(() => ({type: 'onNextClick'}), forwardWithPrevent('onNextClick')),
 			(ev, {index, onChange, totalPanels}) => {
 				if (onChange && index !== totalPanels) {
 					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
-					onChange({index: nextIndex});
+					onChange({type: 'onChange', index: nextIndex});
 				}
 			}
 		),
 		onPrevClick: handle(
-			forwardWithPrevent('onPrevClick'),
+			adaptEvent(() => ({type: 'onPrevClick'}), forwardWithPrevent('onPrevClick')),
 			(ev, {index, onChange}) => {
 				if (onChange && index !== 0) {
 					const prevIndex = index > 0 ? (index - 1) : index;
 
-					onChange({index: prevIndex});
+					onChange({type: 'onChange', index: prevIndex});
 				}
 			}
 		),
 		onTransition: (ev, {index, onTransition}) => {
 			if (onTransition) {
-				onTransition({index});
+				onTransition({type: 'onTransition', index});
 			}
 		},
 		onWillTransition: (ev, {index, onWillTransition}) => {
 			if (onWillTransition) {
-				onWillTransition({index});
+				onWillTransition({type: 'onWillTransition', index});
 			}
 		}
 	},
