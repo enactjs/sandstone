@@ -1,78 +1,100 @@
-/* eslint-disable react/jsx-no-bind */
-import {mount} from 'enzyme';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
 import Button from '../../Button';
 
 const ContextualButton = ContextualPopupDecorator(Button);
+
 describe('ContextualPopupDecorator Specs', () => {
-	test('should bind callback to instance', () => {
-		let called = false;
-		// Create a context with a prop on it we can use to detect access to this prop inside the
-		// instance method.
-		class CallbackInterceptor {
-			get containerNode () {
-				called = true;
-				return null;
-			}
-		}
-
-		const subject = mount(
-			<ContextualButton
-				popupComponent={Button}
-			>
-				Button
-			</ContextualButton>
+	test('should emit onClose event when clicking on contextual button', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
 		);
+		const contextualButton = screen.getByRole('button');
 
-		// Call `positionContextualPopup` setting `this` to our interceptor.  Bound function should
-		// ignore the value of `this` we pass in.  If not, it will access `containerNode` above.
-		Reflect.apply(subject.instance().positionContextualPopup, new CallbackInterceptor(), []);
+		userEvent.click(contextualButton);
 
-		const expected = false;
-		const actual = called;
-
-		expect(actual).toBe(expected);
+		expect(handleClose).toHaveBeenCalled();
 	});
 
 	test('should render component into FloatingLayer if open', () => {
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
-
-		const subject = mount(
+		render(
 			<Root>
-				<ContextualButton
-					open
-					popupComponent={() => <div>{message}</div>}
-				>
+				<ContextualButton open popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
+		const contextualPopup = screen.getByRole('alert');
 
 		const expected = message;
-		const actual = subject.find('FloatingLayer').text();
+		const actual = contextualPopup.children.item(0);
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveTextContent(expected);
 	});
 
 	test('should not render into FloatingLayer if not open', () => {
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
-
-		const subject = mount(
+		render(
 			<Root>
-				<ContextualButton
-					popupComponent={() => <div>{message}</div>}
-				>
+				<ContextualButton popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
 
-		const expected = '';
-		const actual = subject.find('FloatingLayer').text();
+		const popup = screen.queryByText(message);
 
-		expect(actual).toBe(expected);
+		expect(popup).toBeNull();
+	});
+
+	test('should not close popup when clicking outside if noAutoDismiss is true', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root data-testid="outsideArea">
+				<ContextualButton noAutoDismiss onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const outsideArea = screen.getByTestId('outsideArea');
+
+		userEvent.click(outsideArea);
+
+		expect(handleClose).not.toHaveBeenCalled();
+	});
+
+	test('should have "below right" className when direction is set to "below right"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="below right" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'below right';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
 	});
 });

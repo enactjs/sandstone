@@ -1,4 +1,4 @@
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import {action} from '@enact/storybook-utils/addons/actions';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Alert from '@enact/sandstone/Alert';
@@ -32,7 +32,7 @@ export default {
 	component: 'Popup'
 };
 
-export const UsingSpotlightRestrict = () => (
+export const UsingSpotlightRestrict = (args) => (
 	<div>
 		<p>
 			The contents of the popup below should contain the only controls that can be navigated to
@@ -42,25 +42,15 @@ export const UsingSpotlightRestrict = () => (
 		</p>
 		<Button>Button</Button>
 		<Popup
-			open={boolean('open', Popup, true)}
-			noAnimation={boolean('noAnimation', Popup, false)}
-			noAutoDismiss={boolean('noAutoDismiss', Popup, false)}
+			open={args['open']}
+			noAnimation={args['noAnimation']}
+			noAutoDismiss={args['noAutoDismiss']}
 			onClose={action('onClose')}
-			position={select(
-				'position',
-				['bottom', 'center', 'fullscreen', 'left', 'right', 'top'],
-				Popup,
-				'bottom'
-			)}
-			scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Popup, 'translucent')}
-			spotlightRestrict={select(
-				'spotlightRestrict',
-				['self-first', 'self-only'],
-				Popup,
-				'self-only'
-			)}
+			position={args['position']}
+			scrimType={args['scrimType']}
+			spotlightRestrict={args['spotlightRestrict']}
 		>
-			<div>{text('children', Popup, 'Hello Popup')}</div>
+			<div>{args['children']}</div>
 			<br />
 			<Container>
 				<Button>Button</Button>
@@ -71,8 +61,21 @@ export const UsingSpotlightRestrict = () => (
 	</div>
 );
 
+boolean('open', UsingSpotlightRestrict, Popup, true);
+boolean('noAnimation', UsingSpotlightRestrict, Popup, false);
+boolean('noAutoDismiss', UsingSpotlightRestrict, Popup, false);
+select('position', UsingSpotlightRestrict, ['bottom', 'center', 'fullscreen', 'left', 'right', 'top'], Popup, 'bottom');
+select('scrimType', UsingSpotlightRestrict, ['none', 'translucent', 'transparent'], Popup, 'translucent');
+select('spotlightRestrict', UsingSpotlightRestrict, ['self-first', 'self-only'], Popup, 'self-only');
+text('children', UsingSpotlightRestrict, Popup, 'Hello Popup');
+
 UsingSpotlightRestrict.storyName = 'using spotlightRestrict';
 
 export const FromSelfOnlyContainer = () => <PopupFromSelfOnlyContainer />;
 
 FromSelfOnlyContainer.storyName = 'from self-only container';
+FromSelfOnlyContainer.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

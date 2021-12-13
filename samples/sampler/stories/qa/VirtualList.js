@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
@@ -34,16 +34,15 @@ const defaultMinItemSize = 200;
 
 const prop = {
 	scrollbarOption: ['auto', 'hidden', 'visible'],
-	scrollModeOption: ['native', 'translate']
+	scrollModeOption: ['native', 'translate'],
+	wrapOption: {
+		false: false,
+		true: true,
+		noAnimation: 'noAnimation'
+	}
 };
 
-const wrapOption = {
-	false: false,
-	true: true,
-	'&quot;noAnimation&quot;': 'noAnimation'
-};
-
-// eslint-disable-next-line enact/prop-types, enact/display-name
+// eslint-disable-next-line enact/prop-types
 const renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 	const style = vertical ?
 		{} :
@@ -184,7 +183,6 @@ const InPanels = ({className, title, ...rest}) => {
 	);
 };
 
-// eslint-disable-next-line enact/prop-types
 class VirtualListWithCBScrollTo extends Component {
 	static propTypes = {
 		dataSize: PropTypes.number
@@ -212,24 +210,24 @@ export default {
 	component: 'VirtualList'
 };
 
-export const HorizontalScrollInScroller = () => {
+export const HorizontalScrollInScroller = (args) => {
 	const listProps = {
 		className: css.horizontalPadding,
-		dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
+		dataSize: updateDataSize(args['dataSize']),
 		direction: 'horizontal',
-		horizontalScrollbar: select('horizontalScrollbar', prop.scrollbarOption, Config),
-		itemRenderer: renderItem(Item, ri.scale(number('itemSize', Config, 156)), false),
-		itemSize: ri.scale(number('itemSize', Config, 156)),
-		key: select('scrollMode', prop.scrollModeOption, Config),
-		noScrollByWheel: boolean('noScrollByWheel', Config),
+		horizontalScrollbar: args['horizontalScrollbar'],
+		itemRenderer: renderItem(Item, ri.scale(args['itemSize']), false),
+		itemSize: ri.scale(args['itemSize']),
+		key: args['scrollMode'],
+		noScrollByWheel: args['noScrollByWheel'],
 		onKeyDown: action('onKeyDown'),
 		onScrollStart: action('onScrollStart'),
 		onScrollStop: action('onScrollStop'),
-		scrollMode: select('scrollMode', prop.scrollModeOption, Config),
-		spacing: ri.scale(number('spacing', Config)),
+		scrollMode: args['scrollMode'],
+		spacing: ri.scale(args['spacing']),
 		style: listStyle,
-		verticalScrollbar: select('verticalScrollbar', prop.scrollbarOption, Config),
-		wrap: wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]
+		verticalScrollbar: args['verticalScrollbar'],
+		wrap: args['wrap']
 	};
 
 	return (
@@ -241,82 +239,124 @@ export const HorizontalScrollInScroller = () => {
 	);
 };
 
+number('dataSize', HorizontalScrollInScroller, Config, defaultDataSize);
+select('horizontalScrollbar', HorizontalScrollInScroller, prop.scrollbarOption, Config);
+number('itemSize', HorizontalScrollInScroller, Config, 156);
+select('scrollMode', HorizontalScrollInScroller, prop.scrollModeOption, Config);
+boolean('noScrollByWheel', HorizontalScrollInScroller, Config);
+number('spacing', HorizontalScrollInScroller, Config);
+select('verticalScrollbar', HorizontalScrollInScroller, prop.scrollbarOption, Config);
+select('wrap', HorizontalScrollInScroller, prop.wrapOption, Config);
+
 HorizontalScrollInScroller.storyName = 'horizontal scroll in Scroller';
 HorizontalScrollInScroller.parameters = {
 	propTables: [Config]
 };
 
-export const WithMoreItems = () => {
+export const WithMoreItems = (args) => {
 	return (
 		<VirtualList
-			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-			itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
-			itemSize={ri.scale(number('itemSize', Config, 156))}
-			key={select('scrollMode', prop.scrollModeOption, Config)}
-			noScrollByWheel={boolean('noScrollByWheel', Config)}
+			dataSize={updateDataSize(args['dataSize'])}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			itemRenderer={renderItem(StatefulSwitchItem, ri.scale(args['itemSize']), true)}
+			itemSize={ri.scale(args['itemSize'])}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
-			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-			spacing={ri.scale(number('spacing', Config))}
-			spotlightDisabled={boolean('spotlightDisabled', Config, false)}
-			verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-			wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+			scrollMode={args['scrollMode']}
+			spacing={ri.scale(args['spacing'])}
+			spotlightDisabled={args['spotlightDisabled']}
+			verticalScrollbar={args['verticalScrollbar']}
+			wrap={args['wrap']}
 		/>
 	);
 };
+
+number('dataSize', WithMoreItems, Config, defaultDataSize);
+select('horizontalScrollbar', WithMoreItems, prop.scrollbarOption, Config);
+boolean('hoverToScroll', WithMoreItems, Config);
+number('itemSize', WithMoreItems, Config, 156);
+select('scrollMode', WithMoreItems, prop.scrollModeOption, Config);
+boolean('noScrollByWheel', WithMoreItems, Config);
+number('spacing', WithMoreItems, Config);
+boolean('spotlightDisabled', WithMoreItems, Config, false);
+select('verticalScrollbar', WithMoreItems, prop.scrollbarOption, Config);
+select('wrap', WithMoreItems, prop.wrapOption, Config);
 
 WithMoreItems.storyName = 'with more items';
 WithMoreItems.parameters = {
 	propTables: [Config]
 };
 
-export const WithSmallItemMinSizeAndLargeItemSize = () => {
+export const WithSmallItemMinSizeAndLargeItemSize = (args) => {
 	return (
 		<VirtualList
-			dataSize={updateDataSize(number('dataSize', Config, defaultDataSizeForSmallMinLargeSize))}
+			dataSize={updateDataSize(args['dataSize'])}
 			direction="horizontal"
-			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-			itemRenderer={renderItem(Item, ri.scale(number('size', Config, defaultItemSize)), false)}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			itemRenderer={renderItem(Item, ri.scale(args['size']), false)}
 			itemSize={updateItemSize({
-				minSize: ri.scale(number('minSize', Config, defaultMinItemSize)),
-				dataSize: number('dataSize', Config, defaultDataSizeForSmallMinLargeSize),
-				size: ri.scale(number('size', Config, defaultItemSize))
+				minSize: ri.scale(args['minSize']),
+				dataSize: args['dataSize'],
+				size: ri.scale(args['size'])
 			})}
-			key={select('scrollMode', prop.scrollModeOption, Config)}
-			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-			spacing={ri.scale(number('spacing', Config))}
+			key={args['scrollMode']}
+			scrollMode={args['scrollMode']}
+			spacing={ri.scale(args['spacing'])}
 		/>
 	);
 };
+
+number('dataSize', WithSmallItemMinSizeAndLargeItemSize, Config, defaultDataSizeForSmallMinLargeSize);
+select('horizontalScrollbar', WithSmallItemMinSizeAndLargeItemSize, prop.scrollbarOption, Config);
+boolean('hoverToScroll', WithSmallItemMinSizeAndLargeItemSize, Config);
+number('size', WithSmallItemMinSizeAndLargeItemSize, Config, defaultItemSize);
+number('minSize', WithSmallItemMinSizeAndLargeItemSize, Config, defaultMinItemSize);
+select('scrollMode', WithSmallItemMinSizeAndLargeItemSize, prop.scrollModeOption, Config);
+number('spacing', WithSmallItemMinSizeAndLargeItemSize, Config);
 
 WithSmallItemMinSizeAndLargeItemSize.storyName = 'with small item min size and large item size';
 WithSmallItemMinSizeAndLargeItemSize.parameters = {
 	propTables: [Config]
 };
 
-export const _InPanels = (context) => {
-	const title = `${context.kind} ${context.story}`.trim();
+export const _InPanels = (args) => {
+	const title = 'VirtualList in panels';
 	return (
 		<InPanels
 			title={title}
-			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-			horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-			itemSize={ri.scale(number('itemSize', Config, 156))}
-			key={select('scrollMode', prop.scrollModeOption, Config)}
-			noScrollByWheel={boolean('noScrollByWheel', Config)}
+			dataSize={updateDataSize(args['dataSize'])}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			itemSize={ri.scale(args['itemSize'])}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
-			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-			spacing={ri.scale(number('spacing', Config))}
-			spotlightDisabled={boolean('spotlightDisabled', Config, false)}
-			verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-			wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+			scrollMode={args['scrollMode']}
+			spacing={ri.scale(args['spacing'])}
+			spotlightDisabled={args['spotlightDisabled']}
+			verticalScrollbar={args['verticalScrollbar']}
+			wrap={args['wrap']}
 		/>
 	);
 };
+
+number('dataSize', _InPanels, Config, defaultDataSize);
+select('horizontalScrollbar', _InPanels, prop.scrollbarOption, Config);
+boolean('hoverToScroll', _InPanels, Config);
+number('itemSize', _InPanels, Config, 156);
+select('scrollMode', _InPanels, prop.scrollModeOption, Config);
+boolean('noScrollByWheel', _InPanels, Config);
+number('spacing', _InPanels, Config);
+boolean('spotlightDisabled', _InPanels, Config, false);
+select('verticalScrollbar', _InPanels, prop.scrollbarOption, Config);
+select('wrap', _InPanels, prop.wrapOption, Config);
 
 _InPanels.storyName = 'in Panels';
 _InPanels.parameters = {
@@ -325,24 +365,28 @@ _InPanels.parameters = {
 	}
 };
 
-export const ScrollingTo0WheneverDataSizeChanges = () => {
+export const ScrollingTo0WheneverDataSizeChanges = (args) => {
 	return (
 		<VirtualListWithCBScrollTo
-			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-			itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
-			itemSize={ri.scale(number('itemSize', Config, 156))}
-			key={select('scrollMode', prop.scrollModeOption, Config)}
-			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+			dataSize={updateDataSize(args['dataSize'])}
+			itemRenderer={renderItem(StatefulSwitchItem, ri.scale(args['itemSize']), true)}
+			itemSize={ri.scale(args['itemSize'])}
+			key={args['scrollMode']}
+			scrollMode={args['scrollMode']}
 		/>
 	);
 };
+
+number('dataSize', ScrollingTo0WheneverDataSizeChanges, Config, defaultDataSize);
+number('itemSize', ScrollingTo0WheneverDataSizeChanges, Config, 156);
+select('scrollMode', ScrollingTo0WheneverDataSizeChanges, prop.scrollModeOption, Config);
 
 ScrollingTo0WheneverDataSizeChanges.storyName = 'scrolling to 0 whenever dataSize changes';
 ScrollingTo0WheneverDataSizeChanges.parameters = {
 	propTables: [Config]
 };
 
-export const OverscrollEffectOnWherePageKeyIsTrue = () => {
+export const OverscrollEffectOnWherePageKeyIsTrue = (args) => {
 	return (
 		<VirtualList
 			overscrollEffectOn={{
@@ -352,40 +396,44 @@ export const OverscrollEffectOnWherePageKeyIsTrue = () => {
 				track: false,
 				wheel: false
 			}}
-			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-			itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
-			itemSize={ri.scale(number('itemSize', Config, 156))}
-			key={select('scrollMode', prop.scrollModeOption, Config)}
-			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+			dataSize={updateDataSize(args['dataSize'])}
+			itemRenderer={renderItem(StatefulSwitchItem, ri.scale(args['itemSize']), true)}
+			itemSize={ri.scale(args['itemSize'])}
+			key={args['scrollMode']}
+			scrollMode={args['scrollMode']}
 		/>
 	);
 };
+
+number('dataSize', OverscrollEffectOnWherePageKeyIsTrue, Config, defaultDataSize);
+number('itemSize', OverscrollEffectOnWherePageKeyIsTrue, Config, 156);
+select('scrollMode', OverscrollEffectOnWherePageKeyIsTrue, prop.scrollModeOption, Config);
 
 OverscrollEffectOnWherePageKeyIsTrue.storyName = 'overscrollEffectOn where pageKey is true';
 OverscrollEffectOnWherePageKeyIsTrue.parameters = {
 	propTables: [Config]
 };
 
-export const WithExtraItems = () => {
+export const WithExtraItems = (args) => {
 	return (
 		<Column>
 			<Cell
 				component={VirtualList}
-				dataSize={updateDataSize(number('dataSize', Config, 10))}
+				dataSize={updateDataSize(args['dataSize'])}
 				direction="vertical"
-				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-				itemRenderer={renderItem(Item, ri.scale(number('size', Config, 156)), true)}
-				itemSize={ri.scale(number('itemSize', Config, 156))}
-				key={select('scrollMode', prop.scrollModeOption, Config)}
-				noScrollByWheel={boolean('noScrollByWheel', Config)}
+				horizontalScrollbar={args['horizontalScrollbar']}
+				itemRenderer={renderItem(Item, ri.scale(args['size']), true)}
+				itemSize={ri.scale(args['itemSize'])}
+				key={args['scrollMode']}
+				noScrollByWheel={args['noScrollByWheel']}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
-				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-				spacing={ri.scale(number('spacing', Config, 0))}
-				spotlightDisabled={boolean('spotlightDisabled(for all items)', Config, false)}
-				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+				scrollMode={args['scrollMode']}
+				spacing={ri.scale(args['spacing'])}
+				spotlightDisabled={args['spotlightDisabled(for all items)']}
+				verticalScrollbar={args['verticalScrollbar']}
+				wrap={args['wrap']}
 			/>
 			<Cell shrink component={Item}>
 				extra item1
@@ -400,12 +448,23 @@ export const WithExtraItems = () => {
 	);
 };
 
+number('dataSize', WithExtraItems, Config, 10);
+select('horizontalScrollbar', WithExtraItems, prop.scrollbarOption, Config);
+number('size', WithExtraItems, Config, 156);
+number('itemSize', WithExtraItems, Config, 156);
+select('scrollMode', WithExtraItems, prop.scrollModeOption, Config);
+boolean('noScrollByWheel', WithExtraItems, Config);
+number('spacing', WithExtraItems, Config, 0);
+boolean('spotlightDisabled(for all items)', WithExtraItems, Config, false);
+select('verticalScrollbar', WithExtraItems, prop.scrollbarOption, Config);
+select('wrap', WithExtraItems, prop.wrapOption, Config);
+
 WithExtraItems.storyName = 'with extra items';
 WithExtraItems.parameters = {
 	propTables: [Config]
 };
 
-export const WithContainerItemsHaveSpottableControls = () => {
+export const WithContainerItemsHaveSpottableControls = (args) => {
 	return (
 		<VirtualList
 			overscrollEffectOn={{
@@ -415,19 +474,24 @@ export const WithContainerItemsHaveSpottableControls = () => {
 				track: false,
 				wheel: false
 			}}
-			dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+			dataSize={updateDataSize(args['dataSize'])}
 			itemRenderer={renderItem(
 				ContainerItemWithControls,
-				ri.scale(number('itemSize', Config, 156)),
+				ri.scale(args['itemSize']),
 				true
 			)}
-			itemSize={ri.scale(number('itemSize', Config, 156))}
-			key={select('scrollMode', prop.scrollModeOption, Config)}
-			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-			wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+			itemSize={ri.scale(args['itemSize'])}
+			key={args['scrollMode']}
+			scrollMode={args['scrollMode']}
+			wrap={args['wrap']}
 		/>
 	);
 };
+
+number('dataSize', WithContainerItemsHaveSpottableControls, Config, defaultDataSize);
+number('itemSize', WithContainerItemsHaveSpottableControls, Config, 156);
+select('scrollMode', WithContainerItemsHaveSpottableControls, prop.scrollModeOption, Config);
+select('wrap', WithContainerItemsHaveSpottableControls, prop.wrapOption, Config);
 
 WithContainerItemsHaveSpottableControls.storyName = 'with container items have spottable controls';
 WithContainerItemsHaveSpottableControls.parameters = {

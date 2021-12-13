@@ -88,7 +88,7 @@ describe('Spotlight', function () {
 	});
 
 	describe('Disappear Test', function () {
-		it('should spot restore button when focus button disappears - [GT-22523]', function () {
+		it('should spot restore button when focus button disappears - [QWT-2280]', function () {
 			Page.open();
 			Page.restoreButton.moveTo();
 			Page.spotlightUp();

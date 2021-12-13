@@ -1,8 +1,8 @@
 import Heading from '../../../../Heading';
 
 const HeadingTests = [
-	<Heading>tHis is a neW Heading - default</Heading>,
-	<Heading spacing="auto">tHis is a neW Heading - spacing is auto</Heading>,
+	<Heading>This is a new Heading - default</Heading>,
+	<Heading spacing="auto">This is a new Heading - spacing is auto</Heading>,
 	<Heading spacing="small">This is a new Heading - spacing is small</Heading>,
 	<Heading spacing="medium">This is a new Heading - spacing is medium</Heading>,
 	<Heading spacing="large">This is a new Heading - spacing is large</Heading>,
@@ -13,7 +13,7 @@ const HeadingTests = [
 
 	// With line and children -- ENYO-6076
 	<Heading showLine>Heading</Heading>,
-	<Heading showLine spacing="auto">tHis is a neW Heading - spacing is auto</Heading>,
+	<Heading showLine spacing="auto">This is a new Heading - spacing is auto</Heading>,
 	<Heading showLine spacing="small">This is a new Heading - spacing is small</Heading>,
 	<Heading showLine spacing="medium">This is a new Heading - spacing is medium</Heading>,
 	<Heading showLine spacing="large">This is a new Heading - spacing is large</Heading>,
@@ -27,8 +27,6 @@ const HeadingTests = [
 	<Heading showLine spacing="none" />,
 
 	// With auto spacing and different sizes
-	<Heading size="title" spacing="auto">Heading</Heading>,
-	<Heading size="subtitle" spacing="auto">Heading</Heading>,
 	<Heading size="large" spacing="auto">Heading</Heading>,
 	<Heading size="medium" spacing="auto">Heading</Heading>,
 	<Heading size="small" spacing="auto">Heading</Heading>,
@@ -37,19 +35,17 @@ const HeadingTests = [
 		locale: 'ar-SA',
 		component: <Heading>Heading</Heading>
 	},
-	<Heading size="title" style={{fontWeight: 700}}>Heading</Heading>,
+	<Heading size="medium" style={{fontWeight: 700}}>Heading</Heading>,
 
 	// With Italic (PLAT-103068)
-	<Heading size="title" style={{fontStyle: 'italic'}}>Heading</Heading>,
-	<Heading size="subtitle" style={{fontStyle: 'italic'}}>Heading</Heading>,
 	<Heading size="large" style={{fontStyle: 'italic'}}>Heading</Heading>,
 	<Heading size="medium" style={{fontStyle: 'italic'}}>Heading</Heading>,
 	<Heading size="small" style={{fontStyle: 'italic'}}>Heading</Heading>,
 	<Heading size="tiny" style={{fontStyle: 'italic'}}>Heading</Heading>,
 	{
 		locale: 'ko-KR',
-		component: <Heading size="title" style={{fontStyle: 'italic'}}>Heading</Heading>
+		component: <Heading size="medium" style={{fontStyle: 'italic'}}>Heading</Heading>
 	},
-	<Heading size="title" style={{fontStyle: 'italic', fontWeight: 700}}>Heading</Heading>
+	<Heading size="medium" style={{fontStyle: 'italic', fontWeight: 700}}>Heading</Heading>
 ];
 export default HeadingTests;

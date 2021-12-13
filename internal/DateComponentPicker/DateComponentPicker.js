@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import Picker, {PickerItem} from '../Picker';
 
-import css from './DateComponentPicker.module.less';
+import componentCss from './DateComponentPicker.module.less';
 
 /**
  * {@link sandstone/internal/DataComponentPicker.DateComponentPickerBase} allows the selection of one
@@ -58,6 +58,19 @@ const DateComponentPickerBase = kind({
 		'aria-valuetext': PropTypes.string,
 
 		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `sizingPlaceholder` - The sizing placeholder class
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
 		 * The label to display below the picker
 		 *
 		 * @type {String}
@@ -92,8 +105,9 @@ const DateComponentPickerBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'dateComponentPicker'
+		css: componentCss,
+		className: 'dateComponentPicker',
+		publicClassNames: ['sizingPlaceholder']
 	},
 
 	computed: {
@@ -106,11 +120,12 @@ const DateComponentPickerBase = kind({
 		}
 	},
 
-	render: ({'aria-valuetext': ariaValuetext, accessibilityHint, children, label, max, noAnimation, reverse, value, voiceLabel, wrap, ...rest}) => (
+	render: ({'aria-valuetext': ariaValuetext, accessibilityHint, children, css, label, max, noAnimation, reverse, value, voiceLabel, wrap, ...rest}) => (
 		<Picker
 			{...rest}
 			accessibilityHint={(accessibilityHint == null) ? label : accessibilityHint}
 			aria-valuetext={(accessibilityHint == null) ? ariaValuetext : null}
+			css={css}
 			data-webos-voice-labels-ext={voiceLabel}
 			index={value}
 			joined

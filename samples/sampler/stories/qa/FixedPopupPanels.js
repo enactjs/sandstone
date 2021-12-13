@@ -1,15 +1,18 @@
 /* eslint-disable react/jsx-no-bind */
 
-import {is} from '@enact/core/keymap';
+import {add, is} from '@enact/core/keymap';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Dropdown from '@enact/sandstone/Dropdown';
 import Icon from '@enact/sandstone/Icon';
+import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
+import Popup from '@enact/sandstone/Popup';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
 import {VirtualList} from '@enact/sandstone/VirtualList';
@@ -17,7 +20,8 @@ import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-import {Component, useState} from 'react';
+import PropTypes from 'prop-types';
+import {Component, useCallback, useState} from 'react';
 import compose from 'ramda/src/compose';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
@@ -26,6 +30,8 @@ Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
+add('cancel', 27);
+const isCancel = is('cancel');
 const isRight = is('right');
 
 class FixedPopupPanelsWithPause extends Component {
@@ -78,7 +84,7 @@ export default {
 	component: 'FixedPopupPanels'
 };
 
-export const WithVirtualList = () => {
+const WithVirtualListSamplesBase = ({args, rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -95,7 +101,7 @@ export const WithVirtualList = () => {
 	const handleKeyDown = (ev) => {
 		const {keyCode} = ev;
 
-		if (isRight(keyCode)) {
+		if (!rtl && isRight(keyCode)) {
 			nextPanel();
 		}
 	};
@@ -108,17 +114,17 @@ export const WithVirtualList = () => {
 			<FixedPopupPanels
 				index={index}
 				open={open}
-				position={select('position', ['left', 'right'], Config)}
-				fullHeight={boolean('fullHeight', Config)}
-				width={select('width', ['narrow', 'half'], Config)}
-				noAnimation={boolean('noAnimation', Config)}
-				noAutoDismiss={boolean('noAutoDismiss', Config)}
+				position={args['position']}
+				fullHeight={args['fullHeight']}
+				width={args['width']}
+				noAnimation={args['noAnimation']}
+				noAutoDismiss={args['noAutoDismiss']}
 				onBack={handleBack}
 				onClose={handleClose}
 				onHide={action('onHide')}
 				onShow={action('onShow')}
-				scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
-				spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+				scrimType={args['scrimType']}
+				spotlightRestrict={args['spotlightRestrict']}
 			>
 				<Panel>
 					<Header>
@@ -198,6 +204,25 @@ export const WithVirtualList = () => {
 	);
 };
 
+WithVirtualListSamplesBase.propTypes = {
+	args: PropTypes.object,
+	rtl: PropTypes.bool
+};
+
+const WithVirtualListSamples = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	WithVirtualListSamplesBase
+);
+export const WithVirtualList = (args) => <WithVirtualListSamples args={args} />;
+
+select('position', WithVirtualList, ['left', 'right'], Config);
+boolean('fullHeight', WithVirtualList, Config);
+select('width', WithVirtualList, ['narrow', 'half'], Config);
+boolean('noAnimation', WithVirtualList, Config);
+boolean('noAutoDismiss', WithVirtualList, Config);
+select('scrimType', WithVirtualList, ['none', 'translucent', 'transparent'], Config);
+select('spotlightRestrict', WithVirtualList, ['self-first', 'self-only'], Config);
+
 WithVirtualList.storyName = 'with VirtualList';
 WithVirtualList.parameters = {
 	info: {
@@ -213,20 +238,23 @@ WithPauseAndAutoFocusNone.storyName = 'with Pause and autoFocus="none"';
 WithPauseAndAutoFocusNone.parameters = {
 	info: {
 		text: 'QA -  Manage focus with Pause in FixedPopupPanels'
+	},
+	controls: {
+		hideNoControlsWarning: true
 	}
 };
 
-export const WithScroller = () => {
+export const WithScroller = (args) => {
 	return (
 		<FixedPopupPanels
 			open
-			position={select('position', ['left', 'right'], Config)}
-			fullHeight={boolean('fullHeight', Config)}
-			width={select('width', ['narrow', 'half'], Config)}
-			noAnimation={boolean('noAnimation', Config)}
-			noAutoDismiss={boolean('noAutoDismiss', Config)}
-			scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
-			spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+			position={args['position']}
+			fullHeight={args['fullHeight']}
+			width={args['width']}
+			noAnimation={args['noAnimation']}
+			noAutoDismiss={args['noAutoDismiss']}
+			scrimType={args['scrimType']}
+			spotlightRestrict={args['spotlightRestrict']}
 		>
 			<Panel>
 				<Header>
@@ -251,6 +279,14 @@ export const WithScroller = () => {
 	);
 };
 
+select('position', WithScroller, ['left', 'right'], Config);
+boolean('fullHeight', WithScroller, Config);
+select('width', WithScroller, ['narrow', 'half'], Config);
+boolean('noAnimation', WithScroller, Config);
+boolean('noAutoDismiss', WithScroller, Config);
+select('scrimType', WithScroller, ['none', 'translucent', 'transparent'], Config);
+select('spotlightRestrict', WithScroller, ['self-first', 'self-only'], Config);
+
 WithScroller.storyName = 'with Scroller';
 WithScroller.parameters = {
 	info: {
@@ -258,9 +294,10 @@ WithScroller.parameters = {
 	}
 };
 
-export const WithVariousItems = () => {
+const WithVariousItemsSamplesBase = ({args, rtl}) => {
 	const defaultOpen = true;
 	const [open, setOpenState] = useState(defaultOpen);
+	const [popupOpen, setPopupOpenState] = useState(false);
 	const toggleOpen = () => setOpenState(!open);
 	const handleClose = compose(toggleOpen, action('onClose'));
 
@@ -270,32 +307,45 @@ export const WithVariousItems = () => {
 	const nextPanel = () => setPanelIndexState(Math.min(index + 1, 3));
 	const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
 	const handleBack = compose(prevPanel, action('onBack'));
+	const handleOpenPopup = useCallback(() => {
+		setPopupOpenState(true);
+	}, [setPopupOpenState]);
+	const handleClosePopup = useCallback(() => {
+		setPopupOpenState(false);
+	}, [setPopupOpenState]);
 
 	// Navigate menus with the right key. The left key is handled by framework.
 	const handleKeyDown = (ev) => {
 		const {keyCode} = ev;
-
-		if (isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
+		if (!rtl && isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
 			nextPanel();
 		}
 	};
+
+	const handleKeyUpOnPopup = useCallback((ev) => {
+		if ((isCancel(ev.keyCode)) && popupOpen) {
+			setPopupOpenState(false);
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+	}, [popupOpen, setPopupOpenState]);
 
 	return (
 		<div>
 			<FixedPopupPanels
 				index={index}
 				open={open}
-				position={select('position', ['left', 'right'], Config)}
-				fullHeight={boolean('fullHeight', Config)}
-				width={select('width', ['narrow', 'half'], Config)}
-				noAnimation={boolean('noAnimation', Config)}
-				noAutoDismiss={boolean('noAutoDismiss', Config)}
+				position={args['position']}
+				fullHeight={args['fullHeight']}
+				width={args['width']}
+				noAnimation={args['noAnimation']}
+				noAutoDismiss={args['noAutoDismiss']}
 				onBack={handleBack}
 				onClose={handleClose}
 				onHide={action('onHide')}
 				onShow={action('onShow')}
-				scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
-				spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+				scrimType={args['scrimType']}
+				spotlightRestrict={args['spotlightRestrict']}
 			>
 				<Panel>
 					<Header>
@@ -314,7 +364,7 @@ export const WithVariousItems = () => {
 							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
 							<br />
 							<br />
-							<Button size="small">Button2</Button>
+							<Button size="small" onClick={handleClose}>Button2</Button>
 							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
 							<br />
 							<br />
@@ -382,8 +432,12 @@ export const WithVariousItems = () => {
 							<br />
 							<Button size="small" disabled>Button2</Button>
 							<br />
-							<br />
-							<Slider />
+							<Input size="small" value="Input" noBackButton />
+							<Button onClick={handleOpenPopup} size="small">Open</Button>
+							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
+								<Button onClick={handleClosePopup}>Close</Button>
+								<Button>Dummy</Button>
+							</Popup>
 							<br />
 							<br />
 						</Cell>
@@ -397,6 +451,25 @@ export const WithVariousItems = () => {
 		</div>
 	);
 };
+
+WithVariousItemsSamplesBase.propTypes = {
+	args: PropTypes.object,
+	rtl: PropTypes.bool
+};
+
+const WithVariousItemsSamples = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	WithVariousItemsSamplesBase
+);
+export const WithVariousItems = (args) => <WithVariousItemsSamples args={args} />;
+
+select('position', WithVariousItems, ['left', 'right'], Config);
+boolean('fullHeight', WithVariousItems, Config);
+select('width', WithVariousItems, ['narrow', 'half'], Config);
+boolean('noAnimation', WithVariousItems, Config);
+boolean('noAutoDismiss', WithVariousItems, Config);
+select('scrimType', WithVariousItems, ['none', 'translucent', 'transparent'], Config);
+select('spotlightRestrict', WithVariousItems, ['self-first', 'self-only'], Config);
 
 WithVariousItems.storyName = 'with various items';
 WithVariousItems.parameters = {

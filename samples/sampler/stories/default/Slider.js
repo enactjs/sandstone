@@ -1,9 +1,9 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, object, select} from '@enact/storybook-utils/addons/knobs';
-import Slider, {SliderTooltip} from '@enact/sandstone/Slider';
+import {boolean, number, range, object, select} from '@enact/storybook-utils/addons/controls';
+import Slider, {SliderBase, SliderTooltip} from '@enact/sandstone/Slider';
 
-const SliderConfig = mergeComponentMetadata('Slider', Slider);
+const SliderConfig = mergeComponentMetadata('Slider', SliderBase, Slider);
 const SliderTooltipConfig = mergeComponentMetadata('SliderTooltip', SliderTooltip);
 Slider.displayName = 'Slider';
 SliderTooltip.displayName = 'SliderTooltip';
@@ -13,69 +13,81 @@ export default {
 	component: 'Slider'
 };
 
-export const _Slider = () => {
-	// added here to force Storybook to put the Slider tab first
-	const disabled = boolean('disabled', SliderConfig);
+export const _Slider = (args) => (
+	<Slider
+		activateOnSelect={args['activateOnSelect'] || false}
+		backgroundProgress={args['backgroundProgress']}
+		disabled={args['disabled']}
+		keyFrequency={args['keyFrequency']}
+		knobStep={args['knobStep']}
+		max={args['max']}
+		min={args['min']}
+		noFill={args['noFill']}
+		onActivate={action('onActivate')}
+		onChange={action('onChange')}
+		onWheel={action('onWheel')}
+		orientation={args['orientation']}
+		progressAnchor={args['progressAnchor']}
+		showAnchor={args['showAnchor']}
+		step={args['step']}
+		wheelInterval={args['wheelInterval']}
+	>
+		{args['tooltip'] ? <SliderTooltip percent={args['percent']} position={args['position']} /> : null}
+	</Slider>
+);
 
-	// tooltip is first so it appears at the top of the tab. the rest are alphabetical
-	const tooltip = boolean('tooltip', SliderTooltipConfig);
-	const percent = boolean('percent', SliderTooltipConfig);
-	const position = select(
-		'position',
-		[
-			'',
-			'above',
-			'above left',
-			'above center',
-			'above right',
-			'above before',
-			'above after',
-			'before',
-			'left',
-			'right',
-			'after',
-			'below',
-			'below left',
-			'below center',
-			'below right',
-			'below before',
-			'below after'
-		],
-		SliderTooltipConfig,
-		''
-	);
-
-	return (
-		<Slider
-			activateOnSelect={boolean('activateOnSelect', SliderConfig) || false}
-			backgroundProgress={number(
-				'backgroundProgress',
-				SliderConfig,
-				{range: true, min: 0, max: 1, step: 0.01},
-				0.5
-			)}
-			disabled={disabled}
-			keyFrequency={object('keyFrequency', SliderConfig, [1])}
-			knobStep={number('knobStep', SliderConfig)}
-			max={number('max', SliderConfig, 10)}
-			min={number('min', SliderConfig, 0)}
-			noFill={boolean('noFill', SliderConfig)}
-			onActivate={action('onActivate')}
-			onChange={action('onChange')}
-			orientation={select('orientation', ['horizontal', 'vertical'], SliderConfig, 'horizontal')}
-			progressAnchor={number(
-				'progressAnchor',
-				SliderConfig,
-				{range: true, min: 0, max: 1, step: 0.01},
-				0
-			)}
-			showAnchor={boolean('showAnchor', SliderConfig)}
-			step={number('step', SliderConfig, 1)}
-		>
-			{tooltip ? <SliderTooltip percent={percent} position={position} /> : null}
-		</Slider>
-	);
-};
+boolean('disabled', _Slider, SliderConfig);
+boolean('tooltip', _Slider, SliderTooltipConfig);
+boolean('percent', _Slider, SliderTooltipConfig);
+select(
+	'position',
+	_Slider,
+	[
+		'',
+		'above',
+		'above left',
+		'above center',
+		'above right',
+		'above before',
+		'above after',
+		'before',
+		'left',
+		'right',
+		'after',
+		'below',
+		'below left',
+		'below center',
+		'below right',
+		'below before',
+		'below after'
+	],
+	SliderTooltipConfig,
+	''
+);
+boolean('activateOnSelect', _Slider, SliderConfig);
+range(
+	'backgroundProgress',
+	_Slider,
+	SliderConfig,
+	{min: 0, max: 1, step: 0.01},
+	0.5
+);
+object('keyFrequency', _Slider, SliderConfig, [1]);
+number('knobStep', _Slider, SliderConfig);
+number('max', _Slider, SliderConfig, 10);
+number('min', _Slider, SliderConfig, 0);
+boolean('noFill', _Slider, SliderConfig);
+select('orientation', _Slider, ['horizontal', 'vertical'], SliderConfig, 'horizontal');
+range(
+	'progressAnchor',
+	_Slider,
+	SliderConfig,
+	{min: 0, max: 1, step: 0.01},
+	0
+);
+boolean('showAnchor', _Slider, SliderConfig);
+number('step', _Slider, SliderConfig, 1);
+number('wheelInterval', _Slider, SliderConfig);
 
 _Slider.storyName = 'Slider';
 _Slider.parameters = {

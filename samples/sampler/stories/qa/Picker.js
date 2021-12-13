@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import {Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
@@ -13,6 +13,8 @@ import iconNames from '../helper/icons';
 import Section from './components/KitchenSinkSection';
 import PickerAddRemove from './components/PickerAddRemove';
 import PickerRTL from './components/PickerRTL';
+
+import css from './Picker.module.less';
 
 Picker.displayName = 'Picker';
 
@@ -40,6 +42,7 @@ const pickerList = {
 		'Spinach contains manganese'
 	],
 	numberList: ['0', '1', '2', '3', '4'],
+	irregularNumberList: ['4', '13', '15', '20', '22'],
 	oneAirport: ['San Francisco International Airport Terminal 1'],
 	emptyList: [],
 	orderedList: ['A', 'B', 'C', 'D', 'E', 'F'],
@@ -96,123 +99,181 @@ export default {
 	component: 'Picker'
 };
 
-export const WithLongText = () => (
+export const WithLongText = (args) => (
 	<Picker
 		onChange={action('onChange')}
-		width={select('width', prop.width, Picker, 'large')}
-		orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
-		wrap={boolean('wrap', Picker)}
-		joined={boolean('joined', Picker)}
-		noAnimation={boolean('noAnimation', Picker)}
-		disabled={boolean('disabled', Picker)}
-		incrementIcon={select('incrementIcon', iconNames, Picker)}
-		decrementIcon={select('decrementIcon', iconNames, Picker)}
+		width={args['width']}
+		orientation={args['orientation']}
+		wrap={args['wrap']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
+		disabled={args['disabled']}
+		incrementIcon={args['incrementIcon']}
+		decrementIcon={args['decrementIcon']}
 	>
 		{pickerList.long}
 	</Picker>
 );
 
+select('width', WithLongText, prop.width, Picker, 'large');
+select('orientation', WithLongText, prop.orientation, Picker, 'horizontal');
+boolean('wrap', WithLongText, Picker);
+boolean('joined', WithLongText, Picker);
+boolean('noAnimation', WithLongText, Picker);
+boolean('disabled', WithLongText, Picker);
+select('incrementIcon', WithLongText, iconNames, Picker);
+select('decrementIcon', WithLongText, iconNames, Picker);
+
 WithLongText.storyName = 'with long text';
 
-export const WithTallCharacters = () => (
+export const WithTallCharacters = (args) => (
 	<Picker
 		onChange={action('onChange')}
-		width={select('width', prop.width, Picker, 'large')}
-		orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
-		wrap={boolean('wrap', Picker)}
-		joined={boolean('joined', Picker)}
-		noAnimation={boolean('noAnimation', Picker)}
-		disabled={boolean('disabled', Picker)}
-		incrementIcon={select('incrementIcon', iconNames, Picker)}
-		decrementIcon={select('decrementIcon', iconNames, Picker)}
+		width={args['width']}
+		orientation={args['orientation']}
+		wrap={args['wrap']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
+		disabled={args['disabled']}
+		incrementIcon={args['incrementIcon']}
+		decrementIcon={args['decrementIcon']}
 	>
 		{pickerList.tall}
 	</Picker>
 );
 
+select('width', WithTallCharacters, prop.width, Picker, 'large');
+select('orientation', WithTallCharacters, prop.orientation, Picker, 'horizontal');
+boolean('wrap', WithTallCharacters, Picker);
+boolean('joined', WithTallCharacters, Picker);
+boolean('noAnimation', WithTallCharacters, Picker);
+boolean('disabled', WithTallCharacters, Picker);
+select('incrementIcon', WithTallCharacters, iconNames, Picker);
+select('decrementIcon', WithTallCharacters, iconNames, Picker);
+
 WithTallCharacters.storyName = 'with tall characters';
 
-export const WithADefaultValue = () => (
+export const WithADefaultValue = (args) => (
 	<Picker
 		onChange={action('onChange')}
-		width={select('width', prop.width, Picker, 'medium')}
-		orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
-		wrap={boolean('wrap', Picker)}
-		joined={boolean('joined', Picker)}
-		noAnimation={boolean('noAnimation', Picker)}
-		disabled={boolean('disabled', Picker)}
-		incrementIcon={select('incrementIcon', iconNames, Picker)}
-		decrementIcon={select('decrementIcon', iconNames, Picker)}
+		width={args['width']}
+		orientation={args['orientation']}
+		wrap={args['wrap']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
+		disabled={args['disabled']}
+		incrementIcon={args['incrementIcon']}
+		decrementIcon={args['decrementIcon']}
 		defaultValue={2}
 	>
 		{pickerList.longVegetables}
 	</Picker>
 );
 
+select('width', WithADefaultValue, prop.width, Picker, 'medium');
+select('orientation', WithADefaultValue, prop.orientation, Picker, 'horizontal');
+boolean('wrap', WithADefaultValue, Picker);
+boolean('joined', WithADefaultValue, Picker);
+boolean('noAnimation', WithADefaultValue, Picker);
+boolean('disabled', WithADefaultValue, Picker);
+select('incrementIcon', WithADefaultValue, iconNames, Picker);
+select('decrementIcon', WithADefaultValue, iconNames, Picker);
+
 WithADefaultValue.storyName = 'with a default value';
 
-export const WithNoItemsPlat30963 = () => (
+export const WithNoItemsPlat30963 = (args) => (
 	<Picker
 		onChange={action('onChange')}
-		width={select('width', prop.width, Picker, 'large')}
-		orientation={select('orientation', prop.orientation, Picker)}
-		wrap={boolean('wrap', Picker, true)}
-		joined={boolean('joined', Picker)}
-		noAnimation={boolean('noAnimation', Picker)}
-		disabled={boolean('disabled', Picker)}
-		incrementIcon={select('incrementIcon', iconNames, Picker)}
-		decrementIcon={select('decrementIcon', iconNames, Picker)}
+		width={args['width']}
+		orientation={args['orientation']}
+		wrap={args['wrap']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
+		disabled={args['disabled']}
+		incrementIcon={args['incrementIcon']}
+		decrementIcon={args['decrementIcon']}
 	>
 		{[]}
 	</Picker>
 );
 
+select('width', WithNoItemsPlat30963, prop.width, Picker, 'large');
+select('orientation', WithNoItemsPlat30963, prop.orientation, Picker, 'horizontal');
+boolean('wrap', WithNoItemsPlat30963, Picker, true);
+boolean('joined', WithNoItemsPlat30963, Picker);
+boolean('noAnimation', WithNoItemsPlat30963, Picker);
+boolean('disabled', WithNoItemsPlat30963, Picker);
+select('incrementIcon', WithNoItemsPlat30963, iconNames, Picker);
+select('decrementIcon', WithNoItemsPlat30963, iconNames, Picker);
+
 WithNoItemsPlat30963.storyName = 'with no items (PLAT-30963)';
 
-export const WithOneItem = () => (
+export const WithOneItem = (args) => (
 	<Picker
 		onChange={action('onChange')}
-		width={select('width', prop.width, Picker, 'large')}
-		orientation={select('orientation', prop.orientation, Picker)}
-		wrap={boolean('wrap', Picker, true)}
-		joined={boolean('joined', Picker)}
-		noAnimation={boolean('noAnimation', Picker)}
-		disabled={boolean('disabled', Picker)}
-		incrementIcon={select('incrementIcon', iconNames, Picker)}
-		decrementIcon={select('decrementIcon', iconNames, Picker)}
+		width={args['width']}
+		orientation={args['orientation']}
+		wrap={args['wrap']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
+		disabled={args['disabled']}
+		incrementIcon={args['incrementIcon']}
+		decrementIcon={args['decrementIcon']}
 	>
 		{pickerList.oneAirport}
 	</Picker>
 );
 
+select('width', WithOneItem, prop.width, Picker, 'large');
+select('orientation', WithOneItem, prop.orientation, Picker, 'horizontal');
+boolean('wrap', WithOneItem, Picker, true);
+boolean('joined', WithOneItem, Picker);
+boolean('noAnimation', WithOneItem, Picker);
+boolean('disabled', WithOneItem, Picker);
+select('incrementIcon', WithOneItem, iconNames, Picker);
+select('decrementIcon', WithOneItem, iconNames, Picker);
+
 WithOneItem.storyName = 'with one item';
 
-export const WithItemAddRemoveEnyo2448 = () => (
+export const WithItemAddRemoveEnyo2448 = (args) => (
 	<PickerAddRemove
-		width={select('width', prop.width, Picker, 'medium')}
-		orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
-		wrap={boolean('wrap', Picker)}
-		joined={boolean('joined', Picker)}
-		noAnimation={boolean('noAnimation', Picker)}
-		disabled={boolean('disabled', Picker)}
+		width={args['width']}
+		orientation={args['orientation']}
+		wrap={args['wrap']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
+		disabled={args['disabled']}
 	>
 		{pickerList.emptyList}
 	</PickerAddRemove>
 );
 
+select('width', WithItemAddRemoveEnyo2448, prop.width, Picker, 'medium');
+select('orientation', WithItemAddRemoveEnyo2448, prop.orientation, Picker, 'horizontal');
+boolean('wrap', WithItemAddRemoveEnyo2448, Picker, true);
+boolean('joined', WithItemAddRemoveEnyo2448, Picker);
+boolean('noAnimation', WithItemAddRemoveEnyo2448, Picker);
+boolean('disabled', WithItemAddRemoveEnyo2448, Picker);
+
 WithItemAddRemoveEnyo2448.storyName = 'with item add/remove (ENYO-2448)';
 
-export const RtlLayoutPlat28123 = () => (
+export const RtlLayoutPlat28123 = (args) => (
 	<PickerRTL
-		width={select('width', prop.width, Picker, 'medium')}
-		wrap={boolean('wrap', Picker)}
-		joined={boolean('joined', Picker)}
-		noAnimation={boolean('noAnimation', Picker)}
-		disabled={boolean('disabled', Picker)}
+		width={args['width']}
+		wrap={args['wrap']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
+		disabled={args['disabled']}
 	>
 		{pickerList.orderedList}
 	</PickerRTL>
 );
+
+select('width', RtlLayoutPlat28123, prop.width, Picker, 'medium');
+boolean('wrap', RtlLayoutPlat28123, Picker, true);
+boolean('joined', RtlLayoutPlat28123, Picker);
+boolean('noAnimation', RtlLayoutPlat28123, Picker);
+boolean('disabled', RtlLayoutPlat28123, Picker);
 
 RtlLayoutPlat28123.storyName = 'RTL Layout (PLAT-28123)';
 
@@ -364,6 +425,61 @@ export const KitchenSink = () => (
 	</Scroller>
 );
 
+KitchenSink.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
+export const ForIrregularNumbers = (args) => (
+	<Picker
+		joined={args['joined']}
+		orientation={args['orientation']}
+		reverse={false}
+		type="number"
+	>
+		{pickerList.irregularNumberList}
+	</Picker>
+);
+
+boolean('joined', ForIrregularNumbers, Picker);
+select('orientation', ForIrregularNumbers, prop.orientation, Picker);
+
+ForIrregularNumbers.storyName = 'for irregular numbers';
+
 export const InPopupTabLayout = () => <PickerInPopupTabLayout />;
 
 InPopupTabLayout.storyName = 'in PopupTabLayout';
+InPopupTabLayout.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
+export const WithCustomizedTitleStyle = (args) => (
+	<Picker
+		aria-label={args['aria-label']}
+		css={css}
+		disabled={args['disabled']}
+		inlineTitle={args['inlineTitle']}
+		joined={args['joined']}
+		noAnimation={args['noAnimation']}
+		onChange={action('onChange')}
+		title={args['title']}
+		width={args['width']}
+		wrap={args['wrap']}
+	>
+		{pickerList.airports}
+	</Picker>
+);
+
+text('aria-label', WithCustomizedTitleStyle, Picker, '');
+boolean('disabled', WithCustomizedTitleStyle, Picker);
+boolean('inlineTitle', WithCustomizedTitleStyle, Picker);
+boolean('joined', WithCustomizedTitleStyle, Picker);
+boolean('noAnimation', WithCustomizedTitleStyle, Picker);
+text('title', WithCustomizedTitleStyle, Picker, 'Long title with customized style');
+select('width', WithCustomizedTitleStyle, prop.width, Picker, 'large');
+boolean('wrap', WithCustomizedTitleStyle, Picker);
+
+WithCustomizedTitleStyle.storyName = 'With Customized Style';

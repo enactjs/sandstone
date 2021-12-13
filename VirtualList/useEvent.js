@@ -21,6 +21,8 @@ const
 		return number >= 0 ? number : -1;
 	};
 
+let prevKeyDownIndex = -1;
+
 const useEventKey = (props, instances, context) => {
 	// Mutable value
 
@@ -150,6 +152,13 @@ const useEventKey = (props, instances, context) => {
 							ev.preventDefault();
 							ev.stopPropagation();
 
+							if (repeat && prevKeyDownIndex !== -1 &&
+								((isDownKey && prevKeyDownIndex > index) || (isUpKey && prevKeyDownIndex < index))) {
+								// Ignore keyEvent from item with wrong data-index (Workaround for data-index bug)
+								// Sometimes keyDown event occurs before the data-index updated, it causes reverse focus change
+								return;
+							}
+
 							if (props.scrollContainerHandle && props.scrollContainerHandle.current) {
 								props.scrollContainerHandle.current.lastInputType = 'arrowKey';
 							}
@@ -191,6 +200,8 @@ const useEventKey = (props, instances, context) => {
 							}
 						}
 					}
+
+					prevKeyDownIndex = index;
 
 					if (isLeaving) {
 						handleDirectionKeyDown(ev, 'keyLeave');
@@ -236,8 +247,9 @@ const useEventKey = (props, instances, context) => {
 	};
 };
 
-const useEventFocus = (props, instances) => {
+const useEventFocus = (props, instances, context) => {
 	const {scrollContainerRef, scrollContentHandle} = instances;
+	const {removeScaleEffect} = context;
 
 	useLayoutEffect(() => {
 		function handleFocus (ev) {
@@ -246,6 +258,7 @@ const useEventFocus = (props, instances) => {
 			// We need to find out the general solution for multiple spottable inside of one item
 			if (ev.target && scrollContentHandle.current && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', 1);
+				removeScaleEffect();
 			}
 		}
 

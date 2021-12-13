@@ -4,6 +4,176 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+- `sandstone/VideoPlayer` props `onWillFastForward`, `onWillJumpBackward`, `onWillJumpForward`, `onWillPause`, `onWillPlay`, and `onWillRewind`
+
+### Fixed
+
+- `sandstone/VideoPlayer` to handle media related callbacks properly
+- `sandstone/FormCheckboxItem` to show correct color for the focused disabled checkbox
+
+## [2.1.0] - 2021-11-30
+
+- Support color customization
+
+## [2.0.4] - 2021-11-01
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icons `bluetooth`, `moodmode`, and `changepassword`
+
+### Fixed
+
+- `sandstone` to select correct font when font-weight changes in some Indian locales
+
+## [2.0.3] - 2021-10-21
+
+### Fixed
+
+- `sandstone` to support India region font correctly
+- `sandstone/TimePicker` to apply disabled color to the separator
+
+## [2.0.2] - 2021-10-07
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `spanner`
+
+### Changed
+
+- `sandstone/ProgressBar` bar color for `sandstone/Alert`
+
+### Fixed
+
+- `sandstone/VirtualList` to not move focus to an unexpected item when 5-way directional key hold
+
+## [2.0.1] - 2021-09-28
+
+### Fixed
+
+- `samples/sampler` not to fail in sampler build
+
+## [2.0.0] - 2021-09-28
+
+### Fixed
+
+- `sandstone/DatePicker` and `sandstone/TimePikcer`abnormal animation
+- `sandstone/Panels` to perform transition without delay when wheeling
+
+## [2.0.0-rc.9] - 2021-09-13
+
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` styling to match updated GUI
+
+### Fixed
+
+- `sandstone/VirtualList` to not focus the item again if focus moved out of the list via 5way when `snapToCenter`
+
+## [2.0.0-rc.8] - 2021-08-31
+
+### Fixed
+
+- `sandstone/Dropdown` to restore focus within the list when moving mouse after clicking dropdown button
+- `sandstone/Scroller` to move focus via up/down keys from scroll thumb when the content is short but the scrollbar is visible
+- `sandstone/TimePicker` abnormal minute animation in some locales
+- `sandstone/WizardPanels` to not read out `undefined` when there is no `subtitle` prop
+
+## [2.0.0-rc.7] - 2021-08-09
+
+### Fixed
+
+- `sandstone/Item` to marquee properly when `slotAfter` or `slotBefore` changed
+
+## [2.0.0-rc.6] - 2021-08-03
+
+### Added
+
+- `sandstone/Input` type `tel` and `passwordtel`
+- `sandstone/Slider` prop `noWheel` to disable wheel event handler
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to focus elements in `ContextualPopup` when `spotlightRestrict` is `self-first` via 5way
+- `sandstone/WizardPanels` to prevent re-rendering of previous panel
+
+## [2.0.0-rc.5] - 2021-07-22
+
+### Added
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` prop `noLabel` to hide label
+- `sandstone/ImageItem` public classname `imageIcon`
+- `sandstone/Slider` prop `wheelInterval` to throttle the wheel input
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to not go back to the previous panel by left key on popup opened inside
+- `sandstone/MediaPlayer` to work trick play via key
+- `sandstone/Scroller` and `sandstone/VirtualList` to show scroll animation properly with 5-way directional keys
+- `sandstone/Scroller` to not focus the body at the initial rendering when `focusableScrollbar` prop is `byEnter`
+
+## [2.0.0-rc.4] - 2021-07-08
+
+### Fixed
+
+- `sandstone/WizardPanels` to revert 2.0.0-rc.3 fix that prevent re-rendering
+
+## [2.0.0-rc.3] - 2021-07-02
+
+### Added
+
+- `sandstone/Input` prop `inputFieldSpotlightId` to set `spotlightId` of `InputField`
+- `sandstone/Input` prop `noSubmitButton` to omit submit button of number key pad
+
+### Changed
+
+- `sandstone/Slider` to expand hover area
+
+### Fixed
+
+- `sandstone/Picker` value to not marquee when changing `title`
+- `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll by hover when scrollbar is hidden
+- `sandstone/Scroller` and `sandstone/VirtualList` to focus elements at scroll boundaries when `hoverToScroll` is `true`
+- `sandstone/VideoPlayer` to handle decimal playback rate
+- `sandstone/VirtualList` to scroll properly when `snapToCenter`
+- `sandstone/WizardPanels` to prevent re-rendering of previous panel
+
+## [2.0.0-rc.2] - 2021-07-01
+
+### Fixed
+
+- `sandstone/Popup` to revert 2.0.0-rc.1 fix that having proper focus when `noAnimation`
+
+## [2.0.0-rc.1] - 2021-06-18
+
+### Added
+
+- `sandstone/Picker` props `reverse` and `type` to support for number list
+- `sandstone/Picker` and `sandstone/RangePicker` public class names `title` and `inlineTitle`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `hoverToScroll` to scroll by hover
+- `sandstone/VirtualList` prop `snapToCenter`
+
+### Changed
+
+- Shadow effect to using box-shadow instead of drop-shadow for performance on embedded environment
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to disable left key handler to go to the previous panel in RTL locales
+- `sandstone/MediaPlayer.MediaControls` to show more components when a user flicks on action guide
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect style to match latest designs
+- `sandstone/Slider` to interact by wheel
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to keep focus inside of popup when pressing 5-way after click
+- `sandstone/InputField` cursor not to jump unexpectedly when mouse down
+- `sandstone/MediaPlayer` to show `MediaControls` via wheel properly when isomorphic build
+- `sandstone/Panels.Header` to not overlap subtitle and children when header type is `mini`
+- `sandstone/Popup` to have proper focus when opening with `noAnimation` is `true`
+- `sandstone/PopupTabLayout` to move focus via 5-way left in the header
+- `sandstone/Scroller` to scroll correctly on Chrome 85 or higher in RTL locales via 5way
+
+## [2.0.0-beta.1] - 2021-05-21
+
 - Enhanced touch support
 
 ### Added
@@ -30,9 +200,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` button label when default value is `0`
 - `sandstone/Panels.Header` to remeasure marquee metrics when the size of slots changed
 - `sandstone/Scroller` and `sandstone/VirtualList` to activate voice control intent when only scrollable
+- `sandstone/Scroller` and `sandstone/VirtualList` to move focus properly via page key
 - `sandstone/VideoPlayer` to show the knob when mediaSlider gets focused with 5-way
 - horizontal `sandstone/VirtualList` to align items well when navigating with 5-way
-- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
+- `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
 
 ## [2.0.0-alpha.3] - 2021-03-31
 
@@ -54,7 +225,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [2.0.0-alpha.1] - 2021-02-24
 
--  The framework was updated to support React 17.0.1
+- The framework was updated to support React 17.0.1
 
 ### Added
 

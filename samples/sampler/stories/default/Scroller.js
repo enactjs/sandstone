@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
@@ -14,7 +14,7 @@ const prop = {
 	focusableScrollbarOption: {
 		false: false,
 		true: true,
-		'&quot;byEnter&quot;': 'byEnter'
+		byEnter: 'byEnter'
 	},
 	scrollbarOption: ['auto', 'hidden', 'visible'],
 	scrollModeOption: ['native', 'translate']
@@ -27,14 +27,14 @@ export default {
 	component: 'Scroller'
 };
 
-export const _Scroller = () => {
-	const direction = select('direction', prop.direction, ScrollerConfig),
+export const _Scroller = (args) => {
+	const direction = args['direction'],
 		focusableScrollbar =
 			prop.focusableScrollbarOption[
-				select('focusableScrollbar', ['false', 'true', '"byEnter"'], ScrollerConfig)
+				args['focusableScrollbar']
 			],
-		horizontalScrollbar = select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig),
-		verticalScrollbar = select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig);
+		horizontalScrollbar = args['horizontalScrollbar'],
+		verticalScrollbar = args['verticalScrollbar'];
 	return (
 		<Scroller
 			className={classnames({
@@ -47,15 +47,16 @@ export const _Scroller = () => {
 				[css.bodyText]: focusableScrollbar || null
 			})}
 			direction={direction}
-			fadeOut={boolean('fadeOut', ScrollerConfig)}
+			fadeOut={args['fadeOut']}
 			focusableScrollbar={focusableScrollbar}
 			horizontalScrollbar={horizontalScrollbar}
-			key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
-			noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
+			hoverToScroll={args['hoverToScroll']}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
-			scrollMode={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
-			spotlightDisabled={boolean('spotlightDisabled', ScrollerConfig, false)}
+			scrollMode={args['scrollMode']}
+			spotlightDisabled={args['spotlightDisabled']}
 			verticalScrollbar={verticalScrollbar}
 		>
 			<div
@@ -84,6 +85,16 @@ export const _Scroller = () => {
 		</Scroller>
 	);
 };
+
+select('direction', _Scroller, prop.direction, ScrollerConfig);
+select('focusableScrollbar', _Scroller, prop.focusableScrollbarOption, ScrollerConfig);
+select('horizontalScrollbar', _Scroller, prop.scrollbarOption, ScrollerConfig);
+select('verticalScrollbar', _Scroller, prop.scrollbarOption, ScrollerConfig);
+boolean('fadeOut', _Scroller, ScrollerConfig);
+boolean('hoverToScroll', _Scroller, ScrollerConfig);
+boolean('noScrollByWheel', _Scroller, ScrollerConfig);
+select('scrollMode', _Scroller, prop.scrollModeOption, ScrollerConfig);
+boolean('spotlightDisabled', _Scroller, ScrollerConfig, false);
 
 _Scroller.storyName = 'Scroller';
 _Scroller.parameters = {

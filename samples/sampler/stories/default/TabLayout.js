@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {number, select} from '@enact/storybook-utils/addons/knobs';
+import {range, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Icon from '@enact/sandstone/Icon';
@@ -36,8 +36,8 @@ export default {
 	component: 'TabLayout'
 };
 
-export const _TabLayout = () => {
-	const tabs = select('tabs', ['with icons', 'without icons'], Config, 'with icons');
+export const _TabLayout = (args) => {
+	const tabs = args['tabs'];
 
 	const images = new Array(20).fill().map((_, i) => (
 		<ImageItem
@@ -60,8 +60,8 @@ export const _TabLayout = () => {
 			<TabLayout
 				onSelect={action('onSelect')}
 				onTabAnimationEnd={action('onTabAnimationEnd')}
-				orientation={select('orientation', ['vertical', 'horizontal'], Config)}
-				tabSize={number('tabSize', Config, {range: true, min: 0, max: 960, step: 60}, 0) || null}
+				orientation={args['orientation']}
+				tabSize={args['tabSize'] || null}
 			>
 				<Tab title={tabSelections[tabs][0].title} icon={tabSelections[tabs][0].icon}>
 					<Scroller>{images}</Scroller>
@@ -92,6 +92,10 @@ export const _TabLayout = () => {
 		</Panel>
 	);
 };
+
+select('tabs', _TabLayout, ['with icons', 'without icons'], Config, 'with icons');
+select('orientation', _TabLayout, ['vertical', 'horizontal'], Config);
+range('tabSize', _TabLayout, Config, {min: 0, max: 960, step: 60}, 0);
 
 _TabLayout.storyName = 'TabLayout';
 _TabLayout.parameters = {
