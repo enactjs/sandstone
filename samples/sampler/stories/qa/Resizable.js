@@ -70,3 +70,8 @@ export const ShouldRecalculateLongMarqueeWhenScrollbarIsRendered = () => (
 );
 
 ShouldRecalculateLongMarqueeWhenScrollbarIsRendered.storyName = 'should recalculate long marquee when scrollbar is rendered';
+ShouldRecalculateLongMarqueeWhenScrollbarIsRendered.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

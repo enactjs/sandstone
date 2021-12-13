@@ -71,6 +71,11 @@ export const WithButton = () => {
 };
 
 WithButton.storyName = 'with button';
+WithButton.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithBodyText = () => {
 	return (
@@ -108,6 +113,11 @@ export const WithBodyText = () => {
 };
 
 WithBodyText.storyName = 'with bodyText';
+WithBodyText.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithInput = () => {
 	return (
@@ -127,6 +137,11 @@ export const WithInput = () => {
 };
 
 WithInput.storyName = 'with input';
+WithInput.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithoutIcon = () => {
 	return (
@@ -156,6 +171,11 @@ export const WithoutIcon = () => {
 };
 
 WithoutIcon.storyName = 'without icon';
+WithoutIcon.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 const WithVariousItemsSamplesBase = ({rtl}) => {
 	const defaultOpen = true;
@@ -280,4 +300,9 @@ const WithVariousItemsSamples = I18nContextDecorator(
 export const WithVariousItems = () => <WithVariousItemsSamples />;
 
 WithVariousItems.storyName = 'with various items';
+WithVariousItems.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 

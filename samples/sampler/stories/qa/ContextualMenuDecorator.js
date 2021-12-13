@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {number, select} from '@enact/storybook-utils/addons/knobs';
+import {range, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
@@ -7,6 +7,12 @@ import ri from '@enact/ui/resolution';
 
 const Config = mergeComponentMetadata('ContextualMenuDecorator', ContextualMenuDecorator);
 const MenuButton = ContextualMenuDecorator({tooltipDestinationProp: 'decoration'}, Button);
+
+Config.defaultProps = {
+	direction: 'below right',
+	offset: 'overlap',
+	popupWidth: 'auto'
+};
 
 const prop = {
 	direction: [
@@ -34,17 +40,13 @@ export default {
 	component: 'ContextualMenuDecorator'
 };
 
-export const Overflows = () => {
-	const buttonAlignment = select(
-		'button alignment',
-		{'': null, start: 'start', end: 'end'},
-		Config
-	);
-	const direction = select('direction', prop.direction, Config, 'below right');
-	const itemCount = number('items', Config, {range: true, min: 0, max: 10}, 2);
+export const Overflows = (args) => {
+	const buttonAlignment = args['button alignment'];
+	const direction = args['direction'];
+	const itemCount = args['items'];
 	const items = new Array(itemCount).fill().map((i, index) => `Option ${index + 1}`);
-	const offset = select('offset', prop.offset, Config);
-	const popupWidth = select('popupWidth', prop.popupWidth, Config);
+	const offset = args['offset'];
+	const popupWidth = args['popupWidth'];
 	return (
 		<Layout
 			orientation="vertical"
@@ -160,5 +162,11 @@ export const Overflows = () => {
 		</Layout>
 	);
 };
+
+select('button alignment', Overflows, {'': null, start: 'start', end: 'end'}, Config);
+select('direction', Overflows, prop.direction, Config, 'below right');
+range('items', Overflows, Config, {min: 0, max: 10}, 2);
+select('offset', Overflows, prop.offset, Config);
+select('popupWidth', Overflows, prop.popupWidth, Config);
 
 Overflows.storyName = 'Overflows';

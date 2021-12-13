@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
 import ri from '@enact/ui/resolution';
 import UiSpinner, {SpinnerBase as UiSpinnerBase} from '@enact/ui/Spinner';
@@ -13,7 +13,7 @@ export default {
 	component: 'Spinner'
 };
 
-export const _Spinner = () => (
+export const _Spinner = (args) => (
 	<div
 		style={{
 			outline: 'teal dashed 1px',
@@ -65,18 +65,26 @@ export const _Spinner = () => (
 				onClick={action('Inside container events')}
 			/>
 			<Spinner
-				blockClickOn={select('blockClickOn', [null, 'container', 'screen'], Config)}
-				centered={boolean('centered', Config)}
-				paused={boolean('paused', Config)}
-				scrim={boolean('scrim', Config)}
-				size={select('size', [null, 'medium', 'small'], Config)}
-				transparent={boolean('transparent', Config)}
+				blockClickOn={args['blockClickOn']}
+				centered={args['centered']}
+				paused={args['paused']}
+				scrim={args['scrim']}
+				size={args['size']}
+				transparent={args['transparent']}
 			>
-				{text('content', Config, '')}
+				{args['content']}
 			</Spinner>
 		</div>
 	</div>
 );
+
+select('blockClickOn', _Spinner, [null, 'container', 'screen'], Config);
+boolean('centered', _Spinner, Config);
+boolean('paused', _Spinner, Config);
+boolean('scrim', _Spinner, Config);
+select('size', _Spinner, [null, 'medium', 'small'], Config);
+boolean('transparent', _Spinner, Config);
+text('content', _Spinner, Config, '');
 
 _Spinner.storyName = 'Spinner';
 _Spinner.parameters = {

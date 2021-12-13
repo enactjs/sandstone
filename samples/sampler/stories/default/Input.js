@@ -1,11 +1,12 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, range, select, text} from '@enact/storybook-utils/addons/controls';
 import Input, {InputBase, InputPopup, InputPopupBase} from '@enact/sandstone/Input';
 
 Input.displayName = 'Input';
-const Config = mergeComponentMetadata('Input', InputBase, Input);
+const Config = mergeComponentMetadata('Input', InputPopupBase, InputBase, Input);
 const ConfigPopup = mergeComponentMetadata('InputPopup', InputPopupBase, InputPopup);
+const ConfigNumberPopup = mergeComponentMetadata('InputNumberTypePopup', InputPopupBase, InputPopup);
 
 const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
@@ -20,7 +21,7 @@ export default {
 	component: 'Input'
 };
 
-export const _Input = () => {
+export const _Input = (args) => {
 	const propOptions = {
 		// Actions
 		onBeforeChange: action('onBeforeChange'),
@@ -29,33 +30,33 @@ export const _Input = () => {
 		onComplete: action('onComplete'),
 		onOpenPopup: action('onOpenPopup'),
 
-		// Knobs
-		type: select('type', prop.type, ConfigPopup),
-		popupType: select('popupType', prop.popupType, ConfigPopup),
-		size: select('size', prop.size, Config),
-		invalid: boolean('invalid', ConfigPopup),
-		invalidMessage: text('invalidMessage', ConfigPopup, 'This is a bad value'),
-		placeholder: text('placeholder', Config, 'placeholder string'),
-		subtitle: text('subtitle', ConfigPopup, 'Title Below Text'),
-		title: text('title', ConfigPopup, 'Title Text'),
-		disabled: boolean('disabled', Config),
-		'aria-label': text('aria-label', ConfigPopup, ''),
-		popupAriaLabel: text('popupAriaLabel', ConfigPopup, ''),
-		noBackButton: boolean('noBackButton', ConfigPopup),
-		noSubmitButton: boolean('noSubmitButton', ConfigPopup),
-		backButtonAriaLabel: select('backButtonAriaLabel', prop.backButtonAriaLabel, ConfigPopup)
+		// Controls
+		type: args['type'],
+		popupType: args['popupType'],
+		size: args['size'],
+		invalid: args['invalid'],
+		invalidMessage: args['invalidMessage'],
+		placeholder: args['placeholder'],
+		subtitle: args['subtitle'],
+		title: args['title'],
+		disabled: args['disabled'],
+		'aria-label': args['aria-label'],
+		popupAriaLabel: args['popupAriaLabel'],
+		noBackButton: args['noBackButton'],
+		noSubmitButton: args['noSubmitButton'],
+		backButtonAriaLabel: args['backButtonAriaLabel']
 	};
 
 	// Numeric specific props
 	if (propOptions.type === 'number' || propOptions.type === 'passwordnumber') {
-		propOptions.numberInputField = select('numberInputField', prop.numericKind, ConfigPopup);
+		propOptions.numberInputField = args['numberInputField'];
 
-		const minMax = boolean('customize min/max', ConfigPopup, false);
+		const minMax = args['customize min/max'];
 		if (minMax) {
-			propOptions.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 20}, 4);
-			propOptions.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 20}, 0);
+			propOptions.maxLength = args['maxLength'];
+			propOptions.minLength = args['minLength'];
 		} else {
-			propOptions.length = number('length', ConfigPopup, {range: true, min: 1, max: 20}, 4);
+			propOptions.length = args['length'];
 		}
 	}
 
@@ -72,6 +73,26 @@ export const _Input = () => {
 		</div>
 	);
 };
+
+select('type', _Input, prop.type, ConfigPopup);
+select('popupType', _Input, prop.popupType, ConfigPopup);
+boolean('invalid', _Input, ConfigPopup);
+text('invalidMessage', _Input, ConfigPopup, 'This is a bad value');
+text('subtitle', _Input, ConfigPopup, 'Title Below Text');
+text('title', _Input, ConfigPopup, 'Title Text');
+text('aria-label', _Input, ConfigPopup, '');
+text('popupAriaLabel', _Input, ConfigPopup, '');
+boolean('noBackButton', _Input, ConfigPopup);
+boolean('noSubmitButton', _Input, ConfigPopup);
+select('backButtonAriaLabel', _Input, prop.backButtonAriaLabel, ConfigPopup);
+select('numberInputField', _Input, prop.numericKind, ConfigNumberPopup);
+boolean('customize min/max', _Input, ConfigNumberPopup, false);
+range('maxLength', _Input, ConfigNumberPopup, {min: 0, max: 20}, 4);
+range('minLength', _Input, ConfigNumberPopup, {min: 0, max: 20}, 0);
+range('length', _Input, ConfigNumberPopup, {min: 1, max: 20}, 4);
+select('size', _Input, prop.size, Config);
+text('placeholder', _Input, Config, 'placeholder string');
+boolean('disabled', _Input, Config);
 
 _Input.storyName = 'Input';
 _Input.parameters = {
