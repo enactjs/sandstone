@@ -37,27 +37,27 @@
     "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^4.0.8",
-    "@enact/i18n": "^4.0.8",
-    "@enact/spotlight": "^4.0.8",
-    "@enact/ui": "^4.0.8",
-    "@enact/webos": "^4.0.8",
-    "classnames": "^2.2.5",
-    "invariant": "^2.2.2",
+    "@enact/core": "^4.1.1",
+    "@enact/i18n": "^4.1.1",
+    "@enact/spotlight": "^4.1.1",
+    "@enact/ui": "^4.1.1",
+    "@enact/webos": "^4.1.1",
+    "classnames": "^2.3.1",
+    "invariant": "^2.2.4",
     "prop-types": "^15.7.2",
-    "ramda": "^0.24.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "warning": "^3.0.0",
-    "ilib": "^14.4.0"
+    "ramda": "^0.27.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "warning": "^4.0.3",
+    "ilib": "^14.11.1"
   },
   "peerDependencies": {
-    "ilib": "^14.4.0 || ^14.6.0-webos"
+    "ilib": "^14.11.1 || ^14.11.1-webos"
   },
   "devDependencies": {
-    "@enact/docs-utils": "^0.3.3",
+    "@enact/docs-utils": "^0.3.5",
     "@enact/ui-test-utils": "^0.7.0",
-    "eslint-config-enact-proxy": "^1.0.1",
-    "ilib": "^14.4.0"
+    "eslint-config-enact-proxy": "^1.0.2",
+    "ilib": "^14.11.1"
   }
 }
