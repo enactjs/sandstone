@@ -1,79 +1,64 @@
 import Button from '@enact/sandstone/Button';
 import kind from '@enact/core/kind';
-import PropTypes from 'prop-types';
 import {Component} from 'react';
 import VideoPlayer from '@enact/sandstone/VideoPlayer';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
-
-import componentCss from './MainPanel.module.less';
 
 const SelectableVideoPlayer = class extends Component {
 
 	static displayName = 'SelectableVideoPlayer';
 
-	static propTypes = {
-		css: PropTypes.object
-	};
-
 	state = {
-		selection: null
+		selection: []
 	};
 
 	handleToggleSelection = () => {
 		const {selection} = this.state;
-
 		const {currentTime} = this.video.getMediaState();
 
-		if (selection == null || selection.length === 2) {
+		if (selection.length !== 1) {
 			this.setState({
-				selection: [currentTime],
-				selecting: true
+				selection: [currentTime]
 			});
 		} else {
 			this.setState({
-				selection: [selection[0], currentTime].sort((a, b) => a - b),
-				selecting: false
+				selection: [selection[0], currentTime].sort((a, b) => a - b)
 			});
 		}
 	};
 
 	handleTimeUpdate = () => {
 		const {selection} = this.state;
-		const {currentTime} = this.video.getMediaState();
 
-		if (selection != null) {
-			const [selectionEnd] = selection;
-			// const [selectionStart] = selection; // commented to suppress build warnings; uncomment for seek code below if necessary
+		if (selection.length === 2) {
+			const [selectionStart, selectionEnd] = selection;
+			const {currentTime} = this.video.getMediaState();
 
-			if (currentTime >= selectionEnd) {
-				// seek to start
-				// this.video.seek(selectionStart);
-
-				// ... or pause() and lock at end
-				this.video.pause();
-				// this.video.seek(selectionEnd);
+			if (currentTime > selectionEnd || currentTime < selectionStart) {
+				// Seek to starting position if current time is out of selection during playback
+				this.video.seek(selectionStart);
 			}
 		}
 	};
 
 	handleSeekOutsideSelection = (ev) => {
-
 		// prevent the action and seek to the beginning or end
 		const {selection} = this.state;
-		const [selectionStart, selectionEnd] = selection;
 		ev.preventDefault();
 
-		if (ev.time < selectionStart) {
-			this.video.seek(selectionStart);
-		} else if (ev.time > selectionStart) {
-			// this.video.pause();
-			this.video.seek(selectionEnd);
-		}
+		if (selection.length === 2) {
+			const [selectionStart, selectionEnd] = selection;
+			const {time: currentTime} = ev;
 
-		// or remove the selection and allow the default behavior
-		// this.setState({
-		// 	selection: null
-		// });
+			// Seek to nearest selection position among starting and ending if current time is out of selection
+			if (currentTime < selectionStart) {
+				this.video.seek(selectionStart);
+			} else if (currentTime > selectionEnd) {
+				// If a video is playing, position will be moved to starting point by handleTimeUpdate().
+				// If a video is paused, position will remain at ending position.
+				this.video.seek(selectionEnd);
+			}
+		}
 	};
 
 	setVideo = (video) => {
@@ -81,8 +66,8 @@ const SelectableVideoPlayer = class extends Component {
 	};
 
 	render () {
-		const {css} = this.props;
-		const {selecting} = this.state;
+		const {selection} = this.state;
+		const selecting = selection.length === 1;
 
 		return (
 			<VideoPlayer
@@ -90,11 +75,11 @@ const SelectableVideoPlayer = class extends Component {
 				loop
 				onSeekOutsideSelection={this.handleSeekOutsideSelection}
 				onTimeUpdate={this.handleTimeUpdate}
-				selection={this.state.selection}
+				selection={selection}
 				ref={this.setVideo}
 			>
 				<MediaControls>
-					<Button className={selecting ? css.selecting : ''} onTap={this.handleToggleSelection}>repeat</Button>
+					<Button onTap={this.handleToggleSelection} selected={selecting}>{selecting ? 'Play Loop' : 'Set End Time'}</Button>
 				</MediaControls>
 				<source src="http://media.w3.org/2010/05/video/movie_300.mp4" />
 			</VideoPlayer>
@@ -106,7 +91,7 @@ const MainPanel = kind({
 	name: 'MainPanel',
 
 	render: () => (
-		<SelectableVideoPlayer css={componentCss} />
+		<SelectableVideoPlayer />
 	)
 });
 
