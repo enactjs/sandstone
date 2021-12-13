@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import {InputField} from '@enact/sandstone/Input';
 import Spinner from '@enact/sandstone/Spinner';
@@ -8,7 +8,7 @@ import {Component} from 'react';
 
 Spinner.displayName = 'Spinner';
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	longText: 'SpinnerWithLongText SpinnerWithLongText SpinnerWithLongText'
 };
@@ -53,7 +53,7 @@ export default {
 	component: 'Spinner'
 };
 
-export const WithLongContent = () => (
+export const WithLongContent = (args) => (
 	<div>
 		<div
 			style={{
@@ -70,21 +70,27 @@ export const WithLongContent = () => (
 			</p>
 			<Button onClick={action('Inside Button events')}>Button</Button>
 			<Spinner
-				transparent={boolean('transparent', Spinner, false)}
-				centered={boolean('centered', Spinner, false)}
-				blockClickOn={select('blockClickOn', [null, 'container', 'screen'], Spinner)}
-				scrim={boolean('scrim', Spinner, true)}
+				transparent={args['transparent']}
+				centered={args['centered']}
+				blockClickOn={args['blockClickOn']}
+				scrim={args['scrim']}
 			>
-				{text('content', Spinner, prop.longText)}
+				{args['content']}
 			</Spinner>
 		</div>
 		<Button onClick={action('Outside Button events')}>Button</Button>
 	</div>
 );
+
+boolean('transparent', WithLongContent, Spinner, false);
+boolean('centered', WithLongContent, Spinner, false);
+select('blockClickOn', WithLongContent, [null, 'container', 'screen'], Spinner);
+boolean('scrim', WithLongContent, Spinner, true);
+text('content', WithLongContent, Spinner, prop.longText);
 
 WithLongContent.storyName = 'with long content';
 
-export const BlockingClickEvents = () => (
+export const BlockingClickEvents = (args) => (
 	<div>
 		<div
 			style={{
@@ -101,20 +107,31 @@ export const BlockingClickEvents = () => (
 			</p>
 			<Button onClick={action('Inside Button events')}>Button</Button>
 			<Spinner
-				transparent={boolean('transparent', Spinner, false)}
-				centered={boolean('centered', Spinner, false)}
-				blockClickOn={select('blockClickOn', [null, 'container', 'screen'], Spinner)}
-				scrim={boolean('scrim', Spinner, true)}
+				transparent={args['transparent']}
+				centered={args['centered']}
+				blockClickOn={args['blockClickOn']}
+				scrim={args['scrim']}
 			>
-				{text('content', Spinner)}
+				{args['content']}
 			</Spinner>
 		</div>
 		<Button onClick={action('Outside Button events')}>Button</Button>
 	</div>
 );
+
+boolean('transparent', BlockingClickEvents, Spinner, false);
+boolean('centered', BlockingClickEvents, Spinner, false);
+select('blockClickOn', BlockingClickEvents, [null, 'container', 'screen'], Spinner);
+boolean('scrim', BlockingClickEvents, Spinner, true);
+text('content', BlockingClickEvents, Spinner);
 
 BlockingClickEvents.storyName = 'blocking click events';
 
 export const WithInput = () => <FocusOnSpinner />;
 
 WithInput.storyName = 'with input';
+WithInput.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

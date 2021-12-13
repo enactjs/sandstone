@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Item from '@enact/sandstone/Item';
@@ -111,127 +111,177 @@ export default {
 	component: 'Dropdown'
 };
 
-export const With2OptionsForTestingDirection = () => (
+export const With2OptionsForTestingDirection = (args) => (
 	<Dropdown
-		direction={select('direction', ['above', 'below'], Config)}
-		disabled={boolean('disabled', Config)}
+		direction={args['direction']}
+		disabled={args['disabled']}
 		onClose={action('onClose')}
 		onOpen={action('onOpen')}
 		onSelect={action('onSelect')}
-		placeholder={text('placeholder', Config, 'Dropdown')}
-		size={select('size', ['small', 'large'], Config)}
+		placeholder={args['placeholder']}
+		size={args['size']}
 		style={{position: 'absolute', top: 'calc(50% - 4rem)'}}
-		title={text('title', Config, 'Dropdown')}
-		width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+		title={args['title']}
+		width={args['width']}
 	>
 		{['Option 1', 'Option 2']}
 	</Dropdown>
 );
 
+select('direction', With2OptionsForTestingDirection, ['above', 'below'], Config);
+boolean('disabled', With2OptionsForTestingDirection, Config);
+text('placeholder', With2OptionsForTestingDirection, Config, 'Dropdown');
+select('size', With2OptionsForTestingDirection, ['small', 'large'], Config);
+text('title', With2OptionsForTestingDirection, Config, 'Dropdown');
+select('width', With2OptionsForTestingDirection, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
+
 With2OptionsForTestingDirection.storyName = 'with 2 options for testing direction';
 
-export const WithDefaultSelectedIn20Options = () => (
+export const WithDefaultSelectedIn20Options = (args) => (
 	<Dropdown
 		defaultSelected={10}
-		direction={select('direction', ['above', 'below'], Config)}
-		disabled={boolean('disabled', Config)}
+		direction={args['direction']}
+		disabled={args['disabled']}
 		onClose={action('onClose')}
 		onOpen={action('onOpen')}
 		onSelect={action('onSelect')}
-		placeholder={text('placeholder', Config, 'Dropdown')}
-		size={select('size', ['small', 'large'], Config)}
-		title={text('title', Config, 'Dropdown')}
-		width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+		placeholder={args['placeholder']}
+		size={args['size']}
+		title={args['title']}
+		width={args['width']}
 	>
 		{items(30)}
 	</Dropdown>
 );
 
+select('direction', WithDefaultSelectedIn20Options, ['above', 'below'], Config);
+boolean('disabled', WithDefaultSelectedIn20Options, Config);
+text('placeholder', WithDefaultSelectedIn20Options, Config, 'Dropdown');
+select('size', WithDefaultSelectedIn20Options, ['small', 'large'], Config);
+text('title', WithDefaultSelectedIn20Options, Config, 'Dropdown');
+select('width', WithDefaultSelectedIn20Options, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
+
 WithDefaultSelectedIn20Options.storyName = 'with defaultSelected in 20 options';
 
-export const WithLongText = () => (
+export const WithLongText = (args) => (
 	<Dropdown
-		direction={select('direction', ['above', 'below'], Config)}
-		disabled={boolean('disabled', Config)}
+		direction={args['direction']}
+		disabled={args['disabled']}
 		onClose={action('onClose')}
 		onOpen={action('onOpen')}
 		onSelect={action('onSelect')}
-		placeholder={text('placeholder', Config, 'Dropdown')}
-		size={select('size', ['small', 'large'], Config)}
-		title={text('title', Config, 'Dropdown')}
-		width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+		placeholder={args['placeholder']}
+		size={args['size']}
+		title={args['title']}
+		width={args['width']}
 	>
 		{items(10, 'Looooooooooooooooooooooong')}
 	</Dropdown>
 );
 
+select('direction', WithLongText, ['above', 'below'], Config);
+boolean('disabled', WithLongText, Config);
+text('placeholder', WithLongText, Config, 'Dropdown');
+select('size', WithLongText, ['small', 'large'], Config);
+text('title', WithLongText, Config, 'Dropdown');
+select('width', WithLongText, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
+
 WithLongText.storyName = 'with long text';
 
-export const WithMultipleDropdowns = () => (
+export const WithMultipleDropdowns = (args) => (
 	<div>
 		<Dropdown
-			direction={select('direction', ['above', 'below'], Config)}
-			disabled={boolean('disabled', Config)}
+			direction={args['direction']}
+			disabled={args['disabled']}
 			onClose={action('onClose')}
 			onOpen={action('onOpen')}
 			onSelect={action('onSelect')}
-			placeholder={text('placeholder', Config, 'Dropdown')}
-			size={select('size', ['small', 'large'], Config)}
-			title={text('title', Config, 'Dropdown')}
-			width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+			placeholder={args['placeholder']}
+			size={args['size']}
+			title={args['title']}
+			width={args['width']}
 		>
 			{items(5)}
 		</Dropdown>
 		<Dropdown
-			direction={select('direction', ['above', 'below'], Config)}
-			disabled={boolean('disabled', Config)}
+			direction={args['direction']}
+			disabled={args['disabled']}
 			onClose={action('onClose')}
 			onOpen={action('onOpen')}
 			onSelect={action('onSelect')}
-			placeholder={text('placeholder', Config, 'Dropdown')}
-			size={select('size', ['small', 'large'], Config)}
-			title={text('title', Config, 'Dropdown')}
-			width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+			placeholder={args['placeholder']}
+			size={args['size']}
+			title={args['title']}
+			width={args['width']}
 		>
 			{items(5)}
 		</Dropdown>
 	</div>
 );
 
+select('direction', WithMultipleDropdowns, ['above', 'below'], Config);
+boolean('disabled', WithMultipleDropdowns, Config);
+text('placeholder', WithMultipleDropdowns, Config, 'Dropdown');
+select('size', WithMultipleDropdowns, ['small', 'large'], Config);
+text('title', WithMultipleDropdowns, Config, 'Dropdown');
+select('width', WithMultipleDropdowns, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
+
 WithMultipleDropdowns.storyName = 'with multiple dropdowns';
 
-export const WithArrayOfChildrenObjects = () => (
+export const WithArrayOfChildrenObjects = (args) => (
 	<div>
 		<Dropdown
-			direction={select('direction', ['above', 'below'], Config)}
-			disabled={boolean('disabled', Config)}
+			direction={args['direction']}
+			disabled={args['disabled']}
 			onClose={action('onClose')}
 			onOpen={action('onOpen')}
 			onSelect={action('onSelect')}
-			placeholder={text('placeholder', Config, 'Dropdown')}
-			size={select('size', ['small', 'large'], Config)}
+			placeholder={args['placeholder']}
+			size={args['size']}
 			style={{position: 'absolute', top: 'calc(50% - 4rem)'}}
-			title={text('title', Config, 'Dropdown')}
-			width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+			title={args['title']}
+			width={args['width']}
 		>
 			{list}
 		</Dropdown>
 	</div>
 );
 
+select('direction', WithArrayOfChildrenObjects, ['above', 'below'], Config);
+boolean('disabled', WithArrayOfChildrenObjects, Config);
+text('placeholder', WithArrayOfChildrenObjects, Config, 'Dropdown');
+select('size', WithArrayOfChildrenObjects, ['small', 'large'], Config);
+text('title', WithArrayOfChildrenObjects, Config, 'Dropdown');
+select('width', WithArrayOfChildrenObjects, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
+
 WithArrayOfChildrenObjects.storyName = 'with array of children objects';
 
 export const WithAutoDismiss = () => <AutoDismissDropdown />;
 
 WithAutoDismiss.storyName = 'with auto dismiss';
+WithAutoDismiss.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithDisabled = () => <DisabledDropdown />;
 
 WithDisabled.storyName = 'with disabled';
+WithDisabled.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithChangingPosition = () => <PositionChangingDropdown />;
 
 WithChangingPosition.storyName = 'with changing position';
+WithChangingPosition.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const InScroller = () => (
 	<Scroller
@@ -258,5 +308,11 @@ export const InScroller = () => (
 		<Item>Scroll up to see Dropdown</Item>
 	</Scroller>
 );
+
+InScroller.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 InScroller.storyName = 'in Scroller (PLAT-137855)';

@@ -1,8 +1,18 @@
 import Button from '@enact/sandstone/Button';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
-import {button} from '@enact/storybook-utils/addons/knobs';
+import {select} from '@enact/storybook-utils/addons/controls';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
+
+const videoPlayerOption =  [
+	'',
+	'Next Preload Video',
+	'Non Preload Video',
+	'Next Preload Video without changing preload',
+	'Change Preload without changing video',
+	'Reset Sources'
+];
 
 const videoTabLabel = 'VideoPlayer';
 
@@ -21,6 +31,24 @@ class VideoSourceSwap extends Component {
 			preloadCursor: 1
 		};
 		this.lastIndex = this.state.playlist.length - 1;
+	}
+
+	componentDidUpdate (prevProps) {
+		const option = this.props.args['videoPlayerOption'];
+
+		if (option !== prevProps.args.videoPlayerOption) {
+			if (option === 'Next Preload Video') {
+				this.nextVideo();
+			} else if (option === 'Non Preload Video') {
+				this.differentVideo();
+			} else if (option === 'Next Preload Video without changing preload') {
+				this.nextPreloadVideoKeepVideo();
+			} else if (option === 'Change Preload without changing video') {
+				this.nextPreloadVideoKeepVideo();
+			} else if (option === 'Reset Sources') {
+				this.resetSources();
+			}
+		}
 	}
 
 	nextVideo = () => {
@@ -59,19 +87,6 @@ class VideoSourceSwap extends Component {
 	render () {
 		return (
 			<div>
-				{button('Next Preload Video', this.nextVideo, videoTabLabel)}
-				{button('Non Preload Video', this.differentVideo, videoTabLabel)}
-				{button(
-					'Next Preload Video without changing preload',
-					this.nextVideoKeepPreload,
-					videoTabLabel
-				)}
-				{button(
-					'Change Preload without changing video',
-					this.nextPreloadVideoKeepVideo,
-					videoTabLabel
-				)}
-				{button('Reset Sources', this.resetSources, videoTabLabel)}
 				<VideoPlayer
 					muted
 					onJumpBackward={this.differentVideo}
@@ -96,7 +111,13 @@ export default {
 	component: 'VideoPlayer'
 };
 
-export const PreloadVideos = () => <VideoSourceSwap />;
+VideoSourceSwap.propTypes = {
+	args: PropTypes.object
+};
+
+export const PreloadVideos = (args) => <VideoSourceSwap args={args} />;
+
+select('videoPlayerOption', PreloadVideos, videoPlayerOption, videoTabLabel, '');
 
 PreloadVideos.storyName = 'Preload Videos';
 
@@ -154,3 +175,8 @@ class VideoPlayerWithfastForwardMode extends Component {
 export const FastForwardWithVariousPlaybackRates = () => <VideoPlayerWithfastForwardMode />;
 
 FastForwardWithVariousPlaybackRates.storyName = 'Fastforward with various playback rates';
+FastForwardWithVariousPlaybackRates.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

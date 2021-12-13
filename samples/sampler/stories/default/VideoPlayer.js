@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, range, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import {ImageItem} from '@enact/sandstone/ImageItem';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
@@ -34,7 +34,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(size);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	moreButtonColor: ['', 'red', 'green', 'yellow', 'blue'],
 	videoTitles: ['Sintel', 'Big Buck Bunny', 'VideoTest', 'Bad Video Source'],
@@ -81,7 +81,13 @@ const prop = {
 		'onToggleMore',
 		// 'onTimeUpdate',	// Disabled due to Storybook Actions-reporting having an adverse effect on VideoPlayer performance. Uncomment to view this event.
 		'onVolumeChange',
-		'onWaiting'
+		'onWaiting',
+		'onWillFastForward',
+		'onWillJumpBackward',
+		'onWillJumpForward',
+		'onWillPause',
+		'onWillPlay',
+		'onWillRewind'
 	]
 };
 
@@ -100,8 +106,8 @@ export default {
 	component: 'VideoPlayer'
 };
 
-export const _VideoPlayer = () => {
-	const videoTitle = select('source', prop.videoTitles, Config, 'Sintel');
+export const _VideoPlayer = (args) => {
+	const videoTitle = args['source'];
 	const videoSource = prop.videos[videoTitle];
 	const poster = prop.posters[videoTitle];
 
@@ -111,7 +117,7 @@ export const _VideoPlayer = () => {
 				transformOrigin: 'top',
 				transform:
 					'scale(' +
-					number('video scale', Config, {range: true, min: 0.05, max: 1, step: 0.01}, 1) +
+					args['video scale'] +
 					')',
 				outline: 'teal dashed 1px',
 				height: '70vh'
@@ -134,28 +140,28 @@ export const _VideoPlayer = () => {
 				VideoPlayer Edge
 			</label>
 			<VideoPlayer
-				autoCloseTimeout={number('autoCloseTimeout', Config, 7000)}
-				disabled={boolean('disabled', Config)}
-				feedbackHideDelay={number('feedbackHideDelay', Config, 3000)}
-				initialJumpDelay={number('initialJumpDelay', Config, 400)}
-				jumpDelay={number('jumpDelay', Config, 200)}
-				loop={boolean('loop', Config, true)}
-				miniFeedbackHideDelay={number('miniFeedbackHideDelay', Config, 2000)}
-				muted={boolean('muted', Config, true)}
-				no5WayJump={boolean('no5WayJump', Config)}
-				noAutoPlay={boolean('noAutoPlay', Config)}
-				noAutoShowMediaControls={boolean('noAutoShowMediaControls', Config)}
-				noMediaSliderFeedback={boolean('noMediaSliderFeedback', Config, false)}
-				noMiniFeedback={boolean('noMiniFeedback', Config)}
-				noSlider={boolean('noSlider', Config)}
-				pauseAtEnd={boolean('pauseAtEnd', Config)}
+				autoCloseTimeout={args['autoCloseTimeout']}
+				disabled={args['disabled']}
+				feedbackHideDelay={args['feedbackHideDelay']}
+				initialJumpDelay={args['initialJumpDelay']}
+				jumpDelay={args['jumpDelay']}
+				loop={args['loop']}
+				miniFeedbackHideDelay={args['miniFeedbackHideDelay']}
+				muted={args['muted']}
+				no5WayJump={args['no5WayJump']}
+				noAutoPlay={args['noAutoPlay']}
+				noAutoShowMediaControls={args['noAutoShowMediaControls']}
+				noMediaSliderFeedback={args['noMediaSliderFeedback']}
+				noMiniFeedback={args['noMiniFeedback']}
+				noSlider={args['noSlider']}
+				pauseAtEnd={args['pauseAtEnd']}
 				poster={poster}
-				seekDisabled={boolean('seekDisabled', Config)}
-				spotlightDisabled={boolean('spotlightDisabled', Config)}
+				seekDisabled={args['seekDisabled']}
+				spotlightDisabled={args['spotlightDisabled']}
 				thumbnailSrc={poster}
-				thumbnailUnavailable={boolean('thumbnailUnavailable', Config)}
-				title={text('title', Config, 'Sandstone VideoPlayer Sample Video')}
-				titleHideDelay={number('titleHideDelay', Config, 4000)}
+				thumbnailUnavailable={args['thumbnailUnavailable']}
+				title={args['title']}
+				titleHideDelay={args['titleHideDelay']}
 				{...prop.eventActions}
 			>
 				<source src={videoSource} type="video/mp4" />
@@ -163,25 +169,17 @@ export const _VideoPlayer = () => {
 					A video about some things happening to and around some characters. Very exciting stuff.
 				</infoComponents>
 				<MediaControls
-					actionGuideAriaLabel={text(
-						'actionGuideAriaLabel',
-						MediaControlsConfig,
-						'Press Down Key Using Remote Control'
-					)}
-					actionGuideLabel={text(
-						'actionGuideLabel',
-						MediaControlsConfig,
-						'Press Down Button to Scroll'
-					)}
-					jumpBackwardIcon={select('jumpBackwardIcon', icons, MediaControlsConfig, 'jumpbackward')}
-					jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
-					jumpForwardIcon={select('jumpForwardIcon', icons, MediaControlsConfig, 'jumpforward')}
-					noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
-					rateChangeDisabled={boolean('rateChangeDisabled', MediaControlsConfig)}
-					moreActionDisabled={boolean('moreActionDisabled', MediaControlsConfig)}
-					pauseIcon={select('pauseIcon', icons, MediaControlsConfig, 'pause')}
-					playIcon={select('playIcon', icons, MediaControlsConfig, 'play')}
-					playPauseButtonDisabled={boolean('playPauseButtonDisabled', MediaControlsConfig)}
+					actionGuideAriaLabel={args['actionGuideAriaLabel']}
+					actionGuideLabel={args['actionGuideLabel']}
+					jumpBackwardIcon={args['jumpBackwardIcon']}
+					jumpButtonsDisabled={args['jumpButtonsDisabled']}
+					jumpForwardIcon={args['jumpForwardIcon']}
+					noJumpButtons={args['noJumpButtons']}
+					rateChangeDisabled={args['rateChangeDisabled']}
+					moreActionDisabled={args['moreActionDisabled']}
+					pauseIcon={args['pauseIcon']}
+					playIcon={args['playIcon']}
+					playPauseButtonDisabled={args['playPauseButtonDisabled']}
 				>
 					<bottomComponents>
 						<VirtualGridList
@@ -207,6 +205,50 @@ export const _VideoPlayer = () => {
 		</div>
 	);
 };
+
+select('source', _VideoPlayer, prop.videoTitles, Config, 'Sintel');
+range('video scale', _VideoPlayer, Config, {min: 0.05, max: 1, step: 0.01}, 1);
+number('autoCloseTimeout', _VideoPlayer, Config, 7000);
+boolean('disabled', _VideoPlayer, Config);
+number('feedbackHideDelay', _VideoPlayer, Config, 3000);
+number('initialJumpDelay', _VideoPlayer, Config, 400);
+number('jumpDelay', _VideoPlayer, Config, 200);
+boolean('loop', _VideoPlayer, Config, true);
+number('miniFeedbackHideDelay', _VideoPlayer, Config, 2000);
+boolean('muted', _VideoPlayer, Config, true);
+boolean('no5WayJump', _VideoPlayer, Config);
+boolean('noAutoPlay', _VideoPlayer, Config);
+boolean('noAutoShowMediaControls', _VideoPlayer, Config);
+boolean('noMediaSliderFeedback', _VideoPlayer, Config, false);
+boolean('noMiniFeedback', _VideoPlayer, Config);
+boolean('noSlider', _VideoPlayer, Config);
+boolean('pauseAtEnd', _VideoPlayer, Config);
+boolean('seekDisabled', _VideoPlayer, Config);
+boolean('spotlightDisabled', _VideoPlayer, Config);
+boolean('thumbnailUnavailable', _VideoPlayer, Config);
+text('title', _VideoPlayer, Config, 'Sandstone VideoPlayer Sample Video');
+number('titleHideDelay', _VideoPlayer, Config, 4000);
+text(
+	'actionGuideAriaLabel',
+	_VideoPlayer,
+	MediaControlsConfig,
+	'Press Down Key Using Remote Control'
+);
+text(
+	'actionGuideLabel',
+	_VideoPlayer,
+	MediaControlsConfig,
+	'Press Down Button to Scroll'
+);
+select('jumpBackwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpbackward');
+boolean('jumpButtonsDisabled', _VideoPlayer, MediaControlsConfig);
+select('jumpForwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpforward');
+boolean('noJumpButtons', _VideoPlayer, MediaControlsConfig);
+boolean('rateChangeDisabled', _VideoPlayer, MediaControlsConfig);
+boolean('moreActionDisabled', _VideoPlayer, MediaControlsConfig);
+select('pauseIcon', _VideoPlayer, icons, MediaControlsConfig, 'pause');
+select('playIcon', _VideoPlayer, icons, MediaControlsConfig, 'play');
+boolean('playPauseButtonDisabled', _VideoPlayer, MediaControlsConfig);
 
 _VideoPlayer.storyName = 'VideoPlayer';
 _VideoPlayer.parameters = {
