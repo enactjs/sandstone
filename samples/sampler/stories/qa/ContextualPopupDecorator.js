@@ -36,7 +36,7 @@ const renderSuperTallPopup = () => (
 );
 
 const renderPopupWithSlider = () => (
-	<div style={{textAlign: 'center', minWidth: ri.scaleToRem(600), height: ri.scaleToRem(120), padding: `${ri.scaleToRem(60)} ${ri.scaleToRem(30)} 0 ${ri.scaleToRem(30)}`}}>
+	<div style={{minWidth: ri.scaleToRem(600), height: ri.scaleToRem(120), padding: `${ri.scaleToRem(60)} ${ri.scaleToRem(30)} 0 ${ri.scaleToRem(30)}`}}>
 		<Slider
 			backgroundProgress={0}
 			disabled={false}
