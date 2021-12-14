@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to focus the topmost element after scroll by voice control in pointer mode
+
 ## [2.0.4] - 2021-11-01
 
 ### Added

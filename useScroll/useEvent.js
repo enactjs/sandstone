@@ -452,6 +452,9 @@ const useEventVoice = (props, instances) => {
 					}
 				}
 			}
+		} else if (!spotItem && scrollContainerNode) {
+			// In pointer mode, reset last-focus to the item currently visible
+			Spotlight.focus(scrollContainerNode, {enterTo: 'topmost'});
 		}
 	};
 
