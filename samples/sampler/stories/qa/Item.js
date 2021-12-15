@@ -2,7 +2,6 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
-import Image from '@enact/sandstone/Image';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {Row} from '@enact/ui/Layout';
@@ -78,32 +77,6 @@ boolean('disabled', WithExtraSpaces, Item);
 text('Children', WithExtraSpaces, Item, inputData.extraSpaceText);
 
 WithExtraSpaces.storyName = 'with extra spaces';
-
-export const IntegratedWithOtherComponents = (args) => (
-	<Item disabled={args['disabled']}>
-		<Button>Click here</Button>
-		{args['Children']}
-		<Button>Click here</Button>
-		<Image src="http://lorempixel.com/512/512/city/1/" sizing="fill" alt="lorempixel" />
-		<p>
-			Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-			Aenean massa.
-		</p>
-		<p>
-			Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-			Aenean massa.
-		</p>
-		<p>
-			Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-			Aenean massa.
-		</p>
-	</Item>
-);
-
-boolean('disabled', IntegratedWithOtherComponents, Item);
-text('Children', IntegratedWithOtherComponents, Item, 'Hello Item');
-
-IntegratedWithOtherComponents.storyName = 'integrated with other components';
 
 export const SampleForSpotabilityTest = (args) => (
 	<div>
