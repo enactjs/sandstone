@@ -70,8 +70,8 @@ const StorybookDecorator = (story, config = {}) => {
 			title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
 			description={hasInfoText ? config.parameters.info.text : null}
 			locale={globals.locale}
-			textSize={globals.largeText ? 'large' : 'normal'}
-			highContrast={globals.highContrast}
+			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
+			highContrast={JSON.parse(globals['high contrast'])}
 			style={{
 				'--sand-env-background': globals.background === 'default' ? '' : globals.background
 			}}
