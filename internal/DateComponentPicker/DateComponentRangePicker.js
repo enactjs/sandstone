@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import RangePicker from '../../RangePicker';
 
-import componentCss from './DateComponentPicker.module.less';
+import css from './DateComponentPicker.module.less';
 
 /**
  * {@link sandstone/internal/DataComponentPicker.DateComponentRangePicker} allows the selection of
@@ -52,19 +52,6 @@ const DateComponentRangePickerBase = kind({
 		accessibilityHint: PropTypes.string,
 
 		/**
-		 * Customizes the component by mapping the supplied collection of CSS class names to the
-		 * corresponding internal elements and states of this component.
-		 *
-		 * The following classes are supported:
-		 *
-		 * * `sizingPlaceholder` - The sizing placeholder class
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		css: PropTypes.object,
-
-		/**
 		 * The label to display below the picker
 		 *
 		 * @type {String}
@@ -91,9 +78,8 @@ const DateComponentRangePickerBase = kind({
 	},
 
 	styles: {
-		css: componentCss,
-		className: 'dateComponentPicker',
-		publicClassNames: ['sizingPlaceholder']
+		css,
+		className: 'dateComponentPicker'
 	},
 
 	computed: {
@@ -102,11 +88,10 @@ const DateComponentRangePickerBase = kind({
 		}
 	},
 
-	render: ({accessibilityHint, css, label, max, min, noAnimation, value, wrap, voiceLabel, ...rest}) => (
+	render: ({accessibilityHint, label, max, min, noAnimation, value, wrap, voiceLabel, ...rest}) => (
 		<RangePicker
 			{...rest}
 			accessibilityHint={(accessibilityHint == null) ? label : accessibilityHint}
-			css={css}
 			data-webos-voice-labels-ext={voiceLabel}
 			joined
 			max={max}
