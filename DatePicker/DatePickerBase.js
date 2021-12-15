@@ -5,7 +5,7 @@ import $L from '../internal/$L';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
 import DateTime from '../internal/DateTime';
 
-import css from './DatePicker.module.less';
+import componentCss from './DatePicker.module.less';
 
 /**
  * A date selection component.
@@ -81,6 +81,15 @@ const DatePickerBase = kind({
 		 * @public
 		 */
 		year: PropTypes.number.isRequired,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * @type {Object}
+		 * @private
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * Disables voice control.
@@ -243,11 +252,12 @@ const DatePickerBase = kind({
 	},
 
 	styles: {
-		css,
+		css: componentCss,
 		className: 'datePicker'
 	},
 
 	render: ({
+		css,
 		'data-webos-voice-disabled': voiceDisabled,
 		disabled,
 		day,
@@ -296,6 +306,7 @@ const DatePickerBase = kind({
 									accessibilityHint={dayAccessibilityHint}
 									aria-label={dayAriaLabel}
 									className={css.day}
+									css={css}
 									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={dayAccessibilityHint}
@@ -319,6 +330,7 @@ const DatePickerBase = kind({
 									accessibilityHint={monthAccessibilityHint}
 									aria-label={monthAriaLabel}
 									className={css.month}
+									css={css}
 									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={monthAccessibilityHint}
@@ -342,6 +354,7 @@ const DatePickerBase = kind({
 									accessibilityHint={yearAccessibilityHint}
 									aria-label={yearAriaLabel}
 									className={css.year}
+									css={css}
 									data-last-element={isLast}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={yearAccessibilityHint}
