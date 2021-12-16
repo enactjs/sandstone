@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Header from '../Header';
@@ -108,7 +108,7 @@ describe('Panels Specs', () => {
 			expect(backButton).toBeInTheDocument();
 		});
 
-		test('should fire `onBack` with `onBack` type when back clicked', () => {
+		test('should fire `onBack` with `onBack` type when back clicked', async () => {
 			let evType;
 			const handleBack = jest.fn(({type}) => {
 				evType = type;
@@ -126,7 +126,9 @@ describe('Panels Specs', () => {
 
 			userEvent.click(screen.getByLabelText('go to previous'));
 
-			expect(evType).toBe('onBack');
+			await waitFor(() => {
+				expect(evType).toBe('onBack');
+			});
 		});
 
 		test('should not render back button when not on the first panel and \'noBackButton\' is set to true', () => {
