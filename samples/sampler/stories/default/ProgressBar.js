@@ -22,7 +22,7 @@ export const _ProgressBar = (args) => (
 		progress={args['progress']}
 		progressAnchor={args['progressAnchor']}
 		showAnchor={args['showAnchor']}
-		style={args['orientation'] === 'vertical' || args['orientation'] === 'radial' ? {marginLeft: ri.scaleToRem(127), marginRight: ri.scaleToRem(121)} : null}
+		style={args['orientation'] === 'vertical' || args['orientation'] === 'radial' ? {marginLeft: ri.scaleToRem(126), marginRight: ri.scaleToRem(120)} : null}
 	>
 		{args['tooltip'] ? <ProgressBarTooltip position={args['position']} /> : null}
 	</ProgressBar>
