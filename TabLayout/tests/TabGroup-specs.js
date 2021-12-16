@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import TabGroup from '../TabGroup';
 
@@ -98,5 +99,25 @@ describe('TabGroup specs', () => {
 		const iconList = screen.getByTestId('tabGroup').children.item(0);
 
 		expect(iconList).toHaveAttribute('aria-disabled', 'false');
+	});
+
+	test('should fire `onTabClick` with `onTabClick` type when a tab is clicked', () => {
+		let evType;
+		const handleTabClick = jest.fn(({type}) => {
+			evType = type;
+		});
+		render(
+			<TabGroup
+				tabs={[
+					{title: 'Home', icon: 'home', onTabClick: handleTabClick},
+					{title: 'Button', icon: 'demosync'},
+					{title: 'Item', icon: 'playcircle'}
+				]}
+			/>
+		);
+
+		userEvent.click(screen.getByRole('group').children[0]);
+
+		expect(evType).toBe('onTabClick');
 	});
 });

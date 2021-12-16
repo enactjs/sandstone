@@ -1,6 +1,7 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import {FlexiblePopupPanels, Panel} from '../';
 
@@ -204,6 +205,50 @@ describe('FlexiblePopupPanels Specs', () => {
 
 		unmount();
 		expect(actual).toBe(expected);
+	});
+
+	test('should fire `onNextClick` and `onChange` with each type in it when the next button is clicked', () => {
+		let nextClickType, changeType;
+		const handleNextClick = jest.fn(({type}) => {
+			nextClickType = type;
+		});
+		const handleChange = jest.fn(({type}) => {
+			changeType = type;
+		});
+		render(
+			<FloatingLayerController>
+				<FlexiblePopupPanels open onNextClick={handleNextClick} onChange={handleChange}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		userEvent.click(screen.getByLabelText('Next'));
+
+		expect(nextClickType).toBe('onNextClick');
+		expect(changeType).toBe('onChange');
+	});
+
+	test('should fire `onPrevClick` with type `onPrevClick` when the previous button is clicked', () => {
+		let evType;
+		const handlePrevClick = jest.fn(({type}) => {
+			evType = type;
+		});
+		render(
+			<FloatingLayerController>
+				<FlexiblePopupPanels open onPrevClick={handlePrevClick}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		userEvent.click(screen.getByLabelText('Previous'));
+
+		expect(evType).toBe('onPrevClick');
 	});
 
 	test('should close on back key when on first panel', () => {

@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
@@ -125,5 +126,26 @@ describe('TabLayout specs', () => {
 		fireEvent.transitionEnd(tabs);
 
 		expect(spy).not.toHaveBeenCalled();
+	});
+
+	test('should call `onSelect` with `onSelect` type when selecting a tab', () => {
+		let evType;
+		const spy = jest.fn(({type}) => {
+			evType = type;
+		});
+		render(
+			<TabLayout orientation="vertical" onSelect={spy}>
+				<Tab title="Home" icon="home">
+					<div>Home</div>
+				</Tab>
+				<Tab data-testid="tab" title="Item" icon="playcircle">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		userEvent.click(screen.getAllByTestId('tab')[1]);
+
+		expect(evType).toBe('onSelect');
 	});
 });

@@ -274,6 +274,23 @@ describe('Dropdown', () => {
 		expect(actual).toHaveAttribute('aria-checked', 'false');
 	});
 
+	test('should fire `onSelect` event with type `onSelect`', () => {
+		const handleSelect = jest.fn();
+		render(
+			<FloatingLayerController>
+				<DropdownBase open onSelect={handleSelect} title={title}>
+					{children}
+				</DropdownBase>
+			</FloatingLayerController>
+		);
+
+		const firstItem = screen.getByRole('list').children[0].children[0];
+
+		userEvent.click(firstItem);
+
+		expect(handleSelect).toHaveBeenCalledWith({data: 'option1', selected: 0, type: 'onSelect'});
+	});
+
 	describe('DropdownList', () => {
 		test('should include `data` and `selected` in `onSelect` callback', () => {
 			const handler = jest.fn();

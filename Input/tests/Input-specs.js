@@ -115,6 +115,66 @@ describe('Input specs', () => {
 		expect(buttonInput).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
+	test('should fire `onOpenPopup` and `onShow` with type when open', () => {
+		let openType, showType;
+		const handleOpenPopup = jest.fn(({type}) => {
+			openType = type;
+		});
+		const handleShow = jest.fn(({type}) => {
+			showType = type;
+		});
+		render(
+			<FloatingLayerController>
+				<Input onOpenPopup={handleOpenPopup} onShow={handleShow} />
+			</FloatingLayerController>
+		);
+
+		userEvent.click(screen.getByRole('button'));
+
+		expect(openType).toBe('onOpenPopup');
+		expect(showType).toBe('onShow');
+	});
+
+	test('should fire `onBeforeChange` and `onChange` with type when value changed', () => {
+		let beforeChangeType, changeType;
+		const handleBeforeChange = jest.fn(({type}) => {
+			beforeChangeType = type;
+		});
+		const handleChange = jest.fn(({type}) => {
+			changeType = type;
+		});
+		render(
+			<FloatingLayerController>
+				<Input onBeforeChange={handleBeforeChange} onChange={handleChange} open />
+			</FloatingLayerController>
+		);
+
+		userEvent.type(screen.getByPlaceholderText('-'), 'a');
+
+		expect(beforeChangeType).toBe('onBeforeChange');
+		expect(changeType).toBe('onChange');
+	});
+
+	test('should fire `onClose` and `onComplete` with type when enter key pressed', () => {
+		let closeType, completeType;
+		const handleClose = jest.fn(({type}) => {
+			closeType = type;
+		});
+		const handleComplete = jest.fn(({type}) => {
+			completeType = type;
+		});
+		render(
+			<FloatingLayerController>
+				<Input onClose={handleClose} onComplete={handleComplete} open />
+			</FloatingLayerController>
+		);
+
+		userEvent.type(screen.getByPlaceholderText('-'), '{enter}');
+
+		expect(closeType).toBe('onClose');
+		expect(completeType).toBe('onComplete');
+	});
+
 	// Type = number
 	test('should be rendered opened if open is set to true', () => {
 		render(
