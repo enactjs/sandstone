@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {shallowEqual} from '@enact/core/util';
 
 import Icon from '../Icon';
 import Item from '../Item';
@@ -32,6 +33,33 @@ const indexFromKey = (children, key) => {
 	}
 
 	return index;
+};
+
+const getClientWidth = (width) => {
+	let clientWidth;
+	switch (width) {
+		case 'tiny' :
+			clientWidth = 480;
+			break;
+		case 'small' :
+			clientWidth = 540;
+			break;
+		case 'medium' :
+			clientWidth = 690;
+			break;
+		case 'large' :
+			clientWidth = 780;
+			break;
+		case 'x-large':
+			clientWidth = 1050;
+			break;
+		case 'huge':
+			clientWidth = 1380;
+			break;
+		default:
+			return ri.scale(clientWidth);
+	}
+	return ri.scale(clientWidth - 6);
 };
 
 const DropdownListBase = kind({
@@ -138,6 +166,9 @@ const DropdownListBase = kind({
 		delete rest.skinVariants;
 		delete rest.width;
 
+		const clientHeight = dataSize < 5 ? ri.scale((itemSize * dataSize) + 36) : ri.scale((itemSize * 5) + 36);
+		const clientWidth = getClientWidth(width);
+
 		return (
 			<VirtualList
 				{...rest}
@@ -148,6 +179,7 @@ const DropdownListBase = kind({
 					height: ri.scaleToRem((itemSize * dataSize) + 36),
 					width: typeof width === 'number' ? ri.scaleToRem(width) : null
 				}}
+				clientSize={{clientHeight, clientWidth}}
 			/>
 		);
 	}
@@ -212,6 +244,14 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				defaultElement: '[data-selected="true"]',
 				enterTo: 'default-element'
 			});
+
+			if (this.state.ready === ReadyState.INIT) {
+				this.scrollIntoView();
+			}
+		}
+
+		shouldComponentUpdate (nextProps, nextState) {
+			return (!shallowEqual(nextProps, this.props) || !shallowEqual(nextState, this.state));
 		}
 
 		componentDidUpdate () {
