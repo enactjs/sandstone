@@ -22,7 +22,7 @@ const inputData = {
 	'The W3C is an international community where Member organizations, a full-time staff, and the public work together to develop Web standards.',
 	extraSpaceText:
 	'This                                                             text                                                                          has                                                                                        extra                                                                         spaces',
-	tallText: ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير', 'តន្ត្រី'],
+	tallText: ['नरेंद्र मोदी', 'ฟิ้ ไั ஒ து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير', 'តន្ត្រី'],
 	disabledText: 'This text is disabled',
 	normalText: 'Item with text that is spottable',
 	longLabel:

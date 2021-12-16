@@ -21,15 +21,15 @@ const RadioItemTests = [
 	// [QWT-2795]
 	<RadioItem inline>តន្ត្រី</RadioItem>,
 	// [QWT-2795]
-	<RadioItem inline>ฟิ้  ไั  ஒ  து</RadioItem>,
+	<RadioItem inline>ฟิ้ ไั ஒ து</RadioItem>,
 	// [QWT-2798]
-	<RadioItem>ฟิ้  ไั  ஒ  து</RadioItem>,
+	<RadioItem>ฟิ้ ไั ஒ து</RadioItem>,
 	// [QWT-2798]
 	<RadioItem selected>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
 	// [QWT-2798]
 	<RadioItem selected>តន្ត្រី</RadioItem>,
 	// [QWT-2798]
-	<RadioItem selected>ฟิ้  ไั  ஒ  து</RadioItem>,
+	<RadioItem selected>ฟิ้ ไั ஒ து</RadioItem>,
 	// Selected - disabled
 	// [QWT-2807]
 	<RadioItem selected disabled>RadioItem Checked</RadioItem>,
@@ -44,7 +44,7 @@ const RadioItemTests = [
 
 	<RadioItem selected icon="arrowup">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
 	<RadioItem selected icon="arrowup">តន្ត្រី</RadioItem>,
-	<RadioItem selected icon="arrowup">ฟิ้  ไั  ஒ  து</RadioItem>,
+	<RadioItem selected icon="arrowup">ฟิ้ ไั ஒ து</RadioItem>,
 	// Selected - disabled
 	<RadioItem selected disabled icon="arrowup">RadioItem Checked</RadioItem>,
 	// Selected - disabled - inline
@@ -121,7 +121,7 @@ const RadioItemTests = [
 	// [QWT-2798]
 	{
 		locale: 'ar-SA',
-		component: <RadioItem>ฟิ้  ไั  ஒ  து</RadioItem>
+		component: <RadioItem>ฟิ้ ไั ஒ து</RadioItem>
 	},
 	// [QWT-2798]
 	{
@@ -136,7 +136,7 @@ const RadioItemTests = [
 	// [QWT-2798]
 	{
 		locale: 'ar-SA',
-		component: <RadioItem selected>ฟิ้  ไั  ஒ  து</RadioItem>
+		component: <RadioItem selected>ฟิ้ ไั ஒ து</RadioItem>
 	},
 	// RadioItem* is selected - RTL [QWT-2796}
 	{
@@ -176,7 +176,7 @@ const RadioItemTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <RadioItem selected icon="arrowup">ฟิ้  ไั  ஒ  து</RadioItem>
+		component: <RadioItem selected icon="arrowup">ฟิ้ ไั ஒ து</RadioItem>
 	},
 	// RadioItem* is selected
 	{
