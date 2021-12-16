@@ -28,7 +28,6 @@ export const _ProgressBar = (args) => (
 	</ProgressBar>
 );
 
-
 boolean('disabled', _ProgressBar, ProgressBarConfig);
 boolean('tooltip', _ProgressBar, ProgressBarTooltipConfig);
 select(
