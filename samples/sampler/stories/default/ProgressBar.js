@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 import ProgressBar, {ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
+import ri from '@enact/ui/resolution';
 
 const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBar);
 const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', ProgressBarTooltip);
@@ -21,10 +22,12 @@ export const _ProgressBar = (args) => (
 		progress={args['progress']}
 		progressAnchor={args['progressAnchor']}
 		showAnchor={args['showAnchor']}
+		style={args['orientation'] === 'vertical' || 'radial' ? {marginLeft: ri.scaleToRem(127), marginRight: ri.scaleToRem(121)} : null} // eslint-disable-line
 	>
 		{args['tooltip'] ? <ProgressBarTooltip position={args['position']} /> : null}
 	</ProgressBar>
 );
+
 
 boolean('disabled', _ProgressBar, ProgressBarConfig);
 boolean('tooltip', _ProgressBar, ProgressBarTooltipConfig);
