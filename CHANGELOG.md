@@ -12,7 +12,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` to have centered icon on RTL locale
 - `sandstone/VideoPlayer` to handle media related callbacks properly
 - `sandstone/FormCheckboxItem` to show correct color for the focused disabled checkbox
-- `sandstone/ProgressBar` storybook sample to fully display tooltip when `orientation` is `vertical` or `radial`
 
 ## [2.1.0] - 2021-11-30
 
