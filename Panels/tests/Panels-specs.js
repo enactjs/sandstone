@@ -109,10 +109,8 @@ describe('Panels Specs', () => {
 		});
 
 		test('should fire `onBack` with `onBack` type when back clicked', async () => {
-			let evType;
-			const handleBack = jest.fn(({type}) => {
-				evType = type;
-			});
+			const handleBack = jest.fn();
+
 			render(
 				<Panels index={1} onBack={handleBack}>
 					<Panel>
@@ -126,8 +124,12 @@ describe('Panels Specs', () => {
 
 			userEvent.click(screen.getByLabelText('go to previous'));
 
+			const expected = {type: 'onBack'};
+
 			await waitFor(() => {
-				expect(evType).toBe('onBack');
+				const actual = handleBack.mock.calls.length && handleBack.mock.calls[0][0];
+
+				expect(actual).toMatchObject(expected);
 			});
 		});
 

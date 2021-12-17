@@ -116,13 +116,9 @@ describe('Input specs', () => {
 	});
 
 	test('should fire `onOpenPopup` and `onShow` with type when open', () => {
-		let openType, showType;
-		const handleOpenPopup = jest.fn(({type}) => {
-			openType = type;
-		});
-		const handleShow = jest.fn(({type}) => {
-			showType = type;
-		});
+		const handleOpenPopup = jest.fn();
+		const handleShow = jest.fn();
+
 		render(
 			<FloatingLayerController>
 				<Input onOpenPopup={handleOpenPopup} onShow={handleShow} />
@@ -131,18 +127,20 @@ describe('Input specs', () => {
 
 		userEvent.click(screen.getByRole('button'));
 
-		expect(openType).toBe('onOpenPopup');
-		expect(showType).toBe('onShow');
+		const openExpected = {type: 'onOpenPopup'};
+		const openActual = handleOpenPopup.mock.calls.length && handleOpenPopup.mock.calls[0][0];
+
+		const showExpected = {type: 'onShow'};
+		const showActual = handleShow.mock.calls.length && handleShow.mock.calls[0][0];
+
+		expect(openActual).toMatchObject(openExpected);
+		expect(showActual).toMatchObject(showExpected);
 	});
 
 	test('should fire `onBeforeChange` and `onChange` with type when value changed', () => {
-		let beforeChangeType, changeType;
-		const handleBeforeChange = jest.fn(({type}) => {
-			beforeChangeType = type;
-		});
-		const handleChange = jest.fn(({type}) => {
-			changeType = type;
-		});
+		const handleBeforeChange = jest.fn();
+		const handleChange = jest.fn();
+
 		render(
 			<FloatingLayerController>
 				<Input onBeforeChange={handleBeforeChange} onChange={handleChange} open />
@@ -151,18 +149,19 @@ describe('Input specs', () => {
 
 		userEvent.type(screen.getByPlaceholderText('-'), 'a');
 
-		expect(beforeChangeType).toBe('onBeforeChange');
-		expect(changeType).toBe('onChange');
+		const beforeExpected = {type: 'onBeforeChange'};
+		const beforeActual = handleBeforeChange.mock.calls.length && handleBeforeChange.mock.calls[0][0];
+
+		const changeExpected = {type: 'onChange'};
+		const changeActual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+		expect(beforeActual).toMatchObject(beforeExpected);
+		expect(changeActual).toMatchObject(changeExpected);
 	});
 
 	test('should fire `onClose` and `onComplete` with type when enter key pressed', () => {
-		let closeType, completeType;
-		const handleClose = jest.fn(({type}) => {
-			closeType = type;
-		});
-		const handleComplete = jest.fn(({type}) => {
-			completeType = type;
-		});
+		const handleClose = jest.fn();
+		const handleComplete = jest.fn();
 		render(
 			<FloatingLayerController>
 				<Input onClose={handleClose} onComplete={handleComplete} open />
@@ -171,8 +170,14 @@ describe('Input specs', () => {
 
 		userEvent.type(screen.getByPlaceholderText('-'), '{enter}');
 
-		expect(closeType).toBe('onClose');
-		expect(completeType).toBe('onComplete');
+		const closeExpected = {type: 'onClose'};
+		const closeActual = handleClose.mock.calls.length && handleClose.mock.calls[0][0];
+
+		const completeExpected = {type: 'onComplete'};
+		const completeActual = handleComplete.mock.calls.length && handleComplete.mock.calls[0][0];
+
+		expect(closeActual).toMatchObject(closeExpected);
+		expect(completeActual).toMatchObject(completeExpected);
 	});
 
 	// Type = number

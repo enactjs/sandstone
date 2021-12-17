@@ -26,18 +26,18 @@ describe('InputField Specs', () => {
 	});
 
 	test('should callback onChange with `onChange` type when the text changes', () => {
-		let evType;
-		const handleChange = jest.fn(({type}) => {
-			evType = type;
-		});
+		const handleChange = jest.fn();
 		const value = 'blah';
 		render(<InputField onChange={handleChange} />);
 		const inputField = screen.getByPlaceholderText('');
 
 		userEvent.type(inputField, value);
 
+		const expected = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
 		expect(handleChange).toHaveBeenCalled();
-		expect(evType).toBe('onChange');
+		expect(actual).toMatchObject(expected);
 	});
 
 	test('should forward an event with a stopPropagation method from onChange handler', () => {
@@ -78,18 +78,18 @@ describe('InputField Specs', () => {
 	});
 
 	test('should callback onBeforeChange with `onBeforeChange` type before the text changes', () => {
-		let evType;
-		const handleBeforeChange = jest.fn(({type}) => {
-			evType = type;
-		});
+		const handleBeforeChange = jest.fn();
 		const value = 'blah';
 		render(<InputField onBeforeChange={handleBeforeChange} />);
 		const inputField = screen.getByPlaceholderText('');
 
 		userEvent.type(inputField, value);
 
+		const expected = {type: 'onBeforeChange'};
+		const actual = handleBeforeChange.mock.calls.length && handleBeforeChange.mock.calls[0][0];
+
 		expect(handleBeforeChange).toHaveBeenCalled();
-		expect(evType).toBe('onBeforeChange');
+		expect(actual).toMatchObject(expected);
 	});
 
 	test('should prevent onChange if onBeforeChange prevents', () => {

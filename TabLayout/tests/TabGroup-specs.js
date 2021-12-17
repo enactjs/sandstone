@@ -102,10 +102,7 @@ describe('TabGroup specs', () => {
 	});
 
 	test('should fire `onTabClick` with `onTabClick` type when a tab is clicked', () => {
-		let evType;
-		const handleTabClick = jest.fn(({type}) => {
-			evType = type;
-		});
+		const handleTabClick = jest.fn();
 		render(
 			<TabGroup
 				tabs={[
@@ -118,6 +115,9 @@ describe('TabGroup specs', () => {
 
 		userEvent.click(screen.getByRole('group').children[0]);
 
-		expect(evType).toBe('onTabClick');
+		const expected = {type: 'onTabClick'};
+		const actual = handleTabClick.mock.calls.length && handleTabClick.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
 	});
 });

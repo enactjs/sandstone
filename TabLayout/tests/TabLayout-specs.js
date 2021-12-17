@@ -129,10 +129,7 @@ describe('TabLayout specs', () => {
 	});
 
 	test('should call `onSelect` with `onSelect` type when selecting a tab', () => {
-		let evType;
-		const spy = jest.fn(({type}) => {
-			evType = type;
-		});
+		const spy = jest.fn();
 		render(
 			<TabLayout orientation="vertical" onSelect={spy}>
 				<Tab title="Home" icon="home">
@@ -146,6 +143,9 @@ describe('TabLayout specs', () => {
 
 		userEvent.click(screen.getAllByTestId('tab')[1]);
 
-		expect(evType).toBe('onSelect');
+		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
 	});
 });
