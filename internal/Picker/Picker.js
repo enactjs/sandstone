@@ -952,8 +952,9 @@ const PickerBase = class extends ReactComponent {
 				onKeyDown={this.handleKeyDown}
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
-				onMouseDown={this.handleMouseDown}
+				onMouseDown={ platform.touchscreen ? undefined: this.handleMouseDown}
 				onMouseLeave={this.clearPressedState}
+				onTouchStart={platform.touchscreen ? this.handleMouseDown : undefined}
 				orientation={orientation}
 				ref={this.initContainerRef}
 				{...spottablePickerProps}
