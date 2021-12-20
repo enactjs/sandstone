@@ -49,6 +49,14 @@ const renderTallPopup = () => (
 		This is a tall popup.
 		This is a tall popup.
 		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
 	</div>
 );
 
