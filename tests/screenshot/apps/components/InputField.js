@@ -49,7 +49,7 @@ const InputFieldTests = [
 	<InputField value="តន្ត្រី" size="large" />,
 	// Testing default size 'large'
 	<InputField value="नरेंद्र मोदी" />,
-	<InputField value="ฟิ้  ไั  ஒ  து" />,
+	<InputField value=" ฟิ้  ไั  ஒ  து" />,
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />,
 	<InputField value="តន្ត្រី" />,
 

@@ -56,17 +56,14 @@ text('Children', WithLongText, Item, inputData.longText);
 
 WithLongText.storyName = 'with long text';
 
-export const WithTallCharacters = (args) => {
-	console.log(inputData.tallText)
-	console.log(args);
-	return (
+export const WithTallCharacters = (args) => (
 	<Item disabled={args['disabled']}>
 		{args['value']}
 	</Item>
-)};
+);
 
 boolean('disabled', WithTallCharacters, Item);
-select('value', WithTallCharacters, inputData.tallText, Item, inputData.tallText[1]);
+select('value', WithTallCharacters, inputData.tallText, Item, inputData.tallText[2]);
 
 WithTallCharacters.storyName = 'with tall characters';
 
