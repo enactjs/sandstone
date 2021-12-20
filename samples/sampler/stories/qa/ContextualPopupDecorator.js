@@ -26,7 +26,30 @@ const renderWidePopup = () => (
 );
 
 const renderTallPopup = () => (
-	<div style={{height: ri.scaleToRem(402)}}>This is a tall popup</div>
+	<div style={{height: ri.scaleToRem(402)}}>
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+		This is a tall popup.
+	</div>
 );
 
 const renderSuperTallPopup = () => (
