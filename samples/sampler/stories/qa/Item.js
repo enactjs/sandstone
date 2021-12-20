@@ -22,7 +22,7 @@ const inputData = {
 	'The W3C is an international community where Member organizations, a full-time staff, and the public work together to develop Web standards.',
 	extraSpaceText:
 	'This                                                             text                                                                          has                                                                                        extra                                                                         spaces',
-	tallText: ['नरेंद्र मोदी', 'ฟิ้ ไั ஒ து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير', 'តន្ត្រី'],
+	tallText: ['नरेंद्र मोदी', '\xa0ฟิ\xa0\xa0ไั\xa0\xa0ஒ\xa0\xa0து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير', 'តន្ត្រី'],
 	disabledText: 'This text is disabled',
 	normalText: 'Item with text that is spottable',
 	longLabel:
@@ -56,14 +56,17 @@ text('Children', WithLongText, Item, inputData.longText);
 
 WithLongText.storyName = 'with long text';
 
-export const WithTallCharacters = (args) => (
+export const WithTallCharacters = (args) => {
+	console.log(inputData.tallText)
+	console.log(args);
+	return (
 	<Item disabled={args['disabled']}>
 		{args['value']}
 	</Item>
-);
+)};
 
 boolean('disabled', WithTallCharacters, Item);
-select('value', WithTallCharacters, inputData.tallText, Item, inputData.tallText[2]);
+select('value', WithTallCharacters, inputData.tallText, Item, inputData.tallText[1]);
 
 WithTallCharacters.storyName = 'with tall characters';
 

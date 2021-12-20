@@ -19,7 +19,7 @@ const ButtonTests = [
 	<Button color="red" disabled>plus</Button>,
 
 	// {QWT-2813]
-	<Button>ฟิ้ ไั ஒ து</Button>,
+	<Button> ฟิ้  ไั  ஒ  து</Button>,
 	<Button>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Button>,
 	<Button>Bản văn</Button>,
 	<Button>តន្ត្រី</Button>,
@@ -112,7 +112,7 @@ const ButtonTests = [
 		<Button icon="star" color="red">Vietnamese Text</Button>,
 
 		// Real tall glyphs
-		<Button>ฟิ้ ไั ஒ து</Button>,
+		<Button> ฟิ้  ไั  ஒ  து</Button>,
 		<Button>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Button>,
 		<Button>Bản văn</Button>,
 		<Button>តន្ត្រី</Button>

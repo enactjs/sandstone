@@ -62,7 +62,7 @@ const prop = {
 	focusEffect: ['expand', 'static'],
 	pickerOrientation: ['horizontal', 'vertical'],
 	pickerWidth: [null, 'small', 'medium', 'large'],
-	tallText: ['नरेंद्र मोदी', 'ଇନପୁଟଗୁଡିକ', 'ฟิ้ ไั ஒ து ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី', 'ÁÉÍÓÚÑÜ', 'Bản văn']
+	tallText: ['नरेंद्र मोदी', 'ଇନପୁଟଗୁଡିକ', 'ฟิ้\xa0\xa0ไั\xa0\xa0ஒ\xa0\xa0து\xa0\xa0ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី', 'ÁÉÍÓÚÑÜ', 'Bản văn']
 };
 
 const ButtonConfig = mergeComponentMetadata('Button', ButtonBase, Button);

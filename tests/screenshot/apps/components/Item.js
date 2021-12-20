@@ -36,7 +36,7 @@ for (const lang in rtlStrings) {
 
 const tallglyphStrings = {
 	// hi: 'नरेंद्र मोदी',
-	// th: 'ฟิ้ ไั ஒ து',
+	// th: ' ฟิ้  ไั  ஒ  து',
 	vi: 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
 };
 

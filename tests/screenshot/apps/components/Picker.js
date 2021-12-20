@@ -5,7 +5,7 @@ import css from './Picker.module.less';
 const pickerList = {
 	tall: [
 		'नरेंद्र मोदी',
-		'ฟิ้ ไั ஒ து',
+		' ฟิ้  ไั  ஒ  து',
 		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ',
 		'តន្ត្រី'
 	],

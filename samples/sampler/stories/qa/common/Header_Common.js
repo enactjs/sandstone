@@ -7,7 +7,7 @@ import clone from 'ramda/src/clone';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
 
 export const inputData = {
-	tallText: 'ฟิ้ ไั ஒ த',
+	tallText: 'ฟิ้  ไั  ஒ  த',
 
 	shortTitle: 'Enact',
 	shortSubtitle: 'An app framework',

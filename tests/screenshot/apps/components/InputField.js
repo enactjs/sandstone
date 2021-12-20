@@ -44,12 +44,12 @@ const InputFieldTests = [
 	// tallCharacters: Change 'size' dynamically - [QWT-2485]
 	// Note: text stays the same size, the InputField field becomes smaller
 	<InputField value="नरेंद्र मोदी" size="large" />,
-	<InputField value="ฟิ้ ไั ஒ து" size="large" />,
+	<InputField value=" ฟิ้  ไั  ஒ  து" size="large" />,
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="large" />,
 	<InputField value="តន្ត្រី" size="large" />,
 	// Testing default size 'large'
 	<InputField value="नरेंद्र मोदी" />,
-	<InputField value="ฟิ้ ไั ஒ து" />,
+	<InputField value="ฟิ้  ไั  ஒ  து" />,
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />,
 	<InputField value="តន្ត្រី" />,
 
@@ -163,7 +163,7 @@ const InputFieldTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <InputField value="ฟิ้ ไั ஒ து" size="large" />
+		component: <InputField value=" ฟิ้  ไั  ஒ  து" size="large" />
 	},
 	{
 		locale: 'ar-SA',
@@ -181,7 +181,7 @@ const InputFieldTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <InputField value="ฟิ้ ไั ஒ து" />
+		component: <InputField value=" ฟิ้  ไั  ஒ  து" />
 	},
 	{
 		locale: 'ar-SA',
