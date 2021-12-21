@@ -21,7 +21,7 @@ const PickerItemBase = kind({
 		const isMobile = platform.platformName === 'androidChrome' || platform.platformName === 'ios' || platform.platformName === 'safari';
 		const fontFamily = isMobile ? {fontFamily: 'Noto Sans'} : {};
 
-		return <Marquee {...props} alignment="center" style={fontFamily}/>
+		return <Marquee {...props} alignment="center" style={fontFamily} />;
 	}
 });
 
