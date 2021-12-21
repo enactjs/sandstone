@@ -57,7 +57,7 @@ export const WithLongContent = (args) => (
 	<div>
 		<div
 			style={{
-				height: ri.scaleToRem(840),
+				height: 'fit-content',
 				border: ri.scaleToRem(6) + ' dotted red'
 			}}
 		>
@@ -65,8 +65,7 @@ export const WithLongContent = (args) => (
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
 				ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
 				laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-				voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-				cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 			</p>
 			<Button onClick={action('Inside Button events')}>Button</Button>
 			<Spinner
@@ -94,7 +93,7 @@ export const BlockingClickEvents = (args) => (
 	<div>
 		<div
 			style={{
-				height: ri.scaleToRem(300),
+				height: 'fit-content',
 				border: ri.scaleToRem(6) + ' dotted red'
 			}}
 		>
@@ -102,7 +101,8 @@ export const BlockingClickEvents = (args) => (
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
 				ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
 				laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-				voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+				voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+				cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</p>
 			<Button onClick={action('Inside Button events')}>Button</Button>
 			<Spinner
