@@ -1,5 +1,9 @@
 @import "~@enact/ui/styles/mixins.less";
 
+// Imported font Noto Sans used to fix problem with tall glyphs on mobile devices
+//
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
 // Local theme font variables (not to be used externally)
 //
 @font-family-base-name: "Sandstone";
@@ -71,7 +75,6 @@
 	// nameWeightStyleRepeat:			local("name") 100 italic, local("name2") 200 normal;
 	// nameMultipleWeightStyleRepeat:	local("name") 100 900 italic, local("name2") 200 800 normal;
 };
-
 
 // Deprecated Mixin. Retained for legacy references.
 // Generate a pair of rules in the correct order for the fallback glyphs and the preferred glyphs

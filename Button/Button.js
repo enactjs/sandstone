@@ -12,6 +12,7 @@
 
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
+import platform from '@enact/core/platform';
 import {cap} from '@enact/core/util';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spottable from '@enact/spotlight/Spottable';
@@ -216,8 +217,11 @@ const ButtonBase = kind({
 		delete rest.iconPosition;
 		delete rest.focusEffect;
 
+		const isMobile = platform.platformName === 'androidChrome' || platform.platformName === 'ios' || platform.platformName === 'safari';
+
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
+			fontFamily: isMobile ? 'Noto Sans' : '',
 			...rest,
 			css
 		});

@@ -9,7 +9,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Picker` line-height so tall characters are not truncated on mobile devices
+- `sandstone/PickerItem` changed font so tall characters are not truncated on mobile devices
+- `sandstone/Button` changed font so tall characters are not truncated on mobile devices
 - `sandstone/Button` to have centered icon on RTL locale
 - `sandstone/VideoPlayer` to handle media related callbacks properly
 - `sandstone/FormCheckboxItem` to show correct color for the focused disabled checkbox

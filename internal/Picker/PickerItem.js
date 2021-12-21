@@ -1,4 +1,5 @@
 import kind from '@enact/core/kind';
+import platform from '@enact/core/platform';
 
 import Marquee from '../../Marquee';
 
@@ -16,9 +17,12 @@ const PickerItemBase = kind({
 		className: ({children, styler}) => styler.append({numeric: !isNaN(Number(children))})
 	},
 
-	render: (props) => (
-		<Marquee {...props} alignment="center" />
-	)
+	render: (props) => {
+		const isMobile = platform.platformName === 'androidChrome' || platform.platformName === 'ios' || platform.platformName === 'safari';
+		const fontFamily = isMobile ? {fontFamily: 'Noto Sans'} : {};
+
+		return <Marquee {...props} alignment="center" style={fontFamily}/>
+	}
 });
 
 export default PickerItemBase;
