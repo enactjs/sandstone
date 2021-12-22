@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, range, select, text} from '@enact/storybook-utils/addons/controls';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
@@ -21,32 +21,42 @@ export default {
 	component: 'Dropdown'
 };
 
-export const _Dropdown = () => {
-	const itemCount = number('items', Config, {range: true, min: 0, max: 50}, 5);
+export const _Dropdown = (args) => {
+	const itemCount = args['items'];
 	const items = (new Array(itemCount)).fill().map((i, index) => `Option ${index + 1}`);
-	const widthType = select('width type', ['preset', 'number'], Config, 'preset');
+	const widthType = args['width type'];
 	let width;
 	switch (widthType) {
-		case 'number': width = number('width', Config); break;
-		case 'preset': width = select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config); break;
+		case 'number': width = args['width (number)']; break;
+		case 'preset': width = args['width']; break;
 	}
 
 	return (
 		<Dropdown
-			direction={select('direction', ['above', 'below'], Config)}
-			disabled={boolean('disabled', Config)}
+			direction={args['direction']}
+			disabled={args['disabled']}
 			onClose={action('onClose')}
 			onOpen={action('onOpen')}
 			onSelect={action('onSelect')}
-			placeholder={text('placeholder', Config)}
-			size={select('size', ['small', 'large'], Config)}
-			title={text('title', Config, 'Options')}
+			placeholder={args['placeholder']}
+			size={args['size']}
+			title={args['title']}
 			width={width}
 		>
 			{items}
 		</Dropdown>
 	);
 };
+
+range('items', _Dropdown, Config, {min: 0, max: 50}, 5);
+select('width type', _Dropdown, ['preset', 'number'], Config, 'preset');
+select('width', _Dropdown, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
+number('width (number)', _Dropdown, Config);
+select('direction', _Dropdown, ['above', 'below'], Config);
+boolean('disabled', _Dropdown, Config);
+text('placeholder', _Dropdown, Config);
+select('size', _Dropdown, ['small', 'large'], Config);
+text('title', _Dropdown, Config, 'Options');
 
 _Dropdown.storyName = 'Dropdown';
 _Dropdown.parameters = {

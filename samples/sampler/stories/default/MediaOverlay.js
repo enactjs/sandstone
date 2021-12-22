@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, range, select, text} from '@enact/storybook-utils/addons/controls';
 import MediaOverlay, {MediaOverlayBase} from '@enact/sandstone/MediaOverlay';
 
 MediaOverlay.displayName = 'MediaOverlay';
@@ -50,28 +50,42 @@ export default {
 	component: 'MediaOverlay'
 };
 
-export const _MediaOverlay = () => {
-	return (
-		<MediaOverlay
-			caption={text('caption', Config, 'DTV 7-1')}
-			disabled={boolean('disabled', Config)}
-			imageOverlay={select('imageOverlay', prop.images, Config)}
-			loop={boolean('loop', Config)}
-			marqueeOn={select('marqueeOn', prop.marqueeOn, Config, 'focus')}
-			muted={boolean('muted', Config, true)}
-			noAutoPlay={boolean('noAutoPlay', Config)}
-			placeholder={select('placeholder', prop.placeholders, Config)}
-			progress={number('progress', Config, {range: true, min: 0, max: 1, step: 0.05}, 0.5)}
-			showProgress={boolean('showProgress', Config)}
-			subtitle={text('subtitle', Config, '07:00 AM - 08:00 AM')}
-			text={select('text', prop.strings, Config)}
-			textAlign={select('textAlign', prop.textAlign, Config)}
-			title={text('title', Config, 'Program Name')}
-		>
-			<source src={select('source', prop.videos, Config, prop.videos.Sintel)} />
-		</MediaOverlay>
-	);
-};
+export const _MediaOverlay = (args) => (
+	<MediaOverlay
+		caption={args['caption']}
+		disabled={args['disabled']}
+		imageOverlay={args['imageOverlay']}
+		loop={args['loop']}
+		marqueeOn={args['marqueeOn']}
+		muted={args['muted']}
+		noAutoPlay={args['noAutoPlay']}
+		placeholder={args['placeholder']}
+		progress={args['progress']}
+		showProgress={args['showProgress']}
+		subtitle={args['subtitle']}
+		text={args['text']}
+		textAlign={args['textAlign']}
+		title={args['title']}
+	>
+		<source src={args['source']} />
+	</MediaOverlay>
+);
+
+text('caption', _MediaOverlay, Config, 'DTV 7-1');
+boolean('disabled', _MediaOverlay, Config);
+select('imageOverlay', _MediaOverlay, prop.images, Config);
+boolean('loop', _MediaOverlay, Config);
+select('marqueeOn', _MediaOverlay, prop.marqueeOn, Config, 'focus');
+boolean('muted', _MediaOverlay, Config, true);
+boolean('noAutoPlay', _MediaOverlay, Config);
+select('placeholder', _MediaOverlay, prop.placeholders, Config);
+range('progress', _MediaOverlay, Config, {min: 0, max: 1, step: 0.05}, 0.5);
+boolean('showProgress', _MediaOverlay, Config);
+text('subtitle', _MediaOverlay, Config, '07:00 AM - 08:00 AM');
+select('text', _MediaOverlay, prop.strings, Config);
+select('textAlign', _MediaOverlay, prop.textAlign, Config);
+text('title', _MediaOverlay, Config, 'Program Name');
+select('source', _MediaOverlay, prop.videos, Config, prop.videos.Sintel);
 
 _MediaOverlay.storyName = 'MediaOverlay';
 _MediaOverlay.parameters = {

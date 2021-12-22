@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, text, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, text, select} from '@enact/storybook-utils/addons/controls';
 import BodyText, {BodyTextBase} from '@enact/sandstone/BodyText';
 import UiBodyText, {BodyTextBase as UiBodyTextBase} from '@enact/ui/BodyText';
 
@@ -17,15 +17,20 @@ export default {
 	component: 'BodyText'
 };
 
-export const _BodyText = () => (
+export const _BodyText = (args) => (
 	<BodyText
-		centered={boolean('centered', Config)}
-		noWrap={boolean('noWrap', Config)}
-		size={select('size', ['', 'large', 'small'], Config)}
+		centered={args['centered']}
+		noWrap={args['noWrap']}
+		size={args['size']}
 	>
-		{text('children', Config, 'This is Body Text')}
+		{args['children']}
 	</BodyText>
 );
+
+boolean('centered', _BodyText, Config);
+boolean('noWrap', _BodyText, Config);
+select('size', _BodyText, ['', 'large', 'small'], Config);
+text('children', _BodyText, Config, 'This is Body Text');
 
 _BodyText.storyName = 'BodyText';
 _BodyText.parameters = {

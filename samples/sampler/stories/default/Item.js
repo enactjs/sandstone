@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import Icon from '@enact/sandstone/Icon';
 import UiItem, {ItemBase as UiItemBase} from '@enact/ui/Item';
@@ -12,28 +12,38 @@ export default {
 	component: 'Item'
 };
 
-export const _Item = () => (
+export const _Item = (args) => (
 	<Item
-		centered={boolean('centered', Config)}
-		disabled={boolean('disabled', Config)}
-		inline={boolean('inline', Config)}
-		label={text('label', Config)}
-		labelPosition={select('labelPosition', ['above', 'below', 'before', 'after'], Config)}
-		size={select('size', ['small', 'large'], Config)}
+		centered={args['centered']}
+		disabled={args['disabled']}
+		inline={args['inline']}
+		label={args['label']}
+		labelPosition={args['labelPosition']}
+		size={args['size']}
 		slotBefore={
-			select('slotBefore', {'': '', '<Icon />': 'icon'}, Config) ? (
+			args['slotBefore'] ? (
 				<Icon size="small">speaker</Icon>
 			) : null
 		}
 		slotAfter={
-			select('slotAfter', {'': '', '<Icon />': 'icon'}, Config) ? (
+			args['slotAfter'] ? (
 				<Icon size="small">arrowlargeright</Icon>
 			) : null
 		}
 	>
-		{text('children', Config, 'Hello Item')}
+		{args['children']}
 	</Item>
 );
+
+boolean('centered', _Item, Config);
+boolean('disabled', _Item, Config);
+boolean('inline', _Item, Config);
+text('label', _Item, Config);
+select('labelPosition', _Item, ['above', 'below', 'before', 'after'], Config);
+select('size', _Item, ['small', 'large'], Config);
+select('slotBefore', _Item, {'': '', '<Icon />': 'icon'}, Config);
+select('slotAfter', _Item, {'': '', '<Icon />': 'icon'}, Config);
+text('children', _Item, Config, 'Hello Item');
 
 _Item.storyName = 'Item';
 _Item.parameters = {

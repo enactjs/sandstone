@@ -1,4 +1,4 @@
-import {select} from '@enact/storybook-utils/addons/knobs';
+import {select} from '@enact/storybook-utils/addons/controls';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import Button from '@enact/sandstone/Button';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
@@ -36,7 +36,7 @@ const renderSuperTallPopup = () => (
 );
 
 const renderPopupWithSlider = () => (
-	<div style={{textAlign: 'center', minWidth: ri.scaleToRem(600), height: ri.scaleToRem(120), padding: `${ri.scaleToRem(60)} ${ri.scaleToRem(30)} 0 ${ri.scaleToRem(30)}`}}>
+	<div style={{minWidth: ri.scaleToRem(600), height: ri.scaleToRem(120), padding: `${ri.scaleToRem(60)} ${ri.scaleToRem(30)} 0 ${ri.scaleToRem(30)}`}}>
 		<Slider
 			backgroundProgress={0}
 			disabled={false}
@@ -87,41 +87,46 @@ export default {
 	component: 'ContextualPopupDecorator'
 };
 
-export const With5WaySelectableActivator = () => (
+export const With5WaySelectableActivator = (args) => (
 	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
 		<ContextualPopupWithActivator
-			direction={select(
-				'direction',
-				[
-					'above',
-					'above center',
-					'above left',
-					'above right',
-					'below',
-					'below center',
-					'below left',
-					'below right',
-					'left middle',
-					'left top',
-					'left bottom',
-					'right middle',
-					'right top',
-					'right bottom'
-				],
-				Config,
-				'below'
-			)}
+			direction={args['direction']}
 			popupComponent={renderPopup}
-			spotlightRestrict={select(
-				'spotlightRestrict',
-				['none', 'self-first', 'self-only'],
-				Config,
-				'self-only'
-			)}
+			spotlightRestrict={args['spotlightRestrict']}
 		>
 			Hello Contextual Button
 		</ContextualPopupWithActivator>
 	</div>
+);
+
+select(
+	'direction',
+	With5WaySelectableActivator,
+	[
+		'above',
+		'above center',
+		'above left',
+		'above right',
+		'below',
+		'below center',
+		'below left',
+		'below right',
+		'left middle',
+		'left top',
+		'left bottom',
+		'right middle',
+		'right top',
+		'right bottom'
+	],
+	Config,
+	'below'
+);
+select(
+	'spotlightRestrict',
+	With5WaySelectableActivator,
+	['none', 'self-first', 'self-only'],
+	Config,
+	'self-only'
 );
 
 With5WaySelectableActivator.storyName = 'with 5-way selectable activator';
@@ -195,6 +200,11 @@ export const WithOverflows = () => (
 );
 
 WithOverflows.storyName = 'with overflows';
+WithOverflows.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const WithButtonTooltip = () => (
 	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
@@ -209,42 +219,52 @@ export const WithButtonTooltip = () => (
 );
 
 WithButtonTooltip.storyName = 'with button tooltip';
+WithButtonTooltip.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
-export const WithSliderTooltip = () => (
+export const WithSliderTooltip = (args) => (
 	<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
 		<ContextualPopupWithActivator
-			direction={select(
-				'direction',
-				[
-					'above',
-					'above center',
-					'above left',
-					'above right',
-					'below',
-					'below center',
-					'below left',
-					'below right',
-					'left middle',
-					'left top',
-					'left bottom',
-					'right middle',
-					'right top',
-					'right bottom'
-				],
-				Config,
-				'below center'
-			)}
+			direction={args['direction']}
 			popupComponent={renderPopupWithSlider}
-			spotlightRestrict={select(
-				'spotlightRestrict',
-				['none', 'self-first', 'self-only'],
-				Config,
-				'self-only'
-			)}
+			spotlightRestrict={args['spotlightRestrict']}
 		>
 			Hello Contextual Slider
 		</ContextualPopupWithActivator>
 	</div>
+);
+
+select(
+	'direction',
+	WithSliderTooltip,
+	[
+		'above',
+		'above center',
+		'above left',
+		'above right',
+		'below',
+		'below center',
+		'below left',
+		'below right',
+		'left middle',
+		'left top',
+		'left bottom',
+		'right middle',
+		'right top',
+		'right bottom'
+	],
+	Config,
+	'below center'
+);
+select(
+	'spotlightRestrict',
+	WithSliderTooltip,
+	['none', 'self-first', 'self-only'],
+	Config,
+	'self-only'
 );
 
 WithSliderTooltip.storyName = 'with Slider Tooltip';

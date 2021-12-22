@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import Group from '@enact/ui/Group';
@@ -21,63 +21,79 @@ export default {
 	component: 'CheckboxItem'
 };
 
-export const WithLongText = () => (
+export const WithLongText = (args) => (
 	<CheckboxItem
-		disabled={boolean('disabled', Config, false)}
-		inline={boolean('inline', Config)}
+		disabled={args['disabled']}
+		inline={args['inline']}
 		onToggle={action('onToggle')}
 	>
-		{text('children', Config, prop.longText)}
+		{args['children']}
 	</CheckboxItem>
 );
+
+boolean('disabled', WithLongText, Config, false);
+boolean('inline', WithLongText, Config);
+text('children', WithLongText, Config, prop.longText);
 
 WithLongText.storyName = 'with long text';
 
-export const WithTallCharacters = () => (
+export const WithTallCharacters = (args) => (
 	<CheckboxItem
-		disabled={boolean('disabled', Config, false)}
-		inline={boolean('inline', Config)}
+		disabled={args['disabled']}
+		inline={args['inline']}
 		onToggle={action('onToggle')}
 	>
-		{select('children', prop.tallText, Config, prop.tallText[0])}
+		{args['children']}
 	</CheckboxItem>
 );
+
+boolean('disabled', WithTallCharacters, Config, false);
+boolean('inline', WithTallCharacters, Config);
+select('children', WithTallCharacters, prop.tallText, Config, prop.tallText[0]);
 
 WithTallCharacters.storyName = 'with tall characters';
 
-export const WithExtraSpacing = () => (
+export const WithExtraSpacing = (args) => (
 	<CheckboxItem
-		disabled={boolean('disabled', Config, false)}
-		inline={boolean('inline', Config)}
+		disabled={args['disabled']}
+		inline={args['inline']}
 		onToggle={action('onToggle')}
 	>
-		{text('children', Config, prop.extraSpaceText)}
+		{args['children']}
 	</CheckboxItem>
 );
+
+boolean('disabled', WithExtraSpacing, Config, false);
+boolean('inline', WithExtraSpacing, Config);
+text('children', WithExtraSpacing, Config, prop.extraSpaceText);
 
 WithExtraSpacing.storyName = 'with extra spacing';
 
-export const WithRightToLeftText = () => (
+export const WithRightToLeftText = (args) => (
 	<CheckboxItem
-		disabled={boolean('disabled', Config, false)}
-		inline={boolean('inline', Config)}
+		disabled={args['disabled']}
+		inline={args['inline']}
 		onToggle={action('onToggle')}
 	>
-		{text('children', Config, prop.rtlText)}
+		{args['children']}
 	</CheckboxItem>
 );
 
+boolean('disabled', WithRightToLeftText, Config, false);
+boolean('inline', WithRightToLeftText, Config);
+text('children', WithRightToLeftText, Config, prop.rtlText);
+
 WithRightToLeftText.storyName = 'with right to left text';
 
-export const Grouped = () => (
+export const Grouped = (args) => (
 	<Group
 		childComponent={CheckboxItem}
 		childSelect="onToggle"
 		itemProps={{
-			inline: boolean('itemProps-inline', Group, false),
-			disabled: boolean('itemProps-disabled', Group, false)
+			inline: args['itemProps-inline'],
+			disabled: args['itemProps-disabled']
 		}}
-		select={select('select', ['single', 'radio', 'multiple'], Group, 'multiple')}
+		select={args['select']}
 		selectedProp="selected"
 		defaultSelected={0}
 		onSelect={action('onSelect')}
@@ -85,5 +101,9 @@ export const Grouped = () => (
 		{['Checkbox Item 1', 'Checkbox Item 2', 'Checkbox Item 3']}
 	</Group>
 );
+
+boolean('itemProps-disabled', Grouped, Config, false);
+boolean('itemProps-inline', Grouped, Config, false);
+select('select', Grouped, ['single', 'radio', 'multiple'], Group, 'multiple');
 
 Grouped.storyName = 'grouped';

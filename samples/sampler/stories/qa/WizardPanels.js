@@ -1,12 +1,13 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
 import WizardPanels, {Panel, WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+import PropTypes from 'prop-types';
 import {Component, PureComponent} from 'react';
 
 WizardPanels.displayName = 'WizardPanels';
@@ -78,28 +79,31 @@ WithFooterButtons.storyName = 'with footer buttons';
 WithFooterButtons.parameters = {
 	props: {
 		noPanel: true
+	},
+	controls: {
+		hideNoControlsWarning: true
 	}
 };
 
-export const LongPrevNextButtons = () => (
+export const LongPrevNextButtons = (args) => (
 	<WizardPanels
-		current={number('current', Config, 0)}
-		noAnimation={boolean('noAnimation', Config)}
-		noSteps={boolean('noSteps', Config)}
-		nextButtonVisibility={select('nextButtonVisibility', propOptions.buttonVisibility, Config)}
+		current={args['current']}
+		noAnimation={args['noAnimation']}
+		noSteps={args['noSteps']}
+		nextButtonVisibility={args['nextButtonVisibility']}
 		onNextClick={action('onNextClick')}
 		onPrevClick={action('onPrevClick')}
 		onTransition={action('onTransition')}
 		onWillTransition={action('onWillTransition')}
-		prevButtonVisibility={select('prevButtonVisibility', propOptions.buttonVisibility, Config)}
-		total={number('total', Config, 0)}
+		prevButtonVisibility={args['prevButtonVisibility']}
+		total={args['total']}
 	>
 		<WizardPanels.Panel
 			footer="Footer in View 1"
 			subtitle="A subtitle for View 1"
 			title="WizardPanel View 1"
 			prevButton={
-				boolean('custom first Panel prevButton', Config) ? (
+				args['custom first Panel prevButton'] ? (
 					<Button icon="closex" aria-label="exit">
 						Exit
 					</Button>
@@ -160,7 +164,7 @@ export const LongPrevNextButtons = () => (
 			subtitle="A subtitle for View 5"
 			title="WizardPanel View 5"
 			nextButton={
-				boolean('custom last Panel nextButton', Config) ? (
+				args['custom last Panel nextButton'] ? (
 					<Button icon="closex" aria-label="quit">
 						Close
 					</Button>
@@ -178,6 +182,15 @@ export const LongPrevNextButtons = () => (
 		</WizardPanels.Panel>
 	</WizardPanels>
 );
+
+number('current', LongPrevNextButtons, Config, 0);
+boolean('noAnimation', LongPrevNextButtons, Config);
+boolean('noSteps', LongPrevNextButtons, Config);
+select('nextButtonVisibility', LongPrevNextButtons, propOptions.buttonVisibility, Config);
+select('prevButtonVisibility', LongPrevNextButtons, propOptions.buttonVisibility, Config);
+number('total', LongPrevNextButtons, Config, 0);
+boolean('custom first Panel prevButton', LongPrevNextButtons, Config);
+boolean('custom last Panel nextButton', LongPrevNextButtons, Config);
 
 LongPrevNextButtons.storyName = 'long prev next buttons';
 LongPrevNextButtons.parameters = {
@@ -199,9 +212,10 @@ class WizardPanelsWithChangingChildren extends Component {
 	};
 
 	render () {
+		const args = this.props.args;
 		return (
 			<WizardPanels
-				noAnimation={boolean('noAnimation', Config)}
+				noAnimation={args['noAnimation']}
 			>
 				<Panel title={'Panel0'} subtitle={'subtitle'} nextButton={<Button>Next</Button>}>
 					<Button onClick={this.onClick}>Click</Button>
@@ -216,7 +230,13 @@ class WizardPanelsWithChangingChildren extends Component {
 	}
 }
 
-export const WithChangingChildren = () => <WizardPanelsWithChangingChildren />;
+WizardPanelsWithChangingChildren.propTypes = {
+	args: PropTypes.object
+};
+
+export const WithChangingChildren = (args) => <WizardPanelsWithChangingChildren args={args} />;
+
+boolean('noAnimation', WithChangingChildren, Config);
 
 WithChangingChildren.storyName = 'with changing children';
 WithChangingChildren.parameters = {
@@ -247,18 +267,18 @@ class PureComponentItem extends PureComponent {
 	}
 }
 
-export const WithPureComponent = () => (
+export const WithPureComponent = (args) => (
 	<WizardPanels
-		current={number('current', Config, 0)}
-		noAnimation={boolean('noAnimation', Config)}
-		noSteps={boolean('noSteps', Config)}
-		nextButtonVisibility={select('nextButtonVisibility', propOptions.buttonVisibility, Config)}
+		current={args['current']}
+		noAnimation={args['noAnimation']}
+		noSteps={args['noSteps']}
+		nextButtonVisibility={args['nextButtonVisibility']}
 		onNextClick={action('onNextClick')}
 		onPrevClick={action('onPrevClick')}
 		onTransition={action('onTransition')}
 		onWillTransition={action('onWillTransition')}
-		prevButtonVisibility={select('prevButtonVisibility', propOptions.buttonVisibility, Config)}
-		total={number('total', Config, 0)}
+		prevButtonVisibility={args['prevButtonVisibility']}
+		total={args['total']}
 	>
 		<WizardPanels.Panel
 			footer="Footer in View 1"
@@ -280,6 +300,13 @@ export const WithPureComponent = () => (
 		</WizardPanels.Panel>
 	</WizardPanels>
 );
+
+number('current', WithPureComponent, Config, 0);
+boolean('noAnimation', WithPureComponent, Config);
+boolean('noSteps', WithPureComponent, Config);
+select('nextButtonVisibility', WithPureComponent, propOptions.buttonVisibility, Config);
+select('prevButtonVisibility', WithPureComponent, propOptions.buttonVisibility, Config);
+number('total', WithPureComponent, Config, 0);
 
 WithPureComponent.storyName = 'with pure component';
 WithPureComponent.parameters = {

@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean} from '@enact/storybook-utils/addons/knobs';
+import {boolean} from '@enact/storybook-utils/addons/controls';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import RadioItem from '@enact/sandstone/RadioItem';
 
@@ -25,18 +25,18 @@ export default {
 	component: 'RadioItem'
 };
 
-export const WithLongTextAndSpaces = () => (
+export const WithLongTextAndSpaces = (args) => (
 	<div>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.longTextWithSpace[0]}
 		</RadioItem>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.longTextWithSpace[1]}
@@ -44,20 +44,23 @@ export const WithLongTextAndSpaces = () => (
 	</div>
 );
 
+boolean('disabled', WithLongTextAndSpaces, Config);
+boolean('inline', WithLongTextAndSpaces, Config);
+
 WithLongTextAndSpaces.storyName = 'with long text and spaces';
 
-export const WithLongTextAndNoSpaces = () => (
+export const WithLongTextAndNoSpaces = (args) => (
 	<div>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.longTextWithoutSpace[0]}
 		</RadioItem>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.longTextWithoutSpace[1]}
@@ -65,27 +68,30 @@ export const WithLongTextAndNoSpaces = () => (
 	</div>
 );
 
+boolean('disabled', WithLongTextAndNoSpaces, Config);
+boolean('inline', WithLongTextAndNoSpaces, Config);
+
 WithLongTextAndNoSpaces.storyName = 'with long text and no spaces';
 
-export const WithTallCharacters = () => (
+export const WithTallCharacters = (args) => (
 	<div>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.tallText[0]}
 		</RadioItem>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.tallText[1]}
 		</RadioItem>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.tallText[2]}
@@ -93,20 +99,23 @@ export const WithTallCharacters = () => (
 	</div>
 );
 
+boolean('disabled', WithTallCharacters, Config);
+boolean('inline', WithTallCharacters, Config);
+
 WithTallCharacters.storyName = 'with tall characters';
 
-export const WithRightToLeftText = () => (
+export const WithRightToLeftText = (args) => (
 	<div>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.rightToLeft[0]}
 		</RadioItem>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
 			{radioData.rightToLeft[1]}
@@ -114,21 +123,24 @@ export const WithRightToLeftText = () => (
 	</div>
 );
 
+boolean('disabled', WithRightToLeftText, Config);
+boolean('inline', WithRightToLeftText, Config);
+
 WithRightToLeftText.storyName = 'with right to left text';
 
-export const SelectedByDefault = () => (
+export const SelectedByDefault = (args) => (
 	<div>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 			defaultSelected
 		>
 			RadioItem1
 		</RadioItem>
 		<RadioItem
-			disabled={boolean('disabled', Config)}
-			inline={boolean('inline', Config)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 			defaultSelected
 		>
@@ -136,5 +148,8 @@ export const SelectedByDefault = () => (
 		</RadioItem>
 	</div>
 );
+
+boolean('disabled', SelectedByDefault, Config);
+boolean('inline', SelectedByDefault, Config);
 
 SelectedByDefault.storyName = 'selected by default';

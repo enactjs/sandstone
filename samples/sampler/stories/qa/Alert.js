@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
@@ -23,131 +23,129 @@ export default {
 	component: 'Alert'
 };
 
-export const WithLongTitle = () => {
-	const open = boolean('open', Config); // This is first so the Knob tabs are in a more intuitive order.
-	const image = boolean('image', ImageConfig);
-	const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
-	const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+export const WithLongTitle = (args) => (
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ? (
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image>
+		) : null}
+		<buttons>
+			<Button>Yes</Button>
+			<Button>No</Button>
+		</buttons>
+		{args['children']}
+	</Alert>
+);
 
-	return (
-		<Alert
-			open={open}
-			onClose={action('onClose')}
-			title={text('title', Config, inputData.longTitle)}
-			type={select('type', ['fullscreen', 'overlay'], Config)}
-		>
-			{image ? (
-				<image>
-					<AlertImage src={src} type={type} />
-				</image>
-			) : null}
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			{text('children', Config, 'Additional text content for Alert')}
-		</Alert>
-	);
-};
+boolean('open', WithLongTitle, Config);
+text('title', WithLongTitle, Config, inputData.longTitle);
+select('type', WithLongTitle, ['fullscreen', 'overlay'], Config);
+text('children', WithLongTitle, Config, 'Additional text content for Alert');
+boolean('image', WithLongTitle, ImageConfig);
+select('type (image)', WithLongTitle, ['icon', 'thumbnail'], ImageConfig, 'icon');
+text('src', WithLongTitle, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 WithLongTitle.storyName = 'with long title';
 
-export const WithLongChildren = () => {
-	const open = boolean('open', Config); // This is first so the Knob tabs are in a more intuitive order.
-	const image = boolean('image', ImageConfig);
-	const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
-	const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+export const WithLongChildren = (args) => (
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ? (
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image>
+		) : null}
+		<buttons>
+			<Button>Yes</Button>
+			<Button>No</Button>
+		</buttons>
+		{args['children']}
+	</Alert>
+);
 
-	return (
-		<Alert
-			open={open}
-			onClose={action('onClose')}
-			title={text('title', Config, 'Fullscreen Alert Title')}
-			type={select('type', ['fullscreen', 'overlay'], Config)}
-		>
-			{image ? (
-				<image>
-					<AlertImage src={src} type={type} />
-				</image>
-			) : null}
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			{text('children', Config, inputData.longChildren)}
-		</Alert>
-	);
-};
+boolean('open', WithLongChildren, Config);
+text('title', WithLongChildren, Config, 'Fullscreen Alert Title');
+select('type', WithLongChildren, ['fullscreen', 'overlay'], Config);
+text('children', WithLongChildren, Config, inputData.longChildren);
+boolean('image', WithLongChildren, ImageConfig);
+select('type (image)', WithLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
+text('src', WithLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 WithLongChildren.storyName = 'with long children';
 
-export const WithLongTitleAndLongChildren = () => {
-	const open = boolean('open', Config); // This is first so the Knob tabs are in a more intuitive order.
-	const image = boolean('image', ImageConfig);
-	const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
-	const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+export const WithLongTitleAndLongChildren = (args) => (
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ? (
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image>
+		) : null}
+		<buttons>
+			<Button>Yes</Button>
+			<Button>No</Button>
+		</buttons>
+		{args['children']}
+	</Alert>
+);
 
-	return (
-		<Alert
-			open={open}
-			onClose={action('onClose')}
-			title={text('title', Config, inputData.longTitle)}
-			type={select('type', ['fullscreen', 'overlay'], Config)}
-		>
-			{image ? (
-				<image>
-					<AlertImage
-						src={src}
-						type={type}
-					/>
-				</image>
-			) : null}
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			{text('children', Config, inputData.longChildren)}
-		</Alert>
-	);
-};
+boolean('open', WithLongTitleAndLongChildren, Config);
+text('title', WithLongTitleAndLongChildren, Config, inputData.longTitle);
+select('type', WithLongTitleAndLongChildren, ['fullscreen', 'overlay'], Config);
+text('children', WithLongTitleAndLongChildren, Config, inputData.longChildren);
+boolean('image', WithLongTitleAndLongChildren, ImageConfig);
+select('type (image)', WithLongTitleAndLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
+text('src', WithLongTitleAndLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 WithLongTitleAndLongChildren.storyName = 'with long title and long children';
 
-export const WithDifferentTypesOfComponentsAndLongChildren = () => {
-	const open = boolean('open', Config, true); // This is first so the Knob tabs are in a more intuitive order.
-	const image = boolean('image', ImageConfig);
-	const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
-	const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+export const WithDifferentTypesOfComponentsAndLongChildren = (args) => (
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ?
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image> : null
+		}
+		<buttons>
+			<Button>Yes</Button>
+			<Button>No</Button>
+		</buttons>
+		<div>
+			<div>This is progressbar</div>
+			<ProgressBar progress={0.5} />
+		</div>
+		<div>
+			<CheckboxItem>This is CheckboxItem</CheckboxItem>
+		</div>
+		{args['children']}
+	</Alert>
+);
 
-	return (
-		<Alert
-			open={open}
-			onClose={action('onClose')}
-			title={text('title', Config, 'Overlay Alert Title')}
-			type={select('type', ['fullscreen', 'overlay'], Config, 'overlay')}
-		>
-			{image ?
-				<image>
-					<AlertImage
-						src={src}
-						type={type}
-					/>
-				</image> : null
-			}
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			<div>
-				<div>This is progressbar</div>
-				<ProgressBar progress={0.5} />
-			</div>
-			<div>
-				<CheckboxItem>This is CheckboxItem</CheckboxItem>
-			</div>
-			{text('children', Config, inputData.longChildren)}
-		</Alert>
-	);
-};
+boolean('open', WithDifferentTypesOfComponentsAndLongChildren, Config, true);
+text('title', WithDifferentTypesOfComponentsAndLongChildren, Config, 'Overlay Alert Title');
+select('type', WithDifferentTypesOfComponentsAndLongChildren, ['fullscreen', 'overlay'], Config, 'overlay');
+text('children', WithDifferentTypesOfComponentsAndLongChildren, Config, inputData.longChildren);
+boolean('image', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig);
+select('type (image)', WithDifferentTypesOfComponentsAndLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
+text('src', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 WithDifferentTypesOfComponentsAndLongChildren.storyName = 'with different types of components and long children';

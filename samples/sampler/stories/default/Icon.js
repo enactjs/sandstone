@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {range, select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
 import Icon, {IconBase} from '@enact/sandstone/Icon';
 import Scroller from '@enact/sandstone/Scroller';
@@ -20,25 +20,25 @@ export default {
 	component: 'Icon'
 };
 
-export const _Icon = () => {
-	const flip = select('flip', ['', 'auto', 'both', 'horizontal', 'vertical'], Config, '');
+export const _Icon = (args) => {
+	const flip = args['flip'];
 
-	let size = select('size', ['tiny', 'small', 'medium', 'large', 'custom number'], Config);
+	let size = args['size'];
 	if (size === 'custom number') {
-		size = number('size (number)', Config, {range: true, min: 24, max: 480, step: 6}, 60);
+		size = args['size (number)'];
 	}
 
-	const iconType = select('icon type', ['glyph', 'url src', 'custom'], Config, 'glyph');
+	const iconType = args['icon type'];
 	let children;
 	switch (iconType) {
 		case 'glyph':
-			children = select('icon', ['', ...iconNames], Config, 'plus');
+			children = args['icon'];
 			break;
 		case 'url src':
-			children = select('src', [docs, factory, logo], Config, logo);
+			children = args['src'];
 			break;
 		default:
-			children = text('custom icon', Config);
+			children = args['custom icon'];
 	}
 	return (
 		<Scroller style={{height: '100%'}}>
@@ -56,6 +56,14 @@ export const _Icon = () => {
 		</Scroller>
 	);
 };
+
+select('flip', _Icon, ['', 'auto', 'both', 'horizontal', 'vertical'], Config, '');
+select('size', _Icon, ['tiny', 'small', 'medium', 'large', 'custom number'], Config);
+range('size (number)', _Icon, Config, {min: 24, max: 480, step: 6}, 60);
+select('icon type', _Icon, ['glyph', 'url src', 'custom'], Config, 'glyph');
+select('icon', _Icon, ['', ...iconNames], Config, 'plus');
+select('src', _Icon, [docs, factory, logo], Config, logo);
+text('custom icon', _Icon, Config);
 
 _Icon.storyName = 'Icon';
 _Icon.parameters = {
