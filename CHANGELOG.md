@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Alert` to have smaller content area on mobile
+
 ## [2.1.2] - 2021-12-22
 
 - Fixed samples build issue 
@@ -13,7 +19,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Alert` to have smaller content area on mobile
 - `sandstone/Button` to have centered icon on RTL locale
 - `sandstone/VideoPlayer` to handle media related callbacks properly
 - `sandstone/FormCheckboxItem` to show correct color for the focused disabled checkbox
