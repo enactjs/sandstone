@@ -13,7 +13,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-
 - `sandstone/Alert` to have smaller content area on mobile
 - `sandstone/Button` to have centered icon on RTL locale
 - `sandstone/VideoPlayer` to handle media related callbacks properly
