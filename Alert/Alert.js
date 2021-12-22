@@ -8,6 +8,7 @@
  */
 
 import kind from '@enact/core/kind';
+import platform from '@enact/core/platform';
 import {mapAndFilterChildren} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
@@ -176,6 +177,9 @@ const AlertBase = kind({
 		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
 		const showTitle = (fullscreen && title);
 		const ariaLabelledBy = (showTitle ? `${id}_title ` : '') + `${id}_content ${id}_buttons`;
+		const isMobile = platform.platformName === 'androidChrome' || platform.platformName === 'ios' || platform.platformName === 'safari';
+		const limitWidth = isMobile && !fullscreen ? {width: `${window.innerWidth / 4}px`} : '';
+
 		return (
 			<div aria-owns={id} className={css.alertWrapper}>
 				<Popup
@@ -189,7 +193,7 @@ const AlertBase = kind({
 					<Layout align="center center" orientation={layoutOrientation}>
 						{image ? <Cell shrink className={css.alertImage}>{image}</Cell> : null}
 						{showTitle ? <Cell shrink><Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading></Cell> : null}
-						<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`}>
+						<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`} style={limitWidth}>
 							{children}
 						</Cell>
 						{buttons ?

@@ -1,3 +1,4 @@
+import platform from '@enact/core/platform';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
@@ -9,25 +10,27 @@ AlertImage.displayName = 'AlertImage';
 const Config = mergeComponentMetadata('Alert', AlertBase, Alert);
 const ImageConfig = mergeComponentMetadata('AlertImage', AlertImage);
 
+const isMobile = platform.platformName === 'androidChrome' || platform.platformName === 'ios' || platform.platformName === 'safari';
+
 const prop = {
 	buttons: {
 		'no buttons': null,
 		'1 button': (
 			<buttons>
-				<Button>Button Label</Button>
+				<Button size={isMobile ? 'small' : 'large'}>Button Label</Button>
 			</buttons>
 		),
 		'2 buttons': (
 			<buttons>
-				<Button>Button Label</Button>
-				<Button>Button Label</Button>
+				<Button size={isMobile ? 'small' : 'large'}>Button Label</Button>
+				<Button size={isMobile ? 'small' : 'large'}>Button Label</Button>
 			</buttons>
 		),
 		'3 buttons': (
 			<buttons>
-				<Button>Button Label</Button>
-				<Button>Button Label</Button>
-				<Button>Button Label</Button>
+				<Button size={isMobile ? 'small' : 'large'}>Button Label</Button>
+				<Button size={isMobile ? 'small' : 'large'}>Button Label</Button>
+				<Button size={isMobile ? 'small' : 'large'}>Button Label</Button>
 			</buttons>
 		)
 	}
