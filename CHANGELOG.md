@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/BodyText` size when RTL locale is used
+- `sandstone/BodyText` font-size for size `small` and RTL locale
 
 ## [2.1.2] - 2021-12-22
 
