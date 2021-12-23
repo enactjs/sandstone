@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/BodyText` size when RTL locale is used
+
 ## [2.1.2] - 2021-12-22
 
 - Fixed samples build issue 
