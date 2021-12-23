@@ -72,8 +72,8 @@ const Keypad = kind({
 		className: ({styler}) => {
 			const isMobile = platform.platformName === 'androidChrome' || platform.platformName === 'ios' || platform.platformName === 'safari';
 
-			return styler.append({mobile: isMobile})
-		},
+			return styler.append({mobile: isMobile});
+		}
 	},
 
 	styles: {
