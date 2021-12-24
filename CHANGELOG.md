@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Input.Keypad` horizontal margins on mobile to show all digits
+- `sandstone/Input.Keypad` keypad margins to show all digits and body padding to show title for mobile
 
 ## [2.1.2] - 2021-12-22
 
