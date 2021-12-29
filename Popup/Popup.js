@@ -640,9 +640,10 @@ class Popup extends Component {
 	};
 
 	render () {
-		const {noAutoDismiss, onClose, scrimType, ...rest} = this.props;
+		const {noAutoDismiss, scrimType, ...rest} = this.props;
 
 		delete rest.no5WayClose;
+		delete rest.onClose;
 
 		return (
 			<FloatingLayer

@@ -1,4 +1,4 @@
-import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
+import handle, {adaptEvent, forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
