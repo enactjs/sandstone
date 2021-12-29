@@ -511,7 +511,6 @@ select('scrollMode', WithOneLongHeightItem, prop.scrollModeOption, Config);
 WithOneLongHeightItem.storyName = 'With One Long Height Item';
 
 export const WithNestedScroller = (args) => {
-	let noScrollByWheel = boolean('noScrollByWheel', Config);
 	return (
 		<Scroller
 			direction="vertical"
@@ -528,7 +527,7 @@ export const WithNestedScroller = (args) => {
 				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar="visible"
 				key={args['scrollMode'] + '2'}
-				noScrollByWheel={noScrollByWheel}
+				noScrollByWheel={args['noScrollByWheel']}
 				onKeyDown={action('onKeyDown (Nested 1st Scroller)')}
 				onScrollStart={action('onScrollStart (Nested 1st Scroller)')}
 				onScrollStop={action('onScrollStop (Nested 1st Scroller)')}
@@ -567,7 +566,7 @@ export const WithNestedScroller = (args) => {
 				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar="visible"
 				key={args['scrollMode'] + '3'}
-				noScrollByWheel={noScrollByWheel}
+				noScrollByWheel={args['noScrollByWheel']}
 				onKeyDown={action('onKeyDown (Nested 2nd Scroller)')}
 				onScrollStart={action('onScrollStart (Nested 2nd Scroller)')}
 				onScrollStop={action('onScrollStop (Nested 2nd Scroller)')}
@@ -606,6 +605,7 @@ export const WithNestedScroller = (args) => {
 };
 
 select('focusableScrollbar', WithNestedScroller, prop.focusableScrollbarOption, Config);
+boolean('noScrollByWheel', WithNestedScroller, Config);
 select('scrollMode', WithNestedScroller, prop.scrollModeOption, Config);
 
 WithNestedScroller.storyName = 'With Nested Scroller';
