@@ -8,7 +8,7 @@
 
 import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
-import {handle, forProp, forKey, forward, stop} from '@enact/core/handle';
+import {handle, forProp, forKey, forward, forwardCustom, stop} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {extractAriaProps} from '@enact/core/util';
@@ -622,6 +622,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			});
 		};
 
+		handleDismiss = () => {
+			forwardCustom('onClose')({}, this.props);
+		};
+
 		handleDirectionalKey (ev) {
 			// prevent default page scrolling
 			ev.preventDefault();
@@ -731,7 +735,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						id={idFloatLayer}
 						noAutoDismiss={noAutoDismiss}
 						onClose={this.handleClose}
-						onDismiss={onClose}
+						onDismiss={this.handleDismiss}
 						onOpen={this.handleOpen}
 						open={open}
 						scrimType={scrimType}
