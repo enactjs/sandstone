@@ -43,3 +43,8 @@ export default {
 export const ToTestGetSelectedDayString = () => <DayPickerWithItem />;
 
 ToTestGetSelectedDayString.storyName = 'to test getSelectedDayString()';
+ToTestGetSelectedDayString.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

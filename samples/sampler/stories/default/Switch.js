@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean} from '@enact/storybook-utils/addons/knobs';
+import {boolean} from '@enact/storybook-utils/addons/controls';
 import Switch, {SwitchBase} from '@enact/sandstone/Switch';
 
 Switch.displayName = 'Switch';
@@ -11,9 +11,9 @@ export default {
 	component: 'Switch'
 };
 
-export const _Switch = () => {
-	return <Switch disabled={boolean('disabled', Config)} onToggle={action('onToggle')} />;
-};
+export const _Switch = (args) => (<Switch disabled={args['disabled']} onToggle={action('onToggle')} />);
+
+boolean('disabled', _Switch, Config);
 
 _Switch.storyName = 'Switch';
 _Switch.parameters = {

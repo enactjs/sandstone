@@ -1,6 +1,8 @@
 import Icon from '../../../../Icon';
 import RadioItem from '../../../../RadioItem';
 
+import {withConfig} from './utils';
+
 const RadioItemTests = [
 	<RadioItem>RadioItem</RadioItem>,
 	<RadioItem disabled>RadioItem</RadioItem>,
@@ -40,11 +42,47 @@ const RadioItemTests = [
 	// Long text selected - LTR [QWT-2801]
 	<RadioItem selected>-Lorem</RadioItem>,
 
+	<RadioItem selected icon="arrowup">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
+	<RadioItem selected icon="arrowup">តន្ត្រី</RadioItem>,
+	<RadioItem selected icon="arrowup">ฟิ้  ไั  ஒ  து</RadioItem>,
+	// Selected - disabled
+	<RadioItem selected disabled icon="arrowup">RadioItem Checked</RadioItem>,
+	// Selected - disabled - inline
+	<RadioItem selected disabled inline icon="arrowup">RadioItem Checked</RadioItem>,
+	// Selected - inline
+	<RadioItem selected inline icon="arrowup">RadioItem Checked</RadioItem>,
+	<RadioItem selected icon="arrowup">RadioItem Checked</RadioItem>,
+	// Long text selected - LTR
+	<RadioItem selected icon="arrowup">-Lorem</RadioItem>,
+
 	// Icon slotBefore
 	<RadioItem><Icon slot="slotBefore">home</Icon>RadioItem</RadioItem>,
 	<RadioItem inline><Icon slot="slotBefore">home</Icon>RadioItem</RadioItem>,
 	<RadioItem selected><Icon slot="slotBefore">home</Icon>RadioItem Checked</RadioItem>,
 	<RadioItem selected inline><Icon slot="slotBefore">home</Icon>RadioItem Checked</RadioItem>,
+
+	// Focused
+	...withConfig({focus: true}, [
+		<RadioItem>Focused RadioItem</RadioItem>,
+		<RadioItem disabled>Focused RadioItem</RadioItem>,
+		<RadioItem inline>Focused Inline RadioItem</RadioItem>,
+		<RadioItem disabled inline>Focused RadioItem Not Checked</RadioItem>,
+		<RadioItem selected disabled>Focused RadioItem Checked</RadioItem>,
+		// Selected - disabled - inline
+		<RadioItem selected disabled inline>Focused RadioItem Checked</RadioItem>,
+		<RadioItem selected inline>Focused RadioItem Checked</RadioItem>,
+		<RadioItem selected>Focused RadioItem Checked</RadioItem>,
+		<RadioItem selected disabled icon="arrowup">Focused RadioItem Checked</RadioItem>,
+		<RadioItem selected disabled inline icon="arrowup">Focused RadioItem Checked</RadioItem>,
+		<RadioItem selected inline icon="arrowup">Focused RadioItem Checked</RadioItem>,
+		<RadioItem selected icon="arrowup">Focused RadioItem Checked</RadioItem>,
+		// Icon slotBefore
+		<RadioItem><Icon slot="slotBefore">home</Icon>Focused RadioItem</RadioItem>,
+		<RadioItem inline><Icon slot="slotBefore">home</Icon>Focused RadioItem</RadioItem>,
+		<RadioItem selected><Icon slot="slotBefore">home</Icon>Focused RadioItem Checked</RadioItem>,
+		<RadioItem selected inline><Icon slot="slotBefore">home</Icon>Focused RadioItem Checked</RadioItem>
+	]),
+
 	// *************************************************************
 	// locale = 'ar-SA'
 
@@ -125,6 +163,44 @@ const RadioItemTests = [
 	{
 		locale: 'ar-SA',
 		component: <RadioItem selected>-Lorem</RadioItem>
+	},
+
+	// custom icon RTL
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">តន្ត្រី</RadioItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">ฟิ้  ไั  ஒ  து</RadioItem>
+	},
+	// RadioItem* is selected
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">RadioItem Checked</RadioItem>
+	},
+	// Selected - disabled
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected disabled icon="arrowup">RadioItem Checked</RadioItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected disabled inline icon="arrowup">RadioItem Checked</RadioItem>
+	},
+	// Selected - inline
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected inline icon="arrowup">RadioItem Checked</RadioItem>
+	},
+	// Long text selected
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected icon="arrowup">-Lorem</RadioItem>
 	}
 ];
 export default RadioItemTests;

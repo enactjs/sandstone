@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Heading, {HeadingBase} from '@enact/sandstone/Heading';
 import UiHeading from '@enact/ui/Heading';
@@ -8,7 +8,7 @@ import {Fragment} from 'react';
 Heading.displayName = 'Heading';
 const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	marqueeOn: ['hover', 'render'],
 	size: ['large', 'medium', 'small', 'tiny'],
@@ -20,15 +20,15 @@ export default {
 	component: 'Heading'
 };
 
-export const _Heading = () => (
+export const _Heading = (args) => (
 	<Fragment>
 		<Heading
-			marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
-			showLine={boolean('showLine', Config)}
-			size={select('size', prop.size, Config)}
-			spacing={select('spacing', prop.spacing, Config)}
+			marqueeOn={args['marqueeOn']}
+			showLine={args['showLine']}
+			size={args['size']}
+			spacing={args['spacing']}
 		>
-			{text('children', Config, 'Heading text')}
+			{args['children']}
 		</Heading>
 		<BodyText style={{marginTop: 0}}>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi
@@ -39,6 +39,12 @@ export const _Heading = () => (
 		</BodyText>
 	</Fragment>
 );
+
+select('marqueeOn', _Heading, prop.marqueeOn, Config);
+boolean('showLine', _Heading, Config);
+select('size', _Heading, prop.size, Config, 'medium');
+select('spacing', _Heading, prop.spacing, Config);
+text('children', _Heading, Config, 'Heading text');
 
 _Heading.storyName = 'Heading';
 _Heading.parameters = {

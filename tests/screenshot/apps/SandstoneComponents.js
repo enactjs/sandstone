@@ -10,6 +10,7 @@ import CheckboxItem from './components/CheckboxItem';
 import ContextualMenuDecorator from './components/ContextualMenuDecorator';
 import ContextualPopupDecorator from './components/ContextualPopupDecorator';
 import DatePicker from './components/DatePicker';
+import DayPicker from './components/DayPicker';
 import Dropdown from './components/Dropdown';
 import FixedPopupPanels from './components/FixedPopupPanels';
 import FlexiblePopupPanels from './components/FlexiblePopupPanels';
@@ -37,6 +38,7 @@ import RangePicker from './components/RangePicker';
 import Region from './components/Region';
 import Scroller from './components/Scroller';
 import Slider from './components/Slider';
+import Spinner from './components/Spinner';
 import Sprite from './components/Sprite';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
@@ -58,6 +60,7 @@ const components = {
 	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
+	DayPicker,
 	Dropdown,
 	FixedPopupPanels,
 	FlexiblePopupPanels,
@@ -86,7 +89,7 @@ const components = {
 	Scroller,
 	// Skinnable,
 	Slider,
-	// Spinner,
+	Spinner,
 	Sprite,
 	Steps,
 	Switch,
