@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Input.InputField` size 'small' line-height to center text vertically
+
 ## [2.1.2] - 2021-12-22
 
 - Fixed samples build issue 
