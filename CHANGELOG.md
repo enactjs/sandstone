@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales via 5way
+- `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
 
 ## [2.1.2] - 2021-12-22
 
