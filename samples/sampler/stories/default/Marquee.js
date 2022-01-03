@@ -1,5 +1,6 @@
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
 import Marquee from '@enact/sandstone/Marquee';
+import ri from '@enact/ui/resolution';
 
 Marquee.displayName = 'Marquee';
 
@@ -32,7 +33,7 @@ export const _Marquee = (args) => {
 				marqueeResetDelay={args['marqueeResetDelay']}
 				marqueeSpacing={spacing()}
 				marqueeSpeed={args['marqueeSpeed']}
-				style={{width: '800px'}}
+				style={{width: ri.scaleToRem(800)}}
 			>
 				{args['children']}
 			</Marquee>
