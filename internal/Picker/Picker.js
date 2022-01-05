@@ -64,7 +64,7 @@ const forwardBlur = forward('onBlur'),
 	forwardKeyUp = forward('onKeyUp'),
 	forwardWheel = forward('onWheel');
 
-const allowedClassNames = ['picker', 'valueWrapper', 'joined', 'horizontal', 'vertical', 'sizingPlaceholder'];
+const allowedClassNames = ['picker', 'valueWrapper', 'joined', 'horizontal', 'vertical'];
 
 /**
  * The base component for {@link sandstone/internal/Picker.Picker}.
