@@ -42,22 +42,22 @@
     "@enact/spotlight": "^4.1.2",
     "@enact/ui": "^4.1.2",
     "@enact/webos": "^4.1.2",
-    "classnames": "^2.2.5",
-    "invariant": "^2.2.2",
-    "prop-types": "^15.7.2",
-    "ramda": "^0.24.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "warning": "^3.0.0",
-    "ilib": "^14.4.0"
+    "classnames": "^2.3.1",
+    "invariant": "^2.2.4",
+    "prop-types": "^15.8.0",
+    "ramda": "^0.27.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "warning": "^4.0.3",
+    "ilib": "^14.11.1"
   },
   "peerDependencies": {
-    "ilib": "^14.4.0 || ^14.6.0-webos"
+    "ilib": "^14.11.1 || ^14.11.1-webos"
   },
   "devDependencies": {
-    "@enact/docs-utils": "^0.3.3",
+    "@enact/docs-utils": "^0.3.6",
     "@enact/ui-test-utils": "^0.7.0",
-    "eslint-config-enact-proxy": "^1.0.1",
-    "ilib": "^14.4.0"
+    "eslint-config-enact-proxy": "^1.0.3",
+    "ilib": "^14.11.1"
   }
 }
