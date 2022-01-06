@@ -23,7 +23,7 @@ class VideoSourceSwap extends Component {
 		this.state = {
 			videoTitles: ['Big Buck Bunny', 'Sintel', 'VideoTest'],
 			playlist: [
-				'http://media.w3.org/2010/05/bunny/trailer.mp4',
+				'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
 				'http://media.w3.org/2010/05/sintel/trailer.mp4',
 				'http://media.w3.org/2010/05/video/movie_300.mp4'
 			],
@@ -154,7 +154,7 @@ class VideoPlayerWithfastForwardMode extends Component {
 					title={'Big Buck Bunny'}
 				>
 					<Video>
-						<source src={'http://media.w3.org/2010/05/bunny/trailer.mp4'} />
+						<source src={'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'} />
 					</Video>
 					<MediaControls actionGuideLabel="Press Down Button">
 						<Button
