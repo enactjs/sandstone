@@ -259,7 +259,7 @@ const useSpottable = (props, instances) => {
 	/**
 	 * Calculates the new `scrollLeft`.
 	 *
-	 * @param {Node} focusedItem node
+	 * @param {Node} item node
 	 * @param {Number} scrollPosition last target position, passed when scroll animation is ongoing
 	 *
 	 * @returns {Number} Calculated `scrollLeft`
@@ -275,7 +275,7 @@ const useSpottable = (props, instances) => {
 		const
 			{rtl} = props,
 			// For Chrome 85+ or Safari that use negative coordinate system for RTL
-			coordinateCoefficient = rtl && (platform.ios || platform.safari || platform.chrome >= 85) ? -1 : 1,
+			coordinateCoefficient = rtl && (platform.ios || platform.safari || platform.chrome >= 85 || platform.androidChrome >= 85) ? -1 : 1,
 			{clientWidth} = scrollContentHandle.current.scrollBounds,
 			rtlDirection = rtl ? -1 : 1,
 			{left: containerLeft} = scrollContentNode.getBoundingClientRect(),
