@@ -35,6 +35,9 @@
 @font-system-src-sandstone-icons:  local("Sandstone Icons"), local("SandstoneIcons"), url("../../fonts/Sandstone_Icons.ttf") format("truetype");
 @font-system-src-lg-icons:         @font-system-src-sandstone-400, local("LG Smart UI Dingbat"), local("LGSmartUIDingbat");
 
+// ----- WEB FONT NAMES ------
+@font-web-src-th-locale-normal: url(https://fonts.gstatic.com/s/notosansthai/v13/iJWQBXeUZi_OHPqn4wq6hQ2_hbJ1xyN9wd43SofNWcdfKI2h.woff2) format('woff2');
+
 // Localized fonts
 // Order correlates with load and priority order. Later fonts are stacked on top of earlier fonts.
 // In the case of glyphs existing in two fonts, the later glyphs will be used.
@@ -115,6 +118,8 @@
 .buildFontFamily("@{font-family-base-name} Number"; @font-system-src-sandstone-number-700; @font-system-src-sandstone-condensed-700; 700);
 
 /* ----- Manual Sandstone Locale Fonts (Stacking onto "Sandstone") ------ */
+.buildFontFace(@font-family-base-name; @font-web-src-th-locale-normal; 300 400 600 700);
+
 .buildFontFace(@font-family-base-name; @font-system-src-non-latin-400);
 .buildFontFace(@font-family-base-name; @font-system-src-non-latin-300; 300);
 .buildFontFace(@font-family-base-name; @font-system-src-non-latin-600; 600);
