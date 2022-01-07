@@ -74,6 +74,7 @@ const NumberFieldBase = kind({
 		invalidMessage: PropTypes.string,
 		maxLength: PropTypes.number,
 		minLength: PropTypes.number,
+		noSubmitButton: PropTypes.bool,
 		numberInputField: PropTypes.string,
 		onBeforeChange: PropTypes.func,
 		onComplete: PropTypes.func,
@@ -152,10 +153,10 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, disabled, invalid, maxLength, minLength, onSubmit, value, numberInputField}) => {
+		submitButton: ({css, disabled, invalid, maxLength, minLength, noSubmitButton, onSubmit, value, numberInputField}) => {
 			const isDisabled = disabled || invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
-			if (minLength !== maxLength || !getSeparated(numberInputField, maxLength)) {
+			if (!noSubmitButton && (minLength !== maxLength || !getSeparated(numberInputField, maxLength))) {
 				return <Button className={css.submitButton} disabled={isDisabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
@@ -175,6 +176,7 @@ const NumberFieldBase = kind({
 		delete rest.invalid;
 		delete rest.invalidMessage;
 		delete rest.minLength;
+		delete rest.noSubmitButton;
 		delete rest.onBeforeChange;
 		delete rest.onComplete;
 		delete rest.onSubmit;
