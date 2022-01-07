@@ -7,6 +7,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - To use `forwardCustom` for forwarding custom events with type
+- `sandstone/BodyText` font-size for size `small` and RTL locale
+- `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
 
 ## [2.1.2] - 2021-12-22
 
