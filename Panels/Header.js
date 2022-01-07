@@ -35,7 +35,6 @@ const hasChildren = (children) => (Children.toArray(children).filter(Boolean).le
 const HeaderBase = kind({
 	name: 'Header',
 
-
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
 		 * The animation arranger used to transition title and subtitle changes.
@@ -392,7 +391,8 @@ const HeaderBase = kind({
 	},
 
 	handlers: {
-		onBack: forwardCustom('onBack')
+		onBack: forwardCustom('onBack'),
+		onClose: forwardCustom('onClose')
 	},
 
 	render: ({
