@@ -207,6 +207,15 @@ const VideoPlayerBase = class extends Component {
 		autoCloseTimeout: PropTypes.number,
 
 		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
+
+		/**
 		 * Removes interactive capability from this component. This includes, but is not limited to,
 		 * key-press events, most clickable buttons, and prevents the showing of the controls.
 		 *
@@ -1920,6 +1929,7 @@ const VideoPlayerBase = class extends Component {
 
 	render () {
 		const {
+			backButtonAriaLabel,
 			className,
 			disabled,
 			infoComponents,
@@ -2037,8 +2047,10 @@ const VideoPlayerBase = class extends Component {
 						{
 							this.state.mediaControlsVisible ?
 								<Button
+									aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 									className={css.back}
 									icon="arrowhookleft"
+									iconFlip="auto"
 									onClick={onBack}
 									size="small"
 								/> :

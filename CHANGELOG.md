@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/VideoPlayer` prop `backButtonAriaLabel`
 - `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player via touch
 
 ### Fixed

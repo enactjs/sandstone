@@ -142,6 +142,7 @@ export const _VideoPlayer = (args) => {
 			</label>
 			<VideoPlayer
 				autoCloseTimeout={args['autoCloseTimeout']}
+				backButtonAriaLabel={args['backButtonAriaLabel']}
 				disabled={args['disabled']}
 				feedbackHideDelay={args['feedbackHideDelay']}
 				initialJumpDelay={args['initialJumpDelay']}
@@ -210,6 +211,7 @@ export const _VideoPlayer = (args) => {
 select('source', _VideoPlayer, prop.videoTitles, Config, 'Sintel');
 range('video scale', _VideoPlayer, Config, {min: 0.05, max: 1, step: 0.01}, 1);
 number('autoCloseTimeout', _VideoPlayer, Config, 7000);
+text('backButtonAriaLabel', _VideoPlayer, Config, 'go to previous');
 boolean('disabled', _VideoPlayer, Config);
 number('feedbackHideDelay', _VideoPlayer, Config, 3000);
 number('initialJumpDelay', _VideoPlayer, Config, 400);
