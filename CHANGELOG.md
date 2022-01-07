@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player via touch
+
 ### Fixed
 
 - `sandstone/BodyText` font-size for size `small` and RTL locale
