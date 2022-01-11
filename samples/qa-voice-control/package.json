@@ -1,36 +1,36 @@
 {
-	"name": "qa-voice-control",
-	"version": "0.1.0",
-	"description": "Enact Voice Control Test application.",
-	"author": "",
-	"main": "src/index.js",
-	"scripts": {
-		"serve": "enact serve",
-		"pack": "enact pack",
-		"pack-p": "enact pack -p",
-		"watch": "enact pack --watch",
-		"clean": "enact clean",
-		"lint": "enact lint --strict .",
-		"test": "enact test",
-		"test-watch": "enact test --watch"
-	},
-	"license": "Apache-2.0",
-	"private": true,
-	"repository": "",
-	"enact": {
-		"title": "QA Voice Control",
-		"theme": "sandstone"
-	},
-	"dependencies": {
-		"@enact/core": "^4.1.2",
-		"@enact/i18n": "^4.1.2",
-		"@enact/sandstone": "../../",
-		"@enact/spotlight": "^4.1.2",
-		"@enact/ui": "^4.1.2",
-		"@enact/webos": "^4.1.2",
-		"ilib": "^14.11.1",
-		"prop-types": "^15.8.0",
-		"react": "^17.0.2",
-		"react-dom": "^17.0.2"
-	}
+  "name": "qa-voice-control",
+  "version": "0.1.0",
+  "description": "Enact Voice Control Test application.",
+  "author": "",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "enact serve",
+    "pack": "enact pack",
+    "pack-p": "enact pack -p",
+    "watch": "enact pack --watch",
+    "clean": "enact clean",
+    "lint": "enact lint --strict .",
+    "test": "enact test",
+    "test-watch": "enact test --watch"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": "",
+  "enact": {
+    "title": "QA Voice Control",
+    "theme": "sandstone"
+  },
+  "dependencies": {
+    "@enact/core": "^4.1.2",
+    "@enact/i18n": "^4.1.2",
+    "@enact/sandstone": "../../",
+    "@enact/spotlight": "^4.1.2",
+    "@enact/ui": "^4.1.2",
+    "@enact/webos": "^4.1.2",
+    "ilib": "^14.11.1",
+    "prop-types": "^15.8.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }
