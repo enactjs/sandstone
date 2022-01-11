@@ -6,12 +6,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Alert` layout for overlay type when screen width is narrow
 - `sandstone/BodyText` font-size for size `small` and RTL locale
 - `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
 
 ## [2.1.2] - 2021-12-22
 
-- Fixed samples build issue 
+- Fixed samples build issue
 
 ## [2.1.1] - 2021-12-22
 
