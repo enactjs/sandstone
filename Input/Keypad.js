@@ -68,14 +68,6 @@ const Keypad = kind({
 		onRemove: PropTypes.func
 	},
 
-	computed: {
-		className: ({styler}) => {
-			const isMobile = platform.platformName === 'androidChrome' || platform.platformName === 'ios' || platform.platformName === 'safari';
-
-			return styler.append({mobile: isMobile});
-		}
-	},
-
 	styles: {
 		css,
 		className: 'keypad',
