@@ -1945,7 +1945,6 @@ const VideoPlayerBase = class extends Component {
 			noMiniFeedback,
 			noSlider,
 			noSpinner,
-			onBack,
 			selection,
 			spotlightDisabled,
 			spotlightId,
