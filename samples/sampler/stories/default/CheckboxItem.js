@@ -57,7 +57,7 @@ select('indeterminateIcon', _CheckboxItem, iconNames, Config);
 boolean('inline', _CheckboxItem, Config);
 text('label', _CheckboxItem, Config);
 select('labelPosition', _CheckboxItem, ['above', 'after', 'before', 'below'], Config);
-text('children', _CheckboxItem, Config, 'هناك حقيقة مثبتة منذ زمن طويل وهي');
+text('children', _CheckboxItem, Config, 'Hello CheckboxItem');
 
 _CheckboxItem.storyName = 'CheckboxItem';
 _CheckboxItem.parameters = {
