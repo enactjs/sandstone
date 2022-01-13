@@ -5,7 +5,6 @@
 import kind from '@enact/core/kind';
 import {add} from '@enact/core/keymap';
 import {handle, oneOf, forKey, forward, adaptEvent} from '@enact/core/handle';
-import platform from '@enact/core/platform';
 import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
