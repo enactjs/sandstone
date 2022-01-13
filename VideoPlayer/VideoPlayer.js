@@ -1964,6 +1964,7 @@ const VideoPlayerBase = class extends Component {
 		delete mediaProps.miniFeedbackHideDelay;
 		delete mediaProps.noAutoShowMediaControls;
 		delete mediaProps.noMediaSliderFeedback;
+		delete mediaProps.onBack;
 		delete mediaProps.onControlsAvailable;
 		delete mediaProps.onFastForward;
 		delete mediaProps.onJumpBackward;
