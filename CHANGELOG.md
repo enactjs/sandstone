@@ -16,7 +16,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/BodyText` font-size for size `small` and RTL locale
-- `sandstone/Input.Keypad` keypad margins to show all digits and body padding to show title for mobile
+- `sandstone/Input.InputField` size 'small' line-height to center text vertically
+- `sandstone/Input.Keypad` keypad margins to show all digits and body padding to show title for smaller screens
 - `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
 
 ## [2.1.2] - 2021-12-22
