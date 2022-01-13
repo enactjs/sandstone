@@ -69,8 +69,7 @@ const Keypad = kind({
 
 	styles: {
 		css,
-		className: 'keypad',
-		publicClassNames: true
+		className: 'keypad'
 	},
 
 	render: ({disabled, onAdd, onRemove, ...rest}) => {
