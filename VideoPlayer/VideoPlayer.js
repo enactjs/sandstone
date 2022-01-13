@@ -11,7 +11,7 @@ import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
 import {memoize} from '@enact/core/util';
 
-import {adaptEvent, call, forKey, forward, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
+import {adaptEvent, call, forKey, forward, forwardCustom, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {platform} from '@enact/core/platform';
 import EnactPropTypes from '@enact/core/internal/prop-types';
@@ -1778,6 +1778,8 @@ const VideoPlayerBase = class extends Component {
 		this.sliderScrubbing = false;
 	};
 
+	handleBack = this.handle(forwardCustom('onBack'));
+
 	handleKnobMove = (ev) => {
 		this.sliderScrubbing = true;
 
@@ -2051,7 +2053,7 @@ const VideoPlayerBase = class extends Component {
 									className={css.back}
 									icon="arrowhookleft"
 									iconFlip="auto"
-									onClick={onBack}
+									onClick={this.handleBack}
 									size="small"
 								/> :
 								null
