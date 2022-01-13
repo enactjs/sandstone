@@ -4,6 +4,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/VideoPlayer` prop `backButtonAriaLabel`
+- `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player via touch
+
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
@@ -15,7 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [2.1.2] - 2021-12-22
 
-- Fixed samples build issue 
+- Fixed samples build issue
 
 ## [2.1.1] - 2021-12-22
 
