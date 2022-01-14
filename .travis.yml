@@ -3,6 +3,8 @@ node_js:
     - "lts/*"
 sudo: false
 cache: npm
+before_install:
+    - sudo apt-get install python3
 install:
     - npm config set prefer-offline true
     - npm install -g enactjs/cli#test/node16
