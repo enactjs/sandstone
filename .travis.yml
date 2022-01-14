@@ -4,7 +4,9 @@ node_js:
 sudo: false
 cache: npm
 before_install:
-    - sudo apt-get install python3
+    - sudo add-apt-repository ppa:deadsnakes/ppa
+    - sudo apt-get update
+    - sudo apt-get install python3.6
 install:
     - npm config set prefer-offline true
     - npm install -g enactjs/cli#test/node16
