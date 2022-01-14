@@ -16,7 +16,7 @@ install:
     - pushd ../enact
     - npm install
     - npm run bootstrap
-    - npm run lerna link
+    - npm run lerna -- exec -- npm link
     - popd
     - rm -fr node_modules/@enact
     - npm install
