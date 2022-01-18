@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- Joined horizontal `sandstone/Picker` to go to the next item by touch
+- `sandstone/Picker` joined horizontal to go to the next item by touch
 
 ### Added
 
