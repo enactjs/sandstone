@@ -1,4 +1,4 @@
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom';
 
 import App from './App';
 
@@ -10,11 +10,11 @@ if (__DEV__)  {
 		});
 }
 
-const appElement = (<App />);
+const container = document.getElementById('root');
+
+const root = createRoot(container);
 
 // In a browser environment, render the app to the document.
 if (typeof window !== 'undefined') {
-	render(appElement, document.getElementById('root'));
+	root.render(<App />);
 }
-
-export default appElement;
