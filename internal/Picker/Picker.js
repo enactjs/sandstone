@@ -60,7 +60,6 @@ const selectDecIcon = selectIcon('decrementIcon', 'triangledown', 'triangleleft'
 const forwardBlur = forward('onBlur'),
 	forwardFocus = forward('onFocus'),
 	forwardKeyDown = forward('onKeyDown'),
-	forwardMouseDown = forward('onMouseDown'),
 	forwardKeyUp = forward('onKeyUp'),
 	forwardWheel = forward('onWheel');
 
@@ -552,14 +551,6 @@ const PickerBase = class extends ReactComponent {
 
 	emulateMouseUp = new Job(this.clearPressedState, 175);
 
-	handleMouseDown = (ev) => {
-		const {joined, orientation} = this.props;
-		forwardMouseDown(ev, this.props);
-
-		if (joined && orientation === 'horizontal') {
-			this.setIncPickerButtonPressed();
-		}
-	};
 
 	handleUp = () => {
 		if (this.props.joined && (this.pickerButtonPressed !== 0 || this.state.pressed !== 0)) {
@@ -569,6 +560,10 @@ const PickerBase = class extends ReactComponent {
 
 	handleDown = () => {
 		const {joined, orientation} = this.props;
+
+		if (joined && orientation === 'horizontal') {
+			this.setIncPickerButtonPressed();
+		}
 
 		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
@@ -952,7 +947,6 @@ const PickerBase = class extends ReactComponent {
 				onKeyDown={this.handleKeyDown}
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
-				onMouseDown={this.handleMouseDown}
 				onMouseLeave={this.clearPressedState}
 				orientation={orientation}
 				ref={this.initContainerRef}

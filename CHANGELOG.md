@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- Joined horizontal `sandstone/Picker` to go to the next item by touch
+
 ### Added
 
 - `sandstone/VideoPlayer` prop `backButtonAriaLabel`
