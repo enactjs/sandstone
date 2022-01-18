@@ -9,8 +9,10 @@ const container = document.getElementById('root');
 
 const root = createRoot(container);
 
+const appElement = (<App />);
+
 if (typeof window !== 'undefined') {
-	root.render(<App />);
+	root.render(appElement);
 
 	let versionDiv = document.createElement('div');
 	versionDiv.id = 'version_info';
@@ -18,3 +20,5 @@ if (typeof window !== 'undefined') {
 	document.getElementById('root').appendChild(versionDiv);
 	document.getElementById('version_info').innerHTML = 'enact ' + enactPkg.version + ' / app ' + appPkg.version;
 }
+
+export default appElement;

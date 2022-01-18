@@ -9,10 +9,14 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 
 const store = storeFactory();
+const appElement = (
+	<Provider store={store}>
+		<App />
+	</Provider>
+);
+
 if (typeof window !== 'undefined') {
-	root.render(
-		<Provider store={store}>
-			<App />
-		</Provider>
-	);
+	root.render(appElement);
 }
+
+export default appElement;

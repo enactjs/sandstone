@@ -6,7 +6,11 @@ const container = document.getElementById('root');
 
 const root = createRoot(container);
 
+const appElement = (<App />);
+
 // In a browser environment, render instead of exporting
 if (typeof window !== 'undefined') {
-	root.render(<App />);
+	root.render(appElement);
 }
+
+export default appElement;
