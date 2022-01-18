@@ -1,11 +1,14 @@
 import {Provider} from 'react-redux';
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom';
 
 import App from './App';
 import configureStore from './store';
 
-const store = configureStore();
+const container = document.getElementById('root');
 
+const root = createRoot(container);
+
+const store = configureStore();
 const appElement = (
 	<Provider store={store}>
 		<App />
@@ -14,7 +17,7 @@ const appElement = (
 
 // In a browser environment, render the app to the document.
 if (typeof window !== 'undefined') {
-	render(appElement, document.getElementById('root'));
+	root.render(appElement);
 }
 
 export default appElement;
