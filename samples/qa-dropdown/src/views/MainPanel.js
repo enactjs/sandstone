@@ -1,4 +1,4 @@
-import Button from '@enact/sandstone/Button';
+import Checkbox from '@enact/sandstone/Checkbox';
 import Dropdown from '@enact/sandstone/Dropdown';
 import {WizardPanels, Panel} from '@enact/sandstone/WizardPanels';
 import {Component} from 'react';
@@ -26,9 +26,7 @@ class MainPanel extends Component {
 					<Dropdown size="large" title="language" open={this.state.open} onOpen={this.handleOpen} onClose={this.handleClose}>
 						{['English', 'Korean', 'Spanish', 'Amharic', 'Thai', 'Arabic', 'Urdu', 'Simplified Chinese', 'Traditional Chinese', 'Vietnamese']}
 					</Dropdown>
-					<Button size="large">
-						Enter
-					</Button>
+					<Checkbox />
 				</Panel>
 			</WizardPanels>
 		);
