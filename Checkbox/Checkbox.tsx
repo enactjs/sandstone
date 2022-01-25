@@ -159,7 +159,6 @@ const CheckboxBase = kind({
 				{...rest}
 				aria-checked={selected}
 				aria-disabled={disabled}
-				disabled={disabled}
 				role="checkbox"
 			>
 				<div className={css.bg} />
