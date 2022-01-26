@@ -31,7 +31,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@enact/storybook-utils": "github:enactjs/storybook-utils#feature/WRN-11218",
+    "@enact/storybook-utils": "github:enactjs/storybook-utils#develop",
     "@storybook/addons": "6.3.12",
     "@storybook/react": "6.3.12",
     "@storybook/theming": "6.3.12",
