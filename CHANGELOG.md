@@ -20,6 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to show title and keypad properly when `type` is `number` and screen width is narrow
 - `sandstone/Picker` horizontal joined behavior going to the next item by touch
 - `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
+- `sandstone/VirtualList` to scroll properly by hover after changing `dataSize` when `hoverToScroll` is `true`
 
 ## [2.1.2] - 2021-12-22
 

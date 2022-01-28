@@ -51,7 +51,7 @@ const directionToFocus = {
 const HoverToScrollBase = (props) => {
 	const {
 		direction,
-		scrollContainerHandle: {current: scrollContainer},
+		scrollContainer,
 		scrollObserver: {addObserverOnScroll, removeObserverOnScroll}
 	} = props;
 
@@ -213,7 +213,7 @@ HoverToScrollBase.displayName = 'HoverToScrollBase';
 
 HoverToScrollBase.propTypes = /** @lends sandstone/useScroll.HoverToScroll.HoverToScrollBase.prototype */ {
 	direction: PropTypes.string,
-	scrollContainerHandle: PropTypes.object
+	scrollContainer: PropTypes.object
 };
 
 /**
@@ -224,11 +224,11 @@ HoverToScrollBase.propTypes = /** @lends sandstone/useScroll.HoverToScroll.Hover
  * @ui
  * @private
  */
-const HoverToScroll = ({scrollContainerHandle, ...rest}) => {
-	return scrollContainerHandle ? (
+const HoverToScroll = ({scrollContainer, ...rest}) => {
+	return scrollContainer ? (
 		<>
-			<HoverToScrollBase scrollContainerHandle={scrollContainerHandle} {...rest} direction="horizontal" />
-			<HoverToScrollBase scrollContainerHandle={scrollContainerHandle} {...rest} direction="vertical" />
+			<HoverToScrollBase scrollContainer={scrollContainer} {...rest} direction="horizontal" />
+			<HoverToScrollBase scrollContainer={scrollContainer} {...rest} direction="vertical" />
 		</>
 	) : null;
 };
@@ -236,7 +236,7 @@ const HoverToScroll = ({scrollContainerHandle, ...rest}) => {
 HoverToScroll.displayName = 'HoverToScroll';
 
 HoverToScroll.propTypes = /** @lends sandstone/useScroll.HoverToScroll.prototype */ {
-	scrollContainerHandle: PropTypes.object
+	scrollContainer: PropTypes.object
 };
 
 export default HoverToScroll;
