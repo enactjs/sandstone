@@ -16,8 +16,8 @@ describe('ContextualPopupDecorator', function () {
 			button1.focus();
 		});
 
-		it('should focus the first button on start', function () {
-			expect(button1.self.isFocused()).to.be.true();
+		it('should focus the first button on start', async function () {
+			expect(await button1.self.isFocused()).to.be.true();
 		});
 
 		describe('using 5-way', function () {
@@ -26,11 +26,11 @@ describe('ContextualPopupDecorator', function () {
 				Page.spotlightSelect();
 			});
 
-			it('should have Spotlight on close button when ContextualPopup opens - [QWT-2731]', function () {
+			it('should have Spotlight on close button when ContextualPopup opens - [QWT-2731]', async function () {
 				// 5-waySelectableActivator: Button Retains Spotlight when Popup Hides
 				let popupButton = $('#popupButton');
 
-				expect(popupButton.isFocused()).to.be.true();
+				expect(await popupButton.isFocused()).to.be.true();
 			});
 		});
 	});

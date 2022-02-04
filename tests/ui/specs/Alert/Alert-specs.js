@@ -10,64 +10,65 @@ describe('Alert', () => {
 
 	// Using 5-way
 	describe('using 5-way', () => {
-		it('should spot the fullscreen alert button', () => {
-			expect(alertCommon.buttonFullscreen.isFocused()).to.be.true();
+		it('should spot the fullscreen alert button', async () => {
+			expect(await alertCommon.buttonFullscreen.isFocused()).to.be.true();
 		});
 
-		it('should spot the cancel button', () => {
-			Page.spotlightSelect();
-			Page.spotlightRight();
+		it('should spot the cancel button', async () => {
+			await Page.spotlightSelect();
+			await Page.spotlightRight();
 
-			expect(components.alertFullscreen.buttonCancel.isFocused()).to.be.true();
+			expect(await components.alertFullscreen.buttonCancel.isFocused()).to.be.true();
 		});
 
-		it('should close the fullscreen alert using the ok button', () => {
-			Page.spotlightSelect();
-			Page.spotlightSelect();
+		it('should close the fullscreen alert using the ok button', async () => {
+			await Page.spotlightSelect();
+			await Page.spotlightSelect();
 
-			expect(alertCommon.buttonFullscreen.isFocused()).to.be.true();
+			expect(await alertCommon.buttonFullscreen.isFocused()).to.be.true();
 		});
 
-		it('should close the fullscreen alert using the back key', () => {
-			Page.spotlightSelect();
-			Page.backKey();
+		it('should close the fullscreen alert using the back key', async () => {
+			await Page.spotlightSelect();
+			await Page.backKey();
 
-			expect(alertCommon.buttonFullscreen.isFocused()).to.be.true();
+			expect(await alertCommon.buttonFullscreen.isFocused()).to.be.true();
 		});
 
-		it('should spot the cancel button', () => {
-			Page.spotlightRight();
-			Page.spotlightSelect();
-			Page.spotlightDown();
+		it('should spot the cancel button', async () => {
+			await Page.spotlightRight();
+			await Page.spotlightSelect();
+			await Page.spotlightDown();
 
-			expect(components.alertOverlay.buttonCancel.isFocused()).to.be.true();
+			expect(await components.alertOverlay.buttonCancel.isFocused()).to.be.true();
 		});
 
-		it('should close the overlay alert using the close button', () => {
-			Page.spotlightRight();
-			Page.spotlightSelect();
-			Page.spotlightDown();
-			Page.spotlightSelect();
+		it('should close the overlay alert using the close button', async () => {
+			await Page.spotlightRight();
+			await Page.spotlightSelect();
+			await Page.spotlightDown();
+			await Page.spotlightSelect();
+			browser.pause(100);
 
-			expect(alertCommon.buttonOverlay.isFocused()).to.be.true();
+			expect(await alertCommon.buttonOverlay.isFocused()).to.be.true();
 		});
 
-		it('should close the overlay alert using the back key', () => {
-			Page.spotlightRight();
-			Page.spotlightSelect();
-			Page.backKey();
+		it('should close the overlay alert using the back key', async () => {
+			await Page.spotlightRight();
+			await Page.spotlightSelect();
+			await Page.backKey();
 
-			expect(alertCommon.buttonOverlay.isFocused()).to.be.true();
+			expect(await alertCommon.buttonOverlay.isFocused()).to.be.true();
 		});
 	});
 
 	// Using pointer
 	describe('using pointer', () => {
-		it('should focus the fullscreen alert button', () => {
-			expect(alertCommon.buttonFullscreen.isFocused()).to.be.true();
+		it('should focus the fullscreen alert button', async () => {
+			expect(await alertCommon.buttonFullscreen.isFocused()).to.be.true();
 		});
 
-		it('should open the fullscreen alert', () => {
+		it('should open the fullscreen alert', async () => {
 			alertCommon.buttonFullscreen.click();
 
 			browser.pause(100);
@@ -75,7 +76,7 @@ describe('Alert', () => {
 			validateTitle(components.alertFullscreen, 'Fullscreen Alert\nOk\nCancel');
 		});
 
-		it('should open and close the fullscreen alert', () => {
+		it('should open and close the fullscreen alert', async () => {
 			alertCommon.buttonFullscreen.click();
 
 			browser.pause(100);
@@ -86,7 +87,7 @@ describe('Alert', () => {
 			expectClosed(alertCommon);
 		});
 
-		it('should open the overlay alert', () => {
+		it('should open the overlay alert', async () => {
 			alertCommon.buttonOverlay.click();
 
 			browser.pause(100);
@@ -94,7 +95,7 @@ describe('Alert', () => {
 			validateTitle(components.alertOverlay, 'Overlay Alert\nOk\nCancel');
 		});
 
-		it('should open and close the overlay alert', () => {
+		it('should open and close the overlay alert', async () => {
 			alertCommon.buttonOverlay.click();
 
 			browser.pause(100);
@@ -106,7 +107,7 @@ describe('Alert', () => {
 			expectClosed(alertCommon);
 		});
 
-		it('should open and close the overlay alert by clicking the background', () => {
+		it('should open and close the overlay alert by clicking the background', async () => {
 			alertCommon.buttonOverlay.click();
 
 			browser.pause(100);

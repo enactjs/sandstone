@@ -8,8 +8,8 @@ class PickerInterface {
 		this.id = id;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(`#${this.id}>div`));
+	async focus () {
+		return browser.execute((el) => el.focus(), await $(`#${this.id}>div`));
 	}
 
 	get      self () {

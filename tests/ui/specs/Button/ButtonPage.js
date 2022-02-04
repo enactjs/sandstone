@@ -10,12 +10,12 @@ class ButtonInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(this.selector));
+	async focus () {
+		return await browser.execute((el) => el.focus(), await $(this.selector));
 	}
 
-	hover () {
-		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
+	async hover () {
+		return await $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
 	get self () {
