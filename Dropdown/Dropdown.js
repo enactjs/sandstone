@@ -17,7 +17,7 @@
  */
 
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {handle, forward, forProp, not} from '@enact/core/handle';
+import {handle, forward, forwardCustom, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -250,7 +250,7 @@ const DropdownBase = kind({
 
 	handlers: {
 		onSelect: handle(
-			forward('onSelect'),
+			forwardCustom('onSelect', (ev) => (ev)),
 			forward('onClose')
 		),
 		onOpen: handle(

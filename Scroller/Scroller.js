@@ -335,7 +335,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @type {Object}
 	 * @default {
 	 *	arrowKey: false,
-	 *	drag: false,
+	 *	drag: true,
 	 *	pageKey: false,
 	 *	track: false,
 	 *	wheel: true
@@ -420,7 +420,7 @@ Scroller.defaultProps = {
 	onScrollStop: nop,
 	overscrollEffectOn: {
 		arrowKey: false,
-		drag: false,
+		drag: true,
 		pageKey: false,
 		track: false,
 		wheel: true

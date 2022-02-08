@@ -391,7 +391,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should fire onWillTransition with target index',
+		'should fire onWillTransition with target index and type',
 		async () => {
 			const spy = jest.fn();
 			let index = 0;
@@ -412,7 +412,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const expected = {index};
+			const expected = {index, type: 'onWillTransition'};
 			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 			await waitFor(() => {
@@ -422,7 +422,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should fire onTransition with target index',
+		'should fire onTransition with target index and type',
 		async () => {
 			const spy = jest.fn();
 			let index = 0;
@@ -443,7 +443,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const expected = {index};
+			const expected = {index, type: 'onTransition'};
 			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 			await waitFor(() => {
@@ -476,6 +476,34 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should fire `onNextClick` and `onChange` with type when go to the next panel',
+		async () => {
+			const handleChange = jest.fn();
+			const handleNextClick = jest.fn();
+
+			render(
+				<WizardPanels index={1} onChange={handleChange} onNextClick={handleNextClick}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const nextButton = screen.getByLabelText('Next');
+			const expected = {type: 'onNextClick'};
+
+			userEvent.click(nextButton);
+
+			await waitFor(() => {
+				const actual = handleNextClick.mock.calls.length && handleNextClick.mock.calls[0][0];
+
+				expect(handleChange).toBeCalledWith({index: 2, type: 'onChange'});
+				expect(actual).toMatchObject(expected);
+			});
+		}
+	);
+
+	test(
 		'should go back on prev click',
 		async () => {
 			render(
@@ -494,6 +522,34 @@ describe('WizardPanel Specs', () => {
 				const actual = screen.getByText('1');
 
 				expect(actual).toHaveClass('current');
+			});
+		}
+	);
+
+	test(
+		'should fire `onPrevClick` and `onChange` with type when go to the previous panel',
+		async () => {
+			const handleChange = jest.fn();
+			const handlePrevClick = jest.fn();
+
+			render(
+				<WizardPanels index={2} onChange={handleChange} onPrevClick={handlePrevClick}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const prevButton = screen.getByLabelText('Previous');
+			const expected = {type: 'onPrevClick'};
+
+			userEvent.click(prevButton);
+
+			await waitFor(() => {
+				const actual = handlePrevClick.mock.calls.length && handlePrevClick.mock.calls[0][0];
+
+				expect(handleChange).toBeCalledWith({index: 1, type: 'onChange'});
+				expect(actual).toMatchObject(expected);
 			});
 		}
 	);

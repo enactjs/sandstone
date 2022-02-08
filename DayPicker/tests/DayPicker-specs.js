@@ -26,14 +26,14 @@ describe('DayPicker', () => {
 		expect(selectedDay).toHaveClass(expected);
 	});
 
-	test('should emit an onSelect event when selecting days', () => {
+	test('should emit an onSelect event with `onSelect` type when selecting days', () => {
 		const handleSelect = jest.fn();
 		render(<DayPicker onSelect={handleSelect} />);
 		const item = screen.getAllByRole('checkbox')[2];
 
 		userEvent.click(item);
 
-		expect(handleSelect).toHaveBeenCalled();
+		expect(handleSelect).toHaveBeenCalledWith({content: 'Mon', selected: [1], type: 'onSelect'});
 	});
 
 	test('should include `content` in onSelect event payload which respects dayNameLength', () => {

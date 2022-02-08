@@ -511,28 +511,25 @@ select('scrollMode', WithOneLongHeightItem, prop.scrollModeOption, Config);
 WithOneLongHeightItem.storyName = 'With One Long Height Item';
 
 export const WithNestedScroller = (args) => {
-	let noScrollByWheel = boolean('noScrollByWheel', Config);
 	return (
 		<Scroller
 			direction="vertical"
 			focusableScrollbar={args['focusableScrollbar']}
-			key={args['scrollMode'] + '1'}
+			key="nested-outer"
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
-			scrollMode={args['scrollMode']}
 			verticalScrollbar="visible"
 		>
 			<Scroller
 				direction="horizontal"
 				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar="visible"
-				key={args['scrollMode'] + '2'}
-				noScrollByWheel={noScrollByWheel}
+				key="nested-inner-1"
+				noScrollByWheel={args['noScrollByWheel']}
 				onKeyDown={action('onKeyDown (Nested 1st Scroller)')}
 				onScrollStart={action('onScrollStart (Nested 1st Scroller)')}
 				onScrollStop={action('onScrollStop (Nested 1st Scroller)')}
-				scrollMode={args['scrollMode']}
 				style={{
 					height: 'auto',
 					width: '90%'
@@ -566,12 +563,11 @@ export const WithNestedScroller = (args) => {
 				direction="horizontal"
 				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar="visible"
-				key={args['scrollMode'] + '3'}
-				noScrollByWheel={noScrollByWheel}
+				key="nested-inner-2"
+				noScrollByWheel={args['noScrollByWheel']}
 				onKeyDown={action('onKeyDown (Nested 2nd Scroller)')}
 				onScrollStart={action('onScrollStart (Nested 2nd Scroller)')}
 				onScrollStop={action('onScrollStop (Nested 2nd Scroller)')}
-				scrollMode={args['scrollMode']}
 				style={{
 					height: 'auto',
 					width: '90%'
@@ -606,7 +602,7 @@ export const WithNestedScroller = (args) => {
 };
 
 select('focusableScrollbar', WithNestedScroller, prop.focusableScrollbarOption, Config);
-select('scrollMode', WithNestedScroller, prop.scrollModeOption, Config);
+boolean('noScrollByWheel', WithNestedScroller, Config);
 
 WithNestedScroller.storyName = 'With Nested Scroller';
 

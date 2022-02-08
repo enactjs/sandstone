@@ -601,7 +601,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			forKey('enter'),
 			() => Spotlight.getCurrent() === this.state.activator,
 			stop,
-			forward('onClose')
+			forwardCustom('onClose')
 		);
 
 		handleOpen = (ev) => {
@@ -670,7 +670,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			// if focus moves outside the popup's container, issue the `onClose` event
 			if (Spotlight.move(direction) && !this.containerNode.contains(Spotlight.getCurrent())) {
-				forward('onClose', ev, this.props);
+				forwardCustom('onClose')(null, this.props);
 			}
 		};
 
