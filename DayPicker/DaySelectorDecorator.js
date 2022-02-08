@@ -9,7 +9,6 @@ import {Component} from 'react';
 
 import $L from '../internal/$L';
 
-const forwardSelect = forward('onSelect');
 const SELECTED_DAY_TYPES = {
 	EVERY_DAY: 0,
 	EVERY_WEEKDAY: 1,
@@ -275,7 +274,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 			selected = generalizeSelected(selected, state);
 			const content = getSelectedDayString(selected, '', dayNameLength);
 
-			forwardSelect({type: 'onSelect', selected, content}, this.props);
+			forward('onSelect', {type: 'onSelect', selected, content}, this.props);
 		};
 
 		render () {

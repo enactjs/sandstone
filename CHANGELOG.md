@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- Updated to use `forwardCustom` and add `type` when forwarding custom events
+
 ### Added
 
 - `sandstone/VideoPlayer` prop `backButtonAriaLabel`
@@ -15,7 +17,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- To use `forwardCustom` for forwarding custom events with type
 - `sandstone/BodyText` font-size for size `small` and RTL locale
 - `sandstone/Input.InputField` size 'small' line-height to center text vertically
 - `sandstone/Input` to show title and keypad properly when `type` is `number` and screen width is narrow
