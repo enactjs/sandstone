@@ -1,4 +1,4 @@
-import handle, {adaptEvent, forProp, forward, not} from '@enact/core/handle';
+import handle, {forProp, forward, forwardCustom, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -53,19 +53,13 @@ const TabBase = kind({
 		onClick: handle(
 			forward('onClick'),
 			not(forProp('disabled', true)),
-			adaptEvent(
-				(ev, {index}) => ({selected: index}),
-				forward('onTabClick')
-			)
+			forwardCustom('onTabClick', (ev, {index}) => ({selected: index}))
 		),
 		onFocus: handle(
 			forward('onFocus'),
 			not(forProp('disabled', true)),
 			() => !Spotlight.getPointerMode(),
-			adaptEvent(
-				(ev, {index}) => ({selected: index}),
-				forward('onFocusTab')
-			)
+			forwardCustom('onFocusTab', (ev, {index}) => ({selected: index}))
 		)
 	},
 

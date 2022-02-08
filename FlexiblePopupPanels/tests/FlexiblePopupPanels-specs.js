@@ -1,6 +1,7 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import {FlexiblePopupPanels, Panel} from '../';
 
@@ -204,6 +205,59 @@ describe('FlexiblePopupPanels Specs', () => {
 
 		unmount();
 		expect(actual).toBe(expected);
+	});
+
+	test('should fire `onNextClick` and `onChange` with each type in it when the next button is clicked', async () => {
+		const handleNextClick = jest.fn();
+		const handleChange = jest.fn();
+
+		render(
+			<FloatingLayerController>
+				<FlexiblePopupPanels open onNextClick={handleNextClick} onChange={handleChange}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		userEvent.click(screen.getByLabelText('Next'));
+
+		const nextClickExpected = {type: 'onNextClick'};
+		const changeExpected = {type: 'onChange'};
+
+		await waitFor(() => {
+			const nextClickActual = handleNextClick.mock.calls.length && handleNextClick.mock.calls[0][0];
+			const changeActual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+			expect(nextClickActual).toMatchObject(nextClickExpected);
+			expect(changeActual).toMatchObject(changeExpected);
+		});
+	});
+
+	test('should fire `onPrevClick` with type `onPrevClick` when the previous button is clicked', async () => {
+		const handlePrevClick = jest.fn();
+
+		render(
+			<FloatingLayerController>
+				<FlexiblePopupPanels open onPrevClick={handlePrevClick}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		userEvent.click(screen.getByLabelText('Previous'));
+
+		const expected = {type: 'onPrevClick'};
+
+		await waitFor(() => {
+			const actual = handlePrevClick.mock.calls.length && handlePrevClick.mock.calls[0][0];
+
+			expect(actual).toMatchObject(expected);
+		});
+
 	});
 
 	test('should close on back key when on first panel', () => {

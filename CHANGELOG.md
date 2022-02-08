@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- Updated to use `forwardCustom` and add `type` when forwarding custom events
+
 ### Added
 
 - `sandstone/VideoPlayer` prop `backButtonAriaLabel`

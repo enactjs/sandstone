@@ -8,7 +8,7 @@
 
 import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
-import {handle, forProp, forKey, forward, stop} from '@enact/core/handle';
+import {handle, forProp, forKey, forward, forwardCustom, stop} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {extractAriaProps} from '@enact/core/util';
@@ -601,7 +601,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			forKey('enter'),
 			() => Spotlight.getCurrent() === this.state.activator,
 			stop,
-			forward('onClose')
+			forwardCustom('onClose')
 		);
 
 		handleOpen = (ev) => {
@@ -666,7 +666,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			// if focus moves outside the popup's container, issue the `onClose` event
 			if (Spotlight.move(direction) && !this.containerNode.contains(Spotlight.getCurrent())) {
-				forward('onClose', ev, this.props);
+				forwardCustom('onClose')(null, this.props);
 			}
 		};
 
