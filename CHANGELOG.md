@@ -4,10 +4,22 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/VideoPlayer` prop `backButtonAriaLabel`
+- `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player via touch
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
+
 ### Fixed
 
 - To use `forwardCustom` for forwarding custom events with type
 - `sandstone/BodyText` font-size for size `small` and RTL locale
+- `sandstone/Input.InputField` size 'small' line-height to center text vertically
+- `sandstone/Input` to show title and keypad properly when `type` is `number` and screen width is narrow
+- `sandstone/Picker` horizontal joined behavior going to the next item by touch
 - `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
 
 ## [2.1.2] - 2021-12-22
@@ -17,6 +29,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ## [2.1.1] - 2021-12-22
 
 ### Added
+
 - `sandstone/VideoPlayer` props `onWillFastForward`, `onWillJumpBackward`, `onWillJumpForward`, `onWillPause`, `onWillPlay`, and `onWillRewind`
 
 ### Fixed
