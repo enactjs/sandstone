@@ -14,7 +14,7 @@ import LocaleSwitch from '../components/LocaleSwitch';
 import ScrollModeSwitch from '../components/ScrollModeSwitch';
 import {setData} from '../actions';
 
-import css from './MainPanel.module.less';
+import css from './MainPanel.module.scss';
 
 const childProps = {text: ' child props'};
 

@@ -1,0 +1,9 @@
+// MainPanel.module.scss
+//
+//@import '~@enact/sandstone/styles/mixins.less';
+
+$padding: 36px;
+
+.verticalPadding {
+	padding-inline-end: $padding;
+}
