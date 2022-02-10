@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.0.6] - 2022-02-10
+
+### Fixed
+
+- `sandstone/VirtualList` to scroll properly by hover after changing `dataSize` when `hoverToScroll` is `true`
+
 ## [2.0.5] - 2021-12-15
 
 ### Fixed
