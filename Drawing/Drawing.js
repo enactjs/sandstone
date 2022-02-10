@@ -40,11 +40,16 @@ const DrawingBase = kind({
 		const [brushColor, setBrushColor] = useState('green');
 		const [canvasColor, setCanvasColor] = useState('#fff');
 		const drawingRef = useRef();
+
+		delete rest.brushColor;
+		delete rest.brushSize;
+		delete rest.canvasColor;
+
 		return (
 			<Column {...rest}>
 				<Row>
 					<Cell>
-						<Heading size="tiny">
+						<Heading size="tiny" marqueeDisabled>
 							<Slider
 								backgroundProgress={0}
 								defaultValue={brushSize}
@@ -84,7 +89,7 @@ const DrawingBase = kind({
 
 					</Cell>
 					<Cell>
-						<Heading size="tiny">
+						<Heading size="tiny" marqueeDisabled>
 							Erase
 							<Switch onClick={onSetErasing} />
 						</Heading>
