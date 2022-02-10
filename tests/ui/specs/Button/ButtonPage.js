@@ -78,8 +78,8 @@ class ButtonPage extends Page {
 		};
 	}
 
-	open (urlExtra) {
-		super.open('Button-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Button-View', urlExtra);
 	}
 }
 

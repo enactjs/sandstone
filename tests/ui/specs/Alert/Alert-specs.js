@@ -4,8 +4,8 @@ const {expectClosed, expectOpen, validateTitle} = require('./Alert-utils.js');
 describe('Alert', () => {
 
 	const {alertCommon, components} = Page;
-	beforeEach(() => {
-		Page.open();
+	beforeEach(async () => {
+		await Page.open();
 	});
 
 	// Using 5-way

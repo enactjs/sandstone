@@ -69,8 +69,8 @@ class CheckboxItemPage extends Page {
 		};
 	}
 
-	open (urlExtra) {
-		super.open('CheckboxItem-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('CheckboxItem-View', urlExtra);
 	}
 }
 

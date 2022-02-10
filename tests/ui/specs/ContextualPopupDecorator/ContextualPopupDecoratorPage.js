@@ -34,8 +34,8 @@ class ContextualPopupDecoratorPage extends Page {
 		};
 	}
 
-	open (urlExtra) {
-		super.open('ContextualPopupDecorator-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('ContextualPopupDecorator-View', urlExtra);
 	}
 }
 

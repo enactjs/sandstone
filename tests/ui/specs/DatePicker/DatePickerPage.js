@@ -57,8 +57,8 @@ class DatePickerPage extends Page {
 		this.components.datePickerDisabledWithDefaultValue = new PickerInterface('datePickerDisabledWithDefaultValue');
 	}
 
-	open (urlExtra) {
-		super.open('DatePicker-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('DatePicker-View', urlExtra);
 	}
 }
 

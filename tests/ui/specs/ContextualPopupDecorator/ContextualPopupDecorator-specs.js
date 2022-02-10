@@ -2,8 +2,8 @@ const Page = require('./ContextualPopupDecoratorPage');
 
 describe('ContextualPopupDecorator', function () {
 
-	beforeEach(function () {
-		Page.open();
+	beforeEach(async function () {
+		await Page.open();
 	});
 
 	const {

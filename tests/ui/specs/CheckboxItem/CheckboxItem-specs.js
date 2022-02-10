@@ -5,8 +5,8 @@ const Page = require('./CheckboxItemPage'),
 describe('CheckboxItem', function () {
 
 	describe('LTR locale', function () {
-		beforeEach(function () {
-			Page.open();
+		beforeEach(async function () {
+			await Page.open();
 		});
 
 		describe('default', function () {
@@ -254,8 +254,8 @@ describe('CheckboxItem', function () {
 	});
 
 	describe('RTL locale', function () {
-		beforeEach(function () {
-			Page.open('?locale=ar-SA');
+		beforeEach(async function () {
+			await Page.open('?locale=ar-SA');
 		});
 
 		it('should have focus on first item at start', async function () {

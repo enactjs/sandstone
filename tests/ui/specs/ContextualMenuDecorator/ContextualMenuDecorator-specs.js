@@ -2,8 +2,8 @@ const Page = require('./ContextualMenuDecoratorPage');
 
 describe('ContextualMenuDecorator', function () {
 
-	beforeEach(function () {
-		Page.open();
+	beforeEach(async function () {
+		await Page.open();
 	});
 
 	const {
