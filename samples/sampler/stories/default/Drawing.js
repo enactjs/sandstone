@@ -1,6 +1,5 @@
-import { action } from '@enact/storybook-utils/addons/actions';
 import { boolean, select, range } from '@enact/storybook-utils/addons/controls';
-import Drawing from '@enact/sandstone/Drawing-POC';
+import Drawing from '@enact/sandstone/Drawing';
 
 Drawing.displayName = 'Drawing';
 
