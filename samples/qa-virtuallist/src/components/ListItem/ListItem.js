@@ -3,6 +3,8 @@ import Item from '@enact/sandstone/Item';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 
+import css from './ListItem.module.less';
+
 const ListItem = kind({
 	name: 'ListItem',
 	propTypes: {
@@ -16,7 +18,7 @@ const ListItem = kind({
 		delete rest.dispatch;
 
 		return (
-			<Item {...rest} disabled={disabled}>
+			<Item {...rest} disabled={disabled} className={css.listItem}>
 				{children}
 			</Item>
 		);
