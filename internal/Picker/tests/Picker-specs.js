@@ -299,6 +299,38 @@ describe('Picker Specs', () => {
 		expect(handleChange).not.toHaveBeenCalled();
 	});
 
+	test('should allow keyboard decrement via left arrow keys when \'joined\' and \'noIndicator\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} noIndicator onChange={handleChange} value={0} />
+		);
+		const picker = screen.getByLabelText('0 change a value with left right button');
+
+		fireEvent.keyDown(picker, {keyCode: 37});
+		fireEvent.mouseDown(picker);
+
+		const expected = -1;
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should allow keyboard increment via right arrow keys when \'joined\' and \'noIndicator\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} noIndicator onChange={handleChange} value={0} />
+		);
+		const picker = screen.getByLabelText('0 change a value with left right button');
+
+		fireEvent.keyDown(picker, {keyCode: 39});
+		fireEvent.mouseDown(picker);
+
+		const expected = 1;
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should allow keyboard decrement via down arrow keys when \'joined\' and \'vertical\'', () => {
 		const handleChange = jest.fn();
 		render(
@@ -375,6 +407,30 @@ describe('Picker Specs', () => {
 			<Picker index={0} joined max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0} />
 		);
 		const picker = screen.getByLabelText('0 press ok button to change the value');
+
+		fireEvent.keyDown(picker, {keyCode: 38});
+
+		expect(handleChange).not.toHaveBeenCalled();
+	});
+
+	test('should not allow keyboard decrement via down arrow keys when \'joined\' and \'noIndicator\' and\'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} noIndicator onChange={handleChange} orientation="horizontal" value={0}  />
+		);
+		const picker = screen.getByLabelText('0 change a value with left right button');
+
+		fireEvent.keyDown(picker, {keyCode: 40});
+
+		expect(handleChange).not.toHaveBeenCalled();
+	});
+
+	test('should not allow keyboard increment via up arrow keys when \'joined\' and \'noIndicator\' and \'horizontal\'', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} joined max={1} min={-1} noIndicator onChange={handleChange} orientation="horizontal" value={0} />
+		);
+		const picker = screen.getByLabelText('0 change a value with left right button');
 
 		fireEvent.keyDown(picker, {keyCode: 38});
 
