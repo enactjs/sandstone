@@ -956,10 +956,10 @@ const PickerBase = class extends ReactComponent {
 
 		if (joined) {
 			Component = SpottableDiv;
+			spottablePickerProps.noIndicator = noIndicator;
 			spottablePickerProps.onSpotlightDisappear = onSpotlightDisappear;
 			spottablePickerProps.pickerOrientation = orientation;
 			spottablePickerProps.spotlightDisabled = spotlightDisabled;
-			spottablePickerProps.noIndicator = noIndicator;
 		} else {
 			Component = Div;
 		}
