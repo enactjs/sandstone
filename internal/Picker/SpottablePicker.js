@@ -22,8 +22,8 @@ const SpottablePicker = kind({
 	},
 
 	render: ({selectionKeys, ...rest}) => {
-		delete rest.pickerOrientation;
 		delete rest.noIndicator;
+		delete rest.pickerOrientation;
 
 		return (
 			<Div {...rest} selectionKeys={selectionKeys} />
