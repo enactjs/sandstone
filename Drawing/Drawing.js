@@ -2,11 +2,12 @@
 
 import kind from '@enact/core/kind';
 import DrawingCanvas from '@enact/ui/DrawingCanvas';
-import { Cell, Column, Row } from '@enact/ui/Layout';
+import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import { useRef, useState } from 'react';
+import {useRef, useState} from 'react';
+
 import Button from '../Button';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
@@ -31,7 +32,7 @@ const DrawingBase = kind({
 	},
 
 	computed: {
-		className: ({ disabled, styler }) => styler.append({ disabled })
+		className: ({disabled, styler}) => styler.append({disabled})
 	},
 
 	styles: {
@@ -39,21 +40,17 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({ disabled, isErasing, onSetErasing, ...rest }) => {
-		const [brushSize, setBrushSize] = useState(5);
+	render: ({disabled, isErasing, onSetErasing, ...rest}) => {
 		const [brushColor, setBrushColor] = useState('green');
+		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#fff');
 		const drawingRef = useRef();
-
-		delete rest.brushColor;
-		delete rest.brushSize;
-		delete rest.canvasColor;
 
 		return (
 			<Column {...rest}>
 				<Row>
 					<Cell>
-						<Heading size="tiny" marqueeDisabled>
+						<Heading marqueeDisabled size="tiny">
 							<Slider
 								backgroundProgress={0}
 								defaultValue={brushSize}
@@ -68,7 +65,7 @@ const DrawingBase = kind({
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading size="tiny" marqueeDisabled>
+						<Heading marqueeDisabled size="tiny">
 							Brush color
 							<input
 								defaultValue="#333333"
@@ -80,8 +77,8 @@ const DrawingBase = kind({
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading size="tiny" marqueeDisabled>
-							Canvas color{' '}
+						<Heading marqueeDisabled size="tiny">
+							Canvas color
 							<input
 								defaultValue="#FFFFFF"
 								onChange={(e) => {
@@ -93,7 +90,7 @@ const DrawingBase = kind({
 
 					</Cell>
 					<Cell>
-						<Heading size="tiny" marqueeDisabled>
+						<Heading marqueeDisabled size="tiny">
 							Erase
 							<Switch disabled={disabled} onClick={onSetErasing} />
 						</Heading>
@@ -119,10 +116,17 @@ const DrawingBase = kind({
 		);
 	}
 });
+
 const DrawingDecorator = compose(
-	Toggleable({ prop: 'isErasing', toggle: 'onSetErasing' }),
+	Toggleable({prop: 'isErasing', toggle: 'onSetErasing'}),
 	Skinnable
 );
-const Drawing = DrawingDecorator(DrawingBase)
+
+const Drawing = DrawingDecorator(DrawingBase);
+
 export default Drawing;
-export { Drawing, DrawingBase, DrawingDecorator }
+export {
+	Drawing,
+	DrawingBase,
+	DrawingDecorator
+};
