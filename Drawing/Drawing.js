@@ -41,9 +41,9 @@ const DrawingBase = kind({
 	},
 
 	render: ({disabled, isErasing, onSetErasing, ...rest}) => {
-		const [brushColor, setBrushColor] = useState('green');
+		const [brushColor, setBrushColor] = useState('#333333');
 		const [brushSize, setBrushSize] = useState(5);
-		const [canvasColor, setCanvasColor] = useState('#fff');
+		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
 		const drawingRef = useRef();
 
 		return (
