@@ -98,7 +98,23 @@
 			order: 2;
 		}
 	}
+	
+	&.noindicator {
+		.enact-locale-rtl({
+			flex-direction: row-reverse;
+		});
 
+		.incrementer {
+			order: 3;
+		}
+		.decrementer {
+			order: 1;
+		}
+		.valueWrapper {
+			order: 2;
+		}
+	}
+	
 	&.vertical {
 		height: @sand-picker-vertical-height;
 	}
@@ -113,11 +129,6 @@
 		.sizingPlaceholder,
 		.valueWrapper {
 			font-weight: @sand-picker-joined-font-weight;
-		}
-
-		.valueWrapper {
-			height: @sand-picker-joined-value-height;
-			line-height: @sand-picker-joined-value-height;
 		}
 
 		.icon {
@@ -135,6 +146,11 @@
 			.sizingPlaceholder,
 			.valueWrapper {
 				font-size: @sand-picker-joined-font-size;
+			}
+			
+			.valueWrapper {
+				height: @sand-picker-joined-value-height;
+				line-height: @sand-picker-joined-value-height;
 			}
 
 			.valueWrapper {
@@ -170,10 +186,28 @@
 				}
 			}
 		}
-
+		
+		&.noindicator {
+			&::before {
+				border-radius: @sand-picker-joined-vertical-border-radius;
+			}
+			
+			.incrementer,
+			.decrementer {
+				line-height: (@sand-button-small-height - (2 * @sand-button-border-width));
+				height: @sand-button-small-height;
+				margin: @sand-button-small-focusexpand-margin;
+				padding: @sand-button-icon-small-padding;
+			}
+		}
+		
 		&.vertical {
 			&::before {
 				border-radius: @sand-picker-joined-vertical-border-radius;
+			}
+			.valueWrapper {
+				height: @sand-picker-joined-value-height;
+				line-height: @sand-picker-joined-value-height;
 			}
 		}
 	}
@@ -212,6 +246,18 @@
 				}
 			}
 
+			&.noindicator {
+				&::before {
+					.sand-spotlight-resting-bg-colors();
+				}
+
+				.incrementer,
+				.decrementer {
+					color: @sand-picker-joined-incrementer-color;
+				}
+				
+			}
+			
 			&.vertical {
 				&::before {
 					.sand-spotlight-resting-bg-colors();
@@ -234,6 +280,17 @@
 					}
 				}
 
+				&.noindicator {
+					&::before {
+						.sand-spotlight-focus-bg-colors();
+					}
+
+					.incrementer,
+					.decrementer {
+						color: @sand-picker-joined-focus-incrementer-color;
+					}
+				}
+				
 				&.vertical {
 					&::before {
 						.sand-spotlight-focus-bg-colors();

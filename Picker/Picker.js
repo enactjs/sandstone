@@ -128,7 +128,7 @@ const PickerBase = kind({
 		inlineTitle: PropTypes.bool,
 
 		/**
-		 * Allows the user to use the arrow keys to adjust the picker's value.
+		 * Allows the user to use the arrow keys or enter key to adjust the picker's value.
 		 *
 		 * Key presses are captured in the directions of the increment and decrement buttons but
 		 * others are unaffected. A non-joined Picker allows navigation in any direction, but
@@ -159,6 +159,21 @@ const PickerBase = kind({
 		 * @public
 		 */
 		noAnimation: PropTypes.bool,
+
+		/**
+		 * Sets rules to show the indicator and to determine the user interaction of the control
+		 * at a horizontal joined Picker case.
+		 *
+		 * When `false`, the indicator are shown and allow the user to use the Enter keys to adjust the picker's value.
+		 * When `true`, the increment and the decrement icons are shown instead of the indicator and
+		 * allow the user to use the left/right keys to adjust the picker's value.
+		 * If [orientation]{@link sandstone/Picker.Picker#orientation} is 'vertical' or
+		 * [joined]{@link sandstone/Picker.Picker#joined} is not assinged or is false, this prop is ignored.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noIndicator: PropTypes.bool,
 
 		/**
 		 * Called when the `value` changes.
