@@ -13,13 +13,14 @@ export const _Drawing = (args) => (
         brushSize={args['brushSize']}
         brushColor={args['brushColor']}
         canvasColor={args['canvasColor']}
+		disabled={args['disabled']}
     />
 );
 
-range('brushSize', _Drawing, Drawing, { min: 1, max: 20 }, 5);
-boolean('disabled', _Drawing, Drawing);
 select('brushColor', _Drawing, ['white', 'red', 'green'], 'green');
+range('brushSize', _Drawing, Drawing, { min: 1, max: 20 }, 5);
 select('canvasColor', _Drawing, ['white', 'black'], 'black');
+boolean('disabled', _Drawing, Drawing);
 
 _Drawing.storyName = 'Drawing';
 _Drawing.parameters = {

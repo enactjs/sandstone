@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind */
 
 import kind from '@enact/core/kind';
-import Drawing from '@enact/ui/DrawingCanvas';
-import {Cell, Column, Row} from '@enact/ui/Layout';
+import DrawingCanvas from '@enact/ui/DrawingCanvas';
+import { Cell, Column, Row } from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
-import {useRef, useState} from 'react';
-
+import compose from 'ramda/src/compose';
+import { useRef, useState } from 'react';
 import Button from '../Button';
 import Heading from '../Heading';
+import Skinnable from '../Skinnable';
 import Slider from '../Slider';
 import Switch from '../Switch';
 
@@ -29,13 +30,16 @@ const DrawingBase = kind({
 		isErasing: false
 	},
 
+	computed: {
+		className: ({ disabled, styler }) => styler.append({ disabled })
+	},
+
 	styles: {
 		css,
-		className: 'drawing',
 		publicClassNames: true
 	},
 
-	render: ({isErasing, onSetErasing, ...rest}) => {
+	render: ({ disabled, isErasing, onSetErasing, ...rest }) => {
 		const [brushSize, setBrushSize] = useState(5);
 		const [brushColor, setBrushColor] = useState('green');
 		const [canvasColor, setCanvasColor] = useState('#fff');
@@ -91,20 +95,22 @@ const DrawingBase = kind({
 					<Cell>
 						<Heading size="tiny" marqueeDisabled>
 							Erase
-							<Switch onClick={onSetErasing} />
+							<Switch disabled={disabled} onClick={onSetErasing} />
 						</Heading>
 					</Cell>
 					<Cell>
 						<Heading size="tiny" marqueeDisabled>
-							<Button size="small" onClick={() => drawingRef.current.clearCanvas()}>Clear all</Button>
+							<Button disabled={disabled} onClick={() => drawingRef.current.clearCanvas()} size="small">Clear all</Button>
 						</Heading>
 					</Cell>
 				</Row>
 				<Row>
-					<Drawing
-						brushSize={brushSize}
+					<DrawingCanvas
+						{...rest}
 						brushColor={brushColor}
+						brushSize={brushSize}
 						canvasColor={canvasColor}
+						disabled={disabled}
 						isErasing={isErasing}
 						ref={drawingRef}
 					/>
@@ -113,8 +119,10 @@ const DrawingBase = kind({
 		);
 	}
 });
-
-export default Toggleable(
-	{prop: 'isErasing', toggle: 'onSetErasing'},
-	DrawingBase
+const DrawingDecorator = compose(
+	Toggleable({ prop: 'isErasing', toggle: 'onSetErasing' }),
+	Skinnable
 );
+const Drawing = DrawingDecorator(DrawingBase)
+export default Drawing;
+export { Drawing, DrawingBase, DrawingDecorator }
