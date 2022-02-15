@@ -13,11 +13,11 @@ export const _Drawing = (args) => {
 	return (
 		<section>
 			{disabled ? (
-				<p style={{fontSize: '70%', fontStyle: 'italic'}}>
+				<p style={{fontSize: '70%', fontStyle: 'italic', 'margin': 0}}>
 					<sup>*</sup>Drawing is not allowed while <code>disabled</code> is true.
 				</p>
 			) : (
-				<p />
+				<p style={{fontSize: '90%', visibility: 'hidden', 'margin' : 0}}>' '</p>
 			)}
 			<Drawing
 				disabled={disabled}
