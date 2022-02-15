@@ -67,7 +67,7 @@ const DrawingBase = kind({
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading marqueeDisabled size="tiny">
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
 							Brush color
 							<input
 								defaultValue="#333333"
@@ -80,7 +80,7 @@ const DrawingBase = kind({
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading marqueeDisabled size="tiny">
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
 							Canvas color
 							<input
 								defaultValue="#FFFFFF"
@@ -94,7 +94,7 @@ const DrawingBase = kind({
 
 					</Cell>
 					<Cell>
-						<Heading marqueeDisabled size="tiny">
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
 							Erase
 							<Switch disabled={disabled} onClick={onSetErasing} />
 						</Heading>
