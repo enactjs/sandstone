@@ -170,9 +170,12 @@ const AlertBase = kind({
 			},
 			type
 		),
-		overflow: () => {
-			if (typeof window !== 'undefined') {
-				return window.innerWidth < ri.scale(1200); // If you will change this value, please change @sand-alert-overlay-content-width too.
+		overflow: ({buttons}) => {
+			if (typeof window !== 'undefined' && buttons) {
+				const contentWidth = ri.scale(1200); // If you will change this value, please change @sand-alert-overlay-content-width too.
+				const buttonsWidth = ri.scale(540 + 126); // If you will change this value, please change @sand-button-min-width + @sand-alert-overlay-buttons-margin too.
+
+				return window.innerWidth < contentWidth + buttonsWidth;
 			}
 
 			return false;
