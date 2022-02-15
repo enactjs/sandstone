@@ -1,5 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind */
 
+/**
+ * Sandstone styled drawing components and behaviors.
+ *
+ * @example
+ * <Drawing />
+ *
+ * @module sandstone/Drawing
+ * @exports Drawing
+ * @exports DrawingBase
+ * @exports DrawingDecorator
+ */
+
 import kind from '@enact/core/kind';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
 import {Cell, Column, Row} from '@enact/ui/Layout';
