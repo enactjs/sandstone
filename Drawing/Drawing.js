@@ -174,10 +174,10 @@ const DrawingBase = kind({
 });
 
 /**
- * Applies Sandstone specific behaviors to [Button]{@link sandstone/Button.ButtonBase} components.
+ * Applies Sandstone specific behaviors to [Drawing]{@link sandstone/Drawing.DrawingBase} components.
  *
  * @hoc
- * @memberof sandstone/Button
+ * @memberof sandstone/Drawing
  * @mixes ui/Toggleable.Toggleable
  * @mixes sandstone/Skinnable.Skinnable
  * @public
