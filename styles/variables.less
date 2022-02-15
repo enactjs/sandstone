@@ -312,7 +312,7 @@
 @sand-alert-fullscreen-max-width: 2028px;
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
-@sand-alert-overlay-buttons-margin: 0 0 0 126px;
+@sand-alert-overlay-buttons-margin: 0 0 0 126px; // If this changes, update `overflow` computed value from Alert.js
 @sand-alert-overlay-noimage-text-gap: 30px;
 @sand-alert-overlay-image-text-gap: @sand-alert-overlay-noimage-text-gap + 18px;
 @sand-alert-overlay-text-button-gap: (198px - .extract(@sand-alert-overlay-buttons-margin, left)[] - .extract(@sand-button-margin, right)[]);
@@ -361,7 +361,7 @@
 @sand-button-icon-small-margin-start: 0;
 @sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
-@sand-button-min-width: 540px;
+@sand-button-min-width: 540px; // If this changes, update `overflow` computed value from Alert.js
 @sand-button-focusexpand-focus-bg-transform: scale(1.05);
 @sand-button-focusexpand-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
