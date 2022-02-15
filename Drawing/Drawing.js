@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind */
 
 import kind from '@enact/core/kind';
-import DrawingCanvas from '@enact/ui/Drawing';
+import {Drawing as UiDrawing} from '@enact/ui/Drawing';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -106,7 +106,7 @@ const DrawingBase = kind({
 					</Cell>
 				</Row>
 				<Row>
-					<DrawingCanvas
+					<UiDrawing
 						{...rest}
 						brushColor={brushColor}
 						brushSize={brushSize}
