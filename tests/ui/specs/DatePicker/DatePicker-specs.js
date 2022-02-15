@@ -88,7 +88,7 @@ describe('DatePicker', function () {
 					await Page.spotlightDown();
 					const {year: value} = await extractValues(datePicker);
 					const expected = year - 1;
-					expect( value).to.equal(expected);
+					expect(value).to.equal(expected);
 				});
 				// End of [QWT-2553] - Month, Day, Year pickers Animate with 5-way - LTR
 			});
@@ -103,7 +103,7 @@ describe('DatePicker', function () {
 				// Start of [QWT-2555] - Month, Day, Year pickers Animate with Pointer Click - LTR
 				it('should increase the month when incrementing the picker', async function () {
 					const {month} = await extractValues(datePicker);
-					await await datePicker.month.click();
+					await datePicker.month.click();
 					expect(await datePicker.month.isFocused()).to.be.true();
 					await datePicker.incrementer(datePicker.month).click();
 					const {month: value} = await extractValues(datePicker);
