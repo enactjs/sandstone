@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind */
 
 import kind from '@enact/core/kind';
-import DrawingCanvas from '@enact/ui/DrawingCanvas';
+import DrawingCanvas from '@enact/ui/Drawing';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -37,6 +37,7 @@ const DrawingBase = kind({
 
 	styles: {
 		css,
+		className: 'drawing',
 		publicClassNames: true
 	},
 
@@ -54,6 +55,7 @@ const DrawingBase = kind({
 							<Slider
 								backgroundProgress={0}
 								defaultValue={brushSize}
+								disabled={disabled}
 								max={30}
 								min={0}
 								onChange={(e) => {
@@ -69,6 +71,7 @@ const DrawingBase = kind({
 							Brush color
 							<input
 								defaultValue="#333333"
+								disabled={disabled}
 								onChange={(e) => {
 									setBrushColor(e.target.value);
 								}}
@@ -81,6 +84,7 @@ const DrawingBase = kind({
 							Canvas color
 							<input
 								defaultValue="#FFFFFF"
+								disabled={disabled}
 								onChange={(e) => {
 									setCanvasColor(e.target.value);
 								}}

@@ -8,11 +8,23 @@ export default {
 	title: 'Sandstone/Drawing'
 };
 
-export const _Drawing = (args) => (
-	<Drawing
-		disabled={args['disabled']}
-	/>
-);
+export const _Drawing = (args) => {
+	const disabled = args['disabled'];
+	return (
+		<section>
+			{disabled ? (
+				<p style={{fontSize: '70%', fontStyle: 'italic'}}>
+					<sup>*</sup>Drawing is not allowed while <code>disabled</code> is true.
+				</p>
+			) : (
+				<p />
+			)}
+			<Drawing
+				disabled={disabled}
+			/>
+		</section>
+	);
+};
 
 boolean('disabled', _Drawing, Drawing);
 
