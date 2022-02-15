@@ -37,6 +37,7 @@ const DrawingBase = kind({
 
 	styles: {
 		css,
+		className: 'drawing',
 		publicClassNames: true
 	},
 
@@ -54,6 +55,7 @@ const DrawingBase = kind({
 							<Slider
 								backgroundProgress={0}
 								defaultValue={brushSize}
+								disabled={disabled}
 								max={30}
 								min={0}
 								onChange={(e) => {
@@ -65,10 +67,11 @@ const DrawingBase = kind({
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading marqueeDisabled size="tiny">
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
 							Brush color
 							<input
 								defaultValue="#333333"
+								disabled={disabled}
 								onChange={(e) => {
 									setBrushColor(e.target.value);
 								}}
@@ -77,10 +80,11 @@ const DrawingBase = kind({
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading marqueeDisabled size="tiny">
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
 							Canvas color
 							<input
 								defaultValue="#FFFFFF"
+								disabled={disabled}
 								onChange={(e) => {
 									setCanvasColor(e.target.value);
 								}}
@@ -90,7 +94,7 @@ const DrawingBase = kind({
 
 					</Cell>
 					<Cell>
-						<Heading marqueeDisabled size="tiny">
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
 							Erase
 							<Switch disabled={disabled} onClick={onSetErasing} />
 						</Heading>
