@@ -9,6 +9,7 @@ import compose from 'ramda/src/compose';
 import {useRef, useState} from 'react';
 
 import Button from '../Button';
+import Dropdown from "../Dropdown";
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 import Slider from '../Slider';
@@ -45,6 +46,8 @@ const DrawingBase = kind({
 		const [brushColor, setBrushColor] = useState('#333333');
 		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
+		const [fillColor, setFillColor] = useState('#666666');
+		const [drawingTool, setDrawingTool] = useState('brush');
 		const drawingRef = useRef();
 
 		return (
@@ -65,6 +68,7 @@ const DrawingBase = kind({
 								tooltip={false}
 							/>
 						</Heading>
+
 					</Cell>
 					<Cell>
 						<Heading disabled={disabled} marqueeDisabled size="tiny">
@@ -77,6 +81,30 @@ const DrawingBase = kind({
 								}}
 								type="color"
 							/>
+						</Heading>
+					</Cell>
+					<Cell>
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
+							Fill color
+							<input
+								defaultValue="#666666"
+								disabled={disabled}
+								onChange={(e) => {
+									setFillColor(e.target.value);
+								}}
+								type="color"
+							/>
+						</Heading>
+					</Cell>
+					<Cell>
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
+							Drawing tool
+							<Dropdown width="tiny"
+								onSelect={(e) => {
+								setDrawingTool(e.data);
+							}}>
+								{['brush', 'fill']}
+							</Dropdown>
 						</Heading>
 					</Cell>
 					<Cell>
@@ -112,6 +140,8 @@ const DrawingBase = kind({
 						brushSize={brushSize}
 						canvasColor={canvasColor}
 						disabled={disabled}
+						drawingTool={drawingTool}
+						fillColor={fillColor}
 						isErasing={isErasing}
 						ref={drawingRef}
 					/>
