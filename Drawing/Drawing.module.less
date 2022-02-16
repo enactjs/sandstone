@@ -7,5 +7,35 @@
 		.disabled({
 			opacity: 0.5;
 		})
-	})
+	});
+	
+	input[type=file]::-webkit-file-upload-button {
+		visibility: hidden;
+	}
+	
+	input[type=file] {
+		&::before {
+			content: 'Import image';
+			-webkit-appearance: button;
+			-moz-appearance: button;
+			appearance: button;
+			font-family: "Sandstone";
+			font-size: 60px;
+			font-weight: 600;
+			height: 108px;
+			line-height: 108px;
+			padding: 0 48px;
+			border-radius: 12px;
+			color: #e6e6e6;
+			background-color: #7d848c;
+		}
+
+		&:hover::before {
+			opacity: 1;
+			box-shadow: 0 36px 36px rgb(0 0 0 / 30%);
+			background-color: #e6e6e6;
+			color: #4c5059;
+			cursor: pointer;
+		}
+	}
 }
