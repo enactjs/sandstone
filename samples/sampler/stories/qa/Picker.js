@@ -499,7 +499,7 @@ const PickerInPopupTabLayout = ({args}) => {
 
 export const InPopupTabLayout = (args) => <PickerInPopupTabLayout args={args} />;
 
-select('width', InPopupTabLayout, prop.width, Picker, 'large');
+select('width', InPopupTabLayout, prop.width, Picker, 'small');
 select('orientation', InPopupTabLayout, prop.orientation, Picker, 'horizontal');
 boolean('wrap', InPopupTabLayout, Picker);
 boolean('joined', InPopupTabLayout, Picker);
