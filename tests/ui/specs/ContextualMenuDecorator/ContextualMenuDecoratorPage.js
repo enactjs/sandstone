@@ -58,8 +58,8 @@ class ContextualMenuDecoratorPage extends Page {
 		};
 	}
 
-	open (urlExtra) {
-		super.open('ContextualMenuDecorator-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('ContextualMenuDecorator-View', urlExtra);
 	}
 }
 
