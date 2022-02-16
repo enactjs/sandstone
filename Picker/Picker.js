@@ -161,14 +161,14 @@ const PickerBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Sets rules to show the indicator and to determine the user interaction of the control
+		 * Sets rules to show the indicators and to determine the user interaction of the control
 		 * at a horizontal joined Picker case.
 		 *
-		 * When `false`, the indicator are shown and allow the user to use the Enter keys to adjust the picker's value.
-		 * When `true`, the increment and the decrement icons are shown instead of the indicator and
-		 * allow the user to use the left/right keys to adjust the picker's value.
+		 * When `false`, the indicators are shown and allow the user to use the Enter keys to change value.
+		 * When `true`, the increment and the decrement icons are shown instead of the indicators and
+		 * allow the user to use the left/right keys to change the picker's value.
 		 * If [orientation]{@link sandstone/Picker.Picker#orientation} is 'vertical' or
-		 * [joined]{@link sandstone/Picker.Picker#joined} is not assinged or is false, this prop is ignored.
+		 * [joined]{@link sandstone/Picker.Picker#joined} is not assigned or is false, this prop is ignored.
 		 *
 		 * @type {Boolean}
 		 * @public
