@@ -164,7 +164,7 @@ const PickerBase = kind({
 		 * Sets rules to show the indicators and to determine the user interaction of the control
 		 * at a horizontal joined Picker case.
 		 *
-		 * When `false`, the indicators are shown and allow the user to use the Enter keys to change value.
+		 * When `false`, the indicators are shown and allow the user to use the enter key to change value.
 		 * When `true`, the increment and the decrement icons are shown instead of the indicators and
 		 * allow the user to use the left/right keys to change the picker's value.
 		 * If [orientation]{@link sandstone/Picker.Picker#orientation} is 'vertical' or

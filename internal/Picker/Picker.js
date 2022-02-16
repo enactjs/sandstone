@@ -268,16 +268,15 @@ const PickerBase = class extends ReactComponent {
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Sets rules to show the indicator and to determine the user interaction of the control
+		 * Sets rules to show the indicators and to determine the user interaction of the control
 		 * at a horizontal joined Picker case.
 		 *
-		 * When `false`, the indicator are shown and allow the user to use the enter keys
-		 * to adjust the picker's value and the user can full navigation using the directional keys.
-		 * When `true`, the increment and the decrement icons are shown instead of the indicator and
-		 * allow the user to use the left/right keys to adjust the picker's value and
+		 * When `false`, the indicators are shown and allow the user to use the enter keys to change value.
+		 * When `true`, the increment and the decrement icons are shown instead of the indicators and
+		 * allow the user to use the left/right keys to change the picker's value and
 		 * the user may no longer use those left/right keys to navigate while this control is focused.
 		 * If [orientation]{@link sandstone/internal/Picker.PickerBase.orientation} is 'vertical' or
-		 * [joined]{@link sandstone/internal/Picker.PickerBase.joined} is not assinged or is false, this prop is ignored.
+		 * [joined]{@link sandstone/internal/Picker.PickerBase.joined} is not assigned or is false, this prop is ignored.
 		 *
 		 * @type {Boolean}
 		 * @public
