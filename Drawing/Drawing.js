@@ -192,7 +192,7 @@ const DrawingDecorator = compose(
  *
  * Usage:
  * ```
- * <Drawing disabled />
+ * <Drawing />
  * ```
  *
  * @class Drawing
