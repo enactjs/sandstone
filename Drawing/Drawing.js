@@ -46,8 +46,7 @@ const DrawingBase = kind({
 			try {
 				fileReader.readAsDataURL(file);
 			} catch (err) {
-				// eslint-disable-next-line
-				console.log(err);
+				// failing silently
 			}
 		}
 	},
@@ -125,7 +124,7 @@ const DrawingBase = kind({
 					</Cell>
 					<Cell>
 						<Heading size="tiny" marqueeDisabled>
-							{/* <Button disabled={disabled} onClick={() => document.getElementById('fileInput').click()} size="small">Import image</Button> */}
+							<Button disabled={disabled} onClick={() => document.getElementById('fileInput').click()} size="small">Import image</Button>
 							<input
 								accept="image/*"
 								className={css.inputFile}
