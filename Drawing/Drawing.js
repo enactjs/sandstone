@@ -1,5 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind */
 
+/**
+ * Sandstone styled drawing components and behaviors.
+ *
+ * @example
+ * <Drawing />
+ *
+ * @module sandstone/Drawing
+ * @exports Drawing
+ * @exports DrawingBase
+ * @exports DrawingDecorator
+ */
+
 import kind from '@enact/core/kind';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
 import {Cell, Column, Row} from '@enact/ui/Layout';
@@ -17,18 +29,58 @@ import Switch from '../Switch';
 
 import css from './Drawing.module.less';
 
+/**
+ * A drawing component.
+ *
+ * This component is most often not used directly but may be composed within another component as it
+ * is within [Drawing]{@link sandstone/Drawing.Drawing}.
+ *
+ * @class DrawingBase
+ * @memberof sandstone/Drawing
+ * @extends ui/Drawing.DrawingBase
+ * @ui
+ * @public
+ */
 const DrawingBase = kind({
 	name: 'Drawing',
 
 	functional: true,
 
-	propTypes: {
+	propTypes: /** @lends sandstone/Drawing.DrawingBase.prototype */ {
+
+		/**
+		 * Applies the `disabled` class.
+		 *
+		 * When `true`, the canvas is shown as disabled.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * Indicates if the drawing is in erasing mode.
+		 *
+		 * When `true`, the canvas' globalCompositeOperation property will be 'destination-out'.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
 		isErasing: PropTypes.bool,
+
+		/**
+		 * Called when the drawing's erasing mode is modified.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
 		onSetErasing: PropTypes.func
 	},
 
 	defaultProps: {
+		disabled: false,
 		isErasing: false
 	},
 
@@ -151,11 +203,35 @@ const DrawingBase = kind({
 	}
 });
 
+/**
+ * Applies Sandstone specific behaviors to [Drawing]{@link sandstone/Drawing.DrawingBase} components.
+ *
+ * @hoc
+ * @memberof sandstone/Drawing
+ * @mixes ui/Toggleable.Toggleable
+ * @mixes sandstone/Skinnable.Skinnable
+ * @public
+ */
 const DrawingDecorator = compose(
 	Toggleable({prop: 'isErasing', toggle: 'onSetErasing'}),
 	Skinnable
 );
 
+/**
+ * A drawing component, ready to use in Sandstone applications.
+ *
+ * Usage:
+ * ```
+ * <Drawing />
+ * ```
+ *
+ * @class Drawing
+ * @memberof sandstone/Drawing
+ * @extends sandstone/Drawing.DrawingBase
+ * @mixes sandstone/Drawing.DrawingDecorator
+ * @ui
+ * @public
+ */
 const Drawing = DrawingDecorator(DrawingBase);
 
 export default Drawing;
