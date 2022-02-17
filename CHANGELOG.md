@@ -17,11 +17,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Alert` layout for overlay type when screen width is narrow
 - `sandstone/BodyText` font-size for size `small` and RTL locale
 - `sandstone/Input.InputField` size 'small' line-height to center text vertically
 - `sandstone/Input` to show title and keypad properly when `type` is `number` and screen width is narrow
 - `sandstone/Picker` horizontal joined behavior going to the next item by touch
 - `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
+- `sandstone/VirtualList` to scroll properly by hover after changing `dataSize` when `hoverToScroll` is `true`
 
 ## [2.1.2] - 2021-12-22
 
