@@ -98,7 +98,7 @@ const DrawingBase = kind({
 		const [brushColor, setBrushColor] = useState('#333333');
 		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
-		const [fillColor, setFillColor] = useState('#666666');
+		const [fillColor, setFillColor] = useState('#FF0000');
 		const [drawingTool, setDrawingTool] = useState('brush');
 		const drawingRef = useRef();
 
@@ -139,7 +139,7 @@ const DrawingBase = kind({
 						<Heading disabled={disabled} marqueeDisabled size="tiny">
 							Fill color
 							<input
-								defaultValue="#666666"
+								defaultValue="#FF0000"
 								disabled={disabled}
 								onChange={(e) => {
 									setFillColor(e.target.value);
