@@ -14,6 +14,7 @@
 
 import kind from '@enact/core/kind';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
+import Group from '@enact/ui/Group';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -21,7 +22,6 @@ import compose from 'ramda/src/compose';
 import {useRef, useState} from 'react';
 
 import Button from '../Button';
-import Dropdown from "../Dropdown";
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 import Slider from '../Slider';
@@ -151,12 +151,18 @@ const DrawingBase = kind({
 					<Cell>
 						<Heading disabled={disabled} marqueeDisabled size="tiny">
 							Drawing tool
-							<Dropdown width="tiny"
+							<Group
+								childComponent={Button}
+								defaultSelected={0}
+								itemProps={{size: 'small'}}
 								onSelect={(e) => {
-								setDrawingTool(e.data);
-							}}>
+									setDrawingTool(e.data);
+								}}
+								select={'radio'}
+								selectedProp="selected"
+							>
 								{['brush', 'fill']}
-							</Dropdown>
+							</Group>
 						</Heading>
 					</Cell>
 					<Cell>
