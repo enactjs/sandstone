@@ -128,6 +128,7 @@ const DrawingBase = kind({
 							<ColorPicker
 								color={brushColor}
 								colorHandler={setBrushColor}
+								disabled={disabled}
 								presetColors={brushColors}
 								text={'Brush color'}
 							/>
@@ -138,6 +139,7 @@ const DrawingBase = kind({
 							<ColorPicker
 								color={canvasColor}
 								colorHandler={setCanvasColor}
+								disabled={disabled}
 								presetColors={canvasColors}
 								text={'Canvas color'}
 							/>

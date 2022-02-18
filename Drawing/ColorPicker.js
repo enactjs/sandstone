@@ -10,13 +10,13 @@ import {useState} from 'react';
 import BodyText from '../BodyText';
 import Button, {ButtonBase} from '../Button';
 import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
-import Slider from '../Slider';
 import Skinnable from '../Skinnable';
+import Slider from '../Slider';
 
 import componentCss from './ColorPicker.module.less';
 
-const ContextualButtonBase = ContextualPopupDecorator(ButtonBase);
 const ContextualButton = ContextualPopupDecorator(Button);
+const ContextualButtonBase = ContextualPopupDecorator(ButtonBase);
 
 const componentToHex = (c) =>  {
 	const hex = c.toString(16);
@@ -99,6 +99,7 @@ const ColorPickerBase = kind({
 		colorHandler: PropTypes.func,
 		colorPickerOpen: PropTypes.bool,
 		css: PropTypes.object,
+		disabled: PropTypes.bool,
 		onToggleColorPicker: PropTypes.func,
 		onTogglePopup: PropTypes.func,
 		popupOpen: PropTypes.bool,
@@ -144,14 +145,15 @@ const ColorPickerBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({color, css, onTogglePopup, popupOpen, renderComponent, text}) => {
+	render: ({color, css, disabled, onTogglePopup, popupOpen, renderComponent, text}) => {
 		return (
 			<Row className={css.colorPicker}>
 				<BodyText className={css.colorBodyText}>{text}</BodyText>
 				<ContextualButtonBase
 					className={css.coloredButton}
+					disabled
 					minWidth={false}
-					onClick={onTogglePopup}
+					onClick={() => {if (!disabled) {onTogglePopup()}}}
 					open={popupOpen}
 					popupComponent={() => renderComponent}
 					style={{backgroundColor: color}}
