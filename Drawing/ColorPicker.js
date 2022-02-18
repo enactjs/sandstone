@@ -153,7 +153,11 @@ const ColorPickerBase = kind({
 					className={css.coloredButton}
 					disabled
 					minWidth={false}
-					onClick={() => {if (!disabled) {onTogglePopup()}}}
+					onClick={() => {
+						if (!disabled) {
+							onTogglePopup();
+						}
+					}}
 					open={popupOpen}
 					popupComponent={() => renderComponent}
 					style={{backgroundColor: color}}
