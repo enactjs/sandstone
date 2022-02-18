@@ -10,6 +10,7 @@
 	&:global(.neutral) {
 		// Load the sandstone neutral rules into this scope
 		@import (multiple) "./colors.less";
+		@import (multiple) "./variables-original.less";
 
 		@componentRules();
 
@@ -25,6 +26,8 @@
 	&:global(.light) {
 		@import (multiple) "./colors.less";
 		@import "./colors-light.less";
+		@import (multiple) "./variables-original.less";
+		@import "./variables-overriding.less";
 
 		@componentRules();
 	}
