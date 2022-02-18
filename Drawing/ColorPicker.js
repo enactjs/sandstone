@@ -82,7 +82,7 @@ const RGBPicker = (props) => {
 				/>
 				<BodyText>{blue} Blue</BodyText>
 			</Cell>
-			<Cell >
+			<Cell>
 				<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
 			</Cell>
 		</div>
@@ -126,7 +126,7 @@ const ColorPickerBase = kind({
 							/>
 						))}
 					</Row>
-					<Row>
+					<Row className={css.sliderContextualButton}>
 						<ContextualButton
 							open={colorPickerOpen}
 							onClick={onToggleColorPicker}
