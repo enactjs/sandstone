@@ -1,4 +1,4 @@
-/* react/jsx-no-bind */
+/* eslint-disable react/jsx-no-bind */
 
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
