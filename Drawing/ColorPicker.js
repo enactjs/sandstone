@@ -1,5 +1,22 @@
 /* eslint-disable react/jsx-no-bind */
 
+/**
+ * Sandstone styled color picker components and behaviors.
+ *
+ * @example
+ * <ColorPicker
+ * 		color={controlledColor}
+ *		colorHandler={changeColor}
+ *		disabled={disabled}
+ *		presetColors={[]}
+ *		text="Brush color"
+ * />
+ * @module sandstone/Drawing
+ * @exports ColorPicker
+ * @exports ColorPickerBase
+ * @exports ColorPickerDecorator
+ */
+
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -89,21 +106,116 @@ const RGBPicker = (props) => {
 	);
 };
 
+/**
+ * A color picker component.
+ *
+ * This component is most often not used directly but may be composed within another component as it
+ * is within [ColorPicker]{@link sandstone/Drawing.ColorPicker}.
+ *
+ * @class ColorPickerBase
+ * @memberof sandstone/Drawing
+ * @ui
+ * @public
+ */
+
 const ColorPickerBase = kind({
 	name: 'ColorPicker',
 
-	functional: true,
+	propTypes: /** @lends sandstone/Drawing.ColorPickerBase.prototype */ {
 
-	propTypes: {
+		/**
+		 * Indicates the color.
+		 *
+		 * @type {String}
+		 * @public
+		 */
 		color: PropTypes.string,
+
+		/**
+		 * Called when color is modified.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
 		colorHandler: PropTypes.func,
+
+		/**
+		 * Indicates if the color picker sliders are open.
+		 *
+		 * When `true`, contextual popup opens.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
 		colorPickerOpen: PropTypes.bool,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * `colorPicker` - The root class name
+		 * `coloredDiv`  - A class name used for a single div
+		 *
+		 * @type {Object}
+		 * @public
+		 */
 		css: PropTypes.object,
+
+		/**
+		 * Applies the `disabled` class.
+		 *
+		 * When `true`, the color picker is shown as disabled.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * Called to open or close the color picker sliders.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
 		onToggleColorPicker: PropTypes.func,
+
+		/**
+		 * Called to open or close the color picker.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
 		onTogglePopup: PropTypes.func,
+
+		/**
+		 * Indicates if the color picker is open.
+		 *
+		 * When `true`, contextual popup opens.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
 		popupOpen: PropTypes.bool,
+
+		/**
+		 * Contains an array with a couple of possible preset colors.
+		 *
+		 * @type {Array}
+		 * @public
+		 */
 		presetColors: PropTypes.array,
+
+		/**
+		 * Contains the text that shows near color picker.
+		 *
+		 * @type {String}
+		 * @public
+		 */
 		text: PropTypes.string
 	},
 
@@ -130,6 +242,7 @@ const ColorPickerBase = kind({
 						<ContextualButton
 							open={colorPickerOpen}
 							onClick={onToggleColorPicker}
+							onClose={() => console.log('Close!')}
 							popupComponent={() => <RGBPicker color={color} changeColor={colorHandler} />}
 						>
 							Select your own
@@ -148,7 +261,7 @@ const ColorPickerBase = kind({
 	render: ({color, css, disabled, onTogglePopup, popupOpen, renderComponent, text}) => {
 		return (
 			<Row className={css.colorPicker}>
-				<BodyText className={css.colorBodyText}>{text}</BodyText>
+				<BodyText className={css.colorBodyText} disabled={disabled}>{text}</BodyText>
 				<ContextualButtonBase
 					className={css.coloredButton}
 					disabled
@@ -158,6 +271,7 @@ const ColorPickerBase = kind({
 							onTogglePopup();
 						}
 					}}
+					onClose={() => console.log('First Close!')}
 					open={popupOpen}
 					popupComponent={() => renderComponent}
 					style={{backgroundColor: color}}
@@ -168,16 +282,46 @@ const ColorPickerBase = kind({
 	}
 });
 
+
+/**
+ * Applies Sandstone specific behaviors to [Drawing]{@link sandstone/Drawing.ColorPickerBase} components.
+ *
+ * @hoc
+ * @memberof sandstone/Drawing
+ * @mixes ui/Toggleable.Toggleable
+ * @mixes sandstone/Skinnable.Skinnable
+ * @public
+ */
 const ColorPickerDecorator = compose(
 	Skinnable,
 	Toggleable({prop: 'colorPickerOpen', toggle: 'onToggleColorPicker'}),
 	Toggleable({prop: 'popupOpen', toggle: 'onTogglePopup'})
 );
 
+/**
+ * A drawing component, ready to use in Sandstone applications.
+ *
+ * Usage:
+ * ```
+ * <ColorPicker
+ * 		color={controlledColor}
+ *		colorHandler={changeColor}
+ *		disabled={disabled}
+ *		presetColors={[]}
+ *		text="Brush color"
+ * />
+ * ```
+ *
+ * @class ColorPicker
+ * @memberof sandstone/ColorPicker
+ * @extends sandstone/Drawing.ColorPickerBase
+ * @mixes sandstone/Drawing.ColorPickerDecorator
+ * @ui
+ * @public
+ */
 const ColorPicker = ColorPickerDecorator(ColorPickerBase);
 
 export default ColorPicker;
-
 export {
 	ColorPicker,
 	ColorPickerBase,

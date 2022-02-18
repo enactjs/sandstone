@@ -130,7 +130,7 @@ const DrawingBase = kind({
 								colorHandler={setBrushColor}
 								disabled={disabled}
 								presetColors={brushColors}
-								text={'Brush color'}
+								text="Brush color"
 							/>
 						</Heading>
 					</Cell>
@@ -141,7 +141,7 @@ const DrawingBase = kind({
 								colorHandler={setCanvasColor}
 								disabled={disabled}
 								presetColors={canvasColors}
-								text={'Canvas color'}
+								text="Canvas color"
 							/>
 						</Heading>
 					</Cell>
