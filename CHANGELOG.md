@@ -17,6 +17,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Alert` layout for overlay type when screen width is narrow
 - `sandstone/BodyText` font-size for size `small` and RTL locale
 - `sandstone/Input.InputField` size 'small' line-height to center text vertically
 - `sandstone/Input` to show title and keypad properly when `type` is `number` and screen width is narrow

@@ -37,6 +37,7 @@ export const _ContextualPopupDecorator = (args) => {
 				noAutoDismiss={args['noAutoDismiss']}
 				offset={args['offset']}
 				onClose={action('onClose')}
+				onOpen={action('onOpen')}
 				open={args['open']}
 				popupComponent={renderPopup} // eslint-disable-line react/jsx-no-bind
 				spotlightRestrict={args['spotlightRestrict']}
