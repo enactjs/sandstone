@@ -14,6 +14,8 @@ import Skinnable from '../Skinnable';
 import Slider from '../Slider';
 import Switch from '../Switch';
 
+import ColorPicker from './ColorPicker';
+
 import css from './Drawing.module.less';
 
 const DrawingBase = kind({
@@ -46,6 +48,9 @@ const DrawingBase = kind({
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
 		const drawingRef = useRef();
 
+		const brushColors = ['#333333', '#FFFFFF', '#FF0000', '#00FF00'];
+		const canvasColors = ['#FFFFFF', '#000000'];
+
 		return (
 			<Column {...rest}>
 				<Row>
@@ -66,28 +71,23 @@ const DrawingBase = kind({
 					</Cell>
 					<Cell>
 						<Heading marqueeDisabled size="tiny">
-							Brush color
-							<input
-								defaultValue="#333333"
-								onChange={(e) => {
-									setBrushColor(e.target.value);
-								}}
-								type="color"
+							<ColorPicker
+								color={brushColor}
+								colorHandler={setBrushColor}
+								presetColors={brushColors}
+								text={'Brush color'}
 							/>
 						</Heading>
 					</Cell>
 					<Cell>
 						<Heading marqueeDisabled size="tiny">
-							Canvas color
-							<input
-								defaultValue="#FFFFFF"
-								onChange={(e) => {
-									setCanvasColor(e.target.value);
-								}}
-								type="color"
+							<ColorPicker
+								color={canvasColor}
+								colorHandler={setCanvasColor}
+								presetColors={canvasColors}
+								text={'Canvas color'}
 							/>
 						</Heading>
-
 					</Cell>
 					<Cell>
 						<Heading marqueeDisabled size="tiny">
