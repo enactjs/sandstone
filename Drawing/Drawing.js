@@ -98,8 +98,8 @@ const DrawingBase = kind({
 		const [brushColor, setBrushColor] = useState('#333333');
 		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
-		const [fillColor, setFillColor] = useState('#FF0000');
 		const [drawingTool, setDrawingTool] = useState('brush');
+		const [fillColor, setFillColor] = useState('#FF0000');
 		const drawingRef = useRef();
 
 		return (
@@ -120,7 +120,6 @@ const DrawingBase = kind({
 								tooltip={false}
 							/>
 						</Heading>
-
 					</Cell>
 					<Cell>
 						<Heading disabled={disabled} marqueeDisabled size="tiny">
@@ -177,7 +176,6 @@ const DrawingBase = kind({
 								type="color"
 							/>
 						</Heading>
-
 					</Cell>
 					<Cell>
 						<Heading disabled={disabled} marqueeDisabled size="tiny">
