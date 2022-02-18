@@ -313,7 +313,7 @@ const ColorPickerDecorator = compose(
  * ```
  *
  * @class ColorPicker
- * @memberof sandstone/ColorPicker
+ * @memberof sandstone/Drawing
  * @extends sandstone/Drawing.ColorPickerBase
  * @mixes sandstone/Drawing.ColorPickerDecorator
  * @ui
