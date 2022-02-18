@@ -1,22 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
 
-/**
- * Sandstone styled color picker components and behaviors.
- *
- * @example
- * <ColorPicker
- * 		color={controlledColor}
- *		colorHandler={changeColor}
- *		disabled={disabled}
- *		presetColors={[]}
- *		text="Brush color"
- * />
- * @module sandstone/Drawing
- * @exports ColorPicker
- * @exports ColorPickerBase
- * @exports ColorPickerDecorator
- */
-
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -115,7 +98,7 @@ const RGBPicker = (props) => {
  * @class ColorPickerBase
  * @memberof sandstone/Drawing
  * @ui
- * @public
+ * @private
  */
 
 const ColorPickerBase = kind({
@@ -242,7 +225,6 @@ const ColorPickerBase = kind({
 						<ContextualButton
 							open={colorPickerOpen}
 							onClick={onToggleColorPicker}
-							onClose={() => console.log('Close!')}
 							popupComponent={() => <RGBPicker color={color} changeColor={colorHandler} />}
 						>
 							Select your own
@@ -271,7 +253,6 @@ const ColorPickerBase = kind({
 							onTogglePopup();
 						}
 					}}
-					onClose={() => console.log('First Close!')}
 					open={popupOpen}
 					popupComponent={() => renderComponent}
 					style={{backgroundColor: color}}
@@ -288,9 +269,9 @@ const ColorPickerBase = kind({
  *
  * @hoc
  * @memberof sandstone/Drawing
- * @mixes ui/Toggleable.Toggleable
  * @mixes sandstone/Skinnable.Skinnable
- * @public
+ * @mixes ui/Toggleable.Toggleable
+ * @private
  */
 const ColorPickerDecorator = compose(
 	Skinnable,
@@ -299,25 +280,14 @@ const ColorPickerDecorator = compose(
 );
 
 /**
- * A drawing component, ready to use in Sandstone applications.
- *
- * Usage:
- * ```
- * <ColorPicker
- * 		color={controlledColor}
- *		colorHandler={changeColor}
- *		disabled={disabled}
- *		presetColors={[]}
- *		text="Brush color"
- * />
- * ```
+ * A color picker component, ready to use in Sandstone applications.
  *
  * @class ColorPicker
  * @memberof sandstone/Drawing
  * @extends sandstone/Drawing.ColorPickerBase
  * @mixes sandstone/Drawing.ColorPickerDecorator
  * @ui
- * @public
+ * @private
  */
 const ColorPicker = ColorPickerDecorator(ColorPickerBase);
 
