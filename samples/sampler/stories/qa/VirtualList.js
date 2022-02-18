@@ -138,7 +138,7 @@ const CustomHeader = (props) => {
 	const [children, setChildren] = useState(false);
 	const handleClick = useCallback(() => {
 		setChildren(!children);
-	}, [children, setChildren]);
+	}, [children]);
 
 	return (
 		<Header
@@ -159,7 +159,7 @@ const InPanels = ({className, title, ...rest}) => {
 	const [index, setIndex] = useState(0);
 	const handleSelectItem = useCallback(() => {
 		setIndex(index === 0 ? 1 : 0);
-	}, [index, setIndex]);
+	}, [index]);
 
 	return (
 		<Panels className={className} index={index}>

@@ -271,7 +271,7 @@ export const WithChangingSlots = () => {
 	const [check, setCheck] = useState(false);
 	const handleClick = useCallback(() => {
 		setCheck(!check);
-	}, [check, setCheck]);
+	}, [check]);
 
 	return (
 		<div className={css.itemContainer}>
