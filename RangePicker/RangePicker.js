@@ -87,6 +87,20 @@ const RangePickerBase = kind({
 		'aria-valuetext': PropTypes.string,
 
 		/**
+		 * Sets rules to determine the user interaction of the control
+		 * at a horizontal joined Picker case.
+		 *
+		 * When `enter`, the user use the enter key to change picker's value.
+		 * When `leftRight`, the user use the left/right keys to change the picker's value.
+		 * If [orientation]{@link sandstone/Picker.Picker.orientation} is 'vertical' or
+		 * [joined]{@link sandstone/Picker.Picker.joined} is not assigned or is false, this prop is ignored.
+		 *
+		 * @type {('enter'|'leftRight')}
+		 * @public
+		 */
+		changedBy: PropTypes.oneOf(['enter', 'leftRight']),
+
+		/**
 		 * Children from which to pick.
 		 *
 		 * @type {Node}
@@ -178,21 +192,6 @@ const RangePickerBase = kind({
 		 * @public
 		 */
 		noAnimation: PropTypes.bool,
-
-		/**
-		 * Sets rules to show the indicators and to determine the user interaction of the control
-		 * at a horizontal joined Picker case.
-		 *
-		 * When `false`, the indicators are shown and allow the user to use the Enter keys to change value.
-		 * When `true`, the increment and the decrement icons are shown instead of the indicators and
-		 * allow the user to use the left/right keys to change the picker's value.
-		 * If [orientation]{@link sandstone/Picker.Picker#orientation} is 'vertical' or
-		 * [joined]{@link sandstone/Picker.Picker#joined} is not assigned or is false, this prop is ignored.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		noIndicator: PropTypes.bool,
 
 		/**
 		 * Called when `value` changes.

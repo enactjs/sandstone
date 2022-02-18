@@ -18,6 +18,7 @@ import css from './Picker.module.less';
 Picker.displayName = 'Picker';
 
 const prop = {
+	changedBy: ['enter', 'leftRight'],
 	orientation: ['horizontal', 'vertical'],
 	width: [null, 'small', 'medium', 'large']
 };
@@ -68,7 +69,7 @@ export const WithLongText = (args) => (
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		noAnimation={args['noAnimation']}
 		disabled={args['disabled']}
 		incrementIcon={args['incrementIcon']}
@@ -82,7 +83,7 @@ select('width', WithLongText, prop.width, Picker, 'large');
 select('orientation', WithLongText, prop.orientation, Picker, 'horizontal');
 boolean('wrap', WithLongText, Picker);
 boolean('joined', WithLongText, Picker);
-boolean('noIndicator', WithLongText, Picker);
+select('changedBy', WithLongText, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', WithLongText, Picker);
 boolean('disabled', WithLongText, Picker);
 select('incrementIcon', WithLongText, iconNames, Picker);
@@ -97,7 +98,7 @@ export const WithTallCharacters = (args) => (
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		noAnimation={args['noAnimation']}
 		disabled={args['disabled']}
 		incrementIcon={args['incrementIcon']}
@@ -111,7 +112,7 @@ select('width', WithTallCharacters, prop.width, Picker, 'large');
 select('orientation', WithTallCharacters, prop.orientation, Picker, 'horizontal');
 boolean('wrap', WithTallCharacters, Picker);
 boolean('joined', WithTallCharacters, Picker);
-boolean('noIndicator', WithTallCharacters, Picker);
+select('changedBy', WithTallCharacters, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', WithTallCharacters, Picker);
 boolean('disabled', WithTallCharacters, Picker);
 select('incrementIcon', WithTallCharacters, iconNames, Picker);
@@ -126,7 +127,7 @@ export const WithADefaultValue = (args) => (
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		noAnimation={args['noAnimation']}
 		disabled={args['disabled']}
 		incrementIcon={args['incrementIcon']}
@@ -141,7 +142,7 @@ select('width', WithADefaultValue, prop.width, Picker, 'medium');
 select('orientation', WithADefaultValue, prop.orientation, Picker, 'horizontal');
 boolean('wrap', WithADefaultValue, Picker);
 boolean('joined', WithADefaultValue, Picker);
-boolean('noIndicator', WithADefaultValue, Picker);
+select('changedBy', WithADefaultValue, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', WithADefaultValue, Picker);
 boolean('disabled', WithADefaultValue, Picker);
 select('incrementIcon', WithADefaultValue, iconNames, Picker);
@@ -156,7 +157,7 @@ export const WithNoItemsPlat30963 = (args) => (
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		noAnimation={args['noAnimation']}
 		disabled={args['disabled']}
 		incrementIcon={args['incrementIcon']}
@@ -170,7 +171,7 @@ select('width', WithNoItemsPlat30963, prop.width, Picker, 'large');
 select('orientation', WithNoItemsPlat30963, prop.orientation, Picker, 'horizontal');
 boolean('wrap', WithNoItemsPlat30963, Picker, true);
 boolean('joined', WithNoItemsPlat30963, Picker);
-boolean('noIndicator', WithNoItemsPlat30963, Picker);
+select('changedBy', WithNoItemsPlat30963, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', WithNoItemsPlat30963, Picker);
 boolean('disabled', WithNoItemsPlat30963, Picker);
 select('incrementIcon', WithNoItemsPlat30963, iconNames, Picker);
@@ -185,7 +186,7 @@ export const WithOneItem = (args) => (
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		noAnimation={args['noAnimation']}
 		disabled={args['disabled']}
 		incrementIcon={args['incrementIcon']}
@@ -199,7 +200,7 @@ select('width', WithOneItem, prop.width, Picker, 'large');
 select('orientation', WithOneItem, prop.orientation, Picker, 'horizontal');
 boolean('wrap', WithOneItem, Picker, true);
 boolean('joined', WithOneItem, Picker);
-boolean('noIndicator', WithOneItem, Picker);
+select('changedBy', WithOneItem, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', WithOneItem, Picker);
 boolean('disabled', WithOneItem, Picker);
 select('incrementIcon', WithOneItem, iconNames, Picker);
@@ -213,7 +214,7 @@ export const WithItemAddRemoveEnyo2448 = (args) => (
 		orientation={args['orientation']}
 		wrap={args['wrap']}
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		noAnimation={args['noAnimation']}
 		disabled={args['disabled']}
 	>
@@ -225,7 +226,7 @@ select('width', WithItemAddRemoveEnyo2448, prop.width, Picker, 'medium');
 select('orientation', WithItemAddRemoveEnyo2448, prop.orientation, Picker, 'horizontal');
 boolean('wrap', WithItemAddRemoveEnyo2448, Picker, true);
 boolean('joined', WithItemAddRemoveEnyo2448, Picker);
-boolean('noIndicator', WithItemAddRemoveEnyo2448, Picker);
+select('changedBy', WithItemAddRemoveEnyo2448, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', WithItemAddRemoveEnyo2448, Picker);
 boolean('disabled', WithItemAddRemoveEnyo2448, Picker);
 
@@ -236,7 +237,7 @@ export const RtlLayoutPlat28123 = (args) => (
 		width={args['width']}
 		wrap={args['wrap']}
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		noAnimation={args['noAnimation']}
 		disabled={args['disabled']}
 	>
@@ -247,7 +248,7 @@ export const RtlLayoutPlat28123 = (args) => (
 select('width', RtlLayoutPlat28123, prop.width, Picker, 'medium');
 boolean('wrap', RtlLayoutPlat28123, Picker, true);
 boolean('joined', RtlLayoutPlat28123, Picker);
-boolean('noIndicator', RtlLayoutPlat28123, Picker);
+select('changedBy', RtlLayoutPlat28123, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', RtlLayoutPlat28123, Picker);
 boolean('disabled', RtlLayoutPlat28123, Picker);
 
@@ -362,38 +363,38 @@ export const KitchenSink = () => (
 				</Picker>
 			</Section>
 
-			<Section title="Joined noIndicator Horizontal" size="100%">
-				<Picker joined noIndicator alt="Basic" width="medium">
+			<Section title="Joined Horizontal with Left/Right Keys" size="100%">
+				<Picker changedBy="leftRight" joined alt="Basic" width="medium">
 					{pickerList.vegetables}
 				</Picker>
-				<Picker joined noIndicator alt="Disabled" width="medium" disabled>
+				<Picker changedBy="leftRight" joined alt="Disabled" width="medium" disabled>
 					{pickerList.vegetables}
 				</Picker>
-				<Picker joined noIndicator alt="Tall text" width="medium">
+				<Picker changedBy="leftRight" joined alt="Tall text" width="medium">
 					{pickerList.tall}
 				</Picker>
-				<Picker joined noIndicator alt="No Width">
+				<Picker changedBy="leftRight" joined alt="No Width">
 					{pickerList.vegetables}
 				</Picker>
-				<Picker joined noIndicator alt="Small" width="small">
+				<Picker changedBy="leftRight" joined alt="Small" width="small">
 					{pickerList.orderedList}
 				</Picker>
-				<Picker joined noIndicator alt="Medium" width="medium">
+				<Picker changedBy="leftRight" joined alt="Medium" width="medium">
 					{pickerList.vegetables}
 				</Picker>
-				<Picker joined noIndicator alt="Large" width="large">
+				<Picker changedBy="leftRight" joined alt="Large" width="large">
 					{pickerList.airports}
 				</Picker>
-				<Picker joined noIndicator alt="Width=1" width={1}>
+				<Picker changedBy="leftRight" joined alt="Width=1" width={1}>
 					{pickerList.numberList}
 				</Picker>
-				<Picker joined noIndicator alt="Width=5" width={5}>
+				<Picker changedBy="leftRight" joined alt="Width=5" width={5}>
 					{pickerList.orderedList}
 				</Picker>
-				<Picker joined noIndicator alt="Width=10" width={10}>
+				<Picker changedBy="leftRight" joined alt="Width=10" width={10}>
 					{pickerList.vegetables}
 				</Picker>
-				<Picker joined noIndicator alt="Width=20" width={20}>
+				<Picker changedBy="leftRight" joined alt="Width=20" width={20}>
 					{pickerList.airports}
 				</Picker>
 			</Section>
@@ -446,7 +447,7 @@ KitchenSink.parameters = {
 export const ForIrregularNumbers = (args) => (
 	<Picker
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		orientation={args['orientation']}
 		reverse={false}
 		type="number"
@@ -456,7 +457,7 @@ export const ForIrregularNumbers = (args) => (
 );
 
 boolean('joined', ForIrregularNumbers, Picker);
-boolean('noIndicator', ForIrregularNumbers, Picker);
+select('changedBy', ForIrregularNumbers, prop.changedBy, Picker, 'enter');
 select('orientation', ForIrregularNumbers, prop.orientation, Picker);
 
 ForIrregularNumbers.storyName = 'for irregular numbers';
@@ -480,7 +481,7 @@ const PickerInPopupTabLayout = ({args}) => {
 									orientation={args['orientation']}
 									wrap={args['wrap']}
 									joined={args['joined']}
-									noIndicator={args['noIndicator']}
+									changedBy={args['changedBy']}
 									noAnimation={args['noAnimation']}
 									disabled={args['disabled']}
 									incrementIcon={args['incrementIcon']}
@@ -503,7 +504,7 @@ select('width', InPopupTabLayout, prop.width, Picker, 'small');
 select('orientation', InPopupTabLayout, prop.orientation, Picker, 'horizontal');
 boolean('wrap', InPopupTabLayout, Picker);
 boolean('joined', InPopupTabLayout, Picker);
-boolean('noIndicator', InPopupTabLayout, Picker);
+select('changedBy', InPopupTabLayout, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', InPopupTabLayout, Picker);
 boolean('disabled', InPopupTabLayout, Picker);
 select('incrementIcon', InPopupTabLayout, iconNames, Picker);
@@ -518,7 +519,7 @@ export const WithCustomizedTitleStyle = (args) => (
 		disabled={args['disabled']}
 		inlineTitle={args['inlineTitle']}
 		joined={args['joined']}
-		noIndicator={args['noIndicator']}
+		changedBy={args['changedBy']}
 		noAnimation={args['noAnimation']}
 		onChange={action('onChange')}
 		title={args['title']}
@@ -533,7 +534,7 @@ text('aria-label', WithCustomizedTitleStyle, Picker, '');
 boolean('disabled', WithCustomizedTitleStyle, Picker);
 boolean('inlineTitle', WithCustomizedTitleStyle, Picker);
 boolean('joined', WithCustomizedTitleStyle, Picker);
-boolean('noIndicator', WithCustomizedTitleStyle, Picker);
+select('changedBy', WithCustomizedTitleStyle, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', WithCustomizedTitleStyle, Picker);
 text('title', WithCustomizedTitleStyle, Picker, 'Long title with customized style');
 select('width', WithCustomizedTitleStyle, prop.width, Picker, 'large');

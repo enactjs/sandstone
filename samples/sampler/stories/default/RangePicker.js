@@ -9,6 +9,7 @@ const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicke
 
 // Set up some defaults for info and controls
 const prop = {
+	changedBy: ['enter', 'leftRight'],
 	orientation: ['horizontal', 'vertical'],
 	width: [null, 'small', 'medium', 'large', 1, 2, 3, 4, 5, 6]
 };
@@ -31,6 +32,7 @@ export const _RangePicker = (args) => (
 	<RangePicker
 		max={args['max']}
 		min={args['min']}
+		changedBy={args['changedBy']}
 		decrementIcon={args['decrementIcon']}
 		defaultValue={0}
 		disabled={args['disabled']}
@@ -49,6 +51,7 @@ export const _RangePicker = (args) => (
 
 number('max', _RangePicker, Config, 100);
 number('min', _RangePicker, Config, 0);
+select('changedBy', _RangePicker, prop.changedBy, Config, 'enter');
 select('decrementIcon', _RangePicker, ['', ...decrementIcons], Config);
 boolean('disabled', _RangePicker, Config);
 select('incrementIcon', _RangePicker, ['', ...incrementIcons], Config);

@@ -9,6 +9,7 @@ const Config = mergeComponentMetadata('Picker', PickerBase, Picker);
 
 // Set up some defaults for info and controls
 const prop = {
+	changedBy: ['enter', 'leftRight'],
 	orientation: ['horizontal', 'vertical'],
 	reverse: {
 		' ': null,
@@ -39,6 +40,7 @@ export default {
 export const _Picker = (args) => (
 	<Picker
 		aria-label={args['aria-label']}
+		changedBy={args['changedBy']}
 		decrementAriaLabel={args['decrementAriaLabel']}
 		decrementIcon={args['decrementIcon']}
 		disabled={args['disabled']}
@@ -47,7 +49,6 @@ export const _Picker = (args) => (
 		inlineTitle={args['inlineTitle']}
 		joined={args['joined']}
 		noAnimation={args['noAnimation']}
-		noIndicator={args['noIndicator']}
 		onChange={action('onChange')}
 		orientation={args['orientation']}
 		reverse={prop.reverse[args['reverse']]}
@@ -61,6 +62,7 @@ export const _Picker = (args) => (
 );
 
 text('aria-label', _Picker, Config, '');
+select('changedBy', _Picker, prop.changedBy, Config, 'enter');
 text('decrementAriaLabel', _Picker, Config, '');
 select('decrementIcon', _Picker, ['', ...decrementIcons], Config);
 boolean('disabled', _Picker, Config);
@@ -69,7 +71,6 @@ select('incrementIcon', _Picker, ['', ...incrementIcons], Config);
 boolean('inlineTitle', _Picker, Config);
 boolean('joined', _Picker, Config);
 boolean('noAnimation', _Picker, Config);
-boolean('noIndicator', _Picker, Config);
 select('orientation', _Picker, prop.orientation, Config, prop.orientation[0]);
 select('reverse', _Picker, [' ', 'false', 'true'], Config);
 text('title', _Picker, Config);

@@ -8,21 +8,21 @@ const SpottablePicker = kind({
 	name: 'SpottablePicker',
 
 	propTypes: {
+		changedBy: PropTypes.oneOf(['enter', 'leftRight']),
 		disabled: PropTypes.bool,
-		noIndicator: PropTypes.bool,
 		pickerOrientation: PropTypes.string
 	},
 
 	computed: {
-		selectionKeys: ({disabled, noIndicator, pickerOrientation}) => {
-			if (disabled || (pickerOrientation === 'horizontal' && !noIndicator)) return;
+		selectionKeys: ({disabled, changedBy, pickerOrientation}) => {
+			if (disabled || (pickerOrientation === 'horizontal' && changedBy === 'enter')) return;
 
 			return pickerOrientation === 'horizontal' ? [37, 39] : [38, 40];
 		}
 	},
 
 	render: ({selectionKeys, ...rest}) => {
-		delete rest.noIndicator;
+		delete rest.changedBy;
 		delete rest.pickerOrientation;
 
 		return (
