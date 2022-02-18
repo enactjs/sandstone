@@ -106,6 +106,7 @@ const DrawingBase = kind({
 
 		const brushColors = ['#333333', '#FFFFFF', '#FF0000', '#00FF00'];
 		const canvasColors = ['#FFFFFF', '#000000'];
+		const fillColors = ['#FF0000', '#00FF00', '#0000FF'];
 
 		return (
 			<Column {...rest}>
@@ -138,15 +139,13 @@ const DrawingBase = kind({
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading disabled={disabled} marqueeDisabled size="tiny">
-							Fill color
-							<input
-								defaultValue="#FF0000"
+						<Heading marqueeDisabled size="tiny">
+							<ColorPicker
+								color={fillColor}
+								colorHandler={setFillColor}
 								disabled={disabled}
-								onChange={(e) => {
-									setFillColor(e.target.value);
-								}}
-								type="color"
+								presetColors={fillColors}
+								text="Fill color"
 							/>
 						</Heading>
 					</Cell>
