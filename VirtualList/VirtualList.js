@@ -106,6 +106,8 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 */
 	itemSize: PropTypes.oneOfType([PropTypes.number, itemSizesShape]).isRequired,
 
+	cbMoveItem: PropTypes.func,
+
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
@@ -460,6 +462,7 @@ VirtualList = Skinnable(
 
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
+	cbMoveItem: nop,
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
@@ -551,6 +554,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	itemSize: gridListItemSizeShape.isRequired,
+
+	cbMoveItem: PropTypes.func,
 
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
@@ -909,6 +914,7 @@ VirtualGridList = Skinnable(
 
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
+	cbMoveItem: nop,
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
