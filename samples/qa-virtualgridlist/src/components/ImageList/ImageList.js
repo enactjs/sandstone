@@ -8,14 +8,25 @@ import ImageItem from '../ImageItem';
 
 import css from './ImageList.module.less';
 
+import {
+	updateItemsOrder as updateItemsOrderAction
+} from '../../actions';
+
 class ImageList extends Component {
 	static propTypes = {
 		dispatch: PropTypes.func,
 		imageitems: PropTypes.array,
 		minHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-		spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+		spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		updateItemsOrder: PropTypes.func
 	};
+
+	constructor (props) {
+		super(props);
+
+		this.handleUpdateItemsOrder = props.updateItemsOrder;
+	}
 
 	calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
@@ -26,14 +37,17 @@ class ImageList extends Component {
 			{imageitems, spacing, minHeight, minWidth, ...rest} = this.props;
 
 		delete rest.dispatch;
+		delete rest.updateItemsOrder;
 
 		return (
 			<VirtualGridList
 				{...rest}
 				className={rest.direction === 'horizontal' ? css.horizontalPadding : css.verticalPadding}
 				dataSize={imageitems.length}
+				editMode
 				itemRenderer={this.renderItem}
 				itemSize={{minHeight: this.calculateOfSize(minHeight), minWidth: this.calculateOfSize(minWidth)}}
+				onUpdateItemsOrder={this.handleUpdateItemsOrder}
 				spacing={this.calculateOfSize(spacing)}
 			/>
 		);
@@ -47,4 +61,10 @@ const mapStateToProps = ({data}) => ({
 	spacing: data.spacing
 });
 
-export default connect(mapStateToProps)(ImageList);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateItemsOrder: (newDataOrder) => dispatch(updateItemsOrderAction(newDataOrder))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageList);

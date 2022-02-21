@@ -106,8 +106,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 */
 	itemSize: PropTypes.oneOfType([PropTypes.number, itemSizesShape]).isRequired,
 
-	cbMoveItem: PropTypes.func,
-
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
@@ -174,6 +172,8 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
+
+	editMode: PropTypes.bool,
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -342,6 +342,8 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 */
 	onScrollStop: PropTypes.func,
 
+	onUpdateItemsOrder: PropTypes.func,
+
 	/**
 	 * Specifies overscroll effects shows on which type of inputs.
 	 *
@@ -462,9 +464,9 @@ VirtualList = Skinnable(
 
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
-	cbMoveItem: nop,
 	cbScrollTo: nop,
 	direction: 'vertical',
+	editMode: false,
 	horizontalScrollbar: 'auto',
 	noAffordance: false,
 	noScrollByDrag: false,
@@ -472,6 +474,7 @@ VirtualList.defaultProps = {
 	onScroll: nop,
 	onScrollStart: nop,
 	onScrollStop: nop,
+	onUpdateItemsOrder: nop,
 	overscrollEffectOn: {
 		arrowKey: false,
 		drag: true,
@@ -555,8 +558,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 */
 	itemSize: gridListItemSizeShape.isRequired,
 
-	cbMoveItem: PropTypes.func,
-
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
@@ -623,6 +624,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
+
+	editMode: PropTypes.bool,
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -785,6 +788,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 */
 	onScrollStop: PropTypes.func,
 
+	onUpdateItemsOrder: PropTypes.func,
+
 	/**
 	 * Specifies overscroll effects shows on which type of inputs.
 	 *
@@ -914,9 +919,9 @@ VirtualGridList = Skinnable(
 
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
-	cbMoveItem: nop,
 	cbScrollTo: nop,
 	direction: 'vertical',
+	editMode: false,
 	horizontalScrollbar: 'auto',
 	noAffordance: false,
 	noScrollByDrag: false,
@@ -924,6 +929,7 @@ VirtualGridList.defaultProps = {
 	onScroll: nop,
 	onScrollStart: nop,
 	onScrollStop: nop,
+	onUpdateItemsOrder: nop,
 	overscrollEffectOn: {
 		arrowKey: false,
 		drag: true,
