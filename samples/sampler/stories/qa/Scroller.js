@@ -1,8 +1,9 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
+import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Spotlight from '@enact/spotlight';
@@ -194,6 +195,79 @@ boolean('spotlightDisabled', ListOfThings, Config, false);
 select('verticalScrollbar', ListOfThings, prop.scrollbarOption, Config);
 
 ListOfThings.storyName = 'List of things';
+
+const items = [];
+
+// eslint-disable-next-line enact/prop-types
+const renderItem = (props, index) => {
+	const {text, subText, source} = props;
+	return (
+		<ImageItem data-index={index} style={{width: ri.scale(768), height: ri.scale(588), display: 'inline-flex'}} label={subText} src={source} key={`scrollerItem${index}`}>
+			{text}
+		</ImageItem>
+	);
+};
+
+const updateDataSize = (dataSize) => {
+	const itemNumberDigits = dataSize > 0 ? (dataSize - 1 + '').length : 0;
+	const headingZeros = Array(itemNumberDigits).join('0');
+
+	items.length = 0;
+
+	for (let i = 0; i < dataSize; i++) {
+		const count = (headingZeros + i).slice(-itemNumberDigits);
+		const text = `Item ${count}`;
+		const subText = `SubItem ${count}`;
+		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
+		const source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
+
+		items.push({text, subText, source});
+	}
+
+	return dataSize;
+};
+
+const defaultDataSize = 20;
+export const ListOfImageItems = (args) => {
+	const dataSize = args['dataSize'];
+	updateDataSize(dataSize);
+	const scrollerMaxWidth = ri.scaleToRem(840 * dataSize);		// dataSize should be update after removing item.
+	return (
+		<Scroller
+			style={{maxWidth: scrollerMaxWidth, margin:'auto'}}
+			direction="horizontal"
+			editMode={args['editMode']}
+			focusableScrollbar={args['focusableScrollbar']}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
+			onKeyDown={action('onKeyDown')}
+			onScrollStart={action('onScrollStart')}
+			onScrollStop={action('onScrollStop')}
+			scrollMode={args['scrollMode']}
+			spotlightDisabled={args['spotlightDisabled']}
+			verticalScrollbar={args['verticalScrollbar']}
+		>
+		<div style={{width: 'max-content'}}>
+			{items.map(renderItem)}
+		</div>
+		</Scroller>
+	)
+;
+}
+
+number('dataSize', ListOfImageItems, defaultDataSize);
+boolean('editMode', ListOfImageItems, Config);
+select('focusableScrollbar', ListOfImageItems, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', ListOfImageItems, prop.scrollbarOption, Config);
+boolean('hoverToScroll', ListOfImageItems, Config);
+boolean('noScrollByWheel', ListOfImageItems, Config);
+select('scrollMode', ListOfImageItems, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', ListOfImageItems, Config, false);
+select('verticalScrollbar', ListOfImageItems, prop.scrollbarOption, Config);
+
+ListOfImageItems.storyName = 'List of Image Item';
 
 export const HorizontalScroll = (args) => (
 	<Scroller

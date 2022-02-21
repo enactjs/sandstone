@@ -11,6 +11,7 @@ import {useCallback, useEffect, useLayoutEffect} from 'react';
 import {affordanceSize} from '../useScroll';
 
 import {useEventKey} from './useEvent';
+import useEditMode from './useEditMode';
 
 import css from './Scroller.module.less';
 import scrollbarTrackCss from '../useScroll/ScrollbarTrack.module.less';
@@ -361,6 +362,8 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
 	const {setNavigableFilter, ...focusableBodyProps} = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId, isScrollbarVisible) : {};
 
+	const editModeButton = useEditMode(props, {scrollContainerRef, scrollContentRef});
+
 	useLayoutEffect(() => {
 		// Initial filter setting
 		if (setNavigableFilter) {
@@ -383,7 +386,7 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null
 	);
 
-	return {focusableBodyProps, themeScrollContentProps: rest};
+	return {editModeButton, focusableBodyProps, themeScrollContentProps: rest};
 };
 
 export default useThemeScroller;
