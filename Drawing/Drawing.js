@@ -161,10 +161,8 @@ const DrawingBase = kind({
 								color={canvasColor}
 								colorHandler={setCanvasColor}
 								disabled={disabled}
-								onChange={(e) => {
-									setCanvasColor(e.target.value);
-								}}
-								type="color"
+								presetColors={canvasColors}
+								text="Canvas color"
 							/>
 						</Heading>
 					</Cell>
