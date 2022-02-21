@@ -26,6 +26,8 @@ import Skinnable from '../Skinnable';
 import Slider from '../Slider';
 import Switch from '../Switch';
 
+import ColorPicker from './ColorPicker';
+
 import css from './Drawing.module.less';
 
 /**
@@ -83,6 +85,26 @@ const DrawingBase = kind({
 		isErasing: false
 	},
 
+	handlers: {
+		fileInputHandler: async ({backgroundImage, ev, setBackgroundImage}) => {
+			const imageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+			const file = ev.target.files[0];
+			const fileReader = new window.FileReader();
+			const fileIsImage = file && imageTypes.includes(file['type']);
+
+			fileReader.onload = async () => {
+				if (!fileIsImage || ev.target.files.length === 0) return backgroundImage;
+				setBackgroundImage(fileReader.result);
+			};
+
+			try {
+				fileReader.readAsDataURL(file);
+			} catch (err) {
+				// failing silently
+			}
+		}
+	},
+
 	computed: {
 		className: ({disabled, styler}) => styler.append({disabled})
 	},
@@ -93,11 +115,15 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({disabled, isErasing, onSetErasing, ...rest}) => {
+	render: ({disabled, fileInputHandler, isErasing, onSetErasing, ...rest}) => {
+		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#333333');
 		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
 		const drawingRef = useRef();
+
+		const brushColors = ['#333333', '#FFFFFF', '#FF0000', '#00FF00'];
+		const canvasColors = ['#FFFFFF', '#000000'];
 
 		return (
 			<Column {...rest}>
@@ -119,23 +145,21 @@ const DrawingBase = kind({
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading disabled={disabled} marqueeDisabled size="tiny">
-							Brush color
-							<input
-								defaultValue="#333333"
+						<Heading marqueeDisabled size="tiny">
+							<ColorPicker
+								color={brushColor}
+								colorHandler={setBrushColor}
 								disabled={disabled}
-								onChange={(e) => {
-									setBrushColor(e.target.value);
-								}}
-								type="color"
+								presetColors={brushColors}
+								text="Brush color"
 							/>
 						</Heading>
 					</Cell>
 					<Cell>
-						<Heading disabled={disabled} marqueeDisabled size="tiny">
-							Canvas color
-							<input
-								defaultValue="#FFFFFF"
+						<Heading marqueeDisabled size="tiny">
+							<ColorPicker
+								color={canvasColor}
+								colorHandler={setCanvasColor}
 								disabled={disabled}
 								onChange={(e) => {
 									setCanvasColor(e.target.value);
@@ -143,7 +167,6 @@ const DrawingBase = kind({
 								type="color"
 							/>
 						</Heading>
-
 					</Cell>
 					<Cell>
 						<Heading disabled={disabled} marqueeDisabled size="tiny">
@@ -158,6 +181,22 @@ const DrawingBase = kind({
 					</Cell>
 					<Cell>
 						<Heading size="tiny" marqueeDisabled>
+							<Button disabled={disabled} onClick={() => document.getElementById('fileInput').click()} size="small">Import image</Button>
+							<input
+								accept="image/*"
+								className={css.inputFile}
+								id="fileInput"
+								onChange={(ev) => fileInputHandler({backgroundImage, ev, setBackgroundImage})}
+								onClick={(e) => {
+									e.target.value = null;
+								}}
+								type="file"
+							/>
+							<Button disabled={disabled} onClick={() => setBackgroundImage(null)} size="small">Clear image</Button>
+						</Heading>
+					</Cell>
+					<Cell>
+						<Heading size="tiny" marqueeDisabled>
 							<Button disabled={disabled} onClick={() => drawingRef.current.saveCanvas()} size="small">Save Canvas</Button>
 						</Heading>
 					</Cell>
@@ -165,6 +204,7 @@ const DrawingBase = kind({
 				<Row>
 					<UiDrawing
 						{...rest}
+						backgroundImage={backgroundImage}
 						brushColor={brushColor}
 						brushSize={brushSize}
 						canvasColor={canvasColor}
