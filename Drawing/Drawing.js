@@ -14,6 +14,7 @@
 
 import kind from '@enact/core/kind';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
+import Group from '@enact/ui/Group';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -120,10 +121,13 @@ const DrawingBase = kind({
 		const [brushColor, setBrushColor] = useState('#333333');
 		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
+		const [drawingTool, setDrawingTool] = useState('brush');
+		const [fillColor, setFillColor] = useState('#FF0000');
 		const drawingRef = useRef();
 
 		const brushColors = ['#333333', '#FFFFFF', '#FF0000', '#00FF00'];
 		const canvasColors = ['#FFFFFF', '#000000'];
+		const fillColors = ['#FF0000', '#00FF00', '#0000FF'];
 
 		return (
 			<Column {...rest}>
@@ -153,6 +157,34 @@ const DrawingBase = kind({
 								presetColors={brushColors}
 								text="Brush color"
 							/>
+						</Heading>
+					</Cell>
+					<Cell>
+						<Heading marqueeDisabled size="tiny">
+							<ColorPicker
+								color={fillColor}
+								colorHandler={setFillColor}
+								disabled={disabled}
+								presetColors={fillColors}
+								text="Fill color"
+							/>
+						</Heading>
+					</Cell>
+					<Cell>
+						<Heading disabled={disabled} marqueeDisabled size="tiny">
+							Drawing tool
+							<Group
+								childComponent={Button}
+								defaultSelected={0}
+								itemProps={{size: 'small'}}
+								onSelect={(e) => {
+									setDrawingTool(e.data);
+								}}
+								select={'radio'}
+								selectedProp="selected"
+							>
+								{['brush', 'fill']}
+							</Group>
 						</Heading>
 					</Cell>
 					<Cell>
@@ -202,7 +234,10 @@ const DrawingBase = kind({
 						brushSize={brushSize}
 						canvasColor={canvasColor}
 						disabled={disabled}
+						drawingTool={drawingTool}
+						fillColor={fillColor}
 						isErasing={isErasing}
+						onChangeDrawingTool={setDrawingTool}
 						ref={drawingRef}
 					/>
 				</Row>
