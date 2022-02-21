@@ -85,6 +85,26 @@ const DrawingBase = kind({
 		isErasing: false
 	},
 
+	handlers: {
+		fileInputHandler: async ({backgroundImage, ev, setBackgroundImage}) => {
+			const imageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+			const file = ev.target.files[0];
+			const fileReader = new window.FileReader();
+			const fileIsImage = file && imageTypes.includes(file['type']);
+
+			fileReader.onload = async () => {
+				if (!fileIsImage || ev.target.files.length === 0) return backgroundImage;
+				setBackgroundImage(fileReader.result);
+			};
+
+			try {
+				fileReader.readAsDataURL(file);
+			} catch (err) {
+				// failing silently
+			}
+		}
+	},
+
 	computed: {
 		className: ({disabled, styler}) => styler.append({disabled})
 	},
@@ -95,7 +115,8 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({disabled, isErasing, onSetErasing, ...rest}) => {
+	render: ({disabled, fileInputHandler, isErasing, onSetErasing, ...rest}) => {
+		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#333333');
 		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
@@ -156,10 +177,27 @@ const DrawingBase = kind({
 							<Button disabled={disabled} onClick={() => drawingRef.current.clearCanvas()} size="small">Clear all</Button>
 						</Heading>
 					</Cell>
+					<Cell>
+						<Heading size="tiny" marqueeDisabled>
+							<Button disabled={disabled} onClick={() => document.getElementById('fileInput').click()} size="small">Import image</Button>
+							<input
+								accept="image/*"
+								className={css.inputFile}
+								id="fileInput"
+								onChange={(ev) => fileInputHandler({backgroundImage, ev, setBackgroundImage})}
+								onClick={(e) => {
+									e.target.value = null;
+								}}
+								type="file"
+							/>
+							<Button disabled={disabled} onClick={() => setBackgroundImage(null)} size="small">Clear image</Button>
+						</Heading>
+					</Cell>
 				</Row>
 				<Row>
 					<UiDrawing
 						{...rest}
+						backgroundImage={backgroundImage}
 						brushColor={brushColor}
 						brushSize={brushSize}
 						canvasColor={canvasColor}
