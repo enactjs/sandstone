@@ -225,6 +225,11 @@ const DrawingBase = kind({
 							<Button disabled={disabled} onClick={() => setBackgroundImage(null)} size="small">Clear image</Button>
 						</Heading>
 					</Cell>
+					<Cell>
+						<Heading size="tiny" marqueeDisabled>
+							<Button disabled={disabled} onClick={() => drawingRef.current.saveCanvas()} size="small">Save Canvas</Button>
+						</Heading>
+					</Cell>
 				</Row>
 				<Row>
 					<UiDrawing
