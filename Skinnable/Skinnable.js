@@ -13,7 +13,7 @@ const defaultConfig = {
 	skins: {
 		neutral: 'neutral',
 		light: 'light',
-        game: 'game'
+		game: 'game'
 	},
 	allowedVariants: ['highContrast', 'largeText', 'grayscale'],
 	defaultVariants: null
