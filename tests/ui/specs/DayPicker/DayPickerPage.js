@@ -11,8 +11,8 @@ class DayPickerInterface {
 		return $(`#${this.id}`);
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(this.selector));
+	async focus () {
+		return await browser.execute((el) => el.focus(), $(this.selector));
 	}
 
 	item (index) {
@@ -30,8 +30,8 @@ class DayPickerPage extends Page {
 		this.components = {defaultDayPicker, disabledDayPicker};
 	}
 
-	open (urlExtra) {
-		super.open('DayPicker-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('DayPicker-View', urlExtra);
 	}
 }
 
