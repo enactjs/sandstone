@@ -1,6 +1,28 @@
 // skin.less
 //
 
+
+.applyColorSkins(@componentRules) when (isruleset(@componentRules)) {
+	// default color
+	// :global(.violet) & {
+	@import "./colors-game-violet.less";
+
+	@componentRules();
+	// }
+
+	:global(.green) & {
+		@import "./colors-game-green.less";
+
+		@componentRules();
+	}
+
+	:global(.orange) & {
+		@import "./colors-game-orange.less";
+
+		@componentRules();
+	}
+}
+
 .applySkins(@componentRules) when (isruleset(@componentRules)) {
 	// Load the color-mixins, which reference variables from the imports below,
 	// and updates dynamically based on which variable-set is loaded.
@@ -10,6 +32,7 @@
 	&:global(.neutral) {
 		// Load the sandstone neutral rules into this scope
 		@import (multiple) "./colors.less";
+		@import (multiple) "./variables-base.less";
 
 		@componentRules();
 
@@ -23,9 +46,20 @@
 
 	// Light Skin
 	&:global(.light) {
+		@import (multiple) "./variables-base.less";
 		@import (multiple) "./colors.less";
 		@import "./colors-light.less";
 
 		@componentRules();
+	}
+
+	// Game Skin
+	&:global(.game) {
+		@import (multiple) "./colors.less";
+		// @import "./colors-game.less";
+		@import (multiple) "./variables-base.less";
+		@import "./variables-game.less";
+
+		.applyColorSkins(@componentRules);
 	}
 }

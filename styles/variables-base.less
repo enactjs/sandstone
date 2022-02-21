@@ -1,0 +1,43 @@
+// Button
+@sand-button-bg-border: 6px;
+@sand-button-border-radius: 12px;
+@sand-button-icononly-border-radius: 12px;
+@sand-button-icononly-bg-border: 6px;
+
+// ContextualPopup
+// ---------------------------------------
+@sand-contextualpopup-border-radius: (@sand-button-border-radius * 2);
+
+// Dropdown
+// ---------------------------------------
+@sand-dropdown-border-radius: @sand-button-border-radius;
+
+// Heading
+@sand-heading-font-style: normal;
+@sand-heading-padding: 0 0 18px 0;
+
+// HolePunchScrim
+// ---------------------------------------
+@sand-holepunchscrim-border-radius: @sand-button-border-radius;
+
+// Item
+@sand-item-font-weight: 600;
+@sand-item-border-radius: 12px;
+
+// Scroller
+// @sand-scrollbar-track-border-radius:
+
+.sand-taparea(@element-size) when (@sand-smallest-tappable-size > @element-size) {
+	// Take the size of the minimum tappable area, and subtract the element's current size.
+	@_tap-offset: -((@sand-smallest-tappable-size - @element-size) / 2);
+
+	&::before {
+		content: "";
+		position: absolute;
+		top: @_tap-offset;
+		right: @_tap-offset;
+		bottom: @_tap-offset;
+		left: @_tap-offset;
+		border-radius: @sand-button-border-radius;
+	}
+}
