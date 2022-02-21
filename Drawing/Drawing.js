@@ -237,6 +237,7 @@ const DrawingBase = kind({
 						drawingTool={drawingTool}
 						fillColor={fillColor}
 						isErasing={isErasing}
+						onChangeDrawingTool={setDrawingTool}
 						ref={drawingRef}
 					/>
 				</Row>
