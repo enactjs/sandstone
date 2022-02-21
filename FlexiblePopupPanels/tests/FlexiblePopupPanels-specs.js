@@ -278,8 +278,12 @@ describe('FlexiblePopupPanels Specs', () => {
 
 		map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
 
+		const expectedEvent = {type: 'onClose'};
+		const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
+
 		unmount();
 		expect(spy).toHaveBeenCalled();
+		expect(actualEvent).toMatchObject(expectedEvent);
 	});
 
 	test('should go back on back key when not on first panel', () => {
@@ -301,8 +305,12 @@ describe('FlexiblePopupPanels Specs', () => {
 
 		map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
 
+		const expectedEvent = {type: 'onBack'};
+		const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
+
 		unmount();
 		expect(spy).toHaveBeenCalled();
+		expect(actualEvent).toMatchObject(expectedEvent);
 	});
 
 	test('should correctly assign the fullHeight class', () => {
