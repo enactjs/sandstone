@@ -227,11 +227,10 @@ const updateDataSize = (dataSize) => {
 	return dataSize;
 };
 
-const defaultDataSize = 20;
 export const ListOfImageItems = (args) => {
 	const dataSize = args['dataSize'];
 	updateDataSize(dataSize);
-	const scrollerMaxWidth = ri.scaleToRem(840 * dataSize);		// dataSize should be update after removing item.
+	const scrollerMaxWidth = ri.scaleToRem(672 * dataSize);		// dataSize should be update after removing item.
 	return (
 		<Scroller
 			style={{maxWidth: scrollerMaxWidth, margin:'auto'}}
@@ -257,7 +256,7 @@ export const ListOfImageItems = (args) => {
 ;
 }
 
-number('dataSize', ListOfImageItems, defaultDataSize);
+number('dataSize', ListOfImageItems, 20);
 boolean('editMode', ListOfImageItems, Config);
 select('focusableScrollbar', ListOfImageItems, prop.focusableScrollbarOption, Config);
 select('horizontalScrollbar', ListOfImageItems, prop.scrollbarOption, Config);
