@@ -61,13 +61,14 @@ const PickerBase = kind({
 		'aria-valuetext': PropTypes.string,
 
 		/**
-		 * Sets rules to determine the user interaction of the control
-		 * at a horizontal joined Picker case.
+		 * Determines which key to adjust the picker's value for the joined horizontal one.
 		 *
-		 * When `enter`, the user use the enter key to change picker's value.
-		 * When `leftRight`, the user use the left/right keys to change the picker's value.
-		 * If [orientation]{@link sandstone/Picker.Picker.orientation} is 'vertical' or
-		 * [joined]{@link sandstone/Picker.Picker.joined} is not assigned or is false, this prop is ignored.
+		 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
+		 *  * `'leftRight'` allows the user to use the left or right keys to adjust the picker's value.
+		 *
+		 * The default value for joined horizontal picker is `'enter'`.
+		 * If [orientation]{@link sandstone/Picker.Picker.orientation} is `'vertical'` or
+		 * [joined]{@link sandstone/Picker.Picker.joined} is undefined or is `false`, this prop is ignored.
 		 *
 		 * @type {('enter'|'leftRight')}
 		 * @public
