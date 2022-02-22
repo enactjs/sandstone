@@ -179,8 +179,8 @@ const useEditMode = (props, instances) => {
 	}, []);
 
 	const onMouseLeave = useCallback((ev) => {
-		// unselectPrevItem();
-		// unselect();
+		unselectPrevItem();
+		unselect();
 	}, []);
 
 	useLayoutEffect(() => {
@@ -207,9 +207,9 @@ const useEditMode = (props, instances) => {
 
 			// Assume all items have the same size and spacing
 			scrollContentRef.current.style.setProperty('--item-width', `${ItemWidth}px`);
-		}
 
-		mutableObj.currentChildrenList = children.props.children.map((item)=>item.props['data-index']);
+			mutableObj.currentChildrenList = children.props.children.map((item)=>item.props['data-index']);
+		}
 	}, [children, editMode, scrollContentRef, scrollContentRef.current]);
 
 	const className = classNames(css.removeButton, {
