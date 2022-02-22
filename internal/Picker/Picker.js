@@ -147,20 +147,20 @@ const PickerBase = class extends ReactComponent {
 		'aria-valuetext': PropTypes.string,
 
 		/**
-		 * Sets rules to determine the user interaction of the control
-		 * at a horizontal joined Picker case. Must be either `'enter'` or `'leftRight'`
+		 * Determines which key to adjust the picker's value for the joined horizontal one.
 		 *
-		 * When `enter`, the user use the enter keys to change the picker's value.
-		 * When `leftRight`, the user use the left/right key to change the picker's value and
-		 * may no longer use those left/right keys to navigate while this control is focused.
-		 * If [orientation]{@link sandstone/internal/Picker.PickerBase.orientation} is 'vertical' or
-		 * [joined]{@link sandstone/internal/Picker.PickerBase.joined} is not assigned or is false, this prop is ignored.
+		 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
+		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
-		 * @type {('enter'|'leftRight')}
+		 * The default value for joined horizontal picker is `'enter'`.
+		 * If [orientation]{@link sandstone/internal/Picker.PickerBase.orientation} is `'vertical'` or
+		 * [joined]{@link sandstone/internal/Picker.PickerBase.joined} is undefined or is `false`, this prop is ignored.
+		 *
+		 * @type {('enter'|'arrow')}
 		 * @default 'enter'
 		 * @public
 		 */
-		changedBy: PropTypes.oneOf(['enter', 'leftRight']),
+		changedBy: PropTypes.oneOf(['enter', 'arrow']),
 
 		/**
 		 * Children from which to pick
@@ -262,8 +262,8 @@ const PickerBase = class extends ReactComponent {
 		/**
 		 * Determines the user interaction of the control. A joined picker allows the user to use
 		 * the arrow keys or the enter key to adjust the picker's value.
-		 * Whether to use the arrow keys or the enter key depens on
-		 * the value of the [changedBy]{@link sandstone/internal/Picker.PickerBase.changedBy}.
+		 * It depends on [changedBy]{@link sandstone/internal/Picker.PickerBase.changedBy}
+		 * whether to use the arrow keys or the enter key.
 		 * A split control allows full navigation,
 		 * but requires individual ENTER presses on the incrementer and decrementer buttons.
 		 * Pointer interaction is the same for both formats.
@@ -588,7 +588,7 @@ const PickerBase = class extends ReactComponent {
 		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
 
-			if (orientation === 'vertical' || (orientation === 'horizontal' && changedBy === 'leftRight')) {
+			if (orientation === 'vertical' || changedBy === 'arrow') {
 				this.emulateMouseUp.start();
 			}
 		} else if (joined && this.pickerButtonPressed === -1) {
@@ -672,9 +672,9 @@ const PickerBase = class extends ReactComponent {
 
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
 			const isHorizontal = orientation === 'horizontal' && changedBy === 'enter' && isEnter(keyCode);
-			const isHorizontalLeftRight = orientation === 'horizontal' && changedBy === 'leftRight' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontalarrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
 
-			if (isVertical || isHorizontalLeftRight) {
+			if (isVertical || isHorizontalarrow) {
 				directions[direction]();
 			} else if (isHorizontal) {
 				this.setIncPickerButtonPressed();
@@ -702,9 +702,9 @@ const PickerBase = class extends ReactComponent {
 		if (joined && !this.props.disabled) {
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
 			const isHorizontal = orientation === 'horizontal' && (isEnter(keyCode));
-			const isHorizontalLeftRight = orientation === 'horizontal' && changedBy === 'leftRight' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontalarrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
 
-			if (isVertical || isHorizontal || isHorizontalLeftRight) {
+			if (isVertical || isHorizontal || isHorizontalarrow) {
 				this.pickerButtonPressed = 0;
 			}
 		}
@@ -785,7 +785,7 @@ const PickerBase = class extends ReactComponent {
 
 		let cssOrientation;
 		if (orientation === 'horizontal') {
-			cssOrientation = changedBy === 'leftRight' ? 'horizontalLeftRight' : orientation;
+			cssOrientation = changedBy === 'arrow' ? 'horizontalarrow' : orientation;
 		} else {
 			cssOrientation = orientation;
 		}
@@ -855,7 +855,7 @@ const PickerBase = class extends ReactComponent {
 		const {'aria-label': ariaLabel, changedBy, joined, orientation} = this.props;
 		let hint;
 		if (orientation === 'horizontal') {
-			hint = changedBy === 'leftRight' ? $L('change a value with left right button') : $L('press ok button to change the value');
+			hint = changedBy === 'arrow' ? $L('change a value with left right button') : $L('press ok button to change the value');
 		} else {
 			hint = $L('change a value with up down button');
 		}

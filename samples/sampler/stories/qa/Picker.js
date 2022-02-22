@@ -18,7 +18,7 @@ import css from './Picker.module.less';
 Picker.displayName = 'Picker';
 
 const prop = {
-	changedBy: ['enter', 'leftRight'],
+	changedBy: ['enter', 'arrow'],
 	orientation: ['horizontal', 'vertical'],
 	width: [null, 'small', 'medium', 'large']
 };
@@ -364,37 +364,37 @@ export const KitchenSink = () => (
 			</Section>
 
 			<Section title="Joined Horizontal with Left/Right Keys" size="100%">
-				<Picker changedBy="leftRight" joined alt="Basic" width="medium">
+				<Picker changedBy="arrow" joined alt="Basic" width="medium">
 					{pickerList.vegetables}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Disabled" width="medium" disabled>
+				<Picker changedBy="arrow" joined alt="Disabled" width="medium" disabled>
 					{pickerList.vegetables}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Tall text" width="medium">
+				<Picker changedBy="arrow" joined alt="Tall text" width="medium">
 					{pickerList.tall}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="No Width">
+				<Picker changedBy="arrow" joined alt="No Width">
 					{pickerList.vegetables}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Small" width="small">
+				<Picker changedBy="arrow" joined alt="Small" width="small">
 					{pickerList.orderedList}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Medium" width="medium">
+				<Picker changedBy="arrow" joined alt="Medium" width="medium">
 					{pickerList.vegetables}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Large" width="large">
+				<Picker changedBy="arrow" joined alt="Large" width="large">
 					{pickerList.airports}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Width=1" width={1}>
+				<Picker changedBy="arrow" joined alt="Width=1" width={1}>
 					{pickerList.numberList}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Width=5" width={5}>
+				<Picker changedBy="arrow" joined alt="Width=5" width={5}>
 					{pickerList.orderedList}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Width=10" width={10}>
+				<Picker changedBy="arrow" joined alt="Width=10" width={10}>
 					{pickerList.vegetables}
 				</Picker>
-				<Picker changedBy="leftRight" joined alt="Width=20" width={20}>
+				<Picker changedBy="arrow" joined alt="Width=20" width={20}>
 					{pickerList.airports}
 				</Picker>
 			</Section>

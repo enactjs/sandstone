@@ -64,16 +64,16 @@ const PickerBase = kind({
 		 * Determines which key to adjust the picker's value for the joined horizontal one.
 		 *
 		 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
-		 *  * `'leftRight'` allows the user to use the left or right keys to adjust the picker's value.
+		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
 		 * The default value for joined horizontal picker is `'enter'`.
 		 * If [orientation]{@link sandstone/Picker.Picker.orientation} is `'vertical'` or
 		 * [joined]{@link sandstone/Picker.Picker.joined} is undefined or is `false`, this prop is ignored.
 		 *
-		 * @type {('enter'|'leftRight')}
+		 * @type {('enter'|'arrow')}
 		 * @public
 		 */
-		changedBy: PropTypes.oneOf(['enter', 'leftRight']),
+		changedBy: PropTypes.oneOf(['enter', 'arrow']),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the

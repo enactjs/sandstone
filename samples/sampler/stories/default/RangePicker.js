@@ -9,7 +9,7 @@ const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicke
 
 // Set up some defaults for info and controls
 const prop = {
-	changedBy: ['enter', 'leftRight'],
+	changedBy: ['enter', 'arrow'],
 	orientation: ['horizontal', 'vertical'],
 	width: [null, 'small', 'medium', 'large', 1, 2, 3, 4, 5, 6]
 };

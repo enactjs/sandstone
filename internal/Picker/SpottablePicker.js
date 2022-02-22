@@ -8,7 +8,7 @@ const SpottablePicker = kind({
 	name: 'SpottablePicker',
 
 	propTypes: {
-		changedBy: PropTypes.oneOf(['enter', 'leftRight']),
+		changedBy: PropTypes.oneOf(['enter', 'arrow']),
 		disabled: PropTypes.bool,
 		pickerOrientation: PropTypes.string
 	},

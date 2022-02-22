@@ -9,7 +9,7 @@ const Config = mergeComponentMetadata('Picker', PickerBase, Picker);
 
 // Set up some defaults for info and controls
 const prop = {
-	changedBy: ['enter', 'leftRight'],
+	changedBy: ['enter', 'arrow'],
 	orientation: ['horizontal', 'vertical'],
 	reverse: {
 		' ': null,

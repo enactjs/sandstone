@@ -87,18 +87,19 @@ const RangePickerBase = kind({
 		'aria-valuetext': PropTypes.string,
 
 		/**
-		 * Sets rules to determine the user interaction of the control
-		 * at a horizontal joined Picker case.
+		 * Determines which key to adjust the picker's value for the joined horizontal one.
 		 *
-		 * When `enter`, the user use the enter key to change picker's value.
-		 * When `leftRight`, the user use the left/right keys to change the picker's value.
-		 * If [orientation]{@link sandstone/Picker.Picker.orientation} is 'vertical' or
-		 * [joined]{@link sandstone/Picker.Picker.joined} is not assigned or is false, this prop is ignored.
+		 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
+		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
-		 * @type {('enter'|'leftRight')}
+		 * The default value for joined horizontal picker is `'enter'`.
+		 * If [orientation]{@link sandstone/RangePicker.RangePicker#orientation} is `'vertical'` or
+		 * [joined]{@link sandstone/RangePicker.RangePicker#joined} is undefined or is `false`, this prop is ignored.
+		 *
+		 * @type {('enter'|'arrow')}
 		 * @public
 		 */
-		changedBy: PropTypes.oneOf(['enter', 'leftRight']),
+		changedBy: PropTypes.oneOf(['enter', 'arrow']),
 
 		/**
 		 * Children from which to pick.
@@ -171,7 +172,7 @@ const RangePickerBase = kind({
 		inlineTitle: PropTypes.bool,
 
 		/**
-		 * Allows the user can use the arrow keys to adjust the picker's value.
+		 * Allows the user can use the arrow keys or enter key to adjust the picker's value.
 		 *
 		 * The user may no longer use those arrow keys to navigate while this control is focused.
 		 * A default control allows full navigation, but requires individual ENTER presses on the

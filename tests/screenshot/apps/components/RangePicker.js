@@ -105,20 +105,20 @@ const RangePickerTests = [
 		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" />
 	},
 	// 'wrap', 'joined', 'changedBy' and 'disabled'
-	<RangePicker min={0} max={5} joined changedBy="leftRight" />,
-	<RangePicker min={0} max={5} value={0} joined changedBy="leftRight" />,
-	<RangePicker min={0} max={5} value={5} joined changedBy="leftRight" />,
-	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" />,
-	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" disabled />,
-	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="medium" />,
-	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="medium" disabled />,
-	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="large" />,
-	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="large" disabled />,
-	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width={1} />,
-	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width={6} disabled />,
+	<RangePicker min={0} max={5} joined changedBy="arrow" />,
+	<RangePicker min={0} max={5} value={0} joined changedBy="arrow" />,
+	<RangePicker min={0} max={5} value={5} joined changedBy="arrow" />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="large" />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="large" disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width={1} />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width={6} disabled />,
 	{
 		textSize: 'large',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="medium" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" />
 	},
 	<RangePicker min={0} max={5} orientation="vertical" joined />,
 	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined />,
@@ -394,52 +394,52 @@ const RangePickerTests = [
 	// 'wrap', 'joined', 'changedBy' and 'disabled'
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} joined changedBy="leftRight" />
+		component: <RangePicker min={0} max={5} joined changedBy="arrow" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} joined changedBy="leftRight" />
+		component: <RangePicker min={0} max={5} value={0} joined changedBy="arrow" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={5} joined changedBy="leftRight" />
+		component: <RangePicker min={0} max={5} value={5} joined changedBy="arrow" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" disabled />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" disabled />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="medium" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="medium" disabled />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" disabled />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="large" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="large" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="large" disabled />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="large" disabled />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width={1} />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width={1} />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width={6} disabled />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width={6} disabled />
 	},
 	{
 		locale: 'ar-SA',
 		textSize: 'large',
-		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" width="medium" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" />
 	},
 	{
 		locale: 'ar-SA',

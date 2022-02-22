@@ -63,7 +63,7 @@ const PickerTests = [
 	// Step 6: The arrow buttons disappear.
 	<Picker value={2} width="large" joined>{pickerList.tall}</Picker>,
 	// Step 7: The arrow buttons appear.
-	<Picker value={2} width="large" joined changedBy="leftRight">{pickerList.tall}</Picker>,
+	<Picker value={2} width="large" joined changedBy="arrow">{pickerList.tall}</Picker>,
 	// Step 8: Cannot verify here that Picker text transitions very quickly from one to the other without animation.
 	<Picker value={2} width="large" noAnimation>{pickerList.tall}</Picker>,
 	// Step 9:  Picker is disabled.
@@ -80,8 +80,8 @@ const PickerTests = [
 	<Picker value={2} width="medium" wrap>{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="medium" joined>{pickerList.vegetables}</Picker>,
 	<Picker value={1} width="medium" joined>{pickerList.vegetables}</Picker>,
-	<Picker value={2} width="medium" joined changedBy="leftRight">{pickerList.vegetables}</Picker>,
-	<Picker value={1} width="medium" joined changedBy="leftRight">{pickerList.vegetables}</Picker>,
+	<Picker value={2} width="medium" joined changedBy="arrow">{pickerList.vegetables}</Picker>,
+	<Picker value={1} width="medium" joined changedBy="arrow">{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="medium" noAnimation>{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="medium" disabled>{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="medium" incrementIcon="minus">{pickerList.vegetables}</Picker>,
@@ -93,11 +93,11 @@ const PickerTests = [
 	<Picker width="medium" wrap joined noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
 	<Picker width="medium" wrap joined noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
 
-	<Picker width="medium" wrap joined changedBy="leftRight">{pickerList.vegetables}</Picker>,
-	<Picker width="medium" wrap joined changedBy="leftRight" noAnimation>{pickerList.vegetables}</Picker>,
-	<Picker width="medium" wrap joined changedBy="leftRight" noAnimation disabled>{pickerList.vegetables}</Picker>,
-	<Picker width="medium" wrap joined changedBy="leftRight" noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
-	<Picker width="medium" wrap joined changedBy="leftRight" noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow" noAnimation>{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled>{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
 	// Ellipsis Displays with RTL Text in LTR Locale - [QWT-2450]
 	// Marked part automated as cannnot check for marquee (step 4 - part 2)
 	// Step 3 - part 1: The RTL text displays. The Right arrow button is disabled.
@@ -244,7 +244,7 @@ const PickerTests = [
 	// Step 7: The arrow buttons appear.
 	{
 		locale: 'ar-SA',
-		component: <Picker value={2} width="large" joined changedBy="leftRight">{pickerList.tall}</Picker>
+		component: <Picker value={2} width="large" joined changedBy="arrow">{pickerList.tall}</Picker>
 	},
 	// Step 8: Cannot verify here that Picker text transitions very quickly from one to the other without animation.
 	{
@@ -294,11 +294,11 @@ const PickerTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker value={2} width="medium" joined changedBy="leftRight">{pickerList.vegetables}</Picker>
+		component: <Picker value={2} width="medium" joined changedBy="arrow">{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker value={1} width="medium" joined changedBy="leftRight">{pickerList.vegetables}</Picker>
+		component: <Picker value={1} width="medium" joined changedBy="arrow">{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
@@ -340,23 +340,23 @@ const PickerTests = [
 
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap joined changedBy="leftRight">{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap joined changedBy="arrow">{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap joined changedBy="leftRight" noAnimation>{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap joined changedBy="arrow" noAnimation>{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap joined changedBy="leftRight" noAnimation disabled>{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled>{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap joined changedBy="leftRight" noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap joined changedBy="leftRight" noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>
 	},
 
 	// *************************************************************
