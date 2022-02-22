@@ -105,7 +105,7 @@ const RangePickerTests = [
 		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" />
 	},
 	// 'wrap', 'joined', 'changedBy' and 'disabled'
-	<RangePicker min={0} max={5} joined changedBy="leftRight"/>,
+	<RangePicker min={0} max={5} joined changedBy="leftRight" />,
 	<RangePicker min={0} max={5} value={0} joined changedBy="leftRight" />,
 	<RangePicker min={0} max={5} value={5} joined changedBy="leftRight" />,
 	<RangePicker min={0} max={5} value={0} wrap joined changedBy="leftRight" />,
