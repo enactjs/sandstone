@@ -1,6 +1,7 @@
 import RangePicker from '../../../../RangePicker';
 
 import css from './Picker.module.less';
+import {withConfig} from './utils';
 
 // ***NOTES:***
 // 'min' and 'max' are required for the image to be valid.
@@ -128,6 +129,24 @@ const RangePickerTests = [
 	<RangePicker min={0} max={5} value={0} title="Title" />,
 	<RangePicker min={0} max={5} value={0} inlineTitle title="Title" />,
 	<RangePicker min={0} max={5} value={0} css={css} inlineTitle title="Title" />,
+
+	// *************************************************************
+	// joined and focused
+	// *************************************************************
+	...withConfig({focus: true}, [
+		<RangePicker joined min={10} max={15} value={12} />,
+		<RangePicker disabled joined min={10} max={15} value={12} />,
+		<RangePicker width="small" joined min={10} max={15} value={12} />,
+		<RangePicker width="medium" joined min={10} max={15} value={12} />,
+		<RangePicker width="large" joined min={10} max={15} value={12} />,
+		<RangePicker width={3} joined min={10} max={15} value={12} />,
+		<RangePicker orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker disabled orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="small" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="medium" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="large" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width={3} orientation="vertical" joined min={10} max={15} value={12} />
+	]),
 
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -437,6 +456,22 @@ const RangePickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <RangePicker min={0} max={5} value={0} inlineTitle title="Title" />
-	}
+	},
+
+	// joined and focused
+	...withConfig({focus: true, locale: 'ar-SA'}, [
+		<RangePicker joined min={10} max={15} value={12} />,
+		<RangePicker disabled joined min={10} max={15} value={12} />,
+		<RangePicker width="small" joined min={10} max={15} value={12} />,
+		<RangePicker width="medium" joined min={10} max={15} value={12} />,
+		<RangePicker width="large" joined min={10} max={15} value={12} />,
+		<RangePicker width={3} joined min={10} max={15} value={12} />,
+		<RangePicker orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker disabled orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="small" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="medium" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="large" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width={3} orientation="vertical" joined min={10} max={15} value={12} />
+	])
 ];
 export default RangePickerTests;
