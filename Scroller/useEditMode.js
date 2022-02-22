@@ -31,7 +31,8 @@ const useEditMode = (props, instances) => {
 
 	const [selecting, setSelecting] = useState(false);
 	const mutableObj = useRef({
-		selectedIndex: null, // TODO
+		currentChildrenList: [],
+		selectedDataIndex: null,
 		selectedNode: null,
 		lastMouseMove: 0
 	}).current;
@@ -48,7 +49,7 @@ const useEditMode = (props, instances) => {
 			const targetItemRect = targetItemNode.getBoundingClientRect();
 			const containerRect = scrollContainerRef.current.getBoundingClientRect();
 
-			scrollContainerRef.current.style.setProperty('--select-position', `${targetItemRect.x}px`);
+			scrollContainerRef.current.style.setProperty('--select-position', `${targetItemRect.x - containerRect.x + targetItemRect.width/2}px`);
 
 			if (containerRect.width < targetItemRect.x || targetItemRect.x < 0) {
 				// scroll case. wait scroll done
@@ -64,6 +65,7 @@ const useEditMode = (props, instances) => {
 		targetItemNode.classList.add(css.selectedItem);
 		temporaryAnimationOff(targetItemNode);
 
+		mutableObj.selectedDataIndex = Number(targetItemNode.dataset.index);
 		mutableObj.selectedNode = targetItemNode;
 		setSelecting(true);
 	}, []);
@@ -73,6 +75,8 @@ const useEditMode = (props, instances) => {
 			mutableObj.selectedNode.classList.remove(css.selectedItem);
 			temporaryAnimationOff(mutableObj.selectedNode);
 		}
+
+		mutableObj.selectedDataIndex = null;
 		mutableObj.selectedNode = null;
 	}, []);
 
@@ -111,7 +115,7 @@ const useEditMode = (props, instances) => {
 	}, []);
 
 	const onClickRemoveButton = useCallback((ev) => {
-		const {selectedNode} = mutableObj;
+		const {currentChildrenList, selectedDataIndex, selectedNode} = mutableObj;
 
 		if(selectedNode) {
 			const nextItem = selectedNode.nextSibling || selectedNode.previousSibling;
@@ -120,6 +124,11 @@ const useEditMode = (props, instances) => {
 
 			// wait until animation is done
 			setTimeout(()=>unselect(), 200);
+
+			const index = currentChildrenList.indexOf(selectedDataIndex);
+			if (index !== -1) {
+				currentChildrenList.splice(index, 1);
+			}
 
 			// TODO invoke event handler
 		}
@@ -199,6 +208,8 @@ const useEditMode = (props, instances) => {
 			// Assume all items have the same size and spacing
 			scrollContentRef.current.style.setProperty('--item-width', `${ItemWidth}px`);
 		}
+
+		mutableObj.currentChildrenList = children.props.children.map((item)=>item.props['data-index']);
 	}, [children, editMode, scrollContentRef, scrollContentRef.current]);
 
 	const className = classNames(css.removeButton, {

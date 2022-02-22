@@ -202,7 +202,7 @@ const items = [];
 const renderItem = (props, index) => {
 	const {text, subText, source} = props;
 	return (
-		<ImageItem data-index={index} style={{width: ri.scale(768), height: ri.scale(588), display: 'inline-flex'}} label={subText} src={source} key={`scrollerItem${index}`}>
+		<ImageItem data-index={index} style={{width: ri.scale(600), height: ri.scale(480), display: 'inline-flex'}} label={subText} src={source} key={`scrollerItem${index}`}>
 			{text}
 		</ImageItem>
 	);

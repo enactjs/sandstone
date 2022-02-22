@@ -11,7 +11,7 @@
 
 	&.showRemoveButton {
 		max-height: ~"calc(100% -" (.extract(@sand-popup-position-left-margin, top)[] + .extract(@sand-popup-position-left-margin, bottom)[]) ~")";
-		left: ~"calc(var(--select-position) + " @sand-button-height + .extract(@sand-button-margin, left)[] ~")"; // TODO: RTL
+		left: ~"calc(var(--select-position) - " (@sand-button-height + .extract(@sand-button-margin, left)[])/2 ~")"; // TODO: RTL
 		opacity: 1;
 	}
 }
