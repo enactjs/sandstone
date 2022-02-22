@@ -622,6 +622,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			});
 		};
 
+		handleDismiss = () => {
+			forwardCustom('onClose')({}, this.props);
+		};
+
 		handleDirectionalKey (ev) {
 			// prevent default page scrolling
 			ev.preventDefault();
@@ -693,7 +697,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		render () {
-			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
+			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
 			const idFloatLayer = `${this.id}_floatLayer`;
 			let scrimType = rest.scrimType;
 			delete rest.scrimType;
@@ -718,6 +722,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			delete rest.direction;
+			delete rest.onClose;
 			delete rest.onOpen;
 			delete rest.popupSpotlightId;
 			delete rest.rtl;
@@ -731,7 +736,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						id={idFloatLayer}
 						noAutoDismiss={noAutoDismiss}
 						onClose={this.handleClose}
-						onDismiss={onClose}
+						onDismiss={this.handleDismiss}
 						onOpen={this.handleOpen}
 						open={open}
 						scrimType={scrimType}

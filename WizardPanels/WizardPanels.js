@@ -630,7 +630,7 @@ const WizardPanelsDecorator = compose(
 	CancelDecorator({
 		cancel: 'onChange',
 		shouldCancel: handle(
-			forwardWithPrevent('onBack'),
+			adaptEvent(() => ({type: 'onBack'}), forwardWithPrevent('onBack')),
 			not(forProp('noPrevButton', true))
 		)
 	}),
