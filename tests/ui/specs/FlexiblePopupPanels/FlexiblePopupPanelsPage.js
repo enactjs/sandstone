@@ -29,16 +29,16 @@ class FlexiblePopupPanelsInterface {
 		this['panel' + panel].waitForExist({timeout, reverse: true});
 	}
 
-	focusOpenButton () {
-		return browser.execute((el) => el.focus(), this.openButton);
+	async focusOpenButton () {
+		return await browser.execute((el) => el.focus(), this.openButton);
 	}
 
-	focusNextButton () {
-		return browser.execute((el) => el.focus(), this.nextButton);
+	async focusNextButton () {
+		return await browser.execute((el) => el.focus(), this.nextButton);
 	}
 
-	focusPrevButton () {
-		return browser.execute((el) => el.focus(), this.prevButton);
+	async focusPrevButton () {
+		return await browser.execute((el) => el.focus(), this.prevButton);
 	}
 
 	clickBelowPopup () {
@@ -99,8 +99,8 @@ class FlexiblePopupPanelsPage extends Page {
 		this.flexiblePopupPanels = new FlexiblePopupPanelsInterface('flexiblepopuppanels');
 	}
 
-	open (urlExtra) {
-		super.open('FlexiblePopupPanels-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('FlexiblePopupPanels-View', urlExtra);
 	}
 
 }
