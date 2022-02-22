@@ -102,24 +102,23 @@
 }
 
 .popup {
-	&.overlay {
-		width: fit-content;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: @sand-alert-overlay-margin-bottom;
-
-		.body {
-			border-radius: @sand-alert-overlay-border-radius;
-			padding-top: @sand-alert-overlay-padding-top-bottom;
-			padding-bottom: @sand-alert-overlay-padding-top-bottom;
-			.padding-start-end(@sand-alert-overlay-padding-left, @sand-alert-overlay-padding-right);
-		}
-	}
-
 	.applySkins({
 		background-color: @sand-alert-bg-color;
+		border-radius: @sand-alert-overlay-border-radius;
 
 		&.overlay {
+			width: fit-content;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: @sand-alert-overlay-margin-bottom;
+
+			.body {
+
+				padding-top: @sand-alert-overlay-padding-top-bottom;
+				padding-bottom: @sand-alert-overlay-padding-top-bottom;
+				.padding-start-end(@sand-alert-overlay-padding-left, @sand-alert-overlay-padding-right);
+			}
+
 			/* Override colors inside overlay type Alert */
 			--sand-bg-color: @sand-alert-overlay-bg-color;
 			--sand-text-color: @sand-alert-overlay-text-color;
@@ -136,7 +135,7 @@
 			--sand-formcheckboxitem-focus-text-color: @sand-alert-overlay-formcheckboxitem-focus-text-color;
 			--sand-item-disabled-focus-bg-color: @sand-alert-overlay-item-disabled-focus-bg-color;
 
-			background-color: rgb(@sand-alert-overlay-bg-color-rgb, 95%);
+			background-color: rgb(@sand-alert-overlay-bg-color-rgb, @sand-alert-overlay-bg-color-rgb-opacity);
 			box-shadow: @sand-alert-overlay-shadow;
 		}
 	});
