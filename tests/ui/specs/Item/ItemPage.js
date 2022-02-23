@@ -8,12 +8,12 @@ class ItemInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(this.selector));
+	async focus () {
+		return await browser.execute((el) => el.focus(), $(this.selector));
 	}
 
-	hover () {
-		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
+	async hover () {
+		return await $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
 	get self () {
@@ -37,8 +37,8 @@ class ItemPage extends Page {
 		this.components = {item1, item2Disabled, item3WithLabel, item4Inline, item5InLineDisabled, item6Inline, item7Inline, item8Inline, item9};
 	}
 
-	open (urlExtra) {
-		super.open('Item-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Item-View', urlExtra);
 	}
 }
 

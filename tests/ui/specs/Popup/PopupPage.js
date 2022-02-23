@@ -93,8 +93,8 @@ class PopupPage extends Page {
 		this.components.popup10 = new PopupInterface('popup10');
 	}
 
-	open (urlExtra) {
-		super.open('Popup-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Popup-View', urlExtra);
 	}
 
 	clickPopupFloatLayer () {

@@ -42,8 +42,8 @@ class PanelPage extends Page {
 		this.panel7 = new PanelInterface(7);
 	}
 
-	focus (el) {
-		browser.execute(e => e.focus(), el);
+	async focus (el) {
+		await browser.execute(e => e.focus(), el);
 	}
 
 	get focusedText () {
@@ -52,8 +52,8 @@ class PanelPage extends Page {
 		});
 	}
 
-	open (urlExtra) {
-		super.open('Panel-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Panel-View', urlExtra);
 	}
 }
 
