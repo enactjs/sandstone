@@ -21,8 +21,8 @@ describe('TooltipDecorator', function () {
 		it('should focus the first button and show tooltipDefault after 500ms on start', async function () {
 			expect(await tooltipButtonDefault.self.isFocused()).to.be.true();
 
-			await Page.delay(500);
-			expect(await tooltipButtonDefault.isTooltipShowing).to.be.true();
+			Page.delay(500);
+			expect(await tooltipButtonDefault.tooltipText).to.equal('Hello Tooltip Button Default');
 		});
 
 		it('should focus the disabled button when hovered', async function () {

@@ -5,7 +5,7 @@ class TooltipButtonInterface {
 	constructor (id) {
 		this.id = id;
 		this.selector = `#${this.id}`;
-		this.marqueeAnimatedSelector = `#${this.id} > div .enact_ui_Marquee_Marquee_animate`;
+		this.marqueeAnimatedSelector = `#${this.id} > div .enact_ui_Marquee_Marquee_marquee`;
 	}
 
 	async focus () {
