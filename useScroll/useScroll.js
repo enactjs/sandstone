@@ -485,7 +485,7 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('hoverToScrollProps', {
-		scrollContainerHandle,
+		scrollContainerHandleRef: scrollContainerHandle.current,
 		scrollObserver
 	});
 

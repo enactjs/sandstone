@@ -9,7 +9,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
+import {adaptEvent, forward, forwardCustom, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
@@ -283,7 +283,7 @@ const TabLayoutBase = kind({
 			}
 		},
 		onSelect: handle(
-			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
+			forwardCustom('onSelect', ({selected}) => ({index: selected}))
 		),
 		handleTabsTransitionEnd: handle(
 			forward('onTransitionEnd'),

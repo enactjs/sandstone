@@ -9,7 +9,27 @@ import Button from '../../Button';
 const ContextualButton = ContextualPopupDecorator(Button);
 
 describe('ContextualPopupDecorator Specs', () => {
-	test('should emit onClose event when clicking on contextual button', () => {
+	test('should emit onOpen event with type when opening', () => {
+		const handleOpen = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton onOpen={handleOpen} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		const expected = 1;
+		const expectedType = {type: 'onOpen'};
+		const actual = handleOpen.mock.calls.length && handleOpen.mock.calls[0][0];
+
+		expect(handleOpen).toHaveBeenCalledTimes(expected);
+		expect(actual).toMatchObject(expectedType);
+	});
+
+	test('should emit onClose event with type when clicking on contextual button', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -24,7 +44,12 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		userEvent.click(contextualButton);
 
-		expect(handleClose).toHaveBeenCalled();
+		const expected = 1;
+		const expectedType = {type: 'onClose'};
+		const actual = handleClose.mock.calls.length && handleClose.mock.calls[0][0];
+
+		expect(handleClose).toHaveBeenCalledTimes(expected);
+		expect(actual).toMatchObject(expectedType);
 	});
 
 	test('should render component into FloatingLayer if open', () => {
