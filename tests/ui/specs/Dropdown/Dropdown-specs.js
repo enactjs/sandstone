@@ -162,8 +162,8 @@ describe('Dropdown', function () {
 			await Page.open('InScroller');
 		});
 
-		const getDropdownOffset = async (dropdown, scroller) => {
-			return await browser.execute((a, b) => {
+		const getDropdownOffset = (dropdown, scroller) => {
+			return browser.execute((a, b) => {
 				return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
 			}, dropdown, scroller);
 		}
@@ -180,7 +180,7 @@ describe('Dropdown', function () {
 			// Verify that we have scrolled down
 			expect(getDropdownOffset(
 				await Page.components.dropdown1.self,
-				$('#scroller')
+				await $('#scroller')
 			)).to.not.equal(0);
 
 			await Page.spotlightUp();
@@ -189,7 +189,7 @@ describe('Dropdown', function () {
 			const expected = 0;
 			const actual = getDropdownOffset(
 				await Page.components.dropdown1.self,
-				$('#scroller')
+				await $('#scroller')
 			);
 			expect(await actual).to.equal(expected);
 		});
