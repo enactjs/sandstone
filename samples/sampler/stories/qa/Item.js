@@ -6,7 +6,7 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {Row} from '@enact/ui/Layout';
 import {scale} from '@enact/ui/resolution';
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 
 import icons from '../helper/icons';
 
@@ -268,10 +268,10 @@ text('children', WithCustomStyle, Item, inputData.shortChildren);
 WithCustomStyle.storyName = 'with custom style';
 
 export const WithChangingSlots = () => {
-	const [check, setcheck] = useState(false);
-	function handleClick () {
-		setcheck(!check);
-	}
+	const [check, setCheck] = useState(false);
+	const handleClick = useCallback(() => {
+		setCheck(!check);
+	}, [check]);
 
 	return (
 		<div className={css.itemContainer}>

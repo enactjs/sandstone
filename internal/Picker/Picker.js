@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import {forward, stop, stopImmediate} from '@enact/core/handle';
+import {forward, forwardCustom, stop, stopImmediate} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
 import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
@@ -655,13 +655,13 @@ const PickerBase = class extends ReactComponent {
 			} else if (isHorizontal) {
 				this.setIncPickerButtonPressed();
 			} else if (orientation === 'horizontal' && isDown(keyCode) && onSpotlightDown) {
-				onSpotlightDown(ev);
+				forwardCustom('onSpotlightDown')(null, this.props);
 			} else if (orientation === 'horizontal' && isUp(keyCode) && onSpotlightUp) {
-				onSpotlightUp(ev);
+				forwardCustom('onSpotlightUp')(null, this.props);
 			} else if (orientation === 'vertical' && isLeft(keyCode) && onSpotlightLeft) {
-				onSpotlightLeft(ev);
+				forwardCustom('onSpotlightLeft')(null, this.props);
 			} else if (orientation === 'vertical' && isRight(keyCode) && onSpotlightRight) {
-				onSpotlightRight(ev);
+				forwardCustom('onSpotlightRight')(null, this.props);
 			}
 		}
 	};
@@ -707,7 +707,7 @@ const PickerBase = class extends ReactComponent {
 				Spotlight.setPointerMode(false);
 				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.incrementer}`));
 			} else {
-				forward(`onSpotlight${cap(direction)}`, ev, this.props);
+				forwardCustom(`onSpotlight${cap(direction)}`)(ev, this.props);
 			}
 		}
 	};
@@ -735,7 +735,7 @@ const PickerBase = class extends ReactComponent {
 				Spotlight.setPointerMode(false);
 				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.decrementer}`));
 			} else {
-				forward(`onSpotlight${cap(direction)}`, ev, this.props);
+				forwardCustom(`onSpotlight${cap(direction)}`)(ev, this.props);
 			}
 		}
 	};

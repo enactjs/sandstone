@@ -9,7 +9,7 @@
  * @exports TabPanel
  */
 
-import {forKey, forProp, forward, handle, stop} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardCustom, handle, stop} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
@@ -383,7 +383,7 @@ const tabPanelsHandlers = {
 			}
 			return document.querySelector(`section.${css.body}`).contains(ev.target);
 		},
-		forward('onBack'),
+		forwardCustom('onBack'),
 		stop
 	)
 };
