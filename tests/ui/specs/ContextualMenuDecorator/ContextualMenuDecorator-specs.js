@@ -26,8 +26,8 @@ describe('ContextualMenuDecorator', function () {
 				expect(menu2.isMenuExist).to.be.false();
 			});
 
-			// [GT-28276] - Spotlight is on the first item (verify step 3)
-			it('should move focus to first menu item on select', function () {
+			it('should move focus to first menu item on select - [QWT-2740]', function () {
+				// Spotlight is on the first item (verify step 3)
 				Page.backKey();
 				Page.spotlightLeft();
 				Page.spotlightSelect();
@@ -35,35 +35,35 @@ describe('ContextualMenuDecorator', function () {
 				expect(menu1.item(0).isFocused()).to.be.true();
 			});
 
-			// [GT-28284] - The *Contextual Button* menu does not close. Spotlight is on same item (verify step 4)
-			it('should not dismiss the menu on 5-way left from menu item', function () {
+			it('should not dismiss the menu on 5-way left from menu item - [QWT-2735]', function () {
+				// The *Contextual Button* menu does not close. Spotlight is on same item (verify step 4)
 				Page.spotlightLeft();
 				expect(menu2.isMenuExist).to.be.true();
 				expect(menu2.item(0).isFocused()).to.be.true();
 			});
 
-			// [GT-28284] - The *Contextual Button* menu does not close. Spotlight is on same item (verify step 5)
-			it('should not dismiss the menu on 5-way right from menu item', function () {
+			it('should not dismiss the menu on 5-way right from menu item - [QWT-2735]', function () {
+				// The *Contextual Button* menu does not close. Spotlight is on same item (verify step 5)
 				Page.spotlightRight();
 				expect(menu2.isMenuExist).to.be.true();
 				expect(menu2.item(0).isFocused()).to.be.true();
 			});
 
-			// [GT-28284] - The *Contextual Button* menu does not close. Spotlight is on on same item (verify step 6)
-			it('should not dismiss the menu on 5-way up from first menu item', function () {
+			it('should not dismiss the menu on 5-way up from first menu item - [QWT-2735]', function () {
+				// The *Contextual Button* menu does not close. Spotlight is on on same item (verify step 6)
 				Page.spotlightUp();
 				expect(menu2.isMenuExist).to.be.true();
 				expect(menu2.item(0).isFocused()).to.be.true();
 			});
 
-			// [GT-28285] - Spotlight is on the second item. (verify step 4)
-			it('should move focus to the next menu item on 5-way down', function () {
+			it('should move focus to the next menu item on 5-way down - [QWT-2734]', function () {
+				// Spotlight is on the second item. (verify step 4)
 				Page.spotlightDown();
 				expect(menu2.item(1).isFocused()).to.be.true();
 			});
 
-			// [GT-28285] - The *Contextual Button* menu does not close. Spotlight is on bottom button. (verify step 5)
-			it('should not dismiss the menu and move focus back to activator on close', function () {
+			it('should not dismiss the menu and move focus back to activator on close - [QWT-2734]', function () {
+				// The *Contextual Button* menu does not close. Spotlight is on bottom button. (verify step 5)
 				Page.spotlightDown();
 				Page.spotlightDown();
 				Page.spotlightDown();
@@ -73,8 +73,8 @@ describe('ContextualMenuDecorator', function () {
 		});
 
 		describe('using pointer', function () {
-			// [GT-28282]
-			it('should not keep Spotlight on button when menu opens with pointer', function () {
+
+			it('should not keep Spotlight on button when menu opens with pointer - [QWT-2736]', function () {
 				button2.self.moveTo();
 				$('.ContextualPopupDecorator_HolePunchScrim_holePunchScrim').click({x: -100, y: 100});	// Click on scrim to close popup (note -100 offset is important to get away from button)
 				// this will close menu2

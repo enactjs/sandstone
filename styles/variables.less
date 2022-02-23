@@ -167,6 +167,7 @@
 @sand-tallglyph-alert-title-font-size:  @sand-alert-title-font-size;
 @sand-tallglyph-alert-notitle-content-font-size: @sand-alert-notitle-content-font-size;
 @sand-non-latin-body-font-size:         54px;
+@sand-non-latin-body-small-font-size:   48px;
 @sand-tallglyph-body-small-font-size:   48px;
 @sand-non-latin-button-large-font-size: 72px;
 @sand-non-latin-button-small-font-size: 54px;
@@ -298,7 +299,7 @@
 
 // ActionGuide
 // ---------------------------------------
-@sand-actionguide-max-width: 1500px;
+@sand-actionguide-label-max-width: 1500px;
 @sand-actionguide-label-height: 60px;
 @sand-actionguide-icon-margin: -24px 0 -18px 0;
 
@@ -311,11 +312,11 @@
 @sand-alert-fullscreen-max-width: 2028px;
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
-@sand-alert-overlay-buttons-margin: 0 0 0 126px;
+@sand-alert-overlay-buttons-margin: 0 0 0 126px; // If this changes, update `overflow` computed value from Alert.js
 @sand-alert-overlay-noimage-text-gap: 30px;
 @sand-alert-overlay-image-text-gap: @sand-alert-overlay-noimage-text-gap + 18px;
 @sand-alert-overlay-text-button-gap: (198px - .extract(@sand-alert-overlay-buttons-margin, left)[] - .extract(@sand-button-margin, right)[]);
-@sand-alert-overlay-content-width: 1200px;
+@sand-alert-overlay-content-width: 1200px; // If this changes, update `overflow` computed value from Alert.js
 @sand-alert-overlay-image-margin: 0;
 @sand-alert-overlay-margin-bottom: 360px;
 @sand-alert-overlay-padding-top-bottom: 60px;
@@ -360,7 +361,7 @@
 @sand-button-icon-small-margin-start: 0;
 @sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
-@sand-button-min-width: 540px;
+@sand-button-min-width: 540px; // If this changes, update `overflow` computed value from Alert.js
 @sand-button-focusexpand-focus-bg-transform: scale(1.05);
 @sand-button-focusexpand-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
@@ -624,7 +625,7 @@
 // ---------------------------------------
 @sand-input-popup-component-v-spacing: 42px;
 @sand-input-numbercell-border-radius: 12px;
-@sand-input-fullscreen-padding: (210px - .extract(@sand-popup-padding, top)[]) (480px - .extract(@sand-popup-padding, right)[]) (246px - .extract(@sand-popup-padding, bottom)[]) (480px - .extract(@sand-popup-padding, left)[]);
+@sand-input-fullscreen-padding: (210px - .extract(@sand-popup-padding, top)[]) (264px - .extract(@sand-popup-padding, right)[]) (246px - .extract(@sand-popup-padding, bottom)[]) (264px - .extract(@sand-popup-padding, left)[]);
 @sand-input-fullscreen-numbercell-width: 246px;
 @sand-input-fullscreen-numbercell-height: 300px;
 @sand-input-fullscreen-numbercell-margin: 0 18px;
@@ -744,6 +745,7 @@
 // Picker
 // ----------------------------------------
 @sand-picker-title-margin-left: .extract(@sand-heading-margin, left)[] + .extract(@sand-button-margin, left)[] + .extract(@sand-button-icon-small-padding, left)[];
+@sand-picker-title-max-width: 480px;
 @sand-picker-margin: 0 @sand-component-spacing;
 @sand-picker-item-padding: 0 @sand-spotlight-outset;
 @sand-picker-joined-vertical-border-radius: 24px;
@@ -842,7 +844,7 @@
 @sand-scrollbar-thumb-focus-width: 30px;
 @sand-scrollbar-thumb-focus-left: -9px;
 @sand-scrollbar-thumb-focus-border-radius: 12px;
-@sand-scrollbar-thumb-focus-box-shadow: 0 36px 18px;
+@sand-scrollbar-thumb-focus-box-shadow: 0 36px 36px;
 @sand-scrollbar-thumb-focus-direction-indicator-width: 18px;
 @sand-scrollbar-thumb-focus-direction-indicator-height: 12px;
 @sand-scrollbar-thumb-focus-direction-indicator-top: 6px;
@@ -854,6 +856,7 @@
 @sand-scroll-fade-out-offset: 24px;
 @sand-scroll-vertical-fade-out-padding: @sand-scroll-fade-out-size 0;
 @sand-scroll-horizontal-fade-out-padding: 0 @sand-scroll-fade-out-size;
+@sand-scroll-hover-area-size: 288px;
 @sand-scroll-focusablebody-padding: 72px 48px 72px 90px;
 @sand-scroll-focusablebody-padding-rtl: 72px 90px 72px 48px;
 @sand-scroll-focusablebody-focus-border-radius: 12px;
@@ -940,6 +943,8 @@
 
 // Video
 // ---------------------------------------
+@sand-video-back-button-left:                      150px;
+@sand-video-back-button-top:                       114px;
 @sand-video-slider-tooltip-arrow-border-left-right: 18px;
 @sand-video-slider-tooltip-arrow-border-top:       24px;
 @sand-video-slider-tooltip-position-bottom:        42px;

@@ -8,6 +8,7 @@ import CheckboxItem from '../../../CheckboxItem';
 import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
+import DayPicker from '../../../DayPicker';
 import Dropdown from '../../../Dropdown';
 import FixedPopupPanels from '../../../FixedPopupPanels';
 import FlexiblePopupPanels from '../../../FlexiblePopupPanels';
@@ -27,19 +28,21 @@ import Picker from '../../../Picker';
 import Popup from '../../../Popup';
 import PopupTabLayout from '../../../PopupTabLayout';
 import ProgressBar from '../../../ProgressBar';
+import ProgressButton from '../../../ProgressButton';
 import RadioItem from '../../../RadioItem';
 import RangePicker from '../../../RangePicker';
 import Region from '../../../Region';
 import Scroller from '../../../Scroller';
 import Slider from '../../../Slider';
 import Spinner from '../../../Spinner';
+import Sprite from '../../../Sprite';
 import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
 import TooltipDecorator, {Tooltip} from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
-import VirtualList from '../../../VirtualList';
+import VirtualList, {VirtualGridList} from '../../../VirtualList';
 import WizardPanels from '../../../WizardPanels';
 
 const components = {
@@ -52,6 +55,7 @@ const components = {
 	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
+	DayPicker,
 	Dropdown,
 	FixedPopupPanels,
 	FlexiblePopupPanels,
@@ -74,12 +78,14 @@ const components = {
 	Popup,
 	PopupTabLayout,
 	ProgressBar,
+	ProgressButton,
 	RadioItem,
 	RangePicker,
 	Region,
 	Scroller,
 	Slider,
 	Spinner,
+	Sprite,
 	Steps,
 	Switch,
 	SwitchItem,
@@ -88,6 +94,7 @@ const components = {
 	TooltipDecorator,
 	VideoPlayer,
 	VirtualList,
+	VirtualGridList,
 	WizardPanels
 };
 

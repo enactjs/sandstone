@@ -195,6 +195,14 @@ const TimePickerBase = kind({
 		minuteAriaLabel: PropTypes.string,
 
 		/**
+		 * Hides the label that displays the time.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noLabel: PropTypes.bool,
+
+		/**
 		 * Called on changes in the `hour` component of the time.
 		 *
 		 * @type {Function}
@@ -291,6 +299,7 @@ const TimePickerBase = kind({
 		meridiems,
 		minute,
 		minuteAriaLabel,
+		noLabel,
 		onChangeHour,
 		onChangeMeridiem,
 		onChangeMinute,
@@ -305,6 +314,10 @@ const TimePickerBase = kind({
 		const
 			hourAccessibilityHint = $L('hour'),
 			minuteAccessibilityHint = $L('minute');
+
+		if (noLabel) {
+			delete rest.label;
+		}
 
 		return (
 			<DateTime {...rest} css={css}>
@@ -342,7 +355,7 @@ const TimePickerBase = kind({
 										width={4}
 										wrap
 									/>
-									<span className={css.timeSeparator}>:</span>
+									<span className={css.timeSeparator} disabled={disabled}>:</span>
 								</Fragment>
 							);
 						case 'm':

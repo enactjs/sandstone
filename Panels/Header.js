@@ -1,3 +1,4 @@
+import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
@@ -33,7 +34,6 @@ const hasChildren = (children) => (Children.toArray(children).filter(Boolean).le
  */
 const HeaderBase = kind({
 	name: 'Header',
-
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
@@ -326,11 +326,12 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, type, styler}) => styler.append(
+		className: ({centered, children, type, styler, subtitle}) => styler.append(
 			{
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
-				withChildren: hasChildren(children)
+				withChildren: hasChildren(children),
+				withSubtitle: subtitle
 			},
 			type
 		),
@@ -387,6 +388,11 @@ const HeaderBase = kind({
 				</Cell>
 			);
 		}
+	},
+
+	handlers: {
+		onBack: forwardCustom('onBack'),
+		onClose: forwardCustom('onClose')
 	},
 
 	render: ({

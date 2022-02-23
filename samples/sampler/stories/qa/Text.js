@@ -1,8 +1,8 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
-import Button from '@enact/sandstone/Button';
+import {Button, ButtonBase} from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
@@ -32,6 +32,7 @@ const Config = {
 const inputData = {
 	english: 'We name themes after gemstones',
 	arabic: 'نحن اسم المواضيع بعد الأحجار الكريمة',
+	bengali: 'পারেন।',
 	chinese: '星期日 星期一 星期二 星期三 星期四 星期五 星期六',
 	greek: 'Ονομάζουμε θέματα μετά από πολύτιμους λίθους',
 	hebrew: 'אנו שם נושאים לאחר אבני חן',
@@ -40,6 +41,7 @@ const inputData = {
 	oriya: 'ସବୁ ମନୁଷ୍ୟ ଜନ୍ମକାଳରୁ ସ୍ୱାଧୀନ। ସେମାନଙ୍କର ମର୍ଯ୍ୟାଦା ଓ',
 	russian: 'Мы называем темы в честь драгоценных камней',
 	tamil: 'ரத்தினங்களுக்கு பிறகு கருப்பொருள்களுக்கு பெயரிடுகிறோம்',
+	telugu: 'హలో, మీరు ఎలా ఉన్నారు?',
 	thai: 'เราตั้งชื่อธีมตามอัญมณี',
 	urdu: 'ہم گیسسٹون کے بعد موضوعات کا نام دیتے ہیں'
 };
@@ -60,9 +62,10 @@ const prop = {
 	focusEffect: ['expand', 'static'],
 	pickerOrientation: ['horizontal', 'vertical'],
 	pickerWidth: [null, 'small', 'medium', 'large'],
-	tallText: ['नरेंद्र मोदी', 'ଇନପୁଟଗୁଡିକ', 'ฟิ้ ไั ஒ  து  ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី', 'ÁÉÍÓÚÑÜ', 'Bản văn']
+	tallText: ['नरेंद्र मोदी', 'ଇନପୁଟଗୁଡିକ', 'ฟิ้ ไั ஒ து ඒ', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី', 'ÁÉÍÓÚÑÜ', 'Bản văn']
 };
 
+const ButtonConfig = mergeComponentMetadata('Button', ButtonBase, Button);
 const CheckboxItemConfig = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItem);
 
 const ContextualButton = ContextualPopupDecorator(Button);
@@ -96,8 +99,8 @@ export default {
 	component: 'Text'
 };
 
-export const TallGlyphSupportInComponents = () => {
-	const text = select('text', prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
+export const TallGlyphSupportInComponents = (args) => {
+	const text = args['text'];
 	const renderPopup = () => <div style={{textAlign: 'center'}}>{text}</div>;
 
 	return (
@@ -115,13 +118,13 @@ export const TallGlyphSupportInComponents = () => {
 						<Button
 							alt="Button"
 							onClick={action('onClick')}
-							backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Button)}
-							disabled={boolean('disabled', Button)}
-							focusEffect={select('focusEffect', prop.focusEffect, Button)}
-							icon={select('icon', prop.icons, Button)}
-							minWidth={boolean('minWidth', Button, true) ? void 0 : false}
-							selected={boolean('selected', Button)}
-							size={select('size', ['small', 'large'], Button)}
+							backgroundOpacity={args['backgroundOpacity']}
+							disabled={args['disabled (Button)']}
+							focusEffect={args['focusEffect']}
+							icon={args['icon']}
+							minWidth={args['minWidth'] ? void 0 : false}
+							selected={args['selected']}
+							size={args['size (Button)']}
 						>
 							{text}
 						</Button>
@@ -131,8 +134,8 @@ export const TallGlyphSupportInComponents = () => {
 					<Section title="Toggleable Items" size="50%">
 						<CheckboxItem
 							alt="CheckboxItem"
-							disabled={boolean('disabled', CheckboxItemConfig, false)}
-							inline={boolean('inline', CheckboxItemConfig)}
+							disabled={args['disabled (CheckboxItem)']}
+							inline={args['inline (CheckboxItem)']}
 							onToggle={action('onToggle')}
 						>
 							{text}
@@ -140,16 +143,16 @@ export const TallGlyphSupportInComponents = () => {
 						<FormCheckboxItem alt="FormCheckboxItem">{text}</FormCheckboxItem>
 						<RadioItem
 							alt="RadioItem"
-							disabled={boolean('disabled', RadioItem)}
-							inline={boolean('inline', RadioItem)}
+							disabled={args['disabled (RadioItem)']}
+							inline={args['inline (RadioItem)']}
 							onToggle={action('onToggle')}
 						>
 							{text}
 						</RadioItem>
 						<SwitchItem
 							alt="SwitchItem"
-							disabled={boolean('disabled', SwitchItem)}
-							inline={boolean('inline', SwitchItem)}
+							disabled={args['disabled (SwitchItem)']}
+							inline={args['inline (SwitchItem)']}
 							onToggle={action('onToggle')}
 						>
 							{text}
@@ -160,7 +163,7 @@ export const TallGlyphSupportInComponents = () => {
 				<Section title="Simple Items">
 					<Item
 						alt="Item"
-						disabled={boolean('disabled', Item)}
+						disabled={args['disabled (Item)']}
 					>
 						{text}
 					</Item>
@@ -182,28 +185,28 @@ export const TallGlyphSupportInComponents = () => {
 					<InputField
 						alt="InputField"
 						style={divMargin}
-						size={select('size', propOptions.size, InputField)}
+						size={args['size (InputField)']}
 						value={text}
 					/>
 					<Picker
 						alt="Picker"
 						onChange={action('onChange')}
-						width={select('width', prop.pickerWidth, Picker, 'large')}
-						orientation={select('orientation', prop.pickerOrientation, Picker, 'horizontal')}
-						wrap={boolean('wrap', Picker)}
-						joined={boolean('joined', Picker)}
-						noAnimation={boolean('noAnimation', Picker)}
-						disabled={boolean('disabled', Picker)}
-						incrementIcon={select('incrementIcon', iconNames, Picker)}
-						decrementIcon={select('decrementIcon', iconNames, Picker)}
+						width={args['width']}
+						orientation={args['orientation']}
+						wrap={args['wrap']}
+						joined={args['joined']}
+						noAnimation={args['noAnimation']}
+						disabled={args['disabled (Picker)']}
+						incrementIcon={args['incrementIcon']}
+						decrementIcon={args['decrementIcon']}
 					>
 						{prop.tallText}
 					</Picker>
 					<ContextualPopupWithActivator
 						alt="ContextualPopupDecorator"
-						direction={select('direction', prop.contextualPopupDirection, ContextualPopupConfig, 'above')}
+						direction={args['direction']}
 						popupComponent={renderPopup} // eslint-disable-line
-						spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], ContextualPopupConfig, 'self-only')}
+						spotlightRestrict={args['spotlightRestrict']}
 					>
 						ContextualPopup with tall characters
 					</ContextualPopupWithActivator>
@@ -213,31 +216,43 @@ export const TallGlyphSupportInComponents = () => {
 	);
 };
 
+select('text', TallGlyphSupportInComponents, prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
+select('backgroundOpacity', TallGlyphSupportInComponents, prop.backgroundOpacity, ButtonConfig);
+boolean('disabled (Button)', TallGlyphSupportInComponents, ButtonConfig);
+select('focusEffect', TallGlyphSupportInComponents, prop.focusEffect, ButtonConfig);
+select('icon', TallGlyphSupportInComponents, prop.icons, ButtonConfig);
+boolean('minWidth', TallGlyphSupportInComponents, ButtonConfig, true);
+boolean('selected', TallGlyphSupportInComponents, ButtonConfig);
+select('size (Button)', TallGlyphSupportInComponents, ['small', 'large'], ButtonConfig);
+boolean('disabled (CheckboxItem)', TallGlyphSupportInComponents, CheckboxItemConfig, false);
+boolean('inline (CheckboxItem', TallGlyphSupportInComponents, CheckboxItemConfig);
+boolean('disabled (RadioItem)', TallGlyphSupportInComponents, RadioItem);
+boolean('inline (RadioItem)', TallGlyphSupportInComponents, RadioItem);
+boolean('disabled (SwitchItem)', TallGlyphSupportInComponents, SwitchItem);
+boolean('inline (SwitchItem)', TallGlyphSupportInComponents, SwitchItem);
+boolean('disabled (Item)', TallGlyphSupportInComponents, Item);
+select('size (InputField)', TallGlyphSupportInComponents, propOptions.size, InputField);
+select('width', TallGlyphSupportInComponents, prop.pickerWidth, Picker, 'large');
+select('orientation', TallGlyphSupportInComponents, prop.pickerOrientation, Picker, 'horizontal');
+boolean('wrap', TallGlyphSupportInComponents, Picker);
+boolean('joined', TallGlyphSupportInComponents, Picker);
+boolean('noAnimation', TallGlyphSupportInComponents, Picker);
+boolean('disabled (Picker)', TallGlyphSupportInComponents, Picker);
+select('incrementIcon', TallGlyphSupportInComponents, iconNames, Picker);
+select('decrementIcon', TallGlyphSupportInComponents, iconNames, Picker);
+select('direction', TallGlyphSupportInComponents, prop.contextualPopupDirection, ContextualPopupConfig, 'above');
+select('spotlightRestrict', TallGlyphSupportInComponents, ['none', 'self-first', 'self-only'], ContextualPopupConfig, 'self-only');
+
 TallGlyphSupportInComponents.storyName = '"Tall Glyph" support in components';
 
-export const Languages = () => {
+export const Languages = (args) => {
 	const languagesList = [];
 	Object.keys(inputData).forEach((key) => {
 		languagesList.push({
 			slotBefore: <span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>,
 			children: <span
 				style={{
-					fontWeight: select(
-						'font-weight',
-						[
-							'100',
-							'200',
-							'300',
-							'400',
-							'500',
-							'600',
-							'700',
-							'800',
-							'900'
-						],
-						Config,
-						'400'
-					)
+					fontWeight: args['font-weight']
 				}}
 			>{inputData[key]}</span>,
 			key: 'language' + key
@@ -252,6 +267,7 @@ export const Languages = () => {
 	);
 };
 
+select('font-weight',	Languages, ['100', '200', '300', '400', '500', '600', '700', '800', '900'], Config, '400');
 Languages.storyName = 'Languages';
 
 export const MixedScripts = () => (
@@ -286,3 +302,8 @@ export const MixedScripts = () => (
 );
 
 MixedScripts.storyName = 'Mixed Scripts';
+MixedScripts.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

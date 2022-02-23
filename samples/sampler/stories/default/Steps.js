@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {number, select} from '@enact/storybook-utils/addons/knobs';
+import {range, select} from '@enact/storybook-utils/addons/controls';
 import Steps, {StepsBase} from '@enact/sandstone/Steps';
 
 import iconNames from '../helper/icons';
@@ -22,20 +22,27 @@ export default {
 	component: 'Steps'
 };
 
-export const _Steps = () => {
-	return (
-		<Steps
-			current={number('current', Config, {range: true, min: 1, max: 10}, 3)}
-			total={number('total', Config, {range: true, min: 2, max: 10}, 5)}
-			pastIcon={select('pastIcon', prop.icons, Config)}
-			currentIcon={select('currentIcon', prop.icons, Config)}
-			futureIcon={select('futureIcon', prop.icons, Config)}
-			size={select('size', prop.sizes, Config)}
-			skip={select('skip', prop.skip, Config)}
-			skipIcon={select('skipIcon', prop.icons, Config)}
-		/>
-	);
-};
+export const _Steps = (args) => (
+	<Steps
+		current={args['current']}
+		total={args['total']}
+		pastIcon={args['pastIcon']}
+		currentIcon={args['currentIcon']}
+		futureIcon={args['futureIcon']}
+		size={args['size']}
+		skip={args['skip']}
+		skipIcon={args['skipIcon']}
+	/>
+);
+
+range('current', _Steps, Config, {min: 1, max: 10}, 3);
+range('total', _Steps, Config, {min: 2, max: 10}, 5);
+select('pastIcon', _Steps, prop.icons, Config);
+select('currentIcon', _Steps, prop.icons, Config);
+select('futureIcon', _Steps, prop.icons, Config);
+select('size', _Steps, prop.sizes, Config);
+select('skip', _Steps, prop.skip, Config);
+select('skipIcon', _Steps, prop.icons, Config);
 
 _Steps.storyName = 'Steps';
 _Steps.parameters = {

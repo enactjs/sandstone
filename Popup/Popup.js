@@ -19,7 +19,7 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Transition from '@enact/ui/Transition';
-import {forward} from '@enact/core/handle';
+import {forward, forwardCustom} from '@enact/core/handle';
 import warning from 'warning';
 
 import Skinnable from '../Skinnable';
@@ -435,6 +435,14 @@ class Popup extends Component {
 					prevOpen: props.open
 				};
 			} else {
+				// Disables the spotlight conatiner of popup when `noAnimation` set
+				if (props.noAnimation) {
+					const node = getContainerNode(state.containerId);
+					if (node) {
+						node.dataset['spotlightContainerDisabled'] = true;
+					}
+				}
+
 				return {
 					popupOpen: OpenState.CLOSED,
 					floatLayerOpen: state.popupOpen === OpenState.OPEN ? !props.noAnimation : false,
@@ -552,10 +560,14 @@ class Popup extends Component {
 					ev.stopPropagation();
 					// set the pointer mode to false on keydown
 					Spotlight.setPointerMode(false);
-					onClose(ev);
+					forwardCustom('onClose')({}, this.props);
 				}
 			}
 		}
+	};
+
+	handleDismiss = () => {
+		forwardCustom('onClose')({}, this.props);
 	};
 
 	handlePopupHide = (ev) => {
@@ -628,16 +640,17 @@ class Popup extends Component {
 	};
 
 	render () {
-		const {noAutoDismiss, onClose, scrimType, ...rest} = this.props;
+		const {noAutoDismiss, scrimType, ...rest} = this.props;
 
 		delete rest.no5WayClose;
+		delete rest.onClose;
 
 		return (
 			<FloatingLayer
 				noAutoDismiss={noAutoDismiss}
 				open={this.state.floatLayerOpen}
 				onOpen={this.handleFloatingLayerOpen}
-				onDismiss={onClose}
+				onDismiss={this.handleDismiss}
 				scrimType={scrimType}
 			>
 				<SkinnedPopupBase

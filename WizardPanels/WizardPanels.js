@@ -1,4 +1,4 @@
-import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
+import handle, {adaptEvent, forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
@@ -11,7 +11,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext, useState, useCallback, Children} from 'react';
+import {createContext, useRef, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
@@ -288,33 +288,33 @@ const WizardPanelsBase = kind({
 
 	handlers: {
 		onNextClick: handle(
-			forwardWithPrevent('onNextClick'),
+			adaptEvent(() => ({type: 'onNextClick'}), forwardWithPrevent('onNextClick')),
 			(ev, {index, onChange, totalPanels}) => {
 				if (onChange && index !== totalPanels) {
 					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
-					onChange({index: nextIndex});
+					onChange({type: 'onChange', index: nextIndex});
 				}
 			}
 		),
 		onPrevClick: handle(
-			forwardWithPrevent('onPrevClick'),
+			adaptEvent(() => ({type: 'onPrevClick'}), forwardWithPrevent('onPrevClick')),
 			(ev, {index, onChange}) => {
 				if (onChange && index !== 0) {
 					const prevIndex = index > 0 ? (index - 1) : index;
 
-					onChange({index: prevIndex});
+					onChange({type: 'onChange', index: prevIndex});
 				}
 			}
 		),
 		onTransition: (ev, {index, onTransition}) => {
 			if (onTransition) {
-				onTransition({index});
+				onTransition({type: 'onTransition', index});
 			}
 		},
 		onWillTransition: (ev, {index, onWillTransition}) => {
 			if (onWillTransition) {
-				onWillTransition({index});
+				onWillTransition({type: 'onWillTransition', index});
 			}
 		}
 	},
@@ -444,16 +444,17 @@ const WizardPanelsBase = kind({
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
 function useReverseTransition (index = -1, rtl) {
-	const [prevIndex, setPrevIndex] = useState(-1);
-	let [reverse, setReverse] = useState(rtl);
+	const prevIndex = useRef(index);
+	const reverse = useRef(rtl);
+	// If the index was changed, the panel transition is occured on the next cycle by `Panel`
+	const prev = {reverseTransition: reverse.current, prevIndex: prevIndex.current};
 
-	if (prevIndex !== index) {
-		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
-		setReverse(reverse);
-		setPrevIndex(index);
+	if (prevIndex.current !== index) {
+		reverse.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
+		prevIndex.current = index;
 	}
 
-	return reverse;
+	return prev;
 }
 
 /**
@@ -471,9 +472,9 @@ const WizardPanelsRouter = (Wrapped) => {
 		componentRef,
 		'data-spotlight-id': spotlightId,
 		index,
-		noAnimation,
 		onTransition,
 		onWillTransition,
+		subtitle,
 		title,
 		rtl,
 		...rest
@@ -482,11 +483,11 @@ const WizardPanelsRouter = (Wrapped) => {
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
-		const reverseTransition = useReverseTransition(index, rtl);
+		const {reverseTransition, prevIndex} = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
-		} = useFocusOnTransition({index, noAnimation, onTransition, onWillTransition, spotlightId});
+		} = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
 
 		const handleWillTransition = useCallback((ev) => {
 			focusOnWillTransition(ev);
@@ -495,6 +496,7 @@ const WizardPanelsRouter = (Wrapped) => {
 
 		const totalPanels = panel ? Children.count(children) : 0;
 		const currentTitle = panel && panel.title ? panel.title : title;
+		const currentSubTitle = panel && panel.subtitle ? panel.subtitle : subtitle;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
@@ -508,14 +510,14 @@ const WizardPanelsRouter = (Wrapped) => {
 					componentRef={ref}
 					data-spotlight-id={spotlightId}
 					index={index}
-					noAnimation={noAnimation}
 					onWillTransition={handleWillTransition}
 					title={currentTitle}
+					subtitle={currentSubTitle}
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
 					{panel && panel.children ? (
-						<div className="enact-fit" key={`panel${index}`}>
+						<div className="enact-fit" key={`panel${prevIndex}`}>
 							{panel.children}
 						</div>
 					) : null}
@@ -583,6 +585,21 @@ const WizardPanelsRouter = (Wrapped) => {
 		rtl: PropTypes.bool,
 
 		/**
+		* The "default" subtitle for WizardPanels if subtitle isn't explicitly set in
+		* [Panel]{@link sandstone/WizardPanels.Panel}.
+		* @example
+		* 	<WizardPanels subtitle="Subtitle">
+		*		<WizardPanels.Panel>
+		*			lorem ipsum ...
+		*		</WizardPanels.Panel>
+		*	</WizardPanels>
+		*
+		* @type {String}
+		* @private
+		*/
+		subtitle: PropTypes.string,
+
+		/**
 		* The "default" title for WizardPanels if title isn't explicitly set in
 		* [Panel]{@link sandstone/WizardPanels.Panel}.
 		* @example
@@ -592,7 +609,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		*		</WizardPanels.Panel>
 		*	</WizardPanels>
 		*
-		* @type {Number}
+		* @type {String}
 		* @private
 		*/
 		title: PropTypes.string
@@ -600,6 +617,7 @@ const WizardPanelsRouter = (Wrapped) => {
 
 	WizardPanelsProvider.defaultProps = {
 		index: 0,
+		subtitle: '',
 		title: ''
 	};
 
@@ -612,7 +630,7 @@ const WizardPanelsDecorator = compose(
 	CancelDecorator({
 		cancel: 'onChange',
 		shouldCancel: handle(
-			forwardWithPrevent('onBack'),
+			adaptEvent(() => ({type: 'onBack'}), forwardWithPrevent('onBack')),
 			not(forProp('noPrevButton', true))
 		)
 	}),

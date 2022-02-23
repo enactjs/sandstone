@@ -11,11 +11,11 @@ import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
 import {memoize} from '@enact/core/util';
 
-import {adaptEvent, call, forKey, forward, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
+import {adaptEvent, call, forKey, forward, forwardCustom, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {platform} from '@enact/core/platform';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {perfNow, Job} from '@enact/core/util';
+import {perfNow, Job, shallowEqual} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {toUpperCase} from '@enact/i18n/util';
 import {getDirection, Spotlight} from '@enact/spotlight';
@@ -33,9 +33,9 @@ import equals from 'ramda/src/equals';
 import PropTypes from 'prop-types';
 import {isValidElement, cloneElement, Component} from 'react';
 import ReactDOM from 'react-dom';
-import shallowEqual from 'recompose/shallowEqual';
 
 import $L from '../internal/$L';
+import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Spinner from '../Spinner';
 import {
@@ -71,7 +71,7 @@ const shouldJump = ({disabled, no5WayJump}, {mediaControlsVisible, sourceUnavail
 );
 const calcNumberValueOfPlaybackRate = (rate) => {
 	const pbArray = String(rate).split('/');
-	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseInt(rate);
+	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseFloat(rate);
 };
 
 const SpottableDiv = Touchable(Spottable('div'));
@@ -85,7 +85,7 @@ const RootContainer = SpotlightContainerDecorator(
 
 const ControlsContainer = SpotlightContainerDecorator(
 	{
-		enterTo: '',
+		enterTo: 'default-element',
 		straightOnly: true
 	},
 	'div'
@@ -101,18 +101,24 @@ const getDurFmt = (locale) => {
 	return memoGetDurFmt(locale);
 };
 
-const forwardWithState = (type) => adaptEvent(call('addStateToEvent'), forwardWithPrevent(type));
+const forwardWithState = (type) => adaptEvent(() => ({type}), handle(adaptEvent(call('addStateToEvent'), forwardWithPrevent(type))));
 
 const forwardToggleMore = forward('onToggleMore');
 
 // provide forwarding of events on media controls
-const forwardControlsAvailable = forward('onControlsAvailable');
+const forwardControlsAvailable = forwardCustom('onControlsAvailable');
 const forwardPlay = forwardWithState('onPlay');
+const forwardWillPlay = forwardWithState('onWillPlay');
 const forwardPause = forwardWithState('onPause');
+const forwardWillPause = forwardWithState('onWillPause');
 const forwardRewind = forwardWithState('onRewind');
+const forwardWillRewind = forwardWithState('onWillRewind');
 const forwardFastForward = forwardWithState('onFastForward');
+const forwardWillFastForward = forwardWithState('onWillFastForward');
 const forwardJumpBackward = forwardWithState('onJumpBackward');
+const forwardWillJumpBackward = forwardWithState('onWillJumpBackward');
 const forwardJumpForward = forwardWithState('onJumpForward');
+const forwardWillJumpForward = forwardWithState('onWillJumpForward');
 
 const AnnounceState = {
 	// Video is loaded but additional announcements have not been made
@@ -156,15 +162,15 @@ const AnnounceState = {
  * faster. If it is negative, it will play backward.
  *
  * The order of numbers represents the incremental order of rates that will be used for each
- * operation. Note that all rates are expressed as strings and fractions are used rather than decimals
- * (e.g.: `'1/2'`, not `'0.5'`).
+ * operation. Note that rates can be expressed as decimals, strings, and fractions.
+ * (e.g.: `0.5`, `'0.5'`, `'1/2'`).
  *
  * @typedef {Object} playbackRateHash
  * @memberof sandstone/VideoPlayer
- * @property {String[]} fastForward - An array of playback rates when media fast forwards
- * @property {String[]} rewind - An array of playback rates when media rewinds
- * @property {String[]} slowForward - An array of playback rates when media slow-forwards
- * @property {String[]} slowRewind - An array of playback rates when media slow-rewinds
+ * @property {[]} fastForward - An array of playback rates when media fast forwards
+ * @property {[]} rewind - An array of playback rates when media rewinds
+ * @property {[]} slowForward - An array of playback rates when media slow-forwards
+ * @property {[]} slowRewind - An array of playback rates when media slow-rewinds
  *
  * @public
  */
@@ -199,6 +205,15 @@ const VideoPlayerBase = class extends Component {
 		 * @public
 		 */
 		autoCloseTimeout: PropTypes.number,
+
+		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
 
 		/**
 		 * Removes interactive capability from this component. This includes, but is not limited to,
@@ -396,6 +411,14 @@ const VideoPlayerBase = class extends Component {
 		noSpinner: PropTypes.bool,
 
 		/**
+		 * Called when the back button is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBack: PropTypes.func,
+
+		/**
 		 * Called when the player's controls change availability, whether they are shown
 		 * or hidden.
 		 *
@@ -408,7 +431,7 @@ const VideoPlayerBase = class extends Component {
 		onControlsAvailable: PropTypes.func,
 
 		/**
-		 * Called when the video is fast forwarded.
+		 * Called when the video has been fast forwarded.
 		 *
 		 * @type {Function}
 		 * @public
@@ -436,7 +459,7 @@ const VideoPlayerBase = class extends Component {
 		onJumpForward: PropTypes.func,
 
 		/**
-		 * Called when video is paused
+		 * Called when the video has been paused.
 		 *
 		 * @type {Function}
 		 * @public
@@ -444,7 +467,7 @@ const VideoPlayerBase = class extends Component {
 		onPause: PropTypes.func,
 
 		/**
-		 * Called when video is played
+		 * Called when the video has been played.
 		 *
 		 * @type {Function}
 		 * @public
@@ -452,7 +475,7 @@ const VideoPlayerBase = class extends Component {
 		onPlay: PropTypes.func,
 
 		/**
-		 * Called when video is rewound.
+		 * Called when the video has been rewound.
 		 *
 		 * @type {Function}
 		 * @public
@@ -505,6 +528,58 @@ const VideoPlayerBase = class extends Component {
 		onToggleMore: PropTypes.func,
 
 		/**
+		 * Called once before the video is forwarded.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onWillFastForward: PropTypes.func,
+
+		/**
+		  * Called once before the video is jump backwarded.
+		  *
+		  * Is passed a {@link sandstone/VideoPlayer.videoStatus} as the first argument.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillJumpBackward: PropTypes.func,
+
+		/**
+		  * Called once before the video is jump forwarded.
+		  *
+		  * Is passed a {@link sandstone/VideoPlayer.videoStatus} as the first argument.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillJumpForward: PropTypes.func,
+
+		/**
+		  * Called once before the video is paused.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillPause: PropTypes.func,
+
+		/**
+		  * Called once before the video is played
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillPlay: PropTypes.func,
+
+		/**
+		  * Called once before the video is rewound.
+		  *
+		  * @type {Function}
+		  * @public
+		  */
+		onWillRewind: PropTypes.func,
+
+		/**
 		 * Pauses the video when it reaches either the start or the end of the video during rewind,
 		 * slow rewind, fast forward, or slow forward.
 		 *
@@ -527,10 +602,10 @@ const VideoPlayerBase = class extends Component {
 		 * @public
 		 */
 		playbackRateHash: PropTypes.shape({
-			fastForward: PropTypes.arrayOf(PropTypes.string),
-			rewind: PropTypes.arrayOf(PropTypes.string),
-			slowForward: PropTypes.arrayOf(PropTypes.string),
-			slowRewind: PropTypes.arrayOf(PropTypes.string)
+			fastForward: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+			rewind: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+			slowForward: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+			slowRewind: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
 		}),
 
 		/**
@@ -1149,32 +1224,36 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	handlePlay = this.handle(
-		forwardPlay,
+		forwardWillPlay,
 		this.shouldShowMiniFeedback,
-		() => this.play()
+		() => this.play(),
+		forwardPlay
 	);
 
 	handlePause = this.handle(
-		forwardPause,
+		forwardWillPause,
 		this.shouldShowMiniFeedback,
-		() => this.pause()
+		() => this.pause(),
+		forwardPause
 	);
 
 	handleRewind = this.handle(
-		forwardRewind,
+		forwardWillRewind,
 		this.shouldShowMiniFeedback,
-		() => this.rewind()
+		() => this.rewind(),
+		forwardRewind
 	);
 
 	handleFastForward = this.handle(
-		forwardFastForward,
+		forwardWillFastForward,
 		this.shouldShowMiniFeedback,
-		() => this.fastForward()
+		() => this.fastForward(),
+		forwardFastForward
 	);
 
 	handleJump = ({keyCode}) => {
 		if (this.props.seekDisabled) {
-			forward('onSeekFailed', {}, this.props);
+			forwardCustom('onSeekFailed')(null, this.props);
 		} else {
 			const jumpBy = (is('left', keyCode) ? -1 : 1) * this.props.jumpBy;
 			const time = Math.min(this.state.duration, Math.max(0, this.state.currentTime + jumpBy));
@@ -1288,12 +1367,12 @@ const VideoPlayerBase = class extends Component {
 	 */
 	getMediaState = () => {
 		return {
-			currentTime       : this.state.currentTime,
+			currentTime       : this.video.currentTime,
 			duration          : this.state.duration,
-			paused            : this.state.paused,
+			paused            : this.video.playbackRate !== 1 || this.video.paused,
 			playbackRate      : this.video.playbackRate,
-			proportionLoaded  : this.state.proportionLoaded,
-			proportionPlayed  : this.state.proportionPlayed
+			proportionLoaded  : this.video.proportionLoaded,
+			proportionPlayed  : this.video.proportionPlayed || 0
 		};
 	};
 
@@ -1321,7 +1400,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	play = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.speedIndex = 0;
@@ -1332,10 +1411,12 @@ const VideoPlayerBase = class extends Component {
 		this.send('play');
 		this.announce($L('Play'));
 		this.startDelayedMiniFeedbackHide(5000);
+
+		return true;
 	};
 
 	/**
-	 * Programmatically plays the current media.
+	 * Programmatically pauses the current media.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1343,7 +1424,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	pause = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.speedIndex = 0;
@@ -1354,6 +1435,8 @@ const VideoPlayerBase = class extends Component {
 		this.send('pause');
 		this.announce($L('Pause'));
 		this.stopDelayedMiniFeedbackHide();
+
+		return true;
 	};
 
 	/**
@@ -1368,13 +1451,13 @@ const VideoPlayerBase = class extends Component {
 		if (!this.props.seekDisabled && !isNaN(this.video.duration) && !this.state.sourceUnavailable) {
 			this.video.currentTime = timeIndex;
 		} else {
-			forward('onSeekFailed', {}, this.props);
+			forwardCustom('onSeekFailed')(null, this.props);
 		}
 	};
 
 	/**
 	 * Step a given amount of time away from the current playback position.
-	 * Like [seek]{@link sandstone/VideoPlayer.VideoPlayer#seek} but relative.
+	 * Like [seek]{@link sandstone/VideoPlayer.VideoPlayerBase.seek} but relative.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1383,7 +1466,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	jump = (distance) => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		this.pulsedPlaybackRate = toUpperCase(new DurationFmt({length: 'long'}).format({second: this.props.jumpBy}));
@@ -1392,10 +1475,12 @@ const VideoPlayerBase = class extends Component {
 		this.startDelayedFeedbackHide();
 		this.seek(this.state.currentTime + distance);
 		this.startDelayedMiniFeedbackHide();
+
+		return true;
 	};
 
 	/**
-	 * Changes the playback speed via [selectPlaybackRate()]{@link sandstone/VideoPlayer.VideoPlayer#selectPlaybackRate}.
+	 * Changes the playback speed.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1403,7 +1488,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	fastForward = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		let shouldResumePlayback = false;
@@ -1449,10 +1534,12 @@ const VideoPlayerBase = class extends Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.clearPulsedPlayback();
 		this.showFeedback();
+
+		return true;
 	};
 
 	/**
-	 * Changes the playback speed via [selectPlaybackRate()]{@link sandstone/VideoPlayer.VideoPlayer#selectPlaybackRate}.
+	 * Changes the playback speed.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1460,7 +1547,7 @@ const VideoPlayerBase = class extends Component {
 	 */
 	rewind = () => {
 		if (this.state.sourceUnavailable) {
-			return;
+			return false;
 		}
 
 		const rateForSlowRewind = this.props.playbackRateHash['slowRewind'];
@@ -1469,8 +1556,9 @@ const VideoPlayerBase = class extends Component {
 
 		if (this.video.currentTime === 0) {
 			// Do not rewind if currentTime is 0. We're already at the beginning.
-			return;
+			return true;
 		}
+
 		switch (this.prevCommand) {
 			case 'slowRewind':
 				if (this.speedIndex === this.playbackRates.length - 1) {
@@ -1513,6 +1601,8 @@ const VideoPlayerBase = class extends Component {
 		this.stopDelayedMiniFeedbackHide();
 		this.clearPulsedPlayback();
 		this.showFeedback();
+
+		return true;
 	};
 
 	// Creates a proxy to the video node if Proxy is supported
@@ -1572,10 +1662,10 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Retrieves the playback rate name.
+	 * Retrieves the playback rate value.
 	 *
 	 * @param {Number} idx - The index of the desired playback rate.
-	 * @returns {String} The playback rate name.
+	 * @returns {Number|String} The playback rate value.
 	 * @private
 	 */
 	selectPlaybackRate = (idx) => {
@@ -1585,7 +1675,7 @@ const VideoPlayerBase = class extends Component {
 	/**
 	 * Sets [playbackRate]{@link sandstone/VideoPlayer.VideoPlayer#playbackRate}.
 	 *
-	 * @param {String} rate - The desired playback rate.
+	 * @param {Number|String} rate - The desired playback rate.
 	 * @private
 	 */
 	setPlaybackRate = (rate) => {
@@ -1593,8 +1683,8 @@ const VideoPlayerBase = class extends Component {
 		this.stopRewindJob();
 
 		// Make sure rate is a string
-		this.playbackRate = rate = String(rate);
-		const pbNumber = calcNumberValueOfPlaybackRate(rate);
+		this.playbackRate = String(rate);
+		const pbNumber = calcNumberValueOfPlaybackRate(this.playbackRate);
 
 		if (!platform.webos) {
 			// ReactDOM throws error for setting negative value for playbackRate
@@ -1672,11 +1762,6 @@ const VideoPlayerBase = class extends Component {
 		};
 	};
 
-	disablePointerMode = () => {
-		Spotlight.setPointerMode(false);
-		return true;
-	};
-
 	//
 	// Player Interaction events
 	//
@@ -1693,6 +1778,8 @@ const VideoPlayerBase = class extends Component {
 		this.sliderScrubbing = false;
 	};
 
+	handleBack = this.handle(forwardCustom('onBack'));
+
 	handleKnobMove = (ev) => {
 		this.sliderScrubbing = true;
 
@@ -1705,7 +1792,7 @@ const VideoPlayerBase = class extends Component {
 			if (!isNaN(seconds)) {
 				const knobTime = secondsToTime(seconds, getDurFmt(this.props.locale), {includeHour: true});
 
-				forward('onScrub', {...ev, seconds}, this.props);
+				forward('onScrub', {...ev, seconds, type: 'onScrub'}, this.props);
 
 				this.announce(`${$L('jump to')} ${knobTime}`, true);
 			}
@@ -1728,7 +1815,9 @@ const VideoPlayerBase = class extends Component {
 			forward('onScrub', {
 				detached: this.sliderScrubbing,
 				proportion: this.sliderKnobProportion,
-				seconds},
+				seconds,
+				type: 'onScrub'
+			},
 			this.props);
 
 			this.announce(`${$L('jump to')} ${knobTime}`, true);
@@ -1764,18 +1853,19 @@ const VideoPlayerBase = class extends Component {
 			}
 		} else if (is('up', keyCode)) {
 			Spotlight.setPointerMode(false);
-			preventDefault(ev);
-			stopImmediate(ev);
 		}
 	};
 
 	onJumpBackward = this.handle(
-		forwardJumpBackward,
-		() => this.jump(-1 * this.props.jumpBy)
+		forwardWillJumpBackward,
+		() => this.jump(-1 * this.props.jumpBy),
+		forwardJumpBackward
 	);
+
 	onJumpForward = this.handle(
-		forwardJumpForward,
-		() => this.jump(this.props.jumpBy)
+		forwardWillJumpForward,
+		() => this.jump(this.props.jumpBy),
+		forwardJumpForward
 	);
 
 	handleToggleMore = (ev) => {
@@ -1843,6 +1933,7 @@ const VideoPlayerBase = class extends Component {
 
 	render () {
 		const {
+			backButtonAriaLabel,
 			className,
 			disabled,
 			infoComponents,
@@ -1875,6 +1966,7 @@ const VideoPlayerBase = class extends Component {
 		delete mediaProps.miniFeedbackHideDelay;
 		delete mediaProps.noAutoShowMediaControls;
 		delete mediaProps.noMediaSliderFeedback;
+		delete mediaProps.onBack;
 		delete mediaProps.onControlsAvailable;
 		delete mediaProps.onFastForward;
 		delete mediaProps.onJumpBackward;
@@ -1882,6 +1974,12 @@ const VideoPlayerBase = class extends Component {
 		delete mediaProps.onPause;
 		delete mediaProps.onPlay;
 		delete mediaProps.onRewind;
+		delete mediaProps.onWillFastForward;
+		delete mediaProps.onWillJumpBackward;
+		delete mediaProps.onWillJumpForward;
+		delete mediaProps.onWillPause;
+		delete mediaProps.onWillPlay;
+		delete mediaProps.onWillRewind;
 		delete mediaProps.onScrub;
 		delete mediaProps.onSeekFailed;
 		delete mediaProps.onSeekOutsideSelection;
@@ -1950,6 +2048,18 @@ const VideoPlayerBase = class extends Component {
 						>
 							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
 						</FeedbackContent>
+						{
+							this.state.mediaControlsVisible ?
+								<Button
+									aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
+									className={css.back}
+									icon="arrowhookleft"
+									iconFlip="auto"
+									onClick={this.handleBack}
+									size="small"
+								/> :
+								null
+						}
 						<ControlsContainer
 							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.lift : '')}
 							spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
@@ -1993,7 +2103,6 @@ const VideoPlayerBase = class extends Component {
 										onFocus={this.handleSliderFocus}
 										onKeyDown={this.handleSliderKeyDown}
 										onKnobMove={this.handleKnobMove}
-										onSpotlightUp={this.handleSpotlightUpFromSlider}
 										selection={proportionSelection}
 										spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
 										value={this.state.proportionPlayed}

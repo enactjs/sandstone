@@ -9,7 +9,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
+import {adaptEvent, forward, forwardCustom, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
@@ -26,6 +26,8 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {createContext, Fragment} from 'react';
 
+import {getLastInputType} from '../ThemeDecorator';
+
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
@@ -37,10 +39,7 @@ const TabLayoutContext = createContext(null);
 
 const TouchableCell = Touchable(Cell);
 
-const isTouchMode = () => {
-	const rootContainer = document.querySelector('#root > div');
-	return rootContainer && rootContainer.classList.contains('spotlight-input-touch');
-};
+const isTouchMode = () => (getLastInputType() === 'touch');
 
 /**
  * Tabbed Layout component.
@@ -284,7 +283,7 @@ const TabLayoutBase = kind({
 			}
 		},
 		onSelect: handle(
-			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
+			forwardCustom('onSelect', ({selected}) => ({index: selected}))
 		),
 		handleTabsTransitionEnd: handle(
 			forward('onTransitionEnd'),

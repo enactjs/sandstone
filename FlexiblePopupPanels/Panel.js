@@ -153,19 +153,19 @@ const PanelBase = kind({
 
 	handlers: {
 		onNextClick: handle(
-			forwardWithPrevent('onNextClick'),
+			adaptEvent(() => ({type: 'onNextClick'}), forwardWithPrevent('onNextClick')),
 			adaptEvent(
 				(ev, props, {count, index}) => {
-					return ({index: clamp(index + 1, count)}); // wrap around
+					return ({type: 'onChange', index: clamp(index + 1, count)}); // wrap around
 				},
 				forward('onChange')
 			)
 		),
 		onPrevClick: handle(
-			forwardWithPrevent('onPrevClick'),
+			adaptEvent(() => ({type: 'onPrevClick'}), forwardWithPrevent('onPrevClick')),
 			adaptEvent(
 				(ev, props, {count, index}) => {
-					return ({index: clamp(index - 1, count)}); // wrap around
+					return ({type: 'onChange', index: clamp(index - 1, count)}); // wrap around
 				},
 				forward('onChange')
 			)

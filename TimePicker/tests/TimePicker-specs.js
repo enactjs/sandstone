@@ -1,149 +1,166 @@
-import {mount} from 'enzyme';
 import ilib from 'ilib';
+import '@testing-library/jest-dom';
+import {fireEvent, render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import TimePicker, {timeToLocaleString} from '../TimePicker';
-import css from '../TimePicker.module.less';
 
 // Note: Tests pass 'locale' because there's no I18nDecorator to provide a value via context and
 // otherwise, nothing renders in the label.
 
 describe('TimePicker', () => {
-
 	// Suite-wide setup
 
 	test('should emit an onChange event when changing a component picker',
 		() => {
 			const handleChange = jest.fn();
-			const subject = mount(
+			render(
 				<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
 			);
+			const hourPicker = screen.getAllByText('▲')[0];
 
-			const base = subject.find('DateComponentRangePicker').first();
-			base.prop('onChange')({value: 0});
+			userEvent.click(hourPicker);
 
 			const expected = 1;
-			const actual = handleChange.mock.calls.length;
+			const expectedType = {type: 'onChange'};
+			const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
-			expect(actual).toBe(expected);
+			expect(handleChange).toBeCalledTimes(expected);
+			expect(actual).toMatchObject(expectedType);
 		}
 	);
 
+	test('should fire onComplete event with type when enter key pressed from the last picker', () => {
+		const handleComplete = jest.fn();
+		render(<TimePicker onComplete={handleComplete} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />);
+		const meridiemPicker = screen.getByLabelText('AM change a value with up down button');
+
+		meridiemPicker.focus();
+		fireEvent.keyDown(meridiemPicker, {which: 13, keyCode: 13, code: 13});
+
+		const expected = {type: 'onComplete'};
+		const actual = handleComplete.mock.calls.length && handleComplete.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
 	test('should accept a JavaScript Date for its value prop', () => {
-		const subject = mount(
+		render(
 			<TimePicker value={new Date(2000, 0, 1, 12, 30)} locale="en-US" />
 		);
+		const minutePicker = screen.getByText('30');
 
-		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
+		const expected = 'item';
 
-		const expected = 30;
-		const actual = minutePicker.prop('value');
-
-		expect(actual).toBe(expected);
+		expect(minutePicker).toHaveClass(expected);
 	});
 
 	test('should set "hourAriaLabel" to hour picker', () => {
 		const label = 'custom hour aria-label';
-		const subject = mount(
+		render(
 			<TimePicker hourAriaLabel={label} value={new Date(2000, 0, 1, 12, 30)} />
 		);
+		const hourPicker = screen.getByLabelText(label);
 
-		const hourPicker = subject.find(`.${css.hourPicker}`).at(0);
+		const expected = 'hourPicker';
 
-		const expected = label;
-		const actual = hourPicker.prop('aria-label');
-
-		expect(actual).toBe(expected);
+		expect(hourPicker).toBeInTheDocument();
+		expect(hourPicker).toHaveClass(expected);
 	});
 
 	test('should set "meridiemAriaLabel" to meridiem picker', () => {
 		const label = 'custom meridiem aria-label';
-		const subject = mount(
+		render(
 			<TimePicker meridiemAriaLabel={label} value={new Date(2000, 0, 1, 12, 30)} />
 		);
+		const meridiemPicker = screen.getByLabelText(label);
 
-		const meridiemPicker = subject.find(`.${css.meridiemPicker}`).at(0);
+		const expected = 'meridiemPicker';
 
-		const expected = label;
-		const actual = meridiemPicker.prop('aria-label');
-
-		expect(actual).toBe(expected);
+		expect(meridiemPicker).toBeInTheDocument();
+		expect(meridiemPicker).toHaveClass(expected);
 	});
 
 	test('should set "minuteAriaLabel" to minute picker', () => {
 		const label = 'custom minute aria-label';
-		const subject = mount(
+		render(
 			<TimePicker minuteAriaLabel={label} value={new Date(2000, 0, 1, 12, 30)} />
 		);
+		const minutePicker = screen.getByLabelText(label);
 
-		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
+		const expected = 'minutePicker';
 
-		const expected = label;
-		const actual = minutePicker.prop('aria-label');
-
-		expect(actual).toBe(expected);
+		expect(minutePicker).toBeInTheDocument();
+		expect(minutePicker).toHaveClass(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to hour picker when voice control is disabled', () => {
-		const subject = mount(
+		render(
 			<TimePicker value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
+		const hourPicker = screen.getByLabelText('12 hour change a value with up down button');
 
-		const hourPicker = subject.find(`.${css.hourPicker}`).at(0);
+		const expected = 'data-webos-voice-disabled';
 
-		const expected = true;
-		const actual = hourPicker.prop('data-webos-voice-disabled');
-
-		expect(actual).toBe(expected);
+		expect(hourPicker).toHaveAttribute(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to merdiem picker when voice control is disabled', () => {
-		const subject = mount(
+		render(
 			<TimePicker value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
+		const merdiemPicker = screen.getByLabelText('AM change a value with up down button');
 
-		const meridiemPicker = subject.find(`.${css.meridiemPicker}`).at(0);
+		const expected = 'data-webos-voice-disabled';
 
-		const expected = true;
-		const actual = meridiemPicker.prop('data-webos-voice-disabled');
-
-		expect(actual).toBe(expected);
+		expect(merdiemPicker).toHaveAttribute(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to minute picker when voice control is disabled', () => {
-		const subject = mount(
+		render(
 			<TimePicker value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
+		const minutePicker = screen.getByLabelText('0 minute change a value with up down button');
+		// The minute is 0 because it does not change based on props, this needs to be fixed in timePicker
 
-		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
+		const expected = 'data-webos-voice-disabled';
 
-		const expected = true;
-		const actual = minutePicker.prop('data-webos-voice-disabled');
-
-		expect(actual).toBe(expected);
+		expect(minutePicker).toHaveAttribute(expected);
 	});
 
 	test('should format a date the same as the label', () => {
 		const time = new Date(2000, 0, 1, 12, 30);
-		const subject = mount(
+		render(
 			<TimePicker value={time} locale="en-US" />
 		);
+		const header = screen.getByText(timeToLocaleString(time)).parentElement.parentElement;
 
-		const expected = subject.find('Heading').text();
-		const actual = timeToLocaleString(time);
+		const expected = 'heading';
 
-		expect(actual).toBe(expected);
+		expect(header).toHaveClass(expected);
 	});
 
 	test('should format a date the same as the label in another locale', () => {
 		ilib.setLocale('ar-SA');
 		const time = new Date(2000, 0, 1, 12, 30);
-		const subject = mount(
+		render(
 			<TimePicker value={time} locale="ar-SA" />
 		);
+		const header = screen.getByText(timeToLocaleString(time)).parentElement.parentElement;
 
-		const expected = subject.find('Heading').text();
-		const actual = timeToLocaleString(time);
+		const expected = 'heading';
 
-		expect(actual).toBe(expected);
+		expect(header).toHaveClass(expected);
+	});
+
+	test('should not display Heading', () => {
+		ilib.setLocale('en-US');
+		const time = new Date(2000, 0, 1, 12, 30);
+		render(
+			<TimePicker value={time} locale="en-US" noLabel />
+		);
+		const header = screen.queryByText(timeToLocaleString(time));
+
+		expect(header).toBeNull();
 	});
 });

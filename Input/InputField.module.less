@@ -75,6 +75,10 @@
 		vertical-align: middle;
 	}
 
+	.input.passwordtel {
+		-webkit-text-security: disc;
+	}
+
 	.inputHighlight {
 		position: absolute;
 		top: 0;
@@ -97,6 +101,7 @@
 		.input {
 			font-size: @sand-inputfield-small-font-size;
 			height: @sand-inputfield-small-height;
+			line-height: @sand-inputfield-small-height;
 		}
 
 		.inputHighlight {
@@ -156,7 +161,7 @@
 		}
 
 		&.invalid input {
-			color: @sand-red;
+			color: @sand-inputfield-invalid-color;
 		}
 
 		.inputHighlight {
@@ -201,7 +206,7 @@
 
 			.bg {
 				.sand-spotlight-focus-bg-colors();
-				filter: unset;
+				box-shadow: none;
 			}
 		}
 
@@ -220,6 +225,7 @@
 			.focus({
 				.bg {
 					.sand-disabled-focus-bg-colors();
+					filter: unset;
 				}
 
 				.input {

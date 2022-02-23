@@ -28,20 +28,20 @@ const InputFieldTests = [
 	<InputField value="http://enactjs.com" type="url" />,
 	<InputField value="http://enactjs.com" type="url" disabled />,
 
-	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-28621]
+	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [QWT-2484]
 	<InputField value={LoremString} />,
 	<InputField value="!@#$%^&()_+-=[]\;',./{}|:?" />,
 	<InputField value="012345678901234567890123456789" />,
 
-	// 'invalid' Knob - Tooltip is on the Right and Aligns with InputField in LTR Layout - [GT-28618]
+	// 'invalid' Knob - Tooltip is on the Right and Aligns with InputField in LTR Layout - [QWT-2487]
 	<InputField value={LoremString} invalid />,
 
 	<InputField value={LoremString} invalid invalidMessage="Changed invalid Message " />,
 
-	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-28619]
+	// Long Text is Not Truncated with IconBefore and IconAfter - [QWT-2486]
 	<InputField value={LoremString} iconBefore="check" iconAfter="home" />,
 
-	// tallCharacters: Change 'size' dynamically - [GT-28620]
+	// tallCharacters: Change 'size' dynamically - [QWT-2485]
 	// Note: text stays the same size, the InputField field becomes smaller
 	<InputField value="नरेंद्र मोदी" size="large" />,
 	<InputField value=" ฟิ้  ไั  ஒ  து" size="large" />,
@@ -53,11 +53,11 @@ const InputFieldTests = [
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />,
 	<InputField value="តន្ត្រី" />,
 
-	// Change 'size' dynamically to 'small' - [GT-28357]
+	// Change 'size' dynamically to 'small' - [QWT-2679]
 	<InputField value="small InputField" size="large" />,
 
-	// Disabled Characters Displays in the Disabled InputField - [GT-28355]
-	// This will also test: Transparent Disabled InputField Displays with Background - [GT-28351]
+	// Disabled Characters Displays in the Disabled InputField - [QWT-2681]
+	// This will also test: Transparent Disabled InputField Displays with Background - [QWT-2685]
 	<InputField value="I am value" />,
 	<InputField value="I am a disabled value" disabled />,
 
@@ -72,13 +72,13 @@ const InputFieldTests = [
 		component: <InputField />
 	},
 
-	// 'invalid' Knob - Tooltip is on the Left and Aligns with InputField in RTL Layout - [GT-28622]
+	// 'invalid' Knob - Tooltip is on the Left and Aligns with InputField in RTL Layout - [QWT-2483]
 	{
 		locale: 'ar-SA',
 		component: <InputField value={LoremString} invalid />
 	},
 
-	// Text Vertically Center Aligns in InputField Field - RTL - [GT-28352]
+	// Text Vertically Center Aligns in InputField Field - RTL - [QWT-2684]
 	{
 		locale: 'ar-SA',
 		component: <InputField value="HHHHHH" />
@@ -130,7 +130,7 @@ const InputFieldTests = [
 		component: <InputField value="http://enactjs.com" type="url" disabled />
 	},
 
-	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-28621]
+	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [QWT-2484]
 	{
 		locale: 'ar-SA',
 		component: <InputField value={LoremString} />
@@ -149,13 +149,13 @@ const InputFieldTests = [
 		component: <InputField value={LoremString} invalid invalidMessage="Changed invalid Message " />
 	},
 
-	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-28619]
+	// Long Text is Not Truncated with IconBefore and IconAfter - [QWT-2486]
 	{
 		locale: 'ar-SA',
 		component: <InputField value={LoremString} iconBefore="check" iconAfter="home" />
 	},
 
-	// tallCharacters: Change 'size' dynamically - [GT-28620]
+	// tallCharacters: Change 'size' dynamically - [QWT-2485]
 	// Note: text stays the same size, the InputField field becomes smaller
 	{
 		locale: 'ar-SA',
@@ -193,14 +193,14 @@ const InputFieldTests = [
 	},
 
 
-	// Change 'size' dynamically to 'small' - [GT-28357]
+	// Change 'size' dynamically to 'small' - [QWT-2679]
 	{
 		locale: 'ar-SA',
 		component: <InputField value="small InputField" size="large" />
 	},
 
-	// Disabled Characters Displays in the Disabled InputField - [GT-28355]
-	// This will also test: Transparent Disabled InputField Displays with Background - [GT-28351]
+	// Disabled Characters Displays in the Disabled InputField - [QWT-2681]
+	// This will also test: Transparent Disabled InputField Displays with Background - [QWT-2685]
 	{
 		locale: 'ar-SA',
 		component: <InputField value="I am value" />

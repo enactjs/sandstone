@@ -1,5 +1,6 @@
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
+import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
@@ -20,9 +21,11 @@ const
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
 const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible) => {
-	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+	let spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
+		spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+
 		if (spotlightId && filterTarget) {
 			const targetClassName = (filterTarget === 'body') ? css.focusableBody : scrollbarTrackCss.thumb;
 			Spotlight.set(spotlightId, {
@@ -256,7 +259,7 @@ const useSpottable = (props, instances) => {
 	/**
 	 * Calculates the new `scrollLeft`.
 	 *
-	 * @param {Node} focusedItem node
+	 * @param {Node} item node
 	 * @param {Number} scrollPosition last target position, passed when scroll animation is ongoing
 	 *
 	 * @returns {Number} Calculated `scrollLeft`
@@ -271,13 +274,15 @@ const useSpottable = (props, instances) => {
 
 		const
 			{rtl} = props,
+			// For Chrome 85+ or Safari that use negative coordinate system for RTL
+			coordinateCoefficient = rtl && (platform.ios || platform.safari || platform.chrome >= 85 || platform.androidChrome >= 85) ? -1 : 1,
 			{clientWidth} = scrollContentHandle.current.scrollBounds,
 			rtlDirection = rtl ? -1 : 1,
 			{left: containerLeft} = scrollContentNode.getBoundingClientRect(),
 			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
-			currentScrollLeft = rtl ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
+			currentScrollLeft = rtl && coordinateCoefficient === 1 ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
 			// calculation based on client position
-			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft);
+			newItemLeft = coordinateCoefficient * scrollContentNode.scrollLeft + (itemLeft - containerLeft);
 		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
 		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {

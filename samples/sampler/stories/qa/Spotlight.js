@@ -1,8 +1,9 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Spottable from '@enact/spotlight/Spottable';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
@@ -13,6 +14,7 @@ import Item from '@enact/sandstone/Item';
 import Picker from '@enact/sandstone/Picker';
 import Popup from '@enact/sandstone/Popup';
 import RadioItem from '@enact/sandstone/RadioItem';
+import Skinnable from '@enact/sandstone/Skinnable';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import TimePicker from '@enact/sandstone/TimePicker';
 import Scroller from '@enact/sandstone/Scroller';
@@ -21,6 +23,8 @@ import {Row, Cell, Column} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {Component, cloneElement} from 'react';
+
+import css from './Spotlight.module.less';
 
 import docs from '../../images/icon-enact-docs.png';
 
@@ -218,7 +222,7 @@ class PopupFocusTest extends Component {
 					return to the button used to originally open the popup. Verify this behavior for each of
 					the buttons.
 				</p>
-				<p>Use the knobs to verify 5-way behavior under different Popup configurations.</p>
+				<p>Use the controls to verify 5-way behavior under different Popup configurations.</p>
 				<Button onClick={this.handleOpenPopup}>Open Popup</Button>
 				<Button onClick={this.handleOpenPopup}>Open Popup</Button>
 				<Popup
@@ -291,6 +295,34 @@ export default {
 	component: 'Spotlight'
 };
 
+const SimpleDiv = () => {
+	action('Render')(true);
+	return <div>Spottable Component</div>;
+};
+
+const SpottableItem = Spottable(Skinnable('div'));
+
+export const CheckRerender = () => (
+	<div>
+		<p>
+			A spottable component must not be re-rendered when a focus change occurs.
+			So the message of the Actions tab(&apos;Render: true&apos;) should be displayed only once.
+		</p>
+		<Row align="center space-evenly">
+			<SpottableItem className={css.spottableitem}>
+				<SimpleDiv />
+			</SpottableItem>
+		</Row>
+	</div>
+);
+
+CheckRerender.storyName = 'Check Re-render';
+CheckRerender.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
 export const MultipleButtons = () => (
 	<Row align="center space-evenly">
 		<Cell shrink>
@@ -304,6 +336,12 @@ export const MultipleButtons = () => (
 		</Cell>
 	</Row>
 );
+
+MultipleButtons.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const MultipleContainers = () => (
 	<Scroller>
@@ -335,6 +373,12 @@ export const MultipleContainers = () => (
 	</Scroller>
 );
 
+MultipleContainers.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
 export const NestedContainers = () => (
 	<div>
 		<p>
@@ -354,6 +398,12 @@ export const NestedContainers = () => (
 	</div>
 );
 
+NestedContainers.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
 export const DirectionalEvents = () => (
 	<div>
 		<p>
@@ -372,28 +422,61 @@ export const DirectionalEvents = () => (
 	</div>
 );
 
+DirectionalEvents.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
+
 export const DisappearingSpottable = () => <DisappearTest />;
+
+DisappearingSpottable.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const DisabledOnClick = () => <DisableOnClick />;
 
 DisabledOnClick.storyName = 'Disabled on Click';
+DisabledOnClick.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const DisabledWithPause = () => <DisableTest />;
 
 DisabledWithPause.storyName = 'Disabled with Pause';
+DisabledWithPause.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
-export const PopupNavigation = () => (
+export const PopupNavigation = (args) => (
 	<PopupFocusTest
-		noAnimation={boolean('noAnimation', Popup, false)}
-		noAutoDismiss={boolean('noAutoDismiss', Popup, false)}
-		scrimType={select('scrimType', ['none', 'transparent', 'translucent'], Popup, 'translucent')}
-		spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Popup, 'self-only')}
+		noAnimation={args['noAnimation']}
+		noAutoDismiss={args['noAutoDismiss']}
+		scrimType={args['scrimType']}
+		spotlightRestrict={args['spotlightRestrict']}
 	/>
 );
+
+boolean('noAnimation', PopupNavigation, Popup, false);
+boolean('noAutoDismiss', PopupNavigation, Popup, false);
+select('scrimType', PopupNavigation, ['none', 'transparent', 'translucent'], Popup, 'translucent');
+select('spotlightRestrict', PopupNavigation, ['self-first', 'self-only'], Popup, 'self-only');
 
 export const _FocusedAndDisabled = () => <FocusedAndDisabled />;
 
 _FocusedAndDisabled.storyName = 'Focused and Disabled';
+_FocusedAndDisabled.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
 export const NavigatingIntoOverflowContainers = () => (
 	<div>
@@ -412,15 +495,20 @@ export const NavigatingIntoOverflowContainers = () => (
 );
 
 NavigatingIntoOverflowContainers.storyName = 'Navigating into overflow containers';
+NavigatingIntoOverflowContainers.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
-export const KitchenSink = () => (
+export const KitchenSink = (args) => (
 	<Column>
 		<Cell component="p" shrink>
-			Use the knobs to test the available behaviors for the spottable components below.
+			Use the controls to test the available behaviors for the spottable components below.
 		</Cell>
 		<Cell
 			component={Container}
-			spotlightDisabled={boolean('Container spotlightDisabled', Container, false)}
+			spotlightDisabled={args['Container spotlightDisabled']}
 		>
 			<Row style={{height: '100%'}}>
 				<Cell>
@@ -435,7 +523,7 @@ export const KitchenSink = () => (
 									onSpotlightLeft={action('onSpotlightLeft')}
 									onSpotlightRight={action('onSpotlightRight')}
 									onSpotlightUp={action('onSpotlightUp')}
-									spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									spotlightDisabled={args['Spottable spotlightDisabled']}
 								>
 									Button
 								</Button>
@@ -447,7 +535,7 @@ export const KitchenSink = () => (
 									onSpotlightLeft={action('onSpotlightLeft')}
 									onSpotlightRight={action('onSpotlightRight')}
 									onSpotlightUp={action('onSpotlightUp')}
-									spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									spotlightDisabled={args['Spottable spotlightDisabled']}
 								>
 									Transparent
 								</Button>
@@ -459,14 +547,14 @@ export const KitchenSink = () => (
 									onSpotlightLeft={action('onSpotlightLeft')}
 									onSpotlightRight={action('onSpotlightRight')}
 									onSpotlightUp={action('onSpotlightUp')}
-									spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									spotlightDisabled={args['Spottable spotlightDisabled']}
 								/>
 								<Input
 									onSpotlightDown={action('onSpotlightDown')}
 									onSpotlightLeft={action('onSpotlightLeft')}
 									onSpotlightRight={action('onSpotlightRight')}
 									onSpotlightUp={action('onSpotlightUp')}
-									spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									spotlightDisabled={args['Spottable spotlightDisabled']}
 								/>
 							</div>
 							<div>
@@ -475,7 +563,7 @@ export const KitchenSink = () => (
 									onSpotlightLeft={action('onSpotlightLeft')}
 									onSpotlightRight={action('onSpotlightRight')}
 									onSpotlightUp={action('onSpotlightUp')}
-									spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									spotlightDisabled={args['Spottable spotlightDisabled']}
 								>
 									{Items}
 								</Picker>
@@ -485,7 +573,7 @@ export const KitchenSink = () => (
 									onSpotlightLeft={action('onSpotlightLeft')}
 									onSpotlightRight={action('onSpotlightRight')}
 									onSpotlightUp={action('onSpotlightUp')}
-									spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									spotlightDisabled={args['Spottable spotlightDisabled']}
 								>
 									{Items}
 								</Picker>
@@ -495,14 +583,14 @@ export const KitchenSink = () => (
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
 								onSpotlightUp={action('onSpotlightUp')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 							/>
 							<Item
 								onSpotlightDown={action('onSpotlightDown')}
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
 								onSpotlightUp={action('onSpotlightUp')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 							>
 								Item
 							</Item>
@@ -512,7 +600,7 @@ export const KitchenSink = () => (
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
 								onSpotlightUp={action('onSpotlightUp')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 							>
 								Item with label
 							</Item>
@@ -521,7 +609,7 @@ export const KitchenSink = () => (
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
 								onSpotlightUp={action('onSpotlightUp')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 							>
 								CheckboxItem
 							</CheckboxItem>
@@ -530,7 +618,7 @@ export const KitchenSink = () => (
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
 								onSpotlightUp={action('onSpotlightUp')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 							>
 								FormCheckboxItem
 							</FormCheckboxItem>
@@ -539,7 +627,7 @@ export const KitchenSink = () => (
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
 								onSpotlightUp={action('onSpotlightUp')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 							>
 								RadioItem
 							</RadioItem>
@@ -548,7 +636,7 @@ export const KitchenSink = () => (
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
 								onSpotlightUp={action('onSpotlightUp')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 							>
 								SwitchItem
 							</SwitchItem>
@@ -564,13 +652,13 @@ export const KitchenSink = () => (
 							<DatePicker
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 								title="DatePicker"
 							/>
 							<TimePicker
 								onSpotlightLeft={action('onSpotlightLeft')}
 								onSpotlightRight={action('onSpotlightRight')}
-								spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+								spotlightDisabled={args['Spottable spotlightDisabled']}
 								title="TimePicker"
 							/>
 						</Cell>
@@ -580,3 +668,6 @@ export const KitchenSink = () => (
 		</Cell>
 	</Column>
 );
+
+boolean('Container spotlightDisabled', KitchenSink, Container, false);
+boolean('Spottable spotlightDisabled', KitchenSink, Container, false);

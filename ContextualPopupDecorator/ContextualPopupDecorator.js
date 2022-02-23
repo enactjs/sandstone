@@ -8,7 +8,7 @@
 
 import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
-import {handle, forProp, forKey, forward, stop} from '@enact/core/handle';
+import {handle, forProp, forKey, forward, forwardCustom, stop} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {extractAriaProps} from '@enact/core/util';
@@ -26,6 +26,13 @@ import {ContextualPopup} from './ContextualPopup';
 import HolePunchScrim from './HolePunchScrim';
 
 import css from './ContextualPopupDecorator.module.less';
+
+const PositionToDirection = {
+	above: 'up',
+	below: 'down',
+	left: 'left',
+	right: 'right'
+};
 
 /**
  * Default config for {@link sandstone/ContextualPopupDecorator.ContextualPopupDecorator}
@@ -594,7 +601,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			forKey('enter'),
 			() => Spotlight.getCurrent() === this.state.activator,
 			stop,
-			forward('onClose')
+			forwardCustom('onClose')
 		);
 
 		handleOpen = (ev) => {
@@ -613,6 +620,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.setState({
 				activator: null
 			});
+		};
+
+		handleDismiss = () => {
+			forwardCustom('onClose')({}, this.props);
 		};
 
 		handleDirectionalKey (ev) {
@@ -635,7 +646,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			const hasSpottables = Spotlight.getSpottableDescendants(containerId).length > 0;
 			const spotlessSpotlightModal = spotlightRestrict === 'self-only' && !hasSpottables;
-			const shouldSpotPopup = current === activator && direction === this.adjustedDirection && hasSpottables;
+			const shouldSpotPopup = current === activator && direction === PositionToDirection[this.adjustedDirection.split(' ')[0]] && hasSpottables;
 
 			if (shouldSpotPopup || spotlessSpotlightModal) {
 				this.handleDirectionalKey(ev);
@@ -659,7 +670,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			// if focus moves outside the popup's container, issue the `onClose` event
 			if (Spotlight.move(direction) && !this.containerNode.contains(Spotlight.getCurrent())) {
-				forward('onClose', ev, this.props);
+				forwardCustom('onClose')(null, this.props);
 			}
 		};
 
@@ -686,7 +697,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		render () {
-			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
+			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
 			const idFloatLayer = `${this.id}_floatLayer`;
 			let scrimType = rest.scrimType;
 			delete rest.scrimType;
@@ -710,6 +721,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				holeBounds = this.clientNode.getBoundingClientRect();
 			}
 
+			delete rest.direction;
+			delete rest.onClose;
 			delete rest.onOpen;
 			delete rest.popupSpotlightId;
 			delete rest.rtl;
@@ -723,7 +736,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						id={idFloatLayer}
 						noAutoDismiss={noAutoDismiss}
 						onClose={this.handleClose}
-						onDismiss={onClose}
+						onDismiss={this.handleDismiss}
 						onOpen={this.handleOpen}
 						open={open}
 						scrimType={scrimType}

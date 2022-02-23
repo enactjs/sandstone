@@ -1,6 +1,12 @@
-import {mount, shallow} from 'enzyme';
-import {Dropdown, DropdownBase} from '../Dropdown';
+import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
+import '@testing-library/jest-dom';
+import {render, screen, within} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import {DropdownBase} from '../Dropdown';
 import DropdownList from '../DropdownList';
+
+const FloatingLayerController = FloatingLayerDecorator('div');
 
 const children = ['option1', 'option2', 'option3'];
 const placeholder = 'Dropdown select';
@@ -8,254 +14,294 @@ const title = 'Options';
 
 describe('Dropdown', () => {
 	test('should have default `placeholder` when a value is not provided', () => {
-		const dropDown = shallow(
+		render(
 			<DropdownBase>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = 'No Selection';
-		const actual = dropDown.find('DropdownButton').prop('children');
+		const actual = screen.getByText('No Selection');
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
 
 	test('should have `placeholder` when a value is provided', () => {
-		const dropDown = shallow(
+		render(
 			<DropdownBase placeholder={placeholder}>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = placeholder;
-		const actual = dropDown.find('DropdownButton').prop('children');
+		const actual = screen.getByText(placeholder);
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
 
 	test('should have `title`', () => {
-		const dropDown = mount(
+		render(
 			<DropdownBase title={title}>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = title;
-		const actual = dropDown.find('.heading').text();
+		const actual = screen.getByText(title);
+		const titleContainer = actual.parentElement.parentElement;
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
+		expect(titleContainer).toHaveClass('heading');
 	});
 
 	test('should apply id to dropdown', () => {
-		const dropDown = mount(
+		render(
 			<DropdownBase id="drop">
 				{children}
 			</DropdownBase>
 		);
 
 		const expected = 'drop';
-		// NOTE: Using `#id` as a find will pass because Enzyme will find the id prop and use that
-		// instead of what is rendered into the DOM.
-		const actual = dropDown.getDOMNode().id;
+		const actual = screen.getByRole('region');
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveAttribute('id', expected);
 	});
 
 	test('should apply aria label id to `title`', () => {
-		const dropDown = mount(
+		render(
 			<DropdownBase title={title} id="drop">
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = true;
-		const actual = dropDown.find('#drop_title').exists();
+		const actual = screen.getByText(title);
+		const titleContainer = actual.parentElement.parentElement;
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
+		expect(titleContainer).toHaveAttribute('id', 'drop_title');
 	});
 
-	test('should apply aria-labeled-by to dropdown with title', () => {
-		const dropDown = mount(
+	test('should apply aria-labelled-by to dropdown with title', () => {
+		render(
 			<DropdownBase title={title} id="drop">
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = true;
-		const actual = dropDown.find('[aria-labelledby="drop_title"]').exists();
+		const expected = 'drop_title';
+		const actual = screen.getByRole('region');
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveAttribute('aria-labelledby', expected);
 	});
 
-	test('should not apply aria-labeled-by when no title exists', () => {
-		const dropDown = mount(
+	test('should not apply aria-labelled-by when no title exists', () => {
+		render(
 			<DropdownBase id="drop">
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = false;
-		const actual = dropDown.find('[aria-labelledby]').exists();
+		const actual = screen.getByRole('region');
 
-		expect(actual).toBe(expected);
+		expect(actual).not.toHaveAttribute('aria-labelledby');
 	});
 
 	test('should have `placeholder` when `children` is invalid', () => {
-		const dropDown = shallow(
+		render(
 			<DropdownBase placeholder={placeholder}>
 				{null}
 			</DropdownBase>
 		);
 
-		const expected = placeholder;
-		const actual = dropDown.find('DropdownButton').prop('children');
+		const actual = screen.getByText(placeholder);
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
 
 	test('should have `placeholder` that reflects `selected` option', () => {
 		const selectedIndex = 1;
-
-		const dropDown = shallow(
+		render(
 			<DropdownBase selected={selectedIndex}>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = children[selectedIndex];
-		const actual = dropDown.find('DropdownButton').prop('children');
+		const actual = screen.getByText(children[selectedIndex]);
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
 
 	test('should have `placeholder` when `selected` is invalid', () => {
-		const dropDown = shallow(
+		render(
 			<DropdownBase placeholder={placeholder} selected={-1}>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = placeholder;
-		const actual = dropDown.find('DropdownButton').prop('children');
+		const actual = screen.getByText(placeholder);
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
 	});
 
 	test('should be disabled when `children` is omitted', () => {
-		const dropDown = mount(
+		render(
 			<DropdownBase title={title} />
 		);
 
-		const expected = true;
-		const actual = dropDown.find('DropdownButton').prop('disabled');
+		const expected = 'true';
+		const actual = screen.getByRole('button');
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveAttribute('aria-disabled', expected);
 	});
 
 	test('should be disabled when there are no `children`', () => {
-		const dropDown = mount(
+		render(
 			<DropdownBase title={title}>
 				{[]}
 			</DropdownBase>
 		);
 
-		const expected = true;
-		const actual = dropDown.find('DropdownButton').prop('disabled');
+		const expected = 'true';
+		const actual = screen.getByRole('button');
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveAttribute('aria-disabled', expected);
 	});
 
-	test('should update when children are added', () => {
-		const dropDown = shallow(
-			<Dropdown title={title}>
-				{children}
-			</Dropdown>
+	test('should update when children are removed or added', () => {
+		const {rerender} = render(
+			<FloatingLayerController>
+				<DropdownBase open title={title}>
+					{children}
+				</DropdownBase>
+			</FloatingLayerController>
 		);
 
-		const updatedChildren = children.concat('option4', 'option5');
-		dropDown.setProps({children: updatedChildren});
+		const lessChildren = children.slice(0, -1);
 
-		const expected = 5;
-		const actual = dropDown.children().length;
+		rerender(
+			<FloatingLayerController>
+				<DropdownBase open title={title}>
+					{lessChildren}
+				</DropdownBase>
+			</FloatingLayerController>
+		);
 
-		expect(actual).toBe(expected);
+		const lessChildrenExpected = 2;
+		const lessChildrenActual = screen.getByRole('list').children;
+
+		expect(lessChildrenActual).toHaveLength(lessChildrenExpected);
+
+		const moreChildren = children.concat('option3');
+
+		rerender(
+			<FloatingLayerController>
+				<DropdownBase open title={title}>
+					{moreChildren}
+				</DropdownBase>
+			</FloatingLayerController>
+		);
+
+		const moreChildrenExpected = 3;
+		const moreChildrenActual = screen.getByRole('list').children;
+
+		expect(moreChildrenActual).toHaveLength(moreChildrenExpected);
 	});
 
 	test('should set the `role` of items to "checkbox"', () => {
-		const dropDown = shallow(
-			<DropdownBase title={title} defaultOpen>
-				{['item']}
-			</DropdownBase>
+		render(
+			<FloatingLayerController>
+				<DropdownBase open title={title}>
+					{['item']}
+				</DropdownBase>
+			</FloatingLayerController>
 		);
 
-		const expected = 'checkbox';
-		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0].role;
+		const expected = 'layout item';
+		const actual = screen.getByRole('checkbox');
 
-		expect(actual).toBe(expected);
+		expect(actual).toBeInTheDocument();
+		expect(actual).toHaveClass(expected);
 	});
 
 	test('should set the `aria-checked` state of the `selected` item', () => {
-		const dropDown = shallow(
-			<DropdownBase title={title} selected={0}>
-				{['item']}
-			</DropdownBase>
+		render(
+			<FloatingLayerController>
+				<DropdownBase open selected={0} title={title}>
+					{['item']}
+				</DropdownBase>
+			</FloatingLayerController>
 		);
 
-		const expected = true;
-		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0]['aria-checked'];
+		const expected = 'true';
+		const actual = screen.getByRole('checkbox');
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveAttribute('aria-checked', expected);
 	});
 
 	test('should pass through members of child objects to props for each item', () => {
-		const dropDown = shallow(
-			<DropdownBase title={title}>
-				{[{
-					disabled: true,
-					children: 'child',
-					key: 'item-0'
-				}]}
-			</DropdownBase>
+		render(
+			<FloatingLayerController>
+				<DropdownBase open title={title}>
+					{[{
+						disabled: true,
+						children: 'child',
+						key: 'item-0'
+					}]}
+				</DropdownBase>
+			</FloatingLayerController>
 		);
 
-		const expected = true;
-		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0].disabled;
+		const expected = 'true';
+		const actual = screen.getByRole('checkbox');
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveAttribute('aria-disabled', expected);
 	});
 
 	test('should allow members in child object to override injected aria values', () => {
-		const dropDown = shallow(
-			<DropdownBase title={title} selected={0}>
-				{[{
-					disabled: true,
-					children: 'child',
-					key: 'item-0',
-					role: 'button',
-					'aria-checked': false
-				}]}
-			</DropdownBase>
+		render(
+			<FloatingLayerController>
+				<DropdownBase open selected={0} title={title}>
+					{[{
+						disabled: true,
+						children: 'child',
+						key: 'item-0',
+						role: 'button',
+						'aria-checked': false
+					}]}
+				</DropdownBase>
+			</FloatingLayerController>
 		);
 
-		const expected = {
-			role: 'button',
-			'aria-checked': false
-		};
-		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0];
+		const actual = within(screen.getByRole('list')).getByRole('button');
 
-		expect(actual).toMatchObject(expected);
+		expect(actual).toHaveAttribute('aria-checked', 'false');
+	});
+
+	test('should fire `onSelect` event with type `onSelect`', () => {
+		const handleSelect = jest.fn();
+		render(
+			<FloatingLayerController>
+				<DropdownBase open onSelect={handleSelect} title={title}>
+					{children}
+				</DropdownBase>
+			</FloatingLayerController>
+		);
+
+		const firstItem = screen.getByRole('list').children[0].children[0];
+
+		userEvent.click(firstItem);
+
+		expect(handleSelect).toHaveBeenCalledWith({data: 'option1', selected: 0, type: 'onSelect'});
 	});
 
 	describe('DropdownList', () => {
 		test('should include `data` and `selected` in `onSelect` callback', () => {
 			const handler = jest.fn();
-			const dropDown = mount(
+			render(
 				<DropdownList onSelect={handler}>
 					{children}
 				</DropdownList>
 			);
+			const firstItem = screen.getByRole('list').children[0].children[0];
 
-			dropDown.find('Item').at(0).simulate('click');
+			userEvent.click(firstItem);
 
 			const expected = {data: 'option1', selected: 0};
 			const actual = handler.mock.calls[0][0];

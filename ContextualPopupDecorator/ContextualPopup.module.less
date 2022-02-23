@@ -63,9 +63,6 @@
 		height: @sand-contextualpopup-arrow-height;
 		width: @sand-contextualpopup-arrow-width;
 
-		// PLAT-84596: Coax the arrow onto a GPU layer to work around a rendering issue in Chromium
-		will-change: transform;
-
 		&.above {
 			transform: rotate(180deg);
 		}
@@ -79,11 +76,10 @@
 
 	// Skin colors
 	.applySkins({
-		filter: drop-shadow(@sand-contextualpopup-shadow);
-
 		.container {
 			background-color: @sand-contextualpopup-bg-color;
 			border-color: @sand-contextualpopup-border-color;
+			box-shadow: @sand-contextualpopup-shadow;
 		}
 
 		.arrow {

@@ -1,13 +1,16 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
+import {Header, Panel, Panels} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
@@ -16,13 +19,12 @@ const defaultDataSize = 1000;
 
 const prop = {
 	scrollbarOption: ['auto', 'hidden', 'visible'],
-	scrollModeOption: ['native', 'translate']
-};
-
-const wrapOption = {
-	false: false,
-	true: true,
-	'&quot;noAnimation&quot;': 'noAnimation'
+	scrollModeOption: ['native', 'translate'],
+	wrapOption: {
+		false: false,
+		true: true,
+		noAnimation: 'noAnimation'
+	}
 };
 
 const items = [];
@@ -164,29 +166,42 @@ export default {
 	component: 'VirtualGridList'
 };
 
-export const HorizontalVirtualGridList = () => (
+export const HorizontalVirtualGridList = (args) => (
 	<VirtualGridList
-		dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+		dataSize={updateDataSize(args['dataSize'])}
 		direction="horizontal"
-		horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+		horizontalScrollbar={args['horizontalScrollbar']}
+		hoverToScroll={args['hoverToScroll']}
 		itemRenderer={renderItem}
 		itemSize={{
-			minWidth: ri.scale(number('minWidth', Config, 688)),
-			minHeight: ri.scale(number('minHeight', Config, 570))
+			minWidth: ri.scale(args['minWidth']),
+			minHeight: ri.scale(args['minHeight'])
 		}}
-		key={select('scrollMode', prop.scrollModeOption, Config)}
-		noScrollByWheel={boolean('noScrollByWheel', Config)}
+		key={args['scrollMode']}
+		noScrollByWheel={args['noScrollByWheel']}
 		onKeyDown={action('onKeyDown')}
 		onScrollStart={action('onScrollStart')}
 		onScrollStop={action('onScrollStop')}
-		scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-		spacing={ri.scale(number('spacing', Config, 0))}
-		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+		scrollMode={args['scrollMode']}
+		spacing={ri.scale(args['spacing'])}
+		spotlightDisabled={args['spotlightDisabled']}
 		style={{paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')}}
-		verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-		wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+		verticalScrollbar={args['verticalScrollbar']}
+		wrap={args['wrap']}
 	/>
 );
+
+number('dataSize', HorizontalVirtualGridList, Config, defaultDataSize);
+select('horizontalScrollbar', HorizontalVirtualGridList, prop.scrollbarOption, Config);
+boolean('hoverToScroll', HorizontalVirtualGridList, Config);
+number('minWidth', HorizontalVirtualGridList, Config, 688);
+number('minHeight', HorizontalVirtualGridList, Config, 570);
+select('scrollMode', HorizontalVirtualGridList, prop.scrollModeOption, Config);
+boolean('noScrollByWheel', HorizontalVirtualGridList, Config);
+number('spacing', HorizontalVirtualGridList, Config, 0);
+boolean('spotlightDisabled', HorizontalVirtualGridList, Config, false);
+select('verticalScrollbar', HorizontalVirtualGridList, prop.scrollbarOption, Config);
+select('wrap', HorizontalVirtualGridList, prop.wrapOption, Config);
 
 HorizontalVirtualGridList.storyName = 'Horizontal VirtualGridList';
 HorizontalVirtualGridList.parameters = {
@@ -196,35 +211,219 @@ HorizontalVirtualGridList.parameters = {
 export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridList />;
 
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
+WithButtonSpotlightGoesToCorrectTarget.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
 
-export const HorizontalSquaredVirtualGridList = () => (
+export const HorizontalSquaredVirtualGridList = (args) => (
 	<VirtualGridList
-		dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+		dataSize={updateDataSize(args['dataSize'])}
 		direction="horizontal"
 		horizontalScrollbar="hidden"
 		itemRenderer={renderItemWithoutLabels}
 		itemSize={{
-			minWidth: ri.scale(number('minSize', Config, 804)),
-			minHeight: ri.scale(number('minSize', Config, 804))
+			minWidth: ri.scale(args['minSize']),
+			minHeight: ri.scale(args['minSize'])
 		}}
-		key={select('scrollMode', prop.scrollModeOption, Config)}
-		noScrollByWheel={boolean('noScrollByWheel', Config)}
+		key={args['scrollMode']}
+		noScrollByWheel={args['noScrollByWheel']}
 		onKeyDown={action('onKeyDown')}
 		onScrollStart={action('onScrollStart')}
 		onScrollStop={action('onScrollStop')}
-		scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-		spacing={ri.scale(number('spacing', Config, 0))}
-		spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+		scrollMode={args['scrollMode']}
+		spacing={ri.scale(args['spacing'])}
+		spotlightDisabled={args['spotlightDisabled']}
 		style={{
 			width: ri.scaleToRem(804),
 			height: ri.scaleToRem(804),
 			backgroundColor: 'white'
 		}}
-		wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+		wrap={args['wrap']}
 	/>
 );
+
+number('dataSize', HorizontalSquaredVirtualGridList, Config, defaultDataSize);
+number('minSize', HorizontalSquaredVirtualGridList, Config, 804);
+select('scrollMode', HorizontalSquaredVirtualGridList, prop.scrollModeOption, Config);
+boolean('noScrollByWheel', HorizontalSquaredVirtualGridList, Config);
+number('spacing', HorizontalSquaredVirtualGridList, Config, 0);
+boolean('spotlightDisabled', HorizontalSquaredVirtualGridList, Config, false);
+select('wrap', HorizontalSquaredVirtualGridList, prop.wrapOption, Config);
 
 HorizontalSquaredVirtualGridList.storyName = 'Horizontal Squared VirtualGridList';
 HorizontalSquaredVirtualGridList.parameters = {
 	propTables: [Config]
 };
+
+class SnapToCenterVGL extends Component {
+	componentDidMount () {
+		this.scrollTo({index: 1, animate: false, focus: true, stickTo: 'center'});
+	}
+
+	renderItem = ({index, ...rest}) => {
+		const {source} = items[index];
+		let customProps = {};
+		if (index === 0 || index === items.length - 1) {
+			customProps = {
+				style: {
+					visibility: 'hidden'
+				},
+				spotlightDisabled: true
+			};
+		}
+
+		return (
+			<ImageItem
+				{...rest}
+				src={source}
+				style={{
+					paddingLeft: ri.scaleToRem(240),
+					paddingRight: ri.scaleToRem(240)
+				}}
+				{...customProps}
+			/>
+		);
+	};
+
+	getScrollTo = (scrollTo) => {
+		this.scrollTo = scrollTo;
+	};
+
+	render () {
+		const args = this.props.args;
+		return (
+			<VirtualGridList
+				cbScrollTo={this.getScrollTo}
+				dataSize={updateDataSize(args['dataSize'])}
+				itemRenderer={this.renderItem}
+				itemSize={{
+					minWidth: ri.scale(args['minWidth']),
+					minHeight: ri.scale(args['minHeight'])
+				}}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				snapToCenter
+				spacing={ri.scale(args['spacing'])}
+				spotlightDisabled={args['spotlightDisabled']}
+				style={{
+					width: ri.scaleToRem(2400)
+				}}
+				verticalScrollbar="hidden"
+			/>
+		);
+	}
+}
+
+SnapToCenterVGL.propTypes = {
+	args: PropTypes.object
+};
+
+export const SnapToCenterVirtualGridList = (args) => (
+	<SnapToCenterVGL args={args} />
+);
+
+number('dataSize', SnapToCenterVirtualGridList, Config, 10);
+number('minWidth', SnapToCenterVirtualGridList, Config, 1230);
+number('minHeight', SnapToCenterVirtualGridList, Config, 540);
+number('spacing', SnapToCenterVirtualGridList, Config, 0);
+boolean('spotlightDisabled', SnapToCenterVirtualGridList, Config, false);
+
+SnapToCenterVirtualGridList.storyName = 'Snap to center VirtualGridList';
+SnapToCenterVirtualGridList.parameters = {
+	propTables: [Config]
+};
+
+const VirtualGridListInScroller = ({args, onNext, ...rest}) => {
+	const virtualGridListProps = {
+		...rest,
+		childProps: {onClick: onNext},
+		dataSize: updateDataSize(args['dataSize']),
+		direction: 'horizontal',
+		itemRenderer: renderItem,
+		itemSize: {
+			minWidth: ri.scale(args['minWidth']),
+			minHeight: ri.scale(args['minHeight'])
+		},
+		spacing: ri.scale(args['spacing']),
+		style: {
+			height: ri.scale(args['minHeight']),
+			paddingBottom: ri.scaleToRem(36)
+		}
+	};
+
+	const virtualGridLists = [];
+
+	for (let i = 0; i < 4; i++) {
+		const id = `vgl_${i}`;
+
+		virtualGridLists.push(
+			<VirtualGridList
+				{...virtualGridListProps}
+				id={id}
+				key={id}
+				spotlightId={id}
+			/>
+		);
+	}
+
+	return (
+		<Scroller>
+			{virtualGridLists}
+		</Scroller>
+	);
+};
+
+VirtualGridListInScroller.propTypes = {
+	args: PropTypes.object,
+	onNext: PropTypes.func
+};
+
+class VirtualGridListInScrollerSamples extends Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			index: 0
+		};
+	}
+
+	onBack = () => {
+		this.setState(prevState => ({
+			index: prevState.index - 1
+		}));
+	};
+
+	onNext = () => {
+		this.setState(prevState => ({
+			index: prevState.index + 1
+		}));
+	};
+
+	render () {
+		return (
+			<Panels index={this.state.index} onBack={this.onBack}>
+				<Panel>
+					<VirtualGridListInScroller args={this.props.args} onNext={this.onNext} />
+				</Panel>
+				<Panel>
+					<Header noCloseButton title="Second Panel" type="compact" />
+				</Panel>
+			</Panels>
+		);
+	}
+}
+
+VirtualGridListInScrollerSamples.propTypes = {
+	args: PropTypes.object
+};
+
+export const RestoreFocusInScroller = (args) => <VirtualGridListInScrollerSamples args={args} />;
+
+number('dataSize', RestoreFocusInScroller, Config, defaultDataSize);
+number('minWidth', RestoreFocusInScroller, Config, 688);
+number('minHeight', RestoreFocusInScroller, Config, 570);
+number('spacing', RestoreFocusInScroller, Config, 0);
+
+RestoreFocusInScroller.storyName = 'in Scroller with restoring focus';

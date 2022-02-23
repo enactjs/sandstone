@@ -132,10 +132,9 @@
 }
 
 // Keep the switch handle (the icon) a constant color regardless of focus state.
-.focus({
-	.switch {
-		// Skin colors
-		.applySkins({
+.applySkins({
+	.focus({
+		.switch {
 			.icon {
 				color: @sand-switch-focus-color;
 			}
@@ -145,14 +144,13 @@
 					color: @sand-switch-selected-focus-color;
 				}
 			}
-		});
-	}
-}, parent);
+		}
+	}, parent);
+});
 
-.disabled({
-	.switch {
-		// Skin colors
-		.applySkins({
+.applySkins({
+	.disabled({
+		.switch {
 			&.selected {
 				.client {
 					background-color: @sand-switch-disabled-selected-bg-color;
@@ -162,6 +160,6 @@
 					color: @sand-switch-disabled-selected-color;
 				}
 			}
-		});
-	}
+		}
+	});
 });

@@ -1,5 +1,8 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen, waitFor} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import {FlexiblePopupPanels, Panel} from '../';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
@@ -7,7 +10,7 @@ const FloatingLayerController = FloatingLayerDecorator('div');
 describe('FlexiblePopupPanels Specs', () => {
 
 	test('should hide previous and next buttons when there is only one panel', () => {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels open>
 					<Panel />
@@ -15,15 +18,13 @@ describe('FlexiblePopupPanels Specs', () => {
 			</FloatingLayerController>
 		);
 
-		const expected = 0;
-		const actual = subject.find('Button').length;
+		const actual = screen.queryByRole('button');
 
-		subject.unmount();
-		expect(actual).toBe(expected);
+		expect(actual).toBeNull();
 	});
 
 	test('should show previous and next buttons when there is more than one panel', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels open>
 					<Panel />
@@ -34,14 +35,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 2;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should show previous button when using `prevButton` on the only panel', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels open>
 					<Panel prevButton />
@@ -50,14 +51,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should show previous button when using `nextButton` on the only panel', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels open>
 					<Panel nextButton />
@@ -66,14 +67,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should hide previous button on all panels when `prevButtonVisibility` is set to "never"', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels prevButtonVisibility="never" open>
 					<Panel />
@@ -83,14 +84,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should hide next button on all panels when `nextButtonVisibility` is set to "never"', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels nextButtonVisibility="never" open>
 					<Panel />
@@ -100,14 +101,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should show previous button on the only panel when `prevButtonVisibility` set to "always"', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels prevButtonVisibility="always" open>
 					<Panel />
@@ -116,14 +117,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should show next button on the only panel when `nextButtonVisibility` set to "always"', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels nextButtonVisibility="always" open>
 					<Panel />
@@ -132,14 +133,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should hide previous button on panels that override using `prevButton={false}`', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels index={1} open>
 					<Panel />
@@ -149,14 +150,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should hide next button on panels that override using `nextButton={false}`', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels index={0} open>
 					<Panel nextButton={false} />
@@ -166,14 +167,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should hide previous button when `prevButtonVisibility` prop is set to always and panel overrides using `prevButton={false}`', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels index={1} prevButtonVisibility="always" open>
 					<Panel />
@@ -183,14 +184,14 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
 	test('should hide next button when `nextButtonVisibility` prop is set to always and panel overrides using `nextButton={false}`', () => {
-		const subject = mount(
+		const {unmount} = render(
 			<FloatingLayerController>
 				<FlexiblePopupPanels index={0} nextButtonVisibility="always" open>
 					<Panel nextButton={false} />
@@ -200,82 +201,131 @@ describe('FlexiblePopupPanels Specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = screen.getAllByRole('button').length;
 
-		subject.unmount();
+		unmount();
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should close on back key when on first panel',
-		() => {
-			const map = {};
+	test('should fire `onNextClick` and `onChange` with each type in it when the next button is clicked', async () => {
+		const handleNextClick = jest.fn();
+		const handleChange = jest.fn();
 
-			window.addEventListener = jest.fn((event, cb) => {
-				map[event] = cb;
-			});
-			const spy = jest.fn();
-
-			const subject = mount(
-				<FloatingLayerController>
-					<FlexiblePopupPanels index={0} onClose={spy} open>
-						<Panel />
-					</FlexiblePopupPanels>
-				</FloatingLayerController>
-			);
-
-			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
-
-			const expected = 1;
-			const actual = spy.mock.calls.length;
-
-			subject.unmount();
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should go back on back key when not on first panel',
-		() => {
-			const map = {};
-
-			window.addEventListener = jest.fn((event, cb) => {
-				map[event] = cb;
-			});
-			const spy = jest.fn();
-
-			const subject = mount(
-				<FloatingLayerController>
-					<FlexiblePopupPanels index={1} onBack={spy} open>
-						<Panel />
-						<Panel />
-					</FlexiblePopupPanels>
-				</FloatingLayerController>
-			);
-
-			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
-
-			const expected = 1;
-			const actual = spy.mock.calls.length;
-
-			subject.unmount();
-			expect(actual).toBe(expected);
-		}
-	);
-
-	it('should correctly assign the fullHeight class', function () {
-		const subject = mount(
+		render(
 			<FloatingLayerController>
-				<FlexiblePopupPanels fullHeight open>
+				<FlexiblePopupPanels open onNextClick={handleNextClick} onChange={handleChange}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		userEvent.click(screen.getByLabelText('Next'));
+
+		const nextClickExpected = {type: 'onNextClick'};
+		const changeExpected = {type: 'onChange'};
+
+		await waitFor(() => {
+			const nextClickActual = handleNextClick.mock.calls.length && handleNextClick.mock.calls[0][0];
+			const changeActual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+			expect(nextClickActual).toMatchObject(nextClickExpected);
+			expect(changeActual).toMatchObject(changeExpected);
+		});
+	});
+
+	test('should fire `onPrevClick` with type `onPrevClick` when the previous button is clicked', async () => {
+		const handlePrevClick = jest.fn();
+
+		render(
+			<FloatingLayerController>
+				<FlexiblePopupPanels open onPrevClick={handlePrevClick}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		userEvent.click(screen.getByLabelText('Previous'));
+
+		const expected = {type: 'onPrevClick'};
+
+		await waitFor(() => {
+			const actual = handlePrevClick.mock.calls.length && handlePrevClick.mock.calls[0][0];
+
+			expect(actual).toMatchObject(expected);
+		});
+
+	});
+
+	test('should close on back key when on first panel', () => {
+		const map = {};
+
+		window.addEventListener = jest.fn((event, cb) => {
+			map[event] = cb;
+		});
+		const spy = jest.fn();
+
+		const {unmount} = render(
+			<FloatingLayerController>
+				<FlexiblePopupPanels index={0} onClose={spy} open>
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+
+		const expectedEvent = {type: 'onClose'};
+		const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		unmount();
+		expect(spy).toHaveBeenCalled();
+		expect(actualEvent).toMatchObject(expectedEvent);
+	});
+
+	test('should go back on back key when not on first panel', () => {
+		const map = {};
+
+		window.addEventListener = jest.fn((event, cb) => {
+			map[event] = cb;
+		});
+		const spy = jest.fn();
+
+		const {unmount} = render(
+			<FloatingLayerController>
+				<FlexiblePopupPanels index={1} onBack={spy} open>
+					<Panel />
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+
+		const expectedEvent = {type: 'onBack'};
+		const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		unmount();
+		expect(spy).toHaveBeenCalled();
+		expect(actualEvent).toMatchObject(expectedEvent);
+	});
+
+	test('should correctly assign the fullHeight class', () => {
+		render(
+			<FloatingLayerController>
+				<FlexiblePopupPanels data-testid="flexiblePopupPanels" fullHeight open>
 					<Panel />
 				</FlexiblePopupPanels>
 			</FloatingLayerController>
 		);
 
 		const expected = 'fullHeight';
-		const actual = subject.find('Popup').prop('className');
+		const actual = screen.getByTestId('flexiblePopupPanels').parentElement.parentElement;
 
-		expect(actual).toContain(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
 });

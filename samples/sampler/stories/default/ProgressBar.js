@@ -1,6 +1,8 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 import ProgressBar, {ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
+
+import css from './ProgressBar.module.less';
 
 const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBar);
 const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', ProgressBarTooltip);
@@ -12,71 +14,78 @@ export default {
 	component: 'ProgressBar'
 };
 
-export const _ProgressBar = () => {
-	// added here to force Storybook to put the ProgressBar tab first
-	const disabled = boolean('disabled', ProgressBarConfig);
+export const _ProgressBar = (args) => (
+	<ProgressBar
+		backgroundProgress={args['backgroundProgress']}
+		disabled={args['disabled']}
+		highlighted={args['highlighted']}
+		orientation={args['orientation']}
+		progress={args['progress']}
+		progressAnchor={args['progressAnchor']}
+		showAnchor={args['showAnchor']}
+		className={args['orientation'] === 'vertical' || args['orientation'] === 'radial' ? css.margin : null}
+	>
+		{args['tooltip'] ? <ProgressBarTooltip position={args['position']} /> : null}
+	</ProgressBar>
+);
 
-	// tooltip is first so it appears at the top of the tab. the rest are alphabetical
-	const tooltip = boolean('tooltip', ProgressBarTooltipConfig);
-	const position = select(
-		'position',
-		[
-			'',
-			'above',
-			'above left',
-			'above center',
-			'above right',
-			'above before',
-			'above after',
-			'before',
-			'left',
-			'right',
-			'after',
-			'below',
-			'below left',
-			'below center',
-			'below right',
-			'below before',
-			'below after'
-		],
-		ProgressBarTooltipConfig,
-		''
-	);
-
-	return (
-		<ProgressBar
-			backgroundProgress={number(
-				'backgroundProgress',
-				ProgressBarConfig,
-				{range: true, min: 0, max: 1, step: 0.01},
-				0.5
-			)}
-			disabled={disabled}
-			highlighted={boolean('highlighted', ProgressBarConfig)}
-			orientation={select(
-				'orientation',
-				['horizontal', 'vertical', 'radial'],
-				ProgressBarConfig,
-				'horizontal'
-			)}
-			progress={number(
-				'progress',
-				ProgressBarConfig,
-				{range: true, min: 0, max: 1, step: 0.01},
-				0.4
-			)}
-			progressAnchor={number(
-				'progressAnchor',
-				ProgressBarConfig,
-				{range: true, min: 0, max: 1, step: 0.01},
-				0
-			)}
-			showAnchor={boolean('showAnchor', ProgressBarConfig)}
-		>
-			{tooltip ? <ProgressBarTooltip position={position} /> : null}
-		</ProgressBar>
-	);
-};
+boolean('disabled', _ProgressBar, ProgressBarConfig);
+boolean('tooltip', _ProgressBar, ProgressBarTooltipConfig);
+select(
+	'position',
+	_ProgressBar,
+	[
+		'',
+		'above',
+		'above left',
+		'above center',
+		'above right',
+		'above before',
+		'above after',
+		'before',
+		'left',
+		'right',
+		'after',
+		'below',
+		'below left',
+		'below center',
+		'below right',
+		'below before',
+		'below after'
+	],
+	ProgressBarTooltipConfig,
+	''
+);
+range(
+	'backgroundProgress',
+	_ProgressBar,
+	ProgressBarConfig,
+	{min: 0, max: 1, step: 0.01},
+	0.5
+);
+boolean('highlighted', _ProgressBar, ProgressBarConfig);
+select(
+	'orientation',
+	_ProgressBar,
+	['horizontal', 'vertical', 'radial'],
+	ProgressBarConfig,
+	'horizontal'
+);
+range(
+	'progress',
+	_ProgressBar,
+	ProgressBarConfig,
+	{min: 0, max: 1, step: 0.01},
+	0.4
+);
+range(
+	'progressAnchor',
+	_ProgressBar,
+	ProgressBarConfig,
+	{min: 0, max: 1, step: 0.01},
+	0
+);
+boolean('showAnchor', _ProgressBar, ProgressBarConfig);
 
 _ProgressBar.storyName = 'ProgressBar';
 _ProgressBar.parameters = {

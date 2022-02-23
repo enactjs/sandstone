@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {range, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import ri from '@enact/ui/resolution';
@@ -19,7 +19,8 @@ const Config = mergeComponentMetadata(
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
 	direction: 'below right',
-	offset: 'overlap'
+	offset: 'overlap',
+	popupWidth: 'auto'
 };
 
 export default {
@@ -27,44 +28,51 @@ export default {
 	component: 'ContextualMenuDecorator'
 };
 
-export const _ContextualMenuDecorator = () => {
-	const itemCount = number('items', Config, {range: true, min: 0, max: 10}, 2);
+export const _ContextualMenuDecorator = (args) => {
+	const itemCount = args['items'];
 	const items = new Array(itemCount).fill().map((i, index) => `Option ${index + 1}`);
 
 	return (
 		<div style={{textAlign: 'center', marginTop: ri.scaleToRem(198)}}>
 			<ContextualButton
-				direction={select(
-					'direction',
-					[
-						'above',
-						'above center',
-						'above left',
-						'above right',
-						'below',
-						'below center',
-						'below left',
-						'below right',
-						'left middle',
-						'left top',
-						'left bottom',
-						'right middle',
-						'right top',
-						'right bottom'
-					],
-					Config
-				)}
+				direction={args['direction']}
 				menuItems={items}
-				offset={select('offset', ['none', 'overlap', 'small'], Config)}
+				offset={args['offset']}
 				onClose={action('onClose')}
-				popupWidth={select('popupWidth', ['auto', 'small', 'large'], Config)}
+				popupWidth={args['popupWidth']}
 				style={{width: ri.scaleToRem(1020)}}
 			>
-				{text('button string', Config, 'Contextual Button')}
+				{args['button string']}
 			</ContextualButton>
 		</div>
 	);
 };
+
+range('items', _ContextualMenuDecorator, Config, {min: 0, max: 10}, 2);
+select(
+	'direction',
+	_ContextualMenuDecorator,
+	[
+		'above',
+		'above center',
+		'above left',
+		'above right',
+		'below',
+		'below center',
+		'below left',
+		'below right',
+		'left middle',
+		'left top',
+		'left bottom',
+		'right middle',
+		'right top',
+		'right bottom'
+	],
+	Config
+);
+select('offset', _ContextualMenuDecorator, ['none', 'overlap', 'small'], Config);
+select('popupWidth', _ContextualMenuDecorator, ['auto', 'small', 'large'], Config);
+text('button string', _ContextualMenuDecorator, Config, 'Contextual Button');
 
 _ContextualMenuDecorator.storyName = 'ContextualMenuDecorator';
 _ContextualMenuDecorator.parameters = {

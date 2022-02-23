@@ -1,10 +1,10 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, object, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, object, select, text} from '@enact/storybook-utils/addons/controls';
 import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
 
-const Config = mergeComponentMetadata('ImageItem', UiImageItem, ImageItemBase, ImageItem);
+const Config = mergeComponentMetadata('ImageItem', ImageItemBase, UiImageItem, ImageItem);
 ImageItem.displayName = 'ImageItem';
 
 const src = {
@@ -25,30 +25,38 @@ export default {
 	component: 'ImageItem'
 };
 
-export const WithDataIndex = () => {
-	const dataIndex = boolean('data-index', Config);
+export const WithDataIndex = (args) => {
+	const dataIndex = args['data-index'];
 
 	return (
 		<ImageItem
 			{...(dataIndex ? {...dataIndexProp} : null)}
 			key={!!dataIndex + ''}
-			label={text('label', Config, 'ImageItem label')}
-			orientation={select('orientation', prop.orientation, Config)}
-			selected={boolean('selected', Config)}
-			showSelection={boolean('showSelection', Config)}
-			src={object('src', Config, src)}
+			label={args['label']}
+			orientation={args['orientation']}
+			selected={args['selected']}
+			showSelection={args['showSelection']}
+			src={args['src']}
 			style={{
 				width: ri.scale(
-					select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020
+					args['orientation'] === 'vertical' ? 768 : 1020
 				),
 				height: ri.scale(
-					select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240
+					args['orientation'] === 'vertical' ? 588 : 240
 				)
 			}}
 		>
-			{text('children', Config, 'ImageItem Caption')}
+			{args['children']}
 		</ImageItem>
 	);
 };
+
+boolean('data-index', WithDataIndex, Config);
+text('label', WithDataIndex, Config, 'ImageItem label');
+select('orientation', WithDataIndex, prop.orientation, Config);
+boolean('selected', WithDataIndex, Config);
+boolean('showSelection', WithDataIndex, Config);
+object('src', WithDataIndex, Config, src);
+text('children', WithDataIndex, Config, 'ImageItem Caption');
 
 WithDataIndex.storyName = 'with data-index';

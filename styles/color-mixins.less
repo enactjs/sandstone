@@ -68,7 +68,7 @@
 
 		background-color: @sand-spotlight-bg-color;
 		// transition+: @transition-filter;
-		will-change+: filter;
+		will-change+: box-shadow;
 
 		@bg();
 		@shadow();
@@ -80,7 +80,7 @@
 	opacity: 1;
 	.sand-bg-colors({
 		background-color: @sand-spotlight-bg-color;
-		filter+: drop-shadow(@sand-spotlight-focus-shadow);
+		box-shadow: @sand-spotlight-focus-shadow;
 		@bg();
 		@shadow();
 	});
@@ -144,19 +144,19 @@
 	background-color: @sand-button-bg-color;
 }
 .sand-button-selected-bg-color () {
-	background-color: @sand-button-bg-color;
-	filter+_: saturate(1.5) brightness(0.5); // Simulates #3e454d, the spec color
+	background-color: @sand-button-selected-bg-color;
+	filter+_: @sand-button-selected-filter;
 }
 .sand-button-focus-bg-color () {
-	background-color: @sand-button-bg-color;
-	filter+_: saturate(0) brightness(1.755); // Simulates @sand-spotlight-bg-color
+	background-color: @sand-button-focus-bg-color;
+	filter+_: @sand-button-focus-filter;
 }
 
 // Button state mixins
 .sand-button-resting-bg-colors (@bg: {}, @shadow: {}) {
 	.sand-spotlight-resting-bg-colors(@opacity: 0, @bg: {
 		.sand-button-resting-bg-color();
-		will-change+: transform;
+		will-change+: transform, filter;
 		transition+: transform @sand-button-focus-duration ease-out;
 		@bg();
 	}, @shadow);

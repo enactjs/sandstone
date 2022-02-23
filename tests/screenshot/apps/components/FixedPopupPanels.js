@@ -34,16 +34,32 @@ const EachPanel = withConfig(
 			component: <FixPopupPanels />
 		},
 		{
+			title: 'with standard Panel Components positioned left',
+			component: <FixPopupPanels position="left" />
+		},
+		{
 			title: 'with transparent scrim',
 			component: <FixPopupPanels scrimType="transparent" />
+		},
+		{
+			title: 'with transparent scrim positioned left',
+			component: <FixPopupPanels scrimType="transparent" position="left" />
 		},
 		{
 			title: 'with standard Panel Components index 1',
 			component: <FixPopupPanels index={1} />
 		},
 		{
+			title: 'with standard Panel Components index 1 positioned left',
+			component: <FixPopupPanels index={1} position="left" />
+		},
+		{
 			title: 'with half width',
 			component: <FixPopupPanels width="half" />
+		},
+		{
+			title: 'with half width positioned left',
+			component: <FixPopupPanels width="half" position="left" />
 		}
 	]
 );

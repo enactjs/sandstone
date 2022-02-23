@@ -1,17 +1,17 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import {Fragment} from 'react';
 
 import iconNames from '../helper/icons';
 
-// Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean knob and return `void 0` when `true`.
+// Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean control and return `void 0` when `true`.
 Button.displayName = 'Button';
 const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBase, Button);
 
-// Set up some defaults for info and knobs
+// Set up some defaults for info and controls
 const prop = {
 	backgroundOpacity: {
 		'undefined/null (automatic)': '',
@@ -46,26 +46,39 @@ export default {
 	component: 'Button'
 };
 
-export const _Button = () => (
+export const _Button = (args) => (
 	<Fragment>
 		<Button
 			onClick={action('onClick')}
-			backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
-			color={select('color', prop.color, Config)}
-			disabled={boolean('disabled', Config)}
-			icon={select('icon', prop.icons, Config)}
-			iconFlip={select('iconFlip', prop.iconFlip, Config)}
-			iconPosition={select('iconPosition', prop.iconPosition, Config)}
-			minWidth={threeWayBoolean(select('minWidth', prop.minWidth, Config))}
-			selected={boolean('selected', Config)}
-			size={select('size', prop.size, Config)}
-			tooltipText={text('tooltipText', Config)}
-			tooltipType={select('tooltipType', prop.tooltipType, Config)}
+			backgroundOpacity={args['backgroundOpacity']}
+			color={args['color']}
+			disabled={args['disabled']}
+			icon={args['icon']}
+			iconFlip={args['iconFlip']}
+			iconPosition={args['iconPosition']}
+			minWidth={threeWayBoolean(args['minWidth'])}
+			selected={args['selected']}
+			size={args['size']}
+			tooltipText={args['tooltipText']}
+			tooltipType={args['tooltipType']}
 		>
-			{text('children', Config, 'click me')}
+			{args['children']}
 		</Button>
 	</Fragment>
 );
+
+select('backgroundOpacity', _Button, prop.backgroundOpacity, Config);
+select('color', _Button, prop.color, Config);
+boolean('disabled', _Button, Config);
+select('icon', _Button, prop.icons, Config);
+select('iconFlip', _Button, prop.iconFlip, Config);
+select('iconPosition', _Button, prop.iconPosition, Config);
+select('minWidth', _Button, prop.minWidth, Config);
+boolean('selected', _Button, Config);
+select('size', _Button, prop.size, Config);
+text('tooltipText', _Button, Config);
+select('tooltipType', _Button, prop.tooltipType, Config);
+text('children', _Button, Config, 'click me');
 
 _Button.storyName = 'Button';
 _Button.parameters = {

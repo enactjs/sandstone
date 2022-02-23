@@ -1,14 +1,12 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {fireEvent, render, screen} from '@testing-library/react';
 
 import Slider from '../Slider';
-import css from '../Slider.module.less';
 
-const getNode = (slider) => slider.find(`div.${css.slider}`);
-
-const focus = (slider) => getNode(slider).simulate('focus');
-const blur = (slider) => getNode(slider).simulate('blur');
-const activate = (slider) => getNode(slider).simulate('keyup', {keyCode: 13});
-const keyDown = (keyCode) => (slider) => getNode(slider).simulate('keydown', {keyCode});
+const focus = (slider) => fireEvent.focus(slider);
+const blur = (slider) => fireEvent.blur(slider);
+const activate = (slider) => fireEvent.keyUp(slider, {keyCode: 13});
+const keyDown = (keyCode) => (slider) => fireEvent.keyDown(slider, {keyCode});
 
 const leftKeyDown = keyDown(37);
 const rightKeyDown = keyDown(39);
@@ -16,497 +14,386 @@ const upKeyDown = keyDown(38);
 const downKeyDown = keyDown(40);
 
 describe('Slider', () => {
-	const callCount = spy => {
-		switch (spy.mock.calls.length) {
-			case 0:
-				return 'not called';
-			case 1:
-				return 'called once';
-			default:
-				return `called ${spy.mock.calls.length} times`;
-		}
-	};
+	test('should set "aria-valuetext" to hint string for the first render when vertical is false', () => {
+		render(<Slider />);
+		const slider = screen.getByRole('slider');
 
-	test(
-		'should set "aria-valuetext" to hint string for the first render when vertical is false',
-		() => {
-			const subject = mount(
-				<Slider />
-			);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '0 change a value with left right button';
 
-			subject.update();
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			const expected = '0 change a value with left right button';
-			const actual = subject.find('Slider').prop('aria-valuetext');
+	test('should set "aria-valuetext" to hint string for the first render when vertical is true', () => {
+		render(<Slider orientation="vertical" />);
+		const slider = screen.getByRole('slider');
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '0 change a value with up down button';
 
-	test(
-		'should set "aria-valuetext" to hint string for the first render when vertical is true',
-		() => {
-			const subject = mount(
-				<Slider orientation="vertical" />
-			);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			subject.update();
+	test('should set "aria-valuetext" to value when value is changed', () => {
+		render(<Slider defaultValue={10} />);
+		const slider = screen.getByRole('slider');
 
-			const expected = '0 change a value with up down button';
-			const actual = subject.find('Slider').prop('aria-valuetext');
+		focus(slider);
+		rightKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '11';
 
-	test(
-		'should set "aria-valuetext" to value when value is changed',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={10} />
-			);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			focus(subject);
-			rightKeyDown(subject);
+	test('should activate the slider on enter keyup', () => {
+		render(<Slider activateOnSelect />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 11;
-			const actual = subject.find('Slider').prop('aria-valuetext');
+		activate(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expected = 'active';
 
-	test(
-		'should activate the slider on enter keyup',
-		() => {
-			const subject = mount(
-				<Slider activateOnSelect />
-			);
+		expect(slider).toHaveClass(expected);
+	});
 
-			activate(subject);
+	test('should deactivate the slider on blur', () => {
+		render(<Slider activateOnSelect />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 'active';
-			const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
+		const notExpected = 'active';
 
-			expect(actual).toBe(expected);
-		}
-	);
+		activate(slider);
 
-	test(
-		'should deactivate the slider on blur',
-		() => {
-			const subject = mount(
-				<Slider />
-			);
+		expect(slider).toHaveClass(notExpected);
 
-			activate(subject);
-			blur(subject);
+		blur(slider);
 
-			const expected = 'not active';
-			const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
+		expect(slider).not.toHaveClass(notExpected);
+	});
 
-			expect(actual).toBe(expected);
-		}
-	);
+	test('should not activate the slider on enter', () => {
+		render(<Slider />);
+		const slider = screen.getByRole('slider');
 
-	test(
-		'should not activate the slider on enter',
-		() => {
-			const subject = mount(
-				<Slider />
-			);
+		activate(slider);
 
-			activate(subject);
-			const expected = 'not active';
-			const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
+		const notExpected = 'active';
 
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(slider).not.toHaveClass(notExpected);
+	});
 
-	test(
-		'should decrement the value of horizontal slider on key left when active',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={50} />
-			);
+	test('should fire `onChange` with `onChange` type when value changed', () => {
+		const handleChange = jest.fn();
 
-			activate(subject);
-			leftKeyDown(subject);
+		render(<Slider activateOnSelect defaultValue={50} onChange={handleChange} />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 49;
-			const actual = subject.find('Slider').prop('value');
+		activate(slider);
+		leftKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expected = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
-	test(
-		'should decrement the value of horizontal slider on key left',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={50} />
-			);
+		expect(actual).toMatchObject(expected);
+	});
 
-			focus(subject);
-			leftKeyDown(subject);
+	test('should decrement the value of horizontal slider on key left when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 49;
-			const actual = subject.find('Slider').prop('value');
+		activate(slider);
+		leftKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '49';
 
-	test(
-		'should decrement the value of vertical slider on key down when active',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={50} orientation="vertical" />
-			);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			activate(subject);
-			downKeyDown(subject);
+	test('should decrement the value of horizontal slider on key left', () => {
+		render(<Slider defaultValue={50} />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 49;
-			const actual = subject.find('Slider').prop('value');
+		focus(slider);
+		leftKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '49';
 
-	test(
-		'should decrement the value of vertical slider on key down',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={50} orientation="vertical" />
-			);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			focus(subject);
-			downKeyDown(subject);
+	test('should decrement the value of vertical slider on key down when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} orientation="vertical" />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 49;
-			const actual = subject.find('Slider').prop('value');
+		activate(slider);
+		downKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '49';
 
-	test(
-		'should increment the value of horizontal slider on key right when active',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={50} />
-			);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			activate(subject);
-			rightKeyDown(subject);
+	test('should decrement the value of vertical slider on key down', () => {
+		render(<Slider defaultValue={50} orientation="vertical" />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 51;
-			const actual = subject.find('Slider').prop('value');
+		focus(slider);
+		downKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '49';
 
-	test(
-		'should increment the value of horizontal slider on key right',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={50} />
-			);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			focus(subject);
-			rightKeyDown(subject);
+	test('should increment the value of horizontal slider on key right when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 51;
-			const actual = subject.find('Slider').prop('value');
+		activate(slider);
+		rightKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '51';
 
-	test(
-		'should increment the value of vertical slider on key up when active',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={50} orientation="vertical" />
-			);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			activate(subject);
-			upKeyDown(subject);
+	test('should increment the value of horizontal slider on key right', () => {
+		render(<Slider defaultValue={50} />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 51;
-			const actual = subject.find('Slider').prop('value');
+		focus(slider);
+		rightKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '51';
 
-	test(
-		'should increment the value of vertical slider on key up when',
-		() => {
-			const subject = mount(
-				<Slider defaultValue={50} orientation="vertical" />
-			);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
-			focus(subject);
-			upKeyDown(subject);
+	test('should increment the value of vertical slider on key up when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} orientation="vertical" />);
+		const slider = screen.getByRole('slider');
 
-			const expected = 51;
-			const actual = subject.find('Slider').prop('value');
+		activate(slider);
+		upKeyDown(slider);
 
-			expect(actual).toBe(expected);
-		}
-	);
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '51';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
+	test('should increment the value of vertical slider on key up', () => {
+		render(<Slider defaultValue={50} orientation="vertical" />);
+		const slider = screen.getByRole('slider');
+
+		focus(slider);
+		upKeyDown(slider);
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '51';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
 
 	// these tests validate behavior relating to `value` defaulting to `min`
-	test(
-		'should not emit onChange when decrementing at the lower bound when value is unset',
-		() => {
-			const handleChange = jest.fn();
-			const subject = mount(
-				<Slider min={0} max={10} onChange={handleChange} />
-			);
+	test('should not emit onChange when decrementing at the lower bound when value is unset', () => {
+		const handleChange = jest.fn();
+		render(<Slider activateOnSelect min={0} max={10} onChange={handleChange} />);
+		const slider = screen.getByRole('slider');
 
-			activate(subject);
-			leftKeyDown(subject);
+		activate(slider);
+		leftKeyDown(slider);
 
-			const expected = 'onChange not emitted';
-			const actual = handleChange.mock.calls.length > 0 ? 'onChange emitted' : 'onChange not emitted';
-
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(handleChange).not.toBeCalled();
+	});
 
 	test('should increment from the lower bound when value is unset', () => {
 		const handleChange = jest.fn();
-		const subject = mount(
-			<Slider min={0} max={10} onChange={handleChange} />
-		);
+		render(<Slider activateOnSelect min={0} max={10} onChange={handleChange} />);
+		const slider = screen.getByRole('slider');
 
-		activate(subject);
-		rightKeyDown(subject);
+		activate(slider);
+		rightKeyDown(slider);
 
-		const expected = 1;
-		const actual = subject.find('Slider').prop('value');
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '1';
 
-		expect(actual).toBe(expected);
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should call onSpotlightLeft on horizontal slider at min value', () => {
 		const handleSpotlight = jest.fn();
-		const subject = mount(
-			<Slider defaultValue={0} onSpotlightLeft={handleSpotlight} />
-		);
+		render(<Slider defaultValue={0} onSpotlightLeft={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
-		leftKeyDown(subject);
+		focus(slider);
+		leftKeyDown(slider);
 
-		const expected = 'called once';
-		const actual = callCount(handleSpotlight);
+		const expected = 1;
 
-		expect(actual).toBe(expected);
+		expect(handleSpotlight).toBeCalledTimes(expected);
 	});
 
 	test('should call onSpotlightLeft on vertical slider at any value', () => {
 		const handleSpotlight = jest.fn();
-		const subject = mount(
-			<Slider defaultValue={50} orientation="vertical" onSpotlightLeft={handleSpotlight} />
-		);
+		render(<Slider defaultValue={50} orientation="vertical" onSpotlightLeft={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
-		leftKeyDown(subject);
+		focus(slider);
+		leftKeyDown(slider);
 
-		const expected = 'called once';
-		const actual = callCount(handleSpotlight);
+		const expected = 1;
 
-		expect(actual).toBe(expected);
+		expect(handleSpotlight).toBeCalledTimes(expected);
 	});
 
-	test(
-		'should not call onSpotlightLeft on horizontal slider at greater than min value',
-		() => {
-			const handleSpotlight = jest.fn();
-			const subject = mount(
-				<Slider defaultValue={1} onSpotlightLeft={handleSpotlight} />
-			);
+	test('should not call onSpotlightLeft on horizontal slider at greater than min value', () => {
+		const handleSpotlight = jest.fn();
+		render(<Slider defaultValue={1} onSpotlightLeft={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-			focus(subject);
-			leftKeyDown(subject);
+		focus(slider);
+		leftKeyDown(slider);
 
-			const expected = 'not called';
-			const actual = callCount(handleSpotlight);
-
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(handleSpotlight).not.toBeCalled();
+	});
 
 	test('should call onSpotlightDown on vertical slider at min value', () => {
 		const handleSpotlight = jest.fn();
-		const subject = mount(
-			<Slider defaultValue={0} orientation="vertical" onSpotlightDown={handleSpotlight} />
-		);
+		render(<Slider defaultValue={0} orientation="vertical" onSpotlightDown={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
-		downKeyDown(subject);
+		focus(slider);
+		downKeyDown(slider);
 
-		const expected = 'called once';
-		const actual = callCount(handleSpotlight);
+		const expected = 1;
 
-		expect(actual).toBe(expected);
+		expect(handleSpotlight).toBeCalledTimes(expected);
 	});
 
 	test('should call onSpotlightDown on horizontal slider at any value', () => {
 		const handleSpotlight = jest.fn();
-		const subject = mount(
-			<Slider defaultValue={50} onSpotlightDown={handleSpotlight} />
-		);
+		render(<Slider defaultValue={50} onSpotlightDown={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
-		downKeyDown(subject);
+		focus(slider);
+		downKeyDown(slider);
 
-		const expected = 'called once';
-		const actual = callCount(handleSpotlight);
+		const expected = 1;
 
-		expect(actual).toBe(expected);
+		expect(handleSpotlight).toBeCalledTimes(expected);
 	});
 
-	test(
-		'should not call onSpotlightDown on vertical slider at greater than min value',
-		() => {
-			const handleSpotlight = jest.fn();
-			const subject = mount(
-				<Slider defaultValue={1} orientation="vertical" onSpotlightDown={handleSpotlight} />
-			);
+	test('should not call onSpotlightDown on vertical slider at greater than min value', () => {
+		const handleSpotlight = jest.fn();
+		render(<Slider defaultValue={1} orientation="vertical" onSpotlightDown={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-			focus(subject);
-			downKeyDown(subject);
+		focus(slider);
+		downKeyDown(slider);
 
-			const expected = 'not called';
-			const actual = callCount(handleSpotlight);
-
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(handleSpotlight).not.toBeCalled();
+	});
 
 	test('should call onSpotlightRight on horizontal slider at max value', () => {
 		const handleSpotlight = jest.fn();
-		const subject = mount(
-			<Slider defaultValue={100} onSpotlightRight={handleSpotlight} />
-		);
+		render(<Slider defaultValue={100} onSpotlightRight={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
-		rightKeyDown(subject);
+		focus(slider);
+		rightKeyDown(slider);
 
-		const expected = 'called once';
-		const actual = callCount(handleSpotlight);
+		const expected = 1;
 
-		expect(actual).toBe(expected);
+		expect(handleSpotlight).toBeCalledTimes(expected);
 	});
 
 	test('should call onSpotlightRight on vertical slider at any value', () => {
 		const handleSpotlight = jest.fn();
-		const subject = mount(
-			<Slider defaultValue={50} orientation="vertical" onSpotlightRight={handleSpotlight} />
-		);
+		render(<Slider defaultValue={50} orientation="vertical" onSpotlightRight={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
-		rightKeyDown(subject);
+		focus(slider);
+		rightKeyDown(slider);
 
-		const expected = 'called once';
-		const actual = callCount(handleSpotlight);
+		const expected = 1;
 
-		expect(actual).toBe(expected);
+		expect(handleSpotlight).toBeCalledTimes(expected);
 	});
 
-	test(
-		'should not call onSpotlightRight on horizontal slider at less than max value',
-		() => {
-			const handleSpotlight = jest.fn();
-			const subject = mount(
-				<Slider defaultValue={99} onSpotlightRight={handleSpotlight} />
-			);
+	test('should not call onSpotlightRight on horizontal slider at less than max value', () => {
+		const handleSpotlight = jest.fn();
+		render(<Slider defaultValue={99} onSpotlightRight={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-			focus(subject);
-			rightKeyDown(subject);
+		focus(slider);
+		rightKeyDown(slider);
 
-			const expected = 'not called';
-			const actual = callCount(handleSpotlight);
-
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(handleSpotlight).not.toBeCalled();
+	});
 
 	test('should call onSpotlightUp on vertical slider at max value', () => {
 		const handleSpotlight = jest.fn();
-		const subject = mount(
-			<Slider defaultValue={100} max={100} orientation="vertical" onSpotlightUp={handleSpotlight} />
-		);
+		render(<Slider defaultValue={100} max={100} orientation="vertical" onSpotlightUp={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
-		upKeyDown(subject);
+		focus(slider);
+		upKeyDown(slider);
 
-		const expected = 'called once';
-		const actual = callCount(handleSpotlight);
+		const expected = 1;
 
-		expect(actual).toBe(expected);
+		expect(handleSpotlight).toBeCalledTimes(expected);
 	});
 
 	test('should call onSpotlightUp on horizontal slider at any value', () => {
 		const handleSpotlight = jest.fn();
-		const subject = mount(
-			<Slider defaultValue={50} onSpotlightUp={handleSpotlight} />
-		);
+		render(<Slider defaultValue={50} onSpotlightUp={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
-		upKeyDown(subject);
+		focus(slider);
+		upKeyDown(slider);
 
-		const expected = 'called once';
-		const actual = callCount(handleSpotlight);
+		const expected = 1;
 
-		expect(actual).toBe(expected);
+		expect(handleSpotlight).toBeCalledTimes(expected);
 	});
 
-	test(
-		'should not call onSpotlightUp on vertical slider at less than max value',
-		() => {
-			const handleSpotlight = jest.fn();
-			const subject = mount(
-				<Slider defaultValue={99} orientation="vertical" onSpotlightUp={handleSpotlight} />
-			);
+	test('should not call onSpotlightUp on vertical slider at less than max value', () => {
+		const handleSpotlight = jest.fn();
+		render(<Slider defaultValue={99} orientation="vertical" onSpotlightUp={handleSpotlight} />);
+		const slider = screen.getByRole('slider');
 
-			focus(subject);
-			upKeyDown(subject);
+		focus(slider);
+		upKeyDown(slider);
 
-			const expected = 'not called';
-			const actual = callCount(handleSpotlight);
-
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(handleSpotlight).not.toBeCalled();
+	});
 
 	test('should set the tooltip to visible when focused', () => {
-		const subject = mount(
-			<Slider tooltip />
-		);
+		render(<Slider tooltip />);
+		const slider = screen.getByRole('slider');
 
-		focus(subject);
+		focus(slider);
 
-		const expected = 'visible';
-		const actual = subject.find('ProgressBarTooltip').prop('visible') ? 'visible' : 'not visible';
+		const actual = screen.getByText('0');
+		const expected = 'tooltipLabel';
 
-		expect(actual).toBe(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
 	test('should set the tooltip to not visible when unfocused', () => {
-		const subject = mount(
-			<Slider tooltip />
-		);
+		render(<Slider tooltip />);
 
-		const expected = 'not visible';
-		const actual = subject.find('ProgressBarTooltip').prop('visible') ? 'visible' : 'not visible';
+		const tooltip = screen.queryByText('0');
 
-		expect(actual).toBe(expected);
+		expect(tooltip).toBeNull();
 	});
 });

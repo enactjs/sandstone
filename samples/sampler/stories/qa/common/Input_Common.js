@@ -8,7 +8,7 @@ export const iconNames = ['', ...icons];
 
 export const divMargin = {margin: ri.scaleToRem(24)};
 
-// Work around a storybook knob rendering issue.
+// Work around a storybook control rendering issue.
 export const buttons = {
 	'no buttons': null,
 	'one button': (<Button>Single Button</Button>),
