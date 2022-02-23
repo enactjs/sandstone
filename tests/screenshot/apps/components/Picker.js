@@ -1,5 +1,7 @@
 import Picker from '../../../../Picker';
 
+import {withConfig} from './utils';
+
 import css from './Picker.module.less';
 
 const pickerList = {
@@ -155,6 +157,22 @@ const PickerTests = [
 	<Picker title="Title">{['Hello', 'Hello']}</Picker>,
 	<Picker inlineTitle title="Title">{['Hello', 'Hello']}</Picker>,
 	<Picker css={css} inlineTitle title="Title">{['Hello', 'Hello']}</Picker>,
+
+	// *************************************************************
+	// joined and focused
+	// *************************************************************
+	...withConfig({focus: true}, [
+		<Picker joined>{pickerList.airports}</Picker>,
+		<Picker disabled joined>{pickerList.airports}</Picker>,
+		<Picker width="small" joined>{pickerList.airports}</Picker>,
+		<Picker width="medium" joined>{pickerList.airports}</Picker>,
+		<Picker width="large" joined>{pickerList.airports}</Picker>,
+		<Picker orientation="vertical" joined>{pickerList.airports}</Picker>,
+		<Picker disabled orientation="vertical" joined>{pickerList.airports}</Picker>,
+		<Picker width="small" orientation="vertical" joined>{pickerList.airports}</Picker>,
+		<Picker width="medium" orientation="vertical" joined>{pickerList.airports}</Picker>,
+		<Picker width="large" orientation="vertical" joined>{pickerList.airports}</Picker>
+	]),
 
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -465,7 +483,23 @@ const PickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <Picker inlineTitle title="Title">{pickerList.vegetables}</Picker>
-	}
+	},
+
+	// *************************************************************
+	// joined and focused
+	// *************************************************************
+	...withConfig({focus: true, locale: 'ar-SA'}, [
+		<Picker joined>{pickerList.airports}</Picker>,
+		<Picker disabled joined>{pickerList.airports}</Picker>,
+		<Picker width="small" joined>{pickerList.airports}</Picker>,
+		<Picker width="medium" joined>{pickerList.airports}</Picker>,
+		<Picker width="large" joined>{pickerList.airports}</Picker>,
+		<Picker orientation="vertical" joined>{pickerList.airports}</Picker>,
+		<Picker disabled orientation="vertical" joined>{pickerList.airports}</Picker>,
+		<Picker width="small" orientation="vertical" joined>{pickerList.airports}</Picker>,
+		<Picker width="medium" orientation="vertical" joined>{pickerList.airports}</Picker>,
+		<Picker width="large" orientation="vertical" joined>{pickerList.airports}</Picker>
+	])
 ];
 
 export default PickerTests;
