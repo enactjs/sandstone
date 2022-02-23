@@ -243,7 +243,7 @@ const TabLayoutBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'tabLayout',
-		publicClassNames: ['tabLayout', 'tabs', 'content']
+		publicClassNames: ['tabLayout', 'tabs', 'content', 'tabsExpanded', 'vertical', 'collapsed', 'tab', 'tabGroup', 'button', 'client', 'bg', 'selected']
 	},
 
 	handlers: {
@@ -365,7 +365,8 @@ const TabLayoutBase = kind({
 			onSelect,
 			orientation,
 			selectedIndex: index,
-			tabs
+			tabs,
+            css
 		};
 
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.

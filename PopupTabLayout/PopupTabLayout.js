@@ -26,7 +26,7 @@ import Panels, {Panel} from '../Panels';
 import TabLayout, {TabLayoutContext, Tab} from '../TabLayout';
 import Popup from '../Popup';
 
-import css from './PopupTabLayout.module.less';
+import componentCss from './PopupTabLayout.module.less';
 
 // List all of the props from PopupTabLayout that we want to move from this component's root onto PopupTabLayout.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
@@ -253,15 +253,16 @@ const PopupTabLayoutBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'popupTabLayout'
+		css: componentCss,
+		className: 'popupTabLayout',
+        publicClassNames: ['popupTabLayout', 'tabLayout', 'tabs', 'tabsExpanded', 'content', 'panels', 'scrimTranslucent', 'collapsed', 'tabGroup', 'tab', 'vertical', 'button', 'selected', 'bg']
 	},
 
 	computed: {
-		className: ({scrimType, styler}) => styler.append(`scrim${cap(scrimType)}`)
+		className: ({collapsed, scrimType, styler}) => styler.append({collapsed}, `scrim${cap(scrimType)}`)
 	},
 
-	render: ({children, ...rest}) => {
+	render: ({children, css, ...rest}) => {
 		// Extract all relevant popup props
 		const popupProps = {};
 		for (const prop in rest) {
@@ -402,7 +403,7 @@ const TabPanelsBase = ({rtl, ... rest}) => {
 	const onTransition = useContext(TabLayoutContext);
 	const handlers = useHandlers(tabPanelsHandlers, {rtl, ...rest}, {onTransition});
 
-	return <Panels noCloseButton {...rest} css={css} {...handlers} />;
+	return <Panels noCloseButton {...rest} css={componentCss} {...handlers} />;
 };
 
 TabPanelsBase.propTypes = {
@@ -455,7 +456,7 @@ const TabPanel = ({spotlightId, ...rest}) => {
 	}, [spotlightId]);
 
 	return (
-		<Panel {...rest} css={css} hideChildren={false} spotlightId={spotlightId} />
+		<Panel {...rest} css={componentCss} hideChildren={false} spotlightId={spotlightId} />
 	);
 };
 
