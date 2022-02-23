@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import Group from '@enact/ui/Group';
@@ -19,66 +19,80 @@ export default {
 	component: 'SwitchItem'
 };
 
-export const WithLongText = () => (
+export const WithLongText = (args) => (
 	<div>
 		<SwitchItem
-			disabled={boolean('disabled', SwitchItem, false)}
-			inline={boolean('inline', SwitchItem, false)}
+			disabled={args['disabled']}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
-			{text('Long Text', SwitchItem, inputData.longText)}
+			{args['Long Text']}
 		</SwitchItem>
 		<SwitchItem
 			disabled
-			inline={boolean('inline', SwitchItem, false)}
+			inline={args['inline']}
 			onToggle={action('onToggle')}
 		>
-			{text('Disable Long Text', SwitchItem, inputData.disabledLong)}
+			{args['Disable Long Text']}
 		</SwitchItem>
 	</div>
 );
 
+boolean('disabled', WithLongText, SwitchItem, false);
+boolean('inline', WithLongText, SwitchItem, false);
+text('Long Text', WithLongText, SwitchItem, inputData.longText);
+text('Disable Long Text', WithLongText, SwitchItem, inputData.disabledLong);
+
 WithLongText.storyName = 'with Long Text';
 
-export const _Group = () => (
+export const _Group = (args) => (
 	<div>
 		<Heading showLine>{'Switch items with normal text in a group'}</Heading>
 		<Group
 			childComponent={SwitchItem}
 			itemProps={{
-				inline: boolean('ItemProps-Inline', SwitchItem, false),
-				disabled: boolean('disabled', SwitchItem, false)
+				inline: args['ItemProps-Inline'],
+				disabled: args['disabled']
 			}}
 			selectedProp="selected"
 			defaultSelected={1}
 			onSelect={action('onSelect')}
 		>
 			{[
-				text('Normal Text 1', SwitchItem, inputData.normalText + 1),
-				text('Normal Text 2', SwitchItem, inputData.normalText + 2),
-				text('Normal Text 3', SwitchItem, inputData.normalText + 3)
+				args['Normal Text 1'],
+				args['Normal Text 2'],
+				args['Normal Text 3']
 			]}
 		</Group>
 		<Heading showLine>{'Switch items with long text in a group'}</Heading>
 		<Group
 			childComponent={SwitchItem}
 			itemProps={{
-				inline: boolean('ItemProps-Inline', SwitchItem, false),
-				disabled: boolean('disabled', SwitchItem, false)
+				inline: args['ItemProps-Inline'],
+				disabled: args['disabled']
 			}}
 			childSelect="onToggle"
 			selectedProp="selected"
-			disabled={boolean('disabled', SwitchItem, false)}
+			disabled={args['disabled']}
 			defaultSelected={1}
 			onSelect={action('onSelect')}
 		>
 			{[
-				text('Long Text 1', SwitchItem, 'First ' + inputData.longText),
-				text('Long Text 2', SwitchItem, 'Second ' + inputData.longText),
-				text('Long Text 3', SwitchItem, 'Third ' + inputData.longText)
+				args['Long Text 1'],
+				args['Long Text 2'],
+				args['Long Text 3']
 			]}
 		</Group>
 	</div>
 );
+
+boolean('ItemProps-Inline', _Group, SwitchItem, false);
+boolean('disabled', _Group, SwitchItem, false);
+text('Normal Text 1', _Group, SwitchItem, inputData.normalText + 1);
+text('Normal Text 2', _Group, SwitchItem, inputData.normalText + 2);
+text('Normal Text 3', _Group, SwitchItem, inputData.normalText + 3);
+text('Long Text 1', _Group, SwitchItem, 'First ' + inputData.longText);
+text('Long Text 2', _Group, SwitchItem, 'Second ' + inputData.longText);
+text('Long Text 3', _Group, SwitchItem, 'Third ' + inputData.longText);
 
 _Group.storyName = 'Group';

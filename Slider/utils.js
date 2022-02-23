@@ -35,6 +35,14 @@ const calcStep = (knobStep, step) => {
 	return s || 1;
 };
 
+const isIncrementByWheel = ({deltaY}) => {
+	return deltaY < 0;
+};
+
+const isDecrementByWheel = ({deltaY}) => {
+	return deltaY > 0;
+};
+
 const isIncrement = ({keyCode}, {orientation}) => {
 	return orientation === 'vertical' ? is('up', keyCode) : is('right', keyCode);
 };
@@ -51,14 +59,22 @@ const isNotMin = (ev, {min, value = min}) => {
 	return value !== min;
 };
 
+const checkInterval = (ev, {wheelInterval}, context) => {
+	if (ev.timeStamp - context.lastWheelTimeStamp < wheelInterval) {
+		return false;
+	}
+	context.lastWheelTimeStamp = ev.timeStamp;
+	return true;
+};
+
 const emitChange = (direction) =>  adaptEvent(
 	(ev, {knobStep, max, min, step, value = min}) => {
 		const newValue = clamp(min, max, value + (calcStep(knobStep, step) * direction));
 
 		return {
+			type: 'onChange',
 			value: newValue,
-			proportion: calcProportion(min, max, newValue),
-			type: 'onChange'
+			proportion: calcProportion(min, max, newValue)
 		};
 	},
 	forward('onChange')
@@ -85,6 +101,26 @@ const handleDecrement = handle(
 	stop,
 	handleAcceleratedKeyDown,
 	isNotMin,
+	emitChange(-1)
+);
+
+const handleIncrementByWheel = handle(
+	isActive,
+	isIncrementByWheel,
+	preventDefault,
+	stop,
+	isNotMax,
+	checkInterval,
+	emitChange(1)
+);
+
+const handleDecrementByWheel = handle(
+	isActive,
+	isDecrementByWheel,
+	preventDefault,
+	stop,
+	isNotMin,
+	checkInterval,
 	emitChange(-1)
 );
 
@@ -116,5 +152,7 @@ export {
 	forwardSpotlightEvents,
 	emitChange,
 	handleDecrement,
-	handleIncrement
+	handleIncrement,
+	handleDecrementByWheel,
+	handleIncrementByWheel
 };

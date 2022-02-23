@@ -5,7 +5,6 @@ describe('WizardPanels', function () {
 	const wizardPanels = Page.components.wizardPanels;
 
 	function getFocusedTextContent () {
-		// eslint-disable-next-line no-undef
 		return document.activeElement.textContent;
 	}
 
@@ -77,7 +76,7 @@ describe('WizardPanels', function () {
 
 		});
 
-		it('should focus an eligible navigation button when leaving the contents or footer via 5-way left or right - [GT-33301]', function () {
+		it('should focus an eligible navigation button when leaving the contents or footer via 5-way left or right - [QWT-2113]', function () {
 			expect('OK').to.be.equal(browser.execute(getFocusedTextContent));
 
 			Page.spotlightRight();
@@ -107,7 +106,7 @@ describe('WizardPanels', function () {
 	});
 
 	describe('Focus Behavior', function () {
-		it('should focus a component within the body on mount - [GT-32978]', function () {
+		it('should focus a component within the body on mount - [QWT-2117]', function () {
 			wizardPanels.waitForEnter(1);
 
 			const expected = 'OK';
@@ -116,7 +115,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should focus a navigation button on mount if no focusable elements exist in the body - [GT-32979]', function () {
+		it('should focus a navigation button on mount if no focusable elements exist in the body - [QWT-2116]', function () {
 			Page.open('?index=3');
 
 			wizardPanels.waitForEnter(4);
@@ -124,7 +123,7 @@ describe('WizardPanels', function () {
 			expect(wizardPanels.prevButton.isFocused()).to.be.true();
 		});
 
-		it('should select contents over buttons - [GT-29594]', function () {
+		it('should select contents over buttons - [QWT-2260]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);
@@ -135,7 +134,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should select buttons over header - [GT-29595]', function () {
+		it('should select buttons over header - [QWT-2259]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);
@@ -150,7 +149,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should select header when no other options are available - [GT-29596]', function () {
+		it('should select header when no other options are available - [QWT-2258]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);
@@ -166,7 +165,7 @@ describe('WizardPanels', function () {
 			expect(wizardPanels.prevButton.isFocused()).to.be.true();
 		});
 
-		it('should select `.spottable-default` when it exists - [GT-30541]', function () {
+		it('should select `.spottable-default` when it exists - [QWT-2236]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);

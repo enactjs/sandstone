@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-no-bind */
 
 import {is} from '@enact/core/keymap';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Popup, {PopupBase} from '@enact/sandstone/Popup';
@@ -12,6 +13,7 @@ import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase} from '@enact/sandstone/TabLayout';
 import Group from '@enact/ui/Group';
+import PropTypes from 'prop-types';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
@@ -39,8 +41,8 @@ export default {
 	component: 'PopupTabLayout'
 };
 
-export const _PopupTabLayout = () => {
-	const includeIcons = boolean('include icons', Config, true);
+const PopupTabLayoutSamplesBase = ({args, rtl}) => {
+	const includeIcons = args['include icons'];
 
 	const [open, setOpenState] = useState(false);
 	const toggleOpen = () => setOpenState(!open);
@@ -64,7 +66,7 @@ export const _PopupTabLayout = () => {
 	const handleKeyDown = (setState, state) => (ev) => {
 		const {keyCode} = ev;
 
-		if (isRight(keyCode)) {
+		if (!rtl && isRight(keyCode)) {
 			navNext(setState, state, 'onNext')();
 		}
 	};
@@ -78,23 +80,13 @@ export const _PopupTabLayout = () => {
 			<PopupTabLayout
 				open={open}
 				onClose={handleClose}
-				noAnimation={boolean('noAnimation', Config)}
-				noAutoDismiss={boolean('noAutoDismiss', Config)}
+				noAnimation={args['noAnimation']}
+				noAutoDismiss={args['noAutoDismiss']}
 				onTabAnimationEnd={action('onTabAnimationEnd')}
 				onHide={action('onHide')}
 				onShow={action('onShow')}
-				scrimType={select(
-					'scrimType',
-					['none', 'translucent', 'transparent'],
-					Config,
-					'translucent'
-				)}
-				spotlightRestrict={select(
-					'spotlightRestrict',
-					['self-first', 'self-only'],
-					Config,
-					'self-only'
-				)}
+				scrimType={args['scrimType']}
+				spotlightRestrict={args['spotlightRestrict']}
 			>
 				<Tab
 					icon={includeIcons ? 'picture' : null}
@@ -194,6 +186,35 @@ export const _PopupTabLayout = () => {
 		</div>
 	);
 };
+
+PopupTabLayoutSamplesBase.propTypes = {
+	args: PropTypes.object,
+	rtl: PropTypes.bool
+};
+
+const PopupTabLayoutSamples = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	PopupTabLayoutSamplesBase
+);
+export const _PopupTabLayout = (args) => <PopupTabLayoutSamples args={args} />;
+
+boolean('include icons', _PopupTabLayout, Config, true);
+boolean('noAnimation', _PopupTabLayout, Config);
+boolean('noAutoDismiss', _PopupTabLayout, Config);
+select(
+	'scrimType',
+	_PopupTabLayout,
+	['none', 'translucent', 'transparent'],
+	Config,
+	'translucent'
+);
+select(
+	'spotlightRestrict',
+	_PopupTabLayout,
+	['self-first', 'self-only'],
+	Config,
+	'self-only'
+);
 
 _PopupTabLayout.storyName = 'PopupTabLayout';
 _PopupTabLayout.parameters = {

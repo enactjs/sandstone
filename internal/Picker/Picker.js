@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import {forward, stop, stopImmediate} from '@enact/core/handle';
+import {forward, forwardCustom, stop, stopImmediate} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
 import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
@@ -9,16 +9,14 @@ import Touchable from '@enact/ui/Touchable';
 import {SlideLeftArranger, SlideTopArranger, ViewManager} from '@enact/ui/ViewManager';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import PropTypes from 'prop-types';
-import equals from 'ramda/src/equals';
 import {Component as ReactComponent} from 'react';
 import ReactDOM from 'react-dom';
-import shouldUpdate from 'recompose/shouldUpdate';
 
 import Skinnable from '../../Skinnable';
 
 import $L from '../$L';
 import {validateRange, validateStepped} from '../validators';
-import {extractVoiceProps} from '../util';
+import {extractVoiceProps, onlyUpdateForProps} from '../util';
 
 import PickerButton from './PickerButton';
 import SpottablePicker from './SpottablePicker';
@@ -40,12 +38,7 @@ const isUp = is('up');
 const Div = Touchable('div');
 const SpottableDiv = Touchable(SpottablePicker);
 
-const PickerViewManager = shouldUpdate((props, nextProps) => {
-	return (
-		props.index !== nextProps.index ||
-		!equals(props.children, nextProps.children)
-	);
-})(ViewManager);
+const PickerViewManager = onlyUpdateForProps(ViewManager, ['index', 'children']);
 
 const wrapRange = (min, max, value) => {
 	if (value > max) {
@@ -67,7 +60,6 @@ const selectDecIcon = selectIcon('decrementIcon', 'triangledown', 'triangleleft'
 const forwardBlur = forward('onBlur'),
 	forwardFocus = forward('onFocus'),
 	forwardKeyDown = forward('onKeyDown'),
-	forwardMouseDown = forward('onMouseDown'),
 	forwardKeyUp = forward('onKeyUp'),
 	forwardWheel = forward('onWheel');
 
@@ -559,14 +551,6 @@ const PickerBase = class extends ReactComponent {
 
 	emulateMouseUp = new Job(this.clearPressedState, 175);
 
-	handleMouseDown = (ev) => {
-		const {joined, orientation} = this.props;
-		forwardMouseDown(ev, this.props);
-
-		if (joined && orientation === 'horizontal') {
-			this.setIncPickerButtonPressed();
-		}
-	};
 
 	handleUp = () => {
 		if (this.props.joined && (this.pickerButtonPressed !== 0 || this.state.pressed !== 0)) {
@@ -576,6 +560,10 @@ const PickerBase = class extends ReactComponent {
 
 	handleDown = () => {
 		const {joined, orientation} = this.props;
+
+		if (joined && orientation === 'horizontal') {
+			this.setIncPickerButtonPressed();
+		}
 
 		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
@@ -667,13 +655,13 @@ const PickerBase = class extends ReactComponent {
 			} else if (isHorizontal) {
 				this.setIncPickerButtonPressed();
 			} else if (orientation === 'horizontal' && isDown(keyCode) && onSpotlightDown) {
-				onSpotlightDown(ev);
+				forwardCustom('onSpotlightDown')(null, this.props);
 			} else if (orientation === 'horizontal' && isUp(keyCode) && onSpotlightUp) {
-				onSpotlightUp(ev);
+				forwardCustom('onSpotlightUp')(null, this.props);
 			} else if (orientation === 'vertical' && isLeft(keyCode) && onSpotlightLeft) {
-				onSpotlightLeft(ev);
+				forwardCustom('onSpotlightLeft')(null, this.props);
 			} else if (orientation === 'vertical' && isRight(keyCode) && onSpotlightRight) {
-				onSpotlightRight(ev);
+				forwardCustom('onSpotlightRight')(null, this.props);
 			}
 		}
 	};
@@ -719,7 +707,7 @@ const PickerBase = class extends ReactComponent {
 				Spotlight.setPointerMode(false);
 				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.incrementer}`));
 			} else {
-				forward(`onSpotlight${cap(direction)}`, ev, this.props);
+				forwardCustom(`onSpotlight${cap(direction)}`)(ev, this.props);
 			}
 		}
 	};
@@ -747,7 +735,7 @@ const PickerBase = class extends ReactComponent {
 				Spotlight.setPointerMode(false);
 				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.decrementer}`));
 			} else {
-				forward(`onSpotlight${cap(direction)}`, ev, this.props);
+				forwardCustom(`onSpotlight${cap(direction)}`)(ev, this.props);
 			}
 		}
 	};
@@ -959,7 +947,6 @@ const PickerBase = class extends ReactComponent {
 				onKeyDown={this.handleKeyDown}
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
-				onMouseDown={this.handleMouseDown}
 				onMouseLeave={this.clearPressedState}
 				orientation={orientation}
 				ref={this.initContainerRef}

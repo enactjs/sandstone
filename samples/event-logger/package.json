@@ -1,0 +1,37 @@
+{
+	"name": "event-logger",
+	"version": "1.0.0",
+	"description": "Enact event tracking application.",
+	"author": "",
+	"main": "src/index.js",
+	"scripts": {
+		"serve": "enact serve",
+		"pack": "enact pack",
+		"pack-p": "enact pack -p",
+		"watch": "enact pack --watch",
+		"clean": "enact clean",
+		"lint": "enact lint --strict .",
+		"test": "enact test",
+		"test-watch": "enact test --watch"
+	},
+	"license": "Apache-2.0",
+	"private": true,
+	"repository": "",
+	"enact": {
+		"title": "Event Logger",
+		"theme": "sandstone"
+	},
+	"dependencies": {
+		"@enact/core": "^4.1.2",
+		"@enact/i18n": "^4.1.2",
+		"@enact/sandstone": "../../",
+		"@enact/spotlight": "^4.1.2",
+		"@enact/ui": "^4.1.2",
+		"ilib": "^14.4.0",
+		"prop-types": "^15.7.2",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1",
+		"react-redux": "^7.2.0",
+		"redux": "^4.0.5"
+	}
+}

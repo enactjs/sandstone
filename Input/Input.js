@@ -1,4 +1,4 @@
-import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
+import {handle, forKey, forward, forwardCustom} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
@@ -26,7 +26,7 @@ import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFiel
 import componentCss from './Input.module.less';
 
 const prepareInputEventPayload = ev => ({value: ev.target.value});
-const isPasswordType = type => type === 'password' || type === 'passwordnumber';
+const isPasswordType = type => type && type.includes('password');
 
 /**
  * Base component for providing text input in the form of a popup without button.
@@ -72,6 +72,14 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * Sets spotlightId to InputField.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		inputFieldSpotlightId: PropTypes.string,
 
 		/**
 		 * Indicates [value]{@link sandstone/Input.InputPopupBase.value} is invalid and shows
@@ -140,6 +148,14 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		noBackButton: PropTypes.bool,
+
+		/**
+		 * Omits the submit button.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noSubmitButton: PropTypes.bool,
 
 		/**
 		 * The type of numeric input to use.
@@ -260,11 +276,11 @@ const InputPopupBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber'|'url')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'url'|'tel'|'passwordtel')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
 		 * Value of the input.
@@ -293,7 +309,7 @@ const InputPopupBase = kind({
 
 	handlers: {
 		onShow: handle(
-			forward('onShow'),
+			forwardCustom('onShow'),
 			(ev, {type}) => !type.includes('number'),
 			() => Spotlight.setPointerMode(false)
 		),
@@ -310,11 +326,8 @@ const InputPopupBase = kind({
 			forKey('enter'),
 			// Ensure that the source of the enter is the <input>
 			({target}) => target.nodeName === 'INPUT',
-			adaptEvent(
-				prepareInputEventPayload,
-				forward('onComplete')
-			),
-			forward('onClose')
+			forwardCustom('onComplete', prepareInputEventPayload),
+			forwardCustom('onClose')
 		)
 	},
 
@@ -334,7 +347,9 @@ const InputPopupBase = kind({
 		backButtonAriaLabel,
 		children,
 		css,
+		inputFieldSpotlightId,
 		noBackButton,
+		noSubmitButton,
 		numberInputField,
 		onBeforeChange,
 		onClose,
@@ -410,6 +425,7 @@ const InputPopupBase = kind({
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
 								numberInputField={numberInputField}
+								noSubmitButton={noSubmitButton}
 							/> :
 							<InputField
 								{...inputProps}
@@ -425,6 +441,7 @@ const InputPopupBase = kind({
 								placeholder={placeholder}
 								onBeforeChange={onBeforeChange}
 								onKeyDown={onInputKeyDown}
+								spotlightId={inputFieldSpotlightId}
 							/>
 						}
 					</Cell>
@@ -484,11 +501,11 @@ const InputBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {('text'|'password'|'number'|'passwordnumber'|'url')}
+		 * @type {('text'|'password'|'number'|'passwordnumber'|'url'|'tel'|'passwordtel')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
 		 * Value of the input.
@@ -500,7 +517,8 @@ const InputBase = kind({
 	},
 
 	defaultProps: {
-		placeholder: '-'
+		placeholder: '-',
+		type: 'text'
 	},
 
 	handlers: {

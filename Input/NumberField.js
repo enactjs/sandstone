@@ -1,17 +1,17 @@
+import {handle, adaptEvent, forwardCustom, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
-import PropTypes from 'prop-types';
-import {Fragment} from 'react';
-import compose from 'ramda/src/compose';
-import Changeable from '@enact/ui/Changeable';
-import Repeater from '@enact/ui/Repeater';
-import Layout, {Cell} from '@enact/ui/Layout';
-import Tooltip from '../TooltipDecorator/Tooltip';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Changeable from '@enact/ui/Changeable';
+import Layout, {Cell} from '@enact/ui/Layout';
+import Repeater from '@enact/ui/Repeater';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import {Fragment} from 'react';
 
 import Button from '../Button';
 import Icon from '../Icon';
 import $L from '../internal/$L';
+import Tooltip from '../TooltipDecorator/Tooltip';
 
 import Keypad from './Keypad';
 import {DEFAULT_LENGTH, SEPARATE_DIGITS_LIMIT, convertToPasswordFormat} from './util';
@@ -74,6 +74,7 @@ const NumberFieldBase = kind({
 		invalidMessage: PropTypes.string,
 		maxLength: PropTypes.number,
 		minLength: PropTypes.number,
+		noSubmitButton: PropTypes.bool,
 		numberInputField: PropTypes.string,
 		onBeforeChange: PropTypes.func,
 		onComplete: PropTypes.func,
@@ -105,8 +106,8 @@ const NumberFieldBase = kind({
 					}),
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
-					forwardWithPrevent('onBeforeChange'),
-					forward('onChange'),
+					adaptEvent(({value}) => ({type: 'onBeforeChange', value}), forwardWithPrevent('onBeforeChange')),
+					forwardCustom('onChange', (ev) => (ev)),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
 					({value: updatedValue}, {maxLength, minLength, numberInputField}) => {
 						const
@@ -114,7 +115,7 @@ const NumberFieldBase = kind({
 							autoSubmit = getSeparated(numberInputField, maxLength) && minLength === maxLength;
 						return autoSubmit && updatedLength >= maxLength;
 					},
-					forward('onComplete')
+					forwardCustom('onComplete', (ev) => (ev))
 				)
 			)
 		),
@@ -123,15 +124,15 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
 				handle(
-					forwardWithPrevent('onBeforeChange'),
-					forward('onChange')
+					adaptEvent(({value}) => ({type: 'onBeforeChange', value}), forwardWithPrevent('onBeforeChange')),
+					forwardCustom('onChange', (ev) => (ev))
 				)
 			)
 		),
 		onSubmit: handle(
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength)}),
-				forward('onComplete')
+				forwardCustom('onComplete', (ev) => (ev))
 			)
 		)
 	},
@@ -152,10 +153,10 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, disabled, invalid, maxLength, minLength, onSubmit, value, numberInputField}) => {
+		submitButton: ({css, disabled, invalid, maxLength, minLength, noSubmitButton, onSubmit, value, numberInputField}) => {
 			const isDisabled = disabled || invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
-			if (minLength !== maxLength || !getSeparated(numberInputField, maxLength)) {
+			if (!noSubmitButton && (minLength !== maxLength || !getSeparated(numberInputField, maxLength))) {
 				return <Button className={css.submitButton} disabled={isDisabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
@@ -175,6 +176,7 @@ const NumberFieldBase = kind({
 		delete rest.invalid;
 		delete rest.invalidMessage;
 		delete rest.minLength;
+		delete rest.noSubmitButton;
 		delete rest.onBeforeChange;
 		delete rest.onComplete;
 		delete rest.onSubmit;

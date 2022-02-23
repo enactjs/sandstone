@@ -14,8 +14,9 @@ import {Component} from 'react';
 import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
-import SpotlightRootDecorator from '@enact/spotlight/SpotlightRootDecorator';
+import SpotlightRootDecorator, {activateInputType, getInputType as getLastInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
 import LS2Request from '@enact/webos/LS2Request';
+import PropTypes from 'prop-types';
 
 import Skinnable from '../Skinnable';
 
@@ -144,11 +145,11 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
 /**
  * A higher-order component that applies Sandstone theming to an application.
  *
- * It also applies [floating layer]{@link ui/FloatingLayer.FloatingLayerDecorator}, [resolution
- * independence]{@link ui/resolution.ResolutionDecorator}, [skin
- * support]{@link sandstone/Skinnable}, [spotlight]{@link spotlight.SpotlightRootDecorator}, and
- * [internationalization support]{@link i18n/I18nDecorator.I18nDecorator}. It is meant to be applied
- * to the root element of an app.
+ * It also applies [floating layer]{@link ui/FloatingLayer.FloatingLayerDecorator},
+ * [resolution independence]{@link ui/resolution.ResolutionDecorator},
+ * [skin support]{@link sandstone/Skinnable}, [spotlight]{@link spotlight.SpotlightRootDecorator}, and
+ * [internationalization support]{@link i18n/I18nDecorator.I18nDecorator}.
+ * It is meant to be applied to the root element of an app.
  *
  * [Skins]{@link sandstone/Skinnable} provide a way to change the coloration of your app. The
  * currently supported skins for Sandstone are "sandstone" (the default, dark skin) and
@@ -177,7 +178,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		[css.bg]: !overlay
 	});
 
-	let spotlightInputType = {};
+	let requestInputType = null;
 
 	let App = Wrapped;
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
@@ -200,20 +201,8 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			)
 		);
 	}
-	if (spotlight) {
-		App = SpotlightRootDecorator({
-			getInputTypeSetter: (setInputType, activateInputType) => {
-				spotlightInputType = {
-					set: setInputType,
-					activate: activateInputType,
-					request: null
-				};
-			},
-			noAutoFocus,
-			rootId // set the DOM node ID of the React DOM tree root
-		}, App);
-	}
-	if (skin) App = Skinnable({defaultSkin: 'neutral'}, App);
+	if (spotlight) App = SpotlightRootDecorator({noAutoFocus}, App);
+	if (skin) App = Skinnable(App);
 	if (accessible) App = AccessibilityDecorator(App);
 
 	// add webOS-specific key maps
@@ -257,37 +246,49 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const Decorator = class extends Component {
 		static displayName = 'ThemeDecorator';
 
+		static propTypes = /** @lends sandstone/ThemeDecorator.prototype */ {
+			/**
+			 * Assign a skin.
+			 *
+			 * @type {String}
+			 * @private
+			 */
+			skin: PropTypes.string
+		};
+
 		componentDidMount () {
 			if (spotlight && platform.webos) {
-				spotlightInputType.activate(true);
-				spotlightInputType.request = new LS2Request().send({
+				activateInputType(true);
+				requestInputType = new LS2Request().send({
 					service: 'luna://com.webos.surfacemanager',
 					method: 'getLastInputType',
 					subscribe: true,
 					onSuccess: function (res) {
-						spotlightInputType.set(res.lastInputType);
+						setInputType(res.lastInputType);
 					},
 					onFailure: function () {
-						spotlightInputType.activate(false);
+						activateInputType(false);
 					}
 				});
 			}
 		}
 
 		componentWillUnmount () {
-			if (spotlightInputType.request) {
-				spotlightInputType.request.cancel();
+			if (requestInputType) {
+				requestInputType.cancel();
 			}
 		}
 
 		render () {
-			const className = classNames(css.root, this.props.className, 'enact-unselectable', {
+			const {skin: skinProp, ...rest} = this.props;
+			const skinName = skinProp || 'neutral';
+			const className = classNames(css.root, this.props.className, 'sandstone-theme', 'enact-unselectable', {
 				[bgClassName]: !float,
 				'enact-fit': !disableFullscreen
 			});
 
 			return (
-				<App {...this.props} className={className} />
+				<App {...rest} skin={skinName} className={className} />
 			);
 		}
 	};
@@ -296,4 +297,4 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 export default ThemeDecorator;
-export {ThemeDecorator};
+export {ThemeDecorator, getLastInputType};

@@ -1,6 +1,6 @@
 {
   "name": "@enact/sandstone",
-  "version": "2.0.0-alpha.3",
+  "version": "2.1.2",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
@@ -37,28 +37,27 @@
     "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^4.0.0",
-    "@enact/i18n": "^4.0.0",
-    "@enact/spotlight": "^4.0.0",
-    "@enact/ui": "^4.0.0",
-    "@enact/webos": "^4.0.0",
-    "classnames": "^2.2.5",
-    "invariant": "^2.2.2",
-    "prop-types": "^15.7.2",
-    "ramda": "^0.24.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "recompose": "^0.30.0",
-    "warning": "^3.0.0",
-    "ilib": "^14.4.0"
+    "@enact/core": "^4.1.2",
+    "@enact/i18n": "^4.1.2",
+    "@enact/spotlight": "^4.1.2",
+    "@enact/ui": "^4.1.2",
+    "@enact/webos": "^4.1.2",
+    "classnames": "^2.3.1",
+    "invariant": "^2.2.4",
+    "prop-types": "^15.8.0",
+    "ramda": "^0.27.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "warning": "^4.0.3",
+    "ilib": "^14.11.1"
   },
   "peerDependencies": {
-    "ilib": "^14.4.0 || ^14.6.0-webos"
+    "ilib": "^14.11.1 || ^14.11.1-webos1"
   },
   "devDependencies": {
-    "@enact/docs-utils": "^0.3.3",
-    "@enact/ui-test-utils": "^0.6.0",
-    "eslint-config-enact-proxy": "^1.0.1",
-    "ilib": "^14.4.0"
+    "@enact/docs-utils": "^0.3.6",
+    "@enact/ui-test-utils": "^0.7.0",
+    "eslint-config-enact-proxy": "^1.0.3",
+    "ilib": "^14.11.1"
   }
 }

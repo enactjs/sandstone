@@ -207,6 +207,10 @@
 	&.iconOnly {
 		.client {
 			padding: 0;
+
+			.marquee {
+				display: none;
+			}
 		}
 
 		&.iconAfter,
@@ -316,6 +320,8 @@
 		}
 
 		&.selected {
+			color: @sand-button-selected-text-color;
+
 			.bg {
 				.sand-button-selected-colors();
 			}

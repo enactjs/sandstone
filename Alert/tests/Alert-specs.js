@@ -1,5 +1,7 @@
-import {mount, shallow} from 'enzyme';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+
 import {Alert, AlertBase, AlertImage} from '../Alert';
 import Button from '../../Button';
 
@@ -7,67 +9,76 @@ const FloatingLayerController = FloatingLayerDecorator('div');
 
 describe('Alert', () => {
 	test('should be rendered opened if open is set to true', () => {
-		const alert = mount(
+		render(
 			<FloatingLayerController>
 				<Alert open />
 			</FloatingLayerController>
 		);
+		const alert = screen.getByRole('alert');
 
-		const expected = true;
-		const actual = alert.find('FloatingLayer').prop('open');
-
-		expect(actual).toBe(expected);
+		expect(alert).toBeInTheDocument();
 	});
 
 	test('should not be rendered if open is set to false', () => {
-		const alert = mount(
+		render(
 			<FloatingLayerController>
 				<Alert />
 			</FloatingLayerController>
 		);
+		const alert = screen.queryByRole('alert');
 
-		const expected = false;
-		const actual = alert.find('FloatingLayer').prop('open');
-
-		expect(actual).toBe(expected);
+		expect(alert).toBeNull();
 	});
 
 	test('should render title', () => {
-		const alert = shallow(
-			<AlertBase open id="test" title="alert title" />
+		render(
+			<FloatingLayerController>
+				<AlertBase open title="alert title" />
+			</FloatingLayerController>
+
 		);
+		const alert = screen.getByRole('alert');
 
 		const expected = 'alert title';
-		const actual = alert.find('#test_title').prop('children');
 
-		expect(actual).toBe(expected);
+		expect(alert).toHaveTextContent(expected);
 	});
 
 	test('should render content', () => {
-		const alert = shallow(
-			<AlertBase open id="test" title="alert title">
-				{'alert message'}
-			</AlertBase>
-		);
-		const expected = 'alert message';
-		const actual = alert.find('#test_content').prop('children');
+		render(
+			<FloatingLayerController>
+				<AlertBase open title="alert title">
+					{'alert message'}
+				</AlertBase>
+			</FloatingLayerController>
 
-		expect(actual).toBe(expected);
+		);
+		const alert = screen.getByRole('alert');
+
+		const actual = alert.textContent;
+		const expected = 'alert message';
+
+		expect(actual).toContain(expected);
 	});
 
 	test('should render to empty string if children is not set', () => {
-		const alert = shallow(
-			<AlertBase open id="test" title="alert title" />
+		render(
+			<FloatingLayerController>
+				<AlertBase open title="alert title" />
+			</FloatingLayerController>
+
 		);
-		const actual = alert.find('#test_content').prop('children');
+		const alert = screen.getByRole('alert');
+
+		const actual = alert.querySelector('#undefined_content').hasChildNodes();
 
 		expect(actual).toBeFalsy();
 	});
 
-	test('should render icon type of image if `image` prop is set to `icon`', () => {
-		const alert = mount(
+	test('should have `icon` className if `type` prop is set to `icon`', () => {
+		render(
 			<FloatingLayerController>
-				<Alert open id="test" title="alert title">
+				<Alert open title="alert title">
 					<image>
 						<AlertImage src="testIconImage.png" type="icon" />
 					</image>
@@ -77,16 +88,17 @@ describe('Alert', () => {
 				</Alert>
 			</FloatingLayerController>
 		);
-		const expected = 'testIconImage.png';
-		const actual = alert.find('AlertImage').prop('src');
+		const image = screen.getAllByRole('img')[0];
 
-		expect(actual).toBe(expected);
+		const expectedClass = 'icon';
+
+		expect(image).toHaveClass(expectedClass);
 	});
 
-	test('should render icon type of image if `image` prop is set to `thumbnail`', () => {
-		const alert = mount(
+	test('should have `thumbnail` className if `type` prop is set to `thumbnail`', () => {
+		render(
 			<FloatingLayerController>
-				<Alert open id="test" title="alert title">
+				<Alert open title="alert title">
 					<image>
 						<AlertImage src="testThumbnailImage.png" type="thumbnail" />
 					</image>
@@ -96,62 +108,77 @@ describe('Alert', () => {
 				</Alert>
 			</FloatingLayerController>
 		);
-		const expected = 'testThumbnailImage.png';
-		const actual = alert.find('AlertImage').prop('src');
+		const image = screen.getAllByRole('img')[0];
 
-		expect(actual).toBe(expected);
+		const expectedClass = 'thumbnail';
+
+		expect(image).toHaveClass(expectedClass);
 	});
 });
 
 describe('AlertOverlay specs', () => {
 	test('should be rendered opened if open is set to true', () => {
-		const alertOverlay = mount(
+		render(
 			<FloatingLayerController>
-				<Alert type="overlay" open />
+				<Alert open type="overlay" />
 			</FloatingLayerController>
 		);
+		const alert = screen.getByRole('alert');
 
-		const expected = true;
-		const actual = alertOverlay.find('FloatingLayer').prop('open');
-
-		expect(actual).toBe(expected);
+		expect(alert).toBeInTheDocument();
 	});
 
 	test('should not be rendered if open is set to false', () => {
-		const alertOverlay = mount(
+		render(
 			<FloatingLayerController>
 				<Alert type="overlay" />
 			</FloatingLayerController>
 		);
+		const alert = screen.queryByRole('alert');
 
-		const expected = false;
-		const actual = alertOverlay.find('FloatingLayer').prop('open');
-
-		expect(actual).toBe(expected);
+		expect(alert).toBeNull();
 	});
 
 	test('should render content', () => {
-		const alertOverlay = shallow(
-			<Alert type="overlay" open>
-				<span>
-					this is alert overlay.
-				</span>
-				<buttons>
-					<Button>yes</Button>
-					<Button>yes</Button>
-				</buttons>
-			</Alert>
+		render(
+			<FloatingLayerController>
+				<Alert open type="overlay">
+					<span>
+						this is alert overlay.
+					</span>
+					<buttons>
+						<Button>yes</Button>
+						<Button>yes</Button>
+					</buttons>
+				</Alert>
+			</FloatingLayerController>
 		);
-		const expected = 'this is alert overlay.';
-		const actual = alertOverlay.find('span').prop('children');
+		const alert = screen.getByRole('alert');
 
-		expect(actual).toBe(expected);
+		const actual = alert.textContent;
+		const expected = 'this is alert overlay.';
+
+		expect(actual).toContain(expected);
 	});
 
-	test('should render icon type of image if `image` prop is set to `icon`', () => {
-		const alertOverlay = mount(
+	test('should render to empty string if children is not set', () => {
+		render(
 			<FloatingLayerController>
-				<Alert type="overlay" open>
+				<AlertBase open type="overlay" />
+			</FloatingLayerController>
+
+		);
+		const alert = screen.getByRole('alert');
+
+		const actual = alert.querySelector('#undefined_content').hasChildNodes();
+
+		expect(actual).toBeFalsy();
+	});
+
+	test('should have `icon` classname if `type` prop is set to `icon`', () => {
+		render(
+			<FloatingLayerController>
+				<Alert open type="overlay">
 					<image>
 						<AlertImage src="testIconImage.png" type="icon" />
 					</image>
@@ -161,16 +188,17 @@ describe('AlertOverlay specs', () => {
 				</Alert>
 			</FloatingLayerController>
 		);
-		const expected = 'testIconImage.png';
-		const actual = alertOverlay.find('AlertImage').prop('src');
+		const image = screen.getAllByRole('img')[0];
 
-		expect(actual).toBe(expected);
+		const expectedClass = 'icon';
+
+		expect(image).toHaveClass(expectedClass);
 	});
 
-	test('should render icon type of image if `image` prop is set to `thumbnail`', () => {
-		const alertOverlay = mount(
+	test('should have `icon` classname if `type` prop is set to `thumbnail`', () => {
+		render(
 			<FloatingLayerController>
-				<Alert type="overlay" open>
+				<Alert open type="overlay">
 					<image>
 						<AlertImage src="testThumbnailImage.png" type="thumbnail" />
 					</image>
@@ -180,9 +208,10 @@ describe('AlertOverlay specs', () => {
 				</Alert>
 			</FloatingLayerController>
 		);
-		const expected = 'testThumbnailImage.png';
-		const actual = alertOverlay.find('AlertImage').prop('src');
+		const image = screen.getAllByRole('img')[0];
 
-		expect(actual).toBe(expected);
+		const expectedClass = 'thumbnail';
+
+		expect(image).toHaveClass(expectedClass);
 	});
 });

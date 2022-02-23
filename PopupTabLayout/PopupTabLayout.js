@@ -5,13 +5,15 @@
  * @exports PopupTabLayout
  * @exports Tab
  * @exports TabPanels
+ * @exports TabPanelsBase
  * @exports TabPanel
  */
 
-import {forKey, forward, handle, stop} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardCustom, handle, stop} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
 import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
@@ -289,9 +291,10 @@ const PopupTabLayoutBase = kind({
 /**
  * Add behaviors to PopupTabLayout.
  *
- * @hoc
+ * @class PopupTabLayoutDecorator
  * @memberof sandstone/PopupTabLayout
  * @mixes sandstone/Skinnable.Skinnable
+ * @hoc
  * @public
  */
 const PopupTabLayoutDecorator = compose(
@@ -363,15 +366,9 @@ const tabPanelsHandlers = {
 	),
 	onKeyDown: handle(
 		forward('onKeyDown'),
+		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
-		(ev) => {
-			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
-				ev.stopPropagation();
-				return false;
-			}
-			return true;
-		},
 		({target}) => {
 			const next = getTargetByDirectionFromElement('left', target);
 			if (next === null || (next && !getContainerNode(getContainersForNode(target).pop()).contains(next))) {
@@ -379,25 +376,52 @@ const tabPanelsHandlers = {
 			}
 			return false;
 		},
-		forward('onBack'),
+		(ev) => {
+			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
+				ev.stopPropagation();
+				return false;
+			}
+			return document.querySelector(`section.${css.body}`).contains(ev.target);
+		},
+		forwardCustom('onBack'),
 		stop
 	)
 };
 
 /**
- * A customized version of Panels for use inside this component.
+ * A base component for [`TabPanels`]{@link sandstone/PopupTabLayout.TabPanels} which has
+ * left key handler to navigate panels.
  *
- * @class
+ * @class TabPanelsBase
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/Panels.Panels
  * @ui
+ * @public
  */
-const TabPanels = (props) => {
+const TabPanelsBase = ({rtl, ... rest}) => {
 	const onTransition = useContext(TabLayoutContext);
-	const handlers = useHandlers(tabPanelsHandlers, props, {onTransition});
+	const handlers = useHandlers(tabPanelsHandlers, {rtl, ...rest}, {onTransition});
 
-	return <Panels noCloseButton {...props} css={css} {...handlers} />;
+	return <Panels noCloseButton {...rest} css={css} {...handlers} />;
 };
+
+TabPanelsBase.propTypes = {
+	rtl: PropTypes.bool
+};
+
+/**
+ * A customized version of Panels for use inside this component.
+ *
+ * @class TabPanels
+ * @memberof sandstone/PopupTabLayout
+ * @extends sandstone/PopupTabLayout.TabPanelsBase
+ * @ui
+ * @public
+ */
+const TabPanels = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	TabPanelsBase
+);
 
 /**
  * Omits the close button.
@@ -419,10 +443,11 @@ const TabPanels = (props) => {
 /**
  * A customized version of Panel for use inside this component.
  *
- * @class
+ * @class TabPanel
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/Panels.Panel
  * @ui
+ * @public
  */
 const TabPanel = ({spotlightId, ...rest}) => {
 	useEffect(() => {
@@ -452,5 +477,6 @@ export {
 	PopupTabLayoutDecorator,
 	Tab,
 	TabPanels,
+	TabPanelsBase,
 	TabPanel
 };

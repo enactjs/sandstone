@@ -95,7 +95,7 @@
 
 	&.horizontal {
 		@h-gap: (@sand-slider-knob-width / 2);
-		@v-gap: (@sand-slider-knob-height - @sand-slider-bar-height) / 2;
+		@v-gap: @sand-slider-knob-height - @sand-slider-bar-height;
 		width: auto;
 		padding: @v-gap @h-gap;
 
@@ -115,7 +115,7 @@
 	}
 
 	&.vertical {
-		@h-gap: ((@sand-slider-knob-height - @sand-slider-bar-height) / 2);
+		@h-gap: (@sand-slider-knob-height - @sand-slider-bar-height);
 		@v-gap: (@sand-slider-knob-width / 2);
 		padding: @v-gap @h-gap;
 		min-height: 240px;

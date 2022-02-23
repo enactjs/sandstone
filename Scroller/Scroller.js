@@ -26,6 +26,7 @@ import PropTypes from 'prop-types';
 import {Fragment} from 'react';
 
 import useScroll from '../useScroll';
+import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
@@ -49,7 +50,7 @@ let scrollerId = 0;
  * @ui
  * @public
  */
-let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
+let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	const id = `scroller_${++scrollerId}_content`;
 
 	// Hooks
@@ -64,8 +65,9 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
+		horizontalScrollbarProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		hoverToScrollProps
 	} = useScroll(rest);
 
 	const {
@@ -89,6 +91,7 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+					{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
 				</ScrollBody>
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
@@ -218,6 +221,14 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
+	 * Enables scroll by hover on edges in scroll direction.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	hoverToScroll: PropTypes.bool,
+
+	/**
 	 * Unique identifier for the component.
 	 *
 	 * When defined and when the `Scroller` is within a [Panel]{@link sandstone/Panels.Panel}, the
@@ -324,7 +335,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @type {Object}
 	 * @default {
 	 *	arrowKey: false,
-	 *	drag: false,
+	 *	drag: true,
 	 *	pageKey: false,
 	 *	track: false,
 	 *	wheel: true
@@ -409,7 +420,7 @@ Scroller.defaultProps = {
 	onScrollStop: nop,
 	overscrollEffectOn: {
 		arrowKey: false,
-		drag: false,
+		drag: true,
 		pageKey: false,
 		track: false,
 		wheel: true

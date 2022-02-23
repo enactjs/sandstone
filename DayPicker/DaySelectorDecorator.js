@@ -9,7 +9,6 @@ import {Component} from 'react';
 
 import $L from '../internal/$L';
 
-const forwardSelect = forward('onSelect');
 const SELECTED_DAY_TYPES = {
 	EVERY_DAY: 0,
 	EVERY_WEEKDAY: 1,
@@ -199,7 +198,7 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
  * @omit defaultValue
  * @private
  */
-const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
+const DaySelectorDecorator = hoc((config, Wrapped) => {
 	return class extends Component {
 
 		static displayName = 'DaySelectorDecorator';
@@ -275,7 +274,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 			selected = generalizeSelected(selected, state);
 			const content = getSelectedDayString(selected, '', dayNameLength);
 
-			forwardSelect({selected, content}, this.props);
+			forward('onSelect', {type: 'onSelect', selected, content}, this.props);
 		};
 
 		render () {

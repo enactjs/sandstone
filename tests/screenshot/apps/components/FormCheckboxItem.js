@@ -1,45 +1,51 @@
 import Icon from '../../../../Icon';
 import FormCheckboxItem from '../../../../FormCheckboxItem';
 
-import {withConfig} from './utils';
+import {withConfig, withProps} from './utils';
 
-const slotBeforeFormCheckboxItemTests = [
-	<FormCheckboxItem><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem disabled><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem disabled inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem disabled selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem disabled selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem disabled indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>
-];
+const basicFormCheckboxItemTests = (prefix) => {
+	const normalName = prefix + 'FormCheckboxItem';
+	const checkedName = prefix + 'FormCheckboxItem Checked';
+	return [
+		<FormCheckboxItem>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem disabled>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem inline>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem disabled inline>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem selected>{checkedName}</FormCheckboxItem>,
+		<FormCheckboxItem selected disabled>{checkedName}</FormCheckboxItem>,
+		<FormCheckboxItem selected inline>{checkedName}</FormCheckboxItem>,
+		<FormCheckboxItem selected disabled inline>{checkedName}</FormCheckboxItem>
+	];
+};
+
+const slotBeforeFormCheckboxItemTests = (prefix) => {
+	const normalName = prefix + 'FormCheckboxItem';
+	const checkedName = prefix + 'FormCheckboxItem Checked';
+	return [
+		<FormCheckboxItem><Icon slot="slotBefore">home</Icon>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem disabled><Icon slot="slotBefore">home</Icon>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem inline><Icon slot="slotBefore">home</Icon>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem disabled inline><Icon slot="slotBefore">home</Icon>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem selected><Icon slot="slotBefore">home</Icon>{checkedName}</FormCheckboxItem>,
+		<FormCheckboxItem disabled selected><Icon slot="slotBefore">home</Icon>{checkedName}</FormCheckboxItem>,
+		<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>{checkedName}</FormCheckboxItem>,
+		<FormCheckboxItem disabled selected inline><Icon slot="slotBefore">home</Icon>{checkedName}</FormCheckboxItem>,
+		<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>{normalName}</FormCheckboxItem>,
+		<FormCheckboxItem disabled indeterminate><Icon slot="slotBefore">home</Icon>{normalName}</FormCheckboxItem>
+	];
+};
 
 const FormCheckboxItemTests = [
+	// Basic
 	<FormCheckboxItem />,
-	<FormCheckboxItem>FormCheckboxItem</FormCheckboxItem>, 					// not selected
-	<FormCheckboxItem disabled>FormCheckboxItem</FormCheckboxItem>,	// not selected
-	<FormCheckboxItem inline>FormCheckboxItem</FormCheckboxItem>,		// not selected
-	<FormCheckboxItem disabled inline>FormCheckboxItem</FormCheckboxItem>,	// not selected
-	<FormCheckboxItem selected>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem selected disabled>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem selected inline>FormCheckboxItem Checked</FormCheckboxItem>,
-	<FormCheckboxItem selected disabled inline>FormCheckboxItem Checked</FormCheckboxItem>,
-
-	<FormCheckboxItem indeterminate>FormCheckboxItem</FormCheckboxItem>, 					// not selected
-	<FormCheckboxItem disabled indeterminate>FormCheckboxItem</FormCheckboxItem>,	// not selected
-	<FormCheckboxItem inline indeterminate>FormCheckboxItem</FormCheckboxItem>,		// not selected
-	<FormCheckboxItem disabled inline indeterminate>FormCheckboxItem</FormCheckboxItem>, // not selected
-	<FormCheckboxItem selected indeterminate>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem selected disabled indeterminate>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem selected inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem selected disabled inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
-	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>, 					// not selected
+	...basicFormCheckboxItemTests(''),
+	...withConfig({focus: true}, basicFormCheckboxItemTests('Focused ')),
+	...withProps({indeterminate: true}, basicFormCheckboxItemTests('')),
+	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>,
 
 	// Icon slotBefore
-	...slotBeforeFormCheckboxItemTests,
-	...withConfig({focus: true}, slotBeforeFormCheckboxItemTests),
+	...slotBeforeFormCheckboxItemTests(''),
+	...withConfig({focus: true}, slotBeforeFormCheckboxItemTests('Focused ')),
 
 	// Centered
 	<FormCheckboxItem centered>Hello FormCheckboxItem</FormCheckboxItem>,
@@ -102,7 +108,6 @@ const FormCheckboxItemTests = [
 		locale: 'ar-SA',
 		component: <FormCheckboxItem disabled inline indeterminate>FormCheckboxItem Checked</FormCheckboxItem>
 	},
-
 	{
 		locale: 'ar-SA',
 		component: <FormCheckboxItem selected indeterminate>FormCheckboxItem Checked</FormCheckboxItem>

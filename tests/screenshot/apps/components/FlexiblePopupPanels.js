@@ -133,6 +133,18 @@ const FlexiblePopupPanelsTests = [
 		{fullHeight: true},
 		EachPanel.map(o => ({...o, title: `${o.title} fullHeight`}))
 	),
+	...withProps(
+		{nextButtonVisibility: false},
+		EachPanel.map(o => ({...o, title: `${o.title} nextButtonVisibility`}))
+	),
+	...withProps(
+		{noCloseButton: true},
+		EachPanel.map(o => ({...o, title: `${o.title} noCloseButton`}))
+	),
+	...withProps(
+		{prevButtonVisibility: false},
+		EachPanel.map(o => ({...o, title: `${o.title} prevButtonVisibility`}))
+	),
 	...withConfig(
 		{locale: 'ar-SA'},
 		EachPanel.map(o => ({...o, title: `locale = ar-SA, ${o.title}`}))

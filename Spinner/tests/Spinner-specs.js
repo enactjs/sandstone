@@ -1,83 +1,52 @@
-import {mount} from 'enzyme';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+
 import Spinner from '../Spinner';
-import css from '../Spinner.module.less';
 
 describe('Spinner Specs', () => {
-	test(
-		'should not have client node when Spinner has no children',
-		() => {
-			const spinner = mount(
-				<Spinner />
-			);
+	test('should not have client node when Spinner has no children', () => {
+		render(<Spinner />);
+		const spinner = screen.getByRole('alert');
+		const children = spinner.children;
 
-			const expected = false;
-			const actual = spinner.find(`div.${css.client}`).exists();
-
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(children.length).toEqual(1);
+		expect(children.item(0)).toHaveClass('bg');
+		expect(children.item(1)).not.toBeInTheDocument();
+	});
 
 	test('should have a client node when Spinner has children', () => {
-		const spinner = mount(
-			<Spinner>
-				Loading...
-			</Spinner>
-		);
+		render(<Spinner>Loading...</Spinner>);
+		const spinner = screen.getByRole('alert');
+		const childClient = spinner.children.item(1);
 
-		const expected = true;
-		const actual = spinner.find(`div.${css.client}`).exists();
-
-		expect(actual).toBe(expected);
+		expect(childClient).toHaveClass('client');
 	});
 
 	test('should have content class when Spinner has children', () => {
-		const spinner = mount(
-			<Spinner>
-				Loading...
-			</Spinner>
-		);
+		render(<Spinner>Loading...</Spinner>);
+		const spinner = screen.getByRole('alert');
 
-		const expected = true;
-		const actual = spinner.find(`div.${css.spinner}`).hasClass(css.content);
-
-		expect(actual).toBe(expected);
+		expect(spinner).toHaveClass('content');
 	});
 
-	test(
-		'should have transparent class when transparent prop equals true',
-		() => {
-			const spinner = mount(
-				<Spinner transparent>
-					Loading...
-				</Spinner>
-			);
+	test('should have transparent class when transparent prop equals true', () => {
+		render(<Spinner transparent>Loading...</Spinner>);
+		const spinner = screen.getByRole('alert');
 
-			const expected = true;
-			const actual = spinner.find(`div.${css.spinner}`).hasClass(css.transparent);
-
-			expect(actual).toBe(expected);
-		}
-	);
+		expect(spinner).toHaveClass('transparent');
+	});
 
 	test('should set role to alert by default', () => {
-		const spinner = mount(
-			<Spinner />
-		);
+		render(<Spinner />);
+		const spinner = screen.getByLabelText('Loading');
 
-		const expected = 'alert';
-		const actual = spinner.find(`div.${css.spinner}`).prop('role');
-
-		expect(actual).toBe(expected);
+		expect(spinner).toHaveAttribute('role', 'alert');
 	});
 
 	test('should set aria-live to off by default', () => {
-		const spinner = mount(
-			<Spinner />
-		);
+		render(<Spinner />);
+		const spinner = screen.getByRole('alert');
 
-		const expected = 'off';
-		const actual = spinner.find(`div.${css.spinner}`).prop('aria-live');
-
-		expect(actual).toBe(expected);
+		expect(spinner).toHaveAttribute('aria-live', 'off');
 	});
 });

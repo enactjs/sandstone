@@ -1,33 +1,49 @@
-import {shallow} from 'enzyme';
-import {SwitchItemBase} from '../SwitchItem';
+import '@testing-library/jest-dom';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import SwitchItem, {SwitchItemBase} from '../SwitchItem';
 
 describe('SwitchItem Specs', () => {
-
 	test('should contain a Switch', () => {
+		render(<SwitchItemBase />);
 
-		const subject = shallow(
-			<SwitchItemBase>
-				SwitchItem
-			</SwitchItemBase>
-		);
+		const expected = 'switch';
+		const actual = screen.getAllByRole('button')[1];
 
-		const expected = 1;
-		const actual = subject.find('Switch').length;
-
-		expect(actual).toBe(expected);
+		expect(actual).toHaveClass(expected);
 	});
 
-	test('should pass selected to Switch element', () => {
+	test('should pass `selected` to Switch element', () => {
+		render(<SwitchItemBase selected />);
 
-		const subject = shallow(
-			<SwitchItemBase selected>
-				SwitchItem
-			</SwitchItemBase>
-		);
+		const expected = 'selected';
+		const SwitchItemElement = screen.getAllByRole('button')[0];
+		const SwitchElement = screen.getAllByRole('button')[1];
 
-		const expected = true;
-		const actual = subject.find('Switch').prop('selected');
+		expect(SwitchItemElement).toHaveClass(expected);
+		expect(SwitchElement).toHaveClass(expected);
+	});
 
-		expect(actual).toBe(expected);
+	test('should toggle Switch', () => {
+		const handleToggle = jest.fn();
+		render(<SwitchItem onToggle={handleToggle} />);
+
+		const actual = screen.getAllByRole('button')[1];
+
+		userEvent.click(actual);
+
+		const expectedClass = 'selected';
+		expect(actual).toHaveClass(expectedClass);
+
+		const expectedTimes = 1;
+		expect(handleToggle).toBeCalledTimes(expectedTimes);
+	});
+
+	test('should render correct children', () => {
+		render(<SwitchItem>Hello SwitchItem</SwitchItem>);
+		const Child = screen.getByText(/Hello SwitchItem/i);
+
+		expect(Child).toBeInTheDocument();
 	});
 });

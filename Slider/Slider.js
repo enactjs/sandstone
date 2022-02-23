@@ -17,7 +17,7 @@
  * @exports SliderTooltip
  */
 
-import {forKey, forProp, forward, forwardWithPrevent, handle} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {mergeClassNameMaps} from '@enact/core/util';
 import Accelerator from '@enact/spotlight/Accelerator';
@@ -32,7 +32,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import anyPass from 'ramda/src/anyPass';
 import compose from 'ramda/src/compose';
-import {useEffect, useRef} from 'react';
+import {useEffect, useLayoutEffect, useRef} from 'react';
 
 import {ProgressBarTooltip} from '../ProgressBar';
 import Skinnable from '../Skinnable';
@@ -41,7 +41,9 @@ import {validateSteppedOnce} from '../internal/validators';
 import SliderBehaviorDecorator from './SliderBehaviorDecorator';
 import {
 	handleDecrement,
-	handleIncrement
+	handleIncrement,
+	handleDecrementByWheel,
+	handleIncrementByWheel
 } from './utils';
 
 import componentCss from './Slider.module.less';
@@ -73,6 +75,8 @@ const SliderBase = (props) => {
 	const tooltip = props.tooltip === true ? ProgressBarTooltip : props.tooltip;
 
 	const spotlightAccelerator = useRef();
+	const ref = useRef();
+	const {current: context} = useRef({lastWheelTimeStamp: 0});
 
 	const handlers = useHandlers({
 		onBlur: handle(
@@ -99,6 +103,17 @@ const SliderBase = (props) => {
 		)
 	}, props, spotlightAccelerator);
 
+	const nativeEventHandlers = useHandlers({
+		onWheel: handle(
+			forProp('disabled', false),
+			not(forProp('noWheel', true)),
+			forwardWithPrevent('onWheel'),
+			anyPass([
+				handleIncrementByWheel,
+				handleDecrementByWheel
+			])
+		)
+	}, props, context);
 
 	// if the props includes a css map, merge them together
 	let mergedCss = componentCss;
@@ -121,11 +136,27 @@ const SliderBase = (props) => {
 		spotlightAccelerator.current = new Accelerator(keyFrequency);
 	}, [keyFrequency]);
 
+	useLayoutEffect(() => {
+		const sliderRef = ref.current;
+
+		if (sliderRef) {
+			sliderRef.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+		}
+		return () => {
+			if (sliderRef) {
+				sliderRef.removeEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+			}
+		};
+
+	}, [ref, nativeEventHandlers.onWheel]);
+
 	delete rest.activateOnSelect;
 	delete rest.knobStep;
+	delete rest.noWheel;
 	delete rest.onActivate;
 	delete rest.step;
 	delete rest.tooltip;
+	delete rest.wheelInterval;
 
 	return (
 		<UiSlider
@@ -138,6 +169,7 @@ const SliderBase = (props) => {
 			progressBarComponent={
 				<ProgressBar css={mergedCss} />
 			}
+			ref={ref}
 			step={step}
 			tooltipComponent={
 				<ComponentOverride
@@ -255,6 +287,14 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	min: PropTypes.number,
 
 	/**
+	 * Disable wheel event.
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	noWheel: PropTypes.bool,
+
+	/**
 	 * The handler when the knob is activated or deactivated by selecting it via 5-way
 	 *
 	 * @type {Function}
@@ -351,7 +391,20 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * @type {Number}
 	 * @public
 	 */
-	value: PropTypes.number
+	value: PropTypes.number,
+
+	/**
+	 * The interval (in milliseconds) between valid wheel events.
+	 *
+	 * For example, 200 means to ignore wheel events occurred within 200ms
+	 * of the last processed wheel event while 0 means to process all wheel events.
+	 * If the number is large, the slider value changes slowly.
+	 *
+	 * @type {Number}
+	 * @default 0
+	 * @public
+	 */
+	wheelInterval: PropTypes.number
 };
 
 SliderBase.defaultProps = {
@@ -361,7 +414,8 @@ SliderBase.defaultProps = {
 	keyFrequency: [1],
 	max: 100,
 	min: 0,
-	step: 1
+	step: 1,
+	wheelInterval: 0
 };
 
 /**

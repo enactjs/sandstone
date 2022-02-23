@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
@@ -20,25 +20,27 @@ export default {
 	component: 'WizardPanels'
 };
 
-export const _WizardPanels = () => (
+export const _WizardPanels = (args) => (
 	<WizardPanels
-		current={number('current', Config, 0)}
-		noAnimation={boolean('noAnimation', Config)}
-		noSteps={boolean('noSteps', Config)}
-		nextButtonVisibility={select('nextButtonVisibility', propOptions.buttonVisibility, Config)}
+		current={args['current']}
+		noAnimation={args['noAnimation']}
+		noSteps={args['noSteps']}
+		nextButtonVisibility={args['nextButtonVisibility']}
+		onBack={action('onBack')}
+		onChange={action('onChange')}
 		onNextClick={action('onNextClick')}
 		onPrevClick={action('onPrevClick')}
 		onTransition={action('onTransition')}
 		onWillTransition={action('onWillTransition')}
-		prevButtonVisibility={select('prevButtonVisibility', propOptions.buttonVisibility, Config)}
-		total={number('total', Config, 0)}
+		prevButtonVisibility={args['prevButtonVisibility']}
+		total={args['total']}
 	>
 		<WizardPanels.Panel
 			footer="Footer in View 1"
 			subtitle="A subtitle for View 1"
 			title="WizardPanel View 1"
 			prevButton={
-				boolean('custom first Panel prevButton', Config) ? (
+				args['custom first Panel prevButton'] ? (
 					<Button icon="closex" aria-label="exit">
 						Exit
 					</Button>
@@ -128,7 +130,7 @@ export const _WizardPanels = () => (
 			subtitle="A subtitle for View 4"
 			title="WizardPanel View 4"
 			nextButton={
-				boolean('custom last Panel nextButton', Config) ? (
+				args['custom last Panel nextButton'] ? (
 					<Button icon="closex" aria-label="quit">
 						Close
 					</Button>
@@ -146,6 +148,15 @@ export const _WizardPanels = () => (
 		</WizardPanels.Panel>
 	</WizardPanels>
 );
+
+number('current', _WizardPanels, Config, 0);
+boolean('noAnimation', _WizardPanels, Config);
+boolean('noSteps', _WizardPanels, Config);
+select('nextButtonVisibility', _WizardPanels, propOptions.buttonVisibility, Config);
+select('prevButtonVisibility', _WizardPanels, propOptions.buttonVisibility, Config);
+number('total', _WizardPanels, Config, 0);
+boolean('custom first Panel prevButton', _WizardPanels, Config);
+boolean('custom last Panel nextButton', _WizardPanels, Config);
 
 _WizardPanels.storyName = 'WizardPanels';
 _WizardPanels.parameters = {

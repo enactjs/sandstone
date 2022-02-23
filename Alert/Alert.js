@@ -11,7 +11,9 @@ import kind from '@enact/core/kind';
 import {mapAndFilterChildren} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import {Children} from 'react';
 
@@ -111,14 +113,6 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Assign a skin.
-		 *
-		 * @type {String}
-		 * @private
-		 */
-		skin: PropTypes.string,
-
-		/**
 		 * The primary text displayed.
 		 *
 		 * Only shown when `type="fullscreen"`.
@@ -176,17 +170,27 @@ const AlertBase = kind({
 			},
 			type
 		),
-		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral'))
+		overflow: ({buttons}) => {
+			if (typeof window !== 'undefined' && buttons) {
+				const contentWidth = ri.scale(1200); // If you will change this value, please change @sand-alert-overlay-content-width too.
+				const buttonsWidth = ri.scale(540 + 126); // If you will change this value, please change @sand-button-min-width + @sand-alert-overlay-buttons-margin too.
+
+				return window.innerWidth < contentWidth + buttonsWidth;
+			}
+
+			return false;
+		}
 	},
 
-	render: ({buttons, contentComponent, children, id, image, title, type, ...rest}) => {
+	render: ({buttons, contentComponent, children, id, image, overflow, title, type, ...rest}) => {
 		const fullscreen = (type === 'fullscreen');
 		const position = (type === 'overlay' ? 'bottom' : type);
-		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
 		const showTitle = (fullscreen && title);
 		const ariaLabelledBy = (showTitle ? `${id}_title ` : '') + `${id}_content ${id}_buttons`;
+		const layoutOrientation = (fullscreen || overflow ? 'vertical' : 'horizontal');
+
 		return (
-			<div aria-owns={id}>
+			<div aria-owns={id} className={css.alertWrapper}>
 				<Popup
 					{...rest}
 					id={id}
@@ -198,11 +202,11 @@ const AlertBase = kind({
 					<Layout align="center center" orientation={layoutOrientation}>
 						{image ? <Cell shrink className={css.alertImage}>{image}</Cell> : null}
 						{showTitle ? <Cell shrink><Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading></Cell> : null}
-						<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`}>
+						<Cell shrink align={fullscreen || overflow ? 'center' : ''} component={contentComponent} className={classnames(css.content, overflow ? null : css.full)} id={`${id}_content`}>
 							{children}
 						</Cell>
 						{buttons ?
-							<Cell align={fullscreen ? '' : 'end'} shrink className={css.buttonContainer}>
+							<Cell align={fullscreen || overflow ? '' : 'end'} shrink className={classnames(css.buttonContainer, overflow ? null : css.full)}>
 								<Layout align="center" orientation="vertical" id={`${id}_buttons`}>
 									{buttons}
 								</Layout>
