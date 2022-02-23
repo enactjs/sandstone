@@ -672,9 +672,9 @@ const PickerBase = class extends ReactComponent {
 
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
 			const isHorizontal = orientation === 'horizontal' && changedBy === 'enter' && isEnter(keyCode);
-			const isHorizontalarrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontalArrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
 
-			if (isVertical || isHorizontalarrow) {
+			if (isVertical || isHorizontalArrow) {
 				directions[direction]();
 			} else if (isHorizontal) {
 				this.setIncPickerButtonPressed();
@@ -702,9 +702,9 @@ const PickerBase = class extends ReactComponent {
 		if (joined && !this.props.disabled) {
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
 			const isHorizontal = orientation === 'horizontal' && (isEnter(keyCode));
-			const isHorizontalarrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontalArrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
 
-			if (isVertical || isHorizontal || isHorizontalarrow) {
+			if (isVertical || isHorizontal || isHorizontalArrow) {
 				this.pickerButtonPressed = 0;
 			}
 		}
@@ -783,16 +783,10 @@ const PickerBase = class extends ReactComponent {
 		const {changedBy, className, joined, orientation, width} = this.props;
 		const {pressed} = this.state;
 
-		let cssOrientation;
-		if (orientation === 'horizontal') {
-			cssOrientation = changedBy === 'arrow' ? 'horizontalarrow' : orientation;
-		} else {
-			cssOrientation = orientation;
-		}
-
 		return classnames(
 			css.picker,
-			css[cssOrientation],
+			css[changedBy],
+			css[orientation],
 			css[width],
 			{
 				[css.joined]: joined,

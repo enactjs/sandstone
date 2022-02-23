@@ -83,7 +83,7 @@
 		});
 	}
 
-	&.horizontal, &.horizontalarrow {
+	&.horizontal { 
 		.enact-locale-rtl({
 			flex-direction: row-reverse;
 		});
@@ -119,7 +119,7 @@
 			margin: 0;
 		}
 
-		&.horizontal {
+		&.horizontal:not(.arrow) {
 			height: @sand-picker-joined-horizontal-height;
 			padding: @sand-picker-joined-horizontal-padding;
 
@@ -130,11 +130,11 @@
 			.sizingPlaceholder,
 			.valueWrapper {
 				font-size: @sand-picker-joined-font-size;
-				height: @sand-picker-joined-value-height;
-				line-height: @sand-picker-joined-value-height;
 			}
 
 			.valueWrapper {
+				height: @sand-picker-joined-value-height;
+				line-height: @sand-picker-joined-value-height;
 				margin-bottom: @sand-picker-joined-horizontal-value-offset;
 			}
 
@@ -167,14 +167,14 @@
 				}
 			}
 		}
-		
-		&.horizontalarrow, &.vertical {
+
+		&.horizontal.arrow, &.vertical {
 			&::before {
 				border-radius: @sand-picker-joined-vertical-border-radius;
 			}
 		}
 
-		&.horizontalarrow {
+		&.horizontal.arrow {
 			.incrementer,
 			.decrementer {
 				line-height: (@sand-button-small-height - (2 * @sand-button-border-width));
@@ -183,7 +183,7 @@
 				padding: @sand-button-icon-small-padding;
 			}
 		}
-		
+
 		&.vertical {
 			.valueWrapper {
 				height: @sand-picker-joined-value-height;
@@ -209,7 +209,7 @@
 		&.joined {
 			color: @sand-picker-joined-text-color;
 
-			&.horizontal {
+			&.horizontal:not(.arrow) {
 				color: @sand-picker-joined-horizontal-text-color;
 
 				&::before {
@@ -226,7 +226,7 @@
 				}
 			}
 
-			&.horizontalarrow, &.vertical {
+			&.horizontal.arrow, &.vertical {
 				&::before {
 					.sand-spotlight-resting-bg-colors();
 				}
@@ -240,7 +240,7 @@
 			.focus({
 				.sand-spotlight-focus-text-colors();
 
-				&.horizontal {
+				&.horizontal:not(.arrow) {
 					&::before {
 						.sand-spotlight-focus-bg-colors();
 						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
@@ -248,7 +248,7 @@
 					}
 				}
 
-				&.horizontalarrow, &.vertical  {
+				&.horizontal.arrow, &.vertical  {
 					&::before {
 						.sand-spotlight-focus-bg-colors();
 					}
