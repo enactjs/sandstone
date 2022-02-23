@@ -1,6 +1,6 @@
 import ilib from 'ilib';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import DatePicker, {dateToLocaleString} from '../DatePicker';
@@ -8,7 +8,7 @@ import DatePicker, {dateToLocaleString} from '../DatePicker';
 // Note: Tests pass 'locale' because there's no I18nDecorator to provide a value via context and
 // otherwise, nothing renders in the label.
 describe('DatePicker', () => {
-	test('should emit an onChange event when changing a component picker', () => {
+	test('should emit an onChange event with type when changing a component picker', () => {
 		const handleChange = jest.fn();
 		render(<DatePicker onChange={handleChange} value={new Date(2000, 6, 15)} locale="en-US" />);
 		const monthPickerUp = screen.getAllByText('▲')[0];
@@ -16,8 +16,53 @@ describe('DatePicker', () => {
 		userEvent.click(monthPickerUp);
 
 		const expected = 1;
+		const expectedType = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
 		expect(handleChange).toBeCalledTimes(expected);
+		expect(actual).toMatchObject(expectedType);
+	});
+
+	test('should fire onComplete event with type when enter key pressed from the last picker', () => {
+		const handleComplete = jest.fn();
+		render(<DatePicker onComplete={handleComplete} value={new Date(2000, 6, 15)} locale="en-US" />);
+		const year = screen.getByLabelText('2000 year change a value with up down button');
+
+		year.focus();
+		fireEvent.keyDown(year, {which: 13, keyCode: 13, code: 13});
+
+		const expected = {type: 'onComplete'};
+		const actual = handleComplete.mock.calls.length && handleComplete.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should fire onSpotlightLeft event with type when spotlight is leaving via left key', () => {
+		const handleSpotlight = jest.fn();
+		render(<DatePicker onSpotlightLeft={handleSpotlight} value={new Date(2000, 6, 15)} locale="en-US" />);
+		const month = screen.getByLabelText('7 month change a value with up down button');
+
+		month.focus();
+		fireEvent.keyDown(month, {which: 37, keyCode: 37, code: 37});
+
+		const expected = {type: 'onSpotlightLeft'};
+		const actual = handleSpotlight.mock.calls.length && handleSpotlight.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should fire onSpotlightRight event with type when spotlight is leaving via right key', () => {
+		const handleSpotlight = jest.fn();
+		render(<DatePicker onSpotlightRight={handleSpotlight} value={new Date(2000, 6, 15)} locale="en-US" />);
+		const year = screen.getByLabelText('2000 year change a value with up down button');
+
+		year.focus();
+		fireEvent.keyDown(year, {which: 39, keyCode: 39, code: 39});
+
+		const expected = {type: 'onSpotlightRight'};
+		const actual = handleSpotlight.mock.calls.length && handleSpotlight.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
 	});
 
 	test('should accept a JavaScript Date for its value prop', () => {
