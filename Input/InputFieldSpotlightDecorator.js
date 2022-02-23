@@ -1,4 +1,4 @@
-import {call, forward, forwardWithPrevent, handle, stopImmediate} from '@enact/core/handle';
+import {call, forward, forwardCustom, forwardWithPrevent, handle, stopImmediate} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {is} from '@enact/core/keymap';
 import {getDirection, Spotlight} from '@enact/spotlight';
@@ -26,7 +26,6 @@ const handleKeyDown = handle(
 	forwardWithPrevent('onKeyDown'),
 	call('onKeyDown')
 );
-
 
 /**
  * Default config for [InputSpotlightDecorator]{@link sandstone/Input.InputSpotlightDecorator}
@@ -191,13 +190,13 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const focusChanged = this.state.focused !== prevState.focused;
 			if (focusChanged) {
 				if (this.state.focused === 'input') {
-					forward('onActivate', {type: 'onActivate'}, this.props);
+					forwardCustom('onActivate')(null, this.props);
 					if (!noLockPointer) {
 						lockPointer(this.state.node);
 					}
 					this.paused.pause();
 				} else if (prevState.focused === 'input') {
-					forward('onDeactivate', {type: 'onDeactivate'}, this.props);
+					forwardCustom('onDeactivate')(null, this.props);
 					if (!noLockPointer) {
 						releasePointer(prevState.node);
 					}

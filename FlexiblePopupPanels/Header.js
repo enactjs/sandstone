@@ -1,3 +1,4 @@
+import {forwardCustom} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 
@@ -69,8 +70,11 @@ const HeaderBase = kind({
 		backButtonAriaLabel: ({closeButtonAriaLabel}) => closeButtonAriaLabel == null ? $L('Exit app') : closeButtonAriaLabel,
 		backButtonBackgroundOpacity: ({closeButtonBackgroundOpacity}) => closeButtonBackgroundOpacity,
 		className: ({noCloseButton, styler}, {count}) => styler.append({'showBack': (count > 1 && noCloseButton)}),
-		noBackButton: ({noCloseButton}) => noCloseButton,
-		onBack: ({onClose}) => onClose
+		noBackButton: ({noCloseButton}) => noCloseButton
+	},
+
+	handlers: {
+		onBack: forwardCustom('onClose')
 	},
 
 	render: (props) => (

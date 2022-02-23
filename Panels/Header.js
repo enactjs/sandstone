@@ -1,3 +1,4 @@
+import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
@@ -33,7 +34,6 @@ const hasChildren = (children) => (Children.toArray(children).filter(Boolean).le
  */
 const HeaderBase = kind({
 	name: 'Header',
-
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
@@ -388,6 +388,11 @@ const HeaderBase = kind({
 				</Cell>
 			);
 		}
+	},
+
+	handlers: {
+		onBack: forwardCustom('onBack'),
+		onClose: forwardCustom('onClose')
 	},
 
 	render: ({
