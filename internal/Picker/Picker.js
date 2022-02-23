@@ -153,8 +153,8 @@ const PickerBase = class extends ReactComponent {
 		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
 		 * The default value for joined horizontal picker is `'enter'`.
-		 * If [orientation]{@link sandstone/internal/Picker.PickerBase.orientation} is `'vertical'` or
-		 * [joined]{@link sandstone/internal/Picker.PickerBase.joined} is undefined or is `false`, this prop is ignored.
+		 * If [orientation]{@link sandstone/internal/Picker.PickerBase#orientation} is `'vertical'` or
+		 * [joined]{@link sandstone/internal/Picker.PickerBase#joined} is undefined or is `false`, this prop is ignored.
 		 *
 		 * @type {('enter'|'arrow')}
 		 * @default 'enter'
