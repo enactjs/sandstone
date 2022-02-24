@@ -22,22 +22,15 @@ class ImageList extends Component {
 		updateItemsOrder: PropTypes.func
 	};
 
-	constructor (props) {
-		super(props);
-
-		this.handleUpdateItemsOrder = props.updateItemsOrder;
-	}
-
 	calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
 	renderItem = ({...rest}) => (<ImageItem {...rest} />);
 
 	render = () => {
 		const
-			{imageitems, spacing, minHeight, minWidth, ...rest} = this.props;
+			{imageitems, spacing, minHeight, minWidth, updateItemsOrder, ...rest} = this.props;
 
 		delete rest.dispatch;
-		delete rest.updateItemsOrder;
 
 		return (
 			<VirtualGridList
@@ -45,9 +38,10 @@ class ImageList extends Component {
 				className={rest.direction === 'horizontal' ? css.horizontalPadding : css.verticalPadding}
 				dataSize={imageitems.length}
 				editMode
+				hoverToScroll
 				itemRenderer={this.renderItem}
 				itemSize={{minHeight: this.calculateOfSize(minHeight), minWidth: this.calculateOfSize(minWidth)}}
-				onUpdateItemsOrder={this.handleUpdateItemsOrder}
+				onUpdateItemsOrder={updateItemsOrder}
 				spacing={this.calculateOfSize(spacing)}
 			/>
 		);
