@@ -4,6 +4,7 @@ describe('Input test', () => {
 	const components = Page.components;
 
 	beforeEach(async () => await Page.open());
+
 	it('should focus the first button on start', async () => {
 		expect(await components.input1.self.isFocused()).to.be.true();
 		expect(await components.input1.self.getText()).equals('placeholder');
