@@ -27,6 +27,7 @@ const CancelDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			handler({
+				type: cancel,
 				index: index - 1
 			});
 

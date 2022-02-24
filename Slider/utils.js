@@ -72,9 +72,9 @@ const emitChange = (direction) =>  adaptEvent(
 		const newValue = clamp(min, max, value + (calcStep(knobStep, step) * direction));
 
 		return {
+			type: 'onChange',
 			value: newValue,
-			proportion: calcProportion(min, max, newValue),
-			type: 'onChange'
+			proportion: calcProportion(min, max, newValue)
 		};
 	},
 	forward('onChange')

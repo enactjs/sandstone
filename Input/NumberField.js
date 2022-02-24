@@ -1,4 +1,4 @@
-import {handle, adaptEvent, forward, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
+import {handle, adaptEvent, forwardCustom, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
@@ -106,8 +106,8 @@ const NumberFieldBase = kind({
 					}),
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
-					forwardWithPrevent('onBeforeChange'),
-					forward('onChange'),
+					adaptEvent(({value}) => ({type: 'onBeforeChange', value}), forwardWithPrevent('onBeforeChange')),
+					forwardCustom('onChange', (ev) => (ev)),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
 					({value: updatedValue}, {maxLength, minLength, numberInputField}) => {
 						const
@@ -115,7 +115,7 @@ const NumberFieldBase = kind({
 							autoSubmit = getSeparated(numberInputField, maxLength) && minLength === maxLength;
 						return autoSubmit && updatedLength >= maxLength;
 					},
-					forward('onComplete')
+					forwardCustom('onComplete', (ev) => (ev))
 				)
 			)
 		),
@@ -124,15 +124,15 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
 				handle(
-					forwardWithPrevent('onBeforeChange'),
-					forward('onChange')
+					adaptEvent(({value}) => ({type: 'onBeforeChange', value}), forwardWithPrevent('onBeforeChange')),
+					forwardCustom('onChange', (ev) => (ev))
 				)
 			)
 		),
 		onSubmit: handle(
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength)}),
-				forward('onComplete')
+				forwardCustom('onComplete', (ev) => (ev))
 			)
 		)
 	},
