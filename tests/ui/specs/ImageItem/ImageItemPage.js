@@ -10,7 +10,7 @@ class ImageItemInterface {
 	}
 
 	async focus () {
-		return await browser.execute((el) => el.focus(), $(`#${this.id}`));
+		return await browser.execute((el) => el.focus(), await $(`#${this.id}`));
 	}
 	get self () {
 		return $(`#${this.id}`);

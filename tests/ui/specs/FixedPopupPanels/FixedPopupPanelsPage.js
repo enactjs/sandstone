@@ -17,8 +17,8 @@ class FixedPopupPanelsInterface {
 		this.self.waitForExist(duration, true);
 	}
 
-	async waitTransitionToIndex (index, delay = 3000, msg = 'timed out waiting for transitionend', callback) {
-		await browser.execute(
+	waitTransitionToIndex (index, delay = 3000, msg = 'timed out waiting for transitionend', callback) {
+		browser.execute(
 			function () {
 				window.__index = -1;
 			}
@@ -26,7 +26,7 @@ class FixedPopupPanelsInterface {
 		if (callback) {
 			callback();
 		}
-		await browser.waitUntil(
+		browser.waitUntil(
 			function () {
 				return browser.execute(
 					function (_index) {
@@ -41,28 +41,28 @@ class FixedPopupPanelsInterface {
 	}
 
 	async clickBelowPopup () {
-		const offset = await browser.execute(function () {
+		const offset = browser.execute(function () {
 			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();
 			const {bottom, left: left2} = document.querySelector('#panel1').getBoundingClientRect();
 
 			return {x: Math.ceil(left2 - left1) + 12, y: Math.ceil(bottom - top) + 12};
 		});
 
-		$('#openButton').click(offset);
+		await $('#openButton').click(offset);
 	}
 
-	waitForEnter (panel, callback, duration = 1000, msg) {
+	async waitForEnter (panel, callback, duration = 1000, msg) {
 		// Panel index in transition end is 0 based!
-		this.waitTransitionToIndex(panel - 1, duration, msg, callback);
+		await this.waitTransitionToIndex(panel - 1, duration, msg, callback);
 	}
 
 	async focusOpenButton () {
-		return await browser.execute((el) => el.focus(), this.openButton);
+		return await browser.execute((el) => el.focus(), await this.openButton);
 	}
 
 	async focusBackButton () {
 		// TODO:  Hover and click back button after it reveals
-		return await browser.execute((el) => el.focus(), $('[aria-label="go to previous"]'));
+		return await browser.execute((el) => el.focus(), await $('[aria-label="go to previous"]'));
 	}
 
 	get self () {

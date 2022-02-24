@@ -97,24 +97,24 @@ class PopupPage extends Page {
 		await super.open('Popup-View', urlExtra);
 	}
 
-	clickPopupFloatLayer () {
-		$('#floatLayer > div').click();
+	async clickPopupFloatLayer () {
+		await $('#floatLayer > div').click();
 	}
 
-	clickPopupMain () {
-		$('#popupMain').click();
+	async clickPopupMain () {
+		await $('#popupMain').click();
 	}
 
-	waitForOpen (selector, timeout) {
+	async waitForOpen (selector, timeout) {
 		if (typeof selector !== 'string') selector = `#${selector.id}`;
 
-		$(`${selector}[data-popup-open="true"]`).waitForExist({timeout});
+		await $(`${selector}[data-popup-open="true"]`).waitForExist({timeout});
 	}
 
-	waitForClose (selector, timeout) {
+	async waitForClose (selector, timeout) {
 		if (typeof selector !== 'string') selector = `#${selector.id}`;
 
-		$(`${selector}[data-popup-open="true"]`).waitForExist({timeout, reverse: true});
+		await $(`${selector}[data-popup-open="true"]`).waitForExist({timeout, reverse: true});
 	}
 }
 

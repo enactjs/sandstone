@@ -21,8 +21,8 @@ class FlexiblePopupPanelsInterface {
 		this['panel' + panel].waitForExist({timeout});
 	}
 
-	waitForPanelBody (panel, timeout = 2500) {
-		$(`${panelSelector(panel)} .Panels_Panel_visible`).waitForExist({timeout});
+	async waitForPanelBody (panel, timeout = 2500) {
+		await $(`${panelSelector(panel)} .Panels_Panel_visible`).waitForExist({timeout});
 	}
 
 	waitForLeave (panel, timeout = 1000) {
@@ -30,15 +30,15 @@ class FlexiblePopupPanelsInterface {
 	}
 
 	async focusOpenButton () {
-		return await browser.execute((el) => el.focus(), this.openButton);
+		return await browser.execute((el) => el.focus(), await this.openButton);
 	}
 
 	async focusNextButton () {
-		return await browser.execute((el) => el.focus(), this.nextButton);
+		return await browser.execute((el) => el.focus(), await this.nextButton);
 	}
 
 	async focusPrevButton () {
-		return await browser.execute((el) => el.focus(), this.prevButton);
+		return await browser.execute((el) => el.focus(), await this.prevButton);
 	}
 
 	clickBelowPopup () {

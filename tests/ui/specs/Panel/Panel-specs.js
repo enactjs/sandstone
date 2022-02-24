@@ -6,8 +6,8 @@ describe('Panel', function () {
 		await Page.open();
 	});
 
-	function waitForFocused (node, timeout, timeoutMsg = 'timed out waiting for focus', interval = 250) {
-		browser.waitUntil(function () {
+	async function waitForFocused (node, timeout, timeoutMsg = 'timed out waiting for focus', interval = 250) {
+		await browser.waitUntil(function () {
 			return node.isFocused();
 		}, {timeout, timeoutMsg, interval});
 	}
@@ -95,7 +95,7 @@ describe('Panel', function () {
 			await Page.focus(Page.panel4.nextButton);
 			await Page.spotlightSelect();
 
-			Page.panel5.waitForEnter();
+			await Page.panel5.waitForEnter();
 
 			const expected = 'Panel5 Button 1';
 			const actual = Page.focusedText;

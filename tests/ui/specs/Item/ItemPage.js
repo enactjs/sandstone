@@ -9,7 +9,7 @@ class ItemInterface {
 	}
 
 	async focus () {
-		return await browser.execute((el) => el.focus(), $(this.selector));
+		return await browser.execute((el) => el.focus(), await $(this.selector));
 	}
 
 	async hover () {

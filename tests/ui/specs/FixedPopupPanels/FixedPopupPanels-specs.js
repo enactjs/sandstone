@@ -15,11 +15,11 @@ describe('FixedPopupPanels', function () {
 
 			await Page.waitForFocused(Interface.item1);
 
-			Interface.waitForEnter(2,async () => {
+			await Interface.waitForEnter(2, async () => {
 				await Page.spotlightSelect();
 			});
 
-			Interface.waitForEnter(1,async () => {
+			await Interface.waitForEnter(1, async () => {
 				await Page.backKey();
 			});
 
@@ -36,11 +36,11 @@ describe('FixedPopupPanels', function () {
 
 			await Page.waitForFocused(Interface.item1);
 
-			Interface.waitForEnter(2,async () => {
+			await Interface.waitForEnter(2, async () => {
 				await Page.spotlightSelect();
 			});
 
-			Interface.waitForEnter(1,async () => {
+			await Interface.waitForEnter(1, async () => {
 				await Page.spotlightLeft();
 			});
 
@@ -54,21 +54,25 @@ describe('FixedPopupPanels', function () {
 			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
 			await Page.spotlightSelect();
+			await Page.delay(500);
 
 			await Page.waitForFocused(Interface.item1);
 
-			await Interface.waitForEnter(2,async () => {
+			await Interface.waitForEnter(2, async () => {
 				await Page.spotlightSelect();
 			});
+			await Page.delay(500);
 
 			await Page.spotlightUp();
+			await Page.delay(500);
 			await Page.spotlightLeft();
 			await Page.delay(500);
 
 			await Page.spotlightDown();
+			await Page.delay(500);
 
 			const expected = 'Example Item 1 on Panel 2';
-			const actual = await browser.execute(getFocusedText);
+			const actual = browser.execute(getFocusedText);
 
 			expect(await actual).to.equal(expected);
 		});
@@ -94,11 +98,11 @@ describe('FixedPopupPanels', function () {
 
 			const pickerContainsFocused = browser.execute(
 				picker => picker.contains(document.activeElement),
-				$('[data-id="picker"]')
+				await $('[data-id="picker"]')
 			);
 
 			// Focus should remain in the picker
-			expect(pickerContainsFocused, 'Picker is focused').to.be.true();
+			expect(await pickerContainsFocused, 'Picker is focused').to.be.true();
 		});
 
 		it('should not allow 5-way navigation out and remain open when spotlightRestrict="self-only" and scrim="none"', async function () {
@@ -108,7 +112,7 @@ describe('FixedPopupPanels', function () {
 
 			await Page.spotlightSelect();
 
-			Page.waitForFocused(Interface.item1);
+			await Page.waitForFocused(Interface.item1);
 
 			await Page.spotlightLeft();
 
@@ -144,7 +148,7 @@ describe('FixedPopupPanels', function () {
 				await Interface.openButton.click();
 			});
 
-			await Interface.waitForEnter(2,async () => {
+			await Interface.waitForEnter(2, async () => {
 				await Interface.item1.click();
 			});
 			// TODO: Hover and click back button

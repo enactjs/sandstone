@@ -166,7 +166,7 @@ describe('Dropdown', function () {
 			return browser.execute((a, b) => {
 				return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
 			}, dropdown, scroller);
-		}
+		};
 
 		it('should have title visible when focusing button via 5-way - [QWT-2154]', async function () {
 			// TODO: This refocuses the first dropdown which is being blurred for some reason with
@@ -175,7 +175,7 @@ describe('Dropdown', function () {
 			expect(await Page.components.dropdown1.button.isFocused()).to.be.true();
 
 			await Page.spotlightDown();
-			Page.delay(250);
+			await Page.delay(250);
 
 			// Verify that we have scrolled down
 			expect(getDropdownOffset(
@@ -184,7 +184,7 @@ describe('Dropdown', function () {
 			)).to.not.equal(0);
 
 			await Page.spotlightUp();
-			Page.delay(250);
+			await Page.delay(250);
 
 			const expected = 0;
 			const actual = getDropdownOffset(
