@@ -1,5 +1,5 @@
 import IString from 'ilib/lib/IString';
-import {select, text} from '@enact/storybook-utils/addons/controls';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
 import $L from '@enact/sandstone/internal/$L';
 import Item from '@enact/sandstone/Item';
@@ -104,7 +104,7 @@ MultipleScroller.parameters = {
 	}
 };
 
-export const WithBidirectionalText  = () => {
+export const WithBidirectionalText  = (args) => {
 	const inputPasswordFor = 'Input Password for ';
 	const inputPasswordForAr = 'الرجاء إدخال كلمة المرور لـ ';
 	const abcDevice = 'ABC جهاز';
@@ -112,39 +112,39 @@ export const WithBidirectionalText  = () => {
 	return (
 		<Scroller>
 			{/* See: https://www.w3.org/International/articles/inline-bidi-markup/ */}
-			<Heading>{inputPasswordFor + abcDevice}</Heading>
-			<Heading>{inputPasswordFor}{abcDevice}, Please</Heading>
-			<Heading>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: abcDevice})}</Heading>
-
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor + abcDevice}</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}{abcDevice}, Please</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: abcDevice})}</Heading>
 			<br />
 
-			<Heading>{inputPasswordFor}<span dir="ltr">{abcDevice}</span>, Please</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<span dir="ltr">{abcDevice}</span>, Please</Heading>
 			{/* When cannot use markup, U+2067 RIGHT-TO-LEFT ISOLATE (RLI) or U+2066 LEFT-TO-RIGHT ISOLATE (LRI)
 				These are placed in the same location as the opening <span dir="..."> tag.
 				U+2069 POP DIRECTIONAL ISOLATE (PDI), and it corresponds to the </span> in the markup. */}
-			<Heading>{inputPasswordFor}&#x2066;{abcDevice}&#x2069;, Please</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}&#x2066;{abcDevice}&#x2069;, Please</Heading>
 			<br />
 
 			{/* <bdi> same with <span dir=auto> */}
-			<Heading>{inputPasswordFor}<span dir="auto">{abcDevice}</span>, Please</Heading>
-			<Heading>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<span dir="auto">{abcDevice}</span>, Please</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please</Heading>
 			{/* When cannot use markup, U+2068 FIRST STRONG ISOLATE */}
-			<Heading>{inputPasswordFor}&#x2068;{abcDevice}&#x2069;, Please</Heading>
-			<Heading>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: `\u2068${abcDevice}\u2069`})}</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}&#x2068;{abcDevice}&#x2069;, Please</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: `\u2068${abcDevice}\u2069`})}</Heading>
 			<br />
 
 			{/* auto seems to be determined by the first letter */}
-			<Heading>{inputPasswordFor}<bdi>جهاز ABC صباح</bdi>, Please</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<bdi>جهاز ABC صباح</bdi>, Please</Heading>
 
 			<br />
 			{/* If there is any rtl character, set the direction of the marquee to rtl.  */}
-			<Heading>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please. long text long text long text long text long text long text long text</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please. long text long text long text long text long text long text long text</Heading>
 
 			<br />
-			<Heading>{inputPasswordForAr}{abcDevice}</Heading>
-			<Heading>{inputPasswordForAr}<bdi>{abcDevice}</bdi></Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordForAr}{abcDevice}</Heading>
+			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordForAr}<bdi>{abcDevice}</bdi></Heading>
 		</Scroller>
 	);
 };
 
+boolean('noRtlOverride', WithBidirectionalText, Heading);
 WithBidirectionalText.storyName = 'with bidirectional text';

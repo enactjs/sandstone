@@ -24,6 +24,7 @@ export const _Heading = (args) => (
 	<Fragment>
 		<Heading
 			marqueeOn={args['marqueeOn']}
+			noRtlOverride={args['noRtlOverride']}
 			showLine={args['showLine']}
 			size={args['size']}
 			spacing={args['spacing']}
@@ -41,6 +42,7 @@ export const _Heading = (args) => (
 );
 
 select('marqueeOn', _Heading, prop.marqueeOn, Config);
+boolean('noRtlOverride', _Heading, Config);
 boolean('showLine', _Heading, Config);
 select('size', _Heading, prop.size, Config, 'medium');
 select('spacing', _Heading, prop.spacing, Config);
