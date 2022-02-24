@@ -101,3 +101,45 @@ MultipleScroller.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+export const WithBidirectionalText  = () => {
+	const inputPasswordFor = 'Input Password for ';
+	const inputPasswordForAr = 'الرجاء إدخال كلمة المرور لـ ';
+	const abcDevice = 'ABC جهاز';
+
+	return (
+		<Scroller>
+			{/* See: https://www.w3.org/International/articles/inline-bidi-markup/ */}
+			<Heading>{inputPasswordFor + abcDevice}</Heading>
+			<Heading>{inputPasswordFor}{abcDevice}, Please</Heading>
+			<br />
+
+			<Heading>{inputPasswordFor}<span dir="ltr">{abcDevice}</span>, Please</Heading>
+			{/* When cannot use markup, U+2067 RIGHT-TO-LEFT ISOLATE (RLI) or U+2066 LEFT-TO-RIGHT ISOLATE (LRI)
+				These are placed in the same location as the opening <span dir="..."> tag.
+				U+2069 POP DIRECTIONAL ISOLATE (PDI), and it corresponds to the </span> in the markup. */}
+			<Heading>{inputPasswordFor}&#x2066;{abcDevice}&#x2069;, Please</Heading>
+			<br />
+
+			{/* <bdi> same with <span dir=auto> */}
+			<Heading>{inputPasswordFor}<span dir="auto">{abcDevice}</span>, Please</Heading>
+			<Heading>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please</Heading>
+			{/* When cannot use markup,  U+2068 FIRST STRONG ISOLATE */}
+			<Heading>{inputPasswordFor}&#x2068;{abcDevice}&#x2069;, Please</Heading>
+			<br />
+
+			{/* auto seems to be determined by the first letter */}
+			<Heading>{inputPasswordFor}<bdi>جهاز ABC صباح</bdi>, Please</Heading>
+
+			<br />
+			{/* If there is any rtl character, set the direction of the marquee to rtl.  */}
+			<Heading>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please. long text long text long text long text long text long text long text</Heading>
+
+			<br />
+			<Heading>{inputPasswordForAr}{abcDevice}</Heading>
+			<Heading>{inputPasswordForAr}<bdi>{abcDevice}</bdi></Heading>
+		</Scroller>
+	);
+};
+
+WithBidirectionalText.storyName = 'with bidirectional text';
