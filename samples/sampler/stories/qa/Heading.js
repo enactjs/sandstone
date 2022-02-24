@@ -1,5 +1,7 @@
+import IString from 'ilib/lib/IString';
 import {select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
+import $L from '@enact/sandstone/internal/$L';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
@@ -112,6 +114,8 @@ export const WithBidirectionalText  = () => {
 			{/* See: https://www.w3.org/International/articles/inline-bidi-markup/ */}
 			<Heading>{inputPasswordFor + abcDevice}</Heading>
 			<Heading>{inputPasswordFor}{abcDevice}, Please</Heading>
+			<Heading>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: abcDevice})}</Heading>
+
 			<br />
 
 			<Heading>{inputPasswordFor}<span dir="ltr">{abcDevice}</span>, Please</Heading>
@@ -124,8 +128,9 @@ export const WithBidirectionalText  = () => {
 			{/* <bdi> same with <span dir=auto> */}
 			<Heading>{inputPasswordFor}<span dir="auto">{abcDevice}</span>, Please</Heading>
 			<Heading>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please</Heading>
-			{/* When cannot use markup,  U+2068 FIRST STRONG ISOLATE */}
+			{/* When cannot use markup, U+2068 FIRST STRONG ISOLATE */}
 			<Heading>{inputPasswordFor}&#x2068;{abcDevice}&#x2069;, Please</Heading>
+			<Heading>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: '\u2068' + abcDevice + '\u2069'})}</Heading>
 			<br />
 
 			{/* auto seems to be determined by the first letter */}
