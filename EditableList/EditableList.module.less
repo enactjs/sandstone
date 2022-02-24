@@ -1,0 +1,40 @@
+// EditableList.module.less
+//
+@import "../styles/skin.less";
+
+.container {
+	--item-offset: 0px;
+	--item-unit: 0px;
+	--moving-sign: 1;
+}
+
+.list {
+	display: inline-flex;
+	flex-direction: row;
+	padding-top: 120px;
+}
+
+.selected {
+	transition: transform 600ms;
+	transform: translateY(-48px);
+	z-index: 1;
+}
+
+.selectedTransform {
+	transform: translate(var(--item-offset), -48px);
+}
+
+.hovered {
+	transition: transform 600ms;
+}
+
+.hoveredTransform {
+	transform: translateX(calc((-1) * var(--moving-sign) * var(--item-unit)));
+}
+
+
+.applySkins({
+	.container {
+		overflow-x: auto;
+	}
+});
