@@ -2,34 +2,34 @@ const Page = require('./PickerPage');
 const {extractValue} = require('./Picker-utils.js');
 
 describe('Picker', function () {
-	beforeEach(function () {
-		Page.open();
+	beforeEach(async function () {
+		await Page.open();
 	});
 
 	describe('horizontal', function () {
 		describe('default', function () {
 			const picker = Page.components.pickerDefault;
 
-			// describe('5-way', function () {
-			// 	it('should change the value forward when incrementing the picker', async function () {
-			// 		expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
-			// 		await Page.spotlightSelect();
-			// 		browser.pause(500);
-			// 		const newValue = extractValue(picker);
-			// 		expect(await newValue).to.equal('Banana');
-			// 	});
-			//
-			// 	it('should change the value backward when decrementing the picker', async function () {
-			// 		expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
-			// 		await Page.spotlightSelect();
-			// 		await Page.spotlightLeft();
-			// 		expect(await picker.decrementer(picker.self).isFocused()).to.be.true();
-			// 		await Page.spotlightSelect();
-			// 		browser.pause(500);
-			// 		const newValue = await extractValue(picker);
-			// 		expect(newValue).to.equal('Apple');
-			// 	});
-			// });
+			describe('5-way', function () {
+				it('should change the value forward when incrementing the picker', async function () {
+					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
+					await Page.spotlightSelect();
+					browser.pause(500);
+					const newValue = extractValue(picker);
+					expect(await newValue).to.equal('Banana');
+				});
+
+				it('should change the value backward when decrementing the picker', async function () {
+					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
+					await Page.spotlightSelect();
+					await Page.spotlightLeft();
+					expect(await picker.decrementer(picker.self).isFocused()).to.be.true();
+					await Page.spotlightSelect();
+					browser.pause(500);
+					const newValue = await extractValue(picker);
+					expect(newValue).to.equal('Apple');
+				});
+			});
 
 			describe('pointer', function () {
 				it('should increase the value when incrementing the picker', async function () {
@@ -118,7 +118,6 @@ describe('Picker', function () {
 
 			describe('5-way', function () {
 				it('should change the value forward when incrementing the picker', async function () {
-					await browser.pause(500);
 					await picker.focus();
 					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
 					await Page.spotlightSelect();
@@ -128,7 +127,6 @@ describe('Picker', function () {
 				});
 
 				it('should change the value backward when decrementing the picker', async function () {
-					await browser.pause(500);
 					await picker.focus();
 					await Page.spotlightSelect();
 					await Page.spotlightLeft();
@@ -184,7 +182,6 @@ describe('Picker', function () {
 
 			describe('5-way', function () {
 				it('should increase the value on 5-way select', async function () {
-					await browser.pause(500);
 					await await picker.focusJoined();
 					await Page.spotlightSelect();
 					await browser.pause(500);
@@ -223,7 +220,6 @@ describe('Picker', function () {
 
 			describe('5-way', function () {
 				it('should change the value forward when incrementing the picker', async function () {
-					await browser.pause(500);
 					await picker.focus();
 					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
 					await Page.spotlightDown();
@@ -234,7 +230,6 @@ describe('Picker', function () {
 				});
 
 				it('should change the value backward when decrementing the picker', async function () {
-					await browser.pause(500);
 					await picker.focus();
 					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
 					await Page.spotlightDown();
@@ -291,7 +286,6 @@ describe('Picker', function () {
 
 			describe('5-way', function () {
 				it('should not update on select', async function () {
-					await browser.pause(500);
 					await picker.focus();
 					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
 					const oldValue = extractValue(picker);
@@ -327,7 +321,6 @@ describe('Picker', function () {
 
 			describe('5-way', function () {
 				it('should change the value forward when incrementing the picker', async function () {
-					await browser.pause(500);
 					await picker.focus();
 					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
 					await Page.spotlightDown();
@@ -339,7 +332,6 @@ describe('Picker', function () {
 				});
 
 				it('should change the value backward when decrementing the picker', async function () {
-					await browser.pause(500);
 					await picker.focus();
 					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
 					await Page.spotlightDown();
@@ -400,7 +392,6 @@ describe('Picker', function () {
 
 			describe('5-way', function () {
 				it('should increase the value on 5-way up', async function () {
-					await browser.pause(500);
 					await picker.focusJoined();
 					await Page.spotlightDown();
 					await browser.pause(500);
@@ -409,7 +400,6 @@ describe('Picker', function () {
 				});
 
 				it('should decrease the value on 5-way down', async function () {
-					await browser.pause(500);
 					await picker.focusJoined();
 					await Page.spotlightDown();
 					await Page.spotlightUp();
@@ -419,7 +409,6 @@ describe('Picker', function () {
 				});
 
 				it('should not increase the value on 5-way up when current value is equal to max', async function () {
-					await browser.pause(500);
 					await picker.focusJoined();
 					await Page.spotlightDown();
 					await Page.spotlightDown();
@@ -434,7 +423,6 @@ describe('Picker', function () {
 				});
 
 				it('should not decrease the value on 5-way down when current value is equal to min', async function () {
-					await browser.pause(500);
 					await picker.focusJoined();
 					await Page.spotlightUp();
 					await browser.pause(500);
@@ -487,7 +475,6 @@ describe('Picker', function () {
 
 			describe('5-way', function () {
 				it('should increase the value on 5-way up', async function () {
-					await browser.pause(500);
 					await picker.focusJoined();
 					await Page.spotlightDown();
 					await browser.pause(500);
@@ -496,7 +483,6 @@ describe('Picker', function () {
 				});
 
 				it('should decrease the value on 5-way down', async function () {
-					await browser.pause(500);
 					await picker.focusJoined();
 					await Page.spotlightDown();
 					await Page.spotlightUp();
@@ -506,7 +492,6 @@ describe('Picker', function () {
 				});
 
 				it('should wrap the value on 5-way up when current value is equal to max', async function () {
-					await browser.pause(500);
 					await picker.focusJoined();
 					await Page.spotlightDown();
 					await Page.spotlightDown();
@@ -521,7 +506,6 @@ describe('Picker', function () {
 				});
 
 				it('should wrap the value on 5-way down when current value is equal to min', async function () {
-					await browser.pause(500);
 					await picker.focusJoined();
 					await Page.spotlightUp();
 					await browser.pause(500);
