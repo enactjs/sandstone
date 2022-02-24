@@ -94,7 +94,7 @@ const RangePickerBase = kind({
 		 *
 		 * The default value for joined horizontal picker is `'enter'`.
 		 * If [orientation]{@link sandstone/RangePicker.RangePicker#orientation} is `'vertical'` or
-		 * [joined]{@link sandstone/RangePicker.RangePicker#joined} is undefined or is 'false', this prop is ignored.
+		 * [joined]{@link sandstone/RangePicker.RangePicker#joined} is undefined or is `false`, this prop is ignored.
 		 *
 		 * @type {('enter'|'arrow')}
 		 * @public
