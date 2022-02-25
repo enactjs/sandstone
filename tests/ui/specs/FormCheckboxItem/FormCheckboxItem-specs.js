@@ -23,9 +23,9 @@ describe('FormCheckboxItem', function () {
 			expectUnchecked(FormCheckboxItem);
 		});
 
-		// it('should display icon before the text', async function () {
-		// 	expect(await FormCheckboxItem.isBefore).to.be.true();
-		// });
+		it('should display icon before the text', async function () {
+			expect(await FormCheckboxItem.isBefore).to.be.true();
+		});
 
 		describe('5-way', function () {
 			it('should check the item when selected', async function () {
@@ -130,9 +130,9 @@ describe('FormCheckboxItem', function () {
 			expectChecked(FormCheckboxItem);
 		});
 
-		// it('should display icon after the text', async function () {
-		// 	expect(await FormCheckboxItem.isAfter).to.be.true();
-		// });
+		it('should display icon after the text', async function () {
+			expect(await FormCheckboxItem.isAfter).to.be.true();
+		});
 
 		describe('5-way', function () {
 			it('should uncheck the item when selected', async function () {
@@ -174,9 +174,9 @@ describe('FormCheckboxItem', function () {
 			expectChecked(FormCheckboxItem);
 		});
 
-		// it('should display icon before the text', async function () {
-		// 	expect(await FormCheckboxItem.isBefore).to.be.true();
-		// });
+		it('should display icon before the text', async function () {
+			expect(await FormCheckboxItem.isBefore).to.be.true();
+		});
 
 		it('should display item inline', async function () {
 			expect(await FormCheckboxItem.isInline).to.be.true();
@@ -222,9 +222,9 @@ describe('FormCheckboxItem', function () {
 			expectChecked(FormCheckboxItem);
 		});
 
-		// it('should display icon after the text', async function () {
-		// 	expect(await FormCheckboxItem.isAfter).to.be.true();
-		// });
+		it('should display icon after the text', async function () {
+			expect(await FormCheckboxItem.isAfter).to.be.true();
+		});
 
 		it('should display item inline', async function () {
 			expect(await FormCheckboxItem.isInline).to.be.true();
@@ -274,9 +274,9 @@ describe('FormCheckboxItem', function () {
 			expectChecked(FormCheckboxItem);
 		});
 
-		// it('should display icon before the text', async function () {
-		// 	expect(await FormCheckboxItem.isBefore).to.be.true();
-		// });
+		it('should display icon before the text', async function () {
+			expect(await FormCheckboxItem.isBefore).to.be.true();
+		});
 
 		describe('5-way', function () {
 			it('should be able to focus the item', async function () {
@@ -319,9 +319,9 @@ describe('FormCheckboxItem', function () {
 			expect(await FormCheckboxItem.isInline).to.be.true();
 		});
 
-		// it('should display icon before the text', async function () {
-		// 	expect(await FormCheckboxItem.isBefore).to.be.true();
-		// });
+		it('should display icon before the text', async function () {
+			expect(await FormCheckboxItem.isBefore).to.be.true();
+		});
 
 		describe('5-way', function () {
 			it('should be able to focus the item', async function () {
