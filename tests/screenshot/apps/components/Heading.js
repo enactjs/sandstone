@@ -11,7 +11,7 @@ const bidirectionalHeading = [
 
 const bidirectionalTests = [
 	...withConfig({locale: 'ar-SA'}, bidirectionalHeading),
-	...withConfig({locale: 'en-US'}, bidirectionalHeading),
+	...withConfig({locale: 'en-US'}, bidirectionalHeading)
 ];
 
 const HeadingTests = [
