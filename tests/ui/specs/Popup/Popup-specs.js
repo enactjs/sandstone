@@ -14,7 +14,7 @@ describe('Popup', function () {
 	});
 
 	it('should not have the popup on start', async function () {
-		expectClosed(popupCommon);
+		await expectClosed(popupCommon);
 	});
 
 	describe('with AutoDismiss', function () {
@@ -25,8 +25,8 @@ describe('Popup', function () {
 			await popupCommon.buttonPopup1.click();
 			await Page.waitForOpen(popup);
 
-			expectOpen(popupCommon);
-			validateTitle(popup, 'Popup with AutoDismiss');
+			await expectOpen(popupCommon);
+			await validateTitle(popup, 'Popup with AutoDismiss');
 		});
 
 		describe('using 5-way', function () {
@@ -35,7 +35,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 
@@ -43,7 +43,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 
@@ -54,7 +54,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightLeft();
@@ -66,12 +66,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightSelect();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup1.isFocused()).to.be.true();
 			});
 
@@ -79,12 +79,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup1.isFocused()).to.be.true();
 			});
 		});
@@ -94,55 +94,55 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup1.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should dismiss the popup on click on outside the popup', async function () {
 				await popupCommon.buttonPopup1.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.clickPopupFloatLayer();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should open the popup with scrim on click', async function () {
 				await popupCommon.buttonPopup1.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should close the popup and scrim on click in popup container', async function () {
 				await popupCommon.buttonPopup1.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await popup.buttonOK.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should close the popup and scrim on cancel click in popup container', async function () {
 				await popupCommon.buttonPopup1.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await popup.buttonCancel.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 		});
 	});
@@ -155,8 +155,8 @@ describe('Popup', function () {
 			await popupCommon.buttonPopup2.click();
 			await Page.waitForOpen(popup);
 
-			expectOpen(popupCommon);
-			validateTitle(popup, 'Popup without AutoDismiss');
+			await expectOpen(popupCommon);
+			await validateTitle(popup, 'Popup without AutoDismiss');
 		});
 
 		describe('using 5-way', function () {
@@ -166,7 +166,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 
@@ -175,10 +175,10 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.backKey();
 				await browser.pause(300);  // Wait for delay in case of transition (shouldn't happen)
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 		});
@@ -189,28 +189,28 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup2.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.clickPopupFloatLayer();
 				await browser.pause(300);  // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should open the popup with scrim on click', async function () {
 				await popupCommon.buttonPopup2.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should close the popup and scrim on ok click in popup container', async function () {
 				await popupCommon.buttonPopup2.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await popup.buttonOK.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 		});
 	});
@@ -223,8 +223,8 @@ describe('Popup', function () {
 			await popupCommon.buttonPopup3.click();
 			await Page.waitForOpen(popup);
 
-			expectOpen(popupCommon);
-			validateTitle(popup, 'Popup with no Component');
+			await expectOpen(popupCommon);
+			await validateTitle(popup, 'Popup with no Component');
 		});
 
 		describe('using 5-way', function () {
@@ -235,7 +235,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should spot back the popup button on auto dismiss the popup', async function () {
@@ -244,12 +244,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup3.isFocused()).to.be.true();
 			});
 		});
@@ -260,30 +260,30 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup3.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should dismiss the popup on click on outside the popup', async function () {
 				await popupCommon.buttonPopup3.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.clickPopupFloatLayer();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should open the popup with scrim on click', async function () {
 				await popupCommon.buttonPopup3.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 		});
 	});
@@ -295,8 +295,8 @@ describe('Popup', function () {
 		it('should have correct title', async function () {
 			await popupCommon.buttonPopup4.click();
 			await browser.pause(100); // needed to pass instead of waitTransitionEnd
-			expectOpen(popupCommon);
-			validateTitle(popup, 'Popup without Animation');
+			await expectOpen(popupCommon);
+			await validateTitle(popup, 'Popup without Animation');
 		});
 
 		describe('using 5-way', function () {
@@ -305,7 +305,7 @@ describe('Popup', function () {
 				await Page.spotlightDown();
 				await Page.spotlightSelect();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 
@@ -313,7 +313,7 @@ describe('Popup', function () {
 				await Page.spotlightDown();
 				await Page.spotlightSelect();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.spotlightRight();
 				expect(await popup.buttonCancel.isFocused()).to.be.true();
 			});
@@ -322,7 +322,7 @@ describe('Popup', function () {
 				await Page.spotlightDown();
 				await Page.spotlightSelect();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.spotlightRight();
 				await Page.spotlightLeft();
 				expect(await popup.buttonOK.isFocused()).to.be.true();
@@ -332,10 +332,10 @@ describe('Popup', function () {
 				await Page.spotlightDown();
 				await Page.spotlightSelect();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.spotlightSelect();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup4.isFocused()).to.be.true();
 			});
 
@@ -343,10 +343,10 @@ describe('Popup', function () {
 				await Page.spotlightDown();
 				await Page.spotlightSelect();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.backKey();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup4.isFocused()).to.be.true();
 			});
 		});
@@ -355,43 +355,43 @@ describe('Popup', function () {
 			it('should dismiss the popup on escape key', async function () {
 				await popupCommon.buttonPopup4.click();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.backKey();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should dismiss the popup on click on outside the popup', async function () {
 				await popupCommon.buttonPopup4.click();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await Page.clickPopupFloatLayer();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should open the popup with scrim on click', async function () {
 				await popupCommon.buttonPopup4.click();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should close the popup and scrim on click in popup container', async function () {
 				await popupCommon.buttonPopup4.click();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await popup.buttonOK.click();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should close the popup and scrim on cancel click in popup container', async function () {
 				await popupCommon.buttonPopup4.click();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				await popup.buttonCancel.click();
 				await browser.pause(100); // needed to pass instead of waitTransitionEnd
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 		});
 	});
@@ -404,8 +404,8 @@ describe('Popup', function () {
 			await popupCommon.buttonPopup5.click();
 			await Page.waitForOpen(popup);
 
-			expectOpen(popupCommon);
-			validateTitle(popup, 'Popup without Close button');
+			await expectOpen(popupCommon);
+			await validateTitle(popup, 'Popup without Close button');
 		});
 
 		describe('using 5-way', function () {
@@ -416,7 +416,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 
@@ -426,7 +426,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 
@@ -439,7 +439,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightUp();
@@ -453,7 +453,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightRight();
@@ -467,7 +467,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightLeft();
@@ -481,12 +481,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightSelect();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup5.isFocused()).to.be.true();
 			});
 
@@ -496,13 +496,13 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightSelect();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup5.isFocused()).to.be.true();
 			});
 
@@ -512,14 +512,14 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightRight();
 				await Page.spotlightSelect();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup5.isFocused()).to.be.true();
 			});
 
@@ -529,12 +529,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup5.isFocused()).to.be.true();
 			});
 		});
@@ -545,19 +545,19 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup5.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should close the popup and scrim on ok click in popup container', async function () {
 				await popupCommon.buttonPopup5.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await popup.buttonOK.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 		});
 	});
@@ -570,8 +570,8 @@ describe('Popup', function () {
 			await popupCommon.buttonPopup6.click();
 			await Page.waitForOpen(popup);
 
-			expectOpen(popupCommon);
-			validateTitle(popup, 'Popup spotlightRestrict is self-only');
+			await expectOpen(popupCommon);
+			await validateTitle(popup, 'Popup spotlightRestrict is self-only');
 		});
 
 		describe('using 5-way', function () {
@@ -582,7 +582,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 
@@ -593,7 +593,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 
@@ -607,7 +607,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightLeft();
@@ -622,7 +622,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightDown();
@@ -637,12 +637,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightSelect();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup6.isFocused()).to.be.true();
 			});
 
@@ -653,12 +653,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup6.isFocused()).to.be.true();
 			});
 		});
@@ -669,19 +669,19 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup6.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should close the popup and scrim on ok click in popup container', async function () {
 				await popupCommon.buttonPopup6.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await popup.buttonOK.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 		});
 
@@ -691,7 +691,7 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup6.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4)
@@ -723,7 +723,7 @@ describe('Popup', function () {
 				await Page.waitForOpen(popup);
 
 				// Verify the popup opens (verify step 4) - Spotlight will be on buttonOK by default
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				// Wave the pointer to change to cursor mode (step 5)
 				await Page.showPointerByKeycode();
@@ -745,7 +745,7 @@ describe('Popup', function () {
 				await Page.waitForOpen(popup);
 
 				// Verify the popup opens
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				// Hover a button outside Popup (step 4)
 				$('#buttonPopup9').moveTo({xOffset: 200, yOffset: 200});
@@ -766,7 +766,7 @@ describe('Popup', function () {
 				await Page.waitForOpen(popup);
 
 				// Verify the popup opens (step 7)
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				// Hover outside Popup (step 8)
 				await $('#buttonPopup9').moveTo({xOffset: 200, yOffset: 200});
@@ -787,8 +787,8 @@ describe('Popup', function () {
 			await popupCommon.buttonPopup7.click();
 			await Page.waitForOpen(popup);
 
-			expectOpen(popupCommon);
-			validateTitle(popup, 'Popup spotlightRestrict is self-first');
+			await expectOpen(popupCommon);
+			await validateTitle(popup, 'Popup spotlightRestrict is self-first');
 		});
 
 		describe('using 5-way', function () {
@@ -799,7 +799,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 
@@ -809,7 +809,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 
@@ -822,7 +822,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightLeft();
@@ -836,7 +836,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightDown();
@@ -850,12 +850,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightSelect();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup7.isFocused()).to.be.true();
 			});
 
@@ -865,12 +865,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup7.isFocused()).to.be.true();
 			});
 		});
@@ -881,19 +881,19 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup7.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should close the popup and scrim on ok click in popup container', async function () {
 				await popupCommon.buttonPopup7.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await popup.buttonOK.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 		});
 
@@ -903,7 +903,7 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup7.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				const popupSize = await $('#popup7').getSize();
 				await Page.showPointerByKeycode();
@@ -929,8 +929,8 @@ describe('Popup', function () {
 			await popupCommon.buttonPopup8.click();
 			await Page.waitForOpen(popup);
 
-			expectOpen(popupCommon);
-			validateTitle(popup, 'Popup scrimType is transparent');
+			await expectOpen(popupCommon);
+			await validateTitle(popup, 'Popup scrimType is transparent');
 		});
 
 		describe('using 5-way', function () {
@@ -942,7 +942,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 
@@ -953,7 +953,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 
@@ -967,7 +967,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightLeft();
@@ -982,7 +982,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightDown();
@@ -997,12 +997,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.spotlightSelect();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup8.isFocused()).to.be.true();
 			});
 
@@ -1013,12 +1013,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup8.isFocused()).to.be.true();
 			});
 		});
@@ -1029,12 +1029,12 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup8.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				// The ESC button (Back Key) does not switch out of pointer mode [ENYO-5865] [ENYO-5882]
 				expect(await popupCommon.buttonPopup8.isFocused()).to.be.false();
 			});
@@ -1043,43 +1043,43 @@ describe('Popup', function () {
 				await popupCommon.buttonPopup8.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await Page.clickPopupFloatLayer();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should open the popup with scrim on click', async function () {
 				await popupCommon.buttonPopup8.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 			});
 
 			it('should close the popup and scrim on click in popup container', async function () {
 				await popupCommon.buttonPopup8.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await popup.buttonOK.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should close the popup and scrim on cancel click in popup container', async function () {
 				await popupCommon.buttonPopup8.click();
 				await Page.waitForOpen(popup);
 
-				expectOpen(popupCommon);
+				await expectOpen(popupCommon);
 
 				await popup.buttonCancel.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 		});
 	});
@@ -1092,8 +1092,8 @@ describe('Popup', function () {
 			await popupCommon.buttonPopup9.click();
 			await Page.waitForOpen(popup);
 
-			expectNoneScrimOpen(popupCommon);
-			validateTitle(popup, 'Popup scrimType is none');
+			await expectNoneScrimOpen(popupCommon);
+			await validateTitle(popup, 'Popup scrimType is none');
 		});
 
 		describe('using 5-way', function () {
@@ -1106,7 +1106,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 				expect(await popup.buttonOK.isFocused()).to.be.true();
 			});
 
@@ -1118,7 +1118,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.spotlightRight();
 
@@ -1133,7 +1133,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightLeft();
@@ -1149,7 +1149,7 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.spotlightRight();
 				await Page.spotlightDown();
@@ -1165,12 +1165,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.spotlightSelect();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup9.isFocused()).to.be.true();
 			});
 
@@ -1182,12 +1182,12 @@ describe('Popup', function () {
 				await Page.spotlightSelect();
 				await Page.waitForOpen(popup);
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 				expect(await popupCommon.buttonPopup9.isFocused()).to.be.true();
 			});
 		});
@@ -1197,55 +1197,55 @@ describe('Popup', function () {
 			it('should dismiss the popup on escape key', async function () {
 				await popupCommon.buttonPopup9.click();
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.waitForOpen(popup);
 				await Page.backKey();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should dismiss the popup on click on outside the popup', async function () {
 				await popupCommon.buttonPopup9.click();
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.waitForOpen(popup);
 				await Page.clickPopupMain();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should open the popup without scrim on click', async function () {
 				await popupCommon.buttonPopup9.click();
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 			});
 
 			it('should close the popup on click in popup container', async function () {
 				await popupCommon.buttonPopup9.click();
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.waitForOpen(popup);
 				await popup.buttonOK.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 			it('should close the popup on cancel click in popup container', async function () {
 				await popupCommon.buttonPopup9.click();
 
-				expectNoneScrimOpen(popupCommon);
+				await expectNoneScrimOpen(popupCommon);
 
 				await Page.waitForOpen(popup);
 				await popup.buttonCancel.click();
 				await Page.waitForClose(popup);
 
-				expectClosed(popupCommon);
+				await expectClosed(popupCommon);
 			});
 
 		});
