@@ -1,5 +1,19 @@
 import Heading from '../../../../Heading';
 
+import {withConfig, withProps} from './utils';
+
+const bidirectionalHeading = [
+	<Heading>Input Password for ABC جهاز, please</Heading>,
+	<Heading>Input Password for <bdi>ABC جهاز</bdi>, please</Heading>,
+	<Heading>الرجاء إدخال كلمة المرور لـ ABC جهاز</Heading>,
+	<Heading>الرجاء إدخال كلمة المرور لـ <bdi>ABC جهاز</bdi></Heading>
+];
+
+const bidirectionalTests = [
+	...withConfig({locale: 'ar-SA'}, bidirectionalHeading),
+	...withConfig({locale: 'en-US'}, bidirectionalHeading),
+];
+
 const HeadingTests = [
 	<Heading>This is a new Heading - default</Heading>,
 	<Heading spacing="auto">This is a new Heading - spacing is auto</Heading>,
@@ -46,6 +60,10 @@ const HeadingTests = [
 		locale: 'ko-KR',
 		component: <Heading size="medium" style={{fontStyle: 'italic'}}>Heading</Heading>
 	},
-	<Heading size="medium" style={{fontStyle: 'italic', fontWeight: 700}}>Heading</Heading>
+	<Heading size="medium" style={{fontStyle: 'italic', fontWeight: 700}}>Heading</Heading>,
+
+	...bidirectionalTests,
+	...withProps({noRtlOverrid: true}, bidirectionalTests)
+
 ];
 export default HeadingTests;
