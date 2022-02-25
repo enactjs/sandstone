@@ -108,40 +108,41 @@ export const WithBidirectionalText  = (args) => {
 	const inputPasswordFor = 'Input Password for ';
 	const inputPasswordForAr = 'الرجاء إدخال كلمة المرور لـ ';
 	const abcDevice = 'ABC جهاز';
+	const headingProps = {noRtlOverride: args['noRtlOverride']};
 
 	return (
 		<Scroller>
 			{/* See: https://www.w3.org/International/articles/inline-bidi-markup/ */}
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor + abcDevice}</Heading>
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}{abcDevice}, Please</Heading>
-			<Heading noRtlOverride={args['noRtlOverride']}>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: abcDevice})}</Heading>
+			<Heading {...headingProps}>{inputPasswordFor + abcDevice}</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}{abcDevice}, Please</Heading>
+			<Heading {...headingProps}>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: abcDevice})}</Heading>
 			<br />
 
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<span dir="ltr">{abcDevice}</span>, Please</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}<span dir="ltr">{abcDevice}</span>, Please</Heading>
 			{/* When cannot use markup, U+2067 RIGHT-TO-LEFT ISOLATE (RLI) or U+2066 LEFT-TO-RIGHT ISOLATE (LRI)
 				These are placed in the same location as the opening <span dir="..."> tag.
 				U+2069 POP DIRECTIONAL ISOLATE (PDI), and it corresponds to the </span> in the markup. */}
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}&#x2066;{abcDevice}&#x2069;, Please</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}&#x2066;{abcDevice}&#x2069;, Please</Heading>
 			<br />
 
 			{/* <bdi> same with <span dir=auto> */}
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<span dir="auto">{abcDevice}</span>, Please</Heading>
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}<span dir="auto">{abcDevice}</span>, Please</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please</Heading>
 			{/* When cannot use markup, U+2068 FIRST STRONG ISOLATE */}
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}&#x2068;{abcDevice}&#x2069;, Please</Heading>
-			<Heading noRtlOverride={args['noRtlOverride']}>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: `\u2068${abcDevice}\u2069`})}</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}&#x2068;{abcDevice}&#x2069;, Please</Heading>
+			<Heading {...headingProps}>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: `\u2068${abcDevice}\u2069`})}</Heading>
 			<br />
 
 			{/* auto seems to be determined by the first letter */}
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<bdi>جهاز ABC صباح</bdi>, Please</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}<bdi>جهاز ABC صباح</bdi>, Please</Heading>
 
 			<br />
 			{/* If there is any rtl character, set the direction of the marquee to rtl.  */}
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please. long text long text long text long text long text long text long text</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please. long text long text long text long text long text long text long text</Heading>
 
 			<br />
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordForAr}{abcDevice}</Heading>
-			<Heading noRtlOverride={args['noRtlOverride']}>{inputPasswordForAr}<bdi>{abcDevice}</bdi></Heading>
+			<Heading {...headingProps}>{inputPasswordForAr}{abcDevice}</Heading>
+			<Heading {...headingProps}>{inputPasswordForAr}<bdi>{abcDevice}</bdi></Heading>
 		</Scroller>
 	);
 };
