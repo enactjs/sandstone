@@ -26,6 +26,8 @@ export const _WizardPanels = (args) => (
 		noAnimation={args['noAnimation']}
 		noSteps={args['noSteps']}
 		nextButtonVisibility={args['nextButtonVisibility']}
+		onBack={action('onBack')}
+		onChange={action('onChange')}
 		onNextClick={action('onNextClick')}
 		onPrevClick={action('onPrevClick')}
 		onTransition={action('onTransition')}
