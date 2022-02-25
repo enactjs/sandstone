@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 
-import {ADD_ITEM, CHANGE_DATASIZE, CHANGE_MINHEIGHT, CHANGE_MINWIDTH, CHANGE_SPACING, DELETE_ITEM, DELETE_SELECTED_ITEM, SELECT_ALL, SELECT_ITEM, SELECTION_ENABLE, SET_DATA} from '../actions';
+import {ADD_ITEM, CHANGE_DATASIZE, CHANGE_MINHEIGHT, CHANGE_MINWIDTH, CHANGE_SPACING, DELETE_ITEM, DELETE_SELECTED_ITEM, SELECT_ALL, SELECT_ITEM, SELECTION_ENABLE, SET_DATA, UPDATE_ITEMS_ORDER} from '../actions';
 import {initializeRecords} from '../utils';
 
 
@@ -112,6 +112,17 @@ const data = (state = initializeRecords(), action) => {
 				}
 			}
 			return Object.assign({}, state, {data: newData, dataOrder: newDataOrder, selectedItems: new Set()});
+		}
+		case UPDATE_ITEMS_ORDER: {
+			const newData = {};
+			const newDataOrder = [];
+
+			for (let i = 0; i < action.newDataOrder.length; i++) {
+				newData[i] = state.data[action.newDataOrder[i]];
+				newDataOrder.push(i);
+			}
+
+			return Object.assign({}, state, {data: newData, dataOrder: newDataOrder});
 		}
 		default:
 			return state;
