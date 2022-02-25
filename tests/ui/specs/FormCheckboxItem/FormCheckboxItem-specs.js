@@ -2,7 +2,7 @@ const Page = require('./FormCheckboxItemPage'),
 	{expectChecked, expectUnchecked} = require('./FormCheckboxItem-utils.js');
 
 // Skipping until expandables are updated to handle the new Item structure
-describe('FormCheckboxItem', function () {
+describe.skip('FormCheckboxItem', function () {
 
 	beforeEach(async function () {
 		await Page.open();
