@@ -63,7 +63,7 @@ const HeadingTests = [
 	<Heading size="medium" style={{fontStyle: 'italic', fontWeight: 700}}>Heading</Heading>,
 
 	...bidirectionalTests,
-	...withProps({noRtlOverrid: true}, bidirectionalTests)
+	...withProps({noRtlOverride: true}, bidirectionalTests)
 
 ];
 export default HeadingTests;
