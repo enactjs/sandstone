@@ -307,6 +307,7 @@ const useScroll = (props) => {
 			...rest
 		} = props;
 
+	delete rest.editMode;
 	delete rest.scrollbarTrackCss;
 
 	// Mutable value

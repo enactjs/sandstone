@@ -1,0 +1,75 @@
+// useEditMode.module.less
+//
+@import "../styles/colors.less";
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+
+.removeButton {
+	position: absolute;
+	z-index: 1;
+	opacity: 0;
+
+	&.showRemoveButton {
+		max-height: ~"calc(100% -" (.extract(@sand-popup-position-left-margin, top)[] + .extract(@sand-popup-position-left-margin, bottom)[]) ~")";
+		left: ~"calc(var(--select-position) - " (@sand-button-height + .extract(@sand-button-margin, left)[])/2 ~")"; // TODO: RTL
+		opacity: 1;
+	}
+}
+
+.editModeScrollContent{
+	padding-top: 180px;
+
+	div[data-index] {
+		will-change: transform;
+		transition: transform 500ms;
+		transform: translate(0, 0);
+
+		&.selectedItem {
+			position: absolute;
+			transition: transform 0ms;
+			transform: translate(0, -1rem);
+
+			&::before {
+				content: '\276E';
+				font-size: 90px;
+				position: absolute;
+				top: 30%;
+				left: -42px;
+				// Override focus background style
+				background: none;
+				opacity: 1;
+				right: auto;
+				bottom: auto;
+			}
+
+			.focus({
+				color : unset;
+				&::before {
+					background: none;
+				}
+			});
+
+			&::after {
+				content: '\276F';
+				font-size: 90px;
+				position: absolute;
+				background: none;
+				opacity: 1;
+				top: 30%;
+				right: -42px;
+			}
+		}
+
+		&.selectedItem ~ div[data-index] {
+			transition: transform 200ms;
+			transform: translate(var(--item-width), 0);
+			.enact-locale-rtl({
+				transform: translate(calc(var(--item-width) * -1), 0);
+			});
+		}
+
+		&.noAnimation ~ div[data-index] {
+			transition: transform 0ms;
+		}
+	}
+}
