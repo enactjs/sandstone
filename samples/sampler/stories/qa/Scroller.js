@@ -5,6 +5,8 @@ import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import {Header} from '@enact/sandstone/Panels';
+import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Group from '@enact/ui/Group';
@@ -194,6 +196,42 @@ boolean('spotlightDisabled', ListOfThings, Config, false);
 select('verticalScrollbar', ListOfThings, prop.scrollbarOption, Config);
 
 ListOfThings.storyName = 'List of things';
+
+export const ListOfThingsInFixedPopupPanels = (args) => (
+	<FixedPopupPanels
+		open
+		index={0}
+	>
+		<Panel>
+			<Header title='Panel1' />
+			<Scroller
+				focusableScrollbar={args['focusableScrollbar']}
+				horizontalScrollbar={args['horizontalScrollbar']}
+				hoverToScroll={args['hoverToScroll']}
+				key={args['scrollMode']}
+				noScrollByWheel={args['noScrollByWheel']}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={args['scrollMode']}
+				spotlightDisabled={args['spotlightDisabled']}
+				verticalScrollbar={args['verticalScrollbar']}
+			>
+				<Group childComponent={Item}>{itemData}</Group>
+			</Scroller>
+		</Panel>
+	</FixedPopupPanels>
+);
+
+select('focusableScrollbar', ListOfThingsInFixedPopupPanels, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', ListOfThingsInFixedPopupPanels, prop.scrollbarOption, Config);
+boolean('hoverToScroll', ListOfThingsInFixedPopupPanels, Config);
+boolean('noScrollByWheel', ListOfThingsInFixedPopupPanels, Config);
+select('scrollMode', ListOfThingsInFixedPopupPanels, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', ListOfThingsInFixedPopupPanels, Config, false);
+select('verticalScrollbar', ListOfThingsInFixedPopupPanels, prop.scrollbarOption, Config);
+
+ListOfThingsInFixedPopupPanels.storyName = 'List of things in FixedPopupPanels';
 
 export const HorizontalScroll = (args) => (
 	<Scroller
