@@ -203,7 +203,7 @@ export const ListOfThingsInFixedPopupPanels = (args) => (
 		index={0}
 	>
 		<Panel>
-			<Header title='Panel1' />
+			<Header title="Panel1" />
 			<Scroller
 				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar={args['horizontalScrollbar']}
