@@ -1,10 +1,11 @@
 import ri from '@enact/ui/resolution';
 import EditableList from '@enact/sandstone/EditableList';
 import ImageItem from '@enact/sandstone/ImageItem';
+import {useState} from 'react';
 
 import css from './MainView.module.less';
 
-const items = [];
+const itemsArr = [];
 const dataSize = 10;
 const populateItem = ({index}) => {
 	const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
@@ -18,13 +19,25 @@ const populateItem = ({index}) => {
 };
 
 for (let i = 0; i < dataSize; i++) {
-	items.push(populateItem({index: i}));
+	itemsArr.push(populateItem({index: i}));
 }
 
 const MainView = () => {
+	const [items, setItems] = useState(itemsArr);
+	const handleComplete = (ev) => {
+		const {orders} = ev;
+		console.log("@@@@ ", orders);
+		// change data from the new orders
+		const newItems = [];
+		orders.forEach(order => {newItems.push(items[order-1]);});
+		console.log(newItems);
+		setItems(newItems);
+	}
+
 	return (
 		<EditableList
 			dataSize={dataSize}
+			onComplete={handleComplete}
 		>
 			{
 				items.map((item) => {

@@ -6,60 +6,73 @@
  * @exports EditableList
  */
 
+import {forward, forwardCustom} from '@enact/core/handle';
 import {useCallback, useEffect, useRef} from 'react';
 
 import css from './EditableList.module.less';
 
 const EditableList = (props) => {
-	const {children} = props;
+	const {children, dataSize} = props;
 	const itemOffsetRef = useRef();
 	const containerRef = useRef();
 	const selectedItem = useRef(); // If this value is not null, we are editing
-	const lastHoveredItem = useRef();
-	let animating = false;
+	const fromIndex = useRef();
+	const prevToIndex = useRef();
+	const doms = useRef([]);
+	const canAdd = useRef(true);
+	const flow = useRef();
 
 	const handleClick = useCallback((ev) => {
-		animating = false;
 		if (selectedItem.current) {
 			// finalize the order
-			const sItem = selectedItem.current;
-			const hItem = lastHoveredItem.current;
-			sItem.classList.remove(css.selected);
-			sItem.classList.remove(css.selectedTransform);
-			hItem.classList.remove(css.hovered);
-			hItem.classList.remove(css.hoveredTransform);
+			if (doms.current.length > 0) {
+				let selectedOrder = selectedItem.current.style.order;
+				const factor = flow.current > 0 ? 1 : -1;
+				const changedOrder = [];
 
-			const hoveredOrder = Number(hItem.style.order);
-			const selectedOrder = Number(sItem.style.order);
+				console.log("factor: " , factor);
 
-			if (hoveredOrder > selectedOrder) {
-				let nextSibling = sItem.nextElementSibling;
-				while (nextSibling && nextSibling !== hItem) {
-					nextSibling.style.order = Number(nextSibling.style.order) - 1;
-					nextSibling.classList.remove(css.hoveredTransform);
-					nextSibling.classList.remove(css.hovered);
-					nextSibling = nextSibling.nextElementSibling;
+				doms.current.forEach((dom) => {
+					const order = Number(dom.style.order);
+					console.log("forEach ", order);
+					selectedOrder = order;
+					dom.style.order = order - factor;
+					dom.classList.remove(css.hoveredTransform);
+					dom.classList.remove(css.hovered);
+					if (factor > 0) {
+						changedOrder.push(order);
+					} else {
+						changedOrder.unshift(order);
+					}
+				});
+				console.log(changedOrder);
+
+				if (factor > 0) {
+					console.log(changedOrder);
+					changedOrder.push(Number(selectedItem.current.style.order));
+				} else {
+					changedOrder.unshift(Number(selectedItem.current.style.order));
 				}
-				hItem.style.order = hoveredOrder - 1;
-				sItem.style.order = hoveredOrder;
+
+				doms.current = [];
+				selectedItem.current.style.order = selectedOrder;
+
+				//create order array
+				const orders = Array.from({length: dataSize}, (_, i) => i + 1)
+				console.log(orders);
+				console.log("changed Orders:", changedOrder);
+				console.log("fromIndex: ", fromIndex.current);
+				console.log("prevToIndex: ", prevToIndex.current);
+				orders.splice(Math.min(fromIndex.current, prevToIndex.current), changedOrder.length, ...changedOrder);
+				console.log(orders);
+				forwardCustom('onComplete', (ev) => ({orders}))(ev, props);
 			}
 
-			if (hoveredOrder < selectedOrder) {
-				let nextSibling = hItem;
-				while (nextSibling && nextSibling !== sItem) {
-					console.log("before", Number(nextSibling.style.order));
-					nextSibling.style.order = Number(nextSibling.style.order) + 1;
-					console.log("after", nextSibling.style.order);
-					nextSibling.classList.remove(css.hoveredTransform);
-					nextSibling.classList.remove(css.hovered);
-					nextSibling = nextSibling.nextElementSibling;
-				}
-				sItem.style.order = hoveredOrder;
-			}
-
-			// nullify the selected & hovered item
+			selectedItem.current.classList.remove(css.selected);
+			selectedItem.current.classList.remove(css.selectedTransform);
 			selectedItem.current = null;
-			lastHoveredItem.current = null;
+			flow.current = null;
+			prevToIndex.current = null;
 			containerRef.current.style.setProperty('--item-offset', '0px');
 		} else {
 			// add selected transition to selected item
@@ -75,49 +88,94 @@ const EditableList = (props) => {
 					itemOffsetRef.current = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
 					containerRef.current?.style.setProperty('--item-unit', itemOffsetRef.current + 'px');
 				}
+
+				fromIndex.current = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
+				console.log("fromIndex:", fromIndex.current);
 			}
 		}
-	}, []);
-
-	const handleTransitionEnd = useCallback(() => {
-		animating = false;
-	}, []);
+	}, [dataSize, props]);
 
 	const handleMouseMove = useCallback((ev) => {
 		// change order when move over to the other items
 		const item = ev.target.parentElement;
 		const curItem = selectedItem.current;
 
-		if (curItem && item.classList.contains('spottable') && item !== curItem && animating === false) {
-			console.log("It's another item!");
-			//console.log(containerRef.current.style.getPropertyValue('--item-width'));
-			const curOffset = Number(containerRef.current.style.getPropertyValue('--item-offset').replace('px', ''));
-			console.log(curOffset);
-			console.log("hovered item left: " + item.getBoundingClientRect().left);
-			console.log("selected item left: " + curItem.getBoundingClientRect().left);
-			let offset = item.getBoundingClientRect().left - curItem.getBoundingClientRect().left;
+		if (curItem) {
+			const toIndex = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
+			const offset = (toIndex - fromIndex.current) * itemOffsetRef.current;
+			const direction = Math.sign(ev.movementX) > 0;
 
-			console.log("offset ", offset);
-			// The case where the selected item get back to its slot again
-			if (item.classList.contains(css.hoveredTransform)) {
-				console.log("0 so removing class", css.hoveredTransform);
-
-				item.classList.remove(css.hoveredTransform);
-
-				lastHoveredItem.current = curItem;
-			} else {
-				containerRef.current.style.setProperty('--moving-sign', Math.sign(ev.movementX));
-
-				item.classList.add(css.hoveredTransform);
-				lastHoveredItem.current = item;
-			}
-
-			containerRef.current.style.setProperty('--item-offset', curOffset + offset + 'px');
-
+			containerRef.current.style.setProperty('--item-offset', offset + 'px');
 			curItem.classList.add(css.selectedTransform);
-			item.classList.add(css.hovered);
 
-			animating = true;
+			// reset status
+			canAdd.current = true;
+
+			if (toIndex !== prevToIndex.current) {
+				console.log("prevToIndex :", prevToIndex.current);
+				const diff = toIndex - prevToIndex.current;
+				console.log("diff: ", diff);
+				console.log("flow.current to compare: ", flow.current);
+				if (flow.current && Math.sign(diff) !== Math.sign(flow.current) && doms.current.length > 0) {
+					canAdd.current = false;
+				}
+				console.log("canAdd ?", canAdd.current);
+				console.log("changed!", toIndex);
+				if (canAdd.current) {
+					if (direction > 0) {
+						containerRef.current.style.setProperty('--moving-sign', Math.sign(ev.movementX));
+						let sibling = curItem.nextElementSibling;
+						let i = toIndex;
+						while (i > fromIndex.current) {
+							sibling.classList.add(css.hovered);
+							sibling.classList.add(css.hoveredTransform);
+
+							if (!doms.current.includes(sibling)) {
+								doms.current.push(sibling);
+							}
+
+							sibling = sibling.nextElementSibling;
+							i--;
+						}
+					} else {
+						containerRef.current.style.setProperty('--moving-sign', Math.sign(ev.movementX));
+						let sibling = curItem.previousElementSibling;
+						let i = fromIndex.current;
+						while (i > toIndex) {
+							sibling.classList.add(css.hovered);
+							sibling.classList.add(css.hoveredTransform);
+
+							if (!doms.current.includes(sibling)) {
+								doms.current.push(sibling);
+								console.log(doms.current);
+							}
+
+							sibling = sibling.previousElementSibling;
+							i--;
+						}
+					}
+					flow.current = diff;
+					console.log("flow.current: ", flow.current);
+				} else {
+					if (direction > 0) {
+						if (doms.current.length > 0) {
+							for (let i = 0; i < toIndex - prevToIndex.current; i++) {
+								const toItem = doms.current.pop();
+								toItem.classList.remove(css.hoveredTransform);
+							}
+						}
+					} else {
+						if (doms.current.length > 0) {
+							for (let i = 0; i < prevToIndex.current - toIndex; i++) {
+								const toItem = doms.current.pop();
+								toItem.classList.remove(css.hoveredTransform);
+							}
+						}
+					}
+				}
+
+				prevToIndex.current = toIndex;
+			}
 		}
 	}, []);
 
@@ -127,7 +185,6 @@ const EditableList = (props) => {
 		<div className={css.container} ref={containerRef}>
 			<div
 				className={css.list}
-				onTransitionEnd={handleTransitionEnd}
 				onClick={handleClick}
 				onMouseMove={handleMouseMove}
 			>
