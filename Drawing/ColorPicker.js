@@ -1,22 +1,19 @@
-/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/jsx-no-bind, react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import BodyText from '../BodyText';
 import Button, {ButtonBase} from '../Button';
-import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
+import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 import Slider from '../Slider';
 
 import componentCss from './ColorPicker.module.less';
-
-const ContextualButton = ContextualPopupDecorator(Button);
-const ContextualButtonBase = ContextualPopupDecorator(ButtonBase);
 
 const componentToHex = (c) =>  {
 	const hex = c.toString(16);
@@ -36,59 +33,6 @@ const hexToRgb = (hex) => {
 	} : null;
 };
 
-const RGBPicker = (props) => {
-	const color = props?.color,
-		changeColor = props?.changeColor;
-
-	const {r, g, b} = hexToRgb(color);
-
-	const [red, setRed] = useState(r);
-	const [green, setGreen] = useState(g);
-	const [blue, setBlue] = useState(b);
-
-	const onSliderBlur = () => {
-		changeColor(rgbToHex(red, green, blue));
-	};
-
-	return (
-		<div>
-			<Cell>
-				<Slider
-					max={255}
-					min={0}
-					onBlur={onSliderBlur}
-					onChange={(ev) => setRed(ev.value)}
-					value={red}
-				/>
-				<BodyText>{red} Red</BodyText>
-			</Cell>
-			<Cell>
-				<Slider
-					max={255}
-					min={0}
-					onBlur={onSliderBlur}
-					onChange={(ev) => setGreen(ev.value)}
-					value={green}
-				/>
-				<BodyText>{green} Green</BodyText>
-			</Cell>
-			<Cell>
-				<Slider
-					max={255}
-					min={0}
-					onBlur={onSliderBlur}
-					onChange={(ev) => setBlue(ev.value)}
-					value={blue}
-				/>
-				<BodyText>{blue} Blue</BodyText>
-			</Cell>
-			<Cell>
-				<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
-			</Cell>
-		</div>
-	);
-};
-
 /**
  * A color picker component.
  *
@@ -103,6 +47,8 @@ const RGBPicker = (props) => {
 
 const ColorPickerBase = kind({
 	name: 'ColorPicker',
+
+	functional: true,
 
 	propTypes: /** @lends sandstone/Drawing.ColorPickerBase.prototype */ {
 
@@ -121,17 +67,6 @@ const ColorPickerBase = kind({
 		 * @public
 		 */
 		colorHandler: PropTypes.func,
-
-		/**
-		 * Indicates if the color picker sliders are open.
-		 *
-		 * When `true`, contextual popup opens.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
-		 */
-		colorPickerOpen: PropTypes.bool,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -157,14 +92,6 @@ const ColorPickerBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
-
-		/**
-		 * Called to open or close the color picker sliders.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onToggleColorPicker: PropTypes.func,
 
 		/**
 		 * Called to open or close the color picker.
@@ -202,8 +129,35 @@ const ColorPickerBase = kind({
 		text: PropTypes.string
 	},
 
+	handlers: {
+		handleClosePopup: (ev, {onTogglePopup}) => {
+			onTogglePopup();
+		},
+		handleOpenPopup: (ev, {disabled, onTogglePopup}) => {
+			if (!disabled) {
+				onTogglePopup();
+			}
+		}
+	},
+
 	computed: {
-		renderComponent: ({color, colorHandler, colorPickerOpen, css, onToggleColorPicker, onTogglePopup, presetColors}) => {
+		renderComponent: ({color, colorHandler, css, onTogglePopup, presetColors}) => {
+			const [red, setRed] = useState('');
+			const [green, setGreen] = useState('');
+			const [blue, setBlue] = useState('');
+
+			useEffect(() => {
+				let {r, g, b} = hexToRgb(color);
+
+				setRed(r);
+				setGreen(g);
+				setBlue(b);
+			}, [color]);
+
+			const onSliderBlur = () => {
+				colorHandler(rgbToHex(red, green, blue));
+			};
+
 			return (
 				<Cell className={css.colorPicker}>
 					<Row>
@@ -221,15 +175,34 @@ const ColorPickerBase = kind({
 							/>
 						))}
 					</Row>
-					<Row className={css.sliderContextualButton}>
-						<ContextualButton
-							open={colorPickerOpen}
-							onClick={onToggleColorPicker}
-							popupComponent={() => <RGBPicker color={color} changeColor={colorHandler} />}
-						>
-							Select your own
-						</ContextualButton>
-					</Row>
+					<Slider
+						className={componentCss.colorSlider}
+						max={255}
+						min={0}
+						onBlur={onSliderBlur}
+						onChange={(ev) => setRed(ev.value)}
+						value={red}
+					/>
+					<BodyText>{red} Red</BodyText>
+					<Slider
+						className={componentCss.colorSlider}
+						max={255}
+						min={0}
+						onBlur={onSliderBlur}
+						onChange={(ev) => setGreen(ev.value)}
+						value={green}
+					/>
+					<BodyText>{green} Green</BodyText>
+					<Slider
+						className={componentCss.colorSlider}
+						max={255}
+						min={0}
+						onBlur={onSliderBlur}
+						onChange={(ev) => setBlue(ev.value)}
+						value={blue}
+					/>
+					<BodyText>{blue} Blue</BodyText>
+					<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
 				</Cell>
 			);
 		}
@@ -240,24 +213,30 @@ const ColorPickerBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({color, css, disabled, onTogglePopup, popupOpen, renderComponent, text}) => {
+	render: ({color, css, disabled, handleClosePopup, handleOpenPopup, popupOpen, renderComponent, text}) => {
 		return (
 			<Row className={css.colorPicker}>
 				<BodyText className={css.colorBodyText} disabled={disabled}>{text}</BodyText>
-				<ContextualButtonBase
+				<ButtonBase
 					className={css.coloredButton}
-					disabled
+					disabled={disabled}
 					minWidth={false}
-					onClick={() => {
-						if (!disabled) {
-							onTogglePopup();
-						}
-					}}
-					open={popupOpen}
-					popupComponent={() => renderComponent}
+					onClick={handleOpenPopup}
 					style={{backgroundColor: color}}
 					type="color"
 				/>
+				<Popup
+					onClose={handleClosePopup}
+					open={popupOpen}
+					position="left"
+					scrimType="transparent"
+				>
+					<Row>
+						<BodyText>{text}</BodyText>
+						<Button className={css.closeButton} icon={'x'} onClick={handleClosePopup} />
+					</Row>
+					{renderComponent}
+				</Popup>
 			</Row>
 		);
 	}
@@ -275,7 +254,6 @@ const ColorPickerBase = kind({
  */
 const ColorPickerDecorator = compose(
 	Skinnable,
-	Toggleable({prop: 'colorPickerOpen', toggle: 'onToggleColorPicker'}),
 	Toggleable({prop: 'popupOpen', toggle: 'onTogglePopup'})
 );
 
