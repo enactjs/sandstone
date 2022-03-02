@@ -40,7 +40,7 @@ class FixedPopupPanelsInterface {
 		);
 	}
 
-	clickBelowPopup () {
+	async clickBelowPopup () {
 		const offset = browser.execute(function () {
 			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();
 			const {bottom, left: left2} = document.querySelector('#panel1').getBoundingClientRect();
@@ -48,21 +48,21 @@ class FixedPopupPanelsInterface {
 			return {x: Math.ceil(left2 - left1) + 12, y: Math.ceil(bottom - top) + 12};
 		});
 
-		$('#openButton').click(offset);
+		await $('#openButton').click(offset);
 	}
 
-	waitForEnter (panel, callback, duration = 1000, msg) {
+	async waitForEnter (panel, callback, duration = 1000, msg) {
 		// Panel index in transition end is 0 based!
-		this.waitTransitionToIndex(panel - 1, duration, msg, callback);
+		await this.waitTransitionToIndex(panel - 1, duration, msg, callback);
 	}
 
-	focusOpenButton () {
-		return browser.execute((el) => el.focus(), this.openButton);
+	async focusOpenButton () {
+		return await browser.execute((el) => el.focus(), await this.openButton);
 	}
 
-	focusBackButton () {
+	async focusBackButton () {
 		// TODO:  Hover and click back button after it reveals
-		return browser.execute((el) => el.focus(), $('[aria-label="go to previous"]'));
+		return await browser.execute((el) => el.focus(), await $('[aria-label="go to previous"]'));
 	}
 
 	get self () {
@@ -91,8 +91,8 @@ class FixedPopupPanelsPage extends Page {
 		this.fixedPopupPanels = new FixedPopupPanelsInterface('fixedpopuppanels');
 	}
 
-	open (urlExtra) {
-		super.open('FixedPopupPanels-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('FixedPopupPanels-View', urlExtra);
 	}
 }
 

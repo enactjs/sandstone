@@ -31,8 +31,8 @@ class FixedPopupPanelsPage extends Page {
 		this.fixedPopupPanels = new FixedPopupPanelsInterface('fixedpopuppanels');
 	}
 
-	open () {
-		super.open('FixedPopupPanelsWithoutPanel-View');
+	async open () {
+		await super.open('FixedPopupPanelsWithoutPanel-View');
 	}
 }
 
