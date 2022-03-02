@@ -183,7 +183,7 @@ const DrawingBase = kind({
 								select={'radio'}
 								selectedProp="selected"
 							>
-								{['brush', 'fill']}
+								{['brush', 'fill', 'triangle', 'rectangle', 'circle']}
 							</Group>
 						</Heading>
 					</Cell>
