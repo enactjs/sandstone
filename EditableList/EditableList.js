@@ -17,6 +17,7 @@ const EditableList = (props) => {
 	const containerRef = useRef();
 	const selectedItem = useRef(); // If this value is not null, we are editing
 	const fromIndex = useRef();
+	const prevFromIndex = useRef();
 	const prevToIndex = useRef();
 	const doms = useRef([]);
 	const canAdd = useRef(true);
@@ -69,6 +70,7 @@ const EditableList = (props) => {
 			}
 
 			selectedItem.current.classList.remove(css.selected);
+			selectedItem.current.classList.remove(css.hovered);
 			selectedItem.current.classList.remove(css.selectedTransform);
 			selectedItem.current = null;
 			flow.current = null;
@@ -90,6 +92,7 @@ const EditableList = (props) => {
 				}
 
 				fromIndex.current = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
+				prevFromIndex.current = fromIndex.current;
 				console.log("fromIndex:", fromIndex.current);
 			}
 		}
@@ -97,87 +100,118 @@ const EditableList = (props) => {
 
 	const handleMouseMove = useCallback((ev) => {
 		// change order when move over to the other items
-		const item = ev.target.parentElement;
 		const curItem = selectedItem.current;
+		console.log(ev.clientX);
 
 		if (curItem) {
 			const toIndex = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
-			const offset = (toIndex - fromIndex.current) * itemOffsetRef.current;
-			const direction = Math.sign(ev.movementX) > 0;
 
-			containerRef.current.style.setProperty('--item-offset', offset + 'px');
-			curItem.classList.add(css.selectedTransform);
+			if (toIndex < dataSize) {
+				const offset = (toIndex - fromIndex.current) * itemOffsetRef.current;
+				containerRef.current.style.setProperty('--item-offset', offset + 'px');
+				curItem.classList.add(css.selectedTransform);
 
-			// reset status
-			canAdd.current = true;
+				// reset status
+				canAdd.current = true;
 
-			if (toIndex !== prevToIndex.current) {
-				console.log("prevToIndex :", prevToIndex.current);
-				const diff = toIndex - prevToIndex.current;
-				console.log("diff: ", diff);
-				console.log("flow.current to compare: ", flow.current);
-				if (flow.current && Math.sign(diff) !== Math.sign(flow.current) && doms.current.length > 0) {
-					canAdd.current = false;
-				}
-				console.log("canAdd ?", canAdd.current);
-				console.log("changed!", toIndex);
-				if (canAdd.current) {
-					if (direction > 0) {
-						containerRef.current.style.setProperty('--moving-sign', Math.sign(ev.movementX));
-						let sibling = curItem.nextElementSibling;
-						let i = toIndex;
-						while (i > fromIndex.current) {
-							sibling.classList.add(css.hovered);
-							sibling.classList.add(css.hoveredTransform);
+				if (toIndex !== prevToIndex.current) {
+					console.log("prevToIndex :", prevToIndex.current);
+					console.log("toIndex!", toIndex);
+					const direction = Math.sign(toIndex - prevFromIndex.current);
+					const diff = toIndex - prevToIndex.current;
+					console.log("diff: ", diff);
+					console.log("flow.current to compare: ", flow.current);
+					if (flow.current && Math.sign(diff) !== Math.sign(flow.current) && doms.current.length > 0) {
+						canAdd.current = false;
+					}
+					console.log("canAdd ?", canAdd.current);
+					console.log("direction ? ", direction);
+					if (canAdd.current) {
+						if (direction > 0) {
+							containerRef.current.style.setProperty('--moving-sign', direction);
+							let sibling = curItem.nextElementSibling;
+							let i = toIndex;
+							while (i > fromIndex.current && sibling) {
+								sibling.classList.add(css.hovered);
+								sibling.classList.add(css.hoveredTransform);
 
-							if (!doms.current.includes(sibling)) {
-								doms.current.push(sibling);
+								if (!doms.current.includes(sibling)) {
+									doms.current.push(sibling);
+								}
+
+								sibling = sibling.nextElementSibling;
+								i--;
 							}
+						} else {
+							containerRef.current.style.setProperty('--moving-sign', direction);
+							let sibling = curItem.previousElementSibling;
+							let i = fromIndex.current;
+							while (i > toIndex && sibling) {
+								sibling.classList.add(css.hovered);
+								sibling.classList.add(css.hoveredTransform);
 
-							sibling = sibling.nextElementSibling;
-							i--;
+								if (!doms.current.includes(sibling)) {
+									doms.current.push(sibling);
+								}
+
+								sibling = sibling.previousElementSibling;
+								i--;
+							}
 						}
+						flow.current = diff;
+						console.log("Added complete ", doms.current.length);
 					} else {
-						containerRef.current.style.setProperty('--moving-sign', Math.sign(ev.movementX));
-						let sibling = curItem.previousElementSibling;
-						let i = fromIndex.current;
-						while (i > toIndex) {
-							sibling.classList.add(css.hovered);
-							sibling.classList.add(css.hoveredTransform);
-
-							if (!doms.current.includes(sibling)) {
-								doms.current.push(sibling);
-								console.log(doms.current);
+						console.log("Cant' add, we should remove ", doms.current.length);
+						const numToRemove = direction > 0 ? toIndex - prevToIndex.current : prevToIndex.current - toIndex;
+						if (doms.current.length > 0) {
+							console.log("removing", numToRemove);
+							for (let i = 0; i < numToRemove; i++) {
+								const toItem = doms.current.pop();
+								toItem?.classList.remove(css.hoveredTransform);
 							}
+						}
+						//FIXEME: When there's jump, we need to see we can add more...
+						if (numToRemove > doms.current.length) {
+							if (direction > 0) {
+								containerRef.current.style.setProperty('--moving-sign', direction);
+								let sibling = curItem.nextElementSibling;
+								let i = toIndex;
+								while (i > fromIndex.current && sibling) {
+									sibling.classList.add(css.hovered);
+									sibling.classList.add(css.hoveredTransform);
 
-							sibling = sibling.previousElementSibling;
-							i--;
+									if (!doms.current.includes(sibling)) {
+										doms.current.push(sibling);
+									}
+
+									sibling = sibling.nextElementSibling;
+									i--;
+								}
+							} else {
+								containerRef.current.style.setProperty('--moving-sign', direction);
+								let sibling = curItem.previousElementSibling;
+								let i = fromIndex.current;
+								while (i > toIndex && sibling) {
+									sibling.classList.add(css.hovered);
+									sibling.classList.add(css.hoveredTransform);
+
+									if (!doms.current.includes(sibling)) {
+										doms.current.push(sibling);
+									}
+
+									sibling = sibling.previousElementSibling;
+									i--;
+								}
+							}
+							flow.current = diff;
 						}
 					}
-					flow.current = diff;
-					console.log("flow.current: ", flow.current);
-				} else {
-					if (direction > 0) {
-						if (doms.current.length > 0) {
-							for (let i = 0; i < toIndex - prevToIndex.current; i++) {
-								const toItem = doms.current.pop();
-								toItem.classList.remove(css.hoveredTransform);
-							}
-						}
-					} else {
-						if (doms.current.length > 0) {
-							for (let i = 0; i < prevToIndex.current - toIndex; i++) {
-								const toItem = doms.current.pop();
-								toItem.classList.remove(css.hoveredTransform);
-							}
-						}
-					}
-				}
 
-				prevToIndex.current = toIndex;
+					prevToIndex.current = prevFromIndex.current = toIndex;
+				}
 			}
 		}
-	}, []);
+	}, [dataSize]);
 
 	console.log("rendered!");
 
