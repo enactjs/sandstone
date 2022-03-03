@@ -238,7 +238,7 @@ const ColorPickerBase = kind({
 				>
 					<Row>
 						<BodyText>{text}</BodyText>
-						<Button className={css.closeButton} icon={'x'} onClick={handleClosePopup} />
+						<Button className={css.closeButton} icon={'closex'} onClick={handleClosePopup} />
 					</Row>
 					{renderComponent}
 				</Popup>
