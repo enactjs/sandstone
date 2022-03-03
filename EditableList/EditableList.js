@@ -7,7 +7,9 @@
  */
 
 import {forwardCustom} from '@enact/core/handle';
+import {is} from '@enact/core/keymap';
 import {clamp} from '@enact/core/util';
+import classNames from 'classnames';
 import {useCallback, useEffect, useRef} from 'react';
 
 import css from './EditableList.module.less';
@@ -16,84 +18,93 @@ const hoverArea = 150;
 const hoverToScrollMultiplier = 0.03;
 
 const EditableList = (props) => {
-	const {children, dataSize} = props;
+	const {centered, children, dataSize} = props;
 	const itemOffsetRef = useRef();
 	const containerRef = useRef();
 	const selectedItem = useRef(); // If this value is not null, we are editing
 	const fromIndex = useRef();
 	const prevFromIndex = useRef();
-	const prevToIndex = useRef();
+	const prevToIndex = useRef(null);
 	const doms = useRef([]);
 	const canAdd = useRef(true);
 	const flow = useRef();
 	const rafId = useRef(null);
 
+	const finalizeOrder = useCallback(() => {
+		// finalize the order
+		if (doms.current.length > 0) {
+			let selectedOrder = selectedItem.current.style.order;
+			const factor = flow.current > 0 ? 1 : -1;
+			const changedOrder = [];
+
+			console.log("factor: " , factor);
+
+			doms.current.forEach((dom) => {
+				const order = Number(dom.style.order);
+				console.log("forEach ", order);
+				selectedOrder = order;
+				dom.style.order = order - factor;
+				dom.classList.remove(css.hoveredTransform);
+				dom.classList.remove(css.hovered);
+				if (factor > 0) {
+					changedOrder.push(order);
+				} else {
+					changedOrder.unshift(order);
+				}
+			});
+			console.log(changedOrder);
+
+			if (factor > 0) {
+				console.log(changedOrder);
+				changedOrder.push(Number(selectedItem.current.style.order));
+			} else {
+				changedOrder.unshift(Number(selectedItem.current.style.order));
+			}
+
+			doms.current = [];
+			selectedItem.current.style.order = selectedOrder;
+
+			//create order array
+			const orders = Array.from({length: dataSize}, (_, i) => i + 1)
+			console.log(orders);
+			console.log("changed Orders:", changedOrder);
+			console.log("fromIndex: ", fromIndex.current);
+			console.log("prevToIndex: ", prevToIndex.current);
+			orders.splice(Math.min(fromIndex.current, prevToIndex.current), changedOrder.length, ...changedOrder);
+			console.log(orders);
+			forwardCustom('onComplete', (ev) => ({orders}))({}, props);
+		}
+
+		selectedItem.current.classList.remove(css.selected);
+		selectedItem.current.classList.remove(css.hovered);
+		selectedItem.current.classList.remove(css.selectedTransform);
+		selectedItem.current = null;
+		flow.current = null;
+		prevToIndex.current = null;
+		containerRef.current.style.setProperty('--item-offset', '0px');
+
+	}, [dataSize, props]);
+
+	const startEditing = useCallback((item) => {
+		// add selected transition to selected item
+		// FIXME: Need to figure out the right element
+		if (item.classList.contains('spottable')) {
+			item.classList.add(css.selected);
+			item.classList.add(css.selectedTransform);
+			selectedItem.current = item;
+
+			fromIndex.current = Number(item.style.order) - 1;
+			prevFromIndex.current = fromIndex.current;
+			console.log("fromIndex:", fromIndex.current);
+		}
+	}, []);
+
 	const handleClick = useCallback((ev) => {
 		if (selectedItem.current) {
-			// finalize the order
-			if (doms.current.length > 0) {
-				let selectedOrder = selectedItem.current.style.order;
-				const factor = flow.current > 0 ? 1 : -1;
-				const changedOrder = [];
-
-				console.log("factor: " , factor);
-
-				doms.current.forEach((dom) => {
-					const order = Number(dom.style.order);
-					console.log("forEach ", order);
-					selectedOrder = order;
-					dom.style.order = order - factor;
-					dom.classList.remove(css.hoveredTransform);
-					dom.classList.remove(css.hovered);
-					if (factor > 0) {
-						changedOrder.push(order);
-					} else {
-						changedOrder.unshift(order);
-					}
-				});
-				console.log(changedOrder);
-
-				if (factor > 0) {
-					console.log(changedOrder);
-					changedOrder.push(Number(selectedItem.current.style.order));
-				} else {
-					changedOrder.unshift(Number(selectedItem.current.style.order));
-				}
-
-				doms.current = [];
-				selectedItem.current.style.order = selectedOrder;
-
-				//create order array
-				const orders = Array.from({length: dataSize}, (_, i) => i + 1)
-				console.log(orders);
-				console.log("changed Orders:", changedOrder);
-				console.log("fromIndex: ", fromIndex.current);
-				console.log("prevToIndex: ", prevToIndex.current);
-				orders.splice(Math.min(fromIndex.current, prevToIndex.current), changedOrder.length, ...changedOrder);
-				console.log(orders);
-				forwardCustom('onComplete', (ev) => ({orders}))(ev, props);
-			}
-
-			selectedItem.current.classList.remove(css.selected);
-			selectedItem.current.classList.remove(css.hovered);
-			selectedItem.current.classList.remove(css.selectedTransform);
-			selectedItem.current = null;
-			flow.current = null;
-			prevToIndex.current = null;
-			containerRef.current.style.setProperty('--item-offset', '0px');
+			finalizeOrder();
 		} else {
 			// add selected transition to selected item
-			const item = ev.target.parentElement;
-			// FIXME: Need to figure out the right element
-			if (item.classList.contains('spottable')) {
-				item.classList.add(css.selected);
-				item.classList.add(css.selectedTransform);
-				selectedItem.current = item;
-
-				fromIndex.current = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
-				prevFromIndex.current = fromIndex.current;
-				console.log("fromIndex:", fromIndex.current);
-			}
+			startEditing(ev.target.parentElement);
 		}
 	}, [dataSize, props]);
 
@@ -136,12 +147,10 @@ const EditableList = (props) => {
 
 	}, []);
 
-	const moveItems = useCallback((posX) => {
+	const moveItems = useCallback((toIndex) => {
 		const curItem = selectedItem.current;
 
 		if (curItem) {
-			const toIndex = Math.floor((posX + containerRef.current.scrollLeft) / itemOffsetRef.current);
-
 			if (toIndex < dataSize && toIndex >= 0) {
 				const offset = (toIndex - fromIndex.current) * itemOffsetRef.current;
 				containerRef.current.style.setProperty('--item-offset', offset + 'px');
@@ -210,9 +219,10 @@ const EditableList = (props) => {
 				container.offsetLeft * 2 + container.scrollWidth - container.clientWidth,
 				container.scrollLeft + distance
 			);
+			const toIndex = Math.floor((movePos + containerRef.current.scrollLeft) / itemOffsetRef.current);
 
 			container.scrollTo(left, 0);
-			moveItems(movePos);
+			moveItems(toIndex);
 
 			startRaf(scrollJob);
 		};
@@ -231,9 +241,36 @@ const EditableList = (props) => {
 			scrollAndMoveItems({x: ev.clientX, forward: false});
 		} else {
 			stopRaf();
-			moveItems(ev.clientX);
+			const toIndex = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
+
+			moveItems(toIndex);
 		}
 	}, [scrollAndMoveItems, moveItems, stopRaf]);
+
+	const handleKeyDown = useCallback((ev) => {
+		const {keyCode, target} = ev;
+		if (is('enter', keyCode)) {
+			if (selectedItem.current) {
+				finalizeOrder();
+			} else {
+				startEditing(target);
+			}
+		} else if (is('left', keyCode) || is('right', keyCode)) {
+			if (selectedItem.current) {
+				let toIndex;
+				if (prevToIndex.current === null) {
+					const i = Math.floor((selectedItem.current.getBoundingClientRect().x + containerRef.current.scrollLeft) / itemOffsetRef.current);
+					toIndex = is('left', keyCode) ? i - 1 : i + 1;
+				} else {
+					toIndex = is('left', keyCode) ? prevToIndex.current - 1 : prevToIndex.current + 1
+				}
+
+				moveItems(toIndex);
+				//ev.preventDefault();
+				ev.stopPropagation();
+			}
+		}
+	}, [dataSize, props]);
 
 	useEffect(() => {
 		// calculate the unit size once
@@ -250,8 +287,9 @@ const EditableList = (props) => {
 	return (
 		<div className={css.container} ref={containerRef}>
 			<div
-				className={css.list}
+				className={classNames(css.list, {[css.centered]: centered})}
 				onClick={handleClick}
+				onKeyDown={handleKeyDown}
 				onMouseMove={handleMouseMove}
 			>
 				{children}

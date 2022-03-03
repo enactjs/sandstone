@@ -1,7 +1,7 @@
 import ri from '@enact/ui/resolution';
 import EditableList from '@enact/sandstone/EditableList';
 import ImageItem from '@enact/sandstone/ImageItem';
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 
 import css from './MainView.module.less';
 
@@ -24,15 +24,19 @@ for (let i = 0; i < dataSize; i++) {
 
 const MainView = () => {
 	const [items, setItems] = useState(itemsArr);
-	const handleComplete = (ev) => {
+
+	const handleComplete = useCallback((ev) => {
 		const {orders} = ev;
 		console.log("@@@@ ", orders);
 		// change data from the new orders
+		console.log("old items", items);
 		const newItems = [];
 		orders.forEach(order => {newItems.push(items[order-1]);});
 		console.log(newItems);
 		setItems(newItems);
-	}
+	}, [items]);
+
+	console.log("new items", items);
 
 	return (
 		<EditableList
@@ -40,7 +44,7 @@ const MainView = () => {
 			onComplete={handleComplete}
 		>
 			{
-				items.map((item) => {
+				items.map((item, index) => {
 					return (
 						<ImageItem
 							className={css.item}
