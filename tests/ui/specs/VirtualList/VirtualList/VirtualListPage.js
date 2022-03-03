@@ -236,15 +236,15 @@ class VirtualListPage extends Page {
 	}
 
 	async checkScrollbyPagekey (way) {
-		const initialThumbPosition = this.getScrollThumbPosition();
+		const initialThumbPosition = await this.getScrollThumbPosition();
 		if (way === 'down') {
 			await this.pageDown();
 			await this.delay(1000);
-			expect((await this.getScrollThumbPosition() > initialThumbPosition)).to.be.true();
+			expect((await this.getScrollThumbPosition()) > initialThumbPosition).to.be.true();
 		} else {
 			await this.pageUp();
 			await this.delay(1000);
-			expect((initialThumbPosition > await this.getScrollThumbPosition())).to.be.true();
+			expect(initialThumbPosition > (await this.getScrollThumbPosition())).to.be.true();
 		}
 	}
 	backSpace () {
