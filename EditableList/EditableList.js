@@ -24,7 +24,7 @@ const EditableList = (props) => {
 	const selectedItem = useRef(); // If this value is not null, we are editing
 	const fromIndex = useRef();
 	const prevFromIndex = useRef();
-	const prevToIndex = useRef(null);
+	const prevToIndex = useRef();
 	const doms = useRef([]);
 	const canAdd = useRef(true);
 	const flow = useRef();
@@ -94,7 +94,7 @@ const EditableList = (props) => {
 			selectedItem.current = item;
 
 			fromIndex.current = Number(item.style.order) - 1;
-			prevFromIndex.current = fromIndex.current;
+			prevFromIndex.current = prevToIndex.current = fromIndex.current;
 			console.log("fromIndex:", fromIndex.current);
 		}
 	}, []);
@@ -257,13 +257,7 @@ const EditableList = (props) => {
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem.current) {
-				let toIndex;
-				if (prevToIndex.current === null) {
-					const i = Math.floor((selectedItem.current.getBoundingClientRect().x + containerRef.current.scrollLeft) / itemOffsetRef.current);
-					toIndex = is('left', keyCode) ? i - 1 : i + 1;
-				} else {
-					toIndex = is('left', keyCode) ? prevToIndex.current - 1 : prevToIndex.current + 1
-				}
+				const toIndex = is('left', keyCode) ? prevToIndex.current - 1 : prevToIndex.current + 1
 
 				moveItems(toIndex);
 				//ev.preventDefault();
