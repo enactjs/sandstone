@@ -6,10 +6,14 @@
  * @exports EditableList
  */
 
-import {forward, forwardCustom} from '@enact/core/handle';
+import {forwardCustom} from '@enact/core/handle';
+import {clamp} from '@enact/core/util';
 import {useCallback, useEffect, useRef} from 'react';
 
 import css from './EditableList.module.less';
+
+const hoverArea = 150;
+const hoverToScrollMultiplier = 0.03;
 
 const EditableList = (props) => {
 	const {children, dataSize} = props;
@@ -22,6 +26,7 @@ const EditableList = (props) => {
 	const doms = useRef([]);
 	const canAdd = useRef(true);
 	const flow = useRef();
+	const rafId = useRef(null);
 
 	const handleClick = useCallback((ev) => {
 		if (selectedItem.current) {
@@ -82,14 +87,8 @@ const EditableList = (props) => {
 			// FIXME: Need to figure out the right element
 			if (item.classList.contains('spottable')) {
 				item.classList.add(css.selected);
+				item.classList.add(css.selectedTransform);
 				selectedItem.current = item;
-
-				// calculate the unit size once
-				if (!itemOffsetRef.current) {
-					const neighbor = item.nextElementSibling || item.previousElementSibling;
-					itemOffsetRef.current = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
-					containerRef.current?.style.setProperty('--item-unit', itemOffsetRef.current + 'px');
-				}
 
 				fromIndex.current = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
 				prevFromIndex.current = fromIndex.current;
@@ -98,18 +97,54 @@ const EditableList = (props) => {
 		}
 	}, [dataSize, props]);
 
-	const handleMouseMove = useCallback((ev) => {
-		// change order when move over to the other items
+	const moveSiblings = useCallback(({direction, toIndex, diff}) => {
 		const curItem = selectedItem.current;
-		console.log(ev.clientX);
+
+		if (direction > 0) {
+			containerRef.current.style.setProperty('--moving-sign', direction);
+			let sibling = curItem.nextElementSibling;
+			let i = toIndex;
+			while (i > fromIndex.current && sibling) {
+				sibling.classList.add(css.hovered);
+				sibling.classList.add(css.hoveredTransform);
+
+				if (!doms.current.includes(sibling)) {
+					doms.current.push(sibling);
+				}
+
+				sibling = sibling.nextElementSibling;
+				i--;
+			}
+		} else {
+			containerRef.current.style.setProperty('--moving-sign', direction);
+			let sibling = curItem.previousElementSibling;
+			let i = fromIndex.current;
+			while (i > toIndex && sibling) {
+				sibling.classList.add(css.hovered);
+				sibling.classList.add(css.hoveredTransform);
+
+				if (!doms.current.includes(sibling)) {
+					doms.current.push(sibling);
+				}
+
+				sibling = sibling.previousElementSibling;
+				i--;
+			}
+		}
+
+		flow.current = diff;
+
+	}, []);
+
+	const moveItems = useCallback((posX) => {
+		const curItem = selectedItem.current;
 
 		if (curItem) {
-			const toIndex = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
+			const toIndex = Math.floor((posX + containerRef.current.scrollLeft) / itemOffsetRef.current);
 
-			if (toIndex < dataSize) {
+			if (toIndex < dataSize && toIndex >= 0) {
 				const offset = (toIndex - fromIndex.current) * itemOffsetRef.current;
 				containerRef.current.style.setProperty('--item-offset', offset + 'px');
-				curItem.classList.add(css.selectedTransform);
 
 				// reset status
 				canAdd.current = true;
@@ -127,38 +162,7 @@ const EditableList = (props) => {
 					console.log("canAdd ?", canAdd.current);
 					console.log("direction ? ", direction);
 					if (canAdd.current) {
-						if (direction > 0) {
-							containerRef.current.style.setProperty('--moving-sign', direction);
-							let sibling = curItem.nextElementSibling;
-							let i = toIndex;
-							while (i > fromIndex.current && sibling) {
-								sibling.classList.add(css.hovered);
-								sibling.classList.add(css.hoveredTransform);
-
-								if (!doms.current.includes(sibling)) {
-									doms.current.push(sibling);
-								}
-
-								sibling = sibling.nextElementSibling;
-								i--;
-							}
-						} else {
-							containerRef.current.style.setProperty('--moving-sign', direction);
-							let sibling = curItem.previousElementSibling;
-							let i = fromIndex.current;
-							while (i > toIndex && sibling) {
-								sibling.classList.add(css.hovered);
-								sibling.classList.add(css.hoveredTransform);
-
-								if (!doms.current.includes(sibling)) {
-									doms.current.push(sibling);
-								}
-
-								sibling = sibling.previousElementSibling;
-								i--;
-							}
-						}
-						flow.current = diff;
+						moveSiblings({direction, toIndex, diff});
 						console.log("Added complete ", doms.current.length);
 					} else {
 						console.log("Cant' add, we should remove ", doms.current.length);
@@ -172,38 +176,7 @@ const EditableList = (props) => {
 						}
 						//FIXEME: When there's jump, we need to see we can add more...
 						if (numToRemove > doms.current.length) {
-							if (direction > 0) {
-								containerRef.current.style.setProperty('--moving-sign', direction);
-								let sibling = curItem.nextElementSibling;
-								let i = toIndex;
-								while (i > fromIndex.current && sibling) {
-									sibling.classList.add(css.hovered);
-									sibling.classList.add(css.hoveredTransform);
-
-									if (!doms.current.includes(sibling)) {
-										doms.current.push(sibling);
-									}
-
-									sibling = sibling.nextElementSibling;
-									i--;
-								}
-							} else {
-								containerRef.current.style.setProperty('--moving-sign', direction);
-								let sibling = curItem.previousElementSibling;
-								let i = fromIndex.current;
-								while (i > toIndex && sibling) {
-									sibling.classList.add(css.hovered);
-									sibling.classList.add(css.hoveredTransform);
-
-									if (!doms.current.includes(sibling)) {
-										doms.current.push(sibling);
-									}
-
-									sibling = sibling.previousElementSibling;
-									i--;
-								}
-							}
-							flow.current = diff;
+							moveSiblings({direction, toIndex, diff});
 						}
 					}
 
@@ -211,7 +184,66 @@ const EditableList = (props) => {
 				}
 			}
 		}
-	}, [dataSize]);
+	}, [dataSize, moveSiblings]);
+
+	const startRaf = useCallback((job) => {
+		if (typeof window === 'object') {
+			rafId.current = window.requestAnimationFrame(job);
+		}
+	}, []);
+
+	const stopRaf = useCallback(() => {
+		if (typeof window === 'object' && rafId.current !== null) {
+			window.cancelAnimationFrame(rafId.current);
+			rafId.current = null;
+		}
+	}, []);
+
+	const scrollAndMoveItems = useCallback(({x, forward}) => {
+		const container = containerRef.current;
+		const distance = (forward ? 1 : -1) * container.clientWidth * hoverToScrollMultiplier;
+		const movePos = x;
+
+		const scrollJob = () => {
+			const left = clamp(
+				0,
+				container.offsetLeft * 2 + container.scrollWidth - container.clientWidth,
+				container.scrollLeft + distance
+			);
+
+			container.scrollTo(left, 0);
+			moveItems(movePos);
+
+			startRaf(scrollJob);
+		};
+
+		startRaf(scrollJob);
+	}, [startRaf, moveItems]);
+
+	const handleMouseMove = useCallback((ev) => {
+		const container = containerRef.current;
+		if (ev.clientX > container.offsetLeft + container.clientWidth - hoverArea
+			&& container.scrollLeft < container.offsetLeft * 2 + container.scrollWidth - container.clientWidth - hoverArea) {
+			console.log("hover to right area!");
+			scrollAndMoveItems({x: ev.clientX, forward: true});
+		} else if (ev.clientX < container.offsetLeft + hoverArea && container.scrollLeft > 0) {
+			console.log("hover to left area!");
+			scrollAndMoveItems({x: ev.clientX, forward: false});
+		} else {
+			stopRaf();
+			moveItems(ev.clientX);
+		}
+	}, [scrollAndMoveItems, moveItems, stopRaf]);
+
+	useEffect(() => {
+		// calculate the unit size once
+		if (!itemOffsetRef.current) {
+			const item = containerRef.current?.children[0]?.children[0];
+			const neighbor = item.nextElementSibling || item.previousElementSibling;
+			itemOffsetRef.current = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
+			containerRef.current?.style.setProperty('--item-unit', itemOffsetRef.current + 'px');
+		}
+	}, []);
 
 	console.log("rendered!");
 
