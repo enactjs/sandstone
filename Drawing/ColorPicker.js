@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-no-bind, react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import {Cell, Row} from '@enact/ui/Layout';
+import Spottable from "@enact/spotlight/Spottable";
+import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -32,6 +33,8 @@ const hexToRgb = (hex) => {
 		b: parseInt(result[3], 16)
 	} : null;
 };
+
+const SpottableButton = Spottable(ButtonBase);
 
 /**
  * A color picker component.
@@ -162,7 +165,7 @@ const ColorPickerBase = kind({
 				<Cell className={css.colorPicker}>
 					<Row>
 						{presetColors?.map((presetColor) => (
-							<ButtonBase
+							<SpottableButton
 								className={css.coloredButton}
 								key={presetColor}
 								minWidth={false}
@@ -175,33 +178,35 @@ const ColorPickerBase = kind({
 							/>
 						))}
 					</Row>
-					<Slider
-						className={componentCss.colorSlider}
-						max={255}
-						min={0}
-						onBlur={onSliderBlur}
-						onChange={(ev) => setRed(ev.value)}
-						value={red}
-					/>
-					<BodyText>{red} Red</BodyText>
-					<Slider
-						className={componentCss.colorSlider}
-						max={255}
-						min={0}
-						onBlur={onSliderBlur}
-						onChange={(ev) => setGreen(ev.value)}
-						value={green}
-					/>
-					<BodyText>{green} Green</BodyText>
-					<Slider
-						className={componentCss.colorSlider}
-						max={255}
-						min={0}
-						onBlur={onSliderBlur}
-						onChange={(ev) => setBlue(ev.value)}
-						value={blue}
-					/>
-					<BodyText>{blue} Blue</BodyText>
+					<Column className={css.colorPickerSliders}>
+						<Slider
+							className={componentCss.colorSlider}
+							max={255}
+							min={0}
+							onBlur={onSliderBlur}
+							onChange={(ev) => setRed(ev.value)}
+							value={red}
+						/>
+						<BodyText>{red} Red</BodyText>
+						<Slider
+							className={componentCss.colorSlider}
+							max={255}
+							min={0}
+							onBlur={onSliderBlur}
+							onChange={(ev) => setGreen(ev.value)}
+							value={green}
+						/>
+						<BodyText>{green} Green</BodyText>
+						<Slider
+							className={componentCss.colorSlider}
+							max={255}
+							min={0}
+							onBlur={onSliderBlur}
+							onChange={(ev) => setBlue(ev.value)}
+							value={blue}
+						/>
+						<BodyText>{blue} Blue</BodyText>
+					</Column>
 					<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
 				</Cell>
 			);
@@ -217,7 +222,7 @@ const ColorPickerBase = kind({
 		return (
 			<Row className={css.colorPicker}>
 				<BodyText className={css.colorBodyText} disabled={disabled}>{text}</BodyText>
-				<ButtonBase
+				<SpottableButton
 					className={css.coloredButton}
 					disabled={disabled}
 					minWidth={false}
