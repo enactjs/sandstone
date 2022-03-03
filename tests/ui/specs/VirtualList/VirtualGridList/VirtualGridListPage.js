@@ -14,8 +14,8 @@ class VirtualGridListPage extends Page {
 
 	}
 
-	open (layout = '', urlExtra) {
-		super.open(`VirtualGridList${layout}-View`, urlExtra);
+	async open (layout = '', urlExtra) {
+		await super.open(`VirtualGridList${layout}-View`, urlExtra);
 	}
 
 	get buttonHideScrollbar () {
@@ -81,20 +81,21 @@ class VirtualGridListPage extends Page {
 	get scrollThumb () {
 		return $(`${scrollThumbSelector}`);
 	}
-	scrollThumbPosition (index = 0) {
-		return browser.execute(function (_scrollbarSelector, _index) {
+
+	async scrollThumbPosition (index = 0) {
+		return await browser.execute(function (_scrollbarSelector, _index) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector)[_index];
 			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
 		}, scrollbarSelector, index);
 
 	}
 
-	item (id) {
-		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
+	async item (id) {
+		return await element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
 	}
 
-	topLeftVisibleItemId () {
-		return browser.execute(function (_scrollableSelector) {
+	async topLeftVisibleItemId () {
+		return await browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{top, left} = scroller.getBoundingClientRect();
 			let currentY = top + 1;
@@ -114,8 +115,8 @@ class VirtualGridListPage extends Page {
 		}, scrollableSelector);
 	}
 
-	bottomRightVisibleItemId () {
-		return browser.execute(function (_scrollableSelector) {
+	async bottomRightVisibleItemId () {
+		return await browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{bottom, width} = scroller.getBoundingClientRect();
 
@@ -138,24 +139,24 @@ class VirtualGridListPage extends Page {
 		}, scrollableSelector);
 	}
 
-	itemOffsetTopById (index) {
-		return browser.execute(function (_listItemSelector, _scrollableSelector, _index) {
+	async itemOffsetTopById (index) {
+		return await browser.execute(function (_listItemSelector, _scrollableSelector, _index) {
 			const itemContent = document.querySelectorAll(_listItemSelector)[_index];
 			const scroller = document.querySelector(_scrollableSelector);
 			return Math.round(scroller.getBoundingClientRect().height + scroller.getBoundingClientRect().top - itemContent.getBoundingClientRect().top);
 		}, listItemSelector, scrollableSelector, index);
 	}
 
-	itemOffsetBottomById (index) {
-		return browser.execute(function (_listItemSelector, _scrollableSelector, _index) {
+	async itemOffsetBottomById (index) {
+		return await browser.execute(function (_listItemSelector, _scrollableSelector, _index) {
 			const itemContent = document.querySelectorAll(_listItemSelector)[_index];
 			const scroller = document.querySelector(_scrollableSelector);
 			return Math.round(itemContent.getBoundingClientRect().bottom - scroller.getBoundingClientRect().top);
 		}, listItemSelector, scrollableSelector, index);
 	}
 
-	getItemSize (index = 0) {
-		return browser.execute(function (_listItemSelector, _index) {
+	async getItemSize (index = 0) {
+		return await browser.execute(function (_listItemSelector, _index) {
 			const itemContent = document.querySelectorAll(_listItemSelector)[_index];
 			const {height, width}  = itemContent.getBoundingClientRect();
 			return {
@@ -165,8 +166,8 @@ class VirtualGridListPage extends Page {
 		}, listItemSelector, index);
 	}
 
-	itemSpacing (firstItem, secondItem) {
-		return browser.execute(function (_listItemSelector, _firstItem, _secondItem) {
+	async itemSpacing (firstItem, secondItem) {
+		return await browser.execute(function (_listItemSelector, _firstItem, _secondItem) {
 			const itemContent = document.querySelectorAll(_listItemSelector);
 			const firstItemRect = itemContent[_firstItem].getBoundingClientRect();
 			const secondItemRect = itemContent[_secondItem].getBoundingClientRect();
@@ -177,8 +178,8 @@ class VirtualGridListPage extends Page {
 		}, listItemSelector, firstItem, secondItem);
 	}
 
-	spotlightSize () {
-		return browser.execute(function () {
+	async spotlightSize () {
+		return await browser.execute(function () {
 			return {
 				height: document.activeElement.clientHeight,
 				width: document.activeElement.clientWidth
@@ -186,26 +187,26 @@ class VirtualGridListPage extends Page {
 		});
 	}
 
-	checkScrollbyPagekey (way) {
-		const initialThumbPosition = this.scrollThumbPosition();
+	async checkScrollbyPagekey (way) {
+		const initialThumbPosition = await this.scrollThumbPosition();
 		if (way === 'down') {
-			this.pageDown();
-			this.delay(1000);
-			expect((this.scrollThumbPosition() > initialThumbPosition)).to.be.true();
+			await this.pageDown();
+			await this.delay(1000);
+			expect((await this.scrollThumbPosition()) > initialThumbPosition).to.be.true();
 		} else {
-			this.pageUp();
-			this.delay(1000);
-			expect((initialThumbPosition > this.scrollThumbPosition())).to.be.true();
+			await this.pageUp();
+			await this.delay(1000);
+			expect(initialThumbPosition > (await this.scrollThumbPosition())).to.be.true();
 		}
 	}
 
-	backSpace () {
-		return this.keyDelay('Backspace');
+	async backSpace () {
+		return await this.keyDelay('Backspace');
 	}
 
-	numPad (num) {
+	async numPad (num) {
 		let Inputnum = 'numpad' + String(num);
-		return this.keyDelay(Inputnum);
+		return await this.keyDelay(Inputnum);
 	}
 }
 
