@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind, react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import Spottable from "@enact/spotlight/Spottable";
+import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
