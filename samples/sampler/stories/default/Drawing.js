@@ -1,3 +1,4 @@
+import BodyText from '@enact/sandstone/BodyText';
 import Drawing from '@enact/sandstone/Drawing';
 import {boolean} from '@enact/storybook-utils/addons/controls';
 
@@ -12,9 +13,9 @@ export const _Drawing = (args) => {
 	const disabled = args['disabled'];
 	return (
 		<section>
-			<p style={{visibility: disabled ? 'visible' : 'hidden', fontSize: '70%', fontStyle: 'italic'}}>
+			<BodyText size="small" style={{visibility: disabled ? 'visible' : 'hidden', fontSize: '70%', fontStyle: 'italic'}}>
 				<sup>*</sup>Drawing is not allowed while <code>disabled</code> is true.
-			</p>
+			</BodyText>
 			<Drawing
 				disabled={disabled}
 			/>

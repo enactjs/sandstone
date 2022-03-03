@@ -242,7 +242,7 @@ const ColorPickerBase = kind({
 
 	render: ({color, css, disabled, onTogglePopup, popupOpen, renderComponent, text}) => {
 		return (
-			<Row className={css.colorPicker}>
+			<Cell className={css.colorPicker}>
 				<BodyText className={css.colorBodyText} disabled={disabled}>{text}</BodyText>
 				<ContextualButtonBase
 					className={css.coloredButton}
@@ -258,7 +258,7 @@ const ColorPickerBase = kind({
 					style={{backgroundColor: color}}
 					type="color"
 				/>
-			</Row>
+			</Cell>
 		);
 	}
 });
