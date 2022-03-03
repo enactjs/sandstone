@@ -9,6 +9,7 @@
 import {forwardCustom} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {clamp} from '@enact/core/util';
+import Scroller from '@enact/sandstone/Scroller';
 import classNames from 'classnames';
 import {useCallback, useEffect, useRef} from 'react';
 
@@ -221,7 +222,7 @@ const EditableList = (props) => {
 			);
 			const toIndex = Math.floor((movePos + containerRef.current.scrollLeft) / itemOffsetRef.current);
 
-			container.scrollTo(left, 0);
+			//container.scrollTo(left, 0);
 			moveItems(toIndex);
 
 			startRaf(scrollJob);
@@ -260,8 +261,8 @@ const EditableList = (props) => {
 				const toIndex = is('left', keyCode) ? prevToIndex.current - 1 : prevToIndex.current + 1
 
 				moveItems(toIndex);
-				//ev.preventDefault();
-				ev.stopPropagation();
+				ev.preventDefault();
+				//ev.stopPropagation();
 			}
 		}
 	}, [dataSize, props]);
@@ -269,7 +270,8 @@ const EditableList = (props) => {
 	useEffect(() => {
 		// calculate the unit size once
 		if (!itemOffsetRef.current) {
-			const item = containerRef.current?.children[0]?.children[0];
+			containerRef.current = document.querySelector(`.${css.container}`)?.children[0];
+			const item = containerRef.current?.children[0]?.children[0]?.children[0];
 			const neighbor = item.nextElementSibling || item.previousElementSibling;
 			itemOffsetRef.current = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
 			containerRef.current?.style.setProperty('--item-unit', itemOffsetRef.current + 'px');
@@ -279,16 +281,18 @@ const EditableList = (props) => {
 	console.log("rendered!");
 
 	return (
-		<div className={css.container} ref={containerRef}>
-			<div
-				className={classNames(css.list, {[css.centered]: centered})}
-				onClick={handleClick}
-				onKeyDown={handleKeyDown}
-				onMouseMove={handleMouseMove}
-			>
-				{children}
+		<Scroller className={css.container} hoverToScroll>
+			<div className={css.wrapper}>
+				<div
+					className={classNames(css.list, {[css.centered]: centered})}
+					onClick={handleClick}
+					onKeyDown={handleKeyDown}
+					onMouseMove={handleMouseMove}
+				>
+					{children}
+				</div>
 			</div>
-		</div>
+		</Scroller>
 	);
 }
 
