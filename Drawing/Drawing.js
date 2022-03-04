@@ -115,7 +115,7 @@ const DrawingBase = kind({
 		const drawingTools = [
 			{icon: 'edit', key: 1, tooltipText: 'brush'},
 			{icon: 'heart', key: 2, tooltipText: 'fill'},
-			{icon: 'heartblack', key: 3, tooltipText: 'line'},
+			{icon: 'play', key: 3, tooltipText: 'triangle'},
 			{icon: 'popupscale', key: 4, tooltipText: 'rectangle'},
 			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
 			{icon: 'square', key: 6, tooltipText: 'erase'}
