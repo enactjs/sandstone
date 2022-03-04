@@ -20,6 +20,7 @@ const hoverToScrollMultiplier = 0.03;
 const EditableList = (props) => {
 	const {centered, children, dataSize} = props;
 	const itemOffsetRef = useRef();
+	const centeredOffsetRef = useRef(0);
 	const containerRef = useRef();
 	const selectedItem = useRef(); // If this value is not null, we are editing
 	const fromIndex = useRef();
@@ -239,9 +240,9 @@ const EditableList = (props) => {
 		} else if (ev.clientX < container.offsetLeft + hoverArea && container.scrollLeft > 0) {
 			console.log("hover to left area!");
 			scrollAndMoveItems({x: ev.clientX, forward: false});
-		} else {
+		} else if (selectedItem.current) {
 			stopRaf();
-			const toIndex = Math.floor((ev.clientX + containerRef.current.scrollLeft) / itemOffsetRef.current);
+			const toIndex = Math.floor((ev.clientX + containerRef.current.scrollLeft - centeredOffsetRef.current) / itemOffsetRef.current);
 
 			moveItems(toIndex);
 		}
@@ -283,6 +284,7 @@ const EditableList = (props) => {
 			const item = containerRef.current?.children[0]?.children[0];
 			const neighbor = item.nextElementSibling || item.previousElementSibling;
 			itemOffsetRef.current = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
+			centeredOffsetRef.current = centered ? item.getBoundingClientRect().x : 0;
 			containerRef.current?.style.setProperty('--item-unit', itemOffsetRef.current + 'px');
 		}
 	}, []);
