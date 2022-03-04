@@ -124,7 +124,7 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({disabled, fileInputHandler, handleSelect, isErasing, onSetErasing, ...rest}) => {
+	render: ({disabled, fileInputHandler, handleSelect, isErasing, ...rest}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#545BCC');
 		const [brushSize, setBrushSize] = useState(5);
@@ -142,7 +142,7 @@ const DrawingBase = kind({
 			{icon: 'popupscale', key: 4, tooltipText: 'rectangle'},
 			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
 			{icon: 'square', key: 6, tooltipText: 'erase'}
-		]
+		];
 		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
 
 		return (
