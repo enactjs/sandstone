@@ -90,4 +90,4 @@ export const updateItemsOrder = (newDataOrder) => {
 		newDataOrder,
 		type: UPDATE_ITEMS_ORDER
 	};
-}
+};
