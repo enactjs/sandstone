@@ -8,7 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Icon` public classname `icon`
+- `sandstone/Icon` public class name `icon`
 - `sandstone/Picker` and `sandstone/RangePicker` prop `changedBy` to provide a way to control with left and right keys in horizontal joined Picker
 - `sandstone/VideoPlayer` prop `backButtonAriaLabel`
 - `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player via touch
