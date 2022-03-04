@@ -24,8 +24,8 @@ export default {
 export const _Heading = (args) => (
 	<Fragment>
 		<Heading
-			marqueeOn={args['marqueeOn']}
 			forceDirection={args['forceDirection']}
+			marqueeOn={args['marqueeOn']}
 			showLine={args['showLine']}
 			size={args['size']}
 			spacing={args['spacing']}
@@ -42,8 +42,8 @@ export const _Heading = (args) => (
 	</Fragment>
 );
 
-select('marqueeOn', _Heading, prop.marqueeOn, Config);
 select('forceDirection', _Heading, prop.forceDirection, Config);
+select('marqueeOn', _Heading, prop.marqueeOn, Config);
 boolean('showLine', _Heading, Config);
 select('size', _Heading, prop.size, Config, 'medium');
 select('spacing', _Heading, prop.spacing, Config);
