@@ -106,7 +106,7 @@ const EditableList = (props) => {
 			// add selected transition to selected item
 			startEditing(ev.target.parentElement);
 		}
-	}, [dataSize, props]);
+	}, [finalizeOrder, startEditing]);
 
 	const moveSiblings = useCallback(({direction, toIndex, diff}) => {
 		const curItem = selectedItem.current;
@@ -257,14 +257,25 @@ const EditableList = (props) => {
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem.current) {
-				const toIndex = is('left', keyCode) ? prevToIndex.current - 1 : prevToIndex.current + 1
+				const container = containerRef.current;
+				const toIndex = is('left', keyCode) ? prevToIndex.current - 1 : prevToIndex.current + 1;
+
+				const itemLeft = toIndex * itemOffsetRef.current - container.scrollLeft;
+				console.log("x", itemLeft);
+				if (itemLeft > container.offsetLeft + container.clientWidth - itemOffsetRef.current) {
+					const left = itemLeft - (container.clientWidth - itemOffsetRef.current) + container.scrollLeft;
+					container.scrollTo({left, behavior: 'smooth'});
+				} else if(itemLeft < 0) {
+					const left = container.scrollLeft + itemLeft;
+					container.scrollTo({left, behavior: 'smooth'});
+				}
 
 				moveItems(toIndex);
-				//ev.preventDefault();
+				ev.preventDefault();
 				ev.stopPropagation();
 			}
 		}
-	}, [dataSize, props]);
+	}, [finalizeOrder, startEditing, moveItems]);
 
 	useEffect(() => {
 		// calculate the unit size once
