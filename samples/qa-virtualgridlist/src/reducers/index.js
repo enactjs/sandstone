@@ -117,9 +117,11 @@ const data = (state = initializeRecords(), action) => {
 			const newData = {};
 			const newDataOrder = [];
 
-			for (let i = 0; i < action.newDataOrder.length; i++) {
-				newData[i] = state.data[action.newDataOrder[i]];
-				newDataOrder.push(i);
+			if (action.newDataOrder) {
+				for (let i = 0; i < action.newDataOrder.length; i++) {
+					newData[i] = state.data[action.newDataOrder[i]];
+					newDataOrder.push(i);
+				}
 			}
 
 			return Object.assign({}, state, {data: newData, dataOrder: newDataOrder});
