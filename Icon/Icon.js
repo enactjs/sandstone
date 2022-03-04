@@ -104,7 +104,7 @@ const IconBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames:['icon']
+		publicClassNames: ['icon']
 	},
 
 	computed: {
