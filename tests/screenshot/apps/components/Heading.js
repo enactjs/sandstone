@@ -63,7 +63,7 @@ const HeadingTests = [
 	<Heading size="medium" style={{fontStyle: 'italic', fontWeight: 700}}>Heading</Heading>,
 
 	...bidirectionalTests,
-	...withProps({noRtlOverride: true}, bidirectionalTests)
+	...withProps({forceDirection: 'locale'}, bidirectionalTests)
 
 ];
 export default HeadingTests;

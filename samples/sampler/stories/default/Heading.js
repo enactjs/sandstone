@@ -10,6 +10,7 @@ const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading
 
 // Set up some defaults for info and controls
 const prop = {
+	forceDirection: [null, 'ltr', 'rtl', 'locale'],
 	marqueeOn: ['hover', 'render'],
 	size: ['large', 'medium', 'small', 'tiny'],
 	spacing: ['auto', 'large', 'medium', 'small', 'none']
@@ -24,7 +25,7 @@ export const _Heading = (args) => (
 	<Fragment>
 		<Heading
 			marqueeOn={args['marqueeOn']}
-			noRtlOverride={args['noRtlOverride']}
+			forceDirection={args['forceDirection']}
 			showLine={args['showLine']}
 			size={args['size']}
 			spacing={args['spacing']}
@@ -42,7 +43,7 @@ export const _Heading = (args) => (
 );
 
 select('marqueeOn', _Heading, prop.marqueeOn, Config);
-boolean('noRtlOverride', _Heading, Config);
+select('forceDirection', _Heading, prop.forceDirection, Config);
 boolean('showLine', _Heading, Config);
 select('size', _Heading, prop.size, Config, 'medium');
 select('spacing', _Heading, prop.spacing, Config);

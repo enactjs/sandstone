@@ -1,5 +1,5 @@
 import IString from 'ilib/lib/IString';
-import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
 import $L from '@enact/sandstone/internal/$L';
 import Item from '@enact/sandstone/Item';
@@ -11,6 +11,7 @@ import css from './Heading.module.less';
 Heading.displayName = 'Heading';
 
 const prop = {
+	forceDirection: [null, 'ltr', 'rtl', 'locale'],
 	tallText: {
 		'नरेंद्र मोदी': 'नरेंद्र मोदी',
 		'ฟิ้ ไั ஒ து': 'ฟิ้ ไั ஒ து',
@@ -108,7 +109,7 @@ export const WithBidirectionalText  = (args) => {
 	const inputPasswordFor = 'Input Password for ';
 	const inputPasswordForAr = 'الرجاء إدخال كلمة المرور لـ ';
 	const abcDevice = 'ABC جهاز';
-	const headingProps = {noRtlOverride: args['noRtlOverride']};
+	const headingProps = {forceDirection: args['forceDirection']};
 
 	return (
 		<Scroller>
@@ -147,5 +148,5 @@ export const WithBidirectionalText  = (args) => {
 	);
 };
 
-boolean('noRtlOverride', WithBidirectionalText, Heading);
+select('forceDirection', WithBidirectionalText, prop.forceDirection, Heading);
 WithBidirectionalText.storyName = 'with bidirectional text';
