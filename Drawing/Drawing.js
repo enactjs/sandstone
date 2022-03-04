@@ -145,7 +145,7 @@ const DrawingBase = kind({
 							</Group>
 						</Cell>
 						<Cell>
-							<BodyText css={css}>Brush size</BodyText>
+							<BodyText css={css} disabled={disabled}>Brush size</BodyText>
 							<Slider
 								backgroundProgress={0}
 								css={css}
@@ -196,7 +196,6 @@ const DrawingBase = kind({
 								disabled={disabled}
 								drawingTool={drawingTool}
 								fillColor={fillColor}
-								onChangeDrawingTool={setDrawingTool}
 								ref={drawingRef}
 							/>
 						</Row>
