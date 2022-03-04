@@ -293,7 +293,7 @@ const EditableList = (props) => {
 
 	return (
 		<Scroller className={css.container} hoverToScroll>
-			<div className={centered ? css.wrapper : null}>
+			<div className={centered ? null : css.wrapper}>
 				<div
 					className={classNames(css.list, {[css.centered]: centered})}
 					onClick={handleClick}
