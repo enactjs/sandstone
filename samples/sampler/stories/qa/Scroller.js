@@ -219,7 +219,7 @@ const updateDataSize = (dataSize) => {
 		const text = `Item ${count}`;
 		const subText = `SubItem ${count}`;
 		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
-		const source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
+		const source = `http://via.placeholder.com/300x300/${color}/ffffff&text=Image ${i}`;
 
 		items.push({text, subText, source});
 	}
@@ -230,10 +230,9 @@ const updateDataSize = (dataSize) => {
 export const ListOfImageItems = (args) => {
 	const dataSize = args['dataSize'];
 	updateDataSize(dataSize);
-	const scrollerMaxWidth = ri.scaleToRem(672 * dataSize);		// dataSize should be update after removing item.
 	return (
 		<Scroller
-			style={{maxWidth: scrollerMaxWidth, margin:'auto'}}
+			style={{maxWidth: 'max-content', height: 'max-content', margin:'auto'}}
 			direction="horizontal"
 			editMode={args['editMode']}
 			focusableScrollbar={args['focusableScrollbar']}
@@ -248,7 +247,7 @@ export const ListOfImageItems = (args) => {
 			spotlightDisabled={args['spotlightDisabled']}
 			verticalScrollbar={args['verticalScrollbar']}
 		>
-		<div style={{width: 'max-content'}}>
+		<div style={{minWidth: 'max-content'}}>
 			{items.map(renderItem)}
 		</div>
 		</Scroller>

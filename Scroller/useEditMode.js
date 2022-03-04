@@ -34,14 +34,15 @@ const useEditMode = (props, instances) => {
 		currentChildrenList: [],
 		selectedDataIndex: null,
 		selectedNode: null,
-		lastMouseMove: 0
+		lastMouseMove: 0,
+		removeCounter: 0
 	}).current;
 
 	const temporaryAnimationOff = useCallback((targetItemNode) => {
 		targetItemNode.classList.add(css.noAnimation);
 		setTimeout(()=>{
 			targetItemNode.classList.remove(css.noAnimation);
-		},200)
+		}, 200)
 	}, []);
 
 	const calcRemoveButtonPosition = useCallback((targetItemNode) => {
@@ -56,6 +57,8 @@ const useEditMode = (props, instances) => {
 				Spotlight.focus(targetItemNode); // FIXME: there is a bug sometime scroll does not works.
 				setTimeout(() => calcRemoveButtonPosition(targetItemNode), 500);
 			}
+		} else {
+			scrollContainerRef.current.style.setProperty('--select-position', `-100px`);
 		}
 	}, []);
 
@@ -119,10 +122,13 @@ const useEditMode = (props, instances) => {
 
 		if(selectedNode) {
 			const nextItem = selectedNode.nextSibling || selectedNode.previousSibling;
+			mutableObj.itemContainerNode.style.setProperty('--remove-counter', ++mutableObj.removeCounter);
+
 			selectedNode.remove();
 			Spotlight.focus(nextItem);
 
 			// wait until animation is done
+			calcRemoveButtonPosition();
 			setTimeout(()=>unselect(), 200);
 
 			const index = currentChildrenList.indexOf(selectedDataIndex);
@@ -159,12 +165,15 @@ const useEditMode = (props, instances) => {
 		const currentTime = performance.now();
 		const {selectedNode} = mutableObj;
 
-		if (currentTime - mutableObj.lastMouseMove < 200) {
-			return;
-		}
-		mutableObj.lastMouseMove = currentTime;
-
 		if (selectedNode) {
+			ev.preventDefault();
+			ev.stopPropagation();
+
+			if (currentTime - mutableObj.lastMouseMove < 100) {
+				return;
+			}
+			mutableObj.lastMouseMove = currentTime;
+
 			const {x, y} = ev;
 			const movedTarget = findItemNode(document.elementFromPoint(x, y));
 
@@ -202,13 +211,19 @@ const useEditMode = (props, instances) => {
 
 	useLayoutEffect(() => {
 		if(editMode && scrollContentRef.current && scrollContentRef.current.childNodes && scrollContentRef.current.childNodes[0].childNodes) {
-			const ItemNodes = scrollContentRef.current.childNodes[0].childNodes;
-			const ItemWidth = ItemNodes && ItemNodes.length > 2 && (ItemNodes[1].getBoundingClientRect().x - ItemNodes[0].getBoundingClientRect().x);
+			const itemContainerNode = scrollContentRef.current.childNodes[0];
+			const itemNodes = itemContainerNode && itemContainerNode.childNodes;
+			const itemWidth = itemNodes && itemNodes.length > 2 && (itemNodes[1].getBoundingClientRect().x - itemNodes[0].getBoundingClientRect().x);
+
+			// For center alignment and animation
+			itemContainerNode.classList.add(css.contentsContainer);
+			itemContainerNode.style.setProperty('--initial-contents-width', getComputedStyle(itemContainerNode).width);
+			itemContainerNode.style.setProperty('--remove-counter', mutableObj.removeCounter);
 
 			// Assume all items have the same size and spacing
-			scrollContentRef.current.style.setProperty('--item-width', `${ItemWidth}px`);
-
-			mutableObj.currentChildrenList = children.props.children.map((item)=>item.props['data-index']);
+			scrollContentRef.current.style.setProperty('--item-width', `${itemWidth}px`);
+			mutableObj.itemContainerNode = itemContainerNode;
+			mutableObj.currentChildrenList = children.props.children.map((item) => item.props['data-index']);
 		}
 	}, [children, editMode, scrollContentRef, scrollContentRef.current]);
 
