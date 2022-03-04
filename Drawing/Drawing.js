@@ -15,17 +15,16 @@
 import kind from '@enact/core/kind';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
 import Group from '@enact/ui/Group';
-import {Cell, Column, Row} from '@enact/ui/Layout';
-import Toggleable from '@enact/ui/Toggleable';
+import {Cell, Column, Layout, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useRef, useState} from 'react';
 
+import BodyText from '../BodyText';
 import Button from '../Button';
-import Heading from '../Heading';
+import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 import Slider from '../Slider';
-import Switch from '../Switch';
 
 import ColorPicker from './ColorPicker';
 
@@ -59,31 +58,11 @@ const DrawingBase = kind({
 		 * @default false
 		 * @public
 		 */
-		disabled: PropTypes.bool,
-
-		/**
-		 * Indicates if the drawing is in erasing mode.
-		 *
-		 * When `true`, the canvas' globalCompositeOperation property will be 'destination-out'.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
-		 */
-		isErasing: PropTypes.bool,
-
-		/**
-		 * Called when the drawing's erasing mode is modified.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onSetErasing: PropTypes.func
+		disabled: PropTypes.bool
 	},
 
 	defaultProps: {
-		disabled: false,
-		isErasing: false
+		disabled: false
 	},
 
 	handlers: {
@@ -103,6 +82,12 @@ const DrawingBase = kind({
 			} catch (err) {
 				// failing silently
 			}
+		},
+
+		handleSelect: (ev) => {
+			const e = ev?.event;
+			const setDrawingTool = ev?.setDrawingTool;
+			setDrawingTool(e.data);
 		}
 	},
 
@@ -116,26 +101,54 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({disabled, fileInputHandler, isErasing, onSetErasing, ...rest}) => {
+	render: ({disabled, fileInputHandler, handleSelect, ...rest}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
-		const [brushColor, setBrushColor] = useState('#333333');
+		const [brushColor, setBrushColor] = useState('#545BCC');
 		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
 		const [drawingTool, setDrawingTool] = useState('brush');
-		const [fillColor, setFillColor] = useState('#FF0000');
+		const [fillColor, setFillColor] = useState('#D0BB22');
 		const drawingRef = useRef();
 
-		const brushColors = ['#333333', '#FFFFFF', '#FF0000', '#00FF00'];
-		const canvasColors = ['#FFFFFF', '#000000'];
-		const fillColors = ['#FF0000', '#00FF00', '#0000FF'];
+		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const drawingTools = [
+			{icon: 'edit', key: 1, tooltipText: 'brush'},
+			{icon: 'heart', key: 2, tooltipText: 'fill'},
+			{icon: 'play', key: 3, tooltipText: 'triangle'},
+			{icon: 'popupscale', key: 4, tooltipText: 'rectangle'},
+			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
+			{icon: 'square', key: 6, tooltipText: 'erase'}
+		];
+		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
 
 		return (
-			<Column {...rest}>
-				<Row>
-					<Cell>
-						<Heading marqueeDisabled size="tiny">
+			<Scroller>
+				<Layout {...rest}>
+					<Cell className={css.toolbar} shrink size="15%">
+						<Cell>
+							<BodyText css={css} disabled={disabled}>Drawing tools</BodyText>
+							<Group
+								childComponent={Button}
+								childProp="tooltipText"
+								className={css.drawingTools}
+								defaultSelected={0}
+								itemProps={{
+									disabled: disabled,
+									size: 'small'
+								}}
+								onSelect={(event) => handleSelect({event, setDrawingTool})}
+								select={'radio'}
+								selectedProp="selected"
+							>
+								{drawingTools}
+							</Group>
+						</Cell>
+						<Cell>
+							<BodyText css={css}>Brush size</BodyText>
 							<Slider
 								backgroundProgress={0}
+								css={css}
 								defaultValue={brushSize}
 								disabled={disabled}
 								max={30}
@@ -146,72 +159,52 @@ const DrawingBase = kind({
 								step={1}
 								tooltip={false}
 							/>
-						</Heading>
-					</Cell>
-					<Cell>
-						<Heading marqueeDisabled size="tiny">
+						</Cell>
+						<Cell className={css.colors}>
+							<BodyText css={css} disabled={disabled}>Colors</BodyText>
 							<ColorPicker
 								color={brushColor}
 								colorHandler={setBrushColor}
 								disabled={disabled}
 								presetColors={brushColors}
-								text="Brush color"
+								text="Brush"
 							/>
-						</Heading>
-					</Cell>
-					<Cell>
-						<Heading marqueeDisabled size="tiny">
 							<ColorPicker
 								color={fillColor}
 								colorHandler={setFillColor}
 								disabled={disabled}
 								presetColors={fillColors}
-								text="Fill color"
+								text="Fill"
 							/>
-						</Heading>
-					</Cell>
-					<Cell>
-						<Heading disabled={disabled} marqueeDisabled size="tiny">
-							Drawing tool
-							<Group
-								childComponent={Button}
-								defaultSelected={0}
-								itemProps={{size: 'small'}}
-								onSelect={(e) => {
-									setDrawingTool(e.data);
-								}}
-								select={'radio'}
-								selectedProp="selected"
-							>
-								{['brush', 'fill', 'triangle', 'rectangle', 'circle']}
-							</Group>
-						</Heading>
-					</Cell>
-					<Cell>
-						<Heading marqueeDisabled size="tiny">
 							<ColorPicker
 								color={canvasColor}
 								colorHandler={setCanvasColor}
 								disabled={disabled}
 								presetColors={canvasColors}
-								text="Canvas color"
+								text="Canvas"
 							/>
-						</Heading>
+						</Cell>
 					</Cell>
 					<Cell>
-						<Heading disabled={disabled} marqueeDisabled size="tiny">
-							Erase
-							<Switch disabled={disabled} onClick={onSetErasing} />
-						</Heading>
+						<Row>
+							<UiDrawing
+								{...rest}
+								backgroundImage={backgroundImage}
+								brushColor={brushColor}
+								brushSize={brushSize}
+								canvasColor={canvasColor}
+								disabled={disabled}
+								drawingTool={drawingTool}
+								fillColor={fillColor}
+								onChangeDrawingTool={setDrawingTool}
+								ref={drawingRef}
+							/>
+						</Row>
 					</Cell>
-					<Cell>
-						<Heading size="tiny" marqueeDisabled>
-							<Button disabled={disabled} onClick={() => drawingRef.current.clearCanvas()} size="small">Clear all</Button>
-						</Heading>
-					</Cell>
-					<Cell>
-						<Heading size="tiny" marqueeDisabled>
-							<Button disabled={disabled} onClick={() => document.getElementById('fileInput').click()} size="small">Import image</Button>
+					<Cell shrink size="10%">
+						<Column align="center space-between" className={css.canvasOptions}>
+							<Button css={css} disabled={disabled} icon="refresh" onClick={() => drawingRef.current.clearCanvas()} size="small" tooltipText="Clear all" />
+							<Button css={css} disabled={disabled} icon="plus" onClick={() => document.getElementById('fileInput').click()} size="small" tooltipText="Import image" />
 							<input
 								accept="image/*"
 								className={css.inputFile}
@@ -222,31 +215,12 @@ const DrawingBase = kind({
 								}}
 								type="file"
 							/>
-							<Button disabled={disabled} onClick={() => setBackgroundImage(null)} size="small">Clear image</Button>
-						</Heading>
+							<Button css={css} disabled={disabled} icon="trash" onClick={() => setBackgroundImage(null)} size="small" tooltipText="Clear image" />
+							<Button css={css} disabled={disabled} icon="download" onClick={() => drawingRef.current.saveCanvas()} size="small" tooltipText="Save canvas" />
+						</Column>
 					</Cell>
-					<Cell>
-						<Heading size="tiny" marqueeDisabled>
-							<Button disabled={disabled} onClick={() => drawingRef.current.saveCanvas()} size="small">Save Canvas</Button>
-						</Heading>
-					</Cell>
-				</Row>
-				<Row>
-					<UiDrawing
-						{...rest}
-						backgroundImage={backgroundImage}
-						brushColor={brushColor}
-						brushSize={brushSize}
-						canvasColor={canvasColor}
-						disabled={disabled}
-						drawingTool={drawingTool}
-						fillColor={fillColor}
-						isErasing={isErasing}
-						onChangeDrawingTool={setDrawingTool}
-						ref={drawingRef}
-					/>
-				</Row>
-			</Column>
+				</Layout>
+			</Scroller>
 		);
 	}
 });
@@ -261,7 +235,6 @@ const DrawingBase = kind({
  * @public
  */
 const DrawingDecorator = compose(
-	Toggleable({prop: 'isErasing', toggle: 'onSetErasing'}),
 	Skinnable
 );
 
