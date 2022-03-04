@@ -9,6 +9,7 @@
 import {forwardCustom} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {clamp} from '@enact/core/util';
+import Spotlight from '@enact/spotlight';
 import classNames from 'classnames';
 import {useCallback, useEffect, useRef} from 'react';
 
@@ -31,8 +32,22 @@ const EditableList = (props) => {
 	const flow = useRef();
 	const rafId = useRef(null);
 
+	console.log("dataSize: ", dataSize);
+
+	const resetSelectedItem = useCallback(() => {
+		selectedItem.current.classList.remove(css.selected);
+		selectedItem.current.classList.remove(css.hovered);
+		selectedItem.current.classList.remove(css.selectedTransform);
+		selectedItem.current = null;
+		flow.current = null;
+		prevToIndex.current = null;
+		containerRef.current.style.setProperty('--item-offset', '0px');
+	}, []);
+
 	const finalizeOrder = useCallback(() => {
 		// finalize the order
+		let orders = Array.from({length: dataSize}, (_, i) => i + 1);
+
 		if (doms.current.length > 0) {
 			let selectedOrder = selectedItem.current.style.order;
 			const factor = flow.current > 0 ? 1 : -1;
@@ -66,25 +81,17 @@ const EditableList = (props) => {
 			selectedItem.current.style.order = selectedOrder;
 
 			//create order array
-			const orders = Array.from({length: dataSize}, (_, i) => i + 1)
 			console.log(orders);
 			console.log("changed Orders:", changedOrder);
 			console.log("fromIndex: ", fromIndex.current);
 			console.log("prevToIndex: ", prevToIndex.current);
 			orders.splice(Math.min(fromIndex.current, prevToIndex.current), changedOrder.length, ...changedOrder);
 			console.log(orders);
-			forwardCustom('onComplete', (ev) => ({orders}))({}, props);
 		}
 
-		selectedItem.current.classList.remove(css.selected);
-		selectedItem.current.classList.remove(css.hovered);
-		selectedItem.current.classList.remove(css.selectedTransform);
-		selectedItem.current = null;
-		flow.current = null;
-		prevToIndex.current = null;
-		containerRef.current.style.setProperty('--item-offset', '0px');
+		return orders;
 
-	}, [dataSize, props]);
+	}, [dataSize]);
 
 	const startEditing = useCallback((item) => {
 		// add selected transition to selected item
@@ -102,12 +109,14 @@ const EditableList = (props) => {
 
 	const handleClick = useCallback((ev) => {
 		if (selectedItem.current) {
-			finalizeOrder();
+			const orders = finalizeOrder();
+			forwardCustom('onComplete', (ev) => ({orders}))({}, props);
+			resetSelectedItem();
 		} else {
 			// add selected transition to selected item
 			startEditing(ev.target.parentElement);
 		}
-	}, [finalizeOrder, startEditing]);
+	}, [finalizeOrder, startEditing, props]);
 
 	const moveSiblings = useCallback(({direction, toIndex, diff}) => {
 		const curItem = selectedItem.current;
@@ -196,6 +205,17 @@ const EditableList = (props) => {
 		}
 	}, [dataSize, moveSiblings]);
 
+	const removeItem = useCallback(() => {
+		const orders = finalizeOrder();
+		console.log(orders);
+		console.log("prevToIndex: ", prevToIndex.current);
+		orders.splice(prevToIndex.current, 1);
+		console.log(orders);
+		forwardCustom('onComplete', (ev) => ({orders}))({}, props);
+
+		resetSelectedItem();
+	}, [finalizeOrder, props]);
+
 	const startRaf = useCallback((job) => {
 		if (typeof window === 'object') {
 			rafId.current = window.requestAnimationFrame(job);
@@ -246,13 +266,15 @@ const EditableList = (props) => {
 
 			moveItems(toIndex);
 		}
-	}, [scrollAndMoveItems, moveItems, stopRaf]);
+	}, [scrollAndMoveItems, moveItems, stopRaf, props]);
 
 	const handleKeyDown = useCallback((ev) => {
 		const {keyCode, target} = ev;
 		if (is('enter', keyCode)) {
 			if (selectedItem.current) {
-				finalizeOrder();
+				const orders = finalizeOrder();
+				forwardCustom('onComplete', (ev) => ({orders}))({}, props);
+				resetSelectedItem();
 			} else {
 				startEditing(target);
 			}
@@ -275,8 +297,12 @@ const EditableList = (props) => {
 				ev.preventDefault();
 				ev.stopPropagation();
 			}
+		} else if(keyCode === 68) {
+			if (selectedItem.current) {
+				removeItem();
+			}
 		}
-	}, [finalizeOrder, startEditing, moveItems]);
+	}, [finalizeOrder, startEditing, moveItems, props]);
 
 	useEffect(() => {
 		// calculate the unit size once

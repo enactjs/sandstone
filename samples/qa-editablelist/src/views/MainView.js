@@ -40,7 +40,8 @@ const MainView = () => {
 
 	return (
 		<EditableList
-			dataSize={dataSize}
+			{...(items.length < 5 ? {centered: true} : {})}
+			dataSize={items.length}
 			onComplete={handleComplete}
 		>
 			{
@@ -53,7 +54,7 @@ const MainView = () => {
 							style={{
 								width: ri.scaleToRem(768),
 								height: ri.scaleToRem(588),
-								order: item.index + 1
+								order: index + 1
 							}}
 						>
 							{`Image ${item.index}`}
