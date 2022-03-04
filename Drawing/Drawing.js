@@ -16,7 +16,6 @@ import kind from '@enact/core/kind';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
 import Group from '@enact/ui/Group';
 import {Cell, Column, Layout, Row} from '@enact/ui/Layout';
-import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useRef, useState} from 'react';
@@ -59,31 +58,11 @@ const DrawingBase = kind({
 		 * @default false
 		 * @public
 		 */
-		disabled: PropTypes.bool,
-
-		/**
-		 * Indicates if the drawing is in erasing mode.
-		 *
-		 * When `true`, the canvas' globalCompositeOperation property will be 'destination-out'.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
-		 */
-		isErasing: PropTypes.bool,
-
-		/**
-		 * Called when the drawing's erasing mode is modified.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onSetErasing: PropTypes.func
+		disabled: PropTypes.bool
 	},
 
 	defaultProps: {
-		disabled: false,
-		isErasing: false
+		disabled: false
 	},
 
 	handlers: {
@@ -105,12 +84,10 @@ const DrawingBase = kind({
 			}
 		},
 
-		handleSelect: (ev, {isErasing, onSetErasing}) => {
+		handleSelect: (ev) => {
 			const e = ev?.event;
 			const setDrawingTool = ev?.setDrawingTool;
-			if ((e.data !== 'erase' && isErasing) || (e.data === 'erase' && !isErasing)) {
-				onSetErasing();
-			} setDrawingTool(e.data);
+			setDrawingTool(e.data);
 		}
 	},
 
@@ -124,7 +101,7 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({disabled, fileInputHandler, handleSelect, isErasing, ...rest}) => {
+	render: ({disabled, fileInputHandler, handleSelect, ...rest}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#545BCC');
 		const [brushSize, setBrushSize] = useState(5);
@@ -219,7 +196,6 @@ const DrawingBase = kind({
 								disabled={disabled}
 								drawingTool={drawingTool}
 								fillColor={fillColor}
-								isErasing={isErasing}
 								onChangeDrawingTool={setDrawingTool}
 								ref={drawingRef}
 							/>
@@ -259,7 +235,6 @@ const DrawingBase = kind({
  * @public
  */
 const DrawingDecorator = compose(
-	Toggleable({prop: 'isErasing', toggle: 'onSetErasing'}),
 	Skinnable
 );
 
