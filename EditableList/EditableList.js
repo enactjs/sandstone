@@ -107,7 +107,7 @@ const EditableList = (props) => {
 			// add selected transition to selected item
 			startEditing(ev.target.parentElement);
 		}
-	}, [dataSize, props]);
+	}, [finalizeOrder, startEditing]);
 
 	const moveSiblings = useCallback(({direction, toIndex, diff}) => {
 		const curItem = selectedItem.current;
@@ -258,14 +258,25 @@ const EditableList = (props) => {
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem.current) {
-				const toIndex = is('left', keyCode) ? prevToIndex.current - 1 : prevToIndex.current + 1
+				const container = containerRef.current;
+				const toIndex = is('left', keyCode) ? prevToIndex.current - 1 : prevToIndex.current + 1;
+
+				const itemLeft = toIndex * itemOffsetRef.current - container.scrollLeft;
+				console.log("x", itemLeft);
+				if (itemLeft > container.offsetLeft + container.clientWidth - itemOffsetRef.current) {
+					const left = itemLeft - (container.clientWidth - itemOffsetRef.current) + container.scrollLeft;
+					container.scrollTo(left, 0);
+				} else if(itemLeft < 0) {
+					const left = container.scrollLeft + itemLeft;
+					container.scrollTo(left, 0);
+				}
 
 				moveItems(toIndex);
 				ev.preventDefault();
-				//ev.stopPropagation();
+				ev.stopPropagation();
 			}
 		}
-	}, [dataSize, props]);
+	}, [finalizeOrder, startEditing, moveItems]);
 
 	useEffect(() => {
 		// calculate the unit size once
@@ -282,7 +293,7 @@ const EditableList = (props) => {
 
 	return (
 		<Scroller className={css.container} hoverToScroll>
-			<div className={css.wrapper}>
+			<div className={centered ? css.wrapper : null}>
 				<div
 					className={classNames(css.list, {[css.centered]: centered})}
 					onClick={handleClick}
