@@ -3,11 +3,46 @@
 @import "../styles/skin.less";
 
 .drawing {
+	font-size: 36px;
+
 	.applySkins({
 		.disabled {
 			cursor: not-allowed;
 		}
 	});
+
+	.toolbar, .canvasOptions {
+		padding: 24px;
+	}
+
+	.toolbar {
+		.colors {
+			padding: 24px 0;
+		}
+	}
+
+	.bodyText {
+		font-size: 36px;
+		margin: 0;
+	}
+
+	.slider {
+		margin: 0;
+		padding: 24px 0;
+	}
+
+	.drawingTools {
+		margin: 0;
+
+		& > * {
+			font-size: 36px;
+		}
+	}
+
+	.button {
+		min-width: 144px;
+		font-size: 36px;
+	}
 
 	.inputFile {
 		display: none;

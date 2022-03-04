@@ -10,6 +10,7 @@ import {useEffect, useState} from 'react';
 
 import BodyText from '../BodyText';
 import Button, {ButtonBase} from '../Button';
+import Icon from '../Icon';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 import Slider from '../Slider';
@@ -187,7 +188,7 @@ const ColorPickerBase = kind({
 							onChange={(ev) => setRed(ev.value)}
 							value={red}
 						/>
-						<BodyText>{red} Red</BodyText>
+						<BodyText css={css}>{red} Red</BodyText>
 						<Slider
 							className={componentCss.colorSlider}
 							max={255}
@@ -196,7 +197,7 @@ const ColorPickerBase = kind({
 							onChange={(ev) => setGreen(ev.value)}
 							value={green}
 						/>
-						<BodyText>{green} Green</BodyText>
+						<BodyText css={css}>{green} Green</BodyText>
 						<Slider
 							className={componentCss.colorSlider}
 							max={255}
@@ -205,7 +206,7 @@ const ColorPickerBase = kind({
 							onChange={(ev) => setBlue(ev.value)}
 							value={blue}
 						/>
-						<BodyText>{blue} Blue</BodyText>
+						<BodyText css={css}>{blue} Blue</BodyText>
 					</Column>
 					<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
 				</Cell>
@@ -219,26 +220,33 @@ const ColorPickerBase = kind({
 	},
 
 	render: ({color, css, disabled, handleClosePopup, handleOpenPopup, popupOpen, renderComponent, text}) => {
+		const CloseIcon = (props) => <Icon {...props} css={css} />;
+
 		return (
 			<Row className={css.colorPicker}>
 				<BodyText className={css.colorBodyText} disabled={disabled}>{text}</BodyText>
 				<SpottableButton
 					className={css.coloredButton}
 					disabled={disabled}
-					minWidth={false}
 					onClick={handleOpenPopup}
 					style={{backgroundColor: color}}
 					type="color"
 				/>
 				<Popup
+					className={css.colorPopup}
+					css={css}
 					onClose={handleClosePopup}
 					open={popupOpen}
 					position="left"
 					scrimType="transparent"
 				>
-					<Row>
-						<BodyText>{text}</BodyText>
-						<Button className={css.closeButton} icon={'closex'} onClick={handleClosePopup} />
+					<Row className={css.popupHeader}>
+						<Cell align="center">
+							<BodyText css={css}>{text}</BodyText>
+						</Cell>
+						<Cell align="right" shrink>
+							<Button className={css.closeButton} css={css} iconComponent={CloseIcon} icon="closex" onClick={handleClosePopup} size="small" />
+						</Cell>
 					</Row>
 					{renderComponent}
 				</Popup>
