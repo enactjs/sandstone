@@ -25,7 +25,7 @@ describe('Change ItemSize', function () {
 		await Page.spotlightSelect();
 		await Page.backSpace();
 		await Page.backSpace();
-		await 	Page.backSpace();
+		await Page.backSpace();
 		await Page.numPad(7);
 		await Page.numPad(0);
 		await Page.numPad(0);
