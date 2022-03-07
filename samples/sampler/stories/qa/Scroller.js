@@ -199,7 +199,8 @@ ListOfThings.storyName = 'List of things';
 const imageItems = [];
 
 const renderImageItem = (props, index) => {
-	const {text, subText, source} = props;
+	const {text, subText, source} = props; // eslint-disable-line enact/prop-types
+
 	return (
 		<ImageItem
 			style={{width: ri.scale(600), height: ri.scale(480), display: 'inline-flex'}}
@@ -251,12 +252,12 @@ export const CenterAlignedListOfImageItems = (args) => {
 			spotlightDisabled={args['spotlightDisabled']}
 			verticalScrollbar={args['verticalScrollbar']}
 		>
-		<div style={{minWidth: 'fit-content', display: 'flex', justifyContent: 'center'}}>
-			{imageItems.map(renderImageItem)}
-		</div>
+			<div style={{minWidth: 'fit-content', display: 'flex', justifyContent: 'center'}}>
+				{imageItems.map(renderImageItem)}
+			</div>
 		</Scroller>
 	);
-}
+};
 
 number('dataSize', CenterAlignedListOfImageItems, 20);
 select('focusableScrollbar', CenterAlignedListOfImageItems, prop.focusableScrollbarOption, Config);
