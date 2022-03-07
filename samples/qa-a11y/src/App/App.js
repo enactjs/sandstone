@@ -7,7 +7,7 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import classnames from 'classnames';
 
 import Alert from '../views/Alert';
@@ -103,95 +103,81 @@ const views = [
 	{isHeader: false, title: 'WizardPanels', view: WizardPanels}
 ];
 
-class AppBase extends Component {
-	static propTypes = {
-		rtl: PropTypes.bool,
-		updateLocale: PropTypes.func
-	};
-	constructor () {
-		super();
-		this.state = {
-			isDebugMode: false,
-			jumpToView: '',
-			selected: 0
-		};
-	}
+const AppBase = ({className, rtl, updateLocale, ...rest}) => {
+	const [isDebugMode, setIsDebugMode] = useState(false);
+	const [jumpToView, setJumpToView] = useState('');
+	const [selected, setSelected] = useState(0);
+	const cachedKey = useRef(-1);
 
-	componentDidMount () {
-		document.addEventListener('keydown', this.handleKeyDown);
-	}
+	const handleChangeView = (select) => () => setSelected(select);
 
-	cachedKey = -1;
+	const handleDebug = useCallback(() => setIsDebugMode(!isDebugMode), [isDebugMode]);
 
-	handleChangeView = (selected) => () => this.setState({selected});
-
-	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}));
-
-	handleKeyDown = (ev) => {
+	const handleKeyDown = useCallback((ev) => {
 		const {keyCode} = ev;
-		const {rtl, updateLocale} = this.props;
-
 		if (keyCode === 403 || keyCode === 82) { // Red Key or `r` key
 			updateLocale(rtl ? 'en-US' : 'ar-SA');
 		} else if (keyCode === 404 || keyCode === 71) { // Green Key or `g` key
-			this.handleDebug();
+			handleDebug();
 		} else if (keyCode >= 48 && keyCode <= 57) {
 			const num = keyCode - 48;
 
-			if (this.cachedKey === -1) {
-				this.cachedKey = num;
-				this.setState({jumpToView: num});
+			if (cachedKey.current === -1) {
+				cachedKey.current = num;
+				setJumpToView(num);
 			} else {
-				const selected = this.cachedKey * 10 + num;
+				const select = cachedKey.current * 10 + num;
 
-				if (selected < views.length) {
-					const target = document.querySelector('[data-menu="' + selected + '"]');
+				if (select < views.length) {
+					const target = document.querySelector('[data-menu="' + select + '"]');
 					Spotlight.focus(target);
-					this.handleChangeView(selected)();
+					handleChangeView(select);
 				}
 
-				this.setState({jumpToView: '' + this.cachedKey + num});
-				this.cachedKey = -1;
+				setJumpToView('' + cachedKey.current + num);
+				cachedKey.current = -1;
 			}
 		}
-	};
+	}, [handleDebug, rtl, updateLocale]);
 
-	render () {
-		const {className, ...rest} = this.props;
-		const {isDebugMode, jumpToView, selected} = this.state;
-		const debugAriaClass = isDebugMode ? 'aria debug' : null;
+	useEffect(() => {
+		document.addEventListener('keydown', handleKeyDown);
+	}, [handleKeyDown]);
 
-		delete rest.rtl;
-		delete rest.updateLocale;
+	const debugAriaClass = isDebugMode ? 'aria debug' : null;
 
-		return (
-			<div className={classnames(className, debugAriaClass)}>
-				<Layout {...rest} className={appCss.layout}>
-					<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
-						<div className={appCss.jumpToView}>Jump To View: {jumpToView}</div>
-						{views.map((view, i) => (
-							<Item
-								aria-label={view.title}
-								className={appCss.navItem}
-								data-menu={i}
-								key={i}
-								onClick={this.handleChangeView(i)}
-								slotBefore={('00' + i).slice(-2)}
-							>
-								{view.title}
-							</Item>
-						))}
-					</Cell>
-					<Cell component={ViewManager} index={selected}>
-						{views.map((view, i) => (
-							<View {...view} handleDebug={this.handleDebug} isDebugMode={isDebugMode} key={i} />
-						))}
-					</Cell>
-				</Layout>
-			</div>
-		);
-	}
-}
+	return (
+		<div className={classnames(className, debugAriaClass)}>
+			<Layout {...rest} className={appCss.layout}>
+				<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
+					<div className={appCss.jumpToView}>Jump To View: {jumpToView}</div>
+					{views.map((view, i) => (
+						<Item
+							aria-label={view.title}
+							className={appCss.navItem}
+							data-menu={i}
+							key={i}
+							onClick={handleChangeView(i)}
+							slotBefore={('00' + i).slice(-2)}
+						>
+							{view.title}
+						</Item>
+					))}
+				</Cell>
+				<Cell component={ViewManager} index={selected}>
+					{views.map((view, i) => (
+						<View {...view} handleDebug={handleDebug} isDebugMode={isDebugMode} key={i} />
+					))}
+				</Cell>
+			</Layout>
+		</div>
+	);
+};
+
+AppBase.propTypes = {
+	rtl: PropTypes.bool,
+	updateLocale: PropTypes.func
+};
 
 const AppDecorator = compose(
 	ThemeDecorator,

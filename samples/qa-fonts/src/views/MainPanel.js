@@ -1,7 +1,6 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {Header, Panel} from '@enact/sandstone/Panels';
-import {Component} from 'react';
 import Scroller from '@enact/sandstone/Scroller';
 
 import FontList from '../components/FontList';
@@ -108,32 +107,26 @@ const fonts = {
 	]
 };
 
-class MainPanel extends Component {
-	constructor (props) {
-		super(props);
-	}
-
-	render () {
-		return (
-			<Panel {...this.props}>
-				<Header type="compact">
-					<title>Font Verification</title>
-					<Button>A Sandstone Button</Button>
-				</Header>
-				<Scroller focusableScrollbar>
-					<Heading size="large" showLine>Current</Heading>
-					<FontList fonts={fonts.standard}>Sandstone Defined Fonts</FontList>
-					<FontList fonts={fonts.system}>System Fonts (Locally Installed)</FontList>
-					<FontList fonts={fonts.systemPs}>System Fonts PostScript Names (Locally Installed)</FontList>
-					<Heading size="large" showLine>Regional</Heading>
-					<FontList fonts={fonts.locale}>Locale-specific Fonts</FontList>
-					<Heading size="large" showLine>Legacy</Heading>
-					<FontList fonts={fonts.legacyWeb}>Legacy Sandstone Defined Fonts</FontList>
-					<FontList fonts={fonts.legacySystem}>Legacy System Fonts (Locally Installed)</FontList>
-				</Scroller>
-			</Panel>
-		);
-	}
-}
+const MainPanel = (props) => {
+	return (
+		<Panel {...props}>
+			<Header type="compact">
+				<title>Font Verification</title>
+				<Button>A Sandstone Button</Button>
+			</Header>
+			<Scroller focusableScrollbar>
+				<Heading size="large" showLine>Current</Heading>
+				<FontList fonts={fonts.standard}>Sandstone Defined Fonts</FontList>
+				<FontList fonts={fonts.system}>System Fonts (Locally Installed)</FontList>
+				<FontList fonts={fonts.systemPs}>System Fonts PostScript Names (Locally Installed)</FontList>
+				<Heading size="large" showLine>Regional</Heading>
+				<FontList fonts={fonts.locale}>Locale-specific Fonts</FontList>
+				<Heading size="large" showLine>Legacy</Heading>
+				<FontList fonts={fonts.legacyWeb}>Legacy Sandstone Defined Fonts</FontList>
+				<FontList fonts={fonts.legacySystem}>Legacy System Fonts (Locally Installed)</FontList>
+			</Scroller>
+		</Panel>
+	);
+};
 
 export default MainPanel;

@@ -1,146 +1,116 @@
 import Heading from '@enact/sandstone/Heading';
 import Picker from '@enact/sandstone/Picker';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import PropTypes from 'prop-types';
-import {Component} from 'react';
-import {connect} from 'react-redux';
+import {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {activateEvent, isSyntheticEventOn, setTimerIndex, setEventCapturing} from '../../../actions';
 import eventCategory from '../../../constants/eventCategory';
 
 import css from './Filter.module.less';
 
-class FilterBase extends Component {
-	static propTypes = {
-		activeEvents: PropTypes.array,
-		eventCapturingOn: PropTypes.bool,
-		onActivateEvent: PropTypes.func,
-		onIsSyntheticEventOn: PropTypes.func,
-		onSetEventCapturing: PropTypes.func,
-		onSetTimerIndex: PropTypes.func,
-		syntheticEventOn: PropTypes.bool,
-		timerIndex: PropTypes.number
-	};
+const Filter = () => {
+	const dispatch = useDispatch();
 
-	constructor (props) {
-		super(props);
-	}
+	const activeEvents = useSelector((state) => state.activeEvents);
+	const eventCapturingOn = useSelector((state) => state.eventCapturingOn);
+	const syntheticEventOn = useSelector((state) => state.syntheticEventOn);
+	const timerIndex = useSelector((state) => state.timerIndex);
 
-	handleEventCategory = (index) => {
-		const {onActivateEvent} = this.props;
+	const onActivateEvent = useCallback((index, selected) => dispatch(activateEvent(index, selected)), [dispatch]);
+	const onSetTimerIndex = useCallback((delay) => dispatch(setTimerIndex(delay)), [dispatch]);
+	const onSetEventCapturing = useCallback((value) => dispatch(setEventCapturing(value)), [dispatch]);
+	const onIsSyntheticEventOn = useCallback((value) => dispatch(isSyntheticEventOn(value)), [dispatch]);
 
+	const handleEventCategory = (index) => {
 		return function ({selected}) {
 			onActivateEvent(index, selected);
 		};
 	};
+	const handleTimerPicker = useCallback(({value}) => {
+		onSetTimerIndex(value);
+	}, [onSetTimerIndex]);
+	const handleEventCapturing = useCallback(({selected}) => {
+		onSetEventCapturing(selected);
+	}, [onSetEventCapturing]);
+	const handleSyntheticEventOn = useCallback(({selected}) => {
+		onIsSyntheticEventOn(selected);
+	}, [onIsSyntheticEventOn]);
 
-	handleTimerPicker = ({value}) => {
-		this.props.onSetTimerIndex(value);
-	};
-
-	handleEventCapturing = ({selected}) => {
-		this.props.onSetEventCapturing(selected);
-	};
-
-	handleSyntheticEventOn = ({selected}) => {
-		this.props.onIsSyntheticEventOn(selected);
-	};
-
-	render () {
-		const
-			timergroup = ['3 sec', '5 sec', '10 sec'],
-			eventItems = eventCategory.map((e, i) => {
-				const handler = this.handleEventCategory(i);
-				return (
-					<SwitchItem
-						className={css.switchItem}
-						inline
-						key={i}
-						selected={this.props.activeEvents[i]}
-						size="small"
-						onToggle={handler}
-					>
-						{e}
-					</SwitchItem>
-				);
-			});
-		return (
-			<div>
-				<Heading
-					className={css.heading}
-					showLine
-					size="tiny"
-					spacing="small"
+	const
+		timergroup = ['3 sec', '5 sec', '10 sec'],
+		eventItems = eventCategory.map((e, i) => {
+			const handler = handleEventCategory(i);
+			return (
+				<SwitchItem
+					className={css.switchItem}
+					inline
+					key={i}
+					selected={activeEvents[i]}
+					size="small"
+					onToggle={handler}
 				>
-					Events
-				</Heading>
-				<div className={css.eventGroup}>
-					{eventItems}
-				</div>
-				<Heading
-					className={css.heading}
-					showLine
-					size="tiny"
-					spacing="small"
+					{e}
+				</SwitchItem>
+			);
+		});
+
+	return (
+		<div>
+			<Heading
+				className={css.heading}
+				showLine
+				size="tiny"
+				spacing="small"
+			>
+				Events
+			</Heading>
+			<div className={css.eventGroup}>
+				{eventItems}
+			</div>
+			<Heading
+				className={css.heading}
+				showLine
+				size="tiny"
+				spacing="small"
+			>
+				Other filters
+			</Heading>
+			<div className={css.eventGroup}>
+				<SwitchItem
+					className={css.switchItem}
+					inline
+					selected={eventCapturingOn}
+					size="small"
+					onToggle={handleEventCapturing}
 				>
-					Other filters
-				</Heading>
-				<div className={css.eventGroup}>
-					<SwitchItem
-						className={css.switchItem}
-						inline
-						selected={this.props.eventCapturingOn}
-						size="small"
-						onToggle={this.handleEventCapturing}
+					Event Capturing
+				</SwitchItem>
+				<SwitchItem
+					className={css.switchItem}
+					inline
+					selected={syntheticEventOn}
+					size="small"
+					onToggle={handleSyntheticEventOn}
+				>
+					React Synthetic Event
+				</SwitchItem>
+				<div className={css.pickerItem}>
+					<Picker
+						className={css.timerPicker}
+						inlineTitle
+						onChange={handleTimerPicker}
+						orientation="horizontal"
+						title="Timer"
+						value={timerIndex}
 					>
-						Event Capturing
-					</SwitchItem>
-					<SwitchItem
-						className={css.switchItem}
-						inline
-						selected={this.props.syntheticEventOn}
-						size="small"
-						onToggle={this.handleSyntheticEventOn}
-					>
-						React Synthetic Event
-					</SwitchItem>
-					<div className={css.pickerItem}>
-						<Picker
-							className={css.timerPicker}
-							inlineTitle
-							onChange={this.handleTimerPicker}
-							orientation="horizontal"
-							title="Timer"
-							value={this.props.timerIndex}
-						>
-							{timergroup}
-						</Picker>
-					</div>
+						{timergroup}
+					</Picker>
 				</div>
 			</div>
-		);
-	}
-}
+		</div>
+	);
 
-const mapStateToProps = state => (state);
-const mapDispatchToProps = dispatch => ({
-	onActivateEvent (index, selected) {
-		dispatch(activateEvent(index, selected));
-	},
-	onIsSyntheticEventOn (value) {
-		dispatch(isSyntheticEventOn(value));
-	},
-	onSetEventCapturing (value) {
-		dispatch(setEventCapturing(value));
-	},
-	onSetTimerIndex (delay) {
-		dispatch(setTimerIndex(delay));
-	}
-});
-
-const Filter = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(FilterBase);
+};
 
 export default Filter;

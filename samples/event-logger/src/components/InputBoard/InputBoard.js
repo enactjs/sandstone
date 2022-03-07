@@ -1,13 +1,12 @@
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import PropTypes from 'prop-types';
-import {createRef, Component} from 'react';
-import {connect} from 'react-redux';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
-import {addEventLog, removeEventLog, updateEventLog} from '../../actions';
+import {addEventLog, removeEventLog, updateEventLog} from '../../actions/actions';
 import eventCategory from '../../constants/eventCategory';
 
 import eventRegData from './Event/EventRegistrationData';
-import Filter from './Filter';
+import Filter from './Filter/Filter';
 
 function extractLogObjectFromEventObject (ev, type, properties) {
 	let obj = Object.create(null);
@@ -42,82 +41,57 @@ function findLastIndexOfMatchingEvent (array, eventName, isDOMElement, isCapturi
 	return nomatch;
 }
 
-class InputBoardBase extends Component {
-	static propTypes = {
-		activeEvents: PropTypes.array,
-		eventCapturingOn: PropTypes.bool,
-		eventLogs: PropTypes.array,
-		onAddEventLog: PropTypes.func,
-		onRemoveEventLog: PropTypes.func,
-		onUpdateEventLog: PropTypes.func,
-		syntheticEventOn: PropTypes.bool,
-		timerIndex: PropTypes.number
-	};
+function usePrevious (value) {
+	const ref = useRef();
 
-	constructor (props) {
-		super(props);
-		this.divRef = createRef();
-		this.isCapturing = true;
-		this.listenersCache = {bubble: {}, capture: {}};
-		this.state = {
-			showFilter: true
-		};
-	}
+	useEffect(() => {
+		ref.current = value;
+	});
 
-	componentDidUpdate (prevProps) {
-		// add/remove event
-		if (prevProps.activeEvents !== this.props.activeEvents) {
-			const
-				prev = prevProps.activeEvents,
-				curr = this.props.activeEvents,
-				reactHandlers = {};
+	return ref.current;
+}
 
-			for (let i = 0; i < curr.length; i++) {
-				// manage React Event Listeners
-				if (curr[i]) {
-					Object.assign(
-						reactHandlers,
-						this.registerEventHandlerForReact(eventCategory[i], this.isCapturing)
-					);
-				}
+const InputBoard = ({className}) => {
+	const isCapturingEvent = true;
 
-				// manage DOM Event Listeners
-				if (curr[i] !== prev[i]) {
-					if (curr[i]) {
-						this.registerEventHandlerForDOM(eventCategory[i], this.isCapturing);
-					} else {
-						this.unRegisterEventHandlerForDOM(eventCategory[i], this.isCapturing);
-					}
-				}
-			}
-			this.reactHandlers = reactHandlers;
-		}
-	}
+	const dispatch = useDispatch();
 
-	componentWillUnmount () {
-		const {activeEvents} = this.props.activeEvents;
+	const divRef = useRef();
+	const eventCapturingOnRef = useRef();
+	const eventLogsRef = useRef();
+	const listenersRef = useRef({bubble: {}, capture: {}});
+	const reactHandlers = useRef();
+	const syntheticEventOnRef = useRef();
+	const timerIndexRef = useRef();
 
-		for (let i = 0; i < activeEvents.length; i++) {
-			if (activeEvents[i]) {
-				this.unRegisterEventHandlerForDOM(eventCategory[i], this.isCapturing);
-			}
-		}
-	}
+	const activeEvents = useSelector((state) => state.activeEvents);
+	const eventCapturingOn = useSelector((state) => state.eventCapturingOn);
+	const eventLogs = useSelector((state) => state.eventLogs);
+	const syntheticEventOn = useSelector((state) => state.syntheticEventOn);
+	const timerIndex = useSelector((state) => state.timerIndex);
 
-	sendEventLog = (ev, isDOMElement, eventObject, isCapturing) => {
-		const {eventCapturingOn, eventLogs, onAddEventLog, onRemoveEventLog, onUpdateEventLog, syntheticEventOn, timerIndex} = this.props;
+	const onAddEventLog = useCallback((timeoutId, eventName, isDOMElement, isCapturing, eventObject) => dispatch(addEventLog(timeoutId, eventName, isDOMElement, isCapturing, eventObject)), [dispatch]);
+	const onRemoveEventLog = useCallback((eventName, isDOMElement, isCapturing) => dispatch(removeEventLog(eventName, isDOMElement, isCapturing)), [dispatch]);
+	const onUpdateEventLog = useCallback((prevTimeoutId, postTimeoutId, eventObject) => dispatch(updateEventLog(prevTimeoutId, postTimeoutId, eventObject)), [dispatch]);
+
+	const prevActiveEvents = usePrevious(activeEvents);
+
+	const [showFilter, setShowFilter] = useState(true);
+
+	const sendEventLog = useCallback((ev, isDOMElement, eventObject, isCapturing) => {
 		const timergroup = [3000, 5000, 10000];
-		if (eventLogs && eventLogs.length > 0) {
-			const lastLog = eventLogs[eventLogs.length - 1];
+
+		if (eventLogsRef.current && eventLogsRef.current.length > 0) {
+			const lastLog = eventLogsRef.current[eventLogsRef.current.length - 1];
 
 			if (lastLog.eventName === ev.type) {
-				const index = findLastIndexOfMatchingEvent(eventLogs, ev.type, isDOMElement, isCapturing);
+				const index = findLastIndexOfMatchingEvent(eventLogsRef.current, ev.type, isDOMElement, isCapturing);
 
 				if (index >= 0) {
-					window.clearTimeout(eventLogs[index].timeoutId);
+					window.clearTimeout(eventLogsRef.current[index].timeoutId);
 					onUpdateEventLog(
-						eventLogs[index].timeoutId,
-						window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndex]),
+						eventLogsRef.current[index].timeoutId,
+						window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndexRef.current]),
 						eventObject
 					);
 					return;
@@ -126,22 +100,23 @@ class InputBoardBase extends Component {
 		}
 
 		// check the conditions to add new event log
-		if (!isDOMElement && !syntheticEventOn) {
+		if (!isDOMElement && !syntheticEventOnRef.current) {
 			return;
 		}
 
-		if (isCapturing && !eventCapturingOn) {
+		if (isCapturing && !eventCapturingOnRef.current) {
 			return;
 		}
 
 		const timeoutId = window.setTimeout(
 			() => onRemoveEventLog(ev.type, isDOMElement, isCapturing),
-			timergroup[timerIndex]);
-		onAddEventLog(timeoutId, ev.type, isDOMElement, isCapturing, eventObject);
-	};
+			timergroup[timerIndexRef.current]);
 
-	handleEvent = (eventType, isDOMElement) => {
-		const send = this.sendEventLog;
+		onAddEventLog(timeoutId, ev.type, isDOMElement, isCapturing, eventObject);
+	}, [onAddEventLog, onRemoveEventLog, onUpdateEventLog]);
+
+	const handleEvent = useCallback((eventType, isDOMElement) => {
+		const send = sendEventLog;
 		return function (isCapturing) {
 			return function (ev) {
 				send(ev,
@@ -151,43 +126,42 @@ class InputBoardBase extends Component {
 				);
 			};
 		};
-	};
+	}, [sendEventLog]);
 
-	registerEventHandlerForDOM = (type, isCapturing = false) => {
-		const
-			handle = this.handleEvent(type, true),
-			bubblingListener = handle(false),
-			capturingListener = handle(true);
+	const registerEventHandlerForDOM = useCallback((type, isCapturing = false) => {
+		const handle = handleEvent(type, true);
+		const bubblingListener = handle(false);
+		const capturingListener = handle(true);
 
-		this.listenersCache.bubble[type] = bubblingListener;
+		listenersRef.current.bubble[type] = bubblingListener;
 		if (isCapturing) {
-			this.listenersCache.capture[type] = capturingListener;
+			listenersRef.current.capture[type] = capturingListener;
 		}
 
 		for (let name of eventRegData.domEventNames[type]) {
 			if (isCapturing) {
-				this.divRef.current.addEventListener(name, capturingListener, true);
+				divRef.current.addEventListener(name, capturingListener, true);
 			}
-			this.divRef.current.addEventListener(name, bubblingListener);
+			divRef.current.addEventListener(name, bubblingListener);
 		}
-	};
+	}, [divRef, handleEvent]);
 
-	unRegisterEventHandlerForDOM = (type, isCapturing = false) => {
+	const unRegisterEventHandlerForDOM = useCallback((type, isCapturing = false) => {
 		for (let name of eventRegData.domEventNames[type]) {
-			this.divRef.current.removeEventListener(name, this.listenersCache.bubble[type]);
+			divRef.current.removeEventListener(name, listenersRef.current.bubble[type]);
 			if (isCapturing) {
-				this.divRef.current.removeEventListener(name, this.listenersCache.capture[type], true);
+				divRef.current.removeEventListener(name, listenersRef.current.capture[type], true);
 			}
 		}
 
-		delete this.listenersCache.bubble[type];
+		delete listenersRef.current.bubble[type];
 		if (isCapturing) {
-			delete this.listenersCache.capture[type];
+			delete listenersRef.current.capture[type];
 		}
-	};
+	}, [divRef]);
 
-	registerEventHandlerForReact = (type, isCapturing = false) => {
-		const handle = this.handleEvent(type, false);
+	const registerEventHandlerForReact = useCallback((type, isCapturing = false) => {
+		const handle = handleEvent(type, false);
 		let results = {};
 
 		for (let name of eventRegData.reactSyntheticEventNames[type]) {
@@ -198,59 +172,78 @@ class InputBoardBase extends Component {
 		}
 
 		return results;
-	};
+	}, [handleEvent]);
 
-	handleShowFilter = ({selected}) => {
-		this.setState({showFilter: selected});
-	};
+	const handleShowFilter = useCallback(({selected}) => {
+		setShowFilter(selected);
+	}, []);
 
-	render () {
-		return (
-			<div>
-				<SwitchItem
-					selected={this.state.showFilter}
-					size="small"
-					onToggle={this.handleShowFilter}
-				>
-					Filters
-				</SwitchItem>
-				{this.state.showFilter ? <Filter /> : null}
-				<div
-					className={this.props.className}
-					ref={this.divRef}
-					tabIndex="0"
-					{...this.reactHandlers}
-				>
-					{'You can trigger variable events here. For detecting keyboard event, mouse click is needed on it.'}
-				</div>
+
+	useEffect(() => {
+		eventCapturingOnRef.current = eventCapturingOn;
+		syntheticEventOnRef.current = syntheticEventOn;
+		timerIndexRef.current = timerIndex;
+		eventLogsRef.current = eventLogs;
+		// add/remove event
+		if (prevActiveEvents && prevActiveEvents !== activeEvents) {
+			const
+				prev = prevActiveEvents,
+				curr = activeEvents,
+				handlers = {};
+
+			for (let i = 0; i < curr.length; i++) {
+				// manage React Event Listeners
+				if (curr[i]) {
+					Object.assign(
+						handlers,
+						registerEventHandlerForReact(eventCategory[i], isCapturingEvent)
+					);
+				}
+
+				// manage DOM Event Listeners
+				if (curr[i] !== prev[i]) {
+					if (curr[i]) {
+						registerEventHandlerForDOM(eventCategory[i], isCapturingEvent);
+					} else {
+						unRegisterEventHandlerForDOM(eventCategory[i], isCapturingEvent);
+					}
+				}
+			}
+			reactHandlers.current = handlers;
+		}
+	});
+
+	useEffect( () => {
+		return () => {
+			for (let i = 0; i < activeEvents.length; i++) {
+				if (activeEvents[i]) {
+					unRegisterEventHandlerForDOM(eventCategory[i], isCapturingEvent);
+				}
+			}
+		};
+	// eslint-disable-next-line
+	}, []);
+
+	return (
+		<div>
+			<SwitchItem
+				selected={showFilter}
+				size="small"
+				onToggle={handleShowFilter}
+			>
+				Filters
+			</SwitchItem>
+			{showFilter ? <Filter /> : null}
+			<div
+				className={className}
+				ref={divRef}
+				tabIndex="0"
+				{...reactHandlers.current}
+			>
+				{'You can trigger variable events here. For detecting keyboard event, mouse click is needed on it.'}
 			</div>
-		);
-	}
-}
-
-const mapStateToProps = state => ({
-	activeEvents: state.activeEvents,
-	timerIndex: state.timerIndex,
-	eventCapturingOn: state.eventCapturingOn,
-	eventLogs: state.eventLogs,
-	syntheticEventOn: state.syntheticEventOn
-});
-
-const mapDispatchToProps = dispatch => ({
-	onAddEventLog (timeoutId, eventName, isDOMElement, isCapturing, eventObject) {
-		dispatch(addEventLog(timeoutId, eventName, isDOMElement, isCapturing, eventObject));
-	},
-	onRemoveEventLog (eventName, isDOMElement, isCapturing) {
-		dispatch(removeEventLog(eventName, isDOMElement, isCapturing));
-	},
-	onUpdateEventLog (prevTimeoutId, postTimeoutId, eventObject) {
-		dispatch(updateEventLog(prevTimeoutId, postTimeoutId, eventObject));
-	}
-});
-
-const InputBoard = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(InputBoardBase);
+		</div>
+	);
+};
 
 export default InputBoard;

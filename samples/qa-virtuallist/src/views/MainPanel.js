@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import {InputField as Input} from '@enact/sandstone/Input';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import ri from '@enact/ui/resolution';
 import VirtualList from '@enact/sandstone/VirtualList';
 
@@ -18,111 +18,93 @@ import css from './MainPanel.module.less';
 
 const childProps = {text: ' child props'};
 
-const MainPanel = class extends Component {
-	static displayName = 'MainPanel';
+const MainPanel = ({changeData, listItems, ...rest}) => {
+	const [hasChildProps, setHasChildProps] = useState(false);
+	const [isDisabled, setIsDisabled] = useState(false);
+	const [nativeScroll, setNativeScroll] = useState(true);
+	const [value, setValue] = useState('');
 
-	static propTypes = {
-		changeData: PropTypes.func.isRequired,
-		listItems: PropTypes.array.isRequired,
-		nativeScroll: PropTypes.bool
-	};
+	useEffect(() => {
+		changeData(200, false);
+	}, [changeData]);
 
-	constructor (props) {
-		super(props);
-		this.state = {
-			hasChildProps: false,
-			isDisabled: false,
-			nativeScroll: true,
-			value: ''
-		};
+	const handleChange = useCallback((param) => setValue(param.value), []);
 
-		this.props.changeData(200, false);
-	}
+	const onChangeDataSize = useCallback(() => {
+		const dataSize = parseInt(value) || 0;
+		changeData(dataSize, isDisabled);
+	}, [changeData, isDisabled, value]);
 
-	handleChange = ({value}) => this.setState({value});
+	const onChangeScrollMode = useCallback(({selected: selNativeScroll}) => setNativeScroll(selNativeScroll), []);
 
-	onChangeDataSize = () => {
-		const dataSize = parseInt(this.state.value) || 0;
-		this.props.changeData(dataSize, this.state.isDisabled);
-	};
+	const onToggleChildProps = useCallback(() => setHasChildProps(!hasChildProps), [hasChildProps]);
 
-	onChangeScrollMode = ({selected: nativeScroll}) => {
-		this.setState({nativeScroll});
-	};
+	const onToggleDisabled = useCallback(() => {
+		changeData(listItems.length, !isDisabled);
+		return setIsDisabled(!isDisabled);
+	}, [changeData, isDisabled, listItems.length]);
 
-	onToggleChildProps = () => {
-		this.setState((state) => ({hasChildProps: !state.hasChildProps}));
-	};
-
-	onToggleDisabled = () => {
-		this.setState((state, props) => {
-			this.props.changeData(props.listItems.length, !state.isDisabled);
-			return {isDisabled: !state.isDisabled};
-		});
-	};
-
-	renderItem = ({index, text, ...rest}) => {
+	const renderItem = useCallback(({index, text, ...restItem}) => {
 		return (
-			<ListItem {...rest} index={index}>
-				{this.props.listItems[index].content + (text || '')}
+			<ListItem {...restItem} index={index}>
+				{listItems[index].content + (text || '')}
 			</ListItem>
 		);
-	};
+	}, [listItems]);
 
-	render () {
-		const {listItems, ...rest} = this.props;
-		const {nativeScroll} = this.state;
+	return (
+		<Panel {...rest}>
+			<Header
+				title="VirtualList"
+				type="mini"
+			>
+				<Row>
+					<Cell shrink>
+						<label>DataSize:</label>
+						<Input
+							onChange={handleChange}
+							placeholder={`${listItems.length}`}
+							size="small"
+							style={{width: '5em'}}
+							type="number"
+							value={value}
+						/>
+					</Cell>
+					<Cell shrink>
+						<Button size="small" onClick={onChangeDataSize}>Set DataSize</Button>
+					</Cell>
+					<Cell>
+						<CheckboxItem onClick={onToggleDisabled}>Disabled Items</CheckboxItem>
+					</Cell>
+					<Cell>
+						<CheckboxItem onClick={onToggleChildProps}>Child Props</CheckboxItem>
+					</Cell>
+					<Cell>
+						<ScrollModeSwitch defaultSelected={nativeScroll} onToggle={onChangeScrollMode} />
+					</Cell>
+					<Cell>
+						<LocaleSwitch />
+					</Cell>
+				</Row>
+				<hr />
+			</Header>
+			<VirtualList
+				className={css.verticalPadding}
+				childProps={hasChildProps ? childProps : null}
+				dataSize={listItems.length}
+				itemRenderer={renderItem}
+				itemSize={ri.scale(156)}
+				key={nativeScroll ? 'native' : 'translate'}
+				scrollMode={nativeScroll ? 'native' : 'translate'}
+			/>
+		</Panel>
+	);
+};
 
-		delete rest.changeData;
-
-		return (
-			<Panel {...rest}>
-				<Header
-					title="VirtualList"
-					type="mini"
-				>
-					<Row>
-						<Cell shrink>
-							<label>DataSize:</label>
-							<Input
-								onChange={this.handleChange}
-								placeholder={`${listItems.length}`}
-								size="small"
-								style={{width: '5em'}}
-								type="number"
-								value={this.state.value}
-							/>
-						</Cell>
-						<Cell shrink>
-							<Button size="small" onClick={this.onChangeDataSize}>Set DataSize</Button>
-						</Cell>
-						<Cell>
-							<CheckboxItem onClick={this.onToggleDisabled}>Disabled Items</CheckboxItem>
-						</Cell>
-						<Cell>
-							<CheckboxItem onClick={this.onToggleChildProps}>Child Props</CheckboxItem>
-						</Cell>
-						<Cell>
-							<ScrollModeSwitch defaultSelected={nativeScroll} onToggle={this.onChangeScrollMode} />
-						</Cell>
-						<Cell>
-							<LocaleSwitch />
-						</Cell>
-					</Row>
-					<hr />
-				</Header>
-				<VirtualList
-					className={css.verticalPadding}
-					childProps={this.state.hasChildProps ? childProps : null}
-					dataSize={listItems.length}
-					itemRenderer={this.renderItem}
-					itemSize={ri.scale(156)}
-					key={nativeScroll ? 'native' : 'translate'}
-					scrollMode={nativeScroll ? 'native' : 'translate'}
-				/>
-			</Panel>
-		);
-	}
+MainPanel.propTypes = {
+	changeData: PropTypes.func.isRequired,
+	listItems: PropTypes.array.isRequired,
+	nativeScroll: PropTypes.bool
 };
 
 const mapStateToProps = ({listItems}) => ({

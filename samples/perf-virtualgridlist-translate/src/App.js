@@ -1,8 +1,8 @@
 import ImageItem from '@enact/sandstone/ImageItem';
-import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {useCallback, useEffect, useRef} from 'react';
 
 const items = [];
 
@@ -14,16 +14,18 @@ for (let i = 0; i < 1000; i++) {
 	});
 }
 
-class VirtualGridListSample extends Component {
-	componentDidMount () {
-		this.scrollTo({animate: false, focus: true, index: 19});
-	}
+const VirtualGridListSample = (props) => {
+	const scrollToRef = useRef(null);
 
-	getScrollTo = (scrollTo) => {
-		this.scrollTo = scrollTo;
-	};
+	useEffect(() => {
+		scrollToRef.current({animate: false, focus: true, index: 19});
+	}, []);
 
-	renderItem = ({index, ...rest}) => {
+	const getScrollTo = useCallback((scrollTo) => {
+		scrollToRef.current = scrollTo;
+	}, []);
+
+	const renderItem = useCallback(({index, ...rest}) => {
 		return (
 			<ImageItem
 				{...rest}
@@ -32,20 +34,18 @@ class VirtualGridListSample extends Component {
 				{items[index].text}
 			</ImageItem>
 		);
-	};
+	}, []);
 
-	render () {
-		return (
-			<VirtualGridList
-				{...this.props}
-				cbScrollTo={this.getScrollTo}
-				dataSize={items.length}
-				itemRenderer={this.renderItem}
-				itemSize={{minWidth: ri.scale(624), minHeight: ri.scale(600)}} // FHD: 312 x 300, UHD: 624 x 600
-				scrollMode="translate"
-			/>
-		);
-	}
-}
+	return (
+		<VirtualGridList
+			{...props}
+			cbScrollTo={getScrollTo}
+			dataSize={items.length}
+			itemRenderer={renderItem}
+			itemSize={{minWidth: ri.scale(624), minHeight: ri.scale(600)}} // FHD: 312 x 300, UHD: 624 x 600
+			scrollMode="translate"
+		/>
+	);
+};
 
 export default ThemeDecorator(VirtualGridListSample);

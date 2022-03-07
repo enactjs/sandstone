@@ -1,49 +1,43 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {VoiceControlDecorator} from '@enact/webos/speech';
-import {Component} from 'react';
+import {useCallback, useState} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 const VoiceButton = VoiceControlDecorator(Button);
 
-class DataWebosVoiceDisabled extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			result: ''
-		};
-	}
+const DataWebosVoiceDisabled = () => {
+	const [result, setResult] = useState('');
 
-	updateResult = (msg) => () => {
-		this.setState({result: msg});
+	const updateResult = (msg) => () => {
+		setResult(msg);
 	};
 
-	handleVoice = (e) => {
+	const handleVoice = useCallback((e) => {
 		let {intent, value} = e.detail;
-		this.updateResult('handleVoice > ' + intent + ' | ' + value);
+		updateResult('handleVoice > ' + intent + ' | ' + value);
 		e.preventDefault();
-	};
+	}, []);
 
-	render () {
-		return (
-			<CommonView title="data-webos-voice-disabled" subtitle={this.state.result}>
-				<Heading>Default</Heading>
-				<Button onClick={this.updateResult('Selected > 사진')}>사진</Button>
-				<Heading>data-webos-voice-disabled</Heading>
-				<VoiceButton
-					data-webos-voice-disabled
-					data-webos-voice-intent="Select Delete"
-					onClick={this.updateResult('Selected > 사과')}
-					onVoice={this.handleVoice}
-				>
-					사과
-				</VoiceButton>
-				<Heading>Disabled Button</Heading>
-				<Button disabled onClick={this.updateResult('Selected > 필터')}>필터</Button>
-			</CommonView>
-		);
-	}
-}
+	return (
+		<CommonView title="data-webos-voice-disabled" subtitle={result}>
+			<Heading>Default</Heading>
+			<Button onClick={updateResult('Selected > 사진')}>사진</Button>
+			<Heading>data-webos-voice-disabled</Heading>
+			<VoiceButton
+				data-webos-voice-disabled
+				data-webos-voice-intent="Select Delete"
+				onClick={updateResult('Selected > 사과')}
+				onVoice={handleVoice}
+			>
+				사과
+			</VoiceButton>
+			<Heading>Disabled Button</Heading>
+			<Button disabled onClick={updateResult('Selected > 필터')}>필터</Button>
+		</CommonView>
+	);
+
+};
 
 export default DataWebosVoiceDisabled;
