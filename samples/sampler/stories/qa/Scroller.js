@@ -1,8 +1,9 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
+import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Spotlight from '@enact/spotlight';
@@ -194,6 +195,79 @@ boolean('spotlightDisabled', ListOfThings, Config, false);
 select('verticalScrollbar', ListOfThings, prop.scrollbarOption, Config);
 
 ListOfThings.storyName = 'List of things';
+
+const imageItems = [];
+
+const renderImageItem = (props, index) => {
+	const {text, subText, source} = props;
+	return (
+		<ImageItem
+			style={{width: ri.scale(600), height: ri.scale(480), display: 'inline-flex'}}
+			label={subText}
+			src={source}
+			key={`scrollerItem${index}`}
+		>
+			{text}
+		</ImageItem>
+	);
+};
+
+const updateDataSize = (dataSize) => {
+	const itemNumberDigits = dataSize > 0 ? (dataSize - 1 + '').length : 0;
+	const headingZeros = Array(itemNumberDigits).join('0');
+
+	imageItems.length = 0;
+
+	for (let i = 0; i < dataSize; i++) {
+		const count = (headingZeros + i).slice(-itemNumberDigits);
+		const text = `Item ${count}`;
+		const subText = `SubItem ${count}`;
+		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
+		const source = `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image ${i}`;
+
+		imageItems.push({text, subText, source});
+	}
+
+	return dataSize;
+};
+
+export const CenterAlignedListOfImageItems = (args) => {
+	const dataSize = args['dataSize'];
+
+	updateDataSize(dataSize);
+
+	return (
+		<Scroller
+			direction="horizontal"
+			focusableScrollbar={args['focusableScrollbar']}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
+			onKeyDown={action('onKeyDown')}
+			onScrollStart={action('onScrollStart')}
+			onScrollStop={action('onScrollStop')}
+			scrollMode={args['scrollMode']}
+			spotlightDisabled={args['spotlightDisabled']}
+			verticalScrollbar={args['verticalScrollbar']}
+		>
+		<div style={{minWidth: 'fit-content', display: 'flex', justifyContent: 'center'}}>
+			{imageItems.map(renderImageItem)}
+		</div>
+		</Scroller>
+	);
+}
+
+number('dataSize', CenterAlignedListOfImageItems, 20);
+select('focusableScrollbar', CenterAlignedListOfImageItems, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', CenterAlignedListOfImageItems, prop.scrollbarOption, Config);
+boolean('hoverToScroll', CenterAlignedListOfImageItems, Config);
+boolean('noScrollByWheel', CenterAlignedListOfImageItems, Config);
+select('scrollMode', CenterAlignedListOfImageItems, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', CenterAlignedListOfImageItems, Config, false);
+select('verticalScrollbar', CenterAlignedListOfImageItems, prop.scrollbarOption, Config);
+
+CenterAlignedListOfImageItems.storyName = 'Center-Aligned List of Image Item';
 
 export const HorizontalScroll = (args) => (
 	<Scroller
