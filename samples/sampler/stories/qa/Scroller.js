@@ -268,7 +268,7 @@ select('scrollMode', CenterAlignedListOfImageItems, prop.scrollModeOption, Confi
 boolean('spotlightDisabled', CenterAlignedListOfImageItems, Config, false);
 select('verticalScrollbar', CenterAlignedListOfImageItems, prop.scrollbarOption, Config);
 
-CenterAlignedListOfImageItems.storyName = 'Center-Aligned List of Image Item';
+CenterAlignedListOfImageItems.storyName = 'Center-Aligned List of ImageItem';
 
 export const HorizontalScroll = (args) => (
 	<Scroller
