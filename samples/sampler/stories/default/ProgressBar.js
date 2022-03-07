@@ -2,6 +2,8 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 import ProgressBar, {ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
 
+import css from './ProgressBar.module.less';
+
 const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBar);
 const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', ProgressBarTooltip);
 ProgressBar.displayName = 'ProgressBar';
@@ -21,6 +23,7 @@ export const _ProgressBar = (args) => (
 		progress={args['progress']}
 		progressAnchor={args['progressAnchor']}
 		showAnchor={args['showAnchor']}
+		className={args['orientation'] === 'vertical' || args['orientation'] === 'radial' ? css.margin : null}
 	>
 		{args['tooltip'] ? <ProgressBarTooltip position={args['position']} /> : null}
 	</ProgressBar>

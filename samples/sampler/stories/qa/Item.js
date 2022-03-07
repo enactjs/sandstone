@@ -6,7 +6,7 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {Row} from '@enact/ui/Layout';
 import {scale} from '@enact/ui/resolution';
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 
 import icons from '../helper/icons';
 
@@ -22,7 +22,7 @@ const inputData = {
 	'The W3C is an international community where Member organizations, a full-time staff, and the public work together to develop Web standards.',
 	extraSpaceText:
 	'This                                                             text                                                                          has                                                                                        extra                                                                         spaces',
-	tallText: ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير', 'តន្ត្រី'],
+	tallText: ['नरेंद्र मोदी', 'ฟิ ไั ஒ து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير', 'តន្ត្រី'],
 	disabledText: 'This text is disabled',
 	normalText: 'Item with text that is spottable',
 	longLabel:
@@ -268,10 +268,10 @@ text('children', WithCustomStyle, Item, inputData.shortChildren);
 WithCustomStyle.storyName = 'with custom style';
 
 export const WithChangingSlots = () => {
-	const [check, setcheck] = useState(false);
-	function handleClick () {
-		setcheck(!check);
-	}
+	const [check, setCheck] = useState(false);
+	const handleClick = useCallback(() => {
+		setCheck(!check);
+	}, [check]);
 
 	return (
 		<div className={css.itemContainer}>

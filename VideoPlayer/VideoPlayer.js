@@ -11,7 +11,7 @@ import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
 import {memoize} from '@enact/core/util';
 
-import {adaptEvent, call, forKey, forward, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
+import {adaptEvent, call, forKey, forward, forwardCustom, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {platform} from '@enact/core/platform';
 import EnactPropTypes from '@enact/core/internal/prop-types';
@@ -35,6 +35,7 @@ import {isValidElement, cloneElement, Component} from 'react';
 import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
+import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Spinner from '../Spinner';
 import {
@@ -84,7 +85,7 @@ const RootContainer = SpotlightContainerDecorator(
 
 const ControlsContainer = SpotlightContainerDecorator(
 	{
-		enterTo: '',
+		enterTo: 'default-element',
 		straightOnly: true
 	},
 	'div'
@@ -100,12 +101,12 @@ const getDurFmt = (locale) => {
 	return memoGetDurFmt(locale);
 };
 
-const forwardWithState = (type) => adaptEvent(call('addStateToEvent'), forwardWithPrevent(type));
+const forwardWithState = (type) => adaptEvent(() => ({type}), handle(adaptEvent(call('addStateToEvent'), forwardWithPrevent(type))));
 
 const forwardToggleMore = forward('onToggleMore');
 
 // provide forwarding of events on media controls
-const forwardControlsAvailable = forward('onControlsAvailable');
+const forwardControlsAvailable = forwardCustom('onControlsAvailable');
 const forwardPlay = forwardWithState('onPlay');
 const forwardWillPlay = forwardWithState('onWillPlay');
 const forwardPause = forwardWithState('onPause');
@@ -204,6 +205,15 @@ const VideoPlayerBase = class extends Component {
 		 * @public
 		 */
 		autoCloseTimeout: PropTypes.number,
+
+		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
 
 		/**
 		 * Removes interactive capability from this component. This includes, but is not limited to,
@@ -399,6 +409,14 @@ const VideoPlayerBase = class extends Component {
 		 * @public
 		 */
 		noSpinner: PropTypes.bool,
+
+		/**
+		 * Called when the back button is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBack: PropTypes.func,
 
 		/**
 		 * Called when the player's controls change availability, whether they are shown
@@ -1235,7 +1253,7 @@ const VideoPlayerBase = class extends Component {
 
 	handleJump = ({keyCode}) => {
 		if (this.props.seekDisabled) {
-			forward('onSeekFailed', {}, this.props);
+			forwardCustom('onSeekFailed')(null, this.props);
 		} else {
 			const jumpBy = (is('left', keyCode) ? -1 : 1) * this.props.jumpBy;
 			const time = Math.min(this.state.duration, Math.max(0, this.state.currentTime + jumpBy));
@@ -1433,7 +1451,7 @@ const VideoPlayerBase = class extends Component {
 		if (!this.props.seekDisabled && !isNaN(this.video.duration) && !this.state.sourceUnavailable) {
 			this.video.currentTime = timeIndex;
 		} else {
-			forward('onSeekFailed', {}, this.props);
+			forwardCustom('onSeekFailed')(null, this.props);
 		}
 	};
 
@@ -1744,11 +1762,6 @@ const VideoPlayerBase = class extends Component {
 		};
 	};
 
-	disablePointerMode = () => {
-		Spotlight.setPointerMode(false);
-		return true;
-	};
-
 	//
 	// Player Interaction events
 	//
@@ -1765,6 +1778,8 @@ const VideoPlayerBase = class extends Component {
 		this.sliderScrubbing = false;
 	};
 
+	handleBack = this.handle(forwardCustom('onBack'));
+
 	handleKnobMove = (ev) => {
 		this.sliderScrubbing = true;
 
@@ -1777,7 +1792,7 @@ const VideoPlayerBase = class extends Component {
 			if (!isNaN(seconds)) {
 				const knobTime = secondsToTime(seconds, getDurFmt(this.props.locale), {includeHour: true});
 
-				forward('onScrub', {...ev, seconds}, this.props);
+				forward('onScrub', {...ev, seconds, type: 'onScrub'}, this.props);
 
 				this.announce(`${$L('jump to')} ${knobTime}`, true);
 			}
@@ -1800,7 +1815,9 @@ const VideoPlayerBase = class extends Component {
 			forward('onScrub', {
 				detached: this.sliderScrubbing,
 				proportion: this.sliderKnobProportion,
-				seconds},
+				seconds,
+				type: 'onScrub'
+			},
 			this.props);
 
 			this.announce(`${$L('jump to')} ${knobTime}`, true);
@@ -1836,8 +1853,6 @@ const VideoPlayerBase = class extends Component {
 			}
 		} else if (is('up', keyCode)) {
 			Spotlight.setPointerMode(false);
-			preventDefault(ev);
-			stopImmediate(ev);
 		}
 	};
 
@@ -1918,6 +1933,7 @@ const VideoPlayerBase = class extends Component {
 
 	render () {
 		const {
+			backButtonAriaLabel,
 			className,
 			disabled,
 			infoComponents,
@@ -1950,6 +1966,7 @@ const VideoPlayerBase = class extends Component {
 		delete mediaProps.miniFeedbackHideDelay;
 		delete mediaProps.noAutoShowMediaControls;
 		delete mediaProps.noMediaSliderFeedback;
+		delete mediaProps.onBack;
 		delete mediaProps.onControlsAvailable;
 		delete mediaProps.onFastForward;
 		delete mediaProps.onJumpBackward;
@@ -2031,6 +2048,18 @@ const VideoPlayerBase = class extends Component {
 						>
 							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
 						</FeedbackContent>
+						{
+							this.state.mediaControlsVisible ?
+								<Button
+									aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
+									className={css.back}
+									icon="arrowhookleft"
+									iconFlip="auto"
+									onClick={this.handleBack}
+									size="small"
+								/> :
+								null
+						}
 						<ControlsContainer
 							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.lift : '')}
 							spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
@@ -2074,7 +2103,6 @@ const VideoPlayerBase = class extends Component {
 										onFocus={this.handleSliderFocus}
 										onKeyDown={this.handleSliderKeyDown}
 										onKnobMove={this.handleKnobMove}
-										onSpotlightUp={this.handleSpotlightUpFromSlider}
 										selection={proportionSelection}
 										spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
 										value={this.state.proportionPlayed}
