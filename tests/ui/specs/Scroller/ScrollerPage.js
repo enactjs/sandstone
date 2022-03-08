@@ -18,8 +18,8 @@ class ScrollerPage extends Page {
 		this.title = 'Scroller Test';
 	}
 
-	open (layout = '', urlExtra) {
-		super.open(`Scroller${layout}-View`, urlExtra);
+	async open (layout = '', urlExtra) {
+		await super.open(`Scroller${layout}-View`, urlExtra);
 	}
 
 	// button api
@@ -75,8 +75,8 @@ class ScrollerPage extends Page {
 		return $(`${scrollHorizontalThumbSelector}`);
 	}
 
-	getScrollThumbPosition () {
-		return browser.execute(function (_scrollbarSelector) {
+	async getScrollThumbPosition () {
+		return await browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector);
 			return {
 				vertical: scrollbar[0].style.getPropertyValue('--scrollbar-thumb-progress-ratio'),
@@ -84,14 +84,14 @@ class ScrollerPage extends Page {
 			};
 		}, scrollbarSelector);
 	}
-	getScrollerRect () {
-		return browser.execute(function (_scrollContentSelector) {
+	async getScrollerRect () {
+		return await browser.execute(function (_scrollContentSelector) {
 			const scroller = document.querySelector(_scrollContentSelector);
 			return scroller.getBoundingClientRect();
 		}, scrollContentSelector);
 	}
-	getScrollThumbRect () {
-		return browser.execute(function (_scrollThumbSelector) {
+	async getScrollThumbRect () {
+		return await browser.execute(function (_scrollThumbSelector) {
 			const scrollThumb = document.querySelectorAll(_scrollThumbSelector);
 			return {
 				vertical: scrollThumb[0].getBoundingClientRect(),
@@ -99,8 +99,8 @@ class ScrollerPage extends Page {
 			};
 		}, scrollThumbSelector);
 	}
-	getScrollBarRect () {
-		return browser.execute(function (_scrollbarSelector) {
+	async getScrollBarRect () {
+		return await browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector);
 			return {
 				vertical: scrollbar[0].getBoundingClientRect(),
@@ -109,31 +109,31 @@ class ScrollerPage extends Page {
 		}, scrollbarSelector);
 	}
 
-	clickScrollTrack (direction, way) {
+	async clickScrollTrack (direction, way) {
 		if (direction === 'vertical') {
 			const clickPositionFromCenter = way === 'Down' ? 300 : -300;
-			$(`${verticalscrollbarSelector}`).click({y: clickPositionFromCenter});
+			await $(`${verticalscrollbarSelector}`).click({y: clickPositionFromCenter});
 		} else if (direction === 'horizontal') {
 			const clickPositionFromCenter = way === 'Left' ? -500 : 500;
-			$(`${horizontalscrollbarSelector}`).click({x: clickPositionFromCenter});
+			await $(`${horizontalscrollbarSelector}`).click({x: clickPositionFromCenter});
 		}
 	}
 
-	getVerticalScrollOffsetLeft () {
-		return browser.execute(function (_verticalscrollbarSelector) {
+	async getVerticalScrollOffsetLeft () {
+		return await browser.execute(function (_verticalscrollbarSelector) {
 			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
 			return verticalscrollbar.offsetLeft === 0 ? 0 : verticalscrollbar.offsetLeft + verticalscrollbar.clientWidth;
 		}, verticalscrollbarSelector);
 	}
-	getHorizontalScrollOffsetTop () {
-		return browser.execute(function (_horizontalscrollbarSelector) {
+	async getHorizontalScrollOffsetTop () {
+		return await browser.execute(function (_horizontalscrollbarSelector) {
 			const horizontalscrollbar = document.querySelector(_horizontalscrollbarSelector);
 			return horizontalscrollbar.offsetTop + horizontalscrollbar.clientHeight;
 		}, horizontalscrollbarSelector);
 	}
 
-	topVisibleItemId () {
-		return browser.execute(function (_scrollableSelector) {
+	async topVisibleItemId () {
+		return await browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{top, left, width} = scroller.getBoundingClientRect();
 			let currentY = top + 1,
@@ -154,8 +154,8 @@ class ScrollerPage extends Page {
 		}, scrollableSelector);
 	}
 
-	bottomVisibleItemId () {
-		return browser.execute(function (_scrollableSelector) {
+	async bottomVisibleItemId () {
+		return await browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{bottom, left, width} = scroller.getBoundingClientRect();
 			// affordance space to draw the bottom shadow. affordanceSize is 48 for 4k and 24 for FHD.
@@ -180,8 +180,8 @@ class ScrollerPage extends Page {
 		}, scrollableSelector);
 	}
 
-	getActiveElementRect () {
-		return browser.execute(function () {
+	async getActiveElementRect () {
+		return await browser.execute(function () {
 			return document.activeElement.getBoundingClientRect();
 		});
 	}
