@@ -203,7 +203,7 @@ const renderImageItem = (props, index) => {
 
 	return (
 		<ImageItem
-			style={{width: ri.scale(600), height: ri.scale(480), display: 'inline-flex'}}
+			style={{width: ri.scale(600), height: ri.scale(480)}}
 			label={subText}
 			src={source}
 			key={`scrollerItem${index}`}
@@ -250,9 +250,10 @@ export const CenterAlignedListOfImageItems = (args) => {
 			onScrollStop={action('onScrollStop')}
 			scrollMode={args['scrollMode']}
 			spotlightDisabled={args['spotlightDisabled']}
+			style={{height: 'fit-content'}}
 			verticalScrollbar={args['verticalScrollbar']}
 		>
-			<div style={{minWidth: 'fit-content', display: 'flex', justifyContent: 'center'}}>
+			<div style={{display: 'flex', justifyContent: 'center', minWidth: 'fit-content'}}>
 				{imageItems.map(renderImageItem)}
 			</div>
 		</Scroller>
