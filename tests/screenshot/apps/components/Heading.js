@@ -64,6 +64,6 @@ const HeadingTests = [
 
 	...bidirectionalTests,
 	...withProps({forceDirection: 'locale'}, bidirectionalTests)
-
 ];
+
 export default HeadingTests;
