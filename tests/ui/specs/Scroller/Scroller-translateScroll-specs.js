@@ -3,13 +3,13 @@ const ScrollerPage = require('./ScrollerPage');
 describe('Scroller', function () {
 
 	it('should meet initial conditions', async function () {
-		await await ScrollerPage.open();
+		await ScrollerPage.open();
 		expect(await ScrollerPage.buttonHideScrollbar.isFocused(), 'focus').to.be.true();
 	});
 
 	describe('FocusableScrollbar knobs', function () {
 		beforeEach(async function () {
-			await await ScrollerPage.open();
+			await ScrollerPage.open();
 			await ScrollerPage.buttonNativeScroll.moveTo();
 			await ScrollerPage.spotlightSelect();
 		});
@@ -169,6 +169,7 @@ describe('Scroller', function () {
 			// Step 6: Click on the Top Padding area of the horizontalScrollbar and to the Right of the Scroll thumb.
 			const initialHorizontalScrollThumbPosition = (await ScrollerPage.getScrollThumbPosition()).horizontal;
 			await ScrollerPage.clickScrollTrack('horizontal', 'Right');
+			await ScrollerPage.delay(1000);
 			// Step 6-1 Verify: The Scroller scrolls Left to Right.
 			expect((await ScrollerPage.getScrollThumbPosition()).horizontal > initialHorizontalScrollThumbPosition).to.be.true();
 			// Step 7: Click on the Bottom Padding area of the horizontalScrollbar and to the Left of the Scroll thumb.
