@@ -232,7 +232,7 @@ const updateDataSize = (dataSize) => {
 	return dataSize;
 };
 
-export const CenterAlignedListOfImageItems = (args) => {
+export const CenteredListOfImageItems = (args) => {
 	const dataSize = args['dataSize'];
 
 	updateDataSize(dataSize);
@@ -260,16 +260,16 @@ export const CenterAlignedListOfImageItems = (args) => {
 	);
 };
 
-number('dataSize', CenterAlignedListOfImageItems, 20);
-select('focusableScrollbar', CenterAlignedListOfImageItems, prop.focusableScrollbarOption, Config);
-select('horizontalScrollbar', CenterAlignedListOfImageItems, prop.scrollbarOption, Config);
-boolean('hoverToScroll', CenterAlignedListOfImageItems, Config);
-boolean('noScrollByWheel', CenterAlignedListOfImageItems, Config);
-select('scrollMode', CenterAlignedListOfImageItems, prop.scrollModeOption, Config);
-boolean('spotlightDisabled', CenterAlignedListOfImageItems, Config, false);
-select('verticalScrollbar', CenterAlignedListOfImageItems, prop.scrollbarOption, Config);
+number('dataSize', CenteredListOfImageItems, 20);
+select('focusableScrollbar', CenteredListOfImageItems, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', CenteredListOfImageItems, prop.scrollbarOption, Config);
+boolean('hoverToScroll', CenteredListOfImageItems, Config);
+boolean('noScrollByWheel', CenteredListOfImageItems, Config);
+select('scrollMode', CenteredListOfImageItems, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', CenteredListOfImageItems, Config, false);
+select('verticalScrollbar', CenteredListOfImageItems, prop.scrollbarOption, Config);
 
-CenterAlignedListOfImageItems.storyName = 'Center-Aligned List of ImageItem';
+CenteredListOfImageItems.storyName = 'Centered List of ImageItem';
 
 export const HorizontalScroll = (args) => (
 	<Scroller
