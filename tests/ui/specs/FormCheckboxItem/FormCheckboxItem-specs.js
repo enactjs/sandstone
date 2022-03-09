@@ -1,8 +1,7 @@
 const Page = require('./FormCheckboxItemPage'),
 	{expectChecked, expectUnchecked} = require('./FormCheckboxItem-utils.js');
 
-// Skipping until expandables are updated to handle the new Item structure
-describe.skip('FormCheckboxItem', function () {
+describe('FormCheckboxItem', function () {
 
 	beforeEach(async function () {
 		await Page.open();
@@ -24,7 +23,7 @@ describe.skip('FormCheckboxItem', function () {
 		});
 
 		it('should display icon before the text', async function () {
-			expect(await FormCheckboxItem.isBefore).to.be.true();
+			expect(await FormCheckboxItem.slotBefore).to.be.true();
 		});
 
 		describe('5-way', function () {
@@ -119,19 +118,59 @@ describe.skip('FormCheckboxItem', function () {
 		});
 	});
 
-	describe('iconPosition after', function () {
-		const FormCheckboxItem = Page.components.formCheckboxIconAfter;
+	describe('indeterminate', async function () {
+		const FormCheckboxItem = Page.components.formCheckboxIndeterminate;
+
+		it('should have minus icon', async function () {
+			expect(await FormCheckboxItem.indeterminateIconSymbol).to.equal('-');
+		});
+
+		describe('5-way', function () {
+			it('should still display minus icon when selected once', async function () {
+				await FormCheckboxItem.focus();
+				await Page.spotlightSelect();
+				expect(await FormCheckboxItem.indeterminateIconSymbol).to.equal('-');
+			});
+
+			it('should still display minus icon when selected twice', async function () {
+				await FormCheckboxItem.focus();
+				await Page.spotlightSelect();
+				await Page.spotlightSelect();
+				expect(await FormCheckboxItem.indeterminateIconSymbol).to.equal('-');
+			});
+		});
+
+		describe('pointer', function () {
+			it('should still display minus icon when clicked once', async function () {
+				await FormCheckboxItem.self.click();
+				expect(await FormCheckboxItem.indeterminateIconSymbol).to.equal('-');
+			});
+
+			it('should still display minus icon when clicked twice', async function () {
+				await FormCheckboxItem.self.click();
+				await FormCheckboxItem.self.click();
+				expect(await FormCheckboxItem.indeterminateIconSymbol).to.equal('-');
+			});
+		});
+	});
+
+	describe('slotBefore', function () {
+		const FormCheckboxItem = Page.components.formCheckboxSlotBefore;
 
 		it('should have correct text', async function () {
-			expect(await FormCheckboxItem.valueText).to.equal('FormCheckbox Item after');
+			expect(await FormCheckboxItem.valueText).to.equal('FormCheckbox Item slotBefore');
 		});
 
 		it('should be checked', async function () {
 			expectChecked(FormCheckboxItem);
 		});
 
-		it('should display icon after the text', async function () {
-			expect(await FormCheckboxItem.isAfter).to.be.true();
+		it('should display icon before the text', async function () {
+			expect(await FormCheckboxItem.slotBeforeNode).to.be.true();
+		});
+
+		it('should display `↑` icon', async function () {
+			expect(await FormCheckboxItem.slotBeforeIconSymbol).to.equal('↑');
 		});
 
 		describe('5-way', function () {
@@ -175,7 +214,7 @@ describe.skip('FormCheckboxItem', function () {
 		});
 
 		it('should display icon before the text', async function () {
-			expect(await FormCheckboxItem.isBefore).to.be.true();
+			expect(await FormCheckboxItem.slotBefore).to.be.true();
 		});
 
 		it('should display item inline', async function () {
@@ -211,19 +250,23 @@ describe.skip('FormCheckboxItem', function () {
 		});
 	});
 
-	describe('inline after', function () {
-		const FormCheckboxItem = Page.components.formCheckboxInlineAfter;
+	describe('inline slotBefore', function () {
+		const FormCheckboxItem = Page.components.formCheckboxInlineSlotBefore;
 
 		it('should have correct text', async function () {
-			expect(await FormCheckboxItem.valueText).to.equal('FormCheckbox Item inline after');
+			expect(await FormCheckboxItem.valueText).to.equal('FormCheckbox Item inline slotBefore');
 		});
 
 		it('should be checked', async function () {
 			expectChecked(FormCheckboxItem);
 		});
 
-		it('should display icon after the text', async function () {
-			expect(await FormCheckboxItem.isAfter).to.be.true();
+		it('should display icon before the text', async function () {
+			expect(await FormCheckboxItem.slotBeforeNode).to.be.true();
+		});
+
+		it('should display slotBefore icon', async function () {
+			expect(await FormCheckboxItem.slotBeforeIconSymbol).to.equal('↑');
 		});
 
 		it('should display item inline', async function () {
@@ -255,6 +298,56 @@ describe.skip('FormCheckboxItem', function () {
 				await FormCheckboxItem.self.click();
 				await FormCheckboxItem.self.click();
 				expectChecked(FormCheckboxItem);
+			});
+		});
+	});
+
+	describe('with label', function () {
+		describe('label below', function () {
+			const FormCheckboxItem = Page.components.formCheckboxLabelBelow;
+
+			it('should have correct label text', async function () {
+				expect(await FormCheckboxItem.labelText).to.equal('Label Below');
+			});
+
+			it('should have label below', async function () {
+				expect(await FormCheckboxItem.hasLabelBelow).to.be.true();
+			});
+		});
+
+		describe('label above', function () {
+			const FormCheckboxItem = Page.components.formCheckboxLabelAbove;
+
+			it('should have correct label text', async function () {
+				expect(await FormCheckboxItem.labelText).to.equal('Label Above');
+			});
+
+			it('should have label above', async function () {
+				expect(await FormCheckboxItem.hasLabelAbove).to.be.true();
+			});
+		});
+
+		describe('label before', function () {
+			const FormCheckboxItem = Page.components.formCheckboxLabelBefore;
+
+			it('should have correct label text', async function () {
+				expect(await FormCheckboxItem.labelText).to.equal('Label Before');
+			});
+
+			it('should have label before', async function () {
+				expect(await FormCheckboxItem.hasLabelBefore).to.be.true();
+			});
+		});
+
+		describe('label after', function () {
+			const FormCheckboxItem = Page.components.formCheckboxLabelAfter;
+
+			it('should have correct label text', async function () {
+				expect(await FormCheckboxItem.labelText).to.equal('Label After');
+			});
+
+			it('should have label after', async function () {
+				expect(await FormCheckboxItem.hasLabelAfter).to.be.true();
 			});
 		});
 	});
@@ -264,7 +357,7 @@ describe.skip('FormCheckboxItem', function () {
 	// update the links.
 	describe('disabled', function () {
 		const FormCheckboxItem = Page.components.formCheckboxDisabled;
-		const prevFormCheckboxItem = Page.components.formCheckboxInlineAfter;
+		const prevFormCheckboxItem = Page.components.formCheckboxLabelAfter;
 
 		it('should have correct text', async function () {
 			expect(await FormCheckboxItem.valueText).to.equal('FormCheckbox Item disabled');
@@ -275,7 +368,7 @@ describe.skip('FormCheckboxItem', function () {
 		});
 
 		it('should display icon before the text', async function () {
-			expect(await FormCheckboxItem.isBefore).to.be.true();
+			expect(await FormCheckboxItem.slotBefore).to.be.true();
 		});
 
 		describe('5-way', function () {
@@ -320,7 +413,7 @@ describe.skip('FormCheckboxItem', function () {
 		});
 
 		it('should display icon before the text', async function () {
-			expect(await FormCheckboxItem.isBefore).to.be.true();
+			expect(await FormCheckboxItem.slotBefore).to.be.true();
 		});
 
 		describe('5-way', function () {
