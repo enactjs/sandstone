@@ -2,8 +2,8 @@ import spotlight from '@enact/spotlight';
 import {scaleToRem} from '@enact/ui/resolution';
 import FormCheckboxItem from '../../../../FormCheckboxItem';
 import Icon from '../../../../Icon';
-import ThemeDecorator from '../../../../ThemeDecorator';
 import Scroller from '../../../../Scroller';
+import ThemeDecorator from '../../../../ThemeDecorator';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
