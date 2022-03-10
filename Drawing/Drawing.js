@@ -110,8 +110,8 @@ const DrawingBase = kind({
 		const [fillColor, setFillColor] = useState('#D0BB22');
 		const drawingRef = useRef();
 
-		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
-		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
 		const drawingTools = [
 			{icon: 'edit', key: 1, tooltipText: 'brush'},
 			{icon: 'heart', key: 2, tooltipText: 'fill'},
@@ -120,7 +120,7 @@ const DrawingBase = kind({
 			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
 			{icon: 'square', key: 6, tooltipText: 'erase'}
 		];
-		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
 
 		return (
 			<Scroller>
