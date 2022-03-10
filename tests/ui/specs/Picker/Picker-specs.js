@@ -70,7 +70,7 @@ describe('Picker', function () {
 			});
 		});
 
-		describe('with \'defaultValue\'', function () {
+		describe('with defaultValue', function () {
 			// supplied value is `Banana`
 			const picker = Page.components.pickerWithDefaultValue;
 
