@@ -61,6 +61,21 @@ const PickerBase = kind({
 		'aria-valuetext': PropTypes.string,
 
 		/**
+		 * Determines which key to adjust the picker's value for the joined horizontal one.
+		 *
+		 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
+		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
+		 *
+		 * The default value for joined horizontal picker is `'enter'`.
+		 * If [orientation]{@link sandstone/Picker.Picker#orientation} is `'vertical'` or
+		 * [joined]{@link sandstone/Picker.Picker#joined} is undefined or is `false`, this prop is ignored.
+		 *
+		 * @type {('enter'|'arrow')}
+		 * @public
+		 */
+		changedBy: PropTypes.oneOf(['enter', 'arrow']),
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -128,7 +143,7 @@ const PickerBase = kind({
 		inlineTitle: PropTypes.bool,
 
 		/**
-		 * Allows the user to use the arrow keys to adjust the picker's value.
+		 * Allows the user to use the arrow keys or enter key to adjust the picker's value.
 		 *
 		 * Key presses are captured in the directions of the increment and decrement buttons but
 		 * others are unaffected. A non-joined Picker allows navigation in any direction, but

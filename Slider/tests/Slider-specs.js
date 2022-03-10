@@ -84,6 +84,21 @@ describe('Slider', () => {
 		expect(slider).not.toHaveClass(notExpected);
 	});
 
+	test('should fire `onChange` with `onChange` type when value changed', () => {
+		const handleChange = jest.fn();
+
+		render(<Slider activateOnSelect defaultValue={50} onChange={handleChange} />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		leftKeyDown(slider);
+
+		const expected = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
 	test('should decrement the value of horizontal slider on key left when active', () => {
 		render(<Slider activateOnSelect defaultValue={50} />);
 		const slider = screen.getByRole('slider');

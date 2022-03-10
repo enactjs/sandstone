@@ -115,6 +115,71 @@ describe('Input specs', () => {
 		expect(buttonInput).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
+	test('should fire `onOpenPopup` and `onShow` with type when open', () => {
+		const handleOpenPopup = jest.fn();
+		const handleShow = jest.fn();
+
+		render(
+			<FloatingLayerController>
+				<Input onOpenPopup={handleOpenPopup} onShow={handleShow} />
+			</FloatingLayerController>
+		);
+
+		userEvent.click(screen.getByRole('button'));
+
+		const openExpected = {type: 'onOpenPopup'};
+		const openActual = handleOpenPopup.mock.calls.length && handleOpenPopup.mock.calls[0][0];
+
+		const showExpected = {type: 'onShow'};
+		const showActual = handleShow.mock.calls.length && handleShow.mock.calls[0][0];
+
+		expect(openActual).toMatchObject(openExpected);
+		expect(showActual).toMatchObject(showExpected);
+	});
+
+	test('should fire `onBeforeChange` and `onChange` with type when value changed', () => {
+		const handleBeforeChange = jest.fn();
+		const handleChange = jest.fn();
+
+		render(
+			<FloatingLayerController>
+				<Input onBeforeChange={handleBeforeChange} onChange={handleChange} open />
+			</FloatingLayerController>
+		);
+
+		userEvent.type(screen.getByPlaceholderText('-'), 'a');
+
+		const beforeExpected = {type: 'onBeforeChange'};
+		const beforeActual = handleBeforeChange.mock.calls.length && handleBeforeChange.mock.calls[0][0];
+
+		const changeExpected = {type: 'onChange'};
+		const changeActual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+		expect(beforeActual).toMatchObject(beforeExpected);
+		expect(changeActual).toMatchObject(changeExpected);
+	});
+
+	test('should fire `onClose` and `onComplete` with type when enter key pressed', () => {
+		const handleClose = jest.fn();
+		const handleComplete = jest.fn();
+		render(
+			<FloatingLayerController>
+				<Input onClose={handleClose} onComplete={handleComplete} open />
+			</FloatingLayerController>
+		);
+
+		userEvent.type(screen.getByPlaceholderText('-'), '{enter}');
+
+		const closeExpected = {type: 'onClose'};
+		const closeActual = handleClose.mock.calls.length && handleClose.mock.calls[0][0];
+
+		const completeExpected = {type: 'onComplete'};
+		const completeActual = handleComplete.mock.calls.length && handleComplete.mock.calls[0][0];
+
+		expect(closeActual).toMatchObject(closeExpected);
+		expect(completeActual).toMatchObject(completeExpected);
+	});
+
 	// Type = number
 	test('should be rendered opened if open is set to true', () => {
 		render(

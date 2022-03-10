@@ -1,4 +1,4 @@
-import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
+import {handle, forKey, forward, forwardCustom} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
@@ -309,7 +309,7 @@ const InputPopupBase = kind({
 
 	handlers: {
 		onShow: handle(
-			forward('onShow'),
+			forwardCustom('onShow'),
 			(ev, {type}) => !type.includes('number'),
 			() => Spotlight.setPointerMode(false)
 		),
@@ -326,11 +326,8 @@ const InputPopupBase = kind({
 			forKey('enter'),
 			// Ensure that the source of the enter is the <input>
 			({target}) => target.nodeName === 'INPUT',
-			adaptEvent(
-				prepareInputEventPayload,
-				forward('onComplete')
-			),
-			forward('onClose')
+			forwardCustom('onComplete', prepareInputEventPayload),
+			forwardCustom('onClose')
 		)
 	},
 
