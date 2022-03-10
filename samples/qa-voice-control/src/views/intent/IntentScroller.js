@@ -2,7 +2,7 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {scaleToRem} from '@enact/ui/resolution';
 import Repeater from '@enact/ui/Repeater';
-import {Component} from 'react';
+import {useCallback, useRef} from 'react';
 
 import CommonView from '../../components/CommonView';
 
@@ -19,34 +19,34 @@ const CustomItem = ({...rest}) => {
 	);
 };
 
-class IntentScroller extends Component {
-	cbScrollTo = (ref) => {
-		this.scrollTo = ref;
-	};
+const IntentScroller = () => {
+	const scrollTo = useRef();
 
-	handleClick = () => {
-		this.scrollTo({align: 'bottom', focus: true});
-	};
+	const cbScrollTo = useCallback((ref) => {
+		scrollTo.current = ref;
+	}, []);
 
-	render () {
-		return (
-			<CommonView noScroller title="Intent to scroll">
-				<Scroller
-					cbScrollTo={this.cbScrollTo}
-					data-webos-voice-focused
-					focusableScrollbar
-					style={{height: scaleToRem(1200)}}
+	const handleClick = useCallback(() => {
+		scrollTo.current({align: 'bottom', focus: true});
+	}, []);
+
+	return (
+		<CommonView noScroller title="Intent to scroll">
+			<Scroller
+				cbScrollTo={cbScrollTo}
+				data-webos-voice-focused
+				focusableScrollbar
+				style={{height: scaleToRem(1200)}}
+			>
+				<Repeater
+					childComponent={CustomItem}
+					itemProps={{onClick: handleClick}}
 				>
-					<Repeater
-						childComponent={CustomItem}
-						itemProps={{onClick: this.handleClick}}
-					>
-						{itemList}
-					</Repeater>
-				</Scroller>
-			</CommonView>
-		);
-	}
-}
+					{itemList}
+				</Repeater>
+			</Scroller>
+		</CommonView>
+	);
+};
 
 export default IntentScroller;

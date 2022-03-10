@@ -11,9 +11,9 @@ const WizardPanelsView = () => {
 	const [noAriaLabel, setNoAriaLabel] = useState(false);
 	const [noSteps, setNoSteps] = useState(false);
 
-	const handleToggleNoAnimation = useCallback(() => setNoAnimation(!noAnimation),[noAnimation]);
-	const handleToggleNoAriaLabel = useCallback(() => setNoAriaLabel(!noAriaLabel),[noAriaLabel]);
-	const handleToggleNoSteps = useCallback(() => setNoSteps(!noSteps),[noSteps]);
+	const handleToggleNoAnimation = useCallback(() => setNoAnimation(!noAnimation), [noAnimation]);
+	const handleToggleNoAriaLabel = useCallback(() => setNoAriaLabel(!noAriaLabel), [noAriaLabel]);
+	const handleToggleNoSteps = useCallback(() => setNoSteps(!noSteps), [noSteps]);
 
 	return (
 		<WizardPanels key={noAnimation} noAnimation={noAnimation} noSteps={noSteps}>

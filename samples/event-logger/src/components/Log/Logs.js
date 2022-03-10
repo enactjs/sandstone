@@ -1,7 +1,7 @@
 import kind from '@enact/core/kind';
 import Scroller from '@enact/sandstone/Scroller';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import Log from './Log';
 

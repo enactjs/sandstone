@@ -1,32 +1,20 @@
 import Heading from '@enact/sandstone/Heading';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import {Component} from 'react';
+// import {useCallback, useState} from 'react';
 
 import CommonView from '../../components/CommonView';
 
+const IntentSetToggleItem = () => {
+	// const [selected, setSelected] = useState(0);
 
-class IntentSetToggleItem extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			selected: 0
-		};
-	}
+	// const handleSelect = useCallback((e) => setSelected(e.selected), []);
 
-	handleSelect = (e) => {
-		this.setState({
-			selected: e.selected
-		});
-	};
-
-	render () {
-		return (
-			<CommonView title="Intent to set ToggleItem">
-				<Heading>SwitchItem</Heading>
-				<SwitchItem data-testid="hello">Hello</SwitchItem>
-			</CommonView>
-		);
-	}
-}
+	return (
+		<CommonView title="Intent to set ToggleItem">
+			<Heading>SwitchItem</Heading>
+			<SwitchItem data-testid="hello">Hello</SwitchItem>
+		</CommonView>
+	);
+};
 
 export default IntentSetToggleItem;

@@ -1,55 +1,48 @@
 import {Panel} from '@enact/sandstone/Panels';
-import {Component} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import ImageList from '../components/ImageList';
 import PanelHeader from '../components/PanelHeader';
 
-class MainView extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			horizontal: false,
-			nativeScroll: true
-		};
-	}
+const MainView = () => {
+	const [horizontal, setHorizontal] = useState(false);
+	const [nativeScroll, setNativeScroll] = useState(true);
+	const scrollTo = useRef();
 
-	componentDidUpdate () {
-		this.scrollTo({index: 0, animate: false, focus: true});
-	}
+	useEffect( () => {
+		scrollTo.current({index: 0, animate: false, focus: true});
+	});
 
-	onChangeDirection = () => {
-		this.setState((state) => ({horizontal: !state.horizontal}));
-	};
+	const onChangeDirection = useCallback(() => {
+		setHorizontal(!horizontal);
+	}, [horizontal]);
 
-	onChangeScrollMode = ({selected: nativeScroll}) => {
-		this.setState({nativeScroll});
-	};
+	const onChangeScrollMode = useCallback(({selected: selNativeScroll}) => {
+		setNativeScroll(selNativeScroll);
+	}, []);
 
-	getScrollTo = (scrollTo) => {
-		this.scrollTo = scrollTo;
-	};
+	const getScrollTo = useCallback((fn) => {
+		scrollTo.current = fn;
+	}, []);
 
-	render = () => {
-		const {horizontal, nativeScroll} = this.state;
-		return (
-			<Panel>
-				<PanelHeader
-					nativeScroll={nativeScroll}
-					onChangeDirection={this.onChangeDirection}
-					onChangeScrollMode={this.onChangeScrollMode}
-					slot="header"
-					title="VirtualGridList"
-					type="mini"
-				/>
-				<ImageList
-					cbScrollTo={this.getScrollTo}
-					direction={horizontal ? 'horizontal' : 'vertical'}
-					key={nativeScroll ? 'native' : 'translate'}
-					scrollMode={nativeScroll ? 'native' : 'translate'}
-				/>
-			</Panel>
-		);
-	};
-}
+	return (
+		<Panel>
+			<PanelHeader
+				nativeScroll={nativeScroll}
+				onChangeDirection={onChangeDirection}
+				onChangeScrollMode={onChangeScrollMode}
+				slot="header"
+				title="VirtualGridList"
+				type="mini"
+			/>
+			<ImageList
+				cbScrollTo={getScrollTo}
+				direction={horizontal ? 'horizontal' : 'vertical'}
+				key={nativeScroll ? 'native' : 'translate'}
+				scrollMode={nativeScroll ? 'native' : 'translate'}
+			/>
+		</Panel>
+	);
+};
 
 export default MainView;

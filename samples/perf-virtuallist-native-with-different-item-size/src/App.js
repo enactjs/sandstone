@@ -1,6 +1,7 @@
-import Dropdown from '@enact/sandstone/Dropdown';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {useCallback, useState} from 'react';
+
+import Dropdown from '@enact/sandstone/Dropdown';
 
 import HorizontalDifferentWidthItemList from './views/HorizontalDifferentWidthItemList';
 import VerticalDifferentHeightItemList from './views/VerticalDifferentHeightItemList';
@@ -21,12 +22,14 @@ const viewNames = [
 const defaultViewIndex = 0;
 
 const VirtualListSample = (props) => {
-	const [view, setView] = useState(views[defaultViewIndex]);
+
+	const [index, setIndex] = useState(defaultViewIndex);
+
 	const onSelect = useCallback(({selected}) => {
-		setView(views[selected]);
+		setIndex(selected);
 	}, []);
 
-	const View = view;
+	const View = views[index];
 
 	return (
 		<div {...props}>

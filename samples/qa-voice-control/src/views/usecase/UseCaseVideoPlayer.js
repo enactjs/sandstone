@@ -1,18 +1,13 @@
 import {VideoPlayer} from '@enact/sandstone/VideoPlayer';
-import {Component} from 'react';
 
+const src = 'http://media.w3.org/2010/05/sintel/trailer.mp4';
 
-class UseCaseVideoPlayer extends Component {
-
-	render = () => {
-		const src = 'http://media.w3.org/2010/05/sintel/trailer.mp4';
-
-		return (
-			<VideoPlayer title="hello">
-				<source src={src} type="video/mp4" />
-			</VideoPlayer>
-		);
-	};
-}
+const UseCaseVideoPlayer = () => {
+	return (
+		<VideoPlayer title="hello">
+			<source src={src} type="video/mp4" />
+		</VideoPlayer>
+	);
+};
 
 export default UseCaseVideoPlayer;

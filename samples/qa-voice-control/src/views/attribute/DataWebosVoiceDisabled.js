@@ -10,9 +10,7 @@ const VoiceButton = VoiceControlDecorator(Button);
 const DataWebosVoiceDisabled = () => {
 	const [result, setResult] = useState('');
 
-	const updateResult = (msg) => () => {
-		setResult(msg);
-	};
+	const updateResult = (msg) => () => setResult(msg);
 
 	const handleVoice = useCallback((e) => {
 		let {intent, value} = e.detail;

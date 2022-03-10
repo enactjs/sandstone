@@ -11,12 +11,12 @@ const DataWebosVoiceIntent = () => {
 	const [result, setResult] = useState('');
 
 	const updateResult = (msg) => () => setResult(msg);
-	
 	const handleVoice = useCallback((e) => {
 		let {intent, value} = e.detail;
 		updateResult('handleVoice > ' + intent + ' | ' + value);
 		e.preventDefault();
-	},[]);
+	}, []);
+
 	return (
 		<CommonView title="data-webos-voice-intent" subtitle={result}>
 			<Heading>default | Select</Heading>
