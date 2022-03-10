@@ -111,6 +111,7 @@ const useEventKey = (props, instances, context) => {
 	useEffect(() => {
 		const {scrollContainerRef, scrollContentHandle} = instances;
 		const {
+			focusByIndex,
 			handle5WayKeyUp,
 			handleDirectionKeyDown,
 			handlePageUpDownKeyDown,
@@ -123,8 +124,25 @@ const useEventKey = (props, instances, context) => {
 
 			if (direction) {
 				Spotlight.setPointerMode(false);
+				if (props.editMode && scrollContentHandle.current.editModeInfo.editingIndex !== null) {
+					const {
+						editModeInfo: {editingIndex, editingNode, lastVisualIndex},
+						moveItem, updateMovingItem
+					} = scrollContentHandle.current;
 
-				if (spotlightAcceleratorProcessKey(ev)) {
+					if (lastVisualIndex !== null) {
+						const nextIndex = getNextIndex({index: lastVisualIndex, keyCode, repeat: ev.repeat}).nextIndex;
+						if (nextIndex !== -1) {
+							moveItem(editingIndex, nextIndex, {scrollIntoView: true});
+							if (editingNode) {
+								updateMovingItem();
+							}
+						}
+
+						ev.preventDefault();
+						ev.stopPropagation();
+					}
+				} else if (spotlightAcceleratorProcessKey(ev)) {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
@@ -209,6 +227,27 @@ const useEventKey = (props, instances, context) => {
 				}
 			} else if (isPageUp(keyCode) || isPageDown(keyCode)) {
 				handlePageUpDownKeyDown();
+			} else if (isEnter(keyCode)) {
+				if (props.editMode) {
+					const {editModeInfo} = scrollContentHandle.current;
+					if (editModeInfo.editingIndex === null) {
+						const targetIndex = target.dataset.index;
+						const index = targetIndex ? getNumberValue(targetIndex) : -1;
+						if (index !== -1) {
+							const {editingBegin} = scrollContentHandle.current;
+							const focusFn = (node) => {
+								if (node.children[0]) {
+									node.children[0].focus();
+								}
+							};
+							editingBegin(index, 'index', focusFn);
+						}
+					} else {
+						const {editModeInfo: {lastVisualIndex}, editingEnd} = scrollContentHandle.current;
+						editingEnd();
+						focusByIndex(lastVisualIndex);
+					}
+				}
 			}
 		}
 

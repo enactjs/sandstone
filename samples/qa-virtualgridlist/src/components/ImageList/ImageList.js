@@ -24,7 +24,14 @@ class ImageList extends Component {
 
 	calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
-	renderItem = ({...rest}) => (<ImageItem {...rest} />);
+	renderItem = ({editMode, ...rest}) => (
+		<ImageItem
+			{...rest}
+			style={editMode ? {
+				transform: `translateY(-${ri.scaleToRem(100)})`
+			} : {}}
+		/>
+	);
 
 	render = () => {
 		const
