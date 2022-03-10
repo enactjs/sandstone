@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/VideoPlayer` prop `backButtonAriaLabel`
 - `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player via touch
+- `sandstone/VirtualList` prop `data-webos-voice-focused`, `data-webos-voice-disabled`, and `data-webos-voice-group-label`
 
 ### Changed
 
