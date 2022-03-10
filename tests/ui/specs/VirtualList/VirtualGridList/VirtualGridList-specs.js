@@ -2,40 +2,34 @@ const Page = require('./VirtualGridListPage'),
 	{expectFocusedItem /* , expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused*/} = require('../VirtualList-utils');
 
 describe('VirtualGridList', function () {
+	beforeEach(async function () {
+		await Page.open();
+	});
 
-	it('should meet initial conditions', function () {
-		Page.open();
-		expect(Page.buttonHideScrollbar.isFocused(), 'focus').to.be.true();
+	it('should meet initial conditions', async function () {
+		expect(await Page.buttonHideScrollbar.isFocused(), 'focus').to.be.true();
 	});
 
 	describe('LTR locale', function () {
-		beforeEach(function () {
-			Page.open();
-		});
-
-		it('should focus first item on first focus', function () {
-			Page.spotlightDown();
-			Page.spotlightDown();
-			expectFocusedItem(0);
+		it('should focus first item on first focus', async function () {
+			await Page.spotlightDown();
+			await Page.spotlightDown();
+			await expectFocusedItem(0);
 		});
 	});
 
 	describe('Minimal DataSize', function () {
-		beforeEach(function () {
-			Page.open();
-		});
-
-		it('should not display scrollbar when minimal datasize [QWT-2583]', function () {
+		it('should not display scrollbar when minimal datasize [QWT-2583]', async function () {
 			// Step 3: Knobs > VirtualGridList > dataSize > 4
-			Page.inputNumItems.moveTo();
-			Page.spotlightSelect();
-			Page.backSpace();
-			Page.backSpace();
-			Page.backSpace();
-			Page.numPad(4);
-			Page.spotlightLeft();
+			await Page.inputNumItems.moveTo();
+			await Page.spotlightSelect();
+			await Page.backSpace();
+			await Page.backSpace();
+			await Page.backSpace();
+			await Page.numPad(4);
+			await Page.spotlightLeft();
 			// Step 4 Verify: Scrollbar track does not display to the right as the data size is the minimal size of 4.
-			expect(Page.scrollBar.error.message.slice(0, 15)).to.equal('no such element');
+			expect((await Page.scrollBar).error.message.slice(0, 15)).to.equal('no such element');
 		});
 	});
 });
