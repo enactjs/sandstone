@@ -14,7 +14,7 @@ describe('Picker', function () {
 				it('should change the value forward when incrementing the picker', async function () {
 					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
 					await Page.spotlightSelect();
-					browser.pause(500);
+					await browser.pause(500);
 					const newValue = extractValue(picker);
 					expect(await newValue).to.equal('Banana');
 				});
@@ -25,7 +25,7 @@ describe('Picker', function () {
 					await Page.spotlightLeft();
 					expect(await picker.decrementer(picker.self).isFocused()).to.be.true();
 					await Page.spotlightSelect();
-					browser.pause(500);
+					await browser.pause(500);
 					const newValue = await extractValue(picker);
 					expect(newValue).to.equal('Apple');
 				});
