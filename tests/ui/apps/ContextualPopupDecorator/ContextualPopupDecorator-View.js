@@ -54,7 +54,7 @@ class app extends Component {
 					popupComponent={renderPopup2}
 					spotlightRestrict="self-only"
 				>
-					Contextual Popup Button2
+					self-only Contextual Popup
 				</ContextualButton>
 				<ContextualButton
 					id="button3"
