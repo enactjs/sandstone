@@ -60,7 +60,7 @@ const updateDataSize = (dataSize) => {
 		const text = `Item ${count}`;
 		const subText = `SubItem ${count}`;
 		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
-		const source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
+		const source = `http://via.placeholder.com/600x600/${color}/ffffff/png?text=Image+${i}`;
 
 		items.push({text, subText, source});
 	}
