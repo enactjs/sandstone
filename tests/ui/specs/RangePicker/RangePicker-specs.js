@@ -315,7 +315,7 @@ describe('RangePicker', function () {
 			});
 		});
 
-		describe('with \'negativeValues\'', function () {
+		describe('with negativeValues', function () {
 			const rangePicker = Page.components.rangePickerWithNegativeValuesVertical;
 
 			it('should have the default value selected', async function () {
