@@ -12,7 +12,7 @@ import VirtualList from '@enact/sandstone/VirtualList';
 import ListItem from '../components/ListItem';
 import LocaleSwitch from '../components/LocaleSwitch';
 import ScrollModeSwitch from '../components/ScrollModeSwitch';
-import {setData} from '../actions';
+import {setData} from '../store';
 
 import css from './MainPanel.module.less';
 

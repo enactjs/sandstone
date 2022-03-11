@@ -4,7 +4,7 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
-import {decreaseIndex, increaseIndex} from '../actions';
+import {decreaseIndex, increaseIndex} from '../store';
 import MainPanel from '../views/MainPanel';
 
 const App = kind({

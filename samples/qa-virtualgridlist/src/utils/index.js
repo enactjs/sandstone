@@ -30,7 +30,7 @@ const initializeRecords = ({
 		dataOrder: [],
 		minHeight: MIN_HEIGHT,
 		minWidth: MIN_WIDTH,
-		selectedItems: new Set(),
+		selectedItems: [],
 		showOverlay: false,
 		spacing: ITEM_SPACING
 	};

@@ -23,7 +23,7 @@ import {
 	selectAll as selectAllAction,
 	selectionEnable as selectionEnableAction,
 	setData as setAction
-} from '../../actions';
+} from '../../store';
 
 const PanelHeader = kind({
 	name: 'PanelHeader',

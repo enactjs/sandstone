@@ -4,7 +4,7 @@ import SwitchItem from '@enact/sandstone/SwitchItem';
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {activateEvent, isSyntheticEventOn, setTimerIndex, setEventCapturing} from '../../../actions';
+import {activateEvent, isSyntheticEventOn, setTimerIndex, setEventCapturing} from '../../../store';
 import eventCategory from '../../../constants/eventCategory';
 
 import css from './Filter.module.less';
