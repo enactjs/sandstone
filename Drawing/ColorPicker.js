@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind, react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import platform from '@enact/core/platform'
+import platform from '@enact/core/platform';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -202,7 +202,7 @@ const ColorPickerBase = kind({
 							/>
 						))}
 					</Row>
-					{platform.webos !== undefined ?
+					{platform.webos !== undefined ?	// eslint-disable-line no-undefined
 						<div>
 							<Column className={css.colorPickerSliders}>
 								<Slider
