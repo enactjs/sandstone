@@ -44,7 +44,7 @@ class app extends Component {
 					open={button1Open}
 					popupComponent={renderPopup1}
 				>
-				default Contextual Popup
+					default Contextual Popup
 				</ContextualButton>
 				<ContextualButton
 					id="button2"
