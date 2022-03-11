@@ -1,4 +1,4 @@
-import {configureStore, createSlice } from '@reduxjs/toolkit';
+import {configureStore, createSlice} from '@reduxjs/toolkit';
 
 let initialStateForListItems = [];
 
@@ -19,7 +19,7 @@ const listItemSlice = createSlice( {
 				state.listItems = newListItems;
 			},
 			prepare: (dataSize, isDisabled) => {
-				return {payload: {dataSize, isDisabled}}
+				return {payload: {dataSize, isDisabled}};
 			}
 		}
 	}

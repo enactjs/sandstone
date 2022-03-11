@@ -90,7 +90,7 @@ const recordSlice = createSlice( {
 			const newdata = {};
 
 			Object.keys(state.data).forEach((id) => {
-					newdata[id] = Object.assign({}, state.data[id], {showSelection: !state.data[id].showSelection});
+				newdata[id] = Object.assign({}, state.data[id], {showSelection: !state.data[id].showSelection});
 			});
 
 			Object.assign(state, {data: newdata, showOverlay: !state.showOverlay});

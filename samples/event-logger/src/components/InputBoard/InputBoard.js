@@ -2,7 +2,7 @@ import SwitchItem from '@enact/sandstone/SwitchItem';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {addEventLog, removeEventLog, updateEventLog} from '../../store';
+import {addEventLog, removeEventLog, updateEventLog} from '../../store/slices/eventLogsSlice';
 import eventCategory from '../../constants/eventCategory';
 
 import eventRegData from './Event/EventRegistrationData';

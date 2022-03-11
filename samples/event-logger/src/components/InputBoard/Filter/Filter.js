@@ -4,7 +4,10 @@ import SwitchItem from '@enact/sandstone/SwitchItem';
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {activateEvent, isSyntheticEventOn, setTimerIndex, setEventCapturing} from '../../../store';
+import {activateEvent} from '../../../store/slices/activeEventsSlice';
+import {isSyntheticEventOn} from '../../../store/slices/syntheticEventOnSlice';
+import {setTimerIndex} from '../../../store/slices/timerIndexSlice';
+import {setEventCapturing} from '../../../store/slices/eventCapturingOnSlice';
 import eventCategory from '../../../constants/eventCategory';
 
 import css from './Filter.module.less';
