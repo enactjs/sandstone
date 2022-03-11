@@ -64,7 +64,7 @@ class app extends Component {
 					open={button3Open}
 					popupComponent={renderPopup3}
 				>
-					Contextual Popup Button3
+					noAutoDismiss Contextual Popup
 				</ContextualButton>
 			</div>
 		);
