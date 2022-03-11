@@ -1,7 +1,7 @@
 import Button from '@enact/sandstone/Button';
 import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import {InputField as Input} from '@enact/sandstone/Input';
 import PropTypes from 'prop-types';
@@ -18,11 +18,15 @@ import css from './MainPanel.module.less';
 
 const childProps = {text: ' child props'};
 
-const MainPanel = ({changeData, listItems, ...rest}) => {
+const MainPanel = ({...rest}) => {
+	const dispatch = useDispatch();
 	const [hasChildProps, setHasChildProps] = useState(false);
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [nativeScroll, setNativeScroll] = useState(true);
 	const [value, setValue] = useState('');
+
+	const listItems = useSelector(({listItems:storeListItems}) => storeListItems);
+	const changeData = useCallback((dataSize, isDisabledData) => dispatch(setData(dataSize, isDisabledData)), [dispatch]);
 
 	useEffect(() => {
 		changeData(200, false);
@@ -102,17 +106,7 @@ const MainPanel = ({changeData, listItems, ...rest}) => {
 };
 
 MainPanel.propTypes = {
-	changeData: PropTypes.func.isRequired,
-	listItems: PropTypes.array.isRequired,
 	nativeScroll: PropTypes.bool
 };
 
-const mapStateToProps = ({listItems}) => ({
-	listItems
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	changeData: (dataSize, isDisabled) => dispatch(setData(dataSize, isDisabled))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainPanel);
+export default MainPanel;
