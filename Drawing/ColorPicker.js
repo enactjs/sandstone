@@ -150,15 +150,21 @@ const ColorPickerBase = kind({
 			const [red, setRed] = useState('');
 			const [green, setGreen] = useState('');
 			const [blue, setBlue] = useState('');
+			const [inputColor, setInputColor] = useState('');
 			const set1 = presetColors.slice(0, 4);
 			const set2 = presetColors.slice(4, 9);
 			useEffect(() => {
 				let {r, g, b} = hexToRgb(color);
 
+				setInputColor(color);
 				setRed(r);
 				setGreen(g);
 				setBlue(b);
 			}, [color]);
+
+			const onInputBlur = () => {
+				colorHandler(inputColor);
+			};
 
 			const onSliderBlur = () => {
 				colorHandler(rgbToHex(red, green, blue));
@@ -196,40 +202,49 @@ const ColorPickerBase = kind({
 							/>
 						))}
 					</Row>
-					<Column className={css.colorPickerSliders}>
-						{platform.webos !== undefined ? <div>
-							<Slider
-								className={componentCss.colorSlider}
-								max={255}
-								min={0}
-								onBlur={onSliderBlur}
-								onChange={(ev) => setRed(ev.value)}
-								value={red}
+					{platform.webos !== undefined ?
+						<div>
+							<Column className={css.colorPickerSliders}>
+								<Slider
+									className={componentCss.colorSlider}
+									max={255}
+									min={0}
+									onBlur={onSliderBlur}
+									onChange={(ev) => setRed(ev.value)}
+									value={red}
+								/>
+								<BodyText css={css}>{red} Red</BodyText>
+								<Slider
+									className={componentCss.colorSlider}
+									max={255}
+									min={0}
+									onBlur={onSliderBlur}
+									onChange={(ev) => setGreen(ev.value)}
+									value={green}
+								/>
+								<BodyText css={css}>{green} Green</BodyText>
+								<Slider
+									className={componentCss.colorSlider}
+									max={255}
+									min={0}
+									onBlur={onSliderBlur}
+									onChange={(ev) => setBlue(ev.value)}
+									value={blue}
+								/>
+								<BodyText css={css}>{blue} Blue</BodyText>
+							</Column>
+							<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
+						</div> :
+						<label className={componentCss.coloredDiv} style={{backgroundColor: `${inputColor}`}}>
+							<input
+								className={componentCss.coloredInput}
+								onBlur={onInputBlur}
+								onChange={(ev) => setInputColor(ev.target.value)}
+								type="color"
+								value={inputColor}
 							/>
-							<BodyText css={css}>{red} Red</BodyText>
-							<Slider
-								className={componentCss.colorSlider}
-								max={255}
-								min={0}
-								onBlur={onSliderBlur}
-								onChange={(ev) => setGreen(ev.value)}
-								value={green}
-							/>
-							<BodyText css={css}>{green} Green</BodyText>
-							<Slider
-								className={componentCss.colorSlider}
-								max={255}
-								min={0}
-								onBlur={onSliderBlur}
-								onChange={(ev) => setBlue(ev.value)}
-								value={blue}
-							/>
-							<BodyText css={css}>{blue} Blue</BodyText>
-						</div> : <div>
-							<input type="color" id='inputId' style={{display: 'none'}} />
-						</div>}
-					</Column>
-					<div onClick={() => document.getElementById('inputId').click()} className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
+						</label>
+					}
 				</Cell>
 			);
 		}
