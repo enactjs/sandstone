@@ -28,8 +28,8 @@ export const _Drawing = (args) => {
 	);
 };
 
-number('canvasHeight', _Drawing, 400);
-number('canvasWidth', _Drawing, 600);
+number('canvasHeight', _Drawing, 800);
+number('canvasWidth', _Drawing, 1200);
 boolean('disabled', _Drawing, Drawing);
 
 _Drawing.storyName = 'Drawing';
