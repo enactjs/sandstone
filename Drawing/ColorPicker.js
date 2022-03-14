@@ -188,7 +188,7 @@ const ColorPickerBase = kind({
 						))}
 					</Row>
 					<Row>
-						{set2?.map((presetColor) => (
+						{presetColorsSet2?.map((presetColor) => (
 							<SpottableButton
 								className={css.coloredButton}
 								key={presetColor}
