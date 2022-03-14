@@ -151,8 +151,8 @@ const ColorPickerBase = kind({
 			const [green, setGreen] = useState('');
 			const [blue, setBlue] = useState('');
 			const [inputColor, setInputColor] = useState('');
-			const set1 = presetColors.slice(0, 4);
-			const set2 = presetColors.slice(4, 9);
+			const presetColorsSet1 = presetColors.slice(0, 4);
+			const presetColorsSet2 = presetColors.slice(4, 9);
 			useEffect(() => {
 				let {r, g, b} = hexToRgb(color);
 
