@@ -235,15 +235,23 @@ const ColorPickerBase = kind({
 							</Column>
 							<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
 						</div> :
-						<label className={componentCss.coloredDiv} style={{backgroundColor: `${inputColor}`}}>
-							<input
-								className={componentCss.coloredInput}
-								onBlur={onInputBlur}
-								onChange={(ev) => setInputColor(ev.target.value)}
-								type="color"
-								value={inputColor}
-							/>
-						</label>
+						<SpottableButton
+							className={componentCss.coloredDiv}
+							minWidth={false}
+							onClick={() => document.getElementById('inputColorPicker').click()}
+							style={{backgroundColor: `${inputColor}`}}
+						>
+							<Cell>
+								<input
+									className={componentCss.coloredInput}
+									id="inputColorPicker"
+									onBlur={onInputBlur}
+									onChange={(ev) => setInputColor(ev.target.value)}
+									type="color"
+									value={inputColor}
+								/>
+							</Cell>
+						</SpottableButton>
 					}
 				</Cell>
 			);
