@@ -52,7 +52,7 @@ const PickerTests = [
 	},
 	// end of [QWT-2435]
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWT-2434]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWT-2434]
 	// Marked part automated due to Marquee and Click actions
 	// Step 2: Tall characters display fully and are not truncated.
 	<Picker width="large">{pickerList.tall}</Picker>,
@@ -64,13 +64,15 @@ const PickerTests = [
 	<Picker value={2} width="large" wrap>{pickerList.tall}</Picker>,
 	// Step 6: The arrow buttons disappear.
 	<Picker value={2} width="large" joined>{pickerList.tall}</Picker>,
-	// Step 7: Cannot verify here that Picker text transitions very quickly from one to the other without animation.
+	// Step 7: The arrow buttons appear.
+	<Picker value={2} width="large" joined changedBy="arrow">{pickerList.tall}</Picker>,
+	// Step 8: Cannot verify here that Picker text transitions very quickly from one to the other without animation.
 	<Picker value={2} width="large" noAnimation>{pickerList.tall}</Picker>,
-	// Step 8:  Picker is disabled.
+	// Step 9:  Picker is disabled.
 	<Picker value={2} width="large" disabled>{pickerList.tall}</Picker>,
-	// Step 9: 'minus' symbol displays on the Right (＞) of the Picker text.
+	// Step 10: 'minus' symbol displays on the Right (＞) of the Picker text.
 	<Picker value={2} width="large" incrementIcon="minus">{pickerList.tall}</Picker>,
-	// Step 10: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
+	// Step 11: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
 	<Picker value={2} width="large" decrementIcon="backward" incrementIcon="plus">{pickerList.tall}</Picker>,
 	// end of [QWT-2434]
 
@@ -80,6 +82,8 @@ const PickerTests = [
 	<Picker value={2} width="medium" wrap>{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="medium" joined>{pickerList.vegetables}</Picker>,
 	<Picker value={1} width="medium" joined>{pickerList.vegetables}</Picker>,
+	<Picker value={2} width="medium" joined changedBy="arrow">{pickerList.vegetables}</Picker>,
+	<Picker value={1} width="medium" joined changedBy="arrow">{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="medium" noAnimation>{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="medium" disabled>{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="medium" incrementIcon="minus">{pickerList.vegetables}</Picker>,
@@ -91,6 +95,11 @@ const PickerTests = [
 	<Picker width="medium" wrap joined noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
 	<Picker width="medium" wrap joined noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
 
+	<Picker width="medium" wrap joined changedBy="arrow">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow" noAnimation>{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled>{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
 	// Ellipsis Displays with RTL Text in LTR Locale - [QWT-2450]
 	// Marked part automated as cannnot check for marquee (step 4 - part 2)
 	// Step 3 - part 1: The RTL text displays. The Right arrow button is disabled.
@@ -223,7 +232,7 @@ const PickerTests = [
 		component: <Picker>{pickerList.oneAirport}</Picker>
 	},
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWT-2434]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWT-2434]
 	// Marked part automated due to Marquee and Click actions
 	// Step 2: Tall characters display fully and are not truncated.
 	{
@@ -250,22 +259,27 @@ const PickerTests = [
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" joined>{pickerList.tall}</Picker>
 	},
-	// Step 7: Cannot verify here that Picker text transitions very quickly from one to the other without animation.
+	// Step 7: The arrow buttons appear.
+	{
+		locale: 'ar-SA',
+		component: <Picker value={2} width="large" joined changedBy="arrow">{pickerList.tall}</Picker>
+	},
+	// Step 8: Cannot verify here that Picker text transitions very quickly from one to the other without animation.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" noAnimation>{pickerList.tall}</Picker>
 	},
-	// Step 8:  Picker is disabled.
+	// Step 9:  Picker is disabled.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" disabled>{pickerList.tall}</Picker>
 	},
-	// Step 9: 'minus' symbol displays on the Right (＞) of the Picker text.
+	// Step 10: 'minus' symbol displays on the Right (＞) of the Picker text.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" incrementIcon="minus">{pickerList.tall}</Picker>
 	},
-	// Step 10: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
+	// Step 11: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" decrementIcon="backward" incrementIcon="plus">{pickerList.tall}</Picker>
@@ -295,6 +309,14 @@ const PickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <Picker value={1} width="medium" joined>{pickerList.vegetables}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker value={2} width="medium" joined changedBy="arrow">{pickerList.vegetables}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker value={1} width="medium" joined changedBy="arrow">{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
@@ -332,6 +354,27 @@ const PickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <Picker width="medium" wrap joined noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>
+	},
+
+	{
+		locale: 'ar-SA',
+		component: <Picker width="medium" wrap joined changedBy="arrow">{pickerList.vegetables}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker width="medium" wrap joined changedBy="arrow" noAnimation>{pickerList.vegetables}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled>{pickerList.vegetables}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>
 	},
 
 	// *************************************************************

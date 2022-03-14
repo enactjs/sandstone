@@ -115,16 +115,11 @@
 			font-weight: @sand-picker-joined-font-weight;
 		}
 
-		.valueWrapper {
-			height: @sand-picker-joined-value-height;
-			line-height: @sand-picker-joined-value-height;
-		}
-
 		.icon {
 			margin: 0;
 		}
 
-		&.horizontal {
+		&.horizontal:not(.arrow) {
 			height: @sand-picker-joined-horizontal-height;
 			padding: @sand-picker-joined-horizontal-padding;
 
@@ -138,6 +133,8 @@
 			}
 
 			.valueWrapper {
+				height: @sand-picker-joined-value-height;
+				line-height: @sand-picker-joined-value-height;
 				margin-bottom: @sand-picker-joined-horizontal-value-offset;
 			}
 
@@ -171,9 +168,26 @@
 			}
 		}
 
-		&.vertical {
+		&.horizontal.arrow, &.vertical {
 			&::before {
 				border-radius: @sand-picker-joined-vertical-border-radius;
+			}
+		}
+
+		&.horizontal.arrow {
+			.incrementer,
+			.decrementer {
+				line-height: (@sand-button-small-height - (2 * @sand-button-border-width));
+				height: @sand-button-small-height;
+				margin: @sand-button-small-focusexpand-margin;
+				padding: @sand-button-icon-small-padding;
+			}
+		}
+
+		&.vertical {
+			.valueWrapper {
+				height: @sand-picker-joined-value-height;
+				line-height: @sand-picker-joined-value-height;
 			}
 		}
 	}
@@ -195,7 +209,7 @@
 		&.joined {
 			color: @sand-picker-joined-text-color;
 
-			&.horizontal {
+			&.horizontal:not(.arrow) {
 				color: @sand-picker-joined-horizontal-text-color;
 
 				&::before {
@@ -212,7 +226,7 @@
 				}
 			}
 
-			&.vertical {
+			&.horizontal.arrow, &.vertical {
 				&::before {
 					.sand-spotlight-resting-bg-colors();
 				}
@@ -226,7 +240,7 @@
 			.focus({
 				.sand-spotlight-focus-text-colors();
 
-				&.horizontal {
+				&.horizontal:not(.arrow) {
 					&::before {
 						.sand-spotlight-focus-bg-colors();
 						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
@@ -234,7 +248,7 @@
 					}
 				}
 
-				&.vertical {
+				&.horizontal.arrow, &.vertical {
 					&::before {
 						.sand-spotlight-focus-bg-colors();
 					}
