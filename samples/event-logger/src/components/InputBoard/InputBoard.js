@@ -6,7 +6,7 @@ import {addEventLog, removeEventLog, updateEventLog} from '../../store/slices/ev
 import eventCategory from '../../constants/eventCategory';
 
 import eventRegData from './Event/EventRegistrationData';
-import Filter from './Filter/Filter';
+import Filter from './Filter';
 
 function extractLogObjectFromEventObject (ev, type, properties) {
 	let obj = Object.create(null);
