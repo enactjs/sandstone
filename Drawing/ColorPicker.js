@@ -173,7 +173,7 @@ const ColorPickerBase = kind({
 			return (
 				<Cell className={css.colorPicker}>
 					<Row>
-						{set1?.map((presetColor) => (
+						{presetColorsSet1?.map((presetColor) => (
 							<SpottableButton
 								className={css.coloredButton}
 								key={presetColor}
