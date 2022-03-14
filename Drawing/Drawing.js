@@ -52,7 +52,7 @@ const DrawingBase = kind({
 		 * Sets the height of canvas.
 		 *
 		 * @type {Number}
-		 * @default 400
+		 * @default 800
 		 * @public
 		 */
 		canvasHeight: PropTypes.number,
@@ -61,7 +61,7 @@ const DrawingBase = kind({
 		 * Sets the width of canvas.
 		 *
 		 * @type {Number}
-		 * @default 600
+		 * @default 1200
 		 * @public
 		 */
 		canvasWidth: PropTypes.number,
@@ -79,8 +79,8 @@ const DrawingBase = kind({
 	},
 
 	defaultProps: {
-		canvasHeight: 400,
-		canvasWidth: 600,
+		canvasHeight: 800,
+		canvasWidth: 1200,
 		disabled: false
 	},
 
