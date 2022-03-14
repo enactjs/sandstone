@@ -16,9 +16,9 @@ class SampleVirtualGridList extends Component {
 		const
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
 			source = {
-				'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${index}`,
-				'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
-				'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${index}`
+				'hd': `http://via.placeholder.com/200x200/${color}/ffffff/png?text=Image+${index}`,
+				'fhd': `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${index}`,
+				'uhd': `http://via.placeholder.com/600x600/${color}/ffffff/png?text=Image+${index}`
 			};
 
 		return (

@@ -48,10 +48,15 @@ const IconBase = kind({
 		children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
-		 * No publicClassNames supported
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `icon` - The root component class
 		 *
 		 * @type {Object}
-		 * @private
+		 * @public
 		 */
 		css: PropTypes.object,
 
@@ -98,7 +103,8 @@ const IconBase = kind({
 	},
 
 	styles: {
-		css: componentCss
+		css: componentCss,
+		publicClassNames: ['icon']
 	},
 
 	computed: {
