@@ -48,6 +48,23 @@ const DrawingBase = kind({
 	functional: true,
 
 	propTypes: /** @lends sandstone/Drawing.DrawingBase.prototype */ {
+		/**
+		 * Sets the height of canvas.
+		 *
+		 * @type {Number}
+		 * @default 400
+		 * @public
+		 */
+		canvasHeight: PropTypes.number,
+
+		/**
+		 * Sets the width of canvas.
+		 *
+		 * @type {Number}
+		 * @default 600
+		 * @public
+		 */
+		canvasWidth: PropTypes.number,
 
 		/**
 		 * Applies the `disabled` class.
@@ -62,6 +79,8 @@ const DrawingBase = kind({
 	},
 
 	defaultProps: {
+		canvasHeight: 400,
+		canvasWidth: 600,
 		disabled: false
 	},
 
@@ -101,7 +120,7 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({disabled, fileInputHandler, handleSelect, ...rest}) => {
+	render: ({canvasHeight, canvasWidth, disabled, fileInputHandler, handleSelect, ...rest}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#545BCC');
 		const [brushSize, setBrushSize] = useState(5);
@@ -193,6 +212,8 @@ const DrawingBase = kind({
 								brushColor={brushColor}
 								brushSize={brushSize}
 								canvasColor={canvasColor}
+								canvasHeight={canvasHeight}
+								canvasWidth={canvasWidth}
 								disabled={disabled}
 								drawingTool={drawingTool}
 								fillColor={fillColor}
