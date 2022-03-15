@@ -237,6 +237,7 @@ const ColorPickerBase = kind({
 						</div> :
 						<SpottableButton
 							className={componentCss.coloredDiv}
+							css={css}
 							minWidth={false}
 							onClick={() => document.getElementById('inputColorPicker').click()}
 							style={{backgroundColor: `${inputColor}`}}

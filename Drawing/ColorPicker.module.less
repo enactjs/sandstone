@@ -31,14 +31,17 @@
 }
 
 .coloredDiv {
-	border-radius: 24px;
-	border: 3px solid white;
+	display: block;
 	height: 81px;
-	margin: 24px;
-	width: 510px;
+	border: 3px solid white;
+	border-radius: 24px;
+
+	&.button, &.focusExpand {
+		margin: 24px;
+	}
 
 	.focus({
-		transform: scale(1.1);
+		transform: scale(1.05);
 	});
 }
 
@@ -47,7 +50,6 @@
 	opacity: 0;
 	height: 81px;
 	margin: 24px;
-	width: 480px;
 
 	&:hover {
 		cursor: pointer;
