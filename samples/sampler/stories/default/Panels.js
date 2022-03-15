@@ -23,7 +23,7 @@ const items = [];
 for (let i = 0; i < 100; i++) {
 	const text = `Item ${i}`,
 		color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
-		source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`,
+		source = `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${i}`,
 		caption = 'Sample list';
 	items.push({text, source, caption});
 }
@@ -139,32 +139,32 @@ export const _Panels = (args) => {
 						<Scroller style={{height: scale(1000)}}>
 							<Image
 								caption="Image"
-								src="http://placehold.it/360x240/"
+								src="http://via.placeholder.com/360x240/"
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://placehold.it/360x240/"
+								src="http://via.placeholder.com/360x240/"
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://placehold.it/360x240/"
+								src="http://via.placeholder.com/360x240/"
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://placehold.it/360x240/"
+								src="http://via.placeholder.com/360x240/"
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://placehold.it/360x240/"
+								src="http://via.placeholder.com/360x240/"
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://placehold.it/360x240/"
+								src="http://via.placeholder.com/360x240/"
 								style={{marginTop: '24px'}}
 							/>
 						</Scroller>

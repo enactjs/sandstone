@@ -6,15 +6,14 @@ module.exports = {
 };
 
 // Expect blocks
-function expectChecked (checkboxItem) {
-	expect(checkboxItem.isChecked).to.be.true();
+async function expectChecked (checkboxItem) {
+	expect(await checkboxItem.isChecked).to.be.true();
 }
 
-function expectUnchecked (checkboxItem) {
-	expect(checkboxItem.isChecked).to.be.false();
+async function expectUnchecked (checkboxItem) {
+	expect(await checkboxItem.isChecked).to.be.false();
 }
 
-function expectInline (checkboxItem1, checkboxItem2) {
-	expect(checkboxItem1.getLocation().x === checkboxItem2.getLocation().x).to.be.false();
+async function expectInline (checkboxItem1, checkboxItem2) {
+	expect(await checkboxItem1.getLocation().x === checkboxItem2.getLocation().x).to.be.false();
 }
-
