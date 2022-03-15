@@ -152,7 +152,7 @@ const DrawingBase = kind({
 								defaultValue={brushSize}
 								disabled={disabled}
 								max={30}
-								min={0}
+								min={1}
 								onChange={(e) => {
 									setBrushSize(e.value);
 								}}
@@ -202,6 +202,8 @@ const DrawingBase = kind({
 					</Cell>
 					<Cell shrink size="10%">
 						<Column align="center space-between" className={css.canvasOptions}>
+							<Button css={css} disabled={disabled} icon="arrowhookleft" onClick={() => drawingRef.current.undo()} size="small" tooltipText="Undo" />
+							<Button css={css} disabled={disabled} icon="arrowhookright" onClick={() => drawingRef.current.redo()} size="small" tooltipText="Redo" />
 							<Button css={css} disabled={disabled} icon="refresh" onClick={() => drawingRef.current.clearCanvas()} size="small" tooltipText="Clear all" />
 							<Button css={css} disabled={disabled} icon="plus" onClick={() => document.getElementById('fileInput').click()} size="small" tooltipText="Import image" />
 							<input
