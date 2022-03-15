@@ -1,11 +1,11 @@
-function focusedElement () {
-	return browser.execute(function () {
+async function focusedElement () {
+	return await browser.execute(function () {
 		return document.activeElement.id;
 	});
 }
 
-function hitTest (_selector) {
-	return  browser.execute(function (selector) {
+async function hitTest (_selector) {
+	return await browser.execute(function (selector) {
 		const
 			target = document.querySelector(selector),
 			targetRect = target.getBoundingClientRect(),
@@ -15,40 +15,40 @@ function hitTest (_selector) {
 	}, _selector);
 }
 
-function expectFocusedItem (itemNum, comment = 'focused item') {
-	const focusedId = focusedElement();
+async function expectFocusedItem (itemNum, comment = 'focused item') {
+	const focusedId = await focusedElement();
 	expect(focusedId, comment).to.equal(`item${itemNum}`);
 }
 
-function expectNoFocusedItem () {
-	expect(browser.execute(function () {
+async function expectNoFocusedItem () {
+	expect(await browser.execute(function () {
 		return document.activeElement === document.body;
 	})).to.be.true();
 }
 
-function waitUntilFocused (itemNum, comment = '') {
+async function waitUntilFocused (itemNum, comment = '') {
 	const target = `item${itemNum}`;
 	if (comment) {
 		comment = ': ' + comment;
 	}
-	browser.waitUntil(function () {
-		const focusedId = focusedElement();
+	await browser.waitUntil(async function () {
+		const focusedId = await focusedElement();
 		return target === focusedId;
 	}, {timeout: 1500, timeoutMsg: `timed out waiting to focus index ${itemNum}${comment}`});
 }
 
-function waitUntilVisible (itemNum) {
-	browser.waitUntil(function () {
+async function waitUntilVisible (itemNum) {
+	await browser.waitUntil(function () {
 		return hitTest(`#item${itemNum}`);
 	},  {timeout: 1500, timeoutMsg: `timed out waiting until visible index ${itemNum}`});
 }
 
-function isScrolling () {
-	return $('#scrolling').getText() === 'Scrolling';
+async function isScrolling () {
+	return await $('#scrolling').getText() === 'Scrolling';
 }
 
-function isNotScrolling () {
-	return $('#scrolling').getText() === 'Not Scrolling';
+async function isNotScrolling () {
+	return await $('#scrolling').getText() === 'Not Scrolling';
 }
 
 /**
@@ -56,9 +56,9 @@ function isNotScrolling () {
  *
  * @param {Number} [timeout=3000]
  */
-function waitForScrollStartStop (timeout = 3000) {
-	browser.waitUntil(isScrolling, {timeout});
-	browser.waitUntil(isNotScrolling, {timeout});
+async function waitForScrollStartStop (timeout = 3000) {
+	await browser.waitUntil(await isScrolling, {timeout});
+	await browser.waitUntil(await isNotScrolling, {timeout});
 }
 
 exports.expectFocusedItem = expectFocusedItem;
