@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind, react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
+import platform from '@enact/core/platform';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -149,14 +150,21 @@ const ColorPickerBase = kind({
 			const [red, setRed] = useState('');
 			const [green, setGreen] = useState('');
 			const [blue, setBlue] = useState('');
-
+			const [inputColor, setInputColor] = useState('');
+			const presetColorsSet1 = presetColors.slice(0, 4);
+			const presetColorsSet2 = presetColors.slice(4, 9);
 			useEffect(() => {
 				let {r, g, b} = hexToRgb(color);
 
+				setInputColor(color);
 				setRed(r);
 				setGreen(g);
 				setBlue(b);
 			}, [color]);
+
+			const onInputBlur = () => {
+				colorHandler(inputColor);
+			};
 
 			const onSliderBlur = () => {
 				colorHandler(rgbToHex(red, green, blue));
@@ -165,7 +173,7 @@ const ColorPickerBase = kind({
 			return (
 				<Cell className={css.colorPicker}>
 					<Row>
-						{presetColors?.map((presetColor) => (
+						{presetColorsSet1?.map((presetColor) => (
 							<SpottableButton
 								className={css.coloredButton}
 								key={presetColor}
@@ -179,36 +187,73 @@ const ColorPickerBase = kind({
 							/>
 						))}
 					</Row>
-					<Column className={css.colorPickerSliders}>
-						<Slider
-							className={componentCss.colorSlider}
-							max={255}
-							min={0}
-							onBlur={onSliderBlur}
-							onChange={(ev) => setRed(ev.value)}
-							value={red}
-						/>
-						<BodyText css={css}>{red} Red</BodyText>
-						<Slider
-							className={componentCss.colorSlider}
-							max={255}
-							min={0}
-							onBlur={onSliderBlur}
-							onChange={(ev) => setGreen(ev.value)}
-							value={green}
-						/>
-						<BodyText css={css}>{green} Green</BodyText>
-						<Slider
-							className={componentCss.colorSlider}
-							max={255}
-							min={0}
-							onBlur={onSliderBlur}
-							onChange={(ev) => setBlue(ev.value)}
-							value={blue}
-						/>
-						<BodyText css={css}>{blue} Blue</BodyText>
-					</Column>
-					<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
+					<Row>
+						{presetColorsSet2?.map((presetColor) => (
+							<SpottableButton
+								className={css.coloredButton}
+								key={presetColor}
+								minWidth={false}
+								onClick={() => {
+									colorHandler(presetColor);
+									onTogglePopup();
+								}}
+								style={{backgroundColor: presetColor}}
+								type="color"
+							/>
+						))}
+					</Row>
+					{platform.webos !== undefined ?	// eslint-disable-line no-undefined
+						<div>
+							<Column className={css.colorPickerSliders}>
+								<Slider
+									className={componentCss.colorSlider}
+									max={255}
+									min={0}
+									onBlur={onSliderBlur}
+									onChange={(ev) => setRed(ev.value)}
+									value={red}
+								/>
+								<BodyText css={css}>{red} Red</BodyText>
+								<Slider
+									className={componentCss.colorSlider}
+									max={255}
+									min={0}
+									onBlur={onSliderBlur}
+									onChange={(ev) => setGreen(ev.value)}
+									value={green}
+								/>
+								<BodyText css={css}>{green} Green</BodyText>
+								<Slider
+									className={componentCss.colorSlider}
+									max={255}
+									min={0}
+									onBlur={onSliderBlur}
+									onChange={(ev) => setBlue(ev.value)}
+									value={blue}
+								/>
+								<BodyText css={css}>{blue} Blue</BodyText>
+							</Column>
+							<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
+						</div> :
+						<SpottableButton
+							className={componentCss.coloredDiv}
+							css={css}
+							minWidth={false}
+							onClick={() => document.getElementById('inputColorPicker').click()}
+							style={{backgroundColor: `${inputColor}`}}
+						>
+							<Cell>
+								<input
+									className={componentCss.coloredInput}
+									id="inputColorPicker"
+									onBlur={onInputBlur}
+									onChange={(ev) => setInputColor(ev.target.value)}
+									type="color"
+									value={inputColor}
+								/>
+							</Cell>
+						</SpottableButton>
+					}
 				</Cell>
 			);
 		}
