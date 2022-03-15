@@ -1,5 +1,7 @@
 import RangePicker from '../../../../RangePicker';
 
+import {withConfig} from './utils';
+
 import css from './Picker.module.less';
 
 // ***NOTES:***
@@ -104,6 +106,22 @@ const RangePickerTests = [
 		textSize: 'large',
 		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" />
 	},
+	// 'wrap', 'joined', 'changedBy' and 'disabled'
+	<RangePicker min={0} max={5} joined changedBy="arrow" />,
+	<RangePicker min={0} max={5} value={0} joined changedBy="arrow" />,
+	<RangePicker min={0} max={5} value={5} joined changedBy="arrow" />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="large" />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="large" disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width={1} />,
+	<RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width={6} disabled />,
+	{
+		textSize: 'large',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" />
+	},
 	<RangePicker min={0} max={5} orientation="vertical" joined />,
 	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined />,
 	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined disabled />,
@@ -128,6 +146,24 @@ const RangePickerTests = [
 	<RangePicker min={0} max={5} value={0} title="Title" />,
 	<RangePicker min={0} max={5} value={0} inlineTitle title="Title" />,
 	<RangePicker min={0} max={5} value={0} css={css} inlineTitle title="Title" />,
+
+	// *************************************************************
+	// joined and focused
+	// *************************************************************
+	...withConfig({focus: true}, [
+		<RangePicker joined min={10} max={15} value={12} />,
+		<RangePicker disabled joined min={10} max={15} value={12} />,
+		<RangePicker width="small" joined min={10} max={15} value={12} />,
+		<RangePicker width="medium" joined min={10} max={15} value={12} />,
+		<RangePicker width="large" joined min={10} max={15} value={12} />,
+		<RangePicker width={3} joined min={10} max={15} value={12} />,
+		<RangePicker orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker disabled orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="small" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="medium" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="large" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width={3} orientation="vertical" joined min={10} max={15} value={12} />
+	]),
 
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -375,6 +411,56 @@ const RangePickerTests = [
 		textSize: 'large',
 		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" />
 	},
+	// 'wrap', 'joined', 'changedBy' and 'disabled'
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} joined changedBy="arrow" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} joined changedBy="arrow" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={5} joined changedBy="arrow" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" disabled />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" disabled />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="large" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="large" disabled />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width={1} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width={6} disabled />
+	},
+	{
+		locale: 'ar-SA',
+		textSize: 'large',
+		component: <RangePicker min={0} max={5} value={0} wrap joined changedBy="arrow" width="medium" />
+	},
 	{
 		locale: 'ar-SA',
 		component: <RangePicker min={0} max={5} orientation="vertical" joined />
@@ -437,6 +523,22 @@ const RangePickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <RangePicker min={0} max={5} value={0} inlineTitle title="Title" />
-	}
+	},
+
+	// joined and focused
+	...withConfig({focus: true, locale: 'ar-SA'}, [
+		<RangePicker joined min={10} max={15} value={12} />,
+		<RangePicker disabled joined min={10} max={15} value={12} />,
+		<RangePicker width="small" joined min={10} max={15} value={12} />,
+		<RangePicker width="medium" joined min={10} max={15} value={12} />,
+		<RangePicker width="large" joined min={10} max={15} value={12} />,
+		<RangePicker width={3} joined min={10} max={15} value={12} />,
+		<RangePicker orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker disabled orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="small" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="medium" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width="large" orientation="vertical" joined min={10} max={15} value={12} />,
+		<RangePicker width={3} orientation="vertical" joined min={10} max={15} value={12} />
+	])
 ];
 export default RangePickerTests;

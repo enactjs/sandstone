@@ -4,10 +4,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` public class name `icon`
+
+## [2.1.3] - 2022-03-07
+
 - Updated to use `forwardCustom` and add `type` when forwarding custom events
 
 ### Added
 
+- `sandstone/Picker` and `sandstone/RangePicker` prop `changedBy` to provide a way to control with left and right keys in horizontal joined Picker
 - `sandstone/VideoPlayer` prop `backButtonAriaLabel`
 - `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player via touch
 

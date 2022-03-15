@@ -1,12 +1,12 @@
 const Page = require('../VirtualGridListPage');
 
-describe('Change Sapcing', function () {
+describe('Change Spacing', function () {
 	beforeEach(async function () {
 		await Page.open();
 	});
 
 	it('should change spotlight size when spaceing change [QWT-2621]', async function () {
-		// Check default Sapcing size.
+		// Check default Spacing size.
 		const defaultSpacingWidth = (await Page.itemSpacing(0, 1)).width;
 		const defaultSpacingHeight = (await Page.itemSpacing(0, 5)).height;
 		expect(defaultSpacingHeight).to.be.equal(12);
