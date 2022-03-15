@@ -9,8 +9,8 @@ class CheckboxItemInterface {
 		this.slotBeforeNodeSelector = `#${this.id} >  .Item_Item_slotBefore > div:last-child`;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(`#${this.id}`));
+	async focus () {
+		return await browser.execute((el) => el.focus(), await $(`#${this.id}`));
 	}
 
 	get self () {
@@ -69,8 +69,8 @@ class CheckboxItemPage extends Page {
 		};
 	}
 
-	open (urlExtra) {
-		super.open('CheckboxItem-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('CheckboxItem-View', urlExtra);
 	}
 }
 

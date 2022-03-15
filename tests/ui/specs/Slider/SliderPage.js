@@ -7,8 +7,8 @@ class SliderInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(`#${this.id}`));
+	async focus () {
+		return await browser.execute((el) => el.focus(), await $(`#${this.id}`));
 	}
 
 	get self () {
@@ -19,16 +19,16 @@ class SliderInterface {
 		return $(this.selector + ' .Slider_Slider_knob');
 	}
 
-	get knobPositionHorizontal () {
-		return parseInt(this.knob.getCSSProperty('left').value);
+	async knobPositionHorizontal () {
+		return parseInt((await this.knob.getCSSProperty('left')).value);
 	}
 
-	get knobPositionVertical () {
-		return parseInt(this.knob.getCSSProperty('bottom').value);
+	async knobPositionVertical () {
+		return parseInt((await this.knob.getCSSProperty('bottom')).value);
 	}
 
-	get sliderFillWidth () {
-		return parseInt($(this.selector + ' .Slider_Slider_fill').getCSSProperty('width').value);
+	async sliderFillWidth () {
+		return parseInt((await $(this.selector + ' .Slider_Slider_fill').getCSSProperty('width')).value);
 	}
 }
 
@@ -45,13 +45,13 @@ class SliderPage extends Page {
 		this.components = {sliderDefault, sliderDisabled, sliderCustomProgressAnchor, sliderVertical, sliderVerticalDisabled, sliderActivateOnSelect};
 	}
 
-	numPad (num) {
+	async numPad (num) {
 		let Inputnum = 'numpad' + String(num);
-		return this.keyDelay(Inputnum);
+		return await this.keyDelay(Inputnum);
 	}
 
-	open (urlExtra) {
-		super.open('Slider-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Slider-View', urlExtra);
 	}
 }
 

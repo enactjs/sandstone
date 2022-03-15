@@ -9,8 +9,8 @@ class FormCheckboxItemInterface {
 		this.id = id;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(`#${this.id}`));
+	async focus () {
+		return await browser.execute((el) => el.focus(), await $(`#${this.id}`));
 	}
 
 	get self () {
@@ -54,8 +54,8 @@ class FormCheckboxItemPage extends Page {
 		this.components = {formCheckboxDefault, formCheckboxDefaultSelected, formCheckboxIconAfter, formCheckboxInline, formCheckboxInlineAfter, formCheckboxDisabled, formCheckboxInlineDisabled};
 	}
 
-	open (urlExtra) {
-		super.open('FormCheckboxItem-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('FormCheckboxItem-View', urlExtra);
 	}
 }
 

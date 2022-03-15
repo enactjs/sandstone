@@ -7,8 +7,8 @@ class SpotlightMultiplePage extends Page {
 		this.title = 'Spotlight Multiple Containers';
 	}
 
-	open (urlExtra) {
-		super.open('Spotlight-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Spotlight-View', urlExtra);
 	}
 
 	get item1 () {
