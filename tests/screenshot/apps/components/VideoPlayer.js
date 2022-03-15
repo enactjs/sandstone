@@ -1,11 +1,11 @@
-import VideoPlayer from '../../../../VideoPlayer';
 import {MediaControls} from '../../../../MediaPlayer';
+import VideoPlayer from '../../../../VideoPlayer';
+import posterUrl from '../../images/poster.png';
+import videoUrl from '../../images/movie_90.mp4';
 
-const posterUrl = 'http://media.w3.org/2010/05/sintel/poster.png';
-const videoUrl = 'http://media.w3.org/2010/05/sintel/trailer.mp4';
 const videoTitle = 'Sandstone VideoPlayer Sample Video';
 
-const videoPlayer1 = (props) => (
+const commonVideoPlayer = (props) => (
 	<div
 		style={{
 			transformOrigin: 'top',
@@ -34,40 +34,40 @@ const videoPlayer1 = (props) => (
 
 const VideoPlayerTests = [
 	{
-		component: videoPlayer1({src: ''}),
+		component: commonVideoPlayer({src: ''}),
 		wrapper: {full: true}
 	},
 	{
-		component: videoPlayer1({src: 'differentSrc'}),
+		component: commonVideoPlayer({src: 'differentSrc'}),
 		wrapper: {full: true},
 		focus: true
 	},
 	{
-		component: videoPlayer1({src: '', disabled: true}),
+		component: commonVideoPlayer({src: '', disabled: true}),
 		wrapper: {full: true}
 	},
 	{
-		component: videoPlayer1({src: '', poster: posterUrl}),
+		component: commonVideoPlayer({src: '', poster: posterUrl}),
 		wrapper: {full: true}
 	},
 	{
-		component: videoPlayer1({src: '', poster: posterUrl, title: videoTitle}),
+		component: commonVideoPlayer({src: '', poster: posterUrl, title: videoTitle}),
 		wrapper: {full: true}
 	},
 	{
-		component: videoPlayer1({src: videoUrl, noAutoPlay: true}),
+		component: commonVideoPlayer({src: videoUrl, noAutoPlay: true}),
 		wrapper: {full: true}
 	},
 	{
-		component: videoPlayer1({src: videoUrl, noSlider: true}),
+		component: commonVideoPlayer({src: videoUrl, noSlider: true}),
 		wrapper: {full: true}
 	},
 	{
-		component: videoPlayer1({src: '', poster: posterUrl, title: videoTitle, noSlider: true}),
+		component: commonVideoPlayer({src: '', poster: posterUrl, title: videoTitle, noSlider: true}),
 		wrapper: {full: true}
 	},
 	{
-		component: videoPlayer1({src: '', noButtonComponent: true}),
+		component: commonVideoPlayer({src: '', noButtonComponent: true}),
 		wrapper: {full: true}
 	}
 ];

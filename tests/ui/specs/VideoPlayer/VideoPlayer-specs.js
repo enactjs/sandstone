@@ -265,7 +265,7 @@ describe('VideoPlayer', function () {
 		});
 
 		it('should hide title after 1 second', async function () {
-			await Page.delay(700);
+			await Page.delay(500);
 			const initialTitleOpacity = await videoPlayerProps.titleFrame.getCSSProperty('opacity');
 			expect(await initialTitleOpacity.value).to.equal(1);
 
