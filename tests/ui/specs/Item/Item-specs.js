@@ -9,56 +9,56 @@ describe('Item', function () {
 	const item7Inline = Page.components.item7Inline;
 
 	describe('LTR locale', function () {
-		beforeEach(function () {
-			Page.open();
+		beforeEach(async function () {
+			await Page.open();
 		});
 
-		it('should have focus on first item at start', function () {
-			expect(item1.self.isFocused()).to.be.true();
+		it('should have focus on first item at start', async function () {
+			expect(await item1.self.isFocused()).to.be.true();
 		});
 
 		describe('default', function () {
 
 			describe('5-way', function () {
 			// Step 3 - 5-way Up
-				it('should focus the first item with 5-way Up - [QWT-2831]', function () {
-					item2Disabled.focus();
-					Page.spotlightUp();
-					expect(item1.self.isFocused()).to.be.true();
+				it('should focus the first item with 5-way Up - [QWT-2831]', async function () {
+					await item2Disabled.focus();
+					await Page.spotlightUp();
+					expect(await item1.self.isFocused()).to.be.true();
 				});
 
 				// Step 5 - 5-way Down
-				it('should focus an item with a label with 5-way Down - [QWT-2831]', function () {
-					item2Disabled.focus();
-					Page.spotlightDown();
-					expect(item3WithLabel.self.isFocused()).to.be.true();
+				it('should focus an item with a label with 5-way Down - [QWT-2831]', async function () {
+					await item2Disabled.focus();
+					await Page.spotlightDown();
+					expect(await item3WithLabel.self.isFocused()).to.be.true();
 				});
 
 				// Validating that the items are in fact inline and can be navigated between via 5-way
-				it('should focus an inline item with 5-way Left', function () {
-					item7Inline.focus();
-					Page.spotlightLeft();
-					expect(Page.components.item6Inline.self.isFocused()).to.be.true();
+				it('should focus an inline item with 5-way Left', async function () {
+					await item7Inline.focus();
+					await Page.spotlightLeft();
+					expect(await Page.components.item6Inline.self.isFocused()).to.be.true();
 				});
 
-				it('should focus an inline item with 5-way Right', function () {
-					item7Inline.focus();
-					Page.spotlightRight();
-					expect(Page.components.item8Inline.self.isFocused()).to.be.true();
+				it('should focus an inline item with 5-way Right', async function () {
+					await item7Inline.focus();
+					await Page.spotlightRight();
+					expect(await Page.components.item8Inline.self.isFocused()).to.be.true();
 				});
 			});
 
 			describe('pointer', function () {
 			// Step 3 - Focus on the Item title. In sampler, the item has no label. Here we focusing on an item with a label.
-				it('should focus the third item when hovered - [QWT-2830]', function () {
-					item3WithLabel.hover();
-					expect(item3WithLabel.self.isFocused()).to.be.true();
+				it('should focus the third item when hovered - [QWT-2830]', async function () {
+					await item3WithLabel.hover();
+					expect(await item3WithLabel.self.isFocused()).to.be.true();
 				});
 
-				it('should focus an item when switching from pointer to 5-way', function () {
-					item1.hover();
-					item2Disabled.focus();
-					expect(item2Disabled.self.isFocused()).to.be.true();
+				it('should focus an item when switching from pointer to 5-way', async function () {
+					await item1.hover();
+					await item2Disabled.focus();
+					expect(await item2Disabled.self.isFocused()).to.be.true();
 				});
 			});
 		});
@@ -67,59 +67,59 @@ describe('Item', function () {
 
 			describe('5-way', function () {
 			// Step 7 - 5-way Up
-				it('should focus a disabled item with 5-way Up - [QWT-2831]', function () {
-					item3WithLabel.focus();
-					Page.spotlightUp();
-					expect(item2Disabled.self.isFocused()).to.be.true();
+				it('should focus a disabled item with 5-way Up - [QWT-2831]', async function () {
+					await item3WithLabel.focus();
+					await Page.spotlightUp();
+					expect(await item2Disabled.self.isFocused()).to.be.true();
 				});
 
 				// Step 8 - 5-way Down
-				it('should focus a disabled item with 5-way Down - [QWT-2831]', function () {
-					item1.focus();
-					Page.spotlightDown();
-					expect(item2Disabled.self.isFocused()).to.be.true();
+				it('should focus a disabled item with 5-way Down - [QWT-2831]', async function () {
+					await item1.focus();
+					await Page.spotlightDown();
+					expect(await item2Disabled.self.isFocused()).to.be.true();
 				});
 
-				it('should focus a disabled and inline item with 5-way Right', function () {
-					item4Inline.focus();
-					Page.spotlightRight();
-					expect(item5InLineDisabled.self.isFocused()).to.be.true();
+				it('should focus a disabled and inline item with 5-way Right', async function () {
+					await item4Inline.focus();
+					await Page.spotlightRight();
+					expect(await item5InLineDisabled.self.isFocused()).to.be.true();
 				});
 			});
 
 			// Step 4 - Focus on the disabled Item title
 			describe('pointer', function () {
-				it('should focus the disabled item with hover - [QWT-2830]', function () {
-					item2Disabled.hover();
-					expect(item2Disabled.self.isFocused()).to.be.true();
+				it('should focus the disabled item with hover - [QWT-2830]', async function () {
+					await item2Disabled.hover();
+					expect(await item2Disabled.self.isFocused()).to.be.true();
 				});
 			});
 		});
 	});
 
 	describe('RTL locale', function () {
-		beforeEach(function () {
-			Page.open('?locale=ar-SA');
+		beforeEach(async function () {
+			await Page.open('?locale=ar-SA');
 		});
 
-		it('should have focus on first item at start', function () {
-			expect(item1.self.isFocused()).to.be.true();
+		it('should have focus on first item at start', async function () {
+			expect(await item1.self.isFocused()).to.be.true();
 		});
 
 		describe('default', function () {
 
 			describe('5-way', function () {
 				// Validating that the items are in fact inline and can be navigated between via 5-way
-				it('should focus an inline item with 5-way Right', function () {
-					item7Inline.focus();
-					Page.spotlightRight();
-					expect(Page.components.item6Inline.self.isFocused()).to.be.true();
+				it('should focus an inline item with 5-way Right', async function () {
+					await item7Inline.focus();
+					await Page.spotlightRight();
+					expect(await Page.components.item6Inline.self.isFocused()).to.be.true();
 				});
 
-				it('should focus an inline item with 5-way Left', function () {
-					item7Inline.focus();
-					Page.spotlightLeft();
-					expect(Page.components.item8Inline.self.isFocused()).to.be.true();
+				it('should focus an inline item with 5-way Left', async function () {
+					await item7Inline.focus();
+					await Page.spotlightLeft();
+					expect(await Page.components.item8Inline.self.isFocused()).to.be.true();
 				});
 			});
 		});

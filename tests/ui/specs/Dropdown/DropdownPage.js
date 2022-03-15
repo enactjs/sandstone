@@ -7,8 +7,8 @@ class DropdownInterface {
 		this.id = id;
 	}
 
-	focusActivator () {
-		return browser.execute((el) => el.focus(), this.self.$('[role="button"]'));
+	async focusActivator () {
+		return await browser.execute((el) => el.focus(), await this.self.$('[role="button"]'));
 	}
 
 	get button () {
@@ -53,13 +53,13 @@ class DropdownPage extends Page {
 		});
 	}
 
-	openDropdown (component) {
-		component.focusActivator();
-		this.spotlightSelect();
+	async openDropdown (component) {
+		await component.focusActivator();
+		await this.spotlightSelect();
 	}
 
-	open (layout = '', urlExtra) {
-		super.open(`Dropdown${layout}-View`, urlExtra);
+	async open (layout = '', urlExtra) {
+		await super.open(`Dropdown${layout}-View`, urlExtra);
 	}
 
 }

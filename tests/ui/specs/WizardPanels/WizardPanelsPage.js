@@ -2,8 +2,8 @@
 const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
 const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
-const getNextButton = el => getComponent({component: 'Button'}, getHeaderSlot('slotAfter', el));
-const getPrevButton = el => getComponent({component: 'Button'}, getHeaderSlot('slotBefore', el));
+const getNextButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotAfter', el));
+const getPrevButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotBefore', el));
 const viewSelector = view => `#view${view}`;
 
 class WizardPanelsInterface {
@@ -12,31 +12,31 @@ class WizardPanelsInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	waitForEnter (view, timeout = 1000) {
-		this['view' + view].waitForExist({timeout});
+	async waitForEnter (view, timeout = 1000) {
+		await this['view' + view].waitForExist({timeout});
 	}
 
-	waitForLeave (view, timeout = 2000) {
-		this['view' + view].waitForExist({timeout, reverse: true});
+	async waitForLeave (view, timeout = 2000) {
+		await this['view' + view].waitForExist({timeout, reverse: true});
 	}
 
-	focusNextButton () {
-		return browser.execute((el) => el.focus(), this.nextButton);
+	async focusNextButton () {
+		return await browser.execute(async (el) => await el.focus(), await this.nextButton());
 	}
 
-	focusPrevButton () {
-		return browser.execute((el) => el.focus(), this.prevButton);
+	async focusPrevButton () {
+		return await browser.execute(async (el) => await el.focus(), await this.prevButton());
 	}
 
 	get self () {
 		return $(this.selector);
 	}
 
-	get nextButton () {
-		return getNextButton(this.self);
+	async nextButton () {
+		return await getNextButton(this.self);
 	}
-	get prevButton () {
-		return getPrevButton(this.self);
+	async prevButton () {
+		return await getPrevButton(this.self);
 	}
 
 	get view1 () {
@@ -61,8 +61,8 @@ class WizardPanelsPage extends Page {
 		this.components.wizardPanels = new WizardPanelsInterface('wizardpanels');
 	}
 
-	open (urlExtra) {
-		super.open('WizardPanels-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('WizardPanels-View', urlExtra);
 	}
 }
 

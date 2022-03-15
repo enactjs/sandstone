@@ -2,59 +2,59 @@ const {expectFocusedItem} = require('../../VirtualList/VirtualList-utils');
 const ScrollerPage = require('../ScrollerPage');
 
 describe('Scroller List Of Things', function () {
-	beforeEach(function () {
-		ScrollerPage.open('ListOfThings');
+	beforeEach(async function () {
+		await ScrollerPage.open('ListOfThings');
 	});
 
-	it('should occur onScroll/onKeydown event [QWT-2664], [QWT-2663]', function () {
+	it('should occur onScroll/onKeydown event [QWT-2664], [QWT-2663]', async function () {
 		// Precondition: Spotlight is on Close button. In this case, 'X' button is replaced 'Top' button.
-		ScrollerPage.buttonTop.moveTo();
-		ScrollerPage.spotlightSelect();
-		expect(ScrollerPage.buttonTop.isFocused()).to.be.true();
+		await ScrollerPage.buttonTop.moveTo();
+		await ScrollerPage.spotlightSelect();
+		expect(await ScrollerPage.buttonTop.isFocused()).to.be.true();
 
 		// Step3 -1: 5-way Down several times until reaching to the item which is under the screen.
-		const bottomVisibleIdNum = Number(ScrollerPage.bottomVisibleItemId().slice(4));
+		const bottomVisibleIdNum = Number((await ScrollerPage.bottomVisibleItemId()).slice(4));
 		let index = -1;  // Current focus is on Top button
 		while (index < bottomVisibleIdNum) {
-			ScrollerPage.spotlightDown();
-			ScrollerPage.delay(100);
+			await ScrollerPage.spotlightDown();
+			await ScrollerPage.delay(100);
 			// Step 3-2 Verify: onKeyDown event is added for each 5-way Down.
 			// There is no onKeyDown event from X button to Item 0.
-			expectFocusedItem(++index);
-			expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(index);
+			await expectFocusedItem(++index);
+			expect(Number(await ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(index);
 		}
 		// Step 3-3,4 Verify: One (1)  onScrollStart/Stop event is added.
-		ScrollerPage.delay(300);
-		expect(Number(ScrollerPage.scroller.getAttribute('data-scrolling-events'))).to.be.equal(1);
+		await ScrollerPage.delay(300);
+		expect(Number(await ScrollerPage.scroller.getAttribute('data-scrolling-events'))).to.be.equal(1);
 
 		// Step 4-1: 5-way Up several times until reaching to the item which is upper the screen.
-		const topVisibleItemId = Number(ScrollerPage.topVisibleItemId().slice(4));
+		const topVisibleItemId = Number((await ScrollerPage.topVisibleItemId()).slice(4));
 		let keydownEvent = 7;
 		while (index > topVisibleItemId) {
-			ScrollerPage.spotlightUp();
-			ScrollerPage.delay(100);
+			await ScrollerPage.spotlightUp();
+			await ScrollerPage.delay(100);
 			keydownEvent++;
 
 			// Step 4-2 Verify: onKeyDown event is added for each 5-way Up.
-			expectFocusedItem(--index);
-			expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(keydownEvent);
+			await expectFocusedItem(--index);
+			expect(Number(await ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(keydownEvent);
 		}
 
 		// Step 4-3,4 Verify: One (1)  onScrollStart/Stop event is added.
-		ScrollerPage.delay(300);
-		expect(Number(ScrollerPage.scroller.getAttribute('data-scrolling-events'))).to.be.equal(2);
+		await ScrollerPage.delay(300);
+		expect(Number(await ScrollerPage.scroller.getAttribute('data-scrolling-events'))).to.be.equal(2);
 
 		// Perform a test of QWT-2663, which is not covered by QWT-2664.
 		// 5-way Left a few times.
-		ScrollerPage.spotlightLeft();
+		await ScrollerPage.spotlightLeft();
 		// One (1) onKeyDown event is added for each 5-way Left.
-		expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(++keydownEvent);
+		expect(Number(await ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(++keydownEvent);
 
-		$('#item2').moveTo();
-		expectFocusedItem(2);
+		await $('#item2').moveTo();
+		await expectFocusedItem(2);
 		// 5-way Right a few times.
-		ScrollerPage.spotlightRight();
+		await ScrollerPage.spotlightRight();
 		// One (1) onKeyDown event is added for each 5-way Left.
-		expect(Number(ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(++keydownEvent);
+		expect(Number(await ScrollerPage.scroller.getAttribute('data-keydown-events'))).to.be.equal(++keydownEvent);
 	});
 });
