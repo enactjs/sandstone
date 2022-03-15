@@ -3,79 +3,79 @@ const Page = require('./FlexiblePopupPanelsPage');
 describe('FlexiblePopupPanels', function () {
 	const Interface = Page.flexiblePopupPanels;
 
-	beforeEach(function () {
-		Page.open();
+	beforeEach(async function () {
+		await Page.open();
 	});
 
 	describe('5-way', function () {
-		it('should open FlexiblePopupPanels and navigate to Panel - [QWT-2143]', function () {
-			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+		it('should open FlexiblePopupPanels and navigate to Panel - [QWT-2143]', async function () {
+			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.spotlightSelect();
+			await Page.spotlightSelect();
 
-			Page.waitForFocused(Interface.singleItem);
+			await Page.waitForFocused(Interface.singleItem);
 
 			// verifies that focus enters the panel body by default
-			Page.spotlightRight();
+			await Page.spotlightRight();
 
-			Page.waitForFocused(Interface.nextButton, {targetName: 'next button'});
+			await Page.waitForFocused(Interface.nextButton, {targetName: 'next button'});
 
-			Page.spotlightSelect();
-			Interface.waitForPanelBody(2);
-
-			// should retain focus on navigation buttons
-			Page.waitForFocused(Interface.nextButton, {targetName: 'next button 2'});
-
-			Page.spotlightLeft();
-			Page.spotlightLeft();
-			Page.waitForFocused(Interface.prevButton, {targetName: 'prev button'});
-
-			Page.spotlightSelect();
-			Interface.waitForPanelBody(1);
+			await Page.spotlightSelect();
+			await Interface.waitForPanelBody(2);
 
 			// should retain focus on navigation buttons
-			Page.waitForFocused(Interface.prevButton, {targetName: 'prev button 2'});
+			await Page.waitForFocused(Interface.nextButton, {targetName: 'next button 2'});
+
+			await Page.spotlightLeft();
+			await Page.spotlightLeft();
+			await Page.waitForFocused(Interface.prevButton, {targetName: 'prev button'});
+
+			await Page.spotlightSelect();
+			await Interface.waitForPanelBody(1);
+
+			// should retain focus on navigation buttons
+			await Page.waitForFocused(Interface.prevButton, {targetName: 'prev button 2'});
 		});
 
-		it('should respect Panel autoFocus setting - [QWT-2142]', function () {
-			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+		it('should respect Panel autoFocus setting - [QWT-2142]', async function () {
+			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.spotlightSelect();
+			await Page.spotlightSelect();
 
-			Page.waitForFocused(Interface.singleItem);
+			await Page.waitForFocused(Interface.singleItem);
 
-			Page.spotlightLeft();
-			Page.spotlightSelect();
-			Interface.waitForPanelBody(7);
+			await Page.spotlightLeft();
+			await Page.spotlightSelect();
+			await Interface.waitForPanelBody(7);
 
-			Page.waitForFocused($('#item2'), {targetName: 'item 2'});
+			await Page.waitForFocused($('#item2'), {targetName: 'item 2'});
 		});
 	});
 
 	describe('Pointer', function () {
-		it('should open FlexiblePopupPanels and navigate to Panel', function () {
-			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
-				Interface.openButton.click();
+		it('should open FlexiblePopupPanels and navigate to Panel', async function () {
+			await Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', async () => {
+				await Interface.openButton.click();
 			});
 
-			Interface.waitForPanelBody(1);
-			Page.delay(500);
-			Interface.nextButton.click();
-			Interface.waitForPanelBody(2);
-			Page.delay(500);
-			Interface.prevButton.click();
-			Interface.waitForEnter(1);
+			await Interface.waitForPanelBody(1);
+			await Page.delay(500);
+			await Interface.nextButton.click();
+			await Interface.waitForPanelBody(2);
+			await Page.delay(500);
+			await Interface.prevButton.click();
+			await Interface.waitForEnter(1);
 		});
 
-		it('should close when clicking below the panel', function () {
-			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
-				Interface.openButton.click();
+		it('should close when clicking below the panel', async function () {
+			await Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', async () => {
+				await Interface.openButton.click();
 			});
 
-			Interface.waitForPanelBody(1);
-			Page.delay(500);
-			Interface.clickBelowPopup();
-			Interface.waitForClose();
+			await Interface.waitForPanelBody(1);
+			await Page.delay(500);
+			await Interface.clickBelowPopup();
+			await Interface.waitForClose();
 		});
 	});
 });
