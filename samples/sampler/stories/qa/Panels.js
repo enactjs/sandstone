@@ -77,8 +77,8 @@ export const WithAutoFocusControl = () => {
 };
 
 export default {
-	title: 'Sandstone/Panel',
-	component: 'Panel'
+	title: 'Sandstone/Panels',
+	component: 'Panels'
 };
 
 WithAutoFocusControl.storyName = 'with AutoFocus Control';
