@@ -38,6 +38,32 @@ const BodyTextTests = [
 	{
 		locale: 'te-IN',
 		component: <BodyText>পারেন।</BodyText>  // [QWT - 4248]
+	},
+
+	// Japanese
+	...withConfig({
+		locale: 'en-JP'
+	}, [
+		...commonTests
+	]),
+
+	...withConfig({
+		locale: 'ja-JP'
+	}, [
+		...commonTests
+	]),
+
+	{
+		locale: 'en-US',
+		component: <BodyText>Hello, こんにちは</BodyText>
+	},
+	{
+		locale: 'en-JP',
+		component: <BodyText>Hello, こんにちは</BodyText>
+	},
+	{
+		locale: 'ja-JP',
+		component: <BodyText>Hello, こんにちは</BodyText>
 	}
 ];
 
