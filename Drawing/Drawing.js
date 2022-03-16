@@ -13,6 +13,8 @@
  */
 
 import kind from '@enact/core/kind';
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import ComponentOverride from '@enact/ui/ComponentOverride';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
 import Group from '@enact/ui/Group';
 import {Cell, Column, Layout, Row} from '@enact/ui/Layout';
@@ -22,6 +24,7 @@ import {useRef, useState} from 'react';
 
 import BodyText from '../BodyText';
 import Button from '../Button';
+import DrawingControls from './DrawingControls';
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 import Slider from '../Slider';
@@ -75,13 +78,18 @@ const DrawingBase = kind({
 		 * @default false
 		 * @public
 		 */
-		disabled: PropTypes.bool
+		disabled: PropTypes.bool,
+		drawingControlsComponent: EnactPropTypes.componentOverride,
+		showDrawingControls: PropTypes.bool,
+		brushSize: PropTypes.number
 	},
 
 	defaultProps: {
 		canvasHeight: 800,
 		canvasWidth: 1200,
-		disabled: false
+		disabled: false,
+		drawingControlsComponent: DrawingControls,
+		showDrawingControls: false
 	},
 
 	handlers: {
@@ -120,7 +128,7 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({canvasHeight, canvasWidth, disabled, fileInputHandler, handleSelect, ...rest}) => {
+	render: ({canvasHeight, canvasWidth, disabled, fileInputHandler, handleSelect, showDrawingControls, drawingControlsComponent, ...rest}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#545BCC');
 		const [brushSize, setBrushSize] = useState(5);
@@ -145,64 +153,84 @@ const DrawingBase = kind({
 			<Scroller>
 				<Layout {...rest}>
 					<Cell className={css.toolbar} shrink size="15%">
-						<Cell>
-							<BodyText css={css} disabled={disabled}>Drawing tools</BodyText>
-							<Group
-								childComponent={Button}
-								childProp="tooltipText"
-								className={css.drawingTools}
-								defaultSelected={0}
-								itemProps={{
-									disabled: disabled,
-									size: 'small'
-								}}
-								onSelect={(event) => handleSelect({event, setDrawingTool})}
-								select={'radio'}
-								selectedProp="selected"
-							>
-								{drawingTools}
-							</Group>
-						</Cell>
-						<Cell>
-							<BodyText css={css} disabled={disabled}>Brush size</BodyText>
-							<Slider
-								backgroundProgress={0}
-								css={css}
-								defaultValue={brushSize}
+						{showDrawingControls ? (
+							<ComponentOverride
+								component={drawingControlsComponent}
 								disabled={disabled}
-								max={30}
-								min={0}
-								onChange={(e) => {
-									setBrushSize(e.value);
-								}}
-								step={1}
-								tooltip={false}
+								brushSize={brushSize}
+								setBrushSize={setBrushSize}
+								setDrawingTool={setDrawingTool}
+								drawingTools={drawingTools}
+								brushColor={brushColor}
+								setBrushColor={setBrushColor}
+								brushColors={brushColors}
+								fillColor={fillColor}
+								setFillColor={setFillColor}
+								fillColors={fillColors}
+								canvasColor={canvasColor}
+								setCanvasColor={setCanvasColor}
+								canvasColors={canvasColors}
 							/>
-						</Cell>
-						<Cell className={css.colors}>
-							<BodyText css={css} disabled={disabled}>Colors</BodyText>
-							<ColorPicker
-								color={brushColor}
-								colorHandler={setBrushColor}
-								disabled={disabled}
-								presetColors={brushColors}
-								text="Brush"
-							/>
-							<ColorPicker
-								color={fillColor}
-								colorHandler={setFillColor}
-								disabled={disabled}
-								presetColors={fillColors}
-								text="Fill"
-							/>
-							<ColorPicker
-								color={canvasColor}
-								colorHandler={setCanvasColor}
-								disabled={disabled}
-								presetColors={canvasColors}
-								text="Canvas"
-							/>
-						</Cell>
+						) :
+						null}
+						{/*<Cell>*/}
+						{/*	<BodyText css={css} disabled={disabled}>Drawing tools</BodyText>*/}
+						{/*	<Group*/}
+						{/*		childComponent={Button}*/}
+						{/*		childProp="tooltipText"*/}
+						{/*		className={css.drawingTools}*/}
+						{/*		defaultSelected={0}*/}
+						{/*		itemProps={{*/}
+						{/*			disabled: disabled,*/}
+						{/*			size: 'small'*/}
+						{/*		}}*/}
+						{/*		onSelect={(event) => handleSelect({event, setDrawingTool})}*/}
+						{/*		select={'radio'}*/}
+						{/*		selectedProp="selected"*/}
+						{/*	>*/}
+						{/*		{drawingTools}*/}
+						{/*	</Group>*/}
+						{/*</Cell>*/}
+						{/*<Cell>*/}
+						{/*	<BodyText css={css} disabled={disabled}>Brush size</BodyText>*/}
+						{/*	<Slider*/}
+						{/*		backgroundProgress={0}*/}
+						{/*		css={css}*/}
+						{/*		defaultValue={brushSize}*/}
+						{/*		disabled={disabled}*/}
+						{/*		max={30}*/}
+						{/*		min={0}*/}
+						{/*		onChange={(e) => {*/}
+						{/*			setBrushSize(e.value);*/}
+						{/*		}}*/}
+						{/*		step={1}*/}
+						{/*		tooltip={false}*/}
+						{/*	/>*/}
+						{/*</Cell>*/}
+						{/*<Cell className={css.colors}>*/}
+						{/*	<BodyText css={css} disabled={disabled}>Colors</BodyText>*/}
+						{/*	<ColorPicker*/}
+						{/*		color={brushColor}*/}
+						{/*		colorHandler={setBrushColor}*/}
+						{/*		disabled={disabled}*/}
+						{/*		presetColors={brushColors}*/}
+						{/*		text="Brush"*/}
+						{/*	/>*/}
+						{/*	<ColorPicker*/}
+						{/*		color={fillColor}*/}
+						{/*		colorHandler={setFillColor}*/}
+						{/*		disabled={disabled}*/}
+						{/*		presetColors={fillColors}*/}
+						{/*		text="Fill"*/}
+						{/*	/>*/}
+						{/*	<ColorPicker*/}
+						{/*		color={canvasColor}*/}
+						{/*		colorHandler={setCanvasColor}*/}
+						{/*		disabled={disabled}*/}
+						{/*		presetColors={canvasColors}*/}
+						{/*		text="Canvas"*/}
+						{/*	/>*/}
+						{/*</Cell>*/}
 					</Cell>
 					<Cell>
 						<Row>
