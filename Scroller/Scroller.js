@@ -30,11 +30,28 @@ import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
+import EditableWrapper from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
+
+import css from './Scroller.module.less';
 
 const nop = () => {};
 const SpottableDiv = Spottable('div');
 let scrollerId = 0;
+
+/**
+ * The shape for editable of [Scroller]{@link sandstone/Scroller}.
+ *
+ * @typedef {Object} editableShape
+ * @memberof sandstone/Scroller
+ * @property {Function} onComplete The callback function called when editing is finished.
+ * @property {Boolean} centered Centers the contents of the scroller.
+ * @public
+ */
+const editableShape = PropTypes.shape({
+	onComplete: PropTypes.func.isRequired,
+	centered: PropTypes.bool
+});
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -71,11 +88,17 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	} = useScroll(rest);
 
 	const {
+		className: containerClasses,
+		...scrollContainerRest
+	} = scrollContainerProps;
+
+	const {
 		className,
 		...scrollContentWrapperRest
 	} = scrollContentWrapperProps;
 
 	const {
+		editableWrapperProps,
 		focusableBodyProps,
 		themeScrollContentProps
 	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
@@ -86,9 +109,11 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
+			<ScrollContentWrapper className={classnames(containerClasses, css.scrollContainer)} {...scrollContainerRest} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
-					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
+					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle}>
+						<EditableWrapper {...editableWrapperProps} />
+					</UiScrollerBasic>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 					{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
@@ -175,6 +200,14 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
+
+	/**
+	 * TBD: Enables editing items in the scroller.
+	 *
+	 * @type {sandstone.Scroller/editableShape}
+	 * @public
+	 */
+	editable: editableShape,
 
 	/**
 	 * Adds fade-out effect on the scroller.

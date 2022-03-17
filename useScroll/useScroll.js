@@ -296,6 +296,7 @@ const useScroll = (props) => {
 			'data-spotlight-container': spotlightContainer,
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
+			editable,
 			focusableScrollbar,
 			fadeOut,
 			horizontalScrollThumbAriaLabel,
@@ -454,7 +455,7 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {fadeOut}),
+		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {editable, fadeOut}),
 		className: [
 			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
