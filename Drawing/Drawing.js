@@ -25,6 +25,7 @@ import {useRef, useState} from 'react';
 import BodyText from '../BodyText';
 import Button from '../Button';
 import DrawingControls from './DrawingControls';
+import DrawingUtils from './DrawingUtils';
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 import Slider from '../Slider';
@@ -81,7 +82,8 @@ const DrawingBase = kind({
 		disabled: PropTypes.bool,
 		drawingControlsComponent: EnactPropTypes.componentOverride,
 		showDrawingControls: PropTypes.bool,
-		brushSize: PropTypes.number
+		drawingUtilsComponent: EnactPropTypes.componentOverride,
+		showDrawingUtils: PropTypes.bool,
 	},
 
 	defaultProps: {
@@ -89,7 +91,9 @@ const DrawingBase = kind({
 		canvasWidth: 1200,
 		disabled: false,
 		drawingControlsComponent: DrawingControls,
-		showDrawingControls: false
+		showDrawingControls: false,
+		drawingUtilsComponent: DrawingUtils,
+		showDrawingUtils: false,
 	},
 
 	handlers: {
@@ -128,7 +132,18 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({canvasHeight, canvasWidth, disabled, fileInputHandler, handleSelect, showDrawingControls, drawingControlsComponent, ...rest}) => {
+	render: ({
+		canvasHeight,
+		canvasWidth,
+		disabled,
+		fileInputHandler,
+		handleSelect,
+		showDrawingControls,
+		drawingControlsComponent,
+		showDrawingUtils,
+		drawingUtilsComponent,
+		...rest
+	}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#545BCC');
 		const [brushSize, setBrushSize] = useState(5);
@@ -170,6 +185,7 @@ const DrawingBase = kind({
 								canvasColor={canvasColor}
 								setCanvasColor={setCanvasColor}
 								canvasColors={canvasColors}
+								handleSelect={handleSelect}
 							/>
 						) :
 						null}
@@ -251,21 +267,36 @@ const DrawingBase = kind({
 					</Cell>
 					<Cell shrink size="10%">
 						<Column align="center space-between" className={css.canvasOptions}>
-							<Button css={css} disabled={disabled} icon="refresh" onClick={() => drawingRef.current.clearCanvas()} size="small" tooltipText="Clear all" />
-							<Button css={css} disabled={disabled} icon="plus" onClick={() => document.getElementById('fileInput').click()} size="small" tooltipText="Import image" />
-							<input
-								accept="image/*"
-								className={css.inputFile}
-								id="fileInput"
-								onChange={(ev) => fileInputHandler({backgroundImage, ev, setBackgroundImage})}
-								onClick={(e) => {
-									e.target.value = null;
-								}}
-								type="file"
-							/>
-							<Button css={css} disabled={disabled} icon="trash" onClick={() => setBackgroundImage(null)} size="small" tooltipText="Clear image" />
-							<Button css={css} disabled={disabled} icon="download" onClick={() => drawingRef.current.saveCanvas()} size="small" tooltipText="Save canvas" />
+							{showDrawingUtils ?
+								(
+									<ComponentOverride
+										component={drawingUtilsComponent}
+										disabled={disabled}
+										drawingRef={drawingRef}
+										fileInputHandler={fileInputHandler}
+										backgroundImage={backgroundImage}
+										setBackgroundImage={setBackgroundImage}
+									/>
+								) :
+								null
+							}
 						</Column>
+						{/*<Column align="center space-between" className={css.canvasOptions}>*/}
+						{/*	<Button css={css} disabled={disabled} icon="refresh" onClick={() => drawingRef.current.clearCanvas()} size="small" tooltipText="Clear all" />*/}
+						{/*	<Button css={css} disabled={disabled} icon="plus" onClick={() => document.getElementById('fileInput').click()} size="small" tooltipText="Import image" />*/}
+						{/*	<input*/}
+						{/*		accept="image/*"*/}
+						{/*		className={css.inputFile}*/}
+						{/*		id="fileInput"*/}
+						{/*		onChange={(ev) => fileInputHandler({backgroundImage, ev, setBackgroundImage})}*/}
+						{/*		onClick={(e) => {*/}
+						{/*			e.target.value = null;*/}
+						{/*		}}*/}
+						{/*		type="file"*/}
+						{/*	/>*/}
+						{/*	<Button css={css} disabled={disabled} icon="trash" onClick={() => setBackgroundImage(null)} size="small" tooltipText="Clear image" />*/}
+						{/*	<Button css={css} disabled={disabled} icon="download" onClick={() => drawingRef.current.saveCanvas()} size="small" tooltipText="Save canvas" />*/}
+						{/*</Column>*/}
 					</Cell>
 				</Layout>
 			</Scroller>

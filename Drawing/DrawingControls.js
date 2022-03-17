@@ -12,12 +12,14 @@ import ColorPicker from "./ColorPicker";
 const DrawingControls = kind({
 	name: 'DrawingControls',
 
+	functional: true,
+
 	propTypes: {
 		disabled: PropTypes.bool,
 		brushSize: PropTypes.number,
 		setBrushSize: PropTypes.func,
 		setDrawingTool: PropTypes.func,
-		drawingTools: PropTypes.object,
+		drawingTools: PropTypes.array,
 		brushColor: PropTypes.string,
 		setBrushColor: PropTypes.func,
 		brushColors: PropTypes.array,
@@ -26,16 +28,17 @@ const DrawingControls = kind({
 		fillColors: PropTypes.array,
 		canvasColor: PropTypes.string,
 		setCanvasColor: PropTypes.func,
-		canvasColors: PropTypes.array
+		canvasColors: PropTypes.array,
+		handleSelect: PropTypes.func
 	},
 
-	handlers: {
-		handleSelect: (ev) => {
-			const e = ev?.event;
-			const setDrawingTool = ev?.setDrawingTool;
-			setDrawingTool(e.data);
-		}
-	},
+	// handlers: {
+	// 	handleSelect: (ev) => {
+	// 		const e = ev?.event;
+	// 		const setDrawingTool = ev?.setDrawingTool;
+	// 		setDrawingTool(e.data);
+	// 	}
+	// },
 
 	render: ({
 		brushColor,
@@ -55,6 +58,8 @@ const DrawingControls = kind({
 		canvasColors,
 		...rest
 	}) => {
+
+		delete rest.brushSize;
 
 		return (
 			<div>
