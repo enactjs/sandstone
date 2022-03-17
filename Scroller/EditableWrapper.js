@@ -16,7 +16,7 @@ import {useCallback, useEffect, useRef} from 'react';
 import css from './EditableWrapper.module.less';
 
 const EditableWrapper = (props) => {
-	const {children, editable, scrollContainerRef, scrollContainerHandle, scrollContentRef} = props;
+	const {children, editable, scrollContainerHandle, scrollContentRef} = props;
 
 	if (editable == null) {
 		return children;
@@ -61,8 +61,8 @@ const EditableWrapper = (props) => {
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
-		scrollContainerRef.current.style.setProperty('--selected-item-offset', '0px');
-	}, [scrollContainerRef]);
+		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
+	}, []);
 
 	// Finalize the order
 	const finalizeOrders = useCallback(() => {
@@ -140,7 +140,7 @@ const EditableWrapper = (props) => {
 	// Move siblings
 	const moveSiblings = useCallback(({direction, toIndex}) => {
 		// Set the direction to css variable
-		scrollContainerRef.current.style.setProperty('--move-direction', direction);
+		wrapperRef.current.style.setProperty('--move-direction', direction);
 
 		const {fromIndex, rearrangedItems, selectedItem} = mutableRef.current;
 		const getNextElement = (item) => direction > 0 ? item.nextElementSibling : item.previousElementSibling;
@@ -175,7 +175,7 @@ const EditableWrapper = (props) => {
 
 				// Set the selected item's offset to css variable
 				const offset = (toIndex - fromIndex) * itemWidth;
-				scrollContainerRef.current.style.setProperty('--selected-item-offset', offset + 'px');
+				wrapperRef.current.style.setProperty('--selected-item-offset', offset + 'px');
 
 				// Reset addable flag to true
 				mutableRef.current.addable = true;
@@ -287,7 +287,7 @@ const EditableWrapper = (props) => {
 			const neighbor = item.nextElementSibling || item.previousElementSibling;
 			mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
 			mutableRef.current.centeredOffset = centered ? item.getBoundingClientRect().x : 0;
-			scrollContainerRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
+			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
 	}, []);
 

@@ -88,11 +88,6 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	} = useScroll(rest);
 
 	const {
-		className: containerClasses,
-		...scrollContainerRest
-	} = scrollContainerProps;
-
-	const {
 		className,
 		...scrollContentWrapperRest
 	} = scrollContentWrapperProps;
@@ -109,7 +104,7 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContentWrapper className={classnames(containerClasses, css.scrollContainer)} {...scrollContainerRest} {...scrollContentWrapperRest}>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle}>
 						<EditableWrapper {...editableWrapperProps} />
