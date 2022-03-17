@@ -48,6 +48,23 @@ const DrawingBase = kind({
 	functional: true,
 
 	propTypes: /** @lends sandstone/Drawing.DrawingBase.prototype */ {
+		/**
+		 * Sets the height of canvas.
+		 *
+		 * @type {Number}
+		 * @default 800
+		 * @public
+		 */
+		canvasHeight: PropTypes.number,
+
+		/**
+		 * Sets the width of canvas.
+		 *
+		 * @type {Number}
+		 * @default 1200
+		 * @public
+		 */
+		canvasWidth: PropTypes.number,
 
 		/**
 		 * Applies the `disabled` class.
@@ -62,6 +79,8 @@ const DrawingBase = kind({
 	},
 
 	defaultProps: {
+		canvasHeight: 800,
+		canvasWidth: 1200,
 		disabled: false
 	},
 
@@ -101,7 +120,7 @@ const DrawingBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({disabled, fileInputHandler, handleSelect, ...rest}) => {
+	render: ({canvasHeight, canvasWidth, disabled, fileInputHandler, handleSelect, ...rest}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#545BCC');
 		const [brushSize, setBrushSize] = useState(5);
@@ -110,8 +129,8 @@ const DrawingBase = kind({
 		const [fillColor, setFillColor] = useState('#D0BB22');
 		const drawingRef = useRef();
 
-		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
-		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
 		const drawingTools = [
 			{icon: 'edit', key: 1, tooltipText: 'brush'},
 			{icon: 'heart', key: 2, tooltipText: 'fill'},
@@ -120,7 +139,7 @@ const DrawingBase = kind({
 			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
 			{icon: 'square', key: 6, tooltipText: 'erase'}
 		];
-		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
 
 		return (
 			<Scroller>
@@ -193,6 +212,8 @@ const DrawingBase = kind({
 								brushColor={brushColor}
 								brushSize={brushSize}
 								canvasColor={canvasColor}
+								canvasHeight={canvasHeight}
+								canvasWidth={canvasWidth}
 								disabled={disabled}
 								drawingTool={drawingTool}
 								fillColor={fillColor}
