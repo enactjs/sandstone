@@ -1,11 +1,3 @@
-/**
- * Sandstone styled EditableWrapper components
- *
- * @module sandstone/EditableWrapper
- * @memberof sandstone/Scroller
- * @exports EditableWrapper
- */
-
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
