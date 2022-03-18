@@ -5,6 +5,7 @@ import {withConfig} from './utils';
 const CheckboxTests = [
 	<Checkbox />,
 	<Checkbox selected />,
+	<Checkbox>star</Checkbox>,
 	<Checkbox selected disabled />,
 	<Checkbox selected>star</Checkbox>,
 	<Checkbox indeterminate />,
