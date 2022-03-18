@@ -6,20 +6,20 @@ describe('FixedPopupPanelsWithoutPanel', function () {
 
 	describe('5-way', function () {
 
-		beforeEach(function () {
-			Page.open();
+		beforeEach(async function () {
+			await Page.open();
 		});
 
-		it('should set focus to the activator when closed', function () {
-			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+		it('should set focus to the activator when closed', async function () {
+			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.spotlightSelect();
+			await Page.spotlightSelect();
 
-			Page.waitForFocused(Interface.item1);
+			await Page.waitForFocused(Interface.item1);
 
-			Page.backKey();
+			await Page.backKey();
 
-			Page.waitForFocused(Interface.openButton, {targetName: 'open button'});
+			await Page.waitForFocused(Interface.openButton, {targetName: 'open button'});
 		});
 	});
 });

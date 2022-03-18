@@ -9,6 +9,7 @@ const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicke
 
 // Set up some defaults for info and controls
 const prop = {
+	changedBy: ['enter', 'arrow'],
 	orientation: ['horizontal', 'vertical'],
 	width: [null, 'small', 'medium', 'large', 1, 2, 3, 4, 5, 6]
 };
@@ -32,6 +33,7 @@ export const WithCustomizedTitleStyle = (args) => (
 		css={css}
 		max={args['max']}
 		min={args['min']}
+		changedBy={args['changedBy']}
 		defaultValue={0}
 		disabled={args['disabled']}
 		inlineTitle={args['inlineTitle']}
@@ -48,6 +50,7 @@ export const WithCustomizedTitleStyle = (args) => (
 
 number('max', WithCustomizedTitleStyle, Config, 100);
 number('min', WithCustomizedTitleStyle, Config, 0);
+select('changedBy', WithCustomizedTitleStyle, prop.changedBy, Config, 'enter');
 boolean('disabled', WithCustomizedTitleStyle, Config);
 boolean('inlineTitle', WithCustomizedTitleStyle, Config);
 boolean('joined', WithCustomizedTitleStyle, Config);

@@ -2,59 +2,59 @@ const {expectFocusedItem} = require('../../VirtualList-utils');
 const Page = require('../VirtualGridListPage');
 
 describe('Navigate with 5-way', function () {
-	beforeEach(function () {
-		Page.open();
+	beforeEach(async function () {
+		await Page.open();
 	});
 
-	it('should navigate from and to last item via 5-way [QWT-2613]', function () {
+	it('should navigate from and to last item via 5-way [QWT-2613]', async function () {
 		// Adjust the dataSize to make sure 3 rows of items show with only 1 (one) item on the last row.
 		// Adjust Minwidth
-		Page.inputMinWidth.moveTo();
-		Page.spotlightSelect();
-		Page.backSpace();
-		Page.backSpace();
-		Page.backSpace();
-		Page.numPad(4);
-		Page.numPad(0);
-		Page.numPad(0);
-		Page.spotlightRight();
+		await Page.inputMinWidth.moveTo();
+		await Page.spotlightSelect();
+		await Page.backSpace();
+		await Page.backSpace();
+		await Page.backSpace();
+		await Page.numPad(4);
+		await Page.numPad(0);
+		await Page.numPad(0);
+		await Page.spotlightRight();
 
 		// Adjust MinHeight
-		Page.inputMinHeight.moveTo();
-		Page.spotlightSelect();
-		Page.backSpace();
-		Page.backSpace();
-		Page.backSpace();
-		Page.numPad(8);
-		Page.numPad(0);
-		Page.numPad(0);
-		Page.spotlightRight();
+		await Page.inputMinHeight.moveTo();
+		await Page.spotlightSelect();
+		await Page.backSpace();
+		await Page.backSpace();
+		await Page.backSpace();
+		await Page.numPad(8);
+		await Page.numPad(0);
+		await Page.numPad(0);
+		await Page.spotlightRight();
 
 		// Step 3:  Knobs > VirtualGridList > dataSize > 17
-		Page.inputNumItems.moveTo();
-		Page.spotlightSelect();
-		Page.backSpace();
-		Page.backSpace();
-		Page.numPad(7);
-		Page.spotlightLeft();
+		await Page.inputNumItems.moveTo();
+		await Page.spotlightSelect();
+		await Page.backSpace();
+		await Page.backSpace();
+		await Page.numPad(7);
+		await Page.spotlightLeft();
 
 		// Step 4: Focus on the last item.
-		Page.item(Number(Page.bottomRightVisibleItemId().slice(4))).moveTo();
-		Page.spotlightDown();
+		await (await Page.item(Number((await Page.bottomRightVisibleItemId()).slice(4)))).moveTo();
+		await Page.spotlightDown();
 
 		// Wait for scroll animation
-		Page.delay(300);
+		await Page.delay(300);
 
 		// check if the previous item partially cut off.
-		expect(Page.itemOffsetBottomById(10)).to.be.below(Page.getItemSize().height);
+		expect(await Page.itemOffsetBottomById(10)).to.be.below((await Page.getItemSize()).height);
 		// Step 4 Verify: Spotlight is on the last item.
-		expectFocusedItem(16);
+		await expectFocusedItem(16);
 
 		// Step 5-1: 5-way Right.
-		Page.spotlightRight();
+		await Page.spotlightRight();
 		// Step 5-2: 5-way Right again before the list stop scrolling.
-		Page.spotlightRight();
+		await Page.spotlightRight();
 		// Step 5 Verify: The last item must show at least partially.
-		expect(Page.itemOffsetTopById(16)).to.be.above(0);
+		expect(await Page.itemOffsetTopById(16)).to.be.above(0);
 	});
 });

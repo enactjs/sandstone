@@ -1,5 +1,7 @@
+import IString from 'ilib/lib/IString';
 import {select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
+import $L from '@enact/sandstone/internal/$L';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
@@ -9,6 +11,7 @@ import css from './Heading.module.less';
 Heading.displayName = 'Heading';
 
 const prop = {
+	forceDirection: [null, 'ltr', 'rtl', 'locale'],
 	tallText: {
 		'नरेंद्र मोदी': 'नरेंद्र मोदी',
 		'ฟิ้ ไั ஒ து': 'ฟิ้ ไั ஒ து',
@@ -101,3 +104,49 @@ MultipleScroller.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+export const WithBidirectionalText  = (args) => {
+	const inputPasswordFor = 'Input Password for ';
+	const inputPasswordForAr = 'الرجاء إدخال كلمة المرور لـ ';
+	const abcDevice = 'ABC جهاز';
+	const headingProps = {forceDirection: args['forceDirection']};
+
+	return (
+		<Scroller>
+			{/* See: https://www.w3.org/International/articles/inline-bidi-markup/ */}
+			<Heading {...headingProps}>{inputPasswordFor + abcDevice}</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}{abcDevice}, Please</Heading>
+			<Heading {...headingProps}>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: abcDevice})}</Heading>
+			<br />
+
+			<Heading {...headingProps}>{inputPasswordFor}<span dir="ltr">{abcDevice}</span>, Please</Heading>
+			{/* When cannot use markup, U+2067 RIGHT-TO-LEFT ISOLATE (RLI) or U+2066 LEFT-TO-RIGHT ISOLATE (LRI)
+				These are placed in the same location as the opening <span dir="..."> tag.
+				U+2069 POP DIRECTIONAL ISOLATE (PDI), and it corresponds to the </span> in the markup. */}
+			<Heading {...headingProps}>{inputPasswordFor}&#x2066;{abcDevice}&#x2069;, Please</Heading>
+			<br />
+
+			{/* <bdi> same with <span dir=auto> */}
+			<Heading {...headingProps}>{inputPasswordFor}<span dir="auto">{abcDevice}</span>, Please</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please</Heading>
+			{/* When cannot use markup, U+2068 FIRST STRONG ISOLATE */}
+			<Heading {...headingProps}>{inputPasswordFor}&#x2068;{abcDevice}&#x2069;, Please</Heading>
+			<Heading {...headingProps}>{new IString($L('Input Password for {deviceName}, Please')).format({deviceName: `\u2068${abcDevice}\u2069`})}</Heading>
+			<br />
+
+			{/* auto seems to be determined by the first letter */}
+			<Heading {...headingProps}>{inputPasswordFor}<bdi>جهاز ABC صباح</bdi>, Please</Heading>
+
+			<br />
+			{/* If there is any rtl character, set the direction of the marquee to rtl.  */}
+			<Heading {...headingProps}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please. long text long text long text long text long text long text long text</Heading>
+
+			<br />
+			<Heading {...headingProps}>{inputPasswordForAr}{abcDevice}</Heading>
+			<Heading {...headingProps}>{inputPasswordForAr}<bdi>{abcDevice}</bdi></Heading>
+		</Scroller>
+	);
+};
+
+select('forceDirection', WithBidirectionalText, prop.forceDirection, Heading);
+WithBidirectionalText.storyName = 'with bidirectional text';
