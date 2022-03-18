@@ -99,6 +99,14 @@ const ColorPickerBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
+		 * The index of the color in the color picker.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		index: PropTypes.number,
+
+		/**
 		 * Called to open or close the color picker.
 		 *
 		 * @type {Function}
@@ -146,13 +154,23 @@ const ColorPickerBase = kind({
 	},
 
 	computed: {
-		renderComponent: ({color, colorHandler, css, onTogglePopup, presetColors}) => {
+		renderComponent: ({color, colorHandler, css, index, text}) => {
 			const [red, setRed] = useState('');
 			const [green, setGreen] = useState('');
 			const [blue, setBlue] = useState('');
 			const [inputColor, setInputColor] = useState('');
-			const presetColorsSet1 = presetColors.slice(0, 4);
-			const presetColorsSet2 = presetColors.slice(4, 9);
+			const presetColors = JSON.parse(window.localStorage.getItem(`${text}Colors`));
+
+			function setInputColorToStorage (selectedColor) {
+				setInputColor(selectedColor);
+				colorHandler(selectedColor, index);
+
+				let colors = JSON.parse(window.localStorage.getItem(`${text}Colors`));
+				colors[index] = color;
+
+				window.localStorage.setItem(`${text}Colors`, JSON.stringify(colors));
+			}
+
 			useEffect(() => {
 				let {r, g, b} = hexToRgb(color);
 
@@ -162,44 +180,25 @@ const ColorPickerBase = kind({
 				setBlue(b);
 			}, [color]);
 
-			const onInputBlur = () => {
-				colorHandler(inputColor);
-			};
-
 			const onSliderBlur = () => {
 				colorHandler(rgbToHex(red, green, blue));
 			};
 
 			return (
 				<Cell className={css.colorPicker}>
-					<Row>
-						{presetColorsSet1?.map((presetColor) => (
-							<SpottableButton
-								className={css.coloredButton}
-								key={presetColor}
-								minWidth={false}
-								onClick={() => {
-									colorHandler(presetColor);
-									onTogglePopup();
-								}}
-								style={{backgroundColor: presetColor}}
-								type="color"
-							/>
-						))}
-					</Row>
-					<Row>
-						{presetColorsSet2?.map((presetColor) => (
-							<SpottableButton
-								className={css.coloredButton}
-								key={presetColor}
-								minWidth={false}
-								onClick={() => {
-									colorHandler(presetColor);
-									onTogglePopup();
-								}}
-								style={{backgroundColor: presetColor}}
-								type="color"
-							/>
+					<Row className={css.colorsRow} wrap>
+						{presetColors?.map((presetColor, presetColorIndex) => (
+							<Cell key={presetColor} size="25%">
+								<SpottableButton
+									className={css.coloredButton}
+									minWidth={false}
+									onClick={() => {
+										colorHandler(presetColor, presetColorIndex);
+									}}
+									style={{backgroundColor: presetColor}}
+									type="color"
+								/>
+							</Cell>
 						))}
 					</Row>
 					{platform.webos !== undefined ?	// eslint-disable-line no-undefined
@@ -246,8 +245,7 @@ const ColorPickerBase = kind({
 								<input
 									className={componentCss.coloredInput}
 									id="inputColorPicker"
-									onBlur={onInputBlur}
-									onChange={(ev) => setInputColor(ev.target.value)}
+									onChange={(ev) => setInputColorToStorage(ev.target.value)}
 									type="color"
 									value={inputColor}
 								/>

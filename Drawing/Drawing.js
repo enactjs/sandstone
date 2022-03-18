@@ -18,7 +18,7 @@ import Group from '@enact/ui/Group';
 import {Cell, Column, Layout, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import BodyText from '../BodyText';
 import Button from '../Button';
@@ -123,14 +123,32 @@ const DrawingBase = kind({
 	render: ({canvasHeight, canvasWidth, disabled, fileInputHandler, handleSelect, ...rest}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
 		const [brushColor, setBrushColor] = useState('#545BCC');
+		const [brushColorIndex, setBrushColorIndex] = useState(null);
 		const [brushSize, setBrushSize] = useState(5);
 		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
+		const [canvasColorIndex, setCanvasColorIndex] = useState(null);
 		const [drawingTool, setDrawingTool] = useState('brush');
 		const [fillColor, setFillColor] = useState('#D0BB22');
+		const [fillColorIndex, setFillColorIndex] = useState(null);
 		const drawingRef = useRef();
 
-		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
-		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+		useEffect(() => {
+			const storedBrushColors = JSON.parse(window.localStorage.getItem('brushColors'));
+			const storedCanvasColors = JSON.parse(window.localStorage.getItem('canvasColors'));
+			const storedFillColors = JSON.parse(window.localStorage.getItem('fillColors'));
+			const defaultColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+
+			if (!storedBrushColors) {
+				window.localStorage.setItem('brushColors', JSON.stringify(defaultColors));
+			}
+			if (!storedCanvasColors) {
+				window.localStorage.setItem('canvasColors', JSON.stringify(defaultColors));
+			}
+			if (!storedFillColors) {
+				window.localStorage.setItem('fillColors', JSON.stringify(defaultColors));
+			}
+		}, []);
+
 		const drawingTools = [
 			{icon: 'edit', key: 1, tooltipText: 'brush'},
 			{icon: 'heart', key: 2, tooltipText: 'fill'},
@@ -139,7 +157,21 @@ const DrawingBase = kind({
 			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
 			{icon: 'square', key: 6, tooltipText: 'erase'}
 		];
-		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+
+		function setBrushColorAndIndex (color, index) {
+			setBrushColor(color);
+			setBrushColorIndex(index);
+		}
+
+		function setCanvasColorAndIndex (color, index) {
+			setCanvasColor(color);
+			setCanvasColorIndex(index);
+		}
+
+		function setFillColorAndIndex (color, index) {
+			setFillColor(color);
+			setFillColorIndex(index);
+		}
 
 		return (
 			<Scroller>
@@ -183,24 +215,24 @@ const DrawingBase = kind({
 							<BodyText css={css} disabled={disabled}>Colors</BodyText>
 							<ColorPicker
 								color={brushColor}
-								colorHandler={setBrushColor}
+								colorHandler={setBrushColorAndIndex}
 								disabled={disabled}
-								presetColors={brushColors}
-								text="Brush"
+								index={brushColorIndex}
+								text="brush"
 							/>
 							<ColorPicker
 								color={fillColor}
-								colorHandler={setFillColor}
+								colorHandler={setFillColorAndIndex}
 								disabled={disabled}
-								presetColors={fillColors}
-								text="Fill"
+								index={fillColorIndex}
+								text="fill"
 							/>
 							<ColorPicker
 								color={canvasColor}
-								colorHandler={setCanvasColor}
+								colorHandler={setCanvasColorAndIndex}
 								disabled={disabled}
-								presetColors={canvasColors}
-								text="Canvas"
+								index={canvasColorIndex}
+								text="canvas"
 							/>
 						</Cell>
 					</Cell>
