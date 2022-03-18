@@ -14,6 +14,7 @@
  *
  * @module sandstone/Scroller
  * @exports Scroller
+ * @exports EditableShape
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -33,8 +34,6 @@ import Skinnable from '../Skinnable';
 import EditableWrapper from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
 
-import css from './Scroller.module.less';
-
 const nop = () => {};
 const SpottableDiv = Spottable('div');
 let scrollerId = 0;
@@ -42,13 +41,13 @@ let scrollerId = 0;
 /**
  * The shape for editable of [Scroller]{@link sandstone/Scroller}.
  *
- * @typedef {Object} editableShape
+ * @typedef {Object} EditableShape
  * @memberof sandstone/Scroller
  * @property {Function} onComplete The callback function called when editing is finished.
  * @property {Boolean} centered Centers the contents of the scroller.
  * @public
  */
-const editableShape = PropTypes.shape({
+const EditableShape = PropTypes.shape({
 	onComplete: PropTypes.func.isRequired,
 	centered: PropTypes.bool
 });
@@ -98,6 +97,8 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 		themeScrollContentProps
 	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
+	const {children, direction, editable} = rest;
+
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : Fragment;
 
@@ -107,7 +108,10 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle}>
-						<EditableWrapper {...editableWrapperProps} />
+						{(editable == null || direction !== 'horizontal') ?
+							children :
+							<EditableWrapper {...editableWrapperProps} />
+						}
 					</UiScrollerBasic>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
@@ -199,10 +203,10 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * TBD: Enables editing items in the scroller.
 	 *
-	 * @type {sandstone.Scroller/editableShape}
+	 * @type {sandstone/Scroller.EditableShape}
 	 * @public
 	 */
-	editable: editableShape,
+	editable: EditableShape,
 
 	/**
 	 * Adds fade-out effect on the scroller.
@@ -459,5 +463,6 @@ Scroller.defaultProps = {
 
 export default Scroller;
 export {
+	EditableShape,
 	Scroller
 };

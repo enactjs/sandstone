@@ -226,12 +226,13 @@ export const EditableList = (args) => {
 
 	const handleComplete = useCallback((ev) => {
 		const {orders} = ev;
-		console.log("@@@@ ", orders);
 		// change data from the new orders
-		console.log("old items", items);
 		const newItems = [];
-		orders.forEach(order => {newItems.push(items[order - 1]);});
-		console.log(newItems);
+
+		orders.forEach(order => {
+			newItems.push(items[order - 1]);
+		});
+
 		setItems(newItems);
 	}, [items]);
 

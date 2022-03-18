@@ -1,28 +1,34 @@
 /**
  * Sandstone styled EditableWrapper components
  *
- *
  * @module sandstone/EditableWrapper
  * @memberof sandstone/Scroller
  * @exports EditableWrapper
  */
 
 import {forwardCustom} from '@enact/core/handle';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
-import {clamp} from '@enact/core/util';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef} from 'react';
 
 import css from './EditableWrapper.module.less';
 
+/**
+ * A Sandstone-styled EditableWrapper.
+ *
+ * @class EditableWrapper
+ * @memberof sandstone/Scroller
+ * @ui
+ * @public
+ */
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContentRef} = props;
-
-	if (editable == null) {
-		return children;
+	let centered = true;
+	if (editable.centered != null) {
+		centered = editable.centered;
 	}
-
-	const {centered} = editable;
 	const dataSize = children?.length;
 
 	// Mutable value
@@ -45,8 +51,6 @@ const EditableWrapper = (props) => {
 		addable: true,
 		lastMoveDirection: null
 	});
-
-	console.log("dataSize: ", dataSize);
 
 	// Functions
 
@@ -73,11 +77,8 @@ const EditableWrapper = (props) => {
 			let selectedOrder = selectedItem.style.order;
 			const changedOrder = [];
 
-			console.log("lastMoveDirection: " , lastMoveDirection);
-
 			rearrangedItems.forEach((item) => {
 				const order = Number(item.style.order);
-				console.log("forEach ", order);
 				selectedOrder = order;
 				item.style.order = order - lastMoveDirection;
 				item.classList.remove(css.rearrangedTransform);
@@ -88,7 +89,6 @@ const EditableWrapper = (props) => {
 					changedOrder.unshift(order);
 				}
 			});
-			console.log(changedOrder);
 
 			if (lastMoveDirection > 0) {
 				changedOrder.push(Number(selectedItem.style.order));
@@ -99,13 +99,8 @@ const EditableWrapper = (props) => {
 			mutableRef.current.rearrangedItems = [];
 			selectedItem.style.order = selectedOrder;
 
-			//create order array
-			console.log(orders);
-			console.log("changed Orders:", changedOrder);
-			console.log("fromIndex: ", fromIndex);
-			console.log("prevToIndex: ", prevToIndex);
+			// Create reordered array
 			orders.splice(Math.min(fromIndex, prevToIndex), changedOrder.length, ...changedOrder);
-			console.log(orders);
 		}
 
 		return orders;
@@ -121,7 +116,6 @@ const EditableWrapper = (props) => {
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
-			console.log("fromIndex:", mutableRef.current.fromIndex);
 		}
 	}, []);
 
@@ -129,24 +123,24 @@ const EditableWrapper = (props) => {
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', (ev) => ({orders}))({}, editable);
+			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
 		} else {
 			// Start editing by adding selected transition to selected item
 			startEditing(ev.target.parentElement);
 		}
-	}, [finalizeOrders, startEditing, props]);
+	}, [editable, finalizeOrders, reset, startEditing]);
 
 	// Move siblings
-	const moveSiblings = useCallback(({direction, toIndex}) => {
-		// Set the direction to css variable
-		wrapperRef.current.style.setProperty('--move-direction', direction);
+	const moveSiblings = useCallback(({moveDirection, toIndex}) => {
+		// Set the moveDirection to css variable
+		wrapperRef.current.style.setProperty('--move-direction', moveDirection);
 
 		const {fromIndex, rearrangedItems, selectedItem} = mutableRef.current;
-		const getNextElement = (item) => direction > 0 ? item.nextElementSibling : item.previousElementSibling;
+		const getNextElement = (item) => moveDirection > 0 ? item.nextElementSibling : item.previousElementSibling;
 		let sibling = getNextElement(selectedItem);
-		let start = direction > 0 ? toIndex : fromIndex;
-		let end =  direction > 0 ? fromIndex : toIndex;
+		let start = moveDirection > 0 ? toIndex : fromIndex;
+		let end =  moveDirection > 0 ? fromIndex : toIndex;
 
 		while (start > end && sibling) {
 			sibling?.classList.add(css.rearranged);
@@ -160,7 +154,7 @@ const EditableWrapper = (props) => {
 			start--;
 		}
 
-		mutableRef.current.lastMoveDirection = direction;
+		mutableRef.current.lastMoveDirection = moveDirection;
 
 	}, []);
 
@@ -182,24 +176,17 @@ const EditableWrapper = (props) => {
 
 				// If the current toIndex is new,
 				if (toIndex !== prevToIndex) {
-					console.log("prevToIndex:", prevToIndex);
-					console.log("toIndex: ", toIndex);
 					// Determine the direcion of move from the latest from index
-					const direction = Math.sign(toIndex - prevToIndex);
-					console.log("direction: ", direction);
-					console.log("lastMoveDirection to compare: ", lastMoveDirection);
+					const moveDirection = Math.sign(toIndex - prevToIndex);
 					// If the direction is changed and there are rearranged items, we remove them first.
-					if (lastMoveDirection && direction !== lastMoveDirection && rearrangedItems.length > 0) {
+					if (lastMoveDirection && moveDirection !== lastMoveDirection && rearrangedItems.length > 0) {
 						mutableRef.current.addable = false;
 					}
 					if (mutableRef.current.addable) {
-						moveSiblings({direction, toIndex});
-						console.log("Added complete ", rearrangedItems.length);
+						moveSiblings({moveDirection, toIndex});
 					} else {
-						console.log("Cant' add, we should remove ", rearrangedItems.length);
-						const numToRemove = direction > 0 ? toIndex - prevToIndex : prevToIndex - toIndex;
+						const numToRemove = moveDirection > 0 ? toIndex - prevToIndex : prevToIndex - toIndex;
 						if (rearrangedItems.length > 0) {
-							console.log("removing", numToRemove);
 							for (let i = 0; i < numToRemove; i++) {
 								const toItem = rearrangedItems.pop();
 								toItem?.classList.remove(css.rearrangedTransform);
@@ -207,7 +194,7 @@ const EditableWrapper = (props) => {
 						}
 						// When there's jump, meaning, numToRemove is bigger than 0, we need to add an item
 						if (numToRemove > rearrangedItems.length) {
-							moveSiblings({direction, toIndex});
+							moveSiblings({moveDirection, toIndex});
 						}
 					}
 
@@ -218,17 +205,14 @@ const EditableWrapper = (props) => {
 	}, [dataSize, moveSiblings]);
 
 	// Remove an item
-	const removeItem = useCallback(() => {
+	/* const removeItem = useCallback(() => {
 		const {prevToIndex} = mutableRef.current;
 		const orders = finalizeOrders();
-		console.log(orders);
-		console.log("prevToIndex: ", prevToIndex);
-		orders.splice(prevToIndex, 1);
-		console.log(orders);
-		forwardCustom('onComplete', (ev) => ({orders}))({}, editable);
 
+		orders.splice(prevToIndex, 1);
+		forwardCustom('onComplete', () => ({orders}))({}, editable);
 		reset();
-	}, [finalizeOrders, props]);
+	}, [editable, finalizeOrders, reset]); */
 
 	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
@@ -236,10 +220,9 @@ const EditableWrapper = (props) => {
 			// Determine toIndex with mouse client x position
 			const toIndex = Math.floor((ev.clientX + scrollContentRef.current.scrollLeft - centeredOffset) / itemWidth);
 
-			console.log("toIndex: ", toIndex);
 			moveItems(toIndex);
 		}
-	}, [moveItems, props]);
+	}, [moveItems, scrollContentRef]);
 
 	const handleKeyDown = useCallback((ev) => {
 		const {keyCode, target} = ev;
@@ -247,7 +230,7 @@ const EditableWrapper = (props) => {
 		if (is('enter', keyCode)) {
 			if (selectedItem) {
 				const orders = finalizeOrders();
-				forwardCustom('onComplete', (ev) => ({orders}))({}, editable);
+				forwardCustom('onComplete', () => ({orders}))({}, editable);
 				reset();
 			} else {
 				startEditing(target);
@@ -259,11 +242,10 @@ const EditableWrapper = (props) => {
 				const toIndex = is('left', keyCode) ? prevToIndex - 1 : prevToIndex + 1;
 
 				const itemLeft = toIndex * itemWidth - container.scrollLeft;
-				console.log("x", itemLeft);
 				let left;
 				if (itemLeft > container.offsetLeft + container.clientWidth - itemWidth) {
 					left = itemLeft - (container.clientWidth - itemWidth) + container.scrollLeft;
-				} else if(itemLeft < 0) {
+				} else if (itemLeft < 0) {
 					left = container.scrollLeft + itemLeft;
 				}
 
@@ -278,7 +260,7 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation();
 			}
 		}
-	}, [finalizeOrders, startEditing, moveItems, props]);
+	}, [editable, finalizeOrders, moveItems, reset, scrollContainerHandle, scrollContentRef, startEditing]);
 
 	useEffect(() => {
 		// Calculate the item width once
@@ -289,7 +271,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.centeredOffset = centered ? item.getBoundingClientRect().x : 0;
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
-	}, []);
+	}, [centered]);
 
 	// Return
 
@@ -304,7 +286,36 @@ const EditableWrapper = (props) => {
 			{children}
 		</div>
 	);
-}
+};
+
+EditableWrapper.displayName = 'EditableWrapper';
+
+EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.prototype */ {
+	/**
+	 * TBD: Enables editing items in the scroller.
+	 * FIXME: If the type is EditableShape, it throws errors.
+	 *
+	 * @type {sandstone/Scroller.EditableShape}
+	 * @public
+	 */
+	editable: PropTypes.object,
+
+	/**
+	 * Obtains a reference to the scroll container handle.
+	 *
+	 * @type {Function|Object}
+	 * @public
+	 */
+	scrollContainerHandle: EnactPropTypes.ref,
+
+	/**
+	 * Obtains a reference to the scroll content node.
+	 *
+	 * @type {Function|Object}
+	 * @public
+	 */
+	scrollContentRef: EnactPropTypes.ref
+};
 
 export default EditableWrapper;
 export {
