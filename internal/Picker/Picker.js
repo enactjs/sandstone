@@ -147,6 +147,22 @@ const PickerBase = class extends ReactComponent {
 		'aria-valuetext': PropTypes.string,
 
 		/**
+		 * Determines which key to adjust the picker's value for the joined horizontal one.
+		 *
+		 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
+		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
+		 *
+		 * The default value for joined horizontal picker is `'enter'`.
+		 * If [orientation]{@link sandstone/internal/Picker.PickerBase#orientation} is `'vertical'` or
+		 * [joined]{@link sandstone/internal/Picker.PickerBase#joined} is undefined or is `false`, this prop is ignored.
+		 *
+		 * @type {('enter'|'arrow')}
+		 * @default 'enter'
+		 * @public
+		 */
+		changedBy: PropTypes.oneOf(['enter', 'arrow']),
+
+		/**
 		 * Children from which to pick
 		 *
 		 * @type {Node}
@@ -245,8 +261,10 @@ const PickerBase = class extends ReactComponent {
 
 		/**
 		 * Determines the user interaction of the control. A joined picker allows the user to use
-		 * the arrow keys to adjust the picker's value. The user may no longer use those arrow keys
-		 * to navigate, while this control is focused. A split control allows full navigation,
+		 * the arrow keys or the enter key to adjust the picker's value.
+		 * It depends on [changedBy]{@link sandstone/internal/Picker.PickerBase.changedBy}
+		 * whether to use the arrow keys or the enter key.
+		 * A split control allows full navigation,
 		 * but requires individual ENTER presses on the incrementer and decrementer buttons.
 		 * Pointer interaction is the same for both formats.
 		 *
@@ -416,6 +434,7 @@ const PickerBase = class extends ReactComponent {
 
 	static defaultProps = {
 		accessibilityHint: '',
+		changedBy: 'enter',
 		orientation: 'horizontal',
 		spotlightDisabled: false,
 		step: 1,
@@ -470,6 +489,7 @@ const PickerBase = class extends ReactComponent {
 
 	computeNextValue = (delta) => {
 		const {
+			changedBy,
 			joined,
 			min,
 			max,
@@ -477,7 +497,7 @@ const PickerBase = class extends ReactComponent {
 			value,
 			wrap
 		} = this.props;
-		const horizontalJoined = orientation === 'horizontal' && joined;
+		const horizontalJoined = orientation === 'horizontal' && joined && changedBy === 'enter';
 		const shouldWrap = horizontalJoined || wrap;
 
 		return shouldWrap ? wrapRange(min, max, value + delta) : clamp(min, max, value + delta);
@@ -559,16 +579,16 @@ const PickerBase = class extends ReactComponent {
 	};
 
 	handleDown = () => {
-		const {joined, orientation} = this.props;
+		const {changedBy, joined, orientation} = this.props;
 
-		if (joined && orientation === 'horizontal') {
+		if (joined && orientation === 'horizontal' && changedBy === 'enter') {
 			this.setIncPickerButtonPressed();
 		}
 
 		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
 
-			if (orientation === 'vertical') {
+			if (orientation === 'vertical' || changedBy === 'arrow') {
 				this.emulateMouseUp.start();
 			}
 		} else if (joined && this.pickerButtonPressed === -1) {
@@ -629,6 +649,7 @@ const PickerBase = class extends ReactComponent {
 
 	handleKeyDown = (ev) => {
 		const {
+			changedBy,
 			joined,
 			onSpotlightDown,
 			onSpotlightLeft,
@@ -644,13 +665,16 @@ const PickerBase = class extends ReactComponent {
 
 			const directions = {
 				up: this.setIncPickerButtonPressed,
-				down: this.setDecPickerButtonPressed
+				down: this.setDecPickerButtonPressed,
+				right: this.setIncPickerButtonPressed,
+				left: this.setDecPickerButtonPressed
 			};
 
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
-			const isHorizontal = orientation === 'horizontal' && isEnter(keyCode);
+			const isHorizontal = orientation === 'horizontal' && changedBy === 'enter' && isEnter(keyCode);
+			const isHorizontalArrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
 
-			if (isVertical) {
+			if (isVertical || isHorizontalArrow) {
 				directions[direction]();
 			} else if (isHorizontal) {
 				this.setIncPickerButtonPressed();
@@ -668,6 +692,7 @@ const PickerBase = class extends ReactComponent {
 
 	handleKeyUp = (ev) => {
 		const {
+			changedBy,
 			joined,
 			orientation
 		} = this.props;
@@ -677,8 +702,9 @@ const PickerBase = class extends ReactComponent {
 		if (joined && !this.props.disabled) {
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
 			const isHorizontal = orientation === 'horizontal' && (isEnter(keyCode));
+			const isHorizontalArrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
 
-			if (isVertical || isHorizontal) {
+			if (isVertical || isHorizontal || isHorizontalArrow) {
 				this.pickerButtonPressed = 0;
 			}
 		}
@@ -754,11 +780,12 @@ const PickerBase = class extends ReactComponent {
 	};
 
 	determineClasses (css, decrementerDisabled, incrementerDisabled) {
-		const {className, joined, orientation, width} = this.props;
+		const {changedBy, className, joined, orientation, width} = this.props;
 		const {pressed} = this.state;
 
 		return classnames(
 			css.picker,
+			css[changedBy],
 			css[orientation],
 			css[width],
 			{
@@ -819,9 +846,13 @@ const PickerBase = class extends ReactComponent {
 	}
 
 	calcAriaLabel (valueText) {
-		const
-			{'aria-label': ariaLabel, joined, orientation} = this.props,
-			hint = orientation === 'horizontal' ? $L('press ok button to change the value') : $L('change a value with up down button');
+		const {'aria-label': ariaLabel, changedBy, joined, orientation} = this.props;
+		let hint;
+		if (orientation === 'horizontal') {
+			hint = changedBy === 'arrow' ? $L('change a value with left right button') : $L('press ok button to change the value');
+		} else {
+			hint = $L('change a value with up down button');
+		}
 
 		if (!joined || ariaLabel != null) {
 			return ariaLabel;
@@ -843,6 +874,7 @@ const PickerBase = class extends ReactComponent {
 		const {active} = this.state;
 		const {
 			'aria-valuetext': ariaValueText,
+			changedBy,
 			children,
 			css: incomingCss,
 			disabled,
@@ -892,7 +924,7 @@ const PickerBase = class extends ReactComponent {
 		const decrementIcon = selectDecIcon(this.props);
 
 		const horizontal = orientation === 'horizontal';
-		const isHorizontalJoined = horizontal && joined;
+		const isHorizontalJoinedEnter = horizontal && joined && changedBy === 'enter';
 
 		const reachedStart = this.hasReachedBound(step * -1);
 		const decrementerDisabled = disabled || reachedStart;
@@ -908,7 +940,7 @@ const PickerBase = class extends ReactComponent {
 			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{'0'.repeat(width)}</div>;
 		}
 
-		const showIndicators = horizontal && joined && Array.isArray(children) && children.length > 1;
+		const showIndicators = isHorizontalJoinedEnter && Array.isArray(children) && children.length > 1;
 		const valueText = ariaValueText != null ? ariaValueText : this.calcValueText();
 		const decrementerAriaControls = !incrementerDisabled ? id : null;
 		const incrementerAriaControls = !decrementerDisabled ? id : null;
@@ -918,6 +950,7 @@ const PickerBase = class extends ReactComponent {
 
 		if (joined) {
 			Component = SpottableDiv;
+			spottablePickerProps.changedBy = changedBy;
 			spottablePickerProps.onSpotlightDisappear = onSpotlightDisappear;
 			spottablePickerProps.pickerOrientation = orientation;
 			spottablePickerProps.spotlightDisabled = spotlightDisabled;
@@ -952,7 +985,7 @@ const PickerBase = class extends ReactComponent {
 				ref={this.initContainerRef}
 				{...spottablePickerProps}
 			>
-				{isHorizontalJoined ?
+				{isHorizontalJoinedEnter ?
 					null :
 					<Cell
 						{...voiceProps}
@@ -1006,7 +1039,7 @@ const PickerBase = class extends ReactComponent {
 						</div>
 					)}
 				</Cell>
-				{isHorizontalJoined ?
+				{isHorizontalJoinedEnter ?
 					null :
 					<Cell
 						{...voiceProps}
