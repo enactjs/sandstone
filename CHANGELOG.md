@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Icon` public class name `icon`
 
+### Fixed
+
+- `sandstone/WizardPanels` to allow preventDefault on `onTransition` and `onWillTransition` to prevent focus assignment
+
 ## [2.1.3] - 2022-03-07
 
 - Updated to use `forwardCustom` and add `type` when forwarding custom events

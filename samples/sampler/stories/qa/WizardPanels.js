@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import Alert from '@enact/sandstone/Alert';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
@@ -310,6 +311,54 @@ number('total', WithPureComponent, Config, 0);
 
 WithPureComponent.storyName = 'with pure component';
 WithPureComponent.parameters = {
+	props: {
+		noPanel: true
+	}
+};
+
+
+class WizardPanelsWithAlert extends Component {
+	constructor () {
+		super();
+		this.state = {
+			open: false
+		};
+	}
+
+	handleClose = () => {
+		this.setState({open: false});
+	};
+
+	handleTransition = (e) => {
+		if (e.index === 1) {
+			this.setState({open: true});
+			e.preventDefault();	// Prevent to focus on panel
+		}
+	};
+
+	render = () => (
+		<>
+			<WizardPanels onTransition={this.handleTransition}>
+				<Panel title="title 0">
+					<Button>Button1</Button>
+					<Button>Button2</Button>
+				</Panel>
+				<Panel title="title 1">
+					<Alert open={this.state.open} type="overlay">
+						<Button onClick={this.handleClose}>close</Button>
+					</Alert>
+					<Button>Button3</Button>
+					<Button>Button4</Button>
+				</Panel>
+			</WizardPanels>
+		</>
+	);
+}
+
+export const TestApp = () => <WizardPanelsWithAlert />;
+
+TestApp.storyName = 'with Alert';
+TestApp.parameters = {
 	props: {
 		noPanel: true
 	}
