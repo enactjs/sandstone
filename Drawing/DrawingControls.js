@@ -19,47 +19,57 @@ const DrawingControls = kind({
 		brushSize: PropTypes.number,
 		setBrushSize: PropTypes.func,
 		setDrawingTool: PropTypes.func,
-		drawingTools: PropTypes.array,
+		// drawingTools: PropTypes.array,
 		brushColor: PropTypes.string,
 		setBrushColor: PropTypes.func,
-		brushColors: PropTypes.array,
+		// brushColors: PropTypes.array,
 		fillColor: PropTypes.string,
 		setFillColor: PropTypes.func,
-		fillColors: PropTypes.array,
+		// fillColors: PropTypes.array,
 		canvasColor: PropTypes.string,
 		setCanvasColor: PropTypes.func,
-		canvasColors: PropTypes.array,
-		handleSelect: PropTypes.func
+		// canvasColors: PropTypes.array,
+		handleSelect: PropTypes.func,
 	},
 
-	// handlers: {
-	// 	handleSelect: (ev) => {
-	// 		const e = ev?.event;
-	// 		const setDrawingTool = ev?.setDrawingTool;
-	// 		setDrawingTool(e.data);
-	// 	}
-	// },
+	handlers: {
+		handleSelect: (ev) => {
+			const e = ev?.event;
+			const setDrawingTool = ev?.setDrawingTool;
+			setDrawingTool(e.data);
+		}
+	},
 
 	render: ({
 		brushColor,
-		brushColors,
+		// brushColors,
 		fillColor,
 		setFillColor,
 		setBrushColor,
-		fillColors,
+		// fillColors,
 		brushSize,
 		disabled,
-		drawingTools,
+		// drawingTools,
 		handleSelect,
 		setDrawingTool,
 		setBrushSize,
 		canvasColor,
 		setCanvasColor,
-		canvasColors,
+		// canvasColors,
 		...rest
 	}) => {
 
-		delete rest.brushSize;
+		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const drawingTools = [
+			{icon: 'edit', key: 1, tooltipText: 'brush'},
+			{icon: 'heart', key: 2, tooltipText: 'fill'},
+			{icon: 'play', key: 3, tooltipText: 'triangle'},
+			{icon: 'popupscale', key: 4, tooltipText: 'rectangle'},
+			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
+			{icon: 'square', key: 6, tooltipText: 'erase'}
+		];
 
 		return (
 			<div>
@@ -89,9 +99,9 @@ const DrawingControls = kind({
 						defaultValue={brushSize}
 						disabled={disabled}
 						max={30}
-						min={0}
+						min={1}
 						onChange={(e) => {
-							setBrushSize(e.value);
+							setBrushSize(e.value)
 						}}
 						step={1}
 						tooltip={false}

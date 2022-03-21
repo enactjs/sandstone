@@ -1,12 +1,10 @@
 import BodyText from '@enact/sandstone/BodyText';
 import Drawing, {DrawingBase} from '@enact/sandstone/Drawing';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number, range} from '@enact/storybook-utils/addons/controls';
+import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
 import UIDrawing, {DrawingBase as UIDrawingBase} from '@enact/ui/Drawing';
-import DrawingControls from '@enact/sandstone/Drawing/DrawingControls';
 
 Drawing.displayName = 'Drawing';
-DrawingControls.displayName = 'DrawingControls';
 const Config = mergeComponentMetadata(
 	'Drawing',
 	UIDrawingBase,
@@ -14,8 +12,6 @@ const Config = mergeComponentMetadata(
 	DrawingBase,
 	Drawing
 );
-const DrawingControlsConfig = mergeComponentMetadata('DrawingControls', DrawingControls, Drawing, DrawingBase, UIDrawing, UIDrawingBase);
-
 
 export default {
 	component: 'Drawing',
@@ -24,11 +20,6 @@ export default {
 
 export const _Drawing = (args) => {
 	const disabled = args['disabled'];
-	const brushSizeNumber = args['brushSize'];
-	const canvasHeight = args['canvasHeight'];
-	const canvasWidth = args['canvasWidth'];
-	const showDrawingControls = args['showDrawingControls'];
-	const showDrawingUtils = args['showDrawingUtils'];
 
 	return (
 		<section>
@@ -36,12 +27,16 @@ export const _Drawing = (args) => {
 				<sup>*</sup>Drawing is not allowed while <code>disabled</code> is true.
 			</BodyText>
 			<Drawing
-				brushSize={brushSizeNumber}
-				canvasHeight={canvasHeight}
-				canvasWidth={canvasWidth}
+				brushSize={args['brushSize']}
+				canvasHeight={args['canvasHeight']}
+				canvasWidth={args['canvasWidth']}
 				disabled={disabled}
-				showDrawingControls={showDrawingControls}
-				showDrawingUtils={showDrawingUtils}
+				showDrawingControls={args['showDrawingControls']}
+				showDrawingUtils={args['showDrawingUtils']}
+				drawingTool={args['drawingTool']}
+				brushColor={args['brushColor']}
+				fillColor={args['fillColor']}
+				canvasColor={args['canvasColor']}
 			/>
 		</section>
 	);
@@ -52,7 +47,11 @@ number('canvasWidth', _Drawing, Config, 1200);
 boolean('disabled', _Drawing, Config);
 boolean('showDrawingControls', _Drawing, Config);
 boolean('showDrawingUtils', _Drawing, Config);
-range('brushSize', _Drawing, DrawingControlsConfig, {min: 1, max: 30}, 5);
+range('brushSize', _Drawing, Config, {min: 1, max: 30}, 5);
+select('brushColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
+select('canvasColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
+select('drawingTool', _Drawing, ['brush', 'fill', 'triangle', 'rectangle', 'circle', 'erase'], Config, '');
+select('fillColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
 
 _Drawing.storyName = 'Drawing';
 _Drawing.parameters = {

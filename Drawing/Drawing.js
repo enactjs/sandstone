@@ -16,21 +16,15 @@ import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import ComponentOverride from '@enact/ui/ComponentOverride';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
-import Group from '@enact/ui/Group';
 import {Cell, Column, Layout, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useRef, useState} from 'react';
+import {useRef, useState, useEffect} from 'react';
 
-import BodyText from '../BodyText';
-import Button from '../Button';
 import DrawingControls from './DrawingControls';
 import DrawingUtils from './DrawingUtils';
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
-import Slider from '../Slider';
-
-import ColorPicker from './ColorPicker';
 
 import css from './Drawing.module.less';
 
@@ -84,6 +78,11 @@ const DrawingBase = kind({
 		showDrawingControls: PropTypes.bool,
 		drawingUtilsComponent: EnactPropTypes.componentOverride,
 		showDrawingUtils: PropTypes.bool,
+		brushSize: PropTypes.number,
+		drawingTool: PropTypes.string,
+		brushColor: PropTypes.string,
+		fillColor: PropTypes.string,
+		canvasColor: PropTypes.string
 	},
 
 	defaultProps: {
@@ -94,6 +93,11 @@ const DrawingBase = kind({
 		showDrawingControls: false,
 		drawingUtilsComponent: DrawingUtils,
 		showDrawingUtils: false,
+		brushSize: 5,
+		drawingTool: 'brush',
+		brushColor: '#545BCC',
+		fillColor: '#D0BB22',
+		canvasColor: '#FFFFFF'
 	},
 
 	handlers: {
@@ -113,12 +117,6 @@ const DrawingBase = kind({
 			} catch (err) {
 				// failing silently
 			}
-		},
-
-		handleSelect: (ev) => {
-			const e = ev?.event;
-			const setDrawingTool = ev?.setDrawingTool;
-			setDrawingTool(e.data);
 		}
 	},
 
@@ -133,36 +131,49 @@ const DrawingBase = kind({
 	},
 
 	render: ({
+		brushColor,
+		brushSize,
+		canvasColor,
 		canvasHeight,
 		canvasWidth,
 		disabled,
+		drawingControlsComponent,
+		drawingUtilsComponent,
+		drawingTool,
 		fileInputHandler,
+		fillColor,
 		handleSelect,
 		showDrawingControls,
-		drawingControlsComponent,
 		showDrawingUtils,
-		drawingUtilsComponent,
 		...rest
 	}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
-		const [brushColor, setBrushColor] = useState('#545BCC');
-		const [brushSize, setBrushSize] = useState(5);
-		const [canvasColor, setCanvasColor] = useState('#FFFFFF');
-		const [drawingTool, setDrawingTool] = useState('brush');
-		const [fillColor, setFillColor] = useState('#D0BB22');
+		const [brushColorValue, setBrushColorValue] = useState(brushColor);
+		const [brushSizeValue, setBrushSizeValue] = useState(brushSize);
+		const [canvasColorValue, setCanvasColorValue] = useState(canvasColor);
+		const [drawingToolValue, setDrawingToolValue] = useState(drawingTool);
+		const [fillColorValue, setFillColorValue] = useState(fillColor);
 		const drawingRef = useRef();
 
-		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
-		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
-		const drawingTools = [
-			{icon: 'edit', key: 1, tooltipText: 'brush'},
-			{icon: 'heart', key: 2, tooltipText: 'fill'},
-			{icon: 'play', key: 3, tooltipText: 'triangle'},
-			{icon: 'popupscale', key: 4, tooltipText: 'rectangle'},
-			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
-			{icon: 'square', key: 6, tooltipText: 'erase'}
-		];
-		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		useEffect(() => {
+			setBrushSizeValue(brushSize);
+		}, [brushSize]);
+
+		useEffect(() => {
+			setDrawingToolValue(drawingTool);
+		}, [drawingTool]);
+
+		useEffect(() => {
+			setBrushColorValue(brushColor);
+		}, [brushColor]);
+
+		useEffect(() => {
+			setFillColorValue(fillColor);
+		}, [fillColor]);
+
+		useEffect(() => {
+			setCanvasColorValue(canvasColor);
+		}, [canvasColor]);
 
 		return (
 			<Scroller>
@@ -172,95 +183,33 @@ const DrawingBase = kind({
 							<ComponentOverride
 								component={drawingControlsComponent}
 								disabled={disabled}
-								brushSize={brushSize}
-								setBrushSize={setBrushSize}
-								setDrawingTool={setDrawingTool}
-								drawingTools={drawingTools}
+								brushSize={brushSizeValue}
+								setBrushSize={setBrushSizeValue}
+								setDrawingTool={setDrawingToolValue}
 								brushColor={brushColor}
-								setBrushColor={setBrushColor}
-								brushColors={brushColors}
+								setBrushColor={setBrushColorValue}
 								fillColor={fillColor}
-								setFillColor={setFillColor}
-								fillColors={fillColors}
+								setFillColor={setFillColorValue}
 								canvasColor={canvasColor}
-								setCanvasColor={setCanvasColor}
-								canvasColors={canvasColors}
-								handleSelect={handleSelect}
+								setCanvasColor={setCanvasColorValue}
 							/>
-						) :
-						null}
-						{/*<Cell>*/}
-						{/*	<BodyText css={css} disabled={disabled}>Drawing tools</BodyText>*/}
-						{/*	<Group*/}
-						{/*		childComponent={Button}*/}
-						{/*		childProp="tooltipText"*/}
-						{/*		className={css.drawingTools}*/}
-						{/*		defaultSelected={0}*/}
-						{/*		itemProps={{*/}
-						{/*			disabled: disabled,*/}
-						{/*			size: 'small'*/}
-						{/*		}}*/}
-						{/*		onSelect={(event) => handleSelect({event, setDrawingTool})}*/}
-						{/*		select={'radio'}*/}
-						{/*		selectedProp="selected"*/}
-						{/*	>*/}
-						{/*		{drawingTools}*/}
-						{/*	</Group>*/}
-						{/*</Cell>*/}
-						{/*<Cell>*/}
-						{/*	<BodyText css={css} disabled={disabled}>Brush size</BodyText>*/}
-						{/*	<Slider*/}
-						{/*		backgroundProgress={0}*/}
-						{/*		css={css}*/}
-						{/*		defaultValue={brushSize}*/}
-						{/*		disabled={disabled}*/}
-						{/*		max={30}*/}
-						{/*		min={0}*/}
-						{/*		onChange={(e) => {*/}
-						{/*			setBrushSize(e.value);*/}
-						{/*		}}*/}
-						{/*		step={1}*/}
-						{/*		tooltip={false}*/}
-						{/*	/>*/}
-						{/*</Cell>*/}
-						{/*<Cell className={css.colors}>*/}
-						{/*	<BodyText css={css} disabled={disabled}>Colors</BodyText>*/}
-						{/*	<ColorPicker*/}
-						{/*		color={brushColor}*/}
-						{/*		colorHandler={setBrushColor}*/}
-						{/*		disabled={disabled}*/}
-						{/*		presetColors={brushColors}*/}
-						{/*		text="Brush"*/}
-						{/*	/>*/}
-						{/*	<ColorPicker*/}
-						{/*		color={fillColor}*/}
-						{/*		colorHandler={setFillColor}*/}
-						{/*		disabled={disabled}*/}
-						{/*		presetColors={fillColors}*/}
-						{/*		text="Fill"*/}
-						{/*	/>*/}
-						{/*	<ColorPicker*/}
-						{/*		color={canvasColor}*/}
-						{/*		colorHandler={setCanvasColor}*/}
-						{/*		disabled={disabled}*/}
-						{/*		presetColors={canvasColors}*/}
-						{/*		text="Canvas"*/}
-						{/*	/>*/}
-						{/*</Cell>*/}
+							) :
+							null
+						}
 					</Cell>
 					<Cell>
 						<Row>
 							<UiDrawing
 								{...rest}
 								backgroundImage={backgroundImage}
-								brushColor={brushColor}
-								brushSize={brushSize}
-								canvasColor={canvasColor}
+								brushColor={brushColorValue}
+								brushSize={brushSizeValue}
+								canvasColor={canvasColorValue}
 								canvasHeight={canvasHeight}
 								canvasWidth={canvasWidth}
 								disabled={disabled}
-								drawingTool={drawingTool}
-								fillColor={fillColor}
+								drawingTool={drawingToolValue}
+								fillColor={fillColorValue}
 								ref={drawingRef}
 							/>
 						</Row>
@@ -278,25 +227,9 @@ const DrawingBase = kind({
 										setBackgroundImage={setBackgroundImage}
 									/>
 								) :
-								null
+									null
 							}
 						</Column>
-						{/*<Column align="center space-between" className={css.canvasOptions}>*/}
-						{/*	<Button css={css} disabled={disabled} icon="refresh" onClick={() => drawingRef.current.clearCanvas()} size="small" tooltipText="Clear all" />*/}
-						{/*	<Button css={css} disabled={disabled} icon="plus" onClick={() => document.getElementById('fileInput').click()} size="small" tooltipText="Import image" />*/}
-						{/*	<input*/}
-						{/*		accept="image/*"*/}
-						{/*		className={css.inputFile}*/}
-						{/*		id="fileInput"*/}
-						{/*		onChange={(ev) => fileInputHandler({backgroundImage, ev, setBackgroundImage})}*/}
-						{/*		onClick={(e) => {*/}
-						{/*			e.target.value = null;*/}
-						{/*		}}*/}
-						{/*		type="file"*/}
-						{/*	/>*/}
-						{/*	<Button css={css} disabled={disabled} icon="trash" onClick={() => setBackgroundImage(null)} size="small" tooltipText="Clear image" />*/}
-						{/*	<Button css={css} disabled={disabled} icon="download" onClick={() => drawingRef.current.saveCanvas()} size="small" tooltipText="Save canvas" />*/}
-						{/*</Column>*/}
 					</Cell>
 				</Layout>
 			</Scroller>
