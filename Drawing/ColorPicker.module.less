@@ -31,9 +31,29 @@
 }
 
 .coloredDiv {
+	display: block;
+	height: 81px;
+	border: 3px solid white;
 	border-radius: 24px;
+
+	&.button, &.focusExpand {
+		margin: 24px;
+	}
+
+	.focus({
+		transform: scale(1.05);
+	});
+}
+
+.coloredInput {
+	border-radius: 24px;
+	opacity: 0;
 	height: 81px;
 	margin: 24px;
+
+	&:hover {
+		cursor: pointer;
+	}
 }
 
 .colorPickerSliders {
