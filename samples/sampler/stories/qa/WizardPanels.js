@@ -337,21 +337,19 @@ class WizardPanelsWithAlert extends Component {
 	};
 
 	render = () => (
-		<>
-			<WizardPanels onTransition={this.handleTransition}>
-				<Panel title="title 0">
-					<Button>Button1</Button>
-					<Button>Button2</Button>
-				</Panel>
-				<Panel title="title 1">
-					<Alert open={this.state.open} type="overlay">
-						<Button onClick={this.handleClose}>close</Button>
-					</Alert>
-					<Button>Button3</Button>
-					<Button>Button4</Button>
-				</Panel>
-			</WizardPanels>
-		</>
+		<WizardPanels onTransition={this.handleTransition}>
+			<Panel title="title 0">
+				<Button>Button1</Button>
+				<Button>Button2</Button>
+			</Panel>
+			<Panel title="title 1">
+				<Alert open={this.state.open} type="overlay">
+					<Button onClick={this.handleClose}>close</Button>
+				</Alert>
+				<Button>Button3</Button>
+				<Button>Button4</Button>
+			</Panel>
+		</WizardPanels>
 	);
 }
 
