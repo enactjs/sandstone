@@ -1,15 +1,90 @@
-import Button from '@enact/sandstone/Button';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
-import {Header, Panels, Panel} from '@enact/sandstone/Panels';
+import {Header, Panel, Panels} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {useState, useCallback} from 'react';
+import {select} from '@enact/storybook-utils/addons/controls';
+import ri from '@enact/ui/resolution';
+import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import {useCallback, useState} from 'react';
 
-export const WithAutoFocusControl = () => {
-	// hooks
-	const initialState = 0;
-	const [panelIndex, setState] = useState(initialState);
+const Config = mergeComponentMetadata('Panels', Panels);
+
+const items = [];
+for (let i = 0; i < 20; i++) {
+	const headingZeros = Array(2).join('0');
+	const count = (headingZeros + i).slice(-2);
+	const text = `Item ${count}`;
+	const subText = `SubItem ${count}`;
+	const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
+	const source = `http://via.placeholder.com/600x600/${color}/ffffff/png?text=Image+${i}`;
+
+	items.push({text, subText, source});
+}
+
+const renderItem = ({index, ...rest}) => {
+	const {text, subText, source} = items[index];
+
+	return (
+		<ImageItem {...rest} label={subText} src={source}>
+			{text}
+		</ImageItem>
+	);
+};
+
+renderItem.propTypes = {
+	index: PropTypes.number
+};
+
+const VirtualGridListInScroller = ({onClick, ...rest}) => {
+	const virtualGridListProps = {
+		...rest,
+		childProps: {onClick: onClick},
+		dataSize: 20,
+		direction: 'horizontal',
+		itemRenderer: renderItem,
+		itemSize: {
+			minWidth: ri.scale(688),
+			minHeight: ri.scale(570)
+		},
+		style: {
+			height: ri.scale(570),
+			paddingBottom: ri.scaleToRem(36)
+		}
+	};
+
+	const virtualGridLists = [];
+
+	for (let i = 0; i < 2; i++) {
+		const id = `vgl_${i}`;
+
+		virtualGridLists.push(
+			<VirtualGridList
+				{...virtualGridListProps}
+				id={id}
+				key={id}
+				spotlightId={id}
+			/>
+		);
+	}
+
+	return (
+		<Scroller>
+			{virtualGridLists}
+		</Scroller>
+	);
+};
+
+VirtualGridListInScroller.propTypes = {
+	onClick: PropTypes.func
+};
+
+export const WithAutoFocusControl = (args) => {
+	const [panelIndex, setState] = useState(0);
 
 	const forward = useCallback(() => {
 		setState(panelIndex + 1);
@@ -21,7 +96,9 @@ export const WithAutoFocusControl = () => {
 
 	const handleTransition = useCallback(() => {
 		setTimeout(() => {
-			Spotlight.focus(`panel-container-${panelIndex}`);
+			if (!Spotlight.getPointerMode() && !Spotlight.getCurrent() && !Spotlight.isPaused()) {
+				Spotlight.focus(`panel-container-${panelIndex}`);
+			}
 		}, 1000);
 	}, [panelIndex]);
 
@@ -30,51 +107,25 @@ export const WithAutoFocusControl = () => {
 	const story = (
 		<Panels
 			index={panelIndex}
+			noCloseButton
 			onBack={handleBack}
-			onClose={action('onClose')}
 			onTransition={handleTransition}
 			onWillTransition={action('onWillTransition')}
 		>
-			<Panel autoFocus="none" spotlightId="panel-container-0">
-				<Header title="Panel 0">
-					<Button
-						icon="arrowlargeright"
-						iconFlip="auto"
-						size="small"
-						slot="slotAfter"
-						onClick={forward}
-					/>
-				</Header>
-				<Item onClick={forward}>Item 0</Item>
+			<Panel autoFocus={args['autoFocus for Panel 0']} spotlightId="panel-container-0">
+				<Header title="Panel 0" />
+				<VirtualGridListInScroller onClick={forward} />
 			</Panel>
-			<Panel autoFocus="none" spotlightId="panel-container-1">
-				<Header title="Panel 1">
-					<Button
-						icon="arrowlargeright"
-						iconFlip="auto"
-						size="small"
-						slot="slotAfter"
-						onClick={forward}
-					/>
-				</Header>
-				<Item onClick={forward}>Item 1</Item>
-			</Panel>
-			<Panel autoFocus="none" spotlightId="panel-container-2">
-				<Header title="Panel 2" >
-					<Button
-						icon="arrowlargeright"
-						iconFlip="auto"
-						size="small"
-						slot="slotAfter"
-						onClick={forward}
-					/>
-				</Header>
-				<Item>Item 2</Item>
+			<Panel spotlightId="panel-container-1">
+				<Header title="Panel 1" />
+				<Item>Item</Item>
 			</Panel>
 		</Panels>
 	);
 	return story;
 };
+
+select('autoFocus for Panel 0', WithAutoFocusControl, ['none', 'last-focused', 'default-element'], Config, 'none');
 
 export default {
 	title: 'Sandstone/Panels',
