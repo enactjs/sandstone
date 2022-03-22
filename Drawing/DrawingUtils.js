@@ -23,7 +23,7 @@ const DrawingUtils = kind({
 		/**
 		 * Sets an image as canvas background.
 		 *
-		 * @type {any}
+		 * @type {*}
 		 */
 		backgroundImage: PropTypes.any,
 
