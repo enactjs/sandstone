@@ -16,19 +16,19 @@ class TabLayoutInterface {
 		return this.tabsScroller.moveTo({xOffset: 100, yOffset: 100});
 	}
 
-	hoverTabs () {
-		return this.tabs.moveTo({xOffset: 100, yOffset: 100});	// Moving to center could be off tab buttons
+	async hoverTabs () {
+		return (await this.tabs()).moveTo({xOffset: 100, yOffset: 100});	// Moving to center could be off tab buttons
 	}
 
-	view (number) {
-		return $(`#view${number}`);
+	async view (number) {
+		return await $(`#view${number}`);
 	}
 
 	get content () {
 		return getContent(this.self);
 	}
-	get currentView () {
-		return this.content.$('div');
+	async currentView () {
+		return (await this.content).$('div');
 	}
 	get isCollapsed () {
 		return hasClass('collapsed', this.self);
@@ -36,15 +36,15 @@ class TabLayoutInterface {
 	get self () {
 		return browser.$(this.selector);
 	}
-	get tabItems () {
-		return this.tabs.$$('.Button_Button_button');
+	async tabItems () {
+		return await (await this.tabs()).$$('.Button_Button_button');
 	}
-	get tabs () {
-		if (this.isCollapsed) {
+	async tabs () {
+		if (await this.isCollapsed) {
 			return getCollapsedTabs(this.self);
 		}
 
-		return getTabs(this.self);
+		return await getTabs(this.self);
 	}
 	get tabsScroller () {
 		return getScroller(this.self);
@@ -58,12 +58,12 @@ class TabLayoutPage extends Page {
 		this.tabLayout = new TabLayoutInterface('tabLayout');
 	}
 
-	open (layout = '', urlExtra) {
-		super.open(`TabLayout${layout}-View`, urlExtra);
+	async open (layout = '', urlExtra) {
+		await super.open(`TabLayout${layout}-View`, urlExtra);
 	}
 
-	waitForExist (selector, timeout) {
-		$(selector).waitForExist({timeout});
+	async waitForExist (selector, timeout) {
+		await $(selector).waitForExist({timeout});
 	}
 }
 
