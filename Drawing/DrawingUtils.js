@@ -24,6 +24,7 @@ const DrawingUtils = kind({
 		 * Sets an image as canvas background.
 		 *
 		 * @type {*}
+		 * @private
 		 */
 		backgroundImage: PropTypes.any,
 
@@ -33,6 +34,7 @@ const DrawingUtils = kind({
 		 * When `true`, the drawing utils is shown as disabled.
 		 *
 		 * @type {Boolean}
+		 * @private
 		 */
 		disabled: PropTypes.bool,
 
@@ -40,6 +42,7 @@ const DrawingUtils = kind({
 		 * Canvas reference.
 		 *
 		 * @type {Object}
+		 * @private
 		 */
 		drawingRef: PropTypes.object,
 
@@ -47,6 +50,7 @@ const DrawingUtils = kind({
 		 * Called when user clicks import input.
 		 *
 		 * @type {Function}
+		 * @private
 		 */
 		fileInputHandler: PropTypes.func,
 
@@ -54,6 +58,7 @@ const DrawingUtils = kind({
 		 * Called when background of canvas is changed.
 		 *
 		 * @type {Function}
+		 * @private
 		 */
 		setBackgroundImage: PropTypes.func
 	},
