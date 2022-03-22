@@ -149,6 +149,29 @@ const DrawingBase = kind({
 			}
 		}, []);
 
+		useEffect(() => {
+			const lastBrushColor = JSON.parse(window.localStorage.getItem('lastBrushColor'));
+			const lastCanvasColor = JSON.parse(window.localStorage.getItem('lastCanvasColor'));
+			const lastFillColor = JSON.parse(window.localStorage.getItem('lastFillColor'));
+
+			if (!lastBrushColor) {
+				window.localStorage.setItem('lastBrushColor', JSON.stringify(brushColor));
+			}
+
+			if (!lastCanvasColor) {
+				window.localStorage.setItem('lastCanvasColor', JSON.stringify(canvasColor));
+			}
+
+			if (!lastFillColor) {
+				window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor));
+			}
+			
+			setBrushColor(lastBrushColor);
+			setCanvasColor(lastCanvasColor);
+			setFillColor(lastFillColor);
+
+		}, [brushColor, canvasColor, fillColor]);
+		
 		const drawingTools = [
 			{icon: 'edit', key: 1, tooltipText: 'brush'},
 			{icon: 'heart', key: 2, tooltipText: 'fill'},
@@ -161,16 +184,19 @@ const DrawingBase = kind({
 		function setBrushColorAndIndex (color, index) {
 			setBrushColor(color);
 			setBrushColorIndex(index);
+			window.localStorage.setItem('lastBrushColor', JSON.stringify(color));
 		}
 
 		function setCanvasColorAndIndex (color, index) {
 			setCanvasColor(color);
 			setCanvasColorIndex(index);
+			window.localStorage.setItem('lastCanvasColor', JSON.stringify(color));
 		}
 
 		function setFillColorAndIndex (color, index) {
 			setFillColor(color);
 			setFillColorIndex(index);
+			window.localStorage.setItem('lastFillColor', JSON.stringify(color));
 		}
 
 		return (
