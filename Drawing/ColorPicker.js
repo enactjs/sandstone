@@ -188,7 +188,7 @@ const ColorPickerBase = kind({
 				<Cell className={css.colorPicker}>
 					<Row className={css.colorsRow} wrap>
 						{presetColors?.map((presetColor, presetColorIndex) => (
-							<Cell key={`${presetColor}-${presetColorIndex}`} size="25%">
+							<Cell key={presetColor + '-' + presetColorIndex} size="25%">
 								<SpottableButton
 									className={css.coloredButton}
 									minWidth={false}
