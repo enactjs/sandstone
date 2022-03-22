@@ -132,46 +132,8 @@ const DrawingBase = kind({
 		const [fillColorIndex, setFillColorIndex] = useState(null);
 		const drawingRef = useRef();
 
-		useEffect(() => {
-			const storedBrushColors = JSON.parse(window.localStorage.getItem('brushColors'));
-			const storedCanvasColors = JSON.parse(window.localStorage.getItem('canvasColors'));
-			const storedFillColors = JSON.parse(window.localStorage.getItem('fillColors'));
-			const defaultColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
-
-			if (!storedBrushColors) {
-				window.localStorage.setItem('brushColors', JSON.stringify(defaultColors));
-			}
-			if (!storedCanvasColors) {
-				window.localStorage.setItem('canvasColors', JSON.stringify(defaultColors));
-			}
-			if (!storedFillColors) {
-				window.localStorage.setItem('fillColors', JSON.stringify(defaultColors));
-			}
-		}, []);
-
-		useEffect(() => {
-			const lastBrushColor = JSON.parse(window.localStorage.getItem('lastBrushColor'));
-			const lastCanvasColor = JSON.parse(window.localStorage.getItem('lastCanvasColor'));
-			const lastFillColor = JSON.parse(window.localStorage.getItem('lastFillColor'));
-
-			if (!lastBrushColor) {
-				window.localStorage.setItem('lastBrushColor', JSON.stringify(brushColor));
-			}
-
-			if (!lastCanvasColor) {
-				window.localStorage.setItem('lastCanvasColor', JSON.stringify(canvasColor));
-			}
-
-			if (!lastFillColor) {
-				window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor));
-			}
-			
-			setBrushColor(lastBrushColor);
-			setCanvasColor(lastCanvasColor);
-			setFillColor(lastFillColor);
-
-		}, [brushColor, canvasColor, fillColor]);
-		
+		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
 		const drawingTools = [
 			{icon: 'edit', key: 1, tooltipText: 'brush'},
 			{icon: 'heart', key: 2, tooltipText: 'fill'},
@@ -180,23 +142,73 @@ const DrawingBase = kind({
 			{icon: 'newfeature', key: 5, tooltipText: 'circle'},
 			{icon: 'square', key: 6, tooltipText: 'erase'}
 		];
+		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+
+		useEffect(() => {
+			if (typeof window !== 'undefined' && window.localStorage) {
+				const storedBrushColors = JSON.parse(window.localStorage.getItem('brushColors'));
+				const storedCanvasColors = JSON.parse(window.localStorage.getItem('canvasColors'));
+				const storedFillColors = JSON.parse(window.localStorage.getItem('fillColors'));
+				const defaultColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+
+				if (!storedBrushColors) {
+					window.localStorage.setItem('brushColors', JSON.stringify(defaultColors));
+				}
+				if (!storedCanvasColors) {
+					window.localStorage.setItem('canvasColors', JSON.stringify(defaultColors));
+				}
+				if (!storedFillColors) {
+					window.localStorage.setItem('fillColors', JSON.stringify(defaultColors));
+				}
+			}
+		}, []);
+
+		useEffect(() => {
+			if (typeof window !== 'undefined' && window.localStorage) {
+				const lastBrushColor = JSON.parse(window.localStorage.getItem('lastBrushColor'));
+				const lastCanvasColor = JSON.parse(window.localStorage.getItem('lastCanvasColor'));
+				const lastFillColor = JSON.parse(window.localStorage.getItem('lastFillColor'));
+
+				if (!lastBrushColor) {
+					window.localStorage.setItem('lastBrushColor', JSON.stringify(brushColor));
+				}
+
+				if (!lastCanvasColor) {
+					window.localStorage.setItem('lastCanvasColor', JSON.stringify(canvasColor));
+				}
+
+				if (!lastFillColor) {
+					window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor));
+				}
+
+				setBrushColor(lastBrushColor);
+				setCanvasColor(lastCanvasColor);
+				setFillColor(lastFillColor);
+			}
+		}, [brushColor, canvasColor, fillColor]);
 
 		function setBrushColorAndIndex (color, index) {
 			setBrushColor(color);
 			setBrushColorIndex(index);
-			window.localStorage.setItem('lastBrushColor', JSON.stringify(color));
+			if (typeof window !== 'undefined' && window.localStorage) {
+				window.localStorage.setItem('lastBrushColor', JSON.stringify(color));
+			}
 		}
 
 		function setCanvasColorAndIndex (color, index) {
 			setCanvasColor(color);
 			setCanvasColorIndex(index);
-			window.localStorage.setItem('lastCanvasColor', JSON.stringify(color));
+			if (typeof window !== 'undefined' && window.localStorage) {
+				window.localStorage.setItem('lastCanvasColor', JSON.stringify(color));
+			}
 		}
 
 		function setFillColorAndIndex (color, index) {
 			setFillColor(color);
 			setFillColorIndex(index);
-			window.localStorage.setItem('lastFillColor', JSON.stringify(color));
+			if (typeof window !== 'undefined' && window.localStorage) {
+				window.localStorage.setItem('lastFillColor', JSON.stringify(color));
+			}
 		}
 
 		return (
@@ -244,6 +256,7 @@ const DrawingBase = kind({
 								colorHandler={setBrushColorAndIndex}
 								disabled={disabled}
 								index={brushColorIndex}
+								presetColors={brushColors}
 								text="brush"
 							/>
 							<ColorPicker
@@ -251,6 +264,7 @@ const DrawingBase = kind({
 								colorHandler={setFillColorAndIndex}
 								disabled={disabled}
 								index={fillColorIndex}
+								presetColors={fillColors}
 								text="fill"
 							/>
 							<ColorPicker
@@ -258,6 +272,7 @@ const DrawingBase = kind({
 								colorHandler={setCanvasColorAndIndex}
 								disabled={disabled}
 								index={canvasColorIndex}
+								presetColors={canvasColors}
 								text="canvas"
 							/>
 						</Cell>
