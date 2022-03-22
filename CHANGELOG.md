@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to not show press effect on touch input
+
 ### Fixed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to focus the topmost element after scroll in pointer mode
