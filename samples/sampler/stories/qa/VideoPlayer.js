@@ -8,8 +8,8 @@ import {Component} from 'react';
 const videoPlayerOption =  [
 	'',
 	'Next Preload Video',
-	'Non Preload Video',
 	'Next Preload Video without changing preload',
+	'Non Preload Video',
 	'Change Preload without changing video',
 	'Reset Sources'
 ];
