@@ -242,7 +242,7 @@ describe('VideoPlayer', function () {
 			const initialMediaControlsOpacity = await videoPlayerProps.mediaControlsFrame.getCSSProperty('opacity');
 			expect(await initialMediaControlsOpacity.value).to.equal(1);
 
-			await Page.delay(2500);
+			await Page.delay(3000);
 			const mediaControlsOpacity = await videoPlayerProps.mediaControlsFrame.getCSSProperty('opacity');
 			expect(await mediaControlsOpacity.value).to.equal(0);
 		});
@@ -265,7 +265,6 @@ describe('VideoPlayer', function () {
 		});
 
 		it('should hide title after 1 second', async function () {
-			await Page.delay(500);
 			const initialTitleOpacity = await videoPlayerProps.titleFrame.getCSSProperty('opacity');
 			expect(await initialTitleOpacity.value).to.equal(1);
 
