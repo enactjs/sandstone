@@ -276,12 +276,12 @@ const DrawingBase = kind({
 					<Cell className={css.toolbar} shrink size="15%">
 						{showDrawingControls ? (
 							<ComponentOverride
-								brushColor={brushColor}
+								brushColor={brushColorValue}
 								brushSize={brushSizeValue}
-								canvasColor={canvasColor}
+								canvasColor={canvasColorValue}
 								component={drawingControlsComponent}
 								disabled={disabled}
-								fillColor={fillColor}
+								fillColor={fillColorValue}
 								setBrushColor={setBrushColorValue}
 								setBrushSize={setBrushSizeValue}
 								setCanvasColor={setCanvasColorValue}

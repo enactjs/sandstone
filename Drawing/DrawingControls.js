@@ -23,7 +23,7 @@ import css from './DrawingControls.module.less';
 const DrawingControls = kind({
 	name: 'DrawingControls',
 
-	propTypes: /** @lends sandstone/DrawingControls.DrawingControls.prototype */ {
+	propTypes: /** @lends sandstone/Drawing.DrawingControls.prototype */ {
 		/**
 		 * Sets the color of brush.
 		 *

@@ -19,7 +19,7 @@ import css from './DrawingUtils.module.less';
 const DrawingUtils = kind({
 	name: 'DrawingUtils',
 
-	propTypes: /** @lends sandstone/DrawingUtils.DrawingUtils.prototype */ {
+	propTypes: /** @lends sandstone/Drawing.DrawingUtils.prototype */ {
 		/**
 		 * Sets an image as canvas background.
 		 *
