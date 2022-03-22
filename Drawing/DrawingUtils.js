@@ -11,7 +11,7 @@ import css from './DrawingUtils.module.less';
 /**
  * A set of components for controlling drawing utils and rendering additional components.
  *
- * @class DrawingControls
+ * @class DrawingUtils
  * @memberof sandstone/Drawing
  * @ui
  * @private
@@ -24,7 +24,6 @@ const DrawingUtils = kind({
 		 * Sets an image as canvas background.
 		 *
 		 * @type {*}
-		 * @private
 		 */
 		backgroundImage: PropTypes.any,
 
@@ -34,7 +33,6 @@ const DrawingUtils = kind({
 		 * When `true`, the drawing utils is shown as disabled.
 		 *
 		 * @type {Boolean}
-		 * @private
 		 */
 		disabled: PropTypes.bool,
 
@@ -42,7 +40,6 @@ const DrawingUtils = kind({
 		 * Canvas reference.
 		 *
 		 * @type {Object}
-		 * @private
 		 */
 		drawingRef: PropTypes.object,
 
@@ -50,7 +47,6 @@ const DrawingUtils = kind({
 		 * Called when user clicks import input.
 		 *
 		 * @type {Function}
-		 * @private
 		 */
 		fileInputHandler: PropTypes.func,
 
