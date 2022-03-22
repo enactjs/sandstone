@@ -296,6 +296,9 @@ const useScroll = (props) => {
 			'data-spotlight-container': spotlightContainer,
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
+			'data-webos-voice-disabled': voiceDisabled,
+			'data-webos-voice-focused': voiceFocused,
+			'data-webos-voice-group-label': voiceGroupLabel,
 			focusableScrollbar,
 			fadeOut,
 			horizontalScrollThumbAriaLabel,
@@ -453,8 +456,15 @@ const useScroll = (props) => {
 		ref: scrollContainerRef
 	});
 
+	const voiceProps = {
+		'data-webos-voice-disabled': voiceDisabled,
+		'data-webos-voice-focused': voiceFocused,
+		'data-webos-voice-group-label': voiceGroupLabel
+	};
+
 	assignProperties('scrollContentProps', {
 		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {fadeOut}),
+		...voiceProps,
 		className: [
 			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
