@@ -1,35 +1,105 @@
+/* eslint-disable react/jsx-no-bind */
+
 import kind from '@enact/core/kind';
+import Group from '@enact/ui/Group';
+import {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 
 import Button from '../Button';
-import {Cell} from "../../enact/packages/ui/Layout/Cell";
-import BodyText from "../BodyText";
-import css from "./Drawing.module.less";
-import Group from "../../enact/packages/ui/Group";
-import Slider from "../Slider";
-import ColorPicker from "./ColorPicker";
+import BodyText from '../BodyText';
+import ColorPicker from './ColorPicker';
+import Slider from '../Slider';
 
+import css from './DrawingControls.module.less';
+
+/**
+ * A set of components for controlling drawing toolbar and rendering additional components.
+ *
+ * @class DrawingControls
+ * @memberof sandstone/Drawing
+ * @ui
+ * @private
+ */
 const DrawingControls = kind({
 	name: 'DrawingControls',
 
-	functional: true,
-
-	propTypes: {
-		disabled: PropTypes.bool,
-		brushSize: PropTypes.number,
-		setBrushSize: PropTypes.func,
-		setDrawingTool: PropTypes.func,
-		// drawingTools: PropTypes.array,
+	propTypes: /** @lends sandstone/DrawingControls.DrawingControls.prototype */ {
+		/**
+		 * Sets the color of brush.
+		 *
+		 * @type {String}
+		 */
 		brushColor: PropTypes.string,
-		setBrushColor: PropTypes.func,
-		// brushColors: PropTypes.array,
-		fillColor: PropTypes.string,
-		setFillColor: PropTypes.func,
-		// fillColors: PropTypes.array,
+
+		/**
+		 * Sets the size of brush.
+		 *
+		 * @type {Number}
+		 */
+		brushSize: PropTypes.number,
+
+		/**
+		 * Sets the color of canvas.
+		 *
+		 * @type {String}
+		 */
 		canvasColor: PropTypes.string,
+
+		/**
+		 * Applies the `disabled` class.
+		 *
+		 * When `true`, the canvas is shown as disabled.
+		 *
+		 * @type {Boolean}
+		 */
+		disabled: PropTypes.bool,
+
+		/**
+		 * Sets the color of fill.
+		 *
+		 * @type {String}
+		 */
+		fillColor: PropTypes.string,
+
+		/**
+		 * Called when `brushColor` changes.
+		 *
+		 * @type {Function}
+		 */
+		setBrushColor: PropTypes.func,
+
+		/**
+		 * Called when `brushSize` changes.
+		 *
+		 * @type {Function}
+		 */
+		setBrushSize: PropTypes.func,
+
+		/**
+		 * Called when `canvasColor` changes.
+		 *
+		 * @type {Function}
+		 */
 		setCanvasColor: PropTypes.func,
-		// canvasColors: PropTypes.array,
-		handleSelect: PropTypes.func,
+
+		/**
+		 * Called when `drawingTool` changes.
+		 *
+		 * @type {Function}
+		 */
+		setDrawingTool: PropTypes.func,
+
+		/**
+		 * Called when `fillColor` changes.
+		 *
+		 * @type {Function}
+		 */
+		setFillColor: PropTypes.func
+	},
+
+	styles: {
+		css,
+		className: 'drawingControls'
 	},
 
 	handlers: {
@@ -42,23 +112,18 @@ const DrawingControls = kind({
 
 	render: ({
 		brushColor,
-		// brushColors,
-		fillColor,
-		setFillColor,
-		setBrushColor,
-		// fillColors,
 		brushSize,
-		disabled,
-		// drawingTools,
-		handleSelect,
-		setDrawingTool,
-		setBrushSize,
 		canvasColor,
+		disabled,
+		fillColor,
+		handleSelect,
+		setBrushColor,
+		setBrushSize,
 		setCanvasColor,
-		// canvasColors,
+		setDrawingTool,
+		setFillColor,
 		...rest
 	}) => {
-
 		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
 		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
 		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
@@ -72,7 +137,7 @@ const DrawingControls = kind({
 		];
 
 		return (
-			<div>
+			<div {...rest}>
 				<Cell>
 					<BodyText css={css} disabled={disabled}>Drawing tools</BodyText>
 					<Group
@@ -101,7 +166,7 @@ const DrawingControls = kind({
 						max={30}
 						min={1}
 						onChange={(e) => {
-							setBrushSize(e.value)
+							setBrushSize(e.value);
 						}}
 						step={1}
 						tooltip={false}
@@ -132,7 +197,7 @@ const DrawingControls = kind({
 					/>
 				</Cell>
 			</div>
-		)
+		);
 	}
 });
 

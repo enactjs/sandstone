@@ -19,7 +19,7 @@ import {Drawing as UiDrawing} from '@enact/ui/Drawing';
 import {Cell, Column, Layout, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useRef, useState, useEffect} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import DrawingControls from './DrawingControls';
 import DrawingUtils from './DrawingUtils';
@@ -46,6 +46,33 @@ const DrawingBase = kind({
 	functional: true,
 
 	propTypes: /** @lends sandstone/Drawing.DrawingBase.prototype */ {
+		/**
+		 * Sets the color of brush.
+		 *
+		 * @type {String}
+		 * @default #545BCC
+		 * @public
+		 */
+		brushColor: PropTypes.string,
+
+		/**
+		 * Sets the size of brush.
+		 *
+		 * @type {Number}
+		 * @default 5
+		 * @public
+		 */
+		brushSize: PropTypes.number,
+
+		/**
+		 * Sets the color of canvas.
+		 *
+		 * @type {String}
+		 * @default #FFFFFF
+		 * @public
+		 */
+		canvasColor: PropTypes.string,
+
 		/**
 		 * Sets the height of canvas.
 		 *
@@ -74,30 +101,99 @@ const DrawingBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * Overrides the default Drawing control component to support customized behaviors.
+		 *
+		 * The provided component will receive the following props from `Drawing`:
+		 *
+		 * * `brushColor` - Color used for brush
+		 * * `brushSize` - Value used for brush size
+		 * * `canvasColor` - Color of canvas
+		 * * `disabled` - Disables drawing controls
+		 * * `fillColor` - Color used when `drawingTool=fill`
+		 * * `setBrushColor` - Called when `brushColor` is changed
+		 * * `setBrushSize` - Called when `brushSize` is changed
+		 * * `setDrawingTool` - Called when `drawingTool` is changed
+		 * * `setFillColor` - Called when `fillColor` is changed
+		 *
+		 * @type {Component|Element}
+		 * @default sandstone/Drawing.DrawingControls
+		 * @public
+		 */
 		drawingControlsComponent: EnactPropTypes.componentOverride,
-		showDrawingControls: PropTypes.bool,
-		drawingUtilsComponent: EnactPropTypes.componentOverride,
-		showDrawingUtils: PropTypes.bool,
-		brushSize: PropTypes.number,
+
+		/**
+		 * Sets the tool of drawing.
+		 *
+		 * @type {String}
+		 * @default brush
+		 * @public
+		 */
 		drawingTool: PropTypes.string,
-		brushColor: PropTypes.string,
+
+		/**
+		 * Overrides the default Drawing utils component to support customized behaviors.
+		 *
+		 * The provided component will receive the following props from `Drawing`:
+		 *
+		 * * `backgroundImage` - Sets an image as canvas background
+		 * * `disabled` - Disables drawing utils
+		 * * `drawingRef` - Reference of drawing
+		 * * `fileInputHandler` - Called when user selects an image as canvas background
+		 * * `setBackgroundImage` - Called when the background of canvas is changed
+		 *
+		 * @type {Component|Element}
+		 * @default sandstone/Drawing.DrawingUtils
+		 * @public
+		 */
+		drawingUtilsComponent: EnactPropTypes.componentOverride,
+
+		/**
+		 * Sets the color of fill.
+		 *
+		 * @type {String}
+		 * @default #D0BB22
+		 * @public
+		 */
 		fillColor: PropTypes.string,
-		canvasColor: PropTypes.string
+
+		/**
+		 * Displays the drawing controls.
+		 *
+		 * When `true`, the drawing controls is displayed.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		showDrawingControls: PropTypes.bool,
+
+		/**
+		 * Displays the drawing utils.
+		 *
+		 * When `true`, the drawing utils is displayed.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		showDrawingUtils: PropTypes.bool
 	},
 
 	defaultProps: {
+		brushColor: '#545BCC',
+		brushSize: 5,
+		canvasColor: '#FFFFFF',
 		canvasHeight: 800,
 		canvasWidth: 1200,
 		disabled: false,
 		drawingControlsComponent: DrawingControls,
-		showDrawingControls: false,
-		drawingUtilsComponent: DrawingUtils,
-		showDrawingUtils: false,
-		brushSize: 5,
 		drawingTool: 'brush',
-		brushColor: '#545BCC',
+		drawingUtilsComponent: DrawingUtils,
 		fillColor: '#D0BB22',
-		canvasColor: '#FFFFFF'
+		showDrawingControls: false,
+		showDrawingUtils: false
 	},
 
 	handlers: {
@@ -138,11 +234,10 @@ const DrawingBase = kind({
 		canvasWidth,
 		disabled,
 		drawingControlsComponent,
-		drawingUtilsComponent,
 		drawingTool,
-		fileInputHandler,
+		drawingUtilsComponent,
 		fillColor,
-		handleSelect,
+		fileInputHandler,
 		showDrawingControls,
 		showDrawingUtils,
 		...rest
@@ -181,19 +276,19 @@ const DrawingBase = kind({
 					<Cell className={css.toolbar} shrink size="15%">
 						{showDrawingControls ? (
 							<ComponentOverride
+								brushColor={brushColor}
+								brushSize={brushSizeValue}
+								canvasColor={canvasColor}
 								component={drawingControlsComponent}
 								disabled={disabled}
-								brushSize={brushSizeValue}
-								setBrushSize={setBrushSizeValue}
-								setDrawingTool={setDrawingToolValue}
-								brushColor={brushColor}
-								setBrushColor={setBrushColorValue}
 								fillColor={fillColor}
-								setFillColor={setFillColorValue}
-								canvasColor={canvasColor}
+								setBrushColor={setBrushColorValue}
+								setBrushSize={setBrushSizeValue}
 								setCanvasColor={setCanvasColorValue}
+								setDrawingTool={setDrawingToolValue}
+								setFillColor={setFillColorValue}
 							/>
-							) :
+						) :
 							null
 						}
 					</Cell>
@@ -216,18 +311,17 @@ const DrawingBase = kind({
 					</Cell>
 					<Cell shrink size="10%">
 						<Column align="center space-between" className={css.canvasOptions}>
-							{showDrawingUtils ?
-								(
-									<ComponentOverride
-										component={drawingUtilsComponent}
-										disabled={disabled}
-										drawingRef={drawingRef}
-										fileInputHandler={fileInputHandler}
-										backgroundImage={backgroundImage}
-										setBackgroundImage={setBackgroundImage}
-									/>
-								) :
-									null
+							{showDrawingUtils ? (
+								<ComponentOverride
+									backgroundImage={backgroundImage}
+									component={drawingUtilsComponent}
+									disabled={disabled}
+									drawingRef={drawingRef}
+									fileInputHandler={fileInputHandler}
+									setBackgroundImage={setBackgroundImage}
+								/>
+							) :
+								null
 							}
 						</Column>
 					</Cell>
@@ -255,7 +349,12 @@ const DrawingDecorator = compose(
  *
  * Usage:
  * ```
- * <Drawing />
+ * <Drawing
+ * 	brushColor="#545BCC"
+ * 	brushSize={5}
+ * 	canvasColor="#FFFFFF"
+ * 	drawingTool="brush"
+ * />
  * ```
  *
  * @class Drawing
