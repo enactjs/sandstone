@@ -113,11 +113,11 @@ export const WithAutoFocusControl = (args) => {
 			onWillTransition={action('onWillTransition')}
 		>
 			<Panel autoFocus={args['autoFocus for Panel 0']} spotlightId="panel-container-0">
-				<Header title="Panel 0" />
+				<Header title="Panel With AutoFocus Control" />
 				<VirtualGridListInScroller onClick={forward} />
 			</Panel>
 			<Panel spotlightId="panel-container-1">
-				<Header title="Panel 1" />
+				<Header title="Second Panel" />
 				<Item>Item</Item>
 			</Panel>
 		</Panels>
@@ -133,3 +133,8 @@ export default {
 };
 
 WithAutoFocusControl.storyName = 'with AutoFocus Control';
+WithAutoFocusControl.parameters = {
+	props: {
+		noPanel: true
+	}
+};
