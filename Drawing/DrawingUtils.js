@@ -68,6 +68,8 @@ const DrawingUtils = kind({
 
 		return (
 			<Column align="center space-between" {...rest}>
+				<Button css={css} disabled={disabled} icon="arrowhookleft" onClick={() => drawingRef.current.undo()} size="small" tooltipText="Undo" />
+				<Button css={css} disabled={disabled} icon="arrowhookright" onClick={() => drawingRef.current.redo()} size="small" tooltipText="Redo" />
 				<Button css={css} disabled={disabled} icon="refresh" onClick={() => drawingRef.current.clearCanvas()} size="small" tooltipText="Clear all" />
 				<Button css={css} disabled={disabled} icon="plus" onClick={() => document.getElementById('fileInput').click()} size="small" tooltipText="Import image" />
 				<input
