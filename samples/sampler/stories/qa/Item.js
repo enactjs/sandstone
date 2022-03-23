@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
