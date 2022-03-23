@@ -21,10 +21,11 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useEffect, useRef, useState} from 'react';
 
-import DrawingControls from './DrawingControls';
-import DrawingUtils from './DrawingUtils';
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
+
+import DrawingControls from './DrawingControls';
+import DrawingUtils from './DrawingUtils';
 
 import css from './Drawing.module.less';
 
@@ -164,7 +165,7 @@ const DrawingBase = kind({
 		 * When `true`, the drawing controls is displayed.
 		 *
 		 * @type {Boolean}
-		 * @default false
+		 * @default true
 		 * @public
 		 */
 		showDrawingControls: PropTypes.bool,
@@ -175,7 +176,7 @@ const DrawingBase = kind({
 		 * When `true`, the drawing utils is displayed.
 		 *
 		 * @type {Boolean}
-		 * @default false
+		 * @default true
 		 * @public
 		 */
 		showDrawingUtils: PropTypes.bool
@@ -192,8 +193,8 @@ const DrawingBase = kind({
 		drawingTool: 'brush',
 		drawingUtilsComponent: DrawingUtils,
 		fillColor: '#D0BB22',
-		showDrawingControls: false,
-		showDrawingUtils: false
+		showDrawingControls: true,
+		showDrawingUtils: true
 	},
 
 	handlers: {
@@ -354,6 +355,8 @@ const DrawingDecorator = compose(
  * 	brushSize={5}
  * 	canvasColor="#FFFFFF"
  * 	drawingTool="brush"
+ * 	canvasHeight={800}
+ * 	canvasWidth={1200}
  * />
  * ```
  *

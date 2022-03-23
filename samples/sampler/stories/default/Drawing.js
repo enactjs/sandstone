@@ -27,31 +27,31 @@ export const _Drawing = (args) => {
 				<sup>*</sup>Drawing is not allowed while <code>disabled</code> is true.
 			</BodyText>
 			<Drawing
+				brushColor={args['brushColor']}
 				brushSize={args['brushSize']}
+				canvasColor={args['canvasColor']}
 				canvasHeight={args['canvasHeight']}
 				canvasWidth={args['canvasWidth']}
 				disabled={disabled}
+				drawingTool={args['drawingTool']}
+				fillColor={args['fillColor']}
 				showDrawingControls={args['showDrawingControls']}
 				showDrawingUtils={args['showDrawingUtils']}
-				drawingTool={args['drawingTool']}
-				brushColor={args['brushColor']}
-				fillColor={args['fillColor']}
-				canvasColor={args['canvasColor']}
 			/>
 		</section>
 	);
 };
 
+select('brushColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
+range('brushSize', _Drawing, Config, {min: 1, max: 30}, 5);
+select('canvasColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
 number('canvasHeight', _Drawing, Config, 800);
 number('canvasWidth', _Drawing, Config, 1200);
 boolean('disabled', _Drawing, Config);
-boolean('showDrawingControls', _Drawing, Config);
-boolean('showDrawingUtils', _Drawing, Config);
-range('brushSize', _Drawing, Config, {min: 1, max: 30}, 5);
-select('brushColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
-select('canvasColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
 select('drawingTool', _Drawing, ['brush', 'fill', 'triangle', 'rectangle', 'circle', 'erase'], Config, '');
 select('fillColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
+boolean('showDrawingControls', _Drawing, Config);
+boolean('showDrawingUtils', _Drawing, Config);
 
 _Drawing.storyName = 'Drawing';
 _Drawing.parameters = {

@@ -7,8 +7,9 @@ import PropTypes from 'prop-types';
 
 import Button from '../Button';
 import BodyText from '../BodyText';
-import ColorPicker from './ColorPicker';
 import Slider from '../Slider';
+
+import ColorPicker from './ColorPicker';
 
 import css from './DrawingControls.module.less';
 
@@ -124,9 +125,9 @@ const DrawingControls = kind({
 		setFillColor,
 		...rest
 	}) => {
-		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
-		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
-		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00'];
+		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
 		const drawingTools = [
 			{icon: 'edit', key: 1, tooltipText: 'brush'},
 			{icon: 'heart', key: 2, tooltipText: 'fill'},
