@@ -174,10 +174,11 @@ const DrawingBase = kind({
 				window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor));
 			}
 
-			setBrushColor(lastBrushColor);
-			setCanvasColor(lastCanvasColor);
-			setFillColor(lastFillColor);
-
+			if (lastBrushColor && lastFillColor && lastCanvasColor) {
+				setBrushColor(lastBrushColor);
+				setCanvasColor(lastCanvasColor);
+				setFillColor(lastFillColor);
+			}
 		}, [brushColor, canvasColor, fillColor]);
 
 		function setBrushColorAndIndex (color, index) {

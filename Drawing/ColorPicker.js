@@ -180,8 +180,19 @@ const ColorPickerBase = kind({
 				setBlue(b);
 			}, [color]);
 
+			useEffect(() => {
+				const hexColor = rgbToHex(red, green, blue);
+				let colors = JSON.parse(window.localStorage.getItem(`${text}Colors`));
+
+				if (colors) {
+					colors[index] = hexColor;
+				}
+
+				window.localStorage.setItem(`${text}Colors`, JSON.stringify(colors));
+			}, [red, green, blue])
+
 			const onSliderBlur = () => {
-				colorHandler(rgbToHex(red, green, blue));
+				colorHandler(rgbToHex(red, green, blue), index);
 			};
 
 			return (
