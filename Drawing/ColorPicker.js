@@ -154,22 +154,19 @@ const ColorPickerBase = kind({
 	},
 
 	computed: {
-		renderComponent: ({color, colorHandler, css, index, presetColors, text}) => {
+		renderComponent: ({color, colorHandler, css, index, text}) => {
 			const [red, setRed] = useState('');
 			const [green, setGreen] = useState('');
 			const [blue, setBlue] = useState('');
 			const [inputColor, setInputColor] = useState('');
-
-			if (typeof window !== 'undefined' && window.localStorage) {
-				presetColors = JSON.parse(window.localStorage.getItem(`${text}Colors`));
-			}
+			const presetColors = JSON.parse(window.localStorage.getItem(`${text}Colors`));
 
 			function setInputColorToStorage (selectedColor) {
 				setInputColor(selectedColor);
 				colorHandler(selectedColor, index);
 
 				let colors = JSON.parse(window.localStorage.getItem(`${text}Colors`));
-				colors[index] = color;
+				colors[index] = selectedColor;
 
 				window.localStorage.setItem(`${text}Colors`, JSON.stringify(colors));
 			}
@@ -182,10 +179,6 @@ const ColorPickerBase = kind({
 				setGreen(g);
 				setBlue(b);
 			}, [color]);
-
-			const onInputBlur = () => {
-				colorHandler(inputColor);
-			};
 
 			const onSliderBlur = () => {
 				colorHandler(rgbToHex(red, green, blue));
@@ -252,7 +245,6 @@ const ColorPickerBase = kind({
 								<input
 									className={componentCss.coloredInput}
 									id="inputColorPicker"
-									onBlur={onInputBlur}
 									onChange={(ev) => setInputColorToStorage(ev.target.value)}
 									type="color"
 									value={inputColor}
