@@ -316,7 +316,6 @@ WithPureComponent.parameters = {
 	}
 };
 
-
 class WizardPanelsWithAlert extends Component {
 	constructor () {
 		super();
@@ -353,10 +352,10 @@ class WizardPanelsWithAlert extends Component {
 	);
 }
 
-export const TestApp = () => <WizardPanelsWithAlert />;
+export const _WizardPanelsWithAlert = () => <WizardPanelsWithAlert />;
 
-TestApp.storyName = 'with Alert';
-TestApp.parameters = {
+_WizardPanelsWithAlert.storyName = 'with Alert';
+_WizardPanelsWithAlert.parameters = {
 	props: {
 		noPanel: true
 	}
