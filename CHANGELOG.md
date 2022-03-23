@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/WizardPanels` to allow preventDefault on `onTransition` and `onWillTransition` to prevent focus assignment
+- `sandstone/WizardPanels` to provide a way to prevent focusing on Panel again by allowing preventDefault when `onTransition` and `onWillTransition`
 
 ## [2.1.3] - 2022-03-07
 
