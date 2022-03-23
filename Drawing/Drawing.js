@@ -354,9 +354,9 @@ const DrawingDecorator = compose(
  * 	brushColor="#545BCC"
  * 	brushSize={5}
  * 	canvasColor="#FFFFFF"
- * 	drawingTool="brush"
  * 	canvasHeight={800}
  * 	canvasWidth={1200}
+ * 	drawingTool="brush"
  * />
  * ```
  *
