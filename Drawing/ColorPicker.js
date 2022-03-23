@@ -189,7 +189,7 @@ const ColorPickerBase = kind({
 				}
 
 				window.localStorage.setItem(`${text}Colors`, JSON.stringify(colors));
-			}, [red, green, blue])
+			}, [red, green, blue, index, text]);
 
 			const onSliderBlur = () => {
 				colorHandler(rgbToHex(red, green, blue), index);
