@@ -30,7 +30,6 @@ describe('VideoPlayer', function () {
 
 		it('should play media on playButton click', async function () {
 			await Page.delay(1000);
-			// console.log(await videoPlayerDefault.slider.getCSSProperty('width'));
 			const initialSliderWidth = await videoPlayerDefault.slider.getCSSProperty('width');
 			expect(await initialSliderWidth.value).to.equal('0px');
 
@@ -192,7 +191,7 @@ describe('VideoPlayer', function () {
 			await Page.delay(2000);
 
 			const sliderWidth = await videoPlayerSpotlightDisabled.slider.getCSSProperty('width');
-			expect(await sliderWidth.value).to.not.equal('0px');
+			expect(await sliderWidth.value).to.equal('0px');
 		});
 
 		it('should skip forwards/backwards on previous/next button click', async function () {
