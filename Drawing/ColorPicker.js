@@ -189,7 +189,8 @@ const ColorPickerBase = kind({
 				}
 
 				window.localStorage.setItem(`${text}Colors`, JSON.stringify(colors));
-			}, [red, green, blue, index, text]);
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+			}, [red, green, blue]);
 
 			const onSliderBlur = () => {
 				colorHandler(rgbToHex(red, green, blue), index);
