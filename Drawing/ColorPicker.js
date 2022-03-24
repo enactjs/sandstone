@@ -192,7 +192,7 @@ const ColorPickerBase = kind({
 				// eslint-disable-next-line react-hooks/exhaustive-deps
 			}, [red, green, blue]);
 
-			const onSliderBlur = () => {
+			const onSliderValueChange = () => {
 				colorHandler(rgbToHex(red, green, blue), index);
 			};
 
@@ -220,7 +220,8 @@ const ColorPickerBase = kind({
 									className={componentCss.colorSlider}
 									max={255}
 									min={0}
-									onBlur={onSliderBlur}
+									onBlur={onSliderValueChange}
+									onClick={onSliderValueChange}
 									onChange={(ev) => setRed(ev.value)}
 									value={red}
 								/>
@@ -229,7 +230,8 @@ const ColorPickerBase = kind({
 									className={componentCss.colorSlider}
 									max={255}
 									min={0}
-									onBlur={onSliderBlur}
+									onBlur={onSliderValueChange}
+									onClick={onSliderValueChange}
 									onChange={(ev) => setGreen(ev.value)}
 									value={green}
 								/>
@@ -238,7 +240,8 @@ const ColorPickerBase = kind({
 									className={componentCss.colorSlider}
 									max={255}
 									min={0}
-									onBlur={onSliderBlur}
+									onBlur={onSliderValueChange}
+									onClick={onSliderValueChange}
 									onChange={(ev) => setBlue(ev.value)}
 									value={blue}
 								/>
