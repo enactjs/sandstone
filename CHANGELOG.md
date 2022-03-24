@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to focus the topmost element after scroll in pointer mode
+
 ## [2.1.4] - 2022-03-24
 
 ### Added
@@ -35,7 +41,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to show title and keypad properly when `type` is `number` and screen width is narrow
 - `sandstone/Picker` horizontal joined behavior going to the next item by touch
 - `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
-- `sandstone/Scroller` and `sandstone/VirtualList` to focus the topmost element after scroll in pointer mode
 - `sandstone/VirtualList` to scroll properly by hover after changing `dataSize` when `hoverToScroll` is `true`
 
 ## [2.1.2] - 2021-12-22
