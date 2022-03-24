@@ -255,6 +255,11 @@ const DrawingBase = kind({
 		const drawingRef = useRef();
 
 		useEffect(() => {
+			setBrushColorValue(brushColor);
+			window.localStorage.setItem('lastBrushColor', JSON.stringify(brushColor));
+		}, [brushColor]);
+
+		useEffect(() => {
 			setBrushSizeValue(brushSize);
 		}, [brushSize]);
 
@@ -264,10 +269,12 @@ const DrawingBase = kind({
 
 		useEffect(() => {
 			setFillColorValue(fillColor);
+			window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor));
 		}, [fillColor]);
 
 		useEffect(() => {
 			setCanvasColorValue(canvasColor);
+			window.localStorage.setItem('lastCanvasColor', JSON.stringify(canvasColor));
 		}, [canvasColor]);
 
 		useEffect(() => {
