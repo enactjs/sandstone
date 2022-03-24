@@ -9,6 +9,7 @@ export const SELECT_ALL = 'SELECT_ALL';
 export const SELECT_ITEM = 'SELECT_ITEM';
 export const SELECTION_ENABLE = 'SELECTION_ENABLE';
 export const SET_DATA = 'SET_DATA';
+export const UPDATE_ITEMS_ORDER = 'UPDATE_ITEMS_ORDER';
 
 export const addItem = (item) => {
 	return {
@@ -81,5 +82,12 @@ export const setData = (index, item) => {
 		index,
 		item,
 		type: SET_DATA
+	};
+};
+
+export const updateItemsOrder = (newDataOrder) => {
+	return {
+		newDataOrder,
+		type: UPDATE_ITEMS_ORDER
 	};
 };

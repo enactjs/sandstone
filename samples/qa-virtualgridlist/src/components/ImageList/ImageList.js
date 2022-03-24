@@ -8,22 +8,34 @@ import ImageItem from '../ImageItem';
 
 import css from './ImageList.module.less';
 
+import {
+	updateItemsOrder as updateItemsOrderAction
+} from '../../actions';
+
 class ImageList extends Component {
 	static propTypes = {
 		dispatch: PropTypes.func,
 		imageitems: PropTypes.array,
 		minHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-		spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+		spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		updateItemsOrder: PropTypes.func
 	};
 
 	calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
-	renderItem = ({...rest}) => (<ImageItem {...rest} />);
+	renderItem = ({editMode, ...rest}) => (
+		<ImageItem
+			{...rest}
+			style={editMode ? {
+				transform: `translateY(-${ri.scaleToRem(100)})`
+			} : {}}
+		/>
+	);
 
 	render = () => {
 		const
-			{imageitems, spacing, minHeight, minWidth, ...rest} = this.props;
+			{imageitems, spacing, minHeight, minWidth, updateItemsOrder, ...rest} = this.props;
 
 		delete rest.dispatch;
 
@@ -32,8 +44,11 @@ class ImageList extends Component {
 				{...rest}
 				className={rest.direction === 'horizontal' ? css.horizontalPadding : css.verticalPadding}
 				dataSize={imageitems.length}
+				editMode
+				hoverToScroll
 				itemRenderer={this.renderItem}
 				itemSize={{minHeight: this.calculateOfSize(minHeight), minWidth: this.calculateOfSize(minWidth)}}
+				onUpdateItemsOrder={updateItemsOrder}
 				spacing={this.calculateOfSize(spacing)}
 			/>
 		);
@@ -47,4 +62,10 @@ const mapStateToProps = ({data}) => ({
 	spacing: data.spacing
 });
 
-export default connect(mapStateToProps)(ImageList);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateItemsOrder: (newDataOrder) => dispatch(updateItemsOrderAction(newDataOrder))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageList);
