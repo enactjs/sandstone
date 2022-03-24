@@ -182,7 +182,7 @@ const EditableWrapper = (props) => {
 							addRearrangedItems({moveDirection, toIndex});
 						}
 					} else {
-						addRearrangedItems({moveDirection, toIndex}); // addRearrangedItems
+						addRearrangedItems({moveDirection, toIndex});
 					}
 
 					mutableRef.current.prevToIndex = toIndex;
