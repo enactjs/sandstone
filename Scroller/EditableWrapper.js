@@ -17,10 +17,7 @@ import css from './EditableWrapper.module.less';
  */
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContentRef} = props;
-	let centered = true;
-	if (editable.centered != null) {
-		centered = editable.centered;
-	}
+	let centerd = editable.centered != null ? editable.centered : true;
 	const dataSize = children?.length;
 
 	// Mutable value
