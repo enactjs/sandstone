@@ -5,12 +5,12 @@ module.exports = {
 };
 
 // Expect blocks
-function expectChecked (formCheckboxItem) {
-	expect(formCheckboxItem.isChecked).to.be.true();
-	expect(formCheckboxItem.icon.isVisible()).to.be.true();
+async function expectChecked (formCheckboxItem) {
+	expect(await formCheckboxItem.isChecked).to.be.true();
+	expect(await formCheckboxItem.icon.isVisible()).to.be.true();
 }
 
-function expectUnchecked (formCheckboxItem) {
-	expect(formCheckboxItem.isChecked).to.be.false();
-	expect(formCheckboxItem.icon.isVisible()).to.be.false();
+async function expectUnchecked (formCheckboxItem) {
+	expect(await formCheckboxItem.isChecked).to.be.false();
+	expect(await formCheckboxItem.icon.isVisible()).to.be.false();
 }

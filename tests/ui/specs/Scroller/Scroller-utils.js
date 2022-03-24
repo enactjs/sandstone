@@ -1,16 +1,16 @@
-function focusedElement () {
-	return browser.execute(function () {
+async function focusedElement () {
+	return await browser.execute(function () {
 		return document.activeElement.id;
 	});
 }
 
-function expectFocusedItem (itemNum, comment = 'focused item') {
-	const focusedId = focusedElement();
+async function expectFocusedItem (itemNum, comment = 'focused item') {
+	const focusedId = await focusedElement();
 	expect(focusedId, comment).to.equal(`item${itemNum}`);
 }
 
-function expectNoFocusedItem () {
-	expect(browser.execute(function () {
+async function expectNoFocusedItem () {
+	expect(await browser.execute(function () {
 		return document.activeElement === document.body;
 	})).to.be.true();
 }
