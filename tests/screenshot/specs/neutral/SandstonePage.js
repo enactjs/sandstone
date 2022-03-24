@@ -7,8 +7,8 @@ class SandstonePage extends Page {
 		this.title = 'Sandstone Test';
 	}
 
-	open (urlExtra) {
-		super.open('Sandstone-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Sandstone-View', urlExtra);
 	}
 
 	get component () {

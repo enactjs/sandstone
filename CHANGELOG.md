@@ -2,6 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.1.4] - 2022-03-24
+
+### Added
+
+- `sandstone/Icon` public class name `icon`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `data-webos-voice-focused`, `data-webos-voice-disabled`, and `data-webos-voice-group-label`
+
+### Fixed
+
+- `sandstone/WizardPanels` to provide a way to prevent focusing on Panel again by allowing preventDefault when `onTransition` and `onWillTransition`
+
 ## [2.1.3] - 2022-03-07
 
 - Updated to use `forwardCustom` and add `type` when forwarding custom events
