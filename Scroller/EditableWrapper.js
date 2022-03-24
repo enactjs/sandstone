@@ -40,7 +40,6 @@ const EditableWrapper = (props) => {
 		prevToIndex: null,
 
 		// Flags
-		addable: true,
 		lastMoveDirection: null
 	});
 
@@ -52,7 +51,6 @@ const EditableWrapper = (props) => {
 
 		selectedItem?.classList.remove(css.selected);
 		selectedItem?.classList.remove(css.rearranged);
-		selectedItem?.classList.remove(css.selectedTransform);
 
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.lastMoveDirection = null;
@@ -103,7 +101,6 @@ const EditableWrapper = (props) => {
 		// FIXME: Need to figure out the right element
 		if (item.classList.contains('spottable')) {
 			item.classList.add(css.selected);
-			item.classList.add(css.selectedTransform);
 			mutableRef.current.selectedItem = item;
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
@@ -124,7 +121,7 @@ const EditableWrapper = (props) => {
 	}, [editable, finalizeOrders, reset, startEditing]);
 
 	// Move siblings
-	const moveSiblings = useCallback(({moveDirection, toIndex}) => {
+	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
 		// Set the moveDirection to css variable
 		wrapperRef.current.style.setProperty('--move-direction', moveDirection);
 
@@ -150,6 +147,16 @@ const EditableWrapper = (props) => {
 
 	}, []);
 
+	const removeRearrangedItems = useCallback((numToRemove) => {
+		const {rearrangedItems} = mutableRef.current;
+		if (rearrangedItems.length > 0) {
+			for (let i = 0; i < numToRemove; i++) {
+				const toItem = rearrangedItems.pop();
+				toItem?.classList.remove(css.rearrangedTransform);
+			}
+		}
+	}, []);
+
 	// Move items
 	const moveItems = useCallback((toIndex) => {
 		const {selectedItem} = mutableRef.current;
@@ -164,29 +171,25 @@ const EditableWrapper = (props) => {
 				wrapperRef.current.style.setProperty('--selected-item-offset', offset + 'px');
 
 				// Reset addable flag to true
-				mutableRef.current.addable = true;
+				let addable = true;
 
 				// If the current toIndex is new,
 				if (toIndex !== prevToIndex) {
-					// Determine the direcion of move from the latest from index
+					// Determine the direction of move from the latest from index
 					const moveDirection = Math.sign(toIndex - prevToIndex);
 					// If the direction is changed and there are rearranged items, we remove them first.
 					if (lastMoveDirection && moveDirection !== lastMoveDirection && rearrangedItems.length > 0) {
-						mutableRef.current.addable = false;
+						addable = false;
 					}
-					if (mutableRef.current.addable) {
-						moveSiblings({moveDirection, toIndex});
+					if (addable) {
+						addRearrangedItems({moveDirection, toIndex}); // addRearrangedItems
 					} else {
 						const numToRemove = moveDirection > 0 ? toIndex - prevToIndex : prevToIndex - toIndex;
-						if (rearrangedItems.length > 0) {
-							for (let i = 0; i < numToRemove; i++) {
-								const toItem = rearrangedItems.pop();
-								toItem?.classList.remove(css.rearrangedTransform);
-							}
-						}
+						removeRearrangedItems(numToRemove);
+
 						// When there's jump, meaning, numToRemove is bigger than 0, we need to add an item
 						if (numToRemove > rearrangedItems.length) {
-							moveSiblings({moveDirection, toIndex});
+							addRearrangedItems({moveDirection, toIndex});
 						}
 					}
 
@@ -194,7 +197,7 @@ const EditableWrapper = (props) => {
 				}
 			}
 		}
-	}, [dataSize, moveSiblings]);
+	}, [dataSize, addRearrangedItems, removeRearrangedItems]);
 
 	// Remove an item
 	/* const removeItem = useCallback(() => {
@@ -263,7 +266,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.centeredOffset = centered ? item.getBoundingClientRect().x : 0;
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
-	}, [centered]);
+	}, [centered]); // TODO: Need dataSize dependency for centeredOffset
 
 	// Return
 

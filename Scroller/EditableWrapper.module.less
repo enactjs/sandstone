@@ -14,13 +14,9 @@
 
 .selected {
 	transition: transform 360ms;
-	transform: translateY(-48px);
+	transform: translate(var(--selected-item-offset), -48px);
 	will-change: transform;
 	z-index: 1;
-}
-
-.selectedTransform {
-	transform: translate(var(--selected-item-offset), -48px);
 }
 
 .rearranged {

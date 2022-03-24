@@ -108,9 +108,9 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle}>
-						{(editable == null || direction !== 'horizontal') ?
-							children :
-							<EditableWrapper {...editableWrapperProps} />
+						{(editable && direction === 'horizontal') ?
+							<EditableWrapper {...editableWrapperProps} /> :
+							children
 						}
 					</UiScrollerBasic>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
