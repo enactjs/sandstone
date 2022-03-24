@@ -263,10 +263,6 @@ const DrawingBase = kind({
 		}, [drawingTool]);
 
 		useEffect(() => {
-			setBrushColorValue(brushColor);
-		}, [brushColor]);
-
-		useEffect(() => {
 			setFillColorValue(fillColor);
 		}, [fillColor]);
 
@@ -348,13 +344,10 @@ const DrawingBase = kind({
 								disabled={disabled}
 								fillColor={fillColorValue}
 								fillColorIndex={fillColorIndex}
-								setBrushColor={setBrushColorValue}
 								setBrushColorAndIndex={setBrushColorAndIndex}
 								setBrushSize={setBrushSizeValue}
-								setCanvasColor={setCanvasColorValue}
 								setCanvasColorAndIndex={setCanvasColorAndIndex}
 								setDrawingTool={setDrawingToolValue}
-								setFillColor={setFillColorValue}
 								setFillColorAndIndex={setFillColorAndIndex}
 							/>
 						) :
