@@ -1,5 +1,5 @@
 import enactPkg from '@enact/core/package.json';
-import {createRoot} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 
 import App from './App';
 
