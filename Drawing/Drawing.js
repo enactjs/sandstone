@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind */
 
 /**
  * Sandstone styled drawing components and behaviors.
@@ -244,12 +244,20 @@ const DrawingBase = kind({
 		...rest
 	}) => {
 		const [backgroundImage, setBackgroundImage] = useState(null);
+		const [brushColorIndex, setBrushColorIndex] = useState(null);
 		const [brushColorValue, setBrushColorValue] = useState(brushColor);
 		const [brushSizeValue, setBrushSizeValue] = useState(brushSize);
+		const [canvasColorIndex, setCanvasColorIndex] = useState(null);
 		const [canvasColorValue, setCanvasColorValue] = useState(canvasColor);
 		const [drawingToolValue, setDrawingToolValue] = useState(drawingTool);
+		const [fillColorIndex, setFillColorIndex] = useState(null);
 		const [fillColorValue, setFillColorValue] = useState(fillColor);
 		const drawingRef = useRef();
+
+		useEffect(() => {
+			setBrushColorValue(brushColor);
+			window.localStorage.setItem('lastBrushColor', JSON.stringify(brushColor));
+		}, [brushColor]);
 
 		useEffect(() => {
 			setBrushSizeValue(brushSize);
@@ -260,16 +268,73 @@ const DrawingBase = kind({
 		}, [drawingTool]);
 
 		useEffect(() => {
-			setBrushColorValue(brushColor);
-		}, [brushColor]);
-
-		useEffect(() => {
 			setFillColorValue(fillColor);
+			window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor));
 		}, [fillColor]);
 
 		useEffect(() => {
 			setCanvasColorValue(canvasColor);
+			window.localStorage.setItem('lastCanvasColor', JSON.stringify(canvasColor));
 		}, [canvasColor]);
+
+		useEffect(() => {
+			const storedBrushColors = JSON.parse(window.localStorage.getItem('brushColors'));
+			const storedCanvasColors = JSON.parse(window.localStorage.getItem('canvasColors'));
+			const storedFillColors = JSON.parse(window.localStorage.getItem('fillColors'));
+			const defaultColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
+
+			if (!storedBrushColors) {
+				window.localStorage.setItem('brushColors', JSON.stringify(defaultColors));
+			}
+			if (!storedCanvasColors) {
+				window.localStorage.setItem('canvasColors', JSON.stringify(defaultColors));
+			}
+			if (!storedFillColors) {
+				window.localStorage.setItem('fillColors', JSON.stringify(defaultColors));
+			}
+		}, []);
+
+		useEffect(() => {
+			const lastBrushColor = JSON.parse(window.localStorage.getItem('lastBrushColor'));
+			const lastCanvasColor = JSON.parse(window.localStorage.getItem('lastCanvasColor'));
+			const lastFillColor = JSON.parse(window.localStorage.getItem('lastFillColor'));
+
+			if (!lastBrushColor) {
+				window.localStorage.setItem('lastBrushColor', JSON.stringify(brushColor));
+			}
+
+			if (!lastCanvasColor) {
+				window.localStorage.setItem('lastCanvasColor', JSON.stringify(canvasColor));
+			}
+
+			if (!lastFillColor) {
+				window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor));
+			}
+
+			if (lastBrushColor && lastFillColor && lastCanvasColor) {
+				setBrushColorValue(lastBrushColor);
+				setCanvasColorValue(lastCanvasColor);
+				setFillColorValue(lastFillColor);
+			}
+		}, [brushColor, canvasColor, fillColor]);
+
+		function setBrushColorAndIndex (color, index) {
+			setBrushColorValue(color);
+			setBrushColorIndex(index);
+			window.localStorage.setItem('lastBrushColor', JSON.stringify(color));
+		}
+
+		function setCanvasColorAndIndex (color, index) {
+			setCanvasColorValue(color);
+			setCanvasColorIndex(index);
+			window.localStorage.setItem('lastCanvasColor', JSON.stringify(color));
+		}
+
+		function setFillColorAndIndex (color, index) {
+			setFillColorValue(color);
+			setFillColorIndex(index);
+			window.localStorage.setItem('lastFillColor', JSON.stringify(color));
+		}
 
 		return (
 			<Scroller>
@@ -278,16 +343,19 @@ const DrawingBase = kind({
 						{showDrawingControls ? (
 							<ComponentOverride
 								brushColor={brushColorValue}
+								brushColorIndex={brushColorIndex}
 								brushSize={brushSizeValue}
 								canvasColor={canvasColorValue}
+								canvasColorIndex={canvasColorIndex}
 								component={drawingControlsComponent}
 								disabled={disabled}
 								fillColor={fillColorValue}
-								setBrushColor={setBrushColorValue}
+								fillColorIndex={fillColorIndex}
+								setBrushColorAndIndex={setBrushColorAndIndex}
 								setBrushSize={setBrushSizeValue}
-								setCanvasColor={setCanvasColorValue}
+								setCanvasColorAndIndex={setCanvasColorAndIndex}
 								setDrawingTool={setDrawingToolValue}
-								setFillColor={setFillColorValue}
+								setFillColorAndIndex={setFillColorAndIndex}
 							/>
 						) :
 							null

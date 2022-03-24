@@ -33,6 +33,13 @@ const DrawingControls = kind({
 		brushColor: PropTypes.string,
 
 		/**
+		 * Current index of brush color from local storage.
+		 *
+		 * @type {Number}
+		 */
+		brushColorIndex: PropTypes.number,
+
+		/**
 		 * Sets the size of brush.
 		 *
 		 * @type {Number}
@@ -45,6 +52,13 @@ const DrawingControls = kind({
 		 * @type {String}
 		 */
 		canvasColor: PropTypes.string,
+
+		/**
+		 * Current index of canvas color from local storage.
+		 *
+		 * @type {Number}
+		 */
+		canvasColorIndex: PropTypes.number,
 
 		/**
 		 * Applies the `disabled` class.
@@ -63,11 +77,18 @@ const DrawingControls = kind({
 		fillColor: PropTypes.string,
 
 		/**
-		 * Called when `brushColor` changes.
+		 * Current index of fill color from local storage.
+		 *
+		 * @type {Number}
+		 */
+		fillColorIndex: PropTypes.number,
+
+		/**
+		 * Called when a new brush color is saved to local storage.
 		 *
 		 * @type {Function}
 		 */
-		setBrushColor: PropTypes.func,
+		setBrushColorAndIndex: PropTypes.func,
 
 		/**
 		 * Called when `brushSize` changes.
@@ -77,11 +98,11 @@ const DrawingControls = kind({
 		setBrushSize: PropTypes.func,
 
 		/**
-		 * Called when `canvasColor` changes.
+		 * Called when a new canvas color is saved to local storage.
 		 *
 		 * @type {Function}
 		 */
-		setCanvasColor: PropTypes.func,
+		setCanvasColorAndIndex: PropTypes.func,
 
 		/**
 		 * Called when `drawingTool` changes.
@@ -91,11 +112,11 @@ const DrawingControls = kind({
 		setDrawingTool: PropTypes.func,
 
 		/**
-		 * Called when `fillColor` changes.
+		 * Called when a new fill color is saved to local storage.
 		 *
 		 * @type {Function}
 		 */
-		setFillColor: PropTypes.func
+		setFillColorAndIndex: PropTypes.func
 	},
 
 	styles: {
@@ -113,21 +134,21 @@ const DrawingControls = kind({
 
 	render: ({
 		brushColor,
+		brushColorIndex,
 		brushSize,
 		canvasColor,
+		canvasColorIndex,
 		disabled,
 		fillColor,
+		fillColorIndex,
 		handleSelect,
-		setBrushColor,
+		setBrushColorAndIndex,
 		setBrushSize,
-		setCanvasColor,
+		setCanvasColorAndIndex,
 		setDrawingTool,
-		setFillColor,
+		setFillColorAndIndex,
 		...rest
 	}) => {
-		const brushColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
-		const canvasColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
-		const fillColors = ['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF'];
 		const drawingTools = [
 			{icon: 'edit', key: 1, tooltipText: 'brush'},
 			{icon: 'heart', key: 2, tooltipText: 'fill'},
@@ -177,24 +198,24 @@ const DrawingControls = kind({
 					<BodyText css={css} disabled={disabled}>Colors</BodyText>
 					<ColorPicker
 						color={brushColor}
-						colorHandler={setBrushColor}
+						colorHandler={setBrushColorAndIndex}
 						disabled={disabled}
-						presetColors={brushColors}
-						text="Brush"
+						index={brushColorIndex}
+						text="brush"
 					/>
 					<ColorPicker
 						color={fillColor}
-						colorHandler={setFillColor}
+						colorHandler={setFillColorAndIndex}
 						disabled={disabled}
-						presetColors={fillColors}
-						text="Fill"
+						index={fillColorIndex}
+						text="fill"
 					/>
 					<ColorPicker
 						color={canvasColor}
-						colorHandler={setCanvasColor}
+						colorHandler={setCanvasColorAndIndex}
 						disabled={disabled}
-						presetColors={canvasColors}
-						text="Canvas"
+						index={canvasColorIndex}
+						text="canvas"
 					/>
 				</Cell>
 			</div>
