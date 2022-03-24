@@ -116,7 +116,7 @@ const DrawingControls = kind({
 		 *
 		 * @type {Function}
 		 */
-		setFillColorAndIndex: PropTypes.func,
+		setFillColorAndIndex: PropTypes.func
 	},
 
 	styles: {
