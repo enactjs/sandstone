@@ -1,0 +1,28 @@
+// EditableWrapper.module.less
+//
+
+.wrapper {
+	display: flex;
+	flex-direction: row;
+	min-width: fit-content;
+    padding-top: 60px;
+}
+
+.centered {
+	justify-content: center;
+}
+
+.selected {
+	transition: transform 360ms;
+	transform: translate(var(--selected-item-offset), -48px);
+	will-change: transform;
+	z-index: 1;
+}
+
+.rearranged {
+	transition: transform 360ms;
+}
+
+.rearrangedTransform {
+	transform: translateX(calc((-1) * var(--move-direction) * var(--item-width)));
+}

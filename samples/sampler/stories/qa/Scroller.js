@@ -12,7 +12,7 @@ import Group from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
+import {Component, useCallback, useLayoutEffect, useState} from 'react';
 
 import css from './Scroller.module.less';
 
@@ -195,6 +195,98 @@ boolean('spotlightDisabled', ListOfThings, Config, false);
 select('verticalScrollbar', ListOfThings, prop.scrollbarOption, Config);
 
 ListOfThings.storyName = 'List of things';
+
+let itemsArr = [];
+const populateItems = ({index}) => {
+	const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
+	const source = {
+		hd: `http://via.placeholder.com/200x200/${color}/ffffff/png?text=Image+${index}`,
+		fhd: `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${index}`,
+		uhd: `http://via.placeholder.com/600x600/${color}/ffffff/png?text=Image+${index}`
+	};
+
+	return {src: source, index};
+};
+
+for (let i = 0; i < 20; i++) {
+	itemsArr.push(populateItems({index: i}));
+}
+
+export const EditableList = (args) => {
+	const dataSize = args['editableDataSize'];
+	const [items, setItems] = useState(itemsArr);
+
+	useLayoutEffect(() => {
+		itemsArr = [];
+		for (let i = 0; i < dataSize; i++) {
+			itemsArr.push(populateItems({index: i}));
+		}
+		setItems(itemsArr);
+	}, [dataSize]);
+
+	const handleComplete = useCallback((ev) => {
+		const {orders} = ev;
+		// change data from the new orders
+		const newItems = [];
+
+		orders.forEach(order => {
+			newItems.push(items[order - 1]);
+		});
+
+		setItems(newItems);
+	}, [items]);
+
+	return (
+		<Scroller
+			direction="horizontal"
+			editable={{
+				centered: args['editableCentered'],
+				onComplete: handleComplete
+			}}
+			focusableScrollbar={args['focusableScrollbar']}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
+			onKeyDown={action('onKeyDown')}
+			onScrollStart={action('onScrollStart')}
+			onScrollStop={action('onScrollStop')}
+			scrollMode={args['scrollMode']}
+			spotlightDisabled={args['spotlightDisabled']}
+			verticalScrollbar={args['verticalScrollbar']}
+		>
+			{
+				items.map((item, index) => {
+					return (
+						<ImageItem
+							src={item.src}
+							key={item.index}
+							style={{
+								width: ri.scaleToRem(768),
+								height: ri.scaleToRem(588),
+								order: index + 1
+							}}
+						>
+							{`Image ${item.index}`}
+						</ImageItem>
+					);
+				})
+			}
+		</Scroller>
+	);
+};
+
+boolean('editableCentered', EditableList, Config, true);
+number('editableDataSize', EditableList, Config, 20);
+select('focusableScrollbar', EditableList, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', EditableList, prop.scrollbarOption, Config);
+boolean('hoverToScroll', EditableList, Config);
+boolean('noScrollByWheel', EditableList, Config);
+select('scrollMode', EditableList, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', EditableList, Config, false);
+select('verticalScrollbar', EditableList, prop.scrollbarOption, Config);
+
+EditableList.storyName = 'with editable items';
 
 const imageItems = [];
 

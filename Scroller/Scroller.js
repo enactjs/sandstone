@@ -14,6 +14,7 @@
  *
  * @module sandstone/Scroller
  * @exports Scroller
+ * @exports EditableShape
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -30,11 +31,26 @@ import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
+import EditableWrapper from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
 const SpottableDiv = Spottable('div');
 let scrollerId = 0;
+
+/**
+ * The shape for editable of [Scroller]{@link sandstone/Scroller}.
+ *
+ * @typedef {Object} EditableShape
+ * @memberof sandstone/Scroller
+ * @property {Function} onComplete The callback function called when editing is finished.
+ * @property {Boolean} centered Centers the contents of the scroller.
+ * @public
+ */
+const EditableShape = PropTypes.shape({
+	onComplete: PropTypes.func.isRequired,
+	centered: PropTypes.bool
+});
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -76,9 +92,12 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	} = scrollContentWrapperProps;
 
 	const {
+		editableWrapperProps,
 		focusableBodyProps,
 		themeScrollContentProps
 	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+
+	const {children, direction, editable} = rest;
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : Fragment;
@@ -88,7 +107,12 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
-					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
+					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle}>
+						{(editable && direction === 'horizontal') ?
+							<EditableWrapper {...editableWrapperProps} /> :
+							children
+						}
+					</UiScrollerBasic>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 					{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
@@ -175,6 +199,14 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
+
+	/**
+	 * TBD: Enables editing items in the scroller.
+	 *
+	 * @type {sandstone/Scroller.EditableShape}
+	 * @public
+	 */
+	editable: EditableShape,
 
 	/**
 	 * Adds fade-out effect on the scroller.
@@ -431,5 +463,6 @@ Scroller.defaultProps = {
 
 export default Scroller;
 export {
+	EditableShape,
 	Scroller
 };

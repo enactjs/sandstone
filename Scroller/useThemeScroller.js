@@ -346,8 +346,8 @@ const useSpottable = (props, instances) => {
 };
 
 const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
-	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
-	const {scrollContentHandle, scrollContentRef} = rest;
+	const {className, children, editable, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
+	const {scrollContainerHandle, scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
@@ -368,7 +368,6 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 		}
 	}, [props.focusableScrollbar, scrollContainerRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
 	scrollContentProps.setThemeScrollContentHandle({
 		calculatePositionOnFocus,
 		focusOnNode,
@@ -383,7 +382,16 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null
 	);
 
-	return {focusableBodyProps, themeScrollContentProps: rest};
+	return {
+		editableWrapperProps: {
+			children,
+			editable,
+			scrollContainerHandle,
+			scrollContentRef
+		},
+		focusableBodyProps,
+		themeScrollContentProps: {...rest}
+	};
 };
 
 export default useThemeScroller;
