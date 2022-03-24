@@ -17,7 +17,7 @@ import css from './EditableWrapper.module.less';
  */
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContentRef} = props;
-	let centerd = editable.centered != null ? editable.centered : true;
+	let centered = editable.centered != null ? editable.centered : true;
 	const dataSize = children?.length;
 
 	// Mutable value
@@ -167,8 +167,6 @@ const EditableWrapper = (props) => {
 				const offset = (toIndex - fromIndex) * itemWidth;
 				wrapperRef.current.style.setProperty('--selected-item-offset', offset + 'px');
 
-				// Reset addable flag to true
-				let addable = true;
 
 				// If the current toIndex is new,
 				if (toIndex !== prevToIndex) {
@@ -176,11 +174,6 @@ const EditableWrapper = (props) => {
 					const moveDirection = Math.sign(toIndex - prevToIndex);
 					// If the direction is changed and there are rearranged items, we remove them first.
 					if (lastMoveDirection && moveDirection !== lastMoveDirection && rearrangedItems.length > 0) {
-						addable = false;
-					}
-					if (addable) {
-						addRearrangedItems({moveDirection, toIndex}); // addRearrangedItems
-					} else {
 						const numToRemove = moveDirection > 0 ? toIndex - prevToIndex : prevToIndex - toIndex;
 						removeRearrangedItems(numToRemove);
 
@@ -188,6 +181,8 @@ const EditableWrapper = (props) => {
 						if (numToRemove > rearrangedItems.length) {
 							addRearrangedItems({moveDirection, toIndex});
 						}
+					} else {
+						addRearrangedItems({moveDirection, toIndex}); // addRearrangedItems
 					}
 
 					mutableRef.current.prevToIndex = toIndex;
