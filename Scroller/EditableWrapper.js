@@ -117,7 +117,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, reset, startEditing]);
 
-	// Move siblings
+	// Add rearranged items
 	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
 		// Set the moveDirection to css variable
 		wrapperRef.current.style.setProperty('--move-direction', moveDirection);
