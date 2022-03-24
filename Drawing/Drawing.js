@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind */
 
 /**
  * Sandstone styled drawing components and behaviors.
@@ -340,16 +340,22 @@ const DrawingBase = kind({
 						{showDrawingControls ? (
 							<ComponentOverride
 								brushColor={brushColorValue}
+								brushColorIndex={brushColorIndex}
 								brushSize={brushSizeValue}
 								canvasColor={canvasColorValue}
+								canvasColorIndex={canvasColorIndex}
 								component={drawingControlsComponent}
 								disabled={disabled}
 								fillColor={fillColorValue}
+								fillColorIndex={fillColorIndex}
 								setBrushColor={setBrushColorValue}
+								setBrushColorAndIndex={setBrushColorAndIndex}
 								setBrushSize={setBrushSizeValue}
 								setCanvasColor={setCanvasColorValue}
+								setCanvasColorAndIndex={setCanvasColorAndIndex}
 								setDrawingTool={setDrawingToolValue}
 								setFillColor={setFillColorValue}
+								setFillColorAndIndex={setFillColorAndIndex}
 							/>
 						) :
 							null
