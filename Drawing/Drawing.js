@@ -127,6 +127,10 @@ const DrawingBase = kind({
 		/**
 		 * Sets the tool of drawing.
 		 *
+		 * Accepts one of the following drawing tools: `'brush'`, `'fill'`, `'triangle'`, `'rectangle'`, `'circle'`, `'erase'`.
+		 *
+		 * @type {('brush'|'fill'|'triangle'|'rectangle'|'circle'|'erase')}
+		 *
 		 * @type {String}
 		 * @default brush
 		 * @public
