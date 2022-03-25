@@ -12,7 +12,7 @@
 @sand-untypical-color-07: #b8b9bb; // @sand-picker-indicators-inactive-focus-bg-color
 @sand-untypical-color-09: #abaeb3; // @sand-gray; @sand-progressbutton-bar-color @sand-picker-joined-incrementer-color
 @sand-untypical-color-10: #e6e6e6; // @sand-light-gray; @sand-video-slider-tooltip-color @sand-video-slider-tooltip-thumbnail-border-color
-@sand-untypical-color-11: #ffffff; // @sand-white; @sand-progressbar-highlighted-fill-bg-color @sand-spinner-color @sand-video-feedback-mini-text-color @sand-video-player-title-color
+@sand-untypical-color-11: #ffffff; // @sand-white; @sand-progressbar-highlighted-fill-bg-color @sand-video-feedback-mini-text-color @sand-video-player-title-color
 @sand-untypical-color-12: #fe4a4b; // @sand-video-player-redicon-text-color
 
 // colors in form of comma-separated RGB values
@@ -90,6 +90,8 @@
 @sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
 @sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb);
 @sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
+
+@sand-spinner-color: var(--sand-spinner-color, #ffffff);
 
 @sand-invalid-color: #ff0000;
 @sand-invalid-sub-color: #fb5656;
@@ -396,7 +398,6 @@
 
 // Spinner
 // ---------------------------------------
-@sand-spinner-color: @sand-untypical-color-11;
 @sand-spinner-head-color: @sand-spinner-color;
 @sand-spinner-empty-color: fade(@sand-spinner-color, 20%);
 @sand-spinner-bg-color: @sand-component-bg-color;
