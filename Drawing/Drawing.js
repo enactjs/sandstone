@@ -130,12 +130,10 @@ const DrawingBase = kind({
 		 * Accepts one of the following drawing tools: `'brush'`, `'fill'`, `'triangle'`, `'rectangle'`, `'circle'`, `'erase'`.
 		 *
 		 * @type {('brush'|'fill'|'triangle'|'rectangle'|'circle'|'erase')}
-		 *
-		 * @type {String}
 		 * @default brush
 		 * @public
 		 */
-		drawingTool: PropTypes.string,
+		drawingTool: PropTypes.oneOf(['brush', 'fill', 'triangle', 'rectangle', 'circle', 'erase']),
 
 		/**
 		 * Overrides the default Drawing utils component to support customized behaviors.
