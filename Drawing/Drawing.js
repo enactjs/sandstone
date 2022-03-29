@@ -258,8 +258,8 @@ const DrawingBase = kind({
 
 		useEffect(() => {
 			setBrushColorValue(brushColor);
-			!showDrawingControls && window.localStorage.setItem('lastBrushColor', JSON.stringify(brushColor));
-		}, [brushColor]);
+			!showDrawingControls && window.localStorage.setItem('lastBrushColor', JSON.stringify(brushColor)); // eslint-disable-line 
+		}, [brushColor]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		useEffect(() => {
 			setBrushSizeValue(brushSize);
@@ -271,13 +271,13 @@ const DrawingBase = kind({
 
 		useEffect(() => {
 			setFillColorValue(fillColor);
-			!showDrawingControls && window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor));
-		}, [fillColor]);
+			!showDrawingControls && window.localStorage.setItem('lastFillColor', JSON.stringify(fillColor)); // eslint-disable-line 
+		}, [fillColor]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		useEffect(() => {
 			setCanvasColorValue(canvasColor);
-			!showDrawingControls && window.localStorage.setItem('lastCanvasColor', JSON.stringify(canvasColor));
-		}, [canvasColor]);
+			!showDrawingControls && window.localStorage.setItem('lastCanvasColor', JSON.stringify(canvasColor)); // eslint-disable-line 
+		}, [canvasColor]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		useEffect(() => {
 			const storedBrushColors = JSON.parse(window.localStorage.getItem('brushColors'));
