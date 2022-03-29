@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind */
+/* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-bind, babel/no-unused-expressions, react-hooks/exhaustive-deps */
 
 /**
  * Sandstone styled drawing components and behaviors.

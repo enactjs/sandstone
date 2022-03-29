@@ -42,9 +42,9 @@ export const _Drawing = (args) => {
 	);
 };
 
-color('brushColor', _Drawing, Config, '#00FF00');
+color('brushColor', _Drawing, Config, '#FFFFFF');
 range('brushSize', _Drawing, Config, {min: 1, max: 30}, 5);
-color('canvasColor', _Drawing, Config, '#00FF00');
+color('canvasColor', _Drawing, Config, '#000000');
 number('canvasHeight', _Drawing, Config, 800);
 number('canvasWidth', _Drawing, Config, 1200);
 boolean('disabled', _Drawing, Config);
