@@ -1,6 +1,6 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {act, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Input from '../Input';
@@ -304,6 +304,7 @@ describe('Input specs', () => {
 	});
 
 	test('should call onComplete when submit button clicked', (done) => {
+		jest.useFakeTimers();
 		const spy = jest.fn();
 		render(
 			<FloatingLayerController>
@@ -316,10 +317,12 @@ describe('Input specs', () => {
 		userEvent.click(numberButton);
 		userEvent.click(submitButton);
 
-		setTimeout(() => {
-			expect(spy).toHaveBeenCalled();
-			done();
-		}, 300);
+		act(() => {
+			jest.advanceTimersByTime(300);
+		});
+
+		expect(spy).toHaveBeenCalled();
+		done();
 	});
 
 	test('should call onChange when submit button clicked', () => {
