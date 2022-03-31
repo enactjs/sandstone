@@ -3,12 +3,10 @@
 
 
 .applyColorSkins(@componentRules) when (isruleset(@componentRules)) {
-	// default color
-	// :global(.violet) & {
 	@import "./colors-game-violet.less";
 
 	@componentRules();
-	// }
+
 
 	:global(.green) & {
 		@import "./colors-game-green.less";
@@ -56,7 +54,6 @@
 	// Game Skin
 	&:global(.game) {
 		@import (multiple) "./colors.less";
-		// @import "./colors-game.less";
 		@import (multiple) "./variables-base.less";
 		@import "./variables-game.less";
 
