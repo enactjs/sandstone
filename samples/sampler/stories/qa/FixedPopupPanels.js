@@ -247,25 +247,25 @@ WithPauseAndAutoFocusNone.parameters = {
 export const WithDropdown = (args) => {
 	const [open, setOpen] = useState(false);
 
-    const handleOpenDropdown = useCallback(() => {
-        setTimeout(() => {
-            setOpen(true);
-        }, 1000);
-    },[]);
+	const handleOpenDropdown = useCallback(() => {
+		setTimeout(() => {
+			setOpen(true);
+		}, 1000);
+	}, []);
 
-    const handleOpen = useCallback(() => {
-        setOpen(true);
-    },[]);
+	const handleOpen = useCallback(() => {
+		setOpen(true);
+	}, []);
 
-    const handleClose = useCallback(() => {
-        setOpen(false);
-    },[]);
+	const handleClose = useCallback(() => {
+		setOpen(false);
+	}, []);
 
 	return (
 		<>
 			<Dropdown
-					title="A dropdown"
-                    onOpen={handleOpenDropdown}
+				title="A dropdown"
+				onOpen={handleOpenDropdown}
 			>
 				{['a', 'b', 'c', 'd']}
 			</Dropdown>
