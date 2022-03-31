@@ -12,12 +12,12 @@ class PopupTabLayoutInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	hoverScroller () {
-		return $(this.tabsScroller.selector).moveTo();
+	async hoverScroller () {
+		return await $(this.tabsScroller.selector).moveTo();
 	}
 
-	hoverTabs () {
-		return $(this.tabs.selector).moveTo();
+	async hoverTabs () {
+		return await $(this.tabs.selector).moveTo();
 	}
 
 	get self () {
@@ -56,12 +56,12 @@ class PopupTabLayoutPage extends Page {
 		};
 	}
 
-	open (urlExtra) {
-		super.open('PopupTabLayout-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('PopupTabLayout-View', urlExtra);
 	}
 
-	waitForExist (selector, timeout) {
-		$(selector).waitForExist({timeout});
+	async waitForExist (selector, timeout) {
+		await $(selector).waitForExist({timeout});
 	}
 }
 

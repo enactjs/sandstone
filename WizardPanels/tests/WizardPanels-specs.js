@@ -612,8 +612,11 @@ describe('WizardPanel Specs', () => {
 				userEvent.keyboard('{esc}');
 
 				const actual = screen.getByText('1');
+				const expectedEvent = {type: 'onBack'};
+				const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
 
 				expect(actual).toHaveClass('current');
+				expect(actualEvent).toMatchObject(expectedEvent);
 			});
 		}
 	);
@@ -634,8 +637,11 @@ describe('WizardPanel Specs', () => {
 				userEvent.keyboard('{esc}');
 
 				const actual = screen.getByText('2');
+				const expectedEvent = {type: 'onBack'};
+				const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
 
 				expect(actual).toHaveClass('current');
+				expect(actualEvent).toMatchObject(expectedEvent);
 			});
 		}
 	);

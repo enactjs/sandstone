@@ -10,34 +10,34 @@ function waitForFocusedText (dropdown, text, timeout, timeoutMsg = `timed out wa
 describe('Dropdown', function () {
 
 	describe('changing props', function () {
-		beforeEach(function () {
-			Page.open();
+		beforeEach(async function () {
+			await Page.open();
 		});
 
-		it('should focus the first item when `selected` changes to `null` - [QWT-2246]', function () {
+		it('should focus the first item when `selected` changes to `null` - [QWT-2246]', async function () {
 			const dropdown = Page.components.dropdownChangeSelected;
 
-			Page.openDropdown(dropdown);
+			await Page.openDropdown(dropdown);
 
 			waitForFocusedText(dropdown, 'four', 500, undefined, 100);
 
 			waitForFocusedText(dropdown, 'one', 750);
 		});
 
-		it('should focus the first item when `children` changes - [QWT-2245]', function () {
+		it('should focus the first item when `children` changes - [QWT-2245]', async function () {
 			const dropdown = Page.components.dropdownChangeChildren;
 
-			Page.openDropdown(dropdown);
+			await Page.openDropdown(dropdown);
 
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
 			waitForFocusedText(dropdown, 'three', 750);
 		});
 
-		it('should focus the first item when `children` changes to smaller size - [QWT-2139]', function () {
+		it('should focus the first item when `children` changes to smaller size - [QWT-2139]', async function () {
 			const dropdown = Page.components.dropdownChangeLessChildren;
 
-			Page.openDropdown(dropdown);
+			await Page.openDropdown(dropdown);
 
 			waitForFocusedText(dropdown, '28', 500, undefined, 100);
 
@@ -46,152 +46,152 @@ describe('Dropdown', function () {
 	});
 
 	describe('5-way', function () {
-		beforeEach(function () {
-			Page.open();
+		beforeEach(async function () {
+			await Page.open();
 		});
 
-		it('should lock Spotlight inside the Dropdown - [QWT-2463]', function () {
+		it('should lock Spotlight inside the Dropdown - [QWT-2463]', async function () {
 			const dropdown = Page.components.dropdownDefault;
 
 			// Step 3: 5-way Spot and 5-way Select the 'Default' Dropdown.
-			Page.openDropdown(dropdown);
+			await Page.openDropdown(dropdown);
 			// Verify Step 3.1: The 'Default' Dropdown opens.
 			// Verify Step 3.2: Spotlight is on *Option 1* on the left *Dropdown*.
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
 			// Step 4: 5-way Down to *Option 5*
 			// Verify Step 4.1: Spotlight is on each option with each 5-way Down.
-			Page.spotlightDown();
+			await Page.spotlightDown();
 			waitForFocusedText(dropdown, 'two', 500, undefined, 100);
-			Page.spotlightDown();
+			await Page.spotlightDown();
 			waitForFocusedText(dropdown, 'three', 500, undefined, 100);
-			Page.spotlightDown();
+			await Page.spotlightDown();
 			waitForFocusedText(dropdown, 'four', 500, undefined, 100);
 			// Verify Step 4.2:Spotlight is on *Option 5*.
-			Page.spotlightDown();
+			await Page.spotlightDown();
 			waitForFocusedText(dropdown, 'five', 500, undefined, 100);
 
 			// Step 5: 5-way Down one more time.
 			// Verify Step 5.1: Spotlight stays on *Option 5*.
-			Page.spotlightDown();
+			await Page.spotlightDown();
 			waitForFocusedText(dropdown, 'five', 500, undefined, 100);
 
 			// Step 6: 5-way Up to *Option 1*.`
 			// Verify Step 6.1: Spotlight is on each option with each 5-way Up.
-			Page.spotlightUp();
+			await Page.spotlightUp();
 			waitForFocusedText(dropdown, 'four', 500, undefined, 100);
-			Page.spotlightUp();
+			await Page.spotlightUp();
 			waitForFocusedText(dropdown, 'three', 500, undefined, 100);
-			Page.spotlightUp();
+			await Page.spotlightUp();
 			waitForFocusedText(dropdown, 'two', 500, undefined, 100);
 			// Verify Step 6.2:Spotlight is on *Option 1*.
-			Page.spotlightUp();
+			await Page.spotlightUp();
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
 			// Step 7: 5-way Up one more time.
 			// Verify Step 7.1: Spotlight stays on *Option 1*.
-			Page.spotlightUp();
+			await Page.spotlightUp();
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
 			// Step 8: Click  on the empty space created by the wrapper (Pointer mode).
 			const wrapper = $('#wrapper');
-			wrapper.click({x: 0, y: 0});
+			await wrapper.click({x: 0, y: 0});
 			// Verify Step 8: The 'Default' Dropdown is closed.
-			expect(dropdown.list.isExisting()).to.not.be.true();
+			expect(await dropdown.list.isExisting()).to.not.be.true();
 		});
 	});
 
 	describe('pointer', function () {
-		beforeEach(function () {
-			Page.open();
+		beforeEach(async function () {
+			await Page.open();
 		});
 
-		it('should dismiss dropdown when clicking outside - [QWT-2465]', function () {
+		it('should dismiss dropdown when clicking outside - [QWT-2465]', async function () {
 			const dropdown = Page.components.dropdownDefault;
 
 			// Open the first dropdown and wait for the first list item to be focused
-			Page.openDropdown(dropdown);
+			await Page.openDropdown(dropdown);
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
 			// Step 3: Click in the area outside the Dropdown (in the empty space created by the wrapper)
 			const wrapper = $('#wrapper');
-			wrapper.click({x: 0, y: 0});
+			await wrapper.click({x: 0, y: 0});
 
 			// Verify Step 3: that the floating list no longer exists (Dropdown is closed)
-			expect(dropdown.list.isExisting()).to.not.be.true();
+			expect(await dropdown.list.isExisting()).to.not.be.true();
 		});
 	});
 
 	describe('5-way and pointer', function () {
-		beforeEach(function () {
-			Page.open();
+		beforeEach(async function () {
+			await Page.open();
 		});
 
-		it('should close dropdown from Pointer mode with Back key  - [QWT-2482]', function () {
+		it('should close dropdown from Pointer mode with Back key  - [QWT-2482]', async function () {
 			const dropdown = Page.components.dropdownDefault;
 
 			// Step 3: 5-way Spot and 5-way Select the Dropdown placeholder "No selection".
-			Page.openDropdown(dropdown);
+			await Page.openDropdown(dropdown);
 			// Verify Step 3: The Dropdown opens.
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
 			// Step 4: Press the *Back* key on the remote.
-			Page.backKey();
+			await Page.backKey();
 			// Verify Step 4: The Dropdown closes.
-			expect(dropdown.list.isExisting()).to.not.be.true();
+			expect(await dropdown.list.isExisting()).to.not.be.true();
 
 			// Step 5: Click on the Dropdown placeholder "No selection".
-			dropdown.button.click();
+			await dropdown.button.click();
 			// Verify Step 5: The Dropdown opens.
-			expect(dropdown.list.isExisting()).to.be.true();
+			expect(await dropdown.list.isExisting()).to.be.true();
 
 			// Step 6: Move the pointer over any Option.  Moving to  Item 'two' here.
-			dropdown.item(1).moveTo();
+			await dropdown.item(1).moveTo();
 			// Verify Step 6: Spotlight is on this Option.
 			waitForFocusedText(dropdown, 'two', 500, undefined, 100);
 
 			// Step 7: Press the *Back* key on the remote.
-			Page.backKey();
+			await Page.backKey();
 			// Verify Step 7: Dropdown closes.
-			expect(dropdown.list.isExisting()).to.not.be.true();
+			expect(await dropdown.list.isExisting()).to.not.be.true();
 		});
 	});
 
 	describe('in scroller', function () {
-		beforeEach(function () {
-			Page.open('InScroller');
+		beforeEach(async function () {
+			await Page.open('InScroller');
 		});
 
-		function getDropdownOffset (dropdown, scroller) {
+		const getDropdownOffset = (dropdown, scroller) => {
 			return browser.execute((a, b) => {
 				return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
 			}, dropdown, scroller);
-		}
+		};
 
-		it('should have title visible when focusing button via 5-way - [QWT-2154]', function () {
+		it('should have title visible when focusing button via 5-way - [QWT-2154]', async function () {
 			// TODO: This refocuses the first dropdown which is being blurred for some reason with
 			// Scroller. Once that bug is resolved, this can be removed.
-			Page.spotlightLeft();
-			expect(Page.components.dropdown1.button.isFocused()).to.be.true();
+			await Page.spotlightLeft();
+			expect(await Page.components.dropdown1.button.isFocused()).to.be.true();
 
-			Page.spotlightDown();
-			Page.delay(250);
+			await Page.spotlightDown();
+			await Page.delay(250);
 
 			// Verify that we have scrolled down
 			expect(getDropdownOffset(
-				Page.components.dropdown1.self,
-				$('#scroller')
+				await Page.components.dropdown1.self,
+				await $('#scroller')
 			)).to.not.equal(0);
 
-			Page.spotlightUp();
-			Page.delay(250);
+			await Page.spotlightUp();
+			await Page.delay(250);
 
 			const expected = 0;
 			const actual = getDropdownOffset(
-				Page.components.dropdown1.self,
-				$('#scroller')
+				await Page.components.dropdown1.self,
+				await $('#scroller')
 			);
-			expect(actual).to.equal(expected);
+			expect(await actual).to.equal(expected);
 		});
 	});
 });

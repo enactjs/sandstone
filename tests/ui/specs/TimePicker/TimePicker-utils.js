@@ -1,16 +1,16 @@
 // Utility methods for testing
-const extractValues = (picker) => {
-	const hour = parseInt(picker.item(picker.hour).getText());
-	const minute = parseInt(picker.item(picker.minute).getText());
-	const meridiem = picker.meridiem.isExisting() ? picker.item(picker.meridiem).getText() : null;
+const extractValues = async (picker) => {
+	const hour = parseInt(await picker.item(picker.hour).getText());
+	const minute = parseInt(await picker.item(picker.minute).getText());
+	const meridiem = await picker.meridiem.isExisting() ? await picker.item(picker.meridiem).getText() : null;
 
 	return {hour, minute, meridiem};
 };
 
 // Validations are self-contained 'it' statements
 function validateTitle (picker, title) {
-	it('should have correct title', function () {
-		expect(picker.titleText).to.equal(title);
+	it('should have correct title', async function () {
+		expect(await picker.titleText).to.equal(title);
 	});
 }
 

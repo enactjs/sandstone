@@ -19,8 +19,8 @@ class VirtualListPage extends Page {
 
 	}
 
-	open (layout = '', urlExtra) {
-		super.open(`VirtualList${layout}-View`, urlExtra);
+	async open (layout = '', urlExtra) {
+		await super.open(`VirtualList${layout}-View`, urlExtra);
 	}
 
 	// button api
@@ -76,13 +76,15 @@ class VirtualListPage extends Page {
 	get scrollbar () {
 		return $(`${verticalScrollbarSelector}`);
 	}
-	getVerticalScrollbarRect () {
-		return browser.execute(function (_verticalScrollbarSelector) {
+
+	async getVerticalScrollbarRect () {
+		return await browser.execute(function (_verticalScrollbarSelector) {
 			return document.querySelector(_verticalScrollbarSelector).getBoundingClientRect();
 		}, verticalScrollbarSelector);
 	}
-	getVerticalScrollbarTrackRect () {
-		return browser.execute(function (_verticalScrollbarTrackSelector) {
+
+	async getVerticalScrollbarTrackRect () {
+		return await browser.execute(function (_verticalScrollbarTrackSelector) {
 			return document.querySelector(_verticalScrollbarTrackSelector).getBoundingClientRect();
 		}, verticalScrollbarTrackSelector);
 	}
@@ -91,8 +93,9 @@ class VirtualListPage extends Page {
 	get scrollThumb () {
 		return $(`${scrollThumbSelector}`);
 	}
-	getScrollThumbPosition (index = 0) {
-		return browser.execute(function (_scrollbarSelector, _index) {
+
+	async getScrollThumbPosition (index = 0) {
+		return await browser.execute(function (_scrollbarSelector, _index) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector)[_index];
 			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
 		}, scrollbarSelector, index);
@@ -103,18 +106,20 @@ class VirtualListPage extends Page {
 	get list () {
 		return element('#list', browser);
 	}
-	getListRect () {
-		return browser.execute(function (_scrollContentSelector) {
+
+	async getListRect () {
+		return await browser.execute(function (_scrollContentSelector) {
 			return document.querySelector(_scrollContentSelector).getBoundingClientRect();
 		}, scrollContentSelector);
 	}
 
 	// item api
-	item (id) {
-		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
+	async item (id) {
+		return await element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
 	}
-	topVisibleItemId () {
-		return browser.execute(function (_scrollableSelector) {
+
+	async topVisibleItemId () {
+		return await browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{top, left, width} = scroller.getBoundingClientRect();
 			let currentY = top + 1,
@@ -134,8 +139,9 @@ class VirtualListPage extends Page {
 			return 'unknown';	// we didn't find it?!
 		}, scrollableSelector);
 	}
-	bottomVisibleItemId () {
-		return browser.execute(function (_scrollableSelector) {
+
+	async bottomVisibleItemId () {
+		return await browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{bottom, left, width} = scroller.getBoundingClientRect();
 			// affordance space to draw the bottom shadow. affordanceSize is 48 for 4k and 24 for FHD.
@@ -159,26 +165,30 @@ class VirtualListPage extends Page {
 			return 'unknown';	// we didn't find it?!
 		}, scrollableSelector);
 	}
-	getElementAttribute (string) {
-		return browser.execute(function (_string) {
+
+	async getElementAttribute (string) {
+		return await browser.execute(function (_string) {
 			return document.activeElement.getAttribute(_string);
 		}, string);
 	}
-	activeElementRect () {
-		return browser.execute(function () {
+
+	async activeElementRect () {
+		return await browser.execute(function () {
 			return document.activeElement.getBoundingClientRect();
 		});
 	}
-	itemSpacing () {
-		return browser.execute(function (_listItemSelector) {
+
+	async itemSpacing () {
+		return await browser.execute(function (_listItemSelector) {
 			const itemContent = document.querySelectorAll(_listItemSelector);
 			const firstItemRect = itemContent[0].getBoundingClientRect();
 			const secondItemRect = itemContent[1].getBoundingClientRect();
 			return Math.round(secondItemRect.top - firstItemRect.top - firstItemRect.height);
 		}, listItemSelector);
 	}
-	getItemSize () {
-		return browser.execute(function (_listItemSelector) {
+
+	async getItemSize () {
+		return await browser.execute(function (_listItemSelector) {
 			const itemContent = document.querySelector(_listItemSelector);
 			const itemHeight = itemContent.getBoundingClientRect().height;
 			const itemWidth = itemContent.getBoundingClientRect().width;
@@ -188,57 +198,62 @@ class VirtualListPage extends Page {
 			};
 		}, listItemSelector);
 	}
-	itemDisabled () {
-		return browser.execute(function () {
+
+	async itemDisabled () {
+		return await browser.execute(function () {
 			return document.activeElement.getAttribute('aria-disabled') === 'true';
 		});
 	}
-	textContent () {
-		return browser.execute(function () {
+
+	async textContent () {
+		return await browser.execute(function () {
 			return document.activeElement.innerText.split('\n')[0];
 		});
 	}
-	spotlightSize () {
-		return browser.execute(function () {
+
+	async spotlightSize () {
+		return await browser.execute(function () {
 			return document.activeElement.clientHeight;
 		});
 	}
 
 	// key input api
-	fiveWayToItem (itemNum) {
-		const currentItem = Number(focusedElement().slice(4));
+	async fiveWayToItem (itemNum) {
+		const currentItem = Number((await focusedElement()).slice(4));
 		expect(Number.isNaN(currentItem), 'Not focused to an item').to.be.false();
 
 		const direction = currentItem < itemNum ? 1 : -1;
 
 		for (let i = currentItem; i !== itemNum; i = i + direction) {
 			if (direction > 0) {
-				this.spotlightDown();
+				await this.spotlightDown();
 			} else {
-				this.spotlightUp();
+				await this.spotlightUp();
 			}
-			waitUntilFocused(i + direction);
-			waitUntilVisible(i + direction);
+			await waitUntilFocused(i + direction);
+			await waitUntilVisible(i + direction);
 		}
 	}
-	checkScrollbyPagekey (way) {
-		const initialThumbPosition = this.getScrollThumbPosition();
+
+	async checkScrollbyPagekey (way) {
+		const initialThumbPosition = await this.getScrollThumbPosition();
 		if (way === 'down') {
-			this.pageDown();
-			this.delay(1000);
-			expect((this.getScrollThumbPosition() > initialThumbPosition)).to.be.true();
+			await this.pageDown();
+			await this.delay(1000);
+			expect((await this.getScrollThumbPosition()) > initialThumbPosition).to.be.true();
 		} else {
-			this.pageUp();
-			this.delay(1000);
-			expect((initialThumbPosition > this.getScrollThumbPosition())).to.be.true();
+			await this.pageUp();
+			await this.delay(1000);
+			expect(initialThumbPosition > (await this.getScrollThumbPosition())).to.be.true();
 		}
 	}
 	backSpace () {
 		return this.keyDelay('Backspace');
 	}
-	numPad (num) {
+
+	async numPad (num) {
 		let Inputnum = 'numpad' + String(num);
-		return this.keyDelay(Inputnum);
+		return await this.keyDelay(Inputnum);
 	}
 }
 

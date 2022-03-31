@@ -1,13 +1,13 @@
-function validateTitle (alert, title) {
-	expect(alert.title).to.equal(title);
+async function validateTitle (alert, title) {
+	expect(await alert.title).to.equal(title);
 }
 
-const expectClosed = (alert) => {
-	expect(alert.isAlertExist).to.be.false();
+const expectClosed = async (alert) => {
+	expect(await alert.isAlertExist).to.be.false();
 };
 
-const expectOpen = (alert) => {
-	expect(alert.isAlertExist).to.be.true();
+const expectOpen = async (alert) => {
+	expect(await alert.isAlertExist).to.be.true();
 };
 
 module.exports = {
