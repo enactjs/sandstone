@@ -244,6 +244,63 @@ WithPauseAndAutoFocusNone.parameters = {
 	}
 };
 
+export const WithDropdown = (args) => {
+	const [open, setOpen] = useState(false);
+
+    const handleOpenDropdown = useCallback(() => {
+        setTimeout(() => {
+            setOpen(true);
+        }, 1000);
+    },[]);
+
+    const handleOpen = useCallback(() => {
+        setOpen(true);
+    },[]);
+
+    const handleClose = useCallback(() => {
+        setOpen(false);
+    },[]);
+
+	return (
+		<>
+			<Dropdown
+					title="A dropdown"
+                    onOpen={handleOpenDropdown}
+			>
+				{['a', 'b', 'c', 'd']}
+			</Dropdown>
+			<Button onClick={handleOpen}>open</Button>
+			<FixedPopupPanels
+				open={open}
+				position={args['position']}
+				fullHeight={args['fullHeight']}
+				width={args['width']}
+				noAnimation={args['noAnimation']}
+				noAutoDismiss={args['noAutoDismiss']}
+				scrimType={args['scrimType']}
+				spotlightRestrict={args['spotlightRestrict']}
+			>
+				<Panel>
+					<Header>
+						<title>Fixed Popup Panel</title>
+					</Header>
+					<Button onClick={handleClose}>Close</Button>
+				</Panel>
+			</FixedPopupPanels>
+		</>
+	);
+};
+
+select('position', WithDropdown, ['left', 'right'], Config);
+boolean('fullHeight', WithDropdown, Config);
+select('width', WithDropdown, ['narrow', 'half'], Config);
+boolean('noAnimation', WithDropdown, Config);
+boolean('noAutoDismiss', WithDropdown, Config);
+select('scrimType', WithDropdown, ['none', 'translucent', 'transparent'], Config);
+select('spotlightRestrict', WithDropdown, ['self-first', 'self-only'], Config);
+
+WithDropdown.storyName = 'with Dropdown';
+
 export const WithScroller = (args) => {
 	return (
 		<FixedPopupPanels
