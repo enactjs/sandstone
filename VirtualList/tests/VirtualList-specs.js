@@ -146,9 +146,7 @@ describe('VirtualList', () => {
 				/>
 			);
 
-			act(() => {
-				myScrollTo({index: 10, animate: false});
-			});
+			act(() => myScrollTo({index: 10, animate: false}));
 		});
 
 		test('should scroll to the given \'x\' position with scrollTo', (done) => {
@@ -171,9 +169,7 @@ describe('VirtualList', () => {
 				/>
 			);
 
-			act(() => {
-				myScrollTo({position: {x: 200}, animate: false});
-			});
+			act(() => myScrollTo({position: {x: 200}, animate: false}));
 		});
 
 		test('should scroll to the given \'y\' position with scrollTo', (done) => {
@@ -195,9 +191,7 @@ describe('VirtualList', () => {
 				/>
 			);
 
-			act(() => {
-				myScrollTo({position: {y: 200}, animate: false});
-			});
+			act(() => myScrollTo({position: {y: 200}, animate: false}));
 		});
 
 		describe('scroll events', () => {
@@ -214,9 +208,7 @@ describe('VirtualList', () => {
 					/>
 				);
 
-				act(() => {
-					myScrollTo({position: {y: 200}, animate: false});
-				});
+				act(() => myScrollTo({position: {y: 200}, animate: false}));
 
 				const expected = 1;
 
@@ -236,9 +228,7 @@ describe('VirtualList', () => {
 					/>
 				);
 
-				act(() => {
-					myScrollTo({position: {y: 200}, animate: false});
-				});
+				act(() => myScrollTo({position: {y: 200}, animate: false}));
 
 				const expected = 1;
 
@@ -264,9 +254,7 @@ describe('VirtualList', () => {
 					/>
 				);
 
-				act(() => {
-					myScrollTo({position: {y: 200}, animate: false});
-				});
+				act(() => myScrollTo({position: {y: 200}, animate: false}));
 			});
 		});
 	});

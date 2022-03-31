@@ -317,12 +317,13 @@ describe('Input specs', () => {
 		userEvent.click(numberButton);
 		userEvent.click(submitButton);
 
-		act(() => {
-			jest.advanceTimersByTime(300);
-		});
+		act(() => jest.advanceTimersByTime(300));
 
 		expect(spy).toHaveBeenCalled();
 		done();
+
+		jest.runOnlyPendingTimers();
+		jest.useRealTimers();
 	});
 
 	test('should call onChange when submit button clicked', () => {
