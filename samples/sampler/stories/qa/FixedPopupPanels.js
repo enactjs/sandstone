@@ -264,12 +264,12 @@ export const WithDropdown = (args) => {
 	return (
 		<>
 			<Dropdown
-				title="A dropdown"
+				title="Dropdown"
 				onOpen={handleOpenDropdown}
 			>
 				{['a', 'b', 'c', 'd']}
 			</Dropdown>
-			<Button onClick={handleOpen}>open</Button>
+			<Button onClick={handleOpen}>Open</Button>
 			<FixedPopupPanels
 				open={open}
 				position={args['position']}
