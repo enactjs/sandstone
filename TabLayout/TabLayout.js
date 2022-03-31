@@ -366,7 +366,7 @@ const TabLayoutBase = kind({
 			orientation,
 			selectedIndex: index,
 			tabs,
-            css
+			css
 		};
 
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
