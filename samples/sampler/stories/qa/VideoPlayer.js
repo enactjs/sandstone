@@ -8,8 +8,8 @@ import {Component} from 'react';
 const videoPlayerOption =  [
 	'',
 	'Next Preload Video',
-	'Non Preload Video',
 	'Next Preload Video without changing preload',
+	'Non Preload Video',
 	'Change Preload without changing video',
 	'Reset Sources'
 ];
@@ -42,7 +42,7 @@ class VideoSourceSwap extends Component {
 			} else if (option === 'Non Preload Video') {
 				this.differentVideo();
 			} else if (option === 'Next Preload Video without changing preload') {
-				this.nextPreloadVideoKeepVideo();
+				this.nextVideoKeepPreload();
 			} else if (option === 'Change Preload without changing video') {
 				this.nextPreloadVideoKeepVideo();
 			} else if (option === 'Reset Sources') {

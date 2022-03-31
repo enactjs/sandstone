@@ -10,37 +10,37 @@ describe('PopupTabLayout', function () {
 
 	describe('default', function () {
 
-		beforeEach(function () {
-			Page.open();
+		beforeEach(async function () {
+			await Page.open();
 		});
 
 		describe('view navigation behavior', function () {
 
 			describe('5-way interaction', function () {
 
-				it('should render the first tab by default', function () {
+				it('should render the first tab by default', async function () {
 					const expected = 'display';
-					const actual = popupTabLayout.currentView.getAttribute('id');
+					const actual = await popupTabLayout.currentView.getAttribute('id');
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should render a tab\'s associated view when it is focused via 5-way move', function () {
+				it('should render a tab\'s associated view when it is focused via 5-way move', async function () {
 					const soundId = 'sound';
 
-					Page.spotlightDown();
-					Page.waitForExist(`#${soundId}`);
+					await Page.spotlightDown();
+					await Page.waitForExist(`#${soundId}`);
 
 					const expected = soundId;
-					const actual = popupTabLayout.currentView.getAttribute('id');
+					const actual = await popupTabLayout.currentView.getAttribute('id');
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should show the collapsed tabs when a user enters a menu', function () {
-					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
-						Page.spotlightRight();
-						Page.spotlightSelect();
+				it('should show the collapsed tabs when a user enters a menu', async function () {
+					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
+						await Page.spotlightRight();
+						await Page.spotlightSelect();
 					});
 
 					// Example of getting the DOM from the browser to debug. browser.execute()
@@ -53,172 +53,172 @@ describe('PopupTabLayout', function () {
 					// }, popupTabLayout.self));
 
 					const expected = true;
-					const actual = popupTabLayout.isCollapsed;
+					const actual = await popupTabLayout.isCollapsed;
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should expand the tabs when focus returns to the tabs', function () {
-					Page.spotlightRight();
-					Page.spotlightSelect();
-					Page.delay(500);
+				it('should expand the tabs when focus returns to the tabs', async function () {
+					await Page.spotlightRight();
+					await Page.spotlightSelect();
+					await Page.delay(500);
 
 					// To the upper menu
-					Page.spotlightLeft();
-					Page.delay(500);
+					await Page.spotlightLeft();
+					await Page.delay(500);
 
-					Page.spotlightLeft();
-					Page.delay(500);
+					await Page.spotlightLeft();
+					await Page.delay(500);
 
 					const expected = false;
-					const actual = popupTabLayout.isCollapsed;
+					const actual = await popupTabLayout.isCollapsed;
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should go to the upper menu with the left key', function () {
-					Page.spotlightRight();
-					Page.spotlightSelect();
-					Page.delay(500);
+				it('should go to the upper menu with the left key', async function () {
+					await Page.spotlightRight();
+					await Page.spotlightSelect();
+					await Page.delay(500);
 
 					// To the upper menu
-					Page.spotlightLeft();
-					Page.delay(500);
+					await Page.spotlightLeft();
+					await Page.delay(500);
 
 					const expected = 'Color Adjust';
-					const actual = browser.execute(getFocusedText);
+					const actual = await browser.execute(getFocusedText);
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should not move the focus with the left key on the back button', function () {
-					Page.spotlightRight();
-					Page.spotlightSelect();
-					Page.delay(500);
+				it('should not move the focus with the left key on the back button', async function () {
+					await Page.spotlightRight();
+					await Page.spotlightSelect();
+					await Page.delay(500);
 
 					// To the back button
-					Page.spotlightUp();
+					await Page.spotlightUp();
 
-					Page.spotlightLeft();
-					Page.delay(500);
+					await Page.spotlightLeft();
+					await Page.delay(500);
 
-					Page.spotlightDown();
+					await Page.spotlightDown();
 
-					const expected = $('#brightness').isFocused();
+					const expected = await $('#brightness').isFocused();
 					const actual = true;
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should prevent focus from moving to the tabs while navigating vertically through the content when using noCloseButton', function () {
+				it('should prevent focus from moving to the tabs while navigating vertically through the content when using noCloseButton', async function () {
 					const soundId = 'sound';
 
-					Page.spotlightDown();
-					Page.waitForExist(`#${soundId}`);
+					await Page.spotlightDown();
+					await Page.waitForExist(`#${soundId}`);
 
-					Page.spotlightRight();
-					Page.spotlightUp();
+					await Page.spotlightRight();
+					await Page.spotlightUp();
 
 					const expected = 'Advanced Audio';
-					const actual = browser.execute(getFocusedText);
+					const actual = await browser.execute(getFocusedText);
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should not lose focus with spotlight left', function () {
+				it('should not lose focus with spotlight left', async function () {
 					// Attempt to focus left
-					expect(popupTabLayout.tabItems[0].isFocused(), 'initial focus').to.be.true();
-					Page.spotlightLeft();
-					expect(popupTabLayout.tabItems[0].isFocused(), 'secondary focus').to.be.true();
+					expect(await popupTabLayout.tabItems[0].isFocused(), 'initial focus').to.be.true();
+					await Page.spotlightLeft();
+					expect(await popupTabLayout.tabItems[0].isFocused(), 'secondary focus').to.be.true();
 				});
 
-				it('should suppress 5-way select during transition', function () {
-					Page.spotlightRight();
-					Page.spotlightSelect();
-					Page.delay(50);
+				it('should suppress 5-way select during transition', async function () {
+					await Page.spotlightRight();
+					await Page.spotlightSelect();
+					await Page.delay(50);
 
 					// The Brightness item is configured to blur itself on select so this will blur
 					// it if key events are not suppressed.
-					Page.spotlightSelect();
+					await Page.spotlightSelect();
 
-					const expected = $('#brightness').isFocused();
+					const expected = await $('#brightness').isFocused();
 					const actual = true;
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should close the popup on back when the focus is on the tabs', function () {
-					Page.waitTransitionEnd(1500, 'waiting for popup to close', () => {
-						Page.backKey();
+				it('should close the popup on back when the focus is on the tabs', async function () {
+					await Page.waitTransitionEnd(1500, 'waiting for popup to close', async () => {
+						await Page.backKey();
 					});
 
-					const expected = $('#tabLayout').isExisting();
+					const expected = await $('#tabLayout').isExisting();
 					const actual = false;
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should suppress back key during transition', function () {
-					Page.spotlightRight();
-					Page.spotlightSelect();
-					Page.delay(50);
-					Page.backKey();
+				it('should suppress back key during transition', async function () {
+					await Page.spotlightRight();
+					await Page.spotlightSelect();
+					await Page.delay(50);
+					await Page.backKey();
 
 					// Adding an arbitrary delay since there are multiple pieces (panel transition,
 					// popup transition) moving in this case to allow for everything to settle.
-					Page.delay(500);
+					await Page.delay(500);
 
-					const expected = $('#brightness').isFocused();
+					const expected = await $('#brightness').isFocused();
 					const actual = true;
 
 					expect(actual).to.equal(expected);
 				});
 
-				it('should collapse tab only when user enters a menu', function () {
-					Page.spotlightRight();
-					Page.delay(500);
-					expect(popupTabLayout.isCollapsed).to.be.false();
+				it('should collapse tab only when user enters a menu', async function () {
+					await Page.spotlightRight();
+					await Page.delay(500);
+					expect(await popupTabLayout.isCollapsed).to.be.false();
 
-					Page.spotlightSelect();
-					Page.delay(500);
-					expect(popupTabLayout.isCollapsed).to.be.true();
+					await Page.spotlightSelect();
+					await Page.delay(500);
+					expect(await popupTabLayout.isCollapsed).to.be.true();
 
 					// To the upper menu
-					Page.spotlightLeft();
-					Page.delay(500);
-					expect(popupTabLayout.isCollapsed).to.be.true();
+					await Page.spotlightLeft();
+					await Page.delay(500);
+					expect(await popupTabLayout.isCollapsed).to.be.true();
 
-					Page.spotlightLeft();
-					Page.delay(500);
-					expect(popupTabLayout.isCollapsed).to.be.false();
+					await Page.spotlightLeft();
+					await Page.delay(500);
+					expect(await popupTabLayout.isCollapsed).to.be.false();
 				});
 
-				it('should not close the popup when pressing back key on the first panel of content', function () {
+				it('should not close the popup when pressing back key on the first panel of content', async function () {
 					// Go to the second depth of the content
-					Page.spotlightRight();
-					Page.spotlightSelect();
-					Page.delay(500);
+					await Page.spotlightRight();
+					await Page.spotlightSelect();
+					await Page.delay(500);
 
 					// Press back key to go to the first panel
-					Page.backKey();
-					Page.delay(500);
+					await Page.backKey();
+					await Page.delay(500);
 
 					// Make sure the focus is on the first panel
-					expect(browser.execute(getFocusedText)).to.equal('Color Adjust');
+					expect(await browser.execute(getFocusedText)).to.equal('Color Adjust');
 
 					// Press back key to move the focus on the tabs
-					Page.backKey();
-					Page.delay(500);
+					await Page.backKey();
+					await Page.delay(500);
 
 					// Make sure the focus is on the tabs
-					expect(browser.execute(getFocusedText)).to.equal('Display');
+					expect(await browser.execute(getFocusedText)).to.equal('Display');
 
 					// Press back key to close the popup
-					Page.waitTransitionEnd(1500, 'waiting for popup to close', () => {
-						Page.backKey();
+					await Page.waitTransitionEnd(1500, 'waiting for popup to close', async () => {
+						await Page.backKey();
 					});
 
-					const expected = $('#tabLayout').isExisting();
+					const expected = await $('#tabLayout').isExisting();
 					const actual = false;
 
 					expect(actual).to.equal(expected);
@@ -245,57 +245,57 @@ describe('PopupTabLayout', function () {
 		});
 
 		describe('auto focus behavior', function () {
-			it('should focus the first tab when expanded', function () {
-				Page.open();
+			it('should focus the first tab when expanded', async function () {
+				await Page.open();
 
 				const expected = 'Display';
-				const actual = browser.execute(getFocusedText);
+				const actual = await browser.execute(getFocusedText);
 
 				expect(actual).to.equal(expected);
 			});
 
-			it('should restore last focused when returning to Panel', function () {
-				Page.open();
+			it('should restore last focused when returning to Panel', async function () {
+				await Page.open();
 
-				expect(browser.execute(getFocusedText)).to.equal('Display');
+				expect(await browser.execute(getFocusedText)).to.equal('Display');
 
-				Page.spotlightRight();
+				await Page.spotlightRight();
 
 				// Color Adjust is the default element
-				expect(browser.execute(getFocusedText)).to.equal('Color Adjust');
+				expect(await browser.execute(getFocusedText)).to.equal('Color Adjust');
 
 				// sets the last focused for the Panel to be "Picture Modes"
-				Page.spotlightUp();
+				await Page.spotlightUp();
 
-				expect(browser.execute(getFocusedText)).to.equal('Picture Modes');
+				expect(await browser.execute(getFocusedText)).to.equal('Picture Modes');
 
-				Page.spotlightLeft();
+				await Page.spotlightLeft();
 
-				expect(browser.execute(getFocusedText)).to.equal('Display');
+				expect(await browser.execute(getFocusedText)).to.equal('Display');
 
-				Page.spotlightRight();
+				await Page.spotlightRight();
 
 				// expect to return to Picture Modes
 				const expected = 'Picture Modes';
-				const actual = browser.execute(getFocusedText);
+				const actual = await browser.execute(getFocusedText);
 
 				expect(actual).to.equal(expected);
 			});
 
-			it('should focus the second tab when expanded', function () {
-				Page.open('?defaultIndex=1');
+			it('should focus the second tab when expanded', async function () {
+				await Page.open('?defaultIndex=1');
 
 				const expected = 'Sound';
-				const actual = browser.execute(getFocusedText);
+				const actual = await browser.execute(getFocusedText);
 
 				expect(actual).to.equal(expected);
 			});
 
-			it('should respect the `autoFocus` prop on `TabPanel` when collapsed', function () {
-				Page.open('?defaultCollapsed');
+			it('should respect the `autoFocus` prop on `TabPanel` when collapsed', async function () {
+				await Page.open('?defaultCollapsed');
 
 				const expected = 'Color Adjust';
-				const actual = browser.execute(getFocusedText);
+				const actual = await browser.execute(getFocusedText);
 
 				expect(actual).to.equal(expected);
 			});

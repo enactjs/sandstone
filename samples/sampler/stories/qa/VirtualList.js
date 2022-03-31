@@ -7,6 +7,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
+import {FixedPopupPanels, Panel as FixedPopupPanel} from '@enact/sandstone/FixedPopupPanels';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList from '@enact/sandstone/VirtualList';
@@ -14,7 +15,7 @@ import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import PropTypes from 'prop-types';
-import {Component, useState} from 'react';
+import {Component, useCallback, useState} from 'react';
 
 import css from './VirtualList.module.less';
 
@@ -138,10 +139,9 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 
 const CustomHeader = (props) => {
 	const [children, setChildren] = useState(false);
-
-	function handleClick () {
+	const handleClick = useCallback(() => {
 		setChildren(!children);
-	}
+	}, [children]);
 
 	return (
 		<Header
@@ -160,10 +160,9 @@ const CustomHeader = (props) => {
 // eslint-disable-next-line enact/prop-types
 const InPanels = ({className, title, ...rest}) => {
 	const [index, setIndex] = useState(0);
-
-	function handleSelectItem () {
+	const handleSelectItem = useCallback(() => {
 		setIndex(index === 0 ? 1 : 0);
-	}
+	}, [index]);
 
 	return (
 		<Panels className={className} index={index}>
@@ -365,6 +364,52 @@ _InPanels.parameters = {
 	props: {
 		noPanels: true
 	}
+};
+
+export const InFixedPopupPanels = (args) => {
+	return (
+		<FixedPopupPanels
+			open
+			index={0}
+		>
+			<FixedPopupPanel>
+				<Header title="Panel1" />
+				<VirtualList
+					dataSize={updateDataSize(args['dataSize'])}
+					horizontalScrollbar={args['horizontalScrollbar']}
+					hoverToScroll={args['hoverToScroll']}
+					itemRenderer={renderItem(Item, ri.scale(args['itemSize']), true)}
+					itemSize={ri.scale(args['itemSize'])}
+					key={args['scrollMode']}
+					noScrollByWheel={args['noScrollByWheel']}
+					onKeyDown={action('onKeyDown')}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollMode={args['scrollMode']}
+					spacing={ri.scale(args['spacing'])}
+					spotlightDisabled={args['spotlightDisabled']}
+					verticalScrollbar={args['verticalScrollbar']}
+					wrap={args['wrap']}
+				/>
+			</FixedPopupPanel>
+		</FixedPopupPanels>
+	);
+};
+
+number('dataSize', InFixedPopupPanels, Config, defaultDataSize);
+select('horizontalScrollbar', InFixedPopupPanels, prop.scrollbarOption, Config);
+boolean('hoverToScroll', InFixedPopupPanels, Config);
+number('itemSize', InFixedPopupPanels, Config, 156);
+select('scrollMode', InFixedPopupPanels, prop.scrollModeOption, Config);
+boolean('noScrollByWheel', InFixedPopupPanels, Config);
+number('spacing', InFixedPopupPanels, Config);
+boolean('spotlightDisabled', InFixedPopupPanels, Config, false);
+select('verticalScrollbar', InFixedPopupPanels, prop.scrollbarOption, Config);
+select('wrap', InFixedPopupPanels, prop.wrapOption, Config);
+
+InFixedPopupPanels.storyName = 'in FixedPopupPanels';
+InFixedPopupPanels.parameters = {
+	propTables: [Config]
 };
 
 export const ScrollingTo0WheneverDataSizeChanges = (args) => {

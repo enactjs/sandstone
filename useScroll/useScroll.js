@@ -172,14 +172,18 @@ const useThemeScroll = (props, instances) => {
 	}
 
 	function focusOnItem () {
+		let isItemFocused = false;
+
 		if (mutableRef.current.indexToFocus !== null && typeof themeScrollContentHandle.current.focusByIndex === 'function') {
 			themeScrollContentHandle.current.focusByIndex(mutableRef.current.indexToFocus);
 			mutableRef.current.indexToFocus = null;
+			isItemFocused = true;
 		}
 
 		if (mutableRef.current.nodeToFocus !== null && typeof themeScrollContentHandle.current.focusOnNode === 'function') {
 			themeScrollContentHandle.current.focusOnNode(mutableRef.current.nodeToFocus);
 			mutableRef.current.nodeToFocus = null;
+			isItemFocused = true;
 		}
 
 		if (mutableRef.current.pointToFocus !== null) {
@@ -196,10 +200,15 @@ const useThemeScroll = (props, instances) => {
 
 				if (target) {
 					Spotlight.focus(target);
+					isItemFocused = true;
 				}
 			}
 
 			mutableRef.current.pointToFocus = null;
+		}
+
+		if (Spotlight.getPointerMode() && !isItemFocused) {
+			Spotlight.focus(scrollContainerRef.current, {enterTo: 'topmost'});
 		}
 	}
 
@@ -296,6 +305,9 @@ const useScroll = (props) => {
 			'data-spotlight-container': spotlightContainer,
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
+			'data-webos-voice-disabled': voiceDisabled,
+			'data-webos-voice-focused': voiceFocused,
+			'data-webos-voice-group-label': voiceGroupLabel,
 			focusableScrollbar,
 			fadeOut,
 			horizontalScrollThumbAriaLabel,
@@ -453,8 +465,15 @@ const useScroll = (props) => {
 		ref: scrollContainerRef
 	});
 
+	const voiceProps = {
+		'data-webos-voice-disabled': voiceDisabled,
+		'data-webos-voice-focused': voiceFocused,
+		'data-webos-voice-group-label': voiceGroupLabel
+	};
+
 	assignProperties('scrollContentProps', {
 		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {fadeOut}),
+		...voiceProps,
 		className: [
 			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
@@ -485,7 +504,7 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('hoverToScrollProps', {
-		scrollContainerHandle,
+		scrollContainerHandleRef: scrollContainerHandle.current,
 		scrollObserver
 	});
 
