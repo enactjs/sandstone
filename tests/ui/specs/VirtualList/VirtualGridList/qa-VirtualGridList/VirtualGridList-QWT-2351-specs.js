@@ -2,34 +2,34 @@ const Page = require('../VirtualGridListPage');
 const {expectFocusedItem} = require('../../VirtualList-utils');
 
 describe('qa-VirtualGridList', function () {
-	beforeEach(function () {
-		Page.open('', '?locale=ar-SA');
+	beforeEach(async function () {
+		await Page.open('', '?locale=ar-SA');
 	});
 
-	it('should spotlight move on last item [QWT-2351]', function () {
+	it('should spotlight move on last item [QWT-2351]', async function () {
 		// Step 2-1: Select 'Horizontal'
-		Page.buttonDirectionChange.moveTo();
-		Page.spotlightSelect();
+		await Page.buttonDirectionChange.moveTo();
+		await Page.spotlightSelect();
 
 		// Step 3-1: 5-way spot item 0.
-		Page.item(0).moveTo();
-		Page.spotlightRight();
-		expectFocusedItem(0);
+		await (await Page.item(0)).moveTo();
+		await Page.spotlightRight();
+		await expectFocusedItem(0);
 		// Step 3-2: 5-way Left to Item 16.
 		for (let i = 0; i < 8; i++) {
-			Page.spotlightLeft();
-			Page.delay(200);
+			await Page.spotlightLeft();
+			await Page.delay(200);
 		}
-		Page.delay(500);
+		await Page.delay(500);
 		// Step 3-2 Verify: Spotlight is on item 16.
-		expectFocusedItem(16);
-		const curScrollThumbPosition = Page.scrollThumbPosition();
+		await expectFocusedItem(16);
+		const curScrollThumbPosition = await Page.scrollThumbPosition();
 
 		// Step 4: 5-way Right to item 14.
-		Page.spotlightRight();
+		await Page.spotlightRight();
 		// Step 4-1 Verify: The list does not Scroll Right.
-		expect(Page.scrollThumbPosition()).to.be.equal(curScrollThumbPosition);
+		expect(await Page.scrollThumbPosition()).to.be.equal(curScrollThumbPosition);
 		// Step 4-2 Verify: Spotlight is on item 14.
-		expectFocusedItem(14);
+		await expectFocusedItem(14);
 	});
 });

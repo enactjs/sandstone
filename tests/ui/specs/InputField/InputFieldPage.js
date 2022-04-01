@@ -7,8 +7,8 @@ class SpotlightMultiplePage extends Page {
 		this.title = 'InputField Test';
 	}
 
-	open (urlExtra) {
-		super.open('InputField-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('InputField-View', urlExtra);
 	}
 
 	get input1 () {

@@ -1,6 +1,6 @@
 import ilib from 'ilib';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import TimePicker, {timeToLocaleString} from '../TimePicker';
@@ -22,10 +22,27 @@ describe('TimePicker', () => {
 			userEvent.click(hourPicker);
 
 			const expected = 1;
+			const expectedType = {type: 'onChange'};
+			const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
 			expect(handleChange).toBeCalledTimes(expected);
+			expect(actual).toMatchObject(expectedType);
 		}
 	);
+
+	test('should fire onComplete event with type when enter key pressed from the last picker', () => {
+		const handleComplete = jest.fn();
+		render(<TimePicker onComplete={handleComplete} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />);
+		const meridiemPicker = screen.getByLabelText('AM change a value with up down button');
+
+		meridiemPicker.focus();
+		fireEvent.keyDown(meridiemPicker, {which: 13, keyCode: 13, code: 13});
+
+		const expected = {type: 'onComplete'};
+		const actual = handleComplete.mock.calls.length && handleComplete.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
 
 	test('should accept a JavaScript Date for its value prop', () => {
 		render(

@@ -1,10 +1,13 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
+import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import {Header} from '@enact/sandstone/Panels';
+import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Group from '@enact/ui/Group';
@@ -194,6 +197,117 @@ boolean('spotlightDisabled', ListOfThings, Config, false);
 select('verticalScrollbar', ListOfThings, prop.scrollbarOption, Config);
 
 ListOfThings.storyName = 'List of things';
+
+export const ListOfThingsInFixedPopupPanels = (args) => (
+	<FixedPopupPanels
+		open
+		index={0}
+	>
+		<Panel>
+			<Header title="Panel1" />
+			<Scroller
+				focusableScrollbar={args['focusableScrollbar']}
+				horizontalScrollbar={args['horizontalScrollbar']}
+				hoverToScroll={args['hoverToScroll']}
+				key={args['scrollMode']}
+				noScrollByWheel={args['noScrollByWheel']}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={args['scrollMode']}
+				spotlightDisabled={args['spotlightDisabled']}
+				verticalScrollbar={args['verticalScrollbar']}
+			>
+				<Group childComponent={Item}>{itemData}</Group>
+			</Scroller>
+		</Panel>
+	</FixedPopupPanels>
+);
+
+select('focusableScrollbar', ListOfThingsInFixedPopupPanels, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', ListOfThingsInFixedPopupPanels, prop.scrollbarOption, Config);
+boolean('hoverToScroll', ListOfThingsInFixedPopupPanels, Config);
+boolean('noScrollByWheel', ListOfThingsInFixedPopupPanels, Config);
+select('scrollMode', ListOfThingsInFixedPopupPanels, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', ListOfThingsInFixedPopupPanels, Config, false);
+select('verticalScrollbar', ListOfThingsInFixedPopupPanels, prop.scrollbarOption, Config);
+
+ListOfThingsInFixedPopupPanels.storyName = 'List of things in FixedPopupPanels';
+
+const imageItems = [];
+
+const renderImageItem = (props, index) => {
+	const {text, subText, source} = props; // eslint-disable-line enact/prop-types
+
+	return (
+		<ImageItem
+			style={{width: ri.scale(600), height: ri.scale(480)}}
+			label={subText}
+			src={source}
+			key={`scrollerItem${index}`}
+		>
+			{text}
+		</ImageItem>
+	);
+};
+
+const updateDataSize = (dataSize) => {
+	const itemNumberDigits = dataSize > 0 ? (dataSize - 1 + '').length : 0;
+	const headingZeros = Array(itemNumberDigits).join('0');
+
+	imageItems.length = 0;
+
+	for (let i = 0; i < dataSize; i++) {
+		const count = (headingZeros + i).slice(-itemNumberDigits);
+		const text = `Item ${count}`;
+		const subText = `SubItem ${count}`;
+		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
+		const source = `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image ${i}`;
+
+		imageItems.push({text, subText, source});
+	}
+
+	return dataSize;
+};
+
+export const CenteredListOfImageItems = (args) => {
+	const dataSize = args['dataSize'];
+
+	updateDataSize(dataSize);
+
+	return (
+		<Scroller
+			direction="horizontal"
+			focusableScrollbar={args['focusableScrollbar']}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
+			onKeyDown={action('onKeyDown')}
+			onScrollStart={action('onScrollStart')}
+			onScrollStop={action('onScrollStop')}
+			scrollMode={args['scrollMode']}
+			spotlightDisabled={args['spotlightDisabled']}
+			style={{height: 'fit-content'}}
+			verticalScrollbar={args['verticalScrollbar']}
+		>
+			<div style={{display: 'flex', justifyContent: 'center', minWidth: 'fit-content'}}>
+				{imageItems.map(renderImageItem)}
+			</div>
+		</Scroller>
+	);
+};
+
+number('dataSize', CenteredListOfImageItems, 20);
+select('focusableScrollbar', CenteredListOfImageItems, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', CenteredListOfImageItems, prop.scrollbarOption, Config);
+boolean('hoverToScroll', CenteredListOfImageItems, Config);
+boolean('noScrollByWheel', CenteredListOfImageItems, Config);
+select('scrollMode', CenteredListOfImageItems, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', CenteredListOfImageItems, Config, false);
+select('verticalScrollbar', CenteredListOfImageItems, prop.scrollbarOption, Config);
+
+CenteredListOfImageItems.storyName = 'Centered List of ImageItems';
 
 export const HorizontalScroll = (args) => (
 	<Scroller

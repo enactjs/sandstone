@@ -58,4 +58,27 @@ describe('FixedPopupPanels', () => {
 
 		expect(actual).toHaveClass(expected);
 	});
+
+	test('should close on back key', () => {
+		const map = {};
+
+		window.addEventListener = jest.fn((event, cb) => {
+			map[event] = cb;
+		});
+		const handleClose = jest.fn();
+
+		render(
+			<FloatingLayerController>
+				<FixedPopupPanels onClose={handleClose} open />
+			</FloatingLayerController>
+		);
+
+		map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+
+		const expectedEvent = {type: 'onClose'};
+		const actualEvent = handleClose.mock.calls.length && handleClose.mock.calls[0][0];
+
+		expect(handleClose).toHaveBeenCalled();
+		expect(actualEvent).toMatchObject(expectedEvent);
+	});
 });

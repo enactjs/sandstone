@@ -4,8 +4,32 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to not show press effect on touch input
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to focus the topmost element after scroll in pointer mode
+
+## [2.1.4] - 2022-03-24
+
 ### Added
 
+- `sandstone/Icon` public class name `icon`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `data-webos-voice-focused`, `data-webos-voice-disabled`, and `data-webos-voice-group-label`
+
+### Fixed
+
+- `sandstone/WizardPanels` to provide a way to prevent focusing on Panel again by allowing preventDefault when `onTransition` and `onWillTransition`
+
+## [2.1.3] - 2022-03-07
+
+- Updated to use `forwardCustom` and add `type` when forwarding custom events
+
+### Added
+
+- `sandstone/Picker` and `sandstone/RangePicker` prop `changedBy` to provide a way to control with left and right keys in horizontal joined Picker
 - `sandstone/VideoPlayer` prop `backButtonAriaLabel`
 - `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player via touch
 
@@ -15,9 +39,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Alert` layout for overlay type when screen width is narrow
 - `sandstone/BodyText` font-size for size `small` and RTL locale
 - `sandstone/Input.InputField` size 'small' line-height to center text vertically
+- `sandstone/Input` to show title and keypad properly when `type` is `number` and screen width is narrow
+- `sandstone/Picker` horizontal joined behavior going to the next item by touch
 - `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
+- `sandstone/VirtualList` to scroll properly by hover after changing `dataSize` when `hoverToScroll` is `true`
 
 ## [2.1.2] - 2021-12-22
 
