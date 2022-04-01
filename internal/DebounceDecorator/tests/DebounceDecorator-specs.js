@@ -8,7 +8,6 @@ describe('DebounceDecorator', () => {
 		jest.useFakeTimers();
 	});
 	afterEach(() => {
-		jest.runOnlyPendingTimers();
 		jest.useRealTimers();
 	});
 	test('should emit the event after the delay', (done) => {

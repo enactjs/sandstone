@@ -95,18 +95,18 @@ describe('InputField Specs', () => {
 
 		expect(handleChange).not.toHaveBeenCalled();
 	});
-
-	/*test('should blur input on enter if dismissOnEnter', async () => {
+	 
+	test('should blur input on enter if dismissOnEnter', () => {
 		const handleChange = jest.fn();
 
 		render(<InputField onBlur={handleChange} dismissOnEnter />);
-		const inputField = await screen.findByPlaceholderText('');
+		const inputField = screen.getByPlaceholderText('');
 
 		fireEvent.mouseDown(inputField);
 		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
 
-		await waitFor(() => expect(handleChange).not.toHaveBeenCalled());
-	});*/
+		expect(handleChange).toHaveBeenCalled();
+	});
 
 	test('should activate input on enter', () => {
 		const handleChange = jest.fn();

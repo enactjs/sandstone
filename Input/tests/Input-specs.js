@@ -322,7 +322,6 @@ describe('Input specs', () => {
 		expect(spy).toHaveBeenCalled();
 		done();
 
-		jest.runOnlyPendingTimers();
 		jest.useRealTimers();
 	});
 
