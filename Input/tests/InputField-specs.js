@@ -1,6 +1,6 @@
 import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
-import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {InputField} from '../';
@@ -103,7 +103,7 @@ describe('InputField Specs', () => {
 
 		expect(handleChange).not.toHaveBeenCalled();
 	});
-	 
+
 	test('should blur input on enter if dismissOnEnter', () => {
 		const handleChange = jest.fn();
 

@@ -78,7 +78,7 @@ describe('DebounceDecorator', () => {
 		expect(spy).not.toHaveBeenCalled();
 
 		act(() => jest.advanceTimersByTime(75));
-		
+
 		expect(spy).toHaveBeenCalled();
 		done();
 	});
