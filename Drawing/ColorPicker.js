@@ -172,6 +172,8 @@ const ColorPickerBase = kind({
 			}
 
 			useEffect(() => {
+				if (color[0] !== '#') return;
+
 				let {r, g, b} = hexToRgb(color);
 
 				setInputColor(color);
