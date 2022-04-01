@@ -1,7 +1,7 @@
 import BodyText from '@enact/sandstone/BodyText';
 import Drawing, {DrawingBase} from '@enact/sandstone/Drawing';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
+import {color, boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
 import UIDrawing, {DrawingBase as UIDrawingBase} from '@enact/ui/Drawing';
 
 Drawing.displayName = 'Drawing';
@@ -42,14 +42,14 @@ export const _Drawing = (args) => {
 	);
 };
 
-select('brushColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
+color('brushColor', _Drawing, Config, '#FFFFFF');
 range('brushSize', _Drawing, Config, {min: 1, max: 30}, 5);
-select('canvasColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
+color('canvasColor', _Drawing, Config, '#000000');
 number('canvasHeight', _Drawing, Config, 800);
 number('canvasWidth', _Drawing, Config, 1200);
 boolean('disabled', _Drawing, Config);
 select('drawingTool', _Drawing, ['brush', 'fill', 'triangle', 'rectangle', 'circle', 'erase'], Config, '');
-select('fillColor', _Drawing, ['', '#000000', '#FFFFFF', '#FF0000', '#00FF00'], Config, '');
+color('fillColor', _Drawing, Config, '#00FF00');
 boolean('showDrawingControls', _Drawing, Config);
 boolean('showDrawingUtils', _Drawing, Config);
 
