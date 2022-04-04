@@ -135,6 +135,6 @@ export default {
 WithAutoFocusControl.storyName = 'with AutoFocus Control';
 WithAutoFocusControl.parameters = {
 	props: {
-		noPanel: true
+		noPanels: true
 	}
 };
