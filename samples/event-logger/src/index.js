@@ -18,5 +18,4 @@ if (typeof window !== 'undefined') {
 	root.render(appElement);
 }
 
-
 export default appElement;
