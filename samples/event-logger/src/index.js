@@ -4,10 +4,6 @@ import {Provider} from 'react-redux';
 import App from './App';
 import storeFactory from './store';
 
-const container = document.getElementById('root');
-
-const root = createRoot(container);
-
 const store = storeFactory();
 const appElement = (
 	<Provider store={store}>
@@ -16,6 +12,9 @@ const appElement = (
 );
 
 if (typeof window !== 'undefined') {
+	const container = document.getElementById('root');
+	const root = createRoot(container);
+
 	root.render(appElement);
 }
 
