@@ -4,10 +4,6 @@ import {createRoot} from 'react-dom/client';
 import App from './App';
 import configureStore from './store';
 
-const container = document.getElementById('root');
-
-const root = createRoot(container);
-
 const store = configureStore();
 const appElement = (
 	<Provider store={store}>
@@ -17,6 +13,9 @@ const appElement = (
 
 // In a browser environment, render the app to the document.
 if (typeof window !== 'undefined') {
+	const container = document.getElementById('root');
+	const root = createRoot(container);
+
 	root.render(appElement);
 }
 
