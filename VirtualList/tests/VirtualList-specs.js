@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {act, render, screen} from '@testing-library/react';
 
 import Item from '../../Item';
 import VirtualList from '../VirtualList';
@@ -147,7 +147,7 @@ describe('VirtualList', () => {
 				/>
 			);
 
-			myScrollTo({index: 10, animate: false});
+			act(() => myScrollTo({index: 10, animate: false}));
 		});
 
 		test('should scroll to the given \'x\' position with scrollTo', (done) => {
@@ -170,7 +170,7 @@ describe('VirtualList', () => {
 				/>
 			);
 
-			myScrollTo({position: {x: 200}, animate: false});
+			act(() => myScrollTo({position: {x: 200}, animate: false}));
 		});
 
 		test('should scroll to the given \'y\' position with scrollTo', (done) => {
@@ -192,7 +192,7 @@ describe('VirtualList', () => {
 				/>
 			);
 
-			myScrollTo({position: {y: 200}, animate: false});
+			act(() => myScrollTo({position: {y: 200}, animate: false}));
 		});
 
 		describe('scroll events', () => {
@@ -209,7 +209,7 @@ describe('VirtualList', () => {
 					/>
 				);
 
-				myScrollTo({position: {y: 200}, animate: false});
+				act(() => myScrollTo({position: {y: 200}, animate: false}));
 
 				const expected = 1;
 
@@ -229,7 +229,7 @@ describe('VirtualList', () => {
 					/>
 				);
 
-				myScrollTo({position: {y: 200}, animate: false});
+				act(() => myScrollTo({position: {y: 200}, animate: false}));
 
 				const expected = 1;
 
@@ -255,7 +255,7 @@ describe('VirtualList', () => {
 					/>
 				);
 
-				myScrollTo({position: {y: 200}, animate: false});
+				act(() => myScrollTo({position: {y: 200}, animate: false}));
 			});
 		});
 	});
@@ -288,13 +288,16 @@ describe('VirtualList', () => {
 				itemSize={60}
 			/>);
 
-			setTimeout(() => {
-				const expected = itemArray[0].name;
-				const actual = screen.getByRole('list').children.item(0).textContent;
+			jest.useFakeTimers();
 
-				expect(actual).toBe(expected);
-				done();
-			}, 0);
+			act(() => jest.advanceTimersByTime(0));
+			const expected = itemArray[0].name;
+			const actual = screen.getByRole('list').children.item(0).textContent;
+
+			expect(actual).toBe(expected);
+			done();
+
+			jest.useRealTimers();
 		});
 	});
 

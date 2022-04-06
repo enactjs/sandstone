@@ -1,9 +1,15 @@
-import {createEvent, fireEvent, render, screen} from '@testing-library/react';
+import {act, createEvent, fireEvent, render, screen} from '@testing-library/react';
 import {useEffect, useRef} from 'react';
 
 import DebounceDecorator from '../';
 
 describe('DebounceDecorator', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+	afterEach(() => {
+		jest.useRealTimers();
+	});
 	test('should emit the event after the delay', (done) => {
 		const Component = DebounceDecorator(
 			{debounce: 'onChange', delay: 100},
@@ -32,10 +38,10 @@ describe('DebounceDecorator', () => {
 
 		expect(spy).not.toHaveBeenCalled();
 
-		setTimeout(() => {
-			expect(spy).toHaveBeenCalled();
-			done();
-		}, 150);
+		act(() => jest.advanceTimersByTime(150));
+
+		expect(spy).toHaveBeenCalled();
+		done();
 	});
 
 	test('should restart the delay if another event occurs before timeout', (done) => {
@@ -60,21 +66,21 @@ describe('DebounceDecorator', () => {
 		const spy = jest.fn();
 		render(<Component onChange={spy} />);
 
-		setTimeout(() => {
-			expect(spy).not.toHaveBeenCalled();
+		act(() => jest.advanceTimersByTime(50));
 
-			const elem = screen.getByText('Test');
-			fireEvent(elem, createEvent('onChange', elem));
-		}, 50);
+		expect(spy).not.toHaveBeenCalled();
 
-		setTimeout(() => {
-			expect(spy).not.toHaveBeenCalled();
-		}, 125);
+		const elem = screen.getByText('Test');
+		fireEvent(elem, createEvent('onChange', elem));
 
-		setTimeout(() => {
-			expect(spy).toHaveBeenCalled();
-			done();
-		}, 200);
+		act(() => jest.advanceTimersByTime(75));
+
+		expect(spy).not.toHaveBeenCalled();
+
+		act(() => jest.advanceTimersByTime(75));
+
+		expect(spy).toHaveBeenCalled();
+		done();
 	});
 
 	test('should not emit the event if the cancel event occurs before the delay', (done) => {
@@ -107,10 +113,10 @@ describe('DebounceDecorator', () => {
 
 		expect(spy).not.toHaveBeenCalled();
 
-		setTimeout(() => {
-			expect(spy).not.toHaveBeenCalled();
-			done();
-		}, 150);
+		act(() => jest.advanceTimersByTime(150));
+
+		expect(spy).not.toHaveBeenCalled();
+		done();
 	});
 
 	test('should emit the onCancel event immediately', () => {
