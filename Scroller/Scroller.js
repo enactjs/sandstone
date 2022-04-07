@@ -89,7 +89,7 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
-					{rest.focusableScrollbar ? <ScrollbarPlaceHolder/> : null}
+					{rest.focusableScrollbar ? <ScrollbarPlaceHolder /> : null}
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}

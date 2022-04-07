@@ -373,13 +373,9 @@ export const WithScroller = (args) => {
 					</Header>
 					<Cell>
 						<Button onClick={nextPanel}>A</Button>
-						<br/>
-						<br/>
 						<Scroller focusableScrollbar={args['focusableScrollbar']} style={scrollerStyle}>
 							{args['scrollerChildren']}
 						</Scroller>
-						<br/>
-						<br/>
 						<Button onClick={nextPanel}>B</Button>
 					</Cell>
 				</Panel>
