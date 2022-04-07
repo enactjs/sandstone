@@ -4,7 +4,7 @@ import {add, is} from '@enact/core/keymap';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
@@ -301,38 +301,100 @@ select('spotlightRestrict', WithDropdown, ['self-first', 'self-only'], Config);
 
 WithDropdown.storyName = 'with Dropdown';
 
+const scrollerChildren = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante sit amet dui cursus
+tempus ut nec nisl. In scelerisque, nunc in interdum varius, dolor magna auctor tellus,
+quis mattis mauris lectus vel metus. Maecenas tempus quam ac dignissim gravida. Integer
+ut posuere sapien. Duis consequat vitae libero nec posuere. Curabitur sagittis mauris
+vel massa cursus, et mollis est malesuada. Vestibulum ante libero, gravida id purus
+eget, varius porttitor ipsum. Suspendisse quis consequat sem, eget gravida est. Morbi
+pulvinar diam vel mattis lacinia. Integer eget est quis augue tincidunt tincidunt quis
+at nisi. Duis at massa nunc. Cras malesuada, sem quis aliquet vulputate, ante ipsum
+congue ante, eu volutpat ipsum sem posuere ante. Suspendisse potenti. Nullam in laciniami.`;
+
+const scrollerConfig = mergeComponentMetadata('Scroller', Scroller);
+const focusableScrollbarOption = {
+	false: false,
+	true: true,
+	byEnter: 'byEnter'
+};
+const scrollerStyle = {height: ri.scaleToRem(333)};
+
 export const WithScroller = (args) => {
+	const [index, setPanelIndexState] = useState(0);
+	const [open, setOpenState] = useState(false);
+
+	const nextPanel = () => setPanelIndexState(Math.min(index + 1, 3));
+	const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
+	const toggleOpen = () => setOpenState(!open);
+
 	return (
-		<FixedPopupPanels
-			open
-			position={args['position']}
-			fullHeight={args['fullHeight']}
-			width={args['width']}
-			noAnimation={args['noAnimation']}
-			noAutoDismiss={args['noAutoDismiss']}
-			scrimType={args['scrimType']}
-			spotlightRestrict={args['spotlightRestrict']}
-		>
-			<Panel>
-				<Header>
-					<title>Press Enter to scroll</title>
-				</Header>
-				<Cell>
-					<Scroller focusableScrollbar="byEnter" style={{height: ri.scaleToRem(333)}}>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante sit amet dui cursus
-						tempus ut nec nisl. In scelerisque, nunc in interdum varius, dolor magna auctor tellus,
-						quis mattis mauris lectus vel metus. Maecenas tempus quam ac dignissim gravida. Integer
-						ut posuere sapien. Duis consequat vitae libero nec posuere. Curabitur sagittis mauris
-						vel massa cursus, et mollis est malesuada. Vestibulum ante libero, gravida id purus
-						eget, varius porttitor ipsum. Suspendisse quis consequat sem, eget gravida est. Morbi
-						pulvinar diam vel mattis lacinia. Integer eget est quis augue tincidunt tincidunt quis
-						at nisi. Duis at massa nunc. Cras malesuada, sem quis aliquet vulputate, ante ipsum
-						congue ante, eu volutpat ipsum sem posuere ante. Suspendisse potenti. Nullam in lacinia
-						mi.
-					</Scroller>
-				</Cell>
-			</Panel>
-		</FixedPopupPanels>
+		<>
+			<Button onClick={toggleOpen}>Open</Button>
+			<FixedPopupPanels
+				index={index}
+				open={open}
+				fullHeight={args['fullHeight']}
+				noAnimation={args['noAnimation']}
+				noAutoDismiss={args['noAutoDismiss']}
+				onBack={prevPanel}
+				onClose={toggleOpen}
+				position={args['position']}
+				scrimType={args['scrimType']}
+				spotlightRestrict={args['spotlightRestrict']}
+				width={args['width']}
+			>
+				<Panel>
+					<Header>
+						<title>Panel 1</title>
+					</Header>
+					<Cell>
+						<Scroller focusableScrollbar={args['focusableScrollbar']} style={scrollerStyle}>
+							{args['scrollerChildren']}
+						</Scroller>
+						<Button onClick={nextPanel}>A</Button>
+						<Button onClick={nextPanel}>B</Button>
+					</Cell>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 2</title>
+					</Header>
+					<Cell>
+						<Scroller focusableScrollbar={args['focusableScrollbar']} style={scrollerStyle}>
+							{args['scrollerChildren']}
+						</Scroller>
+						<Button onClick={nextPanel}>A</Button>
+						<Button onClick={nextPanel}>B</Button>
+					</Cell>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 3</title>
+					</Header>
+					<Cell>
+						<Button onClick={nextPanel}>A</Button>
+						<br/>
+						<br/>
+						<Scroller focusableScrollbar={args['focusableScrollbar']} style={scrollerStyle}>
+							{args['scrollerChildren']}
+						</Scroller>
+						<br/>
+						<br/>
+						<Button onClick={nextPanel}>B</Button>
+					</Cell>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>Panel 4</title>
+					</Header>
+					<Cell>
+						<Scroller focusableScrollbar={args['focusableScrollbar']} style={scrollerStyle}>
+							{args['scrollerChildren']}
+						</Scroller>
+					</Cell>
+				</Panel>
+			</FixedPopupPanels>
+		</>
 	);
 };
 
@@ -343,6 +405,9 @@ boolean('noAnimation', WithScroller, Config);
 boolean('noAutoDismiss', WithScroller, Config);
 select('scrimType', WithScroller, ['none', 'translucent', 'transparent'], Config);
 select('spotlightRestrict', WithScroller, ['self-first', 'self-only'], Config);
+
+select('focusableScrollbar', WithScroller, focusableScrollbarOption, scrollerConfig, 'byEnter');
+text('scrollerChildren', WithScroller, scrollerConfig, scrollerChildren);
 
 WithScroller.storyName = 'with Scroller';
 WithScroller.parameters = {
