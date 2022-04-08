@@ -1,96 +1,96 @@
+// ColorPicker.module.less
+//
+@import "../styles/colors.less";
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
-@import "../styles/skin.less";
 
 .colorPicker {
 	align-items: center;
 	justify-content: space-between;
 
 	.colorBodyText {
-		font-size: 24px;
+		font-size: @sand-drawing-colorpicker-font-size;
 		margin: 0;
-		padding-left: 21px;
+		padding-left: @sand-drawing-colorpicker-padding;
 		text-transform: capitalize;
 	}
 
 	.colorsRow {
-		width: 522px;
+		width: @sand-drawing-colorpicker-width;
+		padding-top: @sand-drawing-colorpicker-colors-padding;
 	}
 
 	.coloredButton {
 		transform: none;
-		border-radius: 999px;
-		border: 3px solid white;
-		height: 72px;
-		min-width: 72px;
+		border-radius: @sand-drawing-colorpicker-button-size;
+		border: @sand-drawing-colorpicker-button-border-width solid @sand-drawing-border-color;
+		height: @sand-drawing-colorpicker-button-size;
+		min-width: @sand-drawing-colorpicker-button-size;
 		padding: 0;
 
 		.focus({
-			transform: scale(1.1);
+			transform: @sand-drawing-colorpicker-button-focus-transform;
 		});
 
 		.disabled({
-			opacity: 0.28;
+			opacity: @sand-disabled-opacity;
 		})
 	}
-}
 
-.coloredDiv {
-	display: block;
-	height: 81px;
-	border: 3px solid white;
-	border-radius: 24px;
+	.coloredDiv,
+	.coloredInput {
+		border-radius: @sand-drawing-colorpicker-input-border-radius;
 
-	&.button, &.focusExpand {
-		margin: 24px;
 	}
 
-	.focus({
-		transform: scale(1.05);
-	});
-}
+	.coloredDiv {
+		display: block;
+		height: @sand-drawing-colorpicker-input-height;
+		border: @sand-drawing-colorpicker-button-border-width solid @sand-drawing-border-color;
 
-.coloredInput {
-	border-radius: 24px;
-	opacity: 0;
-	height: 81px;
-	margin: 24px;
+		&.button, &.focusExpand {
+			margin: @sand-drawing-margin;
+		}
 
-	&:hover {
-		cursor: pointer;
+		.focus({
+			transform: @sand-drawing-colorpicker-button-focus-transform;
+		});
 	}
-}
 
-.colorPickerSliders {
-	padding-top: 60px;
+	.coloredInput {
+		opacity: 0;
 
-	.bodyText {
-		font-size: 36px;
-		margin: 0 24px;
+		&:hover {
+			cursor: pointer;
+		}
 	}
 }
 
 .colorPopup {
 	height: max-content;
 
-	.popupHeader {
-		margin-bottom: 21px;
+	.colorPopupHeader {
+		font-size: @sand-drawing-colorpicker-heading;
 		text-transform: capitalize;
-	}
-
-	.body {
-		padding: 24px;
-	}
-
-	.bodyText {
-		font-size: 42px;
-		margin: 0 0 0 64px;
+		margin: @sand-drawing-colorpicker-heading-margin;
 	}
 
 	.closeButton {
+		&.button, &.focusExpand {
+			margin: 0;
+		}
+
 		.icon {
-			font-size: 36px;
+			font-size: @sand-drawing-font-size;
+		}
+	}
+
+	.colorPickerSliders {
+		padding: @sand-drawing-colorpicker-slider-padding;
+
+		.colorSliderText {
+			font-size: @sand-drawing-font-size;
+			margin: 0 @sand-drawing-margin;
 		}
 	}
 }
-

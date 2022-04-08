@@ -1,6 +1,10 @@
+// DrawingControls.module.less
+//
+@import "../styles/variables.less";
+
 .drawingControls {
 	.bodyText {
-		font-size: 36px;
+		font-size: @sand-drawing-font-size;
 		margin: 0;
 	}
 
@@ -8,18 +12,18 @@
 		margin: 0;
 
 		& > * {
-			font-size: 36px;
+			font-size: @sand-drawing-font-size;
 		}
 	}
 
 	.slider {
 		margin: 0;
-		padding: 24px 0;
+		padding: @sand-drawing-padding 0;
 	}
 
 	.toolbar {
 		.colors {
-			padding: 24px 0;
+			padding: @sand-drawing-padding 0;
 		}
 	}
 }

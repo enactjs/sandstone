@@ -1,9 +1,10 @@
-@import "../styles/mixins.less";
+// Drawing.module.less
+//
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
 .drawing {
-	font-size: 36px;
+	font-size: @sand-drawing-font-size;
 
 	.applySkins({
 		.disabled {
@@ -12,6 +13,6 @@
 	});
 
 	.toolbar, .canvasOptions {
-		padding: 24px;
+		padding: @sand-drawing-padding;
 	}
 }

@@ -218,6 +218,7 @@ const ColorPickerBase = kind({
 					{platform.webos !== undefined ?	// eslint-disable-line no-undefined
 						<div>
 							<Column className={css.colorPickerSliders}>
+								<BodyText className={componentCss.colorSliderText} css={css}>{red} Red</BodyText>
 								<Slider
 									className={componentCss.colorSlider}
 									max={255}
@@ -227,7 +228,7 @@ const ColorPickerBase = kind({
 									onChange={(ev) => setRed(ev.value)}
 									value={red}
 								/>
-								<BodyText css={css}>{red} Red</BodyText>
+								<BodyText className={componentCss.colorSliderText} css={css}>{green} Green</BodyText>
 								<Slider
 									className={componentCss.colorSlider}
 									max={255}
@@ -237,7 +238,7 @@ const ColorPickerBase = kind({
 									onChange={(ev) => setGreen(ev.value)}
 									value={green}
 								/>
-								<BodyText css={css}>{green} Green</BodyText>
+								<BodyText className={componentCss.colorSliderText} css={css}>{blue} Blue</BodyText>
 								<Slider
 									className={componentCss.colorSlider}
 									max={255}
@@ -247,7 +248,6 @@ const ColorPickerBase = kind({
 									onChange={(ev) => setBlue(ev.value)}
 									value={blue}
 								/>
-								<BodyText css={css}>{blue} Blue</BodyText>
 							</Column>
 							<div className={componentCss.coloredDiv} style={{backgroundColor: `rgb(${red} ,${green}, ${blue})`}} />
 						</div> :
@@ -300,9 +300,9 @@ const ColorPickerBase = kind({
 					position="left"
 					scrimType="transparent"
 				>
-					<Row className={css.popupHeader}>
+					<Row>
 						<Cell align="center">
-							<BodyText css={css}>{text}</BodyText>
+							<BodyText className={css.colorPopupHeader} css={css}>{text}</BodyText>
 						</Cell>
 						<Cell align="right" shrink>
 							<Button className={css.closeButton} css={css} iconComponent={CloseIcon} icon="closex" onClick={handleClosePopup} size="small" />
