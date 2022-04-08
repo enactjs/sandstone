@@ -2,32 +2,32 @@ const Page = require('../VirtualListPage');
 const {expectFocusedItem} = require('../../VirtualList-utils');
 
 describe('VirtualList Samples', function () {
-	beforeEach(function () {
-		Page.open();
+	beforeEach(async function () {
+		await Page.open();
 	});
 
-	it('should  display childProps [QWT-2334]', function () {
+	it('should  display childProps [QWT-2334]', async function () {
 		// Set translate ScrollMode.
-		Page.buttonNativeScroll.moveTo();
-		Page.spotlightSelect();
+		await Page.buttonNativeScroll.moveTo();
+		await Page.spotlightSelect();
 		// Verify 1-2:The first item shows 'Item 000'.
-		Page.buttonLeft.moveTo();
-		Page.spotlightRight();
-		expectFocusedItem(0);
-		expect(Page.textContent()).to.equal('Item 00');
+		await Page.buttonLeft.moveTo();
+		await Page.spotlightRight();
+		await expectFocusedItem(0);
+		expect(await Page.textContent()).to.equal('Item 00');
 		// Verify 1-3: The second item shows 'Item 001'.
-		Page.spotlightDown();
-		expectFocusedItem(1);
-		expect(Page.textContent()).to.equal('Item 01');
+		await Page.spotlightDown();
+		await expectFocusedItem(1);
+		expect(await Page.textContent()).to.equal('Item 01');
 		// Step 3: 5-way Spot and Select 'Chid Props' toggle button.
-		Page.buttonChildProps.click();
+		await Page.buttonChildProps.click();
 		// Verify 3-1: The first item shows 'Item 000 child props'.
-		Page.item(0).moveTo();
-		expectFocusedItem(0);
-		expect(Page.textContent()).to.equal('Item 00 child props');
+		await (await Page.item(0)).moveTo();
+		await expectFocusedItem(0);
+		expect(await Page.textContent()).to.equal('Item 00 child props');
 		// Verify 3-2: The second item shows 'Item 001 child props'.
-		Page.spotlightDown();
-		expectFocusedItem(1);
-		expect(Page.textContent()).to.equal('Item 01 child props');
+		await Page.spotlightDown();
+		await expectFocusedItem(1);
+		expect(await Page.textContent()).to.equal('Item 01 child props');
 	});
 });

@@ -49,8 +49,8 @@ class AlertPage extends Page {
 		this.components.alertOverlay = new AlertInterface('alertOverlay');
 	}
 
-	open (urlExtra) {
-		super.open('Alert-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Alert-View', urlExtra);
 	}
 }
 
