@@ -10,12 +10,12 @@ class ButtonInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(this.selector));
+	async focus () {
+		return await browser.execute((el) => el.focus(), await $(this.selector));
 	}
 
-	hover () {
-		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
+	async hover () {
+		return await $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
 	get self () {
@@ -78,8 +78,8 @@ class ButtonPage extends Page {
 		};
 	}
 
-	open (urlExtra) {
-		super.open('Button-View', urlExtra);
+	async open (urlExtra) {
+		await super.open('Button-View', urlExtra);
 	}
 }
 
