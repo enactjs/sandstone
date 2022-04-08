@@ -46,7 +46,7 @@
 	.coloredDiv {
 		display: block;
 		height: @sand-drawing-colorpicker-input-height;
-		border: @sand-drawing-colorpicker-input-border-radius solid white;
+		border: @sand-drawing-colorpicker-button-border-width solid white;
 
 		&.button, &.focusExpand {
 			margin: @sand-drawing-margin;
@@ -76,6 +76,10 @@
 	}
 
 	.closeButton {
+		&.button, &.focusExpand {
+			margin: 0;
+		}
+
 		.icon {
 			font-size: @sand-drawing-font-size;
 		}
