@@ -1,10 +1,10 @@
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Text, {TextDecorator} from '@enact/i18n/Text';
+import $L from '@enact/i18n/$L';
 import Button from '@enact/sandstone/Button';
 import Dropdown from '@enact/sandstone/Dropdown';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import PropTypes from 'prop-types';
-import $L from '@enact/i18n/$L';
-import Text, {TextDecorator} from '@enact/i18n/Text';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import PropTypes from 'prop-types';
 import {useCallback} from 'react';
 
 const TextButton = TextDecorator(Button);

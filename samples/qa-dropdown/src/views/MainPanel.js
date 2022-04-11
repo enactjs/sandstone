@@ -1,6 +1,6 @@
 import Button from '@enact/sandstone/Button';
 import Dropdown from '@enact/sandstone/Dropdown';
-import {WizardPanels, Panel} from '@enact/sandstone/WizardPanels';
+import {Panel, WizardPanels} from '@enact/sandstone/WizardPanels';
 import {useCallback, useState} from 'react';
 
 const MainPanel = () => {
@@ -12,7 +12,7 @@ const MainPanel = () => {
 	return (
 		<WizardPanels>
 			<Panel title="QA Sample - Dropdown">
-				<Dropdown size="large" title="language" open={open} onOpen={handleOpen} onClose={handleClose}>
+				<Dropdown onClose={handleClose} onOpen={handleOpen} open={open} size="large" title="language">
 					{['English', 'Korean', 'Spanish', 'Amharic', 'Thai', 'Arabic', 'Urdu', 'Simplified Chinese', 'Traditional Chinese', 'Vietnamese']}
 				</Dropdown>
 				<Button size="large">

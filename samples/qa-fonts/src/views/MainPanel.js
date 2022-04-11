@@ -115,13 +115,13 @@ const MainPanel = (props) => {
 				<Button>A Sandstone Button</Button>
 			</Header>
 			<Scroller focusableScrollbar>
-				<Heading size="large" showLine>Current</Heading>
+				<Heading showLine size="large">Current</Heading>
 				<FontList fonts={fonts.standard}>Sandstone Defined Fonts</FontList>
 				<FontList fonts={fonts.system}>System Fonts (Locally Installed)</FontList>
 				<FontList fonts={fonts.systemPs}>System Fonts PostScript Names (Locally Installed)</FontList>
-				<Heading size="large" showLine>Regional</Heading>
+				<Heading showLine size="large">Regional</Heading>
 				<FontList fonts={fonts.locale}>Locale-specific Fonts</FontList>
-				<Heading size="large" showLine>Legacy</Heading>
+				<Heading showLine size="large">Legacy</Heading>
 				<FontList fonts={fonts.legacyWeb}>Legacy Sandstone Defined Fonts</FontList>
 				<FontList fonts={fonts.legacySystem}>Legacy System Fonts (Locally Installed)</FontList>
 			</Scroller>
