@@ -1,4 +1,4 @@
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
 
 import App from './App';
@@ -11,9 +11,11 @@ const appElement = (
 	</Provider>
 );
 
-// In a browser environment, render instead of exporting
 if (typeof window !== 'undefined') {
-	render(appElement, document.getElementById('root'));
+	const container = document.getElementById('root');
+	const root = createRoot(container);
+
+	root.render(appElement);
 }
 
 export default appElement;
