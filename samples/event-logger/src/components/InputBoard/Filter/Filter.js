@@ -5,10 +5,10 @@ import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {activateEvent} from '../../../store/slices/activeEventsSlice';
-import {isSyntheticEventOn} from '../../../store/slices/syntheticEventOnSlice';
-import {setTimerIndex} from '../../../store/slices/timerIndexSlice';
 import {setEventCapturing} from '../../../store/slices/eventCapturingOnSlice';
 import eventCategory from '../../../constants/eventCategory';
+import {isSyntheticEventOn} from '../../../store/slices/syntheticEventOnSlice';
+import {setTimerIndex} from '../../../store/slices/timerIndexSlice';
 
 import css from './Filter.module.less';
 
