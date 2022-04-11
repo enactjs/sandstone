@@ -1,8 +1,8 @@
-import {Panels} from '@enact/sandstone/Panels';
-import {connect} from 'react-redux';
 import kind from '@enact/core/kind';
-import PropTypes from 'prop-types';
+import {Panels} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import {decreaseIndex, increaseIndex} from '../store';
 import MainPanel from '../views/MainPanel';

@@ -1,9 +1,8 @@
 import ImageItem from '@enact/sandstone/ImageItem';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback} from 'react';
-
-import ri from '@enact/ui/resolution';
-import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import css from './SampleVirtualGridList.module.less';
 
@@ -23,9 +22,6 @@ const SampleVirtualGridList = ({index, onClick, ...rest}) => {
 	}, [onClick]);
 
 	const id = `vgl_${index}`;
-
-	// delete rest.scrollLeft;
-	// delete rest.scrollTop;
 
 	return (
 		<VirtualGridList

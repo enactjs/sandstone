@@ -5,23 +5,12 @@ import {useState} from 'react';
 
 import CommonView from '../../components/CommonView';
 
-// const petList = ['강아지', '고양이', '치킨'];
-// const nameList = ['철수', '길동', '현수'];
-
 const IntentSelect = () => {
 	const [result, setResult] = useState('');
 
 	const updateResult = (msg) => setResult(msg);
 
 	const handleClick = (msg) => () => updateResult(msg);
-
-	/* const handleExpandableList = (ev) => {
-		updateResult('Selected > ' + petList[ev.selected]);
-	};
-
-	const handleExpandableItem = (value) => {
-		updateResult('Selected > ' + value);
-	};*/
 
 	return (
 		<CommonView title="Intent to select" subtitle={result}>

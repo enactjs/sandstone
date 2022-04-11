@@ -1,13 +1,13 @@
 import Button from '@enact/sandstone/Button';
-import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
-import {useDispatch, useSelector} from 'react-redux';
-import {Header, Panel} from '@enact/sandstone/Panels';
 import {InputField as Input} from '@enact/sandstone/Input';
+import {Header, Panel} from '@enact/sandstone/Panels';
+import VirtualList from '@enact/sandstone/VirtualList';
+import {Cell, Row} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useState} from 'react';
-import ri from '@enact/ui/resolution';
-import VirtualList from '@enact/sandstone/VirtualList';
+import {useDispatch, useSelector} from 'react-redux';
 
 import ListItem from '../components/ListItem';
 import LocaleSwitch from '../components/LocaleSwitch';

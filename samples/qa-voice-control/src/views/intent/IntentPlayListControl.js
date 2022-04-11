@@ -8,7 +8,6 @@ const VoicePanel = VoiceControlDecorator(Panel);
 
 const IntentPlayListControl = () => {
 	const [result, setResult] = useState('');
-	// const [itemList, setItemList] = useState(['apple', 'banana', 'orange']);
 
 	const showResult = (msg) => setResult(msg);
 
