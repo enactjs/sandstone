@@ -60,7 +60,7 @@ const ExpandableDifferentHeightItem = forwardRef(({index, 'data-index': dataInde
 	// 1. Long text and closed item
 	if (numOfLines > 2 && !open) {
 		return (
-			<div {...rest} data-index={dataIndex} style={itemStyle} ref={ref.current.dom}>
+			<div {...rest} data-index={dataIndex} style={itemStyle} ref={ref}>
 				<div style={{height: oneLineSize * 2, ...textStyleDefault}}>
 					{children}
 				</div>
@@ -74,7 +74,7 @@ const ExpandableDifferentHeightItem = forwardRef(({index, 'data-index': dataInde
 		// 2. Long text and opened item
 	} else if (numOfLines > 2 /* && open */) {
 		return (
-			<div {...rest} data-index={dataIndex} style={itemStyle} ref={ref.current.dom}>
+			<div {...rest} data-index={dataIndex} style={itemStyle} ref={ref}>
 				<div>
 					{children}
 				</div>
@@ -88,7 +88,7 @@ const ExpandableDifferentHeightItem = forwardRef(({index, 'data-index': dataInde
 		// 3. Short text
 	} else { // if (numOfLines <= 2)
 		return (
-			<div {...rest} data-index={dataIndex} style={itemStyle} ref={ref.current.dom}>
+			<div {...rest} data-index={dataIndex} style={itemStyle} ref={ref}>
 				<div style={{height: oneLineSize * numOfLines}}>
 					{children}
 				</div>
@@ -106,18 +106,19 @@ ExpandableDifferentHeightItem.propTypes = {
 };
 
 const ResizableItem = ({updateItemSize, ...rest}) => {
-	const itemRef = useRef({index:0, dom:{}});
+	const indexRef = useRef(0);
+	const domRef = useRef({});
 
 	const calculateMetrics = () => {
-		if (itemRef.current) {
-			const index = itemRef.current.index;
-			const offsetHeight = itemRef.current.dom.current.offsetHeight;
+		if (domRef.current) {
+			const index = indexRef.current;
+			const offsetHeight = domRef.current.offsetHeight;
 
 			updateItemSize(index, offsetHeight);
 		}
 	};
 
-	itemRef.current.index = rest.index;
+	indexRef.current = rest.index;
 
 	useEffect( () => {
 		calculateMetrics();
@@ -126,7 +127,7 @@ const ResizableItem = ({updateItemSize, ...rest}) => {
 	return (
 		<ExpandableDifferentHeightItem
 			{...rest}
-			ref={itemRef}
+			ref={domRef}
 		/>
 	);
 };

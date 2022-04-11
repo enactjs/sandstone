@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-
 import Alert from '../views/Alert';
 import Button from '../views/Button';
 import Checkbox from '../views/Checkbox';
