@@ -396,7 +396,13 @@ const useThemeVirtualList = (props) => {
 
 	// Render
 
-	const {itemRenderer, ...rest} = props;
+	const {
+		itemRenderer,
+		'data-webos-voice-focused': voiceFocused,
+		'data-webos-voice-group-label': voiceGroupLabel,
+		'data-webos-voice-disabled': voiceDisabled,
+		...rest
+	} = props;
 
 	delete rest.noAffordance;
 	delete rest.scrollContainerContainsDangerously;
@@ -409,6 +415,11 @@ const useThemeVirtualList = (props) => {
 
 	return {
 		...rest,
+		containerProps: {
+			'data-webos-voice-focused': voiceFocused,
+			'data-webos-voice-group-label': voiceGroupLabel,
+			'data-webos-voice-disabled': voiceDisabled
+		},
 		getAffordance,
 		itemRenderer: ({index, ...itemRest}) => (
 			itemRenderer({
