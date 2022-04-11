@@ -1,14 +1,14 @@
 import DatePicker from '@enact/sandstone/DatePicker';
-import Group from '@enact/ui/Group';
 import {InputField as Input} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
 import RadioItem from '@enact/sandstone/RadioItem';
-import {useCallback, useState} from 'react';
-import ri from '@enact/ui/resolution';
 import Scroller from '@enact/sandstone/Scroller';
 import TimePicker from '@enact/sandstone/TimePicker';
+import Group from '@enact/ui/Group';
+import ri from '@enact/ui/resolution';
+import {useCallback, useState} from 'react';
 
 import Controls from '../components/Controls';
 
