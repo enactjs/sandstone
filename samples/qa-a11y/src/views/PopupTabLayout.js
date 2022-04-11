@@ -36,6 +36,7 @@ const PopupTabLayoutView = () => {
 	const [indexDisplay, setIndexDisplay] = useState(0);
 	const [indexNetwork, setIndexNetwork] = useState(0);
 	const [indexSound, setIndexSound] = useState(0);
+	const [indexFloatLayer, setIndexFloatLayer] = useState(0);
 	const [openPopupTabLayout, setOpenPopupTabLayout] = useState(false);
 	const [openAlert, setOpenAlert] = useState(false);
 	const [openKeyGuide, setOpenKeyGuide] = useState(false);
@@ -54,6 +55,7 @@ const PopupTabLayoutView = () => {
 	const handleNetworkPrev = () => setIndexNetwork(indexNetwork - 1);
 	const handleSoundNext = () => setIndexSound(indexSound + 1);
 	const handleSoundPrev = () => setIndexSound(indexSound - 1);
+	const handleFloatPrev = () => setIndexFloatLayer(indexFloatLayer - 1);
 
 	const renderContextualPopup = useCallback(() => (
 		<div>
@@ -137,7 +139,7 @@ const PopupTabLayoutView = () => {
 				</Tab>
 
 				<Tab icon="speaker" title="FloatLayer">
-					<TabPanels index={indexSound} onBack={handleSoundPrev} onClose={handleClose}>
+					<TabPanels index={indexFloatLayer} onBack={handleFloatPrev} onClose={handleClose}>
 						<TabPanel>
 							<Header title="Components in FloatLayer" type="compact" />
 

@@ -53,7 +53,7 @@ const iconButtonStyleDefault = {
 	right: 0
 };
 
-const ExpandableDifferenctHeightItem = forwardRef(({index, 'data-index': dataIndex, items, style: itemStyleFromList, updateItemStatus, ...rest}, ref) => {
+const ExpandableDifferentHeightItem = forwardRef(({index, 'data-index': dataIndex, items, style: itemStyleFromList, updateItemStatus, ...rest}, ref) => {
 	const {title: children, numOfLines, open} = items[index],
 		itemStyle = {...itemStyleDefault, ...itemStyleFromList};
 
@@ -98,7 +98,7 @@ const ExpandableDifferenctHeightItem = forwardRef(({index, 'data-index': dataInd
 	}
 });
 
-ExpandableDifferenctHeightItem.propTypes = {
+ExpandableDifferentHeightItem.propTypes = {
 	'data-index': PropTypes.number,
 	index: PropTypes.number,
 	items: PropTypes.array,
@@ -124,7 +124,7 @@ const ResizableItem = ({updateItemSize, ...rest}) => {
 	});
 
 	return (
-		<ExpandableDifferenctHeightItem
+		<ExpandableDifferentHeightItem
 			{...rest}
 			ref={itemRef}
 		/>

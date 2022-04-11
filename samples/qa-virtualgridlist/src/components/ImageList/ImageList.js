@@ -1,14 +1,14 @@
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import ri from '@enact/ui/resolution';
+import {useCallback} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import ri from '@enact/ui/resolution';
-import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import ImageItem from '../ImageItem';
 
 import css from './ImageList.module.less';
-import {useCallback} from 'react';
 
-const ImageList = ({imageitems, spacing, minHeight, minWidth, ...rest}) => {
+const ImageList = ({imageitems, minHeight, minWidth, spacing, ...rest}) => {
 	const calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
 	const renderItem = useCallback(({...renderRest}) => (<ImageItem {...renderRest} />), []);

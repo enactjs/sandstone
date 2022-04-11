@@ -1,7 +1,7 @@
 import ImageItem from '@enact/sandstone/ImageItem';
-import ri from '@enact/ui/resolution';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import ri from '@enact/ui/resolution';
 import {useCallback, useEffect, useRef} from 'react';
 
 const items = [];

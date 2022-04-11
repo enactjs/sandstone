@@ -5,10 +5,11 @@ import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
-import compose from 'ramda/src/compose';
-import PropTypes from 'prop-types';
-import {useCallback, useEffect, useRef, useState} from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import {useCallback, useEffect, useRef, useState} from 'react';
+
 
 import Alert from '../views/Alert';
 import Button from '../views/Button';
