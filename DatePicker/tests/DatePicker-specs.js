@@ -1,6 +1,6 @@
 import ilib from 'ilib';
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import DatePicker, {dateToLocaleString} from '../DatePicker';
@@ -28,7 +28,7 @@ describe('DatePicker', () => {
 		render(<DatePicker onComplete={handleComplete} value={new Date(2000, 6, 15)} locale="en-US" />);
 		const year = screen.getByLabelText('2000 year change a value with up down button');
 
-		year.focus();
+		act(() => year.focus());
 		fireEvent.keyDown(year, {which: 13, keyCode: 13, code: 13});
 
 		const expected = {type: 'onComplete'};
@@ -42,7 +42,7 @@ describe('DatePicker', () => {
 		render(<DatePicker onSpotlightLeft={handleSpotlight} value={new Date(2000, 6, 15)} locale="en-US" />);
 		const month = screen.getByLabelText('7 month change a value with up down button');
 
-		month.focus();
+		act(() => month.focus());
 		fireEvent.keyDown(month, {which: 37, keyCode: 37, code: 37});
 
 		const expected = {type: 'onSpotlightLeft'};
@@ -56,7 +56,7 @@ describe('DatePicker', () => {
 		render(<DatePicker onSpotlightRight={handleSpotlight} value={new Date(2000, 6, 15)} locale="en-US" />);
 		const year = screen.getByLabelText('2000 year change a value with up down button');
 
-		year.focus();
+		act(() => year.focus());
 		fireEvent.keyDown(year, {which: 39, keyCode: 39, code: 39});
 
 		const expected = {type: 'onSpotlightRight'};
