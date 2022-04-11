@@ -17,7 +17,7 @@ const images = new Array(20).fill().map( (_, i) =>
 	<Image
 		key={`image${i}`}
 		caption="Image"
-		src="http://placehold.it/360x240/"
+		src="http://via.placeholder.com/360x240/"
 		style={{marginBottom: scaleToRem(96)}}
 	/>
 );

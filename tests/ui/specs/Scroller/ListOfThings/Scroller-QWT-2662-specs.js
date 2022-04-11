@@ -2,83 +2,83 @@ const {expectFocusedItem, expectNoFocusedItem} = require('../../VirtualList/Virt
 const ScrollerPage = require('../ScrollerPage');
 
 describe('Scroller List Of Things', function () {
-	beforeEach(function () {
-		ScrollerPage.open('ListOfThings');
+	beforeEach(async function () {
+		await ScrollerPage.open('ListOfThings');
 	});
 
-	it('should spotlight is on the item closest to the previously focused item [QWT-2662]', function () {
+	it.skip('should spotlight is on the item closest to the previously focused item [QWT-2662]', async function () {
 		// Step 3: 5-way Spot the second item ('Item 001').
-		$('#item0').moveTo();
-		ScrollerPage.spotlightDown();
+		await $('#item0').moveTo();
+		await ScrollerPage.spotlightDown();
 		// Step3 Verify: Spotlight displays on the second item ('item 001').
-		expectFocusedItem(1);
+		await expectFocusedItem(1);
 		// Check previously focused item's location.
-		const firstPrevItemLocation = Math.floor(ScrollerPage.getActiveElementRect().top / 100) * 100;
+		const firstPrevItemLocation = Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100;
 
 		// Step 4: Press Channel Down.
-		ScrollerPage.pageDown();
-		ScrollerPage.delay(1000);
-		expectFocusedItem(6);
+		await ScrollerPage.pageDown();
+		await ScrollerPage.delay(1000);
+		await expectFocusedItem(6);
 		// Step 4 Verify: Spotlight is on the Item closest to the previously focused Item's location.
-		expect(Math.floor(ScrollerPage.getActiveElementRect().top / 100) * 100).to.equal(firstPrevItemLocation);
+		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).to.equal(firstPrevItemLocation);
 
 		// Step5: 5-way Down several times to the last visible item on the current viewport.
-		const bottomVisibleIdNum = Number(ScrollerPage.bottomVisibleItemId().slice(4));
+		const bottomVisibleIdNum = Number((await ScrollerPage.bottomVisibleItemId()).slice(4));
 		for (let i = 0; i < 6; i++) {
-			ScrollerPage.spotlightDown();
-			ScrollerPage.delay(100);
+			await ScrollerPage.spotlightDown();
+			await ScrollerPage.delay(100);
 		}
 		// Step 5 Verify: Spotlight is on the last visible item.
-		expectFocusedItem(bottomVisibleIdNum);
+		await expectFocusedItem(bottomVisibleIdNum);
 
 		// Check previously focused item's location.
-		const secondPrevItemLocation = Math.floor(ScrollerPage.getActiveElementRect().top / 100) * 100;
+		const secondPrevItemLocation = Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100;
 		// Step6: Press Channel Down.
-		ScrollerPage.pageDown();
-		ScrollerPage.delay(1000);
-		expectFocusedItem(17);
+		await ScrollerPage.pageDown();
+		await ScrollerPage.delay(1000);
+		await expectFocusedItem(17);
 		// Step 6 Verify: Spotlight is on the Item closest to the previously focused Item's location.
-		expect(Math.floor(ScrollerPage.getActiveElementRect().top / 100) * 100).to.equal(secondPrevItemLocation);
+		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).to.equal(secondPrevItemLocation);
 
 		// Step 7:Press Channel Up.
-		ScrollerPage.pageUp();
-		ScrollerPage.delay(1000);
-		expectFocusedItem(12);
+		await ScrollerPage.pageUp();
+		await ScrollerPage.delay(1000);
+		await expectFocusedItem(12);
 		// Step 7 Verify: Spotlight is on the Item closest to the previously focused Item's location.
-		expect(Math.floor(ScrollerPage.getActiveElementRect().top / 100) * 100).to.equal(secondPrevItemLocation);
+		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).to.equal(secondPrevItemLocation);
 
 		// Step 8: 5-way Up several times to the first visible item on the current viewport.
-		const topVisibleItemIdNum = Number(ScrollerPage.topVisibleItemId().slice(4));
+		const topVisibleItemIdNum = Number((await ScrollerPage.topVisibleItemId()).slice(4));
 		for (let i = 0; i < 7; i++) {
-			ScrollerPage.spotlightUp();
-			ScrollerPage.delay(100);
+			await ScrollerPage.spotlightUp();
+			await ScrollerPage.delay(100);
 		}
 		// Step 8 Verify: Spotlight is on the first visible item.
-		expectFocusedItem(topVisibleItemIdNum);
+		await expectFocusedItem(topVisibleItemIdNum);
 
 		// Check previously focused item's location.
-		const thirdPrevItemLocation = Math.floor(ScrollerPage.getActiveElementRect().top / 100) * 100;
+		const thirdPrevItemLocation = Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100;
 		// Step 9: Press Channel Up.
-		ScrollerPage.pageUp();
-		ScrollerPage.delay(1000);
-		expectFocusedItem(0);
+		await ScrollerPage.pageUp();
+		await ScrollerPage.delay(1000);
+		await expectFocusedItem(0);
 		// Step 9 Verify: Spotlight is on the Item closest to the previously focused Item's location.
-		expect(Math.floor(ScrollerPage.getActiveElementRect().top / 100) * 100).to.equal(thirdPrevItemLocation);
+		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).to.equal(thirdPrevItemLocation);
 
 		// Step 10: Wave the Pointer.
-		ScrollerPage.showPointerByKeycode();
+		await ScrollerPage.showPointerByKeycode();
 		// Step 11: Hover on an item.
-		$('#item3').moveTo();
+		await $('#item3').moveTo();
 		// Step 11 Verify: Spotlight is on item.
-		expectFocusedItem(3);
+		await expectFocusedItem(3);
 
 		// Step 12: Press Channel down.
-		ScrollerPage.pageDown();
-		ScrollerPage.delay(500);
+		await ScrollerPage.pageDown();
+		await ScrollerPage.delay(500);
 		// Step 12-4 Verify: Spotlight still hides.
-		expectNoFocusedItem();
+		await expectNoFocusedItem();
 		// Spotlight will display again when the pointer hides.
-		ScrollerPage.hidePointerByKeycode();
-		expectFocusedItem(8);
+		await ScrollerPage.hidePointerByKeycode();
+		await expectFocusedItem(8);
 	});
 });
