@@ -2,9 +2,9 @@ import {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux';
 
 import App from './App';
-import storeFactory from './store';
+import configureAppStore from './store';
 
-const store = storeFactory();
+const store = configureAppStore();
 const appElement = (
 	<Provider store={store}>
 		<App />
