@@ -18,6 +18,7 @@ import css from './EditableWrapper.module.less';
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContentRef} = props;
 	let centered = editable.centered != null ? editable.centered : true;
+	let customCss = editable.editableWrapperCss || {};
 	const dataSize = children?.length;
 
 	// Mutable value
@@ -47,13 +48,14 @@ const EditableWrapper = (props) => {
 		const {selectedItem} = mutableRef.current;
 
 		selectedItem?.classList.remove(css.selected);
+		selectedItem?.classList.remove(customCss.selected);
 		selectedItem?.classList.remove(css.rearranged);
 
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
-	}, []);
+	}, [customCss.selected]);
 
 	// Finalize the order
 	const finalizeOrders = useCallback(() => {
@@ -95,27 +97,51 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const startEditing = useCallback((item) => {
-		// FIXME: Need to figure out the right element
-		if (item.classList.contains('spottable')) {
+		if (item.dataset.index) {
 			item.classList.add(css.selected);
+			item.classList.add(customCss.selected);
 			mutableRef.current.selectedItem = item;
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 		}
-	}, []);
+	}, [customCss.selected]);
+
+	const findItemNode = useCallback((node) => {
+		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
+			if (current.dataset.index) {
+				return current;
+			}
+		}
+	}, [scrollContentRef]);
 
 	const handleClick = useCallback((ev) => {
+		const targetItemNode = findItemNode(ev.target);
+
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
-		} else {
+		} else if (targetItemNode && targetItemNode.dataset.index) {
 			// Start editing by adding selected transition to selected item
-			startEditing(ev.target.parentElement);
+			startEditing(targetItemNode);
+			ev.preventDefault();
+			ev.stopPropagation();
 		}
-	}, [editable, finalizeOrders, reset, startEditing]);
+	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
+
+	// const handleClick = useCallback((ev) => {
+	// 	if (mutableRef.current.selectedItem) {
+	// 		// Finalize orders and forward `onComplete` event
+	// 		const orders = finalizeOrders();
+	// 		forwardCustom('onComplete', () => ({orders}))({}, editable);
+	// 		reset();
+	// 	} else {
+	// 		// Start editing by adding selected transition to selected item
+	// 		startEditing(ev.target.parentElement); // TODO 무조건 부모면 안됨
+	// 	}
+	// }, [editable, finalizeOrders, reset, startEditing]);
 
 	// Add rearranged items
 	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
@@ -192,14 +218,15 @@ const EditableWrapper = (props) => {
 	}, [dataSize, addRearrangedItems, removeRearrangedItems]);
 
 	// Remove an item
-	/* const removeItem = useCallback(() => {
+	const removeItem = useCallback(() => {
 		const {prevToIndex} = mutableRef.current;
 		const orders = finalizeOrders();
 
 		orders.splice(prevToIndex, 1);
 		forwardCustom('onComplete', () => ({orders}))({}, editable);
 		reset();
-	}, [editable, finalizeOrders, reset]); */
+	}, [editable, finalizeOrders, reset]);
+
 
 	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
@@ -260,11 +287,15 @@ const EditableWrapper = (props) => {
 		}
 	}, [centered]); // TODO: Need dataSize dependency for centeredOffset
 
-	// Return
+	useEffect(() => {
+		if (editable.removeItemFuncRef) {
+			editable.removeItemFuncRef.current = removeItem;
+		}
+	}, [removeItem]);
 
 	return (
 		<div
-			className={classNames(css.wrapper, {[css.centered]: centered})}
+			className={classNames(css.wrapper, {[css.centered]: centered}, customCss.editableWrapper)}
 			onClick={handleClick}
 			onKeyDown={handleKeyDown}
 			onMouseMove={handleMouseMove}

@@ -12,7 +12,7 @@ import Group from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
-import {Component, useCallback, useLayoutEffect, useState} from 'react';
+import {Component, useCallback, useLayoutEffect, useRef, useState} from 'react';
 
 import css from './Scroller.module.less';
 
@@ -215,6 +215,7 @@ for (let i = 0; i < 20; i++) {
 export const EditableList = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
+	const removeItem = useRef();
 
 	useLayoutEffect(() => {
 		itemsArr = [];
@@ -223,6 +224,12 @@ export const EditableList = (args) => {
 		}
 		setItems(itemsArr);
 	}, [dataSize]);
+
+	const onClickRemoveButton = useCallback(() => {
+		if (removeItem.current) {
+			removeItem.current();
+		}
+	}, [removeItem]);
 
 	const handleComplete = useCallback((ev) => {
 		const {orders} = ev;
@@ -241,7 +248,9 @@ export const EditableList = (args) => {
 			direction="horizontal"
 			editable={{
 				centered: args['editableCentered'],
-				onComplete: handleComplete
+				editableWrapperCss:css,
+				onComplete: handleComplete,
+				removeItemFuncRef: removeItem
 			}}
 			focusableScrollbar={args['focusableScrollbar']}
 			horizontalScrollbar={args['horizontalScrollbar']}
@@ -250,7 +259,7 @@ export const EditableList = (args) => {
 			noScrollByWheel={args['noScrollByWheel']}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
-			onScrollStop={action('onScrollStop')}
+			onScrollStop={action('onScroremoveItemllStop')}
 			scrollMode={args['scrollMode']}
 			spotlightDisabled={args['spotlightDisabled']}
 			verticalScrollbar={args['verticalScrollbar']}
@@ -258,17 +267,18 @@ export const EditableList = (args) => {
 			{
 				items.map((item, index) => {
 					return (
-						<ImageItem
-							src={item.src}
-							key={item.index}
-							style={{
-								width: ri.scaleToRem(768),
-								height: ri.scaleToRem(588),
-								order: index + 1
-							}}
-						>
-							{`Image ${item.index}`}
-						</ImageItem>
+						<div key={item.index} data-index={item.index} style={{order: index + 1, textAlign: 'center'}}>
+							<Button className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
+							<ImageItem
+								src={item.src}
+								style={{
+									width: ri.scaleToRem(768),
+									height: ri.scaleToRem(588)
+								}}
+							>
+								{`Image ${item.index}`}
+							</ImageItem>
+						</div>
 					);
 				})
 			}

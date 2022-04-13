@@ -5,3 +5,37 @@
 		background-color: orangered;
 	}
 }
+
+.editableWrapper { // public class for EditableWrapper
+	padding-left: 24px;
+	padding-right: 24px;
+
+	.removeButton {
+		visibility: hidden;
+	}
+	.selected { // public class for EditableWrapper
+		.removeButton {
+			visibility: visible;
+		}
+
+		.arrow {
+			font-size: 90px;
+			position: absolute;
+			top: 15%;
+			background: none;
+			opacity: 1;
+		}
+
+		&::before {
+			content: '\276E';
+			.arrow;
+			left: -30px;
+		}
+
+		&::after {
+			content: '\276F';
+			.arrow;
+			right: -30px;
+		}
+	}
+}
