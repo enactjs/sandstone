@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-export const eventCapturingOnSlice = createSlice( {
+export const eventCapturingOnSlice = createSlice({
 	name: 'eventCapturingOnReducer',
 	initialState: false,
 	reducers: {

@@ -9,7 +9,7 @@ function findFirstIndexMatchingEvent (logs, eventName) {
 	return -1;
 }
 
-export const eventLogsSlice = createSlice( {
+export const eventLogsSlice = createSlice({
 	name: 'eventLogsReducer',
 	initialState: [],
 	reducers: {
