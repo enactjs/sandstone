@@ -1,6 +1,6 @@
 import Dropdown from '@enact/sandstone/Dropdown';
-import {Component} from 'react';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import {useCallback, useState} from 'react';
 
 import HorizontalDifferentWidthItemList from './views/HorizontalDifferentWidthItemList';
 import VerticalDifferentHeightItemList from './views/VerticalDifferentHeightItemList';
@@ -20,37 +20,30 @@ const viewNames = [
 
 const defaultViewIndex = 0;
 
-class VirtualListSample extends Component {
-	constructor (props) {
-		super(props);
+const VirtualListSample = (props) => {
 
-		this.state = {
-			view: views[defaultViewIndex]
-		};
-	}
+	const [index, setIndex] = useState(defaultViewIndex);
 
-	onSelect = ({selected}) => {
-		this.setState({view: views[selected]});
-	};
+	const onSelect = useCallback(({selected}) => {
+		setIndex(selected);
+	}, []);
 
-	render () {
-		const View = this.state.view;
+	const View = views[index];
 
-		return (
-			<div {...this.props}>
-				<Dropdown
-					direction="below"
-					onSelect={this.onSelect}
-					size="large"
-					placeholder={viewNames[defaultViewIndex]}
-					width="huge"
-				>
-					{viewNames}
-				</Dropdown>
-				<View />
-			</div>
-		);
-	}
-}
+	return (
+		<div {...props}>
+			<Dropdown
+				direction="below"
+				onSelect={onSelect}
+				size="large"
+				placeholder={viewNames[defaultViewIndex]}
+				width="huge"
+			>
+				{viewNames}
+			</Dropdown>
+			<View />
+		</div>
+	);
+};
 
 export default ThemeDecorator(VirtualListSample);

@@ -2,20 +2,22 @@ import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import LS2Request from '@enact/webos/LS2Request';
 import {readAlert} from '@enact/webos/speech';
-import {Component} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import Section from '../components/Section';
 
 import appCss from '../App/App.module.less';
 
-class ReadAlertView extends Component {
-	constructor () {
-		super();
-		this.state = {
-			audioGuidance: false,
-			toggleDisabled: true
-		};
+const ReadAlertView = () => {
+	const [audioGuidance, setAudioGuidance] = useState(false);
+	const [toggleDisabled, setToggleDisabled] = useState(true);
 
+	const onClick = (clear) => () => readAlert('Enact is a framework designed to be performant, customizable and well structured.', clear);
+
+	const onClick1 = onClick(true);
+	const onClick2 = onClick(false);
+
+	useEffect( () => {
 		if (window.PalmServiceBridge) {
 			new LS2Request().send({
 				service: 'luna://com.webos.settingsservice/',
@@ -25,61 +27,54 @@ class ReadAlertView extends Component {
 					keys: ['audioGuidance']
 				},
 				onSuccess: (res) => {
-					this.setState({
-						audioGuidance: res.settings.audioGuidance === 'on',
-						toggleDisabled: false
-					});
+					setAudioGuidance(res.settings.audioGuidance === 'on');
+					setToggleDisabled(false);
 				}
 			});
 		}
+	}, []);
 
-		this.onClick1 = this.onClick(true);
-		this.onClick2 = this.onClick(false);
-	}
-
-	onClick = (clear) => () => readAlert('Enact is a framework designed to be performant, customizable and well structured.', clear);
-
-	onToggle = ({selected: audioGuidance}) => {
+	useEffect( () => {
 		if (window.PalmServiceBridge) {
-			this.setState(
-				() => ({audioGuidance}),
-				() => {
-					new LS2Request().send({
-						service: 'luna://com.webos.settingsservice/',
-						method: 'setSystemSettings',
-						parameters: {
-							category: 'option',
-							settings: {
-								audioGuidance: audioGuidance ? 'on' : 'off'
-							}
-						}
-					});
+			new LS2Request().send({
+				service: 'luna://com.webos.settingsservice/',
+				method: 'setSystemSettings',
+				parameters: {
+					category: 'option',
+					settings: {
+						audioGuidance: audioGuidance ? 'on' : 'off'
+					}
 				}
-			);
+			});
 		}
-	};
+	});
 
-	render = () => {
-		return (
-			<>
-				<Section title="AudioGuidance On or Off">
-					<CheckboxItem
-						alt="Toggle"
-						defaultSelected={this.state.audioGuidance}
-						disabled={this.state.toggleDisabled}
-						onToggle={this.onToggle}
-					>
-						Audio guidance
-					</CheckboxItem>
-				</Section>
+	const onToggle = useCallback(({selected: selAudioGuidance}) => {
+		if (window.PalmServiceBridge) {
+			setAudioGuidance(selAudioGuidance);
+		}
+	}, []);
 
-				<Section className={appCss.marginTop} title="readAlert">
-					<Button alt="Clear of true" onClick={this.onClick1}>readAlert test(clear true)</Button>
-					<Button alt="Clear of false" onClick={this.onClick2}>readAlert test(clear false)</Button>
-				</Section>
-			</>
-		);
-	};
-}
+	return (
+		<>
+			<Section title="AudioGuidance On or Off">
+				<CheckboxItem
+					alt="Toggle"
+					defaultSelected={audioGuidance}
+					disabled={toggleDisabled}
+					onToggle={onToggle}
+				>
+					Audio guidance
+				</CheckboxItem>
+			</Section>
+
+			<Section className={appCss.marginTop} title="readAlert">
+				<Button alt="Clear of true" onClick={onClick1}>readAlert test(clear true)</Button>
+				<Button alt="Clear of false" onClick={onClick2}>readAlert test(clear false)</Button>
+			</Section>
+		</>
+	);
+
+};
 
 export default ReadAlertView;

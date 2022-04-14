@@ -1,16 +1,24 @@
-import {createStore} from 'redux';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 
-import eventCategory from '../constants/eventCategory';
-import rootReducer from '../reducers/rootReducer';
+import activeEventsSlice from './slices/activeEventsSlice';
+import eventLogsSlice from './slices/eventLogsSlice';
+import eventCapturingOnSlice from './slices/eventCapturingOnSlice';
+import syntheticEventOnSlice from './slices/syntheticEventOnSlice';
+import timerIndexSlice from './slices/timerIndexSlice';
 
-const initialState = {
-	activeEvents: new Array(eventCategory.length).fill(false),
-	timerIndex: 0
-};
-const storeFactory = () =>
-	createStore(
-		rootReducer,
+const rootReducer = combineReducers({
+	activeEvents: activeEventsSlice.reducer,
+	eventCapturingOn: eventCapturingOnSlice.reducer,
+	eventLogs: eventLogsSlice.reducer,
+	syntheticEventOn: syntheticEventOnSlice.reducer,
+	timerIndex: timerIndexSlice.reducer
+});
+
+export default function configureAppStore (initialState) {
+	const store = configureStore({
+		reducer: rootReducer,
 		initialState
-	);
+	});
 
-export default storeFactory;
+	return store;
+}

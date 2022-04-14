@@ -1,10 +1,10 @@
-import {Component, Fragment} from 'react';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Panels, {Panel} from '@enact/sandstone/Panels';
+import {Fragment, useState} from 'react';
 
 import css from './App.module.less';
 import Home from './Home';
@@ -63,55 +63,45 @@ const views = [
 	{title: 'VoiceControlDecorator', view: UseCaseVoiceControlDecorator}
 ];
 
-class AppBase extends Component {
-	constructor () {
-		super();
-		this.state = {
-			selected: 0
-		};
-	}
+const AppBase = ({className, ...rest}) => {
+	const [selected, setSelected] = useState(0);
 
-	handleChangeView = (selected) => () => this.setState({selected});
+	const handleChangeView = (selectedView) => () => setSelected(selectedView);
 
-	render () {
-		const {className, ...rest} = this.props;
-		const {selected} = this.state;
-
-		return (
-			<div className={className}>
-				<Layout {...rest} className={css.layout}>
-					<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
-						{views.map((view, i) => (
-							<Fragment key={view.title}>
-								{view.category ?
-									<Heading key={`category${i}`} size="tiny" showLine className={css.heading}>
-										{view.category}
-									</Heading> : null
-								}
-								<Item
-									className={css.navItem}
-									data-menu={i}
-									key={i}
-									onClick={this.handleChangeView(i)}
-									slotBefore={('00' + i).slice(-2)}
-								>
-									{view.title}
-								</Item>
-							</Fragment>
-						))}
-					</Cell>
-					<Cell component={Panels} index={selected}>
-						{views.map(({view: ComponentView}, i) => (
-							<Panel key={`panel${i}`}>
-								<ComponentView />
-							</Panel>
-						))}
-					</Cell>
-				</Layout>
-			</div>
-		);
-	}
-}
+	return (
+		<div className={className}>
+			<Layout {...rest} className={css.layout}>
+				<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
+					{views.map((view, i) => (
+						<Fragment key={view.title}>
+							{view.category ?
+								<Heading key={`category${i}`} size="tiny" showLine className={css.heading}>
+									{view.category}
+								</Heading> : null
+							}
+							<Item
+								className={css.navItem}
+								data-menu={i}
+								key={i}
+								onClick={handleChangeView(i)}
+								slotBefore={('00' + i).slice(-2)}
+							>
+								{view.title}
+							</Item>
+						</Fragment>
+					))}
+				</Cell>
+				<Cell component={Panels} index={selected}>
+					{views.map(({view: ComponentView}, i) => (
+						<Panel key={`panel${i}`}>
+							<ComponentView />
+						</Panel>
+					))}
+				</Cell>
+			</Layout>
+		</div>
+	);
+};
 
 const App = ThemeDecorator(AppBase);
 

@@ -1,8 +1,8 @@
 import Item from '@enact/sandstone/Item';
-import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import VirtualList from '@enact/sandstone/VirtualList';
+import {useCallback, useEffect, useRef} from 'react';
 
 const
 	items = [],
@@ -23,33 +23,33 @@ for (let i = 0; i < 1000; i++) {
 	items.push({title: ('00' + i).slice(-3) + ' - ' + languages[i % 10]});
 }
 
-class VirtualListSample extends Component {
-	componentDidMount () {
-		this.scrollTo({animate: false, focus: true, index: 10});
-	}
+const VirtualListSample = (props) => {
+	const scrollToRef = useRef(null);
 
-	getScrollTo = (scrollTo) => {
-		this.scrollTo = scrollTo;
-	};
+	useEffect(() => {
+		scrollToRef.current({animate: false, focus: true, index: 10});
+	}, []);
 
-	renderItem = ({index, ...rest}) => (
+	const getScrollTo = useCallback((scrollTo) => {
+		scrollToRef.current = scrollTo;
+	}, []);
+
+	const renderItem = useCallback(({index, ...rest}) => (
 		<Item {...rest}>
 			{items[index].title}
 		</Item>
-	);
+	), []);
 
-	render () {
-		return (
-			<VirtualList
-				{...this.props}
-				cbScrollTo={this.getScrollTo}
-				dataSize={items.length}
-				itemRenderer={this.renderItem}
-				itemSize={ri.scale(156)}
-				scrollMode="translate"
-			/>
-		);
-	}
-}
+	return (
+		<VirtualList
+			{...props}
+			cbScrollTo={getScrollTo}
+			dataSize={items.length}
+			itemRenderer={renderItem}
+			itemSize={ri.scale(156)}
+			scrollMode="translate"
+		/>
+	);
+};
 
 export default ThemeDecorator(VirtualListSample);
