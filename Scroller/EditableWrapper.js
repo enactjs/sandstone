@@ -9,7 +9,7 @@ import css from './EditableWrapper.module.less';
 
 /**
  * A Sandstone-styled EditableWrapper.
- *
+*
  * @class EditableWrapper
  * @memberof sandstone/Scroller
  * @ui
@@ -131,18 +131,6 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
 
-	// const handleClick = useCallback((ev) => {
-	// 	if (mutableRef.current.selectedItem) {
-	// 		// Finalize orders and forward `onComplete` event
-	// 		const orders = finalizeOrders();
-	// 		forwardCustom('onComplete', () => ({orders}))({}, editable);
-	// 		reset();
-	// 	} else {
-	// 		// Start editing by adding selected transition to selected item
-	// 		startEditing(ev.target.parentElement); // TODO 무조건 부모면 안됨
-	// 	}
-	// }, [editable, finalizeOrders, reset, startEditing]);
-
 	// Add rearranged items
 	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
 		// Set the moveDirection to css variable
@@ -239,15 +227,17 @@ const EditableWrapper = (props) => {
 	}, [moveItems, scrollContentRef]);
 
 	const handleKeyDown = useCallback((ev) => {
-		const {keyCode, target} = ev;
+		const {keyCode} = ev;
 		const {selectedItem} = mutableRef.current;
+		const targetItemNode = findItemNode(ev.target);
+
 		if (is('enter', keyCode)) {
 			if (selectedItem) {
 				const orders = finalizeOrders();
 				forwardCustom('onComplete', () => ({orders}))({}, editable);
 				reset();
 			} else {
-				startEditing(target);
+				startEditing(targetItemNode);
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
@@ -291,7 +281,7 @@ const EditableWrapper = (props) => {
 		if (editable.removeItemFuncRef) {
 			editable.removeItemFuncRef.current = removeItem;
 		}
-	}, [removeItem]);
+	}, [removeItem, editable.removeItemFuncRef]);
 
 	return (
 		<div
