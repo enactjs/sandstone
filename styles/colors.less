@@ -88,7 +88,8 @@
 @sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230); // #e6e6e6
 @sand-progress-color: rgb(@sand-progress-color-rgb);
 @sand-progress-buffer-color: var(--sand-progress-buffer-color, #6b6d73); // @sand-progress-color with opacity 30% on @sand-progress-bg-color
-@sand-progress-bg-color: var(--sand-progress-bg-color, #373a41);
+@sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
+@sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb);
 @sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
 
 @sand-invalid-color: #ff0000;
@@ -360,8 +361,8 @@
 
 // Scrollbar
 // ---------------------------------------
-@sand-scrollbar-track-bg-color: @sand-progress-bg-color;
-@sand-scrollbar-thumb-bg-color: @sand-progress-slider-color;
+@sand-scrollbar-track-bg-color: rgb(@sand-progress-bg-color-rgb, 50%);
+@sand-scrollbar-thumb-bg-color: rgb(@sand-progress-color-rgb, 60%);
 @sand-scrollbar-thumb-focus-bg-color: @sand-focus-bg-color;
 @sand-scrollbar-thumb-focus-direction-indicator-color: rgb(@sand-component-focus-text-color-rgb, 40%);
 @sand-scrollbar-thumb-focus-box-shadow-color: @sand-shadow-color;
