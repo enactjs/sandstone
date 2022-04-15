@@ -1,14 +1,14 @@
 import DatePicker from '@enact/sandstone/DatePicker';
-import Group from '@enact/ui/Group';
 import {InputField as Input} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
 import RadioItem from '@enact/sandstone/RadioItem';
-import {Component} from 'react';
-import ri from '@enact/ui/resolution';
 import Scroller from '@enact/sandstone/Scroller';
 import TimePicker from '@enact/sandstone/TimePicker';
+import Group from '@enact/ui/Group';
+import ri from '@enact/ui/resolution';
+import {useCallback, useState} from 'react';
 
 import Controls from '../components/Controls';
 
@@ -30,82 +30,67 @@ for (let i = 0; i < 50; i++) {
 	itemData.push(`Item ${i}`);
 }
 
-class MainView extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			focusableScrollbar: false,
-			height: 4000,
-			nativeScroll: true,
-			width: 2000
-		};
-	}
+const MainView = () => {
+	const [focusableScrollbar, setFocusableScrollbar] = useState(false);
+	const [height, setHeight] = useState(4000);
+	const [nativeScroll, setNativeScroll] = useState(true);
+	const [width, setWidth] = useState(2000);
 
-	getScaledSize = (size) => ri.scale(parseInt(size) || 0);
+	const getScaledSize = (size) => ri.scale(parseInt(size) || 0);
 
-	handleFocusableScrollbar = () => {
-		this.setState((state) => ({focusableScrollbar: !state.focusableScrollbar}));
-	};
+	const handleFocusableScrollbar = useCallback(() => setFocusableScrollbar(!focusableScrollbar), [focusableScrollbar]);
+	const handleHeight = useCallback(({value}) => setHeight(value), []);
+	const handleScrollMode = useCallback(({selected: selNativeScroll}) => setNativeScroll(selNativeScroll), []);
+	const handleWidth = useCallback(({value}) => setWidth(value), []);
 
-	handleHeight = ({value}) => this.setState({height: value});
-
-	handleScrollMode = ({selected: nativeScroll}) => {
-		this.setState({nativeScroll});
-	};
-
-	handleWidth = ({value}) => this.setState({width: value});
-
-	render () {
-		const {focusableScrollbar, height, nativeScroll, width} = this.state;
-
-		return (
-			<Panel>
-				<Header title="Scroller" type="mini">
-					<Controls
-						handleFocusableScrollbar={this.handleFocusableScrollbar}
-						handleHeight={this.handleHeight}
-						handleScrollMode={this.handleScrollMode}
-						handleWidth={this.handleWidth}
-						height={height}
-						nativeScroll={nativeScroll}
-						width={width}
+	return (
+		<Panel>
+			<Header title="Scroller" type="mini">
+				<Controls
+					handleFocusableScrollbar={handleFocusableScrollbar}
+					handleHeight={handleHeight}
+					handleScrollMode={handleScrollMode}
+					handleWidth={handleWidth}
+					height={height}
+					nativeScroll={nativeScroll}
+					width={width}
+				/>
+			</Header>
+			<Scroller
+				focusableScrollbar={focusableScrollbar}
+				key={nativeScroll ? 'native' : 'translate'}
+				scrollMode={nativeScroll ? 'native' : 'translate'}
+			>
+				<div style={{height: `${getScaledSize(height)}px`, width: `${getScaledSize(width)}px`}}>
+					<Input
+						defaultValue="Initial value"
+						title="Input with defaultValue"
 					/>
-				</Header>
-				<Scroller
-					focusableScrollbar={focusableScrollbar}
-					key={nativeScroll ? 'native' : 'translate'}
-					scrollMode={nativeScroll ? 'native' : 'translate'}
-				>
-					<div style={{height: `${this.getScaledSize(height)}px`, width: `${this.getScaledSize(width)}px`}}>
-						<Input
-							defaultValue="Initial value"
-							title="Input with defaultValue"
-						/>
-						<br />
-						<Picker
-							orientation="vertical"
-							width="medium"
-						>
-							{airports}
-						</Picker>
-						<br />
-						<DatePicker
-							title="DatePicker"
-						/>
-						<br />
-						<RadioItem> FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace </RadioItem>
-						<RadioItem disabled> Default disabled Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text </RadioItem>
-						<Group childComponent={Item}>
-							{itemData}
-						</Group>
-						<TimePicker
-							title="TimePicker"
-						/>
-					</div>
-				</Scroller>
-			</Panel>
-		);
-	}
-}
+					<br />
+					<Picker
+						orientation="vertical"
+						width="medium"
+					>
+						{airports}
+					</Picker>
+					<br />
+					<DatePicker
+						title="DatePicker"
+					/>
+					<br />
+					<RadioItem> FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace </RadioItem>
+					<RadioItem disabled> Default disabled Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text </RadioItem>
+					<Group childComponent={Item}>
+						{itemData}
+					</Group>
+					<TimePicker
+						title="TimePicker"
+					/>
+				</div>
+			</Scroller>
+		</Panel>
+	);
+
+};
 
 export default MainView;

@@ -1,8 +1,8 @@
 import Item from '@enact/sandstone/Item';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import {VirtualList} from '@enact/sandstone/VirtualList';
+import {useCallback, useEffect, useState} from 'react';
 
 const
 	languages = [
@@ -23,81 +23,70 @@ const
 	lineHeight = `${oneLineSize}px`,
 	spacing = 60;
 
-class DifferenctHeightItem extends Component {
-	static propTypes = {
-		index: PropTypes.number,
-		items: PropTypes.array
-	};
+const itemStyleDefault = {
+	fontSize,
+	lineHeight
+};
 
-	itemStyleDefault = {
-		fontSize,
-		lineHeight
-	};
+const DifferenctHeightItem = ({index, items, style: itemStyleFromList, ...rest}) => {
+	const {title: children, height} = items[index],
+		itemStyle = {...itemStyleDefault, ...itemStyleFromList, height};
 
-	render () {
-		const
-			{index, items, style: itemStyleFromList, ...rest} = this.props,
-			{title: children, height} = items[index],
-			itemStyle = {...this.itemStyleDefault, ...itemStyleFromList, height};
+	return (
+		<Item {...rest} style={itemStyle}>
+			{children}
+		</Item>
+	);
+};
 
-		return (
-			<Item {...rest} style={itemStyle}>
-				{children}
-			</Item>
-		);
-	}
-}
+DifferenctHeightItem.propTypes = {
+	index: PropTypes.number,
+	items: PropTypes.array
+};
 
-class VerticalDifferentHeightItemList extends Component {
-	constructor (props) {
-		let
-			position = 0,
-			itemSize = [],
-			items = [];
+const VerticalDifferentHeightItemList = (props) => {
+	const [items, setItems] = useState([]);
+	const [itemSize, setItemSize] = useState([]);
 
-		super(props);
-
+	useEffect( () => {
+		let  position = 0, arrayItemSize = [], arrayItems = [];
 		for (let i = 0; i < numOfItems; i++) {
 			const
 				numOfLines = Math.ceil(Math.random() * 6),
 				height = numOfLines * oneLineSize;
 
-			items.push({
+			arrayItems.push({
 				title: (`${('00' + i).slice(-3)} - ${position}px - ${languages[i % 10]}\n`).repeat(numOfLines),
 				height
 			});
-			itemSize.push(height);
+			arrayItemSize.push(height);
 			position += (height + spacing);
 		}
 
-		this.state = {
-			items,
-			itemSize
-		};
-	}
+		setItems(arrayItems);
+		setItemSize(arrayItemSize);
+	}, []);
 
-	renderItem = (props) => {
-		return <DifferenctHeightItem {...props} />;
-	};
+	const renderItem = useCallback((renderProps) => {
+		return <DifferenctHeightItem {...renderProps} />;
+	}, []);
 
-	render () {
-		return (
-			<VirtualList
-				{...this.props}
-				childProps={{
-					items: this.state.items
-				}}
-				dataSize={this.state.items.length}
-				itemRenderer={this.renderItem}
-				itemSize={{
-					minSize: oneLineSize,
-					size: this.state.itemSize
-				}}
-				spacing={spacing}
-				style={{height: '600px', paddingRight: `${ri.scale(36)}px`}}
-			/>
-		);
-	}
-}
+	return (
+		<VirtualList
+			{...props}
+			childProps={{
+				items: items
+			}}
+			dataSize={items.length}
+			itemRenderer={renderItem}
+			itemSize={{
+				minSize: oneLineSize,
+				size: itemSize
+			}}
+			spacing={spacing}
+			style={{height: '600px', paddingRight: `${ri.scale(36)}px`}}
+		/>
+	);
+};
 
 export default VerticalDifferentHeightItemList;

@@ -6,7 +6,7 @@ describe('Scroller List Of Things', function () {
 		await ScrollerPage.open('ListOfThings');
 	});
 
-	it('should spotlight is on the item closest to the previously focused item [QWT-2662]', async function () {
+	it.skip('should spotlight is on the item closest to the previously focused item [QWT-2662]', async function () {
 		// Step 3: 5-way Spot the second item ('Item 001').
 		await $('#item0').moveTo();
 		await ScrollerPage.spotlightDown();

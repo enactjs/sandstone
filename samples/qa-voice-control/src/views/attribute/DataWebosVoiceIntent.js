@@ -1,46 +1,37 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {VoiceControlDecorator} from '@enact/webos/speech';
-import {Component} from 'react';
+import {useCallback, useState} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 const VoiceButton = VoiceControlDecorator(Button);
 
-class DataWebosVoiceIntent extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			result: ''
-		};
-	}
+const DataWebosVoiceIntent = () => {
+	const [result, setResult] = useState('');
 
-	updateResult = (msg) => () => {
-		this.setState({result: msg});
-	};
-
-	handleVoice = (e) => {
+	const updateResult = (msg) => () => setResult(msg);
+	const handleVoice = useCallback((e) => {
 		let {intent, value} = e.detail;
-		this.updateResult('handleVoice > ' + intent + ' | ' + value);
+		updateResult('handleVoice > ' + intent + ' | ' + value);
 		e.preventDefault();
-	};
+	}, []);
 
-	render () {
-		return (
-			<CommonView title="data-webos-voice-intent" subtitle={this.state.result}>
-				<Heading>default | Select</Heading>
-				<Button onClick={this.updateResult('Selected > 안녕')}>안녕</Button>
-				<Heading>{'override | Select -> Select PlayContent Delete'}</Heading>
-				<VoiceButton
-					data-webos-voice-intent="Select PlayContent Delete"
-					onClick={this.updateResult('Selected > 필터')}
-					onVoice={this.handleVoice}
-				>
-					필터
-				</VoiceButton>
-			</CommonView>
-		);
-	}
-}
+	return (
+		<CommonView title="data-webos-voice-intent" subtitle={result}>
+			<Heading>default | Select</Heading>
+			<Button onClick={updateResult('Selected > 안녕')}>안녕</Button>
+			<Heading>{'override | Select -> Select PlayContent Delete'}</Heading>
+			<VoiceButton
+				data-webos-voice-intent="Select PlayContent Delete"
+				onClick={updateResult('Selected > 필터')}
+				onVoice={handleVoice}
+			>
+				필터
+			</VoiceButton>
+		</CommonView>
+	);
+
+};
 
 export default DataWebosVoiceIntent;
