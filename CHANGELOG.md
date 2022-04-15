@@ -2,6 +2,24 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Alert` and `sandstone/Input` support for portrait mode
+- `sandstone/Icon` supported icon list, adding a new icon `wallpaper`
+- `sandstone/VideoPlayer` props `backButtonAriaLabel` and `onBack` to provide a way to exit video player via touch
+
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to not show press effect via touch input
+- `sandstone/RadioItem` to use `onClick` instead of `onTap` for touch support
+- `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
+
+### Fixed
+
+- `sandstone/Picker` horizontal joined behavior going to the next item by touch
+
 ## [2.0.7] - 2022-03-24
 
 ### Fixed

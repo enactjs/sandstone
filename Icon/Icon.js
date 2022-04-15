@@ -331,6 +331,7 @@ const IconBase = kind({
  * bluetooth
  * moodmode
  * changepassword
+ * wallpaper
  * ```
  *
  * @name iconList

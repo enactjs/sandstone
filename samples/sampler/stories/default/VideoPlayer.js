@@ -53,6 +53,7 @@ const prop = {
 	},
 	events: [
 		'onAbort',
+		'onBack',
 		'onCanPlay',
 		'onCanPlayThrough',
 		'onControlsAvailable',
@@ -135,6 +136,7 @@ export const _VideoPlayer = () => {
 			</label>
 			<VideoPlayer
 				autoCloseTimeout={number('autoCloseTimeout', Config, 7000)}
+				backButtonAriaLabel={text('backButtonAriaLabel', Config)}
 				disabled={boolean('disabled', Config)}
 				feedbackHideDelay={number('feedbackHideDelay', Config, 3000)}
 				initialJumpDelay={number('initialJumpDelay', Config, 400)}
