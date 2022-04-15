@@ -2,11 +2,6 @@ import {mount} from 'enzyme';
 import Header from '../Header';
 import css from '../Header.module.less';
 
-const tap = (node) => {
-	node.simulate('mousedown');
-	node.simulate('mouseup');
-};
-
 describe('Header Specs', () => {
 
 	test('should render with title text without changing case', () => {
