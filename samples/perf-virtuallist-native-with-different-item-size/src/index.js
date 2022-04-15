@@ -1,5 +1,5 @@
 import enactPkg from '@enact/core/package.json';
-import {render} from 'react-dom';
+import {createRoot} from 'react-dom/client';
 
 import appPkg from '../package.json';
 
@@ -8,10 +8,10 @@ import App from './App';
 const appElement = (<App />);
 
 if (typeof window !== 'undefined') {
-	render(
-		appElement,
-		document.getElementById('root')
-	);
+	const container = document.getElementById('root');
+	const root = createRoot(container);
+
+	root.render(appElement);
 
 	let versionDiv = document.createElement('div');
 	versionDiv.id = 'version_info';

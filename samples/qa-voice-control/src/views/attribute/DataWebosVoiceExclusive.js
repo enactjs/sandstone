@@ -1,4 +1,3 @@
-
 import Alert from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
@@ -8,136 +7,122 @@ import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
-import {Component} from 'react';
+import {useCallback, useState} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 const ContextualPopupButton = ContextualPopupDecorator(Button);
 const ContainerDiv = SpotlightContainerDecorator({restrict: 'self-only'}, 'div');
 
+const DataWebosVoiceExclusive = () => {
+	const [isPopup, setIsPopup] = useState(false);
+	const [isAlert, setIsAlert] = useState(false);
+	const [isContextualPopup, setIsContextualPopup] = useState(false);
+	const [isCustomPopup, setIsCustomPopup] = useState(false);
+	const [result, setResult] = useState('');
 
-class DataWebosVoiceExclusive extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			isPopup: false,
-			isDialog: false,
-			isAlert: false,
-			isContextualPopup: false,
-			isCustomPopup: false,
-			result: ''
-		};
-	}
+	const updateResult = (msg) => () => setResult(msg);
 
-	updateResult = (msg) => () => {
-		this.setState({result: msg});
-	};
-
-	openPopup = (type) => () => {
+	const openPopup = (type) => () => {
 		if (type === 'popup') {
-			this.setState({isPopup: true});
-		} else if (type === 'dialog') {
-			this.setState({isDialog: true});
+			setIsPopup(true);
 		} else if (type === 'alert') {
-			this.setState({isAlert: true});
+			setIsAlert(true);
 		} else if (type === 'contextualPopup') {
-			this.setState({isContextualPopup: true});
+			setIsContextualPopup(true);
 		} else if (type === 'customizedPopup') {
-			this.setState({isCustomPopup: true});
+			setIsCustomPopup(true);
 		}
 	};
 
-	closePopup = (type) => () => {
+	const closePopup = (type) => () => {
 		if (type === 'popup') {
-			this.setState({isPopup: false});
-		} else if (type === 'dialog') {
-			this.setState({isDialog: false});
+			setIsPopup(false);
 		} else if (type === 'alert') {
-			this.setState({isAlert: false});
+			setIsAlert(false);
 		} else if (type === 'contextualPopup') {
-			this.setState({isContextualPopup: false});
+			setIsContextualPopup(false);
 		} else if (type === 'customizedPopup') {
-			this.setState({isCustomPopup: false});
+			setIsCustomPopup(false);
 		}
 	};
 
-	renderPopup = ({...rest}) => {
+	const renderPopup = useCallback(({...rest}) => {
 		return (
 			<div data-testid="testContextualPopup" {...rest}>
 				<div>This is ContextualPopup</div>
-				<Button onClick={this.closePopup('contextualPopup')}>Close</Button>
+				<Button onClick={closePopup('contextualPopup')}>Close</Button>
 			</div>
 		);
-	};
+	}, []);
 
-	customizedPopupOpenHandler = () => {
+	const customizedPopupOpenHandler = useCallback(() => {
 		Spotlight.focus('customizedPopup');
-	};
+	}, []);
 
-	customizedPopupCloseHandler = () => {
+	const customizedPopupCloseHandler = useCallback(() => {
 		Spotlight.focus('customizedPopupActivator');
-	};
+	}, []);
 
-	render () {
-		return (
-			<CommonView title="data-webos-voice-exclusive" subtitle={this.state.result}>
-				<Heading>Button</Heading>
-				<Button onClick={this.updateResult('Selected > Hello')}>Hello</Button>
-				<Heading>Popup</Heading>
-				<Button onClick={this.openPopup('popup')}>Popup</Button>
-				<Popup data-testid="testPopup" open={this.state.isPopup}>
-					<div>This is Popup</div>
-					<Button onClick={this.closePopup('popup')}>Close</Button>
-				</Popup>
-				<Heading>Alert</Heading>
-				<Button onClick={this.openPopup('alert')}>Alert</Button>
-				<Alert data-testid="testAlert" open={this.state.isAlert}>
-					<span>This is Alert</span>
-					<buttons>
-						<Button onClick={this.closePopup('alert')}>Close</Button>
-					</buttons>
-				</Alert>
-				<Heading>ContextualPopup</Heading>
-				<ContextualPopupButton
-					open={this.state.isContextualPopup}
-					popupComponent={this.renderPopup}
-					onClick={this.openPopup('contextualPopup')}
-					direction="right middle"
+	return (
+		<CommonView title="data-webos-voice-exclusive" subtitle={result}>
+			<Heading>Button</Heading>
+			<Button onClick={updateResult('Selected > Hello')}>Hello</Button>
+			<Heading>Popup</Heading>
+			<Button onClick={openPopup('popup')}>Popup</Button>
+			<Popup data-testid="testPopup" open={isPopup}>
+				<div>This is Popup</div>
+				<Button onClick={closePopup('popup')}>Close</Button>
+			</Popup>
+			<Heading>Alert</Heading>
+			<Button onClick={openPopup('alert')}>Alert</Button>
+			<Alert data-testid="testAlert" open={isAlert}>
+				<span>This is Alert</span>
+				<buttons>
+					<Button onClick={closePopup('alert')}>Close</Button>
+				</buttons>
+			</Alert>
+			<Heading>ContextualPopup</Heading>
+			<ContextualPopupButton
+				open={isContextualPopup}
+				popupComponent={renderPopup}
+				onClick={openPopup('contextualPopup')}
+				direction="right middle"
+			>
+				ContextualPopup
+			</ContextualPopupButton>
+			<Heading>CustomizedPopup</Heading>
+			<Button spotlightId="customizedPopupActivator" onClick={openPopup('customizedPopup')}>Customized Popup</Button>
+			<FloatingLayer
+				data-testid="testCustomizedPopup"
+				open={isCustomPopup}
+				onOpen={customizedPopupOpenHandler}
+				onClose={customizedPopupCloseHandler}
+				scrimType="translucent"
+			>
+				<ContainerDiv
+					spotlightId="customizedPopup"
+					style={{
+						backgroundColor: '#CCE5FF',
+						width: ri.scale(1600),
+						height: ri.scale(1200),
+						position: 'absolute',
+						left: '50%',
+						top: '50%',
+						transform: 'translate(-50%, -50%)',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center'
+					}}
+					data-webos-voice-exclusive
 				>
-					ContextualPopup
-				</ContextualPopupButton>
-				<Heading>CustomizedPopup</Heading>
-				<Button spotlightId="customizedPopupActivator" onClick={this.openPopup('customizedPopup')}>Customized Popup</Button>
-				<FloatingLayer
-					data-testid="testCustomizedPopup"
-					open={this.state.isCustomPopup}
-					onOpen={this.customizedPopupOpenHandler}
-					onClose={this.customizedPopupCloseHandler}
-					scrimType="translucent"
-				>
-					<ContainerDiv
-						spotlightId="customizedPopup"
-						style={{
-							backgroundColor: '#CCE5FF',
-							width: ri.scale(1600),
-							height: ri.scale(1200),
-							position: 'absolute',
-							left: '50%',
-							top: '50%',
-							transform: 'translate(-50%, -50%)',
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center'
-						}}
-						data-webos-voice-exclusive
-					>
-						<Button onClick={this.updateResult('Selected >  Bye')}>Bye</Button>
-						<Button onClick={this.closePopup('customizedPopup')}>Close</Button>
-					</ContainerDiv>
-				</FloatingLayer>
-			</CommonView>
-		);
-	}
-}
+					<Button onClick={updateResult('Selected >  Bye')}>Bye</Button>
+					<Button onClick={closePopup('customizedPopup')}>Close</Button>
+				</ContainerDiv>
+			</FloatingLayer>
+		</CommonView>
+	);
+
+};
 
 export default DataWebosVoiceExclusive;
