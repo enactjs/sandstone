@@ -46,6 +46,7 @@ import SwitchItem from './components/SwitchItem';
 import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
 import Tooltip from './components/Tooltip';
+import VideoPlayer from './components/VideoPlayer';
 import VirtualList from './components/VirtualList';
 import VirtualGridList from './components/VirtualGridList';
 import WizardPanels from './components/WizardPanels';
@@ -98,7 +99,7 @@ const components = {
 	TimePicker,
 	Tooltip,
 	// TooltipDecorator,
-	// VideoPlayer,
+	VideoPlayer,
 	VirtualList,
 	VirtualGridList,
 	WizardPanels
