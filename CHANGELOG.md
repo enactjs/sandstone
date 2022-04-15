@@ -13,7 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to not joined picker
-- `sandstone/RadioItem` to use `onClick` instead of `onTap` for touch support
+- `sandstone/Panels.Header` and `sandstone/RadioItem` to use `onClick` instead of `onTap` for touch support
 - `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
 
 ### Fixed

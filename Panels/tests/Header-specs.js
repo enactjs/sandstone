@@ -150,7 +150,7 @@ describe('Header Specs', () => {
 			<Header onClose={handleClose} />
 		);
 
-		tap(subject.find(`.${css.slotAfter}`).find('Button'));
+		subject.find(`.${css.slotAfter}`).find('Button').simulate('click');
 
 		const expected = 1;
 		const actual = handleClose.mock.calls.length;
