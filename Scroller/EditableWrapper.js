@@ -220,7 +220,7 @@ const EditableWrapper = (props) => {
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
 
-			setTimeout(()=>{
+			setTimeout(() => {
 				Spotlight.focusNextFromPoint('down', selectedItemRect);
 			}, 0);
 		}
@@ -279,7 +279,7 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation();
 			}
 		}
-	}, [editable, finalizeOrders, moveItems, reset, scrollContainerHandle, scrollContainerRef, scrollContentRef, startEditing]);
+	}, [editable, finalizeOrders, findItemNode, moveItems, reset, scrollContainerHandle, scrollContentRef, startEditing]);
 
 	useEffect(() => {
 		// Calculate the item width once
@@ -334,6 +334,14 @@ EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.protot
 	 * @public
 	 */
 	scrollContainerHandle: EnactPropTypes.ref,
+
+	/**
+	 * Obtains a reference to the scroll container node.
+	 *
+	 * @type {Function|Object}
+	 * @public
+	 */
+	scrollContainerRef: EnactPropTypes.ref,
 
 	/**
 	 * Obtains a reference to the scroll content node.
