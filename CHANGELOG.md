@@ -2,7 +2,9 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.5.0-alpha.1] - 2022-04-15
+
+- Update dependencies including React 18.0.0
 
 ### Changed
 
