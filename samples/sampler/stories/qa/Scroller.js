@@ -6,6 +6,8 @@ import BodyText from '@enact/sandstone/BodyText';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import {Header} from '@enact/sandstone/Panels';
+import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Group from '@enact/ui/Group';
@@ -287,6 +289,42 @@ boolean('spotlightDisabled', EditableList, Config, false);
 select('verticalScrollbar', EditableList, prop.scrollbarOption, Config);
 
 EditableList.storyName = 'with editable items';
+
+export const ListOfThingsInFixedPopupPanels = (args) => (
+	<FixedPopupPanels
+		open
+		index={0}
+	>
+		<Panel>
+			<Header title="Panel1" />
+			<Scroller
+				focusableScrollbar={args['focusableScrollbar']}
+				horizontalScrollbar={args['horizontalScrollbar']}
+				hoverToScroll={args['hoverToScroll']}
+				key={args['scrollMode']}
+				noScrollByWheel={args['noScrollByWheel']}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={args['scrollMode']}
+				spotlightDisabled={args['spotlightDisabled']}
+				verticalScrollbar={args['verticalScrollbar']}
+			>
+				<Group childComponent={Item}>{itemData}</Group>
+			</Scroller>
+		</Panel>
+	</FixedPopupPanels>
+);
+
+select('focusableScrollbar', ListOfThingsInFixedPopupPanels, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', ListOfThingsInFixedPopupPanels, prop.scrollbarOption, Config);
+boolean('hoverToScroll', ListOfThingsInFixedPopupPanels, Config);
+boolean('noScrollByWheel', ListOfThingsInFixedPopupPanels, Config);
+select('scrollMode', ListOfThingsInFixedPopupPanels, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', ListOfThingsInFixedPopupPanels, Config, false);
+select('verticalScrollbar', ListOfThingsInFixedPopupPanels, prop.scrollbarOption, Config);
+
+ListOfThingsInFixedPopupPanels.storyName = 'List of things in FixedPopupPanels';
 
 const imageItems = [];
 

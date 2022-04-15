@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import ImageItem from '@enact/sandstone/ImageItem';
 
-import {selectItem} from '../../actions';
+import {selectItem} from '../../store';
 
 const mapStateToProps = ({data: {data: allItems, selectedItems}}, {['data-index']: dataIndex}) => {
 	const {
@@ -14,7 +14,7 @@ const mapStateToProps = ({data: {data: allItems, selectedItems}}, {['data-index'
 	return {
 		children,
 		label,
-		selected: selectedItems.has(dataIndex),
+		selected: selectedItems.includes(dataIndex),
 		showSelection,
 		src
 	};
