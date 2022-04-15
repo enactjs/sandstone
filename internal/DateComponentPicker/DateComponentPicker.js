@@ -128,7 +128,6 @@ const DateComponentPickerBase = kind({
 			css={css}
 			data-webos-voice-labels-ext={voiceLabel}
 			index={value}
-			joined
 			max={max}
 			min={0}
 			noAnimation={noAnimation}

@@ -16,19 +16,19 @@ describe('DatePicker', function () {
 			});
 
 			it('should have month-day-year order', function () {
-				expect(datePicker.month.isFocused(), 'Month').to.be.true();
+				expect(datePicker.incrementer(datePicker.month).isFocused(), 'Month').to.be.true();
 				Page.spotlightRight();
-				expect(datePicker.day.isFocused(), 'Day').to.be.true();
+				expect(datePicker.incrementer(datePicker.day).isFocused(), 'Day').to.be.true();
 				Page.spotlightRight();
-				expect(datePicker.year.isFocused(), 'Year').to.be.true();
+				expect(datePicker.incrementer(datePicker.year).isFocused(), 'Year').to.be.true();
 			});
 
 			describe('5-way', function () {
 				// Start of [QWT-2553] - Month, Day, Year pickers Animate with 5-way - LTR
 				it('should increase the month when incrementing the picker', function () {
 					const {month} = extractValues(datePicker);
-					expect(datePicker.month.isFocused()).to.be.true();
-					Page.spotlightUp();
+					expect(datePicker.incrementer(datePicker.month).isFocused()).to.be.true();
+					Page.spotlightSelect();
 					const {month: value} = extractValues(datePicker);
 					const expected = month < 12 ? month + 1 : 1;
 					expect(value).to.equal(expected);
@@ -36,8 +36,9 @@ describe('DatePicker', function () {
 
 				it('should decrease the month when decrementing the picker', function () {
 					const {month} = extractValues(datePicker);
-					expect(datePicker.month.isFocused()).to.be.true();
+					expect(datePicker.incrementer(datePicker.month).isFocused()).to.be.true();
 					Page.spotlightDown();
+					Page.spotlightSelect();
 					const {month: value} = extractValues(datePicker);
 					const expected = month > 1 ? month - 1 : 12;
 					expect(value).to.equal(expected);
@@ -47,8 +48,8 @@ describe('DatePicker', function () {
 					const {day, month, year} = extractValues(datePicker);
 					const numDays = daysInMonth({month, year});
 					Page.spotlightRight();
-					expect(datePicker.day.isFocused()).to.be.true();
-					Page.spotlightUp();
+					expect(datePicker.incrementer(datePicker.day).isFocused()).to.be.true();
+					Page.spotlightSelect();
 					const {day: value} = extractValues(datePicker);
 					const expected = day !== numDays ? day + 1 : 1;
 					expect(value).to.equal(expected);
@@ -58,8 +59,9 @@ describe('DatePicker', function () {
 					const {day, month, year} = extractValues(datePicker);
 					const numDays = daysInMonth({month, year});
 					Page.spotlightRight();
-					expect(datePicker.day.isFocused()).to.be.true();
+					expect(datePicker.incrementer(datePicker.day).isFocused()).to.be.true();
 					Page.spotlightDown();
+					Page.spotlightSelect();
 					const {day: value} = extractValues(datePicker);
 					const expected = day !== 1 ? day - 1 : numDays;
 					expect(value).to.equal(expected);
@@ -69,8 +71,8 @@ describe('DatePicker', function () {
 					const {year} = extractValues(datePicker);
 					Page.spotlightRight();
 					Page.spotlightRight();
-					expect(datePicker.year.isFocused()).to.be.true();
-					Page.spotlightUp();
+					expect(datePicker.incrementer(datePicker.year).isFocused()).to.be.true();
+					Page.spotlightSelect();
 					const {year: value} = extractValues(datePicker);
 					const expected = year + 1;
 					expect(value).to.equal(expected);
@@ -80,8 +82,9 @@ describe('DatePicker', function () {
 					const {year} = extractValues(datePicker);
 					Page.spotlightRight();
 					Page.spotlightRight();
-					expect(datePicker.year.isFocused()).to.be.true();
+					expect(datePicker.incrementer(datePicker.year).isFocused()).to.be.true();
 					Page.spotlightDown();
+					Page.spotlightSelect();
 					const {year: value} = extractValues(datePicker);
 					const expected = year - 1;
 					expect(value).to.equal(expected);
@@ -91,7 +94,7 @@ describe('DatePicker', function () {
 
 			describe('pointer', function () {
 
-				it('should select item', function () {
+				it.skip('should select item', function () {
 					datePicker.month.click();
 					expect(datePicker.month.isFocused()).to.be.true();
 				});
@@ -99,8 +102,6 @@ describe('DatePicker', function () {
 				// Start of [QWT-2555] - Month, Day, Year pickers Animate with Pointer Click - LTR
 				it('should increase the month when incrementing the picker', function () {
 					const {month} = extractValues(datePicker);
-					datePicker.month.click();
-					expect(datePicker.month.isFocused()).to.be.true();
 					datePicker.incrementer(datePicker.month).click();
 					const {month: value} = extractValues(datePicker);
 					const expected = month < 12 ? month + 1 : 1;
@@ -109,8 +110,6 @@ describe('DatePicker', function () {
 
 				it('should decrease the month when decrementing the picker', function () {
 					const {month} = extractValues(datePicker);
-					datePicker.month.click();
-					expect(datePicker.month.isFocused()).to.be.true();
 					datePicker.decrementer(datePicker.month).click();
 					const {month: value} = extractValues(datePicker);
 					const expected = month > 1 ? month - 1 : 12;
@@ -120,8 +119,6 @@ describe('DatePicker', function () {
 				it('should increase the day when incrementing the picker', function () {
 					const {day, month, year} = extractValues(datePicker);
 					const numDays = daysInMonth({month, year});
-					datePicker.day.click();
-					expect(datePicker.day.isFocused()).to.be.true();
 					datePicker.incrementer(datePicker.day).click();
 					const {day: value} = extractValues(datePicker);
 					const expected = day !== numDays ? day + 1 : 1;
@@ -131,8 +128,6 @@ describe('DatePicker', function () {
 				it('should decrease the day when decrementing the picker', function () {
 					const {day, month, year} = extractValues(datePicker);
 					const numDays = daysInMonth({month, year});
-					datePicker.day.click();
-					expect(datePicker.day.isFocused()).to.be.true();
 					datePicker.decrementer(datePicker.day).click();
 					const {day: value} = extractValues(datePicker);
 					const expected = day !== 1 ? day - 1 : numDays;
@@ -141,8 +136,6 @@ describe('DatePicker', function () {
 
 				it('should increase the year when incrementing the picker', function () {
 					const {year} = extractValues(datePicker);
-					datePicker.year.click();
-					expect(datePicker.year.isFocused()).to.be.true();
 					datePicker.incrementer(datePicker.year).click();
 					const {year: value} = extractValues(datePicker);
 					const expected = year + 1;
@@ -151,8 +144,6 @@ describe('DatePicker', function () {
 
 				it('should decrease the year when decrementing the picker', function () {
 					const {year} = extractValues(datePicker);
-					datePicker.year.click();
-					expect(datePicker.year.isFocused()).to.be.true();
 					datePicker.decrementer(datePicker.year).click();
 					const {year: value} = extractValues(datePicker);
 					const expected = year - 1;
@@ -195,14 +186,11 @@ describe('DatePicker', function () {
 			const datePicker = Page.components.datePickerDisabled;
 
 			it('should focus the disabled month picker', function () {
-				datePicker.month.click();
-				expect(datePicker.month.isFocused()).to.be.true();
+				datePicker.incrementer(datePicker.month).click();
+				expect(datePicker.incrementer(datePicker.month).isFocused()).to.be.true();
 			});
 
 			it('should not increase the day when incrementing disabled picker', function () {
-				datePicker.day.click();
-				expect(datePicker.day.isFocused()).to.be.true();
-
 				datePicker.incrementer(datePicker.day).click();
 				browser.pause(500);
 				const {day: value} = extractValues(datePicker);
@@ -210,9 +198,6 @@ describe('DatePicker', function () {
 			});
 
 			it('should not decrease the day when decrementing disabled picker', function () {
-				datePicker.day.click();
-				expect(datePicker.day.isFocused()).to.be.true();
-
 				datePicker.decrementer(datePicker.day).click();
 				browser.pause(500);
 				const {day: value} = extractValues(datePicker);
@@ -235,16 +220,10 @@ describe('DatePicker', function () {
 
 			it('should not update \'defaultValue\' on decrementing disabled picker', function () {
 				const {day, month, year} = extractValues(datePicker);
-				datePicker.month.click();
-				expect(datePicker.month.isFocused()).to.be.true();
 				datePicker.decrementer(datePicker.month).click();
 
-				datePicker.day.click();
-				expect(datePicker.day.isFocused()).to.be.true();
 				datePicker.decrementer(datePicker.day).click();
 
-				datePicker.year.click();
-				expect(datePicker.year.isFocused()).to.be.true();
 				datePicker.decrementer(datePicker.year).click();
 
 				browser.pause(500);
@@ -257,16 +236,10 @@ describe('DatePicker', function () {
 			it('should not update \'defaultValue\' on incrementing disabled picker', function () {
 				const {day, month, year} = extractValues(datePicker);
 
-				datePicker.month.click();
-				expect(datePicker.month.isFocused()).to.be.true();
 				datePicker.incrementer(datePicker.month).click();
 
-				datePicker.day.click();
-				expect(datePicker.day.isFocused()).to.be.true();
 				datePicker.incrementer(datePicker.day).click();
 
-				datePicker.year.click();
-				expect(datePicker.year.isFocused()).to.be.true();
 				datePicker.incrementer(datePicker.year).click();
 
 				browser.pause(500);
@@ -286,15 +259,15 @@ describe('DatePicker', function () {
 		});
 
 		it('should focus rightmost picker (day) when selected', function () {
-			expect(datePicker.day.isFocused()).to.be.true();
+			expect(datePicker.incrementer(datePicker.day).isFocused()).to.be.true();
 		});
 
 		it('should have day-month-year order', function () {
-			expect(datePicker.day.isFocused()).to.be.true();
+			expect(datePicker.incrementer(datePicker.day).isFocused()).to.be.true();
 			Page.spotlightLeft();
-			expect(datePicker.month.isFocused()).to.be.true();
+			expect(datePicker.incrementer(datePicker.month).isFocused()).to.be.true();
 			Page.spotlightLeft();
-			expect(datePicker.year.isFocused()).to.be.true();
+			expect(datePicker.incrementer(datePicker.year).isFocused()).to.be.true();
 		});
 	});
 
