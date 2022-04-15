@@ -10,12 +10,16 @@
 	padding-left: 24px;
 	padding-right: 24px;
 
-	.removeButton {
-		visibility: hidden;
+	.removeButtonContainer {
+		height: 156px;
+
+		.removeButton {
+			display: none;
+		}
 	}
 	.selected { // public class for EditableWrapper
 		.removeButton {
-			visibility: visible;
+			display: inline-block;
 		}
 
 		.arrow {

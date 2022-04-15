@@ -270,7 +270,9 @@ export const EditableList = (args) => {
 				items.map((item, index) => {
 					return (
 						<div key={item.index} data-index={item.index} style={{order: index + 1, textAlign: 'center'}}>
-							<Button className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
+							<div className={css.removeButtonContainer}>
+								<Button className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
+							</div>
 							<ImageItem
 								src={item.src}
 								style={{

@@ -1,6 +1,7 @@
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
+import Spotlight from '@enact/spotlight';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef} from 'react';
@@ -16,7 +17,7 @@ import css from './EditableWrapper.module.less';
  * @public
  */
 const EditableWrapper = (props) => {
-	const {children, editable, scrollContainerHandle, scrollContentRef} = props;
+	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
 	let centered = editable.centered != null ? editable.centered : true;
 	let customCss = editable.editableWrapperCss || {};
 	const dataSize = children?.length;
@@ -28,6 +29,7 @@ const EditableWrapper = (props) => {
 		// Constants
 		itemWidth: null,
 		centeredOffset: 0,
+		spotlightId: null,
 
 		// DOM elements
 		selectedItem: null,
@@ -207,12 +209,21 @@ const EditableWrapper = (props) => {
 
 	// Remove an item
 	const removeItem = useCallback(() => {
-		const {prevToIndex} = mutableRef.current;
-		const orders = finalizeOrders();
+		const {prevToIndex, selectedItem} = mutableRef.current;
+		if (selectedItem) {
+			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
+			selectedItemRect.x += 10;
+			selectedItemRect.y -= 10;
+			const orders = finalizeOrders();
 
-		orders.splice(prevToIndex, 1);
-		forwardCustom('onComplete', () => ({orders}))({}, editable);
-		reset();
+			orders.splice(prevToIndex, 1);
+			forwardCustom('onComplete', () => ({orders}))({}, editable);
+			reset();
+
+			setTimeout(()=>{
+				Spotlight.focusNextFromPoint('down', selectedItemRect);
+			}, 0);
+		}
 	}, [editable, finalizeOrders, reset]);
 
 
@@ -227,17 +238,21 @@ const EditableWrapper = (props) => {
 	}, [moveItems, scrollContentRef]);
 
 	const handleKeyDown = useCallback((ev) => {
-		const {keyCode} = ev;
-		const {selectedItem} = mutableRef.current;
-		const targetItemNode = findItemNode(ev.target);
+		const {keyCode, target} = ev;
+		const {selectedItem, spotlightId} = mutableRef.current;
+		const targetItemNode = findItemNode(target);
 
-		if (is('enter', keyCode)) {
+		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (selectedItem) {
 				const orders = finalizeOrders();
 				forwardCustom('onComplete', () => ({orders}))({}, editable);
 				reset();
+
+				Spotlight.set(spotlightId, {restrict: 'self-first'});
 			} else {
 				startEditing(targetItemNode);
+
+				Spotlight.set(spotlightId, {restrict: 'self-only'});
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
@@ -264,7 +279,7 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation();
 			}
 		}
-	}, [editable, finalizeOrders, moveItems, reset, scrollContainerHandle, scrollContentRef, startEditing]);
+	}, [editable, finalizeOrders, moveItems, reset, scrollContainerHandle, scrollContainerRef, scrollContentRef, startEditing]);
 
 	useEffect(() => {
 		// Calculate the item width once
@@ -276,6 +291,10 @@ const EditableWrapper = (props) => {
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
 	}, [centered]); // TODO: Need dataSize dependency for centeredOffset
+
+	useEffect(() => {
+		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+	}, [scrollContainerRef]);
 
 	useEffect(() => {
 		if (editable.removeItemFuncRef) {
