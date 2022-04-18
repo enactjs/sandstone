@@ -1,4 +1,4 @@
-const {expectFocusedItem, expectNoFocusedItem} = require('../../VirtualList/VirtualList-utils');
+const {expectFocusedItem, expectNoFocusedItem, focusedElement} = require('../Scroller-utils.js');
 const ScrollerPage = require('../ScrollerPage');
 
 describe('Scroller List Of Things', function () {
@@ -79,6 +79,7 @@ describe('Scroller List Of Things', function () {
 		await expectNoFocusedItem();
 		// Spotlight will display again when the pointer hides.
 		await ScrollerPage.hidePointerByKeycode();
-		await expectFocusedItem((await Number((await ScrollerPage.topVisibleItemId()).slice(4))));
+		// Spotlight displays on top-level item.
+		await expect(5).to.equal(Number((await focusedElement()).slice(4)));
 	});
 });
