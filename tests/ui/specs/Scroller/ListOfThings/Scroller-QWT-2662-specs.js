@@ -79,6 +79,6 @@ describe('Scroller List Of Things', function () {
 		await expectNoFocusedItem();
 		// Spotlight will display again when the pointer hides.
 		await ScrollerPage.hidePointerByKeycode();
-		await expectFocusedItem((await ScrollerPage.topVisibleItemId()).slice(4));
+		await expectFocusedItem((await Number((await ScrollerPage.topVisibleItemId()).slice(4))));
 	});
 });
