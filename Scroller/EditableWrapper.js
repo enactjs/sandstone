@@ -10,7 +10,7 @@ import css from './EditableWrapper.module.less';
 
 /**
  * A Sandstone-styled EditableWrapper.
-*
+ *
  * @class EditableWrapper
  * @memberof sandstone/Scroller
  * @ui

@@ -6,7 +6,7 @@
 	}
 }
 
-.editableWrapper { // public class for EditableWrapper
+.editableWrapper { // public class for editable wrapper
 	padding-left: 36px;
 	padding-right: 36px;
 
@@ -17,12 +17,12 @@
 			display: none;
 		}
 	}
-	.selected { // public class for EditableWrapper
+	.selected { // public class for selected item
 		.removeButton {
 			display: inline-block;
 		}
 
-		.arrow {
+		.arrow() {
 			font-family: "Sandstone Icons";
 			font-size: 108px;
 			position: absolute;
@@ -33,13 +33,13 @@
 
 		&::before {
 			content: '\EFFF3';
-			.arrow;
+			.arrow();
 			left: -30px;
 		}
 
 		&::after {
 			content: '\EFFF4';
-			.arrow;
+			.arrow();
 			right: -30px;
 		}
 	}
