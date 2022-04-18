@@ -4,9 +4,11 @@ let initialStateForListItems = [];
 
 const isItemDisabled = (index, mod) => !(index % mod === 0);
 
-const listItemSlice = createSlice( {
+const listItemSlice = createSlice({
 	name: 'listItemReducer',
-	initialState: {listItems: initialStateForListItems},
+	initialState: {
+		listItems: initialStateForListItems
+	},
 	reducers: {
 		setData: {
 			reducer : (state, action ) =>  {

@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-export const syntheticEventOnSlice = createSlice( {
+export const syntheticEventOnSlice = createSlice({
 	name: 'syntheticEventOnReducer',
 	initialState: false,
 	reducers: {
