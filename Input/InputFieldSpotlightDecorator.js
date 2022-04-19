@@ -214,11 +214,11 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		blur = () => {
-			if(this.focused || this.node) {
+			if (this.focused || this.node) {
 				this.focused = null;
 				this.node = null;
 				this.updateComponent();
-			} 
+			}
 		};
 
 		focusDecorator = (decorator) => {
