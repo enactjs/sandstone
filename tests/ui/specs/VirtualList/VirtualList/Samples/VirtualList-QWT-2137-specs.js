@@ -32,5 +32,6 @@ describe('VirtualList Samples', function () {
 
 		// Verify Spotlight displays on the 21st item ('Itme 20');
 		await expectFocusedItem(Number((await Page.bottomVisibleItemId()).slice(4)));
+		await expectFocusedItem(20);
 	});
 });
