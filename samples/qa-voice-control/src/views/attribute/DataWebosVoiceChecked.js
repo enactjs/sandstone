@@ -1,41 +1,30 @@
 import Heading from '@enact/sandstone/Heading';
-import {Component} from 'react';
+import {useCallback, useState} from 'react';
 
 import CommonView from '../../components/CommonView';
 
+const DataWebosVoiceChecked = () => {
+	const [isChecked, setIsChecked] = useState(false);
 
-class DataWebosVoiceChecked extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			isChecked: false
-		};
-	}
+	const handleClick = useCallback(() => {
+		let checked = document.getElementById('myCheckbox').checked;
+		setIsChecked(checked);
+	}, []);
 
-	handleClick = () => {
-		let isChecked = document.getElementById('myCheckbox').checked;
-		this.setState({
-			isChecked: isChecked
-		});
-	};
-
-	render () {
-		const {isChecked} = this.state;
-		return (
-			<CommonView title="data-webos-voice-checked">
-				<Heading>Customized Checkbox</Heading>
-				<input
-					data-webos-voice-checked={isChecked}
-					data-webos-voice-intent="SelectCheckItem"
-					data-webos-voice-label="고양이"
-					id="myCheckbox"
-					onClick={this.handleClick}
-					type="checkbox"
-				/>
-				고양이
-			</CommonView>
-		);
-	}
-}
+	return (
+		<CommonView title="data-webos-voice-checked">
+			<Heading>Customized Checkbox</Heading>
+			<input
+				data-webos-voice-checked={isChecked}
+				data-webos-voice-intent="SelectCheckItem"
+				data-webos-voice-label="고양이"
+				id="myCheckbox"
+				onClick={handleClick}
+				type="checkbox"
+			/>
+			고양이
+		</CommonView>
+	);
+};
 
 export default DataWebosVoiceChecked;

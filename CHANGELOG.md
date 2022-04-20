@@ -2,11 +2,14 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.5.0-alpha.1] - 2022-04-15
+
+- Update dependencies including React 18.0.0
 
 ### Changed
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to not show press effect on touch input
+- `sandstone/ProgressBar` radial colors and `sandstone/Scroller` colors to match with `sandstone/ProgressBar`
 
 ### Fixed
 

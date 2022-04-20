@@ -1,43 +1,33 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {VoiceControlDecorator} from '@enact/webos/speech';
-import {Component} from 'react';
+import {useCallback, useState} from 'react';
 
 import CommonView from '../../components/CommonView';
 
 const VoiceButton = VoiceControlDecorator(Button);
 
+const Sample = () => {
+	const [result, setResult] = useState('');
 
-class Sample extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			result: ''
-		};
-	}
+	const showResult = (msg) => setResult(msg);
 
-	showResult = (msg) => {
-		this.setState({result: msg});
-	};
+	const handleClick = useCallback(() => {
+		showResult('handleClick > Hello');
+	}, []);
 
-	handleClick = () => {
-		this.showResult('handleClick > Hello');
-	};
-
-	handleVoice = (e) => {
+	const handleVoice = useCallback((e) => {
 		let {intent, value} = e.detail;
-		this.showResult('handleVoice > ' + intent + ' | ' + value);
+		showResult('handleVoice > ' + intent + ' | ' + value);
 		e.preventDefault();
-	};
+	}, []);
 
-	render () {
-		return (
-			<CommonView title="webOSVoice" subtitle={this.state.result}>
-				<Heading>Customized Intent | Select PlayContent Delete</Heading>
-				<VoiceButton data-webos-voice-intent="Select PlayContent Delete" onVoice={this.handleVoice} onClick={this.handleClick}>Hello</VoiceButton>
-			</CommonView>
-		);
-	}
-}
+	return (
+		<CommonView title="webOSVoice" subtitle={result}>
+			<Heading>Customized Intent | Select PlayContent Delete</Heading>
+			<VoiceButton data-webos-voice-intent="Select PlayContent Delete" onVoice={handleVoice} onClick={handleClick}>Hello</VoiceButton>
+		</CommonView>
+	);
+};
 
 export default Sample;
