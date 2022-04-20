@@ -31,11 +31,12 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@enact/storybook-utils": "^4.1.0",
-    "@storybook/addons": "6.3.12",
-    "@storybook/react": "6.3.12",
-    "@storybook/theming": "6.3.12",
+    "@enact/storybook-utils": "enactjs/storybook-utils#feature/WRO-2495-DS",
+    "@storybook/addons": "^6.5.0-alpha.64",
+    "@storybook/react": "^6.5.0-alpha.64",
+    "@storybook/theming": "^6.5.0-alpha.64",
     "babel-loader": "^8.2.3",
-    "core-js": "^3.20.1"
+    "core-js": "^3.20.1",
+    "html-webpack-plugin": "^5.5.0"
   }
 }
