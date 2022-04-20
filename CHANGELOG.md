@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` to give the scroll thumb the initial focus
+
 ## [2.5.0-alpha.1] - 2022-04-15
 
 - Update dependencies including React 18.0.0
@@ -14,7 +20,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to focus the topmost element after scroll in pointer mode
-- `sandstone/Scroller` to give the scroll thumb the initial focus
 
 ## [2.1.4] - 2022-03-24
 
