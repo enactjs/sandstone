@@ -261,7 +261,7 @@ export const EditableList = (args) => {
 			noScrollByWheel={args['noScrollByWheel']}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
-			onScrollStop={action('onScroremoveItemllStop')}
+			onScrollStop={action('onScrollStop')}
 			scrollMode={args['scrollMode']}
 			spotlightDisabled={args['spotlightDisabled']}
 			verticalScrollbar={args['verticalScrollbar']}
