@@ -322,6 +322,10 @@
 @sand-alert-overlay-padding-top-bottom: 60px;
 @sand-alert-overlay-padding-left: 60px;
 @sand-alert-overlay-padding-right: (90px - .extract(@sand-button-margin, right)[]);
+@sand-portrait-alert-overlay-noimage-content-width: 1020px;
+@sand-portrait-alert-overlay-content-width: 822px;
+@sand-portrait-alert-overlay-buttons-margin: 0 0 0 78px;
+@sand-portrait-alert-overlay-text-button-gap: (150px - .extract(@sand-portrait-alert-overlay-buttons-margin, left)[] - .extract(@sand-button-margin, right)[]);
 
 // AlertImage
 // ---------------------------------------
@@ -642,6 +646,11 @@
 @sand-input-fullscreen-invalid-tooltip-width: 3240px;
 @sand-input-fullscreen-back-button-top: 132px;
 @sand-input-fullscreen-back-button-start: 96px;
+@sand-portrait-input-fullscreen-keypad-width: 702px;
+@sand-portrait-input-fullscreen-keypad-margin: 600px auto 0 auto;
+@sand-portrait-input-fullscreen-keypad-key-margin: 45px;
+@sand-portrait-input-fullscreen-text-inputarea-margin: 672px 0 0 0;
+@sand-portrait-input-fullscreen-number-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-padding: (90px - .extract(@sand-popup-padding, top)[]) (90px - .extract(@sand-popup-padding, right)[]) (90px - .extract(@sand-popup-padding, bottom)[]) (90px - .extract(@sand-popup-padding, left)[]);
 @sand-input-overlay-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-numbercell-width: 174px;
@@ -943,6 +952,8 @@
 
 // Video
 // ---------------------------------------
+@sand-video-back-button-left                      : 150px;
+@sand-video-back-button-top                       : 114px;
 @sand-video-slider-tooltip-arrow-border-left-right: 18px;
 @sand-video-slider-tooltip-arrow-border-top:       24px;
 @sand-video-slider-tooltip-position-bottom:        42px;
