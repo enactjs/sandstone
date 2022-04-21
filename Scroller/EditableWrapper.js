@@ -260,7 +260,7 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation();
 			}
 		}
-	}, [editable, finalizeOrders, reset, startEditing]);
+	}, [editable, finalizeOrders, moveItemsByKeyDown, reset, startEditing]);
 
 	useEffect(() => {
 		// Calculate the item width once
