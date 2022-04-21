@@ -39,6 +39,9 @@ const EditableWrapper = (props) => {
 		fromIndex: null,
 		prevToIndex: null,
 
+		// Temporal stored value
+		nextSpotlightRect: null,
+
 		// Flags
 		lastMoveDirection: null
 	});
@@ -47,7 +50,7 @@ const EditableWrapper = (props) => {
 
 	// Reset values
 	const reset = useCallback(() => {
-		const {selectedItem} = mutableRef.current;
+		const {selectedItem, spotlightId} = mutableRef.current;
 
 		selectedItem?.classList.remove(css.selected);
 		selectedItem?.classList.remove(customCss.selected);
@@ -57,6 +60,8 @@ const EditableWrapper = (props) => {
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
+
+		Spotlight.set(spotlightId, {restrict: 'self-first'});
 	}, [customCss.selected]);
 
 	// Finalize the order
@@ -128,9 +133,10 @@ const EditableWrapper = (props) => {
 		} else if (targetItemNode && targetItemNode.dataset.index) {
 			// Start editing by adding selected transition to selected item
 			startEditing(targetItemNode);
-			ev.preventDefault();
-			ev.stopPropagation();
 		}
+
+		ev.preventDefault();
+		ev.stopPropagation();
 	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
 
 	// Add rearranged items
@@ -212,17 +218,11 @@ const EditableWrapper = (props) => {
 		const {prevToIndex, selectedItem} = mutableRef.current;
 		if (selectedItem) {
 			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
-			selectedItemRect.x += 10;
-			selectedItemRect.y -= 10;
+			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.y};
 			const orders = finalizeOrders();
-
 			orders.splice(prevToIndex, 1);
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
-
-			setTimeout(() => {
-				Spotlight.focusNextFromPoint('down', selectedItemRect);
-			}, 0);
 		}
 	}, [editable, finalizeOrders, reset]);
 
@@ -247,8 +247,6 @@ const EditableWrapper = (props) => {
 				const orders = finalizeOrders();
 				forwardCustom('onComplete', () => ({orders}))({}, editable);
 				reset();
-
-				Spotlight.set(spotlightId, {restrict: 'self-first'});
 			} else {
 				startEditing(targetItemNode);
 
@@ -280,6 +278,13 @@ const EditableWrapper = (props) => {
 			}
 		}
 	}, [editable, finalizeOrders, findItemNode, moveItems, reset, scrollContainerHandle, scrollContentRef, startEditing]);
+
+	useEffect(() => {
+		if (mutableRef.current.nextSpotlightRect !== null) {
+			Spotlight.focusNextFromPoint('down', mutableRef.current.nextSpotlightRect);
+			mutableRef.current.nextSpotlightRect = null;
+		}
+	});
 
 	useEffect(() => {
 		// Calculate the item width once
