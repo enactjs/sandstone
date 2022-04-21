@@ -136,7 +136,7 @@ export const _VideoPlayer = () => {
 			</label>
 			<VideoPlayer
 				autoCloseTimeout={number('autoCloseTimeout', Config, 7000)}
-				backButtonAriaLabel={text('backButtonAriaLabel', Config)}
+				backButtonAriaLabel={text('backButtonAriaLabel', Config, 'go to previous')}
 				disabled={boolean('disabled', Config)}
 				feedbackHideDelay={number('feedbackHideDelay', Config, 3000)}
 				initialJumpDelay={number('initialJumpDelay', Config, 400)}
