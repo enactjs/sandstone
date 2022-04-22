@@ -39,7 +39,7 @@ const EditableWrapper = (props) => {
 		fromIndex: null,
 		prevToIndex: null,
 
-		// nextSpotlightRect
+		// Position for restoring focus after removing item
 		nextSpotlightRect: null,
 
 		// Flags
