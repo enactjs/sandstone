@@ -105,6 +105,8 @@ const EditableWrapper = (props) => {
 
 	const startEditing = useCallback((item) => {
 		if (item.dataset.index) {
+			Spotlight.set(mutableRef.current.spotlightId, {restrict: 'self-only'});
+
 			item.classList.add(css.selected);
 			item.classList.add(customCss.selected);
 			mutableRef.current.selectedItem = item;
@@ -249,8 +251,6 @@ const EditableWrapper = (props) => {
 				reset();
 			} else if (targetItemNode) {
 				startEditing(targetItemNode);
-
-				Spotlight.set(spotlightId, {restrict: 'self-only'});
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {

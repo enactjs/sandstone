@@ -227,10 +227,12 @@ export const EditableList = (args) => {
 		setItems(itemsArr);
 	}, [dataSize]);
 
-	const onClickRemoveButton = useCallback(() => {
+	const onClickRemoveButton = useCallback((ev) => {
 		if (removeItem.current) {
 			removeItem.current();
 		}
+		ev.preventDefault();
+		ev.stopPropagation();
 	}, [removeItem]);
 
 	const handleComplete = useCallback((ev) => {
