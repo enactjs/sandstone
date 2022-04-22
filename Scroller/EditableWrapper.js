@@ -241,7 +241,7 @@ const EditableWrapper = (props) => {
 
 	const handleKeyDown = useCallback((ev) => {
 		const {keyCode, target} = ev;
-		const {selectedItem, spotlightId} = mutableRef.current;
+		const {selectedItem} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
