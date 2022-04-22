@@ -39,7 +39,7 @@ const EditableWrapper = (props) => {
 		fromIndex: null,
 		prevToIndex: null,
 
-		// Temporal stored value
+		// nextSpotlightRect
 		nextSpotlightRect: null,
 
 		// Flags
@@ -247,7 +247,7 @@ const EditableWrapper = (props) => {
 				const orders = finalizeOrders();
 				forwardCustom('onComplete', () => ({orders}))({}, editable);
 				reset();
-			} else {
+			} else if (targetItemNode) {
 				startEditing(targetItemNode);
 
 				Spotlight.set(spotlightId, {restrict: 'self-only'});
