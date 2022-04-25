@@ -1,6 +1,7 @@
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
+import {clamp} from '@enact/core/util';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef} from 'react';
@@ -37,7 +38,9 @@ const EditableWrapper = (props) => {
 		prevToIndex: null,
 
 		// Flags
-		lastMoveDirection: null
+		lastMoveDirection: null,
+
+		mouseClientX: null
 	});
 
 	// Functions
@@ -155,7 +158,7 @@ const EditableWrapper = (props) => {
 	}, []);
 
 	// Move items
-	const moveItems = useCallback((toIndex) => {
+	const moveItems = useCallback((toIndex, trigger, scrolloffset) => {
 		const {selectedItem} = mutableRef.current;
 
 		if (selectedItem) {
@@ -165,8 +168,15 @@ const EditableWrapper = (props) => {
 
 				// Set the selected item's offset to css variable
 				const offset = (toIndex - fromIndex) * itemWidth;
-				wrapperRef.current.style.setProperty('--selected-item-offset', offset + 'px');
-
+				if (trigger === 'scroll') {
+					if (toIndex === dataSize - 1) scrolloffset = offset;
+					if (toIndex === 0) scrolloffset = (-1) * itemWidth * rearrangedItems.length;
+					wrapperRef.current.style.transition = 'transform 0';
+					wrapperRef.current.style.setProperty('--selected-item-offset', scrolloffset + 'px');
+				} else if (trigger === 'mouse' || trigger === 'key') {
+					wrapperRef.current.style.transition = 'transform 360ms';
+					wrapperRef.current.style.setProperty('--selected-item-offset', offset + 'px');
+				}
 
 				// If the current toIndex is new,
 				if (toIndex !== prevToIndex) {
@@ -204,10 +214,11 @@ const EditableWrapper = (props) => {
 	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
 		if (selectedItem) {
+			mutableRef.current.mouseClientX = ev.clientX;
 			// Determine toIndex with mouse client x position
 			const toIndex = Math.floor((ev.clientX + scrollContentRef.current.scrollLeft - centeredOffset) / itemWidth);
 
-			moveItems(toIndex);
+			moveItems(toIndex, 'mouse');
 		}
 	}, [moveItems, scrollContentRef]);
 
@@ -241,7 +252,7 @@ const EditableWrapper = (props) => {
 					targetY: 0
 				});
 
-				moveItems(toIndex);
+				moveItems(toIndex, 'key');
 
 				ev.preventDefault();
 				ev.stopPropagation();
@@ -259,6 +270,36 @@ const EditableWrapper = (props) => {
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
 	}, [centered]); // TODO: Need dataSize dependency for centeredOffset
+
+	useEffect(() => {
+		// addEventListener to moveItems while scrolled
+		const container = scrollContentRef.current;
+		const wrapperWidth = wrapperRef.current.getBoundingClientRect().width;
+		const scrollContentCenter = container.getBoundingClientRect().width / 2;
+
+		const handleMoveItemsByScroll = () => {
+			const {centeredOffset, itemWidth, mouseClientX, fromIndex} = mutableRef.current;
+			const toIndex = Math.floor((mouseClientX + container.scrollLeft - centeredOffset) / itemWidth);
+			let scrollOffset = 0;
+
+			if (mouseClientX > scrollContentCenter) {
+				scrollOffset = scrollContainerHandle.current.scrollLeft + container.clientWidth * 2 + itemWidth;
+				scrollOffset -= fromIndex * itemWidth;
+				moveItems(clamp(0, dataSize - 1, toIndex + 1), 'scroll', scrollOffset);
+			} else {
+				scrollOffset = scrollContainerHandle.current.scrollLeft - wrapperWidth - container.clientWidth - itemWidth;
+				scrollOffset += (dataSize - 1 - fromIndex) * itemWidth;
+				moveItems(clamp(0, dataSize - 1, toIndex - 1), 'scroll', scrollOffset);
+			}
+		};
+
+		container.addEventListener('scroll', handleMoveItemsByScroll);
+
+		return () => {
+			container.removeEventListener('scroll', handleMoveItemsByScroll);
+		};
+
+	}, [dataSize, moveItems, mutableRef, scrollContainerHandle, scrollContentRef]);
 
 	// Return
 
