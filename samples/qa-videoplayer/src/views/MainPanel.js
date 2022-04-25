@@ -94,7 +94,7 @@ const SelectableVideoPlayer = class extends Component {
 				ref={this.setVideo}
 			>
 				<MediaControls>
-					<Button className={selecting ? css.selecting : ''} onTap={this.handleToggleSelection}>repeat</Button>
+					<Button className={selecting ? css.selecting : ''} onClick={this.handleToggleSelection}>repeat</Button>
 				</MediaControls>
 				<source src="http://media.w3.org/2010/05/video/movie_300.mp4" />
 			</VideoPlayer>

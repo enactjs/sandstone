@@ -222,53 +222,56 @@
 			}
 
 			.focus({
-				.sand-spotlight-focus-text-colors();
+				:global(.spotlight-input-key)&,
+				:global(.spotlight-input-mouse)& {
+					.sand-spotlight-focus-text-colors();
 
-				&.horizontal {
-					&::before {
-						.sand-spotlight-focus-bg-colors();
-						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
-						filter+_: saturate(0) brightness(1.89);
-					}
-				}
-
-				&.vertical {
-					&::before {
-						.sand-spotlight-focus-bg-colors();
-					}
-
-					.incrementer,
-					.decrementer {
-						color: @sand-picker-joined-focus-incrementer-color;
-					}
-				}
-
-				.sand-disabled({
-					color: @sand-picker-joined-focus-disabled-text-color;
-
-					&::before {
-						.sand-disabled-focus-bg-colors();
-					}
-
-					.valueWrapper {
-						.sand-disabled-focus-content-colors();
-					}
-
-					.indicator {
-						background-color: @sand-picker-joined-focus-disabled-indicator-bg-color;
-						opacity: @sand-picker-joined-focus-disabled-indicator-opacity;
-
-						&.active {
-							opacity: @sand-picker-joined-focus-disabled-indicator-active-opacity;
+					&.horizontal:not(.arrow) {
+						&::before {
+							.sand-spotlight-focus-bg-colors();
+							background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+							filter+_: saturate(0) brightness(1.89);
 						}
 					}
-				});
 
-				.indicator {
-					background-color: @sand-picker-indicators-inactive-focus-bg-color;
+					&.horizontal.arrow, &.vertical {
+						&::before {
+							.sand-spotlight-focus-bg-colors();
+						}
 
-					&.active {
-						background-color: @sand-picker-indicators-active-focus-bg-color;
+						.incrementer,
+						.decrementer {
+							color: @sand-picker-joined-focus-incrementer-color;
+						}
+					}
+
+					.sand-disabled({
+						color: @sand-picker-joined-focus-disabled-text-color;
+
+						&::before {
+							.sand-disabled-focus-bg-colors();
+						}
+
+						.valueWrapper {
+							.sand-disabled-focus-content-colors();
+						}
+
+						.indicator {
+							background-color: @sand-picker-joined-focus-disabled-indicator-bg-color;
+							opacity: @sand-picker-joined-focus-disabled-indicator-opacity;
+
+							&.active {
+								opacity: @sand-picker-joined-focus-disabled-indicator-active-opacity;
+							}
+						}
+					});
+
+					.indicator {
+						background-color: @sand-picker-indicators-inactive-focus-bg-color;
+
+						&.active {
+							background-color: @sand-picker-indicators-active-focus-bg-color;
+						}
 					}
 				}
 			})

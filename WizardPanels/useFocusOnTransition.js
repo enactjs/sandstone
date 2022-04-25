@@ -1,11 +1,11 @@
-import handle, {forward} from '@enact/core/handle';
+import handle, {forwardWithPrevent} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import Spotlight from '@enact/spotlight';
 import {useRef} from 'react';
 
 const transitionHandlers = {
 	onTransition: handle(
-		forward('onTransition'),
+		forwardWithPrevent('onTransition'),
 		(ev, {spotlightId}, {current}) => {
 			current.timerId = setTimeout(() => {
 				const currentSpotlight = Spotlight.getCurrent();
@@ -16,7 +16,7 @@ const transitionHandlers = {
 		}
 	),
 	onWillTransition: handle(
-		forward('onWillTransition'),
+		forwardWithPrevent('onWillTransition'),
 		(ev, props, {current}) => {
 			clearTimeout(current.timerId);
 			current.timerId = null;

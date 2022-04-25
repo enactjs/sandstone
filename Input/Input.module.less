@@ -121,14 +121,25 @@
 
 		.keypad {
 			margin: @sand-input-fullscreen-keypad-margin;
+
+			:global(.enact-orientation-portrait) & {
+				margin: @sand-portrait-input-fullscreen-keypad-margin;
+				width: @sand-portrait-input-fullscreen-keypad-width;
+			}
 		}
 
 		.key {
 			margin: @sand-input-fullscreen-keypad-key-margin;
+
+			:global(.enact-orientation-portrait) & {
+				margin: @sand-portrait-input-fullscreen-keypad-key-margin;
+			}
 		}
 
 		.buttonArea {
 			margin: @sand-input-fullscreen-buttonarea-margin;
+			display: flex;
+			justify-content: center;
 		}
 
 		.inputArea,
@@ -139,6 +150,10 @@
 		.inputArea {
 			.textField {
 				width: @sand-input-fullscreen-textfield-width;
+			}
+
+			:global(.enact-orientation-portrait) & {
+				margin: @sand-portrait-input-fullscreen-number-inputarea-margin;
 			}
 		}
 
@@ -153,6 +168,10 @@
 		&.url {
 			.inputArea {
 				margin: @sand-input-fullscreen-inputarea-margin;
+
+				:global(.enact-orientation-portrait) & {
+					margin: @sand-portrait-input-fullscreen-text-inputarea-margin;
+				}
 			}
 		}
 	}

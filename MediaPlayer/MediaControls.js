@@ -26,7 +26,8 @@ import css from './MediaControls.module.less';
 const OuterContainer = SpotlightContainerDecorator({
 	defaultElement: [
 		`.${spotlightDefaultClass}`
-	]
+	],
+	leaveFor: {left: '', right: ''}
 }, 'div');
 const Container = SpotlightContainerDecorator({
 	enterTo: 'default-element'

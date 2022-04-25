@@ -215,3 +215,21 @@ export const OnTapWhenClicked = () => (
 );
 
 OnTapWhenClicked.storyName = 'onTap when clicked';
+
+export const WithOnClickHandler = () => (
+	<TouchableDiv
+		disabled={boolean('disabled', TouchableDiv)}
+		onClick={action('onClick')}
+		onDown={action('onDown')}
+		onMouseDown={action('onMouseDown')}
+		onMouseUp={action('onMouseUp')}
+		onTouchEnd={action('onTouchEnd')}
+		onTouchStart={action('onTouchStart')}
+		onUp={action('onUp')}
+		style={{border: '4px dashed #888', textAlign: 'center'}}
+	>
+		Click here
+	</TouchableDiv>
+);
+
+WithOnClickHandler.storyName = 'with onClick handler';

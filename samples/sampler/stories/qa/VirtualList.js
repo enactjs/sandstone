@@ -12,7 +12,7 @@ import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import PropTypes from 'prop-types';
-import {Component, useState} from 'react';
+import {Component, useCallback, useState} from 'react';
 
 import css from './VirtualList.module.less';
 
@@ -137,10 +137,9 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 
 const CustomHeader = (props) => {
 	const [children, setChildren] = useState(false);
-
-	function handleClick () {
+	const handleClick = useCallback(() => {
 		setChildren(!children);
-	}
+	}, [children]);
 
 	return (
 		<Header
@@ -159,10 +158,9 @@ const CustomHeader = (props) => {
 // eslint-disable-next-line enact/prop-types
 const InPanels = ({className, title, ...rest}) => {
 	const [index, setIndex] = useState(0);
-
-	function handleSelectItem () {
+	const handleSelectItem = useCallback(() => {
 		setIndex(index === 0 ? 1 : 0);
-	}
+	}, [index]);
 
 	return (
 		<Panels className={className} index={index}>

@@ -2,11 +2,6 @@ import {mount} from 'enzyme';
 import Header from '../Header';
 import css from '../Header.module.less';
 
-const tap = (node) => {
-	node.simulate('mousedown');
-	node.simulate('mouseup');
-};
-
 describe('Header Specs', () => {
 
 	test('should render with title text without changing case', () => {
@@ -150,7 +145,7 @@ describe('Header Specs', () => {
 			<Header onClose={handleClose} />
 		);
 
-		tap(subject.find(`.${css.slotAfter}`).find('Button'));
+		subject.find(`.${css.slotAfter}`).find('Button').simulate('click');
 
 		const expected = 1;
 		const actual = handleClose.mock.calls.length;
