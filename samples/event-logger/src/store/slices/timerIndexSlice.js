@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-export const timerIndexSlice = createSlice( {
+export const timerIndexSlice = createSlice({
 	name: 'timerIndexReducer',
 	initialState: 0,
 	reducers: {

@@ -2,7 +2,7 @@ import {configureStore, combineReducers, createSlice} from '@reduxjs/toolkit';
 
 import {initializeRecords} from '../utils';
 
-const recordSlice = createSlice( {
+const recordSlice = createSlice({
 	name: 'recordReducer',
 	initialState: initializeRecords(),
 	reducers: {

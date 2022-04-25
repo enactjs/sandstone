@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 import eventCategory from '../../constants/eventCategory';
 
-export const activeEventsSlice = createSlice( {
+export const activeEventsSlice = createSlice({
 	name: 'activeEventsReducer',
 	initialState: new Array(eventCategory.length).fill(false),
 	reducers: {

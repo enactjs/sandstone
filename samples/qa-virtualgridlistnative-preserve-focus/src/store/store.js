@@ -1,8 +1,10 @@
 import {configureStore, createSlice} from '@reduxjs/toolkit';
 
-const indexSlice = createSlice( {
+const indexSlice = createSlice({
 	name: 'indexReducer',
-	initialState: {index : 0},
+	initialState: {
+		index : 0
+	},
 	reducers: {
 		increaseIndex: (state) =>  {
 			state.index += 1;
