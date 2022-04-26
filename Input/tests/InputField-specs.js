@@ -119,6 +119,7 @@ describe('InputField Specs', () => {
 
 		fireEvent.mouseDown(inputField);
 		jest.runOnlyPendingTimers();
+
 		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
 		jest.runOnlyPendingTimers();
 
@@ -133,6 +134,7 @@ describe('InputField Specs', () => {
 
 		fireEvent.keyDown(inputField, {which: 13, keyCode: 13, code: 13});
 		jest.runOnlyPendingTimers();
+
 		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
 		jest.runOnlyPendingTimers();
 
@@ -246,8 +248,7 @@ describe('InputField Specs', () => {
 		const inputField = screen.getByPlaceholderText('');
 
 		fireEvent.mouseDown(inputField);
-
-		jest.runAllTimers();
+		jest.runOnlyPendingTimers();
 
 		const expected = 'paused';
 		const actual = isPaused();
