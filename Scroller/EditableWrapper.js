@@ -248,7 +248,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, reset]);
 
-	const handleMouseMove = useCallback((ev) => {
+	const handleMouseMove = useCallback(() => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
 		if (selectedItem) {
 			// Determine toIndex with mouse client x position
