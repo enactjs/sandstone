@@ -214,7 +214,6 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.focused = focused;
 			this.node = node;
 			this.fromMouse = fromMouse;
-			//this.updateFocus(this.prevFocusStatus);
 			this.timer = setTimeout(() => this.updateFocus(this.prevFocusStatus), 16);
 		};
 

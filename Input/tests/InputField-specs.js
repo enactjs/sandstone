@@ -257,7 +257,7 @@ describe('InputField Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	/*test('should resume spotlight on unmount', () => {
+	test('should resume spotlight on unmount', () => {
 		const {unmount} = render(<InputField />);
 		const inputField = screen.getByPlaceholderText('');
 
@@ -309,5 +309,5 @@ describe('InputField Specs', () => {
 		const expectedAttribute = 'data-webos-voice-label';
 
 		expect(inputField).toHaveAttribute(expectedAttribute, customLabel);
-	});*/
+	});
 });
