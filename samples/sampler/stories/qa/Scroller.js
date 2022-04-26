@@ -277,7 +277,7 @@ export const EditableList = (args) => {
 							</div>
 							<ImageItem
 								src={item.src}
-								css={css}
+								className={css.imageItem}
 							>
 								{`Image ${item.index}`}
 							</ImageItem>

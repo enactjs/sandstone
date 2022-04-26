@@ -71,9 +71,7 @@ const EditableWrapper = (props) => {
 	const reset = useCallback(() => {
 		const {selectedItem, spotlightId} = mutableRef.current;
 
-		selectedItem?.classList.remove(componentCss.selected);
-		selectedItem?.classList.remove(customCss.selected);
-		selectedItem?.classList.remove(componentCss.rearranged);
+		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
 
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.lastMoveDirection = null;
@@ -96,8 +94,8 @@ const EditableWrapper = (props) => {
 				const order = Number(item.style.order);
 				selectedOrder = order;
 				item.style.order = order - lastMoveDirection;
-				item.classList.remove(componentCss.rearrangedTransform);
-				item.classList.remove(componentCss.rearranged);
+				item.classList.remove(componentCss.rearrangedTransform, componentCss.rearranged);
+
 				if (lastMoveDirection > 0) {
 					changedOrder.push(order);
 				} else {
@@ -126,8 +124,7 @@ const EditableWrapper = (props) => {
 		if (item.dataset.index) {
 			Spotlight.set(mutableRef.current.spotlightId, {restrict: 'self-only'});
 
-			item.classList.add(componentCss.selected);
-			item.classList.add(customCss.selected);
+			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
@@ -173,8 +170,7 @@ const EditableWrapper = (props) => {
 		let end =  moveDirection > 0 ? fromIndex : toIndex;
 
 		while (start > end && sibling) {
-			sibling?.classList.add(componentCss.rearranged);
-			sibling?.classList.add(componentCss.rearrangedTransform);
+			sibling?.classList.add(componentCss.rearranged, componentCss.rearrangedTransform);
 
 			if (!rearrangedItems.includes(sibling)) {
 				rearrangedItems.push(sibling);
@@ -248,7 +244,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, reset]);
 
-	const handleMouseMove = useCallback(() => {
+	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
 		if (selectedItem) {
 			// Determine toIndex with mouse client x position
@@ -258,7 +254,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [moveItems, scrollContentRef]);
 
-	const handleMouseLeave = useCallback((ev) => {
+	const handleMouseLeave = useCallback(() => {
 		const {selectedItem} = mutableRef.current;
 		if (selectedItem) {
 			const orders = finalizeOrders();
