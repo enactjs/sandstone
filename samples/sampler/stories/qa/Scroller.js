@@ -252,7 +252,7 @@ export const EditableList = (args) => {
 			direction="horizontal"
 			editable={{
 				centered: args['editableCentered'],
-				css: css,
+				css,
 				onComplete: handleComplete,
 				removeItemFuncRef: removeItem
 			}}
