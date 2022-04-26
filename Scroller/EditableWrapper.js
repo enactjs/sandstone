@@ -372,7 +372,7 @@ EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.protot
 	 *
 	 * Followings are supported properties.
 	 * @property {Function} onComplete - The callback function called when editing is finished.
-	 *   It has an event object contains `orders` array which app can use for repopulate items.
+	 *  It has an event object contains `orders` array which app can use for repopulate items.
 	 * @property {Boolean} centered - Centers the contents of the scroller.
 	 * @property {Object} css - Customizes the component by mapping the supplied collection of CSS class names to the
 	 *  corresponding internal elements and states of this component.
