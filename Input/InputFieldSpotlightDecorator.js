@@ -147,11 +147,11 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.ariaHidden = props.noReadoutOnFocus || null;
 			this.paused = new Pause('InputSpotlightDecorator');
 			this.handleKeyDown = handleKeyDown.bind(this);
-			this.timer = null;
 			this.prevFocusStatus = {
 				focused: null,
 				node: null
 			};
+			this.timer = null;
 		}
 
 		componentWillUnmount () {
