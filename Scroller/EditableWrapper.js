@@ -8,7 +8,7 @@ import {useCallback, useEffect, useRef} from 'react';
 
 import css from './EditableWrapper.module.less';
 
-const SpotlightAccelerator = new Accelerator(); // [3, 3, 3, 2, 2, 2, 1]
+const SpotlightAccelerator = new Accelerator([5, 4]); // [3, 3, 3, 2, 2, 2, 1]
 
 /**
  * A Sandstone-styled EditableWrapper.
@@ -208,10 +208,12 @@ const EditableWrapper = (props) => {
 			left = container.scrollLeft + itemLeft;
 		}
 
-		scrollContainerHandle.current.start({
-			targetX: left,
-			targetY: 0
-		});
+		if (left != null) { /* avoid null or undefined */
+			scrollContainerHandle.current.start({
+				targetX: left,
+				targetY: 0
+			});
+		}
 
 		moveItems(toIndex);
 	}, [moveItems, scrollContainerHandle, scrollContentRef]);
