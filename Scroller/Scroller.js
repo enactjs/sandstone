@@ -212,7 +212,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Enables editing items in the scroller.
 	 * You can specify props for editable scroller as an object.
-	 * See the datails in [EditableShape]{@link sandstone/Scroller.EditableShape}
+	 * See the details in [EditableShape]{@link sandstone/Scroller.EditableShape}
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
 	 * @public
