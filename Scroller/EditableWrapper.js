@@ -35,8 +35,8 @@ const EditableShape = PropTypes.shape({
  */
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
-	let centered = editable.centered != null ? editable.centered : true;
-	let customCss = editable.css || {};
+	const centered = editable.centered != null ? editable.centered : true;
+	const customCss = editable.css || {};
 
 	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
 
@@ -330,15 +330,16 @@ const EditableWrapper = (props) => {
 	}, [scrollContainerRef]);
 
 	useEffect(() => {
-		if (scrollContainerRef.current) {
-			scrollContainerRef.current.addEventListener('mouseleave', handleMouseLeave);
+		const scrollContainer = scrollContainerRef.current;
+		if (scrollContainer) {
+			scrollContainer.addEventListener('mouseleave', handleMouseLeave);
 		}
 
 		return () => {
-			if (scrollContainerRef.current) {
-				scrollContainerRef.current.removeEventListener('mouseleave', handleMouseLeave);
+			if (scrollContainer) {
+				scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
 			}
-		}
+		};
 	}, [handleMouseLeave, scrollContainerRef]);
 
 	useEffect(() => {
@@ -352,7 +353,6 @@ const EditableWrapper = (props) => {
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
 			onClick={handleClick}
 			onKeyDown={handleKeyDown}
-			onMouseLeave={handleMouseLeave}
 			onMouseMove={handleMouseMove}
 			ref={wrapperRef}
 		>
