@@ -89,7 +89,6 @@
 }
 
 .dropdownList {
-	border-radius: @sand-dropdown-border-radius;
 	max-height: @sand-dropdown-list-max-height;
 	min-width: @sand-dropdown-list-min-width;
 
@@ -123,6 +122,8 @@
 
 	// Skin colors
 	.applySkins({
+		border-radius: @sand-dropdown-border-radius;
+
 		[data-selected="true"] {
 			&:not(:focus) {
 				color: @sand-dropdown-selected-text-color;
