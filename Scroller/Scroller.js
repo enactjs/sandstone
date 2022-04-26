@@ -14,7 +14,6 @@
  *
  * @module sandstone/Scroller
  * @exports Scroller
- * @exports EditableShape
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -31,26 +30,12 @@ import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import EditableWrapper from './EditableWrapper';
+import {EditableShape, EditableWrapper} from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
 const SpottableDiv = Spottable('div');
 let scrollerId = 0;
-
-/**
- * The shape for editable of [Scroller]{@link sandstone/Scroller}.
- *
- * @typedef {Object} EditableShape
- * @memberof sandstone/Scroller
- * @property {Function} onComplete The callback function called when editing is finished.
- * @property {Boolean} centered Centers the contents of the scroller.
- * @public
- */
-const EditableShape = PropTypes.shape({
-	onComplete: PropTypes.func.isRequired,
-	centered: PropTypes.bool
-});
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -225,7 +210,9 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
 
 	/**
-	 * TBD: Enables editing items in the scroller.
+	 * Enables editing items in the scroller.
+	 * You can specify props for editable scroller as an object.
+	 * See the details in [EditableShape]{@link sandstone/Scroller.EditableShape}
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
 	 * @public
@@ -487,6 +474,5 @@ Scroller.defaultProps = {
 
 export default Scroller;
 export {
-	EditableShape,
 	Scroller
 };

@@ -1,11 +1,38 @@
+import {mergeClassNameMaps} from '@enact/core/util';
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
+import Spotlight from '@enact/spotlight';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef} from 'react';
 
-import css from './EditableWrapper.module.less';
+import componentCss from './EditableWrapper.module.less';
+
+/**
+ * The shape for editable of [Scroller]{@link sandstone/Scroller}.
+ *
+ * @typedef {Object} EditableShape
+ * @memberof sandstone/Scroller
+ * @property {Function} onComplete The callback function called when editing is finished.
+ *  It has an event object contains `orders` array which app can use for repopulate items.
+ * @property {Boolean} [centered] Centers the contents of the scroller.
+ * @property {Object} [css] Customizes the component by mapping the supplied collection of CSS class names to the
+ *  corresponding internal elements and states of this component.
+ *  The following classes are supported:
+ *
+ * * `wrapper` - The content wrapper component class
+ * * `selected` - The selected item class
+ * @property {Function|Object} [removeItemFuncRef] Obtains a reference to `removeItem` function.
+ *  If you would like to remove an item, you can get the reference to `removeItem` function via `useRef`.
+ * @public
+ */
+const EditableShape = PropTypes.shape({
+	onComplete: PropTypes.func.isRequired,
+	centered: PropTypes.bool,
+	css: PropTypes.object,
+	removeItemFuncRef: EnactPropTypes.ref
+});
 
 /**
  * A Sandstone-styled EditableWrapper.
@@ -16,10 +43,13 @@ import css from './EditableWrapper.module.less';
  * @public
  */
 const EditableWrapper = (props) => {
-	const {children, editable, scrollContainerHandle, scrollContentRef} = props;
-	let centered = editable.centered != null ? editable.centered : true;
-	const dataSize = children?.length;
+	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
+	const centered = editable.centered != null ? editable.centered : true;
+	const customCss = editable.css || {};
 
+	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
+
+	const dataSize = children?.length;
 	// Mutable value
 
 	const wrapperRef = useRef();
@@ -27,6 +57,7 @@ const EditableWrapper = (props) => {
 		// Constants
 		itemWidth: null,
 		centeredOffset: 0,
+		spotlightId: null,
 
 		// DOM elements
 		selectedItem: null,
@@ -36,6 +67,9 @@ const EditableWrapper = (props) => {
 		fromIndex: null,
 		prevToIndex: null,
 
+		// Position for restoring focus after removing item
+		nextSpotlightRect: null,
+
 		// Flags
 		lastMoveDirection: null
 	});
@@ -44,16 +78,17 @@ const EditableWrapper = (props) => {
 
 	// Reset values
 	const reset = useCallback(() => {
-		const {selectedItem} = mutableRef.current;
+		const {selectedItem, spotlightId} = mutableRef.current;
 
-		selectedItem?.classList.remove(css.selected);
-		selectedItem?.classList.remove(css.rearranged);
+		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
 
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
-	}, []);
+
+		Spotlight.set(spotlightId, {restrict: 'self-first'});
+	}, [customCss.selected]);
 
 	// Finalize the order
 	const finalizeOrders = useCallback(() => {
@@ -68,8 +103,8 @@ const EditableWrapper = (props) => {
 				const order = Number(item.style.order);
 				selectedOrder = order;
 				item.style.order = order - lastMoveDirection;
-				item.classList.remove(css.rearrangedTransform);
-				item.classList.remove(css.rearranged);
+				item.classList.remove(componentCss.rearrangedTransform, componentCss.rearranged);
+
 				if (lastMoveDirection > 0) {
 					changedOrder.push(order);
 				} else {
@@ -95,27 +130,42 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const startEditing = useCallback((item) => {
-		// FIXME: Need to figure out the right element
-		if (item.classList.contains('spottable')) {
-			item.classList.add(css.selected);
+		if (item.dataset.index) {
+			Spotlight.set(mutableRef.current.spotlightId, {restrict: 'self-only'});
+
+			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 		}
-	}, []);
+	}, [customCss.selected]);
+
+	const findItemNode = useCallback((node) => {
+		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
+			if (current.dataset.index) {
+				return current;
+			}
+		}
+	}, [scrollContentRef]);
 
 	const handleClick = useCallback((ev) => {
+		const targetItemNode = findItemNode(ev.target);
+
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
-		} else {
+		} else if (targetItemNode && targetItemNode.dataset.index) {
 			// Start editing by adding selected transition to selected item
-			startEditing(ev.target.parentElement);
+			startEditing(targetItemNode);
 		}
-	}, [editable, finalizeOrders, reset, startEditing]);
+
+		// Consume the event to prevent Item behavior
+		ev.preventDefault();
+		ev.stopPropagation();
+	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
 
 	// Add rearranged items
 	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
@@ -129,8 +179,7 @@ const EditableWrapper = (props) => {
 		let end =  moveDirection > 0 ? fromIndex : toIndex;
 
 		while (start > end && sibling) {
-			sibling?.classList.add(css.rearranged);
-			sibling?.classList.add(css.rearrangedTransform);
+			sibling?.classList.add(componentCss.rearranged, componentCss.rearrangedTransform);
 
 			if (!rearrangedItems.includes(sibling)) {
 				rearrangedItems.push(sibling);
@@ -149,7 +198,7 @@ const EditableWrapper = (props) => {
 		if (rearrangedItems.length > 0) {
 			for (let i = 0; i < numToRemove; i++) {
 				const toItem = rearrangedItems.pop();
-				toItem?.classList.remove(css.rearrangedTransform);
+				toItem?.classList.remove(componentCss.rearrangedTransform);
 			}
 		}
 	}, []);
@@ -192,14 +241,17 @@ const EditableWrapper = (props) => {
 	}, [dataSize, addRearrangedItems, removeRearrangedItems]);
 
 	// Remove an item
-	/* const removeItem = useCallback(() => {
-		const {prevToIndex} = mutableRef.current;
-		const orders = finalizeOrders();
-
-		orders.splice(prevToIndex, 1);
-		forwardCustom('onComplete', () => ({orders}))({}, editable);
-		reset();
-	}, [editable, finalizeOrders, reset]); */
+	const removeItem = useCallback(() => {
+		const {prevToIndex, selectedItem} = mutableRef.current;
+		if (selectedItem) {
+			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
+			const orders = finalizeOrders();
+			orders.splice(prevToIndex, 1);
+			forwardCustom('onComplete', () => ({orders}))({}, editable);
+			reset();
+		}
+	}, [editable, finalizeOrders, reset]);
 
 	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
@@ -211,17 +263,32 @@ const EditableWrapper = (props) => {
 		}
 	}, [moveItems, scrollContentRef]);
 
+	const handleMouseLeave = useCallback(() => {
+		const {selectedItem} = mutableRef.current;
+		if (selectedItem) {
+			const orders = finalizeOrders();
+			forwardCustom('onComplete', () => ({orders}))({}, editable);
+			reset();
+		}
+	}, [editable, finalizeOrders, reset]);
+
 	const handleKeyDown = useCallback((ev) => {
 		const {keyCode, target} = ev;
 		const {selectedItem} = mutableRef.current;
-		if (is('enter', keyCode)) {
+		const targetItemNode = findItemNode(target);
+
+		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (selectedItem) {
 				const orders = finalizeOrders();
 				forwardCustom('onComplete', () => ({orders}))({}, editable);
 				reset();
-			} else {
-				startEditing(target);
+			} else if (targetItemNode) {
+				startEditing(targetItemNode);
 			}
+
+			// Consume the event to prevent Item behavior
+			ev.preventDefault();
+			ev.stopPropagation();
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
 				const container = scrollContentRef.current;
@@ -247,7 +314,14 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation();
 			}
 		}
-	}, [editable, finalizeOrders, moveItems, reset, scrollContainerHandle, scrollContentRef, startEditing]);
+	}, [editable, finalizeOrders, findItemNode, moveItems, reset, scrollContainerHandle, scrollContentRef, startEditing]);
+
+	useEffect(() => {
+		if (mutableRef.current.nextSpotlightRect !== null) {
+			Spotlight.focusNextFromPoint('down', mutableRef.current.nextSpotlightRect);
+			mutableRef.current.nextSpotlightRect = null;
+		}
+	});
 
 	useEffect(() => {
 		// Calculate the item width once
@@ -260,11 +334,32 @@ const EditableWrapper = (props) => {
 		}
 	}, [centered]); // TODO: Need dataSize dependency for centeredOffset
 
-	// Return
+	useEffect(() => {
+		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+	}, [scrollContainerRef]);
+
+	useEffect(() => {
+		const scrollContainer = scrollContainerRef.current;
+		if (scrollContainer) {
+			scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+		}
+
+		return () => {
+			if (scrollContainer) {
+				scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+			}
+		};
+	}, [handleMouseLeave, scrollContainerRef]);
+
+	useEffect(() => {
+		if (editable.removeItemFuncRef) {
+			editable.removeItemFuncRef.current = removeItem;
+		}
+	}, [removeItem, editable.removeItemFuncRef]);
 
 	return (
 		<div
-			className={classNames(css.wrapper, {[css.centered]: centered})}
+			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
 			onClick={handleClick}
 			onKeyDown={handleKeyDown}
 			onMouseMove={handleMouseMove}
@@ -279,13 +374,14 @@ EditableWrapper.displayName = 'EditableWrapper';
 
 EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.prototype */ {
 	/**
-	 * TBD: Enables editing items in the scroller.
-	 * FIXME: If the type is EditableShape, it throws errors.
+	 * Enables editing items in the scroller.
+	 * You can specify props for editable scroller as an object.
+	 * See the datails in [EditableShape]{@link sandstone/Scroller.EditableShape}
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
 	 * @public
 	 */
-	editable: PropTypes.object,
+	editable: EditableShape,
 
 	/**
 	 * Obtains a reference to the scroll container handle.
@@ -294,6 +390,14 @@ EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.protot
 	 * @public
 	 */
 	scrollContainerHandle: EnactPropTypes.ref,
+
+	/**
+	 * Obtains a reference to the scroll container node.
+	 *
+	 * @type {Function|Object}
+	 * @public
+	 */
+	scrollContainerRef: EnactPropTypes.ref,
 
 	/**
 	 * Obtains a reference to the scroll content node.
@@ -306,5 +410,6 @@ EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.protot
 
 export default EditableWrapper;
 export {
+	EditableShape,
 	EditableWrapper
 };
