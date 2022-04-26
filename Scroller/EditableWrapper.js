@@ -41,7 +41,6 @@ const EditableWrapper = (props) => {
 	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
 
 	const dataSize = children?.length;
-
 	// Mutable value
 
 	const wrapperRef = useRef();
@@ -249,7 +248,6 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, reset]);
 
-
 	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
 		if (selectedItem) {
@@ -259,6 +257,15 @@ const EditableWrapper = (props) => {
 			moveItems(toIndex);
 		}
 	}, [moveItems, scrollContentRef]);
+
+	const handleMouseLeave = useCallback((ev) => {
+		const {selectedItem} = mutableRef.current;
+		if (selectedItem) {
+			const orders = finalizeOrders();
+			forwardCustom('onComplete', () => ({orders}))({}, editable);
+			reset();
+		}
+	}, [editable, finalizeOrders, reset]);
 
 	const handleKeyDown = useCallback((ev) => {
 		const {keyCode, target} = ev;
@@ -337,6 +344,7 @@ const EditableWrapper = (props) => {
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
 			onClick={handleClick}
 			onKeyDown={handleKeyDown}
+			onMouseLeave={handleMouseLeave}
 			onMouseMove={handleMouseMove}
 			ref={wrapperRef}
 		>
