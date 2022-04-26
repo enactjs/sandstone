@@ -31,26 +31,12 @@ import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import EditableWrapper from './EditableWrapper';
+import {EditableWrapper, EditableShape} from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
 const SpottableDiv = Spottable('div');
 let scrollerId = 0;
-
-/**
- * The shape for editable of [Scroller]{@link sandstone/Scroller}.
- *
- * @typedef {Object} EditableShape
- * @memberof sandstone/Scroller
- * @property {Function} onComplete The callback function called when editing is finished.
- * @property {Boolean} centered Centers the contents of the scroller.
- * @public
- */
-const EditableShape = PropTypes.shape({
-	onComplete: PropTypes.func.isRequired,
-	centered: PropTypes.bool
-});
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -487,6 +473,5 @@ Scroller.defaultProps = {
 
 export default Scroller;
 export {
-	EditableShape,
 	Scroller
 };

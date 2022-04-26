@@ -233,7 +233,7 @@ export const EditableList = (args) => {
 		}
 		ev.preventDefault();
 		ev.stopPropagation();
-	}, [removeItem]);
+	}, []);
 
 	const handleComplete = useCallback((ev) => {
 		const {orders} = ev;
@@ -252,7 +252,7 @@ export const EditableList = (args) => {
 			direction="horizontal"
 			editable={{
 				centered: args['editableCentered'],
-				editableWrapperCss: css,
+				css: css,
 				onComplete: handleComplete,
 				removeItemFuncRef: removeItem
 			}}
@@ -271,16 +271,13 @@ export const EditableList = (args) => {
 			{
 				items.map((item, index) => {
 					return (
-						<div key={item.index} data-index={item.index} style={{order: index + 1, textAlign: 'center'}}>
+						<div key={item.index} className={css.itemWrapper} data-index={item.index} style={{order: index + 1}}>
 							<div className={css.removeButtonContainer}>
 								<Button className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
 							</div>
 							<ImageItem
 								src={item.src}
-								style={{
-									width: ri.scaleToRem(768),
-									height: ri.scaleToRem(588)
-								}}
+								css={css}
 							>
 								{`Image ${item.index}`}
 							</ImageItem>

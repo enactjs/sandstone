@@ -1,3 +1,4 @@
+import {mergeClassNameMaps} from '@enact/core/util';
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
@@ -6,7 +7,23 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef} from 'react';
 
-import css from './EditableWrapper.module.less';
+import componentCss from './EditableWrapper.module.less';
+
+/**
+ * The shape for editable of [Scroller]{@link sandstone/Scroller}.
+ *
+ * @typedef {Object} EditableShape
+ * @memberof sandstone/Scroller
+ * @property {Function} onComplete The callback function called when editing is finished.
+ * @property {Boolean} centered Centers the contents of the scroller.
+ * @public
+ */
+const EditableShape = PropTypes.shape({
+	onComplete: PropTypes.func.isRequired,
+	centered: PropTypes.bool,
+	css: PropTypes.object,
+	removeItemFuncRef: EnactPropTypes.ref
+});
 
 /**
  * A Sandstone-styled EditableWrapper.
@@ -19,7 +36,10 @@ import css from './EditableWrapper.module.less';
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
 	let centered = editable.centered != null ? editable.centered : true;
-	let customCss = editable.editableWrapperCss || {};
+	let customCss = editable.css || {};
+
+	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
+
 	const dataSize = children?.length;
 
 	// Mutable value
@@ -52,9 +72,9 @@ const EditableWrapper = (props) => {
 	const reset = useCallback(() => {
 		const {selectedItem, spotlightId} = mutableRef.current;
 
-		selectedItem?.classList.remove(css.selected);
+		selectedItem?.classList.remove(componentCss.selected);
 		selectedItem?.classList.remove(customCss.selected);
-		selectedItem?.classList.remove(css.rearranged);
+		selectedItem?.classList.remove(componentCss.rearranged);
 
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.lastMoveDirection = null;
@@ -77,8 +97,8 @@ const EditableWrapper = (props) => {
 				const order = Number(item.style.order);
 				selectedOrder = order;
 				item.style.order = order - lastMoveDirection;
-				item.classList.remove(css.rearrangedTransform);
-				item.classList.remove(css.rearranged);
+				item.classList.remove(componentCss.rearrangedTransform);
+				item.classList.remove(componentCss.rearranged);
 				if (lastMoveDirection > 0) {
 					changedOrder.push(order);
 				} else {
@@ -107,7 +127,7 @@ const EditableWrapper = (props) => {
 		if (item.dataset.index) {
 			Spotlight.set(mutableRef.current.spotlightId, {restrict: 'self-only'});
 
-			item.classList.add(css.selected);
+			item.classList.add(componentCss.selected);
 			item.classList.add(customCss.selected);
 			mutableRef.current.selectedItem = item;
 
@@ -137,6 +157,7 @@ const EditableWrapper = (props) => {
 			startEditing(targetItemNode);
 		}
 
+		// Consume the event to prevent Item behavior
 		ev.preventDefault();
 		ev.stopPropagation();
 	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
@@ -153,8 +174,8 @@ const EditableWrapper = (props) => {
 		let end =  moveDirection > 0 ? fromIndex : toIndex;
 
 		while (start > end && sibling) {
-			sibling?.classList.add(css.rearranged);
-			sibling?.classList.add(css.rearrangedTransform);
+			sibling?.classList.add(componentCss.rearranged);
+			sibling?.classList.add(componentCss.rearrangedTransform);
 
 			if (!rearrangedItems.includes(sibling)) {
 				rearrangedItems.push(sibling);
@@ -173,7 +194,7 @@ const EditableWrapper = (props) => {
 		if (rearrangedItems.length > 0) {
 			for (let i = 0; i < numToRemove; i++) {
 				const toItem = rearrangedItems.pop();
-				toItem?.classList.remove(css.rearrangedTransform);
+				toItem?.classList.remove(componentCss.rearrangedTransform);
 			}
 		}
 	}, []);
@@ -220,7 +241,7 @@ const EditableWrapper = (props) => {
 		const {prevToIndex, selectedItem} = mutableRef.current;
 		if (selectedItem) {
 			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
-			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.y};
+			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 			const orders = finalizeOrders();
 			orders.splice(prevToIndex, 1);
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
@@ -252,6 +273,10 @@ const EditableWrapper = (props) => {
 			} else if (targetItemNode) {
 				startEditing(targetItemNode);
 			}
+
+			// Consume the event to prevent Item behavior
+			ev.preventDefault();
+			ev.stopPropagation();
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
 				const container = scrollContentRef.current;
@@ -309,7 +334,7 @@ const EditableWrapper = (props) => {
 
 	return (
 		<div
-			className={classNames(css.wrapper, {[css.centered]: centered}, customCss.editableWrapper)}
+			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
 			onClick={handleClick}
 			onKeyDown={handleKeyDown}
 			onMouseMove={handleMouseMove}
@@ -325,12 +350,11 @@ EditableWrapper.displayName = 'EditableWrapper';
 EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.prototype */ {
 	/**
 	 * TBD: Enables editing items in the scroller.
-	 * FIXME: If the type is EditableShape, it throws errors.
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
 	 * @public
 	 */
-	editable: PropTypes.object,
+	editable: EditableShape,
 
 	/**
 	 * Obtains a reference to the scroll container handle.
@@ -359,5 +383,6 @@ EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.protot
 
 export default EditableWrapper;
 export {
+	EditableShape,
 	EditableWrapper
 };
