@@ -144,11 +144,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.focused = null;
 			this.node = null;
 			this.fromMouse = false;
-			this.prevFocused = null;
-			this.prevNode = null;
 			this.ariaHidden = props.noReadoutOnFocus || null;
 			this.paused = new Pause('InputSpotlightDecorator');
 			this.handleKeyDown = handleKeyDown.bind(this);
+			this.prevFocusStatus = {
+				focused: null,
+				node: null
+			};
+			this.timer = null;
 		}
 
 		componentWillUnmount () {
@@ -167,14 +170,8 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}
 
-		updateComponent () {
+		updateFocus = (prevFocusStatus) => {
 			this.ariaHidden = null;
-			this.updateFocus(this.prevFocused, this.prevNode);
-			this.prevFocused = this.focused;
-			this.prevNode = this.node;
-		}
-
-		updateFocus = (prevFocused, prevNode) => {
 			// focus node if `InputSpotlightDecorator` is pausing Spotlight or if Spotlight is paused
 			if (
 				this.node &&
@@ -188,7 +185,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 			}
 
-			const focusChanged = this.focused !== prevFocused;
+			const focusChanged = this.focused !== prevFocusStatus.focused;
 			if (focusChanged) {
 				if (this.focused === 'input') {
 					forwardCustom('onActivate')(null, this.props);
@@ -196,28 +193,41 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						lockPointer(this.node);
 					}
 					this.paused.pause();
-				} else if (prevFocused === 'input') {
+				} else if (prevFocusStatus.focused === 'input') {
 					forwardCustom('onDeactivate')(null, this.props);
 					if (!noLockPointer) {
-						releasePointer(prevNode);
+						releasePointer(prevFocusStatus.node);
 					}
 					this.paused.resume();
 				}
 			}
+
+			prevFocusStatus.focused = this.focused;
+			prevFocusStatus.node = this.node;
 		};
 
 		focus = (focused, node, fromMouse) => {
+			if (this.timer) {
+				clearTimeout(this.timer);
+				this.timer = null;
+			}
 			this.focused = focused;
 			this.node = node;
 			this.fromMouse = fromMouse;
-			this.updateComponent();
+			//this.updateFocus(this.prevFocusStatus);
+			this.timer = setTimeout(() => this.updateFocus(this.prevFocusStatus), 16);
 		};
 
 		blur = () => {
+			if (this.timer) {
+				clearTimeout(this.timer);
+				this.timer = null;
+			}
+
 			if (this.focused || this.node) {
 				this.focused = null;
 				this.node = null;
-				this.updateComponent();
+				this.timer = setTimeout(() => this.updateFocus(this.prevFocusStatus), 16);
 			}
 		};
 
