@@ -1,6 +1,6 @@
 import ilib from 'ilib';
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import TimePicker, {timeToLocaleString} from '../TimePicker';
@@ -35,7 +35,7 @@ describe('TimePicker', () => {
 		render(<TimePicker onComplete={handleComplete} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />);
 		const meridiemPicker = screen.getByLabelText('AM change a value with up down button');
 
-		meridiemPicker.focus();
+		act(() => meridiemPicker.focus());
 		fireEvent.keyDown(meridiemPicker, {which: 13, keyCode: 13, code: 13});
 
 		const expected = {type: 'onComplete'};
