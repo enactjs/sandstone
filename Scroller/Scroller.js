@@ -213,16 +213,17 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * Enables editing items in the scroller. You can specify props for editable scroller as an object.
 	 *
 	 * Followings are supported properties.
-	 * @property {Function} onComplete - The callback function called when editing is finished.
+	 * * `onComplete` - The callback function called when editing is finished.
 	 *  It has an event object contains `orders` array which app can use for repopulate items.
-	 * @property {Boolean} centered - Centers the contents of the scroller.
-	 * @property {Object} css - Customizes the component by mapping the supplied collection of CSS class names to the
+	 * * `centered` - Centers the contents of the scroller.
+	 * * `css` - Customizes the component by mapping the supplied collection of CSS class names to the
 	 *  corresponding internal elements and states of this component.
 	 *  The following classes are supported:
 	 *
-	 * * `wraper` - The content wrapper component class
-	 * * `selected` - The selected item class
-	 * @property {Function|Object} removeItemFuncRef - Obtains a reference to `removeItem` function.
+	 * ** `wraper` - The content wrapper component class
+	 * ** `selected` - The selected item class
+	 *
+	 * * `removeItemFuncRef` - Obtains a reference to `removeItem` function.
 	 *  If you would like to remove an item, you can get the reference to `removeItem` function via `useRef`.
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
