@@ -50,6 +50,7 @@ export const _Button = (args) => (
 	<Fragment>
 		<Button
 			onClick={action('onClick')}
+			onTap={action('onTap')}
 			backgroundOpacity={args['backgroundOpacity']}
 			color={args['color']}
 			disabled={args['disabled']}
