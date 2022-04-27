@@ -445,7 +445,7 @@ const HeaderBase = kind({
 				backgroundOpacity={closeButtonBackgroundOpacity}
 				className={css.close}
 				icon="closex"
-				onTap={onClose}
+				onClick={onClose}
 				size="small"
 			/>
 		) : null);
