@@ -3,6 +3,7 @@ import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
 import Spotlight from '@enact/spotlight';
+import Accelerator from '@enact/spotlight/Accelerator';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef} from 'react';
@@ -33,6 +34,8 @@ const EditableShape = PropTypes.shape({
 	css: PropTypes.object,
 	removeItemFuncRef: EnactPropTypes.ref
 });
+
+const SpotlightAccelerator = new Accelerator([5, 4]);
 
 /**
  * A Sandstone-styled EditableWrapper.
@@ -240,6 +243,30 @@ const EditableWrapper = (props) => {
 		}
 	}, [dataSize, addRearrangedItems, removeRearrangedItems]);
 
+	const moveItemsByKeyDown = useCallback((ev) => {
+		const {keyCode} = ev;
+		const container = scrollContentRef.current;
+		const {itemWidth, prevToIndex} = mutableRef.current;
+		const toIndex = is('left', keyCode) ? prevToIndex - 1 : prevToIndex + 1;
+
+		const itemLeft = toIndex * itemWidth - container.scrollLeft;
+		let left;
+		if (itemLeft > container.offsetLeft + container.clientWidth - itemWidth) {
+			left = itemLeft - (container.clientWidth - itemWidth) + container.scrollLeft;
+		} else if (itemLeft < 0) {
+			left = container.scrollLeft + itemLeft;
+		}
+
+		if (left != null) { /* avoid null or undefined */
+			scrollContainerHandle.current.start({
+				targetX: left,
+				targetY: 0
+			});
+		}
+
+		moveItems(toIndex);
+	}, [moveItems, scrollContainerHandle, scrollContentRef]);
+
 	// Remove an item
 	const removeItem = useCallback(() => {
 		const {prevToIndex, selectedItem} = mutableRef.current;
@@ -273,17 +300,19 @@ const EditableWrapper = (props) => {
 	}, [editable, finalizeOrders, reset]);
 
 	const handleKeyDown = useCallback((ev) => {
-		const {keyCode, target} = ev;
+		const {keyCode, repeat, target} = ev;
 		const {selectedItem} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
-			if (selectedItem) {
-				const orders = finalizeOrders();
-				forwardCustom('onComplete', () => ({orders}))({}, editable);
-				reset();
-			} else if (targetItemNode) {
-				startEditing(targetItemNode);
+			if (!repeat) {
+				if (selectedItem) {
+					const orders = finalizeOrders();
+					forwardCustom('onComplete', () => ({orders}))({}, editable);
+					reset();
+				} else if (targetItemNode) {
+					startEditing(targetItemNode);
+				}
 			}
 
 			// Consume the event to prevent Item behavior
@@ -291,30 +320,18 @@ const EditableWrapper = (props) => {
 			ev.stopPropagation();
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
-				const container = scrollContentRef.current;
-				const {itemWidth, prevToIndex} = mutableRef.current;
-				const toIndex = is('left', keyCode) ? prevToIndex - 1 : prevToIndex + 1;
-
-				const itemLeft = toIndex * itemWidth - container.scrollLeft;
-				let left;
-				if (itemLeft > container.offsetLeft + container.clientWidth - itemWidth) {
-					left = itemLeft - (container.clientWidth - itemWidth) + container.scrollLeft;
-				} else if (itemLeft < 0) {
-					left = container.scrollLeft + itemLeft;
+				if (repeat) {
+					SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+				} else {
+					SpotlightAccelerator.reset();
+					moveItemsByKeyDown(ev);
 				}
-
-				scrollContainerHandle.current.start({
-					targetX: left,
-					targetY: 0
-				});
-
-				moveItems(toIndex);
 
 				ev.preventDefault();
 				ev.stopPropagation();
 			}
 		}
-	}, [editable, finalizeOrders, findItemNode, moveItems, reset, scrollContainerHandle, scrollContentRef, startEditing]);
+	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
