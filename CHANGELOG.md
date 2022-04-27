@@ -9,6 +9,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to not show press effect on touch input
+- `sandstone/ProgressBar` radial colors and `sandstone/Scroller` colors to match with `sandstone/ProgressBar`
 
 ### Fixed
 

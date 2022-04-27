@@ -8,20 +8,18 @@
 // colors
 @sand-untypical-color-03: #4c5059; // @sand-dark-gray; @sand-picker-indicators-active-focus-bg-color @sand-picker-joined-focus-incrementer-color @sand-tooltip-text-color
 @sand-untypical-color-04: #666666; // @sand-slider-disabled-knob-bg-color
-@sand-untypical-color-05: #9a9a9a; // @sand-scrollbar-thumb-focus-direction-indicator-color
 @sand-untypical-color-06: #9da2a7; // @sand-picker-indicators-inactive-bg-color
 @sand-untypical-color-07: #b8b9bb; // @sand-picker-indicators-inactive-focus-bg-color
 @sand-untypical-color-08: #bbbbbb; // @sand-contextualpopup-border-color
 @sand-untypical-color-09: #abaeb3; // @sand-gray; @sand-progressbutton-bar-color @sand-picker-joined-incrementer-color
-@sand-untypical-color-10: #e6e6e6; // @sand-light-gray; @sand-scrollbar-thumb-focus-bg-color @sand-tooltip-bg-color @sand-video-slider-tooltip-color @sand-video-slider-tooltip-thumbnail-border-color
+@sand-untypical-color-10: #e6e6e6; // @sand-light-gray; @sand-tooltip-bg-color @sand-video-slider-tooltip-color @sand-video-slider-tooltip-thumbnail-border-color
 @sand-untypical-color-11: #ffffff; // @sand-white; @sand-progressbar-highlighted-fill-bg-color @sand-spinner-color @sand-video-feedback-mini-text-color @sand-video-player-title-color
 @sand-untypical-color-12: #fe4a4b; // @sand-video-player-redicon-text-color
 
 // colors in form of comma-separated RGB values
 @sand-untypical-color-01-rgb: 55, 58, 65; // #373a41; @sand-keyguide-bg-color
-@sand-untypical-color-02-rgb: 65, 70, 76; // #41464c; @sand-scrollbar-track-bg-color
 @sand-untypical-color-03-rgb: 76, 80, 89; // #4c5059; @sand-dark-gray; @sand-inputfield-placeholder-active-color
-@sand-untypical-color-10-rgb: 230, 230, 230; // #e6e6e6; @sand-light-gray; @sand-input-numbercell-background-color @sand-inputfield-placeholder-color @sand-inputfield-bg-color @sand-scrollbar-thumb-bg-color @sand-scroll-focusablebody-focus-bg-color @sand-tablayout-tab-horizontal-border-color
+@sand-untypical-color-10-rgb: 230, 230, 230; // #e6e6e6; @sand-light-gray; @sand-input-numbercell-background-color @sand-inputfield-placeholder-color @sand-inputfield-bg-color @sand-scroll-focusablebody-focus-bg-color @sand-tablayout-tab-horizontal-border-color
 
 
 // Remote button colors
@@ -90,7 +88,8 @@
 @sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230); // #e6e6e6
 @sand-progress-color: rgb(@sand-progress-color-rgb);
 @sand-progress-buffer-color: var(--sand-progress-buffer-color, #6b6d73); // @sand-progress-color with opacity 30% on @sand-progress-bg-color
-@sand-progress-bg-color: var(--sand-progress-bg-color, #373a41);
+@sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
+@sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb);
 @sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
 
 @sand-invalid-color: #ff0000;
@@ -333,14 +332,10 @@
 @sand-progressbar-load-bg-color: rgb(@sand-progress-color-rgb, 30%);
 @sand-progressbar-fill-bg-color: @sand-progress-color;
 @sand-progressbar-highlighted-fill-bg-color: @sand-untypical-color-11;
-@sand-progressbar-radial-bar-bg-color: @sand-progressbar-bar-bg-color;
-@sand-progressbar-radial-load-bg-color: @sand-progress-buffer-color; // The load color cannot be translucent in this implementation of radial.
-@sand-progressbar-radial-fill-bg-color: @sand-progressbar-fill-bg-color;
 
 // ProgressButton
 // ---------------------------------------
 @sand-progressbutton-bar-color: @sand-untypical-color-09;
-@sand-progressbutton-fill-color: @sand-button-text-color;
 @sand-progressbutton-focus-fill-color: @sand-component-focus-text-color;
 
 // RadioItem
@@ -366,10 +361,10 @@
 
 // Scrollbar
 // ---------------------------------------
-@sand-scrollbar-track-bg-color: rgb(@sand-untypical-color-02-rgb, 50%);
-@sand-scrollbar-thumb-bg-color: rgb(@sand-untypical-color-10-rgb, 60%);
-@sand-scrollbar-thumb-focus-bg-color: @sand-untypical-color-10;
-@sand-scrollbar-thumb-focus-direction-indicator-color: @sand-untypical-color-05;
+@sand-scrollbar-track-bg-color: rgb(@sand-progress-bg-color-rgb, 50%);
+@sand-scrollbar-thumb-bg-color: rgb(@sand-progress-color-rgb, 60%);
+@sand-scrollbar-thumb-focus-bg-color: @sand-focus-bg-color;
+@sand-scrollbar-thumb-focus-direction-indicator-color: rgb(@sand-component-focus-text-color-rgb, 40%);
 @sand-scrollbar-thumb-focus-box-shadow-color: @sand-shadow-color;
 
 // Scroller
