@@ -158,7 +158,7 @@ const EditableWrapper = (props) => {
 	}, []);
 
 	// Move items
-	const moveItems = useCallback((toIndex, trigger, scrolloffset) => {
+	const moveItems = useCallback((toIndex) => {
 		const {selectedItem} = mutableRef.current;
 
 		if (selectedItem) {
@@ -168,15 +168,8 @@ const EditableWrapper = (props) => {
 
 				// Set the selected item's offset to css variable
 				const offset = (toIndex - fromIndex) * itemWidth;
-				if (trigger === 'scroll') {
-					if (toIndex === dataSize - 1) scrolloffset = offset;
-					if (toIndex === 0) scrolloffset = (-1) * itemWidth * rearrangedItems.length;
-					wrapperRef.current.style.transition = 'transform 0';
-					wrapperRef.current.style.setProperty('--selected-item-offset', scrolloffset + 'px');
-				} else if (trigger === 'mouse' || trigger === 'key') {
-					wrapperRef.current.style.transition = 'transform 360ms';
-					wrapperRef.current.style.setProperty('--selected-item-offset', offset + 'px');
-				}
+				wrapperRef.current.style.setProperty('--selected-item-offset', offset + 'px');
+
 
 				// If the current toIndex is new,
 				if (toIndex !== prevToIndex) {
@@ -218,7 +211,7 @@ const EditableWrapper = (props) => {
 			// Determine toIndex with mouse client x position
 			const toIndex = Math.floor((ev.clientX + scrollContentRef.current.scrollLeft - centeredOffset) / itemWidth);
 
-			moveItems(toIndex, 'mouse');
+			moveItems(toIndex);
 		}
 	}, [moveItems, scrollContentRef]);
 
@@ -252,7 +245,7 @@ const EditableWrapper = (props) => {
 					targetY: 0
 				});
 
-				moveItems(toIndex, 'key');
+				moveItems(toIndex);
 
 				ev.preventDefault();
 				ev.stopPropagation();
@@ -274,22 +267,16 @@ const EditableWrapper = (props) => {
 	useEffect(() => {
 		// addEventListener to moveItems while scrolled
 		const container = scrollContentRef.current;
-		const wrapperWidth = wrapperRef.current.getBoundingClientRect().width;
 		const scrollContentCenter = container.getBoundingClientRect().width / 2;
 
 		const handleMoveItemsByScroll = () => {
-			const {centeredOffset, itemWidth, mouseClientX, fromIndex} = mutableRef.current;
+			const {centeredOffset, itemWidth, mouseClientX} = mutableRef.current;
 			const toIndex = Math.floor((mouseClientX + container.scrollLeft - centeredOffset) / itemWidth);
-			let scrollOffset = 0;
 
 			if (mouseClientX > scrollContentCenter) {
-				scrollOffset = scrollContainerHandle.current.scrollLeft + container.clientWidth * 2 + itemWidth;
-				scrollOffset -= fromIndex * itemWidth;
-				moveItems(clamp(0, dataSize - 1, toIndex + 1), 'scroll', scrollOffset);
+				moveItems(clamp(0, dataSize - 1, toIndex + 1));
 			} else {
-				scrollOffset = scrollContainerHandle.current.scrollLeft - wrapperWidth - container.clientWidth - itemWidth;
-				scrollOffset += (dataSize - 1 - fromIndex) * itemWidth;
-				moveItems(clamp(0, dataSize - 1, toIndex - 1), 'scroll', scrollOffset);
+				moveItems(clamp(0, dataSize - 1, toIndex - 1));
 			}
 		};
 
@@ -299,7 +286,7 @@ const EditableWrapper = (props) => {
 			container.removeEventListener('scroll', handleMoveItemsByScroll);
 		};
 
-	}, [dataSize, moveItems, mutableRef, scrollContainerHandle, scrollContentRef]);
+	}, [dataSize, moveItems, mutableRef, scrollContentRef]);
 
 	// Return
 
