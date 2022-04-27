@@ -35,7 +35,7 @@ const EditableShape = PropTypes.shape({
 	removeItemFuncRef: EnactPropTypes.ref
 });
 
-const SpotlightAccelerator = new Accelerator([5, 4]); // [3, 3, 3, 2, 2, 2, 1]
+const SpotlightAccelerator = new Accelerator([5, 4]);
 
 /**
  * A Sandstone-styled EditableWrapper.
