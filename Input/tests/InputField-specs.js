@@ -8,13 +8,6 @@ import {InputField} from '../';
 const isPaused = () => Spotlight.isPaused() ? 'paused' : 'not paused';
 
 describe('InputField Specs', () => {
-	beforeEach(() => {
-		jest.useFakeTimers();
-	});
-	afterEach(() => {
-		jest.useRealTimers();
-	});
-
 	test('should have an input element', () => {
 		render(<InputField />);
 		const inputField = screen.getByLabelText('Input field');
@@ -118,10 +111,7 @@ describe('InputField Specs', () => {
 		const inputField = screen.getByPlaceholderText('');
 
 		fireEvent.mouseDown(inputField);
-		jest.runOnlyPendingTimers();
-
 		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
-		jest.runOnlyPendingTimers();
 
 		expect(handleChange).toHaveBeenCalled();
 	});
@@ -133,10 +123,8 @@ describe('InputField Specs', () => {
 		const inputField = screen.getByPlaceholderText('');
 
 		fireEvent.keyDown(inputField, {which: 13, keyCode: 13, code: 13});
-		jest.runOnlyPendingTimers();
-
 		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
-		jest.runOnlyPendingTimers();
+
 
 		expect(handleChange).toHaveBeenCalled();
 	});
@@ -149,6 +137,7 @@ describe('InputField Specs', () => {
 
 		fireEvent.keyDown(inputField, {which: 13, keyCode: 13, code: 13});
 		fireEvent.keyUp(inputField, {which: 13, keyCode: 13, code: 13});
+
 
 		expect(handleChange).not.toHaveBeenCalled();
 	});
@@ -248,7 +237,6 @@ describe('InputField Specs', () => {
 		const inputField = screen.getByPlaceholderText('');
 
 		fireEvent.mouseDown(inputField);
-		jest.runOnlyPendingTimers();
 
 		const expected = 'paused';
 		const actual = isPaused();

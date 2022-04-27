@@ -151,7 +151,6 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				focused: null,
 				node: null
 			};
-			this.timer = null;
 		}
 
 		componentWillUnmount () {
@@ -172,6 +171,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		updateFocus = (prevFocusStatus) => {
 			this.ariaHidden = null;
+
 			// focus node if `InputSpotlightDecorator` is pausing Spotlight or if Spotlight is paused
 			if (
 				this.node &&
@@ -207,26 +207,19 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		focus = (focused, node, fromMouse) => {
-			if (this.timer) {
-				clearTimeout(this.timer);
-				this.timer = null;
+			if (this.focused !== focused || this.node !== node || this.fromMouse !== fromMouse) {
+				this.focused = focused;
+				this.node = node;
+				this.fromMouse = fromMouse;
+				this.updateFocus(this.prevFocusStatus);
 			}
-			this.focused = focused;
-			this.node = node;
-			this.fromMouse = fromMouse;
-			this.timer = setTimeout(() => this.updateFocus(this.prevFocusStatus), 16);
 		};
 
 		blur = () => {
-			if (this.timer) {
-				clearTimeout(this.timer);
-				this.timer = null;
-			}
-
 			if (this.focused || this.node) {
 				this.focused = null;
 				this.node = null;
-				this.timer = setTimeout(() => this.updateFocus(this.prevFocusStatus), 16);
+				this.updateFocus(this.prevFocusStatus);
 			}
 		};
 
@@ -245,7 +238,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						this.blur();
 						forwardBlur(ev, this.props);
 					} else {
-						this.focusDecorator(ev.currentTarget);
+						this.fromMouse = false;
 						ev.stopPropagation();
 					}
 				} else if (!ev.currentTarget.contains(ev.relatedTarget)) {
@@ -258,7 +251,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					this.blur();
 					forwardBlur(ev, this.props);
 				} else {
-					this.focusDecorator(ev.currentTarget);
+					this.fromMouse = false;
 					ev.stopPropagation();
 					this.blur();
 				}
