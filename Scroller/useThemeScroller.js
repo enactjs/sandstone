@@ -387,6 +387,7 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 			children,
 			editable,
 			scrollContainerHandle,
+			scrollContainerRef,
 			scrollContentRef
 		},
 		focusableBodyProps,
