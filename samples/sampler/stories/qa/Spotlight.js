@@ -278,7 +278,7 @@ class FocusedAndDisabled extends Component {
 				{this.tests.map((comp, index) => (
 					<div key={`row-${index}`}>
 						{/* eslint-disable-next-line react/jsx-no-bind */}
-						<Button icon="arrowlargeright" onTap={() => this.select(index)} />
+						<Button icon="arrowlargeright" onClick={() => this.select(index)} />
 						{cloneElement(comp, {
 							disabled: this.state.index === index,
 							spotlightId: `component-${index}`

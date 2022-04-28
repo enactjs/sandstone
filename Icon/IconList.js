@@ -193,6 +193,7 @@ export default {
 	profile           : 0x0F0179, // profile
 	profilecheck      : 0x0F017A, // profilecheck
 	mediaserver       : 0x0F017B, // mediaserver
+	wallpaper         : 0x0F017E, // wallpaper
 	spanner           : 0x0F0180, // spanner
 	bluetooth         : 0x0F0181, // bluetooth
 	moodmode          : 0x0F0182, // moodmode
