@@ -323,7 +323,7 @@ const EditableWrapper = (props) => {
 				});
 			}
 		}
-	}, [editable, finalizeOrders, reset]);
+	}, [editable, finalizeOrders, reset, scrollContainerHandle, scrollContentRef]);
 
 	const handleKeyDown = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
