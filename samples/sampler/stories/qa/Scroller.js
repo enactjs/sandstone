@@ -293,7 +293,7 @@ boolean('editableCentered', EditableList, Config, true);
 number('editableDataSize', EditableList, Config, 20);
 select('focusableScrollbar', EditableList, prop.focusableScrollbarOption, Config);
 select('horizontalScrollbar', EditableList, prop.scrollbarOption, Config);
-boolean('hoverToScroll', EditableList, Config);
+boolean('hoverToScroll', EditableList, Config, true);
 boolean('noScrollByWheel', EditableList, Config);
 select('scrollMode', EditableList, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', EditableList, Config, false);
