@@ -147,7 +147,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.ariaHidden = props.noReadoutOnFocus || null;
 			this.paused = new Pause('InputSpotlightDecorator');
 			this.handleKeyDown = handleKeyDown.bind(this);
-			this.prevFocusStatus = {
+			this.prevStatus = {
 				focused: null,
 				node: null
 			};
@@ -169,7 +169,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}
 
-		updateFocus = (prevFocusStatus) => {
+		updateFocus = () => {
 			this.ariaHidden = null;
 
 			// focus node if `InputSpotlightDecorator` is pausing Spotlight or if Spotlight is paused
@@ -185,7 +185,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 			}
 
-			const focusChanged = this.focused !== prevFocusStatus.focused;
+			const focusChanged = this.focused !== this.prevStatus.focused;
 			if (focusChanged) {
 				if (this.focused === 'input') {
 					forwardCustom('onActivate')(null, this.props);
@@ -193,31 +193,31 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						lockPointer(this.node);
 					}
 					this.paused.pause();
-				} else if (prevFocusStatus.focused === 'input') {
+				} else if (this.prevStatus.focused === 'input') {
 					forwardCustom('onDeactivate')(null, this.props);
 					if (!noLockPointer) {
-						releasePointer(prevFocusStatus.node);
+						releasePointer(this.prevStatus.node);
 					}
 					this.paused.resume();
 				}
 			}
 
-			prevFocusStatus.focused = this.focused;
-			prevFocusStatus.node = this.node;
+			this.prevStatus.focused = this.focused;
+			this.prevStatus.node = this.node;
 		};
 
 		focus = (focused, node, fromMouse) => {
-				this.focused = focused;
-				this.node = node;
-				this.fromMouse = fromMouse;
-				this.updateFocus(this.prevFocusStatus);
+			this.focused = focused;
+			this.node = node;
+			this.fromMouse = fromMouse;
+			this.updateFocus();
 		};
 
 		blur = () => {
 			if (this.focused || this.node) {
 				this.focused = null;
 				this.node = null;
-				this.updateFocus(this.prevFocusStatus);
+				this.updateFocus();
 			}
 		};
 
