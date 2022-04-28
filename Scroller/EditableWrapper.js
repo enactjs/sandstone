@@ -2,7 +2,6 @@ import {mergeClassNameMaps} from '@enact/core/util';
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
-import {clamp} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import classNames from 'classnames';
@@ -312,11 +311,9 @@ const EditableWrapper = (props) => {
 
 			if (lastInputType === 'scroll') {
 				const offset = itemWidth * (lastMouseClientX > scrollContentCenter ? 1 : -1);
-				let left = scrollContentNode.scrollLeft;
-				left += offset;
 
 				scrollContainerHandle.current.start({
-					targetX: left,
+					targetX: scrollContentNode.scrollLeft + offset,
 					targetY: 0
 				});
 			}
