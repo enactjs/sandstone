@@ -2,8 +2,9 @@
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 
 // Button
-@sand-button-bg-border: 6px;
 @sand-button-border-radius: 12px;
+@sand-button-bg-border-width: 6px;
+@sand-button-bg-border-style: none;
 @sand-button-icononly-border-radius: 12px;
 @sand-button-icononly-bg-border: 6px;
 
@@ -29,18 +30,3 @@
 
 // Scroller
 // @sand-scrollbar-track-border-radius:
-
-.sand-taparea(@element-size) when (@sand-smallest-tappable-size > @element-size) {
-	// Take the size of the minimum tappable area, and subtract the element's current size.
-	@_tap-offset: -((@sand-smallest-tappable-size - @element-size) / 2);
-
-	&::before {
-		content: "";
-		position: absolute;
-		top: @_tap-offset;
-		right: @_tap-offset;
-		bottom: @_tap-offset;
-		left: @_tap-offset;
-		border-radius: @sand-button-border-radius;
-	}
-}

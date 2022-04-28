@@ -255,7 +255,7 @@ const PopupTabLayoutBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'popupTabLayout',
-		publicClassNames: ['popupTabLayout', 'tabLayout', 'tabs', 'tabsExpanded', 'content', 'panels', 'scrimTranslucent', 'collapsed', 'tabGroup', 'tab', 'vertical', 'button', 'selected', 'bg']
+		publicClassNames: ['bg', 'button', 'collapsed', 'content', 'panels', 'popupTabLayout', 'scrimTranslucent', 'selected', 'tab', 'tabGroup', 'tabLayout', 'tabs', 'tabsExpanded', 'vertical']
 	},
 
 	computed: {

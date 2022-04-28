@@ -243,7 +243,7 @@ const TabLayoutBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'tabLayout',
-		publicClassNames: ['tabLayout', 'tabs', 'content', 'tabsExpanded', 'vertical', 'collapsed', 'tab', 'tabGroup', 'button', 'client', 'bg', 'selected']
+		publicClassNames: ['bg', 'button', 'client', 'collapsed', 'content', 'selected', 'tab', 'tabGroup', 'tabLayout', 'tabs', 'tabsExpanded', 'vertical']
 	},
 
 	handlers: {
@@ -359,14 +359,14 @@ const TabLayoutBase = kind({
 
 		// Props that are shared between both of the rendered TabGroup components
 		const tabGroupProps = {
+			css,
 			onClick: (collapsed ? handleClick : null),
 			onFocus: (collapsed ? handleFocus : null),
 			onFocusTab: onSelect,
 			onSelect,
 			orientation,
 			selectedIndex: index,
-			tabs,
-			css
+			tabs
 		};
 
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
