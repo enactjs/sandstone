@@ -77,7 +77,11 @@ const EditableWrapper = (props) => {
 		// Flags
 		lastMoveDirection: null,
 
-		mouseClientX: null
+		// Last mouse position
+		mouseClientX: null,
+
+		// Last InputType which moves Items
+		lastInputType: null
 	});
 
 	// Functions
@@ -267,6 +271,7 @@ const EditableWrapper = (props) => {
 			});
 		}
 
+		mutableRef.current.lastInputType = 'key';
 		moveItems(toIndex);
 	}, [moveItems, scrollContainerHandle, scrollContentRef]);
 
@@ -290,12 +295,29 @@ const EditableWrapper = (props) => {
 			// Determine toIndex with mouse client x position
 			const toIndex = Math.floor((ev.clientX + scrollContentRef.current.scrollLeft - centeredOffset) / itemWidth);
 
+			mutableRef.current.lastInputType = 'mouse';
 			moveItems(toIndex);
 		}
 	}, [moveItems, scrollContentRef]);
 
 	const handleMouseLeave = useCallback(() => {
-		const {selectedItem} = mutableRef.current;
+		const {itemWidth, lastInputType, mouseClientX, selectedItem} = mutableRef.current;
+		const scrollContentNode = scrollContentRef.current;
+		const scrollContentCenter = scrollContentNode.getBoundingClientRect().width / 2;
+
+		if (lastInputType === 'scroll') {
+			let left = 0;
+			if (mouseClientX > scrollContentCenter) {
+				left = scrollContentNode.scrollLeft + itemWidth;
+			} else {
+				left = scrollContentNode.scrollLeft - itemWidth;
+			}
+			scrollContainerHandle.current.start({
+				targetX: left,
+				targetY: 0
+			});
+		}
+
 		if (selectedItem) {
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
@@ -380,24 +402,26 @@ const EditableWrapper = (props) => {
 
 	useEffect(() => {
 		// addEventListener to moveItems while scrolled
-		const container = scrollContentRef.current;
-		const scrollContentCenter = container.getBoundingClientRect().width / 2;
+		const scrollContentNode = scrollContentRef.current;
+		const scrollContentCenter = scrollContentNode.getBoundingClientRect().width / 2;
 
 		const handleMoveItemsByScroll = () => {
-			const {centeredOffset, itemWidth, mouseClientX} = mutableRef.current;
-			const toIndex = Math.floor((mouseClientX + container.scrollLeft - centeredOffset) / itemWidth);
-
-			if (mouseClientX > scrollContentCenter) {
-				moveItems(clamp(0, dataSize - 1, toIndex + 1));
-			} else {
-				moveItems(clamp(0, dataSize - 1, toIndex - 1));
+			const {centeredOffset, itemWidth, mouseClientX, selectedItem} = mutableRef.current;
+			if (selectedItem) {
+				const toIndex = Math.floor((mouseClientX + scrollContentNode.scrollLeft - centeredOffset) / itemWidth);
+				mutableRef.current.lastInputType = 'scroll';
+				if (mouseClientX > scrollContentCenter) {
+					moveItems(clamp(0, dataSize - 1, toIndex + 1));
+				} else {
+					moveItems(clamp(0, dataSize - 1, toIndex - 1));
+				}
 			}
 		};
 
-		container.addEventListener('scroll', handleMoveItemsByScroll);
+		scrollContentNode.addEventListener('scroll', handleMoveItemsByScroll);
 
 		return () => {
-			container.removeEventListener('scroll', handleMoveItemsByScroll);
+			scrollContentNode.removeEventListener('scroll', handleMoveItemsByScroll);
 		};
 
 	}, [dataSize, moveItems, mutableRef, scrollContentRef]);
