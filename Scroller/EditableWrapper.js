@@ -305,23 +305,23 @@ const EditableWrapper = (props) => {
 		const scrollContentNode = scrollContentRef.current;
 		const scrollContentCenter = scrollContentNode.getBoundingClientRect().width / 2;
 
-		if (lastInputType === 'scroll') {
-			let left = 0;
-			if (mouseClientX > scrollContentCenter) {
-				left = scrollContentNode.scrollLeft + itemWidth;
-			} else {
-				left = scrollContentNode.scrollLeft - itemWidth;
-			}
-			scrollContainerHandle.current.start({
-				targetX: left,
-				targetY: 0
-			});
-		}
-
 		if (selectedItem) {
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
+
+			if (lastInputType === 'scroll') {
+				let left = 0;
+				if (mouseClientX > scrollContentCenter) {
+					left = scrollContentNode.scrollLeft + itemWidth;
+				} else {
+					left = scrollContentNode.scrollLeft - itemWidth;
+				}
+				scrollContainerHandle.current.start({
+					targetX: left,
+					targetY: 0
+				});
+			}
 		}
 	}, [editable, finalizeOrders, reset]);
 
