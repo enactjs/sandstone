@@ -47,7 +47,7 @@ const TabBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'tab',
-		publicClassNames: ['tab', 'vertical', 'button', 'selected', 'client', 'bg']
+		publicClassNames: ['bg', 'button', 'client', 'selected', 'tab', 'vertical']
 	},
 
 	handlers: {
@@ -165,7 +165,7 @@ const TabGroupBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'tabGroup',
-		publicClassNames: ['tabGroup', 'vertical', 'button', 'client', 'bg', 'selected', 'tab']
+		publicClassNames: ['bg', 'button', 'client', 'selected', 'tab', 'tabGroup', 'vertical']
 	},
 
 	computed: {

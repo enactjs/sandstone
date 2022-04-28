@@ -1,17 +1,17 @@
 // colors-game-orange.less (game skin)
-//
+// (orange)
 
 // ---------------------------------------
 // Universal Color Definitions
 // ---------------------------------------
 
-// orange
-@sand-untypical-orange-color-01: #eb5e00;
-@sand-untypical-orange-color-02: #d75431;
-@sand-untypical-orange-color-03: #b85f23;
-@sand-untypical-orange-color-04: #422923;
-@sand-untypical-orange-color-05: #8e533f;
-@sand-untypical-orange-color-06: #ea5e00;
+// colors
+@sand-game-skin-color-01: #eb5e00;
+@sand-game-skin-color-02: #d75431;
+
+@sand-game-skin-heading-border-color: #ea5e00;
+@sand-game-skin-item-focus-bg-gradient-1: fade(#562907, 0%);
+@sand-game-skin-item-focus-bg-gradient-2: #a85c37;
 
 
 // UI Conceptual Colors
@@ -19,23 +19,5 @@
 
 // common colors
 
-// Alert
-@sand-alert-overlay-shadow: 0 36px 24px fade(#000, 30%), inset 0 0 0 3px fade(@sand-untypical-orange-color-01, 75%);
-
-// Button
-// --------------------------------------
-@sand-button-bg-color: @sand-untypical-orange-color-04;
-@sand-button-focus-bg-color: @sand-untypical-orange-color-03;
-@sand-button-focus-filter: none;
-@sand-button-border-color: fade(@sand-untypical-orange-color-06, 50%);
-@sand-button-focus-icononly-bg-color: fade(@sand-untypical-orange-color-02, 50%);
-
-// Heading
-@sand-heading-border-color: @sand-untypical-orange-color-06;
-
-// Item
-@sand-item-focus-background: linear-gradient(270deg, fade(#562907, 0%), #a85c37);
-
-// RadioItem
-@sand-radioitem-selected-indicator-bg-color: @sand-untypical-orange-color-02;
-@sand-radioitem-selected-indicator-border-color: @sand-untypical-orange-color-02;
+@sand-component-bg-color: var(--sand-component-bg-color, #422923);
+@sand-focus-bg-color: var(--sand-focus-bg-color, #b85f23);

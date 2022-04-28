@@ -11,12 +11,13 @@
 	position: absolute;
 
 	.applySkins({
+		border-radius: @sand-holepunchscrim-border-radius;
+		
 		// 4800px seems to be a safe value for a 16:9 aspect ratio at 4k resolution.
 		// A value smaller than this, any you'll see the round corner of this scrim
 		// if the anchor point of this is in a corner.
 		// This value is defined here, rather than the variables file because it's
 		// highly specific to the implementation and isn't intended to be edited.
 		box-shadow: 0 0 0 4800px @sand-holepunchscrim-bg-color;
-		border-radius: @sand-holepunchscrim-border-radius;
 	});
 }
