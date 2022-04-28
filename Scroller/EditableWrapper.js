@@ -186,7 +186,7 @@ const EditableWrapper = (props) => {
 		const getNextElement = (item) => moveDirection > 0 ? item.nextElementSibling : item.previousElementSibling;
 		let sibling = getNextElement(selectedItem);
 		let start = moveDirection > 0 ? toIndex : fromIndex;
-		let end =  moveDirection > 0 ? fromIndex : toIndex;
+		let end = moveDirection > 0 ? fromIndex : toIndex;
 
 		while (start > end && sibling) {
 			sibling?.classList.add(componentCss.rearranged, componentCss.rearrangedTransform);
