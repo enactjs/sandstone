@@ -9,9 +9,10 @@
 	top: var(--hole-top);
 	left: var(--hole-left);
 	position: absolute;
-	border-radius: @sand-holepunchscrim-border-radius;
 
 	.applySkins({
+		border-radius: @sand-holepunchscrim-border-radius;
+		
 		// 4800px seems to be a safe value for a 16:9 aspect ratio at 4k resolution.
 		// A value smaller than this, any you'll see the round corner of this scrim
 		// if the anchor point of this is in a corner.
