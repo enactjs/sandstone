@@ -11,7 +11,7 @@ const listItemSlice = createSlice({
 	},
 	reducers: {
 		setData: {
-			reducer: (state, action ) => {
+			reducer: (state, action) => {
 				const newListItems = [];
 
 				for (let i = 0; i < action.payload.dataSize; i++) {

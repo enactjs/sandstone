@@ -74,11 +74,11 @@ const EditableWrapper = (props) => {
 		// Position for restoring focus after removing item
 		nextSpotlightRect: null,
 
-		// Flags
+		// Last move direction
 		lastMoveDirection: null,
 
 		// Last mouse position
-		mouseClientX: null,
+		lastMouseClientX: null,
 
 		// Last InputType which moves Items
 		lastInputType: null
@@ -291,7 +291,7 @@ const EditableWrapper = (props) => {
 	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
 		if (selectedItem) {
-			mutableRef.current.mouseClientX = ev.clientX;
+			mutableRef.current.lastMouseClientX = ev.clientX;
 			// Determine toIndex with mouse client x position
 			const toIndex = Math.floor((ev.clientX + scrollContentRef.current.scrollLeft - centeredOffset) / itemWidth);
 
@@ -301,7 +301,7 @@ const EditableWrapper = (props) => {
 	}, [moveItems, scrollContentRef]);
 
 	const handleMouseLeave = useCallback(() => {
-		const {itemWidth, lastInputType, mouseClientX, selectedItem} = mutableRef.current;
+		const {itemWidth, lastInputType, lastMouseClientX, selectedItem} = mutableRef.current;
 		const scrollContentNode = scrollContentRef.current;
 		const scrollContentCenter = scrollContentNode.getBoundingClientRect().width / 2;
 
@@ -311,12 +311,10 @@ const EditableWrapper = (props) => {
 			reset();
 
 			if (lastInputType === 'scroll') {
-				let left = 0;
-				if (mouseClientX > scrollContentCenter) {
-					left = scrollContentNode.scrollLeft + itemWidth;
-				} else {
-					left = scrollContentNode.scrollLeft - itemWidth;
-				}
+				const offset = itemWidth * (lastMouseClientX > scrollContentCenter ? 1 : -1);
+				let left = scrollContentNode.scrollLeft;
+				left += offset;
+
 				scrollContainerHandle.current.start({
 					targetX: left,
 					targetY: 0
@@ -406,15 +404,11 @@ const EditableWrapper = (props) => {
 		const scrollContentCenter = scrollContentNode.getBoundingClientRect().width / 2;
 
 		const handleMoveItemsByScroll = () => {
-			const {centeredOffset, itemWidth, mouseClientX, selectedItem} = mutableRef.current;
+			const {itemWidth, lastMouseClientX, selectedItem} = mutableRef.current;
 			if (selectedItem) {
-				const toIndex = Math.floor((mouseClientX + scrollContentNode.scrollLeft - centeredOffset) / itemWidth);
+				const toIndex = Math.floor((lastMouseClientX + scrollContentNode.scrollLeft) / itemWidth);
 				mutableRef.current.lastInputType = 'scroll';
-				if (mouseClientX > scrollContentCenter) {
-					moveItems(clamp(0, dataSize - 1, toIndex + 1));
-				} else {
-					moveItems(clamp(0, dataSize - 1, toIndex - 1));
-				}
+				moveItems(lastMouseClientX > scrollContentCenter ? toIndex + 1 : toIndex - 1);
 			}
 		};
 
@@ -424,7 +418,7 @@ const EditableWrapper = (props) => {
 			scrollContentNode.removeEventListener('scroll', handleMoveItemsByScroll);
 		};
 
-	}, [dataSize, moveItems, mutableRef, scrollContentRef]);
+	}, [moveItems, scrollContentRef]);
 
 	return (
 		<div
