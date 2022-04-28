@@ -112,7 +112,7 @@ WithACustomLongpressEventAnd1SecondFrequency.storyName = 'with a custom longpres
 
 export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = (args) => {
 	const moveTolerance = args['holdConfig moveTolerance'];
-	const cancelOnMove =  args['holdConfig cancelOnMove'] || false;
+	const cancelOnMove = args['holdConfig cancelOnMove'] || false;
 	return (
 		<TouchArea
 			holdConfig={{
@@ -184,7 +184,7 @@ WithOnFlickHandler.storyName = 'with onFlick handler';
 export const WithDragHandlers = (args) => (
 	<TouchableDiv
 		dragConfig={{
-			global:  args['dragConfig global'] || false,
+			global: args['dragConfig global'] || false,
 			moveTolerance: args['dragConfig moveTolerance']
 		}}
 		noResume={args['noResume']}

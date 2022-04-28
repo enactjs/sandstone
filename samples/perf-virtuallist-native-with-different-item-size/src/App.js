@@ -21,7 +21,6 @@ const viewNames = [
 const defaultViewIndex = 0;
 
 const VirtualListSample = (props) => {
-
 	const [index, setIndex] = useState(defaultViewIndex);
 
 	const onSelect = useCallback(({selected}) => {
