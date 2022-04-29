@@ -390,7 +390,7 @@ const EditableWrapper = (props) => {
 	}, [handleMouseLeave, scrollContainerRef]);
 
 	useEffect(() => {
-		if (editable.removeItemFuncRef) {
+		if (editable?.removeItemFuncRef) {
 			editable.removeItemFuncRef.current = removeItem;
 		}
 	}, [removeItem, editable.removeItemFuncRef]);
