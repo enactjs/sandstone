@@ -47,8 +47,9 @@ const SpotlightAccelerator = new Accelerator([5, 4]);
  */
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
-	const centered = editable.centered != null ? editable.centered : true;
-	const customCss = editable.css || {};
+	const centered = editable?.centered != null ? editable.centered : true;
+	const customCss = editable?.css || {};
+	const removeItemFuncRef = editable?.removeItemFuncRef;
 
 	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
 
@@ -390,10 +391,10 @@ const EditableWrapper = (props) => {
 	}, [handleMouseLeave, scrollContainerRef]);
 
 	useEffect(() => {
-		if (editable.removeItemFuncRef) {
-			editable.removeItemFuncRef.current = removeItem;
+		if (removeItemFuncRef) {
+			removeItemFuncRef.current = removeItem;
 		}
-	}, [removeItem, editable.removeItemFuncRef]);
+	}, [removeItem, removeItemFuncRef]);
 
 	useEffect(() => {
 		// addEventListener to moveItems while scrolled
