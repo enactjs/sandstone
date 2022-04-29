@@ -48,7 +48,7 @@ const SpotlightAccelerator = new Accelerator([5, 4]);
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
 	const centered = editable?.centered != null ? editable.centered : true;
-	const customCss = editable.css || {};
+	const customCss = editable?.css || {};
 
 	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
 
