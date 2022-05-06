@@ -13,6 +13,9 @@ module.exports = {
 		'@enact/storybook-utils/addons/docs/register',
 		'@enact/storybook-utils/addons/toolbars/register'
 	],
+	features: {
+		storyStoreV7: true,
+	},
 	webpackFinal: async (config, {configType}) => {
 		return webpack(config, configType, __dirname);
 	}

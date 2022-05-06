@@ -37,6 +37,6 @@
     "@storybook/theming": "^6.4.22",
     "babel-loader": "^8.0.0",
     "core-js": "^3.8.2",
-    "html-webpack-plugin": "^5.5.0"
+    "html-webpack-plugin": "^4.5.2"
   }
 }
