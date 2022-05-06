@@ -105,7 +105,7 @@ MultipleScroller.parameters = {
 	}
 };
 
-export const WithBidirectionalText  = (args) => {
+export const WithBidirectionalText = (args) => {
 	const inputPasswordFor = 'Input Password for ';
 	const inputPasswordForAr = 'الرجاء إدخال كلمة المرور لـ ';
 	const abcDevice = 'ABC جهاز';

@@ -58,8 +58,8 @@ const HorizontalDifferenctWidthItemList = (props) => {
 	const [items, setItems] = useState([]);
 	const [itemSize, setItemSize] = useState([]);
 
-	useEffect( () => {
-		let  position = 0, arrayItemSize = [], arrayItems = [];
+	useEffect(() => {
+		let position = 0, arrayItemSize = [], arrayItems = [];
 		for (let i = 0; i < numOfItems; i++) {
 			const
 				numOfLines = Math.ceil(Math.random() * 6),

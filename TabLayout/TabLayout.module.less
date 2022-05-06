@@ -9,6 +9,19 @@
 
 	&.collapsed {
 		/* We need a placeholder for spotlight default focus rules */
+		.tabGroup {
+			.tab {
+				&.vertical {
+					&.button {
+						&.selected {
+							.bg {
+								/* Override TabLayout */
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	&.anchorEnd,
@@ -134,6 +147,26 @@
 					}
 				}
 			});
+		}
+	}
+
+	.tabGroup {
+		.tab {
+			&.vertical {
+				&.button {
+					&.selected {
+						.bg {
+							/* Override TabLayout */
+						}
+					}
+
+					.focus({
+						.bg {
+							/* Override TabLayout */
+						}
+					});
+				}
+			}
 		}
 	}
 }

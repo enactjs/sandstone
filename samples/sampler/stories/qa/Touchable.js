@@ -112,7 +112,7 @@ WithACustomLongpressEventAnd1SecondFrequency.storyName = 'with a custom longpres
 
 export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = (args) => {
 	const moveTolerance = args['holdConfig moveTolerance'];
-	const cancelOnMove =  args['holdConfig cancelOnMove'] || false;
+	const cancelOnMove = args['holdConfig cancelOnMove'] || false;
 	return (
 		<TouchArea
 			holdConfig={{
@@ -184,7 +184,7 @@ WithOnFlickHandler.storyName = 'with onFlick handler';
 export const WithDragHandlers = (args) => (
 	<TouchableDiv
 		dragConfig={{
-			global:  args['dragConfig global'] || false,
+			global: args['dragConfig global'] || false,
 			moveTolerance: args['dragConfig moveTolerance']
 		}}
 		noResume={args['noResume']}
@@ -232,3 +232,21 @@ boolean('disabled', OnTapWhenClicked, TouchableDiv);
 boolean('noResume', OnTapWhenClicked, TouchableDiv, false);
 
 OnTapWhenClicked.storyName = 'onTap when clicked';
+
+export const WithOnClickHandler = () => (
+	<TouchableDiv
+		disabled={boolean('disabled', TouchableDiv)}
+		onClick={action('onClick')}
+		onDown={action('onDown')}
+		onMouseDown={action('onMouseDown')}
+		onMouseUp={action('onMouseUp')}
+		onTouchEnd={action('onTouchEnd')}
+		onTouchStart={action('onTouchStart')}
+		onUp={action('onUp')}
+		style={{border: '4px dashed #888', textAlign: 'center'}}
+	>
+		Click here
+	</TouchableDiv>
+);
+
+WithOnClickHandler.storyName = 'with onClick handler';
