@@ -8,10 +8,10 @@ module.exports = {
 	},
 	stories: ['./../stories/qa/*.js'],
 	addons: [
-		'@enact/storybook-utils/addons/actions/register',
-		'@enact/storybook-utils/addons/controls/register',
-		'@enact/storybook-utils/addons/docs/register',
-		'@enact/storybook-utils/addons/toolbars/register'
+		'@enact/storybook-utils/addons/actions',
+		'@enact/storybook-utils/addons/controls',
+		'@enact/storybook-utils/addons/docs',
+		'@enact/storybook-utils/addons/toolbars'
 	],
 	features: {
 		storyStoreV7: true,
