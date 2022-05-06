@@ -6,6 +6,7 @@ module.exports = {
 	features: {
 		postcss: false
 	},
+	framework: '@storybook/react',
 	stories: ['./../stories/default/*.js'],
 	addons: [
 		'@enact/storybook-utils/addons/actions',
