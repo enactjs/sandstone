@@ -377,7 +377,7 @@ const EditableWrapper = (props) => {
 	useEffect(() => {
 		// Calculate the item width once
 		const scrollContentNode = scrollContentRef.current;
-		const item = scrollContainerHandle.current.rtl ? wrapperRef.current?.children[dataSize-1] : wrapperRef.current?.children[0];
+		const item = scrollContainerHandle.current.rtl ? wrapperRef.current?.children[dataSize - 1] : wrapperRef.current?.children[0];
 		const neighbor = item.nextElementSibling || item.previousElementSibling;
 
 		mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
