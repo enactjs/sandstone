@@ -32,11 +32,11 @@
   },
   "devDependencies": {
     "@enact/storybook-utils": "enactjs/storybook-utils#feature/WRO-2495-DS",
-    "@storybook/addons": "^6.5.0-alpha.64",
-    "@storybook/react": "^6.5.0-alpha.64",
-    "@storybook/theming": "^6.5.0-alpha.64",
-    "babel-loader": "^8.2.3",
-    "core-js": "^3.20.1",
+    "@storybook/addons": "^6.4.22",
+    "@storybook/react": "^6.4.22",
+    "@storybook/theming": "^6.4.22",
+    "babel-loader": "^8.0.0",
+    "core-js": "^3.8.2",
     "html-webpack-plugin": "^5.5.0"
   }
 }
