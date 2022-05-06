@@ -202,7 +202,7 @@ const EditableWrapper = (props) => {
 
 		mutableRef.current.lastMoveDirection = moveDirection;
 
-	}, []);
+	}, [scrollContainerHandle]);
 
 	const removeRearrangedItems = useCallback((numToRemove) => {
 		const {rearrangedItems} = mutableRef.current;
@@ -249,7 +249,7 @@ const EditableWrapper = (props) => {
 				}
 			}
 		}
-	}, [dataSize, addRearrangedItems, removeRearrangedItems]);
+	}, [dataSize, addRearrangedItems, removeRearrangedItems, scrollContainerHandle]);
 
 	const moveItemsByKeyDown = useCallback((ev) => {
 		const {keyCode} = ev;
@@ -289,6 +289,14 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, reset]);
 
+	const getRtlPositionX = useCallback((x) => {
+		if (scrollContainerHandle.current.rtl) {
+			return (platform.ios || platform.safari || platform.chrome >= 85 || platform.androidChrome >= 85) ?
+				-x : scrollContainerHandle.current.scrollBounds.maxLeft - x;
+		}
+		return x;
+	}, [scrollContainerHandle]);
+
 	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
 		const {rtl} = scrollContainerHandle.current;
@@ -302,7 +310,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.lastInputType = 'mouse';
 			moveItems(toIndex);
 		}
-	}, [moveItems, scrollContentRef]);
+	}, [getRtlPositionX, moveItems, scrollContainerHandle, scrollContentRef]);
 
 	const handleMouseLeave = useCallback(() => {
 		const {itemWidth, lastInputType, lastMouseClientX, selectedItem} = mutableRef.current;
@@ -323,7 +331,7 @@ const EditableWrapper = (props) => {
 				});
 			}
 		}
-	}, [editable, finalizeOrders, reset, scrollContainerHandle, scrollContentRef]);
+	}, [editable, finalizeOrders, getRtlPositionX, reset, scrollContainerHandle, scrollContentRef]);
 
 	const handleKeyDown = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
@@ -359,14 +367,6 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
 
-	const getRtlPositionX = useCallback((x) => {
-		if (scrollContainerHandle.current.rtl) {
-			return (platform.ios || platform.safari || platform.chrome >= 85 || platform.androidChrome >= 85) ?
-				-x : scrollContainerHandle.current.scrollBounds.maxLeft - x;
-		}
-		return x;
-	}, []);
-
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
 			Spotlight.focusNextFromPoint('down', mutableRef.current.nextSpotlightRect);
@@ -383,7 +383,7 @@ const EditableWrapper = (props) => {
 		mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
 		mutableRef.current.centeredOffset = (centered && (scrollContentNode.getBoundingClientRect().width > mutableRef.current.itemWidth * dataSize)) ? item.getBoundingClientRect().x : 0;
 		wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
-	}, [centered, dataSize]);
+	}, [centered, dataSize, scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
@@ -430,7 +430,7 @@ const EditableWrapper = (props) => {
 			scrollContentNode.removeEventListener('scroll', handleMoveItemsByScroll);
 		};
 
-	}, [moveItems, scrollContentRef]);
+	}, [getRtlPositionX, moveItems, scrollContainerHandle, scrollContentRef]);
 
 	return (
 		<div
