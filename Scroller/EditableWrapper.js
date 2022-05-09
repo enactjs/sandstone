@@ -289,11 +289,15 @@ const EditableWrapper = (props) => {
 	}, [editable, finalizeOrders, reset]);
 
 	const handleMouseMove = useCallback((ev) => {
-		const {centeredOffset, itemWidth, selectedItem} = mutableRef.current;
+		const {centeredOffset, itemWidth, prevToIndex, selectedItem} = mutableRef.current;
+		const {clientX} = ev;
+		const scrollContentOffset = scrollContentRef.current.scrollLeft - centeredOffset;
+
 		if (selectedItem) {
-			mutableRef.current.lastMouseClientX = ev.clientX;
+			mutableRef.current.lastMouseClientX = clientX;
 			// Determine toIndex with mouse client x position
-			const toIndex = Math.floor((ev.clientX + scrollContentRef.current.scrollLeft - centeredOffset) / itemWidth);
+			const moveTolerance = itemWidth * 0.33 * (itemWidth * (prevToIndex + 0.5) < clientX + scrollContentOffset ? 1 : -1);
+			const toIndex = Math.floor((clientX + scrollContentOffset - moveTolerance) / itemWidth);
 
 			mutableRef.current.lastInputType = 'mouse';
 			moveItems(toIndex);
@@ -364,14 +368,12 @@ const EditableWrapper = (props) => {
 
 	useEffect(() => {
 		// Calculate the item width once
-		if (!mutableRef.current.itemWidth) {
-			const item = wrapperRef.current?.children[0];
-			const neighbor = item.nextElementSibling || item.previousElementSibling;
-			mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
-			mutableRef.current.centeredOffset = centered ? item.getBoundingClientRect().x : 0;
-			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
-		}
-	}, [centered]); // TODO: Need dataSize dependency for centeredOffset
+		const item = wrapperRef.current?.children[0];
+		const neighbor = item.nextElementSibling || item.previousElementSibling;
+		mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
+		mutableRef.current.centeredOffset = centered ? item.getBoundingClientRect().x : 0;
+		wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
+	}, [centered, dataSize, scrollContentRef]);
 
 	useEffect(() => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
