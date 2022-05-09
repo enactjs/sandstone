@@ -46,13 +46,11 @@
 
 	// The switch is acting a standalone capacity and is Spottable
 	.spottable({
-		.sand-taparea(@sand-switch-height);
 		margin: @sand-switch-spottable-margin;
 
 		.bg {
 			position: absolute;
 			.position(@sand-switch-spottable-position-top-bottom, @sand-switch-spottable-position-left-right);
-			border-radius: @sand-switch-spottable-border-radius;
 			z-index: -1;
 		}
 	});
@@ -92,7 +90,10 @@
 
 		// Standalone Switch
 		.spottable({
+			.sand-taparea(@sand-switch-height);
+
 			.bg {
+				border-radius: @sand-switch-spottable-border-radius;
 				.sand-spotlight-resting-bg-colors();
 			}
 		});

@@ -74,6 +74,10 @@
 					.extract(@sand-alert-overlay-buttons-margin, left)[],
 					.extract(@sand-alert-overlay-buttons-margin, right)[]
 				);
+				:global(.enact-orientation-portrait) & {
+					margin: @sand-portrait-alert-overlay-buttons-margin;
+					.margin-start-end(.extract(@sand-portrait-alert-overlay-buttons-margin, left)[], .extract(@sand-portrait-alert-overlay-buttons-margin, right)[], parent);
+				}
 			}
 		}
 
@@ -90,12 +94,23 @@
 				width: @sand-alert-overlay-content-width;
 				.margin-start-end(@sand-alert-overlay-image-text-gap, @sand-alert-overlay-text-button-gap);
 				margin-bottom: 0;
+
+				:global(.enact-orientation-portrait) & {
+					width: @sand-portrait-alert-overlay-content-width;
+					.margin-start-end(@sand-alert-overlay-image-text-gap, @sand-portrait-alert-overlay-text-button-gap, parent);
+				}
 			}
 		}
 
 		&.noImage {
 			.content {
 				.margin-start-end(@sand-alert-overlay-noimage-text-gap, @sand-alert-overlay-text-button-gap);
+
+				:global(.enact-orientation-portrait) & {
+					width: @sand-portrait-alert-overlay-noimage-content-width;
+					.margin-start-end(@sand-alert-overlay-noimage-text-gap, @sand-portrait-alert-overlay-text-button-gap, parent);
+				}
+
 			}
 		}
 	}
@@ -106,10 +121,8 @@
 		width: fit-content;
 		margin-left: auto;
 		margin-right: auto;
-		margin-bottom: @sand-alert-overlay-margin-bottom;
 
 		.body {
-			border-radius: @sand-alert-overlay-border-radius;
 			padding-top: @sand-alert-overlay-padding-top-bottom;
 			padding-bottom: @sand-alert-overlay-padding-top-bottom;
 			.padding-start-end(@sand-alert-overlay-padding-left, @sand-alert-overlay-padding-right);
@@ -120,6 +133,9 @@
 		background-color: @sand-alert-bg-color;
 
 		&.overlay {
+			margin-bottom: @sand-alert-overlay-margin-bottom;
+			border-radius: @sand-alert-overlay-border-radius;
+
 			/* Override colors inside overlay type Alert */
 			--sand-bg-color: @sand-alert-overlay-bg-color;
 			--sand-text-color: @sand-alert-overlay-text-color;
@@ -136,7 +152,7 @@
 			--sand-formcheckboxitem-focus-text-color: @sand-alert-overlay-formcheckboxitem-focus-text-color;
 			--sand-item-disabled-focus-bg-color: @sand-alert-overlay-item-disabled-focus-bg-color;
 
-			background-color: rgb(@sand-alert-overlay-bg-color-rgb, 95%);
+			background-color: rgb(@sand-alert-overlay-bg-color-rgb, @sand-alert-overlay-bg-color-opacity);
 			box-shadow: @sand-alert-overlay-shadow;
 		}
 	});

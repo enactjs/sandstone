@@ -18,11 +18,47 @@
 		.tabs {
 			bottom: auto; // Override the bottom:0 set by TabLayout which allows the use of an un-sized scroller, but is uncooperative with this layout (a shrinking container)
 		}
+
+		&.collapsed { /* Override TabLayout */ }
+
+		.tabGroup {
+			.tab {
+				&.vertical {
+					&.button {
+						&.selected {
+							.bg {
+								/* Override TabLayout */
+							}
+						}
+
+						.focus({
+							.bg {
+								/* Override TabLayout */
+							}
+						});
+					}
+
+					&.collapsed {
+						&.button {
+							&.selected {
+								.bg {
+									/* Override TabLayout */
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	.tabs {
 		padding: @sand-popuptablayout-tabs-padding;
 		margin-right: @sand-popuptablayout-tabs-content-spacing;
+	}
+
+	.tabsExpanded {
+		/* Override TabLayout */
 	}
 
 	.content {

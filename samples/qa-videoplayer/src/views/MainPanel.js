@@ -66,7 +66,7 @@ const SelectableVideoPlayer = (props) => {
 			ref={setVideo}
 		>
 			<MediaControls>
-				<Button onTap={handleToggleSelection} selected={selecting}>{selecting ? 'Play Loop' : 'Set End Time'}</Button>
+				<Button onClick={handleToggleSelection} selected={selecting}>{selecting ? 'Play Loop' : 'Set End Time'}</Button>
 			</MediaControls>
 			<source src="http://media.w3.org/2010/05/video/movie_300.mp4" />
 		</VideoPlayer>
