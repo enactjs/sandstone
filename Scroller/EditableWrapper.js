@@ -403,7 +403,7 @@ const EditableWrapper = (props) => {
 
 		const handleMoveItemsByScroll = () => {
 			const {itemWidth, lastMouseClientX, selectedItem} = mutableRef.current;
-			if (selectedItem) {
+			if (selectedItem && mutableRef.current.lastInputType !== 'key') {
 				const toIndex = Math.floor((lastMouseClientX + scrollContentNode.scrollLeft) / itemWidth);
 				mutableRef.current.lastInputType = 'scroll';
 				moveItems(lastMouseClientX > scrollContentCenter ? toIndex + 1 : toIndex - 1);
