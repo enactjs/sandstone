@@ -256,14 +256,17 @@ const EditableWrapper = (props) => {
 		const {keyCode} = ev;
 		const container = scrollContentRef.current;
 		const {itemWidth, prevToIndex} = mutableRef.current;
-		const toIndex = is('left', keyCode) ? prevToIndex - 1 : prevToIndex + 1;
+		const {rtl} = scrollContainerHandle.current;
 
-		const itemLeft = toIndex * itemWidth - container.scrollLeft;
+		const toIndex = (rtl ^ is('left', keyCode)) ? prevToIndex - 1 : prevToIndex + 1;
+		const scrollLeft = container.scrollLeft * (rtl ? -1 : 1);
+		const itemLeft = toIndex * itemWidth - scrollLeft;
 		let left;
+
 		if (itemLeft > container.offsetLeft + container.clientWidth - itemWidth) {
-			left = itemLeft - (container.clientWidth - itemWidth) + container.scrollLeft;
+			left = itemLeft - (container.clientWidth - itemWidth) + scrollLeft;
 		} else if (itemLeft < 0) {
-			left = container.scrollLeft + itemLeft;
+			left = scrollLeft + itemLeft;
 		}
 
 		if (left != null) { /* avoid null or undefined */
