@@ -9,6 +9,7 @@
 	// Neutral Skin
 	&:global(.neutral) {
 		// Load the sandstone neutral rules into this scope
+		@import (multiple) "./variables-base.less";
 		@import (multiple) "./colors.less";
 
 		@componentRules();
@@ -23,9 +24,32 @@
 
 	// Light Skin
 	&:global(.light) {
+		@import (multiple) "./variables-base.less";
 		@import (multiple) "./colors.less";
 		@import "./colors-light.less";
 
 		@componentRules();
+	}
+
+	// Game Skin
+	&:global(.game) {
+		@import (multiple) "./variables-base.less";
+		@import (multiple) "./colors.less";
+		@import "./variables-game.less";
+		@import "./colors-game.less";
+
+		@componentRules();
+
+		:global(.green) & {
+			@import "./colors-game-green.less";
+
+			@componentRules();
+		}
+
+		:global(.orange) & {
+			@import "./colors-game-orange.less";
+
+			@componentRules();
+		}
 	}
 }

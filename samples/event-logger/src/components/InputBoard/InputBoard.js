@@ -178,7 +178,6 @@ const InputBoard = ({className}) => {
 		setShowFilter(selected);
 	}, []);
 
-
 	useEffect(() => {
 		eventCapturingOnRef.current = eventCapturingOn;
 		syntheticEventOnRef.current = syntheticEventOn;

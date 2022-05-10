@@ -1,4 +1,4 @@
-const {expectFocusedItem, expectNoFocusedItem} = require('../../VirtualList/VirtualList-utils');
+const {expectFocusedItem, expectNoFocusedItem, focusedElement} = require('../Scroller-utils.js');
 const ScrollerPage = require('../ScrollerPage');
 
 describe('Scroller List Of Things', function () {
@@ -6,7 +6,7 @@ describe('Scroller List Of Things', function () {
 		await ScrollerPage.open('ListOfThings');
 	});
 
-	it.skip('should spotlight is on the item closest to the previously focused item [QWT-2662]', async function () {
+	it('should spotlight is on the item closest to the previously focused item [QWT-2662]', async function () {
 		// Step 3: 5-way Spot the second item ('Item 001').
 		await $('#item0').moveTo();
 		await ScrollerPage.spotlightDown();
@@ -79,6 +79,7 @@ describe('Scroller List Of Things', function () {
 		await expectNoFocusedItem();
 		// Spotlight will display again when the pointer hides.
 		await ScrollerPage.hidePointerByKeycode();
-		await expectFocusedItem(8);
+		// Spotlight displays on top-level item.
+		await expect(5).to.equal(Number((await focusedElement()).slice(4)));
 	});
 });

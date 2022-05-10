@@ -264,7 +264,7 @@ const ButtonDecorator = compose(
 	Pure,
 	IconButtonDecorator,
 	TooltipDecorator({tooltipDestinationProp: 'decoration'}),  // Future note: This should eventually be conditionally applied via hooks (after refactoring)
-	MarqueeDecorator({className: componentCss.marquee}),
+	MarqueeDecorator({css: componentCss}),
 	UiButtonDecorator,
 	Spottable,
 	Skinnable

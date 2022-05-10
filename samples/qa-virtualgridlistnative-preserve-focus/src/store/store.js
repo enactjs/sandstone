@@ -6,7 +6,7 @@ const indexSlice = createSlice({
 		index : 0
 	},
 	reducers: {
-		increaseIndex: (state) =>  {
+		increaseIndex: (state) => {
 			state.index += 1;
 		},
 		decreaseIndex: (state) => {

@@ -3,7 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './App';
 
 // For Spotlight debugging
-if (__DEV__)  {
+if (__DEV__) {
 	import('./utils/spotlightDebugging')
 		.then(() => {
 			console.log('Spotlight debugging helpers loaded.');	// eslint-disable-line no-console

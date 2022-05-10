@@ -243,7 +243,7 @@ const TabLayoutBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'tabLayout',
-		publicClassNames: ['tabLayout', 'tabs', 'content']
+		publicClassNames: ['bg', 'button', 'client', 'collapsed', 'content', 'selected', 'tab', 'tabGroup', 'tabLayout', 'tabs', 'tabsExpanded', 'vertical']
 	},
 
 	handlers: {
@@ -359,6 +359,7 @@ const TabLayoutBase = kind({
 
 		// Props that are shared between both of the rendered TabGroup components
 		const tabGroupProps = {
+			css,
 			onClick: (collapsed ? handleClick : null),
 			onFocus: (collapsed ? handleFocus : null),
 			onFocusTab: onSelect,

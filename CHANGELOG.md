@@ -6,7 +6,19 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller` to give the scroll thumb the initial focus
+- `sandstone/Scroller` focus scroll thumb initially when it is used in Panels
+
+## [2.5.0-alpha.2] - 2022-05-09
+
+### Added
+
+- `sandstone/Alert` and `sandstone/Input` support for portrait mode
+- `sandstone/Icon` supported icon list, adding a new icon `wallpaper`
+- `sandstone/Scroller` prop `editable` to enable editing items in the scroller
+
+### Changed
+
+- `sandstone/Panels.Header` and `sandstone/RadioItem` to use `onClick` instead of `onTap` for touch support
 
 ## [2.5.0-alpha.1] - 2022-04-15
 
