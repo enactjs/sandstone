@@ -5,14 +5,14 @@ import {useCallback, useEffect, useState} from 'react';
 const SpotlightPlaceholder = Spottable('div');
 
 /**
- * ScrollbarPlaceHolder component.
+ * ScrollbarPlaceholder component.
  *
- * @class ScrollbarPlaceHolder
+ * @class ScrollbarPlaceholder
  * @memberof sandstone/useScroll
  * @ui
  * @private
  */
-const ScrollbarPlaceHolder = () => {
+const ScrollbarPlaceholder = () => {
 	const [showPlaceHolder, setShowPlaceHolder] = useState(true);
 
 	useEffect(() => {
@@ -40,9 +40,9 @@ const ScrollbarPlaceHolder = () => {
 	return (showPlaceHolder ? (<SpotlightPlaceholder onSpotlightDisappear={resetFocus} />) : null);
 };
 
-ScrollbarPlaceHolder.displayName = 'ScrollbarPlaceHolder';
+ScrollbarPlaceholder.displayName = 'ScrollbarPlaceholder';
 
-export default ScrollbarPlaceHolder;
+export default ScrollbarPlaceholder;
 export {
-	ScrollbarPlaceHolder
+	ScrollbarPlaceholder
 };
