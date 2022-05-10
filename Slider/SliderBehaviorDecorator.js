@@ -3,8 +3,7 @@ import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import Pause from '@enact/spotlight/Pause';
 import PropTypes from 'prop-types';
-import {findDOMNode} from 'react-dom';
-import {Component} from 'react';
+import {Component, createRef} from 'react';
 
 import $L from '../internal/$L';
 
@@ -69,6 +68,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.handleFocus = this.handleFocus.bind(this);
 			this.handleSpotlightEvents = this.handleSpotlightEvents.bind(this);
 			this.bounds = {};
+			this.sliderRef= createRef();
 
 			this.state = {
 				active: false,
@@ -109,7 +109,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		focusSlider () {
-			let slider = findDOMNode(this); // eslint-disable-line react/no-find-dom-node
+			let slider = this.sliderRef.current.node;
 			if (slider.getAttribute('role') !== 'slider') {
 				slider = slider.querySelector('[role="slider"]');
 			}
@@ -186,6 +186,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					onDragStart={this.handleDragStart}
 					onDragEnd={this.handleDragEnd}
 					onFocus={this.handleFocus}
+					ref={this.sliderRef}
 				/>
 			);
 		}
