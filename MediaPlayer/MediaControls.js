@@ -1,6 +1,6 @@
 import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import Cancelable from '@enact/ui/Cancelable';
-import EnactPropTypes from "@enact/core/internal/prop-types";
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import hoc from '@enact/core/hoc';
 import {is} from '@enact/core/keymap';
@@ -24,6 +24,16 @@ import {countReactChildren} from './util';
 import css from './MediaControls.module.less';
 
 const OuterComponent = ({mediaControlsRef, ...rest}) => (<div ref={mediaControlsRef} {...rest} />);
+
+OuterComponent.propTypes = {
+	/**
+	 * Called with the reference to the mediaControls node.
+	 *
+	 * @type {Object|Function}
+	 * @public
+	 */
+	mediaControlsRef: EnactPropTypes.ref
+};
 
 const OuterContainer = SpotlightContainerDecorator({
 	defaultElement: [
@@ -96,14 +106,6 @@ const MediaControlsBase = kind({
 		bottomComponents: PropTypes.node,
 
 		/**
-		 * Called with the reference to the mediaControls node.
-		 *
-		 * @type {Object|Function}
-		 * @public
-		 */
-		mediaControlsRef: EnactPropTypes.ref,
-
-		/**
 		 * Jump backward [icon]{@link sandstone/Icon.Icon} name. Accepts any
 		 * [icon]{@link sandstone/Icon.Icon} component type.
 		 *
@@ -130,6 +132,14 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		jumpForwardIcon: PropTypes.string,
+
+		/**
+		 * Called with the reference to the mediaControls node.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
+		mediaControlsRef: EnactPropTypes.ref,
 
 		/**
 		 * Disables the media buttons.
