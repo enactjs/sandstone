@@ -1,7 +1,6 @@
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
-import platform from '@enact/core/platform';
 import {mergeClassNameMaps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
