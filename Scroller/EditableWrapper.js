@@ -300,6 +300,7 @@ const EditableWrapper = (props) => {
 		if (selectedItem) {
 			mutableRef.current.lastMouseClientX = ev.clientX;
 			// Determine toIndex with mouse client x position
+			// Coordinate calculation in RTL locales is not supported in chrome below 85
 			const toIndex = Math.floor(((rtl ? scrollContentRight - ev.clientX : ev.clientX) + scrollContentRef.current.scrollLeft * (rtl ? -1 : 1) - centeredOffset) / itemWidth);
 
 			mutableRef.current.lastInputType = 'mouse';
