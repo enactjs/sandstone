@@ -2,12 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.5.0-alpha.2] - 2022-05-09
 
 ### Added
 
 - `sandstone/Alert` and `sandstone/Input` support for portrait mode
 - `sandstone/Icon` supported icon list, adding a new icon `wallpaper`
+- `sandstone/Scroller` prop `editable` to enable editing items in the scroller
 
 ### Changed
 

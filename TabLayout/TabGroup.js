@@ -46,7 +46,8 @@ const TabBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'tab'
+		className: 'tab',
+		publicClassNames: ['bg', 'button', 'client', 'selected', 'tab', 'vertical']
 	},
 
 	handlers: {
@@ -64,7 +65,7 @@ const TabBase = kind({
 	},
 
 	computed: {
-		className: ({orientation, styler}) => styler.append(orientation),
+		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		iconComponent: ({sprite, stopped}) => {
 			if (sprite) {
 				return (<Sprite stopped={stopped} {...sprite} />);
@@ -163,7 +164,8 @@ const TabGroupBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'tabGroup'
+		className: 'tabGroup',
+		publicClassNames: ['bg', 'button', 'client', 'selected', 'tab', 'tabGroup', 'vertical']
 	},
 
 	computed: {
@@ -174,11 +176,11 @@ const TabGroupBase = kind({
 		tabsSpotlightDisabled: ({spotlightDisabled, tabs}) => spotlightDisabled || tabs.find(tab => tab && !tab.spotlightDisabled) == null
 	},
 
-	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, tabsSpotlightDisabled, ...rest}) => {
+	render: ({css, collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, tabsSpotlightDisabled, ...rest}) => {
 		delete rest.children;
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const itemProps = useMemo(() => ({collapsed, orientation, size: tabSize}), [collapsed, orientation, tabSize]);
+		const itemProps = useMemo(() => ({css, collapsed, orientation, size: tabSize}), [css, collapsed, orientation, tabSize]);
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const children = useMemo(() => tabs.map(tab => {
 			if (tab) {

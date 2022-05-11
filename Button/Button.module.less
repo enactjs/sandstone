@@ -9,14 +9,12 @@
 	.sand-large-button-text();
 	height: @sand-button-height;
 	line-height: (@sand-button-height - (2 * @sand-button-border-width));
-	border-radius: @sand-button-border-radius;
 	min-width: @sand-button-height;
 	max-width: @sand-button-max-width;
 	padding: 0 @sand-button-h-padding;
 	margin: @sand-button-margin;
 	text-align: center;
 	vertical-align: middle;
-	.sand-taparea(@sand-button-height);
 
 	.sand-custom-text({
 		font-size: @sand-button-font-size-large;
@@ -31,11 +29,6 @@
 
 	&.focusExpand {
 		margin: @sand-button-focusexpand-margin;
-	}
-
-	.bg {
-		border-width: @sand-button-border-width;
-		border-radius: @sand-button-border-radius;
 	}
 
 	.client {
@@ -133,7 +126,6 @@
 		margin: @sand-button-small-margin;
 		padding-left: @sand-button-small-h-padding;
 		padding-right: @sand-button-small-h-padding;
-		.sand-taparea(@sand-button-small-height);
 
 		&.focusExpand {
 			margin: @sand-button-small-focusexpand-margin;
@@ -280,6 +272,11 @@
 
 	// Skin colors
 	.applySkins({
+		& {
+			border-radius: @sand-button-border-radius;
+			.sand-taparea(@sand-button-height);
+		}
+
 		&,
 		:global(.enact-a11y-high-contrast) & {
 			color: @sand-button-text-color;
@@ -287,7 +284,10 @@
 
 		.bg {
 			.sand-button-resting-bg-colors();
-			border-color: transparent;
+			border-width: @sand-button-bg-border-width;
+			border-style: @sand-button-bg-border-style;
+			border-color: @sand-button-border-color;
+			border-radius: @sand-button-border-radius;
 		}
 
 		&.opaque {
@@ -319,6 +319,17 @@
 			background-color: @sand-remote-button-blue-color;
 		}
 
+		&.small {
+			.sand-taparea(@sand-button-small-height);
+		}
+
+		&.iconOnly {
+			.bg {
+				border: @sand-button-icononly-bg-border;
+				border-radius: @sand-button-icononly-border-radius;
+			}
+		}
+
 		&.selected {
 			color: @sand-button-selected-text-color;
 
@@ -344,6 +355,12 @@
 
 			.bg {
 				.sand-button-focus-bg-colors();
+			}
+
+			&.iconOnly {
+				.bg {
+					background-color: @sand-button-focus-icononly-bg-color;
+				}
 			}
 
 			&.focusExpand {
