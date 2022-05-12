@@ -12,7 +12,7 @@ before_install:
 install:
     - npm config set prefer-offline true
     - npm config set legacy-peer-deps true
-    - npm install -g enactjs/cli#develop
+    - npm install -g enactjs/cli#master
     - npm install -g codecov
     - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
