@@ -1910,7 +1910,6 @@ const VideoPlayerBase = class extends Component {
 	setPlayerRef = () => {
 		// TODO: We've moved SpotlightContainerDecorator up to allow VP to be spottable but also
 		// need a ref to the root node to query for children and set CSS variables.
-		// eslint-disable-next-line react/no-find-dom-node
 		this.player = this.playerRef.current;
 	};
 
