@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridium
+- `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridiem
 
 ## [2.5.0-alpha.2] - 2022-05-09
 
