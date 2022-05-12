@@ -218,7 +218,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				this.props.handleSpotlightPause(false);
 			}
 
-			Spotlight.set(this.node.current.dataset.spotlightId, {
+			Spotlight.set(this.node.current.childNodes[0].dataset.spotlightId, {
 				defaultElement: '[data-selected="true"]',
 				enterTo: 'default-element'
 			});
@@ -292,7 +292,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		handleFocus = (ev) => {
 			const current = ev.target;
 			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
-				current.dataset['index'] != null && this.node.current.contains(current)
+				current.dataset['index'] != null && this.node.current.childNodes[0].contains(current)
 			) {
 				const focusedIndex = Number(current.dataset['index']);
 				const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
