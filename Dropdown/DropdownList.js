@@ -3,11 +3,11 @@ import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spotlight from '@enact/spotlight';
+import ForwardRef from '@enact/ui/ForwardRef';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {Component} from 'react';
-import ReactDOM from 'react-dom';
+import {Component, createRef} from 'react';
 
 import Icon from '../Icon';
 import Item from '../Item';
@@ -50,6 +50,14 @@ const DropdownListBase = kind({
 				key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 			}))
 		]),
+
+		/**
+		 * Called with a reference to the root component.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
+		componentRef: EnactPropTypes.ref,
 
 		/*
 		 * Called when an item is selected.
@@ -131,7 +139,7 @@ const DropdownListBase = kind({
 		itemSize: () => 126
 	},
 
-	render: ({dataSize, itemSize, scrollTo, width, ...rest}) => {
+	render: ({componentRef, dataSize, itemSize, scrollTo, width, ...rest}) => {
 		delete rest.children;
 		delete rest.onSelect;
 		delete rest.selected;
@@ -139,16 +147,18 @@ const DropdownListBase = kind({
 		delete rest.width;
 
 		return (
-			<VirtualList
-				{...rest}
-				cbScrollTo={scrollTo}
-				dataSize={dataSize}
-				itemSize={ri.scale(itemSize)}
-				style={{
-					height: ri.scaleToRem((itemSize * dataSize) + 36),
-					width: typeof width === 'number' ? ri.scaleToRem(width) : null
-				}}
-			/>
+			<div ref={componentRef}>
+				<VirtualList
+					{...rest}
+					cbScrollTo={scrollTo}
+					dataSize={dataSize}
+					itemSize={ri.scale(itemSize)}
+					style={{
+						height: ri.scaleToRem((itemSize * dataSize) + 36),
+						width: typeof width === 'number' ? ri.scaleToRem(width) : null
+					}}
+				/>
+			</div>
 		);
 	}
 });
@@ -192,6 +202,8 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		constructor (props) {
 			super(props);
 
+			this.node = createRef();
+
 			this.state = {
 				prevChildren: props.children,
 				prevFocused: null,
@@ -206,9 +218,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				this.props.handleSpotlightPause(false);
 			}
 
-			// eslint-disable-next-line react/no-find-dom-node
-			this.node = ReactDOM.findDOMNode(this);
-			Spotlight.set(this.node.dataset.spotlightId, {
+			Spotlight.set(this.node.current.dataset.spotlightId, {
 				defaultElement: '[data-selected="true"]',
 				enterTo: 'default-element'
 			});
@@ -282,7 +292,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		handleFocus = (ev) => {
 			const current = ev.target;
 			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
-				current.dataset['index'] != null && this.node.contains(current)
+				current.dataset['index'] != null && this.node.current.contains(current)
 			) {
 				const focusedIndex = Number(current.dataset['index']);
 				const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
@@ -299,7 +309,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			delete props.handleSpotlightPause;
 
 			return (
-				<Wrapped {...props} onFocus={this.handleFocus} scrollTo={this.setScrollTo} />
+				<Wrapped {...props} onFocus={this.handleFocus} ref={this.node} scrollTo={this.setScrollTo} />
 			);
 		}
 	};
@@ -307,6 +317,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 const DropdownListDecorator = compose(
 	DropdownListSpotlightDecorator,
+	ForwardRef({prop: 'componentRef'}),
 	Skinnable({variantsProp: 'skinVariants'})
 );
 
