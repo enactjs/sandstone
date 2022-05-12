@@ -13,13 +13,13 @@ const SpotlightPlaceholder = Spottable('div');
  * @private
  */
 const ScrollbarPlaceholder = () => {
-	const [showPlaceHolder, setShowPlaceHolder] = useState(true);
+	const [showPlaceholder, setShowPlaceholder] = useState(true);
 
 	useEffect(() => {
-		if (showPlaceHolder) {
-			setShowPlaceHolder(false);
+		if (showPlaceholder) {
+			setShowPlaceholder(false);
 		}
-	}, [showPlaceHolder]);
+	}, [showPlaceholder]);
 
 	const resetFocus = useCallback(() => {
 		setTimeout(() => {
@@ -34,10 +34,10 @@ const ScrollbarPlaceholder = () => {
 					}, 400); // Wait again for finishing animation (ex. panel transition).
 				}
 			}
-		}, 0); // Wait for unmounting placeHolder node.
+		}, 0); // Wait for unmounting placeholder node.
 	}, []);
 
-	return (showPlaceHolder ? (<SpotlightPlaceholder onSpotlightDisappear={resetFocus} />) : null);
+	return (showPlaceholder ? (<SpotlightPlaceholder onSpotlightDisappear={resetFocus} />) : null);
 };
 
 ScrollbarPlaceholder.displayName = 'ScrollbarPlaceholder';
