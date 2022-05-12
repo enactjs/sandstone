@@ -23,10 +23,10 @@ import {countReactChildren} from './util';
 
 import css from './MediaControls.module.less';
 
-const OuterComponent = ({mediaControlsRef, ...rest}) => (<div ref={mediaControlsRef} {...rest} />);
+const DivComponent = ({mediaControlsRef, ...rest}) => (<div ref={mediaControlsRef} {...rest} />);
 
-OuterComponent.propTypes = {
-	/**
+DivComponent.propTypes = {
+	/*
 	 * Called with the reference to the mediaControls node.
 	 *
 	 * @type {Object|Function}
@@ -40,7 +40,7 @@ const OuterContainer = SpotlightContainerDecorator({
 		`.${spotlightDefaultClass}`
 	],
 	leaveFor: {left: '', right: ''}
-}, OuterComponent);
+}, DivComponent);
 const Container = SpotlightContainerDecorator({
 	enterTo: 'default-element'
 }, 'div');

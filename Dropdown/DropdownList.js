@@ -51,7 +51,7 @@ const DropdownListBase = kind({
 			}))
 		]),
 
-		/**
+		/*
 		 * Called with a reference to the root component.
 		 *
 		 * @type {Object|Function}
