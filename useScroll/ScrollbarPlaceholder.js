@@ -25,11 +25,11 @@ const ScrollbarPlaceholder = () => {
 		setTimeout(() => {
 			if (!Spotlight.getPointerMode() && !Spotlight.getCurrent()) {
 				if (!Spotlight.isPaused()) {
-					Spotlight.focusFromContainer();
+					Spotlight.focus(Spotlight.getActiveContainer(), {toOuterContainer:true});
 				} else {
 					setTimeout(() => {
 						if (!Spotlight.getPointerMode() && !Spotlight.getCurrent() && !Spotlight.isPaused()) {
-							Spotlight.focusFromContainer();
+							Spotlight.focus(Spotlight.getActiveContainer(), {toOuterContainer:true});
 						}
 					}, 400); // Wait again for finishing animation (ex. panel transition).
 				}
