@@ -310,7 +310,6 @@
 @sand-alert-fullscreen-button-spacing: 60px;
 @sand-alert-fullscreen-image-spacing: 30px;
 @sand-alert-fullscreen-max-width: 2028px;
-@sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
 @sand-alert-overlay-buttons-margin: 0 0 0 126px; // If this changes, update `overflow` computed value from Alert.js
 @sand-alert-overlay-noimage-text-gap: 30px;
@@ -322,6 +321,10 @@
 @sand-alert-overlay-padding-top-bottom: 60px;
 @sand-alert-overlay-padding-left: 60px;
 @sand-alert-overlay-padding-right: (90px - .extract(@sand-button-margin, right)[]);
+@sand-portrait-alert-overlay-noimage-content-width: 1020px;
+@sand-portrait-alert-overlay-content-width: 822px;
+@sand-portrait-alert-overlay-buttons-margin: 0 0 0 78px;
+@sand-portrait-alert-overlay-text-button-gap: (150px - .extract(@sand-portrait-alert-overlay-buttons-margin, left)[] - .extract(@sand-button-margin, right)[]);
 
 // AlertImage
 // ---------------------------------------
@@ -337,7 +340,6 @@
 
 // Button
 // ---------------------------------------
-@sand-button-border-radius: 12px;
 @sand-button-border-width: 6px;
 @sand-button-bg-opacity: 1;
 @sand-button-transparent-bg-opacity: 0;
@@ -406,7 +408,6 @@
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextualpopup-border-radius: (@sand-button-border-radius * 2);
 @sand-contextualpopup-padding: 36px 0;
 @sand-contextualpopup-arrow-height: 60px;
 @sand-contextualpopup-arrow-width: 60px;
@@ -435,7 +436,6 @@
 // Dropdown
 // ---------------------------------------
 @sand-dropdown-margin: 0 @sand-spotlight-outset; // this extra margin used to align dropdown container with the outer element
-@sand-dropdown-border-radius: @sand-button-border-radius;
 @sand-dropdown-min-width: 300px;
 @sand-dropdown-tiny-width: 480px;
 @sand-dropdown-small-width: @sand-button-min-width;
@@ -603,7 +603,6 @@
 
 // HolePunchScrim
 // ---------------------------------------
-@sand-holepunchscrim-border-radius: @sand-button-border-radius;
 
 // Icon
 // ---------------------------------------
@@ -661,6 +660,11 @@
 @sand-input-fullscreen-invalid-tooltip-width: 3240px;
 @sand-input-fullscreen-back-button-top: 132px;
 @sand-input-fullscreen-back-button-start: 96px;
+@sand-portrait-input-fullscreen-keypad-width: 702px;
+@sand-portrait-input-fullscreen-keypad-margin: 600px auto 0 auto;
+@sand-portrait-input-fullscreen-keypad-key-margin: 45px;
+@sand-portrait-input-fullscreen-text-inputarea-margin: 672px 0 0 0;
+@sand-portrait-input-fullscreen-number-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-padding: (90px - .extract(@sand-popup-padding, top)[]) (90px - .extract(@sand-popup-padding, right)[]) (90px - .extract(@sand-popup-padding, bottom)[]) (90px - .extract(@sand-popup-padding, left)[]);
 @sand-input-overlay-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-numbercell-width: 174px;

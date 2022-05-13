@@ -30,6 +30,7 @@ import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
+import {EditableShape, EditableWrapper} from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
@@ -76,9 +77,12 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 	} = scrollContentWrapperProps;
 
 	const {
+		editableWrapperProps,
 		focusableBodyProps,
 		themeScrollContentProps
 	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+
+	const {children, direction, editable} = rest;
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : Fragment;
@@ -88,7 +92,12 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
-					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
+					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle}>
+						{(editable && direction === 'horizontal') ?
+							<EditableWrapper {...editableWrapperProps} /> :
+							children
+						}
+					</UiScrollerBasic>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 					{hoverToScroll ? <HoverToScroll {...hoverToScrollProps} /> : null}
@@ -199,6 +208,16 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
+
+	/**
+	 * Enables editing items in the scroller.
+	 * You can specify props for editable scroller as an object.
+	 * See the details in [EditableShape]{@link sandstone/Scroller.EditableShape}
+	 *
+	 * @type {sandstone/Scroller.EditableShape}
+	 * @public
+	 */
+	editable: EditableShape,
 
 	/**
 	 * Adds fade-out effect on the scroller.

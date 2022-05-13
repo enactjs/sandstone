@@ -120,7 +120,7 @@ const ResizableItem = ({updateItemSize, ...rest}) => {
 
 	indexRef.current = rest.index;
 
-	useEffect( () => {
+	useEffect(() => {
 		calculateMetrics();
 	});
 
@@ -141,8 +141,8 @@ const VerticalExpandableDifferentHeightItemList = (props) => {
 	const [items, setItems] = useState([]);
 	const [itemSize, setItemSize] = useState([]);
 
-	useEffect( () => {
-		let  position = 0, arrayItems = [];
+	useEffect(() => {
+		let position = 0, arrayItems = [];
 
 		for (let i = 0; i < numOfItems; i++) {
 			const
@@ -167,13 +167,13 @@ const VerticalExpandableDifferentHeightItemList = (props) => {
 	};
 
 	const updateItemStatus = (index, open) => {
-		setItemSize( (arrayItemSize) => {
+		setItemSize((arrayItemSize) => {
 			return [...arrayItemSize.slice(0, index)];
 		});
 
-		setItems( (arrayItems) => {
+		setItems((arrayItems) => {
 			const {title, numOfLines} = arrayItems[index];
-			return  [...arrayItems.slice(0, index), {title, numOfLines, open}, ...arrayItems.slice(index + 1)];
+			return [...arrayItems.slice(0, index), {title, numOfLines, open}, ...arrayItems.slice(index + 1)];
 		});
 	};
 

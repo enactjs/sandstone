@@ -18,7 +18,7 @@ const Logs = kind({
 
 	render: () => {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const eventLogs =  useSelector((state) => state.eventLogs);
+		const eventLogs = useSelector((state) => state.eventLogs);
 		const logs = eventLogs.map(log => <Log className={css.log} key={log.timeoutId} log={log} />);
 		return (
 			<Scroller className={css.content}>

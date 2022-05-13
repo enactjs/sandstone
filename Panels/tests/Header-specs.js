@@ -123,8 +123,7 @@ describe('Header Specs', () => {
 		const handleClose = jest.fn();
 		render(<Header onClose={handleClose} />);
 
-		fireEvent.mouseDown(screen.getByRole('button'));
-		fireEvent.mouseUp(screen.getByRole('button'));
+		fireEvent.click(screen.getByRole('button'));
 
 		expect(handleClose).toHaveBeenCalled();
 
