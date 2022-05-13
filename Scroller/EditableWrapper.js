@@ -257,7 +257,7 @@ const EditableWrapper = (props) => {
 		const {itemWidth, prevToIndex} = mutableRef.current;
 		const {rtl} = scrollContainerHandle.current;
 
-		const toIndex = (rtl ^ is('left', keyCode)) ? prevToIndex - 1 : prevToIndex + 1;
+		const toIndex = (rtl != is('left', keyCode)) ? prevToIndex - 1 : prevToIndex + 1;
 		const scrollLeft = container.scrollLeft * (rtl ? -1 : 1);
 		const itemLeft = toIndex * itemWidth - scrollLeft;
 		let left;
@@ -320,9 +320,8 @@ const EditableWrapper = (props) => {
 			reset();
 
 			if (lastInputType === 'scroll') {
-				const offset = itemWidth * (rtl ^ (lastMouseClientX > scrollContentCenter) ? 1 : -1);
 				scrollContainerHandle.current.start({
-					targetX: scrollContentNode.scrollLeft * (rtl ? -1 : 1) + offset,
+					targetX: (scrollContentNode.scrollLeft + itemWidth * (lastMouseClientX > scrollContentCenter ? 1 : -1)) * (rtl ? -1 : 1),
 					targetY: 0
 				});
 			}
@@ -374,11 +373,13 @@ const EditableWrapper = (props) => {
 		// Calculate the item width once
 		const scrollContentNode = scrollContentRef.current;
 		const item = scrollContainerHandle.current.rtl ? wrapperRef.current?.children[dataSize - 1] : wrapperRef.current?.children[0];
-		const neighbor = item.nextElementSibling || item.previousElementSibling;
+		if (item) {
+			const neighbor = item.nextElementSibling || item.previousElementSibling;
 
-		mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
-		mutableRef.current.centeredOffset = (centered && (scrollContentNode.getBoundingClientRect().width > mutableRef.current.itemWidth * dataSize)) ? item.getBoundingClientRect().x : 0;
-		wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
+			mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
+			mutableRef.current.centeredOffset = (centered && (scrollContentNode.getBoundingClientRect().width > mutableRef.current.itemWidth * dataSize)) ? item.getBoundingClientRect().x : 0;
+			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
+		}
 	}, [centered, dataSize, scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
@@ -416,7 +417,7 @@ const EditableWrapper = (props) => {
 			if (selectedItem && mutableRef.current.lastInputType !== 'key') {
 				const toIndex = Math.floor(((rtl ? scrollContentRight - lastMouseClientX : lastMouseClientX) + scrollContentNode.scrollLeft * (rtl ? -1 : 1)) / itemWidth);
 				mutableRef.current.lastInputType = 'scroll';
-				moveItems(rtl ^ (lastMouseClientX > scrollContentCenter) ? toIndex + 1 : toIndex - 1);
+				moveItems(rtl != (lastMouseClientX > scrollContentCenter) ? toIndex + 1 : toIndex - 1);
 			}
 		};
 
