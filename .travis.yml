@@ -10,7 +10,6 @@ before_install:
     - sudo apt-get update
     - sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev  
 install:
-    - npm cache clean --force
     - npm config set prefer-offline true
     - npm config set legacy-peer-deps true
     - npm install -g enactjs/cli#develop
