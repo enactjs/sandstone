@@ -78,11 +78,6 @@ class ScrollerPage extends Page {
 		return $(`${scrollHorizontalThumbSelector}`);
 	}
 
-	// inputField api
-	get inputfieldNumItems () {
-		return element('#numItems', browser);
-	}
-
 	async getScrollThumbPosition () {
 		return await browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector);

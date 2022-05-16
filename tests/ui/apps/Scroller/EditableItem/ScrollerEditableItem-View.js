@@ -89,7 +89,7 @@ class app extends Component {
 				<Cell component={OptionsContainer} shrink>
 					<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.onToggle}>{scrollMode}</Button>
 					<Button {...buttonDefaultProps} id="editableCentered" onClick={this.onToggle}>EditableCentered</Button>
-					<InputField id="numItems" defaultValue={numItems} onChange={this.onChangeNumItems} size="small" />
+					<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" />
 				</Cell >
 				<Cell component={ScrollerContainer}>
 					<Scroller

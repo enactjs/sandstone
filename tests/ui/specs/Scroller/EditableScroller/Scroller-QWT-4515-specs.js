@@ -1,5 +1,5 @@
 const ScrollerPage = require('../ScrollerPage');
-const expectFocusedItem = require('../Scroller-utils');
+const {expectFocusedItem} = require('../Scroller-utils');
 
 describe('Editable Scroller', function () {
 	beforeEach(async function () {
