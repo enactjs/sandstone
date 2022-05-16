@@ -46,6 +46,9 @@ class ScrollerPage extends Page {
 		return element('#bottom', browser);
 	}
 
+	get buttonRemoveItem () {
+		return element('#removeItem', browser);
+	}
 	get buttonHideScrollbar () {
 		return element('#hideScrollbar', browser);
 	}
@@ -73,6 +76,11 @@ class ScrollerPage extends Page {
 	}
 	get horizontalScrollThumb () {
 		return $(`${scrollHorizontalThumbSelector}`);
+	}
+
+	// inputField api
+	get inputfieldNumItems () {
+		return element('#numItems', browser);
 	}
 
 	async getScrollThumbPosition () {
@@ -184,6 +192,21 @@ class ScrollerPage extends Page {
 		return await browser.execute(function () {
 			return document.activeElement.getBoundingClientRect();
 		});
+	}
+
+	async getActiveElementClass () {
+		return await browser.execute(function () {
+			return document.activeElement.id;
+		});
+	}
+
+	async backSpace () {
+		return await this.keyDelay('Backspace');
+	}
+
+	async numPad (num) {
+		let Inputnum = 'numpad' + String(num);
+		return await this.keyDelay(Inputnum);
 	}
 }
 
