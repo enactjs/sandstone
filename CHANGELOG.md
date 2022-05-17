@@ -4,11 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Changed
+### Fixed
 
 - `sandstone/ContextualPopupDecorator` to use React.createRef() instead of React.findDomNode()
 - `sandstone/Dropdown.DropdownList` to use React.createRef() instead of React.findDomNode()
 - `sandstone/Slider.SliderBehaviorDecorator` to use React.createRef() instead of React.findDomNode()
+- `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridiem
 - `sandstone/VideoPlayer` to use React.createRef() instead of React.findDomNode()
 
 ## [2.5.0-alpha.2] - 2022-05-09
