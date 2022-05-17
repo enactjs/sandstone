@@ -8,7 +8,7 @@ import ViewManager, {shape} from '@enact/ui/ViewManager';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext, cloneElement, Children, Component, createRef} from 'react';
+import {Children, cloneElement, Component, createContext, createRef} from 'react';
 
 import {startCapture, stopCapture} from './captureKeys';
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
