@@ -7,7 +7,7 @@ import Input from '../Input';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
-describe('Input Specs', () => {
+describe('Input specs', () => {
 	test('should be rendered opened if open is set to true', () => {
 		render(
 			<FloatingLayerController>
