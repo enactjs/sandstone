@@ -281,15 +281,6 @@ class Popup extends Component {
 
 	static propTypes = /** @lends sandstone/Popup.Popup.prototype */ {
 		/**
-		 * Hint string read when focusing the popup close button.
-		 *
-		 * @type {String}
-		 * @default 'Close'
-		 * @public
-		 */
-		closeButtonAriaLabel: PropTypes.string,
-
-		/**
 		 * Prevents closing the popup via 5-way navigation out of the content.
 		 *
 		 * @type {Boolean}
@@ -320,9 +311,15 @@ class Popup extends Component {
 		 * Called on:
 		 *
 		 * * pressing `ESC` key,
-		 * * clicking on the close button, or
+		 * * clicking on outside the boundary of the popup, or
 		 * * moving spotlight focus outside the boundary of the popup when `spotlightRestrict` is
 		 *   `'self-first'`.
+		 *
+		 * Event payload:
+		 *
+		 * * pressing `ESC` key, carries `detail` property containing `inputType` value of `'key'`.
+		 * * clicking outside the boundary of the popup, carries `detail` property containing
+		 *   `inputType` value of `'click'`.
 		 *
 		 * It is the responsibility of the callback to set the `open` property to `false`.
 		 *
@@ -566,8 +563,8 @@ class Popup extends Component {
 		}
 	};
 
-	handleDismiss = () => {
-		forwardCustom('onClose')({}, this.props);
+	handleDismiss = (ev) => {
+		forwardCustom('onClose', () => ({detail: ev?.detail}))({}, this.props);
 	};
 
 	handlePopupHide = (ev) => {

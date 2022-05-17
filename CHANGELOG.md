@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Popup`, `sandstone/PopupTabLayout`, `sandstone/FixedPopupPanels`, and `sandstone/FlexiblePopupPanels` to add `detail` property containing `inputType` in `onClose` event payload
+
 ### Fixed
 
 - `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridiem
