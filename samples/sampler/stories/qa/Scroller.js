@@ -4,6 +4,7 @@ import {boolean, number, range, select} from '@enact/storybook-utils/addons/cont
 import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
 import ImageItem from '@enact/sandstone/ImageItem';
+import {InputField as Input} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {Header} from '@enact/sandstone/Panels';
@@ -881,3 +882,48 @@ select('focusableScrollbar', WithLongContents, prop.focusableScrollbarOption, Co
 select('scrollMode', WithLongContents, prop.scrollModeOption, Config);
 
 WithLongContents.storyName = 'With Long Contents';
+
+export const WithInputFields = (args) => (
+	<Scroller
+		focusableScrollbar={args['focusableScrollbar']}
+		key={args['scrollMode']}
+		onKeyDown={action('onKeyDown')}
+		onScrollStart={action('onScrollStart')}
+		onScrollStop={action('onScrollStop')}
+		scrollMode={args['scrollMode']}
+		spotlightDisabled={args['spotlightDisabled']}
+	>
+		<div
+				style={{
+					height: ri.scaleToRem(2004),
+					width: ri.scaleToRem(4002)
+				}}
+			>
+				<Item>1</Item>
+				<Item>2</Item>
+				<Item>3</Item>
+				<Item>4</Item>
+				<Input defaultValue="Input 1"/>
+				<Item>5</Item>
+				<Item>6</Item>
+				<Item>7</Item>
+				<Item>8</Item>
+				<Input defaultValue="Input 2"/>
+				<Item>9</Item>
+				<Item>10</Item>
+				<Item>11</Item>
+				<Item>12</Item>
+				<Input defaultValue="Input 3"/>
+				<Item>13</Item>
+				<Item>14</Item>
+				<Item>15</Item>
+				<Item>16</Item>
+			</div>
+	</Scroller>
+);
+
+select('focusableScrollbar', WithInputFields, prop.focusableScrollbarOption, Config);
+select('scrollMode', WithInputFields, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', WithInputFields, Config, false);
+
+WithInputFields.storyName = 'With InputFields';

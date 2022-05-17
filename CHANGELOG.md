@@ -2,6 +2,11 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+- `sandstone/Scroller` to position the focused item into scroller view
+
 ## [2.5.0-alpha.2] - 2022-05-09
 
 ### Added
