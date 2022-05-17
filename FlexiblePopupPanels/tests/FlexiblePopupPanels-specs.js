@@ -8,7 +8,6 @@ import {FlexiblePopupPanels, Panel} from '../';
 const FloatingLayerController = FloatingLayerDecorator('div');
 
 describe('FlexiblePopupPanels Specs', () => {
-
 	test('should hide previous and next buttons when there is only one panel', () => {
 		render(
 			<FloatingLayerController>
@@ -228,9 +227,13 @@ describe('FlexiblePopupPanels Specs', () => {
 
 		await waitFor(() => {
 			const nextClickActual = handleNextClick.mock.calls.length && handleNextClick.mock.calls[0][0];
-			const changeActual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
 			expect(nextClickActual).toMatchObject(nextClickExpected);
+		});
+
+		await waitFor(() => {
+			const changeActual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
 			expect(changeActual).toMatchObject(changeExpected);
 		});
 	});
@@ -327,5 +330,4 @@ describe('FlexiblePopupPanels Specs', () => {
 
 		expect(actual).toHaveClass(expected);
 	});
-
 });
