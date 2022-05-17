@@ -17,7 +17,7 @@ import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import {useContext, useRef} from 'react';
+import {useCallback, useContext, useRef} from 'react';
 
 import $L from '../internal/$L';
 import {SharedState} from '../internal/SharedStateDecorator';
@@ -105,49 +105,13 @@ const useThemeScroll = (props, instances) => {
 		stopVoice
 	} = useEventVoice(props, instances);
 
-	const scrollbarProps = {
-		cbAlertScrollbarTrack: alertScrollbarTrack,
-		onInteractionForScroll,
-		scrollbarTrackCss
-	};
+	const alertScrollbarTrack = useCallback(() => {
+		const bounds = scrollContainerHandle.current.getScrollBounds();
+		scrollContainerHandle.current.showScrollbarTrack(bounds);
+		scrollContainerHandle.current.startHidingScrollbarTrack();
+	}, [scrollContainerHandle]);
 
-	// Functions
-
-	function isContent (element) {
-		return (element && utilDOM.containsDangerously(scrollContentRef, element));
-	}
-
-	function scrollTo (opt) {
-		mutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
-		mutableRef.current.nodeToFocus = (opt.focus && opt.node instanceof Object && opt.node.nodeType === 1) ? opt.node : null;
-	}
-
-	function start (animate) {
-		if (scrollMode === 'native' && !animate) {
-			focusOnItem();
-		}
-	}
-
-	function stop () {
-		if (!props['data-spotlight-container-disabled']) {
-			themeScrollContentHandle.current.setContainerDisabled(false);
-		}
-
-		if (themeScrollContentHandle.current.pauseSpotlight) {
-			themeScrollContentHandle.current.pauseSpotlight(false);
-		}
-
-		focusOnItem();
-		mutableRef.current.lastScrollPositionOnFocus = null;
-		mutableRef.current.isWheeling = false;
-		stopVoice();
-	}
-
-	function scrollStopOnScroll () {
-		stop();
-	}
-
-	function onInteractionForScroll ({inputType, isForward, isPagination, isVerticalScrollBar}) {
+	const onInteractionForScroll = useCallback(({inputType, isForward, isPagination, isVerticalScrollBar}) => {
 		const
 			{wheelDirection} = scrollContainerHandle.current,
 			bounds = scrollContainerHandle.current.getScrollBounds(),
@@ -163,15 +127,26 @@ const useThemeScroll = (props, instances) => {
 		}
 
 		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * distance, isVerticalScrollBar, props.overscrollEffectOn[inputType]);
+	}, [props.overscrollEffectOn, scrollContainerHandle]);
+
+	const scrollbarProps = {
+		cbAlertScrollbarTrack: alertScrollbarTrack,
+		onInteractionForScroll,
+		scrollbarTrackCss
+	};
+
+	// Functions
+
+	function isContent (element) {
+		return (element && utilDOM.containsDangerously(scrollContentRef, element));
 	}
 
-	function alertScrollbarTrack () {
-		const bounds = scrollContainerHandle.current.getScrollBounds();
-		scrollContainerHandle.current.showScrollbarTrack(bounds);
-		scrollContainerHandle.current.startHidingScrollbarTrack();
-	}
+	const scrollTo = useCallback((opt) => {
+		mutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
+		mutableRef.current.nodeToFocus = (opt.focus && opt.node instanceof Object && opt.node.nodeType === 1) ? opt.node : null;
+	}, []);
 
-	function focusOnItem () {
+	const focusOnItem = useCallback(() => {
 		let isItemFocused = false;
 
 		if (mutableRef.current.indexToFocus !== null && typeof themeScrollContentHandle.current.focusByIndex === 'function') {
@@ -210,9 +185,34 @@ const useThemeScroll = (props, instances) => {
 		if (Spotlight.getPointerMode() && !isItemFocused) {
 			Spotlight.focus(scrollContainerRef.current, {enterTo: 'topmost'});
 		}
-	}
+	}, [themeScrollContentHandle, scrollContainerRef]);
 
-	function handleScroll (ev) {
+	const start = useCallback((animate) => {
+		if (scrollMode === 'native' && !animate) {
+			focusOnItem();
+		}
+	}, [scrollMode, focusOnItem]);
+
+	const stop = useCallback(() => {
+		if (!props.spotlightContainerDisabled) {
+			themeScrollContentHandle.current.setContainerDisabled(false);
+		}
+
+		if (themeScrollContentHandle.current.pauseSpotlight) {
+			themeScrollContentHandle.current.pauseSpotlight(false);
+		}
+
+		focusOnItem();
+		mutableRef.current.lastScrollPositionOnFocus = null;
+		mutableRef.current.isWheeling = false;
+		stopVoice();
+	}, [focusOnItem, themeScrollContentHandle, stopVoice, props.spotlightContainerDisabled]);
+
+	const scrollStopOnScroll = useCallback(() => {
+		stop();
+	}, [stop]);
+
+	const handleScroll = useCallback((ev) => {
 		const
 			{scrollLeft: x, scrollTop: y} = ev,
 			{id} = props;
@@ -223,10 +223,10 @@ const useThemeScroll = (props, instances) => {
 			contextSharedState.set(ev, props);
 			contextSharedState.set(`${id}.scrollPosition`, {x, y});
 		}
-	}
+	}, [contextSharedState, props]);
 
 	// Callback for scroller updates; calculate and, if needed, scroll to new position based on focused item.
-	function handleScrollerUpdate () {
+	const handleScrollerUpdate = useCallback(() => {
 		if (scrollContainerHandle.current.scrollToInfo === null) {
 			const scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
 
@@ -239,33 +239,33 @@ const useThemeScroll = (props, instances) => {
 		// updated in calculateAndScrollTo but we might not have made it to that point), it will be
 		// out of date when we land back in this method next time.
 		scrollContainerHandle.current.bounds.scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
-	}
+	}, [calculateAndScrollTo, scrollContainerHandle]);
 
-	function handleResizeWindow () {
+	const handleResizeWindow = useCallback(() => {
 		const focusedItem = Spotlight.getCurrent();
 
 		if (focusedItem) {
 			focusedItem.blur();
 		}
-	}
+	}, []);
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
-	function addEventListeners (ref) { // `ref` is always `scrollContentRef`.
+	const addEventListeners = useCallback((ref) => { // `ref` is always `scrollContentRef`.
 		utilEvent('focusin').addEventListener(ref, handleFocus);
 
 		if (ref.current) {
 			addVoiceEventListener(ref);
 		}
-	}
+	}, [addVoiceEventListener, handleFocus]);
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
-	function removeEventListeners (ref) { // `ref` is always `scrollContentRef`.
+	const removeEventListeners = useCallback((ref) => { // `ref` is always `scrollContentRef`.
 		utilEvent('focusin').removeEventListener(ref, handleFocus);
 
 		if (ref.current) {
 			removeVoiceEventListener(ref);
 		}
-	}
+	}, [handleFocus, removeVoiceEventListener]);
 
 	// Return
 
