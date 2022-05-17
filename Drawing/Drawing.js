@@ -18,8 +18,7 @@ import ComponentOverride from '@enact/ui/ComponentOverride';
 import {Drawing as UiDrawing} from '@enact/ui/Drawing';
 import {Cell, Column, Layout, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
-import {useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
@@ -320,23 +319,25 @@ const DrawingBase = kind({
 			}
 		}, [brushColor, canvasColor, fillColor]);
 
-		function setBrushColorAndIndex (color, index) {
+		const setBrushColorAndIndex = useCallback((color, index) => {
 			setBrushColorValue(color);
 			setBrushColorIndex(index);
 			window.localStorage.setItem('lastBrushColor', JSON.stringify(color));
-		}
+			window.localStorage.setItem('lastBrushTime', JSON.stringify(Date.now()));
+		}, []);
 
-		function setCanvasColorAndIndex (color, index) {
+		const setCanvasColorAndIndex = useCallback((color, index) => {
 			setCanvasColorValue(color);
 			setCanvasColorIndex(index);
 			window.localStorage.setItem('lastCanvasColor', JSON.stringify(color));
-		}
+			window.localStorage.setItem('lastCanvasTime', JSON.stringify(Date.now()));
+		}, []);
 
-		function setFillColorAndIndex (color, index) {
+		const setFillColorAndIndex = useCallback((color, index) => {
 			setFillColorValue(color);
 			setFillColorIndex(index);
 			window.localStorage.setItem('lastFillColor', JSON.stringify(color));
-		}
+		}, []);
 
 		return (
 			<Scroller>
@@ -403,19 +404,6 @@ const DrawingBase = kind({
 });
 
 /**
- * Applies Sandstone specific behaviors to [Drawing]{@link sandstone/Drawing.DrawingBase} components.
- *
- * @hoc
- * @memberof sandstone/Drawing
- * @mixes ui/Toggleable.Toggleable
- * @mixes sandstone/Skinnable.Skinnable
- * @public
- */
-const DrawingDecorator = compose(
-	Skinnable
-);
-
-/**
  * A drawing component, ready to use in Sandstone applications.
  *
  * Usage:
@@ -433,15 +421,14 @@ const DrawingDecorator = compose(
  * @class Drawing
  * @memberof sandstone/Drawing
  * @extends sandstone/Drawing.DrawingBase
- * @mixes sandstone/Drawing.DrawingDecorator
+ * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
-const Drawing = DrawingDecorator(DrawingBase);
+const Drawing = Skinnable(DrawingBase);
 
 export default Drawing;
 export {
 	Drawing,
-	DrawingBase,
-	DrawingDecorator
+	DrawingBase
 };
