@@ -3,7 +3,7 @@ language: node_js
 node_js:
     - lts/*
     - 14
-    - 18  
+    - node  
 sudo: false
 cache: npm
 before_install:
@@ -12,9 +12,9 @@ before_install:
 install:
     - npm config set prefer-offline true
     - npm config set legacy-peer-deps true
+    - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - npm install -g enactjs/cli#develop
     - npm install -g codecov
-    - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock install
