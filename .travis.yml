@@ -2,7 +2,6 @@ dist: focal
 language: node_js
 node_js:
     - lts/*
-    - 14
     - node  
 sudo: false
 cache: npm
@@ -11,12 +10,7 @@ before_install:
     - sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev  
 install:
     - npm config set prefer-offline true
-    - npm config set legacy-peer-deps true
-    - git clone --branch=develop --depth 1 https://github.com/enactjs/cli ../enact-cli
-    - pushd ../enact-cli
-    - npm install
-    - npm link
-    - popd
+    - npm install -g enactjs/cli#develop
     - npm install -g codecov
     - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
