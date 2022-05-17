@@ -63,6 +63,7 @@ const locales = {
 	'ko-KR - Korean': 'ko-KR',
 	'es-ES - Spanish, with alternate weekends': 'es-ES',
 	'am-ET - Amharic, 5 meridiems': 'am-ET',
+	'he-IL - Hebrew, RTL, no meridiem': 'he-IL',
 	'th-TH - Thai, with tallglyph characters': 'th-TH',
 	'ar-SA - Arabic, RTL and standard font': 'ar-SA',
 	'ur-PK - Urdu, RTL and custom Urdu font': 'ur-PK',
