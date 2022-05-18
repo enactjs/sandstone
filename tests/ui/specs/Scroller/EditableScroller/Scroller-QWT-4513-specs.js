@@ -8,8 +8,7 @@ describe('Editable Scroller', function () {
 
 	it('Should change item position with editableCentered', async function () {
 		// Set datasize 3.
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
+		await ScrollerPage.inputfieldNumItems.moveTo();
 		await ScrollerPage.spotlightSelect();
 		await ScrollerPage.backSpace();
 		await ScrollerPage.backSpace();
@@ -18,12 +17,13 @@ describe('Editable Scroller', function () {
 
 		// Step 5: 5-way Spot and Select on item 0.
 		await ScrollerPage.spotlightDown();
+		// Check for leftmost item's position.
+		const leftmostItemRect = Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100;
 		await ScrollerPage.spotlightSelect();
 		await expectFocusedItem(0);
+		// Step5-2 Verify: Image 0 rises upper.
+		await expect(await ScrollerPage.checkEditableItem()).to.be.true();
 
-		// Check for leftmost item's position.
-		const leftmostItemRect = await ScrollerPage.getActiveElementRect().left;
-		console.log(ScrollerPage.getActiveElementClass());
 		// Step 6: 5-way Right.
 		await ScrollerPage.spotlightRight();
 		// Step 6-1 Verify: Position of image 0 and image 1 are switched.
@@ -33,7 +33,7 @@ describe('Editable Scroller', function () {
 		await expectFocusedItem(1);
 
 		// Step 6-2 Verify: Items still horizontally center align in Scroller.
-		await expect(leftmostItemRect).to.be.true(await ScrollerPage.getActiveElementClass().left);
+		await expect(leftmostItemRect).to.be.equal(Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100);
 
 	});
 });

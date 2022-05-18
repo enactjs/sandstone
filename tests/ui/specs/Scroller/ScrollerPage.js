@@ -78,6 +78,11 @@ class ScrollerPage extends Page {
 		return $(`${scrollHorizontalThumbSelector}`);
 	}
 
+	// InputField api
+	get inputfieldNumItems () {
+		return element('#numItems', browser);
+	}
+
 	async getScrollThumbPosition () {
 		return await browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector);
@@ -189,9 +194,10 @@ class ScrollerPage extends Page {
 		});
 	}
 
-	async getActiveElementClass () {
+	async checkEditableItem () {
 		return await browser.execute(function () {
-			return document.activeElement.id;
+			const itemWrapperClass = 'tests_ui_apps_Scroller_EditableItem_Scroller_itemWrapper Scroller_EditableWrapper_selected tests_ui_apps_Scroller_EditableItem_Scroller_selected';
+			return document.activeElement.parentElement.className === itemWrapperClass;
 		});
 	}
 

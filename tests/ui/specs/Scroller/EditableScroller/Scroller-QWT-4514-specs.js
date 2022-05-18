@@ -9,8 +9,11 @@ describe('Editable Scroller', function () {
 	it('Should change item position with 5-way mode', async function () {
 		// Step 3: 5-way Spot and Select Image 0.
 		await ScrollerPage.spotlightDown();
+		// Step 3-1 Verify: Spotlight is on Image 0.
 		await expectFocusedItem(0);
 		await ScrollerPage.spotlightSelect();
+		// Step 3-2 Verify: Image 0 rises upper
+		expect(await ScrollerPage.checkEditableItem()).to.be.true();
 
 		// Step 4: 5-way Right.
 		await ScrollerPage.spotlightRight();

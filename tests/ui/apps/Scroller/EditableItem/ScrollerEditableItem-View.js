@@ -7,7 +7,7 @@ import {Component, createRef} from 'react';
 import Button from '../../../../../Button/Button';
 import css from './Scroller.module.less';
 import ImageItem from '../../../../../ImageItem';
-import InputField from '../../../../../Input';
+import {InputField} from '../../../../../Input';
 import Scroller from '../../../../../Scroller/Scroller';
 import ThemeDecorator from '../../../../../ThemeDecorator/ThemeDecorator';
 
@@ -84,12 +84,13 @@ class app extends Component {
 		const {editableCentered, nativeScroll, numItems, items} = this.state;
 		const buttonDefaultProps = {minWidth: false, size: 'small'};
 		const scrollMode = nativeScroll ? 'NativeScroll' : 'TranslateScroll';
+		const inputStyle = {width: ri.scaleToRem(300)};
 		return (
 			<div {...this.props} id="scroller" ref={this.rootRef}>
 				<Cell component={OptionsContainer} shrink>
 					<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.onToggle}>{scrollMode}</Button>
 					<Button {...buttonDefaultProps} id="editableCentered" onClick={this.onToggle}>EditableCentered</Button>
-					<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" />
+					<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 				</Cell >
 				<Cell component={ScrollerContainer}>
 					<Scroller
