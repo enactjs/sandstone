@@ -65,7 +65,6 @@ const DrawingUtils = kind({
 	},
 
 	render: ({backgroundImage, disabled, drawingRef, fileInputHandler, setBackgroundImage, ...rest}) => {
-
 		return (
 			<Column align="center space-between" {...rest}>
 				<Button css={css} disabled={disabled} icon="arrowhookleft" onClick={() => drawingRef.current.undo()} size="small" tooltipText="Undo" />
