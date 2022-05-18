@@ -323,14 +323,12 @@ const DrawingBase = kind({
 			setBrushColorValue(color);
 			setBrushColorIndex(index);
 			window.localStorage.setItem('lastBrushColor', JSON.stringify(color));
-			window.localStorage.setItem('lastBrushTime', JSON.stringify(Date.now()));
 		}, []);
 
 		const setCanvasColorAndIndex = useCallback((color, index) => {
 			setCanvasColorValue(color);
 			setCanvasColorIndex(index);
 			window.localStorage.setItem('lastCanvasColor', JSON.stringify(color));
-			window.localStorage.setItem('lastCanvasTime', JSON.stringify(Date.now()));
 		}, []);
 
 		const setFillColorAndIndex = useCallback((color, index) => {
