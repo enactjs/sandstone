@@ -224,7 +224,7 @@ export const WithItemAddRemoveEnyo2448 = (args) => (
 
 select('width', WithItemAddRemoveEnyo2448, prop.width, Picker, 'medium');
 select('orientation', WithItemAddRemoveEnyo2448, prop.orientation, Picker, 'horizontal');
-boolean('wrap', WithItemAddRemoveEnyo2448, Picker, true);
+boolean('wrap', WithItemAddRemoveEnyo2448, Picker);
 boolean('joined', WithItemAddRemoveEnyo2448, Picker);
 select('changedBy', WithItemAddRemoveEnyo2448, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', WithItemAddRemoveEnyo2448, Picker);
@@ -246,7 +246,7 @@ export const RtlLayoutPlat28123 = (args) => (
 );
 
 select('width', RtlLayoutPlat28123, prop.width, Picker, 'medium');
-boolean('wrap', RtlLayoutPlat28123, Picker, true);
+boolean('wrap', RtlLayoutPlat28123, Picker);
 boolean('joined', RtlLayoutPlat28123, Picker);
 select('changedBy', RtlLayoutPlat28123, prop.changedBy, Picker, 'enter');
 boolean('noAnimation', RtlLayoutPlat28123, Picker);
