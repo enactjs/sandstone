@@ -162,6 +162,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(actual).toBe(expected);
+			});
+			await waitFor(() => {
 				expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
 			});
 		}
@@ -220,6 +222,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(panel3Buttons.length).toBe(1);
+			});
+			await waitFor(() => {
 				expect(panel3Buttons[0]).not.toHaveAttribute('aria-label', 'Next');
 			});
 
@@ -235,6 +239,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(panel2Buttons.length).toBe(1);
+			});
+			await waitFor(() => {
 				expect(panel2Buttons[0]).not.toHaveAttribute('aria-label', 'Next');
 			});
 		}
@@ -255,6 +261,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(panel1Buttons.length).toBe(1);
+			});
+			await waitFor(() => {
 				expect(panel1Buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
 			});
 
@@ -270,6 +278,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(panel2Buttons.length).toBe(1);
+			});
+			await waitFor(() => {
 				expect(panel2Buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
 			});
 		}
@@ -293,6 +303,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(actual).toBe(expected);
+			});
+			await waitFor(() => {
 				expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
 			});
 		}
@@ -316,6 +328,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(actual).toBe(expected);
+			});
+			await waitFor(() => {
 				expect(buttons[0]).toHaveAttribute('aria-label', 'Previous');
 			});
 		}
@@ -339,6 +353,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(actual).toBe(expected);
+			});
+			await waitFor(() => {
 				expect(buttons[0]).not.toHaveAttribute('aria-label', 'Previous');
 			});
 		}
@@ -362,6 +378,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(actual).toBe(expected);
+			});
+			await waitFor(() => {
 				expect(buttons[1]).toHaveAttribute('aria-label', 'Next');
 			});
 		}
@@ -385,6 +403,8 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(actual).toBe(expected);
+			});
+			await waitFor(() => {
 				expect(buttons[0]).not.toHaveAttribute('aria-label', 'Next');
 			});
 		}
@@ -464,10 +484,9 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const nextButton = screen.getByLabelText('Next');
+			userEvent.click(nextButton);
 
 			await waitFor(() => {
-				userEvent.click(nextButton);
-
 				const actual = screen.getByText('2');
 
 				expect(actual).toHaveClass('current');
@@ -495,9 +514,11 @@ describe('WizardPanel Specs', () => {
 			userEvent.click(nextButton);
 
 			await waitFor(() => {
+				expect(handleChange).toBeCalledWith({index: 2, type: 'onChange'});
+			});
+			await waitFor(() => {
 				const actual = handleNextClick.mock.calls.length && handleNextClick.mock.calls[0][0];
 
-				expect(handleChange).toBeCalledWith({index: 2, type: 'onChange'});
 				expect(actual).toMatchObject(expected);
 			});
 		}
@@ -515,10 +536,9 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const prevButton = screen.getByLabelText('Previous');
+			userEvent.click(prevButton);
 
 			await waitFor(() => {
-				userEvent.click(prevButton);
-
 				const actual = screen.getByText('1');
 
 				expect(actual).toHaveClass('current');
@@ -546,9 +566,11 @@ describe('WizardPanel Specs', () => {
 			userEvent.click(prevButton);
 
 			await waitFor(() => {
+				expect(handleChange).toBeCalledWith({index: 1, type: 'onChange'});
+			});
+			await waitFor(() => {
 				const actual = handlePrevClick.mock.calls.length && handlePrevClick.mock.calls[0][0];
 
-				expect(handleChange).toBeCalledWith({index: 1, type: 'onChange'});
 				expect(actual).toMatchObject(expected);
 			});
 		}
@@ -565,9 +587,9 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			await waitFor(() => {
-				userEvent.keyboard('{esc}');
+			userEvent.keyboard('{esc}');
 
+			await waitFor(() => {
 				const actual = screen.getByText('1');
 
 				expect(actual).toHaveClass('current');
@@ -586,9 +608,9 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			await waitFor(() => {
-				userEvent.keyboard('{esc}');
+			userEvent.keyboard('{esc}');
 
+			await waitFor(() => {
 				const actual = screen.getByText('1');
 
 				expect(actual).toHaveClass('current');
@@ -608,14 +630,17 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			await waitFor(() => {
-				userEvent.keyboard('{esc}');
+			userEvent.keyboard('{esc}');
 
+			await waitFor(() => {
 				const actual = screen.getByText('1');
+
+				expect(actual).toHaveClass('current');
+			});
+			await waitFor(() => {
 				const expectedEvent = {type: 'onBack'};
 				const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
 
-				expect(actual).toHaveClass('current');
 				expect(actualEvent).toMatchObject(expectedEvent);
 			});
 		}
@@ -633,14 +658,17 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			await waitFor(() => {
-				userEvent.keyboard('{esc}');
+			userEvent.keyboard('{esc}');
 
+			await waitFor(() => {
 				const actual = screen.getByText('2');
+
+				expect(actual).toHaveClass('current');
+			});
+			await waitFor(() => {
 				const expectedEvent = {type: 'onBack'};
 				const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
 
-				expect(actual).toHaveClass('current');
 				expect(actualEvent).toMatchObject(expectedEvent);
 			});
 		}
