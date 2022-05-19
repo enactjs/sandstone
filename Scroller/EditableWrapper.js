@@ -320,7 +320,7 @@ const EditableWrapper = (props) => {
 			reset();
 
 			if (lastInputType === 'scroll') {
-				const offset = itemWidth * (!rtl ^ !(lastMouseClientX > scrollContentCenter) ? 1 : -1);
+				const offset = itemWidth * (!rtl ^ !(lastMouseClientX > scrollContentCenter) ? 1 : - 1);
 				scrollContainerHandle.current.start({
 					targetX: scrollContentNode.scrollLeft + offset,
 					targetY: 0
