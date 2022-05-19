@@ -66,9 +66,9 @@ describe('PopupTabLayout specs', () => {
 			</FloatingLayerController>
 		);
 
-		await waitFor(() => {
-			userEvent.keyboard('{esc}');
+		userEvent.keyboard('{esc}');
 
+		await waitFor(() => {
 			expect(handleClose).not.toHaveBeenCalled();
 		});
 	});
