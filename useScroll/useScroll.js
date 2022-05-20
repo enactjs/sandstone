@@ -87,6 +87,10 @@ const useThemeScroll = (props, instances) => {
 		clearOverscrollEffect
 	} = useOverscrollEffect({}, instances);
 
+	const isContent = useCallback((element) => {
+		return (element && utilDOM.containsDangerously(scrollContentRef, element));
+	}, [scrollContentRef]);
+
 	const {handleWheel} = useEventWheel(props, {...instances, spottable: mutableRef});
 
 	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef});
@@ -136,10 +140,6 @@ const useThemeScroll = (props, instances) => {
 	};
 
 	// Functions
-
-	function isContent (element) {
-		return (element && utilDOM.containsDangerously(scrollContentRef, element));
-	}
 
 	const scrollTo = useCallback((opt) => {
 		mutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
