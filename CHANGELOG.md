@@ -6,7 +6,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller` sensitivity to swap items on`editable` mode
+- `sandstone/Scroller` thresholds for swapping items by pointer when `editable` is given
+- `sandstone/Scroller` to support RTL locales when `editable` is given
 - `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridiem
 
 ## [2.5.0-alpha.2] - 2022-05-09
