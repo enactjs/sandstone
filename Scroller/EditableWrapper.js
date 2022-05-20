@@ -294,14 +294,14 @@ const EditableWrapper = (props) => {
 
 	const handleMouseMove = useCallback((ev) => {
 		const {centeredOffset, itemWidth, prevToIndex, selectedItem} = mutableRef.current;
+		const {rtl} = scrollContainerHandle.current;
 
 		if (selectedItem) {
+			const bodyWidth = document.body.getBoundingClientRect().width;
+			const {clientX} = ev;
+
 			// Determine toIndex with mouse client x position
 			// Coordinate calculation in RTL locales is not supported in chrome below 85
-			const {clientX} = ev;
-			const {rtl} = scrollContainerHandle.current;
-
-			const bodyWidth = document.body.getBoundingClientRect().width;
 			const scrollContentOffset = scrollContentRef.current.scrollLeft * (rtl ? -1 : 1) - centeredOffset;
 			const clientXFromContent = (rtl ? bodyWidth - clientX : clientX) + scrollContentOffset;
 
