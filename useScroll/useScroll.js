@@ -366,9 +366,9 @@ const useScroll = (props) => {
 		wheelDirection: null
 	});
 
-	const setScrollContainerHandle = (handle) => {
+	const setScrollContainerHandle = useCallback((handle) => {
 		scrollContainerHandle.current = handle;
-	};
+	}, [scrollContainerHandle]);
 
 	// Hooks
 
