@@ -1,8 +1,13 @@
+dist: focal
 language: node_js
 node_js:
-    - "14"
+    - lts/*
+    - node  
 sudo: false
 cache: npm
+before_install:
+    - sudo apt-get update
+    - sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 install:
     - npm config set prefer-offline true
     - npm install -g enactjs/cli#develop
@@ -10,6 +15,7 @@ install:
     - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm install
+    - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
     - npm run lerna link
     - popd

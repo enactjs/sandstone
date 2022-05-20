@@ -139,7 +139,7 @@ export const WithBidirectionalText = (args) => {
 
 			<br />
 			{/* If there is any rtl character, set the direction of the marquee to rtl.  */}
-			<Heading {...headingProps}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please. long text long text long text long text long text long text long text</Heading>
+			<Heading {...headingProps}>{inputPasswordFor}<bdi>{abcDevice}</bdi>, Please. long text long text long text long text long text long text long text long text long text</Heading>
 
 			<br />
 			<Heading {...headingProps}>{inputPasswordForAr}{abcDevice}</Heading>
