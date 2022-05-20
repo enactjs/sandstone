@@ -2,7 +2,7 @@ dist: focal
 language: node_js
 node_js:
     - lts/*
-    - node  
+    - node
 sudo: false
 cache: npm
 before_install:
@@ -23,7 +23,6 @@ install:
     - npm install
     - enact link
 script:
-    - npm cache clean --force
     - echo -e "\x1b\x5b35;1m*** Starting tests...\x1b\x5b0m"
     - npm test -- --runInBand --coverage
     - codecov
