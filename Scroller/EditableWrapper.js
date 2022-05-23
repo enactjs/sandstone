@@ -413,11 +413,15 @@ const EditableWrapper = (props) => {
 
 		const handleMoveItemsByScroll = () => {
 			const {itemWidth, lastMouseClientX, selectedItem} = mutableRef.current;
-			const {rtl} = scrollContainerHandle.current;
+			const {isHoveringToScroll, rtl} = scrollContainerHandle.current;
 			if (selectedItem && mutableRef.current.lastInputType !== 'key') {
 				const toIndex = Math.floor(((rtl ? scrollContentRect.right - lastMouseClientX : lastMouseClientX) + scrollContentNode.scrollLeft * (rtl ? -1 : 1)) / itemWidth);
 				mutableRef.current.lastInputType = 'scroll';
-				moveItems(!rtl ^ !(lastMouseClientX > scrollContentRect.width / 2) ? toIndex + 1 : toIndex - 1);
+				if (isHoveringToScroll) {
+					moveItems(!rtl ^ !(lastMouseClientX > scrollContentRect.width / 2) ? toIndex + 1 : toIndex - 1);
+				} else {
+					moveItems(toIndex);
+				}
 			}
 		};
 
