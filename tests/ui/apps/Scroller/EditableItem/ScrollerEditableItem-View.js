@@ -21,7 +21,6 @@ spotlight.setPointerMode(false);
 const imageItems = [];
 
 const updateDataSize = (dataSize) => {
-
 	imageItems.length = 0;
 
 	for (let i = 0; i < dataSize; i++) {
@@ -95,10 +94,10 @@ class app extends Component {
 				<Cell component={ScrollerContainer}>
 					<Scroller
 						dataSize={numItems}
-						direction={'horizontal'}
-						horizontalScrollbar={'auto'}
+						direction="horizontal"
+						horizontalScrollbar="auto"
 						key={nativeScroll ? 'native' : 'translate'}
-						verticalScrollbar={'auto'}
+						verticalScrollbar="auto"
 						editable={{
 							centered:editableCentered,
 							css,

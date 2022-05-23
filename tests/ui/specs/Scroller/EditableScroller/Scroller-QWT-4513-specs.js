@@ -15,6 +15,7 @@ describe('Editable Scroller', function () {
 		await ScrollerPage.numPad(3);
 		await ScrollerPage.backKey();
 
+		// In this test, partially automated(step5~6). Step3~4 will be worked in screenshot test.
 		// Step 5: 5-way Spot and Select on item 0.
 		await ScrollerPage.spotlightDown();
 		// Check for leftmost item's position.
