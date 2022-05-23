@@ -157,8 +157,11 @@ const ButtonBase = kind({
 
 		/**
 		 * Boolean controlling whether this component should enforce the "minimum width" rules.
+		 * *NOTE*: This property's default is `true` and must be explicitly set to `false` to allow
+		 * the button to shrink to fit its contents.
 		 *
 		 * @type {Boolean}
+		 * @default true
 		 * @public
 		 */
 		minWidth: PropTypes.bool,
@@ -215,7 +218,7 @@ const ButtonBase = kind({
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.focusEffect;
-
+console.log(rest.minWidth)
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
 			...rest,
