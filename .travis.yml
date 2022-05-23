@@ -2,7 +2,7 @@ dist: focal
 language: node_js
 node_js:
     - lts/*
-    - node  
+    - node
 sudo: false
 cache: npm
 before_install:
