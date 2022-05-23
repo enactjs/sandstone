@@ -218,7 +218,7 @@ const ButtonBase = kind({
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.focusEffect;
-console.log(rest.minWidth)
+
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
 			...rest,
