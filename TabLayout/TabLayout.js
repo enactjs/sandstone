@@ -334,7 +334,6 @@ const TabLayoutBase = kind({
 			'--tablayout-expand-collapse-diff': ((orientation === 'vertical') ? scaleToRem(dimensions.tabs.normal - dimensions.tabs.collapsed) : 0)
 		}),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
-		// limit to 6 tabs for horizontal orientation
 		tabs: ({children}) => {
 			const tabs = mapAndFilterChildren(children, (child) => (
 				Object.keys(child.props)
