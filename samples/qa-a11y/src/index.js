@@ -1,6 +1,14 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import {createRoot} from 'react-dom/client';
 
 import App from './App';
+import axe from '@axe-core/react';
+
+if (process.env.NODE_ENV !== 'production') {
+	// const axe = require('@axe-core/react');
+	axe(React, ReactDOM, 1000);
+}
 
 const appElement = (<App />);
 

@@ -160,7 +160,8 @@ const CheckboxBase = kind({
 				aria-checked={selected}
 				aria-disabled={disabled}
 				disabled={disabled}
-				role="checkbox"
+				role="barf" // custom role to trigger jsx-a11y
+				aria-labeledby="checkbox" // custom aria*- props to trigger jsx-a11y
 			>
 				<div className={css.bg} />
 				<Icon
