@@ -189,8 +189,6 @@ const TabLayoutBase = kind({
 		/**
 		 * Orientation of the tabs.
 		 *
-		 * Horizontal tabs support a maximum of six tabs.
-		 *
 		 * @type {('horizontal'|'vertical')}
 		 * @default 'vertical'
 		 * @public
@@ -343,7 +341,7 @@ const TabLayoutBase = kind({
 					.filter((prop) => prop !== 'children' && prop !== 'id')
 					.reduce((obj, key) => ({...obj, [key]: child.props[key]}), {})
 			));
-			return orientation === 'horizontal' && tabs.length > 6 ? tabs.slice(0, 6) : tabs;
+			return tabs;
 		}
 	},
 
