@@ -1,6 +1,6 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 
 import {Popup} from '../Popup';
 
@@ -77,6 +77,23 @@ describe('Popup specs', () => {
 		const popup = screen.getByRole('alert');
 
 		expect(popup).toHaveAttribute('data-webos-voice-disabled');
+	});
+
+	test('should fire onClose event with type and detail info when Popup is closed', () => {
+		const handleClose = jest.fn();
+
+		render(
+			<FloatingLayerController>
+				<Popup onClose={handleClose} open><div>popup</div></Popup>
+			</FloatingLayerController>
+		);
+
+		fireEvent.keyUp(screen.getByText('popup'), {keyCode: 27});
+
+		const expectedType = {type: 'onClose', detail: {inputType: 'key'}};
+		const actual = handleClose.mock.calls.length && handleClose.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expectedType);
 	});
 
 	describe('with position bottom', function () {
