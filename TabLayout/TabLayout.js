@@ -335,7 +335,7 @@ const TabLayoutBase = kind({
 		}),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 6 tabs for horizontal orientation
-		tabs: ({children, orientation}) => {
+		tabs: ({children}) => {
 			const tabs = mapAndFilterChildren(children, (child) => (
 				Object.keys(child.props)
 					.filter((prop) => prop !== 'children' && prop !== 'id')
