@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Popup`, `sandstone/PopupTabLayout`, `sandstone/FixedPopupPanels`, and `sandstone/FlexiblePopupPanels` to add `detail` property containing `inputType` in `onClose` event payload
 
+### Changed
+
+- `sandstone/TabLayout` to eliminate the horizontal maximum number of tabs
+
 ### Fixed
 
 - `sandstone/Scroller` to focus scroll thumb initially when it is used in Panels
