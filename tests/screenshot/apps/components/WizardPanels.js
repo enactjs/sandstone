@@ -44,7 +44,7 @@ const WizardPanelTests = withConfig({
 		<Panel>View 3</Panel>
 	</WizardPanels>,
 	// Test to display Panels without subtitle area
-	<WizardPanels noSubtitle title='WizardPanel'>
+	<WizardPanels noSubtitle title="WizardPanel">
 		<Panel>
 			<BodyText>View 1</BodyText>
 			<footer>

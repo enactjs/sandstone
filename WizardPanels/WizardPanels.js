@@ -396,7 +396,7 @@ const WizardPanelsBase = kind({
 						noCloseButton
 						subtitle={subtitle}
 						title={title}
-						type= {noSubtitle ? "compactWizard" : "wizard"}
+						type={noSubtitle ? "compactWizard" : "wizard"}
 					>
 						{steps}
 						<NavigationButton
