@@ -308,10 +308,10 @@ const HeaderBase = kind({
 		/**
 		 * Set the type of header to be used.
 		 *
-		 * @type {('compact'|'mini'|'standard'|'wizard')}
+		 * @type {('compact'|'compactWizard'|'mini'|'standard'|'wizard')}
 		 * @default 'standard'
 		 */
-		type: PropTypes.oneOf(['standard', 'compact', 'wizard', 'mini'])
+		type: PropTypes.oneOf(['compact', 'compactWizard', 'mini', 'standard', 'wizard'])
 	},
 
 	defaultProps: {
@@ -370,12 +370,12 @@ const HeaderBase = kind({
 			);
 
 			// WizardPanels uses an animated title but that isn't supported for other types
-			if (arranger && type === 'wizard') {
+			if (arranger && (type === 'wizard' || type === 'compactWizard')) {
 				return (
 					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
 						<div className={css.titleContainer} key={title + subtitle}>
 							{titleHeading}
-							{subtitleHeading}
+							{type === 'compactWizard' ? '' : subtitleHeading}
 						</div>
 					</Cell>
 				);
@@ -384,7 +384,7 @@ const HeaderBase = kind({
 			return (
 				<Cell className={css.titleCell}>
 					{titleHeading}
-					{subtitleHeading}
+					{type === 'compactWizard' ? '' : subtitleHeading}
 				</Cell>
 			);
 		}

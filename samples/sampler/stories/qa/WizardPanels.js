@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
 import Alert from '@enact/sandstone/Alert';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
@@ -356,6 +356,57 @@ export const _WizardPanelsWithAlert = () => <WizardPanelsWithAlert />;
 
 _WizardPanelsWithAlert.storyName = 'with Alert';
 _WizardPanelsWithAlert.parameters = {
+	props: {
+		noPanel: true
+	}
+};
+
+
+export const WizardPanelsWithoutSubtitle = (args) => (
+	<WizardPanels
+		current={args['current']}
+		noAnimation={args['noAnimation']}
+		noSteps={args['noSteps']}
+		noSubtitle={args['noSubtitle']}
+		nextButtonVisibility={args['nextButtonVisibility']}
+		onBack={action('onBack')}
+		onChange={action('onChange')}
+		onNextClick={action('onNextClick')}
+		onPrevClick={action('onPrevClick')}
+		onTransition={action('onTransition')}
+		prevButtonVisibility={args['prevButtonVisibility']}
+		subtitle={args['subtitle']}
+		total={args['total']}
+	>
+		<WizardPanels.Panel
+			title="Title in View 1"
+			footer="Footer in View 1"
+		>
+			<BodyText>A simple view</BodyText>
+			<footer>
+				<Button>OK</Button>
+			</footer>
+		</WizardPanels.Panel>
+		<WizardPanels.Panel
+			title="Title in View 2"
+			footer="Footer in View 2"
+		>
+			<BodyText>A simple view</BodyText>
+		</WizardPanels.Panel>
+	</WizardPanels>
+);
+
+number('current', WizardPanelsWithoutSubtitle, Config, 0);
+boolean('noAnimation', WizardPanelsWithoutSubtitle, Config);
+boolean('noSteps', WizardPanelsWithoutSubtitle, Config);
+boolean('noSubtitle', WizardPanelsWithoutSubtitle, Config, true);
+select('nextButtonVisibility', WizardPanelsWithoutSubtitle, propOptions.buttonVisibility, Config);
+select('prevButtonVisibility', WizardPanelsWithoutSubtitle, propOptions.buttonVisibility, Config);
+text('subtitle', WizardPanelsWithoutSubtitle, Config);
+number('total', WizardPanelsWithoutSubtitle, Config, 0);
+
+WizardPanelsWithoutSubtitle.storyName = 'without subtitle';
+WizardPanelsWithoutSubtitle.parameters = {
 	props: {
 		noPanel: true
 	}

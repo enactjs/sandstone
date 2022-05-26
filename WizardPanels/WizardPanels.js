@@ -156,6 +156,14 @@ const WizardPanelsBase = kind({
 		noSteps: PropTypes.bool,
 
 		/**
+		* Omits the subtitle area.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noSubtitle: PropTypes.bool,
+
+		/**
 		* Called when the index value is changed.
 		*
 		* @type {Function}
@@ -326,7 +334,12 @@ const WizardPanelsBase = kind({
 			const step = noSteps ? '' : new IString($L('step {num}')).format({num: index + 1}) + ' ';
 			return `${step}${title} ${subtitle}`;
 		},
-		className: ({noSteps, styler}) => styler.append({noSteps}),
+		className: ({noSteps, noSubtitle, styler}) => styler.append(
+			{
+				noSteps,
+				noSubtitle
+			}
+		),
 		steps: ({current, index, noSteps, total, totalPanels}) => {
 			const currentStep = (noSteps && 1) || ((typeof current === 'number' && current > 0) ? current : (index + 1));
 			const totalSteps = (noSteps && 1) || ((typeof total === 'number' && total > 0) ? total : totalPanels);
@@ -350,6 +363,7 @@ const WizardPanelsBase = kind({
 		nextButton,
 		nextButtonVisibility,
 		noAnimation,
+		noSubtitle,
 		onNextClick,
 		onPrevClick,
 		onTransition,
@@ -382,7 +396,7 @@ const WizardPanelsBase = kind({
 						noCloseButton
 						subtitle={subtitle}
 						title={title}
-						type="wizard"
+						type= {noSubtitle ? "compactWizard" : "wizard"}
 					>
 						{steps}
 						<NavigationButton

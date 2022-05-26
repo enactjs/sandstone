@@ -48,6 +48,11 @@
 		}
 	}
 
+	&.compactWizard {
+		.titlesRow {
+			padding-bottom: 0;
+		}
+	}
 
 	.slotBefore,
 	.slotAfter,
@@ -144,7 +149,8 @@
 	}
 
 	// Wizard Header
-	&.wizard {
+	&.wizard,
+	&.compactWizard {
 		margin: @sand-header-wizard-margin;
 		padding: @sand-header-wizard-padding;
 
@@ -172,6 +178,10 @@
 				text-align: center;
 			}
 		}
+	}
+
+	&.compactWizard {
+		padding-bottom: @sand-header-compactwizard-padding-bottom;
 	}
 
 	// Mini Header
