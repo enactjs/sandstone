@@ -6,6 +6,20 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Popup`, `sandstone/PopupTabLayout`, `sandstone/FixedPopupPanels`, and `sandstone/FlexiblePopupPanels` to add `detail` property containing `inputType` in `onClose` event payload
+
+### Fixed
+
+- `sandstone/Scroller` to focus scroll thumb initially when it is used in Panels
+- `sandstone/Scroller` thresholds for swapping items by pointer when `editable` is given
+- `sandstone/Scroller` to support RTL locales when `editable` is given
+- `sandstone/Scroller` to scroll properly by wheel when `editable` is given
+- `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridiem
+
+## [2.5.0-alpha.2] - 2022-05-09
+
+### Added
+
 - `sandstone/Alert` and `sandstone/Input` support for portrait mode
 - `sandstone/Icon` supported icon list, adding a new icon `wallpaper`
 - `sandstone/Scroller` prop `editable` to enable editing items in the scroller
