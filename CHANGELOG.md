@@ -14,7 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/ContextualPopupDecorator` to update `ContextualPopup` position in open status
+- `sandstone/ContextualPopupDecorator` to update the position of `ContextualPopup` properly when repositioned in open
 - `sandstone/Scroller` to focus scroll thumb initially when it is used in Panels
 - `sandstone/Scroller` thresholds for swapping items by pointer when `editable` is given
 - `sandstone/Scroller` to support RTL locales when `editable` is given
