@@ -158,6 +158,7 @@ const HeaderBase = kind({
 
 		/**
 		 * Omits the subtitle area.
+		 *
 		 * @type {Boolean}
 		 * @default false
 		 * @public
@@ -269,6 +270,7 @@ const HeaderBase = kind({
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
 		 * If [noSubtitle]{@link sandstone/Panels.Header.noSubtitle} is `true`, this prop is ignored.
+		 *
 		 * @type {String|String[]}
 		 */
 		subtitle: PropTypes.oneOfType([

@@ -251,7 +251,9 @@ const WizardPanelsBase = kind({
 
 		/**
 		* The subtitle to display.
+		*
 		* If [noSubtitle]{@link sandstone/WizardPanels.WizardPanelsBase.noSubtitle} is `true`, this prop is ignored.
+		*
 		* @type {String}
 		* @public
 		*/
