@@ -7,6 +7,7 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Heading from '@enact/sandstone/Heading';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
+import PropTypes from 'prop-types';
 import {Component} from 'react';
 
 const Config = mergeComponentMetadata(
@@ -96,11 +97,13 @@ class PositionChangingDropdown extends Component {
 	};
 
 	render () {
+		const args = this.props.args['open'] ? {key: 0, open: true}: {key: 1}; // To prevent to reuse Dropdown, use key.
+
 		return (
 			<div style={{display: 'flex'}}>
 				<Dropdown title="first" onSelect={this.handleSelect}>{['a', 'b', 'c']}</Dropdown>
 				{this.state.isShow ? <Dropdown title="second">{['a', 'b', 'c']}</Dropdown> : null}
-				<Dropdown title="third">{['a', 'b', 'c']}</Dropdown>
+				<Dropdown title="third" onSelect={this.handleSelect} {...args}>{['a', 'b', 'c']}</Dropdown>
 			</div>
 		);
 	}
@@ -274,7 +277,13 @@ WithDisabled.parameters = {
 	}
 };
 
-export const WithChangingPosition = () => <PositionChangingDropdown />;
+PositionChangingDropdown.propTypes = {
+	args: PropTypes.object
+};
+
+export const WithChangingPosition = (args) => <PositionChangingDropdown args={args} />;
+
+boolean('open', WithChangingPosition, Config);
 
 WithChangingPosition.storyName = 'with changing position';
 WithChangingPosition.parameters = {
