@@ -97,7 +97,7 @@ class PositionChangingDropdown extends Component {
 	};
 
 	render () {
-		const args = this.props.args['open'] ? {key: 0, open: true}: {key: 1}; // To prevent to reuse Dropdown, use key.
+		const args = this.props.args['open'] ? {key: 0, open: true} : {key: 1}; // To prevent to reuse Dropdown, use key.
 
 		return (
 			<div style={{display: 'flex'}}>
