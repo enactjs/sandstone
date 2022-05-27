@@ -48,12 +48,6 @@
 		}
 	}
 
-	&.compactWizard {
-		.titlesRow {
-			padding-bottom: 0;
-		}
-	}
-
 	.slotBefore,
 	.slotAfter,
 	.slotSizer {
@@ -149,10 +143,14 @@
 	}
 
 	// Wizard Header
-	&.wizard,
-	&.compactWizard {
+	&.wizard
+	{
 		margin: @sand-header-wizard-margin;
 		padding: @sand-header-wizard-padding;
+
+		&.noSubtitle {
+			padding-bottom: @sand-header-wizard-nosubtitle-padding-bottom;
+		}
 
 		.titleContainer {
 			// absolutely position the incoming title
@@ -180,10 +178,6 @@
 		}
 	}
 
-	&.compactWizard {
-		padding-bottom: @sand-header-compactwizard-padding-bottom;
-	}
-
 	// Mini Header
 	&.mini {
 		margin: @sand-header-mini-margin;
@@ -201,10 +195,16 @@
 			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
 		}
 
-		&.withSubtitle {
+		&.withSubtitle:not(.noSubtitle) {
 			.titlesRow {
 				padding-bottom: @sand-header-subtitle-height;
 			}
+		}
+	}
+
+	&.noSubtitle {
+		.titlesRow {
+			padding-bottom: 0;
 		}
 	}
 }

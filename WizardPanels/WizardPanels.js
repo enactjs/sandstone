@@ -159,6 +159,7 @@ const WizardPanelsBase = kind({
 		* Omits the subtitle area.
 		*
 		* @type {Boolean}
+		* @default false
 		* @public
 		*/
 		noSubtitle: PropTypes.bool,
@@ -250,7 +251,7 @@ const WizardPanelsBase = kind({
 
 		/**
 		* The subtitle to display.
-		*
+		* If [noSubtitle]{@link sandstone/WizardPanels.WizardPanels#noSubtitle} is `true`, this prop is ignored.
 		* @type {String}
 		* @public
 		*/
@@ -286,6 +287,7 @@ const WizardPanelsBase = kind({
 	defaultProps: {
 		index: 0,
 		nextButtonVisibility: 'auto',
+		noSubtitle: false,
 		prevButtonVisibility: 'auto'
 	},
 
@@ -394,9 +396,10 @@ const WizardPanelsBase = kind({
 						centered
 						css={css}
 						noCloseButton
+						noSubtitle={noSubtitle}
 						subtitle={subtitle}
 						title={title}
-						type={noSubtitle ? "compactWizard" : "wizard"}
+						type="wizard"
 					>
 						{steps}
 						<NavigationButton
