@@ -63,7 +63,13 @@ const LtrTests = [
 	...withProps({type: 'wizard', centered: true, slotAbove: dropIn.steps, slotBefore: dropIn.backButton, slotAfter: dropIn.nextButton}, baseTests),
 
 	// Mini Type Slots
-	...withProps({type: 'mini'}, headerWithChildrenTests)
+	...withProps({type: 'mini'}, headerWithChildrenTests),
+
+	// noSubtitle
+	...withProps({type: 'standard', noSubtitle: true}, baseTests),
+	...withProps({type: 'compact', noSubtitle: true}, baseTests),
+	...withProps({type: 'wizard', noSubtitle: true}, baseTests),
+	...withProps({type: 'mini', noSubtitle: true}, baseTests),
 ];
 
 const HeaderTests = [
