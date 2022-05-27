@@ -5,20 +5,6 @@
 // Universal Color Definitions
 // ---------------------------------------
 
-// colors
-@sand-untypical-color-03: #4c5059; // @sand-dark-gray; @sand-picker-indicators-active-focus-bg-color @sand-picker-joined-focus-incrementer-color
-@sand-untypical-color-04: #666666; // @sand-slider-disabled-knob-bg-color
-@sand-untypical-color-06: #9da2a7; // @sand-picker-indicators-inactive-bg-color
-@sand-untypical-color-07: #b8b9bb; // @sand-picker-indicators-inactive-focus-bg-color
-@sand-untypical-color-09: #abaeb3; // @sand-gray; @sand-progressbutton-bar-color @sand-picker-joined-incrementer-color
-@sand-untypical-color-10: #e6e6e6; // @sand-light-gray; @sand-video-slider-tooltip-color @sand-video-slider-tooltip-thumbnail-border-color
-@sand-untypical-color-11: #ffffff; // @sand-white; @sand-progressbar-highlighted-fill-bg-color @sand-video-feedback-mini-text-color @sand-video-player-title-color
-
-// colors in form of comma-separated RGB values
-@sand-untypical-color-03-rgb: 76, 80, 89; // #4c5059; @sand-dark-gray; @sand-inputfield-placeholder-active-color
-@sand-untypical-color-10-rgb: 230, 230, 230; // #e6e6e6; @sand-light-gray; @sand-input-numbercell-background-color @sand-inputfield-placeholder-color @sand-inputfield-bg-color @sand-scroll-focusablebody-focus-bg-color @sand-tablayout-tab-horizontal-border-color
-
-
 // Remote button colors
 // ---------------------------------------
 @sand-remote-button-red-color:     #e1777e; // #ff6d78; // #da3c3c; // #e71b1c;
@@ -33,19 +19,28 @@
 // common colors
 @sand-bg-color: var(--sand-bg-color, #000000);
 
+@sand-text-color-rgb: var(--sand-text-color-rgb, 230, 230, 230); // #e6e6e6;
+@sand-text-color: rgb(@sand-text-color-rgb);
 @sand-text-color: var(--sand-text-color, #e6e6e6);
 @sand-text-sub-color: var(--sand-text-sub-color, #abaeb3);
 @sand-shadow-color-rgb: var(--sand-shadow-color-rgb, 0, 0, 0);
 @sand-shadow-color: rgb(@sand-shadow-color-rgb, 30%);
-@sand-component-text-color: var(--sand-component-text-color, #e6e6e6);
+@sand-component-text-color-rgb: var(--sand-component-text-color-rgb, 230, 230, 230); // #e6e6e6;
+@sand-component-text-color: rgb(@sand-component-text-color-rgb);
+@sand-component-text-sub-color: var(--sand-component-text-sub-color, #abaeb3);
 @sand-component-bg-color: var(--sand-component-bg-color, #7d848c);
+@sand-component-active-indicator-bg-color: var(--sand-component-active-indicator-bg-color, #e6e6e6);
+@sand-component-inactive-indicator-bg-color: var(--sand-component-inactive-indicator-bg-color, #9da2a7);
 
 @sand-focus-text-color: var(--sand-focus-text-color, #ffffff);
-@sand-focus-bg-color: var(--sand-focus-bg-color, #e6e6e6);
+@sand-focus-bg-color-rgb: var(--sand-focus-bg-color-rgb, 230, 230, 230); // #e6e6e6;
+@sand-focus-bg-color: rgb(@sand-focus-bg-color-rgb);
 @sand-component-focus-text-color-rgb: var(--sand-component-focus-text-color-rgb, 76, 80, 89); // #4c5059
 @sand-component-focus-text-color: rgb(@sand-component-focus-text-color-rgb);
+@sand-component-focus-active-indicator-bg-color: var(--sand-component-focus-active-indicator-bg-color, #4c5059);
+@sand-component-focus-inactive-indicator-bg-color: var(--sand-component-focus-inactive-indicator-bg-color, #b8b9bb);
 
-@sand-selected-color-rgb: var(--sand-selected-color-rgb, 230, 230, 230); // #e6e6e6 // @sand-text-color
+@sand-selected-color-rgb: var(--sand-selected-color-rgb, 230, 230, 230); // #e6e6e6
 @sand-selected-color: rgb(@sand-selected-color-rgb);
 @sand-selected-text-color: var(--sand-selected-text-color, @sand-text-color);
 @sand-selected-bg-color: var(--sand-selected-bg-color, #3e454d);
@@ -98,6 +93,7 @@
 @sand-checkbox-color: var(--sand-checkbox-color, @sand-text-color);
 @sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
 @sand-keyguide-bg-color-rgb: var(--sand-keyguide-bg-color-rgb, 55, 58, 65); // #373a41
+@sand-slider-disabled-knob-bg-color: (--sand-slider-disabled-knob-bg-color, #666666);
 
 
 // Overlay Alert
@@ -252,7 +248,7 @@
 // ---------------------------------------
 @sand-input-fullscreen-background-color: @sand-fullscreen-bg-color;
 @sand-input-overlay-background-color: @sand-popup-bg-color;
-@sand-input-numbercell-background-color: rgb(@sand-untypical-color-10-rgb, 20%);
+@sand-input-numbercell-background-color: rgb(@sand-text-color-rgb, 20%);
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
 @sand-input-numberfield-disabled-color: rgb(@sand-inputfield-focus-text-color-rgb, @sand-disabled-focus-content-opacity * 100%);
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
@@ -260,12 +256,11 @@
 // InputField
 // ---------------------------------------
 @sand-inputfield-text-color: @sand-text-color;
-@sand-inputfield-placeholder-color: rgb(@sand-untypical-color-10-rgb, 20%);
-@sand-inputfield-placeholder-active-color: rgb(@sand-untypical-color-03-rgb, 40%);
+@sand-inputfield-placeholder-color: rgb(@sand-component-text-color-rgb, 20%);
+@sand-inputfield-placeholder-active-color: rgb(@sand-component-focus-text-color-rgb, 40%);
 @sand-inputfield-focus-text-color-rgb: @sand-component-focus-text-color-rgb;
 @sand-inputfield-focus-text-color: @sand-component-focus-text-color;
 @sand-inputfield-disabled-text-color: inherit;
-@sand-inputfield-bg-color: rgb(@sand-untypical-color-10-rgb, 20%);
 @sand-inputfield-invalid-color: @sand-invalid-color;
 @sand-inputfield-invalid-tooltip-color: @sand-invalid-sub-color;
 
@@ -303,17 +298,17 @@
 // Picker
 // ---------------------------------------
 @sand-picker-text-color: @sand-text-color;
-@sand-picker-indicators-active-bg-color: @sand-text-color;
-@sand-picker-indicators-active-focus-bg-color: @sand-untypical-color-03;
-@sand-picker-indicators-inactive-bg-color: @sand-untypical-color-06;
-@sand-picker-indicators-inactive-focus-bg-color: @sand-untypical-color-07;
+@sand-picker-indicator-active-bg-color: @sand-component-active-indicator-bg-color;
+@sand-picker-indicator-active-focus-bg-color: @sand-component-focus-active-indicator-bg-color;
+@sand-picker-indicator-inactive-bg-color: @sand-component-inactive-indicator-bg-color;
+@sand-picker-indicator-inactive-focus-bg-color: @sand-component-focus-inactive-indicator-bg-color;
 @sand-picker-joined-horizontal-text-color: @sand-component-text-color;
 @sand-picker-joined-horizontal-bg-color: @sand-component-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
-@sand-picker-joined-incrementer-color: fade(@sand-untypical-color-09, 50%);
-@sand-picker-joined-focus-incrementer-color: @sand-untypical-color-03;
-@sand-picker-joined-focus-disabled-text-color: @sand-picker-indicators-active-focus-bg-color;
-@sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicators-active-focus-bg-color;
+@sand-picker-joined-incrementer-color: @sand-component-focus-text-color;
+@sand-picker-joined-focus-incrementer-color: @sand-component-focus-text-color;
+@sand-picker-joined-focus-disabled-text-color: @sand-picker-indicator-active-focus-bg-color;
+@sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicator-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-opacity: 0.9;
 @sand-picker-joined-focus-disabled-indicator-active-opacity: 1;
 @sand-picker-joined-fingernail-border-color: rgb(@sand-shadow-color-rgb, 20%);
@@ -334,11 +329,11 @@
 @sand-progressbar-bar-bg-color: @sand-progress-bg-color;
 @sand-progressbar-load-bg-color: rgb(@sand-progress-color-rgb, 30%);
 @sand-progressbar-fill-bg-color: @sand-progress-color;
-@sand-progressbar-highlighted-fill-bg-color: @sand-untypical-color-11;
+@sand-progressbar-highlighted-fill-bg-color: @sand-focus-text-color;
 
 // ProgressButton
 // ---------------------------------------
-@sand-progressbutton-bar-color: @sand-untypical-color-09;
+@sand-progressbutton-bar-color: @sand-component-text-sub-color;
 @sand-progressbutton-focus-fill-color: @sand-component-focus-text-color;
 
 // RadioItem
@@ -372,7 +367,7 @@
 
 // Scroller
 // ---------------------------------------
-@sand-scroll-focusablebody-focus-bg-color: rgb(@sand-untypical-color-10-rgb, 10%);
+@sand-scroll-focusablebody-focus-bg-color: rgb(@sand-focus-bg-color-rgb, 10%);
 
 // Slider
 // ---------------------------------------
@@ -391,13 +386,12 @@
 @sand-slider-active-load-bg-color: @sand-slider-focus-load-bg-color;
 @sand-slider-active-fill-bg-color: @sand-slider-focus-fill-bg-color;
 @sand-slider-disabled-bar-opacity: 0.4;
-@sand-slider-disabled-knob-bg-color: @sand-untypical-color-04;
 @sand-slider-disabled-focus-knob-bg-color: @sand-slider-focus-knob-bg-color;
 
 // Spinner
 // ---------------------------------------
 @sand-spinner-head-color: @sand-spinner-color;
-@sand-spinner-empty-color: fade(@sand-spinner-color, 20%);
+@sand-spinner-empty-color: rgb(@sand-spinner-color, 20%);
 @sand-spinner-bg-color: @sand-component-bg-color;
 @sand-spinner-text-color: @sand-component-text-color;
 @sand-spinner-text-shadow-color: @sand-shadow-color;
@@ -415,7 +409,7 @@
 
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-tab-horizontal-border-color: rgb(@sand-untypical-color-10-rgb, 50%);
+@sand-tablayout-tab-horizontal-border-color: rgb(@sand-text-color-rgb, 50%);
 @sand-tablayout-tab-horizontal-selected-border-color: @sand-selected-color;
 
 // Tooltip
@@ -427,10 +421,10 @@
 // VideoPlayer
 // ---------------------------------------
 @sand-video-feedback-mini-bg-color: fade(#000000, 50%); // should be black
-@sand-video-feedback-mini-text-color: @sand-untypical-color-11;
-@sand-video-slider-tooltip-color: @sand-untypical-color-10;
-@sand-video-slider-tooltip-thumbnail-border-color: @sand-untypical-color-10;
+@sand-video-feedback-mini-text-color: @sand-focus-text-color;
+@sand-video-slider-tooltip-color: @sand-text-color;
+@sand-video-slider-tooltip-thumbnail-border-color: @sand-text-color;
 @sand-video-player-bottom-bg-color: transparent;
-@sand-video-player-title-color: @sand-untypical-color-11;
+@sand-video-player-title-color: @sand-focus-text-color;
 @sand-video-player-title-text-shadow: 0 4px 4px rgb(@sand-shadow-color-rgb, 75%);
 @sand-video-player-scrim-gradient-color: linear-gradient(180deg, transparent 0%, #000 100%);
