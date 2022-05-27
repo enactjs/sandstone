@@ -268,7 +268,7 @@ const HeaderBase = kind({
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
-		 * If [noSubtitle]{@link sandstone/Panels.Header#noSubtitle} is `true`, this prop is ignored.
+		 * If [noSubtitle]{@link sandstone/Panels.Header.noSubtitle} is `true`, this prop is ignored.
 		 * @type {String|String[]}
 		 */
 		subtitle: PropTypes.oneOfType([
@@ -316,10 +316,10 @@ const HeaderBase = kind({
 		/**
 		 * Set the type of header to be used.
 		 *
-		 * @type {('compact'|'compactWizard'|'mini'|'standard'|'wizard')}
+		 * @type {('compact'|'mini'|'standard'|'wizard')}
 		 * @default 'standard'
 		 */
-		type: PropTypes.oneOf(['compact', 'compactWizard', 'mini', 'standard', 'wizard'])
+		type: PropTypes.oneOf(['compact', 'mini', 'standard', 'wizard'])
 	},
 
 	defaultProps: {
@@ -380,7 +380,7 @@ const HeaderBase = kind({
 			);
 
 			// WizardPanels uses an animated title but that isn't supported for other types
-			if (arranger && (type === 'wizard' || type === 'compactWizard')) {
+			if (arranger && type === 'wizard') {
 				return (
 					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
 						<div className={css.titleContainer} key={title + subtitle}>

@@ -1,6 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import Alert from '@enact/sandstone/Alert';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
