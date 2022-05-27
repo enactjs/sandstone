@@ -58,15 +58,15 @@ export const _FixedPopupPanels = (args) => (
 			</Panel>
 			<Panel>
 				<Header>
-					<title>Another Panel</title>
-					<subtitle>This is the second page</subtitle>
+					<title>FixedPopupPanels Panel</title>
+					<subtitle>This is the third page</subtitle>
 				</Header>
-				<Item>Example Item 1 on Panel 2</Item>
-				<Item>Example Item 2 on Panel 2</Item>
+				<Item>Example Item 1 on Panel 3</Item>
+				<Item>Example Item 2 on Panel 3</Item>
 				<footer className={css.footer}>
-                        <Button>Button1</Button>
-                        <Button>Button2</Button>
-                </footer>
+					<Button>Button 1</Button>
+					<Button>Button 2</Button>
+				</footer>
 			</Panel>
 		</FixedPopupPanels>
 		<BodyText centered>Use CONTROLS to interact with FixedPopupPanels.</BodyText>
