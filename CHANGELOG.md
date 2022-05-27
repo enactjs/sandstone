@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ContextualPopupDecorator` to update the position of `ContextualPopup` properly when repositioned in open
 - `sandstone/FixedPopupPanels.Panel` body to be filled vertically to place the last children as intended
 - `sandstone/Scroller` to focus scroll thumb initially when it is used in Panels
 - `sandstone/Scroller` thresholds for swapping items by pointer when `editable` is given
