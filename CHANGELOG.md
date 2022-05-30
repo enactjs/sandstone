@@ -12,6 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/TabLayout` to eliminate the horizontal maximum number of tabs
+- `sandstone/Input` background color for number type cell, `sandstone/Picker` indicator color when joined, and `sandstone/ProgressBar` highlight color are updated for better visibility of `light` skin
 
 ### Fixed
 
