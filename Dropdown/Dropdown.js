@@ -324,7 +324,7 @@ const DropdownBase = kind({
 		delete rest.rtl;
 
 		const ariaProps = extractAriaProps(rest);
-		const calcAriaProps = ariaLabel != null ? null : {role: 'region', 'aria-labelledby': ariaLabelledBy};
+		const calcAriaProps = ariaLabel != null ? null : {role: 'barf', 'aria-labelledby': ariaLabelledBy}; // custom role to check is jsx-a11y catches error when passed through props
 		const popupProps = {'aria-live': null, children, handleSpotlightPause, onSelect, selected, width, role: null};
 		const voiceProps = extractVoiceProps(rest);
 
