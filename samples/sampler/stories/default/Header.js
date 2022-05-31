@@ -60,6 +60,7 @@ export const PanelsHeader = (args) => {
 				closeButtonBackgroundOpacity={args['closeButtonBackgroundOpacity']}
 				marqueeOn={args['marqueeOn']}
 				noCloseButton={args['noCloseButton']}
+				noSubtitle={args['noSubtitle']}
 				onClose={action('onClose')}
 				slotAbove={slotAbove}
 				slotBefore={slotBefore}
@@ -107,6 +108,7 @@ select(
 );
 select('marqueeOn', PanelsHeader, prop.marqueeOn, Config);
 boolean('noCloseButton', PanelsHeader, Config);
+boolean('noSubtitle', PanelsHeader, Config);
 
 PanelsHeader.storyName = 'Panels.Header';
 PanelsHeader.parameters = {

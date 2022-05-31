@@ -157,6 +157,15 @@ const HeaderBase = kind({
 		noCloseButton: PropTypes.bool,
 
 		/**
+		 * Omits the subtitle area.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noSubtitle: PropTypes.bool,
+
+		/**
 		 * Called with cancel/back key events.
 		 *
 		 * @type {Function}
@@ -260,6 +269,7 @@ const HeaderBase = kind({
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
+		 * If [noSubtitle]{@link sandstone/Panels.Header.noSubtitle} is `true`, this prop is ignored.
 		 *
 		 * @type {String|String[]}
 		 */
@@ -311,11 +321,12 @@ const HeaderBase = kind({
 		 * @type {('compact'|'mini'|'standard'|'wizard')}
 		 * @default 'standard'
 		 */
-		type: PropTypes.oneOf(['standard', 'compact', 'wizard', 'mini'])
+		type: PropTypes.oneOf(['compact', 'mini', 'standard', 'wizard'])
 	},
 
 	defaultProps: {
 		marqueeOn: 'render',
+		noSubtitle: false,
 		type: 'standard'
 	},
 
@@ -326,16 +337,17 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, type, styler, subtitle}) => styler.append(
+		className: ({centered, children, noSubtitle, type, styler, subtitle}) => styler.append(
 			{
 				centered,
+				noSubtitle,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				withChildren: hasChildren(children),
 				withSubtitle: subtitle
 			},
 			type
 		),
-		titleCell: ({arranger, centered, css, marqueeOn, slotSize, subtitle, subtitleId, title, titleId, type}) => {
+		titleCell: ({arranger, centered, css, marqueeOn, noSubtitle, slotSize, subtitle, subtitleId, title, titleId, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
 			const titleHeading = (
@@ -375,7 +387,7 @@ const HeaderBase = kind({
 					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
 						<div className={css.titleContainer} key={title + subtitle}>
 							{titleHeading}
-							{subtitleHeading}
+							{noSubtitle ? null : subtitleHeading}
 						</div>
 					</Cell>
 				);
@@ -384,7 +396,7 @@ const HeaderBase = kind({
 			return (
 				<Cell className={css.titleCell}>
 					{titleHeading}
-					{subtitleHeading}
+					{noSubtitle ? null : subtitleHeading}
 				</Cell>
 			);
 		}
@@ -419,6 +431,7 @@ const HeaderBase = kind({
 	}) => {
 		delete rest.arranger;
 		delete rest.marqueeOn;
+		delete rest.noSubtitle;
 		delete rest.subtitle;
 		delete rest.subtitleId;
 		delete rest.title;

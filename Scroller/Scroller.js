@@ -28,6 +28,7 @@ import {Fragment} from 'react';
 import useScroll from '../useScroll';
 import HoverToScroll from '../useScroll/HoverToScroll';
 import Scrollbar from '../useScroll/Scrollbar';
+import ScrollbarPlaceholder from '../useScroll/ScrollbarPlaceholder';
 import Skinnable from '../Skinnable';
 
 import {EditableShape, EditableWrapper} from './EditableWrapper';
@@ -92,6 +93,7 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
+					{rest.focusableScrollbar ? <ScrollbarPlaceholder /> : null}
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle}>
 						{(editable && direction === 'horizontal') ?
 							<EditableWrapper {...editableWrapperProps} /> :

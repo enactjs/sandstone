@@ -1,3 +1,4 @@
+import BodyText from '../../../../BodyText';
 import Button from '../../../../Button';
 import WizardPanels, {Panel} from '../../../../WizardPanels';
 
@@ -42,7 +43,16 @@ const WizardPanelTests = withConfig({
 		<Panel>View 2</Panel>
 		<Panel>View 3</Panel>
 	</WizardPanels>,
-
+	// Test to display Panels without subtitle area
+	<WizardPanels noSubtitle title="WizardPanel">
+		<Panel>
+			<BodyText>View 1</BodyText>
+			<footer>
+				<Button>OK</Button>
+			</footer>
+		</Panel>
+		<Panel>View 2</Panel>
+	</WizardPanels>,
 	// Test to hide steps
 	<WizardPanels noSteps>
 		<Panel title="My Title" subtitle={LongerLoremString}>View 1</Panel>
