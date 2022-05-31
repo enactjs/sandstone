@@ -246,9 +246,9 @@ const useThemeScroll = (props, instances) => {
 
 		if (focusedItem) {
 			focusedItem.scrollIntoView(false);
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
