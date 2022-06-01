@@ -7,6 +7,28 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 - `sandstone/Scroller` to position the focused item into scroller view
 
+## [2.5.0-beta.1] - 2022-05-31
+
+### Added
+
+- `sandstone/Panels.Header` and `sandstone/WizardPanels` prop `noSubtitle` to hide subtitle area
+- `sandstone/Popup`, `sandstone/PopupTabLayout`, `sandstone/FixedPopupPanels`, and `sandstone/FlexiblePopupPanels` to add `detail` property containing `inputType` in `onClose` event payload
+
+### Changed
+
+- `sandstone/TabLayout` to eliminate the horizontal maximum number of tabs
+- `sandstone/Input` background color for number type cell, `sandstone/Picker` indicator color when joined, and `sandstone/ProgressBar` highlight color are updated for better visibility of `light` skin
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update the position of `ContextualPopup` properly when repositioned in open
+- `sandstone/FixedPopupPanels.Panel` body to be filled vertically to place the last children as intended
+- `sandstone/Scroller` to focus scroll thumb initially when it is used in Panels
+- `sandstone/Scroller` thresholds for swapping items by pointer when `editable` is given
+- `sandstone/Scroller` to support RTL locales when `editable` is given
+- `sandstone/Scroller` to scroll properly by wheel when `editable` is given
+- `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridiem
+
 ## [2.5.0-alpha.2] - 2022-05-09
 
 ### Added
