@@ -903,17 +903,17 @@ export const WithInputFields = (args) => (
 			<Item>2</Item>
 			<Item>3</Item>
 			<Item>4</Item>
-			<Input defaultValue="Input 1"/>
+			<Input defaultValue="Input 1" />
 			<Item>5</Item>
 			<Item>6</Item>
 			<Item>7</Item>
 			<Item>8</Item>
-			<Input defaultValue="Input 2"/>
+			<Input defaultValue="Input 2" />
 			<Item>9</Item>
 			<Item>10</Item>
 			<Item>11</Item>
 			<Item>12</Item>
-			<Input defaultValue="Input 3"/>
+			<Input defaultValue="Input 3" />
 			<Item>13</Item>
 			<Item>14</Item>
 			<Item>15</Item>
