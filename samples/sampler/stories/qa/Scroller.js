@@ -894,31 +894,31 @@ export const WithInputFields = (args) => (
 		spotlightDisabled={args['spotlightDisabled']}
 	>
 		<div
-				style={{
-					height: ri.scaleToRem(2004),
-					width: ri.scaleToRem(4002)
-				}}
-			>
-				<Item>1</Item>
-				<Item>2</Item>
-				<Item>3</Item>
-				<Item>4</Item>
-				<Input defaultValue="Input 1"/>
-				<Item>5</Item>
-				<Item>6</Item>
-				<Item>7</Item>
-				<Item>8</Item>
-				<Input defaultValue="Input 2"/>
-				<Item>9</Item>
-				<Item>10</Item>
-				<Item>11</Item>
-				<Item>12</Item>
-				<Input defaultValue="Input 3"/>
-				<Item>13</Item>
-				<Item>14</Item>
-				<Item>15</Item>
-				<Item>16</Item>
-			</div>
+			style={{
+				height: ri.scaleToRem(2004),
+				width: ri.scaleToRem(4002)
+			}}
+		>
+			<Item>1</Item>
+			<Item>2</Item>
+			<Item>3</Item>
+			<Item>4</Item>
+			<Input defaultValue="Input 1"/>
+			<Item>5</Item>
+			<Item>6</Item>
+			<Item>7</Item>
+			<Item>8</Item>
+			<Input defaultValue="Input 2"/>
+			<Item>9</Item>
+			<Item>10</Item>
+			<Item>11</Item>
+			<Item>12</Item>
+			<Input defaultValue="Input 3"/>
+			<Item>13</Item>
+			<Item>14</Item>
+			<Item>15</Item>
+			<Item>16</Item>
+		</div>
 	</Scroller>
 );
 
