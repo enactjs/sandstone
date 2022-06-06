@@ -236,6 +236,8 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						this.blur();
 						forwardBlur(ev, this.props);
 					} else {
+						this.focused = 'decorator';
+						this.node = ev.currentTarget;
 						this.fromMouse = false;
 						ev.stopPropagation();
 					}

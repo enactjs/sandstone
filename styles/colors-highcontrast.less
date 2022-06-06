@@ -5,11 +5,6 @@
 // Universal Color Definitions
 // ---------------------------------------
 
-// UI Conceptual Colors
-// ---------------------------------------
-@sand-highcontrast-overlay-bg-color: rgb(@sand-overlay-bg-color-rgb);
-@sand-highcontrast-keyguide-bg-color: rgb(@sand-untypical-color-01-rgb);
-
 
 // ---------------------------------------
 // Component Colors
@@ -17,17 +12,17 @@
 
 // Alert
 // ---------------------------------------
-@sand-alert-overlay-bg-color: @sand-alert-bg-color;
+@sand-alert-overlay-bg-color: @sand-alert-bg-color; // different from neutral
 
 // Input
 // ---------------------------------------
-@sand-input-fullscreen-background-color: @sand-highcontrast-overlay-bg-color;
+@sand-input-fullscreen-background-color: rgb(@sand-overlay-bg-color-rgb); // different from neutral
 
 // KeyGuide
 // ---------------------------------------
-@sand-keyguide-bg-color: @sand-highcontrast-keyguide-bg-color;
+@sand-keyguide-bg-color: rgb(@sand-keyguide-bg-color-rgb); // no alpha
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: @sand-highcontrast-overlay-bg-color;
-@sand-popup-scrimtransparent-bg-color: @sand-highcontrast-overlay-bg-color;
+@sand-popup-bg-color: rgb(@sand-overlay-bg-color-rgb); // no alpha
+@sand-popup-scrimtransparent-bg-color: rgb(@sand-overlay-bg-color-rgb); // no alpha

@@ -25,6 +25,7 @@ export const _WizardPanels = (args) => (
 		current={args['current']}
 		noAnimation={args['noAnimation']}
 		noSteps={args['noSteps']}
+		noSubtitle={args['noSubtitle']}
 		nextButtonVisibility={args['nextButtonVisibility']}
 		onBack={action('onBack')}
 		onChange={action('onChange')}
@@ -152,6 +153,7 @@ export const _WizardPanels = (args) => (
 number('current', _WizardPanels, Config, 0);
 boolean('noAnimation', _WizardPanels, Config);
 boolean('noSteps', _WizardPanels, Config);
+boolean('noSubtitle', _WizardPanels, Config);
 select('nextButtonVisibility', _WizardPanels, propOptions.buttonVisibility, Config);
 select('prevButtonVisibility', _WizardPanels, propOptions.buttonVisibility, Config);
 number('total', _WizardPanels, Config, 0);
