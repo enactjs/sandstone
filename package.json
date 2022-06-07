@@ -49,7 +49,9 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "warning": "^4.0.3",
-    "ilib": "^14.14.0"
+    "ilib": "^14.14.0",
+    "@react-three/fiber": "^8.0.22"
+
   },
   "peerDependencies": {
     "ilib": "^14.14.0 || ^14.14.0-webos1"
