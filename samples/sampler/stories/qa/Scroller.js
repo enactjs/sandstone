@@ -4,7 +4,7 @@ import {boolean, number, range, select} from '@enact/storybook-utils/addons/cont
 import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
 import ImageItem from '@enact/sandstone/ImageItem';
-import {InputField as Input} from '@enact/sandstone/Input';
+import {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {Header} from '@enact/sandstone/Panels';
@@ -903,17 +903,17 @@ export const WithInputFields = (args) => (
 			<Item>2</Item>
 			<Item>3</Item>
 			<Item>4</Item>
-			<Input defaultValue="Input 1" />
+			<InputField defaultValue="Input 1" />
 			<Item>5</Item>
 			<Item>6</Item>
 			<Item>7</Item>
 			<Item>8</Item>
-			<Input defaultValue="Input 2" />
+			<InputField defaultValue="Input 2" />
 			<Item>9</Item>
 			<Item>10</Item>
 			<Item>11</Item>
 			<Item>12</Item>
-			<Input defaultValue="Input 3" />
+			<InputField defaultValue="Input 3" />
 			<Item>13</Item>
 			<Item>14</Item>
 			<Item>15</Item>

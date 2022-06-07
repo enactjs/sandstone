@@ -245,7 +245,7 @@ const useThemeScroll = (props, instances) => {
 		const focusedItem = Spotlight.getCurrent();
 
 		if (focusedItem) {
-			focusedItem.scrollIntoView(false);
+			focusedItem.scrollIntoView(true);
 			return false;
 		}
 		return true;
