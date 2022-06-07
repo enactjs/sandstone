@@ -39,6 +39,7 @@ describe('Focus after calling scrollTo()', function () {
 		await Page.delay(500);
 		// Step 6: Press 5-way OK.
 		await Page.spotlightSelect();
+		await Page.delay(1000);
 		// Step 6-1 Verify: list is scrolled to first item.
 		expect(await Page.topLeftVisibleItemId()).to.equal('item0');
 		// Step 6-2 Verify: Spotlight on item0.
