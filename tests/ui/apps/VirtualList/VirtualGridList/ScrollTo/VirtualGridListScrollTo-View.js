@@ -18,8 +18,9 @@ class App extends Component {
 		if (this.state.dataSize === 0) {
 			// Intend to receive data asynchronously.
 			setTimeout(() => {
-				this.setState({dataSize: 50});
-				this.scrollTo({index: 0, focus: true, animate: false});
+				this.setState({dataSize: 50}, () => {
+					this.scrollTo({index: 0, focus: true, animate: false});
+				});
 			}, 10);
 		}
 	}
