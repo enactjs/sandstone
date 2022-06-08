@@ -842,9 +842,9 @@ const PickerBase = class extends ReactComponent {
 		}
 
 		if (this.props.type === 'number') {
-			return `${titleText}${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
+			return titleText + `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
 		} else {
-			return `${titleText}${valueText} ${next ? $L('next item') : $L('previous item')}`;
+			return titleText + `${valueText} ${next ? $L('next item') : $L('previous item')}`;
 		}
 	}
 
