@@ -5,7 +5,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ## [unreleased]
 
 ### Fixed
-
+- `sandstone/Scroller` to position the focused item into scroller view
 - `sandstone/Slider.SliderBehaviorDecorator` to use React.createRef() instead of React.findDomNode()
 - `sandstone/VideoPlayer` to use React.createRef() instead of React.findDomNode()
 
