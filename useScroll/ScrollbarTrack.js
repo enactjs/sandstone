@@ -19,6 +19,8 @@ const
 	isRight = is('right'),
 	isUp = is('up');
 
+const scrollStopWaiting = 500; // Wait for finishing scroll animation.
+
 const SpotlightAccelerator = new Accelerator();
 const SpottableDiv = Spottable('div');
 
@@ -100,7 +102,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 								(isRight(keyCode) && horizontalReachRightMost && $L('RIGHTMOST')) // the case that isRight(keyCode) is true
 							);
 						}
-					}, 500); // Wait for finishing scroll animation.
+					}, scrollStopWaiting);
 				}
 			}
 
