@@ -25,6 +25,7 @@ import Announce from '@enact/ui/AnnounceDecorator/Announce';
 import ComponentOverride from '@enact/ui/ComponentOverride';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import {FloatingLayerContext} from '@enact/ui/FloatingLayer/FloatingLayerDecorator';
+import ForwardRef from "@enact/ui/ForwardRef";
 import Media from '@enact/ui/Media';
 import Slottable from '@enact/ui/Slottable';
 import Touchable from '@enact/ui/Touchable';
@@ -86,13 +87,13 @@ RootComponent.propTypes = {
 };
 
 const SpottableDiv = Touchable(Spottable('div'));
-const RootContainer = SpotlightContainerDecorator(
+const RootContainer = ForwardRef({prop: 'playerRef'}, SpotlightContainerDecorator(
 	{
 		enterTo: 'default-element',
 		defaultElement: [`.${css.controlsHandleAbove}`, `.${css.controlsFrame}`]
 	},
 	RootComponent
-);
+));
 
 const ControlsContainer = SpotlightContainerDecorator(
 	{
@@ -925,7 +926,7 @@ const VideoPlayerBase = class extends Component {
 
 			if (!this.props.spotlightDisabled) {
 				const current = Spotlight.getCurrent();
-				if (!current || this.player.contains(current)) {
+				if (!current || this.playerRef.current.contains(current)) {
 					// Set focus within media controls when they become visible.
 					if (Spotlight.focus(this.mediaControlsSpotlightId) && this.jumpButtonPressed === 0) {
 						this.jumpButtonPressed = null;
@@ -1894,7 +1895,7 @@ const VideoPlayerBase = class extends Component {
 			this.stopDelayedTitleHide();
 		}
 
-		this.player.style.setProperty('--liftDistance', `${liftDistance}px`);
+		this.playerRef.current.style.setProperty('--liftDistance', `${liftDistance}px`);
 		this.setState(({announce}) => ({
 			infoVisible: showMoreComponents,
 			titleVisible: true,
@@ -1905,12 +1906,6 @@ const VideoPlayerBase = class extends Component {
 	handleMediaControlsClose = (ev) => {
 		this.hideControls();
 		ev.stopPropagation();
-	};
-
-	setPlayerRef = () => {
-		// TODO: We've moved SpotlightContainerDecorator up to allow VP to be spottable but also
-		// need a ref to the root node to query for children and set CSS variables.
-		this.player = this.playerRef.current;
 	};
 
 	setVideoRef = (video) => {
@@ -2025,8 +2020,7 @@ const VideoPlayerBase = class extends Component {
 			<RootContainer
 				className={css.videoPlayer + ' enact-fit' + (className ? ' ' + className : '')}
 				onClick={this.activityDetected}
-				playerRef={this.playerRef}
-				ref={this.setPlayerRef}
+				ref={this.playerRef}
 				spotlightDisabled={spotlightDisabled}
 				spotlightId={spotlightId}
 				style={style}

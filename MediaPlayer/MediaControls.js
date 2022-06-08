@@ -1,23 +1,25 @@
-import ApiDecorator from '@enact/core/internal/ApiDecorator';
-import Cancelable from '@enact/ui/Cancelable';
-import EnactPropTypes from '@enact/core/internal/prop-types';
+
+import {on, off} from '@enact/core/dispatcher';
+import {forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import hoc from '@enact/core/hoc';
 import {is} from '@enact/core/keymap';
-import {on, off} from '@enact/core/dispatcher';
-import Pause from '@enact/spotlight/Pause';
-import Slottable from '@enact/ui/Slottable';
-import Spotlight from '@enact/spotlight';
-import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
-import {forward} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
+import ApiDecorator from '@enact/core/internal/ApiDecorator';
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import Spotlight from '@enact/spotlight';
+import Pause from '@enact/spotlight/Pause';
+import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
+import Cancelable from '@enact/ui/Cancelable';
+import ForwardRef from "@enact/ui/ForwardRef";
+import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import {Component, createRef} from 'react';
 
-import $L from '../internal/$L';
-import {compareChildren, onlyUpdateForProps} from '../internal/util';
 import ActionGuide from '../ActionGuide';
 import Button from '../Button';
+import $L from '../internal/$L';
+import {compareChildren, onlyUpdateForProps} from '../internal/util';
 
 import {countReactChildren} from './util';
 
@@ -35,12 +37,12 @@ DivComponent.propTypes = {
 	mediaControlsRef: EnactPropTypes.ref
 };
 
-const OuterContainer = SpotlightContainerDecorator({
+const OuterContainer = ForwardRef({prop: 'mediaControlsRef'}, SpotlightContainerDecorator({
 	defaultElement: [
 		`.${spotlightDefaultClass}`
 	],
 	leaveFor: {left: '', right: ''}
-}, DivComponent);
+}, DivComponent));
 const Container = SpotlightContainerDecorator({
 	enterTo: 'default-element'
 }, 'div');
@@ -354,7 +356,7 @@ const MediaControlsBase = kind({
 		delete rest.onClose;
 		delete rest.visible;
 		return (
-			<OuterContainer {...rest} id={id} mediaControlsRef={mediaControlsRef} spotlightId={spotlightId}>
+			<OuterContainer {...rest} id={id} ref={mediaControlsRef} spotlightId={spotlightId}>
 				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled} onKeyDown={onKeyDownFromMediaButtons}>
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={spotlightDefaultClass} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
