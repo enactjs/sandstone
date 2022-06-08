@@ -20,7 +20,7 @@ class App extends Component {
 			setTimeout(() => {
 				this.setState({dataSize: 50});
 				this.scrollTo({index: 0, focus: true, animate: false});
-			}, 10);
+			}, 0);
 		}
 	}
 
