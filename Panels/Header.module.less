@@ -48,7 +48,6 @@
 		}
 	}
 
-
 	.slotBefore,
 	.slotAfter,
 	.slotSizer {
@@ -148,6 +147,10 @@
 		margin: @sand-header-wizard-margin;
 		padding: @sand-header-wizard-padding;
 
+		&.noSubtitle {
+			padding-bottom: @sand-header-wizard-nosubtitle-padding-bottom;
+		}
+
 		.titleContainer {
 			// absolutely position the incoming title
 			&:nth-child(2) {
@@ -191,10 +194,16 @@
 			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
 		}
 
-		&.withSubtitle {
+		&.withSubtitle:not(.noSubtitle) {
 			.titlesRow {
 				padding-bottom: @sand-header-subtitle-height;
 			}
+		}
+	}
+
+	&.noSubtitle {
+		.titlesRow {
+			padding-bottom: 0;
 		}
 	}
 }

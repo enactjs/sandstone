@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
+import {range, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
@@ -77,7 +77,6 @@ export const WithVariableNumberOfTabs = (args) => {
 		<Panel>
 			<Header title="TabLayout" subtitle="With variable number of tabs" />
 			<TabLayout
-				collapsed={args['collapsed']}
 				orientation={args['orientation']}
 			>
 				{Array.from({length: tabs}, (v, i) => (
@@ -143,7 +142,6 @@ export const WithVariableNumberOfTabs = (args) => {
 };
 
 range('Number of Tabs', WithVariableNumberOfTabs, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
-boolean('collapsed', WithVariableNumberOfTabs, TabLayout);
 select('orientation', WithVariableNumberOfTabs, ['vertical', 'horizontal'], TabLayout, 'vertical');
 
 WithVariableNumberOfTabs.storyName = 'With variable number of tabs';
