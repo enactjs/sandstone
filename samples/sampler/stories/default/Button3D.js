@@ -19,8 +19,7 @@ export const _Button3D = (args) => (
 	<Canvas>
 		<ambientLight />
 		<pointLight position={[10, 10, 10]} />
-		<Button3D position={[-1.2, 0, 0]} />
-		<Button3D position={[1.2, 0, 0]} />
+		<Button3D  />
 	</Canvas>
 );
 
