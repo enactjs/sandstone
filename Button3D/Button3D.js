@@ -37,21 +37,22 @@ const Button3DBase = (props) => {
 				<mesh
 					{...props}
 					ref={mesh}
-					scale={hovered ? 1.5 : 1}
+					// scale={hovered ? 1.5 : 1}
 					onClick={(event) => setActive(!active)}
 					onPointerOver={(event) => setHover(true)}
-					onPointerOut={(event) => setHover(false)}>
+					onPointerOut={(event) => setHover(false)}
+				>
 
 					{/*<boxGeometry args={[5, 1, 1]} />*/}
 
 					<extrudeBufferGeometry  args={[shape, { bevelEnabled: false, depth: 0.1 }]} />
-					<meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
 					{/*<extrudeGeometry args={,[10, 1, 1,1,1,5]} />*/}
 					<OrbitControls />
 				</mesh>
 			</group>
-			<group>
-				<Text color="red" anchorX="center" anchorY="middle" fontSize={1}>
+			<group position={[0,0,-0.30]}>
+				<Text color={hovered ? '#4c5059' : '#e6e6e6'} anchorX="center" anchorY="middle" fontSize={0.5}>
 					hello world!
 				</Text>
 			</group>
