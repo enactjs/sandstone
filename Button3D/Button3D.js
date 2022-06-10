@@ -21,8 +21,8 @@ const Button3DBase = (props) => {
 
 	const shape = new THREE.Shape();
 
-	let sizeX = Math.max(props.children.length * 0.3, 5)
-	let sizeY = 3
+	let sizeX = Math.max(props.children.length * 0.3, props.size === "small" ? 4 : 5)
+	let sizeY = props.size === "small" ? 2 : 3
 	let radius = 0.5
 
 	let halfX = sizeX * 0.5 - radius

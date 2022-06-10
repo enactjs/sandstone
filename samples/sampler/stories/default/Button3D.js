@@ -6,6 +6,7 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 
 import { Canvas} from '@react-three/fiber'
 import iconNames from '../helper/icons';
+import {_Button} from "./Button";
 
 
 Button3D.displayName = 'Button3D';
@@ -13,7 +14,8 @@ const Config = mergeComponentMetadata('Button3D', UIButtonBase, UIButton, Button
 
 const prop = {
 	iconPosition: ['', 'before', 'after'],
-	icons: ['', ...iconNames]
+	icons: ['', ...iconNames],
+	size: ['small', 'large']
 };
 
 export default {
@@ -28,6 +30,7 @@ export const _Button3D = (args) => (
 		<Button3D
 			icon={args['icon']}
 			iconPosition={args['iconPosition']}
+			size={args['size']}
 		>
 			{args['children']}
 		</Button3D>
@@ -37,6 +40,7 @@ export const _Button3D = (args) => (
 text('children', _Button3D, Config, 'click me');
 select('icon', _Button3D, prop.icons, Config);
 select('iconPosition', _Button3D, prop.iconPosition, Config);
+select('size', _Button3D, prop.size, Config, 'large');
 
 _Button3D.storyName = 'Button3D';
 _Button3D.parameters = {
