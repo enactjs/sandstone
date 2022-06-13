@@ -8,8 +8,7 @@ import ViewManager, {shape} from '@enact/ui/ViewManager';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext, cloneElement, Children, Component} from 'react';
-import ReactDOM from 'react-dom';
+import {Children, cloneElement, Component, createContext, createRef} from 'react';
 
 import {startCapture, stopCapture} from './captureKeys';
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
@@ -158,6 +157,7 @@ const ViewportBase = class extends Component {
 	constructor () {
 		super();
 
+		this.nodeRef = createRef();
 		this.paused = new Pause('Viewport');
 		this.state = {
 			prevIndex: -1,
@@ -173,8 +173,7 @@ const ViewportBase = class extends Component {
 	}
 
 	componentDidMount () {
-		// eslint-disable-next-line react/no-find-dom-node
-		this.node = ReactDOM.findDOMNode(this);
+		this.node = this.nodeRef.current;
 	}
 
 	shouldComponentUpdate ({index}) {
@@ -312,6 +311,7 @@ const ViewportBase = class extends Component {
 					noAnimation={noAnimation}
 					onTransition={this.handleTransition}
 					onWillTransition={this.handleWillTransition}
+					ref={this.nodeRef}
 					rtl={rtl}
 				>
 					{mappedChildren}
