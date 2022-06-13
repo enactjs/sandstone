@@ -53,6 +53,16 @@ const PickerView = () => (
 			>
 				{airports}
 			</Picker>
+
+			<Picker
+				alt="Horizontal with Title"
+				title='Title text'
+				inlineTitle
+				orientation="horizontal"
+				width="large"
+			>
+				{airports}
+			</Picker>
 		</Section>
 
 		<Section className={appCss.marginTop} title="Horizontal and Joined">

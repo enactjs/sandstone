@@ -488,7 +488,7 @@ const useScroll = (props) => {
 		scrollContentRef
 	});
 
-	const scrollThumbAriaLabelForByEnter = focusableScrollbar === 'byEnter' ? $L('press ok button to read text') : '';
+	const scrollThumbAriaLabelForByEnter = focusableScrollbar === 'byEnter' ? ' ' + $L('press ok button to read text') : '';
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
