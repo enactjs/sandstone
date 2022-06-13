@@ -10,6 +10,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` scrollbar thumb to read out 'leftmost', 'rightmost', 'topmost', or 'downmost' when reaching the end of the scroll
 - `sandstone/Picker` and `sandstone/RangePicker` to read out `title`
 
+### Fixed
+- `sandstone/Scroller` to position the focused item into scroller view
+
 ## [2.5.0-beta.1] - 2022-05-31
 
 ### Added

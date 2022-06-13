@@ -245,8 +245,10 @@ const useThemeScroll = (props, instances) => {
 		const focusedItem = Spotlight.getCurrent();
 
 		if (focusedItem) {
-			focusedItem.blur();
+			focusedItem.scrollIntoView(true);
+			return false;
 		}
+		return true;
 	}
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
