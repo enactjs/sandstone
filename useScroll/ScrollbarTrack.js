@@ -19,6 +19,8 @@ const
 	isRight = is('right'),
 	isUp = is('up');
 
+const scrollStopWaiting = 500; // Wait for finishing scroll animation.
+
 const SpotlightAccelerator = new Accelerator();
 const SpottableDiv = Spottable('div');
 
@@ -85,6 +87,22 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 
 				if (ev.repeat || !isNaN(scrollProgress) && ((scrollParam.isForward && scrollProgress !== 1) || (!scrollParam.isForward && scrollProgress !== 0))) {
 					consumeEventWithScroll(scrollParam, ev);
+
+					setTimeout(() => {
+						const updatedScrollProgress = Number(ref.current && ref.current.style.getPropertyValue('--scrollbar-thumb-progress-ratio'));
+						const horizontalReachLeftMost = rtl ? updatedScrollProgress === 1 : updatedScrollProgress === 0;
+						const horizontalReachRightMost = rtl ? updatedScrollProgress === 0 : updatedScrollProgress === 1;
+
+						// Current UX announce only after Scroll via Scrollthumb.
+						if (announceRef.current.announce && (updatedScrollProgress === 0 || updatedScrollProgress === 1)) {
+							announceRef.current.announce(
+								(isDown(keyCode) || isPageDown(keyCode)) && updatedScrollProgress === 1 && $L('DOWNMOST') ||
+								(isUp(keyCode) || isPageUp(keyCode)) && updatedScrollProgress === 0 && $L('UPMOST') ||
+								(isLeft(keyCode) && horizontalReachLeftMost && $L('LEFTMOST')) ||
+								(isRight(keyCode) && horizontalReachRightMost && $L('RIGHTMOST')) // the case that isRight(keyCode) is true
+							);
+						}
+					}, scrollStopWaiting);
 				}
 			}
 

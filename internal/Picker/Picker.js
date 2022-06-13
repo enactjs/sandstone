@@ -391,6 +391,16 @@ const PickerBase = class extends ReactComponent {
 		step: PropTypes.number,
 
 		/**
+		 * The primary text of the `Picker`.
+		 *
+		 * The screen readers read out the title text when the `joined` prop is false
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
+
+		/**
 		 * The type of picker. It determines the aria-label for the next and previous buttons.
 		 *
 		 * Depending on the `type`, `joined`, `decrementAriaLabel`, and `incrementAriaLabel`,
@@ -832,6 +842,7 @@ const PickerBase = class extends ReactComponent {
 
 	calcButtonLabel (next, valueText) {
 		const {decrementAriaLabel, incrementAriaLabel, orientation} = this.props;
+		const titleText = this.props.title ? this.props.title + ' ' : '';
 		let label;
 		if (orientation === 'vertical') {
 			label = next ? decrementAriaLabel : incrementAriaLabel;
@@ -840,13 +851,13 @@ const PickerBase = class extends ReactComponent {
 		}
 
 		if (label != null) {
-			return label;
+			return titleText + label;
 		}
 
 		if (this.props.type === 'number') {
-			return `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
+			return titleText + `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
 		} else {
-			return `${valueText} ${next ? $L('next item') : $L('previous item')}`;
+			return titleText + `${valueText} ${next ? $L('next item') : $L('previous item')}`;
 		}
 	}
 
@@ -922,6 +933,7 @@ const PickerBase = class extends ReactComponent {
 		delete rest.onSpotlightLeft;
 		delete rest.onSpotlightRight;
 		delete rest.onSpotlightUp;
+		delete rest.title;
 		delete rest.wrap;
 
 		const incrementIcon = selectIncIcon(this.props);
