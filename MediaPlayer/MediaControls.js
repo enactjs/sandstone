@@ -11,7 +11,6 @@ import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import Cancelable from '@enact/ui/Cancelable';
-import ForwardRef from "@enact/ui/ForwardRef";
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import {Component, createRef} from 'react';
@@ -37,12 +36,12 @@ DivComponent.propTypes = {
 	mediaControlsRef: EnactPropTypes.ref
 };
 
-const OuterContainer = ForwardRef({prop: 'mediaControlsRef'}, SpotlightContainerDecorator({
+const OuterContainer = SpotlightContainerDecorator({
 	defaultElement: [
 		`.${spotlightDefaultClass}`
 	],
 	leaveFor: {left: '', right: ''}
-}, DivComponent));
+}, DivComponent);
 const Container = SpotlightContainerDecorator({
 	enterTo: 'default-element'
 }, 'div');
@@ -356,7 +355,7 @@ const MediaControlsBase = kind({
 		delete rest.onClose;
 		delete rest.visible;
 		return (
-			<OuterContainer {...rest} id={id} ref={mediaControlsRef} spotlightId={spotlightId}>
+			<OuterContainer {...rest} id={id} mediaControlsRef={mediaControlsRef} spotlightId={spotlightId}>
 				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled} onKeyDown={onKeyDownFromMediaButtons}>
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={spotlightDefaultClass} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
