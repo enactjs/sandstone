@@ -56,9 +56,9 @@ const PickerView = () => (
 
 			<Picker
 				alt="Horizontal with Title"
-				title='Title text'
 				inlineTitle
 				orientation="horizontal"
+				title="Title text"
 				width="large"
 			>
 				{airports}
