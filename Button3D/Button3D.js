@@ -1,5 +1,6 @@
-import { OrbitControls, Text } from '@react-three/drei';
-import * as THREE from 'three';
+import {OrbitControls, Text, Stars} from '@react-three/drei';
+import * as THREE from 'three'
+
 
 import Skinnable from '../Skinnable';
 
@@ -19,12 +20,14 @@ const Button3DBase = (props) => {
 	const [icon, setIcon] = useState(null);
 
 	//const font = new THREE.FontLoader().parse(null);
+	const [shapePosition, setShapePosition] = useState([0, 0, 0]);
+	const [textPosition, setTextPosition] = useState([0, 0, 0.16]);
 
-	const [shapePosition, setShapePosition] = useState([0,0,0]);
-	const [textPosition, setTextPosition] = useState([0,0,0.16]);
+	const buttonShape = new THREE.Shape();
+	const tooltipShape = new THREE.Shape();
+	const colorShape = new THREE.Shape();
 
-	const shape = new THREE.Shape();
-
+	// Calculations for Button Shape size
 	let sizeX = Math.max(props.children.length * 0.3, props.size === "small" ? 4 : 5)
 	let sizeY = props.size === "small" ? 2 : 3
 	let radius = 0.5
@@ -32,22 +35,39 @@ const Button3DBase = (props) => {
 	let halfX = sizeX * 0.5 - radius
 	let halfY = sizeY * 0.5 - radius
 	let baseAngle = Math.PI * 0.5
-	shape.absarc(halfX, halfY, radius, baseAngle * 0, baseAngle * 0 + baseAngle)
-	shape.absarc(-halfX, halfY, radius, baseAngle * 1, baseAngle * 1 + baseAngle)
-	shape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle)
-	shape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle)
+	buttonShape.absarc(halfX, halfY, radius, baseAngle * 0, baseAngle * 0 + baseAngle)
+	buttonShape.absarc(-halfX, halfY, radius, baseAngle * 1, baseAngle * 1 + baseAngle)
+	buttonShape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle)
+	buttonShape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle)
+
+	// Calculations for Tooltip Shape size
+	let tooltipSizeX = Math.max((props.tooltipText.length || 0) * 0.3, 2.5);
+	let tooltipSizeY = 1.5;
+	let tooltipRadius = 0.5;
+
+	let tooltipHalfX = tooltipSizeX * 0.5 - tooltipRadius
+	let tooltipHalfY = tooltipSizeY * 0.5 - tooltipRadius
+	let tooltipBaseAngle = Math.PI * 0.5
+	tooltipShape.absarc(tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle * 0, tooltipBaseAngle * 0 + tooltipBaseAngle)
+	tooltipShape.absarc(-tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle * 1, tooltipBaseAngle * 1 + tooltipBaseAngle)
+	tooltipShape.absarc(-tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 2, tooltipBaseAngle * 2 + tooltipBaseAngle)
+	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle)
 
 	const onPointerDown = () => {
 		setActive(true);
-		setShapePosition([0,0,0.2]);
-		setTextPosition([0,0,0.36]);
+		setShapePosition([0, 0, 0.2]);
+		setTextPosition([0, 0, 0.36]);
 	};
 
 	const onPointerUp = () => {
 		setActive(false);
-		setShapePosition([0,0,0]);
-		setTextPosition([0,0,0.16]);
+		setShapePosition([0, 0, 0]);
+		setTextPosition([0, 0, 0.16]);
 	};
+
+	const isTooltipVisible = props.showTooltip && hovered;
+	const tooltipPosition = props.size === 'large' ? [2, 2.5, 0] : [1.5, 2, 0];
+	const tooltipTextPosition = props.size === 'large' ? [2, 2.5, 0.16] : [1.5, 2, 0.16];
 
 	const computeIcon = () => {
 		const iconProp = props.icon;
@@ -80,8 +100,6 @@ const Button3DBase = (props) => {
 		}
 
 		return icon;
-
-
 	}
 
 	useEffect(() => {
@@ -91,6 +109,24 @@ const Button3DBase = (props) => {
 
 	return (
 		<group>
+			{isTooltipVisible &&
+				<group>
+					<group position={tooltipPosition}>
+						<mesh
+							{...props}
+							ref={mesh}
+						>
+							<extrudeBufferGeometry args={[tooltipShape, {bevelEnabled: false, depth: 0.15}]}/>
+							<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'}/>
+						</mesh>
+					</group>
+					<group>
+						<Text position={tooltipTextPosition} color="#4c5059" anchorX="center" anchorY="middle" fontSize={0.5}>
+							{props.tooltipText}
+						</Text>
+					</group>
+				</group>
+			}
 			<group position={shapePosition}>
 				<mesh
 					{...props}
@@ -101,18 +137,12 @@ const Button3DBase = (props) => {
 					onPointerOver={(event) => setHover(true)}
 					onPointerOut={(event) => setHover(false)}
 				>
-
-					{/*<boxGeometry args={[5, 1, 1]} />*/}
-
-					<extrudeBufferGeometry  args={[shape, { bevelEnabled: false, depth: 0.15 }]} />
-					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
+					<extrudeBufferGeometry args={[buttonShape, {bevelEnabled: false, depth: 0.15}]}/>
+					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'}/>
 					{/*<extrudeGeometry args={,[10, 1, 1,1,1,5]} />*/}
-					<OrbitControls />
 				</mesh>
 			</group>
-			<group
-				position={textPosition}
-			>
+			<group position={textPosition}>
 				<Text
 					//font={font}
 					color={hovered ? '#4c5059' : '#e6e6e6'}
@@ -122,7 +152,7 @@ const Button3DBase = (props) => {
 					{props.iconPosition === 'before' ? icon : null} {props.children} {props.iconPosition === 'after' ? icon : null}
 				</Text>
 			</group>
-
+			<OrbitControls/>
 		</group>
 	)
 }
