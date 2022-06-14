@@ -11,7 +11,15 @@ describe('Editable Scroller', function () {
 		await ScrollerPage.spotlightDown();
 		// Step 3-1 Verify: Spotlight is on Image 0.
 		await expectFocusedItem(0);
-		await ScrollerPage.spotlightSelect();
+		await browser.performActions([
+			{
+			  type: 'key',
+			  id: 'keyboard',
+			  actions: [
+				{type: 'keyDown', value: '\uE007'},
+			]
+			}
+		]);
 		// Step 3-2 Verify: Image 0 rises upper
 		expect(await ScrollerPage.checkEditableItem()).to.be.true();
 
