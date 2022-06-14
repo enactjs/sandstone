@@ -272,11 +272,12 @@ export const EditableList = (args) => {
 			{
 				items.map((item, index) => {
 					return (
-						<div key={item.index} className={css.itemWrapper} data-index={item.index} style={{order: index + 1}}>
+						<div key={item.index} className={css.itemWrapper} data-item-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 							<div className={css.removeButtonContainer}>
 								<Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
 							</div>
 							<ImageItem
+								aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 								src={item.src}
 								className={css.imageItem}
 							>
