@@ -1,9 +1,12 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
+import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
+
+import css from './FixedPopupPanels.module.less';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 Config.defaultProps.position = 'right';
@@ -53,12 +56,24 @@ export const _FixedPopupPanels = (args) => (
 				<Item>Example Item 2 on Panel 2</Item>
 				<Item>Example Item 3 on Panel 2</Item>
 			</Panel>
+			<Panel>
+				<Header>
+					<title>FixedPopupPanels Panel</title>
+					<subtitle>This is the third page</subtitle>
+				</Header>
+				<Item>Example Item 1 on Panel 3</Item>
+				<Item>Example Item 2 on Panel 3</Item>
+				<footer className={css.footer}>
+					<Button>Button 1</Button>
+					<Button>Button 2</Button>
+				</footer>
+			</Panel>
 		</FixedPopupPanels>
 		<BodyText centered>Use CONTROLS to interact with FixedPopupPanels.</BodyText>
 	</div>
 );
 
-range('index', _FixedPopupPanels, Config, {min: 0, max: 1}, 0);
+range('index', _FixedPopupPanels, Config, {min: 0, max: 2}, 0);
 boolean('open', _FixedPopupPanels, Config);
 select('position', _FixedPopupPanels, ['left', 'right'], Config);
 boolean('fullHeight', _FixedPopupPanels, Config);
