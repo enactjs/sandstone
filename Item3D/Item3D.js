@@ -1,68 +1,84 @@
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
-
+import kind from '@enact/core/kind';
 import Skinnable from '../Skinnable';
+import PropTypes from 'prop-types'
+import { useRef, useState } from "react";
 
-import componentCss from './Item3D.module.less';
-import {useRef, useState} from "react";
+const Item3DBase = kind({
+	propTypes: {
+		children: PropTypes.node,
 
+		disabled: PropTypes.bool
+	},
 
-const Item3DBase = (props) => {
-	// This reference will give us direct access to the mesh
-	const mesh = useRef();
-	// Set up state for the hovered and active state
-	const [hovered, setHover] = useState(false);
-	const [active, setActive] = useState(false);
-	// Rotate mesh every frame, this is outside of React without overhead
-	//useFrame(() => (mesh.current.rotation.z += 0.01))
+	functional: true,
 
-	const shape = new THREE.Shape();
+	render: ({ children, disabled, label, rest }) => {
 
-	let sizeX = 15;
-	let sizeY = 1.5;
-	let radius = 0.1;
+		const mesh = useRef();
+		const [hovered, setHover] = useState(false);
+		const shape = new THREE.Shape();
 
-	let halfX = sizeX * 0.5 - radius;
-	let halfY = sizeY * 0.5 - radius;
-	let baseAngle = Math.PI * 0.5;
-	shape.absarc(halfX, halfY, radius, baseAngle * 0, baseAngle * 0 + baseAngle);
-	shape.absarc(-halfX, halfY, radius, baseAngle * 1, baseAngle * 1 + baseAngle);
-	shape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle);
-	shape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle);
+		let sizeX = 15;
+		let sizeY = 1.5;
+		let radius = 0.1;
 
-	return (
-		<group>
-			<group position={[0,0,-0.51]}>
-				<mesh
-					{...props}
-					ref={mesh}
-					onPointerOver={(event) => setHover(true)}
-					onPointerOut={(event) => setHover(false)}
-				>
-					<extrudeBufferGeometry args={[shape, { bevelEnabled: false, depth: 0.1 }]} />
-					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#000000'} />
-					<OrbitControls />
-				</mesh>
+		let halfX = sizeX * 0.5 - radius;
+		let halfY = sizeY * 0.5 - radius;
+		let baseAngle = Math.PI * 0.5;
+		shape.absarc(halfX, halfY, radius, baseAngle * 0, baseAngle * 0 + baseAngle);
+		shape.absarc(-halfX, halfY, radius, baseAngle * 1, baseAngle * 1 + baseAngle);
+		shape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle);
+		shape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle);
+
+		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
+
+		return (
+			<group>
+				<group position={[0, 0, -0.51]}>
+					<mesh
+						{...rest}
+						ref={mesh}
+						onPointerOver={(event) => setHover(true)}
+						onPointerOut={(event) => setHover(false)}
+					>
+						<extrudeBufferGeometry args={[shape, { bevelEnabled: false, depth: 0.1 }]} />
+						<meshStandardMaterial transparent={!hovered ? true : false} opacity={!hovered ? 0 : 1} color={hovered ? disabledHoverColor : '#ffffff'} />
+						<OrbitControls />
+					</mesh>
+				</group>
+				<group position={[-3, label ? .25 : 0, -0.30]}>
+					<Text
+						anchorX="left"
+						anchorY="middle"
+						color={hovered ? '#6f7074' : disabledHoverColor}
+						font={'../styles/internal/fonts/MuseoSans/MuseoSans-Medium.ttf'}
+						fontSize={0.5}
+						maxWidth={15}
+						textAlign="left"
+					>
+						{children}
+					</Text>
+				</group>
+				<group position={[-3, -.25, -.3]}>
+					<Text
+						anchorX="left"
+						color={hovered ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'}
+						font={'../styles/internal/fonts/MuseoSans/MuseoSans-Medium.ttf'}
+						fontSize={0.3}
+						maxWidth={15}
+						textAlign="left"
+					>
+						{label}
+					</Text>
+				</group>
 			</group>
-			<group position={[-3,0,-0.30]}>
-				<Text
-					color={hovered ? '#4c5059' : '#e6e6e6'}
-					anchorX="right"
-					anchorY="middle"
-					font={'../styles/internal/fonts/MuseoSans/MuseoSans-Medium.ttf'}
-					fontSize={0.5}
-					maxWidth={15}
-					textAlign="left"
-				>
-					Sandstone Item
-				</Text>
-			</group>
+		)
+	}
+})
 
-		</group>
-	)
-}
-
-const Item3D = Skinnable(Item3DBase);
+const Item3D = Skinnable({ prop: 'skin' }, Item3DBase);
 
 export default Item3D;
 export {
