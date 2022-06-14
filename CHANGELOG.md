@@ -2,6 +2,11 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+- sandstone/Scroller to select item by long press when `editable` is given
+
 ## [2.5.0-beta.1] - 2022-05-31
 
 ### Added

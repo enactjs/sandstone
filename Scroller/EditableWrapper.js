@@ -4,11 +4,14 @@ import {is} from '@enact/core/keymap';
 import {mergeClassNameMaps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
+import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef} from 'react';
 
 import componentCss from './EditableWrapper.module.less';
+
+const TouchableDiv = Touchable('div');
 
 /**
  * The shape for editable of [Scroller]{@link sandstone/Scroller}.
@@ -81,7 +84,13 @@ const EditableWrapper = (props) => {
 		lastMouseClientX: null,
 
 		// Last InputType which moves Items
-		lastInputType: null
+		lastInputType: null,
+
+		// Timer for holding key input
+		timer: null,
+
+		// Flag for prevent event propagation
+		stopPropagationFlag: null
 	});
 
 	// Functions
@@ -160,22 +169,36 @@ const EditableWrapper = (props) => {
 	}, [scrollContentRef]);
 
 	const handleClick = useCallback((ev) => {
-		const targetItemNode = findItemNode(ev.target);
+		// Consume the event to prevent Item behavior
+		if (mutableRef.current.selectedItem || mutableRef.current.stopPropagationFlag) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			mutableRef.current.stopPropagationFlag = false;
+		}
+	}, []);
 
+	const handleMouseDown = useCallback((ev) => {
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
-		} else if (targetItemNode && targetItemNode.dataset.index) {
+			mutableRef.current.stopPropagationFlag = true;
+		}
+		else {
+			mutableRef.current.targetItemNode = findItemNode(ev.target);
+			mutableRef.current.stopPropagationFlag = false;
+		}
+	}, [editable, finalizeOrders, findItemNode, reset]);
+
+	const handleHoldStart = useCallback(() => {
+		const {targetItemNode} = mutableRef.current;
+
+		if (targetItemNode && targetItemNode.dataset.index) {
 			// Start editing by adding selected transition to selected item
 			startEditing(targetItemNode);
 		}
-
-		// Consume the event to prevent Item behavior
-		ev.preventDefault();
-		ev.stopPropagation();
-	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
+	}, [startEditing]);
 
 	// Add rearranged items
 	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
@@ -351,14 +374,13 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					forwardCustom('onComplete', () => ({orders}))({}, editable);
 					reset();
-				} else if (targetItemNode) {
-					startEditing(targetItemNode);
+					mutableRef.current.stopPropagationFlag = true;
 				}
+			} else if(repeat && targetItemNode && !mutableRef.current.timer) {
+				mutableRef.current.timer = setTimeout(() => {
+					startEditing(targetItemNode);
+				}, 500);
 			}
-
-			// Consume the event to prevent Item behavior
-			ev.preventDefault();
-			ev.stopPropagation();
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
 				if (repeat) {
@@ -373,6 +395,16 @@ const EditableWrapper = (props) => {
 			}
 		}
 	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
+
+	const handleKeyUp = useCallback((ev) => {
+		clearTimeout(mutableRef.current.timer);
+		mutableRef.current.timer = null;
+		if (mutableRef.current.stopPropagationFlag || mutableRef.current.selectedItem) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			mutableRef.current.stopPropagationFlag = false;
+		}
+	}, []);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
@@ -445,15 +477,23 @@ const EditableWrapper = (props) => {
 	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle, scrollContentRef]);
 
 	return (
-		<div
+		<TouchableDiv
+			holdConfig={{
+				events: [
+					{name: 'select', time: 500}
+				],
+			}}
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
-			onClick={handleClick}
-			onKeyDown={handleKeyDown}
+			onClickCapture={handleClick}
+			onHoldStart={handleHoldStart}
+			onKeyDownCapture={handleKeyDown}
+			onKeyUpCapture={handleKeyUp}
+			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			ref={wrapperRef}
 		>
 			{children}
-		</div>
+		</TouchableDiv>
 	);
 };
 
