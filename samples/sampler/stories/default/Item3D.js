@@ -1,9 +1,10 @@
+import {Suspense} from 'react';
 import { mergeComponentMetadata } from '@enact/storybook-utils';
 import { boolean, select, text } from '@enact/storybook-utils/addons/controls';
 import Item3D, { Item3DBase } from '@enact/sandstone/Item3D';
+import Spinner from '@enact/sandstone/Spinner';
 
 import { Canvas } from '@react-three/fiber';
-
 
 Item3D.displayName = 'Item3D';
 const Config = mergeComponentMetadata('Item3D', Item3DBase, Item3D);
@@ -15,11 +16,13 @@ export default {
 
 export const _Item3D = (args) => {
 	return (
-		<Canvas>
-			<ambientLight />
-			<pointLight position={[10, 10, 10]} />
-			<Item3D disabled={args.disabled} label={args.label}>{args.children}</Item3D>
-		</Canvas>
+		<Suspense fallback={<Spinner />}>
+			<Canvas>
+				<ambientLight />
+				<pointLight position={[10, 10, 10]} />
+				<Item3D disabled={args.disabled} label={args.label} size={args.size}>{args.children}</Item3D>
+			</Canvas>
+		</Suspense>
 	)
 };
 

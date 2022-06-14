@@ -9,26 +9,42 @@ const Item3DBase = kind({
 	propTypes: {
 		children: PropTypes.node,
 
-		disabled: PropTypes.bool
+		disabled: PropTypes.bool,
+
+		/**
+		 * The size of the 3D item.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'large'
+		 * @private
+		 */
+		size: PropTypes.oneOf(['large', 'small'])
+	},
+
+	defaultProps: {
+		size: 'large'
 	},
 
 	functional: true,
 
-	render: ({ children, disabled, label, rest }) => {
+	render: ({ children, disabled, label, size, rest }) => {
 
 		const mesh = useRef();
+		const textRef = useRef(null);
 		const [hovered, setHover] = useState(false);
 		const shape = new THREE.Shape();
 
+		// console.log(textRef.current?.geometry['_blockBounds']);
+
 		let sizeX = 15;
-		let sizeY = 1.5;
+		let sizeY = size === 'small' ? 1.2 : 1.5;
 		let radius = 0.1;
 
 		let halfX = sizeX * 0.5 - radius;
 		let halfY = sizeY * 0.5 - radius;
 		let baseAngle = Math.PI * 0.5;
-		shape.absarc(halfX, halfY, radius, baseAngle * 0, baseAngle * 0 + baseAngle);
-		shape.absarc(-halfX, halfY, radius, baseAngle * 1, baseAngle * 1 + baseAngle);
+		shape.absarc(halfX, halfY, radius, 0, baseAngle);
+		shape.absarc(-halfX, halfY, radius, baseAngle, baseAngle + baseAngle);
 		shape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle);
 		shape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle);
 
@@ -44,7 +60,7 @@ const Item3DBase = kind({
 						onPointerOut={(event) => setHover(false)}
 					>
 						<extrudeBufferGeometry args={[shape, { bevelEnabled: false, depth: 0.1 }]} />
-						<meshStandardMaterial transparent={!hovered ? true : false} opacity={!hovered ? 0 : 1} color={hovered ? disabledHoverColor : '#ffffff'} />
+						<meshStandardMaterial transparent={!hovered} opacity={!hovered ? 0 : 1} color={hovered ? disabledHoverColor : '#ffffff'} />
 						<OrbitControls />
 					</mesh>
 				</group>
@@ -56,6 +72,7 @@ const Item3DBase = kind({
 						font={'../styles/internal/fonts/MuseoSans/MuseoSans-Medium.ttf'}
 						fontSize={0.5}
 						maxWidth={15}
+						ref={textRef}
 						textAlign="left"
 					>
 						{children}
