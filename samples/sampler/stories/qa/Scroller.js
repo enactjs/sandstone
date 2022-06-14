@@ -274,7 +274,7 @@ export const EditableList = (args) => {
 					return (
 						<div key={item.index} className={css.itemWrapper} data-index={item.index} style={{order: index + 1}}>
 							<div className={css.removeButtonContainer}>
-								<Button className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
+								<Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
 							</div>
 							<ImageItem
 								src={item.src}
