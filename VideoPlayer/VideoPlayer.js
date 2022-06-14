@@ -25,14 +25,14 @@ import Announce from '@enact/ui/AnnounceDecorator/Announce';
 import ComponentOverride from '@enact/ui/ComponentOverride';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import {FloatingLayerContext} from '@enact/ui/FloatingLayer/FloatingLayerDecorator';
+import ForwardRef from "@enact/ui/ForwardRef";
 import Media from '@enact/ui/Media';
 import Slottable from '@enact/ui/Slottable';
 import Touchable from '@enact/ui/Touchable';
 import DurationFmt from 'ilib/lib/DurationFmt';
 import equals from 'ramda/src/equals';
 import PropTypes from 'prop-types';
-import {isValidElement, cloneElement, Component} from 'react';
-import ReactDOM from 'react-dom';
+import {cloneElement, Component, createRef, isValidElement} from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
@@ -74,14 +74,26 @@ const calcNumberValueOfPlaybackRate = (rate) => {
 	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseFloat(rate);
 };
 
+const RootComponent = ({playerRef, ...rest}) => (<div ref={playerRef} {...rest} />);
+
+RootComponent.propTypes = {
+	/*
+	 * Called with the reference to the mediaControls node.
+	 *
+	 * @type {Object|Function}
+	 * @public
+	 */
+	playerRef: EnactPropTypes.ref
+};
+
 const SpottableDiv = Touchable(Spottable('div'));
-const RootContainer = SpotlightContainerDecorator(
+const RootContainer = ForwardRef({prop: 'playerRef'}, SpotlightContainerDecorator(
 	{
 		enterTo: 'default-element',
 		defaultElement: [`.${css.controlsHandleAbove}`, `.${css.controlsFrame}`]
 	},
-	'div'
-);
+	RootComponent
+));
 
 const ControlsContainer = SpotlightContainerDecorator(
 	{
@@ -798,6 +810,7 @@ const VideoPlayerBase = class extends Component {
 		this.sliderKnobProportion = 0;
 		this.mediaControlsSpotlightId = props.spotlightId + '_mediaControls';
 		this.jumpButtonPressed = null;
+		this.playerRef = createRef();
 
 		// Re-render-necessary State
 		this.state = {
@@ -913,7 +926,7 @@ const VideoPlayerBase = class extends Component {
 
 			if (!this.props.spotlightDisabled) {
 				const current = Spotlight.getCurrent();
-				if (!current || this.player.contains(current)) {
+				if (!current || this.playerRef.current.contains(current)) {
 					// Set focus within media controls when they become visible.
 					if (Spotlight.focus(this.mediaControlsSpotlightId) && this.jumpButtonPressed === 0) {
 						this.jumpButtonPressed = null;
@@ -1882,7 +1895,7 @@ const VideoPlayerBase = class extends Component {
 			this.stopDelayedTitleHide();
 		}
 
-		this.player.style.setProperty('--liftDistance', `${liftDistance}px`);
+		this.playerRef.current.style.setProperty('--liftDistance', `${liftDistance}px`);
 		this.setState(({announce}) => ({
 			infoVisible: showMoreComponents,
 			titleVisible: true,
@@ -1893,13 +1906,6 @@ const VideoPlayerBase = class extends Component {
 	handleMediaControlsClose = (ev) => {
 		this.hideControls();
 		ev.stopPropagation();
-	};
-
-	setPlayerRef = (node) => {
-		// TODO: We've moved SpotlightContainerDecorator up to allow VP to be spottable but also
-		// need a ref to the root node to query for children and set CSS variables.
-		// eslint-disable-next-line react/no-find-dom-node
-		this.player = ReactDOM.findDOMNode(node);
 	};
 
 	setVideoRef = (video) => {
@@ -2014,7 +2020,7 @@ const VideoPlayerBase = class extends Component {
 			<RootContainer
 				className={css.videoPlayer + ' enact-fit' + (className ? ' ' + className : '')}
 				onClick={this.activityDetected}
-				ref={this.setPlayerRef}
+				ref={this.playerRef}
 				spotlightDisabled={spotlightDisabled}
 				spotlightId={spotlightId}
 				style={style}
