@@ -157,11 +157,11 @@ const ButtonBase = kind({
 
 		/**
 		 * Boolean controlling whether this component should enforce the "minimum width" rules.
-		 * *NOTE*: This property's default is `true` and must be explicitly set to `false` to allow
-		 * the button to shrink to fit its contents.
+		 *
+		 * *NOTE*: If you don't specify this prop, it works as `false` for icon only Button
+		 * and as `true` for other Buttons.
 		 *
 		 * @type {Boolean}
-		 * @default true
 		 * @public
 		 */
 		minWidth: PropTypes.bool,
