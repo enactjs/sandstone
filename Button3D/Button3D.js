@@ -1,21 +1,25 @@
-import { OrbitControls, Text } from '@react-three/drei'
-import * as THREE from 'three'
-import Icon from '../Icon';
+import { OrbitControls, Text } from '@react-three/drei';
+import * as THREE from 'three';
 
 import Skinnable from '../Skinnable';
 
 import componentCss from './Button3D.module.less';
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import iconList from '../Icon/IconList.js';
+import ri from "../../enact/packages/ui/resolution";
 
+import sandstoneIcons from '../fonts/Sandstone_Icons.json';
 
 const Button3DBase = (props) => {
 	// This reference will give us direct access to the mesh
 	const mesh = useRef()
 	// Set up state for the hovered and active state
-	const [hovered, setHover] = useState(false)
-	const [active, setActive] = useState(false)
-	// Rotate mesh every frame, this is outside of React without overhead
-	//useFrame(() => (mesh.current.rotation.z += 0.01))
+	const [hovered, setHover] = useState(false);
+	const [active, setActive] = useState(false);
+	const [icon, setIcon] = useState(null);
+
+	//const font = new THREE.FontLoader().parse(null);
+
 	const [shapePosition, setShapePosition] = useState([0,0,0]);
 	const [textPosition, setTextPosition] = useState([0,0,0.16]);
 
@@ -45,6 +49,45 @@ const Button3DBase = (props) => {
 		setTextPosition([0,0,0.16]);
 	};
 
+	const computeIcon = () => {
+		const iconProp = props.icon;
+		let icon = iconList[props.icon];
+
+		if (!icon) {
+			if (typeof iconProp == 'string') {
+				if (iconProp.indexOf('&#x') === 0) {
+					// Converts a hex reference in HTML entity form: &#x99999;
+					icon = parseInt(iconProp.slice(3, -1), 16);
+				} else if (iconProp.indexOf('&#') === 0) {
+					// Convert an HTML entity: &#99999;
+					icon = parseInt(iconProp.slice(2, -1));
+				} else if (iconProp.indexOf('\\u') === 0) {
+					// Convert a unicode reference: \u99999;
+					icon = parseInt(iconProp.slice(2), 16);
+				} else if (iconProp.indexOf('0x') === 0) {
+					// Converts a hex reference in string form
+					icon = String.fromCodePoint(iconProp);
+				} else if (!isUri(iconProp)) {
+					// A "simple" string is assumed to be an icon-name string
+					icon = iconProp;
+				}
+			}
+		}
+
+		if (typeof icon == 'number') {
+			// Converts a hex reference in number form
+			icon = String.fromCodePoint(icon);
+		}
+
+		return icon;
+
+
+	}
+
+	useEffect(() => {
+		setIcon(computeIcon);
+	}, [props.icon]);
+
 
 	return (
 		<group>
@@ -70,8 +113,13 @@ const Button3DBase = (props) => {
 			<group
 				position={textPosition}
 			>
-				<Text color={hovered ? '#4c5059' : '#e6e6e6'} anchorX="center" anchorY="middle" fontSize={0.5}>
-					{props.iconPosition === 'before' ? props.icon : null}{props.children}{props.iconPosition === 'after' ? props.icon : null}
+				<Text
+					//font={font}
+					color={hovered ? '#4c5059' : '#e6e6e6'}
+					anchorX="center"
+					anchorY="middle"
+					fontSize={0.5}>
+					{props.iconPosition === 'before' ? icon : null} {props.children} {props.iconPosition === 'after' ? icon : null}
 				</Text>
 			</group>
 
