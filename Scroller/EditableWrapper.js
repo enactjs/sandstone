@@ -184,8 +184,7 @@ const EditableWrapper = (props) => {
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
 			mutableRef.current.stopPropagationFlag = true;
-		}
-		else {
+		} else {
 			mutableRef.current.targetItemNode = findItemNode(ev.target);
 			mutableRef.current.stopPropagationFlag = false;
 		}
@@ -376,7 +375,7 @@ const EditableWrapper = (props) => {
 					reset();
 					mutableRef.current.stopPropagationFlag = true;
 				}
-			} else if(repeat && targetItemNode && !mutableRef.current.timer) {
+			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
 				mutableRef.current.timer = setTimeout(() => {
 					startEditing(targetItemNode);
 				}, 500);
@@ -481,7 +480,7 @@ const EditableWrapper = (props) => {
 			holdConfig={{
 				events: [
 					{name: 'select', time: 500}
-				],
+				]
 			}}
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
 			onClickCapture={handleClick}
