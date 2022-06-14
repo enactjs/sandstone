@@ -40,6 +40,12 @@ const EditableShape = PropTypes.shape({
 
 const SpotlightAccelerator = new Accelerator([5, 4]);
 
+const pressDuration = 500;
+
+const holdConfig = {
+	events: [{time: pressDuration}]
+};
+
 /**
  * A Sandstone-styled EditableWrapper.
  *
@@ -57,8 +63,8 @@ const EditableWrapper = (props) => {
 	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
 
 	const dataSize = children?.length;
-	// Mutable value
 
+	// Mutable value
 	const wrapperRef = useRef();
 	const mutableRef = useRef({
 		// Constants
@@ -168,7 +174,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [scrollContentRef]);
 
-	const handleClick = useCallback((ev) => {
+	const handleClickCapture = useCallback((ev) => {
 		// Consume the event to prevent Item behavior
 		if (mutableRef.current.selectedItem || mutableRef.current.stopPropagationFlag) {
 			ev.preventDefault();
@@ -362,7 +368,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, reset, scrollContainerHandle, scrollContentRef]);
 
-	const handleKeyDown = useCallback((ev) => {
+	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
 		const {selectedItem} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
@@ -378,7 +384,7 @@ const EditableWrapper = (props) => {
 			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
 				mutableRef.current.timer = setTimeout(() => {
 					startEditing(targetItemNode);
-				}, 500);
+				}, pressDuration);
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
@@ -395,7 +401,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
 
-	const handleKeyUp = useCallback((ev) => {
+	const handleKeyUpCapture = useCallback((ev) => {
 		clearTimeout(mutableRef.current.timer);
 		mutableRef.current.timer = null;
 		if (mutableRef.current.stopPropagationFlag || mutableRef.current.selectedItem) {
@@ -477,16 +483,12 @@ const EditableWrapper = (props) => {
 
 	return (
 		<TouchableDiv
-			holdConfig={{
-				events: [
-					{name: 'select', time: 500}
-				]
-			}}
+			holdConfig={holdConfig}
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
-			onClickCapture={handleClick}
+			onClickCapture={handleClickCapture}
 			onHoldStart={handleHoldStart}
-			onKeyDownCapture={handleKeyDown}
-			onKeyUpCapture={handleKeyUp}
+			onKeyDownCapture={handleKeyDownCapture}
+			onKeyUpCapture={handleKeyUpCapture}
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			ref={wrapperRef}
