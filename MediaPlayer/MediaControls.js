@@ -1,34 +1,47 @@
-import ApiDecorator from '@enact/core/internal/ApiDecorator';
-import Cancelable from '@enact/ui/Cancelable';
+
+import {on, off} from '@enact/core/dispatcher';
+import {forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import hoc from '@enact/core/hoc';
 import {is} from '@enact/core/keymap';
-import {on, off} from '@enact/core/dispatcher';
-import Pause from '@enact/spotlight/Pause';
-import Slottable from '@enact/ui/Slottable';
-import Spotlight from '@enact/spotlight';
-import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
-import {forward} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
+import ApiDecorator from '@enact/core/internal/ApiDecorator';
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import Spotlight from '@enact/spotlight';
+import Pause from '@enact/spotlight/Pause';
+import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
+import Cancelable from '@enact/ui/Cancelable';
+import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
-import ReactDOM from 'react-dom';
+import {Component, createRef} from 'react';
 
-import $L from '../internal/$L';
-import {compareChildren, onlyUpdateForProps} from '../internal/util';
 import ActionGuide from '../ActionGuide';
 import Button from '../Button';
+import $L from '../internal/$L';
+import {compareChildren, onlyUpdateForProps} from '../internal/util';
 
 import {countReactChildren} from './util';
 
 import css from './MediaControls.module.less';
+
+const DivComponent = ({mediaControlsRef, ...rest}) => (<div ref={mediaControlsRef} {...rest} />);
+
+DivComponent.propTypes = {
+	/*
+	 * Called with the reference to the mediaControls node.
+	 *
+	 * @type {Object|Function}
+	 * @public
+	 */
+	mediaControlsRef: EnactPropTypes.ref
+};
 
 const OuterContainer = SpotlightContainerDecorator({
 	defaultElement: [
 		`.${spotlightDefaultClass}`
 	],
 	leaveFor: {left: '', right: ''}
-}, 'div');
+}, DivComponent);
 const Container = SpotlightContainerDecorator({
 	enterTo: 'default-element'
 }, 'div');
@@ -120,6 +133,14 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		jumpForwardIcon: PropTypes.string,
+
+		/**
+		 * Called with the reference to the mediaControls node.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
+		mediaControlsRef: EnactPropTypes.ref,
 
 		/**
 		 * Disables the media buttons.
@@ -310,6 +331,7 @@ const MediaControlsBase = kind({
 		jumpButtonsDisabled,
 		jumpForwardIcon,
 		bottomComponents,
+		mediaControlsRef,
 		mediaDisabled,
 		moreComponentsSpotlightId,
 		noJumpButtons,
@@ -333,7 +355,7 @@ const MediaControlsBase = kind({
 		delete rest.onClose;
 		delete rest.visible;
 		return (
-			<OuterContainer {...rest} id={id} spotlightId={spotlightId}>
+			<OuterContainer {...rest} id={id} mediaControlsRef={mediaControlsRef} spotlightId={spotlightId}>
 				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled} onKeyDown={onKeyDownFromMediaButtons}>
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={spotlightDefaultClass} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
@@ -548,6 +570,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			this.pulsingKeyCode = null;
 			this.pulsing = null;
 			this.paused = new Pause('MediaPlayer');
+			this.mediaControlsRef = createRef();
 
 			this.state = {
 				showMoreComponents: false,
@@ -768,7 +791,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 				this.actionGuideHeight = 0;
 				return;
 			}
-			this.mediaControlsNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
+			this.mediaControlsNode = this.mediaControlsRef.current;
 
 			const guideElement = this.mediaControlsNode.querySelector(`.${css.actionGuide}`);
 			this.actionGuideHeight = guideElement ? guideElement.scrollHeight : 0;
@@ -830,14 +853,15 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 
 			return (
 				<Wrapped
-					ref={this.getMediaControls}
 					{...props}
+					mediaControlsRef={this.mediaControlsRef}
 					moreComponentsRendered={this.state.moreComponentsRendered}
 					onClose={this.handleClose}
 					onFlickFromActionGuide={this.handleFlickFromActionGuide}
 					onKeyDownFromMediaButtons={this.handleKeyDownFromMediaButtons}
 					onPlayButtonClick={this.handlePlayButtonClick}
 					onTransitionEnd={this.handleTransitionEnd}
+					ref={this.getMediaControls}
 					showMoreComponents={this.state.showMoreComponents}
 				/>
 			);
