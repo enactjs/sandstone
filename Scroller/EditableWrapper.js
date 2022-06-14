@@ -206,7 +206,7 @@ const EditableWrapper = (props) => {
 				);
 			}
 		}
-	}, [scrollContainerHandle]);
+	}, []);
 
 	// Add rearranged items
 	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
@@ -239,7 +239,7 @@ const EditableWrapper = (props) => {
 
 		mutableRef.current.lastMoveDirection = moveDirection;
 
-	}, [readOutCurrentPosition]);
+	}, [readOutCurrentPosition, scrollContainerHandle]);
 
 	const removeRearrangedItems = useCallback((numToRemove) => {
 		const {rearrangedItems} = mutableRef.current;
