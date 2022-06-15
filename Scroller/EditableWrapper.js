@@ -175,6 +175,9 @@ const EditableWrapper = (props) => {
 	}, [scrollContentRef]);
 
 	const handleClickCapture = useCallback((ev) => {
+		if (ev.target.className.includes('Button')) {
+			return;
+		}
 		// Consume the event to prevent Item behavior
 		if (mutableRef.current.selectedItem || mutableRef.current.stopPropagationFlag) {
 			ev.preventDefault();
@@ -184,6 +187,9 @@ const EditableWrapper = (props) => {
 	}, []);
 
 	const handleMouseDown = useCallback((ev) => {
+		if (ev.target.className.includes('Button')) {
+			return;
+		}
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
@@ -402,11 +408,15 @@ const EditableWrapper = (props) => {
 	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
+		if (ev.target.getAttribute('role') === 'button') {
+			return;
+		}
+
 		clearTimeout(mutableRef.current.timer);
 		mutableRef.current.timer = null;
 		if (mutableRef.current.stopPropagationFlag || mutableRef.current.selectedItem) {
 			ev.preventDefault();
-			ev.stopPropagation();
+			// ev.stopPropagation();
 			mutableRef.current.stopPropagationFlag = false;
 		}
 	}, []);
