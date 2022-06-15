@@ -154,7 +154,7 @@ const EditableWrapper = (props) => {
 
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
-			mutableRef.current.selectedItemLabel = (item.getAttribute('data-item-label') || item.textContent) + ' ';
+			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
@@ -234,7 +234,7 @@ const EditableWrapper = (props) => {
 		}
 
 		if (lastRearrangedItem) {
-			readOutCurrentPosition(lastRearrangedItem.getAttribute('data-item-label') || lastRearrangedItem.textContent);
+			readOutCurrentPosition(lastRearrangedItem.ariaLabel || lastRearrangedItem.textContent);
 		}
 
 		mutableRef.current.lastMoveDirection = moveDirection;
@@ -252,7 +252,7 @@ const EditableWrapper = (props) => {
 		}
 
 		if (toItem) {
-			readOutCurrentPosition(toItem.getAttribute('data-item-label') || toItem.textContent);
+			readOutCurrentPosition(toItem.ariaLabel || toItem.textContent);
 		}
 	}, [readOutCurrentPosition]);
 
