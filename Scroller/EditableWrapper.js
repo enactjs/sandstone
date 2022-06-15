@@ -14,6 +14,8 @@ import $L from '../internal/$L';
 
 import componentCss from './EditableWrapper.module.less';
 
+const completeAnnounceDelay = 300; // An arbitrary delay at a level that is not ignored by the new focus element
+
 /**
  * The shape for editable of [Scroller]{@link sandstone/Scroller}.
  *
@@ -412,7 +414,7 @@ const EditableWrapper = (props) => {
 							selectedItemLabel + $L('move complete'),
 							true
 						);
-					}, 300); // An arbitrary delay at a level that is not ignored by the new focus element
+					}, completeAnnounceDelay);
 				} else if (targetItemNode) {
 					startEditing(targetItemNode);
 				}
