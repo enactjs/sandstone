@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Scroller` read out feature to support A11y when `editable` is given
+
 ### Changed
 
 - `sandstone/Scroller` scrollbar thumb to read out "press ok button to read text" additionally when `focusableScrollbar` prop is `byEnter`
