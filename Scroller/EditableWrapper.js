@@ -453,7 +453,7 @@ const EditableWrapper = (props) => {
 			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
 				mutableRef.current.timer = setTimeout(() => {
 					startEditing(targetItemNode);
-				}, pressDuration);
+				}, pressDuration - 300);
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
