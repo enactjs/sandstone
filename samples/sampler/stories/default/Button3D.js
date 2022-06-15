@@ -5,6 +5,7 @@ import Button3D, {Button3DBase} from '@enact/sandstone/Button3D';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 
 import { Canvas} from '@react-three/fiber'
+import { VRCanvas } from '@react-three/xr'
 import iconNames from '../helper/icons';
 
 
@@ -23,7 +24,7 @@ export default {
 };
 
 export const _Button3D = (args) => (
-	<Canvas>
+	<VRCanvas>
 		<ambientLight />
 		<pointLight position={[10, 10, 10]} />
 		<Button3D
@@ -35,7 +36,7 @@ export const _Button3D = (args) => (
 		>
 			{args['children']}
 		</Button3D>
-	</Canvas>
+	</VRCanvas>
 );
 
 text('children', _Button3D, Config, 'click me');

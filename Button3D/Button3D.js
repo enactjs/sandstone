@@ -9,7 +9,7 @@ import {useEffect, useRef, useState} from "react";
 import iconList from '../Icon/IconList.js';
 import ri from "../../enact/packages/ui/resolution";
 
-import sandstoneIcons from '../fonts/Sandstone_Icons.json';
+import sandstoneIcons from '../fonts/Sandstone_Icons.woff';
 
 const Button3DBase = (props) => {
 	// This reference will give us direct access to the mesh
@@ -19,9 +19,9 @@ const Button3DBase = (props) => {
 	const [active, setActive] = useState(false);
 	const [icon, setIcon] = useState(null);
 
-	//const font = new THREE.FontLoader().parse(null);
-	const [shapePosition, setShapePosition] = useState([0, 0, 0]);
-	const [textPosition, setTextPosition] = useState([0, 0, 0.16]);
+	//const font = new THREE.FontLoader().parse(sandstoneIcons);
+	const [shapePosition, setShapePosition] = useState([0, 0, -15]);
+	const [textPosition, setTextPosition] = useState([0, 0, -14.84]);
 
 	const buttonShape = new THREE.Shape();
 	const tooltipShape = new THREE.Shape();
@@ -66,8 +66,8 @@ const Button3DBase = (props) => {
 	};
 
 	const isTooltipVisible = props.showTooltip && hovered;
-	const tooltipPosition = props.size === 'large' ? [2, 2.5, 0] : [1.5, 2, 0];
-	const tooltipTextPosition = props.size === 'large' ? [2, 2.5, 0.16] : [1.5, 2, 0.16];
+	const tooltipPosition = props.size === 'large' ? [2, 2.5, -15] : [1.5, 2, -15];
+	const tooltipTextPosition = props.size === 'large' ? [2, 2.5, -14.84] : [1.5, 2, -14.84];
 
 	const computeIcon = () => {
 		const iconProp = props.icon;
@@ -144,12 +144,27 @@ const Button3DBase = (props) => {
 			</group>
 			<group position={textPosition}>
 				<Text
-					//font={font}
+					font={sandstoneIcons}
+					color={hovered ? '#4c5059' : '#e6e6e6'}
+					anchorX="center"
+					anchorY="middle"
+					fontSize={1}>
+					{props.iconPosition === 'before' ? icon : null}
+				</Text>
+				<Text
 					color={hovered ? '#4c5059' : '#e6e6e6'}
 					anchorX="center"
 					anchorY="middle"
 					fontSize={0.5}>
-					{props.iconPosition === 'before' ? icon : null} {props.children} {props.iconPosition === 'after' ? icon : null}
+					{props.children}
+				</Text>
+				<Text
+					font={sandstoneIcons}
+					color={hovered ? '#4c5059' : '#e6e6e6'}
+					anchorX="center"
+					anchorY="middle"
+					fontSize={1}>
+					{props.iconPosition === 'after' ? icon : null}
 				</Text>
 			</group>
 			<OrbitControls/>

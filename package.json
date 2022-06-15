@@ -44,6 +44,7 @@
     "@enact/webos": "^4.5.0-beta.1",
     "@react-three/drei": "^9.13.0",
     "@react-three/fiber": "^8.0.22",
+    "@react-three/xr": "^3.5.0",
     "classnames": "^2.3.1",
     "ilib": "^14.14.0",
     "invariant": "^2.2.4",
