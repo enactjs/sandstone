@@ -1,110 +1,117 @@
-import {OrbitControls, Text, Stars} from '@react-three/drei';
-import * as THREE from 'three'
+import {OrbitControls, Text} from '@react-three/drei';
+import {useCallback, useEffect, useRef, useState} from "react";
+import * as THREE from 'three';
 
-
-import Skinnable from '../Skinnable';
-
-import componentCss from './Button3D.module.less';
-import {useEffect, useRef, useState} from "react";
 import iconList from '../Icon/IconList.js';
-import ri from "../../enact/packages/ui/resolution";
+import Skinnable from '../Skinnable';
 
 import sandstoneIcons from '../fonts/Sandstone_Icons.woff';
 
+/**
+ * Tests if a string appears to be a URI/URL.
+ *
+ * @function
+ * @param	{String}	c	Character to test
+ *
+ * @returns	{Boolean}		`true` if c looks like a URL
+ * @private
+ */
+const isUri = function (c) {
+	return (c.indexOf('/') > -1) || (c.indexOf('.') > -1);
+};
+
 const Button3DBase = (props) => {
 	// This reference will give us direct access to the mesh
-	const mesh = useRef()
+	const mesh = useRef();
+	const zPosition = -15;
+
 	// Set up state for the hovered and active state
 	const [hovered, setHover] = useState(false);
-	const [active, setActive] = useState(false);
 	const [icon, setIcon] = useState(null);
 
-	//const font = new THREE.FontLoader().parse(sandstoneIcons);
-	const [shapePosition, setShapePosition] = useState([0, 0, -15]);
-	const [textPosition, setTextPosition] = useState([0, 0, -14.84]);
+	// const font = new THREE.FontLoader().parse(sandstoneIcons);
+	const [shapePosition, setShapePosition] = useState([0, 0, zPosition]);
+	const [textPosition, setTextPosition] = useState([0, 0, zPosition + 0.16]);
 
 	const buttonShape = new THREE.Shape();
 	const tooltipShape = new THREE.Shape();
-	const colorShape = new THREE.Shape();
 
 	// Calculations for Button Shape size
-	let sizeX = Math.max(props.children.length * 0.3, props.size === "small" ? 4 : 5)
-	let sizeY = props.size === "small" ? 2 : 3
-	let radius = 0.5
+	let sizeX = Math.max(props.children.length * 0.3, props.size === "small" ? 4 : 5);
+	let sizeY = props.size === "small" ? 2 : 3;
+	let radius = 0.5;
 
-	let halfX = sizeX * 0.5 - radius
-	let halfY = sizeY * 0.5 - radius
-	let baseAngle = Math.PI * 0.5
-	buttonShape.absarc(halfX, halfY, radius, baseAngle * 0, baseAngle * 0 + baseAngle)
-	buttonShape.absarc(-halfX, halfY, radius, baseAngle * 1, baseAngle * 1 + baseAngle)
-	buttonShape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle)
-	buttonShape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle)
+	let halfX = sizeX * 0.5 - radius;
+	let halfY = sizeY * 0.5 - radius;
+	let baseAngle = Math.PI * 0.5;
+	buttonShape.absarc(halfX, halfY, radius, 0, baseAngle);
+	buttonShape.absarc(-halfX, halfY, radius, baseAngle, baseAngle + baseAngle);
+	buttonShape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle);
+	buttonShape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle);
 
 	// Calculations for Tooltip Shape size
 	let tooltipSizeX = Math.max((props.tooltipText.length || 0) * 0.3, 2.5);
 	let tooltipSizeY = 1.5;
 	let tooltipRadius = 0.5;
 
-	let tooltipHalfX = tooltipSizeX * 0.5 - tooltipRadius
-	let tooltipHalfY = tooltipSizeY * 0.5 - tooltipRadius
-	let tooltipBaseAngle = Math.PI * 0.5
-	tooltipShape.absarc(tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle * 0, tooltipBaseAngle * 0 + tooltipBaseAngle)
-	tooltipShape.absarc(-tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle * 1, tooltipBaseAngle * 1 + tooltipBaseAngle)
-	tooltipShape.absarc(-tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 2, tooltipBaseAngle * 2 + tooltipBaseAngle)
-	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle)
+	let tooltipHalfX = tooltipSizeX * 0.5 - tooltipRadius;
+	let tooltipHalfY = tooltipSizeY * 0.5 - tooltipRadius;
+	let tooltipBaseAngle = Math.PI * 0.5;
+	tooltipShape.absarc(tooltipHalfX, tooltipHalfY, tooltipRadius, 0,  +tooltipBaseAngle);
+	tooltipShape.absarc(-tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle, tooltipBaseAngle + tooltipBaseAngle);
+	tooltipShape.absarc(-tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 2, tooltipBaseAngle * 2 + tooltipBaseAngle);
+	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle);
+
+	const isTooltipVisible = props.showTooltip && hovered;
+	const tooltipPosition = props.size === 'large' ? [2, 2.5, zPosition - 15] : [1.5, 2, zPosition];
+	const tooltipTextPosition = props.size === 'large' ? [2, 2.5, zPosition - 14.84] : [1.5, 2, zPosition + 0.16];
 
 	const onPointerDown = () => {
-		setActive(true);
-		setShapePosition([0, 0, 0.2]);
-		setTextPosition([0, 0, 0.36]);
+		setShapePosition([0, 0, zPosition + 0.2]);
+		setTextPosition([0, 0, zPosition + 0.36]);
 	};
 
 	const onPointerUp = () => {
-		setActive(false);
-		setShapePosition([0, 0, 0]);
-		setTextPosition([0, 0, 0.16]);
+		setShapePosition([0, 0, zPosition]);
+		setTextPosition([0, 0, zPosition + 0.16]);
 	};
 
-	const isTooltipVisible = props.showTooltip && hovered;
-	const tooltipPosition = props.size === 'large' ? [2, 2.5, -15] : [1.5, 2, -15];
-	const tooltipTextPosition = props.size === 'large' ? [2, 2.5, -14.84] : [1.5, 2, -14.84];
-
-	const computeIcon = () => {
+	const computeIcon = useCallback(() => {
 		const iconProp = props.icon;
-		let icon = iconList[props.icon];
+		let chosenIcon = iconList[props.icon];
 
 		if (!icon) {
 			if (typeof iconProp == 'string') {
 				if (iconProp.indexOf('&#x') === 0) {
 					// Converts a hex reference in HTML entity form: &#x99999;
-					icon = parseInt(iconProp.slice(3, -1), 16);
+					chosenIcon = parseInt(iconProp.slice(3, -1), 16);
 				} else if (iconProp.indexOf('&#') === 0) {
 					// Convert an HTML entity: &#99999;
-					icon = parseInt(iconProp.slice(2, -1));
+					chosenIcon = parseInt(iconProp.slice(2, -1));
 				} else if (iconProp.indexOf('\\u') === 0) {
 					// Convert a unicode reference: \u99999;
-					icon = parseInt(iconProp.slice(2), 16);
+					chosenIcon = parseInt(iconProp.slice(2), 16);
 				} else if (iconProp.indexOf('0x') === 0) {
 					// Converts a hex reference in string form
-					icon = String.fromCodePoint(iconProp);
+					chosenIcon = String.fromCodePoint(iconProp);
 				} else if (!isUri(iconProp)) {
 					// A "simple" string is assumed to be an icon-name string
-					icon = iconProp;
+					chosenIcon = iconProp;
 				}
 			}
 		}
 
-		if (typeof icon == 'number') {
+		if (typeof chosenIcon == 'number') {
 			// Converts a hex reference in number form
-			icon = String.fromCodePoint(icon);
+			chosenIcon = String.fromCodePoint(chosenIcon);
 		}
 
-		return icon;
-	}
+		return chosenIcon;
+	}, [icon, props.icon]);
 
 	useEffect(() => {
 		setIcon(computeIcon);
-	}, [props.icon]);
+	}, [props.icon, computeIcon]);
 
 
 	return (
@@ -116,8 +123,8 @@ const Button3DBase = (props) => {
 							{...props}
 							ref={mesh}
 						>
-							<extrudeBufferGeometry args={[tooltipShape, {bevelEnabled: false, depth: 0.15}]}/>
-							<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'}/>
+							<extrudeBufferGeometry args={[tooltipShape, {bevelEnabled: false, depth: 0.15}]} />
+							<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
 						</mesh>
 					</group>
 					<group>
@@ -134,12 +141,11 @@ const Button3DBase = (props) => {
 					scale={hovered ? 1.05 : 1}
 					onPointerDown={onPointerDown}
 					onPointerUp={onPointerUp}
-					onPointerOver={(event) => setHover(true)}
-					onPointerOut={(event) => setHover(false)}
+					onPointerOver={() => setHover(true)}
+					onPointerOut={() => setHover(false)}
 				>
-					<extrudeBufferGeometry args={[buttonShape, {bevelEnabled: false, depth: 0.15}]}/>
-					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'}/>
-					{/*<extrudeGeometry args={,[10, 1, 1,1,1,5]} />*/}
+					<extrudeBufferGeometry args={[buttonShape, {bevelEnabled: false, depth: 0.15}]} />
+					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
 				</mesh>
 			</group>
 			<group position={textPosition}>
@@ -148,14 +154,16 @@ const Button3DBase = (props) => {
 					color={hovered ? '#4c5059' : '#e6e6e6'}
 					anchorX="center"
 					anchorY="middle"
-					fontSize={1}>
+					fontSize={1}
+				>
 					{props.iconPosition === 'before' ? icon : null}
 				</Text>
 				<Text
 					color={hovered ? '#4c5059' : '#e6e6e6'}
 					anchorX="center"
 					anchorY="middle"
-					fontSize={0.5}>
+					fontSize={0.5}
+				>
 					{props.children}
 				</Text>
 				<Text
@@ -163,14 +171,15 @@ const Button3DBase = (props) => {
 					color={hovered ? '#4c5059' : '#e6e6e6'}
 					anchorX="center"
 					anchorY="middle"
-					fontSize={1}>
+					fontSize={1}
+				>
 					{props.iconPosition === 'after' ? icon : null}
 				</Text>
 			</group>
-			<OrbitControls/>
+			<OrbitControls />
 		</group>
-	)
-}
+	);
+};
 
 const Button3D = Skinnable(Button3DBase);
 

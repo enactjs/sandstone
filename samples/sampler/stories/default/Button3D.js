@@ -1,13 +1,10 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button3D, {Button3DBase} from '@enact/sandstone/Button3D';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
+import {VRCanvas} from '@react-three/xr';
 
-import { Canvas} from '@react-three/fiber'
-import { VRCanvas } from '@react-three/xr'
 import iconNames from '../helper/icons';
-
 
 Button3D.displayName = 'Button3D';
 const Config = mergeComponentMetadata('Button3D', UIButtonBase, UIButton, Button3DBase, Button3D);
