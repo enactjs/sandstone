@@ -43,10 +43,9 @@ const ImageItem3DBase = kind({
 		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
 
 		return (
-			<group>
+			<group {...rest}>
 				<group position={[0, -.5, -0.51]}>
 					<mesh
-						{...rest}
 						ref={mesh}
 						onPointerOver={() => setHover(true)}
 						onPointerOut={() => setHover(false)}
@@ -54,8 +53,8 @@ const ImageItem3DBase = kind({
 						<extrudeBufferGeometry args={[shape, { bevelEnabled: false, depth: 0.3 }]} />
 						<meshStandardMaterial
 							transparent={!hovered ? true : false}
-							opacity={!hovered ? 0 : 1}
-							color={hovered ? disabledHoverColor : '#ffffff'}
+							// opacity={!hovered ? 0 : 1}
+							color={hovered ? disabledHoverColor : '#282929'}
 						/>
 						<OrbitControls />
 					</mesh>
