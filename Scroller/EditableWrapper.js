@@ -104,7 +104,7 @@ const EditableWrapper = (props) => {
 		keyHoldTimerId: null,
 
 		// Flag for prevent event propagation
-		needToPropagateEvent: null,
+		needToPreventEvent: null,
 
 		lastInputDirection: null
 	});
@@ -197,10 +197,10 @@ const EditableWrapper = (props) => {
 			return;
 		}
 		// Consume the event to prevent Item behavior
-		if (mutableRef.current.selectedItem || mutableRef.current.needToPropagateEvent) {
+		if (mutableRef.current.selectedItem || mutableRef.current.needToPreventEvent) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			mutableRef.current.needToPropagateEvent = false;
+			mutableRef.current.needToPreventEvent = false;
 		}
 	}, []);
 
@@ -213,10 +213,10 @@ const EditableWrapper = (props) => {
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
-			mutableRef.current.needToPropagateEvent = true;
+			mutableRef.current.needToPreventEvent = true;
 		} else {
 			mutableRef.current.targetItemNode = findItemNode(ev.target);
-			mutableRef.current.needToPropagateEvent = false;
+			mutableRef.current.needToPreventEvent = false;
 		}
 	}, [editable, finalizeOrders, findItemNode, reset]);
 
@@ -444,7 +444,7 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					forwardCustom('onComplete', () => ({orders}))({}, editable);
 					reset();
-					mutableRef.current.needToPropagateEvent = true;
+					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
 						announceRef.current.announce(
@@ -480,9 +480,9 @@ const EditableWrapper = (props) => {
 
 		clearTimeout(mutableRef.current.timer);
 		mutableRef.current.timer = null;
-		if (mutableRef.current.needToPropagateEvent || mutableRef.current.selectedItem) {
+		if (mutableRef.current.needToPreventEvent || mutableRef.current.selectedItem) {
 			ev.preventDefault();
-			mutableRef.current.needToPropagateEvent = false;
+			mutableRef.current.needToPreventEvent = false;
 		}
 	}, []);
 
