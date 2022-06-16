@@ -1,4 +1,5 @@
 import Button3D, {Button3DBase} from '@enact/sandstone/Button3D';
+import Spinner from '@enact/sandstone/Spinner';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
@@ -22,7 +23,7 @@ export default {
 };
 
 export const _Button3D = (args) => (
-	<Suspense>
+	<Suspense fallback={<Spinner />}>
 		<VRCanvas>
 			<ambientLight />
 			<pointLight position={[10, 10, 10]} />
