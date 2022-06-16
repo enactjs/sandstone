@@ -45,10 +45,12 @@ const EditableShape = PropTypes.shape({
 
 const SpotlightAccelerator = new Accelerator([5, 4]);
 
-const pressDuration = 500;
+const holdDuration = 500;
 
 const holdConfig = {
-	events: [{time: pressDuration}]
+	events: [
+		{name: 'hold', time: holdDuration}
+	]
 };
 
 /**
@@ -99,10 +101,10 @@ const EditableWrapper = (props) => {
 		lastInputType: null,
 
 		// Timer for holding key input
-		timer: null,
+		keyHoldTimerId: null,
 
 		// Flag for prevent event propagation
-		stopPropagationFlag: null,
+		needToPropagateEvent: null,
 
 		lastInputDirection: null
 	});
@@ -195,10 +197,10 @@ const EditableWrapper = (props) => {
 			return;
 		}
 		// Consume the event to prevent Item behavior
-		if (mutableRef.current.selectedItem || mutableRef.current.stopPropagationFlag) {
+		if (mutableRef.current.selectedItem || mutableRef.current.needToPropagateEvent) {
 			ev.preventDefault();
 			ev.stopPropagation();
-			mutableRef.current.stopPropagationFlag = false;
+			mutableRef.current.needToPropagateEvent = false;
 		}
 	}, []);
 
@@ -211,10 +213,10 @@ const EditableWrapper = (props) => {
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
-			mutableRef.current.stopPropagationFlag = true;
+			mutableRef.current.needToPropagateEvent = true;
 		} else {
 			mutableRef.current.targetItemNode = findItemNode(ev.target);
-			mutableRef.current.stopPropagationFlag = false;
+			mutableRef.current.needToPropagateEvent = false;
 		}
 	}, [editable, finalizeOrders, findItemNode, reset]);
 
@@ -442,7 +444,7 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					forwardCustom('onComplete', () => ({orders}))({}, editable);
 					reset();
-					mutableRef.current.stopPropagationFlag = true;
+					mutableRef.current.needToPropagateEvent = true;
 					setTimeout(() => {
 						announceRef.current.announce(
 							selectedItemLabel + $L('move complete'),
@@ -453,7 +455,7 @@ const EditableWrapper = (props) => {
 			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
 				mutableRef.current.timer = setTimeout(() => {
 					startEditing(targetItemNode);
-				}, pressDuration - 300);
+				}, holdDuration - 300);
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
@@ -477,10 +479,9 @@ const EditableWrapper = (props) => {
 
 		clearTimeout(mutableRef.current.timer);
 		mutableRef.current.timer = null;
-		if (mutableRef.current.stopPropagationFlag || mutableRef.current.selectedItem) {
+		if (mutableRef.current.needToPropagateEvent || mutableRef.current.selectedItem) {
 			ev.preventDefault();
-			// ev.stopPropagation();
-			mutableRef.current.stopPropagationFlag = false;
+			mutableRef.current.needToPropagateEvent = false;
 		}
 	}, []);
 
