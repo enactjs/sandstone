@@ -5,6 +5,7 @@ import {mergeClassNameMaps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import {Announce} from '@enact/ui/AnnounceDecorator';
+import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
@@ -15,6 +16,7 @@ import $L from '../internal/$L';
 import componentCss from './EditableWrapper.module.less';
 
 const completeAnnounceDelay = 300; // An arbitrary delay at a level that is not ignored by the new focus element
+const TouchableDiv = Touchable('div');
 
 /**
  * The shape for editable of [Scroller]{@link sandstone/Scroller}.
@@ -43,6 +45,14 @@ const EditableShape = PropTypes.shape({
 
 const SpotlightAccelerator = new Accelerator([5, 4]);
 
+const holdDuration = 500;
+
+const holdConfig = {
+	events: [
+		{name: 'hold', time: holdDuration}
+	]
+};
+
 /**
  * A Sandstone-styled EditableWrapper.
  *
@@ -60,8 +70,8 @@ const EditableWrapper = (props) => {
 	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
 
 	const dataSize = children?.length;
-	// Mutable value
 
+	// Mutable value
 	const wrapperRef = useRef();
 	const mutableRef = useRef({
 		// Constants
@@ -89,6 +99,13 @@ const EditableWrapper = (props) => {
 
 		// Last InputType which moves Items
 		lastInputType: null,
+
+		// Timer for holding key input
+		keyHoldTimerId: null,
+
+		// Flag for prevent event propagation
+		needToPreventEvent: null,
+
 		lastInputDirection: null
 	});
 
@@ -175,23 +192,42 @@ const EditableWrapper = (props) => {
 		}
 	}, [scrollContentRef]);
 
-	const handleClick = useCallback((ev) => {
-		const targetItemNode = findItemNode(ev.target);
+	const handleClickCapture = useCallback((ev) => {
+		if (ev.target.className.includes('Button')) {
+			return;
+		}
+		// Consume the event to prevent Item behavior
+		if (mutableRef.current.selectedItem || mutableRef.current.needToPreventEvent) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			mutableRef.current.needToPreventEvent = false;
+		}
+	}, []);
 
+	const handleMouseDown = useCallback((ev) => {
+		if (ev.target.className.includes('Button')) {
+			return;
+		}
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
-		} else if (targetItemNode && targetItemNode.dataset.index) {
+			mutableRef.current.needToPreventEvent = true;
+		} else {
+			mutableRef.current.targetItemNode = findItemNode(ev.target);
+			mutableRef.current.needToPreventEvent = false;
+		}
+	}, [editable, finalizeOrders, findItemNode, reset]);
+
+	const handleHoldStart = useCallback(() => {
+		const {targetItemNode} = mutableRef.current;
+
+		if (targetItemNode && targetItemNode.dataset.index) {
 			// Start editing by adding selected transition to selected item
 			startEditing(targetItemNode);
 		}
-
-		// Consume the event to prevent Item behavior
-		ev.preventDefault();
-		ev.stopPropagation();
-	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
+	}, [startEditing]);
 
 	const readOutCurrentPosition = useCallback((neighborItem) => {
 		const {lastInputDirection, lastInputType, selectedItemLabel} = mutableRef.current;
@@ -397,7 +433,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, reset, scrollContainerHandle, scrollContentRef]);
 
-	const handleKeyDown = useCallback((ev) => {
+	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
 		const {selectedItem, selectedItemLabel} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
@@ -408,6 +444,7 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					forwardCustom('onComplete', () => ({orders}))({}, editable);
 					reset();
+					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
 						announceRef.current.announce(
@@ -415,14 +452,12 @@ const EditableWrapper = (props) => {
 							true
 						);
 					}, completeAnnounceDelay);
-				} else if (targetItemNode) {
-					startEditing(targetItemNode);
 				}
+			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
+				mutableRef.current.timer = setTimeout(() => {
+					startEditing(targetItemNode);
+				}, holdDuration - 300);
 			}
-
-			// Consume the event to prevent Item behavior
-			ev.preventDefault();
-			ev.stopPropagation();
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
 				if (repeat) {
@@ -437,6 +472,19 @@ const EditableWrapper = (props) => {
 			}
 		}
 	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
+
+	const handleKeyUpCapture = useCallback((ev) => {
+		if (ev.target.getAttribute('role') === 'button') {
+			return;
+		}
+
+		clearTimeout(mutableRef.current.timer);
+		mutableRef.current.timer = null;
+		if (mutableRef.current.needToPreventEvent || mutableRef.current.selectedItem) {
+			ev.preventDefault();
+			mutableRef.current.needToPreventEvent = false;
+		}
+	}, []);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
@@ -509,16 +557,20 @@ const EditableWrapper = (props) => {
 	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle, scrollContentRef]);
 
 	return (
-		<div
+		<TouchableDiv
+			holdConfig={holdConfig}
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
-			onClick={handleClick}
-			onKeyDown={handleKeyDown}
+			onClickCapture={handleClickCapture}
+			onHoldStart={handleHoldStart}
+			onKeyDownCapture={handleKeyDownCapture}
+			onKeyUpCapture={handleKeyUpCapture}
+			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			ref={wrapperRef}
 		>
 			{children}
 			<Announce key="editable-wrapper-announce" ref={announceRef} />
-		</div>
+		</TouchableDiv>
 	);
 };
 

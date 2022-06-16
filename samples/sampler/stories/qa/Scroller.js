@@ -262,6 +262,7 @@ export const EditableList = (args) => {
 			hoverToScroll={args['hoverToScroll']}
 			key={args['scrollMode']}
 			noScrollByWheel={args['noScrollByWheel']}
+			onClick={action('onClickScroller')}
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
@@ -280,6 +281,7 @@ export const EditableList = (args) => {
 								aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 								src={item.src}
 								className={css.imageItem}
+								onClick={action('onClickItem')}
 							>
 								{`Image ${item.index}`}
 							</ImageItem>
