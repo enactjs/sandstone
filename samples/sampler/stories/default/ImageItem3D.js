@@ -1,10 +1,9 @@
 import { mergeComponentMetadata } from '@enact/storybook-utils';
 import { boolean, select, text } from '@enact/storybook-utils/addons/controls';
 import ImageItem3D, { ImageItem3DBase } from '@enact/sandstone/ImageItem3D';
-import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import Spinner from '@enact/sandstone/Spinner';
-
+import { VRCanvas } from '@react-three/xr';
 
 ImageItem3D.displayName = 'ImageItem3D';
 const Config = mergeComponentMetadata('ImageItem3D', ImageItem3DBase, ImageItem3D);
@@ -19,11 +18,11 @@ const imageArray = ['https://picsum.photos/200/300', 'https://picsum.photos/220/
 export const _ImageItem3D = (args) => {
 	return (
 		<Suspense fallback={<Spinner />}>
-			<Canvas>
+			<VRCanvas>
 				<ambientLight />
 				<pointLight position={[10, 10, 10]} />
 				<ImageItem3D src={args['src']} disabled={args.disabled} label={args.label}>{args.children}</ImageItem3D>
-			</Canvas>
+			</VRCanvas>
 		</Suspense>
 	)
 };

@@ -28,7 +28,8 @@
     "classnames": "^2.3.1",
     "ilib": "^14.14.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "@react-three/xr": "^3.5.0"
   },
   "devDependencies": {
     "@enact/storybook-utils": "^4.1.0",
