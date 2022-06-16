@@ -445,6 +445,7 @@ const EditableWrapper = (props) => {
 					forwardCustom('onComplete', () => ({orders}))({}, editable);
 					reset();
 					mutableRef.current.needToPropagateEvent = true;
+
 					setTimeout(() => {
 						announceRef.current.announce(
 							selectedItemLabel + $L('move complete'),
