@@ -3,6 +3,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import {VRCanvas} from '@react-three/xr';
+import {Suspense} from 'react';
 
 import iconNames from '../helper/icons';
 
@@ -21,19 +22,21 @@ export default {
 };
 
 export const _Button3D = (args) => (
-	<VRCanvas>
-		<ambientLight />
-		<pointLight position={[10, 10, 10]} />
-		<Button3D
-			icon={args['icon']}
-			iconPosition={args['iconPosition']}
-			size={args['size']}
-			showTooltip={args['showTooltip']}
-			tooltipText={args['tooltipText']}
-		>
-			{args['children']}
-		</Button3D>
-	</VRCanvas>
+	<Suspense>
+		<VRCanvas>
+			<ambientLight />
+			<pointLight position={[10, 10, 10]} />
+			<Button3D
+				icon={args['icon']}
+				iconPosition={args['iconPosition']}
+				size={args['size']}
+				showTooltip={args['showTooltip']}
+				tooltipText={args['tooltipText']}
+			>
+				{args['children']}
+			</Button3D>
+		</VRCanvas>
+	</Suspense>
 );
 
 text('children', _Button3D, Config, 'click me');
