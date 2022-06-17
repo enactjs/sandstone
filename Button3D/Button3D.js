@@ -1,5 +1,6 @@
 import {OrbitControls, Text} from '@react-three/drei';
-import {useCallback, useEffect, useRef, useState} from "react";
+import PropTypes from 'prop-types';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import * as THREE from 'three';
 
 import iconList from '../Icon/IconList.js';
@@ -63,18 +64,26 @@ const Button3DBase = (props) => {
 	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle);
 
 	const isTooltipVisible = props.showTooltip && hovered;
-	const tooltipPosition = props.size === 'large' ? [2, 2.5, zPosition - 15] : [1.5, 2, zPosition];
-	const tooltipTextPosition = props.size === 'large' ? [2, 2.5, zPosition - 14.84] : [1.5, 2, zPosition + 0.16];
+	const tooltipPosition = props.size === 'large' ? [2, 2.5, zPosition] : [1.5, 2, zPosition];
+	const tooltipTextPosition = props.size === 'large' ? [2, 2.5, zPosition + 0.16] : [1.5, 2, zPosition + 0.16];
 
-	const onPointerDown = () => {
+	const onPointerDown = useCallback(() => {
 		setShapePosition([0, 0, zPosition + 0.2]);
 		setTextPosition([0, 0, zPosition + 0.36]);
-	};
+	}, [zPosition]);
 
-	const onPointerUp = () => {
+	const onPointerUp = useCallback(() => {
 		setShapePosition([0, 0, zPosition]);
 		setTextPosition([0, 0, zPosition + 0.16]);
-	};
+	}, [zPosition]);
+
+	const handlePointerOver = useCallback(() => {
+		setHover(true);
+	}, []);
+
+	const handlePointerOut = useCallback(() => {
+		setHover(false);
+	}, []);
 
 	const computeIcon = useCallback(() => {
 		const iconProp = props.icon;
@@ -141,8 +150,8 @@ const Button3DBase = (props) => {
 					scale={hovered ? 1.05 : 1}
 					onPointerDown={onPointerDown}
 					onPointerUp={onPointerUp}
-					onPointerOver={() => setHover(true)}
-					onPointerOut={() => setHover(false)}
+					onPointerOver={handlePointerOver}
+					onPointerOut={handlePointerOut}
 				>
 					<extrudeBufferGeometry args={[buttonShape, {bevelEnabled: false, depth: 0.15}]} />
 					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
@@ -179,6 +188,14 @@ const Button3DBase = (props) => {
 			<OrbitControls />
 		</group>
 	);
+};
+
+Button3DBase.propTypes = {
+	icon: PropTypes.object,
+	iconPosition: PropTypes.string,
+	showTooltip: PropTypes.bool,
+	size: PropTypes.string,
+	tooltipText: PropTypes.string
 };
 
 const Button3D = Skinnable(Button3DBase);
