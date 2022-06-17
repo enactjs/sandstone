@@ -1,9 +1,9 @@
-import { mergeComponentMetadata } from '@enact/storybook-utils';
-import { boolean, select, text } from '@enact/storybook-utils/addons/controls';
-import ImageItem3D, { ImageItem3DBase } from '@enact/sandstone/ImageItem3D';
-import { Suspense } from 'react';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import ImageItem3D, {ImageItem3DBase} from '@enact/sandstone/ImageItem3D';
+import {Suspense} from 'react';
 import Spinner from '@enact/sandstone/Spinner';
-import { VRCanvas, DefaultXRControllers } from '@react-three/xr';
+import {VRCanvas, DefaultXRControllers} from '@react-three/xr';
 
 ImageItem3D.displayName = 'ImageItem3D';
 const Config = mergeComponentMetadata('ImageItem3D', ImageItem3DBase, ImageItem3D);
@@ -13,7 +13,7 @@ export default {
 	component: 'ImageItem3D'
 };
 
-const imageArray = ['https://picsum.photos/200/300', 'https://picsum.photos/220/320', 'https://picsum.photos/400/500']
+const imageArray = ['https://picsum.photos/200/300', 'https://picsum.photos/220/320', 'https://picsum.photos/400/500'];
 
 export const _ImageItem3D = (args) => {
 	return (
@@ -25,7 +25,7 @@ export const _ImageItem3D = (args) => {
 				<ImageItem3D src={args['src']} disabled={args.disabled} label={args.label}>{args.children}</ImageItem3D>
 			</VRCanvas>
 		</Suspense>
-	)
+	);
 };
 
 _ImageItem3D.storyName = 'ImageItem3D';

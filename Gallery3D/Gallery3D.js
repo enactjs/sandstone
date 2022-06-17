@@ -1,5 +1,6 @@
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import ImageItem3D from '../ImageItem3D';
+import PropTypes from 'prop-types';
 
 const Image = ({index, name, ...props}) => {
 	const group = useRef();
@@ -8,8 +9,8 @@ const Image = ({index, name, ...props}) => {
 	// }, []);
 
 	return (
-		<group {...props} ref={group}>
-			<ImageItem3D src={'https://picsum.photos/20' + index} {...props}>
+		<group ref={group}>
+			<ImageItem3D src={'https://picsum.photos/20' + index} {...props} index={index}>
 				{name}
 			</ImageItem3D>
 		</group>
@@ -31,6 +32,8 @@ const Gallery3D = () => {
 	// 	[10.207809448242188, 0, -6.308773517608643], // 10
 	// 	[6.308773517608643, -10.207809448242188, 0]] // 11
 	//
+
+	const [selected, setSelected] = useState(null);
 
 	const positions = [
 		[-14, 16, -10], // 0
@@ -61,19 +64,26 @@ const Gallery3D = () => {
 
 	return (
 		<group name="imageCopies">
-			{positions.map((vertex, i) => {
+			{positions.map((position, i) => {
 				return (
 					<Image
 						name={'Image-' + i}
-						position={vertex}
+						position={position}
 						index={i}
 						key={i}
+						selected={selected}
+						setSelected={setSelected}
 					/>
 				);
 			}
 			)}
 		</group>
 	);
+};
+
+Gallery3D.propTypes = {
+	index: PropTypes.number,
+	name: PropTypes.string
 };
 
 export default Gallery3D;

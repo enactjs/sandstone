@@ -1,9 +1,9 @@
-import { OrbitControls, Text } from '@react-three/drei';
+import {OrbitControls, Text} from '@react-three/drei';
 import * as THREE from 'three';
 import kind from '@enact/core/kind';
 import Skinnable from '../Skinnable';
-import PropTypes from 'prop-types'
-import { useRef, useState } from "react";
+import PropTypes from 'prop-types';
+import {useRef, useState} from "react";
 
 const Item3DBase = kind({
 	propTypes: {
@@ -27,7 +27,7 @@ const Item3DBase = kind({
 
 	functional: true,
 
-	render: ({ children, disabled, label, size, rest }) => {
+	render: ({children, disabled, label, size, rest}) => {
 
 		const mesh = useRef();
 		const textRef = useRef();
@@ -59,12 +59,12 @@ const Item3DBase = kind({
 						onPointerOver={(event) => setHover(true)}
 						onPointerOut={(event) => setHover(false)}
 					>
-						<extrudeBufferGeometry args={[shape, { bevelEnabled: false, depth: 0.1 }]} />
+						<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.1}]} />
 						<meshStandardMaterial transparent={!hovered} opacity={!hovered ? 0 : 1} color={hovered ? disabledHoverColor : '#ffffff'} />
 						<OrbitControls />
 					</mesh>
 				</group>
-				<group position={[-3, label ? .25 : 0, -0.30]}>
+				<group position={[-3, label ? 0.25 : 0, -0.30]}>
 					<Text
 						ref={textRef}
 						anchorX="left"
@@ -79,7 +79,7 @@ const Item3DBase = kind({
 						{children}
 					</Text>
 				</group>
-				<group position={[-3, -.25, -.3]}>
+				<group position={[-3, -0.25, -0.3]}>
 					<Text
 						anchorX="left"
 						color={hovered ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'}
@@ -92,11 +92,11 @@ const Item3DBase = kind({
 					</Text>
 				</group>
 			</group>
-		)
+		);
 	}
-})
+});
 
-const Item3D = Skinnable({ prop: 'skin' }, Item3DBase);
+const Item3D = Skinnable({prop: 'skin'}, Item3DBase);
 
 export default Item3D;
 export {

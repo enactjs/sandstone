@@ -1,10 +1,10 @@
-import { OrbitControls, Text } from '@react-three/drei';
+import {OrbitControls, Text} from '@react-three/drei';
 import * as THREE from 'three';
 import kind from '@enact/core/kind';
 import Skinnable from '../Skinnable';
-import PropTypes from 'prop-types'
-import { useRef, useState } from "react";
-import { useLoader } from '@react-three/fiber';
+import PropTypes from 'prop-types';
+import {useRef, useState} from "react";
+import {useLoader} from '@react-three/fiber';
 
 const ImageItem3DBase = kind({
 	propTypes: {
@@ -15,7 +15,7 @@ const ImageItem3DBase = kind({
 
 	functional: true,
 
-	render: ({ children, disabled, label, rest, src }) => {
+	render: ({children, disabled, label, rest, src, position, index, selected, setSelected}) => {
 
 		const mesh = useRef();
 		const textRef = useRef();
@@ -26,11 +26,11 @@ const ImageItem3DBase = kind({
 		let sizeY = 7;
 		let radius = 0.6;
 
-		const texture = useLoader(THREE.TextureLoader, src)
+		const texture = useLoader(THREE.TextureLoader, src);
 		const image = <mesh>
 			<planeBufferGeometry attach="geometry" args={[5, 5]} />
 			<meshBasicMaterial attach="material" map={texture} toneMapped={false} />
-		</mesh>
+		</mesh>;
 
 		let halfX = sizeX * 0.5 - radius;
 		let halfY = sizeY * 0.5 - radius;
@@ -42,29 +42,52 @@ const ImageItem3DBase = kind({
 
 		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
 
+		const handlePosition = () => {
+			if (selected === index) {
+				return [position[0], position[1], position[2] + 2];
+			}
+
+			if (hovered) {
+				return [position[0], position[1], position[2] + 3];
+			}
+
+			return position;
+		};
+
+		const handleSelect = () => {
+			if (selected === index) {
+				setSelected(null);
+			} else {
+				setSelected(index);
+			}
+		};
+
+		const newPosition = handlePosition();
+
 		return (
-			<group {...rest}>
-				<group position={[0, -.5, -0.51]}>
+			<group {...rest} position={newPosition} scale={selected === index ? 1.3 : 1} >
+				<group position={[0, -0.5, -0.51]}>
 					<mesh
 						ref={mesh}
 						onPointerOver={() => setHover(true)}
 						onPointerOut={() => setHover(false)}
+						onPointerDown={handleSelect}
 					>
-						<extrudeBufferGeometry args={[shape, { bevelEnabled: false, depth: 0.3 }]} />
+						<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.3}]} />
 						<meshStandardMaterial
-							transparent={!hovered ? true : false}
+							transparent={!hovered}
 							// opacity={!hovered ? 0 : 1}
-							color={hovered ? disabledHoverColor : '#282929'}
+							color={hovered || (selected === index) ? disabledHoverColor : '#282929'}
 						/>
 						<OrbitControls />
 					</mesh>
 				</group>
-				<group position={[-2.5, -3.1, -.15]}>
+				<group position={[-2.5, -3.1, -0.15]}>
 					<Text
 						ref={textRef}
 						anchorX="left"
 						anchorY="middle"
-						color={hovered ? '#6f7074' : disabledHoverColor}
+						color={hovered || selected === index ? '#6f7074' : disabledHoverColor}
 						font={'http://fonts.gstatic.com/s/modak/v5/EJRYQgs1XtIEskMA-hI.woff'}
 						fontSize={0.5}
 						maxWidth={15}
@@ -73,10 +96,10 @@ const ImageItem3DBase = kind({
 						{children}
 					</Text>
 				</group>
-				<group position={[-2.5, -3.45, -.15]}>
+				<group position={[-2.5, -3.45, -0.15]}>
 					<Text
 						anchorX="left"
-						color={hovered ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'}
+						color={hovered || selected === index  ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'}
 						fontSize={0.3}
 						maxWidth={15}
 						textAlign="left"
@@ -84,15 +107,15 @@ const ImageItem3DBase = kind({
 						{label}
 					</Text>
 				</group>
-				<group position={[0, 0, -.15]}>
+				<group position={[0, 0, -0.15]}>
 					{image}
 				</group>
 			</group>
-		)
+		);
 	}
-})
+});
 
-const ImageItem3D = Skinnable({ prop: 'skin' }, ImageItem3DBase);
+const ImageItem3D = Skinnable({prop: 'skin'}, ImageItem3DBase);
 
 export default ImageItem3D;
 export {
