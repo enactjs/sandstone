@@ -1,6 +1,7 @@
-import {useRef, useState} from 'react';
-import ImageItem3D from '../ImageItem3D';
 import PropTypes from 'prop-types';
+import {useRef, useState} from 'react';
+
+import ImageItem3D from '../ImageItem3D';
 
 const Image = ({index, name, ...props}) => {
 	const group = useRef();
@@ -12,6 +13,11 @@ const Image = ({index, name, ...props}) => {
 			</ImageItem3D>
 		</group>
 	);
+};
+
+Image.propTypes = {
+	index: PropTypes.number,
+	name: PropTypes.string
 };
 
 const Gallery3D = () => {

@@ -1,16 +1,20 @@
-import {OrbitControls, Text} from '@react-three/drei';
-import * as THREE from 'three';
 import kind from '@enact/core/kind';
-import Skinnable from '../Skinnable';
+import {OrbitControls, Text} from '@react-three/drei';
 import PropTypes from 'prop-types';
-import {useRef, useState} from "react";
+import {useCallback, useRef, useState} from 'react';
+import * as THREE from 'three';
+
+import Skinnable from '../Skinnable';
 
 const Item3DBase = kind({
+	name: 'Item3DBase',
+
+	functional: true,
+
 	propTypes: {
 		children: PropTypes.node,
-
 		disabled: PropTypes.bool,
-
+		label: PropTypes.string,
 		/**
 		 * The size of the 3D item.
 		 *
@@ -25,16 +29,11 @@ const Item3DBase = kind({
 		size: 'large'
 	},
 
-	functional: true,
-
-	render: ({children, disabled, label, size, rest}) => {
-
-		const mesh = useRef();
-		const textRef = useRef();
-		const [hovered, setHover] = useState(false);
+	render: ({children, disabled, label, size, ...rest}) => {
+		const mesh = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
+		const textRef = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
+		const [hovered, setHover] = useState(false); // eslint-disable-line react-hooks/rules-of-hooks
 		const shape = new THREE.Shape();
-
-		// console.log(textRef.current?.geometry['_blockBounds']);
 
 		let sizeX = 15;
 		let sizeY = size === 'small' ? 1.2 : 1.5;
@@ -49,15 +48,23 @@ const Item3DBase = kind({
 		shape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle);
 
 		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
-		console.log(textRef);
+
+		const handlePointerOver = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
+			setHover(true);
+		}, []);
+
+		const handlePointerOut = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
+			setHover(false);
+		}, []);
+
 		return (
 			<group>
 				<group position={[0, 0, -0.51]}>
 					<mesh
 						{...rest}
 						ref={mesh}
-						onPointerOver={(event) => setHover(true)}
-						onPointerOut={(event) => setHover(false)}
+						onPointerOver={handlePointerOver}
+						onPointerOut={handlePointerOut}
 					>
 						<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.1}]} />
 						<meshStandardMaterial transparent={!hovered} opacity={!hovered ? 0 : 1} color={hovered ? disabledHoverColor : '#ffffff'} />
@@ -71,7 +78,6 @@ const Item3DBase = kind({
 						anchorY="middle"
 						color={hovered ? '#6f7074' : disabledHoverColor}
 						font={'http://fonts.gstatic.com/s/modak/v5/EJRYQgs1XtIEskMA-hI.woff'}
-						// font={'https://fonts.gstatic.com/s/fascinate/v21/z7NWdRrufC8XJK0IIElS07zR.woff2'}
 						fontSize={0.5}
 						maxWidth={15}
 						textAlign="left"
@@ -82,7 +88,7 @@ const Item3DBase = kind({
 				<group position={[-3, -0.25, -0.3]}>
 					<Text
 						anchorX="left"
-						color={hovered ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'}
+						color={hovered ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
 						font={'../fonts/MuseoSans/MuseoSans-BoldItalic.ttf'}
 						fontSize={0.3}
 						maxWidth={15}
