@@ -94,7 +94,70 @@ const ButtonTests = [
 	// Focused with light wrapper
 	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
 		<Button>Focused button</Button>,
-		<Button disabled>Focused button</Button>
+		<Button disabled>Focused button</Button>,
+		<Button>click me</Button>,
+		<Button>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+		{
+			textSize: 'large',
+			component: <Button>click me</Button>
+		},
+		<Button disabled>Focused button</Button>,
+
+		// iconPosition = before (Default) + small (default) + large
+		// Leaving size small here as example but it is not required since it is the default.
+		<Button size="small">Focused button</Button>,
+		<Button size="large">Focused button</Button>,
+		// iconPosition = before (Default) + icon + iconPosition + small (default) + large
+		<Button icon="minus" iconPosition="after">Focused button</Button>,
+		<Button icon="minus" iconPosition="after" size="large">Focused button</Button>,
+		<Button icon="plus" iconPosition="before">Focused button</Button>,
+		<Button icon="plus" iconPosition="before" size="large">Focused button</Button>,
+
+		// Icon only, iconPosition = before (Default) + icon + iconPosition + small (default) + large
+		<Button icon="minus" iconPosition="after" />,
+		<Button icon="minus" iconPosition="after" size="large" />,
+		<Button icon="plus" iconPosition="before" />,
+		<Button icon="plus" iconPosition="before" size="large" />,
+
+		// iconPosition = before (Default) + backgroundOpacity
+		<Button icon="plus" backgroundOpacity="transparent">click me</Button>,
+		<Button backgroundOpacity="opaque">click me</Button>,
+
+		// Selected buttons
+		<Button selected>Focused button</Button>,
+		<Button selected icon="plus" />,
+		<Button selected backgroundOpacity="transparent">Focused button</Button>, 	// [QWT-2822]
+		<Button selected backgroundOpacity="transparent" icon="plus" />, // Default for icon-only buttons
+		<Button selected backgroundOpacity="opaque">Focused button</Button>, // Default for text button
+
+		// iconPosition = before (Default) + children has 1 letter +	minWidth = false
+		<Button minWidth={false}>A</Button>,
+
+		// iconPosition = before (Default) + color
+		<Button color="red">Focused button</Button>,
+		<Button color="green">Focused button</Button>,
+		<Button color="yellow">Focused button</Button>,
+		<Button color="blue">Focused button</Button>,
+		// iconPosition = before (Default) + color + icon + iconPosition
+		<Button color="red" icon="minus" iconPosition="before">Focused button</Button>,
+		<Button color="green" icon="plus" iconPosition="after">Focused button</Button>,
+		// iconPosition = before (Default) + color + icon + iconPosition + minWidth
+		<Button color="yellow" icon="plus" iconPosition="before" minWidth={false}>Focused button</Button>,
+		<Button color="blue" icon="minus" iconPosition="after" minWidth={false}>Focused button</Button>,
+
+		// iconPosition = before (Default) + icon
+		<Button icon="plus">Focused button</Button>,
+		<Button icon="arrowlargeright">Focused button</Button>,
+		<Button icon="info">Focused button</Button>,
+
+		// iconFlip
+		<Button icon="arrowhookright" iconFlip="horizontal">Focused button</Button>,
+		<Button icon="arrowhookright" iconFlip="vertical">Focused button</Button>,
+		<Button icon="arrowhookright" iconFlip="both">Focused button</Button>,
+		<Button icon="arrowhookright" iconFlip="auto">Focused button</Button>,
+
+		// [QWT-2819]
+		<Button icon="rotate">Focused button</Button>,
 	]),
 
 	// *************************************************************
