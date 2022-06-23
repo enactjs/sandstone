@@ -1,8 +1,12 @@
+import ri from '@enact/ui/resolution';
+
 import Button from '../../../../Button';
-import img from '../../images/600x600.png';
 import ImageItem from '../../../../ImageItem';
 import Scroller from '../../../../Scroller';
-import ri from '@enact/ui/resolution';
+
+import img from '../../images/600x600.png';
+
+import {withConfig} from './utils';
 
 import css from './Scroller.module.less';
 
@@ -96,6 +100,10 @@ const ScrollerTests = [
 			tall: true
 		},
 		component: <Scroller focusableScrollbar horizontalScrollbar="visible" verticalScrollbar="visible">Scroller</Scroller>
-	}
+	},
+	...withConfig({focus: true}, [
+		<Scroller focusableScrollbar style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focused Two-way scroller</div></Scroller>,
+		<Scroller focusableScrollbar scrollbarTrackCss={css} style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focused Customized scrollbarTrack Style</div></Scroller>,
+	]),
 ];
 export default ScrollerTests;

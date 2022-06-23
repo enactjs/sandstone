@@ -93,7 +93,71 @@ const LtrTests = [
 
 const ProgressButtonTests = [
 	...LtrTests,
-	...withConfig({locale: 'ar-SA'}, LtrTests)
+	...withConfig({locale: 'ar-SA'}, LtrTests),
+	...withConfig({focus: true}, [
+		<ProgressButton>Focused Update</ProgressButton>,
+		<ProgressButton disabled>Focused Update</ProgressButton>,
+		<ProgressButton showProgress progress={0.5}>Focused Update</ProgressButton>,
+		<ProgressButton icon="pause" showProgress progress={0.5}>Focused Update</ProgressButton>,
+		<ProgressButton color="red">Focused Update</ProgressButton>,
+		<ProgressButton color="green">Focused Update</ProgressButton>,
+		<ProgressButton color="yellow">Focused Update</ProgressButton>,
+		<ProgressButton color="blue">Focused Update</ProgressButton>,
+		<ProgressButton color="red" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton color="green" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton color="yellow" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton color="blue" minWidth={false}>Focused Update</ProgressButton>,
+
+		// size large
+		<ProgressButton size="large" >Focused Update</ProgressButton>,
+		<ProgressButton size="large" disabled>Focused Update</ProgressButton>,
+		<ProgressButton size="large" showProgress progress={0.5}>Focused Update</ProgressButton>,
+		<ProgressButton size="large" icon="pause" showProgress progress={0.5}>Focused Update</ProgressButton>,
+		<ProgressButton size="large" color="red">Focused Update</ProgressButton>,
+		<ProgressButton size="large" color="green">Focused Update</ProgressButton>,
+		<ProgressButton size="large" color="yellow">Focused Update</ProgressButton>,
+		<ProgressButton size="large" color="blue">Focused Update</ProgressButton>,
+		<ProgressButton size="large" color="red" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton size="large" color="green" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton size="large" color="yellow" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton size="large" color="blue" minWidth={false}>Focused Update</ProgressButton>,
+
+		// backgroundOpacity opaque
+		<ProgressButton backgroundOpacity="opaque">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" disabled>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" showProgress progress={0.5}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" icon="pause" showProgress progress={0.5}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="red" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="green" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="yellow" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="blue" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="red">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="green">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="yellow">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="blue">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="red" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="green" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="yellow" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="opaque" color="blue" minWidth={false}>Focused Update</ProgressButton>,
+
+		// backgroundOpacity transparent
+		<ProgressButton backgroundOpacity="transparent">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" disabled>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" showProgress progress={0.5}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" icon="pause" showProgress progress={0.5}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="red" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="green" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="yellow" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="blue" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="red">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="green">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="yellow">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="blue">Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="red" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="green" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="yellow" minWidth={false}>Focused Update</ProgressButton>,
+		<ProgressButton backgroundOpacity="transparent" color="blue" minWidth={false}>Focused Update</ProgressButton>
+	])
 ];
 
 export default ProgressButtonTests;

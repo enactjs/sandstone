@@ -26,11 +26,9 @@ const DayPickerTests = [
 		component: <DayPicker disabled selected={1} />
 	},
 
-	...withConfig({focus: true} [
-		<DayPicker />,
-		<DayPicker selected={1} />,
-		<DayPicker disabled />,
-		<DayPicker disabled selected={1} />
+	...withConfig({focus: true}, [
+		<DayPicker selected={2} />,
+		<DayPicker disabled selected={2} />
 	])
 ];
 
