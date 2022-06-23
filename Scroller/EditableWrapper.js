@@ -4,11 +4,19 @@ import {is} from '@enact/core/keymap';
 import {mergeClassNameMaps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
+import {Announce} from '@enact/ui/AnnounceDecorator';
+import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
+import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef} from 'react';
 
+import $L from '../internal/$L';
+
 import componentCss from './EditableWrapper.module.less';
+
+const completeAnnounceDelay = 300; // An arbitrary delay at a level that is not ignored by the new focus element
+const TouchableDiv = Touchable('div');
 
 /**
  * The shape for editable of [Scroller]{@link sandstone/Scroller}.
@@ -37,6 +45,14 @@ const EditableShape = PropTypes.shape({
 
 const SpotlightAccelerator = new Accelerator([5, 4]);
 
+const holdDuration = 500;
+
+const holdConfig = {
+	events: [
+		{name: 'hold', time: holdDuration}
+	]
+};
+
 /**
  * A Sandstone-styled EditableWrapper.
  *
@@ -54,8 +70,8 @@ const EditableWrapper = (props) => {
 	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
 
 	const dataSize = children?.length;
-	// Mutable value
 
+	// Mutable value
 	const wrapperRef = useRef();
 	const mutableRef = useRef({
 		// Constants
@@ -65,6 +81,7 @@ const EditableWrapper = (props) => {
 
 		// DOM elements
 		selectedItem: null,
+		selectedItemLabel: '',
 		rearrangedItems: [],
 
 		// Indices
@@ -81,8 +98,18 @@ const EditableWrapper = (props) => {
 		lastMouseClientX: null,
 
 		// Last InputType which moves Items
-		lastInputType: null
+		lastInputType: null,
+
+		// Timer for holding key input
+		keyHoldTimerId: null,
+
+		// Flag for prevent event propagation
+		needToPreventEvent: null,
+
+		lastInputDirection: null
 	});
+
+	const announceRef = useRef({});
 
 	// Functions
 
@@ -93,6 +120,7 @@ const EditableWrapper = (props) => {
 		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
 
 		mutableRef.current.selectedItem = null;
+		mutableRef.current.selectedItemLabel = '';
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
@@ -145,9 +173,14 @@ const EditableWrapper = (props) => {
 
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
+			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
+
+			announceRef.current.announce(
+				mutableRef.current.selectedItemLabel + $L('Move left and right or press up key to delete')
+			);
 		}
 	}, [customCss.selected]);
 
@@ -159,23 +192,59 @@ const EditableWrapper = (props) => {
 		}
 	}, [scrollContentRef]);
 
-	const handleClick = useCallback((ev) => {
-		const targetItemNode = findItemNode(ev.target);
+	const handleClickCapture = useCallback((ev) => {
+		if (ev.target.className.includes('Button')) {
+			return;
+		}
+		// Consume the event to prevent Item behavior
+		if (mutableRef.current.selectedItem || mutableRef.current.needToPreventEvent) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			mutableRef.current.needToPreventEvent = false;
+		}
+	}, []);
 
+	const handleMouseDown = useCallback((ev) => {
+		if (ev.target.className.includes('Button')) {
+			return;
+		}
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders}))({}, editable);
 			reset();
-		} else if (targetItemNode && targetItemNode.dataset.index) {
+			mutableRef.current.needToPreventEvent = true;
+		} else {
+			mutableRef.current.targetItemNode = findItemNode(ev.target);
+			mutableRef.current.needToPreventEvent = false;
+		}
+	}, [editable, finalizeOrders, findItemNode, reset]);
+
+	const handleHoldStart = useCallback(() => {
+		const {targetItemNode} = mutableRef.current;
+
+		if (targetItemNode && targetItemNode.dataset.index) {
 			// Start editing by adding selected transition to selected item
 			startEditing(targetItemNode);
 		}
+	}, [startEditing]);
 
-		// Consume the event to prevent Item behavior
-		ev.preventDefault();
-		ev.stopPropagation();
-	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
+	const readOutCurrentPosition = useCallback((neighborItem) => {
+		const {lastInputDirection, lastInputType, selectedItemLabel} = mutableRef.current;
+		if (lastInputType === 'key') {
+			if (lastInputDirection === 'left') {
+				announceRef.current.announce(
+					new IString($L('{selectedItem} moved to the left of {neighborItem}')).format({selectedItem: selectedItemLabel, neighborItem}),
+					true
+				);
+			} else {
+				announceRef.current.announce(
+					new IString($L('{selectedItem} moved to the right of {neighborItem}')).format({selectedItem: selectedItemLabel, neighborItem}),
+					true
+				);
+			}
+		}
+	}, []);
 
 	// Add rearranged items
 	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
@@ -186,6 +255,7 @@ const EditableWrapper = (props) => {
 		const {fromIndex, rearrangedItems, selectedItem} = mutableRef.current;
 		const getNextElement = (item) => moveDirection > 0 ? item.nextElementSibling : item.previousElementSibling;
 		let sibling = getNextElement(selectedItem);
+		let lastRearrangedItem;
 		let start = moveDirection > 0 ? toIndex : fromIndex;
 		let end = moveDirection > 0 ? fromIndex : toIndex;
 
@@ -196,23 +266,33 @@ const EditableWrapper = (props) => {
 				rearrangedItems.push(sibling);
 			}
 
+			lastRearrangedItem = sibling;
 			sibling = getNextElement(sibling);
 			start--;
 		}
 
+		if (lastRearrangedItem) {
+			readOutCurrentPosition(lastRearrangedItem.ariaLabel || lastRearrangedItem.textContent);
+		}
+
 		mutableRef.current.lastMoveDirection = moveDirection;
 
-	}, [scrollContainerHandle]);
+	}, [readOutCurrentPosition, scrollContainerHandle]);
 
 	const removeRearrangedItems = useCallback((numToRemove) => {
 		const {rearrangedItems} = mutableRef.current;
+		let toItem = null;
 		if (rearrangedItems.length > 0) {
 			for (let i = 0; i < numToRemove; i++) {
-				const toItem = rearrangedItems.pop();
+				toItem = rearrangedItems.pop();
 				toItem?.classList.remove(componentCss.rearrangedTransform);
 			}
 		}
-	}, []);
+
+		if (toItem) {
+			readOutCurrentPosition(toItem.ariaLabel || toItem.textContent);
+		}
+	}, [readOutCurrentPosition]);
 
 	// Move items
 	const moveItems = useCallback((toIndex) => {
@@ -276,8 +356,21 @@ const EditableWrapper = (props) => {
 		}
 
 		mutableRef.current.lastInputType = 'key';
+		mutableRef.current.lastInputDirection = is('left', keyCode) ? 'left' : 'right';
 		moveItems(toIndex);
-	}, [moveItems, scrollContainerHandle, scrollContentRef]);
+
+		if (toIndex <= 0) {
+			announceRef.current.announce(
+				(is('left', keyCode) && !rtl && $L('LEFTMOST')) ||
+				(is('right', keyCode) && rtl && $L('RIGHTMOST'))
+			);
+		} else if (toIndex >= dataSize - 1) {
+			announceRef.current.announce(
+				(is('right', keyCode) && !rtl &&  $L('RIGHTMOST')) ||
+				(is('left', keyCode) && rtl && $L('LEFTMOST'))
+			);
+		}
+	}, [dataSize, moveItems, scrollContainerHandle, scrollContentRef]);
 
 	// Remove an item
 	const removeItem = useCallback(() => {
@@ -340,9 +433,9 @@ const EditableWrapper = (props) => {
 		}
 	}, [editable, finalizeOrders, reset, scrollContainerHandle, scrollContentRef]);
 
-	const handleKeyDown = useCallback((ev) => {
+	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
-		const {selectedItem} = mutableRef.current;
+		const {selectedItem, selectedItemLabel} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
@@ -351,14 +444,20 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					forwardCustom('onComplete', () => ({orders}))({}, editable);
 					reset();
-				} else if (targetItemNode) {
-					startEditing(targetItemNode);
-				}
-			}
+					mutableRef.current.needToPreventEvent = true;
 
-			// Consume the event to prevent Item behavior
-			ev.preventDefault();
-			ev.stopPropagation();
+					setTimeout(() => {
+						announceRef.current.announce(
+							selectedItemLabel + $L('move complete'),
+							true
+						);
+					}, completeAnnounceDelay);
+				}
+			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
+				mutableRef.current.timer = setTimeout(() => {
+					startEditing(targetItemNode);
+				}, holdDuration - 300);
+			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
 				if (repeat) {
@@ -373,6 +472,19 @@ const EditableWrapper = (props) => {
 			}
 		}
 	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
+
+	const handleKeyUpCapture = useCallback((ev) => {
+		if (ev.target.getAttribute('role') === 'button') {
+			return;
+		}
+
+		clearTimeout(mutableRef.current.timer);
+		mutableRef.current.timer = null;
+		if (mutableRef.current.needToPreventEvent || mutableRef.current.selectedItem) {
+			ev.preventDefault();
+			mutableRef.current.needToPreventEvent = false;
+		}
+	}, []);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
@@ -445,15 +557,20 @@ const EditableWrapper = (props) => {
 	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle, scrollContentRef]);
 
 	return (
-		<div
+		<TouchableDiv
+			holdConfig={holdConfig}
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
-			onClick={handleClick}
-			onKeyDown={handleKeyDown}
+			onClickCapture={handleClickCapture}
+			onHoldStart={handleHoldStart}
+			onKeyDownCapture={handleKeyDownCapture}
+			onKeyUpCapture={handleKeyUpCapture}
+			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			ref={wrapperRef}
 		>
 			{children}
-		</div>
+			<Announce key="editable-wrapper-announce" ref={announceRef} />
+		</TouchableDiv>
 	);
 };
 
