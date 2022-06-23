@@ -103,7 +103,7 @@ const ScrollerTests = [
 	},
 	...withConfig({focus: true}, [
 		<Scroller focusableScrollbar style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focused Two-way scroller</div></Scroller>,
-		<Scroller focusableScrollbar scrollbarTrackCss={css} style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focused Customized scrollbarTrack Style</div></Scroller>,
-	]),
+		<Scroller focusableScrollbar scrollbarTrackCss={css} style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focused Customized scrollbarTrack Style</div></Scroller>
+	])
 ];
 export default ScrollerTests;

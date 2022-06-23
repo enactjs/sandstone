@@ -20,7 +20,7 @@ const CheckboxTests = [
 		<Checkbox selected>home</Checkbox>,
 		<Checkbox indeterminate />,
 		<Checkbox indeterminate indeterminateIcon="home" />,
-		<Checkbox indeterminate disabled />,
+		<Checkbox indeterminate disabled />
 	])
 ];
 export default CheckboxTests;

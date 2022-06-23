@@ -43,7 +43,7 @@ const MediaOverlayTests = [
 		<MediaOverlay imageOverlay={img} text="Focused The quick brown fox jumped over the lazy dog. The bean bird flies at sundown." textAlign="end" />,
 
 		<MediaOverlay imageOverlay={img} caption="Focused DTV 7-1" progress={0.5} showProgress />,
-		<MediaOverlay imageOverlay={img} caption="Focused DTV 7-1" progress={0.5} showProgress title="Focused Program Name" subtitle="07:00 AM - 08:00 AM"  />,
+		<MediaOverlay imageOverlay={img} caption="Focused DTV 7-1" progress={0.5} showProgress title="Focused Program Name" subtitle="07:00 AM - 08:00 AM"  />
 	]),
 
 	// *************************************************************

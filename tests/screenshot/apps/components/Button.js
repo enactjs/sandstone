@@ -157,7 +157,7 @@ const ButtonTests = [
 		<Button icon="arrowhookright" iconFlip="auto">Focused button</Button>,
 
 		// [QWT-2819]
-		<Button icon="rotate">Focused button</Button>,
+		<Button icon="rotate">Focused button</Button>
 	]),
 
 	// *************************************************************

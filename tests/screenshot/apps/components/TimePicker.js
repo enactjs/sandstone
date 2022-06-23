@@ -27,7 +27,7 @@ const TimePickerTests = [
 	...withConfig({focus: true}, [
 		<TimePicker defaultValue={new Date(2009, 5, 7)} />,
 		<TimePicker defaultValue={new Date(2009, 5, 7)} disabled />,
-		<TimePicker defaultValue={new Date(2009, 5, 7)} noLabel />,
-	]),
+		<TimePicker defaultValue={new Date(2009, 5, 7)} noLabel />
+	])
 ];
 export default TimePickerTests;

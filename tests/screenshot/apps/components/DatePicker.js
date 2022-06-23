@@ -29,6 +29,6 @@ const DatePickerTests = [
 		<DatePicker defaultValue={jan30} />,
 		<DatePicker defaultValue={jan30} disabled />,
 		<DatePicker defaultValue={jan30} noLabel />
-	]),
+	])
 ];
 export default DatePickerTests;

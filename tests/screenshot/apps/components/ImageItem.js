@@ -54,7 +54,7 @@ const defaultImageItemTests = [
 		<ImageItem src={img} orientation="horizontal" label="Focused Short">Focused Short</ImageItem>,
 		<ImageItem src={img} orientation="horizontal" label="Focused Short" imageIconSrc={img}>Focused Short</ImageItem>,
 		<ImageItem src={img} orientation="horizontal" label="Focused Short" showSelection>Focused Short</ImageItem>,
-		<ImageItem src={img} orientation="horizontal" label="Focused Short" selected showSelection>Focused Short</ImageItem>,
+		<ImageItem src={img} orientation="horizontal" label="Focused Short" selected showSelection>Focused Short</ImageItem>
 	])
 ];
 
