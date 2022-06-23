@@ -2,12 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.5.0-rc.1] - 2022-06-23
+
+### Added
+
+- `sandstone/Scroller` read out feature to support A11y when `editable` is given
 
 ### Changed
 
 - `sandstone/Scroller` scrollbar thumb to read out "press ok button to read text" additionally when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` scrollbar thumb to read out 'leftmost', 'rightmost', 'topmost', or 'downmost' when reaching the end of the scroll
+- `sandstone/Scroller` to select item by long press when `editable` is given
 - `sandstone/Picker` and `sandstone/RangePicker` to read out `title`
 
 ### Fixed

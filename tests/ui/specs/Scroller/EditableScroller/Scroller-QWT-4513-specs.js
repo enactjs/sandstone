@@ -1,7 +1,7 @@
 const ScrollerPage = require('../ScrollerPage');
 const {expectFocusedItem} = require('../Scroller-utils');
 
-describe('Editable Scroller', function () {
+describe.skip('Editable Scroller', function () {
 	beforeEach(async function () {
 		await ScrollerPage.open('EditableItem');
 	});
