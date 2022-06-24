@@ -37,7 +37,7 @@ describe('VideoPlayer', function () {
 			await Page.delay(5000);
 
 			const sliderWidth = await videoPlayerDefault.slider.getCSSProperty('width');
-			
+
 			expect(await sliderWidth.value).to.not.equal('0px');
 		});
 
