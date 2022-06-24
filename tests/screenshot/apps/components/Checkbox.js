@@ -14,7 +14,6 @@ const CheckboxTests = [
 
 	// Focused
 	...withConfig({focus: true}, [
-		<Checkbox selected>home</Checkbox>,
 		<Checkbox>home</Checkbox>,
 		<Checkbox selected>home</Checkbox>,
 		<Checkbox indeterminate indeterminateIcon="home" />
