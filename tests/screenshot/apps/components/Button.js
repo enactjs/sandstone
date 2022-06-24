@@ -95,11 +95,10 @@ const ButtonTests = [
 	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
 		<Button>Focused button</Button>,
 		<Button disabled>Focused button</Button>,
-		<Button>click me</Button>,
-		<Button>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+		<Button>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
 		{
 			textSize: 'large',
-			component: <Button>click me</Button>
+			component: <Button>Focused button</Button>
 		},
 		<Button disabled>Focused button</Button>,
 
@@ -113,21 +112,13 @@ const ButtonTests = [
 		<Button icon="plus" iconPosition="before">Focused button</Button>,
 		<Button icon="plus" iconPosition="before" size="large">Focused button</Button>,
 
-		// Icon only, iconPosition = before (Default) + icon + iconPosition + small (default) + large
-		<Button icon="minus" iconPosition="after" />,
-		<Button icon="minus" iconPosition="after" size="large" />,
-		<Button icon="plus" iconPosition="before" />,
-		<Button icon="plus" iconPosition="before" size="large" />,
-
 		// iconPosition = before (Default) + backgroundOpacity
-		<Button icon="plus" backgroundOpacity="transparent">click me</Button>,
-		<Button backgroundOpacity="opaque">click me</Button>,
+		<Button icon="plus" backgroundOpacity="transparent">Focused button</Button>,
+		<Button backgroundOpacity="opaque">Focused button</Button>,
 
 		// Selected buttons
 		<Button selected>Focused button</Button>,
-		<Button selected icon="plus" />,
 		<Button selected backgroundOpacity="transparent">Focused button</Button>, 	// [QWT-2822]
-		<Button selected backgroundOpacity="transparent" icon="plus" />, // Default for icon-only buttons
 		<Button selected backgroundOpacity="opaque">Focused button</Button>, // Default for text button
 
 		// iconPosition = before (Default) + children has 1 letter +	minWidth = false
