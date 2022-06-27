@@ -5,7 +5,7 @@ import Button from '@enact/sandstone/Button';
 import Dropdown from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
-import Input from '@enact/sandstone/Input';
+import Input, {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import Popup from '@enact/sandstone/Popup';
@@ -275,6 +275,7 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 						<TabPanel>
 							<Header title="Advanced Audio" type="compact" />
 							<Item>Balance</Item>
+							<InputField/>
 							<Input size="small" value="Input" noBackButton />
 							<Button onClick={handleOpenPopup} size="small" >Open</Button>
 							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>

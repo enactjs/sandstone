@@ -3,6 +3,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
+import {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
@@ -456,3 +457,18 @@ WithControlledIndex.parameters = {
 		noPanel: true
 	}
 };
+
+export const WithInputField = () => {
+	return (
+		<Panel>
+			<Header title="TabLayout" subtitle="With InputField" />
+			<TabLayout>
+				<Tab title="Tab 0">
+					<InputField/>
+				</Tab>
+			</TabLayout>
+		</Panel>
+	);
+};
+
+WithInputField.storyName = 'With InputField';

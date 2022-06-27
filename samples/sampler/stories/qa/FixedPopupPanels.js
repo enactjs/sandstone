@@ -10,7 +10,7 @@ import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Dropdown from '@enact/sandstone/Dropdown';
 import Icon from '@enact/sandstone/Icon';
-import Input from '@enact/sandstone/Input';
+import Input, {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import Popup from '@enact/sandstone/Popup';
 import Scroller from '@enact/sandstone/Scroller';
@@ -552,6 +552,7 @@ const WithVariousItemsSamplesBase = ({args, rtl}) => {
 							<br />
 							<Input size="small" value="Input" noBackButton />
 							<Button onClick={handleOpenPopup} size="small">Open</Button>
+							<InputField/>
 							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
 								<Button onClick={handleClosePopup}>Close</Button>
 								<Button>Dummy</Button>

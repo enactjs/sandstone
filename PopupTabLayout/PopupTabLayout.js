@@ -381,6 +381,9 @@ const tabPanelsHandlers = {
 			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
 				ev.stopPropagation();
 				return false;
+			} else if (ev.target.tagName === 'INPUT') {
+				ev.stopPropagation();
+				return false;
 			}
 			return document.querySelector(`section.${componentCss.body}`).contains(ev.target);
 		},

@@ -250,7 +250,7 @@ const TabLayoutBase = kind({
 			const {collapsed, orientation, 'data-spotlight-id': spotlightId} = props;
 			const direction = getDirection(keyCode);
 
-			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
+			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target) && target.tagName !== 'INPUT') {
 				Spotlight.setPointerMode(false);
 				ev.preventDefault();
 
