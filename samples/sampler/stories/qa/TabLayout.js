@@ -464,7 +464,9 @@ export const WithInputField = () => {
 			<Header title="TabLayout" subtitle="With InputField" />
 			<TabLayout>
 				<Tab title="Tab 0">
-					<InputField defaultValue="value" />
+					<InputField defaultValue="Value 0" /><br /><br />
+					<InputField defaultValue="Value 1" /><br /><br />
+					<InputField defaultValue="Value 2" /><br /><br />
 				</Tab>
 			</TabLayout>
 		</Panel>

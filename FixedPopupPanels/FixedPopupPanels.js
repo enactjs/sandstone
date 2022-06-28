@@ -43,16 +43,10 @@ const FixedPopupPanelsDecorator = compose(
 const fixedPopupPanelsHandlers = {
 	onKeyDown: handle(
 		forward('onKeyDown'),
+		({target}) => (target.tagName !== 'INPUT'),
 		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
-		(ev) => {
-			if (ev.target.tagName === 'INPUT') {
-				ev.stopPropagation();
-				return false;
-			}
-			return true;
-		},
 		({target}) => (document.querySelector(`section.${css.body}`).contains(target)),
 		({target}) => (getTargetByDirectionFromElement('left', target) === null),
 		forwardCustom('onBack'),

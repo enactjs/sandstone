@@ -367,6 +367,7 @@ const tabPanelsHandlers = {
 	),
 	onKeyDown: handle(
 		forward('onKeyDown'),
+		({target}) => (target.tagName !== 'INPUT'),
 		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
@@ -379,9 +380,6 @@ const tabPanelsHandlers = {
 		},
 		(ev) => {
 			if (getContainerNode(getContainersForNode(ev.target).pop()).tagName === 'HEADER') {
-				ev.stopPropagation();
-				return false;
-			} else if (ev.target.tagName === 'INPUT') {
 				ev.stopPropagation();
 				return false;
 			}
