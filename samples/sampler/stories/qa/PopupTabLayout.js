@@ -275,7 +275,7 @@ const WithVariousItemsSamplesBase = ({rtl}) => {
 						<TabPanel>
 							<Header title="Advanced Audio" type="compact" />
 							<Item>Balance</Item>
-							<InputField />
+							<InputField defaultValue="value" />
 							<Input size="small" value="Input" noBackButton />
 							<Button onClick={handleOpenPopup} size="small" >Open</Button>
 							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
