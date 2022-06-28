@@ -233,7 +233,7 @@ const PanelBase = kind({
  */
 
 /**
- * Applies Sandstone specific behaviors to [Panel]{@link sandstone/Panels.PanelBase} components.
+ * Applies Sandstone specific behaviors to [Panel]{@link sandstone/Panels.Panel.PanelBase} components.
  *
  * @hoc
  * @memberof sandstone/Panels
