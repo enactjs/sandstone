@@ -552,7 +552,7 @@ const WithVariousItemsSamplesBase = ({args, rtl}) => {
 							<br />
 							<Input size="small" value="Input" noBackButton />
 							<Button onClick={handleOpenPopup} size="small">Open</Button>
-							<InputField/>
+							<InputField />
 							<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
 								<Button onClick={handleClosePopup}>Close</Button>
 								<Button>Dummy</Button>

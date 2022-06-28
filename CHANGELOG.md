@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/FixedPopupPanels`, `sandstone/PopupTabLayout`, and `sandstone/TabLayout` to move caret with left and right keys in InputField
+- `sandstone/FixedPopupPanels`, `sandstone/PopupTabLayout`, and `sandstone/TabLayout` to move caret in InputField with left and right keys
 
 ## [2.5.0-rc.1] - 2022-06-23
 

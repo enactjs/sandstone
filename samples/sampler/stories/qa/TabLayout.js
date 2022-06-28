@@ -464,7 +464,7 @@ export const WithInputField = () => {
 			<Header title="TabLayout" subtitle="With InputField" />
 			<TabLayout>
 				<Tab title="Tab 0">
-					<InputField/>
+					<InputField />
 				</Tab>
 			</TabLayout>
 		</Panel>
