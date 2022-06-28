@@ -225,12 +225,23 @@ const PanelBase = kind({
  * );
  * ```
  *
+ * @name autoFocus
  * @type {('default-element'|'last-focused'|'none'|String)}
  * @memberof sandstone/Panels.Panel.prototype
  * @default 'last-focused'
  * @public
  */
 
+/**
+ * Applies Sandstone specific behaviors to [Panel]{@link sandstone/Panels.PanelBase} components.
+ *
+ * @hoc
+ * @memberof sandstone/Panels
+ * @mixes spotlight/SpotlightContainerDecorator.SpotlightContainerDecorator
+ * @mixes ui/Slottable.Slottable
+ * @mixes sandstone/Skinnable.Skinnable
+ * @public
+ */
 const PanelDecorator = hoc({defaultElement: `.${componentCss.body} *`}, (config, Wrapped) => {
 	let {defaultElement} = config;
 
@@ -267,6 +278,17 @@ const PanelDecorator = hoc({defaultElement: `.${componentCss.body} *`}, (config,
  * behavior and not store or retrieve any framework component state.
  *
  * @name noSharedState
+ * @type {Boolean}
+ * @default false
+ * @memberof sandstone/Panels.Panel.prototype
+ */
+
+/**
+ * The container id for {@link spotlight/Spotlight}.
+ *
+ * When used within [Panels]{@link sandstone/Panels.Panels}, this prop may be set by `Panels`.
+ *
+ * @name spotlightId
  * @type {Boolean}
  * @default false
  * @memberof sandstone/Panels.Panel.prototype
