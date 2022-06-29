@@ -135,10 +135,6 @@ const ProgressButtonTests = [
 		<ProgressButton backgroundOpacity="opaque" color="green">Focused Update</ProgressButton>,
 		<ProgressButton backgroundOpacity="opaque" color="yellow">Focused Update</ProgressButton>,
 		<ProgressButton backgroundOpacity="opaque" color="blue">Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="opaque" color="red" minWidth={false}>Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="opaque" color="green" minWidth={false}>Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="opaque" color="yellow" minWidth={false}>Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="opaque" color="blue" minWidth={false}>Focused Update</ProgressButton>,
 
 		// backgroundOpacity transparent
 		<ProgressButton backgroundOpacity="transparent">Focused Update</ProgressButton>,
@@ -152,11 +148,7 @@ const ProgressButtonTests = [
 		<ProgressButton backgroundOpacity="transparent" color="red">Focused Update</ProgressButton>,
 		<ProgressButton backgroundOpacity="transparent" color="green">Focused Update</ProgressButton>,
 		<ProgressButton backgroundOpacity="transparent" color="yellow">Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="transparent" color="blue">Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="transparent" color="red" minWidth={false}>Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="transparent" color="green" minWidth={false}>Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="transparent" color="yellow" minWidth={false}>Focused Update</ProgressButton>,
-		<ProgressButton backgroundOpacity="transparent" color="blue" minWidth={false}>Focused Update</ProgressButton>
+		<ProgressButton backgroundOpacity="transparent" color="blue">Focused Update</ProgressButton>
 	])
 ];
 
