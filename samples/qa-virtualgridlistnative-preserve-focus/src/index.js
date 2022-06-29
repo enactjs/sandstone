@@ -1,5 +1,4 @@
 /* global ENACT_PACK_ISOMORPHIC */
-
 import {Provider} from 'react-redux';
 import {createRoot, hydrateRoot} from 'react-dom/client';
 
