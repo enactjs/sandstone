@@ -367,6 +367,7 @@ const tabPanelsHandlers = {
 	),
 	onKeyDown: handle(
 		forward('onKeyDown'),
+		({target}) => (target.tagName !== 'INPUT'),
 		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
