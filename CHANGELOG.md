@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/WizardPanels` to provide `stopPropagation` method in `onBack` event payload
+
 ## [2.5.0-rc.1] - 2022-06-23
 
 ### Added
@@ -18,7 +24,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` to position the focused item into scroller view
-- `sandstone/WizardPanels` to provide `stopPropagation` method in `onBack` event payload
 
 ## [2.5.0-beta.1] - 2022-05-31
 
