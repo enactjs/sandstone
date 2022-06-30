@@ -21,9 +21,9 @@
       },
       "devDependencies": {
         "@enact/storybook-utils": "^4.1.1",
-        "@storybook/addons": "^6.5.2",
-        "@storybook/react": "^6.5.2",
-        "@storybook/theming": "^6.5.2",
+        "@storybook/addons": "^6.5.9",
+        "@storybook/react": "^6.5.9",
+        "@storybook/theming": "^6.5.9",
         "babel-loader": "^8.2.3",
         "core-js": "^3.20.1"
       }
