@@ -1,5 +1,6 @@
-import Dropdown from '../../../../Dropdown';
 import {scaleToRem} from '@enact/ui/resolution';
+
+import Dropdown from '../../../../Dropdown';
 
 import {withProps} from './utils';
 
@@ -34,6 +35,11 @@ const DropdownTests = [
 	// size="large"
 	...withProps({
 		size: 'large'
+	}, Widths),
+
+	// size="large"
+	...withProps({
+		focus: true
 	}, Widths),
 
 	// open with number type width

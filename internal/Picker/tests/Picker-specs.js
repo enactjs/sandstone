@@ -518,6 +518,42 @@ describe('Picker Specs', () => {
 			expect(decrementButton).toHaveAttribute(expectedAttribute, expectedValue);
 		});
 
+		test('should set the aria-label attribute properly in the next icon button with title', () => {
+			const titleText = 'title text';
+			render(
+				<Picker index={1} max={3} min={0} title={titleText} value={1}>
+					<PickerItem>1</PickerItem>
+					<PickerItem>2</PickerItem>
+					<PickerItem>3</PickerItem>
+					<PickerItem>4</PickerItem>
+				</Picker>
+			);
+			const incrementButton = screen.getAllByRole('button')[0];
+
+			const expectedAttribute = 'aria-label';
+			const expectedValue = titleText + ' ' + '2 next item';
+
+			expect(incrementButton).toHaveAttribute(expectedAttribute, expectedValue);
+		});
+
+		test('should set the aria-label attribute properly in the previous icon button with title', () => {
+			const titleText = 'title text';
+			render(
+				<Picker index={1} max={3} min={0} title={titleText} value={1}>
+					<PickerItem>1</PickerItem>
+					<PickerItem>2</PickerItem>
+					<PickerItem>3</PickerItem>
+					<PickerItem>4</PickerItem>
+				</Picker>
+			);
+			const decrementButton = screen.getAllByRole('button')[1];
+
+			const expectedAttribute = 'aria-label';
+			const expectedValue = titleText + ' ' + '2 previous item';
+
+			expect(decrementButton).toHaveAttribute(expectedAttribute, expectedValue);
+		});
+
 		test('should set the aria-valuetext attribute properly to read it when changing the value', () => {
 			render(
 				<Picker index={1} max={3} min={0} value={1}>
@@ -606,6 +642,42 @@ describe('Picker Specs', () => {
 			const expectedAttribute = 'aria-label';
 
 			expect(picker).toHaveAttribute(expectedAttribute, customLabel);
+		});
+
+		test('should set picker `decrementAriaLabel` to decrement button with title', () => {
+			const titleText = 'title text';
+			const customLabel = 'custom decrement aria-label';
+			render(
+				<Picker decrementAriaLabel={customLabel} index={1} max={3} min={0} title={titleText} value={1}>
+					<PickerItem>1</PickerItem>
+					<PickerItem>2</PickerItem>
+					<PickerItem>3</PickerItem>
+					<PickerItem>4</PickerItem>
+				</Picker>
+			);
+			const picker = screen.getAllByRole('button')[1];
+
+			const expectedAttribute = 'aria-label';
+
+			expect(picker).toHaveAttribute(expectedAttribute, titleText + ' ' + customLabel);
+		});
+
+		test('should set picker `incrementAriaLabel` to decrement button with title', () => {
+			const titleText = 'title text';
+			const customLabel = 'custom increment aria-label';
+			render(
+				<Picker incrementAriaLabel={customLabel} index={1} max={3} min={0} title={titleText} value={1}>
+					<PickerItem>1</PickerItem>
+					<PickerItem>2</PickerItem>
+					<PickerItem>3</PickerItem>
+					<PickerItem>4</PickerItem>
+				</Picker>
+			);
+			const picker = screen.getAllByRole('button')[0];
+
+			const expectedAttribute = 'aria-label';
+
+			expect(picker).toHaveAttribute(expectedAttribute, titleText + ' ' + customLabel);
 		});
 
 		test('should set `aria-label` to joined picker', () => {

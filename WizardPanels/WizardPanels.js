@@ -1,4 +1,4 @@
-import handle, {adaptEvent, forProp, forwardWithPrevent, not} from '@enact/core/handle';
+import handle, {adaptEvent, forProp, forwardCustomWithPrevent, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
@@ -649,7 +649,7 @@ const WizardPanelsDecorator = compose(
 	CancelDecorator({
 		cancel: 'onChange',
 		shouldCancel: handle(
-			adaptEvent(() => ({type: 'onBack'}), forwardWithPrevent('onBack')),
+			forwardCustomWithPrevent('onBack'),
 			not(forProp('noPrevButton', true))
 		)
 	}),

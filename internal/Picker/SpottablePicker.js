@@ -1,14 +1,22 @@
 import kind from '@enact/core/kind';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import PropTypes from 'prop-types';
 import Spottable from '@enact/spotlight/Spottable';
 
-const Div = Spottable('div');
+const DivComponent = ({innerRef, ...rest}) => (<div ref={innerRef} {...rest} />);
+
+DivComponent.propTypes = {
+	innerRef: EnactPropTypes.ref
+};
+
+const Div = Spottable(DivComponent);
 
 const SpottablePicker = kind({
 	name: 'SpottablePicker',
 
 	propTypes: {
 		changedBy: PropTypes.oneOf(['enter', 'arrow']),
+		containerRef: EnactPropTypes.ref,
 		disabled: PropTypes.bool,
 		pickerOrientation: PropTypes.string
 	},
@@ -21,12 +29,12 @@ const SpottablePicker = kind({
 		}
 	},
 
-	render: ({selectionKeys, ...rest}) => {
+	render: ({containerRef, selectionKeys, ...rest}) => {
 		delete rest.changedBy;
 		delete rest.pickerOrientation;
 
 		return (
-			<Div {...rest} selectionKeys={selectionKeys} />
+			<Div innerRef={containerRef} {...rest} selectionKeys={selectionKeys} />
 		);
 	}
 });
