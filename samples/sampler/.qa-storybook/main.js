@@ -3,8 +3,13 @@
 const webpack = require('@enact/storybook-utils/configs/webpack');
 
 module.exports = {
+	core: {
+		builder: 'webpack5',
+		disableTelemetry: true
+	},
 	features: {
-		postcss: false
+		postcss: false,
+		storyStoreV7: true
 	},
 	framework: '@storybook/react',
 	stories: ['./../stories/qa/*.js'],
@@ -14,10 +19,10 @@ module.exports = {
 		'@enact/storybook-utils/addons/docs',
 		'@enact/storybook-utils/addons/toolbars'
 	],
-	features: {
-		storyStoreV7: true,
-	},
 	webpackFinal: async (config, {configType}) => {
 		return webpack(config, configType, __dirname);
+	},
+	typescript: {
+		reactDocgen: false
 	}
 }
