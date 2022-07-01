@@ -171,7 +171,7 @@ const PopupBase = kind({
 		]),
 
 		/**
-		 * The container id for [Spotlight container]@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+		 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 		 *
 		 * @type {String}
 		 * @default null

@@ -417,7 +417,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	scrollMode: PropTypes.string,
 
 	/**
-	 * The container id for [Spotlight container]@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 	 *
 	 * It is required to restore focus after `VirtualList` remount.
 	 *
@@ -894,7 +894,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	snapToCenter: PropTypes.bool,
 
 	/**
-	* The container id for [Spotlight container]@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+	* The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 	*
 	* It is required to restore focus after `VirtualList` remount.
 	*
