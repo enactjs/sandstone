@@ -215,7 +215,7 @@ const PopupTabLayoutBase = kind({
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
-		 * The container id for {@link spotlight/Spotlight}.
+		 * The container id for [Spotlight container]@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 		 *
 		 * @type {String}
 		 * @public

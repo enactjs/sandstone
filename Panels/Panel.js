@@ -284,13 +284,12 @@ const PanelDecorator = hoc({defaultElement: `.${componentCss.body} *`}, (config,
  */
 
 /**
- * The container id for {@link spotlight/Spotlight}.
+ * The container id for [Spotlight container]@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
  *
  * When used within [Panels]{@link sandstone/Panels.Panels}, this prop may be set by `Panels`.
  *
  * @name spotlightId
- * @type {Boolean}
- * @default false
+* @type {String}
  * @memberof sandstone/Panels.Panel.prototype
  */
 
