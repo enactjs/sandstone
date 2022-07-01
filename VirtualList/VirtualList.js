@@ -421,8 +421,8 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 *
 	 * It is required to restore focus after `VirtualList` remount.
 	 *
-	 * For example, when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},,
-	 * the `Spotlight` will store the id to restore focus when returning to the `Panel`.
+	 * For example, when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
+	 * the `Spotlight` will store the `spotlightId` to restore focus when returning to the `Panel`.
 	 *
 	 * @type {String}
 	 * @public
@@ -898,8 +898,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	*
 	* It is required to restore focus after `VirtualList` remount.
 	*
-	* For example, when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},,
-	* the `Spotlight` will store the id to restore focus when returning to the `Panel`.
+	* For example, when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
+	* the `Spotlight` will store the `spotlightId` to restore focus when returning to the `Panel`.
 	*
 	* @type {String}
 	* @public
