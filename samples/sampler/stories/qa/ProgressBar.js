@@ -35,8 +35,7 @@ TheBasicProgressBar.parameters = {
 	propTables: [Config]
 };
 
-
-export const inAlert = (args) => {
+export const ProgressBarInAlert = (args) => {
 	const [open, setOpen] = useState(false);
 
 	const handleOpenAlert = useCallback(() => {
@@ -72,14 +71,14 @@ export const inAlert = (args) => {
 	);
 };
 
-range('backgroundProgress', inAlert, Config, {min: 0, max: 1, step: 0.01}, 0.5);
-boolean('tooltip', inAlert, Config, false);
-boolean('highlighted', inAlert, Config, false);
-range('progress', inAlert, Config, {min: 0, max: 1, step: 0.01}, 0.4);
-select('orientation', inAlert, ['horizontal', 'vertical'], Config, 'horizontal');
-boolean('disabled', inAlert, Config, false);
+range('backgroundProgress', ProgressBarInAlert, Config, {min: 0, max: 1, step: 0.01}, 0.5);
+boolean('tooltip', ProgressBarInAlert, Config, false);
+boolean('highlighted', ProgressBarInAlert, Config, false);
+range('progress', ProgressBarInAlert, Config, {min: 0, max: 1, step: 0.01}, 0.4);
+select('orientation', ProgressBarInAlert, ['horizontal', 'vertical'], Config, 'horizontal');
+boolean('disabled', ProgressBarInAlert, Config, false);
 
-inAlert.storyName = 'inAlert';
-inAlert.parameters = {
+ProgressBarInAlert.storyName = 'inAlert';
+ProgressBarInAlert.parameters = {
 	propTables: [Config]
 };
