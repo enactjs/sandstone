@@ -1,5 +1,6 @@
 import Alert, {AlertImage}  from '../../../../Alert';
 import Button from '../../../../Button';
+import ProgressBar from '@enact/sandstone/ProgressBar';
 
 import img from '../../images/300x300.png';
 
@@ -17,6 +18,17 @@ const fullscreenTests = [
 const overlayTests = [
 	<Alert open>Alert!</Alert>,
 	<Alert open>{LoremString}</Alert>
+];
+
+// Overlay color test
+// TODO: Add tc for text / focus text / disabled boutton / checkbox / formcheckbox Item / item disabled
+const overlayColorTests = [
+	<Alert open title="With Progressbar">
+		<ProgressBar backgroundProgress={0.5} progress={0.25} />
+	</Alert>,
+	<Alert open title="With disabled Progressbar">
+		<ProgressBar backgroundProgress={0.5} progress={0.25} disabled />
+	</Alert>
 ];
 
 const dropIn = {
@@ -56,7 +68,10 @@ const LtrTests = [
 	...withProps({type: 'fullscreen', buttons: dropIn.oneButton, image: dropIn.image}, fullscreenTests),
 	...withProps({type: 'fullscreen', buttons: dropIn.twoButtons, image: dropIn.image}, fullscreenTests),
 	...withProps({type: 'overlay', buttons: dropIn.oneButton, image: dropIn.image}, overlayTests),
-	...withProps({type: 'overlay', buttons: dropIn.twoButtons, image: dropIn.image}, overlayTests)
+	...withProps({type: 'overlay', buttons: dropIn.twoButtons, image: dropIn.image}, overlayTests),
+
+	// With other components
+	...withProps({type: 'overlay'}, overlayColorTests)
 ];
 
 const AlertTests = [
