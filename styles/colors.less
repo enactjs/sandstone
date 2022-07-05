@@ -81,7 +81,8 @@
 @sand-progress-color: rgb(@sand-progress-color-rgb);
 @sand-progress-buffer-color: var(--sand-progress-buffer-color, #6b6d73); // @sand-progress-color with opacity 30% on @sand-progress-bg-color
 @sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
-@sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb);
+@sand-progress-bg-color-alpha: var(--sand-progress-bg-color-alpha, 100%);
+@sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb, @sand-progress-bg-color-alpha);
 @sand-progress-highlighted-color: var(--sand-progress-highlighted-color, #ffffff);
 @sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
 
@@ -115,7 +116,8 @@
 
 // component colors
 @sand-alert-overlay-progress-color-rgb: var(--sand-alert-overlay-progress-color-rgb, 55, 58, 65); // #373a41
-@sand-alert-overlay-progress-bg-color-rgb: var(--sand-alert-overlay-progress-bg-color-rgb, 161, 161, 161, 40%); //  #a1a1a166, 40% alpha by default
+@sand-alert-overlay-progress-bg-color-rgb: var(--sand-alert-overlay-progress-bg-color-rgb, 161, 161, 161); //  #a1a1a166, 40% alpha by default
+@sand-alert-overlay-progress-bg-color-alpha: var(--sand-progress-bg-color-alpha, 40%);
 @sand-alert-overlay-checkbox-color: var(--sand-alert-overlay-checkbox-color, #858b92);
 @sand-alert-overlay-checkbox-disabled-selected-color: var(--sand-alert-overlay-checkbox-disabled-selected-color, #ffffff);
 @sand-alert-overlay-formcheckboxitem-focus-text-color: var(--sand-alert-overlay-formcheckboxitem-focus-text-color, #575e66);

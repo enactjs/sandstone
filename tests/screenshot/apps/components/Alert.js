@@ -1,6 +1,7 @@
 import Alert, {AlertImage}  from '../../../../Alert';
 import Button from '../../../../Button';
 import ProgressBar from '@enact/sandstone/ProgressBar';
+import Scroller from '../../../../Scroller';
 
 import img from '../../images/300x300.png';
 
@@ -28,6 +29,20 @@ const overlayColorTests = [
 	</Alert>,
 	<Alert open title="With disabled Progressbar">
 		<ProgressBar backgroundProgress={0.5} progress={0.25} disabled />
+	</Alert>,
+	<Alert open title="With Scroller">
+		<Scroller style={{height:'300px'}} focusableScrollbar>
+			<div style={{height:'1000px'}}>
+				ScrollerTest
+			</div>
+		</Scroller>
+	</Alert>,
+	<Alert open title="With byEnter Scroller">
+		<Scroller style={{height:'300px'}} focusableScrollbar="byEnter">
+			<div style={{height:'1000px'}}>
+				ScrollerTest
+			</div>
+		</Scroller>
 	</Alert>
 ];
 
