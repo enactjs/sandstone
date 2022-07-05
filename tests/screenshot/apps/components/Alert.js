@@ -25,24 +25,36 @@ const overlayTests = [
 // TODO: Add tc for text / focus text / disabled boutton / checkbox / formcheckbox Item / item disabled
 const overlayColorTests = [
 	<Alert open title="With Progressbar">
-		<ProgressBar backgroundProgress={0.5} progress={0.25} />
+		<div>
+			<div>This is ProgressBar</div>
+			<ProgressBar backgroundProgress={0.5} progress={0.25} />
+		</div>
 	</Alert>,
 	<Alert open title="With disabled Progressbar">
-		<ProgressBar backgroundProgress={0.5} progress={0.25} disabled />
+		<div>
+			<div>This is ProgressBar</div>
+			<ProgressBar backgroundProgress={0.5} progress={0.25} disabled />
+		</div>
 	</Alert>,
 	<Alert open title="With Scroller">
-		<Scroller style={{height:'300px'}} focusableScrollbar>
-			<div style={{height:'1000px'}}>
-				ScrollerTest
-			</div>
-		</Scroller>
+		<div>
+			<div>This is Scroller</div>
+			<Scroller style={{height:'300px'}} verticalScrollbar='visible'>
+				<div style={{height:'1000px'}}>
+					ScrollerTest
+				</div>
+			</Scroller>
+		</div>
 	</Alert>,
 	<Alert open title="With byEnter Scroller">
-		<Scroller style={{height:'300px'}} focusableScrollbar="byEnter">
-			<div style={{height:'1000px'}}>
-				ScrollerTest
-			</div>
-		</Scroller>
+		<div>
+			<div>This is focusableScrollbar='byEnter' Scroller</div>
+			<Scroller style={{height:'300px'}} focusableScrollbar="byEnter">
+				<div style={{height:'1000px'}}>
+					ScrollerTest
+				</div>
+			</Scroller>
+		</div>
 	</Alert>
 ];
 
@@ -85,8 +97,9 @@ const LtrTests = [
 	...withProps({type: 'overlay', buttons: dropIn.oneButton, image: dropIn.image}, overlayTests),
 	...withProps({type: 'overlay', buttons: dropIn.twoButtons, image: dropIn.image}, overlayTests),
 
-	// With other components
-	...withProps({type: 'overlay'}, overlayColorTests)
+	// // With other components
+	...withProps({type: 'overlay'}, overlayColorTests),
+	...withProps({type: 'fullscreen'}, overlayColorTests)
 ];
 
 const AlertTests = [
