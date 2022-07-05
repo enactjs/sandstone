@@ -39,7 +39,7 @@ const overlayColorTests = [
 	<Alert open title="With Scroller">
 		<div>
 			<div>This is Scroller</div>
-			<Scroller style={{height:'300px'}} verticalScrollbar='visible'>
+			<Scroller style={{height:'300px'}} verticalScrollbar="visible">
 				<div style={{height:'1000px'}}>
 					ScrollerTest
 				</div>
@@ -48,7 +48,7 @@ const overlayColorTests = [
 	</Alert>,
 	<Alert open title="With byEnter Scroller">
 		<div>
-			<div>This is focusableScrollbar='byEnter' Scroller</div>
+			<div>This is focusableScrollbar=byEnter Scroller</div>
 			<Scroller style={{height:'300px'}} focusableScrollbar="byEnter">
 				<div style={{height:'1000px'}}>
 					ScrollerTest
