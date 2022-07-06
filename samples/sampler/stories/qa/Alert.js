@@ -5,6 +5,8 @@ import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import ProgressBar from '@enact/sandstone/ProgressBar';
+import Scroller from '@enact/sandstone/Scroller';
+import ri from '@enact/ui/resolution';
 
 Alert.displayName = 'Alert';
 AlertImage.displayName = 'AlertImage';
@@ -136,7 +138,11 @@ export const WithDifferentTypesOfComponentsAndLongChildren = (args) => (
 		<div>
 			<CheckboxItem>This is CheckboxItem</CheckboxItem>
 		</div>
-		{args['children']}
+		<Scroller style={{height: ri.scaleToRem(800)}}>
+			<div style={{height: ri.scaleToRem(1600)}}>
+				{args['children']}
+			</div>
+		</Scroller>
 	</Alert>
 );
 

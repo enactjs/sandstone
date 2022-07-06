@@ -1,6 +1,6 @@
 {
   "name": "@enact/sandstone",
-  "version": "2.5.0-rc.1",
+  "version": "2.5.0-rc.2",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
@@ -37,11 +37,11 @@
     "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^4.5.0-rc.1",
-    "@enact/i18n": "^4.5.0-rc.1",
-    "@enact/spotlight": "^4.5.0-rc.1",
-    "@enact/ui": "^4.5.0-rc.1",
-    "@enact/webos": "^4.5.0-rc.1",
+    "@enact/core": "^4.5.0-rc.2",
+    "@enact/i18n": "^4.5.0-rc.2",
+    "@enact/spotlight": "^4.5.0-rc.2",
+    "@enact/ui": "^4.5.0-rc.2",
+    "@enact/webos": "^4.5.0-rc.2",
     "classnames": "^2.3.1",
     "invariant": "^2.2.4",
     "prop-types": "^15.8.1",

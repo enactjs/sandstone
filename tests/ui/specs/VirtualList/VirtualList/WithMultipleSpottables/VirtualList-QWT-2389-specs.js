@@ -14,6 +14,7 @@ describe('VirtualList with multiple spottables in an item', function () {
 		expect((await Page.getElementAttribute('id')).slice(0, 8)).to.equal('starIcon');
 		expect(Number(await Page.getElementAttribute('data-index'))).to.equal(0);
 		// 5-way Down hold for 1 second.
+		await Page.delay(500);
 		await browser.keys('Down Arrow');
 		// Spotlight still on any item's starIcon.
 		// '5-way down' long pressure is too fast to catch focus element in Jenkins. Therefore, test to catch focus properly with 5-way down.

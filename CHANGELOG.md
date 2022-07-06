@@ -2,6 +2,14 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.5.0-rc.2] - 2022-07-06
+
+### Fixed
+
+- `sandstone/Alert` to show `sandstone/ProgressBar` color properly
+- `sandstone/FixedPopupPanels`, `sandstone/PopupTabLayout`, and `sandstone/TabLayout` to move caret in InputField with left and right keys
+- `sandstone/WizardPanels` to provide `stopPropagation` method in `onBack` event payload
+
 ## [2.5.0-rc.1] - 2022-06-23
 
 ### Added

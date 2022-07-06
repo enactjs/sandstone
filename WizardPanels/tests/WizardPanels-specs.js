@@ -638,10 +638,9 @@ describe('WizardPanel Specs', () => {
 				expect(actual).toHaveClass('current');
 			});
 			await waitFor(() => {
-				const expectedEvent = {type: 'onBack'};
-				const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
+				const expected = {type: 'onBack', stopPropagation: expect.any(Function)};
 
-				expect(actualEvent).toMatchObject(expectedEvent);
+				expect(spy).toBeCalledWith(expect.objectContaining(expected));
 			});
 		}
 	);
@@ -666,10 +665,9 @@ describe('WizardPanel Specs', () => {
 				expect(actual).toHaveClass('current');
 			});
 			await waitFor(() => {
-				const expectedEvent = {type: 'onBack'};
-				const actualEvent = spy.mock.calls.length && spy.mock.calls[0][0];
+				const expected = {type: 'onBack', stopPropagation: expect.any(Function)};
 
-				expect(actualEvent).toMatchObject(expectedEvent);
+				expect(spy).toBeCalledWith(expect.objectContaining(expected));
 			});
 		}
 	);
