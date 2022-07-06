@@ -34,7 +34,7 @@ describe('VideoPlayer', function () {
 			expect(await initialSliderWidth.value).to.equal('0px');
 
 			await videoPlayerDefault.playButton.click();
-			await Page.delay(2000);
+			await Page.delay(5000);
 
 			const sliderWidth = await videoPlayerDefault.slider.getCSSProperty('width');
 
