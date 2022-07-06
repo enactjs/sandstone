@@ -26,7 +26,7 @@ export const _Button3D = (args) => (
 	<Suspense fallback={<Spinner />}>
 		<VRCanvas>
 			<ambientLight intensity={0.5} />
-			<pointLight position={[10, 30, 10]} intensity={6} />
+			<pointLight position={[10, 30, 10]} intensity={3} />
 			<pointLight position={[10, -30, -10]} intensity={1} />
 			<Button3D
 				icon={args['icon']}

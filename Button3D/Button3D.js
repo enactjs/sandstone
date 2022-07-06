@@ -24,7 +24,7 @@ const isUri = function (c) {
 const Button3DBase = (props) => {
 	// This reference will give us direct access to the mesh
 	const mesh = useRef();
-	const zPosition = -15;
+	const zPosition = -3;
 
 	// Set up state for the hovered and active state
 	const [hovered, setHover] = useState(false);
