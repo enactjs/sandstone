@@ -15,8 +15,9 @@ export const _Gallery3D = () => {
 		<Suspense fallback={<Spinner />}>
 			<VRCanvas>
 				<DefaultXRControllers />
-				<ambientLight />
-				<pointLight position={[10, 10, 10]} />
+				<ambientLight intensity={0.5} />
+				<pointLight position={[10, 30, 10]} intensity={10} />
+				<pointLight position={[-20, -30, -10]} intensity={2} />
 				<Gallery3D />
 			</VRCanvas>
 		</Suspense>
