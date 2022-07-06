@@ -24,7 +24,7 @@ const isUri = function (c) {
 const Button3DBase = (props) => {
 	// This reference will give us direct access to the mesh
 	const mesh = useRef();
-	const zPosition = -15;
+	const zPosition = -3;
 
 	// Set up state for the hovered and active state
 	const [hovered, setHover] = useState(false);
@@ -62,6 +62,10 @@ const Button3DBase = (props) => {
 	tooltipShape.absarc(-tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle, tooltipBaseAngle + tooltipBaseAngle);
 	tooltipShape.absarc(-tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 2, tooltipBaseAngle * 2 + tooltipBaseAngle);
 	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle);
+
+	const buttonGeometry = new THREE.ExtrudeGeometry(buttonShape, {bevelEnabled: false, depth: 0.15});
+	const tooltipGeometry = new THREE.ExtrudeGeometry(tooltipShape, {bevelEnabled: false, depth: 0.15});
+	const lineColor = '#111111';
 
 	const isTooltipVisible = props.showTooltip && hovered;
 	const tooltipPosition = props.size === 'large' ? [2, 2.5, zPosition] : [1.5, 2, zPosition];
@@ -132,6 +136,10 @@ const Button3DBase = (props) => {
 							{...props}
 							ref={mesh}
 						>
+							<lineSegments>
+								<edgesGeometry args={[tooltipGeometry]} />
+								<lineBasicMaterial color={lineColor} />
+							</lineSegments>
 							<extrudeBufferGeometry args={[tooltipShape, {bevelEnabled: false, depth: 0.15}]} />
 							<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
 						</mesh>
@@ -153,6 +161,10 @@ const Button3DBase = (props) => {
 					onPointerOver={handlePointerOver}
 					onPointerOut={handlePointerOut}
 				>
+					<lineSegments>
+						<edgesGeometry args={[buttonGeometry]} />
+						<lineBasicMaterial color={lineColor} />
+					</lineSegments>
 					<extrudeBufferGeometry args={[buttonShape, {bevelEnabled: false, depth: 0.15}]} />
 					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
 				</mesh>

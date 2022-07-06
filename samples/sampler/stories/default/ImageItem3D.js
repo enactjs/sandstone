@@ -20,8 +20,9 @@ export const _ImageItem3D = (args) => {
 		<Suspense fallback={<Spinner />}>
 			<VRCanvas>
 				<DefaultXRControllers />
-				<ambientLight />
-				<pointLight position={[10, 10, 10]} />
+				<ambientLight intensity={0.5} />
+				<pointLight position={[10, 30, 10]} intensity={10} />
+				<pointLight position={[10, -30, -30]} intensity={2} />
 				<ImageItem3D src={args['src']} disabled={args.disabled} label={args.label}>{args.children}</ImageItem3D>
 			</VRCanvas>
 		</Suspense>

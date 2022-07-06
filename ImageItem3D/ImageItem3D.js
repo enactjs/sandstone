@@ -57,6 +57,9 @@ const ImageItem3DBase = kind({
 
 		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
 
+		const lineColor = (hovered || selected === index) ? '#363636' : '#e6e6e6';
+		const imageItemGeometry = new THREE.ExtrudeGeometry(shape, {bevelEnabled: false, depth: 0.3});
+
 		const handlePosition = () => {
 			if (selected === index) {
 				return [position[0], position[1], position[2] + 2];
@@ -96,12 +99,12 @@ const ImageItem3DBase = kind({
 						onPointerOut={handlePointerOut}
 						onPointerDown={handleSelect}
 					>
+						<lineSegments>
+							<edgesGeometry args={[imageItemGeometry]} />
+							<lineBasicMaterial color={lineColor} />
+						</lineSegments>
 						<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.3}]} />
-						<meshStandardMaterial
-							transparent={!hovered}
-							// opacity={!hovered ? 0 : 1}
-							color={hovered || (selected === index) ? disabledHoverColor : '#282929'}
-						/>
+						<meshStandardMaterial color={hovered || (selected === index) ? disabledHoverColor : '#282929'} />
 						<OrbitControls />
 					</mesh>
 				</group>

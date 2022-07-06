@@ -47,7 +47,9 @@ const Item3DBase = kind({
 		shape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle);
 		shape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle);
 
-		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
+		const disabledHoverColor = disabled ? '#404040' : '#a6a6a6';
+		const lineColor = hovered ? '#363636' : '#e6e6e6';
+		const itemGeometry = new THREE.ExtrudeGeometry(shape, {bevelEnabled: false, depth: 0.4});
 
 		const handlePointerOver = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
 			setHover(true);
@@ -66,12 +68,16 @@ const Item3DBase = kind({
 						onPointerOver={handlePointerOver}
 						onPointerOut={handlePointerOut}
 					>
-						<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.1}]} />
-						<meshStandardMaterial transparent={!hovered} opacity={!hovered ? 0 : 1} color={hovered ? disabledHoverColor : '#ffffff'} />
+						<lineSegments>
+							<edgesGeometry args={[itemGeometry]} />
+							<lineBasicMaterial color={lineColor} />
+						</lineSegments>
+						<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.4}]} />
+						<meshStandardMaterial color={hovered ? disabledHoverColor : '#212121'} />
 						<OrbitControls />
 					</mesh>
 				</group>
-				<group position={[-3, label ? 0.25 : 0, -0.30]}>
+				<group position={[-3, label ? 0.25 : 0, -0.1]}>
 					<Text
 						ref={textRef}
 						anchorX="left"
@@ -85,7 +91,7 @@ const Item3DBase = kind({
 						{children}
 					</Text>
 				</group>
-				<group position={[-3, -0.25, -0.3]}>
+				<group position={[-3, -0.25, -0.1]}>
 					<Text
 						anchorX="left"
 						color={hovered ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary

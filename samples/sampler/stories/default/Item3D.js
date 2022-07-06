@@ -17,8 +17,9 @@ export const _Item3D = (args) => {
 	return (
 		<Suspense fallback={<Spinner />}>
 			<VRCanvas>
-				<ambientLight />
-				<pointLight position={[10, 10, 10]} />
+				<ambientLight intensity={0.5} />
+				<pointLight position={[10, 30, 10]} intensity={10} />
+				<pointLight position={[10, -30, -10]} intensity={2} />
 				<Item3D disabled={args.disabled} label={args.label} size={args.size}>{args.children}</Item3D>
 			</VRCanvas>
 		</Suspense>
