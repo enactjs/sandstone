@@ -26,11 +26,15 @@
 	// need to use an arbitrary additional CSS rule for precedence
 	*/
 	&.container {
-		width: @sand-contextualmenu-small-width;
+		min-width: @sand-contextualmenu-small-width;
 		padding: @sand-contextualmenu-container-padding;
 
 		.innerContainer {
 			max-height: @sand-contextualmenu-innercontainer-max-height;
+		}
+
+		&.auto {
+			min-width:  @sand-contextualmenu-small-width;
 		}
 
 		&.small {
