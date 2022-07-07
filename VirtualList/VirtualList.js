@@ -419,10 +419,11 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 	 *
-	 * It is required to restore focus after `VirtualList` remount.
+	 * It is a required prop to restore focus after remounting `VirtualList`.
 	 *
-	 * For example, when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
-	 * the `Spotlight` will store the `spotlightId` to restore focus when returning to the `Panel`.
+	 * For example, with this prop specified, when a `VirtualList` is used in a [Panel]{@link sandstone/Panels.Panel},
+	 * the `Spotlight` will store the last focus information based on `SpotlightId` while navigating to another Panel.
+	 * And the `VirtualList` will restore the focus when it remounts while the navigation returns to the `Panel`.
 	 *
 	 * @type {String}
 	 * @public
@@ -894,16 +895,17 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	snapToCenter: PropTypes.bool,
 
 	/**
-	* The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
-	*
-	* It is required to restore focus after `VirtualList` remount.
-	*
-	* For example, when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
-	* the `Spotlight` will store the `spotlightId` to restore focus when returning to the `Panel`.
-	*
-	* @type {String}
-	* @public
-	*/
+	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+	 *
+	 * It is a required prop to restore focus after remounting `VirtualGridList`.
+	 *
+	 * For example, with this prop specified, when a `VirtualGridList` is used in a [Panel]{@link sandstone/Panels.Panel},
+	 * the `Spotlight` will store the last focus information based on `SpotlightId` while navigating to another Panel.
+	 * And the `VirtualGridList` will restore the focus when it remounts while the navigation returns to the `Panel`.
+	 *
+	 * @type {String}
+	 * @public
+	 */
 	spotlightId: PropTypes.string,
 
 	/**
