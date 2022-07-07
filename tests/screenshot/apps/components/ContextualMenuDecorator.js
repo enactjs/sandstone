@@ -1,5 +1,3 @@
-import ri from '@enact/ui/resolution';
-
 import Button from '../../../../Button';
 import ContextualMenuDecorator from '../../../../ContextualMenuDecorator';
 
@@ -11,11 +9,8 @@ const popupProps = {
 };
 const menuItems = ['Item 1', 'Item 2', 'Item 3'];
 
-const padded = '540px';
-const paddedRtl = ri.scaleToRem(120);
-
 const wrapper = {
-	padded
+	padded: '540px'
 };
 
 const ContextualMenuDecoratorTests = [
@@ -56,38 +51,27 @@ const ContextualMenuDecoratorTests = [
 		<ContextualMenuButton popupWidth="large" popupProps={popupProps} menuItems={menuItems} open direction="below center">Button</ContextualMenuButton>,
 		<ContextualMenuButton popupWidth="large" popupProps={popupProps} menuItems={menuItems} open direction="left middle">Button</ContextualMenuButton>,
 		<ContextualMenuButton popupWidth="large" popupProps={popupProps} menuItems={menuItems} open direction="right middle">Button</ContextualMenuButton>,
-	]),
+
 		// *************************************************************
 		// locale = 'ar-SA'
 		// *************************************************************
 		{
 			locale: 'ar-SA',
-			wrapper: {
-				padded: `${paddedRtl} ${paddedRtl} ${paddedRtl} 0`
-			},
 			component: <ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="above center">Button</ContextualMenuButton>
 		},
 		{
 			locale: 'ar-SA',
-			wrapper: {
-				padded: `${paddedRtl} ${paddedRtl} ${paddedRtl} 0`
-			},
 			component: <ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="below center">Button</ContextualMenuButton>
 		},
 		{
 			locale: 'ar-SA',
-			wrapper: {
-				padded: `${paddedRtl} ${paddedRtl} ${paddedRtl} 0`
-			},
 			component: <ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="left middle">Button</ContextualMenuButton>
 		},
 		{
 			locale: 'ar-SA',
-			wrapper: {
-				padded: `${paddedRtl} ${padded} ${paddedRtl} 0`
-			},
 			component: <ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="right middle">Button</ContextualMenuButton>
 		}
+	])
 ];
 
 export default ContextualMenuDecoratorTests;
