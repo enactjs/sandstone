@@ -33,6 +33,7 @@ const PanelsView = () => {
 					dataSize={itemList.length}
 					itemRenderer={customItem}
 					itemSize={ri.scale(156)}
+					spotlightId="virtual-list"
 				/>
 			</Panel>
 			<Panel>
