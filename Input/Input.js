@@ -643,7 +643,6 @@ const Input = InputDecorator(InputBase);
  *   placeholder="Placeholder"
  *   subtitle="Subtitle"
  *   title="Title"
- *   value={this.state.inputText}
  * />
  * ```
  *
