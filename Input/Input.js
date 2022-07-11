@@ -285,7 +285,7 @@ const InputPopupBase = kind({
 		/**
 		 * Initial value of the input.
 		 *
-		 * This value is used for setting the `defaultValue` of the a`InputField`.
+		 * This value is used for setting the `defaultValue` of the `InputField`.
 		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
@@ -512,7 +512,7 @@ const InputBase = kind({
 		/**
 		 * Initial value of the input.
 		 *
-		 * This value is used for setting the `defaultValue` of the a`InputField`.
+		 * This value is used for setting the `defaultValue` of the `InputField`.
 		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
