@@ -31,8 +31,10 @@ const PanelsView = () => {
 				<Header title="Panel 0" />
 				<VirtualList
 					dataSize={itemList.length}
+					id={'virtualList_$' + index}
 					itemRenderer={customItem}
 					itemSize={ri.scale(156)}
+					spotlightId={'virtualList_$' + index}
 				/>
 			</Panel>
 			<Panel>
