@@ -621,7 +621,6 @@ const InputDecorator = compose(
  *   placeholder="Placeholder"
  *   subtitle="TitleBelow"
  *   title="Title"
- *   value={this.state.inputText}
  * />
  * ```
  *
