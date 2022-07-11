@@ -283,8 +283,10 @@ const InputPopupBase = kind({
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
-		 * Value of the input.
+		 * Initial value of the input.
 		 *
+		 * This vaule is used for setting the `defaultVale` of the a`InputField`.
+		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
 		 */
@@ -508,8 +510,10 @@ const InputBase = kind({
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
-		 * Value of the input.
+		 * Initial value of the input.
 		 *
+		 * This vaule is used for setting the `defaultVale` of the a`InputField`.
+		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
 		 */
