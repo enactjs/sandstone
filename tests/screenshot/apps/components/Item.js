@@ -102,7 +102,7 @@ const ItemTests = [
 		...rtlItemTests
 	]),
 
-	// With tall characters and disabled [QWT-2824]
+	// With tall characters and disabled [QWTC-1826]
 	...tallglyphItemTests,
 
 	// LargeText mode
@@ -133,7 +133,7 @@ const ItemTests = [
 
 	// *************************************************************
 	// locale = 'ar-SA'
-	// Item Functionality RTL [QWT-1162]
+	// Item Functionality RTL [QWTC-3487]
 	...withConfig({locale: 'ar-SA'}, [
 		...commonItemTests,
 		...rtlItemTests,
@@ -147,7 +147,7 @@ const ItemTests = [
 		// Small
 		...withProps({size: 'small'}, commonItemTests),
 
-		// With tall characters and disabled [QWT-2824]
+		// With tall characters and disabled [QWTC-1826]
 		...tallglyphItemTests
 	]),
 
