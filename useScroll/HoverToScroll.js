@@ -98,6 +98,7 @@ const HoverToScrollBase = (props) => {
 		if (typeof window === 'object' && mutableRef.current.hoverToScrollRafId !== null) {
 			window.cancelAnimationFrame(mutableRef.current.hoverToScrollRafId);
 			mutableRef.current.hoverToScrollRafId = null;
+			mutableRef.current.hoveredPosition = null;
 			if (typeof document === 'object') {
 				document.removeEventListener('keydown', handleGlobalKeyDown, {capture: true});
 			}
