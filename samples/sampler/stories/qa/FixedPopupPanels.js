@@ -142,9 +142,11 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 							size={itemHeight * 4}
 							component={VirtualList}
 							childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
+							id={'virtualList_' + index}
 							itemSize={itemSize}
 							itemRenderer={itemRenderer}
 							dataSize={20}
+							spotlightId={'virtualList_' + index}
 						/>
 						<Cell shrink component={BodyText}>
 							This text should be visible.
@@ -166,9 +168,11 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 						<Cell size={itemHeight * 3}>
 							<VirtualList
 								childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
+								id={'virtualList_' + index}
 								itemSize={itemSize}
 								itemRenderer={itemRenderer}
 								dataSize={3}
+								spotlightId={'virtualList_' + index}
 							/>
 						</Cell>
 						<Cell shrink component={BodyText}>
@@ -186,9 +190,11 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 					</Header>
 					<VirtualList
 						childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
+						id={'virtualList_' + index}
 						itemSize={itemSize}
 						itemRenderer={itemRenderer}
 						dataSize={20}
+						spotlightId={'virtualList_' + index}
 					/>
 				</Panel>
 				<Panel>
@@ -196,7 +202,13 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 						<title>Panel 4</title>
 						<subtitle>2-Item VirtualList filling just the space it needs</subtitle>
 					</Header>
-					<VirtualList itemSize={itemSize} itemRenderer={itemRenderer} dataSize={2} />
+					<VirtualList
+						id={'virtualList_$' + index}
+						itemSize={itemSize}
+						itemRenderer={itemRenderer}
+						dataSize={2}
+						spotlightId={'virtualList_$' + index}
+					/>
 				</Panel>
 			</FixedPopupPanels>
 			<Button onClick={toggleOpen}>Open FixedPopupPanels</Button>
