@@ -85,7 +85,7 @@ const HoverToScrollBase = (props) => {
 
 	const startRaf = useCallback((job) => {
 		scrollContainerHandleRef.isHoveringToScroll = true;
-		if (typeof window === 'object') {
+		if (typeof window === 'object' && mutableRef.current.hoveredPosition) {
 			mutableRef.current.hoverToScrollRafId = window.requestAnimationFrame(job);
 			if (typeof document === 'object') {
 				document.addEventListener('keydown', handleGlobalKeyDown, {capture: true});
