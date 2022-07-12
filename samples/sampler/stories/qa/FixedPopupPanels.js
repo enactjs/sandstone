@@ -203,11 +203,11 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 						<subtitle>2-Item VirtualList filling just the space it needs</subtitle>
 					</Header>
 					<VirtualList
-						id={'virtualList_$' + index}
+						id={'virtualList_' + index}
 						itemSize={itemSize}
 						itemRenderer={itemRenderer}
 						dataSize={2}
-						spotlightId={'virtualList_$' + index}
+						spotlightId={'virtualList_' + index}
 					/>
 				</Panel>
 			</FixedPopupPanels>
