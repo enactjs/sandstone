@@ -158,6 +158,9 @@ const ButtonBase = kind({
 		/**
 		 * Boolean controlling whether this component should enforce the "minimum width" rules.
 		 *
+		 * *NOTE*: If you don't specify this prop, it works as `false` for icon only Button
+		 * and as `true` for other Buttons.
+		 *
 		 * @type {Boolean}
 		 * @public
 		 */

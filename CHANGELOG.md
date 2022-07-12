@@ -2,9 +2,29 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.5.0-rc.2] - 2022-07-06
 
 ### Fixed
+
+- `sandstone/Alert` to show `sandstone/ProgressBar` color properly
+- `sandstone/FixedPopupPanels`, `sandstone/PopupTabLayout`, and `sandstone/TabLayout` to move caret in InputField with left and right keys
+- `sandstone/WizardPanels` to provide `stopPropagation` method in `onBack` event payload
+
+## [2.5.0-rc.1] - 2022-06-23
+
+### Added
+
+- `sandstone/Scroller` read out feature to support A11y when `editable` is given
+
+### Changed
+
+- `sandstone/Scroller` scrollbar thumb to read out "press ok button to read text" additionally when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` scrollbar thumb to read out 'leftmost', 'rightmost', 'topmost', or 'downmost' when reaching the end of the scroll
+- `sandstone/Scroller` to select item by long press when `editable` is given
+- `sandstone/Picker` and `sandstone/RangePicker` to read out `title`
+
+### Fixed
+
 - `sandstone/Scroller` to position the focused item into scroller view
 
 ## [2.5.0-beta.1] - 2022-05-31

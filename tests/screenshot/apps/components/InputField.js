@@ -1,7 +1,7 @@
 import {InputField} from '../../../../Input';
 import {useLayoutEffect} from 'react';
 
-import {LoremString} from './utils';
+import {LoremString, withProps} from './utils';
 
 const SelectionInput = props => {
 	useLayoutEffect(() => {
@@ -63,6 +63,23 @@ const InputFieldTests = [
 
 	// Selection color
 	<SelectionInput value="Selection value" />,
+
+	// Focused
+	...withProps({focus: true}, [
+		<InputField />,
+		<InputField placeholder="Focused Placeholder InputField" />,
+		<InputField placeholder="Focused Placeholder InputField" disabled />,
+
+		// InputField field of type 'number' should be empty with letters as input
+		<InputField value="Focused Simple value" type="number" />,
+		// InputField field of type 'number' should be empty with letters as input
+		<InputField value="Focused Simple value" type="number" disabled />,
+
+		<InputField value="Focused Simple value" type="password" />,
+		<InputField value="Focused Simple value" type="password" disabled />,
+		<InputField value="http://enactjs.org" type="url" />,
+		<InputField value="http://enactjs.org" type="url" disabled />
+	]),
 
 	// *************************************************************
 	// locale = 'ar-SA'

@@ -9,9 +9,8 @@ const popupProps = {
 };
 const menuItems = ['Item 1', 'Item 2', 'Item 3'];
 
-const padded = '540px';
 const wrapper = {
-	padded
+	padded: '540px'
 };
 
 const ContextualMenuDecoratorTests = [

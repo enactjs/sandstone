@@ -1,16 +1,17 @@
 import classnames from 'classnames';
 import {forward, forwardCustom, stop, stopImmediate} from '@enact/core/handle';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
 import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
+import ForwardRef from '@enact/ui/ForwardRef';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Touchable from '@enact/ui/Touchable';
 import {SlideLeftArranger, SlideTopArranger, ViewManager} from '@enact/ui/ViewManager';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import PropTypes from 'prop-types';
-import {Component as ReactComponent} from 'react';
-import ReactDOM from 'react-dom';
+import {Component as ReactComponent, createRef} from 'react';
 
 import Skinnable from '../../Skinnable';
 
@@ -35,8 +36,20 @@ const isLeft = is('left');
 const isRight = is('right');
 const isUp = is('up');
 
-const Div = Touchable('div');
-const SpottableDiv = Touchable(SpottablePicker);
+const DivComponent = ({containerRef, ...rest}) => (<div ref={containerRef} {...rest} />);
+
+DivComponent.propTypes = {
+	/**
+	 * Called with the reference to the current node.
+	 *
+	 * @type {Object|Function}
+	 * @public
+	 */
+	containerRef: EnactPropTypes.ref
+};
+
+const Div = Touchable(ForwardRef({prop: 'containerRef'}, DivComponent));
+const SpottableDiv = Touchable(ForwardRef({prop: 'containerRef'}, SpottablePicker));
 
 const PickerViewManager = onlyUpdateForProps(ViewManager, ['index', 'children']);
 
@@ -378,6 +391,16 @@ const PickerBase = class extends ReactComponent {
 		step: PropTypes.number,
 
 		/**
+		 * The primary text of the `Picker`.
+		 *
+		 * The screen readers read out the title text when the `joined` prop is false
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
+
+		/**
 		 * The type of picker. It determines the aria-label for the next and previous buttons.
 		 *
 		 * Depending on the `type`, `joined`, `decrementAriaLabel`, and `incrementAriaLabel`,
@@ -452,7 +475,7 @@ const PickerBase = class extends ReactComponent {
 			pressed: 0
 		};
 
-		this.initContainerRef = this.initRef('containerRef');
+		this.containerRef = createRef();
 
 		// Pressed state for this.handleUp
 		this.pickerButtonPressed = 0;
@@ -460,18 +483,18 @@ const PickerBase = class extends ReactComponent {
 
 	componentDidMount () {
 		if (this.props.joined) {
-			this.containerRef.addEventListener('wheel', this.handleWheel);
+			this.containerRef.current.addEventListener('wheel', this.handleWheel);
 		}
 		if (platform.webos) {
-			this.containerRef.addEventListener('webOSVoice', this.handleVoice);
+			this.containerRef.current.addEventListener('webOSVoice', this.handleVoice);
 		}
 	}
 
 	componentDidUpdate (prevProps) {
 		if (this.props.joined && !prevProps.joined) {
-			this.containerRef.addEventListener('wheel', this.handleWheel);
+			this.containerRef.current.addEventListener('wheel', this.handleWheel);
 		} else if (prevProps.joined && !this.props.joined) {
-			this.containerRef.removeEventListener('wheel', this.handleWheel);
+			this.containerRef.current.removeEventListener('wheel', this.handleWheel);
 		}
 	}
 
@@ -480,10 +503,10 @@ const PickerBase = class extends ReactComponent {
 		this.throttleWheelInc.stop();
 		this.throttleWheelDec.stop();
 		if (this.props.joined) {
-			this.containerRef.removeEventListener('wheel', this.handleWheel);
+			this.containerRef.current.removeEventListener('wheel', this.handleWheel);
 		}
 		if (platform.webos) {
-			this.containerRef.removeEventListener('webOSVoice', this.handleVoice);
+			this.containerRef.current.removeEventListener('webOSVoice', this.handleVoice);
 		}
 	}
 
@@ -601,7 +624,7 @@ const PickerBase = class extends ReactComponent {
 		const {step} = this.props;
 		forwardWheel(ev, this.props);
 
-		const isContainerSpotted = this.containerRef === Spotlight.getCurrent();
+		const isContainerSpotted = this.containerRef.current === Spotlight.getCurrent();
 
 		if (isContainerSpotted) {
 			const dir = -Math.sign(ev.deltaY);
@@ -731,7 +754,7 @@ const PickerBase = class extends ReactComponent {
 				stopImmediate(ev);
 				// set the pointer mode to false on keydown
 				Spotlight.setPointerMode(false);
-				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.incrementer}`));
+				Spotlight.focus(this.containerRef.current.querySelector(`.${componentCss.incrementer}`));
 			} else {
 				forwardCustom(`onSpotlight${cap(direction)}`)(ev, this.props);
 			}
@@ -759,7 +782,7 @@ const PickerBase = class extends ReactComponent {
 				stopImmediate(ev);
 				// set the pointer mode to false on keydown
 				Spotlight.setPointerMode(false);
-				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.decrementer}`));
+				Spotlight.focus(this.containerRef.current.querySelector(`.${componentCss.decrementer}`));
 			} else {
 				forwardCustom(`onSpotlight${cap(direction)}`)(ev, this.props);
 			}
@@ -819,6 +842,7 @@ const PickerBase = class extends ReactComponent {
 
 	calcButtonLabel (next, valueText) {
 		const {decrementAriaLabel, incrementAriaLabel, orientation} = this.props;
+		const titleText = this.props.title ? this.props.title + ' ' : '';
 		let label;
 		if (orientation === 'vertical') {
 			label = next ? decrementAriaLabel : incrementAriaLabel;
@@ -827,13 +851,13 @@ const PickerBase = class extends ReactComponent {
 		}
 
 		if (label != null) {
-			return label;
+			return titleText + label;
 		}
 
 		if (this.props.type === 'number') {
-			return `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
+			return titleText + `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
 		} else {
-			return `${valueText} ${next ? $L('next item') : $L('previous item')}`;
+			return titleText + `${valueText} ${next ? $L('next item') : $L('previous item')}`;
 		}
 	}
 
@@ -859,15 +883,6 @@ const PickerBase = class extends ReactComponent {
 		}
 
 		return `${valueText} ${hint}`;
-	}
-
-	initRef (prop) {
-		return (ref) => {
-			// need a way, for now, to get a DOM node ref ~and~ use onUp. Likely should rework the
-			// wheel handler to avoid this requirement
-			// eslint-disable-next-line react/no-find-dom-node
-			this[prop] = ref && ReactDOM.findDOMNode(ref);
-		};
 	}
 
 	render () {
@@ -918,6 +933,7 @@ const PickerBase = class extends ReactComponent {
 		delete rest.onSpotlightLeft;
 		delete rest.onSpotlightRight;
 		delete rest.onSpotlightUp;
+		delete rest.title;
 		delete rest.wrap;
 
 		const incrementIcon = selectIncIcon(this.props);
@@ -982,7 +998,7 @@ const PickerBase = class extends ReactComponent {
 				onUp={this.handleUp}
 				onMouseLeave={this.clearPressedState}
 				orientation={orientation}
-				ref={this.initContainerRef}
+				ref={this.containerRef}
 				{...spottablePickerProps}
 			>
 				{isHorizontalJoinedEnter ?

@@ -1,5 +1,7 @@
 import DayPicker from '../../../../DayPicker';
 
+import {withConfig} from "./utils";
+
 const DayPickerTests = [
 	<DayPicker />,
 	<DayPicker selected={1} />,
@@ -22,7 +24,12 @@ const DayPickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <DayPicker disabled selected={1} />
-	}
+	},
+
+	...withConfig({focus: true}, [
+		<DayPicker selected={2} />,
+		<DayPicker disabled selected={2} />
+	])
 ];
 
 export default DayPickerTests;

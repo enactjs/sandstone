@@ -490,9 +490,11 @@ const useScroll = (props) => {
 		scrollContentRef
 	});
 
+	const scrollThumbAriaLabelForByEnter = focusableScrollbar === 'byEnter' ? ' ' + $L('press ok button to read text') : '';
+
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
-		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') + scrollThumbAriaLabelForByEnter : horizontalScrollThumbAriaLabel,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: horizontalScrollbarHandle
@@ -500,7 +502,7 @@ const useScroll = (props) => {
 
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
-		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
+		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') + scrollThumbAriaLabelForByEnter : verticalScrollThumbAriaLabel,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: verticalScrollbarHandle

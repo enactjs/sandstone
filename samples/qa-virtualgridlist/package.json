@@ -22,11 +22,11 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.5.0-beta.1",
-    "@enact/i18n": "^4.5.0-beta.1",
+    "@enact/core": "^4.5.0-rc.2",
+    "@enact/i18n": "^4.5.0-rc.2",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.5.0-beta.1",
-    "@enact/ui": "^4.5.0-beta.1",
+    "@enact/spotlight": "^4.5.0-rc.2",
+    "@enact/ui": "^4.5.0-rc.2",
     "@reduxjs/toolkit": "^1.8.1",
     "ilib": "^14.14.0",
     "prop-types": "^15.8.1",
