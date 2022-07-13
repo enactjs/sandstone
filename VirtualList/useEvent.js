@@ -1,4 +1,5 @@
 import {is} from '@enact/core/keymap';
+import {Job} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
@@ -20,6 +21,11 @@ const
 		// should return -1 if index is not a number or a negative value
 		return number >= 0 ? number : -1;
 	};
+const focusFirstChild = (node) => {
+	if (node.children[0]) {
+		node.children[0].focus();
+	}
+};
 
 let prevKeyDownIndex = -1;
 
@@ -27,7 +33,9 @@ const useEventKey = (props, instances, context) => {
 	// Mutable value
 
 	const mutableRef = useRef({
-		fn: null
+		fn: null,
+		editableJob: null,
+		editingIndex: null
 	});
 
 	// Functions
@@ -106,11 +114,22 @@ const useEventKey = (props, instances, context) => {
 		return {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex};
 	}, [findSpottableItem, props, instances]);
 
+	const editingStartByKey = useCallback(() => {
+		const {scrollContentHandle: {current: {featureEditable}}} = instances;
+		featureEditable.editingStart(mutableRef.current.editingIndex, 'index', focusFirstChild);
+	}, [instances]);
+
 	// Hooks
+
+	useEffect(() => {
+		const {scrollContentHandle: {current: {featureEditable}}} = instances;
+		mutableRef.current.editableJob = new Job(editingStartByKey, featureEditable.enablingTime);
+	}, [instances, editingStartByKey]);
 
 	useEffect(() => {
 		const {scrollContainerRef, scrollContentHandle} = instances;
 		const {
+			focusByIndex,
 			handle5WayKeyUp,
 			handleDirectionKeyDown,
 			handlePageUpDownKeyDown,
@@ -120,11 +139,26 @@ const useEventKey = (props, instances, context) => {
 		function handleKeyDown (ev) {
 			const {keyCode, target} = ev;
 			const direction = getDirection(keyCode);
+			const {featureEditable} = scrollContentHandle.current;
 
 			if (direction) {
 				Spotlight.setPointerMode(false);
+				if (featureEditable.enabled && featureEditable.editingMode) {
+					const {editingIndex, editingNode, lastVisualIndex, moveItem, movingItemUpdate} = featureEditable;
 
-				if (spotlightAcceleratorProcessKey(ev)) {
+					if (lastVisualIndex !== null) {
+						const nextIndex = getNextIndex({index: lastVisualIndex, keyCode, repeat: ev.repeat}).nextIndex;
+						if (nextIndex !== -1) {
+							moveItem(editingIndex, nextIndex, {scrollIntoView: true});
+							if (editingNode) {
+								movingItemUpdate();
+							}
+						}
+
+						ev.preventDefault();
+						ev.stopPropagation();
+					}
+				} else if (spotlightAcceleratorProcessKey(ev)) {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
@@ -209,10 +243,33 @@ const useEventKey = (props, instances, context) => {
 				}
 			} else if (isPageUp(keyCode) || isPageDown(keyCode)) {
 				handlePageUpDownKeyDown();
+			} else if (isEnter(keyCode)) {
+				if (!ev.repeat && featureEditable.enabled) {
+					if (!featureEditable.editingMode) {
+						const targetIndex = target.dataset.index;
+						const index = targetIndex ? getNumberValue(targetIndex) : -1;
+						if (index !== -1) {
+							mutableRef.current.editingIndex = index;
+							mutableRef.current.editableJob.start();
+						}
+					} else {
+						const lastVisualIndex = featureEditable.lastVisualIndex;
+						featureEditable.editingFinish();
+						focusByIndex(lastVisualIndex);
+					}
+				}
 			}
 		}
 
 		function handleKeyUp ({keyCode}) {
+			const {scrollContentHandle: {current: {featureEditable}}} = instances;
+			if (featureEditable.enabled) {
+				mutableRef.current.editableJob.stop();
+				if (featureEditable.editingMode) {
+					return;
+				}
+			}
+
 			if (getDirection(keyCode) || isEnter(keyCode)) {
 				handle5WayKeyUp();
 			}

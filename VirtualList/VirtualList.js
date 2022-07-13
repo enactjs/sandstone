@@ -197,6 +197,8 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 */
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
 
+	editable: PropTypes.object, // TBD // FIXME
+
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
@@ -492,6 +494,7 @@ VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'vertical',
+	editable: null,
 	horizontalScrollbar: 'auto',
 	noAffordance: false,
 	noScrollByDrag: false,
@@ -672,6 +675,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
+
+	editable: PropTypes.object, // TBD // FIXME
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -971,6 +976,7 @@ VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'vertical',
+	editable: null,
 	horizontalScrollbar: 'auto',
 	noAffordance: false,
 	noScrollByDrag: false,
