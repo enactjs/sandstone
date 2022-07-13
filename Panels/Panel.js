@@ -261,7 +261,7 @@ const PanelDecorator = hoc({defaultElement: `.${componentCss.body} *`}, (config,
 			defaultElement,
 			enterTo: 'last-focused',
 			lastFocusedPersist: (node, all) => {
-				const filtered = all.filter(element => element && element.dataset && !element.dataset.spotlightIgnoreRestore);
+				const filtered = all.filter(element => element && !element.dataset?.spotlightIgnoreRestore);
 				const container = typeof node === 'string';
 				return {
 					container,
@@ -270,7 +270,7 @@ const PanelDecorator = hoc({defaultElement: `.${componentCss.body} *`}, (config,
 				};
 			},
 			lastFocusedRestore: ({container, key}, all) => {
-				const filtered = all.filter(element => element && element.dataset && !element.dataset.spotlightIgnoreRestore);
+				const filtered = all.filter(element => element && !element.dataset?.spotlightIgnoreRestore);
 				return container ? key : filtered[key];
 			},
 			preserveId: true
