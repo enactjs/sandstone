@@ -1,7 +1,7 @@
-import {OrbitControls, Text} from '@react-three/drei';
-import {Interactive} from '@react-three/xr';
+import { OrbitControls, Text } from '@react-three/drei';
+import { Interactive } from '@react-three/xr';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 import iconList from '../Icon/IconList.js';
@@ -59,13 +59,13 @@ const Button3DBase = (props) => {
 	let tooltipHalfX = tooltipSizeX * 0.5 - tooltipRadius;
 	let tooltipHalfY = tooltipSizeY * 0.5 - tooltipRadius;
 	let tooltipBaseAngle = Math.PI * 0.5;
-	tooltipShape.absarc(tooltipHalfX, tooltipHalfY, tooltipRadius, 0,  +tooltipBaseAngle);
+	tooltipShape.absarc(tooltipHalfX, tooltipHalfY, tooltipRadius, 0, +tooltipBaseAngle);
 	tooltipShape.absarc(-tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle, tooltipBaseAngle + tooltipBaseAngle);
 	tooltipShape.absarc(-tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 2, tooltipBaseAngle * 2 + tooltipBaseAngle);
 	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle);
 
-	const buttonGeometry = new THREE.ExtrudeGeometry(buttonShape, {bevelEnabled: false, depth: 0.15});
-	const tooltipGeometry = new THREE.ExtrudeGeometry(tooltipShape, {bevelEnabled: false, depth: 0.15});
+	const buttonGeometry = new THREE.ExtrudeGeometry(buttonShape, { bevelEnabled: false, depth: 0.15 });
+	const tooltipGeometry = new THREE.ExtrudeGeometry(tooltipShape, { bevelEnabled: false, depth: 0.15 });
 	const lineColor = '#111111';
 
 	const isTooltipVisible = props.showTooltip && hovered;
@@ -89,6 +89,11 @@ const Button3DBase = (props) => {
 	const handlePointerOut = useCallback(() => {
 		setHover(false);
 	}, []);
+
+	const onSqueezeStartHandler = useCallback(() => {
+		setShapePosition([0, 0, zPosition - 0.2]);
+		setTextPosition([0, 0, zPosition]);
+	}, [zPosition])
 
 	const computeIcon = useCallback(() => {
 		const iconProp = props.icon;
@@ -129,29 +134,36 @@ const Button3DBase = (props) => {
 
 
 	return (
-		<Interactive onHover={() => setHover(true)} onBlur={() => setHover(false)} onSelect={onPointerDown}>
+		<Interactive
+			onHover={() => setHover(true)}
+			onBlur={() => setHover(false)}
+			onSelectStart={onPointerDown}
+			onSelectEnd={onPointerUp}
+			onSqueezeStart={onSqueezeStartHandler}
+			onSqueezeEnd={onPointerUp}
+		>
 			<group>
 				{isTooltipVisible &&
-				<group>
-					<group position={tooltipPosition}>
-						<mesh
-							{...props}
-							ref={mesh}
-						>
-							<lineSegments>
-								<edgesGeometry args={[tooltipGeometry]} />
-								<lineBasicMaterial color={lineColor} />
-							</lineSegments>
-							<extrudeBufferGeometry args={[tooltipShape, {bevelEnabled: false, depth: 0.15}]} />
-							<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
-						</mesh>
-					</group>
 					<group>
-						<Text position={tooltipTextPosition} color="#4c5059" anchorX="center" anchorY="middle" fontSize={0.5}>
-							{props.tooltipText}
-						</Text>
+						<group position={tooltipPosition}>
+							<mesh
+								{...props}
+								ref={mesh}
+							>
+								<lineSegments>
+									<edgesGeometry args={[tooltipGeometry]} />
+									<lineBasicMaterial color={lineColor} />
+								</lineSegments>
+								<extrudeBufferGeometry args={[tooltipShape, { bevelEnabled: false, depth: 0.15 }]} />
+								<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
+							</mesh>
+						</group>
+						<group>
+							<Text position={tooltipTextPosition} color="#4c5059" anchorX="center" anchorY="middle" fontSize={0.5}>
+								{props.tooltipText}
+							</Text>
+						</group>
 					</group>
-				</group>
 				}
 				<group position={shapePosition}>
 					<mesh

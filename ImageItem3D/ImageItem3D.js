@@ -1,9 +1,9 @@
 import kind from '@enact/core/kind';
-import {OrbitControls, Text} from '@react-three/drei';
-import {useLoader} from '@react-three/fiber';
-import {Interactive} from '@react-three/xr';
+import { OrbitControls, Text } from '@react-three/drei';
+import { useLoader } from '@react-three/fiber';
+import { Interactive } from '@react-three/xr';
 import PropTypes from 'prop-types';
-import {useCallback, useRef, useState} from 'react';
+import { useCallback, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 import Skinnable from '../Skinnable';
@@ -31,7 +31,7 @@ const ImageItem3DBase = kind({
 		setSelected: null
 	},
 
-	render: ({children, disabled, label, src, position, index, selected, setSelected, ...rest}) => {
+	render: ({ children, disabled, label, src, position, index, selected, setSelected, ...rest }) => {
 
 		const mesh = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
 		const textRef = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
@@ -59,7 +59,7 @@ const ImageItem3DBase = kind({
 		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
 
 		const lineColor = (hovered || selected === index) ? '#363636' : '#e6e6e6';
-		const imageItemGeometry = new THREE.ExtrudeGeometry(shape, {bevelEnabled: false, depth: 0.3});
+		const imageItemGeometry = new THREE.ExtrudeGeometry(shape, { bevelEnabled: false, depth: 0.3 });
 
 		const handlePosition = () => {
 			if (selected === index) {
@@ -74,10 +74,12 @@ const ImageItem3DBase = kind({
 		};
 
 		const handlePointerOver = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
+			console.log('pointer over')
 			setHover(true);
 		}, []);
 
 		const handlePointerOut = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
+			console.log('pointer out')
 			setHover(false);
 		}, []);
 
@@ -92,7 +94,17 @@ const ImageItem3DBase = kind({
 		const newPosition = handlePosition();
 
 		return (
-			<Interactive onHover={() => setHover(true)} onBlur={() => setHover(false)} onSelect={handleSelect}>
+			<Interactive
+				// onHover={() => setHover(true)}
+				// onBlur={() => setHover(false)}
+				// onSelect={handleSelect}
+				// onSelectStart={handlePointerOver}
+				onSelectStart={() => console.log('select start')}
+				onSelectEnd={() => console.log('select end')}
+				// onSelectEnd={handlePointerOut}
+				onSqueezeStart={handlePointerOver}
+				onSqueezeEnd={handlePointerOut}
+			>
 				<group {...rest} position={newPosition} scale={selected === index ? 1.3 : 1} >
 					<group position={[0, -0.5, -0.51]}>
 						<mesh
@@ -105,7 +117,7 @@ const ImageItem3DBase = kind({
 								<edgesGeometry args={[imageItemGeometry]} />
 								<lineBasicMaterial color={lineColor} />
 							</lineSegments>
-							<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.3}]} />
+							<extrudeBufferGeometry args={[shape, { bevelEnabled: false, depth: 0.3 }]} />
 							<meshStandardMaterial color={hovered || (selected === index) ? disabledHoverColor : '#282929'} />
 							<OrbitControls />
 						</mesh>
@@ -127,7 +139,7 @@ const ImageItem3DBase = kind({
 					<group position={[-2.5, -3.45, -0.15]}>
 						<Text
 							anchorX="left"
-							color={hovered || selected === index  ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
+							color={hovered || selected === index ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
 							fontSize={0.3}
 							maxWidth={15}
 							textAlign="left"
@@ -144,7 +156,7 @@ const ImageItem3DBase = kind({
 	}
 });
 
-const ImageItem3D = Skinnable({prop: 'skin'}, ImageItem3DBase);
+const ImageItem3D = Skinnable({ prop: 'skin' }, ImageItem3DBase);
 
 export default ImageItem3D;
 export {
