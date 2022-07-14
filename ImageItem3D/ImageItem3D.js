@@ -1,6 +1,7 @@
 import kind from '@enact/core/kind';
 import {OrbitControls, Text} from '@react-three/drei';
 import {useLoader} from '@react-three/fiber';
+import {Interactive} from '@react-three/xr';
 import PropTypes from 'prop-types';
 import {useCallback, useRef, useState} from 'react';
 import * as THREE from 'three';
@@ -91,52 +92,54 @@ const ImageItem3DBase = kind({
 		const newPosition = handlePosition();
 
 		return (
-			<group {...rest} position={newPosition} scale={selected === index ? 1.3 : 1} >
-				<group position={[0, -0.5, -0.51]}>
-					<mesh
-						ref={mesh}
-						onPointerOver={handlePointerOver}
-						onPointerOut={handlePointerOut}
-						onPointerDown={handleSelect}
-					>
-						<lineSegments>
-							<edgesGeometry args={[imageItemGeometry]} />
-							<lineBasicMaterial color={lineColor} />
-						</lineSegments>
-						<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.3}]} />
-						<meshStandardMaterial color={hovered || (selected === index) ? disabledHoverColor : '#282929'} />
-						<OrbitControls />
-					</mesh>
+			<Interactive onHover={() => setHover(true)} onBlur={() => setHover(false)} onSelect={handleSelect}>
+				<group {...rest} position={newPosition} scale={selected === index ? 1.3 : 1} >
+					<group position={[0, -0.5, -0.51]}>
+						<mesh
+							ref={mesh}
+							onPointerOver={handlePointerOver}
+							onPointerOut={handlePointerOut}
+							onPointerDown={handleSelect}
+						>
+							<lineSegments>
+								<edgesGeometry args={[imageItemGeometry]} />
+								<lineBasicMaterial color={lineColor} />
+							</lineSegments>
+							<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.3}]} />
+							<meshStandardMaterial color={hovered || (selected === index) ? disabledHoverColor : '#282929'} />
+							<OrbitControls />
+						</mesh>
+					</group>
+					<group position={[-2.5, -3.1, -0.15]}>
+						<Text
+							ref={textRef}
+							anchorX="left"
+							anchorY="middle"
+							color={hovered || selected === index ? '#6f7074' : disabledHoverColor}
+							font={'http://fonts.gstatic.com/s/modak/v5/EJRYQgs1XtIEskMA-hI.woff'}
+							fontSize={0.5}
+							maxWidth={15}
+							textAlign="left"
+						>
+							{children}
+						</Text>
+					</group>
+					<group position={[-2.5, -3.45, -0.15]}>
+						<Text
+							anchorX="left"
+							color={hovered || selected === index  ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
+							fontSize={0.3}
+							maxWidth={15}
+							textAlign="left"
+						>
+							{label}
+						</Text>
+					</group>
+					<group position={[0, 0, -0.15]}>
+						{image}
+					</group>
 				</group>
-				<group position={[-2.5, -3.1, -0.15]}>
-					<Text
-						ref={textRef}
-						anchorX="left"
-						anchorY="middle"
-						color={hovered || selected === index ? '#6f7074' : disabledHoverColor}
-						font={'http://fonts.gstatic.com/s/modak/v5/EJRYQgs1XtIEskMA-hI.woff'}
-						fontSize={0.5}
-						maxWidth={15}
-						textAlign="left"
-					>
-						{children}
-					</Text>
-				</group>
-				<group position={[-2.5, -3.45, -0.15]}>
-					<Text
-						anchorX="left"
-						color={hovered || selected === index  ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
-						fontSize={0.3}
-						maxWidth={15}
-						textAlign="left"
-					>
-						{label}
-					</Text>
-				</group>
-				<group position={[0, 0, -0.15]}>
-					{image}
-				</group>
-			</group>
+			</Interactive>
 		);
 	}
 });
