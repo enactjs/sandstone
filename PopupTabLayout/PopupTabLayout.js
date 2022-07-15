@@ -215,7 +215,7 @@ const PopupTabLayoutBase = kind({
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
-		 * The container id for {@link spotlight/Spotlight}.
+		 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 		 *
 		 * @type {String}
 		 * @public
@@ -367,6 +367,7 @@ const tabPanelsHandlers = {
 	),
 	onKeyDown: handle(
 		forward('onKeyDown'),
+		({target}) => (target.tagName !== 'INPUT'),
 		forProp('rtl', false),
 		forKey('left'),
 		(ev, {index}) => (index > 0),
@@ -462,7 +463,7 @@ const TabPanel = ({spotlightId, ...rest}) => {
 
 TabPanel.propTypes = {
 	/**
-	 * The container id for {@link spotlight/Spotlight}.
+	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 	 *
 	 * @type {String}
 	 * @private

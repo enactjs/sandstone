@@ -1,5 +1,6 @@
-import Dropdown from '../../../../Dropdown';
 import {scaleToRem} from '@enact/ui/resolution';
+
+import Dropdown from '../../../../Dropdown';
 
 import {withProps} from './utils';
 
@@ -15,7 +16,7 @@ const Widths = [
 
 const DropdownTests = [
 	<Dropdown />,  // default size is 'small'
-	// Change 'size' dynamically [QWT-2476]
+	// Change 'size' dynamically [QWTC-2173]
 	<Dropdown size="small" />,
 	<Dropdown placeholder="Dropdown" />,
 	<Dropdown size="large" />,
@@ -27,13 +28,18 @@ const DropdownTests = [
 	<Dropdown title="Select an option below" placeholder="Dropdown" />,
 	<Dropdown title="Select an option below" placeholder="Dropdown" disabled />,
 
-	// Change 'width' dynamically [QWT-2475]
+	// Change 'width' dynamically [QWTC-2174]
 	// width - 'medium' is default
 	...Widths,
 
 	// size="large"
 	...withProps({
 		size: 'large'
+	}, Widths),
+
+	// size="large"
+	...withProps({
+		focus: true
 	}, Widths),
 
 	// open with number type width

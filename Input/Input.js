@@ -283,8 +283,10 @@ const InputPopupBase = kind({
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
-		 * Value of the input.
+		 * Initial value of the input.
 		 *
+		 * This value is used for setting the `defaultValue` of the `InputField`.
+		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
 		 */
@@ -508,8 +510,10 @@ const InputBase = kind({
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
-		 * Value of the input.
+		 * Initial value of the input.
 		 *
+		 * This value is used for setting the `defaultValue` of the `InputField`.
+		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
 		 */
@@ -617,7 +621,6 @@ const InputDecorator = compose(
  *   placeholder="Placeholder"
  *   subtitle="TitleBelow"
  *   title="Title"
- *   value={this.state.inputText}
  * />
  * ```
  *
@@ -640,7 +643,6 @@ const Input = InputDecorator(InputBase);
  *   placeholder="Placeholder"
  *   subtitle="Subtitle"
  *   title="Title"
- *   value={this.state.inputText}
  * />
  * ```
  *

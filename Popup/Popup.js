@@ -171,7 +171,7 @@ const PopupBase = kind({
 		]),
 
 		/**
-		 * The container id for {@link spotlight/Spotlight}.
+		 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 		 *
 		 * @type {String}
 		 * @default null
@@ -299,7 +299,8 @@ class Popup extends Component {
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Indicates that the popup will not trigger `onClose` on the *ESC* key press.
+		 * Indicates that the popup will not trigger `onClose` when the user presses the cancel/back (e.g. `ESC`) key or
+		 * taps outside of the popup.
 		 *
 		 * @type {Boolean}
 		 * @default false

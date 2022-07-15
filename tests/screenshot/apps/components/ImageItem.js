@@ -2,11 +2,9 @@ import ri from '@enact/ui/resolution';
 
 import ImageItem from '../../../../ImageItem';
 
-import {withProps} from './utils';
+import {withConfig, withProps} from './utils';
 
 import img from '../../images/600x600.png';
-
-import {withConfig} from './utils';
 
 import css from './ImageItem.module.less';
 
@@ -37,9 +35,26 @@ const defaultImageItemTests = [
 
 	// Focused
 	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
+		// Vertical
 		<ImageItem src={img} style={verticalStyle} orientation="vertical" />,
-		<ImageItem src={img} style={verticalStyle} orientation="vertical">Focused</ImageItem>,
-		<ImageItem src={img} orientation="horizontal" />
+		<ImageItem src={img} style={verticalStyle} orientation="vertical">Focused Short</ImageItem>,
+		<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Focused Short" />,
+		<ImageItem src={img} style={verticalStyle} orientation="vertical" imageIconSrc={img} />,
+		<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Focused Short">Focused Short</ImageItem>,
+		<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Focused Short" imageIconSrc={img}>Focused Short</ImageItem>,
+		<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Focused Short" showSelection>Focused Short</ImageItem>,
+		<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Focused Short" selected showSelection>Focused Short</ImageItem>,
+		<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Focused Short" imageIconSrc={img} css={css}>Focused Short</ImageItem>,
+
+		// Horizontal
+		<ImageItem src={img} orientation="horizontal" />,
+		<ImageItem src={img} orientation="horizontal">Focused Short</ImageItem>,
+		<ImageItem src={img} orientation="horizontal" label="Focused Short" />,
+		<ImageItem src={img} orientation="horizontal" imageIconSrc={img} />,
+		<ImageItem src={img} orientation="horizontal" label="Focused Short">Focused Short</ImageItem>,
+		<ImageItem src={img} orientation="horizontal" label="Focused Short" imageIconSrc={img}>Focused Short</ImageItem>,
+		<ImageItem src={img} orientation="horizontal" label="Focused Short" showSelection>Focused Short</ImageItem>,
+		<ImageItem src={img} orientation="horizontal" label="Focused Short" selected showSelection>Focused Short</ImageItem>
 	])
 ];
 

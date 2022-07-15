@@ -1,5 +1,7 @@
 import TimePicker from '../../../../TimePicker';
 
+import {withConfig} from "./utils";
+
 const TimePickerTests = [
 	<TimePicker defaultValue={new Date(2009, 5, 6)} />,
 	<TimePicker defaultValue={new Date(2009, 5, 6)} disabled />,
@@ -17,6 +19,15 @@ const TimePickerTests = [
 	{
 		locale: 'ta-IN',
 		component: <TimePicker defaultValue={new Date(2009, 5, 6)} />
-	}
+	},
+
+	// *************************************************************
+	// focused
+	// *************************************************************
+	...withConfig({focus: true}, [
+		<TimePicker defaultValue={new Date(2009, 5, 7)} />,
+		<TimePicker defaultValue={new Date(2009, 5, 7)} disabled />,
+		<TimePicker defaultValue={new Date(2009, 5, 7)} noLabel />
+	])
 ];
 export default TimePickerTests;

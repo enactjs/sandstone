@@ -6,19 +6,19 @@ import uhd from '../../images/600x600.png';
 
 const ImageTests = [
 
-	// Change 'sizing' dynamically (LTR / RTL) - [QWT-2510] - Step 10
+	// Change 'sizing' dynamically (LTR / RTL) - [QWTC-2140] - Step 10
 	<Image src={hd} sizing="none" />,
 
 	<Image src={fhd} sizing="none" />,
 	<Image src={uhd} sizing="none" />,
 
-	// Change 'sizing' dynamically (LTR / RTL) - [QWT-2510] - Step 9
+	// Change 'sizing' dynamically (LTR / RTL) - [QWTC-2140] - Step 9
 	<Image src={hd} sizing="fit" />,
 
 	<Image src={fhd} sizing="fit" />,
 	<Image src={uhd} sizing="fit" />,
 
-	// Change 'sizing' dynamically (LTR / RTL) - [QWT-2510] - Step 8
+	// Change 'sizing' dynamically (LTR / RTL) - [QWTC-2140] - Step 8
 	<Image src={hd} sizing="fill" />,
 
 	<Image src={fhd} sizing="fill" />,
@@ -35,7 +35,7 @@ const ImageTests = [
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
-	// Change 'sizing' dynamically (LTR / RTL) - [QWT-2510] - Step 6
+	// Change 'sizing' dynamically (LTR / RTL) - [QWTC-2140] - Step 6
 	{
 		locale: 'ar-SA',
 		component: <Image src={hd} sizing="none" />
@@ -49,7 +49,7 @@ const ImageTests = [
 		locale: 'ar-SA',
 		component: <Image src={uhd} sizing="none" />
 	},
-	// Change 'sizing' dynamically (LTR / RTL) - [QWT-2510] - Step 5
+	// Change 'sizing' dynamically (LTR / RTL) - [QWTC-2140] - Step 5
 	{
 		locale: 'ar-SA',
 		component: <Image src={hd} sizing="fit" />
@@ -63,7 +63,7 @@ const ImageTests = [
 		locale: 'ar-SA',
 		component: <Image src={uhd} sizing="fit" />
 	},
-	// Change 'sizing' dynamically (LTR / RTL) - [QWT-2510] - Step 4
+	// Change 'sizing' dynamically (LTR / RTL) - [QWTC-2140] - Step 4
 	{
 		locale: 'ar-SA',
 		component: <Image src={hd} sizing="fill" />

@@ -211,6 +211,8 @@ const PickerBase = kind({
 		/**
 		 * The primary text of the `Picker`.
 		 *
+		 * The screen readers read out the title text when the `joined` prop is false
+		 *
 		 * @type {String}
 		 * @public
 		 */
@@ -326,7 +328,7 @@ const PickerBase = kind({
 		return (
 			<>
 				{title ? <Heading className={classnames(css.title, {[css.inlineTitle]: inlineTitle})} marqueeOn="hover" size="tiny">{title}</Heading> : null}
-				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} value={value}>
+				<PickerCore {...rest} data-webos-voice-labels-ext={voiceLabel} min={0} max={max} index={value} step={1} title={title} value={value}>
 					{children}
 				</PickerCore>
 			</>
