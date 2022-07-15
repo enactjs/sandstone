@@ -11,19 +11,19 @@ const ButtonTests = [
 	},
 	<Button disabled>click me</Button>,
 
-	// [QWT-2394] - Color Underbar displays Icon with 'minWidth' and with 'Disabled'
+	// [QWTC-2255] - Color Underbar displays Icon with 'minWidth' and with 'Disabled'
 	<Button color="red" icon="minus" iconPosition="after" minWidth={false} disabled />,
-	// [QWT-2393] - Change 'disabled' dynamically - Icon is slightly visible with focus / Spotlight
+	// [QWTC-2256] - Change 'disabled' dynamically - Icon is slightly visible with focus / Spotlight
 	<Button selected color="red" icon="minus" iconPosition="after" minWidth={false} disabled />,
 
 	<Button color="red" disabled>plus</Button>,
 
-	// {QWT-2813]
+	// [QWTC-1837]
 	<Button> ฟิ้  ไั  ஒ  து</Button>,
 	<Button>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Button>,
 	<Button>Bản văn</Button>,
 	<Button>តន្ត្រី</Button>,
-	// end [QWT-2813]
+	// end [QWTC-1837]
 
 	// iconPosition = before (Default) + small (default) + large
 	// Leaving size small here as example but it is not required since it is the default.
@@ -48,7 +48,7 @@ const ButtonTests = [
 	// Selected buttons
 	<Button selected>click me</Button>,
 	<Button selected icon="plus" />,
-	<Button selected backgroundOpacity="transparent">click me</Button>, 	// [QWT-2822]
+	<Button selected backgroundOpacity="transparent">click me</Button>, 	// [QWTC-1828]
 	<Button selected backgroundOpacity="transparent" icon="plus" />, // Default for icon-only buttons
 	<Button selected backgroundOpacity="opaque">click me</Button>, // Default for text button
 
@@ -67,13 +67,13 @@ const ButtonTests = [
 	<Button color="yellow" icon="plus" iconPosition="before" minWidth={false}>click me</Button>,
 	<Button color="blue" icon="minus" iconPosition="after" minWidth={false}>click me</Button>,
 
-	// [QWT-2392] - Color Underbar displays on Button (LTR)
+	// [QWTC-2257] - Color Underbar displays on Button (LTR)
 	<Button color="red" icon="plus" iconPosition="before" minWidth={false} />,
 	<Button color="green" icon="plus" iconPosition="after" minWidth={false} />,
 	<Button color="yellow" icon="plus" iconPosition="after" minWidth={false} />,
 	<Button color="blue" icon="plus" iconPosition="after" minWidth={false} />,
 
-	// [QWT-2390] - Color Underbar displays on Small / Large size in Selected state
+	// [QWTC-2259] - Color Underbar displays on Small / Large size in Selected state
 	<Button selected color="red" icon="minus" iconPosition="after" minWidth={false} size="large" />,
 	<Button selected color="red" icon="minus" iconPosition="after" minWidth={false} size="small" />,
 
@@ -88,7 +88,7 @@ const ButtonTests = [
 	<Button icon="arrowhookright" iconFlip="both">click me</Button>,
 	<Button icon="arrowhookright" iconFlip="auto">click me</Button>,
 
-	// [QWT-2819]
+	// [QWTC-1831]
 	<Button icon="rotate">click me</Button>,
 
 	// Focused with light wrapper
@@ -118,7 +118,7 @@ const ButtonTests = [
 
 		// Selected buttons
 		<Button selected>Focused button</Button>,
-		<Button selected backgroundOpacity="transparent">Focused button</Button>, 	// [QWT-2822]
+		<Button selected backgroundOpacity="transparent">Focused button</Button>, 	// [QWTC-1828]
 		<Button selected backgroundOpacity="opaque">Focused button</Button>, // Default for text button
 
 		// iconPosition = before (Default) + children has 1 letter +	minWidth = false
@@ -147,7 +147,7 @@ const ButtonTests = [
 		<Button icon="arrowhookright" iconFlip="both">Focused button</Button>,
 		<Button icon="arrowhookright" iconFlip="auto">Focused button</Button>,
 
-		// [QWT-2819]
+		// [QWTC-1831]
 		<Button icon="rotate">Focused button</Button>
 	]),
 
@@ -197,7 +197,7 @@ const ButtonTests = [
 	// RTL
 	// locale = 'ar-SA'
 	// *************************************************************
-	// [QWT-2821]
+	// [QWTC-1829]
 	...withConfig({locale: 'ar-SA'}, [
 		<Button>click me</Button>,
 
@@ -221,7 +221,7 @@ const ButtonTests = [
 		// Selected buttons
 		<Button selected>click me</Button>,
 		<Button selected icon="plus" />,
-		<Button selected backgroundOpacity="transparent">click me</Button>, 	// [QWT-2822]
+		<Button selected backgroundOpacity="transparent">click me</Button>, 	// [QWTC-1828]
 		<Button selected backgroundOpacity="transparent" icon="plus" />, // Default for icon-only buttons
 		<Button selected backgroundOpacity="opaque">click me</Button>, // Default for text button
 
@@ -238,13 +238,13 @@ const ButtonTests = [
 		// iconPosition = before (Default) + color + icon + iconPosition + minWidth
 		<Button color="yellow" icon="plus" iconPosition="before" minWidth={false}>click me</Button>,
 		<Button color="blue" icon="minus" iconPosition="after" minWidth={false}>click me</Button>,
-		// [QWT-2391] - Color Underbar displays on Button (RTL)
+		// [QWTC-2258] - Color Underbar displays on Button (RTL)
 		<Button color="red" icon="plus" iconPosition="before" minWidth={false} />,
 		<Button color="green" icon="plus" iconPosition="after" minWidth={false} />,
 		<Button color="yellow" icon="plus" iconPosition="after" minWidth={false} />,
 		<Button color="blue" icon="plus" iconPosition="after" minWidth={false} />,
 
-		// [QWT-2390] - Color Underbar displays on Small / Large size in Selected state
+		// [QWTC-2259] - Color Underbar displays on Small / Large size in Selected state
 		<Button selected color="red" icon="minus" iconPosition="after" minWidth={false} size="large" />,
 		<Button selected color="red" icon="minus" iconPosition="after" minWidth={false} size="small" />,
 		// iconPosition = before (Default) + icon

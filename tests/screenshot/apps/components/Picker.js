@@ -44,15 +44,15 @@ const PickerTests = [
 	// Picker is disabled (since it only has one item)
 	<Picker>{pickerList.oneAirport}</Picker>,
 
-	// Locale Font Displays on Picker - [QWT-2435]
+	// Locale Font Displays on Picker - [QWTC-2214]
 	<Picker value={0}>{pickerList.tall}</Picker>,
 	{
 		locale: 'th-TH',
 		component: <Picker value={0}>{pickerList.tall}</Picker>
 	},
-	// end of [QWT-2435]
+	// end of [QWTC-2214]
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWT-2434]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWTC-2215]
 	// Marked part automated due to Marquee and Click actions
 	// Step 2: Tall characters display fully and are not truncated.
 	<Picker width="large">{pickerList.tall}</Picker>,
@@ -74,7 +74,7 @@ const PickerTests = [
 	<Picker value={2} width="large" incrementIcon="minus">{pickerList.tall}</Picker>,
 	// Step 11: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
 	<Picker value={2} width="large" decrementIcon="backward" incrementIcon="plus">{pickerList.tall}</Picker>,
-	// end of [QWT-2434]
+	// end of [QWTC-2215]
 
 	<Picker value={2} width="medium">{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="small">{pickerList.vegetables}</Picker>,
@@ -100,12 +100,12 @@ const PickerTests = [
 	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled>{pickerList.vegetables}</Picker>,
 	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
 	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
-	// Ellipsis Displays with RTL Text in LTR Locale - [QWT-2450]
+	// Ellipsis Displays with RTL Text in LTR Locale - [QWTC-2199]
 	// Marked part automated as cannnot check for marquee (step 4 - part 2)
 	// Step 3 - part 1: The RTL text displays. The Right arrow button is disabled.
 	// Step 4 - part 1: Ellipsis display on the left side of the text.
 	<Picker value={3} width="medium">{pickerList.airports}</Picker>,
-	// end of [QWT-2450]
+	// end of [QWTC-2199]
 
 	// *************************************************************
 	// vertical
@@ -120,20 +120,20 @@ const PickerTests = [
 	<Picker orientation="vertical">{pickerList.vegetables}</Picker>,
 	<Picker value={1} orientation="vertical">{pickerList.vegetables}</Picker>,
 
-	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [QWT-2433]
+	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [QWTC-2216]
 	// Marked part auotomated due to one click required
 	<Picker value={0} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	<Picker value={1} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	<Picker value={2} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	<Picker value={3} width="large" orientation="vertical">{pickerList.tall}</Picker>,
-	// end of [QWT-2433]
+	// end of [QWTC-2216]
 
-	// oneItem: Change 'orientation'to Vertical, 'joined', 'disabled' dynamically - [QWT-2437]
+	// oneItem: Change 'orientation'to Vertical, 'joined', 'disabled' dynamically - [QWTC-2212]
 	// Step 2 Picker is disabled (since it only has one item).
 	<Picker orientation="vertical">{pickerList.oneAirport}</Picker>,
-	// end of [QWT-2437]
+	// end of [QWTC-2212]
 
-	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [QWT-2436]
+	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [QWTC-2213]
 	<Picker orientation="vertical" />,
 	// step 3:  Picker displays vertically.
 	<Picker value={2} width="medium" orientation="vertical">{pickerList.vegetables}</Picker>,
@@ -153,7 +153,7 @@ const PickerTests = [
 	<Picker value={2} width="medium" orientation="vertical" incrementIcon="minus">{pickerList.vegetables}</Picker>,
 	// step 12: *play* displays below the label.
 	<Picker value={2} width="medium" orientation="vertical" decrementIcon="play">{pickerList.vegetables}</Picker>,
-	// end of [QWT-2436]
+	// end of [QWTC-2213]
 
 	<Picker value={1} width="medium" orientation="vertical" joined>{pickerList.vegetables}</Picker>,
 	<Picker width="medium" orientation="vertical" wrap joined>{pickerList.vegetables}</Picker>,
@@ -187,7 +187,7 @@ const PickerTests = [
 	// locale = 'ar-SA'
 	// *************************************************************
 
-	// Ellipses displays for RTL Text in RTL Locale - [QWT-2451]
+	// Ellipses displays for RTL Text in RTL Locale - [QWTC-2198]
 	// Marked part automated as cannnot check for marquee (step 4 - part 3)
 	// Step 4 - part 1: the RTL text displays with the ellipsis displaying on the left side of the text.
 	// Step 4 - part 2: the Right arrow button is disabled.
@@ -195,7 +195,7 @@ const PickerTests = [
 		locale: 'ar-SA',
 		component: <Picker value={3} width="medium">{pickerList.airports}</Picker>
 	},
-	// end of [QWT-2451]
+	// end of [QWTC-2198]
 
 	{
 		locale: 'ar-SA',
@@ -232,7 +232,7 @@ const PickerTests = [
 		component: <Picker>{pickerList.oneAirport}</Picker>
 	},
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWT-2434]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWTC-2215]
 	// Marked part automated due to Marquee and Click actions
 	// Step 2: Tall characters display fully and are not truncated.
 	{
@@ -284,7 +284,7 @@ const PickerTests = [
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" decrementIcon="backward" incrementIcon="plus">{pickerList.tall}</Picker>
 	},
-	// end of [QWT-2434]
+	// end of [QWTC-2215]
 
 	{
 		locale: 'ar-SA',
@@ -414,7 +414,7 @@ const PickerTests = [
 		component: <Picker value={1} orientation="vertical">{pickerList.vegetables}</Picker>
 	},
 
-	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [QWT-2433]
+	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [QWTC-2216]
 	// Marked part auotomated due to one click required
 	{
 		locale: 'ar-SA',
@@ -432,17 +432,17 @@ const PickerTests = [
 		locale: 'ar-SA',
 		component: <Picker value={3} width="large" orientation="vertical">{pickerList.tall}</Picker>
 	},
-	// end of [QWT-2433]
+	// end of [QWTC-2216]
 
-	// oneItem: Change 'orientation'to Vertical, 'joined', 'disabled' dynamically - [QWT-2437]
+	// oneItem: Change 'orientation'to Vertical, 'joined', 'disabled' dynamically - [QWTC-2212]
 	// Step 2 Picker is disabled (since it only has one item).
 	{
 		locale: 'ar-SA',
 		component: <Picker orientation="vertical">{pickerList.oneAirport}</Picker>
 	},
-	// end of [QWT-2437]
+	// end of [QWTC-2212]
 
-	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [QWT-2436]
+	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [QWTC-2213]
 	{
 		locale: 'ar-SA',
 		component: <Picker orientation="vertical" />
@@ -492,7 +492,7 @@ const PickerTests = [
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium" orientation="vertical" decrementIcon="play">{pickerList.vegetables}</Picker>
 	},
-	// end of [QWT-2436]
+	// end of [QWTC-2213]
 
 	{
 		locale: 'ar-SA',
