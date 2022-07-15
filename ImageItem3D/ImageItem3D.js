@@ -36,7 +36,7 @@ const ImageItem3DBase = kind({
 		setSelected: null
 	},
 
-	render: ({children, disabled, label, src, position, imageItemRef, index, pointerDown, selected, setControlled, setPointerDown, setSelected, ...rest}) => {
+	render: ({children, disabled, imageItemRef, index, label, pointerDown, position, selected, setControlled, setPointerDown, setSelected, src, ...rest}) => {
 		const groupRef = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
 		const mesh = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
 		const textRef = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
