@@ -1,5 +1,6 @@
 import kind from '@enact/core/kind';
 import {OrbitControls, Text} from '@react-three/drei';
+import {Interactive} from '@react-three/xr';
 import PropTypes from 'prop-types';
 import {useCallback, useRef, useState} from 'react';
 import * as THREE from 'three';
@@ -32,7 +33,12 @@ const Item3DBase = kind({
 	render: ({children, disabled, label, size, ...rest}) => {
 		const mesh = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
 		const textRef = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
+		const zPosition = -0.1;
+
 		const [hovered, setHover] = useState(false); // eslint-disable-line react-hooks/rules-of-hooks
+		const [shapePosition, setShapePosition] = useState([0, 0, zPosition - 0.5]);
+		const [textPosition, setTextPosition] = useState([-3, label ? 0.25 : 0, zPosition]);
+		const [labelPosition, setLabelPosition] = useState([-3, -0.25, zPosition]);
 		const shape = new THREE.Shape();
 
 		let sizeX = 15;
@@ -59,51 +65,78 @@ const Item3DBase = kind({
 			setHover(false);
 		}, []);
 
+		const onPointerDown = useCallback(() => {
+			setShapePosition([0, 0, zPosition + 0.2]);
+			setTextPosition([-3, label ? 0.3 : 0, zPosition + 1]);
+			setLabelPosition([-3, -0.3, zPosition + 1]);
+		}, [zPosition]);
+
+		const onPointerUp = useCallback(() => {
+			setShapePosition([0, 0, zPosition - 0.5]);
+			setTextPosition([-3, label ? 0.25 : 0, zPosition]);
+			setLabelPosition([-3, -0.25, zPosition]);
+		}, [zPosition]);
+
+		const onSqueezeStartHandler = useCallback(() => {
+			setShapePosition([0, 0, zPosition - 1.5]);
+			setTextPosition([-3, label ? 0.2 : 0, zPosition]);
+			setLabelPosition([-3, -0.2, zPosition]);
+		}, [zPosition]);
+
 		return (
-			<group>
-				<group position={[0, 0, -0.51]}>
-					<mesh
-						{...rest}
-						ref={mesh}
-						onPointerOver={handlePointerOver}
-						onPointerOut={handlePointerOut}
-					>
-						<lineSegments>
-							<edgesGeometry args={[itemGeometry]} />
-							<lineBasicMaterial color={lineColor} />
-						</lineSegments>
-						<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.4}]} />
-						<meshStandardMaterial color={hovered ? disabledHoverColor : '#212121'} />
-						<OrbitControls />
-					</mesh>
+			<Interactive
+				onHover={() => setHover(true)}
+				onBlur={() => setHover(false)}
+				onSelectStart={onPointerDown}
+				onSelectEnd={onPointerUp}
+				onSqueezeStart={onSqueezeStartHandler}
+				onSqueezeEnd={onPointerUp}
+			>
+				<group>
+					<group position={shapePosition}>
+						<mesh
+							{...rest}
+							ref={mesh}
+							onPointerOver={handlePointerOver}
+							onPointerOut={handlePointerOut}
+						>
+							<lineSegments>
+								<edgesGeometry args={[itemGeometry]} />
+								<lineBasicMaterial color={lineColor} />
+							</lineSegments>
+							<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.4}]} />
+							<meshStandardMaterial color={hovered ? disabledHoverColor : '#212121'} />
+							<OrbitControls />
+						</mesh>
+					</group>
+					<group position={textPosition}>
+						<Text
+							ref={textRef}
+							anchorX="left"
+							anchorY="middle"
+							color={hovered ? '#6f7074' : disabledHoverColor}
+							font={'http://fonts.gstatic.com/s/modak/v5/EJRYQgs1XtIEskMA-hI.woff'}
+							fontSize={0.5}
+							maxWidth={15}
+							textAlign="left"
+						>
+							{children}
+						</Text>
+					</group>
+					<group position={labelPosition}>
+						<Text
+							anchorX="left"
+							color={hovered ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
+							font={'../fonts/MuseoSans/MuseoSans-BoldItalic.ttf'}
+							fontSize={0.3}
+							maxWidth={15}
+							textAlign="left"
+						>
+							{label}
+						</Text>
+					</group>
 				</group>
-				<group position={[-3, label ? 0.25 : 0, -0.1]}>
-					<Text
-						ref={textRef}
-						anchorX="left"
-						anchorY="middle"
-						color={hovered ? '#6f7074' : disabledHoverColor}
-						font={'http://fonts.gstatic.com/s/modak/v5/EJRYQgs1XtIEskMA-hI.woff'}
-						fontSize={0.5}
-						maxWidth={15}
-						textAlign="left"
-					>
-						{children}
-					</Text>
-				</group>
-				<group position={[-3, -0.25, -0.1]}>
-					<Text
-						anchorX="left"
-						color={hovered ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
-						font={'../fonts/MuseoSans/MuseoSans-BoldItalic.ttf'}
-						fontSize={0.3}
-						maxWidth={15}
-						textAlign="left"
-					>
-						{label}
-					</Text>
-				</group>
-			</group>
+			</Interactive>
 		);
 	}
 });

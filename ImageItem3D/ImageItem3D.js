@@ -74,12 +74,10 @@ const ImageItem3DBase = kind({
 		};
 
 		const handlePointerOver = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
-			console.log('pointer over')
 			setHover(true);
 		}, []);
 
 		const handlePointerOut = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
-			console.log('pointer out')
 			setHover(false);
 		}, []);
 
@@ -95,13 +93,10 @@ const ImageItem3DBase = kind({
 
 		return (
 			<Interactive
-				// onHover={() => setHover(true)}
-				// onBlur={() => setHover(false)}
-				// onSelect={handleSelect}
-				// onSelectStart={handlePointerOver}
-				onSelectStart={() => console.log('select start')}
-				onSelectEnd={() => console.log('select end')}
-				// onSelectEnd={handlePointerOut}
+				onHover={() => setHover(true)}
+				onBlur={() => setHover(false)}
+				onSelectStart={handlePointerOver}
+				onSelectEnd={handlePointerOut}
 				onSqueezeStart={handlePointerOver}
 				onSqueezeEnd={handlePointerOut}
 			>

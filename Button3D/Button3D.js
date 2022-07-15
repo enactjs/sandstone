@@ -1,5 +1,5 @@
-import { OrbitControls, Text } from '@react-three/drei';
-import { Interactive } from '@react-three/xr';
+import {OrbitControls, Text} from '@react-three/drei';
+import {Interactive} from '@react-three/xr';
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
@@ -93,7 +93,7 @@ const Button3DBase = (props) => {
 	const onSqueezeStartHandler = useCallback(() => {
 		setShapePosition([0, 0, zPosition - 0.2]);
 		setTextPosition([0, 0, zPosition]);
-	}, [zPosition])
+	}, [zPosition]);
 
 	const computeIcon = useCallback(() => {
 		const iconProp = props.icon;
@@ -131,7 +131,6 @@ const Button3DBase = (props) => {
 	useEffect(() => {
 		setIcon(computeIcon);
 	}, [props.icon, computeIcon]);
-
 
 	return (
 		<Interactive

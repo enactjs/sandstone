@@ -1,4 +1,3 @@
-import {Interactive} from '@react-three/xr';
 import PropTypes from 'prop-types';
 import {useRef, useState} from 'react';
 
@@ -52,7 +51,6 @@ const Gallery3D = () => {
 		[14, -16, -10]]; // 24
 
 	return (
-		<Interactive onHover={() => setHover(true)} onBlur={() => setHover(false)} onSelect={handleSelect}>
 			<group name="imageCopies">
 				{positions.map((position, i) => {
 					return (
@@ -68,7 +66,6 @@ const Gallery3D = () => {
 				}
 				)}
 			</group>
-		</Interactive>
 	);
 };
 
