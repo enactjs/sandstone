@@ -69,24 +69,24 @@ const Item3DBase = kind({
 			setShapePosition([0, 0, zPosition + 0.2]);
 			setTextPosition([-3, label ? 0.3 : 0, zPosition + 1]);
 			setLabelPosition([-3, -0.3, zPosition + 1]);
-		}, [zPosition]);
+		}, [label, zPosition]);
 
 		const onPointerUp = useCallback(() => {
 			setShapePosition([0, 0, zPosition - 0.5]);
 			setTextPosition([-3, label ? 0.25 : 0, zPosition]);
 			setLabelPosition([-3, -0.25, zPosition]);
-		}, [zPosition]);
+		}, [label, zPosition]);
 
 		const onSqueezeStartHandler = useCallback(() => {
 			setShapePosition([0, 0, zPosition - 1.5]);
 			setTextPosition([-3, label ? 0.2 : 0, zPosition]);
 			setLabelPosition([-3, -0.2, zPosition]);
-		}, [zPosition]);
+		}, [label, zPosition]);
 
 		return (
 			<Interactive
-				onHover={() => setHover(true)}
-				onBlur={() => setHover(false)}
+				onHover={handlePointerOver}
+				onBlur={handlePointerOut}
 				onSelectStart={onPointerDown}
 				onSelectEnd={onPointerUp}
 				onSqueezeStart={onSqueezeStartHandler}
