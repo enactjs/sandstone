@@ -1,7 +1,6 @@
 import Gallery3D from '../../../../Gallery3D';
-import {Suspense} from 'react';
 import Spinner from '@enact/sandstone/Spinner';
-import {VRCanvas, DefaultXRControllers} from '@react-three/xr';
+import {Suspense} from 'react';
 
 Gallery3D.displayName = 'Gallery3D';
 
@@ -13,13 +12,7 @@ export default {
 export const _Gallery3D = () => {
 	return (
 		<Suspense fallback={<Spinner />}>
-			<VRCanvas>
-				<DefaultXRControllers />
-				<ambientLight intensity={0.5} />
-				<pointLight position={[10, 30, 10]} intensity={10} />
-				<pointLight position={[-20, -30, -10]} intensity={2} />
-				<Gallery3D />
-			</VRCanvas>
+			<Gallery3D />
 		</Suspense>
 	);
 };

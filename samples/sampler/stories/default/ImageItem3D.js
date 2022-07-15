@@ -1,9 +1,10 @@
+import ImageItem3D, {ImageItem3DBase} from '@enact/sandstone/ImageItem3D';
+import Spinner from '@enact/sandstone/Spinner';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import ImageItem3D, {ImageItem3DBase} from '@enact/sandstone/ImageItem3D';
-import {Suspense} from 'react';
-import Spinner from '@enact/sandstone/Spinner';
 import {VRCanvas, DefaultXRControllers} from '@react-three/xr';
+import {OrbitControls} from '@react-three/drei';
+import {Suspense} from 'react';
 
 ImageItem3D.displayName = 'ImageItem3D';
 const Config = mergeComponentMetadata('ImageItem3D', ImageItem3DBase, ImageItem3D);
@@ -19,6 +20,7 @@ export const _ImageItem3D = (args) => {
 	return (
 		<Suspense fallback={<Spinner />}>
 			<VRCanvas>
+				<OrbitControls />
 				<DefaultXRControllers />
 				<ambientLight intensity={0.5} />
 				<pointLight position={[10, 30, 10]} intensity={10} />
