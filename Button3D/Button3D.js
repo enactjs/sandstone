@@ -1,4 +1,5 @@
 import {OrbitControls, Text} from '@react-three/drei';
+import {Interactive} from '@react-three/xr';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import * as THREE from 'three';
@@ -58,7 +59,7 @@ const Button3DBase = (props) => {
 	let tooltipHalfX = tooltipSizeX * 0.5 - tooltipRadius;
 	let tooltipHalfY = tooltipSizeY * 0.5 - tooltipRadius;
 	let tooltipBaseAngle = Math.PI * 0.5;
-	tooltipShape.absarc(tooltipHalfX, tooltipHalfY, tooltipRadius, 0,  +tooltipBaseAngle);
+	tooltipShape.absarc(tooltipHalfX, tooltipHalfY, tooltipRadius, 0, +tooltipBaseAngle);
 	tooltipShape.absarc(-tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle, tooltipBaseAngle + tooltipBaseAngle);
 	tooltipShape.absarc(-tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 2, tooltipBaseAngle * 2 + tooltipBaseAngle);
 	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle);
@@ -88,6 +89,11 @@ const Button3DBase = (props) => {
 	const handlePointerOut = useCallback(() => {
 		setHover(false);
 	}, []);
+
+	const onSqueezeStartHandler = useCallback(() => {
+		setShapePosition([0, 0, zPosition - 0.2]);
+		setTextPosition([0, 0, zPosition]);
+	}, [zPosition]);
 
 	const computeIcon = useCallback(() => {
 		const iconProp = props.icon;
@@ -126,79 +132,87 @@ const Button3DBase = (props) => {
 		setIcon(computeIcon);
 	}, [props.icon, computeIcon]);
 
-
 	return (
-		<group>
-			{isTooltipVisible &&
-				<group>
-					<group position={tooltipPosition}>
-						<mesh
-							{...props}
-							ref={mesh}
-						>
-							<lineSegments>
-								<edgesGeometry args={[tooltipGeometry]} />
-								<lineBasicMaterial color={lineColor} />
-							</lineSegments>
-							<extrudeBufferGeometry args={[tooltipShape, {bevelEnabled: false, depth: 0.15}]} />
-							<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
-						</mesh>
-					</group>
+		<Interactive
+			onHover={handlePointerOver}
+			onBlur={handlePointerOut}
+			onSelectStart={onPointerDown}
+			onSelectEnd={onPointerUp}
+			onSqueezeStart={onSqueezeStartHandler}
+			onSqueezeEnd={onPointerUp}
+		>
+			<group>
+				{isTooltipVisible &&
 					<group>
-						<Text position={tooltipTextPosition} color="#4c5059" anchorX="center" anchorY="middle" fontSize={0.5}>
-							{props.tooltipText}
-						</Text>
+						<group position={tooltipPosition}>
+							<mesh
+								{...props}
+								ref={mesh}
+							>
+								<lineSegments>
+									<edgesGeometry args={[tooltipGeometry]} />
+									<lineBasicMaterial color={lineColor} />
+								</lineSegments>
+								<extrudeBufferGeometry args={[tooltipShape, {bevelEnabled: false, depth: 0.15}]} />
+								<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
+							</mesh>
+						</group>
+						<group>
+							<Text position={tooltipTextPosition} color="#4c5059" anchorX="center" anchorY="middle" fontSize={0.5}>
+								{props.tooltipText}
+							</Text>
+						</group>
 					</group>
+				}
+				<group position={shapePosition}>
+					<mesh
+						{...props}
+						ref={mesh}
+						scale={hovered ? 1.05 : 1}
+						onPointerDown={onPointerDown}
+						onPointerUp={onPointerUp}
+						onPointerOver={handlePointerOver}
+						onPointerOut={handlePointerOut}
+					>
+						<lineSegments>
+							<edgesGeometry args={[buttonGeometry]} />
+							<lineBasicMaterial color={lineColor} />
+						</lineSegments>
+						<extrudeBufferGeometry args={[buttonShape, {bevelEnabled: false, depth: 0.15}]} />
+						<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
+					</mesh>
 				</group>
-			}
-			<group position={shapePosition}>
-				<mesh
-					{...props}
-					ref={mesh}
-					scale={hovered ? 1.05 : 1}
-					onPointerDown={onPointerDown}
-					onPointerUp={onPointerUp}
-					onPointerOver={handlePointerOver}
-					onPointerOut={handlePointerOut}
-				>
-					<lineSegments>
-						<edgesGeometry args={[buttonGeometry]} />
-						<lineBasicMaterial color={lineColor} />
-					</lineSegments>
-					<extrudeBufferGeometry args={[buttonShape, {bevelEnabled: false, depth: 0.15}]} />
-					<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
-				</mesh>
+				<group position={textPosition}>
+					<Text
+						font={sandstoneIcons}
+						color={hovered ? '#4c5059' : '#e6e6e6'}
+						anchorX="center"
+						anchorY="middle"
+						fontSize={1}
+					>
+						{props.iconPosition === 'before' ? icon : null}
+					</Text>
+					<Text
+						color={hovered ? '#4c5059' : '#e6e6e6'}
+						anchorX="center"
+						anchorY="middle"
+						fontSize={0.5}
+					>
+						{props.children}
+					</Text>
+					<Text
+						font={sandstoneIcons}
+						color={hovered ? '#4c5059' : '#e6e6e6'}
+						anchorX="center"
+						anchorY="middle"
+						fontSize={1}
+					>
+						{props.iconPosition === 'after' ? icon : null}
+					</Text>
+				</group>
+				<OrbitControls />
 			</group>
-			<group position={textPosition}>
-				<Text
-					font={sandstoneIcons}
-					color={hovered ? '#4c5059' : '#e6e6e6'}
-					anchorX="center"
-					anchorY="middle"
-					fontSize={1}
-				>
-					{props.iconPosition === 'before' ? icon : null}
-				</Text>
-				<Text
-					color={hovered ? '#4c5059' : '#e6e6e6'}
-					anchorX="center"
-					anchorY="middle"
-					fontSize={0.5}
-				>
-					{props.children}
-				</Text>
-				<Text
-					font={sandstoneIcons}
-					color={hovered ? '#4c5059' : '#e6e6e6'}
-					anchorX="center"
-					anchorY="middle"
-					fontSize={1}
-				>
-					{props.iconPosition === 'after' ? icon : null}
-				</Text>
-			</group>
-			<OrbitControls />
-		</group>
+		</Interactive>
 	);
 };
 

@@ -2,6 +2,7 @@ import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import {Text} from '@react-three/drei';
 import {useLoader} from '@react-three/fiber';
+import {Interactive} from '@react-three/xr';
 import PropTypes from 'prop-types';
 import {useCallback, useImperativeHandle, useRef, useState} from 'react';
 import * as THREE from 'three';
@@ -131,7 +132,14 @@ const ImageItem3DBase = kind({
 		}));
 
 		return (
-			<group>
+			<Interactive
+				onHover={handlePointerOver}
+				onBlur={handlePointerOut}
+				onSelectStart={handlePointerOver}
+				onSelectEnd={handlePointerOut}
+				onSqueezeStart={handlePointerOver}
+				onSqueezeEnd={handlePointerOut}
+			>
 				<group
 					{...rest}
 					ref={groupRef}
@@ -184,7 +192,7 @@ const ImageItem3DBase = kind({
 						{image}
 					</group>
 				</group>
-			</group>
+			</Interactive>
 		);
 	}
 });
