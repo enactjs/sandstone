@@ -27,15 +27,15 @@
     "@enact/ui": "^4.5.0-rc.2",
     "classnames": "^2.3.1",
     "ilib": "^14.14.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@enact/storybook-utils": "^4.1.0",
     "@storybook/addons": "6.3.12",
     "@storybook/react": "6.3.12",
     "@storybook/theming": "6.3.12",
-    "babel-loader": "^8.2.3",
-    "core-js": "^3.20.1"
+    "babel-loader": "^8.2.5",
+    "core-js": "^3.23.4"
   }
 }
