@@ -95,37 +95,20 @@ const Gallery3D = kind({
 					onPointerUp={handlePointerUp}
 				>
 					{positions.map((position, i) => {
-						if (pointerDown === -1) {
-							return (
-								<Image
-									name={'Image-' + i}
-									position={position}
-									index={i}
-									key={i}
-									pointerDown={pointerDown}
-									selected={selected}
-									setPointerDown={setPointerDown}
-									setSelected={setSelected}
-									setControlled={setIsControlled}
-									imageItemRef={imageItemRef}
-								/>
-							);
-						} else {
-							return (
-								<Image
-									name={'Image-' + i}
-									position={position}
-									index={i}
-									key={i}
-									pointerDown={pointerDown}
-									selected={selected}
-									setPointerDown={setPointerDown}
-									setSelected={setSelected}
-									setControlled={setIsControlled}
-									imageItemRef={pointerDown === i ? imageItemRef : fakeRef}
-								/>
-							);
-						}
+						return (
+							<Image
+								name={'Image-' + i}
+								position={position}
+								index={i}
+								key={i}
+								pointerDown={pointerDown}
+								selected={selected}
+								setPointerDown={setPointerDown}
+								setSelected={setSelected}
+								setControlled={setIsControlled}
+								imageItemRef={pointerDown === i ? imageItemRef : fakeRef}
+							/>
+						);
 					})}
 				</group>
 			</VRCanvas>
