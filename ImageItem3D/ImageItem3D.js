@@ -1,9 +1,9 @@
 import kind from '@enact/core/kind';
-import { OrbitControls, Text } from '@react-three/drei';
-import { useLoader } from '@react-three/fiber';
-import { Interactive } from '@react-three/xr';
+import {OrbitControls, Text} from '@react-three/drei';
+import {useLoader} from '@react-three/fiber';
+import {Interactive} from '@react-three/xr';
 import PropTypes from 'prop-types';
-import { useCallback, useRef, useState } from 'react';
+import {useCallback, useRef, useState} from 'react';
 import * as THREE from 'three';
 
 import Skinnable from '../Skinnable';
@@ -31,7 +31,7 @@ const ImageItem3DBase = kind({
 		setSelected: null
 	},
 
-	render: ({ children, disabled, label, src, position, index, selected, setSelected, ...rest }) => {
+	render: ({children, disabled, label, src, position, index, selected, setSelected, ...rest}) => {
 
 		const mesh = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
 		const textRef = useRef(); // eslint-disable-line react-hooks/rules-of-hooks
@@ -59,7 +59,7 @@ const ImageItem3DBase = kind({
 		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
 
 		const lineColor = (hovered || selected === index) ? '#363636' : '#e6e6e6';
-		const imageItemGeometry = new THREE.ExtrudeGeometry(shape, { bevelEnabled: false, depth: 0.3 });
+		const imageItemGeometry = new THREE.ExtrudeGeometry(shape, {bevelEnabled: false, depth: 0.3});
 
 		const handlePosition = () => {
 			if (selected === index) {
@@ -93,8 +93,8 @@ const ImageItem3DBase = kind({
 
 		return (
 			<Interactive
-				onHover={() => setHover(true)}
-				onBlur={() => setHover(false)}
+				onHover={handlePointerOver}
+				onBlur={handlePointerOut}
 				onSelectStart={handlePointerOver}
 				onSelectEnd={handlePointerOut}
 				onSqueezeStart={handlePointerOver}
@@ -112,7 +112,7 @@ const ImageItem3DBase = kind({
 								<edgesGeometry args={[imageItemGeometry]} />
 								<lineBasicMaterial color={lineColor} />
 							</lineSegments>
-							<extrudeBufferGeometry args={[shape, { bevelEnabled: false, depth: 0.3 }]} />
+							<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.3}]} />
 							<meshStandardMaterial color={hovered || (selected === index) ? disabledHoverColor : '#282929'} />
 							<OrbitControls />
 						</mesh>
@@ -151,7 +151,7 @@ const ImageItem3DBase = kind({
 	}
 });
 
-const ImageItem3D = Skinnable({ prop: 'skin' }, ImageItem3DBase);
+const ImageItem3D = Skinnable({prop: 'skin'}, ImageItem3DBase);
 
 export default ImageItem3D;
 export {

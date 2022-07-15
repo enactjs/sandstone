@@ -1,7 +1,7 @@
 import {OrbitControls, Text} from '@react-three/drei';
 import {Interactive} from '@react-three/xr';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import * as THREE from 'three';
 
 import iconList from '../Icon/IconList.js';
@@ -64,8 +64,8 @@ const Button3DBase = (props) => {
 	tooltipShape.absarc(-tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 2, tooltipBaseAngle * 2 + tooltipBaseAngle);
 	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle);
 
-	const buttonGeometry = new THREE.ExtrudeGeometry(buttonShape, { bevelEnabled: false, depth: 0.15 });
-	const tooltipGeometry = new THREE.ExtrudeGeometry(tooltipShape, { bevelEnabled: false, depth: 0.15 });
+	const buttonGeometry = new THREE.ExtrudeGeometry(buttonShape, {bevelEnabled: false, depth: 0.15});
+	const tooltipGeometry = new THREE.ExtrudeGeometry(tooltipShape, {bevelEnabled: false, depth: 0.15});
 	const lineColor = '#111111';
 
 	const isTooltipVisible = props.showTooltip && hovered;
@@ -134,8 +134,8 @@ const Button3DBase = (props) => {
 
 	return (
 		<Interactive
-			onHover={() => setHover(true)}
-			onBlur={() => setHover(false)}
+			onHover={handlePointerOver}
+			onBlur={handlePointerOut}
 			onSelectStart={onPointerDown}
 			onSelectEnd={onPointerUp}
 			onSqueezeStart={onSqueezeStartHandler}
@@ -153,7 +153,7 @@ const Button3DBase = (props) => {
 									<edgesGeometry args={[tooltipGeometry]} />
 									<lineBasicMaterial color={lineColor} />
 								</lineSegments>
-								<extrudeBufferGeometry args={[tooltipShape, { bevelEnabled: false, depth: 0.15 }]} />
+								<extrudeBufferGeometry args={[tooltipShape, {bevelEnabled: false, depth: 0.15}]} />
 								<meshStandardMaterial color={hovered ? '#e6e6e6' : '#7d848c'} />
 							</mesh>
 						</group>
