@@ -36,9 +36,9 @@ const Item3DBase = kind({
 		const zPosition = -0.1;
 
 		const [hovered, setHover] = useState(false); // eslint-disable-line react-hooks/rules-of-hooks
-		const [shapePosition, setShapePosition] = useState([0, 0, zPosition - 0.5]);
-		const [textPosition, setTextPosition] = useState([-3, label ? 0.25 : 0, zPosition]);
-		const [labelPosition, setLabelPosition] = useState([-3, -0.25, zPosition]);
+		const [shapePosition, setShapePosition] = useState([0, 0, zPosition - 0.5]); // eslint-disable-line react-hooks/rules-of-hooks
+		const [textPosition, setTextPosition] = useState([-3, label ? 0.25 : 0, zPosition]); // eslint-disable-line react-hooks/rules-of-hooks
+		const [labelPosition, setLabelPosition] = useState([-3, -0.25, zPosition]); // eslint-disable-line react-hooks/rules-of-hooks
 		const shape = new THREE.Shape();
 
 		let sizeX = 15;
@@ -65,19 +65,19 @@ const Item3DBase = kind({
 			setHover(false);
 		}, []);
 
-		const onPointerDown = useCallback(() => {
+		const onPointerDown = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
 			setShapePosition([0, 0, zPosition + 0.2]);
 			setTextPosition([-3, label ? 0.3 : 0, zPosition + 1]);
 			setLabelPosition([-3, -0.3, zPosition + 1]);
 		}, [label, zPosition]);
 
-		const onPointerUp = useCallback(() => {
+		const onPointerUp = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
 			setShapePosition([0, 0, zPosition - 0.5]);
 			setTextPosition([-3, label ? 0.25 : 0, zPosition]);
 			setLabelPosition([-3, -0.25, zPosition]);
 		}, [label, zPosition]);
 
-		const onSqueezeStartHandler = useCallback(() => {
+		const onSqueezeStartHandler = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
 			setShapePosition([0, 0, zPosition - 1.5]);
 			setTextPosition([-3, label ? 0.2 : 0, zPosition]);
 			setLabelPosition([-3, -0.2, zPosition]);
