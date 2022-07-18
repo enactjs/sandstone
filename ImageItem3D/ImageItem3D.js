@@ -34,7 +34,7 @@ const ImageItem3DBase = kind({
 		position: [0, 0, 0],
 		selected: null,
 		setSelected: null,
-		setControlled: () => {},
+		setControlled: () => {}
 	},
 
 	render: ({children, disabled, imageItemRef, index, label, pointerDown, position, selected, setControlled, setPointerDown, setSelected, src, ...rest}) => {
