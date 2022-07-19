@@ -215,7 +215,7 @@ const PopupTabLayoutBase = kind({
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
-		 * The container id for {@link spotlight/Spotlight}.
+		 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 		 *
 		 * @type {String}
 		 * @public
@@ -463,7 +463,7 @@ const TabPanel = ({spotlightId, ...rest}) => {
 
 TabPanel.propTypes = {
 	/**
-	 * The container id for {@link spotlight/Spotlight}.
+	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 	 *
 	 * @type {String}
 	 * @private
