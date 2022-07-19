@@ -260,6 +260,19 @@ const PanelDecorator = hoc({defaultElement: `.${componentCss.body} *`}, (config,
 			continue5WayHold: true,
 			defaultElement,
 			enterTo: 'last-focused',
+			lastFocusedPersist: (node, all) => {
+				const filtered = all.filter(element => element && !element.dataset?.spotlightIgnoreRestore);
+				const container = typeof node === 'string';
+				return {
+					container,
+					element: !container,
+					key: container ? node : filtered.indexOf(node)
+				};
+			},
+			lastFocusedRestore: ({container, key}, all) => {
+				const filtered = all.filter(element => element && !element.dataset?.spotlightIgnoreRestore);
+				return container ? key : filtered[key];
+			},
 			preserveId: true
 		}),
 		Slottable({slots: ['header']}),
