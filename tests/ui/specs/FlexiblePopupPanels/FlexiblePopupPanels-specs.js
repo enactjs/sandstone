@@ -8,7 +8,7 @@ describe('FlexiblePopupPanels', function () {
 	});
 
 	describe('5-way', function () {
-		it('should open FlexiblePopupPanels and navigate to Panel - [QWT-2143]', async function () {
+		it('should open FlexiblePopupPanels and navigate to Panel - [QWTC-2506]', async function () {
 			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
 			await Page.spotlightSelect();
@@ -37,7 +37,7 @@ describe('FlexiblePopupPanels', function () {
 			await Page.waitForFocused(Interface.prevButton, {targetName: 'prev button 2'});
 		});
 
-		it('should respect Panel autoFocus setting - [QWT-2142]', async function () {
+		it('should respect Panel autoFocus setting - [QWTC-2507]', async function () {
 			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
 			await Page.spotlightSelect();

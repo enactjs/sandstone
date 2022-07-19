@@ -88,7 +88,7 @@ describe('Spotlight', function () {
 	});
 
 	describe('Disappear Test', function () {
-		it('should spot restore button when focus button disappears - [QWT-2280]', async function () {
+		it('should spot restore button when focus button disappears - [QWTC-2369]', async function () {
 			await Page.open();
 			await Page.restoreButton.moveTo();
 			await Page.spotlightUp();
