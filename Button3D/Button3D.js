@@ -5,8 +5,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import * as THREE from 'three';
 
 import iconList from '../Icon/IconList.js';
-import Skinnable from '../Skinnable';
-
+import {get3DShape} from '../internal/util/util';
 import sandstoneIcons from '../fonts/Sandstone_Icons.woff';
 
 /**
@@ -22,7 +21,7 @@ const isUri = function (c) {
 	return (c.indexOf('/') > -1) || (c.indexOf('.') > -1);
 };
 
-const Button3DBase = (props) => {
+const Button3D = (props) => {
 	// This reference will give us direct access to the mesh
 	const mesh = useRef();
 	const zPosition = -3;
@@ -31,38 +30,20 @@ const Button3DBase = (props) => {
 	const [hovered, setHover] = useState(false);
 	const [icon, setIcon] = useState(null);
 
-	// const font = new THREE.FontLoader().parse(sandstoneIcons);
 	const [shapePosition, setShapePosition] = useState([0, 0, zPosition]);
 	const [textPosition, setTextPosition] = useState([0, 0, zPosition + 0.16]);
-
-	const buttonShape = new THREE.Shape();
-	const tooltipShape = new THREE.Shape();
 
 	// Calculations for Button Shape size
 	let sizeX = Math.max(props.children.length * 0.3, props.size === "small" ? 4 : 5);
 	let sizeY = props.size === "small" ? 2 : 3;
 	let radius = 0.5;
-
-	let halfX = sizeX * 0.5 - radius;
-	let halfY = sizeY * 0.5 - radius;
-	let baseAngle = Math.PI * 0.5;
-	buttonShape.absarc(halfX, halfY, radius, 0, baseAngle);
-	buttonShape.absarc(-halfX, halfY, radius, baseAngle, baseAngle + baseAngle);
-	buttonShape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle);
-	buttonShape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle);
+	const buttonShape = get3DShape(radius, sizeX, sizeY);
 
 	// Calculations for Tooltip Shape size
 	let tooltipSizeX = Math.max((props.tooltipText.length || 0) * 0.3, 2.5);
 	let tooltipSizeY = 1.5;
 	let tooltipRadius = 0.5;
-
-	let tooltipHalfX = tooltipSizeX * 0.5 - tooltipRadius;
-	let tooltipHalfY = tooltipSizeY * 0.5 - tooltipRadius;
-	let tooltipBaseAngle = Math.PI * 0.5;
-	tooltipShape.absarc(tooltipHalfX, tooltipHalfY, tooltipRadius, 0, +tooltipBaseAngle);
-	tooltipShape.absarc(-tooltipHalfX, tooltipHalfY, tooltipRadius, tooltipBaseAngle, tooltipBaseAngle + tooltipBaseAngle);
-	tooltipShape.absarc(-tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 2, tooltipBaseAngle * 2 + tooltipBaseAngle);
-	tooltipShape.absarc(tooltipHalfX, -tooltipHalfY, tooltipRadius, tooltipBaseAngle * 3, tooltipBaseAngle * 3 + tooltipBaseAngle);
+	const tooltipShape = get3DShape(tooltipRadius, tooltipSizeX, tooltipSizeY);
 
 	const buttonGeometry = new THREE.ExtrudeGeometry(buttonShape, {bevelEnabled: false, depth: 0.15});
 	const tooltipGeometry = new THREE.ExtrudeGeometry(tooltipShape, {bevelEnabled: false, depth: 0.15});
@@ -216,7 +197,7 @@ const Button3DBase = (props) => {
 	);
 };
 
-Button3DBase.propTypes = {
+Button3D.propTypes = {
 	icon: PropTypes.object,
 	iconPosition: PropTypes.string,
 	showTooltip: PropTypes.bool,
@@ -224,10 +205,4 @@ Button3DBase.propTypes = {
 	tooltipText: PropTypes.string
 };
 
-const Button3D = Skinnable(Button3DBase);
-
 export default Button3D;
-export {
-	Button3DBase,
-	Button3D
-};

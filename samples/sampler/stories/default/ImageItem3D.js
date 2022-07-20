@@ -1,4 +1,4 @@
-import ImageItem3D, {ImageItem3DBase} from '@enact/sandstone/ImageItem3D';
+import ImageItem3D from '@enact/sandstone/ImageItem3D';
 import Spinner from '@enact/sandstone/Spinner';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
@@ -7,7 +7,7 @@ import {OrbitControls} from '@react-three/drei';
 import {Suspense} from 'react';
 
 ImageItem3D.displayName = 'ImageItem3D';
-const Config = mergeComponentMetadata('ImageItem3D', ImageItem3DBase, ImageItem3D);
+const Config = mergeComponentMetadata('ImageItem3D', ImageItem3D);
 
 export default {
 	title: 'Sandstone/ImageItem3D',

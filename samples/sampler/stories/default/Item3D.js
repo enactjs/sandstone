@@ -1,12 +1,12 @@
 import {Suspense} from 'react';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import Item3D, {Item3DBase} from '@enact/sandstone/Item3D';
+import Item3D from '@enact/sandstone/Item3D';
 import Spinner from '@enact/sandstone/Spinner';
 import {VRCanvas} from '@react-three/xr';
 
 Item3D.displayName = 'Item3D';
-const Config = mergeComponentMetadata('Item3D', Item3DBase, Item3D);
+const Config = mergeComponentMetadata('Item3D', Item3D);
 
 export default {
 	title: 'Sandstone/Item3D',
