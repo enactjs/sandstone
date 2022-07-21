@@ -7,10 +7,10 @@ import appCss from '../App/App.module.less';
 const InputView = () => (
 	<>
 		<Section title="Default">
-			<Input alt="With No Placeholder" />
-			<Input alt="With defaultValue" defaultValue="Default Value" />
-			<Input alt="With Placeholder" placeholder="Placeholder" />
-			<Input alt="Disabled with Placeholder" disabled placeholder="Placeholder" />
+			<Input alt="With No Placeholder" subtitle="Subtitle" title="Title" />
+			<Input alt="With defaultValue" defaultValue="Default Value" subtitle="Subtitle" title="Title" />
+			<Input alt="With Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" />
+			<Input alt="Disabled with Placeholder" disabled placeholder="Placeholder" subtitle="Subtitle" title="Title" />
 		</Section>
 
 		<Section className={appCss.marginTop} title="With type">
@@ -35,11 +35,11 @@ const InputView = () => (
 		</Section>
 
 		<Section className={appCss.marginTop} title="Aria-labelled">
-			<Input alt="Aria-labelled" aria-label="This is a Label 0." />
-			<Input alt="Aria-labelled and Disabled" aria-label="This is a Label 1." disabled />
-			<Input alt="With popupAriaLabel" popupAriaLabel="This is a Label 2." />
-			<Input alt="Number Type With Title, Subtitle, and Placeholder" aria-label="This is a Label 3." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
-			<Input alt="Number Type and backButtonAriaLabel With Title, Subtitle, and Placeholder" aria-label="This is a Label 4." backButtonAriaLabel="This is a Back." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
+			<Input alt="Aria-labelled" aria-label="This is a Label 0." subtitle="Subtitle" title="Title" />
+			<Input alt="Aria-labelled and Disabled" aria-label="This is a Label 1." subtitle="Subtitle" title="Title" disabled />
+			<Input alt="With popupAriaLabel" popupAriaLabel="This is a Label 2." subtitle="Subtitle" title="Title" />
+			<Input alt="Number Type With Title, Subtitle, and Placeholder" aria-label="This is a Label 3." popupAriaLabel="This is a Label 4." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
+			<Input alt="Number Type and backButtonAriaLabel With Title, Subtitle, and Placeholder" aria-label="This is a Label 5." backButtonAriaLabel="This is a Back." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
 		</Section>
 	</>
 );
