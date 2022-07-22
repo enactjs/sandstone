@@ -6,6 +6,19 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Panels.Panel` to restore focus properly when it has `sandstone/Scroller` with `focusableScrollbar`
+
+## [2.5.0] - 2022-07-19
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hover when `hoverToScroll` is `true` and `scrollMode` is `translate`
+
+## [2.5.0-rc.2] - 2022-07-06
+
+### Fixed
+
+- `sandstone/Alert` to show `sandstone/ProgressBar` color properly
 - `sandstone/FixedPopupPanels`, `sandstone/PopupTabLayout`, and `sandstone/TabLayout` to move caret in InputField with left and right keys
 - `sandstone/WizardPanels` to provide `stopPropagation` method in `onBack` event payload
 

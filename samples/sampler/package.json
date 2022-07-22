@@ -1,6 +1,6 @@
 {
   "name": "sandstone-sampler",
-  "version": "2.0.2",
+  "version": "2.5.0",
   "description": "Component and QA samples for Sandstone",
   "private": true,
   "main": "index.js",
@@ -20,24 +20,24 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.5.0-rc.1",
-    "@enact/i18n": "^4.5.0-rc.1",
+    "@enact/core": "^4.5.0",
+    "@enact/i18n": "^4.5.0",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.5.0-rc.1",
-    "@enact/ui": "^4.5.0-rc.1",
+    "@enact/spotlight": "^4.5.0",
+    "@enact/ui": "^4.5.0",
     "classnames": "^2.3.1",
     "ilib": "^14.14.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@enact/storybook-utils": "^4.1.1",
+    "@enact/storybook-utils": "^4.2.0",
     "@storybook/addons": "^6.5.9",
     "@storybook/builder-webpack5": "^6.5.9",
     "@storybook/manager-webpack5": "^6.5.9",
     "@storybook/react": "^6.5.9",
     "@storybook/theming": "^6.5.9",
     "babel-loader": "^8.2.5",
-    "core-js": "^3.20.1"
+    "core-js": "^3.23.5"
   }
 }

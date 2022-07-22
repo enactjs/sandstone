@@ -128,7 +128,7 @@ class App extends ReactComponent {
 		}
 
 		return (
-			<div {...props}>
+			<div style={{overflow: 'hidden'}} {...props}>
 				<div className={wrapperClasses} style={wrapperStyle}>{testElement}</div>
 			</div>
 		);
