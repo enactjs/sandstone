@@ -28,7 +28,7 @@ describe('DatePicker', function () {
 			});
 
 			describe('5-way', function () {
-				// Start of [QWT-2553] - Month, Day, Year pickers Animate with 5-way - LTR
+				// Start of [QWTC-2097] - Month, Day, Year pickers Animate with 5-way - LTR
 				it('should increase the month when incrementing the picker', async function () {
 					const {month} = await extractValues(datePicker);
 					expect(await datePicker.month.isFocused()).to.be.true();
@@ -90,7 +90,7 @@ describe('DatePicker', function () {
 					const expected = year - 1;
 					expect(value).to.equal(expected);
 				});
-				// End of [QWT-2553] - Month, Day, Year pickers Animate with 5-way - LTR
+				// End of [QWTC-2097] - Month, Day, Year pickers Animate with 5-way - LTR
 			});
 
 			describe('pointer', function () {
@@ -100,7 +100,7 @@ describe('DatePicker', function () {
 					expect(await datePicker.month.isFocused()).to.be.true();
 				});
 
-				// Start of [QWT-2555] - Month, Day, Year pickers Animate with Pointer Click - LTR
+				// Start of [QWTC-2095] - Month, Day, Year pickers Animate with Pointer Click - LTR
 				it('should increase the month when incrementing the picker', async function () {
 					const {month} = await extractValues(datePicker);
 					await datePicker.month.click();
@@ -162,7 +162,7 @@ describe('DatePicker', function () {
 					const expected = year - 1;
 					expect(value).to.equal(expected);
 				});
-				// End of [QWT-2555] - Month, Day, Year pickers Animate with Pointer Click - LTR
+				// End of [QWTC-2095] - Month, Day, Year pickers Animate with Pointer Click - LTR
 			});
 		});
 
