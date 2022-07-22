@@ -5,7 +5,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import * as THREE from 'three';
 
 import iconList from '../Icon/IconList.js';
-import {get3DShape} from '../internal/util/util';
+import {get3DShape} from '../internal/util';
 import sandstoneIcons from '../fonts/Sandstone_Icons.woff';
 
 /**

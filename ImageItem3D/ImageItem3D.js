@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import {useCallback, useImperativeHandle, useRef, useState} from 'react';
 import * as THREE from 'three';
 
-import {get3DShape} from '../internal/util/util';
+import {get3DShape} from '../internal/util';
 
 const ImageItem3D = kind({
 	name: 'ImageItem3D',
@@ -34,7 +34,7 @@ const ImageItem3D = kind({
 		position: [0, 0, 0],
 		selected: null,
 		setSelected: null,
-		setControlled: () => { }
+		setControlled: () => {}
 	},
 
 	render: ({children, disabled, imageItemRef, index, label, pointerDown, position, selected, setControlled, setPointerDown, setSelected, src, ...rest}) => {
@@ -88,7 +88,6 @@ const ImageItem3D = kind({
 			} else {
 				return null;
 			}
-
 		}, [index, selected]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const handlePosition = () => {
@@ -194,6 +193,5 @@ const ImageItem3D = kind({
 		);
 	}
 });
-
 
 export default ImageItem3D;

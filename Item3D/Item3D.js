@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {useCallback, useRef, useState} from 'react';
 import * as THREE from 'three';
 
-import {get3DShape} from '../internal/util/util';
+import {get3DShape} from '../internal/util';
 
 const Item3D = kind({
 	name: 'Item3D',

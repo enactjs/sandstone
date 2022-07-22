@@ -1,4 +1,4 @@
-import  Button3D from '@enact/sandstone/Button3D';
+import Button3D from '@enact/sandstone/Button3D';
 import Spinner from '@enact/sandstone/Spinner';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
