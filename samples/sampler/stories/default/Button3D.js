@@ -1,15 +1,14 @@
-import Button3D, {Button3DBase} from '@enact/sandstone/Button3D';
+import Button3D from '@enact/sandstone/Button3D';
 import Spinner from '@enact/sandstone/Spinner';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import {VRCanvas} from '@react-three/xr';
 import {Suspense} from 'react';
 
 import iconNames from '../helper/icons';
 
 Button3D.displayName = 'Button3D';
-const Config = mergeComponentMetadata('Button3D', UIButtonBase, UIButton, Button3DBase, Button3D);
+const Config = mergeComponentMetadata('Button3D', Button3D);
 
 const prop = {
 	iconPosition: ['', 'before', 'after'],

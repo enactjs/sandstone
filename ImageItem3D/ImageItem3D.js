@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 import {useCallback, useImperativeHandle, useRef, useState} from 'react';
 import * as THREE from 'three';
 
-import Skinnable from '../Skinnable';
+import {get3DShape} from '../internal/util';
 
-const ImageItem3DBase = kind({
-	name: 'ImageItem3DBase',
+const ImageItem3D = kind({
+	name: 'ImageItem3D',
 
 	functional: true,
 
@@ -45,28 +45,20 @@ const ImageItem3DBase = kind({
 		const [pastState, setPastState] = useState(null); // eslint-disable-line react-hooks/rules-of-hooks
 		const [rotateX, setRotateX] = useState(0); // eslint-disable-line react-hooks/rules-of-hooks
 		const [rotateY, setRotateY] = useState(0); // eslint-disable-line react-hooks/rules-of-hooks
-		const shape = new THREE.Shape();
 
 		let radius = 0.6;
 		let sizeX = 6;
 		let sizeY = 7;
 
+		const imageItemShape = get3DShape(radius, sizeX, sizeY);
 		const texture = useLoader(THREE.TextureLoader, src); // eslint-disable-line react-hooks/rules-of-hooks
 		const image = <mesh>
 			<planeBufferGeometry attach="geometry" args={[5, 5]} />
 			<meshBasicMaterial attach="material" map={texture} toneMapped={false} />
 		</mesh>;
 
-		let halfX = sizeX * 0.5 - radius;
-		let halfY = sizeY * 0.5 - radius;
-		let baseAngle = Math.PI * 0.5;
-		shape.absarc(halfX, halfY, radius, 0, baseAngle);
-		shape.absarc(-halfX, halfY, radius, baseAngle, baseAngle + baseAngle);
-		shape.absarc(-halfX, -halfY, radius, baseAngle * 2, baseAngle * 2 + baseAngle);
-		shape.absarc(halfX, -halfY, radius, baseAngle * 3, baseAngle * 3 + baseAngle);
-
 		const disabledHoverColor = disabled ? '#404040' : '#e6e6e6';
-		const imageItemGeometry = new THREE.ExtrudeGeometry(shape, {bevelEnabled: false, depth: 0.3});
+		const imageItemGeometry = new THREE.ExtrudeGeometry(imageItemShape, {bevelEnabled: false, depth: 0.3});
 		const lineColor = (hovered || selected === index) ? '#363636' : '#e6e6e6';
 
 		const handlePointerDown = useCallback((ev) => { // eslint-disable-line react-hooks/rules-of-hooks
@@ -87,10 +79,14 @@ const ImageItem3DBase = kind({
 		}, []);
 
 		const handleSelect = useCallback(() => { // eslint-disable-line react-hooks/rules-of-hooks
-			if (selected === index) {
-				setSelected(null);
+			if (setSelected) {
+				if (selected === index) {
+					setSelected(null);
+				} else {
+					setSelected(index);
+				}
 			} else {
-				setSelected(index);
+				return null;
 			}
 		}, [index, selected]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -160,7 +156,7 @@ const ImageItem3DBase = kind({
 								<edgesGeometry args={[imageItemGeometry]} />
 								<lineBasicMaterial color={lineColor} />
 							</lineSegments>
-							<extrudeBufferGeometry args={[shape, {bevelEnabled: false, depth: 0.3}]} />
+							<extrudeBufferGeometry args={[imageItemShape, {bevelEnabled: false, depth: 0.3}]} />
 							<meshStandardMaterial color={hovered || (selected === index) ? disabledHoverColor : '#282929'} />
 						</mesh>
 					</group>
@@ -181,7 +177,7 @@ const ImageItem3DBase = kind({
 					<group position={[-2.5, -3.45, -0.15]}>
 						<Text
 							anchorX="left"
-							color={hovered || selected === index  ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
+							color={hovered || selected === index ? '#6f7074' : disabled ? '#404040' : '#e6e6e6'} // eslint-disable-line no-nested-ternary
 							fontSize={0.3}
 							maxWidth={15}
 							textAlign="left"
@@ -198,10 +194,4 @@ const ImageItem3DBase = kind({
 	}
 });
 
-const ImageItem3D = Skinnable({prop: 'skin'}, ImageItem3DBase);
-
 export default ImageItem3D;
-export {
-	ImageItem3DBase,
-	ImageItem3D
-};
