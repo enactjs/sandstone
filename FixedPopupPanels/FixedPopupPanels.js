@@ -9,7 +9,7 @@
  * @exports Header
  */
 
-import {forKey, forProp, forward, forwardCustom, handle, stop} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardCustom, handle, preventDefault, stop} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
@@ -50,6 +50,7 @@ const fixedPopupPanelsHandlers = {
 		({target}) => (document.querySelector(`section.${css.body}`).contains(target)),
 		({target}) => (getTargetByDirectionFromElement('left', target) === null),
 		forwardCustom('onBack'),
+		preventDefault,
 		stop
 	)
 };
