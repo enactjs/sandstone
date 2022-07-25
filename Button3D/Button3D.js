@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import * as THREE from 'three';
 
+import sandstoneIcons from '../fonts/Sandstone_Icons.woff';
 import iconList from '../Icon/IconList.js';
 import {get3DShape} from '../internal/util';
-import sandstoneIcons from '../fonts/Sandstone_Icons.woff';
 
 /**
  * Tests if a string appears to be a URI/URL.
