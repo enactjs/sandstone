@@ -386,6 +386,10 @@ const tabPanelsHandlers = {
 			return document.querySelector(`section.${componentCss.body}`).contains(ev.target);
 		},
 		forwardCustom('onBack'),
+		() => {
+			Spotlight.setPointerMode(false);
+			return true;
+		},
 		preventDefault,
 		stop
 	)
