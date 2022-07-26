@@ -512,6 +512,10 @@ const WithVariousItemsSamplesBase = ({args, rtl}) => {
 								This text should be visible.
 							</Cell>
 							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button5</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button6</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button7</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button8</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button9</Button>
 						</Column>
 					</Scroller>
 				</Panel>
