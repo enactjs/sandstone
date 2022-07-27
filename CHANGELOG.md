@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to restore scroll position when going back to the previous panel by left key
 - `sandstone/Panels.Panel` to restore focus properly when it has `sandstone/Scroller` with `focusableScrollbar`
 
 ## [2.5.0] - 2022-07-19
