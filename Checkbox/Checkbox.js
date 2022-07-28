@@ -195,7 +195,7 @@ const CheckboxDecorator = compose(
 /**
  * A Sandstone-styled checkbox component.
  *
- * `Checkbox` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * `Checkbox` will manage its `selected` state via module:[Toggleable]{@link ui/Toggleable} unless set
  * directly.
  *
  * @class Checkbox
