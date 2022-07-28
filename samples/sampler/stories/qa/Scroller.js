@@ -731,7 +731,7 @@ select('scrollMode', WithOneLongHeightItem, prop.scrollModeOption, Config);
 
 WithOneLongHeightItem.storyName = 'With One Long Height Item';
 
-export const WithNestedScroller = (args) => {
+export const WithNestedScrollerInVerticalScroller = (args) => {
 	return (
 		<Scroller
 			direction="vertical"
@@ -740,10 +740,11 @@ export const WithNestedScroller = (args) => {
 			onKeyDown={action('onKeyDown')}
 			onScrollStart={action('onScrollStart')}
 			onScrollStop={action('onScrollStop')}
+			scrollMode={args['scrollMode']}
 			verticalScrollbar="visible"
 		>
 			<Scroller
-				direction="horizontal"
+				direction={args['direction']}
 				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar="visible"
 				key="nested-inner-1"
@@ -752,8 +753,9 @@ export const WithNestedScroller = (args) => {
 				onScrollStart={action('onScrollStart (Nested 1st Scroller)')}
 				onScrollStop={action('onScrollStop (Nested 1st Scroller)')}
 				style={{
-					height: 'auto',
-					width: '90%'
+					height: '90%',
+					width: '90%',
+					padding: '5px'
 				}}
 			>
 				<div
@@ -781,7 +783,7 @@ export const WithNestedScroller = (args) => {
 				</div>
 			</Scroller>
 			<Scroller
-				direction="horizontal"
+				direction={args['direction']}
 				focusableScrollbar={args['focusableScrollbar']}
 				horizontalScrollbar="visible"
 				key="nested-inner-2"
@@ -790,8 +792,9 @@ export const WithNestedScroller = (args) => {
 				onScrollStart={action('onScrollStart (Nested 2nd Scroller)')}
 				onScrollStop={action('onScrollStop (Nested 2nd Scroller)')}
 				style={{
-					height: 'auto',
-					width: '90%'
+					height: '90%',
+					width: '90%',
+					padding: '5px'
 				}}
 			>
 				<div
@@ -822,10 +825,111 @@ export const WithNestedScroller = (args) => {
 	);
 };
 
-select('focusableScrollbar', WithNestedScroller, prop.focusableScrollbarOption, Config);
-boolean('noScrollByWheel', WithNestedScroller, Config);
+select('direction', WithNestedScrollerInVerticalScroller, prop.direction, Config, 'horizontal');
+select('focusableScrollbar', WithNestedScrollerInVerticalScroller, prop.focusableScrollbarOption, Config);
+boolean('noScrollByWheel', WithNestedScrollerInVerticalScroller, Config);
+select('scrollMode', WithNestedScrollerInVerticalScroller, prop.scrollModeOption, Config);
 
-WithNestedScroller.storyName = 'With Nested Scroller';
+WithNestedScrollerInVerticalScroller.storyName = 'With Nested Scroller in Vertical Scroller';
+
+export const WithNestedScrollerInHorizontalScroller = (args) => (
+	<Scroller
+		direction="horizontal"
+		focusableScrollbar={args['focusableScrollbar']}
+		key="nested-outer"
+		onKeyDown={action('onKeyDown')}
+		onScrollStart={action('onScrollStart')}
+		onScrollStop={action('onScrollStop')}
+		scrollMode={args['scrollMode']}
+		verticalScrollbar="visible"
+	>
+		<div style={{display: 'flex', width: ri.scaleToRem(4800), height: ri.scaleToRem(798)}}>
+			<Scroller
+				direction={args['direction']}
+				focusableScrollbar={args['focusableScrollbar']}
+				key="nested-inner-1"
+				noScrollByWheel={args['noScrollByWheel']}
+				onKeyDown={action('onKeyDown (Nested 1st Scroller)')}
+				onScrollStart={action('onScrollStart (Nested 1st Scroller)')}
+				onScrollStop={action('onScrollStop (Nested 1st Scroller)')}
+				style={{
+					height: 'auto',
+					width: '90%',
+					padding: '5px'
+				}}
+			>
+				<div
+					style={{
+						backgroundColor: '#444',
+						width: ri.scaleToRem(4800)
+					}}
+				>
+					<Item>The first nested scroller.</Item>
+					<br />
+					<br />
+					<Item>
+						This is the upper horizontal scroller. If noScrollByWheel is not specified, this
+						scroller will be scrolled by wheel and the outer scroller will not be scrolled.
+					</Item>
+					<br />
+					<br />
+					<Item>
+						If noScrollByWheel is specified, this scroller will NOT be scrolled by wheel but the
+						outer scroller will be scrolled.
+					</Item>
+					<br />
+					<br />
+					<Item>To set or unset noScrollByWheel prop, click CONTROLS below.</Item>
+				</div>
+			</Scroller>
+			<Scroller
+				direction={args['direction']}
+				focusableScrollbar={args['focusableScrollbar']}
+				key="nested-inner-2"
+				noScrollByWheel={args['noScrollByWheel']}
+				onKeyDown={action('onKeyDown (Nested 2nd Scroller)')}
+				onScrollStart={action('onScrollStart (Nested 2nd Scroller)')}
+				onScrollStop={action('onScrollStop (Nested 2nd Scroller)')}
+				style={{
+					height: 'auto',
+					width: '90%',
+					padding: '5px'
+				}}
+			>
+				<div
+					style={{
+						backgroundColor: '#444',
+						width: ri.scaleToRem(4800)
+					}}
+				>
+					<Item>The second nested scroller.</Item>
+					<br />
+					<br />
+					<Item>
+						This is the lower horizontal scroller. If noScrollByWheel is not specified, this
+						scroller will be scrolled by wheel and the outer scroller will not be scrolled.
+					</Item>
+					<br />
+					<br />
+					<Item>
+						If noScrollByWheel is specified, this scroller will NOT be scrolled by wheel but the
+						outer scroller will be scrolled.
+					</Item>
+					<br />
+					<br />
+					<Item>To set or unset noScrollByWheel prop, click CONTROLS below.</Item>
+				</div>
+			</Scroller>
+		</div>
+	</Scroller>
+);
+
+select('direction', WithNestedScrollerInHorizontalScroller, prop.direction, Config, 'vertical');
+select('focusableScrollbar', WithNestedScrollerInHorizontalScroller, prop.focusableScrollbarOption, Config);
+boolean('noScrollByWheel', WithNestedScrollerInHorizontalScroller, Config);
+select('scrollMode', WithNestedScrollerInHorizontalScroller, prop.scrollModeOption, Config);
+
+WithNestedScrollerInHorizontalScroller.storyName = 'With Nested Scroller in Horizontal Scroller';
 
 export const WithCustomizedStyle = (args) => (
 	<div>
