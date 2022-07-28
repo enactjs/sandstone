@@ -417,10 +417,16 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	scrollMode: PropTypes.string,
 
 	/**
-	 * Spotlight Id.
+	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+	 *
+	 * It is a required prop to restore focus after remounting `VirtualList`.
+	 *
+	 * For example, with this prop specified, when a `VirtualList` is used in a [Panel]{@link sandstone/Panels.Panel},
+	 * the `Spotlight` will store the last focus information based on `SpotlightId` while navigating to another Panel.
+	 * And the `VirtualList` will restore the focus when it remounts while the navigation returns to the `Panel`.
 	 *
 	 * @type {String}
-	 * @private
+	 * @public
 	 */
 	spotlightId: PropTypes.string,
 
@@ -889,10 +895,16 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	snapToCenter: PropTypes.bool,
 
 	/**
-	 * Spotlight Id.
+	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+	 *
+	 * It is a required prop to restore focus after remounting `VirtualGridList`.
+	 *
+	 * For example, with this prop specified, when a `VirtualGridList` is used in a [Panel]{@link sandstone/Panels.Panel},
+	 * the `Spotlight` will store the last focus information based on `SpotlightId` while navigating to another Panel.
+	 * And the `VirtualGridList` will restore the focus when it remounts while the navigation returns to the `Panel`.
 	 *
 	 * @type {String}
-	 * @private
+	 * @public
 	 */
 	spotlightId: PropTypes.string,
 

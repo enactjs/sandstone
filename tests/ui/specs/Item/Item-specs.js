@@ -21,14 +21,14 @@ describe('Item', function () {
 
 			describe('5-way', function () {
 			// Step 3 - 5-way Up
-				it('should focus the first item with 5-way Up - [QWT-2831]', async function () {
+				it('should focus the first item with 5-way Up - [QWTC-1819]', async function () {
 					await item2Disabled.focus();
 					await Page.spotlightUp();
 					expect(await item1.self.isFocused()).to.be.true();
 				});
 
 				// Step 5 - 5-way Down
-				it('should focus an item with a label with 5-way Down - [QWT-2831]', async function () {
+				it('should focus an item with a label with 5-way Down - [QWTC-1819]', async function () {
 					await item2Disabled.focus();
 					await Page.spotlightDown();
 					expect(await item3WithLabel.self.isFocused()).to.be.true();
@@ -50,7 +50,7 @@ describe('Item', function () {
 
 			describe('pointer', function () {
 			// Step 3 - Focus on the Item title. In sampler, the item has no label. Here we focusing on an item with a label.
-				it('should focus the third item when hovered - [QWT-2830]', async function () {
+				it('should focus the third item when hovered - [QWTC-1820]', async function () {
 					await item3WithLabel.hover();
 					expect(await item3WithLabel.self.isFocused()).to.be.true();
 				});
@@ -67,14 +67,14 @@ describe('Item', function () {
 
 			describe('5-way', function () {
 			// Step 7 - 5-way Up
-				it('should focus a disabled item with 5-way Up - [QWT-2831]', async function () {
+				it('should focus a disabled item with 5-way Up - [QWTC-1819]', async function () {
 					await item3WithLabel.focus();
 					await Page.spotlightUp();
 					expect(await item2Disabled.self.isFocused()).to.be.true();
 				});
 
 				// Step 8 - 5-way Down
-				it('should focus a disabled item with 5-way Down - [QWT-2831]', async function () {
+				it('should focus a disabled item with 5-way Down - [QWTC-1819]', async function () {
 					await item1.focus();
 					await Page.spotlightDown();
 					expect(await item2Disabled.self.isFocused()).to.be.true();
@@ -89,7 +89,7 @@ describe('Item', function () {
 
 			// Step 4 - Focus on the disabled Item title
 			describe('pointer', function () {
-				it('should focus the disabled item with hover - [QWT-2830]', async function () {
+				it('should focus the disabled item with hover - [QWTC-1820]', async function () {
 					await item2Disabled.hover();
 					expect(await item2Disabled.self.isFocused()).to.be.true();
 				});

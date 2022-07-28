@@ -9,7 +9,7 @@ describe('TabLayout', function () {
 	describe('vertical tabs with icons', function () {
 		describe('collapsing/expanding behavior', function () {
 			describe('5-way interaction', function () {
-				it('should collapse tabs when focus is moved to a Spottable component in the content container - [QWT-2758]', async function () {
+				it('should collapse tabs when focus is moved to a Spottable component in the content container - [QWTC-1892]', async function () {
 					// 5-way down to second tab
 					await Page.spotlightDown();
 					await (await Page.tabLayout.view(2)).waitForExist();
@@ -21,7 +21,7 @@ describe('TabLayout', function () {
 					expect(await Page.tabLayout.isCollapsed).to.be.true();
 				});
 
-				it('should expand tabs when focus is moved to a Spottable component in the tabs container - [QWT-2758]', async function () {
+				it('should expand tabs when focus is moved to a Spottable component in the tabs container - [QWTC-1892]', async function () {
 					// 5-way down to second tab
 					await Page.spotlightDown();
 					await (await Page.tabLayout.view(2)).waitForExist();
@@ -57,7 +57,7 @@ describe('TabLayout', function () {
 				});
 			});
 			describe('pointer interaction', function () {
-				it('should collapse and expand tabs when focus is moved between `Spottable` components in the content and tabs containers via pointer move - [QWT-2759]', async  function () {
+				it('should collapse and expand tabs when focus is moved between `Spottable` components in the content and tabs containers via pointer move - [QWTC-1891]', async  function () {
 					// focus the layout's tabs
 					await Page.tabLayout.hoverTabs();
 					// select the second tab

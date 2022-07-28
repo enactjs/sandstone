@@ -113,7 +113,12 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 	}, [consumeEventWithScroll, ref, rtl, vertical]);
 	return (
 		<div {...rest} className={classNames(className, scrollbarTrackCss && scrollbarTrackCss.scrollbarTrack)} ref={ref}>
-			<ScrollbarThumb aria-label={ariaLabel} className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb)} onKeyDown={onKeyDown}>
+			<ScrollbarThumb
+				aria-label={ariaLabel}
+				className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb)}
+				data-spotlight-ignore-restore
+				onKeyDown={onKeyDown}
+			>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
 			</ScrollbarThumb>

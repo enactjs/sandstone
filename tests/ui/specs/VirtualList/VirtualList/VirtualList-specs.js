@@ -18,12 +18,12 @@ describe('VirtualList', function () {
 			await expectFocusedItem(0);
 		});
 
-		it('should position Scrollbar Track on right side in LTR [QWT-2537]', async function () {
+		it('should position Scrollbar Track on right side in LTR [QWTC-2113]', async function () {
 			// Verify Step 2.2: The Scrollbar track displays shortly right aligned.
 			expect(await Page.getListRect().right).to.equal(await Page.getVerticalScrollbarRect().right);
 		});
 
-		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [QWT-2535]', async function () {
+		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [QWTC-2115]', async function () {
 			// Step 3. Knobs > VirtualList > dataSize > 30
 			await Page.inputfieldNumItems.moveTo();
 			await Page.spotlightSelect();
@@ -75,7 +75,7 @@ describe('VirtualList', function () {
 		});
 
 		// TODO: Will need lots of comments update to match the TC in JIra
-		it('should Items Animate via 5-way Up and Down on Last Item on the page - vertical [QWT-2590]', async function () {
+		it('should Items Animate via 5-way Up and Down on Last Item on the page - vertical [QWTC-2060]', async function () {
 			let bottomId;
 			await Page.buttonLeft.moveTo();
 			await Page.spotlightRight(); // needed to focus Item 00 and get into that container
@@ -105,7 +105,7 @@ describe('VirtualList', function () {
 			await expectFocusedItem(0, 'focus Item 00');  // to double check it is really top item
 		});
 
-		it('should Spotlight with Pointer wave [QWT-2595]', async function () {
+		it('should Spotlight with Pointer wave [QWTC-2055]', async function () {
 			// Step 3-1: Position the pointer on 'item 004'.
 			// Step 3-2: 5-way Spot 'Item 004'(while leaving the pointer on 'item 004').
 			await (await Page.item(4)).moveTo();

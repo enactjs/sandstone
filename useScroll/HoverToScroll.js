@@ -85,7 +85,7 @@ const HoverToScrollBase = (props) => {
 
 	const startRaf = useCallback((job) => {
 		scrollContainerHandleRef.isHoveringToScroll = true;
-		if (typeof window === 'object') {
+		if (typeof window === 'object' && mutableRef.current.hoveredPosition) {
 			mutableRef.current.hoverToScrollRafId = window.requestAnimationFrame(job);
 			if (typeof document === 'object') {
 				document.addEventListener('keydown', handleGlobalKeyDown, {capture: true});
@@ -98,6 +98,7 @@ const HoverToScrollBase = (props) => {
 		if (typeof window === 'object' && mutableRef.current.hoverToScrollRafId !== null) {
 			window.cancelAnimationFrame(mutableRef.current.hoverToScrollRafId);
 			mutableRef.current.hoverToScrollRafId = null;
+			mutableRef.current.hoveredPosition = null;
 			if (typeof document === 'object') {
 				document.removeEventListener('keydown', handleGlobalKeyDown, {capture: true});
 			}

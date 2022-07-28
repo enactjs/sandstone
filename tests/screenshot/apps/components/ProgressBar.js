@@ -2,7 +2,7 @@ import ProgressBar, {ProgressBarTooltip as Tooltip} from '../../../../ProgressBa
 
 import {withConfig} from './utils';
 
-// [QWT-2781] - generic to test Progress Bar and Background Progress Bar Colors - no end marked for this test
+// [QWTC-1869] - generic to test Progress Bar and Background Progress Bar Colors - no end marked for this test
 const ProgressBarLTRTests = [
 	<ProgressBar />,
 	<ProgressBar disabled />,
@@ -14,14 +14,14 @@ const ProgressBarLTRTests = [
 	<ProgressBar highlighted progress={1} />,
 	<ProgressBar backgroundProgress={0.5} />,
 	<ProgressBar backgroundProgress={1} />,
-	<ProgressBar backgroundProgress={0.25} progress={0.5} />,  // [QWT-2779] - Step 6
-	<ProgressBar backgroundProgress={0.5} progress={0.25} />,  // [QWT-2779] - Step 5
+	<ProgressBar backgroundProgress={0.25} progress={0.5} />,  // [QWTC-1871] - Step 6
+	<ProgressBar backgroundProgress={0.5} progress={0.25} />,  // [QWTC-1871] - Step 5
 	<ProgressBar backgroundProgress={0.5} progress={0.5} />,
 	<ProgressBar highlighted backgroundProgress={0.5} />,
 	<ProgressBar highlighted backgroundProgress={1} />,
-	// [QWT-2784]
+	// [QWTC-1866]
 	<ProgressBar highlighted backgroundProgress={0.5} progress={0.25} />,
-	// end of [QWT-2784]
+	// end of [QWTC-1866]
 	{
 		component: <ProgressBar tooltip />,
 		wrapper: {
@@ -67,14 +67,14 @@ const ProgressBarLTRTests = [
 	<ProgressBar orientation="vertical" />,
 	<ProgressBar orientation="vertical" disabled />,
 	<ProgressBar orientation="vertical" highlighted />,
-	<ProgressBar orientation="vertical" progress={0.5} />, // [QWT-2778]
+	<ProgressBar orientation="vertical" progress={0.5} />, // [QWTC-1872]
 	<ProgressBar orientation="vertical" progress={0.5} showAnchor />,
 	<ProgressBar orientation="vertical" progress={1} />,
 	<ProgressBar orientation="vertical" highlighted progress={0.5} />,
 	<ProgressBar orientation="vertical" highlighted progress={1} />,
 	<ProgressBar orientation="vertical" backgroundProgress={0.5} />,
 	<ProgressBar orientation="vertical" backgroundProgress={1} />,
-	<ProgressBar orientation="vertical" backgroundProgress={0.25} progress={0.5} />, // [QWT-2778]
+	<ProgressBar orientation="vertical" backgroundProgress={0.25} progress={0.5} />, // [QWTC-1872]
 	<ProgressBar orientation="vertical" backgroundProgress={0.5} progress={0.25} />,
 	<ProgressBar orientation="vertical" highlighted backgroundProgress={0.5} />,
 	<ProgressBar orientation="vertical" highlighted backgroundProgress={1} />,
@@ -90,7 +90,7 @@ const ProgressBarLTRTests = [
 	// *************************************************************
 	// tooltip - all positions
 	// *************************************************************
-	// Change 'position' (location and direction) dynamically of Tooltip - [QWT-2783]
+	// Change 'position' (location and direction) dynamically of Tooltip - [QWTC-1867]
 	{
 		component: <ProgressBar tooltip={<Tooltip position="above" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
@@ -175,8 +175,8 @@ const ProgressBarLTRTests = [
 			padded: true
 		}
 	},
-	// end of [QWT-2783]
-	// Vertical tooltip placement -- valid positions: before/after/left/right [QWT-2777]
+	// end of [QWTC-1867]
+	// Vertical tooltip placement -- valid positions: before/after/left/right [QWTC-1873]
 	{
 		component: <ProgressBar orientation="vertical" tooltip={<Tooltip position="left" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
@@ -201,8 +201,8 @@ const ProgressBarLTRTests = [
 			padded: true
 		}
 	},
-	// end of [QWT-2777]
-	// Radial tooltip placement -- valid positions: before/after/left/right [QWT-2776]
+	// end of [QWTC-1873]
+	// Radial tooltip placement -- valid positions: before/after/left/right [QWTC-1874]
 	{
 		component: <ProgressBar orientation="radial" tooltip={<Tooltip position="left" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
@@ -227,7 +227,7 @@ const ProgressBarLTRTests = [
 			padded: true
 		}
 	},
-	// end of [QWT-2776]
+	// end of [QWTC-1874]
 	// *************************************************************
 	// end of tooltip - all positions
 	// *************************************************************
@@ -260,7 +260,7 @@ const ProgressBarTests = [
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
-	// [QWT-2782]
+	// [QWTC-1868]
 	...withConfig({locale: 'ar-SA'}, ProgressBarLTRTests)
 ];
 

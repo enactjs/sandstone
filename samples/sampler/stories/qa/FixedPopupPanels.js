@@ -142,9 +142,11 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 							size={itemHeight * 4}
 							component={VirtualList}
 							childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
+							id={'virtualList_' + index}
 							itemSize={itemSize}
 							itemRenderer={itemRenderer}
 							dataSize={20}
+							spotlightId={'virtualList_' + index}
 						/>
 						<Cell shrink component={BodyText}>
 							This text should be visible.
@@ -166,9 +168,11 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 						<Cell size={itemHeight * 3}>
 							<VirtualList
 								childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
+								id={'virtualList_' + index}
 								itemSize={itemSize}
 								itemRenderer={itemRenderer}
 								dataSize={3}
+								spotlightId={'virtualList_' + index}
 							/>
 						</Cell>
 						<Cell shrink component={BodyText}>
@@ -186,9 +190,11 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 					</Header>
 					<VirtualList
 						childProps={{onClick: nextPanel, onKeyDown: handleKeyDown}}
+						id={'virtualList_' + index}
 						itemSize={itemSize}
 						itemRenderer={itemRenderer}
 						dataSize={20}
+						spotlightId={'virtualList_' + index}
 					/>
 				</Panel>
 				<Panel>
@@ -196,7 +202,13 @@ const WithVirtualListSamplesBase = ({args, rtl}) => {
 						<title>Panel 4</title>
 						<subtitle>2-Item VirtualList filling just the space it needs</subtitle>
 					</Header>
-					<VirtualList itemSize={itemSize} itemRenderer={itemRenderer} dataSize={2} />
+					<VirtualList
+						id={'virtualList_' + index}
+						itemSize={itemSize}
+						itemRenderer={itemRenderer}
+						dataSize={2}
+						spotlightId={'virtualList_' + index}
+					/>
 				</Panel>
 			</FixedPopupPanels>
 			<Button onClick={toggleOpen}>Open FixedPopupPanels</Button>
@@ -473,32 +485,39 @@ const WithVariousItemsSamplesBase = ({args, rtl}) => {
 							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
 						</slotAfter>
 					</Header>
-					<Column>
-						<Cell shrink component={BodyText}>
-							A 3-Cell Layout with various items
-						</Cell>
-						<Cell>
-							<span>This is the first panel.</span>
-							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
-							<br />
-							<br />
-							<Button size="small" onClick={handleClose}>Button2</Button>
-							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
-							<br />
-							<br />
-							<Slider />
-							<br />
-							<Button size="small" disabled>Button4</Button>
-							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
-								{['a', 'b', 'c', 'd', 'e', 'f']}
-							</Dropdown>
-							<br />
-							<br />
-						</Cell>
-						<Cell shrink component={BodyText}>
-							This text should be visible.
-						</Cell>
-					</Column>
+					<Scroller>
+						<Column>
+							<Cell shrink component={BodyText}>
+								A 3-Cell Layout with various items
+							</Cell>
+							<Cell>
+								<span>This is the first panel.</span>
+								<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+								<br />
+								<br />
+								<Button size="small" onClick={handleClose}>Button2</Button>
+								<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+								<br />
+								<br />
+								<Slider />
+								<br />
+								<Button size="small" disabled>Button4</Button>
+								<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+									{['a', 'b', 'c', 'd', 'e', 'f']}
+								</Dropdown>
+								<br />
+								<br />
+							</Cell>
+							<Cell shrink component={BodyText}>
+								This text should be visible.
+							</Cell>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button5</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button6</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button7</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button8</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button9</Button>
+						</Column>
+					</Scroller>
 				</Panel>
 				<Panel>
 					<Header>

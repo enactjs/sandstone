@@ -23,7 +23,7 @@ describe('TimePicker', function () {
 			});
 
 			describe('5-way', function () {
-				// Start of [QWT-2546] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
+				// Start of [QWTC-2104] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
 				it('should increase the hour when incrementing the picker', async function () {
 					const {hour} = await extractValues(timePicker);
 					await browser.waitUntil(async () => await timePicker.hour.isFocused(), {timeout: 1500,  interval: 100});
@@ -83,7 +83,7 @@ describe('TimePicker', function () {
 					const value = time !== newTime;
 					expect(value).to.equal(true);
 				});
-				// End of [QWT-2546] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
+				// End of [QWTC-2104] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
 
 				it('should change the meridiem on hour boundaries', async function () {
 					const {meridiem} = await extractValues(timePicker);
@@ -101,7 +101,7 @@ describe('TimePicker', function () {
 					await browser.waitUntil(async () => await timePicker.hour.isFocused(), {timeout: 1500,  interval: 100});
 				});
 
-				// Start of [QWT-2552] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
+				// Start of [QWTC-2098] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
 				it('should increase the hour when incrementing the picker', async function () {
 					const {hour} = await extractValues(timePicker);
 					await timePicker.incrementer(timePicker.hour).click();
@@ -137,9 +137,9 @@ describe('TimePicker', function () {
 					const expected = minute !== 0 ? minute - 1 : 59;
 					expect(value).to.equal(expected);
 				});
-				// End of [QWT-2552] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
+				// End of [QWTC-2098] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
 
-				it('should change the meridiem on hour boundaries - [QWT-2551]', async function () {
+				it('should change the meridiem on hour boundaries - [QWTC-2099]', async function () {
 					const value = timePicker.timeLabel;
 					// 12 hours ought to change the value text if meridiem changes
 					for (let i = 12; i; i -= 1) {

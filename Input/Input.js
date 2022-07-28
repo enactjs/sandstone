@@ -283,8 +283,10 @@ const InputPopupBase = kind({
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
-		 * Value of the input.
+		 * Initial value of the input.
 		 *
+		 * This value is used for setting the `defaultValue` of the `InputField`.
+		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
 		 */
@@ -370,7 +372,8 @@ const InputPopupBase = kind({
 		minLength,
 		...rest
 	}) => {
-
+		const id = `inputPopup`;
+		const ariaLabelledBy = popupAriaLabel ? null : `${id}_title ${id}_subtitle`;
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 		// Set up the back button
@@ -384,7 +387,7 @@ const InputPopupBase = kind({
 				size="small"
 			/>
 		) : null);
-		const heading = <Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>;
+		const heading = <Heading id={`${id}_title`} size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>;
 
 		delete rest.length;
 		delete rest.onComplete;
@@ -393,12 +396,15 @@ const InputPopupBase = kind({
 		return (
 			<Popup
 				aria-label={popupAriaLabel}
+				aria-labelledby={ariaLabelledBy}
 				onClose={onClose}
 				onShow={onShow}
 				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
 				className={popupClassName}
+				noAlertRole
 				noAnimation
 				open={open}
+				role="region"
 			>
 				{popupType === 'fullscreen' ? backButton : null}
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
@@ -410,7 +416,7 @@ const InputPopupBase = kind({
 								{heading}
 							</>
 						}
-						<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
+						<Heading id={`${id}_subtitle`} size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 					</Cell>
 					<Cell shrink className={css.inputArea}>
 						{numberMode ?
@@ -437,7 +443,6 @@ const InputPopupBase = kind({
 								autoFocus
 								type={type}
 								defaultValue={value}
-								noReadoutOnFocus
 								placeholder={placeholder}
 								onBeforeChange={onBeforeChange}
 								onKeyDown={onInputKeyDown}
@@ -508,8 +513,10 @@ const InputBase = kind({
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
-		 * Value of the input.
+		 * Initial value of the input.
 		 *
+		 * This value is used for setting the `defaultValue` of the `InputField`.
+		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
 		 */
@@ -617,7 +624,6 @@ const InputDecorator = compose(
  *   placeholder="Placeholder"
  *   subtitle="TitleBelow"
  *   title="Title"
- *   value={this.state.inputText}
  * />
  * ```
  *
@@ -640,7 +646,6 @@ const Input = InputDecorator(InputBase);
  *   placeholder="Placeholder"
  *   subtitle="Subtitle"
  *   title="Title"
- *   value={this.state.inputText}
  * />
  * ```
  *

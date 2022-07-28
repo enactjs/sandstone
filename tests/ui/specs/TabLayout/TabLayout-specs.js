@@ -37,7 +37,7 @@ describe('TabLayout', function () {
 			});
 
 			describe('pointer interaction', function () {
-				it('should render a tab\'s associated view when it is selected via pointer click - [QWT-2754]', async function () {
+				it('should render a tab\'s associated view when it is selected via pointer click - [QWTC-1896]', async function () {
 					const expected = 'view5';
 					const originalView = (await Page.tabLayout.currentView()).getAttribute('id');
 

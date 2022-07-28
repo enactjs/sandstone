@@ -16,7 +16,7 @@ const Widths = [
 
 const DropdownTests = [
 	<Dropdown />,  // default size is 'small'
-	// Change 'size' dynamically [QWT-2476]
+	// Change 'size' dynamically [QWTC-2173]
 	<Dropdown size="small" />,
 	<Dropdown placeholder="Dropdown" />,
 	<Dropdown size="large" />,
@@ -28,7 +28,7 @@ const DropdownTests = [
 	<Dropdown title="Select an option below" placeholder="Dropdown" />,
 	<Dropdown title="Select an option below" placeholder="Dropdown" disabled />,
 
-	// Change 'width' dynamically [QWT-2475]
+	// Change 'width' dynamically [QWTC-2174]
 	// width - 'medium' is default
 	...Widths,
 

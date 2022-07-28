@@ -9,9 +9,10 @@
  * @exports Header
  */
 
-import {forKey, forProp, forward, forwardCustom, handle, stop} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardCustom, handle, preventDefault, stop} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Spotlight from '@enact/spotlight';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import compose from 'ramda/src/compose';
 
@@ -50,6 +51,11 @@ const fixedPopupPanelsHandlers = {
 		({target}) => (document.querySelector(`section.${css.body}`).contains(target)),
 		({target}) => (getTargetByDirectionFromElement('left', target) === null),
 		forwardCustom('onBack'),
+		() => {
+			Spotlight.setPointerMode(false);
+			return true;
+		},
+		preventDefault,
 		stop
 	)
 };

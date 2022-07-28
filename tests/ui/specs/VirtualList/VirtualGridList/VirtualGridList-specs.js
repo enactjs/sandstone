@@ -19,7 +19,7 @@ describe('VirtualGridList', function () {
 	});
 
 	describe('Minimal DataSize', function () {
-		it('should not display scrollbar when minimal datasize [QWT-2583]', async function () {
+		it('should not display scrollbar when minimal datasize [QWTC-2067]', async function () {
 			// Step 3: Knobs > VirtualGridList > dataSize > 4
 			await Page.inputNumItems.moveTo();
 			await Page.spotlightSelect();

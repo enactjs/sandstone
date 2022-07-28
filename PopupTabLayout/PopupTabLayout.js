@@ -9,7 +9,7 @@
  * @exports TabPanel
  */
 
-import {forKey, forProp, forward, forwardCustom, handle, stop} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardCustom, handle, preventDefault, stop} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
@@ -215,7 +215,7 @@ const PopupTabLayoutBase = kind({
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
-		 * The container id for {@link spotlight/Spotlight}.
+		 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 		 *
 		 * @type {String}
 		 * @public
@@ -386,6 +386,11 @@ const tabPanelsHandlers = {
 			return document.querySelector(`section.${componentCss.body}`).contains(ev.target);
 		},
 		forwardCustom('onBack'),
+		() => {
+			Spotlight.setPointerMode(false);
+			return true;
+		},
+		preventDefault,
 		stop
 	)
 };
@@ -463,7 +468,7 @@ const TabPanel = ({spotlightId, ...rest}) => {
 
 TabPanel.propTypes = {
 	/**
-	 * The container id for {@link spotlight/Spotlight}.
+	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 	 *
 	 * @type {String}
 	 * @private

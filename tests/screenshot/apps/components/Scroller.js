@@ -18,7 +18,7 @@ const ScrollerTests = [
 	<Scroller>Scroller</Scroller>,
 	<Scroller style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Two-way scroller</div></Scroller>,
 	<Scroller scrollbarTrackCss={css} style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Customized scrollbarTrack Style</div></Scroller>,
-	// QWT-4513 - partially automated(step3~4). Step5~6 will be worked in ui-test.
+	// QWTC-570 - partially automated(step3~4). Step5~6 will be worked in ui-test.
 	<Scroller
 		direction="horizontal"
 		editable={{
