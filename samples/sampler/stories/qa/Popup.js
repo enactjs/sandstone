@@ -79,3 +79,28 @@ FromSelfOnlyContainer.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+const PopupWithBlurEffect = Toggleable(
+	{prop: 'open', toggle: 'onToggle'},
+	({onToggle, open}) => (
+		<div style={{backgroundImage: 'url("http://picsum.photos/1280/720?image=1044")', height: '100%'}}>
+			<Button onClick={onToggle}>open</Button>
+			<Popup
+				open={open}
+				scrimType={'blur'}
+				onClose={onToggle}
+			>
+				<span>popup</span>
+			</Popup>
+		</div>
+	)
+);
+
+export const WithBlurEffect = () => <PopupWithBlurEffect />;
+
+WithBlurEffect.storyName = 'with background blur effect';
+WithBlurEffect.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

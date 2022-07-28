@@ -388,7 +388,7 @@ class Popup extends Component {
 		 * @default 'translucent'
 		 * @public
 		 */
-		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
+		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none', 'blur']),
 
 		/**
 		 * Restricts or prioritizes navigation when focus attempts to leave the popup.
