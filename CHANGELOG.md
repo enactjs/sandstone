@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall` 
+
 ### Fixed
 
 - `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to restore scroll position when going back to the previous panel by left key
