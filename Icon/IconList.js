@@ -197,5 +197,6 @@ export default {
 	spanner           : 0x0F0180, // spanner
 	bluetooth         : 0x0F0181, // bluetooth
 	moodmode          : 0x0F0182, // moodmode
-	changepassword    : 0x0F0183  // changepassword
+	changepassword    : 0x0F0183, // changepassword
+	r2rappcall        : 0x0F0184  // r2rappcall
 };
