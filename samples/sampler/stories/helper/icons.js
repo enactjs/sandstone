@@ -127,6 +127,7 @@ export const settingsIcons = [
 	'picture',
 	'plug',
 	'powercircle',
+	'r2rappcall',
 	'screenpower',
 	'spanner',
 	'subtitle',
