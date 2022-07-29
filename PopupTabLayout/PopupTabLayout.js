@@ -396,7 +396,7 @@ const tabPanelsHandlers = {
 };
 
 /**
- * A base component for [`TabPanels`]{@link sandstone/PopupTabLayout.TabPanels} which has
+ * A base component for [TabPanels]{@link sandstone/PopupTabLayout.TabPanels} which has
  * left key handler to navigate panels.
  *
  * @class TabPanelsBase
