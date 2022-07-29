@@ -2,17 +2,34 @@
 
 const webpack = require('@enact/storybook-utils/configs/webpack');
 
+const {readFileSync} = require("fs");
+const { loadCsf } = require( '@storybook/csf-tools');
+
+const csfIndexer = async (fileName, opts) => {
+	const code = readFileSync(fileName, 'utf-8').toString();
+	const parsed =loadCsf(code, { ...opts, fileName }).parse()
+	return parsed;
+};
+
+
 module.exports = {
 	core: {
-		builder: 'webpack5',
 		disableTelemetry: true
 	},
 	features: {
 		postcss: false,
-		storyStoreV7: true
+		storyStoreV7: true,
+		modernInlineRender: false
 	},
-	framework: '@storybook/react',
+	framework: {
+		name: '@storybook/react-webpack5',
+		options: { fastRefresh: true }
+	},
 	stories: ['./../stories/default/*.js'],
+	storyIndexers: [ {
+		test: /.*/
+		, indexer: csfIndexer
+	}],
 	addons: [
 		'@enact/storybook-utils/addons/actions',
 		'@enact/storybook-utils/addons/controls',
