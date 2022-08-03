@@ -61,7 +61,7 @@ describe('FixedPopupPanels', function () {
 			await Interface.waitForEnter(2, async () => {
 				await Page.spotlightSelect();
 			});
-			await Page.delay(500);
+			await Page.delay(1000);
 
 			await Page.spotlightUp();
 			await Page.delay(500);
