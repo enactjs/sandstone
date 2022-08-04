@@ -39,6 +39,12 @@ const texts = [
 	'Second test to show that the Ellipsis show before the initial start of the marquee. Ellipsis will not show on the subsequent starts.'
 ];
 
+const simpleTexts = [
+	'This is marquee text',
+	'No marquee',
+	'الطيور تطير في الفول عند غروب الشمس.'
+];
+
 const disabledDisclaimer = (disabled) =>
 	disabled ? (
 		<p style={{fontSize: '70%', fontStyle: 'italic'}}>
@@ -386,3 +392,39 @@ WithTextCentered.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+export const ScaledItem = (args) => {
+	const disabled = args['disabled'];
+	return (
+
+		<MarqueeItem className={css.sclaledItem} >
+			<div className={css.textArea}>
+			<Marquee
+				disabled={disabled}
+				forceDirection={args['forceDirection']}
+				marqueeDelay={args['marqueeDelay']}
+				marqueeDisabled={args['marqueeDisabled']}
+				marqueeOn={args['marqueeOn']}
+				marqueeOnRenderDelay={args['marqueeOnRenderDelay']}
+				marqueeResetDelay={args['marqueeResetDelay']}
+				marqueeSpeed={args['marqueeSpeed']}
+			>
+				{args['children']}
+			</Marquee>
+
+ 			</div>
+ 		</MarqueeItem>
+	);
+};
+
+boolean('disabled', ScaledItem, Marquee, false);
+select('forceDirection', ScaledItem, ['', 'ltr', 'rtl'], Marquee, '');
+number('marqueeDelay', ScaledItem, Marquee, 1000);
+boolean('marqueeDisabled', ScaledItem, Marquee, false);
+select('marqueeOn', ScaledItem, ['hover', 'render'], Marquee, 'render');
+number('marqueeOnRenderDelay', ScaledItem, Marquee, 1000);
+number('marqueeResetDelay', ScaledItem, Marquee, 1000);
+number('marqueeSpeed', ScaledItem, Marquee, 60);
+select('children', ScaledItem, simpleTexts, Marquee, simpleTexts[0]);
+
+ScaledItem.storyName = 'ScaledItem';
