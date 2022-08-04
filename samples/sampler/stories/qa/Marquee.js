@@ -395,25 +395,24 @@ WithTextCentered.parameters = {
 
 export const ScaledItem = (args) => {
 	const disabled = args['disabled'];
-	return (
 
+	return (
 		<MarqueeItem className={css.sclaledItem} >
 			<div className={css.textArea}>
-			<Marquee
-				disabled={disabled}
-				forceDirection={args['forceDirection']}
-				marqueeDelay={args['marqueeDelay']}
-				marqueeDisabled={args['marqueeDisabled']}
-				marqueeOn={args['marqueeOn']}
-				marqueeOnRenderDelay={args['marqueeOnRenderDelay']}
-				marqueeResetDelay={args['marqueeResetDelay']}
-				marqueeSpeed={args['marqueeSpeed']}
-			>
-				{args['children']}
-			</Marquee>
-
- 			</div>
- 		</MarqueeItem>
+				<Marquee
+					disabled={disabled}
+					forceDirection={args['forceDirection']}
+					marqueeDelay={args['marqueeDelay']}
+					marqueeDisabled={args['marqueeDisabled']}
+					marqueeOn={args['marqueeOn']}
+					marqueeOnRenderDelay={args['marqueeOnRenderDelay']}
+					marqueeResetDelay={args['marqueeResetDelay']}
+					marqueeSpeed={args['marqueeSpeed']}
+				>
+					{args['children']}
+				</Marquee>
+			</div>
+		</MarqueeItem>
 	);
 };
 
