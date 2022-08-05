@@ -181,7 +181,7 @@ FastForwardWithVariousPlaybackRates.parameters = {
 	}
 };
 
-class VideoPlayerWithlayer extends Component {
+class VideoPlayerWithLayer extends Component {
 	constructor (props) {
 		super(props);
 	}
@@ -209,6 +209,6 @@ class VideoPlayerWithlayer extends Component {
 	}
 }
 
-export const ShowBackbutton = () => <VideoPlayerWithlayer />;
+export const ShowBackbutton = () => <VideoPlayerWithLayer />;
 
 ShowBackbutton.storyName = 'Show a back button and a control panel';
