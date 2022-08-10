@@ -394,34 +394,27 @@ WithTextCentered.parameters = {
 };
 
 export const ScaledItem = (args) => {
-	const disabled = args['disabled'];
-
 	return (
 		<MarqueeItem className={css.sclaledItem} >
-			<div className={css.textArea}>
-				<Marquee
-					disabled={disabled}
-					forceDirection={args['forceDirection']}
-					marqueeDelay={args['marqueeDelay']}
-					marqueeDisabled={args['marqueeDisabled']}
-					marqueeOn={args['marqueeOn']}
-					marqueeOnRenderDelay={args['marqueeOnRenderDelay']}
-					marqueeResetDelay={args['marqueeResetDelay']}
-					marqueeSpeed={args['marqueeSpeed']}
-				>
-					{args['children']}
-				</Marquee>
-			</div>
+			<Marquee
+				alignment={args['alignment']}
+				className={css.textArea}
+				forceDirection={args['forceDirection']}
+				marqueeDelay={args['marqueeDelay']}
+				marqueeDisabled={args['marqueeDisabled']}
+				marqueeResetDelay={args['marqueeResetDelay']}
+				marqueeSpeed={args['marqueeSpeed']}
+			>
+				{args['children']}
+			</Marquee>
 		</MarqueeItem>
 	);
 };
 
-boolean('disabled', ScaledItem, Marquee, false);
+select('alignment', ScaledItem, [null, 'left', 'right', 'center'], Marquee);
 select('forceDirection', ScaledItem, ['', 'ltr', 'rtl'], Marquee, '');
 number('marqueeDelay', ScaledItem, Marquee, 1000);
 boolean('marqueeDisabled', ScaledItem, Marquee, false);
-select('marqueeOn', ScaledItem, ['hover', 'render'], Marquee, 'render');
-number('marqueeOnRenderDelay', ScaledItem, Marquee, 1000);
 number('marqueeResetDelay', ScaledItem, Marquee, 1000);
 number('marqueeSpeed', ScaledItem, Marquee, 60);
 select('children', ScaledItem, simpleTexts, Marquee, simpleTexts[0]);
