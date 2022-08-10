@@ -33,16 +33,16 @@ const RTL = [
 	'فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز.'
 ];
 
+const mixedText = [
+	'This is marquee text',
+	'No marquee',
+	'الطيور تطير في الفول عند غروب الشمس.'
+];
+
 const texts = [
 	'No marquee no marquee',
 	'Ellipsis show before the initial start of the marquee. Ellipsis will not show on the subsequent starts.',
 	'Second test to show that the Ellipsis show before the initial start of the marquee. Ellipsis will not show on the subsequent starts.'
-];
-
-const simpleTexts = [
-	'This is marquee text',
-	'No marquee',
-	'الطيور تطير في الفول عند غروب الشمس.'
 ];
 
 const disabledDisclaimer = (disabled) =>
@@ -417,6 +417,6 @@ number('marqueeDelay', ScaledItem, Marquee, 1000);
 boolean('marqueeDisabled', ScaledItem, Marquee, false);
 number('marqueeResetDelay', ScaledItem, Marquee, 1000);
 number('marqueeSpeed', ScaledItem, Marquee, 60);
-select('children', ScaledItem, simpleTexts, Marquee, simpleTexts[0]);
+select('children', ScaledItem, mixedText, Marquee, mixedText[0]);
 
 ScaledItem.storyName = 'ScaledItem';
