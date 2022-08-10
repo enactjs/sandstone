@@ -395,7 +395,7 @@ WithTextCentered.parameters = {
 
 export const ScaledItem = (args) => {
 	return (
-		<MarqueeItem className={css.sclaledItem} >
+		<MarqueeItem className={css.scaledItem} >
 			<Marquee
 				alignment={args['alignment']}
 				className={css.textArea}
