@@ -30,25 +30,25 @@ const overlayColorTests = [
 	<Alert open title="With Checkbox">
 		<div>
 			<div>This is Checkbox</div>
-			<Checkbox>CheckBox</Checkbox>
+			<Checkbox />
 		</div>
 	</Alert>,
 	<Alert open title="With selectedCheckbox">
 		<div>
 			<div>This is Selected Checkbox</div>
-			<Checkbox selected>Selected CheckBox</Checkbox>
+			<Checkbox selected />
 		</div>
 	</Alert>,
 	<Alert open title="With disabledCheckbox">
 		<div>
 			<div>This is disabled Checkbox</div>
-			<Checkbox disabled>Disabled CheckBox</Checkbox>
+			<Checkbox disabled />
 		</div>
 	</Alert>,
 	<Alert open title="With disabled-selected Checkbox">
 		<div>
 			<div>This is disabled-selected Checkbox</div>
-			<Checkbox disabled selected>Disabled-Selected CheckBox</Checkbox>
+			<Checkbox disabled selected />
 		</div>
 	</Alert>,
 	<Alert open title="With FormCheckboxItem">
@@ -113,8 +113,8 @@ const overlayColorTests = [
 			src={img}
 			type="icon"
 		/>
-		<Button>Yes</Button>
-		<Button>No</Button>
+		<Button size="small">Yes</Button>
+		<Button size="small">No</Button>
 		<div>
 			<div>This is progressbar</div>
 			<ProgressBar progress={0.5} />
