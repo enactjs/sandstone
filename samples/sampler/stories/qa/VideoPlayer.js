@@ -180,3 +180,30 @@ FastForwardWithVariousPlaybackRates.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+class VideoPlayerWithLayer extends Component {
+	constructor (props) {
+		super(props);
+	}
+
+	render () {
+		return (
+			<div>
+				<VideoPlayer
+					feedbackHideDelay={0}
+					muted
+					title={'Big Buck Bunny'}
+				>
+					<Video>
+						<source src={'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'} />
+					</Video>
+				</VideoPlayer>
+				<div style={{left: 0, top: 0, bottom: 0, width: 500, backgroundColor: "green", position: "absolute"}}>{"screen saver"}</div>
+			</div>
+		);
+	}
+}
+
+export const ShowBackbutton = () => <VideoPlayerWithLayer />;
+
+ShowBackbutton.storyName = 'Show a back button and a control panel';
