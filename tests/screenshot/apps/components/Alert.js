@@ -29,17 +29,27 @@ const overlayTests = [
 const overlayColorTests = [
 	<Alert open title="With Checkbox">
 		<div>
+			<div>This is Checkbox</div>
 			<Checkbox />
 		</div>
 	</Alert>,
 	<Alert open title="With selectedCheckbox">
-		<Checkbox selected />
+		<div>
+			<div>This is Selected Checkbox</div>
+			<Checkbox selected />
+		</div>
 	</Alert>,
 	<Alert open title="With disabledCheckbox">
-		<Checkbox disabled />
+		<div>
+			<div>This is disabled Checkbox</div>
+			<Checkbox disabled />
+		</div>
 	</Alert>,
 	<Alert open title="With disabled-selected Checkbox">
-		<Checkbox disabled selected />
+		<div>
+			<div>This is disabled-selected Checkbox</div>
+			<Checkbox disabled selected />
+		</div>
 	</Alert>,
 	<Alert open title="With FormCheckboxItem">
 		<div>
