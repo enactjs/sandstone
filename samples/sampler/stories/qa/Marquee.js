@@ -33,6 +33,12 @@ const RTL = [
 	'فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز.'
 ];
 
+const mixedText = [
+	'This is marquee text',
+	'No marquee',
+	'الطيور تطير في الفول عند غروب الشمس.'
+];
+
 const texts = [
 	'No marquee no marquee',
 	'Ellipsis show before the initial start of the marquee. Ellipsis will not show on the subsequent starts.',
@@ -386,3 +392,31 @@ WithTextCentered.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+export const WithScaledItem = (args) => {
+	return (
+		<MarqueeItem className={css.scaledItem}>
+			<Marquee
+				alignment={args['alignment']}
+				className={css.textArea}
+				forceDirection={args['forceDirection']}
+				marqueeDelay={args['marqueeDelay']}
+				marqueeDisabled={args['marqueeDisabled']}
+				marqueeResetDelay={args['marqueeResetDelay']}
+				marqueeSpeed={args['marqueeSpeed']}
+			>
+				{args['children']}
+			</Marquee>
+		</MarqueeItem>
+	);
+};
+
+select('alignment', WithScaledItem, [null, 'left', 'right', 'center'], Marquee);
+select('forceDirection', WithScaledItem, ['', 'ltr', 'rtl'], Marquee, '');
+number('marqueeDelay', WithScaledItem, Marquee, 1000);
+boolean('marqueeDisabled', WithScaledItem, Marquee, false);
+number('marqueeResetDelay', WithScaledItem, Marquee, 1000);
+number('marqueeSpeed', WithScaledItem, Marquee, 60);
+select('children', WithScaledItem, mixedText, Marquee, mixedText[0]);
+
+WithScaledItem.storyName = 'with Scaled Item';
