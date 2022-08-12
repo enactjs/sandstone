@@ -121,6 +121,7 @@ const overlayColorTests = [
 		</div>
 		<div>
 			<CheckboxItem>This is CheckboxItem</CheckboxItem>
+			<CheckboxItem selected>This is Selected CheckboxItem</CheckboxItem>
 		</div>
 		<div>
 			<Scroller style={{height:'300px'}} focusableScrollbar="byEnter">
@@ -148,15 +149,16 @@ const dropIn = {
 	oneButton: (
 		<Button>Yes</Button>
 	),
-	oneDisabledButton: (
-		<Button disabled>Yes</Button>
-	),
 	// we need an array here rather than a fragment due to the impl of Alert that maps over the
 	// array of buttons and wraps them with Cell.
 	twoButtons: [
 		<Button key="yes">Yes</Button>,
 		<Button key="no">No</Button>
-	]
+	],
+	twoDisabledButton: (
+		<Button key="yes" disabled>Yes</Button>,
+		<Button key="no" disabled>No</Button>
+	)
 };
 
 const LtrTests = [
@@ -167,9 +169,10 @@ const LtrTests = [
 	// With Buttons
 	...withProps({type: 'fullscreen', buttons: dropIn.oneButton}, fullscreenTests),
 	...withProps({type: 'fullscreen', buttons: dropIn.twoButtons}, fullscreenTests),
+	...withProps({type: 'fullscreen', buttons: dropIn.twoDisabledButton}, fullscreenTests),
 	...withProps({type: 'overlay', buttons: dropIn.oneButton}, overlayTests),
 	...withProps({type: 'overlay', buttons: dropIn.twoButtons}, overlayTests),
-	...withProps({type: 'overlay', buttons: dropIn.oneDisabledButton}, overlayTests),
+	...withProps({type: 'overlay', buttons: dropIn.twoDisabledButton}, overlayTests),
 
 	// With image
 	// QWTC-1928 start.
