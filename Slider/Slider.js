@@ -19,7 +19,7 @@
 
 import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
-import {mergeClassNameMaps} from '@enact/core/util';
+import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
 import Changeable from '@enact/ui/Changeable';
@@ -116,11 +116,7 @@ const SliderBase = (props) => {
 	}, props, context);
 
 	// if the props includes a css map, merge them together
-	let mergedCss = componentCss;
-	if (css) {
-		const allowedClassNames = Object.keys(componentCss);
-		mergedCss = mergeClassNameMaps(componentCss, css, allowedClassNames);
-	}
+	let mergedCss = usePublicClassNames({componentCss, customCss: css, publicClassNames: true});
 
 	const componentClassName = classnames(
 		componentCss.slider,
