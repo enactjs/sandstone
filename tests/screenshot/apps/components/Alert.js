@@ -155,10 +155,10 @@ const dropIn = {
 		<Button key="yes">Yes</Button>,
 		<Button key="no">No</Button>
 	],
-	twoDisabledButton: (
+	twoDisabledButton: [
 		<Button key="yes" disabled>Yes</Button>,
 		<Button key="no" disabled>No</Button>
-	)
+	]
 };
 
 const LtrTests = [
