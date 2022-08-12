@@ -393,9 +393,9 @@ WithTextCentered.parameters = {
 	}
 };
 
-export const ScaledItem = (args) => {
+export const WithScaledItem = (args) => {
 	return (
-		<MarqueeItem className={css.scaledItem} >
+		<MarqueeItem className={css.scaledItem}>
 			<Marquee
 				alignment={args['alignment']}
 				className={css.textArea}
@@ -411,12 +411,12 @@ export const ScaledItem = (args) => {
 	);
 };
 
-select('alignment', ScaledItem, [null, 'left', 'right', 'center'], Marquee);
-select('forceDirection', ScaledItem, ['', 'ltr', 'rtl'], Marquee, '');
-number('marqueeDelay', ScaledItem, Marquee, 1000);
-boolean('marqueeDisabled', ScaledItem, Marquee, false);
-number('marqueeResetDelay', ScaledItem, Marquee, 1000);
-number('marqueeSpeed', ScaledItem, Marquee, 60);
-select('children', ScaledItem, mixedText, Marquee, mixedText[0]);
+select('alignment', WithScaledItem, [null, 'left', 'right', 'center'], Marquee);
+select('forceDirection', WithScaledItem, ['', 'ltr', 'rtl'], Marquee, '');
+number('marqueeDelay', WithScaledItem, Marquee, 1000);
+boolean('marqueeDisabled', WithScaledItem, Marquee, false);
+number('marqueeResetDelay', WithScaledItem, Marquee, 1000);
+number('marqueeSpeed', WithScaledItem, Marquee, 60);
+select('children', WithScaledItem, mixedText, Marquee, mixedText[0]);
 
-ScaledItem.storyName = 'ScaledItem';
+WithScaledItem.storyName = 'with Scaled Item';
