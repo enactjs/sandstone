@@ -54,6 +54,7 @@
 
 		.back {
 			position: absolute;
+			z-index: 100; // Value assigned as part of the VideoPlayer API so layers may be inserted in-between
 			top: @sand-video-back-button-top;
 			.position-start-end(@sand-video-back-button-left, initial);
 		}

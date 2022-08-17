@@ -10,3 +10,24 @@
 		});
 	});
 }
+
+.scaledItem {
+	width: 600px;
+	height: 600px;
+	padding: 48px;
+	box-sizing: border-box;
+	background-color: #4c5059;
+
+	.textArea {
+		width: 450px;
+		border-color: transparent #d3b85f;
+		border-width: 12px;
+		border-style: solid;
+		margin: auto;
+	}
+
+	&:focus {
+		transform: scale(1.2);
+		transition: transform 0.3s ease-in-out;
+	}
+}
