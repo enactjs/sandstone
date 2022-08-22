@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import {Layout, Cell, Column} from '@enact/ui/Layout';
+import {Layout, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useState} from 'react';
@@ -41,7 +41,7 @@ const TransferListBase = kind({
 	computed: {
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
-				const clickHandle = useCallback(() => onSelect(index, list), [index]);
+				const clickHandle = useCallback(() => onSelect(index, list), [index, list, onSelect]);
 
 				return (
 					<CheckboxItem
@@ -167,7 +167,7 @@ const TransferListBase = kind({
 
 		return (
 			<Layout align="center" className={componentCss.transferList}>
-				<Cell size="40%">
+				<Cell size="40%" style={{height: ri.unit(500, 'rem')}}>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
@@ -183,7 +183,7 @@ const TransferListBase = kind({
 					<Button onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
 					<Button onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
 				</Cell>
-				<Cell size="40%">
+				<Cell size="40%" style={{height: ri.unit(500, 'rem')}}>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
