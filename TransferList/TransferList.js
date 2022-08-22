@@ -41,7 +41,7 @@ const TransferListBase = kind({
 	computed: {
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
-				const clickHandle = useCallback(() => onSelect(index, list), [index, list, onSelect]);
+				const clickHandle = useCallback(() => onSelect(element, index, list), [element, index, list, onSelect]);
 
 				return (
 					<CheckboxItem
@@ -63,17 +63,15 @@ const TransferListBase = kind({
 		const [selectedItems, setSelectedItems] = useState([]);
 
 		const moveIntoFirstSelected = useCallback(() => {
-			let cont = 0,
-				tempFirst = [...firstListLocal],
+			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
 
-			selectedItems.map((item, index) => {
+			selectedItems.map((item) => {
 				if (item.list === 'second') {
 					tempFirst = [...tempFirst, secondListLocal[item.index]];
-					tempSelected.splice(index - cont, 1);
-					tempSecond.splice(item.index - cont, 1);
-					cont++;
+					tempSelected.splice(tempSelected.findIndex((pair) => pair.index === item.index && pair.list === item.list), 1);
+					tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
 				}
 			});
 
@@ -99,17 +97,15 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const moveIntoSecondSelected = useCallback(() => {
-			let cont = 0,
-				tempFirst = [...firstListLocal],
+			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
 
-			selectedItems.map((item, index) => {
+			selectedItems.map((item) => {
 				if (item.list === 'first') {
 					tempSecond = [...tempSecond, firstListLocal[item.index]];
-					tempSelected.splice(index - cont, 1);
-					tempFirst.splice(item.index - cont, 1);
-					cont++;
+					tempSelected.splice(tempSelected.findIndex((pair) => pair.index === item.index && pair.list === item.list), 1);
+					tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
 				}
 			});
 
@@ -134,7 +130,7 @@ const TransferListBase = kind({
 			setSelectedItems([]);
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
-		const setSelected = useCallback((index, list) => {
+		const setSelected = useCallback((element, index, list) => {
 			const potentialIndex = selectedItems.findIndex((pair) => pair.index === index && pair.list === list);
 
 			if (potentialIndex !== -1) {
@@ -143,7 +139,7 @@ const TransferListBase = kind({
 					return [...items];
 				})
 			} else {
-				setSelectedItems(items => ([...items, {index, list}]));
+				setSelectedItems(items => ([...items, {element, index, list}]));
 			}
 		}, [selectedItems]);
 
