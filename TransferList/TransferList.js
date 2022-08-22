@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import {Layout, Cell} from '@enact/ui/Layout';
+import {Layout, Column} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 
-import componentCss from './TransferList.module.less';
+// import componentCss from './TransferList.module.less';
+
 
 const TransferListBase = kind({
 	name: 'TransferList',
@@ -32,20 +33,16 @@ const TransferListBase = kind({
 		setSecondList: null
 	},
 
-	styles: {
-		css: componentCss,
-		className: 'transferList',
-		publicClassNames: true
-	},
-
 	computed: {
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
-				const clickHandle = useCallback(() => onSelect(element, index, list), [element, index, list, onSelect]);
-
+				const clickHandle = useCallback(() => onSelect(index, list), [index]);
 				return (
 					<CheckboxItem
-						id={index + list}
+						draggable
+						className="checkbox"
+						id={`${index}-${list}`}
+						inline
 						key={index + list}
 						onClick={clickHandle}
 						selected={-1 !== selectedItems.findIndex((pair) => pair.index === index && pair.list === list)}
@@ -62,27 +59,57 @@ const TransferListBase = kind({
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 
-		const moveIntoFirstSelected = useCallback(() => {
-			let tempFirst = [...firstListLocal],
-				tempSecond = [...secondListLocal],
-				tempSelected = [...selectedItems];
+		const dragOverElement = useRef();
 
-			selectedItems.map((item) => {
+		useEffect(() => {
+
+			const seletCheckboxItem = document.querySelectorAll('.checkbox');
+			seletCheckboxItem.forEach(element => {
+				const [index, list] = element.id.split('-');
+
+				const eventListeners = ['dragstart', 'drag'];
+				eventListeners.forEach(event => {
+					if (event === 'dragstart') {
+						return element.addEventListener('dragstart', (ev) => {
+							console.log('dragging element with index', index, 'from list ', list);
+							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
+							ev.dataTransfer.effectAllowed = 'move';
+						});
+					}
+					if (event === 'drag') {
+						return element.addEventListener('dragover', (ev) => {
+							console.log('dragging over element with index', index, 'from list ', list);
+							dragOverElement.current = index;
+						});
+					}
+				});
+			});
+
+		}, [firstListLocal, secondListLocal]);
+
+		const moveIntoFirstSelected = useCallback(() => {
+			let cont = 0,
+				provFirst = [...firstListLocal],
+				provSecond = [...secondListLocal],
+				provSelected = [...selectedItems];
+
+			selectedItems.map((item, index) => {
 				if (item.list === 'second') {
-					tempFirst = [...tempFirst, secondListLocal[item.index]];
-					tempSelected.splice(tempSelected.findIndex((pair) => pair.index === item.index && pair.list === item.list), 1);
-					tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
+					provFirst = [...provFirst, secondListLocal[item.index]];
+					provSelected.splice(index - cont, 1);
+					provSecond.splice(item.index - cont, 1);
+					cont++;
 				}
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(tempFirst);
-				setSecondList(tempSecond);
+				setFirstList(provFirst);
+				setSecondList(provSecond);
 			} else {
-				setFirstListLocal(tempFirst);
-				setSecondListLocal(tempSecond);
+				setFirstListLocal(provFirst);
+				setSecondListLocal(provSecond);
 			}
-			setSelectedItems(tempSelected);
+			setSelectedItems(provSelected);
 		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
 
 		const moveIntoFirstAll = useCallback(() => {
@@ -97,26 +124,28 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const moveIntoSecondSelected = useCallback(() => {
-			let tempFirst = [...firstListLocal],
-				tempSecond = [...secondListLocal],
-				tempSelected = [...selectedItems];
+			let cont = 0,
+				provFirst = [...firstListLocal],
+				provSecond = [...secondListLocal],
+				provSelected = [...selectedItems];
 
-			selectedItems.map((item) => {
+			selectedItems.map((item, index) => {
 				if (item.list === 'first') {
-					tempSecond = [...tempSecond, firstListLocal[item.index]];
-					tempSelected.splice(tempSelected.findIndex((pair) => pair.index === item.index && pair.list === item.list), 1);
-					tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
+					provSecond = [...provSecond, firstListLocal[item.index]];
+					provSelected.splice(index - cont, 1);
+					provFirst.splice(item.index - cont, 1);
+					cont++;
 				}
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(tempFirst);
-				setSecondList(tempSecond);
+				setFirstList(provFirst);
+				setSecondList(provSecond);
 			} else {
-				setFirstListLocal(tempFirst);
-				setSecondListLocal(tempSecond);
+				setFirstListLocal(provFirst);
+				setSecondListLocal(provSecond);
 			}
-			setSelectedItems(tempSelected);
+			setSelectedItems(provSelected);
 		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
 
 		const moveIntoSecondAll = useCallback(() => {
@@ -130,16 +159,15 @@ const TransferListBase = kind({
 			setSelectedItems([]);
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
-		const setSelected = useCallback((element, index, list) => {
+		const setSelected = useCallback((index, list) => {
 			const potentialIndex = selectedItems.findIndex((pair) => pair.index === index && pair.list === list);
-
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
 					items.splice(potentialIndex, 1);
 					return [...items];
-				})
+				});
 			} else {
-				setSelectedItems(items => ([...items, {element, index, list}]));
+				setSelectedItems(items => ([...items, {index, list}]));
 			}
 		}, [selectedItems]);
 
@@ -161,34 +189,74 @@ const TransferListBase = kind({
 			})
 		), [renderItems, secondListLocal, selectedItems, setSelected]);
 
+		const onDropRightHandler = (ev) => {
+			console.log('from onDropRightHandler');
+			const data = ev.dataTransfer.getData('text/plain');
+			console.log(data);
+			const [index, list] = data.split('-');
+			if (list === 'second') return;
+			console.log('dropping on the right');
+			const secondListCopy = [...secondListLocal];
+			const firstListCopy = [...firstListLocal];
+			const draggedItem = firstListCopy[index];
+			secondListCopy.splice(dragOverElement.current, 0, draggedItem);
+			firstListCopy.splice(index, 1);
+			setFirstListLocal(firstListCopy);
+			setSecondListLocal(secondListCopy);
+		};
+
+		const onDropLefttHandler = (ev) => {
+			console.log('from onDropLefttHandler');
+			const data = ev.dataTransfer.getData('text/plain');
+			const [index, list] = data.split('-');
+			console.log(data);
+			if (list === 'first') return;
+
+			const secondListCopy = [...secondListLocal];
+			const firstListCopy = [...firstListLocal];
+			const draggedItem = secondListCopy[index];
+			secondListCopy.splice(index, 1);
+			firstListCopy.splice(dragOverElement.current, 0, draggedItem);
+			console.log('adding ', draggedItem, 'after ', dragOverElement.current);
+			dragOverElement.current = null;
+			setFirstListLocal(firstListCopy);
+			setSecondListLocal(secondListCopy);
+		};
+
 		return (
-			<Layout align="center" className={componentCss.transferList}>
-				<Cell size="40%" style={{height: ri.unit(500, 'rem')}}>
+			<Layout align="center">
+				<Column
+					onDragEnter={(e) => e.preventDefault()}
+					onDragOver={(e) => e.preventDefault()}
+					onDrop={(ev) => onDropLefttHandler(ev)}
+					style={{width: ri.unit(300, 'rem'), height: ri.unit(500, 'rem')}}
+				>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
 					>
-						<div className={componentCss.itemsList}>
-							{renderFirstList()}
-						</div>
+						{renderFirstList()}
 					</Scroller>
-				</Cell>
-				<Cell className={componentCss.listButtons}>
+				</Column>
+				<Column>
 					<Button onClick={moveIntoSecondAll} size="small">{'>>>'}</Button>
 					<Button onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
 					<Button onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
 					<Button onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
-				</Cell>
-				<Cell size="40%" style={{height: ri.unit(500, 'rem')}}>
+				</Column>
+				<Column
+					onDragEnter={(e) => e.preventDefault()}
+					onDragOver={(e) => e.preventDefault()}
+					onDrop={(ev) => onDropRightHandler(ev)}
+					style={{width: ri.unit(300, 'rem'), height: ri.unit(500, 'rem')}}
+				>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
 					>
-						<div className={componentCss.itemsList}>
-							{renderSecondList()}
-						</div>
+						{renderSecondList()}
 					</Scroller>
-				</Cell>
+				</Column>
 			</Layout>
 		);
 	}
