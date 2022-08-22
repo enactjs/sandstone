@@ -11,8 +11,7 @@ import CheckboxItem from '../CheckboxItem';
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 
-// import componentCss from './TransferList.module.less';
-
+import componentCss from './TransferList.module.less';
 
 const TransferListBase = kind({
 	name: 'TransferList',
@@ -37,6 +36,7 @@ const TransferListBase = kind({
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
 				const clickHandle = useCallback(() => onSelect(index, list), [index]);
+
 				return (
 					<CheckboxItem
 						id={index + list}
@@ -59,28 +59,29 @@ const TransferListBase = kind({
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let cont = 0,
-				provFirst = [...firstListLocal],
-				provSecond = [...secondListLocal],
-				provSelected = [...selectedItems];
+				tempFirst = [...firstListLocal],
+				tempSecond = [...secondListLocal],
+				tempSelected = [...selectedItems];
 
 			selectedItems.map((item, index) => {
 				if (item.list === 'second') {
-					provFirst = [...provFirst, secondListLocal[item.index]];
-					provSelected.splice(index - cont, 1);
-					provSecond.splice(item.index - cont, 1);
+					tempFirst = [...tempFirst, secondListLocal[item.index]];
+					tempSelected.splice(index - cont, 1);
+					tempSecond.splice(item.index - cont, 1);
 					cont++;
 				}
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(provFirst);
-				setSecondList(provSecond);
+				setFirstList(tempFirst);
+				setSecondList(tempSecond);
 			} else {
-				setFirstListLocal(provFirst);
-				setSecondListLocal(provSecond);
+				setFirstListLocal(tempFirst);
+				setSecondListLocal(tempSecond);
 			}
-			setSelectedItems(provSelected);
+			setSelectedItems(tempSelected);
 		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
+
 		const moveIntoFirstAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
 				setFirstList([...firstListLocal, ...secondListLocal]);
@@ -91,30 +92,32 @@ const TransferListBase = kind({
 			}
 			setSelectedItems([]);
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
+
 		const moveIntoSecondSelected = useCallback(() => {
 			let cont = 0,
-				provFirst = [...firstListLocal],
-				provSecond = [...secondListLocal],
-				provSelected = [...selectedItems];
+				tempFirst = [...firstListLocal],
+				tempSecond = [...secondListLocal],
+				tempSelected = [...selectedItems];
 
 			selectedItems.map((item, index) => {
 				if (item.list === 'first') {
-					provSecond = [...provSecond, firstListLocal[item.index]];
-					provSelected.splice(index - cont, 1);
-					provFirst.splice(item.index - cont, 1);
+					tempSecond = [...tempSecond, firstListLocal[item.index]];
+					tempSelected.splice(index - cont, 1);
+					tempFirst.splice(item.index - cont, 1);
 					cont++;
 				}
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(provFirst);
-				setSecondList(provSecond);
+				setFirstList(tempFirst);
+				setSecondList(tempSecond);
 			} else {
-				setFirstListLocal(provFirst);
-				setSecondListLocal(provSecond);
+				setFirstListLocal(tempFirst);
+				setSecondListLocal(tempSecond);
 			}
-			setSelectedItems(provSelected);
+			setSelectedItems(tempSelected);
 		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
+
 		const moveIntoSecondAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
 				setFirstList([]);
@@ -125,17 +128,20 @@ const TransferListBase = kind({
 			}
 			setSelectedItems([]);
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
+
 		const setSelected = useCallback((index, list) => {
 			const potentialIndex = selectedItems.findIndex((pair) => pair.index === index && pair.list === list);
+
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
 					items.splice(potentialIndex, 1);
 					return [...items];
-				});
+				})
 			} else {
 				setSelectedItems(items => ([...items, {index, list}]));
 			}
 		}, [selectedItems]);
+
 		const renderFirstList = useCallback(() => (
 			renderItems({
 				elements: firstListLocal,
@@ -144,6 +150,7 @@ const TransferListBase = kind({
 				selectedItems: selectedItems
 			})
 		), [firstListLocal, renderItems, selectedItems, setSelected]);
+
 		const renderSecondList = useCallback(() => (
 			renderItems({
 				elements: secondListLocal,
@@ -154,7 +161,7 @@ const TransferListBase = kind({
 		), [renderItems, secondListLocal, selectedItems, setSelected]);
 
 		return (
-			<Layout align="center">
+			<Layout align="center" className={componentCss.transferList}>
 				<Column style={{width: ri.unit(300, 'rem'), height: ri.unit(500, 'rem')}}>
 					<Scroller
 						horizontalScrollbar="hidden"
