@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import {Layout, Column} from '@enact/ui/Layout';
+import {Layout, Cell, Column} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useState} from 'react';
@@ -32,6 +32,12 @@ const TransferListBase = kind({
 		setSecondList: null
 	},
 
+	styles: {
+		css: componentCss,
+		className: 'transferList',
+		publicClassNames: true
+	},
+
 	computed: {
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
@@ -40,7 +46,6 @@ const TransferListBase = kind({
 				return (
 					<CheckboxItem
 						id={index + list}
-						inline
 						key={index + list}
 						onClick={clickHandle}
 						selected={-1 !== selectedItems.findIndex((pair) => pair.index === index && pair.list === list)}
@@ -162,28 +167,32 @@ const TransferListBase = kind({
 
 		return (
 			<Layout align="center" className={componentCss.transferList}>
-				<Column style={{width: ri.unit(300, 'rem'), height: ri.unit(500, 'rem')}}>
+				<Cell size="40%">
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
 					>
-						{renderFirstList()}
+						<div className={componentCss.itemsList}>
+							{renderFirstList()}
+						</div>
 					</Scroller>
-				</Column>
-				<Column>
+				</Cell>
+				<Cell className={componentCss.listButtons}>
 					<Button onClick={moveIntoSecondAll} size="small">{'>>>'}</Button>
 					<Button onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
 					<Button onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
 					<Button onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
-				</Column>
-				<Column style={{width: ri.unit(300, 'rem'), height: ri.unit(500, 'rem')}}>
+				</Cell>
+				<Cell size="40%">
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
 					>
-						{renderSecondList()}
+						<div className={componentCss.itemsList}>
+							{renderSecondList()}
+						</div>
 					</Scroller>
-				</Column>
+				</Cell>
 			</Layout>
 		);
 	}
