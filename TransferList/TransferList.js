@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import {Layout, Column} from '@enact/ui/Layout';
+import {Layout, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
@@ -13,7 +13,6 @@ import Skinnable from '../Skinnable';
 
 import componentCss from './TransferList.module.less';
 
-
 const TransferListBase = kind({
 	name: 'TransferList',
 
@@ -21,6 +20,7 @@ const TransferListBase = kind({
 
 	propTypes: {
 		firstList: PropTypes.array,
+		height: PropTypes.string,
 		secondList: PropTypes.array,
 		setFirstList: PropTypes.func,
 		setSecondList: PropTypes.func
@@ -33,6 +33,12 @@ const TransferListBase = kind({
 		setSecondList: null
 	},
 
+	styles: {
+		css: componentCss,
+		className: 'transferList',
+		publicClassNames: true
+	},
+
 	computed: {
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
@@ -42,7 +48,6 @@ const TransferListBase = kind({
 						draggable
 						className="checkbox"
 						id={`${index}-${list}`}
-						inline
 						key={index + list}
 						onClick={clickHandle}
 						selected={-1 !== selectedItems.findIndex((pair) => pair.index === index && pair.list === list)}
@@ -54,7 +59,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({firstList, secondList, renderItems, setFirstList, setSecondList}) => {
+	render: ({firstList, height, secondList, renderItems, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -237,39 +242,46 @@ const TransferListBase = kind({
 		};
 
 		return (
-			<Layout align="center">
-				<Column
+			<Layout align="center" className={componentCss.transferList}>
+				<Cell
+					className={componentCss.listCell}
 					onDragEnter={(e) => e.preventDefault()}
 					onDragOver={(e) => e.preventDefault()}
 					onDrop={(ev) => onDropLefttHandler(ev)}
-					style={{width: ri.unit(300, 'rem'), height: ri.unit(500, 'rem')}}
-				>
+					size="40%"
+					style={{height: height}}>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
 					>
-						{renderFirstList()}
+						<div className={componentCss.itemsList}>
+							{renderFirstList()}
+						</div>
 					</Scroller>
-				</Column>
-				<Column className={componentCss.listButtons}>
+				</Cell>
+				<Cell className={componentCss.listButtons}>
 					<Button onClick={moveIntoSecondAll} size="small">{'>>>'}</Button>
-					<Button onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
-					<Button onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
+					<Button disabled={!(selectedItems.find((item) => item.list === "first"))} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
+					<Button disabled={!(selectedItems.find((item) => item.list === "second"))} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
 					<Button onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
-				</Column>
-				<Column
+				</Cell>
+				<Cell
+					className={componentCss.listCell}
 					onDragEnter={(e) => e.preventDefault()}
 					onDragOver={(e) => e.preventDefault()}
 					onDrop={(ev) => onDropRightHandler(ev)}
-					style={{width: ri.unit(300, 'rem'), height: ri.unit(500, 'rem')}}
+					size="40%"
+					style={{height: height}}
 				>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
 					>
-						{renderSecondList()}
+						<div className={componentCss.itemsList}>
+							{renderSecondList()}
+						</div>
 					</Scroller>
-				</Column>
+				</Cell>
 			</Layout>
 		);
 	}
