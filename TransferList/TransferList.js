@@ -189,38 +189,51 @@ const TransferListBase = kind({
 			})
 		), [renderItems, secondListLocal, selectedItems, setSelected]);
 
+		const rearrangeList = (dragOverElementIndex, itemIndex, list, setNewList) => {
+				const draggedItem = list[itemIndex];
+				list.splice(itemIndex, 1);
+				list.splice(dragOverElementIndex, 0, draggedItem);
+				setNewList(list);
+		}
+
+		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, dragOverElementIndex, setSourceList, setDestinationList) => {
+			const draggedItem = sourceList[draggedElementIndex]
+			sourceList.splice(draggedElementIndex, 1);
+			destinationList.splice(dragOverElementIndex, 0, draggedItem);
+			dragOverElement.current = null;
+			setSourceList(sourceList);
+			setDestinationList(destinationList);
+		}
+		
+		const getTransferData = (dataTransferObj) => {
+			if(dataTransferObj) {
+				const data = dataTransferObj.getData('text/plain');
+				const [index, list] = data.split('-');
+				return {index, list}
+			}
+			return null;
+		}
+
 		const onDropRightHandler = (ev) => {
-			console.log('from onDropRightHandler');
-			const data = ev.dataTransfer.getData('text/plain');
-			console.log(data);
-			const [index, list] = data.split('-');
-			if (list === 'second') return;
-			console.log('dropping on the right');
+			const {index, list} = getTransferData(ev.dataTransfer)
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
-			const draggedItem = firstListCopy[index];
-			secondListCopy.splice(dragOverElement.current, 0, draggedItem);
-			firstListCopy.splice(index, 1);
-			setFirstListLocal(firstListCopy);
-			setSecondListLocal(secondListCopy);
+			if (list === 'second'){
+				rearrangeList(dragOverElement.current, index, secondListCopy, setSecondListLocal);
+				return;
+			}
+			rearrangeLists(firstListCopy, secondListCopy, index, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		};
 
 		const onDropLefttHandler = (ev) => {
-			console.log('from onDropLefttHandler');
-			const data = ev.dataTransfer.getData('text/plain');
-			const [index, list] = data.split('-');
-			console.log(data);
-			if (list === 'first') return;
-
-			const secondListCopy = [...secondListLocal];
+			const {index, list} = getTransferData(ev.dataTransfer)
 			const firstListCopy = [...firstListLocal];
-			const draggedItem = secondListCopy[index];
-			secondListCopy.splice(index, 1);
-			firstListCopy.splice(dragOverElement.current, 0, draggedItem);
-			console.log('adding ', draggedItem, 'after ', dragOverElement.current);
-			dragOverElement.current = null;
-			setFirstListLocal(firstListCopy);
-			setSecondListLocal(secondListCopy);
+			const secondListCopy = [...secondListLocal];
+			if (list === 'first') {
+				rearrangeList(dragOverElement.current, index, firstListCopy, setFirstListLocal);
+				return;
+			}
+			rearrangeLists(secondListCopy, firstListCopy, index, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 		};
 
 		return (
