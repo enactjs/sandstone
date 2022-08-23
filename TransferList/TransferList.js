@@ -27,6 +27,7 @@ const TransferListBase = kind({
 	},
 
 	defaultProps: {
+		height: ri.scaleToRem(999),
 		firstList: {},
 		secondList: {},
 		setFirstList: null,
@@ -230,7 +231,7 @@ const TransferListBase = kind({
 			rearrangeLists(firstListCopy, secondListCopy, index, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		};
 
-		const onDropLefttHandler = (ev) => {
+		const onDropLeftHandler = (ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer)
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
@@ -247,7 +248,7 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={(e) => e.preventDefault()}
 					onDragOver={(e) => e.preventDefault()}
-					onDrop={(ev) => onDropLefttHandler(ev)}
+					onDrop={(ev) => onDropLeftHandler(ev)}
 					size="40%"
 					style={{height: height}}>
 					<Scroller
