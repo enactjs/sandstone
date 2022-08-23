@@ -20,6 +20,7 @@ const TransferListBase = kind({
 
 	propTypes: {
 		firstList: PropTypes.array,
+		height: PropTypes.string,
 		secondList: PropTypes.array,
 		setFirstList: PropTypes.func,
 		setSecondList: PropTypes.func
@@ -57,7 +58,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({firstList, secondList, renderItems, setFirstList, setSecondList}) => {
+	render: ({firstList, height, secondList, renderItems, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -163,7 +164,7 @@ const TransferListBase = kind({
 
 		return (
 			<Layout align="center" className={componentCss.transferList}>
-				<Cell size="40%" style={{height: ri.unit(500, 'rem')}}>
+				<Cell className={componentCss.listCell} size="40%" style={{height: height}}>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
@@ -175,11 +176,11 @@ const TransferListBase = kind({
 				</Cell>
 				<Cell className={componentCss.listButtons}>
 					<Button onClick={moveIntoSecondAll} size="small">{'>>>'}</Button>
-					<Button onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
-					<Button onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
+					<Button disabled={!(selectedItems.find((item) => item.list === "first"))} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
+					<Button disabled={!(selectedItems.find((item) => item.list === "second"))} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
 					<Button onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
 				</Cell>
-				<Cell size="40%" style={{height: ri.unit(500, 'rem')}}>
+				<Cell className={componentCss.listCell} size="40%" style={{height: height}}>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
