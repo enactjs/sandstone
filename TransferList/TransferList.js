@@ -11,7 +11,7 @@ import CheckboxItem from '../CheckboxItem';
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 
-// import componentCss from './TransferList.module.less';
+import componentCss from './TransferList.module.less';
 
 
 const TransferListBase = kind({
@@ -36,7 +36,7 @@ const TransferListBase = kind({
 	computed: {
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
-				const clickHandle = useCallback(() => onSelect(index, list), [index]);
+				const clickHandle = useCallback(() => onSelect(element, index, list), [element, index, list, onSelect]);
 				return (
 					<CheckboxItem
 						draggable
@@ -159,7 +159,7 @@ const TransferListBase = kind({
 			setSelectedItems([]);
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
-		const setSelected = useCallback((index, list) => {
+		const setSelected = useCallback((element, index, list) => {
 			const potentialIndex = selectedItems.findIndex((pair) => pair.index === index && pair.list === list);
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
@@ -167,7 +167,7 @@ const TransferListBase = kind({
 					return [...items];
 				});
 			} else {
-				setSelectedItems(items => ([...items, {index, list}]));
+				setSelectedItems(items => ([...items, {element, index, list}]));
 			}
 		}, [selectedItems]);
 
@@ -204,7 +204,7 @@ const TransferListBase = kind({
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
 		}
-		
+
 		const getTransferData = (dataTransferObj) => {
 			if(dataTransferObj) {
 				const data = dataTransferObj.getData('text/plain');
@@ -251,7 +251,7 @@ const TransferListBase = kind({
 						{renderFirstList()}
 					</Scroller>
 				</Column>
-				<Column>
+				<Column className={componentCss.listButtons}>
 					<Button onClick={moveIntoSecondAll} size="small">{'>>>'}</Button>
 					<Button onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
 					<Button onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
