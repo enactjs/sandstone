@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import {Layout, Cell} from '@enact/ui/Layout';
+import {Cell, Layout} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
@@ -27,6 +27,7 @@ const TransferListBase = kind({
 	},
 
 	defaultProps: {
+		height: ri.scaleToRem(999),
 		firstList: {},
 		secondList: {},
 		setFirstList: null,
@@ -43,13 +44,14 @@ const TransferListBase = kind({
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
 				const clickHandle = useCallback(() => onSelect(element, index, list), [element, index, list, onSelect]);
-
 				return (
 					<CheckboxItem
-						id={index + list}
+						draggable
+						className="checkbox"
+						id={`${index}-${list}`}
 						key={index + list}
 						onClick={clickHandle}
-						selected={-1 !== selectedItems.findIndex((pair) => pair.index === index && pair.list === list)}
+						selected={-1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list)}
 					>
 						{element}
 					</CheckboxItem>
@@ -63,6 +65,34 @@ const TransferListBase = kind({
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 
+		const dragOverElement = useRef();
+
+		useEffect(() => {
+
+			const seletCheckboxItem = document.querySelectorAll('.checkbox');
+			seletCheckboxItem.forEach(element => {
+				const [index, list] = element.id.split('-');
+
+				const eventListeners = ['dragstart', 'drag'];
+				eventListeners.forEach(event => {
+					if (event === 'dragstart') {
+						return element.addEventListener('dragstart', (ev) => {
+							console.log('dragging element with index', index, 'from list ', list);
+							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
+							ev.dataTransfer.effectAllowed = 'move';
+						});
+					}
+					if (event === 'drag') {
+						return element.addEventListener('dragover', () => {
+							console.log('dragging over element with index', index, 'from list ', list);
+							dragOverElement.current = index;
+						});
+					}
+				});
+			});
+
+		}, [firstListLocal, secondListLocal]);
+
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
@@ -70,8 +100,8 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list === 'second') {
-					tempFirst = [...tempFirst, secondListLocal[item.index]];
-					tempSelected.splice(tempSelected.findIndex((pair) => pair.index === item.index && pair.list === item.list), 1);
+					tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
+					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 					tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
 				}
 			});
@@ -104,8 +134,8 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list === 'first') {
-					tempSecond = [...tempSecond, firstListLocal[item.index]];
-					tempSelected.splice(tempSelected.findIndex((pair) => pair.index === item.index && pair.list === item.list), 1);
+					tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
+					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 					tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
 				}
 			});
@@ -132,13 +162,12 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
-			const potentialIndex = selectedItems.findIndex((pair) => pair.index === index && pair.list === list);
-
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
 					items.splice(potentialIndex, 1);
 					return [...items];
-				})
+				});
 			} else {
 				setSelectedItems(items => ([...items, {element, index, list}]));
 			}
@@ -162,9 +191,81 @@ const TransferListBase = kind({
 			})
 		), [renderItems, secondListLocal, selectedItems, setSelected]);
 
+		const rearrangeList = (dragOverElementIndex, itemIndex, list, setNewList) => {
+			const draggedItem = list[itemIndex];
+			list.splice(itemIndex, 1);
+			list.splice(dragOverElementIndex, 0, draggedItem);
+			setNewList(list);
+		};
+
+		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, dragOverElementIndex, setSourceList, setDestinationList) => {
+			const draggedItem = sourceList[draggedElementIndex];
+			sourceList.splice(draggedElementIndex, 1);
+			destinationList.splice(dragOverElementIndex, 0, draggedItem);
+			dragOverElement.current = null;
+			setSourceList(sourceList);
+			setDestinationList(destinationList);
+		};
+
+		const getTransferData = (dataTransferObj) => {
+			if (dataTransferObj) {
+				const data = dataTransferObj.getData('text/plain');
+				const [index, list] = data.split('-');
+				return {index, list};
+			}
+			return null;
+		};
+
+		const onDropRightHandler = (ev) => {
+			const {index, list} = getTransferData(ev.dataTransfer);
+			const secondListCopy = [...secondListLocal];
+			const firstListCopy = [...firstListLocal];
+
+			if (list === 'second') {
+				rearrangeList(dragOverElement.current, index, secondListCopy, setSecondListLocal);
+				return;
+			}
+
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
+			if (potentialIndex !== -1) {
+				const selectedListCopy = [...selectedItems];
+				selectedListCopy.splice(potentialIndex, 1);
+				setSelectedItems(selectedListCopy);
+			}
+
+			rearrangeLists(firstListCopy, secondListCopy, index, dragOverElement.current, setFirstListLocal, setSecondListLocal);
+		};
+
+		const onDropLeftHandler = (ev) => {
+			const {index, list} = getTransferData(ev.dataTransfer);
+			const firstListCopy = [...firstListLocal];
+			const secondListCopy = [...secondListLocal];
+
+			if (list === 'first') {
+				rearrangeList(dragOverElement.current, index, firstListCopy, setFirstListLocal);
+				return;
+			}
+
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list);
+			if (potentialIndex !== -1) {
+				const selectedListCopy = [...selectedItems];
+				selectedListCopy.splice(potentialIndex, 1);
+				setSelectedItems(selectedListCopy);
+			}
+
+			rearrangeLists(secondListCopy, firstListCopy, index, dragOverElement.current, setSecondListLocal, setFirstListLocal);
+		};
+
 		return (
 			<Layout align="center" className={componentCss.transferList}>
-				<Cell className={componentCss.listCell} size="40%" style={{height: height}}>
+				<Cell
+					className={componentCss.listCell}
+					onDragEnter={(e) => e.preventDefault()}
+					onDragOver={(e) => e.preventDefault()}
+					onDrop={(ev) => onDropLeftHandler(ev)}
+					size="40%"
+					style={{height: height}}
+				>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
@@ -180,7 +281,14 @@ const TransferListBase = kind({
 					<Button disabled={!(selectedItems.find((item) => item.list === "second"))} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
 					<Button onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
 				</Cell>
-				<Cell className={componentCss.listCell} size="40%" style={{height: height}}>
+				<Cell
+					className={componentCss.listCell}
+					onDragEnter={(e) => e.preventDefault()}
+					onDragOver={(e) => e.preventDefault()}
+					onDrop={(ev) => onDropRightHandler(ev)}
+					size="40%"
+					style={{height: height}}
+				>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
