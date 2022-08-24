@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import kind from '@enact/core/kind';
-import {Layout, Cell} from '@enact/ui/Layout';
+import {Cell, Layout} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
@@ -51,7 +51,7 @@ const TransferListBase = kind({
 						id={`${index}-${list}`}
 						key={index + list}
 						onClick={clickHandle}
-						selected={-1 !== selectedItems.findIndex((pair) => pair.index === index && pair.list === list)}
+						selected={-1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list)}
 					>
 						{element}
 					</CheckboxItem>
@@ -83,7 +83,7 @@ const TransferListBase = kind({
 						});
 					}
 					if (event === 'drag') {
-						return element.addEventListener('dragover', (ev) => {
+						return element.addEventListener('dragover', () => {
 							console.log('dragging over element with index', index, 'from list ', list);
 							dragOverElement.current = index;
 						});
@@ -94,28 +94,26 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal]);
 
 		const moveIntoFirstSelected = useCallback(() => {
-			let cont = 0,
-				provFirst = [...firstListLocal],
-				provSecond = [...secondListLocal],
-				provSelected = [...selectedItems];
+			let tempFirst = [...firstListLocal],
+				tempSecond = [...secondListLocal],
+				tempSelected = [...selectedItems];
 
-			selectedItems.map((item, index) => {
+			selectedItems.map((item) => {
 				if (item.list === 'second') {
-					provFirst = [...provFirst, secondListLocal[item.index]];
-					provSelected.splice(index - cont, 1);
-					provSecond.splice(item.index - cont, 1);
-					cont++;
+					tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
+					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+					tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
 				}
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(provFirst);
-				setSecondList(provSecond);
+				setFirstList(tempFirst);
+				setSecondList(tempSecond);
 			} else {
-				setFirstListLocal(provFirst);
-				setSecondListLocal(provSecond);
+				setFirstListLocal(tempFirst);
+				setSecondListLocal(tempSecond);
 			}
-			setSelectedItems(provSelected);
+			setSelectedItems(tempSelected);
 		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
 
 		const moveIntoFirstAll = useCallback(() => {
@@ -130,28 +128,26 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const moveIntoSecondSelected = useCallback(() => {
-			let cont = 0,
-				provFirst = [...firstListLocal],
-				provSecond = [...secondListLocal],
-				provSelected = [...selectedItems];
+			let tempFirst = [...firstListLocal],
+				tempSecond = [...secondListLocal],
+				tempSelected = [...selectedItems];
 
-			selectedItems.map((item, index) => {
+			selectedItems.map((item) => {
 				if (item.list === 'first') {
-					provSecond = [...provSecond, firstListLocal[item.index]];
-					provSelected.splice(index - cont, 1);
-					provFirst.splice(item.index - cont, 1);
-					cont++;
+					tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
+					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+					tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
 				}
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(provFirst);
-				setSecondList(provSecond);
+				setFirstList(tempFirst);
+				setSecondList(tempSecond);
 			} else {
-				setFirstListLocal(provFirst);
-				setSecondListLocal(provSecond);
+				setFirstListLocal(tempFirst);
+				setSecondListLocal(tempSecond);
 			}
-			setSelectedItems(provSelected);
+			setSelectedItems(tempSelected);
 		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
 
 		const moveIntoSecondAll = useCallback(() => {
@@ -166,7 +162,7 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
-			const potentialIndex = selectedItems.findIndex((pair) => pair.index === index && pair.list === list);
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
 					items.splice(potentialIndex, 1);
@@ -196,49 +192,67 @@ const TransferListBase = kind({
 		), [renderItems, secondListLocal, selectedItems, setSelected]);
 
 		const rearrangeList = (dragOverElementIndex, itemIndex, list, setNewList) => {
-				const draggedItem = list[itemIndex];
-				list.splice(itemIndex, 1);
-				list.splice(dragOverElementIndex, 0, draggedItem);
-				setNewList(list);
-		}
+			const draggedItem = list[itemIndex];
+			list.splice(itemIndex, 1);
+			list.splice(dragOverElementIndex, 0, draggedItem);
+			setNewList(list);
+		};
 
 		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, dragOverElementIndex, setSourceList, setDestinationList) => {
-			const draggedItem = sourceList[draggedElementIndex]
+			const draggedItem = sourceList[draggedElementIndex];
 			sourceList.splice(draggedElementIndex, 1);
 			destinationList.splice(dragOverElementIndex, 0, draggedItem);
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		}
+		};
 
 		const getTransferData = (dataTransferObj) => {
-			if(dataTransferObj) {
+			if (dataTransferObj) {
 				const data = dataTransferObj.getData('text/plain');
 				const [index, list] = data.split('-');
-				return {index, list}
+				return {index, list};
 			}
 			return null;
-		}
+		};
 
 		const onDropRightHandler = (ev) => {
-			const {index, list} = getTransferData(ev.dataTransfer)
+			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
-			if (list === 'second'){
+
+			if (list === 'second') {
 				rearrangeList(dragOverElement.current, index, secondListCopy, setSecondListLocal);
 				return;
 			}
+
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
+			if (potentialIndex !== -1) {
+				const selectedListCopy = [...selectedItems];
+				selectedListCopy.splice(potentialIndex, 1);
+				setSelectedItems(selectedListCopy);
+			}
+
 			rearrangeLists(firstListCopy, secondListCopy, index, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		};
 
 		const onDropLeftHandler = (ev) => {
-			const {index, list} = getTransferData(ev.dataTransfer)
+			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
+
 			if (list === 'first') {
 				rearrangeList(dragOverElement.current, index, firstListCopy, setFirstListLocal);
 				return;
 			}
+
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list);
+			if (potentialIndex !== -1) {
+				const selectedListCopy = [...selectedItems];
+				selectedListCopy.splice(potentialIndex, 1);
+				setSelectedItems(selectedListCopy);
+			}
+
 			rearrangeLists(secondListCopy, firstListCopy, index, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 		};
 
@@ -250,7 +264,8 @@ const TransferListBase = kind({
 					onDragOver={(e) => e.preventDefault()}
 					onDrop={(ev) => onDropLeftHandler(ev)}
 					size="40%"
-					style={{height: height}}>
+					style={{height: height}}
+				>
 					<Scroller
 						horizontalScrollbar="hidden"
 						verticalScrollbar="hidden"
