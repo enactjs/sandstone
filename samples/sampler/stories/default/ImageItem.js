@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, object, select, text} from '@enact/storybook-utils/addons/controls';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
@@ -47,7 +47,7 @@ text('label', _ImageItem, Config, 'ImageItem label');
 select('orientation', _ImageItem, prop.orientation, Config);
 boolean('selected', _ImageItem, Config);
 boolean('showSelection', _ImageItem, Config);
-object('src', _ImageItem, Config, src);
+select('src', _ImageItem, src, Config, src.hd);
 select('orientation', _ImageItem, prop.orientation, Config);
 text('children', _ImageItem, Config, 'ImageItem Caption');
 
