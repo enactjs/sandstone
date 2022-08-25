@@ -47,7 +47,7 @@ const TransferListBase = kind({
 				return (
 					<CheckboxItem
 						draggable
-						className="checkbox"
+						className={componentCss.draggableItem}
 						id={`${index}-${list}`}
 						key={index + list}
 						onClick={clickHandle}
@@ -60,38 +60,86 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({firstList, height, secondList, renderItems, setFirstList, setSecondList}) => {
+	render: ({css, firstList, height, secondList, renderItems, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 
-		const dragOverElement = useRef();
+		let dragOverElement = useRef();
+		let startDragElement = useRef();
 
 		useEffect(() => {
 
-			const seletCheckboxItem = document.querySelectorAll('.checkbox');
+			const seletCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
+			let orderCounter = 0;
 			seletCheckboxItem.forEach(element => {
 				const [index, list] = element.id.split('-');
+				element.setAttribute('order', orderCounter + 1);
+				orderCounter++;
 
-				const eventListeners = ['dragstart', 'drag'];
+				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
 						return element.addEventListener('dragstart', (ev) => {
-							console.log('dragging element with index', index, 'from list ', list);
+							startDragElement.current = element;
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
 						});
 					}
-					if (event === 'drag') {
-						return element.addEventListener('dragover', () => {
-							console.log('dragging over element with index', index, 'from list ', list);
+					if (event === 'dragover') {
+						return element.addEventListener('dragover', (ev) => {
 							dragOverElement.current = index;
+							const startDragOrder = Number(startDragElement.current.getAttribute('order'));
+							const dragOverOrder = Number(element.getAttribute('order'));
+							if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
+								if (ev.offsetY <= 20) {
+									element.classList.add(`${css.overAbove}`)
+								}
+							} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
+								 if (ev.offsetY === -1 || ev.offsetY === 0) {
+									element.classList.remove(`${css.overAbove}`)
+									element.classList.remove(`${css.overBelow}`)
+								} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
+									 element.classList.add(`${css.overBelow}`)
+								}
+							}
 						});
+					}
+					if (event === 'dragenter') {
+						return element.addEventListener('dragenter', (ev) => {
+							dragOverElement.current = index;
+							const startDragOrder = Number(startDragElement.current.getAttribute('order'));
+							const dragOverOrder = Number(element.getAttribute('order'));
+							if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
+								if (ev.offsetY <= 20) {
+									element.classList.add(`${css.overAbove}`)
+								}
+							} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
+								if (ev.offsetY === -1 || ev.offsetY === 0) {
+									element.classList.remove(`${css.overAbove}`)
+									element.classList.remove(`${css.overBelow}`)
+								} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
+									element.classList.add(`${css.overBelow}`)
+								}
+							}
+						})
+					}
+					if (event === 'dragleave') {
+						return element.addEventListener('dragleave', () => {
+							element.classList.remove(`${css.overAbove}`);
+							element.classList.remove(`${css.overBelow}`);
+						})
+					}
+					if (event === 'drop') {
+						return element.addEventListener('drop', () => {
+							element.classList.remove(`${css.overAbove}`);
+							element.classList.remove(`${css.overBelow}`);
+						})
 					}
 				});
 			});
 
-		}, [firstListLocal, secondListLocal]);
+		}, [firstListLocal, secondListLocal, dragOverElement, startDragElement]);
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
