@@ -4,9 +4,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall`
+- `sandstone/Icon` supported icon list, adding a new icon `musicsrc`
+
 ### Changed
 
-- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall` 
 - `sandstone/TabLayout` to eliminate the horizontal maximum number of tabs
 
 ## [2.0.9] - 2022-05-19
