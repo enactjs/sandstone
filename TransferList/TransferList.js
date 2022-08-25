@@ -19,6 +19,7 @@ const TransferListBase = kind({
 	functional: true,
 
 	propTypes: {
+		allowMultipleDrag: PropTypes.bool,
 		firstList: PropTypes.array,
 		height: PropTypes.string,
 		secondList: PropTypes.array,
@@ -27,6 +28,7 @@ const TransferListBase = kind({
 	},
 
 	defaultProps: {
+		allowMultipleDrag: true,
 		height: ri.scaleToRem(999),
 		firstList: {},
 		secondList: {},
@@ -60,7 +62,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({firstList, height, secondList, renderItems, setFirstList, setSecondList}) => {
+	render: ({allowMultipleDrag, firstList, height, secondList, renderItems, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -200,11 +202,34 @@ const TransferListBase = kind({
 
 		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, dragOverElementIndex, setSourceList, setDestinationList) => {
 			const draggedItem = sourceList[draggedElementIndex];
-			sourceList.splice(draggedElementIndex, 1);
-			destinationList.splice(dragOverElementIndex, 0, draggedItem);
-			dragOverElement.current = null;
-			setSourceList(sourceList);
-			setDestinationList(destinationList);
+
+			if (allowMultipleDrag) {
+				// check if dragged item is selected or not
+				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
+
+				if (potentialIndex === -1) {
+					// move also the dragged item
+					destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
+					sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
+				}
+
+				selectedItems.map((item, arrayIndex) => {
+					if (item.list === 'first') {
+						destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
+						sourceList.splice(sourceList.findIndex((element) => element === item.element), 1);
+					}
+				});
+
+				dragOverElement.current = null;
+				setSourceList(sourceList);
+				setDestinationList(destinationList);
+			} else {
+				sourceList.splice(draggedElementIndex, 1);
+				destinationList.splice(dragOverElementIndex, 0, draggedItem);
+				dragOverElement.current = null;
+				setSourceList(sourceList);
+				setDestinationList(destinationList);
+			}
 		};
 
 		const getTransferData = (dataTransferObj) => {
@@ -227,9 +252,16 @@ const TransferListBase = kind({
 			}
 
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
+
 			if (potentialIndex !== -1) {
 				const selectedListCopy = [...selectedItems];
-				selectedListCopy.splice(potentialIndex, 1);
+				if (allowMultipleDrag) {
+					selectedItems.map((item) => {
+						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+					});
+				} else {
+					selectedListCopy.splice(potentialIndex, 1);
+				}
 				setSelectedItems(selectedListCopy);
 			}
 
