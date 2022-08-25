@@ -339,6 +339,7 @@ const IconBase = kind({
  * moodmode
  * changepassword
  * r2rappcall
+ * musicsrc
  * ```
  *
  * @name iconList
