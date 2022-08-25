@@ -207,7 +207,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 	// add webOS-specific key maps
 	addAll({
-		cancel: 461,
+		cancel: [461, 166],
 		nonModal: [
 			461,
 			415, // play

@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Icon` supported icon list, adding a new icon `musicsrc` 
+- `sandstone/ThemeDecorator` keycode 166 to support webos cancel key
 
 ## [2.5.2] - 2022-08-17
 
