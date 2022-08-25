@@ -214,10 +214,8 @@ const TransferListBase = kind({
 				}
 
 				selectedItems.map((item, arrayIndex) => {
-					if (item.list === 'first') {
-						destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
-						sourceList.splice(sourceList.findIndex((element) => element === item.element), 1);
-					}
+					destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
+					sourceList.splice(sourceList.findIndex((element) => element === item.element), 1);
 				});
 
 				dragOverElement.current = null;
@@ -279,9 +277,16 @@ const TransferListBase = kind({
 			}
 
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list);
+
 			if (potentialIndex !== -1) {
 				const selectedListCopy = [...selectedItems];
-				selectedListCopy.splice(potentialIndex, 1);
+				if (allowMultipleDrag) {
+					selectedItems.map((item) => {
+						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+					});
+				} else {
+					selectedListCopy.splice(potentialIndex, 1);
+				}
 				setSelectedItems(selectedListCopy);
 			}
 
