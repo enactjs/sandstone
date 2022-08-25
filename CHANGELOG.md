@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `musicsrc` 
+
 ## [2.5.2] - 2022-08-17
 
 No significant changes.
