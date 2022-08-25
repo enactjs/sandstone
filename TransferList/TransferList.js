@@ -82,6 +82,10 @@ const TransferListBase = kind({
 							console.log('dragging element with index', index, 'from list ', list);
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
+							const img = new Image();
+							img.src = "dragdrop.png";
+							console.log(img)
+							ev.dataTransfer.setDragImage(img, 10, 10);
 						});
 					}
 					if (event === 'drag') {
