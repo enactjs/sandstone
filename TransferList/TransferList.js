@@ -269,6 +269,7 @@ const TransferListBase = kind({
 			return null;
 		};
 
+		// Make this function using useCallback to avoid lint warning below
 		const onDropRightHandler = (ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
@@ -289,6 +290,7 @@ const TransferListBase = kind({
 			rearrangeLists(firstListCopy, secondListCopy, index, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		};
 
+		// Make this function using useCallback to avoid lint warning below
 		const onDropLeftHandler = (ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
@@ -357,7 +359,7 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropLeftHandler}
+					onDrop={onDropLeftHandler} // eslint-disable-line  react/jsx-no-bind
 					size="40%"
 					style={{height: height}}
 				>
@@ -384,7 +386,7 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropRightHandler}
+					onDrop={onDropRightHandler} // eslint-disable-line react/jsx-no-bind
 					size="40%"
 					style={{height: height}}
 				>
