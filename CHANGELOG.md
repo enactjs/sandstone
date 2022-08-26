@@ -13,6 +13,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/TabLayout` to eliminate the horizontal maximum number of tabs
 
+### Fixed
+
+- `sandstone/VideoPlayer` to not seek infinitely when pointer moves while holding left or right key
+
 ## [2.0.9] - 2022-05-19
 
 ### Fixed
