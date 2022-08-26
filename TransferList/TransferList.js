@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/jsx-no-bind */
+/* global Image */
 
 import kind from '@enact/core/kind';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -260,7 +261,7 @@ const TransferListBase = kind({
 
 			if (allowMultipleDrag) {
 				selectedItems.map((item, arrayIndex) => {
-					if(item.list !== draggedElementList) return;
+					if (item.list !== draggedElementList) return;
 					destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
 					sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
 				});
