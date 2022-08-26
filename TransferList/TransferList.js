@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react/jsx-no-bind */
 
 import kind from '@enact/core/kind';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -19,6 +20,7 @@ const TransferListBase = kind({
 	functional: true,
 
 	propTypes: {
+		css: PropTypes.object,
 		firstList: PropTypes.array,
 		height: PropTypes.string,
 		secondList: PropTypes.array,
