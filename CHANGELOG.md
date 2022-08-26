@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/VideoPlayer` to not seek infinitely when pointer moved while holding left or right key
+- `sandstone/VideoPlayer` to not seek infinitely when pointer moves while holding left or right key
 
 ## [2.5.2] - 2022-08-17
 
