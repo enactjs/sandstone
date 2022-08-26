@@ -1,7 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean} from '@enact/storybook-utils/addons/controls';
 
-import TransferList from '../../../../TransferList';
+import TransferList, {TransferListBase, TransferListDecorator} from '@enact/sandstone/TransferList';
 
 TransferList.displayName = 'TransferList';
 
