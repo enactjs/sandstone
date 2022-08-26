@@ -69,10 +69,14 @@ const TransferListBase = kind({
 
 		const dragOverElement = useRef();
 
+		// used for custom drag image
+		const img = new Image();
+		img.src = "https://via.placeholder.com/100x100";
+
 		useEffect(() => {
 
-			const seletCheckboxItem = document.querySelectorAll('.checkbox');
-			seletCheckboxItem.forEach(element => {
+			const selectCheckboxItem = document.querySelectorAll('.checkbox');
+			selectCheckboxItem.forEach(element => {
 				const [index, list] = element.id.split('-');
 
 				const eventListeners = ['dragstart', 'drag'];
@@ -82,8 +86,6 @@ const TransferListBase = kind({
 							console.log('dragging element with index', index, 'from list ', list);
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
-							const img = new Image();
-							img.src = "https://via.placeholder.com/100x100";
 							ev.dataTransfer.setDragImage(img, 0, 0);
 						});
 					}
