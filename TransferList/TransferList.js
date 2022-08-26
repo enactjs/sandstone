@@ -205,13 +205,14 @@ const TransferListBase = kind({
 			setNewList(list);
 		};
 
-		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, dragOverElementIndex, setSourceList, setDestinationList) => {
+		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
 			const draggedItem = sourceList[draggedElementIndex];
 
 			if (allowMultipleDrag) {
 				selectedItems.map((item, arrayIndex) => {
+					if(item.list !== draggedElementList) return;
 					destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
-					sourceList.splice(sourceList.findIndex((element) => element === item.element), 1);
+					sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
 				});
 			} else {
 				sourceList.splice(draggedElementIndex, 1);
@@ -254,7 +255,7 @@ const TransferListBase = kind({
 			}
 			setSelectedItems(selectedListCopy);
 
-			rearrangeLists(firstListCopy, secondListCopy, index, dragOverElement.current, setFirstListLocal, setSecondListLocal);
+			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		};
 
 		const onDropLeftHandler = (ev) => {
@@ -281,7 +282,7 @@ const TransferListBase = kind({
 				setSelectedItems(selectedListCopy);
 			}
 
-			rearrangeLists(secondListCopy, firstListCopy, index, dragOverElement.current, setSecondListLocal, setFirstListLocal);
+			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 		};
 
 		return (
