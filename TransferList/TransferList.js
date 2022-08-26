@@ -45,7 +45,7 @@ const TransferListBase = kind({
 	computed: {
 		renderItems: () => ({elements, list, onSelect, selectedItems}) => {
 			return elements.map((element, index) => {
-				const clickHandle = useCallback(() => onSelect(element, index, list), [element, index, list, onSelect]);
+				const clickHandle = useCallback(() => onSelect(element, index, list), [element, index, list, onSelect]); // eslint-disable-line react-hooks/exhaustive-deps
 				return (
 					<CheckboxItem
 						draggable
@@ -141,7 +141,7 @@ const TransferListBase = kind({
 				});
 			});
 
-		}, [firstListLocal, secondListLocal, dragOverElement, startDragElement]);
+		}, [firstListLocal, secondListLocal, dragOverElement, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
