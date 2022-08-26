@@ -256,17 +256,15 @@ const TransferListBase = kind({
 
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
 
-			if (potentialIndex !== -1) {
-				const selectedListCopy = [...selectedItems];
-				if (allowMultipleDrag) {
-					selectedItems.map((item) => {
-						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-					});
-				} else {
-					selectedListCopy.splice(potentialIndex, 1);
-				}
-				setSelectedItems(selectedListCopy);
+			const selectedListCopy = [...selectedItems];
+			if (allowMultipleDrag) {
+				selectedItems.map((item) => {
+					selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+				});
+			} else {
+				selectedListCopy.splice(potentialIndex, 1);
 			}
+			setSelectedItems(selectedListCopy);
 
 			rearrangeLists(firstListCopy, secondListCopy, index, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		};
