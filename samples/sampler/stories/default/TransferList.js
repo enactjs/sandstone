@@ -1,4 +1,3 @@
-import ri from '@enact/ui/resolution';
 import TransferList from '../../../../TransferList';
 
 TransferList.displayName = 'TransferList';

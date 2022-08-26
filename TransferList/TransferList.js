@@ -60,7 +60,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({css, firstList, height, secondList, renderItems, setFirstList, setSecondList}) => {
+	render: ({css, firstList, height, renderItems, secondList, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -69,9 +69,9 @@ const TransferListBase = kind({
 		let startDragElement = useRef();
 
 		useEffect(() => {
-
 			const seletCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
+
 			seletCheckboxItem.forEach(element => {
 				const [index, list] = element.id.split('-');
 				element.setAttribute('order', orderCounter + 1);
@@ -93,14 +93,14 @@ const TransferListBase = kind({
 							const dragOverOrder = Number(element.getAttribute('order'));
 							if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
 								if (ev.offsetY <= 20) {
-									element.classList.add(`${css.overAbove}`)
+									element.classList.add(`${css.overAbove}`);
 								}
 							} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
-								 if (ev.offsetY === -1 || ev.offsetY === 0) {
-									element.classList.remove(`${css.overAbove}`)
-									element.classList.remove(`${css.overBelow}`)
+								if (ev.offsetY === -1 || ev.offsetY === 0) {
+									element.classList.remove(`${css.overAbove}`);
+									element.classList.remove(`${css.overBelow}`);
 								} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-									 element.classList.add(`${css.overBelow}`)
+									element.classList.add(`${css.overBelow}`);
 								}
 							}
 						});
@@ -112,29 +112,29 @@ const TransferListBase = kind({
 							const dragOverOrder = Number(element.getAttribute('order'));
 							if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
 								if (ev.offsetY <= 20) {
-									element.classList.add(`${css.overAbove}`)
+									element.classList.add(`${css.overAbove}`);
 								}
 							} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
 								if (ev.offsetY === -1 || ev.offsetY === 0) {
-									element.classList.remove(`${css.overAbove}`)
-									element.classList.remove(`${css.overBelow}`)
+									element.classList.remove(`${css.overAbove}`);
+									element.classList.remove(`${css.overBelow}`);
 								} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-									element.classList.add(`${css.overBelow}`)
+									element.classList.add(`${css.overBelow}`);
 								}
 							}
-						})
+						});
 					}
 					if (event === 'dragleave') {
 						return element.addEventListener('dragleave', () => {
 							element.classList.remove(`${css.overAbove}`);
 							element.classList.remove(`${css.overBelow}`);
-						})
+						});
 					}
 					if (event === 'drop') {
 						return element.addEventListener('drop', () => {
 							element.classList.remove(`${css.overAbove}`);
 							element.classList.remove(`${css.overBelow}`);
-						})
+						});
 					}
 				});
 			});
