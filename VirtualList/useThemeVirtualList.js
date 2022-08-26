@@ -16,6 +16,8 @@ import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
 
+let isDestroy = false;
+
 const
 	nop = () => {},
 	getNumberValue = (index) => {
@@ -114,10 +116,14 @@ const useSpottable = (props, instances) => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	function handleGlobalKeyDown (ev) {
+		console.log('handleGlobalKeyDown>');
 		// To prevent scrolling by native scroller
 		if (scrollMode === 'native') {
-			ev.preventDefault();
-			ev.stopPropagation();
+			if (document.querySelector('[data-virtuallist]') && !isDestroy) {
+				ev.preventDefault();
+				ev.stopPropagation();
+				console.log('handleGlobalKeyDown>stopPropagation() is called');
+			}
 		}
 
 		setContainerDisabled(false);
@@ -137,6 +143,8 @@ const useSpottable = (props, instances) => {
 			SpotlightAccelerator.reset();
 
 			setContainerDisabled(false);
+
+			isDestroy = true;
 		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -387,7 +395,8 @@ const useThemeVirtualList = (props) => {
 			});
 		},
 		onUpdateItems: handleRestoreLastFocus,
-		updateStatesAndBounds: updateStatesAndBounds
+		updateStatesAndBounds: updateStatesAndBounds,
+		'data-virtuallist': true
 	};
 };
 
