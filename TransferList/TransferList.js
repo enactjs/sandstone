@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react/jsx-no-bind */
 /* global Image */
 
 import kind from '@enact/core/kind';
@@ -58,11 +57,6 @@ const TransferListBase = kind({
 					onSelect(element, index, list);
 				}, [element, index, list, onSelect]); // eslint-disable-line react-hooks/exhaustive-deps
 
-				const handleKeyDown = useCallback((ev) => {
-					if (ev.code !== 'Enter') return;
-					onSelect(element, index, list);
-				}, [element, index, list, onSelect])
-
 				const handleSpotlightDown = useCallback((ev) => {
 					if (elements.length - 1 !== index) return;
 					ev.preventDefault();
@@ -82,8 +76,7 @@ const TransferListBase = kind({
 						className={componentCss.draggableItem}
 						id={`${index}-${list}`}
 						key={index + list}
-						onKeyDown={handleKeyDown}
-						onPointerDown={handleClick}
+						onClick={handleClick}
 						onSpotlightDown={handleSpotlightDown}
 						onSpotlightUp={handleSpotlightUp}
 						selected={selected}
@@ -259,7 +252,7 @@ const TransferListBase = kind({
 			}
 		}, [selectedItems]);
 
-		const rearrangeList = (dragOverElementIndex, itemIndex, list, setNewList) => {
+		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
 			const draggedItem = list[itemIndex];
 			list.splice(itemIndex, 1);
 			list.splice(dragOverElementIndex, 0, draggedItem);
@@ -270,6 +263,13 @@ const TransferListBase = kind({
 			const draggedItem = sourceList[draggedElementIndex];
 
 			if (allowMultipleDrag) {
+				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
+
+				if (potentialIndex === -1) {
+					destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
+					sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
+				}
+
 				selectedItems.map((item, arrayIndex) => {
 					if (item.list !== draggedElementList) return;
 					destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
@@ -301,7 +301,7 @@ const TransferListBase = kind({
 			const firstListCopy = [...firstListLocal];
 
 			if (list === 'second') {
-				rearrangeList(dragOverElement.current, index, secondListCopy, setSecondListLocal);
+				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
 				return;
 			}
 
@@ -327,7 +327,7 @@ const TransferListBase = kind({
 			const secondListCopy = [...secondListLocal];
 
 			if (list === 'first') {
-				rearrangeList(dragOverElement.current, index, firstListCopy, setFirstListLocal);
+				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
 				return;
 			}
 
