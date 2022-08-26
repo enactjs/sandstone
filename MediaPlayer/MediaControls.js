@@ -11,6 +11,7 @@ import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import Cancelable from '@enact/ui/Cancelable';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import {Component, createRef} from 'react';
@@ -793,6 +794,13 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			}
 			this.mediaControlsNode = this.mediaControlsRef.current;
 
+			console.log("!!!!!!! componentRef", this.props.mcRef);
+			console.log("!!!", node);
+			if (this.props.mcRef) {
+				console.log("this.props.componentRef", node);
+				this.props.mcRef(node);
+			}
+
 			const guideElement = this.mediaControlsNode.querySelector(`.${css.actionGuide}`);
 			this.actionGuideHeight = guideElement ? guideElement.scrollHeight : 0;
 		};
@@ -850,6 +858,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			delete props.onToggleMore;
 			delete props.rateChangeDisabled;
 			delete props.setApiProvider;
+			delete props.componentRef;
 
 			return (
 				<Wrapped
@@ -895,11 +904,14 @@ const MediaControls = ApiDecorator(
 	{api: [
 		'areMoreComponentsAvailable',
 		'showMoreComponents',
+		'stopListeningForPulses',
 		'hideMoreComponents'
 	]},
-	MediaControlsDecorator(
-		Cancelable({modal: true, onCancel: handleCancel},
-			MediaControlsBase
+	ForwardRef({prop: 'mcRef'},
+		MediaControlsDecorator(
+			Cancelable({modal: true, onCancel: handleCancel},
+				MediaControlsBase
+			)
 		)
 	)
 );

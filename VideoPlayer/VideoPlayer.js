@@ -103,6 +103,18 @@ const ControlsContainer = SpotlightContainerDecorator(
 	'div'
 );
 
+const ForwardedComponentOverride = ForwardRef({prop: 'mcRef'}, ComponentOverride);
+
+ForwardedComponentOverride.propTypes = {
+	/*
+	 * Called with the reference to the mediaControls node.
+	 *
+	 * @type {Object|Function}
+	 * @public
+	 */
+	mcRef: EnactPropTypes.ref
+};
+
 const memoGetDurFmt = memoize((/* locale */) => new DurationFmt({
 	length: 'medium', style: 'clock', useNative: false
 }));
@@ -811,6 +823,11 @@ const VideoPlayerBase = class extends Component {
 		this.mediaControlsSpotlightId = props.spotlightId + '_mediaControls';
 		this.jumpButtonPressed = null;
 		this.playerRef = createRef();
+		this.getMcRef = (ref) => {
+			this.mcRef = ref;
+		};
+
+		console.log("this.mcRef!!, ", typeof this.mcRef);
 
 		// Re-render-necessary State
 		this.state = {
@@ -1312,6 +1329,7 @@ const VideoPlayerBase = class extends Component {
 	handleControlsHandleAboveKeyUp = ({keyCode}) => {
 		if (isEnter(keyCode) || isLeft(keyCode) || isRight(keyCode)) {
 			this.jumpButtonPressed = null;
+			this.mcRef.current?.stopListeningForPulses?.();
 		}
 	};
 
@@ -2132,7 +2150,7 @@ const VideoPlayerBase = class extends Component {
 									}
 								</div>
 							}
-							<ComponentOverride
+							<ForwardedComponentOverride
 								component={mediaControlsComponent}
 								id={`${this.id}_mediaControls`}
 								initialJumpDelay={initialJumpDelay}
@@ -2149,6 +2167,7 @@ const VideoPlayerBase = class extends Component {
 								onRewind={this.handleRewind}
 								onToggleMore={this.handleToggleMore}
 								paused={this.state.paused}
+								ref={this.getMcRef}
 								spotlightId={this.mediaControlsSpotlightId}
 								spotlightDisabled={!this.state.mediaControlsVisible || spotlightDisabled}
 								visible={this.state.mediaControlsVisible}
