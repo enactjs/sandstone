@@ -52,7 +52,7 @@ const TransferListBase = kind({
 						className="checkbox"
 						id={`${index}-${list}`}
 						key={index + list}
-						onClick={clickHandle}
+						onPointerDown={clickHandle}
 						selected={-1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list)}
 					>
 						{element}
@@ -209,30 +209,18 @@ const TransferListBase = kind({
 			const draggedItem = sourceList[draggedElementIndex];
 
 			if (allowMultipleDrag) {
-				// check if dragged item is selected or not
-				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
-
-				if (potentialIndex === -1) {
-					// move also the dragged item
-					destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
-					sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
-				}
-
 				selectedItems.map((item, arrayIndex) => {
 					destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
 					sourceList.splice(sourceList.findIndex((element) => element === item.element), 1);
 				});
-
-				dragOverElement.current = null;
-				setSourceList(sourceList);
-				setDestinationList(destinationList);
 			} else {
 				sourceList.splice(draggedElementIndex, 1);
 				destinationList.splice(dragOverElementIndex, 0, draggedItem);
-				dragOverElement.current = null;
-				setSourceList(sourceList);
-				setDestinationList(destinationList);
 			}
+
+			dragOverElement.current = null;
+			setSourceList(sourceList);
+			setDestinationList(destinationList);
 		};
 
 		const getTransferData = (dataTransferObj) => {
