@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+/* global Image */
 
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
@@ -21,6 +22,7 @@ const TransferListBase = kind({
 	functional: true,
 
 	propTypes: {
+		allowMultipleDrag: PropTypes.bool,
 		css: PropTypes.object,
 		firstList: PropTypes.array,
 		height: PropTypes.string,
@@ -31,6 +33,7 @@ const TransferListBase = kind({
 	},
 
 	defaultProps: {
+		allowMultipleDrag: true,
 		height: ri.scaleToRem(999),
 		firstList: {},
 		moveOnSpotlight: false,
@@ -85,13 +88,17 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({css, firstList, height, moveOnSpotlight, renderItems, secondList, setFirstList, setSecondList}) => {
+	render: ({allowMultipleDrag, css, firstList, height, moveOnSpotlight, renderItems, secondList, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
+
+		// used for custom drag image
+		const img = new Image();
+		img.src = "https://via.placeholder.com/100x100";
 
 		useEffect(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
@@ -109,6 +116,7 @@ const TransferListBase = kind({
 							startDragElement.current = element;
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
+							ev.dataTransfer.setDragImage(img, 0, 0);
 						});
 					}
 					if (event === 'dragover') {
@@ -244,17 +252,34 @@ const TransferListBase = kind({
 			}
 		}, [selectedItems]);
 
-		const rearrangeList = (dragOverElementIndex, itemIndex, list, setNewList) => {
+		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
 			const draggedItem = list[itemIndex];
 			list.splice(itemIndex, 1);
 			list.splice(dragOverElementIndex, 0, draggedItem);
 			setNewList(list);
 		};
 
-		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, dragOverElementIndex, setSourceList, setDestinationList) => {
+		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
 			const draggedItem = sourceList[draggedElementIndex];
-			sourceList.splice(draggedElementIndex, 1);
-			destinationList.splice(dragOverElementIndex, 0, draggedItem);
+
+			if (allowMultipleDrag) {
+				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
+
+				if (potentialIndex === -1) {
+					destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
+					sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
+				}
+
+				selectedItems.map((item, arrayIndex) => {
+					if (item.list !== draggedElementList) return;
+					destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
+					sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
+				});
+			} else {
+				sourceList.splice(draggedElementIndex, 1);
+				destinationList.splice(dragOverElementIndex, 0, draggedItem);
+			}
+
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
@@ -276,18 +301,23 @@ const TransferListBase = kind({
 			const firstListCopy = [...firstListLocal];
 
 			if (list === 'second') {
-				rearrangeList(dragOverElement.current, index, secondListCopy, setSecondListLocal);
+				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
 				return;
 			}
 
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
-			if (potentialIndex !== -1) {
-				const selectedListCopy = [...selectedItems];
-				selectedListCopy.splice(potentialIndex, 1);
-				setSelectedItems(selectedListCopy);
-			}
 
-			rearrangeLists(firstListCopy, secondListCopy, index, dragOverElement.current, setFirstListLocal, setSecondListLocal);
+			const selectedListCopy = [...selectedItems];
+			if (allowMultipleDrag) {
+				selectedItems.map((item) => {
+					selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+				});
+			} else {
+				selectedListCopy.splice(potentialIndex, 1);
+			}
+			setSelectedItems(selectedListCopy);
+
+			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		};
 
 		// Make this function using useCallback to avoid lint warning below
@@ -297,18 +327,25 @@ const TransferListBase = kind({
 			const secondListCopy = [...secondListLocal];
 
 			if (list === 'first') {
-				rearrangeList(dragOverElement.current, index, firstListCopy, setFirstListLocal);
+				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
 				return;
 			}
 
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list);
+
 			if (potentialIndex !== -1) {
 				const selectedListCopy = [...selectedItems];
-				selectedListCopy.splice(potentialIndex, 1);
+				if (allowMultipleDrag) {
+					selectedItems.map((item) => {
+						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+					});
+				} else {
+					selectedListCopy.splice(potentialIndex, 1);
+				}
 				setSelectedItems(selectedListCopy);
 			}
 
-			rearrangeLists(secondListCopy, firstListCopy, index, dragOverElement.current, setSecondListLocal, setFirstListLocal);
+			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 		};
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
