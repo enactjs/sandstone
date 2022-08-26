@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Icon` supported icon list, adding a new icon `musicsrc` 
 
+### Fixed
+
+- `sandstone/VideoPlayer` to not seek infinitely when pointer moves while holding left or right key
+
 ## [2.5.2] - 2022-08-17
 
 No significant changes.
