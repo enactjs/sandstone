@@ -58,6 +58,11 @@ const TransferListBase = kind({
 					onSelect(element, index, list);
 				}, [element, index, list, onSelect]); // eslint-disable-line react-hooks/exhaustive-deps
 
+				const handleKeyDown = useCallback((ev) => {
+					if (ev.code !== 'Enter') return;
+					onSelect(element, index, list);
+				}, [element, index, list, onSelect])
+
 				const handleSpotlightDown = useCallback((ev) => {
 					if (elements.length - 1 !== index) return;
 					ev.preventDefault();
@@ -77,6 +82,7 @@ const TransferListBase = kind({
 						className={componentCss.draggableItem}
 						id={`${index}-${list}`}
 						key={index + list}
+						onKeyDown={handleKeyDown}
 						onPointerDown={handleClick}
 						onSpotlightDown={handleSpotlightDown}
 						onSpotlightUp={handleSpotlightUp}
