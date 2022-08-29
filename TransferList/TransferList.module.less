@@ -23,4 +23,19 @@
         height: 630px;
         justify-content: space-evenly;
     }
+
+    .draggableItem {
+        transition: transform 0.4s ease-out;
+        box-sizing: content-box;
+    }
+
+    .overAbove {
+        transform: translate(0, -50px);
+        color: #666565;
+    }
+
+    .overBelow {
+        transform: translate(0, 50px);
+        color: #666565;
+    }
 }
