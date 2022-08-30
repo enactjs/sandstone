@@ -75,7 +75,7 @@ describe('WizardPanels', function () {
 
 		});
 
-		it('should focus an eligible navigation button when leaving the contents or footer via 5-way left or right - [QWT-2113]', async function () {
+		it('should focus an eligible navigation button when leaving the contents or footer via 5-way left or right - [QWTC-2536]', async function () {
 			expect('OK').to.be.equal(await browser.execute(getFocusedTextContent));
 
 			await Page.spotlightRight();
@@ -105,7 +105,7 @@ describe('WizardPanels', function () {
 	});
 
 	describe('Focus Behavior', function () {
-		it('should focus a component within the body on mount - [QWT-2117]', async function () {
+		it('should focus a component within the body on mount - [QWTC-2532]', async function () {
 			await wizardPanels.waitForEnter(1);
 
 			const expected = 'OK';
@@ -114,7 +114,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should focus a navigation button on mount if no focusable elements exist in the body - [QWT-2116]', async function () {
+		it('should focus a navigation button on mount if no focusable elements exist in the body - [QWTC-2533]', async function () {
 			await Page.open('?index=3');
 
 			await wizardPanels.waitForEnter(4);
@@ -122,7 +122,7 @@ describe('WizardPanels', function () {
 			expect(await (await wizardPanels.prevButton()).isFocused()).to.be.true();
 		});
 
-		it('should select contents over buttons - [QWT-2260]', async function () {
+		it('should select contents over buttons - [QWTC-2389]', async function () {
 			await wizardPanels.focusNextButton();
 			await Page.spotlightSelect();
 			await wizardPanels.waitForLeave(1);
@@ -133,7 +133,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should select buttons over header - [QWT-2259]', async function () {
+		it('should select buttons over header - [QWTC-2390]', async function () {
 			await wizardPanels.focusNextButton();
 			await Page.spotlightSelect();
 			await wizardPanels.waitForLeave(1);
@@ -148,7 +148,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should select header when no other options are available - [QWT-2258]', async function () {
+		it('should select header when no other options are available - [QWTC-2391]', async function () {
 			await wizardPanels.focusNextButton();
 			await Page.spotlightSelect();
 			await wizardPanels.waitForLeave(1);
@@ -164,7 +164,7 @@ describe('WizardPanels', function () {
 			expect(await (await wizardPanels.prevButton()).isFocused()).to.be.true();
 		});
 
-		it('should select `.spottable-default` when it exists - [QWT-2236]', async function () {
+		it('should select `.spottable-default` when it exists - [QWTC-2413]', async function () {
 			await wizardPanels.focusNextButton();
 			await Page.spotlightSelect();
 			await wizardPanels.waitForLeave(1);

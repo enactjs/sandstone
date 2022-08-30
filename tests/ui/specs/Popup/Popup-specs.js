@@ -687,7 +687,7 @@ describe('Popup', function () {
 
 		describe('using 5-way and Pointer', function () {
 
-			it('should retain spotlight on the Close button inside the popup [QWT-2747]', async function () {
+			it('should retain spotlight on the Close button inside the popup [QWTC-1903]', async function () {
 				await popupCommon.buttonPopup6.click();
 				await Page.waitForOpen(popup);
 
@@ -710,7 +710,7 @@ describe('Popup', function () {
 				expect(await popup.buttonCancel.isFocused()).to.be.true();
 			});
 
-			it('should focus the popup button when changing from pointer to 5-way in popup container - [QWT-2750]', async function () {
+			it('should focus the popup button when changing from pointer to 5-way in popup container - [QWTC-1900]', async function () {
 				await Page.spotlightRight();
 				await Page.spotlightRight();
 				await Page.spotlightDown();
@@ -740,7 +740,7 @@ describe('Popup', function () {
 				expect(await popup.buttonCancel.isFocused()).to.be.true();
 			});
 
-			it.skip('should not spot Buttons Outside of Popup - [QWT-2749]', async function () {
+			it.skip('should not spot Buttons Outside of Popup - [QWTC-1901]', async function () {
 				await popupCommon.buttonPopup6.click();
 				await Page.waitForOpen(popup);
 
@@ -899,7 +899,7 @@ describe('Popup', function () {
 
 		describe('using 5-way and Pointer', function () {
 
-			it('should navigate to nearest neighbor [QWT-2748]', async function () {
+			it('should navigate to nearest neighbor [QWTC-1902]', async function () {
 				await popupCommon.buttonPopup7.click();
 				await Page.waitForOpen(popup);
 
@@ -1253,7 +1253,7 @@ describe('Popup', function () {
 
 	describe('toggling open', function () {
 
-		it('should allow spotlight navigation [QWT-2751]', async function () {
+		it('should allow spotlight navigation [QWTC-1899]', async function () {
 			await popupCommon.buttonPopup10.click();
 
 			await Page.delay(500);

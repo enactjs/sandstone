@@ -47,12 +47,12 @@ describe.skip('SwitchItem', function () {
 		});
 
 		describe('pointer', function () {
-			it('should select the item when clicked - [QWT-2527]', async function () {
+			it('should select the item when clicked - [QWTC-2123]', async function () {
 				await switchItem.self.click();
 				expect(switchItem.isSelected).to.be.true();
 			});
 
-			it('should re-unselect the item when clicked twice - [QWT-2527]', async function () {
+			it('should re-unselect the item when clicked twice - [QWTC-2123]', async function () {
 				await switchItem.self.click();
 				await switchItem.self.click();
 				expect(switchItem.isSelected).to.be.false();

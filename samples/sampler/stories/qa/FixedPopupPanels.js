@@ -485,32 +485,39 @@ const WithVariousItemsSamplesBase = ({args, rtl}) => {
 							<Button size="small" icon="arrowlargeright" onClick={nextPanel} />
 						</slotAfter>
 					</Header>
-					<Column>
-						<Cell shrink component={BodyText}>
-							A 3-Cell Layout with various items
-						</Cell>
-						<Cell>
-							<span>This is the first panel.</span>
-							<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
-							<br />
-							<br />
-							<Button size="small" onClick={handleClose}>Button2</Button>
-							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
-							<br />
-							<br />
-							<Slider />
-							<br />
-							<Button size="small" disabled>Button4</Button>
-							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
-								{['a', 'b', 'c', 'd', 'e', 'f']}
-							</Dropdown>
-							<br />
-							<br />
-						</Cell>
-						<Cell shrink component={BodyText}>
-							This text should be visible.
-						</Cell>
-					</Column>
+					<Scroller>
+						<Column>
+							<Cell shrink component={BodyText}>
+								A 3-Cell Layout with various items
+							</Cell>
+							<Cell>
+								<span>This is the first panel.</span>
+								<Button size="small" disabled onClick={nextPanel} onKeyDown={handleKeyDown}>Button1</Button>
+								<br />
+								<br />
+								<Button size="small" onClick={handleClose}>Button2</Button>
+								<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button3</Button>
+								<br />
+								<br />
+								<Slider />
+								<br />
+								<Button size="small" disabled>Button4</Button>
+								<Dropdown width={100} style={{margin: 0}} title="A dropdown">
+									{['a', 'b', 'c', 'd', 'e', 'f']}
+								</Dropdown>
+								<br />
+								<br />
+							</Cell>
+							<Cell shrink component={BodyText}>
+								This text should be visible.
+							</Cell>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button5</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button6</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button7</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button8</Button>
+							<Button size="small" onClick={nextPanel} onKeyDown={handleKeyDown}>Button9</Button>
+						</Column>
+					</Scroller>
 				</Panel>
 				<Panel>
 					<Header>

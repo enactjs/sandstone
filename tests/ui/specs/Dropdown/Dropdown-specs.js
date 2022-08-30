@@ -14,7 +14,7 @@ describe('Dropdown', function () {
 			await Page.open();
 		});
 
-		it('should focus the first item when `selected` changes to `null` - [QWT-2246]', async function () {
+		it('should focus the first item when `selected` changes to `null` - [QWTC-2403]', async function () {
 			const dropdown = Page.components.dropdownChangeSelected;
 
 			await Page.openDropdown(dropdown);
@@ -24,7 +24,7 @@ describe('Dropdown', function () {
 			waitForFocusedText(dropdown, 'one', 750);
 		});
 
-		it('should focus the first item when `children` changes - [QWT-2245]', async function () {
+		it('should focus the first item when `children` changes - [QWTC-2404]', async function () {
 			const dropdown = Page.components.dropdownChangeChildren;
 
 			await Page.openDropdown(dropdown);
@@ -34,7 +34,7 @@ describe('Dropdown', function () {
 			waitForFocusedText(dropdown, 'three', 750);
 		});
 
-		it('should focus the first item when `children` changes to smaller size - [QWT-2139]', async function () {
+		it('should focus the first item when `children` changes to smaller size - [QWTC-2510]', async function () {
 			const dropdown = Page.components.dropdownChangeLessChildren;
 
 			await Page.openDropdown(dropdown);
@@ -50,7 +50,7 @@ describe('Dropdown', function () {
 			await Page.open();
 		});
 
-		it('should lock Spotlight inside the Dropdown - [QWT-2463]', async function () {
+		it('should lock Spotlight inside the Dropdown - [QWTC-2186]', async function () {
 			const dropdown = Page.components.dropdownDefault;
 
 			// Step 3: 5-way Spot and 5-way Select the 'Default' Dropdown.
@@ -106,7 +106,7 @@ describe('Dropdown', function () {
 			await Page.open();
 		});
 
-		it('should dismiss dropdown when clicking outside - [QWT-2465]', async function () {
+		it('should dismiss dropdown when clicking outside - [QWTC-2184]', async function () {
 			const dropdown = Page.components.dropdownDefault;
 
 			// Open the first dropdown and wait for the first list item to be focused
@@ -127,7 +127,7 @@ describe('Dropdown', function () {
 			await Page.open();
 		});
 
-		it('should close dropdown from Pointer mode with Back key  - [QWT-2482]', async function () {
+		it('should close dropdown from Pointer mode with Back key  - [QWTC-2167]', async function () {
 			const dropdown = Page.components.dropdownDefault;
 
 			// Step 3: 5-way Spot and 5-way Select the Dropdown placeholder "No selection".
@@ -168,7 +168,7 @@ describe('Dropdown', function () {
 			}, dropdown, scroller);
 		};
 
-		it('should have title visible when focusing button via 5-way - [QWT-2154]', async function () {
+		it('should have title visible when focusing button via 5-way - [QWTC-2495]', async function () {
 			// TODO: This refocuses the first dropdown which is being blurred for some reason with
 			// Scroller. Once that bug is resolved, this can be removed.
 			await Page.spotlightLeft();

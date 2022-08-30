@@ -4,8 +4,27 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `musicsrc` 
+
 ### Fixed
 
+- `sandstone/VideoPlayer` to not seek infinitely when pointer moves while holding left or right key
+
+## [2.5.2] - 2022-08-17
+
+No significant changes.
+
+## [2.5.1] - 2022-08-03
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall` 
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to restore scroll position when going back to the previous panel by left key
 - `sandstone/Panels.Panel` to restore focus properly when it has `sandstone/Scroller` with `focusableScrollbar`
 
 ## [2.5.0] - 2022-07-19

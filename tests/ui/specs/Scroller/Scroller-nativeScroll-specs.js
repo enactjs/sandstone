@@ -12,7 +12,7 @@ describe('Scroller', function () {
 			await ScrollerPage.open();
 		});
 
-		it('should focus on scrollthumb with focusableScrollbar `true`[QWT-2517]', async function () {
+		it('should focus on scrollthumb with focusableScrollbar `true`[QWTC-2133]', async function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > true
 			await ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			await ScrollerPage.spotlightSelect();
@@ -25,7 +25,7 @@ describe('Scroller', function () {
 			expect(await ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 		});
 
-		it('should focus on scrollthumb with focusableScrollbar `byEnter`[QWT-2514]', async function () {
+		it('should focus on scrollthumb with focusableScrollbar `byEnter`[QWTC-2136]', async function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > byEnter
 			await ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			await ScrollerPage.spotlightSelect();
@@ -131,7 +131,7 @@ describe('Scroller', function () {
 			expect(await ScrollerPage.buttonTop.isFocused()).to.be.true();
 		});
 
-		it('should focus on scrollthumb with 5-way key and focusableScrollbar `true`[QWT-2561]', async function () {
+		it('should focus on scrollthumb with 5-way key and focusableScrollbar `true`[QWTC-2089]', async function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > true
 			await ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			await ScrollerPage.spotlightSelect();
@@ -166,7 +166,7 @@ describe('Scroller', function () {
 			expect(await ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 		});
 
-		it('should Scrolling via 5-way Key with Spotlight on the ScrollThumb [QWT-2515]', async function () {
+		it('should Scrolling via 5-way Key with Spotlight on the ScrollThumb [QWTC-2135]', async function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > true
 			await ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			await ScrollerPage.spotlightSelect();
@@ -210,7 +210,7 @@ describe('Scroller', function () {
 			expect((await ScrollerPage.getScrollThumbPosition()).horizontal).to.equal('0');
 		});
 
-		it('Content animates with Click on scrollbar [QWT-2263]', async function () {
+		it('Content animates with Click on scrollbar [QWTC-2386]', async function () {
 			// Step 3-3: Knobs > Scroller > focusableScrollbar > true
 			await ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			await ScrollerPage.spotlightSelect();
@@ -246,7 +246,7 @@ describe('Scroller', function () {
 		});
 
 		// In this Test Case, only checked RTL Mode.
-		it('should not scroll with Click on Scrollbar [QWT-2586]', async function () {
+		it('should not scroll with Click on Scrollbar [QWTC-2064]', async function () {
 			// Step 4-2 Verify:Upon hover, the verticalScrollbar displays on the Left side.
 			// Since the visual part of UI Test cannot be checked, it is judged by the position of the scrollbar according to locale.
 			expect(await ScrollerPage.getVerticalScrollOffsetLeft()).to.equal(0);
@@ -270,7 +270,7 @@ describe('Scroller', function () {
 			expect((await ScrollerPage.getScrollThumbPosition()).horizontal).to.equal('0');
 		});
 
-		it('should scroll with Click on Scrollbar with focusableScrollbar [QWT-2314]', async function () {
+		it('should scroll with Click on Scrollbar with focusableScrollbar [QWTC-2335]', async function () {
 			// Step 3-3: Knobs > Scroller > focusableScrollbar > true
 			await ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			await ScrollerPage.spotlightSelect();
