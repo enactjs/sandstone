@@ -1,6 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* global Image */
 
+/**
+ * Provides Sandstone-themed transfer list components and behaviors.
+ *
+ * @module sandstone/TransferList
+ * @exports TransferListBase
+ * @exports TransferListDecorator
+ * @exports TransferList
+ */
+
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -16,6 +25,15 @@ import Skinnable from '../Skinnable';
 
 import componentCss from './TransferList.module.less';
 
+/**
+ * A Sandstone-styled scrollable, draggable and spottable transfer list component.
+ *
+ * @class TransferListBase
+ * @memberof sandstone/TransferList
+ * @ui
+ * @public
+ */
+
 const TransferListBase = kind({
 	name: 'TransferList',
 
@@ -23,7 +41,20 @@ const TransferListBase = kind({
 
 	propTypes: {
 		allowMultipleDrag: PropTypes.bool,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `transferList` - The root component class for TransferList
+		 *
+		 * @type {Object}
+		 * @public
+		 */
 		css: PropTypes.object,
+
 		firstList: PropTypes.array,
 		height: PropTypes.string,
 		moveOnSpotlight: PropTypes.bool,
@@ -441,6 +472,16 @@ const TransferListBase = kind({
 	}
 });
 
+/**
+ * Sandstone-specific behaviors to apply to [TransferListBase]{@link sandstone/TransferList.TransferListBase}.
+ *
+ * @hoc
+ * @memberof sandstone/TransferList
+ * @mixes sandstone/Skinnable.Skinnable
+ * @mixes spotlight/Spottable.Spottable
+ *
+ * @public
+ */
 const TransferListDecorator = compose(
 	Skinnable,
 	Spottable
