@@ -2141,7 +2141,6 @@ const VideoPlayerBase = class extends Component {
 								no5WayJump={no5WayJump}
 								onClose={this.handleMediaControlsClose}
 								onFastForward={this.handleFastForward}
-								onJump={this.handleJump}
 								onJumpBackwardButtonClick={this.onJumpBackward}
 								onJumpForwardButtonClick={this.onJumpForward}
 								onPause={this.handlePause}
