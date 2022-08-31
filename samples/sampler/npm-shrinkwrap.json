@@ -1928,6 +1928,7 @@
             },
             "@babel/eslint-plugin": {
               "version": "7.17.7",
+              "resolved": false,
               "integrity": "sha512-JATUoJJXSgwI0T8juxWYtK1JSgoLpIGUsCHIv+NMXcUDA2vIe6nvAHR9vnuJgs/P1hOFw7vPwibixzfqBBLIVw==",
               "requires": {
                 "eslint-rule-composer": "^0.3.0"
@@ -4027,6 +4028,7 @@
             },
             "eslint-config-enact": {
               "version": "4.1.1",
+              "resolved": false,
               "integrity": "sha512-W3i5FGkm3Ow4pYEOuEm5uFzhZUyA3eg/EF4osb5u02irnKKnJuejBnFXo3OFSAxLrWz94q7ROTIK5/UMyGPnNg==",
               "requires": {
                 "@babel/core": "^7.17.8",
@@ -6921,6 +6923,7 @@
                     },
                     "mocha": {
                       "version": "10.0.0",
+                      "resolved": false,
                       "integrity": "sha512-0Wl+elVUD43Y0BqPZBzZt8Tnkw9CMUdNYnUsTfOM1vuhJVZL+kiesFYsqwBkEEuEixaiPe5ZQdqDgX2jddhmoA==",
                       "requires": {
                         "@ungap/promise-all-settled": "1.1.2",
@@ -8547,6 +8550,7 @@
             },
             "eslint-config-prettier": {
               "version": "8.5.0",
+              "resolved": false,
               "integrity": "sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q=="
             },
             "eslint-import-resolver-node": {
@@ -8589,6 +8593,7 @@
             },
             "eslint-plugin-enact": {
               "version": "1.0.1",
+              "resolved": false,
               "integrity": "sha512-rkMDrRTNGUwQmqE7ulaL2lJGpGofWDWlKdRjU85dJBnbM+AQVjuN6BzRw7B2xEoyCy4XqO9Dxl1bqSmvkgyBfg==",
               "requires": {
                 "doctrine": "^3.0.0",
@@ -9524,6 +9529,7 @@
                 },
                 "mocha": {
                   "version": "10.0.0",
+                  "resolved": false,
                   "integrity": "sha512-0Wl+elVUD43Y0BqPZBzZt8Tnkw9CMUdNYnUsTfOM1vuhJVZL+kiesFYsqwBkEEuEixaiPe5ZQdqDgX2jddhmoA==",
                   "requires": {
                     "@ungap/promise-all-settled": "1.1.2",
@@ -9964,6 +9970,7 @@
             },
             "eslint-plugin-import": {
               "version": "2.26.0",
+              "resolved": false,
               "integrity": "sha512-hYfi3FXaM8WPLf4S1cikh/r4IxnO6zrhZbEGz2b660EJRbuxgpDS5gkCuYgGWg2xxh2rBuIr4Pvhve/7c31koA==",
               "requires": {
                 "array-includes": "^3.1.4",
@@ -10006,6 +10013,7 @@
             },
             "eslint-plugin-jest": {
               "version": "26.5.3",
+              "resolved": false,
               "integrity": "sha512-sICclUqJQnR1bFRZGLN2jnSVsYOsmPYYnroGCIMVSvTS3y8XR3yjzy1EcTQmk6typ5pRgyIWzbjqxK6cZHEZuQ==",
               "requires": {
                 "@typescript-eslint/utils": "^5.10.0"
@@ -10013,6 +10021,7 @@
             },
             "eslint-plugin-jsx-a11y": {
               "version": "6.5.1",
+              "resolved": false,
               "integrity": "sha512-sVCFKX9fllURnXT2JwLN5Qgo24Ug5NF6dxhkmxsMEUZhXRcGg+X3e1JbJ84YePQKBl5E0ZjAH5Q4rkdcGY99+g==",
               "requires": {
                 "@babel/runtime": "^7.16.3",
@@ -10031,6 +10040,7 @@
             },
             "eslint-plugin-prettier": {
               "version": "4.0.0",
+              "resolved": false,
               "integrity": "sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==",
               "requires": {
                 "prettier-linter-helpers": "^1.0.0"
@@ -10038,6 +10048,7 @@
             },
             "eslint-plugin-react": {
               "version": "7.30.0",
+              "resolved": false,
               "integrity": "sha512-RgwH7hjW48BleKsYyHK5vUAvxtE9SMPDKmcPRQgtRCYaZA0XQPt5FSkrU3nhz5ifzMZcA8opwmRJ2cmOO8tr5A==",
               "requires": {
                 "array-includes": "^3.1.5",
@@ -10077,6 +10088,7 @@
             },
             "eslint-plugin-react-hooks": {
               "version": "4.5.0",
+              "resolved": false,
               "integrity": "sha512-8k1gRt7D7h03kd+SAAlzXkQwWK22BnK6GKZG+FJA6BAGy22CFvl8kCIXKpVux0cCxMWDQUPqSok0LKaZ0aOcCw=="
             },
             "eslint-rule-composer": {
