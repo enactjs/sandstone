@@ -33,6 +33,7 @@
   "devDependencies": {
     "@enact/storybook-utils": "^4.2.0",
     "@storybook/addons": "6.3.12",
+    "@storybook/addon-docs": "^6.3.12",
     "@storybook/react": "6.3.12",
     "@storybook/theming": "6.3.12",
     "babel-loader": "^8.2.5",

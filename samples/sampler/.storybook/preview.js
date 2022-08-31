@@ -1,8 +1,9 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
-import {DocsPage, DocsContainer} from '@enact/storybook-utils/addons/docs';
 import {themes} from '@storybook/theming';
 
+import {DocsContainer} from './components/DocsContainer';
+import {DocsPage} from './components/DocsPage'
 import ThemeEnvironment from '../src/ThemeEnvironment'
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
