@@ -19,6 +19,10 @@ const TabConfig = mergeComponentMetadata('Tab', Tab);
 VirtualGridList.displayName = 'VirtualGridList';
 const VGLConfig = mergeComponentMetadata('VirtualGridList', VirtualGridList);
 
+const svgGenerator = (width, height, bgColor, textColor, customText) => (
+    `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' class='img-fluid rounded mx-auto d-block' width='${width}' height='${height}'%3E%3Crect width='${width}' height='${height}' fill='%23${bgColor}'%3E%3C/rect%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='4rem' fill='%23${textColor}'%3E${customText}%3C/text%3E%3C/svg%3E`
+);
+
 // Set up some defaults for info and controls
 const items = [],
 	defaultDataSize = 1000,
@@ -62,7 +66,7 @@ const updateDataSize = (dataSize) => {
 			children = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
 			label = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
-			src = `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${i}`;
+			src = svgGenerator(600, 600, color, 'ffffff', `Image ${i}`);
 
 		items.push({children, label, src});
 	}
