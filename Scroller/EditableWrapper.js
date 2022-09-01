@@ -1,7 +1,7 @@
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
-import {mergeClassNameMaps} from '@enact/core/util';
+import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Spotlight from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import {Announce} from '@enact/ui/AnnounceDecorator';
@@ -67,7 +67,7 @@ const EditableWrapper = (props) => {
 	const customCss = editable?.css || {};
 	const removeItemFuncRef = editable?.removeItemFuncRef;
 
-	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
+	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
 	const dataSize = children?.length;
 

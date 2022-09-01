@@ -3,7 +3,8 @@ import {forward, forwardCustom, stop, stopImmediate} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
-import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
+import {cap, clamp, Job} from '@enact/core/util';
+import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import ForwardRef from '@enact/ui/ForwardRef';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
@@ -908,7 +909,7 @@ const PickerBase = class extends ReactComponent {
 			...rest
 		} = this.props;
 
-		const css = mergeClassNameMaps(componentCss, incomingCss, allowedClassNames);
+		const css = usePublicClassNames({componentCss, incomingCss, publicClassNames: true});
 		const voiceProps = extractVoiceProps(rest);
 		const voiceLabelsExt = voiceProps['data-webos-voice-labels-ext'];
 		delete voiceProps['data-webos-voice-label'];
