@@ -62,7 +62,7 @@ select('type', _Alert, ['fullscreen', 'overlay'], Config);
 text('children', _Alert, Config, 'Additional text content for Alert');
 boolean('image', _Alert, ImageConfig);
 select('type (image)', _Alert, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', _Alert, ImageConfig, "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240' class='img-fluid rounded mx-auto d-block' width='240' height='240'%3E%3Crect width='240' height='240' fill='%23d8d8d8'%3E%3C/rect%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='4rem' fill='%236e6e6e'%3Eimage%3C/text%3E%3C/svg%3E");
+text('src', _Alert, ImageConfig, "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240' class='img-fluid rounded mx-auto d-block' width='240' height='240'%3E%3Crect width='240' height='240' fill='%23d8d8d8'%3E%3C/rect%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%236e6e6e'%3Eimage%3C/text%3E%3C/svg%3E");
 
 _Alert.storyName = 'Alert';
 _Alert.parameters = {
