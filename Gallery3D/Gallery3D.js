@@ -12,7 +12,7 @@ const Image = ({index, name, ...props}) => {
 
 	return (
 		<group ref={group}>
-			<ImageItem3D src={`https://picsum.photos/20${10 + index}`} {...props} index={index}>
+			<ImageItem3D src={`https://random.imagecdn.app/2${10 + parseInt(index)}/2${10 + parseInt(index)}`} {...props} index={index}>
 				{name}
 			</ImageItem3D>
 		</group>
@@ -32,6 +32,10 @@ const Gallery3D = kind({
 	propTypes: {
 		index: PropTypes.number,
 		name: PropTypes.string
+	},
+
+	computed: {
+
 	},
 
 	render: () => {
