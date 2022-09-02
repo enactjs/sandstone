@@ -12,7 +12,7 @@ const Image = ({index, name, ...props}) => {
 
 	return (
 		<group ref={group}>
-			<ImageItem3D src={'https://picsum.photos/200'} {...props} index={index}>
+			<ImageItem3D src={`https://picsum.photos/20${10 + index}`} {...props} index={index}>
 				{name}
 			</ImageItem3D>
 		</group>
