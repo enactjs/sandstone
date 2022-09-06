@@ -18,7 +18,7 @@ const svgGenerator = (width, height, bgColor, textColor, customText) => (
 
 const labelAndSrc = {
 	label: 'Label',
-	src: svgGenerator(200, 200, 'f3d31d', 'ffffff', '200 X 200')
+	src: svgGenerator(200, 200, '7ed31d', 'ffffff', '200 X 200')
 };
 
 const ImageItemView = () => (
