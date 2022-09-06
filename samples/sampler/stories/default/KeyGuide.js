@@ -37,5 +37,17 @@ _KeyGuide.storyName = 'KeyGuide';
 _KeyGuide.parameters = {
 	info: {
 		text: 'Explains the operation of remote keys'
+	},
+	// Work around for https://github.com/storybookjs/storybook/issues/18269
+	docs: {
+		source: {
+			code: `<KeyGuide open>
+	{[
+		{icon: 'red', children: 'This is long name item', key: 1},
+		{icon: 'plus', children: 'Item 1', key: 2},
+		{icon: 'minus', children: 'Item 2', key: 3}
+	]}
+</KeyGuide>`
+		}
 	}
 };
