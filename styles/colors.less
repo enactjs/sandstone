@@ -79,7 +79,6 @@
 
 @sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230); // #e6e6e6
 @sand-progress-color: rgb(@sand-progress-color-rgb);
-@sand-progress-buffer-color: var(--sand-progress-buffer-color, #6b6d73); // @sand-progress-color with opacity 30% on @sand-progress-bg-color
 @sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
 @sand-progress-bg-color-alpha: var(--sand-progress-bg-color-alpha, 100%);
 @sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb, @sand-progress-bg-color-alpha);
@@ -94,6 +93,8 @@
 
 // component colors
 @sand-checkbox-color: var(--sand-checkbox-color, @sand-text-color);
+@sand-checkbox-disabled-selected-text-color: var(--sand-checkbox-disabled-selected-text-color, @sand-disabled-selected-color);
+@sand-formcheckboxitem-focus-text-color: var(--sand-formcheckboxitem-focus-text-color, @sand-focus-text-color);
 @sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
 @sand-keyguide-bg-color-rgb: var(--sand-keyguide-bg-color-rgb, 55, 58, 65); // #373a41
 @sand-slider-disabled-knob-bg-color: var(--sand-slider-disabled-knob-bg-color, #666666);
@@ -119,7 +120,7 @@
 @sand-alert-overlay-progress-bg-color-rgb: var(--sand-alert-overlay-progress-bg-color-rgb, 161, 161, 161); //  #a1a1a166, 40% alpha by default
 @sand-alert-overlay-progress-bg-color-alpha: var(--sand-alert-overlay-progress-bg-color-alpha, 40%);
 @sand-alert-overlay-checkbox-color: var(--sand-alert-overlay-checkbox-color, #858b92);
-@sand-alert-overlay-checkbox-disabled-selected-color: var(--sand-alert-overlay-checkbox-disabled-selected-color, #ffffff);
+@sand-alert-overlay-checkbox-disabled-selected-text-color: var(--sand-alert-overlay-checkbox-disabled-selected-text-color, #ffffff);
 @sand-alert-overlay-formcheckboxitem-focus-text-color: var(--sand-alert-overlay-formcheckboxitem-focus-text-color, #575e66);
 @sand-alert-overlay-item-disabled-focus-bg-color: var(--sand-alert-overlay-item-disabled-focus-bg-color, #989ca2);
 
@@ -171,7 +172,6 @@
 @sand-checkbox-text-color: transparent;
 @sand-checkbox-bg-color: transparent;
 @sand-checkbox-border-color: @sand-checkbox-color;
-@sand-checkbox-disabled-selected-text-color: @sand-disabled-selected-color;
 @sand-checkbox-disabled-selected-bg-color: @sand-disabled-selected-bg-color;
 @sand-checkbox-disabled-selected-border-color: @sand-checkbox-disabled-selected-bg-color;
 @sand-checkbox-focus-disabled-selected-text-color: @sand-disabled-selected-focus-color;
@@ -218,7 +218,6 @@
 
 // FormCheckboxItem
 // ---------------------------------------
-@sand-formcheckboxitem-focus-text-color: @sand-focus-text-color;
 @sand-formcheckboxitem-disabled-text-color: inherit;
 @sand-formcheckboxitem-disabled-focus-text-color: @sand-formcheckboxitem-disabled-text-color;
 
@@ -254,7 +253,7 @@
 @sand-input-overlay-background-color: @sand-popup-bg-color;
 @sand-input-numbercell-background-color: rgb(@sand-text-color-rgb, 20%);
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
-@sand-input-numberfield-disabled-color: rgb(@sand-inputfield-focus-text-color-rgb, @sand-disabled-focus-content-opacity * 100%);
+@sand-input-numberfield-disabled-color: rgb(@sand-component-focus-text-color-rgb, @sand-disabled-focus-content-opacity * 100%);
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
@@ -262,7 +261,6 @@
 @sand-inputfield-text-color: @sand-text-color;
 @sand-inputfield-placeholder-color: rgb(@sand-component-text-color-rgb, 20%);
 @sand-inputfield-placeholder-active-color: rgb(@sand-component-focus-text-color-rgb, 40%);
-@sand-inputfield-focus-text-color-rgb: @sand-component-focus-text-color-rgb;
 @sand-inputfield-focus-text-color: @sand-component-focus-text-color;
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-invalid-color: @sand-invalid-color;
@@ -315,7 +313,6 @@
 @sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicator-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-opacity: 0.9;
 @sand-picker-joined-focus-disabled-indicator-active-opacity: 1;
-@sand-picker-joined-fingernail-border-color: rgb(@sand-shadow-color-rgb, 20%);
 
 // Popup
 // ---------------------------------------
