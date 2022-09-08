@@ -39,7 +39,7 @@ const TransferListBase = kind({
 
 	functional: true,
 
-	propTypes: {
+	propTypes: /** @lends sandstone/TransferList.TransferListBase.prototype */ {
 		/**
 		 * Allows for multiple elements to be dragged from one list to another.
 		 *
