@@ -119,7 +119,7 @@ describe('VideoPlayer', function () {
 				// Setp 4-2: 5-way Down again.
 				// Step 4-3: 5-way Up quickly.
 				await Page.spotlightDown();
-				await Page.spotlightUp;
+				await Page.spotlightUp();
 
 				await Page.delay(500);
 				// Step 4 Verify: Spotlight is on the First button (first controls icon) in the 'more' components.
