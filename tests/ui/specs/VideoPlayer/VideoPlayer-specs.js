@@ -104,6 +104,28 @@ describe('VideoPlayer', function () {
 				expect(await videoPlayerDefault.mediaControlsListButton.isFocused()).to.be.true();
 			});
 
+			it('should block 5-way key when playcontrols transitioning [QWTC-2524]', async function () {
+				await Page.delay(1000);
+				// Step3 Precondition: The Play Controls do not show.
+				const mediaControlsOpacity = await videoPlayerDefault.mediaControlsFrame.getCSSProperty('opacity');
+
+				if (await mediaControlsOpacity.value === 0) {
+					// Step 4-1: 5-way Down.
+					await Page.spotlightDown();
+					await Page.delay(1000);
+				}
+
+				expect(await videoPlayerDefault.playButton.isFocused()).to.be.true();
+				// Setp 4-2: 5-way Down again.
+				// Step 4-3: 5-way Up quickly.
+				await Page.spotlightDown();
+				await Page.spotlightUp();
+
+				await Page.delay(500);
+				// Step 4 Verify: Spotlight is on the First button (first controls icon) in the 'more' components.
+				expect(await videoPlayerDefault.mediaControlsListButton.isFocused()).to.be.true();
+			});
+
 			it('should focus slider knob on 5-way up and seek on 5-way right and left', async function () {
 				await Page.delay(1000);
 				expect(await videoPlayerDefault.playButton.isFocused()).to.be.true();
