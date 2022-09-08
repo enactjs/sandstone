@@ -73,7 +73,7 @@ const TransferListBase = kind({
 		 * The height of the list container.
 		 *
 		 * @type {Number}
-		 * @default ri.scaleToRem(999)
+		 * @default 999
 		 * @public
 		 */
 		height: PropTypes.number,
