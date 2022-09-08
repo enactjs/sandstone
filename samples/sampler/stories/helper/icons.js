@@ -123,6 +123,7 @@ export const settingsIcons = [
 	'home',
 	'miniplayer',
 	'moodmode',
+	'musicsrc',
 	'newfeature',
 	'picture',
 	'plug',
