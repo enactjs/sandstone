@@ -432,4 +432,16 @@ describe("ProgressBar orientation set to radial", () => {
 
 		expect(progressBar).toHaveClass(expected);
 	});
+
+	it('should display progressbar tooltip default', () => {
+		render(
+			<ProgressBar orientation="radial">
+				<ProgressBarTooltip position="default" />
+			</ProgressBar>
+		);
+		const progressBar = screen.getByRole('progressbar').children.item(1);
+		const expected = 'above';
+
+		expect(progressBar).toHaveClass(expected);
+	});
 })
