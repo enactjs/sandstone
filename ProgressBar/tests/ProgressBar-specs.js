@@ -28,7 +28,7 @@ describe('ProgressBar Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	// Cases with ProgressBar orientation is set to horizontal (default)
+	// Cases with ProgressBar orientation set to horizontal (default)
 	describe("ProgressBar orientation set to horizontal", () => {
 		test('should display progressbar orientation horizontal', () => {
 			render(
