@@ -31,17 +31,17 @@ describe('ProgressBar Specs', () => {
 
 });
 
-//Cases with ProgressBar orientation is set to horizontal (default)
+// Cases with ProgressBar orientation is set to horizontal (default)
 describe("ProgressBar orientation set to horizontal", () => {
-	it('should display progressbar orientation horizontal', () =>{
+	it('should display progressbar orientation horizontal', () => {
 		render(
 			<ProgressBar />
 		);
 		const progressBar = screen.getByRole('progressbar');
-		const expected = 'horizontal'
+		const expected = 'horizontal';
 
-		expect(progressBar).toHaveClass(expected)
-	})
+		expect(progressBar).toHaveClass(expected);
+	});
 
 	it('should display progressbar tooltip above after', () => {
 		render(
@@ -162,17 +162,29 @@ describe("ProgressBar orientation set to horizontal", () => {
 
 		expect(progressBar).toHaveClass(expected);
 	});
-})
 
-//Cases with ProgressBar orientation set to vertical
+	it('should display progressbar tooltip in default position (above)', () => {
+		console.error = jest.fn();	// eslint-disable-line
+		render(
+			<ProgressBar>
+				<ProgressBarTooltip position="default" />
+			</ProgressBar>
+		);
+		const progressBar = screen.getByRole('progressbar').children.item(1);
+		const expected = 'above';
+
+		expect(progressBar).toHaveClass(expected);
+	});
+});
+
+// Cases with ProgressBar orientation set to vertical
 describe('ProgressBar orientation set to vertical', () => {
 	it('should display progressbar orientation vertical', () => {
 		render(
-			<ProgressBar orientation="vertical">
-			</ProgressBar>
+			<ProgressBar orientation="vertical" />
 		);
 
-		const progressBar = screen.getByRole('progressbar')
+		const progressBar = screen.getByRole('progressbar');
 		const expected = 'vertical';
 
 		expect(progressBar).toHaveClass(expected);
@@ -225,21 +237,33 @@ describe('ProgressBar orientation set to vertical', () => {
 
 		expect(progressBar).toHaveClass(expected);
 	});
+
+	it('should display progressbar tooltip in default position (after)', () => {
+		console.error = jest.fn();	// eslint-disable-line
+		render(
+			<ProgressBar orientation="vertical">
+				<ProgressBarTooltip position="default" />
+			</ProgressBar>
+		);
+		const progressBar = screen.getByRole('progressbar').children.item(1);
+		const expected = 'after';
+
+		expect(progressBar).toHaveClass(expected);
+	});
 });
 
-//Cases with ProgressBar orientation set to radial
+// Cases with ProgressBar orientation set to radial
 describe("ProgressBar orientation set to radial", () => {
 	it("should display progressbar orientation radial", () => {
 		render(
-			<ProgressBar orientation="radial">
-			</ProgressBar>
+			<ProgressBar orientation="radial" />
 		);
 
-		const progressBar = screen.getByRole('progressbar')
+		const progressBar = screen.getByRole('progressbar');
 		const expected = 'radial';
 
 		expect(progressBar).toHaveClass(expected);
-	})
+	});
 
 	it('should display progressbar tooltip above', () => {
 		render(
@@ -433,7 +457,8 @@ describe("ProgressBar orientation set to radial", () => {
 		expect(progressBar).toHaveClass(expected);
 	});
 
-	it('should display progressbar tooltip default', () => {
+	it('should display progressbar tooltip in default position', () => {
+		console.error = jest.fn();	// eslint-disable-line
 		render(
 			<ProgressBar orientation="radial">
 				<ProgressBarTooltip position="default" />
@@ -444,4 +469,4 @@ describe("ProgressBar orientation set to radial", () => {
 
 		expect(progressBar).toHaveClass(expected);
 	});
-})
+});
