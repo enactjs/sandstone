@@ -1,9 +1,8 @@
 import '@testing-library/jest-dom';
-import {render, rerender, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 
 import Image from '../Image';
-import {act} from "react-dom/test-utils";
-import ri, {selectSrc, getScreenType, scaleToRem, init} from '@enact/ui/resolution';
+import {selectSrc} from '@enact/ui/resolution';
 
 // const src={
 // 	'hd': 'https://dummyimage.com/64/e048e0/0011ff',
@@ -50,7 +49,7 @@ describe('Image', () => {
 		const actual = ref.mock.calls[0][0].nodeName;
 
 		expect(actual).toBe(expected);
-	})
+	});
 
 	test('sizing fill', () => {
 		render(<Image src={src} />);
@@ -90,8 +89,8 @@ describe('Image', () => {
 		// global.innerWidth = 1280;
 		// global.innerHeight = 720;
 		// global.dispatchEvent(new Event('resize'));
-		await resizeWindow(1280, 720)
-		render(<Image src={selectSrc(src)} sizing='fit'/>)
+		await resizeWindow(1280, 720);
+		render(<Image src={selectSrc(src)} sizing='fit'/>);
 		// console.log('1111', window.innerHeight, window.innerWidth);
 		// console.log('121111', window.outerHeight, window.outerWidth);
 
