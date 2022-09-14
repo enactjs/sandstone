@@ -16,27 +16,61 @@ const src = {
 	uhd: 'http://via.placeholder.com/600x600'
 };
 
-window.resizeTo = function resizeTo(width, height) {
-	Object.assign(this, {
-		innerWidth: width,
-		innerHeight: height,
-		outerWidth: width,
-		outerHeight: height
-	}).dispatchEvent(new this.Event("resize"));
-};
+// window.resizeTo = function resizeTo(width, height) {
+// 	Object.assign(this, {
+// 		innerWidth: width,
+// 		innerHeight: height,
+// 		outerWidth: width,
+// 		outerHeight: height
+// 	}).dispatchEvent(new this.Event("resize"));
+// };
+const resizeWindow = (x, y) => {
+	window.innerWidth = x;
+	window.innerHeight = y;
+	window.dispatchEvent(new Event('resize'));
+}
 
 describe('Image', () => {
+	test('sizing fill', () => {
+		render(<Image src={src} />);
+		const image = screen.getAllByRole('img')[0];
+
+		const expected = "image fill";
+
+		expect(image).toHaveClass(expected);
+	});
+
+	test('sizing fit', () => {
+		render(<Image src={src} sizing="fit" />);
+		const image = screen.getAllByRole('img')[0];
+
+		const expected = "image fit";
+
+		expect(image).toHaveClass(expected);
+	});
+
+	test('sizing none', () => {
+		render(<Image src={src} sizing="none" />);
+		const image = screen.getAllByRole('img')[0];
+
+		const expected = "image";
+
+		expect(image).toHaveClass(expected);
+	});
+
+
 	// Tried to set the width and height of window with window.resize or global.innerWidth/global.innerHeight
 	// in order for `Image` to get the correct image source based on window resolution.
 	// On each try, Image gets the src.fhd link.
-	test('resize 2', () => {
+	test.skip('resize 2', async () => {
 		// act(() => {
 		// 	window.resizeTo(1280, 720);
 		// });
-		global.innerWidth = 1280;
-		global.innerHeight = 720;
-		global.dispatchEvent(new Event('resize'));
-		render(<Image src={selectSrc(src)} />)
+		// global.innerWidth = 1280;
+		// global.innerHeight = 720;
+		// global.dispatchEvent(new Event('resize'));
+		await resizeWindow(1280, 720)
+		render(<Image src={selectSrc(src)} sizing='fit'/>)
 		screen.debug();
 		console.log('1', getScreenType())
 		// console.log('1111', window.innerHeight, window.innerWidth);
@@ -49,54 +83,4 @@ describe('Image', () => {
 		// console.log('1', window.innerHeight, window.innerWidth);
 		// console.log('12', window.outerHeight, window.outerWidth);
 	});
-
-	// test('resize', () => {
-	// 	const handleResize = jest.fn(() => {
-	// 		if (width !== width1 && height !== height1) return true;
-	// 	});
-	// 	const handleError = jest.fn();
-	// 	const width = 200;
-	// 	const height = 200;
-	// 	const {rerender} = render(
-	// 		<div role="divTest">
-	// 			<Image
-	// 				onResize={handleResize}
-	// 				style={{width: `${width}px`, height: `${height}px`}}
-	// 				src={`http://via.placeholder.com/${width}x${height}`}
-	// 			/>
-	// 		</div>
-	// 	);
-	// 	screen.debug();
-	//
-	// 	const width1 = 300;
-	// 	const height1 = 300;
-	// 	rerender(
-	// 		<Image
-	// 			onResize={handleResize}
-	// 			style={{width: `${width}px`, height: `${height}px`}}
-	// 			src={`http://via.placeholder.com/${width1}x${height1}`}
-	// 		/>
-	// 	);
-	// 	screen.debug();
-	// 	expect(handleResize()).toBe(true);
-	// 	// setTimeout(() => console.log('2', window.innerWidth, window.innerHeight), 200);
-	//
-	// 	// const expected = 0;
-	// 	// const actual = handleResize.mock.calls[0];
-	// 	// act(() => {
-	// 	// 	window.resizeTo(2000, 900);
-	// 	// });
-	// 	// expect(handleError).toHaveBeenCalled();
-	// 	// console.log(handleError.mock.calls)
-	// 	// screen.debug();
-	//
-	// 	// expect(handleResize).not.toHaveBeenCalled();
-	// 	//
-	// 	// rerender(<Image onResize={handleResize} src={{'hd': 'https://dummyimage.com/64/e048e0/0011ff'}} />);
-	// 	// screen.debug();
-	// 	// const actual1 = handleResize.mock.calls.length;
-	// 	// console.log(actual1)
-	//
-	// 	// expect(handleResize).toHaveBeenCalled();
-	// });
 });
