@@ -63,7 +63,7 @@ const updateDataSize = (dataSize) => {
 			children = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
 			label = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
-			src = svgGenerator(600, 600, color, 'ffffff', `Image ${i}`);
+			src = svgGenerator(300, 300, color, 'ffffff', `Image ${i}`);
 
 		items.push({children, label, src});
 	}

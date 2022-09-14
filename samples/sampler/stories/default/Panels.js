@@ -25,7 +25,7 @@ const items = [];
 for (let i = 0; i < 100; i++) {
 	const text = `Item ${i}`,
 		color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
-		source = svgGenerator(360, 240, color, 'ffffff', `Image ${i}`),
+		source = svgGenerator(300, 300, color, 'ffffff', `Image ${i}`),
 		caption = 'Sample list';
 	items.push({text, source, caption});
 }
