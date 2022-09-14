@@ -31,6 +31,17 @@ const resizeWindow = (x, y) => {
 }
 
 describe('Image', () => {
+	test('should select a src', () => {
+		render(<Image src={selectSrc(src)} />);
+
+		const image = screen.getAllByRole('img')[1];
+
+		const actual = image.getAttribute('src');
+		const expected = 'http://via.placeholder.com/300x300';
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should return a DOM node reference for `componentRef`', () => {
 		const ref = jest.fn();
 		render(<Image ref={ref} src={src} />);
@@ -81,8 +92,6 @@ describe('Image', () => {
 		// global.dispatchEvent(new Event('resize'));
 		await resizeWindow(1280, 720)
 		render(<Image src={selectSrc(src)} sizing='fit'/>)
-		screen.debug();
-		console.log('1', getScreenType())
 		// console.log('1111', window.innerHeight, window.innerWidth);
 		// console.log('121111', window.outerHeight, window.outerWidth);
 
