@@ -6,8 +6,6 @@ import useArrayState from '../components/useArrayState';
 
 import appCss from '../App/App.module.less';
 
-
-
 const AlertView = () => {
 	const [open, handleOpen] = useArrayState(8);
 	const svgGenerator = (width, height, bgColor, textColor, customText) => (
