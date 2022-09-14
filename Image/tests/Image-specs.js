@@ -31,6 +31,16 @@ const resizeWindow = (x, y) => {
 }
 
 describe('Image', () => {
+	test('should return a DOM node reference for `componentRef`', () => {
+		const ref = jest.fn();
+		render(<Image ref={ref} src={src} />);
+
+		const expected = 'DIV';
+		const actual = ref.mock.calls[0][0].nodeName;
+
+		expect(actual).toBe(expected);
+	})
+
 	test('sizing fill', () => {
 		render(<Image src={src} />);
 		const image = screen.getAllByRole('img')[0];
