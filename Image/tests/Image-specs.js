@@ -27,7 +27,7 @@ const resizeWindow = (x, y) => {
 	window.innerWidth = x;
 	window.innerHeight = y;
 	window.dispatchEvent(new Event('resize'));
-}
+};
 
 describe('Image', () => {
 	test('should select a src', () => {
@@ -90,7 +90,7 @@ describe('Image', () => {
 		// global.innerHeight = 720;
 		// global.dispatchEvent(new Event('resize'));
 		await resizeWindow(1280, 720);
-		render(<Image src={selectSrc(src)} sizing='fit'/>);
+		render(<Image src={selectSrc(src)} />);
 		// console.log('1111', window.innerHeight, window.innerWidth);
 		// console.log('121111', window.outerHeight, window.outerWidth);
 
