@@ -1,7 +1,12 @@
 {
   "name": "@enact/sandstone",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enactjs/sandstone.git"
+  },
+  "homepage": "https://enactjs.com",
   "main": "index.js",
   "scripts": {
     "bootstrap": "enact bootstrap",
