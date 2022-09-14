@@ -16,6 +16,8 @@ import {scale} from '@enact/ui/resolution';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
 
+import {svgGenerator} from '../helper/svg';
+
 const Config = mergeComponentMetadata('Panels', Panels);
 
 const items = [];
@@ -23,7 +25,7 @@ const items = [];
 for (let i = 0; i < 100; i++) {
 	const text = `Item ${i}`,
 		color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
-		source = `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${i}`,
+		source = svgGenerator(300, 300, color, 'ffffff', `Image ${i}`),
 		caption = 'Sample list';
 	items.push({text, source, caption});
 }
@@ -139,32 +141,32 @@ export const _Panels = (args) => {
 						<Scroller style={{height: scale(1000)}}>
 							<Image
 								caption="Image"
-								src="http://via.placeholder.com/360x240/"
+								src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://via.placeholder.com/360x240/"
+								src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://via.placeholder.com/360x240/"
+								src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://via.placeholder.com/360x240/"
+								src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://via.placeholder.com/360x240/"
+								src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
 								style={{marginTop: '24px'}}
 							/>
 							<Image
 								caption="Image"
-								src="http://via.placeholder.com/360x240/"
+								src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
 								style={{marginTop: '24px'}}
 							/>
 						</Scroller>
