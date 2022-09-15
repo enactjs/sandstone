@@ -8,10 +8,10 @@ describe('ProgressBar Specs', () => {
 		render(
 			<ProgressBar tooltip />
 		);
-		const progressBar = screen.getByRole('progressbar').children.item(1);
+		const tooltip = screen.getByRole('progressbar').children.item(1);
 		const expected = 'tooltip';
 
-		expect(progressBar).toHaveClass(expected);
+		expect(tooltip).toHaveClass(expected);
 	});
 
 	test('should have tooltip show progress as percentage', () => {
@@ -28,9 +28,8 @@ describe('ProgressBar Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	// Cases with ProgressBar orientation set to horizontal (default)
-	describe("ProgressBar orientation set to horizontal", () => {
-		test('should display progressbar orientation horizontal', () => {
+	describe('ProgressBar with horizontal orientation', () => {
+		test('should have default orientation of horizontal', () => {
 			render(
 				<ProgressBar />
 			);
@@ -40,143 +39,141 @@ describe('ProgressBar Specs', () => {
 			expect(progressBar).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above after', () => {
+		test('should have tooltip above after', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="above after" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above after';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above before', () => {
+		test('should have tooltip above before', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="above before" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above before';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above center', () => {
+		test('should have tooltip above center', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="above center" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above center';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above left', () => {
+		test('should have tooltip above left', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="above left" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above left';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above right', () => {
+		test('should have tooltip above right', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="above right" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above right';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below after', () => {
+		test('should have tooltip below after', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="below after" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below after';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below before', () => {
+		test('should have tooltip below before', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="below before" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below before';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below center', () => {
+		test('should have tooltip below center', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="below center" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below center';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below left', () => {
+		test('should have tooltip below left', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="below left" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below left';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below right', () => {
+		test('should have tooltip below right', () => {
 			render(
 				<ProgressBar>
 					<ProgressBarTooltip position="below right" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below right';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip in default position (above)', () => {
-			console.error = jest.fn();	// eslint-disable-line
+		test('should have tooltip in default position (above)', () => {
 			render(
 				<ProgressBar>
-					<ProgressBarTooltip position="default" />
+					<ProgressBarTooltip />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 	});
 
-	// Cases with ProgressBar orientation set to vertical
-	describe('ProgressBar orientation set to vertical', () => {
-		test('should display progressbar orientation vertical', () => {
+	describe('ProgressBar with vertical orientation', () => {
+		test('should have vertical orientation', () => {
 			render(
 				<ProgressBar orientation="vertical" />
 			);
@@ -187,71 +184,69 @@ describe('ProgressBar Specs', () => {
 			expect(progressBar).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip after', () => {
+		test('should have tooltip after', () => {
 			render(
 				<ProgressBar orientation="vertical">
 					<ProgressBarTooltip position="after" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'after';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip before', () => {
+		test('should have tooltip before', () => {
 			render(
 				<ProgressBar orientation="vertical">
 					<ProgressBarTooltip position="before" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'before';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip left', () => {
+		test('should have tooltip left', () => {
 			render(
 				<ProgressBar orientation="vertical">
 					<ProgressBarTooltip position="left" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'left';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip right', () => {
+		test('should have tooltip right', () => {
 			render(
 				<ProgressBar orientation="vertical">
 					<ProgressBarTooltip position="right" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'right';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip in default position (after)', () => {
-			console.error = jest.fn();	// eslint-disable-line
+		test('should have tooltip in default position (after)', () => {
 			render(
 				<ProgressBar orientation="vertical">
-					<ProgressBarTooltip position="default" />
+					<ProgressBarTooltip />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'after';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 	});
 
-	// Cases with ProgressBar orientation set to radial
-	describe("ProgressBar orientation set to radial", () => {
-		test("should display progressbar orientation radial", () => {
+	describe('ProgressBar with radial orientation', () => {
+		test('should have radial orientation', () => {
 			render(
 				<ProgressBar orientation="radial" />
 			);
@@ -262,209 +257,208 @@ describe('ProgressBar Specs', () => {
 			expect(progressBar).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above', () => {
+		test('should have tooltip above', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="above" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below', () => {
+		test('should have tooltip below', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="below" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above after', () => {
+		test('should have tooltip above after', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="above after" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above after';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above before', () => {
+		test('should have tooltip above before', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="above before" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above before';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above center', () => {
+		test('should have tooltip above center', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="above center" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above center';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above left', () => {
+		test('should have tooltip above left', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="above left" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above left';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip above right', () => {
+		test('should have tooltip above right', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="above right" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above right';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below after', () => {
+		test('should have tooltip below after', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="below after" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below after';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below before', () => {
+		test('should have tooltip below before', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="below before" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below before';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below center', () => {
+		test('should have tooltip below center', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="below center" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below center';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below left', () => {
+		test('should have tooltip below left', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="below left" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below left';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip below right', () => {
+		test('should have tooltip below right', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="below right" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'below right';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip after', () => {
+		test('should have tooltip after', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="after" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'after';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip before', () => {
+		test('should have tooltip before', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="before" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'before';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip left', () => {
+		test('should have tooltip left', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="left" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'left';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip right', () => {
+		test('should have tooltip right', () => {
 			render(
 				<ProgressBar orientation="radial">
 					<ProgressBarTooltip position="right" />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'right';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 
-		test('should display progressbar tooltip in default position', () => {
-			console.error = jest.fn();	// eslint-disable-line
+		test('should have tooltip in default position (above)', () => {
 			render(
 				<ProgressBar orientation="radial">
-					<ProgressBarTooltip position="default" />
+					<ProgressBarTooltip />
 				</ProgressBar>
 			);
-			const progressBar = screen.getByRole('progressbar').children.item(1);
+			const tooltip = screen.getByRole('progressbar').children.item(1);
 			const expected = 'above';
 
-			expect(progressBar).toHaveClass(expected);
+			expect(tooltip).toHaveClass(expected);
 		});
 	});
 
