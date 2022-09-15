@@ -13,31 +13,6 @@ const rightKeyDown = keyDown(39);
 const upKeyDown = keyDown(38);
 const downKeyDown = keyDown(40);
 
-
-
-// https://stackoverflow.com/a/53946549/1179377
-function isElement(obj) {
-	if (typeof obj !== 'object') {
-		return false
-	}
-	let prototypeStr, prototype
-	do {
-		prototype = Object.getPrototypeOf(obj)
-		// to work in iframe
-		prototypeStr = Object.prototype.toString.call(prototype)
-		// '[object Document]' is used to detect document
-		if (
-			prototypeStr === '[object Element]' ||
-			prototypeStr === '[object Document]'
-		) {
-			return true
-		}
-		obj = prototype
-		// null is the terminal of object
-	} while (prototype !== null)
-	return false
-}
-
 function getElementClientCenter(element) {
 	const {left, top, width, height} = element.getBoundingClientRect()
 	return {
@@ -46,29 +21,24 @@ function getElementClientCenter(element) {
 	}
 }
 
-const getCoords = charlie =>
-	isElement(charlie) ? getElementClientCenter(charlie) : charlie
-
 const sleep = ms =>
 	new Promise(resolve => {
 		setTimeout(resolve, ms)
 	})
 
-export default async function drag(
+async function drag(
 	element,
-	{to: inTo, delta, steps = 20, duration = 500},
+	{delta, steps = 20, duration = 500},
 ) {
 	const from = getElementClientCenter(element)
-	const to = delta
-		? {
-			x: from.x + delta.x,
-			y: from.y + delta.y,
-		}
-		: getCoords(inTo)
+	const to = {
+		x: from.x + delta.x,
+		y: from.y + delta.y
+	}
 
 	const step = {
 		x: (to.x - from.x) / steps,
-		y: (to.y - from.y) / steps,
+		y: (to.y - from.y) / steps
 	}
 
 	const current = {
@@ -87,6 +57,17 @@ export default async function drag(
 		fireEvent.mouseMove(element, current)
 	}
 	//fireEvent.mouseUp(element, current)
+}
+
+async function drop(element) {
+	const from = getElementClientCenter(element)
+
+	const current = {
+		clientX: from.x,
+		clientY: from.y,
+	}
+
+	fireEvent.mouseUp(element, current);
 }
 
 describe('Slider', () => {
@@ -123,7 +104,7 @@ describe('Slider', () => {
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	test('should apply `pressed` class on drag', () => {
+	test('should activate the slider on drag start', () => {
 		render(<Slider activateOnSelect />);
 		const slider = screen.getByRole('slider');
 
@@ -134,7 +115,7 @@ describe('Slider', () => {
 		expect(slider).toHaveClass(expected);
 	});
 
-	test('should activate the slider on drag start', async () => {
+	test('should apply `pressed` class on drag', async () => {
 		//const handleDragStart = jest.fn();
 		render(<Slider activateOnSelect
 			//onDragStart={handleDragStart}
@@ -151,6 +132,8 @@ describe('Slider', () => {
 		const expected = 'pressed';
 //console.log(handleDragStart.mock.calls)
 		expect(slider).toHaveClass(expected);
+
+		await drop(slider);
 	});
 
 
