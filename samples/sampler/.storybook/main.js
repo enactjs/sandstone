@@ -14,10 +14,7 @@ module.exports = {
 	framework: '@storybook/react',
 	stories: ['./../stories/default/*.js'],
 	addons: [
-		'@enact/storybook-utils/addons/actions',
-		'@enact/storybook-utils/addons/controls',
-		'@enact/storybook-utils/addons/docs',
-		'@enact/storybook-utils/addons/toolbars'
+		'@enact/storybook-utils/addons/essentials'
 	],
 	webpackFinal: async (config, {configType}) => {
 		return webpack(config, configType, __dirname);

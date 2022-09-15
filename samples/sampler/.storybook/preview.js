@@ -1,6 +1,6 @@
-import {configureActions} from '@enact/storybook-utils/addons/actions';
-import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
-import {DocsPage, DocsContainer} from '@enact/storybook-utils/addons/docs';
+// import {configureActions} from '@enact/storybook-utils/addons/actions';
+// import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
+// import {DocsPage, DocsContainer} from '@enact/storybook-utils/addons/docs';
 import {themes} from '@storybook/theming';
 
 import ThemeEnvironment from '../src/ThemeEnvironment'
@@ -46,11 +46,11 @@ const skins = {
 	'Light': 'light'
 };
 
-configureActions();
+// configureActions();
 export const parameters = {
 	docs: {
-		container: DocsContainer,
-		page: DocsPage,
+		// container: DocsContainer,
+		// page: DocsPage,
 		iframeHeight: 360,
 		inlineStories: false,
 		theme: themes.light
@@ -61,15 +61,15 @@ export const parameters = {
 		}
 	}
 };
-export const globalTypes = {
-	'locale': getObjectType('locale', 'en-US', locales),
-	'large text': getBooleanType('large text'),
-	'high contrast': getBooleanType('high contrast'),
-	'skin': getObjectType('skin', 'neutral', skins),
-	'background': getObjectType('background', 'default', backgrounds),
-	'debug aria': getBooleanType('debug aria'),
-	'debug layout': getBooleanType('debug layout'),
-	'debug spotlight': getBooleanType('debug spotlight'),
-	'debug sprites': getBooleanType('debug sprites')
-};
+// export const globalTypes = {
+// 	'locale': getObjectType('locale', 'en-US', locales),
+// 	'large text': getBooleanType('large text'),
+// 	'high contrast': getBooleanType('high contrast'),
+// 	'skin': getObjectType('skin', 'neutral', skins),
+// 	'background': getObjectType('background', 'default', backgrounds),
+// 	'debug aria': getBooleanType('debug aria'),
+// 	'debug layout': getBooleanType('debug layout'),
+// 	'debug spotlight': getBooleanType('debug spotlight'),
+// 	'debug sprites': getBooleanType('debug sprites')
+// };
 export const decorators = [ThemeEnvironment];
