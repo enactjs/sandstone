@@ -142,7 +142,6 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-
 	test('should have "below left" className when direction is set to "below left"', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
@@ -176,6 +175,63 @@ describe('ContextualPopupDecorator Specs', () => {
 		const contextualPopup = screen.getByRole('alert');
 
 		const expected = 'below right';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "right bottom" className when direction is set to "right bottom"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="right bottom" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'right bottom';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "right center" className when direction is set to "right center"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="right center" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'right center';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "right top" className when direction is set to "right top"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="right top" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'right top';
 		const actual = contextualPopup.children.item(0);
 
 		expect(actual).toHaveClass(expected);
