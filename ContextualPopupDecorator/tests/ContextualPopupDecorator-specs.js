@@ -104,6 +104,64 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(handleClose).not.toHaveBeenCalled();
 	});
 
+	test('should have "below" className when direction is set to "below"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="below" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'below';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "below center" className when direction is set to "below center"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="below center" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'below center';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+
+	test('should have "below left" className when direction is set to "below left"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="below left" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'below left';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
 	test('should have "below right" className when direction is set to "below right"', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
