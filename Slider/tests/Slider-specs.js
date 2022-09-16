@@ -13,12 +13,9 @@ const rightKeyDown = keyDown(39);
 const upKeyDown = keyDown(38);
 const downKeyDown = keyDown(40);
 
-function getElementClientCenter (element) {
+const getElementClientCenter = (element) => {
 	const {left, top, width, height} = element.getBoundingClientRect();
-	return {
-		x: left + width / 2,
-		y: top + height / 2
-	};
+	return { x: left + width / 2, y: top + height / 2 };
 }
 
 const sleep = ms =>
@@ -26,25 +23,11 @@ const sleep = ms =>
 		setTimeout(resolve, ms);
 	});
 
-async function drag (
-		element,
-		{delta, steps = 20, duration = 500},
-) {
+const drag = async (element, {delta, steps = 5, duration = 1000}) => {
 	const from = getElementClientCenter(element);
-	const to = {
-		x: from.x + delta.x,
-		y: from.y + delta.y
-	};
-
-	const step = {
-		x: (to.x - from.x) / steps,
-		y: (to.y - from.y) / steps
-	};
-
-	const current = {
-		clientX: from.x,
-		clientY: from.y
-	};
+	const to = {x: from.x + delta.x, y: from.y + delta.y };
+	const step = {x: (to.x - from.x) / steps, y: (to.y - from.y) / steps};
+	const current = {clientX: from.x, clientY: from.y};
 
 	fireEvent.mouseEnter(element, current);
 	fireEvent.mouseOver(element, current);
@@ -58,12 +41,10 @@ async function drag (
 	}
 }
 
-async function drop (element) {
+const drop = async (element) => {
 	const from = getElementClientCenter(element);
 
-	const current = {
-		clientX: from.x,
-		clientY: from.y
+	const current = {clientX: from.x,clientY: from.y
 	};
 
 	fireEvent.mouseUp(element, current);
@@ -103,7 +84,7 @@ describe('Slider', () => {
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	test('should activate the slider on drag start', () => {
+	test('should activate the slider on enter keyup', () => {
 		render(<Slider activateOnSelect />);
 		const slider = screen.getByRole('slider');
 
@@ -115,10 +96,23 @@ describe('Slider', () => {
 	});
 
 	test('should apply `pressed` class on drag', async () => {
-		render(<Slider activateOnSelect	/>);
+		render(<Slider activateOnSelect	defaultValue={50} />);
 		const slider = screen.getByRole('slider');
 
-		await drag(slider, {delta: {x: -100, y: 0}});
+		activate(slider);
+		await drag(slider, {delta: {x: -10, y: 0}});
+		//console.log(slider.getBoundingClientRect())
+		//await fireEvent.mouseOver(slider);
+		//await fireEvent.click(slider);
+		//await fireEvent.mouseDown(slider, {clientX: 0, clientY: 0});
+		//await fireEvent.mouseMove(slider, {clientX: 10, clientY: 0});
+		//screen.debug()
+		//await fireEvent.dragStart(slider);
+		//await fireEvent.mouseMove(slider, {clientX: 10, clientY: 0});
+		//await fireEvent.dragOver(slider);
+		//screen.debug()
+		//await fireEvent.drop(dropZone);
+		//await fireEvent.mouseUp(dropZone, { which: 1, button: 0 });
 
 		const expected = 'pressed';
 		expect(slider).toHaveClass(expected);
