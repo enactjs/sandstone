@@ -54,7 +54,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "warning": "^4.0.3",
-    "ilib": "14.14.0"
+    "ilib": "^14.14.0"
   },
   "peerDependencies": {
     "ilib": "^14.14.0 || ^14.14.0-webos1"
