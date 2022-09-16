@@ -127,4 +127,21 @@ describe('ContextualMenuDecorator Specs', () => {
 
 		expect(contextualMenu).toHaveClass(expected);
 	});
+
+	test('should wrap content in a Scroller component if it does not fit inside of popup', () => {
+		const moreItems = new Array(8).fill().map((i, index) => `Option ${index + 1}`);
+
+		render(
+			<Root>
+				<ContextualButton menuItems={moreItems} open>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		const scrollerWrappedComponent = screen.getByRole('list').parentElement;
+		const expected = 'scroller';
+
+		expect(scrollerWrappedComponent).toHaveClass(expected);
+	});
 });
