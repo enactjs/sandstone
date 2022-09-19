@@ -97,4 +97,18 @@ describe('Picker Specs', () => {
 		expect(actual).toHaveClass(expectedInline);
 		expect(actual).toHaveClass(expectedHeader);
 	});
+
+	test('should be able to receive custom voice control labels', () => {
+		const options = ['Option 1', 'The second one', 'This is the third option', '4'];
+		render(
+			<Picker data-webos-voice-labels-ext={options} inlineTitle title="title text" >
+				{[1, 2, 3, 4]}
+			</Picker>
+		);
+
+		const picker = screen.getAllByRole('button')[0].parentElement;
+		const expected = "[\"Option 1\",\"The second one\",\"This is the third option\",\"4\"]";
+
+		expect(picker).toHaveAttribute('data-webos-voice-labels-ext', expected);
+	})
 });
