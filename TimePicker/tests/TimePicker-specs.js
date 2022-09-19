@@ -11,24 +11,56 @@ import TimePicker, {timeToLocaleString} from '../TimePicker';
 describe('TimePicker', () => {
 	// Suite-wide setup
 
-	test('should emit an onChange event when changing a component picker',
-		() => {
-			const handleChange = jest.fn();
-			render(
-				<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
-			);
-			const hourPicker = screen.getAllByText('▲')[0];
+	test('should emit an onChange event when changing the hour', () => {
+		const handleChange = jest.fn();
+		render(
+			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
+		);
+		const hourPicker = screen.getAllByText('▲')[0];
 
-			userEvent.click(hourPicker);
+		userEvent.click(hourPicker);
 
-			const expected = 1;
-			const expectedType = {type: 'onChange'};
-			const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+		const expected = 1;
+		const expectedType = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
-			expect(handleChange).toBeCalledTimes(expected);
-			expect(actual).toMatchObject(expectedType);
-		}
-	);
+		expect(handleChange).toBeCalledTimes(expected);
+		expect(actual).toMatchObject(expectedType);
+	});
+
+	test('should emit an onChange event when changing the minute', () => {
+		const handleChange = jest.fn();
+		render(
+			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
+		);
+		const minutePicker = screen.getAllByText('▲')[1];
+
+		userEvent.click(minutePicker);
+
+		const expected = 1;
+		const expectedType = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+		expect(handleChange).toBeCalledTimes(expected);
+		expect(actual).toMatchObject(expectedType);
+	});
+
+	test('should emit an onChange event when changing the meridiem', () => {
+		const handleChange = jest.fn();
+		render(
+			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
+		);
+		const meridiemPicker = screen.getAllByText('▲')[0];
+
+		userEvent.click(meridiemPicker);
+
+		const expected = 1;
+		const expectedType = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+		expect(handleChange).toBeCalledTimes(expected);
+		expect(actual).toMatchObject(expectedType);
+	});
 
 	test('should fire onComplete event with type when enter key pressed from the last picker', () => {
 		const handleComplete = jest.fn();
@@ -105,7 +137,7 @@ describe('TimePicker', () => {
 		expect(hourPicker).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to merdiem picker when voice control is disabled', () => {
+	test('should set "data-webos-voice-disabled" to meridiem picker when voice control is disabled', () => {
 		render(
 			<TimePicker value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
@@ -162,5 +194,11 @@ describe('TimePicker', () => {
 		const header = screen.queryByText(timeToLocaleString(time));
 
 		expect(header).toBeNull();
+	});
+
+	test('"timeToLocaleString" method should return "null" for an "undefined" time', () => {
+		const time = timeToLocaleString(undefined);		// eslint-disable-line no-undefined
+
+		expect(time).toBeNull();
 	});
 });
