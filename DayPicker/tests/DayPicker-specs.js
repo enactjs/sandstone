@@ -6,7 +6,6 @@ import userEvent from '@testing-library/user-event';
 import DayPicker, {getSelectedDayString} from '../DayPicker';
 
 describe('DayPicker', () => {
-
 	test('should not select any item when there is no passed prop `selected`', () => {
 		render(<DayPicker />);
 
@@ -91,13 +90,12 @@ describe('DayPicker', () => {
 		expect(label).toBe(expected);
 	});
 
-	// ilib isn't working correctly with unit tests so this block must be skipped
-	describe.skip('with alternate first day of week', () => {
+	describe('with alternate first day of week', () => {
 		test('should accept and emit a generalized selected array', () => {
 			ilib.setLocale('es-ES');
 
 			const handleSelect = jest.fn();
-			render(<DayPicker onSelect={handleSelect} defaultSelected={[0]} />);
+			render(<DayPicker defaultSelected={[0]} locale="es-ES" onSelect={handleSelect} />);
 
 			// select Lunes (Monday) which is the first day of the week for es-ES
 			const item = screen.getAllByRole('checkbox')[0];
@@ -109,8 +107,6 @@ describe('DayPicker', () => {
 			};
 			const actual = handleSelect.mock.calls[0][0];
 
-			// If ilib isn't loading correctly, actual will be null because we will have unselected
-			// Sunday instead of selecting Monday.
 			expect(actual).toMatchObject(expected);
 		});
 	});
