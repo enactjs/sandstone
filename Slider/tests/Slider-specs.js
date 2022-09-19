@@ -39,7 +39,7 @@ const drag = async (element, {delta, steps = 1}) => {
 		await sleep(1000 / steps);
 		fireEvent.mouseMove(element, current);
 	}
-	fireEvent.mouseUp(element, current)
+	fireEvent.mouseUp(element, current);
 };
 
 describe('Slider', () => {
