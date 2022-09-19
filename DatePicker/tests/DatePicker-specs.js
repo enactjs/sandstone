@@ -8,12 +8,42 @@ import DatePicker, {dateToLocaleString} from '../DatePicker';
 // Note: Tests pass 'locale' because there's no I18nDecorator to provide a value via context and
 // otherwise, nothing renders in the label.
 describe('DatePicker', () => {
-	test('should emit an onChange event with type when changing a component picker', () => {
+	test('should emit an onChange event with type when changing the day', () => {
+		const handleChange = jest.fn();
+		render(<DatePicker onChange={handleChange} value={new Date(2000, 6, 15)} locale="en-US" />);
+		const dayPickerUp = screen.getAllByText('▲')[1];
+
+		userEvent.click(dayPickerUp);
+
+		const expected = 1;
+		const expectedType = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+		expect(handleChange).toBeCalledTimes(expected);
+		expect(actual).toMatchObject(expectedType);
+	});
+
+	test('should emit an onChange event with type when changing the month', () => {
 		const handleChange = jest.fn();
 		render(<DatePicker onChange={handleChange} value={new Date(2000, 6, 15)} locale="en-US" />);
 		const monthPickerUp = screen.getAllByText('▲')[0];
 
 		userEvent.click(monthPickerUp);
+
+		const expected = 1;
+		const expectedType = {type: 'onChange'};
+		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
+
+		expect(handleChange).toBeCalledTimes(expected);
+		expect(actual).toMatchObject(expectedType);
+	});
+
+	test('should emit an onChange event with type when changing the year', () => {
+		const handleChange = jest.fn();
+		render(<DatePicker onChange={handleChange} value={new Date(2000, 6, 15)} locale="en-US" />);
+		const yearPickerUp = screen.getAllByText('▲')[2];
+
+		userEvent.click(yearPickerUp);
 
 		const expected = 1;
 		const expectedType = {type: 'onChange'};
@@ -160,5 +190,11 @@ describe('DatePicker', () => {
 		const header = screen.queryByText(dateToLocaleString(date));
 
 		expect(header).toBeNull();
+	});
+
+	test('"dateToLocaleString" method should return "null" for an "undefined" date', () => {
+		const actual = dateToLocaleString(undefined);
+
+		expect(actual).toBeNull();
 	});
 });
