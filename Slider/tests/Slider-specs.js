@@ -297,19 +297,6 @@ describe('Slider', () => {
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	test('should decrement the value of horizontal slider by \'step\' value on wheel down when active', () => {
-		render(<Slider activateOnSelect defaultValue={50} />);
-		const slider = screen.getByRole('slider');
-
-		activate(slider);
-		fireEvent.wheel(slider, {deltaY: 10});
-
-		const expectedAttribute = 'aria-valuetext';
-		const expectedValue = '49';
-
-		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
-	});
-
 	test('should decrement the value by \'knobStep\' on key left when active', () => {
 		render(<Slider activateOnSelect defaultValue={50} knobStep={5} />);
 		const slider = screen.getByRole('slider');
