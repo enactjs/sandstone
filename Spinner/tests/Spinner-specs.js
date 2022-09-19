@@ -49,4 +49,12 @@ describe('Spinner Specs', () => {
 
 		expect(spinner).toHaveAttribute('aria-live', 'off');
 	});
+
+	test('should apply custom aria-label to spinner', () => {
+		const customAriaLabel = 'custom aria label';
+		render(<Spinner aria-label={customAriaLabel} />);
+		const spinner = screen.getByRole('alert');
+
+		expect(spinner).toHaveAttribute('aria-label', customAriaLabel);
+	});
 });
