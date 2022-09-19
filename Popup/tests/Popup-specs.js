@@ -1,6 +1,7 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import {Popup} from '../Popup';
 
@@ -347,5 +348,22 @@ describe('Popup specs', () => {
 		const actual = screen.getByRole('alert').parentElement.parentElement;
 
 		expect(actual).toHaveClass(expected);
+	});
+
+	test('should close popup on escape', async () => {
+		const handleClose = jest.fn();
+		render(
+			<FloatingLayerController>
+				<Popup open onClose={handleClose}>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		userEvent.keyboard('{esc}');
+
+		await waitFor(() => {
+			expect(handleClose).toHaveBeenCalled();
+		});
 	});
 });
