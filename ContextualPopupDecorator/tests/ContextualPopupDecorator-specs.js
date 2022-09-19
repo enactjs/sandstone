@@ -3,8 +3,8 @@ import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
 import Button from '../../Button';
+import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 
@@ -199,20 +199,20 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "right center" className when direction is set to "right center"', () => {
+	test('should have "right middle" className when direction is set to "right middle"', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
 		render(
 			<Root>
-				<ContextualButton direction="right center" onClose={handleClose} open popupComponent={() => message}>
+				<ContextualButton direction="right middle" onClose={handleClose} open popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
 		const contextualPopup = screen.getByRole('alert');
 
-		const expected = 'right center';
+		const expected = 'right middle';
 		const actual = contextualPopup.children.item(0);
 
 		expect(actual).toHaveClass(expected);
