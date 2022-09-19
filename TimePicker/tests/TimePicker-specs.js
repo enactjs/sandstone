@@ -50,10 +50,10 @@ describe('TimePicker', () => {
 		render(
 			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
 		);
-		const meridiemPicker = screen.getAllByText('▲')[0];
+		const meridiemPicker = screen.getAllByText('▲')[2];
 
 		userEvent.click(meridiemPicker);
-
+		screen.debug()
 		const expected = 1;
 		const expectedType = {type: 'onChange'};
 		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
