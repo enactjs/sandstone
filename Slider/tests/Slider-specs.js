@@ -15,17 +15,17 @@ const downKeyDown = keyDown(40);
 
 const getElementClientCenter = (element) => {
 	const {left, top, width, height} = element.getBoundingClientRect();
-	return { x: left + width / 2, y: top + height / 2 };
-}
+	return {x: left + width / 2, y: top + height / 2};
+};
 
 const sleep = ms =>
 	new Promise(resolve => {
 		setTimeout(resolve, ms);
 	});
 
-const drag = async (element, {delta, steps = 5, duration = 1000}) => {
+const drag = async (element, {delta, steps = 1}) => {
 	const from = getElementClientCenter(element);
-	const to = {x: from.x + delta.x, y: from.y + delta.y };
+	const to = {x: from.x + delta.x, y: from.y + delta.y};
 	const step = {x: (to.x - from.x) / steps, y: (to.y - from.y) / steps};
 	const current = {clientX: from.x, clientY: from.y};
 
@@ -36,19 +36,10 @@ const drag = async (element, {delta, steps = 5, duration = 1000}) => {
 	for (let i = 0; i < steps; i++) {
 		current.clientX += step.x;
 		current.clientY += step.y;
-		await sleep(duration / steps);
+		await sleep(1000 / steps);
 		fireEvent.mouseMove(element, current);
 	}
-}
-
-const drop = async (element) => {
-	const from = getElementClientCenter(element);
-
-	const current = {clientX: from.x,clientY: from.y
-	};
-
-	fireEvent.mouseUp(element, current);
-}
+};
 
 describe('Slider', () => {
 	test('should set "aria-valuetext" to hint string for the first render when vertical is false', () => {
@@ -95,30 +86,17 @@ describe('Slider', () => {
 		expect(slider).toHaveClass(expected);
 	});
 
-	test('should apply `pressed` class on drag', async () => {
-		render(<Slider activateOnSelect	defaultValue={50} />);
+	test('should change value of slider on drag', async () => {
+		render(<Slider activateOnSelect defaultValue={50} />);
 		const slider = screen.getByRole('slider');
 
 		activate(slider);
-		await drag(slider, {delta: {x: -10, y: 0}});
-		//console.log(slider.getBoundingClientRect())
-		//await fireEvent.mouseOver(slider);
-		//await fireEvent.click(slider);
-		//await fireEvent.mouseDown(slider, {clientX: 0, clientY: 0});
-		//await fireEvent.mouseMove(slider, {clientX: 10, clientY: 0});
-		//screen.debug()
-		//await fireEvent.dragStart(slider);
-		//await fireEvent.mouseMove(slider, {clientX: 10, clientY: 0});
-		//await fireEvent.dragOver(slider);
-		//screen.debug()
-		//await fireEvent.drop(dropZone);
-		//await fireEvent.mouseUp(dropZone, { which: 1, button: 0 });
+		await drag(slider, {delta: {x: 50, y: 0}});
 
-		const expected = 'pressed';
-		expect(slider).toHaveClass(expected);
+		const expectedAttribute = 'aria-valuetext';
+		const unexpectedValue = '50';
 
-		await drop(slider);
-		expect(slider).not.toHaveClass(expected);
+		expect(slider).not.toHaveAttribute(expectedAttribute, unexpectedValue);
 	});
 
 	test('should deactivate the slider on blur', () => {
