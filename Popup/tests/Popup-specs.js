@@ -323,4 +323,29 @@ describe('Popup specs', () => {
 			expect(transitionContainer).not.toHaveClass(firstPosition);
 		});
 	});
+
+	test('should apply `ease-in-out` class to transition container when noAnimation is false', () => {
+		render(
+			<FloatingLayerController>
+				<Popup noAnimation={false} open><div>popup</div></Popup>
+			</FloatingLayerController>
+		);
+		const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
+
+		const expected = 'ease-in-out';
+
+		expect(transitionContainer).toHaveClass(expected);
+	});
+
+	test('should apply \'shown\' class when visible with noAnimation', () => {
+		render(
+			<FloatingLayerController>
+				<Popup noAnimation open><div>popup</div></Popup>
+			</FloatingLayerController>
+		);
+		const expected = 'shown';
+		const actual = screen.getByRole('alert').parentElement.parentElement;
+
+		expect(actual).toHaveClass(expected);
+	});
 });
