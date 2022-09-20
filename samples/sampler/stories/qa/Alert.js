@@ -8,6 +8,8 @@ import ProgressBar from '@enact/sandstone/ProgressBar';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
 
+import {svgGenerator} from '../helper/svg';
+
 Alert.displayName = 'Alert';
 AlertImage.displayName = 'AlertImage';
 const Config = mergeComponentMetadata('Alert', AlertBase, Alert);
@@ -51,7 +53,7 @@ select('type', WithLongTitle, ['fullscreen', 'overlay'], Config);
 text('children', WithLongTitle, Config, 'Additional text content for Alert');
 boolean('image', WithLongTitle, ImageConfig);
 select('type (image)', WithLongTitle, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', WithLongTitle, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+text('src', WithLongTitle, ImageConfig, svgGenerator(240, 240, 'd8d8d8', '6e6e6e', 'image'));
 
 WithLongTitle.storyName = 'with long title';
 
@@ -81,7 +83,7 @@ select('type', WithLongChildren, ['fullscreen', 'overlay'], Config);
 text('children', WithLongChildren, Config, inputData.longChildren);
 boolean('image', WithLongChildren, ImageConfig);
 select('type (image)', WithLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', WithLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+text('src', WithLongChildren, ImageConfig, svgGenerator(240, 240, 'd8d8d8', '6e6e6e', 'image'));
 
 WithLongChildren.storyName = 'with long children';
 
@@ -111,7 +113,7 @@ select('type', WithLongTitleAndLongChildren, ['fullscreen', 'overlay'], Config);
 text('children', WithLongTitleAndLongChildren, Config, inputData.longChildren);
 boolean('image', WithLongTitleAndLongChildren, ImageConfig);
 select('type (image)', WithLongTitleAndLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', WithLongTitleAndLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+text('src', WithLongTitleAndLongChildren, ImageConfig, svgGenerator(240, 240, 'd8d8d8', '6e6e6e', 'image'));
 
 WithLongTitleAndLongChildren.storyName = 'with long title and long children';
 
@@ -152,6 +154,6 @@ select('type', WithDifferentTypesOfComponentsAndLongChildren, ['fullscreen', 'ov
 text('children', WithDifferentTypesOfComponentsAndLongChildren, Config, inputData.longChildren);
 boolean('image', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig);
 select('type (image)', WithDifferentTypesOfComponentsAndLongChildren, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+text('src', WithDifferentTypesOfComponentsAndLongChildren, ImageConfig, svgGenerator(240, 240, 'd8d8d8', '6e6e6e', 'image'));
 
 WithDifferentTypesOfComponentsAndLongChildren.storyName = 'with different types of components and long children';

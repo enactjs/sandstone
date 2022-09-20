@@ -9,9 +9,11 @@ import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 
 import icons from '../helper/icons';
+import {svgGenerator} from '../helper/svg';
 
 const items = [];
 const size = 20;
+
 // eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => {
 	const {source} = items[index];
@@ -24,8 +26,7 @@ const updateDataSize = (dataSize) => {
 
 	for (let i = 0; i < dataSize; i++) {
 		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
-			source = `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${i}`;
-
+			source = svgGenerator(300, 300, color, 'ffffff', `Image ${i}`);
 		items.push({source});
 	}
 
