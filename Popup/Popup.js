@@ -280,6 +280,7 @@ const OpenState = {
 class Popup extends Component {
 
 	static propTypes = /** @lends sandstone/Popup.Popup.prototype */ {
+		blurType: PropTypes.oneOf(['gradient', 'none', 'popup']),
 		/**
 		 * Prevents closing the popup via 5-way navigation out of the content.
 		 *
@@ -376,7 +377,6 @@ class Popup extends Component {
 		 */
 		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
 
-		blurType: PropTypes.oneOf(['none', 'popup', 'gradient']),
 		/**
 		 * Scrim type.
 		 *
@@ -416,12 +416,12 @@ class Popup extends Component {
 	};
 
 	static defaultProps = {
+		blurType: 'none',
 		noAnimation: false,
 		noAutoDismiss: false,
 		open: false,
 		position: 'bottom',
 		scrimType: 'translucent',
-		blurType: 'none',
 		spotlightRestrict: 'self-only'
 	};
 
@@ -600,13 +600,12 @@ class Popup extends Component {
 			if (this.props.blurType === 'popup') {
 				popupNode.style.setProperty('backdrop-filter', 'blur(12px)');
 			} else if (this.props.blurType === 'gradient') {
-				console.log('gradient');
 				const popupRect = popupNode.getBoundingClientRect();
 				const overlayNode = document.querySelector(`div[class^='Scrim']`);
-				overlayNode.style.setProperty('width', (popupRect.width+60)+'px');
-				overlayNode.style.setProperty('height', (popupRect.height+60)+'px');
-				overlayNode.style.setProperty('left', (popupRect.left-30)+'px');
-				overlayNode.style.setProperty('top', (popupRect.top-30)+'px');
+				overlayNode.style.setProperty('width', (popupRect.width + 60) + 'px');
+				overlayNode.style.setProperty('height', (popupRect.height + 60) + 'px');
+				overlayNode.style.setProperty('left', (popupRect.left - 30) + 'px');
+				overlayNode.style.setProperty('top', (popupRect.top - 30) + 'px');
 				overlayNode.style.setProperty('backdrop-filter', 'blur(12px)');
 			}
 		}
@@ -661,6 +660,7 @@ class Popup extends Component {
 
 		delete rest.no5WayClose;
 		delete rest.onClose;
+		delete rest.blurType;
 
 		return (
 			<FloatingLayer

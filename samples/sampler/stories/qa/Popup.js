@@ -87,8 +87,8 @@ const PopupWithBackgroundBlurEffect = Toggleable(
 			<Button onClick={onToggle}>open</Button>
 			<Popup
 				open={open}
-				position='bottom'
-				scrimType='blur'
+				position="bottom"
+				scrimType="blur"
 				onClose={onToggle}
 			>
 				<span>popup</span>
@@ -113,9 +113,9 @@ const PopupWithBlurEffect = Toggleable(
 			<Button onClick={onToggle}>open</Button>
 			<Popup
 				open={open}
-				position='bottom'
-				scrimType='transparent'
-				blurType='popup'
+				position="bottom"
+				scrimType="transparent"
+				blurType="popup"
 				onClose={onToggle}
 			>
 				<span>popup</span>
@@ -140,9 +140,9 @@ const PopupWithGradientBlurEffect = Toggleable(
 			<Button onClick={onToggle}>open</Button>
 			<Popup
 				open={open}
-				position='bottom'
-				blurType='gradient'
-				scrimType='transparent'
+				position="bottom"
+				blurType="gradient"
+				scrimType="transparent"
 				onClose={onToggle}
 			>
 				<span>popup</span>
