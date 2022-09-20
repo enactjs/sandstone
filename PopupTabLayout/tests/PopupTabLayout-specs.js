@@ -93,7 +93,7 @@ describe('PopupTabLayout specs', () => {
 		render(
 			<FloatingLayerController>
 				<PopupTabLayout data-testid="popupTabLayout" open>
-					<Tab title="Tab Title 1">
+					<Tab title="First Tab Title">
 						<TabPanels>
 							<TabPanel>
 								<Item>Item 1</Item>
@@ -101,7 +101,7 @@ describe('PopupTabLayout specs', () => {
 							</TabPanel>
 						</TabPanels>
 					</Tab>
-					<Tab title="Tab Title 2">
+					<Tab title="Second Tab Title">
 						<TabPanels>
 							<TabPanel>
 								<Item>Item 3</Item>
@@ -113,7 +113,20 @@ describe('PopupTabLayout specs', () => {
 			</FloatingLayerController>
 		);
 
-		const tab2 = screen.getByText('Tab Title 2');
-		userEvent.click(tab2);
+		let thirdItem = screen.queryByText('Item 3');
+		let fourthItem = screen.queryByText('Item 4');
+
+		expect(thirdItem).not.toBeInTheDocument();
+		expect(fourthItem).not.toBeInTheDocument();
+
+		const secondTab = screen.getByText('Second Tab Title');
+
+		userEvent.click(secondTab);
+
+		thirdItem = screen.getByText('Item 3');
+		fourthItem = screen.getByText('Item 4');
+
+		expect(thirdItem).toBeInTheDocument();
+		expect(fourthItem).toBeInTheDocument();
 	});
 });
