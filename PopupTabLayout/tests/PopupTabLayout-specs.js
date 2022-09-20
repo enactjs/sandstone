@@ -89,29 +89,6 @@ describe('PopupTabLayout specs', () => {
 		});
 	});
 
-	test('should call onTabAnimationEnd when the tab collapse or expand animation completes', async () => {
-		const handleOnTabAnimationEnd = jest.fn();
-		const {rerender} = render(
-			<FloatingLayerController>
-				<PopupTabLayout>
-					<div>popupTabLayout</div>
-				</PopupTabLayout>
-			</FloatingLayerController>
-		);
-
-		rerender(
-			<FloatingLayerController>
-				<PopupTabLayout onTabAnimationEnd={handleOnTabAnimationEnd} open>
-					<div>popupTabLayout</div>
-				</PopupTabLayout>
-			</FloatingLayerController>
-		)
-
-		await waitFor( () => {
-			expect(handleOnTabAnimationEnd).toHaveBeenCalled();
-		});
-	});
-
 	test('should display items from second tab', async () => {
 		render(
 			<FloatingLayerController>
