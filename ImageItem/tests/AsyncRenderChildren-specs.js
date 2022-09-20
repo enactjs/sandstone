@@ -11,7 +11,7 @@ const Component = (props) => {
 
 describe('AsyncRenderChildren', () => {
 	test('should have a fallback content', () => {
-		render(<Component fallback={<div>Loading...</div>} children="children" index={1} />);
+		render(<Component fallback={<div>Loading...</div>} index={1}>children</Component>);
 
 		const fallbackContent = data.fallback.props.children;
 
