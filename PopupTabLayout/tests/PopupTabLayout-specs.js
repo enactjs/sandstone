@@ -1,9 +1,10 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {render, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {PopupTabLayout} from '../PopupTabLayout';
+import {Item} from '../../Item';
+import {PopupTabLayout, Tab, TabPanel, TabPanels} from '../PopupTabLayout';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
@@ -71,5 +72,71 @@ describe('PopupTabLayout specs', () => {
 		await waitFor(() => {
 			expect(handleClose).not.toHaveBeenCalled();
 		});
+	});
+
+	test('should not close popupTabLayout on escape if noAutoDismiss is true', async () => {
+		const handleClose = jest.fn();
+		render(
+			<FloatingLayerController>
+				<PopupTabLayout noAutoDismiss onClose={handleClose} open><div>popupTabLayout</div></PopupTabLayout>
+			</FloatingLayerController>
+		);
+
+		userEvent.keyboard('{esc}');
+
+		await waitFor(() => {
+			expect(handleClose).not.toHaveBeenCalled();
+		});
+	});
+
+	test('should call onTabAnimationEnd when the tab collapse or expand animation completes', async () => {
+		const handleOnTabAnimationEnd = jest.fn();
+		const {rerender} = render(
+			<FloatingLayerController>
+				<PopupTabLayout>
+					<div>popupTabLayout</div>
+				</PopupTabLayout>
+			</FloatingLayerController>
+		);
+
+		rerender(
+			<FloatingLayerController>
+				<PopupTabLayout onTabAnimationEnd={handleOnTabAnimationEnd} open>
+					<div>popupTabLayout</div>
+				</PopupTabLayout>
+			</FloatingLayerController>
+		)
+
+		await waitFor( () => {
+			expect(handleOnTabAnimationEnd).toHaveBeenCalled();
+		});
+	});
+
+	test('should display items from second tab', async () => {
+		render(
+			<FloatingLayerController>
+				<PopupTabLayout data-testid="popupTabLayout" open>
+					<Tab title="Tab Title 1">
+						<TabPanels>
+							<TabPanel>
+								<Item>Item 1</Item>
+								<Item>Item 2</Item>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+					<Tab title="Tab Title 2">
+						<TabPanels>
+							<TabPanel>
+								<Item>Item 3</Item>
+								<Item>Item 4</Item>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+				</PopupTabLayout>
+			</FloatingLayerController>
+		);
+
+		const tab2 = screen.getByText('Tab Title 2');
+		userEvent.click(tab2);
 	});
 });
