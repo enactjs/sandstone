@@ -77,7 +77,7 @@ describe('PopupTabLayout specs', () => {
 	test('should display items from second tab', async () => {
 		render(
 			<FloatingLayerController>
-				<PopupTabLayout data-testid="popupTabLayout" open>
+				<PopupTabLayout open>
 					<Tab title="First Tab Title">
 						<TabPanels>
 							<TabPanel>
@@ -115,31 +115,65 @@ describe('PopupTabLayout specs', () => {
 		expect(fourthItem).toBeInTheDocument();
 	});
 
-	test('should ', async () => {
-		// render(
-		// 	<FloatingLayerController>
-		// 		<PopupTabLayout data-testid="popupTabLayout" open>
-		// 			<Tab title="Tab Title 1">
-		// 				<TabPanels>
-		// 					<TabPanel>
-		// 						<Item>Item 1</Item>
-		// 						<Item>Item 2</Item>
-		// 					</TabPanel>
-		// 				</TabPanels>
-		// 			</Tab>
-		// 			<Tab title="Tab Title 2">
-		// 				<TabPanels>
-		// 					<TabPanel>
-		// 						<Item>Item 3</Item>
-		// 						<Item>Item 4</Item>
-		// 					</TabPanel>
-		// 				</TabPanels>
-		// 			</Tab>
-		// 		</PopupTabLayout>
-		// 	</FloatingLayerController>
-		// );
-		//
-		// const tab2 = screen.getByText('Tab Title 2');
-		// userEvent.click(tab2);
+	test('should fire onTabClick event for 5-way Select on tab element', () => {
+		const onTabClick = jest.fn();
+		render(
+			<FloatingLayerController>
+				<PopupTabLayout open>
+					<Tab onTabClick={onTabClick} title="First Tab Title">
+						<TabPanels>
+							<TabPanel>
+								<Item>Item 1</Item>
+								<Item>Item 2</Item>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+					<Tab title="Second Tab Title">
+						<TabPanels>
+							<TabPanel>
+								<Item>Item 3</Item>
+								<Item>Item 4</Item>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+				</PopupTabLayout>
+			</FloatingLayerController>
+		);
+
+		const firstTab = screen.getByText('First Tab Title');
+
+		fireEvent.keyDown(firstTab, {keyCode: 13});
+		fireEvent.keyUp(firstTab, {keyCode: 13});
+
+		expect(onTabClick).toHaveBeenCalled();
+	});
+
+	test('should fire onBack event when returning to previous tab', () => {
+		const handleOnBack = jest.fn();
+		render(
+			<FloatingLayerController>
+				<PopupTabLayout open>
+					<Tab title="Tab Title">
+						<TabPanels index={1} onBack={handleOnBack}>
+							<TabPanel>
+								<Item>Item 1</Item>
+								<Item>Item 2</Item>
+							</TabPanel>
+							<TabPanel>
+								<Item>Item 3</Item>
+								<Item>Item 4</Item>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+				</PopupTabLayout>
+			</FloatingLayerController>
+		);
+
+		const tab = screen.getByText('Tab Title');
+
+		fireEvent.keyDown(tab, {keyCode: 27});
+		fireEvent.keyUp(tab, {keyCode: 27});
+
+		expect(handleOnBack).toHaveBeenCalled();
 	});
 });
