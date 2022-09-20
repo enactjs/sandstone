@@ -79,3 +79,83 @@ FromSelfOnlyContainer.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+const PopupWithBackgroundBlurEffect = Toggleable(
+	{prop: 'open', toggle: 'onToggle'},
+	({onToggle, open}) => (
+		<div style={{backgroundImage: 'url("http://picsum.photos/1280/720?image=1044")', height: '100%'}}>
+			<Button onClick={onToggle}>open</Button>
+			<Popup
+				open={open}
+				position='bottom'
+				scrimType='blur'
+				onClose={onToggle}
+			>
+				<span>popup</span>
+			</Popup>
+		</div>
+	)
+);
+
+export const WithBackgroundBlurEffect = () => <PopupWithBackgroundBlurEffect />;
+
+WithBackgroundBlurEffect.storyName = 'with background blur effect';
+WithBackgroundBlurEffect.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
+const PopupWithBlurEffect = Toggleable(
+	{prop: 'open', toggle: 'onToggle'},
+	({onToggle, open}) => (
+		<div style={{backgroundImage: 'url("http://picsum.photos/1280/720?image=1044")', height: '100%'}}>
+			<Button onClick={onToggle}>open</Button>
+			<Popup
+				open={open}
+				position='bottom'
+				scrimType='transparent'
+				blurType='popup'
+				onClose={onToggle}
+			>
+				<span>popup</span>
+			</Popup>
+		</div>
+	)
+);
+
+export const WithBlurEffect = () => <PopupWithBlurEffect />;
+
+WithBlurEffect.storyName = 'with blur effect';
+WithBlurEffect.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
+const PopupWithGradientBlurEffect = Toggleable(
+	{prop: 'open', toggle: 'onToggle'},
+	({onToggle, open}) => (
+		<div style={{backgroundImage: 'url("http://picsum.photos/1280/720?image=1044")', height: '100%'}}>
+			<Button onClick={onToggle}>open</Button>
+			<Popup
+				open={open}
+				position='bottom'
+				blurType='gradient'
+				scrimType='transparent'
+				onClose={onToggle}
+			>
+				<span>popup</span>
+			</Popup>
+		</div>
+	)
+);
+
+export const WithGradientBlurEffect = () => <PopupWithGradientBlurEffect />;
+
+WithGradientBlurEffect.storyName = 'with gradient blur effect';
+WithGradientBlurEffect.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};

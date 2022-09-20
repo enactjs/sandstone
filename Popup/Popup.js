@@ -376,6 +376,7 @@ class Popup extends Component {
 		 */
 		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
 
+		blurType: PropTypes.oneOf(['none', 'popup', 'gradient']),
 		/**
 		 * Scrim type.
 		 *
@@ -388,7 +389,7 @@ class Popup extends Component {
 		 * @default 'translucent'
 		 * @public
 		 */
-		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
+		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none', 'blur']),
 
 		/**
 		 * Restricts or prioritizes navigation when focus attempts to leave the popup.
@@ -420,6 +421,7 @@ class Popup extends Component {
 		open: false,
 		position: 'bottom',
 		scrimType: 'translucent',
+		blurType: 'none',
 		spotlightRestrict: 'self-only'
 	};
 
@@ -565,6 +567,10 @@ class Popup extends Component {
 	};
 
 	handleDismiss = (ev) => {
+		if (this.props.blurType === 'gradient') {
+			const overlayNode = document.querySelector(`div[class^='Scrim']`);
+			overlayNode.style.removeProperty('backdrop-filter');
+		}
 		forwardCustom('onClose', () => ({detail: ev?.detail}))({}, this.props);
 	};
 
@@ -590,6 +596,19 @@ class Popup extends Component {
 
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
 			this.spotPopupContent();
+			const popupNode = document.querySelector(`div[class^='Popup_body']`);
+			if (this.props.blurType === 'popup') {
+				popupNode.style.setProperty('backdrop-filter', 'blur(12px)');
+			} else if (this.props.blurType === 'gradient') {
+				console.log('gradient');
+				const popupRect = popupNode.getBoundingClientRect();
+				const overlayNode = document.querySelector(`div[class^='Scrim']`);
+				overlayNode.style.setProperty('width', (popupRect.width+60)+'px');
+				overlayNode.style.setProperty('height', (popupRect.height+60)+'px');
+				overlayNode.style.setProperty('left', (popupRect.left-30)+'px');
+				overlayNode.style.setProperty('top', (popupRect.top-30)+'px');
+				overlayNode.style.setProperty('backdrop-filter', 'blur(12px)');
+			}
 		}
 	};
 
