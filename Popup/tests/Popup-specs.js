@@ -344,6 +344,7 @@ describe('Popup specs', () => {
 				<Popup noAnimation open><div>popup</div></Popup>
 			</FloatingLayerController>
 		);
+
 		const expected = 'shown';
 		const actual = screen.getByRole('alert').parentElement.parentElement;
 
@@ -407,5 +408,28 @@ describe('Popup specs', () => {
 		);
 
 		expect(handleHide).toHaveBeenCalled();
+	});
+
+	test('should apply `hidden` class when popup closes', () => {
+		const {rerender} = render(
+			<FloatingLayerController>
+				<Popup open>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		rerender(
+			<FloatingLayerController>
+				<Popup>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		)
+
+		const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
+		const expected = 'hidden';
+
+		expect(transitionContainer).toHaveClass(expected);
 	});
 });
