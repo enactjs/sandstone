@@ -366,4 +366,46 @@ describe('Popup specs', () => {
 			expect(handleClose).toHaveBeenCalled();
 		});
 	});
+
+	test('should call onShow after popup with noAnimation is opened', () => {
+		const handleShow = jest.fn();
+		const {rerender} = render(
+			<FloatingLayerController>
+				<Popup noAnimation onShow={handleShow}>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		rerender(
+			<FloatingLayerController>
+				<Popup noAnimation onShow={handleShow} open>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		expect(handleShow).toHaveBeenCalled();
+	});
+
+	test('should call onHide after popup with noAnimation is closed', () => {
+		const handleHide = jest.fn();
+		const {rerender} = render(
+			<FloatingLayerController>
+				<Popup noAnimation onHide={handleHide} open>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		rerender(
+			<FloatingLayerController>
+				<Popup noAnimation onHide={handleHide}>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		expect(handleHide).toHaveBeenCalled();
+	});
 });
