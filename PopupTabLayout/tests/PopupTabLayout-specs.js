@@ -74,21 +74,6 @@ describe('PopupTabLayout specs', () => {
 		});
 	});
 
-	test('should not close popupTabLayout on escape if noAutoDismiss is true', async () => {
-		const handleClose = jest.fn();
-		render(
-			<FloatingLayerController>
-				<PopupTabLayout noAutoDismiss onClose={handleClose} open><div>popupTabLayout</div></PopupTabLayout>
-			</FloatingLayerController>
-		);
-
-		userEvent.keyboard('{esc}');
-
-		await waitFor(() => {
-			expect(handleClose).not.toHaveBeenCalled();
-		});
-	});
-
 	test('should display items from second tab', async () => {
 		render(
 			<FloatingLayerController>
@@ -128,5 +113,33 @@ describe('PopupTabLayout specs', () => {
 
 		expect(thirdItem).toBeInTheDocument();
 		expect(fourthItem).toBeInTheDocument();
+	});
+
+	test('should ', async () => {
+		// render(
+		// 	<FloatingLayerController>
+		// 		<PopupTabLayout data-testid="popupTabLayout" open>
+		// 			<Tab title="Tab Title 1">
+		// 				<TabPanels>
+		// 					<TabPanel>
+		// 						<Item>Item 1</Item>
+		// 						<Item>Item 2</Item>
+		// 					</TabPanel>
+		// 				</TabPanels>
+		// 			</Tab>
+		// 			<Tab title="Tab Title 2">
+		// 				<TabPanels>
+		// 					<TabPanel>
+		// 						<Item>Item 3</Item>
+		// 						<Item>Item 4</Item>
+		// 					</TabPanel>
+		// 				</TabPanels>
+		// 			</Tab>
+		// 		</PopupTabLayout>
+		// 	</FloatingLayerController>
+		// );
+		//
+		// const tab2 = screen.getByText('Tab Title 2');
+		// userEvent.click(tab2);
 	});
 });

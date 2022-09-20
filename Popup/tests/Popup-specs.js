@@ -425,7 +425,7 @@ describe('Popup specs', () => {
 					<div>popup</div>
 				</Popup>
 			</FloatingLayerController>
-		)
+		);
 
 		const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
 		const expected = 'hidden';
