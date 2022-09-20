@@ -6,8 +6,8 @@ import AsyncRenderChildren from '../AsyncRenderChildren';
 let data = {};
 const Component = (props) => {
 	data = props;
-	return <AsyncRenderChildren {...props} />
-}
+	return <AsyncRenderChildren {...props} />;
+};
 
 describe('AsyncRenderChildren', () => {
 	test('should have a fallback content', () => {

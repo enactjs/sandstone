@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom';
-import {act, render, screen} from '@testing-library/react';
-import matchMediaPolyfill from 'mq-polyfill'
+import {render, screen} from '@testing-library/react';
 
 import Image from '../Image';
 
@@ -9,24 +8,6 @@ const src = {
 	fhd: 'https://via.placeholder.com/300x300',
 	uhd: 'https://via.placeholder.com/600x600'
 };
-
-const resizeWindow = (x, y) => {
-	window.innerWidth = x;
-	window.innerHeight = y;
-	window.outerWidth = x;
-	window.outerHeight = y;
-	window.dispatchEvent(new Event('resize'));
-};
-
-matchMediaPolyfill(window)
-window.resizeTo = function resizeTo(width, height) {
-	Object.assign(this, {
-		innerWidth: width,
-		innerHeight: height,
-		outerWidth: width,
-		outerHeight: height,
-	}).dispatchEvent(new this.Event('resize'))
-}
 
 describe('Image', () => {
 	test('should select a src', () => {
@@ -75,20 +56,5 @@ describe('Image', () => {
 		const expected = "image";
 
 		expect(image).toHaveClass(expected);
-	});
-
-	// Tried to set the width and height of window with window.resize or global.innerWidth/global.innerHeight
-	// in order for `Image` to get the correct image source based on window resolution.
-	// On each try, Image gets the src.fhd link.
-	test('resize 2', async () => {
-
-		const {rerender} = render(<Image src={src.fhd} />);
-		screen.debug()
-		act(() => window.resizeTo(999, 600));
-		rerender(<Image src={src.hd} />);
-		screen.debug()
-		console.log('1111', window.innerHeight, window.innerWidth);
-		console.log('121111', window.outerHeight, window.outerWidth);
-
 	});
 });
