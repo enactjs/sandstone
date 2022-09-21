@@ -6,6 +6,7 @@ import ri from '@enact/ui/resolution';
 import Touchable from '@enact/ui/Touchable';
 import PropTypes from 'prop-types';
 import {Fragment} from 'react';
+import {useState, useCallback} from 'react';
 
 const TouchableDiv = Touchable('div');
 
@@ -209,6 +210,45 @@ boolean('noResume', WithDragHandlers, TouchableDiv, false);
 boolean('disabled', WithDragHandlers, TouchableDiv);
 
 WithDragHandlers.storyName = 'with drag handlers';
+
+export const WithPinchZoomHandlers = (args) => {
+	const [scale, setScale] = useState(1.0);
+
+	const handlePinchZoom = useCallback((ev) => {
+		action('onPinchZoom')(ev);
+		setScale(ev.scale);
+	}, []);
+
+	return (
+		<TouchableDiv
+			pinchZoomConfig={{
+				global: args['pinchZoomConfig global'] || false,
+				maxZoom: args['pinchZoomConfig maxZoom'],
+				minZoom: args['pinchZoomConfig minZoom'],
+				scaleTolerance: args['pinchZoomConfig scaleTolerance']
+			}}
+			onPinchZoomStart={action('onPinchZoomStart')}
+			onPinchZoom={handlePinchZoom}
+			onPinchZoomEnd={action('onPinchZoomEnd')}
+			style={{
+				border: '4px dashed #888',
+				margin: ri.unit(ri.scale(300), 'rem'),
+				width: ri.unit(ri.scale(1000), 'rem'),
+				height: ri.unit(ri.scale(1000), 'rem'),
+				transform: `scale(${scale})`
+			}}
+		>
+			PinchZoom within this component.
+		</TouchableDiv>
+	);
+};
+
+boolean('pinchZoomConfig global', WithPinchZoomHandlers, TouchableDiv, false);
+number('pinchZoomConfig maxZoom', WithPinchZoomHandlers, TouchableDiv, 4);
+number('pinchZoomConfig minZoom', WithPinchZoomHandlers, TouchableDiv, 0.5);
+number('pinchZoomConfig scaleTolerance', WithPinchZoomHandlers, TouchableDiv, 0.02);
+
+WithPinchZoomHandlers.storyName = 'with pinch-zoom handlers';
 
 export const OnTapWhenClicked = (args) => (
 	<TouchableDiv
