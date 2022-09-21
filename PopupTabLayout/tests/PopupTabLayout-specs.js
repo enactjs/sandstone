@@ -177,7 +177,7 @@ describe('PopupTabLayout specs', () => {
 		expect(handleOnBack).toHaveBeenCalled();
 	});
 
-	test('should fire onKeyDown event for 5-way navigation inside tab element', () => {
+	test('should fire onKeyDown event for 5-way navigation inside Tab element', () => {
 		const onKeyDown = jest.fn();
 		render(
 			<FloatingLayerController>
