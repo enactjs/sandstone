@@ -208,14 +208,25 @@ describe('TimePicker', () => {
 		const {rerender} = render(
 			<TimePicker locale="en-US" value={time} />
 		);
-		const firstMeridiem = screen.queryByText('12:30 PM');
+		const firstTimeDisplayed = screen.queryByText('12:30 PM');
 
 		rerender(
 			<TimePicker locale="en-US" value={secondTime} />
 		);
-		const secondMeridiem = screen.queryByText('11:30 AM');
+		const secondTimeDisplayed = screen.queryByText('11:30 AM');
 
-		expect(firstMeridiem).not.toBeNull();
-		expect(secondMeridiem).not.toBeNull();
+		expect(firstTimeDisplayed).not.toBeNull();
+		expect(secondTimeDisplayed).not.toBeNull();
+	});
+
+	test('check that the date is displayed correctly for cases of more than 2 meridiems', () => {
+		const time = new Date(2000, 0, 1, 12, 30);
+		render(
+			<TimePicker locale="am-ET" value={time} />
+		);
+
+		const displayedTime = screen.queryByText('12:30 PM');
+
+		expect(displayedTime).not.toBeNull();
 	});
 });
