@@ -176,4 +176,37 @@ describe('PopupTabLayout specs', () => {
 
 		expect(handleOnBack).toHaveBeenCalled();
 	});
+
+	test('should fire onKeyDown event for 5-way navigation inside tab element', () => {
+		const onKeyDown = jest.fn();
+		render(
+			<FloatingLayerController>
+				<PopupTabLayout open>
+					<Tab title="First Tab Title">
+						<TabPanels>
+							<TabPanel onKeyDown={onKeyDown}>
+								<Item>Item 1</Item>
+								<Item>Item 2</Item>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+					<Tab title="Second Tab Title">
+						<TabPanels>
+							<TabPanel>
+								<Item>Item 3</Item>
+								<Item>Item 4</Item>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+				</PopupTabLayout>
+			</FloatingLayerController>
+		);
+
+		const firstItem = screen.getByText('Item 1');
+
+		fireEvent.keyDown(firstItem, {keyCode: 40});
+		fireEvent.keyUp(firstItem, {keyCode: 40});
+
+		expect(onKeyDown).toHaveBeenCalled();
+	});
 });
