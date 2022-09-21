@@ -221,12 +221,18 @@ describe('TimePicker', () => {
 
 	test('check that the date is displayed correctly for cases of more than 2 meridiems', () => {
 		const time = new Date(2000, 0, 1, 12, 30);
-		render(
+		const secondTime = new Date(2000, 0, 1, 11, 30);
+		const {rerender} = render(
 			<TimePicker locale="am-ET" value={time} />
 		);
+		const firstTimeDisplayed = screen.queryByText('12:30 PM');
 
-		const displayedTime = screen.queryByText('12:30 PM');
+		rerender(
+			<TimePicker locale="am-ET" value={secondTime} />
+		);
+		const secondTimeDisplayed = screen.queryByText('11:30 AM');
 
-		expect(displayedTime).not.toBeNull();
+		expect(firstTimeDisplayed).not.toBeNull();
+		expect(secondTimeDisplayed).not.toBeNull();
 	});
 });
