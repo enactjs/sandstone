@@ -53,7 +53,7 @@ describe('TimePicker', () => {
 		const meridiemPicker = screen.getAllByText('▲')[2];
 
 		userEvent.click(meridiemPicker);
-		screen.debug()
+
 		const expected = 1;
 		const expectedType = {type: 'onChange'};
 		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
@@ -200,5 +200,22 @@ describe('TimePicker', () => {
 		const time = timeToLocaleString(undefined);		// eslint-disable-line no-undefined
 
 		expect(time).toBeNull();
+	});
+
+	test('should change the meridiem to reflect the hour change', () => {
+		const time = new Date(2000, 0, 1, 12, 30);
+		const secondTime = new Date(2000, 0, 1, 11, 30);
+		const {rerender} = render(
+			<TimePicker locale="en-US" value={time} />
+		);
+		const firstMeridiem = screen.queryByText('12:30 PM');
+
+		rerender(
+			<TimePicker locale="en-US" value={secondTime} />
+		);
+		const secondMeridiem = screen.queryByText('11:30 AM');
+
+		expect(firstMeridiem).not.toBeNull();
+		expect(secondMeridiem).not.toBeNull();
 	});
 });
