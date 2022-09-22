@@ -110,5 +110,5 @@ describe('Picker Specs', () => {
 		const expected = "[\"Option 1\",\"The second one\",\"This is the third option\",\"4\"]";
 
 		expect(picker).toHaveAttribute('data-webos-voice-labels-ext', expected);
-	})
+	});
 });

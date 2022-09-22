@@ -123,6 +123,32 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should register onKeyDown event for keyDown \'Enter\' on increment button', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} max={6} min={0} onKeyDown={handleChange} step={3} value={0} />
+		);
+		const picker = screen.getAllByRole('button')[0];
+
+		fireEvent.keyDown(picker, { key: "Enter", code: 13 });
+
+		expect(handleChange).toHaveBeenCalled();
+	});
+
+	test('should register onKeyDown event for keyDown \'Enter\' on decrement button', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} max={6} min={0} onKeyDown={handleChange} step={3} value={0} />
+		);
+		const picker = screen.getAllByRole('button')[1];
+
+		screen.debug();
+		fireEvent.keyDown(picker, { key: "Enter", code: 13 });
+		screen.debug();
+
+		expect(handleChange).toHaveBeenCalled();
+	});
+
 	test('should increment by \'step\' value and wrap successfully', () => {
 		const handleChange = jest.fn();
 		render(
