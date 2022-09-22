@@ -123,28 +123,26 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should register onKeyDown event for keyDown \'Enter\' on increment button', () => {
+	test('should register onKeyDown event for keyDown \'right arrow\' on increment button', () => {
 		const handleChange = jest.fn();
 		render(
 			<Picker index={0} max={6} min={0} onKeyDown={handleChange} step={3} value={0} />
 		);
 		const picker = screen.getAllByRole('button')[0];
 
-		fireEvent.keyDown(picker, { key: "Enter", code: 13 });
+		fireEvent.keyDown(picker, { key: "right arrow", code: 39 });
 
 		expect(handleChange).toHaveBeenCalled();
 	});
 
-	test('should register onKeyDown event for keyDown \'Enter\' on decrement button', () => {
+	test('should register onKeyDown event for keyDown \'left arrow\' on decrement button', () => {
 		const handleChange = jest.fn();
 		render(
 			<Picker index={0} max={6} min={0} onKeyDown={handleChange} step={3} value={0} />
 		);
 		const picker = screen.getAllByRole('button')[1];
 
-		screen.debug();
-		fireEvent.keyDown(picker, { key: "Enter", code: 13 });
-		screen.debug();
+		fireEvent.keyDown(picker, { key: "left arrow", code: 37 });
 
 		expect(handleChange).toHaveBeenCalled();
 	});
