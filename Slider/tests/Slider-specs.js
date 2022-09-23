@@ -31,7 +31,7 @@ const drag = async (element, {delta, steps = 1}) => {
 	for (let i = 0; i < steps; i++) {
 		current.clientX += step.x;
 		current.clientY += step.y;
-		act(() => jest.advanceTimersByTime(1000 / steps))
+		act(() => jest.advanceTimersByTime(1000 / steps));
 		fireEvent.mouseMove(element, current);
 	}
 	fireEvent.mouseUp(element, current);
