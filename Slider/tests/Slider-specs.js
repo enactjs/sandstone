@@ -103,7 +103,6 @@ describe('Slider', () => {
 		expect(slider).not.toHaveAttribute(expectedAttribute, unexpectedValue);
 	});
 
-
 	test('should deactivate the slider on blur', () => {
 		render(<Slider activateOnSelect />);
 		const slider = screen.getByRole('slider');
