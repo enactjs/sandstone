@@ -9,6 +9,20 @@ import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
 const ContextualButton = ContextualPopupDecorator(Button);
 
 describe('ContextualPopupDecorator Specs', () => {
+	// We do this to ensure that there is enough space to display the popup in all directions
+	beforeEach(() => {
+		global.Element.prototype.getBoundingClientRect = jest.fn(() => {
+			return {
+				width: 1800,
+				height: 1000,
+				top: 500,
+				left: 500,
+				bottom: 0,
+				right: 0
+			};
+		});
+	});
+
 	test('should emit onOpen event with type when opening', () => {
 		const handleOpen = jest.fn();
 		const Root = FloatingLayerDecorator('div');
@@ -232,6 +246,139 @@ describe('ContextualPopupDecorator Specs', () => {
 		const contextualPopup = screen.getByRole('alert');
 
 		const expected = 'right top';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "above" className when direction is set to "above"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="above" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'above';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "above center" className when direction is set to "above center"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="above center" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'above center';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "above left" className when direction is set to "above left"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="above left" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'above left';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "above right" className when direction is set to "above right"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="above right" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'above right';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "left bottom" className when direction is set to "left bottom"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="left bottom" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'left bottom';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "left middle" className when direction is set to "left middle"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="left middle" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'left middle';
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should have "left top" className when direction is set to "left top"', () => {
+		const handleClose = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+		render(
+			<Root>
+				<ContextualButton direction="left top" onClose={handleClose} open popupComponent={() => message}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualPopup = screen.getByRole('alert');
+
+		const expected = 'left top';
 		const actual = contextualPopup.children.item(0);
 
 		expect(actual).toHaveClass(expected);
