@@ -12,7 +12,6 @@ const src = {
 describe('Image', () => {
 	test('should select a src', () => {
 		render(<Image src={src} />);
-
 		const image = screen.getAllByRole('img')[1];
 
 		const actual = image.getAttribute('src');
@@ -31,7 +30,7 @@ describe('Image', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('sizing fill', () => {
+	test('should render image with sizing \'fill\'', () => {
 		render(<Image src={src} />);
 		const image = screen.getAllByRole('img')[0];
 
@@ -40,7 +39,7 @@ describe('Image', () => {
 		expect(image).toHaveClass(expected);
 	});
 
-	test('sizing fit', () => {
+	test('should render image with sizing \'fit\'', () => {
 		render(<Image src={src} sizing="fit" />);
 		const image = screen.getAllByRole('img')[0];
 
@@ -49,7 +48,7 @@ describe('Image', () => {
 		expect(image).toHaveClass(expected);
 	});
 
-	test('sizing none', () => {
+	test('should render image with sizing \'none\'', () => {
 		render(<Image src={src} sizing="none" />);
 		const image = screen.getAllByRole('img')[0];
 
