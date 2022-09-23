@@ -2,6 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.5.4] - 2022-09-23
+
+### Fixed
+
+- `sandstone/Scroller` to not show the focus effect of the body in pointer mode when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Slider` tooltip arrow to show properly
+
 ## [2.5.3] - 2022-08-30
 
 ### Added

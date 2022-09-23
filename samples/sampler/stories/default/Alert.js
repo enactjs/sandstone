@@ -4,6 +4,8 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 
+import {svgGenerator} from '../helper/svg';
+
 Alert.displayName = 'Alert';
 AlertImage.displayName = 'AlertImage';
 const Config = mergeComponentMetadata('Alert', AlertBase, Alert);
@@ -62,7 +64,7 @@ select('type', _Alert, ['fullscreen', 'overlay'], Config);
 text('children', _Alert, Config, 'Additional text content for Alert');
 boolean('image', _Alert, ImageConfig);
 select('type (image)', _Alert, ['icon', 'thumbnail'], ImageConfig, 'icon');
-text('src', _Alert, ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+text('src', _Alert, ImageConfig, svgGenerator(240, 240, 'd8d8d8', '6e6e6e', 'image'));
 
 _Alert.storyName = 'Alert';
 _Alert.parameters = {

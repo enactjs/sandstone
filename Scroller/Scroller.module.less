@@ -20,9 +20,11 @@
 	}
 
 	.focus({
-		&::before {
-			background-color: @sand-scroll-focusablebody-focus-bg-color;
-			opacity: 1;
+		:global(.spotlight-input-key)& {
+			&::before {
+				background-color: @sand-scroll-focusablebody-focus-bg-color;
+				opacity: 1;
+			}
 		}
 	})
 }

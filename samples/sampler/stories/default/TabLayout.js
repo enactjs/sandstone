@@ -10,6 +10,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 import {scaleToRem} from '@enact/ui/resolution';
 
+import {svgGenerator} from '../helper/svg';
 import spriteGear2k from '../../images/sprite-gear-2k.png';
 import spriteGear4k from '../../images/sprite-gear-4k.png';
 
@@ -44,7 +45,7 @@ export const _TabLayout = (args) => {
 			inline
 			key={`image${i}`}
 			label="ImageItem label"
-			src="http://via.placeholder.com/360x240/"
+			src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
 			style={{
 				width: scaleToRem(768),
 				height: scaleToRem(588)
