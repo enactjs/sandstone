@@ -130,7 +130,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getAllByRole('button')[0];
 
-		fireEvent.keyDown(picker, {key: "right arrow", keyCode: 39 ,code: "right arrow", charCode: 39});
+		fireEvent.keyDown(picker, {key: "right arrow", keyCode: 39, code: "right arrow", charCode: 39});
 
 		expect(handleChange).toHaveBeenCalled();
 	});
@@ -142,7 +142,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getAllByRole('button')[1];
 
-		fireEvent.keyDown(picker, {key: "left arrow", keyCode: 37 ,code: "left arrow", charCode: 37});
+		fireEvent.keyDown(picker, {key: "left arrow", keyCode: 37, code: "left arrow", charCode: 37});
 
 		expect(handleChange).toHaveBeenCalled();
 	});
