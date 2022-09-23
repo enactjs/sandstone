@@ -74,7 +74,7 @@ describe('PopupTabLayout specs', () => {
 		});
 	});
 
-	test('should display items from second tab', async () => {
+	test('should display items from second tab', () => {
 		render(
 			<FloatingLayerController>
 				<PopupTabLayout open>
