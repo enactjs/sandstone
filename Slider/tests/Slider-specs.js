@@ -38,6 +38,14 @@ const drag = async (element, {delta, steps = 1}) => {
 };
 
 describe('Slider', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
 	test('should set "aria-valuetext" to hint string for the first render when vertical is false', () => {
 		render(<Slider />);
 		const slider = screen.getByRole('slider');
@@ -91,7 +99,7 @@ describe('Slider', () => {
 
 		const expectedAttribute = 'aria-valuetext';
 		const unexpectedValue = '50 change a value with left right button';
-
+screen.debug();
 		expect(slider).not.toHaveAttribute(expectedAttribute, unexpectedValue);
 	});
 
