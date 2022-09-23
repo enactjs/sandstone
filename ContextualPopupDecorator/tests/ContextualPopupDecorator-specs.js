@@ -9,7 +9,6 @@ import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
 const ContextualButton = ContextualPopupDecorator(Button);
 
 describe('ContextualPopupDecorator Specs', () => {
-	// We do this to ensure that there is enough space to display the popup in all directions
 	beforeEach(() => {
 		global.Element.prototype.getBoundingClientRect = jest.fn(() => {
 			return {
@@ -118,7 +117,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(handleClose).not.toHaveBeenCalled();
 	});
 
-	test('should have "below" className when direction is set to "below"', () => {
+	test('should have \'below\' className when direction is set to \'below\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -137,7 +136,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "below center" className when direction is set to "below center"', () => {
+	test('should have \'below center\' className when direction is set to \'below center\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -156,7 +155,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "below left" className when direction is set to "below left"', () => {
+	test('should have \'below left\' className when direction is set to \'below left\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -175,7 +174,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "below right" className when direction is set to "below right"', () => {
+	test('should have \'below right\' className when direction is set to \'below right\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -194,7 +193,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "right bottom" className when direction is set to "right bottom"', () => {
+	test('should have \'right bottom\' className when direction is set to \'right bottom\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -213,7 +212,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "right middle" className when direction is set to "right middle"', () => {
+	test('should have \'right middle\' className when direction is set to \'right middle\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -232,7 +231,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "right top" className when direction is set to "right top"', () => {
+	test('should have \'right top\' className when direction is set to \'right top\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -251,7 +250,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "above" className when direction is set to "above"', () => {
+	test('should have \'above\' className when direction is set to \'above\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -270,7 +269,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "above center" className when direction is set to "above center"', () => {
+	test('should have \'above center\' className when direction is set to \'above center\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -289,7 +288,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "above left" className when direction is set to "above left"', () => {
+	test('should have \'above left\' className when direction is set to \'above left\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -308,7 +307,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "above right" className when direction is set to "above right"', () => {
+	test('should have \'above right\' className when direction is set to \'above right\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -327,7 +326,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "left bottom" className when direction is set to "left bottom"', () => {
+	test('should have \'left bottom\' className when direction is set to \'left bottom\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -346,7 +345,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "left middle" className when direction is set to "left middle"', () => {
+	test('should have \'left middle\' className when direction is set to \'left middle\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
@@ -365,7 +364,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have "left top" className when direction is set to "left top"', () => {
+	test('should have \'left top\' className when direction is set to \'left top\'', () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';

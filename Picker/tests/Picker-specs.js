@@ -40,7 +40,7 @@ describe('Picker Specs', () => {
 		expect(picker).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to decrement button when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to decrement button when voice control is disabled', () => {
 		render(
 			<PickerBase data-webos-voice-disabled>
 				{[1, 2, 3, 4]}
@@ -53,7 +53,7 @@ describe('Picker Specs', () => {
 		expect(decrementButton).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to increment button when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to increment button when voice control is disabled', () => {
 		render(
 			<PickerBase data-webos-voice-disabled>
 				{[1, 2, 3, 4]}

@@ -102,7 +102,7 @@ describe('DatePicker', () => {
 		expect(year).toBeInTheDocument();
 	});
 
-	test('should set "dayAriaLabel" to day picker', () => {
+	test('should set \'dayAriaLabel\' to day picker', () => {
 		const label = 'custom day aria-label';
 		render(<DatePicker dayAriaLabel={label} value={new Date(2000, 0, 1)} />);
 		const dayPicker = screen.getByLabelText(label);
@@ -113,7 +113,7 @@ describe('DatePicker', () => {
 		expect(dayPicker).toHaveClass(expected);
 	});
 
-	test('should set "monthAriaLabel" to month picker', () => {
+	test('should set \'monthAriaLabel\' to month picker', () => {
 		const label = 'custom month aria-label';
 		render(<DatePicker monthAriaLabel={label} value={new Date(2000, 0, 1)} />);
 		const monthPicker = screen.getByLabelText(label);
@@ -124,7 +124,7 @@ describe('DatePicker', () => {
 		expect(monthPicker).toHaveClass(expected);
 	});
 
-	test('should set "yearAriaLabel" to year picker', () => {
+	test('should set \'yearAriaLabel\' to year picker', () => {
 		const label = 'custom year aria-label';
 		render(<DatePicker value={new Date(2000, 0, 1)} yearAriaLabel={label} />);
 		const yearPicker = screen.getByLabelText(label);
@@ -135,7 +135,7 @@ describe('DatePicker', () => {
 		expect(yearPicker).toHaveClass(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to day picker when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to day picker when voice control is disabled', () => {
 		render(<DatePicker value={new Date(2000, 0, 1)} data-webos-voice-disabled />);
 		const dayPicker = screen.getByLabelText('1 day change a value with up down button');
 
@@ -144,7 +144,7 @@ describe('DatePicker', () => {
 		expect(dayPicker).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to month picker when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to month picker when voice control is disabled', () => {
 		render(<DatePicker value={new Date(2000, 0, 1)} data-webos-voice-disabled />);
 		const monthPicker = screen.getByLabelText('1 month change a value with up down button');
 
@@ -153,7 +153,7 @@ describe('DatePicker', () => {
 		expect(monthPicker).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to year picker when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to year picker when voice control is disabled', () => {
 		render(<DatePicker value={new Date(2000, 0, 1)} data-webos-voice-disabled />);
 		const yearPicker = screen.getByLabelText('1900 year change a value with up down button');
 		// The year is 1900 because it does not change based on props, this needs to be fixed in datePicker
@@ -192,7 +192,7 @@ describe('DatePicker', () => {
 		expect(header).toBeNull();
 	});
 
-	test('"dateToLocaleString" method should return "null" for an "undefined" date', () => {
+	test('\'dateToLocaleString\' method should return \'null\' for an \'undefined\' date', () => {
 		const actual = dateToLocaleString(undefined);		// eslint-disable-line no-undefined
 
 		expect(actual).toBeNull();

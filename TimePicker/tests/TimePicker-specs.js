@@ -87,7 +87,7 @@ describe('TimePicker', () => {
 		expect(minutePicker).toHaveClass(expected);
 	});
 
-	test('should set "hourAriaLabel" to hour picker', () => {
+	test('should set \'hourAriaLabel\' to hour picker', () => {
 		const label = 'custom hour aria-label';
 		render(
 			<TimePicker hourAriaLabel={label} value={new Date(2000, 0, 1, 12, 30)} />
@@ -100,7 +100,7 @@ describe('TimePicker', () => {
 		expect(hourPicker).toHaveClass(expected);
 	});
 
-	test('should set "meridiemAriaLabel" to meridiem picker', () => {
+	test('should set \'meridiemAriaLabel\' to meridiem picker', () => {
 		const label = 'custom meridiem aria-label';
 		render(
 			<TimePicker meridiemAriaLabel={label} value={new Date(2000, 0, 1, 12, 30)} />
@@ -113,7 +113,7 @@ describe('TimePicker', () => {
 		expect(meridiemPicker).toHaveClass(expected);
 	});
 
-	test('should set "minuteAriaLabel" to minute picker', () => {
+	test('should set \'minuteAriaLabel\' to minute picker', () => {
 		const label = 'custom minute aria-label';
 		render(
 			<TimePicker minuteAriaLabel={label} value={new Date(2000, 0, 1, 12, 30)} />
@@ -126,7 +126,7 @@ describe('TimePicker', () => {
 		expect(minutePicker).toHaveClass(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to hour picker when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to hour picker when voice control is disabled', () => {
 		render(
 			<TimePicker value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
@@ -137,7 +137,7 @@ describe('TimePicker', () => {
 		expect(hourPicker).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to meridiem picker when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to meridiem picker when voice control is disabled', () => {
 		render(
 			<TimePicker value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
@@ -148,7 +148,7 @@ describe('TimePicker', () => {
 		expect(merdiemPicker).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to minute picker when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to minute picker when voice control is disabled', () => {
 		render(
 			<TimePicker value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
@@ -196,7 +196,7 @@ describe('TimePicker', () => {
 		expect(header).toBeNull();
 	});
 
-	test('"timeToLocaleString" method should return "null" for an "undefined" time', () => {
+	test('\'timeToLocaleString\' method should return \'null\' for an \'undefined\' time', () => {
 		const time = timeToLocaleString(undefined);		// eslint-disable-line no-undefined
 
 		expect(time).toBeNull();

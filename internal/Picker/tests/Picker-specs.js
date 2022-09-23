@@ -634,7 +634,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, expectedValue);
 		});
 
-		test('should set picker `decrementAriaLabel` to decrement button', () => {
+		test('should set picker \'decrementAriaLabel\' to decrement button', () => {
 			const customLabel = 'custom decrement aria-label';
 			render(
 				<Picker decrementAriaLabel={customLabel} index={1} max={3} min={0} value={1}>
@@ -651,7 +651,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, customLabel);
 		});
 
-		test('should set picker `incrementAriaLabel` to decrement button', () => {
+		test('should set picker \'incrementAriaLabel\' to decrement button', () => {
 			const customLabel = 'custom increment aria-label';
 			render(
 				<Picker incrementAriaLabel={customLabel} index={1} max={3} min={0} value={1}>
@@ -668,7 +668,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, customLabel);
 		});
 
-		test('should set picker `decrementAriaLabel` to decrement button with title', () => {
+		test('should set picker \'decrementAriaLabel\' to decrement button with title', () => {
 			const titleText = 'title text';
 			const customLabel = 'custom decrement aria-label';
 			render(
@@ -686,7 +686,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, titleText + ' ' + customLabel);
 		});
 
-		test('should set picker `incrementAriaLabel` to decrement button with title', () => {
+		test('should set picker \'incrementAriaLabel\' to decrement button with title', () => {
 			const titleText = 'title text';
 			const customLabel = 'custom increment aria-label';
 			render(
@@ -704,7 +704,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, titleText + ' ' + customLabel);
 		});
 
-		test('should set `aria-label` to joined picker', () => {
+		test('should set \'aria-label\' to joined picker', () => {
 			const customLabel = 'custom joined picker aria-label';
 			render(
 				<Picker aria-label={customLabel} index={1} joined max={3} min={0} value={1}>
