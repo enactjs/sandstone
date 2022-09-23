@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Picker from '../Picker';
@@ -160,6 +160,51 @@ describe('Picker Specs', () => {
 		const actual = handleChange.mock.calls[0][0].value;
 
 		expect(actual).toBe(expected);
+	});
+
+	test('should register wheel event when \'joined\' if \'value\' is between \'max\' and \'min\'', () => {
+		const handleWheelEvent = jest.fn();
+		render(
+			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={1} onWheel={handleWheelEvent} />
+		);
+		const picker = screen.getByLabelText('1 press ok button to change the value');
+
+		act(() => {
+			picker.focus();
+		});
+		fireEvent.wheel(picker, {deltaY: 10});
+
+		expect(handleWheelEvent).toHaveBeenCalled();
+	});
+
+	test('should register wheel event when \'joined\' even if \'value\' is \'max\' and \'deltaY\' is positive', () => {
+		const handleWheelEvent = jest.fn();
+		render(
+			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={3} onWheel={handleWheelEvent} />
+		);
+		const picker = screen.getByLabelText('3 press ok button to change the value');
+
+		act(() => {
+			picker.focus();
+		});
+		fireEvent.wheel(picker, {deltaY: 10});
+
+		expect(handleWheelEvent).toHaveBeenCalled();
+	});
+
+	test('should register wheel event when \'joined\' even if \'value\' is \'min\' and \'deltaY\' is negative', () => {
+		const handleWheelEvent = jest.fn();
+		render(
+			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={0} onWheel={handleWheelEvent} />
+		);
+		let picker = screen.getByLabelText('0 press ok button to change the value');
+
+		act(() => {
+			picker.focus();
+		});
+		fireEvent.wheel(picker, {deltaY: -10});
+
+		expect(handleWheelEvent).toHaveBeenCalled();
 	});
 
 	test('should decrement by \'step\' value and wrap successfully', () => {
