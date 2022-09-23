@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 
 import Slider from '../Slider';
 
@@ -18,11 +18,6 @@ const getElementClientCenter = (element) => {
 	return {x: left + width / 2, y: top + height / 2};
 };
 
-const sleep = ms =>
-	new Promise(resolve => {
-		setTimeout(resolve, ms);
-	});
-
 const drag = async (element, {delta, steps = 1}) => {
 	const from = getElementClientCenter(element);
 	const to = {x: from.x + delta.x, y: from.y + delta.y};
@@ -36,7 +31,7 @@ const drag = async (element, {delta, steps = 1}) => {
 	for (let i = 0; i < steps; i++) {
 		current.clientX += step.x;
 		current.clientY += step.y;
-		await sleep(1000 / steps);
+		act(() => jest.advanceTimersByTime(1000 / steps))
 		fireEvent.mouseMove(element, current);
 	}
 	fireEvent.mouseUp(element, current);
@@ -95,7 +90,7 @@ describe('Slider', () => {
 		await drag(slider, {delta: {x: 50, y: 0}});
 
 		const expectedAttribute = 'aria-valuetext';
-		const unexpectedValue = '50';
+		const unexpectedValue = '50 change a value with left right button';
 
 		expect(slider).not.toHaveAttribute(expectedAttribute, unexpectedValue);
 	});
