@@ -99,7 +99,7 @@ describe('Slider', () => {
 
 		const expectedAttribute = 'aria-valuetext';
 		const unexpectedValue = '50 change a value with left right button';
-screen.debug();
+
 		expect(slider).not.toHaveAttribute(expectedAttribute, unexpectedValue);
 	});
 
