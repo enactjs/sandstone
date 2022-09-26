@@ -119,7 +119,7 @@ VideoSourceSwap.propTypes = {
 
 export const PreloadVideos = (args) => <VideoSourceSwap args={args} />;
 
-export const VideoPlayerWithBlurEffect = () => <VideoSourceSwap blurred={true} />;
+export const VideoPlayerWithBlurEffect = () => <VideoSourceSwap blurred />;
 
 select('videoPlayerOption', PreloadVideos, videoPlayerOption, videoTabLabel, '');
 
