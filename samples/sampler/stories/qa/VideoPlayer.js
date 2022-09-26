@@ -88,6 +88,7 @@ class VideoSourceSwap extends Component {
 		return (
 			<div>
 				<VideoPlayer
+					blurred={this.props.blurred}
 					muted
 					onJumpBackward={this.differentVideo}
 					onJumpForward={this.nextVideo}
@@ -112,14 +113,19 @@ export default {
 };
 
 VideoSourceSwap.propTypes = {
-	args: PropTypes.object
+	args: PropTypes.object,
+	blurred: PropTypes.bool
 };
 
 export const PreloadVideos = (args) => <VideoSourceSwap args={args} />;
 
+export const VideoPlayerWithBlurEffect = () => <VideoSourceSwap blurred={true} />;
+
 select('videoPlayerOption', PreloadVideos, videoPlayerOption, videoTabLabel, '');
 
 PreloadVideos.storyName = 'Preload Videos';
+
+VideoPlayerWithBlurEffect.storyName = 'With blur effect';
 
 class VideoPlayerWithfastForwardMode extends Component {
 	constructor (props) {

@@ -227,6 +227,7 @@ const VideoPlayerBase = class extends Component {
 		 */
 		backButtonAriaLabel: PropTypes.string,
 
+		blurred: PropTypes.bool,
 		/**
 		 * Removes interactive capability from this component. This includes, but is not limited to,
 		 * key-press events, most clickable buttons, and prevents the showing of the controls.
@@ -778,6 +779,7 @@ const VideoPlayerBase = class extends Component {
 
 	static defaultProps = {
 		autoCloseTimeout: 5000,
+		blurred: false,
 		feedbackHideDelay: 3000,
 		initialJumpDelay: 400,
 		jumpBy: 30,
@@ -854,6 +856,12 @@ const VideoPlayerBase = class extends Component {
 		if (this.context && typeof this.context === 'function') {
 			this.floatingLayerController = this.context(() => {});
 		}
+
+		if (this.props.blurred) {
+			const overlayNode = document.querySelector(`.${css.overlay}`);
+			overlayNode.style.setProperty('backdrop-filter', 'blur(24px)');
+		}
+
 	}
 
 	shouldComponentUpdate (nextProps, nextState) {
@@ -1997,6 +2005,7 @@ const VideoPlayerBase = class extends Component {
 		delete mediaProps.thumbnailUnavailable;
 		delete mediaProps.titleHideDelay;
 		delete mediaProps.videoPath;
+		delete mediaProps.blurred;
 
 		mediaProps.autoPlay = !noAutoPlay;
 		mediaProps.className = css.video;
