@@ -68,6 +68,16 @@ describe('ImageItem', () => {
 		expect(actual).toHaveTextContent(expected);
 	});
 
+	test('should support `label` prop when \'data-index\' is set', () => {
+		const label = 'label';
+		render(<ImageItemBase centered data-index={0} label={label} />);
+
+		const expected = label;
+		const actual = screen.getByText('label');
+
+		expect(actual).toHaveTextContent(expected);
+	});
+
 	test('should support `imageIconSrc` prop when `orientation="vertical"`', () => {
 		const imageIconSrc = 'imageIconSrc';
 		render(<ImageItemBase imageIconSrc={imageIconSrc} orientation="vertical" />);

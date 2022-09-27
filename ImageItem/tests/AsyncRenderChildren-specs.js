@@ -17,4 +17,14 @@ describe('AsyncRenderChildren', () => {
 
 		expect(fallbackContent).toBe('Loading...');
 	});
+
+	test('should have a fallback content after changing index', () => {
+		const {rerender} = render(<Component fallback={<div>Loading...</div>} index={1}>children</Component>);
+
+		rerender(<Component fallback={<div>Loading...</div>} index={2}>children</Component>);
+
+		const fallbackContent = data.fallback.props.children;
+
+		expect(fallbackContent).toBe('Loading...');
+	});
 });

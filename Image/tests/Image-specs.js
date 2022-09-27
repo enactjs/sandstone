@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 
 import Image from '../Image';
 
@@ -13,6 +13,9 @@ describe('Image', () => {
 	test('should select a src', () => {
 		render(<Image src={src} />);
 		const image = screen.getAllByRole('img')[1];
+
+		// dispatching resize event for code coverage purposes
+		fireEvent(window, new Event('resize'));
 
 		const actual = image.getAttribute('src');
 		const expected = 'https://via.placeholder.com/300x300';
