@@ -112,6 +112,7 @@ const PopupWithBlurEffect = Toggleable(
 		<div style={{backgroundImage: 'url("http://picsum.photos/1280/720?image=1044")', height: '100%'}}>
 			<Button onClick={onToggle}>open</Button>
 			<Popup
+				style={{backgroundColor: none}}
 				open={open}
 				position="bottom"
 				scrimType="transparent"
