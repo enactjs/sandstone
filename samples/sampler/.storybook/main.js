@@ -14,10 +14,10 @@ module.exports = {
 	framework: '@storybook/react',
 	stories: ['./../stories/default/*.js'],
 	addons: [
-		'@enact/storybook-utils/addons/actions',
-		'@enact/storybook-utils/addons/controls',
-		'@enact/storybook-utils/addons/docs',
-		'@enact/storybook-utils/addons/toolbars'
+		'@enact/storybook-utils/node_modules/@storybook/addon-actions',
+		'@enact/storybook-utils/node_modules/@storybook/addon-controls',
+		'@enact/storybook-utils/node_modules/@storybook/addon-docs',
+		'@enact/storybook-utils/node_modules/@storybook/addon-toolbars'
 	],
 	webpackFinal: async (config, {configType}) => {
 		return webpack(config, configType, __dirname);
