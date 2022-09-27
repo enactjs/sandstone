@@ -5,6 +5,13 @@ import userEvent from '@testing-library/user-event';
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
 describe('TabLayout specs', () => {
+	test('should be able to render \'Tab\' outside \'TabLayout\'', () => {
+		render(<Tab title="Single Tab" />);
+
+		const tab = screen.getByText('Tab is only to be used in TabLayout!');
+		expect(tab).toBeInTheDocument();
+	});
+
 	test('should be collapsed when collapsed is true', () => {
 		render(
 			<TabLayoutBase
@@ -128,7 +135,7 @@ describe('TabLayout specs', () => {
 		expect(spy).not.toHaveBeenCalled();
 	});
 
-	test('should call `onSelect` with `onSelect` type when clicking on a tab', () => {
+	test('should call \'onSelect\' with \'onSelect\' type when clicking on a tab', () => {
 		const spy = jest.fn();
 		render(
 			<TabLayout orientation="vertical" onSelect={spy}>
@@ -149,7 +156,7 @@ describe('TabLayout specs', () => {
 		expect(actual).toMatchObject(expected);
 	});
 
-	test('should call `onSelect` with `onSelect` type when pressing \`Enter\` on a tab', () => {
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab', () => {
 		const spy = jest.fn();
 		render(
 			<TabLayout orientation="vertical" onSelect={spy}>
