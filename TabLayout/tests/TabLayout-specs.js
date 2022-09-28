@@ -187,7 +187,7 @@ describe('TabLayout specs', () => {
 		Spotlight.isPaused = jest.fn(() => false);
 
 		render(
-			<TabLayout orientation="vertical" onSelect={spy1} onTra={spy2}>
+			<TabLayout orientation="vertical" data-testid="tabLayout" onSelect={spy1} onTabAnimationEnd={spy2}>
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
@@ -199,7 +199,7 @@ describe('TabLayout specs', () => {
 
 		fireEvent.keyDown(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
 		fireEvent.keyUp(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
-		fireEvent.transitionEnd(screen.getAllByTestId('tab')[1]);
+		fireEvent.transitionEnd(screen.getByTestId('tabLayout').children.item(0));
 		const expected = {type: 'onSelect'};
 		const actual = spy1.mock.calls.length && spy1.mock.calls[0][0];
 
