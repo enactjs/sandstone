@@ -128,7 +128,7 @@ describe('ContextualMenuDecorator Specs', () => {
 		expect(contextualMenu).toHaveClass(expected);
 	});
 
-	test('should wrap content in Scroller component if it does not fit inside of popup', () => {
+	test('should wrap content in Scroller component if menuItem length exceeds MAX_VISIBLE_MENU_ITEMS', () => {
 		const moreItems = new Array(8).fill().map((i, index) => `Option ${index + 1}`);
 
 		render(
@@ -139,7 +139,7 @@ describe('ContextualMenuDecorator Specs', () => {
 			</Root>
 		);
 
-		const scrollerWrappedComponent = screen.getByRole('list').parentElement;
+		const scroller = screen.getByRole('list').parentElement;
 		const expected = 'scroller';
 
 		expect(scrollerWrappedComponent).toHaveClass(expected);

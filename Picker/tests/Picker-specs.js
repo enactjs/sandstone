@@ -98,7 +98,7 @@ describe('Picker Specs', () => {
 		expect(actual).toHaveClass(expectedHeader);
 	});
 
-	test('should be able to receive custom voice control labels', () => {
+	test('should stringify custom voice control labels and set to \'data-webos-voice-labels-ext\'', () => {
 		const options = ['Option 1', 'The second one', 'This is the third option', '4'];
 		render(
 			<Picker data-webos-voice-labels-ext={options} inlineTitle title="title text" >

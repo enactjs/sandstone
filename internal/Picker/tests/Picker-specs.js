@@ -127,7 +127,7 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should register onKeyDown event for keyDown \'right arrow\' on increment button', () => {
+	test('should call onKeyDown when right key pressed', () => {
 		const handleChange = jest.fn();
 		render(
 			<Picker index={0} max={6} min={0} onKeyDown={handleChange} step={3} value={0} />
@@ -139,7 +139,7 @@ describe('Picker Specs', () => {
 		expect(handleChange).toHaveBeenCalled();
 	});
 
-	test('should register onKeyDown event for keyDown \'left arrow\' on decrement button', () => {
+	test('should call onKeyDown when left key pressed', () => {
 		const handleChange = jest.fn();
 		render(
 			<Picker index={0} max={6} min={0} onKeyDown={handleChange} step={3} value={0} />
@@ -166,7 +166,7 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should register wheel event when \'joined\' if \'value\' is between \'max\' and \'min\'', () => {
+	test('should call onWheel event when \'joined\' and \'value\' is between \'max\' and \'min\'', () => {
 		const handleWheelEvent = jest.fn();
 		render(
 			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={1} onWheel={handleWheelEvent} />
@@ -181,7 +181,7 @@ describe('Picker Specs', () => {
 		expect(handleWheelEvent).toHaveBeenCalled();
 	});
 
-	test('should register wheel event when \'joined\' even if \'value\' is \'max\' and \'deltaY\' is positive', () => {
+	test('should call onWheel event when \'joined\' and \'value\' is \'max\' and \'deltaY\' is positive', () => {
 		const handleWheelEvent = jest.fn();
 		render(
 			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={3} onWheel={handleWheelEvent} />
@@ -196,7 +196,7 @@ describe('Picker Specs', () => {
 		expect(handleWheelEvent).toHaveBeenCalled();
 	});
 
-	test('should register wheel event when \'joined\' even if \'value\' is \'min\' and \'deltaY\' is negative', () => {
+	test('should call onWheel event when \'joined\' and \'value\' is \'min\' and \'deltaY\' is negative', () => {
 		const handleWheelEvent = jest.fn();
 		render(
 			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={0} onWheel={handleWheelEvent} />
