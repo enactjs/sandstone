@@ -1,12 +1,17 @@
+import {getPointerMode} from '@enact/spotlight/src/pointer';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Button from '../../Button';
 import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
 
 const ContextualButton = ContextualPopupDecorator(Button);
+
+const keyDown = (keyCode) => (picker) => fireEvent.keyDown(picker, {keyCode});
+
+const leftKeyDown = keyDown(37);
 
 describe('ContextualPopupDecorator Specs', () => {
 	beforeEach(() => {
@@ -381,5 +386,24 @@ describe('ContextualPopupDecorator Specs', () => {
 		const actual = contextualPopup.children.item(0);
 
 		expect(actual).toHaveClass(expected);
+	});
+
+	test('should set pointerMode to be false when directional key is pressed', () => {
+		const Root = FloatingLayerDecorator('div');
+		render(
+			<Root>
+				<ContextualButton open popupComponent={() => <div><Button>first</Button><Button>second</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const contextualButton = screen.getByRole('alert');
+
+		leftKeyDown(contextualButton);
+
+		const expected = false;
+		const pointerMode = getPointerMode();
+
+		expect(pointerMode).toBe(expected);
 	});
 });

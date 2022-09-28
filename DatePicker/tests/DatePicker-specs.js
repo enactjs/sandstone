@@ -192,9 +192,11 @@ describe('DatePicker', () => {
 		expect(header).toBeNull();
 	});
 
-	test('\'dateToLocaleString\' method should return \'null\' for an \'undefined\' date', () => {
-		const actual = dateToLocaleString(undefined);		// eslint-disable-line no-undefined
+	describe('#dateToLocaleString', () => {
+		test('method should return \'null\' for an \'undefined\' date', () => {
+			const actual = dateToLocaleString(undefined);		// eslint-disable-line no-undefined
 
-		expect(actual).toBeNull();
+			expect(actual).toBeNull();
+		});
 	});
 });

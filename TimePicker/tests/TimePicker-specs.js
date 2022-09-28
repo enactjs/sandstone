@@ -196,12 +196,6 @@ describe('TimePicker', () => {
 		expect(header).toBeNull();
 	});
 
-	test('\'timeToLocaleString\' method should return \'null\' for an \'undefined\' time', () => {
-		const time = timeToLocaleString(undefined);		// eslint-disable-line no-undefined
-
-		expect(time).toBeNull();
-	});
-
 	test('should change the meridiem to reflect the hour change', () => {
 		const time = new Date(2000, 0, 1, 12, 30);
 		const secondTime = new Date(2000, 0, 1, 11, 30);
@@ -235,5 +229,13 @@ describe('TimePicker', () => {
 
 		expect(firstTimeDisplayed).not.toBeNull();
 		expect(secondTimeDisplayed).not.toBeNull();
+	});
+
+	describe('#timeToLocaleString', () => {
+		test('method should return \'null\' for an \'undefined\' time', () => {
+			const time = timeToLocaleString(undefined);		// eslint-disable-line no-undefined
+
+			expect(time).toBeNull();
+		});
 	});
 });
