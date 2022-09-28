@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import Spotlight from '@enact/spotlight';
 
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
@@ -174,6 +175,33 @@ describe('TabLayout specs', () => {
 
 		const expected = {type: 'onSelect'};
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should ', () => {
+		const spy1 = jest.fn();
+		const spy2 = jest.fn();
+
+		Spotlight.getPointerMode = jest.fn(() => false);
+		Spotlight.isPaused = jest.fn(() => false);
+
+		render(
+			<TabLayout orientation="vertical" onSelect={spy1} onTra={spy2}>
+				<Tab title="Home" icon="home">
+					<div>Home</div>
+				</Tab>
+				<Tab data-testid="tab" title="Item" icon="playcircle">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		fireEvent.keyDown(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
+		fireEvent.keyUp(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
+		fireEvent.transitionEnd(screen.getAllByTestId('tab')[1]);
+		const expected = {type: 'onSelect'};
+		const actual = spy1.mock.calls.length && spy1.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
 	});
