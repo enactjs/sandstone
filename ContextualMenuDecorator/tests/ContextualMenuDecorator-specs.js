@@ -142,6 +142,6 @@ describe('ContextualMenuDecorator Specs', () => {
 		const scroller = screen.getByRole('list').parentElement;
 		const expected = 'scroller';
 
-		expect(scrollerWrappedComponent).toHaveClass(expected);
+		expect(scroller).toHaveClass(expected);
 	});
 });
