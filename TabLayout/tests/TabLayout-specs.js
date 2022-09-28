@@ -1,7 +1,7 @@
+import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Spotlight from '@enact/spotlight';
 
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
@@ -179,19 +179,17 @@ describe('TabLayout specs', () => {
 		expect(actual).toMatchObject(expected);
 	});
 
-	test('should ', () => {
-		const spy1 = jest.fn();
-		const spy2 = jest.fn();
-
+	test('should call \'onSelect\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
 		Spotlight.getPointerMode = jest.fn(() => false);
 		Spotlight.isPaused = jest.fn(() => false);
+		const spy = jest.fn();
 
 		render(
-			<TabLayout orientation="vertical" data-testid="tabLayout" onSelect={spy1} onTabAnimationEnd={spy2}>
-				<Tab title="Home" icon="home">
+			<TabLayout onSelect={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
-				<Tab data-testid="tab" title="Item" icon="playcircle">
+				<Tab data-testid="tab" icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayout>
@@ -199,9 +197,31 @@ describe('TabLayout specs', () => {
 
 		fireEvent.keyDown(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
 		fireEvent.keyUp(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
-		fireEvent.transitionEnd(screen.getByTestId('tabLayout').children.item(0));
 		const expected = {type: 'onSelect'};
-		const actual = spy1.mock.calls.length && spy1.mock.calls[0][0];
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('\'should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
+		Spotlight.getPointerMode = jest.fn(() => false);
+		Spotlight.isPaused = jest.fn(() => false);
+		const spy = jest.fn();
+
+		render(
+			<TabLayout data-testid="tabLayout" onTabAnimationEnd={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
+					<div>Home</div>
+				</Tab>
+				<Tab icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		fireEvent.transitionEnd(screen.getByTestId('tabLayout').children.item(0));
+		const expected = {type: 'onTabAnimationEnd'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
 	});
