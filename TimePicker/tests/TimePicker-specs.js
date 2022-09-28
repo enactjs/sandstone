@@ -220,17 +220,18 @@ describe('TimePicker', () => {
 	});
 
 	test('check that the date is displayed correctly for cases of more than 2 meridiems', () => {
+		ilib.setLocale('am-ET');
 		const time = new Date(2000, 0, 1, 12, 30);
 		const secondTime = new Date(2000, 0, 1, 11, 30);
 		const {rerender} = render(
 			<TimePicker locale="am-ET" value={time} />
 		);
-		const firstTimeDisplayed = screen.queryByText('12:30 PM');
+		const firstTimeDisplayed = screen.queryByText('6:30 ከሰዓት');
 
 		rerender(
 			<TimePicker locale="am-ET" value={secondTime} />
 		);
-		const secondTimeDisplayed = screen.queryByText('11:30 AM');
+		const secondTimeDisplayed = screen.queryByText('5:30 ጥዋት');
 
 		expect(firstTimeDisplayed).not.toBeNull();
 		expect(secondTimeDisplayed).not.toBeNull();

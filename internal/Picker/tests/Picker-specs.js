@@ -7,6 +7,10 @@ import PickerItem from '../PickerItem';
 
 const increment = (slider) => userEvent.click(slider.firstElementChild);
 const decrement = (slider) => userEvent.click(slider.lastElementChild);
+const keyDown = (keyCode) => (picker) => fireEvent.keyDown(picker, {keyCode});
+
+const leftKeyDown = keyDown(37);
+const rightKeyDown = keyDown(39);
 
 describe('Picker Specs', () => {
 	test('should have a default \'value\' of 0', () => {
@@ -130,7 +134,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getAllByRole('button')[0];
 
-		fireEvent.keyDown(picker, {key: "right arrow", keyCode: 39, code: "right arrow", charCode: 39});
+		rightKeyDown(picker);
 
 		expect(handleChange).toHaveBeenCalled();
 	});
@@ -142,7 +146,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getAllByRole('button')[1];
 
-		fireEvent.keyDown(picker, {key: "left arrow", keyCode: 37, code: "left arrow", charCode: 37});
+		leftKeyDown(picker);
 
 		expect(handleChange).toHaveBeenCalled();
 	});
