@@ -3,7 +3,16 @@ import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import Button from '../../Button';
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
+
+const keyDown = (keyCode) => (tab) => fireEvent.keyDown(tab, {keyCode});
+const keyUp = (keyCode) => (tab) => fireEvent.keyUp(tab, {keyCode});
+
+const leftKeyDown = keyDown(37);
+const leftKeyUp = keyUp(37);
+const rightKeyDown = keyDown(39);
+const rightKeyUp = keyUp(39);
 
 describe('TabLayout specs', () => {
 	test('should be able to render \'Tab\' outside \'TabLayout\'', () => {
@@ -224,5 +233,29 @@ describe('TabLayout specs', () => {
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
+	});
+
+	test('\'should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
+		Spotlight.getPointerMode = jest.fn(() => false);
+		Spotlight.isPaused = jest.fn(() => false);
+		const spy = jest.fn();
+
+		render(
+			<TabLayout onTabAnimationEnd={spy} orientation="vertical">
+				<Tab data-testid="tab" icon="home" title="Home">
+					<Button>Home</Button>
+					<Button>Home</Button>
+					<Button>Home</Button>
+				</Tab>
+				<Tab icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[1];
+		leftKeyDown(tab);
+		leftKeyUp(tab);
+		// expect(actual).toMatchObject(expected);
 	});
 });
