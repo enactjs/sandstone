@@ -241,7 +241,7 @@ describe('TabLayout specs', () => {
 		const spy = jest.fn();
 
 		render(
-			<TabLayout onTabAnimationEnd={spy} orientation="vertical">
+			<TabLayout collapsed onTabAnimationEnd={spy} orientation="vertical">
 				<Tab data-testid="tab" icon="home" title="Home">
 					<Button>Home</Button>
 					<Button>Home</Button>
