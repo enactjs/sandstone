@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/MediaPlayer.MediaControls` to focus properly when pressing up key from buttons after holding left or right keys
+
 ## [2.5.4] - 2022-09-23
 
 ### Fixed
