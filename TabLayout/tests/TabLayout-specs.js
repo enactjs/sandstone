@@ -258,4 +258,38 @@ describe('TabLayout specs', () => {
 		leftKeyUp(tab);
 		// expect(actual).toMatchObject(expected);
 	});
+
+	test('\'should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
+		Spotlight.getPointerMode = jest.fn(() => false);
+		Spotlight.isPaused = jest.fn(() => false);
+		const spy = jest.fn();
+
+		const {rerender} = render(
+			<TabLayout index={0} onTabAnimationEnd={spy} orientation="vertical">
+				<Tab data-testid="tab" icon="home" title="Home">
+					<Button>Home</Button>
+					<Button>Home</Button>
+					<Button>Home</Button>
+				</Tab>
+				<Tab icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+		screen.debug();
+
+		rerender(
+			<TabLayout index={1} collapsed onTabAnimationEnd={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
+					<Button>Home</Button>
+					<Button>Home</Button>
+					<Button>Home</Button>
+				</Tab>
+				<Tab icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+		screen.debug();
+	});
 });
