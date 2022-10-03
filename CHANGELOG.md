@@ -6,6 +6,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/MediaPlayer.MediaControls` to focus properly when pressing up key from buttons after holding left or right keys
+
+## [2.5.4] - 2022-09-23
+
+### Fixed
+
 - `sandstone/Scroller` to not show the focus effect of the body in pointer mode when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Slider` tooltip arrow to show properly
 
