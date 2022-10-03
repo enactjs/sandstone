@@ -8,6 +8,19 @@ import {PopupTabLayout, Tab, TabPanel, TabPanels} from '../PopupTabLayout';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
+const keyDown = (keyCode) => (elm) => fireEvent.keyDown(elm, {keyCode});
+
+const enterKeyDown = keyDown(13);
+const escapeKeyDown = keyDown(27);
+const leftKeyDown = keyDown(37);
+const downKeyDown = keyDown(40);
+
+const keyUp = (keyCode) => (elm) => fireEvent.keyUp(elm, {keyCode});
+
+const enterKeyUp = keyUp(13);
+const escapeKeyUp = keyUp(27);
+const downKeyUp = keyUp(40);
+
 describe('PopupTabLayout specs', () => {
 	test('should be rendered opened if open is set to true', () => {
 		render(
@@ -142,8 +155,8 @@ describe('PopupTabLayout specs', () => {
 
 		const firstTab = screen.getByText('First Tab Title');
 
-		fireEvent.keyDown(firstTab, {keyCode: 13});
-		fireEvent.keyUp(firstTab, {keyCode: 13});
+		enterKeyDown(firstTab);
+		enterKeyUp(firstTab);
 
 		expect(onTabClick).toHaveBeenCalled();
 	});
@@ -171,8 +184,8 @@ describe('PopupTabLayout specs', () => {
 
 		const tab = screen.getByText('Tab Title');
 
-		fireEvent.keyDown(tab, {keyCode: 27});
-		fireEvent.keyUp(tab, {keyCode: 27});
+		escapeKeyDown(tab);
+		escapeKeyUp(tab);
 
 		expect(handleOnBack).toHaveBeenCalled();
 	});
@@ -204,9 +217,37 @@ describe('PopupTabLayout specs', () => {
 
 		const firstItem = screen.getByText('Item 1');
 
-		fireEvent.keyDown(firstItem, {keyCode: 40});
-		fireEvent.keyUp(firstItem, {keyCode: 40});
+		downKeyDown(firstItem);
+		downKeyUp(firstItem);
 
 		expect(onKeyDown).toHaveBeenCalled();
+	});
+
+	test('should fire onBack event when left key pressed from the second TabPanel', () => {
+		const onBack = jest.fn();
+		render(
+			<FloatingLayerController>
+				<PopupTabLayout open>
+					<Tab title="Tab Title">
+						<TabPanels index={1} onBack={onBack} rtl={false} >
+							<TabPanel>
+								<Item>Item 1</Item>
+								<Item>Item 2</Item>
+							</TabPanel>
+							<TabPanel>
+								<Item>Item 3</Item>
+								<Item>Item 4</Item>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+				</PopupTabLayout>
+			</FloatingLayerController>
+		);
+
+		const firstItem = screen.getByText('Item 3');
+
+		leftKeyDown(firstItem);
+
+		expect(onBack).toHaveBeenCalled();
 	});
 });
