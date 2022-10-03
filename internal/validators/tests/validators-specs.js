@@ -1,43 +1,126 @@
-import {warn, validateRange, validateStepped} from '../validators';
+import {
+	warn,
+	validateRange,
+	validateRangeOnce,
+	validateStepped
+} from "../validators";
 
-describe('validators', () => {
-	test('should throw a console warning', () => {
-		warn('Warning!');
+describe("validators", () => {
+	let consoleSpy;
 
-		const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
-
-		expect(consoleSpy).toHaveBeenCalled();
+	beforeEach(() => {
+		consoleSpy = jest.spyOn(console, "warn");
 	});
 
-	test('should throw a console warning when \'value\' is less than \'min\'', () => {
-		validateRange(10, 11, 20, 'component', 'value', 'min', 'max');
+	describe("validateRange", function () {
+		test("should throw a console warning", () => {
+			warn("Warning!");
 
-		const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+			expect(consoleSpy).toHaveBeenCalled();
+			expect(consoleSpy.mock.calls).toMatchInlineSnapshot(`
+        Array [
+          Array [
+            "Warning!",
+          ],
+        ]
+      `);
+		});
 
-		expect(consoleSpy).toHaveBeenCalled();
+		test("should throw a console warning when 'value' is less than 'min'", () => {
+			validateRange(10, 11, 20, "component", "value", "min", "max");
+
+			expect(consoleSpy).toHaveBeenCalled();
+			expect(consoleSpy.mock.calls).toMatchInlineSnapshot(`
+        Array [
+          Array [
+            "Warning: component value (10) less than min (11)",
+          ],
+        ]
+      `);
+		});
+
+		test("should throw a console warning when 'value' is greater than 'max'", () => {
+			validateRange(21, 1, 20, "component", "value", "min", "max");
+
+			expect(consoleSpy).toHaveBeenCalled();
+			expect(consoleSpy.mock.calls).toMatchInlineSnapshot(`
+        Array [
+          Array [
+            "Warning: component value (21) greater than max (20)",
+          ],
+        ]
+      `);
+		});
+
+		test("should throw a console warning when 'min' is greater than 'max'", () => {
+			validateRange(21, 25, 20, "component", "value", "min", "max");
+
+			expect(consoleSpy).toHaveBeenCalled();
+			expect(consoleSpy.mock.calls).toMatchInlineSnapshot(`
+        Array [
+          Array [
+            "Warning: component value (21) less than min (25)",
+          ],
+          Array [
+            "Warning: component min (25) greater than max (20)",
+          ],
+        ]
+      `);
+		});
+
+		test("should throw a console warning when 'value' is evenly divisible by 'step'", () => {
+			validateStepped(10, 1, 2, "component", "value", "step");
+
+			expect(consoleSpy).toHaveBeenCalled();
+			expect(consoleSpy.mock.calls).toMatchInlineSnapshot(`
+        Array [
+          Array [
+            "Warning: component value (10) must be evenly divisible by step (2)",
+          ],
+        ]
+      `);
+		});
 	});
 
-	test('should throw a console warning when \'value\' is greater than \'max\'', () => {
-		validateRange(21, 1, 20, 'component', 'value', 'min', 'max');
+	describe("validateRangeOnce", () => {
+		let thingSpy;
 
-		const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+		beforeEach(() => {
+			thingSpy = jest.fn().mockReturnValue("ANY_THING_SPY_VALUE");
+		});
 
-		expect(consoleSpy).toHaveBeenCalled();
-	});
+		test("should throw a console warning when 'value' is lower than 'min'", () => {
+			const validateFn = validateRangeOnce(thingSpy, {
+				component: "ANY_COMPONENT"
+			});
 
-	test('should throw a console warning when \'min\' is greater than \'max\'', () => {
-		validateRange(10, 21, 20, 'component', 'value', 'min', 'max');
+			const normalizedValue = validateFn({
+				value: 1,
+				min: 2,
+				max: 10
+			});
 
-		const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
-
-		expect(consoleSpy).toHaveBeenCalled();
-	});
-
-	test('should throw a console warning when \'value\' is evenly divisible by \'step\'', () => {
-		validateStepped(10, 1, 2, 'component', 'value', 'step');
-
-		const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
-
-		expect(consoleSpy).toHaveBeenCalled();
+			expect(consoleSpy).toHaveBeenCalled();
+			expect(thingSpy).toHaveBeenCalled();
+			expect(consoleSpy.mock.calls).toMatchInlineSnapshot(`
+        Array [
+          Array [
+            "Warning: ANY_COMPONENT value (1) less than min (2)",
+          ],
+        ]
+      `);
+			expect(thingSpy.mock.calls).toMatchInlineSnapshot(`
+        Array [
+          Array [
+            Object {
+              "max": 10,
+              "min": 2,
+              "value": 1,
+            },
+          ],
+        ]
+      `);
+			expect(normalizedValue).toMatchInlineSnapshot(`"ANY_THING_SPY_VALUE"`);
+		});
 	});
 });
