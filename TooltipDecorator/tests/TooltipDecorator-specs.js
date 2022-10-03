@@ -1,7 +1,13 @@
+import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
 
+import Button from '../../Button';
+import TooltipDecorator from '../TooltipDecorator';
 import TooltipLabel from '../TooltipLabel';
+
+const FloatingLayerController = FloatingLayerDecorator('div');
+const TooltipButton = TooltipDecorator(Button);
 
 describe('TooltipDecorator', () => {
 	describe('TooltipLabel', () => {
@@ -21,6 +27,162 @@ describe('TooltipDecorator', () => {
 			const tooltip = screen.getByText('Label');
 
 			expect(tooltip).not.toHaveStyle({'text-align': unexpected});
+		});
+	});
+
+	describe('TooltipDecorator', () => {
+		beforeEach(() => {
+			global.Element.prototype.getBoundingClientRect = jest.fn(() => {
+				return {
+					width: 2500,
+					height: 2000,
+					top: 1000,
+					left: 1000,
+					bottom: 0,
+					right: 0
+				};
+			});
+		});
+
+		test('should render a tooltip if hovered', async () => {
+			const tooltipText = 'Tooltip';
+			render(
+				<FloatingLayerController>
+					<TooltipButton tooltipDelay={0} tooltipText={tooltipText}>Label</TooltipButton>
+				</FloatingLayerController>
+			);
+
+			const button = screen.getByRole('button');
+			act(() => button.focus());
+			fireEvent.mouseOver(button);
+
+			await waitFor(() => {
+				expect(screen.getByText('Tooltip')).not.toBeNull();
+			});
+		});
+
+		test('should hide tooltip if not hovered', async () => {
+			const tooltipText = 'Tooltip';
+			render(
+				<FloatingLayerController>
+					<TooltipButton tooltipDelay={0} tooltipText={tooltipText}>Label</TooltipButton>
+				</FloatingLayerController>
+			);
+
+			const button = screen.getByRole('button');
+			act(() => button.focus());
+			fireEvent.mouseOver(button);
+
+			await waitFor(() => {
+				expect(screen.getByText('Tooltip')).not.toBeNull();
+			});
+
+			act(() => button.blur());
+			fireEvent.mouseOut(button);
+
+			await waitFor(() => {
+				expect(screen.queryByText('Tooltip')).toBeNull();
+			});
+		});
+
+		// This test throws 'Warning: Each child in a list should have a unique "key" prop.'
+		test('should render a tooltip if hovered for \'tooltipRelative\'', async () => {
+			const tooltipText = 'Tooltip';
+			render(
+				<FloatingLayerController>
+					<TooltipButton tooltipDelay={0} tooltipRelative tooltipText={tooltipText}>Label</TooltipButton>
+				</FloatingLayerController>
+			);
+
+			const button = screen.getByRole('button');
+			act(() => button.focus());
+			fireEvent.mouseOver(button);
+
+			await waitFor(() => {
+				expect(screen.getByText('Tooltip')).not.toBeNull();
+			});
+		});
+
+		describe('Tooltip position', () => {
+			test('above', async () => {
+				const tooltipText = 'Tooltip';
+				render(
+					<FloatingLayerController>
+						<TooltipButton tooltipDelay={0} tooltipPosition="above" tooltipText={tooltipText}>Label</TooltipButton>
+					</FloatingLayerController>
+				);
+
+				const button = screen.getByRole('button');
+				act(() => button.focus());
+				fireEvent.mouseOver(button);
+
+				await waitFor(() => {
+					const tooltipArrow = screen.getByText('Tooltip').parentElement.parentElement;
+					const expected = 'tooltip below';
+
+					expect(tooltipArrow).toHaveClass(expected);
+				});
+			});
+
+			test('below', async () => {
+				const tooltipText = 'Tooltip';
+				render(
+					<FloatingLayerController>
+						<TooltipButton tooltipDelay={0} tooltipPosition="below" tooltipText={tooltipText}>Label</TooltipButton>
+					</FloatingLayerController>
+				);
+
+				const button = screen.getByRole('button');
+				act(() => button.focus());
+				fireEvent.mouseOver(button);
+
+				await waitFor(() => {
+					const tooltipArrow = screen.getByText('Tooltip').parentElement.parentElement;
+					const expected = 'tooltip above';
+
+					expect(tooltipArrow).toHaveClass(expected);
+				});
+			});
+
+			test('left middle', async () => {
+				const tooltipText = 'Tooltip';
+				render(
+					<FloatingLayerController>
+						<TooltipButton tooltipDelay={0} tooltipPosition="left middle" tooltipText={tooltipText}>Label</TooltipButton>
+					</FloatingLayerController>
+				);
+
+				const button = screen.getByRole('button');
+				act(() => button.focus());
+				fireEvent.mouseOver(button);
+
+				await waitFor(() => {
+					const tooltipArrow = screen.getByText('Tooltip').parentElement.parentElement;
+					const expected = 'tooltip left middleArrow';
+
+					expect(tooltipArrow).toHaveClass(expected);
+				});
+			});
+
+			test('right middle', async () => {
+				const tooltipText = 'Tooltip';
+				render(
+					<FloatingLayerController>
+						<TooltipButton tooltipDelay={0} tooltipPosition="right middle" tooltipText={tooltipText}>Label</TooltipButton>
+					</FloatingLayerController>
+				);
+
+				const button = screen.getByRole('button');
+				act(() => button.focus());
+				fireEvent.mouseOver(button);
+
+				await waitFor(() => {
+					const tooltipArrow = screen.getByText('Tooltip').parentElement.parentElement;
+					const expected = 'tooltip right middleArrow';
+
+					expect(tooltipArrow).toHaveClass(expected);
+				});
+			});
 		});
 	});
 });
