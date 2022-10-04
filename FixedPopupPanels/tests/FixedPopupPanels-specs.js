@@ -1,10 +1,40 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
+import {useState} from 'react';
 
 import FixedPopupPanels from '../FixedPopupPanels';
+import Item from '../../Item';
+import {Header, Panel} from '../../Panels';
+
+const keyDown = (keyCode) => (elm) => fireEvent.keyDown(elm, {keyCode});
+const leftKeyDown = keyDown(37);
 
 const FloatingLayerController = FloatingLayerDecorator('div');
+
+const CustomFixedPopupPanels = ({defaultIndex, ...rest}) => {
+	const [index, setIndex] = useState(defaultIndex);
+
+	return (
+		<FloatingLayerController>
+			<FixedPopupPanels open index={index} {...rest}>
+				<Panel>
+					<Header>
+						<title>This is the first panel</title>
+					</Header>
+					<Item onKeyDown={() => setIndex(index + 1)}>Example Item 1</Item>
+					<Item>Example Item 2</Item>
+				</Panel>
+				<Panel>
+					<Header>
+						<title>This is the second panel</title>
+					</Header>
+					<Item onKeyDown={() => setIndex(index - 1)}>Example Item 1 on Panel 2</Item>
+				</Panel>
+			</FixedPopupPanels>
+		</FloatingLayerController>
+	);
+};
 
 describe('FixedPopupPanels', () => {
 	test('should have the default width when nothing is assigned', function () {
@@ -80,5 +110,21 @@ describe('FixedPopupPanels', () => {
 
 		expect(handleClose).toHaveBeenCalled();
 		expect(actualEvent).toMatchObject(expectedEvent);
+	});
+
+	test('should navigate to the second panel on arrow left key',  function () {
+		render(<CustomFixedPopupPanels defaultIndex={0} rtl={false} />);
+
+		leftKeyDown(screen.getByText('Example Item 1'));
+
+		expect(screen.getByText('This is the second panel')).toBeInTheDocument();
+	});
+
+	test('should navigate to the first panel on arrow left key',  function () {
+		render(<CustomFixedPopupPanels defaultIndex={1} rtl={false} />);
+
+		leftKeyDown(screen.getByText('Example Item 1 on Panel 2'));
+
+		expect(screen.getByText('This is the first panel')).toBeInTheDocument();
 	});
 });
