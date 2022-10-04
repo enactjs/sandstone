@@ -12,12 +12,12 @@ const leftKeyDown = keyDown(37);
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
-const CustomFixedPopupPanels = ({defaultIndex, ...rest}) => {
+const CustomFixedPopupPanels = ({defaultIndex}) => {
 	const [index, setIndex] = useState(defaultIndex);
 
 	return (
 		<FloatingLayerController>
-			<FixedPopupPanels open index={index} {...rest}>
+			<FixedPopupPanels index={index} open rtl={false}>
 				<Panel>
 					<Header>
 						<title>This is the first panel</title>
@@ -113,7 +113,7 @@ describe('FixedPopupPanels', () => {
 	});
 
 	test('should navigate to the second panel on arrow left key',  function () {
-		render(<CustomFixedPopupPanels defaultIndex={0} rtl={false} />);
+		render(<CustomFixedPopupPanels defaultIndex={0} />);
 
 		leftKeyDown(screen.getByText('Example Item 1'));
 
@@ -121,7 +121,7 @@ describe('FixedPopupPanels', () => {
 	});
 
 	test('should navigate to the first panel on arrow left key',  function () {
-		render(<CustomFixedPopupPanels defaultIndex={1} rtl={false} />);
+		render(<CustomFixedPopupPanels defaultIndex={1} />);
 
 		leftKeyDown(screen.getByText('Example Item 1 on Panel 2'));
 
