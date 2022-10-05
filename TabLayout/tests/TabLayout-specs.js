@@ -3,7 +3,6 @@ import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Button from '../../Button';
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
 const keyDown = (keyCode) => (tab) => fireEvent.keyDown(tab, {keyCode});
@@ -11,8 +10,8 @@ const keyUp = (keyCode) => (tab) => fireEvent.keyUp(tab, {keyCode});
 
 const leftKeyDown = keyDown(37);
 const leftKeyUp = keyUp(37);
-const rightKeyDown = keyDown(39);
-const rightKeyUp = keyUp(39);
+const enterKeyDown = keyDown(13);
+const enterKeyUp = keyUp(13);
 
 describe('TabLayout specs', () => {
 	test('should be able to render \'Tab\' outside \'TabLayout\'', () => {
@@ -25,16 +24,16 @@ describe('TabLayout specs', () => {
 	test('should be collapsed when collapsed is true', () => {
 		render(
 			<TabLayoutBase
-				data-testid="tabLayout"
 				collapsed
+				data-testid="tabLayout"
 			>
-				<Tab title="Home" icon="home">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="demosync">
+				<Tab icon="demosync" title="Button">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="playcircle">
+				<Tab icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -49,13 +48,13 @@ describe('TabLayout specs', () => {
 	test('should have default orientation of vertical', () => {
 		render(
 			<TabLayoutBase data-testid="tabLayout">
-				<Tab title="Home" icon="home">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
 				<Tab title="Button" icon="demosync">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="playcircle">
+				<Tab icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -73,13 +72,13 @@ describe('TabLayout specs', () => {
 				data-testid="tabLayout"
 				orientation="horizontal"
 			>
-				<Tab title="Home" icon="home">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="demosync">
+				<Tab icon="demosync" title="Button">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="playcircle">
+				<Tab icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -94,8 +93,8 @@ describe('TabLayout specs', () => {
 	test('should call onTabAnimationEnd for vertical tabs', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout data-testid="tabLayout" orientation="vertical" onTabAnimationEnd={spy}>
-				<Tab title="Home" icon="home">
+			<TabLayout data-testid="tabLayout" onTabAnimationEnd={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
@@ -110,8 +109,8 @@ describe('TabLayout specs', () => {
 	test('should include expected payload in onTabAnimationEnd', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout data-testid="tabLayout" orientation="vertical" onTabAnimationEnd={spy} collapsed>
-				<Tab title="Home" icon="home">
+			<TabLayout collapsed data-testid="tabLayout" onTabAnimationEnd={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
@@ -132,8 +131,8 @@ describe('TabLayout specs', () => {
 	test('should not call onTabAnimationEnd for horizontal tabs', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout data-testid="tabLayout" orientation="horizontal" onTabAnimationEnd={spy}>
-				<Tab title="Home" icon="home">
+			<TabLayout data-testid="tabLayout" onTabAnimationEnd={spy} orientation="horizontal">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
@@ -148,11 +147,11 @@ describe('TabLayout specs', () => {
 	test('should call \'onSelect\' with \'onSelect\' type when clicking on a tab', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout orientation="vertical" onSelect={spy}>
-				<Tab title="Home" icon="home">
+			<TabLayout onSelect={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
-				<Tab data-testid="tab" title="Item" icon="playcircle">
+				<Tab data-testid="tab" icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayout>
@@ -169,23 +168,44 @@ describe('TabLayout specs', () => {
 	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout orientation="vertical" onSelect={spy}>
-				<Tab title="Home" icon="home">
+			<TabLayout onSelect={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
-				<Tab data-testid="tab" title="Item" icon="playcircle">
+				<Tab data-testid="tab" icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayout>
 		);
 
-		fireEvent.keyDown(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
-		fireEvent.keyUp(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
+		const tab = screen.getAllByTestId('tab')[1];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
 
 		const expected = {type: 'onSelect'};
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
+	});
+
+	test('should not call \'onSelect\' when pressing directional key on a tab', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout collapsed onSelect={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
+					<div>Home</div>
+				</Tab>
+				<Tab data-testid="tab" icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[1];
+		leftKeyDown(tab);
+		leftKeyUp(tab);
+
+		expect(spy).not.toHaveBeenCalled();
 	});
 
 	test('should call \'onSelect\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
@@ -204,15 +224,17 @@ describe('TabLayout specs', () => {
 			</TabLayout>
 		);
 
-		fireEvent.keyDown(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
-		fireEvent.keyUp(screen.getAllByTestId('tab')[1], {key: 'Enter', keyCode: 13});
+		const tab = screen.getAllByTestId('tab')[1];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
+
 		const expected = {type: 'onSelect'};
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
 	});
 
-	test('\'should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
+	test('should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
 		Spotlight.getPointerMode = jest.fn(() => false);
 		Spotlight.isPaused = jest.fn(() => false);
 		const spy = jest.fn();
@@ -229,36 +251,10 @@ describe('TabLayout specs', () => {
 		);
 
 		fireEvent.transitionEnd(screen.getByTestId('tabLayout').children.item(0));
+
 		const expected = {type: 'onTabAnimationEnd'};
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
-	});
-
-	test('\'should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
-		Spotlight.getPointerMode = jest.fn(() => false);
-		Spotlight.isPaused = jest.fn(() => false);
-		const spy = jest.fn();
-
-		render(
-			<TabLayout collapsed onChange={spy} onSelect={spy} orientation="vertical">
-				<Tab data-testid="tab" icon="home" title="Home">
-					<Button>Home</Button>
-					<Button>Home</Button>
-					<Button>Home</Button>
-				</Tab>
-				<Tab icon="playcircle" title="Item">
-					<div>Item</div>
-				</Tab>
-			</TabLayout>
-		);
-
-		screen.debug();
-		const tab = screen.getAllByTestId('tab')[1];
-		leftKeyDown(tab);
-		leftKeyUp(tab);
-		screen.debug();
-
-		console.log(spy.mock.calls[0][0])
 	});
 });
