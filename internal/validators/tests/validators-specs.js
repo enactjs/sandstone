@@ -9,7 +9,7 @@ describe("validators", () => {
 	let consoleSpy;
 
 	beforeEach(() => {
-		consoleSpy = jest.spyOn(console, "warn");
+		consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 	});
 
 	describe("validateRange", function () {
