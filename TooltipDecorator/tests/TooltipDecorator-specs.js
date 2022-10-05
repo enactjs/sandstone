@@ -34,10 +34,10 @@ describe('TooltipDecorator', () => {
 		beforeEach(() => {
 			global.Element.prototype.getBoundingClientRect = jest.fn(() => {
 				return {
-					width: 2500,
-					height: 2000,
-					top: 1000,
-					left: 1000,
+					width: 501,
+					height: 501,
+					top: 99,
+					left: 99,
 					bottom: 0,
 					right: 0
 				};
@@ -113,12 +113,24 @@ describe('TooltipDecorator', () => {
 				);
 
 				const button = screen.getByRole('button');
+
+				button.getBoundingClientRect = jest.fn(() => {
+					return {
+						width: 300,
+						height: 300,
+						top: 600,
+						left: 600,
+						bottom: 0,
+						right: 0
+					};
+				});
+
 				act(() => button.focus());
 				fireEvent.mouseOver(button);
 
 				await waitFor(() => {
 					const tooltipArrow = screen.getByText('Tooltip').parentElement.parentElement;
-					const expected = 'tooltip below';
+					const expected = 'tooltip above';
 
 					expect(tooltipArrow).toHaveClass(expected);
 				});
@@ -133,12 +145,25 @@ describe('TooltipDecorator', () => {
 				);
 
 				const button = screen.getByRole('button');
+
+				button.getBoundingClientRect = jest.fn(() => {
+					return {
+						width: 300,
+						height: 300,
+						top: 600,
+						left: 600,
+						bottom: 0,
+						right: 0
+					};
+				});
+
 				act(() => button.focus());
 				fireEvent.mouseOver(button);
 
 				await waitFor(() => {
 					const tooltipArrow = screen.getByText('Tooltip').parentElement.parentElement;
-					const expected = 'tooltip above';
+
+					const expected = 'tooltip below';
 
 					expect(tooltipArrow).toHaveClass(expected);
 				});
