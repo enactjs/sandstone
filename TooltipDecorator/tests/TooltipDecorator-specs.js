@@ -104,7 +104,7 @@ describe('TooltipDecorator', () => {
 		});
 
 		describe('Tooltip position', () => {
-			test('above', async () => {
+			test('should have "above" className when tooltipPosition is set to \'above\'', async () => {
 				const tooltipText = 'Tooltip';
 				render(
 					<FloatingLayerController>
