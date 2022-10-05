@@ -1,12 +1,13 @@
 /* global HTMLMediaElement */
 
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import VideoPlayer from '../VideoPlayer';
-// import MediaControls from '../../MediaPlayer/MediaControls';
-// import Button from '../../Button';
+
+const keyDown = (keyCode) => (button) => fireEvent.keyDown(button, {keyCode});
+const downKeyDown = keyDown(40);
 
 describe('VideoPlayer', () => {
 	beforeEach(() => {
@@ -19,10 +20,9 @@ describe('VideoPlayer', () => {
 	describe('handle event', () => {
 		test('should fire `onControlsAvailable` with `onControlsAvailable` type when screen clicked', () => {
 			const handleControlsAvailable = jest.fn();
-			const handleToggleMore = jest.fn();
 
 			render(
-				<VideoPlayer data-testid="videoplayer-id" onControlsAvailable={handleControlsAvailable} onToggleMore={handleToggleMore} />
+				<VideoPlayer data-testid="videoplayer-id" onControlsAvailable={handleControlsAvailable} />
 			);
 
 			const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
@@ -68,45 +68,28 @@ describe('VideoPlayer', () => {
 			const backButton  = screen.queryByLabelText('go to previous');
 			expect(backButton).toBeNull();
 		});
-		/* test('should fire `onToggleMore` with `onToggleMore` type when downkey pressed during pause button focus', async () => {
+		test('should fire `onToggleMore` with `onToggleMore` type when downkey pressed during pause button focus', async () => {
 			const handleToggleMore = jest.fn();
-			const handleControlsAvailable = jest.fn();
 
-			const timeOut = 10000000;
 			render(
-				<VideoPlayer data-testid="videoplayer-id" autoCloseTimeout={timeOut} title="Sandstone VideoPlayer" onControlsAvailable={handleControlsAvailable} onToggleMore={handleToggleMore}>
-					<source src="http://media.w3.org/2010/05/video/movie_300.mp4" type="video/mp4" />
-					<infoComponents>
-						Information.
-					</infoComponents>
-					<MediaControls>
-						<Button size="small" icon="list" />
-					</MediaControls>
-				</VideoPlayer>
+				<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" onToggleMore={handleToggleMore} />
 			);
 
-			const vp = screen.getByTestId('videoplayer-id').parentElement;
-			// const video = screen.getByTestId('videoplayer-id');
 			const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
 
 			userEvent.click(overlay);
 
 			await screen.findByLabelText('go to previous');
 
-			const info = screen.getByText('Information.');
-			expect(info).toHaveClass('hidden');
-
-			expect(handleControlsAvailable).toBeCalled();
-
 			const pauseButton = screen.getByLabelText('Pause');
+			const expected = {type: 'onToggleMore'};
 
-			act(() => pauseButton.focus());
+			downKeyDown(pauseButton);
 
-			fireEvent.keyDown(pauseButton, {which: 40, keyCode: 40, code: 40});
-			fireEvent.keyDown(vp, {which: 40, keyCode: 40, code: 40});
-			fireEvent.keyDown(overlay, {which: 40, keyCode: 40, code: 40});
-
-			expect(handleToggleMore).toBeCalled();
-		}); */
+			await waitFor(() => {
+				const actual = handleToggleMore.mock.calls.length && handleToggleMore.mock.calls[0][0];
+				expect(actual).toMatchObject(expected);
+			});
+		});
 	});
 });
