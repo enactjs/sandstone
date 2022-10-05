@@ -51,7 +51,7 @@ const directionToFocus = {
 const HoverToScrollBase = (props) => {
 	const {
 		direction,
-		scrollContainerHandleRef,
+		scrollContainerHandle: {current: scrollContainer},
 		scrollObserver: {addObserverOnScroll, removeObserverOnScroll}
 	} = props;
 
@@ -70,7 +70,7 @@ const HoverToScrollBase = (props) => {
 	const handleGlobalKeyDown = useCallback(({keyCode}) => {
 		let position = mutableRef.current.hoveredPosition;
 
-		if (scrollContainerHandleRef.rtl && direction === 'horizontal') {
+		if (scrollContainer.rtl && direction === 'horizontal') {
 			position = position === 'after' ? 'before' : 'after';
 		}
 
@@ -79,9 +79,9 @@ const HoverToScrollBase = (props) => {
 				directionToFocus[direction][position],
 				getLastPointerPosition()
 			);
-			scrollContainerHandleRef.stop();
+			scrollContainer.stop();
 		}
-	}, [direction, scrollContainerHandleRef]);
+	}, [direction, scrollContainer]);
 
 	const startRaf = useCallback((job) => {
 		if (typeof window === 'object') {
@@ -105,7 +105,7 @@ const HoverToScrollBase = (props) => {
 	const getPointerEnterHandler = useCallback((position) => {
 		if (typeof window === 'object') {
 			const {axis, clientSize, maxPosition, scrollPosition} = getBoundsPropertyNames(direction);
-			const bounds = scrollContainerHandleRef.getScrollBounds();
+			const bounds = scrollContainer.getScrollBounds();
 
 			return function ({pointerType}) {
 				if (pointerType === 'mouse') {
@@ -118,12 +118,12 @@ const HoverToScrollBase = (props) => {
 
 					const scrollByHover = () => {
 						if (getLastInputType() === 'mouse') {
-							scrollContainerHandleRef.scrollTo({
+							scrollContainer.scrollTo({
 								position: {
 									[axis]: clamp(
 										0,
 										bounds[maxPosition],
-										scrollContainerHandleRef[scrollPosition] + distance
+										scrollContainer[scrollPosition] + distance
 									)
 								},
 								animate: false
@@ -139,11 +139,11 @@ const HoverToScrollBase = (props) => {
 		} else {
 			return nop;
 		}
-	}, [direction, scrollContainerHandleRef, startRaf, stopRaf]);
+	}, [direction, scrollContainer, startRaf, stopRaf]);
 
 	const update = useCallback(() => {
 		const {canScrollFunc, maxPosition, scrollPosition} = getBoundsPropertyNames(direction);
-		const {[canScrollFunc]: canScroll, getScrollBounds, [scrollPosition]: currentPosition} = scrollContainerHandleRef;
+		const {[canScrollFunc]: canScroll, getScrollBounds, [scrollPosition]: currentPosition} = scrollContainer;
 		const bounds = getScrollBounds();
 		const position = mutableRef.current.hoveredPosition;
 		let curAfter = false, curBefore = false;
@@ -159,7 +159,7 @@ const HoverToScrollBase = (props) => {
 
 		setAfter(curAfter);
 		setBefore(curBefore);
-	}, [direction, after, before, scrollContainerHandleRef, stopRaf]);
+	}, [direction, after, before, scrollContainer, stopRaf]);
 
 	// Hooks
 
@@ -171,8 +171,8 @@ const HoverToScrollBase = (props) => {
 	}, [update, addObserverOnScroll, removeObserverOnScroll]);
 
 	useLayoutEffect(() => {
-		if (scrollContainerHandleRef) {
-			const {[getBoundsPropertyNames(direction).canScrollFunc]: canScroll, getScrollBounds} = scrollContainerHandleRef;
+		if (scrollContainer) {
+			const {[getBoundsPropertyNames(direction).canScrollFunc]: canScroll, getScrollBounds} = scrollContainer;
 			if (canScroll && getScrollBounds) {
 				update();
 			} else {
@@ -180,7 +180,7 @@ const HoverToScrollBase = (props) => {
 				setBefore(null);
 			}
 		}
-	}, [update, direction, scrollContainerHandleRef]);
+	}, [update, direction, scrollContainer]);
 
 	useLayoutEffect(() => {
 		return () => {
@@ -213,7 +213,7 @@ HoverToScrollBase.displayName = 'HoverToScrollBase';
 
 HoverToScrollBase.propTypes = /** @lends sandstone/useScroll.HoverToScroll.HoverToScrollBase.prototype */ {
 	direction: PropTypes.string,
-	scrollContainerHandleRef: PropTypes.object
+	scrollContainerHandle: PropTypes.object
 };
 
 /**
@@ -224,11 +224,11 @@ HoverToScrollBase.propTypes = /** @lends sandstone/useScroll.HoverToScroll.Hover
  * @ui
  * @private
  */
-const HoverToScroll = ({scrollContainerHandleRef, ...rest}) => {
-	return scrollContainerHandleRef ? (
+const HoverToScroll = ({scrollContainerHandle, ...rest}) => {
+	return scrollContainerHandle ? (
 		<>
-			<HoverToScrollBase scrollContainerHandleRef={scrollContainerHandleRef} {...rest} direction="horizontal" />
-			<HoverToScrollBase scrollContainerHandleRef={scrollContainerHandleRef} {...rest} direction="vertical" />
+			<HoverToScrollBase scrollContainerHandle={scrollContainerHandle} {...rest} direction="horizontal" />
+			<HoverToScrollBase scrollContainerHandle={scrollContainerHandle} {...rest} direction="vertical" />
 		</>
 	) : null;
 };
@@ -236,7 +236,7 @@ const HoverToScroll = ({scrollContainerHandleRef, ...rest}) => {
 HoverToScroll.displayName = 'HoverToScroll';
 
 HoverToScroll.propTypes = /** @lends sandstone/useScroll.HoverToScroll.prototype */ {
-	scrollContainerHandleRef: PropTypes.object
+	scrollContainerHandle: PropTypes.object
 };
 
 export default HoverToScroll;
