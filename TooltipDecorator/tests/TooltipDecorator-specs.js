@@ -85,8 +85,8 @@ describe('TooltipDecorator', () => {
 			});
 		});
 
-		// This test throws 'Warning: Each child in a list should have a unique "key" prop.'
 		test('should render a tooltip if hovered for \'tooltipRelative\'', async () => {
+			console.error = jest.fn();
 			const tooltipText = 'Tooltip';
 			render(
 				<FloatingLayerController>
@@ -104,7 +104,7 @@ describe('TooltipDecorator', () => {
 		});
 
 		describe('Tooltip position', () => {
-			test('should have "above" className when tooltipPosition is set to \'above\'', async () => {
+			test('should have \'above\' className when tooltipPosition is set to \'above\'', async () => {
 				const tooltipText = 'Tooltip';
 				render(
 					<FloatingLayerController>
@@ -136,7 +136,7 @@ describe('TooltipDecorator', () => {
 				});
 			});
 
-			test('below', async () => {
+			test('should have \'below\' className when tooltipPosition is set to \'below\'', async () => {
 				const tooltipText = 'Tooltip';
 				render(
 					<FloatingLayerController>
@@ -169,7 +169,7 @@ describe('TooltipDecorator', () => {
 				});
 			});
 
-			test('left middle', async () => {
+			test('should have \'left middle\' className when tooltipPosition is set to \'left middle\'', async () => {
 				const tooltipText = 'Tooltip';
 				render(
 					<FloatingLayerController>
@@ -189,7 +189,7 @@ describe('TooltipDecorator', () => {
 				});
 			});
 
-			test('right middle', async () => {
+			test('should have \'right middle\' className when tooltipPosition is set to \'right middle\'', async () => {
 				const tooltipText = 'Tooltip';
 				render(
 					<FloatingLayerController>
