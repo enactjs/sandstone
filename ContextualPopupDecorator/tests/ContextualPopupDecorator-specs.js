@@ -406,4 +406,89 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		expect(pointerMode).toBe(expected);
 	});
+
+	test('should close popup if prop \'open\' is omitted on rerender', () => {
+		const Root = FloatingLayerDecorator('div');
+		const {rerender} = render(
+			<Root>
+				<ContextualButton open popupComponent={() => <div><Button>first</Button><Button>second</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const firstRender = screen.getAllByRole('button').length;
+		const expectedFirst = 3;
+
+		rerender(
+			<Root>
+				<ContextualButton popupComponent={() => <div><Button>first</Button><Button>second</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const secondRender = screen.getAllByRole('button').length;
+		const expectedSecond = 1;
+
+		expect(firstRender).toBe(expectedFirst);
+		expect(secondRender).toBe(expectedSecond);
+	});
+
+	test('should close popup if prop \'open\' is added on rerender', () => {
+		const Root = FloatingLayerDecorator('div');
+		const {rerender} = render(
+			<Root>
+				<ContextualButton popupComponent={() => <div><Button>first</Button><Button>second</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const firstRender = screen.getAllByRole('button').length;
+		const expectedFirst = 1;
+
+		rerender(
+			<Root>
+				<ContextualButton open popupComponent={() => <div><Button>first</Button><Button>second</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+		const secondRender = screen.getAllByRole('button').length;
+		const expectedSecond = 3;
+
+		expect(firstRender).toBe(expectedFirst);
+		expect(secondRender).toBe(expectedSecond);
+	});
+
+	test('should capture \'onKeyDown\' event from outside of popup', () => {
+		const handleOnKeyDown = jest.fn();
+		const Root = FloatingLayerDecorator('div');
+		render(
+			<Root>
+				<ContextualButton onKeyDown={handleOnKeyDown} open popupComponent={() => <div><Button>first</Button><Button>second</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		const button = screen.getAllByRole('button')[0];
+		leftKeyDown(button);
+
+		expect(handleOnKeyDown).toHaveBeenCalled();
+	});
+
+	test('should render popup if \'scrimType\' has value \'holepunch\'', () => {
+		const Root = FloatingLayerDecorator('div');
+		render(
+			<Root>
+				<ContextualButton scrimType="holepunch" open popupComponent={() => <div><Button>Button</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		const scrimDiv = screen.getByRole('alert').previousElementSibling;
+		const expected = 'holePunchScrim';
+
+		expect(scrimDiv).toHaveClass(expected);
+	});
 });
