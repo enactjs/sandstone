@@ -84,17 +84,17 @@ const HoverToScrollBase = (props) => {
 	}, [direction, scrollContainer]);
 
 	const startRaf = useCallback((job) => {
-		scrollContainerHandleRef.isHoveringToScroll = true;
+		scrollContainer.isHoveringToScroll = true;
 		if (typeof window === 'object' && mutableRef.current.hoveredPosition) {
 			mutableRef.current.hoverToScrollRafId = window.requestAnimationFrame(job);
 			if (typeof document === 'object') {
 				document.addEventListener('keydown', handleGlobalKeyDown, {capture: true});
 			}
 		}
-	}, [handleGlobalKeyDown, scrollContainerHandleRef]);
+	}, [handleGlobalKeyDown, scrollContainer]);
 
 	const stopRaf = useCallback(() => {
-		scrollContainerHandleRef.isHoveringToScroll = false;
+		scrollContainer.isHoveringToScroll = false;
 		if (typeof window === 'object' && mutableRef.current.hoverToScrollRafId !== null) {
 			window.cancelAnimationFrame(mutableRef.current.hoverToScrollRafId);
 			mutableRef.current.hoverToScrollRafId = null;
@@ -103,7 +103,7 @@ const HoverToScrollBase = (props) => {
 				document.removeEventListener('keydown', handleGlobalKeyDown, {capture: true});
 			}
 		}
-	}, [handleGlobalKeyDown, scrollContainerHandleRef]);
+	}, [handleGlobalKeyDown, scrollContainer]);
 
 	const getPointerEnterHandler = useCallback((position) => {
 		if (typeof window === 'object') {
@@ -183,7 +183,7 @@ const HoverToScrollBase = (props) => {
 				setBefore(null);
 			}
 		}
-	}, [update, direction, scrollContainer]);
+	}, [update, direction, scrollContainer, props]);
 
 	useLayoutEffect(() => {
 		return () => {
