@@ -86,7 +86,7 @@ describe('TooltipDecorator', () => {
 		});
 
 		test('should render a tooltip if hovered for \'tooltipRelative\'', async () => {
-			console.error = jest.fn();
+			console.error = jest.fn();	// eslint-disable-line no-console
 			const tooltipText = 'Tooltip';
 			render(
 				<FloatingLayerController>
