@@ -180,7 +180,7 @@ const HoverToScrollBase = (props) => {
 				setBefore(null);
 			}
 		}
-	}, [update, direction, scrollContainer]);
+	}, [update, direction, scrollContainer, props]);
 
 	useLayoutEffect(() => {
 		return () => {

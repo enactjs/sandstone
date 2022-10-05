@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/MediaPlayer.MediaControls` to focus properly when pressing up key from buttons after holding left or right keys
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hover when scrollbar is hidden or `dataSize` is changed
 
 ## [2.0.10] - 2022-08-30
 
