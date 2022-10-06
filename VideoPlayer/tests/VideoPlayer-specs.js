@@ -1,7 +1,7 @@
 /* global HTMLMediaElement */
 
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import VideoPlayer from '../VideoPlayer';
@@ -68,31 +68,28 @@ describe('VideoPlayer', () => {
 			const backButton  = screen.queryByLabelText('go to previous');
 			expect(backButton).toBeNull();
 		});
-		/* test('should not to show the media control after autoCloseTimeout', async () => {
+		test('should not to show the media control after the delay', () => {
+			jest.useFakeTimers();
 			const timeout = 100;
 			render(
-				<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" autoCloseTimeout={timeout}/>
+				<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" autoCloseTimeout={timeout} />
 			);
 
 			const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
 			userEvent.click(overlay);
 
-			await screen.findByLabelText('go to previous');
-			const backButton  = screen.queryByLabelText('go to previous');
+			act(() => jest.advanceTimersByTime(150));
 
-			await waitFor(() => {
-				expect(backButton).toBeNull();
-			});
-		}); */
+			const backButton  = screen.queryByLabelText('go to previous');
+			expect(backButton).toBeNull();
+
+			jest.useRealTimers();
+		});
 		test('should fire `onToggleMore` with `onToggleMore` type when downkey pressed during pause button focus', async () => {
 			const handleToggleMore = jest.fn();
 
 			render(
-				<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" onToggleMore={handleToggleMore}>
-					<MediaControls>
-						<Button size="small" icon="list" />
-					</MediaControls>
-				</VideoPlayer>
+				<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" onToggleMore={handleToggleMore} />
 			);
 
 			const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
