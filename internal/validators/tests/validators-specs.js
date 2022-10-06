@@ -1,19 +1,19 @@
 import {
-	warn,
 	validateRange,
 	validateRangeOnce,
-	validateStepped
-} from "../validators";
+	validateStepped,
+	warn
+} from '../validators';
 
-describe("validators", () => {
+describe('validators', () => {
 	let consoleSpy;
 
 	beforeEach(() => {
 		consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 	});
 
-	describe("validateRange", function () {
-		test("should throw a console warning", () => {
+	describe('validateRange', function () {
+		test('should throw a console warning', () => {
 			warn("Warning!");
 
 			expect(consoleSpy).toHaveBeenCalled();
@@ -26,7 +26,7 @@ describe("validators", () => {
       `);
 		});
 
-		test("should throw a console warning when 'value' is less than 'min'", () => {
+		test('should throw a console warning when \'value\' is less than \'min\'', () => {
 			validateRange(10, 11, 20, "component", "value", "min", "max");
 
 			expect(consoleSpy).toHaveBeenCalled();
@@ -39,7 +39,7 @@ describe("validators", () => {
       `);
 		});
 
-		test("should throw a console warning when 'value' is greater than 'max'", () => {
+		test('should throw a console warning when \'value\' is greater than \'max\'', () => {
 			validateRange(21, 1, 20, "component", "value", "min", "max");
 
 			expect(consoleSpy).toHaveBeenCalled();
@@ -52,8 +52,8 @@ describe("validators", () => {
       `);
 		});
 
-		test("should throw a console warning when 'min' is greater than 'max'", () => {
-			validateRange(21, 25, 20, "component", "value", "min", "max");
+		test('should throw a console warning when \'min\' is greater than \'max\'', () => {
+			validateRange(21, 25, 20, 'component', 'value', 'min', 'max');
 
 			expect(consoleSpy).toHaveBeenCalled();
 			expect(consoleSpy.mock.calls).toMatchInlineSnapshot(`
@@ -68,7 +68,7 @@ describe("validators", () => {
       `);
 		});
 
-		test("should throw a console warning when 'value' is evenly divisible by 'step'", () => {
+		test('should throw a console warning when \'value\' is evenly divisible by \'step\'', () => {
 			validateStepped(10, 1, 2, "component", "value", "step");
 
 			expect(consoleSpy).toHaveBeenCalled();
@@ -82,14 +82,14 @@ describe("validators", () => {
 		});
 	});
 
-	describe("validateRangeOnce", () => {
+	describe('validateRangeOnce', () => {
 		let thingSpy;
 
 		beforeEach(() => {
 			thingSpy = jest.fn().mockReturnValue("ANY_THING_SPY_VALUE");
 		});
 
-		test("should throw a console warning when 'value' is lower than 'min'", () => {
+		test('should throw a console warning when \'value\' is lower than \'min\'', () => {
 			const validateFn = validateRangeOnce(thingSpy, {
 				component: "ANY_COMPONENT"
 			});
