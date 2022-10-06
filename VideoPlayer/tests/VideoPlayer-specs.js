@@ -6,6 +6,9 @@ import userEvent from '@testing-library/user-event';
 
 import VideoPlayer from '../VideoPlayer';
 
+import Button from '../../Button';
+import MediaControls from '../../MediaPlayer/MediaControls';
+
 const keyDown = (keyCode) => (button) => fireEvent.keyDown(button, {keyCode});
 const downKeyDown = keyDown(40);
 
