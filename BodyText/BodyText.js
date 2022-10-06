@@ -44,7 +44,7 @@ const BodyTextBase = kind({
 		 * Centers the contents.
 		 *
 		 * Applies the `centered` CSS class which can be customized by
-		 * theming{@link /docs/developer-guide/theming/|theming}.
+		 * {@link /docs/developer-guide/theming/|theming}.
 		 *
 		 * @type {Boolean}
 		 * @public
