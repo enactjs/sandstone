@@ -139,7 +139,7 @@ const IconBase = kind({
 // Let's find a way to import this list directly, and bonus feature, render our icons in the docs
 // next to their names.
 /**
- * An object whose keys can be used as the child of an [Icon]{@link sandstone/Icon.Icon} component.
+ * An object whose keys can be used as the child of an {@link sandstone/Icon.Icon|Icon} component.
  *
  * List of Icons:
  * ```

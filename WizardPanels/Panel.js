@@ -5,7 +5,7 @@ import {WizardPanelsContext} from './WizardPanels';
 
 /**
  * Panel that sets the children, footer, subtitle, and title for
- * [WizardPanels]{@link sandstone/WizardPanels.WizardPanels}.
+ * {@link sandstone/WizardPanels.WizardPanels|WizardPanels}.
  *
  * @class PanelBase
  * @memberof sandstone/WizardPanels
@@ -50,7 +50,7 @@ function PanelBase ({
 
 /**
  * Panel that sets the children, footer, subtitle, and title for
- * [WizardPanels]{@link sandstone/WizardPanels.WizardPanels}.
+ * {@link sandstone/WizardPanels.WizardPanels|WizardPanels}.
  *
  * @class Panel
  * @memberof sandstone/WizardPanels
@@ -70,7 +70,7 @@ const Panel = Slottable(
  *
  * If `false`, the button will not show. If set to a component, or `true`, the button will
  * show. This will override the setting of
- * [`nextButtonVisibility`]{@link sandstone/WizardPanels.WizardPanels#nextButtonVisibility}.
+ * {@link sandstone/WizardPanels.WizardPanels#nextButtonVisibility|`nextButtonVisibility`}.
  *
  * Example:
  * ```
@@ -90,7 +90,7 @@ const Panel = Slottable(
  *
  * If `false`, the button will not show. If set to a component, or `true`, the button will
  * show. This will override the setting of
- * [`prevButtonVisibility`]{@link sandstone/WizardPanels.WizardPanels#prevButtonVisibility}.
+ * {@link sandstone/WizardPanels.WizardPanels#prevButtonVisibility|`prevButtonVisibility`}.
  *
  * Example:
  * ```

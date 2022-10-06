@@ -30,7 +30,7 @@ import componentCss from './Heading.module.less';
  * A labeled Heading component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [Heading]{@link sandstone/Heading.Heading}.
+ * is within {@link sandstone/Heading.Heading|Heading}.
  *
  * @class HeadingBase
  * @memberof sandstone/Heading
@@ -99,7 +99,7 @@ const HeadingBase = kind({
 });
 
 /**
- * Applies Sandstone specific behaviors to [HeadingBase]{@link sandstone/Heading.HeadingBase}.
+ * Applies Sandstone specific behaviors to {@link sandstone/Heading.HeadingBase|HeadingBase}.
  *
  * @hoc
  * @memberof sandstone/Heading

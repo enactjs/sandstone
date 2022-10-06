@@ -9,8 +9,8 @@ import MediaSliderDecorator from './MediaSliderDecorator';
 import css from './MediaSlider.module.less';
 
 /**
- * The base component to render a customized [Slider]{@link sandstone/Slider.Slider} for use in
- * media player components such as [VideoPlayer]{@link sandstone/VideoPlayer.VideoPlayer}.
+ * The base component to render a customized {@link sandstone/Slider.Slider|Slider} for use in
+ * media player components such as {@link sandstone/VideoPlayer.VideoPlayer|VideoPlayer}.
  *
  * @class MediaSliderBase
  * @memberof sandstone/MediaPlayer
@@ -103,7 +103,7 @@ const MediaSliderBase = kind({
 
 /**
  * A customized slider suitable for use within media player components such as
- * [VideoPlayer]{@link sandstone/VideoPlayer.VideoPlayer}.
+ * {@link sandstone/VideoPlayer.VideoPlayer|VideoPlayer}.
  *
  * @class MediaSlider
  * @extends sandstone/Slider.Slider

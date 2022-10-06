@@ -48,7 +48,7 @@ const PopupTabLayoutBase = kind({
 
 	propTypes: /** @lends sandstone/PopupTabLayout.PopupTabLayoutBase.prototype */ {
 		/**
-		 * Collection of [Tabs]{@link sandstone/PopupTabLayout.Tab} to render.
+		 * Collection of {@link sandstone/PopupTabLayout.Tab|Tabs} to render.
 		 *
 		 * @type {Node}
 		 * @public
@@ -215,7 +215,7 @@ const PopupTabLayoutBase = kind({
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
-		 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+		 * The container id for {@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId|Spotlight container}.
 		 *
 		 * @type {String}
 		 * @public
@@ -227,7 +227,7 @@ const PopupTabLayoutBase = kind({
 		 *
 		 * It can be either `'none'`, `'self-first'`, or `'self-only'`.
 		 *
-		 * Note: The ready-to-use [Popup]{@link sandstone/Popup.Popup} component only supports
+		 * Note: The ready-to-use {@link sandstone/Popup.Popup|Popup} component only supports
 		 * `'self-first'` and `'self-only'`.
 		 *
 		 * @type {('none'|'self-first'|'self-only')}
@@ -303,7 +303,7 @@ const PopupTabLayoutDecorator = compose(
 );
 
 /**
- * An instance of [`Popup`]{@link sandstone/Popup.Popup} which restricts the `TabLayout` content to
+ * An instance of {@link sandstone/Popup.Popup|`Popup`} which restricts the `TabLayout` content to
  * the left side of the screen. The content of `TabLayout` can flex vertically, but not horizontally
  * (fixed width). This is typically used to switch between several collections of managed views
  * (`TabPanels` and `TabPanel`, also exported from this module).
@@ -396,7 +396,7 @@ const tabPanelsHandlers = {
 };
 
 /**
- * A base component for [`TabPanels`]{@link sandstone/PopupTabLayout.TabPanels} which has
+ * A base component for {@link sandstone/PopupTabLayout.TabPanels|`TabPanels`} which has
  * left key handler to navigate panels.
  *
  * @class TabPanelsBase
@@ -468,7 +468,7 @@ const TabPanel = ({spotlightId, ...rest}) => {
 
 TabPanel.propTypes = {
 	/**
-	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+	 * The container id for {@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId|Spotlight container}.
 	 *
 	 * @type {String}
 	 * @private

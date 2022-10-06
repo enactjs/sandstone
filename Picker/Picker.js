@@ -29,7 +29,7 @@ import componentCss from './Picker.module.less';
 /**
  * The base `Picker` component.
  *
- * This version is not [`spottable`]{@link spotlight/Spottable.Spottable}.
+ * This version is not {@link spotlight/Spottable.Spottable|`spottable`}.
  *
  * @class PickerBase
  * @memberof sandstone/Picker
@@ -67,8 +67,8 @@ const PickerBase = kind({
 		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
 		 * The default value for joined horizontal picker is `'enter'`.
-		 * If [orientation]{@link sandstone/Picker.Picker#orientation} is `'vertical'` or
-		 * [joined]{@link sandstone/Picker.Picker#joined} is undefined or is `false`, this prop is ignored.
+		 * If {@link sandstone/Picker.Picker#orientation|orientation} is `'vertical'` or
+		 * {@link sandstone/Picker.Picker#joined|joined} is undefined or is `false`, this prop is ignored.
 		 *
 		 * @type {('enter'|'arrow')}
 		 * @public
@@ -105,9 +105,9 @@ const PickerBase = kind({
 		/**
 		 * A custom icon for the decrementer.
 		 *
-		 * All strings supported by [Icon]{@link sandstone/Icon.Icon} are supported. Without a
+		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * [orientation]{@link sandstone/Picker.Picker#orientation} is changed.
+		 * {@link sandstone/Picker.Picker#orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -125,9 +125,9 @@ const PickerBase = kind({
 		/**
 		 * A custom icon for the incrementer.
 		 *
-		 * All strings supported by [Icon]{@link sandstone/Icon.Icon} are supported. Without a
+		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * [orientation]{@link sandstone/Picker.Picker#orientation} is changed.
+		 * {@link sandstone/Picker.Picker#orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -159,7 +159,7 @@ const PickerBase = kind({
 		 * Disables marqueeing of items.
 		 *
 		 * By default, each picker item is wrapped by a
-		 * [`Marquee`]{@link sandstone/Marquee.Marquee}. When this is set, the items will
+		 * {@link sandstone/Marquee.Marquee|`Marquee`}. When this is set, the items will
 		 * not be wrapped.
 		 *
 		 * @type {Boolean}

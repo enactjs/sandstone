@@ -63,7 +63,7 @@ const FormCheckboxItemBase = kind({
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * A string that represents an icon from the {@link sandstone/Icon.Icon.iconList|iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
@@ -92,7 +92,7 @@ const FormCheckboxItemBase = kind({
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * A string that represents an icon from the {@link sandstone/Icon.Icon.iconList|iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
@@ -172,7 +172,7 @@ const FormCheckboxItemDecorator = compose(
 /**
  * A Sandstone-styled form item with a checkbox component.
  *
- * `FormCheckboxItem` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless
+ * `FormCheckboxItem` will manage its `selected` state via {@link ui/Toggleable|Toggleable} unless
  * set directly.
  *
  * @class FormCheckboxItem

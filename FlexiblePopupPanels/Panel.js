@@ -15,7 +15,7 @@ function clamp (val, total) {
 }
 
 /**
- * The standard view container used inside a [FlexiblePopupPanels]{@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels} view
+ * The standard view container used inside a {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels|FlexiblePopupPanels} view
  * manager instance.
  *
  * @class Panel
@@ -38,7 +38,7 @@ const PanelBase = kind({
 		 *
 		 * If `false`, the button will not show. If set to a component, or `true`, the button will
 		 * show. This will override the setting of
-		 * [`nextButtonVisibility`]{@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#nextButtonVisibility}.
+		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#nextButtonVisibility|`nextButtonVisibility`}.
 		 *
 		 * Example:
 		 * ```
@@ -103,7 +103,7 @@ const PanelBase = kind({
 		 * If `false`, the button will not show. If set to a component, or `true`, the button will
 		 * show. This will override the setting of
 		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#prevButtonVisibility|`prevButtonVisibility`}.
-		 * [`prevButtonVisibility`]{@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#prevButtonVisibility}.
+		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#prevButtonVisibility|`prevButtonVisibility`}.
 		 *
 		 * Example:
 		 * ```

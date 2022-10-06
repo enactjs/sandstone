@@ -23,7 +23,7 @@ import DefaultHeader from '../Panels/Header';
 import css from './FixedPopupPanels.module.less';
 
 /**
- * Adds popup functionality and `rtl` prop to [`FixedPopupPanels`]{@link sandstone/FixedPopupPanels}.
+ * Adds popup functionality and `rtl` prop to {@link sandstone/FixedPopupPanels|`FixedPopupPanels`}.
  *
  * @class FixedPopupPanelsDecorator
  * @memberof sandstone/FixedPopupPanels
@@ -61,7 +61,7 @@ const fixedPopupPanelsHandlers = {
 };
 
 /**
- * A base panels component for [`FixedPopupPanels`]{@link sandstone/FixedPopupPanels} that has
+ * A base panels component for {@link sandstone/FixedPopupPanels|`FixedPopupPanels`} that has
  * left key handler to navigate panels.
  *
  * @class FixedPopupPanelsBase
@@ -75,7 +75,7 @@ const FixedPopupPanelsBase = (props) => {
 };
 
 /**
- * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the right
+ * An instance of {@link sandstone/Panels.Panels|`Panels`} which restricts the `Panel` to the right
  * or left side of the screen inside a popup. Typically used for overlaying panels over other
  * content.
  *
@@ -100,7 +100,7 @@ const FixedPopupPanels = FixedPopupPanelsDecorator(FixedPopupPanelsBase);
 
 /**
  * The standard view container used inside a
- * [FixedPopupPanels]{@link sandstone/FixedPopupPanels.FixedPopupPanels} view manager instance.
+ * {@link sandstone/FixedPopupPanels.FixedPopupPanels|FixedPopupPanels} view manager instance.
  *
  * @class Panel
  * @extends sandstone/Panels.Panel
@@ -121,7 +121,7 @@ FixedPopupPanels.Panel = Panel;
 
 /**
  * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
- * [`slots`]{@link ui/Slottable.Slottable} for components.
+ * {@link ui/Slottable.Slottable|`slots`} for components.
  *
  * @class Header
  * @extends sandstone/Panels.Header

@@ -30,7 +30,7 @@ const Switch = Skinnable(SwitchBase);
 Switch.displayName = 'Switch';
 
 /**
- * Renders an item with a [Switch]{@link sandstone/Switch}.
+ * Renders an item with a {@link sandstone/Switch|Switch}.
  *
  * @class SwitchItemBase
  * @memberof sandstone/SwitchItem
@@ -119,7 +119,7 @@ const SwitchItemDecorator = compose(
 /**
  * A Sandstone-styled item with a switch component.
  *
- * `SwitchItem` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * `SwitchItem` will manage its `selected` state via {@link ui/Toggleable|Toggleable} unless set
  * directly.
  *
  * @class SwitchItem
