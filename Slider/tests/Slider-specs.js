@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 
 import Slider from '../Slider';
 
@@ -13,7 +13,39 @@ const rightKeyDown = keyDown(39);
 const upKeyDown = keyDown(38);
 const downKeyDown = keyDown(40);
 
+const getElementClientCenter = (element) => {
+	const {left, top, width, height} = element.getBoundingClientRect();
+	return {x: left + width / 2, y: top + height / 2};
+};
+
+const drag = async (element, {delta, steps = 1}) => {
+	const from = getElementClientCenter(element);
+	const to = {x: from.x + delta.x, y: from.y + delta.y};
+	const step = {x: (to.x - from.x) / steps, y: (to.y - from.y) / steps};
+	const current = {clientX: from.x, clientY: from.y};
+
+	fireEvent.mouseEnter(element, current);
+	fireEvent.mouseOver(element, current);
+	fireEvent.mouseMove(element, current);
+	fireEvent.mouseDown(element, current);
+	for (let i = 0; i < steps; i++) {
+		current.clientX += step.x;
+		current.clientY += step.y;
+		act(() => jest.advanceTimersByTime(1000 / steps));
+		fireEvent.mouseMove(element, current);
+	}
+	fireEvent.mouseUp(element, current);
+};
+
 describe('Slider', () => {
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
 	test('should set "aria-valuetext" to hint string for the first render when vertical is false', () => {
 		render(<Slider />);
 		const slider = screen.getByRole('slider');
@@ -56,6 +88,19 @@ describe('Slider', () => {
 		const expected = 'active';
 
 		expect(slider).toHaveClass(expected);
+	});
+
+	test('should change value of slider on drag', async () => {
+		render(<Slider activateOnSelect defaultValue={50} />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		await drag(slider, {delta: {x: 50, y: 0}});
+
+		const expectedAttribute = 'aria-valuetext';
+		const unexpectedValue = '50 change a value with left right button';
+
+		expect(slider).not.toHaveAttribute(expectedAttribute, unexpectedValue);
 	});
 
 	test('should deactivate the slider on blur', () => {
@@ -125,6 +170,19 @@ describe('Slider', () => {
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
+	test('should decrement the value of horizontal slider on wheel down when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		fireEvent.wheel(slider, {deltaY: 10});
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '49';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
 	test('should decrement the value of vertical slider on key down when active', () => {
 		render(<Slider activateOnSelect defaultValue={50} orientation="vertical" />);
 		const slider = screen.getByRole('slider');
@@ -144,6 +202,19 @@ describe('Slider', () => {
 
 		focus(slider);
 		downKeyDown(slider);
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '49';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
+	test('should decrement the value of vertical slider on wheel down when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} orientation="vertical" />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		fireEvent.wheel(slider, {deltaY: 10});
 
 		const expectedAttribute = 'aria-valuetext';
 		const expectedValue = '49';
@@ -190,6 +261,19 @@ describe('Slider', () => {
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
+	test('should increment the value of horizontal slider on wheel up when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		fireEvent.wheel(slider, {deltaY: -10});
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '51';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
 	test('should increment the value of vertical slider on key up', () => {
 		render(<Slider defaultValue={50} orientation="vertical" />);
 		const slider = screen.getByRole('slider');
@@ -199,6 +283,71 @@ describe('Slider', () => {
 
 		const expectedAttribute = 'aria-valuetext';
 		const expectedValue = '51';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
+	test('should increment the value of vertical slider on wheel up when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} orientation="vertical" />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		fireEvent.wheel(slider, {deltaY: -10});
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '51';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
+	test('should decrement the value by \'knobStep\' on key left when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} knobStep={5} />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		leftKeyDown(slider);
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '45';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
+	test('should increment the value by \'knobStep\' on key right when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} knobStep={5} />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		rightKeyDown(slider);
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '55';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
+	test('should decrement the value by \'step\' on key left when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} step={5} />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		leftKeyDown(slider);
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '45';
+
+		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
+	test('should increment the value by \'step\' on key right when active', () => {
+		render(<Slider activateOnSelect defaultValue={50} step={5} />);
+		const slider = screen.getByRole('slider');
+
+		activate(slider);
+		rightKeyDown(slider);
+
+		const expectedAttribute = 'aria-valuetext';
+		const expectedValue = '55';
 
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});

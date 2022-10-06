@@ -22,6 +22,7 @@ const SpottableDiv = MarqueeController({marqueeOnFocus: true}, Spottable(Skinnab
 const LTR = [
 	'The quick brown fox jumped over the lazy dog. The bean bird flies at sundown.',
 	'Η γρήγορη καφέ αλεπού πήδηξε πάνω από το μεσημέρι. Το πουλί πετά σε φασολιών δύση του ηλίου.',
+	'Bahasa Melayu,Eesti keel,Čeština,Bahasa Indonesia,Dansk,한국어,العربية,English',
 	"ਤੁਰੰਤ ਭੂਰਾ Fox ਆਲਸੀ ਕੁੱਤੇ ਨੂੰ ਵੱਧ ਗਈ. ਬੀਨ ਪੰਛੀ ਸੂਰਜ ਡੁੱਬਣ 'ਤੇ ਉਡਾਣ ਭਰਦੀ ਹੈ.",
 	'速い茶色のキツネは、怠け者の犬を飛び越えた。豆の鳥は日没で飛ぶ。',
 	'那只敏捷的棕色狐狸跃过那只懒狗。豆鸟飞日落。',
