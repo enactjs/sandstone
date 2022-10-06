@@ -68,11 +68,31 @@ describe('VideoPlayer', () => {
 			const backButton  = screen.queryByLabelText('go to previous');
 			expect(backButton).toBeNull();
 		});
+		/* test('should not to show the media control after autoCloseTimeout', async () => {
+			const timeout = 100;
+			render(
+				<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" autoCloseTimeout={timeout}/>
+			);
+
+			const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
+			userEvent.click(overlay);
+
+			await screen.findByLabelText('go to previous');
+			const backButton  = screen.queryByLabelText('go to previous');
+
+			await waitFor(() => {
+				expect(backButton).toBeNull();
+			});
+		}); */
 		test('should fire `onToggleMore` with `onToggleMore` type when downkey pressed during pause button focus', async () => {
 			const handleToggleMore = jest.fn();
 
 			render(
-				<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" onToggleMore={handleToggleMore} />
+				<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" onToggleMore={handleToggleMore}>
+					<MediaControls>
+						<Button size="small" icon="list" />
+					</MediaControls>
+				</VideoPlayer>
 			);
 
 			const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
