@@ -23,7 +23,7 @@ import DefaultHeader from '../Panels/Header';
 import css from './FixedPopupPanels.module.less';
 
 /**
- * Adds popup functionality and `rtl` prop to {@link sandstone/FixedPopupPanels|`FixedPopupPanels`}.
+ * Adds popup functionality and `rtl` prop to {@link sandstone/FixedPopupPanels|FixedPopupPanels}.
  *
  * @class FixedPopupPanelsDecorator
  * @memberof sandstone/FixedPopupPanels
@@ -61,7 +61,7 @@ const fixedPopupPanelsHandlers = {
 };
 
 /**
- * A base panels component for {@link sandstone/FixedPopupPanels|`FixedPopupPanels`} that has
+ * A base panels component for {@link sandstone/FixedPopupPanels|FixedPopupPanels} that has
  * left key handler to navigate panels.
  *
  * @class FixedPopupPanelsBase
@@ -75,7 +75,7 @@ const FixedPopupPanelsBase = (props) => {
 };
 
 /**
- * An instance of {@link sandstone/Panels.Panels|`Panels`} which restricts the `Panel` to the right
+ * An instance of {@link sandstone/Panels.Panels|Panels} which restricts the `Panel` to the right
  * or left side of the screen inside a popup. Typically used for overlaying panels over other
  * content.
  *

@@ -436,8 +436,8 @@ const SliderDecorator = compose(
 );
 
 /**
- * Slider input with Sandstone styling, {@link spotlight/Spottable.Spottable|`Spottable`},
- * {@link ui/Touchable|Touchable} and {@link sandstone/Slider.SliderDecorator|`SliderDecorator`}
+ * Slider input with Sandstone styling, {@link spotlight/Spottable.Spottable|Spottable},
+ * {@link ui/Touchable|Touchable} and {@link sandstone/Slider.SliderDecorator|SliderDecorator}
  * applied.
  *
  * By default, `Slider` maintains the state of its `value` property. Supply the `defaultValue`

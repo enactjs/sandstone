@@ -29,7 +29,7 @@ import componentCss from './Picker.module.less';
 /**
  * The base `Picker` component.
  *
- * This version is not {@link spotlight/Spottable.Spottable|`spottable`}.
+ * This version is not {@link spotlight/Spottable.Spottable|spottable}.
  *
  * @class PickerBase
  * @memberof sandstone/Picker
@@ -159,7 +159,7 @@ const PickerBase = kind({
 		 * Disables marqueeing of items.
 		 *
 		 * By default, each picker item is wrapped by a
-		 * {@link sandstone/Marquee.Marquee|`Marquee`}. When this is set, the items will
+		 * {@link sandstone/Marquee.Marquee|Marquee}. When this is set, the items will
 		 * not be wrapped.
 		 *
 		 * @type {Boolean}

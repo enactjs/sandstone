@@ -764,7 +764,7 @@ const VideoPlayerBase = class extends Component {
 		 * * `pause()` - pause video
 		 * * `load()` - load video
 		 *
-		 * The {@link sandstone/VideoPlayer.Video.source|`source`} property is passed to
+		 * The {@link sandstone/VideoPlayer.Video.source|source} property is passed to
 		 * the video component as a child node.
 		 *
 		 * @type {Component|Element}

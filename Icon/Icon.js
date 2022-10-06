@@ -350,7 +350,7 @@ const IconBase = kind({
  */
 
 /**
- * Sandstone-specific behaviors to apply to [IconBase]{@link sandstone/Icon.IconBase}.
+ * Sandstone-specific behaviors to apply to {@link sandstone/Icon.IconBase|IconBase}.
  *
  * @hoc
  * @memberof sandstone/Icon
