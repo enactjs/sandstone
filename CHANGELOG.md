@@ -4,7 +4,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-- `sandstone/InputField` added spellCheck attribute to value 'false' for password input
+- `sandstone/InputField` added spellCheck attribute 'false' for input type password
 
 ### Fixed
 
