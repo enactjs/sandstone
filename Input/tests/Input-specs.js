@@ -99,7 +99,10 @@ describe('Input specs', () => {
 		);
 		const inputField = screen.getByPlaceholderText(str);
 
-		expect(inputField).toHaveAttribute('spellcheck');
+		const expectedAttribute = 'spellcheck';
+		const expectedValue = 'false';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
 	test('should set type to url at input when input type is `url`', () => {
