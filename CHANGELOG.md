@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- `sandstone/InputField` added spellCheck attribute to value 'false' for password input
+
 ### Fixed
 
 - `sandstone/MediaPlayer.MediaControls` to focus properly when pressing up key from buttons after holding left or right keys
