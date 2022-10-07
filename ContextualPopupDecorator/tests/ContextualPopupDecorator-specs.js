@@ -433,7 +433,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(secondRender).toBe(expectedSecond);
 	});
 
-	test('should close popup if prop \'open\' is added on rerender', () => {
+	test('should open popup if prop \'open\' is added on rerender', () => {
 		const Root = FloatingLayerDecorator('div');
 		const {rerender} = render(
 			<Root>
@@ -476,9 +476,9 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(handleOnKeyDown).toHaveBeenCalled();
 	});
 
-	test('should render popup if \'scrimType\' has value \'holepunch\'', () => {
+	test('should render popup with different \'scrimType\'', () => {
 		const Root = FloatingLayerDecorator('div');
-		render(
+		const {rerender} = render(
 			<Root>
 				<ContextualButton scrimType="holepunch" open popupComponent={() => <div><Button>Button</Button></div>}>
 					Hello
@@ -486,9 +486,21 @@ describe('ContextualPopupDecorator Specs', () => {
 			</Root>
 		);
 
-		const scrimDiv = screen.getByRole('alert').previousElementSibling;
-		const expected = 'holePunchScrim';
+		const scrimDivFirst = screen.getByRole('alert').previousElementSibling;
+		const expectedFirst = 'holePunchScrim';
 
-		expect(scrimDiv).toHaveClass(expected);
+		rerender(
+			<Root>
+				<ContextualButton scrimType="transparent" open popupComponent={() => <div><Button>Button</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		const scrimDivSecond = screen.getByRole('alert').previousElementSibling;
+		const expectedSecond = 'transparent';
+
+		expect(scrimDivFirst).toHaveClass(expectedFirst);
+		expect(scrimDivSecond).toHaveClass(expectedSecond);
 	});
 });
