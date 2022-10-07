@@ -258,13 +258,6 @@ text('title', WithArrayOfChildrenObjects, Config, 'Dropdown');
 select('width', WithArrayOfChildrenObjects, ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config);
 
 WithArrayOfChildrenObjects.storyName = 'with array of children objects';
-WithArrayOfChildrenObjects.parameters = {
-	docs: {
-		source: {
-			code: '() => <WithArrayOfChildrenObjects />'
-		}
-	}
-};
 
 export const WithAutoDismiss = () => <AutoDismissDropdown />;
 

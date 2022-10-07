@@ -269,13 +269,6 @@ export const Languages = (args) => {
 
 select('font-weight',	Languages, ['100', '200', '300', '400', '500', '600', '700', '800', '900'], Config, '400');
 Languages.storyName = 'Languages';
-Languages.parameters = {
-	docs: {
-		source: {
-			code: '() => <Languages />'
-		}
-	}
-};
 
 export const MixedScripts = () => (
 	<div>
