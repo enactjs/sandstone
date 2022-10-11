@@ -4,13 +4,15 @@ import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
 
+import {svgGenerator} from '../helper/svg';
+
 const Config = mergeComponentMetadata('ImageItem', ImageItemBase, UiImageItem, ImageItem);
 ImageItem.displayName = 'ImageItem';
 
 const src = {
-	hd: 'http://via.placeholder.com/200x200/7ed31d/ffffff',
-	fhd: 'http://via.placeholder.com/300x300/7ed31d/ffffff',
-	uhd: 'http://via.placeholder.com/600x600/7ed31d/ffffff'
+	hd: svgGenerator(200, 200, '7ed31d', 'ffffff', '200 X 200'),
+	fhd: svgGenerator(300, 300, '7ed31d', 'ffffff', '300 X 300'),
+	uhd: svgGenerator(600, 600, '7ed31d', 'ffffff', '600 X 600')
 };
 
 const prop = {
