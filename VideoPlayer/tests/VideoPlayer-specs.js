@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 
 import VideoPlayer from '../VideoPlayer';
 
+const focus = (slider) => fireEvent.focus(slider);
 const keyDown = (keyCode) => (button) => fireEvent.keyDown(button, {keyCode});
 const downKeyDown = keyDown(40);
 
@@ -18,12 +19,28 @@ describe('VideoPlayer', () => {
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
 		userEvent.click(overlay);
 
+		const slider = screen.getByRole('slider', {hidden: true});  // add to increase code coverage
+		focus(slider);
+
 		const expected = {type: 'onControlsAvailable'};
 		const actual = handleControlsAvailable.mock.calls.length && handleControlsAvailable.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
 
 
+	});
+	test('should not to show media slider when noslider is true', async () => {
+		render(
+			<VideoPlayer data-testid="videoplayer-id" noSlider />
+		);
+
+		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
+		userEvent.click(overlay);
+
+		await screen.findByLabelText('go to previous');
+
+		const slider = screen.queryByRole('slider', {hidden: true});
+		expect(slider).toBeNull();
 	});
 	test('should fire `onBack` with `onBack` type when back button clicked', async () => {
 		const handleBack = jest.fn();
@@ -53,6 +70,17 @@ describe('VideoPlayer', () => {
 		userEvent.click(overlay);
 
 		await screen.findByLabelText('go to previous');
+		userEvent.click(overlay);
+
+		const backButton  = screen.queryByLabelText('go to previous');
+		expect(backButton).toBeNull();
+	});
+	test('should not to show the media control when disable is true', () => {
+		render(
+			<VideoPlayer data-testid="videoplayer-id" disabled />
+		);
+
+		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
 		userEvent.click(overlay);
 
 		const backButton  = screen.queryByLabelText('go to previous');
