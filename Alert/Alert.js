@@ -32,7 +32,7 @@ const CenteredBodyText = (props) => <BodyText {...props} centered />;
  * A modal Alert component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within {@link sandstone/Alert.Alert|Alert}.
+ * is within {@link sandstone/Alert.Alert Alert }.
  *
  * @class AlertBase
  * @memberof sandstone/Alert
@@ -224,7 +224,7 @@ const AlertBase = kind({
  *
  * `Alert` may be used to interrupt a workflow to receive feedback from the user.
  * The dialog consists of a title, a message, and an area for additional
- * {@link sandstone/Alert.Alert.buttons|buttons}.
+ * {@link sandstone/Alert#Alert buttons }.
  *
  * Usage:
  * ```
