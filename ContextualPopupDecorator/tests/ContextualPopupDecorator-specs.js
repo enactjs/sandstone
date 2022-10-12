@@ -476,7 +476,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(handleOnKeyDown).toHaveBeenCalled();
 	});
 
-	test('should render popup with different \'scrimType\'', () => {
+	test('should render floatingLayer according to prop \'scrimType\'', () => {
 		const Root = FloatingLayerDecorator('div');
 		const {rerender} = render(
 			<Root>
