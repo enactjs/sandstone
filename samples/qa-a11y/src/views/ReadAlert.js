@@ -34,24 +34,19 @@ const ReadAlertView = () => {
 		}
 	}, []);
 
-	useEffect( () => {
+	const onToggle = useCallback(({selected}) => {
 		if (window.PalmServiceBridge) {
+			setAudioGuidance(selected);
 			new LS2Request().send({
 				service: 'luna://com.webos.settingsservice/',
 				method: 'setSystemSettings',
 				parameters: {
 					category: 'option',
 					settings: {
-						audioGuidance: audioGuidance ? 'on' : 'off'
+						audioGuidance: selected ? 'on' : 'off'
 					}
 				}
 			});
-		}
-	});
-
-	const onToggle = useCallback(({selected: selAudioGuidance}) => {
-		if (window.PalmServiceBridge) {
-			setAudioGuidance(selAudioGuidance);
 		}
 	}, []);
 
@@ -60,7 +55,7 @@ const ReadAlertView = () => {
 			<Section title="AudioGuidance On or Off">
 				<CheckboxItem
 					alt="Toggle"
-					defaultSelected={audioGuidance}
+					selected={audioGuidance}
 					disabled={toggleDisabled}
 					onToggle={onToggle}
 				>
