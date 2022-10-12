@@ -3,9 +3,10 @@ import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import {useState} from 'react';
 
-import FixedPopupPanels from '../FixedPopupPanels';
 import Item from '../../Item';
 import {Header, Panel} from '../../Panels';
+
+import FixedPopupPanels from '../FixedPopupPanels';
 
 const keyDown = (keyCode) => (elm) => fireEvent.keyDown(elm, {keyCode});
 const leftKeyDown = keyDown(37);
