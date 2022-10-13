@@ -11,9 +11,10 @@ const downKeyDown = keyDown(40);
 describe('VideoPlayer', () => {
 	test('should fire `onControlsAvailable` with `onControlsAvailable` type when screen clicked', () => {
 		const handleControlsAvailable = jest.fn();
+		const selectTime = [0, 1];
 
 		render(
-			<VideoPlayer data-testid="videoplayer-id" onControlsAvailable={handleControlsAvailable} />
+			<VideoPlayer data-testid="videoplayer-id" onControlsAvailable={handleControlsAvailable} selection={selectTime}/>
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
@@ -42,11 +43,11 @@ describe('VideoPlayer', () => {
 		const slider = screen.queryByRole('slider', {hidden: true});
 		expect(slider).toBeNull();
 	});
-	test('should fire `onBack` with `onBack` type when back button clicked', async () => {
+	test('should fire `onBack` with `onBack` type when clicking on back button', async () => {
 		const handleBack = jest.fn();
 
 		render(
-			<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" onBack={handleBack} />
+			<VideoPlayer data-testid="videoplayer-id" onBack={handleBack} />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
@@ -63,7 +64,7 @@ describe('VideoPlayer', () => {
 	});
 	test('should toggle to show the media control', async () => {
 		render(
-			<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" />
+			<VideoPlayer data-testid="videoplayer-id" />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
@@ -90,7 +91,7 @@ describe('VideoPlayer', () => {
 		jest.useFakeTimers();
 		const timeout = 100;
 		render(
-			<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" autoCloseTimeout={timeout} />
+			<VideoPlayer data-testid="videoplayer-id" autoCloseTimeout={timeout} />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
@@ -107,7 +108,7 @@ describe('VideoPlayer', () => {
 		const handleToggleMore = jest.fn();
 
 		render(
-			<VideoPlayer data-testid="videoplayer-id" backButtonAriaLabel="go to previous" onToggleMore={handleToggleMore} />
+			<VideoPlayer data-testid="videoplayer-id" onToggleMore={handleToggleMore} />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
