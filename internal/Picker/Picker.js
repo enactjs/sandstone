@@ -164,7 +164,7 @@ const PickerBase = (props) => {
 			const updatedValue = computeNextValue(dir * step);
 			onChange({value: updatedValue});
 		}
-	}, [adjustDirection, computeNextValue, disabled, onChange, setTransitionDirection, step]);
+	}, [adjustDirection, setTransitionDirection, disabled, onChange, computeNextValue, step]);
 
 	const setPressedState = useCallback((pressedValue) => {
 		if (joined) {
@@ -241,29 +241,29 @@ const PickerBase = (props) => {
 		});
 	}, [joined, emulateMouseUp, handleVoice, handleWheel, throttleWheelDec, throttleWheelInc]);
 
-	const handleBlur = useCallback((ev) => {
+	const handleBlur = (ev) => {
 		forwardBlur(ev, props);
 
 		setActive(false);
-	}, [props]);
+	};
 
-	const handleFocus = useCallback((ev) => {
+	const handleFocus = (ev) => {
 		forwardFocus(ev, props);
 
 		setActive(true);
-	}, [props]);
+	};
 
-	const handleUp = useCallback(() => {
+	const handleUp = () => {
 		if (joined && (pickerButtonPressed !== 0 || pressed !== 0)) {
 			emulateMouseUp.start();
 		}
-	}, [emulateMouseUp, joined, pickerButtonPressed, pressed]);
+	};
 
-	const setIncPickerButtonPressed = useCallback(() => {
+	const setIncPickerButtonPressed = () => {
 		pickerButtonPressed = 1;	// eslint-disable-line react-hooks/exhaustive-deps
-	}, []);
+	};
 
-	const handleDown = useCallback(() => {
+	const handleDown = () => {
 		if (joined && orientation === 'horizontal' && changedBy === 'enter') {
 			setIncPickerButtonPressed();
 		}
@@ -277,11 +277,11 @@ const PickerBase = (props) => {
 			handleDecrement();
 			emulateMouseUp.start();
 		}
-	}, [changedBy, emulateMouseUp, handleDecrement, handleIncrement, joined, orientation, pickerButtonPressed, setIncPickerButtonPressed]);
+	};
 
-	const setDecPickerButtonPressed = useCallback(() => {
-		pickerButtonPressed = -1;	// eslint-disable-line react-hooks/exhaustive-deps
-	}, []);
+	const setDecPickerButtonPressed = () => {
+		pickerButtonPressed = -1;
+	};
 
 	const handleHold = useCallback(() => {
 		if (joined && pickerButtonPressed === 1) {
@@ -331,7 +331,7 @@ const PickerBase = (props) => {
 		}
 	}, [changedBy, disabled, joined, orientation, props, setDecPickerButtonPressed, setIncPickerButtonPressed]);
 
-	const handleKeyUp = useCallback((ev) => {
+	const handleKeyUp = (ev) => {
 		const {keyCode} = ev;
 		forwardKeyUp(ev, props);
 
@@ -341,12 +341,12 @@ const PickerBase = (props) => {
 			const isHorizontalArrow = orientation === 'horizontal' && changedBy === 'arrow' && (isRight(keyCode) || isLeft(keyCode));
 
 			if (isVertical || isHorizontal || isHorizontalArrow) {
-				pickerButtonPressed = 0;	// eslint-disable-line react-hooks/exhaustive-deps
+				pickerButtonPressed = 0;
 			}
 		}
-	}, []);
+	};
 
-	const handleDecKeyDown = useCallback((ev) => {
+	const handleDecKeyDown = (ev) => {
 		const {keyCode} = ev;
 		const direction = getDirection(keyCode);
 
@@ -370,9 +370,9 @@ const PickerBase = (props) => {
 				forwardCustom(`onSpotlight${cap(direction)}`)(ev, props);
 			}
 		}
-	}, [hasReachedBound, orientation, props, step]);
+	};
 
-	const handleIncKeyDown = useCallback((ev) => {
+	const handleIncKeyDown = (ev) => {
 		const {keyCode} = ev;
 		const direction = getDirection(keyCode);
 
@@ -396,46 +396,46 @@ const PickerBase = (props) => {
 				forwardCustom(`onSpotlight${cap(direction)}`)(ev, props);
 			}
 		}
-	}, [hasReachedBound, orientation, props, step]);
+	};
 
-	const determineClasses = (cssProp, decrementerDisabledProp, incrementerDisabledProp) => {
-		const {className: functionClassName} = props;
+	const determineClasses = (css, decrementerDisabled, incrementerDisabled) => {
+		const {className} = props;
 
 		return classnames(
-			cssProp.picker,
-			cssProp[changedBy],
-			cssProp[orientation],
-			cssProp[width],
+			css.picker,
+			css[changedBy],
+			css[orientation],
+			css[width],
 			{
-				[cssProp.joined]: joined,
-				[cssProp.decrementing]: (!decrementerDisabledProp && pressed === -1),
-				[cssProp.incrementing]: (!incrementerDisabledProp && pressed === 1)
+				[css.joined]: joined,
+				[css.decrementing]: (!decrementerDisabled && pressed === -1),
+				[css.incrementing]: (!incrementerDisabled && pressed === 1)
 			},
-			functionClassName
+			className
 		);
 	};
 
 	const calcValueText = () => {
 		const {accessibilityHint} = props;
-		let valueTextFunction = value;
+		let valueText = value;
 
 		// Sometimes this.props.value is not equal to node text content. For example, when `PM`
 		// is shown in AM/PM picker, its value is `1` and its node.textContent is `PM`. In this
 		// case, Screen readers should read `PM` instead of `1`.
 		if (children && Array.isArray(children)) {
-			valueTextFunction = (children[index]) ? children[index].props.children : value;
+			valueText = (children[index]) ? children[index].props.children : value;
 		} else if (children && children.props && !children.props.children) {
-			valueTextFunction = children.props.children;
+			valueText = children.props.children;
 		}
 
 		if (accessibilityHint) {
-			valueTextFunction = `${valueTextFunction} ${accessibilityHint}`;
+			valueText = `${valueText} ${accessibilityHint}`;
 		}
 
-		return valueTextFunction;
+		return valueText;
 	};
 
-	const calcButtonLabel = (next, valueTextProp) => {
+	const calcButtonLabel = (next, valueText) => {
 		const {decrementAriaLabel, incrementAriaLabel} = props;
 		const titleText = props.title ? props.title + ' ' : '';
 		let label;
@@ -450,21 +450,21 @@ const PickerBase = (props) => {
 		}
 
 		if (props.type === 'number') {
-			return titleText + `${valueTextProp} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
+			return titleText + `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
 		} else {
-			return titleText + `${valueTextProp} ${next ? $L('next item') : $L('previous item')}`;
+			return titleText + `${valueText} ${next ? $L('next item') : $L('previous item')}`;
 		}
 	};
 
-	const calcDecrementLabel = (valueTextProp) => {
-		return !joined ? calcButtonLabel(reverse, valueTextProp) : null;
+	const calcDecrementLabel = (valueText) => {
+		return !joined ? calcButtonLabel(reverse, valueText) : null;
 	};
 
-	const calcIncrementLabel = (valueTextProp) => {
-		return !joined ? calcButtonLabel(!reverse, valueTextProp) : null;
+	const calcIncrementLabel = (valueText) => {
+		return !joined ? calcButtonLabel(!reverse, valueText) : null;
 	};
 
-	const calcAriaLabel = (valueTextProp) => {
+	const calcAriaLabel = (valueText) => {
 		const {'aria-label': ariaLabel} = props;
 		let hint;
 		if (orientation === 'horizontal') {
@@ -477,8 +477,10 @@ const PickerBase = (props) => {
 			return ariaLabel;
 		}
 
-		return `${valueTextProp} ${hint}`;
+		return `${valueText} ${hint}`;
 	};
+
+	// Render
 
 	const css = mergeClassNameMaps(componentCss, incomingCss, allowedClassNames);
 	const voiceProps = extractVoiceProps(rest);
