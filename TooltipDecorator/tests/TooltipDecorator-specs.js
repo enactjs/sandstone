@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
 
 import Button from '../../Button';
+
 import TooltipDecorator from '../TooltipDecorator';
 import TooltipLabel from '../TooltipLabel';
 
@@ -57,7 +58,7 @@ describe('TooltipDecorator', () => {
 			fireEvent.mouseOver(button);
 
 			await waitFor(() => {
-				expect(screen.getByText('Tooltip')).not.toBeNull();
+				expect(screen.getByText('Tooltip')).toBeInTheDocument();
 			});
 		});
 
@@ -74,14 +75,14 @@ describe('TooltipDecorator', () => {
 			fireEvent.mouseOver(button);
 
 			await waitFor(() => {
-				expect(screen.getByText('Tooltip')).not.toBeNull();
+				expect(screen.getByText('Tooltip')).toBeInTheDocument();
 			});
 
 			act(() => button.blur());
 			fireEvent.mouseOut(button);
 
 			await waitFor(() => {
-				expect(screen.queryByText('Tooltip')).toBeNull();
+				expect(screen.queryByText('Tooltip')).not.toBeInTheDocument();
 			});
 		});
 
@@ -99,7 +100,7 @@ describe('TooltipDecorator', () => {
 			fireEvent.mouseOver(button);
 
 			await waitFor(() => {
-				expect(screen.getByText('Tooltip')).not.toBeNull();
+				expect(screen.getByText('Tooltip')).toBeInTheDocument();
 			});
 		});
 
