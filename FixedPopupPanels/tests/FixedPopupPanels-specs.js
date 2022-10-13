@@ -23,7 +23,7 @@ const CustomFixedPopupPanels = ({defaultIndex}) => {
 					<Header>
 						<title>This is the first panel</title>
 					</Header>
-					<Item onKeyDown={() => setIndex(index + 1)}>Example Item 1</Item>
+					<Item>Example Item 1</Item>
 					<Item>Example Item 2</Item>
 				</Panel>
 				<Panel>
