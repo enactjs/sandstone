@@ -43,6 +43,13 @@ describe('TabGroup specs', () => {
 		expect(actual).toHaveLength(expected);
 	});
 
+	test('should render group even if it has no tabs', () => {
+		render(<TabGroup tabs={[]} />);
+
+		const tabGroup = screen.getByRole('group');
+		expect(tabGroup).toBeInTheDocument();
+	});
+
 	test('should render icons', () => {
 		render(
 			<TabGroup
@@ -63,6 +70,25 @@ describe('TabGroup specs', () => {
 		expect(actualHomeIcon).toBe(expectedHomeIcon);
 		expect(actualDemosyncIcon).toBe(expectedDemosyncIcon);
 		expect(actualPlayCircleIcon).toBe(expectedPlayCircleIcon);
+	});
+
+	test('should render sprites', () => {
+		const simpleAnimationProps = {
+			src: 'dummyimage',
+			rows: 2,
+			columns: 2
+		};
+
+		render(
+			<TabGroup
+				tabs={[
+					{title: '', sprite: simpleAnimationProps, 'data-testid': 'sprite'}
+				]}
+			/>
+		);
+		const sprite = screen.getByTestId('sprite');
+
+		expect(sprite).toBeInTheDocument();
 	});
 
 	test('should disable the list icon when collapsed and all tabs are disabled', () => {
