@@ -617,7 +617,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			}
 
 			// if media controls disabled, reset key loop
-			if (!prevProps.mediaDisabled && this.props.mediaDisabled) {
+			if (!prevProps.mediaDisabled && this.props.mediaDisabled || !prevProps.visible && this.props.visible) {
 				this.stopListeningForPulses();
 				this.paused.resume();
 			}
