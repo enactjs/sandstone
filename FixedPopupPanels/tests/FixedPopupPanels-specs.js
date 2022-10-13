@@ -113,14 +113,6 @@ describe('FixedPopupPanels', () => {
 		expect(actualEvent).toMatchObject(expectedEvent);
 	});
 
-	test('should navigate to the second panel on arrow left key',  function () {
-		render(<CustomFixedPopupPanels defaultIndex={0} />);
-
-		leftKeyDown(screen.getByText('Example Item 1'));
-
-		expect(screen.getByText('This is the second panel')).toBeInTheDocument();
-	});
-
 	test('should navigate to the first panel on arrow left key',  function () {
 		render(<CustomFixedPopupPanels defaultIndex={1} />);
 
