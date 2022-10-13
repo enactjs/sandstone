@@ -1,6 +1,7 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import {Popup} from '../Popup';
 
@@ -322,5 +323,113 @@ describe('Popup specs', () => {
 			expect(popup).not.toHaveClass(firstPosition);
 			expect(transitionContainer).not.toHaveClass(firstPosition);
 		});
+	});
+
+	test('should apply `ease-in-out` class to transition container when noAnimation is false', () => {
+		render(
+			<FloatingLayerController>
+				<Popup noAnimation={false} open><div>popup</div></Popup>
+			</FloatingLayerController>
+		);
+		const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
+
+		const expected = 'ease-in-out';
+
+		expect(transitionContainer).toHaveClass(expected);
+	});
+
+	test('should apply \'shown\' class when visible with noAnimation', () => {
+		render(
+			<FloatingLayerController>
+				<Popup noAnimation open><div>popup</div></Popup>
+			</FloatingLayerController>
+		);
+
+		const expected = 'shown';
+		const actual = screen.getByRole('alert').parentElement.parentElement;
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should close popup on escape', async () => {
+		const handleClose = jest.fn();
+		render(
+			<FloatingLayerController>
+				<Popup open onClose={handleClose}>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		userEvent.keyboard('{esc}');
+
+		await waitFor(() => {
+			expect(handleClose).toHaveBeenCalled();
+		});
+	});
+
+	test('should call onShow after popup with noAnimation is opened', () => {
+		const handleShow = jest.fn();
+		const {rerender} = render(
+			<FloatingLayerController>
+				<Popup noAnimation onShow={handleShow}>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		rerender(
+			<FloatingLayerController>
+				<Popup noAnimation onShow={handleShow} open>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		expect(handleShow).toHaveBeenCalled();
+	});
+
+	test('should call onHide after popup with noAnimation is closed', () => {
+		const handleHide = jest.fn();
+		const {rerender} = render(
+			<FloatingLayerController>
+				<Popup noAnimation onHide={handleHide} open>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		rerender(
+			<FloatingLayerController>
+				<Popup noAnimation onHide={handleHide}>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		expect(handleHide).toHaveBeenCalled();
+	});
+
+	test('should apply `hidden` class when popup closes', () => {
+		const {rerender} = render(
+			<FloatingLayerController>
+				<Popup open>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		rerender(
+			<FloatingLayerController>
+				<Popup>
+					<div>popup</div>
+				</Popup>
+			</FloatingLayerController>
+		);
+
+		const transitionContainer = screen.getByRole('alert').parentElement.parentElement;
+		const expected = 'hidden';
+
+		expect(transitionContainer).toHaveClass(expected);
 	});
 });

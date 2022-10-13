@@ -13,7 +13,7 @@ import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
-import ImageItemCss from '../ImageItem/ImageItem.module.less';
+import css from './useThemeVirtualList.module.less';
 
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
@@ -310,13 +310,13 @@ const useSpottable = (props, instances) => {
 	}
 
 	function addScaleEffect (elem) {
-		elem.classList.add(ImageItemCss.scaled);
+		elem.classList.add(css.scaled);
 		mutableRef.current.scaledTarget = elem;
 	}
 
 	function removeScaleEffect () {
 		if (mutableRef.current.scaledTarget) {
-			mutableRef.current.scaledTarget.classList.remove(ImageItemCss.scaled);
+			mutableRef.current.scaledTarget.classList.remove(css.scaled);
 		}
 	}
 
