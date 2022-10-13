@@ -63,7 +63,7 @@ const PanelsBase = kind({
 		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
-		 * {@link sandstone/Panels.Panel|`Panel`s} to be rendered
+		 * {@link sandstone/Panels.Panel|Panel} to be rendered
 		 *
 		 * @type {Node}
 		 * @public
