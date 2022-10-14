@@ -43,8 +43,6 @@ describe('VideoPlayer', () => {
 		const actual = handleControlsAvailable.mock.calls.length && handleControlsAvailable.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
-
-
 	});
 	test('should not to show media slider when noslider is true', async () => {
 		render(
