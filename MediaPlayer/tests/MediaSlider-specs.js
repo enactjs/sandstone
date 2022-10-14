@@ -6,8 +6,9 @@ import MediaSlider from '../MediaSlider';
 const blur = (slider) => fireEvent.blur(slider);
 const focus = (slider) => fireEvent.focus(slider);
 const activate = (slider) => fireEvent.keyUp(slider, {keyCode: 13});
-const keyDown = (keyCode) => (button) => fireEvent.keyDown(button, {keyCode});
+const keyDown = (keyCode) => (slider) => fireEvent.keyDown(slider, {keyCode});
 
+const leftKeyDown = keyDown(37);
 const rightKeyDown = keyDown(39);
 
 describe('MediaSlider', () => {
