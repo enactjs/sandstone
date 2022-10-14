@@ -47,12 +47,11 @@ const skins = {
 };
 
 configureActions();
+
 export const parameters = {
 	docs: {
 		container: DocsContainer,
 		page: DocsPage,
-		iframeHeight: 360,
-		inlineStories: false,
 		theme: themes.light
 	},
 	options: {
@@ -61,6 +60,7 @@ export const parameters = {
 		}
 	}
 };
+
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
