@@ -28,10 +28,9 @@ describe('VideoPlayer', () => {
 	});
 	test('should fire `onControlsAvailable` with `onControlsAvailable` type when screen clicked', () => {
 		const handleControlsAvailable = jest.fn();
-		const selectTime = [0, 1];
 
 		render(
-			<VideoPlayer data-testid="videoplayer-id" onControlsAvailable={handleControlsAvailable} selection={selectTime}/>
+			<VideoPlayer data-testid="videoplayer-id" onControlsAvailable={handleControlsAvailable} />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
