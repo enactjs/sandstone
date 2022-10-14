@@ -9,6 +9,23 @@ const keyDown = (keyCode) => (button) => fireEvent.keyDown(button, {keyCode});
 const downKeyDown = keyDown(40);
 
 describe('VideoPlayer', () => {
+	test('should fire `onPlaying` with `playing` type when playing event is fired', () => {
+		const handlePlaying = jest.fn();
+
+		render(
+			<VideoPlayer data-testid="videoplayer-id" onPlaying={handlePlaying} />
+		);
+
+		const video = screen.getByTestId('videoplayer-id');
+
+		const playingEvent = createEvent('playing', video);
+		fireEvent(video, playingEvent);
+
+		const expected = {type: 'playing'};
+		const actual = handlePlaying.mock.calls.length && handlePlaying.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
 	test('should fire `onControlsAvailable` with `onControlsAvailable` type when screen clicked', () => {
 		const handleControlsAvailable = jest.fn();
 		const selectTime = [0, 1];
