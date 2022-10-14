@@ -101,23 +101,6 @@ describe('VideoPlayer', () => {
 		const backButton  = screen.queryByLabelText('go to previous');
 		expect(backButton).toBeNull();
 	});
-	test('should not to show the media control after the delay', () => {
-		jest.useFakeTimers();
-		const timeout = 100;
-		render(
-			<VideoPlayer data-testid="videoplayer-id" autoCloseTimeout={timeout} />
-		);
-
-		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
-
-		act(() => jest.advanceTimersByTime(150));
-
-		const backButton  = screen.queryByLabelText('go to previous');
-		expect(backButton).toBeNull();
-
-		jest.useRealTimers();
-	});
 	test('should fire `onToggleMore` with `onToggleMore` type when downkey pressed during pause button focus', async () => {
 		const handleToggleMore = jest.fn();
 
@@ -140,5 +123,42 @@ describe('VideoPlayer', () => {
 			const actual = handleToggleMore.mock.calls.length && handleToggleMore.mock.calls[0][0];
 			expect(actual).toMatchObject(expected);
 		});
+	});
+	test('should not to show the media control after the delay', () => {
+		jest.useFakeTimers();
+		const timeout = 100;
+		render(
+			<VideoPlayer data-testid="videoplayer-id" autoCloseTimeout={timeout} />
+		);
+
+		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
+		userEvent.click(overlay);
+
+		act(() => jest.advanceTimersByTime(150));
+
+		const backButton  = screen.queryByLabelText('go to previous');
+		expect(backButton).toBeNull();
+
+		jest.useRealTimers();
+	});
+	test('should not to show the title after the delay', () => {
+		jest.useFakeTimers();
+		const timeout = 100;
+		render(
+			<VideoPlayer data-testid="videoplayer-id" title="Video Test" titleHideDelay={timeout} />
+		);
+
+		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
+		userEvent.click(overlay);
+
+		const titleFrame = screen.getByText('Video Test').parentElement.parentElement.parentElement;
+
+		expect(titleFrame).toHaveClass('visible');
+
+		act(() => jest.advanceTimersByTime(150));
+
+		expect(titleFrame).toHaveClass('hidden');
+
+		jest.useRealTimers();
 	});
 });
