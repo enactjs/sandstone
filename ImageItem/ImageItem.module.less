@@ -73,10 +73,6 @@
 				transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
 				will-change: transform, box-shadow;
 
-				&.scaled {
-					transform: @sand-imageitem-vertical-focus-image-transform;
-				}
-
 				.selectionIcon {
 					transition: transform 200ms ease-in-out;
 				}
@@ -170,10 +166,6 @@
 				background-color: @sand-imageitem-selected-selection-icon-bg-color;
 				color: @sand-imageitem-selected-selection-icon-color;
 			}
-		}
-
-		&.vertical.fullImage .image.scaled {
-			box-shadow: @sand-imageitem-focus-bg-shadow;
 		}
 
 		.focus({
