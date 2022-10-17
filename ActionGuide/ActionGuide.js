@@ -12,7 +12,6 @@
 
 import kind from '@enact/core/kind';
 import Pure from '@enact/ui/internal/Pure';
-import Touchable from '@enact/ui/Touchable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
@@ -21,8 +20,6 @@ import {Marquee} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './ActionGuide.module.less';
-
-const TouchableDiv = Touchable('div');
 
 /**
  * An Action Guide component.
@@ -82,10 +79,10 @@ const ActionGuideBase = kind({
 
 	render: ({icon, children, css, ...rest}) => {
 		return (
-			<TouchableDiv {...rest}>
+			<div {...rest}>
 				<Icon size="small" className={css.icon}>{icon}</Icon>
 				<Marquee className={css.label} marqueeOn="render" alignment="center">{children}</Marquee>
-			</TouchableDiv>
+			</div>
 		);
 	}
 });

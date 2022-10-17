@@ -184,14 +184,6 @@ const MediaControlsBase = kind({
 		onClose: PropTypes.func,
 
 		/**
-		 * Called when the user flicks on the action guide.
-		 *
-		 * @type {Function}
-		 * @private
-		 */
-		onFlickFromActionGuide: PropTypes.func,
-
-		/**
 		 * Called when the user clicks the JumpBackward button
 		 *
 		 * @type {Function}
@@ -335,7 +327,6 @@ const MediaControlsBase = kind({
 		mediaDisabled,
 		moreComponentsSpotlightId,
 		noJumpButtons,
-		onFlickFromActionGuide,
 		onJumpBackwardButtonClick,
 		onJumpForwardButtonClick,
 		onKeyDownFromMediaButtons,
@@ -362,7 +353,7 @@ const MediaControlsBase = kind({
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
-					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} css={css} className={actionGuideClassName} icon="arrowsmalldown" onFlick={onFlickFromActionGuide}>{actionGuideLabel}</ActionGuide> :
+					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} css={css} className={actionGuideClassName} icon="arrowsmalldown">{actionGuideLabel}</ActionGuide> :
 					null
 				}
 				{moreComponentsRendered ?
@@ -674,18 +665,10 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
 		};
 
-		canShowMoreComponents = () => (!this.props.moreActionDisabled && !this.state.showMoreComponents);
-
 		handleKeyDownFromMediaButtons = (ev) => {
-			if (is('down', ev.keyCode) && this.canShowMoreComponents()) {
+			if (is('down', ev.keyCode) && !this.state.showMoreComponents && !this.props.moreActionDisabled) {
 				this.showMoreComponents();
 				ev.stopPropagation();
-			}
-		};
-
-		handleFlickFromActionGuide = ({direction, velocityY}) => {
-			if (direction === 'vertical' && velocityY < 0 && this.canShowMoreComponents()) {
-				this.showMoreComponents();
 			}
 		};
 
@@ -746,7 +729,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 		};
 
 		handleWheel = (ev) => {
-			if (this.canShowMoreComponents() && this.props.visible && ev.deltaY > 0) {
+			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled && ev.deltaY > 0) {
 				this.showMoreComponents();
 			}
 		};
@@ -857,7 +840,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 					mediaControlsRef={this.mediaControlsRef}
 					moreComponentsRendered={this.state.moreComponentsRendered}
 					onClose={this.handleClose}
-					onFlickFromActionGuide={this.handleFlickFromActionGuide}
 					onKeyDownFromMediaButtons={this.handleKeyDownFromMediaButtons}
 					onPlayButtonClick={this.handlePlayButtonClick}
 					onTransitionEnd={this.handleTransitionEnd}
