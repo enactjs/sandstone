@@ -381,7 +381,7 @@ const MediaControlsBase = kind({
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
-					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} buttonAriaLabel={actionGuideButtonAriaLabel} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
+					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} buttonAriaLabel={actionGuideButtonAriaLabel == null ? $L('This is label 0') : actionGuideButtonAriaLabel} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
 					null
 				}
 				{moreComponentsRendered ?
