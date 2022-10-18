@@ -50,6 +50,7 @@ const StorybookDecorator = (story, config = {}) => {
 	const {globals} = config;
 
 	const componentName = config.kind.replace(/^([^/]+)\//, '');
+	const height = config.viewMode === "docs" ? {height: '360px'} : {};
 
 	// NOTE: 'config' object is not extensible.
 	const hasInfoText = config.parameters && config.parameters.info && config.parameters.info.text;
@@ -65,21 +66,23 @@ const StorybookDecorator = (story, config = {}) => {
 	}
 
 	return (
-		<Theme
-			className={classnames(classes)}
-			title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
-			description={hasInfoText ? config.parameters.info.text : null}
-			locale={globals.locale}
-			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
-			highContrast={JSON.parse(globals['high contrast'])}
-			style={{
-				'--sand-env-background': globals.background === 'default' ? '' : globals.background
-			}}
-			skin={globals.skin}
-			{...hasProps ? config.parameters.props : null}
-		>
-			{sample}
-		</Theme>
+		<div style={height}>
+			<Theme
+				className={classnames(classes)}
+				title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
+				description={hasInfoText ? config.parameters.info.text : null}
+				locale={globals.locale}
+				textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
+				highContrast={JSON.parse(globals['high contrast'])}
+				style={{
+					'--sand-env-background': globals.background === 'default' ? '' : globals.background
+				}}
+				skin={globals.skin}
+				{...hasProps ? config.parameters.props : null}
+			>
+				{sample}
+			</Theme>
+		</div>
 	);
 };
 
