@@ -12,7 +12,20 @@ const leftKeyDown = keyDown(37);
 const rightKeyDown = keyDown(39);
 
 describe('MediaSlider', () => {
-	test('should fire `onFocus` when focused', () => {
+	beforeEach(() => {
+		global.Element.prototype.getBoundingClientRect = jest.fn(() => {
+			return {
+				width: 1000,
+				height: 100,
+				top: 0,
+				left: 0,
+				bottom: 50,
+				right: 500
+			};
+		});
+	});
+
+	test('should forward `onFocus` when focused', () => {
 		const handleFocus = jest.fn();
 
 		render(
@@ -24,7 +37,8 @@ describe('MediaSlider', () => {
 
 		expect(handleFocus).toBeCalled();
 	});
-	test('should fire `onBlur` on blur', () => {
+
+	test('should forward `onBlur` on blur', () => {
 		const handleBlur = jest.fn();
 
 		render(
@@ -36,7 +50,8 @@ describe('MediaSlider', () => {
 
 		expect(handleBlur).toBeCalled();
 	});
-	test('should fire `onKeyDown` when key pressed', () => {
+
+	test('should forward `onKeyDown` when key pressed', () => {
 		const handleKeyDown = jest.fn();
 
 		render(
@@ -52,7 +67,8 @@ describe('MediaSlider', () => {
 
 		expect(handleKeyDown).toBeCalledTimes(expected);
 	});
-	test('should fire `onKeyUp` when active', () => {
+
+	test('should forward `onKeyUp` when active', () => {
 		const handleKeyUp = jest.fn();
 
 		render(
@@ -66,4 +82,32 @@ describe('MediaSlider', () => {
 		expect(handleKeyUp).toBeCalled();
 	});
 
+	test('should forward `onKnobMove` when mouseOver event occurs', () => {
+		const handleKnobMove = jest.fn();
+
+		render(
+			<MediaSlider data-testid="mediaslider-id" onKnobMove={handleKnobMove} />
+		);
+
+		const slider = screen.getByTestId('mediaslider-id');
+
+		fireEvent.mouseOver(slider, {clientX: 10});
+
+		expect(handleKnobMove).toBeCalled();
+	});
+
+	test('should forward `onKnobMove` when mouseMove event occurs', () => {
+		const handleKnobMove = jest.fn();
+
+		render(
+			<MediaSlider data-testid="mediaslider-id" onKnobMove={handleKnobMove} />
+		);
+
+		const slider = screen.getByTestId('mediaslider-id');
+
+		fireEvent.mouseEnter(slider);
+		fireEvent.mouseMove(slider, {clientX: 10});
+
+		expect(handleKnobMove).toBeCalled();
+	});
 });

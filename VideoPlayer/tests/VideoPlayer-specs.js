@@ -26,6 +26,7 @@ describe('VideoPlayer', () => {
 
 		expect(actual).toMatchObject(expected);
 	});
+
 	test('should fire `onControlsAvailable` with `onControlsAvailable` type when screen clicked', () => {
 		const handleControlsAvailable = jest.fn();
 
@@ -36,14 +37,15 @@ describe('VideoPlayer', () => {
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
 		userEvent.click(overlay);
 
-		const slider = screen.getByRole('slider', {hidden: true});  // add to increase code coverage
-		focus(slider);
+		const slider = screen.getByRole('slider', {hidden: true});
+		focus(slider); // add to increase code coverage
 
 		const expected = {type: 'onControlsAvailable'};
 		const actual = handleControlsAvailable.mock.calls.length && handleControlsAvailable.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
 	});
+
 	test('should not to show media slider when noslider is true', async () => {
 		render(
 			<VideoPlayer data-testid="videoplayer-id" noSlider />
@@ -57,6 +59,7 @@ describe('VideoPlayer', () => {
 		const slider = screen.queryByRole('slider', {hidden: true});
 		expect(slider).toBeNull();
 	});
+
 	test('should fire `onBack` with `onBack` type when clicking on back button', async () => {
 		const handleBack = jest.fn();
 
@@ -76,6 +79,7 @@ describe('VideoPlayer', () => {
 		const actual = handleBack.mock.calls.length && handleBack.mock.calls[0][0];
 		expect(actual).toMatchObject(expected);
 	});
+
 	test('should toggle to show the media control', async () => {
 		render(
 			<VideoPlayer data-testid="videoplayer-id" />
@@ -90,6 +94,7 @@ describe('VideoPlayer', () => {
 		const backButton  = screen.queryByLabelText('go to previous');
 		expect(backButton).toBeNull();
 	});
+
 	test('should not to show the media control when disable is true', () => {
 		render(
 			<VideoPlayer data-testid="videoplayer-id" disabled />
@@ -101,6 +106,7 @@ describe('VideoPlayer', () => {
 		const backButton  = screen.queryByLabelText('go to previous');
 		expect(backButton).toBeNull();
 	});
+
 	test('should fire `onToggleMore` with `onToggleMore` type when downkey pressed during pause button focus', async () => {
 		const handleToggleMore = jest.fn();
 
@@ -124,6 +130,7 @@ describe('VideoPlayer', () => {
 			expect(actual).toMatchObject(expected);
 		});
 	});
+
 	test('should not to show the media control after the delay', () => {
 		jest.useFakeTimers();
 		const timeout = 100;
@@ -141,6 +148,7 @@ describe('VideoPlayer', () => {
 
 		jest.useRealTimers();
 	});
+
 	test('should not to show the title after the delay', () => {
 		jest.useFakeTimers();
 		const timeout = 100;
