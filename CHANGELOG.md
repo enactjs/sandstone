@@ -4,9 +4,24 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `@sand-inputfield-focus-text-color-rgb`, `@sand-picker-joined-fingernail-border-color`, `@sand-progress-buffer-color`, and `--sand-progress-buffer-color` as they are not used anymore
+
+### Added
+
+- `sandstone/FormCheckboxItem` CSS variable `--sand-formcheckboxitem-focus-text-color` for a customization of the focused text color
+
+### Changed
+
+- `--sand-checkbox-disabled-selected-color` to `--sand-checkbox-disabled-selected-text-color`
+- `@sand-alert-overlay-checkbox-disabled-selected-color` to `@sand-alert-overlay-checkbox-disabled-selected-text-color`
+
 ### Fixed
 
+- `sandstone/ImageItem` to have proper size when imported with `sandstone/Dropdown` or `sandstone/VirtualList` in the same file
 - `sandstone/MediaPlayer.MediaControls` to focus properly when pressing up key from buttons after holding left or right keys
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hover when scrollbar is hidden or `dataSize` is changed
 
 ## [2.5.4] - 2022-09-23
 
@@ -14,12 +29,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` to not show the focus effect of the body in pointer mode when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Slider` tooltip arrow to show properly
+- `sandstone/Input` text color for number type cell when disabled to match GUI
 
 ## [2.5.3] - 2022-08-30
 
 ### Added
 
-- `sandstone/Icon` supported icon list, adding a new icon `musicsrc` 
+- `sandstone/Icon` supported icon list, adding a new icon `musicsrc`
 
 ### Fixed
 
@@ -33,7 +49,7 @@ No significant changes.
 
 ### Added
 
-- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall` 
+- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall`
 
 ### Fixed
 
