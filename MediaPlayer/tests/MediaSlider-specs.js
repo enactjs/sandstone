@@ -122,7 +122,7 @@ describe('MediaSlider', () => {
 
 		focus(slider);
 
-		const touches = [{clientX:10}];
+		const touches = [{clientX: 10}];
 		fireEvent.touchMove(slider, {touches});
 
 		expect(handleKnobMove).toBeCalled();
