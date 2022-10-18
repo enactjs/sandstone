@@ -38,7 +38,7 @@ describe('MediaSlider', () => {
 		expect(handleFocus).toBeCalled();
 	});
 
-	test('should forward `onBlur` on blur', () => {
+	test('should forward `onBlur` when blurred', () => {
 		const handleBlur = jest.fn();
 
 		render(
@@ -107,6 +107,23 @@ describe('MediaSlider', () => {
 
 		fireEvent.mouseEnter(slider);
 		fireEvent.mouseMove(slider, {clientX: 10});
+
+		expect(handleKnobMove).toBeCalled();
+	});
+
+	test('should forward `onKnobMove` when touchMove event occurs', () => {
+		const handleKnobMove = jest.fn();
+
+		render(
+			<MediaSlider data-testid="mediaslider-id" onKnobMove={handleKnobMove} />
+		);
+
+		const slider = screen.getByTestId('mediaslider-id');
+
+		focus(slider);
+
+		const touches = [{clientX:10}];
+		fireEvent.touchMove(slider, {touches});
 
 		expect(handleKnobMove).toBeCalled();
 	});

@@ -16,7 +16,7 @@ const getDurFmt = (locale) => {
 
 describe('util', () => {
 	describe('countReactChildren', () => {
-		test('should return the chilren node number', () => {
+		test('should return the number of children node', () => {
 			const expected = 2;
 			let actual;
 
