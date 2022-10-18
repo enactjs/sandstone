@@ -173,6 +173,7 @@ export const _VideoPlayer = (args) => {
 				</infoComponents>
 				<MediaControls
 					actionGuideAriaLabel={args['actionGuideAriaLabel']}
+					actionGuideButtonAriaLabel={args['actionGuideButtonAriaLabel']}
 					actionGuideLabel={args['actionGuideLabel']}
 					jumpBackwardIcon={args['jumpBackwardIcon']}
 					jumpButtonsDisabled={args['jumpButtonsDisabled']}
@@ -239,10 +240,16 @@ text(
 	'Press Down Key Using Remote Control'
 );
 text(
+	'actionGuideButtonAriaLabel',
+	_VideoPlayer,
+	MediaControlsConfig,
+	'This is label 0'
+);
+text(
 	'actionGuideLabel',
 	_VideoPlayer,
 	MediaControlsConfig,
-	'Press Down Button to Scroll'
+	''
 );
 select('jumpBackwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpbackward');
 boolean('jumpButtonsDisabled', _VideoPlayer, MediaControlsConfig);

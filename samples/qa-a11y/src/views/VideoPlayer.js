@@ -38,7 +38,7 @@ const VideoPlayerView = () => (
 		<VideoPlayer poster="http://media.w3.org/2010/05/bunny/poster.png" title="Downton Abbey">
 			<source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
 			<infoComponents>DTV REC 08:22 THX 16:9</infoComponents>
-			<MediaControls actionGuideLabel="Press Down Button to Scroll">
+			<MediaControls actionGuideButtonAriaLabel="This is label 0.">
 				<bottomComponents>
 					<VirtualGridList
 						dataSize={20}

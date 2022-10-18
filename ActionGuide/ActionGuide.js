@@ -15,7 +15,7 @@ import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
-import Icon from '../Icon';
+import Button from '../Button';
 import {Marquee} from '../Marquee';
 import Skinnable from '../Skinnable';
 
@@ -36,6 +36,14 @@ const ActionGuideBase = kind({
 	name: 'ActionGuide',
 
 	propTypes: /** @lends sandstone/ActionGuide.ActionGuideBase.prototype */ {
+		/**
+		 * The "aria-label" for the button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		buttonAriaLabel: PropTypes.string,
+
 		/**
 		 * The contents for the action guide.
 		 *
@@ -58,13 +66,30 @@ const ActionGuideBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Disables the button.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * The icon displayed within the action guide.
 		 *
 		 * @type {String}
 		 * @default 'arrowsmalldown'
 		 * @public
 		 */
-		icon: PropTypes.string
+		icon: PropTypes.string,
+
+		/**
+		 * Called when Button is clicked.
+		 *
+		 * @type {Function}
+		 * @param {Object} event
+		 * @public
+		 */
+		onClick: PropTypes.func
 	},
 
 	defaultProps: {
@@ -77,10 +102,10 @@ const ActionGuideBase = kind({
 		publicClassNames: ['actionGuide']
 	},
 
-	render: ({icon, children, css, ...rest}) => {
+	render: ({buttonAriaLabel, children, css, disabled, icon, onClick, ...rest}) => {
 		return (
 			<div {...rest}>
-				<Icon size="small" className={css.icon}>{icon}</Icon>
+				<Button aria-label={buttonAriaLabel ? buttonAriaLabel : null} className={css.icon} disabled={disabled} icon={icon} minWidth={false} onClick={onClick} size="small" />
 				<Marquee className={css.label} marqueeOn="render" alignment="center">{children}</Marquee>
 			</div>
 		);

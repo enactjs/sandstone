@@ -91,6 +91,22 @@ const MediaControlsBase = kind({
 		actionGuideAriaLabel: PropTypes.string,
 
 		/**
+		 * The `aria-label` for the action guide button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		actionGuideButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * Disables the ActionGuide.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		actionGuideDisabled: PropTypes.bool,
+
+		/**
 		 * The label for the action guide.
 		 *
 		 * @type {String}
@@ -174,6 +190,15 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		noJumpButtons: PropTypes.bool,
+
+		/**
+		 * Called when the button in ActionGuide is clicked.
+		 *
+		 * @type {Function}
+		 * @param {Object} event
+		 * @public
+		 */
+		onActionGuideClick: PropTypes.func,
 
 		/**
 		 * Called when cancel/back key events are fired.
@@ -315,6 +340,8 @@ const MediaControlsBase = kind({
 
 	render: ({
 		actionGuideAriaLabel,
+		actionGuideButtonAriaLabel,
+		actionGuideDisabled,
 		actionGuideLabel,
 		actionGuideShowing,
 		children,
@@ -327,6 +354,7 @@ const MediaControlsBase = kind({
 		mediaDisabled,
 		moreComponentsSpotlightId,
 		noJumpButtons,
+		onActionGuideClick,
 		onJumpBackwardButtonClick,
 		onJumpForwardButtonClick,
 		onKeyDownFromMediaButtons,
@@ -353,7 +381,7 @@ const MediaControlsBase = kind({
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
-					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} css={css} className={actionGuideClassName} icon="arrowsmalldown">{actionGuideLabel}</ActionGuide> :
+					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} buttonAriaLabel={actionGuideButtonAriaLabel} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
 					null
 				}
 				{moreComponentsRendered ?
@@ -557,6 +585,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			this.actionGuideHeight = 0;
 			this.animation = null;
 			this.bottomComponentsHeight = 0;
+			this.moreComponentsSpotlightId = 'moreComponents';
 			this.keyLoop = null;
 			this.pulsingKeyCode = null;
 			this.pulsing = null;
@@ -665,13 +694,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
 		};
 
-		handleKeyDownFromMediaButtons = (ev) => {
-			if (is('down', ev.keyCode) && !this.state.showMoreComponents && !this.props.moreActionDisabled) {
-				this.showMoreComponents();
-				ev.stopPropagation();
-			}
-		};
-
 		handleKeyDown = (ev) => {
 			const {
 				mediaDisabled,
@@ -730,6 +752,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 
 		handleWheel = (ev) => {
 			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled && ev.deltaY > 0) {
+				this.showMoreComponents();
+			}
+		};
+
+		handleActionGuideClick = () => {
+			if (!this.state.showMoreComponents) {
 				this.showMoreComponents();
 			}
 		};
@@ -810,7 +838,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			if (this.state.showMoreComponents) {
 				this.paused.resume();
 				if (!Spotlight.getPointerMode()) {
-					Spotlight.move('down');
+					Spotlight.focus(this.moreComponentsSpotlightId);
 				}
 			}
 		};
@@ -838,11 +866,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 				<Wrapped
 					{...props}
 					mediaControlsRef={this.mediaControlsRef}
+					actionGuideDisabled={this.props.moreActionDisabled}
 					moreComponentsRendered={this.state.moreComponentsRendered}
+					moreComponentsSpotlightId={this.moreComponentsSpotlightId}
+					onActionGuideClick={this.handleActionGuideClick}
 					onClose={this.handleClose}
-					onKeyDownFromMediaButtons={this.handleKeyDownFromMediaButtons}
 					onPlayButtonClick={this.handlePlayButtonClick}
-					onTransitionEnd={this.handleTransitionEnd}
 					ref={this.getMediaControls}
 					showMoreComponents={this.state.showMoreComponents}
 				/>
