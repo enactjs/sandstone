@@ -235,7 +235,7 @@ text(
 	'actionGuideButtonAriaLabel',
 	_VideoPlayer,
 	MediaControlsConfig,
-	'more'
+	''
 );
 select('jumpBackwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpbackward');
 boolean('jumpButtonsDisabled', _VideoPlayer, MediaControlsConfig);
