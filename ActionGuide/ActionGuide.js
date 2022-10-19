@@ -15,6 +15,7 @@ import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
+import $L from '../internal/$L';
 import Button from '../Button';
 import {Marquee} from '../Marquee';
 import Skinnable from '../Skinnable';
@@ -105,7 +106,7 @@ const ActionGuideBase = kind({
 	render: ({buttonAriaLabel, children, css, disabled, icon, onClick, ...rest}) => {
 		return (
 			<div {...rest}>
-				<Button aria-label={buttonAriaLabel ? buttonAriaLabel : null} className={css.icon} disabled={disabled} icon={icon} minWidth={false} onClick={onClick} size="small" />
+				<Button aria-label={buttonAriaLabel ? buttonAriaLabel : $L('more')} className={css.icon} disabled={disabled} icon={icon} minWidth={false} onClick={onClick} size="small" />
 				<Marquee className={css.label} marqueeOn="render" alignment="center">{children}</Marquee>
 			</div>
 		);

@@ -172,9 +172,7 @@ export const _VideoPlayer = (args) => {
 					A video about some things happening to and around some characters. Very exciting stuff.
 				</infoComponents>
 				<MediaControls
-					actionGuideAriaLabel={args['actionGuideAriaLabel']}
 					actionGuideButtonAriaLabel={args['actionGuideButtonAriaLabel']}
-					actionGuideLabel={args['actionGuideLabel']}
 					jumpBackwardIcon={args['jumpBackwardIcon']}
 					jumpButtonsDisabled={args['jumpButtonsDisabled']}
 					jumpForwardIcon={args['jumpForwardIcon']}
@@ -234,22 +232,10 @@ boolean('thumbnailUnavailable', _VideoPlayer, Config);
 text('title', _VideoPlayer, Config, 'Sandstone VideoPlayer Sample Video');
 number('titleHideDelay', _VideoPlayer, Config, 4000);
 text(
-	'actionGuideAriaLabel',
-	_VideoPlayer,
-	MediaControlsConfig,
-	'Press Down Key Using Remote Control'
-);
-text(
 	'actionGuideButtonAriaLabel',
 	_VideoPlayer,
 	MediaControlsConfig,
-	'This is label 0'
-);
-text(
-	'actionGuideLabel',
-	_VideoPlayer,
-	MediaControlsConfig,
-	''
+	'more'
 );
 select('jumpBackwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpbackward');
 boolean('jumpButtonsDisabled', _VideoPlayer, MediaControlsConfig);

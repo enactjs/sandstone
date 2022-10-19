@@ -381,7 +381,7 @@ const MediaControlsBase = kind({
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
-					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} buttonAriaLabel={actionGuideButtonAriaLabel == null ? $L('This is label 0') : actionGuideButtonAriaLabel} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
+					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} buttonAriaLabel={actionGuideButtonAriaLabel} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
 					null
 				}
 				{moreComponentsRendered ?
@@ -615,7 +615,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			on('keydown', this.handleKeyDown, document);
 			on('keyup', this.handleKeyUp, document);
 			on('blur', this.handleBlur, window);
-			on('wheel', this.handleWheel, document);
 		}
 
 		componentDidUpdate (prevProps, prevState) {
@@ -670,7 +669,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			off('keydown', this.handleKeyDown, document);
 			off('keyup', this.handleKeyUp, document);
 			off('blur', this.handleBlur, window);
-			off('wheel', this.handleWheel, document);
 			this.stopListeningForPulses();
 			this.moreComponentsRenderingJob.stop();
 			if (this.animation) {
@@ -748,12 +746,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 		handleBlur = () => {
 			this.stopListeningForPulses();
 			this.paused.resume();
-		};
-
-		handleWheel = (ev) => {
-			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled && ev.deltaY > 0) {
-				this.showMoreComponents();
-			}
 		};
 
 		handleActionGuideClick = () => {
