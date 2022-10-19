@@ -48,6 +48,7 @@ const skins = {
 };
 
 configureActions();
+
 export const parameters = {
 	docs: {
 		container: DocsContainer,
@@ -60,6 +61,7 @@ export const parameters = {
 		}
 	}
 };
+
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
@@ -71,4 +73,5 @@ export const globalTypes = {
 	'debug spotlight': getBooleanType('debug spotlight'),
 	'debug sprites': getBooleanType('debug sprites')
 };
+
 export const decorators = [ThemeEnvironment];

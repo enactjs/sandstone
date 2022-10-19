@@ -61,6 +61,7 @@ const StorybookDecorator = (story, config = {}) => {
 		spotlight: JSON.parse(globals['debug spotlight']),
 		sprites: JSON.parse(globals['debug sprites'])
 	};
+
 	if (Object.keys(classes).length > 0) {
 		classes.debug = true;
 	}

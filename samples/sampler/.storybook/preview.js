@@ -3,7 +3,7 @@ import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/contr
 import {DocsPage, DocsContainer} from '@enact/storybook-utils/addons/docs';
 import {themes} from '@storybook/theming';
 
-import ThemeEnvironment from '../src/ThemeEnvironment'
+import ThemeEnvironment from '../src/ThemeEnvironment';
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
@@ -72,4 +72,5 @@ export const globalTypes = {
 	'debug spotlight': getBooleanType('debug spotlight'),
 	'debug sprites': getBooleanType('debug sprites')
 };
+
 export const decorators = [ThemeEnvironment];
