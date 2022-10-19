@@ -2426,7 +2426,7 @@
     },
     "node_modules/@enact/dev-utils": {
       "version": "5.0.2",
-      "resolved": "git+ssh://git@github.com/enactjs/dev-utils.git#a7002032de36191c39b11c136d3628fa728b09d4",
+      "resolved": "git+ssh://git@github.com/enactjs/dev-utils.git#bc991926378ea98f97c48ac23e1f8a2ba697377a",
       "dev": true,
       "license": "Apache-2.0",
       "dependencies": {
@@ -2607,7 +2607,7 @@
     },
     "node_modules/@enact/storybook-utils": {
       "version": "5.0.0",
-      "resolved": "git+ssh://git@github.com/enactjs/storybook-utils.git#893858d789b6f49d36802dc75362fef6b90aeae3",
+      "resolved": "git+ssh://git@github.com/enactjs/storybook-utils.git#2568ece55999b2fc31cff33e8e0663e0e1f71e61",
       "dev": true,
       "license": "Apache-2.0",
       "dependencies": {
@@ -10302,7 +10302,7 @@
     },
     "node_modules/babel-preset-enact-app": {
       "version": "1.0.0",
-      "resolved": "git+ssh://git@github.com/enactjs/babel-preset-enact-app.git#9fae0db4c72e4e0b54065cf7e3ce7133195f2af5",
+      "resolved": "git+ssh://git@github.com/enactjs/babel-preset-enact-app.git#14ce6380a53c83f82c891c0cdb1ef67a6aadb87d",
       "dev": true,
       "license": "Apache-2.0",
       "dependencies": {
@@ -25816,7 +25816,7 @@
       }
     },
     "@enact/dev-utils": {
-      "version": "git+ssh://git@github.com/enactjs/dev-utils.git#a7002032de36191c39b11c136d3628fa728b09d4",
+      "version": "git+ssh://git@github.com/enactjs/dev-utils.git#bc991926378ea98f97c48ac23e1f8a2ba697377a",
       "dev": true,
       "from": "@enact/dev-utils@github:enactjs/dev-utils#feature/WRO-697",
       "requires": {
@@ -25954,7 +25954,7 @@
       }
     },
     "@enact/storybook-utils": {
-      "version": "git+ssh://git@github.com/enactjs/storybook-utils.git#893858d789b6f49d36802dc75362fef6b90aeae3",
+      "version": "git+ssh://git@github.com/enactjs/storybook-utils.git#2568ece55999b2fc31cff33e8e0663e0e1f71e61",
       "dev": true,
       "from": "@enact/storybook-utils@github:enactjs/storybook-utils#feature/WRO-697",
       "requires": {
@@ -32103,7 +32103,7 @@
       "dev": true
     },
     "babel-preset-enact-app": {
-      "version": "git+ssh://git@github.com/enactjs/babel-preset-enact-app.git#9fae0db4c72e4e0b54065cf7e3ce7133195f2af5",
+      "version": "git+ssh://git@github.com/enactjs/babel-preset-enact-app.git#14ce6380a53c83f82c891c0cdb1ef67a6aadb87d",
       "dev": true,
       "from": "babel-preset-enact-app@github:enactjs/babel-preset-enact-app#feature/WRO-697",
       "requires": {
