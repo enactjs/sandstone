@@ -44,8 +44,8 @@ const
 
 /**
  * The name of a custom attribute which indicates the index of an item in
- * [VirtualList]{@link sandstone/VirtualList.VirtualList} or
- * [VirtualGridList]{@link sandstone/VirtualList.VirtualGridList}.
+ * {@link sandstone/VirtualList.VirtualList|VirtualList} or
+ * {@link sandstone/VirtualList.VirtualGridList|VirtualGridList}.
  *
  * @constant dataIndexAttribute
  * @memberof sandstone/useScroll

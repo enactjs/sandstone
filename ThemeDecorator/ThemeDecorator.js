@@ -145,13 +145,13 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
 /**
  * A higher-order component that applies Sandstone theming to an application.
  *
- * It also applies [floating layer]{@link ui/FloatingLayer.FloatingLayerDecorator},
- * [resolution independence]{@link ui/resolution.ResolutionDecorator},
- * [skin support]{@link sandstone/Skinnable}, [spotlight]{@link spotlight.SpotlightRootDecorator}, and
- * [internationalization support]{@link i18n/I18nDecorator.I18nDecorator}.
+ * It also applies {@link ui/FloatingLayer.FloatingLayerDecorator|floating layer},
+ * {@link ui/resolution.ResolutionDecorator|resolution independence},
+ * {@link sandstone/Skinnable|skin support}, {@link spotlight.SpotlightRootDecorator|spotlight}, and
+ * {@link i18n/I18nDecorator.I18nDecorator|internationalization support}.
  * It is meant to be applied to the root element of an app.
  *
- * [Skins]{@link sandstone/Skinnable} provide a way to change the coloration of your app. The
+ * {@link sandstone/Skinnable|Skins} provide a way to change the coloration of your app. The
  * currently supported skins for Sandstone are "sandstone" (the default, dark skin) and
  * "sandstone-light". Use the `skin` property to assign a skin. Ex: `<DecoratedApp skin="light" />`
  *

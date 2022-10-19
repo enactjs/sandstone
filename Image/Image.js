@@ -132,7 +132,7 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {
 });
 
 /**
- * Sandstone-specific behaviors to apply to [Image]{@link sandstone/Image.ImageBase}.
+ * Sandstone-specific behaviors to apply to {@link sandstone/Image.ImageBase|Image}.
  *
  * @hoc
  * @memberof sandstone/Image

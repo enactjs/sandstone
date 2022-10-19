@@ -27,7 +27,7 @@ const Item = ItemDecorator(ItemBase);
  * An item component with a radio toggle icon.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [RadioItem]{@link sandstone/RadioItem.RadioItem}.
+ * is within {@link sandstone/RadioItem.RadioItem|RadioItem}.
  *
  * @class RadioItemBase
  * @memberof sandstone/RadioItem
@@ -109,7 +109,7 @@ const RadioItemBase = kind({
 });
 
 /**
- * Sandstone specific behaviors to apply to [RadioItem]{@link sandstone/RadioItem.RadioItemBase}.
+ * Sandstone specific behaviors to apply to {@link sandstone/RadioItem.RadioItemBase|RadioItem}.
  *
  * @hoc
  * @memberof sandstone/RadioItem
