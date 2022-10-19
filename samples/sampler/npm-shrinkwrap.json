@@ -17835,7 +17835,7 @@
     },
     "node_modules/@enact/storybook-utils": {
       "version": "5.0.0",
-      "resolved": "git+ssh://git@github.com/enactjs/storybook-utils.git#306414b7e23fa6e5aeb6f2cda0fdd9d4cdfaa48c",
+      "resolved": "git+ssh://git@github.com/enactjs/storybook-utils.git#bdee48bf0357bb782f14c567af065720cedec075",
       "dev": true,
       "license": "Apache-2.0",
       "dependencies": {
@@ -25721,7 +25721,7 @@
     },
     "node_modules/babel-preset-enact-app": {
       "version": "0.0.1",
-      "resolved": "git+ssh://git@github.com/enactjs/babel-preset-enact-app.git#4c2d0a08a8103e6ba2ac7ff99a732bbbae737de7",
+      "resolved": "git+ssh://git@github.com/enactjs/babel-preset-enact-app.git#4c3b4abc40cc920b801736f9ba6001e17e90a562",
       "dev": true,
       "license": "Apache-2.0",
       "dependencies": {
@@ -52539,7 +52539,7 @@
       }
     },
     "@enact/storybook-utils": {
-      "version": "git+ssh://git@github.com/enactjs/storybook-utils.git#306414b7e23fa6e5aeb6f2cda0fdd9d4cdfaa48c",
+      "version": "git+ssh://git@github.com/enactjs/storybook-utils.git#bdee48bf0357bb782f14c567af065720cedec075",
       "dev": true,
       "from": "@enact/storybook-utils@github:enactjs/storybook-utils#feature/WRO-697",
       "requires": {
@@ -58813,7 +58813,7 @@
       "dev": true
     },
     "babel-preset-enact-app": {
-      "version": "git+ssh://git@github.com/enactjs/babel-preset-enact-app.git#4c2d0a08a8103e6ba2ac7ff99a732bbbae737de7",
+      "version": "git+ssh://git@github.com/enactjs/babel-preset-enact-app.git#4c3b4abc40cc920b801736f9ba6001e17e90a562",
       "dev": true,
       "from": "babel-preset-enact-app@github:enactjs/babel-preset-enact-app#feature/WRO-697",
       "requires": {
