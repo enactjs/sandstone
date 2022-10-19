@@ -99,7 +99,7 @@ const PickerBase = (props) => {
 		'aria-valuetext': ariaValueText,
 		changedBy,
 		children,
-		css: incomingCss,
+		css: customCss,
 		disabled,
 		id,
 		index,
@@ -117,7 +117,7 @@ const PickerBase = (props) => {
 		wrap,
 		...rest
 	} = props;
-	const css = usePublicClassNames({componentCss, incomingCss, publicClassNames: true});
+	const css = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 	const decrementIcon = selectDecIcon(props);
 	const horizontal = orientation === 'horizontal';
 	const incrementIcon = selectIncIcon(props);
