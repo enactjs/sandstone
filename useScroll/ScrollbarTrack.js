@@ -134,7 +134,7 @@ ScrollbarTrack.displayName = 'ScrollbarTrack';
 
 ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototype */ {
 	/**
-	 * Called when [ScrollbarTrack]{@link sandstone/useScroll.ScrollbarTrack} is updated.
+	 * Called when {@link sandstone/useScroll.ScrollbarTrack|ScrollbarTrack} is updated.
 	 *
 	 * @type {Function}
 	 * @private

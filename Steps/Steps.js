@@ -239,7 +239,7 @@ const StepsBase = kind({
 });
 
 /**
- * Sandstone-specific behaviors to apply to [StepsBase]{@link sandstone/Steps.StepsBase}.
+ * Sandstone-specific behaviors to apply to {@link sandstone/Steps.StepsBase|StepsBase}.
  *
  * @hoc
  * @memberof sandstone/Steps

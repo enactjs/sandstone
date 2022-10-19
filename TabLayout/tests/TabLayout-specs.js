@@ -1,23 +1,39 @@
+import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
+const keyDown = (keyCode) => (tab) => fireEvent.keyDown(tab, {keyCode});
+const keyUp = (keyCode) => (tab) => fireEvent.keyUp(tab, {keyCode});
+
+const leftKeyDown = keyDown(37);
+const leftKeyUp = keyUp(37);
+const enterKeyDown = keyDown(13);
+const enterKeyUp = keyUp(13);
+
 describe('TabLayout specs', () => {
+	test('should be able to render \'Tab\' outside \'TabLayout\'', () => {
+		render(<Tab title="Single Tab" />);
+
+		const tab = screen.getByText('Tab is only to be used in TabLayout!');
+		expect(tab).toBeInTheDocument();
+	});
+
 	test('should be collapsed when collapsed is true', () => {
 		render(
 			<TabLayoutBase
-				data-testid="tabLayout"
 				collapsed
+				data-testid="tabLayout"
 			>
-				<Tab title="Home" icon="home">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="demosync">
+				<Tab icon="demosync" title="Button">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="playcircle">
+				<Tab icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -32,13 +48,13 @@ describe('TabLayout specs', () => {
 	test('should have default orientation of vertical', () => {
 		render(
 			<TabLayoutBase data-testid="tabLayout">
-				<Tab title="Home" icon="home">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
 				<Tab title="Button" icon="demosync">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="playcircle">
+				<Tab icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -56,13 +72,13 @@ describe('TabLayout specs', () => {
 				data-testid="tabLayout"
 				orientation="horizontal"
 			>
-				<Tab title="Home" icon="home">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="demosync">
+				<Tab icon="demosync" title="Button">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="playcircle">
+				<Tab icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -77,8 +93,8 @@ describe('TabLayout specs', () => {
 	test('should call onTabAnimationEnd for vertical tabs', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout data-testid="tabLayout" orientation="vertical" onTabAnimationEnd={spy}>
-				<Tab title="Home" icon="home">
+			<TabLayout data-testid="tabLayout" onTabAnimationEnd={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
@@ -93,8 +109,8 @@ describe('TabLayout specs', () => {
 	test('should include expected payload in onTabAnimationEnd', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout data-testid="tabLayout" orientation="vertical" onTabAnimationEnd={spy} collapsed>
-				<Tab title="Home" icon="home">
+			<TabLayout collapsed data-testid="tabLayout" onTabAnimationEnd={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
@@ -115,8 +131,8 @@ describe('TabLayout specs', () => {
 	test('should not call onTabAnimationEnd for horizontal tabs', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout data-testid="tabLayout" orientation="horizontal" onTabAnimationEnd={spy}>
-				<Tab title="Home" icon="home">
+			<TabLayout data-testid="tabLayout" onTabAnimationEnd={spy} orientation="horizontal">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
 			</TabLayout>
@@ -128,14 +144,14 @@ describe('TabLayout specs', () => {
 		expect(spy).not.toHaveBeenCalled();
 	});
 
-	test('should call `onSelect` with `onSelect` type when selecting a tab', () => {
+	test('should call \'onSelect\' with \'onSelect\' type when clicking on a tab', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout orientation="vertical" onSelect={spy}>
-				<Tab title="Home" icon="home">
+			<TabLayout onSelect={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
-				<Tab data-testid="tab" title="Item" icon="playcircle">
+				<Tab data-testid="tab" icon="playcircle" title="Item">
 					<div>Item</div>
 				</Tab>
 			</TabLayout>
@@ -144,6 +160,99 @@ describe('TabLayout specs', () => {
 		userEvent.click(screen.getAllByTestId('tab')[1]);
 
 		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout onSelect={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
+					<div>Home</div>
+				</Tab>
+				<Tab data-testid="tab" icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[1];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
+
+		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should not call \'onSelect\' when pressing directional key on a tab', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout collapsed onSelect={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
+					<div>Home</div>
+				</Tab>
+				<Tab data-testid="tab" icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[1];
+		leftKeyDown(tab);
+		leftKeyUp(tab);
+
+		expect(spy).not.toHaveBeenCalled();
+	});
+
+	test('should call \'onSelect\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
+		Spotlight.getPointerMode = jest.fn(() => false);
+		Spotlight.isPaused = jest.fn(() => false);
+		const spy = jest.fn();
+
+		render(
+			<TabLayout onSelect={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
+					<div>Home</div>
+				</Tab>
+				<Tab data-testid="tab" icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[1];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
+
+		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
+		Spotlight.getPointerMode = jest.fn(() => false);
+		Spotlight.isPaused = jest.fn(() => false);
+		const spy = jest.fn();
+
+		render(
+			<TabLayout data-testid="tabLayout" onTabAnimationEnd={spy} orientation="vertical">
+				<Tab icon="home" title="Home">
+					<div>Home</div>
+				</Tab>
+				<Tab icon="playcircle" title="Item">
+					<div>Item</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		fireEvent.transitionEnd(screen.getByTestId('tabLayout').children.item(0));
+
+		const expected = {type: 'onTabAnimationEnd'};
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);

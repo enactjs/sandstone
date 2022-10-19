@@ -80,7 +80,7 @@ const TabLayoutBase = kind({
 		anchorTo: PropTypes.oneOf(['left', 'right', 'start', 'end']),
 
 		/**
-		 * Collection of [Tabs]{@link sandstone/TabLayout.Tab} to render.
+		 * Collection of {@link sandstone/TabLayout.Tab|Tabs} to render.
 		 *
 		 * @type {Node}
 		 * @public

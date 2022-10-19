@@ -655,29 +655,29 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 */
 	index: PropTypes.number.isRequired,
 
-	/**
-	 * The maximum value selectable by the picker (inclusive).
-	 *
-	 * The range between `min` and `max` should be evenly divisible by
-	 * [step]{@link sandstone/internal/Picker.PickerBase.step}.
-	 *
-	 * @type {Number}
-	 * @required
-	 * @public
-	 */
-	max: PropTypes.number.isRequired,
+		/**
+		 * The maximum value selectable by the picker (inclusive).
+		 *
+		 * The range between `min` and `max` should be evenly divisible by
+		 * {@link sandstone/internal/Picker.PickerBase.step|step}.
+		 *
+		 * @type {Number}
+		 * @required
+		 * @public
+		 */
+		max: PropTypes.number.isRequired,
 
-	/**
-	 * The minimum value selectable by the picker (inclusive).
-	 *
-	 * The range between `min` and `max` should be evenly divisible by
-	 * [step]{@link sandstone/internal/Picker.PickerBase.step}.
-	 *
-	 * @type {Number}
-	 * @required
-	 * @public
-	 */
-	min: PropTypes.number.isRequired,
+		/**
+		 * The minimum value selectable by the picker (inclusive).
+		 *
+		 * The range between `min` and `max` should be evenly divisible by
+		 * {@link sandstone/internal/Picker.PickerBase.step|step}.
+		 *
+		 * @type {Number}
+		 * @required
+		 * @public
+		 */
+		min: PropTypes.number.isRequired,
 
 	/**
 	 * Accessibility hint
@@ -714,21 +714,21 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 */
 	'aria-valuetext': PropTypes.string,
 
-	/**
-	 * Determines which key to adjust the picker's value for the joined horizontal one.
-	 *
-	 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
-	 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
-	 *
-	 * The default value for joined horizontal picker is `'enter'`.
-	 * If [orientation]{@link sandstone/internal/Picker.PickerBase#orientation} is `'vertical'` or
-	 * [joined]{@link sandstone/internal/Picker.PickerBase#joined} is undefined or is `false`, this prop is ignored.
-	 *
-	 * @type {('enter'|'arrow')}
-	 * @default 'enter'
-	 * @public
-	 */
-	changedBy: PropTypes.oneOf(['enter', 'arrow']),
+		/**
+		 * Determines which key to adjust the picker's value for the joined horizontal one.
+		 *
+		 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
+		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
+		 *
+		 * The default value for joined horizontal picker is `'enter'`.
+		 * If {@link sandstone/internal/Picker.PickerBase#orientation|orientation} is `'vertical'` or
+		 * {@link sandstone/internal/Picker.PickerBase#joined|joined} is undefined or is `false`, this prop is ignored.
+		 *
+		 * @type {('enter'|'arrow')}
+		 * @default 'enter'
+		 * @public
+		 */
+		changedBy: PropTypes.oneOf(['enter', 'arrow']),
 
 	/**
 	 * Children from which to pick
@@ -781,24 +781,24 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 */
 	decrementAriaLabel: PropTypes.string,
 
-	/**
-	 * Assign a custom icon for the decrementer. All strings supported by [Icon]{@link sandstone/Icon.Icon} are
-	 * supported. Without a custom icon, the default is used, and is automatically changed when
-	 * the [orientation]{@link sandstone/Icon.Icon#orientation} is changed.
-	 *
-	 * @type {String}
-	 * @public
-	 */
-	decrementIcon: PropTypes.string,
+		/**
+		 * Assign a custom icon for the decrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
+		 * supported. Without a custom icon, the default is used, and is automatically changed when
+		 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		decrementIcon: PropTypes.string,
 
-	/**
-	 * When `true`, the Picker is shown as disabled and does not generate `onChange`
-	 * [events]{@link /docs/developer-guide/glossary/#event}.
-	 *
-	 * @type {Boolean}
-	 * @public
-	 */
-	disabled: PropTypes.bool,
+		/**
+		 * When `true`, the Picker is shown as disabled and does not generate `onChange`
+		 * {@link /docs/developer-guide/glossary/#event|events}.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
 
 	/**
 	 * The picker id reference for setting aria-controls.
@@ -817,29 +817,29 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 */
 	incrementAriaLabel: PropTypes.string,
 
-	/**
-	 * Assign a custom icon for the incrementer. All strings supported by [Icon]{@link sandstone/Icon.Icon} are
-	 * supported. Without a custom icon, the default is used, and is automatically changed when
-	 * the [orientation]{@link sandstone/Icon.Icon#orientation} is changed.
-	 *
-	 * @type {String}
-	 * @public
-	 */
-	incrementIcon: PropTypes.string,
+		/**
+		 * Assign a custom icon for the incrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
+		 * supported. Without a custom icon, the default is used, and is automatically changed when
+		 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		incrementIcon: PropTypes.string,
 
-	/**
-	 * Determines the user interaction of the control. A joined picker allows the user to use
-	 * the arrow keys or the enter key to adjust the picker's value.
-	 * It depends on [changedBy]{@link sandstone/internal/Picker.PickerBase.changedBy}
-	 * whether to use the arrow keys or the enter key.
-	 * A split control allows full navigation,
-	 * but requires individual ENTER presses on the incrementer and decrementer buttons.
-	 * Pointer interaction is the same for both formats.
-	 *
-	 * @type {Boolean}
-	 * @public
-	 */
-	joined: PropTypes.bool,
+		/**
+		 * Determines the user interaction of the control. A joined picker allows the user to use
+		 * the arrow keys or the enter key to adjust the picker's value.
+		 * It depends on {@link sandstone/internal/Picker.PickerBase.changedBy|changedBy}
+		 * whether to use the arrow keys or the enter key.
+		 * A split control allows full navigation,
+		 * but requires individual ENTER presses on the incrementer and decrementer buttons.
+		 * Pointer interaction is the same for both formats.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		joined: PropTypes.bool,
 
 	/**
 	 * By default, the picker will animate transitions between items if it has a defined

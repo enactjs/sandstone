@@ -214,7 +214,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Enables editing items in the scroller.
 	 * You can specify props for editable scroller as an object.
-	 * See the details in [EditableShape]{@link sandstone/Scroller.EditableShape}
+	 * See the details in {@link sandstone/Scroller.EditableShape|EditableShape}
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
 	 * @public
@@ -276,7 +276,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Unique identifier for the component.
 	 *
-	 * When defined and when the `Scroller` is within a [Panel]{@link sandstone/Panels.Panel}, the
+	 * When defined and when the `Scroller` is within a {@link sandstone/Panels.Panel|Panel}, the
 	 * `Scroller` will store its scroll position and restore that position when returning to the
 	 * `Panel`.
 	 *

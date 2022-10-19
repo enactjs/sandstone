@@ -19,7 +19,7 @@ const completeAnnounceDelay = 300; // An arbitrary delay at a level that is not 
 const TouchableDiv = Touchable('div');
 
 /**
- * The shape for editable of [Scroller]{@link sandstone/Scroller}.
+ * The shape for editable of {@link sandstone/Scroller|Scroller}.
  *
  * @typedef {Object} EditableShape
  * @memberof sandstone/Scroller
@@ -580,7 +580,7 @@ EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.protot
 	/**
 	 * Enables editing items in the scroller.
 	 * You can specify props for editable scroller as an object.
-	 * See the datails in [EditableShape]{@link sandstone/Scroller.EditableShape}
+	 * See the datails in {@link sandstone/Scroller.EditableShape|EditableShape}
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
 	 * @public
