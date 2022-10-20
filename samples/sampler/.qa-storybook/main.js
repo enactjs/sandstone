@@ -8,8 +8,7 @@ module.exports = {
 		disableTelemetry: true
 	},
 	features: {
-		postcss: false,
-		storyStoreV7: true
+		postcss: false
 	},
 	framework: '@storybook/react',
 	stories: ['./../stories/qa/*.js'],
