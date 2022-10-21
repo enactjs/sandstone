@@ -171,7 +171,7 @@ const PopupBase = kind({
 		]),
 
 		/**
-		 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+		 * The container id for {@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId|Spotlight container}.
 		 *
 		 * @type {String}
 		 * @default null
@@ -184,7 +184,7 @@ const PopupBase = kind({
 		 *
 		 * It can be either `'none'`, `'self-first'`, or `'self-only'`.
 		 *
-		 * Note: The ready-to-use [Popup]{@link sandstone/Popup.Popup} component only supports
+		 * Note: The ready-to-use {@link sandstone/Popup.Popup|Popup} component only supports
 		 * `'self-first'` and `'self-only'`.
 		 *
 		 * @type {('none'|'self-first'|'self-only')}
@@ -269,7 +269,7 @@ const OpenState = {
 
 /**
  * A stateful component that renders a popup in a
- * [FloatingLayer]{@link ui/FloatingLayer.FloatingLayer}.
+ * {@link ui/FloatingLayer.FloatingLayer|FloatingLayer}.
  *
  * @class Popup
  * @memberof sandstone/Popup
@@ -349,7 +349,7 @@ class Popup extends Component {
 		 * Called after show transition has completed, and immediately with no transition.
 		 *
 		 * Note: The function does not run if Popup is initially opened and
-		 * [noAnimation]{@link sandstone/Popup.PopupBase#noAnimation} is `true`.
+		 * {@link sandstone/Popup.PopupBase#noAnimation|noAnimation} is `true`.
 		 *
 		 * @type {Function}
 		 * @public

@@ -226,7 +226,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * Unique identifier for the component.
 	 *
-	 * When defined and when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
+	 * When defined and when the `VirtualList` is within a {@link sandstone/Panels.Panel|Panel},
 	 * the `VirtualList` will store its scroll position and restore that position when returning to
 	 * the `Panel`.
 	 *
@@ -417,11 +417,11 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	scrollMode: PropTypes.string,
 
 	/**
-	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+	 * The container id for {@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId|Spotlight container}.
 	 *
 	 * It is a required prop to restore focus after remounting `VirtualList`.
 	 *
-	 * For example, with this prop specified, when a `VirtualList` is used in a [Panel]{@link sandstone/Panels.Panel},
+	 * For example, with this prop specified, when a `VirtualList` is used in a {@link sandstone/Panels.Panel|Panel},
 	 * the `Spotlight` will store the last focus information based on `SpotlightId` while navigating to another Panel.
 	 * And the `VirtualList` will restore the focus when it remounts while the navigation returns to the `Panel`.
 	 *
@@ -702,7 +702,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	/**
 	 * Unique identifier for the component.
 	 *
-	 * When defined and when the `VirtualGridList` is within a [Panel]{@link sandstone/Panels.Panel},
+	 * When defined and when the `VirtualGridList` is within a {@link sandstone/Panels.Panel|Panel},
 	 * the `VirtualGridList` will store its scroll position and restore that position when returning to
 	 * the `Panel`.
 	 *
@@ -895,11 +895,11 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	snapToCenter: PropTypes.bool,
 
 	/**
-	 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
+	 * The container id for {@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId|Spotlight container}.
 	 *
 	 * It is a required prop to restore focus after remounting `VirtualGridList`.
 	 *
-	 * For example, with this prop specified, when a `VirtualGridList` is used in a [Panel]{@link sandstone/Panels.Panel},
+	 * For example, with this prop specified, when a `VirtualGridList` is used in a {@link sandstone/Panels.Panel|Panel},
 	 * the `Spotlight` will store the last focus information based on `SpotlightId` while navigating to another Panel.
 	 * And the `VirtualGridList` will restore the focus when it remounts while the navigation returns to the `Panel`.
 	 *

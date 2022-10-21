@@ -40,7 +40,7 @@ describe('Picker Specs', () => {
 		expect(picker).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to decrement button when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to decrement button when voice control is disabled', () => {
 		render(
 			<PickerBase data-webos-voice-disabled>
 				{[1, 2, 3, 4]}
@@ -53,7 +53,7 @@ describe('Picker Specs', () => {
 		expect(decrementButton).toHaveAttribute(expected);
 	});
 
-	test('should set "data-webos-voice-disabled" to increment button when voice control is disabled', () => {
+	test('should set \'data-webos-voice-disabled\' to increment button when voice control is disabled', () => {
 		render(
 			<PickerBase data-webos-voice-disabled>
 				{[1, 2, 3, 4]}
@@ -96,5 +96,19 @@ describe('Picker Specs', () => {
 		expect(heading).toBeInTheDocument();
 		expect(actual).toHaveClass(expectedInline);
 		expect(actual).toHaveClass(expectedHeader);
+	});
+
+	test('should stringify custom voice control labels and set to \'data-webos-voice-labels-ext\'', () => {
+		const options = ['Option 1', 'The second one', 'This is the third option', '4'];
+		render(
+			<Picker data-webos-voice-labels-ext={options} inlineTitle title="title text" >
+				{[1, 2, 3, 4]}
+			</Picker>
+		);
+
+		const picker = screen.getAllByRole('button')[0].parentElement;
+		const expected = "[\"Option 1\",\"The second one\",\"This is the third option\",\"4\"]";
+
+		expect(picker).toHaveAttribute('data-webos-voice-labels-ext', expected);
 	});
 });
