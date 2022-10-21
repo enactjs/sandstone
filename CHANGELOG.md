@@ -10,16 +10,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/InputField` spellCheck attribute 'false' for input type password and passwordtel
 - `sandstone/FormCheckboxItem` CSS variable `--sand-formcheckboxitem-focus-text-color` for a customization of the focused text color
 
 ### Changed
 
 - `--sand-checkbox-disabled-selected-color` to `--sand-checkbox-disabled-selected-text-color`
 - `@sand-alert-overlay-checkbox-disabled-selected-color` to `@sand-alert-overlay-checkbox-disabled-selected-text-color`
-
-### Added
-
-- `sandstone/InputField` spellCheck attribute 'false' for input type password
 
 ### Fixed
 
@@ -39,7 +36,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Icon` supported icon list, adding a new icon `musicsrc` 
+- `sandstone/Icon` supported icon list, adding a new icon `musicsrc`
 
 ### Fixed
 
@@ -53,7 +50,7 @@ No significant changes.
 
 ### Added
 
-- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall` 
+- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall`
 
 ### Fixed
 
