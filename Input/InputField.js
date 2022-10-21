@@ -300,7 +300,7 @@ const InputFieldBase = kind({
 			inputProps = Object.assign({}, {spellCheck: false}, extractInputProps(rest)) || extractInputProps(rest);
 		} else {
 			inputProps = Object.assign({}, {spellCheck: true}, extractInputProps(rest)) || extractInputProps(rest);
-		};
+		}
 		const voiceProps = extractVoiceProps(rest);
 		const isPasswordtel = type === 'passwordtel';
 		delete rest.announce;

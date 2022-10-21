@@ -10,8 +10,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/InputField` spellCheck attribute 'false' for input type password and passwordtel
 - `sandstone/FormCheckboxItem` CSS variable `--sand-formcheckboxitem-focus-text-color` for a customization of the focused text color
+- - `sandstone/InputField` spellCheck attribute 'false' for input type password and passwordtel
 
 ### Changed
 
