@@ -38,7 +38,7 @@ const colorKeys = ['red', 'green', 'yellow', 'blue'];
  * A Key Guide component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [KeyGuide]{@link sandstone/KeyGuide.KeyGuide}.
+ * is within {@link sandstone/KeyGuide.KeyGuide|KeyGuide}.
  *
  * @class KeyGuideBase
  * @memberof sandstone/KeyGuide
@@ -127,7 +127,7 @@ const KeyGuideBase = kind({
 });
 
 /**
- * Applies Sandstone specific behaviors to [KeyGuide]{@link sandstone/KeyGuide.KeyGuideBase}.
+ * Applies Sandstone specific behaviors to {@link sandstone/KeyGuide.KeyGuideBase|KeyGuide}.
  *
  * @hoc
  * @memberof sandstone/KeyGuide

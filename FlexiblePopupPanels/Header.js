@@ -11,7 +11,7 @@ import css from './FlexiblePopupPanels.module.less';
 
 /**
  * A header component for `FlexiblePopupPanels.Panel` with a `title` and `subtitle`, supporting several configurable
- * [`slots`]{@link ui/Slottable.Slottable} for components.
+ * {@link ui/Slottable.Slottable|slots} for components.
  *
  * @class Header
  * @extends sandstone/Panels.Header

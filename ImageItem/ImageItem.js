@@ -40,7 +40,7 @@ const
 	'4NCg==';
 
 /**
- * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
+ * A Sandstone styled base component for {@link sandstone/ImageItem.ImageItem|ImageItem}.
  *
  * @class ImageItemBase
  * @extends ui/ImageItem.ImageItem
@@ -155,7 +155,7 @@ const ImageItemBase = kind({
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
-		 * Placeholder image used while [src]{@link sandstone/ImageItem.ImageItem#src}
+		 * Placeholder image used while {@link sandstone/ImageItem.ImageItem#src|src}
 		 * is loaded.
 		 *
 		 * @type {String}
@@ -306,7 +306,7 @@ const ImageItemBase = kind({
 
 /**
  * Sandstone-specific ImageItem behaviors to apply to
- * [ImageItem]{@link sandstone/ImageItem.ImageItem}.
+ * {@link sandstone/ImageItem.ImageItem|ImageItem}.
  *
  * @hoc
  * @memberof sandstone/ImageItem

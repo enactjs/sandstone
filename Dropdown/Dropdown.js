@@ -212,7 +212,7 @@ const DropdownBase = kind({
 		selected: PropTypes.number,
 
 		/**
-		 * The size of the Dropdown's [Button]{@link sandstone/Button.Button} component.
+		 * The size of the Dropdown's {@link sandstone/Button.Button|Button} component.
 		 *
 		 * @type {('large'|'small')}
 		 * @default 'small'
@@ -362,7 +362,7 @@ const DropdownBase = kind({
 
 /**
  * Applies Sandstone specific behaviors and functionality to
- * [DropdownBase]{@link sandstone/Dropdown.DropdownBase}.
+ * {@link sandstone/Dropdown.DropdownBase|DropdownBase}.
  *
  * @hoc
  * @memberof sandstone/Dropdown

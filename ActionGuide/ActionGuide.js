@@ -28,7 +28,7 @@ const TouchableDiv = Touchable('div');
  * An Action Guide component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [ActionGuide]{@link sandstone/ActionGuide.ActionGuide}.
+ * is within {@link sandstone/ActionGuide.ActionGuide|ActionGuide}.
  *
  * @class ActionGuideBase
  * @memberof sandstone/ActionGuide
@@ -91,7 +91,7 @@ const ActionGuideBase = kind({
 });
 
 /**
- * Applies Sandstone specific behaviors to [ActionGuide]{@link sandstone/ActionGuide.ActionGuideBase}.
+ * Applies Sandstone specific behaviors to {@link sandstone/ActionGuide.ActionGuideBase|ActionGuide}.
  *
  * @hoc
  * @memberof sandstone/ActionGuide
