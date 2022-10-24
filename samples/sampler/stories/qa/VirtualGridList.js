@@ -13,6 +13,8 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/Virt
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 
+import {svgGenerator} from '../helper/svg';
+
 const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 const defaultDataSize = 1000;
@@ -60,7 +62,7 @@ const updateDataSize = (dataSize) => {
 		const text = `Item ${count}`;
 		const subText = `SubItem ${count}`;
 		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
-		const source = `http://via.placeholder.com/600x600/${color}/ffffff/png?text=Image+${i}`;
+		const source = svgGenerator(600, 600, color, 'ffffff', `Image ${i}`);
 
 		items.push({text, subText, source});
 	}

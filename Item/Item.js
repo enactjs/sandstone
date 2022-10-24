@@ -297,7 +297,7 @@ const ItemMeasurementDecorator = (Wrapped) => {
 };
 
 /**
- * Sandstone specific item behaviors to apply to [Item]{@link sandstone/Item.ItemBase}.
+ * Sandstone specific item behaviors to apply to {@link sandstone/Item.ItemBase|Item}.
  *
  * @class ItemDecorator
  * @hoc

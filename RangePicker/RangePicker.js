@@ -46,7 +46,7 @@ const RangePickerBase = kind({
 		 * The maximum value selectable by the picker (inclusive).
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link sandstone/RangePicker.RangePickerBase.step}.
+		 * {@link sandstone/RangePicker.RangePickerBase.step|step}.
 		 *
 		 * @type {Number}
 		 * @required
@@ -58,7 +58,7 @@ const RangePickerBase = kind({
 		 * The minimum value selectable by the picker (inclusive).
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link sandstone/RangePicker.RangePickerBase.step}.
+		 * {@link sandstone/RangePicker.RangePickerBase.step|step}.
 		 *
 		 * @type {Number}
 		 * @required
@@ -93,8 +93,8 @@ const RangePickerBase = kind({
 		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
 		 * The default value for joined horizontal picker is `'enter'`.
-		 * If [orientation]{@link sandstone/RangePicker.RangePicker#orientation} is `'vertical'` or
-		 * [joined]{@link sandstone/RangePicker.RangePicker#joined} is undefined or is `false`, this prop is ignored.
+		 * If {@link sandstone/RangePicker.RangePicker#orientation|orientation} is `'vertical'` or
+		 * {@link sandstone/RangePicker.RangePicker#joined|joined} is undefined or is `false`, this prop is ignored.
 		 *
 		 * @type {('enter'|'arrow')}
 		 * @public
@@ -134,9 +134,9 @@ const RangePickerBase = kind({
 		/**
 		 * A custom icon for the decrementer.
 		 *
-		 * All strings supported by [Icon]{@link sandstone/Icon.Icon} are supported. Without a
+		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * [orientation]{@link sandstone/RangePicker.RangePicker#orientation} is changed.
+		 * {@link sandstone/RangePicker.RangePicker#orientation|orientation} is changed.
 		 *
 		 * @type {string}
 		 * @public
@@ -154,9 +154,9 @@ const RangePickerBase = kind({
 		/**
 		 * A custom icon for the incrementer.
 		 *
-		 * All strings supported by [Icon]{@link sandstone/Icon.Icon} are supported. Without a
+		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * [orientation]{@link sandstone/RangePicker.RangePicker#orientation} is changed.
+		 * {@link sandstone/RangePicker.RangePicker#orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public

@@ -105,9 +105,9 @@ const getSide = (orientation, position) => {
 };
 
 /**
- * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar} or
- * [Slider]{@link sandstone/Slider.Slider}.
+ * A {@link sandstone/TooltipDecorator.Tooltip|Tooltip} specifically adapted for use with
+ * {@link sandstone/ProgressBar.ProgressBar|ProgressBar} or
+ * {@link sandstone/Slider.Slider|Slider}.
  *
  * @class ProgressBarTooltip
  * @memberof sandstone/ProgressBar

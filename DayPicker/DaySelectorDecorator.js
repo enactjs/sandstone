@@ -186,8 +186,7 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
 }
 
 /**
- * Applies Sandstone specific behaviors to
- * [DayPicker]{@link sandstone/DayPicker.DayPicker}.
+ * Applies Sandstone specific behaviors to {@link sandstone/DayPicker.DayPicker|DayPicker}.
  *
  * @hoc
  * @memberof sandstone/DayPicker

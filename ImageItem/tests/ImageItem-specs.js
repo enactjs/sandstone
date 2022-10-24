@@ -48,9 +48,29 @@ describe('ImageItem', () => {
 		expect(actual).toHaveTextContent(expected);
 	});
 
+	test('should support `children` prop when \'data-index\' is set', () => {
+		const children = 'caption';
+		render(<ImageItemBase data-index={0}>{children}</ImageItemBase>);
+
+		const expected = children;
+		const actual = screen.getByText('caption');
+
+		expect(actual).toHaveTextContent(expected);
+	});
+
 	test('should support `label` prop', () => {
 		const label = 'label';
 		render(<ImageItemBase centered label={label} />);
+
+		const expected = label;
+		const actual = screen.getByText('label');
+
+		expect(actual).toHaveTextContent(expected);
+	});
+
+	test('should support `label` prop when \'data-index\' is set', () => {
+		const label = 'label';
+		render(<ImageItemBase centered data-index={0} label={label} />);
 
 		const expected = label;
 		const actual = screen.getByText('label');

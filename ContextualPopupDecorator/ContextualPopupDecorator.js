@@ -89,7 +89,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		static propTypes = /** @lends sandstone/ContextualPopupDecorator.ContextualPopupDecorator.prototype */ {
 			/**
 			 * The component rendered within the
-			 * [ContextualPopup]{@link sandstone/ContextualPopupDecorator.ContextualPopup}.
+			 * {@link sandstone/ContextualPopupDecorator.ContextualPopup|ContextualPopup}.
 			 *
 			 * @type {Component}
 			 * @required
@@ -168,7 +168,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			/**
 			 * CSS class name to pass to the
-			 * [ContextualPopup]{@link sandstone/ContextualPopupDecorator.ContextualPopup}.
+			 * {@link sandstone/ContextualPopupDecorator.ContextualPopup|ContextualPopup}.
 			 *
 			 * This is commonly used to set width and height of the popup.
 			 *
@@ -215,8 +215,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			scrimType: PropTypes.oneOf(['holepunch', 'translucent', 'transparent', 'none']),
 
 			/**
-			 * Registers the ContextualPopupDecorator component with an [ApiDecorator]
-			 * {@link core/internal/ApiDecorator.ApiDecorator}.
+			 * Registers the ContextualPopupDecorator component with an
+			 * {@link core/internal/ApiDecorator.ApiDecorator|ApiDecorator}.
 			 *
 			 * @type {Function}
 			 * @private
@@ -227,7 +227,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * The current skin for this component.
 			 *
 			 * When `noSkin` is set on the config object, `skin` will only be applied to the
-			 * [ContextualPopup]{@link sandstone/ContextualPopupDecorator.ContextualPopup} and not
+			 * {@link sandstone/ContextualPopupDecorator.ContextualPopup|ContextualPopup} and not
 			 * to the popup's activator component.
 			 *
 			 * @see {@link sandstone/Skinnable.Skinnable.skin}
@@ -773,7 +773,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 /**
  * Adds support for positioning a
- * [ContextualPopup]{@link sandstone/ContextualPopupDecorator.ContextualPopup} relative to the
+ * {@link sandstone/ContextualPopupDecorator.ContextualPopup|ContextualPopup} relative to the
  * wrapped component.
  *
  * `ContextualPopupDecorator` may be used to show additional settings or actions rendered within a

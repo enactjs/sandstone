@@ -4,10 +4,12 @@ import {object, select} from '@enact/storybook-utils/addons/controls';
 import Image, {ImageBase, ImageDecorator} from '@enact/sandstone/Image';
 import {ImageBase as UiImageBase} from '@enact/ui/Image';
 
+import {svgGenerator} from '../helper/svg';
+
 const src = {
-	hd: 'http://via.placeholder.com/200x200',
-	fhd: 'http://via.placeholder.com/300x300',
-	uhd: 'http://via.placeholder.com/600x600'
+	hd: svgGenerator(200, 200, '7ed31d', 'ffffff', '200 X 200'),
+	fhd: svgGenerator(300, 300, '7ed31d', 'ffffff', '300 X 300'),
+	uhd: svgGenerator(600, 600, '7ed31d', 'ffffff', '600 X 600')
 };
 
 const Config = mergeComponentMetadata('Image', UiImageBase, ImageBase, Image, ImageDecorator);

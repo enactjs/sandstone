@@ -49,7 +49,7 @@ AsyncRenderChildren.propTypes = /** @lends sandstone/ImageItem.AsyncRenderChildr
 	fallback: PropTypes.any,
 
 	/**
-	 * `data-index` of [ImageItem]{@link sandstone/ImageItem}.
+	 * `data-index` of {@link sandstone/ImageItem|ImageItem}.
 	 * Renders `children` asynchronously when this value changed.
 	 *
 	 * @type {Number}

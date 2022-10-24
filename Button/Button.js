@@ -32,7 +32,7 @@ import componentCss from './Button.module.less';
  * A button component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [Button]{@link sandstone/Button.Button}.
+ * is within {@link sandstone/Button.Button|Button}.
  *
  * @class ButtonBase
  * @memberof sandstone/Button
@@ -61,10 +61,10 @@ const ButtonBase = kind({
 		/**
 		 * Enables the `collapsed` feature.
 		 *
-		 * This requires that both the text and [icon]{@link sandstone/Button.Button#icon} are
+		 * This requires that both the text and {@link sandstone/Button.Button#icon|icon} are
 		 * defined.
 		 *
-		 * Use [collapsed]{@link sandstone/Button.Button#collapsed} to toggle the collapsed state.
+		 * Use {@link sandstone/Button.Button#collapsed|collapsed} to toggle the collapsed state.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -76,8 +76,8 @@ const ButtonBase = kind({
 		/**
 		 * Toggles the collapsed state of this button, down to just its icon.
 		 *
-		 * This requires that [collapsable]{@link sandstone/Button.Button#collapsable} is enabled
-		 * and both the text and [icon]{@link sandstone/Button.Button#icon} are defined.
+		 * This requires that {@link sandstone/Button.Button#collapsable|collapsable} is enabled
+		 * and both the text and {@link sandstone/Button.Button#icon|icon} are defined.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -128,7 +128,7 @@ const ButtonBase = kind({
 		focusEffect: PropTypes.oneOf(['expand', 'static']),
 
 		/**
-		 * The component used to render the [icon]{@link sandstone/Button.ButtonBase.icon}.
+		 * The component used to render the {@link sandstone/Button.ButtonBase.icon|icon}.
 		 *
 		 * This component will receive the `icon` class to customize its styling.
 		 *
@@ -253,7 +253,7 @@ const IconButtonDecorator = hoc((config, Wrapped) => {
 });
 
 /**
- * Applies Sandstone specific behaviors to [Button]{@link sandstone/Button.ButtonBase} components.
+ * Applies Sandstone specific behaviors to {@link sandstone/Button.ButtonBase|Button} components.
  *
  * @hoc
  * @memberof sandstone/Button

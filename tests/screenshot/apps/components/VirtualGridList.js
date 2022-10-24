@@ -1,4 +1,5 @@
 import ri from '@enact/ui/resolution';
+import {Component} from 'react';
 
 import img from '../../images/600x600.png';
 import ImageItem from '../../../../ImageItem';
@@ -38,6 +39,65 @@ const updateDataSize = (dataSize) => {
 };
 
 updateDataSize(defaultDataSize);
+
+class SnapToCenterVGL extends Component {
+	constructor (props) {
+		super(props);
+	}
+
+	componentDidMount () {
+		this.scrollTo({index: 1, animate: false, focus: this.props.focus, stickTo: 'center'});
+	}
+
+	renderItem = ({index, ...rest}) => {
+		const {src} = items[index];
+		let customProps = {};
+		if (index === 0 || index === items.length - 1) {
+			customProps = {
+				style: {
+					visibility: 'hidden'
+				},
+				spotlightDisabled: true
+			};
+		}
+
+		return (
+			<ImageItem
+				{...rest}
+				src={src}
+				style={{
+					paddingLeft: ri.scaleToRem(240),
+					paddingRight: ri.scaleToRem(240)
+				}}
+				{...customProps}
+			/>
+		);
+	};
+
+	getScrollTo = (scrollTo) => {
+		this.scrollTo = scrollTo;
+	};
+
+	render () {
+		return (
+			<VirtualGridList
+				cbScrollTo={this.getScrollTo}
+				dataSize={updateDataSize(10)}
+				itemRenderer={this.renderItem}
+				itemSize={{
+					minWidth: ri.scale(1230),
+					minHeight: ri.scale(540)
+				}}
+				snapToCenter
+				spacing={0}
+				style={{
+					width: ri.scaleToRem(2400)
+				}}
+				verticalScrollbar="hidden"
+			/>
+		);
+	}
+}
 
 const VirtualGridListTests = [
 	<div>
@@ -85,6 +145,12 @@ const VirtualGridListTests = [
 			spacing={ri.scale(60)}
 			style={{height: ri.scale(300)}}
 		/>
+	</div>,
+	<div>
+		<SnapToCenterVGL focus />
+	</div>,
+	<div>
+		<SnapToCenterVGL />
 	</div>
 ];
 
