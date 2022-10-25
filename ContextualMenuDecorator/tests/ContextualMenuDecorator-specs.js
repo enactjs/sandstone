@@ -76,7 +76,7 @@ describe('ContextualMenuDecorator Specs', () => {
 		expect(handleClose).not.toHaveBeenCalled();
 	});
 
-	test('should have "below right" className when direction is set to "below right"', () => {
+	test('should have \'below right\' className when direction is set to \'below right\'', () => {
 		const handleClose = jest.fn();
 
 		render(
@@ -94,7 +94,7 @@ describe('ContextualMenuDecorator Specs', () => {
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should have offset "none" when offset is set to "none"', () => {
+	test('should have offset \'none\' when offset is set to \'none\'', () => {
 		const handleClose = jest.fn();
 
 		render(
@@ -111,7 +111,7 @@ describe('ContextualMenuDecorator Specs', () => {
 		expect(contextualMenu).toHaveAttribute('offset', expected);
 	});
 
-	test('should have "large" className when popupWidth is set to "large"', () => {
+	test('should have \'large\' className when popupWidth is set to \'large\'', () => {
 		const handleClose = jest.fn();
 
 		render(
@@ -126,5 +126,22 @@ describe('ContextualMenuDecorator Specs', () => {
 		const expected = 'large';
 
 		expect(contextualMenu).toHaveClass(expected);
+	});
+
+	test('should wrap content in Scroller component if menuItem length exceeds MAX_VISIBLE_MENU_ITEMS', () => {
+		const moreItems = new Array(8).fill().map((i, index) => `Option ${index + 1}`);
+
+		render(
+			<Root>
+				<ContextualButton menuItems={moreItems} open>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		const scroller = screen.getByRole('list').parentElement;
+		const expected = 'scroller';
+
+		expect(scroller).toHaveClass(expected);
 	});
 });

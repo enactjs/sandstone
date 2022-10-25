@@ -6,7 +6,6 @@ import userEvent from '@testing-library/user-event';
 import DayPicker, {getSelectedDayString} from '../DayPicker';
 
 describe('DayPicker', () => {
-
 	test('should not select any item when there is no passed prop `selected`', () => {
 		render(<DayPicker />);
 
@@ -17,7 +16,7 @@ describe('DayPicker', () => {
 		}
 	});
 
-	test('should select day when passed prop `selected`', () => {
+	test('should select day when passed prop \'selected\'', () => {
 		render(<DayPicker selected={[1]} />);
 		const selectedDay = screen.getAllByRole('checkbox')[2];
 
@@ -26,7 +25,7 @@ describe('DayPicker', () => {
 		expect(selectedDay).toHaveClass(expected);
 	});
 
-	test('should emit an onSelect event with `onSelect` type when selecting days', () => {
+	test('should emit an onSelect event with \'onSelect\' type when selecting days', () => {
 		const handleSelect = jest.fn();
 		render(<DayPicker onSelect={handleSelect} />);
 		const item = screen.getAllByRole('checkbox')[2];
@@ -36,7 +35,7 @@ describe('DayPicker', () => {
 		expect(handleSelect).toHaveBeenCalledWith({content: 'Mon', selected: [1], type: 'onSelect'});
 	});
 
-	test('should include `content` in onSelect event payload which respects dayNameLength', () => {
+	test('should include \'content\' in onSelect event payload which respects dayNameLength', () => {
 		const handleSelect = jest.fn();
 		render(<DayPicker onSelect={handleSelect} dayNameLength="short" />);
 
@@ -53,21 +52,21 @@ describe('DayPicker', () => {
 		expect(actual).toMatchObject(expected);
 	});
 
-	test('should return `None` when selected is null', () => {
+	test('should return \'None\' when selected is null', () => {
 		const label = getSelectedDayString(null, 'None');
 		const expected = 'None';
 
 		expect(label).toBe(expected);
 	});
 
-	test('should return `None` when selected is empty', () => {
+	test('should return \'None\' when selected is empty', () => {
 		const label = getSelectedDayString([], 'None');
 		const expected = 'None';
 
 		expect(label).toBe(expected);
 	});
 
-	test('should return `Every Weekend` when all selected', () => {
+	test('should return \'Every Weekend\' when all selected', () => {
 		const selected = [0, 6];
 		const label = getSelectedDayString(selected);
 		const expected = 'Every Weekend';
@@ -75,7 +74,7 @@ describe('DayPicker', () => {
 		expect(label).toBe(expected);
 	});
 
-	test('should return `Every Weekday` when all selected', () => {
+	test('should return \'Every Weekday\' when all selected', () => {
 		const selected = [1, 2, 3, 4, 5];
 		const label = getSelectedDayString(selected);
 		const expected = 'Every Weekday';
@@ -83,7 +82,7 @@ describe('DayPicker', () => {
 		expect(label).toBe(expected);
 	});
 
-	test('should return `Every Day` when all selected', () => {
+	test('should return \'Every Day\' when all selected', () => {
 		const selected = [0, 1, 2, 3, 4, 5, 6];
 		const label = getSelectedDayString(selected);
 		const expected = 'Every Day';
@@ -91,13 +90,12 @@ describe('DayPicker', () => {
 		expect(label).toBe(expected);
 	});
 
-	// ilib isn't working correctly with unit tests so this block must be skipped
-	describe.skip('with alternate first day of week', () => {
+	describe('with alternate first day of week', () => {
 		test('should accept and emit a generalized selected array', () => {
 			ilib.setLocale('es-ES');
 
 			const handleSelect = jest.fn();
-			render(<DayPicker onSelect={handleSelect} defaultSelected={[0]} />);
+			render(<DayPicker defaultSelected={[0]} locale="es-ES" onSelect={handleSelect} />);
 
 			// select Lunes (Monday) which is the first day of the week for es-ES
 			const item = screen.getAllByRole('checkbox')[0];
@@ -109,8 +107,6 @@ describe('DayPicker', () => {
 			};
 			const actual = handleSelect.mock.calls[0][0];
 
-			// If ilib isn't loading correctly, actual will be null because we will have unselected
-			// Sunday instead of selecting Monday.
 			expect(actual).toMatchObject(expected);
 		});
 	});

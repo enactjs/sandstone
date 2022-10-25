@@ -104,7 +104,7 @@ const PickerBase = class extends ReactComponent {
 		 * The maximum value selectable by the picker (inclusive).
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link sandstone/internal/Picker.PickerBase.step}.
+		 * {@link sandstone/internal/Picker.PickerBase.step|step}.
 		 *
 		 * @type {Number}
 		 * @required
@@ -116,7 +116,7 @@ const PickerBase = class extends ReactComponent {
 		 * The minimum value selectable by the picker (inclusive).
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link sandstone/internal/Picker.PickerBase.step}.
+		 * {@link sandstone/internal/Picker.PickerBase.step|step}.
 		 *
 		 * @type {Number}
 		 * @required
@@ -166,8 +166,8 @@ const PickerBase = class extends ReactComponent {
 		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
 		 * The default value for joined horizontal picker is `'enter'`.
-		 * If [orientation]{@link sandstone/internal/Picker.PickerBase#orientation} is `'vertical'` or
-		 * [joined]{@link sandstone/internal/Picker.PickerBase#joined} is undefined or is `false`, this prop is ignored.
+		 * If {@link sandstone/internal/Picker.PickerBase#orientation|orientation} is `'vertical'` or
+		 * {@link sandstone/internal/Picker.PickerBase#joined|joined} is undefined or is `false`, this prop is ignored.
 		 *
 		 * @type {('enter'|'arrow')}
 		 * @default 'enter'
@@ -227,9 +227,9 @@ const PickerBase = class extends ReactComponent {
 		decrementAriaLabel: PropTypes.string,
 
 		/**
-		 * Assign a custom icon for the decrementer. All strings supported by [Icon]{@link sandstone/Icon.Icon} are
+		 * Assign a custom icon for the decrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
 		 * supported. Without a custom icon, the default is used, and is automatically changed when
-		 * the [orientation]{@link sandstone/Icon.Icon#orientation} is changed.
+		 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -238,7 +238,7 @@ const PickerBase = class extends ReactComponent {
 
 		/**
 		 * When `true`, the Picker is shown as disabled and does not generate `onChange`
-		 * [events]{@link /docs/developer-guide/glossary/#event}.
+		 * {@link /docs/developer-guide/glossary/#event|events}.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -263,9 +263,9 @@ const PickerBase = class extends ReactComponent {
 		incrementAriaLabel: PropTypes.string,
 
 		/**
-		 * Assign a custom icon for the incrementer. All strings supported by [Icon]{@link sandstone/Icon.Icon} are
+		 * Assign a custom icon for the incrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
 		 * supported. Without a custom icon, the default is used, and is automatically changed when
-		 * the [orientation]{@link sandstone/Icon.Icon#orientation} is changed.
+		 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -275,7 +275,7 @@ const PickerBase = class extends ReactComponent {
 		/**
 		 * Determines the user interaction of the control. A joined picker allows the user to use
 		 * the arrow keys or the enter key to adjust the picker's value.
-		 * It depends on [changedBy]{@link sandstone/internal/Picker.PickerBase.changedBy}
+		 * It depends on {@link sandstone/internal/Picker.PickerBase.changedBy|changedBy}
 		 * whether to use the arrow keys or the enter key.
 		 * A split control allows full navigation,
 		 * but requires individual ENTER presses on the incrementer and decrementer buttons.

@@ -28,7 +28,7 @@ const MarqueeBodyText = MarqueeDecorator(UiBodyText);
  * A simple text block component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [BodyText]{@link sandstone/BodyText.BodyText}.
+ * is within {@link sandstone/BodyText.BodyText|BodyText}.
  *
  * @class BodyTextBase
  * @memberof sandstone/BodyText
@@ -44,7 +44,7 @@ const BodyTextBase = kind({
 		 * Centers the contents.
 		 *
 		 * Applies the `centered` CSS class which can be customized by
-		 * [theming]{@link /docs/developer-guide/theming/}.
+		 * {@link /docs/developer-guide/theming/|theming}.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -125,7 +125,7 @@ const BodyTextBase = kind({
 });
 
 /**
- * Applies Sandstone specific behaviors to [BodyText]{@link sandstone/BodyText.BodyTextBase}.
+ * Applies Sandstone specific behaviors to {@link sandstone/BodyText.BodyTextBase|BodyText}.
  *
  * @hoc
  * @memberof sandstone/BodyText

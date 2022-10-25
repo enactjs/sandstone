@@ -32,7 +32,7 @@ const CenteredBodyText = (props) => <BodyText {...props} centered />;
  * A modal Alert component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [Alert]{@link sandstone/Alert.Alert}.
+ * is within {@link sandstone/Alert.Alert|Alert}.
  *
  * @class AlertBase
  * @memberof sandstone/Alert
@@ -60,7 +60,7 @@ const AlertBase = kind({
 		 * The contents of the body of the component.
 		 *
 		 * Only shown when `type="overlay"`. If `children` is text-only, it will be wrapped with
-		 * [BodyText]{@link sandstone/BodyText}.
+		 * {@link sandstone/BodyText|BodyText}.
 		 *
 		 * @type {Node}
 		 * @public
@@ -224,7 +224,7 @@ const AlertBase = kind({
  *
  * `Alert` may be used to interrupt a workflow to receive feedback from the user.
  * The dialog consists of a title, a message, and an area for additional
- * [buttons]{@link sandstone/Alert.Alert.buttons}.
+ * {@link sandstone/Alert.Alert.buttons|buttons}.
  *
  * Usage:
  * ```

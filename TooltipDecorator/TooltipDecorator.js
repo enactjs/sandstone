@@ -24,7 +24,7 @@ import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition
 let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
 
 /**
- * Default config for [TooltipDecorator]{@link sandstone/TooltipDecorator.TooltipDecorator}
+ * Default config for {@link sandstone/TooltipDecorator.TooltipDecorator|TooltipDecorator}
  *
  * @memberof sandstone/TooltipDecorator.TooltipDecorator
  * @hocconfig
@@ -35,7 +35,7 @@ const defaultConfig = {
 	 * flipping to an alternate orientation or adjusting its offset to remain on screen.
 	 * The default of 48 is derived from a standard 24px screen-keepout size plus the standard
 	 * Spotlight-outset (24px) margin/padding value which keeps elements and text aligned inside a
-	 * [Panel]{@link sandstone/Panels.Panel}. Note: This value will be scaled according to the
+	 * {@link sandstone/Panels.Panel|Panel}. Note: This value will be scaled according to the
 	 * resolution.
 	 *
 	 * @type {Number}
@@ -59,7 +59,7 @@ const defaultConfig = {
 };
 
 /**
- * A higher-order component which positions [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} in
+ * A higher-order component which positions {@link sandstone/TooltipDecorator.Tooltip|Tooltip} in
  * relation to the wrapped component.
  *
  * The tooltip is automatically displayed when the decorated component is focused after a set
@@ -111,7 +111,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Allows the tooltip to marquee.
 			 *
-			 * Specifying a [`tooltipWidth`]{@link sandstone/TooltipDecorator.TooltipDecorator#tooltipWidth}
+			 * Specifying a {@link sandstone/TooltipDecorator.TooltipDecorator#tooltipWidth|tooltipWidth}
 			 * restrects the marquee to that size.
 			 *
 			 * @type {Boolean}

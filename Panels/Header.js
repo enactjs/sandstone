@@ -25,7 +25,7 @@ const hasChildren = (children) => (Children.toArray(children).filter(Boolean).le
 
 /**
  * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
- * [`slots`]{@link ui/Slottable.Slottable} for components.
+ * {@link ui/Slottable.Slottable|slots} for components.
  *
  * @class Header
  * @memberof sandstone/Panels
@@ -184,7 +184,7 @@ const HeaderBase = kind({
 		/**
 		 * A location for arbitrary elements to be placed above the title
 		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * This is a {@link ui/Slottable.Slottable|slot}, so it can be used as a tag-name inside
 		 * this component.
 		 *
 		 * ```
@@ -203,7 +203,7 @@ const HeaderBase = kind({
 		 * A location for arbitrary elements to be placed to the right the title in LTR locales and
 		 * to the left in RTL locales
 		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * This is a {@link ui/Slottable.Slottable|slot}, so it can be used as a tag-name inside
 		 * this component.
 		 *
 		 * ```
@@ -231,7 +231,7 @@ const HeaderBase = kind({
 		 * A location for arbitrary elements to be placed to the left the title in LTR locales and
 		 * to the right in RTL locales
 		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * This is a {@link ui/Slottable.Slottable|slot}, so it can be used as a tag-name inside
 		 * this component.
 		 *
 		 * ```
@@ -267,9 +267,9 @@ const HeaderBase = kind({
 		/**
 		 * Text displayed below the title.
 		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * This is a {@link ui/Slottable.Slottable|slot}, so it can be used as a tag-name inside
 		 * this component.
-		 * If [noSubtitle]{@link sandstone/Panels.Header.noSubtitle} is `true`, this prop is ignored.
+		 * If {@link sandstone/Panels.Header.noSubtitle|noSubtitle} is `true`, this prop is ignored.
 		 *
 		 * @type {String|String[]}
 		 */
@@ -289,7 +289,7 @@ const HeaderBase = kind({
 		/**
 		 * Title of the header.
 		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * This is a {@link ui/Slottable.Slottable|slot}, so it can be used as a tag-name inside
 		 * this component.
 		 *
 		 * Example:

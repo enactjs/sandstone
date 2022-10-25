@@ -134,7 +134,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 
 			/**
 			 * CSS class name to pass to the
-			 * [ContextualPopup]{@link sandstone/ContextualPopupDecorator.ContextualPopup}.
+			 * {@link sandstone/ContextualPopupDecorator.ContextualPopup|ContextualPopup}.
 			 *
 			 * This is commonly used to set width and height of the popup.
 			 *
