@@ -131,8 +131,8 @@ export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = (args) => {
 				marginRight: 'auto',
 				textAlign: 'center',
 				border: '4px dashed #888',
-				width: ri.unit(ri.scale(480), 'rem'),
-				height: ri.unit(ri.scale(480), 'rem')
+				width: ri.scaleToRem(480),
+				height: ri.scaleToRem(480)
 			}}
 		>
 			Resumable
@@ -170,8 +170,8 @@ export const WithOnFlickHandler = (args) => (
 		disabled={args['disabled']}
 		style={{
 			border: '4px dashed #888',
-			width: ri.unit(ri.scale(1000), 'rem'),
-			height: ri.unit(ri.scale(1000), 'rem')
+			width: ri.scaleToRem(1000),
+			height: ri.scaleToRem(1000)
 		}}
 	>
 		Flick within this component
@@ -195,8 +195,8 @@ export const WithDragHandlers = (args) => (
 		disabled={args['disabled']}
 		style={{
 			border: '4px dashed #888',
-			width: ri.unit(ri.scale(1000), 'rem'),
-			height: ri.unit(ri.scale(1000), 'rem')
+			width: ri.scaleToRem(1000),
+			height: ri.scaleToRem(1000)
 		}}
 	>
 		Drag within this component. Setting <code>noResume</code> to <code>false</code> should prevent
@@ -232,9 +232,9 @@ export const WithPinchZoomHandlers = (args) => {
 			onPinchZoomEnd={action('onPinchZoomEnd')}
 			style={{
 				border: '4px dashed #888',
-				margin: ri.unit(ri.scale(300), 'rem'),
-				width: ri.unit(ri.scale(1000), 'rem'),
-				height: ri.unit(ri.scale(1000), 'rem'),
+				margin: ri.scaleToRem(300),
+				width: ri.scaleToRem(1000),
+				height: ri.scaleToRem(1000),
 				transform: `scale(${scale})`
 			}}
 		>
