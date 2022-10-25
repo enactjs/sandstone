@@ -107,8 +107,8 @@ const MediaControlsBase = kind({
 		bottomComponents: PropTypes.node,
 
 		/**
-		 * Jump backward [icon]{@link sandstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link sandstone/Icon.Icon} component type.
+		 * Jump backward {@link sandstone/Icon.Icon|icon} name. Accepts any
+		 * {@link sandstone/Icon.Icon|icon} component type.
 		 *
 		 * @type {String}
 		 * @default 'jumpbackward'
@@ -125,8 +125,8 @@ const MediaControlsBase = kind({
 		jumpButtonsDisabled: PropTypes.bool,
 
 		/**
-		 * Jump forward [icon]{@link sandstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link sandstone/Icon.Icon} component type.
+		 * Jump forward {@link sandstone/Icon.Icon|icon} name. Accepts any
+		 * {@link sandstone/Icon.Icon|icon} component type.
 		 *
 		 * @type {String}
 		 * @default 'jumpforward'
@@ -233,9 +233,9 @@ const MediaControlsBase = kind({
 
 		/**
 		 * A string which is sent to the `pause` icon of the player controls. This can be
-		 * anything that is accepted by [Icon]{@link sandstone/Icon.Icon}. This will be temporarily replaced by
-		 * the [playIcon]{@link sandstone/MediaPlayer.MediaControls.playIcon} when the
-		 * [paused]{@link sandstone/MediaPlayer.MediaControls.paused} boolean is `false`.
+		 * anything that is accepted by {@link sandstone/Icon.Icon|Icon}. This will be temporarily replaced by
+		 * the {@link sandstone/MediaPlayer.MediaControls.playIcon|playIcon} when the
+		 * {@link sandstone/MediaPlayer.MediaControls.paused|paused} boolean is `false`.
 		 *
 		 * @type {String}
 		 * @default 'pause'
@@ -246,8 +246,8 @@ const MediaControlsBase = kind({
 		/**
 		 * A string which is sent to the `play` icon of the player controls. This can be
 		 * anything that is accepted by {@link sandstone/Icon.Icon}. This will be temporarily replaced by
-		 * the [pauseIcon]{@link sandstone/MediaPlayer.MediaControls.pauseIcon} when the
-		 * [paused]{@link sandstone/MediaPlayer.MediaControls.paused} boolean is `true`.
+		 * the {@link sandstone/MediaPlayer.MediaControls.pauseIcon|pauseIcon} when the
+		 * {@link sandstone/MediaPlayer.MediaControls.paused|paused} boolean is `true`.
 		 *
 		 * @type {String}
 		 * @default 'play'
@@ -382,7 +382,7 @@ const MediaControlsBase = kind({
 });
 
 /**
- * Media control behaviors to apply to [MediaControlsBase]{@link sandstone/MediaPlayer.MediaControlsBase}.
+ * Media control behaviors to apply to {@link sandstone/MediaPlayer.MediaControlsBase|MediaControlsBase}.
  * Provides built-in support for showing more components and key handling for basic playback
  * controls.
  *
@@ -537,7 +537,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 
 			/**
 			 * Registers the MediaControls component with an
-			 * [ApiDecorator]{@link core/internal/ApiDecorator.ApiDecorator}.
+			 * {@link core/internal/ApiDecorator.ApiDecorator|ApiDecorator}.
 			 *
 			 * @type {Function}
 			 * @private
@@ -640,7 +640,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			}
 
 			// if media controls disabled, reset key loop
-			if (!prevProps.mediaDisabled && this.props.mediaDisabled) {
+			if (!prevProps.mediaDisabled && this.props.mediaDisabled || !prevProps.visible && this.props.visible) {
 				this.stopListeningForPulses();
 				this.paused.resume();
 			}
@@ -880,7 +880,7 @@ const handleCancel = (ev, {onClose}) => {
 /**
  * A set of components for controlling media playback and rendering additional components.
  *
- * This uses [Slottable]{@link ui/Slottable} to accept the custom tags, `<bottomComponents>`
+ * This uses {@link ui/Slottable|Slottable} to accept the custom tags, `<bottomComponents>`
  * to add components to the bottom of the media controls. Any additional children will be
  * rendered into the "more" controls area. Showing the additional components is handled by
  * `MediaControls` when the user navigates down from the media buttons.

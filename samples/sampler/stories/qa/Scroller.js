@@ -17,6 +17,8 @@ import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/u
 import PropTypes from 'prop-types';
 import {Component, useCallback, useLayoutEffect, useRef, useState} from 'react';
 
+import {svgGenerator} from '../helper/svg';
+
 import css from './Scroller.module.less';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
@@ -200,12 +202,13 @@ select('verticalScrollbar', ListOfThings, prop.scrollbarOption, Config);
 ListOfThings.storyName = 'List of things';
 
 let itemsArr = [];
+
 const populateItems = ({index}) => {
 	const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
 	const source = {
-		hd: `http://via.placeholder.com/200x200/${color}/ffffff/png?text=Image+${index}`,
-		fhd: `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${index}`,
-		uhd: `http://via.placeholder.com/600x600/${color}/ffffff/png?text=Image+${index}`
+		hd: svgGenerator(200, 200, color, 'ffffff', `Image ${index}`),
+		fhd: svgGenerator(300, 300, color, 'ffffff', `Image ${index}`),
+		uhd: svgGenerator(600, 600, color, 'ffffff', `Image ${index}`)
 	};
 
 	return {src: source, index};
@@ -369,7 +372,7 @@ const updateDataSize = (dataSize) => {
 		const text = `Item ${count}`;
 		const subText = `SubItem ${count}`;
 		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
-		const source = `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image ${i}`;
+		const source = svgGenerator(300, 300, color, 'ffffff', `Image ${i}`);
 
 		imageItems.push({text, subText, source});
 	}

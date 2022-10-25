@@ -57,7 +57,7 @@ const WizardPanelsBase = kind({
 		/**
 		 * The "aria-label" for the Panel.
 		 *
-		 * By default, the panel will be labeled by its [Header]{@link sandstone/Panels.Header}.
+		 * By default, the panel will be labeled by its {@link sandstone/Panels.Header|Header}.
 		 * When `aria-label` is set, it will be used instead to provide an accessibility label for
 		 * the panel.
 		 *
@@ -252,7 +252,7 @@ const WizardPanelsBase = kind({
 		/**
 		* The subtitle to display.
 		*
-		* If [noSubtitle]{@link sandstone/WizardPanels.WizardPanelsBase.noSubtitle} is `true`, this prop is ignored.
+		* If {@link sandstone/WizardPanels.WizardPanelsBase.noSubtitle|noSubtitle} is `true`, this prop is ignored.
 		*
 		* @type {String}
 		* @public
@@ -478,8 +478,8 @@ function useReverseTransition (index = -1, rtl) {
 
 /**
  * WizardPanelsRouter passes the children, footer, subtitle, and title from
- * [WizardPanel]{@link sandstone/WizardPanels.Panel} to
- * [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
+ * {@link sandstone/WizardPanels.Panel|WizardPanel} to
+ * {@link sandstone/WizardPanels.WizardPanelsBase|WizardPanelsBase}.
  *
  * @class WizardPanelsRouter
  * @memberof sandstone/WizardPanels
@@ -605,7 +605,7 @@ const WizardPanelsRouter = (Wrapped) => {
 
 		/**
 		* The "default" subtitle for WizardPanels if subtitle isn't explicitly set in
-		* [Panel]{@link sandstone/WizardPanels.Panel}.
+		* {@link sandstone/WizardPanels.Panel|Panel}.
 		* @example
 		* 	<WizardPanels subtitle="Subtitle">
 		*		<WizardPanels.Panel>
@@ -620,7 +620,7 @@ const WizardPanelsRouter = (Wrapped) => {
 
 		/**
 		* The "default" title for WizardPanels if title isn't explicitly set in
-		* [Panel]{@link sandstone/WizardPanels.Panel}.
+		* {@link sandstone/WizardPanels.Panel|Panel}.
 		* @example
 		* 	<WizardPanels title="Title">
 		*		<WizardPanels.Panel>
@@ -666,7 +666,7 @@ const WizardPanelsDecorator = compose(
 
 /**
  * A WizardPanels that can step through different panels.
- * Expects [WizardPanel]{@link sandstone/WizardPanels.Panel} as children.
+ * Expects {@link sandstone/WizardPanels.Panel|WizardPanel} as children.
  *
  * @class WizardPanels
  * @memberof sandstone/WizardPanels

@@ -13,7 +13,7 @@ import {getSharedProps, deleteSharedProps} from '../internal/Panels/util';
 import componentCss from './Panels.module.less';
 
 /**
- * Basic Panels component without a default [arranger]{@link ui/ViewManager.Arranger}
+ * Basic Panels component without a default {@link ui/ViewManager.Arranger|arranger}
  *
  * @class Panels
  * @memberof sandstone/Panels
@@ -63,7 +63,7 @@ const PanelsBase = kind({
 		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
-		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
+		 * {@link sandstone/Panels.Panel|Panel} to be rendered
 		 *
 		 * @type {Node}
 		 * @public
@@ -107,7 +107,7 @@ const PanelsBase = kind({
 		 *
 		 * When defined, `Panels` will manage the presentation state of `Panel` instances in order
 		 * to restore it when returning to the `Panel`. See
-		 * [noSharedState]{@link sandstone/Panels.Panels.noSharedState} for more details on shared
+		 * {@link sandstone/Panels.Panels.noSharedState|noSharedState} for more details on shared
 		 * state.
 		 *
 		 * @type {String}

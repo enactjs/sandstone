@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Picker from '../Picker';
@@ -7,6 +7,10 @@ import PickerItem from '../PickerItem';
 
 const increment = (slider) => userEvent.click(slider.firstElementChild);
 const decrement = (slider) => userEvent.click(slider.lastElementChild);
+const keyDown = (keyCode) => (picker) => fireEvent.keyDown(picker, {keyCode});
+
+const leftKeyDown = keyDown(37);
+const rightKeyDown = keyDown(39);
 
 describe('Picker Specs', () => {
 	test('should have a default \'value\' of 0', () => {
@@ -123,6 +127,30 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should call onKeyDown when right key pressed', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} max={6} min={0} onKeyDown={handleChange} step={3} value={0} />
+		);
+		const picker = screen.getAllByRole('button')[0];
+
+		rightKeyDown(picker);
+
+		expect(handleChange).toHaveBeenCalled();
+	});
+
+	test('should call onKeyDown when left key pressed', () => {
+		const handleChange = jest.fn();
+		render(
+			<Picker index={0} max={6} min={0} onKeyDown={handleChange} step={3} value={0} />
+		);
+		const picker = screen.getAllByRole('button')[1];
+
+		leftKeyDown(picker);
+
+		expect(handleChange).toHaveBeenCalled();
+	});
+
 	test('should increment by \'step\' value and wrap successfully', () => {
 		const handleChange = jest.fn();
 		render(
@@ -136,6 +164,51 @@ describe('Picker Specs', () => {
 		const actual = handleChange.mock.calls[0][0].value;
 
 		expect(actual).toBe(expected);
+	});
+
+	test('should call onWheel event when \'joined\' and \'value\' is between \'max\' and \'min\'', () => {
+		const handleWheelEvent = jest.fn();
+		render(
+			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={1} onWheel={handleWheelEvent} />
+		);
+		const picker = screen.getByLabelText('1 press ok button to change the value');
+
+		act(() => {
+			picker.focus();
+		});
+		fireEvent.wheel(picker, {deltaY: 10});
+
+		expect(handleWheelEvent).toHaveBeenCalled();
+	});
+
+	test('should call onWheel event when \'joined\' and \'value\' is \'max\' and \'deltaY\' is positive', () => {
+		const handleWheelEvent = jest.fn();
+		render(
+			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={3} onWheel={handleWheelEvent} />
+		);
+		const picker = screen.getByLabelText('3 press ok button to change the value');
+
+		act(() => {
+			picker.focus();
+		});
+		fireEvent.wheel(picker, {deltaY: 10});
+
+		expect(handleWheelEvent).toHaveBeenCalled();
+	});
+
+	test('should call onWheel event when \'joined\' and \'value\' is \'min\' and \'deltaY\' is negative', () => {
+		const handleWheelEvent = jest.fn();
+		render(
+			<Picker index={0} joined max={3} min={0} noAnimation step={1} value={0} onWheel={handleWheelEvent} />
+		);
+		let picker = screen.getByLabelText('0 press ok button to change the value');
+
+		act(() => {
+			picker.focus();
+		});
+		fireEvent.wheel(picker, {deltaY: -10});
+
+		expect(handleWheelEvent).toHaveBeenCalled();
 	});
 
 	test('should decrement by \'step\' value and wrap successfully', () => {
@@ -610,7 +683,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, expectedValue);
 		});
 
-		test('should set picker `decrementAriaLabel` to decrement button', () => {
+		test('should set picker \'decrementAriaLabel\' to decrement button', () => {
 			const customLabel = 'custom decrement aria-label';
 			render(
 				<Picker decrementAriaLabel={customLabel} index={1} max={3} min={0} value={1}>
@@ -627,7 +700,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, customLabel);
 		});
 
-		test('should set picker `incrementAriaLabel` to decrement button', () => {
+		test('should set picker \'incrementAriaLabel\' to decrement button', () => {
 			const customLabel = 'custom increment aria-label';
 			render(
 				<Picker incrementAriaLabel={customLabel} index={1} max={3} min={0} value={1}>
@@ -644,7 +717,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, customLabel);
 		});
 
-		test('should set picker `decrementAriaLabel` to decrement button with title', () => {
+		test('should set picker \'decrementAriaLabel\' to decrement button with title', () => {
 			const titleText = 'title text';
 			const customLabel = 'custom decrement aria-label';
 			render(
@@ -662,7 +735,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, titleText + ' ' + customLabel);
 		});
 
-		test('should set picker `incrementAriaLabel` to decrement button with title', () => {
+		test('should set picker \'incrementAriaLabel\' to decrement button with title', () => {
 			const titleText = 'title text';
 			const customLabel = 'custom increment aria-label';
 			render(
@@ -680,7 +753,7 @@ describe('Picker Specs', () => {
 			expect(picker).toHaveAttribute(expectedAttribute, titleText + ' ' + customLabel);
 		});
 
-		test('should set `aria-label` to joined picker', () => {
+		test('should set \'aria-label\' to joined picker', () => {
 			const customLabel = 'custom joined picker aria-label';
 			render(
 				<Picker aria-label={customLabel} index={1} joined max={3} min={0} value={1}>

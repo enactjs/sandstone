@@ -1,7 +1,7 @@
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
-import {mergeClassNameMaps} from '@enact/core/util';
+import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Spotlight from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import {Announce} from '@enact/ui/AnnounceDecorator';
@@ -19,7 +19,7 @@ const completeAnnounceDelay = 300; // An arbitrary delay at a level that is not 
 const TouchableDiv = Touchable('div');
 
 /**
- * The shape for editable of [Scroller]{@link sandstone/Scroller}.
+ * The shape for editable of {@link sandstone/Scroller|Scroller}.
  *
  * @typedef {Object} EditableShape
  * @memberof sandstone/Scroller
@@ -67,7 +67,7 @@ const EditableWrapper = (props) => {
 	const customCss = editable?.css || {};
 	const removeItemFuncRef = editable?.removeItemFuncRef;
 
-	const mergedCss = mergeClassNameMaps(componentCss, customCss, Object.keys(componentCss));
+	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
 	const dataSize = children?.length;
 
@@ -580,7 +580,7 @@ EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.protot
 	/**
 	 * Enables editing items in the scroller.
 	 * You can specify props for editable scroller as an object.
-	 * See the datails in [EditableShape]{@link sandstone/Scroller.EditableShape}
+	 * See the datails in {@link sandstone/Scroller.EditableShape|EditableShape}
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
 	 * @public

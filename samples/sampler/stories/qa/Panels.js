@@ -12,6 +12,8 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useCallback, useState} from 'react';
 
+import {svgGenerator} from '../helper/svg';
+
 const Config = mergeComponentMetadata('Panels', Panels);
 
 const items = [];
@@ -21,7 +23,7 @@ for (let i = 0; i < 20; i++) {
 	const text = `Item ${count}`;
 	const subText = `SubItem ${count}`;
 	const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
-	const source = `http://via.placeholder.com/600x600/${color}/ffffff/png?text=Image+${i}`;
+	const source = svgGenerator(600, 600, color, 'ffffff', `Image ${i}`);
 
 	items.push({text, subText, source});
 }

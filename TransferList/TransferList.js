@@ -1,6 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* global Image */
 
+/**
+ * Provides Sandstone-themed transfer list components and behaviors.
+ *
+ * @module sandstone/TransferList
+ * @exports TransferListBase
+ * @exports TransferListDecorator
+ * @exports TransferList
+ */
+
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -16,25 +25,95 @@ import Skinnable from '../Skinnable';
 
 import componentCss from './TransferList.module.less';
 
+/**
+ * A Sandstone-styled scrollable, draggable and spottable transfer list component.
+ *
+ * @class TransferListBase
+ * @memberof sandstone/TransferList
+ * @ui
+ * @public
+ */
+
 const TransferListBase = kind({
 	name: 'TransferList',
 
 	functional: true,
 
-	propTypes: {
+	propTypes: /** @lends sandstone/TransferList.TransferListBase.prototype */ {
+		/**
+		 * Allows for multiple elements to be dragged from one list to another.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		allowMultipleDrag: PropTypes.bool,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `transferList` - The root component class for TransferList
+		 *
+		 * @type {Object}
+		 * @public
+		 */
 		css: PropTypes.object,
+
+		/**
+		 * An array containing the name of each item that will populate the first list.
+		 *
+		 * @type {Array}
+		 * @private
+		 */
 		firstList: PropTypes.array,
-		height: PropTypes.string,
+
+		/**
+		 * The height of the list container.
+		 *
+		 * @type {Number}
+		 * @default 999
+		 * @public
+		 */
+		height: PropTypes.number,
+
+		/**
+		 * Allows items to be transferred from one list to another using Spotlight Right and/or Spotlight Left.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		moveOnSpotlight: PropTypes.bool,
+
+		/**
+		 * An array containing the name of each item that will populate the second list.
+		 *
+		 * @type {Array}
+		 * @private
+		 */
 		secondList: PropTypes.array,
+
+		/**
+		 * Called when the first list needs to be modified.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
 		setFirstList: PropTypes.func,
+
+		/**
+		 * Called when the second list needs to be modified.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
 		setSecondList: PropTypes.func
 	},
 
 	defaultProps: {
 		allowMultipleDrag: true,
-		height: ri.scaleToRem(999),
+		height: 999,
 		firstList: {},
 		moveOnSpotlight: false,
 		secondList: {},
@@ -88,11 +167,12 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({allowMultipleDrag, css, firstList, height, moveOnSpotlight, renderItems, secondList, setFirstList, setSecondList}) => {
+	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, moveOnSpotlight, renderItems, secondList, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 
+		const height = ri.scaleToRem(defaultHeight);
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
 
@@ -441,6 +521,16 @@ const TransferListBase = kind({
 	}
 });
 
+/**
+ * Sandstone-specific behaviors to apply to [TransferListBase]{@link sandstone/TransferList.TransferListBase}.
+ *
+ * @hoc
+ * @memberof sandstone/TransferList
+ * @mixes sandstone/Skinnable.Skinnable
+ * @mixes spotlight/Spottable.Spottable
+ *
+ * @public
+ */
 const TransferListDecorator = compose(
 	Skinnable,
 	Spottable

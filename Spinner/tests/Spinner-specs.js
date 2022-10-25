@@ -1,7 +1,10 @@
+import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 
 import Spinner from '../Spinner';
+
+const FloatingLayerController = FloatingLayerDecorator('div');
 
 describe('Spinner Specs', () => {
 	test('should not have client node when Spinner has no children', () => {
@@ -48,5 +51,22 @@ describe('Spinner Specs', () => {
 		const spinner = screen.getByRole('alert');
 
 		expect(spinner).toHaveAttribute('aria-live', 'off');
+	});
+
+	test('should apply custom aria-label to spinner', () => {
+		const customAriaLabel = 'custom aria label';
+		render(<Spinner aria-label={customAriaLabel} />);
+		const spinner = screen.getByRole('alert');
+
+		expect(spinner).toHaveAttribute('aria-label', customAriaLabel);
+	});
+
+	test('should render a spinner with \'blockClickOn\' = \'screen\' inside FloatingLayer', () => {
+		render(<FloatingLayerController><Spinner blockClickOn="screen" /></FloatingLayerController>);
+
+		const floatingLayer = screen.getByRole('alert').parentElement;
+		const expectedClass = 'floatingLayer';
+
+		expect(floatingLayer).toHaveClass(expectedClass);
 	});
 });

@@ -10,6 +10,7 @@ import {scale} from '@enact/ui/resolution';
 import {Fragment} from 'react';
 
 import iconNames from '../helper/icons';
+import {svgGenerator} from '../helper/svg';
 
 Panel.displayName = 'Panel';
 Header.displayName = 'Header';
@@ -62,7 +63,7 @@ const updateDataSize = (dataSize) => {
 			children = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
 			label = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
-			src = `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${i}`;
+			src = svgGenerator(300, 300, color, 'ffffff', `Image ${i}`);
 
 		items.push({children, label, src});
 	}

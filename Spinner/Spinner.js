@@ -219,7 +219,7 @@ const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 });
 
 /**
- * Sandstone-specific Spinner behaviors to apply to [Spinner]{@link sandstone/Spinner.Spinner}.
+ * Sandstone-specific Spinner behaviors to apply to {@link sandstone/Spinner.Spinner|Spinner}.
  *
  * @hoc
  * @memberof sandstone/Spinner
