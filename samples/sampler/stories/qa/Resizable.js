@@ -2,12 +2,19 @@ import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import Resizable from '@enact/ui/Resizable';
+import useResizable from '@enact/ui/Resizable/useResizable';
+
 import ri from '@enact/ui/resolution';
 import {Component, Fragment} from 'react';
 
 const data = ['a', 'ABCDEFGHIJKLMNOPQRSTUVW12345', 'c'];
 
 const ResizeButton = Resizable({resize: 'onClick'}, Button);
+
+const ResizeButtonWithHook = (props) => {
+	const handlers = useResizable(props, {resize: 'onClick'});
+	return <Button {...handlers}>{props.children}</Button>;
+};
 
 class NoUpdate extends Component {
 	shouldComponentUpdate () {
@@ -24,24 +31,38 @@ class Items extends Component {
 		super(props);
 
 		this.state = {
-			more: false
+			moreItemForResizeButton: false,
+			moreItemForResizeButtonWithHook: false
 		};
 	}
 
 	toggleRenderItems = () => {
-		this.setState(({more}) => {
-			return {more: !more};
+		this.setState(({moreItemForResizeButton}) => {
+			return {moreItemForResizeButton: !moreItemForResizeButton};
+		});
+	};
+
+	toggleForResizeButtonWithHook = () => {
+		this.setState(({moreItemForResizeButtonWithHook}) => {
+			return {moreItemForResizeButtonWithHook: !moreItemForResizeButtonWithHook};
 		});
 	};
 
 	render () {
-		const {more} = this.state;
-		const amount = more ? 'Fewer' : 'More';
+		const {moreItemForResizeButton, moreItemForResizeButtonWithHook} = this.state;
+		const amount = moreItemForResizeButton ? 'Fewer' : 'More';
 
 		return (
 			<Fragment>
-				<ResizeButton onClick={this.toggleRenderItems}>Render {amount} Items</ResizeButton>
-				{more ?
+				<ResizeButton onClick={this.toggleRenderItems}>{amount} Items (hoc)</ResizeButton>
+				{moreItemForResizeButton ?
+					data.map((item) => {
+						return <Item key={item}>{item}</Item>;
+					}) :
+					null
+				}
+				<ResizeButtonWithHook onClick={this.toggleForResizeButtonWithHook}>{moreItemForResizeButtonWithHook ? 'Fewer' : 'More'} Items (hook)</ResizeButtonWithHook>
+				{moreItemForResizeButtonWithHook ?
 					data.map((item) => {
 						return <Item key={item}>{item}</Item>;
 					}) :
