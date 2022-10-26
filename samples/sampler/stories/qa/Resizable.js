@@ -36,7 +36,7 @@ class Items extends Component {
 		};
 	}
 
-	toggleRenderItems = () => {
+	toggleForResizeButton = () => {
 		this.setState(({moreItemForResizeButton}) => {
 			return {moreItemForResizeButton: !moreItemForResizeButton};
 		});
@@ -50,18 +50,21 @@ class Items extends Component {
 
 	render () {
 		const {moreItemForResizeButton, moreItemForResizeButtonWithHook} = this.state;
-		const amount = moreItemForResizeButton ? 'Fewer' : 'More';
 
 		return (
 			<Fragment>
-				<ResizeButton onClick={this.toggleRenderItems}>{amount} Items (hoc)</ResizeButton>
+				<ResizeButton onClick={this.toggleForResizeButton}>
+					{moreItemForResizeButton ? 'Fewer' : 'More'} Items (hoc)
+				</ResizeButton>
 				{moreItemForResizeButton ?
 					data.map((item) => {
 						return <Item key={item}>{item}</Item>;
 					}) :
 					null
 				}
-				<ResizeButtonWithHook onClick={this.toggleForResizeButtonWithHook}>{moreItemForResizeButtonWithHook ? 'Fewer' : 'More'} Items (hook)</ResizeButtonWithHook>
+				<ResizeButtonWithHook onClick={this.toggleForResizeButtonWithHook}>
+					{moreItemForResizeButtonWithHook ? 'Fewer' : 'More'} Items (hook)
+				</ResizeButtonWithHook>
 				{moreItemForResizeButtonWithHook ?
 					data.map((item) => {
 						return <Item key={item}>{item}</Item>;
