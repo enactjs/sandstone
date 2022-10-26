@@ -225,7 +225,7 @@ export const WithPinchZoomHandlers = (args) => {
 				global: args['pinchZoomConfig global'] || false,
 				maxZoom: args['pinchZoomConfig maxZoom'],
 				minZoom: args['pinchZoomConfig minZoom'],
-				scaleTolerance: args['pinchZoomConfig scaleTolerance']
+				moveTolerance: args['pinchZoomConfig moveTolerance']
 			}}
 			onPinchZoomStart={action('onPinchZoomStart')}
 			onPinchZoom={handlePinchZoom}
@@ -246,7 +246,7 @@ export const WithPinchZoomHandlers = (args) => {
 boolean('pinchZoomConfig global', WithPinchZoomHandlers, TouchableDiv, false);
 number('pinchZoomConfig maxZoom', WithPinchZoomHandlers, TouchableDiv, 4);
 number('pinchZoomConfig minZoom', WithPinchZoomHandlers, TouchableDiv, 0.5);
-number('pinchZoomConfig scaleTolerance', WithPinchZoomHandlers, TouchableDiv, 0.02);
+number('pinchZoomConfig moveTolerance', WithPinchZoomHandlers, TouchableDiv, 4);
 
 WithPinchZoomHandlers.storyName = 'with pinch-zoom handlers';
 
