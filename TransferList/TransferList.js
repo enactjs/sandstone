@@ -33,7 +33,7 @@ import componentCss from './TransferList.module.less';
  * @ui
  * @public
  */
-
+let div1;
 const TransferListBase = kind({
 	name: 'TransferList',
 
@@ -181,6 +181,12 @@ const TransferListBase = kind({
 		img.src = "https://via.placeholder.com/100x100";
 
 		useEffect(() => {
+			generateDragImage(selectedItems.length);
+
+		}, ); // eslint-disable-line react-hooks/exhaustive-deps
+
+
+		useEffect(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
 
@@ -196,7 +202,8 @@ const TransferListBase = kind({
 							startDragElement.current = element;
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
-							ev.dataTransfer.setDragImage(img, 0, 0);
+							//ev.dataTransfer.setDragImage(img, 0, 0);
+							ev.dataTransfer.setDragImage(div1, 0, 0);
 						});
 					}
 					if (event === 'dragover') {
@@ -253,6 +260,22 @@ const TransferListBase = kind({
 			});
 
 		}, [dragOverElement, firstListLocal, secondListLocal, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+
+		const generateDragImage = (numberOfItems) => {
+			if (typeof div1 === 'object') document.body.removeChild(div1);
+			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+			div1 = document.createElement("div");
+			div1.style.borderWidth = '3px';
+			div1.style.width = item.offsetWidth + 'px';
+			div1.style.height = item.offsetHeight + 'px';
+			div1.style.backgroundColor = 'red';
+			div1.innerText = numberOfItems;
+			div1.style.zIndex='-100';
+			div1.style.position = "absolute"; div1.style.top = "0px"; div1.style.left = "0px";
+
+			document.body.appendChild(div1);
+			console.log(div1)
+		};
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
