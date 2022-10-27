@@ -28,7 +28,7 @@ const nop = () => {};
  *
  * @class VirtualList
  * @memberof sandstone/VirtualList
- * @extends ui/VirtualList.VirtualListBasic
+ * @extends ui/VirtualList#VirtualListBasic
  * @ui
  * @public
  */
@@ -518,7 +518,7 @@ VirtualList.defaultProps = {
  *
  * @class VirtualGridList
  * @memberof sandstone/VirtualList
- * @extends ui/VirtualList.VirtualListBasic
+ * @extends ui/VirtualList#VirtualListBasic
  * @ui
  * @public
  */

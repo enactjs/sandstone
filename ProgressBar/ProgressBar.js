@@ -200,8 +200,8 @@ const ProgressBarDecorator = compose(
  *
  * @class ProgressBar
  * @memberof sandstone/ProgressBar
- * @extends sandstone/ProgressBar.ProgressBarBase
- * @mixes sandstone/ProgressBar.ProgressBarDecorator
+ * @extends sandstone/ProgressBar#ProgressBarBase
+ * @mixes sandstone/ProgressBar#ProgressBarDecorator
  * @ui
  * @public
  */

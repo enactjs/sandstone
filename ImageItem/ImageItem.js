@@ -43,7 +43,7 @@ const
  * A Sandstone styled base component for {@link sandstone/ImageItem.ImageItem|ImageItem}.
  *
  * @class ImageItemBase
- * @extends ui/ImageItem.ImageItem
+ * @extends ui/ImageItem#ImageItem
  * @memberof sandstone/ImageItem
  * @ui
  * @public
@@ -336,8 +336,8 @@ const ImageItemDecorator = compose(
  *
  * @class ImageItem
  * @memberof sandstone/ImageItem
- * @extends sandstone/ImageItem.ImageItemBase
- * @mixes sandstone/ImageItem.ImageItemDecorator
+ * @extends sandstone/ImageItem#ImageItemBase
+ * @mixes sandstone/ImageItem#ImageItemDecorator
  * @see {@link sandstone/ImageItem.ImageItemBase}
  * @ui
  * @public

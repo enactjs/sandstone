@@ -36,7 +36,7 @@ import css from './DayPicker.module.less';
  *
  * @class DayPickerBase
  * @memberof sandstone/DayPicker
- * @extends ui/Group.Group
+ * @extends ui/Group#Group
  * @omit children
  * @ui
  * @public
@@ -128,8 +128,8 @@ const DayPickerDecorator = compose(
  *
  * @class DayPicker
  * @memberof sandstone/DayPicker
- * @extends sandstone/DayPicker.DayPickerBase
- * @mixes ui/Changeable.Changeable
+ * @extends sandstone/DayPicker#DayPickerBase
+ * @mixes ui/Changeable#Changeable
  * @omit onChange
  * @omit value
  * @omit defaultValue

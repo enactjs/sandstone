@@ -345,9 +345,9 @@ const PickerBase = kind({
  *
  * @class Picker
  * @memberof sandstone/Picker
- * @extends sandstone/Picker.PickerBase
- * @mixes ui/Changeable.Changeable
- * @mixes sandstone/Marquee.MarqueeController
+ * @extends sandstone/Picker#PickerBase
+ * @mixes ui/Changeable#Changeable
+ * @mixes sandstone/Marquee#MarqueeController
  * @ui
  * @public
  */

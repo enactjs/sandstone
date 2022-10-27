@@ -36,7 +36,7 @@ import componentCss from './Button.module.less';
  *
  * @class ButtonBase
  * @memberof sandstone/Button
- * @extends ui/Button.ButtonBase
+ * @extends ui/Button#ButtonBase
  * @ui
  * @public
  */
@@ -289,8 +289,8 @@ const ButtonDecorator = compose(
  *
  * @class Button
  * @memberof sandstone/Button
- * @extends sandstone/Button.ButtonBase
- * @mixes sandstone/Button.ButtonDecorator
+ * @extends sandstone/Button#ButtonBase
+ * @mixes sandstone/Button#ButtonDecorator
  * @ui
  * @public
  */

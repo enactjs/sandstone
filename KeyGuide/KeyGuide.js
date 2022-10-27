@@ -161,8 +161,8 @@ const KeyGuideDecorator = compose(
  *
  * @class KeyGuide
  * @memberof sandstone/KeyGuide
- * @extends sandstone/KeyGuide.KeyGuideBase
- * @mixes sandstone/KeyGuide.KeyGuideDecorator
+ * @extends sandstone/KeyGuide#KeyGuideBase
+ * @mixes sandstone/KeyGuide#KeyGuideDecorator
  * @ui
  * @public
  */

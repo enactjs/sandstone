@@ -49,7 +49,7 @@ Checkbox.displayName = 'Checkbox';
  *
  * @class CheckboxItemBase
  * @memberof sandstone/CheckboxItem
- * @extends sandstone/Item.Item
+ * @extends sandstone/Item#Item
  * @omit iconComponent
  * @ui
  * @public
@@ -185,8 +185,8 @@ const CheckboxItemDecorator = compose(
  *
  * @class CheckboxItem
  * @memberof sandstone/CheckboxItem
- * @extends sandstone/CheckboxItem.CheckboxItemBase
- * @mixes sandstone/CheckboxItem.CheckboxItemDecorator
+ * @extends sandstone/CheckboxItem#CheckboxItemBase
+ * @mixes sandstone/CheckboxItem#CheckboxItemDecorator
  * @ui
  * @public
  */

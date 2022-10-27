@@ -115,8 +115,8 @@ const ActionGuideDecorator = compose(
  *
  * @class ActionGuide
  * @memberof sandstone/ActionGuide
- * @extends sandstone/ActionGuide.ActionGuideBase
- * @mixes sandstone/ActionGuide.ActionGuideDecorator
+ * @extends sandstone/ActionGuide#ActionGuideBase
+ * @mixes sandstone/ActionGuide#ActionGuideDecorator
  * @ui
  * @public
  */

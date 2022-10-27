@@ -19,7 +19,7 @@ function clamp (val, total) {
  * manager instance.
  *
  * @class Panel
- * @extends sandstone/Panels.Panel
+ * @extends sandstone/Panels#Panel
  * @memberof sandstone/FlexiblePopupPanels
  * @ui
  * @public

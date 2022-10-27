@@ -52,7 +52,7 @@ import componentCss from './Slider.module.less';
  * Range-selection input component.
  *
  * @class SliderBase
- * @extends ui/Slider.SliderBase
+ * @extends ui/Slider#SliderBase
  * @omit progressBarComponent
  * @memberof sandstone/Slider
  * @ui

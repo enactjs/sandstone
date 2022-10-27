@@ -31,7 +31,7 @@ const Item = ItemDecorator(ItemBase);
  *
  * @class RadioItemBase
  * @memberof sandstone/RadioItem
- * @extends sandstone/Item.Item
+ * @extends sandstone/Item#Item
  * @ui
  * @public
  */
@@ -126,8 +126,8 @@ const RadioItemDecorator = compose(
  *
  * @class RadioItem
  * @memberof sandstone/RadioItem
- * @extends sandstone/RadioItem.RadioItemBase
- * @mixes sandstone/RadioItem.RadioItemDecorator
+ * @extends sandstone/RadioItem#RadioItemBase
+ * @mixes sandstone/RadioItem#RadioItemDecorator
  * @ui
  * @public
  */

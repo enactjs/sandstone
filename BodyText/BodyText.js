@@ -32,7 +32,7 @@ const MarqueeBodyText = MarqueeDecorator(UiBodyText);
  *
  * @class BodyTextBase
  * @memberof sandstone/BodyText
- * @extends ui/BodyText.BodyText
+ * @extends ui/BodyText#BodyText
  * @ui
  * @public
  */
@@ -152,8 +152,8 @@ const BodyTextDecorator = compose(
  *
  * @class BodyText
  * @memberof sandstone/BodyText
- * @extends sandstone/BodyText.BodyTextBase
- * @mixes sandstone/BodyText.BodyTextDecorator
+ * @extends sandstone/BodyText#BodyTextBase
+ * @mixes sandstone/BodyText#BodyTextDecorator
  * @ui
  * @public
  */

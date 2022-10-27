@@ -629,7 +629,7 @@ const InputDecorator = compose(
  *
  * @class Input
  * @memberof sandstone/Input
- * @extends sandstone/Input.InputBase
+ * @extends sandstone/Input#InputBase
  * @ui
  * @public
  */
@@ -651,7 +651,7 @@ const Input = InputDecorator(InputBase);
  *
  * @class InputPopup
  * @memberof sandstone/Input
- * @extends sandstone/Input.InputPopupBase
+ * @extends sandstone/Input#InputPopupBase
  * @ui
  * @public
  */

@@ -27,7 +27,7 @@ import componentCss from './Switch.module.less';
  *
  * @class SwitchBase
  * @memberof sandstone/Switch
- * @extends sandstone/Icon.Icon
+ * @extends sandstone/Icon#Icon
  * @ui
  * @public
  */
@@ -136,8 +136,8 @@ const SwitchDecorator = compose(
  *
  * @class Switch
  * @memberof sandstone/Switch
- * @extends sandstone/Switch.SwitchBase
- * @mixes sandstone/Switch.SwitchDecorator
+ * @extends sandstone/Switch#SwitchBase
+ * @mixes sandstone/Switch#SwitchDecorator
  * @ui
  * @public
  */

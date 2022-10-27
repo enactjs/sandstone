@@ -34,7 +34,7 @@ import componentCss from './Checkbox.module.less';
  *
  * @class CheckboxBase
  * @memberof sandstone/Checkbox
- * @extends sandstone/Icon.Icon
+ * @extends sandstone/Icon#Icon
  * @ui
  * @public
  */
@@ -200,8 +200,8 @@ const CheckboxDecorator = compose(
  *
  * @class Checkbox
  * @memberof sandstone/Checkbox
- * @extends sandstone/Checkbox.CheckboxBase
- * @mixes sandstone/Checkbox.CheckboxDecorator
+ * @extends sandstone/Checkbox#CheckboxBase
+ * @mixes sandstone/Checkbox#CheckboxDecorator
  * @ui
  * @public
  */

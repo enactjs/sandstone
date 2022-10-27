@@ -30,7 +30,7 @@ import componentCss from './Icon.module.less';
  *
  * @class IconBase
  * @memberof sandstone/Icon
- * @extends ui/Icon.Icon
+ * @extends ui/Icon#Icon
  * @ui
  * @public
  */
@@ -368,8 +368,8 @@ const IconDecorator = compose(
  *
  * @class Icon
  * @memberof sandstone/Icon
- * @extends sandstone/Icon.IconBase
- * @mixes sandstone/Icon.IconDecorator
+ * @extends sandstone/Icon#IconBase
+ * @mixes sandstone/Icon#IconDecorator
  * @ui
  * @public
  */
