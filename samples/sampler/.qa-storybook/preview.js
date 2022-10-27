@@ -1,10 +1,10 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
 import {DocsPage, DocsContainer} from '@enact/storybook-utils/addons/docs';
+import ri from '@enact/ui/resolution';
 import {themes} from '@storybook/theming';
 
-import ThemeEnvironment from '../src/ThemeEnvironment'
-import ri from "../../../../enact/packages/ui/resolution";
+import ThemeEnvironment from '../src/ThemeEnvironment';
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
