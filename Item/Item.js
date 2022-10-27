@@ -329,7 +329,7 @@ const ItemDecorator = compose(
  * @class Item
  * @memberof sandstone/Item
  * @extends sandstone/Item#ItemBase
- * @mixes sandstone/Item#ItemDecorator
+ * @mixes sandstone/Item.ItemDecorator
  * @ui
  * @public
  */

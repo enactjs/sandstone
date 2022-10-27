@@ -238,7 +238,7 @@ const SpinnerDecorator = compose(
  * @class Spinner
  * @memberof sandstone/Spinner
  * @extends sandstone/Spinner#SpinnerBase
- * @mixes sandstone/Spinner#SpinnerDecorator
+ * @mixes sandstone/Spinner.SpinnerDecorator
  * @ui
  * @public
  */

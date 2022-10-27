@@ -369,7 +369,7 @@ const IconDecorator = compose(
  * @class Icon
  * @memberof sandstone/Icon
  * @extends sandstone/Icon#IconBase
- * @mixes sandstone/Icon#IconDecorator
+ * @mixes sandstone/Icon.IconDecorator
  * @ui
  * @public
  */

@@ -132,7 +132,7 @@ const HeadingDecorator = compose(
  * @class Heading
  * @memberof sandstone/Heading
  * @extends sandstone/Heading#HeadingBase
- * @mixes sandstone/Heading#HeadingDecorator
+ * @mixes sandstone/Heading.HeadingDecorator
  * @ui
  * @public
  */

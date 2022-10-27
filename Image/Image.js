@@ -162,7 +162,7 @@ const ImageDecorator = compose(
  * @class Image
  * @memberof sandstone/Image
  * @extends sandstone/Image#ImageBase
- * @mixes sandstone/Image#ImageDecorator
+ * @mixes sandstone/Image.ImageDecorator
  * @ui
  * @public
  */

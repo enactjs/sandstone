@@ -292,7 +292,7 @@ const MediaOverlayDecorator = compose(
  * @class MediaOverlay
  * @memberof sandstone/MediaOverlay
  * @extends sandstone/MediaOverlay#MediaOverlayBase
- * @mixes sandstone/MediaOverlay#MediaOverlayDecorator
+ * @mixes sandstone/MediaOverlay.MediaOverlayDecorator
  * @ui
  * @public
  */

@@ -201,7 +201,7 @@ const CheckboxDecorator = compose(
  * @class Checkbox
  * @memberof sandstone/Checkbox
  * @extends sandstone/Checkbox#CheckboxBase
- * @mixes sandstone/Checkbox#CheckboxDecorator
+ * @mixes sandstone/Checkbox.CheckboxDecorator
  * @ui
  * @public
  */

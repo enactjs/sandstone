@@ -125,7 +125,7 @@ const SwitchItemDecorator = compose(
  * @class SwitchItem
  * @memberof sandstone/SwitchItem
  * @extends sandstone/SwitchItem#SwitchItemBase
- * @mixes sandstone/SwitchItem#SwitchItemDecorator
+ * @mixes sandstone/SwitchItem.SwitchItemDecorator
  * @ui
  * @public
  */

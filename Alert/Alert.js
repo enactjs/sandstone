@@ -248,7 +248,7 @@ const AlertBase = kind({
  * @class Alert
  * @memberof sandstone/Alert
  * @extends sandstone/Alert#AlertBase
- * @mixes ui/Slottable#Slottable
+ * @mixes ui/Slottable.Slottable
  * @ui
  * @public
  */

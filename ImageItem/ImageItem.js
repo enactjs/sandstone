@@ -337,7 +337,7 @@ const ImageItemDecorator = compose(
  * @class ImageItem
  * @memberof sandstone/ImageItem
  * @extends sandstone/ImageItem#ImageItemBase
- * @mixes sandstone/ImageItem#ImageItemDecorator
+ * @mixes sandstone/ImageItem.ImageItemDecorator
  * @see {@link sandstone/ImageItem.ImageItemBase}
  * @ui
  * @public

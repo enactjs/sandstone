@@ -82,7 +82,7 @@ const FixedPopupPanelsBase = (props) => {
  * @class FixedPopupPanels
  * @memberof sandstone/FixedPopupPanels
  * @extends sandstone/FixedPopupPanels#FixedPopupPanelsBase
- * @mixes sandstone/FixedPopupPanels#FixedPopupPanelsDecorator
+ * @mixes sandstone/FixedPopupPanels.FixedPopupPanelsDecorator
  * @ui
  * @public
  */

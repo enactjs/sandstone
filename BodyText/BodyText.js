@@ -153,7 +153,7 @@ const BodyTextDecorator = compose(
  * @class BodyText
  * @memberof sandstone/BodyText
  * @extends sandstone/BodyText#BodyTextBase
- * @mixes sandstone/BodyText#BodyTextDecorator
+ * @mixes sandstone/BodyText.BodyTextDecorator
  * @ui
  * @public
  */

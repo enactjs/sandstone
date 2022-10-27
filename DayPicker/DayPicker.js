@@ -129,7 +129,7 @@ const DayPickerDecorator = compose(
  * @class DayPicker
  * @memberof sandstone/DayPicker
  * @extends sandstone/DayPicker#DayPickerBase
- * @mixes ui/Changeable#Changeable
+ * @mixes ui/Changeable.Changeable
  * @omit onChange
  * @omit value
  * @omit defaultValue

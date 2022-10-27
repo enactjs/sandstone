@@ -290,7 +290,7 @@ const ButtonDecorator = compose(
  * @class Button
  * @memberof sandstone/Button
  * @extends sandstone/Button#ButtonBase
- * @mixes sandstone/Button#ButtonDecorator
+ * @mixes sandstone/Button.ButtonDecorator
  * @ui
  * @public
  */

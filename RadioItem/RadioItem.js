@@ -127,7 +127,7 @@ const RadioItemDecorator = compose(
  * @class RadioItem
  * @memberof sandstone/RadioItem
  * @extends sandstone/RadioItem#RadioItemBase
- * @mixes sandstone/RadioItem#RadioItemDecorator
+ * @mixes sandstone/RadioItem.RadioItemDecorator
  * @ui
  * @public
  */
