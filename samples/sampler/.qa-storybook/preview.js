@@ -4,6 +4,7 @@ import {DocsPage, DocsContainer} from '@enact/storybook-utils/addons/docs';
 import {themes} from '@storybook/theming';
 
 import ThemeEnvironment from '../src/ThemeEnvironment'
+import ri from "../../../../enact/packages/ui/resolution";
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
@@ -52,6 +53,8 @@ configureActions();
 export const parameters = {
 	docs: {
 		container: DocsContainer,
+		inlineStories: false,
+		iframeHeight: ri.scaleToRem(300),
 		page: DocsPage,
 		theme: themes.light
 	},

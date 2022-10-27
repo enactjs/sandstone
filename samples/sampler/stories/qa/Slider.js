@@ -1,4 +1,5 @@
 import {number} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Item from '@enact/sandstone/Item';
 import Slider from '@enact/sandstone/Slider';
 import VirtualList from '@enact/sandstone/VirtualList';
@@ -96,7 +97,18 @@ class SliderList extends Component {
 
 export default {
 	title: 'Sandstone/Slider',
-	component: 'Slider'
+	component: 'Slider',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const AddAndRemove = (args) => {

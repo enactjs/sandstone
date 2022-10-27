@@ -1,4 +1,5 @@
 import {select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import Button from '@enact/sandstone/Button';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
@@ -84,7 +85,18 @@ class ContextualPopupWithActivator extends Component {
 
 export default {
 	title: 'Sandstone/ContextualPopupDecorator',
-	component: 'ContextualPopupDecorator'
+	component: 'ContextualPopupDecorator',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const With5WaySelectableActivator = (args) => (

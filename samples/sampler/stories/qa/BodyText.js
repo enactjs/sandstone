@@ -1,4 +1,5 @@
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import BodyText from '@enact/sandstone/BodyText';
 
 BodyText.displayName = 'BodyText';
@@ -13,7 +14,18 @@ const stringsToChoose = [
 
 export default {
 	title: 'Sandstone/BodyText',
-	component: 'BodyText'
+	component: 'BodyText',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithLongAndShortStrings = (args) => (

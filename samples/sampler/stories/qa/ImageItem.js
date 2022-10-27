@@ -1,5 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, object, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
@@ -24,7 +25,18 @@ const dataIndexProp = {
 
 export default {
 	title: 'Sandstone/ImageItem',
-	component: 'ImageItem'
+	component: 'ImageItem',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithDataIndex = (args) => {

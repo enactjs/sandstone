@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 
@@ -37,7 +38,17 @@ const prop = {
 
 export default {
 	title: 'Sandstone/Alert',
-	component: 'Alert'
+	component: 'Alert',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _Alert = (args) => (

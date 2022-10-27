@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {Row} from '@enact/ui/Layout';
@@ -41,7 +42,18 @@ const prop = {
 
 export default {
 	title: 'Sandstone/Button',
-	component: 'Button'
+	component: 'Button',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithLongText = (args) => (

@@ -5,6 +5,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Popup, {PopupBase} from '@enact/sandstone/Popup';
@@ -38,7 +39,17 @@ const navNext = (callback, value) => () => {
 
 export default {
 	title: 'Sandstone/PopupTabLayout',
-	component: 'PopupTabLayout'
+	component: 'PopupTabLayout',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 const PopupTabLayoutSamplesBase = ({args, rtl}) => {

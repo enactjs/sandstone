@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import RadioItem from '@enact/sandstone/RadioItem';
 
@@ -22,7 +23,18 @@ const radioData = {
 
 export default {
 	title: 'Sandstone/RadioItem',
-	component: 'RadioItem'
+	component: 'RadioItem',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithLongTextAndSpaces = (args) => (

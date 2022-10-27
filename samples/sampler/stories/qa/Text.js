@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import BodyText from '@enact/sandstone/BodyText';
 import {Button, ButtonBase} from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
@@ -96,7 +97,18 @@ class ContextualPopupWithActivator extends Component {
 
 export default {
 	title: 'Sandstone/Text',
-	component: 'Text'
+	component: 'Text',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const TallGlyphSupportInComponents = (args) => {

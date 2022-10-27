@@ -3,6 +3,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Button from '@enact/sandstone/Button';
 import {FlexiblePopupPanelsBase, FlexiblePopupPanels, Panel, PanelBase, Header} from '@enact/sandstone/FlexiblePopupPanels';
 import Item from '@enact/sandstone/Item';
@@ -22,7 +23,17 @@ const PanelConfig = mergeComponentMetadata('Panel', PanelBase, Panel);
 
 export default {
 	title: 'Sandstone/FlexiblePopupPanels',
-	component: 'FlexiblePopupPanels'
+	component: 'FlexiblePopupPanels',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _FlexiblePopupPanels = (args) => {

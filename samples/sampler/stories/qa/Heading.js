@@ -1,5 +1,6 @@
 import IString from 'ilib/lib/IString';
 import {select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Heading from '@enact/sandstone/Heading';
 import $L from '@enact/sandstone/internal/$L';
 import Item from '@enact/sandstone/Item';
@@ -23,7 +24,18 @@ const prop = {
 
 export default {
 	title: 'Sandstone/Heading',
-	component: 'Heading'
+	component: 'Heading',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithItalics = (args) => (

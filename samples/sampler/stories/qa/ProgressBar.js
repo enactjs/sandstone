@@ -1,12 +1,24 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import ProgressBar, {ProgressBarBase} from '@enact/sandstone/ProgressBar';
 
 const Config = mergeComponentMetadata('ProgressBar', ProgressBarBase, ProgressBar);
 
 export default {
 	title: 'Sandstone/ProgressBar',
-	component: 'ProgressBar'
+	component: 'ProgressBar',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const TheBasicProgressBar = (args) => (

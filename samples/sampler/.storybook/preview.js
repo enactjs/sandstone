@@ -1,6 +1,7 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
 import {DocsPage, DocsContainer} from '@enact/storybook-utils/addons/docs';
+import ri from '@enact/ui/resolution';
 import {themes} from '@storybook/theming';
 
 import ThemeEnvironment from '../src/ThemeEnvironment';
@@ -51,6 +52,8 @@ configureActions();
 export const parameters = {
 	docs: {
 		container: DocsContainer,
+		inlineStories: false,
+		iframeHeight: ri.scaleToRem(300),
 		page: DocsPage,
 		theme: themes.light
 	},

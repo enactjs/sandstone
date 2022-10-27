@@ -1,5 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {text, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import ActionGuide, {ActionGuideBase} from '@enact/sandstone/ActionGuide';
 
 // import icons
@@ -14,7 +15,17 @@ const Config = mergeComponentMetadata('ActionGuide', ActionGuideBase, ActionGuid
 
 export default {
 	title: 'Sandstone/ActionGuide',
-	component: 'ActionGuide'
+	component: 'ActionGuide',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _ActionGuide = (args) => {

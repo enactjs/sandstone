@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Item from '@enact/sandstone/Item';
@@ -111,7 +112,18 @@ class PositionChangingDropdown extends Component {
 
 export default {
 	title: 'Sandstone/Dropdown',
-	component: 'Dropdown'
+	component: 'Dropdown',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const With2OptionsForTestingDirection = (args) => (

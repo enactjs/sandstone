@@ -1,3 +1,4 @@
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import DayPicker, {getSelectedDayString} from '@enact/sandstone/DayPicker';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
@@ -37,7 +38,18 @@ class DayPickerWithItem extends Component {
 
 export default {
 	title: 'Sandstone/DayPicker',
-	component: 'DayPicker'
+	component: 'DayPicker',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const ToTestGetSelectedDayString = () => <DayPickerWithItem />;

@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
@@ -206,7 +207,18 @@ class VirtualListWithCBScrollTo extends Component {
 
 export default {
 	title: 'Sandstone/VirtualList',
-	component: 'VirtualList'
+	component: 'VirtualList',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const HorizontalScrollInScroller = (args) => {

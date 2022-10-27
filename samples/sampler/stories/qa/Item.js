@@ -1,4 +1,5 @@
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
@@ -42,7 +43,18 @@ const KsIcon = <Icon size="small">notification</Icon>;
 
 export default {
 	title: 'Sandstone/Item',
-	component: 'Item'
+	component: 'Item',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithLongText = (args) => (

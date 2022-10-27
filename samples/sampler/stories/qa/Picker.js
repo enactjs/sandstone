@@ -1,5 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Button from '@enact/sandstone/Button';
 import {Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
@@ -59,7 +60,18 @@ const pickerList = {
 
 export default {
 	title: 'Sandstone/Picker',
-	component: 'Picker'
+	component: 'Picker',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithLongText = (args) => (

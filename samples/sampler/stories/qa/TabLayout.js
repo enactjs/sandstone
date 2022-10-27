@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {InputField} from '@enact/sandstone/Input';
@@ -68,7 +69,18 @@ class AddingTabSample extends Component {
 
 export default {
 	title: 'Sandstone/TabLayout',
-	component: 'TabLayout'
+	component: 'TabLayout',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithVariableNumberOfTabs = (args) => {

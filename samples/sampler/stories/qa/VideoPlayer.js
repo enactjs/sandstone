@@ -2,6 +2,7 @@ import Button from '@enact/sandstone/Button';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
 import {select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 
@@ -108,7 +109,18 @@ class VideoSourceSwap extends Component {
 
 export default {
 	title: 'Sandstone/VideoPlayer',
-	component: 'VideoPlayer'
+	component: 'VideoPlayer',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 VideoSourceSwap.propTypes = {

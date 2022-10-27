@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import BodyText from '@enact/sandstone/BodyText';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
@@ -24,7 +25,17 @@ const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scrol
 
 export default {
 	title: 'Sandstone/Scroller',
-	component: 'Scroller'
+	component: 'Scroller',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _Scroller = (args) => {

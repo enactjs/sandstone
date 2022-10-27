@@ -1,5 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Heading from '@enact/sandstone/Heading';
 import Icon, {IconBase} from '@enact/sandstone/Icon';
 import Scroller from '@enact/sandstone/Scroller';
@@ -17,7 +18,17 @@ const Config = mergeComponentMetadata('Icon', UiIcon, IconBase, Icon);
 
 export default {
 	title: 'Sandstone/Icon',
-	component: 'Icon'
+	component: 'Icon',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _Icon = (args) => {

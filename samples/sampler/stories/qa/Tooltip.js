@@ -1,6 +1,7 @@
 import kind from '@enact/core/kind';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
@@ -267,7 +268,18 @@ class TooltipFollow extends Component {
 
 export default {
 	title: 'Sandstone/Tooltip',
-	component: 'Tooltip'
+	component: 'Tooltip',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const ThatShowsAfterButtonIsUnmountedEnyo3809 = () => <TooltipTest />;

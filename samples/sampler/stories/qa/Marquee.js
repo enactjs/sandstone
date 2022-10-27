@@ -1,6 +1,7 @@
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Spottable from '@enact/spotlight/Spottable';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
@@ -170,7 +171,18 @@ class MarqueeWithContentChanged extends Component {
 
 export default {
 	title: 'Sandstone/Marquee',
-	component: 'Marquee'
+	component: 'Marquee',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const Ltr = (args) => {

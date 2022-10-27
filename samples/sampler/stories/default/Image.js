@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {object, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Image, {ImageBase, ImageDecorator} from '@enact/sandstone/Image';
 import {ImageBase as UiImageBase} from '@enact/ui/Image';
 
@@ -17,7 +18,17 @@ Image.displayName = 'Image';
 
 export default {
 	title: 'Sandstone/Image',
-	component: 'Image'
+	component: 'Image',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _Image = (args) => (

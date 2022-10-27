@@ -1,5 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import {Fragment} from 'react';
 
@@ -16,7 +17,18 @@ const customizedConfig = makeCustomizedConfig(compactDefaultProps);
 
 export default {
 	title: 'Sandstone/Header/Compact',
-	component: 'Header'
+	component: 'Header',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const JustTitle = (args) => {

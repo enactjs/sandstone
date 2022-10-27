@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import SwitchItem from '@enact/sandstone/SwitchItem';
@@ -12,7 +13,17 @@ const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, SwitchItem);
 
 export default {
 	title: 'Sandstone/SwitchItem',
-	component: 'SwitchItem'
+	component: 'SwitchItem',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _SwitchItem = (args) => {

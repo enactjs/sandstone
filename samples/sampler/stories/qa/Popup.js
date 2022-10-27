@@ -1,4 +1,5 @@
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {action} from '@enact/storybook-utils/addons/actions';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Alert from '@enact/sandstone/Alert';
@@ -29,7 +30,18 @@ const PopupFromSelfOnlyContainer = Toggleable(
 
 export default {
 	title: 'Sandstone/Popup',
-	component: 'Popup'
+	component: 'Popup',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const UsingSpotlightRestrict = (args) => (

@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {range, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Button from '@enact/sandstone/Button';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Icon from '@enact/sandstone/Icon';
@@ -34,7 +35,17 @@ const tabSelections = {
 
 export default {
 	title: 'Sandstone/TabLayout',
-	component: 'TabLayout'
+	component: 'TabLayout',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _TabLayout = (args) => {

@@ -8,6 +8,7 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 
 import css from './About.module.less';
+import {Primary, Title} from "@enact/storybook-utils/addons/docs";
 
 const edgeDotKeepout = 12;
 BodyText.displayName = 'BodyText';
@@ -64,7 +65,17 @@ const HintDialog = kind({
 });
 
 export default {
-	title: 'About/A Tour of Sampler'
+	title: 'About/A Tour of Sampler',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const ATourOfSampler = (args) => (

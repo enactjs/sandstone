@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Alert from '@enact/sandstone/Alert';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
@@ -29,7 +30,18 @@ const inputData = {
 
 export default {
 	title: 'Sandstone/WizardPanels',
-	component: 'WizardPanels'
+	component: 'WizardPanels',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 class WizardPanelsWithFooterButtons extends Component {

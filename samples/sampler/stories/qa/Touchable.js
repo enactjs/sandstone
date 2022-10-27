@@ -1,6 +1,7 @@
 import kind from '@enact/core/kind';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, range} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Button from '@enact/sandstone/Button';
 import ri from '@enact/ui/resolution';
 import Touchable from '@enact/ui/Touchable';
@@ -70,7 +71,18 @@ const TouchArea = kind({
 
 export default {
 	title: 'Sandstone/Touchable',
-	component: 'Touchable'
+	component: 'Touchable',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 export const WithDefaultHoldEvents = (args) => (

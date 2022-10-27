@@ -1,5 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import DayPicker from '@enact/sandstone/DayPicker';
 import Scroller from '@enact/sandstone/Scroller';
 
@@ -7,7 +8,17 @@ DayPicker.displayName = 'DayPicker';
 
 export default {
 	title: 'Sandstone/DayPicker',
-	component: 'DayPicker'
+	component: 'DayPicker',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _DayPicker = (args) => (

@@ -1,5 +1,6 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Button from '@enact/sandstone/Button';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 
@@ -31,7 +32,17 @@ const prop = {
 
 export default {
 	title: 'Sandstone/TooltipDecorator',
-	component: 'TooltipDecorator'
+	component: 'TooltipDecorator',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _TooltipDecorator = (args) => (

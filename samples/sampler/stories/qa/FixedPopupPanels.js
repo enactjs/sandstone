@@ -5,6 +5,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
@@ -81,7 +82,18 @@ const itemRenderer = ({index, ...rest}) => {
 
 export default {
 	title: 'Sandstone/FixedPopupPanels',
-	component: 'FixedPopupPanels'
+	component: 'FixedPopupPanels',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+					<Stories />
+				</>
+			)
+		}
+	}
 };
 
 const WithVirtualListSamplesBase = ({args, rtl}) => {

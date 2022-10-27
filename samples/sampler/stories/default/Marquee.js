@@ -1,4 +1,5 @@
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Marquee from '@enact/sandstone/Marquee';
 import ri from '@enact/ui/resolution';
 
@@ -6,7 +7,17 @@ Marquee.displayName = 'Marquee';
 
 export default {
 	title: 'Sandstone/Marquee',
-	component: 'Marquee'
+	component: 'Marquee',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _Marquee = (args) => {

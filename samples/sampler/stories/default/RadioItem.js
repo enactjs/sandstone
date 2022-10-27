@@ -1,6 +1,7 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import RadioItem, {RadioItemBase} from '@enact/sandstone/RadioItem';
@@ -12,7 +13,17 @@ const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItemBase
 
 export default {
 	title: 'Sandstone/RadioItem',
-	component: 'RadioItem'
+	component: 'RadioItem',
+	parameters: {
+		docs: {
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			)
+		}
+	}
 };
 
 export const _RadioItem = (args) => {
