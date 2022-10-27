@@ -24,6 +24,7 @@ import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 
 import componentCss from './TransferList.module.less';
+import itemCss from '../Item/Item.module.less';
 
 /**
  * A Sandstone-styled scrollable, draggable and spottable transfer list component.
@@ -203,7 +204,10 @@ const TransferListBase = kind({
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
 							//ev.dataTransfer.setDragImage(img, 0, 0);
-							ev.dataTransfer.setDragImage(div1, 0, 0);
+							console.log(selectedItems.length)
+							if(selectedItems.length > 1) {
+								ev.dataTransfer.setDragImage(div1, 0, 0);
+							}
 						});
 					}
 					if (event === 'dragover') {
@@ -259,22 +263,66 @@ const TransferListBase = kind({
 				});
 			});
 
-		}, [dragOverElement, firstListLocal, secondListLocal, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		}, [dragOverElement, firstListLocal, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const generateDragImage = (numberOfItems) => {
 			if (typeof div1 === 'object') document.body.removeChild(div1);
 			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+			const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
+
 			div1 = document.createElement("div");
-			div1.style.borderWidth = '3px';
-			div1.style.width = item.offsetWidth + 'px';
-			div1.style.height = item.offsetHeight + 'px';
-			div1.style.backgroundColor = 'red';
-			div1.innerText = numberOfItems;
-			div1.style.zIndex='-100';
-			div1.style.position = "absolute"; div1.style.top = "0px"; div1.style.left = "0px";
+			div1.style.height = 1.6 * item.clientHeight + 'px';
+			div1.style.width = item.clientWidth + 'px';
+			div1.style.position = "absolute";
+			div1.style.top = "0px";
+			div1.style.left = "0px";
+			//div1.style.zIndex='-110';
 
 			document.body.appendChild(div1);
-			console.log(div1)
+
+			let div2 = document.createElement("div");
+			div2.style.border = '1px solid black';
+			div2.style.borderRadius = getComputedStyle(itemBg).borderRadius;
+			div2.style.width = item.clientWidth + 'px';
+			div2.style.height = item.clientHeight + 'px';
+			div2.style.backgroundColor = getComputedStyle(itemBg).backgroundColor;
+			//div2.style.zIndex='-100';
+			div2.style.position = "absolute";
+			div2.style.top = "0px";
+			div2.style.left = "0px";
+
+			let div3 = document.createElement("div");
+			div3.style.border = '1px solid black';
+			div3.style.borderRadius = getComputedStyle(itemBg).borderRadius;
+			div3.style.width = item.clientWidth + 'px';
+			div3.style.height = item.clientHeight + 'px';
+			div3.style.backgroundColor = getComputedStyle(itemBg).backgroundColor;
+			//div3.style.zIndex='-90';
+			div3.style.position = "absolute";
+			div3.style.top = 0.3 * item.clientHeight + 'px';
+			div3.style.left = "0px"
+
+			let div4 = document.createElement("div");
+			div4.style.border = '1px solid black';
+			div4.style.borderRadius = getComputedStyle(itemBg).borderRadius;
+			div4.style.color = 'black';
+			div4.style.fontSize = getComputedStyle(item).fontSize;
+			div4.style.fontWeight = getComputedStyle(item).fontWeight;
+			div4.style.fontWeight = getComputedStyle(item).fontFamily;
+			div4.style.lineHeight = getComputedStyle(item).lineHeight;
+			div4.style.width = item.clientWidth + 'px';
+			div4.style.height = item.clientHeight + 'px';
+			div4.style.backgroundColor = getComputedStyle(itemBg).backgroundColor;
+			div4.innerText = numberOfItems;
+			div4.style.textAlign = 'center';
+			//div4.style.zIndex='-80';
+			div4.style.position = "absolute";
+			div4.style.top = 0.6 * item.clientHeight + 'px';
+			div4.style.left = "0px";
+
+			div1.appendChild(div2);
+			div1.appendChild(div3);
+			div1.appendChild(div4);
 		};
 
 		const moveIntoFirstSelected = useCallback(() => {
