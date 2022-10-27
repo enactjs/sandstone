@@ -1,8 +1,8 @@
+import Button from '@enact/sandstone/Button';
+import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
 import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
-import Button from '@enact/sandstone/Button';
-import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 

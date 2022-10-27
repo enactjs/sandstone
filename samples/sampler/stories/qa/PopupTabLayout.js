@@ -17,8 +17,8 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import {useCallback, useState} from 'react';
 import compose from 'ramda/src/compose';
+import {useCallback, useState} from 'react';
 
 PopupTabLayout.displayName = 'PopupTabLayout';
 

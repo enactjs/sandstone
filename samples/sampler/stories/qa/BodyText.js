@@ -1,6 +1,6 @@
+import BodyText from '@enact/sandstone/BodyText';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
-import BodyText from '@enact/sandstone/BodyText';
 
 BodyText.displayName = 'BodyText';
 

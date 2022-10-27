@@ -1,7 +1,7 @@
+import BodyText, {BodyTextBase} from '@enact/sandstone/BodyText';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, text, select} from '@enact/storybook-utils/addons/controls';
 import {Primary, Title} from '@enact/storybook-utils/addons/docs';
-import BodyText, {BodyTextBase} from '@enact/sandstone/BodyText';
 import UiBodyText, {BodyTextBase as UiBodyTextBase} from '@enact/ui/BodyText';
 
 BodyText.displayName = 'BodyText';

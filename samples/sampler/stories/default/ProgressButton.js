@@ -1,9 +1,9 @@
+import Button, {ButtonBase} from '@enact/sandstone/Button';
+import ProgressButton, {ProgressButtonBase} from '@enact/sandstone/ProgressButton';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, range, select, text} from '@enact/storybook-utils/addons/controls';
 import {Primary, Title} from '@enact/storybook-utils/addons/docs';
-import Button, {ButtonBase} from '@enact/sandstone/Button';
-import ProgressButton, {ProgressButtonBase} from '@enact/sandstone/ProgressButton';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 
 import iconNames from '../helper/icons';

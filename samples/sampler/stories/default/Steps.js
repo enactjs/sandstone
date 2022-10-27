@@ -1,7 +1,7 @@
+import Steps, {StepsBase} from '@enact/sandstone/Steps';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
 import {Primary, Title} from '@enact/storybook-utils/addons/docs';
-import Steps, {StepsBase} from '@enact/sandstone/Steps';
 
 import iconNames from '../helper/icons';
 

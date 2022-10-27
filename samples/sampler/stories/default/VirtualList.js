@@ -1,9 +1,9 @@
+import Item from '@enact/sandstone/Item';
+import VirtualList from '@enact/sandstone/VirtualList';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import {Primary, Title} from '@enact/storybook-utils/addons/docs';
-import Item from '@enact/sandstone/Item';
-import VirtualList from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 

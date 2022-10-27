@@ -1,8 +1,8 @@
-import {number} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Item from '@enact/sandstone/Item';
 import Slider from '@enact/sandstone/Slider';
 import VirtualList from '@enact/sandstone/VirtualList';
+import {number} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {Component} from 'react';

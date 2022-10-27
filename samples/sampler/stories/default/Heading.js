@@ -1,8 +1,8 @@
+import BodyText from '@enact/sandstone/BodyText';
+import Heading, {HeadingBase} from '@enact/sandstone/Heading';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import {Primary, Title} from '@enact/storybook-utils/addons/docs';
-import BodyText from '@enact/sandstone/BodyText';
-import Heading, {HeadingBase} from '@enact/sandstone/Heading';
 import UiHeading from '@enact/ui/Heading';
 import {Fragment} from 'react';
 

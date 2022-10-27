@@ -1,7 +1,3 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
 import ImageItem from '@enact/sandstone/ImageItem';
@@ -12,6 +8,10 @@ import {Header} from '@enact/sandstone/Panels';
 import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Group from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';

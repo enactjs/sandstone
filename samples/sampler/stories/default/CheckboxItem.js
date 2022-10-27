@@ -1,11 +1,11 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
 import CheckboxItem, {CheckboxItemBase} from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 
 import iconNames from '../helper/icons';
 

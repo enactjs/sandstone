@@ -1,8 +1,8 @@
+import {InputField, InputFieldBase} from '@enact/sandstone/Input';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 
 import {iconNames, divMargin, propOptions, inputData} from './common/Input_Common';
 

@@ -1,7 +1,7 @@
+import KeyGuide from '@enact/sandstone/KeyGuide';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, range, select, text} from '@enact/storybook-utils/addons/controls';
 import {Primary, Title} from '@enact/storybook-utils/addons/docs';
-import KeyGuide from '@enact/sandstone/KeyGuide';
 
 const prop = {
 	icon: ['red', 'green', 'yellow', 'blue', 'gear', 'trash', 'search']

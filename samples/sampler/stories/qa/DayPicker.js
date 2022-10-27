@@ -1,8 +1,8 @@
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import DayPicker, {getSelectedDayString} from '@enact/sandstone/DayPicker';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Component} from 'react';
 
 DayPicker.displayName = 'DayPicker';

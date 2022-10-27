@@ -1,10 +1,10 @@
 import classnames from 'classnames';
+import BodyText from '@enact/sandstone/BodyText';
+import Scroller from '@enact/sandstone/Scroller';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import {Primary, Title} from '@enact/storybook-utils/addons/docs';
-import BodyText from '@enact/sandstone/BodyText';
-import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 

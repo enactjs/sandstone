@@ -1,7 +1,3 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import BodyText from '@enact/sandstone/BodyText';
 import {Button, ButtonBase} from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
@@ -17,6 +13,10 @@ import Picker from '@enact/sandstone/Picker';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Row} from '@enact/ui/Layout';
 import Repeater from '@enact/ui/Repeater';
 import {Component} from 'react';

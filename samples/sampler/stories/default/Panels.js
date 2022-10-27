@@ -1,7 +1,3 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
@@ -12,6 +8,10 @@ import {Header, Panels, Panel} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
 import {TabLayout} from '@enact/sandstone/TabLayout';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import {scale} from '@enact/ui/resolution';
 import {useState} from 'react';

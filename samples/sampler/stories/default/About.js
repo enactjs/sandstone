@@ -1,14 +1,14 @@
 import kind from '@enact/core/kind';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean} from '@enact/storybook-utils/addons/controls';
+import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 
 import css from './About.module.less';
-import {Primary, Title} from "@enact/storybook-utils/addons/docs";
 
 const edgeDotKeepout = 12;
 BodyText.displayName = 'BodyText';

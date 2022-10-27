@@ -1,8 +1,8 @@
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import Icon from '@enact/sandstone/Icon';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import {Primary, Title} from '@enact/storybook-utils/addons/docs';
-import Item, {ItemBase} from '@enact/sandstone/Item';
-import Icon from '@enact/sandstone/Icon';
 import UiItem, {ItemBase as UiItemBase} from '@enact/ui/Item';
 
 const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item);

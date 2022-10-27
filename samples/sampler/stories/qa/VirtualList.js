@@ -1,7 +1,3 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
@@ -10,6 +6,10 @@ import {FixedPopupPanels, Panel as FixedPopupPanel} from '@enact/sandstone/Fixed
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList from '@enact/sandstone/VirtualList';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
