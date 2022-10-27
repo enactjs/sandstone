@@ -293,7 +293,7 @@ const InputFieldBase = kind({
 	},
 
 	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
-		let inputProps = extractInputProps(rest);
+		const inputProps = extractInputProps(rest);
 		if (type === 'password' || type === 'passwordtel') {
 			inputProps.spellCheck = false;
 		}
