@@ -2,7 +2,6 @@ import DatePicker, {DatePickerBase} from '@enact/sandstone/DatePicker';
 import {mergeComponentMetadata, removeProps} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 
 DatePicker.displayName = 'DatePicker';
 const Config = mergeComponentMetadata('DatePicker', DatePickerBase, DatePicker);
@@ -13,17 +12,7 @@ removeProps(
 
 export default {
 	title: 'Sandstone/DatePicker',
-	component: 'DatePicker',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'DatePicker'
 };
 
 export const _DatePicker = (args) => (

@@ -1,7 +1,6 @@
 import KeyGuide from '@enact/sandstone/KeyGuide';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, range, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 
 const prop = {
 	icon: ['red', 'green', 'yellow', 'blue', 'gear', 'trash', 'search']
@@ -12,17 +11,7 @@ KeyGuide.displayName = 'KeyGuide';
 
 export default {
 	title: 'Sandstone/KeyGuide',
-	component: 'KeyGuide',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'KeyGuide'
 };
 
 export const _KeyGuide = (args) => {

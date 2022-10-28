@@ -11,7 +11,6 @@ import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import {scale} from '@enact/ui/resolution';
 import {useState} from 'react';
@@ -46,17 +45,7 @@ Panels.displayName = 'Panels';
 
 export default {
 	title: 'Sandstone/Panels',
-	component: 'Panels',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'Panels'
 };
 
 export const _Panels = (args) => {

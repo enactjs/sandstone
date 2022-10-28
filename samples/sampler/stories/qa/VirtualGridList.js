@@ -8,7 +8,6 @@ import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 import PropTypes from 'prop-types';
@@ -166,18 +165,7 @@ class ButtonAndVirtualGridList extends Component {
 
 export default {
 	title: 'Sandstone/VirtualGridList',
-	component: 'VirtualGridList',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'VirtualGridList'
 };
 
 export const HorizontalVirtualGridList = (args) => (

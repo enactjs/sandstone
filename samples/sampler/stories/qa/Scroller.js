@@ -11,7 +11,6 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Group from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
@@ -171,18 +170,7 @@ class ScrollerWithLargeContainer extends Component {
 
 export default {
 	title: 'Sandstone/Scroller',
-	component: 'Scroller',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Scroller'
 };
 
 export const ListOfThings = (args) => (

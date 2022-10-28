@@ -16,7 +16,6 @@ import SwitchItem from '@enact/sandstone/SwitchItem';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Row} from '@enact/ui/Layout';
 import Repeater from '@enact/ui/Repeater';
 import {Component} from 'react';
@@ -97,18 +96,7 @@ class ContextualPopupWithActivator extends Component {
 
 export default {
 	title: 'Sandstone/Text',
-	component: 'Text',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Text'
 };
 
 export const TallGlyphSupportInComponents = (args) => {

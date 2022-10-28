@@ -5,7 +5,6 @@ import Item, {ItemBase} from '@enact/sandstone/Item';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 
 import iconNames from '../helper/icons';
 
@@ -23,17 +22,7 @@ Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 export default {
 	title: 'Sandstone/CheckboxItem',
-	component: 'CheckboxItem',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'CheckboxItem'
 };
 
 export const _CheckboxItem = (args) => {

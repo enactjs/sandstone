@@ -2,7 +2,6 @@ import RangePicker, {RangePickerBase} from '@enact/sandstone/RangePicker';
 import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 
 import css from './Picker.module.less';
 
@@ -26,18 +25,7 @@ RangePicker.displayName = 'RangePicker';
 
 export default {
 	title: 'Sandstone/RangePicker',
-	component: 'RangePicker',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'RangePicker'
 };
 
 export const WithCustomizedTitleStyle = (args) => (

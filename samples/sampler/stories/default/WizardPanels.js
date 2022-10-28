@@ -7,7 +7,6 @@ import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
@@ -18,17 +17,7 @@ const propOptions = {
 
 export default {
 	title: 'Sandstone/WizardPanels',
-	component: 'WizardPanels',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'WizardPanels'
 };
 
 export const _WizardPanels = (args) => (

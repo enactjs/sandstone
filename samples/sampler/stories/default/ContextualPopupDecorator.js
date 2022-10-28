@@ -4,7 +4,6 @@ import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorato
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 
 const ContextualButton = ContextualPopupDecorator(Button);
@@ -23,17 +22,7 @@ Config.defaultProps = {
 
 export default {
 	title: 'Sandstone/ContextualPopupDecorator',
-	component: 'ContextualPopupDecorator',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'ContextualPopupDecorator'
 };
 
 export const _ContextualPopupDecorator = (args) => {

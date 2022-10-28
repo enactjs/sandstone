@@ -12,7 +12,6 @@ import TabLayout, {TabLayoutBase} from '@enact/sandstone/TabLayout';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import Group from '@enact/ui/Group';
 import PropTypes from 'prop-types';
 import {useState} from 'react';
@@ -39,17 +38,7 @@ const navNext = (callback, value) => () => {
 
 export default {
 	title: 'Sandstone/PopupTabLayout',
-	component: 'PopupTabLayout',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'PopupTabLayout'
 };
 
 const PopupTabLayoutSamplesBase = ({args, rtl}) => {

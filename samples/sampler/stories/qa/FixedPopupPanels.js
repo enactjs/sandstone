@@ -18,7 +18,6 @@ import Pause from '@enact/spotlight/Pause';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
@@ -82,18 +81,7 @@ const itemRenderer = ({index, ...rest}) => {
 
 export default {
 	title: 'Sandstone/FixedPopupPanels',
-	component: 'FixedPopupPanels',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'FixedPopupPanels'
 };
 
 const WithVirtualListSamplesBase = ({args, rtl}) => {

@@ -5,7 +5,6 @@ import Scroller from '@enact/sandstone/Scroller';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 
 import iconNames from '../helper/icons';
@@ -42,18 +41,7 @@ const prop = {
 
 export default {
 	title: 'Sandstone/Button',
-	component: 'Button',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Button'
 };
 
 export const WithLongText = (args) => (

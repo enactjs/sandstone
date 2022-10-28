@@ -5,7 +5,6 @@ import Steps from '@enact/sandstone/Steps';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import {Fragment} from 'react';
 
 Header.displayName = 'Header';
@@ -34,17 +33,7 @@ const prop = {
 
 export default {
 	title: 'Sandstone/Panels.Header',
-	component: 'Header',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'Header'
 };
 
 export const PanelsHeader = (args) => {

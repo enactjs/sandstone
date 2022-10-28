@@ -8,7 +8,6 @@ import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {range, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import {scaleToRem} from '@enact/ui/resolution';
 
 import {svgGenerator} from '../helper/svg';
@@ -35,17 +34,7 @@ const tabSelections = {
 
 export default {
 	title: 'Sandstone/TabLayout',
-	component: 'TabLayout',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'TabLayout'
 };
 
 export const _TabLayout = (args) => {

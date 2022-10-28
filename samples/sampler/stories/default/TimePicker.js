@@ -2,24 +2,13 @@ import TimePicker from '@enact/sandstone/TimePicker';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 
 const Config = mergeComponentMetadata('TimePicker', TimePicker);
 TimePicker.displayName = 'TimePicker';
 
 export default {
 	title: 'Sandstone/TimePicker',
-	component: 'TimePicker',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'TimePicker'
 };
 
 export const _TimePicker = (args) => (

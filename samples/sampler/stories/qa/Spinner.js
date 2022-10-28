@@ -3,7 +3,6 @@ import {InputField} from '@enact/sandstone/Input';
 import Spinner from '@enact/sandstone/Spinner';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import {Component} from 'react';
 
@@ -51,18 +50,7 @@ class FocusOnSpinner extends Component {
 
 export default {
 	title: 'Sandstone/Spinner',
-	component: 'Spinner',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Spinner'
 };
 
 export const WithLongContent = (args) => (

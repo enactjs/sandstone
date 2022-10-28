@@ -2,7 +2,6 @@ import Button from '@enact/sandstone/Button';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 
 import iconNames from '../helper/icons';
 
@@ -32,17 +31,7 @@ const prop = {
 
 export default {
 	title: 'Sandstone/TooltipDecorator',
-	component: 'TooltipDecorator',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'TooltipDecorator'
 };
 
 export const _TooltipDecorator = (args) => (

@@ -4,7 +4,6 @@ import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 
@@ -65,17 +64,7 @@ const HintDialog = kind({
 });
 
 export default {
-	title: 'About/A Tour of Sampler',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	title: 'About/A Tour of Sampler'
 };
 
 export const ATourOfSampler = (args) => (

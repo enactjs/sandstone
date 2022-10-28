@@ -8,7 +8,6 @@ import Slider from '@enact/sandstone/Slider';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import {useState} from 'react';
 import compose from 'ramda/src/compose';
@@ -23,17 +22,7 @@ const PanelConfig = mergeComponentMetadata('Panel', PanelBase, Panel);
 
 export default {
 	title: 'Sandstone/FlexiblePopupPanels',
-	component: 'FlexiblePopupPanels',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			)
-		}
-	}
+	component: 'FlexiblePopupPanels'
 };
 
 export const _FlexiblePopupPanels = (args) => {

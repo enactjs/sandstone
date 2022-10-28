@@ -2,7 +2,6 @@ import Button from '@enact/sandstone/Button';
 import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 
@@ -38,18 +37,7 @@ const prop = {
 
 export default {
 	title: 'Sandstone/ContextualMenuDecorator',
-	component: 'ContextualMenuDecorator',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'ContextualMenuDecorator'
 };
 
 export const Overflows = (args) => {

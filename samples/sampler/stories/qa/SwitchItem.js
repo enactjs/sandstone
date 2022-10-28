@@ -2,7 +2,6 @@ import Heading from '@enact/sandstone/Heading';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Group from '@enact/ui/Group';
 
 SwitchItem.displayName = 'SwitchItem';
@@ -17,18 +16,7 @@ const inputData = {
 
 export default {
 	title: 'Sandstone/SwitchItem',
-	component: 'SwitchItem',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'SwitchItem'
 };
 
 export const WithLongText = (args) => (

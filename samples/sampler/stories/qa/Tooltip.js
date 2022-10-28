@@ -7,7 +7,6 @@ import Scroller from '@enact/sandstone/Scroller';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Layout, {Cell, Row} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
@@ -268,18 +267,7 @@ class TooltipFollow extends Component {
 
 export default {
 	title: 'Sandstone/Tooltip',
-	component: 'Tooltip',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Tooltip'
 };
 
 export const ThatShowsAfterButtonIsUnmountedEnyo3809 = () => <TooltipTest />;

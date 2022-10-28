@@ -3,7 +3,6 @@ import Item, {ItemBase} from '@enact/sandstone/Item';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import Group from '@enact/ui/Group';
 
 Group.displayName = 'Group';
@@ -19,18 +18,7 @@ const prop = {
 
 export default {
 	title: 'Sandstone/CheckboxItem',
-	component: 'CheckboxItem',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'CheckboxItem'
 };
 
 export const WithLongText = (args) => (

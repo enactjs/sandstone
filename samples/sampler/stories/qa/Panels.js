@@ -7,7 +7,6 @@ import Spotlight from '@enact/spotlight';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -132,18 +131,7 @@ select('autoFocus for Panel 0', WithAutoFocusControl, ['none', 'last-focused', '
 
 export default {
 	title: 'Sandstone/Panels',
-	component: 'Panels',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Panels'
 };
 
 WithAutoFocusControl.storyName = 'with AutoFocus Control';

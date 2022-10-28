@@ -1,6 +1,5 @@
 import Button from '@enact/sandstone/Button';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Component} from 'react';
 
 class FormCheckboxItemView extends Component {
@@ -33,18 +32,7 @@ class FormCheckboxItemView extends Component {
 
 export default {
 	title: 'Sandstone/FormCheckboxItem',
-	component: 'FormCheckboxItem',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'FormCheckboxItem'
 };
 
 export const ThatIsFocusedAndDisabled = () => <FormCheckboxItemView />;

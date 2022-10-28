@@ -14,7 +14,6 @@ import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -39,18 +38,7 @@ const navNext = (callback, value) => () => {
 
 export default {
 	title: 'Sandstone/PopupTabLayout',
-	component: 'PopupTabLayout',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'PopupTabLayout'
 };
 
 export const WithButton = () => {

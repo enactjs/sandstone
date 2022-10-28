@@ -1,7 +1,6 @@
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Fragment} from 'react';
 import {commonProps, headerStoryConfig, inputData, makeCustomizedConfig, prop} from './common/Header_Common';
 
@@ -11,18 +10,7 @@ const customizedConfig = makeCustomizedConfig();
 
 export default {
 	title: 'Sandstone/Header',
-	component: 'Header',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Header'
 };
 
 // The Fragment (or any node, really; could be a <div> instead) is actually needed by

@@ -4,7 +4,6 @@ import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Row} from '@enact/ui/Layout';
 import {scale} from '@enact/ui/resolution';
 import {useCallback, useState} from 'react';
@@ -43,18 +42,7 @@ const KsIcon = <Icon size="small">notification</Icon>;
 
 export default {
 	title: 'Sandstone/Item',
-	component: 'Item',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Item'
 };
 
 export const WithLongText = (args) => (

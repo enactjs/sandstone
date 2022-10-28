@@ -5,7 +5,6 @@ import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTa
 import Scroller from '@enact/sandstone/Scroller';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Row} from '@enact/ui/Layout';
 
 import iconNames from '../helper/icons';
@@ -60,18 +59,7 @@ const pickerList = {
 
 export default {
 	title: 'Sandstone/Picker',
-	component: 'Picker',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Picker'
 };
 
 export const WithLongText = (args) => (

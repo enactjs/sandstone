@@ -19,7 +19,6 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import Spottable from '@enact/spotlight/Spottable';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Row, Cell, Column} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
@@ -293,18 +292,7 @@ class FocusedAndDisabled extends Component {
 
 export default {
 	title: 'Sandstone/Spotlight',
-	component: 'Spotlight',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Spotlight'
 };
 
 const SimpleDiv = () => {

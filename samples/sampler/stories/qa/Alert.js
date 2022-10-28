@@ -6,7 +6,6 @@ import Scroller from '@enact/sandstone/Scroller';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
 
 import {svgGenerator} from '../helper/svg';
@@ -25,18 +24,7 @@ const inputData = {
 
 export default {
 	title: 'Sandstone/Alert',
-	component: 'Alert',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'Alert'
 };
 
 export const WithLongTitle = (args) => (

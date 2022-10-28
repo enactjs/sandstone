@@ -8,7 +8,6 @@ import {Scroller} from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
-import {Primary, Stories, Title} from '@enact/storybook-utils/addons/docs';
 import {Component, useState} from 'react';
 
 import icons from '../helper/icons';
@@ -69,18 +68,7 @@ class AddingTabSample extends Component {
 
 export default {
 	title: 'Sandstone/TabLayout',
-	component: 'TabLayout',
-	parameters: {
-		docs: {
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			)
-		}
-	}
+	component: 'TabLayout'
 };
 
 export const WithVariableNumberOfTabs = (args) => {
