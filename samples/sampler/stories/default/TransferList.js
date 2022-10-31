@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean} from '@enact/storybook-utils/addons/controls';
+import {boolean, number} from '@enact/storybook-utils/addons/controls';
 
 import TransferList, {TransferListBase, TransferListDecorator} from '@enact/sandstone/TransferList';
 
@@ -16,6 +16,7 @@ export const _TransferList = (args) => (
 	<TransferList
 		allowMultipleDrag={args['allowMultipleDrag']}
 		firstList={['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7', 'Item8']}
+		itemSize={args['itemSize']}
 		moveOnSpotlight={args['moveElementOnSpotlightDirections']}
 		secondList={['Item9', 'Item10', 'Item11', 'Item12', 'Item13', 'Item14', 'Item15', 'Item16']}
 	/>
@@ -23,6 +24,7 @@ export const _TransferList = (args) => (
 
 boolean('allowMultipleDrag', _TransferList, Config, true);
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
+number('itemSize', _TransferList, Config, 201);
 
 _TransferList.storyName = 'TransferList';
 _TransferList.parameters = {

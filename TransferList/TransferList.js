@@ -16,12 +16,12 @@ import {Cell, Layout} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
-import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
+import VirtualList from '../VirtualList';
 
 import componentCss from './TransferList.module.less';
 
@@ -79,6 +79,15 @@ const TransferListBase = kind({
 		height: PropTypes.number,
 
 		/**
+		 * The height of the checkbox item.
+		 *
+		 * @type {Number}
+		 * @default
+		 * @public
+		 */
+		itemSize: PropTypes.number,
+
+		/**
 		 * Allows items to be transferred from one list to another using Spotlight Right and/or Spotlight Left.
 		 *
 		 * @type {Boolean}
@@ -113,8 +122,9 @@ const TransferListBase = kind({
 
 	defaultProps: {
 		allowMultipleDrag: true,
-		height: 999,
 		firstList: {},
+		height: 999,
+		itemSize: 201,
 		moveOnSpotlight: false,
 		secondList: {},
 		setFirstList: null,
@@ -128,59 +138,60 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItems: () => ({elements, list, onSelect, selectedItems, ...rest}) => {
-			return elements.map((element, index) => {
-				const selected = -1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
+		renderItem: () => ({elements, list, onSelect, selectedItems, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+			const {index, 'data-index': dataIndex} = data;
+			const element = elements[index];
+			const selected = -1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 
-				const handleClick = useCallback(() => {
-					onSelect(element, index, list);
-				}, [element, index, list, onSelect]); // eslint-disable-line react-hooks/exhaustive-deps
+			const handleClick = () => {
+				onSelect(element, index, list);
+			};
 
-				const handleSpotlightDown = useCallback((ev) => {
-					if (elements.length - 1 !== index) return;
-					ev.preventDefault();
-					ev.stopPropagation();
-				}, [elements, index]); // eslint-disable-line react-hooks/exhaustive-deps
+			const handleSpotlightDown = (ev) => {
+				if (elements.length - 1 !== index) return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
 
-				const handleSpotlightUp = useCallback((ev) => {
-					if (index !== 0) return;
-					ev.preventDefault();
-					ev.stopPropagation();
-				}, [index]);
+			const handleSpotlightUp = (ev) => {
+				if (index !== 0) return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
 
-				return (
-					<CheckboxItem
-						{...rest}
-						draggable
-						className={componentCss.draggableItem}
-						id={`${index}-${list}`}
-						key={index + list}
-						onClick={handleClick}
-						onSpotlightDown={handleSpotlightDown}
-						onSpotlightUp={handleSpotlightUp}
-						selected={selected}
-					>
-						{element}
-					</CheckboxItem>
-				);
-			});
+			return (
+				<CheckboxItem
+					{...rest}
+					data-index={dataIndex}
+					draggable
+					className={componentCss.draggableItem}
+					id={`${index}-${list}`}
+					key={index + list}
+					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
+					selected={selected}
+				>
+					{element}
+				</CheckboxItem>
+			);
 		}
 	},
 
-	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, moveOnSpotlight, renderItems, secondList, setFirstList, setSecondList}) => {
+	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, renderItem, secondList, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 
 		const height = ri.scaleToRem(defaultHeight);
+		const itemSize = ri.scale(defaultItemSize);
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
-
 		// used for custom drag image
-		const img = new Image();
+		const img = useMemo(() => new Image(), []);
 		img.src = "https://via.placeholder.com/100x100";
 
-		useEffect(() => {
+		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
 
@@ -251,7 +262,13 @@ const TransferListBase = kind({
 					}
 				});
 			});
+		}, [css.draggableItem, css.overAbove, css.overBelow, img]);
 
+		useEffect(() => {
+			const updateElements = setTimeout(() => handleScroll(), 100);
+			return () => {
+				clearTimeout(updateElements);
+			};
 		}, [dragOverElement, firstListLocal, secondListLocal, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
@@ -396,7 +413,6 @@ const TransferListBase = kind({
 				selectedListCopy.splice(potentialIndex, 1);
 			}
 			setSelectedItems(selectedListCopy);
-
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		};
 
@@ -449,26 +465,21 @@ const TransferListBase = kind({
 			ev.stopPropagation();
 		}, [moveIntoSecondSelected, moveOnSpotlight, selectedItems]);
 
-		const renderFirstList = useCallback(() => (
-			renderItems({
-				elements: firstListLocal,
-				list: 'first',
-				onSelect: setSelected,
-				selectedItems: selectedItems,
-				onSpotlightRight: handleSpotlightRight
-			})
-		), [firstListLocal, handleSpotlightRight, renderItems, selectedItems, setSelected]);
+		const firstListSpecs = {
+			elements: firstListLocal,
+			list: 'first',
+			onSelect: setSelected,
+			selectedItems: selectedItems,
+			onSpotlightRight: handleSpotlightRight
+		};
 
-		const renderSecondList = useCallback(() => (
-			renderItems({
-				elements: secondListLocal,
-				list: 'second',
-				onSelect: setSelected,
-				selectedItems: selectedItems,
-				onSpotlightLeft: handleSpotlightLeft
-			})
-		), [renderItems, handleSpotlightLeft, secondListLocal, selectedItems, setSelected]);
-
+		const secondListSpecs = {
+			elements: secondListLocal,
+			list: 'second',
+			onSelect: setSelected,
+			selectedItems: selectedItems,
+			onSpotlightLeft: handleSpotlightLeft
+		};
 
 		return (
 			<Layout align="center" className={componentCss.transferList}>
@@ -480,14 +491,15 @@ const TransferListBase = kind({
 					size="40%"
 					style={{height: height}}
 				>
-					<Scroller
+					<VirtualList
+						dataSize={firstListLocal.length}
 						horizontalScrollbar="hidden"
+						itemRenderer={renderItem(firstListSpecs)}
+						itemSize={itemSize}
+						onScrollStop={handleScroll}
+						style={{height: height}}
 						verticalScrollbar="hidden"
-					>
-						<div className={componentCss.itemsList}>
-							{renderFirstList()}
-						</div>
-					</Scroller>
+					/>
 				</Cell>
 				<Cell className={componentCss.listButtons}>
 					{!moveOnSpotlight ?
@@ -507,14 +519,14 @@ const TransferListBase = kind({
 					size="40%"
 					style={{height: height}}
 				>
-					<Scroller
+					<VirtualList
+						dataSize={secondListLocal.length}
 						horizontalScrollbar="hidden"
+						itemRenderer={renderItem(secondListSpecs)}
+						itemSize={itemSize}
+						onScrollStop={handleScroll}
 						verticalScrollbar="hidden"
-					>
-						<div className={componentCss.itemsList}>
-							{renderSecondList()}
-						</div>
-					</Scroller>
+					/>
 				</Cell>
 			</Layout>
 		);
