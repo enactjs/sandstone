@@ -14,6 +14,7 @@ import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
+import Touchable from '@enact/ui/Touchable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useRef, useState} from 'react';
@@ -128,7 +129,7 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItems: () => ({elements, list, onSelect, selectedItems, ...rest}) => {
+		renderItems: () => ({elements, handleDrag, handleDragEnd, handleDragStart, list, onSelect, selectedItems, ...rest}) => {
 			return elements.map((element, index) => {
 				const selected = -1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 
@@ -159,6 +160,9 @@ const TransferListBase = kind({
 						onSpotlightDown={handleSpotlightDown}
 						onSpotlightUp={handleSpotlightUp}
 						selected={selected}
+						onDragStart={() => handleDragStart(index, list)}
+						onDrag={handleDrag}
+						onDragEnd={handleDragEnd}
 					>
 						{element}
 					</CheckboxItem>
@@ -455,7 +459,11 @@ const TransferListBase = kind({
 				list: 'first',
 				onSelect: setSelected,
 				selectedItems: selectedItems,
-				onSpotlightRight: handleSpotlightRight
+				onSpotlightRight: handleSpotlightRight,
+				handleDragStart: handleDragStart,
+				handleDrag: handleDrag,
+				handleDragEnd: handleDragEnd
+
 			})
 		), [firstListLocal, handleSpotlightRight, renderItems, selectedItems, setSelected]);
 
@@ -465,10 +473,92 @@ const TransferListBase = kind({
 				list: 'second',
 				onSelect: setSelected,
 				selectedItems: selectedItems,
-				onSpotlightLeft: handleSpotlightLeft
+				onSpotlightLeft: handleSpotlightLeft,
+				handleDragStart: handleDragStart,
+				handleDrag: handleDrag,
+				handleDragEnd: handleDragEnd
 			})
 		), [renderItems, handleSpotlightLeft, secondListLocal, selectedItems, setSelected]);
 
+
+		const [dragging, setDragging] = useState(false);
+
+		const handleDragStart = (index, list) => {
+			console.log('start dragging', ev);
+			setDragging(true);
+
+			if (ev.type === 'dragstart') {
+				return ev.target.addEventListener('dragstart', (ev) => {
+				startDragElement.current = ev.target;
+				ev.dataTransfer.setData('text/plain', `${index}-${list}`);
+				ev.dataTransfer.effectAllowed = 'move';
+				// ev.dataTransfer.setDragImage(img, 0, 0);
+				});
+			}
+		}
+
+		const handleDrag = (ev) => {
+			setDragging(true);
+			console.log('dragging', ev);
+
+			if (ev.type === 'dragover') {
+				return ev.target.addEventListener('dragover', (ev) => {
+					dragOverElement.current = index;
+					const startDragOrder = Number(startDragElement.current.getAttribute('order'));
+					const dragOverOrder = Number(ev.target.getAttribute('order'));
+					if (startDragOrder < dragOverOrder && startDragElement.current !== ev.target) {
+						if (ev.offsetY <= 20) {
+							ev.target.classList.add(`${css.overAbove}`);
+						}
+					} else if (startDragOrder > dragOverOrder && startDragElement.current !== ev.target) {
+						if (ev.offsetY === -1 || ev.offsetY === 0) {
+							ev.target.classList.remove(`${css.overAbove}`);
+							ev.target.classList.remove(`${css.overBelow}`);
+						} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
+							ev.target.classList.add(`${css.overBelow}`);
+						}
+					}
+				});
+			}
+			if (ev.type === 'dragenter') {
+				return ev.target.addEventListener('dragenter', (ev) => {
+					dragOverElement.current = index;
+					const startDragOrder = Number(startDragElement.current.getAttribute('order'));
+					const dragOverOrder = Number(ev.target.getAttribute('order'));
+					if (startDragOrder < dragOverOrder && startDragElement.current !== ev.target) {
+						if (ev.offsetY <= 20) {
+							ev.target.classList.add(`${css.overAbove}`);
+						}
+					} else if (startDragOrder > dragOverOrder && startDragElement.current !== ev.target) {
+						if (ev.offsetY === -1 || ev.offsetY === 0) {
+							ev.target.classList.remove(`${css.overAbove}`);
+							ev.target.classList.remove(`${css.overBelow}`);
+						} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
+							ev.target.classList.add(`${css.overBelow}`);
+						}
+					}
+				});
+			}
+		}
+		const handleDragEnd = (ev) => {
+			console.log('dragging ended', ev);
+			setDragging(false);
+
+			if (ev.type === 'dragleave') {
+				return ev.target.addEventListener('dragleave', () => {
+					ev.target.classList.remove(`${css.overAbove}`);
+					ev.target.classList.remove(`${css.overBelow}`);
+				});
+			}
+			if (ev.type === 'drop') {
+				return ev.target.addEventListener('drop', () => {
+					ev.target.classList.remove(`${css.overAbove}`);
+					ev.target.classList.remove(`${css.overBelow}`);
+				});
+			}
+		}
+
+		const TouchableDiv = Touchable('div');
 
 		return (
 			<Layout align="center" className={componentCss.transferList}>
@@ -476,6 +566,12 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
+					// onPointerDown={(ev) => handleDragStart(ev)}
+					// onPointerMove={() => console.log('pointer move')}
+					// onPointerUp={() => console.log('pointer up')}
+					onDragStart={(ev) => handleDragStart(ev)}
+					onDrag={(ev) => handleDrag(ev)}
+					onDragEnd={(ev) => handleDragEnd(ev)}
 					onDrop={onDropLeftHandler} // eslint-disable-line  react/jsx-no-bind
 					size="40%"
 					style={{height: height}}
