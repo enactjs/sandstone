@@ -23,8 +23,8 @@ export const _TransferList = (args) => (
 );
 
 boolean('allowMultipleDrag', _TransferList, Config, true);
-boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
 number('itemSize', _TransferList, Config, 201);
+boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
 
 _TransferList.storyName = 'TransferList';
 _TransferList.parameters = {
