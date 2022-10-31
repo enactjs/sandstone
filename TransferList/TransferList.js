@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/rules-of-hooks, no-undefined */
 /* global Image */
 
 /**
@@ -62,12 +62,37 @@ const TransferListBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Disables TransferList and becomes non-interactive.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * An array containing the name of each item that will populate the first list.
 		 *
 		 * @type {Array}
 		 * @private
 		 */
 		firstList: PropTypes.array,
+
+		/**
+		 * Sets the maximum number of items for the first list.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		firstListMaximumCapacity: PropTypes.number,
+
+		/**
+		 * Sets the minimum number of items for the first list.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		firstListMinimumCapacity: PropTypes.number,
 
 		/**
 		 * The height of the list container.
@@ -95,6 +120,22 @@ const TransferListBase = kind({
 		secondList: PropTypes.array,
 
 		/**
+		 * Sets the maximum number of items for the second list.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		secondListMaximumCapacity: PropTypes.number,
+
+		/**
+		 * Sets the minimum number of items for the second list.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		secondListMinimumCapacity: PropTypes.number,
+
+		/**
 		 * Called when the first list needs to be modified.
 		 *
 		 * @type {Function}
@@ -108,12 +149,7 @@ const TransferListBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		setSecondList: PropTypes.func,
-		disabled: PropTypes.bool,
-		leftListMinimumCapacity: PropTypes.number,
-		leftListMaximumCapacity: PropTypes.number,
-		rightListMinimumCapacity: PropTypes.number,
-		rightListMaximumCapacity: PropTypes.number
+		setSecondList: PropTypes.func
 	},
 
 	defaultProps: {
@@ -121,14 +157,10 @@ const TransferListBase = kind({
 		disabled: false,
 		height: 999,
 		firstList: {},
-		// leftListMinimumCapacity: 0,
-		// leftListMaximumCapacity: 15,
 		moveOnSpotlight: false,
 		secondList: {},
 		setFirstList: null,
-		setSecondList: null,
-		// rightListMinimumCapacity: 1,
-		// rightListMaximumCapacity: 16
+		setSecondList: null
 	},
 
 	styles: {
@@ -178,7 +210,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({allowMultipleDrag, css, disabled, firstList, height: defaultHeight, leftListMinimumCapacity, leftListMaximumCapacity, rightListMinimumCapacity, rightListMaximumCapacity, moveOnSpotlight, renderItems, secondList, setFirstList, setSecondList}) => {
+	render: ({allowMultipleDrag, css, disabled, firstList, height: defaultHeight, firstListMinimumCapacity, firstListMaximumCapacity, secondListMinimumCapacity, secondListMaximumCapacity, moveOnSpotlight, renderItems, secondList, setFirstList, setSecondList}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -269,23 +301,26 @@ const TransferListBase = kind({
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
+			const listsUndefinedCapacity = secondListMinimumCapacity === undefined && firstListMaximumCapacity === undefined;
 
-			selectedItems.map((item) => {
-				if (item.list !== 'second') return;
-				tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
-				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-				tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
-			});
+			if (listsUndefinedCapacity || ((tempSecond.length - selectedItems.length) >= secondListMinimumCapacity && firstListMaximumCapacity === undefined) || ((tempFirst.length + selectedItems.length) <= firstListMaximumCapacity)) {
+				selectedItems.map((item) => {
+					if (item.list !== 'second') return;
+					tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
+					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+					tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
+				});
 
-			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(tempFirst);
-				setSecondList(tempSecond);
-			} else {
-				setFirstListLocal(tempFirst);
-				setSecondListLocal(tempSecond);
+				if (setFirstList !== null && setSecondList !== null) {
+					setFirstList(tempFirst);
+					setSecondList(tempSecond);
+				} else {
+					setFirstListLocal(tempFirst);
+					setSecondListLocal(tempSecond);
+				}
+				setSelectedItems(tempSelected);
 			}
-			setSelectedItems(tempSelected);
-		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
+		}, [firstListLocal, firstListMaximumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinimumCapacity]);
 
 		const moveIntoFirstAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -302,23 +337,26 @@ const TransferListBase = kind({
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
+			const listsUndefinedCapacity = firstListMinimumCapacity === undefined && secondListMaximumCapacity === undefined;
 
-			selectedItems.map((item) => {
-				if (item.list !== 'first') return;
-				tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
-				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-				tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
-			});
+			if (listsUndefinedCapacity || ((tempFirst.length - tempSelected.length) >= firstListMinimumCapacity && secondListMaximumCapacity === undefined) || ((tempSecond.length + tempSelected.length) <= secondListMaximumCapacity)) {
+				selectedItems.map((item) => {
+					if (item.list !== 'first') return;
+					tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
+					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+					tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
+				});
 
-			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(tempFirst);
-				setSecondList(tempSecond);
-			} else {
-				setFirstListLocal(tempFirst);
-				setSecondListLocal(tempSecond);
+				if (setFirstList !== null && setSecondList !== null) {
+					setFirstList(tempFirst);
+					setSecondList(tempSecond);
+				} else {
+					setFirstListLocal(tempFirst);
+					setSecondListLocal(tempSecond);
+				}
+				setSelectedItems(tempSelected);
 			}
-			setSelectedItems(tempSelected);
-		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
+		}, [firstListLocal, firstListMinimumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaximumCapacity]);
 
 		const moveIntoSecondAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -390,10 +428,9 @@ const TransferListBase = kind({
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
-			const listsUndefinedCapacity = leftListMinimumCapacity === undefined && rightListMaximumCapacity === undefined;
-			console.log('1', listsUndefinedCapacity)
+			const listsUndefinedCapacity = firstListMinimumCapacity === undefined && secondListMaximumCapacity === undefined;
 
-			if (listsUndefinedCapacity || firstListCopy.length > leftListMinimumCapacity && secondListCopy.length < rightListMaximumCapacity) {
+			if (listsUndefinedCapacity || (firstListCopy.length > firstListMinimumCapacity && secondListCopy.length < secondListMaximumCapacity) || (secondListCopy.length < secondListMaximumCapacity && firstListMinimumCapacity === undefined) || (firstListCopy.length > firstListMinimumCapacity && secondListMaximumCapacity === undefined)) {
 				if (list === 'second') {
 					rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
 					return;
@@ -420,10 +457,9 @@ const TransferListBase = kind({
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
-			const listsUndefinedCapacity = rightListMinimumCapacity === undefined && leftListMaximumCapacity === undefined;
-			console.log('2', listsUndefinedCapacity)
+			const listsUndefinedCapacity = secondListMinimumCapacity === undefined && firstListMaximumCapacity === undefined;
 
-			if (listsUndefinedCapacity || secondListCopy.length > rightListMinimumCapacity && firstListCopy.length < leftListMaximumCapacity) {
+			if (listsUndefinedCapacity || (secondListCopy.length > secondListMinimumCapacity && firstListCopy.length < firstListMaximumCapacity) || (firstListCopy.length < firstListMaximumCapacity && secondListMinimumCapacity === undefined) || (secondListCopy.length > secondListMinimumCapacity && firstListMaximumCapacity === undefined)) {
 				if (list === 'first') {
 					rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
 					return;
@@ -511,10 +547,10 @@ const TransferListBase = kind({
 				<Cell className={componentCss.listButtons}>
 					{!moveOnSpotlight ?
 						<>
-							<Button disabled={disabled} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
+							<Button disabled={disabled || (secondListMaximumCapacity || firstListMinimumCapacity) !== undefined} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "first")) || disabled} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "second")) || disabled} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
-							<Button disabled={disabled} onClick={moveIntoFirstAll} onSpotlightDown={handleSpotlightBounds} size="small">{'<<<'}</Button>
+							<Button disabled={disabled || (firstListMaximumCapacity || secondListMinimumCapacity) !== undefined} onClick={moveIntoFirstAll} onSpotlightDown={handleSpotlightBounds} size="small">{'<<<'}</Button>
 						</> : ''
 					}
 				</Cell>
