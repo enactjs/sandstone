@@ -31,7 +31,9 @@ describe('VirtualList useEvent', () => {
 		dataSize = 200;
 		items = [];
 		itemSize = 60;
-
+		handlerOnFocus = (index) => () => {
+			currentFocusIndex = index;
+		};
 		renderItem = ({index, ...rest}) => { // eslint-disable-line enact/display-name
 			return (
 				<Item {...rest} onFocus={handlerOnFocus(index)}>
