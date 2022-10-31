@@ -13,6 +13,7 @@ describe('VirtualList', () => {
 		handlerOnScrollStart,
 		handlerOnScrollStop,
 		items,
+		itemSize,
 		myScrollTo,
 		onScrollCount,
 		onScrollStartCount,
@@ -25,6 +26,7 @@ describe('VirtualList', () => {
 		clientSize = {clientWidth: 1280, clientHeight: 720};
 		dataSize = 200;
 		items = [];
+		itemSize = 60;
 		onScrollCount = 0;
 		onScrollStartCount = 0;
 		onScrollStopCount = 0;
@@ -69,6 +71,7 @@ describe('VirtualList', () => {
 		handlerOnScrollStart = null;
 		handlerOnScrollStop = null;
 		items = null;
+		itemSize = null;
 		myScrollTo = null;
 		onScrollCount = null;
 		onScrollStartCount = null;
@@ -84,12 +87,27 @@ describe('VirtualList', () => {
 				clientSize={clientSize}
 				dataSize={dataSize}
 				itemRenderer={renderItem}
-				itemSize={60}
+				itemSize={itemSize}
 			/>
 		);
 
 		const expected = 'Account 0';
 		const actual = screen.getByRole('list').children.item(0).textContent;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should render overhang items when clientSize is not given', () => {
+		render(
+			<VirtualList
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+			/>
+		);
+
+		const expected = 3;
+		const actual = screen.getByRole('list').children.length;
 
 		expect(actual).toBe(expected);
 	});
@@ -100,11 +118,38 @@ describe('VirtualList', () => {
 				clientSize={clientSize}
 				dataSize={dataSize}
 				itemRenderer={renderItem}
-				itemSize={60}
+				itemSize={itemSize}
 			/>
 		);
 
 		const expected = 15; // 720 / 60 + 3
+		const actual = screen.getByRole('list').children.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should re-render (clientHeight / itemHeight + overhang) items after changing client size', () => {
+		const {rerender} = render(
+			<VirtualList
+				clientSize={clientSize}
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+			/>
+		);
+
+		const newClientSize = {clientWidth: 1280, clientHeight: 360};
+
+		rerender(
+			<VirtualList
+				clientSize={newClientSize}
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+			/>
+		);
+
+		const expected = 9; // 360 / 60 + 3
 		const actual = screen.getByRole('list').children.length;
 
 		expect(actual).toBe(expected);
@@ -117,7 +162,7 @@ describe('VirtualList', () => {
 				dataSize={dataSize}
 				direction="horizontal"
 				itemRenderer={renderItem}
-				itemSize={60}
+				itemSize={itemSize}
 			/>
 		);
 
@@ -125,6 +170,78 @@ describe('VirtualList', () => {
 		const actual = screen.getByRole('list').parentElement.parentElement.children.length;
 
 		expect(actual).toBe(expected);
+	});
+
+	describe('Scrollbar visibility', () => {
+		test(
+			'should render both horizontal and vertical scrollbars when \'horizontalScrollbar\' and \'verticalScrollbar\' are "visible"',
+			() => {
+				render(
+					<VirtualList
+						clientSize={clientSize}
+						dataSize={dataSize}
+						direction="horizontal"
+						itemRenderer={renderItem}
+						itemSize={itemSize}
+						horizontalScrollbar="visible"
+						verticalScrollbar="visible"
+					/>
+				);
+
+				const virtualListRoot =  screen.getByRole('list').parentElement.parentElement;
+				const verticalScrollbar = virtualListRoot.children.item(1);
+				const horizontalScrollbar = virtualListRoot.children.item(2);
+
+				expect(verticalScrollbar).toHaveClass("verticalScrollbar");
+				expect(horizontalScrollbar).toHaveClass("horizontalScrollbar");
+			}
+		);
+
+		test(
+			'should render only vertical scrollbar when \'verticalScrollbar\' is "visible" and \'horizontalScrollbar\' is "hidden"',
+			() => {
+				render(
+					<VirtualList
+						clientSize={clientSize}
+						dataSize={dataSize}
+						itemRenderer={renderItem}
+						itemSize={itemSize}
+					/>
+				);
+
+				const virtualListRoot =  screen.getByRole('list').parentElement.parentElement;
+				const verticalScrollbar = virtualListRoot.children.item(1);
+				const horizontalScrollbar = virtualListRoot.children.item(2);
+
+				expect(verticalScrollbar).toBeInTheDocument();
+				expect(verticalScrollbar).toHaveClass("verticalScrollbar");
+				expect(horizontalScrollbar).toBeNull();
+			}
+		);
+
+		test(
+			'should not render any scrollbar when when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
+			() => {
+				render(
+					<VirtualList
+						clientSize={clientSize}
+						dataSize={dataSize}
+						direction="horizontal"
+						itemRenderer={renderItem}
+						itemSize={itemSize}
+						horizontalScrollbar="hidden"
+						verticalScrollbar="hidden"
+					/>
+				);
+
+				const virtualListRoot =  screen.getByRole('list').parentElement.parentElement;
+				const verticalScrollbar = virtualListRoot.children.item(1);
+				const horizontalScrollbar = virtualListRoot.children.item(2);
+
+				expect(verticalScrollbar).toBeNull();
+				expect(horizontalScrollbar).toBeNull();
+			}
+		);
 	});
 
 	describe('ScrollTo', () => {
@@ -141,7 +258,7 @@ describe('VirtualList', () => {
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
-					itemSize={60}
+					itemSize={itemSize}
 					onScrollStop={onScrollStop}
 					scrollMode="translate"
 				/>
@@ -164,7 +281,7 @@ describe('VirtualList', () => {
 					dataSize={dataSize}
 					direction="horizontal"
 					itemRenderer={renderItem}
-					itemSize={60}
+					itemSize={itemSize}
 					onScrollStop={onScrollStop}
 					scrollMode="translate"
 				/>
@@ -186,13 +303,191 @@ describe('VirtualList', () => {
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
-					itemSize={60}
+					itemSize={itemSize}
 					onScrollStop={onScrollStop}
 					scrollMode="translate"
 				/>
 			);
 
 			act(() => myScrollTo({position: {y: 200}, animate: false}));
+		});
+
+		test('should scroll to the given align with scrollTo', (done) => {
+			const onScrollStop = handlerOnScrollStop(done, () => {
+				const expected = dataSize * itemSize - clientSize.clientHeight + 30;
+				const actual = resultScrollTop;
+
+				expect(actual).toBe(expected);
+			});
+
+			render(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStop={onScrollStop}
+					scrollMode="translate"
+				/>
+			);
+
+			act(() => myScrollTo({align: 'bottom', animate: false}));
+		});
+
+		test('should scroll to the given align with scrollTo after changing dataSize', (done) => {
+			const newDataSize = 50;
+
+			const onScrollStop = handlerOnScrollStop(done, () => {
+				const expected = newDataSize * itemSize - clientSize.clientHeight + 30;
+				const actual = resultScrollTop;
+
+				expect(actual).toBe(expected);
+			});
+
+			const {rerender} = render(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStop={onScrollStop}
+					scrollMode="translate"
+				/>
+			);
+
+			rerender(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={newDataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStop={onScrollStop}
+					scrollMode="translate"
+				/>
+			);
+
+			act(() => myScrollTo({align: 'bottom', animate: false}));
+		});
+
+		test('should scroll to the given align with scrollTo after changing itemSize', (done) => {
+			const newItemSize = 50;
+
+			const onScrollStop = handlerOnScrollStop(done, () => {
+				const expected = dataSize * newItemSize - clientSize.clientHeight + 30;
+				const actual = resultScrollTop;
+
+				expect(actual).toBe(expected);
+			});
+
+			const {rerender} = render(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStop={onScrollStop}
+					scrollMode="translate"
+				/>
+			);
+
+			rerender(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={newItemSize}
+					onScrollStop={onScrollStop}
+					scrollMode="translate"
+				/>
+			);
+
+			act(() => myScrollTo({align: 'bottom', animate: false}));
+		});
+
+		test('should scroll to the given align with scrollTo after changing spacing', (done) => {
+			const newSpacing = 30;
+
+			const onScrollStop = handlerOnScrollStop(done, () => {
+				const expected = dataSize * (itemSize + newSpacing) - clientSize.clientHeight - newSpacing + 30;
+				const actual = resultScrollTop;
+
+				expect(actual).toBe(expected);
+			});
+
+			const {rerender} = render(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStop={onScrollStop}
+					scrollMode="translate"
+				/>
+			);
+
+			rerender(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStop={onScrollStop}
+					spacing={newSpacing}
+					scrollMode="translate"
+				/>
+			);
+
+			act(() => myScrollTo({align: 'bottom', animate: false}));
+		});
+
+		test('should scroll to the given align with scrollTo when itemSizes is given', (done) => {
+			const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+			const itemSizes = [100, 200, 300, 400, 100, 200, 300, 400, 100, 200];
+			const itemSizeSum = itemSizes.reduce((sum, value) => sum + value); // 2300
+			const onScrollStop = handlerOnScrollStop(done, () => {
+				const expected = itemSizeSum - clientSize.clientHeight + 30;
+				const actual = resultScrollTop;
+
+				expect(actual).toBe(expected);
+			});
+
+			const {rerender} = render(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={10}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStop={onScrollStop}
+					scrollMode="translate"
+				/>
+			);
+
+			rerender(
+				<VirtualList
+					cbScrollTo={getScrollTo}
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					itemSizes={itemSizes}
+					onScrollStop={onScrollStop}
+					scrollMode="translate"
+				/>
+			);
+
+			act(() => myScrollTo({align: 'bottom', animate: false}));
+
+			const expectedErrorMsg = 'Warning: VirtualList with `minSize` in `itemSize` prop does not support `cbScrollTo` prop';
+			expect(consoleSpy).toHaveBeenCalled();
+			expect(consoleSpy.mock.calls[0][0]).toBe(expectedErrorMsg);
 		});
 
 		describe('scroll events', () => {
@@ -203,7 +498,7 @@ describe('VirtualList', () => {
 						clientSize={clientSize}
 						dataSize={dataSize}
 						itemRenderer={renderItem}
-						itemSize={60}
+						itemSize={itemSize}
 						onScrollStart={handlerOnScrollStart}
 						scrollMode="translate"
 					/>
@@ -223,7 +518,7 @@ describe('VirtualList', () => {
 						clientSize={clientSize}
 						dataSize={dataSize}
 						itemRenderer={renderItem}
-						itemSize={60}
+						itemSize={itemSize}
 						onScroll={handlerOnScroll}
 						scrollMode="translate"
 					/>
@@ -249,7 +544,7 @@ describe('VirtualList', () => {
 						clientSize={clientSize}
 						dataSize={dataSize}
 						itemRenderer={renderItem}
-						itemSize={60}
+						itemSize={itemSize}
 						onScrollStop={onScrollStop}
 						scrollMode="translate"
 					/>
@@ -276,7 +571,7 @@ describe('VirtualList', () => {
 					clientSize={clientSize}
 					dataSize={itemArray.length}
 					itemRenderer={renderItemArray}
-					itemSize={60}
+					itemSize={itemSize}
 				/>
 			);
 
@@ -285,7 +580,7 @@ describe('VirtualList', () => {
 				clientSize={clientSize}
 				dataSize={itemArray.length}
 				itemRenderer={renderItemArray}
-				itemSize={60}
+				itemSize={itemSize}
 			/>);
 
 			jest.useFakeTimers();
@@ -305,11 +600,10 @@ describe('VirtualList', () => {
 		test('should render "data-webos-voice-focused" to outermost node of VirtualList', () => {
 			render(
 				<VirtualList
-					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
-					itemSize={30}
+					itemSize={itemSize}
 					data-webos-voice-focused
 				/>
 			);
@@ -323,11 +617,10 @@ describe('VirtualList', () => {
 			const label = 'group label';
 			render(
 				<VirtualList
-					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
-					itemSize={30}
+					itemSize={itemSize}
 					data-webos-voice-group-label={label}
 				/>
 			);
@@ -340,11 +633,10 @@ describe('VirtualList', () => {
 		test('should render "data-webos-voice-disabled" to outermost node of VirtualList', () => {
 			render(
 				<VirtualList
-					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
-					itemSize={30}
+					itemSize={itemSize}
 					data-webos-voice-disabled
 				/>
 			);
@@ -352,6 +644,91 @@ describe('VirtualList', () => {
 			const actual = screen.getByRole('list').parentElement;
 
 			expect(actual).toHaveAttribute('data-webos-voice-disabled', 'true');
+		});
+	});
+
+	describe('HoverToScroll', () => {
+		describe('native', () => {
+			test('should not render hoverToScroll node when \'hoverToScroll\' prop is not provided', () => {
+				render(
+					<VirtualList
+						clientSize={clientSize}
+						dataSize={dataSize}
+						itemRenderer={renderItem}
+						itemSize={itemSize}
+						data-webos-voice-focused
+					/>
+				);
+
+				const expected = 2;
+				const actual = screen.getByRole('list').parentElement.parentElement.children.length;
+
+				expect(actual).toBe(expected);
+			});
+
+			test('should render hoverToScroll node when \'hoverToScroll\' prop is provided', () => {
+				render(
+					<VirtualList
+						clientSize={clientSize}
+						dataSize={dataSize}
+						hoverToScroll
+						itemRenderer={renderItem}
+						itemSize={itemSize}
+						data-webos-voice-focused
+					/>
+				);
+
+				const expected = 3;
+				const actual = screen.getByRole('list').parentElement.parentElement.children.length;
+
+				expect(actual).toBe(expected);
+			});
+		});
+
+		describe('translate', () => {
+			test('should not render hoverToScroll node when \'hoverToScroll\' prop is not provided', () => {
+				render(
+					<VirtualList
+						cbScrollTo={getScrollTo}
+						clientSize={clientSize}
+						dataSize={dataSize}
+						itemRenderer={renderItem}
+						itemSize={itemSize}
+						data-webos-voice-focused
+						scrollMode="translate"
+					/>
+				);
+
+				act(() => myScrollTo({position: {y: 200}, animate: false}));
+
+				const expected = 2;
+				const actual = screen.getByRole('list').parentElement.parentElement.children.length;
+
+				expect(actual).toBe(expected);
+			});
+
+			test('should render two hoverToScroll node after scrolling when \'hoverToScroll\' prop is provided', () => {
+				render(
+					<VirtualList
+						cbScrollTo={getScrollTo}
+						clientSize={clientSize}
+						dataSize={dataSize}
+						hoverToScroll
+						itemRenderer={renderItem}
+						itemSize={itemSize}
+						data-webos-voice-focused
+						scrollMode="translate"
+					/>
+				);
+
+				act(() => myScrollTo({position: {y: 200}, animate: false}));
+
+				const expected = 4;
+				const actual = screen.getByRole('list').parentElement.parentElement.children.length;
+
+
+				expect(actual).toBe(expected);
+			});
 		});
 	});
 });
