@@ -320,7 +320,7 @@ const TransferListBase = kind({
 				tempSelected = [...selectedItems];
 			const listsUndefinedCapacity = secondListMinimumCapacity === undefined && firstListMaximumCapacity === undefined;
 
-			if (listsUndefinedCapacity || ((tempSecond.length - selectedItems.length) >= secondListMinimumCapacity && firstListMaximumCapacity === undefined) || ((tempFirst.length + selectedItems.length) <= firstListMaximumCapacity)) {
+			if (listsUndefinedCapacity || ((tempSecond.length - tempSelected.length) >= secondListMinimumCapacity && firstListMaximumCapacity === undefined) || ((tempFirst.length + tempSelected.length) <= firstListMaximumCapacity)) {
 				selectedItems.map((item) => {
 					if (item.list !== 'second') return;
 					tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
