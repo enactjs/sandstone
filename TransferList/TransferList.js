@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-/* global Image */
 
 /**
  * Provides Sandstone-themed transfer list components and behaviors.
@@ -16,7 +15,7 @@ import {Cell, Layout} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
@@ -26,7 +25,7 @@ import VirtualList from '../VirtualList';
 import componentCss from './TransferList.module.less';
 import itemCss from '../Item/Item.module.less';
 
-let div1;
+let multipleItemDragContainer, singleItemDragContainer;
 
 /**
  * A Sandstone-styled scrollable, draggable and spottable transfer list component.
@@ -190,14 +189,66 @@ const TransferListBase = kind({
 		const itemSize = ri.scale(defaultItemSize);
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
-		// used for custom drag image
-		const img = useMemo(() => new Image(), []);
-		img.src = "https://via.placeholder.com/100x100";
+
+		const setCommonElementStyles = (element) => {
+			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+			if (item) {
+				const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
+
+				element.style.border = '1px solid black';
+				element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
+				element.style.width = item.clientWidth + 'px';
+				element.style.height = item.clientHeight + 'px';
+				element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
+				element.style.position = "absolute";
+				element.style.left = "0px";
+			}
+		};
+
+		const generateDragImage = () => {
+			if (typeof multipleItemDragContainer === 'object') document.body.removeChild(multipleItemDragContainer);
+			if (typeof singleItemDragContainer === 'object') document.body.removeChild(singleItemDragContainer);
+
+			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+			if (item) {
+				singleItemDragContainer = document.createElement("div");
+				setCommonElementStyles(singleItemDragContainer);
+				singleItemDragContainer.style.bottom = "0px";
+				singleItemDragContainer.style.left = "0px";
+				singleItemDragContainer.style.zIndex = '-100';
+				document.body.appendChild(singleItemDragContainer);
+
+				multipleItemDragContainer = document.createElement("div");
+				setCommonElementStyles(multipleItemDragContainer);
+				multipleItemDragContainer.style.height = 1.6 * item.clientHeight + 'px';
+				multipleItemDragContainer.style.top = "0px";
+				multipleItemDragContainer.style.zIndex = '-110';
+				document.body.appendChild(multipleItemDragContainer);
+
+				let div2 = document.createElement("div");
+				setCommonElementStyles(div2);
+				div2.style.top = "0px";
+				div2.style.zIndex = '-100';
+
+				let div3 = document.createElement("div");
+				setCommonElementStyles(div3);
+				div3.style.top = 0.3 * item.clientHeight + 'px';
+				div3.style.zIndex = '-90';
+
+				let div4 = document.createElement("div");
+				setCommonElementStyles(div4);
+				div4.style.zIndex = '-80';
+				div4.style.top = 0.6 * item.clientHeight + 'px';
+
+				multipleItemDragContainer.appendChild(div2);
+				multipleItemDragContainer.appendChild(div3);
+				multipleItemDragContainer.appendChild(div4);
+			}
+		};
 
 		useEffect(() => {
-			generateDragImage(selectedItems.length);
-
-		}, ); // eslint-disable-line react-hooks/exhaustive-deps
+			generateDragImage();
+		});
 
 		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
@@ -208,6 +259,8 @@ const TransferListBase = kind({
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
 
+				const potentialIndex = selectedItems.findIndex((pair) => '✓' + pair.element === element.textContent && pair.list === list);
+
 				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
@@ -215,10 +268,11 @@ const TransferListBase = kind({
 							startDragElement.current = element;
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
-							//ev.dataTransfer.setDragImage(img, 0, 0);
-							console.log(selectedItems.length)
-							if(selectedItems.length > 1) {
-								ev.dataTransfer.setDragImage(div1, 0, 0);
+
+							if (potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
+								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
+							} else {
+								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
 							}
 						});
 					}
@@ -274,74 +328,14 @@ const TransferListBase = kind({
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, img]);
+		}, [css.draggableItem, css.overAbove, css.overBelow, selectedItems]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => handleScroll(), 100);
 			return () => {
 				clearTimeout(updateElements);
 			};
-		}, [dragOverElement, firstListLocal, secondListLocal, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
-
-		const generateDragImage = (numberOfItems) => {
-			if (typeof div1 === 'object') document.body.removeChild(div1);
-			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
-			const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
-
-			div1 = document.createElement("div");
-			div1.style.height = 1.6 * item.clientHeight + 'px';
-			div1.style.width = item.clientWidth + 'px';
-			div1.style.position = "absolute";
-			div1.style.top = "0px";
-			div1.style.left = "0px";
-			//div1.style.zIndex='-110';
-
-			document.body.appendChild(div1);
-
-			let div2 = document.createElement("div");
-			div2.style.border = '1px solid black';
-			div2.style.borderRadius = getComputedStyle(itemBg).borderRadius;
-			div2.style.width = item.clientWidth + 'px';
-			div2.style.height = item.clientHeight + 'px';
-			div2.style.backgroundColor = getComputedStyle(itemBg).backgroundColor;
-			//div2.style.zIndex='-100';
-			div2.style.position = "absolute";
-			div2.style.top = "0px";
-			div2.style.left = "0px";
-
-			let div3 = document.createElement("div");
-			div3.style.border = '1px solid black';
-			div3.style.borderRadius = getComputedStyle(itemBg).borderRadius;
-			div3.style.width = item.clientWidth + 'px';
-			div3.style.height = item.clientHeight + 'px';
-			div3.style.backgroundColor = getComputedStyle(itemBg).backgroundColor;
-			//div3.style.zIndex='-90';
-			div3.style.position = "absolute";
-			div3.style.top = 0.3 * item.clientHeight + 'px';
-			div3.style.left = "0px"
-
-			let div4 = document.createElement("div");
-			div4.style.border = '1px solid black';
-			div4.style.borderRadius = getComputedStyle(itemBg).borderRadius;
-			div4.style.color = 'black';
-			div4.style.fontSize = getComputedStyle(item).fontSize;
-			div4.style.fontWeight = getComputedStyle(item).fontWeight;
-			div4.style.fontWeight = getComputedStyle(item).fontFamily;
-			div4.style.lineHeight = getComputedStyle(item).lineHeight;
-			div4.style.width = item.clientWidth + 'px';
-			div4.style.height = item.clientHeight + 'px';
-			div4.style.backgroundColor = getComputedStyle(itemBg).backgroundColor;
-			div4.innerText = numberOfItems;
-			div4.style.textAlign = 'center';
-			//div4.style.zIndex='-80';
-			div4.style.position = "absolute";
-			div4.style.top = 0.6 * item.clientHeight + 'px';
-			div4.style.left = "0px";
-
-			div1.appendChild(div2);
-			div1.appendChild(div3);
-			div1.appendChild(div4);
-		};
+		}, [dragOverElement, firstListLocal, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
