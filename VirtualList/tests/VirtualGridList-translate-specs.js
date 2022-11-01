@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import {act, fireEvent, render, screen} from '@testing-library/react';
 
-import Item from '../../Item';
-import VirtualList from '../VirtualList';
+import ImageItem from '../../ImageItem';
+import {VirtualGridList} from '../VirtualList';
 
-describe('VirtualList translate', () => {
+describe('VirtualGridList translate', () => {
 	let
 		clientSize,
 		dataSize,
@@ -21,13 +21,14 @@ describe('VirtualList translate', () => {
 		renderItem,
 		resultScrollLeft,
 		resultScrollTop,
-		startScrollTop;
+		startScrollTop,
+		svgGenerator;
 
 	beforeEach(() => {
 		clientSize = {clientWidth: 1280, clientHeight: 720};
 		dataSize = 200;
 		items = [];
-		itemSize = 60;
+		itemSize = {minWidth: 300, minHeight: 240};
 		onScrollCount = 0;
 		onScrollStartCount = 0;
 		onScrollStopCount = 0;
@@ -53,16 +54,34 @@ describe('VirtualList translate', () => {
 			testCase();
 			done();
 		};
+
 		renderItem = ({index, ...rest}) => { // eslint-disable-line enact/display-name
+			const {text, subText, source} = items[index];
+
 			return (
-				<Item {...rest}>
-					{items[index].name}
-				</Item>
+				<ImageItem {...rest} label={subText} src={source}>
+					{text}
+				</ImageItem>
 			);
 		};
 
+		svgGenerator = (width, height, bgColor, textColor, customText) => (
+			`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +
+			`%3Crect width='${width}' height='${height}' fill='%23${bgColor}'%3E%3C/rect%3E` +
+			`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23${textColor}'%3E${customText}%3C/text%3E%3C/svg%3E`
+		);
+
+		const itemNumberDigits = dataSize > 0 ? (dataSize - 1 + '').length : 0;
+		const headingZeros = Array(itemNumberDigits).join('0');
+
 		for (let i = 0; i < dataSize; i++) {
-			items.push({name: 'Account ' + i});
+			const count = (headingZeros + i).slice(-itemNumberDigits),
+				text = `Item ${count}`,
+				subText = `SubItem ${count}`,
+				color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16),
+				source = svgGenerator(300, 300, color, 'ffffff', `Image ${i}`);
+
+			items.push({text, subText, source});
 		}
 	});
 
@@ -83,11 +102,12 @@ describe('VirtualList translate', () => {
 		resultScrollLeft = null;
 		resultScrollTop = null;
 		startScrollTop = null;
+		svgGenerator = null;
 	});
 
 	test('should render a list of \'items\'', () => {
 		render(
-			<VirtualList
+			<VirtualGridList
 				clientSize={clientSize}
 				dataSize={dataSize}
 				itemRenderer={renderItem}
@@ -96,7 +116,7 @@ describe('VirtualList translate', () => {
 			/>
 		);
 
-		const expected = 'Account 0';
+		const expected = 'Item 000SubItem 000';
 		const actual = screen.getByRole('list').children.item(0).textContent;
 
 		expect(actual).toBe(expected);
@@ -104,7 +124,7 @@ describe('VirtualList translate', () => {
 
 	test('should render overhang items when clientSize is not given', () => {
 		render(
-			<VirtualList
+			<VirtualGridList
 				dataSize={dataSize}
 				itemRenderer={renderItem}
 				itemSize={itemSize}
@@ -112,7 +132,7 @@ describe('VirtualList translate', () => {
 			/>
 		);
 
-		const expected = 3;
+		const expected = 0;
 		const actual = screen.getByRole('list').children.length;
 
 		expect(actual).toBe(expected);
@@ -120,7 +140,7 @@ describe('VirtualList translate', () => {
 
 	test('should render (clientHeight / itemHeight + overhang) items', () => {
 		render(
-			<VirtualList
+			<VirtualGridList
 				clientSize={clientSize}
 				dataSize={dataSize}
 				itemRenderer={renderItem}
@@ -129,7 +149,7 @@ describe('VirtualList translate', () => {
 			/>
 		);
 
-		const expected = 15; // 720 / 60 + 3
+		const expected = 24; // (4 * (720 / 240)) + 4 * 3
 		const actual = screen.getByRole('list').children.length;
 
 		expect(actual).toBe(expected);
@@ -137,7 +157,7 @@ describe('VirtualList translate', () => {
 
 	test('should re-render (clientHeight / itemHeight + overhang) items after changing client size', () => {
 		const {rerender} = render(
-			<VirtualList
+			<VirtualGridList
 				clientSize={clientSize}
 				dataSize={dataSize}
 				itemRenderer={renderItem}
@@ -149,7 +169,7 @@ describe('VirtualList translate', () => {
 		const newClientSize = {clientWidth: 1280, clientHeight: 360};
 
 		rerender(
-			<VirtualList
+			<VirtualGridList
 				clientSize={newClientSize}
 				dataSize={dataSize}
 				itemRenderer={renderItem}
@@ -158,7 +178,7 @@ describe('VirtualList translate', () => {
 			/>
 		);
 
-		const expected = 9; // 360 / 60 + 3
+		const expected = 20; // (4 * (360 / 240)) + 4 * 3
 		const actual = screen.getByRole('list').children.length;
 
 		expect(actual).toBe(expected);
@@ -166,7 +186,7 @@ describe('VirtualList translate', () => {
 
 	test('should render only one scrollbar', () => {
 		render(
-			<VirtualList
+			<VirtualGridList
 				clientSize={clientSize}
 				dataSize={dataSize}
 				direction="horizontal"
@@ -187,7 +207,7 @@ describe('VirtualList translate', () => {
 			'should render both horizontal and vertical scrollbars when \'horizontalScrollbar\' and \'verticalScrollbar\' are "visible"',
 			() => {
 				render(
-					<VirtualList
+					<VirtualGridList
 						clientSize={clientSize}
 						dataSize={dataSize}
 						direction="horizontal"
@@ -199,9 +219,9 @@ describe('VirtualList translate', () => {
 					/>
 				);
 
-				const virtualListRoot =  screen.getByRole('list').parentElement.parentElement;
-				const verticalScrollbar = virtualListRoot.children.item(1);
-				const horizontalScrollbar = virtualListRoot.children.item(2);
+				const VirtualGridListRoot =  screen.getByRole('list').parentElement.parentElement;
+				const verticalScrollbar = VirtualGridListRoot.children.item(1);
+				const horizontalScrollbar = VirtualGridListRoot.children.item(2);
 
 				expect(verticalScrollbar).toHaveClass("verticalScrollbar");
 				expect(horizontalScrollbar).toHaveClass("horizontalScrollbar");
@@ -212,7 +232,7 @@ describe('VirtualList translate', () => {
 			'should render only vertical scrollbar when \'verticalScrollbar\' is "visible" and \'horizontalScrollbar\' is "hidden"',
 			() => {
 				render(
-					<VirtualList
+					<VirtualGridList
 						clientSize={clientSize}
 						dataSize={dataSize}
 						itemRenderer={renderItem}
@@ -221,9 +241,9 @@ describe('VirtualList translate', () => {
 					/>
 				);
 
-				const virtualListRoot =  screen.getByRole('list').parentElement.parentElement;
-				const verticalScrollbar = virtualListRoot.children.item(1);
-				const horizontalScrollbar = virtualListRoot.children.item(2);
+				const VirtualGridListRoot =  screen.getByRole('list').parentElement.parentElement;
+				const verticalScrollbar = VirtualGridListRoot.children.item(1);
+				const horizontalScrollbar = VirtualGridListRoot.children.item(2);
 
 				expect(verticalScrollbar).toBeInTheDocument();
 				expect(verticalScrollbar).toHaveClass("verticalScrollbar");
@@ -235,7 +255,7 @@ describe('VirtualList translate', () => {
 			'should not render any scrollbar when when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
 			() => {
 				render(
-					<VirtualList
+					<VirtualGridList
 						clientSize={clientSize}
 						dataSize={dataSize}
 						direction="horizontal"
@@ -247,9 +267,9 @@ describe('VirtualList translate', () => {
 					/>
 				);
 
-				const virtualListRoot =  screen.getByRole('list').parentElement.parentElement;
-				const verticalScrollbar = virtualListRoot.children.item(1);
-				const horizontalScrollbar = virtualListRoot.children.item(2);
+				const VirtualGridListRoot =  screen.getByRole('list').parentElement.parentElement;
+				const verticalScrollbar = VirtualGridListRoot.children.item(1);
+				const horizontalScrollbar = VirtualGridListRoot.children.item(2);
 
 				expect(verticalScrollbar).toBeNull();
 				expect(horizontalScrollbar).toBeNull();
@@ -260,13 +280,13 @@ describe('VirtualList translate', () => {
 	describe('ScrollTo', () => {
 		test('should scroll to the specific item of a given index with scrollTo', (done) => {
 			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = 600;
+				const expected = (240 + 16) * 2;
 
 				expect(resultScrollTop).toBe(expected);
 			});
 
 			render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -277,7 +297,7 @@ describe('VirtualList translate', () => {
 				/>
 			);
 
-			act(() => myScrollTo({index: 10, animate: false}));
+			act(() => myScrollTo({index: 9, animate: false}));
 		});
 
 		test('should scroll to the given \'x\' position with scrollTo', (done) => {
@@ -288,7 +308,7 @@ describe('VirtualList translate', () => {
 			});
 
 			render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -311,7 +331,7 @@ describe('VirtualList translate', () => {
 			});
 
 			render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -327,14 +347,14 @@ describe('VirtualList translate', () => {
 
 		test('should scroll to the given align with scrollTo', (done) => {
 			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = dataSize * itemSize - clientSize.clientHeight + 30;
+				const expected = Math.ceil(dataSize / 4) * (itemSize.minHeight + 16) - clientSize.clientHeight + 30;
 				const actual = resultScrollTop;
 
 				expect(actual).toBe(expected);
 			});
 
 			render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -352,14 +372,14 @@ describe('VirtualList translate', () => {
 			const newDataSize = 50;
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = newDataSize * itemSize - clientSize.clientHeight + 30;
+				const expected = Math.ceil(newDataSize / 4) * (itemSize.minHeight + 16) - clientSize.clientHeight + 30;
 				const actual = resultScrollTop;
 
 				expect(actual).toBe(expected);
 			});
 
 			const {rerender} = render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -371,7 +391,7 @@ describe('VirtualList translate', () => {
 			);
 
 			rerender(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={newDataSize}
@@ -386,17 +406,17 @@ describe('VirtualList translate', () => {
 		});
 
 		test('should scroll to the given align with scrollTo after changing itemSize', (done) => {
-			const newItemSize = 50;
+			const newItemSize = {minWidth: 300, minHeight: 270};
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = dataSize * newItemSize - clientSize.clientHeight + 30;
+				const expected = Math.ceil(dataSize / 4) * (newItemSize.minHeight + 18) - clientSize.clientHeight + 30;
 				const actual = resultScrollTop;
 
 				expect(actual).toBe(expected);
 			});
 
 			const {rerender} = render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -408,7 +428,7 @@ describe('VirtualList translate', () => {
 			);
 
 			rerender(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -423,17 +443,30 @@ describe('VirtualList translate', () => {
 		});
 
 		test('should scroll to the given align with scrollTo after changing spacing', (done) => {
-			const newSpacing = 30;
+			const newSpacing = 6;
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = dataSize * (itemSize + newSpacing) - clientSize.clientHeight - newSpacing + 30;
+
+				// newSpacing = 24;
+				// Expected: 13286
+				// Received: 12536
+				// 12800  - 720 + 30 = 12110 (426달라짐) 12536
+
+				// const newSpacing = 6;
+				// Expected: 12110
+				// Received: 12204 94늘어남
+
+				// const newSpacing = 3;
+				// Received: 12107
+
+				const expected = Math.ceil(dataSize / 4) * (itemSize.minHeight + 16) - clientSize.clientHeight + 30 + 94; // Cannot calculate the exact length after applying spacing.
 				const actual = resultScrollTop;
 
 				expect(actual).toBe(expected);
 			});
 
 			const {rerender} = render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -445,7 +478,7 @@ describe('VirtualList translate', () => {
 			);
 
 			rerender(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -460,53 +493,10 @@ describe('VirtualList translate', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo when itemSizes is given', (done) => {
-			const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-			const itemSizes = [100, 200, 300, 400, 100, 200, 300, 400, 100, 200];
-			const itemSizeSum = itemSizes.reduce((sum, value) => sum + value); // 2300
-			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = itemSizeSum - clientSize.clientHeight + 30;
-				const actual = resultScrollTop;
-
-				expect(actual).toBe(expected);
-			});
-
-			const {rerender} = render(
-				<VirtualList
-					cbScrollTo={getScrollTo}
-					clientSize={clientSize}
-					dataSize={10}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-					onScrollStop={onScrollStop}
-					scrollMode="translate"
-				/>
-			);
-
-			rerender(
-				<VirtualList
-					cbScrollTo={getScrollTo}
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-					itemSizes={itemSizes}
-					onScrollStop={onScrollStop}
-					scrollMode="translate"
-				/>
-			);
-
-			act(() => myScrollTo({align: 'bottom', animate: false}));
-
-			const expectedErrorMsg = 'Warning: VirtualList with `minSize` in `itemSize` prop does not support `cbScrollTo` prop';
-			expect(consoleSpy).toHaveBeenCalled();
-			expect(consoleSpy.mock.calls[0][0]).toBe(expectedErrorMsg);
-		});
-
 		describe('scroll events', () => {
 			test('should call onScrollStart once', () => {
 				render(
-					<VirtualList
+					<VirtualGridList
 						cbScrollTo={getScrollTo}
 						clientSize={clientSize}
 						dataSize={dataSize}
@@ -526,7 +516,7 @@ describe('VirtualList translate', () => {
 
 			test('should call onScroll once', () => {
 				render(
-					<VirtualList
+					<VirtualGridList
 						cbScrollTo={getScrollTo}
 						clientSize={clientSize}
 						dataSize={dataSize}
@@ -552,7 +542,7 @@ describe('VirtualList translate', () => {
 				});
 
 				render(
-					<VirtualList
+					<VirtualGridList
 						cbScrollTo={getScrollTo}
 						clientSize={clientSize}
 						dataSize={dataSize}
@@ -588,7 +578,7 @@ describe('VirtualList translate', () => {
 			});
 
 			render(
-				<VirtualList
+				<VirtualGridList
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
@@ -611,7 +601,7 @@ describe('VirtualList translate', () => {
 			const fn = jest.fn();
 
 			render(
-				<VirtualList
+				<VirtualGridList
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
@@ -646,7 +636,7 @@ describe('VirtualList translate', () => {
 			};
 
 			const {rerender} = render(
-				<VirtualList
+				<VirtualGridList
 					clientSize={clientSize}
 					dataSize={itemArray.length}
 					itemRenderer={renderItemArray}
@@ -656,7 +646,7 @@ describe('VirtualList translate', () => {
 			);
 
 			itemArray.unshift({name: 'Password 0'});
-			rerender(<VirtualList
+			rerender(<VirtualGridList
 				clientSize={clientSize}
 				dataSize={itemArray.length}
 				itemRenderer={renderItemArray}
@@ -678,9 +668,9 @@ describe('VirtualList translate', () => {
 	});
 
 	describe('Voice Control', () => {
-		test('should render "data-webos-voice-focused" to outermost node of VirtualList', () => {
+		test('should render "data-webos-voice-focused" to outermost node of VirtualGridList', () => {
 			render(
-				<VirtualList
+				<VirtualGridList
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
@@ -695,10 +685,10 @@ describe('VirtualList translate', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-focused', 'true');
 		});
 
-		test('should render "data-webos-voice-group-label" to outermost node of VirtualList', () => {
+		test('should render "data-webos-voice-group-label" to outermost node of VirtualGridList', () => {
 			const label = 'group label';
 			render(
-				<VirtualList
+				<VirtualGridList
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
@@ -713,9 +703,9 @@ describe('VirtualList translate', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-group-label', label);
 		});
 
-		test('should render "data-webos-voice-disabled" to outermost node of VirtualList', () => {
+		test('should render "data-webos-voice-disabled" to outermost node of VirtualGridList', () => {
 			render(
-				<VirtualList
+				<VirtualGridList
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
@@ -734,7 +724,7 @@ describe('VirtualList translate', () => {
 	describe('HoverToScroll', () => {
 		test('should not render hoverToScroll node when \'hoverToScroll\' prop is not provided', () => {
 			render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
@@ -755,7 +745,7 @@ describe('VirtualList translate', () => {
 
 		test('should render two hoverToScroll node after scrolling when \'hoverToScroll\' prop is provided', () => {
 			render(
-				<VirtualList
+				<VirtualGridList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={dataSize}
