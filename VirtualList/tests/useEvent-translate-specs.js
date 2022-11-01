@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 
+import {ImageItem} from '../../ImageItem';
 import Item from '../../Item';
-import VirtualList from '../VirtualList';
+import VirtualList, {VirtualGridList} from '../VirtualList';
 
 const focus = (elm) => fireEvent.focus(elm);
 
@@ -23,19 +24,33 @@ describe('VirtualList useEvent', () => {
 		currentFocusIndex,
 		dataSize,
 		handlerOnFocus,
+		imageItemSize,
 		items,
 		itemSize,
-		renderItem;
+		renderImageItem,
+		renderItem,
+		svgGenerator;
 
 	beforeEach(() => {
 		clientSize = {clientWidth: 1280, clientHeight: 720};
 		currentFocusIndex = -1;
 		dataSize = 200;
+		imageItemSize = {minWidth: 300, minHeight: 240};
 		items = [];
 		itemSize = 60;
 
 		handlerOnFocus = (index) => () => {
 			currentFocusIndex = index;
+		};
+
+		renderImageItem = ({index, ...rest}) => { // eslint-disable-line enact/display-name
+			const {name, subText, source} = items[index];
+
+			return (
+				<ImageItem {...rest} label={subText} src={source} onFocus={handlerOnFocus(index)}>
+					{name}
+				</ImageItem>
+			);
 		};
 
 		renderItem = ({index, ...rest}) => { // eslint-disable-line enact/display-name
@@ -46,18 +61,34 @@ describe('VirtualList useEvent', () => {
 			);
 		};
 
+		svgGenerator = (width, height, bgColor, textColor, customText) => (
+			`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +
+			`%3Crect width='${width}' height='${height}' fill='%23${bgColor}'%3E%3C/rect%3E` +
+			`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23${textColor}'%3E${customText}%3C/text%3E%3C/svg%3E`
+		);
+
 		for (let i = 0; i < dataSize; i++) {
-			items.push({name: 'Account ' + i});
+			const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
+
+			items.push({
+				name: 'Account ' + i,
+				// For VirtualGridList
+				subText: 'SubText ' + i,
+				source: svgGenerator(300, 300, color, 'ffffff', `Image ${i}`)
+			});
 		}
 	});
 
 	afterEach(() => {
 		clientSize = null;
 		dataSize = null;
+		imageItemSize = null;
 		items = [];
 		itemSize = 60;
 		items = null;
+		renderImageItem = null;
 		renderItem = null;
+		svgGenerator = null;
 	});
 
 	describe('VirtualList useEvent', () => {
@@ -68,6 +99,7 @@ describe('VirtualList useEvent', () => {
 					dataSize={dataSize}
 					itemRenderer={renderItem}
 					itemSize={itemSize}
+					scrollMode="translate"
 				/>
 			);
 
@@ -97,6 +129,7 @@ describe('VirtualList useEvent', () => {
 					dataSize={dataSize}
 					itemRenderer={renderItem}
 					itemSize={itemSize}
+					scrollMode="translate"
 				/>
 			);
 
@@ -121,6 +154,7 @@ describe('VirtualList useEvent', () => {
 					dataSize={dataSize}
 					itemRenderer={renderItem}
 					itemSize={itemSize}
+					scrollMode="translate"
 				/>
 			);
 
@@ -140,65 +174,6 @@ describe('VirtualList useEvent', () => {
 
 			leftKey(item2);
 			expect(currentFocusIndex).toBe(1);
-		});
-
-		test('should be scroll by focus navigation using arrow-down key', () => {
-			const spy = jest.fn(() => {});
-			const scrollToFn = global.Element.prototype.scrollTo;
-			global.Element.prototype.scrollTo = spy;
-
-			render(
-				<VirtualList
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-				/>
-			);
-
-			const list = screen.getByRole('list');
-			const item13 = list.children.item(13).children.item(0);
-
-			focus(item13);
-			expect(currentFocusIndex).toBe(13);
-
-			downKey(item13);
-			expect(currentFocusIndex).toBe(14);
-
-			expect(spy).toHaveBeenCalled();
-
-			global.Element.prototype.scrollTo = scrollToFn;
-		});
-
-		test('should be scroll by page-down key', () => {
-			const spy = jest.fn(() => {});
-			const scrollToFn = global.Element.prototype.scrollTo;
-			global.Element.prototype.scrollTo = spy;
-
-			render(
-				<VirtualList
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-				/>
-			);
-
-			const list = screen.getByRole('list');
-			const item9 = list.children.item(9).children.item(0);
-			const item10 = list.children.item(10).children.item(0);
-
-			focus(item9);
-			expect(currentFocusIndex).toBe(9);
-
-			downKey(item9);
-			expect(currentFocusIndex).toBe(10);
-
-			pageDownKey(item10);
-
-			expect(spy).toHaveBeenCalled();
-
-			global.Element.prototype.scrollTo = scrollToFn;
 		});
 	});
 });
