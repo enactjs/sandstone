@@ -175,5 +175,204 @@ describe('VirtualList useEvent', () => {
 			leftKey(item2);
 			expect(currentFocusIndex).toBe(1);
 		});
+
+		test('should be scroll by focus navigation using arrow-down key', () => {
+			const spy = jest.fn(() => {});
+
+			render(
+				<VirtualList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStart={spy}
+					scrollMode="translate"
+				/>
+			);
+
+			const list = screen.getByRole('list');
+			const item13 = list.children.item(13).children.item(0);
+
+			focus(item13);
+			expect(currentFocusIndex).toBe(13);
+
+			downKey(item13);
+			expect(currentFocusIndex).toBe(14);
+
+			expect(spy).toHaveBeenCalled();
+		});
+
+		test('should be scroll by page-down key', () => {
+			const spy = jest.fn(() => {});
+
+			render(
+				<VirtualList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStart={spy}
+					scrollMode="translate"
+				/>
+			);
+
+			const list = screen.getByRole('list');
+			const item9 = list.children.item(9).children.item(0);
+			const item10 = list.children.item(10).children.item(0);
+
+			focus(item9);
+			expect(currentFocusIndex).toBe(9);
+
+			downKey(item9);
+			expect(currentFocusIndex).toBe(10);
+
+			pageDownKey(item10);
+
+			expect(spy).toHaveBeenCalled();
+		});
+	});
+
+	describe('VirtualGridList translate useEvent', () => {
+		test('should navigate focus using arrow-up/down key', () => {
+			render(
+				<VirtualGridList
+					clientSize={clientSize}
+					direction="vertical"
+					dataSize={dataSize}
+					itemRenderer={renderImageItem}
+					itemSize={imageItemSize}
+					scrollMode="translate"
+				/>
+			);
+
+			const list = screen.getByRole('list');
+			const item0 = list.children.item(0).children.item(0);
+			const item4 = list.children.item(4).children.item(0);
+			const item8 = list.children.item(8).children.item(0);
+
+			focus(item0);
+			expect(currentFocusIndex).toBe(0);
+
+			downKey(item0);
+			downKey(item0);
+			expect(currentFocusIndex).toBe(4);
+
+			downKey(item4);
+			expect(currentFocusIndex).toBe(8);
+
+			upKey(item8);
+			expect(currentFocusIndex).toBe(4);
+		});
+
+		test('should navigate focus using arrow-up/down key when \'direction\'is horizontal', () => {
+			render(
+				<VirtualGridList
+					direction="horizontal"
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderImageItem}
+					itemSize={imageItemSize}
+					scrollMode="translate"
+				/>
+			);
+
+			const list = screen.getByRole('list');
+			const item0 = list.children.item(0).children.item(0);
+			const item1 = list.children.item(1).children.item(0);
+
+			focus(item0);
+			expect(currentFocusIndex).toBe(0);
+
+			downKey(item0);
+			expect(currentFocusIndex).toBe(1);
+
+			upKey(item1);
+			expect(currentFocusIndex).toBe(0);
+		});
+
+		test('should navigate focus using arrow-left/right key when \'direction\'is horizontal', () => {
+			render(
+				<VirtualGridList
+					direction="horizontal"
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderImageItem}
+					itemSize={imageItemSize}
+					scrollMode="translate"
+				/>
+			);
+
+			const list = screen.getByRole('list');
+			const item0 = list.children.item(0).children.item(0);
+			const item3 = list.children.item(3).children.item(0);
+			const item6 = list.children.item(6).children.item(0);
+
+			focus(item0);
+			expect(currentFocusIndex).toBe(0);
+
+			rightKey(item0);
+			expect(currentFocusIndex).toBe(3);
+
+			rightKey(item3);
+			expect(currentFocusIndex).toBe(6);
+
+			leftKey(item6);
+			expect(currentFocusIndex).toBe(3);
+		});
+
+		test('should be scroll by focus navigation using arrow-down key', () => {
+			const spy = jest.fn(() => {});
+
+			render(
+				<VirtualGridList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderImageItem}
+					itemSize={imageItemSize}
+					onScrollStart={spy}
+					scrollMode="translate"
+				/>
+			);
+
+			const list = screen.getByRole('list');
+			const item13 = list.children.item(13).children.item(0);
+
+			focus(item13);
+			expect(currentFocusIndex).toBe(13);
+
+			downKey(item13);
+			expect(currentFocusIndex).toBe(17);
+
+			expect(spy).toHaveBeenCalled();
+		});
+
+		test('should be scroll by page-down key', () => {
+			const spy = jest.fn(() => {});
+
+			render(
+				<VirtualGridList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderImageItem}
+					itemSize={imageItemSize}
+					onScrollStart={spy}
+					scrollMode="translate"
+				/>
+			);
+
+			const list = screen.getByRole('list');
+			const item9 = list.children.item(9).children.item(0);
+			const item10 = list.children.item(10).children.item(0);
+
+			focus(item9);
+			expect(currentFocusIndex).toBe(9);
+
+			downKey(item9);
+			expect(currentFocusIndex).toBe(13);
+
+			pageDownKey(item10);
+
+			expect(spy).toHaveBeenCalled();
+		});
 	});
 });
