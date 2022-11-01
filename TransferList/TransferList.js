@@ -195,13 +195,13 @@ const TransferListBase = kind({
 			if (item) {
 				const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
 
+				element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
 				element.style.border = '1px solid black';
 				element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
-				element.style.width = item.clientWidth + 'px';
 				element.style.height = item.clientHeight + 'px';
-				element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
-				element.style.position = "absolute";
 				element.style.left = "0px";
+				element.style.position = "absolute";
+				element.style.width = item.clientWidth + 'px';
 			}
 		};
 
@@ -237,8 +237,8 @@ const TransferListBase = kind({
 
 				let div4 = document.createElement("div");
 				setCommonElementStyles(div4);
-				div4.style.zIndex = '-80';
 				div4.style.top = 0.6 * item.clientHeight + 'px';
+				div4.style.zIndex = '-80';
 
 				multipleItemDragContainer.appendChild(div2);
 				multipleItemDragContainer.appendChild(div3);
