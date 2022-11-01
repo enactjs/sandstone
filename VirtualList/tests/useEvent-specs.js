@@ -90,6 +90,11 @@ describe('VirtualList useEvent', () => {
 			return true;
 		});
 
+	test('should be scroll by focus navigation using arrowdown key', () => {
+		const spy = jest.fn(() => {});
+		const scrollToFn = global.Element.prototype.scrollTo;
+		global.Element.prototype.scrollTo = spy;
+
 		render(
 			<VirtualList
 				spotlightId="virtualList"
@@ -109,6 +114,40 @@ describe('VirtualList useEvent', () => {
 		downKey(item13);
 		expect(currentFocusIndex).toBe(14);
 
-		expect(scrollToFn).toHaveBeenCalled();
+		expect(spy).toHaveBeenCalled();
+
+		global.Element.prototype.scrollTo = scrollToFn;
+	});
+
+	test('should be scroll by pagedown key', () => {
+		const spy = jest.fn(() => {});
+		const scrollToFn = global.Element.prototype.scrollTo;
+		global.Element.prototype.scrollTo = spy;
+
+		render(
+			<VirtualList
+				spotlightId="virtualList"
+				clientSize={clientSize}
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+			/>
+		);
+
+		const list = screen.getByRole('list');
+		const item9 = list.children.item(9).children.item(0);
+		const item10 = list.children.item(10).children.item(0);
+
+		focus(item9);
+		expect(currentFocusIndex).toBe(9);
+
+		downKey(item9);
+		expect(currentFocusIndex).toBe(10);
+
+		pageDownKey(item10);
+
+		expect(spy).toHaveBeenCalled();
+
+		global.Element.prototype.scrollTo = scrollToFn;
 	});
 });
