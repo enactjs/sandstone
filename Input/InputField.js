@@ -296,6 +296,11 @@ const InputFieldBase = kind({
 		const inputProps = extractInputProps(rest);
 		const voiceProps = extractVoiceProps(rest);
 		const isPasswordtel = type === 'passwordtel';
+
+		if (type === 'password' || type === 'passwordtel') {
+			inputProps.spellCheck = false;
+		}
+
 		delete rest.announce;
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
