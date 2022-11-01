@@ -85,11 +85,6 @@ describe('VirtualList useEvent', () => {
 		expect(currentFocusIndex).toBe(1);
 	});
 
-	test('should be scrolled by focus navigation using arrowdown key', () => {
-		const scrollToFn = global.Element.prototype.scrollTo = jest.fn(() => {
-			return true;
-		});
-
 	test('should be scroll by focus navigation using arrowdown key', () => {
 		const spy = jest.fn(() => {});
 		const scrollToFn = global.Element.prototype.scrollTo;
