@@ -160,7 +160,7 @@ const TransferListBase = kind({
 						onSpotlightDown={handleSpotlightDown}
 						onSpotlightUp={handleSpotlightUp}
 						selected={selected}
-						onDragStart={() => handleDragStart(index, list)}
+						onDragStart={handleDragStart}
 						onDrag={handleDrag}
 						onDragEnd={handleDragEnd}
 					>
@@ -483,11 +483,12 @@ const TransferListBase = kind({
 
 		const [dragging, setDragging] = useState(false);
 
-		const handleDragStart = (index, list) => {
+		const handleDragStart = (ev) => {
 			console.log('start dragging', ev);
 			setDragging(true);
 
 			if (ev.type === 'dragstart') {
+				const [index, list] = ev.target.id.split('-');
 				return ev.target.addEventListener('dragstart', (ev) => {
 				startDragElement.current = ev.target;
 				ev.dataTransfer.setData('text/plain', `${index}-${list}`);
