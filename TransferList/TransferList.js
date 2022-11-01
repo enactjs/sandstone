@@ -82,7 +82,7 @@ const TransferListBase = kind({
 		 * The height of the checkbox item.
 		 *
 		 * @type {Number}
-		 * @default
+		 * @default 201
 		 * @public
 		 */
 		itemSize: PropTypes.number,
