@@ -607,6 +607,39 @@ describe('VirtualList translate', () => {
 			expect(fn).toBeCalled();
 		});
 
+		test('should show overscroll effect by wheel', (done) => {
+			const fn = jest.fn();
+
+			const onScrollStop = handlerOnScrollStop(done, () => {
+				fn();
+				expect(startScrollTop).toBe(0);
+				expect(onScrollStartCount).toBe(1);
+				expect(resultScrollTop).toBe(0);
+
+				const listRoot = screen.getByRole('list').parentElement;
+				expect(listRoot).toHaveStyle({'--scroll-overscroll-translate-vertical': 'translateY(0px)'});
+			});
+
+			render(
+				<VirtualList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+					onScrollStop={onScrollStop}
+					onScrollStart={handlerOnScrollStart}
+					scrollMode="translate"
+				/>
+			);
+
+			const list = screen.getByRole('list');
+			fireEvent.wheel(list, {deltaY: -100});
+
+			act(() => jest.advanceTimersByTime(1000)); // Wait onScrollStop
+
+			expect(fn).toBeCalled();
+		});
+
 		test('should not scroll by wheel when `noScrollByWheel` prop is true', (done) => {
 			const fn = jest.fn();
 
