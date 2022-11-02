@@ -9,7 +9,8 @@ module.exports = {
 	},
 	features: {
 		postcss: false,
-		storyStoreV7: true
+		storyStoreV7: true,
+		warnOnLegacyHierarchySeparator: false
 	},
 	framework: '@storybook/react',
 	stories: ['./../stories/default/*.js'],

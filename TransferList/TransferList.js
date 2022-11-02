@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks, no-undefined */
-/* global Image */
 
 /**
  * Provides Sandstone-themed transfer list components and behaviors.
@@ -16,7 +15,7 @@ import {Cell, Layout} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
@@ -24,6 +23,9 @@ import Skinnable from '../Skinnable';
 import VirtualList from '../VirtualList';
 
 import componentCss from './TransferList.module.less';
+import itemCss from '../Item/Item.module.less';
+
+let multipleItemDragContainer, singleItemDragContainer;
 
 /**
  * A Sandstone-styled scrollable, draggable and spottable transfer list component.
@@ -230,9 +232,66 @@ const TransferListBase = kind({
 		const itemSize = ri.scale(defaultItemSize);
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
-		// used for custom drag image
-		const img = useMemo(() => new Image(), []);
-		img.src = "https://via.placeholder.com/100x100";
+
+		const setCommonElementStyles = (element) => {
+			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+			if (item) {
+				const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
+
+				element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
+				element.style.border = '1px solid black';
+				element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
+				element.style.height = item.clientHeight + 'px';
+				element.style.left = "0px";
+				element.style.position = "absolute";
+				element.style.width = item.clientWidth + 'px';
+			}
+		};
+
+		const generateDragImage = () => {
+			if (typeof multipleItemDragContainer === 'object') document.body.removeChild(multipleItemDragContainer);
+			if (typeof singleItemDragContainer === 'object') document.body.removeChild(singleItemDragContainer);
+
+			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+			if (item) {
+				singleItemDragContainer = document.createElement("div");
+				setCommonElementStyles(singleItemDragContainer);
+				singleItemDragContainer.style.bottom = "0px";
+				singleItemDragContainer.style.left = "0px";
+				singleItemDragContainer.style.zIndex = '-100';
+				document.body.appendChild(singleItemDragContainer);
+
+				multipleItemDragContainer = document.createElement("div");
+				setCommonElementStyles(multipleItemDragContainer);
+				multipleItemDragContainer.style.height = 1.6 * item.clientHeight + 'px';
+				multipleItemDragContainer.style.top = "0px";
+				multipleItemDragContainer.style.zIndex = '-110';
+				document.body.appendChild(multipleItemDragContainer);
+
+				let div2 = document.createElement("div");
+				setCommonElementStyles(div2);
+				div2.style.top = "0px";
+				div2.style.zIndex = '-100';
+
+				let div3 = document.createElement("div");
+				setCommonElementStyles(div3);
+				div3.style.top = 0.3 * item.clientHeight + 'px';
+				div3.style.zIndex = '-90';
+
+				let div4 = document.createElement("div");
+				setCommonElementStyles(div4);
+				div4.style.top = 0.6 * item.clientHeight + 'px';
+				div4.style.zIndex = '-80';
+
+				multipleItemDragContainer.appendChild(div2);
+				multipleItemDragContainer.appendChild(div3);
+				multipleItemDragContainer.appendChild(div4);
+			}
+		};
+
+		useEffect(() => {
+			generateDragImage();
+		});
 
 		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
@@ -243,6 +302,8 @@ const TransferListBase = kind({
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
 
+				const potentialIndex = selectedItems.findIndex((pair) => '✓' + pair.element === element.textContent && pair.list === list);
+
 				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
@@ -250,7 +311,12 @@ const TransferListBase = kind({
 							startDragElement.current = element;
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
-							ev.dataTransfer.setDragImage(img, 0, 0);
+
+							if (potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
+								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
+							} else {
+								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
+							}
 						});
 					}
 					if (event === 'dragover') {
@@ -305,14 +371,14 @@ const TransferListBase = kind({
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, img]);
+		}, [css.draggableItem, css.overAbove, css.overBelow, selectedItems]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => handleScroll(), 100);
 			return () => {
 				clearTimeout(updateElements);
 			};
-		}, [dragOverElement, firstListLocal, secondListLocal, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		}, [dragOverElement, firstListLocal, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
