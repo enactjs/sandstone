@@ -18,7 +18,7 @@ const upKey = keyDownUp(38);
 const downKey = keyDownUp(40);
 const pageDownKey = keyDownUp(34);
 
-describe('VirtualList useEvent', () => {
+describe('VirtualList useEvent translate', () => {
 	let
 		clientSize,
 		currentFocusIndex,
