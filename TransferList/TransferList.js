@@ -126,6 +126,15 @@ const TransferListBase = kind({
 		 * @public
 		 */
 		vertical: PropTypes.bool,
+
+		/**
+		 * The height of the vertical item.
+		 *
+		 * @type {Number}
+		 * @default 465
+		 * @public
+		 */
+		verticalHeight: PropTypes.number,
 	},
 
 	defaultProps: {
@@ -137,7 +146,8 @@ const TransferListBase = kind({
 		secondList: {},
 		setFirstList: null,
 		setSecondList: null,
-		vertical: false
+		vertical: false,
+		verticalHeight: 465
 	},
 
 	styles: {
@@ -147,25 +157,46 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: () => ({elements, list, onSelect, selectedItems, vertical, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderItem: () => ({elements, list, onSelect, onSpotlightMove, selectedItems, vertical, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selected = -1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
+			const style = !vertical ? {} : {height: '100%', width: ri.unit(30, 'rem'), writingMode: 'vertical-lr', margin: '0'};
 
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (elements.length - 1 !== index) return;
-				ev.preventDefault();
-				ev.stopPropagation();
+				if (list === 'second' || (!vertical && elements.length - 1 === index)) {
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
+				if (vertical) onSpotlightMove(ev);
+			};
+
+			const handleSpotlightLeft = (ev) => {
+				if (list === 'first' || (vertical && index === 0)) {
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
+				if (!vertical) onSpotlightMove(ev);
+			};
+
+			const handleSpotlightRight = (ev) => {
+				if (list === 'second' || (vertical && elements.length - 1 === index)) {
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
+				if (!vertical) onSpotlightMove(ev);
 			};
 
 			const handleSpotlightUp = (ev) => {
-				if (index !== 0) return;
-				ev.preventDefault();
-				ev.stopPropagation();
+				if (list === 'first' || (!vertical && index === 0)) {
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
+				if (vertical) onSpotlightMove(ev);
 			};
 
 			return (
@@ -177,9 +208,12 @@ const TransferListBase = kind({
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
-					// onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
-					// onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					selected={selected}
+					style={style}
 				>
 					{element}
 				</CheckboxItem>
@@ -187,12 +221,12 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, renderItem, secondList, setFirstList, setSecondList, vertical}) => {
+	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, renderItem, secondList, setFirstList, setSecondList, vertical, verticalHeight}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 
-		const height = ri.scaleToRem(defaultHeight);
+		const height = ri.scaleToRem(vertical ? verticalHeight : defaultHeight);
 		const itemSize = ri.scale(defaultItemSize);
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
@@ -461,7 +495,6 @@ const TransferListBase = kind({
 		}, []);
 
 		const handleSpotlightFirst = useCallback((ev) => {
-			console.log('here');
 			if (selectedItems.findIndex(elm => elm.list === 'second') === -1 || !moveOnSpotlight) return;
 			moveIntoFirstSelected();
 			ev.preventDefault();
@@ -479,8 +512,7 @@ const TransferListBase = kind({
 			elements: firstListLocal,
 			list: 'first',
 			onSelect: setSelected,
-			onSpotlightRight: !vertical ? handleSpotlightSecond : () => {},
-			onSpotlightDown: vertical ? handleSpotlightSecond : () => {},
+			onSpotlightMove: handleSpotlightSecond,
 			selectedItems: selectedItems,
 			vertical: vertical
 		};
@@ -489,8 +521,7 @@ const TransferListBase = kind({
 			elements: secondListLocal,
 			list: 'second',
 			onSelect: setSelected,
-			onSpotlightLeft: !vertical ? handleSpotlightFirst : () => {},
-			onSpotlightUp: vertical ? handleSpotlightFirst : () => {},
+			onSpotlightMove: handleSpotlightFirst,
 			selectedItems: selectedItems,
 			vertical: vertical
 		};
@@ -507,6 +538,7 @@ const TransferListBase = kind({
 				>
 					<VirtualList
 						dataSize={firstListLocal.length}
+						direction={!vertical ? "vertical" : "horizontal"}
 						horizontalScrollbar="hidden"
 						itemRenderer={renderItem(firstListSpecs)}
 						itemSize={itemSize}
@@ -518,10 +550,35 @@ const TransferListBase = kind({
 				<Cell className={componentCss.listButtons} style={{flexDirection: vertical ? 'row' : 'column'}}>
 					{!moveOnSpotlight ?
 						<>
-							<Button onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{vertical ? 'VVV' : '>>>'}</Button>
-							<Button disabled={!(selectedItems.find((item) => item.list === "first"))} onClick={moveIntoSecondSelected} size="small">{vertical ? 'V' : '>'}</Button>
-							<Button disabled={!(selectedItems.find((item) => item.list === "second"))} onClick={moveIntoFirstSelected} size="small">{vertical ? '^' : '<'}</Button>
-							<Button onClick={moveIntoFirstAll} onSpotlightDown={handleSpotlightBounds} size="small">{vertical ? '^^^' : '<<<'}</Button>
+							<Button
+								onClick={moveIntoSecondAll}
+								onSpotlightLeft={vertical ? handleSpotlightBounds : null}
+								onSpotlightUp={!vertical ? handleSpotlightBounds : null}
+								size="small"
+							>
+								{vertical ? 'vvv' : '>>>'}
+							</Button>
+							<Button
+								disabled={!(selectedItems.find((item) => item.list === "first"))}
+								onClick={moveIntoSecondSelected}
+								size="small"
+							>
+								{vertical ? 'v' : '>'}
+							</Button>
+							<Button
+								disabled={!(selectedItems.find((item) => item.list === "second"))}
+								onClick={moveIntoFirstSelected}
+								size="small">
+								{vertical ? '^' : '<'}
+							</Button>
+							<Button
+								onClick={moveIntoFirstAll}
+								onSpotlightDown={!vertical ? handleSpotlightBounds : null}
+								onSpotlightRight={vertical ? handleSpotlightBounds : null}
+								size="small"
+							>
+								{vertical ? '^^^' : '<<<'}
+							</Button>
 						</> : ''
 					}
 				</Cell>
@@ -535,10 +592,12 @@ const TransferListBase = kind({
 				>
 					<VirtualList
 						dataSize={secondListLocal.length}
+						direction={!vertical ? "vertical" : "horizontal"}
 						horizontalScrollbar="hidden"
 						itemRenderer={renderItem(secondListSpecs)}
 						itemSize={itemSize}
 						onScrollStop={handleScroll}
+						style={{height: height}}
 						verticalScrollbar="hidden"
 					/>
 				</Cell>
