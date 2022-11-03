@@ -404,6 +404,7 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
+			if (selectedItems.findIndex((element) => element.list === list) === -1 && selectedItems.length) return;
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
@@ -512,6 +513,8 @@ const TransferListBase = kind({
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
+		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);
+
 		const handleSpotlightBounds = useCallback(ev => {
 			ev.preventDefault();
 			ev.stopPropagation();
@@ -573,7 +576,8 @@ const TransferListBase = kind({
 							<Button onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "first"))} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "second"))} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
-							<Button onClick={moveIntoFirstAll} onSpotlightDown={handleSpotlightBounds} size="small">{'<<<'}</Button>
+							<Button onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
+							<Button onClick={handleRemoveSelected} onSpotlightDown={handleSpotlightBounds} size="small">{'Clear'}</Button>
 						</> : ''
 					}
 				</Cell>
