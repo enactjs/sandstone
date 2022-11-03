@@ -507,20 +507,51 @@ const TransferListBase = kind({
 		};
 
 		// Make this function using useCallback to avoid lint warning below
-		const onDropRightHandler = (ev) => {
+		const onDropRightHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
-			const listsUndefinedCapacity = firstListMinimumCapacity === undefined && secondListMaximumCapacity === undefined;
 
-			if (listsUndefinedCapacity || (firstListCopy.length > firstListMinimumCapacity && secondListCopy.length < secondListMaximumCapacity) || (secondListCopy.length < secondListMaximumCapacity && firstListMinimumCapacity === undefined) || (firstListCopy.length > firstListMinimumCapacity && secondListMaximumCapacity === undefined)) {
-				if (list === 'second') {
-					rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
-					return;
-				}
+			if (firstListCopy.length <= firstListMinimumCapacity || firstListCopy.length - selectedItems.length < firstListMinimumCapacity) return;
+			if (secondListCopy.length >= secondListMaximumCapacity || secondListCopy.length + selectedItems.length > secondListMaximumCapacity) return;
 
-				const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
+			if (list === 'second') {
+				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
+				return;
+			}
 
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
+
+			const selectedListCopy = [...selectedItems];
+			if (allowMultipleDrag) {
+				selectedItems.map((item) => {
+					selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+				});
+			} else {
+				selectedListCopy.splice(potentialIndex, 1);
+			}
+			setSelectedItems(selectedListCopy);
+
+			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
+		}, [firstListLocal, firstListMinimumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaximumCapacity]);
+
+		// Make this function using useCallback to avoid lint warning below
+		const onDropLeftHandler = useCallback((ev) => {
+			const {index, list} = getTransferData(ev.dataTransfer);
+			const firstListCopy = [...firstListLocal];
+			const secondListCopy = [...secondListLocal];
+
+			if (secondListCopy.length <= secondListMinimumCapacity || secondListCopy.length - selectedItems.length < secondListMinimumCapacity) return;
+			if (firstListCopy.length >= firstListMaximumCapacity || firstListCopy.length + selectedItems.length > firstListMaximumCapacity) return;
+
+			if (list === 'first') {
+				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
+				return;
+			}
+
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list);
+
+			if (potentialIndex !== -1) {
 				const selectedListCopy = [...selectedItems];
 				if (allowMultipleDrag) {
 					selectedItems.map((item) => {
@@ -530,41 +561,10 @@ const TransferListBase = kind({
 					selectedListCopy.splice(potentialIndex, 1);
 				}
 				setSelectedItems(selectedListCopy);
-
-				rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 			}
-		};
 
-		// Make this function using useCallback to avoid lint warning below
-		const onDropLeftHandler = (ev) => {
-			const {index, list} = getTransferData(ev.dataTransfer);
-			const firstListCopy = [...firstListLocal];
-			const secondListCopy = [...secondListLocal];
-			const listsUndefinedCapacity = secondListMinimumCapacity === undefined && firstListMaximumCapacity === undefined;
-
-			if (listsUndefinedCapacity || (secondListCopy.length > secondListMinimumCapacity && firstListCopy.length < firstListMaximumCapacity) || (firstListCopy.length < firstListMaximumCapacity && secondListMinimumCapacity === undefined) || (secondListCopy.length > secondListMinimumCapacity && firstListMaximumCapacity === undefined)) {
-				if (list === 'first') {
-					rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
-					return;
-				}
-
-				const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list);
-
-				if (potentialIndex !== -1) {
-					const selectedListCopy = [...selectedItems];
-					if (allowMultipleDrag) {
-						selectedItems.map((item) => {
-							selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-						});
-					} else {
-						selectedListCopy.splice(potentialIndex, 1);
-					}
-					setSelectedItems(selectedListCopy);
-				}
-
-				rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
-			}
-		};
+			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
+		}, [firstListLocal, firstListMaximumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinimumCapacity]);
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
