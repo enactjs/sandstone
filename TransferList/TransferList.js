@@ -404,7 +404,7 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
-			if (selectedItems.findIndex((element) => element.list === list) === -1 && selectedItems.length) return;
+			if (selectedItems.findIndex((newElement) => newElement.list === list) === -1 && selectedItems.length) return;
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
