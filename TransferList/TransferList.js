@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks, no-undefined */
+/* eslint-disable react-hooks/rules-of-hooks */
 
 /**
  * Provides Sandstone-themed transfer list components and behaviors.
@@ -453,6 +453,7 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
+			if (selectedItems.findIndex((newElement) => newElement.list === list) === -1 && selectedItems.length) return;
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
@@ -568,6 +569,8 @@ const TransferListBase = kind({
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
+		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);
+
 		const handleSpotlightBounds = useCallback(ev => {
 			ev.preventDefault();
 			ev.stopPropagation();
@@ -629,7 +632,8 @@ const TransferListBase = kind({
 							<Button disabled={disabled || (secondListMaximumCapacity || firstListMinimumCapacity) !== undefined} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "first")) || disabled} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "second")) || disabled} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
-							<Button disabled={disabled || (firstListMaximumCapacity || secondListMinimumCapacity) !== undefined} onClick={moveIntoFirstAll} onSpotlightDown={handleSpotlightBounds} size="small">{'<<<'}</Button>
+							<Button disabled={disabled || (firstListMaximumCapacity || secondListMinimumCapacity) !== undefined} onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
+							<Button onClick={handleRemoveSelected} onSpotlightDown={handleSpotlightBounds} size="small">{'Clear'}</Button>
 						</> : ''
 					}
 				</Cell>
