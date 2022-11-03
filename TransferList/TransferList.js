@@ -136,7 +136,7 @@ const TransferListBase = kind({
 		 * @default 465
 		 * @public
 		 */
-		verticalHeight: PropTypes.number,
+		verticalHeight: PropTypes.number
 	},
 
 	defaultProps: {
@@ -162,6 +162,7 @@ const TransferListBase = kind({
 		renderItem: () => ({elements, list, onSelect, onSpotlightMove, selectedItems, vertical, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
+			const length = elements.length;
 			const selected = -1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 			const style = !vertical ? {} : {height: '100%', width: ri.unit(30, 'rem'), writingMode: 'vertical-lr', margin: '0'};
 
@@ -170,7 +171,7 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (list === 'second' || (!vertical && elements.length - 1 === index)) {
+				if (list === 'second' || (!vertical && length - 1 === index)) {
 					ev.preventDefault();
 					ev.stopPropagation();
 				}
@@ -186,7 +187,7 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightRight = (ev) => {
-				if (list === 'second' || (vertical && elements.length - 1 === index)) {
+				if (list === 'second' || (vertical && length - 1 === index)) {
 					ev.preventDefault();
 					ev.stopPropagation();
 				}
@@ -637,7 +638,8 @@ const TransferListBase = kind({
 							<Button
 								disabled={!(selectedItems.find((item) => item.list === "second"))}
 								onClick={moveIntoFirstSelected}
-								size="small">
+								size="small"
+							>
 								{vertical ? '^' : '<'}
 							</Button>
 							<Button
