@@ -8,7 +8,8 @@ module.exports = {
 		disableTelemetry: true
 	},
 	features: {
-		postcss: false
+		postcss: false,
+		warnOnLegacyHierarchySeparator: false
 	},
 	framework: '@storybook/react',
 	stories: ['./../stories/default/*.js'],
