@@ -20,6 +20,7 @@ import ri from '@enact/ui/resolution';
 
 import {Tooltip, TooltipBase, defaultArrowAnchor, defaultDirection} from './Tooltip';
 import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition} from './util';
+import useTooltip from './useTooltip';
 
 let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
 
@@ -39,7 +40,7 @@ const defaultConfig = {
 	 * resolution.
 	 *
 	 * @type {Number}
-	 * @default 24
+	 * @default 48
 	 * @memberof sandstone/TooltipDecorator.TooltipDecorator.defaultConfig
 	 */
 	screenEdgeKeepout: (24 + 24),
@@ -546,5 +547,6 @@ export default TooltipDecorator;
 export {
 	Tooltip,
 	TooltipBase,
-	TooltipDecorator
+	TooltipDecorator,
+	useTooltip
 };
