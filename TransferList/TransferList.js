@@ -218,9 +218,6 @@ const TransferListBase = kind({
 		};
 
 		const generateDragImage = () => {
-			if (typeof multipleItemDragContainer === 'object') document.body.removeChild(multipleItemDragContainer);
-			if (typeof singleItemDragContainer === 'object') document.body.removeChild(singleItemDragContainer);
-
 			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
 			if (item) {
 				singleItemDragContainer = document.createElement("div");
@@ -277,12 +274,11 @@ const TransferListBase = kind({
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
 						return element.addEventListener('dragstart', (ev) => {
-							console.log("dragStart1")
 							startDragElement.current = element;
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
 
-							if (potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
+							if (allowMultipleDrag && potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
 								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
 							} else {
 								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
