@@ -16,12 +16,12 @@ export const _TransferList = (args) => (
 	<TransferList
 		allowMultipleDrag={args['allowMultipleDrag']}
 		disabled={args['disabled']}
-		firstList={['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7', 'Item8']}
+		firstList={['BBC World News', 'CNN International', 'CNBC', 'Fox News', 'MTV', 'Euro News', 'ESPN', 'Fox Sports']}
 		firstListMaxCapacity={args['firstListMaximumCapacity']}
 		firstListMinCapacity={args['firstListMinCapacity']}
 		itemSize={args['itemSize']}
 		moveOnSpotlight={args['moveElementOnSpotlightDirections']}
-		secondList={['Item9', 'Item10', 'Item11', 'Item12', 'Item13', 'Item14', 'Item15', 'Item16']}
+		secondList={['HBO', 'Comedy Central', 'HGTV', 'CBS', 'Cartoon Network', 'AXN', 'Disney Channel', 'BBC Food']}
 		secondListMaxCapacity={args['secondListMaxCapacity']}
 		secondListMinCapacity={args['secondListMinCapacity']}
 		showSelectionOrder={args['showSelectionOrder']}

@@ -524,6 +524,8 @@ const TransferListBase = kind({
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
 
+			if (selectedItems.length && -1 === selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list)) return;
+
 			if (firstListCopy.length <= firstListMinCapacity || firstListCopy.length - selectedItems.length < firstListMinCapacity) return;
 			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
@@ -551,6 +553,8 @@ const TransferListBase = kind({
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
+
+			if (selectedItems.length && -1 === selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list)) return;
 
 			if (secondListCopy.length <= secondListMinCapacity || secondListCopy.length - selectedItems.length < secondListMinCapacity) return;
 			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
