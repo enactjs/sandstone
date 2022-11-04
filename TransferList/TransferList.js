@@ -572,7 +572,7 @@ const TransferListBase = kind({
 			}
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
-		}, [allowMultipleDrag, firstListLocal, firstListMaxCapacity, rearrangeLists, secondListLocal, selectedItems, secondListMinCapacity]);
+		}, [firstListLocal, firstListMaxCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMinCapacity]);
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
