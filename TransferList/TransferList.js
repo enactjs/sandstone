@@ -641,10 +641,10 @@ const TransferListBase = kind({
 				<Cell className={componentCss.listButtons}>
 					{!moveOnSpotlight ?
 						<>
-							<Button disabled={disabled || (!!secondListMaxCapacity || !!firstListMinCapacity)} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
+							<Button disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "first")) || disabled} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "second")) || disabled} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
-							<Button disabled={disabled || (!!firstListMaxCapacity || !!secondListMinCapacity)} onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
+							<Button disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity} onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
 							<Button onClick={handleRemoveSelected} onSpotlightDown={handleSpotlightBounds} size="small">{'Clear'}</Button>
 						</> : ''
 					}
