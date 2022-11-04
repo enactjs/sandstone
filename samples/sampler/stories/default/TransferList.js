@@ -19,12 +19,14 @@ export const _TransferList = (args) => (
 		itemSize={args['itemSize']}
 		moveOnSpotlight={args['moveElementOnSpotlightDirections']}
 		secondList={['Item9', 'Item10', 'Item11', 'Item12', 'Item13', 'Item14', 'Item15', 'Item16']}
+		showSelectionOrder={args['showSelectionOrder']}
 	/>
 );
 
 boolean('allowMultipleDrag', _TransferList, Config, true);
 number('itemSize', _TransferList, Config, 201);
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
+boolean('showSelectionOrder', _TransferList, Config, false);
 
 _TransferList.storyName = 'TransferList';
 _TransferList.parameters = {
