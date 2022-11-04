@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks, no-undefined */
+/* eslint-disable react-hooks/rules-of-hooks */
 
 /**
  * Provides Sandstone-themed transfer list components and behaviors.
@@ -86,7 +86,7 @@ const TransferListBase = kind({
 		 * @type {Number}
 		 * @public
 		 */
-		firstListMaximumCapacity: PropTypes.number,
+		firstListMaxCapacity: PropTypes.number,
 
 		/**
 		 * Sets the minimum number of items for the first list.
@@ -94,7 +94,7 @@ const TransferListBase = kind({
 		 * @type {Number}
 		 * @public
 		 */
-		firstListMinimumCapacity: PropTypes.number,
+		firstListMinCapacity: PropTypes.number,
 
 		/**
 		 * The height of the list container.
@@ -136,7 +136,7 @@ const TransferListBase = kind({
 		 * @type {Number}
 		 * @public
 		 */
-		secondListMaximumCapacity: PropTypes.number,
+		secondListMaxCapacity: PropTypes.number,
 
 		/**
 		 * Sets the minimum number of items for the second list.
@@ -144,7 +144,7 @@ const TransferListBase = kind({
 		 * @type {Number}
 		 * @public
 		 */
-		secondListMinimumCapacity: PropTypes.number,
+		secondListMinCapacity: PropTypes.number,
 
 		/**
 		 * Called when the first list needs to be modified.
@@ -235,7 +235,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({allowMultipleDrag, css, disabled, firstList, firstListMaximumCapacity, firstListMinimumCapacity, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, renderItem, secondList, secondListMaximumCapacity, secondListMinimumCapacity, setFirstList, setSecondList, showSelectionOrder}) => {
+	render: ({allowMultipleDrag, css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -397,8 +397,8 @@ const TransferListBase = kind({
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
 
-			if (tempSecond.length <= secondListMinimumCapacity || tempSecond.length - tempSelected.length < secondListMinimumCapacity) return;
-			if (tempFirst.length >= firstListMaximumCapacity || tempFirst.length + tempSelected.length > firstListMaximumCapacity) return;
+			if (tempSecond.length <= secondListMinCapacity || tempSecond.length - tempSelected.length < secondListMinCapacity) return;
+			if (tempFirst.length >= firstListMaxCapacity || tempFirst.length + tempSelected.length > firstListMaxCapacity) return;
 
 			selectedItems.map((item) => {
 				if (item.list !== 'second') return;
@@ -415,7 +415,7 @@ const TransferListBase = kind({
 				setSecondListLocal(tempSecond);
 			}
 			setSelectedItems(tempSelected);
-		}, [firstListLocal, firstListMaximumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinimumCapacity]);
+		}, [firstListLocal, firstListMaxCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		const moveIntoFirstAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -433,8 +433,8 @@ const TransferListBase = kind({
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
 
-			if (tempFirst.length <= firstListMinimumCapacity || tempFirst.length - tempSelected.length < firstListMinimumCapacity) return;
-			if (tempSecond.length >= secondListMaximumCapacity || tempSecond.length + tempSelected.length > secondListMaximumCapacity) return;
+			if (tempFirst.length <= firstListMinCapacity || tempFirst.length - tempSelected.length < firstListMinCapacity) return;
+			if (tempSecond.length >= secondListMaxCapacity || tempSecond.length + tempSelected.length > secondListMaxCapacity) return;
 
 			selectedItems.map((item) => {
 				if (item.list !== 'first') return;
@@ -451,7 +451,7 @@ const TransferListBase = kind({
 				setSecondListLocal(tempSecond);
 			}
 			setSelectedItems(tempSelected);
-			}, [firstListLocal, firstListMinimumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaximumCapacity]);
+		}, [firstListLocal, firstListMinCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		const moveIntoSecondAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -524,8 +524,8 @@ const TransferListBase = kind({
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
 
-			if (firstListCopy.length <= firstListMinimumCapacity || firstListCopy.length - selectedItems.length < firstListMinimumCapacity) return;
-			if (secondListCopy.length >= secondListMaximumCapacity || secondListCopy.length + selectedItems.length > secondListMaximumCapacity) return;
+			if (firstListCopy.length <= firstListMinCapacity || firstListCopy.length - selectedItems.length < firstListMinCapacity) return;
+			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
 			if (list === 'second') {
 				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
@@ -545,15 +545,15 @@ const TransferListBase = kind({
 			setSelectedItems(selectedListCopy);
 
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
-		}, [allowMultipleDrag, firstListLocal, firstListMinimumCapacity, rearrangeLists, secondListLocal, selectedItems, secondListMaximumCapacity]);
+		}, [allowMultipleDrag, firstListLocal, firstListMinCapacity, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
 		const onDropLeftHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
 
-			if (secondListCopy.length <= secondListMinimumCapacity || secondListCopy.length - selectedItems.length < secondListMinimumCapacity) return;
-			if (firstListCopy.length >= firstListMaximumCapacity || firstListCopy.length + selectedItems.length > firstListMaximumCapacity) return;
+			if (secondListCopy.length <= secondListMinCapacity || secondListCopy.length - selectedItems.length < secondListMinCapacity) return;
+			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
 
 			if (list === 'first') {
 				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
@@ -575,7 +575,7 @@ const TransferListBase = kind({
 			}
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
-		}, [allowMultipleDrag, firstListLocal, firstListMaximumCapacity, rearrangeLists, secondListLocal, selectedItems, secondListMinimumCapacity]);
+		}, [allowMultipleDrag, firstListLocal, firstListMaxCapacity, rearrangeLists, secondListLocal, selectedItems, secondListMinCapacity]);
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
@@ -641,10 +641,10 @@ const TransferListBase = kind({
 				<Cell className={componentCss.listButtons}>
 					{!moveOnSpotlight ?
 						<>
-							<Button disabled={disabled || (secondListMaximumCapacity || firstListMinimumCapacity) !== undefined} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
+							<Button disabled={disabled || (!!secondListMaxCapacity || !!firstListMinCapacity)} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "first")) || disabled} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
 							<Button disabled={!(selectedItems.find((item) => item.list === "second")) || disabled} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
-							<Button disabled={disabled || (firstListMaximumCapacity || secondListMinimumCapacity) !== undefined} onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
+							<Button disabled={disabled || (!!firstListMaxCapacity || !!secondListMinCapacity)} onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
 							<Button onClick={handleRemoveSelected} onSpotlightDown={handleSpotlightBounds} size="small">{'Clear'}</Button>
 						</> : ''
 					}
