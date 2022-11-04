@@ -132,11 +132,11 @@ const TransferListBase = kind({
 	},
 
 	defaultProps: {
-		noMultipleDrag: false,
 		firstList: {},
 		height: 999,
 		itemSize: 201,
 		moveOnSpotlight: false,
+		noMultipleDrag: false,
 		secondList: {},
 		setFirstList: null,
 		setSecondList: null,
