@@ -24,6 +24,7 @@ export const _TransferList = (args) => (
 		secondList={['Item9', 'Item10', 'Item11', 'Item12', 'Item13', 'Item14', 'Item15', 'Item16']}
 		secondListMaximumCapacity={args['secondListMaximumCapacity']}
 		secondListMinimumCapacity={args['secondListMinimumCapacity']}
+		showSelectionOrder={args['showSelectionOrder']}
 	/>
 );
 
@@ -35,6 +36,7 @@ number('itemSize', _TransferList, Config, 201);
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
 number('secondListMinimumCapacity', _TransferList, Config);
 number('secondListMaximumCapacity', _TransferList, Config);
+boolean('showSelectionOrder', _TransferList, Config, false);
 
 _TransferList.storyName = 'TransferList';
 _TransferList.parameters = {
