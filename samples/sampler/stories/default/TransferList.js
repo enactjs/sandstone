@@ -14,17 +14,17 @@ const Config = mergeComponentMetadata('TransferList', TransferListBase, Transfer
 
 export const _TransferList = (args) => (
 	<TransferList
-		allowMultipleDrag={args['allowMultipleDrag']}
 		firstList={['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7', 'Item8']}
 		itemSize={args['itemSize']}
 		moveOnSpotlight={args['moveElementOnSpotlightDirections']}
+		noMultipleDrag={args['noMultipleDrag']}
 		secondList={['Item9', 'Item10', 'Item11', 'Item12', 'Item13', 'Item14', 'Item15', 'Item16']}
 		showSelectionOrder={args['showSelectionOrder']}
 	/>
 );
 
-boolean('allowMultipleDrag', _TransferList, Config, false);
 number('itemSize', _TransferList, Config, 201);
+boolean('noMultipleDrag', _TransferList, Config, false);
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
 boolean('showSelectionOrder', _TransferList, Config, false);
 

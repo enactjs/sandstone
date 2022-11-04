@@ -43,14 +43,6 @@ const TransferListBase = kind({
 
 	propTypes: /** @lends sandstone/TransferList.TransferListBase.prototype */ {
 		/**
-		 * Allows for multiple elements to be dragged from one list to another.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		allowMultipleDrag: PropTypes.bool,
-
-		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -98,6 +90,14 @@ const TransferListBase = kind({
 		moveOnSpotlight: PropTypes.bool,
 
 		/**
+		 * Blocks multiple elements to be dragged from one list to another.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noMultipleDrag: PropTypes.bool,
+
+		/**
 		 * An array containing the name of each item that will populate the second list.
 		 *
 		 * @type {Array}
@@ -132,7 +132,7 @@ const TransferListBase = kind({
 	},
 
 	defaultProps: {
-		allowMultipleDrag: false,
+		noMultipleDrag: false,
 		firstList: {},
 		height: 999,
 		itemSize: 201,
@@ -192,7 +192,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, renderItem, secondList, setFirstList, setSecondList, showSelectionOrder}) => {
+	render: ({css, firstList, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, noMultipleDrag, renderItem, secondList, setFirstList, setSecondList, showSelectionOrder}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -278,7 +278,7 @@ const TransferListBase = kind({
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
 
-							if (allowMultipleDrag && potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
+							if (!noMultipleDrag && potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
 								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
 							} else {
 								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
@@ -337,7 +337,7 @@ const TransferListBase = kind({
 					}
 				});
 			});
-		}, [allowMultipleDrag, css.draggableItem, css.overAbove, css.overBelow, selectedItems]);
+		}, [css.draggableItem, css.overAbove, css.overBelow, noMultipleDrag, selectedItems]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => handleScroll(), 100);
@@ -435,7 +435,7 @@ const TransferListBase = kind({
 		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
 			const draggedItem = sourceList[draggedElementIndex];
 
-			if (allowMultipleDrag) {
+			if (!noMultipleDrag) {
 				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
 
 				if (potentialIndex === -1) {
@@ -481,7 +481,7 @@ const TransferListBase = kind({
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
 
 			const selectedListCopy = [...selectedItems];
-			if (allowMultipleDrag) {
+			if (!noMultipleDrag) {
 				selectedItems.map((item) => {
 					selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 				});
@@ -507,7 +507,7 @@ const TransferListBase = kind({
 
 			if (potentialIndex !== -1) {
 				const selectedListCopy = [...selectedItems];
-				if (allowMultipleDrag) {
+				if (!noMultipleDrag) {
 					selectedItems.map((item) => {
 						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 					});
