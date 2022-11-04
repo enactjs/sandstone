@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/rules-of-hooks, no-undefined */
 
 /**
  * Provides Sandstone-themed transfer list components and behaviors.
@@ -384,25 +384,25 @@ const TransferListBase = kind({
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
-			const listsUndefinedCapacity = secondListMinimumCapacity === undefined && firstListMaximumCapacity === undefined;
 
-			if (listsUndefinedCapacity || ((tempSecond.length - tempSelected.length) >= secondListMinimumCapacity && firstListMaximumCapacity === undefined) || ((tempFirst.length + tempSelected.length) <= firstListMaximumCapacity)) {
-				selectedItems.map((item) => {
-					if (item.list !== 'second') return;
-					tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
-					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-					tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
-				});
+			if (tempSecond.length <= secondListMinimumCapacity || tempSecond.length - tempSelected.length < secondListMinimumCapacity) return;
+			if (tempFirst.length >= firstListMaximumCapacity || tempFirst.length + tempSelected.length > firstListMaximumCapacity) return;
 
-				if (setFirstList !== null && setSecondList !== null) {
-					setFirstList(tempFirst);
-					setSecondList(tempSecond);
-				} else {
-					setFirstListLocal(tempFirst);
-					setSecondListLocal(tempSecond);
-				}
-				setSelectedItems(tempSelected);
+			selectedItems.map((item) => {
+				if (item.list !== 'second') return;
+				tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
+				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+				tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
+			});
+
+			if (setFirstList !== null && setSecondList !== null) {
+				setFirstList(tempFirst);
+				setSecondList(tempSecond);
+			} else {
+				setFirstListLocal(tempFirst);
+				setSecondListLocal(tempSecond);
 			}
+			setSelectedItems(tempSelected);
 		}, [firstListLocal, firstListMaximumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinimumCapacity]);
 
 		const moveIntoFirstAll = useCallback(() => {
@@ -420,25 +420,26 @@ const TransferListBase = kind({
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
-			const listsUndefinedCapacity = firstListMinimumCapacity === undefined && secondListMaximumCapacity === undefined;
 
-			if (listsUndefinedCapacity || ((tempFirst.length - tempSelected.length) >= firstListMinimumCapacity && secondListMaximumCapacity === undefined) || ((tempSecond.length + tempSelected.length) <= secondListMaximumCapacity)) {
-				selectedItems.map((item) => {
-					if (item.list !== 'first') return;
-					tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
-					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-					tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
-				});
+			if (tempFirst.length <= firstListMinimumCapacity || tempFirst.length - tempSelected.length < firstListMinimumCapacity) return;
+			if (tempSecond.length >= secondListMaximumCapacity || tempSecond.length + tempSelected.length > secondListMaximumCapacity) return;
 
-				if (setFirstList !== null && setSecondList !== null) {
-					setFirstList(tempFirst);
-					setSecondList(tempSecond);
-				} else {
-					setFirstListLocal(tempFirst);
-					setSecondListLocal(tempSecond);
-				}
-				setSelectedItems(tempSelected);
+			selectedItems.map((item) => {
+				if (item.list !== 'first') return;
+				tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
+				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+				tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
+			});
+
+			if (setFirstList !== null && setSecondList !== null) {
+				setFirstList(tempFirst);
+				setSecondList(tempSecond);
+			} else {
+				setFirstListLocal(tempFirst);
+				setSecondListLocal(tempSecond);
 			}
+			setSelectedItems(tempSelected);
+
 		}, [firstListLocal, firstListMinimumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaximumCapacity]);
 
 		const moveIntoSecondAll = useCallback(() => {
@@ -472,7 +473,7 @@ const TransferListBase = kind({
 			setNewList(list);
 		};
 
-		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
+		const rearrangeLists = useCallback((sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
 			const draggedItem = sourceList[draggedElementIndex];
 
 			if (allowMultipleDrag) {
@@ -496,7 +497,7 @@ const TransferListBase = kind({
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		};
+		}, [allowMultipleDrag, selectedItems]);
 
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
@@ -507,7 +508,6 @@ const TransferListBase = kind({
 			return null;
 		};
 
-		// Make this function using useCallback to avoid lint warning below
 		const onDropRightHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
@@ -534,9 +534,8 @@ const TransferListBase = kind({
 			setSelectedItems(selectedListCopy);
 
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
-		}, [firstListLocal, firstListMinimumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaximumCapacity]);
+		}, [allowMultipleDrag, firstListLocal, firstListMinimumCapacity, rearrangeLists, secondListLocal, selectedItems, secondListMaximumCapacity]);
 
-		// Make this function using useCallback to avoid lint warning below
 		const onDropLeftHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
@@ -565,7 +564,7 @@ const TransferListBase = kind({
 			}
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
-		}, [firstListLocal, firstListMaximumCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinimumCapacity]);
+		}, [allowMultipleDrag, firstListLocal, firstListMaximumCapacity, rearrangeLists, secondListLocal, selectedItems, secondListMinimumCapacity]);
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
@@ -612,7 +611,7 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropLeftHandler} // eslint-disable-line  react/jsx-no-bind
+					onDrop={onDropLeftHandler}
 					size="40%"
 					style={{height: height}}
 				>
@@ -641,7 +640,7 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropRightHandler} // eslint-disable-line react/jsx-no-bind
+					onDrop={onDropRightHandler}
 					size="40%"
 					style={{height: height}}
 				>
