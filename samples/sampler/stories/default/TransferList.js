@@ -15,17 +15,27 @@ const Config = mergeComponentMetadata('TransferList', TransferListBase, Transfer
 export const _TransferList = (args) => (
 	<TransferList
 		allowMultipleDrag={args['allowMultipleDrag']}
+		disabled={args['disabled']}
 		firstList={['Item1', 'Item2', 'Item3', 'Item4', 'Item5', 'Item6', 'Item7', 'Item8']}
+		firstListMaxCapacity={args['firstListMaximumCapacity']}
+		firstListMinCapacity={args['firstListMinCapacity']}
 		itemSize={args['itemSize']}
 		moveOnSpotlight={args['moveElementOnSpotlightDirections']}
 		secondList={['Item9', 'Item10', 'Item11', 'Item12', 'Item13', 'Item14', 'Item15', 'Item16']}
+		secondListMaxCapacity={args['secondListMaxCapacity']}
+		secondListMinCapacity={args['secondListMinCapacity']}
 		showSelectionOrder={args['showSelectionOrder']}
 	/>
 );
 
 boolean('allowMultipleDrag', _TransferList, Config, true);
+boolean('disabled', _TransferList, Config, false);
+number('firstListMinCapacity', _TransferList, Config);
+number('firstListMaxCapacity', _TransferList, Config);
 number('itemSize', _TransferList, Config, 201);
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
+number('secondListMinCapacity', _TransferList, Config);
+number('secondListMaxCapacity', _TransferList, Config);
 boolean('showSelectionOrder', _TransferList, Config, false);
 
 _TransferList.storyName = 'TransferList';
