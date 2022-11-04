@@ -4,7 +4,7 @@ import {act, fireEvent, render, screen} from '@testing-library/react';
 import ImageItem from '../../ImageItem';
 import {VirtualGridList} from '../VirtualList';
 
-describe('VirtualGridList translate', () => {
+describe('VirtualGridList with translate \'scrollMode\'', () => {
 	let
 		clientSize,
 		dataSize,
@@ -122,7 +122,7 @@ describe('VirtualGridList translate', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should render overhang items when clientSize is not given', () => {
+	test('cannot render items when \'clientSize\' and outer DOM size are not specified', () => {
 		render(
 			<VirtualGridList
 				dataSize={dataSize}
@@ -155,7 +155,7 @@ describe('VirtualGridList translate', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should re-render (clientHeight / itemHeight + overhang) items after changing client size', () => {
+	test('should re-render (clientHeight / itemHeight + overhang) items after changing \'clientSize\'', () => {
 		const {rerender} = render(
 			<VirtualGridList
 				clientSize={clientSize}
@@ -278,7 +278,7 @@ describe('VirtualGridList translate', () => {
 	});
 
 	describe('ScrollTo', () => {
-		test('should scroll to the specific item of a given index with scrollTo', (done) => {
+		test('should scroll to the specific item of a given \'index\' with scrollTo', (done) => {
 			const onScrollStop = handlerOnScrollStop(done, () => {
 				const expected = (240 + 16) * 2;
 
@@ -345,7 +345,7 @@ describe('VirtualGridList translate', () => {
 			act(() => myScrollTo({position: {y: 200}, animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo', (done) => {
+		test('should scroll to the given \'align\' with scrollTo', (done) => {
 			const onScrollStop = handlerOnScrollStop(done, () => {
 				const expected = Math.ceil(dataSize / 4) * (itemSize.minHeight + 16) - clientSize.clientHeight + 30;
 				const actual = resultScrollTop;
@@ -368,7 +368,7 @@ describe('VirtualGridList translate', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo after changing dataSize', (done) => {
+		test('should scroll to the given \'align\' with scrollTo after changing \'dataSize\'', (done) => {
 			const newDataSize = 50;
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
@@ -405,7 +405,7 @@ describe('VirtualGridList translate', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo after changing itemSize', (done) => {
+		test('should scroll to the given \'align\' with scrollTo after changing \'itemSize\'', (done) => {
 			const newItemSize = {minWidth: 300, minHeight: 270};
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
@@ -442,23 +442,10 @@ describe('VirtualGridList translate', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo after changing spacing', (done) => {
+		test('should scroll to the given \'align\' with scrollTo after changing \'spacing\'', (done) => {
 			const newSpacing = 6;
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
-
-				// newSpacing = 24;
-				// Expected: 13286
-				// Received: 12536
-				// 12800  - 720 + 30 = 12110 (426달라짐) 12536
-
-				// const newSpacing = 6;
-				// Expected: 12110
-				// Received: 12204 94늘어남
-
-				// const newSpacing = 3;
-				// Received: 12107
-
 				const expected = Math.ceil(dataSize / 4) * (itemSize.minHeight + 16) - clientSize.clientHeight + 30 + 94; // Cannot calculate the exact length after applying spacing.
 				const actual = resultScrollTop;
 
@@ -630,7 +617,7 @@ describe('VirtualGridList translate', () => {
 			expect(fn).toBeCalled();
 		});
 
-		test('should not scroll by wheel when `noScrollByWheel` prop is true', (done) => {
+		test('should not scroll by wheel when \'noScrollByWheel\' prop is true', (done) => {
 			const fn = jest.fn();
 
 			render(
@@ -701,7 +688,7 @@ describe('VirtualGridList translate', () => {
 	});
 
 	describe('Voice Control', () => {
-		test('should render "data-webos-voice-focused" to outermost node of VirtualGridList', () => {
+		test('should render \'data-webos-voice-focused\' to outermost node of VirtualGridList', () => {
 			render(
 				<VirtualGridList
 					clientSize={clientSize}
@@ -718,7 +705,7 @@ describe('VirtualGridList translate', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-focused', 'true');
 		});
 
-		test('should render "data-webos-voice-group-label" to outermost node of VirtualGridList', () => {
+		test('should render \'data-webos-voice-group-label\' to outermost node of VirtualGridList', () => {
 			const label = 'group label';
 			render(
 				<VirtualGridList
@@ -736,7 +723,7 @@ describe('VirtualGridList translate', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-group-label', label);
 		});
 
-		test('should render "data-webos-voice-disabled" to outermost node of VirtualGridList', () => {
+		test('should render \'data-webos-voice-disabled\' to outermost node of VirtualGridList', () => {
 			render(
 				<VirtualGridList
 					clientSize={clientSize}
@@ -763,7 +750,6 @@ describe('VirtualGridList translate', () => {
 					dataSize={dataSize}
 					itemRenderer={renderItem}
 					itemSize={itemSize}
-					data-webos-voice-focused
 					scrollMode="translate"
 				/>
 			);
@@ -776,7 +762,7 @@ describe('VirtualGridList translate', () => {
 			expect(actual).toBe(expected);
 		});
 
-		test('should render two hoverToScroll node after scrolling when \'hoverToScroll\' prop is provided', () => {
+		test('should render two hoverToScroll nodes after scrolling when \'hoverToScroll\' prop is provided', () => {
 			render(
 				<VirtualGridList
 					cbScrollTo={getScrollTo}
@@ -785,7 +771,6 @@ describe('VirtualGridList translate', () => {
 					hoverToScroll
 					itemRenderer={renderItem}
 					itemSize={itemSize}
-					data-webos-voice-focused
 					scrollMode="translate"
 				/>
 			);

@@ -4,7 +4,7 @@ import {act, fireEvent, render, screen} from '@testing-library/react';
 import Item from '../../Item';
 import VirtualList from '../VirtualList';
 
-describe('VirtualList translate', () => {
+describe('VirtualList with translate \'scrollMode\'', () => {
 	let
 		clientSize,
 		dataSize,
@@ -102,7 +102,7 @@ describe('VirtualList translate', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should render overhang items when clientSize is not given', () => {
+	test('should render overhang items when \'clientSize\' and outer DOM size are not specified', () => {
 		render(
 			<VirtualList
 				dataSize={dataSize}
@@ -135,7 +135,7 @@ describe('VirtualList translate', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should re-render (clientHeight / itemHeight + overhang) items after changing client size', () => {
+	test('should re-render (clientHeight / itemHeight + overhang) items after changing \'clientSize\'', () => {
 		const {rerender} = render(
 			<VirtualList
 				clientSize={clientSize}
@@ -258,7 +258,7 @@ describe('VirtualList translate', () => {
 	});
 
 	describe('ScrollTo', () => {
-		test('should scroll to the specific item of a given index with scrollTo', (done) => {
+		test('should scroll to the specific item of a given \'index\' with scrollTo', (done) => {
 			const onScrollStop = handlerOnScrollStop(done, () => {
 				const expected = 600;
 
@@ -325,7 +325,7 @@ describe('VirtualList translate', () => {
 			act(() => myScrollTo({position: {y: 200}, animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo', (done) => {
+		test('should scroll to the given \'align\' with scrollTo', (done) => {
 			const onScrollStop = handlerOnScrollStop(done, () => {
 				const expected = dataSize * itemSize - clientSize.clientHeight + 30;
 				const actual = resultScrollTop;
@@ -348,7 +348,7 @@ describe('VirtualList translate', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo after changing dataSize', (done) => {
+		test('should scroll to the given \'align\' with scrollTo after changing \'dataSize\'', (done) => {
 			const newDataSize = 50;
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
@@ -385,7 +385,7 @@ describe('VirtualList translate', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo after changing itemSize', (done) => {
+		test('should scroll to the given \'align\' with scrollTo after changing \'itemSize\'', (done) => {
 			const newItemSize = 50;
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
@@ -422,7 +422,7 @@ describe('VirtualList translate', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo after changing spacing', (done) => {
+		test('should scroll to the given \'align\' with scrollTo after changing \'spacing\'', (done) => {
 			const newSpacing = 30;
 
 			const onScrollStop = handlerOnScrollStop(done, () => {
@@ -460,10 +460,11 @@ describe('VirtualList translate', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test('should scroll to the given align with scrollTo when itemSizes is given', (done) => {
+		test('should scroll to the given align with scrollTo when \'itemSizes\' is given', (done) => {
 			const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 			const itemSizes = [100, 200, 300, 400, 100, 200, 300, 400, 100, 200];
 			const itemSizeSum = itemSizes.reduce((sum, value) => sum + value); // 2300
+
 			const onScrollStop = handlerOnScrollStop(done, () => {
 				const expected = itemSizeSum - clientSize.clientHeight + 30;
 				const actual = resultScrollTop;
@@ -640,7 +641,7 @@ describe('VirtualList translate', () => {
 			expect(fn).toBeCalled();
 		});
 
-		test('should not scroll by wheel when `noScrollByWheel` prop is true', (done) => {
+		test('should not scroll by wheel when \'noScrollByWheel\' prop is true', (done) => {
 			const fn = jest.fn();
 
 			render(
@@ -711,7 +712,7 @@ describe('VirtualList translate', () => {
 	});
 
 	describe('Voice Control', () => {
-		test('should render "data-webos-voice-focused" to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-focused\' to outermost node of VirtualList', () => {
 			render(
 				<VirtualList
 					clientSize={clientSize}
@@ -728,7 +729,7 @@ describe('VirtualList translate', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-focused', 'true');
 		});
 
-		test('should render "data-webos-voice-group-label" to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-group-label\' to outermost node of VirtualList', () => {
 			const label = 'group label';
 			render(
 				<VirtualList
@@ -746,7 +747,7 @@ describe('VirtualList translate', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-group-label', label);
 		});
 
-		test('should render "data-webos-voice-disabled" to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-disabled\' to outermost node of VirtualList', () => {
 			render(
 				<VirtualList
 					clientSize={clientSize}
@@ -773,7 +774,6 @@ describe('VirtualList translate', () => {
 					dataSize={dataSize}
 					itemRenderer={renderItem}
 					itemSize={itemSize}
-					data-webos-voice-focused
 					scrollMode="translate"
 				/>
 			);
@@ -786,7 +786,7 @@ describe('VirtualList translate', () => {
 			expect(actual).toBe(expected);
 		});
 
-		test('should render two hoverToScroll node after scrolling when \'hoverToScroll\' prop is provided', () => {
+		test('should render two hoverToScroll nodes after scrolling when \'hoverToScroll\' prop is provided', () => {
 			render(
 				<VirtualList
 					cbScrollTo={getScrollTo}
@@ -795,7 +795,6 @@ describe('VirtualList translate', () => {
 					hoverToScroll
 					itemRenderer={renderItem}
 					itemSize={itemSize}
-					data-webos-voice-focused
 					scrollMode="translate"
 				/>
 			);

@@ -12,13 +12,13 @@ const keyDownUp = (keyCode) => (elm) => {
 	return fireEvent.keyUp(elm, {keyCode});
 };
 
-const leftKey = keyDownUp(37);
-const rightKey = keyDownUp(39);
-const upKey = keyDownUp(38);
-const downKey = keyDownUp(40);
-const pageDownKey = keyDownUp(34);
+const pressLeftKey = keyDownUp(37);
+const pressRightKey = keyDownUp(39);
+const pressUpKey = keyDownUp(38);
+const pressDownKey = keyDownUp(40);
+const pressPageDownKey = keyDownUp(34);
 
-describe('VirtualList useEvent translate', () => {
+describe('VirtualList useEvent with translate \'scrollMode\'', () => {
 	let
 		clientSize,
 		currentFocusIndex,
@@ -91,148 +91,146 @@ describe('VirtualList useEvent translate', () => {
 		svgGenerator = null;
 	});
 
-	describe('VirtualList useEvent', () => {
-		test('should navigate focus using arrow-up/down key', () => {
-			render(
-				<VirtualList
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-					scrollMode="translate"
-				/>
-			);
+	test('should navigate focus using arrow-up/down key', () => {
+		render(
+			<VirtualList
+				clientSize={clientSize}
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+				scrollMode="translate"
+			/>
+		);
 
-			const list = screen.getByRole('list');
-			const item0 = list.children.item(0).children.item(0);
-			const item1 = list.children.item(1).children.item(0);
-			const item2 = list.children.item(2).children.item(0);
+		const list = screen.getByRole('list');
+		const item0 = list.children.item(0).children.item(0);
+		const item1 = list.children.item(1).children.item(0);
+		const item2 = list.children.item(2).children.item(0);
 
-			focus(item0);
-			expect(currentFocusIndex).toBe(0);
+		focus(item0);
+		expect(currentFocusIndex).toBe(0);
 
-			downKey(item0);
-			expect(currentFocusIndex).toBe(1);
+		pressDownKey(item0);
+		expect(currentFocusIndex).toBe(1);
 
-			downKey(item1);
-			expect(currentFocusIndex).toBe(2);
+		pressDownKey(item1);
+		expect(currentFocusIndex).toBe(2);
 
-			upKey(item2);
-			expect(currentFocusIndex).toBe(1);
-		});
-
-		test('should not navigate focus using arrow-up/down key when \'direction\'is horizontal', () => {
-			render(
-				<VirtualList
-					direction="horizontal"
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-					scrollMode="translate"
-				/>
-			);
-
-			const list = screen.getByRole('list');
-			const item0 = list.children.item(0).children.item(0);
-
-			focus(item0);
-			expect(currentFocusIndex).toBe(0);
-
-			downKey(item0);
-			expect(currentFocusIndex).toBe(0);
-
-			upKey(item0);
-			expect(currentFocusIndex).toBe(0);
-		});
-
-		test('should navigate focus using arrow-left/right key when \'direction\'is horizontal', () => {
-			render(
-				<VirtualList
-					direction="horizontal"
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-					scrollMode="translate"
-				/>
-			);
-
-			const list = screen.getByRole('list');
-			const item0 = list.children.item(0).children.item(0);
-			const item1 = list.children.item(1).children.item(0);
-			const item2 = list.children.item(2).children.item(0);
-
-			focus(item0);
-			expect(currentFocusIndex).toBe(0);
-
-			rightKey(item0);
-			expect(currentFocusIndex).toBe(1);
-
-			rightKey(item1);
-			expect(currentFocusIndex).toBe(2);
-
-			leftKey(item2);
-			expect(currentFocusIndex).toBe(1);
-		});
-
-		test('should be scroll by focus navigation using arrow-down key', () => {
-			const spy = jest.fn(() => {});
-
-			render(
-				<VirtualList
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-					onScrollStart={spy}
-					scrollMode="translate"
-				/>
-			);
-
-			const list = screen.getByRole('list');
-			const item13 = list.children.item(13).children.item(0);
-
-			focus(item13);
-			expect(currentFocusIndex).toBe(13);
-
-			downKey(item13);
-			expect(currentFocusIndex).toBe(14);
-
-			expect(spy).toHaveBeenCalled();
-		});
-
-		test('should be scroll by page-down key', () => {
-			const spy = jest.fn(() => {});
-
-			render(
-				<VirtualList
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-					onScrollStart={spy}
-					scrollMode="translate"
-				/>
-			);
-
-			const list = screen.getByRole('list');
-			const item9 = list.children.item(9).children.item(0);
-			const item10 = list.children.item(10).children.item(0);
-
-			focus(item9);
-			expect(currentFocusIndex).toBe(9);
-
-			downKey(item9);
-			expect(currentFocusIndex).toBe(10);
-
-			pageDownKey(item10);
-
-			expect(spy).toHaveBeenCalled();
-		});
+		pressUpKey(item2);
+		expect(currentFocusIndex).toBe(1);
 	});
 
-	describe('VirtualGridList translate useEvent', () => {
+	test('should not navigate focus using arrow-up/down key when \'direction\'is horizontal', () => {
+		render(
+			<VirtualList
+				direction="horizontal"
+				clientSize={clientSize}
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+				scrollMode="translate"
+			/>
+		);
+
+		const list = screen.getByRole('list');
+		const item0 = list.children.item(0).children.item(0);
+
+		focus(item0);
+		expect(currentFocusIndex).toBe(0);
+
+		pressDownKey(item0);
+		expect(currentFocusIndex).toBe(0);
+
+		pressUpKey(item0);
+		expect(currentFocusIndex).toBe(0);
+	});
+
+	test('should navigate focus using arrow-left/right key when \'direction\'is horizontal', () => {
+		render(
+			<VirtualList
+				direction="horizontal"
+				clientSize={clientSize}
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+				scrollMode="translate"
+			/>
+		);
+
+		const list = screen.getByRole('list');
+		const item0 = list.children.item(0).children.item(0);
+		const item1 = list.children.item(1).children.item(0);
+		const item2 = list.children.item(2).children.item(0);
+
+		focus(item0);
+		expect(currentFocusIndex).toBe(0);
+
+		pressRightKey(item0);
+		expect(currentFocusIndex).toBe(1);
+
+		pressRightKey(item1);
+		expect(currentFocusIndex).toBe(2);
+
+		pressLeftKey(item2);
+		expect(currentFocusIndex).toBe(1);
+	});
+
+	test('should scroll by focus navigation using arrow-down key', () => {
+		const spy = jest.fn(() => {});
+
+		render(
+			<VirtualList
+				clientSize={clientSize}
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+				onScrollStart={spy}
+				scrollMode="translate"
+			/>
+		);
+
+		const list = screen.getByRole('list');
+		const item13 = list.children.item(13).children.item(0);
+
+		focus(item13);
+		expect(currentFocusIndex).toBe(13);
+
+		pressDownKey(item13);
+		expect(currentFocusIndex).toBe(14);
+
+		expect(spy).toHaveBeenCalled();
+	});
+
+	test('should scroll by page-down key', () => {
+		const spy = jest.fn(() => {});
+
+		render(
+			<VirtualList
+				clientSize={clientSize}
+				dataSize={dataSize}
+				itemRenderer={renderItem}
+				itemSize={itemSize}
+				onScrollStart={spy}
+				scrollMode="translate"
+			/>
+		);
+
+		const list = screen.getByRole('list');
+		const item9 = list.children.item(9).children.item(0);
+		const item10 = list.children.item(10).children.item(0);
+
+		focus(item9);
+		expect(currentFocusIndex).toBe(9);
+
+		pressDownKey(item9);
+		expect(currentFocusIndex).toBe(10);
+
+		pressPageDownKey(item10);
+
+		expect(spy).toHaveBeenCalled();
+	});
+
+	describe('VirtualGridList useEvent', () => {
 		test('should navigate focus using arrow-up/down key', () => {
 			render(
 				<VirtualGridList
@@ -253,14 +251,14 @@ describe('VirtualList useEvent translate', () => {
 			focus(item0);
 			expect(currentFocusIndex).toBe(0);
 
-			downKey(item0);
-			downKey(item0);
+			pressDownKey(item0);
+			pressDownKey(item0);
 			expect(currentFocusIndex).toBe(4);
 
-			downKey(item4);
+			pressDownKey(item4);
 			expect(currentFocusIndex).toBe(8);
 
-			upKey(item8);
+			pressUpKey(item8);
 			expect(currentFocusIndex).toBe(4);
 		});
 
@@ -283,10 +281,10 @@ describe('VirtualList useEvent translate', () => {
 			focus(item0);
 			expect(currentFocusIndex).toBe(0);
 
-			downKey(item0);
+			pressDownKey(item0);
 			expect(currentFocusIndex).toBe(1);
 
-			upKey(item1);
+			pressUpKey(item1);
 			expect(currentFocusIndex).toBe(0);
 		});
 
@@ -310,17 +308,17 @@ describe('VirtualList useEvent translate', () => {
 			focus(item0);
 			expect(currentFocusIndex).toBe(0);
 
-			rightKey(item0);
+			pressRightKey(item0);
 			expect(currentFocusIndex).toBe(3);
 
-			rightKey(item3);
+			pressRightKey(item3);
 			expect(currentFocusIndex).toBe(6);
 
-			leftKey(item6);
+			pressLeftKey(item6);
 			expect(currentFocusIndex).toBe(3);
 		});
 
-		test('should be scroll by focus navigation using arrow-down key', () => {
+		test('should scroll by focus navigation using arrow-down key', () => {
 			const spy = jest.fn(() => {});
 
 			render(
@@ -340,13 +338,13 @@ describe('VirtualList useEvent translate', () => {
 			focus(item13);
 			expect(currentFocusIndex).toBe(13);
 
-			downKey(item13);
+			pressDownKey(item13);
 			expect(currentFocusIndex).toBe(17);
 
 			expect(spy).toHaveBeenCalled();
 		});
 
-		test('should be scroll by page-down key', () => {
+		test('should scroll by page-down key', () => {
 			const spy = jest.fn(() => {});
 
 			render(
@@ -367,10 +365,10 @@ describe('VirtualList useEvent translate', () => {
 			focus(item9);
 			expect(currentFocusIndex).toBe(9);
 
-			downKey(item9);
+			pressDownKey(item9);
 			expect(currentFocusIndex).toBe(13);
 
-			pageDownKey(item10);
+			pressPageDownKey(item10);
 
 			expect(spy).toHaveBeenCalled();
 		});

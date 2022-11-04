@@ -55,7 +55,7 @@ describe('VirtualList', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should render overhang items when clientSize is not given', () => {
+	test('should render overhang items when \'clientSize\' and outer DOM size are not specified', () => {
 		render(
 			<VirtualList
 				dataSize={dataSize}
@@ -86,7 +86,7 @@ describe('VirtualList', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should re-render (clientHeight / itemHeight + overhang) items after changing client size', () => {
+	test('should re-render (clientHeight / itemHeight + overhang) items after changing \'clientSize\'', () => {
 		const {rerender} = render(
 			<VirtualList
 				clientSize={clientSize}
@@ -244,7 +244,7 @@ describe('VirtualList', () => {
 	});
 
 	describe('Voice Control', () => {
-		test('should render "data-webos-voice-focused" to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-focused\' to outermost node of VirtualList', () => {
 			render(
 				<VirtualList
 					clientSize={clientSize}
@@ -260,7 +260,7 @@ describe('VirtualList', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-focused', 'true');
 		});
 
-		test('should render "data-webos-voice-group-label" to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-group-label\' to outermost node of VirtualList', () => {
 			const label = 'group label';
 			render(
 				<VirtualList
@@ -277,7 +277,7 @@ describe('VirtualList', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-group-label', label);
 		});
 
-		test('should render "data-webos-voice-disabled" to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-disabled\' to outermost node of VirtualList', () => {
 			render(
 				<VirtualList
 					clientSize={clientSize}
@@ -295,41 +295,37 @@ describe('VirtualList', () => {
 	});
 
 	describe('HoverToScroll', () => {
-		describe('native', () => {
-			test('should not render hoverToScroll node when \'hoverToScroll\' prop is not provided', () => {
-				render(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						itemRenderer={renderItem}
-						itemSize={itemSize}
-						data-webos-voice-focused
-					/>
-				);
+		test('should not render hoverToScroll node when \'hoverToScroll\' prop is not provided', () => {
+			render(
+				<VirtualList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+				/>
+			);
 
-				const expected = 2;
-				const actual = screen.getByRole('list').parentElement.parentElement.children.length;
+			const expected = 2;
+			const actual = screen.getByRole('list').parentElement.parentElement.children.length;
 
-				expect(actual).toBe(expected);
-			});
+			expect(actual).toBe(expected);
+		});
 
-			test('should render hoverToScroll node when \'hoverToScroll\' prop is provided', () => {
-				render(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						hoverToScroll
-						itemRenderer={renderItem}
-						itemSize={itemSize}
-						data-webos-voice-focused
-					/>
-				);
+		test('should render hoverToScroll node when \'hoverToScroll\' prop is provided', () => {
+			render(
+				<VirtualList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					hoverToScroll
+					itemRenderer={renderItem}
+					itemSize={itemSize}
+				/>
+			);
 
-				const expected = 3;
-				const actual = screen.getByRole('list').parentElement.parentElement.children.length;
+			const expected = 3;
+			const actual = screen.getByRole('list').parentElement.parentElement.children.length;
 
-				expect(actual).toBe(expected);
-			});
+			expect(actual).toBe(expected);
 		});
 	});
 });
