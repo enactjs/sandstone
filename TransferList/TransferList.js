@@ -119,7 +119,16 @@ const TransferListBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		setSecondList: PropTypes.func
+		setSecondList: PropTypes.func,
+
+		/**
+		 * Allows items to display the order in which the items were selected.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		showSelectionOrder: PropTypes.bool
 	},
 
 	defaultProps: {
@@ -130,7 +139,8 @@ const TransferListBase = kind({
 		moveOnSpotlight: false,
 		secondList: {},
 		setFirstList: null,
-		setSecondList: null
+		setSecondList: null,
+		showSelectionOrder: false
 	},
 
 	styles: {
@@ -140,10 +150,11 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: () => ({elements, list, onSelect, selectedItems, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderItem: () => ({elements, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
-			const selected = -1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
+			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
+			const selected = selectedIndex !== 0;
 
 			const handleClick = () => {
 				onSelect(element, index, list);
@@ -173,6 +184,7 @@ const TransferListBase = kind({
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					selected={selected}
+					slotAfter={(selected && showSelectionOrder) && selectedIndex}
 				>
 					{element}
 				</CheckboxItem>
@@ -180,7 +192,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, renderItem, secondList, setFirstList, setSecondList}) => {
+	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, renderItem, secondList, setFirstList, setSecondList, showSelectionOrder}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -539,16 +551,18 @@ const TransferListBase = kind({
 			elements: firstListLocal,
 			list: 'first',
 			onSelect: setSelected,
-			selectedItems: selectedItems,
-			onSpotlightRight: handleSpotlightRight
+			selectedItems,
+			onSpotlightRight: handleSpotlightRight,
+			showSelectionOrder
 		};
 
 		const secondListSpecs = {
 			elements: secondListLocal,
 			list: 'second',
 			onSelect: setSelected,
-			selectedItems: selectedItems,
-			onSpotlightLeft: handleSpotlightLeft
+			selectedItems,
+			onSpotlightLeft: handleSpotlightLeft,
+			showSelectionOrder
 		};
 
 		return (
