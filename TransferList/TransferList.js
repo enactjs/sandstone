@@ -150,7 +150,7 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: () => ({elements, list, onSelect, selectedItems, showSelection, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderItem: () => ({elements, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
@@ -184,7 +184,7 @@ const TransferListBase = kind({
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					selected={selected}
-					slotAfter={(selected && showSelection) && selectedIndex}
+					slotAfter={(selected && showSelectionOrder) && selectedIndex}
 				>
 					{element}
 				</CheckboxItem>
@@ -550,18 +550,18 @@ const TransferListBase = kind({
 			elements: firstListLocal,
 			list: 'first',
 			onSelect: setSelected,
-			selectedItems: selectedItems,
+			selectedItems,
 			onSpotlightRight: handleSpotlightRight,
-			showSelection: showSelectionOrder
+			showSelectionOrder
 		};
 
 		const secondListSpecs = {
 			elements: secondListLocal,
 			list: 'second',
 			onSelect: setSelected,
-			selectedItems: selectedItems,
+			selectedItems,
 			onSpotlightLeft: handleSpotlightLeft,
-			showSelection: showSelectionOrder
+			showSelectionOrder
 		};
 
 		return (
