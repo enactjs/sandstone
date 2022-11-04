@@ -123,7 +123,7 @@ const TransferListBase = kind({
 	},
 
 	defaultProps: {
-		allowMultipleDrag: true,
+		allowMultipleDrag: false,
 		firstList: {},
 		height: 999,
 		itemSize: 201,
@@ -265,6 +265,7 @@ const TransferListBase = kind({
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
 						return element.addEventListener('dragstart', (ev) => {
+							console.log("dragStart1")
 							startDragElement.current = element;
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
