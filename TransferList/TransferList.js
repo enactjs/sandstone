@@ -159,7 +159,7 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: () => ({elements, list, onSelect, onSpotlightMove, selectedItems, vertical, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderItem: () => ({elements, list, onSelect, onSpotlightMove, selectedItems, vertical, ...rest}) => (data) => {
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const length = elements.length;
