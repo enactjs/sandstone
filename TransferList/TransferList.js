@@ -180,9 +180,6 @@ const TransferListBase = kind({
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
 
-		// used for custom drag image
-		const img = new Image();
-		img.src = "https://via.placeholder.com/100x100";
 
 		useEffect(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
@@ -380,6 +377,7 @@ const TransferListBase = kind({
 
 		// Make this function using useCallback to avoid lint warning below
 		const onDropRightHandler = (ev) => {
+			console.log("dropping", ev);
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
@@ -453,6 +451,86 @@ const TransferListBase = kind({
 			ev.stopPropagation();
 		}, [moveIntoSecondSelected, moveOnSpotlight, selectedItems]);
 
+		const [dragging, setDragging] = useState(false);
+
+		const handleDragStart = useCallback((ev) => {
+			console.log('start dragging', ev);
+			setDragging(true);
+
+			if (ev.type === 'onDragStart') {
+				const [index, list] = ev.node.id.split('-');
+				return ev.node.addEventListener('dragstart', (event) => {
+				startDragElement.current = event.target;
+				event.dataTransfer.setData('text/plain', `${index}-${list}`);
+				event.dataTransfer.effectAllowed = 'move';
+				// ev.dataTransfer.setDragImage(img, 0, 0);
+				});
+			}
+		}, [moveIntoFirstSelected, moveOnSpotlight, selectedItems]);
+
+		const handleDrag = useCallback((ev) => {
+			setDragging(true);
+			console.log('dragging', ev);
+
+			if (ev.type === 'onDrag') {
+				const [index, list] = ev.node.id.split('-');
+				return ev.node.addEventListener('dragover', (event) => {
+					dragOverElement.current = index;
+					const startDragOrder = Number(startDragElement.current.getAttribute('order'));
+					const dragOverOrder = Number(event.target.getAttribute('order'));
+					if (startDragOrder < dragOverOrder && startDragElement.current !== event.target) {
+						if (event.offsetY <= 20) {
+							event.target.classList.add(`${css.overAbove}`);
+						}
+					} else if (startDragOrder > dragOverOrder && startDragElement.current !== ev.target) {
+						if (event.offsetY === -1 || event.offsetY === 0) {
+							event.target.classList.remove(`${css.overAbove}`);
+							event.target.classList.remove(`${css.overBelow}`);
+						} else if (event.offsetY <= 60 && event.offsetY >= 35) {
+							event.target.classList.add(`${css.overBelow}`);
+						}
+					}
+				});
+			}
+			// if (ev.type === 'dragenter') {
+			// 	const [index, list] = ev.target.id.split('-');
+			// 	return ev.target.addEventListener('dragenter', (ev) => {
+			// 		dragOverElement.current = index;
+			// 		const startDragOrder = Number(startDragElement.current.getAttribute('order'));
+			// 		const dragOverOrder = Number(ev.target.getAttribute('order'));
+			// 		if (startDragOrder < dragOverOrder && startDragElement.current !== ev.target) {
+			// 			if (ev.offsetY <= 20) {
+			// 				ev.target.classList.add(`${css.overAbove}`);
+			// 			}
+			// 		} else if (startDragOrder > dragOverOrder && startDragElement.current !== ev.target) {
+			// 			if (ev.offsetY === -1 || ev.offsetY === 0) {
+			// 				ev.target.classList.remove(`${css.overAbove}`);
+			// 				ev.target.classList.remove(`${css.overBelow}`);
+			// 			} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
+			// 				ev.target.classList.add(`${css.overBelow}`);
+			// 			}
+			// 		}
+			// 	});
+			// }
+		}, []);
+		const handleDragEnd = useCallback((ev) => {
+			console.log('dragging ended', ev);
+			setDragging(false);
+
+			if (ev.type === 'onDragEnd') {
+				return ev.node.addEventListener('dragleave', () => {
+					ev.target.classList.remove(`${css.overAbove}`);
+					ev.target.classList.remove(`${css.overBelow}`);
+				});
+			}
+			// if (ev.type === 'drop') {
+			// 	return ev.target.addEventListener('drop', () => {
+			// 		ev.target.classList.remove(`${css.overAbove}`);
+			// 		ev.target.classList.remove(`${css.overBelow}`);
+			// 	});
+			// }
+		}, []);
+
 		const renderFirstList = useCallback(() => (
 			renderItems({
 				elements: firstListLocal,
@@ -460,9 +538,9 @@ const TransferListBase = kind({
 				onSelect: setSelected,
 				selectedItems: selectedItems,
 				onSpotlightRight: handleSpotlightRight,
-				handleDragStart: handleDragStart,
-				handleDrag: handleDrag,
-				handleDragEnd: handleDragEnd
+				handleDragStart,
+				handleDrag,
+				handleDragEnd
 
 			})
 		), [firstListLocal, handleSpotlightRight, renderItems, selectedItems, setSelected]);
@@ -474,105 +552,26 @@ const TransferListBase = kind({
 				onSelect: setSelected,
 				selectedItems: selectedItems,
 				onSpotlightLeft: handleSpotlightLeft,
-				handleDragStart: handleDragStart,
-				handleDrag: handleDrag,
-				handleDragEnd: handleDragEnd
+				handleDragStart,
+				handleDrag,
+				handleDragEnd
 			})
 		), [renderItems, handleSpotlightLeft, secondListLocal, selectedItems, setSelected]);
 
-
-		const [dragging, setDragging] = useState(false);
-
-		const handleDragStart = (ev) => {
-			console.log('start dragging', ev);
-			setDragging(true);
-
-			if (ev.type === 'dragstart') {
-				const [index, list] = ev.target.id.split('-');
-				return ev.target.addEventListener('dragstart', (ev) => {
-				startDragElement.current = ev.target;
-				ev.dataTransfer.setData('text/plain', `${index}-${list}`);
-				ev.dataTransfer.effectAllowed = 'move';
-				// ev.dataTransfer.setDragImage(img, 0, 0);
-				});
-			}
-		}
-
-		const handleDrag = (ev) => {
-			setDragging(true);
-			console.log('dragging', ev);
-
-			if (ev.type === 'dragover') {
-				return ev.target.addEventListener('dragover', (ev) => {
-					dragOverElement.current = index;
-					const startDragOrder = Number(startDragElement.current.getAttribute('order'));
-					const dragOverOrder = Number(ev.target.getAttribute('order'));
-					if (startDragOrder < dragOverOrder && startDragElement.current !== ev.target) {
-						if (ev.offsetY <= 20) {
-							ev.target.classList.add(`${css.overAbove}`);
-						}
-					} else if (startDragOrder > dragOverOrder && startDragElement.current !== ev.target) {
-						if (ev.offsetY === -1 || ev.offsetY === 0) {
-							ev.target.classList.remove(`${css.overAbove}`);
-							ev.target.classList.remove(`${css.overBelow}`);
-						} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-							ev.target.classList.add(`${css.overBelow}`);
-						}
-					}
-				});
-			}
-			if (ev.type === 'dragenter') {
-				return ev.target.addEventListener('dragenter', (ev) => {
-					dragOverElement.current = index;
-					const startDragOrder = Number(startDragElement.current.getAttribute('order'));
-					const dragOverOrder = Number(ev.target.getAttribute('order'));
-					if (startDragOrder < dragOverOrder && startDragElement.current !== ev.target) {
-						if (ev.offsetY <= 20) {
-							ev.target.classList.add(`${css.overAbove}`);
-						}
-					} else if (startDragOrder > dragOverOrder && startDragElement.current !== ev.target) {
-						if (ev.offsetY === -1 || ev.offsetY === 0) {
-							ev.target.classList.remove(`${css.overAbove}`);
-							ev.target.classList.remove(`${css.overBelow}`);
-						} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-							ev.target.classList.add(`${css.overBelow}`);
-						}
-					}
-				});
-			}
-		}
-		const handleDragEnd = (ev) => {
-			console.log('dragging ended', ev);
-			setDragging(false);
-
-			if (ev.type === 'dragleave') {
-				return ev.target.addEventListener('dragleave', () => {
-					ev.target.classList.remove(`${css.overAbove}`);
-					ev.target.classList.remove(`${css.overBelow}`);
-				});
-			}
-			if (ev.type === 'drop') {
-				return ev.target.addEventListener('drop', () => {
-					ev.target.classList.remove(`${css.overAbove}`);
-					ev.target.classList.remove(`${css.overBelow}`);
-				});
-			}
-		}
-
-		const TouchableDiv = Touchable('div');
+		const TouchableCell = Touchable(Cell);
 
 		return (
 			<Layout align="center" className={componentCss.transferList}>
-				<Cell
+				<TouchableCell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
 					// onPointerDown={(ev) => handleDragStart(ev)}
 					// onPointerMove={() => console.log('pointer move')}
 					// onPointerUp={() => console.log('pointer up')}
-					onDragStart={(ev) => handleDragStart(ev)}
-					onDrag={(ev) => handleDrag(ev)}
-					onDragEnd={(ev) => handleDragEnd(ev)}
+					//onDragStart={(ev) => handleDragStart(ev)}
+					//onDrag={(ev) => handleDrag(ev)}
+					onDragEnd={handleDragEnd}
 					onDrop={onDropLeftHandler} // eslint-disable-line  react/jsx-no-bind
 					size="40%"
 					style={{height: height}}
@@ -585,7 +584,7 @@ const TransferListBase = kind({
 							{renderFirstList()}
 						</div>
 					</Scroller>
-				</Cell>
+				</TouchableCell>
 				<Cell className={componentCss.listButtons}>
 					{!moveOnSpotlight ?
 						<>
@@ -596,11 +595,12 @@ const TransferListBase = kind({
 						</> : ''
 					}
 				</Cell>
-				<Cell
+				<TouchableCell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
 					onDrop={onDropRightHandler} // eslint-disable-line react/jsx-no-bind
+					onDragEnd={handleDragEnd}
 					size="40%"
 					style={{height: height}}
 				>
@@ -612,7 +612,7 @@ const TransferListBase = kind({
 							{renderSecondList()}
 						</div>
 					</Scroller>
-				</Cell>
+				</TouchableCell>
 			</Layout>
 		);
 	}
