@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-/* global Image */
 
 /**
  * Provides Sandstone-themed transfer list components and behaviors.
@@ -21,10 +20,13 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
-import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
+import VirtualList from '../VirtualList';
 
 import componentCss from './TransferList.module.less';
+import itemCss from '../Item/Item.module.less';
+
+let multipleItemDragContainer, singleItemDragContainer;
 
 /**
  * A Sandstone-styled scrollable, draggable and spottable transfer list component.
@@ -42,14 +44,6 @@ const TransferListBase = kind({
 
 	propTypes: /** @lends sandstone/TransferList.TransferListBase.prototype */ {
 		/**
-		 * Allows for multiple elements to be dragged from one list to another.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		allowMultipleDrag: PropTypes.bool,
-
-		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -63,12 +57,37 @@ const TransferListBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Disables TransferList and becomes non-interactive.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * An array containing the name of each item that will populate the first list.
 		 *
 		 * @type {Array}
 		 * @private
 		 */
 		firstList: PropTypes.array,
+
+		/**
+		 * Sets the maximum number of items for the first list.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		firstListMaxCapacity: PropTypes.number,
+
+		/**
+		 * Sets the minimum number of items for the first list.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		firstListMinCapacity: PropTypes.number,
 
 		/**
 		 * The height of the list container.
@@ -80,6 +99,15 @@ const TransferListBase = kind({
 		height: PropTypes.number,
 
 		/**
+		 * The height of the checkbox item.
+		 *
+		 * @type {Number}
+		 * @default 201
+		 * @public
+		 */
+		itemSize: PropTypes.number,
+
+		/**
 		 * Allows items to be transferred from one list to another using Spotlight Right and/or Spotlight Left.
 		 *
 		 * @type {Boolean}
@@ -88,12 +116,36 @@ const TransferListBase = kind({
 		moveOnSpotlight: PropTypes.bool,
 
 		/**
+		 * Blocks multiple elements to be dragged from one list to another.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noMultipleDrag: PropTypes.bool,
+
+		/**
 		 * An array containing the name of each item that will populate the second list.
 		 *
 		 * @type {Array}
 		 * @private
 		 */
 		secondList: PropTypes.array,
+
+		/**
+		 * Sets the maximum number of items for the second list.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		secondListMaxCapacity: PropTypes.number,
+
+		/**
+		 * Sets the minimum number of items for the second list.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		secondListMinCapacity: PropTypes.number,
 
 		/**
 		 * Called when the first list needs to be modified.
@@ -109,17 +161,29 @@ const TransferListBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		setSecondList: PropTypes.func
+		setSecondList: PropTypes.func,
+
+		/**
+		 * Allows items to display the order in which the items were selected.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		showSelectionOrder: PropTypes.bool
 	},
 
 	defaultProps: {
-		allowMultipleDrag: true,
-		height: 999,
+		disabled: false,
 		firstList: {},
+		height: 999,
+		itemSize: 201,
 		moveOnSpotlight: false,
+		noMultipleDrag: false,
 		secondList: {},
 		setFirstList: null,
-		setSecondList: null
+		setSecondList: null,
+		showSelectionOrder: false
 	},
 
 	styles: {
@@ -129,59 +193,120 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItems: () => ({elements, handleDrag, handleDragEnd, handleDragStart, list, onSelect, selectedItems, ...rest}) => {
-			return elements.map((element, index) => {
-				const selected = -1 !== selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
+		renderItem: ({disabled}) => ({elements, handleDrag, handleDragEnd, handleDragStart, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+			const {index, 'data-index': dataIndex} = data;
+			const element = elements[index];
+			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
+			const selected = selectedIndex !== 0;
 
-				const handleClick = useCallback(() => {
-					onSelect(element, index, list);
-				}, [element, index, list, onSelect]); // eslint-disable-line react-hooks/exhaustive-deps
+			const handleClick = () => {
+				onSelect(element, index, list);
+			};
 
-				const handleSpotlightDown = useCallback((ev) => {
-					if (elements.length - 1 !== index) return;
-					ev.preventDefault();
-					ev.stopPropagation();
-				}, [elements, index]); // eslint-disable-line react-hooks/exhaustive-deps
+			const handleSpotlightDown = (ev) => {
+				if (elements.length - 1 !== index) return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
 
-				const handleSpotlightUp = useCallback((ev) => {
-					if (index !== 0) return;
-					ev.preventDefault();
-					ev.stopPropagation();
-				}, [index]);
+			const handleSpotlightUp = (ev) => {
+				if (index !== 0) return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
 
-				return (
-					<CheckboxItem
-						{...rest}
-						draggable
-						className={componentCss.draggableItem}
-						id={`${index}-${list}`}
-						key={index + list}
-						onClick={handleClick}
-						onSpotlightDown={handleSpotlightDown}
-						onSpotlightUp={handleSpotlightUp}
-						selected={selected}
-						onDragStart={handleDragStart}
-						onDrag={handleDrag}
-						onDragEnd={handleDragEnd}
-					>
-						{element}
-					</CheckboxItem>
-				);
-			});
+			return (
+				<CheckboxItem
+					{...rest}
+					data-index={dataIndex}
+					draggable={!disabled}
+					disabled={disabled}
+					className={componentCss.draggableItem}
+					id={`${index}-${list}`}
+					key={index + list}
+					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
+					selected={selected}
+					slotAfter={(selected && showSelectionOrder) && selectedIndex}
+					onDragStart={handleDragStart}
+					onDrag={handleDrag}
+					onDragEnd={handleDragEnd}
+				>
+					{element}
+				</CheckboxItem>
+			);
 		}
 	},
 
-	render: ({allowMultipleDrag, css, firstList, height: defaultHeight, moveOnSpotlight, renderItems, secondList, setFirstList, setSecondList}) => {
+	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, noMultipleDrag, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 
 		const height = ri.scaleToRem(defaultHeight);
+		const itemSize = ri.scale(defaultItemSize);
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
 
+		const setCommonElementStyles = (element) => {
+			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+			if (item) {
+				const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
+
+				element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
+				element.style.border = '1px solid black';
+				element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
+				element.style.height = item.clientHeight + 'px';
+				element.style.left = "0px";
+				element.style.position = "absolute";
+				element.style.width = item.clientWidth + 'px';
+			}
+		};
+
+		const generateDragImage = () => {
+			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+			if (item) {
+				singleItemDragContainer = document.createElement("div");
+				setCommonElementStyles(singleItemDragContainer);
+				singleItemDragContainer.style.bottom = "0px";
+				singleItemDragContainer.style.left = "0px";
+				singleItemDragContainer.style.zIndex = '-100';
+				document.body.appendChild(singleItemDragContainer);
+
+				multipleItemDragContainer = document.createElement("div");
+				setCommonElementStyles(multipleItemDragContainer);
+				multipleItemDragContainer.style.height = 1.6 * item.clientHeight + 'px';
+				multipleItemDragContainer.style.top = "0px";
+				multipleItemDragContainer.style.zIndex = '-110';
+				document.body.appendChild(multipleItemDragContainer);
+
+				let div2 = document.createElement("div");
+				setCommonElementStyles(div2);
+				div2.style.top = "0px";
+				div2.style.zIndex = '-100';
+
+				let div3 = document.createElement("div");
+				setCommonElementStyles(div3);
+				div3.style.top = 0.3 * item.clientHeight + 'px';
+				div3.style.zIndex = '-90';
+
+				let div4 = document.createElement("div");
+				setCommonElementStyles(div4);
+				div4.style.top = 0.6 * item.clientHeight + 'px';
+				div4.style.zIndex = '-80';
+
+				multipleItemDragContainer.appendChild(div2);
+				multipleItemDragContainer.appendChild(div3);
+				multipleItemDragContainer.appendChild(div4);
+			}
+		};
 
 		useEffect(() => {
+			generateDragImage();
+		});
+
+		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
 
@@ -190,6 +315,8 @@ const TransferListBase = kind({
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
 
+				const potentialIndex = selectedItems.findIndex((pair) => '✓' + pair.element === element.textContent && pair.list === list);
+
 				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
@@ -197,7 +324,12 @@ const TransferListBase = kind({
 							startDragElement.current = element;
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
-							ev.dataTransfer.setDragImage(img, 0, 0);
+
+							if (!noMultipleDrag && potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
+								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
+							} else {
+								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
+							}
 						});
 					}
 					if (event === 'dragover') {
@@ -252,13 +384,22 @@ const TransferListBase = kind({
 					}
 				});
 			});
+		}, [css.draggableItem, css.overAbove, css.overBelow, noMultipleDrag, selectedItems]);
 
-		}, [dragOverElement, firstListLocal, secondListLocal, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		useEffect(() => {
+			const updateElements = setTimeout(() => handleScroll(), 100);
+			return () => {
+				clearTimeout(updateElements);
+			};
+		}, [dragOverElement, firstListLocal, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
+
+			if (tempSecond.length <= secondListMinCapacity || tempSecond.length - tempSelected.length < secondListMinCapacity) return;
+			if (tempFirst.length >= firstListMaxCapacity || tempFirst.length + tempSelected.length > firstListMaxCapacity) return;
 
 			selectedItems.map((item) => {
 				if (item.list !== 'second') return;
@@ -275,7 +416,7 @@ const TransferListBase = kind({
 				setSecondListLocal(tempSecond);
 			}
 			setSelectedItems(tempSelected);
-		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
+		}, [firstListLocal, firstListMaxCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		const moveIntoFirstAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -293,6 +434,9 @@ const TransferListBase = kind({
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
 
+			if (tempFirst.length <= firstListMinCapacity || tempFirst.length - tempSelected.length < firstListMinCapacity) return;
+			if (tempSecond.length >= secondListMaxCapacity || tempSecond.length + tempSelected.length > secondListMaxCapacity) return;
+
 			selectedItems.map((item) => {
 				if (item.list !== 'first') return;
 				tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
@@ -308,7 +452,7 @@ const TransferListBase = kind({
 				setSecondListLocal(tempSecond);
 			}
 			setSelectedItems(tempSelected);
-		}, [firstListLocal, secondListLocal, selectedItems, setFirstList, setSecondList]);
+		}, [firstListLocal, firstListMinCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		const moveIntoSecondAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -322,6 +466,7 @@ const TransferListBase = kind({
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
+			if (selectedItems.findIndex((newElement) => newElement.list === list) === -1 && selectedItems.length) return;
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
 			if (potentialIndex !== -1) {
 				setSelectedItems(items => {
@@ -340,10 +485,10 @@ const TransferListBase = kind({
 			setNewList(list);
 		};
 
-		const rearrangeLists = (sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
+		const rearrangeLists = useCallback((sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
 			const draggedItem = sourceList[draggedElementIndex];
 
-			if (allowMultipleDrag) {
+			if (!noMultipleDrag) {
 				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
 
 				if (potentialIndex === -1) {
@@ -364,7 +509,7 @@ const TransferListBase = kind({
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		};
+		}, [noMultipleDrag, selectedItems]);
 
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
@@ -375,12 +520,16 @@ const TransferListBase = kind({
 			return null;
 		};
 
-		// Make this function using useCallback to avoid lint warning below
-		const onDropRightHandler = (ev) => {
+		const onDropRightHandler = useCallback((ev) => {
 			console.log("dropping", ev);
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
+
+			if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list) === -1) return;
+
+			if (firstListCopy.length <= firstListMinCapacity || firstListCopy.length - selectedItems.length < firstListMinCapacity) return;
+			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
 			if (list === 'second') {
 				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
@@ -390,7 +539,7 @@ const TransferListBase = kind({
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
 
 			const selectedListCopy = [...selectedItems];
-			if (allowMultipleDrag) {
+			if (!noMultipleDrag) {
 				selectedItems.map((item) => {
 					selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 				});
@@ -400,13 +549,17 @@ const TransferListBase = kind({
 			setSelectedItems(selectedListCopy);
 
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
-		};
+		}, [firstListLocal, firstListMinCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
-		// Make this function using useCallback to avoid lint warning below
-		const onDropLeftHandler = (ev) => {
+		const onDropLeftHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
+
+			if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list) === -1) return;
+
+			if (secondListCopy.length <= secondListMinCapacity || secondListCopy.length - selectedItems.length < secondListMinCapacity) return;
+			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
 
 			if (list === 'first') {
 				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
@@ -417,7 +570,7 @@ const TransferListBase = kind({
 
 			if (potentialIndex !== -1) {
 				const selectedListCopy = [...selectedItems];
-				if (allowMultipleDrag) {
+				if (!noMultipleDrag) {
 					selectedItems.map((item) => {
 						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 					});
@@ -428,9 +581,11 @@ const TransferListBase = kind({
 			}
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
-		};
+		}, [firstListLocal, firstListMaxCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMinCapacity]);
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
+
+		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);
 
 		const handleSpotlightBounds = useCallback(ev => {
 			ev.preventDefault();
@@ -460,10 +615,10 @@ const TransferListBase = kind({
 			if (ev.type === 'onDragStart') {
 				const [index, list] = ev.node.id.split('-');
 				return ev.node.addEventListener('dragstart', (event) => {
-				startDragElement.current = event.target;
-				event.dataTransfer.setData('text/plain', `${index}-${list}`);
-				event.dataTransfer.effectAllowed = 'move';
-				// ev.dataTransfer.setDragImage(img, 0, 0);
+					startDragElement.current = event.target;
+					event.dataTransfer.setData('text/plain', `${index}-${list}`);
+					event.dataTransfer.effectAllowed = 'move';
+					// ev.dataTransfer.setDragImage(img, 0, 0);
 				});
 			}
 		}, [moveIntoFirstSelected, moveOnSpotlight, selectedItems]);
@@ -531,32 +686,29 @@ const TransferListBase = kind({
 			// }
 		}, []);
 
-		const renderFirstList = useCallback(() => (
-			renderItems({
-				elements: firstListLocal,
-				list: 'first',
-				onSelect: setSelected,
-				selectedItems: selectedItems,
-				onSpotlightRight: handleSpotlightRight,
-				handleDragStart,
-				handleDrag,
-				handleDragEnd
+		const firstListSpecs = {
+			elements: firstListLocal,
+			list: 'first',
+			onSelect: setSelected,
+			selectedItems,
+			onSpotlightRight: handleSpotlightRight,
+			showSelectionOrder,
+			handleDragStart,
+			handleDrag,
+			handleDragEnd
+		};
 
-			})
-		), [firstListLocal, handleSpotlightRight, renderItems, selectedItems, setSelected]);
-
-		const renderSecondList = useCallback(() => (
-			renderItems({
-				elements: secondListLocal,
-				list: 'second',
-				onSelect: setSelected,
-				selectedItems: selectedItems,
-				onSpotlightLeft: handleSpotlightLeft,
-				handleDragStart,
-				handleDrag,
-				handleDragEnd
-			})
-		), [renderItems, handleSpotlightLeft, secondListLocal, selectedItems, setSelected]);
+		const secondListSpecs = {
+			elements: secondListLocal,
+			list: 'second',
+			onSelect: setSelected,
+			selectedItems,
+			onSpotlightLeft: handleSpotlightLeft,
+			showSelectionOrder,
+			handleDragStart,
+			handleDrag,
+			handleDragEnd
+		};
 
 		const TouchableCell = Touchable(Cell);
 
@@ -566,32 +718,34 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
+					onDrop={onDropLeftHandler}
 					// onPointerDown={(ev) => handleDragStart(ev)}
 					// onPointerMove={() => console.log('pointer move')}
 					// onPointerUp={() => console.log('pointer up')}
 					//onDragStart={(ev) => handleDragStart(ev)}
 					//onDrag={(ev) => handleDrag(ev)}
 					onDragEnd={handleDragEnd}
-					onDrop={onDropLeftHandler} // eslint-disable-line  react/jsx-no-bind
 					size="40%"
 					style={{height: height}}
 				>
-					<Scroller
+					<VirtualList
+						dataSize={firstListLocal.length}
 						horizontalScrollbar="hidden"
+						itemRenderer={renderItem(firstListSpecs)}
+						itemSize={itemSize}
+						onScrollStop={handleScroll}
+						style={{height: height}}
 						verticalScrollbar="hidden"
-					>
-						<div className={componentCss.itemsList}>
-							{renderFirstList()}
-						</div>
-					</Scroller>
-				</TouchableCell>
+					/>
+				</Cell>
 				<Cell className={componentCss.listButtons}>
 					{!moveOnSpotlight ?
 						<>
-							<Button onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
-							<Button disabled={!(selectedItems.find((item) => item.list === "first"))} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
-							<Button disabled={!(selectedItems.find((item) => item.list === "second"))} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
-							<Button onClick={moveIntoFirstAll} onSpotlightDown={handleSpotlightBounds} size="small">{'<<<'}</Button>
+							<Button disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
+							<Button disabled={!(selectedItems.find((item) => item.list === "first")) || disabled} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
+							<Button disabled={!(selectedItems.find((item) => item.list === "second")) || disabled} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
+							<Button disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity} onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
+							<Button onClick={handleRemoveSelected} onSpotlightDown={handleSpotlightBounds} size="small">{'Clear'}</Button>
 						</> : ''
 					}
 				</Cell>
@@ -599,19 +753,18 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropRightHandler} // eslint-disable-line react/jsx-no-bind
-					onDragEnd={handleDragEnd}
+					onDrop={onDropRightHandler}
 					size="40%"
 					style={{height: height}}
 				>
-					<Scroller
+					<VirtualList
+						dataSize={secondListLocal.length}
 						horizontalScrollbar="hidden"
+						itemRenderer={renderItem(secondListSpecs)}
+						itemSize={itemSize}
+						onScrollStop={handleScroll}
 						verticalScrollbar="hidden"
-					>
-						<div className={componentCss.itemsList}>
-							{renderSecondList()}
-						</div>
-					</Scroller>
+					/>
 				</TouchableCell>
 			</Layout>
 		);
