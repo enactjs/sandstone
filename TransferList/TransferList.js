@@ -737,7 +737,7 @@ const TransferListBase = kind({
 						style={{height: height}}
 						verticalScrollbar="hidden"
 					/>
-				</Cell>
+				</TouchableCell>
 				<Cell className={componentCss.listButtons}>
 					{!moveOnSpotlight ?
 						<>
