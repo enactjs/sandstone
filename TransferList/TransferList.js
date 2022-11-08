@@ -231,7 +231,7 @@ const TransferListBase = kind({
 					slotAfter={(selected && showSelectionOrder) && selectedIndex}
 					onDragStart={handleDragStart}
 					onDrag={handleDrag}
-					onDragEnd={handleDragEnd}
+					//onDragEnd={handleDragEnd}
 				>
 					{element}
 				</CheckboxItem>
@@ -552,6 +552,7 @@ const TransferListBase = kind({
 		}, [firstListLocal, firstListMinCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
 		const onDropLeftHandler = useCallback((ev) => {
+			console.log("dropping", ev);
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
@@ -625,7 +626,7 @@ const TransferListBase = kind({
 
 		const handleDrag = useCallback((ev) => {
 			setDragging(true);
-			console.log('dragging', ev);
+			//console.log('dragging', ev);
 
 			if (ev.type === 'onDrag') {
 				const [index, list] = ev.node.id.split('-');
@@ -722,9 +723,9 @@ const TransferListBase = kind({
 					// onPointerDown={(ev) => handleDragStart(ev)}
 					// onPointerMove={() => console.log('pointer move')}
 					// onPointerUp={() => console.log('pointer up')}
-					//onDragStart={(ev) => handleDragStart(ev)}
-					//onDrag={(ev) => handleDrag(ev)}
-					onDragEnd={handleDragEnd}
+					//onDragStart={handleDragStart}
+					//onDrag={handleDrag}
+					onDragEnd={onDropLeftHandler}
 					size="40%"
 					style={{height: height}}
 				>
@@ -754,6 +755,7 @@ const TransferListBase = kind({
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
 					onDrop={onDropRightHandler}
+					onDragEnd={onDropRightHandler}
 					size="40%"
 					style={{height: height}}
 				>
