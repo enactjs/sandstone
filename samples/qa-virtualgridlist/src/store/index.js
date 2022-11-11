@@ -120,11 +120,24 @@ const recordSlice = createSlice({
 			prepare: (index, item) => {
 				return {payload: {index, item}};
 			}
+		},
+		updateItemsOrder: (state, action) => {
+			const newData = {};
+			const newDataOrder = [];
+
+			if (action.payload) {
+				for (let i = 0; i < action.payload.length; i++) {
+					newData[i] = state.data[action.payload[i]];
+					newDataOrder.push(i);
+				}
+			}
+
+			return Object.assign(state, {data: newData, dataOrder: newDataOrder});
 		}
 	}
 });
 
-export const {addItem, changeDataSize, changeMinHeight, changeMinWidth, changeSpacing, deleteItem, deleteSelectedItem, selectAll, selectItem, selectionEnable, setData} = recordSlice.actions;
+export const {addItem, changeDataSize, changeMinHeight, changeMinWidth, changeSpacing, deleteItem, deleteSelectedItem, selectAll, selectItem, selectionEnable, setData, updateItemsOrder} = recordSlice.actions;
 
 const rootReducer = combineReducers({
 	data : recordSlice.reducer

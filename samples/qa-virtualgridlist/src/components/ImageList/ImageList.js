@@ -8,10 +8,20 @@ import ImageItem from '../ImageItem';
 
 import css from './ImageList.module.less';
 
-const ImageList = ({imageitems, minHeight, minWidth, spacing, ...rest}) => {
+import {
+	updateItemsOrder as updateItemsOrderAction
+} from '../../store';
+
+const ImageList = ({imageitems, minHeight, minWidth, updateItemsOrder, spacing, ...rest}) => {
 	const calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
-	const renderItem = useCallback(({...renderRest}) => (<ImageItem {...renderRest} />), []);
+	const renderItem = useCallback(({editMode, ...renderRest}) => (
+		<ImageItem
+			{...renderRest}
+			style={editMode ? {transform: `translateY(-${ri.scaleToRem(100)})`} : {}}
+		/>
+	), []);
+
 
 	delete rest.dispatch;
 
@@ -20,8 +30,15 @@ const ImageList = ({imageitems, minHeight, minWidth, spacing, ...rest}) => {
 			{...rest}
 			className={rest.direction === 'horizontal' ? css.horizontalPadding : css.verticalPadding}
 			dataSize={imageitems.length}
+			hoverToScroll
 			itemRenderer={renderItem}
 			itemSize={{minHeight: calculateOfSize(minHeight), minWidth: calculateOfSize(minWidth)}}
+			editable={{
+				css: css,
+				onComplete: ({detail: {order}}) => {
+					updateItemsOrder(order);
+				}
+			}}
 			spacing={calculateOfSize(spacing)}
 		/>
 	);
@@ -33,7 +50,8 @@ ImageList.propTypes = {
 	imageitems: PropTypes.array,
 	minHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-	spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+	spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	updateItemsOrder: PropTypes.func
 };
 
 const mapStateToProps = ({data}) => ({
@@ -43,4 +61,10 @@ const mapStateToProps = ({data}) => ({
 	spacing: data.spacing
 });
 
-export default connect(mapStateToProps)(ImageList);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateItemsOrder: (newDataOrder) => dispatch(updateItemsOrderAction(newDataOrder))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageList);

@@ -310,7 +310,6 @@ const useScroll = (props) => {
 			'data-webos-voice-disabled': voiceDisabled,
 			'data-webos-voice-focused': voiceFocused,
 			'data-webos-voice-group-label': voiceGroupLabel,
-			editable,
 			focusableScrollbar,
 			fadeOut,
 			horizontalScrollThumbAriaLabel,
@@ -475,7 +474,7 @@ const useScroll = (props) => {
 	};
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {editable, fadeOut}),
+		...(props.itemRenderer ? {itemRefs, noAffordance, snapToCenter} : {fadeOut}),
 		...voiceProps,
 		className: [
 			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,

@@ -54,6 +54,7 @@ const useSpottable = (props, instances) => {
 	useSpotlightConfig(props, {spottable: mutableRef});
 
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey(props, instances, {
+		focusByIndex,
 		handlePageUpDownKeyDown: () => {
 			mutableRef.current.isScrolledBy5way = false;
 		},
