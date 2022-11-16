@@ -57,7 +57,7 @@
     "ilib": "^14.15.1"
   },
   "peerDependencies": {
-    "ilib": "14.14.0 || ^14.14.0-webos1"
+    "ilib": "^14.15.1 || ^14.15.1-webos1"
   },
   "devDependencies": {
     "@enact/docs-utils": "0.3.6",
