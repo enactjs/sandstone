@@ -214,6 +214,15 @@ const PopupTabLayoutBase = kind({
 		 */
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
+		/*
+		 * State of possible skin variants.
+		 *
+		 * Used to scale the `itemSize` of the `VirtualList` based on large-text mode
+		 *
+		 * @type {Object}
+		 */
+		skinVariants: PropTypes.object,
+
 		/**
 		 * The container id for [Spotlight container]{@link spotlight/SpotlightContainerDecorator/#SpotlightContainerDecorator.spotlightId}.
 		 *
@@ -249,7 +258,8 @@ const PopupTabLayoutBase = kind({
 		},
 		orientation: 'vertical',
 		position: 'left',
-		scrimType: 'translucent'
+		scrimType: 'translucent',
+		skinVariants: {}
 	},
 
 	styles: {
@@ -262,7 +272,7 @@ const PopupTabLayoutBase = kind({
 		className: ({collapsed, scrimType, styler}) => styler.append({collapsed}, `scrim${cap(scrimType)}`)
 	},
 
-	render: ({children, css, ...rest}) => {
+	render: ({children, css, noAnimation, skinVariants, ...rest}) => {
 		// Extract all relevant popup props
 		const popupProps = {};
 		for (const prop in rest) {
@@ -273,7 +283,7 @@ const PopupTabLayoutBase = kind({
 		}
 
 		return (
-			<Popup {...popupProps} css={css} noAlertRole>
+			<Popup {...popupProps} css={css} noAlertRole noAnimation={skinVariants.animationOff ? true : noAnimation}>
 				<TabLayout
 					{...rest}
 					css={css}
@@ -299,7 +309,7 @@ const PopupTabLayoutBase = kind({
  * @public
  */
 const PopupTabLayoutDecorator = compose(
-	Skinnable
+	Skinnable({variantsProp: 'skinVariants'})
 );
 
 /**

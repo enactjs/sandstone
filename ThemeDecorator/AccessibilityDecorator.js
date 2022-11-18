@@ -21,6 +21,15 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 
 		static propTypes =  /** @lends sandstone/ThemeDecorator.AccessibilityDecorator.prototype */ {
 			/**
+			 * Disabled Enables animation effects that degrade performance.
+			 *
+			 * @type {Boolean}
+			 * @default false
+			 * @public
+			 */
+			animationOff: PropTypes.bool,
+
+			/**
 			 * Enables additional features to help users visually differentiate components.
 			 *
 			 * The UI library will be responsible for using this information to adjust
@@ -85,6 +94,7 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		};
 
 		static defaultProps = {
+			animationOff: false,
 			highContrast: false,
 			textSize: 'normal'
 		};
@@ -106,10 +116,11 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		resizeRegistry = Registry.create();
 
 		render () {
-			const {className, highContrast, skinVariants, textSize, ...props} = this.props;
+			const {animationOff, className, highContrast, skinVariants, textSize, ...props} = this.props;
 			const accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
 			const combinedClassName = className ? `${className} ${accessibilityClassName}` : accessibilityClassName;
 			const variants = objectify(skinVariants);
+			if (animationOff) variants.animationOff = true;
 			if (highContrast) variants.highContrast = true;
 			if (textSize === 'large') variants.largeText = true;
 

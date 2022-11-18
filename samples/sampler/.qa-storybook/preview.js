@@ -62,6 +62,7 @@ export const parameters = {
 	}
 };
 export const globalTypes = {
+	'animationOff': getBooleanType('animationOff'),
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
 	'high contrast': getBooleanType('high contrast'),

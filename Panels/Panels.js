@@ -197,14 +197,24 @@ const PanelsBase = kind({
 		 *
 		 * @type {Function}
 		 */
-		onWillTransition: PropTypes.func
+		onWillTransition: PropTypes.func,
+
+		/*
+		 * State of possible skin variants.
+		 *
+		 * Used to scale the `itemSize` of the `VirtualList` based on large-text mode
+		 *
+		 * @type {Object}
+		 */
+		skinVariants: PropTypes.object
 	},
 
 	defaultProps: {
 		arranger: BasicArranger,
 		index: 0,
 		noAnimation: false,
-		noSharedState: false
+		noSharedState: false,
+		skinVariants: {}
 	},
 
 	styles: {
@@ -214,7 +224,8 @@ const PanelsBase = kind({
 	},
 
 	computed: {
-		viewportId: ({id}) => id && `${id}-viewport`
+		viewportId: ({id}) => id && `${id}-viewport`,
+		noAnimation: ({noAnimation, skinVariants}) => skinVariants.animationOff ? true : noAnimation
 	},
 
 	handlers: {
@@ -241,6 +252,7 @@ const PanelsBase = kind({
 		...rest
 	}) => {
 		const sharedProps = getSharedProps(rest);
+		delete rest.skinVariants;
 		deleteSharedProps(rest);
 		return (
 			<div {...rest} id={id}>
@@ -266,7 +278,7 @@ const PanelsBase = kind({
 const PanelsDecorator = compose(
 	CancelDecorator({cancel: 'onBack'}),
 	IdProvider,
-	Skinnable
+	Skinnable({variantsProp: 'skinVariants'})
 );
 
 const Panels = PanelsDecorator(PanelsBase);

@@ -26,6 +26,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {createContext, Fragment} from 'react';
 
+import Skinnable from '../Skinnable';
 import {getLastInputType} from '../ThemeDecorator';
 
 import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
@@ -195,6 +196,15 @@ const TabLayoutBase = kind({
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
+		/*
+		 * State of possible skin variants.
+		 *
+		 * Used to scale the `itemSize` of the `VirtualList` based on large-text mode
+		 *
+		 * @type {Object}
+		 */
+		skinVariants: PropTypes.object,
+
 		/**
 		 * Assign a custom size to horizontal tabs.
 		 *
@@ -235,6 +245,7 @@ const TabLayoutBase = kind({
 		},
 		index: 0,
 		orientation: 'vertical',
+		skinVariants: {},
 		type: 'normal'
 	},
 
@@ -314,7 +325,7 @@ const TabLayoutBase = kind({
 		handleEnter: (ev, props) => {
 			const {index, previousIndex} = ev;
 
-			if (index > previousIndex) {
+			if (index > previousIndex && !props.skinVariants.animationOff) {
 				forward('onCollapse', ev, props);
 			}
 		}
@@ -329,10 +340,13 @@ const TabLayoutBase = kind({
 			`anchor${cap(anchorTo)}`,
 			orientation
 		),
-		style: ({dimensions, orientation, style}) => ({
-			...style,
-			'--tablayout-expand-collapse-diff': ((orientation === 'vertical') ? scaleToRem(dimensions.tabs.normal - dimensions.tabs.collapsed) : 0)
-		}),
+		style: ({dimensions, orientation, skinVariants, style}) => {
+			let contentLeftShift = skinVariants.animationOff ? dimensions.tabs.normal + 48 : dimensions.tabs.normal - dimensions.tabs.collapsed;
+			return {
+				...style,
+				'--tablayout-expand-collapse-diff': ((orientation === 'vertical') ? scaleToRem(contentLeftShift) : 0)
+			};
+		},
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		tabs: ({children}) => {
 			const tabs = mapAndFilterChildren(children, (child) => (
@@ -344,7 +358,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleClick, handleEnter, handleFlick, handleFocus, handleTabsTransitionEnd, index, onCollapse, onSelect, orientation, tabOrientation, tabSize, tabs, type, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleClick, handleEnter, handleFlick, handleFocus, handleTabsTransitionEnd, index, onCollapse, onSelect, orientation, skinVariants, tabOrientation, tabSize, tabs, type, ...rest}) => {
 		delete rest.anchorTo;
 		delete rest.onExpand;
 		delete rest.onTabAnimationEnd;
@@ -370,7 +384,7 @@ const TabLayoutBase = kind({
 		return (
 			<TabLayoutContext.Provider value={handleEnter}>
 				<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
-					<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
+					{skinVariants.animationOff ? null : <Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
 						<TabGroup
 							{...tabGroupProps}
 							collapsed={isVertical}
@@ -378,7 +392,7 @@ const TabLayoutBase = kind({
 							tabSize={!isVertical ? tabSize : null}
 							spotlightDisabled={!collapsed && isVertical}
 						/>
-					</Cell>
+					</Cell>}
 					{isVertical ? <Cell
 						className={css.tabs + ' ' + css.tabsExpanded}
 						size={dimensions.tabs.normal}
@@ -417,7 +431,8 @@ const TabLayoutDecorator = compose(
 		enterTo: 'last-focused',
 		// favor the content when collapsed and the tabs otherwise
 		defaultElement: [`.${componentCss.horizontal} .${componentCss.tabs} *`, `.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
-	})
+	}),
+	Skinnable({variantsProp: 'skinVariants'})
 );
 
 // Currently not documenting the base output since it's not exported
