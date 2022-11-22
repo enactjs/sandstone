@@ -1,6 +1,8 @@
 import Button from '../../../../Button';
 
-import {withConfig} from './utils';
+import {withConfig, withProps} from './utils';
+
+import css from './Button.module.less';
 
 const ButtonTests = [
 	<Button>click me</Button>,
@@ -256,6 +258,66 @@ const ButtonTests = [
 		<Button icon="arrowhookright" iconFlip="vertical">click me</Button>,
 		<Button icon="arrowhookright" iconFlip="both">click me</Button>,
 		<Button icon="arrowhookright" iconFlip="auto">click me</Button>
+	]),
+
+	// *************************************************************
+	// With customized button
+	// *************************************************************
+	...withProps({css: css}, [
+		// standard button
+		<Button>Customized button</Button>,
+		<Button minWidth>Customized button</Button>,
+		<Button focused>Customized button</Button>,
+		<Button focused size="small">Customized button</Button>,
+		<Button minWidth size="small">Customized button</Button>,
+
+		// With icon.
+		<Button icon="minus" />,
+		<Button icon="minus" size="samll"> </Button>,
+		<Button icon="minus" iconPosition="after" />,
+		<Button icon="minus" iconPosition="after" size="small" />,
+		<Button color="green" icon="minus" iconPosition="after" size="small" />,
+
+		<Button color="red">Customized button</Button>,
+		<Button color="blue" size="small">Customized button</Button>,
+		<Button color="green" minWidth>Customized button</Button>,
+		<Button color="yellow" icon="plus" minWidth>Customized button</Button>,
+		<Button color="yellow" icon="plus" iconPosition="after" minWidth>Customized button</Button>,
+		<Button color="yellow" icon="plus" minWidth size="samll">Customized button</Button>,
+
+		// With long text
+		<Button>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+		<Button minWidth>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+		<Button size="small">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+
+		// With backgroundOpacity
+		<Button backgroundOpacity="transparent" color="red">Customized button</Button>,
+		<Button backgroundOpacity="transparent" color="green">Customized button</Button>,
+		<Button backgroundOpacity="transparent" color="yellow">Customized button</Button>,
+		<Button backgroundOpacity="transparent" color="blue">Customized button</Button>,
+
+		<Button backgroundOpacity="transparent" focused size="small">Customized button</Button>,
+		<Button backgroundOpacity="transparent" selected>Customized button</Button>,
+
+		<Button backgroundOpacity="transparent" color="green" icon="minus" />,
+		<Button backgroundOpacity="transparent" color="red" icon="plus" selected />,
+		<Button backgroundOpacity="transparent" color="red" focused icon="plus" />,
+
+		<Button backgroundOpacity="opaque" color="red">Customized button</Button>,
+		<Button backgroundOpacity="opaque" color="green">Customized button</Button>,
+		<Button backgroundOpacity="opaque" color="yellow">Customized button</Button>,
+		<Button backgroundOpacity="opaque" color="blue">Customized button</Button>,
+
+		<Button backgroundOpacity="opaque" focused size="small">Customized button</Button>,
+		<Button backgroundOpacity="opaque" selected>Customized button</Button>,
+
+		<Button backgroundOpacity="opaque" color="green" icon="minus" />,
+		<Button backgroundOpacity="opaque" color="red" icon="plus" selected />,
+		<Button backgroundOpacity="opaque" color="red" focused icon="plus" />,
+
+		// With disabled
+		<Button backgroundOpacity="opaque" disabled>Customized button</Button>,
+		<Button backgroundOpacity="opaque" disabled focused>Customized button</Button>
 	])
 ];
 
