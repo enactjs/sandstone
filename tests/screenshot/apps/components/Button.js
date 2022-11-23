@@ -267,8 +267,15 @@ const ButtonTests = [
 		// standard button
 		<Button>Customized button</Button>,
 		<Button minWidth>Customized button</Button>,
-		<Button focused>Customized button</Button>,
-		<Button focused size="small">Customized button</Button>,
+		{
+			component: <Button>Customized button</Button>,
+			focus: true
+		},
+
+		{
+			component: <Button size="small">Customized button</Button>,
+			focus: true
+		},
 		<Button minWidth size="small">Customized button</Button>,
 
 		// With icon.
@@ -296,28 +303,43 @@ const ButtonTests = [
 		<Button backgroundOpacity="transparent" color="yellow">Customized button</Button>,
 		<Button backgroundOpacity="transparent" color="blue">Customized button</Button>,
 
-		<Button backgroundOpacity="transparent" focused size="small">Customized button</Button>,
+		{
+			component: <Button backgroundOpacity="transparent" size="small">Customized button</Button>,
+			focus: true
+		},
 		<Button backgroundOpacity="transparent" selected>Customized button</Button>,
 
 		<Button backgroundOpacity="transparent" color="green" icon="minus" />,
 		<Button backgroundOpacity="transparent" color="red" icon="plus" selected />,
-		<Button backgroundOpacity="transparent" color="red" focused icon="plus" />,
+		{
+			component: <Button backgroundOpacity="transparent" color="red" icon="plus" />,
+			focus: true
+		},
 
 		<Button backgroundOpacity="opaque" color="red">Customized button</Button>,
 		<Button backgroundOpacity="opaque" color="green">Customized button</Button>,
 		<Button backgroundOpacity="opaque" color="yellow">Customized button</Button>,
 		<Button backgroundOpacity="opaque" color="blue">Customized button</Button>,
 
-		<Button backgroundOpacity="opaque" focused size="small">Customized button</Button>,
+		{
+			component: <Button backgroundOpacity="opaque" size="small">Customized button</Button>,
+			focus: true
+		},
 		<Button backgroundOpacity="opaque" selected>Customized button</Button>,
 
 		<Button backgroundOpacity="opaque" color="green" icon="minus" />,
 		<Button backgroundOpacity="opaque" color="red" icon="plus" selected />,
-		<Button backgroundOpacity="opaque" color="red" focused icon="plus" />,
+		{
+			component: <Button backgroundOpacity="opaque" color="red" icon="plus" />,
+			focus: true
+		},
 
 		// With disabled
 		<Button backgroundOpacity="opaque" disabled>Customized button</Button>,
-		<Button backgroundOpacity="opaque" disabled focused>Customized button</Button>
+		{
+			component: <Button backgroundOpacity="opaque" disabled>Customized button</Button>,
+			focus:true
+		}
 	])
 ];
 
