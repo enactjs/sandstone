@@ -1,4 +1,3 @@
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
@@ -6,6 +5,7 @@ import {FixedPopupPanels, Panel as FixedPopupPanel} from '@enact/sandstone/Fixed
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList from '@enact/sandstone/VirtualList';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
