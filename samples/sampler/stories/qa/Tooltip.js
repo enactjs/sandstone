@@ -1,12 +1,12 @@
 import kind from '@enact/core/kind';
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Input from '@enact/sandstone/Input';
 import Scroller from '@enact/sandstone/Scroller';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/controls';
 import Layout, {Cell, Row} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';

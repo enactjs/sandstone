@@ -16,8 +16,8 @@ import SwitchItem from '@enact/sandstone/SwitchItem';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import {useCallback, useState} from 'react';
 import compose from 'ramda/src/compose';
+import {useCallback, useState} from 'react';
 
 PopupTabLayout.displayName = 'PopupTabLayout';
 
