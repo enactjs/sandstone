@@ -40,6 +40,12 @@
 
 		@componentRules();
 
+		:global(.violet) & {
+			@import "./colors-game.less";
+
+			@componentRules();
+		}
+
 		:global(.green) & {
 			@import "./colors-game-green.less";
 
