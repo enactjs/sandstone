@@ -105,8 +105,8 @@ const InputFieldBase = kind({
 		iconBefore: PropTypes.string,
 
 		/**
-		 * Indicates [value]{@link sandstone/Input.InputFieldBase.value} is invalid and shows
-		 * [invalidMessage]{@link sandstone/Input.InputFieldBase.invalidMessage}, if set.
+		 * Indicates {@link sandstone/Input.InputFieldBase.value|value} is invalid and shows
+		 * {@link sandstone/Input.InputFieldBase.invalidMessage|invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -116,7 +116,7 @@ const InputFieldBase = kind({
 
 		/**
 		 * The tooltip text to be displayed when the input is
-		 * [invalid]{@link sandstone/Input.InputFieldBase.invalid}.
+		 * {@link sandstone/Input.InputFieldBase.invalid|invalid}.
 		 *
 		 * If this value is *falsy*, the tooltip will be shown with the default message.
 		 *
@@ -186,7 +186,7 @@ const InputFieldBase = kind({
 		onKeyDown: PropTypes.func,
 
 		/**
-		 * Text to display when [value]{@link sandstone/Input.InputFieldBase.value} is not set.
+		 * Text to display when {@link sandstone/Input.InputFieldBase.value|value} is not set.
 		 *
 		 * @type {String}
 		 * @default ''
@@ -217,7 +217,7 @@ const InputFieldBase = kind({
 		 * Accepted values correspond to the standard HTML5 input types.
 		 *
 		 * @type {String}
-		 * @see [MDN input types doc]{@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types}
+		 * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types|MDN input types doc}
 		 * @default 'text'
 		 * @public
 		 */
@@ -296,6 +296,11 @@ const InputFieldBase = kind({
 		const inputProps = extractInputProps(rest);
 		const voiceProps = extractVoiceProps(rest);
 		const isPasswordtel = type === 'passwordtel';
+
+		if (type === 'password' || type === 'passwordtel') {
+			inputProps.spellCheck = false;
+		}
+
 		delete rest.announce;
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
@@ -345,7 +350,7 @@ const AnnounceDecorator = Wrapped => function AnnounceDecorator (props) {
 };
 
 /**
- * Sandstone specific item behaviors to apply to [InputField]{@link sandstone/Input.InputFieldBase}.
+ * Sandstone specific item behaviors to apply to {@link sandstone/Input.InputFieldBase|InputField}.
  *
  * @class InputFieldDecorator
  * @hoc

@@ -28,7 +28,7 @@ const RegionBase = kind({
 
 	propTypes: /** @lends sandstone/Region.Region.prototype */ {
 		/**
-		 * Title placed within an instance of [Heading]{@link sandstone/Heading.Heading} before the
+		 * Title placed within an instance of {@link sandstone/Heading.Heading|Heading} before the
 		 * children.
 		 *
 		 * @type {String}

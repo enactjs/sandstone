@@ -1,12 +1,12 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
 import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);

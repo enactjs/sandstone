@@ -1,6 +1,6 @@
+import ActionGuide, {ActionGuideBase} from '@enact/sandstone/ActionGuide';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {text, select} from '@enact/storybook-utils/addons/controls';
-import ActionGuide, {ActionGuideBase} from '@enact/sandstone/ActionGuide';
 
 // import icons
 import docs from '../../images/icon-enact-docs.png';

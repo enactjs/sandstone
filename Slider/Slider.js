@@ -232,7 +232,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * Controls the keydown frequency with which the acceleration will "freeze".
 	 * While frozen, the value of the slider is not changed via arrow key.
 	 *
-	 * To customize the key acceleration speed, pass an array for [frequency]{@link spotlight/Accelerator.Accelerator}.
+	 * To customize the key acceleration speed, pass an array for {@link spotlight/Accelerator.Accelerator|frequency}.
 	 * Each number represents a number of an event for sampling.
 	 * For example, 1 means to process all events while 3 means to process one of the three events.
 	 * If the number is large, the slider value changes slowly.
@@ -262,7 +262,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * The maximum value of the slider.
 	 *
 	 * The range between `min` and `max` should be evenly divisible by
-	 * [step]{@link sandstone/Slider.SliderBase.step}.
+	 * {@link sandstone/Slider.SliderBase.step|step}.
 	 *
 	 * @type {Number}
 	 * @default 100
@@ -274,7 +274,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * The minimum value of the slider.
 	 *
 	 * The range between `min` and `max` should be evenly divisible by
-	 * [step]{@link sandstone/Slider.SliderBase.step}.
+	 * {@link sandstone/Slider.SliderBase.step|step}.
 	 *
 	 * @type {Number}
 	 * @default 0
@@ -347,7 +347,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * Enables the built-in tooltip
 	 *
 	 * To customize the tooltip, pass either a custom tooltip component or an instance of
-	 * [SliderTooltip]{@link sandstone/Slider.SliderTooltip} with additional props configured.
+	 * {@link sandstone/Slider.SliderTooltip|SliderTooltip} with additional props configured.
 	 *
 	 * ```
 	 * <Slider
@@ -358,7 +358,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * ```
 	 *
 	 * The tooltip may also be passed as a child via the `"tooltip"` slot. See
-	 * [Slottable]{@link ui/Slottable} for more information on how slots can be used.
+	 * {@link ui/Slottable|Slottable} for more information on how slots can be used.
 	 *
 	 * ```
 	 * <Slider>
@@ -415,7 +415,7 @@ SliderBase.defaultProps = {
 };
 
 /**
- * Sandstone-specific slider behaviors to apply to [SliderBase]{@link sandstone/Slider.SliderBase}.
+ * Sandstone-specific slider behaviors to apply to {@link sandstone/Slider.SliderBase|SliderBase}.
  *
  * @hoc
  * @memberof sandstone/Slider
@@ -436,8 +436,8 @@ const SliderDecorator = compose(
 );
 
 /**
- * Slider input with Sandstone styling, [`Spottable`]{@link spotlight/Spottable.Spottable},
- * [Touchable]{@link ui/Touchable} and [`SliderDecorator`]{@link sandstone/Slider.SliderDecorator}
+ * Slider input with Sandstone styling, {@link spotlight/Spottable.Spottable|Spottable},
+ * {@link ui/Touchable|Touchable} and {@link sandstone/Slider.SliderDecorator|SliderDecorator}
  * applied.
  *
  * By default, `Slider` maintains the state of its `value` property. Supply the `defaultValue`
@@ -467,9 +467,9 @@ const SliderDecorator = compose(
 const Slider = SliderDecorator(SliderBase);
 
 /**
- * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar} or
- * [Slider]{@link sandstone/Slider.Slider}.
+ * A {@link sandstone/TooltipDecorator.Tooltip|Tooltip} specifically adapted for use with
+ * {@link sandstone/ProgressBar.ProgressBar|ProgressBar} or
+ * {@link sandstone/Slider.Slider|Slider}.
  *
  * @see {@link sandstone/ProgressBar.ProgressBarTooltip}
  * @class SliderTooltip

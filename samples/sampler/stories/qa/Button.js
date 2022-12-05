@@ -1,10 +1,10 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {Row} from '@enact/ui/Layout';
 import Scroller from '@enact/sandstone/Scroller';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 
 import iconNames from '../helper/icons';

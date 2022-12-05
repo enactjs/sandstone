@@ -25,7 +25,7 @@ import componentCss from './Checkbox.module.less';
  * A checkbox component, ready to use in Sandstone applications.
  *
  * `Checkbox` may be used independently to represent a toggleable state but is more commonly used as
- * part of [CheckboxItem]{@link sandstone/CheckboxItem}.
+ * part of {@link sandstone/CheckboxItem|CheckboxItem}.
  *
  * Usage:
  * ```
@@ -47,7 +47,7 @@ const CheckboxBase = kind({
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * A string that represents an icon from the {@link sandstone/Icon.Icon.iconList|iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
@@ -102,7 +102,7 @@ const CheckboxBase = kind({
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * A string that represents an icon from the {@link sandstone/Icon.Icon.iconList|iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
@@ -195,7 +195,7 @@ const CheckboxDecorator = compose(
 /**
  * A Sandstone-styled checkbox component.
  *
- * `Checkbox` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * `Checkbox` will manage its `selected` state via {@link ui/Toggleable|Toggleable} unless set
  * directly.
  *
  * @class Checkbox

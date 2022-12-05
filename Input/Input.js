@@ -82,8 +82,8 @@ const InputPopupBase = kind({
 		inputFieldSpotlightId: PropTypes.string,
 
 		/**
-		 * Indicates [value]{@link sandstone/Input.InputPopupBase.value} is invalid and shows
-		 * [invalidMessage]{@link sandstone/Input.InputPopupBase.invalidMessage}, if set.
+		 * Indicates {@link sandstone/Input.InputPopupBase.value|value} is invalid and shows
+		 * {@link sandstone/Input.InputPopupBase.invalidMessage|invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -92,7 +92,7 @@ const InputPopupBase = kind({
 
 		/**
 		 * The tooltip text to be displayed when the input is
-		 * [invalid]{@link sandstone/Input.InputPopupBase.invalid}.
+		 * {@link sandstone/Input.InputPopupBase.invalid|invalid}.
 		 *
 		 * If this value is *falsy*, the tooltip will be shown with the default message.
 		 *
@@ -163,7 +163,7 @@ const InputPopupBase = kind({
 		 * The default is to display separated digits when `length` is less than `7`. If `field` is
 		 * set, a standard `InputField` will be used instead of the normal number input.
 		 *
-		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.type}.
+		 * This has no effect on other {@link sandstone/Input.InputPopupBase.type|types}.
 		 *
 		 * @type {('auto'|'separated'|'joined'|'field')}
 		 * @default 'auto'
@@ -596,7 +596,7 @@ const AnnounceDecorator = Wrapped => (function AnnounceDecorator (props) {
 });
 
 /**
- * Sandstone specific item behaviors to apply to [Input]{@link sandstone/Input.InputBase}.
+ * Sandstone specific item behaviors to apply to {@link sandstone/Input.InputBase|Input}.
  *
  * @class InputDecorator
  * @hoc

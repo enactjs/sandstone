@@ -1,13 +1,13 @@
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
-import Spottable from '@enact/spotlight/Spottable';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import Marquee, {MarqueeController} from '@enact/sandstone/Marquee';
 import Skinnable from '@enact/sandstone/Skinnable';
+import Spottable from '@enact/spotlight/Spottable';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import {Component} from 'react';
 
@@ -22,6 +22,7 @@ const SpottableDiv = MarqueeController({marqueeOnFocus: true}, Spottable(Skinnab
 const LTR = [
 	'The quick brown fox jumped over the lazy dog. The bean bird flies at sundown.',
 	'Η γρήγορη καφέ αλεπού πήδηξε πάνω από το μεσημέρι. Το πουλί πετά σε φασολιών δύση του ηλίου.',
+	'Bahasa Melayu,Eesti keel,Čeština,Bahasa Indonesia,Dansk,한국어,العربية,English',
 	"ਤੁਰੰਤ ਭੂਰਾ Fox ਆਲਸੀ ਕੁੱਤੇ ਨੂੰ ਵੱਧ ਗਈ. ਬੀਨ ਪੰਛੀ ਸੂਰਜ ਡੁੱਬਣ 'ਤੇ ਉਡਾਣ ਭਰਦੀ ਹੈ.",
 	'速い茶色のキツネは、怠け者の犬を飛び越えた。豆の鳥は日没で飛ぶ。',
 	'那只敏捷的棕色狐狸跃过那只懒狗。豆鸟飞日落。',

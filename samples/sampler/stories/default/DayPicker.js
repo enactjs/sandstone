@@ -1,7 +1,7 @@
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import DayPicker from '@enact/sandstone/DayPicker';
 import Scroller from '@enact/sandstone/Scroller';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, text} from '@enact/storybook-utils/addons/controls';
 
 DayPicker.displayName = 'DayPicker';
 

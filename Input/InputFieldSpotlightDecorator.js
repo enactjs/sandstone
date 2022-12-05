@@ -28,7 +28,7 @@ const handleKeyDown = handle(
 );
 
 /**
- * Default config for [InputSpotlightDecorator]{@link sandstone/Input.InputSpotlightDecorator}
+ * Default config for {@link sandstone/Input.InputSpotlightDecorator|InputSpotlightDecorator}
  *
  * @memberof sandstone/Input/InputSpotlightDecorator.InputSpotlightDecorator
  * @hocconfig

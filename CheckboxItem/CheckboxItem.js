@@ -35,7 +35,7 @@ Checkbox.displayName = 'Checkbox';
  * A Sandstone-styled item with a checkbox component.
  *
  * `CheckboxItem` may be used to allow the user to select a single option or used as part of a
- * [Group]{@link ui/Group} when multiple [selections]{@link ui/Group.Group.select} are possible.
+ * {@link ui/Group|Group} when multiple {@link ui/Group.Group.select|selections} are possible.
  *
  * Usage:
  * ```
@@ -76,7 +76,7 @@ const CheckboxItemBase = kind({
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * A string that represents an icon from the {@link sandstone/Icon.Icon.iconList|iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
@@ -105,7 +105,7 @@ const CheckboxItemBase = kind({
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * A string that represents an icon from the {@link sandstone/Icon.Icon.iconList|iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
@@ -180,7 +180,7 @@ const CheckboxItemDecorator = compose(
 /**
  * A Sandstone-styled item with a checkbox component.
  *
- * `CheckboxItem` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * `CheckboxItem` will manage its `selected` state via {@link ui/Toggleable|Toggleable} unless set
  * directly.
  *
  * @class CheckboxItem
