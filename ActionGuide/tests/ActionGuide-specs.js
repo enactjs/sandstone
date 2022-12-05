@@ -22,6 +22,15 @@ describe('ActionGuide', () => {
 		expect(actual).toBeInTheDocument();
 	});
 
+	test('should set "buttonAriaLabel" to action guide', () => {
+		const label = 'custom aria-label';
+		render(<ActionGuideBase data-testid="actionGuide" buttonAriaLabel={label} />);
+
+		const actual = screen.getByRole('button', {name : label});
+
+		expect(actual).toBeInTheDocument();
+	});
+
 	describe('CSS override', () => {
 		test('should allow `actionGuide` to be augmented', () => {
 			const css = {actionGuide: 'test-action-guide'};
