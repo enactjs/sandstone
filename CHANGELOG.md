@@ -2,18 +2,68 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.6.0] - 2022-12-05
+
+### Removed
+
+- `@sand-inputfield-focus-text-color-rgb`, `@sand-picker-joined-fingernail-border-color`, `@sand-progress-buffer-color`, and `--sand-progress-buffer-color` as they are not used anymore
+
+### Added
+
+- `sandstone/FormCheckboxItem` CSS variable `--sand-formcheckboxitem-focus-text-color` for a customization of the focused text color
+
+### Changed
+
+- `--sand-checkbox-disabled-selected-color` to `--sand-checkbox-disabled-selected-text-color`
+- `@sand-alert-overlay-checkbox-disabled-selected-color` to `@sand-alert-overlay-checkbox-disabled-selected-text-color`
+
+### Fixed
+
+- `sandstone/ImageItem` to have proper size when imported with `sandstone/Dropdown` or `sandstone/VirtualList` in the same file
+
+## [2.0.11] - 2022-10-13
+
+### Fixed
+
+- `sandstone/MediaPlayer.MediaControls` to focus properly when pressing up key from buttons after holding left or right keys
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hover when scrollbar is hidden or `dataSize` is changed
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hover when `hoverToScroll` is `true` and `scrollMode` is `translate`
+
+## [2.5.5] - 2022-10-07
+
+### Fixed
+
+- `sandstone/MediaPlayer.MediaControls` to focus properly when pressing up key from buttons after holding left or right keys
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hover when scrollbar is hidden or `dataSize` is changed
+
 ## [2.5.4] - 2022-09-23
 
 ### Fixed
 
 - `sandstone/Scroller` to not show the focus effect of the body in pointer mode when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Slider` tooltip arrow to show properly
+- `sandstone/Input` text color for number type cell when disabled to match GUI
 
 ## [2.5.3] - 2022-08-30
 
 ### Added
 
-- `sandstone/Icon` supported icon list, adding a new icon `musicsrc` 
+- `sandstone/Icon` supported icon list, adding a new icon `musicsrc`
+
+### Fixed
+
+- `sandstone/VideoPlayer` to not seek infinitely when pointer moves while holding left or right key
+
+## [2.0.10] - 2022-08-30
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall`
+- `sandstone/Icon` supported icon list, adding a new icon `musicsrc`
+
+### Changed
+
+- `sandstone/TabLayout` to eliminate the horizontal maximum number of tabs
 
 ### Fixed
 
@@ -27,7 +77,7 @@ No significant changes.
 
 ### Added
 
-- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall` 
+- `sandstone/Icon` supported icon list, adding a new icon `r2rappcall`
 
 ### Fixed
 
@@ -87,6 +137,12 @@ No significant changes.
 - `sandstone/Scroller` to scroll properly by wheel when `editable` is given
 - `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridiem
 
+## [2.0.9] - 2022-05-19
+
+### Fixed
+
+- `sandstone/TimePicker` to forward `onComplete` event in RTL countries that do not display meridiem
+
 ## [2.5.0-alpha.2] - 2022-05-09
 
 ### Added
@@ -98,6 +154,24 @@ No significant changes.
 ### Changed
 
 - `sandstone/Panels.Header` and `sandstone/RadioItem` to use `onClick` instead of `onTap` for touch support
+
+## [2.0.8] - 2022-04-25
+
+### Added
+
+- `sandstone/Alert` and `sandstone/Input` support for portrait mode
+- `sandstone/Icon` supported icon list, adding a new icon `wallpaper`
+- `sandstone/VideoPlayer` props `backButtonAriaLabel` and `onBack` to provide a way to exit video player via touch
+
+### Changed
+
+- `sandstone/Panels.Header` and `sandstone/RadioItem` to use `onClick` instead of `onTap` for touch support
+- `sandstone/DatePicker` and `sandstone/TimePicker` to not show press effect via touch input
+- `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
+
+### Fixed
+
+- `sandstone/Picker` horizontal joined behavior going to the next item by touch
 
 ## [2.5.0-alpha.1] - 2022-04-15
 
@@ -118,6 +192,12 @@ No significant changes.
 
 - `sandstone/Icon` public class name `icon`
 - `sandstone/Scroller` and `sandstone/VirtualList` prop `data-webos-voice-focused`, `data-webos-voice-disabled`, and `data-webos-voice-group-label`
+
+### Fixed
+
+- `sandstone/WizardPanels` to provide a way to prevent focusing on Panel again by allowing preventDefault when `onTransition` and `onWillTransition`
+
+## [2.0.7] - 2022-03-24
 
 ### Fixed
 
@@ -147,6 +227,12 @@ No significant changes.
 - `sandstone/Scroller` to scroll correctly on Android Chrome 85 or higher in RTL locales
 - `sandstone/VirtualList` to scroll properly by hover after changing `dataSize` when `hoverToScroll` is `true`
 
+## [2.0.6] - 2022-02-10
+
+### Fixed
+
+- `sandstone/VirtualList` to scroll properly by hover after changing `dataSize` when `hoverToScroll` is `true`
+
 ## [2.1.2] - 2021-12-22
 
 - Fixed samples build issue
@@ -162,6 +248,12 @@ No significant changes.
 - `sandstone/Button` to have centered icon on RTL locale
 - `sandstone/VideoPlayer` to handle media related callbacks properly
 - `sandstone/FormCheckboxItem` to show correct color for the focused disabled checkbox
+
+## [2.0.5] - 2021-12-15
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to focus the topmost element after scroll by voice control in pointer mode
 
 ## [2.1.0] - 2021-11-30
 
@@ -323,6 +415,12 @@ No significant changes.
 - `sandstone/PopupTabLayout` to move focus via 5-way left in the header
 - `sandstone/Scroller` to scroll correctly on Chrome 85 or higher in RTL locales via 5way
 
+## [1.4.9] - 2021-05-26
+
+### Added
+
+- `sandstone/Input` type `tel` and `passwordtel`
+
 ## [2.0.0-beta.1] - 2021-05-21
 
 - Enhanced touch support
@@ -356,6 +454,12 @@ No significant changes.
 - horizontal `sandstone/VirtualList` to align items well when navigating with 5-way
 - `sandstone/WizardPanels` to not show focus effect on the wrong element in `footer`
 
+## [1.4.8] - 2021-05-06
+
+### Fixed
+
+- `sandstone/Panels.Header` to remeasure marquee metrics when the size of slots changed
+
 ## [2.0.0-alpha.3] - 2021-03-31
 
 ### Added
@@ -373,6 +477,13 @@ No significant changes.
 ## [2.0.0-alpha.2] - 2021-03-26
 
 - Update Enact dependency
+
+## [1.4.7] - 2021-03-03
+
+### Added
+
+- `sandstone/Item` public class names `itemContent`, `content`, and `label`
+- `sandstone/Scroller` prop `scrollbarTrackCss` to customize scroll track and thumb style
 
 ## [2.0.0-alpha.1] - 2021-02-24
 
