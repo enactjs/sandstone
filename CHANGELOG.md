@@ -4,6 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
+
+## [2.6.0] - 2022-12-05
+
 ### Removed
 
 - `@sand-inputfield-focus-text-color-rgb`, `@sand-picker-joined-fingernail-border-color`, `@sand-progress-buffer-color`, and `--sand-progress-buffer-color` as they are not used anymore
@@ -19,7 +25,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/ImageItem` to have proper size when imported with `sandstone/Dropdown` or `sandstone/VirtualList` in the same file
 
 ## [2.0.11] - 2022-10-13
