@@ -32,7 +32,7 @@ export const _ActionGuide = () => {
 	}
 
 	return (
-		<ActionGuide icon={icon}>
+		<ActionGuide buttonAriaLabel={text('buttonAriaLabel', Config, 'More')} icon={icon}>
 			{text('children', Config, 'Press some key to do something')}
 		</ActionGuide>
 	);
