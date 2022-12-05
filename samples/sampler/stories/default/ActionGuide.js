@@ -32,7 +32,7 @@ export const _ActionGuide = (args) => {
 	}
 
 	return (
-		<ActionGuide icon={icon}>
+		<ActionGuide buttonAriaLabel={args['buttonAriaLabel']} icon={icon}>
 			{args['children']}
 		</ActionGuide>
 	);
@@ -41,6 +41,7 @@ export const _ActionGuide = (args) => {
 select('icon type', _ActionGuide, ['glyph', 'url src', 'custom'], Config, 'glyph');
 select('icon', _ActionGuide, ['', ...iconNames], Config, 'arrowsmalldown');
 select('src', _ActionGuide, [docs, factory, logo], Config, logo);
+text('buttonAriaLabel', _ActionGuide, Config, 'more');
 text('custom icon', _ActionGuide, Config);
 text('children', _ActionGuide, Config, 'Press some key to do something');
 
