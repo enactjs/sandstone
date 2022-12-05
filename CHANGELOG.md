@@ -19,6 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/ImageItem` to have proper size when imported with `sandstone/Dropdown` or `sandstone/VirtualList` in the same file
 
 ## [2.0.11] - 2022-10-13
