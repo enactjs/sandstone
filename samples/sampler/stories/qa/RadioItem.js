@@ -1,8 +1,8 @@
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import RadioItem from '@enact/sandstone/RadioItem';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean} from '@enact/storybook-utils/addons/controls';
-import Item, {ItemBase} from '@enact/sandstone/Item';
-import RadioItem from '@enact/sandstone/RadioItem';
 
 RadioItem.displayName = 'RadioItem';
 const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItem);
