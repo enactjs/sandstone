@@ -252,7 +252,7 @@ describe('VirtualGridList with translate \'scrollMode\'', () => {
 		);
 
 		test(
-			'should not render any scrollbar when when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
+			'should not render any scrollbar when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
 			() => {
 				render(
 					<VirtualGridList
@@ -688,7 +688,7 @@ describe('VirtualGridList with translate \'scrollMode\'', () => {
 	});
 
 	describe('Voice Control', () => {
-		test('should render \'data-webos-voice-focused\' to outermost node of VirtualGridList', () => {
+		test('should render \'data-webos-voice-focused\' to the outermost node of VirtualGridList', () => {
 			render(
 				<VirtualGridList
 					clientSize={clientSize}
@@ -705,7 +705,7 @@ describe('VirtualGridList with translate \'scrollMode\'', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-focused', 'true');
 		});
 
-		test('should render \'data-webos-voice-group-label\' to outermost node of VirtualGridList', () => {
+		test('should render \'data-webos-voice-group-label\' to the outermost node of VirtualGridList', () => {
 			const label = 'group label';
 			render(
 				<VirtualGridList
@@ -723,7 +723,7 @@ describe('VirtualGridList with translate \'scrollMode\'', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-group-label', label);
 		});
 
-		test('should render \'data-webos-voice-disabled\' to outermost node of VirtualGridList', () => {
+		test('should render \'data-webos-voice-disabled\' to the outermost node of VirtualGridList', () => {
 			render(
 				<VirtualGridList
 					clientSize={clientSize}

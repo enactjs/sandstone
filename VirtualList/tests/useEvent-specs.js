@@ -88,7 +88,7 @@ describe('VirtualList useEvent', () => {
 		expect(currentFocusIndex).toBe(1);
 	});
 
-	test('should not navigate focus using arrow-up/down key when \'direction\'is horizontal', () => {
+	test('should not navigate focus using arrow-up/down key when \'direction\' is horizontal', () => {
 		render(
 			<VirtualList
 				direction="horizontal"
@@ -112,7 +112,7 @@ describe('VirtualList useEvent', () => {
 		expect(currentFocusIndex).toBe(0);
 	});
 
-	test('should navigate focus using arrow-left/right key when \'direction\'is horizontal', () => {
+	test('should navigate focus using arrow-left/right key when \'direction\' is horizontal', () => {
 		render(
 			<VirtualList
 				direction="horizontal"

@@ -178,7 +178,7 @@ describe('VirtualList', () => {
 		);
 
 		test(
-			'should not render any scrollbar when when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
+			'should not render any scrollbar when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
 			() => {
 				render(
 					<VirtualList
@@ -244,7 +244,7 @@ describe('VirtualList', () => {
 	});
 
 	describe('Voice Control', () => {
-		test('should render \'data-webos-voice-focused\' to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-focused\' to the outermost node of VirtualList', () => {
 			render(
 				<VirtualList
 					clientSize={clientSize}
@@ -260,7 +260,7 @@ describe('VirtualList', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-focused', 'true');
 		});
 
-		test('should render \'data-webos-voice-group-label\' to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-group-label\' to the outermost node of VirtualList', () => {
 			const label = 'group label';
 			render(
 				<VirtualList
@@ -277,7 +277,7 @@ describe('VirtualList', () => {
 			expect(actual).toHaveAttribute('data-webos-voice-group-label', label);
 		});
 
-		test('should render \'data-webos-voice-disabled\' to outermost node of VirtualList', () => {
+		test('should render \'data-webos-voice-disabled\' to the outermost node of VirtualList', () => {
 			render(
 				<VirtualList
 					clientSize={clientSize}
