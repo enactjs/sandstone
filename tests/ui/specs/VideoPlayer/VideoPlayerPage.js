@@ -48,7 +48,7 @@ class VideoPlayerInterface {
 	}
 
 	get mediaControlsActionGuide () {
-		return $(this.selector + ' .MediaPlayer_MediaControls_actionGuide');
+		return $(this.selector + ' .MediaPlayer_MediaControls_actionGuide>div[aria-label=More]');
 	}
 
 	get mediaControlsListButton () {

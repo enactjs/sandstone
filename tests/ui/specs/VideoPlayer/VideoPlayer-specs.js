@@ -67,12 +67,12 @@ describe('VideoPlayer', function () {
 		});
 
 		describe('5-way', function () {
-			it('should focus `play` button on 5-way back, then down', async function () {
+			it('should focus `more` button on 5-way back, then down', async function () {
 				await Page.delay(1000);
 				await Page.backKey();
 				await Page.spotlightDown();
 
-				expect(await videoPlayerDefault.playButton.isFocused()).to.be.true();
+				await expect(await videoPlayerDefault.mediaControlsActionGuide.isFocused()).to.be.true();
 			});
 
 			it('should focus `previous` buttons on 5-way left', async function () {
@@ -97,7 +97,7 @@ describe('VideoPlayer', function () {
 				await Page.delay(1000);
 				expect(await videoPlayerDefault.playButton.isFocused()).to.be.true();
 				await Page.spotlightDown();
-				await Page.spotlightDown();
+				await Page.spotlightSelect();
 
 				await Page.delay(500);
 
@@ -117,8 +117,10 @@ describe('VideoPlayer', function () {
 
 				expect(await videoPlayerDefault.playButton.isFocused()).to.be.true();
 				// Setp 4-2: 5-way Down again.
-				// Step 4-3: 5-way Up quickly.
+				// Step 4-3: 5-way Select.
+				// Step 4-4: 5-way Up quickly.
 				await Page.spotlightDown();
+				await Page.spotlightSelect();
 				await Page.spotlightUp();
 
 				await Page.delay(500);
