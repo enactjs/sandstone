@@ -72,7 +72,7 @@ describe('VideoPlayer', function () {
 				await Page.backKey();
 				await Page.spotlightDown();
 
-				await expect(await videoPlayerDefault.mediaControlsActionGuide.isFocused()).to.be.true();
+				await expect(await videoPlayerDefault.mediaControlsActionGuideButton.isFocused()).to.be.true();
 			});
 
 			it('should focus `previous` buttons on 5-way left', async function () {
