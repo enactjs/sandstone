@@ -4,20 +4,6 @@ import {ActionGuideBase} from '../ActionGuide';
 describe('ActionGuide', () => {
 
 	test(
-		'should render `icon`',
-		() => {
-			const subject = shallow(
-				<ActionGuideBase icon="star" />
-			);
-
-			const expected = 'star';
-			const actual = subject.find('.icon').prop('children');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
 		'should render `children`',
 		() => {
 			const subject = shallow(
@@ -30,15 +16,6 @@ describe('ActionGuide', () => {
 			expect(actual).toBe(expected);
 		}
 	);
-
-	test('should set "buttonAriaLabel" to action guide', () => {
-		const label = 'custom aria-label';
-		render(<ActionGuideBase data-testid="actionGuide" buttonAriaLabel={label} />);
-
-		const actual = screen.getByRole('button', {name : label});
-
-		expect(actual).toBeInTheDocument();
-	});
 
 	describe('CSS override', () => {
 		test(
