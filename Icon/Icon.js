@@ -340,6 +340,12 @@ const IconBase = kind({
  * changepassword
  * r2rappcall
  * musicsrc
+ * keymouse
+ * keymousedis
+ * camera
+ * cameradis
+ * gamepad
+ * gamepaddis
  * ```
  *
  * @name iconList
