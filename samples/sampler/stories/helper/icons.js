@@ -115,12 +115,18 @@ export const deviceIcons = [
 
 export const settingsIcons = [
 	'bluetooth',
+	'camera',
+	'cameradis',
 	'changepassword',
 	'checker',
 	'demosync',
 	'dns',
+	'gamepad',
+	'gamepaddis',
 	'gear',
 	'home',
+	'keymouse',
+	'keymousedis',
 	'miniplayer',
 	'moodmode',
 	'musicsrc',
