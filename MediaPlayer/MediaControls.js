@@ -334,7 +334,7 @@ const MediaControlsBase = kind({
 		actionGuideClassName: ({styler, showMoreComponents}) => styler.join({hidden: showMoreComponents}),
 		actionGuideShowing: ({bottomComponents, children}) => countReactChildren(children) || bottomComponents,
 		className: ({visible, styler}) => styler.append({hidden: !visible}),
-		moreButtonsClassName: ({styler}) => styler.join('mediaControls', 'moreButtonsComponents'),
+		moreButtonsClassName: ({styler, showMoreComponents}) => styler.join({'hidden': !showMoreComponents}, 'mediaControls', 'moreButtonsComponents'),
 		moreComponentsRendered: ({showMoreComponents, moreComponentsRendered}) => showMoreComponents || moreComponentsRendered
 	},
 

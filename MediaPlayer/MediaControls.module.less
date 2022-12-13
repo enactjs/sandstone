@@ -26,6 +26,7 @@
 		transition: opacity @sand-mediaplayer-controls-actionguide-time linear;
 		&.hidden {
 			opacity: 0;
+			visibility: hidden;
 		}
 	}
 
@@ -49,6 +50,9 @@
 
 		> :first-child {
 			margin-top: @sand-mediaplayer-controls-moreComponents-margin-top;
+			&.hidden {
+				visibility: hidden;
+			}
 		}
 	}
 
