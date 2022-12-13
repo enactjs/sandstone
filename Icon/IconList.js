@@ -199,5 +199,11 @@ export default {
 	moodmode          : 0x0F0182, // moodmode
 	changepassword    : 0x0F0183, // changepassword
 	r2rappcall        : 0x0F0184, // r2rappcall
-	musicsrc          : 0x0F0185  // musicsrc
+	musicsrc          : 0x0F0185, // musicsrc
+	keymouse          : 0x0F0186, // key_mouse
+	keymousedis       : 0x0F0187, // key_mouse_dis
+	camera            : 0x0F0188, // camera
+	cameradis         : 0x0F0189, // camera_dis
+	gamepad           : 0x0F018A, // gamepad
+	gamepaddis        : 0x0F018B  // gamepad_dis
 };
