@@ -165,15 +165,10 @@ export const _VideoPlayer = () => {
 					A video about some things happening to and around some characters. Very exciting stuff.
 				</infoComponents>
 				<MediaControls
-					actionGuideAriaLabel={text(
-						'actionGuideAriaLabel',
+					actionGuideButtonAriaLabel={text(
+						'actionGuideButtonAriaLabel',
 						MediaControlsConfig,
-						'Press Down Key Using Remote Control'
-					)}
-					actionGuideLabel={text(
-						'actionGuideLabel',
-						MediaControlsConfig,
-						'Press Down Button to Scroll'
+						''
 					)}
 					jumpBackwardIcon={select('jumpBackwardIcon', icons, MediaControlsConfig, 'jumpbackward')}
 					jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
