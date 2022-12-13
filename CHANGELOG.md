@@ -2,6 +2,18 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.5.6] - 2022-12-13
+
+### Added
+
+- `sandstone/ActionGuide` prop `buttonAriaLabel` and `sandstone/MediaControls` prop `actionGuideButtonAriaLabel` to override aria-label of `ActionGuide` button
+- `sandstone/Icon` supported icon list, adding new icons `keymouse`, `keymousedis`, `camera`, `cameradis`, `gamepad`, and `gamepaddis`
+
+### Changed
+
+- `sandstone/ActionGuide` to replace `Icon` with `Button`
+- `sandstone/VideoPlayer` to not expand video player using key down via 5way
+
 ## [2.5.5] - 2022-10-07
 
 ### Fixed
