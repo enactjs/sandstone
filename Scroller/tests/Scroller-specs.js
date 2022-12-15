@@ -14,11 +14,9 @@ const pressEnterKey = keyDownUp(14);
 const pressDownKey = keyDownUp(40);
 
 describe('Scroller', () => {
-	let clientSize;
 	let contents;
 
 	beforeEach(() => {
-		clientSize = {clientWidth: 1280, clientHeight: 720};
 		contents = (
 			<div>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
@@ -28,7 +26,6 @@ describe('Scroller', () => {
 	});
 
 	afterEach(() => {
-		clientSize = null;
 		contents = null;
 	});
 
