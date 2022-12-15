@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {render, fireEvent, screen, waitFor} from '@testing-library/react';
+import {render, fireEvent, screen} from '@testing-library/react';
 
 import Scroller from '../Scroller';
 
