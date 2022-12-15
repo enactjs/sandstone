@@ -558,6 +558,8 @@ const TransferListBase = kind({
 			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
 			if (list === 'second') {
+				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
+
 				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
 				return;
 			}
@@ -590,6 +592,8 @@ const TransferListBase = kind({
 			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
 
 			if (list === 'first') {
+				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
+
 				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
 				return;
 			}
