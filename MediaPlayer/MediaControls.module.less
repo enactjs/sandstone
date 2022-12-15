@@ -36,6 +36,9 @@
 		right: 0;
 		height: 0px;
 		opacity: 0;
+		&.hidden {
+			visibility: hidden;
+		}
 
 		.moreButtonsComponents {
 			> * {
@@ -50,9 +53,6 @@
 
 		> :first-child {
 			margin-top: @sand-mediaplayer-controls-moreComponents-margin-top;
-			&.hidden {
-				visibility: hidden;
-			}
 		}
 	}
 
