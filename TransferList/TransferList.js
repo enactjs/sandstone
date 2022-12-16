@@ -290,6 +290,7 @@ const TransferListBase = kind({
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
+					orientation="horizontal"
 					selected={selected}
 					showSelection
 					// slotAfter={(selected && showSelectionOrder) && selectedIndex}
@@ -715,7 +716,7 @@ const TransferListBase = kind({
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(firstListSpecs)}
 							itemSize={{
-								minWidth: itemSize,
+								minWidth: 5*itemSize,
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
@@ -756,7 +757,7 @@ const TransferListBase = kind({
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(secondListSpecs)}
 							itemSize={{
-								minWidth: itemSize,
+								minWidth: 5*itemSize,
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
