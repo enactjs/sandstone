@@ -716,7 +716,7 @@ const TransferListBase = kind({
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(firstListSpecs)}
 							itemSize={{
-								minWidth: 5*itemSize,
+								minWidth: 5 * itemSize,
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
@@ -757,7 +757,7 @@ const TransferListBase = kind({
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(secondListSpecs)}
 							itemSize={{
-								minWidth: 5*itemSize,
+								minWidth: 5 * itemSize,
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
