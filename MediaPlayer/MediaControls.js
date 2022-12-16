@@ -335,6 +335,7 @@ const MediaControlsBase = kind({
 		actionGuideShowing: ({bottomComponents, children}) => countReactChildren(children) || bottomComponents,
 		className: ({visible, styler}) => styler.append({hidden: !visible}),
 		moreButtonsClassName: ({styler}) => styler.join('mediaControls', 'moreButtonsComponents'),
+		moreComponentsClassName: ({styler, showMoreComponents}) => styler.join({hidden: !showMoreComponents}, 'moreComponents'),
 		moreComponentsRendered: ({showMoreComponents, moreComponentsRendered}) => showMoreComponents || moreComponentsRendered
 	},
 
@@ -366,6 +367,7 @@ const MediaControlsBase = kind({
 		showMoreComponents,
 		moreComponentsRendered,
 		moreButtonsClassName,
+		moreComponentsClassName,
 		actionGuideClassName,
 		spotlightDisabled,
 		spotlightId,
@@ -385,7 +387,7 @@ const MediaControlsBase = kind({
 					null
 				}
 				{moreComponentsRendered ?
-					<Container spotlightId={moreComponentsSpotlightId} className={css.moreComponents} spotlightDisabled={!showMoreComponents || spotlightDisabled}>
+					<Container spotlightId={moreComponentsSpotlightId} className={moreComponentsClassName} spotlightDisabled={!showMoreComponents || spotlightDisabled}>
 						<Container className={moreButtonsClassName} >
 							{children}
 						</Container>
