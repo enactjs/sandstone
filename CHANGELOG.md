@@ -2,11 +2,22 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [Unreleased]
+## [unreleased]
+
+### Added
+
+- `sandstone/ActionGuide` prop `buttonAriaLabel` and `sandstone/MediaControls` prop `actionGuideButtonAriaLabel` to override aria-label of `ActionGuide` button
+- `sandstone/Icon` supported icon list, adding new icons `keymouse`, `keymousedis`, `camera`, `cameradis`, `gamepad`, and `gamepaddis`
+
+### Changed
+
+- `sandstone/ActionGuide` to replace `Icon` with `Button`
+- `sandstone/VideoPlayer` to not expand video player using key down via 5way
 
 ### Fixed
 
 - `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
+- `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
 
 ## [2.6.0] - 2022-12-05
 
@@ -16,15 +27,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/ActionGuide` prop `buttonAriaLabel` and `sandstone/MediaControls` prop `actionGuideButtonAriaLabel` to override aria-label of `ActionGuide` button
 - `sandstone/FormCheckboxItem` CSS variable `--sand-formcheckboxitem-focus-text-color` for a customization of the focused text color
 
 ### Changed
 
 - `--sand-checkbox-disabled-selected-color` to `--sand-checkbox-disabled-selected-text-color`
 - `@sand-alert-overlay-checkbox-disabled-selected-color` to `@sand-alert-overlay-checkbox-disabled-selected-text-color`
-- `sandstone/ActionGuide` to replace `Icon` with `Button`
-- `sandstone/VideoPlayer` to not expand video player using key down via 5way
 
 ### Fixed
 
