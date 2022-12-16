@@ -19,13 +19,20 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
+import ImageItem from '../ImageItem';
 import Skinnable from '../Skinnable';
-import VirtualList from '../VirtualList';
+import VirtualList, {VirtualGridList} from '../VirtualList';
 
 import componentCss from './TransferList.module.less';
 import itemCss from '../Item/Item.module.less';
 
 let multipleItemDragContainer, singleItemDragContainer;
+
+const svgGenerator = (width, height, customText) => (
+	`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +
+	`%3Crect width='${width}' height='${height}' fill='%23117fba'%3E%3C/rect%3E` +
+	`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23ffffff'%3E${customText}%3C/text%3E%3C/svg%3E`
+);
 
 /**
  * A Sandstone-styled scrollable, draggable and spottable transfer list component.
@@ -107,6 +114,15 @@ const TransferListBase = kind({
 		itemSize: PropTypes.number,
 
 		/**
+		 * The type of component used to render the list of items
+		 *
+		 * @type {Component}
+		 * @default sandstone/Icon.Icon
+		 * @public
+		 */
+		listComponent: PropTypes.oneOf(['VirtualList', 'VirtualGridList']),
+
+		/**
 		 * Allows items to be transferred from one list to another using Spotlight Right and/or Spotlight Left.
 		 *
 		 * @type {Boolean}
@@ -177,6 +193,7 @@ const TransferListBase = kind({
 		firstList: {},
 		height: 999,
 		itemSize: 201,
+		listComponent: 'VirtualList',
 		moveOnSpotlight: false,
 		noMultipleDrag: false,
 		secondList: {},
@@ -232,10 +249,59 @@ const TransferListBase = kind({
 					{element}
 				</CheckboxItem>
 			);
+		},
+		renderImageItem: ({disabled}) => ({elements, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+			const {index, 'data-index': dataIndex} = data;
+			const element = elements[index];
+			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
+			const selected = selectedIndex !== 0;
+
+			const source = {
+				hd: svgGenerator(200, 200,  `${element}`),
+				fhd: svgGenerator(300, 300, `${element}`),
+				uhd: svgGenerator(600, 600, `${element}`)
+			};
+
+			const handleClick = () => {
+				onSelect(element, index, list);
+			};
+
+			const handleSpotlightDown = (ev) => {
+				if (elements.length - 1 !== index) return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightUp = (ev) => {
+				if (index !== 0) return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			return (
+				<ImageItem
+					{...rest}
+					data-index={dataIndex}
+					draggable={!disabled}
+					disabled={disabled}
+					className={componentCss.draggableItem}
+					id={`${index}-${list}`}
+					key={index + list}
+					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
+					selected={selected}
+					showSelection
+					// slotAfter={(selected && showSelectionOrder) && selectedIndex}
+					src={source}
+				>
+					{element}
+				</ImageItem>
+			);
 		}
 	},
 
-	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, noMultipleDrag, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder}) => {
+	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -248,11 +314,16 @@ const TransferListBase = kind({
 		const setCommonElementStyles = (element) => {
 			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
 			if (item) {
-				const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
+				if (listComponent === 'VirtualList') {
+					const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
+					element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
+					element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
+				} else {
+					element.style.backgroundColor = window.getComputedStyle(item, ':before').backgroundColor;
+					element.style.borderRadius = window.getComputedStyle(item, ':before').borderRadius;
+				}
 
-				element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
 				element.style.border = '1px solid black';
-				element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
 				element.style.height = item.clientHeight + 'px';
 				element.style.left = "0px";
 				element.style.position = "absolute";
@@ -629,15 +700,28 @@ const TransferListBase = kind({
 					size="40%"
 					style={{height: height}}
 				>
-					<VirtualList
-						dataSize={firstListLocal.length}
-						horizontalScrollbar="hidden"
-						itemRenderer={renderItem(firstListSpecs)}
-						itemSize={itemSize}
-						onScrollStop={handleScroll}
-						style={{height: height}}
-						verticalScrollbar="hidden"
-					/>
+					{listComponent === 'VirtualList' ?
+						<VirtualList
+							dataSize={firstListLocal.length}
+							horizontalScrollbar="hidden"
+							itemRenderer={renderItem(firstListSpecs)}
+							itemSize={itemSize}
+							onScrollStop={handleScroll}
+							style={{height: height}}
+							verticalScrollbar="hidden"
+						/>					:
+						<VirtualGridList
+							dataSize={firstListLocal.length}
+							horizontalScrollbar="hidden"
+							itemRenderer={renderImageItem(firstListSpecs)}
+							itemSize={{
+								minWidth: itemSize,
+								minHeight: itemSize
+							}}
+							onScrollStop={handleScroll}
+							style={{height: height}}
+							verticalScrollbar="hidden"
+						/> }
 				</Cell>
 				<Cell className={componentCss.listButtons}>
 					{!moveOnSpotlight ?
@@ -658,14 +742,26 @@ const TransferListBase = kind({
 					size="40%"
 					style={{height: height}}
 				>
-					<VirtualList
-						dataSize={secondListLocal.length}
-						horizontalScrollbar="hidden"
-						itemRenderer={renderItem(secondListSpecs)}
-						itemSize={itemSize}
-						onScrollStop={handleScroll}
-						verticalScrollbar="hidden"
-					/>
+					{listComponent === 'VirtualList' ?
+						<VirtualList
+							dataSize={secondListLocal.length}
+							horizontalScrollbar="hidden"
+							itemRenderer={renderItem(secondListSpecs)}
+							itemSize={itemSize}
+							onScrollStop={handleScroll}
+							verticalScrollbar="hidden"
+						/> :
+						<VirtualGridList
+							dataSize={secondListLocal.length}
+							horizontalScrollbar="hidden"
+							itemRenderer={renderImageItem(secondListSpecs)}
+							itemSize={{
+								minWidth: itemSize,
+								minHeight: itemSize
+							}}
+							onScrollStop={handleScroll}
+							verticalScrollbar="hidden"
+						/> }
 				</Cell>
 			</Layout>
 		);
