@@ -306,11 +306,22 @@ const TransferListBase = kind({
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
+		const [position, setPosition] = useState(null);
 
 		const height = ri.scaleToRem(defaultHeight);
 		const itemSize = ri.scale(defaultItemSize);
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
+		let scrollToRefFirst = useRef(null);
+		let scrollToRefSecond = useRef(null);
+
+		const getScrollToFirst = useCallback((scrollTo) => {
+			scrollToRefFirst.current = scrollTo;
+		}, []);
+
+		const getScrollToSecond = useCallback((scrollTo) => {
+			scrollToRefSecond.current = scrollTo;
+		}, []);
 
 		const setCommonElementStyles = (element) => {
 			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
@@ -455,11 +466,23 @@ const TransferListBase = kind({
 		}, [css.draggableItem, css.overAbove, css.overBelow, noMultipleDrag, selectedItems]);
 
 		useEffect(() => {
-			const updateElements = setTimeout(() => handleScroll(), 100);
+			const updateElements = setTimeout(() => {
+				handleScroll();
+
+				if (position === null) return;
+
+				if (position.list === 'first') {
+					scrollToRefFirst.current({index: position.index});
+				} else {
+					scrollToRefSecond.current({index: position.index});
+				}
+
+				setPosition(null);
+			}, 100);
 			return () => {
 				clearTimeout(updateElements);
 			};
-		}, [dragOverElement, firstListLocal, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		}, [dragOverElement, firstListLocal, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
@@ -484,6 +507,8 @@ const TransferListBase = kind({
 				setSecondListLocal(tempSecond);
 			}
 			setSelectedItems(tempSelected);
+
+			setPosition({index: tempFirst.length - 1, list: 'first'});
 		}, [firstListLocal, firstListMaxCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		const moveIntoFirstAll = useCallback(() => {
@@ -495,6 +520,8 @@ const TransferListBase = kind({
 				setSecondListLocal([]);
 			}
 			setSelectedItems([]);
+
+			setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const moveIntoSecondSelected = useCallback(() => {
@@ -520,6 +547,8 @@ const TransferListBase = kind({
 				setSecondListLocal(tempSecond);
 			}
 			setSelectedItems(tempSelected);
+
+			setPosition({index: tempSecond.length - 1, list: 'second'});
 		}, [firstListLocal, firstListMinCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		const moveIntoSecondAll = useCallback(() => {
@@ -531,6 +560,8 @@ const TransferListBase = kind({
 				setSecondListLocal([...secondListLocal, ...firstListLocal]);
 			}
 			setSelectedItems([]);
+
+			setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
@@ -599,6 +630,8 @@ const TransferListBase = kind({
 			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
 			if (list === 'second') {
+				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
+
 				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
 				return;
 			}
@@ -615,6 +648,8 @@ const TransferListBase = kind({
 			}
 			setSelectedItems(selectedListCopy);
 
+			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'second'});
+
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		}, [firstListLocal, firstListMinCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
@@ -629,6 +664,8 @@ const TransferListBase = kind({
 			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
 
 			if (list === 'first') {
+				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
+
 				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
 				return;
 			}
@@ -646,6 +683,8 @@ const TransferListBase = kind({
 				}
 				setSelectedItems(selectedListCopy);
 			}
+
+			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'first'});
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 		}, [firstListLocal, firstListMaxCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMinCapacity]);
@@ -703,6 +742,7 @@ const TransferListBase = kind({
 				>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
+							cbScrollTo={getScrollToFirst}
 							dataSize={firstListLocal.length}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderItem(firstListSpecs)}
@@ -712,6 +752,7 @@ const TransferListBase = kind({
 							verticalScrollbar="hidden"
 						/>					:
 						<VirtualGridList
+							cbScrollTo={getScrollToFirst}
 							dataSize={firstListLocal.length}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(firstListSpecs)}
@@ -745,6 +786,7 @@ const TransferListBase = kind({
 				>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
+							cbScrollTo={getScrollToSecond}
 							dataSize={secondListLocal.length}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderItem(secondListSpecs)}
@@ -753,6 +795,7 @@ const TransferListBase = kind({
 							verticalScrollbar="hidden"
 						/> :
 						<VirtualGridList
+							cbScrollTo={getScrollToSecond}
 							dataSize={secondListLocal.length}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(secondListSpecs)}
