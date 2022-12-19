@@ -1009,6 +1009,7 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 */
 	wrap: PropTypes.bool
 };
+
 PickerBase.defaultProps = {
 	accessibilityHint: '',
 	changedBy: 'enter',
