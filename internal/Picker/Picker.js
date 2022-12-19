@@ -717,8 +717,8 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	/**
 	 * Determines which key to adjust the picker's value for the joined horizontal one.
 	 *
-	 * `'enter'` allows the user to use the enter key to adjust the picker's value
-	 * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
+	 *  * `'enter'` allows the user to use the enter key to adjust the picker's value
+	 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 	 *
 	 * The default value for joined horizontal picker is `'enter'`.
 	 * If {@link sandstone/internal/Picker.PickerBase#orientation|orientation} is `'vertical'` or
