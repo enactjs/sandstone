@@ -85,7 +85,6 @@ const forwardBlur = forward('onBlur'),
  * @ui
  * @private
  */
-
 const PickerBase = (props) => {
 	// Set to `true` onFocus and `false` onBlur to prevent setting aria-valuetext (which
 	// will notify the user) when the component does not have focus
