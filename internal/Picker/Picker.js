@@ -117,6 +117,7 @@ const PickerBase = (props) => {
 		wrap,
 		...rest
 	} = props;
+
 	const css = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 	const decrementIcon = selectDecIcon(props);
 	const horizontal = orientation === 'horizontal';
