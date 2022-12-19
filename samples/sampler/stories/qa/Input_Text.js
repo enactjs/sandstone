@@ -1,6 +1,6 @@
+import Input, {InputBase, InputPopupBase} from '@enact/sandstone/Input';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import Input, {InputBase, InputPopupBase} from '@enact/sandstone/Input';
 
 import {iconNames, buttons, propOptions, inputData} from './common/Input_Common';
 

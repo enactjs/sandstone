@@ -394,65 +394,68 @@ const InputPopupBase = kind({
 		delete rest.onOpenPopup;
 
 		return (
-			<Popup
-				aria-label={popupAriaLabel}
-				aria-labelledby={ariaLabelledBy}
-				onClose={onClose}
-				onShow={onShow}
-				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
-				className={popupClassName}
-				noAlertRole
-				noAnimation
-				open={open}
-				role="region"
-			>
-				{popupType === 'fullscreen' ? backButton : null}
-				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
-					<Cell shrink className={css.titles}>
-						{popupType === 'fullscreen' ?
-							heading :
-							<>
-								{backButton}
-								{heading}
-							</>
-						}
-						<Heading id={`${id}_subtitle`} size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
-					</Cell>
-					<Cell shrink className={css.inputArea}>
-						{numberMode ?
-							<NumberField
-								{...inputProps}
-								announce={announce}
-								maxLength={limitNumberLength(popupType, maxLength)}
-								minLength={limitNumberLength(popupType, minLength)}
-								defaultValue={value}
-								onBeforeChange={onBeforeChange}
-								onComplete={onNumberComplete}
-								showKeypad
-								type={(type === 'passwordnumber') ? 'password' : 'number'}
-								numberInputField={numberInputField}
-								noSubmitButton={noSubmitButton}
-							/> :
-							<InputField
-								{...inputProps}
-								className={classnames(css.textField, spotlightDefaultClass)}
-								css={css}
-								maxLength={maxLength}
-								minLength={minLength}
-								size={size}
-								autoFocus
-								type={type}
-								defaultValue={value}
-								placeholder={placeholder}
-								onBeforeChange={onBeforeChange}
-								onKeyDown={onInputKeyDown}
-								spotlightId={inputFieldSpotlightId}
-							/>
-						}
-					</Cell>
-					<Cell shrink className={css.buttonArea}>{children}</Cell>
-				</Layout>
-			</Popup>
+			<div aria-owns={id} className={css.inputPopupWrapper}>
+				<Popup
+					id={id}
+					aria-label={popupAriaLabel}
+					aria-labelledby={ariaLabelledBy}
+					onClose={onClose}
+					onShow={onShow}
+					position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
+					className={popupClassName}
+					noAlertRole
+					noAnimation
+					open={open}
+					role="region"
+				>
+					{popupType === 'fullscreen' ? backButton : null}
+					<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
+						<Cell shrink className={css.titles}>
+							{popupType === 'fullscreen' ?
+								heading :
+								<>
+									{backButton}
+									{heading}
+								</>
+							}
+							<Heading id={`${id}_subtitle`} size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
+						</Cell>
+						<Cell shrink className={css.inputArea}>
+							{numberMode ?
+								<NumberField
+									{...inputProps}
+									announce={announce}
+									maxLength={limitNumberLength(popupType, maxLength)}
+									minLength={limitNumberLength(popupType, minLength)}
+									defaultValue={value}
+									onBeforeChange={onBeforeChange}
+									onComplete={onNumberComplete}
+									showKeypad
+									type={(type === 'passwordnumber') ? 'password' : 'number'}
+									numberInputField={numberInputField}
+									noSubmitButton={noSubmitButton}
+								/> :
+								<InputField
+									{...inputProps}
+									className={classnames(css.textField, spotlightDefaultClass)}
+									css={css}
+									maxLength={maxLength}
+									minLength={minLength}
+									size={size}
+									autoFocus
+									type={type}
+									defaultValue={value}
+									placeholder={placeholder}
+									onBeforeChange={onBeforeChange}
+									onKeyDown={onInputKeyDown}
+									spotlightId={inputFieldSpotlightId}
+								/>
+							}
+						</Cell>
+						<Cell shrink className={css.buttonArea}>{children}</Cell>
+					</Layout>
+				</Popup>
+			</div>
 		);
 	}
 });

@@ -90,6 +90,21 @@ describe('Input specs', () => {
 		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
+	test('should set `spellcheck=false` attribute when type is `password`', () => {
+		const str = 'placeholder text';
+		render(
+			<FloatingLayerController>
+				<Input placeholder={str} open type="password" />
+			</FloatingLayerController>
+		);
+		const inputField = screen.getByPlaceholderText(str);
+
+		const expectedAttribute = 'spellcheck';
+		const expectedValue = 'false';
+
+		expect(inputField).toHaveAttribute(expectedAttribute, expectedValue);
+	});
+
 	test('should set type to url at input when input type is `url`', () => {
 		const str = 'placeholder text';
 		render(

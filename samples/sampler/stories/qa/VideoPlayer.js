@@ -156,7 +156,7 @@ class VideoPlayerWithfastForwardMode extends Component {
 					<Video>
 						<source src={'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'} />
 					</Video>
-					<MediaControls actionGuideLabel="Press Down Button">
+					<MediaControls>
 						<Button
 							icon="backward"
 							onClick={this.rewind}

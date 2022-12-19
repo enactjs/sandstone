@@ -1,11 +1,11 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, range, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import {ImageItem} from '@enact/sandstone/ImageItem';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
 import VideoPlayer, {VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, range, select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 
 import icons from '../helper/icons';
@@ -172,8 +172,7 @@ export const _VideoPlayer = (args) => {
 					A video about some things happening to and around some characters. Very exciting stuff.
 				</infoComponents>
 				<MediaControls
-					actionGuideAriaLabel={args['actionGuideAriaLabel']}
-					actionGuideLabel={args['actionGuideLabel']}
+					actionGuideButtonAriaLabel={args['actionGuideButtonAriaLabel']}
 					jumpBackwardIcon={args['jumpBackwardIcon']}
 					jumpButtonsDisabled={args['jumpButtonsDisabled']}
 					jumpForwardIcon={args['jumpForwardIcon']}
@@ -233,16 +232,10 @@ boolean('thumbnailUnavailable', _VideoPlayer, Config);
 text('title', _VideoPlayer, Config, 'Sandstone VideoPlayer Sample Video');
 number('titleHideDelay', _VideoPlayer, Config, 4000);
 text(
-	'actionGuideAriaLabel',
+	'actionGuideButtonAriaLabel',
 	_VideoPlayer,
 	MediaControlsConfig,
-	'Press Down Key Using Remote Control'
-);
-text(
-	'actionGuideLabel',
-	_VideoPlayer,
-	MediaControlsConfig,
-	'Press Down Button to Scroll'
+	''
 );
 select('jumpBackwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpbackward');
 boolean('jumpButtonsDisabled', _VideoPlayer, MediaControlsConfig);

@@ -1,9 +1,10 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
-import {DocsPage, DocsContainer} from '@enact/storybook-utils/addons/docs';
+import {DocsContainer, Primary, Title} from '@enact/storybook-utils/addons/docs';
+import ri from '@enact/ui/resolution';
 import {themes} from '@storybook/theming';
 
-import ThemeEnvironment from '../src/ThemeEnvironment'
+import ThemeEnvironment from '../src/ThemeEnvironment';
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
@@ -47,12 +48,18 @@ const skins = {
 };
 
 configureActions();
+
 export const parameters = {
 	docs: {
 		container: DocsContainer,
-		page: DocsPage,
-		iframeHeight: 360,
 		inlineStories: false,
+		iframeHeight: ri.scaleToRem(900),
+		page: () => (
+			<>
+				<Title />
+				<Primary />
+			</>
+		),
 		theme: themes.light
 	},
 	options: {
@@ -61,6 +68,7 @@ export const parameters = {
 		}
 	}
 };
+
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
@@ -72,4 +80,5 @@ export const globalTypes = {
 	'debug spotlight': getBooleanType('debug spotlight'),
 	'debug sprites': getBooleanType('debug sprites')
 };
+
 export const decorators = [ThemeEnvironment];
