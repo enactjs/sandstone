@@ -77,6 +77,8 @@ const forwardBlur = forward('onBlur'),
 	forwardKeyUp = forward('onKeyUp'),
 	forwardWheel = forward('onWheel');
 
+const allowedClassNames = ['picker', 'valueWrapper', 'joined', 'horizontal', 'vertical'];
+
 /**
  * The base component for {@link sandstone/internal/Picker.Picker}.
  *
@@ -117,14 +119,18 @@ const PickerBase = (props) => {
 		...rest
 	} = props;
 
-	const css = usePublicClassNames({componentCss, customCss, publicClassNames: true});
-	const decrementIcon = selectDecIcon(props);
-	const horizontal = orientation === 'horizontal';
+	const css = usePublicClassNames({componentCss, customCss, allowedClassNames});
+
 	const incrementIcon = selectIncIcon(props);
+	const decrementIcon = selectDecIcon(props);
+
+	const horizontal = orientation === 'horizontal';
 	const isHorizontalJoinedEnter = horizontal && joined && changedBy === 'enter';
+
 	const showIndicators = isHorizontalJoinedEnter && Array.isArray(children) && children.length > 1;
 	const voiceProps = extractVoiceProps(rest);
 	const voiceLabelsExt = voiceProps['data-webos-voice-labels-ext'];
+
 	let Component;
 	let arranger = horizontal ? SlideLeftArranger : SlideTopArranger;
 	let noAnimation = props.noAnimation || disabled;
