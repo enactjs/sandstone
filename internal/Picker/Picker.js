@@ -255,11 +255,11 @@ const PickerBase = (props) => {
 	}, [joined, handleVoice, handleWheel]);
 
 	useEffect(() => {
-		return (() => {
+		return () => {
 			emulateMouseUp.stop();
 			throttleWheelInc.stop();
 			throttleWheelDec.stop();
-		});
+		}
 	}, []);
 
 	const handleBlur = useCallback((ev) => {
