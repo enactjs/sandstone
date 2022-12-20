@@ -259,8 +259,8 @@ const PickerBase = (props) => {
 			emulateMouseUp.stop();
 			throttleWheelInc.stop();
 			throttleWheelDec.stop();
-		}
-	}, []);
+		};
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleBlur = useCallback((ev) => {
 		forwardBlur(ev, props);
