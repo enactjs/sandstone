@@ -463,7 +463,7 @@ const TransferListBase = kind({
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, noMultipleDrag, selectedItems]);
+		}, [css.draggableItem, css.overAbove, css.overBelow, listComponent, noMultipleDrag, selectedItems]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => {
@@ -482,7 +482,7 @@ const TransferListBase = kind({
 			return () => {
 				clearTimeout(updateElements);
 			};
-		}, [dragOverElement, firstListLocal, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		}, [dragOverElement, firstListLocal, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
@@ -549,7 +549,7 @@ const TransferListBase = kind({
 			setSelectedItems(tempSelected);
 
 			setPosition({index: tempSecond.length - 1, list: 'second'});
-		}, [firstListLocal, firstListMinCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
+		}, [firstListLocal, firstListMinCapacity, listComponent, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		const moveIntoSecondAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -608,7 +608,7 @@ const TransferListBase = kind({
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		}, [noMultipleDrag, selectedItems]);
+		}, [listComponent, noMultipleDrag, selectedItems]);
 
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
@@ -750,7 +750,7 @@ const TransferListBase = kind({
 							onScrollStop={handleScroll}
 							style={{height: height}}
 							verticalScrollbar="hidden"
-						/>					:
+						/>	:
 						<VirtualGridList
 							cbScrollTo={getScrollToFirst}
 							dataSize={firstListLocal.length}
