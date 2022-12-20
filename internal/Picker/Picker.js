@@ -245,9 +245,6 @@ const PickerBase = (props) => {
 		}
 
 		return (() => {
-			emulateMouseUp.stop();
-			throttleWheelInc.stop();
-			throttleWheelDec.stop();
 			if (joined) {
 				currentPicker.removeEventListener('wheel', handleWheel);
 			}
@@ -256,6 +253,14 @@ const PickerBase = (props) => {
 			}
 		});
 	}, [joined, emulateMouseUp, handleVoice, handleWheel, throttleWheelDec, throttleWheelInc]);
+
+	useEffect(() => {
+		return (() => {
+			emulateMouseUp.stop();
+			throttleWheelInc.stop();
+			throttleWheelDec.stop();
+		});
+	}, []);
 
 	const handleBlur = useCallback((ev) => {
 		forwardBlur(ev, props);
@@ -414,7 +419,7 @@ const PickerBase = (props) => {
 		}
 	}, [hasReachedBound, orientation, props, step]);
 
-	const determineClasses = (cssProps, decrementerDisabledProp, incrementerDisabledProp) => {
+	const determineClasses = useCallback((cssProps, decrementerDisabledProp, incrementerDisabledProp) => {
 		const {className: classNameVariable} = props;
 
 		return classnames(
@@ -429,9 +434,9 @@ const PickerBase = (props) => {
 			},
 			classNameVariable
 		);
-	};
+	}, [changedBy, joined, orientation, pressed, props, width]);
 
-	const calcValueText = () => {
+	const calcValueText = useCallback(() => {
 		const {accessibilityHint} = props;
 		let valueTextVariable = value;
 
@@ -449,9 +454,9 @@ const PickerBase = (props) => {
 		}
 
 		return valueTextVariable;
-	};
+	}, [children, index, props, value]);
 
-	const calcButtonLabel = (next, valueTextProp) => {
+	const calcButtonLabel = useCallback((next, valueTextProp) => {
 		const {decrementAriaLabel, incrementAriaLabel} = props;
 		const titleText = props.title ? props.title + ' ' : '';
 		let label;
@@ -470,17 +475,17 @@ const PickerBase = (props) => {
 		} else {
 			return titleText + `${valueTextProp} ${next ? $L('next item') : $L('previous item')}`;
 		}
-	};
+	}, [orientation, props]);
 
-	const calcDecrementLabel = (valueTextProp) => {
+	const calcDecrementLabel = useCallback((valueTextProp) => {
 		return !joined ? calcButtonLabel(reverse, valueTextProp) : null;
-	};
+	}, [calcButtonLabel, joined, reverse]);
 
-	const calcIncrementLabel = (valueTextProp) => {
+	const calcIncrementLabel = useCallback((valueTextProp) => {
 		return !joined ? calcButtonLabel(!reverse, valueTextProp) : null;
-	};
+	}, [calcButtonLabel, joined, reverse]);
 
-	const calcAriaLabel = (valueTextProp) => {
+	const calcAriaLabel = useCallback((valueTextProp) => {
 		const {'aria-label': ariaLabel} = props;
 		let hint;
 		if (orientation === 'horizontal') {
@@ -494,7 +499,7 @@ const PickerBase = (props) => {
 		}
 
 		return `${valueTextProp} ${hint}`;
-	};
+	}, [changedBy, joined, orientation, props]);
 
 	if (__DEV__) {
 		validateRange(value, min, max, PickerBase.displayName);
