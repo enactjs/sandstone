@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
+
 ## [2.5.6] - 2022-12-13
 
 ### Added
