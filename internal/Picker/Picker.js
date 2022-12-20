@@ -252,7 +252,7 @@ const PickerBase = (props) => {
 				currentPicker.removeEventListener('webOSVoice', handleVoice);
 			}
 		});
-	}, [joined, emulateMouseUp, handleVoice, handleWheel, throttleWheelDec, throttleWheelInc]);
+	}, [joined, handleVoice, handleWheel]);
 
 	useEffect(() => {
 		return (() => {
