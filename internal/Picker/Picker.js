@@ -119,7 +119,7 @@ const PickerBase = (props) => {
 		...rest
 	} = props;
 
-	const css = usePublicClassNames({componentCss, customCss, allowedClassNames});
+	const css = usePublicClassNames({componentCss, customCss, publicClassNames: allowedClassNames});
 
 	const incrementIcon = selectIncIcon(props);
 	const decrementIcon = selectDecIcon(props);
