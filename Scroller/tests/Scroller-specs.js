@@ -1,7 +1,17 @@
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react';
+import {render, fireEvent, screen} from '@testing-library/react';
 
 import Scroller from '../Scroller';
+
+const focus = (elm) => fireEvent.focus(elm);
+
+const keyDownUp = (keyCode) => (elm) => {
+	fireEvent.keyDown(elm, {keyCode});
+	return fireEvent.keyUp(elm, {keyCode});
+};
+
+const pressEnterKey = keyDownUp(14);
+const pressDownKey = keyDownUp(40);
 
 describe('Scroller', () => {
 	let contents;
@@ -61,7 +71,7 @@ describe('Scroller', () => {
 		);
 
 		test(
-			'should not render any scrollbar when when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
+			'should not render any scrollbar when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
 			() => {
 				render(
 					<Scroller
@@ -77,6 +87,63 @@ describe('Scroller', () => {
 
 				expect(verticalScrollbar).toBeNull();
 				expect(horizontalScrollbar).toBeNull();
+			}
+		);
+	});
+
+	describe('focusable Scrollbar', () => {
+		test('should have focuable body and thumb when \'focusableScrollbar\' is "byEnter"',
+			() => {
+				const id = 'scroller';
+
+				render(
+					<Scroller
+						data-testid={id}
+						focusableScrollbar="byEnter"
+						verticalScrollbar="visible"
+					>
+						{contents}
+					</Scroller>
+				);
+
+				const scroller = screen.getByTestId(id);
+				const scrollBody = scroller.children.item(0);
+				const virticalScrollbar = screen.getByLabelText("scroll up or down with up down button press ok button to read text");
+
+				const expected = "spottable";
+
+				// dispatching key event to increase code coverage
+				focus(virticalScrollbar);
+				pressDownKey(virticalScrollbar);
+				pressEnterKey(virticalScrollbar);
+
+				expect(scrollBody).toHaveClass(expected);
+				expect(virticalScrollbar).toHaveClass(expected);
+			}
+		);
+
+		test('should have focuable scroll thumb when \'focusableScrollbar\' is true',
+			() => {
+				const id = 'scroller';
+
+				render(
+					<Scroller
+						data-testid={id}
+						focusableScrollbar
+						verticalScrollbar="visible"
+					>
+						{contents}
+					</Scroller>
+				);
+
+				const scroller = screen.getByTestId(id);
+				const scrollBody = scroller.children.item(0);
+				const virticalScrollbar = screen.getByLabelText("scroll up or down with up down button");
+
+				const expected = "spottable";
+
+				expect(scrollBody).not.toHaveClass(expected);
+				expect(virticalScrollbar).toHaveClass(expected);
 			}
 		);
 	});
