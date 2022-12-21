@@ -263,20 +263,22 @@ const ButtonTests = [
 	// *************************************************************
 	// With customized button
 	// *************************************************************
+	// Note: When the file name of the test is too long, different tests may be recognized as the same test.
+	// So we changed the Button name of Focus prop tests.
 	...withProps({css: css}, [
 		// standard button
 		<Button>Customized button</Button>,
-		<Button minWidth>Customized button</Button>,
+		<Button minWidth>Button</Button>,
 		{
-			component: <Button>Customized button</Button>,
+			component: <Button>Button</Button>,
 			focus: true
 		},
 
 		{
-			component: <Button size="small">Customized button</Button>,
+			component: <Button size="small">Button</Button>,
 			focus: true
 		},
-		<Button minWidth size="small">Customized button</Button>,
+		<Button minWidth size="small">Button</Button>,
 
 		// With icon.
 		<Button icon="minus" />,
@@ -304,7 +306,7 @@ const ButtonTests = [
 		<Button backgroundOpacity="transparent" color="blue">Customized button</Button>,
 
 		{
-			component: <Button backgroundOpacity="transparent" size="small">Customized button</Button>,
+			component: <Button backgroundOpacity="transparent" size="small">Customized Focused button</Button>,
 			focus: true
 		},
 		<Button backgroundOpacity="transparent" selected>Customized button</Button>,
@@ -322,7 +324,7 @@ const ButtonTests = [
 		<Button backgroundOpacity="opaque" color="blue">Customized button</Button>,
 
 		{
-			component: <Button backgroundOpacity="opaque" size="small">Customized button</Button>,
+			component: <Button backgroundOpacity="opaque" size="small">Customized Focused button</Button>,
 			focus: true
 		},
 		<Button backgroundOpacity="opaque" selected>Customized button</Button>,
@@ -337,7 +339,7 @@ const ButtonTests = [
 		// With disabled
 		<Button backgroundOpacity="opaque" disabled>Customized button</Button>,
 		{
-			component: <Button backgroundOpacity="opaque" disabled>Customized button</Button>,
+			component: <Button backgroundOpacity="opaque" disabled>Customized Focused button</Button>,
 			focus:true
 		}
 	])
