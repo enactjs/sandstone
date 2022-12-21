@@ -259,13 +259,13 @@ const TransferListBase = kind({
 			const selected = selectedIndex !== 0;
 
 			const source = {
-				hd: svgGenerator(200, 200,  `${element}`),
-				fhd: svgGenerator(300, 300, `${element}`),
-				uhd: svgGenerator(600, 600, `${element}`)
+				hd: svgGenerator(200, 200, ''),
+				fhd: svgGenerator(300, 300, ''),
+				uhd: svgGenerator(600, 600, '')
 			};
 
 			const selectionComponent = () => {
-				return <>{selected && <Icon className={imageItemCss.selectionIcon}>check</Icon>}{(selected && showSelectionOrder) && selectedIndex}</>;
+				return <div className={componentCss.selectionContainer}>{selected && <Icon className={imageItemCss.selectionIcon}>check</Icon>}{(selected && showSelectionOrder) && selectedIndex}</div>;
 			};
 
 			const handleClick = () => {
