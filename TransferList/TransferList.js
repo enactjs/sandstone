@@ -116,10 +116,10 @@ const TransferListBase = kind({
 		itemSize: PropTypes.number,
 
 		/**
-		 * The type of component used to render the list of items
+		 * The type of component used to render the list of items.
 		 *
 		 * @type {Component}
-		 * @default sandstone/Icon.Icon
+		 * @default 'VirtualList'
 		 * @public
 		 */
 		listComponent: PropTypes.oneOf(['VirtualList', 'VirtualGridList']),
@@ -755,7 +755,6 @@ const TransferListBase = kind({
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
 							style={{height: height}}
-							verticalScrollbar="hidden"
 						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToFirst}
@@ -768,7 +767,6 @@ const TransferListBase = kind({
 							}}
 							onScrollStop={handleScroll}
 							style={{height: height}}
-							verticalScrollbar="hidden"
 						/> }
 				</Cell>
 				<Cell className={componentCss.listButtons}>
@@ -798,7 +796,6 @@ const TransferListBase = kind({
 							itemRenderer={renderItem(secondListSpecs)}
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
-							verticalScrollbar="hidden"
 						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToSecond}
@@ -810,7 +807,6 @@ const TransferListBase = kind({
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
-							verticalScrollbar="hidden"
 						/> }
 				</Cell>
 			</Layout>
