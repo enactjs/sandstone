@@ -236,10 +236,10 @@ const TransferListBase = kind({
 			return (
 				<CheckboxItem
 					{...rest}
+					className={componentCss.draggableItem}
 					data-index={dataIndex}
 					draggable={!disabled}
 					disabled={disabled}
-					className={componentCss.draggableItem}
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
@@ -287,10 +287,10 @@ const TransferListBase = kind({
 			return (
 				<ImageItem
 					{...rest}
-					data-index={dataIndex}
-					draggable={!disabled}
-					disabled={disabled}
 					className={componentCss.draggableItem}
+					data-index={dataIndex}
+					disabled={disabled}
+					draggable={!disabled}
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
@@ -756,7 +756,7 @@ const TransferListBase = kind({
 							onScrollStop={handleScroll}
 							style={{height: height}}
 							verticalScrollbar="hidden"
-						/>	:
+						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToFirst}
 							dataSize={firstListLocal.length}
