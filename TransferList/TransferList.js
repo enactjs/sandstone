@@ -19,11 +19,13 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
+import Icon from '../Icon';
 import ImageItem from '../ImageItem';
 import Skinnable from '../Skinnable';
 import VirtualList, {VirtualGridList} from '../VirtualList';
 
 import componentCss from './TransferList.module.less';
+import imageItemCss from '../ImageItem/ImageItem.module.less';
 import itemCss from '../Item/Item.module.less';
 
 let multipleItemDragContainer, singleItemDragContainer;
@@ -262,6 +264,10 @@ const TransferListBase = kind({
 				uhd: svgGenerator(600, 600, `${element}`)
 			};
 
+			const selectionComponent = () => {
+				return <>{selected && <Icon className={imageItemCss.selectionIcon}>check</Icon>}{(selected && showSelectionOrder) && selectedIndex}</>;
+			};
+
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
@@ -292,8 +298,8 @@ const TransferListBase = kind({
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					orientation="horizontal"
 					selected={selected}
+					selectionComponent={selectionComponent} // eslint-disable-line  react/jsx-no-bind
 					showSelection
-					// slotAfter={(selected && showSelectionOrder) && selectedIndex}
 					src={source}
 				>
 					{element}
@@ -463,7 +469,7 @@ const TransferListBase = kind({
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, listComponent, noMultipleDrag, selectedItems]);
+		}, [css.draggableItem, css.overAbove, css.overBelow, noMultipleDrag, selectedItems]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => {
@@ -549,7 +555,7 @@ const TransferListBase = kind({
 			setSelectedItems(tempSelected);
 
 			setPosition({index: tempSecond.length - 1, list: 'second'});
-		}, [firstListLocal, firstListMinCapacity, listComponent, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
+		}, [firstListLocal, firstListMinCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		const moveIntoSecondAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -608,7 +614,7 @@ const TransferListBase = kind({
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		}, [listComponent, noMultipleDrag, selectedItems]);
+		}, [noMultipleDrag, selectedItems]);
 
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
