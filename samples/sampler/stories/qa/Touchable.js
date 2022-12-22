@@ -211,25 +211,25 @@ boolean('disabled', WithDragHandlers, TouchableDiv);
 
 WithDragHandlers.storyName = 'with drag handlers';
 
-export const WithPinchZoomHandlers = (args) => {
+export const WithPinchHandlers = (args) => {
 	const [scale, setScale] = useState(1.0);
 
-	const handlePinchZoom = useCallback((ev) => {
-		action('onPinchZoom')(ev);
+	const handlePinch = useCallback((ev) => {
+		action('onPinch')(ev);
 		setScale(ev.scale);
 	}, []);
 
 	return (
 		<TouchableDiv
-			pinchZoomConfig={{
-				global: args['pinchZoomConfig global'] || false,
-				maxZoom: args['pinchZoomConfig maxZoom'],
-				minZoom: args['pinchZoomConfig minZoom'],
-				moveTolerance: args['pinchZoomConfig moveTolerance']
+			pinchConfig={{
+				global: args['pinchConfig global'] || false,
+				maxZoom: args['pinchConfig maxZoom'],
+				minZoom: args['pinchConfig minZoom'],
+				moveTolerance: args['pinchConfig moveTolerance']
 			}}
-			onPinchZoomStart={action('onPinchZoomStart')}
-			onPinchZoom={handlePinchZoom}
-			onPinchZoomEnd={action('onPinchZoomEnd')}
+			onPinchStart={action('onPinchStart')}
+			onPinch={handlePinch}
+			onPinchEnd={action('onPinchEnd')}
 			style={{
 				border: '4px dashed #888',
 				margin: ri.scaleToRem(300),
@@ -238,17 +238,17 @@ export const WithPinchZoomHandlers = (args) => {
 				transform: `scale(${scale})`
 			}}
 		>
-			PinchZoom within this component.
+			Pinch within this component.
 		</TouchableDiv>
 	);
 };
 
-boolean('pinchZoomConfig global', WithPinchZoomHandlers, TouchableDiv, false);
-number('pinchZoomConfig maxZoom', WithPinchZoomHandlers, TouchableDiv, 4);
-number('pinchZoomConfig minZoom', WithPinchZoomHandlers, TouchableDiv, 0.5);
-number('pinchZoomConfig moveTolerance', WithPinchZoomHandlers, TouchableDiv, 4);
+boolean('pinchConfig global', WithPinchHandlers, TouchableDiv, false);
+number('pinchConfig maxZoom', WithPinchHandlers, TouchableDiv, 4);
+number('pinchConfig minZoom', WithPinchHandlers, TouchableDiv, 0.5);
+number('pinchConfig moveTolerance', WithPinchHandlers, TouchableDiv, 4);
 
-WithPinchZoomHandlers.storyName = 'with pinch-zoom handlers';
+WithPinchHandlers.storyName = 'with onPinch handlers';
 
 export const OnTapWhenClicked = (args) => (
 	<TouchableDiv
