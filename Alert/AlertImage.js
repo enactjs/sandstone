@@ -14,7 +14,7 @@ import componentCss from './AlertImage.module.less';
  */
 const AlertImage = kind({
 	name: 'AlertImage',
-	propTypes: /** @lends sandstone/Alert.AlertImage */ {
+	propTypes: /** @lends sandstone/Alert.AlertImage.prototype */ {
 		/**
 		 * String value or Object of values used to determine which image will appear for
 		 * a specific component size.
