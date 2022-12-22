@@ -3,10 +3,10 @@ import {act, createEvent, fireEvent, render, screen, waitFor} from '@testing-lib
 import userEvent from '@testing-library/user-event';
 
 import VideoPlayer from '../VideoPlayer';
+import {Button} from '../../Button';
+import {MediaControls} from '../../MediaPlayer';
 
 const focus = (slider) => fireEvent.focus(slider);
-const keyDown = (keyCode) => (button) => fireEvent.keyDown(button, {keyCode});
-const downKeyDown = keyDown(40);
 
 describe('VideoPlayer', () => {
 	test('should fire `onPlaying` with `playing` type when playing event is fired', () => {
@@ -107,11 +107,17 @@ describe('VideoPlayer', () => {
 		expect(backButton).toBeNull();
 	});
 
-	test('should fire `onToggleMore` with `onToggleMore` type when downkey pressed during pause button focus', async () => {
+	test('should fire `onToggleMore` with `onToggleMore` type when ActionGide button clicked', async () => {
 		const handleToggleMore = jest.fn();
 
 		render(
-			<VideoPlayer data-testid="videoplayer-id" onToggleMore={handleToggleMore} />
+			<VideoPlayer data-testid="videoplayer-id" onToggleMore={handleToggleMore}>
+				<MediaControls
+					actionGuideButtonAriaLabel="This is ActionGide button"
+				>
+					<Button size="small" icon="list" />
+				</MediaControls>
+			</VideoPlayer>
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
@@ -120,10 +126,10 @@ describe('VideoPlayer', () => {
 
 		await screen.findByLabelText('go to previous');
 
-		const pauseButton = screen.getByLabelText('Pause');
+		const actionGuideButton = screen.getByLabelText('This is ActionGide button');
 		const expected = {type: 'onToggleMore'};
 
-		downKeyDown(pauseButton);
+		userEvent.click(actionGuideButton);
 
 		await waitFor(() => {
 			const actual = handleToggleMore.mock.calls.length && handleToggleMore.mock.calls[0][0];

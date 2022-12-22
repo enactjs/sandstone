@@ -1,7 +1,7 @@
+import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
 import ri from '@enact/ui/resolution';
 import UiSpinner, {SpinnerBase as UiSpinnerBase} from '@enact/ui/Spinner';
 
