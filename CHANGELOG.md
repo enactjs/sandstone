@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
+- `sandstone/Scroller` to not stop unexpectedly when `hoverToScroll` is `true`
 
 ## [2.5.6] - 2022-12-13
 
