@@ -188,12 +188,6 @@ const HoverToScrollBase = (props) => {
 		}
 	}, [update, direction, scrollContainer, props]);
 
-	useLayoutEffect(() => {
-		return () => {
-			stopRaf(); // for hoverToScroll prop change during hovering
-		};
-	}, [stopRaf]);
-
 	// Render
 
 	const renderHoverArea = useCallback((position) => {
