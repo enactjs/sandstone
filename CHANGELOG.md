@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ActionGuide` to replace `Icon` with `Button`
 - `sandstone/VideoPlayer` to not expand video player using key down via 5way
+- `sandstone/Scroller` and `sandstone/VirtualList` scroll speed and hover area when `hoverToScroll` is `true` to match GUI
 
 ### Fixed
 
