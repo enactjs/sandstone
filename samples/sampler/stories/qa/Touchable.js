@@ -246,7 +246,7 @@ export const WithPinchHandlers = (args) => {
 boolean('pinchConfig global', WithPinchHandlers, TouchableDiv, false);
 number('pinchConfig maxZoom', WithPinchHandlers, TouchableDiv, 4);
 number('pinchConfig minZoom', WithPinchHandlers, TouchableDiv, 0.5);
-number('pinchConfig moveTolerance', WithPinchHandlers, TouchableDiv, 4);
+number('pinchConfig moveTolerance', WithPinchHandlers, TouchableDiv, 16);
 
 WithPinchHandlers.storyName = 'with onPinch handlers';
 
