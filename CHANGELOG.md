@@ -2,6 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.5.7] - 2023-01-03
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scroll speed and hover area when `hoverToScroll` is `true` to match GUI
+
+### Fixed
+
+- `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
+- `sandstone/Scroller` to not stop scrolling by hover unexpectedly when `hoverToScroll` is `true`
+
 ## [2.5.6] - 2022-12-13
 
 ### Added
