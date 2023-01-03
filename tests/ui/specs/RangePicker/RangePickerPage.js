@@ -46,13 +46,15 @@ class RangePickerPage extends Page {
 		const rangePickerWithNegativeValues = new RangePickerInterface('rangePickerWithNegativeValues');
 		const rangePickerWrap = new RangePickerInterface('rangePickerWrap');
 		const rangePickerJoined = new RangePickerInterface('rangePickerJoined');
+		const rangePickerMaxValues = new RangePickerInterface('rangePickerMaxValues');
+		const rangePickerMinValues = new RangePickerInterface('rangePickerMinValues');
 		const rangePickerVertical = new RangePickerInterface('rangePickerVertical');
 		const rangePickerVerticalDisabled = new RangePickerInterface('rangePickerVerticalDisabled');
 		const rangePickerWithNegativeValuesVertical = new RangePickerInterface('rangePickerWithNegativeValuesVertical');
 		const rangePickerVerticalWrap = new RangePickerInterface('rangePickerVerticalWrap');
 		const rangePickerVerticalJoined = new RangePickerInterface('rangePickerVerticalJoined');
 		const rangePickerVerticalWrapJoined = new RangePickerInterface('rangePickerVerticalWrapJoined');
-		this.components = {rangePickerDefault, rangePickerDisabled, rangePickerWithNegativeValues, rangePickerWrap, rangePickerJoined, rangePickerVertical, rangePickerVerticalDisabled, rangePickerWithNegativeValuesVertical, rangePickerVerticalWrap, rangePickerVerticalJoined, rangePickerVerticalWrapJoined};
+		this.components = {rangePickerDefault, rangePickerDisabled, rangePickerWithNegativeValues, rangePickerWrap, rangePickerMaxValues, rangePickerMinValues, rangePickerJoined, rangePickerVertical, rangePickerVerticalDisabled, rangePickerWithNegativeValuesVertical, rangePickerVerticalWrap, rangePickerVerticalJoined, rangePickerVerticalWrapJoined};
 	}
 
 	async open (urlExtra) {
