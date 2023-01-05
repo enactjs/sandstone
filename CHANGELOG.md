@@ -4,10 +4,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Deprecated
+
+- `sandstone/Input.InputPopupBase` prop `value`, to be removed in 3.0.0. Use `sandstone/Input.InputPopupBase` prop `defaultValue` instead.
+
 ### Added
 
 - `sandstone/ActionGuide` prop `buttonAriaLabel` and `sandstone/MediaControls` prop `actionGuideButtonAriaLabel` to override aria-label of `ActionGuide` button
 - `sandstone/Icon` supported icon list, adding new icons `keymouse`, `keymousedis`, `camera`, `cameradis`, `gamepad`, and `gamepaddis`
+- `sandstone/Input.InputPopupBase` prop `defaultValue` to provide the initial value
 
 ### Changed
 
