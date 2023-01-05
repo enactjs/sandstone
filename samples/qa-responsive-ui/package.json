@@ -1,0 +1,36 @@
+{
+  "name": "qa-responsive-ui",
+  "version": "0.1.0",
+  "description": "Enact Layout Test application.",
+  "author": "",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "enact serve",
+    "pack": "enact pack",
+    "pack-p": "enact pack -p",
+    "watch": "enact pack --watch",
+    "clean": "enact clean",
+    "lint": "enact lint --strict .",
+    "test": "enact test",
+    "test-watch": "enact test --watch"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": "",
+  "enact": {
+    "title": "QA A11y",
+    "theme": "sandstone"
+  },
+  "dependencies": {
+    "@enact/core": "^4.6.0",
+    "@enact/i18n": "^4.6.0",
+    "@enact/sandstone": "../../",
+    "@enact/spotlight": "^4.6.0",
+    "@enact/ui": "^4.6.0",
+    "@enact/webos": "^4.6.0",
+    "ilib": "^14.15.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
