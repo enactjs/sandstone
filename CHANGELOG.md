@@ -19,6 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
+- `sandstone/TabLayout` to not cropped and apply orientation properly when `orientation` prop is vertical 
 
 ## [2.6.0] - 2022-12-05
 
