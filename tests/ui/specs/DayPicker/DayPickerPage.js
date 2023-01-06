@@ -18,6 +18,12 @@ class DayPickerInterface {
 	item (index) {
 		return element(`.DayPicker_DayPicker_item[data-index="${index}"]`, this.self);
 	}
+
+	async extractSelectedDayString () {
+		return await browser.execute(function () {
+			return document.activeElement.innerText.split('\n')[1];
+		});
+	}
 }
 
 class DayPickerPage extends Page {
@@ -26,12 +32,13 @@ class DayPickerPage extends Page {
 		this.title = 'DayPicker Test';
 		const defaultDayPicker = new DayPickerInterface('dayPickerDefault');
 		const disabledDayPicker = new DayPickerInterface('dayPickerDisabled');
+		const getDayStringDayPicker = new DayPickerInterface('dayPickerGetDayString');
 
-		this.components = {defaultDayPicker, disabledDayPicker};
+		this.components = {defaultDayPicker, disabledDayPicker, getDayStringDayPicker};
 	}
 
-	async open (urlExtra) {
-		await super.open('DayPicker-View', urlExtra);
+	async open (specification = '', urlExtra) {
+		await super.open(`DayPicker${specification}-View`, urlExtra);
 	}
 }
 
