@@ -133,7 +133,7 @@ const LayoutTests = [
 		...withProps ({wrap: 'wrap'}, rowTestCases),
 		...withProps ({wrap: 'wrap'}, layoutTestCases),
 		...withProps ({wrap: 'reverse'}, rowTestCases),
-		...withProps ({wrap: 'reverse'}, layoutTestCases),
+		...withProps ({wrap: 'reverse'}, layoutTestCases)
 	])
 ];
 
