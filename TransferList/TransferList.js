@@ -141,6 +141,15 @@ const TransferListBase = kind({
 		noMultipleDrag: PropTypes.bool,
 
 		/**
+		 * The orientation for the transfer list.
+		 *
+		 * @type {Component}
+		 * @default 'horizontal'
+		 * @public
+		 */
+		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
 		 * An array containing the name of each item that will populate the second list.
 		 *
 		 * @type {Array}
@@ -198,6 +207,7 @@ const TransferListBase = kind({
 		listComponent: 'VirtualList',
 		moveOnSpotlight: false,
 		noMultipleDrag: false,
+		orientation: 'horizontal',
 		secondList: {},
 		setFirstList: null,
 		setSecondList: null,
