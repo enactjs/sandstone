@@ -268,80 +268,25 @@ const ButtonTests = [
 	...withProps({css: css}, [
 		// standard button
 		<Button>Customized button</Button>,
-		<Button minWidth>Button</Button>,
-		{
-			component: <Button>Button</Button>,
-			focus: true
-		},
-
-		{
-			component: <Button size="small">Button</Button>,
-			focus: true
-		},
-		<Button minWidth size="small">Button</Button>,
+		<Button selected>Customized button</Button>,
+		<Button size="small">Customized button</Button>,
 
 		// With icon.
 		<Button icon="minus" />,
 		<Button icon="minus" size="samll"> </Button>,
+		<Button icon="minus" selected> </Button>,
 		<Button icon="minus" iconPosition="after" />,
 		<Button icon="minus" iconPosition="after" size="small" />,
-		<Button color="green" icon="minus" iconPosition="after" size="small" />,
-
-		<Button color="red">Customized button</Button>,
-		<Button color="blue" size="small">Customized button</Button>,
-		<Button color="green" minWidth>Customized button</Button>,
-		<Button color="yellow" icon="plus" minWidth>Customized button</Button>,
-		<Button color="yellow" icon="plus" iconPosition="after" minWidth>Customized button</Button>,
-		<Button color="yellow" icon="plus" minWidth size="samll">Customized button</Button>,
+		<Button icon="minus" iconPosition="before" />,
+		<Button icon="minus" iconPosition="before" size="small" />,
 
 		// With long text
 		<Button>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
-		<Button minWidth>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+		<Button selected>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
 		<Button size="small">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
-
-		// With backgroundOpacity
-		<Button backgroundOpacity="transparent" color="red">Customized button</Button>,
-		<Button backgroundOpacity="transparent" color="green">Customized button</Button>,
-		<Button backgroundOpacity="transparent" color="yellow">Customized button</Button>,
-		<Button backgroundOpacity="transparent" color="blue">Customized button</Button>,
-
-		{
-			component: <Button backgroundOpacity="transparent" size="small">Customized Focused button</Button>,
-			focus: true
-		},
-		<Button backgroundOpacity="transparent" selected>Customized button</Button>,
-
-		<Button backgroundOpacity="transparent" color="green" icon="minus" />,
-		<Button backgroundOpacity="transparent" color="red" icon="plus" selected />,
-		{
-			component: <Button backgroundOpacity="transparent" color="red" icon="plus" />,
-			focus: true
-		},
-
-		<Button backgroundOpacity="opaque" color="red">Customized button</Button>,
-		<Button backgroundOpacity="opaque" color="green">Customized button</Button>,
-		<Button backgroundOpacity="opaque" color="yellow">Customized button</Button>,
-		<Button backgroundOpacity="opaque" color="blue">Customized button</Button>,
-
-		{
-			component: <Button backgroundOpacity="opaque" size="small">Customized Focused button</Button>,
-			focus: true
-		},
-		<Button backgroundOpacity="opaque" selected>Customized button</Button>,
-
-		<Button backgroundOpacity="opaque" color="green" icon="minus" />,
-		<Button backgroundOpacity="opaque" color="red" icon="plus" selected />,
-		{
-			component: <Button backgroundOpacity="opaque" color="red" icon="plus" />,
-			focus: true
-		},
-
-		// With disabled
-		<Button backgroundOpacity="opaque" disabled>Customized button</Button>,
-		{
-			component: <Button backgroundOpacity="opaque" disabled>Customized Focused button</Button>,
-			focus:true
-		}
+		<Button icon="plus">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+		<Button icon="plus" iconPosition="after">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+		<Button icon="plus" iconPosition="before">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>
 	])
 ];
 
