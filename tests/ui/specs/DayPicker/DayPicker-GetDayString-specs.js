@@ -2,7 +2,7 @@ const Page = require('./DayPickerPage');
 
 describe('DayPicker', function () {
 	beforeEach(async function () {
-		await Page.open('GetDayStinrg');
+		await Page.open('GetDayString');
 	});
 
 	describe('LTR', function () {
