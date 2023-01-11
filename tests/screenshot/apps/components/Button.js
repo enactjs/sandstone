@@ -277,8 +277,6 @@ const ButtonTests = [
 		<Button icon="minus" selected> </Button>,
 		<Button icon="minus" iconPosition="after" />,
 		<Button icon="minus" iconPosition="after" size="small" />,
-		<Button icon="minus" iconPosition="before" />,
-		<Button icon="minus" iconPosition="before" size="small" />,
 
 		// With long text
 		<Button>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
@@ -286,7 +284,6 @@ const ButtonTests = [
 		<Button size="small">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
 		<Button icon="plus">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
 		<Button icon="plus" iconPosition="after">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
-		<Button icon="plus" iconPosition="before">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>
 	])
 ];
 
