@@ -61,7 +61,7 @@ describe('DayPicker', function () {
 		// In case of RTL caracters, it is checked in ss tests for whether a correct display.
 		describe('RTL', function () {
 			beforeEach(async function () {
-				await Page.open('GetDayStinrg', '?locale=ar-SA');
+				await Page.open('GetDayString', '?locale=ar-SA');
 			});
 
 			it('should selected day display in RTL [QWTC-2428]', async function () {
@@ -118,7 +118,7 @@ describe('DayPicker', function () {
 		// In case of Spanish caracters, it is checked in ss tests for whether a correct display.
 		describe('Spanish', function () {
 			beforeEach(async function () {
-				await Page.open('GetDayStinrg', '?locale=es-ES');
+				await Page.open('GetDayString', '?locale=es-ES');
 			});
 
 			it('should selected day display in spanish locale [QWTC-637]', async function () {
