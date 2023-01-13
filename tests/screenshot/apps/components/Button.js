@@ -275,8 +275,8 @@ const ButtonTests = [
 		<Button icon="minus" />,
 		<Button icon="minus" size="small" />,
 		<Button icon="minus" selected />,
-		<Button icon="minus" iconPosition="after" />,
-		<Button icon="minus" iconPosition="after" size="small" />
+		<Button icon="minus" iconPosition="after">Customized button</Button>,
+		<Button icon="minus" iconPosition="after" size="small">Customized button</Button>
 	])
 ];
 
