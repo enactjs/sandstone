@@ -58,7 +58,7 @@ describe('DayPicker', function () {
 			expect(await dayPicker.extractSelectedDayString()).to.equal('Every Weekend');
 		});
 
-		// In case of RTL caracters, it is checked in ss tests for whether a correct display.
+		// Test whether Selected Day displays correctly in RTL locales.
 		describe('RTL', function () {
 			beforeEach(async function () {
 				await Page.open('GetDayString', '?locale=ar-SA');
@@ -115,7 +115,7 @@ describe('DayPicker', function () {
 			});
 		});
 
-		// In case of Spanish caracters, it is checked in ss tests for whether a correct display.
+		// Test whether Selected Day displays correctly in es-ES locale.
 		describe('Spanish', function () {
 			beforeEach(async function () {
 				await Page.open('GetDayString', '?locale=es-ES');
