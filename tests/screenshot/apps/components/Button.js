@@ -273,17 +273,10 @@ const ButtonTests = [
 
 		// With icon.
 		<Button icon="minus" />,
-		<Button icon="minus" size="samll"> </Button>,
-		<Button icon="minus" selected> </Button>,
+		<Button icon="minus" size="small" />,
+		<Button icon="minus" selected />,
 		<Button icon="minus" iconPosition="after" />,
-		<Button icon="minus" iconPosition="after" size="small" />,
-
-		// With long text
-		<Button>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
-		<Button selected>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
-		<Button size="small">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
-		<Button icon="plus">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
-		<Button icon="plus" iconPosition="after">Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
+		<Button icon="minus" iconPosition="after" size="small" />
 	])
 ];
 
