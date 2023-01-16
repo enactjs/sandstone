@@ -8,7 +8,7 @@ describe('DayPicker', function () {
 	describe('LTR', function () {
 		const dayPicker = Page.components.getDayStringDayPicker;
 
-		it('should selected day display [QWTC-2427]', async function () {
+		it('should display proper selected day string [QWTC-2427]', async function () {
 			// Step 3-1: Click on Monday, Tuesday, Wednesday, Thursday, Friday.
 			// Step 3-1 Verify; Monday, Tuesday, Wednesday, Thursday, Friday are selected.
 			await dayPicker.item(1).click();
@@ -121,7 +121,7 @@ describe('DayPicker', function () {
 				await Page.open('GetDayString', '?locale=es-ES');
 			});
 
-			it('should selected day display in spanish locale [QWTC-637]', async function () {
+			it('should display proper selected day string in es-ES locale [QWTC-637]', async function () {
 				// Step 4-1: Click on the first five days from the top.
 				// Step 4-1 Verify; Monday, Tuesday, Wednesday, Thursday, Friday are selected.
 				await dayPicker.item(0).click();
