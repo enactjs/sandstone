@@ -5,9 +5,11 @@ const app = (props) => <div {...props}>
 	<div style={{margin: '20px 0'}}>
 		<RangePicker defaultValue={0} className="rangePickerDefault" min={0} max={10} step={5} />
 		<RangePicker defaultValue={5} disabled className="rangePickerDisabled" min={0} max={10} step={5} />
-		<RangePicker defaultValue={0} className="rangePickerWithNegativeValues" min={-10} max={10} />
+		<RangePicker defaultValue={0} className="rangePickerWithNegativeValues" min={-10} max={10} step={5} />
 		<RangePicker defaultValue={0} className="rangePickerWrap" min={0} max={10} step={5} wrap />
 		<RangePicker defaultValue={0} className="rangePickerJoined" joined min={0} max={10} step={5} />
+		<RangePicker defaultValue={0} className="rangePickerMaxValues" min={0} max={100} step={5} />
+		<RangePicker defaultValue={0} className="rangePickerMinValues" min={5} max={100} step={5} />
 	</div>
 	<div>
 		<RangePicker defaultValue={0} className="rangePickerVertical" min={0} max={10} orientation="vertical" step={5} />
