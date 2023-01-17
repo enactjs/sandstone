@@ -19,6 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
+- `sandstone/MediaPlayer.MediaControls` to show round buttons correctly in high-contrast mode
 
 ## [2.6.0] - 2022-12-05
 
