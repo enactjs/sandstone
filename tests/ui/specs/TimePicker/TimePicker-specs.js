@@ -93,6 +93,59 @@ describe('TimePicker', function () {
 					}
 					expect(meridiem !== timePicker.item(timePicker.meridiem).getText()).to.be.true();
 				});
+
+				it('should be able to change values with 5-way up and down keys [QWTC-2549]', async function () {
+					const {minute} = await extractValues(timePicker);
+					// Step 3-1: Hover on the hour Picker.
+					await Page.showPointerByKeycode();
+					await $('#timePickerDefault').moveTo({xOffset: 100, yOffset: 100});
+					// Step 3-2: Press 5-way Left.
+					await Page.spotlightLeft();
+					// Step 3-1 Verify: Spotlight on the hour picker.
+					expect(await timePicker.hour.isFocused()).to.equal(true);
+					// Step 3-3: Press 5-way ok.
+					await Page.spotlightSelect();
+					// Step 3-2 Verify: Spotlight moves to minute picker.
+					expect(await timePicker.minute.isFocused()).to.equal(true);
+
+					// Step 4: Press 5-way Up on the minute picker.
+					await Page.spotlightUp();
+					const expected = minute !== 59 ? minute + 1 : 0;
+					// Step 4-1 Verify: Spotlight on the minute picker.
+					// Step 4-2 Verify: The minute value is changed upward.
+					expect(await timePicker.minute.isFocused()).to.equal(true);
+					expect((await extractValues(timePicker)).minute).to.equal(expected);
+					// Step 5: Press 5-way Down on the minute picker.
+					await Page.spotlightDown();
+					// Step 5-1 Verify: Spotlight on the minute picker.
+					// Step 5-2 Verify: The minute value is changed downward.
+					expect(await timePicker.minute.isFocused()).to.equal(true);
+					expect((await extractValues(timePicker)).minute).to.equal(minute);
+				});
+
+				it('should move to the next picker with 5-way OK key [QWTC-2549]', async function () {
+					// Step 3-1: Hover on the hour Picker.
+					await Page.showPointerByKeycode();
+					await $('#timePickerDefault').moveTo({xOffset: 100, yOffset: 100});
+					// Step 3-2: Press 5-way Left.
+					await Page.spotlightLeft();
+					// Step 3-1 Verify: Spotlight on the hour picker.
+					expect(await timePicker.hour.isFocused()).to.equal(true);
+					// Step 3-3: Press 5-way ok.
+					await Page.spotlightSelect();
+					// Step 3-2 Verify: Spotlight moves to minute picker.
+					expect(await timePicker.minute.isFocused()).to.equal(true);
+
+					// Step 4: Press 5-way ok on the minute picker.
+					await Page.spotlightSelect();
+					// Step 4 Verify: Spotlight moves to the meridiem picker.
+					expect(await timePicker.meridiem.isFocused()).to.equal(true);
+
+					// Step 5: Press 5-way ok on the meridiem picker.
+					await Page.spotlightSelect();
+					// Step 5 Verify: Spotlight still on the meridiem picker.
+					expect(await timePicker.meridiem.isFocused()).to.equal(true);
+				});
 			});
 
 			describe('pointer', function () {
@@ -236,6 +289,61 @@ describe('TimePicker', function () {
 			await browser.waitUntil(async () => await timePicker.hour.isFocused(), {timeout: 1500,  timeoutMsg: 'hour', interval: 100});
 			await Page.spotlightLeft();
 			await browser.waitUntil(async () => await timePicker.meridiem.isFocused(), {timeout: 1500,  timeoutMsg: 'meridiem', interval: 100});
+		});
+
+		it('should move to the next picker with 5-way OK key in ar-SA locale [QWTC-2541]', async function () {
+			// Step 10-1: hover on the hour picker.
+			await Page.showPointerByKeycode();
+			await $('#timePickerDefault').moveTo({xOffset: 200, yOffset: 100});
+			// Step 10-1 Verify: Spotlight on the hour picker.
+			await expect(await timePicker.hour.isFocused()).to.equal(true);
+			// Step 10-2: Press 5-way Right.
+			await Page.spotlightRight();
+			await expect(await timePicker.minute.isFocused()).to.equal(true);
+			// Step 10-3: Press 5-way ok.
+			await Page.spotlightSelect();
+			// Step 10-2 Verify: Spotlight moves to the hour picker.
+			await expect(await timePicker.hour.isFocused()).to.equal(true);
+
+			// Step 11: 5-way ok on the hour picker.
+			await Page.spotlightSelect();
+			// Step 11 Verify: Spotlight moves on the meridiem picker.
+			await expect(await timePicker.meridiem.isFocused()).to.equal(true);
+
+			// Step 12: 5-way ok on the meridiem picker.
+			await Page.spotlightSelect();
+			// Step 12 Verify: Spotlight still on the meridiem picker.
+			await expect(await timePicker.meridiem.isFocused()).to.equal(true);
+		});
+	});
+
+	describe('es-ES locale', function () {
+		const timePicker = Page.components.timePickerDefault;
+
+		beforeEach(async function () {
+			await Page.open('?locale=es-ES');
+		});
+
+		it('should move to the next picker with 5-way OK key in es-ES locale', async function () {
+			// Step 6 Verify: There is no meridiem in ES.
+			expect(await timePicker.meridiem.isExisting(), 'meridiem exists').to.be.false();
+
+			// Step 7-1: Hover on the hour picker.
+			await Page.showPointerByKeycode();
+			await $('#timePickerDefault').moveTo({xOffset: 100, yOffset: 100});
+			// Step 7-2: Press 5-way Left.
+			await Page.spotlightLeft();
+			// Step 7-1 Verify: Spotlight on the hour picker.
+			await expect(await timePicker.hour.isFocused()).to.equal(true);
+			// Step 7-3: Press 5-way ok.
+			await Page.spotlightSelect();
+			// Step 7-2 Verify: Spotlight moves to minute picker.
+			await expect(await timePicker.minute.isFocused()).to.equal(true);
+
+			// Step 8: Press 5-way ok on the minute picker.
+			await Page.spotlightSelect();
+			// Step 8 Verify: Spotlight still on the minute picker.
+			await expect(await timePicker.minute.isFocused()).to.equal(true);
 		});
 	});
 
