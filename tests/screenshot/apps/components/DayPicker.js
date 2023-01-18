@@ -8,7 +8,7 @@ const DayPickerTests = [
 	<DayPicker disabled />,
 	<DayPicker disabled selected={1} />,
 	// *************************************************************
-	// locale = 'ar-SA'
+	// locale = 'ar-SA', [QWTC-2428]
 	{
 		locale: 'ar-SA',
 		component: <DayPicker />
