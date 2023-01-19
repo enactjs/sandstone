@@ -1,6 +1,8 @@
 import Button from '../../../../Button';
 
-import {withConfig} from './utils';
+import {withConfig, withProps} from './utils';
+
+import css from './Button.module.less';
 
 const ButtonTests = [
 	<Button>click me</Button>,
@@ -256,6 +258,25 @@ const ButtonTests = [
 		<Button icon="arrowhookright" iconFlip="vertical">click me</Button>,
 		<Button icon="arrowhookright" iconFlip="both">click me</Button>,
 		<Button icon="arrowhookright" iconFlip="auto">click me</Button>
+	]),
+
+	// *************************************************************
+	// With customized button
+	// *************************************************************
+	// Note: When the file name of the test is too long, different tests may be recognized as the same test.
+	// So we changed the Button name of Focus prop tests.
+	...withProps({css: css}, [
+		// standard button
+		<Button>Customized button</Button>,
+		<Button selected>Customized button</Button>,
+		<Button size="small">Customized button</Button>,
+
+		// With icon.
+		<Button icon="minus" />,
+		<Button icon="minus" size="small" />,
+		<Button icon="minus" selected />,
+		<Button icon="minus" iconPosition="after">Customized button</Button>,
+		<Button icon="minus" iconPosition="after" size="small">Customized button</Button>
 	])
 ];
 
