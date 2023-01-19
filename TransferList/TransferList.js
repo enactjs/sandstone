@@ -400,7 +400,15 @@ const TransferListBase = kind({
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
 
-				const potentialIndex = selectedItems.findIndex((pair) => '✓' + pair.element === element.textContent && pair.list === list);
+				const potentialIndex = () => {
+					if (listComponent === 'VirtualGridList' && showSelectionOrder) {
+						selectedItems.findIndex((pair) => '✓' + index + pair.element === element.textContent && pair.list === list);
+					} else if (listComponent === 'VirtualList' && showSelectionOrder) {
+						selectedItems.findIndex((pair) => '✓' + pair.element + index === element.textContent && pair.list === list);
+					} else {
+						selectedItems.findIndex((pair) => '✓' + pair.element === element.textContent && pair.list === list);
+					}
+				};
 
 				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
@@ -469,7 +477,7 @@ const TransferListBase = kind({
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, noMultipleDrag, selectedItems]);
+		}, [css.draggableItem, css.overAbove, css.overBelow, listComponent, noMultipleDrag, selectedItems, showSelectionOrder]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => {
