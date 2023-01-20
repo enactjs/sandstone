@@ -231,7 +231,7 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: ({disabled, orientation}) => ({elements, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
@@ -242,13 +242,31 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (elements.length - 1 !== index) return;
+				if (orientation !== 'horizontal' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index && orientation === 'horizontal') return;
+				if (list === 'first' && orientation !== 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightLeft = (ev) => {
+				if (orientation === 'horizontal' && list === 'second') moveInFirst();
+				if (index !== 0 || orientation === 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightRight = (ev) => {
+				if (orientation === 'horizontal' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index || orientation === 'horizontal') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
 
 			const handleSpotlightUp = (ev) => {
-				if (index !== 0) return;
+				if (orientation !== 'horizontal' && list === 'second') moveInFirst();
+				if (index !== 0 && orientation === 'horizontal') return;
+				if (list === 'second' && orientation !== 'horizontal') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -264,6 +282,8 @@ const TransferListBase = kind({
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					selected={selected}
 					slotAfter={(selected && showSelectionOrder) && selectedIndex}
@@ -273,7 +293,7 @@ const TransferListBase = kind({
 				</CheckboxItem>
 			);
 		},
-		renderImageItem: ({disabled}) => ({elements, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderImageItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
@@ -294,13 +314,31 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (elements.length - 1 !== index) return;
+				if (orientation !== 'horizontal' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index && orientation === 'horizontal') return;
+				if (list === 'first' && orientation !== 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightLeft = (ev) => {
+				if (orientation === 'horizontal' && list === 'second') moveInFirst();
+				if ((index !== 0 && index !== 1 ) || orientation === 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightRight = (ev) => {
+				if (orientation === 'horizontal' && list === 'first') moveInSecond();
+				if ((elements.length - 1 !== index && elements.length - 2 !== index) || orientation === 'horizontal') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
 
 			const handleSpotlightUp = (ev) => {
-				if (index !== 0) return;
+				if (orientation !== 'horizontal' && list === 'second') moveInFirst();
+				if (index !== 0 && orientation === 'horizontal') return;
+				if (list === 'second' && orientation !== 'horizontal') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -316,6 +354,8 @@ const TransferListBase = kind({
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					orientation="horizontal"
 					selected={selected}
@@ -646,7 +686,7 @@ const TransferListBase = kind({
 			return null;
 		};
 
-		const onDropRightHandler = useCallback((ev) => {
+		const onDropSecondHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
@@ -680,7 +720,7 @@ const TransferListBase = kind({
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		}, [firstListLocal, firstListMinCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
-		const onDropLeftHandler = useCallback((ev) => {
+		const onDropFirstHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
@@ -725,14 +765,14 @@ const TransferListBase = kind({
 			ev.stopPropagation();
 		}, []);
 
-		const handleSpotlightLeft = useCallback((ev) => {
+		const moveInFirst = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'second') === -1 || !moveOnSpotlight) return;
 			moveIntoFirstSelected();
 			ev.preventDefault();
 			ev.stopPropagation();
 		}, [moveIntoFirstSelected, moveOnSpotlight, selectedItems]);
 
-		const handleSpotlightRight = useCallback((ev) => {
+		const moveInSecond = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'first') === -1 || !moveOnSpotlight) return;
 			moveIntoSecondSelected();
 			ev.preventDefault();
@@ -744,7 +784,7 @@ const TransferListBase = kind({
 			list: 'first',
 			onSelect: setSelected,
 			selectedItems,
-			onSpotlightRight: handleSpotlightRight,
+			moveInSecond,
 			showSelectionOrder
 		};
 
@@ -753,7 +793,7 @@ const TransferListBase = kind({
 			list: 'second',
 			onSelect: setSelected,
 			selectedItems,
-			onSpotlightLeft: handleSpotlightLeft,
+			moveInFirst,
 			showSelectionOrder
 		};
 
@@ -763,7 +803,7 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropLeftHandler}
+					onDrop={onDropFirstHandler}
 					size="40%"
 					style={{height: height}}
 				>
@@ -785,7 +825,7 @@ const TransferListBase = kind({
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(firstListSpecs)}
 							itemSize={{
-								minWidth: 5 * itemSize,
+								minWidth: (orientation === "horizontal" ? 5 : 4) * itemSize,
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
@@ -841,7 +881,7 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropRightHandler}
+					onDrop={onDropSecondHandler}
 					size="40%"
 					style={{height: height}}
 				>
@@ -863,7 +903,7 @@ const TransferListBase = kind({
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(secondListSpecs)}
 							itemSize={{
-								minWidth: 5 * itemSize,
+								minWidth: (orientation === "horizontal" ? 5 : 4) * itemSize,
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
