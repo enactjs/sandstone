@@ -467,7 +467,7 @@ const TransferListBase = kind({
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, listComponent, noMultipleDrag, selectedItems, showSelectionOrder]);
+		}, [css.draggableItem, css.overAbove, css.overBelow, selectedItems]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => {
