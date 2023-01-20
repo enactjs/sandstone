@@ -397,25 +397,8 @@ const TransferListBase = kind({
 
 			selectCheckboxItem.forEach(element => {
 				const [index, list] = element.id.split('-');
-				let potentialIndex;
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
-
-				if (listComponent === 'VirtualGridList' && showSelectionOrder) {
-					potentialIndex = selectedItems.findIndex((pair) => {
-						const textContent = element.textContent.substring(2);
-
-						return pair.element === textContent && pair.list === list;
-					});
-				} else if (listComponent === 'VirtualList' && showSelectionOrder) {
-					selectedItems.findIndex((pair) => {
-						const textContent = element.textContent.slice(0, -1);
-
-						return '✓' + pair.element === textContent && pair.list === list;
-					});
-				} else {
-					selectedItems.findIndex((pair) => '✓' + pair.element === element.textContent && pair.list === list);
-				}
 
 				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
@@ -425,7 +408,7 @@ const TransferListBase = kind({
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
 
-							if (!noMultipleDrag && potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
+							if (selectedItems.length > 1) {
 								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
 							} else {
 								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
