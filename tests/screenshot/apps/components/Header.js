@@ -45,6 +45,10 @@ const specificTests = [
 		locale: 'ar-SA',
 		component: <Header type="compact" title="غينيا واستمر" subtitle="غينيا واستمر" />
 	},
+	{
+		locale: 'ar-SA',
+		component: <Header type="compact" title="غينيا واستمر" slotAfter={dropIn.singleButton} subtitle="غينيا واستمر" />
+	},
 	// end of [QWTC-1887]
 
 	// [QWTC-1879]
