@@ -31,7 +31,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@enact/storybook-utils": "^5.0.2",
+    "@enact/storybook-utils": "github:enactjs/storybook-utils#feature/WRP-7677",
     "@storybook/addons": "^6.5.15",
     "@storybook/builder-webpack5": "^6.5.15",
     "@storybook/manager-webpack5": "^6.5.15",
