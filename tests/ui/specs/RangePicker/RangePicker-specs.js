@@ -114,7 +114,7 @@ describe('RangePicker', function () {
 				await rangePicker.decrementer(rangePicker.self).click();
 				await browser.pause(500);
 				const newValue = extractValue(rangePicker);
-				expect(await newValue).to.equal(-1);
+				expect(await newValue).to.equal(-5);
 			});
 		});
 
@@ -214,6 +214,36 @@ describe('RangePicker', function () {
 					expect(await newValue2).to.equal(0);
 				});
 			});
+		});
+	});
+
+	describe('RangePicker', function () {
+		const maxValueRangePicker = Page.components.rangePickerMaxValues;
+		const minValueRangePicker = Page.components.rangePickerMinValues;
+
+		it('should change the value with 5-way left/right [QWTC-2144]', async function () {
+			// Step 3: 5-way Spot and 5-way Select the Right arrow button.
+			await maxValueRangePicker.focus();
+			expect(await maxValueRangePicker.incrementer(maxValueRangePicker.self).isFocused()).to.be.true();
+			await Page.spotlightSelect();
+			// Step 3 Verify: The ending value displays 5.
+			expect(await extractValue(maxValueRangePicker)).to.equal(5);
+			// Step 4: 5-way Select 2 times the Right arrow button.
+			await Page.spotlightSelect();
+			expect(await extractValue(maxValueRangePicker)).to.equal(10);
+			await Page.spotlightSelect();
+			// Step 4 Verify: The ending value displays 15.
+			expect(await extractValue(maxValueRangePicker)).to.equal(15);
+
+			// Step 5: 5-way Spot and 5-way Select the Left arrow button.
+			await Page.spotlightLeft();
+			await Page.spotlightSelect();
+			// Step 5 Verify: The ending value displays 10.
+			expect(await extractValue(maxValueRangePicker)).to.equal(10);
+		});
+
+		it('should display minValue [QWTC-2629]', async function () {
+			expect(await extractValue(minValueRangePicker)).to.equal(5);
 		});
 	});
 

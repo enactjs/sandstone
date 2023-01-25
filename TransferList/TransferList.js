@@ -461,8 +461,6 @@ const TransferListBase = kind({
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
 
-				const potentialIndex = selectedItems.findIndex((pair) => '✓' + pair.element === element.textContent && pair.list === list);
-
 				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
@@ -471,7 +469,7 @@ const TransferListBase = kind({
 							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 							ev.dataTransfer.effectAllowed = 'move';
 
-							if (!noMultipleDrag && potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
+							if (selectedItems.length > 1) {
 								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
 							} else {
 								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
@@ -530,7 +528,7 @@ const TransferListBase = kind({
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, noMultipleDrag, selectedItems]);
+		}, [css.draggableItem, css.overAbove, css.overBelow, selectedItems]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => {
