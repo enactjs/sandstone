@@ -35,10 +35,15 @@ function generalizeSelected (selected, state) {
 	return selected.map(v => generalizeDay(v, state.firstDayOfWeek)).sort();
 }
 
-// Accepts a localized selected array and returns a "Sunday at index 0" array
+// Accepts a "Sunday at index 0" selected array or number and returns a
+// localized array or number.
 function localizeSelected (selected, state) {
-	if (state.firstDayOfWeek === 0 || !selected) {
+	if (selected === undefined || selected === null) {
 		return selected;
+	}
+
+	if (typeof selected === 'number') {
+		return localizeDay(selected, state.firstDayOfWeek);
 	}
 
 	return selected.map(v => localizeDay(v, state.firstDayOfWeek));
