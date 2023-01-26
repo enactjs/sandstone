@@ -1,1 +1,1 @@
-module.exports = require('babel-preset-enact-app');
+module.exports = require('babel-preset-enact');
