@@ -1,7 +1,7 @@
+import Sprite from '@enact/sandstone/Sprite';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
-import Sprite from '@enact/sandstone/Sprite';
 
 Sprite.displayName = 'Sprite';
 const Config = mergeComponentMetadata('Sprite', Sprite);

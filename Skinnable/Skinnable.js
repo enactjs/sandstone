@@ -20,7 +20,7 @@ const defaultConfig = {
 };
 
 /**
- * This higher-order component is based on [ui/Skinnable]{@link ui/Skinnable.Skinnable}.
+ * This higher-order component is based on {@link ui/Skinnable.Skinnable|ui/Skinnable}.
  *
  * `Skinnable` comes pre-configured for Sandstone's supported skins: "neutral" (default) and "light".
  * It is used to apply the relevant skinning classes to each component and has been used to

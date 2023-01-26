@@ -336,6 +336,14 @@ const RangePickerTests = [
 	},
 	{
 		locale: 'ar-SA',
+		component: <RangePicker min={-5} max={5} value={-5} width="medium" wrap />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={-5} max={5} value={-5} width="large" wrap />
+	},
+	{
+		locale: 'ar-SA',
 		textSize: 'large',
 		component: <RangePicker min={0} max={5} value={0} width="large" wrap />
 	},
@@ -354,6 +362,14 @@ const RangePickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <RangePicker min={0} max={5} orientation="vertical" value={0} width="large" wrap />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={-5} max={5} orientation="vertical" value={-5} width="medium" wrap />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={-5} max={5} orientation="vertical" value={-5} width="large" wrap />
 	},
 	{
 		locale: 'ar-SA',
@@ -422,6 +438,10 @@ const RangePickerTests = [
 	},
 	{
 		locale: 'ar-SA',
+		component: <RangePicker min={-5} max={5} value={-5} joined changedBy="arrow" />
+	},
+	{
+		locale: 'ar-SA',
 		component: <RangePicker min={0} max={5} value={5} joined changedBy="arrow" />
 	},
 	{
@@ -468,6 +488,10 @@ const RangePickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={-5} max={5} orientation="vertical" value={-5} wrap joined />
 	},
 	{
 		locale: 'ar-SA',

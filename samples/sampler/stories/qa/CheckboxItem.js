@@ -1,8 +1,8 @@
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Item, {ItemBase} from '@enact/sandstone/Item';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
-import Item, {ItemBase} from '@enact/sandstone/Item';
 import Group from '@enact/ui/Group';
 
 Group.displayName = 'Group';

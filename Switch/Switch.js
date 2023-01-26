@@ -131,7 +131,7 @@ const SwitchDecorator = compose(
 /**
  * A Sandstone-styled component that looks like a toggle switch.
  *
- * `Switch` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * `Switch` will manage its `selected` state via {@link ui/Toggleable|Toggleable} unless set
  * directly.
  *
  * @class Switch

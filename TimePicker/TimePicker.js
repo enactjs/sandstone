@@ -198,8 +198,8 @@ const dateTimeConfig = {
 /**
  * A component that allows displaying or selecting time.
  *
- * Set the [value]{@link sandstone/TimePicker.TimePicker#value} property to a standard JavaScript
- * [Date] {@link /docs/developer-guide/glossary/#date} object to initialize the picker.
+ * Set the {@link sandstone/TimePicker.TimePicker#value|value} property to a standard JavaScript
+ *  {@link /docs/developer-guide/glossary/#date|Date} object to initialize the picker.
  *
  * By default, `TimePicker` maintains the state of its `value` property. Supply the
  * `defaultValue` property to control its initial value. If you wish to directly control updates

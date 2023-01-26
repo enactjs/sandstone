@@ -82,8 +82,8 @@ const InputPopupBase = kind({
 		inputFieldSpotlightId: PropTypes.string,
 
 		/**
-		 * Indicates [value]{@link sandstone/Input.InputPopupBase.value} is invalid and shows
-		 * [invalidMessage]{@link sandstone/Input.InputPopupBase.invalidMessage}, if set.
+		 * Indicates {@link sandstone/Input.InputPopupBase.value|value} is invalid and shows
+		 * {@link sandstone/Input.InputPopupBase.invalidMessage|invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -92,7 +92,7 @@ const InputPopupBase = kind({
 
 		/**
 		 * The tooltip text to be displayed when the input is
-		 * [invalid]{@link sandstone/Input.InputPopupBase.invalid}.
+		 * {@link sandstone/Input.InputPopupBase.invalid|invalid}.
 		 *
 		 * If this value is *falsy*, the tooltip will be shown with the default message.
 		 *
@@ -163,7 +163,7 @@ const InputPopupBase = kind({
 		 * The default is to display separated digits when `length` is less than `7`. If `field` is
 		 * set, a standard `InputField` will be used instead of the normal number input.
 		 *
-		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.type}.
+		 * This has no effect on other {@link sandstone/Input.InputPopupBase.type|types}.
 		 *
 		 * @type {('auto'|'separated'|'joined'|'field')}
 		 * @default 'auto'
@@ -394,65 +394,68 @@ const InputPopupBase = kind({
 		delete rest.onOpenPopup;
 
 		return (
-			<Popup
-				aria-label={popupAriaLabel}
-				aria-labelledby={ariaLabelledBy}
-				onClose={onClose}
-				onShow={onShow}
-				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
-				className={popupClassName}
-				noAlertRole
-				noAnimation
-				open={open}
-				role="region"
-			>
-				{popupType === 'fullscreen' ? backButton : null}
-				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
-					<Cell shrink className={css.titles}>
-						{popupType === 'fullscreen' ?
-							heading :
-							<>
-								{backButton}
-								{heading}
-							</>
-						}
-						<Heading id={`${id}_subtitle`} size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
-					</Cell>
-					<Cell shrink className={css.inputArea}>
-						{numberMode ?
-							<NumberField
-								{...inputProps}
-								announce={announce}
-								maxLength={limitNumberLength(popupType, maxLength)}
-								minLength={limitNumberLength(popupType, minLength)}
-								defaultValue={value}
-								onBeforeChange={onBeforeChange}
-								onComplete={onNumberComplete}
-								showKeypad
-								type={(type === 'passwordnumber') ? 'password' : 'number'}
-								numberInputField={numberInputField}
-								noSubmitButton={noSubmitButton}
-							/> :
-							<InputField
-								{...inputProps}
-								className={classnames(css.textField, spotlightDefaultClass)}
-								css={css}
-								maxLength={maxLength}
-								minLength={minLength}
-								size={size}
-								autoFocus
-								type={type}
-								defaultValue={value}
-								placeholder={placeholder}
-								onBeforeChange={onBeforeChange}
-								onKeyDown={onInputKeyDown}
-								spotlightId={inputFieldSpotlightId}
-							/>
-						}
-					</Cell>
-					<Cell shrink className={css.buttonArea}>{children}</Cell>
-				</Layout>
-			</Popup>
+			<div aria-owns={id} className={css.inputPopupWrapper}>
+				<Popup
+					id={id}
+					aria-label={popupAriaLabel}
+					aria-labelledby={ariaLabelledBy}
+					onClose={onClose}
+					onShow={onShow}
+					position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
+					className={popupClassName}
+					noAlertRole
+					noAnimation
+					open={open}
+					role="region"
+				>
+					{popupType === 'fullscreen' ? backButton : null}
+					<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
+						<Cell shrink className={css.titles}>
+							{popupType === 'fullscreen' ?
+								heading :
+								<>
+									{backButton}
+									{heading}
+								</>
+							}
+							<Heading id={`${id}_subtitle`} size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
+						</Cell>
+						<Cell shrink className={css.inputArea}>
+							{numberMode ?
+								<NumberField
+									{...inputProps}
+									announce={announce}
+									maxLength={limitNumberLength(popupType, maxLength)}
+									minLength={limitNumberLength(popupType, minLength)}
+									defaultValue={value}
+									onBeforeChange={onBeforeChange}
+									onComplete={onNumberComplete}
+									showKeypad
+									type={(type === 'passwordnumber') ? 'password' : 'number'}
+									numberInputField={numberInputField}
+									noSubmitButton={noSubmitButton}
+								/> :
+								<InputField
+									{...inputProps}
+									className={classnames(css.textField, spotlightDefaultClass)}
+									css={css}
+									maxLength={maxLength}
+									minLength={minLength}
+									size={size}
+									autoFocus
+									type={type}
+									defaultValue={value}
+									placeholder={placeholder}
+									onBeforeChange={onBeforeChange}
+									onKeyDown={onInputKeyDown}
+									spotlightId={inputFieldSpotlightId}
+								/>
+							}
+						</Cell>
+						<Cell shrink className={css.buttonArea}>{children}</Cell>
+					</Layout>
+				</Popup>
+			</div>
 		);
 	}
 });
@@ -596,7 +599,7 @@ const AnnounceDecorator = Wrapped => (function AnnounceDecorator (props) {
 });
 
 /**
- * Sandstone specific item behaviors to apply to [Input]{@link sandstone/Input.InputBase}.
+ * Sandstone specific item behaviors to apply to {@link sandstone/Input.InputBase|Input}.
  *
  * @class InputDecorator
  * @hoc

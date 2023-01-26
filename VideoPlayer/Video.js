@@ -59,7 +59,7 @@ const VideoBase = class extends Component {
 		 * * `pause()` - pause video
 		 * * `load()` - load video
 		 *
-		 * The [`source`]{@link sandstone/VideoPlayer.Video.source} property is passed to
+		 * The {@link sandstone/VideoPlayer.Video.source|source} property is passed to
 		 * the video component as a child node.
 		 *
 		 * @type {String|Component|Element}
@@ -77,7 +77,7 @@ const VideoBase = class extends Component {
 		preloadSource:  PropTypes.node,
 
 		/**
-		 * Called with a reference to the active [Media]{@link ui/Media.Media} component.
+		 * Called with a reference to the active {@link ui/Media.Media|Media} component.
 		 *
 		 * @type {Function}
 		 * @private

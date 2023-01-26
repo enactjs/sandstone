@@ -19,6 +19,7 @@ import ActionGuide from '../ActionGuide';
 import Button from '../Button';
 import $L from '../internal/$L';
 import {compareChildren, onlyUpdateForProps} from '../internal/util';
+import Skinnable from '../Skinnable';
 
 import {countReactChildren} from './util';
 
@@ -91,6 +92,22 @@ const MediaControlsBase = kind({
 		actionGuideAriaLabel: PropTypes.string,
 
 		/**
+		 * The `aria-label` for the action guide button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		actionGuideButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * Disables the ActionGuide.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		actionGuideDisabled: PropTypes.bool,
+
+		/**
 		 * The label for the action guide.
 		 *
 		 * @type {String}
@@ -107,8 +124,8 @@ const MediaControlsBase = kind({
 		bottomComponents: PropTypes.node,
 
 		/**
-		 * Jump backward [icon]{@link sandstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link sandstone/Icon.Icon} component type.
+		 * Jump backward {@link sandstone/Icon.Icon|icon} name. Accepts any
+		 * {@link sandstone/Icon.Icon|icon} component type.
 		 *
 		 * @type {String}
 		 * @default 'jumpbackward'
@@ -125,8 +142,8 @@ const MediaControlsBase = kind({
 		jumpButtonsDisabled: PropTypes.bool,
 
 		/**
-		 * Jump forward [icon]{@link sandstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link sandstone/Icon.Icon} component type.
+		 * Jump forward {@link sandstone/Icon.Icon|icon} name. Accepts any
+		 * {@link sandstone/Icon.Icon|icon} component type.
 		 *
 		 * @type {String}
 		 * @default 'jumpforward'
@@ -176,20 +193,21 @@ const MediaControlsBase = kind({
 		noJumpButtons: PropTypes.bool,
 
 		/**
+		 * Called when the button in ActionGuide is clicked.
+		 *
+		 * @type {Function}
+		 * @param {Object} event
+		 * @public
+		 */
+		onActionGuideClick: PropTypes.func,
+
+		/**
 		 * Called when cancel/back key events are fired.
 		 *
 		 * @type {Function}
 		 * @public
 		 */
 		onClose: PropTypes.func,
-
-		/**
-		 * Called when the user flicks on the action guide.
-		 *
-		 * @type {Function}
-		 * @private
-		 */
-		onFlickFromActionGuide: PropTypes.func,
 
 		/**
 		 * Called when the user clicks the JumpBackward button
@@ -233,9 +251,9 @@ const MediaControlsBase = kind({
 
 		/**
 		 * A string which is sent to the `pause` icon of the player controls. This can be
-		 * anything that is accepted by [Icon]{@link sandstone/Icon.Icon}. This will be temporarily replaced by
-		 * the [playIcon]{@link sandstone/MediaPlayer.MediaControls.playIcon} when the
-		 * [paused]{@link sandstone/MediaPlayer.MediaControls.paused} boolean is `false`.
+		 * anything that is accepted by {@link sandstone/Icon.Icon|Icon}. This will be temporarily replaced by
+		 * the {@link sandstone/MediaPlayer.MediaControls.playIcon|playIcon} when the
+		 * {@link sandstone/MediaPlayer.MediaControls.paused|paused} boolean is `false`.
 		 *
 		 * @type {String}
 		 * @default 'pause'
@@ -246,8 +264,8 @@ const MediaControlsBase = kind({
 		/**
 		 * A string which is sent to the `play` icon of the player controls. This can be
 		 * anything that is accepted by {@link sandstone/Icon.Icon}. This will be temporarily replaced by
-		 * the [pauseIcon]{@link sandstone/MediaPlayer.MediaControls.pauseIcon} when the
-		 * [paused]{@link sandstone/MediaPlayer.MediaControls.paused} boolean is `true`.
+		 * the {@link sandstone/MediaPlayer.MediaControls.pauseIcon|pauseIcon} when the
+		 * {@link sandstone/MediaPlayer.MediaControls.paused|paused} boolean is `true`.
 		 *
 		 * @type {String}
 		 * @default 'play'
@@ -318,11 +336,14 @@ const MediaControlsBase = kind({
 		actionGuideShowing: ({bottomComponents, children}) => countReactChildren(children) || bottomComponents,
 		className: ({visible, styler}) => styler.append({hidden: !visible}),
 		moreButtonsClassName: ({styler}) => styler.join('mediaControls', 'moreButtonsComponents'),
+		moreComponentsClassName: ({styler, showMoreComponents}) => styler.join({hidden: !showMoreComponents}, 'moreComponents'),
 		moreComponentsRendered: ({showMoreComponents, moreComponentsRendered}) => showMoreComponents || moreComponentsRendered
 	},
 
 	render: ({
 		actionGuideAriaLabel,
+		actionGuideButtonAriaLabel,
+		actionGuideDisabled,
 		actionGuideLabel,
 		actionGuideShowing,
 		children,
@@ -335,7 +356,7 @@ const MediaControlsBase = kind({
 		mediaDisabled,
 		moreComponentsSpotlightId,
 		noJumpButtons,
-		onFlickFromActionGuide,
+		onActionGuideClick,
 		onJumpBackwardButtonClick,
 		onJumpForwardButtonClick,
 		onKeyDownFromMediaButtons,
@@ -347,6 +368,7 @@ const MediaControlsBase = kind({
 		showMoreComponents,
 		moreComponentsRendered,
 		moreButtonsClassName,
+		moreComponentsClassName,
 		actionGuideClassName,
 		spotlightDisabled,
 		spotlightId,
@@ -362,11 +384,11 @@ const MediaControlsBase = kind({
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
-					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} css={css} className={actionGuideClassName} icon="arrowsmalldown" onFlick={onFlickFromActionGuide}>{actionGuideLabel}</ActionGuide> :
+					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} buttonAriaLabel={actionGuideButtonAriaLabel} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
 					null
 				}
 				{moreComponentsRendered ?
-					<Container spotlightId={moreComponentsSpotlightId} className={css.moreComponents} spotlightDisabled={!showMoreComponents || spotlightDisabled}>
+					<Container spotlightId={moreComponentsSpotlightId} className={moreComponentsClassName} spotlightDisabled={!showMoreComponents || spotlightDisabled}>
 						<Container className={moreButtonsClassName} >
 							{children}
 						</Container>
@@ -382,7 +404,7 @@ const MediaControlsBase = kind({
 });
 
 /**
- * Media control behaviors to apply to [MediaControlsBase]{@link sandstone/MediaPlayer.MediaControlsBase}.
+ * Media control behaviors to apply to {@link sandstone/MediaPlayer.MediaControlsBase|MediaControlsBase}.
  * Provides built-in support for showing more components and key handling for basic playback
  * controls.
  *
@@ -537,7 +559,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 
 			/**
 			 * Registers the MediaControls component with an
-			 * [ApiDecorator]{@link core/internal/ApiDecorator.ApiDecorator}.
+			 * {@link core/internal/ApiDecorator.ApiDecorator|ApiDecorator}.
 			 *
 			 * @type {Function}
 			 * @private
@@ -566,6 +588,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			this.actionGuideHeight = 0;
 			this.animation = null;
 			this.bottomComponentsHeight = 0;
+			this.moreComponentsSpotlightId = 'moreComponents';
 			this.keyLoop = null;
 			this.pulsingKeyCode = null;
 			this.pulsing = null;
@@ -595,7 +618,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			on('keydown', this.handleKeyDown, document);
 			on('keyup', this.handleKeyUp, document);
 			on('blur', this.handleBlur, window);
-			on('wheel', this.handleWheel, document);
 		}
 
 		componentDidUpdate (prevProps, prevState) {
@@ -650,7 +672,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			off('keydown', this.handleKeyDown, document);
 			off('keyup', this.handleKeyUp, document);
 			off('blur', this.handleBlur, window);
-			off('wheel', this.handleWheel, document);
 			this.stopListeningForPulses();
 			this.moreComponentsRenderingJob.stop();
 			if (this.animation) {
@@ -672,21 +693,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 
 			const bottomElement = this.mediaControlsNode.querySelector(`.${css.moreComponents}`);
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
-		};
-
-		canShowMoreComponents = () => (!this.props.moreActionDisabled && !this.state.showMoreComponents);
-
-		handleKeyDownFromMediaButtons = (ev) => {
-			if (is('down', ev.keyCode) && this.canShowMoreComponents()) {
-				this.showMoreComponents();
-				ev.stopPropagation();
-			}
-		};
-
-		handleFlickFromActionGuide = ({direction, velocityY}) => {
-			if (direction === 'vertical' && velocityY < 0 && this.canShowMoreComponents()) {
-				this.showMoreComponents();
-			}
 		};
 
 		handleKeyDown = (ev) => {
@@ -745,8 +751,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			this.paused.resume();
 		};
 
-		handleWheel = (ev) => {
-			if (this.canShowMoreComponents() && this.props.visible && ev.deltaY > 0) {
+		handleActionGuideClick = () => {
+			if (!this.state.showMoreComponents) {
 				this.showMoreComponents();
 			}
 		};
@@ -827,7 +833,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			if (this.state.showMoreComponents) {
 				this.paused.resume();
 				if (!Spotlight.getPointerMode()) {
-					Spotlight.move('down');
+					Spotlight.focus(this.moreComponentsSpotlightId);
 				}
 			}
 		};
@@ -855,12 +861,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 				<Wrapped
 					{...props}
 					mediaControlsRef={this.mediaControlsRef}
+					actionGuideDisabled={this.props.moreActionDisabled}
 					moreComponentsRendered={this.state.moreComponentsRendered}
+					moreComponentsSpotlightId={this.moreComponentsSpotlightId}
+					onActionGuideClick={this.handleActionGuideClick}
 					onClose={this.handleClose}
-					onFlickFromActionGuide={this.handleFlickFromActionGuide}
-					onKeyDownFromMediaButtons={this.handleKeyDownFromMediaButtons}
 					onPlayButtonClick={this.handlePlayButtonClick}
-					onTransitionEnd={this.handleTransitionEnd}
 					ref={this.getMediaControls}
 					showMoreComponents={this.state.showMoreComponents}
 				/>
@@ -880,7 +886,7 @@ const handleCancel = (ev, {onClose}) => {
 /**
  * A set of components for controlling media playback and rendering additional components.
  *
- * This uses [Slottable]{@link ui/Slottable} to accept the custom tags, `<bottomComponents>`
+ * This uses {@link ui/Slottable|Slottable} to accept the custom tags, `<bottomComponents>`
  * to add components to the bottom of the media controls. Any additional children will be
  * rendered into the "more" controls area. Showing the additional components is handled by
  * `MediaControls` when the user navigates down from the media buttons.
@@ -888,6 +894,7 @@ const handleCancel = (ev, {onClose}) => {
  * @class MediaControls
  * @memberof sandstone/MediaPlayer
  * @mixes ui/Cancelable.Cancelable
+ * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
@@ -899,7 +906,9 @@ const MediaControls = ApiDecorator(
 	]},
 	MediaControlsDecorator(
 		Cancelable({modal: true, onCancel: handleCancel},
-			MediaControlsBase
+			Skinnable(
+				MediaControlsBase
+			)
 		)
 	)
 );

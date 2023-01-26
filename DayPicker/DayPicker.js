@@ -32,7 +32,7 @@ import css from './DayPicker.module.less';
  * A day of the week selection component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [DayPicker]{@link sandstone/DayPicker.DayPicker}.
+ * is within {@link sandstone/DayPicker.DayPicker|DayPicker}.
  *
  * @class DayPickerBase
  * @memberof sandstone/DayPicker

@@ -150,7 +150,7 @@ const AnnounceState = {
 };
 
 /**
- * Every callback sent by [VideoPlayer]{@link sandstone/VideoPlayer} receives a status package,
+ * Every callback sent by {@link sandstone/VideoPlayer|VideoPlayer} receives a status package,
  * which includes an object with the following key/value pairs as the first argument:
  *
  * @typedef {Object} videoStatus
@@ -661,7 +661,7 @@ const VideoPlayerBase = class extends Component {
 		/**
 		 * The video source.
 		 *
-		 * Any children `<source>` tag elements of [VideoPlayer]{@link sandstone/VideoPlayer} will
+		 * Any children `<source>` tag elements of {@link sandstone/VideoPlayer|VideoPlayer} will
 		 * be sent directly to the `videoComponent` as video sources.
 		 *
 		 * @type {Node}
@@ -764,7 +764,7 @@ const VideoPlayerBase = class extends Component {
 		 * * `pause()` - pause video
 		 * * `load()` - load video
 		 *
-		 * The [`source`]{@link sandstone/VideoPlayer.Video.source} property is passed to
+		 * The {@link sandstone/VideoPlayer.Video.source|source} property is passed to
 		 * the video component as a child node.
 		 *
 		 * @type {Component|Element}
@@ -849,7 +849,6 @@ const VideoPlayerBase = class extends Component {
 			on('touchmove', this.activityDetected);
 		}
 		document.addEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
-		document.addEventListener('wheel', this.activityDetected, {capture: true});
 		this.startDelayedFeedbackHide();
 		if (this.context && typeof this.context === 'function') {
 			this.floatingLayerController = this.context(() => {});
@@ -947,7 +946,6 @@ const VideoPlayerBase = class extends Component {
 			off('touchmove', this.activityDetected);
 		}
 		document.removeEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
-		document.removeEventListener('wheel', this.activityDetected, {capture: true});
 		this.stopRewindJob();
 		this.stopAutoCloseTimeout();
 		this.stopDelayedTitleHide();
@@ -1470,7 +1468,7 @@ const VideoPlayerBase = class extends Component {
 
 	/**
 	 * Step a given amount of time away from the current playback position.
-	 * Like [seek]{@link sandstone/VideoPlayer.VideoPlayerBase.seek} but relative.
+	 * Like {@link sandstone/VideoPlayer.VideoPlayerBase.seek|seek} but relative.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1650,7 +1648,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Sets the playback rate type (from the keys of [playbackRateHash]{@link sandstone/VideoPlayer.VideoPlayer#playbackRateHash}).
+	 * Sets the playback rate type (from the keys of {@link sandstone/VideoPlayer.VideoPlayer#playbackRateHash|playbackRateHash}).
 	 *
 	 * @param {String} cmd - Key of the playback rate type.
 	 * @private
@@ -1660,7 +1658,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Changes [playbackRate]{@link sandstone/VideoPlayer.VideoPlayer#playbackRate} to a valid value
+	 * Changes {@link sandstone/VideoPlayer.VideoPlayer#playbackRate|playbackRate} to a valid value
 	 * when initiating fast forward or rewind.
 	 *
 	 * @param {Number} idx - The index of the desired playback rate.
@@ -1686,7 +1684,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Sets [playbackRate]{@link sandstone/VideoPlayer.VideoPlayer#playbackRate}.
+	 * Sets {@link sandstone/VideoPlayer.VideoPlayer#playbackRate|playbackRate}.
 	 *
 	 * @param {Number|String} rate - The desired playback rate.
 	 * @private

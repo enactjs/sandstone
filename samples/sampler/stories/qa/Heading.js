@@ -1,10 +1,10 @@
-import IString from 'ilib/lib/IString';
-import {select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
 import $L from '@enact/sandstone/internal/$L';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import {select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
+import IString from 'ilib/lib/IString';
 
 import css from './Heading.module.less';
 
