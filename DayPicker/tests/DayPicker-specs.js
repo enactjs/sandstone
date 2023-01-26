@@ -25,6 +25,15 @@ describe('DayPicker', () => {
 		expect(selectedDay).toHaveClass(expected);
 	});
 
+	test('should select day when passed prop \'selected\' as a number', () => {
+		render(<DayPicker selected={0} />);
+		const selectedDay = screen.getAllByRole('checkbox')[1];
+
+		const expected = 'selected';
+
+		expect(selectedDay).toHaveClass(expected);
+	});
+
 	test('should emit an onSelect event with \'onSelect\' type when selecting days', () => {
 		const handleSelect = jest.fn();
 		render(<DayPicker onSelect={handleSelect} />);
