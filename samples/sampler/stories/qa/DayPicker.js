@@ -3,6 +3,7 @@ import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import {Component} from 'react';
+import {number} from '@enact/storybook-utils/addons/controls';
 
 DayPicker.displayName = 'DayPicker';
 
@@ -48,3 +49,19 @@ ToTestGetSelectedDayString.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+export const WithSelectedNumber = (args) => (
+	<Scroller>
+		<Heading size="small">
+			Change *selected* number.
+			<br />
+			Change locale to *es-ES* starting on Monday.
+		</Heading>
+		<Item label={getSelectedDayString(args['selected'])}>{'Selected Day'}</Item>
+		<DayPicker disabled selected={args['selected']} />
+	</Scroller>
+);
+
+number('selected', WithSelectedNumber, DayPicker, 0);
+
+WithSelectedNumber.storyName = 'to test prop selected as a number';
