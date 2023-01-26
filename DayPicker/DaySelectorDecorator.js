@@ -38,7 +38,7 @@ function generalizeSelected (selected, state) {
 // Accepts a "Sunday at index 0" selected array or number and returns a
 // localized array or number.
 function localizeSelected (selected, state) {
-	if (selected === undefined || selected === null) {
+	if (typeof selected === 'undefined' || selected === null) {
 		return selected;
 	}
 
