@@ -30,6 +30,41 @@ const headerWithChildrenTests = [
 	<Header type="standard" title="Title" subtitle="Subtitle">{dropIn.doubleButtons}</Header>
 ];
 
+const specificTests = [
+	// [QWTC-1886]
+	<Header type="standard" title="Enact" slotAfter={dropIn.singleButton} />,
+	// [QWTC-1881]
+	<Header type="standard" title="Enact" slotAfter={dropIn.singleButton} subtitle="An app framework" />,
+	// [QWTC-1885]
+	<Header type="compact" title="Enact" slotAfter={dropIn.singleButton} />,
+	// [QWTC-1880]
+	<Header type="compact" title="Enact" slotAfter={dropIn.singleButton} subtitle="An app framework" />,
+	// start of [QWTC-1887]
+	<Header type="compact" title="غينيا واستمر" slotAfter={dropIn.singleButton} subtitle="غينيا واستمر" />,
+	{
+		locale: 'ar-SA',
+		component: <Header type="compact" title="غينيا واستمر" subtitle="غينيا واستمر" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Header type="compact" title="غينيا واستمر" slotAfter={dropIn.singleButton} subtitle="غينيا واستمر" />
+	},
+	// end of [QWTC-1887]
+
+	// [QWTC-1879]
+	<Header type="standard" title="ฟิ้  ไั  ஒ  த" slotAfter={dropIn.singleButton} subtitle="ฟิ้  ไั  ஒ  த" />,
+	// [QWTC-1878]
+	<Header type="compact" title="ฟิ้  ไั  ஒ  த" slotAfter={dropIn.singleButton} subtitle="ฟิ้  ไั  ஒ  த" />,
+	// [QWTC-2224]
+	<Header type="mini" title="Enact" slotBefore={dropIn.singleButton} />,
+	// [QWTC-2225]
+	<Header type="mini" title="Enact" slotBefore={dropIn.singleButton} subtitle="An app framework" />,
+	// [QWTC-2227]
+	<Header centered noCloseButton type="wizard" title="Enact" slotAbove={dropIn.steps}>{dropIn.singleButton}</Header>,
+	// [QWTC-2228]
+	<Header centered noCloseButton type="wizard" title="Enact" slotAbove={dropIn.steps} slotAfter={dropIn.singleButton} slotBefore={dropIn.singleButton} subtitle="An app framework">{dropIn.singleButton}</Header>
+];
+
 const LtrTests = [
 	// Initial
 	...withProps({type: 'standard'}, baseTests),
@@ -74,6 +109,7 @@ const LtrTests = [
 
 const HeaderTests = [
 	...LtrTests,
+	...specificTests,
 	...withConfig({locale: 'ar-SA'}, LtrTests),
 
 	// Tallglyph Validation
