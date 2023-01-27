@@ -221,7 +221,7 @@ const TransferListBase = kind({
 		setFirstList: null,
 		setSecondList: null,
 		showSelectionOrder: false,
-		verticalHeight: 465
+		verticalHeight: 600
 	},
 
 	styles: {
@@ -231,12 +231,12 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {
+		renderItem: ({disabled, itemSize, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
 			const selected = selectedIndex !== 0;
-			const style = orientation === 'horizontal' ? {} : {height: '100%', width: ri.unit(30, 'rem'), writingMode: 'vertical-lr', margin: '0'};
+			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(12)})`, width: ri.scaleToRem(itemSize * 3)};
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
@@ -796,14 +796,14 @@ const TransferListBase = kind({
 		};
 
 		return (
-			<Layout align="center" className={componentCss.transferList} style={{flexDirection: orientation !== 'horizontal' ? 'column' : 'row'}}>
+			<Layout align="center" className={componentCss.transferList} orientation={orientation !== 'horizontal' ? 'vertical' : 'horizontal'}>
 				<Cell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
 					onDrop={onDropFirstHandler}
 					size="40%"
-					style={{height: height}}
+					style={{height: height, maxWidth: orientation === 'horizontal' ? 'inherit' : '100%', minWidth: orientation === 'horizontal' ? 'inherit' : '100%'}}
 				>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
@@ -814,6 +814,7 @@ const TransferListBase = kind({
 							itemRenderer={renderItem(firstListSpecs)}
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
+							spacing={orientation === 'vertical' && itemSize * 3}
 							style={{height: height}}
 						/> :
 						<VirtualGridList
@@ -823,55 +824,55 @@ const TransferListBase = kind({
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(firstListSpecs)}
 							itemSize={{
-								minWidth: (orientation === "horizontal" ? 5 : 4) * itemSize,
+								minWidth: 5 * itemSize,
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
 							style={{height: height}}
 						/> }
 				</Cell>
-				<Cell className={componentCss.listButtons} style={{flexDirection: orientation !== 'horizontal' ? 'row' : 'column'}}>
+				<Cell className={componentCss.listButtons} shrink={orientation === 'horizontal'} style={{flexDirection: orientation !== 'horizontal' ? 'row' : 'column'}}>
 					{!moveOnSpotlight ?
 						<>
 							<Button
 								disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity}
+								icon={orientation !== 'horizontal' ? 'triangledown' : 'triangleright'}
+								iconOnly
 								onClick={moveIntoSecondAll}
 								onSpotlightLeft={orientation !== 'horizontal' ? handleSpotlightBounds : null}
 								onSpotlightUp={orientation === 'horizontal' ? handleSpotlightBounds : null}
 								size="small"
-							>
-								{orientation !== 'horizontal' ? 'vvv' : '>>>'}
-							</Button>
+							/>
 							<Button
 								disabled={!(selectedItems.find((item) => item.list === "first")) || disabled}
+								icon={orientation !== 'horizontal' ? 'arrowlargedown' : 'arrowsmallright'}
+								iconOnly
 								onClick={moveIntoSecondSelected}
 								size="small"
-							>
-								{orientation !== 'horizontal' ? 'v' : '>'}
-							</Button>
+							/>
 							<Button
 								disabled={!(selectedItems.find((item) => item.list === "second")) || disabled}
+								icon={orientation !== 'horizontal' ? 'arrowlargeup' : 'arrowsmallleft'}
+								iconOnly
 								onClick={moveIntoFirstSelected}
 								size="small"
-							>
-								{orientation !== 'horizontal' ? '^' : '<'}
-							</Button>
+							/>
 							<Button
 								disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity}
+								icon={orientation !== 'horizontal' ? 'triangleup' : 'triangleleft'}
+								iconOnly
 								onClick={moveIntoFirstAll}
 								size="small"
-							>
-								{orientation !== 'horizontal' ? '^^^' : '<<<'}
-							</Button>
+							/>
 							<Button
 								disabled={disabled}
+								icon="refresh"
+								iconOnly
 								onClick={handleRemoveSelected}
 								onSpotlightDown={orientation === 'horizontal' ? handleSpotlightBounds : null}
 								onSpotlightRight={orientation !== 'horizontal' ? handleSpotlightBounds : null}
 								size="small"
-							>
-								{'Clear'}
-							</Button>
+							/>
 						</> : ''
 					}
 				</Cell>
@@ -881,7 +882,7 @@ const TransferListBase = kind({
 					onDragOver={handlePreventDefault}
 					onDrop={onDropSecondHandler}
 					size="40%"
-					style={{height: height}}
+					style={{height: height, maxWidth: orientation === 'horizontal' ? 'inherit' : '100%', minWidth: orientation === 'horizontal' ? 'inherit' : '100%'}}
 				>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
@@ -892,6 +893,7 @@ const TransferListBase = kind({
 							itemRenderer={renderItem(secondListSpecs)}
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
+							spacing={orientation === 'vertical' && itemSize * 3}
 							style={{height: height}}
 						/> :
 						<VirtualGridList
@@ -901,7 +903,7 @@ const TransferListBase = kind({
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(secondListSpecs)}
 							itemSize={{
-								minWidth: (orientation === "horizontal" ? 5 : 4) * itemSize,
+								minWidth: 5 * itemSize,
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
