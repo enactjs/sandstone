@@ -386,6 +386,7 @@ const InputPopupBase = kind({
 		minLength,
 		...rest
 	}) => {
+		/* istanbul ignore next */
 		if (value) {
 			deprecate({
 				name: 'sandstone/Input.InputPopupBase.value',
@@ -500,15 +501,6 @@ const InputBase = kind({
 		 * @private
 		 */
 		announce: PropTypes.func,
-
-		/**
-		 * Initial value of the input.
-		 *
-		 * @see {@link sandstone/Input.InputField}
-		 * @type {String|Number}
-		 * @public
-		 */
-		defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
 		/**
 		 * Disables the button that activates the input popup.
@@ -659,6 +651,11 @@ const InputDecorator = compose(
  * />
  * ```
  *
+ * By default, `Input` maintains the state of its `value` property. Supply the `defaultValue`
+ * property to control its initial value. If you wish to directly control updates to the
+ * component, supply a value to `value` at creation time and update it in response to `onChange`
+ * events.
+ *
  * @class Input
  * @memberof sandstone/Input
  * @extends sandstone/Input.InputBase
@@ -680,6 +677,11 @@ const Input = InputDecorator(InputBase);
  *   title="Title"
  * />
  * ```
+ *
+ * By default, `InputPopup` maintains the state of its `value` property. Supply the `defaultValue`
+ * property to control its initial value. If you wish to directly control updates to the
+ * component, supply a value to `value` at creation time and update it in response to `onChange`
+ * events.
  *
  * @class InputPopup
  * @memberof sandstone/Input

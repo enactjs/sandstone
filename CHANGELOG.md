@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Deprecated
 
-- `sandstone/Input.InputPopupBase` prop `value`, to be removed in 3.0.0. Use `sandstone/Input.InputPopupBase` prop `defaultValue` instead.
+- `sandstone/Input.InputPopupBase` prop `value`, to be removed in 3.0.0. Use  `defaultValue` instead.
 
 ### Added
 
