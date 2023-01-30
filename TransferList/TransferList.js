@@ -236,7 +236,7 @@ const TransferListBase = kind({
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
 			const selected = selectedIndex !== 0;
-			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(12)})`, width: ri.scaleToRem(itemSize * 3)};
+			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(42)})`, width: ri.scaleToRem(itemSize * 3)};
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
@@ -815,7 +815,6 @@ const TransferListBase = kind({
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
 							spacing={orientation === 'vertical' && itemSize * 3}
-							style={{height: height}}
 						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToFirst}
@@ -894,7 +893,6 @@ const TransferListBase = kind({
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
 							spacing={orientation === 'vertical' && itemSize * 3}
-							style={{height: height}}
 						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToSecond}
