@@ -814,7 +814,7 @@ const TransferListBase = kind({
 							itemRenderer={renderItem(firstListSpecs)}
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
-							spacing={orientation === 'vertical' && itemSize * 3}
+							spacing={orientation === 'vertical' ? itemSize * 3 : null}
 						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToFirst}
@@ -892,7 +892,7 @@ const TransferListBase = kind({
 							itemRenderer={renderItem(secondListSpecs)}
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
-							spacing={orientation === 'vertical' && itemSize * 3}
+							spacing={orientation === 'vertical' ? itemSize * 3 : null}
 						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToSecond}
