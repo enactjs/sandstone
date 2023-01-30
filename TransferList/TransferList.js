@@ -377,6 +377,7 @@ const TransferListBase = kind({
 
 		const height = ri.scaleToRem(orientation === 'horizontal' ? defaultHeight : verticalHeight);
 		const itemSize = ri.scale(defaultItemSize);
+		const width = orientation === 'horizontal' ? 'inherit' : '100%';
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
 		let scrollToRefFirst = useRef(null);
@@ -803,7 +804,7 @@ const TransferListBase = kind({
 					onDragOver={handlePreventDefault}
 					onDrop={onDropFirstHandler}
 					size="40%"
-					style={{height: height, maxWidth: orientation === 'horizontal' ? 'inherit' : '100%', minWidth: orientation === 'horizontal' ? 'inherit' : '100%'}}
+					style={{height: height, width: width}}
 				>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
@@ -827,10 +828,9 @@ const TransferListBase = kind({
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
-							style={{height: height}}
 						/> }
 				</Cell>
-				<Cell className={componentCss.listButtons} shrink={orientation === 'horizontal'} style={{flexDirection: orientation !== 'horizontal' ? 'row' : 'column'}}>
+				<Cell className={componentCss.listButtons} style={{flexDirection: orientation !== 'horizontal' ? 'row' : 'column'}}>
 					{!moveOnSpotlight ?
 						<>
 							<Button
@@ -881,7 +881,7 @@ const TransferListBase = kind({
 					onDragOver={handlePreventDefault}
 					onDrop={onDropSecondHandler}
 					size="40%"
-					style={{height: height, maxWidth: orientation === 'horizontal' ? 'inherit' : '100%', minWidth: orientation === 'horizontal' ? 'inherit' : '100%'}}
+					style={{height: height, width: width}}
 				>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
@@ -905,7 +905,6 @@ const TransferListBase = kind({
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
-							style={{height: height}}
 						/> }
 				</Cell>
 			</Layout>
