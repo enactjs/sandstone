@@ -242,9 +242,9 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (orientation !== 'horizontal' && list === 'first') moveInSecond();
+				if (orientation === 'vertical' && list === 'first') moveInSecond();
 				if (elements.length - 1 !== index && orientation === 'horizontal') return;
-				if (list === 'first' && orientation !== 'horizontal') return;
+				if (list === 'first' && orientation === 'vertical') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -264,9 +264,9 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightUp = (ev) => {
-				if (orientation !== 'horizontal' && list === 'second') moveInFirst();
+				if (orientation === 'vertical' && list === 'second') moveInFirst();
 				if (index !== 0 && orientation === 'horizontal') return;
-				if (list === 'second' && orientation !== 'horizontal') return;
+				if (list === 'second' && orientation === 'vertical') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -314,9 +314,9 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (orientation !== 'horizontal' && list === 'first') moveInSecond();
+				if (orientation === 'vertical' && list === 'first') moveInSecond();
 				if (elements.length - 1 !== index && orientation === 'horizontal') return;
-				if (list === 'first' && orientation !== 'horizontal') return;
+				if (list === 'first' && orientation === 'vertical') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -336,9 +336,9 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightUp = (ev) => {
-				if (orientation !== 'horizontal' && list === 'second') moveInFirst();
+				if (orientation === 'vertical' && list === 'second') moveInFirst();
 				if (index !== 0 && orientation === 'horizontal') return;
-				if (list === 'second' && orientation !== 'horizontal') return;
+				if (list === 'second' && orientation === 'vertical') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -797,7 +797,7 @@ const TransferListBase = kind({
 		};
 
 		return (
-			<Layout align="center" className={componentCss.transferList} orientation={orientation !== 'horizontal' ? 'vertical' : 'horizontal'}>
+			<Layout align="center" className={componentCss.transferList} orientation={orientation}>
 				<Cell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
@@ -810,7 +810,7 @@ const TransferListBase = kind({
 						<VirtualList
 							cbScrollTo={getScrollToFirst}
 							dataSize={firstListLocal.length}
-							direction={orientation !== 'horizontal' ? 'horizontal' : 'vertical'}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderItem(firstListSpecs)}
 							itemSize={itemSize}
@@ -820,7 +820,7 @@ const TransferListBase = kind({
 						<VirtualGridList
 							cbScrollTo={getScrollToFirst}
 							dataSize={firstListLocal.length}
-							direction={orientation !== 'horizontal' ? 'horizontal' : 'vertical'}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(firstListSpecs)}
 							itemSize={{
@@ -830,35 +830,35 @@ const TransferListBase = kind({
 							onScrollStop={handleScroll}
 						/> }
 				</Cell>
-				<Cell className={componentCss.listButtons} style={{flexDirection: orientation !== 'horizontal' ? 'row' : 'column'}}>
+				<Cell className={componentCss.listButtons} style={{flexDirection: orientation === 'vertical' ? 'row' : 'column'}}>
 					{!moveOnSpotlight ?
 						<>
 							<Button
 								disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity}
-								icon={orientation !== 'horizontal' ? 'triangledown' : 'triangleright'}
+								icon={orientation === 'vertical' ? 'triangledown' : 'triangleright'}
 								iconOnly
 								onClick={moveIntoSecondAll}
-								onSpotlightLeft={orientation !== 'horizontal' ? handleSpotlightBounds : null}
+								onSpotlightLeft={orientation === 'vertical' ? handleSpotlightBounds : null}
 								onSpotlightUp={orientation === 'horizontal' ? handleSpotlightBounds : null}
 								size="small"
 							/>
 							<Button
 								disabled={!(selectedItems.find((item) => item.list === "first")) || disabled}
-								icon={orientation !== 'horizontal' ? 'arrowlargedown' : 'arrowsmallright'}
+								icon={orientation === 'vertical' ? 'arrowlargedown' : 'arrowsmallright'}
 								iconOnly
 								onClick={moveIntoSecondSelected}
 								size="small"
 							/>
 							<Button
 								disabled={!(selectedItems.find((item) => item.list === "second")) || disabled}
-								icon={orientation !== 'horizontal' ? 'arrowlargeup' : 'arrowsmallleft'}
+								icon={orientation === 'vertical' ? 'arrowlargeup' : 'arrowsmallleft'}
 								iconOnly
 								onClick={moveIntoFirstSelected}
 								size="small"
 							/>
 							<Button
 								disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity}
-								icon={orientation !== 'horizontal' ? 'triangleup' : 'triangleleft'}
+								icon={orientation === 'vertical' ? 'triangleup' : 'triangleleft'}
 								iconOnly
 								onClick={moveIntoFirstAll}
 								size="small"
@@ -869,7 +869,7 @@ const TransferListBase = kind({
 								iconOnly
 								onClick={handleRemoveSelected}
 								onSpotlightDown={orientation === 'horizontal' ? handleSpotlightBounds : null}
-								onSpotlightRight={orientation !== 'horizontal' ? handleSpotlightBounds : null}
+								onSpotlightRight={orientation === 'vertical' ? handleSpotlightBounds : null}
 								size="small"
 							/>
 						</> : ''
@@ -887,7 +887,7 @@ const TransferListBase = kind({
 						<VirtualList
 							cbScrollTo={getScrollToSecond}
 							dataSize={secondListLocal.length}
-							direction={orientation !== 'horizontal' ? 'horizontal' : 'vertical'}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderItem(secondListSpecs)}
 							itemSize={itemSize}
@@ -897,7 +897,7 @@ const TransferListBase = kind({
 						<VirtualGridList
 							cbScrollTo={getScrollToSecond}
 							dataSize={secondListLocal.length}
-							direction={orientation !== 'horizontal' ? 'horizontal' : 'vertical'}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(secondListSpecs)}
 							itemSize={{
