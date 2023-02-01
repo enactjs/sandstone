@@ -141,6 +141,15 @@ const TransferListBase = kind({
 		noMultipleDrag: PropTypes.bool,
 
 		/**
+		 * The orientation for the transfer list.
+		 *
+		 * @type {('horizontal', 'vertical')}
+		 * @default 'horizontal'
+		 * @public
+		 */
+		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
 		 * An array containing the name of each item that will populate the second list.
 		 *
 		 * @type {Array}
@@ -187,7 +196,16 @@ const TransferListBase = kind({
 		 * @default false
 		 * @public
 		 */
-		showSelectionOrder: PropTypes.bool
+		showSelectionOrder: PropTypes.bool,
+
+		/**
+		 * The height of the vertical item.
+		 *
+		 * @type {Number}
+		 * @default 465
+		 * @public
+		 */
+		verticalHeight: PropTypes.number
 	},
 
 	defaultProps: {
@@ -198,10 +216,12 @@ const TransferListBase = kind({
 		listComponent: 'VirtualList',
 		moveOnSpotlight: false,
 		noMultipleDrag: false,
+		orientation: 'horizontal',
 		secondList: {},
 		setFirstList: null,
 		setSecondList: null,
-		showSelectionOrder: false
+		showSelectionOrder: false,
+		verticalHeight: 600
 	},
 
 	styles: {
@@ -211,24 +231,42 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: ({disabled}) => ({elements, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderItem: ({disabled, itemSize, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
 			const selected = selectedIndex !== 0;
-
+			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(42)})`, width: ri.scaleToRem(itemSize * 3)};
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (elements.length - 1 !== index) return;
+				if (orientation === 'vertical' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index && orientation === 'horizontal') return;
+				if (list === 'first' && orientation === 'vertical') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightLeft = (ev) => {
+				if (orientation === 'horizontal' && list === 'second') moveInFirst();
+				if (index !== 0 || orientation === 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightRight = (ev) => {
+				if (orientation === 'horizontal' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index || orientation === 'horizontal') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
 
 			const handleSpotlightUp = (ev) => {
-				if (index !== 0) return;
+				if (orientation === 'vertical' && list === 'second') moveInFirst();
+				if (index !== 0 && orientation === 'horizontal') return;
+				if (list === 'second' && orientation === 'vertical') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -244,15 +282,18 @@ const TransferListBase = kind({
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					selected={selected}
 					slotAfter={(selected && showSelectionOrder) && selectedIndex}
+					style={style}
 				>
 					{element}
 				</CheckboxItem>
 			);
 		},
-		renderImageItem: ({disabled}) => ({elements, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderImageItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
@@ -273,13 +314,31 @@ const TransferListBase = kind({
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (elements.length - 1 !== index) return;
+				if (orientation === 'vertical' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index && orientation === 'horizontal') return;
+				if (list === 'first' && orientation === 'vertical') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightLeft = (ev) => {
+				if (orientation === 'horizontal' && list === 'second') moveInFirst();
+				if ((index !== 0 && index !== 1 ) || orientation === 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightRight = (ev) => {
+				if (orientation === 'horizontal' && list === 'first') moveInSecond();
+				if ((elements.length - 1 !== index && elements.length - 2 !== index) || orientation === 'horizontal') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
 
 			const handleSpotlightUp = (ev) => {
-				if (index !== 0) return;
+				if (orientation === 'vertical' && list === 'second') moveInFirst();
+				if (index !== 0 && orientation === 'horizontal') return;
+				if (list === 'second' && orientation === 'vertical') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -295,6 +354,8 @@ const TransferListBase = kind({
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					orientation="horizontal"
 					selected={selected}
@@ -308,14 +369,15 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder}) => {
+	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
 		const [position, setPosition] = useState(null);
 
-		const height = ri.scaleToRem(defaultHeight);
+		const height = ri.scaleToRem(orientation === 'horizontal' ? defaultHeight : verticalHeight);
 		const itemSize = ri.scale(defaultItemSize);
+		const width = orientation === 'horizontal' ? 'inherit' : '100%';
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
 		let scrollToRefFirst = useRef(null);
@@ -623,7 +685,7 @@ const TransferListBase = kind({
 			return null;
 		};
 
-		const onDropRightHandler = useCallback((ev) => {
+		const onDropSecondHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
@@ -657,7 +719,7 @@ const TransferListBase = kind({
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		}, [firstListLocal, firstListMinCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
-		const onDropLeftHandler = useCallback((ev) => {
+		const onDropFirstHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
@@ -702,14 +764,14 @@ const TransferListBase = kind({
 			ev.stopPropagation();
 		}, []);
 
-		const handleSpotlightLeft = useCallback((ev) => {
+		const moveInFirst = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'second') === -1 || !moveOnSpotlight) return;
 			moveIntoFirstSelected();
 			ev.preventDefault();
 			ev.stopPropagation();
 		}, [moveIntoFirstSelected, moveOnSpotlight, selectedItems]);
 
-		const handleSpotlightRight = useCallback((ev) => {
+		const moveInSecond = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'first') === -1 || !moveOnSpotlight) return;
 			moveIntoSecondSelected();
 			ev.preventDefault();
@@ -721,7 +783,7 @@ const TransferListBase = kind({
 			list: 'first',
 			onSelect: setSelected,
 			selectedItems,
-			onSpotlightRight: handleSpotlightRight,
+			moveInSecond,
 			showSelectionOrder
 		};
 
@@ -730,33 +792,35 @@ const TransferListBase = kind({
 			list: 'second',
 			onSelect: setSelected,
 			selectedItems,
-			onSpotlightLeft: handleSpotlightLeft,
+			moveInFirst,
 			showSelectionOrder
 		};
 
 		return (
-			<Layout align="center" className={componentCss.transferList}>
+			<Layout align="center" className={componentCss.transferList} orientation={orientation}>
 				<Cell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropLeftHandler}
+					onDrop={onDropFirstHandler}
 					size="40%"
-					style={{height: height}}
+					style={{height: height, width: width}}
 				>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
 							cbScrollTo={getScrollToFirst}
 							dataSize={firstListLocal.length}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderItem(firstListSpecs)}
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
-							style={{height: height}}
+							spacing={orientation === 'vertical' ? itemSize * 3 : null}
 						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToFirst}
 							dataSize={firstListLocal.length}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(firstListSpecs)}
 							itemSize={{
@@ -764,17 +828,50 @@ const TransferListBase = kind({
 								minHeight: itemSize
 							}}
 							onScrollStop={handleScroll}
-							style={{height: height}}
 						/> }
 				</Cell>
-				<Cell className={componentCss.listButtons}>
+				<Cell className={componentCss.listButtons} style={{flexDirection: orientation === 'vertical' ? 'row' : 'column'}}>
 					{!moveOnSpotlight ?
 						<>
-							<Button disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
-							<Button disabled={!(selectedItems.find((item) => item.list === "first")) || disabled} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
-							<Button disabled={!(selectedItems.find((item) => item.list === "second")) || disabled} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
-							<Button disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity} onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
-							<Button onClick={handleRemoveSelected} onSpotlightDown={handleSpotlightBounds} size="small">{'Clear'}</Button>
+							<Button
+								disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity}
+								icon={orientation === 'vertical' ? 'triangledown' : 'triangleright'}
+								iconOnly
+								onClick={moveIntoSecondAll}
+								onSpotlightLeft={orientation === 'vertical' ? handleSpotlightBounds : null}
+								onSpotlightUp={orientation === 'horizontal' ? handleSpotlightBounds : null}
+								size="small"
+							/>
+							<Button
+								disabled={!(selectedItems.find((item) => item.list === "first")) || disabled}
+								icon={orientation === 'vertical' ? 'arrowlargedown' : 'arrowsmallright'}
+								iconOnly
+								onClick={moveIntoSecondSelected}
+								size="small"
+							/>
+							<Button
+								disabled={!(selectedItems.find((item) => item.list === "second")) || disabled}
+								icon={orientation === 'vertical' ? 'arrowlargeup' : 'arrowsmallleft'}
+								iconOnly
+								onClick={moveIntoFirstSelected}
+								size="small"
+							/>
+							<Button
+								disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity}
+								icon={orientation === 'vertical' ? 'triangleup' : 'triangleleft'}
+								iconOnly
+								onClick={moveIntoFirstAll}
+								size="small"
+							/>
+							<Button
+								disabled={disabled}
+								icon="refresh"
+								iconOnly
+								onClick={handleRemoveSelected}
+								onSpotlightDown={orientation === 'horizontal' ? handleSpotlightBounds : null}
+								onSpotlightRight={orientation === 'vertical' ? handleSpotlightBounds : null}
+								size="small"
+							/>
 						</> : ''
 					}
 				</Cell>
@@ -782,22 +879,25 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropRightHandler}
+					onDrop={onDropSecondHandler}
 					size="40%"
-					style={{height: height}}
+					style={{height: height, width: width}}
 				>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
 							cbScrollTo={getScrollToSecond}
 							dataSize={secondListLocal.length}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderItem(secondListSpecs)}
 							itemSize={itemSize}
 							onScrollStop={handleScroll}
+							spacing={orientation === 'vertical' ? itemSize * 3 : null}
 						/> :
 						<VirtualGridList
 							cbScrollTo={getScrollToSecond}
 							dataSize={secondListLocal.length}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
 							horizontalScrollbar="hidden"
 							itemRenderer={renderImageItem(secondListSpecs)}
 							itemSize={{
