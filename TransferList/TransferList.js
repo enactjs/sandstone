@@ -143,7 +143,7 @@ const TransferListBase = kind({
 		/**
 		 * The orientation for the transfer list.
 		 *
-		 * @type {Component}
+		 * @type {('horizontal', 'vertical')}
 		 * @default 'horizontal'
 		 * @public
 		 */
