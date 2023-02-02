@@ -1,6 +1,6 @@
+import ProgressBar, {ProgressBarBase} from '@enact/sandstone/ProgressBar';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
-import ProgressBar, {ProgressBarBase} from '@enact/sandstone/ProgressBar';
 
 const Config = mergeComponentMetadata('ProgressBar', ProgressBarBase, ProgressBar);
 

@@ -1,8 +1,8 @@
+import BodyText from '@enact/sandstone/BodyText';
+import Popup from '@enact/sandstone/Popup';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import BodyText from '@enact/sandstone/BodyText';
-import Popup from '@enact/sandstone/Popup';
 
 const Config = mergeComponentMetadata('Popup', Popup);
 

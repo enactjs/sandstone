@@ -1,5 +1,5 @@
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, number} from '@enact/storybook-utils/addons/controls';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 
 import TransferList, {TransferListBase, TransferListDecorator} from '@enact/sandstone/TransferList';
 
@@ -19,8 +19,10 @@ export const _TransferList = (args) => (
 		firstListMaxCapacity={args['firstListMaximumCapacity']}
 		firstListMinCapacity={args['firstListMinCapacity']}
 		itemSize={args['itemSize']}
+		listComponent={args['listComponent']}
 		moveOnSpotlight={args['moveElementOnSpotlightDirections']}
 		noMultipleDrag={args['noMultipleDrag']}
+		orientation={args['orientation']}
 		secondList={['HBO', 'Comedy Central', 'HGTV', 'CBS', 'Cartoon Network', 'AXN', 'Disney Channel', 'BBC Food']}
 		secondListMaxCapacity={args['secondListMaxCapacity']}
 		secondListMinCapacity={args['secondListMinCapacity']}
@@ -32,8 +34,10 @@ boolean('disabled', _TransferList, Config, false);
 number('firstListMinCapacity', _TransferList, Config);
 number('firstListMaxCapacity', _TransferList, Config);
 number('itemSize', _TransferList, Config, 201);
-boolean('noMultipleDrag', _TransferList, Config, false);
+select('listComponent', _TransferList, ['VirtualList', 'VirtualGridList'], Config, 'VirtualList');
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
+boolean('noMultipleDrag', _TransferList, Config, false);
+select('orientation', _TransferList, ['horizontal', 'vertical'], Config, 'horizontal');
 number('secondListMinCapacity', _TransferList, Config);
 number('secondListMaxCapacity', _TransferList, Config);
 boolean('showSelectionOrder', _TransferList, Config, false);

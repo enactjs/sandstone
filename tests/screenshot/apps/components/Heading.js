@@ -21,6 +21,11 @@ const HeadingTests = [
 	<Heading spacing="medium">This is a new Heading - spacing is medium</Heading>,
 	<Heading spacing="large">This is a new Heading - spacing is large</Heading>,
 	<Heading spacing="none">This is a new Heading - spacing is none</Heading>,
+	// start of [QWTC-2276]
+	<Heading>नरेंद्र मोदी</Heading>,
+	<Heading>ฟิ้  ไั  ஒ  த</Heading>,
+	<Heading>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Heading>,
+	// end of [QWTC-2276]
 
 	// Heading with no children
 	<Heading />,

@@ -1,9 +1,9 @@
-import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {action} from '@enact/storybook-utils/addons/actions';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Alert from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 import Popup from '@enact/sandstone/Popup';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Toggleable from '@enact/ui/Toggleable';
 
 Popup.displayName = 'Popup';

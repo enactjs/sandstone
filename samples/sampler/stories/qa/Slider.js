@@ -1,7 +1,7 @@
-import {number} from '@enact/storybook-utils/addons/controls';
 import Item from '@enact/sandstone/Item';
 import Slider from '@enact/sandstone/Slider';
 import VirtualList from '@enact/sandstone/VirtualList';
+import {number} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
@@ -63,7 +63,9 @@ class SliderList extends Component {
 
 		return (
 			<Item {...rest} style={itemStyle}>
-				{this.items[index].item + ': ' + this.items[index].count}
+				{
+					this.items[index].item + ': ' + this.items[index].count // eslint-disable-line react/no-this-in-sfc
+				}
 			</Item>
 		);
 	};

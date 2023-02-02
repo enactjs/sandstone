@@ -1,11 +1,12 @@
 import kind from '@enact/core/kind';
+import Button from '@enact/sandstone/Button';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, range} from '@enact/storybook-utils/addons/controls';
-import Button from '@enact/sandstone/Button';
 import ri from '@enact/ui/resolution';
 import Touchable from '@enact/ui/Touchable';
 import PropTypes from 'prop-types';
 import {Fragment} from 'react';
+import {useState, useCallback} from 'react';
 
 const TouchableDiv = Touchable('div');
 
@@ -130,8 +131,8 @@ export const ThatPausesTheHoldWhenMovingBeyondTolerance32Px = (args) => {
 				marginRight: 'auto',
 				textAlign: 'center',
 				border: '4px dashed #888',
-				width: ri.unit(ri.scale(480), 'rem'),
-				height: ri.unit(ri.scale(480), 'rem')
+				width: ri.scaleToRem(480),
+				height: ri.scaleToRem(480)
 			}}
 		>
 			Resumable
@@ -169,8 +170,8 @@ export const WithOnFlickHandler = (args) => (
 		disabled={args['disabled']}
 		style={{
 			border: '4px dashed #888',
-			width: ri.unit(ri.scale(1000), 'rem'),
-			height: ri.unit(ri.scale(1000), 'rem')
+			width: ri.scaleToRem(1000),
+			height: ri.scaleToRem(1000)
 		}}
 	>
 		Flick within this component
@@ -194,8 +195,8 @@ export const WithDragHandlers = (args) => (
 		disabled={args['disabled']}
 		style={{
 			border: '4px dashed #888',
-			width: ri.unit(ri.scale(1000), 'rem'),
-			height: ri.unit(ri.scale(1000), 'rem')
+			width: ri.scaleToRem(1000),
+			height: ri.scaleToRem(1000)
 		}}
 	>
 		Drag within this component. Setting <code>noResume</code> to <code>false</code> should prevent
@@ -209,6 +210,45 @@ boolean('noResume', WithDragHandlers, TouchableDiv, false);
 boolean('disabled', WithDragHandlers, TouchableDiv);
 
 WithDragHandlers.storyName = 'with drag handlers';
+
+export const WithPinchHandlers = (args) => {
+	const [scale, setScale] = useState(1.0);
+
+	const handlePinch = useCallback((ev) => {
+		action('onPinch')(ev);
+		setScale(ev.scale);
+	}, []);
+
+	return (
+		<TouchableDiv
+			pinchConfig={{
+				global: args['pinchConfig global'] || false,
+				maxScale: args['pinchConfig maxScale'],
+				minScale: args['pinchConfig minScale'],
+				moveTolerance: args['pinchConfig moveTolerance']
+			}}
+			onPinchStart={action('onPinchStart')}
+			onPinch={handlePinch}
+			onPinchEnd={action('onPinchEnd')}
+			style={{
+				border: '4px dashed #888',
+				margin: ri.scaleToRem(300),
+				width: ri.scaleToRem(1000),
+				height: ri.scaleToRem(1000),
+				transform: `scale(${scale})`
+			}}
+		>
+			Pinch within this component.
+		</TouchableDiv>
+	);
+};
+
+boolean('pinchConfig global', WithPinchHandlers, TouchableDiv, false);
+number('pinchConfig maxScale', WithPinchHandlers, TouchableDiv, 4);
+number('pinchConfig minScale', WithPinchHandlers, TouchableDiv, 0.5);
+number('pinchConfig moveTolerance', WithPinchHandlers, TouchableDiv, 16);
+
+WithPinchHandlers.storyName = 'with onPinch handlers';
 
 export const OnTapWhenClicked = (args) => (
 	<TouchableDiv

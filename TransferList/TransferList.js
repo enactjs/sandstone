@@ -19,13 +19,22 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
+import Icon from '../Icon';
+import ImageItem from '../ImageItem';
 import Skinnable from '../Skinnable';
-import VirtualList from '../VirtualList';
+import VirtualList, {VirtualGridList} from '../VirtualList';
 
 import componentCss from './TransferList.module.less';
+import imageItemCss from '../ImageItem/ImageItem.module.less';
 import itemCss from '../Item/Item.module.less';
 
 let multipleItemDragContainer, singleItemDragContainer;
+
+const svgGenerator = (width, height, customText) => (
+	`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +
+	`%3Crect width='${width}' height='${height}' fill='%23117fba'%3E%3C/rect%3E` +
+	`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23ffffff'%3E${customText}%3C/text%3E%3C/svg%3E`
+);
 
 /**
  * A Sandstone-styled scrollable, draggable and spottable transfer list component.
@@ -107,6 +116,15 @@ const TransferListBase = kind({
 		itemSize: PropTypes.number,
 
 		/**
+		 * The type of component used to render the list of items.
+		 *
+		 * @type {Component}
+		 * @default 'VirtualList'
+		 * @public
+		 */
+		listComponent: PropTypes.oneOf(['VirtualList', 'VirtualGridList']),
+
+		/**
 		 * Allows items to be transferred from one list to another using Spotlight Right and/or Spotlight Left.
 		 *
 		 * @type {Boolean}
@@ -121,6 +139,15 @@ const TransferListBase = kind({
 		 * @public
 		 */
 		noMultipleDrag: PropTypes.bool,
+
+		/**
+		 * The orientation for the transfer list.
+		 *
+		 * @type {('horizontal', 'vertical')}
+		 * @default 'horizontal'
+		 * @public
+		 */
+		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
 		 * An array containing the name of each item that will populate the second list.
@@ -169,7 +196,16 @@ const TransferListBase = kind({
 		 * @default false
 		 * @public
 		 */
-		showSelectionOrder: PropTypes.bool
+		showSelectionOrder: PropTypes.bool,
+
+		/**
+		 * The height of the vertical item.
+		 *
+		 * @type {Number}
+		 * @default 465
+		 * @public
+		 */
+		verticalHeight: PropTypes.number
 	},
 
 	defaultProps: {
@@ -177,12 +213,15 @@ const TransferListBase = kind({
 		firstList: {},
 		height: 999,
 		itemSize: 201,
+		listComponent: 'VirtualList',
 		moveOnSpotlight: false,
 		noMultipleDrag: false,
+		orientation: 'horizontal',
 		secondList: {},
 		setFirstList: null,
 		setSecondList: null,
-		showSelectionOrder: false
+		showSelectionOrder: false,
+		verticalHeight: 600
 	},
 
 	styles: {
@@ -192,24 +231,42 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: ({disabled}) => ({elements, list, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderItem: ({disabled, itemSize, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
 			const selected = selectedIndex !== 0;
-
+			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(42)})`, width: ri.scaleToRem(itemSize * 3)};
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
 
 			const handleSpotlightDown = (ev) => {
-				if (elements.length - 1 !== index) return;
+				if (orientation === 'vertical' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index && orientation === 'horizontal') return;
+				if (list === 'first' && orientation === 'vertical') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightLeft = (ev) => {
+				if (orientation === 'horizontal' && list === 'second') moveInFirst();
+				if (index !== 0 || orientation === 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightRight = (ev) => {
+				if (orientation === 'horizontal' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index || orientation === 'horizontal') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
 
 			const handleSpotlightUp = (ev) => {
-				if (index !== 0) return;
+				if (orientation === 'vertical' && list === 'second') moveInFirst();
+				if (index !== 0 && orientation === 'horizontal') return;
+				if (list === 'second' && orientation === 'vertical') return;
 				ev.preventDefault();
 				ev.stopPropagation();
 			};
@@ -217,42 +274,136 @@ const TransferListBase = kind({
 			return (
 				<CheckboxItem
 					{...rest}
+					className={componentCss.draggableItem}
 					data-index={dataIndex}
 					draggable={!disabled}
 					disabled={disabled}
-					className={componentCss.draggableItem}
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
 					selected={selected}
 					slotAfter={(selected && showSelectionOrder) && selectedIndex}
+					style={style}
 				>
 					{element}
 				</CheckboxItem>
 			);
+		},
+		renderImageItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+			const {index, 'data-index': dataIndex} = data;
+			const element = elements[index];
+			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
+			const selected = selectedIndex !== 0;
+
+			const source = {
+				hd: svgGenerator(200, 200, ''),
+				fhd: svgGenerator(300, 300, ''),
+				uhd: svgGenerator(600, 600, '')
+			};
+
+			const selectionComponent = () => {
+				return <div className={componentCss.selectionContainer}>{selected && <Icon className={imageItemCss.selectionIcon}>check</Icon>}{(selected && showSelectionOrder) && selectedIndex}</div>;
+			};
+
+			const handleClick = () => {
+				onSelect(element, index, list);
+			};
+
+			const handleSpotlightDown = (ev) => {
+				if (orientation === 'vertical' && list === 'first') moveInSecond();
+				if (elements.length - 1 !== index && orientation === 'horizontal') return;
+				if (list === 'first' && orientation === 'vertical') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightLeft = (ev) => {
+				if (orientation === 'horizontal' && list === 'second') moveInFirst();
+				if ((index !== 0 && index !== 1 ) || orientation === 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightRight = (ev) => {
+				if (orientation === 'horizontal' && list === 'first') moveInSecond();
+				if ((elements.length - 1 !== index && elements.length - 2 !== index) || orientation === 'horizontal') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			const handleSpotlightUp = (ev) => {
+				if (orientation === 'vertical' && list === 'second') moveInFirst();
+				if (index !== 0 && orientation === 'horizontal') return;
+				if (list === 'second' && orientation === 'vertical') return;
+				ev.preventDefault();
+				ev.stopPropagation();
+			};
+
+			return (
+				<ImageItem
+					{...rest}
+					className={componentCss.draggableItem}
+					data-index={dataIndex}
+					disabled={disabled}
+					draggable={!disabled}
+					id={`${index}-${list}`}
+					key={index + list}
+					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
+					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
+					orientation="horizontal"
+					selected={selected}
+					selectionComponent={selectionComponent} // eslint-disable-line  react/jsx-no-bind
+					showSelection
+					src={source}
+				>
+					{element}
+				</ImageItem>
+			);
 		}
 	},
 
-	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, moveOnSpotlight, noMultipleDrag, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder}) => {
+	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
+		const [position, setPosition] = useState(null);
 
-		const height = ri.scaleToRem(defaultHeight);
+		const height = ri.scaleToRem(orientation === 'horizontal' ? defaultHeight : verticalHeight);
 		const itemSize = ri.scale(defaultItemSize);
+		const width = orientation === 'horizontal' ? 'inherit' : '100%';
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
+		let scrollToRefFirst = useRef(null);
+		let scrollToRefSecond = useRef(null);
+
+		const getScrollToFirst = useCallback((scrollTo) => {
+			scrollToRefFirst.current = scrollTo;
+		}, []);
+
+		const getScrollToSecond = useCallback((scrollTo) => {
+			scrollToRefSecond.current = scrollTo;
+		}, []);
 
 		const setCommonElementStyles = (element) => {
 			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
 			if (item) {
-				const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
+				if (listComponent === 'VirtualList') {
+					const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
+					element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
+					element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
+				} else {
+					element.style.backgroundColor = window.getComputedStyle(item, ':before').backgroundColor;
+					element.style.borderRadius = window.getComputedStyle(item, ':before').borderRadius;
+				}
 
-				element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
 				element.style.border = '1px solid black';
-				element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
 				element.style.height = item.clientHeight + 'px';
 				element.style.left = "0px";
 				element.style.position = "absolute";
@@ -302,92 +453,115 @@ const TransferListBase = kind({
 			generateDragImage();
 		});
 
+		const dropEventListenerFunction = useCallback((ev) => {
+			let element;
+			if (!ev.target.children.length) {
+				element = ev.target.parentElement;
+			} else {
+				element = ev.target.parentElement.parentElement.parentElement;
+			}
+
+			element.classList.remove(`${css.overAbove}`);
+			element.classList.remove(`${css.overBelow}`);
+		}, [css.overAbove, css.overBelow]);
+
+		const dragoverListenerFunction = useCallback((ev) => {
+			let element;
+			if (!ev.target.children.length) {
+				element = ev.target.parentElement;
+			} else {
+				element = ev.target.parentElement.parentElement.parentElement;
+			}
+
+			dragOverElement.current = parseInt(element.id.split('-')[0]);
+
+			const startDragOrder = Number(startDragElement.current.getAttribute('order'));
+			const dragOverOrder = Number(element.getAttribute('order'));
+
+			if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
+				if (ev.offsetY <= 20) {
+					element.classList.add(`${css.overAbove}`);
+				}
+			} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
+				if (ev.offsetY === -1 || ev.offsetY === 0) {
+					element.classList.remove(`${css.overAbove}`);
+					element.classList.remove(`${css.overBelow}`);
+				} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
+					element.classList.add(`${css.overBelow}`);
+				}
+			}
+		}, [css.overAbove, css.overBelow]);
+
+		const startListenerFunction = useCallback((ev) => {
+			const element = ev.target;
+			const [index, list] = element.id.split('-');
+
+			startDragElement.current = element;
+			ev.dataTransfer.setData('text/plain', `${index}-${list}`);
+			ev.dataTransfer.effectAllowed = 'move';
+
+			if (selectedItems.length > 1) {
+				ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
+			} else {
+				ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
+			}
+		}, [selectedItems.length]);
+
 		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
 
 			selectCheckboxItem.forEach(element => {
-				const [index, list] = element.id.split('-');
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
-
-				const potentialIndex = selectedItems.findIndex((pair) => '✓' + pair.element === element.textContent && pair.list === list);
 
 				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
-						return element.addEventListener('dragstart', (ev) => {
-							startDragElement.current = element;
-							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
-							ev.dataTransfer.effectAllowed = 'move';
-
-							if (!noMultipleDrag && potentialIndex === -1 ? selectedItems.length + 1 > 1 : selectedItems.length > 1) {
-								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
-							} else {
-								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
-							}
-						});
+						return element.addEventListener('dragstart', startListenerFunction);
 					}
 					if (event === 'dragover') {
-						return element.addEventListener('dragover', (ev) => {
-							dragOverElement.current = index;
-							const startDragOrder = Number(startDragElement.current.getAttribute('order'));
-							const dragOverOrder = Number(element.getAttribute('order'));
-							if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
-								if (ev.offsetY <= 20) {
-									element.classList.add(`${css.overAbove}`);
-								}
-							} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
-								if (ev.offsetY === -1 || ev.offsetY === 0) {
-									element.classList.remove(`${css.overAbove}`);
-									element.classList.remove(`${css.overBelow}`);
-								} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-									element.classList.add(`${css.overBelow}`);
-								}
-							}
-						});
+						return element.addEventListener('dragover', dragoverListenerFunction);
 					}
 					if (event === 'dragenter') {
-						return element.addEventListener('dragenter', (ev) => {
-							dragOverElement.current = index;
-							const startDragOrder = Number(startDragElement.current.getAttribute('order'));
-							const dragOverOrder = Number(element.getAttribute('order'));
-							if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
-								if (ev.offsetY <= 20) {
-									element.classList.add(`${css.overAbove}`);
-								}
-							} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
-								if (ev.offsetY === -1 || ev.offsetY === 0) {
-									element.classList.remove(`${css.overAbove}`);
-									element.classList.remove(`${css.overBelow}`);
-								} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-									element.classList.add(`${css.overBelow}`);
-								}
-							}
-						});
+						return element.addEventListener('dragenter', dragoverListenerFunction);
 					}
 					if (event === 'dragleave') {
-						return element.addEventListener('dragleave', () => {
-							element.classList.remove(`${css.overAbove}`);
-							element.classList.remove(`${css.overBelow}`);
-						});
+						return element.addEventListener('dragleave', dropEventListenerFunction);
 					}
 					if (event === 'drop') {
-						return element.addEventListener('drop', () => {
-							element.classList.remove(`${css.overAbove}`);
-							element.classList.remove(`${css.overBelow}`);
-						});
+						return element.addEventListener('drop', dropEventListenerFunction);
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, noMultipleDrag, selectedItems]);
+		}, [css.draggableItem, dragoverListenerFunction, dropEventListenerFunction, startListenerFunction]);
 
 		useEffect(() => {
-			const updateElements = setTimeout(() => handleScroll(), 100);
+			const updateElements = setTimeout(() => {
+				handleScroll();
+
+				if (position === null) return;
+
+				if (position.list === 'first') {
+					scrollToRefFirst.current({index: position.index});
+				} else {
+					scrollToRefSecond.current({index: position.index});
+				}
+
+				setPosition(null);
+			}, 100);
 			return () => {
+				const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
+				selectCheckboxItem.forEach((element) => {
+					element.removeEventListener('dragenter', dragoverListenerFunction);
+					element.removeEventListener('dragleave', dropEventListenerFunction);
+					element.removeEventListener('dragover', dragoverListenerFunction);
+					element.removeEventListener('dragstart', startListenerFunction);
+					element.removeEventListener('drop', dropEventListenerFunction);
+				});
 				clearTimeout(updateElements);
 			};
-		}, [dragOverElement, firstListLocal, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		}, [dragOverElement, dragoverListenerFunction, dropEventListenerFunction, firstListLocal, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
@@ -412,6 +586,8 @@ const TransferListBase = kind({
 				setSecondListLocal(tempSecond);
 			}
 			setSelectedItems(tempSelected);
+
+			setPosition({index: tempFirst.length - 1, list: 'first'});
 		}, [firstListLocal, firstListMaxCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		const moveIntoFirstAll = useCallback(() => {
@@ -423,6 +599,8 @@ const TransferListBase = kind({
 				setSecondListLocal([]);
 			}
 			setSelectedItems([]);
+
+			setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const moveIntoSecondSelected = useCallback(() => {
@@ -448,6 +626,8 @@ const TransferListBase = kind({
 				setSecondListLocal(tempSecond);
 			}
 			setSelectedItems(tempSelected);
+
+			setPosition({index: tempSecond.length - 1, list: 'second'});
 		}, [firstListLocal, firstListMinCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		const moveIntoSecondAll = useCallback(() => {
@@ -459,6 +639,8 @@ const TransferListBase = kind({
 				setSecondListLocal([...secondListLocal, ...firstListLocal]);
 			}
 			setSelectedItems([]);
+
+			setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
 		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
@@ -516,7 +698,7 @@ const TransferListBase = kind({
 			return null;
 		};
 
-		const onDropRightHandler = useCallback((ev) => {
+		const onDropSecondHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
@@ -527,6 +709,8 @@ const TransferListBase = kind({
 			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
 			if (list === 'second') {
+				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
+
 				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
 				return;
 			}
@@ -543,10 +727,12 @@ const TransferListBase = kind({
 			}
 			setSelectedItems(selectedListCopy);
 
+			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'second'});
+
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		}, [firstListLocal, firstListMinCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
-		const onDropLeftHandler = useCallback((ev) => {
+		const onDropFirstHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
@@ -557,6 +743,8 @@ const TransferListBase = kind({
 			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
 
 			if (list === 'first') {
+				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
+
 				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
 				return;
 			}
@@ -575,6 +763,8 @@ const TransferListBase = kind({
 				setSelectedItems(selectedListCopy);
 			}
 
+			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'first'});
+
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 		}, [firstListLocal, firstListMaxCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMinCapacity]);
 
@@ -587,14 +777,14 @@ const TransferListBase = kind({
 			ev.stopPropagation();
 		}, []);
 
-		const handleSpotlightLeft = useCallback((ev) => {
+		const moveInFirst = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'second') === -1 || !moveOnSpotlight) return;
 			moveIntoFirstSelected();
 			ev.preventDefault();
 			ev.stopPropagation();
 		}, [moveIntoFirstSelected, moveOnSpotlight, selectedItems]);
 
-		const handleSpotlightRight = useCallback((ev) => {
+		const moveInSecond = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'first') === -1 || !moveOnSpotlight) return;
 			moveIntoSecondSelected();
 			ev.preventDefault();
@@ -606,7 +796,7 @@ const TransferListBase = kind({
 			list: 'first',
 			onSelect: setSelected,
 			selectedItems,
-			onSpotlightRight: handleSpotlightRight,
+			moveInSecond,
 			showSelectionOrder
 		};
 
@@ -615,38 +805,86 @@ const TransferListBase = kind({
 			list: 'second',
 			onSelect: setSelected,
 			selectedItems,
-			onSpotlightLeft: handleSpotlightLeft,
+			moveInFirst,
 			showSelectionOrder
 		};
 
 		return (
-			<Layout align="center" className={componentCss.transferList}>
+			<Layout align="center" className={componentCss.transferList} orientation={orientation}>
 				<Cell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropLeftHandler}
+					onDrop={onDropFirstHandler}
 					size="40%"
-					style={{height: height}}
+					style={{height: height, width: width}}
 				>
-					<VirtualList
-						dataSize={firstListLocal.length}
-						horizontalScrollbar="hidden"
-						itemRenderer={renderItem(firstListSpecs)}
-						itemSize={itemSize}
-						onScrollStop={handleScroll}
-						style={{height: height}}
-						verticalScrollbar="hidden"
-					/>
+					{listComponent === 'VirtualList' ?
+						<VirtualList
+							cbScrollTo={getScrollToFirst}
+							dataSize={firstListLocal.length}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
+							horizontalScrollbar="hidden"
+							itemRenderer={renderItem(firstListSpecs)}
+							itemSize={itemSize}
+							onScrollStop={handleScroll}
+							spacing={orientation === 'vertical' ? itemSize * 3 : null}
+						/> :
+						<VirtualGridList
+							cbScrollTo={getScrollToFirst}
+							dataSize={firstListLocal.length}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
+							horizontalScrollbar="hidden"
+							itemRenderer={renderImageItem(firstListSpecs)}
+							itemSize={{
+								minWidth: 5 * itemSize,
+								minHeight: itemSize
+							}}
+							onScrollStop={handleScroll}
+						/> }
 				</Cell>
-				<Cell className={componentCss.listButtons}>
+				<Cell className={componentCss.listButtons} style={{flexDirection: orientation === 'vertical' ? 'row' : 'column'}}>
 					{!moveOnSpotlight ?
 						<>
-							<Button disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity} onClick={moveIntoSecondAll} onSpotlightUp={handleSpotlightBounds} size="small">{'>>>'}</Button>
-							<Button disabled={!(selectedItems.find((item) => item.list === "first")) || disabled} onClick={moveIntoSecondSelected} size="small">{'>'}</Button>
-							<Button disabled={!(selectedItems.find((item) => item.list === "second")) || disabled} onClick={moveIntoFirstSelected} size="small">{'<'}</Button>
-							<Button disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity} onClick={moveIntoFirstAll} size="small">{'<<<'}</Button>
-							<Button onClick={handleRemoveSelected} onSpotlightDown={handleSpotlightBounds} size="small">{'Clear'}</Button>
+							<Button
+								disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity}
+								icon={orientation === 'vertical' ? 'triangledown' : 'triangleright'}
+								iconOnly
+								onClick={moveIntoSecondAll}
+								onSpotlightLeft={orientation === 'vertical' ? handleSpotlightBounds : null}
+								onSpotlightUp={orientation === 'horizontal' ? handleSpotlightBounds : null}
+								size="small"
+							/>
+							<Button
+								disabled={!(selectedItems.find((item) => item.list === "first")) || disabled}
+								icon={orientation === 'vertical' ? 'arrowlargedown' : 'arrowsmallright'}
+								iconOnly
+								onClick={moveIntoSecondSelected}
+								size="small"
+							/>
+							<Button
+								disabled={!(selectedItems.find((item) => item.list === "second")) || disabled}
+								icon={orientation === 'vertical' ? 'arrowlargeup' : 'arrowsmallleft'}
+								iconOnly
+								onClick={moveIntoFirstSelected}
+								size="small"
+							/>
+							<Button
+								disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity}
+								icon={orientation === 'vertical' ? 'triangleup' : 'triangleleft'}
+								iconOnly
+								onClick={moveIntoFirstAll}
+								size="small"
+							/>
+							<Button
+								disabled={disabled}
+								icon="refresh"
+								iconOnly
+								onClick={handleRemoveSelected}
+								onSpotlightDown={orientation === 'horizontal' ? handleSpotlightBounds : null}
+								onSpotlightRight={orientation === 'vertical' ? handleSpotlightBounds : null}
+								size="small"
+							/>
 						</> : ''
 					}
 				</Cell>
@@ -654,18 +892,33 @@ const TransferListBase = kind({
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
 					onDragOver={handlePreventDefault}
-					onDrop={onDropRightHandler}
+					onDrop={onDropSecondHandler}
 					size="40%"
-					style={{height: height}}
+					style={{height: height, width: width}}
 				>
-					<VirtualList
-						dataSize={secondListLocal.length}
-						horizontalScrollbar="hidden"
-						itemRenderer={renderItem(secondListSpecs)}
-						itemSize={itemSize}
-						onScrollStop={handleScroll}
-						verticalScrollbar="hidden"
-					/>
+					{listComponent === 'VirtualList' ?
+						<VirtualList
+							cbScrollTo={getScrollToSecond}
+							dataSize={secondListLocal.length}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
+							horizontalScrollbar="hidden"
+							itemRenderer={renderItem(secondListSpecs)}
+							itemSize={itemSize}
+							onScrollStop={handleScroll}
+							spacing={orientation === 'vertical' ? itemSize * 3 : null}
+						/> :
+						<VirtualGridList
+							cbScrollTo={getScrollToSecond}
+							dataSize={secondListLocal.length}
+							direction={orientation === 'vertical' ? 'horizontal' : 'vertical'}
+							horizontalScrollbar="hidden"
+							itemRenderer={renderImageItem(secondListSpecs)}
+							itemSize={{
+								minWidth: 5 * itemSize,
+								minHeight: itemSize
+							}}
+							onScrollStop={handleScroll}
+						/> }
 				</Cell>
 			</Layout>
 		);
