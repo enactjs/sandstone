@@ -63,7 +63,9 @@ class SliderList extends Component {
 
 		return (
 			<Item {...rest} style={itemStyle}>
-				{this.items[index].item + ': ' + this.items[index].count}
+				{
+					this.items[index].item + ': ' + this.items[index].count // eslint-disable-line react/no-this-in-sfc
+				}
 			</Item>
 		);
 	};
