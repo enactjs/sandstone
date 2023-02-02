@@ -453,83 +453,88 @@ const TransferListBase = kind({
 			generateDragImage();
 		});
 
+		const dropEventListenerFunction = useCallback((ev) => {
+			let element;
+			if (!ev.target.children.length) {
+				element = ev.target.parentElement;
+			} else {
+				element = ev.target.parentElement.parentElement.parentElement;
+			}
+
+			element.classList.remove(`${css.overAbove}`);
+			element.classList.remove(`${css.overBelow}`);
+		}, [css.overAbove, css.overBelow]);
+
+		const dragoverListenerFunction = useCallback((ev) => {
+			let element;
+			if (!ev.target.children.length) {
+				element = ev.target.parentElement;
+			} else {
+				element = ev.target.parentElement.parentElement.parentElement;
+			}
+
+			dragOverElement.current = parseInt(element.id.split('-')[0]);
+
+			const startDragOrder = Number(startDragElement.current.getAttribute('order'));
+			const dragOverOrder = Number(element.getAttribute('order'));
+
+			if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
+				if (ev.offsetY <= 20) {
+					element.classList.add(`${css.overAbove}`);
+				}
+			} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
+				if (ev.offsetY === -1 || ev.offsetY === 0) {
+					element.classList.remove(`${css.overAbove}`);
+					element.classList.remove(`${css.overBelow}`);
+				} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
+					element.classList.add(`${css.overBelow}`);
+				}
+			}
+		}, [css.overAbove, css.overBelow]);
+
+		const startListenerFunction = useCallback((ev) => {
+			const element = ev.target;
+			const [index, list] = element.id.split('-');
+
+			startDragElement.current = element;
+			ev.dataTransfer.setData('text/plain', `${index}-${list}`);
+			ev.dataTransfer.effectAllowed = 'move';
+
+			if (selectedItems.length > 1) {
+				ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
+			} else {
+				ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
+			}
+		}, [selectedItems.length]);
+
 		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
 
 			selectCheckboxItem.forEach(element => {
-				const [index, list] = element.id.split('-');
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
 
 				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
-						return element.addEventListener('dragstart', (ev) => {
-							startDragElement.current = element;
-							ev.dataTransfer.setData('text/plain', `${index}-${list}`);
-							ev.dataTransfer.effectAllowed = 'move';
-
-							if (selectedItems.length > 1) {
-								ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
-							} else {
-								ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
-							}
-						});
+						return element.addEventListener('dragstart', startListenerFunction);
 					}
 					if (event === 'dragover') {
-						return element.addEventListener('dragover', (ev) => {
-							dragOverElement.current = index;
-							const startDragOrder = Number(startDragElement.current.getAttribute('order'));
-							const dragOverOrder = Number(element.getAttribute('order'));
-							if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
-								if (ev.offsetY <= 20) {
-									element.classList.add(`${css.overAbove}`);
-								}
-							} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
-								if (ev.offsetY === -1 || ev.offsetY === 0) {
-									element.classList.remove(`${css.overAbove}`);
-									element.classList.remove(`${css.overBelow}`);
-								} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-									element.classList.add(`${css.overBelow}`);
-								}
-							}
-						});
+						return element.addEventListener('dragover', dragoverListenerFunction);
 					}
 					if (event === 'dragenter') {
-						return element.addEventListener('dragenter', (ev) => {
-							dragOverElement.current = index;
-							const startDragOrder = Number(startDragElement.current.getAttribute('order'));
-							const dragOverOrder = Number(element.getAttribute('order'));
-							if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
-								if (ev.offsetY <= 20) {
-									element.classList.add(`${css.overAbove}`);
-								}
-							} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
-								if (ev.offsetY === -1 || ev.offsetY === 0) {
-									element.classList.remove(`${css.overAbove}`);
-									element.classList.remove(`${css.overBelow}`);
-								} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-									element.classList.add(`${css.overBelow}`);
-								}
-							}
-						});
+						return element.addEventListener('dragenter', dragoverListenerFunction);
 					}
 					if (event === 'dragleave') {
-						return element.addEventListener('dragleave', () => {
-							element.classList.remove(`${css.overAbove}`);
-							element.classList.remove(`${css.overBelow}`);
-						});
+						return element.addEventListener('dragleave', dropEventListenerFunction);
 					}
 					if (event === 'drop') {
-						return element.addEventListener('drop', () => {
-							element.classList.remove(`${css.overAbove}`);
-							element.classList.remove(`${css.overBelow}`);
-						});
+						return element.addEventListener('drop', dropEventListenerFunction);
 					}
 				});
 			});
-		}, [css.draggableItem, css.overAbove, css.overBelow, selectedItems]);
+		}, [css.draggableItem, dragoverListenerFunction, dropEventListenerFunction, startListenerFunction]);
 
 		useEffect(() => {
 			const updateElements = setTimeout(() => {
@@ -546,9 +551,17 @@ const TransferListBase = kind({
 				setPosition(null);
 			}, 100);
 			return () => {
+				const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
+				selectCheckboxItem.forEach((element) => {
+					element.removeEventListener('dragenter', dragoverListenerFunction);
+					element.removeEventListener('dragleave', dropEventListenerFunction);
+					element.removeEventListener('dragover', dragoverListenerFunction);
+					element.removeEventListener('dragstart', startListenerFunction);
+					element.removeEventListener('drop', dropEventListenerFunction);
+				});
 				clearTimeout(updateElements);
 			};
-		}, [dragOverElement, firstListLocal, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		}, [dragOverElement, dragoverListenerFunction, dropEventListenerFunction, firstListLocal, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
