@@ -123,7 +123,7 @@ describe('TimePicker', function () {
 					expect((await extractValues(timePicker)).minute).to.equal(minute);
 				});
 
-				it('should move to the next picker with 5-way OK key [QWTC-2549]', async function () {
+				it('should move to the next picker with 5-way OK key [QWTC-2541]', async function () {
 					// Step 3-1: Hover on the hour Picker.
 					await Page.showPointerByKeycode();
 					await $('#timePickerDefault').moveTo({xOffset: 100, yOffset: 100});
@@ -324,7 +324,7 @@ describe('TimePicker', function () {
 			await Page.open('?locale=es-ES');
 		});
 
-		it('should move to the next picker with 5-way OK key in es-ES locale', async function () {
+		it('should move to the next picker with 5-way OK key in es-ES locale [QWTC-2541]', async function () {
 			// Step 6 Verify: There is no meridiem in ES.
 			expect(await timePicker.meridiem.isExisting(), 'meridiem exists').to.be.false();
 
