@@ -1,4 +1,5 @@
 import {handle, forKey, forward, forwardCustom} from '@enact/core/handle';
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
@@ -66,6 +67,16 @@ const InputPopupBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Initial value of the input.
+		 *
+		 * This value is used for setting the `defaultValue` of the `InputField`.
+		 * @see {@link sandstone/Input.InputField}
+		 * @type {String|Number}
+		 * @public
+		 */
+		defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+		/**
 		 * Disables the input popup.
 		 *
 		 * @type {Boolean}
@@ -82,7 +93,7 @@ const InputPopupBase = kind({
 		inputFieldSpotlightId: PropTypes.string,
 
 		/**
-		 * Indicates {@link sandstone/Input.InputPopupBase.value|value} is invalid and shows
+		 * Indicates the value is invalid and shows
 		 * {@link sandstone/Input.InputPopupBase.invalidMessage|invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
@@ -289,11 +300,13 @@ const InputPopupBase = kind({
 		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
+		 * @deprecated Will be removed in 3.0.0. Use {@link sandstone/Input.InputPopupBase.defaultValue|defaultValue} instead.
 		 */
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 	},
 
 	defaultProps: {
+		defaultValue: '',
 		popupType: 'fullscreen',
 		numberInputField: 'auto',
 		size: 'small',
@@ -349,6 +362,7 @@ const InputPopupBase = kind({
 		backButtonAriaLabel,
 		children,
 		css,
+		defaultValue,
 		inputFieldSpotlightId,
 		noBackButton,
 		noSubmitButton,
@@ -372,6 +386,14 @@ const InputPopupBase = kind({
 		minLength,
 		...rest
 	}) => {
+		/* istanbul ignore next */
+		if (value) {
+			deprecate({
+				name: 'sandstone/Input.InputPopupBase.value',
+				replacedBy: 'sandstone/Input.InputPopupBase.defaultValue',
+				until: '3.0.0'
+			});
+		}
 		const id = `inputPopup`;
 		const ariaLabelledBy = popupAriaLabel ? null : `${id}_title ${id}_subtitle`;
 		const inputProps = extractInputFieldProps(rest);
@@ -427,7 +449,7 @@ const InputPopupBase = kind({
 									announce={announce}
 									maxLength={limitNumberLength(popupType, maxLength)}
 									minLength={limitNumberLength(popupType, minLength)}
-									defaultValue={value}
+									defaultValue={defaultValue || value}
 									onBeforeChange={onBeforeChange}
 									onComplete={onNumberComplete}
 									showKeypad
@@ -444,7 +466,7 @@ const InputPopupBase = kind({
 									size={size}
 									autoFocus
 									type={type}
-									defaultValue={value}
+									defaultValue={defaultValue || value}
 									placeholder={placeholder}
 									onBeforeChange={onBeforeChange}
 									onKeyDown={onInputKeyDown}
@@ -516,9 +538,8 @@ const InputBase = kind({
 		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
 
 		/**
-		 * Initial value of the input.
+		 * The value of the input.
 		 *
-		 * This value is used for setting the `defaultValue` of the `InputField`.
 		 * @see {@link sandstone/Input.InputField}
 		 * @type {String|Number}
 		 * @public
@@ -566,7 +587,7 @@ const InputBase = kind({
 					type={type}
 					size={size}
 					disabled={disabled}
-					value={value}
+					defaultValue={value}
 					placeholder={placeholder}
 					{...rest}
 				/>
@@ -630,6 +651,11 @@ const InputDecorator = compose(
  * />
  * ```
  *
+ * By default, `Input` maintains the state of its `value` property. Supply the `defaultValue`
+ * property to control its initial value. If you wish to directly control updates to the
+ * component, supply a value to `value` at creation time and update it in response to `onChange`
+ * events.
+ *
  * @class Input
  * @memberof sandstone/Input
  * @extends sandstone/Input.InputBase
@@ -651,6 +677,11 @@ const Input = InputDecorator(InputBase);
  *   title="Title"
  * />
  * ```
+ *
+ * By default, `InputPopup` maintains the state of its `value` property. Supply the `defaultValue`
+ * property to control its initial value. If you wish to directly control updates to the
+ * component, supply a value to `value` at creation time and update it in response to `onChange`
+ * events.
  *
  * @class InputPopup
  * @memberof sandstone/Input
