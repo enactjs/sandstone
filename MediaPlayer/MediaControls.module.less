@@ -24,8 +24,10 @@
 	.actionGuide {
 		padding-top: @sand-mediaplayer-controls-actionguide-padding-top;
 		transition: opacity @sand-mediaplayer-controls-actionguide-time linear;
+
 		&.hidden {
 			opacity: 0;
+			visibility: hidden;
 		}
 	}
 
@@ -35,6 +37,10 @@
 		right: 0;
 		height: 0px;
 		opacity: 0;
+
+		&.hidden {
+			visibility: hidden;
+		}
 
 		.moreButtonsComponents {
 			> * {
@@ -61,9 +67,14 @@
 		.client {
 			padding: @sand-mediaplayer-button-client-padding;
 		}
-
-		.bg {
-			border-radius: @sand-mediaplayer-button-border-radius;
-		}
 	}
+
+	// Skin colors
+	.applySkins({
+		.button {
+			.bg {
+				border-radius: @sand-mediaplayer-button-border-radius;
+			}
+		}
+	});
 }

@@ -2,6 +2,31 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.6.1] - 2023-02-03
+
+### Deprecated
+
+- `sandstone/Input.InputPopupBase` prop `value`, to be removed in 3.0.0. Use `defaultValue` instead.
+
+### Added
+
+- `sandstone/ActionGuide` prop `buttonAriaLabel` and `sandstone/MediaControls` prop `actionGuideButtonAriaLabel` to override aria-label of `ActionGuide` button
+- `sandstone/Icon` supported icon list, adding new icons `keymouse`, `keymousedis`, `camera`, `cameradis`, `gamepad`, and `gamepaddis`
+- `sandstone/Input.InputPopupBase` prop `defaultValue` to provide the initial value
+
+### Changed
+
+- `sandstone/ActionGuide` to replace `Icon` with `Button`
+- `sandstone/VideoPlayer` to not expand video player using key down via 5way
+- `sandstone/Scroller` and `sandstone/VirtualList` scroll speed and hover area when `hoverToScroll` is `true` to match GUI
+
+### Fixed
+
+- `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
+- `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
+- `sandstone/MediaPlayer.MediaControls` to show round buttons correctly in high-contrast mode
+- `sandstone/TabLayout` to not cropped and apply orientation properly when `orientation` prop is vertical 
+
 ## [2.5.8] - 2023-01-31
 
 ### Fixed
