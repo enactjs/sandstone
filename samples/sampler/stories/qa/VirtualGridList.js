@@ -8,6 +8,7 @@ import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import ilib from '@enact/i18n';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 import PropTypes from 'prop-types';
@@ -78,6 +79,14 @@ for (let i = 0; i < 60; i++) {
 }
 
 const ContextualPopupButton = ContextualPopupDecorator(Button);
+
+const isRTL = () => {
+	if (ilib.getLocale() === 'ar-SA' || ilib.getLocale() === 'he-IL' || ilib.getLocale() === 'ur-PK') {
+		return true;
+	} else {
+		return false;
+	}
+};
 
 let lastIndex = 0;
 
@@ -152,7 +161,7 @@ class ButtonAndVirtualGridList extends Component {
 					open={this.state.isPopup}
 					popupComponent={this.renderPopup}
 					onClick={this.openPopup}
-					direction="right middle"
+					direction={isRTL() === true ? 'left middle' : 'right middle'}
 					spotlightRestrict="self-only"
 					onClose={this.closePopup}
 				>
