@@ -161,7 +161,7 @@ class ButtonAndVirtualGridList extends Component {
 					open={this.state.isPopup}
 					popupComponent={this.renderPopup}
 					onClick={this.openPopup}
-					direction={isRTL() === true ? 'left middle' : 'right middle'}
+					direction={isRTL() ? "left middle" : "right middle"}
 					spotlightRestrict="self-only"
 					onClose={this.closePopup}
 				>
