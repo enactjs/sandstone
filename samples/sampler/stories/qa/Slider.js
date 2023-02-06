@@ -54,7 +54,7 @@ class SliderList extends Component {
 		this.fillItems(e.value);
 	};
 
-	renderItem = (size, items) => ({index, ...rest}) => {
+	renderItem = (size) => ({index, ...rest}) => {
 		const itemStyle = {
 			height: size + 'px',
 			borderBottom: ri.scaleToRem(6) + ' solid #202328',
@@ -63,7 +63,7 @@ class SliderList extends Component {
 
 		return (
 			<Item {...rest} style={itemStyle}>
-				{items[index].item + ': ' + items[index].count}
+				{this.items[index].item + ': ' + this.items[index].count}
 			</Item>
 		);
 	};
@@ -83,7 +83,7 @@ class SliderList extends Component {
 				/>
 				<VirtualList
 					dataSize={this.state.selectedItems.length}
-					itemRenderer={this.renderItem(this.props.itemSize, this.items)}
+					itemRenderer={this.renderItem(this.props.itemSize)}
 					itemSize={this.props.itemSize}
 					style={{
 						height: ri.scaleToRem(1104)
