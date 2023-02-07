@@ -11,7 +11,8 @@ describe('ActionGuide', () => {
 		const expected = 983080; // decimal converted charCode of Unicode 'star' character
 		const actual = screen.getByTestId('actionGuide').children.item(0).textContent.codePointAt();
 
-		expect(actual).toBe(expected);
+		// expect(actual).toBe(expected);
+		expect(true).toBe(false);
 	});
 
 	test('should render `children`', () => {

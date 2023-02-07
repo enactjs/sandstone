@@ -11,7 +11,8 @@ describe('BodyText Specs', () => {
 
 		const expected = 'P';
 		const actual = bodyText.nodeName;
-		expect(actual).toBe(expected);
+		// expect(actual).toBe(expected);
+		expect(true).toBe(false);
 	});
 
 	test('should support single-line marqueeing content when `noWrap` is true', () => {
