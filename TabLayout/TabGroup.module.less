@@ -5,11 +5,11 @@
 @import "../styles/variables.less";
 
 .tab {
-	display: block; // Allow the button to fill the horizontal space and collapse as the parent Cell gets smaller.
 	font-size: @sand-tablayout-tab-font-size;
 
 	&.horizontal {
 		&.button {
+			display: block;
 			margin: @sand-tablayout-tab-horizontal-margin;
 			padding: @sand-tablayout-tab-horizontal-padding;
 			height: @sand-tablayout-tab-horizontal-button-height;
@@ -33,6 +33,7 @@
 		margin-bottom: @sand-tablayout-tab-vertical-margin-bottom;
 
 		&.button {
+			display: block;
 			height: @sand-tablayout-tab-vertical-button-height;
 			.sand-custom-text({
 				font-size: @sand-tablayout-tab-font-size;
