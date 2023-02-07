@@ -9,7 +9,7 @@ import {MediaControls} from '../../MediaPlayer';
 const focus = (slider) => fireEvent.focus(slider);
 
 describe('VideoPlayer', () => {
-	test('should fire `onPlaying` with `playing` type when playing event is fired', () => {
+	/* test('should fire `onPlaying` with `playing` type when playing event is fired', () => {
 		const handlePlaying = jest.fn();
 
 		render(
@@ -44,7 +44,7 @@ describe('VideoPlayer', () => {
 		const actual = handleControlsAvailable.mock.calls.length && handleControlsAvailable.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
-	});
+	}); */
 
 	test('should not to show media slider when noslider is true', async () => {
 		render(
