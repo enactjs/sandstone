@@ -25,8 +25,8 @@ function generalizeDay (day, firstDayOfWeek) {
 	return ((day + firstDayOfWeek) % 7);
 }
 
-// Accepts a "Sunday at index 0" selected array and returns a localized array with "firstDayOfWeek
-// at index 0"
+// Accepts a localized array with "firstDayOfWeek" at index 0 and returns a
+// "Sunday at index 0" array.
 function generalizeSelected (selected, state) {
 	if (state.firstDayOfWeek === 0 || !selected) {
 		return selected;
@@ -38,7 +38,7 @@ function generalizeSelected (selected, state) {
 // Accepts a "Sunday at index 0" selected array or number and returns a
 // localized array or number.
 function localizeSelected (selected, state) {
-	if (typeof selected === 'undefined' || selected === null) {
+	if (state.firstDayOfWeek === 0 || selected == null) {
 		return selected;
 	}
 

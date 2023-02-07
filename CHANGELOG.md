@@ -2,6 +2,11 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+- `sandstone/DaySelectorDecorator` to handle `number` type properly for prop `selected`,
+
 ## [2.6.1] - 2023-02-03
 
 ### Deprecated
