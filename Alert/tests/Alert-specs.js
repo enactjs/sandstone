@@ -16,8 +16,7 @@ describe('Alert', () => {
 		);
 		const alert = screen.getByRole('alert');
 
-		// expect(alert).toBeInTheDocument();
-		expect(true).toBe(false);
+		expect(alert).toBeInTheDocument();
 	});
 
 	test('should not be rendered if open is set to false', () => {
