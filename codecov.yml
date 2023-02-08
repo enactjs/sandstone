@@ -9,6 +9,6 @@ coverage:
         threshold: 0%
         # advanced settings
         branches:
-          - feature/WRP-3007-1
+          - feature/WRP-3007
         informational: false
         only_pulls: true
