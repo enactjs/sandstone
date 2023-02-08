@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {act, fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {act, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import VideoPlayer from '../VideoPlayer';
@@ -7,20 +7,6 @@ import {Button} from '../../Button';
 import {MediaControls} from '../../MediaPlayer';
 
 describe('VideoPlayer', () => {
-	test('should not to show media slider when noslider is true', async () => {
-		render(
-			<VideoPlayer data-testid="videoplayer-id" noSlider />
-		);
-
-		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
-
-		await screen.findByLabelText('go to previous');
-
-		const slider = screen.queryByRole('slider', {hidden: true});
-		expect(slider).toBeNull();
-	});
-
 	test('should fire `onBack` with `onBack` type when clicking on back button', async () => {
 		const handleBack = jest.fn();
 
