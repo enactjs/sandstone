@@ -223,8 +223,8 @@ export const WithPinchHandlers = (args) => {
 		<TouchableDiv
 			pinchConfig={{
 				global: args['pinchConfig global'] || false,
-				maxZoom: args['pinchConfig maxZoom'],
-				minZoom: args['pinchConfig minZoom'],
+				maxScale: args['pinchConfig maxScale'],
+				minScale: args['pinchConfig minScale'],
 				moveTolerance: args['pinchConfig moveTolerance']
 			}}
 			onPinchStart={action('onPinchStart')}
@@ -244,8 +244,8 @@ export const WithPinchHandlers = (args) => {
 };
 
 boolean('pinchConfig global', WithPinchHandlers, TouchableDiv, false);
-number('pinchConfig maxZoom', WithPinchHandlers, TouchableDiv, 4);
-number('pinchConfig minZoom', WithPinchHandlers, TouchableDiv, 0.5);
+number('pinchConfig maxScale', WithPinchHandlers, TouchableDiv, 4);
+number('pinchConfig minScale', WithPinchHandlers, TouchableDiv, 0.5);
 number('pinchConfig moveTolerance', WithPinchHandlers, TouchableDiv, 16);
 
 WithPinchHandlers.storyName = 'with onPinch handlers';
