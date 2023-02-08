@@ -26,7 +26,13 @@ describe('DayPicker', () => {
 	});
 
 	test('should select day when passed prop \'selected\' as a number', () => {
-		render(<DayPicker selected={0} />);
+		// We need to change the locale to firstDayOfWeek !== 0.
+		// If firstDayOfWeek === 0, the number type check conditional statement
+		// is skipped due to the fast execution path of localizeSelected(), which
+		// reduces code coverage..
+		ilib.setLocale('es-ES');
+
+		render(<DayPicker locale="es-ES" selected={1} />);
 		const selectedDay = screen.getAllByRole('checkbox')[1];
 
 		const expected = 'selected';
