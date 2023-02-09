@@ -19,7 +19,7 @@ import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition
 let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
 
 import useHandlers from '@enact/core/useHandlers';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 function getDirectionAnchor (tooltipPosition, tooltipType) {
 	const position = tooltipPosition || (defaultDirection(tooltipType) + ' ' + defaultArrowAnchor(tooltipType));
@@ -192,7 +192,7 @@ function useTooltip (props = {}) {
 		}
 	}, [tooltipText, rtl, tooltipPosition, tooltipType, screenEdgeKeepout, layoutInfo, tooltipRef, clientRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		mutableRef.current.showTooltipJob = new Job(() => {
 			if (!showing) {
 				setShowing(true);
@@ -200,7 +200,7 @@ function useTooltip (props = {}) {
 		});
 	}, [showing]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		mutableRef.current.setTooltipLayoutJob = new Job(() => {
 			setTooltipLayout();
 		});
