@@ -16,7 +16,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {Cell, Row} from '@enact/ui/Layout';
+import {Cell, Column} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
@@ -110,7 +110,6 @@ const TileItemBase = kind({
 		 * Disable TileItem and becomes non-interactive.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		disabled: PropTypes.bool,
@@ -122,7 +121,7 @@ const TileItemBase = kind({
 		 * @type {String|Object}
 		 * @public
 		 */
-		 icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		 /**
 		  * Source for the image.
@@ -132,7 +131,7 @@ const TileItemBase = kind({
 		  * @type {String|Object}
 		  * @public
 		  */
-		 imageSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+		imageSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
 		 * A caption displayed in the content.
@@ -163,41 +162,45 @@ const TileItemBase = kind({
 
 	styles: {
 		css: componentCss,
+		className: 'tileItem',
 		publicClassNames: ['tileItem', 'image', 'label']
 	},
 
 	computed: {
-		classNames: ({bordered}) => styler.append({
+		className: ({bordered, styler}) => styler.append({
 			bordered
 		}),
 
-		children: ({children, icon, imageSrc, label}) => {
+		children: ({children, css, icon, imageSrc, label}) => {
 			if (children) return children;
+
 			let ImgComponent;
+
 			if (icon) {
 				ImgComponent = () => <Icon>icon</Icon>;
 			} else if (imageSrc) {
-				ImgComponent = () => <Image src={imageSrc} />;
+				ImgComponent = () => <Image className={css.image} src={imageSrc} />;
 			}
 			
-			if (!ImgComponent || !children || !label) return;
+			if (!ImgComponent && !children && !label) return;
 			
 			return (
-				<Row>
+				<Column>
 					<Cell>
-						{ImgComponent ? <ImageComponent /> : null}
+						{ImgComponent ? ImgComponent() : null}
 					</Cell>
 					{typeof label !== 'undefined' ? (
 						<Cell>
-							<Marquee>{label}</Marquee>
+							<Marquee className={css.label}>{label}</Marquee>
 						</Cell>
 					) : null}
-				</Row>
+				</Column>
 			);
 		}
 	},
 
 	render: ({children, disabled,  ...rest}) => {
+		delete rest.bordered;
 		delete rest.icon;
 		delete rest.imageSrc;
 		delete rest.label;

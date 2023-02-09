@@ -14,10 +14,6 @@ const src = {
 	uhd: svgGenerator(600, 600, '7ed31d', 'ffffff', '600 X 600')
 };
 
-const prop = {
-	orientation: ['horizontal', 'vertical']
-};
-
 export default {
 	title: 'Sandstone/TileItem',
 	component: 'TileItem'
@@ -25,32 +21,22 @@ export default {
 
 export const _TileItem = (args) => (
 	<TileItem
-		centered={args['centered']}
+		bordered={args['bordered']}
 		disabled={args['disabled']}
 		label={args['label']}
-		orientation={args['orientation']}
-		selected={args['selected']}
-		showSelection={args['showSelection']}
-		src={args['src']}
+		imageSrc={args['imageSrc']}
 		style={{
 			position: 'absolute',
-			width: ri.scaleToRem(args['orientation'] === 'vertical' ? 768 : 1020),
-			height: ri.scaleToRem(args['orientation'] === 'vertical' ? 588 : 240)
+			width: ri.scaleToRem(312),
+			height: ri.scaleToRem(240)
 		}}
-	>
-		{args['children']}
-	</TileItem>
+	/>
 );
 
-boolean('centered', _TileItem, Config);
+boolean('bordered', _TileItem, Config);
 boolean('disabled', _TileItem, Config);
-text('label', _TileItem, Config, 'TileItem label');
-select('orientation', _TileItem, prop.orientation, Config);
-boolean('selected', _TileItem, Config);
-boolean('showSelection', _TileItem, Config);
-object('src', _TileItem, Config, src);
-select('orientation', _TileItem, prop.orientation, Config);
-text('children', _TileItem, Config, 'TileItem Caption');
+text('label', _TileItem, Config, 'USB');
+object('imageSrc', _TileItem, Config, src);
 
 _TileItem.storyName = 'TileItem';
 _TileItem.parameters = {
