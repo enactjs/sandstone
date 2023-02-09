@@ -19,6 +19,7 @@ import ActionGuide from '../ActionGuide';
 import Button from '../Button';
 import $L from '../internal/$L';
 import {compareChildren, onlyUpdateForProps} from '../internal/util';
+import Skinnable from '../Skinnable';
 
 import {countReactChildren} from './util';
 
@@ -893,6 +894,7 @@ const handleCancel = (ev, {onClose}) => {
  * @class MediaControls
  * @memberof sandstone/MediaPlayer
  * @mixes ui/Cancelable.Cancelable
+ * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
@@ -904,7 +906,9 @@ const MediaControls = ApiDecorator(
 	]},
 	MediaControlsDecorator(
 		Cancelable({modal: true, onCancel: handleCancel},
-			MediaControlsBase
+			Skinnable(
+				MediaControlsBase
+			)
 		)
 	)
 );

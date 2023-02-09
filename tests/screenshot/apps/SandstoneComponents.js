@@ -24,6 +24,7 @@ import Input from './components/Input';
 import InputField from './components/InputField';
 import Item from './components/Item';
 import KeyGuide from './components/KeyGuide';
+import Layout from './components/Layout';
 import Marquee from './components/Marquee';
 import MediaOverlay from './components/MediaOverlay';
 import Panel from './components/Panel';
@@ -75,6 +76,7 @@ const components = {
 	InputField,
 	Item,
 	KeyGuide,
+	Layout,
 	Marquee,
 	MediaOverlay,
 	Panel,

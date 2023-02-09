@@ -24,6 +24,14 @@ const app = (props) => <div {...props}>
 			defaultValue={new Date(2009, 5, 6)}
 			disabled
 		/>
+		<DatePicker
+			id="datePickerCheckMinValue"
+			defaultValue={new Date(1905, 5, 6)}
+		/>
+		<DatePicker
+			id="datePickerCheckMaxValue"
+			defaultValue={new Date(2094, 5, 6)}
+		/>
 	</div>
 </div>;
 
