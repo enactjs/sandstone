@@ -1,7 +1,7 @@
 {
-  "name": "qa-dropdown",
+  "name": "qa-tablayout",
   "version": "0.1.0",
-  "description": "A qa sample for testing Dropdown",
+  "description": "A qa sample for testing TabLayout",
   "author": "",
   "main": "src/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "private": true,
   "repository": "",
   "enact": {
-    "title": "QA Dropdown",
+    "title": "QA TabLayout",
     "theme": "sandstone"
   },
   "dependencies": {
