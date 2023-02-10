@@ -4,6 +4,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+- `sandstone/Button` prop `roundBorder`, to make both sides of button fully rounded.
+
 ### Fixed
 - `sandstone/DayPicker` to handle number typed `selected` prop properly in es-ES locale
 
