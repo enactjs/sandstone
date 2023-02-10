@@ -26,6 +26,25 @@ const DayPickerTests = [
 		component: <DayPicker disabled selected={1} />
 	},
 
+	// *************************************************************
+	// locale = 'es-ES', [QWTC-637]
+	{
+		locale: 'es-ES',
+		component: <DayPicker />
+	},
+	{
+		locale: 'es-ES',
+		component: <DayPicker selected={1} />
+	},
+	{
+		locale: 'es-ES',
+		component: <DayPicker disabled />
+	},
+	{
+		locale: 'es-ES',
+		component: <DayPicker disabled selected={1} />
+	},
+
 	...withConfig({focus: true}, [
 		<DayPicker selected={2} />,
 		<DayPicker disabled selected={2} />

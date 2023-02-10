@@ -25,6 +25,21 @@ describe('DayPicker', () => {
 		expect(selectedDay).toHaveClass(expected);
 	});
 
+	test('should select day when passed prop \'selected\' as a number', () => {
+		// We need to change the locale to firstDayOfWeek !== 0.
+		// If firstDayOfWeek === 0, the number type check conditional statement
+		// is skipped due to the fast execution path of localizeSelected(), which
+		// reduces code coverage..
+		ilib.setLocale('es-ES');
+
+		render(<DayPicker locale="es-ES" selected={1} />);
+		const selectedDay = screen.getAllByRole('checkbox')[1];
+
+		const expected = 'selected';
+
+		expect(selectedDay).toHaveClass(expected);
+	});
+
 	test('should emit an onSelect event with \'onSelect\' type when selecting days', () => {
 		const handleSelect = jest.fn();
 		render(<DayPicker onSelect={handleSelect} />);
