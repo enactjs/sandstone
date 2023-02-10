@@ -1,12 +1,5 @@
 /* global MutationObserver ResizeObserver */
 
-/**
- * Sandstone styled tooltip components.
- *
- * @module sandstone/useTooltip
- * @exports useTooltip
- */
-
 import {forward, handle} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
 import {useI18nContext} from '@enact/i18n/I18nDecorator';
@@ -54,6 +47,7 @@ const removeTooltipProps = ({...props}) => {
 	return props;
 };
 
+// A hook to show Sandstone-styled tooltip components.
 function useTooltip (props = {}) {
 	const {
 		screenEdgeKeepout = (24 + 24), // Do NOT forget to check TooltipDecorator's default config value also.
