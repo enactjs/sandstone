@@ -73,7 +73,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 				},
 				scrollProgress = Number(ref.current && ref.current.style.getPropertyValue('--scrollbar-thumb-progress-ratio')),
 				scrollProgressValid = ref.current && ref.current.style.getPropertyValue('--scrollbar-thumb-progress-vaild');
-                
+
 			if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
 				// Do nothing when (!vertical && pageKey)
 
