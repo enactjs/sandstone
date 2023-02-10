@@ -8,10 +8,16 @@ import {svgGenerator} from '../helper/svg';
 const Config = mergeComponentMetadata('TileItem', TileItemBase, TileItem);
 TileItem.displayName = 'TileItem';
 
-const src = {
-	hd: svgGenerator(200, 200, '7ed31d', 'ffffff', '200 X 200'),
-	fhd: svgGenerator(300, 300, '7ed31d', 'ffffff', '300 X 300'),
-	uhd: svgGenerator(600, 600, '7ed31d', 'ffffff', '600 X 600')
+const imageObj = {
+	src: {
+		hd: svgGenerator(100, 100, '7ed31d', 'ffffff', ''),
+		fhd: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png',//svgGenerator(150, 150, '7ed31d', 'ffffff', ''),
+		uhd: svgGenerator(300, 300, '7ed31d', 'ffffff', '')
+	},
+	size: {
+		width: ri.scaleToRem(150),
+		height: ri.scaleToRem(150)
+	}
 };
 
 export default {
@@ -21,10 +27,11 @@ export default {
 
 export const _TileItem = (args) => (
 	<TileItem
+		background={args['background']}
 		bordered={args['bordered']}
 		disabled={args['disabled']}
 		label={args['label']}
-		imageSrc={args['imageSrc']}
+		image={args['image']}
 		style={{
 			position: 'absolute',
 			width: ri.scaleToRem(312),
@@ -33,10 +40,11 @@ export const _TileItem = (args) => (
 	/>
 );
 
+text('background', _TileItem, Config, '#FFFFFF');
 boolean('bordered', _TileItem, Config);
 boolean('disabled', _TileItem, Config);
-text('label', _TileItem, Config, 'USB');
-object('imageSrc', _TileItem, Config, src);
+text('label', _TileItem, Config, 'Youtube');
+object('image', _TileItem, Config, imageObj);
 
 _TileItem.storyName = 'TileItem';
 _TileItem.parameters = {

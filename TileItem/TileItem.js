@@ -47,25 +47,15 @@ const TileItemBase = kind({
 
 	propTypes: /** @lends sandstone/TileItem.TileItemBase.prototype */ {
 		/**
-		 * The background color or gradient typed image of this item.
-		 * Accepts any format of color and gradient type value.
+		 * The background color, gradient, or image of this item.
+		 * Accepts any format of color, gradient type value, and image url.
 		 * 
-		 * Example: '#ff0000', radial-gradient(crimson, skyblue)
+		 * Example: '#ff0000', 'radial-gradient(crimson, skyblue)', 'url(http://example.com/image.png) center / cover'
 		 *
 		 * @type {String}
 		 * @public
 		 */
 		background: PropTypes.string,
-		
-		/**
-		 * Source for the background image.
-		 * String value or Object of values used to determine which image will appear on
-		 * a specific screenSize.
-		 *
-		 * @type {String|Object}
-		 * @public
-		 */
-		backgroundImageSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
 		 * Specifies bordered or borderless.
@@ -124,14 +114,14 @@ const TileItemBase = kind({
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		 /**
-		  * Source for the image.
+		  * Source and size for the image.
 		  * String value or Object of values used to determine which image will appear on
 		  * a specific screenSize.
 		  *
-		  * @type {String|Object}
+		  * @type {Object}
 		  * @public
 		  */
-		imageSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+		image: PropTypes.object,
 
 		/**
 		 * A caption displayed in the content.
@@ -142,7 +132,7 @@ const TileItemBase = kind({
 		label: PropTypes.string,
 
 		/**
-		 * Placeholder image used while {@link sandstone/TileItem.TileItem#imageSrc|imageSrc}
+		 * Placeholder image used while {@link sandstone/TileItem.TileItem#image|image}
 		 * is loaded.
 		 *
 		 * @type {String}
@@ -152,7 +142,15 @@ const TileItemBase = kind({
 		 * '4NCg=='
 		 * @public
 		 */
-		placeholder: PropTypes.string
+		placeholder: PropTypes.string,
+
+		/**
+		 * A style object.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		style: PropTypes.object
 	},
 
 	defaultProps: {
@@ -171,26 +169,34 @@ const TileItemBase = kind({
 			bordered
 		}),
 
-		children: ({children, css, icon, imageSrc, label}) => {
+		children: ({children, css, icon, image, label}) => {
 			if (children) return children;
 
 			let ImgComponent;
 
 			if (icon) {
 				ImgComponent = () => <Icon>icon</Icon>;
-			} else if (imageSrc) {
-				ImgComponent = () => <Image className={css.image} src={imageSrc} />;
+			} else if (image) {
+				ImgComponent = () =>
+					<Image
+						className={css.image}
+						src={image.src}
+						style={{
+							width: image.size.width,
+							height: image.size.height
+						}}
+					/>;
 			}
 			
 			if (!ImgComponent && !children && !label) return;
 			
 			return (
-				<Column>
-					<Cell>
+				<Column align="center center">
+					<Cell shrink>
 						{ImgComponent ? ImgComponent() : null}
 					</Cell>
 					{typeof label !== 'undefined' ? (
-						<Cell>
+						<Cell align="center">
 							<Marquee className={css.label}>{label}</Marquee>
 						</Cell>
 					) : null}
@@ -199,10 +205,10 @@ const TileItemBase = kind({
 		}
 	},
 
-	render: ({children, disabled,  ...rest}) => {
+	render: ({background, children, css, disabled, style, ...rest}) => {
 		delete rest.bordered;
 		delete rest.icon;
-		delete rest.imageSrc;
+		delete rest.image;
 		delete rest.label;
 		delete rest.placeholder;
 
@@ -211,6 +217,10 @@ const TileItemBase = kind({
 				{...rest}
 				aria-disabled={disabled}
 				disabled={disabled}
+				style={{
+					background,
+					...style
+				}}
 			>
 				{children}
 			</div>
