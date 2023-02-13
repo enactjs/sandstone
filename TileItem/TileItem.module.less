@@ -9,10 +9,15 @@
 	box-sizing: border-box;
 	background-size: contain;
 	border-radius: @sand-tileitem-border-radius;
+	font-weight: @sand-tileitem-font-weight;
 
 	&.bordered {
 		border-width: @sand-tileitem-border-width;
 		border-style: @sand-tileitem-border-style;
+	}
+
+	.icon {
+		margin: @sand-tileitem-icon-margin;
 	}
 
 	.image {
@@ -21,6 +26,8 @@
 	}
 
 	.label {
+		font-size: @sand-tileitem-label-font-size;
+		line-height: @sand-tileitem-label-line-height;
 	}
 
 	// Skin colors
@@ -30,6 +37,7 @@
 		}
 
 		.label {
+			color: @sand-tileitem-label-color;
 		}
 
 		.focus({

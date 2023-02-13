@@ -3,6 +3,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, object, select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 
+import iconNames from '../helper/icons';
 import {svgGenerator} from '../helper/svg';
 
 const Config = mergeComponentMetadata('TileItem', TileItemBase, TileItem);
@@ -30,8 +31,9 @@ export const _TileItem = (args) => (
 		background={args['background']}
 		bordered={args['bordered']}
 		disabled={args['disabled']}
-		label={args['label']}
+		icon={args['icon']}
 		image={args['image']}
+		label={args['label']}
 		style={{
 			position: 'absolute',
 			width: ri.scaleToRem(312),
@@ -40,11 +42,12 @@ export const _TileItem = (args) => (
 	/>
 );
 
-text('background', _TileItem, Config, '#FFFFFF');
-boolean('bordered', _TileItem, Config);
+text('background', _TileItem, Config, '#000000');
+boolean('bordered', _TileItem, Config, true);
 boolean('disabled', _TileItem, Config);
-text('label', _TileItem, Config, 'Youtube');
+select('icon', _TileItem, ['', ...iconNames], Config, 'gamepad');
 object('image', _TileItem, Config, imageObj);
+text('label', _TileItem, Config, 'Playstation 5');
 
 _TileItem.storyName = 'TileItem';
 _TileItem.parameters = {

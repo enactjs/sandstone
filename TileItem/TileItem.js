@@ -175,7 +175,7 @@ const TileItemBase = kind({
 			let ImgComponent;
 
 			if (icon) {
-				ImgComponent = () => <Icon>icon</Icon>;
+				ImgComponent = () => <Icon className={css.icon}>{icon}</Icon>;
 			} else if (image) {
 				ImgComponent = () =>
 					<Image
@@ -195,7 +195,7 @@ const TileItemBase = kind({
 					<Cell shrink>
 						{ImgComponent ? ImgComponent() : null}
 					</Cell>
-					{typeof label !== 'undefined' ? (
+					{label ? (
 						<Cell align="center">
 							<Marquee className={css.label}>{label}</Marquee>
 						</Cell>
