@@ -2,6 +2,11 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+- `sandstone/DayPicker` to handle number typed `selected` prop properly in es-ES locale
+
 ## [2.6.1] - 2023-02-03
 
 ### Deprecated

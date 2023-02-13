@@ -55,6 +55,8 @@ class DatePickerPage extends Page {
 		this.components.datePickerWithDefaultValue = new PickerInterface('datePickerWithDefaultValue');
 		this.components.datePickerDisabled = new PickerInterface('datePickerDisabled');
 		this.components.datePickerDisabledWithDefaultValue = new PickerInterface('datePickerDisabledWithDefaultValue');
+		this.components.datePickerCheckMinValue = new PickerInterface('datePickerCheckMinValue');
+		this.components.datePickerCheckMaxValue = new PickerInterface('datePickerCheckMaxValue');
 	}
 
 	async open (urlExtra) {
