@@ -111,6 +111,8 @@ describe('DayPicker', () => {
 
 	describe('with alternate first day of week', () => {
 		test('should accept and emit a generalized selected array', () => {
+			const prevLocale = ilib.getLocale();
+
 			ilib.setLocale('es-ES');
 
 			const handleSelect = jest.fn();
@@ -127,6 +129,8 @@ describe('DayPicker', () => {
 			const actual = handleSelect.mock.calls[0][0];
 
 			expect(actual).toMatchObject(expected);
+
+			ilib.setLocale(prevLocale);
 		});
 	});
 });
