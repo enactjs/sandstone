@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/useScroll` to properly display the focus effect for scrollers with short contents after chromium 99 version
+
 ## [2.6.1] - 2023-02-03
 
 ### Deprecated
