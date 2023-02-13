@@ -11,6 +11,9 @@
 	border-radius: @sand-tileitem-border-radius;
 	font-weight: @sand-tileitem-font-weight;
 
+	transition: transform 200ms ease-in-out;
+	will-change: transform;
+
 	&.bordered {
 		border-width: @sand-tileitem-border-width;
 		border-style: @sand-tileitem-border-style;
@@ -28,6 +31,7 @@
 	.label {
 		font-size: @sand-tileitem-label-font-size;
 		line-height: @sand-tileitem-label-line-height;
+		padding: @sand-tileitem-label-padding;
 	}
 
 	// Skin colors
@@ -41,6 +45,8 @@
 		}
 
 		.focus({
+			transform: @sand-tileitem-focus-transform;
+
 			.disabled ({
 				.vendor-opacity(@sand-disabled-opacity);
 			});

@@ -196,8 +196,8 @@ const TileItemBase = kind({
 						{ImgComponent ? ImgComponent() : null}
 					</Cell>
 					{label ? (
-						<Cell align="center">
-							<Marquee className={css.label}>{label}</Marquee>
+						<Cell>
+							<Marquee alignment="center" className={css.label} marqueeOn="hover">{label}</Marquee>
 						</Cell>
 					) : null}
 				</Column>
