@@ -27,13 +27,6 @@ import Skinnable from '../Skinnable';
 
 import componentCss from './TileItem.module.less';
 
-const
-	defaultPlaceholder =
-	'data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
-	'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
-	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
-	'4NCg==';
-
 /**
  * A Sandstone styled base component for {@link sandstone/TileItem.TileItem|TileItem}.
  *
@@ -71,7 +64,7 @@ const TileItemBase = kind({
 		 * @type {Component}
 		 * @public
 		 */
-		children: EnactPropTypes.component,
+		children: PropTypes.any,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -132,19 +125,6 @@ const TileItemBase = kind({
 		label: PropTypes.string,
 
 		/**
-		 * Placeholder image used while {@link sandstone/TileItem.TileItem#image|image}
-		 * is loaded.
-		 *
-		 * @type {String}
-		 * @default 'data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
-		 * '9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
-		 * 'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
-		 * '4NCg=='
-		 * @public
-		 */
-		placeholder: PropTypes.string,
-
-		/**
 		 * A style object.
 		 *
 		 * @type {Object}
@@ -155,7 +135,6 @@ const TileItemBase = kind({
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
-		placeholder: defaultPlaceholder
 	},
 
 	styles: {
@@ -210,7 +189,6 @@ const TileItemBase = kind({
 		delete rest.icon;
 		delete rest.image;
 		delete rest.label;
-		delete rest.placeholder;
 
 		return (
 			<div
