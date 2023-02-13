@@ -30,6 +30,8 @@ describe('DayPicker', () => {
 		// If firstDayOfWeek === 0, the number type check conditional statement
 		// is skipped due to the fast execution path of localizeSelected(), which
 		// reduces code coverage..
+		const prevLocale = ilib.getLocale();
+
 		ilib.setLocale('es-ES');
 
 		render(<DayPicker locale="es-ES" selected={1} />);
@@ -38,6 +40,8 @@ describe('DayPicker', () => {
 		const expected = 'selected';
 
 		expect(selectedDay).toHaveClass(expected);
+
+		ilib.setLocale(prevLocale);
 	});
 
 	test('should emit an onSelect event with \'onSelect\' type when selecting days', () => {
