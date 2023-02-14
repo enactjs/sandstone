@@ -93,6 +93,21 @@ const ButtonTests = [
 	// [QWTC-1831]
 	<Button icon="rotate">click me</Button>,
 
+	// roundBorder
+	<Button >click me</Button>,
+	{
+		textSize: 'large',
+		component: <Button roundBorder>click me</Button>
+	},
+	<Button roundBorder size="small">click me</Button>,
+	<Button roundBorder size="large">click me</Button>,
+	<Button backgroundOpacity="transparent" roundBorder>click me</Button>,
+	<Button backgroundOpacity="opaque" roundBorder>click me</Button>,
+	<Button icon="minus" iconPosition="after" roundBorder />,
+	<Button icon="minus" iconPosition="after" roundBorder size="large" />,
+	<Button icon="plus" iconPosition="before" roundBorder />,
+	<Button icon="plus" iconPosition="before" roundBorder size="large" />,
+
 	// Focused with light wrapper
 	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
 		<Button>Focused button</Button>,
@@ -150,7 +165,22 @@ const ButtonTests = [
 		<Button icon="arrowhookright" iconFlip="auto">Focused button</Button>,
 
 		// [QWTC-1831]
-		<Button icon="rotate">Focused button</Button>
+		<Button icon="rotate">Focused button</Button>,
+
+		// roundBorder
+		<Button >Focused button</Button>,
+		{
+			textSize: 'large',
+			component: <Button roundBorder>Focused button</Button>
+		},
+		<Button roundBorder size="small">Focused button</Button>,
+		<Button roundBorder size="large">Focused button</Button>,
+		<Button backgroundOpacity="transparent" roundBorder>Focused button</Button>,
+		<Button backgroundOpacity="opaque" roundBorder>Focused button</Button>,
+		<Button icon="minus" iconPosition="after" roundBorder />,
+		<Button icon="minus" iconPosition="after" roundBorder size="large" />,
+		<Button icon="plus" iconPosition="before" roundBorder />,
+		<Button icon="plus" iconPosition="before" roundBorder size="large" />
 	]),
 
 	// *************************************************************
