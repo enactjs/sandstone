@@ -41,6 +41,8 @@ describe('DayPicker', () => {
 	});
 
 	test('should emit an onSelect event with \'onSelect\' type when selecting days', () => {
+		ilib.setLocale('en-US');
+
 		const handleSelect = jest.fn();
 		render(<DayPicker onSelect={handleSelect} />);
 		const item = screen.getAllByRole('checkbox')[2];
