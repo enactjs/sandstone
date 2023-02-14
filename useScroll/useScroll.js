@@ -338,8 +338,8 @@ const useScroll = (props) => {
 
 	const [themeScrollContentHandle, setThemeScrollContentHandle] = useThemeScrollContentHandle();
 
-	const scrollContainerHandle = useRef({}); // An empty object for safty of referencing before `setScrollContainerHandle` call.
-	/* following properties should be in scrollContainerHandle
+	const scrollContainerHandle = useRef({}); // To prevent referencing errors before calling `setScrollContainerHandle`, an empty object is provided as a default.
+	/* Properties in `scrollContainerHandle` provided by `setScrollContainerHandle`
 		animator
 		applyOverscrollEffect
 		bounds
