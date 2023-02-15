@@ -244,7 +244,7 @@ const ButtonTests = [
 		{
 			textSize: 'large',
 			component: <Button icon="plus" iconPosition="before" roundBorder size="large" />
-		},
+		}
 	]),
 
 	// *************************************************************
