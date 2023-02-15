@@ -78,7 +78,7 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
 	 * @public
 	 */
 	i18n: {
-		sync: true
+		sync: false
 	},
 
 	/**
