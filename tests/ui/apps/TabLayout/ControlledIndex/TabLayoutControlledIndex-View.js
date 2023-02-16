@@ -1,7 +1,8 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import spotlight from '@enact/spotlight';
 
 import Button from '../../../../../Button';
+import Item from '../../../../../Item';
 import TabLayout, {Tab} from '../../../../../TabLayout';
 import ThemeDecorator from '../../../../../ThemeDecorator';
 
@@ -13,21 +14,30 @@ spotlight.setPointerMode(false);
 // index change
 const App = (props) => {
 	const [index, setIndex] = useState(1);
+	const [orientation, setOrientation] = useState(true);
+	const handleClick = useCallback(() => {
+		setOrientation(!orientation);
+	}, [orientation]);
 
 	return <div {...props}>
+		<Button id="orientationButton" onClick={() => handleClick()} selected={orientation}>{orientation ? 'Vertical' : 'Horizontal'}</Button>
 		<TabLayout
 			id="tabLayout"
 			index={index}
+			orientation={orientation ? 'vertical' : 'horizontal'}
 			onSelect={ev => setIndex(ev.index)}
 		>
-			<Tab title="One" icon="star">
-				<div id="view1">View One</div>
+			<Tab icon="home" title="Home">
+				<div id="view1"><Button id="button1" onClick={() => setIndex(1)}>Change to 2nd tab</Button></div>
 			</Tab>
-			<Tab title="Two" icon="home">
-				<div id="view2"><Button id="button2" onClick={() => setIndex(2)}>Immediate Switch</Button></div>
+			<Tab icon="gear" title="Button">
+				<div id="view2">
+					<Button id="button2" onClick={() => setIndex(2)}>Change to 3rd tab</Button>
+					<Button id="button3" onClick={() => setTimeout(() => setIndex(2), 1000)}>Delayed changed 3rd tab</Button>
+				</div>
 			</Tab>
-			<Tab title="Three" icon="plug">
-				<div id="view3"><Button id="button3" onClick={() => setTimeout(() => setIndex(1), 1000)}>Delayed Switch</Button></div>
+			<Tab icon="trash" title="Item">
+				<div id="view3"><Item id="Item" onClick={() => setIndex(1)}>Change to 2nd tab</Item></div>
 			</Tab>
 		</TabLayout>
 	</div>;
