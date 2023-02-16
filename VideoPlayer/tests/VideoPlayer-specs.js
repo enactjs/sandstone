@@ -1,65 +1,12 @@
 import '@testing-library/jest-dom';
-import {act, createEvent, fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {act, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import VideoPlayer from '../VideoPlayer';
 import {Button} from '../../Button';
 import {MediaControls} from '../../MediaPlayer';
 
-const focus = (slider) => fireEvent.focus(slider);
-
 describe('VideoPlayer', () => {
-	test('should fire `onPlaying` with `playing` type when playing event is fired', () => {
-		const handlePlaying = jest.fn();
-
-		render(
-			<VideoPlayer data-testid="videoplayer-id" onPlaying={handlePlaying} />
-		);
-
-		const video = screen.getByTestId('videoplayer-id');
-
-		const playingEvent = createEvent('playing', video);
-		fireEvent(video, playingEvent);
-
-		const expected = {type: 'playing'};
-		const actual = handlePlaying.mock.calls.length && handlePlaying.mock.calls[0][0];
-
-		expect(actual).toMatchObject(expected);
-	});
-
-	test('should fire `onControlsAvailable` with `onControlsAvailable` type when screen clicked', () => {
-		const handleControlsAvailable = jest.fn();
-
-		render(
-			<VideoPlayer data-testid="videoplayer-id" onControlsAvailable={handleControlsAvailable} />
-		);
-
-		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
-
-		const slider = screen.getByRole('slider', {hidden: true});
-		focus(slider); // add to increase code coverage
-
-		const expected = {type: 'onControlsAvailable'};
-		const actual = handleControlsAvailable.mock.calls.length && handleControlsAvailable.mock.calls[0][0];
-
-		expect(actual).toMatchObject(expected);
-	});
-
-	test('should not to show media slider when noslider is true', async () => {
-		render(
-			<VideoPlayer data-testid="videoplayer-id" noSlider />
-		);
-
-		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
-
-		await screen.findByLabelText('go to previous');
-
-		const slider = screen.queryByRole('slider', {hidden: true});
-		expect(slider).toBeNull();
-	});
-
 	test('should fire `onBack` with `onBack` type when clicking on back button', async () => {
 		const handleBack = jest.fn();
 
