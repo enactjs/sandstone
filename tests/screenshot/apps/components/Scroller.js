@@ -111,6 +111,6 @@ const ScrollerTests = [
 	{
 		component: <Scroller focusableScrollbar="byEnter" style={{height: '200px', width: '200px'}}><div style={{height: '600px', width: '600px'}}>Focusable by enter with action Scroller</div></Scroller>,
 		pressSelectKey: true
-	},
+	}
 ];
 export default ScrollerTests;
