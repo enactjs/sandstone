@@ -63,7 +63,7 @@ describe('TabLayout', function () {
 					await $('.TabLayout_TabLayout_tabGroup').moveTo();
 					await Page.delay(500);
 					// Step 4-3: Click on Home tab.
-					await browser.positionClick();
+					await $$('.TabLayout_TabLayout_tabGroup')[1].click();
 					// STep 4-4: Hover on ImageItem 1 again.
 					await $('#button1').moveTo();
 					// step 4 Verify: Spotlight is on ImageItem 1.
