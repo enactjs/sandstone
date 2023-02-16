@@ -65,7 +65,7 @@ function toIString (str) {
 	let rb = getResBundle();
 
 	if (!rb) {
-		createResBundle({sync: true, onLoad: setResBundle});
+		createResBundle({sync: false, onLoad: setResBundle});
 		rb = getResBundle();
 	}
 
