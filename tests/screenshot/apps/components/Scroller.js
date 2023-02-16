@@ -15,7 +15,7 @@ const imageItems = Array.from({length: dataSize}, (v, i) => i);
 
 const ScrollerTests = [
 	<Scroller />,
-	<Scroller>Simple Scroller</Scroller>,
+	<Scroller>Scroller</Scroller>,
 	<Scroller style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Two-way scroller</div></Scroller>,
 	<Scroller scrollbarTrackCss={css} style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Customized scrollbarTrack Style</div></Scroller>,
 	// QWTC-570 - partially automated(step3~4). Step5~6 will be worked in ui-test.
@@ -75,48 +75,42 @@ const ScrollerTests = [
 		wrapper: {
 			tall: true
 		},
-		component: <Scroller>Tall Scroller</Scroller>
+		component: <Scroller>Scroller</Scroller>
 	},
 	{
 		wrapper: {
 			tall: true
 		},
-		component: <Scroller focusableScrollbar="byEnter" style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focusable by enter Scroller</div></Scroller>
+		component: <Scroller horizontalScrollbar="visible">Scroller</Scroller>
 	},
 	{
 		wrapper: {
 			tall: true
 		},
-		component: <Scroller focusableScrollbar="byEnter" style={{height: '200px', width: '200px'}}><div style={{height: '600px', width: '600px'}}>Focusable by enter with action Scroller</div></Scroller>,
-		pressSelectKey: true
+		component: <Scroller verticalScrollbar="visible">Scroller</Scroller>
 	},
 	{
 		wrapper: {
 			tall: true
 		},
-		component: <Scroller horizontalScrollbar="visible">Horizontal Scrollbar Scroller</Scroller>
+		component: <Scroller horizontalScrollbar="visible" verticalScrollbar="visible">Scroller</Scroller>
 	},
 	{
 		wrapper: {
 			tall: true
 		},
-		component: <Scroller verticalScrollbar="visible">Vertical Scrollbar Scroller</Scroller>
-	},
-	{
-		wrapper: {
-			tall: true
-		},
-		component: <Scroller horizontalScrollbar="visible" verticalScrollbar="visible">Two ways Scroller</Scroller>
-	},
-	{
-		wrapper: {
-			tall: true
-		},
-		component: <Scroller focusableScrollbar horizontalScrollbar="visible" verticalScrollbar="visible">Two ways focusable scrollbar Scroller</Scroller>
+		component: <Scroller focusableScrollbar horizontalScrollbar="visible" verticalScrollbar="visible">Scroller</Scroller>
 	},
 	...withConfig({focus: true}, [
 		<Scroller focusableScrollbar style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focused Two-way scroller</div></Scroller>,
 		<Scroller focusableScrollbar scrollbarTrackCss={css} style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focused Customized scrollbarTrack Style</div></Scroller>
-	])
+	]),
+	{
+		component: <Scroller focusableScrollbar="byEnter" style={{height: '300px', width: '300px'}}><div style={{height: '600px', width: '600px'}}>Focusable by enter Scroller</div></Scroller>
+	},
+	{
+		component: <Scroller focusableScrollbar="byEnter" style={{height: '200px', width: '200px'}}><div style={{height: '600px', width: '600px'}}>Focusable by enter with action Scroller</div></Scroller>,
+		pressSelectKey: true
+	},
 ];
 export default ScrollerTests;

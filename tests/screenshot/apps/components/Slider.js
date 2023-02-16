@@ -220,8 +220,7 @@ const SliderTests = [
 		wrapper: {
 			padded: true
 		},
-		focus: true,
-		pressSelectKey: true
+		focus: true
 	},
 	// RTL
 	{
