@@ -1,4 +1,3 @@
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import ImageItem from '@enact/sandstone/ImageItem';
@@ -130,8 +129,7 @@ class ButtonAndVirtualGridList extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			isPopup: false,
-			rtl: PropTypes.bool
+			isPopup: false
 		};
 	}
 
@@ -154,7 +152,7 @@ class ButtonAndVirtualGridList extends Component {
 					open={this.state.isPopup}
 					popupComponent={this.renderPopup}
 					onClick={this.openPopup}
-					direction={this.state.rtl ? "left middle" : "right middle"}
+					direction="right middle"
 					spotlightRestrict="self-only"
 					onClose={this.closePopup}
 				>
@@ -164,11 +162,6 @@ class ButtonAndVirtualGridList extends Component {
 		);
 	}
 }
-
-const ButtonAndVirtualGridListSamples = I18nContextDecorator (
-	{rtlProp: 'rtl'},
-	ButtonAndVirtualGridList
-);
 
 export default {
 	title: 'Sandstone/VirtualGridList',
@@ -217,7 +210,7 @@ HorizontalVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridListSamples />;
+export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridList />;
 
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
 WithButtonSpotlightGoesToCorrectTarget.parameters = {
