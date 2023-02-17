@@ -1,6 +1,6 @@
 import Button from '@enact/sandstone/Button';
 import Dropdown from '@enact/sandstone/Dropdown';
-import {Panel, WizardPanels} from '@enact/sandstone/WizardPanels';
+import {Panel} from '@enact/sandstone/Panels';
 import {useCallback, useState} from 'react';
 
 const MainPanel = () => {
@@ -10,16 +10,14 @@ const MainPanel = () => {
 	const handleClose = useCallback(() => setOpen(false), []);
 
 	return (
-		<WizardPanels>
-			<Panel title="QA Sample - Dropdown">
-				<Dropdown onClose={handleClose} onOpen={handleOpen} open={open} size="large" title="language">
-					{['English', 'Korean', 'Spanish', 'Amharic', 'Thai', 'Arabic', 'Urdu', 'Simplified Chinese', 'Traditional Chinese', 'Vietnamese']}
-				</Dropdown>
-				<Button size="large">
-					Enter
-				</Button>
-			</Panel>
-		</WizardPanels>
+		<Panel title="QA Sample - Dropdown">
+			<Dropdown onClose={handleClose} onOpen={handleOpen} open={open} size="large" title="language">
+				{['English', 'Korean', 'Spanish', 'Amharic', 'Thai', 'Arabic', 'Urdu', 'Simplified Chinese', 'Traditional Chinese', 'Vietnamese']}
+			</Dropdown>
+			<Button size="large">
+				Enter
+			</Button>
+		</Panel>
 	);
 };
 

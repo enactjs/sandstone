@@ -30,11 +30,12 @@ function createResBundle (options) {
 	}
 
 	if (!opts.onLoad) return;
-
+	console.log("sandstone:::: internal/$L createResBundle!!!, options ", options);
 	// eslint-disable-next-line no-new
 	new ResBundle({
 		...opts,
 		onLoad: (bundle) => {
+			console.log("sandstone:::: internal/$L onLoad!!!, bundle ", bundle);
 			opts.onLoad(bundle || null);
 		}
 	});
@@ -64,8 +65,12 @@ function setResBundle (bundle) {
 function toIString (str) {
 	let rb = getResBundle();
 
+	console.log("sandstone/internal/$L ", str);
 	if (!rb) {
-		createResBundle({sync: false, onLoad: setResBundle});
+		createResBundle({
+			sync: false,
+			onLoad: setResBundle
+		});
 		rb = getResBundle();
 	}
 
