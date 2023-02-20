@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Panels.Header` prop `shadowed` to add shadow to text and icon
+
 ## [2.5.8] - 2023-01-31
 
 ### Fixed

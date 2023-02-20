@@ -182,6 +182,15 @@ const HeaderBase = kind({
 		onClose: PropTypes.func,
 
 		/**
+		 * Boolean controlling whether this component should add shadow to the text.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		shadowed: PropTypes.bool,
+
+		/**
 		 * A location for arbitrary elements to be placed above the title
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
@@ -327,6 +336,7 @@ const HeaderBase = kind({
 	defaultProps: {
 		marqueeOn: 'render',
 		noSubtitle: false,
+		shadowed: false,
 		type: 'standard'
 	},
 
@@ -337,10 +347,11 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, noSubtitle, type, styler, subtitle}) => styler.append(
+		className: ({centered, children, noSubtitle, type, shadowed, styler, subtitle}) => styler.append(
 			{
 				centered,
 				noSubtitle,
+				shadowed,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				withChildren: hasChildren(children),
 				withSubtitle: subtitle
@@ -420,6 +431,7 @@ const HeaderBase = kind({
 		noCloseButton,
 		onBack,
 		onClose,
+		shadowed,
 		slotAbove,
 		slotAfter,
 		slotAfterRef,
@@ -447,6 +459,7 @@ const HeaderBase = kind({
 				icon="arrowhookleft"
 				iconFlip="auto"
 				onClick={onBack}
+				shadowed={shadowed}
 				size="small"
 			/>
 		) : null);
@@ -459,6 +472,7 @@ const HeaderBase = kind({
 				className={css.close}
 				icon="closex"
 				onClick={onClose}
+				shadowed={shadowed}
 				size="small"
 			/>
 		) : null);

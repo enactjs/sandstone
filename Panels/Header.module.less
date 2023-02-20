@@ -1,5 +1,6 @@
 // Header.module.less
 //
+@import "../styles/colors.less";
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
 
@@ -90,6 +91,13 @@
 
 	.slotBelow {
 		margin: @sand-header-slotbelow-margin;
+	}
+
+	&.shadowed {	
+		.subtitle,
+		.title {
+			text-shadow: @sand-header-text-shadow;
+		}
 	}
 
 	///

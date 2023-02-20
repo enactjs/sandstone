@@ -304,6 +304,11 @@
 			.bg {
 				opacity: @sand-button-transparent-bg-opacity;
 			}
+			&.shadowed {
+				.client {
+					text-shadow: @sand-button-text-shadow;
+				}
+			}
 		}
 
 		&.red .client::before {
@@ -355,6 +360,10 @@
 
 			.bg {
 				.sand-button-focus-bg-colors();
+			}
+
+			.client {
+				text-shadow: none;
 			}
 
 			&.iconOnly {
