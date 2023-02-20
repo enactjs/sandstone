@@ -1,2 +1,12 @@
 ignore:
     - "Scroller/EditableWrapper.js"
+coverage:
+  status:
+    project:
+      default:
+        # basic
+        target: auto
+        threshold: 0%
+        # advanced settings
+        informational: false
+        only_pulls: true
