@@ -8,7 +8,7 @@ const DayPickerTests = [
 	<DayPicker disabled />,
 	<DayPicker disabled selected={1} />,
 	// *************************************************************
-	// locale = 'ar-SA'
+	// locale = 'ar-SA', [QWTC-2428]
 	{
 		locale: 'ar-SA',
 		component: <DayPicker />
@@ -23,6 +23,25 @@ const DayPickerTests = [
 	},
 	{
 		locale: 'ar-SA',
+		component: <DayPicker disabled selected={1} />
+	},
+
+	// *************************************************************
+	// locale = 'es-ES', [QWTC-637]
+	{
+		locale: 'es-ES',
+		component: <DayPicker />
+	},
+	{
+		locale: 'es-ES',
+		component: <DayPicker selected={1} />
+	},
+	{
+		locale: 'es-ES',
+		component: <DayPicker disabled />
+	},
+	{
+		locale: 'es-ES',
 		component: <DayPicker disabled selected={1} />
 	},
 

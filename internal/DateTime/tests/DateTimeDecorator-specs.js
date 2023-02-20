@@ -5,9 +5,9 @@ import {DateTimeDecorator} from '../';
 
 describe('DateTimeDecorator', () => {
 	test('should accept an updated JavaScript Date for its value prop', () => {
-		const Picker = DateTimeDecorator({}, function PickerBase ({locale, title, value}) {
+		const Picker = DateTimeDecorator({}, function PickerBase ({title, value}) {
 			const minuteValue = value.getMinutes();
-			return <div locale={locale} title={title}>{minuteValue}</div>;
+			return <div title={title}>{minuteValue}</div>;
 		});
 
 		const {rerender} = render(
