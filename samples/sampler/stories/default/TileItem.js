@@ -40,6 +40,7 @@ export const _TileItem = (args) => (
 			width: ri.scaleToRem(312),
 			height: ri.scaleToRem(240)
 		}}
+		title={args['title']}
 	/>
 );
 
@@ -49,7 +50,8 @@ boolean('disabled', _TileItem, Config);
 select('icon', _TileItem, ['', ...iconNames], Config, 'gamepad');
 object('image', _TileItem, Config, imageObj);
 text('label', _TileItem, Config, 'Playstation 5');
-select('labelOn', _TileItem, ['', 'focus', 'render'], Config);
+select('labelOn', _TileItem, ['focus', 'render'], Config);
+text('title', _TileItem, Config, 'App title');
 
 _TileItem.storyName = 'TileItem';
 _TileItem.parameters = {

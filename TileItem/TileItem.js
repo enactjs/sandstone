@@ -42,7 +42,7 @@ const TileItemBase = kind({
 		/**
 		 * The background color, gradient, or image of this item.
 		 * Accepts any format of color, gradient type value, and image url.
-		 * 
+		 *
 		 * Example: '#ff0000', 'radial-gradient(crimson, skyblue)', 'url(http://example.com/image.png) center / cover'
 		 *
 		 * @type {String}
@@ -98,7 +98,7 @@ const TileItemBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
-		
+
 		/**
 		 * The icon content.
 		 * If this is specified, {@link sandstone/Icon.Icon|Icon} will be shown as the content.
@@ -141,11 +141,20 @@ const TileItemBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		style: PropTypes.object
+		style: PropTypes.object,
+
+		/**
+		 * Primary title text of the tile item.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		 title: PropTypes.string
 	},
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
+		labelOn: 'render'
 	},
 
 	styles: {
@@ -161,7 +170,7 @@ const TileItemBase = kind({
 			hasImage: image
 		}),
 
-		children: ({children, css, icon, image, label}) => {
+		children: ({background, children, css, icon, image, label}) => {
 			if (children) return children;
 
 			let ImgComponent;
@@ -179,11 +188,11 @@ const TileItemBase = kind({
 						}}
 					/>;
 			}
-			
+
 			if (!ImgComponent && !children && !label) return;
-			
+
 			return (
-				<Column align="center center">
+				<Column align="center center" className={css.content} style={{background}}>
 					<Cell shrink>
 						{ImgComponent ? ImgComponent() : null}
 					</Cell>
@@ -197,7 +206,8 @@ const TileItemBase = kind({
 		}
 	},
 
-	render: ({background, children, css, disabled, style, ...rest}) => {
+	render: ({children, css, disabled, title, ...rest}) => {
+		delete rest.background;
 		delete rest.bordered;
 		delete rest.icon;
 		delete rest.image;
@@ -209,12 +219,11 @@ const TileItemBase = kind({
 				{...rest}
 				aria-disabled={disabled}
 				disabled={disabled}
-				style={{
-					background,
-					...style
-				}}
 			>
 				{children}
+				{title ?
+					<Marquee alignment="center" marqueeOn="hover">{title}</Marquee>
+				: null}
 			</div>
 		);
 	}

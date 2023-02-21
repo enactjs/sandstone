@@ -6,15 +6,18 @@
 
 .tileItem {
 	position: relative;
-	box-sizing: border-box;
-	background-size: contain;
-	border-radius: @sand-tileitem-border-radius;
-	font-weight: @sand-tileitem-font-weight;
 
 	transition: transform 200ms ease-in-out;
 	will-change: transform;
 
-	&.bordered {
+	.content {
+		box-sizing: border-box;
+		background-size: contain;
+		border-radius: @sand-tileitem-border-radius;
+		font-weight: @sand-tileitem-font-weight;
+	}
+
+	&.bordered .content {
 		border-width: @sand-tileitem-border-width;
 		border-style: @sand-tileitem-border-style;
 	}
@@ -56,7 +59,7 @@
 
 	// Skin colors
 	.applySkins({
-		.bordered {
+		&.bordered {
 			border-color: @sand-tileitem-border-color;
 		}
 
