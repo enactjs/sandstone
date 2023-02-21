@@ -3,9 +3,10 @@
  *
  * @example
  * <TileItem
- * >
- * 	The primary caption for the image
- * </TileItem>
+ *   background="#ffffff"
+ *   bordered
+ *   icon="gamepad"
+ * />
  *
  * @module sandstone/TileItem
  * @exports TileItem
@@ -13,7 +14,6 @@
  * @exports TileItemDecorator
  */
 
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Column} from '@enact/ui/Layout';
@@ -72,6 +72,8 @@ const TileItemBase = kind({
 		 *
 		 * The following classes are supported:
 		 *
+		 * * `tileItem` - The tile item component class
+		 * * `bordered` - The border class
 		 * * `image` - The image component class
 		 * * `label` - The label component class
 		 *
@@ -117,12 +119,21 @@ const TileItemBase = kind({
 		image: PropTypes.object,
 
 		/**
-		 * A caption displayed in the content.
+		 * A label displayed in the content.
 		 *
 		 * @type {String}
 		 * @public
 		 */
 		label: PropTypes.string,
+
+		/**
+		 * Determines what triggers the label to show.
+		 *
+		 * @type {('focus'|'render')}
+		 * @default 'render'
+		 * @public
+		 */
+		labelOn: PropTypes.oneOf(['focus', 'render']),
 
 		/**
 		 * A style object.
@@ -140,12 +151,14 @@ const TileItemBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'tileItem',
-		publicClassNames: ['tileItem', 'image', 'label']
+		publicClassNames: true
 	},
 
 	computed: {
-		className: ({bordered, styler}) => styler.append({
-			bordered
+		className: ({bordered, image, labelOn, styler}) => styler.append({
+			bordered,
+			labelOnFocus: labelOn === 'focus',
+			hasImage: image
 		}),
 
 		children: ({children, css, icon, image, label}) => {
@@ -159,10 +172,10 @@ const TileItemBase = kind({
 				ImgComponent = () =>
 					<Image
 						className={css.image}
-						src={image.src}
+						src={image?.src}
 						style={{
-							width: image.size.width,
-							height: image.size.height
+							width: image?.size?.width,
+							height: image?.size?.height
 						}}
 					/>;
 			}
@@ -175,7 +188,7 @@ const TileItemBase = kind({
 						{ImgComponent ? ImgComponent() : null}
 					</Cell>
 					{label ? (
-						<Cell>
+						<Cell shrink className={css.labelContainer}>
 							<Marquee alignment="center" className={css.label} marqueeOn="hover">{label}</Marquee>
 						</Cell>
 					) : null}
@@ -189,6 +202,7 @@ const TileItemBase = kind({
 		delete rest.icon;
 		delete rest.image;
 		delete rest.label;
+		delete rest.labelOn;
 
 		return (
 			<div
@@ -229,9 +243,10 @@ const TileItemDecorator = compose(
  * Usage:
  * ```
  * <TileItem
- * >
- * 	The primary caption for the image
- * </TileItem>
+ *   background="#ffffff"
+ *   bordered
+ *   icon="gamepad"
+ * />
  * ```
  *
  * @class TileItem

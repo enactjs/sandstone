@@ -34,6 +34,26 @@
 		padding: @sand-tileitem-label-padding;
 	}
 
+	&.labelOnFocus {
+		.label, .labelContainer {
+			display: none;
+		}
+	}
+
+	.focus({
+		transform: @sand-tileitem-focus-transform;
+
+		&.labelOnFocus {
+			.label, .labelContainer {
+				display: block;
+			}
+
+			.icon {
+				margin: @sand-tileitem-icon-label-on-focus-margin;
+			}
+		}
+	});
+
 	// Skin colors
 	.applySkins({
 		.bordered {
@@ -44,9 +64,13 @@
 			color: @sand-tileitem-label-color;
 		}
 
-		.focus({
-			transform: @sand-tileitem-focus-transform;
+		&.hasImage {
+			.label {
+				color: @sand-tileitem-has-image-label-color;
+			}
+		}
 
+		.focus({
 			.disabled ({
 				.vendor-opacity(@sand-disabled-opacity);
 			});

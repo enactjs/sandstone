@@ -34,6 +34,7 @@ export const _TileItem = (args) => (
 		icon={args['icon']}
 		image={args['image']}
 		label={args['label']}
+		labelOn={args['labelOn']}
 		style={{
 			position: 'absolute',
 			width: ri.scaleToRem(312),
@@ -48,6 +49,7 @@ boolean('disabled', _TileItem, Config);
 select('icon', _TileItem, ['', ...iconNames], Config, 'gamepad');
 object('image', _TileItem, Config, imageObj);
 text('label', _TileItem, Config, 'Playstation 5');
+select('labelOn', _TileItem, ['', 'focus', 'render'], Config);
 
 _TileItem.storyName = 'TileItem';
 _TileItem.parameters = {
