@@ -108,14 +108,14 @@ const TileItemBase = kind({
 		 */
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
-		 /**
-		  * Source and size for the image.
-		  * String value or Object of values used to determine which image will appear on
-		  * a specific screenSize.
-		  *
-		  * @type {Object}
-		  * @public
-		  */
+		/**
+		 * Source and size for the image.
+		 * String value or Object of values used to determine which image will appear on
+		 * a specific screenSize.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
 		image: PropTypes.object,
 
 		/**
@@ -164,10 +164,9 @@ const TileItemBase = kind({
 	},
 
 	computed: {
-		className: ({bordered, image, labelOn, styler}) => styler.append({
+		className: ({bordered, labelOn, styler}) => styler.append({
 			bordered,
 			labelOnFocus: labelOn === 'focus',
-			hasImage: image
 		}),
 
 		children: ({background, children, css, icon, image, label}) => {
