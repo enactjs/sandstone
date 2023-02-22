@@ -345,7 +345,6 @@ export const KitchenSink = () => (
 				<Button focusEffect="static" roundBorder size="small" icon="play" alt="Small Round Border" />
 				<Button focusEffect="static" size="large" icon="play" alt="Large" />
 				<Button focusEffect="static" roundBorder size="large" icon="play" alt="Large Round Border" />
-
 			</Section>
 		</Row>
 	</Scroller>
