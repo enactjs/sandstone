@@ -14,7 +14,7 @@ install:
     - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm install
-    - npm run bootstra
+    - npm run bootstrap
     - npm run bootstrap-link
     - popd
     - rm -fr node_modules/@enact
