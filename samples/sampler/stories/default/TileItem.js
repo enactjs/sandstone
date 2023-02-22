@@ -1,6 +1,6 @@
 import {TileItem, TileItemBase} from '@enact/sandstone/TileItem';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, object, select, text} from '@enact/storybook-utils/addons/controls';
+import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 
 import iconNames from '../helper/icons';
@@ -37,8 +37,8 @@ export const _TileItem = (args) => (
 		labelOn={args['labelOn']}
 		style={{
 			position: 'absolute',
-			width: ri.scaleToRem(312),
-			height: ri.scaleToRem(240)
+			width: ri.scale(args['width']),
+			height: ri.scale(args['height'])
 		}}
 		title={args['title']}
 	/>
@@ -51,6 +51,8 @@ select('icon', _TileItem, ['', ...iconNames], Config, 'gamepad');
 object('image', _TileItem, Config, imageObj);
 text('label', _TileItem, Config, 'Playstation 5');
 select('labelOn', _TileItem, ['focus', 'render'], Config);
+number('width', _TileItem, Config, 312);
+number('height', _TileItem, Config, 240);
 text('title', _TileItem, Config, 'App title');
 
 _TileItem.storyName = 'TileItem';

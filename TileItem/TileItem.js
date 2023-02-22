@@ -169,7 +169,7 @@ const TileItemBase = kind({
 			labelOnFocus: labelOn === 'focus',
 		}),
 
-		children: ({background, children, css, icon, image, label}) => {
+		children: ({background, children, css, icon, image, label, title}) => {
 			if (children) return children;
 
 			let ImgComponent;
@@ -188,9 +188,9 @@ const TileItemBase = kind({
 					/>;
 			}
 
-			if (!ImgComponent && !children && !label) return;
+			if (!ImgComponent && !children && !label && !title) return;
 
-			return (
+			const iconContent = (
 				<Column align="center center" className={css.content} style={{background}}>
 					<Cell shrink>
 						{ImgComponent ? ImgComponent() : null}
@@ -202,16 +202,26 @@ const TileItemBase = kind({
 					) : null}
 				</Column>
 			);
+
+			return (
+				title ?
+					<Column>
+						{iconContent}
+						<Marquee alignment="center" className={css.title} marqueeOn="hover">{title}</Marquee>
+					</Column>
+				: iconContent
+			);
 		}
 	},
 
-	render: ({children, css, disabled, title, ...rest}) => {
+	render: ({children, css, disabled, ...rest}) => {
 		delete rest.background;
 		delete rest.bordered;
 		delete rest.icon;
 		delete rest.image;
 		delete rest.label;
 		delete rest.labelOn;
+		delete rest.title;
 
 		return (
 			<div
@@ -220,9 +230,6 @@ const TileItemBase = kind({
 				disabled={disabled}
 			>
 				{children}
-				{title ?
-					<Marquee alignment="center" marqueeOn="hover">{title}</Marquee>
-				: null}
 			</div>
 		);
 	}
