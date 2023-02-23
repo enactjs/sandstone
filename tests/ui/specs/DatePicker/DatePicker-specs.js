@@ -91,6 +91,27 @@ describe('DatePicker', function () {
 					expect(value).to.equal(expected);
 				});
 				// End of [QWTC-2097] - Month, Day, Year pickers Animate with 5-way - LTR
+
+				it('should focus move with 5-way select key [QWTC-2540]', async function () {
+					// Step 3: Hover and 5-way Left and Select on the Month picker.
+					await Page.showPointerByKeycode();
+					await $('#datePickerDefault').moveTo({xOffset: 100, yOffset: 200});
+					expect(await datePicker.month.isFocused()).to.be.true();
+					await Page.spotlightLeft();
+					await Page.spotlightSelect();
+					// Step 3 Verify: The focus moves to the Day picker.
+					expect(await datePicker.day.isFocused()).to.be.true();
+
+					// Step 4: 5-way Select on the Day picker.
+					await Page.spotlightSelect();
+					// Step 4 Verify: The focus moves to the Year picker.
+					expect(await datePicker.year.isFocused()).to.be.true();
+
+					// Step 5: 5-way Select on the Year picker.
+					await Page.spotlightSelect();
+					// Step 5 Verify: The focus stays on the Year picker.
+					expect(await datePicker.year.isFocused()).to.be.true();
+				});
 			});
 
 			describe('pointer', function () {
@@ -300,6 +321,65 @@ describe('DatePicker', function () {
 			await Page.spotlightLeft();
 			expect(await datePicker.year.isFocused()).to.be.true();
 		});
+
+		it('should focus move with 5-way select key in RTL [QWTC-2540]', async function () {
+			// Step 7: Hover and 5-way Right and Select on the DayPicker
+			await Page.showPointerByKeycode();
+			await $('#datePickerDefault').moveTo({xOffset: 400, yOffset: 200});
+			expect(await datePicker.day.isFocused()).to.be.true();
+			await Page.spotlightRight();
+			await Page.spotlightSelect();
+			// Step 7 Verify: The focus moves to the Month Picker.
+			expect(await datePicker.month.isFocused()).to.be.true();
+
+			// Step 8: 5-way Select on the Month Picker
+			await Page.spotlightSelect();
+			// Step 8 Verify: The focus moves to the Year Picker.
+			expect(await datePicker.year.isFocused()).to.be.true();
+
+			// Step 9: 5-way Select on the YearPicker.
+			await Page.spotlightSelect();
+			// Step 9 Verify: The focus stays on the Year Picker.
+			expect(await datePicker.year.isFocused()).to.be.true();
+		});
 	});
 
+	// In case of visual checking(enable/disable status,color), it will be tested on the screenshot tests.
+	describe('check end value', function () {
+		const datePickerCheckMinValue = Page.components.datePickerCheckMinValue;
+		const datePickerCheckMaxValue = Page.components.datePickerCheckMaxValue;
+		it('should check minimum end-value', async function () {
+			// Step 3-1: Click on  Year Down picker until the Year 1900 displays.
+			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
+			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
+			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
+			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
+			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
+			// Step 3 Verify: Year Value changes to 1900.
+			expect((await extractValues(datePickerCheckMinValue)).year).to.equal(1900);
+
+			// check disabled picker does not work when value reached minimum end-value.
+			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
+			expect((await extractValues(datePickerCheckMinValue)).year).to.equal(1900);
+			await datePickerCheckMinValue.incrementer(datePickerCheckMinValue.year).click();
+			expect((await extractValues(datePickerCheckMinValue)).year).to.equal(1901);
+		});
+
+		it('should check maximum end-value', async function () {
+			// Step 3-1: Click on  Year Up picker until the Year 2099 displays.
+			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
+			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
+			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
+			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
+			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
+			// Step 3 Verify: Year Value changes to 2099.
+			expect((await extractValues(datePickerCheckMaxValue)).year).to.equal(2099);
+
+			// check disabled picker does not work when value reached maximum end-value.
+			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
+			expect((await extractValues(datePickerCheckMaxValue)).year).to.equal(2099);
+			await datePickerCheckMaxValue.decrementer(datePickerCheckMaxValue.year).click();
+			expect((await extractValues(datePickerCheckMaxValue)).year).to.equal(2098);
+		});
+	});
 });
