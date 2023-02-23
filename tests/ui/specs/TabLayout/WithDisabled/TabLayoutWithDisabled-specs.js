@@ -6,7 +6,7 @@ describe('TabLayout', function () {
 	});
 
 	describe('With disabled tab', function () {
-		it('should return spotlight after click on navigation button - [QWTC-2503]', async function () {
+		it('should return spotlight after click on navigation button - [QWTC-2338]', async function () {
 			// Step 3-3 Verify: Tab 0 Top view is already opened.
 			await Page.spotlightRight();
 			expect(await $('#topButton0').isFocused()).to.be.true();
