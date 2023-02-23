@@ -162,8 +162,8 @@
 @sand-switch-icon-font-size:        84px;
 @sand-switch-icon-font-size-large:  138px;
 @sand-tablayout-tab-font-size:      66px;
-@sand-tileitem-label-font-size:     42px;
-@sand-tileitem-title-font-size:     54px;
+@sand-iconitem-label-font-size:     42px;
+@sand-iconitem-title-font-size:     54px;
 @sand-tooltip-label-font-size:      54px;
 
 @sand-tallglyph-alert-title-font-size:  @sand-alert-title-font-size;
@@ -598,6 +598,20 @@
 @sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
 @sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
 
+// IconItem
+// ---------------------------------------
+@sand-iconitem-border-radius: 48px;
+@sand-iconitem-border-style: solid;
+@sand-iconitem-border-width: 4px;
+@sand-iconitem-focus-transform: scale(1.2);
+@sand-iconitem-font-weight: 600;
+@sand-iconitem-icon-margin: 36px @sand-icon-margin;
+@sand-iconitem-icon-label-on-focus-margin: 0 @sand-icon-margin 24px @sand-icon-margin;
+@sand-iconitem-label-line-height: 48px;
+@sand-iconitem-label-padding: 0 12px;
+@sand-iconitem-title-line-height: 60px;
+@sand-iconitem-title-margin: 12px 0 0 0;
+
 // ImageItem
 // ---------------------------------------
 @sand-imageitem-margin: @sand-item-margin;
@@ -932,20 +946,6 @@
 @sand-tablayout-tab-horizontal-padding: 0;
 @sand-tablayout-tab-horizontal-border-width: ~"calc(" 6px ~"/ 3)"; // foolishness to get a correctly scalable 2px at 4k
 @sand-tablayout-tab-horizontal-selected-border-width: 6px;
-
-// TileItem
-// ---------------------------------------
-@sand-tileitem-border-radius: 48px;
-@sand-tileitem-border-style: solid;
-@sand-tileitem-border-width: 4px;
-@sand-tileitem-focus-transform: scale(1.2);
-@sand-tileitem-font-weight: 600;
-@sand-tileitem-icon-margin: 36px @sand-icon-margin;
-@sand-tileitem-icon-label-on-focus-margin: 0 @sand-icon-margin 24px @sand-icon-margin;
-@sand-tileitem-label-line-height: 48px;
-@sand-tileitem-label-padding: 0 12px;
-@sand-tileitem-title-line-height: 60px;
-@sand-tileitem-title-margin: 12px 0 0 0;
 
 // Tooltip
 // ---------------------------------------

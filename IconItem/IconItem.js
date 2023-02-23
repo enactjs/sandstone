@@ -1,17 +1,17 @@
 /**
- * Provides Sandstone styled tile item components and behaviors.
+ * Provides Sandstone styled icon item components and behaviors.
  *
  * @example
- * <TileItem
+ * <IconItem
  *   background="#ffffff"
  *   bordered
  *   icon="gamepad"
  * />
  *
- * @module sandstone/TileItem
- * @exports TileItem
- * @exports TileItemBase
- * @exports TileItemDecorator
+ * @module sandstone/IconItem
+ * @exports IconItem
+ * @exports IconItemBase
+ * @exports IconItemDecorator
  */
 
 import kind from '@enact/core/kind';
@@ -25,20 +25,20 @@ import Image from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
-import componentCss from './TileItem.module.less';
+import componentCss from './IconItem.module.less';
 
 /**
- * A Sandstone styled base component for {@link sandstone/TileItem.TileItem|TileItem}.
+ * A Sandstone styled base component for {@link sandstone/IconItem.IconItem|IconItem}.
  *
- * @class TileItemBase
- * @memberof sandstone/TileItem
+ * @class IconItemBase
+ * @memberof sandstone/IconItem
  * @ui
  * @public
  */
-const TileItemBase = kind({
-	name: 'TileItem',
+const IconItemBase = kind({
+	name: 'IconItem',
 
-	propTypes: /** @lends sandstone/TileItem.TileItemBase.prototype */ {
+	propTypes: /** @lends sandstone/IconItem.IconItemBase.prototype */ {
 		/**
 		 * The background color, gradient, or image of this item.
 		 * Accepts any format of color, gradient type value, and image url.
@@ -59,7 +59,7 @@ const TileItemBase = kind({
 		bordered: PropTypes.bool,
 
 		/**
-		 * The custom component rendred as the content of this TileItem.
+		 * The custom component rendred as the content of this IconItem.
 		 *
 		 * @type {Component}
 		 * @public
@@ -72,7 +72,7 @@ const TileItemBase = kind({
 		 *
 		 * The following classes are supported:
 		 *
-		 * * `tileItem` - The tile item component class
+		 * * `iconItem` - The icon item component class
 		 * * `bordered` - The border class
 		 * * `image` - The image component class
 		 * * `label` - The label component class
@@ -92,7 +92,7 @@ const TileItemBase = kind({
 		'data-webos-voice-intent': PropTypes.string,
 
 		/**
-		 * Disable TileItem and becomes non-interactive.
+		 * Disable IconItem and becomes non-interactive.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -144,7 +144,7 @@ const TileItemBase = kind({
 		style: PropTypes.object,
 
 		/**
-		 * Primary title text of the tile item.
+		 * Primary title text of the icon item.
 		 *
 		 * @type {String}
 		 * @public
@@ -159,7 +159,7 @@ const TileItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'tileItem',
+		className: 'iconItem',
 		publicClassNames: true
 	},
 
@@ -236,48 +236,48 @@ const TileItemBase = kind({
 });
 
 /**
- * Sandstone-specific TileItem behaviors to apply to
- * {@link sandstone/TileItem.TileItem|TileItem}.
+ * Sandstone-specific IconItem behaviors to apply to
+ * {@link sandstone/IconItem.IconItem|IconItem}.
  *
  * @hoc
- * @memberof sandstone/TileItem
+ * @memberof sandstone/IconItem
  * @mixes sandstone/Marquee.MarqueeController
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
-const TileItemDecorator = compose(
+const IconItemDecorator = compose(
 	MarqueeController({marqueeOnFocus: true}),
 	Spottable,
 	Skinnable
 );
 
 /**
- * A sandstone-styled tile item, Marquee and Spottable applied.
+ * A sandstone-styled icon item, Marquee and Spottable applied.
  *
  * Usage:
  * ```
- * <TileItem
+ * <IconItem
  *   background="#ffffff"
  *   bordered
  *   icon="gamepad"
  * />
  * ```
  *
- * @class TileItem
- * @memberof sandstone/TileItem
- * @extends sandstone/TileItem.TileItemBase
- * @mixes sandstone/TileItem.TileItemDecorator
- * @see {@link sandstone/TileItem.TileItemBase}
+ * @class IconItem
+ * @memberof sandstone/IconItem
+ * @extends sandstone/IconItem.IconItemBase
+ * @mixes sandstone/IconItem.IconItemDecorator
+ * @see {@link sandstone/IconItem.IconItemBase}
  * @ui
  * @public
  */
-const TileItem = TileItemDecorator(TileItemBase);
-TileItem.displayName = 'TileItem';
+const IconItem = IconItemDecorator(IconItemBase);
+IconItem.displayName = 'IconItem';
 
-export default TileItem;
+export default IconItem;
 export {
-	TileItem,
-	TileItemBase,
-	TileItemDecorator
+	IconItem,
+	IconItemBase,
+	IconItemDecorator
 };

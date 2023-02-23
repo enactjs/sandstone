@@ -1,10 +1,10 @@
-// TileItem.module.less
+// IconItem.module.less
 //
 @import '../styles/mixins.less';
 @import '../styles/variables.less';
 @import '../styles/skin.less';
 
-.tileItem {
+.iconItem {
 	position: relative;
 
 	transition: transform 200ms ease-in-out;
@@ -13,17 +13,17 @@
 	.content {
 		box-sizing: border-box;
 		background-size: contain;
-		border-radius: @sand-tileitem-border-radius;
-		font-weight: @sand-tileitem-font-weight;
+		border-radius: @sand-iconitem-border-radius;
+		font-weight: @sand-iconitem-font-weight;
 	}
 
 	&.bordered .content {
-		border-width: @sand-tileitem-border-width;
-		border-style: @sand-tileitem-border-style;
+		border-width: @sand-iconitem-border-width;
+		border-style: @sand-iconitem-border-style;
 	}
 
 	.icon {
-		margin: @sand-tileitem-icon-margin;
+		margin: @sand-iconitem-icon-margin;
 	}
 
 	.image {
@@ -36,15 +36,15 @@
 	}
 
 	.label {
-		font-size: @sand-tileitem-label-font-size;
-		line-height: @sand-tileitem-label-line-height;
-		padding: @sand-tileitem-label-padding;
+		font-size: @sand-iconitem-label-font-size;
+		line-height: @sand-iconitem-label-line-height;
+		padding: @sand-iconitem-label-padding;
 	}
 
 	.title {
-		font-size: @sand-tileitem-title-font-size;
-		line-height: @sand-tileitem-title-line-height;
-		margin: @sand-tileitem-title-margin;
+		font-size: @sand-iconitem-title-font-size;
+		line-height: @sand-iconitem-title-line-height;
+		margin: @sand-iconitem-title-margin;
 	}
 
 	&.labelOnFocus {
@@ -54,7 +54,7 @@
 	}
 
 	.focus({
-		transform: @sand-tileitem-focus-transform;
+		transform: @sand-iconitem-focus-transform;
 
 		&.labelOnFocus {
 			.label, .labelContainer {
@@ -62,7 +62,7 @@
 			}
 
 			.icon {
-				margin: @sand-tileitem-icon-label-on-focus-margin;
+				margin: @sand-iconitem-icon-label-on-focus-margin;
 			}
 		}
 	});
@@ -70,11 +70,11 @@
 	// Skin colors
 	.applySkins({
 		&.bordered {
-			border-color: @sand-tileitem-border-color;
+			border-color: @sand-iconitem-border-color;
 		}
 
 		.label {
-			color: @sand-tileitem-label-color;
+			color: @sand-iconitem-label-color;
 		}
 
 		.focus({

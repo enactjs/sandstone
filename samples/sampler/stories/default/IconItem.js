@@ -1,4 +1,4 @@
-import {TileItem, TileItemBase} from '@enact/sandstone/TileItem';
+import {IconItem, IconItemBase} from '@enact/sandstone/IconItem';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
@@ -6,8 +6,8 @@ import ri from '@enact/ui/resolution';
 import iconNames from '../helper/icons';
 import {svgGenerator} from '../helper/svg';
 
-const Config = mergeComponentMetadata('TileItem', TileItemBase, TileItem);
-TileItem.displayName = 'TileItem';
+const Config = mergeComponentMetadata('IconItem', IconItemBase, IconItem);
+IconItem.displayName = 'IconItem';
 
 const imageObj = {
 	src: {
@@ -22,12 +22,12 @@ const imageObj = {
 };
 
 export default {
-	title: 'Sandstone/TileItem',
-	component: 'TileItem'
+	title: 'Sandstone/IconItem',
+	component: 'IconItem'
 };
 
-export const _TileItem = (args) => (
-	<TileItem
+export const _IconItem = (args) => (
+	<IconItem
 		background={args['background']}
 		bordered={args['bordered']}
 		disabled={args['disabled']}
@@ -44,20 +44,20 @@ export const _TileItem = (args) => (
 	/>
 );
 
-text('background', _TileItem, Config, '#000000');
-boolean('bordered', _TileItem, Config, true);
-boolean('disabled', _TileItem, Config);
-select('icon', _TileItem, ['', ...iconNames], Config, 'gamepad');
-object('image', _TileItem, Config, imageObj);
-text('label', _TileItem, Config, 'Playstation 5');
-select('labelOn', _TileItem, ['focus', 'render'], Config);
-number('width', _TileItem, Config, 312);
-number('height', _TileItem, Config, 240);
-text('title', _TileItem, Config, 'App title');
+text('background', _IconItem, Config, '#000000');
+boolean('bordered', _IconItem, Config, true);
+boolean('disabled', _IconItem, Config);
+select('icon', _IconItem, ['', ...iconNames], Config, 'gamepad');
+object('image', _IconItem, Config, imageObj);
+text('label', _IconItem, Config, 'Playstation 5');
+select('labelOn', _IconItem, ['focus', 'render'], Config);
+number('width', _IconItem, Config, 312);
+number('height', _IconItem, Config, 240);
+text('title', _IconItem, Config, 'App title');
 
-_TileItem.storyName = 'TileItem';
-_TileItem.parameters = {
+_IconItem.storyName = 'IconItem';
+_IconItem.parameters = {
 	info: {
-		text: 'The basic TileItem'
+		text: 'The basic IconItem'
 	}
 };

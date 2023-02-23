@@ -1,31 +1,31 @@
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 
-import {TileItemBase} from '../TileItem';
+import {IconItemBase} from '../IconItem';
 
-describe('TileItem', () => {
+describe('IconItem', () => {
 	test('should support `background` prop', () => {
 		const background = '#ffffff';
-		render(<TileItemBase background={background} data-testid="tileitem" />);
+		render(<IconItemBase background={background} data-testid="iconitem" />);
 
 		const expected = 'rgb(255, 255, 255)';
-		const actual = screen.getByTestId('tileitem').style;
+		const actual = screen.getByTestId('iconitem').style;
 
 		expect(actual).toHaveProperty('background', expected);
 	});
 
 	test('should support `bordered` prop', () => {
-		render(<TileItemBase bordered data-testid="tileitem" />);
+		render(<IconItemBase bordered data-testid="iconitem" />);
 
 		const expected = 'bordered';
-		const actual = screen.getByTestId('tileitem');
+		const actual = screen.getByTestId('iconitem');
 
 		expect(actual).toHaveClass(expected);
 	});
 
 	test('should support `children` prop', () => {
 		const Children = () => <div>Test</div>;
-		render(<TileItemBase><Children /></TileItemBase>);
+		render(<IconItemBase><Children /></IconItemBase>);
 
 		const expected = 'Test';
 		const actual = screen.getByText(expected);
@@ -35,17 +35,17 @@ describe('TileItem', () => {
 
 	test('should support `icon` prop', () => {
 		const icon = 'star';
-		render(<TileItemBase data-testid="tileitem" icon={icon} />);
+		render(<IconItemBase data-testid="iconitem" icon={icon} />);
 
 		const expected = 983080; // decimal converted charCode of Unicode 'star' character
-		const actual = screen.getByTestId('tileitem').textContent.codePointAt();
+		const actual = screen.getByTestId('iconitem').textContent.codePointAt();
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should support `image` prop', () => {
 		const imageSrc = 'imageSrc';
-		render(<TileItemBase image={{src: imageSrc, size: {width: '100px', height: '100px'}}} />);
+		render(<IconItemBase image={{src: imageSrc, size: {width: '100px', height: '100px'}}} />);
 
 		const expected = imageSrc;
 		const actual = screen.getAllByRole('img')[0].children.item(0);
@@ -55,7 +55,7 @@ describe('TileItem', () => {
 
 	test('should support `label` prop', () => {
 		const label = 'label';
-		render(<TileItemBase label={label} />);
+		render(<IconItemBase label={label} />);
 
 		const expected = label;
 		const actual = screen.getByText('label');

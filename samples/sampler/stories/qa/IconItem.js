@@ -1,5 +1,5 @@
 import Button from '@enact/sandstone/Button';
-import TileItem from '@enact/sandstone/TileItem';
+import IconItem from '@enact/sandstone/IconItem';
 import Scroller from '@enact/sandstone/Scroller';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
@@ -8,7 +8,7 @@ import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import {useCallback, useLayoutEffect, useRef, useState} from 'react';
 
-import css from './TileItem.module.less';
+import css from './IconItem.module.less';
 
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 const prop = {
@@ -33,7 +33,7 @@ const imageSrcs = [
 
 const populateItems = ({index}) => {
 	const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
-	const tileItemProps = {
+	const iconItemProps = {
 		bordered: index < 2 ? true : false,
 		icon: index === 0 ? 'speaker' : (index === 1 ? 'gamepad' : ''),
 		label: index === 1 ? 'Game' : '',
@@ -47,14 +47,14 @@ const populateItems = ({index}) => {
 		} : null
 	};
 
-	return {index, tileItemProps};
+	return {index, iconItemProps};
 };
 
 for (let i = 0; i < 20; i++) {
 	itemsArr.push(populateItems({index: i}));
 }
 
-export const EditableTile = (args) => {
+export const EditableIcon = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
 	const removeItem = useRef();
@@ -116,11 +116,11 @@ export const EditableTile = (args) => {
 							<div className={css.removeButtonContainer}>
 								<Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
 							</div>
-							<TileItem
+							<IconItem
 								aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
-								className={css.tileItem}
+								className={css.iconItem}
 								onClick={action('onClickItem')}
-								{...item.tileItemProps}
+								{...item.iconItemProps}
 							/>
 						</div>
 					);
@@ -130,19 +130,19 @@ export const EditableTile = (args) => {
 	);
 };
 
-boolean('editableCentered', EditableTile, ScrollerConfig, true);
-number('editableDataSize', EditableTile, ScrollerConfig, 20);
-select('focusableScrollbar', EditableTile, prop.focusableScrollbarOption, ScrollerConfig);
-select('horizontalScrollbar', EditableTile, prop.scrollbarOption, ScrollerConfig);
-boolean('hoverToScroll', EditableTile, ScrollerConfig, true);
-boolean('noScrollByWheel', EditableTile, ScrollerConfig);
-select('scrollMode', EditableTile, prop.scrollModeOption, ScrollerConfig);
-boolean('spotlightDisabled', EditableTile, ScrollerConfig, false);
-select('verticalScrollbar', EditableTile, prop.scrollbarOption, ScrollerConfig);
+boolean('editableCentered', EditableIcon, ScrollerConfig, true);
+number('editableDataSize', EditableIcon, ScrollerConfig, 20);
+select('focusableScrollbar', EditableIcon, prop.focusableScrollbarOption, ScrollerConfig);
+select('horizontalScrollbar', EditableIcon, prop.scrollbarOption, ScrollerConfig);
+boolean('hoverToScroll', EditableIcon, ScrollerConfig, true);
+boolean('noScrollByWheel', EditableIcon, ScrollerConfig);
+select('scrollMode', EditableIcon, prop.scrollModeOption, ScrollerConfig);
+boolean('spotlightDisabled', EditableIcon, ScrollerConfig, false);
+select('verticalScrollbar', EditableIcon, prop.scrollbarOption, ScrollerConfig);
 
-EditableTile.storyName = 'with editable scroller';
+EditableIcon.storyName = 'with editable scroller';
 
 export default {
-	title: 'Sandstone/TileItem',
-	component: 'TileItem'
+	title: 'Sandstone/IconItem',
+	component: 'IconItem'
 };
