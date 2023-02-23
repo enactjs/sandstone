@@ -6,10 +6,10 @@ import {IconItemBase} from '../IconItem';
 describe('IconItem', () => {
 	test('should support `background` prop', () => {
 		const background = '#ffffff';
-		render(<IconItemBase background={background} data-testid="iconitem" />);
+		render(<IconItemBase background={background} data-testid="iconitem" icon="star" />);
 
 		const expected = 'rgb(255, 255, 255)';
-		const actual = screen.getByTestId('iconitem').style;
+		const actual = screen.getByTestId('iconitem').children[0].style;
 
 		expect(actual).toHaveProperty('background', expected);
 	});
@@ -58,8 +58,38 @@ describe('IconItem', () => {
 		render(<IconItemBase label={label} />);
 
 		const expected = label;
-		const actual = screen.getByText('label');
+		const actual = screen.getByText(label);
 
 		expect(actual).toHaveTextContent(expected);
+	});
+
+	test('should support `labelOn` prop', () => {
+		const label = 'label';
+		render(<IconItemBase data-testid="iconitem" label={label} labelOn="focus" />);
+
+		const expected = 'labelOnFocus';
+		const actual = screen.getByTestId('iconitem');
+
+		expect(actual).toHaveClass(expected);
+	});
+
+	test('should support `title` prop', () => {
+		const title = 'title';
+		render(<IconItemBase title={title} />);
+
+		const expected = title;
+		const actual = screen.getByText(title);
+
+		expect(actual).toHaveTextContent(expected);
+	});
+
+	test('should support `titleOn` prop', () => {
+		const title = 'title';
+		render(<IconItemBase data-testid="iconitem" title={title} titleOn="focus" />);
+
+		const expected = 'titleOnFocus';
+		const actual = screen.getByTestId('iconitem');
+
+		expect(actual).toHaveClass(expected);
 	});
 });
