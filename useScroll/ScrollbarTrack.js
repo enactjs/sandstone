@@ -71,7 +71,8 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 					isForward: (!rtl && isRight(keyCode)) || (rtl && isLeft(keyCode)) || isDown(keyCode) || isPageDown(keyCode),
 					isVerticalScrollBar: vertical
 				},
-				scrollProgress = Number(ref.current && ref.current.style.getPropertyValue('--scrollbar-thumb-progress-ratio'));
+				scrollProgress = Number(ref.current && ref.current.style.getPropertyValue('--scrollbar-thumb-progress-ratio')),
+				scrollSize = Number(ref.current && ref.current.style.getPropertyValue('--scrollbar-thumb-size-ratio'));
 
 			if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
 				// Do nothing when (!vertical && pageKey)
@@ -85,7 +86,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 					);
 				}
 
-				if (ev.repeat || !isNaN(scrollProgress) && ((scrollParam.isForward && scrollProgress !== 1) || (!scrollParam.isForward && scrollProgress !== 0))) {
+				if (ev.repeat || (scrollSize !== 1) && ((scrollParam.isForward && scrollProgress !== 1) || (!scrollParam.isForward && scrollProgress !== 0))) {
 					consumeEventWithScroll(scrollParam, ev);
 
 					setTimeout(() => {
