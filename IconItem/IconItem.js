@@ -144,17 +144,27 @@ const IconItemBase = kind({
 		style: PropTypes.object,
 
 		/**
-		 * Primary title text of the icon item.
+		 * Title text showing below the icon.
 		 *
 		 * @type {String}
 		 * @public
 		 */
-		 title: PropTypes.string
+		 title: PropTypes.string,
+
+		 /**
+		 * Determines what triggers the title to show.
+		 *
+		 * @type {('focus'|'render')}
+		 * @default 'render'
+		 * @public
+		 */
+		titleOn: PropTypes.oneOf(['focus', 'render']),
 	},
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
-		labelOn: 'render'
+		labelOn: 'render',
+		titleOn: 'render'
 	},
 
 	styles: {
@@ -164,12 +174,13 @@ const IconItemBase = kind({
 	},
 
 	computed: {
-		className: ({bordered, labelOn, styler}) => styler.append({
+		className: ({bordered, labelOn, styler, titleOn}) => styler.append({
 			bordered,
 			labelOnFocus: labelOn === 'focus',
+			titleOnFocus: titleOn === 'focus',
 		}),
 
-		children: ({background, children, css, icon, image, label, title}) => {
+		children: ({background, children, css, icon, image, label, labelOn, title}) => {
 			if (children) return children;
 
 			let ImgComponent;
@@ -190,8 +201,10 @@ const IconItemBase = kind({
 
 			if (!ImgComponent && !children && !label && !title) return;
 
+			let align = label && labelOn === 'render'? 'center' : 'center center';
+
 			const iconContent = (
-				<Column align="center center" className={css.content} style={{background}}>
+				<Column align={align} className={css.content} style={{background}}>
 					<Cell shrink>
 						{ImgComponent ? ImgComponent() : null}
 					</Cell>
@@ -222,6 +235,7 @@ const IconItemBase = kind({
 		delete rest.label;
 		delete rest.labelOn;
 		delete rest.title;
+		delete rest.titleOn;
 
 		return (
 			<div

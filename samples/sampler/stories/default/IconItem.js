@@ -41,6 +41,7 @@ export const _IconItem = (args) => (
 			height: ri.scale(args['height'])
 		}}
 		title={args['title']}
+		titleOn={args['titleOn']}
 	/>
 );
 
@@ -54,6 +55,7 @@ select('labelOn', _IconItem, ['focus', 'render'], Config);
 number('width', _IconItem, Config, 312);
 number('height', _IconItem, Config, 240);
 text('title', _IconItem, Config, 'App title');
+select('titleOn', _IconItem, ['focus', 'render'], Config);
 
 _IconItem.storyName = 'IconItem';
 _IconItem.parameters = {

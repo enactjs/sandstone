@@ -53,6 +53,12 @@
 		}
 	}
 
+	&.titleOnFocus {
+		.title {
+			visibility: hidden;
+		}
+	}
+
 	.focus({
 		transform: @sand-iconitem-focus-transform;
 
@@ -60,9 +66,11 @@
 			.label, .labelContainer {
 				display: block;
 			}
+		}
 
-			.icon {
-				margin: @sand-iconitem-icon-label-on-focus-margin;
+		&.titleOnFocus {
+			.title {
+				visibility: visible;
 			}
 		}
 	});
