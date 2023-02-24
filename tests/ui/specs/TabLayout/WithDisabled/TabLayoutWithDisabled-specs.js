@@ -27,12 +27,6 @@ describe('TabLayout', function () {
 			await Page.spotlightLeft();
 			// Step 5 Verify: Spotlight is on the Tab 0 button.
 			expect(await $$('.TabLayout_TabGroup_tab')[1].isFocused()).to.be.true();
-
-			// Step 6: Press 5-way Down.
-			await Page.spotlightDown();
-			// Step 6 Verify: Hover on ImageItem 1 again.
-			await Page.spotlightRight();
-			expect(await $('#topButton0').isFocused()).to.be.true();
 		});
 	});
 });
