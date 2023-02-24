@@ -45,7 +45,7 @@ export const _IconItem = (args) => (
 	/>
 );
 
-text('background', _IconItem, Config, '#000000');
+text('background', _IconItem, Config, '#1b1b1b');
 boolean('bordered', _IconItem, Config, true);
 boolean('disabled', _IconItem, Config);
 select('icon', _IconItem, ['', ...iconNames], Config, 'gamepad');

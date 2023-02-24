@@ -149,7 +149,7 @@ const IconItemBase = kind({
 		 * @type {String}
 		 * @public
 		 */
-		 title: PropTypes.string,
+		title: PropTypes.string,
 
 		 /**
 		 * Determines what triggers the title to show.
@@ -186,7 +186,7 @@ const IconItemBase = kind({
 			let ImgComponent;
 
 			if (icon) {
-				ImgComponent = () => <Icon className={css.icon}>{icon}</Icon>;
+				ImgComponent = () => <Icon className={css.icon} size="large">{icon}</Icon>;
 			} else if (image) {
 				ImgComponent = () =>
 					<Image
