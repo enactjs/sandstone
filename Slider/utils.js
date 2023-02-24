@@ -1,4 +1,4 @@
-import {adaptEvent, forKey, forProp, forward, handle, oneOf, preventDefault, stop} from '@enact/core/handle';
+import {forKey, forProp, forwardCustom, handle, oneOf, preventDefault, stop} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {clamp} from '@enact/core/util';
 import {calcProportion} from '@enact/ui/Slider/utils';
@@ -67,18 +67,14 @@ const checkInterval = (ev, {wheelInterval}, context) => {
 	return true;
 };
 
-const emitChange = (direction) =>  adaptEvent(
-	(ev, {knobStep, max, min, step, value = min}) => {
-		const newValue = clamp(min, max, value + (calcStep(knobStep, step) * direction));
+const emitChange = (direction) =>  forwardCustom('onChange', (ev, {knobStep, max, min, step, value = min}) => {
+	const newValue = clamp(min, max, value + (calcStep(knobStep, step) * direction));
 
-		return {
-			type: 'onChange',
-			value: newValue,
-			proportion: calcProportion(min, max, newValue)
-		};
-	},
-	forward('onChange')
-);
+	return {
+		value: newValue,
+		proportion: calcProportion(min, max, newValue)
+	};
+});
 
 const isActive = (ev, props) => {
 	return props.active || !props.activateOnSelect;
@@ -127,24 +123,23 @@ const handleDecrementByWheel = handle(
 const either = (a, b) => (...args) => a(...args) || b(...args);
 const atMinimum = (ev, {min, value = min}) => value <= min;
 const atMaximum = (ev, {max, min, value = min}) => value >= max;
-const forwardOnlyType = (type) => adaptEvent(() => ({type}), forward(type));
 
 const forwardSpotlightEvents = oneOf(
 	[forKey('left'), handle(
 		either(forProp('orientation', 'vertical'), atMinimum),
-		forwardOnlyType('onSpotlightLeft')
+		forwardCustom('onSpotlightLeft')
 	)],
 	[forKey('right'), handle(
 		either(forProp('orientation', 'vertical'), atMaximum),
-		forwardOnlyType('onSpotlightRight')
+		forwardCustom('onSpotlightRight')
 	)],
 	[forKey('down'), handle(
 		either(forProp('orientation', 'horizontal'), atMinimum),
-		forwardOnlyType('onSpotlightDown')
+		forwardCustom('onSpotlightDown')
 	)],
 	[forKey('up'), handle(
 		either(forProp('orientation', 'horizontal'), atMaximum),
-		forwardOnlyType('onSpotlightUp')
+		forwardCustom('onSpotlightUp')
 	)]
 );
 

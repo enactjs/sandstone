@@ -1,4 +1,4 @@
-import handle, {adaptEvent, forward, forwardWithPrevent} from '@enact/core/handle';
+import handle, {adaptEvent, forward, forwardCustomWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
@@ -153,7 +153,7 @@ const PanelBase = kind({
 
 	handlers: {
 		onNextClick: handle(
-			adaptEvent(() => ({type: 'onNextClick'}), forwardWithPrevent('onNextClick')),
+			forwardCustomWithPrevent('onNextClick'),
 			adaptEvent(
 				(ev, props, {count, index}) => {
 					return ({type: 'onChange', index: clamp(index + 1, count)}); // wrap around
@@ -162,7 +162,7 @@ const PanelBase = kind({
 			)
 		),
 		onPrevClick: handle(
-			adaptEvent(() => ({type: 'onPrevClick'}), forwardWithPrevent('onPrevClick')),
+			forwardCustomWithPrevent('onPrevClick'),
 			adaptEvent(
 				(ev, props, {count, index}) => {
 					return ({type: 'onChange', index: clamp(index - 1, count)}); // wrap around

@@ -1,4 +1,4 @@
-import handle, {adaptEvent, forProp, forwardCustomWithPrevent, forwardWithPrevent, not} from '@enact/core/handle';
+import handle, {forProp, forwardCustomWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
@@ -300,7 +300,7 @@ const WizardPanelsBase = kind({
 
 	handlers: {
 		onNextClick: handle(
-			adaptEvent(() => ({type: 'onNextClick'}), forwardWithPrevent('onNextClick')),
+			forwardCustomWithPrevent('onNextClick'),
 			(ev, {index, onChange, totalPanels}) => {
 				if (onChange && index !== totalPanels) {
 					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
@@ -310,7 +310,7 @@ const WizardPanelsBase = kind({
 			}
 		),
 		onPrevClick: handle(
-			adaptEvent(() => ({type: 'onPrevClick'}), forwardWithPrevent('onPrevClick')),
+			forwardCustomWithPrevent('onPrevClick'),
 			(ev, {index, onChange}) => {
 				if (onChange && index !== 0) {
 					const prevIndex = index > 0 ? (index - 1) : index;

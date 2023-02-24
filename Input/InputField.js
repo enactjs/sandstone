@@ -265,10 +265,7 @@ const InputFieldBase = kind({
 					}
 				}
 			}),
-			forwardCustom('onChange', ev => ({
-				stopPropagation: () => ev.stopPropagation(),
-				value: ev.target.value
-			}))
+			forwardCustom('onChange', ev => ({value: ev.target.value}))
 		)
 	},
 

@@ -625,7 +625,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		handleDismiss = () => {
-			forwardCustom('onClose')({}, this.props);
+			forwardCustom('onClose')(null, this.props);
 		};
 
 		handleDirectionalKey (ev) {
