@@ -1,3 +1,4 @@
+import Button from '../../../../Button';
 import {TabLayout, Tab} from '../../../../TabLayout';
 
 const SimpleTab = (props) => (
@@ -172,7 +173,32 @@ const TabLayoutTests = [
 		component: <TabLayout type="popup">{tabs}</TabLayout>,
 		wrapper: {full: true}
 	},
-
+	// start of [QWTC-2616]
+	<TabLayout orientation="vertical">
+		{Array.from({length: 20}, (v, i) => (
+			<TabLayout.Tab
+				disabled
+				icon="backward"
+				title={`Tab ${i}`}
+				key={`tab${i}`}
+			>
+				<Button>Tab {i} Top</Button>
+			</TabLayout.Tab>
+		))}
+	</TabLayout>,
+	<TabLayout collapsed orientation="vertical">
+		{Array.from({length: 20}, (v, i) => (
+			<TabLayout.Tab
+				disabled
+				icon="backward"
+				title={`Tab ${i}`}
+				key={`tab${i}`}
+			>
+				<Button>Tab {i} Top</Button>
+			</TabLayout.Tab>
+		))}
+	</TabLayout>,
+	// end of [QWTC-2616]
 	// *************************************************************
 	// RTL
 	// locale = 'ar-SA'
