@@ -11,9 +11,9 @@ IconItem.displayName = 'IconItem';
 
 const imageObj = {
 	src: {
-		hd: svgGenerator(100, 100, '7ed31d', 'ffffff', ''),
-		fhd: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png',//svgGenerator(150, 150, '7ed31d', 'ffffff', ''),
-		uhd: svgGenerator(300, 300, '7ed31d', 'ffffff', '')
+		hd: svgGenerator(200, 200, '7ed31d', 'ffffff', '200 X 200'),
+		fhd: svgGenerator(300, 300, '7ed31d', 'ffffff', '300 X 300'),
+		uhd: svgGenerator(600, 600, '7ed31d', 'ffffff', '600 X 600')
 	},
 	size: {
 		width: ri.scaleToRem(150),
@@ -34,6 +34,7 @@ export const _IconItem = (args) => (
 		icon={args['icon']}
 		image={args['image']}
 		label={args['label']}
+		labelColor={args['labelColor']}
 		labelOn={args['labelOn']}
 		style={{
 			position: 'absolute',
@@ -48,13 +49,14 @@ export const _IconItem = (args) => (
 text('background', _IconItem, Config, '#1b1b1b');
 boolean('bordered', _IconItem, Config, true);
 boolean('disabled', _IconItem, Config);
-select('icon', _IconItem, ['', ...iconNames], Config, 'gamepad');
+select('icon', _IconItem, ['', ...iconNames], Config, 'usb');
 object('image', _IconItem, Config, imageObj);
-text('label', _IconItem, Config, 'Playstation 5');
+text('label', _IconItem, Config, 'USB');
+select('labelColor', _IconItem, ['light', 'dark'], Config);
 select('labelOn', _IconItem, ['focus', 'render'], Config);
 number('width', _IconItem, Config, 312);
 number('height', _IconItem, Config, 240);
-text('title', _IconItem, Config, 'App title');
+text('title', _IconItem, Config);
 select('titleOn', _IconItem, ['focus', 'render'], Config);
 
 _IconItem.storyName = 'IconItem';

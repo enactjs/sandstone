@@ -3,9 +3,9 @@
  *
  * @example
  * <IconItem
- *   background="#ffffff"
+ *   background="#1b1b1b"
  *   bordered
- *   icon="gamepad"
+ *   icon="usb"
  * />
  *
  * @module sandstone/IconItem
@@ -26,6 +26,29 @@ import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './IconItem.module.less';
+
+/**
+ * The shape for image of {@link sandstone/IconItem|IconItem}.
+ *
+ * @typedef {Object} ImageShape
+ * @memberof sandstone/IconItem
+ * @property {Object} src Source for the image.
+ *  String value or Object of values used to determine which image will appear on
+ *  a specific screenSize.
+ * @property {Object} size Size for the image.
+ *  The following properties should be provided:
+ *
+ * * `width` - The width of the image
+ * * `height` - The height of the image
+ * @public
+ */
+ const ImageShape = PropTypes.shape({
+	src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+	size: PropTypes.shape({
+		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+		height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
+	}).isRequired
+});
 
 /**
  * A Sandstone styled base component for {@link sandstone/IconItem.IconItem|IconItem}.
@@ -73,9 +96,13 @@ const IconItemBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `iconItem` - The icon item component class
+		 * * `content` - The class for the content area except title
 		 * * `bordered` - The border class
+		 * * `icon` - The icon component class
 		 * * `image` - The image component class
+		 * * `labelContainer` - The label container class
 		 * * `label` - The label component class
+		 * * `title` - The title component class
 		 *
 		 * @type {Object}
 		 * @public
@@ -103,6 +130,7 @@ const IconItemBase = kind({
 		 * The icon content.
 		 * If this is specified, {@link sandstone/Icon.Icon|Icon} will be shown as the content.
 		 *
+		 * @see {@link ui/Icon.Icon.children}
 		 * @type {String|Object}
 		 * @public
 		 */
@@ -110,13 +138,12 @@ const IconItemBase = kind({
 
 		/**
 		 * Source and size for the image.
-		 * String value or Object of values used to determine which image will appear on
-		 * a specific screenSize.
+		 * See the datails in {@link sandstone/IconItem.ImageShape|ImageShape}
 		 *
-		 * @type {Object}
+		 * @type {sandstone/IconItem.ImageShape}
 		 * @public
 		 */
-		image: PropTypes.object,
+		image: ImageShape,
 
 		/**
 		 * A label displayed in the content.
@@ -127,6 +154,15 @@ const IconItemBase = kind({
 		label: PropTypes.string,
 
 		/**
+		 * The color of label.
+		 *
+		 * @type {('dark'|'light')}
+		 * @default 'light'
+		 * @public
+		 */
+		labelColor: PropTypes.oneOf(['dark', 'light']),
+
+		/**
 		 * Determines what triggers the label to show.
 		 *
 		 * @type {('focus'|'render')}
@@ -134,14 +170,6 @@ const IconItemBase = kind({
 		 * @public
 		 */
 		labelOn: PropTypes.oneOf(['focus', 'render']),
-
-		/**
-		 * A style object.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		style: PropTypes.object,
 
 		/**
 		 * Title text showing below the icon.
@@ -163,6 +191,7 @@ const IconItemBase = kind({
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
+		labelColor: 'light',
 		labelOn: 'render',
 		titleOn: 'render'
 	},
@@ -174,10 +203,11 @@ const IconItemBase = kind({
 	},
 
 	computed: {
-		className: ({bordered, labelOn, styler, titleOn}) => styler.append({
+		className: ({bordered, labelColor, labelOn, styler, titleOn}) => styler.append({
 			bordered,
 			labelOnFocus: labelOn === 'focus',
 			titleOnFocus: titleOn === 'focus',
+			darkLabel: labelColor === 'dark'
 		}),
 
 		children: ({background, children, css, icon, image, label, labelOn, title}) => {
@@ -233,6 +263,7 @@ const IconItemBase = kind({
 		delete rest.icon;
 		delete rest.image;
 		delete rest.label;
+		delete rest.labelColor;
 		delete rest.labelOn;
 		delete rest.title;
 		delete rest.titleOn;
@@ -272,9 +303,9 @@ const IconItemDecorator = compose(
  * Usage:
  * ```
  * <IconItem
- *   background="#ffffff"
+ *   background="#1b1b1b"
  *   bordered
- *   icon="gamepad"
+ *   icon="usb"
  * />
  * ```
  *
