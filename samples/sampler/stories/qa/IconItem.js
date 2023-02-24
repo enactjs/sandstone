@@ -28,16 +28,16 @@ const imageSrcs = [
 	'https://cdn-icons-png.flaticon.com/512/1384/1384060.png',
 	'https://cdn2.iconfinder.com/data/icons/flat-icons-19/512/Vinyl.png',
 	'https://icons-for-free.com/iconfiles/png/512/google+googleplay+logo+multimedia+play+player+icon-1320193181644092930.png',
-	'https://cdn-icons-png.flaticon.com/512/2111/2111463.png',
+	'https://cdn-icons-png.flaticon.com/512/2111/2111463.png'
 ];
 
 const populateItems = ({index}) => {
 	const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
 	const iconItemProps = {
-		bordered: index < 2 ? true : false,
-		icon: index === 0 ? 'speaker' : (index === 1 ? 'gamepad' : ''),
+		bordered: index < 2,
+		icon: index === 0 ? 'speaker' : (index === 1 ? 'gamepad' : ''), // eslint-disable-line no-nested-ternary
 		label: index === 1 ? 'Game' : '',
-		background: index > 1 && index % 6 === 0 ? '#ffffff' : (index > 1  ? '#' + color : ''),
+		background: index > 1 && index % 6 === 0 ? '#ffffff' : (index > 1  ? '#' + color : ''), // eslint-disable-line no-nested-ternary
 		image: index > 1 ? {
 			src: imageSrcs[index % 5],
 			size: {

@@ -67,7 +67,7 @@ const defaultIconItemTests = [
 		<IconItem background="#ffffff" image={imageProp} label="Label" title="App title" style={styleWithTitle} />,
 		<IconItem background="#ffffff" image={imageProp} label="Label" labelOn="focus" title="App title" style={styleWithTitle} />,
 		<IconItem background="#ffffff" image={imageProp} label="Label" title="App title" titleOn="focus" style={styleWithTitle} />,
-		<IconItem background="#ffffff" image={imageProp} label="Label" labelOn="focus" title="App title" titleOn="focus" style={styleWithTitle} />,
+		<IconItem background="#ffffff" image={imageProp} label="Label" labelOn="focus" title="App title" titleOn="focus" style={styleWithTitle} />
 	])
 ];
 

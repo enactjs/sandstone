@@ -32,22 +32,22 @@ import componentCss from './IconItem.module.less';
  *
  * @typedef {Object} ImageShape
  * @memberof sandstone/IconItem
- * @property {Object} src Source for the image.
- *  String value or Object of values used to determine which image will appear on
- *  a specific screenSize.
  * @property {Object} size Size for the image.
  *  The following properties should be provided:
  *
- * * `width` - The width of the image
  * * `height` - The height of the image
+ * * `width` - The width of the image
+ * @property {Object} src Source for the image.
+ *  String value or Object of values used to determine which image will appear on
+ *  a specific screenSize.
  * @public
  */
- const ImageShape = PropTypes.shape({
-	src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+const ImageShape = PropTypes.shape({
 	size: PropTypes.shape({
-		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-		height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
-	}).isRequired
+		height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired
+	}).isRequired,
+	src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
 });
 
 /**
@@ -179,14 +179,14 @@ const IconItemBase = kind({
 		 */
 		title: PropTypes.string,
 
-		 /**
+		/**
 		 * Determines what triggers the title to show.
 		 *
 		 * @type {('focus'|'render')}
 		 * @default 'render'
 		 * @public
 		 */
-		titleOn: PropTypes.oneOf(['focus', 'render']),
+		titleOn: PropTypes.oneOf(['focus', 'render'])
 	},
 
 	defaultProps: {
@@ -213,12 +213,12 @@ const IconItemBase = kind({
 		children: ({background, children, css, icon, image, label, labelOn, title}) => {
 			if (children) return children;
 
-			let ImgComponent;
+			let imageComponent;
 
 			if (icon) {
-				ImgComponent = () => <Icon className={css.icon} size="large">{icon}</Icon>;
+				imageComponent = <Icon className={css.icon} size="large">{icon}</Icon>;
 			} else if (image) {
-				ImgComponent = () =>
+				imageComponent = (
 					<Image
 						className={css.image}
 						src={image?.src}
@@ -226,17 +226,18 @@ const IconItemBase = kind({
 							width: image?.size?.width,
 							height: image?.size?.height
 						}}
-					/>;
+					/>
+				);
 			}
 
-			if (!ImgComponent && !children && !label && !title) return;
+			if (!imageComponent && !children && !label && !title) return;
 
-			let align = label && labelOn === 'render'? 'center' : 'center center';
+			let align = label && labelOn === 'render' ? 'center' : 'center center';
 
 			const iconContent = (
 				<Column align={align} className={css.content} style={{background}}>
 					<Cell shrink>
-						{ImgComponent ? ImgComponent() : null}
+						{imageComponent ? imageComponent : null}
 					</Cell>
 					{label ? (
 						<Cell shrink className={css.labelContainer}>
@@ -247,17 +248,17 @@ const IconItemBase = kind({
 			);
 
 			return (
-				title ?
+				title ? (
 					<Column>
 						{iconContent}
 						<Marquee alignment="center" className={css.title} marqueeOn="hover">{title}</Marquee>
 					</Column>
-				: iconContent
+				) : iconContent
 			);
 		}
 	},
 
-	render: ({children, css, disabled, ...rest}) => {
+	render: ({children, disabled, ...rest}) => {
 		delete rest.background;
 		delete rest.bordered;
 		delete rest.icon;
