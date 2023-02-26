@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/IconItem` component
+
 ### Fixed
 - `sandstone/DayPicker` to handle number typed `selected` prop properly in es-ES locale
 
@@ -30,7 +34,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
 - `sandstone/MediaPlayer.MediaControls` to show round buttons correctly in high-contrast mode
-- `sandstone/TabLayout` to not cropped and apply orientation properly when `orientation` prop is vertical 
+- `sandstone/TabLayout` to not cropped and apply orientation properly when `orientation` prop is vertical
 
 ## [2.5.8] - 2023-01-31
 
