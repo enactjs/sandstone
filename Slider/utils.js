@@ -67,14 +67,17 @@ const checkInterval = (ev, {wheelInterval}, context) => {
 	return true;
 };
 
-const emitChange = (direction) =>  forwardCustom('onChange', (ev, {knobStep, max, min, step, value = min}) => {
-	const newValue = clamp(min, max, value + (calcStep(knobStep, step) * direction));
+const emitChange = (direction) => forwardCustom(
+	'onChange',
+	(ev, {knobStep, max, min, step, value = min}) => {
+		const newValue = clamp(min, max, value + (calcStep(knobStep, step) * direction));
 
-	return {
-		value: newValue,
-		proportion: calcProportion(min, max, newValue)
-	};
-});
+		return {
+			value: newValue,
+			proportion: calcProportion(min, max, newValue)
+		};
+	}
+);
 
 const isActive = (ev, props) => {
 	return props.active || !props.activateOnSelect;
