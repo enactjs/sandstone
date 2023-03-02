@@ -182,10 +182,9 @@ const HeaderBase = kind({
 		onClose: PropTypes.func,
 
 		/**
-		 * Boolean controlling whether this component should add shadow to the text.
+		 * Adds shadow to the text contents.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		shadowed: PropTypes.bool,
@@ -336,7 +335,6 @@ const HeaderBase = kind({
 	defaultProps: {
 		marqueeOn: 'render',
 		noSubtitle: false,
-		shadowed: false,
 		type: 'standard'
 	},
 

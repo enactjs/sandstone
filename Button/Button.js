@@ -167,10 +167,9 @@ const ButtonBase = kind({
 		minWidth: PropTypes.bool,
 
 		/**
-		 * Boolean controlling whether this component should add shadow to the text when button is transparent.
+		 * Adds shadow to the text when the button is transparent.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @private
 		 */
 		shadowed: PropTypes.bool,
@@ -193,7 +192,6 @@ const ButtonBase = kind({
 		iconComponent: Icon,
 		iconOnly: false,
 		iconPosition: 'before',
-		shadowed: false,
 		size: 'large'
 	},
 
