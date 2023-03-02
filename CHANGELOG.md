@@ -4,10 +4,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Added
-
-- `sandstone/IconItem` component
-
 ### Fixed
 - `sandstone/DayPicker` to handle number typed `selected` prop properly in es-ES locale
 

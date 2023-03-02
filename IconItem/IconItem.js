@@ -40,7 +40,7 @@ import componentCss from './IconItem.module.less';
  * @property {Object} src Source for the image.
  *  String value or Object of values used to determine which image will appear on
  *  a specific screenSize.
- * @public
+ * @private
  */
 const ImageShape = PropTypes.shape({
 	size: PropTypes.shape({
@@ -56,7 +56,7 @@ const ImageShape = PropTypes.shape({
  * @class IconItemBase
  * @memberof sandstone/IconItem
  * @ui
- * @public
+ * @private
  */
 const IconItemBase = kind({
 	name: 'IconItem',
@@ -290,7 +290,7 @@ const IconItemBase = kind({
  * @mixes sandstone/Marquee.MarqueeController
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Skinnable.Skinnable
- * @public
+ * @private
  */
 const IconItemDecorator = compose(
 	MarqueeController({marqueeOnFocus: true}),
@@ -316,7 +316,7 @@ const IconItemDecorator = compose(
  * @mixes sandstone/IconItem.IconItemDecorator
  * @see {@link sandstone/IconItem.IconItemBase}
  * @ui
- * @public
+ * @private
  */
 const IconItem = IconItemDecorator(IconItemBase);
 IconItem.displayName = 'IconItem';
