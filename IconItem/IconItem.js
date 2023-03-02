@@ -12,6 +12,7 @@
  * @exports IconItem
  * @exports IconItemBase
  * @exports IconItemDecorator
+ * @private
  */
 
 import kind from '@enact/core/kind';
