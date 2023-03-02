@@ -34,17 +34,26 @@ const imageSrcs = [
 const populateItems = ({index}) => {
 	const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
 	const iconItemProps = {
+		background: function () {
+			if (index < 2) return '#1b1b1b';
+			else if (index % 6 === 0) return '#ffffff';
+			else return '#' + color;
+		}(),
 		bordered: index < 2,
-		icon: index === 0 ? 'speaker' : (index === 1 ? 'gamepad' : ''), // eslint-disable-line no-nested-ternary
-		label: index === 1 ? 'Game' : '',
-		background: index > 1 && index % 6 === 0 ? '#ffffff' : (index > 1  ? '#' + color : ''), // eslint-disable-line no-nested-ternary
+		icon: index === 0 ? 'demosync' : (index === 1 ? 'usb' : ''), // eslint-disable-line no-nested-ternary
 		image: index > 1 ? {
 			src: imageSrcs[index % 5],
 			size: {
 				width: ri.scaleToRem(150),
 				height: ri.scaleToRem(150)
 			}
-		} : null
+		} : null,
+		label: function () {
+			if (index === 1) return 'USB';
+			else if (index === 6) return 'Youtube';
+		}(),
+		labelColor: index === 6 ? 'dark' : null,
+		labelOn: index === 6 ? 'focus' : null
 	};
 
 	return {index, iconItemProps};
