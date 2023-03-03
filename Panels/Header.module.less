@@ -1,7 +1,7 @@
 // Header.module.less
 //
-@import "../styles/colors.less";
 @import "../styles/mixins.less";
+@import "../styles/skin.less";
 @import "../styles/variables.less";
 
 .header {
@@ -91,13 +91,6 @@
 
 	.slotBelow {
 		margin: @sand-header-slotbelow-margin;
-	}
-
-	&.shadowed {	
-		.subtitle,
-		.title {
-			text-shadow: @sand-header-text-shadow;
-		}
 	}
 
 	///
@@ -214,4 +207,13 @@
 			padding-bottom: 0;
 		}
 	}
+
+	.applySkins({
+		&.shadowed {	
+			.subtitle,
+			.title {
+				text-shadow: @sand-header-text-shadow;
+			}
+		}
+	});
 }

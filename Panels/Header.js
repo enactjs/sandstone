@@ -15,6 +15,7 @@ import {Children, useContext, useState} from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
+import Skinnable from '../Skinnable';
 
 import {PanelsStateContext} from '../internal/Panels';
 import {useContextAsDefaults} from '../internal/Panels/util';
@@ -567,7 +568,8 @@ const HeaderDecorator = compose(
 	SpotlightContainerDecorator,
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	ContextAsDefaultsHeader,
-	HeaderMeasurementDecorator
+	HeaderMeasurementDecorator,
+	Skinnable
 );
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
