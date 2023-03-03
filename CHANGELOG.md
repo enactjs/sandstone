@@ -4,7 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
+
 ### Fixed
+
 - `sandstone/DayPicker` to handle number typed `selected` prop properly in es-ES locale
 
 ## [2.6.1] - 2023-02-03
