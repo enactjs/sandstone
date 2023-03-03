@@ -170,7 +170,6 @@ const ButtonBase = kind({
 		 * True if both sides of button are fully rounded.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		roundBorder: PropTypes.bool,
