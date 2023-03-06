@@ -1,6 +1,6 @@
 // This space intentionally left blank
-const jsdocToTs = require('@enact/jsdoc-to-ts');
-const fs = require('fs');
+import jsdocToTs from '@enact/jsdoc-to-ts';
+import fs from 'fs';
 
 jsdocToTs({
 	package: '.',
