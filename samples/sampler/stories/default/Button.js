@@ -58,7 +58,7 @@ export const _Button = (args) => (
 			iconFlip={args['iconFlip']}
 			iconPosition={args['iconPosition']}
 			minWidth={threeWayBoolean(args['minWidth'])}
-			selected={args['selected']}			
+			selected={args['selected']}
 			shadowed={args['shadowed']}
 			size={args['size']}
 			tooltipText={args['tooltipText']}
