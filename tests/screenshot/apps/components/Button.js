@@ -141,7 +141,7 @@ const ButtonTests = [
 	},
 
 	// shadowed
-		...withConfig({wrapper: {light: true, padded: true}}, [
+	...withConfig({wrapper: {light: true, padded: true}}, [
 		<Button shadowed backgroundOpacity="transparent" icon="plus" minWidth={false} />
 	]),
 
