@@ -165,7 +165,7 @@ describe('TimePicker', () => {
 		render(
 			<TimePicker value={time} locale="en-US" />
 		);
-		const header = screen.getByText(timeToLocaleString(time)).parentElement.parentElement;
+		const header = screen.getByText(timeToLocaleString(time), {collapseWhitespace: false}).parentElement.parentElement;
 
 		const expected = 'heading';
 
