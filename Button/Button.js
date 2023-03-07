@@ -167,10 +167,11 @@ const ButtonBase = kind({
 		minWidth: PropTypes.bool,
 
 		/**
-		 * Adds shadow to the text when the button is transparent.
+		 * Adds shadow to the text.
+		 * It is only applied when the background opacity of the button is `transparent`.
 		 *
 		 * @type {Boolean}
-		 * @private
+		 * @public
 		 */
 		shadowed: PropTypes.bool,
 
