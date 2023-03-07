@@ -93,8 +93,55 @@ const ButtonTests = [
 	// [QWTC-1831]
 	<Button icon="rotate">click me</Button>,
 
+	// roundBorder
+	<Button roundBorder>click me</Button>,
+	<Button roundBorder size="small">click me</Button>,
+	<Button roundBorder size="large">click me</Button>,
+	<Button backgroundOpacity="transparent" roundBorder>click me</Button>,
+	<Button backgroundOpacity="opaque" roundBorder>click me</Button>,
+	<Button icon="minus" iconPosition="after" roundBorder />,
+	<Button icon="minus" iconPosition="after" roundBorder size="large" />,
+	<Button icon="plus" iconPosition="before" roundBorder />,
+	<Button icon="plus" iconPosition="before" roundBorder size="large" />,
+	{
+		textSize: 'large',
+		component: <Button roundBorder>click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button roundBorder size="small">click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button roundBorder size="large">click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button backgroundOpacity="transparent" roundBorder>click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button backgroundOpacity="opaque" roundBorder>click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button icon="minus" iconPosition="after" roundBorder />
+	},
+	{
+		textSize: 'large',
+		component: <Button icon="minus" iconPosition="after" roundBorder size="large" />
+	},
+	{
+		textSize: 'large',
+		component: <Button icon="plus" iconPosition="before" roundBorder />
+	},
+	{
+		textSize: 'large',
+		component: <Button icon="plus" iconPosition="before" roundBorder size="large" />
+	},
+
 	// shadowed
-	...withConfig({wrapper: {light: true, padded: true}}, [
+		...withConfig({wrapper: {light: true, padded: true}}, [
 		<Button shadowed backgroundOpacity="transparent" icon="plus" minWidth={false} />
 	]),
 
@@ -156,6 +203,53 @@ const ButtonTests = [
 
 		// [QWTC-1831]
 		<Button icon="rotate">Focused button</Button>,
+
+		// roundBorder
+		<Button roundBorder>Focused button</Button>,
+		<Button roundBorder size="small">Focused button</Button>,
+		<Button roundBorder size="large">Focused button</Button>,
+		<Button backgroundOpacity="transparent" roundBorder>Focused button</Button>,
+		<Button backgroundOpacity="opaque" roundBorder>Focused button</Button>,
+		<Button icon="minus" iconPosition="after" roundBorder />,
+		<Button icon="minus" iconPosition="after" roundBorder size="large" />,
+		<Button icon="plus" iconPosition="before" roundBorder />,
+		<Button icon="plus" iconPosition="before" roundBorder size="large" />,
+		{
+			textSize: 'large',
+			component: <Button roundBorder>Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button roundBorder size="small">Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button roundBorder size="large">Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button backgroundOpacity="transparent" roundBorder>Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button backgroundOpacity="opaque" roundBorder>Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button icon="minus" iconPosition="after" roundBorder />
+		},
+		{
+			textSize: 'large',
+			component: <Button icon="minus" iconPosition="after" roundBorder size="large" />
+		},
+		{
+			textSize: 'large',
+			component: <Button icon="plus" iconPosition="before" roundBorder />
+		},
+		{
+			textSize: 'large',
+			component: <Button icon="plus" iconPosition="before" roundBorder size="large" />
+		},
 
 		// shadowed + focused
 		<Button shadowed backgroundOpacity="transparent" icon="minus" minWidth={false} />

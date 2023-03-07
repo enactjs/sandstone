@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Button` prop `roundBorder`, to make both sides of button fully rounded
 - `sandstone/Button` and `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
 
 ### Fixed

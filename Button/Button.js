@@ -167,6 +167,14 @@ const ButtonBase = kind({
 		minWidth: PropTypes.bool,
 
 		/**
+		 * True if both sides of button are fully rounded.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		roundBorder: PropTypes.bool,
+
+		/**
 		 * Adds shadow to the text.
 		 * It is only applied when the background opacity of the button is `transparent`.
 		 *
@@ -193,6 +201,7 @@ const ButtonBase = kind({
 		iconComponent: Icon,
 		iconOnly: false,
 		iconPosition: 'before',
+		roundBorder: false,
 		size: 'large'
 	},
 
@@ -202,12 +211,13 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, shadowed, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, roundBorder, shadowed, size, styler}) => styler.append(
 			{
 				hasColor: color,
 				iconOnly,
 				collapsable,
 				collapsed,
+				roundBorder,
 				shadowed
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
@@ -228,6 +238,7 @@ const ButtonBase = kind({
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.focusEffect;
+		delete rest.roundBorder;
 		delete rest.shadowed;
 
 		return UiButtonBase.inline({
