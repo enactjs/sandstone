@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
+- `sandstone/Button` and `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
 
 ### Fixed
 

@@ -198,6 +198,17 @@ describe('Button', () => {
 		});
 	});
 
+	describe('with shadowed', () => {
+		test('should have shadowed class', () => {
+			render(<Button shadowed backgroundOpacity="transparent" />);
+			const button = screen.getByRole('button');
+
+			const expected = 'shadowed';
+
+			expect(button).toHaveClass(expected);
+		});
+	});
+
 	describe('events', () => {
 		test('should call onClick when not disabled', () => {
 			const handleClick = jest.fn();
