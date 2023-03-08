@@ -208,7 +208,7 @@ const ButtonBase = kind({
 				iconOnly,
 				collapsable,
 				collapsed,
-				shadowed
+				shadowed: shadowed && (backgroundOpacity ? backgroundOpacity === 'transparent' : iconOnly)
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
