@@ -165,7 +165,7 @@ describe('TimePicker', () => {
 		render(
 			<TimePicker value={time} locale="en-US" />
 		);
-		const header = screen.getByText(timeToLocaleString(time)).parentElement.parentElement;
+		const header = screen.getByText(timeToLocaleString(time), {collapseWhitespace: false}).parentElement.parentElement;
 
 		const expected = 'heading';
 
@@ -178,7 +178,7 @@ describe('TimePicker', () => {
 		render(
 			<TimePicker value={time} locale="ar-SA" />
 		);
-		const header = screen.getByText(timeToLocaleString(time)).parentElement.parentElement;
+		const header = screen.getByText(timeToLocaleString(time), {collapseWhitespace: false}).parentElement.parentElement;
 
 		const expected = 'heading';
 
@@ -191,7 +191,7 @@ describe('TimePicker', () => {
 		render(
 			<TimePicker value={time} locale="en-US" noLabel />
 		);
-		const header = screen.queryByText(timeToLocaleString(time));
+		const header = screen.queryByText(timeToLocaleString(time), {collapseWhitespace: false});
 
 		expect(header).toBeNull();
 	});
