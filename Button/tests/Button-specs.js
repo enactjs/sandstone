@@ -199,13 +199,31 @@ describe('Button', () => {
 	});
 
 	describe('with shadowed', () => {
-		test('should have shadowed class', () => {
+		test('should have shadowed class when the background is transparent', () => {
 			render(<Button shadowed backgroundOpacity="transparent" />);
 			const button = screen.getByRole('button');
 
 			const expected = 'shadowed';
 
 			expect(button).toHaveClass(expected);
+		});
+
+		test('should have shadowed class when the background is undefined and has icon only', () => {
+			render(<Button shadowed icon="check" />);
+			const button = screen.getByRole('button');
+
+			const expected = 'shadowed';
+
+			expect(button).toHaveClass(expected);
+		});
+
+		test('should not have shadowed class when the background is not transparent', () => {
+			render(<Button shadowed backgroundOpacity="opaque" />);
+			const button = screen.getByRole('button');
+
+			const expected = 'shadowed';
+
+			expect(button).not.toHaveClass(expected);
 		});
 	});
 
