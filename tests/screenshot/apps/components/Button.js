@@ -93,7 +93,8 @@ const ButtonTests = [
 
 	// shadowed
 	...withConfig({wrapper: {light: true, padded: true}}, [
-		<Button shadowed backgroundOpacity="transparent" icon="plus" minWidth={false} />
+		<Button shadowed icon="plus" minWidth={false} />,
+		<Button shadowed backgroundOpacity="transparent" minWidth={false}>click me</Button>
 	]),
 
 	// Focused with light wrapper
@@ -156,7 +157,8 @@ const ButtonTests = [
 		<Button icon="rotate">Focused button</Button>,
 
 		// shadowed + focused
-		<Button shadowed backgroundOpacity="transparent" icon="minus" minWidth={false} />
+		<Button shadowed icon="minus" minWidth={false} />,
+		<Button shadowed backgroundOpacity="transparent" minWidth={false}>Focused button</Button>
 	]),
 
 	// *************************************************************
