@@ -167,6 +167,14 @@ const ButtonBase = kind({
 		minWidth: PropTypes.bool,
 
 		/**
+		 * True if both sides of button are fully rounded.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		roundBorder: PropTypes.bool,
+
+		/**
 		 * The size of the button.
 		 *
 		 * @type {('large'|'small')}
@@ -184,6 +192,7 @@ const ButtonBase = kind({
 		iconComponent: Icon,
 		iconOnly: false,
 		iconPosition: 'before',
+		roundBorder: false,
 		size: 'large'
 	},
 
@@ -193,12 +202,13 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, roundBorder, size, styler}) => styler.append(
 			{
 				hasColor: color,
 				iconOnly,
 				collapsable,
-				collapsed
+				collapsed,
+				roundBorder
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
@@ -218,6 +228,7 @@ const ButtonBase = kind({
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.focusEffect;
+		delete rest.roundBorder;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
