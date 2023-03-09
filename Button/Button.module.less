@@ -15,12 +15,14 @@
 	margin: @sand-button-margin;
 	text-align: center;
 	vertical-align: middle;
+	--button-height: $height;
 
 	.sand-custom-text({
 		font-size: @sand-button-font-size-large;
 		height: @sand-button-height-large;
 		min-width: @sand-button-height-large;
 		line-height: (@sand-button-height-large - (2 * @sand-button-border-width));
+		--button-height: $height;
 	});
 
 	&.focusStatic {
@@ -126,6 +128,7 @@
 		margin: @sand-button-small-margin;
 		padding-left: @sand-button-small-h-padding;
 		padding-right: @sand-button-small-h-padding;
+		--button-height: $height;
 
 		&.focusExpand {
 			margin: @sand-button-small-focusexpand-margin;
@@ -188,6 +191,7 @@
 			height: @sand-button-small-height-large;
 			min-width: @sand-button-small-height-large;
 			line-height: (@sand-button-small-height-large - (2 * @sand-button-border-width));
+			--button-height: $height;
 
 			&.minWidth {
 				min-width: @sand-button-small-min-width;
@@ -327,6 +331,12 @@
 			.bg {
 				border: @sand-button-icononly-bg-border;
 				border-radius: @sand-button-icononly-border-radius;
+			}
+		}
+
+		&.roundBorder {
+			.bg {
+				border-radius: calc(var(--button-height) / 2);
 			}
 		}
 
