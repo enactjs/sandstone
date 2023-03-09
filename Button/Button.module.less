@@ -414,6 +414,25 @@
 			});
 		}
 
+		&.noAnimation {
+			.focus({
+				z-index: 1;
+				&.focusExpand {
+					.bg {
+						.sand-bg-colors({
+							transform: none;
+						});
+					}
+
+					&.small .bg {
+						.sand-bg-colors({
+							transform: none;
+						});
+					}
+				}
+			});
+		}
+
 		.sand-disabled({
 			.client {
 				.sand-disabled-colors();

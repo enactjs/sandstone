@@ -1,3 +1,4 @@
+/* global ENACT_PACK_NO_ANIMATION */
 /**
  * Sandstone styled button components and behaviors.
  *
@@ -208,7 +209,8 @@ const ButtonBase = kind({
 				iconOnly,
 				collapsable,
 				collapsed,
-				roundBorder
+				roundBorder,
+				noAnimation: ENACT_PACK_NO_ANIMATION
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
