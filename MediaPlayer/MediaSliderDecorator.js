@@ -59,7 +59,7 @@ const handleKeyUp = handle(
 	forKey('enter'),
 	// prevent sandstone/Slider from activating the knob
 	preventDefault,
-	adaptEvent(call('getEventPayload'), forwardCustom('onChange'))
+	adaptEvent(call('getEventPayload'), forwardCustom('onChange', ev => ev))
 );
 
 /**
