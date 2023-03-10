@@ -268,6 +268,7 @@ const IconButtonDecorator = hoc((config, Wrapped) => {
  *
  * @hoc
  * @memberof sandstone/Button
+ * @mixes sandstone/TooltipDecorator.TooltipDecorator
  * @mixes sandstone/Marquee.MarqueeDecorator
  * @mixes ui/Button.ButtonDecorator
  * @mixes spotlight/Spottable.Spottable
