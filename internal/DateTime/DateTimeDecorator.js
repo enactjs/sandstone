@@ -190,7 +190,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 		};
 
 		emitChange = (date) => {
-			forwardCustom('onChange')({value: date ? date.getJSDate() : null}, this.props);
+			forwardCustom('onChange', () => ({value: date ? date.getJSDate() : null}))(null, this.props);
 		};
 
 		handlePickerChange = (handler, ev) => {
@@ -218,7 +218,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			if (ev.target && ev.target.dataset.lastElement === 'true') {
 				const value = this.state.value ? this.toIDate(this.state.value) : null;
 
-				forwardCustom('onComplete')({value: value ? value.getJSDate() : null}, this.props);
+				forwardCustom('onComplete', () => ({value: value ? value.getJSDate() : null}))(null, this.props);
 			} else {
 				Spotlight.move(this.props.rtl ? 'left' : 'right');
 			}
