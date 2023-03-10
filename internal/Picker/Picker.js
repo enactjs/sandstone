@@ -1,3 +1,4 @@
+/* global ENACT_PACK_NO_ANIMATION */
 import classnames from 'classnames';
 import {forward, forwardCustom, stop, stopImmediate} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
@@ -133,7 +134,7 @@ const PickerBase = (props) => {
 
 	let Component;
 	let arranger = horizontal ? SlideLeftArranger : SlideTopArranger;
-	let noAnimation = props.noAnimation || disabled;
+	let noAnimation = (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || props.noAnimation || disabled;
 	let sizingPlaceholder = null;
 
 	const clearPressedState = useCallback(() => {

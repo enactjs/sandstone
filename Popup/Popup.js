@@ -1,3 +1,4 @@
+/* global ENACT_PACK_NO_ANIMATION */
 /**
  * Modal component that appears at the bottom of the screen and takes up the full screen width.
  *
@@ -219,7 +220,8 @@ const PopupBase = kind({
 		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
 		// Otherwise, `role` will be usually `alert`.
 		role: ({noAlertRole, role}) => ((typeof role !== 'undefined') ? role : (!noAlertRole && 'alert' || null)),
-		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position)
+		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position),
+		noAnimation: ({noAnimation}) => (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || noAnimation
 	},
 
 	render: ({children, css, direction, noAnimation, onHide, onShow, open, position, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
@@ -415,7 +417,7 @@ class Popup extends Component {
 	};
 
 	static defaultProps = {
-		noAnimation: false,
+		noAnimation: (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION),
 		noAutoDismiss: false,
 		open: false,
 		position: 'bottom',

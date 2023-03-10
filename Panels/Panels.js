@@ -1,3 +1,4 @@
+/* global ENACT_PACK_NO_ANIMATION */
 import kind from '@enact/core/kind';
 import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';
@@ -251,7 +252,7 @@ const PanelsBase = kind({
 					generateId={generateId}
 					id={viewportId}
 					index={index}
-					noAnimation={noAnimation}
+					noAnimation={(typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || noAnimation}
 					noSharedState={noSharedState}
 					onTransition={onTransition}
 					onWillTransition={onWillTransition}

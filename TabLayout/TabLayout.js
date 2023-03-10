@@ -1,3 +1,4 @@
+/* global ENACT_PACK_NO_ANIMATION */
 /**
  * Provides a Sandstone-themed TabLayout.
  *
@@ -327,7 +328,8 @@ const TabLayoutBase = kind({
 		className: ({collapsed, anchorTo, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},
 			`anchor${cap(anchorTo)}`,
-			orientation
+			orientation,
+			{noAnimation: (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION)}
 		),
 		style: ({dimensions, orientation, style}) => ({
 			...style,
