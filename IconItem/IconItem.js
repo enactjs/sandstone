@@ -38,7 +38,7 @@ import componentCss from './IconItem.module.less';
  *
  * * `height` - The height of the image
  * * `width` - The width of the image
- * @property {Object} src Source for the image.
+ * @property {String|Object} src Source for the image.
  *  String value or Object of values used to determine which image will appear on
  *  a specific screenSize.
  * @private
