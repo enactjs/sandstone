@@ -140,6 +140,12 @@ const ButtonTests = [
 		component: <Button icon="plus" iconPosition="before" roundBorder size="large" />
 	},
 
+	// shadowed
+	...withConfig({wrapper: {light: true, padded: true}}, [
+		<Button shadowed icon="plus" minWidth={false} />,
+		<Button shadowed backgroundOpacity="transparent" minWidth={false}>click me</Button>
+	]),
+
 	// Focused with light wrapper
 	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
 		<Button>Focused button</Button>,
@@ -244,7 +250,11 @@ const ButtonTests = [
 		{
 			textSize: 'large',
 			component: <Button icon="plus" iconPosition="before" roundBorder size="large" />
-		}
+		},
+
+		// shadowed + focused
+		<Button shadowed icon="minus" minWidth={false} />,
+		<Button shadowed backgroundOpacity="transparent" minWidth={false}>Focused button</Button>
 	]),
 
 	// *************************************************************
