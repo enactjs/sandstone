@@ -167,6 +167,15 @@ const ButtonBase = kind({
 		minWidth: PropTypes.bool,
 
 		/**
+		 * Adds shadow to the text.
+		 * It is only applied when the background opacity of the button is `transparent`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		shadowed: PropTypes.bool,
+
+		/**
 		 * The size of the button.
 		 *
 		 * @type {('large'|'small')}
@@ -193,12 +202,13 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, shadowed, styler}) => styler.append(
 			{
 				hasColor: color,
 				iconOnly,
 				collapsable,
-				collapsed
+				collapsed,
+				shadowed: shadowed && (backgroundOpacity ? backgroundOpacity === 'transparent' : iconOnly)
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
@@ -218,6 +228,7 @@ const ButtonBase = kind({
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.focusEffect;
+		delete rest.shadowed;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',

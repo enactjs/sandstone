@@ -15,6 +15,7 @@ import {Children, useContext, useState} from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
+import Skinnable from '../Skinnable';
 
 import {PanelsStateContext} from '../internal/Panels';
 import {useContextAsDefaults} from '../internal/Panels/util';
@@ -182,6 +183,14 @@ const HeaderBase = kind({
 		onClose: PropTypes.func,
 
 		/**
+		 * Adds shadow to the text contents.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		shadowed: PropTypes.bool,
+
+		/**
 		 * A location for arbitrary elements to be placed above the title
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
@@ -337,10 +346,11 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, noSubtitle, type, styler, subtitle}) => styler.append(
+		className: ({centered, children, noSubtitle, type, shadowed, styler, subtitle}) => styler.append(
 			{
 				centered,
 				noSubtitle,
+				shadowed,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				withChildren: hasChildren(children),
 				withSubtitle: subtitle
@@ -420,6 +430,7 @@ const HeaderBase = kind({
 		noCloseButton,
 		onBack,
 		onClose,
+		shadowed,
 		slotAbove,
 		slotAfter,
 		slotAfterRef,
@@ -447,6 +458,7 @@ const HeaderBase = kind({
 				icon="arrowhookleft"
 				iconFlip="auto"
 				onClick={onBack}
+				shadowed={shadowed}
 				size="small"
 			/>
 		) : null);
@@ -459,6 +471,7 @@ const HeaderBase = kind({
 				className={css.close}
 				icon="closex"
 				onClick={onClose}
+				shadowed={shadowed}
 				size="small"
 			/>
 		) : null);
@@ -555,7 +568,8 @@ const HeaderDecorator = compose(
 	SpotlightContainerDecorator,
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	ContextAsDefaultsHeader,
-	HeaderMeasurementDecorator
+	HeaderMeasurementDecorator,
+	Skinnable
 );
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.

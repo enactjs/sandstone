@@ -91,6 +91,12 @@ const ButtonTests = [
 	// [QWTC-1831]
 	<Button icon="rotate">click me</Button>,
 
+	// shadowed
+	...withConfig({wrapper: {light: true, padded: true}}, [
+		<Button shadowed icon="plus" minWidth={false} />,
+		<Button shadowed backgroundOpacity="transparent" minWidth={false}>click me</Button>
+	]),
+
 	// Focused with light wrapper
 	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
 		<Button>Focused button</Button>,
@@ -148,7 +154,11 @@ const ButtonTests = [
 		<Button icon="arrowhookright" iconFlip="auto">Focused button</Button>,
 
 		// [QWTC-1831]
-		<Button icon="rotate">Focused button</Button>
+		<Button icon="rotate">Focused button</Button>,
+
+		// shadowed + focused
+		<Button shadowed icon="minus" minWidth={false} />,
+		<Button shadowed backgroundOpacity="transparent" minWidth={false}>Focused button</Button>
 	]),
 
 	// *************************************************************
