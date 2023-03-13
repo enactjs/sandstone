@@ -105,7 +105,7 @@ function useTooltip (props = {}) {
 		// Recalculate tooltip layout on keydown to make sure tooltip is positioned correctly in case something changes as a result of the keydown.
 		onKeyDown: handle(
 			forward('onKeyDown'),
-			not(forProp('disabled', false)),
+			not(forProp('disabled', true)),
 			() => {
 				startTooltipLayoutJob();
 			}
