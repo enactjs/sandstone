@@ -1,6 +1,6 @@
 /* global MutationObserver ResizeObserver */
 
-import {forward, handle} from '@enact/core/handle';
+import {forProp, forward, handle, not} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
 import {useI18nContext} from '@enact/i18n/I18nDecorator';
 import {FloatingLayerBase} from '@enact/ui/FloatingLayer';
@@ -51,7 +51,7 @@ const removeTooltipProps = ({...props}) => {
 function useTooltip (props = {}) {
 	const {
 		screenEdgeKeepout = (24 + 24), // Do NOT forget to check TooltipDecorator's default config value also.
-		disabled = false, tooltipDelay = 500, tooltipType = 'balloon', tooltipUpdateDelay = 400,
+		tooltipDelay = 500, tooltipType = 'balloon', tooltipUpdateDelay = 400,
 		tooltipMarquee, tooltipPosition, tooltipProps, tooltipRelative, tooltipText, tooltipWidth
 	} = props;
 	const rtl = useI18nContext()?.rtl;
@@ -105,21 +105,21 @@ function useTooltip (props = {}) {
 		// Recalculate tooltip layout on keydown to make sure tooltip is positioned correctly in case something changes as a result of the keydown.
 		onKeyDown: handle(
 			forward('onKeyDown'),
-			() => (!disabled),
+			not(forProp('disabled', false)),
 			() => {
 				startTooltipLayoutJob();
 			}
 		),
 		onMouseOver: handle(
 			forward('onMouseOver'),
-			() => (!!disabled),
+			forProp('disabled', true),
 			(ev) => {
 				showTooltip(ev.currentTarget);
 			}
 		),
 		onMouseOut: handle(
 			forward('onMouseOut'),
-			() => (!!disabled),
+			forProp('disabled', true),
 			(ev) => {
 				if (clientRef.current && !clientRef.current.contains(ev.relatedTarget)) {
 					hideTooltip();
@@ -148,7 +148,7 @@ function useTooltip (props = {}) {
 		}
 
 		return () => {
-			if (currentTooltip === clientRef.current) { // TBD: avoid currentTooltip from closure
+			if (currentTooltip === clientRef.current) {
 				currentTooltip = null;
 
 				mutableRefCurrent.mutationObserver?.disconnect();
@@ -165,24 +165,24 @@ function useTooltip (props = {}) {
 			return;
 		}
 
-		const newState = getDirectionAnchor(tooltipPosition, tooltipType);
+		const newLayoutInfo = getDirectionAnchor(tooltipPosition, tooltipType);
 
 		const tooltipNode = tooltipRef.current.getBoundingClientRect(); // label bound
 		const clientNode = clientRef.current.getBoundingClientRect(); // client bound
-		const overflow = calcOverflow(tooltipNode, clientNode, newState.tooltipDirection, ri.scale(screenEdgeKeepout));
+		const overflow = calcOverflow(tooltipNode, clientNode, newLayoutInfo.tooltipDirection, ri.scale(screenEdgeKeepout));
 
-		newState.tooltipDirection = adjustDirection(newState.tooltipDirection, overflow, rtl);
-		newState.arrowAnchor = adjustAnchor(newState.arrowAnchor, newState.tooltipDirection, overflow, rtl);
-		newState.position = getPosition(clientNode, newState.tooltipDirection);
-		newState.labelOffset = newState.arrowAnchor === 'center' ? getLabelOffset(tooltipNode, newState.tooltipDirection, newState.position, overflow) : null;
+		newLayoutInfo.tooltipDirection = adjustDirection(newLayoutInfo.tooltipDirection, overflow, rtl);
+		newLayoutInfo.arrowAnchor = adjustAnchor(newLayoutInfo.arrowAnchor, newLayoutInfo.tooltipDirection, overflow, rtl);
+		newLayoutInfo.position = getPosition(clientNode, newLayoutInfo.tooltipDirection);
+		newLayoutInfo.labelOffset = newLayoutInfo.arrowAnchor === 'center' ? getLabelOffset(tooltipNode, newLayoutInfo.tooltipDirection, newLayoutInfo.position, overflow) : null;
 
 		if (
-			(newState.position.top !== layoutInfo.position.top) ||
-			(newState.position.left !== layoutInfo.position.left) ||
-			(newState.labelOffset !== layoutInfo.labelOffset) ||
-			(newState.arrowAnchor !== layoutInfo.arrowAnchor)
+			(newLayoutInfo.position.top !== layoutInfo.position.top) ||
+			(newLayoutInfo.position.left !== layoutInfo.position.left) ||
+			(newLayoutInfo.labelOffset !== layoutInfo.labelOffset) ||
+			(newLayoutInfo.arrowAnchor !== layoutInfo.arrowAnchor)
 		) {
-			setLayoutInfo(newState);
+			setLayoutInfo(newLayoutInfo);
 		}
 	}, [tooltipText, rtl, tooltipPosition, tooltipType, screenEdgeKeepout, layoutInfo, tooltipRef, clientRef]);
 
@@ -201,8 +201,8 @@ function useTooltip (props = {}) {
 	}, [setTooltipLayout]);
 
 	const getTooltipRef = useCallback((node) => {
+		tooltipRef.current = node;
 		if (node) {
-			tooltipRef.current = node;
 			setTooltipLayout();
 		}
 	}, [setTooltipLayout]);
