@@ -205,5 +205,6 @@ export default {
 	camera            : 0x0F0188, // camera
 	cameradis         : 0x0F0189, // camera_dis
 	gamepad           : 0x0F018A, // gamepad
-	gamepaddis        : 0x0F018B  // gamepad_dis
+	gamepaddis        : 0x0F018B, // gamepad_dis
+	wowcast           : 0x0F018C  // wowcast
 };
