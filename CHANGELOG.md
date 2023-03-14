@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Button` and `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
+- `sandstone/Icon` supported icon list, adding a new icon `wowcast`
 
 ## [2.5.8] - 2023-01-31
 
