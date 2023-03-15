@@ -1,0 +1,12 @@
+// ExpandDecorator.module.less
+//
+@import "../styles/mixins.less";
+
+.expand {
+	.focus({
+		& {
+			transform: var(--expand-decorator-transform, @sand-iconitem-focus-transform);
+			transition-duration: var(--expand-decorator-transition-duration, @sand-spotlight-focus-animation-duration);
+		}
+	}, parent)
+}
