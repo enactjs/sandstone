@@ -10,6 +10,11 @@ import {useLayoutEffect, useRef} from 'react';
 
 import css from './ExpandDecorator.module.less';
 
+const DefaultConfig = {
+	duration: 200,
+	scale: 1.2
+};
+
 /**
  * A higher-order component for expanding effect of the wrapped component on focus.
  *
@@ -18,7 +23,7 @@ import css from './ExpandDecorator.module.less';
  * @hoc
  * @public
  */
-const ExpandDecorator = hoc({}, (config, Wrapped) => {
+const ExpandDecorator = hoc(DefaultConfig, (config, Wrapped) => {
 	const {duration, scale} = config;
 
 	const Decorator = ({...rest}) => {
@@ -28,10 +33,10 @@ const ExpandDecorator = hoc({}, (config, Wrapped) => {
 			const styleObject = ref.current?.style;
 
 			if (styleObject) {
-				if (duration) {
+				if (typeof duration === 'number' && !isNaN(duration)) {
 					styleObject.setProperty('--expand-decorator-transition-duration', `${duration}ms`);
 				}
-				if (scale) {
+				if (typeof scale === 'number' && !isNaN(scale)) {
 					styleObject.setProperty('--expand-decorator-transform', `scale(${scale})`);
 				}
 			}

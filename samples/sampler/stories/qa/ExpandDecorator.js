@@ -1,38 +1,59 @@
 import ExpandDecorator from '@enact/sandstone/ExpandDecorator';
 import Spottable from '@enact/spotlight/Spottable';
-import ri from '@enact/ui/resolution';
+
+import css from './ExpandDecorator.module.less';
 
 const SpottableDiv = Spottable('div');
-const SpottableText = (props) => (
-	<SpottableDiv
-		style={{
-			width: ri.scale(1000),
-			height: ri.scale(70),
-			margin: ri.scale(40),
-			backgroundColor: 'gray',
-			textAlign: 'center'
-		}}
-	>
-		{props.children}
-	</SpottableDiv>
-);
+const SpottableText = ({children, style}) => {
+	const mergedStyle = Object.assign({
+	}, style);
+
+	return (
+		<SpottableDiv
+			className={css.spottabletext}
+			style={mergedStyle}
+		>
+			{children}
+		</SpottableDiv>
+	);
+};
 const sampleScale = 0.8;
 const sampleDuration = 600;
 
 const TextDefault              = ExpandDecorator(SpottableText);
-const TextNoConfig             = ExpandDecorator({}, SpottableText);
+const TextNoAnimation          = ExpandDecorator({duration: 0}, SpottableText);
 const TextWithScale            = ExpandDecorator({scale: sampleScale}, SpottableText);
 const TextWithDuration         = ExpandDecorator({duration: sampleDuration}, SpottableText);
 const TextWithScaleAndDuration = ExpandDecorator({scale: sampleScale, duration: sampleDuration}, SpottableText);
+
+const InlineSpottableText = (props) => (
+	<SpottableText {...props} style={{display: 'inline-block'}} />
+);
+const SpottableInsideNonSpottable = (props) => (
+	<div className={css.container}>
+		<InlineSpottableText {...props} />
+		<InlineSpottableText>Another one</InlineSpottableText>
+	</div>
+);
+const SpottableInsideNonSpottableWithDecorator = ExpandDecorator(SpottableInsideNonSpottable);
+const SpottableInsideSpottable = (props) => (
+	<SpottableDiv className={css.container}>
+		<InlineSpottableText {...props} />
+		<InlineSpottableText>Another one</InlineSpottableText>
+	</SpottableDiv>
+);
+const SpottableInsideSpottableWithDecorator = ExpandDecorator(SpottableInsideSpottable);
 
 export const ExpandDecoratorWithSpottableText = () => {
 	return (
 		<div>
 			<TextDefault>Default</TextDefault>
-			<TextNoConfig>No config</TextNoConfig>
+			<TextNoAnimation>No animation</TextNoAnimation>
 			<TextWithScale>With scale {sampleScale}</TextWithScale>
 			<TextWithDuration>With duration {sampleDuration}</TextWithDuration>
 			<TextWithScaleAndDuration>With scale {sampleScale} and duration {sampleDuration}</TextWithScaleAndDuration>
+			<SpottableInsideNonSpottableWithDecorator>Spottable inside non-spottable</SpottableInsideNonSpottableWithDecorator>
+			<SpottableInsideSpottableWithDecorator>Spottable inside spottable</SpottableInsideSpottableWithDecorator>
 		</div>
 	);
 };
