@@ -16,7 +16,7 @@ describe('DatePicker', () => {
 		userEvent.click(monthPickerUp);
 
 		const expected = 1;
-		const expectedType = {type: 'onChange'};
+		const expectedType = {type: 'onChange', value: new Date(2000, 7, 15)};
 		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
 		expect(handleChange).toBeCalledTimes(expected);
@@ -31,7 +31,7 @@ describe('DatePicker', () => {
 		act(() => year.focus());
 		fireEvent.keyDown(year, {which: 13, keyCode: 13, code: 13});
 
-		const expected = {type: 'onComplete'};
+		const expected = {type: 'onComplete', value: new Date(2000, 6, 15)};
 		const actual = handleComplete.mock.calls.length && handleComplete.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);

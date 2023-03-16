@@ -59,6 +59,7 @@ export const _Button = (args) => (
 			iconPosition={args['iconPosition']}
 			minWidth={threeWayBoolean(args['minWidth'])}
 			selected={args['selected']}
+			shadowed={args['shadowed']}
 			size={args['size']}
 			tooltipText={args['tooltipText']}
 			tooltipType={args['tooltipType']}
@@ -76,6 +77,7 @@ select('iconFlip', _Button, prop.iconFlip, Config);
 select('iconPosition', _Button, prop.iconPosition, Config);
 select('minWidth', _Button, prop.minWidth, Config);
 boolean('selected', _Button, Config);
+boolean('shadowed', _Button, Config);
 select('size', _Button, prop.size, Config);
 text('tooltipText', _Button, Config);
 select('tooltipType', _Button, prop.tooltipType, Config);

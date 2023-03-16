@@ -69,7 +69,10 @@ const LtrTests = [
 	...withProps({type: 'standard', noSubtitle: true}, baseTests),
 	...withProps({type: 'compact', noSubtitle: true}, baseTests),
 	...withProps({type: 'wizard', noSubtitle: true}, baseTests),
-	...withProps({type: 'mini', noSubtitle: true}, baseTests)
+	...withProps({type: 'mini', noSubtitle: true}, baseTests),
+
+	// shadowed
+	...withProps({shadowed: true}, baseTests)
 ];
 
 const HeaderTests = [

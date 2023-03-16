@@ -138,7 +138,8 @@ export const settingsIcons = [
 	'screenpower',
 	'spanner',
 	'subtitle',
-	'support'
+	'support',
+	'wowcast'
 ].sort();
 
 export default Object.keys(icons).sort();
