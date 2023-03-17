@@ -60,6 +60,7 @@ export const _Button = (args) => (
 			minWidth={threeWayBoolean(args['minWidth'])}
 			roundBorder={args['roundBorder']}
 			selected={args['selected']}
+			shadowed={args['shadowed']}
 			size={args['size']}
 			tooltipText={args['tooltipText']}
 			tooltipType={args['tooltipType']}
@@ -78,6 +79,7 @@ select('iconPosition', _Button, prop.iconPosition, Config);
 select('minWidth', _Button, prop.minWidth, Config);
 boolean('roundBorder', _Button, Config);
 boolean('selected', _Button, Config);
+boolean('shadowed', _Button, Config);
 select('size', _Button, prop.size, Config);
 text('tooltipText', _Button, Config);
 select('tooltipType', _Button, prop.tooltipType, Config);
