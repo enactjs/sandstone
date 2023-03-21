@@ -9,7 +9,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forwardCustom, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
+import {forward, forwardCustom, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
@@ -288,10 +288,7 @@ const TabLayoutBase = kind({
 			forProp('orientation', 'vertical'),
 			// Validate the transition is from the root node
 			(ev) => ev.target.classList.contains(componentCss.tabs),
-			adaptEvent(
-				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
-				forward('onTabAnimationEnd')
-			)
+			forwardCustom('onTabAnimationEnd', (ev, {collapsed}) => ({collapsed: Boolean(collapsed)}))
 		),
 		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand}) => {
 			// See the global class 'spotlight-input-touch' to check the input type is touch
