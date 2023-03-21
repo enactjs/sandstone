@@ -1,4 +1,4 @@
-import {forward} from '@enact/core/handle';
+import {forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import Pause from '@enact/spotlight/Pause';
@@ -117,7 +117,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		handleActivate () {
-			forward('onActivate', {type: 'onActivate'}, this.props);
+			forwardCustom('onActivate')(null, this.props);
 			this.setState(toggleActive);
 		}
 

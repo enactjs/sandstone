@@ -211,7 +211,7 @@ const EditableWrapper = (props) => {
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', () => ({orders}))({}, editable);
+			forwardCustom('onComplete', () => ({orders}))(null, editable);
 			reset();
 			mutableRef.current.needToPreventEvent = true;
 		} else {
@@ -380,7 +380,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 			const orders = finalizeOrders();
 			orders.splice(prevToIndex, 1);
-			forwardCustom('onComplete', () => ({orders}))({}, editable);
+			forwardCustom('onComplete', () => ({orders}))(null, editable);
 			reset();
 		}
 	}, [editable, finalizeOrders, reset]);
@@ -420,7 +420,7 @@ const EditableWrapper = (props) => {
 
 		if (selectedItem) {
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', () => ({orders}))({}, editable);
+			forwardCustom('onComplete', () => ({orders}))(null, editable);
 			reset();
 
 			if (lastInputType === 'scroll') {
@@ -442,7 +442,7 @@ const EditableWrapper = (props) => {
 			if (!repeat) {
 				if (selectedItem) {
 					const orders = finalizeOrders();
-					forwardCustom('onComplete', () => ({orders}))({}, editable);
+					forwardCustom('onComplete', () => ({orders}))(null, editable);
 					reset();
 					mutableRef.current.needToPreventEvent = true;
 

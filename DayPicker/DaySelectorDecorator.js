@@ -1,4 +1,4 @@
-import {forward} from '@enact/core/handle';
+import {forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {coerceArray, memoize} from '@enact/core/util';
 import ilib from '@enact/i18n';
@@ -25,8 +25,8 @@ function generalizeDay (day, firstDayOfWeek) {
 	return ((day + firstDayOfWeek) % 7);
 }
 
-// Accepts a "Sunday at index 0" selected array and returns a localized array with "firstDayOfWeek
-// at index 0"
+// Accepts a localized array with "firstDayOfWeek" at index 0 and returns a
+// "Sunday at index 0" array.
 function generalizeSelected (selected, state) {
 	if (state.firstDayOfWeek === 0 || !selected) {
 		return selected;
@@ -35,10 +35,15 @@ function generalizeSelected (selected, state) {
 	return selected.map(v => generalizeDay(v, state.firstDayOfWeek)).sort();
 }
 
-// Accepts a localized selected array and returns a "Sunday at index 0" array
+// Accepts a "Sunday at index 0" selected array or number and returns a
+// localized array or number.
 function localizeSelected (selected, state) {
-	if (state.firstDayOfWeek === 0 || !selected) {
+	if (state.firstDayOfWeek === 0 || selected == null) {
 		return selected;
+	}
+
+	if (typeof selected === 'number') {
+		return localizeDay(selected, state.firstDayOfWeek);
 	}
 
 	return selected.map(v => localizeDay(v, state.firstDayOfWeek));
@@ -273,7 +278,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 			selected = generalizeSelected(selected, state);
 			const content = getSelectedDayString(selected, '', dayNameLength);
 
-			forward('onSelect', {type: 'onSelect', selected, content}, this.props);
+			forwardCustom('onSelect', () => ({selected, content}))(null, this.props);
 		};
 
 		render () {
