@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/WizardPanels` to handle focus properly when switching views in Chrome version 104 or higher
+
 ## [2.6.3] - 2023-03-17
 
 ### Added
