@@ -18,6 +18,7 @@ export const _TransferList = (args) => (
 		firstList={['BBC World News', 'CNN International', 'CNBC', 'Fox News', 'MTV', 'Euro News', 'ESPN', 'Fox Sports']}
 		firstListMaxCapacity={args['firstListMaximumCapacity']}
 		firstListMinCapacity={args['firstListMinCapacity']}
+		firstListOperation={args['firstListOperation']}
 		itemSize={args['itemSize']}
 		listComponent={args['listComponent']}
 		moveOnSpotlight={args['moveElementOnSpotlightDirections']}
@@ -26,6 +27,7 @@ export const _TransferList = (args) => (
 		secondList={['HBO', 'Comedy Central', 'HGTV', 'CBS', 'Cartoon Network', 'AXN', 'Disney Channel', 'BBC Food']}
 		secondListMaxCapacity={args['secondListMaxCapacity']}
 		secondListMinCapacity={args['secondListMinCapacity']}
+		secondListOperation={args['secondListOperation']}
 		showSelectionOrder={args['showSelectionOrder']}
 	/>
 );
@@ -33,6 +35,7 @@ export const _TransferList = (args) => (
 boolean('disabled', _TransferList, Config, false);
 number('firstListMinCapacity', _TransferList, Config);
 number('firstListMaxCapacity', _TransferList, Config);
+select('firstListOperation', _TransferList, ['move', 'copy', 'delete'], Config, 'move');
 number('itemSize', _TransferList, Config, 201);
 select('listComponent', _TransferList, ['VirtualList', 'VirtualGridList'], Config, 'VirtualList');
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
@@ -40,6 +43,7 @@ boolean('noMultipleDrag', _TransferList, Config, false);
 select('orientation', _TransferList, ['horizontal', 'vertical'], Config, 'horizontal');
 number('secondListMinCapacity', _TransferList, Config);
 number('secondListMaxCapacity', _TransferList, Config);
+select('secondListOperation', _TransferList, ['move', 'copy', 'delete'], Config, 'move');
 boolean('showSelectionOrder', _TransferList, Config, false);
 
 _TransferList.storyName = 'TransferList';

@@ -51,6 +51,9 @@ const TransferListBase = kind({
 	functional: true,
 
 	propTypes: /** @lends sandstone/TransferList.TransferListBase.prototype */ {
+		firstListOperation: PropTypes.oneOf(['move', 'copy', 'delete']),
+
+		secondListOperation: PropTypes.oneOf(['move', 'copy', 'delete']),
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -369,7 +372,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+	render: ({firstListOperation, secondListOperation, css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
@@ -575,7 +578,8 @@ const TransferListBase = kind({
 				if (item.list !== 'second') return;
 				tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
 				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-				tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
+
+				if (secondListOperation === 'move' || secondListOperation === 'delete') tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
@@ -588,7 +592,7 @@ const TransferListBase = kind({
 			setSelectedItems(tempSelected);
 
 			setPosition({index: tempFirst.length - 1, list: 'first'});
-		}, [firstListLocal, firstListMaxCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
+		}, [secondListOperation, firstListLocal, firstListMaxCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		const moveIntoFirstAll = useCallback(() => {
 			if (setFirstList !== null && setSecondList !== null) {
@@ -670,24 +674,24 @@ const TransferListBase = kind({
 				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
 
 				if (potentialIndex === -1) {
-					destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
-					sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
 				}
 
 				selectedItems.map((item, arrayIndex) => {
 					if (item.list !== draggedElementList) return;
 					destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
-					sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
 				});
 			} else {
 				sourceList.splice(draggedElementIndex, 1);
-				destinationList.splice(dragOverElementIndex, 0, draggedItem);
+				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete'))  destinationList.splice(dragOverElementIndex, 0, draggedItem);
 			}
 
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		}, [noMultipleDrag, selectedItems]);
+		}, [noMultipleDrag, selectedItems, secondListOperation]);
 
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
