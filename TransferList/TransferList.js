@@ -27,9 +27,6 @@ import VirtualList, {VirtualGridList} from '../VirtualList';
 
 import componentCss from './TransferList.module.less';
 import imageItemCss from '../ImageItem/ImageItem.module.less';
-import itemCss from '../Item/Item.module.less';
-
-let multipleItemDragContainer, singleItemDragContainer;
 
 const svgGenerator = (width, height, customText) => (
 	`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +
@@ -371,27 +368,19 @@ const TransferListBase = kind({
 	},
 
 	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
-		const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
-		const itemBg = item?.querySelectorAll(`.${itemCss.bg}`)[0];
-		console.log(itemBg)
-
-		const [customImage, setCustomImage] = useState(CustomDragImage(listComponent, item, itemBg)());
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [position, setPosition] = useState(null);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
+
 		const height = ri.scaleToRem(orientation === 'horizontal' ? defaultHeight : verticalHeight);
 		const itemSize = ri.scale(defaultItemSize);
 		const width = orientation === 'horizontal' ? 'inherit' : '100%';
 		let dragOverElement = useRef();
+		let dragImageNode = useRef();
 		let startDragElement = useRef();
 		let scrollToRefFirst = useRef(null);
 		let scrollToRefSecond = useRef(null);
-
-		useEffect(() => {
-			const image = CustomDragImage(listComponent, item, itemBg)();
-			setCustomImage(image);
-		}, [item, listComponent]);
 
 		const getScrollToFirst = useCallback((scrollTo) => {
 			scrollToRefFirst.current = scrollTo;
@@ -448,11 +437,11 @@ const TransferListBase = kind({
 			ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 			ev.dataTransfer.effectAllowed = 'move';
 
-			if (selectedItems.length > 1) {
-				ev.dataTransfer.setDragImage(customImage?.multipleItemDragContainer, 0, 0);
-			} else {
-				ev.dataTransfer.setDragImage(customImage?.singleItemDragContainer, 0, 0);
-			}
+			let isMultiple = selectedItems.length > 1;
+
+			dragImageNode?.current?.(!isMultiple, (nodeRef) => {
+				ev.dataTransfer.setDragImage(nodeRef, 0, 0);
+			});
 		}, [selectedItems.length]);
 
 		const handleScroll = useCallback(() => {
@@ -759,6 +748,7 @@ const TransferListBase = kind({
 
 		return (
 			<Layout align="center" className={componentCss.transferList} orientation={orientation}>
+				<CustomDragImage listComponent={listComponent} ref={dragImageNode} />
 				<Cell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}

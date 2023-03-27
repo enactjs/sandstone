@@ -1,67 +1,86 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
+import {flushSync} from 'react-dom';
 
 import css from './TransferList.module.less';
 import itemCss from '../Item/Item.module.less';
 
-const DragImage = (listComponent, item, itemBg) => {
-	let singleItemDragContainer, multipleItemDragContainer;
-	console.log(itemBg)
-	const setCommonElementStyles = (element) => {
-		if (item) {
-			if (listComponent === 'VirtualList' && itemBg) {
-				element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
-				element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
-			} else {
-				element.style.backgroundColor = window.getComputedStyle(item, ':before').backgroundColor;
-				element.style.borderRadius = window.getComputedStyle(item, ':before').borderRadius;
-			}
-
-			element.style.border = '1px solid black';
-			element.style.height = item.clientHeight + 'px';
-			element.style.left = "0px";
-			element.style.position = "absolute";
-			element.style.width = item.clientWidth + 'px';
+const DragImage = React.forwardRef((props, ref) => {
+	const getCommonElementStyles = useCallback (() => {
+		const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+		if (!item) {
+			return {};
 		}
-	};
 
-	return () => {
-		if (item) {
-			singleItemDragContainer = document.createElement("div");
-			setCommonElementStyles(singleItemDragContainer);
-			singleItemDragContainer.style.bottom = "0px";
-			singleItemDragContainer.style.left = "0px";
-			singleItemDragContainer.style.zIndex = '-100';
-			document.body.appendChild(singleItemDragContainer);
+		const baseStyles = {
+			left: '0px',
+			border: '1px solid black',
+			position: "absolute",
+			height: item.clientHeight + 'px',
+			width: item.clientWidth + 'px'
+		};
 
-			multipleItemDragContainer = document.createElement("div");
-			setCommonElementStyles(multipleItemDragContainer);
-			multipleItemDragContainer.style.height = 1.6 * item.clientHeight + 'px';
-			multipleItemDragContainer.style.top = "0px";
-			multipleItemDragContainer.style.zIndex = '-110';
-			document.body.appendChild(multipleItemDragContainer);
+		if (props.listComponent === 'VirtualList') {
+			const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
 
-			let div2 = document.createElement("div");
-			setCommonElementStyles(div2);
-			div2.style.top = "0px";
-			div2.style.zIndex = '-100';
-
-			let div3 = document.createElement("div");
-			setCommonElementStyles(div3);
-			div3.style.top = 0.3 * item.clientHeight + 'px';
-			div3.style.zIndex = '-90';
-
-			let div4 = document.createElement("div");
-			setCommonElementStyles(div4);
-			div4.style.top = 0.6 * item.clientHeight + 'px';
-			div4.style.zIndex = '-80';
-
-			multipleItemDragContainer.appendChild(div2);
-			multipleItemDragContainer.appendChild(div3);
-			multipleItemDragContainer.appendChild(div4);
+			return {
+				...baseStyles,
+				backgroundColor: window.getComputedStyle(itemBg).backgroundColor,
+				borderRadius: window.getComputedStyle(itemBg).borderRadius
+			};
 		}
-		return {singleItemDragContainer, multipleItemDragContainer};
-	};
-}
 
+		return {
+			...baseStyles,
+			backgroundColor: window.getComputedStyle(item, ':before').backgroundColor,
+			borderRadius: window.getComputedStyle(item, ':before').borderRadius
+		};
+	}, [props.listComponent]);
+
+	const generateMultiDragImage = useCallback(() => {
+		const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
+		if (!item) {
+			return;
+		}
+
+		return <div style={{...getCommonElementStyles(), height: 1.6 * item.clientHeight + 'px', top: 0, zIndex: '-110'}}>
+			<div style={{...getCommonElementStyles(), top: 0, zIndex: '-100'}} />
+			<div style={{...getCommonElementStyles(), top: 0.3 * item.clientHeight + 'px', zIndex: '-90'}} />
+			<div style={{...getCommonElementStyles(), top: 0.6 * item.clientHeight + 'px', zIndex: '-80'}} />
+		</div>;
+	}, [getCommonElementStyles]);
+
+	let [content, setContent] = useState(null);
+	let domRef = React.useRef(null);
+
+	React.useImperativeHandle(ref, () => (isSingle, callback) => {
+		// This will be called during the dragStart event by handleScroll. We need to render the
+		// preview synchronously before this event returns so we can call event.dataTransfer.setDragImage.
+		flushSync(() => {
+			const singleDragImage = <div style={getCommonElementStyles()} />;
+			const multiDragImage = generateMultiDragImage();
+
+			setContent(isSingle ? singleDragImage : multiDragImage);
+		});
+
+		// Yield back to useDrag to set the drag image.
+		callback(domRef.current);
+
+		// Remove the preview from the DOM after a frame so the browser has time to paint.
+		requestAnimationFrame(() => {			// eslint-disable-line
+			setContent(null);
+		});
+	}, [setContent, generateMultiDragImage, getCommonElementStyles]);
+
+
+	if (!content) {
+		return null;
+	}
+
+
+	return (<div
+		style={{zIndex: -100, position: 'absolute', top: 0, left: -100000}}
+		ref={domRef}
+	>{content}</div>);
+});
 
 export default DragImage;
