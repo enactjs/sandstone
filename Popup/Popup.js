@@ -490,10 +490,10 @@ class Popup extends Component {
 					this.paused.pause();
 				}
 			} else if (this.props.open) {
-				forwardShow({}, this.props);
+				forwardShow(null, this.props);
 				this.spotPopupContent();
 			} else if (prevProps.open) {
-				forwardHide({}, this.props);
+				forwardHide(null, this.props);
 				this.spotActivator(prevState.activator);
 			}
 		}
@@ -558,14 +558,14 @@ class Popup extends Component {
 					ev.stopPropagation();
 					// set the pointer mode to false on keydown
 					Spotlight.setPointerMode(false);
-					forwardCustom('onClose')({}, this.props);
+					forwardCustom('onClose')(null, this.props);
 				}
 			}
 		}
 	};
 
 	handleDismiss = (ev) => {
-		forwardCustom('onClose', () => ({detail: ev?.detail}))({}, this.props);
+		forwardCustom('onClose', () => ({detail: ev?.detail}))(null, this.props);
 	};
 
 	handlePopupHide = (ev) => {
