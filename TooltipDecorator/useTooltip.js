@@ -1,20 +1,19 @@
 /* global MutationObserver ResizeObserver */
 
 import {forProp, forward, handle, not} from '@enact/core/handle';
+import useHandlers from '@enact/core/useHandlers';
 import {Job} from '@enact/core/util';
 import {useI18nContext} from '@enact/i18n/I18nDecorator';
 import {FloatingLayerBase} from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
+import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import {Tooltip, defaultArrowAnchor, defaultDirection} from './Tooltip';
 import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition} from './util';
 
 let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
 
-import useHandlers from '@enact/core/useHandlers';
-import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
-
-function getDirectionAnchor (tooltipPosition, tooltipType) {
+const getTooltipDirection = (tooltipPosition, tooltipType) => {
 	const position = tooltipPosition || (defaultDirection(tooltipType) + ' ' + defaultArrowAnchor(tooltipType));
 	const arr = position.split(' ');
 
@@ -29,7 +28,7 @@ function getDirectionAnchor (tooltipPosition, tooltipType) {
 			arrowAnchor: 'right'
 		};
 	}
-}
+};
 
 const removeTooltipProps = ({...props}) => {
 	delete props.rtl;
@@ -47,22 +46,37 @@ const removeTooltipProps = ({...props}) => {
 	return props;
 };
 
+const tooltipDefaultProps = {
+	screenEdgeKeepout: (24 + 24),
+	tooltipDelay: 500,
+	tooltipType: 'balloon',
+	tooltipUpdateDelay: 400
+};
+
 // A hook to show Sandstone-styled tooltip components.
-function useTooltip (props = {}) {
+const useTooltip = (props = {}) => {
 	const {
-		screenEdgeKeepout = (24 + 24), // Do NOT forget to check TooltipDecorator's default config value also.
-		tooltipDelay = 500, tooltipType = 'balloon', tooltipUpdateDelay = 400,
-		tooltipMarquee, tooltipPosition, tooltipProps, tooltipRelative, tooltipText, tooltipWidth
+		screenEdgeKeepout = tooltipDefaultProps.screenEdgeKeepout,
+		tooltipDelay = tooltipDefaultProps.tooltipDelay,
+		tooltipType = tooltipDefaultProps.tooltipType,
+		tooltipUpdateDelay = tooltipDefaultProps.tooltipUpdateDelay,
+		tooltipMarquee,
+		tooltipPosition,
+		tooltipProps,
+		tooltipRelative,
+		tooltipText,
+		tooltipWidth
 	} = props;
 	const rtl = useI18nContext()?.rtl;
 
 	const [showing, setShowing] = useState(false);
-	const [layoutInfo, setLayoutInfo] = useState({
+	const [layout, setLayout] = useState({
 		arrowAnchor: null,
 		labelOffset: null,
 		position: {top: 0, left: 0},
 		tooltipDirection: null
 	});
+
 	const mutableRef = useRef({
 		mutationObserver: null,
 		resizeObserver: null,
@@ -139,11 +153,11 @@ function useTooltip (props = {}) {
 	useEffect(() => {
 		const mutableRefCurrent = mutableRef.current;
 
-		if (window.MutationObserver) {
+		if (typeof window !== 'undefined' && window.MutationObserver) {
 			mutableRefCurrent.mutationObserver = new MutationObserver(startTooltipLayoutJob);
 		}
 
-		if (window.ResizeObserver) {
+		if (typeof window !== 'undefined' && window.ResizeObserver) {
 			mutableRefCurrent.resizeObserver = new ResizeObserver(startTooltipLayoutJob);
 		}
 
@@ -165,32 +179,30 @@ function useTooltip (props = {}) {
 			return;
 		}
 
-		const newLayoutInfo = getDirectionAnchor(tooltipPosition, tooltipType);
+		const newLayout = getTooltipDirection(tooltipPosition, tooltipType);
 
 		const tooltipNode = tooltipRef.current.getBoundingClientRect(); // label bound
 		const clientNode = clientRef.current.getBoundingClientRect(); // client bound
-		const overflow = calcOverflow(tooltipNode, clientNode, newLayoutInfo.tooltipDirection, ri.scale(screenEdgeKeepout));
+		const overflow = calcOverflow(tooltipNode, clientNode, newLayout.tooltipDirection, ri.scale(screenEdgeKeepout));
 
-		newLayoutInfo.tooltipDirection = adjustDirection(newLayoutInfo.tooltipDirection, overflow, rtl);
-		newLayoutInfo.arrowAnchor = adjustAnchor(newLayoutInfo.arrowAnchor, newLayoutInfo.tooltipDirection, overflow, rtl);
-		newLayoutInfo.position = getPosition(clientNode, newLayoutInfo.tooltipDirection);
-		newLayoutInfo.labelOffset = newLayoutInfo.arrowAnchor === 'center' ? getLabelOffset(tooltipNode, newLayoutInfo.tooltipDirection, newLayoutInfo.position, overflow) : null;
+		newLayout.tooltipDirection = adjustDirection(newLayout.tooltipDirection, overflow, rtl);
+		newLayout.arrowAnchor = adjustAnchor(newLayout.arrowAnchor, newLayout.tooltipDirection, overflow, rtl);
+		newLayout.position = getPosition(clientNode, newLayout.tooltipDirection);
+		newLayout.labelOffset = newLayout.arrowAnchor === 'center' ? getLabelOffset(tooltipNode, newLayout.tooltipDirection, newLayout.position, overflow) : null;
 
 		if (
-			(newLayoutInfo.position.top !== layoutInfo.position.top) ||
-			(newLayoutInfo.position.left !== layoutInfo.position.left) ||
-			(newLayoutInfo.labelOffset !== layoutInfo.labelOffset) ||
-			(newLayoutInfo.arrowAnchor !== layoutInfo.arrowAnchor)
+			(newLayout.position.top !== layout.position.top) ||
+			(newLayout.position.left !== layout.position.left) ||
+			(newLayout.labelOffset !== layout.labelOffset) ||
+			(newLayout.arrowAnchor !== layout.arrowAnchor)
 		) {
-			setLayoutInfo(newLayoutInfo);
+			setLayout(newLayout);
 		}
-	}, [tooltipText, rtl, tooltipPosition, tooltipType, screenEdgeKeepout, layoutInfo, tooltipRef, clientRef]);
+	}, [tooltipText, rtl, tooltipPosition, tooltipType, screenEdgeKeepout, layout, tooltipRef, clientRef]);
 
 	useLayoutEffect(() => {
 		mutableRef.current.showTooltipJob = new Job(() => {
-			if (!showing) {
-				setShowing(true);
-			}
+			setShowing(true);
 		});
 	}, [showing]);
 
@@ -207,28 +219,28 @@ function useTooltip (props = {}) {
 		}
 	}, [setTooltipLayout]);
 
+	/**
+	 * Conditionally creates the FloatingLayer and Tooltip based on the presence of
+	 * `tooltipText` and returns a property bag to pass onto the Wrapped component
+	 *
+	 * @returns {Object} Prop object
+	 * @private
+	 */
 	const renderTooltip = useCallback(() => {
-		const {top, left} = layoutInfo.position;
+		const {top, left} = layout.position;
 		const tooltipStyle = {
 			// Moving the position to CSS variables where there are additional offset calculations
 			'--tooltip-position-top': tooltipRelative ? null : ri.unit(top, 'rem'),
 			'--tooltip-position-left': tooltipRelative ? null : ri.unit(left, 'rem')
 		};
 
-		/**
-		 * Conditionally creates the FloatingLayer and Tooltip based on the presence of
-		 * `tooltipText` and returns a property bag to pass onto the Wrapped component
-		 *
-		 * @returns {Object} Prop object
-		 * @private
-		 */
 		const renderedTooltip = (
 			<Tooltip
 				aria-hidden
-				labelOffset={layoutInfo.labelOffset}
+				labelOffset={layout.labelOffset}
 				{...tooltipProps}
-				arrowAnchor={layoutInfo.arrowAnchor}
-				direction={layoutInfo.tooltipDirection}
+				arrowAnchor={layout.arrowAnchor}
+				direction={layout.tooltipDirection}
 				marquee={tooltipMarquee}
 				relative={tooltipRelative}
 				style={tooltipStyle}
@@ -251,16 +263,17 @@ function useTooltip (props = {}) {
 		} else {
 			return null;
 		}
-	}, [getTooltipRef, hideTooltip, layoutInfo.arrowAnchor, layoutInfo.labelOffset, layoutInfo.position, layoutInfo.tooltipDirection, showing, tooltipMarquee, tooltipProps, tooltipRelative, tooltipText, tooltipType, tooltipWidth]);
+	}, [getTooltipRef, hideTooltip, layout.arrowAnchor, layout.labelOffset, layout.position, layout.tooltipDirection, showing, tooltipMarquee, tooltipProps, tooltipRelative, tooltipText, tooltipType, tooltipWidth]);
 
 	return {
 		tooltipChildren: tooltipText ? renderTooltip() : null,
 		handlers,
 		restProps: removeTooltipProps(props)
 	};
-}
+};
 
 export default useTooltip;
 export {
+	tooltipDefaultProps,
 	useTooltip
 };
