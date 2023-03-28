@@ -341,13 +341,13 @@ const PickerBase = (props) => {
 			} else if (isHorizontal) {
 				setIncPickerButtonPressed();
 			} else if (orientation === 'horizontal' && isDown(keyCode) && onSpotlightDown) {
-				forwardCustom('onSpotlightDown')(null, props);
+				forwardCustom('onSpotlightDown')(ev, props);
 			} else if (orientation === 'horizontal' && isUp(keyCode) && onSpotlightUp) {
-				forwardCustom('onSpotlightUp')(null, props);
+				forwardCustom('onSpotlightUp')(ev, props);
 			} else if (orientation === 'vertical' && isLeft(keyCode) && onSpotlightLeft) {
-				forwardCustom('onSpotlightLeft')(null, props);
+				forwardCustom('onSpotlightLeft')(ev, props);
 			} else if (orientation === 'vertical' && isRight(keyCode) && onSpotlightRight) {
-				forwardCustom('onSpotlightRight')(null, props);
+				forwardCustom('onSpotlightRight')(ev, props);
 			}
 		}
 	}, [changedBy, disabled, joined, orientation, props, setDecPickerButtonPressed, setIncPickerButtonPressed]);
