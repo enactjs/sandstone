@@ -1,10 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, {forwardRef, useCallback, useImperativeHandle, useState} from 'react';
 import {flushSync} from 'react-dom';
 
 import css from './TransferList.module.less';
 import itemCss from '../Item/Item.module.less';
 
-const DragImage = React.forwardRef((props, ref) => {
+const DragImage = forwardRef((props, ref) => {
 	const getCommonElementStyles = useCallback (() => {
 		const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
 		if (!item) {
@@ -52,7 +52,7 @@ const DragImage = React.forwardRef((props, ref) => {
 	let [content, setContent] = useState(null);
 	let domRef = React.useRef(null);
 
-	React.useImperativeHandle(ref, () => (isSingle, callback) => {
+	useImperativeHandle(ref, () => (isSingle, callback) => {
 		// This will be called during the dragStart event by handleScroll. We need to render the
 		// preview synchronously before this event returns so we can call event.dataTransfer.setDragImage.
 		flushSync(() => {
@@ -71,11 +71,9 @@ const DragImage = React.forwardRef((props, ref) => {
 		});
 	}, [setContent, generateMultiDragImage, getCommonElementStyles]);
 
-
 	if (!content) {
 		return null;
 	}
-
 
 	return (<div
 		style={{zIndex: -100, position: 'absolute', top: 0, left: -100000}}
