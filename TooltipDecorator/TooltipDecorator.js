@@ -12,7 +12,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import PropTypes from 'prop-types';
 
 import {Tooltip, TooltipBase} from './Tooltip';
-import {tooltipDefaultProps, useTooltip} from './useTooltip';
+import {defaultScreenEdgeKeepout, useTooltip} from './useTooltip';
 
 /**
  * Default config for {@link sandstone/TooltipDecorator.TooltipDecorator|TooltipDecorator}
@@ -33,7 +33,7 @@ const defaultConfig = {
 	 * @default 48
 	 * @memberof sandstone/TooltipDecorator.TooltipDecorator.defaultConfig
 	 */
-	screenEdgeKeepout: tooltipDefaultProps.screenEdgeKeepout,
+	screenEdgeKeepout: defaultScreenEdgeKeepout,
 
 	/**
 	 * The name of the property which will receive the tooltip node.

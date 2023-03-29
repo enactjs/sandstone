@@ -46,20 +46,15 @@ const removeTooltipProps = ({...props}) => {
 	return props;
 };
 
-const tooltipDefaultProps = {
-	screenEdgeKeepout: (24 + 24),
-	tooltipDelay: 500,
-	tooltipType: 'balloon',
-	tooltipUpdateDelay: 400
-};
+const defaultScreenEdgeKeepout = (24 + 24);
 
 // A hook to show Sandstone-styled tooltip components.
-const useTooltip = (props = {}) => {
+const useTooltip = (props) => {
 	const {
-		screenEdgeKeepout = tooltipDefaultProps.screenEdgeKeepout,
-		tooltipDelay = tooltipDefaultProps.tooltipDelay,
-		tooltipType = tooltipDefaultProps.tooltipType,
-		tooltipUpdateDelay = tooltipDefaultProps.tooltipUpdateDelay,
+		screenEdgeKeepout = defaultScreenEdgeKeepout,
+		tooltipDelay = 500,
+		tooltipType = 'balloon',
+		tooltipUpdateDelay = 400,
 		tooltipMarquee,
 		tooltipPosition,
 		tooltipProps,
@@ -67,7 +62,11 @@ const useTooltip = (props = {}) => {
 		tooltipText,
 		tooltipWidth
 	} = props;
-	const rtl = useI18nContext()?.rtl;
+
+	let rtl = useI18nContext()?.rtl;
+	if (typeof props.rtl === 'boolean') {
+		rtl = props.rtl;
+	}
 
 	const [showing, setShowing] = useState(false);
 	const [layout, setLayout] = useState({
@@ -263,7 +262,7 @@ const useTooltip = (props = {}) => {
 		} else {
 			return null;
 		}
-	}, [getTooltipRef, hideTooltip, layout.arrowAnchor, layout.labelOffset, layout.position, layout.tooltipDirection, showing, tooltipMarquee, tooltipProps, tooltipRelative, tooltipText, tooltipType, tooltipWidth]);
+	}, [getTooltipRef, hideTooltip, layout, showing, tooltipMarquee, tooltipProps, tooltipRelative, tooltipText, tooltipType, tooltipWidth]);
 
 	return {
 		tooltipChildren: tooltipText ? renderTooltip() : null,
@@ -274,6 +273,6 @@ const useTooltip = (props = {}) => {
 
 export default useTooltip;
 export {
-	tooltipDefaultProps,
+	defaultScreenEdgeKeepout,
 	useTooltip
 };
