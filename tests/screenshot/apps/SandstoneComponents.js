@@ -18,6 +18,7 @@ import FormCheckboxItem from './components/FormCheckboxItem';
 import Header from './components/Header';
 import Heading from './components/Heading';
 import Icon from './components/Icon';
+import IconItem from './components/IconItem';
 import Image from './components/Image';
 import ImageItem from './components/ImageItem';
 import Input from './components/Input';
@@ -70,6 +71,7 @@ const components = {
 	Header,
 	Heading,
 	Icon,
+	IconItem,
 	Image,
 	ImageItem,
 	Input,

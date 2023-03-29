@@ -121,6 +121,8 @@ describe('TabLayout specs', () => {
 
 		const expected = {
 			type: 'onTabAnimationEnd',
+			preventDefault: expect.any(Function),
+			stopPropagation: expect.any(Function),
 			collapsed: true
 		};
 		const actual = spy.mock.calls[0][0];

@@ -2,11 +2,19 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.6.3] - 2023-03-17
 
 ### Added
 
 - `sandstone/Button` and `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
+- `sandstone/Icon` supported icon list, adding a new icon `wowcast`
+
+## [2.5.9] - 2023-03-16
+
+### Added
+
+- `sandstone/Button` and `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
+- `sandstone/Icon` supported icon list, adding a new icon `wowcast`
 
 ## [2.6.2] - 2023-03-09
 
@@ -41,7 +49,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
 - `sandstone/MediaPlayer.MediaControls` to show round buttons correctly in high-contrast mode
-- `sandstone/TabLayout` to not cropped and apply orientation properly when `orientation` prop is vertical 
+- `sandstone/TabLayout` to not cropped and apply orientation properly when `orientation` prop is vertical
 
 ## [2.5.8] - 2023-01-31
 
