@@ -36,6 +36,7 @@ function createResBundle (options) {
 		...opts,
 		onLoad: (bundle) => {
 			console.log("sandstone:::: internal/$L onLoad!!!, bundle ", bundle);
+			setResBundle(bundle || null);
 			opts.onLoad(bundle || null);
 		}
 	});
@@ -59,22 +60,31 @@ function clearResBundle () {
  * @returns {ilib.ResBundle} Current ResBundle
  */
 function setResBundle (bundle) {
+	console.log("setResBundle! ", bundle);
 	return (resBundle = bundle);
 }
 
-function toIString (str) {
+async function toIString (str) {
 	let rb = getResBundle();
 
-	console.log("sandstone/internal/$L ", str);
+	console.log("sandstone/internal/$L ", str, "rb ? ", rb);
 	if (!rb) {
-		createResBundle({
-			sync: false,
-			onLoad: setResBundle
+		let promise = new Promise((resolve, reject) => {
+			createResBundle({
+				sync: false,
+				onLoad: resolve
+			});
 		});
+
+		let result = await promise;
 		rb = getResBundle();
+		console.log("toIString, rb ?", rb);
 	}
 
-	return getIStringFromBundle(str, rb);
+	let string = getIStringFromBundle(str, rb);
+	console.log("returning string ", string);
+
+	return string;
 }
 
 /**
@@ -87,7 +97,12 @@ function toIString (str) {
  * @returns {String} The translated string
  */
 function $L (str) {
-	return String(toIString(str));
+	return new Promise((resolve, reject) => {
+		toIString(str).then((result) => {
+			console.log("Resolving $L ", result);
+			resolve(String(result));
+		}, reject);
+	});
 }
 
 export default $L;

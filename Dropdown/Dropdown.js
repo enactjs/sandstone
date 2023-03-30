@@ -31,6 +31,7 @@ import ri from '@enact/ui/resolution';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import {useReducer, useRef} from 'react';
 import warning from 'warning';
 
 import $L from '../internal/$L';
@@ -262,6 +263,8 @@ const DropdownBase = kind({
 		)
 	},
 
+	functional: true,
+
 	styles: {
 		css,
 		className: 'dropdown'
@@ -300,13 +303,11 @@ const DropdownBase = kind({
 		className: ({width, title, styler}) => styler.append(typeof width === 'string' ? `${width}Width` : null, {hasTitle: Boolean(title)}),
 		direction: ({direction}) => `${direction} center`,
 		handleSpotlightPause: () => (pauseSpotlight),
-		placeholder: ({children, placeholder = $L('No Selection'), selected}) => {
+		placeholder: ({children, placeholder, selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
 				return typeof child === 'object' ? child.children : child;
 			}
-
-			return placeholder;
 		},
 		title: ({id, title, width}) => (title &&
 			<Heading
@@ -327,11 +328,24 @@ const DropdownBase = kind({
 		const calcAriaProps = ariaLabel != null ? null : {role: 'region', 'aria-labelledby': ariaLabelledBy};
 		const popupProps = {'aria-live': null, children, handleSpotlightPause, onSelect, selected, width, role: null};
 		const voiceProps = extractVoiceProps(rest);
+		const [, forceUpdate] = useReducer(x => x + 1, 0);
+		const placeholderRef = useRef(placeholder);
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
 		// prevent Dropdown to open if there are no children.
 		const hasChildren = children.length > 0;
 		const openDropdown = hasChildren && !disabled && open;
+
+		if (placeholderRef.current == null) {
+			(async () => {
+				await $L('No Selection').then(result => {
+					placeholderRef.current = result;
+					console.log("placeholder then? ", placeholderRef.current);
+					forceUpdate();
+				});
+			})();
+		}
+		console.log("!!!! dropdown render called ", placeholderRef.current);
 
 		return (
 			<div {...calcAriaProps} {...rest}>
@@ -353,7 +367,7 @@ const DropdownBase = kind({
 					{...ariaProps}
 					{...voiceProps}
 				>
-					{placeholder}
+					{placeholderRef.current}
 				</DropdownButton>
 			</div>
 		);
