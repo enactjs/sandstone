@@ -374,6 +374,10 @@ const TransferListBase = kind({
 						reorderList(list, index, -2, element);
 					} else if (ev.key === 'ArrowRight') {
 						reorderList(list, index, 2, element);
+					} else if (ev.key === 'ArrowUp') {
+						reorderList(list, index, -1, element);
+					} else if (ev.key === 'ArrowDown') {
+						reorderList(list, index, 1, element);
 					}
 				}
 			};
