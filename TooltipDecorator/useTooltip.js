@@ -1,7 +1,6 @@
 /* global MutationObserver ResizeObserver */
 
-import {forProp, forward, handle, not} from '@enact/core/handle';
-import useHandlers from '@enact/core/useHandlers';
+import {forward} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
 import {useI18nContext} from '@enact/i18n/I18nDecorator';
 import {FloatingLayerBase} from '@enact/ui/FloatingLayer';
@@ -114,40 +113,44 @@ const useTooltip = (props) => {
 		mutableRef.current.setTooltipLayoutJob?.startAfter(tooltipUpdateDelay);
 	}, [tooltipUpdateDelay]);
 
-	const handlers = useHandlers({
-		// Recalculate tooltip layout on keydown to make sure tooltip is positioned correctly in case something changes as a result of the keydown.
-		onKeyDown: handle(
-			forward('onKeyDown'),
-			not(forProp('disabled', true)),
-			() => {
-				startTooltipLayoutJob();
+	// Recalculate tooltip layout on keydown to make sure tooltip is positioned correctly in case something changes as a result of the keydown.
+	const onKeyDown = useCallback((ev) => {
+		forward('onKeyDown', ev, props);
+		if (!props.disabled) {
+			startTooltipLayoutJob();
+		}
+	}, [props, startTooltipLayoutJob]);
+	const onMouseOver = useCallback((ev) => {
+		forward('onMouseOver', ev, props);
+		if (props.disabled) {
+			showTooltip(ev.currentTarget);
+		}
+	}, [props, showTooltip]);
+	const onMouseOut = useCallback((ev) => {
+		forward('onMouseOut', ev, props);
+		if (props.disabled) {
+			if (clientRef.current && !clientRef.current.contains(ev.relatedTarget)) {
+				hideTooltip();
 			}
-		),
-		onMouseOver: handle(
-			forward('onMouseOver'),
-			forProp('disabled', true),
-			(ev) => {
-				showTooltip(ev.currentTarget);
-			}
-		),
-		onMouseOut: handle(
-			forward('onMouseOut'),
-			forProp('disabled', true),
-			(ev) => {
-				if (clientRef.current && !clientRef.current.contains(ev.relatedTarget)) {
-					hideTooltip();
-				}
-			}
-		),
-		onFocus: handle(
-			forward('onFocus'),
-			({target}) => showTooltip(target)
-		),
-		onBlur: handle(
-			forward('onBlur'),
-			hideTooltip
-		)
-	}, props);
+			showTooltip(ev.currentTarget);
+		}
+	}, [hideTooltip, props, showTooltip]);
+	const onFocus = useCallback((ev) => {
+		forward('onFocus', ev, props);
+		showTooltip(ev.target);
+	}, [props, showTooltip]);
+	const onBlur = useCallback((ev) => {
+		forward('onBlur', ev, props);
+		hideTooltip();
+	}, [hideTooltip, props]);
+
+	const handlers = {
+		onKeyDown,
+		onMouseOver,
+		onMouseOut,
+		onFocus,
+		onBlur
+	};
 
 	useEffect(() => {
 		const mutableRefCurrent = mutableRef.current;
@@ -174,7 +177,7 @@ const useTooltip = (props) => {
 	}, [startTooltipLayoutJob]);
 
 	const setTooltipLayout = useCallback(() => {
-		if (!tooltipText || !tooltipRef.current || !clientRef.current) {
+		if (!tooltipRef.current || !clientRef.current) {
 			return;
 		}
 
@@ -197,7 +200,7 @@ const useTooltip = (props) => {
 		) {
 			setLayout(newLayout);
 		}
-	}, [tooltipText, rtl, tooltipPosition, tooltipType, screenEdgeKeepout, layout, tooltipRef, clientRef]);
+	}, [rtl, tooltipPosition, tooltipType, screenEdgeKeepout, layout, tooltipRef, clientRef]);
 
 	useLayoutEffect(() => {
 		mutableRef.current.showTooltipJob = new Job(() => {
