@@ -374,8 +374,12 @@ const TransferListBase = kind({
 		const [selectedItems, setSelectedItems] = useState([]);
 
 		const height = ri.scaleToRem(orientation === 'horizontal' ? defaultHeight : verticalHeight);
+		const isDefaultListComponent = listComponent === 'VirtualList';
+		const isVertical = orientation === 'vertical';
 		const itemSize = ri.scale(defaultItemSize);
 		const width = orientation === 'horizontal' ? 'inherit' : '100%';
+		let isAboveDropPosition = useRef(false);
+		let currentElement = useRef();
 		let dragOverElement = useRef();
 		let dragImageNode = useRef();
 		let startDragElement = useRef();
@@ -395,39 +399,53 @@ const TransferListBase = kind({
 			if (!ev.target.children.length) {
 				element = ev.target.parentElement;
 			} else {
-				element = ev.target.parentElement.parentElement.parentElement;
+				element = ev.currentTarget;
 			}
 
 			element.classList.remove(`${css.overAbove}`);
 			element.classList.remove(`${css.overBelow}`);
-		}, [css.overAbove, css.overBelow]);
+			element.classList.remove(`${css.overLeft}`);
+			element.classList.remove(`${css.overRight}`);
+		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight]);
 
 		const dragoverListenerFunction = useCallback((ev) => {
 			let element;
 			if (!ev.target.children.length) {
 				element = ev.target.parentElement;
 			} else {
-				element = ev.target.parentElement.parentElement.parentElement;
+				element = ev.currentTarget;
 			}
-
-			dragOverElement.current = parseInt(element.id.split('-')[0]);
 
 			const startDragOrder = Number(startDragElement.current.getAttribute('order'));
 			const dragOverOrder = Number(element.getAttribute('order'));
+			const isAboveCurrentElement = startDragOrder - 1 === dragOverOrder;
+			const isBelowCurrentElement = startDragOrder + 1 === dragOverOrder;
 
-			if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
-				if (ev.offsetY <= 20) {
-					element.classList.add(`${css.overAbove}`);
+			currentElement.current = dragOverOrder > 0 ? element : currentElement.current;
+			dragOverElement.current = parseInt(element.id.split('-')[0]);
+
+			if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
+				if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					currentElement.current.classList.add(`${css.overAbove}`);
+					currentElement.current.classList.remove(`${css.overBelow}`);
+					isAboveDropPosition.current = true;
+				} else {
+					currentElement.current.classList.add(`${css.overBelow}`);
+					currentElement.current.classList.remove(`${css.overAbove}`);
+					isAboveDropPosition.current = false;
 				}
-			} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
-				if (ev.offsetY === -1 || ev.offsetY === 0) {
-					element.classList.remove(`${css.overAbove}`);
-					element.classList.remove(`${css.overBelow}`);
-				} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-					element.classList.add(`${css.overBelow}`);
+			} else if (startDragElement.current !== element) {
+				if ((ev.offsetX < currentElement.current.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					currentElement.current.classList.add(`${css.overLeft}`);
+					currentElement.current.classList.remove(`${css.overRight}`);
+					isAboveDropPosition.current = true;
+				} else {
+					currentElement.current.classList.add(`${css.overRight}`);
+					currentElement.current.classList.remove(`${css.overLeft}`);
+					isAboveDropPosition.current = false;
 				}
 			}
-		}, [css.overAbove, css.overBelow]);
+		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical]);
 
 		const startListenerFunction = useCallback((ev) => {
 			const element = ev.target;
@@ -602,23 +620,24 @@ const TransferListBase = kind({
 
 		const rearrangeLists = useCallback((sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
 			const draggedItem = sourceList[draggedElementIndex];
+			const elementPosition = isAboveDropPosition.current ? dragOverElementIndex : dragOverElementIndex + 1;
 
 			if (!noMultipleDrag) {
 				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
 
 				if (potentialIndex === -1) {
-					destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
+					destinationList.splice(elementPosition, 0, draggedItem);
 					sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
 				}
 
 				selectedItems.map((item, arrayIndex) => {
 					if (item.list !== draggedElementList) return;
-					destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
+					destinationList.splice(elementPosition + arrayIndex, 0, item.element);
 					sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
 				});
 			} else {
 				sourceList.splice(draggedElementIndex, 1);
-				destinationList.splice(dragOverElementIndex, 0, draggedItem);
+				destinationList.splice(elementPosition, 0, draggedItem);
 			}
 
 			dragOverElement.current = null;
