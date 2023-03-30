@@ -376,12 +376,12 @@ const TransferListBase = kind({
 		const [position, setPosition] = useState(null);
 
 		const height = ri.scaleToRem(orientation === 'horizontal' ? defaultHeight : verticalHeight);
-		const isDefaultListComponent = listComponent === 'VirtualList'
-		const isVertical = orientation === 'vertical'
+		const isDefaultListComponent = listComponent === 'VirtualList';
+		const isVertical = orientation === 'vertical';
 		const itemSize = ri.scale(defaultItemSize);
 		const width = orientation === 'horizontal' ? 'inherit' : '100%';
-		let isAboveDropPosition = useRef(false)
-		let currentElement = useRef(null)
+		let isAboveDropPosition = useRef(false);
+		let currentElement = useRef();
 		let dragOverElement = useRef();
 		let startDragElement = useRef();
 		let scrollToRefFirst = useRef(null);
@@ -484,31 +484,31 @@ const TransferListBase = kind({
 			const isAboveCurrentElement = startDragOrder - 1 === dragOverOrder;
 			const isBelowCurrentElement = startDragOrder + 1 === dragOverOrder;
 
-			currentElement = dragOverOrder > 0 ? element : currentElement
+			currentElement.current = dragOverOrder > 0 ? element : currentElement.current;
 			dragOverElement.current = parseInt(element.id.split('-')[0]);
 
-			if (startDragElement.current !== element && !isVertical || !isDefaultListComponent) {
-				if ((ev.offsetY < currentElement.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-					currentElement.classList.add(`${css.overAbove}`);
-					currentElement.classList.remove(`${css.overBelow}`);
+			if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
+				if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					currentElement.current.classList.add(`${css.overAbove}`);
+					currentElement.current.classList.remove(`${css.overBelow}`);
 					isAboveDropPosition.current = true;
 				} else {
-					currentElement.classList.add(`${css.overBelow}`);
-					currentElement.classList.remove(`${css.overAbove}`);
+					currentElement.current.classList.add(`${css.overBelow}`);
+					currentElement.current.classList.remove(`${css.overAbove}`);
 					isAboveDropPosition.current = false;
 				}
 			} else if (startDragElement.current !== element) {
-				if ((ev.offsetX < currentElement.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-					currentElement.classList.add(`${css.overLeft}`);
-					currentElement.classList.remove(`${css.overRight}`);
+				if ((ev.offsetX < currentElement.current.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					currentElement.current.classList.add(`${css.overLeft}`);
+					currentElement.current.classList.remove(`${css.overRight}`);
 					isAboveDropPosition.current = true;
 				} else {
-					currentElement.classList.add(`${css.overRight}`);
-					currentElement.classList.remove(`${css.overLeft}`);
+					currentElement.current.classList.add(`${css.overRight}`);
+					currentElement.current.classList.remove(`${css.overLeft}`);
 					isAboveDropPosition.current = false;
 				}
 			}
-		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, listComponent, orientation]);
+		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical]);
 
 		const startListenerFunction = useCallback((ev) => {
 			const element = ev.target;
