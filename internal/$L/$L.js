@@ -96,13 +96,10 @@ async function toIString (str) {
  *
  * @returns {String} The translated string
  */
-function $L (str) {
-	return new Promise((resolve, reject) => {
-		toIString(str).then((result) => {
-			console.log("Resolving $L ", result);
-			resolve(String(result));
-		}, reject);
-	});
+async function $L (str) {
+	let result = await toIString(str);
+	console.log("Resolving $L ", result);
+	return String(result);
 }
 
 export default $L;

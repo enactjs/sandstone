@@ -338,11 +338,11 @@ const DropdownBase = kind({
 
 		if (placeholderRef.current == null) {
 			(async () => {
-				await $L('No Selection').then(result => {
-					placeholderRef.current = result;
-					console.log("placeholder then? ", placeholderRef.current);
-					forceUpdate();
-				});
+				let result = await $L('No Selection');
+
+				placeholderRef.current = result;
+				console.log("placeholder then? ", placeholderRef.current);
+				forceUpdate();
 			})();
 		}
 		console.log("!!!! dropdown render called ", placeholderRef.current);
