@@ -45,6 +45,13 @@ const removeTooltipProps = ({...props}) => {
 	return props;
 };
 
+/*
+ * The boundary around the screen which the tooltip should never cross, typically involving
+ * flipping to an alternate orientation or adjusting its offset to remain on screen.
+ * The default of 48 is derived from a standard 24px screen-keepout size plus the standard
+ * Spotlight-outset (24px) margin/padding value which keeps elements and text aligned inside a
+ * Panel. Note: This value will be scaled according to the resolution.
+ */
 const defaultScreenEdgeKeepout = (24 + 24);
 
 // A hook to show Sandstone-styled tooltip components.
