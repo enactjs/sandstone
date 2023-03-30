@@ -70,13 +70,13 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {screenEdgeKeepout, tooltipDestinationProp} = config;
 
 	const Decorator = (props) => {
-		const {tooltipChildren, handlers, restProps} = useTooltip({screenEdgeKeepout, ...props});
+		const {tooltip, handlers, restProps} = useTooltip({screenEdgeKeepout, ...props});
 
-		if (props.tooltipText) {
+		if (tooltip) {
 			if (tooltipDestinationProp === 'children') {
-				restProps.children = [props.children, tooltipChildren];
+				restProps.children = [props.children, tooltip];
 			} else {
-				restProps[tooltipDestinationProp] = tooltipChildren;
+				restProps[tooltipDestinationProp] = tooltip;
 			}
 		}
 

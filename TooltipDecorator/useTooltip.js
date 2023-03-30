@@ -268,7 +268,7 @@ const useTooltip = (props) => {
 	}, [getTooltipRef, hideTooltip, layout, showing, tooltipMarquee, tooltipProps, tooltipRelative, tooltipText, tooltipType, tooltipWidth]);
 
 	return {
-		tooltipChildren: tooltipText ? renderTooltip() : null,
+		tooltip: tooltipText ? renderTooltip() : null,
 		handlers,
 		restProps: removeTooltipProps(props)
 	};
