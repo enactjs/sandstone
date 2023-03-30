@@ -1,4 +1,4 @@
-import React, {forwardRef, useCallback, useImperativeHandle, useState} from 'react';
+import React, {forwardRef, useCallback, useImperativeHandle, useRef, useState} from 'react';
 import {flushSync} from 'react-dom';
 
 import css from './TransferList.module.less';
@@ -50,7 +50,7 @@ const DragImage = forwardRef((props, ref) => {
 	}, [getCommonElementStyles]);
 
 	let [content, setContent] = useState(null);
-	let domRef = React.useRef(null);
+	let domRef = useRef(null);
 
 	useImperativeHandle(ref, () => (isSingle, callback) => {
 		// This will be called during the dragStart event by handleScroll. We need to render the
