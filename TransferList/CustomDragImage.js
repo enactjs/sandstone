@@ -1,4 +1,4 @@
-import React, {forwardRef, useCallback, useImperativeHandle, useRef, useState} from 'react';
+import {forwardRef, useCallback, useImperativeHandle, useRef, useState} from 'react';
 import {flushSync} from 'react-dom';
 
 import css from './TransferList.module.less';
