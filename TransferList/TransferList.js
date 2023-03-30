@@ -231,7 +231,7 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: ({disabled, itemSize, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, rearrangeList, selectedItems, showSelectionOrder, reorderList, ...rest}) => (data) => {
+		renderItem: ({disabled, itemSize, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, reorderList, ...rest}) => (data) => {
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
@@ -279,14 +279,14 @@ const TransferListBase = kind({
 					} else if (ev.key === 'ArrowDown') {
 						reorderList(list, index, 1, element);
 					}
-				} else {
+				} else if (orientation !== 'horizontal') {
 					if (ev.key === 'ArrowLeft') {
 						reorderList(list, index, -1, element);
 					} else if (ev.key === 'ArrowRight') {
 						reorderList(list, index, 1, element);
 					}
 				}
-			}
+			};
 
 			return (
 				<CheckboxItem
@@ -298,7 +298,7 @@ const TransferListBase = kind({
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
-					onKeyDownCapture={handleKeyDownCapture}
+					onKeyDownCapture={handleKeyDownCapture}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
@@ -369,14 +369,14 @@ const TransferListBase = kind({
 					} else if (ev.key === 'ArrowDown') {
 						reorderList(list, index, 1, element);
 					}
-				} else {
+				} else if (orientation !== 'horizontal') {
 					if (ev.key === 'ArrowLeft') {
 						reorderList(list, index, -2, element);
 					} else if (ev.key === 'ArrowRight') {
 						reorderList(list, index, 2, element);
 					}
 				}
-			}
+			};
 
 			return (
 				<ImageItem
@@ -388,7 +388,7 @@ const TransferListBase = kind({
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
-					onKeyDownCapture={handleKeyDownCapture}
+					onKeyDownCapture={handleKeyDownCapture} // eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
@@ -435,7 +435,7 @@ const TransferListBase = kind({
 				firstListTemp.splice(index, 1);
 				firstListTemp.splice(index + inc, 0, element);
 				setFirstListLocal(firstListTemp);
-				setSelectedItems([{element, index: index + inc, list}])
+				setSelectedItems([{element, index: index + inc, list}]);
 			} else {
 				if (index + inc < 0 || index + inc >= secondListLocal.length) return;
 
@@ -443,7 +443,7 @@ const TransferListBase = kind({
 				secondListTemp.splice(index, 1);
 				secondListTemp.splice(index + inc, 0, element);
 				setSecondListLocal(secondListTemp);
-				setSelectedItems([{element, index: index + inc, list}])
+				setSelectedItems([{element, index: index + inc, list}]);
 			}
 		};
 
