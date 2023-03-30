@@ -436,7 +436,7 @@ const TransferListBase = kind({
 		}, []);
 
 		const reorderList = (list, index, inc, element) => {
-			if (list === 'first') {
+			if (list === 'first' && moveOnSpotlight) {
 				if (index + inc < 0 || index + inc >= firstListLocal.length) return;
 
 				let firstListTemp = firstListLocal;
@@ -444,7 +444,7 @@ const TransferListBase = kind({
 				firstListTemp.splice(index + inc, 0, element);
 				setFirstListLocal(firstListTemp);
 				setSelectedItems([{element, index: index + inc, list}]);
-			} else {
+			} else if (list === 'second' && moveOnSpotlight) {
 				if (index + inc < 0 || index + inc >= secondListLocal.length) return;
 
 				let secondListTemp = secondListLocal;
