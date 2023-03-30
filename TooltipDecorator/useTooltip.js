@@ -62,10 +62,8 @@ const useTooltip = (props) => {
 		tooltipWidth
 	} = props;
 
-	let rtl = useI18nContext()?.rtl;
-	if (typeof props.rtl === 'boolean') {
-		rtl = props.rtl;
-	}
+	const rtlI18nContext = useI18nContext()?.rtl;
+	const rtl = (typeof props.rtl === 'boolean') ? props.rtl : rtlI18nContext;
 
 	const [showing, setShowing] = useState(false);
 	const [layout, setLayout] = useState({
@@ -120,12 +118,14 @@ const useTooltip = (props) => {
 			startTooltipLayoutJob();
 		}
 	}, [props, startTooltipLayoutJob]);
+
 	const onMouseOver = useCallback((ev) => {
 		forward('onMouseOver', ev, props);
 		if (props.disabled) {
 			showTooltip(ev.currentTarget);
 		}
 	}, [props, showTooltip]);
+
 	const onMouseOut = useCallback((ev) => {
 		forward('onMouseOut', ev, props);
 		if (props.disabled) {
@@ -135,10 +135,12 @@ const useTooltip = (props) => {
 			showTooltip(ev.currentTarget);
 		}
 	}, [hideTooltip, props, showTooltip]);
+
 	const onFocus = useCallback((ev) => {
 		forward('onFocus', ev, props);
 		showTooltip(ev.target);
 	}, [props, showTooltip]);
+
 	const onBlur = useCallback((ev) => {
 		forward('onBlur', ev, props);
 		hideTooltip();
