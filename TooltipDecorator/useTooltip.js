@@ -230,12 +230,9 @@ const useTooltip = (props) => {
 		}
 	}, [setTooltipLayout]);
 
-	/**
+	/*
 	 * Conditionally creates the FloatingLayer and Tooltip based on the presence of
 	 * `tooltipText` and returns a property bag to pass onto the Wrapped component
-	 *
-	 * @returns {Object} Prop object
-	 * @private
 	 */
 	const renderTooltip = useCallback(() => {
 		const {top, left} = layout.position;
