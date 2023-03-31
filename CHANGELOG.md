@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/WizardPanels` to restore focus properly after a transition
+
 ## [2.6.3] - 2023-03-17
 
 ### Added
