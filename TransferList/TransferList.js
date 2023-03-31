@@ -704,23 +704,41 @@ const TransferListBase = kind({
 				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
 
 				if (potentialIndex === -1) {
-					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(elementPosition, 0, draggedItem);
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) {
+						if (destinationList.includes(draggedItem)) return;
+						destinationList.splice(elementPosition, 0, draggedItem);
+					}
 					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
-					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) destinationList.splice(elementPosition, 0, draggedItem);
+					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) {
+						if (destinationList.includes(draggedItem)) return;
+						destinationList.splice(elementPosition, 0, draggedItem);
+					}
 					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
 				}
 
 				selectedItems.map((item, arrayIndex) => {
 					if (item.list !== draggedElementList) return;
-					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(elementPosition + arrayIndex, 0, item.element);
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) {
+						if (destinationList.includes(item.element)) return;
+						destinationList.splice(elementPosition + arrayIndex, 0, item.element);
+					}
 					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
-					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) destinationList.splice(elementPosition + arrayIndex, 0, item.element);
+					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) {
+						if (destinationList.includes(item.element)) return;
+						destinationList.splice(elementPosition + arrayIndex, 0, item.element);
+					}
 					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
 				});
 			} else {
-				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(elementPosition, 0, draggedItem);
+				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) {
+					if (destinationList.includes(draggedItem)) return;
+					destinationList.splice(elementPosition, 0, draggedItem);
+				}
 				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(draggedElementIndex, 1);
-				if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) destinationList.splice(elementPosition, 0, draggedItem);
+				if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) {
+					if (destinationList.includes(draggedItem)) return;
+					destinationList.splice(elementPosition, 0, draggedItem);
+				}
 				if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(draggedElementIndex, 1);
 			}
 
