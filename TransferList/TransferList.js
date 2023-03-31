@@ -96,6 +96,15 @@ const TransferListBase = kind({
 		firstListMinCapacity: PropTypes.number,
 
 		/**
+		 * Controls how items are handled when dropped onto another list.
+		 *
+		 * @type {Component}
+		 * @default 'move'
+		 * @public
+		 */
+		firstListOperation: PropTypes.oneOf(['move', 'copy', 'delete']),
+
+		/**
 		 * The height of the list container.
 		 *
 		 * @type {Number}
@@ -170,6 +179,15 @@ const TransferListBase = kind({
 		 * @public
 		 */
 		secondListMinCapacity: PropTypes.number,
+
+		/**
+		 * Controls how items are handled when dropped onto another list.
+		 *
+		 * @type {Component}
+		 * @default 'move'
+		 * @public
+		 */
+		secondListOperation: PropTypes.oneOf(['move', 'copy', 'delete']),
 
 		/**
 		 * Called when the first list needs to be modified.
@@ -407,7 +425,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [position, setPosition] = useState(null);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
@@ -568,9 +586,12 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list !== 'second') return;
-				tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
+				if (secondListOperation === 'move' || secondListOperation === 'copy') {
+					if  (tempFirst.includes(item.element)) return;
+					tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
+				}
+				if (secondListOperation === 'move' || secondListOperation === 'delete') tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
 				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-				tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
@@ -582,21 +603,27 @@ const TransferListBase = kind({
 			}
 			setSelectedItems(tempSelected);
 
-			setPosition({index: tempFirst.length - 1, list: 'first'});
-		}, [firstListLocal, firstListMaxCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
+			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: tempFirst.length - 1, list: 'first'});
+		}, [firstListLocal, firstListMaxCapacity, secondListLocal, secondListOperation, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
-		const moveIntoFirstAll = useCallback(() => {
+		const selectIntoFirstAll = useCallback(() => {
+			const concatList = secondListLocal.concat(firstListLocal.filter((item) => secondListLocal.indexOf(item) < 0));
+
 			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList([...firstListLocal, ...secondListLocal]);
-				setSecondList([]);
+				if (secondListOperation === 'move' || secondListOperation === 'copy') {
+					setFirstList(concatList);
+				}
+				if (secondListOperation === 'move' || secondListOperation === 'delete') setSecondList([]);
 			} else {
-				setFirstListLocal([...firstListLocal, ...secondListLocal]);
-				setSecondListLocal([]);
+				if (secondListOperation === 'move' || secondListOperation === 'copy') {
+					setFirstListLocal(concatList);
+				}
+				if (secondListOperation === 'move' || secondListOperation === 'delete') setSecondListLocal([]);
 			}
 			setSelectedItems([]);
 
-			setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
-		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
+			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
+		}, [firstListLocal, secondListLocal, secondListOperation, setFirstList, setSecondList]);
 
 		const moveIntoSecondSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
@@ -608,9 +635,12 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list !== 'first') return;
-				tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
+				if (firstListOperation === 'move' || firstListOperation === 'copy') {
+					if  (tempSecond.includes(item.element)) return;
+					tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
+				}
+				if (firstListOperation === 'move' || firstListOperation === 'delete') tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
 				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-				tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
 			});
 
 			if (setFirstList !== null && setSecondList !== null) {
@@ -622,21 +652,27 @@ const TransferListBase = kind({
 			}
 			setSelectedItems(tempSelected);
 
-			setPosition({index: tempSecond.length - 1, list: 'second'});
-		}, [firstListLocal, firstListMinCapacity, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
+			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: tempSecond.length - 1, list: 'second'});
+		}, [firstListLocal, firstListMinCapacity, firstListOperation, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
-		const moveIntoSecondAll = useCallback(() => {
+		const selectIntoSecondAll = useCallback(() => {
+			const concatList = secondListLocal.concat(firstListLocal.filter((item) => secondListLocal.indexOf(item) < 0));
+
 			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList([]);
-				setSecondList([...secondListLocal, ...firstListLocal]);
+				if (firstListOperation === 'move' || firstListOperation === 'copy') {
+					setSecondList(concatList);
+				}
+				if (firstListOperation === 'move' || firstListOperation === 'delete') setFirstList([]);
 			} else {
-				setFirstListLocal([]);
-				setSecondListLocal([...secondListLocal, ...firstListLocal]);
+				if (firstListOperation === 'move' || firstListOperation === 'copy') {
+					setSecondListLocal(concatList);
+				}
+				if (firstListOperation === 'move' || firstListOperation === 'delete') setFirstListLocal([]);
 			}
 			setSelectedItems([]);
 
-			setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
-		}, [firstListLocal, secondListLocal, setFirstList, setSecondList]);
+			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
+		}, [firstListLocal, firstListOperation, secondListLocal, setFirstList, setSecondList]);
 
 		const setSelected = useCallback((element, index, list) => {
 			if (selectedItems.findIndex((newElement) => newElement.list === list) === -1 && selectedItems.length) return;
@@ -686,24 +722,48 @@ const TransferListBase = kind({
 				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
 
 				if (potentialIndex === -1) {
-					destinationList.splice(elementPosition, 0, draggedItem);
-					sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) {
+						if (destinationList.includes(draggedItem)) return;
+						destinationList.splice(elementPosition, 0, draggedItem);
+					}
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
+					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) {
+						if (destinationList.includes(draggedItem)) return;
+						destinationList.splice(elementPosition, 0, draggedItem);
+					}
+					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
 				}
 
 				selectedItems.map((item, arrayIndex) => {
 					if (item.list !== draggedElementList) return;
-					destinationList.splice(elementPosition + arrayIndex, 0, item.element);
-					sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) {
+						if (destinationList.includes(item.element)) return;
+						destinationList.splice(elementPosition + arrayIndex, 0, item.element);
+					}
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
+					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) {
+						if (destinationList.includes(item.element)) return;
+						destinationList.splice(elementPosition + arrayIndex, 0, item.element);
+					}
+					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
 				});
 			} else {
-				sourceList.splice(draggedElementIndex, 1);
-				destinationList.splice(elementPosition, 0, draggedItem);
+				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) {
+					if (destinationList.includes(draggedItem)) return;
+					destinationList.splice(elementPosition, 0, draggedItem);
+				}
+				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(draggedElementIndex, 1);
+				if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) {
+					if (destinationList.includes(draggedItem)) return;
+					destinationList.splice(elementPosition, 0, draggedItem);
+				}
+				if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(draggedElementIndex, 1);
 			}
 
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		}, [noMultipleDrag, selectedItems]);
+		}, [firstListOperation, noMultipleDrag, secondListOperation, selectedItems]);
 
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
@@ -869,7 +929,7 @@ const TransferListBase = kind({
 								disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity}
 								icon={orientation === 'vertical' ? 'triangledown' : 'triangleright'}
 								iconOnly
-								onClick={moveIntoSecondAll}
+								onClick={selectIntoSecondAll}
 								onSpotlightLeft={orientation === 'vertical' ? handleSpotlightBounds : null}
 								onSpotlightUp={orientation === 'horizontal' ? handleSpotlightBounds : null}
 								size="small"
@@ -892,7 +952,7 @@ const TransferListBase = kind({
 								disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity}
 								icon={orientation === 'vertical' ? 'triangleup' : 'triangleleft'}
 								iconOnly
-								onClick={moveIntoFirstAll}
+								onClick={selectIntoFirstAll}
 								size="small"
 							/>
 							<Button
