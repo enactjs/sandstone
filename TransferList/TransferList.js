@@ -796,15 +796,15 @@ const TransferListBase = kind({
 		const moveInFirst = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'second') === -1 || !moveOnSpotlight) return;
 			moveIntoFirstSelected();
-			ev.preventDefault();
-			ev.stopPropagation();
+			ev?.preventDefault();
+			ev?.stopPropagation();
 		}, [moveIntoFirstSelected, moveOnSpotlight, selectedItems]);
 
 		const moveInSecond = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'first') === -1 || !moveOnSpotlight) return;
 			moveIntoSecondSelected();
-			ev.preventDefault();
-			ev.stopPropagation();
+			ev?.preventDefault();
+			ev?.stopPropagation();
 		}, [moveIntoSecondSelected, moveOnSpotlight, selectedItems]);
 
 		const firstListSpecs = {
