@@ -586,7 +586,10 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list !== 'second') return;
-				if (secondListOperation === 'move' || secondListOperation === 'copy') tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
+				if (secondListOperation === 'move' || secondListOperation === 'copy') {
+					if  (tempFirst.includes(item.element)) return;
+					tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
+				}
 				if (secondListOperation === 'move' || secondListOperation === 'delete') tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
 				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 			});
@@ -604,11 +607,17 @@ const TransferListBase = kind({
 		}, [firstListLocal, firstListMaxCapacity, secondListLocal, secondListOperation, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		const selectIntoFirstAll = useCallback(() => {
+			const concatList = secondListLocal.concat(firstListLocal.filter((item) => secondListLocal.indexOf(item) < 0));
+
 			if (setFirstList !== null && setSecondList !== null) {
-				if (secondListOperation === 'move' || secondListOperation === 'copy') setFirstList([...firstListLocal, ...secondListLocal]);
+				if (secondListOperation === 'move' || secondListOperation === 'copy') {
+					setFirstList(concatList);
+				}
 				if (secondListOperation === 'move' || secondListOperation === 'delete') setSecondList([]);
 			} else {
-				if (secondListOperation === 'move' || secondListOperation === 'copy') setFirstListLocal([...firstListLocal, ...secondListLocal]);
+				if (secondListOperation === 'move' || secondListOperation === 'copy') {
+					setFirstListLocal(concatList);
+				}
 				if (secondListOperation === 'move' || secondListOperation === 'delete') setSecondListLocal([]);
 			}
 			setSelectedItems([]);
@@ -626,7 +635,10 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list !== 'first') return;
-				if (firstListOperation === 'move' || firstListOperation === 'copy') tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
+				if (firstListOperation === 'move' || firstListOperation === 'copy') {
+					if  (tempSecond.includes(item.element)) return;
+					tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
+				}
 				if (firstListOperation === 'move' || firstListOperation === 'delete') tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
 				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 			});
@@ -644,11 +656,17 @@ const TransferListBase = kind({
 		}, [firstListLocal, firstListMinCapacity, firstListOperation, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		const selectIntoSecondAll = useCallback(() => {
+			const concatList = secondListLocal.concat(firstListLocal.filter((item) => secondListLocal.indexOf(item) < 0));
+
 			if (setFirstList !== null && setSecondList !== null) {
-				if (firstListOperation === 'move' || firstListOperation === 'copy') setSecondList([...secondListLocal, ...firstListLocal]);
+				if (firstListOperation === 'move' || firstListOperation === 'copy') {
+					setSecondList(concatList);
+				}
 				if (firstListOperation === 'move' || firstListOperation === 'delete') setFirstList([]);
 			} else {
-				if (firstListOperation === 'move' || firstListOperation === 'copy') setSecondListLocal([...secondListLocal, ...firstListLocal]);
+				if (firstListOperation === 'move' || firstListOperation === 'copy') {
+					setSecondListLocal(concatList);
+				}
 				if (firstListOperation === 'move' || firstListOperation === 'delete') setFirstListLocal([]);
 			}
 			setSelectedItems([]);
