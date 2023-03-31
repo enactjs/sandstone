@@ -19,6 +19,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
+import CustomDragImage from './CustomDragImage';
 import Icon from '../Icon';
 import ImageItem from '../ImageItem';
 import Skinnable from '../Skinnable';
@@ -26,9 +27,6 @@ import VirtualList, {VirtualGridList} from '../VirtualList';
 
 import componentCss from './TransferList.module.less';
 import imageItemCss from '../ImageItem/ImageItem.module.less';
-import itemCss from '../Item/Item.module.less';
-
-let multipleItemDragContainer, singleItemDragContainer;
 
 const svgGenerator = (width, height, customText) => (
 	`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +
@@ -387,16 +385,21 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({firstListOperation, secondListOperation, css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
+		const [position, setPosition] = useState(null);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
-		const [position, setPosition] = useState(null);
 
 		const height = ri.scaleToRem(orientation === 'horizontal' ? defaultHeight : verticalHeight);
+		const isDefaultListComponent = listComponent === 'VirtualList';
+		const isVertical = orientation === 'vertical';
 		const itemSize = ri.scale(defaultItemSize);
 		const width = orientation === 'horizontal' ? 'inherit' : '100%';
+		let isAboveDropPosition = useRef(false);
+		let currentElement = useRef();
 		let dragOverElement = useRef();
+		let dragImageNode = useRef();
 		let startDragElement = useRef();
 		let scrollToRefFirst = useRef(null);
 		let scrollToRefSecond = useRef(null);
@@ -409,106 +412,58 @@ const TransferListBase = kind({
 			scrollToRefSecond.current = scrollTo;
 		}, []);
 
-		const setCommonElementStyles = (element) => {
-			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
-			if (item) {
-				if (listComponent === 'VirtualList') {
-					const itemBg = item.querySelectorAll(`.${itemCss.bg}`)[0];
-					element.style.backgroundColor = window.getComputedStyle(itemBg).backgroundColor;
-					element.style.borderRadius = window.getComputedStyle(itemBg).borderRadius;
-				} else {
-					element.style.backgroundColor = window.getComputedStyle(item, ':before').backgroundColor;
-					element.style.borderRadius = window.getComputedStyle(item, ':before').borderRadius;
-				}
-
-				element.style.border = '1px solid black';
-				element.style.height = item.clientHeight + 'px';
-				element.style.left = "0px";
-				element.style.position = "absolute";
-				element.style.width = item.clientWidth + 'px';
-			}
-		};
-
-		const generateDragImage = () => {
-			const item = document.querySelectorAll(`.${css.draggableItem}`)[0];
-			if (item) {
-				singleItemDragContainer = document.createElement("div");
-				setCommonElementStyles(singleItemDragContainer);
-				singleItemDragContainer.style.bottom = "0px";
-				singleItemDragContainer.style.left = "0px";
-				singleItemDragContainer.style.zIndex = '-100';
-				document.body.appendChild(singleItemDragContainer);
-
-				multipleItemDragContainer = document.createElement("div");
-				setCommonElementStyles(multipleItemDragContainer);
-				multipleItemDragContainer.style.height = 1.6 * item.clientHeight + 'px';
-				multipleItemDragContainer.style.top = "0px";
-				multipleItemDragContainer.style.zIndex = '-110';
-				document.body.appendChild(multipleItemDragContainer);
-
-				let div2 = document.createElement("div");
-				setCommonElementStyles(div2);
-				div2.style.top = "0px";
-				div2.style.zIndex = '-100';
-
-				let div3 = document.createElement("div");
-				setCommonElementStyles(div3);
-				div3.style.top = 0.3 * item.clientHeight + 'px';
-				div3.style.zIndex = '-90';
-
-				let div4 = document.createElement("div");
-				setCommonElementStyles(div4);
-				div4.style.top = 0.6 * item.clientHeight + 'px';
-				div4.style.zIndex = '-80';
-
-				multipleItemDragContainer.appendChild(div2);
-				multipleItemDragContainer.appendChild(div3);
-				multipleItemDragContainer.appendChild(div4);
-			}
-		};
-
-		useEffect(() => {
-			generateDragImage();
-		});
-
 		const dropEventListenerFunction = useCallback((ev) => {
 			let element;
 			if (!ev.target.children.length) {
 				element = ev.target.parentElement;
 			} else {
-				element = ev.target.parentElement.parentElement.parentElement;
+				element = ev.currentTarget;
 			}
 
 			element.classList.remove(`${css.overAbove}`);
 			element.classList.remove(`${css.overBelow}`);
-		}, [css.overAbove, css.overBelow]);
+			element.classList.remove(`${css.overLeft}`);
+			element.classList.remove(`${css.overRight}`);
+		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight]);
 
 		const dragoverListenerFunction = useCallback((ev) => {
 			let element;
 			if (!ev.target.children.length) {
 				element = ev.target.parentElement;
 			} else {
-				element = ev.target.parentElement.parentElement.parentElement;
+				element = ev.currentTarget;
 			}
-
-			dragOverElement.current = parseInt(element.id.split('-')[0]);
 
 			const startDragOrder = Number(startDragElement.current.getAttribute('order'));
 			const dragOverOrder = Number(element.getAttribute('order'));
+			const isAboveCurrentElement = startDragOrder - 1 === dragOverOrder;
+			const isBelowCurrentElement = startDragOrder + 1 === dragOverOrder;
 
-			if (startDragOrder < dragOverOrder && startDragElement.current !== element) {
-				if (ev.offsetY <= 20) {
-					element.classList.add(`${css.overAbove}`);
+			currentElement.current = dragOverOrder > 0 ? element : currentElement.current;
+			dragOverElement.current = parseInt(element.id.split('-')[0]);
+
+			if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
+				if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					currentElement.current.classList.add(`${css.overAbove}`);
+					currentElement.current.classList.remove(`${css.overBelow}`);
+					isAboveDropPosition.current = true;
+				} else {
+					currentElement.current.classList.add(`${css.overBelow}`);
+					currentElement.current.classList.remove(`${css.overAbove}`);
+					isAboveDropPosition.current = false;
 				}
-			} else if (startDragOrder > dragOverOrder && startDragElement.current !== element) {
-				if (ev.offsetY === -1 || ev.offsetY === 0) {
-					element.classList.remove(`${css.overAbove}`);
-					element.classList.remove(`${css.overBelow}`);
-				} else if (ev.offsetY <= 60 && ev.offsetY >= 35) {
-					element.classList.add(`${css.overBelow}`);
+			} else if (startDragElement.current !== element) {
+				if ((ev.offsetX < currentElement.current.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					currentElement.current.classList.add(`${css.overLeft}`);
+					currentElement.current.classList.remove(`${css.overRight}`);
+					isAboveDropPosition.current = true;
+				} else {
+					currentElement.current.classList.add(`${css.overRight}`);
+					currentElement.current.classList.remove(`${css.overLeft}`);
+					isAboveDropPosition.current = false;
 				}
 			}
-		}, [css.overAbove, css.overBelow]);
+		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical]);
 
 		const startListenerFunction = useCallback((ev) => {
 			const element = ev.target;
@@ -518,11 +473,11 @@ const TransferListBase = kind({
 			ev.dataTransfer.setData('text/plain', `${index}-${list}`);
 			ev.dataTransfer.effectAllowed = 'move';
 
-			if (selectedItems.length > 1) {
-				ev.dataTransfer.setDragImage(multipleItemDragContainer, 0, 0);
-			} else {
-				ev.dataTransfer.setDragImage(singleItemDragContainer, 0, 0);
-			}
+			let isMultiple = selectedItems.length > 1;
+
+			dragImageNode?.current?.(!isMultiple, (nodeRef) => {
+				ev.dataTransfer.setDragImage(nodeRef, 0, 0);
+			});
 		}, [selectedItems.length]);
 
 		const handleScroll = useCallback(() => {
@@ -683,37 +638,36 @@ const TransferListBase = kind({
 
 		const rearrangeLists = useCallback((sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
 			const draggedItem = sourceList[draggedElementIndex];
+			const elementPosition = isAboveDropPosition.current ? dragOverElementIndex : dragOverElementIndex + 1;
 
 			if (!noMultipleDrag) {
 				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
 
 				if (potentialIndex === -1) {
-					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(elementPosition, 0, draggedItem);
 					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
-					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) destinationList.splice(Number(dragOverElement.current), 0, draggedItem);
+					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) destinationList.splice(elementPosition, 0, draggedItem);
 					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === draggedItem), 1);
 				}
 
 				selectedItems.map((item, arrayIndex) => {
 					if (item.list !== draggedElementList) return;
+					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(elementPosition + arrayIndex, 0, item.element);
 					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
-					if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
+					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) destinationList.splice(elementPosition + arrayIndex, 0, item.element);
 					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(sourceList.findIndex((element) => element === item.element && item.list === draggedElementList), 1);
-					if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) destinationList.splice(Number(dragOverElement.current) + arrayIndex, 0, item.element);
 				});
 			} else {
-				sourceList.splice(draggedElementIndex, 1);
-				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) {
-					destinationList.splice(dragOverElementIndex, 0, draggedItem);
-				} else if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) {
-					destinationList.splice(dragOverElementIndex, 0, draggedItem);
-				}
+				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'copy')) destinationList.splice(elementPosition, 0, draggedItem);
+				if (draggedElementList === 'second'  && (secondListOperation === 'move' || secondListOperation === 'delete')) sourceList.splice(draggedElementIndex, 1);
+				if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'copy')) destinationList.splice(elementPosition, 0, draggedItem);
+				if (draggedElementList === 'first'  && (firstListOperation === 'move' || firstListOperation === 'delete')) sourceList.splice(draggedElementIndex, 1);
 			}
 
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		}, [firstListOperation, noMultipleDrag, selectedItems, secondListOperation]);
+		}, [firstListOperation, noMultipleDrag, secondListOperation, selectedItems]);
 
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
@@ -837,6 +791,7 @@ const TransferListBase = kind({
 
 		return (
 			<Layout align="center" className={componentCss.transferList} orientation={orientation}>
+				<CustomDragImage listComponent={listComponent} ref={dragImageNode} />
 				<Cell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
