@@ -229,7 +229,7 @@ const TransferListBase = kind({
 	},
 
 	computed: {
-		renderItem: ({disabled, itemSize, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {
+		renderItem: ({disabled, itemSize, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, reorderList, selectedItems, showSelectionOrder, ...rest}) => (data) => {
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
@@ -269,6 +269,23 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			const handleKeyDownCapture = (ev) => {
+				if (!selected || selectedItems.length > 1) return;
+				if (orientation !== 'vertical') {
+					if (ev.key === 'ArrowUp') {
+						reorderList(list, index, -1, element);
+					} else if (ev.key === 'ArrowDown') {
+						reorderList(list, index, 1, element);
+					}
+				} else if (orientation !== 'horizontal') {
+					if (ev.key === 'ArrowLeft') {
+						reorderList(list, index, -1, element);
+					} else if (ev.key === 'ArrowRight') {
+						reorderList(list, index, 1, element);
+					}
+				}
+			};
+
 			return (
 				<CheckboxItem
 					{...rest}
@@ -279,6 +296,7 @@ const TransferListBase = kind({
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
+					onKeyDownCapture={handleKeyDownCapture}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
@@ -291,7 +309,7 @@ const TransferListBase = kind({
 				</CheckboxItem>
 			);
 		},
-		renderImageItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
+		renderImageItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, reorderList, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
@@ -341,6 +359,27 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			const handleKeyDownCapture = (ev) => {
+				if (!selected || selectedItems.length > 1) return;
+				if (orientation !== 'vertical') {
+					if (ev.key === 'ArrowUp') {
+						reorderList(list, index, -1, element);
+					} else if (ev.key === 'ArrowDown') {
+						reorderList(list, index, 1, element);
+					}
+				} else if (orientation !== 'horizontal') {
+					if (ev.key === 'ArrowLeft') {
+						reorderList(list, index, -2, element);
+					} else if (ev.key === 'ArrowRight') {
+						reorderList(list, index, 2, element);
+					} else if (ev.key === 'ArrowUp') {
+						reorderList(list, index, -1, element);
+					} else if (ev.key === 'ArrowDown') {
+						reorderList(list, index, 1, element);
+					}
+				}
+			};
+
 			return (
 				<ImageItem
 					{...rest}
@@ -351,6 +390,7 @@ const TransferListBase = kind({
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
+					onKeyDownCapture={handleKeyDownCapture} // eslint-disable-line  react/jsx-no-bind
 					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
 					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
@@ -611,6 +651,26 @@ const TransferListBase = kind({
 			}
 		}, [selectedItems]);
 
+		const reorderList = (list, index, inc, element) => {
+			if (list === 'first' && moveOnSpotlight) {
+				if (index + inc < 0 || index + inc >= firstListLocal.length) return;
+
+				let firstListTemp = firstListLocal;
+				firstListTemp.splice(index, 1);
+				firstListTemp.splice(index + inc, 0, element);
+				setFirstListLocal(firstListTemp);
+				setSelectedItems([{element, index: index + inc, list}]);
+			} else if (list === 'second' && moveOnSpotlight) {
+				if (index + inc < 0 || index + inc >= secondListLocal.length) return;
+
+				let secondListTemp = secondListLocal;
+				secondListTemp.splice(index, 1);
+				secondListTemp.splice(index + inc, 0, element);
+				setSecondListLocal(secondListTemp);
+				setSelectedItems([{element, index: index + inc, list}]);
+			}
+		};
+
 		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
 			const draggedItem = list[itemIndex];
 			list.splice(itemIndex, 1);
@@ -736,21 +796,22 @@ const TransferListBase = kind({
 		const moveInFirst = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'second') === -1 || !moveOnSpotlight) return;
 			moveIntoFirstSelected();
-			ev.preventDefault();
-			ev.stopPropagation();
+			ev?.preventDefault();
+			ev?.stopPropagation();
 		}, [moveIntoFirstSelected, moveOnSpotlight, selectedItems]);
 
 		const moveInSecond = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'first') === -1 || !moveOnSpotlight) return;
 			moveIntoSecondSelected();
-			ev.preventDefault();
-			ev.stopPropagation();
+			ev?.preventDefault();
+			ev?.stopPropagation();
 		}, [moveIntoSecondSelected, moveOnSpotlight, selectedItems]);
 
 		const firstListSpecs = {
 			elements: firstListLocal,
 			list: 'first',
 			onSelect: setSelected,
+			reorderList,
 			selectedItems,
 			moveInSecond,
 			showSelectionOrder
@@ -760,6 +821,7 @@ const TransferListBase = kind({
 			elements: secondListLocal,
 			list: 'second',
 			onSelect: setSelected,
+			reorderList,
 			selectedItems,
 			moveInFirst,
 			showSelectionOrder
