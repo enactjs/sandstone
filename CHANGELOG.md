@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Alert` alignment of text content to be left for fullscreen type
+
 ### Fixed
 
 - `sandstone/WizardPanels` to restore focus properly after a transition
