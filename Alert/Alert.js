@@ -25,8 +25,6 @@ import AlertImage from './AlertImage';
 
 import css from './Alert.module.less';
 
-const CenteredBodyText = (props) => <BodyText {...props} />;
-
 /**
  * A modal Alert component.
  *
@@ -154,11 +152,11 @@ const AlertBase = kind({
 				</Cell>
 			)) || null;
 		},
-		contentComponent: ({children, type}) => {
+		contentComponent: ({children}) => {
 			if (typeof children === 'string' ||
 				Array.isArray(children) && children.every(child => (child == null || typeof child === 'string'))
 			) {
-				return (type === 'fullscreen' ? CenteredBodyText : BodyText);
+				return BodyText;
 			}
 		},
 		className: ({buttons, image, title, type, styler}) => styler.append(
