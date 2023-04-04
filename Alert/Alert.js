@@ -25,8 +25,7 @@ import AlertImage from './AlertImage';
 
 import css from './Alert.module.less';
 
-// when Alert type is "fullscreen", the body content for string children should be centered
-const CenteredBodyText = (props) => <BodyText {...props} centered />;
+const CenteredBodyText = (props) => <BodyText {...props} />;
 
 /**
  * A modal Alert component.
