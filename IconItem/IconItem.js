@@ -12,7 +12,7 @@
  * @exports IconItem
  * @exports IconItemBase
  * @exports IconItemDecorator
- * @private
+ * @public
  */
 
 import kind from '@enact/core/kind';
@@ -41,7 +41,7 @@ import componentCss from './IconItem.module.less';
  * @property {String|Object} src Source for the image.
  *  String value or Object of values used to determine which image will appear on
  *  a specific screenSize.
- * @private
+ * @public
  */
 const ImageShape = PropTypes.shape({
 	size: PropTypes.shape({
@@ -57,7 +57,7 @@ const ImageShape = PropTypes.shape({
  * @class IconItemBase
  * @memberof sandstone/IconItem
  * @ui
- * @private
+ * @public
  */
 const IconItemBase = kind({
 	name: 'IconItem',
@@ -291,7 +291,7 @@ const IconItemBase = kind({
  * @mixes sandstone/Marquee.MarqueeController
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Skinnable.Skinnable
- * @private
+ * @public
  */
 const IconItemDecorator = compose(
 	MarqueeController({marqueeOnFocus: true}),
@@ -317,7 +317,7 @@ const IconItemDecorator = compose(
  * @mixes sandstone/IconItem.IconItemDecorator
  * @see {@link sandstone/IconItem.IconItemBase}
  * @ui
- * @private
+ * @public
  */
 const IconItem = IconItemDecorator(IconItemBase);
 IconItem.displayName = 'IconItem';
