@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/IconItem` component
+
 ### Fixed
 
 - `sandstone/WizardPanels` to restore focus properly after a transition
