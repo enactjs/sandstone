@@ -6,6 +6,10 @@
  *   background="#1b1b1b"
  *   bordered
  *   icon="usb"
+ *   style={{
+ *      height: 120,
+ *      width: 156
+ *   }}
  * />
  *
  * @module sandstone/IconItem
