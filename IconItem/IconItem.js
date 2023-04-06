@@ -7,8 +7,8 @@
  *   bordered
  *   icon="usb"
  *   style={{
- *      height: 120,
- *      width: 156
+ *      height: 60,
+ *      width: 78
  *   }}
  * />
  *
