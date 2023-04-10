@@ -17,7 +17,7 @@ describe.skip('Editable Scroller', function () {
 
 		// Step 4: 5-way Right.
 		await ScrollerPage.spotlightRight();
-		// STep 4 Verify: Position of Image 0 and Image 1 are switched.
+		// Step 4 Verify: Position of Image 0 and Image 1 are switched.
 		await ScrollerPage.spotlightSelect();
 		await expectFocusedItem(0);
 		await ScrollerPage.spotlightLeft();
