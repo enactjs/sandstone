@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/IconItem` component
 
+### Changed
+
+- `sandstone/Alert` alignment of text content to be left for fullscreen type
+
 ### Fixed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to handle focus properly via page up at the first page and page down at the last page
