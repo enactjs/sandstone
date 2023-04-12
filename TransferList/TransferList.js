@@ -676,18 +676,19 @@ const TransferListBase = kind({
 
 		const setSelected = useCallback((element, index, list) => {
 			if (selectedItems.findIndex((newElement) => newElement.list === list) === -1 && selectedItems.length) return;
-			if (noMultipleSelect) {
-				setSelectedItems([{element, index, list}]);
+			const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
+			if (potentialIndex !== -1) {
+				setSelectedItems(items => {
+					items.splice(potentialIndex, 1);
+					return [...items];
+				});
 			} else {
-				const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
-				if (potentialIndex !== -1) {
-					setSelectedItems(items => {
-						items.splice(potentialIndex, 1);
-						return [...items];
-					});
-				} else {
-					setSelectedItems(items => ([...items, {element, index, list}]));
-				}
+				setSelectedItems(items => {
+					if (noMultipleSelect) {
+						return [{element, index, list}];
+					}
+					return [...items, {element, index, list}];
+				});
 			}
 		}, [selectedItems, noMultipleSelect]);
 
