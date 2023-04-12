@@ -149,11 +149,11 @@ const PickerBase = (props) => {
 		if (Number.isInteger(voiceIndex)) {
 			const voiceValue = min + voiceIndex;
 			if (onChange && voiceValue >= min && voiceValue <= max && voiceValue !== value) {
-				onChange({value: voiceValue});
+				forwardCustom('onChange', () => ({value: voiceValue}))(ev, props);
 				ev.preventDefault();
 			}
 		}
-	}, [max, min, onChange, value]);
+	}, [max, min, onChange, props, value]);
 
 	const computeNextValue = useCallback((delta) => {
 		const horizontalJoined = orientation === 'horizontal' && joined && changedBy === 'enter';
@@ -178,9 +178,9 @@ const PickerBase = (props) => {
 		setTransitionDirection(dir);
 		if (!disabled && onChange) {
 			const updatedValue = computeNextValue(dir * step);
-			onChange({value: updatedValue});
+			forwardCustom('onChange', () => ({value: updatedValue}))(null, props);
 		}
-	}, [adjustDirection, setTransitionDirection, disabled, onChange, computeNextValue, step]);
+	}, [adjustDirection, setTransitionDirection, disabled, onChange, computeNextValue, step, props]);
 
 	const setPressedState = useCallback((pressedValue) => {
 		if (joined) {
