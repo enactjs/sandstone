@@ -22,7 +22,7 @@ export const _TransferList = (args) => (
 		itemSize={args['itemSize']}
 		listComponent={args['listComponent']}
 		moveOnSpotlight={args['moveElementOnSpotlightDirections']}
-		noMultipleDrag={args['noMultipleDrag']}
+		noMultipleSelect={args['noMultipleSelect']}
 		orientation={args['orientation']}
 		secondList={['HBO', 'Comedy Central', 'HGTV', 'CBS', 'Cartoon Network', 'AXN', 'Disney Channel', 'BBC Food']}
 		secondListMaxCapacity={args['secondListMaxCapacity']}
@@ -39,7 +39,7 @@ select('firstListOperation', _TransferList, ['move', 'copy', 'delete'], Config, 
 number('itemSize', _TransferList, Config, 201);
 select('listComponent', _TransferList, ['VirtualList', 'VirtualGridList'], Config, 'VirtualList');
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
-boolean('noMultipleDrag', _TransferList, Config, false);
+boolean('noMultipleSelect', _TransferList, Config, false);
 select('orientation', _TransferList, ['horizontal', 'vertical'], Config, 'horizontal');
 number('secondListMinCapacity', _TransferList, Config);
 number('secondListMaxCapacity', _TransferList, Config);

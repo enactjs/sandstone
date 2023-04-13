@@ -145,7 +145,7 @@ const TransferListBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		noMultipleDrag: PropTypes.bool,
+		noMultipleSelect: PropTypes.bool,
 
 		/**
 		 * The orientation for the transfer list.
@@ -231,7 +231,7 @@ const TransferListBase = kind({
 		itemSize: 201,
 		listComponent: 'VirtualList',
 		moveOnSpotlight: false,
-		noMultipleDrag: false,
+		noMultipleSelect: false,
 		orientation: 'horizontal',
 		secondList: {},
 		setFirstList: null,
@@ -425,7 +425,7 @@ const TransferListBase = kind({
 		}
 	},
 
-	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleDrag, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleSelect, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [position, setPosition] = useState(null);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
@@ -683,9 +683,14 @@ const TransferListBase = kind({
 					return [...items];
 				});
 			} else {
-				setSelectedItems(items => ([...items, {element, index, list}]));
+				setSelectedItems(items => {
+					if (noMultipleSelect) {
+						return [{element, index, list}];
+					}
+					return [...items, {element, index, list}];
+				});
 			}
-		}, [selectedItems]);
+		}, [selectedItems, noMultipleSelect]);
 
 		const reorderList = (list, index, inc, element) => {
 			if (list === 'first' && moveOnSpotlight) {
@@ -718,7 +723,7 @@ const TransferListBase = kind({
 			const draggedItem = sourceList[draggedElementIndex];
 			const elementPosition = isAboveDropPosition.current ? dragOverElementIndex : dragOverElementIndex + 1;
 
-			if (!noMultipleDrag) {
+			if (!noMultipleSelect) {
 				const potentialIndex = selectedItems.findIndex((pair) => pair.element === draggedItem);
 
 				if (potentialIndex === -1) {
@@ -763,7 +768,7 @@ const TransferListBase = kind({
 			dragOverElement.current = null;
 			setSourceList(sourceList);
 			setDestinationList(destinationList);
-		}, [firstListOperation, noMultipleDrag, secondListOperation, selectedItems]);
+		}, [firstListOperation, noMultipleSelect, secondListOperation, selectedItems]);
 
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
@@ -794,7 +799,7 @@ const TransferListBase = kind({
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
 
 			const selectedListCopy = [...selectedItems];
-			if (!noMultipleDrag) {
+			if (!noMultipleSelect) {
 				selectedItems.map((item) => {
 					selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 				});
@@ -806,7 +811,7 @@ const TransferListBase = kind({
 			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'second'});
 
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
-		}, [firstListLocal, firstListMinCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
+		}, [firstListLocal, firstListMinCapacity, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
 		const onDropFirstHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
@@ -829,7 +834,7 @@ const TransferListBase = kind({
 
 			if (potentialIndex !== -1) {
 				const selectedListCopy = [...selectedItems];
-				if (!noMultipleDrag) {
+				if (!noMultipleSelect) {
 					selectedItems.map((item) => {
 						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 					});
@@ -842,7 +847,7 @@ const TransferListBase = kind({
 			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'first'});
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
-		}, [firstListLocal, firstListMaxCapacity, noMultipleDrag, rearrangeLists, secondListLocal, selectedItems, secondListMinCapacity]);
+		}, [firstListLocal, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMinCapacity]);
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
