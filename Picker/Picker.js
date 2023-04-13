@@ -127,7 +127,7 @@ const PickerBase = kind({
 		 *
 		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * {@link sandstone/Picker.Picker#orientation|orientation} is changed.
+		 * {@link sandstone/Picker.PickerBase.orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public

@@ -1648,7 +1648,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Sets the playback rate type (from the keys of {@link sandstone/VideoPlayer.VideoPlayer#playbackRateHash|playbackRateHash}).
+	 * Sets the playback rate type (from the keys of {@link sandstone/VideoPlayer.VideoPlayer.playbackRateHash|playbackRateHash}).
 	 *
 	 * @param {String} cmd - Key of the playback rate type.
 	 * @private
