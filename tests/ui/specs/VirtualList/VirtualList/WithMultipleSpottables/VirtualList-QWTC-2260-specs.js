@@ -10,7 +10,7 @@ describe('VirtualList with multiple spottables in an item', function () {
 		await Page.spotlightDown();
 		await Page.spotlightRight();
 		await Page.spotlightRight();
-		// STep 1 Verify: Spotlight displays on a star icon(★) of the first item ('item 000').
+		// Step 1 Verify: Spotlight displays on a star icon(★) of the first item ('item 000').
 		expect((await Page.getElementAttribute('id')).slice(0, 8)).to.equal('starIcon');
 		expect(Number(await Page.getElementAttribute('data-index'))).to.equal(0);
 		// 5-way Down hold for 1 second.
