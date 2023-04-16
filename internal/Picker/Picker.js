@@ -795,7 +795,7 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	/**
 	 * Assign a custom icon for the decrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
 	 * supported. Without a custom icon, the default is used, and is automatically changed when
-	 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
+	 * the {@link sandstone/internal/Picker.PickerBase.orientation|orientation} is changed.
 	 *
 	 * @type {String}
 	 * @public
@@ -831,7 +831,7 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	/**
 	 * Assign a custom icon for the incrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
 	 * supported. Without a custom icon, the default is used, and is automatically changed when
-	 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
+	 * the {@link sandstone/internal/Picker.PickerBase.orientation|orientation} is changed.
 	 *
 	 * @type {String}
 	 * @public
