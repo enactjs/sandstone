@@ -61,7 +61,7 @@ const ButtonBase = kind({
 		/**
 		 * Enables the `collapsed` feature.
 		 *
-		 * This requires that both the text and {@link ui/Button.ButtonBase.Icon|icon} are
+		 * This requires that both the text and {@link ui/Button.ButtonBase.icon|icon} are
 		 * defined.
 		 *
 		 * Use {@link sandstone/Button.ButtonBase.collapsed|collapsed} to toggle the collapsed state.
