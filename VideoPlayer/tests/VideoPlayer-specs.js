@@ -38,7 +38,7 @@ describe('VideoPlayer', () => {
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		downKeyDown(overlay); // to test line #L1285 on codecov
+		downKeyDown(overlay);
 
 		const slider = screen.getByRole('slider', {hidden: true});
 		focus(slider); // add to increase code coverage
