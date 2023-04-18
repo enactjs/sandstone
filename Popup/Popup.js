@@ -349,7 +349,7 @@ class Popup extends Component {
 		 * Called after show transition has completed, and immediately with no transition.
 		 *
 		 * Note: The function does not run if Popup is initially opened and
-		 * {@link sandstone/Popup.PopupBase#noAnimation|noAnimation} is `true`.
+		 * {@link sandstone/Popup.PopupBase.noAnimation|noAnimation} is `true`.
 		 *
 		 * @type {Function}
 		 * @public

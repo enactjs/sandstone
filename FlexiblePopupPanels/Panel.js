@@ -38,7 +38,7 @@ const PanelBase = kind({
 		 *
 		 * If `false`, the button will not show. If set to a component, or `true`, the button will
 		 * show. This will override the setting of
-		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#nextButtonVisibility|nextButtonVisibility}.
+		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels.nextButtonVisibility|nextButtonVisibility}.
 		 *
 		 * Example:
 		 * ```
@@ -102,7 +102,7 @@ const PanelBase = kind({
 		 *
 		 * If `false`, the button will not show. If set to a component, or `true`, the button will
 		 * show. This will override the setting of
-		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#prevButtonVisibility|prevButtonVisibility}.
+		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels.prevButtonVisibility|prevButtonVisibility}.
 		 *
 		 * Example:
 		 * ```
