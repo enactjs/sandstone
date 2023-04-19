@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Picker` to include `type` in the event payload for `onChange`
 - `sandstone/Scroller` and `sandstone/VirtualList` to handle focus properly via page up at the first page and page down at the last page
+- `sandstone/Scroller` and `sandstone/VirtualList` to handle scrolling stop by `hoverToScroll` properly when the pointer disappears
 - `sandstone/WizardPanels` to restore focus properly after a transition
 
 ## [2.6.3] - 2023-03-17
