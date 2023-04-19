@@ -10,10 +10,10 @@
     "cleanall": "enact clean --all",
     "lint": "enact lint --strict",
     "test": "echo \"No test suite\" && exit 0",
-    "pack": "build-storybook -c .storybook -o dist",
-    "pack-qa": "build-storybook -c .qa-storybook -o dist",
-    "serve": "start-storybook -p 8080 -c .storybook --ci",
-    "serve-qa": "start-storybook -p 8080 -c .qa-storybook --ci"
+    "pack": "storybook build -c .storybook -o dist",
+    "pack-qa": "storybook build -c .qa-storybook -o dist",
+    "serve": "storybook dev -p 8080 -c .storybook --ci",
+    "serve-qa": "storybook dev -p 8080 -c .qa-storybook --ci"
   },
   "license": "Apache-2.0",
   "enact": {
@@ -31,13 +31,12 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@enact/storybook-utils": "^5.0.3",
-    "@storybook/addons": "^6.5.16",
-    "@storybook/builder-webpack5": "^6.5.16",
-    "@storybook/manager-webpack5": "^6.5.16",
-    "@storybook/react": "^6.5.16",
-    "@storybook/theming": "^6.5.16",
+    "@enact/storybook-utils": "github:enactjs/storybook-utils#feature/WRP-569",
+    "@storybook/addons": "^7.0.6",
+    "@storybook/react-webpack5": "^7.0.6",
+    "@storybook/theming": "^7.0.6",
     "babel-loader": "^8.2.5",
-    "core-js": "^3.29.0"
+    "core-js": "^3.29.0",
+    "storybook": "^7.0.6"
   }
 }

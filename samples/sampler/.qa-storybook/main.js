@@ -4,14 +4,16 @@ const webpack = require('@enact/storybook-utils/configs/webpack');
 
 module.exports = {
 	core: {
-		builder: 'webpack5',
 		disableTelemetry: true
 	},
 	features: {
 		postcss: false,
 		warnOnLegacyHierarchySeparator: false
 	},
-	framework: '@storybook/react',
+	framework: {
+		name: '@storybook/react-webpack5',
+		options: {}
+	},
 	stories: ['./../stories/qa/*.js'],
 	addons: [
 		'@enact/storybook-utils/addons/actions',
@@ -25,4 +27,4 @@ module.exports = {
 	typescript: {
 		reactDocgen: false
 	}
-}
+};
