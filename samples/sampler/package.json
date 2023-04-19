@@ -17,10 +17,7 @@
   },
   "license": "Apache-2.0",
   "enact": {
-    "theme": "sandstone",
-		"resolveFallback": {
-			"fs": false
-		}
+    "theme": "sandstone"
   },
   "dependencies": {
     "@enact/core": "^4.6.2",
