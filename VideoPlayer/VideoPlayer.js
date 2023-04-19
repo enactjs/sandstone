@@ -844,7 +844,7 @@ const VideoPlayerBase = class extends Component {
 	}
 
 	componentDidMount () {
-		on('mousemove', this.activityDetected);
+		on('mousemove', this.activityDetected, document);
 		if (platform.touch) {
 			on('touchmove', this.activityDetected);
 		}
