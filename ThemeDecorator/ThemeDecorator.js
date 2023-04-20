@@ -179,6 +179,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	});
 
 	let requestInputType = null;
+	let getLastInputTypeApiAvailable = false;
 
 	let App = Wrapped;
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
@@ -256,8 +257,22 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			skin: PropTypes.string
 		};
 
+		constructor (props) {
+			super(props);
+
+			if (platform.webos) {
+				new LS2Request().send({
+					service: 'luna://com.webos.surfacemanager',
+					method: 'com/palm/luna/private/introspection',
+					onSuccess: function ({'/': apiList}) {
+						getLastInputTypeApiAvailable = Object.prototype.hasOwnProperty.call(apiList, 'getLastInputType');
+					}
+				});
+			}
+		}
+
 		componentDidMount () {
-			if (spotlight && platform.webos) {
+			if (spotlight && platform.webos && getLastInputTypeApiAvailable) {
 				activateInputType(true);
 				requestInputType = new LS2Request().send({
 					service: 'luna://com.webos.surfacemanager',

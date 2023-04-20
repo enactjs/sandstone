@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Picker` to include `type` in the event payload for `onChange`
 - `sandstone/Scroller` and `sandstone/VirtualList` to handle focus properly via page up at the first page and page down at the last page
+- `sandstone/ThemeDecorator` to call the API checking the last input type only when it's available
 - `sandstone/WizardPanels` to restore focus properly after a transition
 
 ## [2.6.3] - 2023-03-17
