@@ -33,6 +33,7 @@
   "devDependencies": {
     "@enact/storybook-utils": "github:enactjs/storybook-utils#feature/WRP-569",
     "@storybook/addons": "^7.0.6",
+    "@storybook/react": "^7.0.6",
     "@storybook/react-webpack5": "^7.0.6",
     "@storybook/theming": "^7.0.6",
     "babel-loader": "^8.2.5",

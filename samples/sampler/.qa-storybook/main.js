@@ -1,6 +1,8 @@
 /* global __dirname */
 
 const webpack = require('@enact/storybook-utils/configs/webpack');
+const { loadCsf } = require('@storybook/csf-tools');
+const { readFileSync }  = require('fs');
 
 module.exports = {
 	core: {
@@ -14,6 +16,19 @@ module.exports = {
 		name: '@storybook/react-webpack5',
 		options: {}
 	},
+	storyIndexers: (indexers) => {
+		const indexer = async (fileName, opts) => {
+			const code = readFileSync(fileName, { encoding: 'utf-8' });
+			return loadCsf(code, { ...opts, fileName }).parse();
+		};
+		return [
+			{
+				test: /\.[tj]sx?$/,
+				indexer,
+			},
+			...(indexers || [])
+		]
+	},
 	stories: ['./../stories/qa/*.js'],
 	addons: [
 		'@enact/storybook-utils/addons/actions',
@@ -22,6 +37,10 @@ module.exports = {
 		'@enact/storybook-utils/addons/toolbars'
 	],
 	webpackFinal: async (config, {configType}) => {
+		// Removing the global alias as it conflicts with the global npm pkg
+		const { global, ...alias } = config.resolve.alias;
+		config.resolve.alias = alias;
+
 		return webpack(config, configType, __dirname);
 	},
 	typescript: {
