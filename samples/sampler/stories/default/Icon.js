@@ -1,8 +1,8 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {range, select, text} from '@enact/storybook-utils/addons/controls';
 import Heading from '@enact/sandstone/Heading';
 import Icon, {IconBase} from '@enact/sandstone/Icon';
 import Scroller from '@enact/sandstone/Scroller';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {range, select, text} from '@enact/storybook-utils/addons/controls';
 import UiIcon from '@enact/ui/Icon';
 
 // import icons

@@ -28,7 +28,10 @@ const getBoundsPropertyNames = (direction) => {
 		scrollPosition: 'scrollLeft'
 	};
 };
-const hoverToScrollMultiplier = 0.04;
+const hoverToScrollMultiplier = {
+	horizontal: 0.015,
+	vertical: 0.04
+};
 const directionToFocus = {
 	horizontal: {
 		before: 'right',
@@ -115,7 +118,7 @@ const HoverToScrollBase = (props) => {
 					const distance =
 						(position === 'before' ? -1 : 1) * // scroll direction
 						bounds[clientSize] * // scroll page size
-						hoverToScrollMultiplier; // a scrolling speed factor
+						hoverToScrollMultiplier[direction]; // a scrolling speed factor
 
 					mutableRef.current.hoveredPosition = position;
 

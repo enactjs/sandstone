@@ -1,0 +1,35 @@
+{
+  "name": "qa-tablayout",
+  "version": "0.1.0",
+  "description": "A qa sample for testing TabLayout",
+  "author": "",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "enact serve",
+    "pack": "enact pack",
+    "pack-p": "enact pack -p",
+    "watch": "enact pack --watch",
+    "clean": "enact clean",
+    "lint": "enact lint --strict .",
+    "test": "enact test",
+    "test-watch": "enact test --watch"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": "",
+  "enact": {
+    "title": "QA TabLayout",
+    "theme": "sandstone"
+  },
+  "dependencies": {
+    "@enact/core": "^4.6.2",
+    "@enact/i18n": "^4.6.2",
+    "@enact/sandstone": "../../",
+    "@enact/spotlight": "^4.6.2",
+    "@enact/ui": "^4.6.2",
+    "ilib": "^14.17.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

@@ -70,7 +70,7 @@ const Panel = Slottable(
  *
  * If `false`, the button will not show. If set to a component, or `true`, the button will
  * show. This will override the setting of
- * {@link sandstone/WizardPanels.WizardPanels#nextButtonVisibility|nextButtonVisibility}.
+ * {@link sandstone/WizardPanels.WizardPanelsBase.nextButtonVisibility|nextButtonVisibility}.
  *
  * Example:
  * ```
@@ -90,7 +90,7 @@ const Panel = Slottable(
  *
  * If `false`, the button will not show. If set to a component, or `true`, the button will
  * show. This will override the setting of
- * {@link sandstone/WizardPanels.WizardPanels#prevButtonVisibility|prevButtonVisibility}.
+ * {@link sandstone/WizardPanels.WizardPanelsBase.prevButtonVisibility|prevButtonVisibility}.
  *
  * Example:
  * ```

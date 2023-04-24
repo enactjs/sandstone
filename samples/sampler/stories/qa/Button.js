@@ -1,10 +1,10 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import {Row} from '@enact/ui/Layout';
 import Scroller from '@enact/sandstone/Scroller';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 
 import iconNames from '../helper/icons';
@@ -209,6 +209,9 @@ export const KitchenSink = () => (
 				<Button size="small" alt="With Icon" icon="home">
 					Button
 				</Button>
+				<Button roundBorder size="small" alt="Round Border">
+					Button
+				</Button>
 			</Section>
 
 			<Section title="Large Buttons" size="50%">
@@ -227,18 +230,23 @@ export const KitchenSink = () => (
 				<Button size="large" alt="With Icon" icon="home">
 					Button
 				</Button>
+				<Button roundBorder size="large" alt="Round Border">
+					Button
+				</Button>
 			</Section>
 
 			<Section title="Small Icon Button" size="50%">
 				<Button size="small" icon="play" alt="Normal" />
 				<Button size="small" icon="play" alt="Selected" selected />
 				<Button size="small" icon="play" alt="Disabled" disabled />
+				<Button roundBorder size="small" icon="play" alt="Round Border" disabled />
 			</Section>
 
 			<Section title="Large Icon Button" size="50%">
 				<Button size="large" icon="play" alt="Normal" />
 				<Button size="large" icon="play" alt="Selected" selected />
 				<Button size="large" icon="play" alt="Disabled" disabled />
+				<Button roundBorder size="large" icon="play" alt="Round Border" disabled />
 			</Section>
 
 			<Section title="Small Transparent Buttons" size="50%">
@@ -255,6 +263,9 @@ export const KitchenSink = () => (
 					Super-duper long text string inside a button
 				</Button>
 				<Button backgroundOpacity="transparent" size="small" alt="With Icon" icon="home">
+					Button
+				</Button>
+				<Button backgroundOpacity="transparent" roundBorder size="small" alt="Round Border">
 					Button
 				</Button>
 			</Section>
@@ -275,13 +286,22 @@ export const KitchenSink = () => (
 				<Button backgroundOpacity="transparent" size="large" alt="With Icon" icon="home">
 					Button
 				</Button>
+				<Button backgroundOpacity="transparent" roundBorder size="large" alt="Round Border">
+					Button
+				</Button>
 			</Section>
 
 			<Section title="Static Focus Effect Text" size="50%">
 				<Button focusEffect="static" size="small" alt="Small">
 					Button
 				</Button>
+				<Button focusEffect="static" roundBorder size="small" alt=" Small Round Border">
+					Button
+				</Button>
 				<Button focusEffect="static" size="large" alt="Large">
+					Button
+				</Button>
+				<Button focusEffect="static" roundBorder size="large" alt="Large Round Border">
 					Button
 				</Button>
 				<Button
@@ -295,8 +315,26 @@ export const KitchenSink = () => (
 				<Button
 					focusEffect="static"
 					backgroundOpacity="transparent"
+					roundBorder
+					size="small"
+					alt="Small Transparent Round Border"
+				>
+					Button
+				</Button>
+				<Button
+					focusEffect="static"
+					backgroundOpacity="transparent"
 					size="large"
 					alt="Large Transparent"
+				>
+					Button
+				</Button>
+				<Button
+					focusEffect="static"
+					backgroundOpacity="transparent"
+					roundBorder
+					size="large"
+					alt="Large Transparent Round Border"
 				>
 					Button
 				</Button>
@@ -304,7 +342,9 @@ export const KitchenSink = () => (
 
 			<Section title="Static Focus Effect Icon" size="50%">
 				<Button focusEffect="static" size="small" icon="play" alt="Small" />
+				<Button focusEffect="static" roundBorder size="small" icon="play" alt="Small Round Border" />
 				<Button focusEffect="static" size="large" icon="play" alt="Large" />
+				<Button focusEffect="static" roundBorder size="large" icon="play" alt="Large Round Border" />
 			</Section>
 		</Row>
 	</Scroller>

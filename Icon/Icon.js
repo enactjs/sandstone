@@ -41,7 +41,7 @@ const IconBase = kind({
 		/**
 		 * The icon content.
 		 *
-		 * @see {@link ui/Icon.Icon.children}
+		 * @see {@link ui/Icon.IconBase.children}
 		 * @type {String|Object}
 		 * @public
 		 */
@@ -340,6 +340,13 @@ const IconBase = kind({
  * changepassword
  * r2rappcall
  * musicsrc
+ * keymouse
+ * keymousedis
+ * camera
+ * cameradis
+ * gamepad
+ * gamepaddis
+ * wowcast
  * ```
  *
  * @name iconList

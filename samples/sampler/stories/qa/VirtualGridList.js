@@ -1,6 +1,4 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import ImageItem from '@enact/sandstone/ImageItem';
@@ -8,6 +6,9 @@ import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 import PropTypes from 'prop-types';
@@ -152,7 +153,7 @@ class ButtonAndVirtualGridList extends Component {
 					open={this.state.isPopup}
 					popupComponent={this.renderPopup}
 					onClick={this.openPopup}
-					direction="right middle"
+					direction={this.props.rtl ? "left middle" : "right middle"}
 					spotlightRestrict="self-only"
 					onClose={this.closePopup}
 				>
@@ -162,6 +163,15 @@ class ButtonAndVirtualGridList extends Component {
 		);
 	}
 }
+
+ButtonAndVirtualGridList.propTypes = {
+	rtl: PropTypes.bool
+};
+
+const ButtonAndVirtualGridListSamples = I18nContextDecorator (
+	{rtlProp: 'rtl'},
+	ButtonAndVirtualGridList
+);
 
 export default {
 	title: 'Sandstone/VirtualGridList',
@@ -210,7 +220,7 @@ HorizontalVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridList />;
+export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridListSamples />;
 
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
 WithButtonSpotlightGoesToCorrectTarget.parameters = {

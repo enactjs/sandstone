@@ -2,9 +2,6 @@
 
 import {is} from '@enact/core/keymap';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Popup, {PopupBase} from '@enact/sandstone/Popup';
@@ -12,6 +9,9 @@ import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTa
 import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase} from '@enact/sandstone/TabLayout';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import Group from '@enact/ui/Group';
 import PropTypes from 'prop-types';
 import {useState} from 'react';

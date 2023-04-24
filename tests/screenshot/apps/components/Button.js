@@ -1,6 +1,8 @@
 import Button from '../../../../Button';
 
-import {withConfig} from './utils';
+import {withConfig, withProps} from './utils';
+
+import css from './Button.module.less';
 
 const ButtonTests = [
 	<Button>click me</Button>,
@@ -91,6 +93,59 @@ const ButtonTests = [
 	// [QWTC-1831]
 	<Button icon="rotate">click me</Button>,
 
+	// roundBorder
+	<Button roundBorder>click me</Button>,
+	<Button roundBorder size="small">click me</Button>,
+	<Button roundBorder size="large">click me</Button>,
+	<Button backgroundOpacity="transparent" roundBorder>click me</Button>,
+	<Button backgroundOpacity="opaque" roundBorder>click me</Button>,
+	<Button icon="minus" iconPosition="after" roundBorder />,
+	<Button icon="minus" iconPosition="after" roundBorder size="large" />,
+	<Button icon="plus" iconPosition="before" roundBorder />,
+	<Button icon="plus" iconPosition="before" roundBorder size="large" />,
+	{
+		textSize: 'large',
+		component: <Button roundBorder>click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button roundBorder size="small">click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button roundBorder size="large">click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button backgroundOpacity="transparent" roundBorder>click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button backgroundOpacity="opaque" roundBorder>click me</Button>
+	},
+	{
+		textSize: 'large',
+		component: <Button icon="minus" iconPosition="after" roundBorder />
+	},
+	{
+		textSize: 'large',
+		component: <Button icon="minus" iconPosition="after" roundBorder size="large" />
+	},
+	{
+		textSize: 'large',
+		component: <Button icon="plus" iconPosition="before" roundBorder />
+	},
+	{
+		textSize: 'large',
+		component: <Button icon="plus" iconPosition="before" roundBorder size="large" />
+	},
+
+	// shadowed
+	...withConfig({wrapper: {light: true, padded: true}}, [
+		<Button shadowed icon="plus" minWidth={false} />,
+		<Button shadowed backgroundOpacity="transparent" minWidth={false}>click me</Button>
+	]),
+
 	// Focused with light wrapper
 	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
 		<Button>Focused button</Button>,
@@ -148,7 +203,58 @@ const ButtonTests = [
 		<Button icon="arrowhookright" iconFlip="auto">Focused button</Button>,
 
 		// [QWTC-1831]
-		<Button icon="rotate">Focused button</Button>
+		<Button icon="rotate">Focused button</Button>,
+
+		// roundBorder
+		<Button roundBorder>Focused button</Button>,
+		<Button roundBorder size="small">Focused button</Button>,
+		<Button roundBorder size="large">Focused button</Button>,
+		<Button backgroundOpacity="transparent" roundBorder>Focused button</Button>,
+		<Button backgroundOpacity="opaque" roundBorder>Focused button</Button>,
+		<Button icon="minus" iconPosition="after" roundBorder />,
+		<Button icon="minus" iconPosition="after" roundBorder size="large" />,
+		<Button icon="plus" iconPosition="before" roundBorder />,
+		<Button icon="plus" iconPosition="before" roundBorder size="large" />,
+		{
+			textSize: 'large',
+			component: <Button roundBorder>Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button roundBorder size="small">Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button roundBorder size="large">Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button backgroundOpacity="transparent" roundBorder>Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button backgroundOpacity="opaque" roundBorder>Focused button</Button>
+		},
+		{
+			textSize: 'large',
+			component: <Button icon="minus" iconPosition="after" roundBorder />
+		},
+		{
+			textSize: 'large',
+			component: <Button icon="minus" iconPosition="after" roundBorder size="large" />
+		},
+		{
+			textSize: 'large',
+			component: <Button icon="plus" iconPosition="before" roundBorder />
+		},
+		{
+			textSize: 'large',
+			component: <Button icon="plus" iconPosition="before" roundBorder size="large" />
+		},
+
+		// shadowed + focused
+		<Button shadowed icon="minus" minWidth={false} />,
+		<Button shadowed backgroundOpacity="transparent" minWidth={false}>Focused button</Button>
 	]),
 
 	// *************************************************************
@@ -256,6 +362,25 @@ const ButtonTests = [
 		<Button icon="arrowhookright" iconFlip="vertical">click me</Button>,
 		<Button icon="arrowhookright" iconFlip="both">click me</Button>,
 		<Button icon="arrowhookright" iconFlip="auto">click me</Button>
+	]),
+
+	// *************************************************************
+	// With customized button
+	// *************************************************************
+	// Note: When the file name of the test is too long, different tests may be recognized as the same test.
+	// So we changed the Button name of Focus prop tests.
+	...withProps({css: css}, [
+		// standard button
+		<Button>Customized button</Button>,
+		<Button selected>Customized button</Button>,
+		<Button size="small">Customized button</Button>,
+
+		// With icon.
+		<Button icon="minus" />,
+		<Button icon="minus" size="small" />,
+		<Button icon="minus" selected />,
+		<Button icon="minus" iconPosition="after">Customized button</Button>,
+		<Button icon="minus" iconPosition="after" size="small">Customized button</Button>
 	])
 ];
 

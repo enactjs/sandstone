@@ -1,8 +1,8 @@
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import Button from '@enact/sandstone/Button';
 import {InputField} from '@enact/sandstone/Input';
 import Spinner from '@enact/sandstone/Spinner';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import {Component} from 'react';
 

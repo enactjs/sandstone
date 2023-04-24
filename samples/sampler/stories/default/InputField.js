@@ -1,7 +1,7 @@
+import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 
 import icons from '../helper/icons';
 

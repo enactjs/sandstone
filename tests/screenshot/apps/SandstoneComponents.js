@@ -18,12 +18,14 @@ import FormCheckboxItem from './components/FormCheckboxItem';
 import Header from './components/Header';
 import Heading from './components/Heading';
 import Icon from './components/Icon';
+import IconItem from './components/IconItem';
 import Image from './components/Image';
 import ImageItem from './components/ImageItem';
 import Input from './components/Input';
 import InputField from './components/InputField';
 import Item from './components/Item';
 import KeyGuide from './components/KeyGuide';
+import Layout from './components/Layout';
 import Marquee from './components/Marquee';
 import MediaOverlay from './components/MediaOverlay';
 import Panel from './components/Panel';
@@ -69,12 +71,14 @@ const components = {
 	Header,
 	Heading,
 	Icon,
+	IconItem,
 	Image,
 	ImageItem,
 	Input,
 	InputField,
 	Item,
 	KeyGuide,
+	Layout,
 	Marquee,
 	MediaOverlay,
 	Panel,

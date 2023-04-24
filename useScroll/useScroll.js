@@ -57,7 +57,7 @@ const dataIndexAttribute = 'data-index';
 const isIntersecting = (elem, container) => elem && intersects(getRect(container), getRect(elem));
 const getIntersectingElement = (elem, container) => isIntersecting(elem, container) && elem;
 const getTargetInViewByDirectionFromPosition = (direction, position, container) => {
-	const target = getTargetByDirectionFromPosition(direction, position, Spotlight.getActiveContainer());
+	const target = getTargetByDirectionFromPosition(direction, position, container);
 	return getIntersectingElement(target, container);
 };
 
@@ -338,35 +338,35 @@ const useScroll = (props) => {
 
 	const [themeScrollContentHandle, setThemeScrollContentHandle] = useThemeScrollContentHandle();
 
-	const scrollContainerHandle = useRef({
-		animator: null,
-		applyOverscrollEffect: null,
-		bounds: null,
-		calculateDistanceByWheel: null,
-		canScrollHorizontally: null,
-		canScrollVertically: null,
-		checkAndApplyOverscrollEffect: null,
-		getScrollBounds: null,
-		isDragging: null,
-		isScrollAnimationTargetAccumulated: null,
-		lastInputType: null,
-		rtl: null,
-		scrollBounds: null,
-		scrollHeight: null,
-		scrolling: null,
-		scrollLeft: null,
-		scrollPos: null,
-		scrollTo: null,
-		scrollToAccumulatedTarget: null,
-		scrollToInfo: null,
-		scrollTop: null,
-		setOverscrollStatus: null,
-		showScrollbarTrack: null,
-		start: null,
-		startHidingScrollbarTrack: null,
-		stop: null,
-		wheelDirection: null
-	});
+	const scrollContainerHandle = useRef({}); // To prevent referencing errors before calling `setScrollContainerHandle`, an empty object is provided as a default.
+	/* Properties in `scrollContainerHandle` provided by `setScrollContainerHandle`
+		animator
+		applyOverscrollEffect
+		bounds
+		calculateDistanceByWheel
+		canScrollHorizontally
+		canScrollVertically
+		checkAndApplyOverscrollEffect
+		getScrollBounds
+		isDragging
+		isScrollAnimationTargetAccumulated
+		lastInputType
+		rtl
+		scrollBounds
+		scrollHeight
+		scrolling
+		scrollLeft
+		scrollTo
+		scrollToAccumulatedTarget
+		scrollToInfo
+		scrollTop
+		setOverscrollStatus
+		showScrollbarTrack
+		start
+		startHidingScrollbarTrack
+		stop
+		wheelDirection
+	*/
 
 	const setScrollContainerHandle = (handle) => {
 		scrollContainerHandle.current = handle;

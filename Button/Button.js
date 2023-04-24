@@ -61,14 +61,14 @@ const ButtonBase = kind({
 		/**
 		 * Enables the `collapsed` feature.
 		 *
-		 * This requires that both the text and {@link sandstone/Button.Button#icon|icon} are
+		 * This requires that both the text and {@link ui/Button.ButtonBase.icon|icon} are
 		 * defined.
 		 *
-		 * Use {@link sandstone/Button.Button#collapsed|collapsed} to toggle the collapsed state.
+		 * Use {@link sandstone/Button.ButtonBase.collapsed|collapsed} to toggle the collapsed state.
 		 *
 		 * @type {Boolean}
 		 * @default false
-		 * @see {@link sandstone/Button.Button#collapsed}
+		 * @see {@link sandstone/Button.ButtonBase.collapsed}
 		 * @private
 		 */
 		collapsable: PropTypes.bool,
@@ -76,12 +76,12 @@ const ButtonBase = kind({
 		/**
 		 * Toggles the collapsed state of this button, down to just its icon.
 		 *
-		 * This requires that {@link sandstone/Button.Button#collapsable|collapsable} is enabled
-		 * and both the text and {@link sandstone/Button.Button#icon|icon} are defined.
+		 * This requires that {@link sandstone/Button.ButtonBase.collapsable|collapsable} is enabled
+		 * and both the text and {@link ui/Button.ButtonBase.icon|icon} are defined.
 		 *
 		 * @type {Boolean}
 		 * @default false
-		 * @see {@link sandstone/Button.Button#collapsable}
+		 * @see {@link sandstone/Button.ButtonBase.collapsable}
 		 * @private
 		 */
 		collapsed: PropTypes.bool,
@@ -167,6 +167,23 @@ const ButtonBase = kind({
 		minWidth: PropTypes.bool,
 
 		/**
+		 * True if both sides of button are fully rounded.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		roundBorder: PropTypes.bool,
+
+		/**
+		 * Adds shadow to the text.
+		 * It is only applied when the background opacity of the button is `transparent`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		shadowed: PropTypes.bool,
+
+		/**
 		 * The size of the button.
 		 *
 		 * @type {('large'|'small')}
@@ -184,6 +201,7 @@ const ButtonBase = kind({
 		iconComponent: Icon,
 		iconOnly: false,
 		iconPosition: 'before',
+		roundBorder: false,
 		size: 'large'
 	},
 
@@ -193,12 +211,14 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, roundBorder, shadowed, size, styler}) => styler.append(
 			{
 				hasColor: color,
 				iconOnly,
 				collapsable,
-				collapsed
+				collapsed,
+				roundBorder,
+				shadowed: shadowed && (backgroundOpacity ? backgroundOpacity === 'transparent' : iconOnly)
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
@@ -218,6 +238,8 @@ const ButtonBase = kind({
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.focusEffect;
+		delete rest.roundBorder;
+		delete rest.shadowed;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
@@ -257,6 +279,7 @@ const IconButtonDecorator = hoc((config, Wrapped) => {
  *
  * @hoc
  * @memberof sandstone/Button
+ * @mixes sandstone/TooltipDecorator.TooltipDecorator
  * @mixes sandstone/Marquee.MarqueeDecorator
  * @mixes ui/Button.ButtonDecorator
  * @mixes spotlight/Spottable.Spottable

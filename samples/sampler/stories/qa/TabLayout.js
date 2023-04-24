@@ -1,6 +1,4 @@
 /* eslint-disable react/jsx-no-bind */
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {range, select} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {InputField} from '@enact/sandstone/Input';
@@ -8,6 +6,8 @@ import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {range, select} from '@enact/storybook-utils/addons/controls';
 import {Component, useState} from 'react';
 
 import icons from '../helper/icons';

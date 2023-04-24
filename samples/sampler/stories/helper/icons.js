@@ -115,12 +115,18 @@ export const deviceIcons = [
 
 export const settingsIcons = [
 	'bluetooth',
+	'camera',
+	'cameradis',
 	'changepassword',
 	'checker',
 	'demosync',
 	'dns',
+	'gamepad',
+	'gamepaddis',
 	'gear',
 	'home',
+	'keymouse',
+	'keymousedis',
 	'miniplayer',
 	'moodmode',
 	'musicsrc',
@@ -132,7 +138,8 @@ export const settingsIcons = [
 	'screenpower',
 	'spanner',
 	'subtitle',
-	'support'
+	'support',
+	'wowcast'
 ].sort();
 
 export default Object.keys(icons).sort();

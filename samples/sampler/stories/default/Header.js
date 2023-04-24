@@ -1,10 +1,10 @@
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {Panel, Header, HeaderBase} from '@enact/sandstone/Panels';
 import Steps from '@enact/sandstone/Steps';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import {Fragment} from 'react';
 
 Header.displayName = 'Header';
@@ -62,6 +62,7 @@ export const PanelsHeader = (args) => {
 				noCloseButton={args['noCloseButton']}
 				noSubtitle={args['noSubtitle']}
 				onClose={action('onClose')}
+				shadowed={args['shadowed']}
 				slotAbove={slotAbove}
 				slotBefore={slotBefore}
 				slotAfter={slotAfter}
@@ -109,6 +110,7 @@ select(
 select('marqueeOn', PanelsHeader, prop.marqueeOn, Config);
 boolean('noCloseButton', PanelsHeader, Config);
 boolean('noSubtitle', PanelsHeader, Config);
+boolean('shadowed', PanelsHeader, Config);
 
 PanelsHeader.storyName = 'Panels.Header';
 PanelsHeader.parameters = {

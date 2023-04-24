@@ -1,7 +1,7 @@
+import Button, {ButtonBase} from '@enact/sandstone/Button';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
-import Button, {ButtonBase} from '@enact/sandstone/Button';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import {Fragment} from 'react';
 
@@ -58,7 +58,9 @@ export const _Button = (args) => (
 			iconFlip={args['iconFlip']}
 			iconPosition={args['iconPosition']}
 			minWidth={threeWayBoolean(args['minWidth'])}
+			roundBorder={args['roundBorder']}
 			selected={args['selected']}
+			shadowed={args['shadowed']}
 			size={args['size']}
 			tooltipText={args['tooltipText']}
 			tooltipType={args['tooltipType']}
@@ -75,7 +77,9 @@ select('icon', _Button, prop.icons, Config);
 select('iconFlip', _Button, prop.iconFlip, Config);
 select('iconPosition', _Button, prop.iconPosition, Config);
 select('minWidth', _Button, prop.minWidth, Config);
+boolean('roundBorder', _Button, Config);
 boolean('selected', _Button, Config);
+boolean('shadowed', _Button, Config);
 select('size', _Button, prop.size, Config);
 text('tooltipText', _Button, Config);
 select('tooltipType', _Button, prop.tooltipType, Config);
