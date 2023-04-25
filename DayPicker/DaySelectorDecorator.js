@@ -1,4 +1,4 @@
-import {forward} from '@enact/core/handle';
+import {forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {coerceArray, memoize} from '@enact/core/util';
 import ilib from '@enact/i18n';
@@ -278,7 +278,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 			selected = generalizeSelected(selected, state);
 			const content = getSelectedDayString(selected, '', dayNameLength);
 
-			forward('onSelect', {type: 'onSelect', selected, content}, this.props);
+			forwardCustom('onSelect', () => ({selected, content}))(null, this.props);
 		};
 
 		render () {

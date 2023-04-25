@@ -1,4 +1,4 @@
-import handle, {adaptEvent, forward, forwardWithPrevent} from '@enact/core/handle';
+import handle, {forwardCustom, forwardCustomWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
@@ -38,7 +38,7 @@ const PanelBase = kind({
 		 *
 		 * If `false`, the button will not show. If set to a component, or `true`, the button will
 		 * show. This will override the setting of
-		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#nextButtonVisibility|nextButtonVisibility}.
+		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels.nextButtonVisibility|nextButtonVisibility}.
 		 *
 		 * Example:
 		 * ```
@@ -102,7 +102,7 @@ const PanelBase = kind({
 		 *
 		 * If `false`, the button will not show. If set to a component, or `true`, the button will
 		 * show. This will override the setting of
-		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#prevButtonVisibility|prevButtonVisibility}.
+		 * {@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels.prevButtonVisibility|prevButtonVisibility}.
 		 *
 		 * Example:
 		 * ```
@@ -153,22 +153,12 @@ const PanelBase = kind({
 
 	handlers: {
 		onNextClick: handle(
-			adaptEvent(() => ({type: 'onNextClick'}), forwardWithPrevent('onNextClick')),
-			adaptEvent(
-				(ev, props, {count, index}) => {
-					return ({type: 'onChange', index: clamp(index + 1, count)}); // wrap around
-				},
-				forward('onChange')
-			)
+			forwardCustomWithPrevent('onNextClick'),
+			forwardCustom('onChange', (ev, props, {count, index}) => ({index: clamp(index + 1, count)})) // wrap around
 		),
 		onPrevClick: handle(
-			adaptEvent(() => ({type: 'onPrevClick'}), forwardWithPrevent('onPrevClick')),
-			adaptEvent(
-				(ev, props, {count, index}) => {
-					return ({type: 'onChange', index: clamp(index - 1, count)}); // wrap around
-				},
-				forward('onChange')
-			)
+			forwardCustomWithPrevent('onPrevClick'),
+			forwardCustom('onChange', (ev, props, {count, index}) => ({index: clamp(index - 1, count)})) // wrap around
 		)
 	},
 

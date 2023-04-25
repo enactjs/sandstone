@@ -155,7 +155,7 @@ const ImageItemBase = kind({
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
-		 * Placeholder image used while {@link sandstone/ImageItem.ImageItem#src|src}
+		 * Placeholder image used while {@link sandstone/ImageItem.ImageItemBase.src|src}
 		 * is loaded.
 		 *
 		 * @type {String}

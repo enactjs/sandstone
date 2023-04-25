@@ -5,7 +5,7 @@
  * @private
  */
 
-import handle, {call, forKey, forProp, forward} from '@enact/core/handle';
+import handle, {call, forKey, forProp, forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {memoize} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -190,7 +190,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 		};
 
 		emitChange = (date) => {
-			forward('onChange', {type: 'onChange', value: date ? date.getJSDate() : null}, this.props);
+			forwardCustom('onChange', () => ({value: date ? date.getJSDate() : null}))(null, this.props);
 		};
 
 		handlePickerChange = (handler, ev) => {
@@ -218,7 +218,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			if (ev.target && ev.target.dataset.lastElement === 'true') {
 				const value = this.state.value ? this.toIDate(this.state.value) : null;
 
-				forward('onComplete', {type: 'onComplete', value: value ? value.getJSDate() : null}, this.props);
+				forwardCustom('onComplete', () => ({value: value ? value.getJSDate() : null}))(null, this.props);
 			} else {
 				Spotlight.move(this.props.rtl ? 'left' : 'right');
 			}
