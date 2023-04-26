@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/VideoPlayer` to focus the pause button when the playback controls is shown using the 5-way down key
+- `sandstone/VideoPlayer` to focus the play/pause button when the playback controls is shown using the 5-way down key
 
 ## [2.7.0] - 2023-04-25
 
