@@ -1647,7 +1647,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Sets the playback rate type (from the keys of {@link sandstone/VideoPlayer.VideoPlayer#playbackRateHash|playbackRateHash}).
+	 * Sets the playback rate type (from the keys of {@link sandstone/VideoPlayer.VideoPlayer.playbackRateHash|playbackRateHash}).
 	 *
 	 * @param {String} cmd - Key of the playback rate type.
 	 * @private
@@ -1657,8 +1657,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Changes {@link sandstone/VideoPlayer.VideoPlayer#playbackRate|playbackRate} to a valid value
-	 * when initiating fast forward or rewind.
+	 * Changes playbackRate to a valid value when initiating fast forward or rewind.
 	 *
 	 * @param {Number} idx - The index of the desired playback rate.
 	 * @private
@@ -1683,7 +1682,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Sets {@link sandstone/VideoPlayer.VideoPlayer#playbackRate|playbackRate}.
+	 * Sets playbackRate.
 	 *
 	 * @param {Number|String} rate - The desired playback rate.
 	 * @private
