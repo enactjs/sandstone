@@ -1282,8 +1282,7 @@ const VideoPlayerBase = class extends Component {
 		forKey('down'),
 		() => (
 			!this.state.mediaControlsVisible &&
-			!Spotlight.getCurrent() &&
-			Spotlight.getPointerMode() &&
+			((!Spotlight.getCurrent() && Spotlight.getPointerMode()) || !Spotlight.getPointerMode()) &&
 			!this.props.spotlightDisabled
 		),
 		preventDefault,

@@ -4,6 +4,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to stop scrolling by `hoverToScroll` when the pointer disappears
+- `sandstone/VideoPlayer` to focus the play/pause button when the playback controls is shown using the 5-way down key
+
+## [2.7.0] - 2023-04-25
+
 ### Added
 
 - `sandstone/IconItem` component
@@ -16,8 +23,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Picker` to include `type` in the event payload for `onChange`
 - `sandstone/Scroller` and `sandstone/VirtualList` to handle focus properly via page up at the first page and page down at the last page
-- `sandstone/Scroller` and `sandstone/VirtualList` to stop scrolling by `hoverToScroll` when the pointer disappears
 - `sandstone/WizardPanels` to restore focus properly after a transition
+
+## [2.5.10] - 2023-04-13
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to handle focus properly via page up at the first page and page down at the last page
 
 ## [2.6.3] - 2023-03-17
 

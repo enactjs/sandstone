@@ -8,6 +8,9 @@ import {MediaControls} from '../../MediaPlayer';
 
 const focus = (slider) => fireEvent.focus(slider);
 
+const keyDown = (keyCode) => (elm) => fireEvent.keyDown(elm, {keyCode});
+const downKeyDown = keyDown(40);
+
 describe('VideoPlayer', () => {
 	test('should fire `onPlaying` with `playing` type when playing event is fired', () => {
 		const handlePlaying = jest.fn();
@@ -35,7 +38,7 @@ describe('VideoPlayer', () => {
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
+		downKeyDown(overlay);
 
 		const slider = screen.getByRole('slider', {hidden: true});
 		focus(slider); // add to increase code coverage
