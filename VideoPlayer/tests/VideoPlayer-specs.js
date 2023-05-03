@@ -50,12 +50,13 @@ describe('VideoPlayer', () => {
 	});
 
 	test('should not to show media slider when noslider is true', async () => {
+		const user = userEvent.setup();
 		render(
 			<VideoPlayer data-testid="videoplayer-id" noSlider />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
+		await user.click(overlay);
 
 		await screen.findByLabelText('go to previous');
 
@@ -65,46 +66,49 @@ describe('VideoPlayer', () => {
 
 	test('should fire `onBack` with `onBack` type when clicking on back button', async () => {
 		const handleBack = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<VideoPlayer data-testid="videoplayer-id" onBack={handleBack} />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
+		await user.click(overlay);
 
 		const expected = {type: 'onBack'};
 
 		await screen.findByLabelText('go to previous');
 
-		userEvent.click(screen.getByLabelText('go to previous'));
+		await user.click(screen.getByLabelText('go to previous'));
 
 		const actual = handleBack.mock.calls.length && handleBack.mock.calls[0][0];
 		expect(actual).toMatchObject(expected);
 	});
 
 	test('should toggle to show the media control', async () => {
+		const user = userEvent.setup();
 		render(
 			<VideoPlayer data-testid="videoplayer-id" />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
+		await user.click(overlay);
 
 		await screen.findByLabelText('go to previous');
-		userEvent.click(overlay);
+		await user.click(overlay);
 
 		const backButton  = screen.queryByLabelText('go to previous');
 		expect(backButton).toBeNull();
 	});
 
-	test('should not to show the media control when disable is true', () => {
+	test('should not to show the media control when disable is true', async () => {
+		const user = userEvent.setup();
 		render(
 			<VideoPlayer data-testid="videoplayer-id" disabled />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
+		await user.click(overlay);
 
 		const backButton  = screen.queryByLabelText('go to previous');
 		expect(backButton).toBeNull();
@@ -112,6 +116,7 @@ describe('VideoPlayer', () => {
 
 	test('should fire `onToggleMore` with `onToggleMore` type when ActionGide button clicked', async () => {
 		const handleToggleMore = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<VideoPlayer data-testid="videoplayer-id" onToggleMore={handleToggleMore}>
@@ -125,14 +130,14 @@ describe('VideoPlayer', () => {
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
 
-		userEvent.click(overlay);
+		await user.click(overlay);
 
 		await screen.findByLabelText('go to previous');
 
 		const actionGuideButton = screen.getByLabelText('This is ActionGide button');
 		const expected = {type: 'onToggleMore'};
 
-		userEvent.click(actionGuideButton);
+		await user.click(actionGuideButton);
 
 		await waitFor(() => {
 			const actual = handleToggleMore.mock.calls.length && handleToggleMore.mock.calls[0][0];
@@ -140,17 +145,18 @@ describe('VideoPlayer', () => {
 		});
 	});
 
-	test('should not to show the media control after the delay', () => {
+	test('should not to show the media control after the delay', async () => {
 		jest.useFakeTimers();
 		const timeout = 100;
+		const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
 		render(
 			<VideoPlayer data-testid="videoplayer-id" autoCloseTimeout={timeout} />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
+		await user.click(overlay);
 
-		act(() => jest.advanceTimersByTime(150));
+		act(() => jest.advanceTimersByTime(250));
 
 		const backButton  = screen.queryByLabelText('go to previous');
 		expect(backButton).toBeNull();
@@ -158,21 +164,22 @@ describe('VideoPlayer', () => {
 		jest.useRealTimers();
 	});
 
-	test('should not to show the title after the delay', () => {
+	test('should not to show the title after the delay', async () => {
 		jest.useFakeTimers();
 		const timeout = 100;
+		const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
 		render(
 			<VideoPlayer data-testid="videoplayer-id" title="Video Test" titleHideDelay={timeout} />
 		);
 
 		const overlay = screen.getByTestId('videoplayer-id').nextElementSibling;
-		userEvent.click(overlay);
+		await user.click(overlay);
 
 		const titleFrame = screen.getByText('Video Test').parentElement.parentElement.parentElement;
 
 		expect(titleFrame).toHaveClass('visible');
 
-		act(() => jest.advanceTimersByTime(150));
+		act(() => jest.advanceTimersByTime(250));
 
 		expect(titleFrame).toHaveClass('hidden');
 

@@ -5,8 +5,6 @@ import userEvent from '@testing-library/user-event';
 import Picker from '../Picker';
 import PickerItem from '../PickerItem';
 
-const increment = (slider) => userEvent.click(slider.firstElementChild);
-const decrement = (slider) => userEvent.click(slider.lastElementChild);
 const keyDown = (keyCode) => (picker) => fireEvent.keyDown(picker, {keyCode});
 
 const leftKeyDown = keyDown(37);
@@ -25,14 +23,15 @@ describe('Picker Specs', () => {
 		expect(valueText).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	test('should return an object {value: Number} that represents the next value of the Picker component when pressing the increment <span>', () => {
+	test('should return an object {value: Number} that represents the next value of the Picker component when pressing the increment <span>', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker index={0} max={1} min={-1} onChange={handleChange} value={0} />
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		increment(picker);
+		await user.click(picker.firstElementChild);
 
 		const expected = 1;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -40,14 +39,15 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should return an object {value: Number} that represents the next value of the Picker component when pressing the decrement <span>', () => {
+	test('should return an object {value: Number} that represents the next value of the Picker component when pressing the decrement <span>', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker index={0} max={1} min={-1} onChange={handleChange} value={0} />
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		decrement(picker);
+		await user.click(picker.lastElementChild);
 
 		const expected = -1;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -55,26 +55,28 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should not run the onChange handler when disabled', () => {
+	test('should not run the onChange handler when disabled', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker disabled index={0} max={0} min={0} onChange={handleChange} value={0} />
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		increment(picker);
+		await user.click(picker.firstElementChild);
 
 		expect(handleChange).not.toHaveBeenCalled();
 	});
 
-	test('should wrap to the beginning of the value range if \'wrap\' is true', () => {
+	test('should wrap to the beginning of the value range if \'wrap\' is true', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker index={0} max={0} min={-1} onChange={handleChange} value={0} wrap />
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		increment(picker);
+		await user.click(picker.firstElementChild);
 
 		const expected = -1;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -82,14 +84,15 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should wrap to the end of the value range if \'wrap\' is true', () => {
+	test('should wrap to the end of the value range if \'wrap\' is true', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker index={0} max={1} min={0} onChange={handleChange} value={0} wrap />
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		decrement(picker);
+		await user.click(picker.lastElementChild);
 
 		const expected = 1;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -97,14 +100,15 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should increment by \'step\' value', () => {
+	test('should increment by \'step\' value', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker index={0} max={6} min={0} onChange={handleChange} step={3} value={0} />
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		increment(picker);
+		await user.click(picker.firstElementChild);
 
 		const expected = 3;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -112,14 +116,15 @@ describe('Picker Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should decrement by \'step\' value', () => {
+	test('should decrement by \'step\' value', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker index={0} max={3} min={0} onChange={handleChange} step={3} value={3} />
 		);
 		const picker = screen.getByLabelText('3 next item').parentElement;
 
-		decrement(picker);
+		await user.click(picker.lastElementChild);
 
 		const expected = 0;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -151,14 +156,15 @@ describe('Picker Specs', () => {
 		expect(handleChange).toHaveBeenCalled();
 	});
 
-	test('should increment by \'step\' value and wrap successfully', () => {
+	test('should increment by \'step\' value and wrap successfully', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker index={0} max={3} min={0} onChange={handleChange} step={3} value={3} wrap />
 		);
 		const picker = screen.getByLabelText('3 next item').parentElement;
 
-		increment(picker);
+		await user.click(picker.firstElementChild);
 
 		const expected = 0;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -211,14 +217,15 @@ describe('Picker Specs', () => {
 		expect(handleWheelEvent).toHaveBeenCalled();
 	});
 
-	test('should decrement by \'step\' value and wrap successfully', () => {
+	test('should decrement by \'step\' value and wrap successfully', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<Picker index={0} max={9} min={0} onChange={handleChange} step={3} value={0} wrap />
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		decrement(picker);
+		await user.click(picker.lastElementChild);
 
 		const expected = 9;
 		const actual = handleChange.mock.calls[0][0].value;
