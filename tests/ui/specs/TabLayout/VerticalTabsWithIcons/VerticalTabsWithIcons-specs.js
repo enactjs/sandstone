@@ -10,6 +10,7 @@ describe('TabLayout', function () {
 		describe('collapsing/expanding behavior', function () {
 			describe('5-way interaction', function () {
 				it('should collapse tabs when focus is moved to a Spottable component in the content container - [QWTC-1892]', async function () {
+					await Page.delay(1000);
 					// 5-way down to second tab
 					await Page.spotlightDown();
 					await (await Page.tabLayout.view(2)).waitForExist();
