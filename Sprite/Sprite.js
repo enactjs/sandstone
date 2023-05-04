@@ -174,7 +174,7 @@ const SpriteBase = kind({
 		/**
 		 * The sprite-sheet image with all of the cells on it.
 		 *
-		 * @see {@link ui/Image.Image.src}
+		 * @see {@link ui/Image.ImageBase.src}
 		 * @type {String|Object}
 		 * @public
 		 */

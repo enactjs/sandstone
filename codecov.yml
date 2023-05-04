@@ -1,6 +1,7 @@
 ignore:
     - "Scroller/EditableWrapper.js"
     - "TransferList"
+    - "useScroll/HoverToScroll.js"
 coverage:
   status:
     project:

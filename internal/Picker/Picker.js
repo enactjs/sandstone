@@ -149,11 +149,11 @@ const PickerBase = (props) => {
 		if (Number.isInteger(voiceIndex)) {
 			const voiceValue = min + voiceIndex;
 			if (onChange && voiceValue >= min && voiceValue <= max && voiceValue !== value) {
-				onChange({value: voiceValue});
+				forwardCustom('onChange', () => ({value: voiceValue}))(ev, props);
 				ev.preventDefault();
 			}
 		}
-	}, [max, min, onChange, value]);
+	}, [max, min, onChange, props, value]);
 
 	const computeNextValue = useCallback((delta) => {
 		const horizontalJoined = orientation === 'horizontal' && joined && changedBy === 'enter';
@@ -178,9 +178,9 @@ const PickerBase = (props) => {
 		setTransitionDirection(dir);
 		if (!disabled && onChange) {
 			const updatedValue = computeNextValue(dir * step);
-			onChange({value: updatedValue});
+			forwardCustom('onChange', () => ({value: updatedValue}))(null, props);
 		}
-	}, [adjustDirection, setTransitionDirection, disabled, onChange, computeNextValue, step]);
+	}, [adjustDirection, setTransitionDirection, disabled, onChange, computeNextValue, step, props]);
 
 	const setPressedState = useCallback((pressedValue) => {
 		if (joined) {
@@ -732,8 +732,8 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 	 *
 	 * The default value for joined horizontal picker is `'enter'`.
-	 * If {@link sandstone/internal/Picker.PickerBase#orientation|orientation} is `'vertical'` or
-	 * {@link sandstone/internal/Picker.PickerBase#joined|joined} is undefined or is `false`, this prop is ignored.
+	 * If {@link sandstone/internal/Picker.PickerBase.orientation|orientation} is `'vertical'` or
+	 * {@link sandstone/internal/Picker.PickerBase.joined|joined} is undefined or is `false`, this prop is ignored.
 	 *
 	 * @type {('enter'|'arrow')}
 	 * @default 'enter'
@@ -795,7 +795,7 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	/**
 	 * Assign a custom icon for the decrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
 	 * supported. Without a custom icon, the default is used, and is automatically changed when
-	 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
+	 * the {@link sandstone/internal/Picker.PickerBase.orientation|orientation} is changed.
 	 *
 	 * @type {String}
 	 * @public
@@ -831,7 +831,7 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	/**
 	 * Assign a custom icon for the incrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
 	 * supported. Without a custom icon, the default is used, and is automatically changed when
-	 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
+	 * the {@link sandstone/internal/Picker.PickerBase.orientation|orientation} is changed.
 	 *
 	 * @type {String}
 	 * @public
