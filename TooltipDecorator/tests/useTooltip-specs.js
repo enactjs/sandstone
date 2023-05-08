@@ -11,18 +11,13 @@ const FloatingLayerController = FloatingLayerDecorator('div');
 describe('useTooltip', () => {
 	const TooltipButton = ({
 		screenEdgeKeepout = defaultScreenEdgeKeepout,
-		tooltipDestinationProp = 'children',
 		children,
 		...rest
 	}) => {
 		const {tooltip, handlers, restProps} = useTooltip({screenEdgeKeepout, ...rest});
 
 		if (tooltip) {
-			if (tooltipDestinationProp === 'children') {
-				restProps.children = [children, tooltip];
-			} else {
-				restProps[tooltipDestinationProp] = tooltip;
-			}
+			restProps.children = [children, tooltip];
 		}
 
 		return <Button {...restProps} {...handlers} />;
