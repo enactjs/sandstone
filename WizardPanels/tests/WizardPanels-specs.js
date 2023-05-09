@@ -782,7 +782,7 @@ describe('WizardPanel Specs', () => {
 		'should reflect the aria-label when "current" is set',
 		async () => {
 			const current = 2;
-			const {container} = render(
+			render(
 				<WizardPanels current={current}>
 					<Panel />
 					<Panel />
@@ -790,7 +790,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const header = container.querySelector('header');
+			const header = screen.getByRole('region').children[0].children[0];
 			const expected = `step ${current}  `;
 
 			await waitFor(() => {
