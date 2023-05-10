@@ -67,11 +67,13 @@ describe('VideoPlayer', function () {
 		});
 
 		describe('5-way', function () {
-			it('should focus `more` button on 5-way back, then down', async function () {
+			it('should focus `play`, `more` button on 5-way back, then down', async function () {
 				await Page.delay(1000);
 				await Page.backKey();
 				await Page.spotlightDown();
+				await expect(await videoPlayerDefault.playButton.isFocused()).to.be.true();
 
+				await Page.spotlightDown();
 				await expect(await videoPlayerDefault.mediaControlsActionGuideButton.isFocused()).to.be.true();
 			});
 
