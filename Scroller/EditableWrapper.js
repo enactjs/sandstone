@@ -40,7 +40,8 @@ const EditableShape = PropTypes.shape({
 	onComplete: PropTypes.func.isRequired,
 	centered: PropTypes.bool,
 	css: PropTypes.object,
-	removeItemFuncRef: EnactPropTypes.ref
+	removeItemFuncRef: EnactPropTypes.ref,
+	hideItemFuncRef: EnactPropTypes.ref
 });
 
 const SpotlightAccelerator = new Accelerator([5, 4]);
@@ -66,7 +67,8 @@ const EditableWrapper = (props) => {
 	const centered = editable?.centered != null ? editable.centered : true;
 	const customCss = editable?.css || {};
 	const removeItemFuncRef = editable?.removeItemFuncRef;
-
+	const hideItemFuncRef = editable?.hideItemFuncRef;
+	const showItemFuncRef = editable?.showItemFuncRef;
 	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
 	const dataSize = children?.length;
@@ -106,7 +108,13 @@ const EditableWrapper = (props) => {
 		// Flag for prevent event propagation
 		needToPreventEvent: null,
 
-		lastInputDirection: null
+		lastInputDirection: null,
+
+		lastTargetElement: null,
+
+		editableMode: 'select',
+
+		firstHideIndex: dataSize
 	});
 
 	const announceRef = useRef({});
@@ -118,15 +126,16 @@ const EditableWrapper = (props) => {
 		const {selectedItem, spotlightId} = mutableRef.current;
 
 		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
-
+		scrollContainerRef.current.classList.remove(customCss.selected);
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.selectedItemLabel = '';
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
+		mutableRef.current.editableMode = 'select';
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
 
 		Spotlight.set(spotlightId, {restrict: 'self-first'});
-	}, [customCss.selected]);
+	}, [customCss.selected, scrollContainerRef]);
 
 	// Finalize the order
 	const finalizeOrders = useCallback(() => {
@@ -169,20 +178,19 @@ const EditableWrapper = (props) => {
 
 	const startEditing = useCallback((item) => {
 		if (item.dataset.index) {
-			Spotlight.set(mutableRef.current.spotlightId, {restrict: 'self-only'});
-
-			item.classList.add(componentCss.selected, customCss.selected);
+			mutableRef.current.editableMode = 'select';
+			scrollContainerRef.current.classList.add(customCss.selected);
+			// item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
-			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
-
-			mutableRef.current.fromIndex = Number(item.style.order) - 1;
-			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
+			// mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
+			// mutableRef.current.fromIndex = Number(item.style.order) - 1;
+			// mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 
 			announceRef.current.announce(
 				mutableRef.current.selectedItemLabel + $L('Move left and right or press up key to delete')
 			);
 		}
-	}, [customCss.selected]);
+	}, [customCss.selected, scrollContainerRef]);
 
 	const findItemNode = useCallback((node) => {
 		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
@@ -301,7 +309,7 @@ const EditableWrapper = (props) => {
 
 		if (selectedItem) {
 			// Bail out when index is out of scope
-			if (toIndex < dataSize && toIndex >= 0) {
+			if (toIndex < mutableRef.current.firstHideIndex && toIndex >= 0) {
 				const {fromIndex, itemWidth, lastMoveDirection, prevToIndex, rearrangedItems} = mutableRef.current;
 
 				// Set the selected item's offset to css variable
@@ -329,7 +337,7 @@ const EditableWrapper = (props) => {
 				}
 			}
 		}
-	}, [dataSize, addRearrangedItems, removeRearrangedItems, scrollContainerHandle]);
+	}, [addRearrangedItems, removeRearrangedItems, scrollContainerHandle]);
 
 	const moveItemsByKeyDown = useCallback((ev) => {
 		const {keyCode} = ev;
@@ -380,10 +388,37 @@ const EditableWrapper = (props) => {
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 			const orders = finalizeOrders();
 			orders.splice(prevToIndex, 1);
-			forwardCustom('onComplete', () => ({orders}))(null, editable);
+			mutableRef.current.firstHideIndex -= 1;
+			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.firstHideIndex}))(null, editable);
 			reset();
 		}
 	}, [editable, finalizeOrders, reset]);
+
+	const hideItem = useCallback(() => {
+		const {selectedItem} = mutableRef.current;
+		if (selectedItem) {
+			// TODO: spotlight 옮기는 logic
+			let orders = Array.from({length: dataSize}, (_, i) => i + 1);
+			orders.splice(selectedItem.style.order - 1, 1);
+			orders.push(Number(selectedItem.style.order));
+			mutableRef.current.firstHideIndex -= 1;
+			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.firstHideIndex}))(null, editable);
+			reset();
+		}
+	}, [editable, dataSize, reset] );
+
+	const showItem = useCallback(() => {
+		const {selectedItem} = mutableRef.current;
+		if (selectedItem) {
+			let orders = Array.from({length: dataSize}, (_, i) => i + 1);
+			orders.splice(selectedItem.style.order - 1, 1);
+			orders.splice(mutableRef.current.firstHideIndex, 0, Number(selectedItem.style.order));
+			mutableRef.current.firstHideIndex += 1;
+			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.firstHideIndex}))(null, editable);
+			reset();
+		}
+
+	}, [editable, dataSize, reset]);
 
 	const getNextIndexFromPosition = useCallback((x, tolerance) => {
 		const {centeredOffset, itemWidth, prevToIndex} = mutableRef.current;
@@ -440,9 +475,9 @@ const EditableWrapper = (props) => {
 
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
-				if (selectedItem) {
+				if (selectedItem && mutableRef.current.editableMode === 'edit') {
 					const orders = finalizeOrders();
-					forwardCustom('onComplete', () => ({orders}))(null, editable);
+					forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.firstHideIndex}))(null, editable);
 					reset();
 					mutableRef.current.needToPreventEvent = true;
 
@@ -452,6 +487,14 @@ const EditableWrapper = (props) => {
 							true
 						);
 					}, completeAnnounceDelay);
+				} else if (selectedItem && mutableRef.current.editableMode === 'select') {
+					mutableRef.current.editableMode = 'edit';
+					targetItemNode.classList.add(componentCss.selected, customCss.selected);
+					// selecedItem 재설정 이유: item 0에서 edit 모드 진입 후, focus 이동하여 item 1에서 click하여 remove/hide 하는 경우를 위해
+					mutableRef.current.selectedItem = targetItemNode;
+					mutableRef.current.selectedItemLabel = (targetItemNode.ariaLabel || targetItemNode.textContent) + ' ';
+					mutableRef.current.fromIndex = Number(targetItemNode.style.order) - 1;
+					mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 				}
 			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
 				mutableRef.current.timer = setTimeout(() => {
@@ -459,7 +502,7 @@ const EditableWrapper = (props) => {
 				}, holdDuration - 300);
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
-			if (selectedItem) {
+			if (selectedItem && mutableRef.current.lastTargetElement.getAttribute('role') !== 'button' && findItemNode(mutableRef.current.lastTargetElement) === selectedItem && mutableRef.current.editableMode === 'edit' && Number(selectedItem.style.order) - 1 < mutableRef.current.firstHideIndex) {
 				if (repeat) {
 					SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
 				} else {
@@ -471,9 +514,10 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation();
 			}
 		}
-	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
+	}, [customCss.selected, editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
+		mutableRef.current.lastTargetElement = ev.target;
 		if (ev.target.getAttribute('role') === 'button') {
 			return;
 		}
@@ -510,24 +554,36 @@ const EditableWrapper = (props) => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 	}, [scrollContainerRef]);
 
-	useEffect(() => {
-		const scrollContainer = scrollContainerRef.current;
-		if (scrollContainer) {
-			scrollContainer.addEventListener('mouseleave', handleMouseLeave);
-		}
+	// useEffect(() => {
+	// 	const scrollContainer = scrollContainerRef.current;
+	// 	if (scrollContainer) {
+	// 		scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+	// 	}
 
-		return () => {
-			if (scrollContainer) {
-				scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
-			}
-		};
-	}, [handleMouseLeave, scrollContainerRef]);
+	// 	return () => {
+	// 		if (scrollContainer) {
+	// 			scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+	// 		}
+	// 	};
+	// }, [handleMouseLeave, scrollContainerRef]);
 
 	useEffect(() => {
 		if (removeItemFuncRef) {
 			removeItemFuncRef.current = removeItem;
 		}
 	}, [removeItem, removeItemFuncRef]);
+
+	useEffect(() => {
+		if (hideItemFuncRef) {
+			hideItemFuncRef.current = hideItem;
+		}
+	}, [hideItem, hideItemFuncRef]);
+
+	useEffect(() => {
+		if (showItemFuncRef) {
+			showItemFuncRef.current = showItem;
+		}
+	}, [showItem, showItemFuncRef]);
 
 	useEffect(() => {
 		// addEventListener to moveItems while scrolled
@@ -537,7 +593,7 @@ const EditableWrapper = (props) => {
 			const bodyWidth = document.body.getBoundingClientRect().width;
 			const {lastMouseClientX, selectedItem} = mutableRef.current;
 			const {isHoveringToScroll, rtl} = scrollContainerHandle.current;
-			if (selectedItem && mutableRef.current.lastInputType !== 'key') {
+			if (selectedItem && mutableRef.current.lastInputType !== 'key' && mutableRef.current.editableMode === 'edit') {
 				mutableRef.current.lastInputType = 'scroll';
 				if (isHoveringToScroll) {
 					const toIndex = getNextIndexFromPosition(lastMouseClientX, 0);
@@ -561,11 +617,11 @@ const EditableWrapper = (props) => {
 			holdConfig={holdConfig}
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
 			onClickCapture={handleClickCapture}
-			onHoldStart={handleHoldStart}
+			// onHoldStart={handleHoldStart}
 			onKeyDownCapture={handleKeyDownCapture}
 			onKeyUpCapture={handleKeyUpCapture}
-			onMouseDown={handleMouseDown}
-			onMouseMove={handleMouseMove}
+			// onMouseDown={handleMouseDown}
+			// onMouseMove={handleMouseMove}
 			ref={wrapperRef}
 		>
 			{children}

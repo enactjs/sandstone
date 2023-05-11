@@ -16,6 +16,10 @@
 		.removeButton {
 			display: none;
 		}
+
+		.showButton{
+			display: none;
+		}
 	}
 
 	.itemWrapper {
@@ -25,13 +29,19 @@
 			width: 768px;
 			height: 588px;
 		}
+
+		.hideItem {
+			display: none;
+		}
 	}
 
 	.selected { // public class for selected item
 		.removeButton {
 			display: inline-block;
 		}
-
+		.showButton{
+			display: inline-block;
+		}
 		.arrow() {
 			font-family: "Sandstone Icons";
 			font-size: 108px;
@@ -51,6 +61,22 @@
 			content: '\EFFF4';
 			.arrow();
 			right: -30px;
+		}
+	}
+}
+
+.selected {
+	.removeButtonContainer {
+		height: 156px;
+	}
+
+	.itemWrapper {
+		text-align: center;
+
+		.hideItem {		
+			display: flex;
+			width: 768px;
+			height: 588px;
 		}
 	}
 }

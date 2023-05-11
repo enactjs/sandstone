@@ -211,10 +211,10 @@ const populateItems = ({index}) => {
 		uhd: svgGenerator(600, 600, color, 'ffffff', `Image ${index}`)
 	};
 
-	return {src: source, index};
+	return {src: source, index, disabled: false};
 };
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 8; i++) {
 	itemsArr.push(populateItems({index: i}));
 }
 
@@ -222,10 +222,12 @@ export const EditableList = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
 	const removeItem = useRef();
+	const hideItem = useRef();
+	const showItem = useRef();
 
 	useLayoutEffect(() => {
 		itemsArr = [];
-		for (let i = 0; i < dataSize; i++) {
+		for (let i = 0; i < 8; i++) {
 			itemsArr.push(populateItems({index: i}));
 		}
 		setItems(itemsArr);
@@ -239,8 +241,23 @@ export const EditableList = (args) => {
 		ev.stopPropagation();
 	}, []);
 
+	const onClickHideButton = useCallback((ev) => {
+		if (hideItem.current) {
+			hideItem.current();
+		}
+		ev.preventDefault();
+		ev.stopPropagation();
+	});
+	const onClickShowButton = useCallback((ev) => {
+		if (showItem.current) {
+			showItem.current();
+		}
+		ev.preventDefault();
+		ev.stopPropagation();
+	})
+
 	const handleComplete = useCallback((ev) => {
-		const {orders} = ev;
+		const {orders, hideIndex} = ev;
 		// change data from the new orders
 		const newItems = [];
 
@@ -248,6 +265,13 @@ export const EditableList = (args) => {
 			newItems.push(items[order - 1]);
 		});
 
+		for (let i = 0; i < orders.length; i++) {
+			if (i >= hideIndex) {
+				newItems[i].disabled = true;
+			} else {
+				newItems[i].disabled = false;
+			}
+		}
 		setItems(newItems);
 	}, [items]);
 
@@ -258,7 +282,9 @@ export const EditableList = (args) => {
 				centered: args['editableCentered'],
 				css,
 				onComplete: handleComplete,
-				removeItemFuncRef: removeItem
+				removeItemFuncRef: removeItem,
+				hideItemFuncRef: hideItem,
+				showItemFuncRef: showItem
 			}}
 			focusableScrollbar={args['focusableScrollbar']}
 			horizontalScrollbar={args['horizontalScrollbar']}
@@ -277,13 +303,16 @@ export const EditableList = (args) => {
 				items.map((item, index) => {
 					return (
 						<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
-							<div className={css.removeButtonContainer}>
-								<Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
-							</div>
+							<Container className={css.removeButtonContainer}>
+								{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
+								{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
+								{item.disabled ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
+							</Container>
 							<ImageItem
 								aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 								src={item.src}
-								className={css.imageItem}
+								className={item.disabled ? css.hideItem : css.imageItem}
+								disabled={item.disabled}
 								onClick={action('onClickItem')}
 							>
 								{`Image ${item.index}`}
@@ -297,7 +326,7 @@ export const EditableList = (args) => {
 };
 
 boolean('editableCentered', EditableList, Config, true);
-number('editableDataSize', EditableList, Config, 20);
+number('editableDataSize', EditableList, Config, 3);
 select('focusableScrollbar', EditableList, prop.focusableScrollbarOption, Config);
 select('horizontalScrollbar', EditableList, prop.scrollbarOption, Config);
 boolean('hoverToScroll', EditableList, Config, true);
