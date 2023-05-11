@@ -213,15 +213,26 @@ const EditableWrapper = (props) => {
 	}, []);
 
 	const handleMouseDown = useCallback((ev) => {
+		const {target} = ev;
+		const targetItemNode = findItemNode(target);
+		mutableRef.current.lastTargetElement = ev.target;
 		if (ev.target.className.includes('Button')) {
 			return;
 		}
-		if (mutableRef.current.selectedItem) {
+		if (mutableRef.current.selectedItem && mutableRef.current.editableMode === 'edit') {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', () => ({orders}))(null, editable);
+			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.firstHideIndex}))(null, editable);
 			reset();
 			mutableRef.current.needToPreventEvent = true;
+		} else if (mutableRef.current.selectedItem && mutableRef.current.editableMode === 'select') {
+			mutableRef.current.editableMode = 'edit';
+			targetItemNode.classList.add(componentCss.selected, customCss.selected);
+
+			mutableRef.current.selectedItem = targetItemNode;
+			mutableRef.current.selectedItemLabel = (targetItemNode.ariaLabel || targetItemNode.textContent) + ' ';
+			mutableRef.current.fromIndex = Number(targetItemNode.style.order) - 1;
+			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 		} else {
 			mutableRef.current.targetItemNode = findItemNode(ev.target);
 			mutableRef.current.needToPreventEvent = false;
@@ -436,7 +447,7 @@ const EditableWrapper = (props) => {
 	}, [scrollContainerHandle, scrollContentRef]);
 
 	const handleMouseMove = useCallback((ev) => {
-		if (mutableRef.current.selectedItem) {
+		if (mutableRef.current.selectedItem && mutableRef.current.editableMode === 'edit') {
 			const {clientX} = ev;
 
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
@@ -455,7 +466,7 @@ const EditableWrapper = (props) => {
 
 		if (selectedItem) {
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', () => ({orders}))(null, editable);
+			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.firstHideIndex}))(null, editable);
 			reset();
 
 			if (lastInputType === 'scroll') {
@@ -554,18 +565,18 @@ const EditableWrapper = (props) => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 	}, [scrollContainerRef]);
 
-	// useEffect(() => {
-	// 	const scrollContainer = scrollContainerRef.current;
-	// 	if (scrollContainer) {
-	// 		scrollContainer.addEventListener('mouseleave', handleMouseLeave);
-	// 	}
+	useEffect(() => {
+		const scrollContainer = scrollContainerRef.current;
+		if (scrollContainer) {
+			scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+		}
 
-	// 	return () => {
-	// 		if (scrollContainer) {
-	// 			scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
-	// 		}
-	// 	};
-	// }, [handleMouseLeave, scrollContainerRef]);
+		return () => {
+			if (scrollContainer) {
+				scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+			}
+		};
+	}, [handleMouseLeave, scrollContainerRef]);
 
 	useEffect(() => {
 		if (removeItemFuncRef) {
@@ -617,11 +628,11 @@ const EditableWrapper = (props) => {
 			holdConfig={holdConfig}
 			className={classNames(mergedCss.wrapper, {[mergedCss.centered]: centered})}
 			onClickCapture={handleClickCapture}
-			// onHoldStart={handleHoldStart}
+			onHoldStart={handleHoldStart}
 			onKeyDownCapture={handleKeyDownCapture}
 			onKeyUpCapture={handleKeyUpCapture}
-			// onMouseDown={handleMouseDown}
-			// onMouseMove={handleMouseMove}
+			onMouseDown={handleMouseDown}
+			onMouseMove={handleMouseMove}
 			ref={wrapperRef}
 		>
 			{children}
