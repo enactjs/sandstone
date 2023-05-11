@@ -447,7 +447,7 @@ const EditableWrapper = (props) => {
 	}, [scrollContainerHandle, scrollContentRef]);
 
 	const handleMouseMove = useCallback((ev) => {
-		if (mutableRef.current.selectedItem && mutableRef.current.editableMode === 'edit') {
+		if (mutableRef.current.selectedItem && mutableRef.current.editableMode === 'edit' && Number(mutableRef.current.selectedItem.style.order) - 1 < mutableRef.current.firstHideIndex) {
 			const {clientX} = ev;
 
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
