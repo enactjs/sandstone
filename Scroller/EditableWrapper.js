@@ -112,7 +112,7 @@ const EditableWrapper = (props) => {
 
 		lastTargetElement: null,
 
-		editableMode: 'select',
+		editableMode: 'none',
 
 		firstHideIndex: dataSize
 	});
@@ -131,7 +131,7 @@ const EditableWrapper = (props) => {
 		mutableRef.current.selectedItemLabel = '';
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
-		mutableRef.current.editableMode = 'select';
+		mutableRef.current.editableMode = 'none';
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
 
 		Spotlight.set(spotlightId, {restrict: 'self-first'});
