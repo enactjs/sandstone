@@ -12,6 +12,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
 import Group from '@enact/ui/Group';
+import Resizable from '@enact/ui/Resizable';
 import ri from '@enact/ui/resolution';
 import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
@@ -22,6 +23,7 @@ import {svgGenerator} from '../helper/svg';
 import css from './Scroller.module.less';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
+const ResizeDiv = Resizable({resize: 'onKeyUp'}, 'div');
 
 const itemData = [];
 for (let i = 0; i < 100; i++) {
@@ -302,7 +304,7 @@ export const EditableList = (args) => {
 			{
 				items.map((item, index) => {
 					return (
-						<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+						<ResizeDiv key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 							<Container className={css.removeButtonContainer}>
 								{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
 								{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
@@ -317,7 +319,7 @@ export const EditableList = (args) => {
 							>
 								{`Image ${item.index}`}
 							</ImageItem>
-						</div>
+						</ResizeDiv>
 					);
 				})
 			}
