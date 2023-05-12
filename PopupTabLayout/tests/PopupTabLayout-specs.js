@@ -80,14 +80,15 @@ describe('PopupTabLayout specs', () => {
 			</FloatingLayerController>
 		);
 
-		userEvent.keyboard('{esc}');
+		fireEvent.keyUp(screen.getByText('popupTabLayout'), {keyCode: 27});
 
 		await waitFor(() => {
 			expect(handleClose).not.toHaveBeenCalled();
 		});
 	});
 
-	test('should display items from second tab', () => {
+	test('should display items from second tab', async () => {
+		const user = userEvent.setup();
 		render(
 			<FloatingLayerController>
 				<PopupTabLayout open>
@@ -119,7 +120,7 @@ describe('PopupTabLayout specs', () => {
 
 		const secondTab = screen.getByText('Second Tab Title');
 
-		userEvent.click(secondTab);
+		await user.click(secondTab);
 
 		thirdItem = screen.getByText('Item 3');
 		fourthItem = screen.getByText('Item 4');

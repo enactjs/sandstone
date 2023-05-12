@@ -127,8 +127,9 @@ describe('TabGroup specs', () => {
 		expect(iconList).toHaveAttribute('aria-disabled', 'false');
 	});
 
-	test('should fire `onTabClick` with `onTabClick` type when a tab is clicked', () => {
+	test('should fire `onTabClick` with `onTabClick` type when a tab is clicked', async () => {
 		const handleTabClick = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TabGroup
 				tabs={[
@@ -139,7 +140,7 @@ describe('TabGroup specs', () => {
 			/>
 		);
 
-		userEvent.click(screen.getByRole('group').children[0]);
+		await user.click(screen.getByRole('group').children[0]);
 
 		const expected = {type: 'onTabClick'};
 		const actual = handleTabClick.mock.calls.length && handleTabClick.mock.calls[0][0];
