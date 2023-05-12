@@ -453,7 +453,7 @@ const TransferListBase = kind({
 			scrollToRefSecond.current = scrollTo;
 		}, []);
 
-		const applyDropBorder = (element, ev, isAboveCurrentElement, isBelowCurrentElement) => {
+		const applyDropBorder = useCallback((element, ev, isAboveCurrentElement, isBelowCurrentElement) => {
 			if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
 				if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
 					currentElement.current.classList.add(`${css.overAbove}`);
@@ -475,14 +475,14 @@ const TransferListBase = kind({
 					isAboveDropPosition.current = false;
 				}
 			}
-		};
+		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical]);
 
-		const removeDropBorder = (element) => {
+		const removeDropBorder = useCallback((element) => {
 			element.classList.remove(`${css.overAbove}`);
 			element.classList.remove(`${css.overBelow}`);
 			element.classList.remove(`${css.overLeft}`);
 			element.classList.remove(`${css.overRight}`);
-		};
+		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight]);
 
 		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
 			const draggedItem = list[itemIndex];
@@ -551,7 +551,7 @@ const TransferListBase = kind({
 			}
 
 			removeDropBorder(element);
-		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight]);
+		}, [removeDropBorder]);
 
 		const dragoverListenerFunction = useCallback((ev) => {
 			let element;
@@ -570,7 +570,7 @@ const TransferListBase = kind({
 			dragOverElement.current = parseInt(element.id.split('-')[0]);
 
 			applyDropBorder(element, ev, isAboveCurrentElement, isBelowCurrentElement);
-		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical]);
+		}, [applyDropBorder]);
 
 		const startListenerFunction = useCallback((ev) => {
 			const element = ev.target;
@@ -616,7 +616,7 @@ const TransferListBase = kind({
 					setTouchOverElement(element);
 				}
 			}
-		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical, touchOverElement]);
+		}, [applyDropBorder, removeDropBorder, touchOverElement]);
 
 		const handleTouchEndFirst = useCallback((ev) => {
 			let element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY).closest('[draggable]');
@@ -661,7 +661,7 @@ const TransferListBase = kind({
 			rearrangeLists(firstListCopy, secondListCopy, startElementIndex, startElementList, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 
 			removeDropBorder(element);
-		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, firstListLocal, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, selectedItems]);
+		}, [removeDropBorder, firstListLocal, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, selectedItems]);
 
 		const handleTouchEndSecond = useCallback((ev) => {
 			let element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY).closest('[draggable]');
@@ -700,14 +700,14 @@ const TransferListBase = kind({
 					selectedListCopy.splice(potentialIndex, 1);
 				}
 				setSelectedItems(selectedListCopy);
-			};
+			}
 
 			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'second'});
 
 			rearrangeLists(secondListCopy, firstListCopy, startElementIndex, startElementList, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 
 			removeDropBorder(element);
-		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, firstListLocal, firstListMinCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMaxCapacity, selectedItems]);
+		}, [removeDropBorder, firstListLocal, firstListMinCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMaxCapacity, selectedItems]);
 
 		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
