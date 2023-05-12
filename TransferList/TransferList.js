@@ -453,6 +453,37 @@ const TransferListBase = kind({
 			scrollToRefSecond.current = scrollTo;
 		}, []);
 
+		const applyDropBorder = (element, ev, isAboveCurrentElement, isBelowCurrentElement) => {
+			if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
+				if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					currentElement.current.classList.add(`${css.overAbove}`);
+					currentElement.current.classList.remove(`${css.overBelow}`);
+					isAboveDropPosition.current = true;
+				} else {
+					currentElement.current.classList.add(`${css.overBelow}`);
+					currentElement.current.classList.remove(`${css.overAbove}`);
+					isAboveDropPosition.current = false;
+				}
+			} else if (startDragElement.current !== element) {
+				if ((ev.offsetX < currentElement.current.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					currentElement.current.classList.add(`${css.overLeft}`);
+					currentElement.current.classList.remove(`${css.overRight}`);
+					isAboveDropPosition.current = true;
+				} else {
+					currentElement.current.classList.add(`${css.overRight}`);
+					currentElement.current.classList.remove(`${css.overLeft}`);
+					isAboveDropPosition.current = false;
+				}
+			}
+		};
+
+		const removeDropBorder = (element) => {
+			element.classList.remove(`${css.overAbove}`);
+			element.classList.remove(`${css.overBelow}`);
+			element.classList.remove(`${css.overLeft}`);
+			element.classList.remove(`${css.overRight}`);
+		};
+
 		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
 			const draggedItem = list[itemIndex];
 			list.splice(itemIndex, 1);
@@ -519,10 +550,7 @@ const TransferListBase = kind({
 				element = ev.currentTarget;
 			}
 
-			element.classList.remove(`${css.overAbove}`);
-			element.classList.remove(`${css.overBelow}`);
-			element.classList.remove(`${css.overLeft}`);
-			element.classList.remove(`${css.overRight}`);
+			removeDropBorder(element);
 		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight]);
 
 		const dragoverListenerFunction = useCallback((ev) => {
@@ -541,27 +569,7 @@ const TransferListBase = kind({
 			currentElement.current = dragOverOrder > 0 ? element : currentElement.current;
 			dragOverElement.current = parseInt(element.id.split('-')[0]);
 
-			if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
-				if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-					currentElement.current.classList.add(`${css.overAbove}`);
-					currentElement.current.classList.remove(`${css.overBelow}`);
-					isAboveDropPosition.current = true;
-				} else {
-					currentElement.current.classList.add(`${css.overBelow}`);
-					currentElement.current.classList.remove(`${css.overAbove}`);
-					isAboveDropPosition.current = false;
-				}
-			} else if (startDragElement.current !== element) {
-				if ((ev.offsetX < currentElement.current.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-					currentElement.current.classList.add(`${css.overLeft}`);
-					currentElement.current.classList.remove(`${css.overRight}`);
-					isAboveDropPosition.current = true;
-				} else {
-					currentElement.current.classList.add(`${css.overRight}`);
-					currentElement.current.classList.remove(`${css.overLeft}`);
-					isAboveDropPosition.current = false;
-				}
-			}
+			applyDropBorder(element, ev, isAboveCurrentElement, isBelowCurrentElement);
 		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical]);
 
 		const startListenerFunction = useCallback((ev) => {
@@ -596,57 +604,14 @@ const TransferListBase = kind({
 				dragOverElement.current = parseInt(element.id.split('-')[0]);
 
 				if (touchOverElement && touchOverElement !== element) {
-					touchOverElement.classList.remove(`${css.overAbove}`);
-					touchOverElement.classList.remove(`${css.overBelow}`);
-					touchOverElement.classList.remove(`${css.overLeft}`);
-					touchOverElement.classList.remove(`${css.overRight}`);
+					removeDropBorder(touchOverElement);
 
-					if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
-						if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-							currentElement.current.classList.add(`${css.overAbove}`);
-							currentElement.current.classList.remove(`${css.overBelow}`);
-							isAboveDropPosition.current = true;
-						} else {
-							currentElement.current.classList.add(`${css.overBelow}`);
-							currentElement.current.classList.remove(`${css.overAbove}`);
-							isAboveDropPosition.current = false;
-						}
-					} else if (startDragElement.current !== element) {
-						if ((ev.offsetX < currentElement.current.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-							currentElement.current.classList.add(`${css.overLeft}`);
-							currentElement.current.classList.remove(`${css.overRight}`);
-							isAboveDropPosition.current = true;
-						} else {
-							currentElement.current.classList.add(`${css.overRight}`);
-							currentElement.current.classList.remove(`${css.overLeft}`);
-							isAboveDropPosition.current = false;
-						}
-					}
+					applyDropBorder(element, ev, isAboveCurrentElement, isBelowCurrentElement);
 
 					setTouchOverElement(element);
 
 				} else {
-					if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
-						if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-							currentElement.current.classList.add(`${css.overAbove}`);
-							currentElement.current.classList.remove(`${css.overBelow}`);
-							isAboveDropPosition.current = true;
-						} else {
-							currentElement.current.classList.add(`${css.overBelow}`);
-							currentElement.current.classList.remove(`${css.overAbove}`);
-							isAboveDropPosition.current = false;
-						}
-					} else if (startDragElement.current !== element) {
-						if ((ev.offsetX < currentElement.current.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-							currentElement.current.classList.add(`${css.overLeft}`);
-							currentElement.current.classList.remove(`${css.overRight}`);
-							isAboveDropPosition.current = true;
-						} else {
-							currentElement.current.classList.add(`${css.overRight}`);
-							currentElement.current.classList.remove(`${css.overLeft}`);
-							isAboveDropPosition.current = false;
-						}
-					}
+					applyDropBorder(element, ev, isAboveCurrentElement, isBelowCurrentElement);
 
 					setTouchOverElement(element);
 				}
@@ -672,10 +637,7 @@ const TransferListBase = kind({
 
 				rearrangeList(dragOverElement.current, startElementIndex, firstListCopy, list, setFirstListLocal);
 
-				element.classList.remove(`${css.overAbove}`);
-				element.classList.remove(`${css.overBelow}`);
-				element.classList.remove(`${css.overLeft}`);
-				element.classList.remove(`${css.overRight}`);
+				removeDropBorder(element);
 
 				return;
 			}
@@ -698,10 +660,7 @@ const TransferListBase = kind({
 
 			rearrangeLists(firstListCopy, secondListCopy, startElementIndex, startElementList, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 
-			element.classList.remove(`${css.overAbove}`);
-			element.classList.remove(`${css.overBelow}`);
-			element.classList.remove(`${css.overLeft}`);
-			element.classList.remove(`${css.overRight}`);
+			removeDropBorder(element);
 		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, firstListLocal, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, selectedItems]);
 
 		const handleTouchEndSecond = useCallback((ev) => {
@@ -724,10 +683,7 @@ const TransferListBase = kind({
 
 				rearrangeList(dragOverElement.current, startElementIndex, secondListCopy, list, setSecondListLocal);
 
-				element.classList.remove(`${css.overAbove}`);
-				element.classList.remove(`${css.overBelow}`);
-				element.classList.remove(`${css.overLeft}`);
-				element.classList.remove(`${css.overRight}`);
+				removeDropBorder(element);
 
 				return;
 			}
@@ -750,10 +706,7 @@ const TransferListBase = kind({
 
 			rearrangeLists(secondListCopy, firstListCopy, startElementIndex, startElementList, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 
-			element.classList.remove(`${css.overAbove}`);
-			element.classList.remove(`${css.overBelow}`);
-			element.classList.remove(`${css.overLeft}`);
-			element.classList.remove(`${css.overRight}`);
+			removeDropBorder(element);
 		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, firstListLocal, firstListMinCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMaxCapacity, selectedItems]);
 
 		const handleScroll = useCallback(() => {
