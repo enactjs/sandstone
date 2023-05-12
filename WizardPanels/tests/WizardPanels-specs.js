@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {render, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {Panel, WizardPanels} from '../';
@@ -475,6 +475,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should advance on next click',
 		async () => {
+			const user = userEvent.setup();
 			render(
 				<WizardPanels index={1}>
 					<Panel />
@@ -484,7 +485,7 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const nextButton = screen.getByLabelText('Next');
-			userEvent.click(nextButton);
+			await user.click(nextButton);
 
 			await waitFor(() => {
 				const actual = screen.getByText('2');
@@ -499,6 +500,7 @@ describe('WizardPanel Specs', () => {
 		async () => {
 			const handleChange = jest.fn();
 			const handleNextClick = jest.fn();
+			const user = userEvent.setup();
 
 			render(
 				<WizardPanels index={1} onChange={handleChange} onNextClick={handleNextClick}>
@@ -511,7 +513,7 @@ describe('WizardPanel Specs', () => {
 			const nextButton = screen.getByLabelText('Next');
 			const expected = {type: 'onNextClick'};
 
-			userEvent.click(nextButton);
+			await user.click(nextButton);
 
 			await waitFor(() => {
 				expect(handleChange).toBeCalledWith({index: 2, type: 'onChange'});
@@ -527,6 +529,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should go back on prev click',
 		async () => {
+			const user = userEvent.setup();
 			render(
 				<WizardPanels defaultIndex={1}>
 					<Panel />
@@ -536,7 +539,7 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const prevButton = screen.getByLabelText('Previous');
-			userEvent.click(prevButton);
+			await user.click(prevButton);
 
 			await waitFor(() => {
 				const actual = screen.getByText('1');
@@ -551,6 +554,7 @@ describe('WizardPanel Specs', () => {
 		async () => {
 			const handleChange = jest.fn();
 			const handlePrevClick = jest.fn();
+			const user = userEvent.setup();
 
 			render(
 				<WizardPanels index={2} onChange={handleChange} onPrevClick={handlePrevClick}>
@@ -563,7 +567,7 @@ describe('WizardPanel Specs', () => {
 			const prevButton = screen.getByLabelText('Previous');
 			const expected = {type: 'onPrevClick'};
 
-			userEvent.click(prevButton);
+			await user.click(prevButton);
 
 			await waitFor(() => {
 				expect(handleChange).toBeCalledWith({index: 1, type: 'onChange'});
@@ -582,12 +586,12 @@ describe('WizardPanel Specs', () => {
 			render(
 				<WizardPanels defaultIndex={1}>
 					<Panel />
-					<Panel />
+					<Panel>test</Panel>
 					<Panel />
 				</WizardPanels>
 			);
 
-			userEvent.keyboard('{esc}');
+			fireEvent.keyUp(screen.getByText('test'), {keyCode: 27});
 
 			await waitFor(() => {
 				const actual = screen.getByText('1');
@@ -603,12 +607,12 @@ describe('WizardPanel Specs', () => {
 			render(
 				<WizardPanels defaultIndex={1} prevButtonVisibility="never">
 					<Panel />
-					<Panel />
+					<Panel>test</Panel>
 					<Panel />
 				</WizardPanels>
 			);
 
-			userEvent.keyboard('{esc}');
+			fireEvent.keyUp(screen.getByText('test'), {keyCode: 27});
 
 			await waitFor(() => {
 				const actual = screen.getByText('1');
@@ -625,12 +629,12 @@ describe('WizardPanel Specs', () => {
 			render(
 				<WizardPanels defaultIndex={1} onBack={spy}>
 					<Panel />
-					<Panel />
+					<Panel>test</Panel>
 					<Panel />
 				</WizardPanels>
 			);
 
-			userEvent.keyboard('{esc}');
+			fireEvent.keyUp(screen.getByText('test'), {keyCode: 27});
 
 			await waitFor(() => {
 				const actual = screen.getByText('1');
@@ -652,12 +656,12 @@ describe('WizardPanel Specs', () => {
 			render(
 				<WizardPanels defaultIndex={1} onBack={spy}>
 					<Panel />
-					<Panel />
+					<Panel>test</Panel>
 					<Panel />
 				</WizardPanels>
 			);
 
-			userEvent.keyboard('{esc}');
+			fireEvent.keyUp(screen.getByText('test'), {keyCode: 27});
 
 			await waitFor(() => {
 				const actual = screen.getByText('2');

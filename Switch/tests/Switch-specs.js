@@ -41,13 +41,14 @@ describe('Switch Specs', () => {
 		expect(actual).not.toHaveClass(unexpected);
 	});
 
-	test('toggle Switch', () => {
+	test('toggle Switch', async () => {
 		const handleToggle = jest.fn();
+		const user = userEvent.setup();
 		render(<Switch onToggle={handleToggle} />);
 
 		const actual = screen.getByRole('button');
 
-		userEvent.click(actual);
+		await user.click(actual);
 
 		const expectedClass = 'selected';
 		expect(actual).toHaveClass(expectedClass);
