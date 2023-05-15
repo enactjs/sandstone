@@ -22,17 +22,17 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.6.0",
-    "@enact/i18n": "^4.6.0",
+    "@enact/core": "^4.7.0",
+    "@enact/i18n": "^4.7.0",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.6.0",
-    "@enact/ui": "^4.6.0",
-    "@reduxjs/toolkit": "^1.8.6",
-    "ilib": "^14.15.1",
+    "@enact/spotlight": "^4.7.0",
+    "@enact/ui": "^4.7.0",
+    "@reduxjs/toolkit": "^1.9.3",
+    "ilib": "^14.17.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.4",
-    "redux": "^4.2.0"
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1"
   }
 }

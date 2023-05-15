@@ -1,7 +1,6 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import {Popup} from '../Popup';
 
@@ -361,7 +360,7 @@ describe('Popup specs', () => {
 			</FloatingLayerController>
 		);
 
-		userEvent.keyboard('{esc}');
+		fireEvent.keyUp(screen.getByText('popup'), {keyCode: 27});
 
 		await waitFor(() => {
 			expect(handleClose).toHaveBeenCalled();

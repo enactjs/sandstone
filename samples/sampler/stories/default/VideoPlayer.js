@@ -195,6 +195,7 @@ export const _VideoPlayer = (args) => {
 							}}
 							itemRenderer={renderItem}
 							spacing={ri.scale(12)}
+							hoverToScroll
 						/>
 					</bottomComponents>
 					<Button size="small" icon="list" />

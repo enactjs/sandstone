@@ -27,7 +27,7 @@ const InputDecoratorIconBase = kind({
 		/**
 		 * Icon to be displayed.
 		 *
-		 * @see {@link sandstone/Icon.Icon#children}
+		 * @see {@link sandstone/Icon.IconBase.children}
 		 * @type {String|Object}
 		 */
 		children: PropTypes.oneOfType([PropTypes.string, PropTypes.object])

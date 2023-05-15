@@ -49,6 +49,9 @@ class TabLayoutInterface {
 	get tabsScroller () {
 		return getScroller(this.self);
 	}
+	async isSelectedTab (number) {
+		return await hasClass('selected', $$('.TabLayout_TabGroup_tab')[number]);
+	}
 }
 
 class TabLayoutPage extends Page {

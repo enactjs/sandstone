@@ -28,6 +28,7 @@ describe('PopupTabLayout', function () {
 				it('should render a tab\'s associated view when it is focused via 5-way move', async function () {
 					const soundId = 'sound';
 
+					await Page.delay(1000);
 					await Page.spotlightDown();
 					await Page.waitForExist(`#${soundId}`);
 
@@ -38,6 +39,7 @@ describe('PopupTabLayout', function () {
 				});
 
 				it('should show the collapsed tabs when a user enters a menu', async function () {
+					await Page.delay(1000);
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.spotlightRight();
 						await Page.spotlightSelect();

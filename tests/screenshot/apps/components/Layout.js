@@ -41,7 +41,25 @@ const rowTestCases = [
 		<Cell className={css.blue} shrink>Layout menu</Cell>
 		<Cell className={css.red}>Layout Content</Cell>
 		<Cell className={css.blue} shrink>Layout Side</Cell>
-	</Layout>
+	</Layout>,
+
+	<Row>
+		<Cell className={css.red} grow>Layout Head</Cell>
+		<Cell className={css.blue} grow>Layout Content</Cell>
+		<Cell className={css.green} grow>Layout Tail</Cell>
+	</Row>,
+
+	<Row>
+		<Cell className={css.red} grow size={1000}>Layout Head</Cell>
+		<Cell className={css.blue} grow size={1000}>Layout Content</Cell>
+		<Cell className={css.green} grow size={1000}>Layout Tail</Cell>
+	</Row>,
+
+	<Row>
+		<Cell className={css.red} grow size={1500}>Layout Head</Cell>
+		<Cell className={css.blue} grow size={1500}>Layout Content</Cell>
+		<Cell className={css.green} grow size={1500}>Layout Tail</Cell>
+	</Row>
 ];
 
 const columnTestCases = [
@@ -76,6 +94,24 @@ const columnTestCases = [
 		<Cell className={css.blue} shrink>Column header5</Cell>
 		<Cell className={css.red}>Column Content5</Cell>
 		<Cell className={css.blue} size={500}>Column footer5</Cell>
+	</Column>,
+
+	<Column style={{height: "500px"}}>
+		<Cell className={css.red} grow>Column header6</Cell>
+		<Cell className={css.blue} grow>Column Content6</Cell>
+		<Cell className={css.green} grow>Column footer6</Cell>
+	</Column>,
+
+	<Column style={{height: "500px"}}>
+		<Cell className={css.red} grow size={100}>Column header7</Cell>
+		<Cell className={css.blue} grow size={100}>Column Content7</Cell>
+		<Cell className={css.green} grow size={100}>Column footer7</Cell>
+	</Column>,
+
+	<Column style={{height: "500px"}}>
+		<Cell className={css.red} grow size={500}>Column header8</Cell>
+		<Cell className={css.blue} grow size={500}>Column Content8</Cell>
+		<Cell className={css.green} grow size={500}>Column footer8</Cell>
 	</Column>
 ];
 
@@ -110,6 +146,30 @@ const layoutTestCases = [
 	<Layout align="center">
 		<Cell className={css.red} component="label" size="40%" shrink>Align center layout</Cell>
 		<Cell className={css.blue} component={Button} icon="home" />
+	</Layout>,
+
+	<Layout>
+		<Cell className={css.red}>
+			<Button>First</Button>
+		</Cell>
+		<Cell className={css.blue} shrink>
+			<div>A div with some long text in it</div>
+		</Cell>
+		<Cell className={css.green}>
+			<Button>Last</Button>
+		</Cell>
+	</Layout>,
+
+	<Layout>
+		<Cell className={css.red} grow size={1500}>
+			<Button>First</Button>
+		</Cell>
+		<Cell className={css.blue} grow size={1500}>
+			<div>A div with some long text in it</div>
+		</Cell>
+		<Cell className={css.green} grow size={1500}>
+			<Button>Last</Button>
+		</Cell>
 	</Layout>
 ];
 

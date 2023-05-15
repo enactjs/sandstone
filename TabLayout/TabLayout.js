@@ -9,7 +9,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forwardCustom, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
+import {forward, forwardCustom, forwardWithPrevent, forProp, handle, not} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
@@ -272,7 +272,7 @@ const TabLayoutBase = kind({
 			const {collapsed, 'data-spotlight-id': spotlightId, type} = props;
 			const popupPanelRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${popupTabLayoutComponentCss.panel}`);
 
-			if (forwardWithPrevent('onKeyUp', ev, props) && type === 'popup' && is('cancel')(keyCode) && popupPanelRef.contains(target) && popupPanelRef.dataset.index === '0') {
+			if (forwardWithPrevent('onKeyUp', ev, props) && type === 'popup' && is('cancel')(keyCode) && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') {
 				if (collapsed) {
 					forward('onExpand', ev, props);
 				}
@@ -288,10 +288,7 @@ const TabLayoutBase = kind({
 			forProp('orientation', 'vertical'),
 			// Validate the transition is from the root node
 			(ev) => ev.target.classList.contains(componentCss.tabs),
-			adaptEvent(
-				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
-				forward('onTabAnimationEnd')
-			)
+			forwardCustom('onTabAnimationEnd', (ev, {collapsed}) => ({collapsed: Boolean(collapsed)}))
 		),
 		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand}) => {
 			// See the global class 'spotlight-input-touch' to check the input type is touch

@@ -11,51 +11,54 @@ import TimePicker, {timeToLocaleString} from '../TimePicker';
 describe('TimePicker', () => {
 	// Suite-wide setup
 
-	test('should emit an onChange event when changing the hour', () => {
+	test('should emit an onChange event when changing the hour', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
 		);
 		const hourPicker = screen.getAllByText('▲')[0];
 
-		userEvent.click(hourPicker);
+		await user.click(hourPicker);
 
 		const expected = 1;
-		const expectedType = {type: 'onChange'};
+		const expectedType = {type: 'onChange', value: new Date(2000, 6, 15, 4, 30)};
 		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
 		expect(handleChange).toBeCalledTimes(expected);
 		expect(actual).toMatchObject(expectedType);
 	});
 
-	test('should emit an onChange event when changing the minute', () => {
+	test('should emit an onChange event when changing the minute', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
 		);
 		const minutePicker = screen.getAllByText('▲')[1];
 
-		userEvent.click(minutePicker);
+		await user.click(minutePicker);
 
 		const expected = 1;
-		const expectedType = {type: 'onChange'};
+		const expectedType = {type: 'onChange', value: new Date(2000, 6, 15, 3, 31)};
 		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
 		expect(handleChange).toBeCalledTimes(expected);
 		expect(actual).toMatchObject(expectedType);
 	});
 
-	test('should emit an onChange event when changing the meridiem', () => {
+	test('should emit an onChange event when changing the meridiem', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
 		);
 		const meridiemPicker = screen.getAllByText('▲')[2];
 
-		userEvent.click(meridiemPicker);
+		await user.click(meridiemPicker);
 
 		const expected = 1;
-		const expectedType = {type: 'onChange'};
+		const expectedType = {type: 'onChange', value: new Date(2000, 6, 15, 15, 30)};
 		const actual = handleChange.mock.calls.length && handleChange.mock.calls[0][0];
 
 		expect(handleChange).toBeCalledTimes(expected);
@@ -70,7 +73,7 @@ describe('TimePicker', () => {
 		act(() => meridiemPicker.focus());
 		fireEvent.keyDown(meridiemPicker, {which: 13, keyCode: 13, code: 13});
 
-		const expected = {type: 'onComplete'};
+		const expected = {type: 'onComplete', value: new Date(2000, 6, 15, 3, 30)};
 		const actual = handleComplete.mock.calls.length && handleComplete.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
@@ -165,7 +168,7 @@ describe('TimePicker', () => {
 		render(
 			<TimePicker value={time} locale="en-US" />
 		);
-		const header = screen.getByText(timeToLocaleString(time)).parentElement.parentElement;
+		const header = screen.getByText(timeToLocaleString(time), {collapseWhitespace: false}).parentElement.parentElement;
 
 		const expected = 'heading';
 
@@ -178,7 +181,7 @@ describe('TimePicker', () => {
 		render(
 			<TimePicker value={time} locale="ar-SA" />
 		);
-		const header = screen.getByText(timeToLocaleString(time)).parentElement.parentElement;
+		const header = screen.getByText(timeToLocaleString(time), {collapseWhitespace: false}).parentElement.parentElement;
 
 		const expected = 'heading';
 
@@ -191,7 +194,7 @@ describe('TimePicker', () => {
 		render(
 			<TimePicker value={time} locale="en-US" noLabel />
 		);
-		const header = screen.queryByText(timeToLocaleString(time));
+		const header = screen.queryByText(timeToLocaleString(time), {collapseWhitespace: false});
 
 		expect(header).toBeNull();
 	});
