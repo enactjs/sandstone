@@ -120,6 +120,12 @@ const StepsBase = kind({
 		pastIcon: PropTypes.string,
 
 		/**
+		 * @type {Boolean}
+		 * @private
+		 */
+		singleIconMode: PropTypes.bool,
+
+		/**
 		 * The size of the step icons.
 
 		 * This accepts any `size` supported by {@link sandstone/Icon}.
@@ -182,7 +188,7 @@ const StepsBase = kind({
 	},
 
 	computed: {
-		steps: ({current, pastIcon, currentIcon, futureIcon, skip, skipIcon, total, styler}) => {
+		steps: ({current, pastIcon, currentIcon, futureIcon, singleIconMode, skip, skipIcon, total, styler}) => {
 			skip = coerceArray(skip);
 			return Array.from(Array(total)).map((el, index) => {
 				const stepNum = index + 1;
@@ -209,7 +215,7 @@ const StepsBase = kind({
 				}
 
 				return {
-					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present)}),
+					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), singleIconMode}),
 					key: `step${stepNum}`,
 					children
 				};

@@ -17,13 +17,20 @@
 		}
 
 		&.past {
-			opacity: @sand-steps-step-past-opacity;
+			opacity:  @sand-steps-step-past-opacity;
+			&.singleIconMode {
+				opacity:  @sand-steps-step-future-opacity;
+				font-size: @sand-steps-step-number-font-size;
+			}
 		}
 		&.current {
 			opacity: @sand-steps-step-current-opacity;
 		}
 		&.future {
 			opacity: @sand-steps-step-future-opacity;
+			&.singleIconMode {
+				font-size: @sand-steps-step-number-font-size;
+			}
 		}
 	}
 }
