@@ -28,6 +28,7 @@ import VirtualList, {VirtualGridList} from '../VirtualList';
 import componentCss from './TransferList.module.less';
 import imageItemCss from '../ImageItem/ImageItem.module.less';
 
+// SVG generator used as a `src` prop from ImageItem when the lists are rendered by `VirtualGridList` component
 const svgGenerator = (width, height, customText) => (
 	`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +
 	`%3Crect width='${width}' height='${height}' fill='%23117fba'%3E%3C/rect%3E` +
@@ -114,7 +115,7 @@ const TransferListBase = kind({
 		height: PropTypes.number,
 
 		/**
-		 * The height of the checkbox item.
+		 * The height of each item in the list.
 		 *
 		 * @type {Number}
 		 * @default 201
@@ -253,10 +254,13 @@ const TransferListBase = kind({
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
 			const selected = selectedIndex !== 0;
 			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(42)})`, width: ri.scaleToRem(itemSize * 3)};
+			// Called when an item from the list is selected with name, index and parent list (ex: BBC World News 0 first)
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
 
+			// When `moveOnSpotlight` prop is set to true, selecting and transferring the items can be done with Enter and arrow keys
+			// Handle down arrow key on item
 			const handleSpotlightDown = (ev) => {
 				if (orientation === 'vertical' && list === 'first') moveInSecond();
 				if (elements.length - 1 !== index && orientation === 'horizontal') return;
@@ -265,6 +269,7 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			// Handle left arrow key on item
 			const handleSpotlightLeft = (ev) => {
 				if (orientation === 'horizontal' && list === 'second') moveInFirst();
 				if (index !== 0 || orientation === 'horizontal') return;
@@ -272,6 +277,7 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			// Handle right arrow key on item
 			const handleSpotlightRight = (ev) => {
 				if (orientation === 'horizontal' && list === 'first') moveInSecond();
 				if (elements.length - 1 !== index || orientation === 'horizontal') return;
@@ -279,6 +285,7 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			// Handle up arrow key on item
 			const handleSpotlightUp = (ev) => {
 				if (orientation === 'vertical' && list === 'second') moveInFirst();
 				if (index !== 0 && orientation === 'horizontal') return;
@@ -287,6 +294,8 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			// In case of reordering the list with arrow keys, capture events help with catching all events on child elements of a VirtualList component
+			// https://react.dev/learn/responding-to-events#capture-phase-events
 			const handleKeyDownCapture = (ev) => {
 				if (!selected || selectedItems.length > 1) return;
 				if (orientation !== 'vertical') {
@@ -304,6 +313,7 @@ const TransferListBase = kind({
 				}
 			};
 
+			// When `listComponent` prop is set to `VirtualList`, the `CheckboxItem` component is used to render the items in the lists
 			return (
 				<CheckboxItem
 					{...rest}
@@ -327,6 +337,7 @@ const TransferListBase = kind({
 				</CheckboxItem>
 			);
 		},
+		// When `listComponent` prop is set to `VirtualGridList`, the `ImageItem` component is used to render the items in the lists
 		renderImageItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, reorderList, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
 			const {index, 'data-index': dataIndex} = data;
 			const element = elements[index];
@@ -339,14 +350,18 @@ const TransferListBase = kind({
 				uhd: svgGenerator(600, 600, '')
 			};
 
+			// Selection overlay for ImageItem component
 			const selectionComponent = () => {
 				return <div className={componentCss.selectionContainer}>{selected && <Icon className={imageItemCss.selectionIcon}>check</Icon>}{(selected && showSelectionOrder) && selectedIndex}</div>;
 			};
 
+			// Called when an item from the list is selected with name, index and parent list (ex: BBC World News 0 first)
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
 
+			// When `moveOnSpotlight` prop is set to true, selecting and transferring the items can be done with Enter and arrow keys
+			// Handle down arrow key on item
 			const handleSpotlightDown = (ev) => {
 				if (orientation === 'vertical' && list === 'first') moveInSecond();
 				if (elements.length - 1 !== index && orientation === 'horizontal') return;
@@ -355,6 +370,7 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			// Handle left arrow key on item
 			const handleSpotlightLeft = (ev) => {
 				if (orientation === 'horizontal' && list === 'second') moveInFirst();
 				if ((index !== 0 && index !== 1 ) || orientation === 'horizontal') return;
@@ -362,6 +378,7 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			// Handle right arrow key on item
 			const handleSpotlightRight = (ev) => {
 				if (orientation === 'horizontal' && list === 'first') moveInSecond();
 				if ((elements.length - 1 !== index && elements.length - 2 !== index) || orientation === 'horizontal') return;
@@ -369,6 +386,7 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			// Handle up arrow key on item
 			const handleSpotlightUp = (ev) => {
 				if (orientation === 'vertical' && list === 'second') moveInFirst();
 				if (index !== 0 && orientation === 'horizontal') return;
@@ -377,6 +395,8 @@ const TransferListBase = kind({
 				ev.stopPropagation();
 			};
 
+			// In case of reordering the list with arrow keys, capture events help with catching all events on child elements of a VirtualGridList component
+			// https://react.dev/learn/responding-to-events#capture-phase-events
 			const handleKeyDownCapture = (ev) => {
 				if (!selected || selectedItems.length > 1) return;
 				if (orientation !== 'vertical') {
@@ -453,6 +473,7 @@ const TransferListBase = kind({
 			scrollToRefSecond.current = scrollTo;
 		}, []);
 
+		// Apply animation and above/below border when dragging items
 		const applyDropBorder = useCallback((element, ev, isAboveCurrentElement, isBelowCurrentElement) => {
 			if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
 				if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
@@ -477,6 +498,7 @@ const TransferListBase = kind({
 			}
 		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical]);
 
+		// Cleanup for removing css animations and borders
 		const removeDropBorder = useCallback((element) => {
 			element.classList.remove(`${css.overAbove}`);
 			element.classList.remove(`${css.overBelow}`);
@@ -486,6 +508,7 @@ const TransferListBase = kind({
 
 		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
 			const draggedItem = list[itemIndex];
+			console.log('draggedItem', draggedItem);
 			list.splice(itemIndex, 1);
 			list.splice(dragOverElementIndex, 0, draggedItem);
 			setNewList(list);
@@ -542,6 +565,7 @@ const TransferListBase = kind({
 			setDestinationList(destinationList);
 		}, [firstListOperation, noMultipleSelect, secondListOperation, selectedItems]);
 
+		// Handler for `dragleave` event - remove the drop border
 		const dropEventListenerFunction = useCallback((ev) => {
 			let element;
 			if (!ev.target.children.length) {
@@ -553,6 +577,7 @@ const TransferListBase = kind({
 			removeDropBorder(element);
 		}, [removeDropBorder]);
 
+		// Handler for `dragover` event - apply the drop border on dragged-over item
 		const dragoverListenerFunction = useCallback((ev) => {
 			let element;
 			if (!ev.target.children.length) {
@@ -587,10 +612,12 @@ const TransferListBase = kind({
 			});
 		}, [selectedItems.length]);
 
+		// Handler for `touchStart` event - in case of touch events, set the `startDragElement` to the item we are dragging
 		const handleTouchStart = useCallback((ev) => {
 			startDragElement.current = ev.target.closest('[draggable]');
 		}, []);
 
+		// Handler for `onTouchMove` event
 		const handleTouchMove = useCallback((ev) => {
 			let element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY).closest('[draggable]');
 
@@ -618,6 +645,7 @@ const TransferListBase = kind({
 			}
 		}, [applyDropBorder, removeDropBorder, touchOverElement]);
 
+		// Handler for `onTouchEnd` for the first list
 		const handleTouchEndFirst = useCallback((ev) => {
 			let element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY).closest('[draggable]');
 			const list = element.id.split('-')[1];
@@ -629,6 +657,7 @@ const TransferListBase = kind({
 
 			// if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list) === -1) return;
 
+			// Check for min-max lists capacities
 			if (secondListCopy.length <= secondListMinCapacity || secondListCopy.length - selectedItems.length < secondListMinCapacity) return;
 			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
 
@@ -642,6 +671,7 @@ const TransferListBase = kind({
 				return;
 			}
 
+			// check if the selected item is already present in the selected items array
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[startElementIndex] && pair.list === startElementList);
 
 			if (potentialIndex !== -1) {
@@ -663,6 +693,7 @@ const TransferListBase = kind({
 			removeDropBorder(element);
 		}, [removeDropBorder, firstListLocal, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, selectedItems]);
 
+		// Handler for `onTouchEnd` for the second list
 		const handleTouchEndSecond = useCallback((ev) => {
 			let element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY).closest('[draggable]');
 			const list = element.id.split('-')[1];
@@ -675,6 +706,7 @@ const TransferListBase = kind({
 
 			// if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list) === -1) return;
 
+			// Check for min-max lists capacities
 			if (firstListCopy.length <= firstListMinCapacity || firstListCopy.length - selectedItems.length < firstListMinCapacity) return;
 			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
@@ -688,6 +720,7 @@ const TransferListBase = kind({
 				return;
 			}
 
+			// check if the selected item is already present in the selected items array
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[startElementIndex] && pair.list === startElementList);
 
 			if (potentialIndex !== -1) {
@@ -709,6 +742,7 @@ const TransferListBase = kind({
 			removeDropBorder(element);
 		}, [removeDropBorder, firstListLocal, firstListMinCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMaxCapacity, selectedItems]);
 
+		// Add all the event listeners to the items inside VirtualList and VirtualGridList
 		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
@@ -738,6 +772,7 @@ const TransferListBase = kind({
 			});
 		}, [css.draggableItem, dragoverListenerFunction, dropEventListenerFunction, startListenerFunction]);
 
+		// Inside this useEffect we add all event listeners to all the items, and handle the scroll behavior when the items are transferred
 		useEffect(() => {
 			const updateElements = setTimeout(() => {
 				handleScroll();
@@ -752,6 +787,7 @@ const TransferListBase = kind({
 
 				setPosition(null);
 			}, 100);
+			// Cleanup function. Remove all event listeners
 			return () => {
 				const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 				selectCheckboxItem.forEach((element) => {
@@ -765,6 +801,7 @@ const TransferListBase = kind({
 			};
 		}, [dragOverElement, dragoverListenerFunction, dropEventListenerFunction, firstListLocal, handleTouchEndFirst, handleTouchEndSecond, handleTouchMove, handleTouchStart, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
+		// Handle move/copy/delete the selected items into the first list
 		const moveIntoFirstSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
@@ -795,6 +832,7 @@ const TransferListBase = kind({
 			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: tempFirst.length - 1, list: 'first'});
 		}, [firstListLocal, firstListMaxCapacity, secondListLocal, secondListOperation, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
+		// Handle move/copy/delete all item from the second list into the first list
 		const selectIntoFirstAll = useCallback(() => {
 			const concatList = secondListLocal.concat(firstListLocal.filter((item) => secondListLocal.indexOf(item) < 0));
 
@@ -814,6 +852,7 @@ const TransferListBase = kind({
 			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
 		}, [firstListLocal, secondListLocal, secondListOperation, setFirstList, setSecondList]);
 
+		// Handle move/copy/delete the selected item into the second list
 		const moveIntoSecondSelected = useCallback(() => {
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
@@ -844,6 +883,7 @@ const TransferListBase = kind({
 			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: tempSecond.length - 1, list: 'second'});
 		}, [firstListLocal, firstListMinCapacity, firstListOperation, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
+		// Handle move/copy/delete all item into the second list
 		const selectIntoSecondAll = useCallback(() => {
 			const concatList = secondListLocal.concat(firstListLocal.filter((item) => secondListLocal.indexOf(item) < 0));
 
@@ -863,6 +903,7 @@ const TransferListBase = kind({
 			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
 		}, [firstListLocal, firstListOperation, secondListLocal, setFirstList, setSecondList]);
 
+		// Adds or removes items from the selectedList
 		const setSelected = useCallback((element, index, list) => {
 			if (selectedItems.findIndex((newElement) => newElement.list === list) === -1 && selectedItems.length) return;
 			const potentialIndex = selectedItems.findIndex((pair) => pair.element === element && pair.list === list);
@@ -901,6 +942,7 @@ const TransferListBase = kind({
 			}
 		};
 
+		// Get the transferred item and return the index and the list
 		const getTransferData = (dataTransferObj) => {
 			if (dataTransferObj) {
 				const data = dataTransferObj.getData('text/plain');
@@ -910,6 +952,7 @@ const TransferListBase = kind({
 			return null;
 		};
 
+		// Handle drop actions for the second list
 		const onDropSecondHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const secondListCopy = [...secondListLocal];
@@ -917,6 +960,7 @@ const TransferListBase = kind({
 
 			if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list) === -1) return;
 
+			// Check for min-max lists capacities
 			if (firstListCopy.length <= firstListMinCapacity || firstListCopy.length - selectedItems.length < firstListMinCapacity) return;
 			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
@@ -944,6 +988,7 @@ const TransferListBase = kind({
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal);
 		}, [firstListLocal, firstListMinCapacity, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
+		// Handle drop action for the first list
 		const onDropFirstHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
@@ -951,6 +996,7 @@ const TransferListBase = kind({
 
 			if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list) === -1) return;
 
+			// Check for min-max lists capacities
 			if (secondListCopy.length <= secondListMinCapacity || secondListCopy.length - selectedItems.length < secondListMinCapacity) return;
 			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
 
@@ -982,13 +1028,16 @@ const TransferListBase = kind({
 
 		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
+		// Remove all the items in the `selectedItems` array
 		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);
 
+		// Restricts the spotlight only to the component
 		const handleSpotlightBounds = useCallback(ev => {
 			ev.preventDefault();
 			ev.stopPropagation();
 		}, []);
 
+		// Move the selected items into the first list when `moveOnSpotlight` is true
 		const moveInFirst = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'second') === -1 || !moveOnSpotlight) return;
 			moveIntoFirstSelected();
@@ -996,6 +1045,7 @@ const TransferListBase = kind({
 			ev?.stopPropagation();
 		}, [moveIntoFirstSelected, moveOnSpotlight, selectedItems]);
 
+		// Move the selected items into the second list when `moveOnSpotlight` is true
 		const moveInSecond = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'first') === -1 || !moveOnSpotlight) return;
 			moveIntoSecondSelected();
@@ -1003,6 +1053,7 @@ const TransferListBase = kind({
 			ev?.stopPropagation();
 		}, [moveIntoSecondSelected, moveOnSpotlight, selectedItems]);
 
+		// Configuration for the first list
 		const firstListSpecs = {
 			elements: firstListLocal,
 			list: 'first',
@@ -1013,6 +1064,7 @@ const TransferListBase = kind({
 			showSelectionOrder
 		};
 
+		// Configuration for the second list
 		const secondListSpecs = {
 			elements: secondListLocal,
 			list: 'second',
@@ -1147,7 +1199,7 @@ const TransferListBase = kind({
 });
 
 /**
- * Sandstone-specific behaviors to apply to [TransferListBase]{@link sandstone/TransferList.TransferListBase}.
+ * Sandstone-specific behaviors to apply to {@link sandstone/TransferList.TransferListBase|TransferListBase}.
  *
  * @hoc
  * @memberof sandstone/TransferList
