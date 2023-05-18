@@ -274,8 +274,9 @@ describe('Dropdown', () => {
 		expect(actual).toHaveAttribute('aria-checked', 'false');
 	});
 
-	test('should fire `onSelect` event with type `onSelect`', () => {
+	test('should fire `onSelect` event with type `onSelect`', async () => {
 		const handleSelect = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<FloatingLayerController>
 				<DropdownBase open onSelect={handleSelect} title={title}>
@@ -286,14 +287,15 @@ describe('Dropdown', () => {
 
 		const firstItem = screen.getByRole('list').children[0].children[0];
 
-		userEvent.click(firstItem);
+		await user.click(firstItem);
 
 		expect(handleSelect).toHaveBeenCalledWith({data: 'option1', selected: 0, type: 'onSelect'});
 	});
 
 	describe('DropdownList', () => {
-		test('should include `data` and `selected` in `onSelect` callback', () => {
+		test('should include `data` and `selected` in `onSelect` callback', async () => {
 			const handler = jest.fn();
+			const user = userEvent.setup();
 			render(
 				<DropdownList onSelect={handler}>
 					{children}
@@ -301,7 +303,7 @@ describe('Dropdown', () => {
 			);
 			const firstItem = screen.getByRole('list').children[0].children[0];
 
-			userEvent.click(firstItem);
+			await user.click(firstItem);
 
 			const expected = {data: 'option1', selected: 0};
 			const actual = handler.mock.calls[0][0];

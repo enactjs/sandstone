@@ -146,8 +146,9 @@ describe('TabLayout specs', () => {
 		expect(spy).not.toHaveBeenCalled();
 	});
 
-	test('should call \'onSelect\' with \'onSelect\' type when clicking on a tab', () => {
+	test('should call \'onSelect\' with \'onSelect\' type when clicking on a tab', async () => {
 		const spy = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TabLayout onSelect={spy} orientation="vertical">
 				<Tab icon="home" title="Home">
@@ -159,7 +160,7 @@ describe('TabLayout specs', () => {
 			</TabLayout>
 		);
 
-		userEvent.click(screen.getAllByTestId('tab')[1]);
+		await user.click(screen.getAllByTestId('tab')[1]);
 
 		const expected = {type: 'onSelect'};
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
