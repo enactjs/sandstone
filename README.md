@@ -2,6 +2,10 @@
 
 > The set of components for an Enact-based application targeting smart TVs.
 
+## Links
+* [Sandstone API Docs](https://enactjs.com/docs/modules/sandstone/ActionGuide/)
+* [Sandstone Component Sampler](https://enactjs.com/sampler)
+
 ## Usage
 
 ```
@@ -20,7 +24,7 @@ const MySandstoneApp = ThemeDecorator(MyApp);
 export default MySandstoneApp;
 ```
 
-> Note: The sandstone decorator must be applied to the base component. This decorator also applies
+> Note: The `@enact/sandstone/ThemeDecorator` must be applied to the base component. This decorator also applies
 `@enact/i18n/I18nDecorator`, `@enact/spotlight` and `@enact/ui/resolution` decorators.
 
 ## Install
