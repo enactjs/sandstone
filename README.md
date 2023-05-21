@@ -1,8 +1,8 @@
 # @enact/sandstone [![npm (scoped)](https://img.shields.io/npm/v/@enact/sandstone.svg?style=flat-square)](https://www.npmjs.com/package/@enact/sandstone)
 
-![image](https://github.com/enactjs/sandstone/assets/4288375/169e675e-7e82-41d2-a83e-94a83f2b8f8d)
-
 > The set of components for an Enact-based application targeting smart TVs.
+
+![image](https://github.com/enactjs/sandstone/assets/4288375/169e675e-7e82-41d2-a83e-94a83f2b8f8d)
 
 ## Links
 * [Sandstone API Docs](https://enactjs.com/docs/modules/sandstone/ActionGuide/)
