@@ -849,6 +849,7 @@ const VideoPlayerBase = class extends Component {
 			on('touchmove', this.activityDetected);
 		}
 		document.addEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
+		document.addEventListener('wheel', this.handleWheel, {capture: true});
 		this.startDelayedFeedbackHide();
 		if (this.context && typeof this.context === 'function') {
 			this.floatingLayerController = this.context(() => {});
@@ -946,6 +947,7 @@ const VideoPlayerBase = class extends Component {
 			off('touchmove', this.activityDetected);
 		}
 		document.removeEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
+		document.removeEventListener('wheel', this.handleWheel, {capture: true});
 		this.stopRewindJob();
 		this.stopAutoCloseTimeout();
 		this.stopDelayedTitleHide();
@@ -1290,6 +1292,12 @@ const VideoPlayerBase = class extends Component {
 		stopImmediate,
 		this.showControlsFromPointer
 	);
+
+	handleWheel = () => {
+		if (this.state.infoVisible) {
+			this.activityDetected();
+		}
+	};
 
 	handleControlsHandleAboveHold = () => {
 		if (shouldJump(this.props, this.state)) {
