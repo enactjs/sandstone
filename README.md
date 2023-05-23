@@ -4,10 +4,6 @@
 
 ![image](https://github.com/enactjs/sandstone/assets/4288375/169e675e-7e82-41d2-a83e-94a83f2b8f8d)
 
-## Links
-* [Sandstone API Docs](https://enactjs.com/docs/modules/sandstone/ActionGuide/)
-* [Sandstone Component Sampler](https://enactjs.com/sampler)
-
 ## Usage
 
 ```
@@ -42,6 +38,10 @@ Unit tests are implemented in Testing Library and are run with Jest. To execute 
 ```
 npm test
 ```
+
+## Links
+* [Sandstone API Docs](https://enactjs.com/docs/modules/sandstone/ActionGuide/)
+* [Sandstone Component Sampler](https://enactjs.com/sampler)
 
 ## Copyright and License Information
 
