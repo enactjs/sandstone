@@ -291,10 +291,10 @@ export const EditableList = (args) => {
 	useEffect(() => {
 		divRef.current.addEventListener('keydown', (ev) => {
 			const {keyCode} = ev;
-			if(isCancel(keyCode)) {
+			if (isCancel(keyCode)) {
 				setEditMode(false);
 			}
-		})
+		});
 	}, [divRef]);
 
 	return (
@@ -395,7 +395,103 @@ select('scrollMode', EditableList, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', EditableList, Config, false);
 select('verticalScrollbar', EditableList, prop.scrollbarOption, Config);
 
-EditableList.storyName = 'with editable items';
+EditableList.storyName = 'With Editable Items';
+
+export const EditableListWithLongPress = (args) => {
+	const dataSize = args['editableDataSize'];
+	const [items, setItems] = useState(itemsArr);
+	const removeItem = useRef();
+	const mutableRef = useRef({
+		hideIndex: null
+	});
+
+	useLayoutEffect(() => {
+		itemsArr = [];
+		for (let i = 0; i < dataSize; i++) {
+			itemsArr.push(populateItems({index: i}));
+		}
+		setItems(itemsArr);
+		mutableRef.current.hideIndex = dataSize;
+	}, [dataSize]);
+
+	const onClickRemoveButton = useCallback((ev) => {
+		if (removeItem.current) {
+			removeItem.current();
+		}
+		ev.preventDefault();
+		ev.stopPropagation();
+	}, []);
+
+	const handleComplete = useCallback((ev) => {
+		const {orders} = ev;
+		// change data from the new orders
+		const newItems = [];
+
+		orders.forEach(order => {
+			newItems.push(items[order - 1]);
+		});
+
+		setItems(newItems);
+	}, [items]);
+
+	return (
+		<Scroller
+			direction="horizontal"
+			editable={{
+				centered: args['editableCentered'],
+				css,
+				hideIndex: mutableRef.current.hideIndex,
+				onComplete: handleComplete,
+				removeItemFuncRef: removeItem,
+				longPressMode: true
+			}}
+			focusableScrollbar={args['focusableScrollbar']}
+			horizontalScrollbar={args['horizontalScrollbar']}
+			hoverToScroll={args['hoverToScroll']}
+			key={args['scrollMode']}
+			noScrollByWheel={args['noScrollByWheel']}
+			onClick={action('onClickScroller')}
+			onKeyDown={action('onKeyDown')}
+			onScrollStart={action('onScrollStart')}
+			onScrollStop={action('onScrollStop')}
+			scrollMode={args['scrollMode']}
+			spotlightDisabled={args['spotlightDisabled']}
+			verticalScrollbar={args['verticalScrollbar']}
+		>
+			{
+				items.map((item, index) => {
+					return (
+						<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+							<div className={css.removeButtonContainer}>
+								<Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
+							</div>
+							<ImageItem
+								aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
+								src={item.src}
+								className={css.imageItem}
+								onClick={action('onClickItem')}
+							>
+								{`Image ${item.index}`}
+							</ImageItem>
+						</div>
+					);
+				})
+			}
+		</Scroller>
+	);
+};
+
+boolean('editableCentered', EditableListWithLongPress, Config, true);
+number('editableDataSize', EditableListWithLongPress, Config, 20);
+select('focusableScrollbar', EditableListWithLongPress, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', EditableListWithLongPress, prop.scrollbarOption, Config);
+boolean('hoverToScroll', EditableListWithLongPress, Config, true);
+boolean('noScrollByWheel', EditableListWithLongPress, Config);
+select('scrollMode', EditableListWithLongPress, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', EditableListWithLongPress, Config, false);
+select('verticalScrollbar', EditableListWithLongPress, prop.scrollbarOption, Config);
+
+EditableListWithLongPress.storyName = 'With Editable Items Trigger By Long Press';
 
 export const ListOfThingsInFixedPopupPanels = (args) => (
 	<FixedPopupPanels

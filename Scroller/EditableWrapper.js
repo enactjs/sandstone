@@ -41,6 +41,7 @@ const EditableShape = PropTypes.shape({
 	centered: PropTypes.bool,
 	css: PropTypes.object,
 	hideItemFuncRef: EnactPropTypes.ref,
+	longPressMode: PropTypes.bool,
 	removeItemFuncRef: EnactPropTypes.ref,
 	showItemFuncRef: EnactPropTypes.ref
 });
@@ -66,6 +67,7 @@ const holdConfig = {
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
 	const centered = editable?.centered != null ? editable.centered : true;
+	const longPressMode = editable?.longPressMode;
 	const customCss = editable?.css || {};
 	const removeItemFuncRef = editable?.removeItemFuncRef;
 	const hideItemFuncRef = editable?.hideItemFuncRef;
@@ -222,14 +224,18 @@ const EditableWrapper = (props) => {
 			mutableRef.current.needToPreventEvent = true;
 		} else {
 			const targetItemNode = findItemNode(ev.target);
-			if (targetItemNode && targetItemNode.dataset.index) {
-				// Start editing by adding selected transition to selected item
+			if (!longPressMode) {
+				if (targetItemNode && targetItemNode.dataset.index) {
+					// Start editing by adding selected transition to selected item
+					mutableRef.current.targetItemNode = targetItemNode;
+					startEditing(targetItemNode);
+				}
+			} else {
 				mutableRef.current.targetItemNode = targetItemNode;
-				startEditing(targetItemNode);
 			}
 			mutableRef.current.needToPreventEvent = false;
 		}
-	}, [editable, finalizeOrders, findItemNode, reset, startEditing]);
+	}, [editable, finalizeOrders, findItemNode, longPressMode, reset, startEditing]);
 
 	const handleHoldStart = useCallback(() => {
 		const {targetItemNode} = mutableRef.current;
@@ -512,7 +518,7 @@ const EditableWrapper = (props) => {
 							true
 						);
 					}, completeAnnounceDelay);
-				} else {
+				} else if (!longPressMode) {
 					startEditing(targetItemNode);
 				}
 			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
@@ -533,7 +539,7 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation();
 			}
 		}
-	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, startEditing]);
+	}, [editable, finalizeOrders, findItemNode, longPressMode, moveItemsByKeyDown, reset, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		mutableRef.current.lastKeyEventTargetElement = ev.target;
