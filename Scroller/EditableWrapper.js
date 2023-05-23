@@ -91,6 +91,7 @@ const EditableWrapper = (props) => {
 		// Indices
 		fromIndex: null,
 		prevToIndex: null,
+		hideIndex: null,
 
 		// Position for restoring focus after removing item
 		nextSpotlightRect: null,
@@ -112,12 +113,11 @@ const EditableWrapper = (props) => {
 		// Flag for prevent event propagation
 		needToPreventEvent: null,
 
-		lastInputDirection: null,
-
-		hideIndex: dataSize
+		lastInputDirection: null
 	});
-
 	const announceRef = useRef({});
+
+	mutableRef.current.hideIndex = editable?.hideIndex;
 
 	// Functions
 
@@ -177,7 +177,6 @@ const EditableWrapper = (props) => {
 
 	const startEditing = useCallback((item) => {
 		if (item.dataset.index) {
-			Spotlight.set(item.dataset.spotlightId, {restrict: 'self-only'});
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
@@ -411,6 +410,8 @@ const EditableWrapper = (props) => {
 		if (selectedItem) {
 			const ordernum = Number(selectedItem.style.order);
 			const rearrangedItems = mutableRef.current.rearrangedItems;
+			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 			mutableRef.current.hideIndex -= 1;
 
 			const orders = finalizeOrders();
@@ -429,11 +430,15 @@ const EditableWrapper = (props) => {
 	const showItem = useCallback(() => {
 		const {selectedItem} = mutableRef.current;
 		if (selectedItem) {
+			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
+			mutableRef.current.hideIndex += 1;
+
 			const orders = Array.from({length: dataSize}, (_, i) => i + 1);
 			const selectedItemOrder = selectedItem.style.order;
 			orders.splice(selectedItemOrder - 1, 1);
 			orders.splice(mutableRef.current.hideIndex, 0, Number(selectedItemOrder));
-			mutableRef.current.hideIndex += 1;
+
 			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 			reset();
 		}
