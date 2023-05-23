@@ -432,12 +432,13 @@ const EditableWrapper = (props) => {
 		if (selectedItem) {
 			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
-			mutableRef.current.hideIndex += 1;
 
 			const orders = Array.from({length: dataSize}, (_, i) => i + 1);
 			const selectedItemOrder = selectedItem.style.order;
 			orders.splice(selectedItemOrder - 1, 1);
 			orders.splice(mutableRef.current.hideIndex, 0, Number(selectedItemOrder));
+
+			mutableRef.current.hideIndex += 1;
 
 			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 			reset();
