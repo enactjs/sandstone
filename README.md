@@ -37,7 +37,7 @@ npm install --save @enact/sandstone
 
 ## Test
 
-Unit tests are implemented with Jest. To execute them:
+Unit tests are implemented in Testing Library and are run with Jest. To execute them:
 
 ```
 npm test
