@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VideoPlayer` to continue to display controls when user activity including rotating a wheel button is detected
+
 ## [2.5.10] - 2023-04-13
 
 ### Fixed
