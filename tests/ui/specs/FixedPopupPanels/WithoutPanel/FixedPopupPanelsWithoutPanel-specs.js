@@ -1,4 +1,5 @@
-const Page = require('./FixedPopupPanelsWithoutPanelPage');
+//const Page = require('./FixedPopupPanelsWithoutPanelPage');
+import Page from './FixedPopupPanelsWithoutPanelPage.js';
 
 
 describe('FixedPopupPanelsWithoutPanel', function () {

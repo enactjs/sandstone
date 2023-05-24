@@ -1,5 +1,6 @@
-'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, Page} = require('@enact/ui-test-utils/utils');
+import {element, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class PickerInterface {
 	constructor (className) {
@@ -66,4 +67,5 @@ class PickerPage extends Page {
 	}
 }
 
-module.exports = new PickerPage();
+//module.exports = new PickerPage();
+export default new PickerPage();

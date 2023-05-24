@@ -1,4 +1,5 @@
-const Page = require('./SliderPage');
+// const Page = require('./SliderPage');
+import Page from './SliderPage.js';
 
 describe('Slider', function () {
 

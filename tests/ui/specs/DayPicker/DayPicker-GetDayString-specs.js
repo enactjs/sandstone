@@ -1,4 +1,5 @@
-const Page = require('./DayPickerPage');
+//const Page = require('./DayPickerPage');
+import Page from './DayPickerPage.js';
 
 describe('DayPicker', function () {
 	beforeEach(async function () {

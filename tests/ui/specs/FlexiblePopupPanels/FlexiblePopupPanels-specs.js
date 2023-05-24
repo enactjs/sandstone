@@ -1,4 +1,5 @@
-const Page = require('./FlexiblePopupPanelsPage');
+//const Page = require('./FlexiblePopupPanelsPage');
+import Page from './FlexiblePopupPanelsPage.js';
 
 describe('FlexiblePopupPanels', function () {
 	const Interface = Page.flexiblePopupPanels;

@@ -1,6 +1,6 @@
 import ActionGuide from '../../../../ActionGuide';
 
-import {withConfig} from './utils';
+import {withConfig} from './utils.js';
 
 const LtrTests = [
 	<ActionGuide>This is some text</ActionGuide>,

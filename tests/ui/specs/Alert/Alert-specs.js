@@ -1,5 +1,8 @@
-const Page = require('./AlertPage');
-const {expectClosed, expectOpen, validateTitle} = require('./Alert-utils.js');
+// const Page = require('./AlertPage');
+// const {expectClosed, expectOpen, validateTitle} = require('./Alert-utils.js');
+
+import Page from './AlertPage.js';
+import {expectClosed, expectOpen, validateTitle} from './Alert-utils.js';
 
 describe('Alert', () => {
 

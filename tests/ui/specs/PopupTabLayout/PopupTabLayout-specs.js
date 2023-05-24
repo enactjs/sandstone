@@ -1,6 +1,8 @@
-const {getFocusedText} = require('../utils');
+// const {getFocusedText} = require('../utils');
+import {getFocusedText} from '../utils.js';
 
-const Page = require('./PopupTabLayoutPage');
+//const Page = require('./PopupTabLayoutPage');
+import Page from './PopupTabLayoutPage.js';
 
 describe('PopupTabLayout', function () {
 

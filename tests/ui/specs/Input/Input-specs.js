@@ -1,4 +1,5 @@
-const Page = require('./InputPage');
+//const Page = require('./InputPage');
+import Page from './InputPage.js';
 
 describe('Input test', () => {
 	const components = Page.components;

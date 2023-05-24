@@ -1,4 +1,5 @@
-const Page = require('../VirtualGridListPage');
+// const Page = require('../VirtualGridListPage');
+import Page from '../VirtualGridListPage.js';
 
 describe('Navigate with Channel Up/Down key with translate mode', function () {
 	beforeEach(async function () {

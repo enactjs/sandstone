@@ -1,4 +1,5 @@
-const ScrollerPage = require('./ScrollerPage');
+//const ScrollerPage = require('./ScrollerPage');
+import ScrollerPage from './ScrollerPage.js';
 
 describe('Scroller', function () {
 

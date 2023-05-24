@@ -1,4 +1,5 @@
-const Page = require('./ItemPage');
+//const Page = require('./ItemPage');
+import Page from './ItemPage.js';
 
 describe('Item', function () {
 	const item1 = Page.components.item1;

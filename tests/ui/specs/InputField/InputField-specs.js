@@ -1,4 +1,5 @@
-let Page = require('./InputFieldPage');
+//let Page = require('./InputFieldPage');
+import Page from './InputFieldPage.js';
 
 describe('InputField', function () {
 

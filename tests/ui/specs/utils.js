@@ -4,6 +4,6 @@ function getFocusedText () {
 	return document.activeElement.textContent.replace(/[^\x00-\x7F]/g, '');
 }
 
-module.exports = {
+export  {
 	getFocusedText
 };

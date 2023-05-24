@@ -1,5 +1,7 @@
-const Page = require('./DatePickerPage');
-const {daysInMonth, extractValues, validateTitle} = require('./DatePicker-utils.js');
+// const Page = require('./DatePickerPage');
+// const {daysInMonth, extractValues, validateTitle} = require('./DatePicker-utils.js');
+import Page from './DatePickerPage.js';
+import {daysInMonth, extractValues, validateTitle} from './DatePicker-utils.js';
 
 describe('DatePicker', function () {
 

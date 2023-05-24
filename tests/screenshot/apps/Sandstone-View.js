@@ -1,14 +1,14 @@
-import classnames from 'classnames/bind';
+import classnames from 'classnames';
 import {objectify} from '@enact/ui/Skinnable/util';
-import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils';
+import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils/index.js';
 import spotlight from '@enact/spotlight';
 import {Component as ReactComponent, cloneElement, useEffect} from 'react';
 
 import ThemeDecorator from '../../../ThemeDecorator';
 
-import {components, testMetadata} from './SandstoneComponents';
-import imports from './importer';
-import {LoremString} from './components/utils';
+import {components, testMetadata} from './SandstoneComponents.js';
+import imports from './importer.js';
+import {LoremString} from './components/utils.js';
 
 import css from './Sandstone-View.module.less';
 

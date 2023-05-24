@@ -1,4 +1,5 @@
-const Page = require('./ButtonPage');
+//const Page = require('./ButtonPage');
+import Page from './ButtonPage.js';
 
 describe('Button', function () {
 

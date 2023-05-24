@@ -1,5 +1,7 @@
-const Page = require('../VirtualListPage');
-const {waitUntilFocused} = require('../../VirtualList-utils');
+// const Page = require('../VirtualListPage');
+// const {waitUntilFocused} = require('../../VirtualList-utils');
+import Page from '../VirtualListPage.js';
+import {waitUntilFocused} from '../../VirtualList-utils.js';
 
 describe('Navigate Items with Channel Up/Down', function () {
 	beforeEach(async function () {

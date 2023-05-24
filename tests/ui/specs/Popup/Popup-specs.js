@@ -1,5 +1,7 @@
-let Page = require('./PopupPage'),
-	{validateTitle, expectClosed, expectOpen, expectNoneScrimOpen} = require('./Popup-utils.js');
+// let Page = require('./PopupPage'),
+// 	{validateTitle, expectClosed, expectOpen, expectNoneScrimOpen} = require('./Popup-utils.js');
+import Page from './PopupPage.js';
+import {validateTitle, expectClosed, expectOpen, expectNoneScrimOpen} from './Popup-utils.js';
 
 describe('Popup', function () {
 

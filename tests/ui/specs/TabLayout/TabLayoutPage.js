@@ -1,5 +1,6 @@
-'use strict';
-const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
+import {getComponent, hasClass, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getScroller = getComponent({lib: 'ui', component: 'useScroll', child: 'scroll'});
@@ -70,4 +71,5 @@ class TabLayoutPage extends Page {
 	}
 }
 
-module.exports = new TabLayoutPage();
+//module.exports = new TabLayoutPage();
+export default new TabLayoutPage();

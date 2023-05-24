@@ -1,5 +1,7 @@
-const Page = require('../VirtualListPage');
-const {expectFocusedItem} = require('../../VirtualList-utils');
+// const Page = require('../VirtualListPage');
+// const {expectFocusedItem} = require('../../VirtualList-utils');
+import Page from '../VirtualListPage.js';
+import {expectFocusedItem} from '../../VirtualList-utils.js';
 
 // TODO: Fix to wrap bug [ENYO-6468]
 describe('Change `wrap` dynamically', function () {

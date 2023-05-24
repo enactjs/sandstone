@@ -1,5 +1,6 @@
-'use strict';
-const {Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {Page} = require('@enact/ui-test-utils/utils');
+import {Page} from '@enact/ui-test-utils/utils/index.js';
 
 class CheckboxItemInterface {
 	constructor (id) {
@@ -74,4 +75,5 @@ class CheckboxItemPage extends Page {
 	}
 }
 
-module.exports = new CheckboxItemPage();
+//module.exports = new CheckboxItemPage();
+export default new CheckboxItemPage();

@@ -1,5 +1,6 @@
-'use strict';
-const {element, getText, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, getText, Page} = require('@enact/ui-test-utils/utils');
+import {element, getText, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class PopupCommon {
 
@@ -118,4 +119,5 @@ class PopupPage extends Page {
 	}
 }
 
-module.exports = new PopupPage();
+//module.exports = new PopupPage();
+export default new PopupPage();

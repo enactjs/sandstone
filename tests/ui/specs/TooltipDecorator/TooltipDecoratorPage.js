@@ -1,5 +1,6 @@
-'use strict';
-const {element, getText, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, getText, Page} = require('@enact/ui-test-utils/utils');
+import {element, getText, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class TooltipButtonInterface {
 	constructor (id) {
@@ -50,4 +51,5 @@ class TooltipDecoratorPage extends Page {
 	}
 }
 
-module.exports = new TooltipDecoratorPage();
+//module.exports = new TooltipDecoratorPage();
+export default new TooltipDecoratorPage();

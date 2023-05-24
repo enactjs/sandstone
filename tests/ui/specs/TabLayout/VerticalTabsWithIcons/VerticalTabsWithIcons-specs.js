@@ -1,4 +1,5 @@
-const Page = require('../TabLayoutPage');
+// const Page = require('../TabLayoutPage');
+import Page from '../TabLayoutPage.js';
 
 describe('TabLayout', function () {
 

@@ -1,6 +1,7 @@
-'use strict';
-
-const {element, componentSelector, getComponent, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+//
+// const {element, componentSelector, getComponent, Page} = require('@enact/ui-test-utils/utils');
+import {element, componentSelector, getComponent, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class DropdownInterface {
 	constructor (id) {
@@ -64,4 +65,5 @@ class DropdownPage extends Page {
 
 }
 
-module.exports = new DropdownPage();
+//module.exports = new DropdownPage();
+export default new DropdownPage();

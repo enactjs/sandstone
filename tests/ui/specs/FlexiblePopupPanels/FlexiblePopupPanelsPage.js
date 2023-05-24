@@ -1,5 +1,6 @@
-'use strict';
-const {Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {Page} = require('@enact/ui-test-utils/utils');
+import {Page} from '@enact/ui-test-utils/utils/index.js';
 
 const panelSelector = panel => `#panel${panel}`;
 
@@ -105,4 +106,5 @@ class FlexiblePopupPanelsPage extends Page {
 
 }
 
-module.exports = new FlexiblePopupPanelsPage();
+//module.exports = new FlexiblePopupPanelsPage();
+export default new FlexiblePopupPanelsPage();

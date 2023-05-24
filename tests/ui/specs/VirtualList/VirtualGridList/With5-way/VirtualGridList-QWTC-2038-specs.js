@@ -1,4 +1,5 @@
-const Page = require('../VirtualGridListPage');
+// const Page = require('../VirtualGridListPage');
+import Page from '../VirtualGridListPage.js';
 
 describe('Navigate with 5-way', function () {
 	beforeEach(async function () {

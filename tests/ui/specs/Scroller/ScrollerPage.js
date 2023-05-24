@@ -1,5 +1,6 @@
-'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, Page} = require('@enact/ui-test-utils/utils');
+import {element, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const focusableBodySelector = '.Scroller_Scroller_focusableBody';
 const horizontalscrollbarSelector = '.useScroll_useScroll_horizontalScrollbar';
@@ -211,4 +212,5 @@ class ScrollerPage extends Page {
 	}
 }
 
-module.exports = new ScrollerPage();
+//module.exports = new ScrollerPage();
+export default new ScrollerPage();

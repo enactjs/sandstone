@@ -1,4 +1,5 @@
-const Page = require('./ContextualPopupDecoratorPage');
+//const Page = require('./ContextualPopupDecoratorPage');
+import Page from './ContextualPopupDecoratorPage.js';
 
 describe('ContextualPopupDecorator', function () {
 

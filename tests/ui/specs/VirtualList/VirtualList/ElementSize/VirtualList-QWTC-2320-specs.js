@@ -1,4 +1,5 @@
-const Page = require('../VirtualListPage');
+// const Page = require('../VirtualListPage');
+import Page from '../VirtualListPage.js';
 
 describe('Scrollbar Size', function () {
 	beforeEach(async function () {

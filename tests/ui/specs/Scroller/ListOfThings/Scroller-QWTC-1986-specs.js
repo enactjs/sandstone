@@ -1,5 +1,7 @@
-const {expectFocusedItem} = require('../../VirtualList/VirtualList-utils');
-const ScrollerPage = require('../ScrollerPage');
+// const {expectFocusedItem} = require('../../VirtualList/VirtualList-utils');
+// const ScrollerPage = require('../ScrollerPage');
+import {expectFocusedItem} from '../../VirtualList/VirtualList-utils.js';
+import ScrollerPage from '../ScrollerPage.js';
 
 describe('Scroller List Of Things', function () {
 	beforeEach(async function () {

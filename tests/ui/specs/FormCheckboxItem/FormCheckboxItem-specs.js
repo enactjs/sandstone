@@ -1,5 +1,8 @@
-const Page = require('./FormCheckboxItemPage'),
-	{expectChecked, expectUnchecked} = require('./FormCheckboxItem-utils.js');
+// const Page = require('./FormCheckboxItemPage'),
+// 	{expectChecked, expectUnchecked} = require('./FormCheckboxItem-utils.js');
+import Page from './FormCheckboxItemPage.js';
+import {expectChecked, expectUnchecked} from './FormCheckboxItem-utils.js';
+
 
 describe('FormCheckboxItem', function () {
 

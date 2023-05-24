@@ -1,4 +1,5 @@
-const Page = require('./VideoPlayerPage');
+// const Page = require('./VideoPlayerPage');
+import Page from './VideoPlayerPage.js';
 
 describe('VideoPlayer', function () {
 

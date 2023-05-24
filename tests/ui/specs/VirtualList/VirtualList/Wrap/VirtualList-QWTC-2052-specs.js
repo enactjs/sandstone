@@ -1,5 +1,7 @@
-const Page = require('../VirtualListPage');
-const {expectFocusedItem, waitUntilFocused} = require('../../VirtualList-utils');
+// const Page = require('../VirtualListPage');
+// const {expectFocusedItem, waitUntilFocused} = require('../../VirtualList-utils');
+import Page from '../VirtualListPage.js';
+import {expectFocusedItem, waitUntilFocused} from '../../VirtualList-utils.js';
 
 describe('Wrap Knobs', function () {
 	beforeEach(async function () {

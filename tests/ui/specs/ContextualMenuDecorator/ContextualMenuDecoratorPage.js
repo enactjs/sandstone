@@ -1,5 +1,6 @@
-'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, Page} = require('@enact/ui-test-utils/utils');
+import {element, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class ButtonInterface {
 	constructor (id) {
@@ -63,4 +64,5 @@ class ContextualMenuDecoratorPage extends Page {
 	}
 }
 
-module.exports = new ContextualMenuDecoratorPage();
+//module.exports = new ContextualMenuDecoratorPage();
+export default new ContextualMenuDecoratorPage();

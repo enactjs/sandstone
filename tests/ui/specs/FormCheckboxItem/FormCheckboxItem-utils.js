@@ -1,5 +1,5 @@
 // A set of utility methods for testing
-module.exports = {
+export {
 	expectChecked,
 	expectUnchecked
 };

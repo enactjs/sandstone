@@ -1,5 +1,7 @@
-const Page = require('./RangePickerPage');
-const {extractValue} = require('./RangePicker-utils.js');
+// const Page = require('./RangePickerPage');
+// const {extractValue} = require('./RangePicker-utils.js');
+import Page from './RangePickerPage.js';
+import {extractValue} from './RangePicker-utils.js';
 
 describe('RangePicker', function () {
 	beforeEach(async function () {

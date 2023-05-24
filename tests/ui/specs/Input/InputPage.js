@@ -1,5 +1,6 @@
-'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, Page} = require('@enact/ui-test-utils/utils');
+import {element, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class InputInterface {
 
@@ -59,4 +60,5 @@ class InputPage extends Page {
 	}
 }
 
-module.exports = new InputPage();
+//module.exports = new InputPage();
+export default new InputPage();

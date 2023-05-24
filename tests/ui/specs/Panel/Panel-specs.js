@@ -1,4 +1,5 @@
-const Page = require('./PanelPage');
+//const Page = require('./PanelPage');
+import Page from './PanelPage.js';
 
 describe('Panel', function () {
 

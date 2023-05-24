@@ -1,5 +1,7 @@
-const Page = require('../VirtualListPage');
-const {expectFocusedItem} = require('../../VirtualList-utils');
+// const Page = require('../VirtualListPage');
+// const {expectFocusedItem} = require('../../VirtualList-utils');
+import Page from '../VirtualListPage.js';
+import {expectFocusedItem} from '../../VirtualList-utils.js';
 
 describe('spotlight size compare', function () {
 	beforeEach(async function () {

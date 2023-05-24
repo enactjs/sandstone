@@ -1,4 +1,5 @@
-const Page = require('./ImageItemPage');
+// const Page = require('./ImageItemPage');
+import Page from './ImageItemPage.js';
 
 describe('ImageItem', function () {
 	beforeEach(async function () {

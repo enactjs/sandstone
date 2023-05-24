@@ -1,5 +1,7 @@
-const Page = require('./VirtualListPage'),
-	{expectFocusedItem, expectNoFocusedItem, waitUntilFocused} = require('../VirtualList-utils');
+// const Page = require('./VirtualListPage'),
+// 	{expectFocusedItem, expectNoFocusedItem, waitUntilFocused} = require('../VirtualList-utils');
+import Page from './VirtualListPage.js';
+import {expectFocusedItem, expectNoFocusedItem, waitUntilFocused} from '../VirtualList-utils.js';
 
 describe('VirtualList', function () {
 	it('should meet initial conditions', async function () {

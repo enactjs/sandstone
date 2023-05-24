@@ -1,6 +1,8 @@
-const {getFocusedText} = require('../utils');
+// const {getFocusedText} = require('../utils');
+import {getFocusedText} from '../utils.js';
 
-const Page = require('./TabLayoutPage');
+// const Page = require('./TabLayoutPage');
+import Page from './TabLayoutPage.js';
 
 describe('TabLayout', function () {
 	describe('default', function () {

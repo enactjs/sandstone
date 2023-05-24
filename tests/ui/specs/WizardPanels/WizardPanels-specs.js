@@ -1,4 +1,5 @@
-const Page = require('./WizardPanelsPage');
+// const Page = require('./WizardPanelsPage');
+import Page from './WizardPanelsPage.js';
 
 describe('WizardPanels', function () {
 	const wizardPanels = Page.components.wizardPanels;

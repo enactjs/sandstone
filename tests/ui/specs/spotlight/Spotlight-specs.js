@@ -1,4 +1,5 @@
-let Page = require('./SpotlightMultiplePage');
+// let Page = require('./SpotlightMultiplePage');
+import Page from './SpotlightMultiplePage.js';
 
 describe('Spotlight', function () {
 

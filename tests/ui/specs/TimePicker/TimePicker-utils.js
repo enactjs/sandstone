@@ -14,7 +14,7 @@ function validateTitle (picker, title) {
 	});
 }
 
-module.exports = {
+export {
 	extractValues,
 	validateTitle
 };

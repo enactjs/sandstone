@@ -1,6 +1,8 @@
-const {getFocusedText} = require('../utils');
+//const {getFocusedText} = require('../utils');
+import {getFocusedText} from '../utils.js'
 
-const Page = require('./FixedPopupPanelsPage');
+// const Page = require('./FixedPopupPanelsPage');
+import Page from './FixedPopupPanelsPage.js';
 
 describe('FixedPopupPanels', function () {
 	const Interface = Page.fixedPopupPanels;

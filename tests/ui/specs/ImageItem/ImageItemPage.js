@@ -1,5 +1,6 @@
-'use strict';
-const {element, getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
+import {element, getSubComponent, getText, hasClass, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});
 
@@ -58,4 +59,5 @@ class ImageItemPage extends Page {
 	}
 }
 
-module.exports = new ImageItemPage();
+//module.exports = new ImageItemPage();
+export default new ImageItemPage();

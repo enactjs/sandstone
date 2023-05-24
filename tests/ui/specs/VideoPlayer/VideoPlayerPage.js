@@ -1,5 +1,6 @@
-'use strict';
-const {getComponent, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {getComponent, Page} = require('@enact/ui-test-utils/utils');
+import {getComponent, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class VideoPlayerInterface {
 	constructor (id) {
@@ -97,4 +98,5 @@ class VideoPlayerPage extends Page {
 	}
 }
 
-module.exports = new VideoPlayerPage();
+//module.exports = new VideoPlayerPage();
+export default new VideoPlayerPage();

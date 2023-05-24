@@ -1,6 +1,10 @@
-const {runTest} = require('@enact/ui-test-utils/utils');
+// const {runTest} = require('@enact/ui-test-utils/utils');
+//
+// const Page = require('./SandstonePage');
 
-const Page = require('./SandstonePage');
+import {runTest} from '@enact/ui-test-utils/utils/index.js';
+
+import Page from './SandstonePage.js';
 
 runTest({
 	testName: 'Sandstone High Contrast',

@@ -1,4 +1,5 @@
-const Page = require('../VirtualListPage');
+// const Page = require('../VirtualListPage');
+import Page from '../VirtualListPage.js';
 
 describe('Horizontal VirtualList in Scroller', function () {
 	beforeEach(async function () {

@@ -1,4 +1,5 @@
-const Page = require('../VirtualListPage');
+// const Page = require('../VirtualListPage');
+import Page from '../VirtualListPage.js';
 
 describe('VirtualList with multiple spottables in an item', function () {
 	beforeEach(async function () {

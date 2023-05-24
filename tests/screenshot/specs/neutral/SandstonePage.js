@@ -1,5 +1,6 @@
-'use strict';
-const {Page} = require('@enact/ui-test-utils/utils');
+//'use strict';
+//const {Page} = require('@enact/ui-test-utils/utils');
+import {Page} from '@enact/ui-test-utils/utils/index.js';
 
 class SandstonePage extends Page {
 	constructor () {
@@ -16,4 +17,5 @@ class SandstonePage extends Page {
 	}
 }
 
-module.exports = new SandstonePage();
+//module.exports = new SandstonePage();
+export default new SandstonePage();

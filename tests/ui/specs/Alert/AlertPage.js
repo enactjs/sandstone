@@ -1,5 +1,6 @@
-'use strict';
-const {element, getText, Page} = require('@enact/ui-test-utils/utils');
+//'use strict';
+//const {element, getText, Page} = require('@enact/ui-test-utils/utils');
+import {element, getText, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class AlertCommon {
 	get buttonFullscreen () {
@@ -54,4 +55,5 @@ class AlertPage extends Page {
 	}
 }
 
-module.exports = new AlertPage();
+//module.exports = new AlertPage();
+export default new AlertPage();

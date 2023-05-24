@@ -1,5 +1,6 @@
-'use strict';
-const {Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {Page} = require('@enact/ui-test-utils/utils');
+import {Page} from '@enact/ui-test-utils/utils/index.js'
 
 class SpotlightMultiplePage extends Page {
 	constructor () {
@@ -31,4 +32,5 @@ class SpotlightMultiplePage extends Page {
 	}
 }
 
-module.exports = new SpotlightMultiplePage();
+//module.exports = new SpotlightMultiplePage();
+export default new SpotlightMultiplePage();

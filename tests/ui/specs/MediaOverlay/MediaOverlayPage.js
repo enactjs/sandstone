@@ -1,5 +1,6 @@
-'use strict';
-const {getSubComponent, getText, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {getSubComponent, getText, Page} = require('@enact/ui-test-utils/utils');
+import {getSubComponent, getText, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});
 
@@ -41,4 +42,5 @@ class MediaOverlayPage extends Page {
 	}
 }
 
-module.exports = new MediaOverlayPage();
+//module.exports = new MediaOverlayPage();
+export default new MediaOverlayPage();

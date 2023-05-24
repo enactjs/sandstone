@@ -1,5 +1,7 @@
-const Page = require('./VirtualGridListPage'),
-	{expectFocusedItem /* , expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused*/} = require('../VirtualList-utils');
+// const Page = require('./VirtualGridListPage'),
+// 	{expectFocusedItem /* , expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused*/} = require('../VirtualList-utils');
+import Page from './VirtualGridListPage.js';
+import {expectFocusedItem /* , expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused*/} from '../VirtualList-utils.js';
 
 describe('VirtualGridList', function () {
 	beforeEach(async function () {

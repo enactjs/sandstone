@@ -1,6 +1,9 @@
-const Page = require('./CheckboxItemPage'),
-	{expectChecked, expectInline, expectUnchecked} = require('./CheckboxItem-utils.js'),
-	{expectOrdering} = require('@enact/ui-test-utils/utils');
+// const Page = require('./CheckboxItemPage'),
+// 	{expectChecked, expectInline, expectUnchecked} = require('./CheckboxItem-utils.js'),
+// 	{expectOrdering} = require('@enact/ui-test-utils/utils');
+import Page from './CheckboxItemPage.js';
+import {expectChecked, expectInline, expectUnchecked} from './CheckboxItem-utils.js';
+import {expectOrdering} from '@enact/ui-test-utils/utils/index.js';
 
 describe('CheckboxItem', function () {
 

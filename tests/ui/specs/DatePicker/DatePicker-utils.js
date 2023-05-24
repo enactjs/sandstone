@@ -18,7 +18,7 @@ function validateTitle (picker, title) {
 	});
 }
 
-module.exports = {
+export  {
 	daysInMonth,
 	extractValues,
 	validateTitle

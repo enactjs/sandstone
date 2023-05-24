@@ -1,5 +1,6 @@
-'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, Page} = require('@enact/ui-test-utils/utils');
+import {element, Page} from '@enact/ui-test-utils/utils/index.js';
 
 class DayPickerInterface {
 	constructor (id) {
@@ -42,4 +43,5 @@ class DayPickerPage extends Page {
 	}
 }
 
-module.exports = new DayPickerPage();
+//module.exports = new DayPickerPage();
+export default new DayPickerPage();

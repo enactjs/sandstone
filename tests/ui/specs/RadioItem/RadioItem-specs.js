@@ -1,4 +1,5 @@
-const Page = require('./RadioItemPage');
+//const Page = require('./RadioItemPage');
+import Page from './RadioItemPage.js';
 
 describe('RadioItem', function () {
 

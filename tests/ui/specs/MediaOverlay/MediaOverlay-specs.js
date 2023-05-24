@@ -1,4 +1,5 @@
-const Page = require('./MediaOverlayPage');
+//const Page = require('./MediaOverlayPage');
+import Page from './MediaOverlayPage.js';
 
 describe('MediaOverlay', function () {
 	const mediaOverlay1 = Page.components.mediaOverlay1;

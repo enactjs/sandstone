@@ -1,5 +1,7 @@
-const {expectFocusedItem} = require('../../VirtualList-utils');
-const Page = require('../VirtualGridListPage');
+// const {expectFocusedItem} = require('../../VirtualList-utils');
+// const Page = require('../VirtualGridListPage');
+import {expectFocusedItem} from '../../VirtualList-utils.js';
+import Page from '../VirtualGridListPage.js';
 
 describe('Page scroll via 5-way', function () {
 	beforeEach(async function () {

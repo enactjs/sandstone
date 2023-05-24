@@ -1,5 +1,6 @@
-'use strict';
-const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
+import {element, getComponent, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
 const getNextButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotAfter', el));
@@ -66,4 +67,5 @@ class WizardPanelsPage extends Page {
 	}
 }
 
-module.exports = new WizardPanelsPage();
+//module.exports = new WizardPanelsPage();
+export default new WizardPanelsPage();

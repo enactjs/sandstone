@@ -1,5 +1,6 @@
-'use strict';
-const {getComponent, getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {getComponent, getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
+import {getComponent, getSubComponent, getText, hasClass, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const getIcon = getComponent({component:'Icon'});
 const getMarqueeText = getSubComponent({lib: 'ui', component:'Marquee', child:'text'});
@@ -83,4 +84,5 @@ class ButtonPage extends Page {
 	}
 }
 
-module.exports = new ButtonPage();
+//module.exports = new ButtonPage();
+export default new ButtonPage();

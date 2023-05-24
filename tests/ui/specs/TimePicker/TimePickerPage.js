@@ -1,5 +1,6 @@
-'use strict';
-const {element, getComponent, getText, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, getComponent, getText, Page} = require('@enact/ui-test-utils/utils');
+import {element, getComponent, getText, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const getIcon = getComponent({component: 'Icon'});
 
@@ -60,4 +61,5 @@ class TimePickerPage extends Page {
 	}
 }
 
-module.exports = new TimePickerPage();
+//module.exports = new TimePickerPage();
+export default new TimePickerPage();

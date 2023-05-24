@@ -1,5 +1,7 @@
-const Page = require('../VirtualGridListPage');
-const {expectNoFocusedItem} = require('../../VirtualList-utils');
+// const Page = require('../VirtualGridListPage');
+// const {expectNoFocusedItem} = require('../../VirtualList-utils');
+import Page from '../VirtualGridListPage.js';
+import {expectNoFocusedItem} from '../../VirtualList-utils.js';
 
 describe('qa-VirtualGridList translate mode', function () {
 	beforeEach(async function () {

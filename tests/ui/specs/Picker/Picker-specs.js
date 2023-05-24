@@ -1,5 +1,7 @@
-const Page = require('./PickerPage');
-const {extractValue} = require('./Picker-utils.js');
+// const Page = require('./PickerPage');
+// const {extractValue} = require('./Picker-utils.js');
+import Page from './PickerPage.js';
+import {extractValue} from './Picker-utils.js';
 
 describe('Picker', function () {
 	beforeEach(async function () {

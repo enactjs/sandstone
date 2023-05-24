@@ -1,4 +1,5 @@
-const Page = require('./SwitchItemPage');
+// const Page = require('./SwitchItemPage');
+import Page from './SwitchItemPage.js';
 
 // Skipping until SwitchItem is updated to handle the new Item structure
 describe.skip('SwitchItem', function () {

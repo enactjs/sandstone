@@ -1,4 +1,5 @@
-const Page = require('./ContextualMenuDecoratorPage');
+//const Page = require('./ContextualMenuDecoratorPage');
+import Page from './ContextualMenuDecoratorPage.js';
 
 describe('ContextualMenuDecorator', function () {
 

@@ -19,7 +19,7 @@ async function expectNoneScrimOpen (popup) {
 	expect(await popup.isScrimExist).to.be.false();
 }
 
-module.exports = {
+export {
 	validateTitle,
 	expectClosed,
 	expectOpen,

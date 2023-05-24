@@ -1,5 +1,6 @@
-'use strict';
-const {Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {Page}  = require('@enact/ui-test-utils/utils');
+import {Page} from '@enact/ui-test-utils/utils/index.js';
 
 class PanelInterface {
 	constructor (index) {
@@ -57,4 +58,5 @@ class PanelPage extends Page {
 	}
 }
 
-module.exports = new PanelPage();
+//module.exports = new PanelPage();
+export default new PanelPage();

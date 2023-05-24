@@ -1,5 +1,7 @@
-const {expectFocusedItem, expectNoFocusedItem, focusedElement} = require('../Scroller-utils.js');
-const ScrollerPage = require('../ScrollerPage');
+// const {expectFocusedItem, expectNoFocusedItem, focusedElement} = require('../Scroller-utils.js');
+// const ScrollerPage = require('../ScrollerPage');
+import {expectFocusedItem, expectNoFocusedItem, focusedElement} from '../Scroller-utils.js';
+import ScrollerPage from '../ScrollerPage.js';
 
 describe('Scroller List Of Things', function () {
 	beforeEach(async function () {

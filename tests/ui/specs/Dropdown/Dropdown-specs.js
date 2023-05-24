@@ -1,5 +1,6 @@
 /* eslint-disable no-undefined */
-const Page = require('./DropdownPage');
+//const Page = require('./DropdownPage');
+import Page from './DropdownPage.js';
 
 function waitForFocusedText (dropdown, text, timeout, timeoutMsg = `timed out waiting for ${text}`, interval = 250) {
 	browser.waitUntil(function () {

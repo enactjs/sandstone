@@ -4,12 +4,12 @@ import Checkbox from '../../../../Checkbox';
 import CheckboxItem from '../../../../CheckboxItem';
 import FormCheckBoxItem from '../../../../FormCheckboxItem';
 import Item from '../../../../Item';
-import ProgressBar from '@enact/sandstone/ProgressBar';
+import ProgressBar from '../../../../ProgressBar';
 import Scroller from '../../../../Scroller';
 
 import img from '../../images/300x300.png';
 
-import {withConfig, withProps, LoremString} from './utils';
+import {withConfig, withProps, LoremString} from './utils.js';
 
 
 // Only type: 'fullscreen' supports title prop

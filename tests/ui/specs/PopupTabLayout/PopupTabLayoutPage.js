@@ -1,5 +1,6 @@
-'use strict';
-const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
+import {getComponent, hasClass, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getTabPanels = getComponent({component: 'PopupTabLayout', child: 'panels'});
@@ -65,4 +66,5 @@ class PopupTabLayoutPage extends Page {
 	}
 }
 
-module.exports = new PopupTabLayoutPage();
+//module.exports = new PopupTabLayoutPage();
+export default new PopupTabLayoutPage();

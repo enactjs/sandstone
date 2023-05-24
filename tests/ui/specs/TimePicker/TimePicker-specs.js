@@ -1,5 +1,7 @@
-const Page = require('./TimePickerPage');
-const {extractValues, validateTitle} = require('./TimePicker-utils.js');
+// const Page = require('./TimePickerPage');
+// const {extractValues, validateTitle} = require('./TimePicker-utils.js');
+import Page from './TimePickerPage.js';
+import {extractValues, validateTitle} from './TimePicker-utils.js';
 
 describe('TimePicker', function () {
 	describe('LTR locale', function () {

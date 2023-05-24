@@ -1,5 +1,6 @@
-'use strict';
-const {getSubComponent, getText, componentSelector, hasClass, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {getSubComponent, getText, componentSelector, hasClass, Page} = require('@enact/ui-test-utils/utils');
+import {getSubComponent, getText, componentSelector, hasClass, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const isSelected = hasClass(componentSelector({component: 'RadioItem', child: 'selected'}));
 const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});
@@ -45,4 +46,5 @@ class RadioItemPage extends Page {
 	}
 }
 
-module.exports = new RadioItemPage();
+//module.exports = new RadioItemPage();
+export default new RadioItemPage();

@@ -1,5 +1,6 @@
-'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {element, Page} = require('@enact/ui-test-utils/utils');
+import {element, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
@@ -210,4 +211,5 @@ class VirtualGridListPage extends Page {
 	}
 }
 
-module.exports = new VirtualGridListPage();
+//module.exports = new VirtualGridListPage();
+export default new VirtualGridListPage();

@@ -1,5 +1,6 @@
-'use strict';
-const {componentSelector, getComponent, getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {componentSelector, getComponent, getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
+import {componentSelector, getComponent, getSubComponent, getText, hasClass, Page} from '@enact/ui-test-utils/utils/index.js';
 
 const getIcon = getComponent({component:'Icon'});
 const getMarqueeText = getSubComponent({lib: 'ui', component:'Marquee', child:'text'});
@@ -100,4 +101,5 @@ class FormCheckboxItemPage extends Page {
 	}
 }
 
-module.exports = new FormCheckboxItemPage();
+//module.exports = new FormCheckboxItemPage();
+export default new FormCheckboxItemPage();

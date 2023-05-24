@@ -1,5 +1,7 @@
-const Page = require('../VirtualGridListPage');
-const {expectFocusedItem, waitUntilFocused, waitUntilVisible, expectNoFocusedItem} = require('../../VirtualList-utils');
+// const Page = require('../VirtualGridListPage');
+// const {expectFocusedItem, waitUntilFocused, waitUntilVisible, expectNoFocusedItem} = require('../../VirtualList-utils');
+import Page from '../VirtualGridListPage.js';
+import {expectFocusedItem, waitUntilFocused, waitUntilVisible, expectNoFocusedItem} from '../../VirtualList-utils.js';
 
 describe('Focus after calling scrollTo()', function () {
 	beforeEach(async function () {

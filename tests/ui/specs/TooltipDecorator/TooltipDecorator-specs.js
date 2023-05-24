@@ -1,4 +1,5 @@
-const Page = require('./TooltipDecoratorPage');
+// const Page = require('./TooltipDecoratorPage');
+import Page from './TooltipDecoratorPage.js';
 
 describe('TooltipDecorator', function () {
 

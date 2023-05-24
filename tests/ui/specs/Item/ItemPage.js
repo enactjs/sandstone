@@ -1,5 +1,6 @@
-'use strict';
-const {Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {Page} = require('@enact/ui-test-utils/utils');
+import {Page} from '@enact/ui-test-utils/utils/index.js';
 
 
 class ItemInterface {
@@ -42,4 +43,5 @@ class ItemPage extends Page {
 	}
 }
 
-module.exports = new ItemPage();
+//module.exports = new ItemPage();
+export default new ItemPage();

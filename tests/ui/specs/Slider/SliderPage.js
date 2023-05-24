@@ -1,5 +1,6 @@
-'use strict';
-const {Page} = require('@enact/ui-test-utils/utils');
+// 'use strict';
+// const {Page} = require('@enact/ui-test-utils/utils');
+import {Page} from '@enact/ui-test-utils/utils/index.js';
 
 class SliderInterface {
 	constructor (id) {
@@ -55,4 +56,5 @@ class SliderPage extends Page {
 	}
 }
 
-module.exports = new SliderPage();
+//module.exports = new SliderPage();
+export default new SliderPage();
