@@ -394,6 +394,7 @@ const EditableWrapper = (props) => {
 		const {prevToIndex, selectedItem} = mutableRef.current;
 
 		if (selectedItem) {
+			// rearrangedItems need for the case when removing item while moving selected item
 			const rearrangedItems = mutableRef.current.rearrangedItems;
 			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
@@ -414,15 +415,16 @@ const EditableWrapper = (props) => {
 		const {selectedItem} = mutableRef.current;
 
 		if (selectedItem) {
-			const ordernum = Number(selectedItem.style.order);
+			// rearrangedItems need for the case when hiding item while moving selected item
 			const rearrangedItems = mutableRef.current.rearrangedItems;
+			const selectedItemOrder = Number(selectedItem.style.order);
 			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 			mutableRef.current.hideIndex -= 1;
 
 			const orders = finalizeOrders();
-			orders.splice(orders.indexOf(ordernum), 1);
-			orders.push(ordernum);
+			orders.splice(orders.indexOf(selectedItemOrder), 1);
+			orders.push(selectedItemOrder);
 			rearrangedItems.forEach(item => {
 				item.style.order -= 1;
 			});
@@ -435,14 +437,15 @@ const EditableWrapper = (props) => {
 
 	const showItem = useCallback(() => {
 		const {selectedItem} = mutableRef.current;
+
 		if (selectedItem) {
+			const selectedItemOrder = Number(selectedItem.style.order);
 			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 
 			const orders = Array.from({length: dataSize}, (_, i) => i + 1);
-			const selectedItemOrder = selectedItem.style.order;
 			orders.splice(selectedItemOrder - 1, 1);
-			orders.splice(mutableRef.current.hideIndex, 0, Number(selectedItemOrder));
+			orders.splice(mutableRef.current.hideIndex, 0, selectedItemOrder);
 
 			mutableRef.current.hideIndex += 1;
 
