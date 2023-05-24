@@ -779,6 +779,27 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should reflect the aria-label when "current" is set',
+		async () => {
+			const current = 2;
+			render(
+				<WizardPanels current={current}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const header = screen.getByRole('region').children[0].children[0];
+			const expected = `step ${current}  `;
+
+			await waitFor(() => {
+				expect(header).toHaveAttribute('aria-label', expected);
+			});
+		}
+	);
+
+	test(
 		'should return a ref to the root Panel node',
 		() => {
 			const ref = jest.fn();
