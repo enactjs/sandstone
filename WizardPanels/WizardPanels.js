@@ -97,6 +97,8 @@ const WizardPanelsBase = kind({
 		footer: PropTypes.node,
 
 		/**
+		* When `true`, indicates full screen size content
+		*
 		* @type {Boolean}
 		* @public
 		*/
