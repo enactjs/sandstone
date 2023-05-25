@@ -508,8 +508,12 @@ const TransferListBase = kind({
 
 		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
 			const draggedItem = list[itemIndex];
+			const elementAbove = dragOverElementIndex < itemIndex ? dragOverElementIndex : dragOverElementIndex - 1;
+			const elementBelow = dragOverElementIndex > itemIndex ? dragOverElementIndex : dragOverElementIndex + 1;
+			const elementPosition = isAboveDropPosition.current ? elementAbove : elementBelow;
+
 			list.splice(itemIndex, 1);
-			list.splice(dragOverElementIndex, 0, draggedItem);
+			list.splice(elementPosition, 0, draggedItem);
 			setNewList(list);
 		};
 
