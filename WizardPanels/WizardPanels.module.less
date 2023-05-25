@@ -22,20 +22,26 @@
 
 .fullScreenContentHeader {
 	justify-content: center;
-	height: 180px;
-	align-Items: center;
+	z-index: 10;
+
 
 	.steps {
-		display: flex;
+		margin-top: @sand-wizardpanels-fullScreenContent-steps-margin-top;
 	}
+
 	.close {
 		display: flex;
 		position: absolute;
-		right: 0;
-		z-index: 10;
+		top: @sand-wizardpanels-fullScreenContent-close-button-margin-top;
+		right: @sand-wizardpanels-fullScreenContent-close-button-right;
 	}
 }
 
-.navigationButton {
+.navigationButtonContainer {
 	z-index: 10;
+	margin-top: @sand-wizardpanels-fullScreenContent-container-margin-top;
+		
+	.navigationButton {
+		margin: @sand-wizardpanels-fullScreenContent-navigation-button-margin;
+	}
 }

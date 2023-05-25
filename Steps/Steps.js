@@ -215,7 +215,7 @@ const StepsBase = kind({
 				}
 
 				return {
-					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), singleIconMode}),
+					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), dots: singleIconMode}),
 					key: `step${stepNum}`,
 					children
 				};
@@ -228,6 +228,7 @@ const StepsBase = kind({
 		delete rest.currentIcon;
 		delete rest.futureIcon;
 		delete rest.pastIcon;
+		delete rest.singleIconMode;
 		delete rest.skip;
 		delete rest.skipIcon;
 		delete rest.total;

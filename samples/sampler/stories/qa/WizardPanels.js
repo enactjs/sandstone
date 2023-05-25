@@ -360,3 +360,26 @@ _WizardPanelsWithAlert.parameters = {
 		noPanel: true
 	}
 };
+
+export const WithFullScreenContent = () => (
+	<WizardPanels fullScreenContent>
+		<WizardPanels.Panel>
+			This is Panel 0
+		</WizardPanels.Panel>
+		<WizardPanels.Panel>
+			<div style={{height: '100%', width: '100%', backgroundColor: 'grey'}}>
+				This is Panel 1
+			</div>
+		</WizardPanels.Panel>
+		<WizardPanels.Panel>
+			This is Panel 2
+		</WizardPanels.Panel>
+	</WizardPanels>
+);
+
+WithFullScreenContent.storyName = 'with full screen content';
+WithFullScreenContent.parameters = {
+	props: {
+		noPanel: true
+	}
+};

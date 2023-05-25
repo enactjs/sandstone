@@ -357,6 +357,7 @@ const WizardPanelsBase = kind({
 
 			return ( fullScreenContent ?
 				<Steps
+					className={css.steps}
 					pastIcon={'circle'}
 					currentIcon={'circle'}
 					futureIcon={'circle'}
@@ -442,6 +443,10 @@ const WizardPanelsBase = kind({
 		delete rest.prevButtonVisibility;
 		delete rest.total;
 		delete rest.totalPanels;
+		if (fullScreenContent) {
+			// eslint-disable-next-line enact/prop-types
+			delete rest.hideChildren;
+		}
 
 		return ( fullScreenContent ?
 			<Column {...rest}>
@@ -453,7 +458,7 @@ const WizardPanelsBase = kind({
 						size="small"
 					/>
 				</Row>
-				<Row style={{marginTop: '400px'}}>
+				<Row className={css.navigationButtonContainer}>
 					<Cell shrink>
 						{prevNavigationButton}
 					</Cell>
