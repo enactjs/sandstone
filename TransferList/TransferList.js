@@ -356,7 +356,7 @@ const TransferListBase = kind({
 				return <div className={componentCss.selectionContainer}>{selected && <Icon className={imageItemCss.selectionIcon}>check</Icon>}{(selected && showSelectionOrder) && selectedIndex}</div>;
 			};
 
-			// Called when an item from the list is selected. The information contains the name, index and parent list (ex: BBC World News 0 first)
+			// Called when an item from the list is selected. The information contains the name, index and parent list (e.g. BBC World News 0 first)
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
