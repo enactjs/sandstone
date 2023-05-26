@@ -856,7 +856,7 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list !== 'second') return;
-				// In case of move or copying operations, add the items to the first list
+				// In case of moving or copying, add the items to the first list
 				if (secondListOperation === 'move' || secondListOperation === 'copy') {
 					// Block duplicated items in the same list
 					if (tempFirst.includes(item.element)) return;
