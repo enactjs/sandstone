@@ -631,7 +631,7 @@ const TransferListBase = kind({
 			applyDropBorder(element, ev, isAboveCurrentElement, isBelowCurrentElement);
 		}, [applyDropBorder]);
 
-		// Identify which item(s) is/are going to be dragged and sets drag image accordingly
+		// Identify which item(s) is/are going to be dragged and set drag image accordingly
 		const startListenerFunction = useCallback((ev) => {
 			const element = ev.target;
 			const [index, list] = element.id.split('-');
