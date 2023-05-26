@@ -1104,7 +1104,7 @@ const TransferListBase = kind({
 		// Remove all the items in the `selectedItems` array
 		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);
 
-		// Restricts the spotlight only to the component
+		// Restrict the spotlight only to the component
 		const handleSpotlightBounds = useCallback(ev => {
 			ev.preventDefault();
 			ev.stopPropagation();
