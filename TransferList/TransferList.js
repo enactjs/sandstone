@@ -514,8 +514,17 @@ const TransferListBase = kind({
 		// Rearrange items in the same list
 		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
 			const draggedItem = list[itemIndex];
+			// Determines the position for the item if it is dropped above the hovered item
+			const elementAbove = dragOverElementIndex < itemIndex ? dragOverElementIndex : dragOverElementIndex - 1;
+			// Determines the position for the item if it is dropped below the hovered item
+			const elementBelow = dragOverElementIndex > itemIndex ? dragOverElementIndex : dragOverElementIndex + 1;
+			// Determines the exact position for the dropped item
+			const elementPosition = isAboveDropPosition.current ? elementAbove : elementBelow;
+
+			// Removes item from its list
 			list.splice(itemIndex, 1);
-			list.splice(dragOverElementIndex, 0, draggedItem);
+			// Add the item on the new position
+			list.splice(elementPosition, 0, draggedItem);
 			setNewList(list);
 		};
 
