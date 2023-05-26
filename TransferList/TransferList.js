@@ -256,7 +256,7 @@ const TransferListBase = kind({
 			const selected = selectedIndex !== 0;
 			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(42)})`, width: ri.scaleToRem(itemSize * 3)};
 
-			// Called when an item from the list is selected. The information contains the name, index and parent list (ex: BBC World News 0 first)
+			// Called when an item from the list is selected. The information contains the name, index and parent list (e.g. BBC World News 0 first)
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
