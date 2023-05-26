@@ -255,6 +255,7 @@ const TransferListBase = kind({
 			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
 			const selected = selectedIndex !== 0;
 			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(42)})`, width: ri.scaleToRem(itemSize * 3)};
+
 			// Called when an item from the list is selected. The information contains the name, index and parent list (ex: BBC World News 0 first)
 			const handleClick = () => {
 				onSelect(element, index, list);
@@ -355,7 +356,7 @@ const TransferListBase = kind({
 				return <div className={componentCss.selectionContainer}>{selected && <Icon className={imageItemCss.selectionIcon}>check</Icon>}{(selected && showSelectionOrder) && selectedIndex}</div>;
 			};
 
-			// Called when an item from the list is selected. The information contains the name, index and parent list (ex: BBC World News 0 first)
+			// Called when an item from the list is selected. The information contains the name, index and parent list (e.g. BBC World News 0 first)
 			const handleClick = () => {
 				onSelect(element, index, list);
 			};
@@ -639,7 +640,7 @@ const TransferListBase = kind({
 			applyDropBorder(element, ev, isAboveCurrentElement, isBelowCurrentElement);
 		}, [applyDropBorder]);
 
-		// Identify which item(s) is/are going to be dragged and sets drag image accordingly
+		// Identify which item(s) is/are going to be dragged and set drag image accordingly
 		const startListenerFunction = useCallback((ev) => {
 			const element = ev.target;
 			const [index, list] = element.id.split('-');
@@ -864,7 +865,7 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list !== 'second') return;
-				// In case of move or copying operations, add the items to the first list
+				// In case of moving or copying, add the items to the first list
 				if (secondListOperation === 'move' || secondListOperation === 'copy') {
 					// Block duplicated items in the same list
 					if (tempFirst.includes(item.element)) return;
@@ -926,7 +927,7 @@ const TransferListBase = kind({
 
 			selectedItems.map((item) => {
 				if (item.list !== 'first') return;
-				// In case of move or copying operations, add the items to the second list
+				// In case of moving or copying, add the items to the second list
 				if (firstListOperation === 'move' || firstListOperation === 'copy') {
 					// Block duplicated items in the same list
 					if  (tempSecond.includes(item.element)) return;
@@ -1112,7 +1113,7 @@ const TransferListBase = kind({
 		// Remove all the items in the `selectedItems` array
 		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);
 
-		// Restricts the spotlight only to the component
+		// Restrict the spotlight only to the component
 		const handleSpotlightBounds = useCallback(ev => {
 			ev.preventDefault();
 			ev.stopPropagation();
