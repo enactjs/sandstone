@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Scroller` to support hiding items when `editable` is given
+- `sandstone/QuickGuidePanels` component
 
 ### Fixed
 
