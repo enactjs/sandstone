@@ -100,7 +100,7 @@ const WizardPanelsBase = kind({
 		* When `true`, indicates full screen size content
 		*
 		* @type {Boolean}
-		* @public
+		* @private
 		*/
 		fullScreenContent: PropTypes.bool,
 
