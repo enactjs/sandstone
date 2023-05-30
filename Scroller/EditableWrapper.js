@@ -41,8 +41,8 @@ const EditableShape = PropTypes.shape({
 	centered: PropTypes.bool,
 	css: PropTypes.object,
 	hideItemFuncRef: EnactPropTypes.ref,
-	longPressMode: PropTypes.bool,
 	removeItemFuncRef: EnactPropTypes.ref,
+	selectItemBy: PropTypes.string,
 	showItemFuncRef: EnactPropTypes.ref
 });
 
@@ -67,7 +67,7 @@ const holdConfig = {
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
 	const centered = editable?.centered != null ? editable.centered : true;
-	const longPressMode = editable?.longPressMode;
+	const selectItemBy = editable?.selectItemBy || 'press';
 	const customCss = editable?.css || {};
 	const removeItemFuncRef = editable?.removeItemFuncRef;
 	const hideItemFuncRef = editable?.hideItemFuncRef;
@@ -224,7 +224,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.needToPreventEvent = true;
 		} else {
 			const targetItemNode = findItemNode(ev.target);
-			if (!longPressMode) {
+			if (selectItemBy === 'press') {
 				if (targetItemNode && targetItemNode.dataset.index) {
 					// Start editing by adding selected transition to selected item
 					mutableRef.current.targetItemNode = targetItemNode;
@@ -235,7 +235,7 @@ const EditableWrapper = (props) => {
 			}
 			mutableRef.current.needToPreventEvent = false;
 		}
-	}, [editable, finalizeOrders, findItemNode, longPressMode, reset, startEditing]);
+	}, [editable, finalizeOrders, findItemNode, reset, selectItemBy, startEditing]);
 
 	const handleHoldStart = useCallback(() => {
 		const {targetItemNode} = mutableRef.current;
@@ -521,7 +521,7 @@ const EditableWrapper = (props) => {
 							true
 						);
 					}, completeAnnounceDelay);
-				} else if (!longPressMode) {
+				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
 				}
 			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
@@ -542,7 +542,7 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation();
 			}
 		}
-	}, [editable, finalizeOrders, findItemNode, longPressMode, moveItemsByKeyDown, reset, startEditing]);
+	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		mutableRef.current.lastKeyEventTargetElement = ev.target;

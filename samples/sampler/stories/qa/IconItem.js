@@ -1,12 +1,15 @@
+import {add, is} from '@enact/core/keymap';
 import Button from '@enact/sandstone/Button';
 import IconItem from '@enact/sandstone/IconItem';
 import Scroller from '@enact/sandstone/Scroller';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
-import {useCallback, useLayoutEffect, useRef, useState} from 'react';
+import classNames from 'classnames';
+import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import galleryIcon from '../../images/icon_app_gallery.png';
 import gameHomeIcon from '../../images/icon_app_game.png';
@@ -14,6 +17,9 @@ import homeOfficeIcon from '../../images/icon_app_homeoffice.png';
 import mediaDiscoveryIcon from '../../images/icon_app_mediadiscovery.png';
 
 import css from './IconItem.module.less';
+
+add('cancel', 27);
+const isCancel = is('cancel');
 
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 const prop = {
@@ -68,10 +74,20 @@ for (let i = 0; i < 20; i++) {
 	itemsArr.push(populateItems({index: i}));
 }
 
+const Container = SpotlightContainerDecorator('div');
+const ContainerDivWithLeaveForConfig = SpotlightContainerDecorator({leaveFor: {left: '', right: ''}}, 'div');
+
 export const EditableIcon = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
+	const [editMode, setEditMode] = useState(false);
 	const removeItem = useRef();
+	const hideItem = useRef();
+	const showItem = useRef();
+	const divRef = useRef();
+	const mutableRef = useRef({
+		hideIndex: null
+	});
 
 	useLayoutEffect(() => {
 		itemsArr = [];
@@ -79,6 +95,168 @@ export const EditableIcon = (args) => {
 			itemsArr.push(populateItems({index: i}));
 		}
 		setItems(itemsArr);
+		mutableRef.current.hideIndex = dataSize;
+	}, [dataSize]);
+
+	const onClickModeButton = useCallback(() => {
+		setEditMode(mode => !mode);
+	}, [setEditMode]);
+
+	const onClickRemoveButton = useCallback((ev) => {
+		if (removeItem.current) {
+			removeItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const onClickHideButton = useCallback((ev) => {
+		if (hideItem.current) {
+			hideItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const onClickShowButton = useCallback((ev) => {
+		if (showItem.current) {
+			showItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const handleComplete = useCallback((ev) => {
+		const {orders, hideIndex} = ev;
+		mutableRef.current.hideIndex = hideIndex;
+
+		// change data from the new orders
+		const newItems = [];
+
+		orders.forEach(order => {
+			newItems.push(items[order - 1]);
+		});
+
+		for (let i = 0; i < orders.length; i++) {
+			newItems[i].disabled = (i >= hideIndex);
+		}
+
+		setItems(newItems);
+	}, [items]);
+
+	useEffect(() => {
+		divRef.current.addEventListener('keydown', (ev) => {
+			const {keyCode} = ev;
+			if (isCancel(keyCode)) {
+				setEditMode(false);
+			}
+		});
+	}, [divRef]);
+
+	return (
+		<div ref={divRef}>
+			<Container>
+				{editMode ? <Button style={{marginLeft: '36px'}} onClick={onClickModeButton} icon="arrowhookleft" /> : <Button style={{marginLeft: '36px'}} onClick={onClickModeButton} icon="edit" />}
+				{editMode ?
+					<Scroller
+						direction="horizontal"
+						editable={{
+							centered: args['editableCentered'],
+							css,
+							hideIndex: mutableRef.current.hideIndex,
+							onComplete: handleComplete,
+							removeItemFuncRef: removeItem,
+							hideItemFuncRef: hideItem,
+							showItemFuncRef: showItem
+						}}
+						focusableScrollbar={args['focusableScrollbar']}
+						horizontalScrollbar={args['horizontalScrollbar']}
+						hoverToScroll={args['hoverToScroll']}
+						key={args['scrollMode']}
+						noScrollByWheel={args['noScrollByWheel']}
+						onClick={action('onClickScroller')}
+						onKeyDown={action('onKeyDown')}
+						onScrollStart={action('onScrollStart')}
+						onScrollStop={action('onScrollStop')}
+						scrollMode={args['scrollMode']}
+						spotlightDisabled={args['spotlightDisabled']}
+						verticalScrollbar={args['verticalScrollbar']}
+					>
+						{
+							items.map((item, index) => {
+								return (
+									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
+											{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
+											{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
+											{item.disabled ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
+										</ContainerDivWithLeaveForConfig>
+										<IconItem
+											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
+											className={item.disabled ? css.hideItem : css.iconItem}
+											disabled={item.disabled}
+											onClick={action('onClickItem')}
+											{...item.iconItemProps}
+										/>
+									</div>
+								);
+							})
+						}
+					</Scroller> :
+					<Scroller
+						direction="horizontal"
+						onClick={action('onClickScroller')}
+						onKeyDown={action('onKeyDown')}
+						onScrollStart={action('onScrollStart')}
+						onScrollStop={action('onScrollStop')}
+					>
+						<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
+							items.map((item, index) => {
+								return (
+									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+										<div className={css.removeButtonContainer} />
+										<IconItem
+											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
+											className={item.disabled ? css.hideItem : css.iconItem}
+											onClick={action('onClickItem')}
+											disabled={item.disabled}
+											{...item.iconItemProps}
+										/>
+									</div>
+								);
+							})}
+						</div>
+					</Scroller>
+				}
+			</Container>
+		</div>
+	);
+};
+
+boolean('editableCentered', EditableIcon, ScrollerConfig, true);
+number('editableDataSize', EditableIcon, ScrollerConfig, 20);
+select('focusableScrollbar', EditableIcon, prop.focusableScrollbarOption, ScrollerConfig);
+select('horizontalScrollbar', EditableIcon, prop.scrollbarOption, ScrollerConfig);
+boolean('hoverToScroll', EditableIcon, ScrollerConfig, true);
+boolean('noScrollByWheel', EditableIcon, ScrollerConfig);
+select('scrollMode', EditableIcon, prop.scrollModeOption, ScrollerConfig);
+boolean('spotlightDisabled', EditableIcon, ScrollerConfig, false);
+select('verticalScrollbar', EditableIcon, prop.scrollbarOption, ScrollerConfig);
+
+EditableIcon.storyName = 'with editable scroller';
+
+export const EditableIconWithLongPress = (args) => {
+	const dataSize = args['editableDataSize'];
+	const [items, setItems] = useState(itemsArr);
+	const removeItem = useRef();
+	const mutableRef = useRef({
+		hideIndex: null
+	});
+
+	useLayoutEffect(() => {
+		itemsArr = [];
+		for (let i = 0; i < dataSize; i++) {
+			itemsArr.push(populateItems({index: i}));
+		}
+		setItems(itemsArr);
+		mutableRef.current.hideIndex = dataSize;
 	}, [dataSize]);
 
 	const onClickRemoveButton = useCallback((ev) => {
@@ -107,8 +285,10 @@ export const EditableIcon = (args) => {
 			editable={{
 				centered: args['editableCentered'],
 				css,
+				hideIndex: mutableRef.current.hideIndex,
 				onComplete: handleComplete,
-				removeItemFuncRef: removeItem
+				removeItemFuncRef: removeItem,
+				selectItemBy: 'longPress'
 			}}
 			focusableScrollbar={args['focusableScrollbar']}
 			horizontalScrollbar={args['horizontalScrollbar']}
@@ -144,17 +324,17 @@ export const EditableIcon = (args) => {
 	);
 };
 
-boolean('editableCentered', EditableIcon, ScrollerConfig, true);
-number('editableDataSize', EditableIcon, ScrollerConfig, 20);
-select('focusableScrollbar', EditableIcon, prop.focusableScrollbarOption, ScrollerConfig);
-select('horizontalScrollbar', EditableIcon, prop.scrollbarOption, ScrollerConfig);
-boolean('hoverToScroll', EditableIcon, ScrollerConfig, true);
-boolean('noScrollByWheel', EditableIcon, ScrollerConfig);
-select('scrollMode', EditableIcon, prop.scrollModeOption, ScrollerConfig);
-boolean('spotlightDisabled', EditableIcon, ScrollerConfig, false);
-select('verticalScrollbar', EditableIcon, prop.scrollbarOption, ScrollerConfig);
+boolean('editableCentered', EditableIconWithLongPress, ScrollerConfig, true);
+number('editableDataSize', EditableIconWithLongPress, ScrollerConfig, 20);
+select('focusableScrollbar', EditableIconWithLongPress, prop.focusableScrollbarOption, ScrollerConfig);
+select('horizontalScrollbar', EditableIconWithLongPress, prop.scrollbarOption, ScrollerConfig);
+boolean('hoverToScroll', EditableIconWithLongPress, ScrollerConfig, true);
+boolean('noScrollByWheel', EditableIconWithLongPress, ScrollerConfig);
+select('scrollMode', EditableIconWithLongPress, prop.scrollModeOption, ScrollerConfig);
+boolean('spotlightDisabled', EditableIconWithLongPress, ScrollerConfig, false);
+select('verticalScrollbar', EditableIconWithLongPress, prop.scrollbarOption, ScrollerConfig);
 
-EditableIcon.storyName = 'with editable scroller';
+EditableIconWithLongPress.storyName = 'with editable scroller trigger by long press';
 
 export default {
 	title: 'Sandstone/IconItem',

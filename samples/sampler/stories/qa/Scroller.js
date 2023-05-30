@@ -281,6 +281,7 @@ export const EditableList = (args) => {
 		orders.forEach(order => {
 			newItems.push(items[order - 1]);
 		});
+
 		for (let i = 0; i < orders.length; i++) {
 			newItems[i].disabled = (i >= hideIndex);
 		}
@@ -360,11 +361,7 @@ export const EditableList = (args) => {
 							items.map((item, index) => {
 								return (
 									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
-										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
-											{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
-											{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
-											{item.disabled ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
-										</ContainerDivWithLeaveForConfig>
+										<div className={css.removeButtonContainer} />
 										<ImageItem
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 											src={item.src}
@@ -419,7 +416,6 @@ export const EditableListWithLongPress = (args) => {
 			removeItem.current();
 		}
 		ev.preventDefault();
-		ev.stopPropagation();
 	}, []);
 
 	const handleComplete = useCallback((ev) => {
@@ -443,7 +439,7 @@ export const EditableListWithLongPress = (args) => {
 				hideIndex: mutableRef.current.hideIndex,
 				onComplete: handleComplete,
 				removeItemFuncRef: removeItem,
-				longPressMode: true
+				selectItemBy: 'longPress'
 			}}
 			focusableScrollbar={args['focusableScrollbar']}
 			horizontalScrollbar={args['horizontalScrollbar']}
