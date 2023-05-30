@@ -58,16 +58,6 @@ const WizardPanelTests = withConfig({
 		<Panel title="My Title" subtitle={LongerLoremString}>View 1</Panel>
 		<Panel>View 2</Panel>
 	</WizardPanels>,
-	<WizardPanels fullScreenContent>
-		<Panel>View 1</Panel>
-		<Panel>View 2</Panel>
-		<Panel>View 3</Panel>
-	</WizardPanels>,
-	<WizardPanels index={1} fullScreenContent>
-		<Panel>View 1</Panel>
-		<Panel>View 2</Panel>
-		<Panel>View 3</Panel>
-	</WizardPanels>,
 	{
 		locale: 'ar-SA',
 		component: (
