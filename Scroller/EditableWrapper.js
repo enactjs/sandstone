@@ -67,7 +67,7 @@ const holdConfig = {
 const EditableWrapper = (props) => {
 	const {children, editable, scrollContainerHandle, scrollContainerRef, scrollContentRef} = props;
 	const centered = editable?.centered != null ? editable.centered : true;
-	const selectItemBy = editable?.selectItemBy || 'press';
+	const selectItemBy = editable?.selectItemBy || 'longPress';
 	const customCss = editable?.css || {};
 	const removeItemFuncRef = editable?.removeItemFuncRef;
 	const hideItemFuncRef = editable?.hideItemFuncRef;

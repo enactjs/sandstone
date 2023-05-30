@@ -312,7 +312,8 @@ export const EditableList = (args) => {
 							onComplete: handleComplete,
 							removeItemFuncRef: removeItem,
 							hideItemFuncRef: hideItem,
-							showItemFuncRef: showItem
+							showItemFuncRef: showItem,
+							selectItemBy: 'press'
 						}}
 						focusableScrollbar={args['focusableScrollbar']}
 						horizontalScrollbar={args['horizontalScrollbar']}
@@ -439,7 +440,6 @@ export const EditableListWithLongPress = (args) => {
 				hideIndex: mutableRef.current.hideIndex,
 				onComplete: handleComplete,
 				removeItemFuncRef: removeItem,
-				selectItemBy: 'longPress'
 			}}
 			focusableScrollbar={args['focusableScrollbar']}
 			horizontalScrollbar={args['horizontalScrollbar']}
