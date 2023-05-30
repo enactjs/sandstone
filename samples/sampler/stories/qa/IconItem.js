@@ -288,7 +288,7 @@ export const EditableIconWithLongPress = (args) => {
 				css,
 				hideIndex: mutableRef.current.hideIndex,
 				onComplete: handleComplete,
-				removeItemFuncRef: removeItem,
+				removeItemFuncRef: removeItem
 			}}
 			focusableScrollbar={args['focusableScrollbar']}
 			horizontalScrollbar={args['horizontalScrollbar']}
