@@ -28,34 +28,6 @@ const QuickGuidePanels = (props) => <WizardPanels fullScreenContent {...props} /
 
 QuickGuidePanels.propTypes = {
 	/**
-	 * The current step.
-	 *
-	 * This is 1-based, not 0-based; as in the first step is `1`. If omitted, this will equal
-	 * the currently selected panel.
-	 *
-	 * @type {Number}
-	 * @public
-	 */
-	current: PropTypes.number,
-
-	/**
-	 * Specifies when and how to show `nextButton` on QuickGuidePanels.
-	 *
-	 * * `'auto'` will display the `nextButton` on every `QuickGuidePanels.Panel` except the last
-	 * * `'always'` will always display the `nextButton`
-	 * * `'never'` will always hide the `nextButton`
-	 *
-	 * Note, children values will override the generalized parent visibility settings. In this
-	 * case, a customized `nextButton` on QuickGuidePanels.Panel will take precedence over the
-	 * `nextButtonVisibility` value.
-	 *
-	 * @type {('auto'|'always'|'never')}
-	 * @default 'auto'
-	 * @public
-	 */
-	nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
-
-	/**
 	 * Called when the index value is changed.
 	 *
 	 * @type {Function}
@@ -82,41 +54,7 @@ QuickGuidePanels.propTypes = {
 	 * @type {Function}
 	 * @public
 	 */
-	onPrevClick: PropTypes.func,
-
-	/**
-	 * Specifies when and how to show `prevButton` on QuickGuidePanels.
-	 *
-	 * * `'auto'` will display the `prevButton` on every `QuickGuidePanels.Panel` except the first
-	 * * `'always'` will always display the `prevButton`
-	 * * `'never'` will always hide the `prevButton`
-	 *
-	 * Note, children values will override the generalized parent visibility settings. In this case,
-	 * if user provides a customized `prevButton` on QuickGuidePanels.Panel will take precedence over the `prevButtonVisibility` value.
-	 *
-	 * @type {('auto'|'always'|'never')}
-	 * @default 'auto'
-	 * @public
-	 */
-	prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
-
-	/**
-	 * The total number of steps.
-	 *
-	 * If omitted, this will equal the total number of Panels.
-	 *
-	 * @type {Number}
-	 * @public
-	 */
-	total: PropTypes.number,
-
-	/**
-	 * The total panels in QuickGuidePanels.
-	 *
-	 * @type {Number}
-	 * @private
-	 */
-	totalPanels: PropTypes.number
+	onPrevClick: PropTypes.func
 };
 
 export default QuickGuidePanels;
