@@ -364,9 +364,9 @@ const WizardPanelsBase = kind({
 					currentIcon={'circle'}
 					futureIcon={'circle'}
 					current={currentStep}
+					layout="quickGuidePanels"
 					slot="slotAbove"
 					total={totalSteps}
-					singleIconMode
 				/> :
 				<Steps
 					className={css.steps}

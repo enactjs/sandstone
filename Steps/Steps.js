@@ -108,6 +108,13 @@ const StepsBase = kind({
 		iconComponent: EnactPropTypes.component,
 
 		/**
+		 * @type {String}
+		 * @default 'wizardPanels'
+		 * @private
+		 */
+		layout: PropTypes.string,
+
+		/**
 		 * The icon to use for indicating all steps preceding the current step.
 		 *
 		 * This accepts any icon supported by {@link sandstone/Icon}, in addition to a special
@@ -118,12 +125,6 @@ const StepsBase = kind({
 		 * @public
 		 */
 		pastIcon: PropTypes.string,
-
-		/**
-		 * @type {Boolean}
-		 * @private
-		 */
-		singleIconMode: PropTypes.bool,
 
 		/**
 		 * The size of the step icons.
@@ -188,7 +189,7 @@ const StepsBase = kind({
 	},
 
 	computed: {
-		steps: ({current, pastIcon, currentIcon, futureIcon, singleIconMode, skip, skipIcon, total, styler}) => {
+		steps: ({current, pastIcon, currentIcon, futureIcon, layout, skip, skipIcon, total, styler}) => {
 			skip = coerceArray(skip);
 			return Array.from(Array(total)).map((el, index) => {
 				const stepNum = index + 1;
@@ -215,7 +216,7 @@ const StepsBase = kind({
 				}
 
 				return {
-					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), dots: singleIconMode}),
+					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), dots: layout === 'quickGuidePanels'}),
 					key: `step${stepNum}`,
 					children
 				};
@@ -228,7 +229,7 @@ const StepsBase = kind({
 		delete rest.currentIcon;
 		delete rest.futureIcon;
 		delete rest.pastIcon;
-		delete rest.singleIconMode;
+		delete rest.layout;
 		delete rest.skip;
 		delete rest.skipIcon;
 		delete rest.total;

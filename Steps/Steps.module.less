@@ -21,6 +21,12 @@
 			opacity: @sand-steps-step-past-opacity;
 			margin: 0;
 			width: @sand-steps-step-width;
+			&.current {
+				font-size: @sand-steps-step-current-dot-font-size;
+			}
+			&.future {
+				opacity:  @sand-steps-step-past-opacity;
+			}
 		}
 
 		&.past {
@@ -29,15 +35,9 @@
 
 		&.current {
 			opacity: @sand-steps-step-current-opacity;
-			&.dots {
-				font-size: @sand-steps-step-current-dot-font-size;
-			}
 		}
 		&.future {
 			opacity: @sand-steps-step-future-opacity;
-			&.dots {
-				opacity:  @sand-steps-step-past-opacity;
-			}
 		}
 	}
 }
@@ -46,10 +46,7 @@
 	.step {
 		&.dots {
 			color: @sand-steps-step-focused-dot-color;
-		}
-
-		&.current {
-			&.dots {
+			&.current {
 				color: @sand-steps-step-dot-color;
 			}
 		}
