@@ -1,6 +1,6 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {act, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Input from '../Input';
@@ -130,9 +130,10 @@ describe('Input specs', () => {
 		expect(buttonInput).toHaveAttribute(expectedAttribute, expectedValue);
 	});
 
-	test('should fire `onOpenPopup` and `onShow` with type when open', () => {
+	test('should fire `onOpenPopup` and `onShow` with type when open', async () => {
 		const handleOpenPopup = jest.fn();
 		const handleShow = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<FloatingLayerController>
@@ -140,7 +141,7 @@ describe('Input specs', () => {
 			</FloatingLayerController>
 		);
 
-		userEvent.click(screen.getByRole('button'));
+		await user.click(screen.getByRole('button'));
 
 		const openExpected = {type: 'onOpenPopup'};
 		const openActual = handleOpenPopup.mock.calls.length && handleOpenPopup.mock.calls[0][0];
@@ -152,9 +153,10 @@ describe('Input specs', () => {
 		expect(showActual).toMatchObject(showExpected);
 	});
 
-	test('should fire `onBeforeChange` and `onChange` with type when value changed', () => {
+	test('should fire `onBeforeChange` and `onChange` with type when value changed', async () => {
 		const handleBeforeChange = jest.fn();
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<FloatingLayerController>
@@ -162,7 +164,7 @@ describe('Input specs', () => {
 			</FloatingLayerController>
 		);
 
-		userEvent.type(screen.getByPlaceholderText('-'), 'a');
+		await user.type(screen.getByPlaceholderText('-'), 'a');
 
 		const beforeExpected = {type: 'onBeforeChange'};
 		const beforeActual = handleBeforeChange.mock.calls.length && handleBeforeChange.mock.calls[0][0];
@@ -183,7 +185,7 @@ describe('Input specs', () => {
 			</FloatingLayerController>
 		);
 
-		userEvent.type(screen.getByPlaceholderText('-'), '{enter}');
+		fireEvent.keyDown(screen.getByPlaceholderText('-'), {keyCode: 13});
 
 		const closeExpected = {type: 'onClose'};
 		const closeActual = handleClose.mock.calls.length && handleClose.mock.calls[0][0];
@@ -263,8 +265,9 @@ describe('Input specs', () => {
 			expect(buttonInput).toHaveAttribute(expectedAttribute, expectedValue);
 		});
 
-		test('should not be able to add more characters when the maxlength is reached', () => {
+		test('should not be able to add more characters when the maxlength is reached', async () => {
 			const spy = jest.fn();
+			const user = userEvent.setup();
 			render(
 				<FloatingLayerController>
 					<Input type="number" minLength={1} maxLength={4} open onChange={spy} value="1234" />
@@ -272,7 +275,7 @@ describe('Input specs', () => {
 			);
 			const numberButton = screen.getByText('6');
 
-			userEvent.click(numberButton);
+			await user.click(numberButton);
 
 			expect(spy).not.toHaveBeenCalled();
 		});
@@ -384,9 +387,10 @@ describe('Input specs', () => {
 			expect(actual).toBe(expected);
 		});
 
-		test('should call onComplete when submit button clicked', (done) => {
+		test('should call onComplete when submit button clicked', async () => {
 			jest.useFakeTimers();
 			const spy = jest.fn();
+			const user = userEvent.setup({advanceTimers: jest.advanceTimersByTime});
 			render(
 				<FloatingLayerController>
 					<Input type="number" minLength={1} maxLength={4} open onComplete={spy} />
@@ -395,19 +399,19 @@ describe('Input specs', () => {
 			const numberButton = screen.getByText('2');
 			const submitButton = screen.getByText('Submit');
 
-			userEvent.click(numberButton);
-			userEvent.click(submitButton);
+			await user.click(numberButton);
+			await user.click(submitButton);
 
 			act(() => jest.advanceTimersByTime(300));
 
 			expect(spy).toHaveBeenCalled();
-			done();
 
 			jest.useRealTimers();
 		});
 
-		test('should call onChange when submit button clicked', () => {
+		test('should call onChange when submit button clicked', async () => {
 			const spy = jest.fn();
+			const user = userEvent.setup();
 			render(
 				<FloatingLayerController>
 					<Input type="number" minLength={1} maxLength={4} open onChange={spy} />
@@ -416,14 +420,15 @@ describe('Input specs', () => {
 			const numberButton = screen.getByText('2');
 			const submitButton = screen.getByText('Submit');
 
-			userEvent.click(numberButton);
-			userEvent.click(submitButton);
+			await user.click(numberButton);
+			await user.click(submitButton);
 
 			expect(spy).toHaveBeenCalled();
 		});
 
-		test('should call onBeforeChange once when input occurs', () => {
+		test('should call onBeforeChange once when input occurs', async () => {
 			const spy = jest.fn();
+			const user = userEvent.setup();
 			render(
 				<FloatingLayerController>
 					<Input type="number" open length={10} onBeforeChange={spy} />
@@ -431,18 +436,19 @@ describe('Input specs', () => {
 			);
 			const numberButton = screen.getByText('2');
 
-			userEvent.click(numberButton);
+			await user.click(numberButton);
 
 			expect(spy).toHaveBeenCalled();
 		});
 
-		test('should prevent input when onBeforeChange calls preventDefault', () => {
+		test('should prevent input when onBeforeChange calls preventDefault', async () => {
 			const spy = jest.fn();
 			const mock = jest.fn((ev) => {
 				if (ev.value === '2') {
 					ev.preventDefault();
 				}
 			});
+			const user = userEvent.setup();
 			render(
 				<FloatingLayerController>
 					<Input type="number" minLength={1} maxLength={4} open onBeforeChange={mock} onChange={spy} />
@@ -453,16 +459,17 @@ describe('Input specs', () => {
 			const numberButton1 = screen.getByText('1');
 			const submitButton = screen.getByText('Submit');
 
-			userEvent.click(numberButton2);
-			userEvent.click(numberButton1);
-			userEvent.click(submitButton);
+			await user.click(numberButton2);
+			await user.click(numberButton1);
+			await user.click(submitButton);
 
 			const expected = 1;
 			expect(spy).toHaveBeenCalledTimes(expected);
 		});
 
-		test('should delete an input when delete button clicked', () => {
+		test('should delete an input when delete button clicked', async () => {
 			const spy = jest.fn();
+			const user = userEvent.setup();
 			render(
 				<FloatingLayerController>
 					<Input type="number" value="12" minLength={1} maxLength={4} open onChange={spy} />
@@ -470,7 +477,7 @@ describe('Input specs', () => {
 			);
 			const backspaceButton = screen.getByText('␈');
 
-			userEvent.click(backspaceButton);
+			await user.click(backspaceButton);
 
 			const expected = '1';
 			const actual = screen.getByRole('list').textContent;
@@ -479,8 +486,9 @@ describe('Input specs', () => {
 			expect(actual).toBe(expected);
 		});
 
-		test('should call onBeforeChange when delete button clicked', () => {
+		test('should call onBeforeChange when delete button clicked', async () => {
 			const spy = jest.fn();
+			const user = userEvent.setup();
 
 			render(
 				<FloatingLayerController>
@@ -489,7 +497,7 @@ describe('Input specs', () => {
 			);
 			const backspaceButton = screen.getByText('␈');
 
-			userEvent.click(backspaceButton);
+			await user.click(backspaceButton);
 
 			const expected = '1';
 			const actual = screen.getByRole('list').textContent;

@@ -8,12 +8,13 @@ import DatePicker, {dateToLocaleString} from '../DatePicker';
 // Note: Tests pass 'locale' because there's no I18nDecorator to provide a value via context and
 // otherwise, nothing renders in the label.
 describe('DatePicker', () => {
-	test('should emit an onChange event with type when changing the day', () => {
+	test('should emit an onChange event with type when changing the day', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(<DatePicker onChange={handleChange} value={new Date(2000, 6, 15)} locale="en-US" />);
 		const dayPickerUp = screen.getAllByText('▲')[1];
 
-		userEvent.click(dayPickerUp);
+		await user.click(dayPickerUp);
 
 		const expected = 1;
 		const expectedType = {type: 'onChange', value: new Date(2000, 6, 16)};
@@ -23,12 +24,13 @@ describe('DatePicker', () => {
 		expect(actual).toMatchObject(expectedType);
 	});
 
-	test('should emit an onChange event with type when changing the month', () => {
+	test('should emit an onChange event with type when changing the month', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(<DatePicker onChange={handleChange} value={new Date(2000, 6, 15)} locale="en-US" />);
 		const monthPickerUp = screen.getAllByText('▲')[0];
 
-		userEvent.click(monthPickerUp);
+		await user.click(monthPickerUp);
 
 		const expected = 1;
 		const expectedType = {type: 'onChange', value: new Date(2000, 7, 15)};
@@ -38,12 +40,13 @@ describe('DatePicker', () => {
 		expect(actual).toMatchObject(expectedType);
 	});
 
-	test('should emit an onChange event with type when changing the year', () => {
+	test('should emit an onChange event with type when changing the year', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(<DatePicker onChange={handleChange} value={new Date(2000, 6, 15)} locale="en-US" />);
 		const yearPickerUp = screen.getAllByText('▲')[2];
 
-		userEvent.click(yearPickerUp);
+		await user.click(yearPickerUp);
 
 		const expected = 1;
 		const expectedType = {type: 'onChange', value: new Date(2001, 6, 15)};

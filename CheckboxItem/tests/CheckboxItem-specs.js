@@ -25,25 +25,27 @@ describe('CheckboxItem Specs', () => {
 		expect(element).toBeInTheDocument();
 	});
 
-	test('should select with click', () => {
+	test('should select with click', async () => {
+		const user = userEvent.setup();
 		render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
 
 		const checkboxItemElement = screen.getAllByRole('checkbox')[0];
 		const expected = 'selected';
 
-		userEvent.click(checkboxItemElement);
+		await user.click(checkboxItemElement);
 
 		expect(checkboxItemElement).toHaveClass(expected);
 	});
 
-	test('should unselect with click twice', () => {
+	test('should unselect with click twice', async () => {
+		const user = userEvent.setup();
 		render(<CheckboxItem>Hello CheckboxItem</CheckboxItem>);
 
 		const checkboxItemElement = screen.getAllByRole('checkbox')[0];
 		const expected = 'selected';
 
-		userEvent.click(checkboxItemElement);
-		userEvent.click(checkboxItemElement);
+		await user.click(checkboxItemElement);
+		await user.click(checkboxItemElement);
 
 		expect(checkboxItemElement).not.toHaveClass(expected);
 	});
