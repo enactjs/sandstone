@@ -16,6 +16,7 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useRef, useState} from 'react';
+import { handleSpotlightDown, handleSpotlightLeft, handleSpotlightRight, handleSpotlightUp, handleKeyDownCapture } from './utils.js';
 
 import Button from '../Button';
 import CheckboxItem from '../CheckboxItem';
@@ -257,53 +258,6 @@ const TransferListBase = kind({
 				onSelect(element, index, list);
 			};
 
-			const handleSpotlightDown = (ev) => {
-				if (orientation === 'vertical' && list === 'first') moveInSecond();
-				if (elements.length - 1 !== index && orientation === 'horizontal') return;
-				if (list === 'first' && orientation === 'vertical') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			const handleSpotlightLeft = (ev) => {
-				if (orientation === 'horizontal' && list === 'second') moveInFirst();
-				if (index !== 0 || orientation === 'horizontal') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			const handleSpotlightRight = (ev) => {
-				if (orientation === 'horizontal' && list === 'first') moveInSecond();
-				if (elements.length - 1 !== index || orientation === 'horizontal') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			const handleSpotlightUp = (ev) => {
-				if (orientation === 'vertical' && list === 'second') moveInFirst();
-				if (index !== 0 && orientation === 'horizontal') return;
-				if (list === 'second' && orientation === 'vertical') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			const handleKeyDownCapture = (ev) => {
-				if (!selected || selectedItems.length > 1) return;
-				if (orientation !== 'vertical') {
-					if (ev.key === 'ArrowUp') {
-						reorderList(list, index, -1, element);
-					} else if (ev.key === 'ArrowDown') {
-						reorderList(list, index, 1, element);
-					}
-				} else if (orientation !== 'horizontal') {
-					if (ev.key === 'ArrowLeft') {
-						reorderList(list, index, -1, element);
-					} else if (ev.key === 'ArrowRight') {
-						reorderList(list, index, 1, element);
-					}
-				}
-			};
-
 			return (
 				<CheckboxItem
 					{...rest}
@@ -314,11 +268,11 @@ const TransferListBase = kind({
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
-					onKeyDownCapture={handleKeyDownCapture}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
+					onKeyDownCapture={(ev) => handleKeyDownCapture(ev, selected, selectedItems, orientation, reorderList, list, index, element)}
+					onSpotlightDown={(ev) => handleSpotlightDown(ev, orientation, list, moveInSecond, elements, index)}
+					onSpotlightLeft={(ev) => handleSpotlightLeft(ev, orientation, list, moveInFirst, index)}
+					onSpotlightRight={(ev) => handleSpotlightRight(ev, orientation, list, moveInSecond, elements, index)}
+					onSpotlightUp={(ev) => handleSpotlightUp(ev, orientation, list, moveInFirst, index)}	// eslint-disable-line  react/jsx-no-bind
 					selected={selected}
 					slotAfter={(selected && showSelectionOrder) && selectedIndex}
 					style={style}
@@ -347,57 +301,6 @@ const TransferListBase = kind({
 				onSelect(element, index, list);
 			};
 
-			const handleSpotlightDown = (ev) => {
-				if (orientation === 'vertical' && list === 'first') moveInSecond();
-				if (elements.length - 1 !== index && orientation === 'horizontal') return;
-				if (list === 'first' && orientation === 'vertical') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			const handleSpotlightLeft = (ev) => {
-				if (orientation === 'horizontal' && list === 'second') moveInFirst();
-				if ((index !== 0 && index !== 1 ) || orientation === 'horizontal') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			const handleSpotlightRight = (ev) => {
-				if (orientation === 'horizontal' && list === 'first') moveInSecond();
-				if ((elements.length - 1 !== index && elements.length - 2 !== index) || orientation === 'horizontal') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			const handleSpotlightUp = (ev) => {
-				if (orientation === 'vertical' && list === 'second') moveInFirst();
-				if (index !== 0 && orientation === 'horizontal') return;
-				if (list === 'second' && orientation === 'vertical') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			const handleKeyDownCapture = (ev) => {
-				if (!selected || selectedItems.length > 1) return;
-				if (orientation !== 'vertical') {
-					if (ev.key === 'ArrowUp') {
-						reorderList(list, index, -1, element);
-					} else if (ev.key === 'ArrowDown') {
-						reorderList(list, index, 1, element);
-					}
-				} else if (orientation !== 'horizontal') {
-					if (ev.key === 'ArrowLeft') {
-						reorderList(list, index, -2, element);
-					} else if (ev.key === 'ArrowRight') {
-						reorderList(list, index, 2, element);
-					} else if (ev.key === 'ArrowUp') {
-						reorderList(list, index, -1, element);
-					} else if (ev.key === 'ArrowDown') {
-						reorderList(list, index, 1, element);
-					}
-				}
-			};
-
 			return (
 				<ImageItem
 					{...rest}
@@ -408,11 +311,11 @@ const TransferListBase = kind({
 					id={`${index}-${list}`}
 					key={index + list}
 					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
-					onKeyDownCapture={handleKeyDownCapture} // eslint-disable-line  react/jsx-no-bind
-					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
+					onKeyDownCapture={(ev) => handleKeyDownCapture(ev, selected, selectedItems, orientation, reorderList, list, index, element)}
+					onSpotlightDown={(ev) => handleSpotlightDown(ev, orientation, list, moveInSecond, elements, index)}
+					onSpotlightLeft={(ev) => handleSpotlightLeft(ev, orientation, list, moveInFirst, index)}
+					onSpotlightRight={(ev) => handleSpotlightRight(ev, orientation, list, moveInSecond, elements, index)}
+					onSpotlightUp={(ev) => handleSpotlightUp(ev, orientation, list, moveInFirst, index)}	// eslint-disable-line  react/jsx-no-bind
 					orientation="horizontal"
 					selected={selected}
 					selectionComponent={selectionComponent} // eslint-disable-line  react/jsx-no-bind
