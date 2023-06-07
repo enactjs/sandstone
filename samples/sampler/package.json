@@ -1,6 +1,6 @@
 {
   "name": "sandstone-sampler",
-  "version": "2.5.10",
+  "version": "2.5.11",
   "description": "Component and QA samples for Sandstone",
   "private": true,
   "main": "index.js",
@@ -20,11 +20,11 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.5.3",
-    "@enact/i18n": "^4.5.3",
+    "@enact/core": "^4.5.4",
+    "@enact/i18n": "^4.5.4",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.5.3",
-    "@enact/ui": "^4.5.3",
+    "@enact/spotlight": "^4.5.4",
+    "@enact/ui": "^4.5.4",
     "classnames": "^2.3.1",
     "ilib": "14.14.0",
     "react": "^18.2.0",
