@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.5.11] - 2023-06-07
+
+### Fixed
+
+- `sandstone/VideoPlayer` to keep showing media controls while a user is wheeling
+
 ## [2.7.1] - 2023-06-02
 
 ### Added
