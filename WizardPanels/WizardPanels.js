@@ -4,7 +4,7 @@ import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
-import {Column, Cell} from '@enact/ui/Layout';
+import {Cell, Column, Row} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
@@ -14,6 +14,7 @@ import compose from 'ramda/src/compose';
 import {createContext, useRef, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
+import Button from '../Button';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
 import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, useAutoFocus} from '../internal/Panels';
@@ -94,6 +95,14 @@ const WizardPanelsBase = kind({
 		* @public
 		*/
 		footer: PropTypes.node,
+
+		/**
+		* When `true`, indicates full screen size content
+		*
+		* @type {Boolean}
+		* @private
+		*/
+		fullScreenContent: PropTypes.bool,
 
 		/**
 		* The currently selected panel.
@@ -332,10 +341,11 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
-		'aria-label': ({'aria-label': label, index, noSteps, subtitle, title}) => {
+		'aria-label': ({'aria-label': label, current, index, noSteps, subtitle, title}) => {
 			if (label) return label;
 
-			const step = noSteps ? '' : new IString($L('step {num}')).format({num: index + 1}) + ' ';
+			const stepNum = (typeof current === 'number' && current > 0) ? current : (index + 1);
+			const step = noSteps ? '' : new IString($L('step {num}')).format({num: stepNum}) + ' ';
 			return `${step}${title} ${subtitle}`;
 		},
 		className: ({noSteps, noSubtitle, styler}) => styler.append(
@@ -344,16 +354,65 @@ const WizardPanelsBase = kind({
 				noSubtitle
 			}
 		),
-		steps: ({current, index, noSteps, total, totalPanels}) => {
+		steps: ({current, fullScreenContent, index, noSteps, total, totalPanels}) => {
 			const currentStep = (noSteps && 1) || ((typeof current === 'number' && current > 0) ? current : (index + 1));
 			const totalSteps = (noSteps && 1) || ((typeof total === 'number' && total > 0) ? total : totalPanels);
 
-			return (
+			return ( fullScreenContent ?
+				<Steps
+					className={css.steps}
+					pastIcon={'circle'}
+					currentIcon={'circle'}
+					futureIcon={'circle'}
+					current={currentStep}
+					layout="quickGuidePanels"
+					slot="slotAbove"
+					total={totalSteps}
+				/> :
 				<Steps
 					className={css.steps}
 					current={currentStep}
 					slot="slotAbove"
 					total={totalSteps}
+				/>
+			);
+		},
+		prevNavigationButton: ({index, onPrevClick, prevButton, prevButtonVisibility}) => {
+			const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
+
+			return (
+				<NavigationButton
+					aria-label={$L('Previous')}
+					backgroundOpacity="transparent"
+					component={prevButton}
+					focusEffectIconOnly
+					icon="arrowlargeleft"
+					className={css.navigationButton}
+					iconFlip="auto"
+					minWidth={false}
+					onClick={onPrevClick}
+					slot="slotBefore"
+					visible={isPrevButtonVisible}
+				/>
+			);
+		},
+		nextNavigationButton: ({index, nextButton, nextButtonVisibility, onNextClick, totalPanels}) => {
+			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
+
+			return (
+				<NavigationButton
+					aria-label={$L('Next')}
+					backgroundOpacity="transparent"
+					component={nextButton}
+					focusEffectIconOnly
+					className={css.navigationButton}
+					icon="arrowlargeright"
+					iconFlip="auto"
+					iconPosition="after"
+					minWidth={false}
+					onClick={onNextClick}
+					slot="slotAfter"
+					visible={isNextButtonVisible}
 				/>
 			);
 		}
@@ -363,32 +422,62 @@ const WizardPanelsBase = kind({
 		'aria-label': ariaLabel,
 		children,
 		footer,
+		fullScreenContent,
 		index,
-		nextButton,
-		nextButtonVisibility,
+		prevNavigationButton,
+		nextNavigationButton,
 		noAnimation,
 		noSubtitle,
-		onNextClick,
-		onPrevClick,
 		onTransition,
 		onWillTransition,
-		prevButton,
-		prevButtonVisibility,
 		reverseTransition,
 		steps,
 		subtitle,
 		title,
-		totalPanels,
 		...rest
 	}) => {
-		delete rest.noSteps;
 		delete rest.current;
+		delete rest.nextButton;
+		delete rest.nextButtonVisibility;
+		delete rest.noSteps;
+		delete rest.onNextClick;
+		delete rest.onPrevClick;
+		delete rest.prevButton;
+		delete rest.prevButtonVisibility;
 		delete rest.total;
+		delete rest.totalPanels;
+		if (fullScreenContent) {
+			// eslint-disable-next-line enact/prop-types
+			delete rest.hideChildren;
+		}
 
-		const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
-		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
-
-		return (
+		return ( fullScreenContent ?
+			<Column {...rest}>
+				<Row className={css.fullScreenContentHeader}>
+					{steps}
+					<Button
+						icon="closex"
+						className={css.close}
+						size="small"
+					/>
+				</Row>
+				<Row className={css.navigationButtonContainer}>
+					<Cell shrink>
+						{prevNavigationButton}
+					</Cell>
+					<Cell />
+					<Cell shrink>
+						{nextNavigationButton}
+					</Cell>
+				</Row>
+				<ViewManager
+					arranger={BasicArranger}
+					duration={400}
+					noAnimation
+				>
+					{children}
+				</ViewManager>
+			</Column> :
 			<DecoratedPanelBase
 				{...rest}
 				header={
@@ -404,31 +493,8 @@ const WizardPanelsBase = kind({
 						type="wizard"
 					>
 						{steps}
-						<NavigationButton
-							aria-label={$L('Previous')}
-							backgroundOpacity="transparent"
-							component={prevButton}
-							focusEffectIconOnly
-							icon="arrowlargeleft"
-							iconFlip="auto"
-							minWidth={false}
-							onClick={onPrevClick}
-							slot="slotBefore"
-							visible={isPrevButtonVisible}
-						/>
-						<NavigationButton
-							aria-label={$L('Next')}
-							backgroundOpacity="transparent"
-							component={nextButton}
-							focusEffectIconOnly
-							icon="arrowlargeright"
-							iconFlip="auto"
-							iconPosition="after"
-							minWidth={false}
-							onClick={onNextClick}
-							slot="slotAfter"
-							visible={isNextButtonVisible}
-						/>
+						{prevNavigationButton}
+						{nextNavigationButton}
 					</HeaderContainer>
 				}
 				panelType="wizard"

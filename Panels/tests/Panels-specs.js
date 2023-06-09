@@ -110,6 +110,7 @@ describe('Panels Specs', () => {
 
 		test('should fire `onBack` with `onBack` type when back clicked', async () => {
 			const handleBack = jest.fn();
+			const user = userEvent.setup();
 
 			render(
 				<Panels index={1} onBack={handleBack}>
@@ -122,7 +123,7 @@ describe('Panels Specs', () => {
 				</Panels>
 			);
 
-			userEvent.click(screen.getByLabelText('go to previous'));
+			await user.click(screen.getByLabelText('go to previous'));
 
 			const expected = {type: 'onBack'};
 
