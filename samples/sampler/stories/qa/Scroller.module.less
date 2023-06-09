@@ -6,6 +6,22 @@
 	}
 }
 
+.scrollerWrapper {
+	--selected-item-offset: 0;
+	display: flex;
+	flex-direction: row;
+	min-width: fit-content;
+	padding-top: 60px;
+
+	.hideItem {
+		display: none;
+	}
+}
+
+.centered {
+	justify-content: center;
+}
+
 .wrapper { // public class for editable wrapper
 	padding-left: 36px;
 	padding-right: 36px;
@@ -21,7 +37,8 @@
 	.itemWrapper {
 		text-align: center;
 
-		.imageItem {
+		.imageItem,
+		.hideItem {
 			width: 768px;
 			height: 588px;
 		}
@@ -41,13 +58,13 @@
 			opacity: 1;
 		}
 
-		&::before {
+		&:has(> .imageItem)::before{
 			content: '\EFFF3';
 			.arrow();
 			left: -30px;
 		}
 
-		&::after {
+		&:has(> .imageItem)::after{
 			content: '\EFFF4';
 			.arrow();
 			right: -30px;

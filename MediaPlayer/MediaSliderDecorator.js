@@ -105,7 +105,7 @@ const MediaSliderDecorator = hoc((config, Wrapped) => {
 
 		componentDidUpdate (prevProps, prevState) {
 			if (prevState.x !== this.state.x) {
-				forwardCustom('onKnobMove')(this.getEventPayload(), this.props);
+				forwardCustom('onKnobMove', ev => ev)(this.getEventPayload(), this.props);
 			}
 		}
 
