@@ -2,7 +2,7 @@ const {test, expect} = require('@playwright/test')
 
 test.describe('Button', function () {
 	test.beforeEach(async ({page}) => {
-		await page.goto('http://127.0.0.1:3000/Button');
+		await page.goto('http://localhost:8080/Button');
 	});
 
 	test.describe('5-way',  function () {
