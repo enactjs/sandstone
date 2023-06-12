@@ -41,8 +41,9 @@ describe('ContextualMenuDecorator Specs', () => {
 		expect(menu).toBeNull();
 	});
 
-	test('should emit onClose event when clicking outside the contextual menu', () => {
+	test('should emit onClose event when clicking outside the contextual menu', async () => {
 		const handleClose = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<Root data-testid="contextualMenu">
@@ -54,13 +55,14 @@ describe('ContextualMenuDecorator Specs', () => {
 
 		const floatingLayerScrim = screen.getByTestId('contextualMenu').nextElementSibling.querySelector('.scrim');
 
-		userEvent.click(floatingLayerScrim);
+		await user.click(floatingLayerScrim);
 
 		expect(handleClose).toHaveBeenCalled();
 	});
 
-	test('should not close menu when clicking outside if noAutoDismiss is true', () => {
+	test('should not close menu when clicking outside if noAutoDismiss is true', async () => {
 		const handleClose = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<Root data-testid="contextualMenu">
@@ -71,7 +73,7 @@ describe('ContextualMenuDecorator Specs', () => {
 		);
 		const floatingLayerScrim = screen.getByTestId('contextualMenu').nextElementSibling.querySelector('.scrim');
 
-		userEvent.click(floatingLayerScrim);
+		await user.click(floatingLayerScrim);
 
 		expect(handleClose).not.toHaveBeenCalled();
 	});

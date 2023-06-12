@@ -23,25 +23,27 @@ describe('FormCheckboxItem Specs', () => {
 		expect(element).toBeInTheDocument();
 	});
 
-	test('should select with click', () => {
+	test('should select with click', async () => {
+		const user = userEvent.setup();
 		render(<FormCheckboxItem>Hello FormCheckboxItem</FormCheckboxItem>);
 		const formCheckboxItemElement = screen.getAllByRole('checkbox')[0];
 
 		const expected = 'selected';
 
-		userEvent.click(formCheckboxItemElement);
+		await user.click(formCheckboxItemElement);
 
 		expect(formCheckboxItemElement).toHaveClass(expected);
 	});
 
-	test('should deselect by clicking twice', () => {
+	test('should deselect by clicking twice', async () => {
+		const user = userEvent.setup();
 		render(<FormCheckboxItem>Hello FormCheckboxItem</FormCheckboxItem>);
 		const formCheckboxItemElement = screen.getAllByRole('checkbox')[0];
 
 		const expected = 'selected';
 
-		userEvent.click(formCheckboxItemElement);
-		userEvent.click(formCheckboxItemElement);
+		await user.click(formCheckboxItemElement);
+		await user.click(formCheckboxItemElement);
 
 		expect(formCheckboxItemElement).not.toHaveClass(expected);
 	});
@@ -64,11 +66,12 @@ describe('FormCheckboxItem Specs', () => {
 		expect(formCheckboxItemIcon).toHaveTextContent(expected);
 	});
 
-	test('should have the `-` icon when indeterminate even when clicked', () => {
+	test('should have the `-` icon when indeterminate even when clicked', async () => {
+		const user = userEvent.setup();
 		render(<FormCheckboxItem indeterminate>Hello FormCheckboxItem</FormCheckboxItem>);
 		const formCheckboxItemElement = screen.getAllByRole('checkbox')[0];
 
-		userEvent.click(formCheckboxItemElement);
+		await user.click(formCheckboxItemElement);
 
 		const formCheckboxItemIcon = screen.getAllByRole('checkbox')[1];
 		const expected = '-';
