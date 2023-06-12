@@ -17,23 +17,15 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import Button from '../Button';
-import CheckboxItem from '../CheckboxItem';
-import CustomDragImage from './CustomDragImage';
-import Icon from '../Icon';
-import ImageItem from '../ImageItem';
 import Skinnable from '../Skinnable';
 import VirtualList, {VirtualGridList} from '../VirtualList';
 
-import componentCss from './TransferList.module.less';
-import imageItemCss from '../ImageItem/ImageItem.module.less';
+import ButtonList from './ButtonList';
+import CustomDragImage from './CustomDragImage';
+import {renderImageItem, renderItem} from './RenderItem';
+import {getTransferData, rearrangeList} from './utils';
 
-// SVG generator used as a `src` prop from ImageItem when the lists are rendered by `VirtualGridList` component
-const svgGenerator = (width, height, customText) => (
-	`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +
-	`%3Crect width='${width}' height='${height}' fill='%23117fba'%3E%3C/rect%3E` +
-	`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23ffffff'%3E${customText}%3C/text%3E%3C/svg%3E`
-);
+import componentCss from './TransferList.module.less';
 
 /**
  * A Sandstone-styled scrollable, draggable and spottable transfer list component.
@@ -247,206 +239,7 @@ const TransferListBase = kind({
 		publicClassNames: true
 	},
 
-	computed: {
-		// When `listComponent` prop is set to `VirtualList`, the `CheckboxItem` component is used to render the items in the lists
-		renderItem: ({disabled, itemSize, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, reorderList, selectedItems, showSelectionOrder, ...rest}) => (data) => {
-			const {index, 'data-index': dataIndex} = data;
-			const element = elements[index];
-			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
-			const selected = selectedIndex !== 0;
-			const style = orientation === 'horizontal' ? {} : {height: `calc(100% - ${ri.scaleToRem(42)})`, width: ri.scaleToRem(itemSize * 3)};
-
-			// Called when an item from the list is selected. The information contains the name, index and parent list (e.g. BBC World News 0 first)
-			const handleClick = () => {
-				onSelect(element, index, list);
-			};
-
-			// When `moveOnSpotlight` prop is set to true, selecting and transferring the items can be done with Enter and arrow keys
-			// Handle down arrow key on item
-			const handleSpotlightDown = (ev) => {
-				if (orientation === 'vertical' && list === 'first') moveInSecond();
-				if (elements.length - 1 !== index && orientation === 'horizontal') return;
-				if (list === 'first' && orientation === 'vertical') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			// Handle left arrow key on item
-			const handleSpotlightLeft = (ev) => {
-				if (orientation === 'horizontal' && list === 'second') moveInFirst();
-				if (index !== 0 || orientation === 'horizontal') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			// Handle right arrow key on item
-			const handleSpotlightRight = (ev) => {
-				if (orientation === 'horizontal' && list === 'first') moveInSecond();
-				if (elements.length - 1 !== index || orientation === 'horizontal') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			// Handle up arrow key on item
-			const handleSpotlightUp = (ev) => {
-				if (orientation === 'vertical' && list === 'second') moveInFirst();
-				if (index !== 0 && orientation === 'horizontal') return;
-				if (list === 'second' && orientation === 'vertical') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			// In case of reordering the list with arrow keys, capture events help with catching all events on child elements of a VirtualList component
-			// https://react.dev/learn/responding-to-events#capture-phase-events
-			const handleKeyDownCapture = (ev) => {
-				if (!selected || selectedItems.length > 1) return;
-				if (orientation !== 'vertical') {
-					if (ev.key === 'ArrowUp') {
-						reorderList(list, index, -1, element);
-					} else if (ev.key === 'ArrowDown') {
-						reorderList(list, index, 1, element);
-					}
-				} else if (orientation !== 'horizontal') {
-					if (ev.key === 'ArrowLeft') {
-						reorderList(list, index, -1, element);
-					} else if (ev.key === 'ArrowRight') {
-						reorderList(list, index, 1, element);
-					}
-				}
-			};
-
-			return (
-				<CheckboxItem
-					{...rest}
-					className={componentCss.draggableItem}
-					data-index={dataIndex}
-					draggable={!disabled}
-					disabled={disabled}
-					id={`${index}-${list}`}
-					key={index + list}
-					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
-					onKeyDownCapture={handleKeyDownCapture}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
-					selected={selected}
-					slotAfter={(selected && showSelectionOrder) && selectedIndex}
-					style={style}
-				>
-					{element}
-				</CheckboxItem>
-			);
-		},
-		// When `listComponent` prop is set to `VirtualGridList`, the `ImageItem` component is used to render the items in the lists
-		renderImageItem: ({disabled, orientation}) => ({elements, list, moveInFirst, moveInSecond, onSelect, reorderList, selectedItems, showSelectionOrder, ...rest}) => (data) => {	// eslint-disable-line	enact/display-name
-			const {index, 'data-index': dataIndex} = data;
-			const element = elements[index];
-			const selectedIndex = selectedItems.findIndex((args) => args.element === element && args.list === list) + 1;
-			const selected = selectedIndex !== 0;
-
-			const source = {
-				hd: svgGenerator(200, 200, ''),
-				fhd: svgGenerator(300, 300, ''),
-				uhd: svgGenerator(600, 600, '')
-			};
-
-			// Selection overlay for ImageItem component
-			const selectionComponent = () => {
-				return <div className={componentCss.selectionContainer}>{selected && <Icon className={imageItemCss.selectionIcon}>check</Icon>}{(selected && showSelectionOrder) && selectedIndex}</div>;
-			};
-
-			// Called when an item from the list is selected. The information contains the name, index and parent list (e.g. BBC World News 0 first)
-			const handleClick = () => {
-				onSelect(element, index, list);
-			};
-
-			// When `moveOnSpotlight` prop is set to true, selecting and transferring the items can be done with Enter and arrow keys
-			// Handle down arrow key on item
-			const handleSpotlightDown = (ev) => {
-				if (orientation === 'vertical' && list === 'first') moveInSecond();
-				if (elements.length - 1 !== index && orientation === 'horizontal') return;
-				if (list === 'first' && orientation === 'vertical') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			// Handle left arrow key on item
-			const handleSpotlightLeft = (ev) => {
-				if (orientation === 'horizontal' && list === 'second') moveInFirst();
-				if ((index !== 0 && index !== 1 ) || orientation === 'horizontal') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			// Handle right arrow key on item
-			const handleSpotlightRight = (ev) => {
-				if (orientation === 'horizontal' && list === 'first') moveInSecond();
-				if ((elements.length - 1 !== index && elements.length - 2 !== index) || orientation === 'horizontal') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			// Handle up arrow key on item
-			const handleSpotlightUp = (ev) => {
-				if (orientation === 'vertical' && list === 'second') moveInFirst();
-				if (index !== 0 && orientation === 'horizontal') return;
-				if (list === 'second' && orientation === 'vertical') return;
-				ev.preventDefault();
-				ev.stopPropagation();
-			};
-
-			// In case of reordering the list with arrow keys, capture events help with catching all events on child elements of a VirtualGridList component
-			// https://react.dev/learn/responding-to-events#capture-phase-events
-			const handleKeyDownCapture = (ev) => {
-				if (!selected || selectedItems.length > 1) return;
-				if (orientation !== 'vertical') {
-					if (ev.key === 'ArrowUp') {
-						reorderList(list, index, -1, element);
-					} else if (ev.key === 'ArrowDown') {
-						reorderList(list, index, 1, element);
-					}
-				} else if (orientation !== 'horizontal') {
-					if (ev.key === 'ArrowLeft') {
-						reorderList(list, index, -2, element);
-					} else if (ev.key === 'ArrowRight') {
-						reorderList(list, index, 2, element);
-					} else if (ev.key === 'ArrowUp') {
-						reorderList(list, index, -1, element);
-					} else if (ev.key === 'ArrowDown') {
-						reorderList(list, index, 1, element);
-					}
-				}
-			};
-
-			return (
-				<ImageItem
-					{...rest}
-					className={componentCss.draggableItem}
-					data-index={dataIndex}
-					disabled={disabled}
-					draggable={!disabled}
-					id={`${index}-${list}`}
-					key={index + list}
-					onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
-					onKeyDownCapture={handleKeyDownCapture} // eslint-disable-line  react/jsx-no-bind
-					onSpotlightDown={handleSpotlightDown}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightLeft={handleSpotlightLeft}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightRight={handleSpotlightRight}	// eslint-disable-line  react/jsx-no-bind
-					onSpotlightUp={handleSpotlightUp}	// eslint-disable-line  react/jsx-no-bind
-					orientation="horizontal"
-					selected={selected}
-					selectionComponent={selectionComponent} // eslint-disable-line  react/jsx-no-bind
-					showSelection
-					src={source}
-				>
-					{element}
-				</ImageItem>
-			);
-		}
-	},
-
-	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleSelect, orientation, renderImageItem, renderItem, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleSelect, orientation, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [position, setPosition] = useState(null);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
@@ -510,14 +303,6 @@ const TransferListBase = kind({
 			element.classList.remove(`${css.overLeft}`);
 			element.classList.remove(`${css.overRight}`);
 		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight]);
-
-		// Rearrange items in the same list
-		const rearrangeList = (dragOverElementIndex, itemIndex, list, listName, setNewList) => {
-			const draggedItem = list[itemIndex];
-			list.splice(itemIndex, 1);
-			list.splice(dragOverElementIndex, 0, draggedItem);
-			setNewList(list);
-		};
 
 		// Handle the operations between the two lists
 		const rearrangeLists = useCallback((sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList) => {
@@ -702,7 +487,7 @@ const TransferListBase = kind({
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
 
 				// Rearrange the list
-				rearrangeList(dragOverElement.current, startElementIndex, firstListCopy, list, setFirstListLocal);
+				rearrangeList(dragOverElement.current, startElementIndex, firstListCopy, setFirstListLocal);
 
 				removeDropBorder(element);
 
@@ -754,7 +539,7 @@ const TransferListBase = kind({
 				// Set the correct position when dropping the item
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
 
-				rearrangeList(dragOverElement.current, startElementIndex, secondListCopy, list, setSecondListLocal);
+				rearrangeList(dragOverElement.current, startElementIndex, secondListCopy, setSecondListLocal);
 
 				removeDropBorder(element);
 
@@ -1007,16 +792,6 @@ const TransferListBase = kind({
 			}
 		};
 
-		// Get the transferred item and return the index and the list
-		const getTransferData = (dataTransferObj) => {
-			if (dataTransferObj) {
-				const data = dataTransferObj.getData('text/plain');
-				const [index, list] = data.split('-');
-				return {index, list};
-			}
-			return null;
-		};
-
 		// Handle drop actions for the second list
 		const onDropSecondHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
@@ -1034,7 +809,7 @@ const TransferListBase = kind({
 			if (list === 'second') {
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
 
-				rearrangeList(dragOverElement.current, index, secondListCopy, list, setSecondListLocal);
+				rearrangeList(dragOverElement.current, index, secondListCopy, setSecondListLocal);
 				return;
 			}
 
@@ -1074,7 +849,7 @@ const TransferListBase = kind({
 			if (list === 'first') {
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
 
-				rearrangeList(dragOverElement.current, index, firstListCopy, list, setFirstListLocal);
+				rearrangeList(dragOverElement.current, index, firstListCopy, setFirstListLocal);
 				return;
 			}
 
@@ -1104,12 +879,6 @@ const TransferListBase = kind({
 		// Remove all the items in the `selectedItems` array
 		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);
 
-		// Restrict the spotlight only to the component
-		const handleSpotlightBounds = useCallback(ev => {
-			ev.preventDefault();
-			ev.stopPropagation();
-		}, []);
-
 		// Move the selected items into the first list when `moveOnSpotlight` is true
 		const moveInFirst = useCallback((ev) => {
 			if (selectedItems.findIndex(elm => elm.list === 'second') === -1 || !moveOnSpotlight) return;
@@ -1128,9 +897,12 @@ const TransferListBase = kind({
 
 		// Configuration for the first list
 		const firstListSpecs = {
+			disabled,
 			elements: firstListLocal,
+			itemSize,
 			list: 'first',
 			onSelect: setSelected,
+			orientation,
 			reorderList,
 			selectedItems,
 			moveInSecond,
@@ -1139,9 +911,12 @@ const TransferListBase = kind({
 
 		// Configuration for the second list
 		const secondListSpecs = {
+			disabled,
 			elements: secondListLocal,
+			itemSize,
 			list: 'second',
 			onSelect: setSelected,
+			orientation,
 			reorderList,
 			selectedItems,
 			moveInFirst,
@@ -1186,51 +961,21 @@ const TransferListBase = kind({
 							onScrollStop={handleScroll}
 						/> }
 				</Cell>
-				<Cell className={componentCss.listButtons} style={{flexDirection: orientation === 'vertical' ? 'row' : 'column'}}>
-					{!moveOnSpotlight ?
-						<>
-							<Button
-								disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity}
-								icon={orientation === 'vertical' ? 'triangledown' : 'triangleright'}
-								iconOnly
-								onClick={selectIntoSecondAll}
-								onSpotlightLeft={orientation === 'vertical' ? handleSpotlightBounds : null}
-								onSpotlightUp={orientation === 'horizontal' ? handleSpotlightBounds : null}
-								size="small"
-							/>
-							<Button
-								disabled={!(selectedItems.find((item) => item.list === "first")) || disabled}
-								icon={orientation === 'vertical' ? 'arrowlargedown' : 'arrowsmallright'}
-								iconOnly
-								onClick={moveIntoSecondSelected}
-								size="small"
-							/>
-							<Button
-								disabled={!(selectedItems.find((item) => item.list === "second")) || disabled}
-								icon={orientation === 'vertical' ? 'arrowlargeup' : 'arrowsmallleft'}
-								iconOnly
-								onClick={moveIntoFirstSelected}
-								size="small"
-							/>
-							<Button
-								disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity}
-								icon={orientation === 'vertical' ? 'triangleup' : 'triangleleft'}
-								iconOnly
-								onClick={selectIntoFirstAll}
-								size="small"
-							/>
-							<Button
-								disabled={disabled}
-								icon="refresh"
-								iconOnly
-								onClick={handleRemoveSelected}
-								onSpotlightDown={orientation === 'horizontal' ? handleSpotlightBounds : null}
-								onSpotlightRight={orientation === 'vertical' ? handleSpotlightBounds : null}
-								size="small"
-							/>
-						</> : ''
-					}
-				</Cell>
+				<ButtonList
+					disabled={disabled}
+					firstListMaxCapacity={firstListMaxCapacity}
+					firstListMinCapacity={firstListMinCapacity}
+					handleRemoveSelected={handleRemoveSelected}
+					moveIntoFirstSelected={moveIntoFirstSelected}
+					moveIntoSecondSelected={moveIntoSecondSelected}
+					moveOnSpotlight={moveOnSpotlight}
+					orientation={orientation}
+					secondListMaxCapacity={secondListMaxCapacity}
+					secondListMinCapacity={secondListMinCapacity}
+					selectIntoFirstAll={selectIntoFirstAll}
+					selectIntoSecondAll={selectIntoSecondAll}
+					selectedItems={selectedItems}
+				/>
 				<Cell
 					className={componentCss.listCell}
 					onDragEnter={handlePreventDefault}
