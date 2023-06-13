@@ -1,4 +1,4 @@
-/* global ENACT_PACK_NO_ANIMATION */
+
 /**
  * Sandstone styled button components and behaviors.
  *

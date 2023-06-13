@@ -1,4 +1,4 @@
-/* global ENACT_PACK_NO_ANIMATION */
+
 /**
  * Provides a floating component suitable for grouping collections of managed views.
  *

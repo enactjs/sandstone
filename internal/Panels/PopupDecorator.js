@@ -1,4 +1,4 @@
-/* global ENACT_PACK_NO_ANIMATION */
+
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';

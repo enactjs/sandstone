@@ -1,4 +1,4 @@
-/* global ENACT_PACK_NO_ANIMATION */
+
 /**
  * Provides a Sandstone-themed TabLayout.
  *

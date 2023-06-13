@@ -1,4 +1,4 @@
-/* global ENACT_PACK_NO_ANIMATION */
+
 /**
  * Modal component that appears at the bottom of the screen and takes up the full screen width.
  *

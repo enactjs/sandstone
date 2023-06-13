@@ -1,4 +1,4 @@
-/* global ENACT_PACK_NO_ANIMATION */
+
 import kind from '@enact/core/kind';
 import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';

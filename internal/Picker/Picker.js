@@ -1,4 +1,4 @@
-/* global ENACT_PACK_NO_ANIMATION */
+
 import classnames from 'classnames';
 import {forward, forwardCustom, stop, stopImmediate} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';

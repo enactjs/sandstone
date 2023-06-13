@@ -1,4 +1,4 @@
-/* global ENACT_PACK_NO_ANIMATION */
+
 import handle, {adaptEvent, forProp, forwardCustomWithPrevent, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
