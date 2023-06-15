@@ -586,15 +586,16 @@ const EditableWrapper = (props) => {
 	useEffect(() => {
 		// Calculate the item width once
 		const {rtl} = scrollContainerHandle.current;
+		const container = scrollContentRef.current;
 		const item = wrapperRef.current?.children[0];
 		if (item && typeof window !== 'undefined') {
 			const bodyWidth = document.body.getBoundingClientRect().width;
 			const neighbor = item.nextElementSibling || item.previousElementSibling;
 			mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
-			mutableRef.current.centeredOffset = rtl ? bodyWidth - item.getBoundingClientRect().right : item.getBoundingClientRect().left;
+			mutableRef.current.centeredOffset = rtl ? bodyWidth - (item.getBoundingClientRect().right + container.scrollLeft) : item.getBoundingClientRect().left + container.scrollLeft;
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
-	}, [centered, dataSize, scrollContainerHandle]);
+	}, [centered, dataSize, scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
