@@ -545,7 +545,7 @@ const EditableWrapper = (props) => {
 					ev.stopPropagation();
 				}
 			} else if (is('up', keyCode) || is('down', keyCode)) {
-				let nextTarget = getTargetByDirectionFromElement('up', target);
+				let nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
 				// Check if focus leaves scroll container.
 				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
