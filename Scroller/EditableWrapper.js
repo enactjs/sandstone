@@ -2,7 +2,9 @@ import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
-import Spotlight from '@enact/spotlight';
+import Spotlight, {getDirection} from '@enact/spotlight';
+import {getContainersForNode} from '@enact/spotlight/src/container';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
@@ -529,17 +531,33 @@ const EditableWrapper = (props) => {
 					startEditing(targetItemNode);
 				}, holdDuration - 300);
 			}
-		} else if (is('left', keyCode) || is('right', keyCode)) {
-			if (selectedItem && mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-				if (repeat) {
-					SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
-				} else {
-					SpotlightAccelerator.reset();
-					moveItemsByKeyDown(ev);
-				}
+		} else if (selectedItem) {
+			if (is('left', keyCode) || is('right', keyCode)) {
+				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+					if (repeat) {
+						SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+					} else {
+						SpotlightAccelerator.reset();
+						moveItemsByKeyDown(ev);
+					}
 
-				ev.preventDefault();
-				ev.stopPropagation();
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
+			} else if (is('up', keyCode) || is('down', keyCode)) {
+				let nextTarget = getTargetByDirectionFromElement('up', target);
+
+				// Check if focus leaves scroll container.
+				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					Spotlight.move(getDirection(keyCode));
+
+					const orders = finalizeOrders();
+					forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
+					reset();
+
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
 			}
 		}
 	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
