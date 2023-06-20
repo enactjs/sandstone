@@ -33,7 +33,7 @@ export const _ColorPicker = (args) => {
 				text={args.text}
 			/>
 		</Fragment>
-	)
+	);
 };
 
 boolean('disabled', _ColorPicker, Config, false);
