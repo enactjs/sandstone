@@ -42,43 +42,47 @@ const backgrounds = {
 	'Random':                  '#555 url("http://picsum.photos/1280/720") no-repeat center/cover'
 };
 
-const skins = {
-	'Neutral': 'neutral',
-	'Light': 'light'
-};
+// const skins = {
+// 	'Neutral': 'neutral',
+// 	'Light': 'light'
+// };
 
 configureActions();
 
-export const parameters = {
-	docs: {
-		container: DocsContainer,
-		inlineStories: false,
-		iframeHeight: ri.scaleToRem(900),
-		page: () => (
-			<>
-				<Title />
-				<Primary />
-			</>
-		),
-		theme: themes.light
-	},
-	options: {
-		storySort: {
-			method: 'alphabetical'
+const preview = {
+	parameters: {
+		docs: {
+			container: DocsContainer,
+			inlineStories: false,
+			iframeHeight: ri.scaleToRem(900),
+			page: () => (
+				<>
+					<Title />
+					<Primary />
+				</>
+			),
+			theme: themes.light
+		},
+		options: {
+			storySort: {
+				method: 'alphabetical'
+			}
 		}
 	}
 };
 
-export const globalTypes = {
-	'locale': getObjectType('locale', 'en-US', locales),
-	'large text': getBooleanType('large text'),
-	'high contrast': getBooleanType('high contrast'),
-	'skin': getObjectType('skin', 'neutral', skins),
-	'background': getObjectType('background', 'default', backgrounds),
-	'debug aria': getBooleanType('debug aria'),
-	'debug layout': getBooleanType('debug layout'),
-	'debug spotlight': getBooleanType('debug spotlight'),
-	'debug sprites': getBooleanType('debug sprites')
-};
+export default preview;
 
-export const decorators = [ThemeEnvironment];
+// export const globalTypes = {
+// 	'locale': getObjectType('locale', 'en-US', locales),
+// 	'large text': getBooleanType('large text'),
+// 	'high contrast': getBooleanType('high contrast'),
+// 	'skin': getObjectType('skin', 'neutral', skins),
+// 	'background': getObjectType('background', 'default', backgrounds),
+// 	'debug aria': getBooleanType('debug aria'),
+// 	'debug layout': getBooleanType('debug layout'),
+// 	'debug spotlight': getBooleanType('debug spotlight'),
+// 	'debug sprites': getBooleanType('debug sprites')
+// };
+
+//export const decorators = [ThemeEnvironment];
