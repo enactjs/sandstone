@@ -33,7 +33,7 @@ const nop = () => {};
  * @public
  */
 let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
-	const props = itemSize && itemSize.minSize ?
+	const itemSizeProps = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
 			itemSizes: itemSize.size
@@ -43,7 +43,7 @@ let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
 		};
 
 	warning(
-		!rest.itemSizes || !rest.cbScrollTo,
+		!itemSizeProps.itemSizes || !rest.cbScrollTo,
 		'VirtualList with `minSize` in `itemSize` prop does not support `cbScrollTo` prop'
 	);
 
@@ -64,7 +64,7 @@ let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll({...rest, ...props});
+	} = useScroll({...rest, ...itemSizeProps});
 
 	const {
 		className,
