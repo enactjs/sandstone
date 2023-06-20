@@ -465,7 +465,7 @@ describe('VirtualList with translate \'scrollMode\'', () => {
 			const variableItemSize = {
 				minSize: itemSize,
 				size: [100, 200, 300, 400, 100, 200, 300, 400, 100, 200]
-			}
+			};
 
 			render(
 				<VirtualList
