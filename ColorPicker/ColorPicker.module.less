@@ -1,0 +1,96 @@
+// ColorPicker.module.less
+//
+@import "../styles/colors.less";
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+
+.colorPicker {
+	align-items: center;
+	justify-content: space-between;
+
+	.colorBodyText {
+		font-size: 24px;
+		margin: 0;
+		max-width: 300px;
+		padding-left: 21px;
+		text-transform: capitalize;
+	}
+
+	.colorsRow {
+		width: 522px;
+		padding-top: 9px;
+	}
+
+	.coloredButton {
+		transform: none;
+		border-radius: 72px;
+		border: 3px solid #ffffff;
+		height: 72px;
+		min-width: 72px;
+		padding: 0;
+
+		.focus({
+			transform: scale(1.1);
+		});
+
+		.disabled({
+			opacity: @sand-disabled-opacity;
+		})
+	}
+
+	.coloredDiv,
+	.coloredInput {
+		border-radius: 24px;
+	}
+
+	.coloredDiv {
+		display: block;
+		height: 81px;
+		border: 3px solid #ffffff;
+
+		&.button, &.focusExpand {
+			margin: 24px;
+		}
+
+		.focus({
+			transform: scale(1.1);
+		});
+	}
+
+	.coloredInput {
+		opacity: 0;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+.colorPopup {
+	height: max-content;
+
+	.colorPopupHeader {
+		font-size: 42px;
+		text-transform: capitalize;
+		margin: 0 0 0 15px;
+	}
+
+	.closeButton {
+		&.button, &.focusExpand {
+			margin: 0;
+		}
+
+		.icon {
+			font-size: 36px;
+		}
+	}
+
+	.colorPickerSliders {
+		padding: 45px 0;
+
+		.colorSliderText {
+			font-size: 36px;
+			margin: 0 24px;
+		}
+	}
+}
