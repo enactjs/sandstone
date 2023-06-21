@@ -331,7 +331,7 @@ export const EditableList = (args) => {
 						{
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hideItem]: item.disabled})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
 											{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
 											{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
@@ -340,7 +340,7 @@ export const EditableList = (args) => {
 										<ImageItem
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 											src={item.src}
-											className={item.disabled ? css.hideItem : css.imageItem}
+											className={css.imageItem}
 											disabled={item.disabled}
 											onClick={action('onClickItem')}
 										>
@@ -361,12 +361,12 @@ export const EditableList = (args) => {
 						<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hideItem]: item.disabled})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 										<div className={css.removeButtonContainer} />
 										<ImageItem
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 											src={item.src}
-											className={item.disabled ? css.hideItem : css.imageItem}
+											className={css.imageItem}
 											disabled={item.disabled}
 											onClick={action('onClickItem')}
 										>

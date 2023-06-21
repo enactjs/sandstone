@@ -183,7 +183,7 @@ export const EditableIcon = (args) => {
 						{
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hideItem]: item.disabled})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
 											{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
 											{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
@@ -191,7 +191,7 @@ export const EditableIcon = (args) => {
 										</ContainerDivWithLeaveForConfig>
 										<IconItem
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
-											className={item.disabled ? css.hideItem : css.iconItem}
+											className={css.iconItem}
 											disabled={item.disabled}
 											onClick={action('onClickItem')}
 											{...item.iconItemProps}
@@ -211,11 +211,11 @@ export const EditableIcon = (args) => {
 						<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hideItem]: item.disabled})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 										<div className={css.removeButtonContainer} />
 										<IconItem
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
-											className={item.disabled ? css.hideItem : css.iconItem}
+											className={css.iconItem}
 											onClick={action('onClickItem')}
 											disabled={item.disabled}
 											{...item.iconItemProps}

@@ -37,8 +37,7 @@
 	.itemWrapper {
 		text-align: center;
 
-		.imageItem,
-		.hideItem {
+		.imageItem {
 			width: 768px;
 			height: 588px;
 		}
@@ -58,13 +57,13 @@
 			opacity: 1;
 		}
 
-		&:has(> .imageItem)::before{
+		&:not(.hideItem)::before {
 			content: '\EFFF3';
 			.arrow();
 			left: -30px;
 		}
 
-		&:has(> .imageItem)::after{
+		&:not(.hideItem)::after {
 			content: '\EFFF4';
 			.arrow();
 			right: -30px;

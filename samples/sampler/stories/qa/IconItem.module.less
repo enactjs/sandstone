@@ -37,8 +37,7 @@
 	.itemWrapper {
 		text-align: center;
 
-		.iconItem,
-		.hideItem {
+		.iconItem {
 			width: 312px;
 			height: 240px;
 			margin: 60px;
@@ -59,13 +58,13 @@
 			opacity: 1;
 		}
 
-		&:has(> .iconItem)::before{
+		&:not(.hideItem)::before {
 			content: '\EFFF3';
 			.arrow();
 			left: -30px;
 		}
 
-		&:has(> .iconItem)::after{
+		&:not(.hideItem)::after {
 			content: '\EFFF4';
 			.arrow();
 			right: -30px;
