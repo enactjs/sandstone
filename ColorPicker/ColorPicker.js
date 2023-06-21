@@ -116,7 +116,6 @@ const HSLToHex = (h, s, l) => {
 
 const SpottableButton = Spottable(ButtonBase);
 
-
 /**
  * Component that contains the content for the [ColorPicker]{@link sandstone/ColorPicker} popup.
  *
