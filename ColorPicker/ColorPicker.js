@@ -116,10 +116,19 @@ const HSLToHex = (h, s, l) => {
 
 const SpottableButton = Spottable(ButtonBase);
 
+
+/**
+ * Component that contains the content for the [ColorPicker]{@link sandstone/ColorPicker} popup.
+ *
+ * @class PopupContent
+ * @memberof sandstone/ColorPicker.ColorPickerBase
+ * @ui
+ * @private
+ */
 const PopupContent = ({color, colorHandler, css, presetColors}) => {
-	const [hue, setHue] = useState('');
-	const [saturation, setSaturation] = useState('');
-	const [lightness, setLightness] = useState('');
+	const [hue, setHue] = useState(0);
+	const [saturation, setSaturation] = useState(0);
+	const [lightness, setLightness] = useState(0);
 
 	useEffect(() => {
 		let {h, s, l} = hexToHSL(color);
@@ -208,9 +217,42 @@ const PopupContent = ({color, colorHandler, css, presetColors}) => {
 };
 
 PopupContent.propTypes = {
+	/**
+	 * Indicates the color.
+	 *
+	 * @type {String}
+	 * @public
+	 */
 	color: PropTypes.string,
+
+	/**
+	 * Called when color is modified.
+	 *
+	 * @type {Function}
+	 * @public
+	 */
 	colorHandler: PropTypes.func,
+
+	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * `colorPicker` - The root class name
+	 * `coloredDiv`  - A class name used for a single div
+	 *
+	 * @type {Object}
+	 * @public
+	 */
 	css: PropTypes.object,
+
+	/**
+	 * Contains an array with a couple of possible preset colors.
+	 *
+	 * @type {Array}
+	 * @public
+	 */
 	presetColors: PropTypes.array
 };
 
@@ -225,14 +267,12 @@ PopupContent.propTypes = {
  * @ui
  * @private
  */
-
 const ColorPickerBase = kind({
 	name: 'ColorPicker',
 
 	functional: true,
 
 	propTypes: /** @lends sandstone/ColorPicker.ColorPickerBase.prototype */ {
-
 		/**
 		 * Indicates the color.
 		 *
@@ -308,6 +348,11 @@ const ColorPickerBase = kind({
 		 * @public
 		 */
 		text: PropTypes.string
+	},
+
+	defaultProps: {
+		disabled: false,
+		popupOpen: false
 	},
 
 	handlers: {

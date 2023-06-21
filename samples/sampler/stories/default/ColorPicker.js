@@ -3,7 +3,6 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import {Fragment, useState} from 'react';
 
-
 ColorPicker.displayName = 'ColorPicker';
 const Config = mergeComponentMetadata('ColorPicker', ColorPickerBase, ColorPicker);
 const presetColors = [
