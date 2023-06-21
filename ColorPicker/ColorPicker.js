@@ -120,7 +120,7 @@ const SpottableButton = Spottable(ButtonBase);
  * A component that contains the content for the [ColorPicker]{@link sandstone/ColorPicker} popup.
  *
  * @class PopupContent
- * @memberof sandstone/ColorPicker.ColorPickerBase
+ * @memberof sandstone/ColorPicker
  * @ui
  * @private
  */
