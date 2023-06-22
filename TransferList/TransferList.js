@@ -486,7 +486,7 @@ const TransferListBase = kind({
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
 
 				// Rearrange the list
-				rearrangeList(dragOverElement.current, startElementIndex, firstListCopy, setFirstListLocal);
+				rearrangeList(dragOverElement.current, isAboveDropPosition.current, startElementIndex, firstListCopy, 'first', setFirstListLocal);
 
 				removeDropBorder(element);
 
@@ -538,7 +538,7 @@ const TransferListBase = kind({
 				// Set the correct position when dropping the item
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
 
-				rearrangeList(dragOverElement.current, startElementIndex, secondListCopy, setSecondListLocal);
+				rearrangeList(dragOverElement.current, isAboveDropPosition.current, startElementIndex, secondListCopy, 'second', setSecondListLocal);
 
 				removeDropBorder(element);
 
@@ -808,7 +808,7 @@ const TransferListBase = kind({
 			if (list === 'second') {
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
 
-				rearrangeList(dragOverElement.current, index, secondListCopy, setSecondListLocal);
+				rearrangeList(dragOverElement.current, isAboveDropPosition.current, index, secondListCopy, 'second', setSecondListLocal);
 				return;
 			}
 
@@ -848,7 +848,7 @@ const TransferListBase = kind({
 			if (list === 'first') {
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
 
-				rearrangeList(dragOverElement.current, index, firstListCopy, setFirstListLocal);
+				rearrangeList(dragOverElement.current, isAboveDropPosition.current, index, firstListCopy, 'first', setFirstListLocal);
 				return;
 			}
 
