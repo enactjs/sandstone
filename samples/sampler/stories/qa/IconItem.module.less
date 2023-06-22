@@ -13,8 +13,10 @@
 	min-width: fit-content;
 	padding-top: 60px;
 
-	.hideItem {
-		display: none;
+	.hidden {
+		.iconItem {
+			display: none;
+		}
 	}
 }
 
@@ -58,13 +60,13 @@
 			opacity: 1;
 		}
 
-		&:not(.hideItem)::before {
+		&:not(.hidden)::before {
 			content: '\EFFF3';
 			.arrow();
 			left: -30px;
 		}
 
-		&:not(.hideItem)::after {
+		&:not(.hidden)::after {
 			content: '\EFFF4';
 			.arrow();
 			right: -30px;
