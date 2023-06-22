@@ -2,12 +2,18 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.7.1] - 2023-06-02
+
+### Added
+
+- `sandstone/Scroller` to support hiding items when `editable` is given
+- `sandstone/QuickGuidePanels` component
 
 ### Fixed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to stop scrolling by `hoverToScroll` when the pointer disappears
 - `sandstone/VideoPlayer` to focus the play/pause button when the playback controls is shown using the 5-way down key
+- `sandstone/VideoPlayer` to keep showing media controls while a user is wheeling
 - `sandstone/WizardPanels` to read out the correct step when using `current` prop
 
 ## [2.7.0] - 2023-04-25
