@@ -4,13 +4,13 @@ import spotlight from '@enact/spotlight';
 import Group from '@enact/ui/Group';
 import {useState} from 'react';
 
-import Item from '../../../../../Item';
-import {Header} from '../../../../../Panels';
-import PopupTabLayout, {Tab, TabPanel, TabPanels} from '../../../../../PopupTabLayout';
-import Scroller from '../../../../../Scroller';
-import ThemeDecorator from '../../../../../ThemeDecorator';
+import Item from '../../../../Item';
+import {Header} from '../../../../Panels';
+import PopupTabLayout, {Tab, TabPanel, TabPanels} from '../../../../PopupTabLayout';
+import Scroller from '../../../../Scroller';
+import ThemeDecorator from '../../../../ThemeDecorator';
 
-import UrlPropsDecorator from '../../../components/UrlPropsDecorator';
+import UrlPropsDecorator from '../../components/UrlPropsDecorator';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way

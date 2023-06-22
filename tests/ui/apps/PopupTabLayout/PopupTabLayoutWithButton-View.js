@@ -1,14 +1,14 @@
 import spotlight from '@enact/spotlight';
 
-import Button from '../../../../../Button';
-import Heading from '../../../../../Heading';
-import Item from '../../../../../Item';
-import {Header, Panel} from '../../../../../Panels';
-import PopupTabLayout, {Tab, TabPanel, TabPanels} from '../../../../../PopupTabLayout';
-import SwitchItem from '../../../../../SwitchItem';
-import ThemeDecorator from '../../../../../ThemeDecorator';
+import Button from '../../../../Button';
+import Heading from '../../../../Heading';
+import Item from '../../../../Item';
+import {Header, Panel} from '../../../../Panels';
+import PopupTabLayout, {Tab, TabPanel, TabPanels} from '../../../../PopupTabLayout';
+import SwitchItem from '../../../../SwitchItem';
+import ThemeDecorator from '../../../../ThemeDecorator';
 
-import UrlPropsDecorator from '../../../components/UrlPropsDecorator';
+import UrlPropsDecorator from '../../components/UrlPropsDecorator';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
