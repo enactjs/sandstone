@@ -37,10 +37,6 @@ module.exports = {
 		'@enact/storybook-utils/addons/toolbars'
 	],
 	webpackFinal: async (config, {configType}) => {
-		// Removing the global alias as it conflicts with the global npm pkg
-		const { global, ...alias } = config.resolve.alias;
-		config.resolve.alias = alias;
-
 		return webpack(config, configType, __dirname);
 	},
 	typescript: {

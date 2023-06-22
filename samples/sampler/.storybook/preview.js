@@ -42,10 +42,10 @@ const backgrounds = {
 	'Random':                  '#555 url("http://picsum.photos/1280/720") no-repeat center/cover'
 };
 
-// const skins = {
-// 	'Neutral': 'neutral',
-// 	'Light': 'light'
-// };
+const skins = {
+	'Neutral': 'neutral',
+	'Light': 'light'
+};
 
 configureActions();
 
@@ -73,16 +73,16 @@ const preview = {
 
 export default preview;
 
-// export const globalTypes = {
-// 	'locale': getObjectType('locale', 'en-US', locales),
-// 	'large text': getBooleanType('large text'),
-// 	'high contrast': getBooleanType('high contrast'),
-// 	'skin': getObjectType('skin', 'neutral', skins),
-// 	'background': getObjectType('background', 'default', backgrounds),
-// 	'debug aria': getBooleanType('debug aria'),
-// 	'debug layout': getBooleanType('debug layout'),
-// 	'debug spotlight': getBooleanType('debug spotlight'),
-// 	'debug sprites': getBooleanType('debug sprites')
-// };
+export const globalTypes = {
+	'locale': getObjectType('locale', 'en-US', locales),
+	'large text': getBooleanType('large text'),
+	'high contrast': getBooleanType('high contrast'),
+	'skin': getObjectType('skin', 'neutral', skins),
+	'background': getObjectType('background', 'default', backgrounds),
+	'debug aria': getBooleanType('debug aria'),
+	'debug layout': getBooleanType('debug layout'),
+	'debug spotlight': getBooleanType('debug spotlight'),
+	'debug sprites': getBooleanType('debug sprites')
+};
 
-//export const decorators = [ThemeEnvironment];
+export const decorators = [ThemeEnvironment];
