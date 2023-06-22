@@ -50,7 +50,7 @@ const skins = {
 
 configureActions();
 
-export const parameters =  {
+export const parameters = {
 	docs: {
 		container: DocsContainer,
 		story: {
