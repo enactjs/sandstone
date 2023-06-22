@@ -640,7 +640,7 @@ const EditableWrapper = (props) => {
 			const bodyWidth = document.body.getBoundingClientRect().width;
 			const {lastMouseClientX, selectedItem} = mutableRef.current;
 			const {isHoveringToScroll, rtl} = scrollContainerHandle.current;
-			if (selectedItem && mutableRef.current.lastInputType !== 'key') {
+			if (selectedItem && mutableRef.current.lastInputType !== 'key' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 				mutableRef.current.lastInputType = 'scroll';
 				if (isHoveringToScroll) {
 					const toIndex = getNextIndexFromPosition(lastMouseClientX, 0);
