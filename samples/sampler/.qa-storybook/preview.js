@@ -50,29 +50,28 @@ const skins = {
 
 configureActions();
 
-const preview = {
-	parameters: {
-		docs: {
-			container: DocsContainer,
-			inlineStories: false,
+export const parameters =  {
+	docs: {
+		container: DocsContainer,
+		story: {
+			inline: false,
 			iframeHeight: ri.scaleToRem(600),
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-					<Stories />
-				</>
-			),
-			theme: themes.light
 		},
-		options: {
-			storySort: {
-				method: 'alphabetical'
-			}
+		page: () => (
+			<>
+				<Title />
+				<Primary />
+				<Stories />
+			</>
+		),
+		theme: themes.light
+	},
+	options: {
+		storySort: {
+			method: 'alphabetical'
 		}
 	}
 };
-export default preview;
 
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
