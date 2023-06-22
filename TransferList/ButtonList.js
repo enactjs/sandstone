@@ -73,10 +73,10 @@ const ButtonList = ({
 
 ButtonList.propTypes = {
 	/**
-	 * Disables TransferList and becomes non-interactive.
+	 * Disables ButtonList and becomes non-interactive.
 	 *
 	 * @type {Boolean}
-	 * @public
+	 * @private
 	 */
 	disabled: PropTypes.bool,
 
@@ -84,7 +84,7 @@ ButtonList.propTypes = {
 	 * Sets the maximum number of items for the first list.
 	 *
 	 * @type {Number}
-	 * @public
+	 * @private
 	 */
 	firstListMaxCapacity: PropTypes.number,
 
@@ -92,7 +92,7 @@ ButtonList.propTypes = {
 	 * Sets the minimum number of items for the first list.
 	 *
 	 * @type {Number}
-	 * @public
+	 * @private
 	 */
 	firstListMinCapacity: PropTypes.number,
 
@@ -100,7 +100,7 @@ ButtonList.propTypes = {
 	 * A function that removes all the items from the selected list.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	handleRemoveSelected: PropTypes.func,
 
@@ -108,7 +108,7 @@ ButtonList.propTypes = {
 	 * A function that moves all the selected items into the first list.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	moveIntoFirstSelected: PropTypes.func,
 
@@ -116,23 +116,23 @@ ButtonList.propTypes = {
 	 * A function that moves all the selected items into the second list.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	moveIntoSecondSelected: PropTypes.func,
 
 	/**
-	 * Allows items to be transferred from one list to another using Spotlight Right and/or Spotlight Left.
+	 * Removes the buttons.
 	 *
 	 * @type {Boolean}
-	 * @public
+	 * @private
 	 */
 	moveOnSpotlight: PropTypes.bool,
 
 	/**
-	 * The orientation for the transfer list.
+	 * The orientation for the button list.
 	 *
 	 * @type {('horizontal', 'vertical')}
-	 * @public
+	 * @private
 	 */
 	orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
@@ -140,7 +140,7 @@ ButtonList.propTypes = {
 	 * Sets the maximum number of items for the second list.
 	 *
 	 * @type {Number}
-	 * @public
+	 * @private
 	 */
 	secondListMaxCapacity: PropTypes.number,
 
@@ -148,7 +148,7 @@ ButtonList.propTypes = {
 	 * Sets the minimum number of items for the second list.
 	 *
 	 * @type {Number}
-	 * @public
+	 * @private
 	 */
 	secondListMinCapacity: PropTypes.number,
 
@@ -156,7 +156,7 @@ ButtonList.propTypes = {
 	 * An array containing all the selected items.
 	 *
 	 * @type {Array}
-	 * @public
+	 * @private
 	 */
 	selectedItems: PropTypes.array,
 
@@ -164,7 +164,7 @@ ButtonList.propTypes = {
 	 * A function that moves all the items into the first list.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	selectIntoFirstAll: PropTypes.func,
 
@@ -172,7 +172,7 @@ ButtonList.propTypes = {
 	 * A function that moves all the items into the second list.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	selectIntoSecondAll: PropTypes.func
 };
