@@ -1,3 +1,5 @@
+import ri from '@enact/ui/resolution';
+
 import CheckboxItem from '../CheckboxItem';
 import Icon from '../Icon';
 import ImageItem from '../ImageItem';

@@ -23,7 +23,7 @@ import VirtualList, {VirtualGridList} from '../VirtualList';
 import ButtonList from './ButtonList';
 import CustomDragImage from './CustomDragImage';
 import {renderImageItem, renderItem} from './RenderItem';
-import {getTransferData, rearrangeList} from './utils';
+import {getTransferData, handlePreventDefault, rearrangeList} from './utils';
 
 import componentCss from './TransferList.module.less';
 
@@ -35,7 +35,6 @@ import componentCss from './TransferList.module.less';
  * @ui
  * @public
  */
-
 const TransferListBase = kind({
 	name: 'TransferList',
 
@@ -874,7 +873,6 @@ const TransferListBase = kind({
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal);
 		}, [firstListLocal, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, selectedItems]);
 
-		const handlePreventDefault = useCallback(ev => ev.preventDefault(), []);
 
 		// Remove all the items in the `selectedItems` array
 		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);

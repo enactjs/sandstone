@@ -9,12 +9,13 @@ export const getTransferData = (dataTransferObj) => {
 	return null;
 };
 
+export const handlePreventDefault = ev => ev.preventDefault();
+
 // Restrict the spotlight only to the component
 export const handleSpotlightBounds = ev => {
 	ev.preventDefault();
 	ev.stopPropagation();
 };
-
 
 // Rearrange items in the same list
 export const rearrangeList = (dragOverElementIndex, itemIndex, list, setNewList) => {
