@@ -117,7 +117,7 @@ const HSLToHex = (h, s, l) => {
 const SpottableButton = Spottable(ButtonBase);
 
 /**
- * A component that contains the content for the [ColorPicker]{@link sandstone/ColorPicker} popup.
+ * A component that contains the content for the {@link sandstone/ColorPicker|ColorPicker} popup.
  *
  * @class PopupContent
  * @memberof sandstone/ColorPicker
@@ -259,7 +259,7 @@ PopupContent.propTypes = {
  * A color picker component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [ColorPicker]{@link sandstone/ColorPicker}.
+ * is within {@link sandstone/ColorPicker|ColorPicker}.
  *
  * @class ColorPickerBase
  * @memberof sandstone/ColorPicker
@@ -408,7 +408,7 @@ const ColorPickerBase = kind({
 
 
 /**
- * Applies Sandstone specific behaviors to [ColorPicker]{@link sandstone/ColorPicker.ColorPickerBase} components.
+ * Applies Sandstone specific behaviors to {@link sandstone/ColorPicker.ColorPickerBase|ColorPicker} components.
  *
  * @hoc
  * @memberof sandstone/ColorPicker
