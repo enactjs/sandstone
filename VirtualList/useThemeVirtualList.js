@@ -144,7 +144,7 @@ const useSpottable = (props, instances) => {
 		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	if (props.dataSize!== mutableRef.current.dataSize) {
+	if (props.dataSize !== mutableRef.current.dataSize) {
 		const focusedIndex = Spotlight.getCurrent()?.dataset?.index;
 		if (focusedIndex > props.dataSize - 1) { // if a focused item is about to disappear
 			setPreservedIndex(props.dataSize - 1);
