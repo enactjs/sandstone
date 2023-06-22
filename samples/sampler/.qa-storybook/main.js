@@ -8,6 +8,9 @@ module.exports = {
 	core: {
 		disableTelemetry: true
 	},
+	docs: {
+		autodocs: true,
+	},
 	features: {
 		postcss: false,
 		warnOnLegacyHierarchySeparator: false
@@ -33,8 +36,8 @@ module.exports = {
 	addons: [
 		'@enact/storybook-utils/addons/actions',
 		'@enact/storybook-utils/addons/controls',
-		'@enact/storybook-utils/addons/docs',
-		'@enact/storybook-utils/addons/toolbars'
+		'@enact/storybook-utils/addons/toolbars',
+		'@storybook/addon-docs',
 	],
 	webpackFinal: async (config, {configType}) => {
 		return webpack(config, configType, __dirname);

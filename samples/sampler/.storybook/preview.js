@@ -1,6 +1,6 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
-import {DocsContainer, Primary, Title} from '@enact/storybook-utils/addons/docs';
+import {DocsContainer, Primary, Title} from '@storybook/addon-docs';
 import ri from '@enact/ui/resolution';
 import {themes} from '@storybook/theming';
 
@@ -49,29 +49,27 @@ const skins = {
 
 configureActions();
 
-const preview = {
-	parameters: {
-		docs: {
-			container: DocsContainer,
-			inlineStories: false,
+export const parameters = {
+	docs: {
+		container: DocsContainer,
+		story: {
+			inline: false,
 			iframeHeight: ri.scaleToRem(900),
-			page: () => (
-				<>
-					<Title />
-					<Primary />
-				</>
-			),
-			theme: themes.light
 		},
-		options: {
-			storySort: {
-				method: 'alphabetical'
-			}
+		page: () => (
+			<>
+				<Title />
+				<Primary />
+			</>
+		),
+		theme: themes.light
+	},
+	options: {
+		storySort: {
+			method: 'alphabetical'
 		}
 	}
 };
-
-export default preview;
 
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
