@@ -24,7 +24,7 @@
     "@enact/i18n": "^4.7.1",
     "@enact/sandstone": "../../",
     "@enact/spotlight": "^4.7.1",
-    "@enact/storybook-utils": "^5.0.4",
+    "@enact/storybook-utils": "enactjs/storybook-utils#release/5.1.0",
     "@enact/ui": "^4.7.1",
     "@storybook/addons": "^6.5.16",
     "@storybook/builder-webpack5": "^6.5.16",
