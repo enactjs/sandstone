@@ -1,4 +1,4 @@
-import handle, {forProp, forwardCustomWithPrevent, not} from '@enact/core/handle';
+import handle, {forProp, forwardCustom, forwardCustomWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
@@ -66,6 +66,15 @@ const WizardPanelsBase = kind({
 		 * @public
 		 */
 		'aria-label': PropTypes.string,
+
+		/**
+		 * Hint string read when focusing the close button.
+		 *
+		 * @type {String}
+		 * @default 'Exit quick guide'
+		 * @private
+		 */
+		closeButtonAriaLabel: PropTypes.string,
 
 		/**
 		 * Obtains a reference to the root node.
@@ -181,6 +190,14 @@ const WizardPanelsBase = kind({
 		* @public
 		*/
 		onChange: PropTypes.func,
+
+		/**
+		 * Called when the close button is clicked.
+		 *
+		 * @type {Function}
+		 * @private
+		 */
+		onClose: PropTypes.func,
 
 		/**
 		 * Called when the next button is clicked in WizardPanel.
@@ -308,6 +325,7 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
+		onClose: forwardCustom('onClose'),
 		onNextClick: handle(
 			forwardCustomWithPrevent('onNextClick'),
 			(ev, {index, onChange, totalPanels}) => {
@@ -421,6 +439,7 @@ const WizardPanelsBase = kind({
 	render: ({
 		'aria-label': ariaLabel,
 		children,
+		closeButtonAriaLabel,
 		footer,
 		fullScreenContent,
 		index,
@@ -428,6 +447,7 @@ const WizardPanelsBase = kind({
 		nextNavigationButton,
 		noAnimation,
 		noSubtitle,
+		onClose,
 		onTransition,
 		onWillTransition,
 		reverseTransition,
@@ -456,8 +476,10 @@ const WizardPanelsBase = kind({
 				<Row className={css.fullScreenContentHeader}>
 					{steps}
 					<Button
-						icon="closex"
+						aria-label={closeButtonAriaLabel == null ? $L('Exit quick guide') : closeButtonAriaLabel}
 						className={css.close}
+						icon="closex"
+						onClick={onClose}
 						size="small"
 					/>
 				</Row>
