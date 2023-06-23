@@ -1,4 +1,3 @@
-
 // Get the transferred item and return the index and the list
 export const getTransferData = (dataTransferObj) => {
 	if (dataTransferObj) {
