@@ -1,10 +1,10 @@
 {
-  "id": "enact.perf.virtualgridlist.native",
+  "id": "qa-virtualgridlist-datasize-changing",
   "version": "0.1.0",
   "vendor": "LGE-SWP",
   "type": "web",
   "main": "index.html",
-  "title": "Perf VirtualGridList Native",
+  "title": "QA VirtualGridList dataSize Changing",
   "icon": "icon.png",
   "miniicon": "icon-mini.png",
   "largeIcon": "icon-large.png",
