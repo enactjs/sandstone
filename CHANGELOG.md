@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VirtualList` to not lose focus when a focused item is removed by reduced `dataSize`
+
 ## [2.7.1] - 2023-06-02
 
 ### Added
