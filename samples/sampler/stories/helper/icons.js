@@ -139,7 +139,10 @@ export const settingsIcons = [
 	'spanner',
 	'subtitle',
 	'support',
-	'wowcast'
+	'wowcast',
+	'exclamation',
+	'show',
+	'hide'
 ].sort();
 
 export default Object.keys(icons).sort();

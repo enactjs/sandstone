@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icons `exclamation`, `show`, and `hide`
+
 ### Fixed
 
 - `sandstone/Scroller` to focus properly when item is selected and `editable` is given
