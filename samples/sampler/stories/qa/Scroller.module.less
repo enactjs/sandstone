@@ -13,8 +13,10 @@
 	min-width: fit-content;
 	padding-top: 60px;
 
-	.hideItem {
-		display: none;
+	.hidden {
+		.imageItem {
+			display: none;
+		}
 	}
 }
 
@@ -37,8 +39,7 @@
 	.itemWrapper {
 		text-align: center;
 
-		.imageItem,
-		.hideItem {
+		.imageItem {
 			width: 768px;
 			height: 588px;
 		}
@@ -58,13 +59,13 @@
 			opacity: 1;
 		}
 
-		&:has(> .imageItem)::before{
+		&:not(.hidden)::before {
 			content: '\EFFF3';
 			.arrow();
 			left: -30px;
 		}
 
-		&:has(> .imageItem)::after{
+		&:not(.hidden)::after {
 			content: '\EFFF4';
 			.arrow();
 			right: -30px;
