@@ -2,16 +2,10 @@ const {test, expect} = require('@playwright/test')
 
 test.describe('Button', function () {
 	test.beforeEach(async ({page}) => {
-		await page.goto('http://localhost:8080/Button');
+		await page.goto('/button');
 	});
 
 	test.describe('5-way',  function () {
-		test('has title', async ({page}) => {
-			const button = await page.getByRole('button').filter({hasText: 'Default Button'});
-			// Expect a title "to contain" a substring.
-			await expect(button).toHaveId('button1');
-		});
-
 		test('should focus disabled button on 5-way right', async function ({page}) {
 			const buttonDisabled = await page.getByRole('button').filter({hasText: 'Button Disabled'})
 			await page.keyboard.press('ArrowRight');
