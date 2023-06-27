@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/QuickGuidePanels` to update a close button position properly in RTL locales
 - `sandstone/Scroller` to focus properly when item is selected and `editable` is given
 - `sandstone/VirtualList` to not lose focus when a focused item is removed by reduced `dataSize`
 
