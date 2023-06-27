@@ -121,9 +121,11 @@ export const settingsIcons = [
 	'checker',
 	'demosync',
 	'dns',
+	'exclamation',
 	'gamepad',
 	'gamepaddis',
 	'gear',
+	'hide',
 	'home',
 	'keymouse',
 	'keymousedis',
@@ -136,13 +138,11 @@ export const settingsIcons = [
 	'powercircle',
 	'r2rappcall',
 	'screenpower',
+	'show',
 	'spanner',
 	'subtitle',
 	'support',
-	'wowcast',
-	'exclamation',
-	'show',
-	'hide'
+	'wowcast'
 ].sort();
 
 export default Object.keys(icons).sort();
