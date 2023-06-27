@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Icon` supported icon list, adding new icons `exclamation`, `show`, and `hide`
 - `sandstone/QuickGuidePanels` prop `onClose`
 
 ### Fixed
