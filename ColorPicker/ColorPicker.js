@@ -370,7 +370,7 @@ const ColorPickerBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({color, colorHandler, css, disabled, handleClosePopup, handleOpenPopup, popupOpen, presetColors, text}) => {
+	render: ({color, colorHandler, css, disabled, handleClosePopup, handleOpenPopup, popupOpen, presetColors, text, ...rest}) => {
 		const CloseIcon = useCallback((props) => <Icon {...props} css={css} />, [css]);
 
 		return (
@@ -382,6 +382,7 @@ const ColorPickerBase = kind({
 					onClick={handleOpenPopup}
 					style={{backgroundColor: color}}
 					type="color"
+					{...rest}
 				/>
 				<Popup
 					className={css.colorPopup}
