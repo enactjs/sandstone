@@ -242,7 +242,7 @@ const EditableWrapper = (props) => {
 	const handleHoldStart = useCallback(() => {
 		const {targetItemNode} = mutableRef.current;
 
-		if (targetItemNode && targetItemNode.dataset.index) {
+		if (targetItemNode && targetItemNode.dataset.index && selectItemBy === 'longPress') {
 			// Start editing by adding selected transition to selected item
 			startEditing(targetItemNode);
 		}
@@ -526,7 +526,7 @@ const EditableWrapper = (props) => {
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
 				}
-			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
+			} else if (repeat && targetItemNode && !mutableRef.current.timer && selectItemBy === 'longPress') {
 				mutableRef.current.timer = setTimeout(() => {
 					startEditing(targetItemNode);
 				}, holdDuration - 300);
