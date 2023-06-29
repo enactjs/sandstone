@@ -35,14 +35,24 @@ const TouchableDiv = Touchable('div');
  * * `wrapper` - The content wrapper component class
  * * `selected` - The selected item class
  * * `focused` - The focused item class
+ * @property {Function|Object} [focusItemFuncRef] Obtains a reference to `focusItem` function.
+ *  If you would like to use `focused` CSS class to an item, you can get the reference to `focusItem` function via `useRef`.
+ * `focusItem` function need to be called with an item node when an item is focused.
+ * @property {Function|Object} [hideItemFuncRef] Obtains a reference to `hideItem` function.
+ *  If you would like to hide an item, you can get the reference to `hideItem` function via `useRef`.
  * @property {Function|Object} [removeItemFuncRef] Obtains a reference to `removeItem` function.
  *  If you would like to remove an item, you can get the reference to `removeItem` function via `useRef`.
+ * @property {string} [selectItemBy] Decides how to start editing items.
+ *  It can be either `'press'` or `'longPress'`. If unset, it defaults to `'longPress'`.
+ * @property {Function|Object} [showItemFuncRef] Obtains a reference to `showItem` function.
+ *  If you would like to show an item, you can get the reference to `showItem` function via `useRef`.
  * @public
  */
 const EditableShape = PropTypes.shape({
 	onComplete: PropTypes.func.isRequired,
 	centered: PropTypes.bool,
 	css: PropTypes.object,
+	focusItemFuncRef: EnactPropTypes.ref,
 	hideItemFuncRef: EnactPropTypes.ref,
 	removeItemFuncRef: EnactPropTypes.ref,
 	selectItemBy: PropTypes.string,
