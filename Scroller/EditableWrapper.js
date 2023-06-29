@@ -201,6 +201,11 @@ const EditableWrapper = (props) => {
 		}
 	}, [customCss.selected]);
 
+	const finalizeEditing = useCallback((orders) => {
+		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
+		reset();
+	}, [editable]);
+
 	const findItemNode = useCallback((node) => {
 		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
 			if (current.dataset.index) {
@@ -228,8 +233,7 @@ const EditableWrapper = (props) => {
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 			focusItem(ev.target);
 			mutableRef.current.needToPreventEvent = true;
 		} else {
@@ -417,8 +421,7 @@ const EditableWrapper = (props) => {
 				item.style.order -= 1;
 			});
 
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 		}
 	}, [editable, finalizeOrders, reset]);
 
@@ -442,8 +445,7 @@ const EditableWrapper = (props) => {
 			});
 			targetItem.style.order = orders.length;
 
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 		}
 	}, [editable, finalizeOrders, reset]);
 
@@ -462,8 +464,7 @@ const EditableWrapper = (props) => {
 
 			mutableRef.current.hideIndex += 1;
 
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 		}
 	}, [dataSize, editable, reset]);
 
@@ -513,8 +514,7 @@ const EditableWrapper = (props) => {
 
 		if (selectedItem || focusedItem) {
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 
 			if (lastInputType === 'scroll') {
 				const offset = itemWidth * (!rtl ^ !(lastMouseClientX > scrollContentCenter) ? 1 : -1);
@@ -535,8 +535,7 @@ const EditableWrapper = (props) => {
 			if (!repeat) {
 				if (selectedItem) {
 					const orders = finalizeOrders();
-					forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-					reset();
+					finalizeEditing(orders);
 					focusItem(ev.target);
 					mutableRef.current.needToPreventEvent = true;
 
@@ -577,8 +576,7 @@ const EditableWrapper = (props) => {
 					Spotlight.move(getDirection(keyCode));
 
 					const orders = finalizeOrders();
-					forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-					reset();
+					finalizeEditing(orders);
 
 					ev.preventDefault();
 					ev.stopPropagation();
