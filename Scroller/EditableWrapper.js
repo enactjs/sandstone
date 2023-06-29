@@ -407,8 +407,8 @@ const EditableWrapper = (props) => {
 		if (targetItem) {
 			// rearrangedItems need for the case when removing item while moving selected item
 			const rearrangedItems = mutableRef.current.rearrangedItems;
-			const selectedItemRect = targetItem && targetItem.getBoundingClientRect();
-			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
+			const targetItemRect = targetItem && targetItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: targetItemRect.right, y: targetItemRect.top};
 			mutableRef.current.hideIndex -= 1;
 
 			const orders = finalizeOrders();
@@ -429,14 +429,14 @@ const EditableWrapper = (props) => {
 		if (targetItem) {
 			// rearrangedItems need for the case when hiding item while moving selected item
 			const rearrangedItems = mutableRef.current.rearrangedItems;
-			const selectedItemOrder = Number(targetItem.style.order);
-			const selectedItemRect = targetItem && targetItem.getBoundingClientRect();
-			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
+			const targetItemOrder = Number(targetItem.style.order);
+			const targetItemRect = targetItem && targetItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: targetItemRect.right, y: targetItemRect.top};
 			mutableRef.current.hideIndex -= 1;
 
 			const orders = finalizeOrders();
-			orders.splice(orders.indexOf(selectedItemOrder), 1);
-			orders.push(selectedItemOrder);
+			orders.splice(orders.indexOf(targetItemOrder), 1);
+			orders.push(targetItemOrder);
 			rearrangedItems.forEach(item => {
 				item.style.order -= 1;
 			});
@@ -452,13 +452,13 @@ const EditableWrapper = (props) => {
 		const targetItem = selectedItem || focusedItem;
 
 		if (targetItem) {
-			const selectedItemOrder = Number(targetItem.style.order);
-			const selectedItemRect = targetItem && targetItem.getBoundingClientRect();
-			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
+			const targetItemOrder = Number(targetItem.style.order);
+			const targetItemRect = targetItem && targetItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: targetItemRect.right, y: targetItemRect.top};
 
 			const orders = Array.from({length: dataSize}, (_, i) => i + 1);
-			orders.splice(selectedItemOrder - 1, 1);
-			orders.splice(mutableRef.current.hideIndex, 0, selectedItemOrder);
+			orders.splice(targetItemOrder - 1, 1);
+			orders.splice(mutableRef.current.hideIndex, 0, targetItemOrder);
 
 			mutableRef.current.hideIndex += 1;
 
