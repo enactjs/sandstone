@@ -143,7 +143,7 @@ const EditableWrapper = (props) => {
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
 
 		Spotlight.set(spotlightId, {restrict: 'self-first'});
-	}, [customCss.selected]);
+	}, [customCss.focused, customCss.selected]);
 
 	// Finalize the order
 	const finalizeOrders = useCallback(() => {
@@ -199,12 +199,12 @@ const EditableWrapper = (props) => {
 				mutableRef.current.selectedItemLabel + $L('Move left and right or press up key to delete')
 			);
 		}
-	}, [customCss.selected]);
+	}, [customCss.focused, customCss.selected]);
 
 	const finalizeEditing = useCallback((orders) => {
 		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 		reset();
-	}, [editable]);
+	}, [editable, reset]);
 
 	const findItemNode = useCallback((node) => {
 		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
@@ -213,6 +213,17 @@ const EditableWrapper = (props) => {
 			}
 		}
 	}, [scrollContentRef]);
+
+	const focusItem = useCallback((target) => {
+		const itemNode = findItemNode(target);
+
+		if (itemNode && !mutableRef.current.selectedItem) {
+			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
+			mutableRef.current.focusedItem = itemNode;
+			mutableRef.current.focusedItem?.classList.add(customCss.focused);
+			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
+		}
+	}, [customCss.focused, findItemNode]);
 
 	const handleClickCapture = useCallback((ev) => {
 		if (ev.target.className.includes('Button')) {
@@ -249,7 +260,7 @@ const EditableWrapper = (props) => {
 			}
 			mutableRef.current.needToPreventEvent = false;
 		}
-	}, [editable, finalizeOrders, findItemNode, reset, selectItemBy, startEditing]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, selectItemBy, startEditing]);
 
 	const handleHoldStart = useCallback(() => {
 		const {targetItemNode} = mutableRef.current;
@@ -258,7 +269,7 @@ const EditableWrapper = (props) => {
 			// Start editing by adding selected transition to selected item
 			startEditing(targetItemNode);
 		}
-	}, [startEditing]);
+	}, [selectItemBy, startEditing]);
 
 	const readOutCurrentPosition = useCallback((neighborItem) => {
 		const {lastInputDirection, lastInputType, selectedItemLabel} = mutableRef.current;
@@ -423,7 +434,7 @@ const EditableWrapper = (props) => {
 
 			finalizeEditing(orders);
 		}
-	}, [editable, finalizeOrders, reset]);
+	}, [finalizeEditing, finalizeOrders]);
 
 	const hideItem = useCallback(() => {
 		const {focusedItem, selectedItem} = mutableRef.current;
@@ -447,7 +458,7 @@ const EditableWrapper = (props) => {
 
 			finalizeEditing(orders);
 		}
-	}, [editable, finalizeOrders, reset]);
+	}, [finalizeEditing, finalizeOrders]);
 
 	const showItem = useCallback(() => {
 		const {focusedItem, selectedItem} = mutableRef.current;
@@ -466,18 +477,7 @@ const EditableWrapper = (props) => {
 
 			finalizeEditing(orders);
 		}
-	}, [dataSize, editable, reset]);
-
-	const focusItem = useCallback((target) => {
-		const itemNode = findItemNode(target);
-
-		if (itemNode && !mutableRef.current.selectedItem) {
-			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
-			mutableRef.current.focusedItem = itemNode;
-			mutableRef.current.focusedItem?.classList.add(customCss.focused);
-			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
-		}
-	});
+	}, [dataSize, finalizeEditing]);
 
 	const getNextIndexFromPosition = useCallback((x, tolerance) => {
 		const {centeredOffset, itemWidth, prevToIndex} = mutableRef.current;
@@ -524,7 +524,7 @@ const EditableWrapper = (props) => {
 				});
 			}
 		}
-	}, [editable, finalizeOrders, reset, scrollContainerHandle, scrollContentRef]);
+	}, [finalizeEditing, finalizeOrders, scrollContainerHandle, scrollContentRef]);
 
 	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
@@ -583,7 +583,7 @@ const EditableWrapper = (props) => {
 				}
 			}
 		}
-	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, selectItemBy, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		mutableRef.current.lastKeyEventTargetElement = ev.target;
@@ -618,7 +618,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.centeredOffset = rtl ? bodyWidth - (item.getBoundingClientRect().right + container.scrollLeft) : item.getBoundingClientRect().left + container.scrollLeft;
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
-	}, [centered, dataSize, scrollContainerHandle, scrollContentRef]);
+	}, [scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
