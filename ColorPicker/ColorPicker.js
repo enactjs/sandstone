@@ -11,6 +11,7 @@ import {useCallback, useEffect, useState} from 'react';
 import BodyText from '../BodyText';
 import Button, {ButtonBase} from '../Button';
 import Icon from '../Icon';
+import Item from '../Item';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 import Slider from '../Slider';
@@ -372,18 +373,19 @@ const ColorPickerBase = kind({
 
 	render: ({color, colorHandler, css, disabled, handleClosePopup, handleOpenPopup, popupOpen, presetColors, text, ...rest}) => {
 		const CloseIcon = useCallback((props) => <Icon {...props} css={css} />, [css]);
+		const slotAfter = <SpottableButton
+			className={css.coloredButton}
+			disabled={disabled}
+			onClick={handleOpenPopup}
+			style={{backgroundColor: color}}
+			type="color"
+		/>;
 
 		return (
 			<Cell shrink className={css.colorPicker}>
-				<BodyText className={css.colorBodyText} disabled={disabled} noWrap>{text}</BodyText>
-				<SpottableButton
-					className={css.coloredButton}
-					disabled={disabled}
-					onClick={handleOpenPopup}
-					style={{backgroundColor: color}}
-					type="color"
-					{...rest}
-				/>
+				<Item disabled={disabled} onClick={handleOpenPopup} slotAfter={slotAfter} {...rest}>
+					{text}
+				</Item>
 				<Popup
 					className={css.colorPopup}
 					css={css}
