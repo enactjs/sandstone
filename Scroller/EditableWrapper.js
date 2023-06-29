@@ -34,6 +34,7 @@ const TouchableDiv = Touchable('div');
  *
  * * `wrapper` - The content wrapper component class
  * * `selected` - The selected item class
+ * * `focused` - The focused item class
  * @property {Function|Object} [removeItemFuncRef] Obtains a reference to `removeItem` function.
  *  If you would like to remove an item, you can get the reference to `removeItem` function via `useRef`.
  * @public
@@ -74,6 +75,7 @@ const EditableWrapper = (props) => {
 	const removeItemFuncRef = editable?.removeItemFuncRef;
 	const hideItemFuncRef = editable?.hideItemFuncRef;
 	const showItemFuncRef = editable?.showItemFuncRef;
+	const focusItemFuncRef = editable?.focusItemFuncRef;
 
 	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
@@ -88,6 +90,7 @@ const EditableWrapper = (props) => {
 		spotlightId: null,
 
 		// DOM elements
+		focusedItem: null,
 		selectedItem: null,
 		selectedItemLabel: '',
 		rearrangedItems: [],
@@ -127,10 +130,12 @@ const EditableWrapper = (props) => {
 
 	// Reset values
 	const reset = useCallback(() => {
-		const {selectedItem, spotlightId} = mutableRef.current;
+		const {focusedItem, selectedItem, spotlightId} = mutableRef.current;
 
+		focusedItem?.classList.remove(customCss.focused);
 		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
 
+		mutableRef.current.focusedItem = null;
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.selectedItemLabel = '';
 		mutableRef.current.lastMoveDirection = null;
@@ -183,6 +188,8 @@ const EditableWrapper = (props) => {
 		if (item.dataset.index) {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
+			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
+			mutableRef.current.focusedItem = null;
 			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
@@ -223,6 +230,7 @@ const EditableWrapper = (props) => {
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 			reset();
+			focusItem(ev.target);
 			mutableRef.current.needToPreventEvent = true;
 		} else {
 			const targetItemNode = findItemNode(ev.target);
@@ -393,12 +401,13 @@ const EditableWrapper = (props) => {
 
 	// Remove an item
 	const removeItem = useCallback(() => {
-		const {prevToIndex, selectedItem} = mutableRef.current;
+		const {focusedItem, prevToIndex, selectedItem} = mutableRef.current;
+		const targetItem = selectedItem || focusedItem;
 
-		if (selectedItem) {
+		if (targetItem) {
 			// rearrangedItems need for the case when removing item while moving selected item
 			const rearrangedItems = mutableRef.current.rearrangedItems;
-			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
+			const selectedItemRect = targetItem && targetItem.getBoundingClientRect();
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 			mutableRef.current.hideIndex -= 1;
 
@@ -414,13 +423,14 @@ const EditableWrapper = (props) => {
 	}, [editable, finalizeOrders, reset]);
 
 	const hideItem = useCallback(() => {
-		const {selectedItem} = mutableRef.current;
+		const {focusedItem, selectedItem} = mutableRef.current;
+		const targetItem = selectedItem || focusedItem;
 
-		if (selectedItem) {
+		if (targetItem) {
 			// rearrangedItems need for the case when hiding item while moving selected item
 			const rearrangedItems = mutableRef.current.rearrangedItems;
-			const selectedItemOrder = Number(selectedItem.style.order);
-			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
+			const selectedItemOrder = Number(targetItem.style.order);
+			const selectedItemRect = targetItem && targetItem.getBoundingClientRect();
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 			mutableRef.current.hideIndex -= 1;
 
@@ -430,7 +440,7 @@ const EditableWrapper = (props) => {
 			rearrangedItems.forEach(item => {
 				item.style.order -= 1;
 			});
-			selectedItem.style.order = orders.length;
+			targetItem.style.order = orders.length;
 
 			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 			reset();
@@ -438,11 +448,12 @@ const EditableWrapper = (props) => {
 	}, [editable, finalizeOrders, reset]);
 
 	const showItem = useCallback(() => {
-		const {selectedItem} = mutableRef.current;
+		const {focusedItem, selectedItem} = mutableRef.current;
+		const targetItem = selectedItem || focusedItem;
 
-		if (selectedItem) {
-			const selectedItemOrder = Number(selectedItem.style.order);
-			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
+		if (targetItem) {
+			const selectedItemOrder = Number(targetItem.style.order);
+			const selectedItemRect = targetItem && targetItem.getBoundingClientRect();
 			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
 
 			const orders = Array.from({length: dataSize}, (_, i) => i + 1);
@@ -455,6 +466,17 @@ const EditableWrapper = (props) => {
 			reset();
 		}
 	}, [dataSize, editable, reset]);
+
+	const focusItem = useCallback((target) => {
+		const itemNode = findItemNode(target);
+
+		if (itemNode && !mutableRef.current.selectedItem) {
+			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
+			mutableRef.current.focusedItem = itemNode;
+			mutableRef.current.focusedItem?.classList.add(customCss.focused);
+			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
+		}
+	});
 
 	const getNextIndexFromPosition = useCallback((x, tolerance) => {
 		const {centeredOffset, itemWidth, prevToIndex} = mutableRef.current;
@@ -484,12 +506,12 @@ const EditableWrapper = (props) => {
 	}, [getNextIndexFromPosition, moveItems]);
 
 	const handleMouseLeave = useCallback(() => {
-		const {itemWidth, lastInputType, lastMouseClientX, selectedItem} = mutableRef.current;
+		const {focusedItem, itemWidth, lastInputType, lastMouseClientX, selectedItem} = mutableRef.current;
 		const {rtl} = scrollContainerHandle.current;
 		const scrollContentNode = scrollContentRef.current;
 		const scrollContentCenter = scrollContentNode.getBoundingClientRect().width / 2;
 
-		if (selectedItem) {
+		if (selectedItem || focusedItem) {
 			const orders = finalizeOrders();
 			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 			reset();
@@ -506,7 +528,7 @@ const EditableWrapper = (props) => {
 
 	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
-		const {selectedItem, selectedItemLabel} = mutableRef.current;
+		const {focusedItem, selectedItem, selectedItemLabel} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
@@ -515,6 +537,7 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 					reset();
+					focusItem(ev.target);
 					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
@@ -531,8 +554,8 @@ const EditableWrapper = (props) => {
 					startEditing(targetItemNode);
 				}, holdDuration - 300);
 			}
-		} else if (selectedItem) {
-			if (is('left', keyCode) || is('right', keyCode)) {
+		} else if (is('left', keyCode) || is('right', keyCode)) {
+			if (selectedItem) {
 				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 					if (repeat) {
 						SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
@@ -544,7 +567,9 @@ const EditableWrapper = (props) => {
 					ev.preventDefault();
 					ev.stopPropagation();
 				}
-			} else if (is('up', keyCode) || is('down', keyCode)) {
+			}
+		} else if (is('up', keyCode) || is('down', keyCode)) {
+			if (selectedItem || focusedItem) {
 				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
 				// Check if focus leaves scroll container.
@@ -631,6 +656,12 @@ const EditableWrapper = (props) => {
 			showItemFuncRef.current = showItem;
 		}
 	}, [showItem, showItemFuncRef]);
+
+	useEffect(() => {
+		if (focusItemFuncRef) {
+			focusItemFuncRef.current = focusItem;
+		}
+	}, [focusItem, focusItemFuncRef]);
 
 	useEffect(() => {
 		// addEventListener to moveItems while scrolled
