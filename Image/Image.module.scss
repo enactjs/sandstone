@@ -1,0 +1,9 @@
+// Image.module.scss
+//
+@import "../styles/scss/variables";
+
+.image {
+	margin: 0 $sand-spotlight-outset;
+	width: 720px;
+	height: 480px;
+}

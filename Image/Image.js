@@ -23,7 +23,8 @@ import {Component} from 'react';
 
 import Skinnable from '../Skinnable';
 
-import componentCss from './Image.module.less';
+// import componentCss from './Image.module.less';
+import componentCss from './Image.module.scss';
 
 /**
  * A Sandstone-styled image component without any behavior
