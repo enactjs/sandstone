@@ -2,7 +2,9 @@ import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
-import Spotlight from '@enact/spotlight';
+import Spotlight, {getDirection} from '@enact/spotlight';
+import {getContainersForNode} from '@enact/spotlight/src/container';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
@@ -529,17 +531,33 @@ const EditableWrapper = (props) => {
 					startEditing(targetItemNode);
 				}, holdDuration - 300);
 			}
-		} else if (is('left', keyCode) || is('right', keyCode)) {
-			if (selectedItem && mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-				if (repeat) {
-					SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
-				} else {
-					SpotlightAccelerator.reset();
-					moveItemsByKeyDown(ev);
-				}
+		} else if (selectedItem) {
+			if (is('left', keyCode) || is('right', keyCode)) {
+				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+					if (repeat) {
+						SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+					} else {
+						SpotlightAccelerator.reset();
+						moveItemsByKeyDown(ev);
+					}
 
-				ev.preventDefault();
-				ev.stopPropagation();
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
+			} else if (is('up', keyCode) || is('down', keyCode)) {
+				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
+
+				// Check if focus leaves scroll container.
+				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					Spotlight.move(getDirection(keyCode));
+
+					const orders = finalizeOrders();
+					forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
+					reset();
+
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
 			}
 		}
 	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
@@ -568,15 +586,16 @@ const EditableWrapper = (props) => {
 	useEffect(() => {
 		// Calculate the item width once
 		const {rtl} = scrollContainerHandle.current;
+		const container = scrollContentRef.current;
 		const item = wrapperRef.current?.children[0];
 		if (item && typeof window !== 'undefined') {
 			const bodyWidth = document.body.getBoundingClientRect().width;
 			const neighbor = item.nextElementSibling || item.previousElementSibling;
 			mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
-			mutableRef.current.centeredOffset = rtl ? bodyWidth - item.getBoundingClientRect().right : item.getBoundingClientRect().left;
+			mutableRef.current.centeredOffset = rtl ? bodyWidth - (item.getBoundingClientRect().right + container.scrollLeft) : item.getBoundingClientRect().left + container.scrollLeft;
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
-	}, [centered, dataSize, scrollContainerHandle]);
+	}, [centered, dataSize, scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
@@ -621,7 +640,7 @@ const EditableWrapper = (props) => {
 			const bodyWidth = document.body.getBoundingClientRect().width;
 			const {lastMouseClientX, selectedItem} = mutableRef.current;
 			const {isHoveringToScroll, rtl} = scrollContainerHandle.current;
-			if (selectedItem && mutableRef.current.lastInputType !== 'key') {
+			if (selectedItem && mutableRef.current.lastInputType !== 'key' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 				mutableRef.current.lastInputType = 'scroll';
 				if (isHoveringToScroll) {
 					const toIndex = getNextIndexFromPosition(lastMouseClientX, 0);

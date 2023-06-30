@@ -38,6 +38,7 @@ const useSpottable = (props, instances) => {
 	// Mutable value
 
 	const mutableRef = useRef({
+		dataSize: 0,
 		isScrolledBy5way: false,
 		isScrolledByJump: false,
 		isScrollingBySnapToCenter: false,
@@ -142,6 +143,14 @@ const useSpottable = (props, instances) => {
 			setContainerDisabled(false);
 		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	if (props.dataSize !== mutableRef.current.dataSize) {
+		const focusedIndex = Spotlight.getCurrent()?.dataset?.index;
+		if (focusedIndex > props.dataSize - 1) { // if a focused item is about to disappear
+			setPreservedIndex(props.dataSize - 1);
+		}
+		mutableRef.current.dataSize = props.dataSize;
+	}
 
 	// Functions
 

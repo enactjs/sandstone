@@ -19,6 +19,7 @@ export const _QuickGuidePanels = (args) => (
 		nextButtonVisibility={args['nextButtonVisibility']}
 		onBack={action('onBack')}
 		onChange={action('onChange')}
+		onClose={action('onClose')}
 		onNextClick={action('onNextClick')}
 		onPrevClick={action('onPrevClick')}
 		prevButtonVisibility={args['prevButtonVisibility']}
