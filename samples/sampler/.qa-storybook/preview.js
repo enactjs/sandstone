@@ -60,7 +60,6 @@ export const parameters = {
 		page: () => (
 			<>
 				<Title />
-				<Primary />
 				<Stories />
 			</>
 		),
