@@ -1,12 +1,12 @@
 {
   "name": "sandstone-sampler",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "sandstone-sampler",
-      "version": "2.7.1",
+      "version": "2.7.2",
       "license": "Apache-2.0",
       "dependencies": {
         "@enact/core": "^4.7.1",
@@ -30,7 +30,7 @@
     },
     "../..": {
       "name": "@enact/sandstone",
-      "version": "2.7.1",
+      "version": "2.7.2",
       "license": "Apache-2.0",
       "dependencies": {
         "@enact/core": "^4.7.1",

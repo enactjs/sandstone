@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/ThemeDecorator` to pass `rootId` to `spotlight/SpotlightRootDecorator`
+
 ## [2.7.2] - 2023-06-30
 
 ### Added
