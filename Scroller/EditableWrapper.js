@@ -226,14 +226,13 @@ const EditableWrapper = (props) => {
 
 	const focusItem = useCallback((target) => {
 		const itemNode = findItemNode(target);
-
-		if (itemNode && !mutableRef.current.selectedItem) {
+		if (focusItemFuncRef && itemNode && !mutableRef.current.selectedItem) {
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 			mutableRef.current.focusedItem = itemNode;
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
 		}
-	}, [customCss.focused, findItemNode]);
+	}, [customCss.focused, findItemNode, focusItemFuncRef]);
 
 	const handleClickCapture = useCallback((ev) => {
 		if (ev.target.className.includes('Button')) {
