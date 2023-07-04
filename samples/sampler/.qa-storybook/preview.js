@@ -1,6 +1,6 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
-import {DocsContainer, Primary, Stories, Title} from '@storybook/addon-docs';
+import {DocsContainer, Stories, Title} from '@storybook/addon-docs';
 import ri from '@enact/ui/resolution';
 import {themes} from '@storybook/theming';
 
