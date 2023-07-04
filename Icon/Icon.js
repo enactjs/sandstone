@@ -347,6 +347,9 @@ const IconBase = kind({
  * gamepad
  * gamepaddis
  * wowcast
+ * exclamation
+ * show
+ * hide
  * ```
  *
  * @name iconList
