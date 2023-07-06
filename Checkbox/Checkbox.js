@@ -19,7 +19,8 @@ import compose from 'ramda/src/compose';
 import Icon from '../Icon';
 import Skinnable from '../Skinnable';
 
-import componentCss from './Checkbox.module.less';
+// import componentCss from './Checkbox.module.less';
+import componentCss from './Checkbox.module.scss';
 
 /**
  * A checkbox component, ready to use in Sandstone applications.

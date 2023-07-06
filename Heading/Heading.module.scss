@@ -1,0 +1,104 @@
+// Heading.module.scss
+//
+@import "../styles/scss/mixins";
+@import "../styles/scss/variables";
+@import "../styles/scss/skin";
+
+.heading {
+	margin: $sand-heading-margin;
+	padding: $sand-heading-padding;
+	letter-spacing: $sand-heading-letter-spacing;
+	font-style: $sand-heading-font-style;
+
+	//:global(.enact-locale-non-italic) & {
+	//	font-style: $sand-heading-font-style;
+	//}
+
+	@include enact-locale-line-height($sand-heading-line-height, $sand-tallglyph-heading-line-height);
+
+	// Only the following sizes get a bottom border
+	&.large,
+	&.medium,
+	&.small,
+	&.tiny {
+		border-bottom: $sand-heading-border-width solid transparent;
+	}
+
+	&.title {
+		//@include sand-font($sand-heading-title-font-family, $sand-non-latin-font-family);
+		@include enact-locale-line-height($sand-heading-title-line-height, $sand-tallglyph-heading-title-line-height);
+		//@include enact-locale-tallglyph((
+		//	font-size: $sand-tallglyph-heading-title-font-size
+		//));
+		font-weight: $sand-heading-title-font-weight;
+		font-size: $sand-heading-title-font-size;
+		//@include font-kerning();
+	}
+	&.subtitle {
+		//@include sand-font($sand-heading-subtitle-font-family, $sand-non-latin-font-family);
+		@include enact-locale-line-height($sand-heading-subtitle-line-height, $sand-tallglyph-heading-subtitle-line-height);
+		//.enact-locale-tallglyph({
+		//	font-size: $sand-tallglyph-heading-subtitle-font-size;
+		//});
+		font-weight: $sand-heading-subtitle-font-weight;
+		font-size: $sand-heading-subtitle-font-size;
+	}
+	&.large {
+		font-family: $sand-heading-large-font-family;
+		font-weight: $sand-heading-large-font-weight;
+		font-size: $sand-heading-large-font-size;
+	}
+	&.medium {
+		font-family: $sand-heading-medium-font-family;
+		font-weight: $sand-heading-medium-font-weight;
+		font-size: $sand-heading-medium-font-size;
+	}
+	&.small {
+		font-family: $sand-heading-small-font-family;
+		font-weight: $sand-heading-small-font-weight;
+		font-size: $sand-heading-small-font-size;
+	}
+	&.tiny {
+		font-family: $sand-heading-tiny-font-family;
+		font-weight: $sand-heading-tiny-font-weight;
+		font-size: $sand-heading-tiny-font-size;
+	}
+
+	// Margin-bottom is set up this way so the presence of the line does not affect the height of the Heading.
+	// We simply toggle the color from transparent to "colored" below, leaving the height untouched.
+	&.titleSpacing {
+		margin-bottom: $sand-heading-spacing-title;
+	}
+	&.subtitleSpacing {
+		margin-bottom: $sand-heading-spacing-subtitle;
+	}
+	&.largeSpacing {
+		margin-bottom: ($sand-heading-spacing-large - $sand-heading-border-width);
+		min-height: ($sand-heading-spacing-large - $sand-heading-border-width);
+	}
+	&.mediumSpacing {
+		margin-bottom: ($sand-heading-spacing-medium - $sand-heading-border-width);
+		min-height: ($sand-heading-spacing-medium - $sand-heading-border-width);
+	}
+	&.smallSpacing {
+		margin-bottom: ($sand-heading-spacing-small - $sand-heading-border-width);
+		min-height: ($sand-heading-spacing-small - $sand-heading-border-width);
+	}
+	&.noneSpacing {
+		margin-bottom: 0;
+		min-height: 0;
+	}
+
+	//// Skin colors
+	//.applySkins({
+	//	color: $sand-heading-text-color;
+	//
+	//	&.subtitle {
+	//		color: $sand-heading-subtitle-text-color;
+	//	}
+	//
+	//	&.showLine {
+	//		border-bottom-color: $sand-heading-border-color;
+	//	}
+	//});
+}

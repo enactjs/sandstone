@@ -85,11 +85,11 @@
 //
 //// Generic/Common/Shared
 //// ---------------------------------------
-//@sand-component-spacing: 36px;
-//@sand-component-spacing-bottom: 30px;
+$sand-component-spacing: 36px;
+$sand-component-spacing-bottom: 30px;
 //@sand-smallest-tappable-size: 168px;
 //@sand-translate-center: translate(-50%, -50%);
-//@sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
+$sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
 //
 //// Locale
 //// ---------------------------------------
@@ -125,16 +125,16 @@ $sand-spotlight-outset: 48px;
 //@sand-header-compact-title-font-size: #guide.header[compact-title-font-size];
 //@sand-header-mini-title-font-size:  #guide.header[mini-title-font-size];
 //@sand-header-wizard-title-font-size: #guide.header[wizard-title-font-size];
-//@sand-heading-large-font-size:      72px;
-//@sand-heading-medium-font-size:     66px;
-//@sand-heading-small-font-size:      54px;
-//@sand-heading-tiny-font-size:       48px;
-//@sand-heading-subtitle-font-size:   #guide.header[standard-subtitle-font-size];
-//@sand-heading-title-font-size:      #guide.header[standard-title-font-size];
+$sand-heading-large-font-size:      72px;
+$sand-heading-medium-font-size:     66px;
+$sand-heading-small-font-size:      54px;
+$sand-heading-tiny-font-size:       48px;
+$sand-heading-subtitle-font-size:   60px;
+$sand-heading-title-font-size:      108px;
 //@sand-iconitem-label-font-size:     42px;
 //@sand-iconitem-title-font-size:     36px;
-//@sand-imageitem-caption-font-size:  60px;
-//@sand-imageitem-label-font-size:    48px;
+$sand-imageitem-caption-font-size:  60px;
+$sand-imageitem-label-font-size:    48px;
 //@sand-input-font-size:              78px;
 //@sand-input-fullscreen-title-font-size: 144px;
 //@sand-input-fullscreen-numbercell-font-size:  126px;
@@ -178,29 +178,29 @@ $sand-spotlight-outset: 48px;
 //@sand-non-latin-header-compact-title-font-size: @sand-header-compact-title-font-size;
 //@sand-non-latin-header-mini-title-font-size: @sand-header-mini-title-font-size;
 //@sand-non-latin-header-wizard-title-font-size: @sand-header-wizard-title-font-size;
-//@sand-tallglyph-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
-//@sand-tallglyph-heading-title-font-size: 114px;
+//$sand-tallglyph-heading-subtitle-font-size: calc($sand-heading-subtitle-font-size - 6px);
+$sand-tallglyph-heading-title-font-size: 114px;
 //@sand-tallglyph-imageitem-caption-font-size: 54px;
 //@sand-tallglyph-imageitem-label-font-size: 36px;
 //@sand-non-latin-input-fullscreen-title-font-size: @sand-input-fullscreen-title-font-size;
 //@sand-non-latin-input-overlay-title-font-size: @sand-input-overlay-title-font-size;
-//
-//// Other Font Properties
-//// ---------------------------------------
-//@sand-font-family: "Sandstone";        // Formerly weight: 700
-//@sand-font-family-bold: "Sandstone";   // Formerly weight: 900
-//@sand-alt-font-family: "Sandstone";
-//@sand-number-font-family: "Sandstone Number";
-//@sand-non-latin-font-family: "Sandstone";
-//@sand-non-latin-font-family-light: "Sandstone";  // Formerly weight: Light
-//@sand-non-latin-font-family-bold: "Sandstone";   // Formerly weight: Bold
-//@sand-non-latin-font-weight: normal;
-//@sand-non-latin-font-weight-light: 300;
-//@sand-non-latin-font-weight-bold: 700;
-//@sand-spottable-font-weight: 600;
-//@sand-common-line-height: 1.3em;
-//@sand-tallglyph-line-height: 1.5em;
-//
+
+// Other Font Properties
+// ---------------------------------------
+$sand-font-family: "Sandstone";        // Formerly weight: 700
+$sand-font-family-bold: "Sandstone";   // Formerly weight: 900
+$sand-alt-font-family: "Sandstone";
+$sand-number-font-family: "Sandstone Number";
+$sand-non-latin-font-family: "Sandstone";
+$sand-non-latin-font-family-light: "Sandstone";  // Formerly weight: Light
+$sand-non-latin-font-family-bold: "Sandstone";   // Formerly weight: Bold
+$sand-non-latin-font-weight: normal;
+$sand-non-latin-font-weight-light: 300;
+$sand-non-latin-font-weight-bold: 700;
+$sand-spottable-font-weight: 600;
+$sand-common-line-height: 1.3em;
+$sand-tallglyph-line-height: 1.5em;
+
 //// Alert
 //@sand-alert-font-family: @sand-font-family;
 //@sand-alert-font-weight: normal;
@@ -232,37 +232,37 @@ $sand-spotlight-outset: 48px;
 //// Date and Time Picker
 //@sand-datecomponentpicker-margin: 24px;
 //@sand-timepicker-colon-margin: 0 6px;
-//
-//// Heading
-//@sand-heading-line-height: @sand-common-line-height;
-//@sand-heading-font-style: normal;
-//@sand-heading-title-font-family: @sand-alt-font-family;
-//@sand-heading-title-font-weight: normal;
-//@sand-heading-title-line-height: @sand-heading-line-height;
-//@sand-heading-subtitle-font-family: @sand-font-family;
-//@sand-heading-subtitle-font-weight: normal;
-//@sand-heading-subtitle-line-height: 1.4em;
-//@sand-heading-large-font-family: @sand-font-family;
-//@sand-heading-large-font-weight: @sand-spottable-font-weight;
-//@sand-heading-medium-font-family: @sand-heading-large-font-family;
-//@sand-heading-medium-font-weight: @sand-heading-large-font-weight;
-//@sand-heading-small-font-family: @sand-heading-large-font-family;
-//@sand-heading-small-font-weight: @sand-heading-large-font-weight;
-//@sand-heading-tiny-font-family: @sand-heading-large-font-family;
-//@sand-heading-tiny-font-weight: @sand-heading-large-font-weight;
-//@sand-heading-letter-spacing: 0;
-//@sand-non-latin-heading-font-family: @sand-non-latin-font-family-bold;
-//@sand-tallglyph-heading-line-height: @sand-tallglyph-heading-title-line-height;
-//@sand-tallglyph-heading-subtitle-line-height: @sand-tallglyph-heading-title-line-height;
-//@sand-tallglyph-heading-title-line-height: 1.5em;
-//
+
+// Heading
+$sand-heading-line-height: $sand-common-line-height;
+$sand-heading-font-style: normal;
+$sand-heading-title-font-family: $sand-alt-font-family;
+$sand-heading-title-font-weight: normal;
+$sand-heading-title-line-height: $sand-heading-line-height;
+$sand-heading-subtitle-font-family: $sand-font-family;
+$sand-heading-subtitle-font-weight: normal;
+$sand-heading-subtitle-line-height: 1.4em;
+$sand-heading-large-font-family: $sand-font-family;
+$sand-heading-large-font-weight: $sand-spottable-font-weight;
+$sand-heading-medium-font-family: $sand-heading-large-font-family;
+$sand-heading-medium-font-weight: $sand-heading-large-font-weight;
+$sand-heading-small-font-family: $sand-heading-large-font-family;
+$sand-heading-small-font-weight: $sand-heading-large-font-weight;
+$sand-heading-tiny-font-family: $sand-heading-large-font-family;
+$sand-heading-tiny-font-weight: $sand-heading-large-font-weight;
+$sand-heading-letter-spacing: 0;
+$sand-non-latin-heading-font-family: $sand-non-latin-font-family-bold;
+$sand-tallglyph-heading-title-line-height: 1.5em;
+$sand-tallglyph-heading-line-height: $sand-tallglyph-heading-title-line-height;
+$sand-tallglyph-heading-subtitle-line-height: $sand-tallglyph-heading-title-line-height;
+
 //// Icon
 //@sand-icon-font-family: "Sandstone Icons";
 //@sand-icon-other-font-family: "LG Icons";
-//
-//// ImageItem
-//@sand-imageitem-font-weight: @sand-spottable-font-weight;
-//
+
+// ImageItem
+$sand-imageitem-font-weight: $sand-spottable-font-weight;
+
 //// Input
 //@sand-input-invalid-tooltip-font-weight: @sand-inputfield-invalid-tooltip-font-weight;
 //
@@ -393,14 +393,18 @@ $sand-spotlight-outset: 48px;
 //@sand-button-icon-only-colordot-height: 9px;
 //@sand-button-collapse-duration: 300ms;
 //@sand-button-collapsable-icon-margin: 0 24px;
-//
-//// Checkbox
-//// ---------------------------------------
-//@sand-checkbox-border-radius: @sand-common-circular-corners;
-//@sand-checkbox-border-width: 4px;
-//@sand-checkbox-container-position: ((@sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
-//@sand-checkbox-container-border-radius: @sand-item-border-radius;
-//
+
+// Checkbox
+// ---------------------------------------
+// ---- styles that needed to be moved up
+$sand-icon-tiny-size: 60px;
+$sand-item-border-radius: 12px;
+// ---- end styles that needed to be moved up
+$sand-checkbox-border-radius: $sand-common-circular-corners;
+$sand-checkbox-border-width: 4px;
+$sand-checkbox-container-position: calc(($sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
+$sand-checkbox-container-border-radius: $sand-item-border-radius;
+
 //// ContextualMenu
 //// ---------------------------------------
 //@sand-contextualmenu-container-padding: 36px 0;
@@ -576,26 +580,26 @@ $sand-spotlight-outset: 48px;
 //@sand-header-wizard-subtitle-lines: 2;
 //@sand-header-back-container-width: (@sand-button-small-height + @sand-button-icon-small-h-margin);
 //
-//// Heading
-//// ---------------------------------------
-//@sand-heading-border-width: 1px;
-//@sand-heading-margin: 0 @sand-component-spacing (1.5 * @sand-spotlight-outset) @sand-component-spacing;
-//@sand-heading-padding: 0 0 18px 0;
-//@sand-heading-spacing-title: 0;
-//@sand-heading-spacing-subtitle: 0;
-//@sand-heading-spacing-large: 78px;
-//@sand-heading-spacing-medium: 42px;
-//@sand-heading-spacing-small: 18px;
-//
+// Heading
+// ---------------------------------------
+$sand-heading-border-width: 1px;
+$sand-heading-margin: 0 $sand-component-spacing (1.5 * $sand-spotlight-outset) $sand-component-spacing;
+$sand-heading-padding: 0 0 18px 0;
+$sand-heading-spacing-title: 0;
+$sand-heading-spacing-subtitle: 0;
+$sand-heading-spacing-large: 78px;
+$sand-heading-spacing-medium: 42px;
+$sand-heading-spacing-small: 18px;
+
 //// HolePunchScrim
 //// ---------------------------------------
 //
-//// Icon
-//// ---------------------------------------
+// Icon
+// ---------------------------------------
 //@sand-icon-large-size: 108px;
 //@sand-icon-medium-size: 90px;
 //@sand-icon-small-size: 78px;
-//@sand-icon-tiny-size: 60px;
+$sand-icon-tiny-size: 60px;
 //@sand-icon-margin: 24px;
 //@sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
 //@sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
@@ -613,31 +617,33 @@ $sand-spotlight-outset: 48px;
 //@sand-iconitem-title-line-height: 42px;
 //@sand-iconitem-title-margin: 18px 0 0 0;
 //
-//// ImageItem
-//// ---------------------------------------
-//@sand-imageitem-margin: @sand-item-margin;
-//@sand-imageitem-border-radius: 12px;
-//@sand-imageitem-image-border-width: 6px;
-//@sand-imageitem-caption-line-height: 72px;
-//@sand-imageitem-label-line-height: 54px;
-//@sand-imageitem-label-margin-top: 6px;
-//@sand-imageitem-placeholder-caption-height: 102px;
-//@sand-imageitem-placeholder-label-height: 66px;
-//@sand-imageitem-horizontal-padding: 30px;
-//@sand-imageitem-horizontal-image-width: 180px;
-//@sand-imageitem-horizontal-image-height: @sand-imageitem-horizontal-image-width;
-//@sand-imageitem-horizontal-image-margin: 0 48px 0 0;
-//@sand-imageitem-horizontal-image-margin-rtl: 0 0 0 48px;
-//@sand-imageitem-horizontal-selection-icon-size: 90px;
-//@sand-imageitem-vertical-padding: 24px 24px 30px;
-//@sand-imageitem-vertical-full-image-padding: 84px; // 48px(for expanding) + 36px(for showing shadow)
-//@sand-imageitem-vertical-captions-margin-top: 30px;
-//@sand-imageitem-vertical-label-height: 60px;
-//@sand-imageitem-vertical-focus-image-transform: scale(1.2);
-//@sand-imageitem-vertical-image-icon-margin: 0 24px 0 0;
-//@sand-imageitem-vertical-image-icon-size: 132px;
-//@sand-imageitem-vertical-selection-icon-size: 120px;
-//
+// ImageItem
+// ---------------------------------------
+$sand-item-margin: 0 $sand-component-spacing $sand-component-spacing-bottom $sand-component-spacing;
+
+$sand-imageitem-margin: $sand-item-margin;
+$sand-imageitem-border-radius: 12px;
+$sand-imageitem-image-border-width: 6px;
+$sand-imageitem-caption-line-height: 72px;
+$sand-imageitem-label-line-height: 54px;
+$sand-imageitem-label-margin-top: 6px;
+$sand-imageitem-placeholder-caption-height: 102px;
+$sand-imageitem-placeholder-label-height: 66px;
+$sand-imageitem-horizontal-padding: 30px;
+$sand-imageitem-horizontal-image-width: 180px;
+$sand-imageitem-horizontal-image-height: $sand-imageitem-horizontal-image-width;
+$sand-imageitem-horizontal-image-margin: 0 48px 0 0;
+$sand-imageitem-horizontal-image-margin-rtl: 0 0 0 48px;
+$sand-imageitem-horizontal-selection-icon-size: 90px;
+$sand-imageitem-vertical-padding: 24px 24px 30px;
+$sand-imageitem-vertical-full-image-padding: 84px; // 48px(for expanding) + 36px(for showing shadow)
+$sand-imageitem-vertical-captions-margin-top: 30px;
+$sand-imageitem-vertical-label-height: 60px;
+$sand-imageitem-vertical-focus-image-transform: scale(1.2);
+$sand-imageitem-vertical-image-icon-margin: 0 24px 0 0;
+$sand-imageitem-vertical-image-icon-size: 132px;
+$sand-imageitem-vertical-selection-icon-size: 120px;
+
 //// Input
 //// ---------------------------------------
 //@sand-input-popup-component-v-spacing: 42px;
@@ -701,18 +707,17 @@ $sand-spotlight-outset: 48px;
 //@sand-inputfield-highlight-max-width: 756px;
 //@sand-inputfield-highlight-small-max-width: 714px;
 //
-//// Item
-//// ---------------------------------------
+// Item
+// ---------------------------------------
 //@sand-item-height: 156px;
 //@sand-item-height-large: @sand-item-height;
 //@sand-item-shadow-height: @sand-spotlight-focus-shadow-height;
 //@sand-item-withlabel-height: 240px;
 //@sand-item-vertical-padding: 6px;
 //@sand-item-inline-max-width: 480px;
-//@sand-item-border-radius: 12px;
+$sand-item-border-radius: 12px;
 //@sand-item-slotafter-spacing: 54px;
 //@sand-item-slotbefore-spacing: 54px;
-//@sand-item-margin: 0 @sand-component-spacing @sand-component-spacing-bottom @sand-component-spacing;
 //@sand-item-small-height: 126px;
 //@sand-item-small-height-large: @sand-item-small-height;
 //@sand-item-small-withlabel-height: 210px;

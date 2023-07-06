@@ -1,0 +1,446 @@
+//// colors.less (neutral skin)
+////
+//
+//// ---------------------------------------
+//// Universal Color Definitions
+//// ---------------------------------------
+//
+//// Remote button colors
+//// ---------------------------------------
+//@sand-remote-button-red-color:     #e1777e; // #ff6d78; // #da3c3c; // #e71b1c;
+//@sand-remote-button-green-color:   #7fd563; // #6ff467; // #21c171; // #339966;
+//@sand-remote-button-yellow-color:  #d3b85f; // #ffc600; // #dac139; // #fddb24;
+//@sand-remote-button-blue-color:    #5185c1; // #0084ff; // #5677d0; // #4764b4;
+
+
+// UI Conceptual Colors
+// ---------------------------------------
+
+// common colors
+//@sand-bg-color: var(--sand-bg-color, #000000);
+
+$sand-text-color-rgb: rgb(230, 230, 230); // #e6e6e6
+$sand-text-color: $sand-text-color-rgb;
+$sand-text-sub-color: #abaeb3;
+$sand-shadow-color-rgb: rgb(0, 0, 0);
+$sand-shadow-color: rgb($sand-shadow-color-rgb, 30%);
+//@sand-component-text-color-rgb: var(--sand-component-text-color-rgb, 230, 230, 230); // #e6e6e6
+//@sand-component-text-color: rgb(@sand-component-text-color-rgb);
+//@sand-component-text-sub-color-rgb: var(--sand-component-text-sub-color-rgb, 171, 174, 179); // #abaeb3
+//@sand-component-text-sub-color: rgb(@sand-component-text-sub-color-rgb);
+//@sand-component-bg-color: var(--sand-component-bg-color, #7d848c);
+//@sand-component-active-indicator-bg-color: var(--sand-component-active-indicator-bg-color, #e6e6e6);
+//@sand-component-inactive-indicator-bg-color: var(--sand-component-inactive-indicator-bg-color, #9da2a7);
+
+$sand-focus-text-color: #ffffff;
+$sand-focus-bg-color-rgb: rgb(230, 230, 230); // #e6e6e6
+$sand-focus-bg-color: $sand-focus-bg-color-rgb;
+$sand-component-focus-text-color-rgb: rgb(76, 80, 89); // #4c5059
+$sand-component-focus-text-color: $sand-component-focus-text-color-rgb;
+//@sand-component-focus-active-indicator-bg-color: var(--sand-component-focus-active-indicator-bg-color, #4c5059);
+//@sand-component-focus-inactive-indicator-bg-color: var(--sand-component-focus-inactive-indicator-bg-color, #b8b9bb);
+
+$sand-selected-color-rgb: rgb(230, 230, 230); // #e6e6e6
+$sand-selected-color: $sand-selected-color-rgb;
+//@sand-selected-text-color: var(--sand-selected-text-color, @sand-text-color);
+//@sand-selected-bg-color: var(--sand-selected-bg-color, #3e454d);
+//
+////@sand-selected-focus-text-color: var(--sand-selected-focus-text-color);
+////@sand-selected-focus-bg-color: var(--sand-selected-focus-bg-color);
+//
+////@sand-disabled-text-color: var(--sand-disabled-text-color);
+////@sand-disabled-bg-color: var(--sand-disabled-bg-color);
+//
+////@sand-disabled-focus-text-color: var(--sand-disabled-focus-text-color);
+$sand-disabled-focus-bg-color: #abaeb3;
+//
+$sand-disabled-selected-color: #4c5059;
+////@sand-disabled-selected-text-color: var(--sand-disabled-selected-text-color);
+$sand-disabled-selected-bg-color: #e6e6e6;
+
+$sand-disabled-selected-focus-color: $sand-disabled-selected-bg-color;
+////@sand-disabled-selected-focus-text-color: var(--sand-disabled-selected-focus-text-color);
+$sand-disabled-selected-focus-bg-color: $sand-disabled-selected-color;
+//
+////@sand-fullscreen-text-color: var(--sand-fullscreen-text-color);
+//@sand-fullscreen-bg-color: var(--sand-fullscreen-bg-color, @sand-bg-color);
+//
+////@sand-overlay-text-color: var(--sand-overlay-text-color);
+//@sand-overlay-text-shadow: 0 4px 4px rgb(@sand-shadow-color-rgb, 75%);
+//@sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 87, 94, 102); // #575e66
+//
+//@sand-selection-color: var(--sand-selection-color, #4c5059);
+//@sand-selection-bg-color: var(--sand-selection-bg-color, #3399ff);
+//
+//@sand-toggle-off-color: var(--sand-toggle-off-color, #aeaeae);
+//@sand-toggle-off-bg-color: var(--sand-toggle-off-bg-color, #777777);
+//@sand-toggle-on-color: var(--sand-toggle-on-color, @sand-selected-color);
+$sand-toggle-on-bg-color: #30ad6b;
+//
+//@sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230); // #e6e6e6
+//@sand-progress-color: rgb(@sand-progress-color-rgb);
+//@sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
+//@sand-progress-bg-color-alpha: var(--sand-progress-bg-color-alpha, 100%);
+//@sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb, @sand-progress-bg-color-alpha);
+//@sand-progress-highlighted-color: var(--sand-progress-highlighted-color, #ffffff);
+//@sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
+//
+//@sand-spinner-color-rgb: var(--sand-spinner-color, 255, 255, 255); // #ffffff
+//@sand-spinner-color: rgb(@sand-spinner-color-rgb);
+//
+//@sand-invalid-color: #ff0000;
+//@sand-invalid-sub-color: #fb5656;
+//
+// component colors
+$sand-checkbox-color: $sand-text-color;
+$sand-checkbox-disabled-selected-text-color: $sand-disabled-selected-color;
+//@sand-formcheckboxitem-focus-text-color: var(--sand-formcheckboxitem-focus-text-color, @sand-focus-text-color);
+//@sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
+//@sand-keyguide-bg-color-rgb: var(--sand-keyguide-bg-color-rgb, 55, 58, 65); // #373a41
+//@sand-slider-disabled-knob-bg-color: var(--sand-slider-disabled-knob-bg-color, #666666);
+//@sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
+//
+//// Overlay Alert
+//// ---------------------------------------
+//
+//// common colors
+//@sand-alert-overlay-bg-color-rgb: var(--sand-alert-overlay-bg-color-rgb, 202, 203, 204); // #cacbcc
+//@sand-alert-overlay-bg-color-opacity: 95%;
+//@sand-alert-overlay-bg-color: rgb(@sand-alert-overlay-bg-color-rgb);
+//@sand-alert-overlay-text-color-rgb: var(--sand-alert-overlay-text-color-rgb, 46, 50, 57); // #2e3239
+//@sand-alert-overlay-text-sub-color: var(--sand-alert-overlay-text-sub-color, #2e3239);
+//@sand-alert-overlay-focus-text-color: var(--sand-alert-overlay-focus-text-color, #575e66);
+//@sand-alert-overlay-disabled-selected-color: var(--sand-alert-overlay-disabled-selected-color, #ffffff);
+//@sand-alert-overlay-disabled-selected-bg-color: var(--sand-alert-overlay-disabled-selected-bg-color, #788688);
+//@sand-alert-overlay-disabled-selected-focus-color: var(--sand-alert-overlay-disabled-selected-focus-color, #e6e6e6);
+//@sand-alert-overlay-disabled-selected-focus-bg-color: var(--sand-alert-overlay-disabled-selected-focus-bg-color, #4c5059);
+//
+//// component colors
+//@sand-alert-overlay-progress-color-rgb: var(--sand-alert-overlay-progress-color-rgb, 55, 58, 65); // #373a41
+//@sand-alert-overlay-progress-bg-color-rgb: var(--sand-alert-overlay-progress-bg-color-rgb, 161, 161, 161); //  #a1a1a166, 40% alpha by default
+//@sand-alert-overlay-progress-bg-color-alpha: var(--sand-alert-overlay-progress-bg-color-alpha, 40%);
+//@sand-alert-overlay-checkbox-color: var(--sand-alert-overlay-checkbox-color, #858b92);
+//@sand-alert-overlay-checkbox-disabled-selected-text-color: var(--sand-alert-overlay-checkbox-disabled-selected-text-color, #ffffff);
+//@sand-alert-overlay-formcheckboxitem-focus-text-color: var(--sand-alert-overlay-formcheckboxitem-focus-text-color, @sand-alert-overlay-focus-text-color);
+//@sand-alert-overlay-item-disabled-focus-bg-color: var(--sand-alert-overlay-item-disabled-focus-bg-color, #989ca2);
+//
+//
+//// Disabled Opacity
+//// ---------------------------------------
+//@sand-disabled-opacity: 0.28;  // This value brings the standard text-color to the disabled text color specs
+//@sand-disabled-bg-opacity: @sand-disabled-opacity;
+$sand-disabled-focus-content-opacity: 0.4;
+//@sand-disabled-focus-bg-opacity: 0.585;  // This value brings the standard focus-background-color to the disabled+focus color specs
+//
+//
+//// Spotlight and State
+//// ---------------------------------------
+//@sand-spotlight-text-color:           @sand-component-focus-text-color; // Used in color-mixins.less, QA Sampler Marquee
+$sand-spotlight-bg-color:             $sand-focus-bg-color; // If this changes, update Button bg-color mixins in color-mixins.less
+$sand-spotlight-focus-shadow:         0 36px 36px $sand-shadow-color; // Used in color-mixins.less
+//
+//
+//// ---------------------------------------
+//// Component Colors
+//// ---------------------------------------
+//
+//// ActionGuide
+//// ---------------------------------------
+//@sand-actionguide-icon-color: @sand-actionguide-label-color;
+//@sand-actionguide-label-color: @sand-text-sub-color;
+//
+//// Alert
+//// ---------------------------------------
+//@sand-alert-bg-color: @sand-fullscreen-bg-color;
+//@sand-alert-overlay-shadow: 0 36px 36px @sand-shadow-color;
+//
+//// Button
+//// ---------------------------------------
+//@sand-button-text-color: @sand-component-text-color;
+//@sand-button-bg-color: @sand-component-bg-color;
+//@sand-button-border-color: transparent;
+//@sand-button-focus-bg-color: @sand-focus-bg-color;
+//@sand-button-selected-text-color: @sand-component-text-color;
+//@sand-button-selected-bg-color: @sand-selected-bg-color;
+//@sand-button-focus-filter: none;
+//@sand-button-selected-filter: none;
+//@sand-button-transparent-text-color: @sand-text-color;
+//@sand-button-focus-icononly-bg-color: '';
+//@sand-button-text-shadow: @sand-header-text-shadow;
+
+// Checkbox
+// ---------------------------------------
+$sand-checkbox-text-color: transparent;
+$sand-checkbox-bg-color: transparent;
+$sand-checkbox-border-color: $sand-checkbox-color;
+$sand-checkbox-disabled-selected-bg-color: $sand-disabled-selected-bg-color;
+$sand-checkbox-disabled-selected-border-color: $sand-checkbox-disabled-selected-bg-color;
+$sand-checkbox-focus-disabled-selected-text-color: $sand-disabled-selected-focus-color;
+$sand-checkbox-focus-disabled-selected-bg-color: $sand-disabled-selected-focus-bg-color;
+$sand-checkbox-focus-disabled-selected-border-color: $sand-checkbox-focus-disabled-selected-bg-color;
+$sand-checkbox-focus-text-color: $sand-checkbox-text-color;
+$sand-checkbox-focus-bg-color: $sand-checkbox-bg-color;
+$sand-checkbox-focus-border-color: $sand-component-focus-text-color;
+$sand-checkbox-selected-text-color: $sand-selected-color;
+$sand-checkbox-selected-bg-color: $sand-toggle-on-bg-color;
+$sand-checkbox-selected-border-color: $sand-checkbox-selected-bg-color;
+$sand-checkbox-selected-focus-text-color: $sand-checkbox-selected-text-color;
+$sand-checkbox-selected-focus-bg-color: $sand-checkbox-selected-bg-color;
+$sand-checkbox-selected-focus-border-color: $sand-checkbox-selected-focus-bg-color;
+$sand-checkbox-indeterminate-text-color: $sand-checkbox-border-color;
+$sand-checkbox-indeterminate-bg-color: $sand-checkbox-bg-color;
+$sand-checkbox-indeterminate-border-color: $sand-checkbox-border-color;
+$sand-checkbox-indeterminate-focus-text-color: $sand-component-focus-text-color;
+$sand-checkbox-indeterminate-focus-bg-color: $sand-checkbox-focus-bg-color;
+$sand-checkbox-indeterminate-focus-border-color: $sand-checkbox-focus-border-color;
+$sand-checkbox-standalone-bg-disabled-focus-bg-color: $sand-disabled-focus-bg-color;
+
+//// ContextualPopup
+//// ---------------------------------------
+//@sand-contextualpopup-bg-color: rgb(@sand-overlay-bg-color-rgb);
+//@sand-contextualpopup-shadow: 0 24px 60px @sand-shadow-color;
+//
+//// Dropdown
+//// ---------------------------------------
+//@sand-dropdown-title-color: @sand-text-sub-color;
+//@sand-dropdown-selected-text-color: @sand-selected-text-color;
+//
+//// FixedPopupPanels
+//// ---------------------------------------
+//@sand-fixedpopuppanels-bg-color: @sand-popup-bg-color;
+//@sand-fixedpopuppanels-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
+//@sand-fixedpopuppanels-shadow: 0 36px 36px @sand-shadow-color;
+//
+//// FlexiblePopupPanels
+//// ---------------------------------------
+//@sand-flexiblepopuppanels-panel-bg-color: @sand-popup-bg-color;
+//@sand-flexiblepopuppanels-panel-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
+//@sand-flexiblepopuppanels-panel-shadow: 0 36px 36px @sand-shadow-color;
+//
+//// FormCheckboxItem
+//// ---------------------------------------
+//@sand-formcheckboxitem-disabled-text-color: inherit;
+//@sand-formcheckboxitem-disabled-focus-text-color: @sand-formcheckboxitem-disabled-text-color;
+//
+//// Header
+//// ---------------------------------------
+//@sand-header-text-shadow: 6px 12px 12px @sand-shadow-color;
+
+// Heading
+// ---------------------------------------
+$sand-heading-text-color: $sand-text-color;
+$sand-heading-border-color: $sand-heading-text-color;
+$sand-heading-subtitle-text-color: $sand-text-sub-color;
+
+//// HolePunchScrim
+//// ---------------------------------------
+//@sand-holepunchscrim-bg-color: fade(#000000, 60%); // should be black
+//
+//// IconItem
+//// ---------------------------------------
+//@sand-iconitem-label-color: @sand-text-color;
+//@sand-iconitem-label-dark-color: @sand-component-focus-text-color;
+//
+//// ImageItem
+//// ---------------------------------------
+//@sand-imageitem-caption-color: @sand-text-color;
+//@sand-imageitem-label-color: @sand-text-sub-color;
+//@sand-imageitem-image-border-color: transparent;
+//@sand-imageitem-selection-icon-color: transparent;
+//@sand-imageitem-selection-icon-bg-color: transparent;
+//@sand-imageitem-focus-bg-shadow: 0 36px 36px @sand-shadow-color;
+//@sand-imageitem-focus-selection-icon-color: @sand-imageitem-selection-icon-color;
+//@sand-imageitem-focus-selection-icon-bg-color: @sand-imageitem-selection-icon-bg-color;
+//@sand-imageitem-selected-selection-icon-color: @sand-selected-color;
+//@sand-imageitem-selected-selection-icon-bg-color: @sand-toggle-on-bg-color;
+//@sand-imageitem-selected-image-border-color: rgb(@sand-selected-color-rgb, 70%);
+//@sand-imageitem-selected-focus-selection-icon-color: @sand-imageitem-selected-selection-icon-color;
+//@sand-imageitem-selected-focus-selection-icon-bg-color: @sand-imageitem-selected-selection-icon-bg-color;
+//
+//// Input
+//// ---------------------------------------
+//@sand-input-fullscreen-background-color: @sand-fullscreen-bg-color;
+//@sand-input-overlay-background-color: @sand-popup-bg-color;
+//@sand-input-numbercell-background-color: rgb(@sand-text-color-rgb, 20%);
+//@sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
+//@sand-input-numberfield-disabled-color: rgb(@sand-component-focus-text-color-rgb, @sand-disabled-focus-content-opacity * 100%);
+//@sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
+//
+//// InputField
+//// ---------------------------------------
+//@sand-inputfield-text-color: @sand-text-color;
+//@sand-inputfield-placeholder-color: rgb(@sand-component-text-color-rgb, 20%);
+//@sand-inputfield-placeholder-active-color: rgb(@sand-component-focus-text-color-rgb, 40%);
+//@sand-inputfield-focus-text-color: @sand-component-focus-text-color;
+//@sand-inputfield-disabled-text-color: inherit;
+//@sand-inputfield-invalid-color: @sand-invalid-color;
+//@sand-inputfield-invalid-tooltip-color: @sand-invalid-sub-color;
+//
+//// Item
+//// ---------------------------------------
+//@sand-item-label-color: @sand-text-sub-color;
+//@sand-item-focus-label-color: inherit;
+//@sand-item-focus-background: '';
+//
+//// KeyGuide
+//// ---------------------------------------
+//@sand-keyguide-bg-color: rgb(@sand-keyguide-bg-color-rgb, 90%);
+//@sand-keyguide-item-color: @sand-text-sub-color;
+//@sand-keyguide-colordot-red-color: @sand-remote-button-red-color;
+//@sand-keyguide-colordot-green-color: @sand-remote-button-green-color;
+//@sand-keyguide-colordot-yellow-color: @sand-remote-button-yellow-color;
+//@sand-keyguide-colordot-blue-color: @sand-remote-button-blue-color;
+//
+//// MediaOverlay
+//// ---------------------------------------
+//@sand-mediaoverlay-caption-color: @sand-text-color;
+//@sand-mediaoverlay-subtitle-color: @sand-text-sub-color;
+//
+//// MediaPlayer
+//// ---------------------------------------
+//@sand-mediaplayer-slider-knob-color: @sand-progress-color;
+//@sand-mediaplayer-slider-tooltip-text-shadow: @sand-overlay-text-shadow;
+//
+//// MediaSlider
+//// ---------------------------------------
+//@sand-mediaslider-bar-bg-color: rgb(@sand-progress-color-rgb, 30%);
+//@sand-mediaslider-disabled-bar-opacity: 0.3;
+//@sand-mediaslider-fill-bg-color: @sand-progress-color;
+//
+//// Picker
+//// ---------------------------------------
+//@sand-picker-text-color: @sand-text-color;
+//@sand-picker-indicator-active-bg-color: @sand-component-active-indicator-bg-color;
+//@sand-picker-indicator-active-focus-bg-color: @sand-component-focus-active-indicator-bg-color;
+//@sand-picker-indicator-inactive-bg-color: @sand-component-inactive-indicator-bg-color;
+//@sand-picker-indicator-inactive-focus-bg-color: @sand-component-focus-inactive-indicator-bg-color;
+//@sand-picker-joined-horizontal-text-color: @sand-component-text-color;
+//@sand-picker-joined-horizontal-bg-color: @sand-component-bg-color;
+//@sand-picker-joined-text-color: @sand-text-color;
+//@sand-picker-joined-incrementer-color: rgb(@sand-component-text-sub-color-rgb, 50%);
+//@sand-picker-joined-focus-incrementer-color: @sand-component-focus-text-color;
+//@sand-picker-joined-focus-disabled-text-color: @sand-picker-indicator-active-focus-bg-color;
+//@sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicator-active-focus-bg-color;
+//@sand-picker-joined-focus-disabled-indicator-opacity: 0.9;
+//@sand-picker-joined-focus-disabled-indicator-active-opacity: 1;
+//
+//// Popup
+//// ---------------------------------------
+//@sand-popup-bg-color: rgb(@sand-overlay-bg-color-rgb, 90%);
+//@sand-popup-scrimtransparent-bg-color: rgb(@sand-overlay-bg-color-rgb, 95%);
+//
+//// PopupTabLayout
+//// ---------------------------------------
+//@sand-popuptablayout-bg-color: @sand-popup-bg-color;
+//@sand-popuptablayout-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
+//@sand-popuptablayout-shadow: 0 42px 24px @sand-shadow-color;
+//
+//// ProgressBar
+//// ---------------------------------------
+//@sand-progressbar-bar-bg-color: @sand-progress-bg-color;
+//@sand-progressbar-load-bg-color: rgb(@sand-progress-color-rgb, 30%);
+//@sand-progressbar-fill-bg-color: @sand-progress-color;
+//@sand-progressbar-highlighted-fill-bg-color: @sand-progress-highlighted-color;
+//
+//// ProgressButton
+//// ---------------------------------------
+//@sand-progressbutton-bar-color: @sand-component-text-sub-color;
+//@sand-progressbutton-focus-fill-color: @sand-component-focus-text-color;
+//
+//// RadioItem
+//// ---------------------------------------
+//@sand-radioitem-indicator-color: transparent;
+//@sand-radioitem-indicator-bg-color: transparent;
+//@sand-radioitem-indicator-border-color: @sand-text-color;
+//@sand-radioitem-focus-indicator-color: transparent;
+//@sand-radioitem-focus-indicator-bg-color: transparent;
+//@sand-radioitem-focus-indicator-border-color: @sand-component-focus-text-color;
+//@sand-radioitem-selected-indicator-color: @sand-selected-color;
+//@sand-radioitem-selected-indicator-bg-color: @sand-toggle-on-bg-color;
+//@sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-bg-color;
+//@sand-radioitem-selected-focus-indicator-color: @sand-radioitem-selected-indicator-color;
+//@sand-radioitem-selected-focus-indicator-bg-color:  @sand-radioitem-selected-indicator-bg-color;
+//@sand-radioitem-selected-focus-indicator-border-color: @sand-radioitem-selected-focus-indicator-bg-color;
+//@sand-radioitem-disabled-selected-color: @sand-disabled-selected-color;
+//@sand-radioitem-disabled-selected-bg-color: @sand-disabled-selected-bg-color;
+//@sand-radioitem-disabled-selected-border-color: @sand-radioitem-disabled-selected-bg-color;
+//@sand-radioitem-focus-disabled-selected-color: @sand-disabled-selected-focus-color;
+//@sand-radioitem-focus-disabled-selected-bg-color: @sand-disabled-selected-focus-bg-color;
+//@sand-radioitem-focus-disabled-selected-border-color: @sand-radioitem-focus-disabled-selected-bg-color;
+//
+//// Scrollbar
+//// ---------------------------------------
+//@sand-scrollbar-track-bg-color: rgb(@sand-progress-bg-color-rgb, 50%);
+//@sand-scrollbar-thumb-bg-color: rgb(@sand-progress-color-rgb, 60%);
+//@sand-scrollbar-thumb-focus-bg-color: @sand-focus-bg-color;
+//@sand-scrollbar-thumb-focus-direction-indicator-color: rgb(@sand-component-focus-text-color-rgb, 40%);
+//@sand-scrollbar-thumb-focus-box-shadow-color: @sand-shadow-color;
+//
+//// Scroller
+//// ---------------------------------------
+//@sand-scroll-focusablebody-focus-bg-color: rgb(@sand-focus-bg-color-rgb, 10%);
+//
+//// Slider
+//// ---------------------------------------
+//@sand-slider-bar-bg-color: @sand-progressbar-bar-bg-color;
+//@sand-slider-load-bg-color: @sand-progressbar-load-bg-color;
+//@sand-slider-fill-bg-color: @sand-progress-slider-color;
+//@sand-slider-knob-bg-color: @sand-slider-fill-bg-color;
+//@sand-slider-knob-border-color: transparent;
+//@sand-slider-focus-bar-bg-color: @sand-slider-bar-bg-color;
+//@sand-slider-focus-load-bg-color: @sand-slider-load-bg-color;
+//@sand-slider-focus-fill-bg-color: @sand-focus-bg-color;
+//@sand-slider-focus-knob-bg-color: @sand-slider-focus-fill-bg-color;
+//@sand-slider-focus-knob-border-color: @sand-slider-knob-border-color;
+//@sand-slider-focus-knob-shadow: 0 6px 12px rgb(@sand-shadow-color-rgb, 50%);
+//@sand-slider-active-bar-bg-color: @sand-slider-focus-bar-bg-color;
+//@sand-slider-active-load-bg-color: @sand-slider-focus-load-bg-color;
+//@sand-slider-active-fill-bg-color: @sand-slider-focus-fill-bg-color;
+//@sand-slider-disabled-bar-opacity: 0.4;
+//@sand-slider-disabled-focus-knob-bg-color: @sand-slider-focus-knob-bg-color;
+//
+//// Spinner
+//// ---------------------------------------
+//@sand-spinner-head-color: @sand-spinner-color;
+//@sand-spinner-empty-color: rgb(@sand-spinner-color-rgb, 20%);
+//@sand-spinner-bg-color: @sand-component-bg-color;
+//@sand-spinner-text-color: @sand-component-text-color;
+//@sand-spinner-text-shadow-color: @sand-shadow-color;
+//
+//// Steps
+//// ---------------------------------------
+//@sand-steps-step-dot-color: @sand-component-text-color;
+//@sand-steps-step-focused-dot-color: rgb(111, 118, 128, 1);
+//
+//// Switch
+//// ---------------------------------------
+//@sand-switch-color: @sand-toggle-off-color;
+//@sand-switch-bg-color: @sand-toggle-off-bg-color;
+//@sand-switch-focus-color: @sand-switch-color;
+//@sand-switch-selected-color: @sand-toggle-on-color;
+//@sand-switch-selected-bg-color: @sand-toggle-on-bg-color;
+//@sand-switch-selected-focus-color: @sand-switch-selected-color;
+//@sand-switch-disabled-selected-color: @sand-switch-color;
+//@sand-switch-disabled-selected-bg-color: @sand-switch-bg-color;
+//
+//// TabLayout
+//// ---------------------------------------
+//@sand-tablayout-tab-horizontal-border-color: rgb(@sand-text-color-rgb, 50%);
+//@sand-tablayout-tab-horizontal-selected-border-color: @sand-selected-color;
+//
+//// Tooltip
+//// ---------------------------------------
+//@sand-tooltip-bg-color:               @sand-focus-bg-color;
+//@sand-tooltip-text-color:             @sand-component-focus-text-color;
+//@sand-tooltip-shadow:                 0 18px 12px @sand-shadow-color;
+//
+//// VideoPlayer
+//// ---------------------------------------
+//@sand-video-feedback-mini-bg-color: fade(#000000, 50%); // should be black
+//@sand-video-feedback-mini-text-color: @sand-focus-text-color;
+//@sand-video-slider-tooltip-color: @sand-text-color;
+//@sand-video-slider-tooltip-thumbnail-border-color: @sand-text-color;
+//@sand-video-player-bottom-bg-color: transparent;
+//@sand-video-player-title-color: @sand-focus-text-color;
+//@sand-video-player-title-text-shadow: 0 4px 4px rgb(@sand-shadow-color-rgb, 75%);
+//@sand-video-player-scrim-gradient-color: linear-gradient(180deg, transparent 0%, #000 100%);

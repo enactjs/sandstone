@@ -1,0 +1,57 @@
+//// skin.scss
+////
+//
+//@mixin applySkins($componentRules) {
+//  @if $componentRules {
+//    // Load the color-mixins, which reference variables from the imports below,
+//    // and updates dynamically based on which variable-set is loaded.
+//    @use "color-mixins";
+//
+//    // Neutral Skin
+//    &:global(.neutral) {
+//    	// Load the sandstone neutral rules into this scope
+//    	@use "./variables-base.scss";
+//    	@use "./colors.scss";
+//
+//    	//@componentRules();
+//
+//    	// High Contrast Variant
+//    	:global(.enact-a11y-high-contrast) &:global(.highContrast) {
+//    		@use "./colors-highcontrast.scss";
+//
+//    		//@componentRules();
+//    	}
+//    }
+//  }
+//
+//	// Light Skin
+//	//&:global(.light) {
+//	//	@import (multiple) "./variables-base.less";
+//	//	@import (multiple) "./colors.less";
+//	//	@import "./colors-light.less";
+//    //
+//	//	@componentRules();
+//	//}
+//
+//	//// Game Skin
+//	//&:global(.game) {
+//	//	@import (multiple) "./variables-base.less";
+//	//	@import (multiple) "./colors.less";
+//	//	@import "./variables-game.less";
+//	//	@import "./colors-game.less";
+//    //
+//	//	@componentRules();
+//    //
+//	//	:global(.green) & {
+//	//		@import "./colors-game-green.less";
+//    //
+//	//		@componentRules();
+//	//	}
+//    //
+//	//	:global(.orange) & {
+//	//		@import "./colors-game-orange.less";
+//    //
+//	//		@componentRules();
+//	//	}
+//	//}
+//}
