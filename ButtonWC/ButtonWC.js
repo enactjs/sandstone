@@ -213,23 +213,19 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, roundBorder, shadowed, size, styler}) => styler.append(
+		className: ({
+			backgroundOpacity, collapsable, collapsed, color, focusEffect, icon, iconOnly, iconPosition,
+			minWidth, roundBorder, pressed, selected, shadowed, size, styler}) => styler.append(
 			{
-				/*
-				hasIcon,
-				large,
-				minWidth,
-				small,
-				decoration,
-				selected,
-				pressed,
-				*/
-
 				hasColor: color,
+				hasIcon: (!!icon), /* TBD */
 				iconOnly,
+				minWidth: ((minWidth != null) ? minWidth : !iconOnly), /* TBD */
 				collapsable,
 				collapsed,
 				roundBorder,
+				pressed, /* TBD */
+				selected, /* TBD */
 				shadowed: shadowed && (backgroundOpacity ? backgroundOpacity === 'transparent' : iconOnly)
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
@@ -290,8 +286,10 @@ const ButtonBase = kind({
 		return (
 			<UiButtonBase data-webos-voice-intent="Select" {...rest} css={css} className={classnames(className, css.button)}>
 				<div slot="background" className={css.bg} />
-				<span slot="icon" className={css.icon}>{iconComponent}</span>
-				{children}
+				<div className={css.client}>
+					{iconComponent}
+					{children}
+				</div>
 			</UiButtonBase>
 		);
 	}
