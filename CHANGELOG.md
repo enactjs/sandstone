@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to not stop scrolling by `hoverToScroll` inside another scroller
+
 ## [2.7.2] - 2023-06-30
 
 ### Added
