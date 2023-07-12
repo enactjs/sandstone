@@ -8,7 +8,7 @@
 	background: none;
 	border-color: transparent;
 	opacity: 1;
-
+	pointer-events: none;
 	transition: opacity 100ms ease-out;
 	will-change: opacity;
 
@@ -20,9 +20,12 @@
 		});
 	}
 
+	&.focusableScrollbar {
+		pointer-events: auto;
+	}
+
 	/* ScrollbarTrack */
 	.scrollbarTrackShown {
 		opacity: 1;
 	}
 }
-
