@@ -23,7 +23,7 @@ describe('qa-VirtualGridList translate mode', function () {
 		// Step 4 Verify: Image 10 is the first item on the first fully visible row.
 		expect(await Page.itemOffsetBottomById(10)).to.be.above(itemSize.height);
 
-		// Step 5: Position the pointer between image18 and image19.
+		// Step 5: Position the pointer between image8 and image9.
 		await (await Page.item(8)).moveTo({xOffset: itemSize.width + 1, yOffset: itemSize.height - 1});
 		// Step 5 Verify: Spotlight hides.
 		await expectNoFocusedItem();
