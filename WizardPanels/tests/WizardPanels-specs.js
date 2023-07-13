@@ -819,4 +819,32 @@ describe('WizardPanel Specs', () => {
 			expect(actual).toBe(expected);
 		}
 	);
+
+
+	describe('fullScreenContent', () => {
+		test(
+			'should fire `onClose` when close button is clicked',
+			async () => {
+				const handleClose = jest.fn();
+				const user = userEvent.setup();
+
+				render(
+					<WizardPanels fullScreenContent onClose={handleClose}>
+						<Panel />
+					</WizardPanels>
+				);
+
+				const closeButton = screen.getByLabelText('Exit quick guide');
+				const expected = {type: 'onClose'};
+
+				await user.click(closeButton);
+
+				await waitFor(() => {
+					const actual = handleClose.mock.calls.length && handleClose.mock.calls[0][0];
+
+					expect(actual).toMatchObject(expected);
+				});
+			}
+		);
+	});
 });

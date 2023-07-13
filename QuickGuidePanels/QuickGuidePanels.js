@@ -28,6 +28,15 @@ const QuickGuidePanels = (props) => <WizardPanels fullScreenContent {...props} /
 
 QuickGuidePanels.propTypes = {
 	/**
+	 * Hint string read when focusing the close button.
+	 *
+	 * @type {String}
+	 * @default 'Exit quick guide'
+	 * @private
+	 */
+	closeButtonAriaLabel: PropTypes.string,
+
+	/**
 	 * Called when the index value is changed.
 	 *
 	 * @type {Function}
@@ -35,6 +44,14 @@ QuickGuidePanels.propTypes = {
 	 * @public
 	 */
 	onChange: PropTypes.func,
+
+	/**
+	 * Called when the close button is clicked.
+	 *
+	 * @type {Function}
+	 * @public
+	 */
+	onClose: PropTypes.func,
 
 	/**
 	 * Called when the next button is clicked in QuickGuidePanels.
