@@ -84,6 +84,7 @@ export const EditableIcon = (args) => {
 	const removeItem = useRef();
 	const hideItem = useRef();
 	const showItem = useRef();
+	const focusItem = useRef();
 	const divRef = useRef();
 	const mutableRef = useRef({
 		hideIndex: null
@@ -121,6 +122,12 @@ export const EditableIcon = (args) => {
 			showItem.current();
 		}
 		ev.preventDefault();
+	}, []);
+
+	const onFocusItem = useCallback((ev) => {
+		if (focusItem.current) {
+			focusItem.current(ev.target);
+		}
 	}, []);
 
 	const handleComplete = useCallback((ev) => {
@@ -165,6 +172,7 @@ export const EditableIcon = (args) => {
 							removeItemFuncRef: removeItem,
 							hideItemFuncRef: hideItem,
 							showItemFuncRef: showItem,
+							focusItemFuncRef: focusItem,
 							selectItemBy: 'press'
 						}}
 						focusableScrollbar={args['focusableScrollbar']}
@@ -194,6 +202,7 @@ export const EditableIcon = (args) => {
 											className={css.iconItem}
 											disabled={item.disabled}
 											onClick={action('onClickItem')}
+											onFocus={onFocusItem}
 											{...item.iconItemProps}
 										/>
 									</div>

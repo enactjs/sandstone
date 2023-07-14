@@ -232,6 +232,7 @@ export const EditableList = (args) => {
 	const removeItem = useRef();
 	const hideItem = useRef();
 	const showItem = useRef();
+	const focusItem = useRef();
 	const divRef = useRef();
 	const mutableRef = useRef({
 		hideIndex: null
@@ -269,6 +270,12 @@ export const EditableList = (args) => {
 			showItem.current();
 		}
 		ev.preventDefault();
+	}, []);
+
+	const onFocusItem = useCallback((ev) => {
+		if (focusItem.current) {
+			focusItem.current(ev.target);
+		}
 	}, []);
 
 	const handleComplete = useCallback((ev) => {
@@ -313,6 +320,7 @@ export const EditableList = (args) => {
 							removeItemFuncRef: removeItem,
 							hideItemFuncRef: hideItem,
 							showItemFuncRef: showItem,
+							focusItemFuncRef: focusItem,
 							selectItemBy: 'press'
 						}}
 						focusableScrollbar={args['focusableScrollbar']}
@@ -343,6 +351,7 @@ export const EditableList = (args) => {
 											className={css.imageItem}
 											disabled={item.disabled}
 											onClick={action('onClickItem')}
+											onFocus={onFocusItem}
 										>
 											{`Image ${item.index}`}
 										</ImageItem>
