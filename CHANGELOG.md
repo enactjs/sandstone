@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.7.3] - 2023-07-14
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hovering inside a nested scroller
+
 ## [2.7.2] - 2023-06-30
 
 ### Added
