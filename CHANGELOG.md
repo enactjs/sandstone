@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/VirtualList` to not scale DOM out of a list by wheeling when `snapToCenter`
+- `sandstone/VirtualList.VirtualGridList` to not scale DOM out of a list by wheeling when `snapToCenter`
 
 ## [2.7.3] - 2023-07-14
 
