@@ -18,29 +18,30 @@
 		text-align: center;
 		margin: @sand-wizardpanels-footer-margin;
 	}
-}
 
-.fullScreenContentHeader {
-	justify-content: center;
-	z-index: 10;
+	.fullScreenContentHeader {
+		z-index: 10;
+		flex-direction: row-reverse;
 
+		.steps {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			margin-top: @sand-wizardpanels-fullScreenContent-steps-margin-top;
+		}
 
-	.steps {
-		margin-top: @sand-wizardpanels-fullScreenContent-steps-margin-top;
-	}
-
-	.close {
-		display: flex;
-		position: absolute;
-		top: @sand-wizardpanels-fullScreenContent-close-button-margin-top;
-		right: @sand-wizardpanels-fullScreenContent-close-button-right;
+		.close {
+			position: absolute;
+			top: @sand-wizardpanels-fullScreenContent-close-button-margin-top;
+			margin-inline-end: @sand-wizardpanels-fullScreenContent-close-button-margin-end;
+		}
 	}
 }
 
 .navigationButtonContainer {
 	z-index: 10;
 	margin-top: @sand-wizardpanels-fullScreenContent-container-margin-top;
-		
+
 	.navigationButton {
 		margin: @sand-wizardpanels-fullScreenContent-navigation-button-margin;
 	}

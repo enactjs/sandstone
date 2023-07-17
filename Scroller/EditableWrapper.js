@@ -2,7 +2,9 @@ import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
-import Spotlight from '@enact/spotlight';
+import Spotlight, {getDirection} from '@enact/spotlight';
+import {getContainersForNode} from '@enact/spotlight/src/container';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
@@ -32,14 +34,25 @@ const TouchableDiv = Touchable('div');
  *
  * * `wrapper` - The content wrapper component class
  * * `selected` - The selected item class
+ * * `focused` - The focused item class
+ * @property {Function|Object} [focusItemFuncRef] Obtains a reference to `focusItem` function.
+ *  If you would like to use `focused` CSS class to an item, you can get the reference to `focusItem` function via `useRef`.
+ * `focusItem` function need to be called with an item node when an item is focused.
+ * @property {Function|Object} [hideItemFuncRef] Obtains a reference to `hideItem` function.
+ *  If you would like to hide an item, you can get the reference to `hideItem` function via `useRef`.
  * @property {Function|Object} [removeItemFuncRef] Obtains a reference to `removeItem` function.
  *  If you would like to remove an item, you can get the reference to `removeItem` function via `useRef`.
+ * @property {string} [selectItemBy] Decides how to start editing items.
+ *  It can be either `'press'` or `'longPress'`. If unset, it defaults to `'longPress'`.
+ * @property {Function|Object} [showItemFuncRef] Obtains a reference to `showItem` function.
+ *  If you would like to show an item, you can get the reference to `showItem` function via `useRef`.
  * @public
  */
 const EditableShape = PropTypes.shape({
 	onComplete: PropTypes.func.isRequired,
 	centered: PropTypes.bool,
 	css: PropTypes.object,
+	focusItemFuncRef: EnactPropTypes.ref,
 	hideItemFuncRef: EnactPropTypes.ref,
 	removeItemFuncRef: EnactPropTypes.ref,
 	selectItemBy: PropTypes.string,
@@ -72,6 +85,7 @@ const EditableWrapper = (props) => {
 	const removeItemFuncRef = editable?.removeItemFuncRef;
 	const hideItemFuncRef = editable?.hideItemFuncRef;
 	const showItemFuncRef = editable?.showItemFuncRef;
+	const focusItemFuncRef = editable?.focusItemFuncRef;
 
 	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
@@ -86,6 +100,7 @@ const EditableWrapper = (props) => {
 		spotlightId: null,
 
 		// DOM elements
+		focusedItem: null,
 		selectedItem: null,
 		selectedItemLabel: '',
 		rearrangedItems: [],
@@ -125,10 +140,12 @@ const EditableWrapper = (props) => {
 
 	// Reset values
 	const reset = useCallback(() => {
-		const {selectedItem, spotlightId} = mutableRef.current;
+		const {focusedItem, selectedItem, spotlightId} = mutableRef.current;
 
+		focusedItem?.classList.remove(customCss.focused);
 		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
 
+		mutableRef.current.focusedItem = null;
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.selectedItemLabel = '';
 		mutableRef.current.lastMoveDirection = null;
@@ -136,7 +153,7 @@ const EditableWrapper = (props) => {
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
 
 		Spotlight.set(spotlightId, {restrict: 'self-first'});
-	}, [customCss.selected]);
+	}, [customCss.focused, customCss.selected]);
 
 	// Finalize the order
 	const finalizeOrders = useCallback(() => {
@@ -181,6 +198,8 @@ const EditableWrapper = (props) => {
 		if (item.dataset.index) {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
+			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
+			mutableRef.current.focusedItem = null;
 			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
@@ -190,7 +209,12 @@ const EditableWrapper = (props) => {
 				mutableRef.current.selectedItemLabel + $L('Move left and right or press up key to delete')
 			);
 		}
-	}, [customCss.selected]);
+	}, [customCss.focused, customCss.selected]);
+
+	const finalizeEditing = useCallback((orders) => {
+		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
+		reset();
+	}, [editable, reset]);
 
 	const findItemNode = useCallback((node) => {
 		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
@@ -199,6 +223,16 @@ const EditableWrapper = (props) => {
 			}
 		}
 	}, [scrollContentRef]);
+
+	const focusItem = useCallback((target) => {
+		const itemNode = findItemNode(target);
+		if (focusItemFuncRef && itemNode && !mutableRef.current.selectedItem) {
+			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
+			mutableRef.current.focusedItem = itemNode;
+			mutableRef.current.focusedItem?.classList.add(customCss.focused);
+			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
+		}
+	}, [customCss.focused, findItemNode, focusItemFuncRef]);
 
 	const handleClickCapture = useCallback((ev) => {
 		if (ev.target.className.includes('Button')) {
@@ -219,8 +253,8 @@ const EditableWrapper = (props) => {
 		if (mutableRef.current.selectedItem) {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
+			focusItem(ev.target);
 			mutableRef.current.needToPreventEvent = true;
 		} else {
 			const targetItemNode = findItemNode(ev.target);
@@ -235,16 +269,16 @@ const EditableWrapper = (props) => {
 			}
 			mutableRef.current.needToPreventEvent = false;
 		}
-	}, [editable, finalizeOrders, findItemNode, reset, selectItemBy, startEditing]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, selectItemBy, startEditing]);
 
 	const handleHoldStart = useCallback(() => {
 		const {targetItemNode} = mutableRef.current;
 
-		if (targetItemNode && targetItemNode.dataset.index) {
+		if (targetItemNode && targetItemNode.dataset.index && selectItemBy === 'longPress') {
 			// Start editing by adding selected transition to selected item
 			startEditing(targetItemNode);
 		}
-	}, [startEditing]);
+	}, [selectItemBy, startEditing]);
 
 	const readOutCurrentPosition = useCallback((neighborItem) => {
 		const {lastInputDirection, lastInputType, selectedItemLabel} = mutableRef.current;
@@ -391,13 +425,14 @@ const EditableWrapper = (props) => {
 
 	// Remove an item
 	const removeItem = useCallback(() => {
-		const {prevToIndex, selectedItem} = mutableRef.current;
+		const {focusedItem, prevToIndex, selectedItem} = mutableRef.current;
+		const targetItem = selectedItem || focusedItem;
 
-		if (selectedItem) {
+		if (targetItem) {
 			// rearrangedItems need for the case when removing item while moving selected item
 			const rearrangedItems = mutableRef.current.rearrangedItems;
-			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
-			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
+			const targetItemRect = targetItem && targetItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: targetItemRect.right, y: targetItemRect.top};
 			mutableRef.current.hideIndex -= 1;
 
 			const orders = finalizeOrders();
@@ -406,53 +441,52 @@ const EditableWrapper = (props) => {
 				item.style.order -= 1;
 			});
 
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 		}
-	}, [editable, finalizeOrders, reset]);
+	}, [finalizeEditing, finalizeOrders]);
 
 	const hideItem = useCallback(() => {
-		const {selectedItem} = mutableRef.current;
+		const {focusedItem, selectedItem} = mutableRef.current;
+		const targetItem = selectedItem || focusedItem;
 
-		if (selectedItem) {
+		if (targetItem) {
 			// rearrangedItems need for the case when hiding item while moving selected item
 			const rearrangedItems = mutableRef.current.rearrangedItems;
-			const selectedItemOrder = Number(selectedItem.style.order);
-			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
-			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
+			const targetItemOrder = Number(targetItem.style.order);
+			const targetItemRect = targetItem && targetItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: targetItemRect.right, y: targetItemRect.top};
 			mutableRef.current.hideIndex -= 1;
 
 			const orders = finalizeOrders();
-			orders.splice(orders.indexOf(selectedItemOrder), 1);
-			orders.push(selectedItemOrder);
+			orders.splice(orders.indexOf(targetItemOrder), 1);
+			orders.push(targetItemOrder);
 			rearrangedItems.forEach(item => {
 				item.style.order -= 1;
 			});
-			selectedItem.style.order = orders.length;
+			targetItem.style.order = orders.length;
 
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 		}
-	}, [editable, finalizeOrders, reset]);
+	}, [finalizeEditing, finalizeOrders]);
 
 	const showItem = useCallback(() => {
-		const {selectedItem} = mutableRef.current;
+		const {focusedItem, selectedItem} = mutableRef.current;
+		const targetItem = selectedItem || focusedItem;
 
-		if (selectedItem) {
-			const selectedItemOrder = Number(selectedItem.style.order);
-			const selectedItemRect = selectedItem && selectedItem.getBoundingClientRect();
-			mutableRef.current.nextSpotlightRect = {x: selectedItemRect.right, y: selectedItemRect.top};
+		if (targetItem) {
+			const targetItemOrder = Number(targetItem.style.order);
+			const targetItemRect = targetItem && targetItem.getBoundingClientRect();
+			mutableRef.current.nextSpotlightRect = {x: targetItemRect.right, y: targetItemRect.top};
 
 			const orders = Array.from({length: dataSize}, (_, i) => i + 1);
-			orders.splice(selectedItemOrder - 1, 1);
-			orders.splice(mutableRef.current.hideIndex, 0, selectedItemOrder);
+			orders.splice(targetItemOrder - 1, 1);
+			orders.splice(mutableRef.current.hideIndex, 0, targetItemOrder);
 
 			mutableRef.current.hideIndex += 1;
 
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 		}
-	}, [dataSize, editable, reset]);
+	}, [dataSize, finalizeEditing]);
 
 	const getNextIndexFromPosition = useCallback((x, tolerance) => {
 		const {centeredOffset, itemWidth, prevToIndex} = mutableRef.current;
@@ -482,15 +516,14 @@ const EditableWrapper = (props) => {
 	}, [getNextIndexFromPosition, moveItems]);
 
 	const handleMouseLeave = useCallback(() => {
-		const {itemWidth, lastInputType, lastMouseClientX, selectedItem} = mutableRef.current;
+		const {focusedItem, itemWidth, lastInputType, lastMouseClientX, selectedItem} = mutableRef.current;
 		const {rtl} = scrollContainerHandle.current;
 		const scrollContentNode = scrollContentRef.current;
 		const scrollContentCenter = scrollContentNode.getBoundingClientRect().width / 2;
 
-		if (selectedItem) {
+		if (selectedItem || focusedItem) {
 			const orders = finalizeOrders();
-			forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-			reset();
+			finalizeEditing(orders);
 
 			if (lastInputType === 'scroll') {
 				const offset = itemWidth * (!rtl ^ !(lastMouseClientX > scrollContentCenter) ? 1 : -1);
@@ -500,19 +533,19 @@ const EditableWrapper = (props) => {
 				});
 			}
 		}
-	}, [editable, finalizeOrders, reset, scrollContainerHandle, scrollContentRef]);
+	}, [finalizeEditing, finalizeOrders, scrollContainerHandle, scrollContentRef]);
 
 	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
-		const {selectedItem, selectedItemLabel} = mutableRef.current;
+		const {focusedItem, selectedItem, selectedItemLabel} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
 					const orders = finalizeOrders();
-					forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
-					reset();
+					finalizeEditing(orders);
+					focusItem(ev.target);
 					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
@@ -524,25 +557,42 @@ const EditableWrapper = (props) => {
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
 				}
-			} else if (repeat && targetItemNode && !mutableRef.current.timer) {
+			} else if (repeat && targetItemNode && !mutableRef.current.timer && selectItemBy === 'longPress') {
 				mutableRef.current.timer = setTimeout(() => {
 					startEditing(targetItemNode);
 				}, holdDuration - 300);
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
-			if (selectedItem && mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-				if (repeat) {
-					SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
-				} else {
-					SpotlightAccelerator.reset();
-					moveItemsByKeyDown(ev);
-				}
+			if (selectedItem) {
+				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+					if (repeat) {
+						SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+					} else {
+						SpotlightAccelerator.reset();
+						moveItemsByKeyDown(ev);
+					}
 
-				ev.preventDefault();
-				ev.stopPropagation();
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
+			}
+		} else if (is('up', keyCode) || is('down', keyCode)) {
+			if (selectedItem || focusedItem) {
+				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
+
+				// Check if focus leaves scroll container.
+				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					Spotlight.move(getDirection(keyCode));
+
+					const orders = finalizeOrders();
+					finalizeEditing(orders);
+
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
 			}
 		}
-	}, [editable, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, selectItemBy, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		mutableRef.current.lastKeyEventTargetElement = ev.target;
@@ -568,15 +618,16 @@ const EditableWrapper = (props) => {
 	useEffect(() => {
 		// Calculate the item width once
 		const {rtl} = scrollContainerHandle.current;
+		const container = scrollContentRef.current;
 		const item = wrapperRef.current?.children[0];
 		if (item && typeof window !== 'undefined') {
 			const bodyWidth = document.body.getBoundingClientRect().width;
 			const neighbor = item.nextElementSibling || item.previousElementSibling;
 			mutableRef.current.itemWidth = Math.abs(item.offsetLeft - neighbor?.offsetLeft);
-			mutableRef.current.centeredOffset = rtl ? bodyWidth - item.getBoundingClientRect().right : item.getBoundingClientRect().left;
+			mutableRef.current.centeredOffset = rtl ? bodyWidth - (item.getBoundingClientRect().right + container.scrollLeft) : item.getBoundingClientRect().left + container.scrollLeft;
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
-	}, [centered, dataSize, scrollContainerHandle]);
+	}, [scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
@@ -614,6 +665,12 @@ const EditableWrapper = (props) => {
 	}, [showItem, showItemFuncRef]);
 
 	useEffect(() => {
+		if (focusItemFuncRef) {
+			focusItemFuncRef.current = focusItem;
+		}
+	}, [focusItem, focusItemFuncRef]);
+
+	useEffect(() => {
 		// addEventListener to moveItems while scrolled
 		const scrollContentNode = scrollContentRef.current;
 
@@ -621,7 +678,7 @@ const EditableWrapper = (props) => {
 			const bodyWidth = document.body.getBoundingClientRect().width;
 			const {lastMouseClientX, selectedItem} = mutableRef.current;
 			const {isHoveringToScroll, rtl} = scrollContainerHandle.current;
-			if (selectedItem && mutableRef.current.lastInputType !== 'key') {
+			if (selectedItem && mutableRef.current.lastInputType !== 'key' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 				mutableRef.current.lastInputType = 'scroll';
 				if (isHoveringToScroll) {
 					const toIndex = getNextIndexFromPosition(lastMouseClientX, 0);
