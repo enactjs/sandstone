@@ -2,6 +2,7 @@ import kind from '@enact/core/kind';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import Button from '../views/Button';
+import DatePicker from '../views/DatePicker';
 
 import css from './App.module.less';
 
@@ -17,11 +18,12 @@ const App = kind({
 
 	render: (props) => (
 		<Router>
-		<div {...props}>
-			<Routes>
-				<Route path="/button" element={<Button />} />
-			</Routes>
-		</div>
+			<div {...props}>
+				<Routes>
+					<Route path="/button" element={<Button />} />
+					<Route path="/datepicker" element={<DatePicker />} />
+				</Routes>
+			</div>
 		</Router>
 	)
 });
