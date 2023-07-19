@@ -374,8 +374,10 @@ const VirtualGridListInScroller = ({args, onNext, ...rest}) => {
 		virtualGridLists.push(
 			<VirtualGridList
 				{...virtualGridListProps}
+				hoverToScroll={args['hoverToScroll']}
 				id={id}
 				key={id}
+				noScrollByWheel={args['noScrollByWheel']}
 				spotlightId={id}
 			/>
 		);
@@ -434,8 +436,10 @@ VirtualGridListInScrollerSamples.propTypes = {
 export const RestoreFocusInScroller = (args) => <VirtualGridListInScrollerSamples args={args} />;
 
 number('dataSize', RestoreFocusInScroller, Config, defaultDataSize);
+boolean('hoverToScroll', RestoreFocusInScroller, Config);
 number('minWidth', RestoreFocusInScroller, Config, 688);
 number('minHeight', RestoreFocusInScroller, Config, 570);
+boolean('noScrollByWheel', RestoreFocusInScroller, Config);
 number('spacing', RestoreFocusInScroller, Config, 0);
 
 RestoreFocusInScroller.storyName = 'in Scroller with restoring focus';
