@@ -673,7 +673,7 @@ const useEventWheel = (props, instances) => {
 
 				if (nextIndex > 0 && nextIndex < dataSize - 1) {
 					if (typeof document === 'object') {
-						const target = document.querySelector(`[data-index="${nextIndex}"] div`);
+						const target = scrollContentRef.current.querySelector(`[data-index="${nextIndex}"] > div`);
 
 						// remove effect
 						themeScrollContentHandle.current.removeScaleEffect();
