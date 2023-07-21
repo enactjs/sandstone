@@ -3,6 +3,8 @@ import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import Button from '../views/Button';
 import DatePicker from '../views/DatePicker';
+import DatePickerScreenshot from "../views/DatePickerScreenshot";
+
 
 import css from './App.module.less';
 
@@ -22,6 +24,7 @@ const App = kind({
 				<Routes>
 					<Route path="/button" element={<Button />} />
 					<Route path="/datepicker" element={<DatePicker />} />
+					<Route path="/datepickerscreenshot" element={<DatePickerScreenshot />} />
 				</Routes>
 			</div>
 		</Router>
