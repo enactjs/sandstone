@@ -326,6 +326,7 @@ const useSpottable = (props, instances) => {
 	function removeScaleEffect () {
 		if (mutableRef.current.scaledTarget) {
 			mutableRef.current.scaledTarget.classList.remove(css.scaled);
+			mutableRef.current.scaledTarget = null;
 		}
 	}
 

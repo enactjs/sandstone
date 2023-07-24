@@ -8,11 +8,24 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ThemeDecorator` to pass `rootId` to `spotlight/SpotlightRootDecorator`
 
+## [2.7.4] - 2023-07-19
+
+### Fixed
+
+- `sandstone/VirtualList.VirtualGridList` to not scale DOM out of a list by wheeling when `snapToCenter`
+
+## [2.7.3] - 2023-07-14
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hovering inside a nested scroller
+
 ## [2.7.2] - 2023-06-30
 
 ### Added
 
 - `sandstone/Icon` supported icon list, adding new icons `exclamation`, `show`, and `hide`
+- `sandstone/Scroller` to support showing buttons when an item is focused and `editable` is given
 - `sandstone/QuickGuidePanels` prop `onClose`
 
 ### Fixed
