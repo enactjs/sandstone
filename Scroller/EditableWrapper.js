@@ -195,7 +195,7 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const startEditing = useCallback((item) => {
-		if (item.dataset.index) {
+		if (item.dataset?.index) {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
@@ -217,17 +217,23 @@ const EditableWrapper = (props) => {
 	}, [editable, reset]);
 
 	const findItemNode = useCallback((node) => {
+		let disabled = false;
 		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
 			if (current.dataset.index) {
-				return current;
+				if (!disabled || current.className.includes('hidden')) {
+					return current;
+				}
+			} else if (current.hasAttribute('disabled')) {
+				disabled = true;
 			}
 		}
+		return false;
 	}, [scrollContentRef]);
 
 	const focusItem = useCallback((target) => {
 		const itemNode = findItemNode(target);
+		mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 		if (focusItemFuncRef && itemNode && !mutableRef.current.selectedItem) {
-			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 			mutableRef.current.focusedItem = itemNode;
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
@@ -267,7 +273,7 @@ const EditableWrapper = (props) => {
 			} else {
 				mutableRef.current.targetItemNode = targetItemNode;
 			}
-			mutableRef.current.needToPreventEvent = false;
+			mutableRef.current.needToPreventEvent = true;
 		}
 	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, selectItemBy, startEditing]);
 
@@ -546,7 +552,6 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
 					focusItem(ev.target);
-					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
 						announceRef.current.announce(
@@ -557,6 +562,7 @@ const EditableWrapper = (props) => {
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
 				}
+				mutableRef.current.needToPreventEvent = true;
 			} else if (repeat && targetItemNode && !mutableRef.current.timer && selectItemBy === 'longPress') {
 				mutableRef.current.timer = setTimeout(() => {
 					startEditing(targetItemNode);
