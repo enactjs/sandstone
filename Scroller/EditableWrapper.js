@@ -597,13 +597,15 @@ const EditableWrapper = (props) => {
 
 				// Check if focus leaves scroll container.
 				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
-					Spotlight.move(getDirection(keyCode));
+					if (nextTarget) {
+						Spotlight.move(getDirection(keyCode));
 
-					const orders = finalizeOrders();
-					finalizeEditing(orders);
+						const orders = finalizeOrders();
+						finalizeEditing(orders);
 
-					ev.preventDefault();
-					ev.stopPropagation();
+						ev.preventDefault();
+						ev.stopPropagation();
+					}
 				}
 			}
 		}
