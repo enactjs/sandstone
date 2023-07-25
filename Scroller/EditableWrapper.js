@@ -575,6 +575,21 @@ const EditableWrapper = (props) => {
 					ev.preventDefault();
 					ev.stopPropagation();
 				}
+			} else {
+				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
+
+				// Check if focus leaves scroll container.
+				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !ev.repeat) {
+					if (nextTarget) {
+						Spotlight.move(getDirection(keyCode));
+
+						const orders = finalizeOrders();
+						finalizeEditing(orders);
+
+						ev.preventDefault();
+						ev.stopPropagation();
+					}
+				}
 			}
 		} else if (is('up', keyCode) || is('down', keyCode)) {
 			if (selectedItem || focusedItem) {
