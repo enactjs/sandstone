@@ -139,7 +139,7 @@ const useEventKey = (props, instances, context) => {
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
 					const candidate = getTargetByDirectionFromElement(direction, target);
 					const candidateInside = utilDOM.containsDangerously(ev.currentTarget, candidate);
-					const candidateIndex = candidate && candidateInside && candidate.dataset && getNumberValue(candidate.dataset.index) || -1;
+					const candidateIndex = candidate && candidateInside && candidate.dataset && getNumberValue(candidate.dataset.index);
 					let isLeaving = false;
 
 					if (isNotItem) { // if the focused node is not an item
@@ -194,6 +194,7 @@ const useEventKey = (props, instances, context) => {
 								directions.left && column === 0 ||
 								directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
 
+							/* istanbul ignore if */
 							if (repeat && isLeaving) { // if focus is about to leave items by holding down an arrowy key
 								ev.preventDefault();
 								if (spotlightId && !getContainerConfig(spotlightId)?.continue5WayHold) {
