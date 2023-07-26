@@ -134,7 +134,7 @@ const EditableWrapper = (props) => {
 	});
 	const announceRef = useRef({});
 
-	mutableRef.current.hideIndex = editable?.hideIndex;
+	mutableRef.current.hideIndex = editable?.hideIndex || dataSize;
 
 	// Functions
 
@@ -233,12 +233,12 @@ const EditableWrapper = (props) => {
 	const focusItem = useCallback((target) => {
 		const itemNode = findItemNode(target);
 		mutableRef.current.focusedItem?.classList.remove(customCss.focused);
-		if (focusItemFuncRef && itemNode && !mutableRef.current.selectedItem) {
+		if (itemNode && !mutableRef.current.selectedItem) {
 			mutableRef.current.focusedItem = itemNode;
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
 		}
-	}, [customCss.focused, findItemNode, focusItemFuncRef]);
+	}, [customCss.focused, findItemNode]);
 
 	const handleClickCapture = useCallback((ev) => {
 		if (ev.target.className.includes('Button')) {
@@ -570,14 +570,15 @@ const EditableWrapper = (props) => {
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
-				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-					if (repeat) {
-						SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
-					} else {
-						SpotlightAccelerator.reset();
-						moveItemsByKeyDown(ev);
+				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button') {
+					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+						if (repeat) {
+							SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+						} else {
+							SpotlightAccelerator.reset();
+							moveItemsByKeyDown(ev);
+						}
 					}
-
 					ev.preventDefault();
 					ev.stopPropagation();
 				}
@@ -650,7 +651,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.centeredOffset = rtl ? bodyWidth - (item.getBoundingClientRect().right + container.scrollLeft) : item.getBoundingClientRect().left + container.scrollLeft;
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
-	}, [scrollContainerHandle, scrollContentRef]);
+	}, [centered, dataSize, scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
