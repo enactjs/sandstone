@@ -217,14 +217,11 @@ const EditableWrapper = (props) => {
 	}, [editable, reset]);
 
 	const findItemNode = useCallback((node) => {
-		let disabled = false;
 		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
 			if (current.dataset.index) {
-				if (!disabled || current.className.includes('hidden')) {
+				if (!current.hasAttribute('disabled') || current.className.includes('hidden')) {
 					return current;
 				}
-			} else if (current.hasAttribute('disabled')) {
-				disabled = true;
 			}
 		}
 		return false;
