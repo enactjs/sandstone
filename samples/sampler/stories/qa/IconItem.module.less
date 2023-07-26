@@ -39,6 +39,19 @@
 	.itemWrapper {
 		text-align: center;
 
+		.editableIconItem {
+			width: 312px;
+			height: 240px;
+			margin: 60px;
+			&:focus:not([disabled]){
+				transform: none;
+			}
+		}
+
+		&.selected .editableIconItem {
+			transform: none;
+		}
+
 		.iconItem {
 			width: 312px;
 			height: 240px;
@@ -49,7 +62,10 @@
 	.focused { // public class for focused item
 		.removeButton {
 			display: inline-block;
-		}	
+		}
+		.editableIconItem {
+			transform: scale(1.2) !important;
+		}
 	}
 
 	.selected { // public class for selected item

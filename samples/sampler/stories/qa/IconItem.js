@@ -200,7 +200,7 @@ export const EditableIcon = (args) => {
 										</ContainerDivWithLeaveForConfig>
 										<IconItem
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
-											className={css.iconItem}
+											className={css.editableIconItem}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
 											{...item.iconItemProps}
