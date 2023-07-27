@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/TabLayout` enter key behavior to match the latest UX
 
+### Fixed
+
+- `sandstone/VirtualList` to move focus properly by 5-way directional key hold when `spotlight/SpotlightContainerDecorator` config option `continue5WayHold` is set
+
 ## [2.7.4] - 2023-07-19
 
 ### Fixed
