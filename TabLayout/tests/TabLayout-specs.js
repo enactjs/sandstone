@@ -168,7 +168,7 @@ describe('TabLayout specs', () => {
 		expect(actual).toMatchObject(expected);
 	});
 
-	test('should call \'onSelect\' with \'onSelect\' type when \'vertical\'and pressing \'Enter\' on a tab while \'vertial\' and \'ltr\'', () => {
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'vertial\' and \'ltr\'', () => {
 		const spy = jest.fn();
 		render(
 			<TabLayout onSelect={spy} orientation="vertical" rtl={false}>
