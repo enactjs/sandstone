@@ -4,7 +4,6 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
-import Button from '../../Button';
 
 const keyDown = (keyCode) => (tab) => fireEvent.keyDown(tab, {keyCode});
 const keyUp = (keyCode) => (tab) => fireEvent.keyUp(tab, {keyCode});
@@ -195,10 +194,9 @@ describe('TabLayout specs', () => {
 	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'vertial\' and \'rtl\'', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout onSelect={spy} orientation="vertical" rtl={true}>
-				<Tab data-testid="tab" title="Play">
-					 View One
-					<div><Button>Button One</Button></div>
+			<TabLayout onSelect={spy} orientation="vertical" rtl>
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
 				</Tab>
 			</TabLayout>
 		);
@@ -217,9 +215,8 @@ describe('TabLayout specs', () => {
 		const spy = jest.fn();
 		render(
 			<TabLayout onSelect={spy} anchorTo="end" rtl={false}>
-				<Tab data-testid="tab" title="Play">
-					 View One
-					<div><Button>Button One</Button></div>
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
 				</Tab>
 			</TabLayout>
 		);
@@ -237,10 +234,9 @@ describe('TabLayout specs', () => {
 	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'end\' and \'rtl\'', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout onSelect={spy} anchorTo="end" rtl={true}>
-				<Tab data-testid="tab" title="Play">
-					 View One
-					<div><Button>Button One</Button></div>
+			<TabLayout onSelect={spy} anchorTo="end" rtl>
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
 				</Tab>
 			</TabLayout>
 		);
@@ -259,9 +255,8 @@ describe('TabLayout specs', () => {
 		const spy = jest.fn();
 		render(
 			<TabLayout onSelect={spy} anchorTo="right">
-				<Tab data-testid="tab" title="Play">
-					 View One
-					<div><Button>Button One</Button></div>
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
 				</Tab>
 			</TabLayout>
 		);
@@ -280,9 +275,8 @@ describe('TabLayout specs', () => {
 		const spy = jest.fn();
 		render(
 			<TabLayout onSelect={spy} orientation="horizontal">
-				<Tab data-testid="tab" title="Play">
-					 View One
-					<div><Button>Button One</Button></div>
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
 				</Tab>
 			</TabLayout>
 		);
