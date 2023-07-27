@@ -298,10 +298,8 @@ const TabLayoutBase = kind({
 				} else {
 					moveTo = 'down';
 				}
-
 				Spotlight.move(moveTo);
 				ev.stopPropagation();
-
 			}
 		},
 		onKeyUp: (ev, props) => {
