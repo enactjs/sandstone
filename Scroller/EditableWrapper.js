@@ -144,7 +144,7 @@ const EditableWrapper = (props) => {
 
 		focusedItem?.classList.remove(customCss.focused);
 		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
-
+		focusedItem?.children[0]?.classList.remove(customCss.focused);
 		mutableRef.current.focusedItem = null;
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.selectedItemLabel = '';
@@ -195,11 +195,10 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const startEditing = useCallback((item) => {
-		if (item.dataset?.index) {
+		if (item.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
-			mutableRef.current.focusedItem = null;
 			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
@@ -219,9 +218,7 @@ const EditableWrapper = (props) => {
 	const findItemNode = useCallback((node) => {
 		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
 			if (current.dataset.index) {
-				if (!current.hasAttribute('disabled') || current.className.includes('hidden')) {
-					return current;
-				}
+				return current;
 			}
 		}
 		return false;
@@ -229,8 +226,8 @@ const EditableWrapper = (props) => {
 
 	const focusItem = useCallback((target) => {
 		const itemNode = findItemNode(target);
-		mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 		if (itemNode && !mutableRef.current.selectedItem) {
+			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 			mutableRef.current.focusedItem = itemNode;
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;

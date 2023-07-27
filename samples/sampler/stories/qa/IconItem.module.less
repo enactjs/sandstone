@@ -34,22 +34,31 @@
 		.removeButton {
 			display: none;
 		}
+
+		&.focused ~ .editableIconItem {
+			transform: none;
+		}
 	}
 
 	.itemWrapper {
 		text-align: center;
 
+		&:is([disabled]):not(.hidden).focused {
+			.removeButton {
+				display: none;
+			}
+		}
+
 		.editableIconItem {
 			width: 312px;
 			height: 240px;
 			margin: 60px;
-			&:focus:not([disabled]){
-				transform: none;
-			}
 		}
 
-		&.selected .editableIconItem {
-			transform: none;
+		&:not(.selected,.focused) .editableIconItem {
+			&:focus {
+				transform: none;
+			}
 		}
 
 		.iconItem {
@@ -63,14 +72,19 @@
 		.removeButton {
 			display: inline-block;
 		}
+
 		.editableIconItem {
-			transform: scale(1.2) !important;
+			transform: scale(1.2);
 		}
 	}
 
 	.selected { // public class for selected item
 		.removeButton {
 			display: inline-block;
+		}
+
+		.editableIconItem {
+			transform: scale(1.2);
 		}
 
 		.arrow() {

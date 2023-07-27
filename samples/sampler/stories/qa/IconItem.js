@@ -131,6 +131,14 @@ export const EditableIcon = (args) => {
 		}
 	}, []);
 
+	const onFocus = useCallback((ev) => {
+		ev.target.parentElement?.classList.add(css.focused);
+	}, []);
+
+	const onBlur = useCallback((ev) => {
+		ev.target.parentElement?.classList.remove(css.focused);
+	}, []);
+
 	const handleComplete = useCallback((ev) => {
 		const {orders, hideIndex} = ev;
 		mutableRef.current.hideIndex = hideIndex;
@@ -193,7 +201,7 @@ export const EditableIcon = (args) => {
 							items.map((item, index) => {
 								return (
 									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}} disabled={item.iconItemProps['disabled'] || item.hidden}>
-										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
+										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer} onFocus={onFocus} onBlur={onBlur}>
 											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
 											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
 											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
