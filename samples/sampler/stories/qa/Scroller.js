@@ -409,7 +409,6 @@ export const EditableListWithLongPress = (args) => {
 	const [items, setItems] = useState(itemsArr);
 	const removeItem = useRef();
 
-
 	useLayoutEffect(() => {
 		itemsArr = [];
 		for (let i = 0; i < dataSize; i++) {
