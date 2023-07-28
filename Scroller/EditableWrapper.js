@@ -144,6 +144,7 @@ const EditableWrapper = (props) => {
 
 		focusedItem?.classList.remove(customCss.focused);
 		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
+
 		mutableRef.current.focusedItem = null;
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.selectedItemLabel = '';
