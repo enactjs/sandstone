@@ -10,6 +10,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
+import Spotlight from '@enact/spotlight';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
@@ -348,6 +349,9 @@ SnapToCenterVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
+const numOfListsInScroller = 4;
+const idOfListsInScroller = (index) => (`vgl_${index}`);
+
 const VirtualGridListInScroller = ({args, onNext, ...rest}) => {
 	const virtualGridListProps = {
 		...rest,
@@ -368,8 +372,8 @@ const VirtualGridListInScroller = ({args, onNext, ...rest}) => {
 
 	const virtualGridLists = [];
 
-	for (let i = 0; i < 4; i++) {
-		const id = `vgl_${i}`;
+	for (let i = 0; i < numOfListsInScroller; i++) {
+		const id = idOfListsInScroller(i);
 
 		virtualGridLists.push(
 			<VirtualGridList
@@ -401,6 +405,12 @@ class VirtualGridListInScrollerSamples extends Component {
 		this.state = {
 			index: 0
 		};
+	}
+
+	componentDidMount () {
+		for (let i = 0; i < numOfListsInScroller; i++) {
+			Spotlight.set(idOfListsInScroller(i), {continue5WayHold: true});
+		}
 	}
 
 	onBack = () => {
