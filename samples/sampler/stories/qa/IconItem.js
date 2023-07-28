@@ -131,14 +131,6 @@ export const EditableIcon = (args) => {
 		}
 	}, []);
 
-	const onFocus = useCallback((ev) => {
-		ev.target.parentElement?.classList.add(css.focused);
-	}, []);
-
-	const onBlur = useCallback((ev) => {
-		ev.target.parentElement?.classList.remove(css.focused);
-	}, []);
-
 	const handleComplete = useCallback((ev) => {
 		const {orders, hideIndex} = ev;
 		mutableRef.current.hideIndex = hideIndex;
@@ -201,18 +193,18 @@ export const EditableIcon = (args) => {
 							items.map((item, index) => {
 								return (
 									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}} disabled={item.iconItemProps['disabled'] || item.hidden}>
-										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer} onFocus={onFocus} onBlur={onBlur}>
+										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
 											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
 											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
 											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
 										</ContainerDivWithLeaveForConfig>
 										<IconItem
+											{...item.iconItemProps}
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 											className={css.editableIconItem}
+											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
-											{...item.iconItemProps}
-											disabled={item.iconItemProps['disabled'] || item.hidden}
 										/>
 									</div>
 								);
@@ -232,11 +224,11 @@ export const EditableIcon = (args) => {
 									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 										<div className={css.removeButtonContainer} />
 										<IconItem
+											{...item.iconItemProps}
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 											className={css.iconItem}
-											onClick={action('onClickItem')}
-											{...item.iconItemProps}
 											disabled={item.iconItemProps['disabled'] || item.hidden}
+											onClick={action('onClickItem')}
 										/>
 									</div>
 								);

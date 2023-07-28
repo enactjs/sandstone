@@ -31,12 +31,15 @@
 	.removeButtonContainer {
 		height: 156px;
 
-		.removeButton {
-			display: none;
+		&:hover ~ .editableIconItem{
+			transform: none;
+		}
+		&:focus-within ~ .editableIconItem{
+			transform: none;
 		}
 
-		&.focused ~ .editableIconItem {
-			transform: none;
+		.removeButton {
+			display: none;
 		}
 	}
 

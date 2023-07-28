@@ -144,7 +144,6 @@ const EditableWrapper = (props) => {
 
 		focusedItem?.classList.remove(customCss.focused);
 		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
-		focusedItem?.children[0]?.classList.remove(customCss.focused);
 		mutableRef.current.focusedItem = null;
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.selectedItemLabel = '';
@@ -199,6 +198,7 @@ const EditableWrapper = (props) => {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
+			mutableRef.current.focusedItem = null;
 			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
@@ -221,7 +221,7 @@ const EditableWrapper = (props) => {
 				return current;
 			}
 		}
-		return false;
+		return null;
 	}, [scrollContentRef]);
 
 	const focusItem = useCallback((target) => {
@@ -254,7 +254,9 @@ const EditableWrapper = (props) => {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
-			focusItem(ev.target);
+			if (selectItemBy === 'press') {
+				focusItem(ev.target);
+			}
 			mutableRef.current.needToPreventEvent = true;
 		} else {
 			const targetItemNode = findItemNode(ev.target);
@@ -264,10 +266,11 @@ const EditableWrapper = (props) => {
 					mutableRef.current.targetItemNode = targetItemNode;
 					startEditing(targetItemNode);
 				}
+				mutableRef.current.needToPreventEvent = true;
 			} else {
 				mutableRef.current.targetItemNode = targetItemNode;
+				mutableRef.current.needToPreventEvent = false;
 			}
-			mutableRef.current.needToPreventEvent = true;
 		}
 	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, selectItemBy, startEditing]);
 
@@ -545,7 +548,10 @@ const EditableWrapper = (props) => {
 				if (selectedItem) {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
-					focusItem(ev.target);
+					if (selectItemBy === 'press') {
+						focusItem(ev.target);
+					}
+					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
 						announceRef.current.announce(
@@ -555,8 +561,8 @@ const EditableWrapper = (props) => {
 					}, completeAnnounceDelay);
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
+					mutableRef.current.needToPreventEvent = true;
 				}
-				mutableRef.current.needToPreventEvent = true;
 			} else if (repeat && targetItemNode && !mutableRef.current.timer && selectItemBy === 'longPress') {
 				mutableRef.current.timer = setTimeout(() => {
 					startEditing(targetItemNode);
@@ -580,16 +586,8 @@ const EditableWrapper = (props) => {
 				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
 				// Check if focus leaves scroll container.
-				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !ev.repeat) {
-					if (nextTarget) {
-						Spotlight.move(getDirection(keyCode));
-
-						const orders = finalizeOrders();
-						finalizeEditing(orders);
-
-						ev.preventDefault();
-						ev.stopPropagation();
-					}
+				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !ev.repeat) {
+					reset();
 				}
 			}
 		} else if (is('up', keyCode) || is('down', keyCode)) {
@@ -597,20 +595,18 @@ const EditableWrapper = (props) => {
 				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
 				// Check if focus leaves scroll container.
-				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
-					if (nextTarget) {
-						Spotlight.move(getDirection(keyCode));
+				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					Spotlight.move(getDirection(keyCode));
 
-						const orders = finalizeOrders();
-						finalizeEditing(orders);
+					const orders = finalizeOrders();
+					finalizeEditing(orders);
 
-						ev.preventDefault();
-						ev.stopPropagation();
-					}
+					ev.preventDefault();
+					ev.stopPropagation();
 				}
 			}
 		}
-	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, selectItemBy, startEditing]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		mutableRef.current.lastKeyEventTargetElement = ev.target;
