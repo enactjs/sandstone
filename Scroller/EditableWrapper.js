@@ -196,7 +196,7 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const startEditing = useCallback((item) => {
-		if (item.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
+		if (item?.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
@@ -724,12 +724,14 @@ const EditableWrapper = (props) => {
 	useLayoutEffect(() => {
 		if (initialSelected?.itemIndex) {
 			const initialSelectedItem = wrapperRef.current.children[initialSelected.itemIndex - 1];
-			mutableRef.current.focusedItem = initialSelectedItem;
-			startEditing(initialSelectedItem);
-			setPointerMode(false);
-			Spotlight.focus(initialSelectedItem.children[1]);
+			if (initialSelectedItem?.dataset.index) {
+				mutableRef.current.focusedItem = initialSelectedItem;
+				startEditing(initialSelectedItem);
+				setPointerMode(false);
+				Spotlight.focus(initialSelectedItem.children[1]);
+			}
 		}
-	}, [initialSelected?.itemIndex, startEditing]);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<TouchableDiv
