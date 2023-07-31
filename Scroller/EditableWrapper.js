@@ -607,6 +607,27 @@ const EditableWrapper = (props) => {
 					ev.stopPropagation();
 				}
 			}
+		} else if (is('cancel', keyCode)) {
+			if (!repeat) {
+				if (selectedItem) {
+					const orders = finalizeOrders();
+					finalizeEditing(orders);
+					if (selectItemBy === 'press') {
+						focusItem(ev.target);
+					}
+					mutableRef.current.needToPreventEvent = true;
+
+					setTimeout(() => {
+						announceRef.current.announce(
+							selectedItemLabel + $L('move complete'),
+							true
+						);
+					}, completeAnnounceDelay);
+
+					ev.preventDefault();
+					ev.stopPropagation();
+				}
+			}
 		}
 	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
 
