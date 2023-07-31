@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Scroller` back key behavior to match the latest UX when `editable` is given
+
 ### Fixed
 
 - `sandstone/Scroller` to handle focus moving properly when `editable` is given
