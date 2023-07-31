@@ -134,7 +134,7 @@ const EditableWrapper = (props) => {
 	});
 	const announceRef = useRef({});
 
-	mutableRef.current.hideIndex = editable?.hideIndex;
+	mutableRef.current.hideIndex = editable?.hideIndex || dataSize;
 
 	// Functions
 
@@ -195,7 +195,7 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const startEditing = useCallback((item) => {
-		if (item.dataset.index) {
+		if (item.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
@@ -222,17 +222,18 @@ const EditableWrapper = (props) => {
 				return current;
 			}
 		}
+		return null;
 	}, [scrollContentRef]);
 
 	const focusItem = useCallback((target) => {
 		const itemNode = findItemNode(target);
-		if (focusItemFuncRef && itemNode && !mutableRef.current.selectedItem) {
+		if (itemNode && !mutableRef.current.selectedItem) {
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 			mutableRef.current.focusedItem = itemNode;
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
 		}
-	}, [customCss.focused, findItemNode, focusItemFuncRef]);
+	}, [customCss.focused, findItemNode]);
 
 	const handleClickCapture = useCallback((ev) => {
 		if (ev.target.className.includes('Button')) {
@@ -254,7 +255,9 @@ const EditableWrapper = (props) => {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
-			focusItem(ev.target);
+			if (selectItemBy === 'press') {
+				focusItem(ev.target);
+			}
 			mutableRef.current.needToPreventEvent = true;
 		} else {
 			const targetItemNode = findItemNode(ev.target);
@@ -264,10 +267,11 @@ const EditableWrapper = (props) => {
 					mutableRef.current.targetItemNode = targetItemNode;
 					startEditing(targetItemNode);
 				}
+				mutableRef.current.needToPreventEvent = true;
 			} else {
 				mutableRef.current.targetItemNode = targetItemNode;
+				mutableRef.current.needToPreventEvent = false;
 			}
-			mutableRef.current.needToPreventEvent = false;
 		}
 	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, selectItemBy, startEditing]);
 
@@ -545,7 +549,9 @@ const EditableWrapper = (props) => {
 				if (selectedItem) {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
-					focusItem(ev.target);
+					if (selectItemBy === 'press') {
+						focusItem(ev.target);
+					}
 					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
@@ -556,6 +562,7 @@ const EditableWrapper = (props) => {
 					}, completeAnnounceDelay);
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
+					mutableRef.current.needToPreventEvent = true;
 				}
 			} else if (repeat && targetItemNode && !mutableRef.current.timer && selectItemBy === 'longPress') {
 				mutableRef.current.timer = setTimeout(() => {
@@ -564,16 +571,24 @@ const EditableWrapper = (props) => {
 			}
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
-				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-					if (repeat) {
-						SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
-					} else {
-						SpotlightAccelerator.reset();
-						moveItemsByKeyDown(ev);
+				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button') {
+					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+						if (repeat) {
+							SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+						} else {
+							SpotlightAccelerator.reset();
+							moveItemsByKeyDown(ev);
+						}
 					}
-
 					ev.preventDefault();
 					ev.stopPropagation();
+				}
+			} else {
+				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
+
+				// Check if focus leaves scroll container.
+				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !ev.repeat) {
+					reset();
 				}
 			}
 		} else if (is('up', keyCode) || is('down', keyCode)) {
@@ -581,7 +596,7 @@ const EditableWrapper = (props) => {
 				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
 				// Check if focus leaves scroll container.
-				if (!getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
 					Spotlight.move(getDirection(keyCode));
 
 					const orders = finalizeOrders();
@@ -592,7 +607,7 @@ const EditableWrapper = (props) => {
 				}
 			}
 		}
-	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, selectItemBy, startEditing]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		mutableRef.current.lastKeyEventTargetElement = ev.target;
@@ -627,7 +642,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.centeredOffset = rtl ? bodyWidth - (item.getBoundingClientRect().right + container.scrollLeft) : item.getBoundingClientRect().left + container.scrollLeft;
 			wrapperRef.current?.style.setProperty('--item-width', mutableRef.current.itemWidth + 'px');
 		}
-	}, [scrollContainerHandle, scrollContentRef]);
+	}, [centered, dataSize, scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
 		mutableRef.current.spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;

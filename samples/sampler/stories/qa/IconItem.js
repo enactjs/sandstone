@@ -64,7 +64,8 @@ const populateItems = ({index}) => {
 			else if (index === 6) return 'Gallery';
 		})(),
 		labelColor: index === 6 ? 'dark' : null,
-		labelOn: index === 6 ? 'focus' : null
+		labelOn: index === 6 ? 'focus' : null,
+		disabled: index === 1
 	};
 
 	return {index, iconItemProps};
@@ -142,7 +143,7 @@ export const EditableIcon = (args) => {
 		});
 
 		for (let i = 0; i < orders.length; i++) {
-			newItems[i].disabled = (i >= hideIndex);
+			newItems[i].hidden = (i >= hideIndex);
 		}
 
 		setItems(newItems);
@@ -191,19 +192,19 @@ export const EditableIcon = (args) => {
 						{
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.disabled})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}} disabled={item.iconItemProps['disabled'] || item.hidden}>
 										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
-											{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
-											{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
-											{item.disabled ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
+											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
+											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
+											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
 										</ContainerDivWithLeaveForConfig>
 										<IconItem
+											{...item.iconItemProps}
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
-											className={css.iconItem}
-											disabled={item.disabled}
+											className={css.editableIconItem}
+											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
-											{...item.iconItemProps}
 										/>
 									</div>
 								);
@@ -220,14 +221,14 @@ export const EditableIcon = (args) => {
 						<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.disabled})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 										<div className={css.removeButtonContainer} />
 										<IconItem
+											{...item.iconItemProps}
 											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 											className={css.iconItem}
+											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
-											disabled={item.disabled}
-											{...item.iconItemProps}
 										/>
 									</div>
 								);
@@ -256,9 +257,6 @@ export const EditableIconWithLongPress = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
 	const removeItem = useRef();
-	const mutableRef = useRef({
-		hideIndex: null
-	});
 
 	useLayoutEffect(() => {
 		itemsArr = [];
@@ -266,7 +264,6 @@ export const EditableIconWithLongPress = (args) => {
 			itemsArr.push(populateItems({index: i}));
 		}
 		setItems(itemsArr);
-		mutableRef.current.hideIndex = dataSize;
 	}, [dataSize]);
 
 	const onClickRemoveButton = useCallback((ev) => {
@@ -295,7 +292,6 @@ export const EditableIconWithLongPress = (args) => {
 			editable={{
 				centered: args['editableCentered'],
 				css,
-				hideIndex: mutableRef.current.hideIndex,
 				onComplete: handleComplete,
 				removeItemFuncRef: removeItem
 			}}
