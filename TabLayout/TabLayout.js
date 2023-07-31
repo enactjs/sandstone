@@ -273,7 +273,7 @@ const TabLayoutBase = kind({
 						forward('onExpand', ev, props);
 					}
 				}
-			} else if (!target.hasAttribute('disabled') && is('enter')(keyCode) && !collapsed && document.querySelector(`[data-spotlight-id='${spotlightId}-tabs-expanded']`).contains(target) && target.tagName !== 'INPUT') {
+			} else if (is('enter')(keyCode) && !collapsed && document.querySelector(`[data-spotlight-id='${spotlightId}-tabs-expanded']`).contains(target) && target.tagName !== 'INPUT') {
 				Spotlight.setPointerMode(false);
 				ev.preventDefault();
 				let moveTo;
