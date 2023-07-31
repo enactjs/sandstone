@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Scroller` prop `editable.initialSelected` to allow start edit mode with selected item
+
 ### Fixed
 
 - `sandstone/Scroller` to handle focus moving properly when `editable` is given

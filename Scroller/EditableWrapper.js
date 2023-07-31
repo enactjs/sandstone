@@ -6,12 +6,13 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import {getContainersForNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
+import {setPointerMode} from '@enact/spotlight/src/pointer';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
 
 import $L from '../internal/$L';
 
@@ -86,7 +87,7 @@ const EditableWrapper = (props) => {
 	const hideItemFuncRef = editable?.hideItemFuncRef;
 	const showItemFuncRef = editable?.showItemFuncRef;
 	const focusItemFuncRef = editable?.focusItemFuncRef;
-
+	const initialSelected = editable?.initialSelected;
 	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
 	const dataSize = children?.length;
@@ -704,13 +705,31 @@ const EditableWrapper = (props) => {
 			}
 		};
 
-		scrollContentNode.addEventListener('scroll', handleMoveItemsByScroll);
+		setTimeout(() => {
+			scrollContentNode.addEventListener('scroll', handleMoveItemsByScroll);
+		}, 400); // Wait for finishing scroll animation when initial selected item is given.
 
 		return () => {
 			scrollContentNode.removeEventListener('scroll', handleMoveItemsByScroll);
 		};
 
 	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle, scrollContentRef]);
+
+	useEffect(() => {
+		if (initialSelected?.itemIndex) {
+			scrollContainerHandle.current?.scrollTo({animate:false, position: {x: initialSelected.scrollLeft}});
+		}
+	}, [initialSelected?.itemIndex, initialSelected?.scrollLeft, scrollContainerHandle]);
+
+	useLayoutEffect(() => {
+		if (initialSelected?.itemIndex) {
+			const initialSelectedItem = wrapperRef.current.children[initialSelected.itemIndex - 1];
+			mutableRef.current.focusedItem = initialSelectedItem;
+			startEditing(initialSelectedItem);
+			setPointerMode(false);
+			Spotlight.focus(initialSelectedItem.children[1]);
+		}
+	}, [initialSelected?.itemIndex, startEditing]);
 
 	return (
 		<TouchableDiv
