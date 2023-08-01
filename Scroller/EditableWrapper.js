@@ -6,12 +6,13 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import {getContainersForNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
+import {getLastPointerPosition, setPointerMode} from '@enact/spotlight/src/pointer';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
 
 import $L from '../internal/$L';
 
@@ -86,7 +87,7 @@ const EditableWrapper = (props) => {
 	const hideItemFuncRef = editable?.hideItemFuncRef;
 	const showItemFuncRef = editable?.showItemFuncRef;
 	const focusItemFuncRef = editable?.focusItemFuncRef;
-
+	const initialSelected = editable?.initialSelected;
 	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
 	const dataSize = children?.length;
@@ -195,7 +196,7 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const startEditing = useCallback((item) => {
-		if (item.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
+		if (item?.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
@@ -508,12 +509,12 @@ const EditableWrapper = (props) => {
 	}, [scrollContainerHandle, scrollContentRef]);
 
 	const handleMouseMove = useCallback((ev) => {
-		if (mutableRef.current.selectedItem && Number(mutableRef.current.selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-			const {clientX} = ev;
+		const {clientX} = ev;
+		mutableRef.current.lastMouseClientX = clientX;
 
+		if (mutableRef.current.selectedItem && Number(mutableRef.current.selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
-			mutableRef.current.lastMouseClientX = clientX;
 			mutableRef.current.lastInputType = 'mouse';
 			moveItems(toIndex);
 		}
@@ -617,7 +618,7 @@ const EditableWrapper = (props) => {
 					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
-						announceRef.current.announce(
+						announceRef?.current?.announce(
 							selectedItemLabel + $L('move complete'),
 							true
 						);
@@ -682,25 +683,25 @@ const EditableWrapper = (props) => {
 		};
 	}, [handleMouseLeave, scrollContainerRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (removeItemFuncRef) {
 			removeItemFuncRef.current = removeItem;
 		}
 	}, [removeItem, removeItemFuncRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (hideItemFuncRef) {
 			hideItemFuncRef.current = hideItem;
 		}
 	}, [hideItem, hideItemFuncRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (showItemFuncRef) {
 			showItemFuncRef.current = showItem;
 		}
 	}, [showItem, showItemFuncRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (focusItemFuncRef) {
 			focusItemFuncRef.current = focusItem;
 		}
@@ -725,13 +726,34 @@ const EditableWrapper = (props) => {
 			}
 		};
 
-		scrollContentNode.addEventListener('scroll', handleMoveItemsByScroll);
+		setTimeout(() => {
+			scrollContentNode.addEventListener('scroll', handleMoveItemsByScroll);
+		}, 400); // Wait for finishing scroll animation when initial selected item is given.
 
 		return () => {
 			scrollContentNode.removeEventListener('scroll', handleMoveItemsByScroll);
 		};
 
 	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle, scrollContentRef]);
+
+	useEffect(() => {
+		if (initialSelected?.itemIndex) {
+			scrollContainerHandle.current?.scrollTo({animate:false, position: {x: initialSelected.scrollLeft}});
+		}
+	}, [initialSelected?.itemIndex, initialSelected?.scrollLeft, scrollContainerHandle]);
+
+	useLayoutEffect(() => {
+		if (initialSelected?.itemIndex) {
+			const initialSelectedItem = wrapperRef.current.children[initialSelected.itemIndex - 1];
+			if (initialSelectedItem?.dataset.index) {
+				mutableRef.current.focusedItem = initialSelectedItem;
+				mutableRef.current.lastMouseClientX = getLastPointerPosition().x;
+				startEditing(initialSelectedItem);
+				setPointerMode(false);
+				Spotlight.focus(initialSelectedItem.children[1]);
+			}
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<TouchableDiv
