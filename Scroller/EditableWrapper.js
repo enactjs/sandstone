@@ -6,7 +6,7 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import {getContainersForNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
-import {setPointerMode} from '@enact/spotlight/src/pointer';
+import {getLastPointerPosition, setPointerMode} from '@enact/spotlight/src/pointer';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
@@ -200,7 +200,7 @@ const EditableWrapper = (props) => {
 			item.classList.add(componentCss.selected, customCss.selected);
 			mutableRef.current.selectedItem = item;
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
-
+			mutableRef.current.focusedItem = null;
 			mutableRef.current.selectedItemLabel = (item.ariaLabel || item.textContent) + ' ';
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
@@ -618,7 +618,7 @@ const EditableWrapper = (props) => {
 					mutableRef.current.needToPreventEvent = true;
 
 					setTimeout(() => {
-						announceRef.current.announce(
+						announceRef?.current?.announce(
 							selectedItemLabel + $L('move complete'),
 							true
 						);
@@ -683,25 +683,25 @@ const EditableWrapper = (props) => {
 		};
 	}, [handleMouseLeave, scrollContainerRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (removeItemFuncRef) {
 			removeItemFuncRef.current = removeItem;
 		}
 	}, [removeItem, removeItemFuncRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (hideItemFuncRef) {
 			hideItemFuncRef.current = hideItem;
 		}
 	}, [hideItem, hideItemFuncRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (showItemFuncRef) {
 			showItemFuncRef.current = showItem;
 		}
 	}, [showItem, showItemFuncRef]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (focusItemFuncRef) {
 			focusItemFuncRef.current = focusItem;
 		}
@@ -747,7 +747,7 @@ const EditableWrapper = (props) => {
 			const initialSelectedItem = wrapperRef.current.children[initialSelected.itemIndex - 1];
 			if (initialSelectedItem?.dataset.index) {
 				mutableRef.current.focusedItem = initialSelectedItem;
-				mutableRef.current.lastMouseClientX = initialSelected.mouseClientX;
+				mutableRef.current.lastMouseClientX = getLastPointerPosition().x;
 				startEditing(initialSelectedItem);
 				setPointerMode(false);
 				Spotlight.focus(initialSelectedItem.children[1]);
