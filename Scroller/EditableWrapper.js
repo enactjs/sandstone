@@ -509,12 +509,12 @@ const EditableWrapper = (props) => {
 	}, [scrollContainerHandle, scrollContentRef]);
 
 	const handleMouseMove = useCallback((ev) => {
-		if (mutableRef.current.selectedItem && Number(mutableRef.current.selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-			const {clientX} = ev;
+		const {clientX} = ev;
+		mutableRef.current.lastMouseClientX = clientX;
 
+		if (mutableRef.current.selectedItem && Number(mutableRef.current.selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
-			mutableRef.current.lastMouseClientX = clientX;
 			mutableRef.current.lastInputType = 'mouse';
 			moveItems(toIndex);
 		}
@@ -747,6 +747,7 @@ const EditableWrapper = (props) => {
 			const initialSelectedItem = wrapperRef.current.children[initialSelected.itemIndex - 1];
 			if (initialSelectedItem?.dataset.index) {
 				mutableRef.current.focusedItem = initialSelectedItem;
+				mutableRef.current.lastMouseClientX = initialSelected.mouseClientX;
 				startEditing(initialSelectedItem);
 				setPointerMode(false);
 				Spotlight.focus(initialSelectedItem.children[1]);

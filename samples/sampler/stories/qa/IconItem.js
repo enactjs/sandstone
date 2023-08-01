@@ -116,6 +116,7 @@ export const EditableIcon = (args) => {
 		setEditMode(mode => !mode);
 		mutableRef.current.initialSelected.scrollLeft = 0;
 		mutableRef.current.initialSelected.itemIndex = null;
+		mutableRef.current.initialSelected.mouseClientX = null;
 		mutableRef.current.timer = null;
 	}, [setEditMode]);
 
@@ -155,6 +156,7 @@ export const EditableIcon = (args) => {
 			const targetItemNode = findItemNode(ev.target);
 			if (targetItemNode && targetItemNode.style.order) {
 				mutableRef.current.initialSelected.itemIndex = targetItemNode.style.order;
+				mutableRef.current.initialSelected.mouseClientX = ev.clientX;
 			}
 		}
 	}, [findItemNode]);
@@ -213,6 +215,7 @@ export const EditableIcon = (args) => {
 				setEditMode(false);
 				mutableRef.current.initialSelected.scrollLeft = 0;
 				mutableRef.current.initialSelected.itemIndex = null;
+				mutableRef.current.initialSelected.mouseClientX = null;
 				mutableRef.current.timer = null;
 			}
 		});
