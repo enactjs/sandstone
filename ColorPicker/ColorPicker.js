@@ -143,7 +143,7 @@ PopupContent.propTypes = {
 	 * Indicates the color.
 	 *
 	 * @type {String}
-	 * @public
+	 * @private
 	 */
 	color: PropTypes.string,
 
@@ -151,7 +151,7 @@ PopupContent.propTypes = {
 	 * Called when color is modified.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	colorHandler: PropTypes.func,
 
@@ -165,7 +165,7 @@ PopupContent.propTypes = {
 	 * `coloredDiv`  - A class name used for a single div
 	 *
 	 * @type {Object}
-	 * @public
+	 * @private
 	 */
 	css: PropTypes.object,
 
@@ -173,7 +173,7 @@ PopupContent.propTypes = {
 	 * Contains an array with a couple of possible preset colors.
 	 *
 	 * @type {Array}
-	 * @public
+	 * @private
 	 */
 	presetColors: PropTypes.array
 };
