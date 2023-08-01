@@ -37,6 +37,7 @@ describe('default sampler', function () {
 			expect(await browser.execute(getFocusedText)).to.equal('Display');
 
 			// Step 9: 5-way Right.
+			await Page.delay(200);
 			await Page.spotlightRight();
 			// Step 9 Verify: Spotlight is on the Tab Color Adjust in the Display Settings panel.
 			expect(await browser.execute(getFocusedText)).to.equal('Color Adjust');

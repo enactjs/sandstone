@@ -7,6 +7,23 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/ColorPicker` component
+- `sandstone/Scroller` prop `editable.initialSelected` to allow start edit mode with selected item
+
+### Changed
+
+- `sandstone/Scroller` back key behavior to match the latest UX when `editable` is given
+
+### Fixed
+
+- `sandstone/Scroller` to handle focus moving properly when `editable` is given
+- `sandstone/Scroller` to not select disabled item in scroller when `editable` is given
+- `sandstone/VirtualList` to move focus properly by 5-way directional key hold when `spotlight/SpotlightContainerDecorator` config option `continue5WayHold` is set
+
+## [2.7.4] - 2023-07-19
+
+### Fixed
+
+- `sandstone/VirtualList.VirtualGridList` to not scale DOM out of a list by wheeling when `snapToCenter`
 
 ## [2.7.3] - 2023-07-14
 
