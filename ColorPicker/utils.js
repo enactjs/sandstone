@@ -3,6 +3,7 @@
  *
  * @param {String} hex	Hex color
  * @returns {String}	Valid hex color
+ * @private
  */
 const checkHex = (hex) => {
 	if (/^#[0-9A-F]{3,6}$/i.test(hex)) return hex;
@@ -14,6 +15,7 @@ const checkHex = (hex) => {
  *
  * @param {String} hexColor
  * @returns {{s: number, h: number, l: number}}	HSL values
+ * @private
  */
 const hexToHSL = (hexColor) => {
 	const hex = checkHex(hexColor);
@@ -70,6 +72,7 @@ const hexToHSL = (hexColor) => {
  * @param {Number} s	Saturation value
  * @param {Number} l	Lightness value
  * @returns {string}	6-digit hex color
+ * @private
  */
 const HSLToHex = (h, s, l) => {
 	s /= 100;

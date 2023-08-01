@@ -3,7 +3,6 @@
  * Sandstone component to allow the user to choose a color.
  *
  * @example
- * const [color, setColor]
  * <ColorPicker
  *	 color={'#FF00FF'}
  *	 colorHandler={setColor}
@@ -15,6 +14,7 @@
  * @exports ColorPicker
  * @exports ColorPickerBase
  * @exports ColorPickerDecorator
+ * @private
  */
 
 import kind from '@enact/core/kind';
