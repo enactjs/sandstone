@@ -88,8 +88,8 @@ const PopupContent = ({color, colorHandler, css, presetColors}) => {
 					return (
 						<Cell key={presetColor + '-' + presetColorIndex} size="25%">
 							<SpottableButton
-								id={presetColor}
 								className={css.coloredButton}
+								id={presetColor}
 								minWidth={false}
 								onClick={handleClick}
 								style={{backgroundColor: presetColor}}
@@ -204,7 +204,7 @@ const ColorPickerBase = kind({
 		color: PropTypes.string,
 
 		/**
-		 * Called when color is modified.
+		 * Called when the color is modified.
 		 *
 		 * @type {Function}
 		 * @public

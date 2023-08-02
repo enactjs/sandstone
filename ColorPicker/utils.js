@@ -2,7 +2,7 @@
  * Checks for valid hex color, otherwise returns the black color.
  *
  * @param {String} hex	Hex color
- * @returns {String}	Valid hex color
+ * @returns {String} Valid hex color
  * @private
  */
 const checkHex = (hex) => {
