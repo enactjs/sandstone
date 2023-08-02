@@ -408,9 +408,6 @@ export const EditableListWithLongPress = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
 	const removeItem = useRef();
-	const mutableRef = useRef({
-		hideIndex: null
-	});
 
 	useLayoutEffect(() => {
 		itemsArr = [];
@@ -418,7 +415,6 @@ export const EditableListWithLongPress = (args) => {
 			itemsArr.push(populateItems({index: i}));
 		}
 		setItems(itemsArr);
-		mutableRef.current.hideIndex = dataSize;
 	}, [dataSize]);
 
 	const onClickRemoveButton = useCallback((ev) => {
@@ -446,7 +442,6 @@ export const EditableListWithLongPress = (args) => {
 			editable={{
 				centered: args['editableCentered'],
 				css,
-				hideIndex: mutableRef.current.hideIndex,
 				onComplete: handleComplete,
 				removeItemFuncRef: removeItem
 			}}
