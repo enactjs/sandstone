@@ -234,7 +234,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
 			const focusedItemLabel = (itemNode.ariaLabel || itemNode.textContent) + ' ';
-			if (!announceDisabled && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
+			if (!announceDisabled && (!itemNode.hasAttribute('disabled') || itemNode.className.includes('hidden'))) {
 				setTimeout(() => {
 					announceRef.current.announce(
 						focusedItemLabel + $L('Press OK key to move or press up key for other actions')
