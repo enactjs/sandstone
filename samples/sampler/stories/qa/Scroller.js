@@ -346,7 +346,6 @@ export const EditableList = (args) => {
 											{item.disabled ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
 										</ContainerDivWithLeaveForConfig>
 										<ImageItem
-											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
 											src={item.src}
 											className={css.imageItem}
 											disabled={item.disabled}
