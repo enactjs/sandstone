@@ -70,14 +70,6 @@ const holdConfig = {
 	]
 };
 
-const addRemoveClass = (node, className, condition) => {
-	if (condition) {
-		node.classList.add(className);
-	} else {
-		node.classList.remove(className);
-	}
-};
-
 /**
  * A Sandstone-styled EditableWrapper.
  *
@@ -204,8 +196,8 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const updateArrowIcon = useCallback((index) => {
-		addRemoveClass(mutableRef.current.selectedItem, customCss.noBefore, index === 0);
-		addRemoveClass(mutableRef.current.selectedItem, customCss.noAfter, index === mutableRef.current.hideIndex - 1);
+		mutableRef.current.selectedItem?.classList.toggle(customCss.noBefore, index === 0);
+		mutableRef.current.selectedItem?.classList.toggle(customCss.noAfter, index === mutableRef.current.hideIndex - 1);
 	}, [customCss.noBefore, customCss.noAfter]);
 
 	const startEditing = useCallback((item) => {
