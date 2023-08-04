@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/QuickGuidePanels` to not lose focus when the last view is displayed
+
 ## [2.7.5] - 2023-08-04
 
 ### Added
