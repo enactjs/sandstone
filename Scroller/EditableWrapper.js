@@ -195,6 +195,11 @@ const EditableWrapper = (props) => {
 
 	}, [dataSize]);
 
+	const updateArrowIcon = useCallback((index) => {
+		mutableRef.current.selectedItem?.classList.toggle(customCss.noBefore, index === 0);
+		mutableRef.current.selectedItem?.classList.toggle(customCss.noAfter, index === mutableRef.current.hideIndex - 1);
+	}, [customCss.noBefore, customCss.noAfter]);
+
 	const startEditing = useCallback((item) => {
 		if (item?.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
 			item.classList.add(componentCss.selected, customCss.selected);
@@ -206,11 +211,13 @@ const EditableWrapper = (props) => {
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 
+			updateArrowIcon(mutableRef.current.fromIndex);
+
 			announceRef.current.announce(
 				mutableRef.current.selectedItemLabel + $L('Move left and right or press up key to delete')
 			);
 		}
-	}, [customCss.focused, customCss.selected]);
+	}, [customCss.focused, customCss.selected, updateArrowIcon]);
 
 	const finalizeEditing = useCallback((orders) => {
 		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
@@ -383,9 +390,11 @@ const EditableWrapper = (props) => {
 
 					mutableRef.current.prevToIndex = toIndex;
 				}
+
+				updateArrowIcon(toIndex);
 			}
 		}
-	}, [addRearrangedItems, removeRearrangedItems, scrollContainerHandle]);
+	}, [addRearrangedItems, removeRearrangedItems, scrollContainerHandle, updateArrowIcon]);
 
 	const moveItemsByKeyDown = useCallback((ev) => {
 		const {keyCode} = ev;
