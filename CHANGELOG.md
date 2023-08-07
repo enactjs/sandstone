@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Dropdown' to focus properly the first option and the last option via page up and page down
+
 ## [2.7.5] - 2023-08-04
 
 ### Added
