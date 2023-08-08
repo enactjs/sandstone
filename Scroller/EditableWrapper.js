@@ -214,7 +214,7 @@ const EditableWrapper = (props) => {
 			updateArrowIcon(mutableRef.current.fromIndex);
 
 			announceRef.current.announce(
-				mutableRef.current.selectedItemLabel + $L('Move left and right or press up key for other actions')
+				mutableRef.current.selectedItemLabel + $L('Press left or right button to move or press up button for other actions')
 			);
 		}
 	}, [customCss.focused, customCss.selected, updateArrowIcon]);
@@ -244,7 +244,7 @@ const EditableWrapper = (props) => {
 			if (!announceDisabled && (!itemNode.hasAttribute('disabled') || itemNode.className.includes('hidden'))) {
 				setTimeout(() => {
 					announceRef.current.announce(
-						focusedItemLabel + $L('Press OK key to move or press up key for other actions')
+						focusedItemLabel + $L('Press OK button to move or press up button for other actions')
 					);
 				}, completeAnnounceDelay);
 			}

@@ -292,7 +292,7 @@ export const EditableIcon = (args) => {
 											<div className={css.removeButtonContainer} />
 											<IconItem
 												{...item.iconItemProps}
-												aria-label={`Icon ${item.index}. Edit mode to press and hold OK key`}
+												aria-label={`Icon ${item.index}. Edit mode to press and hold OK button`}
 												className={css.iconItem}
 												disabled={item.iconItemProps['disabled'] || item.hidden}
 												onClick={action('onClickItem')}
@@ -379,12 +379,12 @@ export const EditableIconWithLongPress = (args) => {
 			{
 				items.map((item, index) => {
 					return (
-						<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+						<div key={item.index} className={css.itemWrapper} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 							<div className={css.removeButtonContainer}>
 								<Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
 							</div>
 							<IconItem
-								aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
+								aria-label={`Icon ${item.index}. Edit mode to press and hold OK button`}
 								className={css.iconItem}
 								onClick={action('onClickItem')}
 								{...item.iconItemProps}
