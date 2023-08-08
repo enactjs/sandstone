@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/TabLayout` enter key behavior to match the latest UX
+
 ### Fixed
 
 - `sandstone/Dropdown' to focus properly the first option and the last option via page up and page down
