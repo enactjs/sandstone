@@ -1,4 +1,4 @@
-import ColorPicker, {ColorPickerBase} from '@enact/sandstone/ColorPicker';
+import ColorPicker, {ColorPickerBase} from 'ColorPicker';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import {Fragment, useState} from 'react';
