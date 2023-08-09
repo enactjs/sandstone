@@ -1,10 +1,11 @@
-import ColorPicker, {ColorPickerBase} from 'ColorPicker';
+import ColorPicker, {ColorPickerBase} from '@enact/sandstone/ColorPicker';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import {Fragment, useState} from 'react';
 
 ColorPicker.displayName = 'ColorPicker';
 const Config = mergeComponentMetadata('ColorPicker', ColorPickerBase, ColorPicker);
+
 const presetColors = [
 	'#FF0000',
 	'#00FF00',
@@ -14,12 +15,13 @@ const presetColors = [
 	'#FFFFFF',
 	'#000000'
 ];
+
 export default {
 	title: 'Sandstone/ColorPicker',
 	component: 'ColorPicker'
 };
 
-export const _ColorPicker = (args) => {
+export const WithPresetColors = (args) => {
 	const [color, setColor] = useState('#FF00FF');
 
 	return (
@@ -35,12 +37,7 @@ export const _ColorPicker = (args) => {
 	);
 };
 
-boolean('disabled', _ColorPicker, Config, false);
-text('text', _ColorPicker, Config, 'Color Picker');
+boolean('disabled', WithPresetColors, Config, false);
+text('text', WithPresetColors, Config, 'Color Picker');
 
-_ColorPicker.storyName = 'ColorPicker';
-_ColorPicker.parameters = {
-	info: {
-		text: 'The basic ColorPicker'
-	}
-};
+WithPresetColors.storyName = 'with preset colors';
