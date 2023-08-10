@@ -12,6 +12,14 @@ const defaultQuickGuidePanelsTests = [
 		<Panel>View 1</Panel>
 		<Panel>View 2</Panel>
 		<Panel>View 3</Panel>
+	</QuickGuidePanels>,
+	<QuickGuidePanels index={2}>
+		<Panel>View 1</Panel>
+		<Panel>View 2</Panel>
+		<Panel>View 3</Panel>
+	</QuickGuidePanels>,
+	<QuickGuidePanels>
+		<Panel>View 1</Panel>
 	</QuickGuidePanels>
 ];
 

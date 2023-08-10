@@ -384,7 +384,6 @@ const WizardPanelsBase = kind({
 					futureIcon={'circle'}
 					current={currentStep}
 					layout="quickGuidePanels"
-					slot="slotAbove"
 					total={totalSteps}
 				/> :
 				<Steps
@@ -395,7 +394,7 @@ const WizardPanelsBase = kind({
 				/>
 			);
 		},
-		prevNavigationButton: ({index, onPrevClick, prevButton, prevButtonVisibility}) => {
+		prevNavigationButton: ({fullScreenContent, index, onPrevClick, prevButton, prevButtonVisibility}) => {
 			const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
 
 			return (
@@ -409,12 +408,12 @@ const WizardPanelsBase = kind({
 					iconFlip="auto"
 					minWidth={false}
 					onClick={onPrevClick}
-					slot="slotBefore"
+					slot={fullScreenContent ? null : 'slotBefore'}
 					visible={isPrevButtonVisible}
 				/>
 			);
 		},
-		nextNavigationButton: ({index, nextButton, nextButtonVisibility, onNextClick, totalPanels}) => {
+		nextNavigationButton: ({fullScreenContent, index, nextButton, nextButtonVisibility, onNextClick, totalPanels}) => {
 			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 			return (
@@ -427,9 +426,10 @@ const WizardPanelsBase = kind({
 					icon="arrowlargeright"
 					iconFlip="auto"
 					iconPosition="after"
+					id={fullScreenContent ? 'fullScreenNextButton' : null}
 					minWidth={false}
 					onClick={onNextClick}
-					slot="slotAfter"
+					slot={fullScreenContent ? null : 'slotAfter'}
 					visible={isNextButtonVisible}
 				/>
 			);
@@ -483,7 +483,7 @@ const WizardPanelsBase = kind({
 						size="small"
 					/>
 				</Row>
-				<Row className={css.navigationButtonContainer}>
+				<Row className={css.fullScreenNavigationButtonContainer}>
 					<Cell shrink>
 						{prevNavigationButton}
 					</Cell>
@@ -496,6 +496,8 @@ const WizardPanelsBase = kind({
 					arranger={BasicArranger}
 					duration={400}
 					noAnimation
+					onTransition={onTransition}
+					onWillTransition={onWillTransition}
 				>
 					{children}
 				</ViewManager>
@@ -744,7 +746,7 @@ const WizardPanelsDecorator = compose(
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
 		// prefer any spottable within the panel body (content or footer) followed by header
-		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *, .${css.footer} *`, 'header > *'],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *, .${css.footer} *`, 'header > *', `#fullScreenNextButton`, `.${css.close} *`],
 		enterTo: 'default-element'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),

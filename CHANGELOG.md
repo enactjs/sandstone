@@ -2,6 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.7.6] - 2023-08-10
+
+### Changed
+
+- `sandstone/TabLayout` enter key behavior to match the latest UX
+
+### Fixed
+
+- `sandstone/Dropdown' to focus properly the first option and the last option via page up and page down
+- `sandstone/QuickGuidePanels` to not lose focus when the last view is displayed
+
 ## [2.7.5] - 2023-08-04
 
 ### Added

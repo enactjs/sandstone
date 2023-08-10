@@ -9,7 +9,7 @@ describe('TabLayout', function () {
 	describe('vertical tabs with icons', function () {
 		describe('collapsing/expanding behavior', function () {
 			describe('5-way interaction', function () {
-				it('should collapse tabs when focus is moved to a Spottable component in the content container - [QWTC-1892]', async function () {
+				it('should collapse tabs when focus is moved to a Spottable component in the content container via 5-way Right - [QWTC-1892]', async function () {
 					await Page.delay(1000);
 					// 5-way down to second tab
 					await Page.spotlightDown();
@@ -36,6 +36,19 @@ describe('TabLayout', function () {
 						await Page.spotlightLeft();
 					});
 					expect(await Page.tabLayout.isCollapsed).to.be.false();
+				});
+
+				it('should collapse tabs when focus is moved to a Spottable component in the content container via 5-way Select', async function () {
+					await Page.delay(1000);
+					// 5-way down to second tab
+					await Page.spotlightDown();
+					await (await Page.tabLayout.view(2)).waitForExist();
+					// Step 5-2: 5-way Select to Spottable component
+					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
+						await Page.spotlightSelect();
+					});
+					// check that layout is collapsed
+					expect(await Page.tabLayout.isCollapsed).to.be.true();
 				});
 
 				it('should not show disabled tab contents when focused', async function () {

@@ -22,6 +22,17 @@ describe('TabLayout', function () {
 					expect(await actual).to.equal(expected);
 				});
 
+				it('should focus to tab content element via 5-way enter in tab menu', async function () {
+					const expected = 'Button One';
+					const originalView = (await Page.tabLayout.currentView()).getAttribute('id');
+
+					expect(await originalView).to.equal('view1');
+					await Page.spotlightSelect();
+					const actual = await browser.execute(getFocusedText);
+
+					expect(actual).to.equal(expected);
+				});
+
 				it('should not focus a spotlightDisabled tab', async function () {
 					await Page.spotlightDown(); // go to tab 2
 					await Page.spotlightDown(); // go to tab 3
