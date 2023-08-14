@@ -2042,7 +2042,7 @@ const VideoPlayerBase = class extends Component {
 					{!noSpinner && (this.state.loading || loading) ? <Spinner centered /> : null}
 				</Overlay>
 
-				{this.state.bottomControlsRendered ?
+				{false ?
 					<div className={css.fullscreen} {...controlsAriaProps}>
 						<FeedbackContent
 							className={css.miniFeedback}
