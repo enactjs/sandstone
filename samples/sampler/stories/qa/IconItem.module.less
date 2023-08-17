@@ -99,13 +99,13 @@
 			opacity: 1;
 		}
 
-		&:not(.hidden)::before {
+		&:not(.hidden):not(.noBefore)::before {
 			content: '\EFFF3';
 			.arrow();
 			left: -30px;
 		}
 
-		&:not(.hidden)::after {
+		&:not(.hidden):not(.noAfter)::after {
 			content: '\EFFF4';
 			.arrow();
 			right: -30px;

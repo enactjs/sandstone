@@ -195,6 +195,11 @@ const EditableWrapper = (props) => {
 
 	}, [dataSize]);
 
+	const updateArrowIcon = useCallback((index) => {
+		mutableRef.current.selectedItem?.classList.toggle(customCss.noBefore, index === 0);
+		mutableRef.current.selectedItem?.classList.toggle(customCss.noAfter, index === mutableRef.current.hideIndex - 1);
+	}, [customCss.noBefore, customCss.noAfter]);
+
 	const startEditing = useCallback((item) => {
 		if (item?.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
 			item.classList.add(componentCss.selected, customCss.selected);
@@ -206,11 +211,13 @@ const EditableWrapper = (props) => {
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 
+			updateArrowIcon(mutableRef.current.fromIndex);
+
 			announceRef.current.announce(
-				mutableRef.current.selectedItemLabel + $L('Move left and right or press up key to delete')
+				mutableRef.current.selectedItemLabel + $L('Press left or right button to move or press up button for other actions')
 			);
 		}
-	}, [customCss.focused, customCss.selected]);
+	}, [customCss.focused, customCss.selected, updateArrowIcon]);
 
 	const finalizeEditing = useCallback((orders) => {
 		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
@@ -226,13 +233,21 @@ const EditableWrapper = (props) => {
 		return null;
 	}, [scrollContentRef]);
 
-	const focusItem = useCallback((target) => {
+	const focusItem = useCallback((target, announceDisabled = false) => {
 		const itemNode = findItemNode(target);
 		if (itemNode && !mutableRef.current.selectedItem) {
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 			mutableRef.current.focusedItem = itemNode;
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
+			const focusedItemLabel = (itemNode.ariaLabel || itemNode.textContent) + ' ';
+			if (!announceDisabled && (!itemNode.hasAttribute('disabled') || itemNode.className.includes('hidden'))) {
+				setTimeout(() => {
+					announceRef.current.announce(
+						focusedItemLabel + $L('Press OK button to move or press up button for other actions')
+					);
+				}, completeAnnounceDelay);
+			}
 		}
 	}, [customCss.focused, findItemNode]);
 
@@ -257,7 +272,7 @@ const EditableWrapper = (props) => {
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
 			if (selectItemBy === 'press') {
-				focusItem(ev.target);
+				focusItem(ev.target, true);
 			}
 			mutableRef.current.needToPreventEvent = true;
 		} else {
@@ -383,9 +398,11 @@ const EditableWrapper = (props) => {
 
 					mutableRef.current.prevToIndex = toIndex;
 				}
+
+				updateArrowIcon(toIndex);
 			}
 		}
-	}, [addRearrangedItems, removeRearrangedItems, scrollContainerHandle]);
+	}, [addRearrangedItems, removeRearrangedItems, scrollContainerHandle, updateArrowIcon]);
 
 	const moveItemsByKeyDown = useCallback((ev) => {
 		const {keyCode} = ev;
@@ -551,7 +568,7 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
 					if (selectItemBy === 'press') {
-						focusItem(ev.target);
+						focusItem(ev.target, true);
 					}
 					mutableRef.current.needToPreventEvent = true;
 
@@ -613,7 +630,7 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
 					if (selectItemBy === 'press') {
-						focusItem(ev.target);
+						focusItem(ev.target, true);
 					}
 					mutableRef.current.needToPreventEvent = true;
 
