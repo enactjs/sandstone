@@ -372,6 +372,17 @@ const WizardPanelsBase = kind({
 				noSubtitle
 			}
 		),
+		closeButton: ({closeButtonAriaLabel, onClose, totalPanels}) => {
+			return (
+				totalPanels ? <Button
+					aria-label={closeButtonAriaLabel == null ? $L('Exit quick guide') : closeButtonAriaLabel}
+					className={css.close}
+					icon="closex"
+					onClick={onClose}
+					size="small"
+				/> : null
+			);
+		},
 		steps: ({current, fullScreenContent, index, noSteps, total, totalPanels}) => {
 			const currentStep = (noSteps && 1) || ((typeof current === 'number' && current > 0) ? current : (index + 1));
 			const totalSteps = (noSteps && 1) || ((typeof total === 'number' && total > 0) ? total : totalPanels);
@@ -439,7 +450,7 @@ const WizardPanelsBase = kind({
 	render: ({
 		'aria-label': ariaLabel,
 		children,
-		closeButtonAriaLabel,
+		closeButton,
 		footer,
 		fullScreenContent,
 		index,
@@ -447,7 +458,6 @@ const WizardPanelsBase = kind({
 		nextNavigationButton,
 		noAnimation,
 		noSubtitle,
-		onClose,
 		onTransition,
 		onWillTransition,
 		reverseTransition,
@@ -456,10 +466,12 @@ const WizardPanelsBase = kind({
 		title,
 		...rest
 	}) => {
+		delete rest.closeButtonAriaLabel;
 		delete rest.current;
 		delete rest.nextButton;
 		delete rest.nextButtonVisibility;
 		delete rest.noSteps;
+		delete rest.onClose;
 		delete rest.onNextClick;
 		delete rest.onPrevClick;
 		delete rest.prevButton;
@@ -477,13 +489,7 @@ const WizardPanelsBase = kind({
 				<Column {...rest}>
 					<Row className={css.fullScreenContentHeader}>
 						{steps}
-						<Button
-							aria-label={closeButtonAriaLabel == null ? $L('Exit quick guide') : closeButtonAriaLabel}
-							className={css.close}
-							icon="closex"
-							onClick={onClose}
-							size="small"
-						/>
+						{closeButton}
 					</Row>
 					<Row className={css.fullScreenNavigationButtonContainer}>
 						<Cell shrink>
