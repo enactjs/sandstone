@@ -472,36 +472,39 @@ const WizardPanelsBase = kind({
 		}
 
 		return ( fullScreenContent ?
-			<Column {...rest}>
-				<Row className={css.fullScreenContentHeader}>
-					{steps}
-					<Button
-						aria-label={closeButtonAriaLabel == null ? $L('Exit quick guide') : closeButtonAriaLabel}
-						className={css.close}
-						icon="closex"
-						onClick={onClose}
-						size="small"
-					/>
-				</Row>
-				<Row className={css.fullScreenNavigationButtonContainer}>
-					<Cell shrink>
-						{prevNavigationButton}
-					</Cell>
-					<Cell />
-					<Cell shrink>
-						{nextNavigationButton}
-					</Cell>
-				</Row>
-				<ViewManager
-					arranger={BasicArranger}
-					duration={400}
-					noAnimation
-					onTransition={onTransition}
-					onWillTransition={onWillTransition}
-				>
-					{children}
-				</ViewManager>
-			</Column> :
+			<article role="region" aria-labelledby={`quickguidepanel_index_${index}`} ref={rest.componentRef}>
+				<div aria-label={ariaLabel} id={`quickguidepanel_index_${index}`} />
+				<Column {...rest}>
+					<Row className={css.fullScreenContentHeader}>
+						{steps}
+						<Button
+							aria-label={closeButtonAriaLabel == null ? $L('Exit quick guide') : closeButtonAriaLabel}
+							className={css.close}
+							icon="closex"
+							onClick={onClose}
+							size="small"
+						/>
+					</Row>
+					<Row className={css.fullScreenNavigationButtonContainer}>
+						<Cell shrink>
+							{prevNavigationButton}
+						</Cell>
+						<Cell />
+						<Cell shrink>
+							{nextNavigationButton}
+						</Cell>
+					</Row>
+					<ViewManager
+						arranger={BasicArranger}
+						duration={400}
+						noAnimation
+						onTransition={onTransition}
+						onWillTransition={onWillTransition}
+					>
+						{children}
+					</ViewManager>
+				</Column>
+			</article> :
 			<DecoratedPanelBase
 				{...rest}
 				header={
