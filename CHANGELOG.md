@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` to support hiding all items when `editable` is given
+- `sandstone/Scroller` to not lose focus by back key when `editable` is given
 
 ## [2.7.6] - 2023-08-10
 
