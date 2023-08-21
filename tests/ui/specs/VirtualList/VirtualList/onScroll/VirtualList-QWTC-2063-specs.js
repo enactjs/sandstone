@@ -25,7 +25,7 @@ describe('LTR locale', function () {
 		await waitUntilVisible(14);
 		// Step 6. Press Channel Down.
 		await Page.checkScrollbyPagekey('down');
-		// Verify Step 6: Spotlight is on the Item closest to the previously focused Item's location  ?
+		// Verify Step 6: Spotlight is on the Item closest to the previously focused Item's location.
 		await waitUntilFocused(20, 'step 6 focus');
 		await waitUntilVisible(20);
 		// Step 7. Press Channel Up.
