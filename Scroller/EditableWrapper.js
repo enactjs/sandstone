@@ -135,7 +135,7 @@ const EditableWrapper = (props) => {
 	});
 	const announceRef = useRef({});
 
-	mutableRef.current.hideIndex = editable?.hideIndex || dataSize;
+	mutableRef.current.hideIndex = editable?.hideIndex ?? dataSize;
 
 	// Functions
 
