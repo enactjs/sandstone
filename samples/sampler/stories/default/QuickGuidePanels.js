@@ -33,7 +33,7 @@ export const _QuickGuidePanels = (args) => (
 				This is Panel 1
 			</div>
 		</QuickGuidePanels.Panel>
-		<QuickGuidePanels.Panel>
+		<QuickGuidePanels.Panel aria-label={'aria test'}>
 			This is Panel 2
 		</QuickGuidePanels.Panel>
 	</QuickGuidePanels>
