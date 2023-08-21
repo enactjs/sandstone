@@ -24,18 +24,19 @@
     "@enact/i18n": "^4.7.3",
     "@enact/sandstone": "../../",
     "@enact/spotlight": "^4.7.3",
-    "@enact/storybook-utils": "^5.0.4",
+    "@enact/storybook-utils": "github:enactjs/storybook-utils#feature/WRP-569",
     "@enact/ui": "^4.7.3",
-    "@storybook/addons": "~7.1.0",
-    "@storybook/builder-webpack5": "~7.1.0",
-    "@storybook/manager-webpack5": "~7.1.0",
-    "@storybook/react": "~7.1.0",
-    "@storybook/theming": "~7.1.0",
+    "@storybook/addons": "^7.3.2",
+    "@storybook/addon-docs": "^7.3.2",
+    "@storybook/builder-webpack5": "^7.3.2",
+    "@storybook/react": "^7.3.2",
+    "@storybook/react-webpack5": "^7.3.2",
+    "@storybook/theming": "^7.3.2",
     "babel-loader": "^8.2.5",
     "classnames": "^2.3.2",
     "ilib": "^14.17.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "~7.1.0"
+    "storybook": "^7.3.2"
   }
 }
