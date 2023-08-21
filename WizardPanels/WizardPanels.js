@@ -485,8 +485,7 @@ const WizardPanelsBase = kind({
 
 		return ( fullScreenContent ?
 			<article role="region" aria-labelledby={`quickguidepanel_index_${index}`} ref={rest.componentRef}>
-				<div aria-label={ariaLabel} id={`quickguidepanel_index_${index}`} />
-				<Column {...rest}>
+				<Column aria-label={ariaLabel} id={`quickguidepanel_index_${index}`} {...rest}>
 					<Row className={css.fullScreenContentHeader}>
 						{steps}
 						{closeButton}
