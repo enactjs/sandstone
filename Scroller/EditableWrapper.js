@@ -568,7 +568,7 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
 					if (selectItemBy === 'press') {
-						focusItem(ev.target, true);
+						focusItem(target, true);
 					}
 					mutableRef.current.needToPreventEvent = true;
 
@@ -605,7 +605,7 @@ const EditableWrapper = (props) => {
 				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
 				// Check if focus leaves scroll container.
-				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !ev.repeat) {
+				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !repeat) {
 					reset();
 				}
 			}
@@ -624,34 +624,35 @@ const EditableWrapper = (props) => {
 					ev.stopPropagation();
 				}
 			}
-		} else if (is('cancel', keyCode)) {
-			if (!repeat) {
-				if (selectedItem) {
-					const orders = finalizeOrders();
-					finalizeEditing(orders);
-					if (selectItemBy === 'press') {
-						focusItem(ev.target, true);
-					}
-					mutableRef.current.needToPreventEvent = true;
-
-					setTimeout(() => {
-						announceRef?.current?.announce(
-							selectedItemLabel + $L('move complete'),
-							true
-						);
-					}, completeAnnounceDelay);
-
-					ev.preventDefault();
-					ev.stopPropagation();
-				}
-			}
 		}
 	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
-		mutableRef.current.lastKeyEventTargetElement = ev.target;
-		if (ev.target.getAttribute('role') === 'button') {
-			return;
+		const {keyCode, target} = ev;
+		const {selectedItem, selectedItemLabel} = mutableRef.current;
+
+		if (is('cancel', keyCode)) {
+			if (selectedItem) {
+				const orders = finalizeOrders();
+				finalizeEditing(orders);
+				if (selectItemBy === 'press') {
+					focusItem(target, true);
+				}
+
+				setTimeout(() => {
+					announceRef?.current?.announce(
+						selectedItemLabel + $L('move complete'),
+						true
+					);
+				}, completeAnnounceDelay);
+
+				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
+			}
+		} else {
+			mutableRef.current.lastKeyEventTargetElement = ev.target;
+			if (ev.target.getAttribute('role') === 'button') {
+				return;
+			}
 		}
 
 		clearTimeout(mutableRef.current.timer);
@@ -660,7 +661,7 @@ const EditableWrapper = (props) => {
 			ev.preventDefault();
 			mutableRef.current.needToPreventEvent = false;
 		}
-	}, []);
+	}, [finalizeEditing, finalizeOrders, focusItem, selectItemBy]);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
