@@ -82,7 +82,7 @@ const SpinnerCore = kind({
  *
  * @class SpinnerBase
  * @memberof sandstone/Spinner
- * @extends ui/Spinner.SpinnerBase
+ * @extends ui/Spinner#SpinnerBase
  * @ui
  * @public
  */
@@ -237,7 +237,7 @@ const SpinnerDecorator = compose(
  *
  * @class Spinner
  * @memberof sandstone/Spinner
- * @extends sandstone/Spinner.SpinnerBase
+ * @extends sandstone/Spinner#SpinnerBase
  * @mixes sandstone/Spinner.SpinnerDecorator
  * @ui
  * @public

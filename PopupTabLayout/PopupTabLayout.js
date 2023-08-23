@@ -38,8 +38,8 @@ const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
  *
  * @class PopupTabLayoutBase
  * @memberof sandstone/PopupTabLayout
- * @extends sandstone/Popup.Popup
- * @extends sandstone/TabLayout.TabLayout
+ * @extends sandstone/Popup#Popup
+ * @extends sandstone/TabLayout#TabLayout
  * @ui
  * @public
  */
@@ -345,7 +345,7 @@ const PopupTabLayout = PopupTabLayoutDecorator(PopupTabLayoutBase);
  * @name Tab
  * @type {sandstone/PopupTabLayout.Tab}
  * @memberof sandstone/PopupTabLayout.PopupTabLayout
- * @extends sandstone/TabLayout.Tab
+ * @extends sandstone/TabLayout#Tab
  */
 PopupTabLayout.Tab = Tab;
 
@@ -354,7 +354,7 @@ PopupTabLayout.Tab = Tab;
  *
  * @class Tab
  * @memberof sandstone/PopupTabLayout
- * @extends sandstone/TabLayout.Tab
+ * @extends sandstone/TabLayout#Tab
  * @ui
  */
 
@@ -401,7 +401,7 @@ const tabPanelsHandlers = {
  *
  * @class TabPanelsBase
  * @memberof sandstone/PopupTabLayout
- * @extends sandstone/Panels.Panels
+ * @extends sandstone/Panels#Panels
  * @ui
  * @public
  */
@@ -421,7 +421,7 @@ TabPanelsBase.propTypes = {
  *
  * @class TabPanels
  * @memberof sandstone/PopupTabLayout
- * @extends sandstone/PopupTabLayout.TabPanelsBase
+ * @extends sandstone/PopupTabLayout#TabPanelsBase
  * @ui
  * @public
  */
@@ -452,7 +452,7 @@ const TabPanels = I18nContextDecorator(
  *
  * @class TabPanel
  * @memberof sandstone/PopupTabLayout
- * @extends sandstone/Panels.Panel
+ * @extends sandstone/Panels#Panel
  * @ui
  * @public
  */

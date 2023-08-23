@@ -85,8 +85,8 @@ DropdownButton.displayName = 'DropdownButton';
  *
  * @class DropdownBase
  * @memberof sandstone/Dropdown
- * @extends sandstone/Button.Button
- * @extends sandstone/ContextualPopupDecorator.ContextualPopupDecorator
+ * @extends sandstone/Button#Button
+ * @extends sandstone/ContextualPopupDecorator#ContextualPopupDecorator
  * @omit popupComponent
  * @ui
  * @public
@@ -441,7 +441,7 @@ const DropdownDecorator = compose(
  *
  * @class Dropdown
  * @memberof sandstone/Dropdown
- * @extends sandstone/Dropdown.DropdownBase
+ * @extends sandstone/Dropdown#DropdownBase
  * @ui
  * @public
  */

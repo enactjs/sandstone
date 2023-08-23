@@ -768,7 +768,7 @@ const WizardPanelsDecorator = compose(
  *
  * @class WizardPanels
  * @memberof sandstone/WizardPanels
- * @extends sandstone/WizardPanels.WizardPanelsBase
+ * @extends sandstone/WizardPanels#WizardPanelsBase
  * @mixes ui/Changeable.Changeable
  * @ui
  * @public

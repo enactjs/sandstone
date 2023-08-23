@@ -81,7 +81,7 @@ const FixedPopupPanelsBase = (props) => {
  *
  * @class FixedPopupPanels
  * @memberof sandstone/FixedPopupPanels
- * @extends sandstone/FixedPopupPanels.FixedPopupPanelsBase
+ * @extends sandstone/FixedPopupPanels#FixedPopupPanelsBase
  * @mixes sandstone/FixedPopupPanels.FixedPopupPanelsDecorator
  * @ui
  * @public
@@ -103,7 +103,7 @@ const FixedPopupPanels = FixedPopupPanelsDecorator(FixedPopupPanelsBase);
  * {@link sandstone/FixedPopupPanels.FixedPopupPanels|FixedPopupPanels} view manager instance.
  *
  * @class Panel
- * @extends sandstone/Panels.Panel
+ * @extends sandstone/Panels#Panel
  * @memberof sandstone/FixedPopupPanels
  * @ui
  * @public
@@ -124,7 +124,7 @@ FixedPopupPanels.Panel = Panel;
  * {@link ui/Slottable.Slottable|`slots`} for components.
  *
  * @class Header
- * @extends sandstone/Panels.Header
+ * @extends sandstone/Panels#Header
  * @memberof sandstone/FixedPopupPanels
  * @ui
  * @public

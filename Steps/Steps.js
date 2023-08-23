@@ -263,7 +263,7 @@ const StepsDecorator = compose(
  *
  * @class Steps
  * @memberof sandstone/Steps
- * @extends sandstone/Steps.StepsBase
+ * @extends sandstone/Steps#StepsBase
  * @mixes sandstone/Steps.StepsDecorator
  * @ui
  * @public

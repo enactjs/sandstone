@@ -37,7 +37,7 @@ const hasChildren = (children) => (Children.toArray(children).filter(Boolean).le
  *
  * @class FormCheckboxItemBase
  * @memberof sandstone/FormCheckboxItem
- * @extends sandstone/Item.Item
+ * @extends sandstone/Item#Item
  * @ui
  * @public
  */
@@ -177,7 +177,7 @@ const FormCheckboxItemDecorator = compose(
  *
  * @class FormCheckboxItem
  * @memberof sandstone/FormCheckboxItem
- * @extends sandstone/FormCheckboxItem.FormCheckboxItemBase
+ * @extends sandstone/FormCheckboxItem#FormCheckboxItemBase
  * @mixes sandstone/FormCheckboxItem.FormCheckboxItemDecorator
  * @ui
  * @public

@@ -106,7 +106,7 @@ const MediaSliderBase = kind({
  * {@link sandstone/VideoPlayer.VideoPlayer|VideoPlayer}.
  *
  * @class MediaSlider
- * @extends sandstone/Slider.Slider
+ * @extends sandstone/Slider#Slider
  * @memberof sandstone/MediaPlayer
  * @ui
  * @public
