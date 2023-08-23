@@ -2,6 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.7.7] - 2023-08-22
+
+### Added
+
+- `sandstone/QuickGuidePanels` read out feature to support A11y
+
+### Fixed
+
+- `sandstone/Scroller` to support hiding all items when `editable` is given
+- `sandstone/Scroller` to not lose focus by back key when `editable` is given
+
 ## [2.7.6] - 2023-08-10
 
 ### Changed

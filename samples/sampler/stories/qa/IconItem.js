@@ -207,16 +207,21 @@ export const EditableIcon = (args) => {
 		setItems(newItems);
 	}, [items]);
 
-	useEffect(() => {
-		document.addEventListener('keydown', (ev) => {
-			if (isCancel(ev.keyCode)) {
-				setEditMode(false);
-				mutableRef.current.initialSelected.scrollLeft = 0;
-				mutableRef.current.initialSelected.itemIndex = null;
-				mutableRef.current.timer = null;
-			}
-		});
+	const handleGlobalKeyUp = useCallback((ev) => {
+		if (isCancel(ev.keyCode)) {
+			setEditMode(false);
+			mutableRef.current.initialSelected.scrollLeft = 0;
+			mutableRef.current.initialSelected.itemIndex = null;
+			mutableRef.current.timer = null;
+		}
 	}, []);
+
+	useEffect(() => {
+		document.addEventListener('keyup', handleGlobalKeyUp);
+		return (() => {
+			document.removeEventListener('keyup', handleGlobalKeyUp);
+		});
+	}, [handleGlobalKeyUp]);
 
 	return (
 		<div ref={divRef}>
