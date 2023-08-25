@@ -196,9 +196,12 @@ const EditableWrapper = (props) => {
 	}, [dataSize]);
 
 	const updateArrowIcon = useCallback((index) => {
-		mutableRef.current.selectedItem?.classList.toggle(customCss.noBefore, index === 0);
-		mutableRef.current.selectedItem?.classList.toggle(customCss.noAfter, index === mutableRef.current.hideIndex - 1);
-	}, [customCss.noBefore, customCss.noAfter]);
+		const {rtl} = scrollContainerHandle.current;
+		const first = index === 0;
+		const last = index === mutableRef.current.hideIndex - 1;
+		mutableRef.current.selectedItem?.classList.toggle(customCss.noBefore, rtl ? last : first);
+		mutableRef.current.selectedItem?.classList.toggle(customCss.noAfter, rtl ? first : last);
+	}, [customCss.noBefore, customCss.noAfter, scrollContainerHandle]);
 
 	const startEditing = useCallback((item) => {
 		if (item?.dataset?.index && (!item.hasAttribute('disabled') || item.className.includes('hidden'))) {
