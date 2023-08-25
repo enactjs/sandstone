@@ -1,12 +1,9 @@
 'use strict';
-const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
+const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
-const getNextButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotAfter', el));
-const getPrevButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotBefore', el));
 const viewSelector = view => `#view${view}`;
 
-class WizardPanelsInterface {
+class QuickGuidePanelsInterface {
 	constructor (id) {
 		this.id = id;
 		this.selector = `#${this.id}`;
@@ -33,10 +30,13 @@ class WizardPanelsInterface {
 	}
 
 	async nextButton () {
-		return await getNextButton(this.self);
+		return await element('[aria-label="Next"]', this.self);
 	}
 	async prevButton () {
-		return await getPrevButton(this.self);
+		return await element('[aria-label="Previous"]', this.self);
+	}
+	async closeButton () {
+		return await element('[aria-label="Exit quick guide"]', this.self);
 	}
 
 	get view1 () {
@@ -48,22 +48,19 @@ class WizardPanelsInterface {
 	get view3 () {
 		return this.self.$(viewSelector(3));
 	}
-	get view4 () {
-		return this.self.$(viewSelector(4));
-	}
 }
 
-class WizardPanelsPage extends Page {
+class QuickGuidePanelsPage extends Page {
 	constructor () {
 		super();
-		this.title = 'WizardPanels Test';
+		this.title = 'QuickGuidePanels Test';
 		this.components = {};
-		this.components.wizardPanels = new WizardPanelsInterface('wizardpanels');
+		this.components.quickGuidePanels = new QuickGuidePanelsInterface('quickguidepanels');
 	}
 
 	async open (urlExtra) {
-		await super.open('WizardPanels-View', urlExtra);
+		await super.open('QuickGuidePanels-View', urlExtra);
 	}
 }
 
-module.exports = new WizardPanelsPage();
+module.exports = new QuickGuidePanelsPage();

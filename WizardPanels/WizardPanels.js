@@ -3,6 +3,7 @@ import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
@@ -328,7 +329,10 @@ const WizardPanelsBase = kind({
 		onClose: forwardCustom('onClose'),
 		onNextClick: handle(
 			forwardCustomWithPrevent('onNextClick'),
-			(ev, {index, onChange, totalPanels}) => {
+			(ev, {'data-spotlight-id': spotlightId, fullScreenContent, index, onChange, totalPanels}) => {
+				if (fullScreenContent) {
+					Spotlight.set(spotlightId, {enterTo: 'last-focused'});
+				}
 				if (onChange && index !== totalPanels) {
 					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
