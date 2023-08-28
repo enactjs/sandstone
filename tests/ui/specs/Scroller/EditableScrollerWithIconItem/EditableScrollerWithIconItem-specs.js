@@ -54,7 +54,6 @@ describe('Editable Scroller', function () {
 
 	it('Should set class to hide left arrow at the first item in LTR locales', async function () {
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
 		await expectItemWrapperClass('tests_ui_apps_Scroller_EditableScrollerWithIconItem_EditableScrollerWithIconItem_noBefore');
 	});
@@ -65,7 +64,6 @@ describe('Editable Scroller', function () {
 		});
 
 		it('Should set class to hide left arrow at the last item in RTL locales', async function () {
-			await ScrollerPage.spotlightDown();
 			await ScrollerPage.spotlightDown();
 			await ScrollerPage.spotlightSelect();
 			await expectItemWrapperClass('tests_ui_apps_Scroller_EditableScrollerWithIconItem_EditableScrollerWithIconItem_noAfter');
