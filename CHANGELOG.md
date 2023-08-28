@@ -11,7 +11,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/QuickGuidePanels` to focus the last focused button when navigating between views
-- `sandstone/Scroller` to show properly in RTL locales when `editable` is given
 
 ## [2.7.7] - 2023-08-22
 
