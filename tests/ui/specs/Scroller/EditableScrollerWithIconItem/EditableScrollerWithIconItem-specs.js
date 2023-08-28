@@ -52,7 +52,7 @@ describe('Editable Scroller', function () {
 		await expectDisabledItem('0');
 	});
 
-	it('Should set class to hide left arrow at the first item in LTR locales', async function () {
+	it('Should set class to hide left arrow of the first item in LTR locales', async function () {
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
 		await expectItemWrapperClass('tests_ui_apps_Scroller_EditableScrollerWithIconItem_EditableScrollerWithIconItem_noBefore');
@@ -63,10 +63,10 @@ describe('Editable Scroller', function () {
 			await ScrollerPage.open('', '?locale=ar-SA');
 		});
 
-		it('Should set class to hide left arrow at the last item in RTL locales', async function () {
+		it('Should set class to hide right arrow of the first item in RTL locales', async function () {
 			await ScrollerPage.spotlightDown();
 			await ScrollerPage.spotlightSelect();
-			await expectItemWrapperClass('tests_ui_apps_Scroller_EditableScrollerWithIconItem_EditableScrollerWithIconItem_noAfter');
+			await expectItemWrapperClass('tests_ui_apps_Scroller_EditableScrollerWithIconItem_EditableScrollerWithIconItem_noBefore');
 		});
 	});
 });
