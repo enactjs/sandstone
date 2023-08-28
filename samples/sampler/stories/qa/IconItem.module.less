@@ -1,3 +1,5 @@
+@import "@enact/sandstone/styles/mixins.less";
+
 .scrollbarTrack {
 	background-color: white;
 
@@ -102,13 +104,20 @@
 		&:not(.hidden):not(.noBefore)::before {
 			content: '\EFFF3';
 			.arrow();
-			left: -30px;
+			.position-start-end(-30px, initial);
 		}
 
 		&:not(.hidden):not(.noAfter)::after {
 			content: '\EFFF4';
 			.arrow();
-			right: -30px;
+			.position-start-end(initial, -30px);
 		}
+
+		.enact-locale-rtl({
+			&:not(.hidden):not(.noBefore)::before,
+			&:not(.hidden):not(.noAfter)::after {
+				transform: scaleX(-1);
+			}
+		});
 	}
 }
