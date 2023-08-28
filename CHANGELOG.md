@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/IconItem` to match the latest design
+
 ### Fixed
 
 - `sandstone/QuickGuidePanels` to focus the last focused button when navigating between views
