@@ -1,0 +1,160 @@
+// Checkbox.module.scss
+//
+
+// Variables used for Checkbox (so we do not have to import them from other files)
+$sand-checkbox-border-width: 4px;
+$sand-checkbox-border-radius: 9000px;
+$sand-checkbox-container-position:  calc((60px - 120px) / 2);
+$sand-checkbox-container-border-radius: 12px;
+
+$sand-text-color: #e6e6e6;
+$sand-component-focus-text-color: #4c5059;
+$sand-spotlight-bg-color: #e6e6e6;
+$sand-shadow-color: rgb(0, 0, 0);
+$sand-spotlight-focus-shadow: 0 36px 36px $sand-shadow-color;
+$sand-checkbox-text-color: transparent;
+$sand-checkbox-bg-color: $sand-checkbox-text-color;
+$sand-checkbox-border-color: $sand-text-color;
+$sand-checkbox-selected-text-color: $sand-text-color;
+$sand-checkbox-selected-bg-color: #30ad6b;
+$sand-checkbox-selected-border-color: $sand-checkbox-selected-bg-color;
+$sand-checkbox-indeterminate-text-color: $sand-text-color;
+$sand-checkbox-indeterminate-bg-color: $sand-checkbox-text-color;
+$sand-checkbox-indeterminate-border-color: $sand-text-color;
+$sand-checkbox-focus-text-color: $sand-checkbox-text-color;
+$sand-checkbox-focus-bg-color: $sand-checkbox-text-color;
+$sand-checkbox-focus-border-color: $sand-component-focus-text-color;
+$sand-checkbox-selected-focus-text-color: $sand-text-color;
+$sand-checkbox-selected-focus-bg-color: $sand-checkbox-selected-bg-color;
+$sand-checkbox-selected-focus-border-color: $sand-checkbox-selected-bg-color;
+$sand-checkbox-indeterminate-focus-text-color: $sand-component-focus-text-color;
+$sand-checkbox-indeterminate-focus-bg-color: $sand-checkbox-text-color;
+$sand-checkbox-indeterminate-focus-border-color: $sand-component-focus-text-color;
+
+// General mixins used for Checkbox (so we do not have to import them from other files)
+@mixin position ($value) {
+	left: $value;
+	right: $value;
+	top: $value;
+	bottom: $value;
+}
+
+@mixin sand-bg-colors () {
+	@content;
+}
+
+@mixin sand-spotlight-resting-bg-colors ($opacity: 0) {
+	opacity: $opacity;
+
+	@include sand-bg-colors {
+		background-color: $sand-spotlight-bg-color;
+		will-change: box-shadow;
+	};
+}
+
+@mixin sand-spotlight-focus-bg-colors () {
+	opacity: 1;
+
+	@include sand-bg-colors {
+		background-color: $sand-spotlight-bg-color;
+		box-shadow: $sand-spotlight-focus-shadow;
+	};
+}
+
+// Checkbox specific styling
+
+// Assign the colors all in one place
+@mixin checkbox-colors($color, $bg, $border) {
+	.icon {
+		color: $color !important; // There is a 'color: inherit;' property coming from '.spottable' mixin that we need to overwrite in order to maintain checkbox styles for this POC
+		background-color: $bg;
+		box-shadow: 0 0 0 $sand-checkbox-border-width $border;
+	}
+}
+
+// Standalone version of the Checkbox
+@mixin checkbox-standalone-rules {
+	.bg {
+		position: absolute;
+		@include position($sand-checkbox-container-position);
+		border-radius: $sand-checkbox-container-border-radius;
+		@include sand-spotlight-resting-bg-colors;
+	}
+}
+
+// Resting States
+@mixin checkbox-resting-states {
+	@include checkbox-colors(
+		$sand-checkbox-text-color,
+		$sand-checkbox-bg-color,
+		$sand-checkbox-border-color
+	);
+
+	&.selected {
+		@include checkbox-colors(
+			$sand-checkbox-selected-text-color,
+			$sand-checkbox-selected-bg-color,
+			$sand-checkbox-selected-border-color
+		);
+	}
+
+	&.indeterminate {
+		@include checkbox-colors(
+			$sand-checkbox-indeterminate-text-color,
+			$sand-checkbox-indeterminate-bg-color,
+			$sand-checkbox-indeterminate-border-color
+		);
+	}
+}
+
+// Focus States
+@mixin checkbox-focus-states {
+	@include checkbox-standalone-rules;
+
+	.bg {
+		@include sand-spotlight-focus-bg-colors;
+	}
+
+	@include checkbox-colors(
+		$sand-checkbox-focus-text-color,
+		$sand-checkbox-focus-bg-color,
+		$sand-checkbox-focus-border-color
+	);
+
+	&.selected {
+		@include checkbox-colors(
+			$sand-checkbox-selected-focus-text-color,
+			$sand-checkbox-selected-focus-bg-color,
+			$sand-checkbox-selected-focus-border-color
+		);
+	}
+
+	&.indeterminate {
+		@include checkbox-colors(
+			$sand-checkbox-indeterminate-focus-text-color,
+			$sand-checkbox-indeterminate-focus-bg-color,
+			$sand-checkbox-indeterminate-focus-border-color
+		);
+	};
+};
+
+.checkbox {
+	display: inline-block;
+	position: relative;
+	line-height: 0;
+
+	.icon {
+		margin: 0; // Needed to apply here instead of on `.checkbox` due to .icon.size precedence :(
+		border-radius: $sand-checkbox-border-radius;
+		position: relative;
+		text-align: center;
+	}
+
+	@include checkbox-standalone-rules;
+
+	@include checkbox-resting-states;
+
+	&:focus {
+		@include checkbox-focus-states;
+	}
+}
