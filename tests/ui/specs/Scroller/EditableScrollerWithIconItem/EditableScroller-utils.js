@@ -1,4 +1,4 @@
-async function focusedDataIndex () {
+async function findItemWrapper () {
 	return await browser.execute(function () {
 		let node = document.activeElement;
 		let index;
@@ -11,13 +11,14 @@ async function focusedDataIndex () {
 		}
 		return {
 			node: node ?? null,
-			index: index ?? null
+			index: index ?? null,
+			classList: node?.classList
 		};
 	});
 }
 
 async function focusedItemButton () {
-	const {index} = await focusedDataIndex();
+	const {index} = await findItemWrapper();
 	return await browser.execute(function () {
 		const node = document.activeElement;
 		return {
@@ -34,15 +35,15 @@ async function disabledAttribute () {
 }
 
 async function expectFocusedItem (expectedIndex, comment = 'focused item') {
-	const {index} = await focusedDataIndex();
+	const {index} = await findItemWrapper();
 	expect(index, comment).to.equal(expectedIndex);
 }
 
 async function expectDisabledItem (expectedIndex, comment = 'disabled item') {
-	const {index} = await focusedDataIndex();
+	const {index} = await findItemWrapper();
 	const disabled = await disabledAttribute();
 	expect(index, comment).to.equal(expectedIndex);
-	expect(disabled).to.be.true();
+	expect(disabled, comment).to.be.true();
 }
 
 async function expectDeleteButton (expectedIndex, comment = 'delete button') {
@@ -51,7 +52,12 @@ async function expectDeleteButton (expectedIndex, comment = 'delete button') {
 	expect(ariaLabel, comment).to.equal('Delete');
 }
 
-exports.focusedDataIndex = focusedDataIndex;
+async function expectItemWrapperClass (expectedClass, comment = 'item wrapper class') {
+	const {classList} = await findItemWrapper();
+	expect(classList?.includes?.(expectedClass), comment).to.be.true();
+}
+
 exports.expectFocusedItem = expectFocusedItem;
 exports.expectDisabledItem = expectDisabledItem;
 exports.expectDeleteButton = expectDeleteButton;
+exports.expectItemWrapperClass = expectItemWrapperClass;
