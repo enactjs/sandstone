@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/TabLayout` back key behavior to match the latest UX
+
 ## [2.7.8] - 2023-08-31
 
 ### Changed
