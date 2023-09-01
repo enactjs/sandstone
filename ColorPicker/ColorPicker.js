@@ -237,15 +237,6 @@ const ColorPickerBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * Disables transition animation.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		noAnimation: PropTypes.bool,
-
-		/**
 		 * Called to open or close the color picker.
 		 *
 		 * @type {Function}
@@ -283,7 +274,6 @@ const ColorPickerBase = kind({
 
 	defaultProps: {
 		disabled: false,
-		noAnimation: false,
 		popupOpen: false
 	},
 
@@ -303,7 +293,7 @@ const ColorPickerBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({color, colorHandler, css, disabled, handleClosePopup, handleOpenPopup, noAnimation, popupOpen, presetColors, text, ...rest}) => {
+	render: ({color, colorHandler, css, disabled, handleClosePopup, handleOpenPopup, popupOpen, presetColors, text, ...rest}) => {
 		delete rest.onTogglePopup;
 
 		const CloseIcon = useCallback((props) => <Icon {...props} css={css} />, [css]);
@@ -323,7 +313,7 @@ const ColorPickerBase = kind({
 				<Popup
 					className={css.colorPopup}
 					css={css}
-					noAnimation={noAnimation}
+					noAnimation
 					onClose={handleClosePopup}
 					open={disabled ? false : popupOpen}
 					position="left"

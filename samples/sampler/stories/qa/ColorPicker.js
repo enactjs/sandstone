@@ -30,7 +30,6 @@ export const WithPresetColors = (args) => {
 				color={color}
 				colorHandler={setColor}
 				disabled={args.disabled}
-				noAnimation={args['noAnimation']}
 				presetColors={presetColors}
 				text={args.text}
 			/>
@@ -39,7 +38,6 @@ export const WithPresetColors = (args) => {
 };
 
 boolean('disabled', WithPresetColors, Config, false);
-boolean('noAnimation', WithPresetColors, Config);
 text('text', WithPresetColors, Config, 'Color Picker');
 
 WithPresetColors.storyName = 'with preset colors';
