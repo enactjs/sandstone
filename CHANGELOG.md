@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/TabLayout` back key behavior to match the latest UX
+
 ### Fixed
 
 - `sandstone/Panels.Header` to not show `slotAfter` in incorrect position at first rendering when `centered` is given
