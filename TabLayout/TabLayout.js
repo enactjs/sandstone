@@ -256,7 +256,7 @@ const TabLayoutBase = kind({
 	handlers: {
 		onKeyDown: (ev, props) => {
 			const {keyCode, target} = ev;
-			const {collapsed, orientation, 'data-spotlight-id': spotlightId, anchorTo, rtl} = props;
+			const {collapsed, orientation, 'data-spotlight-id': spotlightId} = props;
 			const direction = getDirection(keyCode);
 
 			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target) && target.tagName !== 'INPUT') {
@@ -274,8 +274,26 @@ const TabLayoutBase = kind({
 					}
 				}
 			} else if (is('enter')(keyCode) && !collapsed && document.querySelector(`[data-spotlight-id='${spotlightId}-tabs-expanded']`).contains(target) && target.tagName !== 'INPUT') {
+				ev.stopPropagation();
+			}
+		},
+		onKeyUp: (ev, props) => {
+			const {keyCode, target} = ev;
+			const {anchorTo, collapsed, orientation, 'data-spotlight-id': spotlightId, rtl, type} = props;
+			const popupPanelRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${popupTabLayoutComponentCss.panel}`);
+			const tabLayoutContentRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`);
+			
+			if (forwardWithPrevent('onKeyUp', ev, props) && is('cancel')(keyCode)) {
+				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && tabLayoutContentRef?.contains(target))) {
+					if (collapsed) {
+						forward('onExpand', ev, props);
+					}
+					Spotlight.focus(`[data-spotlight-id='${spotlightId}-tabs-expanded']`);
+					ev.stopPropagation();
+				}
+			} else if (is('enter')(keyCode) && !collapsed && document.querySelector(`[data-spotlight-id='${spotlightId}-tabs-expanded']`).contains(target) && target.tagName !== 'INPUT') {
 				Spotlight.setPointerMode(false);
-				ev.preventDefault();
+
 				let moveTo;
 				if (orientation === 'vertical') {
 					if (anchorTo === 'left') {
@@ -299,23 +317,6 @@ const TabLayoutBase = kind({
 					moveTo = 'down';
 				}
 				Spotlight.move(moveTo);
-				ev.stopPropagation();
-			}
-		},
-		onKeyUp: (ev, props) => {
-			const {keyCode, target} = ev;
-			const {collapsed, 'data-spotlight-id': spotlightId, type} = props;
-			const popupPanelRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${popupTabLayoutComponentCss.panel}`);
-			const tabLayoutContentRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`);
-
-			if (forwardWithPrevent('onKeyUp', ev, props) && is('cancel')(keyCode)) {
-				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && tabLayoutContentRef?.contains(target))) {
-					if (collapsed) {
-						forward('onExpand', ev, props);
-					}
-					Spotlight.focus(`[data-spotlight-id='${spotlightId}-tabs-expanded']`);
-					ev.stopPropagation();
-				}
 			}
 		},
 		onSelect: handle(
