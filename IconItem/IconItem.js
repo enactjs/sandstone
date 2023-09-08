@@ -68,6 +68,14 @@ const IconItemBase = kind({
 
 	propTypes: /** @lends sandstone/IconItem.IconItemBase.prototype */ {
 		/**
+		 * The "aria-label" for the IconItem.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		'aria-label': PropTypes.string,
+
+		/**
 		 * The background color, gradient, or image of this item.
 		 * Accepts any format of color, gradient type value, and image url.
 		 *
@@ -130,6 +138,14 @@ const IconItemBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * Sets the hint string read when focusing the iconItem in edit mode.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		editModeAriaLabel: PropTypes.string,
 
 		/**
 		 * The icon content.
@@ -196,6 +212,7 @@ const IconItemBase = kind({
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
+		editModeAriaLabel: null,
 		labelColor: 'light',
 		labelOn: 'render',
 		titleOn: 'render'
@@ -208,6 +225,13 @@ const IconItemBase = kind({
 	},
 
 	computed: {
+		ariaLabel: ({'aria-label': ariaLabel, editModeAriaLabel}) => {
+			if (editModeAriaLabel) {
+				return `${ariaLabel} ${editModeAriaLabel}`;
+			} else {
+				return ariaLabel;
+			}
+		},
 		className: ({bordered, labelColor, labelOn, styler, titleOn}) => styler.append({
 			bordered,
 			labelOnFocus: labelOn === 'focus',
@@ -263,9 +287,10 @@ const IconItemBase = kind({
 		}
 	},
 
-	render: ({children, disabled, ...rest}) => {
+	render: ({ariaLabel, children, disabled, ...rest}) => {
 		delete rest.background;
 		delete rest.bordered;
+		delete rest.editModeAriaLabel;
 		delete rest.icon;
 		delete rest.image;
 		delete rest.label;
@@ -277,6 +302,7 @@ const IconItemBase = kind({
 		return (
 			<div
 				{...rest}
+				aria-label={ariaLabel}
 				aria-disabled={disabled}
 				disabled={disabled}
 			>

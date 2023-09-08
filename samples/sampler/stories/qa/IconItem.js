@@ -2,6 +2,7 @@ import {add, is} from '@enact/core/keymap';
 import Button from '@enact/sandstone/Button';
 import IconItem from '@enact/sandstone/IconItem';
 import Scroller from '@enact/sandstone/Scroller';
+import $L from '@enact/sandstone/internal/$L';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
@@ -266,8 +267,10 @@ export const EditableIcon = (args) => {
 										</ContainerDivWithLeaveForConfig>
 										<IconItem
 											{...item.iconItemProps}
+											aria-label={`Icon ${item.index}`}
 											className={css.editableIconItem}
 											disabled={item.iconItemProps['disabled'] || item.hidden}
+											editModeAriaLabel={$L('Press OK button to move or press up button for other actions')}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
 										/>
@@ -297,9 +300,10 @@ export const EditableIcon = (args) => {
 											<div className={css.removeButtonContainer} />
 											<IconItem
 												{...item.iconItemProps}
-												aria-label={`Icon ${item.index}. Edit mode to press and hold OK button`}
+												aria-label={`Icon ${item.index}`}
 												className={css.iconItem}
 												disabled={item.iconItemProps['disabled'] || item.hidden}
+												editModeAriaLabel={$L('Edit mode to press and hold OK button')}
 												onClick={action('onClickItem')}
 											/>
 										</div>
@@ -389,7 +393,8 @@ export const EditableIconWithLongPress = (args) => {
 								<Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
 							</div>
 							<IconItem
-								aria-label={`Icon ${item.index}. Edit mode to press and hold OK button`}
+								aria-label={`Icon ${item.index}`}
+								editModeAriaLabel={$L('Edit mode to press and hold OK button')}
 								className={css.iconItem}
 								onClick={action('onClickItem')}
 								{...item.iconItemProps}
