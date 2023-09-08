@@ -19,6 +19,7 @@ import compose from 'ramda/src/compose';
 import {svgGenerator} from '../helper/svg';
 
 const Config = mergeComponentMetadata('Panels', Panels);
+const HeaderConfig = mergeComponentMetadata('Header', Header);
 
 const items = [];
 
@@ -71,7 +72,10 @@ export const _Panels = (args) => {
 			onWillTransition={action('onWillTransition')}
 		>
 			<Panel>
-				<Header title="Panel with Items">
+				<Header
+					centered={args['centered']}
+					title="Panel with Items"
+				>
 					<Button
 						icon="arrowlargeright"
 						iconFlip="auto"
@@ -107,7 +111,10 @@ export const _Panels = (args) => {
 				</Item>
 			</Panel>
 			<Panel>
-				<Header title="Panel with VirtualGridList">
+				<Header
+					centered={args['centered']}
+					title="Panel with VirtualGridList"
+				>
 					<Button
 						icon="arrowlargeright"
 						iconFlip="auto"
@@ -126,7 +133,10 @@ export const _Panels = (args) => {
 				/>
 			</Panel>
 			<Panel>
-				<Header title="Panel with TabLayout" >
+				<Header
+					centered={args['centered']}
+					title="Panel with TabLayout"
+				>
 					<Button
 						icon="arrowlargeright"
 						iconFlip="auto"
@@ -183,7 +193,11 @@ export const _Panels = (args) => {
 				</TabLayout>
 			</Panel>
 			<Panel>
-				<Header title="Panel with Scroller" />
+
+				<Header
+					centered={args['centered']}
+					title="Panel with Scroller"
+				/>
 				<Scroller focusableScrollbar="byEnter" verticalScrollbar="visible">
 					<div style={{height: ri.scaleToRem(2004)}}>
 						<BodyText>
@@ -216,6 +230,8 @@ select(
 boolean('noAnimation', _Panels, Panels, false);
 boolean('noBackButton', _Panels, Panels, false);
 boolean('noCloseButton', _Panels, Panels, false);
+
+boolean('centered', _Panels, HeaderConfig);
 
 _Panels.storyName = 'Panels';
 _Panels.parameters = {
