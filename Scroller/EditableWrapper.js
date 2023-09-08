@@ -229,7 +229,7 @@ const EditableWrapper = (props) => {
 		}
 		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 		reset();
-	}, [editable, reset]);
+	}, [editable, initialSelected?.itemIndex, reset]);
 
 	const findItemNode = useCallback((node) => {
 		for (let current = node; current !== scrollContentRef.current && current !== document; current = current.parentNode) {
@@ -776,7 +776,7 @@ const EditableWrapper = (props) => {
 			if (iconItemWrapper?.children[1]) {
 				iconItemWrapper.children[1].ariaLabel += index === initialSelected?.itemIndex - 1 ? ` ${$L('Press the left/right button to move or press the up button to select other options.')}` : ` ${$L('Press the OK button to move or press the up button to select other options.')}`;
 			}
-		})
+		});
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
