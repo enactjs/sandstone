@@ -133,7 +133,7 @@ const EditableWrapper = (props) => {
 
 		lastInputDirection: null,
 
-		announceEnabled: false
+		lastAriaLabel: null
 	});
 	const announceRef = useRef({});
 
@@ -153,10 +153,12 @@ const EditableWrapper = (props) => {
 		mutableRef.current.selectedItemLabel = '';
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
+		mutableRef.current.lastAriaLabel = null;
+		initialSelected.itemIndex = null;
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
 
 		Spotlight.set(spotlightId, {restrict: 'self-first'});
-	}, [customCss.focused, customCss.selected]);
+	}, [customCss.focused, customCss.selected, initialSelected]);
 
 	// Finalize the order
 	const finalizeOrders = useCallback(() => {
@@ -212,20 +214,25 @@ const EditableWrapper = (props) => {
 
 			mutableRef.current.fromIndex = Number(item.style.order) - 1;
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
-			item.children[1].ariaLabel = `${item.ariaLabel} ${$L('Press left or right button to move or press up button for other actions')}`;
+			if (initialSelected?.itemIndex) {
+				mutableRef.current.lastAriaLabel = item.children[1].ariaLabel;
+				item.children[1].ariaLabel = `${item.ariaLabel} ${$L('Press left or right button to move or press up button for other actions')}`;
+			}
 			updateArrowIcon(mutableRef.current.fromIndex);
-			if (mutableRef.current.announceEnabled || !initialSelected?.itemIndex) {
+			if (!initialSelected?.itemIndex) {
 				setTimeout(() => {
 					announceRef.current.announce(
 						mutableRef.current.selectedItemLabel + $L('Press left or right button to move or press up button for other actions')
 					);
 				}, completeAnnounceDelay);
 			}
-			mutableRef.current.announceEnabled = true;
 		}
 	}, [customCss.focused, customCss.selected, initialSelected?.itemIndex, updateArrowIcon]);
 
 	const finalizeEditing = useCallback((orders) => {
+		if (mutableRef.current.lastAriaLabel) {
+			mutableRef.current.selectedItem.children[1].ariaLabel = mutableRef.current.lastAriaLabel;
+		}
 		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 		reset();
 	}, [editable, reset]);
@@ -575,7 +582,6 @@ const EditableWrapper = (props) => {
 							selectedItemLabel + $L('move complete'),
 							true
 						);
-						target.ariaLabel = `${selectedItem.ariaLabel} ${$L('Press OK button to move or press up button for other actions')}`;
 					}, completeAnnounceDelay);
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);

@@ -267,6 +267,7 @@ export const EditableIcon = (args) => {
 										</ContainerDivWithLeaveForConfig>
 										<IconItem
 											{...item.iconItemProps}
+											aria-label={`Icon ${item.index} ${$L('Press OK button to move or press up button for other actions')}`}
 											className={css.editableIconItem}
 											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
