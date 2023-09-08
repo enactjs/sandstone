@@ -282,7 +282,7 @@ const TabLayoutBase = kind({
 			const {anchorTo, collapsed, orientation, 'data-spotlight-id': spotlightId, rtl, type} = props;
 			const popupPanelRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${popupTabLayoutComponentCss.panel}`);
 			const tabLayoutContentRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`);
-			
+
 			if (forwardWithPrevent('onKeyUp', ev, props) && is('cancel')(keyCode)) {
 				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && tabLayoutContentRef?.contains(target))) {
 					if (collapsed) {
