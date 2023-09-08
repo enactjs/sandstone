@@ -576,7 +576,7 @@ const EditableWrapper = (props) => {
 							selectedItemLabel + $L('move complete'),
 							true
 						);
-					}, 500);
+					}, completeAnnounceDelay);
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
 					mutableRef.current.needToPreventEvent = true;
@@ -643,7 +643,7 @@ const EditableWrapper = (props) => {
 						selectedItemLabel + $L('move complete'),
 						true
 					);
-				}, 500);
+				}, completeAnnounceDelay);
 
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
 			}
