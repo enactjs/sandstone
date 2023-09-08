@@ -366,7 +366,7 @@ export const WithEditableScroller = (args) => {
 											<div className={css.removeButtonContainer} />
 											<IconItem
 												{...item.iconItemProps}
-												aria-label={`Icon ${item.index} ${$L('Edit mode to press and hold OK button')}`}
+												aria-label={`Icon ${item.index} ${$L('Press and hold the OK button to edit.')}`}
 												className={css.iconItem}
 												disabled={item.iconItemProps['disabled'] || item.hidden}
 												onClick={action('onClickItem')}
@@ -402,9 +402,9 @@ export const WithEditableScroller = (args) => {
 								return (
 									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}} disabled={item.iconItemProps['disabled'] || item.hidden}>
 										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
-											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
-											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
-											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
+											{item.hidden ? null : <Button aria-label="Delete button" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
+											{item.hidden ? null : <Button aria-label="Hide button" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
+											{item.hidden ? <Button aria-label="Show button" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
 										</ContainerDivWithLeaveForConfig>
 										<IconItem
 											{...item.iconItemProps}

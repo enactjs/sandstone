@@ -216,7 +216,7 @@ const EditableWrapper = (props) => {
 			if (!initialSelected?.itemIndex) {
 				setTimeout(() => {
 					announceRef.current.announce(
-						mutableRef.current.selectedItemLabel + $L('Press left or right button to move or press up button for other actions')
+						mutableRef.current.selectedItemLabel + $L('Press the left/right button to move or press the up button to select other options.')
 					);
 				}, completeAnnounceDelay);
 			}
@@ -225,7 +225,7 @@ const EditableWrapper = (props) => {
 
 	const finalizeEditing = useCallback((orders) => {
 		if (initialSelected?.itemIndex) {
-			mutableRef.current.selectedItem.children[1].ariaLabel = `${mutableRef.current.selectedItem.ariaLabel} ${$L('Press OK button to move or press up button for other actions')}`;
+			mutableRef.current.selectedItem.children[1].ariaLabel = `${mutableRef.current.selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
 		}
 		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 		reset();
@@ -573,7 +573,7 @@ const EditableWrapper = (props) => {
 
 					setTimeout(() => {
 						announceRef.current.announce(
-							selectedItemLabel + $L('move complete'),
+							selectedItemLabel + $L('Movement completed'),
 							true
 						);
 					}, completeAnnounceDelay);
@@ -640,7 +640,7 @@ const EditableWrapper = (props) => {
 
 				setTimeout(() => {
 					announceRef?.current?.announce(
-						selectedItemLabel + $L('move complete'),
+						selectedItemLabel + $L('Movement completed'),
 						true
 					);
 				}, completeAnnounceDelay);
@@ -774,7 +774,7 @@ const EditableWrapper = (props) => {
 
 		iconItemList.forEach((iconItemWrapper, index) => {
 			if (iconItemWrapper?.children[1]) {
-				iconItemWrapper.children[1].ariaLabel += index === initialSelected?.itemIndex - 1 ? ` ${$L('Press left or right button to move or press up button for other actions')}` : ` ${$L('Press OK button to move or press up button for other actions')}`;
+				iconItemWrapper.children[1].ariaLabel += index === initialSelected?.itemIndex - 1 ? ` ${$L('Press the left/right button to move or press the up button to select other options.')}` : ` ${$L('Press the OK button to move or press the up button to select other options.')}`;
 			}
 		})
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
