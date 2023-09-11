@@ -161,7 +161,7 @@ class app extends Component {
 											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={this.onClickShowButton} icon="plus" /> : null}
 										</ItemButtonsContainer>
 										<IconItem
-											aria-label={`Icon ${item.index}. Edit mode to press and hold OK button`}
+											aria-label={`Icon ${item.index}. Press and hold the OK button to edit.`}
 											className={css.iconItem}
 											disabled={item.hidden}
 											onFocus={this.onFocusItem}
