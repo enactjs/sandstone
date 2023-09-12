@@ -22,13 +22,13 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.7.4",
-    "@enact/i18n": "^4.7.4",
+    "@enact/core": "^4.7.5",
+    "@enact/i18n": "^4.7.5",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.7.4",
-    "@enact/ui": "^4.7.4",
-    "@enact/webos": "^4.7.4",
-    "ilib": "^14.17.0",
+    "@enact/spotlight": "^4.7.5",
+    "@enact/ui": "^4.7.5",
+    "@enact/webos": "^4.7.5",
+    "ilib": "^14.18.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

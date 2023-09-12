@@ -38,6 +38,22 @@ describe('TabLayout', function () {
 					expect(await Page.tabLayout.isCollapsed).to.be.false();
 				});
 
+				it('should expand tabs when focus is moved to a Spottable component in the tabs container via back key', async function () {
+					// 5-way down to second tab
+					await Page.spotlightDown();
+					await (await Page.tabLayout.view(2)).waitForExist();
+					// focus the contents
+					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
+						await Page.spotlightRight();
+					});
+					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					// Step 4: Back to the tabs
+					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
+						await Page.backKey();
+					});
+					expect(await Page.tabLayout.isCollapsed).to.be.false();
+				});
+
 				it('should collapse tabs when focus is moved to a Spottable component in the content container via 5-way Select', async function () {
 					await Page.delay(1000);
 					// 5-way down to second tab
