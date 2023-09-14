@@ -26,6 +26,7 @@ View.propTypes = {
 	isAriaHidden: PropTypes.bool,
 	isDebugMode: PropTypes.bool,
 	isHeader: PropTypes.bool,
+	noCloseButton: PropTypes.bool,
 	title: PropTypes.string,
 	view: PropTypes.func
 };
