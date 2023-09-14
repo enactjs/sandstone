@@ -86,7 +86,7 @@ const views = [
 	{title: 'PopupTabLayout', view: PopupTabLayout},
 	{title: 'ProgressBar', view: ProgressBar},
 	{title: 'ProgressButton', view: ProgressButton},
-	{isHeader: false, title: 'QuickGuidePanels', view: QuickGuidePanels},
+	{noCloseButton: true, title: 'QuickGuidePanels', view: QuickGuidePanels},
 	{title: 'RadioItem', view: RadioItem},
 	{title: 'RangePicker', view: RangePicker},
 	{title: 'ReadAlert', view: ReadAlert},
