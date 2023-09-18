@@ -284,7 +284,7 @@ const TabLayoutBase = kind({
 			const tabLayoutContentRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`);
 
 			if (forwardWithPrevent('onKeyUp', ev, props) && is('cancel')(keyCode)) {
-				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && tabLayoutContentRef?.contains(target))) {
+				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && !Spotlight.getPointerMode() && tabLayoutContentRef?.contains(target))) {
 					if (collapsed) {
 						forward('onExpand', ev, props);
 					}

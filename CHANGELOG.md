@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` to not show console error when an abnormal `editable.initialSelected` is given
+- `sandstone/VirtualList` to not snatch focus from other list on the first render
 
 ## [2.7.9] - 2023-09-12
 
