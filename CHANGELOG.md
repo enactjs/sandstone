@@ -12,6 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Panels.Header` to not show `slotAfter` in incorrect position at first rendering when `centered` is given
 - `sandstone/Scroller` to read out properly when `editable` is given 
+- `sandstone/VirtualList` to not snatch focus from other list on the first render
 
 ## [2.7.8] - 2023-08-31
 
