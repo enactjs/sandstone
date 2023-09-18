@@ -763,10 +763,10 @@ const EditableWrapper = (props) => {
 
 	useLayoutEffect(() => {
 		const iconItemList = Array.from(wrapperRef.current.children);
-		const initialSelected = mutableRef.current.initialSelected;
+		let initialSelected = mutableRef.current.initialSelected;
 
 		if (initialSelected && !(initialSelected?.itemIndex > 0)) { // filter nullish values
-			mutableRef.current.initialSelected.itemIndex = 1; // fallback to select the first item for abnormal index value
+			initialSelected = mutableRef.current.initialSelected = null;
 		}
 
 		if (initialSelected?.itemIndex) {
