@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` to not show console error when an abnormal `editable.initialSelected` is given
+
 ## [2.7.9] - 2023-09-12
 
 ### Changed
