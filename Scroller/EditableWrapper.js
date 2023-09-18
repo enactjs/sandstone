@@ -151,7 +151,9 @@ const EditableWrapper = (props) => {
 		mutableRef.current.selectedItemLabel = '';
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
-		initialSelected.itemIndex = null;
+		if (initialSelected) {
+			initialSelected.itemIndex = null;
+		}
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
 
 		Spotlight.set(spotlightId, {restrict: 'self-first'});
