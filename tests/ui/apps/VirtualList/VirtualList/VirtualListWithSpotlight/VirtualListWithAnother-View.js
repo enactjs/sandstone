@@ -24,11 +24,11 @@ const listStyle = {
 	margin: '0px'
 };
 
-const items = [[], []];
+const itemLists = [[], []];
 
 // eslint-disable-next-line enact/display-name
 const renderItem = (listIndex) => ({index, ...rest}) => {
-	const item = items[listIndex][index].item;
+	const item = itemLists[listIndex][index].item;
 	return (
 		<Item id={item} index={index} style={itemStyle} {...rest}>
 			{item}
@@ -36,15 +36,15 @@ const renderItem = (listIndex) => ({index, ...rest}) => {
 	);
 };
 
-const prepareItems = (listIndex) => (dataSize) => {
+const prepareItemList = (listIndex) => (dataSize) => {
 	const
 		itemNumberDigits = dataSize > 0 ? ((dataSize - 1) + '').length : 0,
 		headingZeros = Array(itemNumberDigits).join('0');
 
-	items[listIndex].length = 0;
+	itemLists[listIndex].length = 0;
 
 	for (let i = 0; i < dataSize; i++) {
-		items[listIndex].push({item : `Item${listIndex + 1} ${(headingZeros + i).slice(-itemNumberDigits)}`});
+		itemLists[listIndex].push({item : `Item${listIndex + 1} ${(headingZeros + i).slice(-itemNumberDigits)}`});
 	}
 
 	return dataSize;
@@ -52,8 +52,8 @@ const prepareItems = (listIndex) => (dataSize) => {
 
 // Prepare items for both lists
 const numOfItems = [20, 5];
-prepareItems(0)(numOfItems[0]);
-prepareItems(1)(numOfItems[1]);
+prepareItemList(0)(numOfItems[0]);
+prepareItemList(1)(numOfItems[1]);
 
 const App = (props) => {
 	const numOfItemsForList0 = numOfItems[0];
