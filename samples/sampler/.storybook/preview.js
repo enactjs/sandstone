@@ -4,6 +4,8 @@ import {DocsContainer, Primary, Title} from '@enact/storybook-utils/addons/docs'
 import ri from '@enact/ui/resolution';
 import {themes} from '@storybook/theming';
 
+import ReactGA4 from "react-ga4";
+
 import ThemeEnvironment from '../src/ThemeEnvironment';
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
@@ -48,6 +50,21 @@ const skins = {
 };
 
 configureActions();
+
+const GA_MEASUREMENT_ID  = "G-ZNPW7ST2D8";
+const options = {
+	gtagOptions: {
+		content_group: 'storybook',
+	},
+};
+
+ReactGA4.initialize(GA_MEASUREMENT_ID, options);
+
+const script = document.createElement("script");
+script.src = `//cdn.cookie-script.com/s/3a846584c6b545a3d1ac4dcfc8ac15a2.js`;
+script.type = "text/javascript";
+
+document.body.appendChild(script);
 
 export const parameters = {
 	docs: {
