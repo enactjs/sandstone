@@ -313,6 +313,7 @@ const ColorPickerBase = kind({
 				<Popup
 					className={css.colorPopup}
 					css={css}
+					noAnimation
 					onClose={handleClosePopup}
 					open={disabled ? false : popupOpen}
 					position="left"

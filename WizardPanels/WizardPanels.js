@@ -3,6 +3,7 @@ import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Cell, Column, Row} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
@@ -328,7 +329,10 @@ const WizardPanelsBase = kind({
 		onClose: forwardCustom('onClose'),
 		onNextClick: handle(
 			forwardCustomWithPrevent('onNextClick'),
-			(ev, {index, onChange, totalPanels}) => {
+			(ev, {'data-spotlight-id': spotlightId, fullScreenContent, index, onChange, totalPanels}) => {
+				if (fullScreenContent) {
+					Spotlight.set(spotlightId, {enterTo: 'last-focused'});
+				}
 				if (onChange && index !== totalPanels) {
 					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
@@ -372,6 +376,17 @@ const WizardPanelsBase = kind({
 				noSubtitle
 			}
 		),
+		closeButton: ({closeButtonAriaLabel, onClose, totalPanels}) => {
+			return (
+				totalPanels ? <Button
+					aria-label={closeButtonAriaLabel == null ? $L('Exit quick guide') : closeButtonAriaLabel}
+					className={css.close}
+					icon="closex"
+					onClick={onClose}
+					size="small"
+				/> : null
+			);
+		},
 		steps: ({current, fullScreenContent, index, noSteps, total, totalPanels}) => {
 			const currentStep = (noSteps && 1) || ((typeof current === 'number' && current > 0) ? current : (index + 1));
 			const totalSteps = (noSteps && 1) || ((typeof total === 'number' && total > 0) ? total : totalPanels);
@@ -439,7 +454,7 @@ const WizardPanelsBase = kind({
 	render: ({
 		'aria-label': ariaLabel,
 		children,
-		closeButtonAriaLabel,
+		closeButton,
 		footer,
 		fullScreenContent,
 		index,
@@ -447,7 +462,6 @@ const WizardPanelsBase = kind({
 		nextNavigationButton,
 		noAnimation,
 		noSubtitle,
-		onClose,
 		onTransition,
 		onWillTransition,
 		reverseTransition,
@@ -456,10 +470,12 @@ const WizardPanelsBase = kind({
 		title,
 		...rest
 	}) => {
+		delete rest.closeButtonAriaLabel;
 		delete rest.current;
 		delete rest.nextButton;
 		delete rest.nextButtonVisibility;
 		delete rest.noSteps;
+		delete rest.onClose;
 		delete rest.onNextClick;
 		delete rest.onPrevClick;
 		delete rest.prevButton;
@@ -472,36 +488,32 @@ const WizardPanelsBase = kind({
 		}
 
 		return ( fullScreenContent ?
-			<Column {...rest}>
-				<Row className={css.fullScreenContentHeader}>
-					{steps}
-					<Button
-						aria-label={closeButtonAriaLabel == null ? $L('Exit quick guide') : closeButtonAriaLabel}
-						className={css.close}
-						icon="closex"
-						onClick={onClose}
-						size="small"
-					/>
-				</Row>
-				<Row className={css.fullScreenNavigationButtonContainer}>
-					<Cell shrink>
-						{prevNavigationButton}
-					</Cell>
-					<Cell />
-					<Cell shrink>
-						{nextNavigationButton}
-					</Cell>
-				</Row>
-				<ViewManager
-					arranger={BasicArranger}
-					duration={400}
-					noAnimation
-					onTransition={onTransition}
-					onWillTransition={onWillTransition}
-				>
-					{children}
-				</ViewManager>
-			</Column> :
+			<article role="region" aria-labelledby={`quickguidepanel_index_${index}`} ref={rest.componentRef}>
+				<Column aria-label={ariaLabel} id={`quickguidepanel_index_${index}`} {...rest}>
+					<Row className={css.fullScreenContentHeader}>
+						{steps}
+						{closeButton}
+					</Row>
+					<Row className={css.fullScreenNavigationButtonContainer}>
+						<Cell shrink>
+							{prevNavigationButton}
+						</Cell>
+						<Cell />
+						<Cell shrink>
+							{nextNavigationButton}
+						</Cell>
+					</Row>
+					<ViewManager
+						arranger={BasicArranger}
+						duration={400}
+						noAnimation
+						onTransition={onTransition}
+						onWillTransition={onWillTransition}
+					>
+						{children}
+					</ViewManager>
+				</Column>
+			</article> :
 			<DecoratedPanelBase
 				{...rest}
 				header={
