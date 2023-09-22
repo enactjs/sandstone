@@ -42,8 +42,17 @@ const threeWayBoolean = (value) => {
 };
 
 export default {
+	tags: ['autodocs'],
 	title: 'Sandstone/Button',
-	component: 'Button'
+	component: Button,
+	argTypes: {
+		children: {
+			control: 'text',
+		},
+		roundBorder: {
+			control: 'boolean',
+		},
+	}
 };
 
 export const _Button = (args) => (
@@ -77,13 +86,13 @@ select('icon', _Button, prop.icons, Config);
 select('iconFlip', _Button, prop.iconFlip, Config);
 select('iconPosition', _Button, prop.iconPosition, Config);
 select('minWidth', _Button, prop.minWidth, Config);
-boolean('roundBorder', _Button, Config);
+//boolean('roundBorder', _Button, Config);
 boolean('selected', _Button, Config);
 boolean('shadowed', _Button, Config);
 select('size', _Button, prop.size, Config);
 text('tooltipText', _Button, Config);
 select('tooltipType', _Button, prop.tooltipType, Config);
-text('children', _Button, Config, 'click me');
+//text('children', _Button, Config, 'click me');
 
 _Button.storyName = 'Button';
 _Button.parameters = {
