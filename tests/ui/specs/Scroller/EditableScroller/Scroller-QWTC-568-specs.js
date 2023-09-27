@@ -1,7 +1,7 @@
 const ScrollerPage = require('../ScrollerPage');
-const {expectFocusedItem} = require('../Scroller-utils');
+const {enableEditModeLongPress, expectFocusedItem} = require('../Scroller-utils');
 
-describe.skip('Editable Scroller', function () {
+describe('Editable Scroller', function () {
 	beforeEach(async function () {
 		await ScrollerPage.open('EditableItem');
 	});
@@ -10,18 +10,17 @@ describe.skip('Editable Scroller', function () {
 		// Step 3: 5-way Spot and Select Image 0.
 		// Step 3-1 Verify: Spotlight is on image 0.
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.spotlightSelect();
+		await ScrollerPage.spotlightDown();
 		await expectFocusedItem(0);
+		await enableEditModeLongPress();
 
-		// Step 4-1: 5-way Up.
-		// Step 4-2: 5-way Up a few times again.
+		// Step 4-1: 5-way Up one time.
 		// Step 4 Verify: Spotlight is on 'trash' icon.
 		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightUp();
+		await ScrollerPage.spotlightSelect();
 		await ScrollerPage.buttonRemoveItem.isFocused();
-
-		// Step 5: 5-way Select
+		//
+		// // Step 5: 5-way Select
 		await ScrollerPage.spotlightSelect();
 		// Step 5-1 Verify: Image 0 is removed
 		await expectFocusedItem(1);
