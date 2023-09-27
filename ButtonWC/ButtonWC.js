@@ -218,14 +218,14 @@ const ButtonBase = kind({
 			minWidth, roundBorder, pressed, selected, shadowed, size, styler}) => styler.append(
 			{
 				hasColor: color,
-				hasIcon: (!!icon), /* TBD */
+				hasIcon: (!!icon),
 				iconOnly,
-				minWidth: ((minWidth != null) ? minWidth : !iconOnly), /* TBD */
+				minWidth: ((minWidth != null) ? minWidth : !iconOnly),
 				collapsable,
 				collapsed,
 				roundBorder,
-				pressed, /* TBD */
-				selected, /* TBD */
+				pressed,
+				selected,
 				shadowed: shadowed && (backgroundOpacity ? backgroundOpacity === 'transparent' : iconOnly)
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
