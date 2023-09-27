@@ -214,7 +214,7 @@ const ButtonBase = kind({
 
 	computed: {
 		className: ({
-			backgroundOpacity, collapsable, collapsed, color, focusEffect, icon, iconOnly, iconPosition,
+			backgroundOpacity, collapsable, collapsed, color, css, focusEffect, icon, iconOnly, iconPosition,
 			minWidth, roundBorder, pressed, selected, shadowed, size, styler}) => styler.append(
 			{
 				hasColor: color,
@@ -233,7 +233,8 @@ const ButtonBase = kind({
 			`focus${cap(focusEffect)}`,
 			// iconBefore/iconAfter only applies when using text and an icon
 			!iconOnly && `icon${cap(iconPosition)}`,
-			size
+			size,
+			css.button
 		),
 		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly),
 		iconComponent: ({css, icon, iconComponent, iconFlip, size}) => {
@@ -276,6 +277,12 @@ const ButtonBase = kind({
 		delete rest.roundBorder;
 		delete rest.shadowed;
 
+		if (rest.disabled) {
+			rest['aria-disabled'] = true;
+		} else {
+			delete rest.disabled;
+		}
+
 		/*
 		.button {
 			.bg
@@ -284,7 +291,7 @@ const ButtonBase = kind({
 		*/
 
 		return (
-			<UiButtonBase data-webos-voice-intent="Select" {...rest} css={css} className={classnames(className, css.button)}>
+			<UiButtonBase data-webos-voice-intent="Select" {...rest} css={css} className={className}>
 				<div slot="background" className={css.bg} />
 				<div className={css.client}>
 					{iconComponent}
