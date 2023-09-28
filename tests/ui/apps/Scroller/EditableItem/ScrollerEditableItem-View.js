@@ -45,6 +45,7 @@ class app extends Component {
 			numItems: 10,
 			items: imageItems
 		};
+		this.removeItem = createRef();
 		this.rootRef = createRef();
 		this.scrollingRef = createRef();
 		updateDataSize(this.state.numItems);
@@ -72,11 +73,10 @@ class app extends Component {
 	};
 
 	onClickRemoveButton = (ev) => {
-		if (this.rootRef.current) {
-			this.rootRef.current();
+		if (this.removeItem.current) {
+			this.removeItem.current();
 		}
 		ev.preventDefault();
-		ev.stopPropagation();
 	};
 
 	render () {
@@ -102,7 +102,7 @@ class app extends Component {
 							centered:editableCentered,
 							css,
 							onComplete: this.handleComplete,
-							removeItemFuncRef: this.rootRef
+							removeItemFuncRef: this.removeItem
 						}}
 					>
 						{

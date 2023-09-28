@@ -37,7 +37,7 @@ class ScrollerPage extends Page {
 	}
 
 	async moveSpotlight (times = 0, directionFunc = 'spotlightRight') {
-		for (let i = 0; i < times; i ++) {
+		for (let i = 0; i < times; i++) {
 			await this[directionFunc]();
 		}
 	}
@@ -54,7 +54,7 @@ class ScrollerPage extends Page {
 	async verifyShownItems (startIndex = 0, numberOfItems = 0) {
 		await this.spotlightDown();
 		await expectFocusedItem(startIndex);
-		for (let i = startIndex + 1; i <= numberOfItems; i ++) {
+		for (let i = startIndex + 1; i <= numberOfItems; i++) {
 			await this.spotlightRight();
 			await expectFocusedItem(i);
 		}

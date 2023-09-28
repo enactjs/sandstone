@@ -46,8 +46,8 @@ describe('Editable Scroller Item', function () {
 
 		// 5-way Left few times and Down.
 		// Verify: First item is Item 1.
-		await ScrollerPage.moveSpotlight(2, 'spotlightLeft')
-		await ScrollerPage.spotlightDown()
+		await ScrollerPage.moveSpotlight(2, 'spotlightLeft');
+		await ScrollerPage.spotlightDown();
 		await expectFocusedItem(1);
 	});
 
@@ -63,7 +63,7 @@ describe('Editable Scroller Item', function () {
 		// Verify: Item 0 is hidden and it's in the last position.
 		await expectFocusedItem(1);
 		// 5-way Right few times.
-		await ScrollerPage.moveSpotlight(5)
+		await ScrollerPage.moveSpotlight(5);
 		await expectFocusedItem(0);
 		// Verify: Spotlight is on 'plus' icon.
 		await ScrollerPage.spotlightSelect();
@@ -74,14 +74,14 @@ describe('Editable Scroller Item', function () {
 		await ScrollerPage.spotlightUp();
 		await ScrollerPage.spotlightSelect();
 		// Verify: Item 0 is hidden.
-		await ScrollerPage.verifyShownItems(1, 4)
+		await ScrollerPage.verifyShownItems(1, 4);
 
 		// 5-way Up and Select Edit Mode ot enable it.
 		await ScrollerPage.spotlightUp();
 		await ScrollerPage.spotlightSelect();
 		// Select hidden Item 0.
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.moveSpotlight(5)
+		await ScrollerPage.moveSpotlight(5);
 		await expectFocusedItem(0);
 		// Select Show button to add hidden Item.
 		await ScrollerPage.spotlightSelect();
@@ -113,7 +113,7 @@ describe('Editable Scroller Item', function () {
 		await expectFocusedItem(3);
 
 		// 5-way Left 3 times to check first item.
-		await ScrollerPage.moveSpotlight(2, 'spotlightLeft')
+		await ScrollerPage.moveSpotlight(2, 'spotlightLeft');
 		// Verify: On the left side of Item 0 is Item 2.
 		await expectFocusedItem(2);
 		await ScrollerPage.spotlightLeft();
@@ -133,9 +133,9 @@ describe('Editable Scroller Item', function () {
 		await ScrollerPage.spotlightRight();
 		await expectFocusedItem(0);
 		// Verify: Positions of Item 1 and Item 2 are switched and Item 2 is in the first position.
-		await ScrollerPage.moveSpotlight(2, 'spotlightLeft')
+		await ScrollerPage.moveSpotlight(2, 'spotlightLeft');
 		await expectFocusedItem(2);
-		await ScrollerPage.moveSpotlight(2, 'spotlightLeft')
+		await ScrollerPage.moveSpotlight(2, 'spotlightLeft');
 		await ScrollerPage.spotlightDown();
 		await expectFocusedItem(2);
 		await ScrollerPage.spotlightRight();
@@ -155,10 +155,11 @@ describe('Editable Scroller Item', function () {
 		await expectFocusedItem(0);
 
 		// Verify: Distance on the left and right side of the Item 0.
-		const itemLeftDistanceCentered = (await ScrollerPage.getActiveElementRect()).left
-		const itemRightDistanceCentered = (await ScrollerPage.getActiveElementRect()).right - (await ScrollerPage.getActiveElementRect()).width
+		const itemLeftDistanceCentered = (await ScrollerPage.getActiveElementRect()).left;
+		const itemRightDistanceCentered = (await ScrollerPage.getActiveElementRect()).right - (await ScrollerPage.getActiveElementRect()).width;
 		await expect(itemLeftDistanceCentered).to.be.equal(itemRightDistanceCentered);
 
+		// Set Editable Center to false.
 		await ScrollerPage.spotlightUp();
 		await ScrollerPage.spotlightUp();
 		await ScrollerPage.spotlightUp();
@@ -166,7 +167,8 @@ describe('Editable Scroller Item', function () {
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightDown();
 
-		const itemLeftDistanceNotCentered = (await ScrollerPage.getActiveElementRect()).left
+		// Verify: Item 0 is not centered.
+		const itemLeftDistanceNotCentered = (await ScrollerPage.getActiveElementRect()).left;
 		await expect(itemLeftDistanceCentered).not.to.be.equal(itemLeftDistanceNotCentered);
 	});
 
@@ -178,6 +180,7 @@ describe('Editable Scroller Item', function () {
 		await ScrollerPage.backSpace();
 		await ScrollerPage.numPad(10);
 
+		// Move the spotlight to the last item that is not visible.
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.moveSpotlight(9);
@@ -185,6 +188,7 @@ describe('Editable Scroller Item', function () {
 
 		await expectFocusedItem(9);
 
+		// Verify: Item 9 is displayed in Viewport.
 		const element = await browser.$('#item9');
 		await expect(await element.isDisplayedInViewport()).to.be.true();
 	});

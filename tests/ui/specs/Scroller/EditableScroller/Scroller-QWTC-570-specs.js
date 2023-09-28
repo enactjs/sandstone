@@ -1,7 +1,7 @@
 const ScrollerPage = require('../ScrollerPage');
-const {expectFocusedItem} = require('../Scroller-utils');
+const {enableEditModeLongPress, expectFocusedItem} = require('../Scroller-utils');
 
-describe.skip('Editable Scroller', function () {
+describe('Editable Scroller', function () {
 	beforeEach(async function () {
 		await ScrollerPage.open('EditableItem');
 	});
@@ -20,7 +20,7 @@ describe.skip('Editable Scroller', function () {
 		await ScrollerPage.spotlightDown();
 		// Check for leftmost item's position.
 		const leftmostItemRect = Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100;
-		await ScrollerPage.spotlightSelect();
+		await enableEditModeLongPress();
 		await expectFocusedItem(0);
 		// Step5-2 Verify: Image 0 rises upper.
 		await expect(await ScrollerPage.checkEditableItem()).to.be.true();

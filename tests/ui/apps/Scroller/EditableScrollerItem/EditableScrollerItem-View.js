@@ -113,7 +113,6 @@ class app extends Component {
 		const {editMode, editableCentered, items, nativeScroll, numItems} = this.state;
 		const buttonDefaultProps = {minWidth: false, size: 'small'};
 		const inputStyle = {width: ri.scaleToRem(300)};
-		const scrollMode = nativeScroll ? 'NativeScroll' : 'TranslateScroll';
 		return (
 			<div {...this.props} id="scroller" ref={this.divRef}>
 				<Cell component={OptionsContainer} shrink>
@@ -169,7 +168,7 @@ class app extends Component {
 							<div className={`${css.scrollerWrapper} ${css.wrapper} ${editableCentered ? css.centered : ''}`}> {
 								items.map((item, index) => {
 									return (
-										<div aria-label={`Image ${item.index}`} data-index={item.index} className={`${css.itemWrapper} ${item.disabled ? css.hidden : ''}`} key={item.index}  style={{order: index + 1}}>
+										<div aria-label={`Image ${item.index}`} data-index={item.index} className={`${css.itemWrapper} ${item.disabled ? css.hidden : ''}`} key={item.index} style={{order: index + 1}}>
 											<div className={css.removeButtonContainer} />
 											<ImageItem
 												aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
