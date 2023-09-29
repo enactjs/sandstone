@@ -2,15 +2,15 @@ const ScrollerPage = require('./EditableScrollerItemPage');
 const {expectFocusedItem} = require('../Scroller-utils');
 
 describe('Editable Scroller Item', function () {
-	beforeEach(async function () {
-		await ScrollerPage.open();
-		await ScrollerPage.spotlightDown();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightDown();
-		await expectFocusedItem(0);
-	});
-
 	describe('5-way', function () {
+		beforeEach(async function () {
+			await ScrollerPage.open();
+			await ScrollerPage.spotlightDown();
+			await ScrollerPage.spotlightSelect();
+			await ScrollerPage.spotlightDown();
+			await expectFocusedItem(0);
+		});
+
 		it('should remove item with remove button when item is selected', async function () {
 			await ScrollerPage.spotlightSelect();
 
@@ -197,8 +197,8 @@ describe('Editable Scroller Item', function () {
 	describe('pointer', function () {
 		beforeEach(async function () {
 			// Enable Edit Mode with pointer.
+			await ScrollerPage.open();
 			const editButton = await $('#editMode');
-			await editButton.click();
 			await editButton.click();
 		});
 
