@@ -144,7 +144,7 @@ describe('Editable Scroller Item', function () {
 			await expectFocusedItem(1);
 		});
 
-		it ('should change item position with editableCentered', async function () {
+		it('should change item position with editableCentered', async function () {
 			// Set data size 1.
 			await ScrollerPage.inputFieldNumItems.moveTo();
 			await ScrollerPage.spotlightSelect();
@@ -173,7 +173,7 @@ describe('Editable Scroller Item', function () {
 			await expect(itemLeftDistanceCentered).not.to.be.equal(itemLeftDistanceNotCentered);
 		});
 
-		it ('should scroll through list', async function () {
+		it('should scroll through list', async function () {
 			// Set data size 10.
 			await ScrollerPage.inputFieldNumItems.moveTo();
 			await ScrollerPage.spotlightSelect();

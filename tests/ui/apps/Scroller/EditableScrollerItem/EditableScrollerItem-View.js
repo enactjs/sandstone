@@ -4,9 +4,9 @@ import ri from '@enact/ui/resolution';
 import {Component, createRef} from 'react';
 
 import Button from '../../../../../Button';
-import Scroller from '../../../../../Scroller';
 import ImageItem from '../../../../../ImageItem';
 import {InputField} from '../../../../../Input';
+import Scroller from '../../../../../Scroller';
 import ThemeDecorator from '../../../../../ThemeDecorator';
 
 import css from './EditableScrollerItem.module.less';
