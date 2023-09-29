@@ -1,13 +1,13 @@
-import SpotlightContainerDecorator from "@enact/spotlight/SpotlightContainerDecorator";
-import {Cell} from "@enact/ui/Layout";
-import ri from "@enact/ui/resolution";
-import {Component, createRef} from "react";
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {Cell} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
+import {Component, createRef} from 'react';
 
-import Button from "../../../../../Button";
-import Scroller from "../../../../../Scroller";
-import ImageItem from "../../../../../ImageItem";
-import {InputField} from "../../../../../Input";
-import ThemeDecorator from "../../../../../ThemeDecorator";
+import Button from '../../../../../Button';
+import Scroller from '../../../../../Scroller';
+import ImageItem from '../../../../../ImageItem';
+import {InputField} from '../../../../../Input';
+import ThemeDecorator from '../../../../../ThemeDecorator';
 
 import css from './EditableScrollerItem.module.less';
 
@@ -15,11 +15,8 @@ const ContainerDivWithLeaveForConfig = SpotlightContainerDecorator({leaveFor: {l
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const ScrollerContainer = SpotlightContainerDecorator('div');
 
-const scrollerItems = [];
-
-const updateDataSize = (dataSize) => {
-	scrollerItems.length = 0;
-
+const getImageItems = (dataSize) => {
+	const scrollerItems = [];
 	for (let i = 0; i < dataSize; i++) {
 		const index = i;
 		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
@@ -30,7 +27,7 @@ const updateDataSize = (dataSize) => {
 		};
 		scrollerItems.push({source, index});
 	}
-	return dataSize;
+	return scrollerItems;
 };
 
 class app extends Component {
@@ -39,23 +36,21 @@ class app extends Component {
 		this.state = {
 			editableCentered: true,
 			editMode: false,
-			items: scrollerItems,
+			items: getImageItems(5),
 			nativeScroll: true,
 			numItems: 5
 		};
-		this.divRef = createRef();
 		this.focusItem = createRef();
 		this.hideItem = createRef();
 		this.mutableRef = createRef();
 		this.mutableRef.current = {hideIndex: null};
 		this.removeItem = createRef();
 		this.showItem = createRef();
-		updateDataSize(this.state.numItems);
 	}
 
 	onChangeNumItems = ({value}) => {
-		this.setState({numItems: value});
-		updateDataSize(value);
+		const items = getImageItems(value);
+		this.setState({items: items, numItems: value});
 	};
 
 	handleComplete = (ev) => {
@@ -114,7 +109,7 @@ class app extends Component {
 		const buttonDefaultProps = {minWidth: false, size: 'small'};
 		const inputStyle = {width: ri.scaleToRem(300)};
 		return (
-			<div {...this.props} id="scroller" ref={this.divRef}>
+			<div {...this.props} id="scroller">
 				<Cell component={OptionsContainer} shrink>
 					<Button {...buttonDefaultProps} id="editableCentered" onClick={this.onToggle}>EditableCentered</Button>
 					<InputField defaultValue={numItems} id="numItems" onChange={this.onChangeNumItems} size="small" style={inputStyle} type="number" />

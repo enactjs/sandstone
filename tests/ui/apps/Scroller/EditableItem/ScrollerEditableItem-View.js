@@ -46,8 +46,6 @@ class app extends Component {
 			items: imageItems
 		};
 		this.removeItem = createRef();
-		this.rootRef = createRef();
-		this.scrollingRef = createRef();
 		updateDataSize(this.state.numItems);
 	}
 
@@ -85,7 +83,7 @@ class app extends Component {
 		const scrollMode = nativeScroll ? 'NativeScroll' : 'TranslateScroll';
 		const inputStyle = {width: ri.scaleToRem(300)};
 		return (
-			<div {...this.props} id="scroller" ref={this.rootRef}>
+			<div {...this.props} id="scroller">
 				<Cell component={OptionsContainer} shrink>
 					<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.onToggle}>{scrollMode}</Button>
 					<Button {...buttonDefaultProps} id="editableCentered" onClick={this.onToggle}>EditableCentered</Button>

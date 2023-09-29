@@ -1,7 +1,6 @@
 'use strict';
 const {Page} = require('@enact/ui-test-utils/utils');
-const {element} = require("../../../../../../ui-test-utils/utils");
-const {expectFocusedItem} = require("../Scroller-utils");
+const {element} = require('../../../../../../ui-test-utils/utils');
 
 class ScrollerPage extends Page {
 
@@ -49,15 +48,6 @@ class ScrollerPage extends Page {
 
 	async open (layout = '', urlExtra) {
 		await super.open(`EditableScrollerItem${layout}-View`, urlExtra);
-	}
-
-	async verifyShownItems (startIndex = 0, numberOfItems = 0) {
-		await this.spotlightDown();
-		await expectFocusedItem(startIndex);
-		for (let i = startIndex + 1; i <= numberOfItems; i++) {
-			await this.spotlightRight();
-			await expectFocusedItem(i);
-		}
 	}
 }
 

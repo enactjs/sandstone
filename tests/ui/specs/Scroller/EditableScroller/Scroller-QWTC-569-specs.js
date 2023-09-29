@@ -6,7 +6,7 @@ describe('Editable Scroller', function () {
 		await ScrollerPage.open('EditableItem');
 	});
 
-	it('Should change item position with 5-way mode [QWTC-569]', async function () {
+	it('should change item position with 5-way mode [QWTC-569]', async function () {
 		// Step 3: 5-way Spot and Select Image 0.
 		await ScrollerPage.spotlightDown();
 		// Step 3-1 Verify: Spotlight is on Image 0.

@@ -6,7 +6,7 @@ describe('Editable Scroller', function () {
 		await ScrollerPage.open('EditableItem');
 	});
 
-	it('Should change item position with editableCentered [QWTC-570]', async function () {
+	it('should change item position with editableCentered [QWTC-570]', async function () {
 		// Set datasize 3.
 		await ScrollerPage.inputfieldNumItems.moveTo();
 		await ScrollerPage.spotlightSelect();

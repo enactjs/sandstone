@@ -6,7 +6,7 @@ describe('Editable Scroller', function () {
 		await ScrollerPage.open('EditableItem');
 	});
 
-	it('Should remove item with remove button [QWTC-568]', async function () {
+	it('should remove item with remove button [QWTC-568]', async function () {
 		// Step 3: 5-way Spot and Select Image 0.
 		// Step 3-1 Verify: Spotlight is on image 0.
 		await ScrollerPage.spotlightDown();
@@ -18,8 +18,8 @@ describe('Editable Scroller', function () {
 		// Step 4 Verify: Spotlight is on 'trash' icon.
 		await ScrollerPage.spotlightUp();
 		await expect(await ScrollerPage.buttonRemoveItem.isFocused()).to.be.true();
-		//
-		// // Step 5: 5-way Select
+
+		// Step 5: 5-way Select
 		await ScrollerPage.spotlightSelect();
 		// Step 5-1 Verify: Image 0 is removed
 		await expectFocusedItem(1);
