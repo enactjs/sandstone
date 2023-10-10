@@ -2,6 +2,8 @@
 
 > The set of components for an Enact-based application targeting smart TVs.
 
+![image](https://github.com/enactjs/sandstone/assets/4288375/169e675e-7e82-41d2-a83e-94a83f2b8f8d)
+
 ## Usage
 
 ```
@@ -20,7 +22,7 @@ const MySandstoneApp = ThemeDecorator(MyApp);
 export default MySandstoneApp;
 ```
 
-> Note: The sandstone decorator must be applied to the base component. This decorator also applies
+> Note: The `@enact/sandstone/ThemeDecorator` must be applied to the base component. This decorator also applies
 `@enact/i18n/I18nDecorator`, `@enact/spotlight` and `@enact/ui/resolution` decorators.
 
 ## Install
@@ -31,11 +33,15 @@ npm install --save @enact/sandstone
 
 ## Test
 
-Unit tests are implemented with Jest. To execute them:
+Unit tests are implemented in Testing Library and are run with Jest. To execute them:
 
 ```
 npm test
 ```
+
+## Links
+* [Sandstone API Docs](https://enactjs.com/docs/modules/sandstone/ActionGuide/)
+* [Sandstone Component Sampler](https://enactjs.com/sampler)
 
 ## Copyright and License Information
 

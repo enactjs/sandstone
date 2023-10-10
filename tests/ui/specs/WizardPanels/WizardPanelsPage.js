@@ -56,7 +56,7 @@ class WizardPanelsInterface {
 class WizardPanelsPage extends Page {
 	constructor () {
 		super();
-		this.title = 'WizardPanel Test';
+		this.title = 'WizardPanels Test';
 		this.components = {};
 		this.components.wizardPanels = new WizardPanelsInterface('wizardpanels');
 	}

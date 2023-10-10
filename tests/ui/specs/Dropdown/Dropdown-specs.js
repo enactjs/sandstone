@@ -99,6 +99,36 @@ describe('Dropdown', function () {
 			// Verify Step 8: The 'Default' Dropdown is closed.
 			expect(await dropdown.list.isExisting()).to.not.be.true();
 		});
+
+		it('should move Spotlight to the next/previous item on PageDown/PageUp', async function () {
+			const dropdown = Page.components.dropdownMoreChildren;
+
+			// 5-way Spot and 5-way Select the 'More Children' Dropdown.
+			await Page.openDropdown(dropdown);
+			// Verify: The 'Default' Dropdown opens.
+			// Verify: Spotlight is on the first option.
+			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
+
+			// ChannelDown(PageDown).
+			// Verify: Spotlight is on the fifth option.
+			await Page.pageDown();
+			waitForFocusedText(dropdown, 'five', 500, undefined, 100);
+
+			// ChannelDown(PageDown) to the last option.
+			// Verify: Spotlight is on the ninth option.
+			await Page.pageDown();
+			waitForFocusedText(dropdown, 'nine', 500, undefined, 100);
+
+			// ChannelUp(PageUp).
+			// Verify: Spotlight is on the sixth option.
+			await Page.pageUp();
+			waitForFocusedText(dropdown, 'six', 500, undefined, 100);
+
+			// ChannelUp(PageUp) to the first option.
+			// Verify: Spotlight is on the first option.
+			await Page.pageUp();
+			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
+		});
 	});
 
 	describe('pointer', function () {

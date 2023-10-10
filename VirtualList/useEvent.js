@@ -1,5 +1,6 @@
 import {is} from '@enact/core/keymap';
 import Spotlight, {getDirection} from '@enact/spotlight';
+import {getContainerConfig} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
@@ -137,11 +138,12 @@ const useEventKey = (props, instances, context) => {
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
 					const candidate = getTargetByDirectionFromElement(direction, target);
-					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
+					const candidateInside = utilDOM.containsDangerously(ev.currentTarget, candidate);
+					const candidateIndex = candidate && candidateInside && candidate.dataset && getNumberValue(candidate.dataset.index);
 					let isLeaving = false;
 
 					if (isNotItem) { // if the focused node is not an item
-						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
+						if (!candidateInside) { // if the candidate is out of a list
 							isLeaving = true;
 						}
 					} else if (index >= 0 && candidateIndex !== index) { // the focused node is an item and focus will move out of the item
@@ -192,9 +194,12 @@ const useEventKey = (props, instances, context) => {
 								directions.left && column === 0 ||
 								directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
 
+							/* istanbul ignore if */
 							if (repeat && isLeaving) { // if focus is about to leave items by holding down an arrowy key
 								ev.preventDefault();
-								ev.stopPropagation();
+								if (spotlightId && !getContainerConfig(spotlightId)?.continue5WayHold) {
+									ev.stopPropagation();
+								}
 							} else if (!isLeaving) {
 								handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
 							}

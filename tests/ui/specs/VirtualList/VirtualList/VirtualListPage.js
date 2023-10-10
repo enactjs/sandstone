@@ -233,6 +233,7 @@ class VirtualListPage extends Page {
 			await waitUntilFocused(i + direction);
 			await waitUntilVisible(i + direction);
 		}
+		await this.delay(200);
 	}
 
 	async checkScrollbyPagekey (way) {

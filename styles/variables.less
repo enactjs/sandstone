@@ -161,6 +161,8 @@
 @sand-picker-font-size:             54px;
 @sand-picker-joined-font-size:      66px;
 @sand-steps-step-number-font-size:  54px;
+@sand-steps-step-dot-font-size:     30px;
+@sand-steps-step-current-dot-font-size:  48px;
 @sand-switch-icon-font-size:        84px;
 @sand-switch-icon-font-size-large:  138px;
 @sand-tablayout-tab-font-size:      66px;
@@ -912,6 +914,7 @@
 @sand-steps-step-number-font-weight: 600;
 @sand-steps-margin: 0;
 @sand-steps-step-margin: 0 @sand-component-spacing;
+@sand-steps-step-width: 48px;
 @sand-steps-step-past-opacity: 1;
 @sand-steps-step-current-opacity: 1;
 @sand-steps-step-future-opacity: 0.2;
@@ -998,3 +1001,15 @@
 @sand-wizardpanels-content-margin: 0 0 150px 0;
 @sand-wizardpanels-footer-margin: 0 0 (102px - @sand-app-keepout) 0;
 @sand-wizardpanels-button-icon-text-gap: 54px;
+@sand-wizardpanels-fullScreenContent-close-button-margin-top: (
+	.extract(#guide.header[standard-padding], top)[]
+	- #guide.get-edge-size-difference(
+		#guide.header[standard-title-line-height],
+		@sand-heading-title-font-size,
+		@sand-heading-title-line-height
+	)[@result]
+) + 10px;
+@sand-wizardpanels-fullScreenContent-close-button-margin-end:   150px;
+@sand-wizardpanels-fullScreenContent-navigation-button-margin:  0 12px;
+@sand-wizardpanels-fullScreenContent-container-margin-top:      828px;
+@sand-wizardpanels-fullScreenContent-steps-margin-top:          90px;

@@ -1,0 +1,28 @@
+// App.module.less
+//
+@import '~@enact/sandstone/styles/mixins.less';
+@import '~@enact/sandstone/styles/colors.less';
+
+.app {
+	background-color: black;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+
+	& > * {
+		display: inline-block;
+		height: 100%;
+	}
+}
+
+.list {
+	width: 90%;
+}
+
+.side {
+	width: 5%;
+	background-color: @sand-component-bg-color;
+	.focus({
+		background-color: @sand-focus-bg-color;
+	});
+}

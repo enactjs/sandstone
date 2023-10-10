@@ -56,12 +56,24 @@ class PopupTabLayoutPage extends Page {
 		};
 	}
 
-	async open (urlExtra) {
-		await super.open('PopupTabLayout-View', urlExtra);
+	async open (layout = '', urlExtra) {
+		await super.open(`PopupTabLayout${layout}-View`, urlExtra);
 	}
 
 	async waitForExist (selector, timeout) {
 		await $(selector).waitForExist({timeout});
+	}
+
+	async buttonPadding () {
+		return await browser.execute(function () {
+			return Math.round(document.querySelector('#withButtonDisplay').getBoundingClientRect().bottom - document.querySelector('#button').getBoundingClientRect().bottom);
+		});
+	}
+
+	async getAriaLabel () {
+		return await browser.execute(function () {
+			return document.activeElement.getAttribute('aria-label');
+		});
 	}
 }
 

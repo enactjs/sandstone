@@ -16,14 +16,42 @@
 			font-weight: @sand-steps-step-number-font-weight;
 		}
 
-		&.past {
+		&.dots {
+			font-size: @sand-steps-step-dot-font-size;
 			opacity: @sand-steps-step-past-opacity;
+			margin: 0;
+			width: @sand-steps-step-width;
+
+			&.current {
+				font-size: @sand-steps-step-current-dot-font-size;
+			}
+
+			&.future {
+				opacity:  @sand-steps-step-past-opacity;
+			}
 		}
+
+		&.past {
+			opacity:  @sand-steps-step-past-opacity;
+		}
+
 		&.current {
 			opacity: @sand-steps-step-current-opacity;
 		}
+
 		&.future {
 			opacity: @sand-steps-step-future-opacity;
 		}
 	}
 }
+
+.applySkins({
+	.step {
+		&.dots {
+			color: @sand-steps-step-focused-dot-color;
+			&.current {
+				color: @sand-steps-step-dot-color;
+			}
+		}
+	}
+});

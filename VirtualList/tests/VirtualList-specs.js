@@ -202,6 +202,31 @@ describe('VirtualList', () => {
 		);
 	});
 
+	describe('ScrollTo', () => {
+		test('should warn if both \'minSize\' in \'itemSize\' prop and \'cbScrollTo\' prop are given', () => {
+			const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+			const variableItemSize = {
+				minSize: itemSize,
+				size: [100, 200, 300, 400, 100, 200, 300, 400, 100, 200]
+			};
+
+			render(
+				<VirtualList
+					cbScrollTo={() => {}}
+					clientSize={clientSize}
+					dataSize={10}
+					itemRenderer={renderItem}
+					itemSize={variableItemSize}
+					scrollMode="translate"
+				/>
+			);
+
+			const expectedErrorMsg = 'Warning: VirtualList with `minSize` in `itemSize` prop does not support `cbScrollTo` prop';
+			expect(consoleSpy).toHaveBeenCalled();
+			expect(consoleSpy.mock.calls[0][0]).toBe(expectedErrorMsg);
+		});
+	});
+
 	describe('Adding an item', () => {
 		test('should render an added item named \'Password 0\' as the first item', (done) => {
 			const itemArray = [{name: 'A'}, {name: 'B'}, {name: 'C'}];

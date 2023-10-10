@@ -3,9 +3,9 @@ import Scroller from '@enact/sandstone/Scroller';
 import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 
-const View = ({debugProps = false, handleDebug, isAriaHidden = false, isDebugMode = false, isHeader = true, title, view: ComponentView}) => {
+const View = ({debugProps = false, handleDebug, isAriaHidden = false, isDebugMode = false, isHeader = true, noCloseButton = false, title, view: ComponentView}) => {
 	const
-		header = isHeader ? <Header aria-hidden={isAriaHidden} title={title} type="compact" /> : null,
+		header = isHeader ? <Header aria-hidden={isAriaHidden} noCloseButton={noCloseButton} title={title} type="compact" /> : null,
 		props = debugProps ? {handleDebug, isDebugMode} : null;
 
 	return (
@@ -26,6 +26,7 @@ View.propTypes = {
 	isAriaHidden: PropTypes.bool,
 	isDebugMode: PropTypes.bool,
 	isHeader: PropTypes.bool,
+	noCloseButton: PropTypes.bool,
 	title: PropTypes.string,
 	view: PropTypes.func
 };
