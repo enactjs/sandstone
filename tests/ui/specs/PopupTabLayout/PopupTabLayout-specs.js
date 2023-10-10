@@ -229,7 +229,7 @@ describe('PopupTabLayout', function () {
 					expect(actual).to.equal(expected);
 				});
 
-				it('should change the tab content immediately when pressing the enter key on the tab menu', async function () {
+				it('should change the tab content immediately when pressing the enter key on the tab menu (WRP-26238)', async function () {
 					// Press the down key and then enter key to go to the second panel
 					await Page.spotlightDown();
 					await Page.spotlightSelect();
