@@ -6,11 +6,11 @@ import ri from '@enact/ui/resolution';
 import {Component, createRef} from 'react';
 
 import Button from '../../../../../Button/Button';
-import IconItem from '../../../../../IconItem';
+import IconItem from '../../../../../IconItem/IconItem';
 import {InputField} from '../../../../../Input';
 import Scroller from '../../../../../Scroller/Scroller';
 import ThemeDecorator from '../../../../../ThemeDecorator/ThemeDecorator';
-import css from './EditableScrollerWithIconItem.module.less';
+import css from './ScrollerWithEditableSelectItemByPress.module.less';
 
 const ScrollerContainer = SpotlightContainerDecorator('div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');

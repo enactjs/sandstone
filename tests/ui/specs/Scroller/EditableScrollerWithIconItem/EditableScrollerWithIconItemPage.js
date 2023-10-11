@@ -11,7 +11,7 @@ class ScrollerPage extends Page {
 	}
 
 	async open (layout = '', urlExtra) {
-		await super.open(`EditableScrollerWithIconItem${layout}-View`, urlExtra);
+		await super.open(`ScrollerWithEditableSelectItemByPress${layout}-View`, urlExtra);
 	}
 
 	// button api
@@ -59,6 +59,65 @@ class ScrollerPage extends Page {
 	async numPad (num) {
 		let Inputnum = 'numpad' + String(num);
 		return await this.keyDelay(Inputnum);
+	}
+
+	async findItemWrapper () {
+		return await browser.execute(function () {
+			let node = document.activeElement;
+			let index;
+			while (node.dataset) {
+				index = node.dataset['index'];
+				if (index) {
+					break;
+				}
+				node = node.parentNode;
+			}
+			return {
+				node: node ?? null,
+				index: index ?? null,
+				classList: node?.classList
+			};
+		});
+	}
+
+	async focusedItemButton () {
+		const {index} = await this.findItemWrapper();
+		return await browser.execute(function () {
+			const node = document.activeElement;
+			return {
+				ariaLabel: node.ariaLabel,
+				index
+			};
+		});
+	}
+
+	async disabledAttribute () {
+		return await browser.execute(function () {
+			return document.activeElement?.getAttribute?.('aria-disabled') === 'true';
+		});
+	}
+
+	async expectFocusedItem (expectedIndex, comment = 'focused item') {
+		const {index} = await this.findItemWrapper();
+		expect(index, comment).to.equal(expectedIndex);
+	}
+
+	async expectDisabledItem (expectedIndex, comment = 'disabled item') {
+		const {index} = await this.findItemWrapper();
+		const disabled = await this.disabledAttribute();
+		expect(index, comment).to.equal(expectedIndex);
+		expect(disabled, comment).to.be.true();
+	}
+
+	async expectDeleteButton (expectedIndex, comment = 'delete button') {
+		const {ariaLabel, index} = await this.focusedItemButton();
+		expect(index, comment).to.equal(expectedIndex);
+		expect(ariaLabel, comment).to.equal('Delete');
+	}
+
+	async expectItemWrapperClass (expectedClass, comment = 'item wrapper class') {
+		const {classList} = await this.findItemWrapper();
+		expect(classList?.includes?.(expectedClass), comment).to.be.true();
 	}
 }
 
