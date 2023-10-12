@@ -1,14 +1,15 @@
-const ScrollerPage = require('./ScrollerWithEditableSelectItemByPressPage');
+const ScrollerPage = require('../ScrollerPage');
+const {expectFocusedIconItem, expectDisabledItem, expectItemWrapperClass} = require('../Scroller-utils');
 
 describe('Editable Scroller', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open();
+		await ScrollerPage.open('WithEditableSelectItemByPress');
 	});
 
 	it('Should be able to hide all items', async function () {
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.expectFocusedItem('0');
+		await expectFocusedIconItem('0');
 
 		/* hide 10 items: note that 10 items are minimal set to make the scroller overflows */
 		await ScrollerPage.spotlightUp();
@@ -48,98 +49,82 @@ describe('Editable Scroller', function () {
 
 		/* expected no item is displayed */
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.expectDisabledItem('0');
+		await expectDisabledItem('0');
 	});
 
 	it('Should set class to hide left arrow of the first item in LTR locales', async function () {
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.expectItemWrapperClass('tests_ui_apps_Scroller_ScrollerWithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_noBefore');
+		await expectItemWrapperClass('tests_ui_apps_Scroller_WithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_noBefore');
 	});
 
 	it('Should hide item with hide button', async function () {
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.expectFocusedItem('0');
+		await expectFocusedIconItem('0');
 
-		/* hide 1 item: expected next item is focused */
+		/* hide item 0: expected next item(=item 1) is focused */
 		await ScrollerPage.spotlightUp();
 		await ScrollerPage.spotlightRight();
 		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.expectFocusedItem('1');
+		await expectFocusedIconItem('1');
 
 		/* expected last item is disabled */
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.expectDisabledItem('0');
+		for (let i = 0; i < 9; i++) {
+			await ScrollerPage.spotlightRight();
+		}
+		await expectDisabledItem('0');
 	});
 
-	it('Should focus of item move properly with 5-way keys', async function () {
+	it('Should focus item properly when move with 5-way keys', async function () {
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.expectFocusedItem('0');
+		await expectFocusedIconItem('0');
 
-		/* expected focused item is not changed when press down key */
+		/* expected focused item is not changed when press the down key */
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.expectFocusedItem('0');
+		await expectFocusedIconItem('0');
 
-		/* expected next item is focused when press right key */
+		/* expected next item is focused when press the right key once */
 		await ScrollerPage.spotlightRight();
-		await ScrollerPage.expectFocusedItem('1');
+		await expectFocusedIconItem('1');
 
-		/* expected item move properly to right */
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.expectFocusedItem('1');
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.expectFocusedItem('3');
+		/* expected last item is focused when press the right key more than the number of items */
+		for (let i = 0; i < 11; i++) {
+			await ScrollerPage.spotlightRight();
+		}
+		await expectFocusedIconItem('9');
 
-		/* expected hidden item do not move */
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.expectDisabledItem('3');
-		await ScrollerPage.spotlightSelect();
+		/* expected previous item is focused when press the left key once */
 		await ScrollerPage.spotlightLeft();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.expectDisabledItem('3');
-		await ScrollerPage.spotlightLeft();
-		await ScrollerPage.expectFocusedItem('9');
+		await expectFocusedIconItem('8');
+
+		/* expected first item is focused when press the left key more than the number of items */
+		for (let i = 0; i < 11; i++) {
+			await ScrollerPage.spotlightLeft();
+		}
+		await expectFocusedIconItem('0');
 	});
 
 	it('Should release selected Item when focus leaves scroll container', async function () {
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.expectFocusedItem('0');
+		await expectFocusedIconItem('0');
+
 		await ScrollerPage.spotlightUp();
 		await ScrollerPage.spotlightUp();
-		await ScrollerPage.expectFocusedItem(null);
+
+		expect(await ScrollerPage.buttonNativeScroll.isFocused()).to.be.true();
 	});
 
 	describe('Editable Scroller in RTL locales', function () {
 		beforeEach(async function () {
-			await ScrollerPage.open('', '?locale=ar-SA');
+			await ScrollerPage.open('WithEditableSelectItemByPress', '?locale=ar-SA');
 		});
 
 		it('Should set class to hide right arrow of the first item in RTL locales', async function () {
 			await ScrollerPage.spotlightDown();
 			await ScrollerPage.spotlightSelect();
-			await ScrollerPage.expectItemWrapperClass('tests_ui_apps_Scroller_ScrollerWithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_noBefore');
+			await expectItemWrapperClass('tests_ui_apps_Scroller_WithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_noBefore');
 		});
 	});
 });
