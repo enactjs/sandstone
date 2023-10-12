@@ -2,9 +2,8 @@ import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
 import {DocsContainer, Primary, Title} from '@enact/storybook-utils/addons/docs';
 import ri from '@enact/ui/resolution';
-import {themes} from '@storybook/theming';
-
 import ReactGA4 from "react-ga4";
+import {themes} from '@storybook/theming';
 
 import ThemeEnvironment from '../src/ThemeEnvironment';
 
