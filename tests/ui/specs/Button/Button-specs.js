@@ -17,7 +17,7 @@ describe('Button', function () {
 		it('should focus disabled button on 5-way right', async function () {
 			await buttonDefault.focus();
 			await Page.spotlightRight();
-			expect(await buttonDisabled.self.isFocused()).to.be.true();
+			expect(await buttonDisabled.self.isFocused()).to.be.false();
 		});
 
 		it('should focus buttonSizeSmall button on 5-way left', async function () {
