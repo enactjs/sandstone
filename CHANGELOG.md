@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` to read out the announcement of completion properly when `editable` is given
+
 ## [2.7.11] - 2023-10-13
 
 ### Fixed
