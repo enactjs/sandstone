@@ -578,7 +578,9 @@ const EditableWrapper = (props) => {
 							selectedItemLabel + $L('Movement completed'),
 							true
 						);
-						selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+						setTimeout(() => {
+							selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+						}, completeAnnounceDelay);
 					}, completeAnnounceDelay);
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
@@ -646,7 +648,9 @@ const EditableWrapper = (props) => {
 						selectedItemLabel + $L('Movement completed'),
 						true
 					);
-					selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+					setTimeout(() => {
+						selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+					}, completeAnnounceDelay);
 				}, completeAnnounceDelay);
 
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
