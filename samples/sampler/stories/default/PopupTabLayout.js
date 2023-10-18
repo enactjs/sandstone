@@ -84,6 +84,7 @@ const PopupTabLayoutSamplesBase = ({args, rtl}) => {
 				noAutoDismiss={args['noAutoDismiss']}
 				onTabAnimationEnd={action('onTabAnimationEnd')}
 				onHide={action('onHide')}
+				onSelect={action('onSelect')}
 				onShow={action('onShow')}
 				scrimType={args['scrimType']}
 				spotlightRestrict={args['spotlightRestrict']}

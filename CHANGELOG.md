@@ -6,8 +6,125 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` to read out the announcement of completion properly when `editable` is given
+
+## [2.7.11] - 2023-10-13
+
+### Fixed
+
+- `sandstone/TabLayout` to revert 2.7.9 fix that change back key behavior
+
+## [2.7.10] - 2023-09-20
+
+### Fixed
+
+- `sandstone/Scroller` to not show console error when an abnormal `editable.initialSelected` is given
+- `sandstone/VirtualList` to not snatch focus from other list on the first render
+
+## [2.7.9] - 2023-09-12
+
+### Changed
+
+- `sandstone/TabLayout` back key behavior to match the latest UX
+
+### Fixed
+
+- `sandstone/Panels.Header` to not show `slotAfter` in incorrect position at first rendering when `centered` is given
+- `sandstone/Scroller` to read out properly when `editable` is given 
+
+## [2.7.8] - 2023-08-31
+
+### Changed
+
+- `sandstone/IconItem` to match the latest design
+
+### Fixed
+
+- `sandstone/QuickGuidePanels` to focus the last focused button when navigating between views
+
+## [2.7.7] - 2023-08-22
+
+### Added
+
+- `sandstone/QuickGuidePanels` read out feature to support A11y
+
+### Fixed
+
+- `sandstone/Scroller` to support hiding all items when `editable` is given
+- `sandstone/Scroller` to not lose focus by back key when `editable` is given
+
+## [2.7.6] - 2023-08-10
+
+### Changed
+
+- `sandstone/TabLayout` enter key behavior to match the latest UX
+
+### Fixed
+
+- `sandstone/Dropdown' to focus properly the first option and the last option via page up and page down
+- `sandstone/QuickGuidePanels` to not lose focus when the last view is displayed
+
+## [2.7.5] - 2023-08-04
+
+### Added
+
+- `sandstone/Scroller` prop `editable.initialSelected` to allow start edit mode with selected item
+
+### Changed
+
+- `sandstone/Scroller` back key behavior to match the latest UX when `editable` is given
+
+### Fixed
+
+- `sandstone/Scroller` to handle focus moving properly when `editable` is given
+- `sandstone/Scroller` to not select disabled item in scroller when `editable` is given
+- `sandstone/VirtualList` to move focus properly by 5-way directional key hold when `spotlight/SpotlightContainerDecorator` config option `continue5WayHold` is set
+
+## [2.7.4] - 2023-07-19
+
+### Fixed
+
+- `sandstone/VirtualList.VirtualGridList` to not scale DOM out of a list by wheeling when `snapToCenter`
+
+## [2.7.3] - 2023-07-14
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hovering inside a nested scroller
+
+## [2.7.2] - 2023-06-30
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icons `exclamation`, `show`, and `hide`
+- `sandstone/Scroller` to support showing buttons when an item is focused and `editable` is given
+- `sandstone/QuickGuidePanels` prop `onClose`
+
+### Fixed
+
+- `sandstone/QuickGuidePanels` to update a close button position properly in RTL locales
+- `sandstone/Scroller` to focus properly when item is selected and `editable` is given
+- `sandstone/VirtualList` to not lose focus when a focused item is removed by reduced `dataSize`
+
+## [2.5.11] - 2023-06-07
+
+### Fixed
+
+- `sandstone/VideoPlayer` to keep showing media controls while a user is wheeling
+
+## [2.7.1] - 2023-06-02
+
+### Added
+
+- `sandstone/Scroller` to support hiding items when `editable` is given
+- `sandstone/QuickGuidePanels` component
+
+### Fixed
+
 - `sandstone/Scroller` and `sandstone/VirtualList` to stop scrolling by `hoverToScroll` when the pointer disappears
 - `sandstone/VideoPlayer` to focus the play/pause button when the playback controls is shown using the 5-way down key
+- `sandstone/VideoPlayer` to keep showing media controls while a user is wheeling
+- `sandstone/WizardPanels` to read out the correct step when using `current` prop
 
 ## [2.7.0] - 2023-04-25
 

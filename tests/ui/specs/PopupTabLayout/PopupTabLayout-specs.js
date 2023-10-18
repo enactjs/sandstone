@@ -54,6 +54,7 @@ describe('PopupTabLayout', function () {
 					// 	return n.outerHTML;
 					// }, popupTabLayout.self));
 
+					await Page.delay(500);
 					const expected = true;
 					const actual = await popupTabLayout.isCollapsed;
 
@@ -154,6 +155,7 @@ describe('PopupTabLayout', function () {
 						await Page.backKey();
 					});
 
+					await Page.delay(500);
 					const expected = await $('#tabLayout').isExisting();
 					const actual = false;
 
@@ -220,12 +222,21 @@ describe('PopupTabLayout', function () {
 						await Page.backKey();
 					});
 
+					await Page.delay(500);
 					const expected = await $('#tabLayout').isExisting();
 					const actual = false;
 
 					expect(actual).to.equal(expected);
 				});
 
+				it('should change the tab content immediately when pressing the enter key on the tab menu (WRP-26238)', async function () {
+					// Press the down key and then enter key to go to the second panel
+					await Page.spotlightDown();
+					await Page.spotlightSelect();
+
+					// Make sure the focus is on the second panel
+					expect(await browser.execute(getFocusedText)).to.equal('Advanced Audio');
+				});
 			});
 
 			// Note: To verify that testing is not possible.
@@ -285,7 +296,7 @@ describe('PopupTabLayout', function () {
 			});
 
 			it('should focus the second tab when expanded', async function () {
-				await Page.open('?defaultIndex=1');
+				await Page.open('', '?defaultIndex=1');
 
 				const expected = 'Sound';
 				const actual = await browser.execute(getFocusedText);
@@ -294,7 +305,7 @@ describe('PopupTabLayout', function () {
 			});
 
 			it('should respect the `autoFocus` prop on `TabPanel` when collapsed', async function () {
-				await Page.open('?defaultCollapsed');
+				await Page.open('', '?defaultCollapsed');
 
 				const expected = 'Color Adjust';
 				const actual = await browser.execute(getFocusedText);

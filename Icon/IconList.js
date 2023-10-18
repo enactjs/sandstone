@@ -206,5 +206,8 @@ export default {
 	cameradis         : 0x0F0189, // camera_dis
 	gamepad           : 0x0F018A, // gamepad
 	gamepaddis        : 0x0F018B, // gamepad_dis
-	wowcast           : 0x0F018C  // wowcast
+	wowcast           : 0x0F018C, // wowcast
+	exclamation       : 0x0F018D, // exclamation
+	show              : 0x0F018E, // show
+	hide              : 0x0F018F  // hide
 };
