@@ -4,6 +4,8 @@ import CheckboxItem from '../CheckboxItem';
 import Icon from '../Icon';
 import ImageItem from '../ImageItem';
 
+import {useDrag} from './useDrag'
+
 import componentCss from './TransferList.module.less';
 import imageItemCss from '../ImageItem/ImageItem.module.less';
 
@@ -13,6 +15,9 @@ const svgGenerator = (width, height, customText) => (
 	`%3Crect width='${width}' height='${height}' fill='%23117fba'%3E%3C/rect%3E` +
 	`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23ffffff'%3E${customText}%3C/text%3E%3C/svg%3E`
 );
+
+const DraggableCheckboxItem = useDrag(CheckboxItem);
+const DraggableImageItem = useDrag(ImageItem);
 
 // When `listComponent` prop is set to `VirtualList`, the `CheckboxItem` component is used to render the items in the lists
 export const renderItem = ({disabled, elements, itemSize, list, moveInFirst, moveInSecond, onSelect, orientation, reorderList, selectedItems, showSelectionOrder, ...rest}) => (data) => {
@@ -82,11 +87,10 @@ export const renderItem = ({disabled, elements, itemSize, list, moveInFirst, mov
 	};
 
 	return (
-		<CheckboxItem
+		<DraggableCheckboxItem
 			{...rest}
 			className={componentCss.draggableItem}
 			data-index={dataIndex}
-			draggable={!disabled}
 			disabled={disabled}
 			id={`${index}-${list}`}
 			key={index + list}
@@ -101,7 +105,7 @@ export const renderItem = ({disabled, elements, itemSize, list, moveInFirst, mov
 			style={style}
 		>
 			{element}
-		</CheckboxItem>
+		</DraggableCheckboxItem>
 	);
 };
 
@@ -189,12 +193,11 @@ export const renderImageItem = ({disabled, elements, list, moveInFirst, moveInSe
 	delete rest.itemSize;
 
 	return (
-		<ImageItem
+		<DraggableImageItem
 			{...rest}
 			className={componentCss.draggableItem}
 			data-index={dataIndex}
 			disabled={disabled}
-			draggable={!disabled}
 			id={`${index}-${list}`}
 			key={index + list}
 			onClick={handleClick}	// eslint-disable-line  react/jsx-no-bind
@@ -210,6 +213,6 @@ export const renderImageItem = ({disabled, elements, list, moveInFirst, moveInSe
 			src={source}
 		>
 			{element}
-		</ImageItem>
+		</DraggableImageItem>
 	);
 };
