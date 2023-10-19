@@ -50,20 +50,21 @@ const skins = {
 
 configureActions();
 
-const GA_MEASUREMENT_ID  = "G-ZNPW7ST2D8";
-const options = {
-	gtagOptions: {
-		content_group: 'storybook',
-	},
-};
+if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
+	const GA_MEASUREMENT_ID  = "G-ZNPW7ST2D8";
+	const options = {
+		gtagOptions: {
+			content_group: 'storybook',
+		},
+	};
 
-ReactGA4.initialize(GA_MEASUREMENT_ID, options);
+	ReactGA4.initialize(GA_MEASUREMENT_ID, options);
 
-const script = document.createElement("script");
-script.src = `//cdn.cookie-script.com/s/3a846584c6b545a3d1ac4dcfc8ac15a2.js`;
-script.type = "text/javascript";
-
-document.body.appendChild(script);
+	const script = document.createElement("script");
+	script.src = `//cdn.cookie-script.com/s/3a846584c6b545a3d1ac4dcfc8ac15a2.js`;
+	script.type = "text/javascript";
+	document.body.appendChild(script);
+}
 
 export const parameters = {
 	docs: {
