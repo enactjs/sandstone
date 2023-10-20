@@ -1,9 +1,9 @@
 const ScrollerPage = require('../ScrollerPage');
 const {enableEditModeLongPress, expectFocusedItem} = require('../Scroller-utils');
 
-describe('Editable Scroller', function () {
+describe('Scroller With Editable Select Item By Long Press', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open('EditableItem');
+		await ScrollerPage.open('WithEditableSelectItemByLongPress');
 	});
 
 	it('should remove item with remove button [QWTC-568]', async function () {

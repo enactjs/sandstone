@@ -1,10 +1,10 @@
-const ScrollerPage = require('./EditableScrollerItemPage');
+const ScrollerPage = require('../ScrollerPage');
 const {expectFocusedItem} = require('../Scroller-utils');
 
-describe('Editable Scroller Item', function () {
+describe('Scroller With Editable Select Item By Press', function () {
 	describe('5-way', function () {
 		beforeEach(async function () {
-			await ScrollerPage.open();
+			await ScrollerPage.open('WithEditableSelectItemByPress');
 			await ScrollerPage.spotlightDown();
 			await ScrollerPage.spotlightSelect();
 			await ScrollerPage.spotlightDown();
@@ -197,7 +197,7 @@ describe('Editable Scroller Item', function () {
 	describe('pointer', function () {
 		beforeEach(async function () {
 			// Enable Edit Mode with pointer.
-			await ScrollerPage.open();
+			await ScrollerPage.open('WithEditableSelectItemByPress');
 			const editButton = await $('#editMode');
 			await editButton.click();
 		});

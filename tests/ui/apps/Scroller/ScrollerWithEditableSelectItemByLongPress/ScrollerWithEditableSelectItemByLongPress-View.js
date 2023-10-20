@@ -5,7 +5,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import {Component, createRef} from 'react';
 
 import Button from '../../../../../Button/Button';
-import css from './Scroller.module.less';
+import css from './ScrollerWithEditableSelectItemByLongPress.module.less';
 import ImageItem from '../../../../../ImageItem';
 import {InputField} from '../../../../../Input';
 import Scroller from '../../../../../Scroller/Scroller';

@@ -1,14 +1,14 @@
 const ScrollerPage = require('../ScrollerPage');
 const {enableEditModeLongPress, expectFocusedItem} = require('../Scroller-utils');
 
-describe('Editable Scroller', function () {
+describe('Scroller With Editable Select Item By Long Press', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open('EditableItem');
+		await ScrollerPage.open('WithEditableSelectItemByLongPress');
 	});
 
 	it('should change item position with editableCentered [QWTC-570]', async function () {
 		// Set datasize 3.
-		await ScrollerPage.inputfieldNumItems.moveTo();
+		await ScrollerPage.inputFieldNumItems.moveTo();
 		await ScrollerPage.spotlightSelect();
 		await ScrollerPage.backSpace();
 		await ScrollerPage.backSpace();

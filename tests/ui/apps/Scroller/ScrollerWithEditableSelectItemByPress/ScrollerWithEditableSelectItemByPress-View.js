@@ -9,7 +9,7 @@ import {InputField} from '../../../../../Input';
 import Scroller from '../../../../../Scroller';
 import ThemeDecorator from '../../../../../ThemeDecorator';
 
-import css from './EditableScrollerItem.module.less';
+import css from './ScrollerWithEditableSelectItemByPress.module.less';
 
 const ContainerDivWithLeaveForConfig = SpotlightContainerDecorator({leaveFor: {left: '', right: ''}}, 'div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
