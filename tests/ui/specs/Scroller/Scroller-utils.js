@@ -90,6 +90,7 @@ async function focusedItemButton () {
 	});
 }
 
+exports.enableEditModeLongPress = enableEditModeLongPress;
 exports.expectDeleteButton = expectDeleteButton;
 exports.expectDisabledItem = expectDisabledItem;
 exports.expectFocusedIconItem = expectFocusedIconItem;
