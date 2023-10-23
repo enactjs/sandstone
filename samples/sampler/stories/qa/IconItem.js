@@ -2,12 +2,14 @@ import {add, is} from '@enact/core/keymap';
 import Button from '@enact/sandstone/Button';
 import IconItem from '@enact/sandstone/IconItem';
 import Scroller from '@enact/sandstone/Scroller';
+import $L from '@enact/sandstone/internal/$L';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
+import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
@@ -64,7 +66,8 @@ const populateItems = ({index}) => {
 			else if (index === 6) return 'Gallery';
 		})(),
 		labelColor: index === 6 ? 'dark' : null,
-		labelOn: index === 6 ? 'focus' : null
+		labelOn: index === 6 ? 'focus' : null,
+		disabled: index === 1
 	};
 
 	return {index, iconItemProps};
@@ -76,6 +79,7 @@ for (let i = 0; i < 20; i++) {
 
 const Container = SpotlightContainerDecorator('div');
 const ContainerDivWithLeaveForConfig = SpotlightContainerDecorator({leaveFor: {left: '', right: ''}}, 'div');
+const TouchableDiv = Touchable('div');
 
 export const EditableIcon = (args) => {
 	const dataSize = args['editableDataSize'];
@@ -84,9 +88,12 @@ export const EditableIcon = (args) => {
 	const removeItem = useRef();
 	const hideItem = useRef();
 	const showItem = useRef();
+	const focusItem = useRef();
 	const divRef = useRef();
 	const mutableRef = useRef({
-		hideIndex: null
+		hideIndex: null,
+		initialSelected: {},
+		timer: null
 	});
 
 	useLayoutEffect(() => {
@@ -98,8 +105,19 @@ export const EditableIcon = (args) => {
 		mutableRef.current.hideIndex = dataSize;
 	}, [dataSize]);
 
+	const findItemNode = useCallback((node) => {
+		for (let current = node; current !== divRef.current && current !== document; current = current.parentNode) {
+			if (current.dataset.index) {
+				return current;
+			}
+		}
+	}, [divRef]);
+
 	const onClickModeButton = useCallback(() => {
 		setEditMode(mode => !mode);
+		mutableRef.current.initialSelected.scrollLeft = 0;
+		mutableRef.current.initialSelected.itemIndex = null;
+		mutableRef.current.timer = null;
 	}, [setEditMode]);
 
 	const onClickRemoveButton = useCallback((ev) => {
@@ -123,6 +141,55 @@ export const EditableIcon = (args) => {
 		ev.preventDefault();
 	}, []);
 
+	const onFocusItem = useCallback((ev) => {
+		if (focusItem.current) {
+			focusItem.current(ev.target);
+		}
+	}, []);
+
+	const handleHoldStart = useCallback(() => {
+		setEditMode(true);
+	}, [setEditMode]);
+
+	const handleMouseDown = useCallback((ev) => {
+		if (!ev.target.className.includes('Button')) {
+			const targetItemNode = findItemNode(ev.target);
+			if (targetItemNode && targetItemNode.style.order) {
+				mutableRef.current.initialSelected.itemIndex = targetItemNode.style.order;
+			}
+		}
+	}, [findItemNode]);
+
+	const handleKeyDown = useCallback((ev) => {
+		const {keyCode, repeat, target} = ev;
+		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
+			if (repeat && !mutableRef.current.timer) {
+				const targetItemNode = findItemNode(ev.target);
+				if (targetItemNode && targetItemNode.style.order) {
+					mutableRef.current.initialSelected.itemIndex = targetItemNode.style.order;
+				}
+				mutableRef.current.timer = setTimeout(() => {
+					setEditMode(true);
+				}, 200);
+
+			}
+		}
+	}, [findItemNode]);
+
+	const handleKeyUp = useCallback((ev) => {
+		if (ev.target.getAttribute('role') === 'button') {
+			return;
+		}
+		if (mutableRef.current.timer) {
+			clearTimeout(mutableRef.current.timer);
+			mutableRef.current.timer = null;
+		}
+	}, []);
+
+	const handleScroll = useCallback((ev) => {
+		mutableRef.current.initialSelected.scrollLeft = ev.scrollLeft;
+	}, []);
+
 	const handleComplete = useCallback((ev) => {
 		const {orders, hideIndex} = ev;
 		mutableRef.current.hideIndex = hideIndex;
@@ -135,20 +202,27 @@ export const EditableIcon = (args) => {
 		});
 
 		for (let i = 0; i < orders.length; i++) {
-			newItems[i].disabled = (i >= hideIndex);
+			newItems[i].hidden = (i >= hideIndex);
 		}
 
 		setItems(newItems);
 	}, [items]);
 
+	const handleGlobalKeyUp = useCallback((ev) => {
+		if (isCancel(ev.keyCode)) {
+			setEditMode(false);
+			mutableRef.current.initialSelected.scrollLeft = 0;
+			mutableRef.current.initialSelected.itemIndex = null;
+			mutableRef.current.timer = null;
+		}
+	}, []);
+
 	useEffect(() => {
-		divRef.current.addEventListener('keydown', (ev) => {
-			const {keyCode} = ev;
-			if (isCancel(keyCode)) {
-				setEditMode(false);
-			}
+		document.addEventListener('keyup', handleGlobalKeyUp);
+		return (() => {
+			document.removeEventListener('keyup', handleGlobalKeyUp);
 		});
-	}, [divRef]);
+	}, [handleGlobalKeyUp]);
 
 	return (
 		<div ref={divRef}>
@@ -165,6 +239,8 @@ export const EditableIcon = (args) => {
 							removeItemFuncRef: removeItem,
 							hideItemFuncRef: hideItem,
 							showItemFuncRef: showItem,
+							focusItemFuncRef: focusItem,
+							initialSelected: mutableRef.current.initialSelected,
 							selectItemBy: 'press'
 						}}
 						focusableScrollbar={args['focusableScrollbar']}
@@ -183,48 +259,57 @@ export const EditableIcon = (args) => {
 						{
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}} disabled={item.iconItemProps['disabled'] || item.hidden}>
 										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
-											{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
-											{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
-											{item.disabled ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
+											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
+											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
+											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
 										</ContainerDivWithLeaveForConfig>
 										<IconItem
-											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
-											className={item.disabled ? css.hideItem : css.iconItem}
-											disabled={item.disabled}
-											onClick={action('onClickItem')}
 											{...item.iconItemProps}
+											aria-label={`Icon ${item.index}`}
+											className={css.editableIconItem}
+											disabled={item.iconItemProps['disabled'] || item.hidden}
+											onClick={action('onClickItem')}
+											onFocus={onFocusItem}
 										/>
 									</div>
 								);
 							})
 						}
 					</Scroller> :
-					<Scroller
-						direction="horizontal"
-						onClick={action('onClickScroller')}
-						onKeyDown={action('onKeyDown')}
-						onScrollStart={action('onScrollStart')}
-						onScrollStop={action('onScrollStop')}
+					<TouchableDiv
+						onHoldStart={handleHoldStart}
+						onMouseDown={handleMouseDown}
+						onKeyDown={handleKeyDown}
+						onKeyUp={handleKeyUp}
 					>
-						<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
-							items.map((item, index) => {
-								return (
-									<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
-										<div className={css.removeButtonContainer} />
-										<IconItem
-											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
-											className={item.disabled ? css.hideItem : css.iconItem}
-											onClick={action('onClickItem')}
-											disabled={item.disabled}
-											{...item.iconItemProps}
-										/>
-									</div>
-								);
-							})}
-						</div>
-					</Scroller>
+						<Scroller
+							direction="horizontal"
+							onClick={action('onClickScroller')}
+							onKeyDown={action('onKeyDown')}
+							onScroll={handleScroll}
+							onScrollStart={action('onScrollStart')}
+							onScrollStop={action('onScrollStop')}
+						>
+							<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
+								items.map((item, index) => {
+									return (
+										<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+											<div className={css.removeButtonContainer} />
+											<IconItem
+												{...item.iconItemProps}
+												aria-label={`Icon ${item.index} ${$L('Press and hold the OK button to edit.')}`}
+												className={css.iconItem}
+												disabled={item.iconItemProps['disabled'] || item.hidden}
+												onClick={action('onClickItem')}
+											/>
+										</div>
+									);
+								})}
+							</div>
+						</Scroller>
+					</TouchableDiv>
 				}
 			</Container>
 		</div>
@@ -247,9 +332,6 @@ export const EditableIconWithLongPress = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
 	const removeItem = useRef();
-	const mutableRef = useRef({
-		hideIndex: null
-	});
 
 	useLayoutEffect(() => {
 		itemsArr = [];
@@ -257,7 +339,6 @@ export const EditableIconWithLongPress = (args) => {
 			itemsArr.push(populateItems({index: i}));
 		}
 		setItems(itemsArr);
-		mutableRef.current.hideIndex = dataSize;
 	}, [dataSize]);
 
 	const onClickRemoveButton = useCallback((ev) => {
@@ -286,7 +367,6 @@ export const EditableIconWithLongPress = (args) => {
 			editable={{
 				centered: args['editableCentered'],
 				css,
-				hideIndex: mutableRef.current.hideIndex,
 				onComplete: handleComplete,
 				removeItemFuncRef: removeItem
 			}}
@@ -306,12 +386,12 @@ export const EditableIconWithLongPress = (args) => {
 			{
 				items.map((item, index) => {
 					return (
-						<div key={item.index} className={css.itemWrapper} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+						<div key={item.index} className={css.itemWrapper} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}}>
 							<div className={css.removeButtonContainer}>
 								<Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />
 							</div>
 							<IconItem
-								aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
+								aria-label={`Icon ${item.index} ${$L('Press and hold the OK button to edit.')}`}
 								className={css.iconItem}
 								onClick={action('onClickItem')}
 								{...item.iconItemProps}
