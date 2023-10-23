@@ -58,6 +58,9 @@ class ScrollerPage extends Page {
 	get buttonSpotlightDisabled () {
 		return element('#spotlightDisabled', browser);
 	}
+	get buttonEditableCentered () {
+		return element('#editableCentered', browser);
+	}
 
 	// dropdown api
 	get dropdownFocusableScrollbar () {
