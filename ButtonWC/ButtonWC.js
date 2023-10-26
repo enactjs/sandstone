@@ -121,6 +121,25 @@ const ButtonBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Additional DOM nodes which may be necessary for decorating the Button.
+		 *
+		 * @type {Node}
+		 * @private
+		 */
+		decoration: PropTypes.node,
+
+		/**
+		 * Applies the `disabled` class.
+		 *
+		 * When `true`, the button is shown as disabled.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * Set the visual effect applied to the button when focused.
 		 *
 		 * @type {('expand'|'static')}
@@ -128,6 +147,27 @@ const ButtonBase = kind({
 		 * @private
 		 */
 		focusEffect: PropTypes.oneOf(['expand', 'static']),
+
+		/**
+		 * The icon displayed within the Button.
+		 *
+		 * The icon will be displayed before the natural reading order of the text, regardless
+		 * of locale. Any string that is valid for its {@link ui/Button.Button.iconComponent} is
+		 * valid here. If `icon` is specified as a string and `iconButton` is undefined, the icon is
+		 * not rendered.
+		 *
+		 * This also supports a custom icon, in the form of a DOM node or a Component,
+		 * with the caveat that if you supply a custom icon, you are responsible for sizing and
+		 * locale positioning of the custom component.
+		 *
+		 * Setting this to `true` means the `iconComponent` will be rendered but with empty content.
+		 * This may be useful if you've customized the `iconComponent` to render the icon content
+		 * externally.
+		 *
+		 * @type {Node|Boolean}
+		 * @public
+		 */
+		icon: PropTypes.oneOfType([PropTypes.node, PropTypes.bool]),
 
 		/**
 		 * The component used to render the {@link sandstone/Button.ButtonBase.icon|icon}.
@@ -138,6 +178,15 @@ const ButtonBase = kind({
 		 * @private
 		 */
 		iconComponent: EnactPropTypes.componentOverride,
+
+		/**
+		 * Flips the icon.
+		 *
+		 * @see {@link ui/Icon.IconBase.flip}
+		 * @type {String}
+		 * @public
+		 */
+		iconFlip: PropTypes.string,
 
 		/**
 		 * True if button is an icon only button.
@@ -169,12 +218,36 @@ const ButtonBase = kind({
 		minWidth: PropTypes.bool,
 
 		/**
+		 * Indicates the component is depressed.
+		 *
+		 * Applies the `pressed` CSS class which can be customized by
+		 * {@link /docs/developer-guide/theming/|theming}.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		pressed: PropTypes.bool,
+
+		/**
 		 * True if both sides of button are fully rounded.
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
 		roundBorder: PropTypes.bool,
+
+		/**
+		 * Indicates the component is selected.
+		 *
+		 * Applies the `selected` CSS class which can be customized by
+		 * {@link /docs/developer-guide/theming/|theming}.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		selected: PropTypes.bool,
 
 		/**
 		 * Adds shadow to the text.
@@ -266,7 +339,7 @@ const ButtonBase = kind({
 		}
 	},
 
-	render: ({children, className, css, iconComponent, ...rest}) => {
+	render: ({children, className, css, decoration, iconComponent, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
 		delete rest.collapsable;
@@ -292,6 +365,7 @@ const ButtonBase = kind({
 
 		return (
 			<UiButtonBase data-webos-voice-intent="Select" {...rest} css={css} className={className}>
+				<div slot="decoration">{decoration ?? null}</div>
 				<div slot="background" className={css.bg} />
 				<div className={css.client}>
 					{iconComponent}
