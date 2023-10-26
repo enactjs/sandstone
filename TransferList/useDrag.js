@@ -12,11 +12,9 @@ import PropTypes from 'prop-types';
 export const useDrag = (Wrapped) => kind({
 	name: 'useDrag',
 
-	// propTypes: /** @lends sandstone/TransferList.useDrag.prototype */ {
-	// 	draggable: PropTypes.bool,
-	// 	name: PropTypes.string,
-	// 	slot: PropTypes.string
-	// },
+	styles: {
+		className: 'draggable-component'
+	},
 
 	render: ({disabled, ...rest}) => {
 		return (
