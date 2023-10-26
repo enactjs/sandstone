@@ -10,7 +10,6 @@
  * @exports ButtonDecorator
  */
 
-import classnames from 'classnames';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
