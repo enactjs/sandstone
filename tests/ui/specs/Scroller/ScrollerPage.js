@@ -203,7 +203,7 @@ class ScrollerPage extends Page {
 
 	async checkEditableItem () {
 		return await browser.execute(function () {
-			const itemWrapperClass = 'tests_ui_apps_Scroller_ScrollerWithEditableSelectItemByLongPress_ScrollerWithEditableSelectItemByLongPress_itemWrapper Scroller_EditableWrapper_selected tests_ui_apps_Scroller_ScrollerWithEditableSelectItemByLongPress_ScrollerWithEditableSelectItemByLongPress_selected';
+			const itemWrapperClass = 'tests_ui_apps_Scroller_WithEditableSelectItemByLongPress_ScrollerWithEditableSelectItemByLongPress_itemWrapper Scroller_EditableWrapper_selected tests_ui_apps_Scroller_WithEditableSelectItemByLongPress_ScrollerWithEditableSelectItemByLongPress_selected';
 			return document.activeElement.parentElement.className === itemWrapperClass;
 		});
 	}
