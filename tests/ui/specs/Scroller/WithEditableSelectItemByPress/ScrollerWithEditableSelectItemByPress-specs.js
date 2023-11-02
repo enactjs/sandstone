@@ -237,7 +237,7 @@ describe('Editable Scroller', function () {
 		// Move the spotlight to the last item that is not visible.
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.moveSpotlight(9);
+		await ScrollerPage.moveSpotlight(9, 'spotlightRight');
 		await browser.pause(600);
 
 		await expectFocusedItem(9);
@@ -321,7 +321,7 @@ describe('Editable Scroller', function () {
 
 		it('should change item position', async function () {
 			const item0 = await $('#item0');
-			const elementWidth = await item0.getSize('width');
+			const itemWidth = await item0.getSize('width');
 			// Change position of Item 0.
 			await browser.performActions([
 				{
@@ -332,7 +332,7 @@ describe('Editable Scroller', function () {
 						{type: 'pointerDown', button: 0},
 						{type: 'pause', duration: 1000},
 						{type: 'pointerUp', button: 0},
-						{type: 'pointerMove', duration: 0, x: elementWidth * 3, y: 0, origin: item0},
+						{type: 'pointerMove', duration: 0, x: itemWidth * 3, y: 0, origin: item0},
 						{type: 'pointerDown', button: 0}
 					]
 				}
@@ -344,7 +344,7 @@ describe('Editable Scroller', function () {
 					type: 'pointer',
 					id: 'mouse',
 					actions: [
-						{type: 'pointerMove', duration: 0, x: elementWidth, y: 0, origin: item0},
+						{type: 'pointerMove', duration: 0, x: itemWidth, y: 0, origin: item0},
 						{type: 'pointerDown', button: 0},
 						{type: 'pause', duration: 500},
 						{type: 'pointerUp', button: 0}
@@ -360,7 +360,7 @@ describe('Editable Scroller', function () {
 					id: 'mouse',
 					actions: [
 						{type: 'pointerDown', button: 0},
-						{type: 'pointerMove', duration: 0, x: -elementWidth, y: 0, origin: item0},
+						{type: 'pointerMove', duration: 0, x: -itemWidth, y: 0, origin: item0},
 						{type: 'pointerDown', button: 0},
 						{type: 'pause', duration: 500},
 						{type: 'pointerUp', button: 0}
@@ -377,12 +377,12 @@ describe('Editable Scroller', function () {
 					type: 'pointer',
 					id: 'mouse',
 					actions: [
-						{type: 'pointerMove', duration: 0, x: -elementWidth * 2, y: 0, origin: item2},
+						{type: 'pointerMove', duration: 0, x: -itemWidth * 2, y: 0, origin: item2},
 						{type: 'pointerDown', button: 0},
 						{type: 'pause', duration: 500},
 						{type: 'pointerUp', button: 0},
 						{type: 'pointerMove', duration: 0, x: 0, y: 0, origin: item2},
-						{type: 'pointerMove', duration: 0, x: elementWidth, y: 0, origin: item2},
+						{type: 'pointerMove', duration: 0, x: itemWidth, y: 0, origin: item2},
 						{type: 'pointerDown', button: 0},
 						{type: 'pause', duration: 500},
 						{type: 'pointerUp', button: 0}
