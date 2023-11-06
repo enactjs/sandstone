@@ -19,6 +19,8 @@ import componentCss from './TabGroup.module.less';
 
 const MAX_TABS_BEFORE_SCROLLING = 7;
 
+const ButtonContainer = SpotlightContainerDecorator('div');
+
 // Since Button and Cell both have a `size` prop, TabButton is required to relay the Button.size to Button, rather than Cell.
 // eslint-disable-next-line enact/prop-types
 const TabButton = ({buttonSize, ...rest}) => (<Button size={buttonSize} {...rest} css={componentCss} />);
@@ -220,13 +222,15 @@ const TabGroupBase = kind({
 				{...scrollerProps}
 			>
 				{noIcons ? (
-					<TabBase
-						icon="list"
-						collapsed
-						disabled={tabsDisabled}
-						onSpotlightDisappear={onBlurList}
-						spotlightDisabled={tabsSpotlightDisabled}
-					/>
+					<ButtonContainer spotlightId={spotlightId}>
+						<TabBase
+							icon="list"
+							collapsed
+							disabled={tabsDisabled}
+							onSpotlightDisappear={onBlurList}
+							spotlightDisabled={tabsSpotlightDisabled}
+						/>
+					</ButtonContainer>
 				) : (
 					<GroupComponent
 						childComponent={Tab}
