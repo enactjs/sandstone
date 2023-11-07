@@ -277,7 +277,8 @@ describe('Editable Scroller', function () {
 			await expect(await item0.isExisting()).to.be.false();
 		});
 
-		it('should remove item with remove button when item is focused', async function () {
+		// It will be checked after the Java version update on the TV.
+		it.skip('should remove item with remove button when item is focused', async function () {
 			// Focus Item 0 with pointer.
 			const item0 = await $('#item0');
 			await browser.performActions([
@@ -319,7 +320,8 @@ describe('Editable Scroller', function () {
 			await expect(await showButton.isDisplayedInViewport()).to.be.false();
 		});
 
-		it('should change item position', async function () {
+		// It will be checked after the Java version update on the TV.
+		it.skip('should change item position', async function () {
 			const item0 = await $('#item0');
 			const itemWidth = await item0.getSize('width');
 			// Change position of Item 0.
