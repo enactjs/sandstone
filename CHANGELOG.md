@@ -2,7 +2,37 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.7.12] - 2023-10-23
+
+### Fixed
+
+- `sandstone/Scroller` to read out the announcement of completion properly when `editable` is given
+
+## [2.7.11] - 2023-10-13
+
+### Fixed
+
+- `sandstone/TabLayout` to revert 2.7.9 fix that change back key behavior
+
+## [2.7.10] - 2023-09-20
+
+### Fixed
+
+- `sandstone/Scroller` to not show console error when an abnormal `editable.initialSelected` is given
+- `sandstone/VirtualList` to not snatch focus from other list on the first render
+
+## [2.7.9] - 2023-09-12
+
+### Changed
+
+- `sandstone/TabLayout` back key behavior to match the latest UX
+
+### Fixed
+
+- `sandstone/Panels.Header` to not show `slotAfter` in incorrect position at first rendering when `centered` is given
+- `sandstone/Scroller` to read out properly when `editable` is given 
+
+## [2.7.8] - 2023-08-31
 
 ### Changed
 

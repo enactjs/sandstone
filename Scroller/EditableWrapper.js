@@ -87,7 +87,6 @@ const EditableWrapper = (props) => {
 	const hideItemFuncRef = editable?.hideItemFuncRef;
 	const showItemFuncRef = editable?.showItemFuncRef;
 	const focusItemFuncRef = editable?.focusItemFuncRef;
-	const initialSelected = editable?.initialSelected;
 	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
 	const dataSize = children?.length;
@@ -131,7 +130,10 @@ const EditableWrapper = (props) => {
 		// Flag for prevent event propagation
 		needToPreventEvent: null,
 
-		lastInputDirection: null
+		lastInputDirection: null,
+
+		// initialSelected
+		initialSelected: editable?.initialSelected
 	});
 	const announceRef = useRef({});
 
@@ -151,6 +153,7 @@ const EditableWrapper = (props) => {
 		mutableRef.current.selectedItemLabel = '';
 		mutableRef.current.lastMoveDirection = null;
 		mutableRef.current.prevToIndex = null;
+		mutableRef.current.initialSelected = null;
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
 
 		Spotlight.set(spotlightId, {restrict: 'self-first'});
@@ -212,14 +215,20 @@ const EditableWrapper = (props) => {
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 
 			updateArrowIcon(mutableRef.current.fromIndex);
-
-			announceRef.current.announce(
-				mutableRef.current.selectedItemLabel + $L('Press left or right button to move or press up button for other actions')
-			);
+			if (!mutableRef.current.initialSelected) {
+				setTimeout(() => {
+					announceRef.current.announce(
+						mutableRef.current.selectedItemLabel + $L('Press the left/right button to move or press the up button to select other options.')
+					);
+				}, completeAnnounceDelay);
+			}
 		}
 	}, [customCss.focused, customCss.selected, updateArrowIcon]);
 
 	const finalizeEditing = useCallback((orders) => {
+		if (mutableRef.current.initialSelected) {
+			mutableRef.current.selectedItem.children[1].ariaLabel = `${mutableRef.current.selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+		}
 		forwardCustom('onComplete', () => ({orders, hideIndex: mutableRef.current.hideIndex}))(null, editable);
 		reset();
 	}, [editable, reset]);
@@ -233,21 +242,13 @@ const EditableWrapper = (props) => {
 		return null;
 	}, [scrollContentRef]);
 
-	const focusItem = useCallback((target, announceDisabled = false) => {
+	const focusItem = useCallback((target) => {
 		const itemNode = findItemNode(target);
 		if (itemNode && !mutableRef.current.selectedItem) {
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 			mutableRef.current.focusedItem = itemNode;
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
-			const focusedItemLabel = (itemNode.ariaLabel || itemNode.textContent) + ' ';
-			if (!announceDisabled && (!itemNode.hasAttribute('disabled') || itemNode.className.includes('hidden'))) {
-				setTimeout(() => {
-					announceRef.current.announce(
-						focusedItemLabel + $L('Press OK button to move or press up button for other actions')
-					);
-				}, completeAnnounceDelay);
-			}
 		}
 	}, [customCss.focused, findItemNode]);
 
@@ -272,7 +273,7 @@ const EditableWrapper = (props) => {
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
 			if (selectItemBy === 'press') {
-				focusItem(ev.target, true);
+				focusItem(ev.target);
 			}
 			mutableRef.current.needToPreventEvent = true;
 		} else {
@@ -568,15 +569,18 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
 					if (selectItemBy === 'press') {
-						focusItem(target, true);
+						focusItem(target);
 					}
 					mutableRef.current.needToPreventEvent = true;
-
+					selectedItem.children[1].ariaLabel = '';
 					setTimeout(() => {
 						announceRef.current.announce(
-							selectedItemLabel + $L('move complete'),
+							selectedItemLabel + $L('Movement completed'),
 							true
 						);
+						setTimeout(() => {
+							selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+						}, completeAnnounceDelay);
 					}, completeAnnounceDelay);
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
@@ -636,14 +640,17 @@ const EditableWrapper = (props) => {
 				const orders = finalizeOrders();
 				finalizeEditing(orders);
 				if (selectItemBy === 'press') {
-					focusItem(target, true);
+					focusItem(target);
 				}
-
+				selectedItem.children[1].ariaLabel = '';
 				setTimeout(() => {
 					announceRef?.current?.announce(
-						selectedItemLabel + $L('move complete'),
+						selectedItemLabel + $L('Movement completed'),
 						true
 					);
+					setTimeout(() => {
+						selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+					}, completeAnnounceDelay);
 				}, completeAnnounceDelay);
 
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
@@ -755,14 +762,21 @@ const EditableWrapper = (props) => {
 	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle, scrollContentRef]);
 
 	useEffect(() => {
-		if (initialSelected?.itemIndex) {
-			scrollContainerHandle.current?.scrollTo({animate:false, position: {x: initialSelected.scrollLeft}});
+		if (mutableRef.current.initialSelected) {
+			scrollContainerHandle.current?.scrollTo({animate:false, position: {x: mutableRef.current.initialSelected.scrollLeft}});
 		}
-	}, [initialSelected?.itemIndex, initialSelected?.scrollLeft, scrollContainerHandle]);
+	}, [scrollContainerHandle]);
 
 	useLayoutEffect(() => {
+		const iconItemList = Array.from(wrapperRef.current.children);
+		let initialSelected = mutableRef.current.initialSelected;
+
+		if (initialSelected && !(initialSelected?.itemIndex > 0)) { // filter nullish values
+			initialSelected = mutableRef.current.initialSelected = null;
+		}
+
 		if (initialSelected?.itemIndex) {
-			const initialSelectedItem = wrapperRef.current.children[initialSelected.itemIndex - 1];
+			const initialSelectedItem = wrapperRef.current.children[initialSelected?.itemIndex - 1];
 			if (initialSelectedItem?.dataset.index) {
 				mutableRef.current.focusedItem = initialSelectedItem;
 				mutableRef.current.lastMouseClientX = getLastPointerPosition().x;
@@ -771,6 +785,16 @@ const EditableWrapper = (props) => {
 				Spotlight.focus(initialSelectedItem.children[1]);
 			}
 		}
+
+		iconItemList.forEach((iconItemWrapper, index) => {
+			if (iconItemWrapper?.children[1]) {
+				if (initialSelected && (initialSelected.itemIndex - 1 === index)) {
+					iconItemWrapper.children[1].ariaLabel += ` ${$L('Press the left/right button to move or press the up button to select other options.')}`;
+				} else {
+					iconItemWrapper.children[1].ariaLabel += ` ${$L('Press the OK button to move or press the up button to select other options.')}`;
+				}
+			}
+		});
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
