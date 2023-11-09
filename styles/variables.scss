@@ -1,0 +1,74 @@
+// Variables
+//
+
+// App
+// ---------------------------------------
+$sand-app-keepout: 48px;
+
+// Generic/Common/Shared
+// ---------------------------------------
+$sand-component-spacing: 36px;
+$sand-component-spacing-bottom: 30px;
+$sand-smallest-tappable-size: 168px;
+$sand-translate-center: translate(-50%, -50%);
+$sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
+
+// Locale
+// ---------------------------------------
+// Cambodian(km), Sinhala(si), Thai(th), Vietnamse(vi)
+$locale-tallglyph-languages: km, si, th, vi;
+
+// Spotlight
+// ---------------------------------------
+$sand-spotlight-font-weight: 600;
+$sand-spotlight-outset: 48px;
+$sand-spotlight-focus-animation-duration: 200ms;
+$sand-spotlight-focus-shadow-height: 36px;
+
+
+// ---------------------------------------
+// Component Rules
+// ---------------------------------------
+
+// Icon
+// ---------------------------------------
+$sand-icon-large-size: 108px;
+$sand-icon-medium-size: 90px;
+$sand-icon-small-size: 78px;
+$sand-icon-tiny-size: 60px;
+$sand-icon-margin: 24px;
+$sand-icon-large-size-large: ($sand-icon-large-size * 1.2);
+$sand-icon-small-size-large: ($sand-icon-small-size * 1.2);
+
+// Item
+// ---------------------------------------
+$sand-item-height: 156px;
+$sand-item-height-large: $sand-item-height;
+$sand-item-shadow-height: $sand-spotlight-focus-shadow-height;
+$sand-item-withlabel-height: 240px;
+$sand-item-vertical-padding: 6px;
+$sand-item-inline-max-width: 480px;
+$sand-item-border-radius: 12px;
+$sand-item-slotafter-spacing: 54px;
+$sand-item-slotbefore-spacing: 54px;
+$sand-item-margin: 0 $sand-component-spacing $sand-component-spacing-bottom $sand-component-spacing;
+$sand-item-small-height: 126px;
+$sand-item-small-height-large: $sand-item-small-height;
+$sand-item-small-withlabel-height: 210px;
+
+// Checkbox
+// ---------------------------------------
+$sand-checkbox-border-radius: $sand-common-circular-corners;
+$sand-checkbox-border-width: 4px;
+$sand-checkbox-container-position: calc(($sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
+$sand-checkbox-container-border-radius: $sand-item-border-radius;
+
+// Popup
+// ---------------------------------------
+$sand-popup-padding: 48px 72px;
+$sand-popup-border-radius: 24px;
+// Remove the margin on the leading edge so we're not wasting some of our transition frames on animating empty space, but also account for the shadow.
+$sand-popup-position-top-margin: 150px 120px 78px 120px; // 78px is the amount of space the shadow renders onto, so it's not clipped.
+$sand-popup-position-right-margin: 120px 60px 120px $sand-component-spacing;
+$sand-popup-position-bottom-margin: 0 120px 150px 120px;
+$sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;

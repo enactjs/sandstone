@@ -1,0 +1,177 @@
+// colors.scss (neutral skin)
+//
+
+// ---------------------------------------
+// Universal Color Definitions
+// ---------------------------------------
+
+// Remote button colors
+// ---------------------------------------
+$sand-remote-button-red-color:     #e1777e; // #ff6d78; // #da3c3c; // #e71b1c;
+$sand-remote-button-green-color:   #7fd563; // #6ff467; // #21c171; // #339966;
+$sand-remote-button-yellow-color:  #d3b85f; // #ffc600; // #dac139; // #fddb24;
+$sand-remote-button-blue-color:    #5185c1; // #0084ff; // #5677d0; // #4764b4;
+
+
+// UI Conceptual Colors
+// ---------------------------------------
+
+// common colors
+$sand-bg-color: var(--sand-bg-color, #000000);
+
+$sand-text-color-rgb: rgb(230, 230, 230); // #e6e6e6
+$sand-text-color: var(--sand-text-color-rgb, $sand-text-color-rgb);
+$sand-text-sub-color: var(--sand-text-sub-color, #abaeb3);
+$sand-shadow-color-rgb: rgba(0, 0, 0, 30%);
+$sand-shadow-color: var(--sand-shadow-color-rgb, $sand-shadow-color-rgb);
+$sand-component-text-color-rgb: rgb(230, 230, 230); // #e6e6e6
+$sand-component-text-color: var(--sand-component-text-color-rgb, $sand-component-text-color-rgb);
+$sand-component-text-sub-color-rgb: rgb(171, 174, 179); // #abaeb3
+$sand-component-text-sub-color: var(--sand-component-text-sub-color-rgb, $sand-component-text-sub-color-rgb);
+$sand-component-bg-color: var(--sand-component-bg-color, #7d848c);
+$sand-component-active-indicator-bg-color: var(--sand-component-active-indicator-bg-color, #e6e6e6);
+$sand-component-inactive-indicator-bg-color: var(--sand-component-inactive-indicator-bg-color, #9da2a7);
+
+$sand-focus-text-color: var(--sand-focus-text-color, #ffffff);
+$sand-focus-bg-color-rgb: rgb(230, 230, 230); // #e6e6e6
+$sand-focus-bg-color: var(--sand-focus-bg-color-rgb, $sand-focus-bg-color-rgb);
+$sand-component-focus-text-color-rgb: rgb(76, 80, 89); // #4c5059
+$sand-component-focus-text-color: var(--sand-component-focus-text-color-rgb, $sand-component-focus-text-color-rgb);
+$sand-component-focus-active-indicator-bg-color: var(--sand-component-focus-active-indicator-bg-color, #4c5059);
+$sand-component-focus-inactive-indicator-bg-color: var(--sand-component-focus-inactive-indicator-bg-color, #b8b9bb);
+
+$sand-selected-color-rgb: rgb(230, 230, 230); // #e6e6e6
+$sand-selected-color: var(--sand-selected-color-rgb, $sand-selected-color-rgb);
+$sand-selected-text-color: var(--sand-selected-text-color, $sand-text-color);
+$sand-selected-bg-color: var(--sand-selected-bg-color, #3e454d);
+
+//$sand-selected-focus-text-color: var(--sand-selected-focus-text-color);
+//$sand-selected-focus-bg-color: var(--sand-selected-focus-bg-color);
+
+//$sand-disabled-text-color: var(--sand-disabled-text-color);
+//$sand-disabled-bg-color: var(--sand-disabled-bg-color);
+
+//$sand-disabled-focus-text-color: var(--sand-disabled-focus-text-color);
+$sand-disabled-focus-bg-color: var(--sand-disabled-focus-bg-color, #abaeb3);
+
+$sand-disabled-selected-color: var(--sand-disabled-selected-color, #4c5059);
+//$sand-disabled-selected-text-color: var(--sand-disabled-selected-text-color);
+$sand-disabled-selected-bg-color: var(--sand-disabled-selected-bg-color, #e6e6e6);
+
+$sand-disabled-selected-focus-color: var(--sand-disabled-selected-focus-color, $sand-disabled-selected-bg-color);
+//$sand-disabled-selected-focus-text-color: var(--sand-disabled-selected-focus-text-color);
+$sand-disabled-selected-focus-bg-color: var(--sand-disabled-selected-focus-bg-color, $sand-disabled-selected-color);
+
+//$sand-fullscreen-text-color: var(--sand-fullscreen-text-color);
+$sand-fullscreen-bg-color: var(--sand-fullscreen-bg-color, $sand-bg-color);
+
+//$sand-overlay-text-color: var(--sand-overlay-text-color);
+$sand-overlay-text-shadow: 0 4px 4px rgb($sand-shadow-color-rgb, 75%);
+$sand-overlay-bg-color-rgb: rgb(87, 94, 102); // #575e66
+$sand-overlay-bg-color: var(--sand-overlay-bg-color-rgb, $sand-overlay-bg-color-rgb); // #575e66
+
+$sand-selection-color: var(--sand-selection-color, #4c5059);
+$sand-selection-bg-color: var(--sand-selection-bg-color, #3399ff);
+
+$sand-toggle-off-color: var(--sand-toggle-off-color, #aeaeae);
+$sand-toggle-off-bg-color: var(--sand-toggle-off-bg-color, #777777);
+$sand-toggle-on-color: var(--sand-toggle-on-color, $sand-selected-color);
+$sand-toggle-on-bg-color: var(--sand-toggle-on-bg-color, #30ad6b);
+
+$sand-progress-color-rgb: rgb(230, 230, 230); // #e6e6e6
+$sand-progress-color: var(--sand-progress-color-rgb, $sand-progress-color-rgb);
+$sand-progress-bg-color-rgb: rgb(55, 58, 65); // #373a41
+$sand-progress-bg-color-alpha: var(--sand-progress-bg-color-alpha, 100%);
+$sand-progress-bg-color: var(--sand-progress-bg-color-rgb, $sand-progress-bg-color-alpha);
+$sand-progress-highlighted-color: var(--sand-progress-highlighted-color, #ffffff);
+$sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
+
+$sand-spinner-color-rgb: rgb(255, 255, 255); // #ffffff
+$sand-spinner-color: var(--sand-spinner-color, $sand-spinner-color-rgb);
+
+$sand-invalid-color: #ff0000;
+$sand-invalid-sub-color: #fb5656;
+
+// component colors
+$sand-checkbox-color: var(--sand-checkbox-color, $sand-text-color);
+$sand-checkbox-disabled-selected-text-color: var(--sand-checkbox-disabled-selected-text-color, $sand-disabled-selected-color);
+$sand-formcheckboxitem-focus-text-color: var(--sand-formcheckboxitem-focus-text-color, $sand-focus-text-color);
+$sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
+$sand-keyguide-bg-color-rgb: rgb(55, 58, 65); // #373a41
+$sand-keyguide-bg-color: var(--sand-keyguide-bg-color-rgb, $sand-keyguide-bg-color-rgb); // #373a41
+$sand-slider-disabled-knob-bg-color: var(--sand-slider-disabled-knob-bg-color, #666666);
+$sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
+
+// Overlay Alert
+// ---------------------------------------
+
+// common colors
+$sand-alert-overlay-bg-color-rgb: rgb(202, 203, 204); // #cacbcc
+$sand-alert-overlay-bg-color-opacity: 95%;
+$sand-alert-overlay-bg-color: var(--sand-alert-overlay-bg-color-rgb, $sand-alert-overlay-bg-color-rgb);
+$sand-alert-overlay-text-color-rgb: rgb(46, 50, 57); // #2e3239
+$sand-alert-overlay-text-color: var(--sand-alert-overlay-text-color-rgb, $sand-alert-overlay-text-color-rgb); // #2e3239
+$sand-alert-overlay-text-sub-color: var(--sand-alert-overlay-text-sub-color, #2e3239);
+$sand-alert-overlay-focus-text-color: var(--sand-alert-overlay-focus-text-color, #575e66);
+$sand-alert-overlay-disabled-selected-color: var(--sand-alert-overlay-disabled-selected-color, #ffffff);
+$sand-alert-overlay-disabled-selected-bg-color: var(--sand-alert-overlay-disabled-selected-bg-color, #788688);
+$sand-alert-overlay-disabled-selected-focus-color: var(--sand-alert-overlay-disabled-selected-focus-color, #e6e6e6);
+$sand-alert-overlay-disabled-selected-focus-bg-color: var(--sand-alert-overlay-disabled-selected-focus-bg-color, #4c5059);
+
+// component colors
+$sand-alert-overlay-progress-color-rgb: rgb(55, 58, 65); // #373a41
+$sand-alert-overlay-progress-color: var(--sand-alert-overlay-progress-color-rgb, $sand-alert-overlay-progress-color-rgb); // #373a41
+$sand-alert-overlay-progress-bg-color-rgb: rgb(161, 161, 161); //  #a1a1a166, 40% alpha by default
+$sand-alert-overlay-progress-bg-color-alpha: var(--sand-alert-overlay-progress-bg-color-alpha, 40%);
+$sand-alert-overlay-progress-bg-color: var(--sand-alert-overlay-progress-bg-color-rgb, $sand-alert-overlay-progress-bg-color-rgb); //  #a1a1a166, 40% alpha by default
+$sand-alert-overlay-checkbox-color: var(--sand-alert-overlay-checkbox-color, #858b92);
+$sand-alert-overlay-checkbox-disabled-selected-text-color: var(--sand-alert-overlay-checkbox-disabled-selected-text-color, #ffffff);
+$sand-alert-overlay-formcheckboxitem-focus-text-color: var(--sand-alert-overlay-formcheckboxitem-focus-text-color, $sand-alert-overlay-focus-text-color);
+$sand-alert-overlay-item-disabled-focus-bg-color: var(--sand-alert-overlay-item-disabled-focus-bg-color, #989ca2);
+
+
+// Disabled Opacity
+// ---------------------------------------
+$sand-disabled-opacity: 0.28;  // This value brings the standard text-color to the disabled text color specs
+$sand-disabled-bg-opacity: $sand-disabled-opacity;
+$sand-disabled-focus-content-opacity: 0.4;
+$sand-disabled-focus-bg-opacity: 0.585;  // This value brings the standard focus-background-color to the disabled+focus color specs
+
+
+// Spotlight and State
+// ---------------------------------------
+$sand-spotlight-text-color:           $sand-component-focus-text-color; // Used in color-mixins.less, QA Sampler Marquee
+$sand-spotlight-bg-color:             $sand-focus-bg-color; // If this changes, update Button bg-color mixins in color-mixins.less
+$sand-spotlight-focus-shadow:         0 36px 36px $sand-shadow-color; // Used in color-mixins.less
+
+
+// ---------------------------------------
+// Component Colors
+// ---------------------------------------
+
+// Checkbox
+// ---------------------------------------
+$sand-checkbox-text-color: transparent;
+$sand-checkbox-bg-color: transparent;
+$sand-checkbox-border-color: $sand-checkbox-color;
+$sand-checkbox-disabled-selected-bg-color: $sand-disabled-selected-bg-color;
+$sand-checkbox-disabled-selected-border-color: $sand-checkbox-disabled-selected-bg-color;
+$sand-checkbox-focus-disabled-selected-text-color: $sand-disabled-selected-focus-color;
+$sand-checkbox-focus-disabled-selected-bg-color: $sand-disabled-selected-focus-bg-color;
+$sand-checkbox-focus-disabled-selected-border-color: $sand-checkbox-focus-disabled-selected-bg-color;
+$sand-checkbox-focus-text-color: $sand-checkbox-text-color;
+$sand-checkbox-focus-bg-color: $sand-checkbox-bg-color;
+$sand-checkbox-focus-border-color: $sand-component-focus-text-color;
+$sand-checkbox-selected-text-color: $sand-selected-color;
+$sand-checkbox-selected-bg-color: $sand-toggle-on-bg-color;
+$sand-checkbox-selected-border-color: $sand-checkbox-selected-bg-color;
+$sand-checkbox-selected-focus-text-color: $sand-checkbox-selected-text-color;
+$sand-checkbox-selected-focus-bg-color: $sand-checkbox-selected-bg-color;
+$sand-checkbox-selected-focus-border-color: $sand-checkbox-selected-focus-bg-color;
+$sand-checkbox-indeterminate-text-color: $sand-checkbox-border-color;
+$sand-checkbox-indeterminate-bg-color: $sand-checkbox-bg-color;
+$sand-checkbox-indeterminate-border-color: $sand-checkbox-border-color;
+$sand-checkbox-indeterminate-focus-text-color: $sand-component-focus-text-color;
+$sand-checkbox-indeterminate-focus-bg-color: $sand-checkbox-focus-bg-color;
+$sand-checkbox-indeterminate-focus-border-color: $sand-checkbox-focus-border-color;
+$sand-checkbox-standalone-bg-disabled-focus-bg-color: $sand-disabled-focus-bg-color;

@@ -1,0 +1,35 @@
+// color-mixins.scss
+//
+// Mixins specifically dependent on theme colors.
+// Shortcuts for easily getting consistent colorization rules onto components.
+//
+
+@import "./mixins";
+@import "./colors";
+
+// ---------------------------------------
+// Focus Shadow and background setup
+// ---------------------------------------
+@mixin sand-bg-colors() {
+	@content;
+}
+
+@mixin sand-spotlight-resting-bg-colors($opacity: 0) {
+	opacity: $opacity;
+
+	@include sand-bg-colors {
+		background-color: $sand-spotlight-bg-color;
+		will-change: box-shadow;
+	}
+;
+}
+
+@mixin sand-spotlight-focus-bg-colors() {
+	opacity: 1;
+
+	@include sand-bg-colors {
+		background-color: $sand-spotlight-bg-color;
+		box-shadow: $sand-spotlight-focus-shadow;
+	}
+;
+}
