@@ -1,6 +1,15 @@
+// Allows a component to override the existing "disabled" rules and apply its own customized rules.
+@mixin sand-disabled() {
+    :disabled {
+        opacity: 1; // reset standard disabled rule.
+  };
+
+    @content;
+}
+
 @mixin position($value) {
-  left: $value;
-  right: $value;
-  top: $value;
-  bottom: $value;
+    left: $value;
+    right: $value;
+    top: $value;
+    bottom: $value;
 }

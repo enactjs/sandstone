@@ -33,3 +33,22 @@
 	}
 ;
 }
+
+//
+// The following 3 mixins should be used inside the `@mixin sand-disabled` mixin's ruleset.
+//
+
+// Assign the standard disabled rules
+@mixin sand-disabled-colors {
+	opacity: $sand-disabled-opacity;
+}
+
+@mixin sand-disabled-bg-colors {
+	opacity: $sand-disabled-bg-opacity;
+}
+
+// Assign the standard disabled rules of content to content nodes.
+// This should be used on children of a root component node.
+@mixin sand-disabled-focus-content-colors {
+	opacity: $sand-disabled-focus-content-opacity;
+}

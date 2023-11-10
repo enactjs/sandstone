@@ -1,0 +1,63 @@
+// skin.less
+//
+@import "./color-mixins";
+@import "./variables-base";
+@import "./colors";
+@import "./colors-highcontrast";
+
+//$skin : 'neutral';
+
+@mixin applySkins($skin) {
+    // Load the color-mixins, which reference variables from the imports below,
+    // and updates dynamically based on which variable-set is loaded.
+
+    // Neutral Skin
+    @if $skin == 'neutral' {
+        @import "./color-mixins";
+
+        // Load the sandstone neutral rules into this scope
+        @import "./variables-base";
+        @import "./colors";
+
+        //@include #{$componentRules};
+    } @else if $skin == 'highContrast' {
+        @import "./color-mixins";
+
+        // High Contrast Variant
+        @import "./colors-highcontrast";
+
+        //@componentRules();
+    }
+}
+
+  // Light Skin
+  //&:global(.light) {
+  //  @import (multiple) "./variables-base.less";
+  //  @import (multiple) "./colors.less";
+  //  @import "./colors-light.less";
+  //
+  //  @componentRules();
+  //}
+
+  // Game Skin
+  //&:global(.game) {
+  //  @import (multiple) "./variables-base.less";
+  //  @import (multiple) "./colors.less";
+  //  @import "./variables-game.less";
+  //  @import "./colors-game.less";
+  //
+  //  @componentRules();
+  //
+  //  :global(.green) & {
+  //    @import "./colors-game-green.less";
+  //
+  //    @componentRules();
+  //  }
+  //
+  //  :global(.orange) & {
+  //    @import "./colors-game-orange.less";
+  //
+  //    @componentRules();
+  //  }
+  //}
+//}

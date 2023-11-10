@@ -1,0 +1,28 @@
+// colors-highcontast.scss (neutral skin + high-contrast variant)
+//
+
+// ---------------------------------------
+// Universal Color Definitions
+// ---------------------------------------
+
+
+// ---------------------------------------
+// Component Colors
+// ---------------------------------------
+
+// Alert
+// ---------------------------------------
+$sand-alert-overlay-bg-color: $sand-alert-bg-color; // different from neutral
+
+// Input
+// ---------------------------------------
+$sand-input-fullscreen-background-color: rgb($sand-overlay-bg-color-rgb); // different from neutral
+
+// KeyGuide
+// ---------------------------------------
+$sand-keyguide-bg-color: rgb($sand-keyguide-bg-color-rgb); // no alpha
+
+// Popup
+// ---------------------------------------
+$sand-popup-bg-color: rgb($sand-overlay-bg-color-rgb); // no alpha
+$sand-popup-scrimtransparent-bg-color: rgb($sand-overlay-bg-color-rgb); // no alpha
