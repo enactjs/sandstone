@@ -7,6 +7,7 @@ import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import PropTypes from 'prop-types';
 
 import css from './ThemeEnvironment.module.less';
+import {BACKGROUND_ADDON_ID, TEXT_ADDON_ID} from "../../addon-toolbar/constants";
 
 const reloadPage = () => {
 	const {protocol, host, pathname} = window.parent.location;
@@ -43,11 +44,57 @@ const PanelsBase = kind({
 
 const Theme = ThemeDecorator({overlay: false}, PanelsBase);
 
+const getPropFromURL = (propName) => {
+	propName = propName.replaceAll(' ', '+');
+	const locationParams = window.parent.location.search;
+
+	const propNameStartIndex = locationParams.indexOf(propName);
+	const propValueStartIndex = locationParams.indexOf(':', propNameStartIndex);
+	let propValueEndIndex = locationParams.indexOf(';', propValueStartIndex);
+	let lastCharacter = '';
+
+	if (propNameStartIndex > -1) {
+		if (propName.includes('color')) {
+			const startIndex = locationParams.indexOf('(', propValueStartIndex);
+			const endIndex = locationParams.indexOf(')', startIndex);
+
+			return '#' + locationParams.substring(startIndex + 1, endIndex);
+		}
+
+		if (propValueEndIndex === -1) {
+			propValueEndIndex = locationParams.indexOf(locationParams.at(-1), propValueStartIndex);
+			lastCharacter = locationParams.at(-1);
+		}
+
+		return locationParams.substring(propValueStartIndex + 1, propValueEndIndex) + lastCharacter;
+	}
+
+	return null;
+};
+
+const getRGBColor = (color) => {
+	const hexColor = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+
+	if (hexColor) {
+		const red = parseInt(hexColor[1], 16);
+		const green = parseInt(hexColor[2], 16);
+		const blue = parseInt(hexColor[3], 16);
+
+		return `${red}, ${green}, ${blue}`;
+	}
+
+	return null;
+};
+
 const StorybookDecorator = (story, config = {}) => {
 	// Executing `story` here allows the story controls to register and render before the global variable below.
 	const sample = story();
 
+	const backgroundColorFromURL = getPropFromURL('component background color');
+	const textColorFromURL = getPropFromURL('component text color');
+
 	const {globals} = config;
+	const backgroundColor = globals[BACKGROUND_ADDON_ID], textColor = globals[TEXT_ADDON_ID];
 
 	const componentName = config.kind.replace(/^([^/]+)\//, '');
 
@@ -74,7 +121,9 @@ const StorybookDecorator = (story, config = {}) => {
 			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
 			highContrast={JSON.parse(globals['high contrast'])}
 			style={{
-				'--sand-env-background': globals.background === 'default' ? '' : globals.background
+				'--sand-env-background': globals.background === 'default' ? '' : globals.background,
+				'--sand-component-bg-color': backgroundColor || backgroundColorFromURL,
+				'--sand-component-text-color-rgb': getRGBColor(textColor) || getRGBColor(textColorFromURL)
 			}}
 			skin={globals.skin}
 			{...hasProps ? config.parameters.props : null}
