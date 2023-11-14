@@ -5,7 +5,7 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 	beforeEach(async function () {
 		await ScrollerPage.open('WithEditableSelectItemByLongPress');
 	});
-	// for check travis fail
+
 	it('should remove item with remove button [QWTC-568]', async function () {
 		// Step 3: 5-way Spot and Select Image 0.
 		// Step 3-1 Verify: Spotlight is on image 0.
