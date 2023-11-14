@@ -4,6 +4,22 @@ async function disabledAttribute () {
 	});
 }
 
+async function enableEditModeLongPress () {
+	await browser.execute(() => {
+		// eslint-disable-next-line no-undef
+		const event = new KeyboardEvent('keydown', {code: 'Enter', key: 'Enter', keyCode: 13, repeat: true});
+		const element = document.activeElement;
+		element.dispatchEvent(event);
+	});
+	await browser.pause(500);
+	await browser.execute(() => {
+		// eslint-disable-next-line no-undef
+		const event = new KeyboardEvent('keyup', {code: 'Enter', key: 'Enter', keyCode: 13});
+		const element = document.activeElement;
+		element.dispatchEvent(event);
+	});
+}
+
 async function expectDeleteButton (expectedIndex, comment = 'delete button') {
 	const {ariaLabel, index} = await focusedItemButton();
 	expect(index, comment).to.equal(expectedIndex);
@@ -74,6 +90,7 @@ async function focusedItemButton () {
 	});
 }
 
+exports.enableEditModeLongPress = enableEditModeLongPress;
 exports.expectDeleteButton = expectDeleteButton;
 exports.expectDisabledItem = expectDisabledItem;
 exports.expectFocusedIconItem = expectFocusedIconItem;
