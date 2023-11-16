@@ -143,6 +143,14 @@ const TabLayoutBase = kind({
 		}),
 
 		/**
+		 * Disable back key behavior whcih moves focus from tab contents to tab menu
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		disableBackKeyNavigation: PropTypes.bool,
+
+		/**
 		 * The currently selected tab.
 		 *
 		 * @type {Number}
@@ -284,7 +292,7 @@ const TabLayoutBase = kind({
 			const tabLayoutContentRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`);
 
 			if (forwardWithPrevent('onKeyUp', ev, props) && is('cancel')(keyCode)) {
-				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && !Spotlight.getPointerMode() && tabLayoutContentRef?.contains(target))) {
+				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && !props.disableBackKeyNavigation && !Spotlight.getPointerMode() && tabLayoutContentRef?.contains(target))) {
 					if (collapsed) {
 						forward('onExpand', ev, props);
 					}
