@@ -17,7 +17,8 @@ module.exports = {
 		'@enact/storybook-utils/addons/actions',
 		'@enact/storybook-utils/addons/controls',
 		'@enact/storybook-utils/addons/docs',
-		'@enact/storybook-utils/addons/toolbars'
+		'@enact/storybook-utils/addons/toolbars',
+		'../addon-toolbar/manager.js'
 	],
 	webpackFinal: async (config, {configType}) => {
 		return webpack(config, configType, __dirname);
