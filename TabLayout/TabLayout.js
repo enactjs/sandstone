@@ -143,7 +143,7 @@ const TabLayoutBase = kind({
 		}),
 
 		/**
-		 * Disable back key behavior whcih moves focus from tab contents to tab menu
+		 * Disable back key behavior which moves focus from tab contents to tab menu
 		 *
 		 * @type {Boolean}
 		 * @private
