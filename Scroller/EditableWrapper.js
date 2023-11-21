@@ -558,30 +558,36 @@ const EditableWrapper = (props) => {
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerHandle, scrollContentRef]);
 
+	const finalizeEditingWithFocusByKeyDown = useCallback((target) => {
+		const {selectedItem, selectedItemLabel} = mutableRef.current;
+		const orders = finalizeOrders();
+
+		finalizeEditing(orders);
+		if (selectItemBy === 'press') {
+			focusItem(target);
+		}
+		selectedItem.children[1].ariaLabel = '';
+		setTimeout(() => {
+			announceRef.current.announce(
+				selectedItemLabel + $L('Movement completed'),
+				true
+			);
+			setTimeout(() => {
+				selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+			}, completeAnnounceDelay);
+		}, completeAnnounceDelay);
+	}, [finalizeEditing, finalizeOrders, focusItem, selectItemBy]);
+
 	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
-		const {focusedItem, selectedItem, selectedItemLabel} = mutableRef.current;
+		const {focusedItem, selectedItem} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
-					const orders = finalizeOrders();
-					finalizeEditing(orders);
-					if (selectItemBy === 'press') {
-						focusItem(target);
-					}
+					finalizeEditingWithFocusByKeyDown(target);
 					mutableRef.current.needToPreventEvent = true;
-					selectedItem.children[1].ariaLabel = '';
-					setTimeout(() => {
-						announceRef.current.announce(
-							selectedItemLabel + $L('Movement completed'),
-							true
-						);
-						setTimeout(() => {
-							selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
-						}, completeAnnounceDelay);
-					}, completeAnnounceDelay);
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
 					mutableRef.current.needToPreventEvent = true;
@@ -591,6 +597,9 @@ const EditableWrapper = (props) => {
 					startEditing(targetItemNode);
 				}, holdDuration - 300);
 			}
+		} else if (is('down', keyCode) && target.getAttribute('role') !== 'button' && !repeat && selectedItem) {
+			finalizeEditingWithFocusByKeyDown(target);
+			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
 				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button') {
@@ -629,30 +638,15 @@ const EditableWrapper = (props) => {
 				}
 			}
 		}
-	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing, finalizeEditingWithFocusByKeyDown]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		const {keyCode, target} = ev;
-		const {selectedItem, selectedItemLabel} = mutableRef.current;
+		const {selectedItem} = mutableRef.current;
 
 		if (is('cancel', keyCode)) {
 			if (selectedItem) {
-				const orders = finalizeOrders();
-				finalizeEditing(orders);
-				if (selectItemBy === 'press') {
-					focusItem(target);
-				}
-				selectedItem.children[1].ariaLabel = '';
-				setTimeout(() => {
-					announceRef?.current?.announce(
-						selectedItemLabel + $L('Movement completed'),
-						true
-					);
-					setTimeout(() => {
-						selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
-					}, completeAnnounceDelay);
-				}, completeAnnounceDelay);
-
+				finalizeEditingWithFocusByKeyDown(target);
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
 			}
 		} else {
@@ -668,7 +662,7 @@ const EditableWrapper = (props) => {
 			ev.preventDefault();
 			mutableRef.current.needToPreventEvent = false;
 		}
-	}, [finalizeEditing, finalizeOrders, focusItem, selectItemBy]);
+	}, [finalizeEditingWithFocusByKeyDown]);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
