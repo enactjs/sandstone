@@ -12,36 +12,11 @@ describe('Editable Scroller', function () {
 		await expectFocusedIconItem('0');
 
 		/* hide 10 items: note that 10 items are minimal set to make the scroller overflows */
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightRight();
-		await ScrollerPage.spotlightSelect();
+		for (let i = 0; i < 10; i++) {
+			await ScrollerPage.spotlightUp();
+			await ScrollerPage.spotlightRight();
+			await ScrollerPage.spotlightSelect();
+		}
 
 		/* move focus out of the scroller */
 		await ScrollerPage.spotlightUp();
@@ -245,6 +220,25 @@ describe('Editable Scroller', function () {
 		// Verify: Item 9 is displayed in Viewport.
 		const element = await $('#item9');
 		await expect(await element.isDisplayedInViewport()).to.be.true();
+	});
+
+	it('Should unselect the selected item with 5-way down', async function () {
+		// Select the first item
+		await ScrollerPage.spotlightDown();
+		await ScrollerPage.spotlightSelect();
+		await expectFocusedIconItem('0');
+
+		// 5-way Right to move Item 0.
+		await ScrollerPage.spotlightRight();
+		await expectFocusedIconItem('0');
+
+		// 5-way Down to finish editing
+		await ScrollerPage.spotlightDown();
+		await expectFocusedIconItem('0');
+
+		// 5-way Left to check if no item is selected
+		await ScrollerPage.spotlightLeft();
+		await expectFocusedIconItem('1');
 	});
 
 	describe('Editable Scroller in RTL locales', function () {
