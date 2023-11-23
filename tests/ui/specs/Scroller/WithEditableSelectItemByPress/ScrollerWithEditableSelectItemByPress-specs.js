@@ -222,11 +222,12 @@ describe('Editable Scroller', function () {
 		await expect(await element.isDisplayedInViewport()).to.be.true();
 	});
 
-	it('Should unselect the selected item with 5-way down', async function () {
+	it('Should unselect the selected item with 5-way down [QWTC-13660]', async function () {
 		// Select the first item
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
 		await expectFocusedIconItem('0');
+		await expectItemWrapperClass('tests_ui_apps_Scroller_WithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_selected');
 
 		// 5-way Right to move Item 0.
 		await ScrollerPage.spotlightRight();
@@ -235,6 +236,7 @@ describe('Editable Scroller', function () {
 		// 5-way Down to finish editing
 		await ScrollerPage.spotlightDown();
 		await expectFocusedIconItem('0');
+		await expectItemWrapperClass('tests_ui_apps_Scroller_WithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_focused');
 
 		// 5-way Left to check if no item is selected
 		await ScrollerPage.spotlightLeft();
