@@ -89,7 +89,7 @@ const TabBase = kind({
 			css,
 			focusEffect: 'static',
 			minWidth: false,
-			role: null
+			role: 'listitem'
 		};
 
 		switch (orientation) {
@@ -236,6 +236,7 @@ const TabGroupBase = kind({
 						itemProps={itemProps}
 						onSelect={onSelect}
 						orientation={orientation}
+						role="list"
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
