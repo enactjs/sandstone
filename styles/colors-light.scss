@@ -1,0 +1,40 @@
+@use "colors";
+
+@mixin applyLightColors {
+  // common colors
+  --sand-bg-color: #cacbcc;
+  --sand-text-color-rgb: rgb(46, 50, 57); // #2e3239
+  --sand-text-sub-color: #2e3239;
+  --sand-focus-text-color: #575e66;
+  --sand-disabled-selected-color: #ffffff;
+  --sand-disabled-selected-bg-color: #788688;
+  --sand-disabled-selected-focus-color: #e6e6e6;
+  --sand-disabled-selected-focus-bg-color: #4c5059;
+  --sand-overlay-bg-color-rgb: rgb(187, 187, 187); // #bbbbbb
+  --sand-progress-color-rgb: rgb(55, 58, 65); // #373a41
+  --sand-progress-bg-color-rgb: rgb(161, 161, 161); // #a1a1a1
+  --sand-progress-bg-color-alpha: 40%;
+  --sand-progress-highlighted-color: #000000;
+
+  // component colors
+  --sand-checkbox-color: #858b92;
+  --sand-item-disabled-focus-bg-color: #989ca2;
+  --sand-keyguide-bg-color-rgb: colors.$sand-overlay-bg-color-rgb;
+
+  // Overlay Alert
+  // --------------------------------------
+
+  // common colors
+  --sand-alert-overlay-bg-color-rgb: rgb(0, 0, 0);
+  --sand-alert-overlay-text-color-rgb: rgb(230, 230, 230);
+  --sand-alert-overlay-text-sub-color: #abaeb3;
+  --sand-alert-overlay-focus-text-color: #ffffff;
+
+  // component colors
+  --sand-alert-overlay-progress-color-rgb: rgb(230, 230, 230);
+  --sand-alert-overlay-progress-bg-color-rgb: rgb(55, 58, 65);
+  --sand-alert-overlay-progress-bg-color-alpha: 100%;
+  --sand-alert-overlay-checkbox-color: #e6e6e6;
+  --sand-alert-overlay-checkbox-disabled-selected-text-color: #4c5059;
+  --sand-alert-overlay-item-disabled-focus-bg-color: #e6e6e6;
+}

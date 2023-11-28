@@ -32,9 +32,12 @@ $sand-spotlight-focus-shadow-height: 36px;
 
 // Icon
 // ---------------------------------------
+$sand-icon-font-family: "Sandstone Icons";
 $sand-icon-large-size: 108px;
+$sand-icon-other-font-family: "LG Icons";
 $sand-icon-medium-size: 90px;
 $sand-icon-small-size: 78px;
+$sand-icon-size: var(--icon-size, $sand-icon-small-size);
 $sand-icon-tiny-size: 60px;
 $sand-icon-margin: 24px;
 $sand-icon-large-size-large: ($sand-icon-large-size * 1.2);

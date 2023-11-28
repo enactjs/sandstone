@@ -1,0 +1,57 @@
+// Icon.module.less
+//
+@use "../styles/mixins.scss";
+@use "../styles/variables.scss";
+@use "../styles/skin.scss";
+
+// Create a module-level LESS variable containing a our CSS variable with a default assigned.
+// Assign the default here, rather than assigning it on every usage of --icon-size.
+
+$icon-size: variables.$sand-icon-size;
+
+.icon {
+  background-repeat: no-repeat;
+  text-align: center;
+  position: relative;
+  font-family: variables.$sand-icon-font-family;
+  margin: variables.$sand-icon-margin;
+  overflow: hidden; // prevent drawing outside the icon DOM box. Glyph icons are scaled 2x larger, which means their inline dimensions fall outside the container. This prevents them from drawing and receiving pointer events.
+
+  &.large {
+    --icon-size: 108px;
+  }
+
+  &.medium {
+    --icon-size: 90px;
+  }
+
+  &.small {
+    --icon-size: 78px;
+  }
+
+  &.tiny {
+    --icon-size: 60px;
+  }
+
+  // Icon size calculations
+  width: $icon-size;
+  height: $icon-size;
+  font-size: $icon-size;
+  line-height: $icon-size;
+  background-position: center 0;
+  background-size: $icon-size calc($icon-size * 2);
+
+  &.dingbat {
+    font-family: variables.$sand-icon-other-font-family;
+  }
+
+  // Skin colors
+  @include skin.applySkins {
+    color: inherit;
+
+    &:focus {
+      background-position: center 100%;
+      color: inherit;
+    }
+  }
+}
