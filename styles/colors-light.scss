@@ -1,6 +1,6 @@
 @use "colors";
 
-@mixin applyLightColors {
+@mixin applyColorsLight {
   // common colors
   --sand-bg-color: #cacbcc;
   --sand-text-color-rgb: rgb(46, 50, 57); // #2e3239

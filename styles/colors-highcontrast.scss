@@ -1,0 +1,30 @@
+@use './colors';
+
+// colors-highcontast.less (neutral skin + high-contrast variant)
+//
+
+// ---------------------------------------
+// Universal Color Definitions
+// ---------------------------------------
+
+
+// ---------------------------------------
+// Component Colors
+// ---------------------------------------
+
+// Alert
+// ---------------------------------------
+$sand-alert-overlay-bg-color: colors.$sand-alert-bg-color; // different from neutral
+
+// Input
+// ---------------------------------------
+$sand-input-fullscreen-background-color: colors.$sand-overlay-bg-color-rgb; // different from neutral
+
+// KeyGuide
+// ---------------------------------------
+$sand-keyguide-bg-color: colors.$sand-keyguide-bg-color-rgb; // no alpha
+
+// Popup
+// ---------------------------------------
+$sand-popup-bg-color: colors.$sand-overlay-bg-color-rgb; // no alpha
+$sand-popup-scrimtransparent-bg-color: colors.$sand-overlay-bg-color-rgb; // no alpha

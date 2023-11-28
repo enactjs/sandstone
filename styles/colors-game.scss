@@ -6,12 +6,12 @@
 // ---------------------------------------
 
 // colors
-$sand-game-skin-color-01: #a273c8;
-$sand-game-skin-color-02: #8b31d7;
+$sand-game-skin-color-01: var(--sand-game-skin-color-01, #a273c8);
+$sand-game-skin-color-02: var(--sand-game-skin-color-02, #8b31d7);
 
-$sand-game-skin-heading-border-color: #8151ff;
-$sand-game-skin-item-focus-bg-gradient-1: rgba(#603091, 0%/100.0%);
-$sand-game-skin-item-focus-bg-gradient-2: #6d2fa1;
+$sand-game-skin-heading-border-color: var(--sand-game-skin-heading-border-color, #8151ff);
+$sand-game-skin-item-focus-bg-gradient-1: var(--sand-game-skin-item-focus-bg-gradient-1, rgba(#603091, 0%/100.0%));
+$sand-game-skin-item-focus-bg-gradient-2: var(--sand-game-skin-item-focus-bg-gradient-2, #6d2fa1);
 
 
 // UI Conceptual Colors
