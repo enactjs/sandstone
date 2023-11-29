@@ -623,6 +623,7 @@ const EditableWrapper = (props) => {
 
 				// Check if focus leaves scroll container.
 				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					setPointerMode(false);
 					Spotlight.move(getDirection(keyCode));
 
 					const orders = finalizeOrders();
