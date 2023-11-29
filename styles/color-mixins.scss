@@ -20,8 +20,7 @@
 	@include sand-bg-colors {
 		background-color: $sand-spotlight-bg-color;
 		will-change: box-shadow;
-	}
-;
+	};
 }
 
 @mixin sand-spotlight-focus-bg-colors() {
@@ -30,8 +29,7 @@
 	@include sand-bg-colors {
 		background-color: $sand-spotlight-bg-color;
 		box-shadow: $sand-spotlight-focus-shadow;
-	}
-;
+	};
 }
 
 //

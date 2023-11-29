@@ -1,28 +1,27 @@
-// colors-highcontast.scss (neutral skin + high-contrast variant)
+@use "./colors";
+
+// colors-highcontrast.less (neutral skin + high-contrast variant)
 //
 
-// ---------------------------------------
-// Universal Color Definitions
-// ---------------------------------------
+@mixin applyColorsHighContrast {
+	// ---------------------------------------
+	// Universal Color Definitions
+	// ---------------------------------------
 
 
-// ---------------------------------------
-// Component Colors
-// ---------------------------------------
+	// ---------------------------------------
+	// Component Colors
+	// ---------------------------------------
 
-// Alert
-// ---------------------------------------
-$sand-alert-overlay-bg-color: $sand-alert-bg-color; // different from neutral
+	// Alert
+	// ---------------------------------------
+	--sand-fullscreen-bg-color: #000000; // different from neutral
 
-// Input
-// ---------------------------------------
-$sand-input-fullscreen-background-color: rgb($sand-overlay-bg-color-rgb); // different from neutral
+	// Input
+	// ---------------------------------------
+	--sand-overlay-bg-color-rgb: rgb(87, 94, 102); // different from neutral
 
-// KeyGuide
-// ---------------------------------------
-$sand-keyguide-bg-color: rgb($sand-keyguide-bg-color-rgb); // no alpha
-
-// Popup
-// ---------------------------------------
-$sand-popup-bg-color: rgb($sand-overlay-bg-color-rgb); // no alpha
-$sand-popup-scrimtransparent-bg-color: rgb($sand-overlay-bg-color-rgb); // no alpha
+	// KeyGuide
+	// ---------------------------------------
+	--sand-keyguide-bg-color-rgb: rgb(55, 58, 65); // no alpha
+}

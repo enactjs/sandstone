@@ -25,6 +25,13 @@ $sand-spotlight-outset: 48px;
 $sand-spotlight-focus-animation-duration: 200ms;
 $sand-spotlight-focus-shadow-height: 36px;
 
+// ---------------------------------------
+// Font Rules
+// ---------------------------------------
+
+// Font Sizes
+// ---------------------------------------
+$sand-keyguide-font-size:           60px;
 
 // ---------------------------------------
 // Component Rules
@@ -32,9 +39,12 @@ $sand-spotlight-focus-shadow-height: 36px;
 
 // Icon
 // ---------------------------------------
+$sand-icon-font-family: "Sandstone Icons";
 $sand-icon-large-size: 108px;
+$sand-icon-other-font-family: "LG Icons";
 $sand-icon-medium-size: 90px;
 $sand-icon-small-size: 78px;
+$sand-icon-size: var(--icon-size, $sand-icon-small-size);
 $sand-icon-tiny-size: 60px;
 $sand-icon-margin: 24px;
 $sand-icon-large-size-large: ($sand-icon-large-size * 1.2);
@@ -62,6 +72,19 @@ $sand-checkbox-border-radius: $sand-common-circular-corners;
 $sand-checkbox-border-width: 4px;
 $sand-checkbox-container-position: calc(($sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
 $sand-checkbox-container-border-radius: $sand-item-border-radius;
+
+// Keyguide
+// ---------------------------------------
+$sand-keyguide-colordot-height: 12px;
+$sand-keyguide-colordot-width: 60px;
+$sand-keyguide-colordot-margin: 0 (($sand-icon-small-size - $sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+$sand-keyguide-colordot-border-radius: 6px;
+$sand-keyguide-icon-margin-right: 48px;
+$sand-keyguide-padding: 24px 0;
+$sand-keyguide-position-bottom: 120px;
+$sand-keyguide-position-right: 150px;
+$sand-keyguide-width: 750px;
+$sand-keyguide-item-height: 120px;
 
 // Popup
 // ---------------------------------------

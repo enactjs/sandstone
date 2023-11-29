@@ -30,7 +30,8 @@ import Icon from '../Icon';
 import {ItemBase} from '../Item';
 import {MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
-import componentCss from './KeyGuide.module.less';
+
+import componentCss from './KeyGuide.module.scss';
 
 const colorKeys = ['red', 'green', 'yellow', 'blue'];
 

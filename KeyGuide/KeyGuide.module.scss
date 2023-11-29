@@ -1,0 +1,65 @@
+// KeyGuide.module.less
+//
+@use "../styles/mixins.scss";
+@use "../styles/colors.scss";
+@use "../styles/variables.scss";
+@use "../styles/skin.scss";
+
+.keyGuide {
+	position: absolute;
+	width: variables.$sand-keyguide-width;
+	right: variables.$sand-keyguide-position-right;
+	bottom: variables.$sand-keyguide-position-bottom;
+	padding: variables.$sand-keyguide-padding;
+
+	.item {
+	//	.sand-font({
+	//		font-size: @sand-keyguide-font-size;
+	//	});
+		font-size: variables.$sand-keyguide-font-size;
+		height: variables.$sand-keyguide-item-height;
+		margin: 0;
+
+		.icon {
+			margin: 0;
+		}
+
+		.slotBefore {
+			margin-inline-end: variables.$sand-keyguide-icon-margin-right;
+		}
+	}
+
+	.red,
+	.green,
+	.yellow,
+	.blue {
+		width: variables.$sand-keyguide-colordot-width;
+		height: variables.$sand-keyguide-colordot-height;
+		margin: variables.$sand-keyguide-colordot-margin;
+		border-radius: variables.$sand-keyguide-colordot-border-radius;
+	}
+
+	@include skin.applySkins {
+		background: colors.$sand-keyguide-bg-color;
+
+		.red {
+			background-color: colors.$sand-keyguide-colordot-red-color;
+		}
+
+		.green {
+			background-color: colors.$sand-keyguide-colordot-green-color;
+		}
+
+		.yellow {
+			background-color: colors.$sand-keyguide-colordot-yellow-color;
+		}
+
+		.blue {
+			background-color: colors.$sand-keyguide-colordot-blue-color;
+		}
+
+		.item {
+			color: colors.$sand-keyguide-item-color;
+		}
+	}
+}
