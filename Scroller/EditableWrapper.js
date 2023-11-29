@@ -674,11 +674,14 @@ const EditableWrapper = (props) => {
 		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && mutableRef.current.selectedItem) {
 			const {keyCode} = ev;
 			const position = getLastPointerPosition();
-			const nextTarget = getTargetByDirectionFromPosition(getDirection(keyCode), position, mutableRef.current.spotlightId);
+			const direction = getDirection(keyCode);
+			if (direction) {
+				const nextTarget = getTargetByDirectionFromPosition(direction, position, mutableRef.current.spotlightId);
 
-			if (!scrollContainerRef.current.contains(nextTarget)) {
-				const orders = finalizeOrders();
-				finalizeEditing(orders);
+				if (!scrollContainerRef.current.contains(nextTarget)) {
+					const orders = finalizeOrders();
+					finalizeEditing(orders);
+				}
 			}
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
