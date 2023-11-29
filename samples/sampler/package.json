@@ -24,7 +24,7 @@
     "@enact/i18n": "^4.7.6",
     "@enact/sandstone": "../../",
     "@enact/spotlight": "^4.7.6",
-    "@enact/storybook-utils": "^5.1.0",
+    "@enact/storybook-utils": "github:enactjs/storybook-utilst#feature/convert-to-SCSS",
     "@enact/ui": "^4.7.6",
     "@storybook/addons": "^6.5.16",
     "@storybook/builder-webpack5": "^6.5.16",
