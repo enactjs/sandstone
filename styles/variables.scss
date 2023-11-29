@@ -77,7 +77,7 @@ $sand-checkbox-container-border-radius: $sand-item-border-radius;
 // ---------------------------------------
 $sand-keyguide-colordot-height: 12px;
 $sand-keyguide-colordot-width: 60px;
-$sand-keyguide-colordot-margin: 0 (($sand-icon-small-size - $sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+$sand-keyguide-colordot-margin: 0 calc(($sand-icon-small-size - $sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
 $sand-keyguide-colordot-border-radius: 6px;
 $sand-keyguide-icon-margin-right: 48px;
 $sand-keyguide-padding: 24px 0;
