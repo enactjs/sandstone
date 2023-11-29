@@ -40,7 +40,8 @@ const TabBase = kind({
 		selected: PropTypes.bool,
 		size: PropTypes.number,
 		sprite: PropTypes.object,
-		stopped: PropTypes.bool
+		stopped: PropTypes.bool,
+		total: PropTypes.number
 	},
 
 	defaultProps: {
@@ -76,8 +77,7 @@ const TabBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, orientation, size, ...rest}) => {
-		delete rest.index;
+	render: ({children, collapsed, css, index, orientation, size, total, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.onTabClick;
 		delete rest.stopped;
@@ -86,13 +86,14 @@ const TabBase = kind({
 		if (collapsed) children = null;
 
 		const commonProps = {
+			'aria-label':`${children} ${$L('Tab')} ${new IString($L('{selectedValue} of {total}')).format({selectedValue: index + 1, total: total})}`,
 			backgroundOpacity: 'transparent',
 			children,
 			collapsable: true,
 			css,
 			focusEffect: 'static',
 			minWidth: false,
-			role: 'tab'
+			role: null
 		};
 
 		switch (orientation) {
@@ -199,6 +200,7 @@ const TabGroupBase = kind({
 					key,
 					onFocusTab,
 					sprite,
+					total: tabs.length,
 					...rest
 				};
 			} else {
@@ -236,14 +238,13 @@ const TabGroupBase = kind({
 						<GroupComponent
 							id={`${id}_tabgroup`}
 							childComponent={Tab}
-							aria-label={`${new IString($L('{total} items in total')).format({'total': tabs.length})}`}
+							aria-label={`${new IString($L('{total} items in total')).format({total: tabs.length})}`}
 							className={componentCss.tabs}
 							component={groupComponent}
 							indexProp="index"
 							itemProps={itemProps}
 							onSelect={onSelect}
 							orientation={orientation}
-							role="tablist"
 							select="radio"
 							selected={selectedIndex}
 							selectedProp="selected"
