@@ -558,7 +558,7 @@ const EditableWrapper = (props) => {
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerHandle, scrollContentRef]);
 
-	const finalizeEditingWithFocusByKeyDown = useCallback((target) => {
+	const completeEditingByKeyDown = useCallback((target) => {
 		const {selectedItem, selectedItemLabel} = mutableRef.current;
 		const orders = finalizeOrders();
 
@@ -586,7 +586,7 @@ const EditableWrapper = (props) => {
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
-					finalizeEditingWithFocusByKeyDown(target);
+					completeEditingByKeyDown(target);
 					mutableRef.current.needToPreventEvent = true;
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
@@ -598,7 +598,7 @@ const EditableWrapper = (props) => {
 				}, holdDuration - 300);
 			}
 		} else if (is('down', keyCode) && target.getAttribute('role') !== 'button' && !repeat && selectedItem) {
-			finalizeEditingWithFocusByKeyDown(target);
+			completeEditingByKeyDown(target);
 			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
@@ -638,7 +638,7 @@ const EditableWrapper = (props) => {
 				}
 			}
 		}
-	}, [finalizeEditing, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing, finalizeEditingWithFocusByKeyDown]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing, completeEditingByKeyDown]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		const {keyCode, target} = ev;
@@ -646,7 +646,7 @@ const EditableWrapper = (props) => {
 
 		if (is('cancel', keyCode)) {
 			if (selectedItem) {
-				finalizeEditingWithFocusByKeyDown(target);
+				completeEditingByKeyDown(target);
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
 			}
 		} else {
@@ -662,7 +662,7 @@ const EditableWrapper = (props) => {
 			ev.preventDefault();
 			mutableRef.current.needToPreventEvent = false;
 		}
-	}, [finalizeEditingWithFocusByKeyDown]);
+	}, [completeEditingByKeyDown]);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
