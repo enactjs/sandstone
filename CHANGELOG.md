@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/TabLayout` to move focus from tab contents to tab menu via back key
+
 ## [2.7.12] - 2023-10-23
 
 ### Fixed
