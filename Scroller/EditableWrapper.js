@@ -6,6 +6,7 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import {getContainersForNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
+import {useSpotlightContainer} from '@enact/spotlight/SpotlightContainerDecorator';
 import {getLastPointerPosition, setPointerMode} from '@enact/spotlight/src/pointer';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
@@ -133,7 +134,10 @@ const EditableWrapper = (props) => {
 		lastInputDirection: null,
 
 		// initialSelected
-		initialSelected: editable?.initialSelected
+		initialSelected: editable?.initialSelected,
+
+		// onLeaveContainer handler
+		handleLeaveContainer: null
 	});
 	const announceRef = useRef({});
 
@@ -628,6 +632,7 @@ const EditableWrapper = (props) => {
 
 				// Check if focus leaves scroll container.
 				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					setPointerMode(false);
 					Spotlight.move(getDirection(keyCode));
 
 					const orders = finalizeOrders();
@@ -791,6 +796,25 @@ const EditableWrapper = (props) => {
 		});
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+	useEffect(() => {
+		mutableRef.current.handleLeaveContainer = () => {
+			const orders = finalizeOrders();
+			finalizeEditing(orders);
+		};
+	}, [finalizeOrders, finalizeEditing]);
+
+	const {attributes: spotlightContainerAttributes, ...spotlightContainerProps} = useSpotlightContainer({
+		id: mutableRef.current.spotlightId + '_editable',
+		restrict: 'none',
+		containerConfig: {
+			onLeaveContainer: () => {
+				if (mutableRef.current.handleLeaveContainer) {
+					mutableRef.current.handleLeaveContainer();
+				}
+			}
+		}
+	});
+
 	return (
 		<TouchableDiv
 			holdConfig={holdConfig}
@@ -802,6 +826,8 @@ const EditableWrapper = (props) => {
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			ref={wrapperRef}
+			{...spotlightContainerProps}
+			{...spotlightContainerAttributes}
 		>
 			{children}
 			<Announce key="editable-wrapper-announce" ref={announceRef} />
