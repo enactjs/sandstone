@@ -387,10 +387,11 @@ const EditableWrapper = (props) => {
 					// If the direction is changed and there are rearranged items, we remove them first.
 					if (lastMoveDirection && moveDirection !== lastMoveDirection && rearrangedItems.length > 0) {
 						const numToRemove = moveDirection > 0 ? toIndex - prevToIndex : prevToIndex - toIndex;
+						const needToAddItems = numToRemove > rearrangedItems.length;
 						removeRearrangedItems(numToRemove);
 
 						// When there's jump, meaning, numToRemove is bigger than 0, we need to add an item
-						if (numToRemove > rearrangedItems.length) {
+						if (needToAddItems) {
 							addRearrangedItems({moveDirection, toIndex});
 						}
 					} else {
