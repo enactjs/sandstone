@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller` with `editable` to complete editing when focus is leaving by 5-way key on pointer mode
+- `sandstone/Scroller` with `editable` to complete editing when focus left by 5-way key in pointer mode
 
 ## [2.7.12] - 2023-10-23
 
