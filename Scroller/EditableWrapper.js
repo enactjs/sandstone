@@ -4,9 +4,9 @@ import {is} from '@enact/core/keymap';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getContainersForNode} from '@enact/spotlight/src/container';
-import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
+import {getTargetByDirectionFromElement, getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
-import {getLastPointerPosition, setPointerMode} from '@enact/spotlight/src/pointer';
+import {getLastPointerPosition, getPointerMode, setPointerMode} from '@enact/spotlight/src/pointer';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
@@ -629,6 +629,7 @@ const EditableWrapper = (props) => {
 
 				// Check if focus leaves scroll container.
 				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					setPointerMode(false);
 					Spotlight.move(getDirection(keyCode));
 
 					const orders = finalizeOrders();
@@ -664,6 +665,36 @@ const EditableWrapper = (props) => {
 			mutableRef.current.needToPreventEvent = false;
 		}
 	}, [completeEditingByKeyDown]);
+
+	const handleGlobalKeyDownCapture = useCallback((ev) => {
+		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && mutableRef.current.selectedItem) {
+			const {keyCode} = ev;
+			const position = getLastPointerPosition();
+			const direction = getDirection(keyCode);
+			if (direction) {
+				const nextTarget = getTargetByDirectionFromPosition(direction, position, mutableRef.current.spotlightId);
+
+				if (!scrollContainerRef.current.contains(nextTarget)) {
+					const orders = finalizeOrders();
+					finalizeEditing(orders);
+				}
+			}
+		}
+	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
+
+	useLayoutEffect(() => {
+		const available = typeof document === 'object';
+
+		if (available) {
+			document.addEventListener('keydown', handleGlobalKeyDownCapture, {capture: true});
+		}
+
+		return () => {
+			if (available) {
+				document.removeEventListener('keydown', handleGlobalKeyDownCapture, {capture: true});
+			}
+		};
+	}, [handleGlobalKeyDownCapture]);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
