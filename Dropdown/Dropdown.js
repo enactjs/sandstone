@@ -337,7 +337,7 @@ const DropdownBase = kind({
 			<div {...calcAriaProps} {...rest}>
 				{title}
 				<DropdownButton
-					aria-label={ariaLabel || placeholder + ` ${$L('Dropdown')}`}
+					aria-label={(ariaLabel || placeholder) + ` ${$L('Dropdown')}`}
 					direction={direction}
 					disabled={hasChildren ? disabled : true}
 					focusEffect="static"
