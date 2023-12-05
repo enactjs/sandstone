@@ -53,8 +53,8 @@
     "ramda": "^0.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.69.5",
-    "warning": "^4.0.3"
+    "warning": "^4.0.3",
+    "ilib": "^14.18.0"
   },
   "peerDependencies": {
     "ilib": "^14.18.0 || ^14.18.0-webos1"
