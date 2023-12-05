@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Dropdown` to read out more details
 - `sandstone/Scroller` with `editable` prop to complete editing when 'down' key is pressed during editing
+- `sandstone/Slider` to read out more details
 - `sandstone/TabLayout` to move focus from tab contents to tab menu via back key
 
 ### Fixed
