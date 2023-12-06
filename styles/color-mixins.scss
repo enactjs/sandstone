@@ -4,8 +4,8 @@
 // Shortcuts for easily getting consistent colorization rules onto components.
 //
 
+@use "./colors";
 @import "./mixins";
-@import "./colors";
 
 // ---------------------------------------
 // Focus Shadow and background setup
@@ -14,11 +14,22 @@
 	@content;
 }
 
+// Assign the standard disabled rules of backgrounds to bg nodes.
+// This should be used on children of a root component node.
+@mixin sand-disabled-focus-bg-colors {
+	opacity: colors.$sand-disabled-focus-bg-opacity;
+	background-color: red;
+
+	@include sand-bg-colors{
+		@content;
+	}
+}
+
 @mixin sand-spotlight-resting-bg-colors($opacity: 0) {
 	opacity: $opacity;
 
 	@include sand-bg-colors {
-		background-color: $sand-spotlight-bg-color;
+		background-color: colors.$sand-spotlight-bg-color;
 		will-change: box-shadow;
 	};
 }
@@ -27,9 +38,14 @@
 	opacity: 1;
 
 	@include sand-bg-colors {
-		background-color: $sand-spotlight-bg-color;
-		box-shadow: $sand-spotlight-focus-shadow;
+		background-color: colors.$sand-spotlight-bg-color;
+		box-shadow: colors.$sand-spotlight-focus-shadow;
 	};
+}
+
+@mixin sand-spotlight-focus-text-colors {
+	// font-weight: @sand-spotlight-font-weight;
+	color: colors.$sand-spotlight-text-color;
 }
 
 //
@@ -38,15 +54,15 @@
 
 // Assign the standard disabled rules
 @mixin sand-disabled-colors {
-	opacity: $sand-disabled-opacity;
+	opacity: colors.$sand-disabled-opacity;
 }
 
 @mixin sand-disabled-bg-colors {
-	opacity: $sand-disabled-bg-opacity;
+	opacity: colors.$sand-disabled-bg-opacity;
 }
 
 // Assign the standard disabled rules of content to content nodes.
 // This should be used on children of a root component node.
 @mixin sand-disabled-focus-content-colors {
-	opacity: $sand-disabled-focus-content-opacity;
+	opacity: colors.$sand-disabled-focus-content-opacity;
 }

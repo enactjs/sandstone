@@ -1,13 +1,63 @@
-@import "../../enact/packages/spotlight/styles/mixins.scss";
+@use "../styles/variables";
+@use "../../enact/packages/ui/styles/mixins" as uiMixins;
+@import "../../enact/packages/spotlight/styles/mixins";
+@import "../../enact/packages/ui/styles/mixins";
+
+@function default($args...) {
+  @each $arg in $args {
+    @if not variable-exists(#{$arg}) {
+      @return true;
+    }
+  }
+  @return false;
+}
 
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
-@mixin sand-disabled() {
-    :disabled {
-        opacity: 1; // reset standard disabled rule.
-  };
-
-    @content;
+@mixin sand-disabled {
+  @if content-exists() {
+    @include uiMixins.disabled {
+      opacity: 1; // reset standard disabled rule.
+      @content;
+    }
+  }
 }
+
+// /**
+//  * Add a padding to your component which includes the standard sandstone spotlight padding on the
+//  * sides and uses the two arguments for padding on the top and bottom respectively.
+//  *
+//  * @param  {Measurement} @t Top padding
+//  * @param  {Measurement} @b Bottom padding
+//  */
+@mixin sand-spotlight-padding($values...) {
+  @if (length($values) == 0) {
+    padding-left: variables.$sand-spotlight-outset;
+    padding-right: variables.$sand-spotlight-outset;
+  } @else if (length($values) == 1) {
+    padding: nth($values, 1) variables.$sand-spotlight-outset;
+  } @else if (length($values) == 2) {
+    padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
+  }
+}
+
+// /**
+//  * Add a padding to your component which includes the standard sandstone spotlight padding on the
+//  * sides and uses the argument for padding on the top and bottom.
+//  *
+//  * @param  {Measurement} @tb Top and bottom padding
+//  */
+//@mixin sand-spotlight-padding-vertical($tb) {
+//  padding: $tb variables.$sand-spotlight-outset;
+//}
+
+// /**
+//  * Add a padding to your component which includes the standard sandstone spotlight padding only on
+//  * the sides.
+//  */
+//@mixin sand-spotlight-padding {
+//  padding-left: variables.$sand-spotlight-outset;
+//  padding-right: variables.$sand-spotlight-outset;
+//}
 
 @mixin position($value) {
     left: $value;
@@ -15,3 +65,16 @@
     top: $value;
     bottom: $value;
 }
+
+// Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
+//
+// Set line-height for normal and tallglyphs with 0, 1 or 2 arguments
+// Ex:
+//   .enact-locale-line-height();              ->  normal: default; tallglyphs: default;
+//   .enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
+//   .enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
+//@mixin enact-locale-line-height($normal: variables.$sand-common-line-height, $tallglyph: variables.$sand-tallglyph-line-height, $target: normal) {
+//  @if (default($target)) {
+//    @include uiMixins.enact-locale-tallglyph(line-height, $normal, $tallglyph, $target);
+//  }
+//}

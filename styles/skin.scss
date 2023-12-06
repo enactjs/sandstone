@@ -6,8 +6,12 @@
 @use "colors-game-green";
 @use "colors-game-orange";
 
-@mixin applySkins {
-    &:global(.neutral) {
+@mixin applySkins($parent: false) {
+    $selector: "";
+    @if $parent == false {
+        $selector: "&";
+    }
+    #{$selector}:global(.neutral) {
         @content;
         :global(.enact-a11y-high-contrast) &:global(.highContrast) {
             @include colors-highcontrast.applyColorsHighContrast;
@@ -16,13 +20,13 @@
     }
 
     // Light Skin
-    &:global(.light) {
+    #{$selector}:global(.light) {
         @include colors-light.applyColorsLight;
         @content;
     }
 
     // Game Skin
-    &:global(.game) {
+    #{$selector}:global(.game) {
         @content;
 
         :global(.green) & {

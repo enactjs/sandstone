@@ -1,0 +1,186 @@
+// Item.module.less
+//
+@use "../styles/color-mixins";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.item {
+	.selected {
+		/* Available for customization */
+	}
+
+	font-size: variables.$sand-item-font-size;
+	@include mixins.sand-spotlight-padding(variables.$sand-item-vertical-padding);
+
+	font-weight: variables.$sand-item-font-weight;
+	//@include mixins.enact-locale-line-height(variables.$sand-item-line-height, variables.$sand-tallglyph-item-line-height);
+	height: variables.$sand-item-height;
+	display: flex;
+	position: relative;
+	color: inherit;
+	margin: variables.$sand-item-margin;
+
+	.bg {
+		position: absolute;
+		@include mixins.position(0);
+		border-radius: variables.$sand-item-border-radius;
+	}
+
+	.slotAfter,
+	.slotBefore {
+		line-height: 0;  // Attempt to get the children of this to always vertically-align their middles with the text
+
+		> * {
+			// vertically align all direct children
+			vertical-align: middle;
+
+			// Remove the specific edge margin on direct children so the slot can define the proper
+			// spacing for itself.
+			&:first-child {
+				margin-inline-start: 0;
+			}
+			&:last-child {
+				margin-inline-end: 0;
+			}
+		}
+	}
+
+	.slotAfter {
+		margin-inline-start: variables.$sand-item-slotafter-spacing;
+	}
+
+	.slotBefore {
+		margin-inline-end: variables.$sand-item-slotbefore-spacing;
+	}
+
+	&.hasLabel {
+		height: variables.$sand-item-withlabel-height;
+
+		.itemContent {
+			&.labelAfter,
+			&.labelBelow {
+				.content { order: 1; }
+				.label   { order: 2; }
+			}
+
+			&.labelAbove,
+			&.labelBefore {
+				.content { order: 2; }
+				.label   { order: 1; }
+			}
+		}
+	}
+
+	&.inline {
+		display: inline-flex;
+		max-width: variables.$sand-item-inline-max-width;
+
+		// Apply to the marquee content area to tell it to expand to the available width of the container
+		.content,
+		.itemContent {
+			flex-shrink: 1;
+			overflow: auto;
+		}
+	}
+
+	&.centered {
+		.itemContent {
+			max-width: fit-content;
+		}
+	}
+
+	// Text
+	.label {
+		font-size: variables.$sand-item-label-font-size;
+		font-weight: inherit;
+		//.enact-locale-line-height(@sand-item-label-line-height, @sand-tallglyph-item-label-line-height);
+	}
+
+	@mixin sand-custom-text {
+		font-size: variables.$sand-item-font-size-large;
+		//.enact-locale-line-height(@sand-item-line-height-large, @sand-tallglyph-item-line-height-large);
+
+		.label {
+			font-size: variables.$sand-item-label-font-size-large;
+		}
+	};
+
+	&.large { /* Needed to prevent global class being added in the DOM */ }
+
+	&.small {
+		font-size: variables.$sand-item-small-font-size;
+
+		font-weight: variables.$sand-item-small-font-weight;
+		height: variables.$sand-item-small-height;
+		//.enact-locale-line-height(@sand-item-small-line-height, @sand-tallglyph-item-small-line-height);
+
+		&.hasLabel {
+			height: variables.$sand-item-small-withlabel-height;
+		}
+
+		.label {
+			font-size: variables.$sand-item-small-label-font-size;
+
+			font-weight: inherit;
+			line-height: variables.$sand-item-small-label-line-height;
+		}
+
+		//.enact-locale-tallglyph({
+		//	font-size: variables.$sand-item-small-font-size;
+		//});
+		//
+		//.sand-custom-text({
+		//	font-size: variables.$sand-item-small-font-size-large;
+		//	//.enact-locale-line-height(@sand-item-small-line-height-large, @sand-tallglyph-item-small-line-height-large);
+		//});
+	}
+
+	//.locale-japanese-line-break();
+
+	// Skin colors
+	@include skin.applySkins {
+		.bg {
+			@include color-mixins.sand-spotlight-resting-bg-colors;
+		}
+
+		.label {
+			color: colors.$sand-item-label-color;
+		}
+
+		@include mixins.focus {
+			@include color-mixins.sand-spotlight-focus-text-colors;
+
+			.bg {
+				@include color-mixins.sand-spotlight-focus-bg-colors;
+				background: colors.$sand-item-focus-background;
+			}
+
+			.label {
+				color: colors.$sand-item-focus-label-color;
+			}
+
+			@include mixins.sand-disabled {
+				.slotBefore,
+				.itemContent,
+				.slotAfter {
+					@include color-mixins.sand-disabled-colors;
+				}
+
+				@include mixins.focus {
+					.bg {
+						@include color-mixins.sand-disabled-focus-bg-colors;
+						background-color: colors.$sand-item-disabled-focus-bg-color;
+					}
+
+					.slotBefore,
+					.itemContent,
+					.slotAfter {
+						@include color-mixins.sand-disabled-focus-content-colors;
+					}
+				}
+			}
+		}
+	}
+}

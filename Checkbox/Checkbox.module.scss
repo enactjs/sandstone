@@ -50,24 +50,19 @@
 
 // Focus States
 @mixin checkbox-focus-states {
-	@include checkbox-standalone-rules;
-
-	.bg {
-		@include color-mixins.sand-spotlight-focus-bg-colors;
-	}
-
 	@include checkbox-colors(colors.$sand-checkbox-focus-text-color,
 					colors.$sand-checkbox-focus-bg-color,
 					colors.$sand-checkbox-focus-border-color
 	);
-
+	.bg {
+		@include color-mixins.sand-spotlight-focus-bg-colors;
+	}
 	&.selected {
 		@include checkbox-colors(colors.$sand-checkbox-selected-focus-text-color,
 						colors.$sand-checkbox-selected-focus-bg-color,
 						colors.$sand-checkbox-selected-focus-border-color
 		);
 	}
-
 	&.indeterminate {
 		@include checkbox-colors(colors.$sand-checkbox-indeterminate-focus-text-color,
 						colors.$sand-checkbox-indeterminate-focus-bg-color,
@@ -78,24 +73,17 @@
 
 // Disabled States
 @mixin checkbox-disabled-states {
-	// No custom rules for this state
-	@include checkbox-colors(initial, initial, initial);
 	&.selected {
 		@include checkbox-colors(colors.$sand-checkbox-disabled-selected-text-color,
 						colors.$sand-checkbox-disabled-selected-bg-color,
 						colors.$sand-checkbox-disabled-selected-border-color
 		);
 	}
-	&.indeterminate {
-		// No custom rules for this state
-		@include checkbox-colors(initial, initial, initial);
-	};
 };
 
 // Disabled States + Focus States
 @mixin checkbox-disabled-focus-states {
 	// No custom rules for this state
-	@include checkbox-colors(initial, initial, initial);
 	.bg {
 		background-color: colors.$sand-checkbox-standalone-bg-disabled-focus-bg-color;
 	}
@@ -105,10 +93,6 @@
 						colors.$sand-checkbox-focus-disabled-selected-border-color
 		);
 	}
-	&.indeterminate {
-		// No custom rules for this state
-		@include checkbox-colors(initial, initial, initial);
-	};
 };
 
 .checkbox {
@@ -134,23 +118,48 @@
 
 		@include checkbox-resting-states;
 
-		&:focus {
+		@include mixins.focus {
 			@include checkbox-focus-states;
 		}
 
-		&:disabled {
+		@include mixins.sand-disabled {
 			.icon {
 				@include color-mixins.sand-disabled-focus-content-colors;
 			}
 
 			@include checkbox-disabled-states;
 
-			&:focus {
+			// Disabled + Focus
+			@include mixins.focus {
 				@include checkbox-disabled-focus-states;
 			}
 		}
 	};
 }
+
+// The following target instances where the checkbox is inside another component and that
+// component is receiving the disabled/focused etc states, rather than checkbox directly.
+@include skin.applySkins(true) {
+	@include mixins.focus {
+		& .checkbox {
+			@include checkbox-focus-states;
+		}
+	}
+}
+
+@include skin.applySkins(true) {
+	@include mixins.disabled {
+		& .checkbox {
+			@include checkbox-disabled-states;
+		}
+	}
+}
+
+
+
+
+
+
 
 //@include skin.applySkins {
 //	&:disabled {
