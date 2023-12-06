@@ -1,6 +1,6 @@
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
-import Image from '@enact/sandstone/Image';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
@@ -22,12 +22,15 @@ const svgGenerator = (width, height, bgColor, textColor, customText) => (
 	`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23${textColor}'%3E${customText}%3C/text%3E%3C/svg%3E`
 );
 const images = new Array(20).fill().map( (_, i) =>
-	<Image
+	<ImageItem
+		inline
 		key={`image${i}`}
 		caption="Image"
 		src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
-		style={{marginBottom: scaleToRem(96)}}
-	/>
+		style={{width: scaleToRem(180), height: scaleToRem(120)}}
+	>
+		{`ImageItem ${i + 1}`}
+	</ImageItem>
 );
 
 const containerSpotlightId = 'qa-a11y-tablayout-view-container';
