@@ -262,7 +262,7 @@ const useSpottable = (props, instances) => {
 		const {pageScroll, direction} = props;
 		const {state: {numOfItems}, primary} = scrollContentHandle.current;
 		const allowAffordance = !(noAffordance || direction === 'horizontal');
-		const offsetToClientEnd = primary.clientSize - primary.gridSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
+		const offsetToClientEnd = Math.max(0, primary.clientSize - primary.gridSize - (!allowAffordance ? 0 : ri.scale(affordanceSize))); // TBD
 		const focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 		const offsetToCenter = snapToCenter ? (primary.clientSize / 2 - primary.gridSize / 2) : 0;
 
