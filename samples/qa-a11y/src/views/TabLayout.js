@@ -5,7 +5,10 @@ import Item from '@enact/sandstone/Item';
 import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
+import Spotlight from '@enact/spotlight';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {scaleToRem} from '@enact/ui/resolution';
+import {useCallback} from 'react';
 
 const tabsWithIcons = [
 	{title: 'Home', icon: 'home'},
@@ -27,11 +30,25 @@ const images = new Array(20).fill().map( (_, i) =>
 	/>
 );
 
+const containerSpotlightId = 'qa-a11y-tablayout-view-container';
+const Container = SpotlightContainerDecorator({}, 'div');
+
 const TabLayoutView = () => {
+	const handleExpand = useCallback(() => {
+		Spotlight.set(containerSpotlightId, {
+			restrict: 'self-first'
+		});
+	}, []);
+	const handleCollapse = useCallback(() => {
+		Spotlight.set(containerSpotlightId, {
+			restrict: 'self-only'
+		});
+	}, []);
+
 	return (
-		<>
+		<Container spotlightId={containerSpotlightId} spotlightRestrict="self-only">
 			<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
-			<TabLayout>
+			<TabLayout onCollapse={handleCollapse} onExpand={handleExpand}>
 				<Tab
 					icon={tabsWithIcons[0].icon}
 					title={tabsWithIcons[0].title}
@@ -57,7 +74,7 @@ const TabLayoutView = () => {
 					<Item slotBefore={<Icon>playcircle</Icon>}>Single Item</Item>
 				</Tab>
 			</TabLayout>
-		</>
+		</Container>
 	);
 };
 
