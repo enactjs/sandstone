@@ -47,7 +47,7 @@ const TabLayoutView = () => {
 	}, []);
 
 	return (
-		<Panel spotlightId={containerSpotlightId} spotlightRestrict="self-only">
+		<Panel spotlightId={containerSpotlightId}>
 			<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 			<TabLayout onCollapse={handleCollapse} onExpand={handleExpand}>
 				<Tab
