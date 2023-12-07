@@ -160,25 +160,25 @@
 			.label {
 				color: colors.$sand-item-focus-label-color;
 			}
+		}
 
-			@include mixins.sand-disabled {
+		@include mixins.sand-disabled {
+			.slotBefore,
+			.itemContent,
+			.slotAfter {
+				@include color-mixins.sand-disabled-colors;
+			}
+
+			@include mixins.focus {
+				.bg {
+					@include color-mixins.sand-disabled-focus-bg-colors;
+					background-color: colors.$sand-item-disabled-focus-bg-color;
+				}
+
 				.slotBefore,
 				.itemContent,
 				.slotAfter {
-					@include color-mixins.sand-disabled-colors;
-				}
-
-				@include mixins.focus {
-					.bg {
-						@include color-mixins.sand-disabled-focus-bg-colors;
-						background-color: colors.$sand-item-disabled-focus-bg-color;
-					}
-
-					.slotBefore,
-					.itemContent,
-					.slotAfter {
-						@include color-mixins.sand-disabled-focus-content-colors;
-					}
+					@include color-mixins.sand-disabled-focus-content-colors;
 				}
 			}
 		}

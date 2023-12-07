@@ -18,7 +18,6 @@
 // This should be used on children of a root component node.
 @mixin sand-disabled-focus-bg-colors {
 	opacity: colors.$sand-disabled-focus-bg-opacity;
-	background-color: red;
 
 	@include sand-bg-colors{
 		@content;
