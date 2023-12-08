@@ -5,7 +5,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import {Component, createRef} from 'react';
 
 import Button from '../../../../../Button/Button';
-import css from './Scroller.module.less';
+import css from './ScrollerWithEditableSelectItemByLongPress.module.less';
 import ImageItem from '../../../../../ImageItem';
 import {InputField} from '../../../../../Input';
 import Scroller from '../../../../../Scroller/Scroller';
@@ -45,8 +45,7 @@ class app extends Component {
 			numItems: 10,
 			items: imageItems
 		};
-		this.rootRef = createRef();
-		this.scrollingRef = createRef();
+		this.removeItem = createRef();
 		updateDataSize(this.state.numItems);
 	}
 
@@ -72,11 +71,10 @@ class app extends Component {
 	};
 
 	onClickRemoveButton = (ev) => {
-		if (this.rootRef.current) {
-			this.rootRef.current();
+		if (this.removeItem.current) {
+			this.removeItem.current();
 		}
 		ev.preventDefault();
-		ev.stopPropagation();
 	};
 
 	render () {
@@ -85,7 +83,7 @@ class app extends Component {
 		const scrollMode = nativeScroll ? 'NativeScroll' : 'TranslateScroll';
 		const inputStyle = {width: ri.scaleToRem(300)};
 		return (
-			<div {...this.props} id="scroller" ref={this.rootRef}>
+			<div {...this.props} id="scroller">
 				<Cell component={OptionsContainer} shrink>
 					<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.onToggle}>{scrollMode}</Button>
 					<Button {...buttonDefaultProps} id="editableCentered" onClick={this.onToggle}>EditableCentered</Button>
@@ -102,7 +100,7 @@ class app extends Component {
 							centered:editableCentered,
 							css,
 							onComplete: this.handleComplete,
-							removeItemFuncRef: this.rootRef
+							removeItemFuncRef: this.removeItem
 						}}
 					>
 						{

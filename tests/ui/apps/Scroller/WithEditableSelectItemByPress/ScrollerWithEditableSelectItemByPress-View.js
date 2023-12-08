@@ -46,7 +46,7 @@ const updateDataSize = (dataSize) => {
 
 		iconItems.push({index, props: {...props}});
 	}
-	return dataSize;
+	return iconItems;
 };
 
 class app extends Component {
@@ -54,9 +54,9 @@ class app extends Component {
 		super(props);
 		this.state = {
 			editableCentered: true,
+			items: updateDataSize(10),
 			nativeScroll: true,
-			numItems: 10,
-			items: iconItems
+			numItems: 10
 		};
 		this.hideIndex = null;
 		this.removeItem = createRef();
@@ -64,7 +64,6 @@ class app extends Component {
 		this.showItem = createRef();
 		this.focusItem = createRef();
 		this.scrollingRef = createRef();
-		updateDataSize(this.state.numItems);
 	}
 
 	onToggle = ({currentTarget}) => {
@@ -73,8 +72,8 @@ class app extends Component {
 	};
 
 	onChangeNumItems = ({value}) => {
-		this.setState({numItems: value});
-		updateDataSize(value);
+		const items = updateDataSize(value);
+		this.setState({items: items, numItems: value});
 	};
 
 	handleComplete = (ev) => {
@@ -98,6 +97,14 @@ class app extends Component {
 	onClickHideButton = (ev) => {
 		if (this.hideItem.current) {
 			this.hideItem.current();
+		}
+		ev.preventDefault();
+		ev.stopPropagation();
+	};
+
+	onClickRemoveButton = (ev) => {
+		if (this.removeItem.current) {
+			this.removeItem.current();
 		}
 		ev.preventDefault();
 		ev.stopPropagation();
@@ -156,14 +163,15 @@ class app extends Component {
 								return (
 									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}} disabled={item.hidden}>
 										<ItemButtonsContainer className={css.removeButtonContainer}>
-											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={this.onClickRemoveButton} icon="trash" />}
-											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={this.onClickHideButton} icon="minus" />}
-											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={this.onClickShowButton} icon="plus" /> : null}
+											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} icon="trash" id="removeItem" onClick={this.onClickRemoveButton} />}
+											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} icon="minus" id="hideItem" onClick={this.onClickHideButton} />}
+											{item.hidden ? <Button aria-label="Show" className={css.removeButton} icon="plus" id="showItem" onClick={this.onClickShowButton} /> : null}
 										</ItemButtonsContainer>
 										<IconItem
 											aria-label={`Icon ${item.index}. Press and hold the OK button to edit.`}
 											className={css.iconItem}
 											disabled={item.hidden}
+											id={`item${item.index}`}
 											onFocus={this.onFocusItem}
 											{...item.props}
 										/>
