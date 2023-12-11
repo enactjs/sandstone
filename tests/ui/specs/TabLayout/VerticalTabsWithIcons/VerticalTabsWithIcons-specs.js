@@ -38,6 +38,22 @@ describe('TabLayout', function () {
 					expect(await Page.tabLayout.isCollapsed).to.be.false();
 				});
 
+				it('should expand tabs when focus is moved to a Spottable component in the tabs container via back key', async function () {
+					// 5-way down to second tab
+					await Page.spotlightDown();
+					await (await Page.tabLayout.view(2)).waitForExist();
+					// focus the contents
+					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
+						await Page.spotlightRight();
+					});
+					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					// Back to the tabs
+					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
+						await Page.backKey();
+					});
+					expect(await Page.tabLayout.isCollapsed).to.be.false();
+				});
+
 				it('should collapse tabs when focus is moved to a Spottable component in the content container via 5-way Select', async function () {
 					await Page.delay(1000);
 					// 5-way down to second tab
@@ -71,6 +87,24 @@ describe('TabLayout', function () {
 				});
 			});
 			describe('pointer interaction', function () {
+				it('should not move focus to a Spottable component in the tabs container via back key in pointer mode', async function () {
+					// 5-way down to second tab
+					await Page.spotlightDown();
+					await (await Page.tabLayout.view(2)).waitForExist();
+					// focus the contents
+					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
+						await Page.spotlightRight();
+					});
+					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					// Set pointer mode
+					await Page.tabLayout.hoverTabs();
+					// When pointer mode is true, focus does not move to tabs via back key
+					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
+						await Page.backKey();
+					});
+					expect(await Page.tabLayout.isCollapsed).to.be.true();
+				});
+
 				it('should collapse and expand tabs when focus is moved between `Spottable` components in the content and tabs containers via pointer move - [QWTC-1891]', async  function () {
 					// focus the layout's tabs
 					await Page.tabLayout.hoverTabs();
