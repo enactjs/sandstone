@@ -2,7 +2,7 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.7.13] - 2023-12-08
 
 ### Changed
 
@@ -10,10 +10,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` with `editable` prop to complete editing when 'down' key is pressed during editing
 - `sandstone/Slider` to read out more details
 - `sandstone/TabLayout` to move focus from tab contents to tab menu via back key
+- `sandstone/TabLayout` to read out more details
 
 ### Fixed
 
-- `sandstone/Scroller` with `editable` to complete editing when focus left by 5-way key in pointer mode
+- `sandstone/Scroller` with `editable` prop to rearrange items properly when moving pointer very fast
+- `sandstone/Scroller` with `editable` prop to complete editing when focus left by 5-way key in pointer mode
 
 ## [2.7.12] - 2023-10-23
 
