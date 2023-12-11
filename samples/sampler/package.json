@@ -1,6 +1,6 @@
 {
   "name": "sandstone-sampler",
-  "version": "2.7.11",
+  "version": "2.7.13",
   "description": "Component and QA samples for Sandstone",
   "private": true,
   "main": "index.js",
@@ -20,12 +20,12 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.7.6",
-    "@enact/i18n": "^4.7.6",
+    "@enact/core": "^4.7.9",
+    "@enact/i18n": "^4.7.9",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.7.6",
+    "@enact/spotlight": "^4.7.9",
     "@enact/storybook-utils": "github:enactjs/storybook-utilst#feature/convert-to-SCSS",
-    "@enact/ui": "^4.7.6",
+    "@enact/ui": "^4.7.9",
     "@storybook/addons": "^6.5.16",
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/manager-webpack5": "^6.5.16",

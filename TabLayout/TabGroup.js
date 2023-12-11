@@ -3,12 +3,15 @@ import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Group from '@enact/ui/Group';
+import IdProvider from '@enact/ui/internal/IdProvider';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
+import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useMemo} from 'react';
 
+import $L from '../internal/$L';
 import DebounceDecorator from '../internal/DebounceDecorator';
 import Button from '../Button';
 import Skinnable from '../Skinnable';
@@ -89,7 +92,7 @@ const TabBase = kind({
 			css,
 			focusEffect: 'static',
 			minWidth: false,
-			role: null
+			role: 'tab'
 		};
 
 		switch (orientation) {
@@ -150,6 +153,7 @@ const TabGroupBase = kind({
 		tabs: PropTypes.array.isRequired,
 		collapsed: PropTypes.bool,
 		css: PropTypes.object,
+		id: PropTypes.string,
 		onBlur: PropTypes.func,
 		onBlurList: PropTypes.func,
 		onFocus: PropTypes.func,
@@ -176,7 +180,7 @@ const TabGroupBase = kind({
 		tabsSpotlightDisabled: ({spotlightDisabled, tabs}) => spotlightDisabled || tabs.find(tab => tab && !tab.spotlightDisabled) == null
 	},
 
-	render: ({css, collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, tabsSpotlightDisabled, ...rest}) => {
+	render: ({css, collapsed, id, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, tabsSpotlightDisabled, ...rest}) => {
 		delete rest.children;
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
@@ -228,22 +232,27 @@ const TabGroupBase = kind({
 						spotlightDisabled={tabsSpotlightDisabled}
 					/>
 				) : (
-					<GroupComponent
-						childComponent={Tab}
-						className={componentCss.tabs}
-						component={groupComponent}
-						indexProp="index"
-						itemProps={itemProps}
-						onSelect={onSelect}
-						orientation={orientation}
-						select="radio"
-						selected={selectedIndex}
-						selectedProp="selected"
-						spotlightId={spotlightId}
-						spotlightDisabled={spotlightDisabled}
-					>
-						{children}
-					</GroupComponent>
+					<div role="region" aria-labelledby={`${id}_tabgroup`}>
+						<GroupComponent
+							id={`${id}_tabgroup`}
+							childComponent={Tab}
+							aria-label={`${new IString($L('{total} items in total')).format({'total': tabs.length})}`}
+							className={componentCss.tabs}
+							component={groupComponent}
+							indexProp="index"
+							itemProps={itemProps}
+							onSelect={onSelect}
+							orientation={orientation}
+							role="tablist"
+							select="radio"
+							selected={selectedIndex}
+							selectedProp="selected"
+							spotlightId={spotlightId}
+							spotlightDisabled={spotlightDisabled}
+						>
+							{children}
+						</GroupComponent>
+					</div>
 				)}
 				{isHorizontal ? <hr className={componentCss.horizontalLine} /> : null}
 			</Component>
@@ -252,7 +261,11 @@ const TabGroupBase = kind({
 });
 
 const TabGroupDecorator = compose(
-	DebounceDecorator({cancel: 'onBlur', debounce: 'onFocusTab', delay: 300})
+	DebounceDecorator({cancel: 'onBlur', debounce: 'onFocusTab', delay: 300}),
+	IdProvider({
+		generateProp: null,
+		prefix: 'tg_'
+	})
 );
 
 // Only documenting TabGroup since base is not useful for extension as-is
