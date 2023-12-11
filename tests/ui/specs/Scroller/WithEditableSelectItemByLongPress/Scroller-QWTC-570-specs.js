@@ -1,14 +1,14 @@
 const ScrollerPage = require('../ScrollerPage');
-const {expectFocusedItem} = require('../Scroller-utils');
+const {enableEditModeLongPress, expectFocusedItem} = require('../Scroller-utils');
 
-describe.skip('Editable Scroller', function () {
+describe('Scroller With Editable Select Item By Long Press', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open('EditableItem');
+		await ScrollerPage.open('WithEditableSelectItemByLongPress');
 	});
 
-	it('Should change item position with editableCentered [QWTC-570]', async function () {
+	it('should change item position with editableCentered [QWTC-570]', async function () {
 		// Set datasize 3.
-		await ScrollerPage.inputfieldNumItems.moveTo();
+		await ScrollerPage.inputFieldNumItems.moveTo();
 		await ScrollerPage.spotlightSelect();
 		await ScrollerPage.backSpace();
 		await ScrollerPage.backSpace();
@@ -20,7 +20,7 @@ describe.skip('Editable Scroller', function () {
 		await ScrollerPage.spotlightDown();
 		// Check for leftmost item's position.
 		const leftmostItemRect = Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100;
-		await ScrollerPage.spotlightSelect();
+		await enableEditModeLongPress();
 		await expectFocusedItem(0);
 		// Step5-2 Verify: Image 0 rises upper.
 		await expect(await ScrollerPage.checkEditableItem()).to.be.true();
