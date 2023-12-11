@@ -44,7 +44,7 @@ const RefocusDecorator = Wrapped => {
 
 		useEffect(() => {
 			Spotlight.set(spotlightId, {
-				navigableFilter: collapsed && orientation === 'vertical' ? getNavigableFilter(spotlightId, collapsed) : null
+				navigableFilter: collapsed && orientation !== 'horizontal' ? getNavigableFilter(spotlightId, collapsed) : null
 			});
 		}, [collapsed, orientation, spotlightId]);
 
