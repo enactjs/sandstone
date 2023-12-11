@@ -839,7 +839,7 @@ describe('WizardPanel Specs', () => {
 				const actual = buttons.length;
 
 				expect(actual).toBe(expected);
-				expect(buttons[0]).toHaveAttribute('aria-label', 'Exit quick guide');
+				expect(buttons[0]).toHaveAttribute('aria-label', 'Exit Quick Guide');
 				expect(buttons[1]).toHaveAttribute('aria-label', 'Previous');
 			}
 		);
@@ -861,7 +861,7 @@ describe('WizardPanel Specs', () => {
 				const actual = buttons.length;
 
 				expect(actual).toBe(expected);
-				expect(buttons[0]).toHaveAttribute('aria-label', 'Exit quick guide');
+				expect(buttons[0]).toHaveAttribute('aria-label', 'Exit Quick Guide');
 				expect(buttons[1]).toHaveAttribute('aria-label', 'Next');
 			}
 		);
@@ -1038,7 +1038,7 @@ describe('WizardPanel Specs', () => {
 					</WizardPanels>
 				);
 
-				const closeButton = screen.getByLabelText('Exit quick guide');
+				const closeButton = screen.getByLabelText('Exit Quick Guide');
 				const expected = {type: 'onClose'};
 
 				await user.click(closeButton);

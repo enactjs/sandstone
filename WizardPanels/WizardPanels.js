@@ -72,7 +72,7 @@ const WizardPanelsBase = kind({
 		 * Hint string read when focusing the close button.
 		 *
 		 * @type {String}
-		 * @default 'Exit quick guide'
+		 * @default 'Exit Quick Guide'
 		 * @private
 		 */
 		closeButtonAriaLabel: PropTypes.string,
@@ -379,7 +379,7 @@ const WizardPanelsBase = kind({
 		closeButton: ({closeButtonAriaLabel, onClose, totalPanels}) => {
 			return (
 				totalPanels ? <Button
-					aria-label={closeButtonAriaLabel == null ? $L('Exit quick guide') : closeButtonAriaLabel}
+					aria-label={closeButtonAriaLabel == null ? $L('Exit Quick Guide') : closeButtonAriaLabel}
 					className={css.close}
 					icon="closex"
 					onClick={onClose}
