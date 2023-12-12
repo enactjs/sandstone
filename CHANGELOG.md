@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` with `editable` to complete editing when focus left by 5-way key in pointer mode
+- `sandstone/VirtualList` to have proper scroll position when item with affordance is larger than scroll area
 
 ## [2.7.12] - 2023-10-23
 
