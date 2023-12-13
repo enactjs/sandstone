@@ -154,31 +154,3 @@
 		}
 	}
 }
-
-
-
-
-
-
-
-//@include skin.applySkins {
-//	&:disabled {
-//		& .checkbox {
-//			@include checkbox-disabled-states;
-//		}
-//	}
-//}
-
-//@include skin.applySkins {
-//	&:focus {
-//		&:disabled {
-//			@include checkbox-disabled-focus-states;
-//
-//			&.standalone {
-//				.icon {
-//					@include color-mixins.sand-disabled-focus-content-colors;
-//				}
-//			}
-//		}
-//	}
-//}
