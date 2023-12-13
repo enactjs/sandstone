@@ -62,6 +62,10 @@ class ScrollerPage extends Page {
 		return element('#editableCentered', browser);
 	}
 
+	get buttonShowItem () {
+		return element('#showItem', browser);
+	}
+
 	// dropdown api
 	get dropdownFocusableScrollbar () {
 		return element('#focusableScrollbarKnobs', browser);
@@ -82,7 +86,7 @@ class ScrollerPage extends Page {
 	}
 
 	// InputField api
-	get inputfieldNumItems () {
+	get inputFieldNumItems () {
 		return element('#numItems', browser);
 	}
 
@@ -199,7 +203,7 @@ class ScrollerPage extends Page {
 
 	async checkEditableItem () {
 		return await browser.execute(function () {
-			const itemWrapperClass = 'tests_ui_apps_Scroller_EditableItem_Scroller_itemWrapper Scroller_EditableWrapper_selected tests_ui_apps_Scroller_EditableItem_Scroller_selected';
+			const itemWrapperClass = 'tests_ui_apps_Scroller_WithEditableSelectItemByLongPress_ScrollerWithEditableSelectItemByLongPress_itemWrapper Scroller_EditableWrapper_selected tests_ui_apps_Scroller_WithEditableSelectItemByLongPress_ScrollerWithEditableSelectItemByLongPress_selected';
 			return document.activeElement.parentElement.className === itemWrapperClass;
 		});
 	}
@@ -211,6 +215,12 @@ class ScrollerPage extends Page {
 	async numPad (num) {
 		let Inputnum = 'numpad' + String(num);
 		return await this.keyDelay(Inputnum);
+	}
+
+	async moveSpotlight (times = 0, directionFunc = 'spotlightRight') {
+		for (let i = 0; i < times; i++) {
+			await this[directionFunc]();
+		}
 	}
 }
 

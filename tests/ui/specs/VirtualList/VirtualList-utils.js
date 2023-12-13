@@ -35,12 +35,14 @@ async function waitUntilFocused (itemNum, comment = '') {
 		const focusedId = await focusedElement();
 		return target === focusedId;
 	}, {timeout: 1500, timeoutMsg: `timed out waiting to focus index ${itemNum}${comment}`});
+	await browser.pause(500);
 }
 
 async function waitUntilVisible (itemNum) {
 	await browser.waitUntil(function () {
 		return hitTest(`#item${itemNum}`);
 	},  {timeout: 1500, timeoutMsg: `timed out waiting until visible index ${itemNum}`});
+	await browser.pause(500);
 }
 
 async function isScrolling () {
