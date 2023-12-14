@@ -36,7 +36,7 @@ class QuickGuidePanelsInterface {
 		return await element('[aria-label="Previous"]', this.self);
 	}
 	async closeButton () {
-		return await element('[aria-label="Exit quick guide"]', this.self);
+		return await element('[aria-label="Exit Quick Guide"]', this.self);
 	}
 
 	get view1 () {
