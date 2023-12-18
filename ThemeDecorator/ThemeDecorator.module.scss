@@ -1,0 +1,63 @@
+// Sandstone Base App styles
+//
+
+@use "../styles/colors";
+@use "../styles/color-mixins";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+@include skin.applySkins(true) {
+	color: colors.$sand-text-color;
+
+	::selection {
+		color: colors.$sand-selection-color;
+		background-color: colors.$sand-selection-bg-color;
+	}
+
+	@include mixins.disabled {
+		@include color-mixins.sand-disabled-colors;
+
+		cursor: default;
+
+		@include mixins.disabled(true) {
+			// Disabled children of disabled components
+			opacity: 1;
+		}
+	}
+}
+
+.root {
+	//.sand-text-base(@sand-base-font-size, self);
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: normal;
+	// Prevent Chrome from highlighting tapped elements
+	-webkit-tap-highlight-color: transparent;
+
+	&.bg,
+	& > .bg {
+		padding: variables.$sand-app-keepout;
+	}
+
+	//.enact-locale-rtl({
+	//	direction: rtl;
+	//}, self);
+
+	:focus {
+		// Prevent Chrome's default focus treatment
+		outline: none;
+	}
+}
+
+// Skin colors
+// This is outside the `.root` class above because high-contrast is applied to root
+// as well as skins. The high-contrast mixin (in skin.less) refers to high-contrast
+// and the skins node as descent, rather than on the same node. This allows the
+// styling to be applied without costly duplication of all rules in the skin mixin.
+@include skin.applySkins(true) {
+	&.bg,
+	> .bg {
+		background-color: colors.$sand-bg-color;
+	}
+}
