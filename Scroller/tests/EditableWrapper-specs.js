@@ -85,8 +85,8 @@ describe('Editable Scroller', () => {
 			'should have "selected" class when item is selected',
 			() => {
 				render(editableScroller);
-                const item = screen.getByLabelText('Icon 0');
-                pressEnterKey(item);
+				const item = screen.getByLabelText('Icon 0');
+				pressEnterKey(item);
 				expect(item).toHaveClass('selected');
 			}
 		);
