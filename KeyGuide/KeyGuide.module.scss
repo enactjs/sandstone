@@ -13,9 +13,9 @@
 	padding: variables.$sand-keyguide-padding;
 
 	.item {
-	//	.sand-font({
-	//		font-size: @sand-keyguide-font-size;
-	//	});
+		@include mixins.sand-font {
+			font-size: variables.$sand-keyguide-font-size;
+		}
 		font-size: variables.$sand-keyguide-font-size;
 		height: variables.$sand-keyguide-item-height;
 		margin: 0;

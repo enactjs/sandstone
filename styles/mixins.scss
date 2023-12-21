@@ -1,5 +1,5 @@
 @use "../styles/variables";
-@use "../../enact/packages/ui/styles/mixins" as uiMixins;
+//@use "../../enact/packages/ui/styles/mixins" as uiMixins;
 @import "../../enact/packages/spotlight/styles/mixins";
 @import "../../enact/packages/ui/styles/mixins";
 
@@ -15,7 +15,7 @@
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled {
   @if content-exists() {
-    @include uiMixins.disabled {
+    @include disabled {
       opacity: 1; // reset standard disabled rule.
       @content;
     }
@@ -40,30 +40,68 @@
   }
 }
 
-// /**
-//  * Add a padding to your component which includes the standard sandstone spotlight padding on the
-//  * sides and uses the argument for padding on the top and bottom.
-//  *
-//  * @param  {Measurement} @tb Top and bottom padding
-//  */
-//@mixin sand-spotlight-padding-vertical($tb) {
-//  padding: $tb variables.$sand-spotlight-outset;
+//
+// Sandstone Font Applicator
+//
+// When only rules are provided. Default populate the $target argument.
+//@mixin sand-font($target: normal) {
+//  @if content-exists() {
+//    // content: "Applying .sand-font (rules)";
+//    @include sand-font(variables.$sand-font-family, variables.$sand-non-latin-font-family, $target) {
+//      @content;
+//    };
+//  }
+//}
+// When 0, 1, or 2 strings (font family names) are provided. Default populate the $target argument so the signature stays the same.
+//@mixin sand-font($family: variables.$sand-font-family, $nlfamily: variables.$sand-non-latin-font-family, $target: normal) {
+  //@if type-of($family) == string and type-of($nlfamily) == string {
+  //  // content: "Applying .sand-font 0123";
+  //  @include sand-font($family, $nlfamily, $target) {};
+  //}
+//}
+// When exactly 3 or 4 args are provided. Types are assumed because they went through the trouble to provide all 3 required args.
+//@mixin sand-font($family, $nlfamily, $target: normal) {
+//  @if content-exists() {
+//    // content: "Applying .sand-font 34";
+//    font-family: $family;
+//
+//    @include enact-locale(non-latin, $target) {
+//      font-family: $nlfamily;
+//      @content;
+//    }
+//  }
 //}
 
-// /**
-//  * Add a padding to your component which includes the standard sandstone spotlight padding only on
-//  * the sides.
-//  */
-//@mixin sand-spotlight-padding {
-//  padding-left: variables.$sand-spotlight-outset;
-//  padding-right: variables.$sand-spotlight-outset;
-//}
+@mixin sand-font(
+  $family: variables.$sand-font-family,
+  $nlfamily: variables.$sand-non-latin-font-family,
+  $target: normal
+) {
+  @if content-exists() {
+    font-family: $family;
 
-@mixin position($value) {
-    left: $value;
-    right: $value;
-    top: $value;
-    bottom: $value;
+    @include enact-locale(non-latin, $target) {
+      font-family: $nlfamily;
+
+      @content;
+    }
+  }
+}
+
+@mixin sand-custom-text-large {
+  // 1 arg: Generic rule applicator, accepts an entire rule-set to add for large text mode
+  &:global(.largeText) {
+    @content;
+  }
+}
+
+@mixin sand-custom-text-large-locale {
+  // 2 args: Generic rule applicator, accepts 2 entire rule-sets to add both latin and non-latin for large text mode
+  @include enact-locale(non-latin) {
+    @include sand-custom-text-large {
+      @content;
+    }
+  }
 }
 
 // Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.

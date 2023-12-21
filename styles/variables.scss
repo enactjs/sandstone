@@ -41,6 +41,16 @@ $sand-keyguide-font-size:           60px;
 
 // Other Font Properties
 // ---------------------------------------
+$sand-font-family: "Sandstone";        // Formerly weight: 700
+$sand-font-family-bold: "Sandstone";   // Formerly weight: 900
+$sand-alt-font-family: "Sandstone";
+$sand-number-font-family: "Sandstone Number";
+$sand-non-latin-font-family: "Sandstone";
+$sand-non-latin-font-family-light: "Sandstone";  // Formerly weight: Light
+$sand-non-latin-font-family-bold: "Sandstone";   // Formerly weight: Bold
+$sand-non-latin-font-weight: normal;
+$sand-non-latin-font-weight-light: 300;
+$sand-non-latin-font-weight-bold: 700;
 $sand-spottable-font-weight: 600;
 $sand-common-line-height: 1.3em;
 $sand-tallglyph-line-height: 1.5em;

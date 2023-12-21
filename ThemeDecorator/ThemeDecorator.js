@@ -23,7 +23,7 @@ import Skinnable from '../Skinnable';
 import I18nFontDecorator from './I18nFontDecorator';
 import AccessibilityDecorator from './AccessibilityDecorator';
 import screenTypes from './screenTypes.json';
-import css from './ThemeDecorator.module.scss';
+import css from './ThemeDecorator.module.less';
 import {configure} from '@enact/ui/Touchable';
 
 /**
