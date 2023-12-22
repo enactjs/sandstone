@@ -1,0 +1,38 @@
+// skin.scss
+//
+
+@use "colors-light";
+@use "colors-highcontrast";
+@use "colors-game-green";
+@use "colors-game-orange";
+
+@mixin applySkins {
+    &:global(.neutral) {
+        @content;
+        :global(.enact-a11y-high-contrast) &:global(.highContrast) {
+            @include colors-highcontrast.applyColorsHighContrast;
+            @content;
+        }
+    }
+
+    // Light Skin
+    &:global(.light) {
+        @include colors-light.applyColorsLight;
+        @content;
+    }
+
+    // Game Skin
+    &:global(.game) {
+        @content;
+
+        :global(.green) & {
+            @include colors-game-green.applyColorsGameGreen;
+            @content;
+        }
+
+        :global(.orange) & {
+            @include colors-game-orange.applyColorsGameOrange;
+            @content;
+        }
+    }
+}
