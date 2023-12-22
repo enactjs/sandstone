@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import {render, fireEvent, screen} from '@testing-library/react';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+
 import Button from '../../Button';
 import IconItem from '../../IconItem';
 import Scroller from '../Scroller';
-import css from '../Scroller.module.less';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
 const keyDownUp = (keyCode) => (elm) => {
 	fireEvent.keyDown(elm, {keyCode});
@@ -32,7 +32,7 @@ const ContainerDivWithLeaveForConfig = SpotlightContainerDecorator({leaveFor: {l
 
 describe('Editable Scroller', () => {
 	let items;
-	let editableScroller;
+	let editableScrollerContents;
 
 	beforeEach(() => {
 		items = [];
@@ -41,63 +41,82 @@ describe('Editable Scroller', () => {
 			items.push(populateItems({index: i}));
 		}
 
-		editableScroller = (
-			<Scroller
-				direction="horizontal"
-				editable={{
-					css,
-					onComplete: jest.fn(),
-					removeItemFuncRef: jest.fn(),
-					hideItemFuncRef: jest.fn(),
-					showItemFuncRef: jest.fn(),
-					focusItemFuncRef: jest.fn(),
-					selectItemBy: 'press'
-				}}
-			>
-				{
-					items.map((item, index) => {
-						return (
-							<div key={item.index} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}}>
-								<ContainerDivWithLeaveForConfig>
-									{item.disabled ? null : <Button aria-label="Delete" icon="trash" />}
-									{item.disabled ? null : <Button aria-label="Hide" icon="minus" />}
-									{item.disabled ? <Button aria-label="Show" icon="plus" /> : null}
-								</ContainerDivWithLeaveForConfig>
-								<IconItem
-									{...item.iconItemProps}
-									disabled={item.iconItemProps['disabled'] || item.hidden}
-								/>
-							</div>
-						);
-					})
-				}
-			</Scroller>
+		editableScrollerContents = (
+			items.map((item, index) => {
+				return (
+					<div key={item.index} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+						<ContainerDivWithLeaveForConfig>
+							{item.disabled ? null : <Button aria-label="Delete" icon="trash" />}
+							{item.disabled ? null : <Button aria-label="Hide" icon="minus" />}
+							{item.disabled ? <Button aria-label="Show" icon="plus" /> : null}
+						</ContainerDivWithLeaveForConfig>
+						<IconItem
+							{...item.iconItemProps}
+							disabled={item.iconItemProps['disabled'] || item.hidden}
+						/>
+					</div>
+				);
+			})
 		);
 	});
 
 	afterEach(() => {
 		items = null;
-		editableScroller = null;
+		editableScrollerContents = null;
 	});
 
 	describe('Select Item', () => {
 		test(
-			'should have "selected" class when item is selected',
+			'should have custom selected class and should not have custom focused class when item is selected',
 			() => {
-				render(editableScroller);
+				render(<Scroller
+					direction="horizontal"
+					editable={{
+						css: {
+							'selected': 'customSelected',
+							'focused': 'customFocused'
+						},
+						onComplete: jest.fn(),
+						removeItemFuncRef: jest.fn(),
+						hideItemFuncRef: jest.fn(),
+						showItemFuncRef: jest.fn(),
+						focusItemFuncRef: jest.fn(),
+						selectItemBy: 'press'
+					}}
+				>
+					{editableScrollerContents}
+				</Scroller>);
 				const item = screen.getByLabelText('Icon 0');
 				pressEnterKey(item);
-				expect(item).toHaveClass('selected');
+				expect(item).toHaveClass('customSelected');
+				expect(item).not.toHaveClass('customFocused');
 			}
 		);
 		test(
-			'should not have "selected" class when item is unselected',
+			'should not have custom selected class and should have custom focused class when item is unselected',
 			() => {
-				render(editableScroller);
+				render(<Scroller
+					direction="horizontal"
+					editable={{
+						css: {
+							'selected': 'customSelected',
+							'focused': 'customFocused'
+						},
+						onComplete: jest.fn(),
+						removeItemFuncRef: jest.fn(),
+						hideItemFuncRef: jest.fn(),
+						showItemFuncRef: jest.fn(),
+						focusItemFuncRef: jest.fn(),
+						selectItemBy: 'press'
+					}}
+				>
+					{editableScrollerContents}
+				</Scroller>);
 				const item = screen.getByLabelText('Icon 0');
 				pressEnterKey(item);
 				pressEnterKey(item);
-				expect(item).not.toHaveClass('selected');
+				expect(item).not.toHaveClass('customSelected');
+				expect(item).toHaveClass('customFocused');
 			}
 		);
 	});
