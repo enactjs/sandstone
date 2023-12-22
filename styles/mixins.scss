@@ -1,3 +1,5 @@
+@import "../../enact/packages/spotlight/styles/mixins.scss";
+
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled() {
     :disabled {

@@ -128,11 +128,8 @@
 			@include checkbox-standalone-rules;
 		}
 
-		&.spottable {
+		@include mixins.spottable {
 			@include checkbox-standalone-rules;
-			:focus {
-				@include checkbox-focus-states;
-			}
 		}
 
 		@include checkbox-resting-states;
