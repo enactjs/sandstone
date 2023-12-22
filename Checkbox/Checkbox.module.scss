@@ -1,16 +1,18 @@
 // Checkbox.module.scss
 //
-@import "../styles/variables";
-@import "../styles/mixins";
-@import "../styles/colors";
-@import "../styles/color-mixins";
+
+@use "../styles/color-mixins";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 // Assign the colors all in one place
 @mixin checkbox-colors($color, $bg, $border) {
 	.icon {
 		color: $color !important; // There is a 'color: inherit;' property coming from '.spottable' mixin that we need to overwrite in order to maintain checkbox styles for this POC
 		background-color: $bg;
-		box-shadow: 0 0 0 $sand-checkbox-border-width $border;
+		box-shadow: 0 0 0 variables.$sand-checkbox-border-width $border;
 	}
 }
 
@@ -18,33 +20,30 @@
 @mixin checkbox-standalone-rules {
 	.bg {
 		position: absolute;
-		@include position($sand-checkbox-container-position);
-		border-radius: $sand-checkbox-container-border-radius;
-		@include sand-spotlight-resting-bg-colors;
+		@include mixins.position(variables.$sand-checkbox-container-position);
+		border-radius: variables.$sand-checkbox-container-border-radius;
+		@include color-mixins.sand-spotlight-resting-bg-colors;
 	}
 }
 
 // Resting States
 @mixin checkbox-resting-states {
-	@include checkbox-colors(
-					$sand-checkbox-text-color,
-					$sand-checkbox-bg-color,
-					$sand-checkbox-border-color
+	@include checkbox-colors(colors.$sand-checkbox-text-color,
+					colors.$sand-checkbox-bg-color,
+					colors.$sand-checkbox-border-color
 	);
 
 	&.selected {
-		@include checkbox-colors(
-						$sand-checkbox-selected-text-color,
-						$sand-checkbox-selected-bg-color,
-						$sand-checkbox-selected-border-color
+		@include checkbox-colors(colors.$sand-checkbox-selected-text-color,
+						colors.$sand-checkbox-selected-bg-color,
+						colors.$sand-checkbox-selected-border-color
 		);
 	}
 
 	&.indeterminate {
-		@include checkbox-colors(
-						$sand-checkbox-indeterminate-text-color,
-						$sand-checkbox-indeterminate-bg-color,
-						$sand-checkbox-indeterminate-border-color
+		@include checkbox-colors(colors.$sand-checkbox-indeterminate-text-color,
+						colors.$sand-checkbox-indeterminate-bg-color,
+						colors.$sand-checkbox-indeterminate-border-color
 		);
 	}
 }
@@ -54,34 +53,63 @@
 	@include checkbox-standalone-rules;
 
 	.bg {
-		@include sand-spotlight-focus-bg-colors;
+		@include color-mixins.sand-spotlight-focus-bg-colors;
 	}
 
-	@include checkbox-colors(
-					$sand-checkbox-focus-text-color,
-					$sand-checkbox-focus-bg-color,
-					$sand-checkbox-focus-border-color
+	@include checkbox-colors(colors.$sand-checkbox-focus-text-color,
+					colors.$sand-checkbox-focus-bg-color,
+					colors.$sand-checkbox-focus-border-color
 	);
 
 	&.selected {
-		@include checkbox-colors(
-						$sand-checkbox-selected-focus-text-color,
-						$sand-checkbox-selected-focus-bg-color,
-						$sand-checkbox-selected-focus-border-color
+		@include checkbox-colors(colors.$sand-checkbox-selected-focus-text-color,
+						colors.$sand-checkbox-selected-focus-bg-color,
+						colors.$sand-checkbox-selected-focus-border-color
 		);
 	}
 
 	&.indeterminate {
-		@include checkbox-colors(
-						$sand-checkbox-indeterminate-focus-text-color,
-						$sand-checkbox-indeterminate-focus-bg-color,
-						$sand-checkbox-indeterminate-focus-border-color
+		@include checkbox-colors(colors.$sand-checkbox-indeterminate-focus-text-color,
+						colors.$sand-checkbox-indeterminate-focus-bg-color,
+						colors.$sand-checkbox-indeterminate-focus-border-color
+		);
+	};
+};
+
+// Disabled States
+@mixin checkbox-disabled-states {
+	// No custom rules for this state
+	@include checkbox-colors(initial, initial, initial);
+	&.selected {
+		@include checkbox-colors(colors.$sand-checkbox-disabled-selected-text-color,
+						colors.$sand-checkbox-disabled-selected-bg-color,
+						colors.$sand-checkbox-disabled-selected-border-color
 		);
 	}
-;
-}
+	&.indeterminate {
+		// No custom rules for this state
+		@include checkbox-colors(initial, initial, initial);
+	};
+};
 
-;
+// Disabled States + Focus States
+@mixin checkbox-disabled-focus-states {
+	// No custom rules for this state
+	@include checkbox-colors(initial, initial, initial);
+	.bg {
+		background-color: colors.$sand-checkbox-standalone-bg-disabled-focus-bg-color;
+	}
+	&.selected {
+		@include checkbox-colors(colors.$sand-checkbox-focus-disabled-selected-text-color,
+						colors.$sand-checkbox-focus-disabled-selected-bg-color,
+						colors.$sand-checkbox-focus-disabled-selected-border-color
+		);
+	}
+	&.indeterminate {
+		// No custom rules for this state
+		@include checkbox-colors(initial, initial, initial);
+	};
+};
 
 .checkbox {
 	display: inline-block;
@@ -90,16 +118,61 @@
 
 	.icon {
 		margin: 0; // Needed to apply here instead of on `.checkbox` due to .icon.size precedence :(
-		border-radius: $sand-checkbox-border-radius;
+		border-radius: variables.$sand-checkbox-border-radius;
 		position: relative;
 		text-align: center;
 	}
 
-	@include checkbox-standalone-rules;
+	@include skin.applySkins {
+		&.standalone {
+			@include checkbox-standalone-rules;
+		}
 
-	@include checkbox-resting-states;
+		&.spottable {
+			@include checkbox-standalone-rules;
+			:focus {
+				@include checkbox-focus-states;
+			}
+		}
 
-	&:focus {
-		@include checkbox-focus-states;
-	}
+		@include checkbox-resting-states;
+
+		&:focus {
+			@include checkbox-focus-states;
+		}
+
+		&:disabled {
+			.icon {
+				@include color-mixins.sand-disabled-focus-content-colors;
+			}
+
+			@include checkbox-disabled-states;
+
+			&:focus {
+				@include checkbox-disabled-focus-states;
+			}
+		}
+	};
 }
+
+//@include skin.applySkins {
+//	&:disabled {
+//		& .checkbox {
+//			@include checkbox-disabled-states;
+//		}
+//	}
+//}
+
+//@include skin.applySkins {
+//	&:focus {
+//		&:disabled {
+//			@include checkbox-disabled-focus-states;
+//
+//			&.standalone {
+//				.icon {
+//					@include color-mixins.sand-disabled-focus-content-colors;
+//				}
+//			}
+//		}
+//	}
+//}

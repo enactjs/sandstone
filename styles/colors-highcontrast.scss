@@ -1,0 +1,27 @@
+@use "./colors";
+
+// colors-highcontrast.less (neutral skin + high-contrast variant)
+//
+
+@mixin applyColorsHighContrast {
+	// ---------------------------------------
+	// Universal Color Definitions
+	// ---------------------------------------
+
+
+	// ---------------------------------------
+	// Component Colors
+	// ---------------------------------------
+
+	// Alert
+	// ---------------------------------------
+	--sand-fullscreen-bg-color: #000000; // different from neutral
+
+	// Input
+	// ---------------------------------------
+	--sand-overlay-bg-color-rgb: rgb(87, 94, 102); // different from neutral
+
+	// KeyGuide
+	// ---------------------------------------
+	--sand-keyguide-bg-color-rgb: rgb(55, 58, 65); // no alpha
+}

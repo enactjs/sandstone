@@ -97,8 +97,8 @@ $sand-checkbox-color: var(--sand-checkbox-color, $sand-text-color);
 $sand-checkbox-disabled-selected-text-color: var(--sand-checkbox-disabled-selected-text-color, $sand-disabled-selected-color);
 $sand-formcheckboxitem-focus-text-color: var(--sand-formcheckboxitem-focus-text-color, $sand-focus-text-color);
 $sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
-$sand-keyguide-bg-color-rgb: rgb(55, 58, 65); // #373a41
-$sand-keyguide-bg-color: var(--sand-keyguide-bg-color-rgb, $sand-keyguide-bg-color-rgb); // #373a41
+$sand-keyguide-bg-color-alpha: var(--sand-keyguide-bg-color-alpha, 90%);
+$sand-keyguide-bg-color-rgb: var(--sand-keyguide-bg-color-rgb, rgba(55, 58, 65, $sand-keyguide-bg-color-alpha)); // #373a41
 $sand-slider-disabled-knob-bg-color: var(--sand-slider-disabled-knob-bg-color, #666666);
 $sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
 
@@ -149,6 +149,11 @@ $sand-spotlight-focus-shadow:         0 36px 36px $sand-shadow-color; // Used in
 // Component Colors
 // ---------------------------------------
 
+// Alert
+// ---------------------------------------
+$sand-alert-bg-color: $sand-fullscreen-bg-color;
+$sand-alert-overlay-shadow: 0 36px 36px $sand-shadow-color;
+
 // Checkbox
 // ---------------------------------------
 $sand-checkbox-text-color: transparent;
@@ -175,3 +180,12 @@ $sand-checkbox-indeterminate-focus-text-color: $sand-component-focus-text-color;
 $sand-checkbox-indeterminate-focus-bg-color: $sand-checkbox-focus-bg-color;
 $sand-checkbox-indeterminate-focus-border-color: $sand-checkbox-focus-border-color;
 $sand-checkbox-standalone-bg-disabled-focus-bg-color: $sand-disabled-focus-bg-color;
+
+// KeyGuide
+// ---------------------------------------
+$sand-keyguide-bg-color: var(--sand-keyguide-bg-color-rgb, $sand-keyguide-bg-color-rgb);
+$sand-keyguide-item-color: $sand-text-sub-color;
+$sand-keyguide-colordot-red-color: $sand-remote-button-red-color;
+$sand-keyguide-colordot-green-color: $sand-remote-button-green-color;
+$sand-keyguide-colordot-yellow-color: $sand-remote-button-yellow-color;
+$sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
