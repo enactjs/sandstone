@@ -1,10 +1,10 @@
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import '@testing-library/jest-dom';
 import {render, fireEvent, screen} from '@testing-library/react';
 
 import Button from '../../Button';
 import IconItem from '../../IconItem';
 import Scroller from '../Scroller';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
 const keyDownUp = (keyCode) => (elm) => {
 	fireEvent.keyDown(elm, {keyCode});
@@ -67,14 +67,13 @@ describe('Editable Scroller', () => {
 
 	describe('Select Item', () => {
 		test(
-			'should have custom selected class and should not have custom focused class when item is selected',
+			'should have selected class and custom selected class when item is selected',
 			() => {
 				render(<Scroller
 					direction="horizontal"
 					editable={{
 						css: {
-							'selected': 'customSelected',
-							'focused': 'customFocused'
+							'selected': 'customSelected'
 						},
 						onComplete: jest.fn(),
 						removeItemFuncRef: jest.fn(),
@@ -88,12 +87,12 @@ describe('Editable Scroller', () => {
 				</Scroller>);
 				const item = screen.getByLabelText('Icon 0');
 				pressEnterKey(item);
+				expect(item).toHaveClass('selected');
 				expect(item).toHaveClass('customSelected');
-				expect(item).not.toHaveClass('customFocused');
 			}
 		);
 		test(
-			'should not have custom selected class and should have custom focused class when item is unselected',
+			'should not have selected class and custom selected class and should have custom focused class when item is unselected',
 			() => {
 				render(<Scroller
 					direction="horizontal"
@@ -115,6 +114,7 @@ describe('Editable Scroller', () => {
 				const item = screen.getByLabelText('Icon 0');
 				pressEnterKey(item);
 				pressEnterKey(item);
+				expect(item).not.toHaveClass('selected');
 				expect(item).not.toHaveClass('customSelected');
 				expect(item).toHaveClass('customFocused');
 			}
