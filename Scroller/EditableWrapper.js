@@ -132,6 +132,8 @@ const EditableWrapper = (props) => {
 
 		lastInputDirection: null,
 
+		dragStart: false,
+
 		// initialSelected
 		initialSelected: editable?.initialSelected
 	});
@@ -682,6 +684,49 @@ const EditableWrapper = (props) => {
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
 
+	const handleTouchMove = useCallback((ev) => {
+		const {dragStart} = mutableRef.current;
+		ev.preventDefault();
+
+		if (dragStart) {
+			const {clientX} = ev.targetTouches[0];
+			mutableRef.current.lastMouseClientX = clientX;
+
+			const toIndex = getNextIndexFromPosition(clientX, 0.33);
+
+			if (toIndex !== mutableRef.current.prevToIndex) {
+				scrollContainerHandle.current.start({
+					targetX: clientX,
+					targetY: 0
+				});
+				mutableRef.current.lastInputType = 'touch';
+				moveItems(toIndex);
+			}
+		}
+
+	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle]);
+
+	const handleTouchEnd = useCallback((ev) => {
+		if (ev.target.className.includes('Button')) {
+			return;
+		}
+
+		if (mutableRef.current.selectedItem) {
+			const orders = finalizeOrders();
+			finalizeEditing(orders);
+			mutableRef.current.dragStart = false;
+		}
+	}, [finalizeEditing, finalizeOrders]);
+
+	const handleDragStart = useCallback((ev) => {
+		const {selectedItem} = mutableRef.current;
+		const dragStartTagetIndex = getNextIndexFromPosition(ev.x, 0);
+
+		if (selectedItem && Number(selectedItem.style.order) - 1 === dragStartTagetIndex) {
+			mutableRef.current.dragStart = true;
+		}
+	}, [getNextIndexFromPosition]);
+
 	useLayoutEffect(() => {
 		const available = typeof document === 'object';
 
@@ -725,14 +770,16 @@ const EditableWrapper = (props) => {
 		const scrollContainer = scrollContainerRef.current;
 		if (scrollContainer) {
 			scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+			scrollContainer.addEventListener('touchmove', handleTouchMove);
 		}
 
 		return () => {
 			if (scrollContainer) {
 				scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+				scrollContainer.removeEventListener('touchmove', handleTouchMove);
 			}
 		};
-	}, [handleMouseLeave, scrollContainerRef]);
+	}, [handleMouseLeave, handleTouchMove, scrollContainerRef]);
 
 	useLayoutEffect(() => {
 		if (removeItemFuncRef) {
@@ -833,6 +880,8 @@ const EditableWrapper = (props) => {
 			onKeyUpCapture={handleKeyUpCapture}
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
+			onDragStart={handleDragStart}
+			onTouchEnd={handleTouchEnd}
 			ref={wrapperRef}
 		>
 			{children}
