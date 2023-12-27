@@ -17,12 +17,8 @@ const populateItems = ({index}) => {
 	const iconItemProps = {
 		background: '#ffffff',
 		bordered: true,
-		icon: '',
-		image: null,
-		label: null,
-		labelColor: null,
-		labelOn: null,
-		disabled: false
+		disabled: false,
+		label: `Icon ${index}`
 	};
 
 	return {index, iconItemProps};
