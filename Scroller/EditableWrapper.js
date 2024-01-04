@@ -132,7 +132,7 @@ const EditableWrapper = (props) => {
 
 		lastInputDirection: null,
 
-		dragStart: false,
+		isDragging: false,
 
 		// initialSelected
 		initialSelected: editable?.initialSelected
@@ -685,10 +685,10 @@ const EditableWrapper = (props) => {
 	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
 
 	const handleTouchMove = useCallback((ev) => {
-		const {dragStart} = mutableRef.current;
+		// prevent scrolling by dragging
 		ev.preventDefault();
 
-		if (dragStart) {
+		if (mutableRef.current.isDragging) {
 			const {clientX} = ev.targetTouches[0];
 			mutableRef.current.lastMouseClientX = clientX;
 
@@ -711,19 +711,32 @@ const EditableWrapper = (props) => {
 			return;
 		}
 
+		// prevent mouse event call
+		ev.preventDefault();
+
 		if (mutableRef.current.selectedItem) {
+			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
-			mutableRef.current.dragStart = false;
+			mutableRef.current.isDragging = false;
+		} else {
+			const targetItemNode = findItemNode(ev.target);
+			if (selectItemBy === 'press') {
+				if (targetItemNode && targetItemNode.dataset.index) {
+					mutableRef.current.targetItemNode = targetItemNode;
+					startEditing(targetItemNode);
+				}
+			}
 		}
-	}, [finalizeEditing, finalizeOrders]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, selectItemBy, startEditing]);
 
 	const handleDragStart = useCallback((ev) => {
 		const {selectedItem} = mutableRef.current;
-		const dragStartTagetIndex = getNextIndexFromPosition(ev.x, 0);
+		// Index of dragged item
+		const dragTagetIndex = getNextIndexFromPosition(ev.x, 0);
 
-		if (selectedItem && Number(selectedItem.style.order) - 1 === dragStartTagetIndex) {
-			mutableRef.current.dragStart = true;
+		if (selectedItem && Number(selectedItem.style.order) - 1 === dragTagetIndex) {
+			mutableRef.current.isDragging = true;
 		}
 	}, [getNextIndexFromPosition]);
 
