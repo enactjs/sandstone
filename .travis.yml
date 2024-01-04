@@ -20,7 +20,7 @@ install:
     - npm install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
-    - npm run lerna link
+    - npm run interlink
     - popd
     - rm -fr node_modules/@enact
     - npm install
