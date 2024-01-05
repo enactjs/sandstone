@@ -54,15 +54,18 @@
 					colors.$sand-checkbox-focus-bg-color,
 					colors.$sand-checkbox-focus-border-color
 	);
+
 	.bg {
 		@include color-mixins.sand-spotlight-focus-bg-colors;
 	}
+
 	&.selected {
 		@include checkbox-colors(colors.$sand-checkbox-selected-focus-text-color,
 						colors.$sand-checkbox-selected-focus-bg-color,
 						colors.$sand-checkbox-selected-focus-border-color
 		);
 	}
+
 	&.indeterminate {
 		@include checkbox-colors(colors.$sand-checkbox-indeterminate-focus-text-color,
 						colors.$sand-checkbox-indeterminate-focus-bg-color,
