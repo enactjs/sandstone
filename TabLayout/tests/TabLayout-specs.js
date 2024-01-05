@@ -356,6 +356,20 @@ describe('TabLayout specs', () => {
 		expect(actual).toMatchObject(expected);
 	});
 
+	test('should not call \'onExpand\' when \'disableBackKeyNavigation\' prop is true and pressing \'backKey\' on a tab content', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout collapsed disableBackKeyNavigation onExpand={spy} rtl={false}>
+				<Tab icon="home" title="Home">
+					<Button>Button</Button>
+				</Tab>
+			</TabLayout>
+		);
+
+		fireEvent.keyUp(screen.getByRole('button'), {keyCode: 27});
+		expect(spy).not.toHaveBeenCalled();
+	});
+
 	test('should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {
 		Spotlight.getPointerMode = jest.fn(() => false);
 		Spotlight.isPaused = jest.fn(() => false);
