@@ -35,8 +35,8 @@ $sand-component-inactive-indicator-bg-color: var(--sand-component-inactive-indic
 $sand-focus-text-color: var(--sand-focus-text-color, #ffffff);
 $sand-focus-bg-color-rgb: rgb(230, 230, 230); // #e6e6e6
 $sand-focus-bg-color: var(--sand-focus-bg-color-rgb, $sand-focus-bg-color-rgb);
-$sand-component-focus-text-color-rgb: rgb(76, 80, 89); // #4c5059
-$sand-component-focus-text-color: var(--sand-component-focus-text-color-rgb, $sand-component-focus-text-color-rgb);
+$sand-component-focus-text-color: var(--sand-component-focus-text-color-rgb, rgb(76, 80, 89));
+$sand-component-focus-text-color-rgb: $sand-component-focus-text-color; // #4c5059
 $sand-component-focus-active-indicator-bg-color: var(--sand-component-focus-active-indicator-bg-color, #4c5059);
 $sand-component-focus-inactive-indicator-bg-color: var(--sand-component-focus-inactive-indicator-bg-color, #b8b9bb);
 
@@ -180,6 +180,12 @@ $sand-checkbox-indeterminate-focus-text-color: $sand-component-focus-text-color;
 $sand-checkbox-indeterminate-focus-bg-color: $sand-checkbox-focus-bg-color;
 $sand-checkbox-indeterminate-focus-border-color: $sand-checkbox-focus-border-color;
 $sand-checkbox-standalone-bg-disabled-focus-bg-color: $sand-disabled-focus-bg-color;
+
+// Item
+// ---------------------------------------
+$sand-item-label-color: $sand-text-sub-color;
+$sand-item-focus-label-color: inherit;
+$sand-item-focus-background: '';
 
 // KeyGuide
 // ---------------------------------------
