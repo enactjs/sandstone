@@ -40,3 +40,38 @@
     top: $value;
     bottom: $value;
 }
+
+//
+// Sandstone Font Applicator
+//
+@mixin sand-font(
+    $family: variables.$sand-font-family,
+	$nlfamily: variables.$sand-non-latin-font-family,
+	$target: normal
+) {
+    @if content-exists() {
+        font-family: $family;
+
+        @include enact-locale(non-latin, $target) {
+            font-family: $nlfamily;
+
+            @content;
+        }
+    }
+}
+
+@mixin sand-custom-text-large {
+    // 1 arg: Generic rule applicator, accepts an entire rule-set to add for large text mode
+    &:global(.largeText) {
+        @content;
+    }
+}
+
+@mixin sand-custom-text-large-locale {
+    // 2 args: Generic rule applicator, accepts 2 entire rule-sets to add both latin and non-latin for large text mode
+    @include enact-locale(non-latin) {
+        @include sand-custom-text-large {
+            @content;
+        }
+    }
+}

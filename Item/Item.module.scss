@@ -130,11 +130,11 @@
 		//.enact-locale-tallglyph({
 		//	font-size: variables.$sand-item-small-font-size;
 		//});
-		//
-		//.sand-custom-text({
-		//	font-size: variables.$sand-item-small-font-size-large;
-		//	//.enact-locale-line-height(@sand-item-small-line-height-large, @sand-tallglyph-item-small-line-height-large);
-		//});
+
+		@mixin sand-custom-text {
+			font-size: variables.$sand-item-small-font-size-large;
+			//.enact-locale-line-height(@sand-item-small-line-height-large, @sand-tallglyph-item-small-line-height-large);
+		}
 	}
 
 	//.locale-japanese-line-break();
