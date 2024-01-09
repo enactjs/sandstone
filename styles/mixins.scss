@@ -1,23 +1,36 @@
 @use "../styles/variables";
-@use "../../enact/packages/ui/styles/mixins" as uiMixins;
+@use "../styles/variables-base";
 @import "../../enact/packages/spotlight/styles/mixins";
 @import "../../enact/packages/ui/styles/mixins";
-
-@function default($args...) {
-    @each $arg in $args {
-        @if not variable-exists(#{$arg}) {
-            @return true;
-        }
-    }
-    @return false;
-}
 
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled {
     @if content-exists() {
-        @include uiMixins.disabled {
+        @include disabled {
             opacity: 1; // reset standard disabled rule.
             @content;
+        }
+    }
+}
+
+@mixin sand-taparea($element-size) {
+    @if (variables.$sand-smallest-tappable-size > $element-size) {
+        // Take the size of the minimum tappable area, and subtract the element's current size.
+        $_tap-offset: -((variables.$sand-smallest-tappable-size - $element-size) / 2);
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: $_tap-offset;
+            right: $_tap-offset;
+            bottom: $_tap-offset;
+            left: $_tap-offset;
+            border-radius: variables-base.$sand-button-border-radius;
+        }
+    } @else if (variables.$sand-smallest-tappable-size <= $element-size) {
+        // Remove the tappable area if the tap area is smaller than the element's current size.
+        &::before {
+            content: none;
         }
     }
 }
@@ -39,8 +52,8 @@
 //
 @mixin sand-font(
     $family: variables.$sand-font-family,
-	$nlfamily: variables.$sand-non-latin-font-family,
-	$target: normal
+    $nlfamily: variables.$sand-non-latin-font-family,
+    $target: normal
 ) {
     @if content-exists() {
         font-family: $family;
@@ -54,17 +67,45 @@
 }
 
 @mixin sand-custom-text-large {
-    // 1 arg: Generic rule applicator, accepts an entire rule-set to add for large text mode
+    // Generic rule applicator for large text mode
     &:global(.largeText) {
         @content;
     }
 }
 
 @mixin sand-custom-text-large-locale {
-    // 2 args: Generic rule applicator, accepts 2 entire rule-sets to add both latin and non-latin for large text mode
+    // Generic rule applicator for latin and non-latin large text mode
     @include enact-locale(non-latin) {
         @include sand-custom-text-large {
             @content;
         }
     }
+}
+
+@mixin sand-large-button-text {
+    @include sand-font(variables.$sand-button-font-family, variables.$sand-non-latin-button-font-family) {
+        font-size: variables.$sand-non-latin-button-large-font-size;
+        font-style: variables.$sand-non-latin-button-font-style;
+        font-weight: variables.$sand-non-latin-button-font-weight;
+    }
+
+    font-size: variables.$sand-button-font-size;
+    font-style: variables.$sand-button-font-style;
+    font-weight: variables.$sand-button-font-weight;
+
+    @include font-kerning;
+}
+
+@mixin sand-small-button-text {
+    @include sand-font(variables.$sand-button-small-font-family, variables.$sand-non-latin-button-font-family) {
+        font-size: variables.$sand-non-latin-button-small-font-size;
+        font-style: variables.$sand-non-latin-button-small-font-style;
+        font-weight: variables.$sand-non-latin-button-small-font-weight;
+    }
+
+    font-size: variables.$sand-button-small-font-size;
+    font-style: variables.$sand-button-small-font-style;
+    font-weight: variables.$sand-button-small-font-weight;
+
+    @include font-kerning;
 }
