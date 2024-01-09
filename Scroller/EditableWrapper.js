@@ -687,7 +687,7 @@ const EditableWrapper = (props) => {
 
 	const handleTouchMove = useCallback((ev) => {
 		if (mutableRef.current.selectedItem) {
-			// prevent scrolling by dragging
+			// Prevent scrolling by dragging when item is selected
 			ev.preventDefault();
 		}
 
@@ -715,14 +715,14 @@ const EditableWrapper = (props) => {
 		}
 
 		if (mutableRef.current.selectedItem) {
-			// prevent mouse event call
+			// Cancel mouse event to deselect a selected item when it is tapped
 			ev.preventDefault();
 
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
 		} else if (!mutableRef.current.isDragging) {
-			// prevent mouse event call
+			// Cancel mouse event to select a item when it is tapped
 			ev.preventDefault();
 
 			const targetItemNode = findItemNode(ev.target);
