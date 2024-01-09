@@ -137,6 +137,9 @@ const EditableWrapper = (props) => {
 
 		lastInputDirection: null,
 
+		isDraggingItem: false,
+		isDragging: false,
+
 		// initialSelected
 		initialSelected: editable?.initialSelected
 	});
@@ -696,6 +699,73 @@ const EditableWrapper = (props) => {
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
 
+	const handleTouchMove = useCallback((ev) => {
+		if (mutableRef.current.selectedItem) {
+			// Prevent scrolling by dragging when item is selected
+			ev.preventDefault();
+		}
+
+		if (mutableRef.current.isDraggingItem && !ev.target.className.includes('Button')) {
+			const {clientX} = ev.targetTouches[0];
+			mutableRef.current.lastMouseClientX = clientX;
+
+			const toIndex = getNextIndexFromPosition(clientX, 0.33);
+
+			if (toIndex !== mutableRef.current.prevToIndex) {
+				scrollContainerHandle.current.start({
+					targetX: clientX,
+					targetY: 0
+				});
+				mutableRef.current.lastInputType = 'touch';
+				moveItems(toIndex);
+			}
+		}
+
+	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle]);
+
+	const handleTouchEnd = useCallback((ev) => {
+		const {selectedItem} = mutableRef.current;
+		const {clientX} = ev.changedTouches[0];
+		const targetItemIndex = getNextIndexFromPosition(clientX, 0);
+
+		if (ev.target.className.includes('Button') && Number(selectedItem?.style.order) - 1 === targetItemIndex) {
+			return;
+		}
+
+		if (selectedItem) {
+			// Cancel mouse event to deselect a selected item when it is tapped
+			ev.preventDefault();
+
+			// Finalize orders and forward `onComplete` event
+			const orders = finalizeOrders();
+			finalizeEditing(orders);
+		} else if (!mutableRef.current.isDragging) {
+			// Cancel mouse event to select a item when it is tapped
+			ev.preventDefault();
+
+			const targetItemNode = findItemNode(ev.target);
+			if (selectItemBy === 'press') {
+				if (targetItemNode && targetItemNode.dataset.index) {
+					mutableRef.current.targetItemNode = targetItemNode;
+					startEditing(targetItemNode);
+				}
+			}
+		}
+		mutableRef.current.isDraggingItem = false;
+		mutableRef.current.isDragging = false;
+	}, [getNextIndexFromPosition, finalizeEditing, finalizeOrders, findItemNode, selectItemBy, startEditing]);
+
+	const handleDragStart = useCallback((ev) => {
+		const {selectedItem} = mutableRef.current;
+		// Index of dragged item
+		const dragTagetItemIndex = getNextIndexFromPosition(ev.x, 0);
+
+		mutableRef.current.isDragging = true;
+		if (selectedItem && Number(selectedItem.style.order) - 1 === dragTagetItemIndex) {
+			mutableRef.current.isDraggingItem = true;
+		}
+	}, [getNextIndexFromPosition]);
+
 	useLayoutEffect(() => {
 		const available = typeof document === 'object';
 
@@ -739,14 +809,16 @@ const EditableWrapper = (props) => {
 		const scrollContainer = scrollContainerRef.current;
 		if (scrollContainer) {
 			scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+			scrollContainer.addEventListener('touchmove', handleTouchMove);
 		}
 
 		return () => {
 			if (scrollContainer) {
 				scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+				scrollContainer.removeEventListener('touchmove', handleTouchMove);
 			}
 		};
-	}, [handleMouseLeave, scrollContainerRef]);
+	}, [handleMouseLeave, handleTouchMove, scrollContainerRef]);
 
 	useLayoutEffect(() => {
 		if (removeItemFuncRef) {
@@ -853,6 +925,8 @@ const EditableWrapper = (props) => {
 			onKeyUpCapture={handleKeyUpCapture}
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
+			onDragStart={handleDragStart}
+			onTouchEnd={handleTouchEnd}
 			ref={wrapperRef}
 		>
 			{children}
