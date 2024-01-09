@@ -691,7 +691,7 @@ const EditableWrapper = (props) => {
 			ev.preventDefault();
 		}
 
-		if (mutableRef.current.isDraggingItem) {
+		if (mutableRef.current.isDraggingItem && !ev.target.className.includes('Button')) {
 			const {clientX} = ev.targetTouches[0];
 			mutableRef.current.lastMouseClientX = clientX;
 
@@ -710,11 +710,15 @@ const EditableWrapper = (props) => {
 	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle]);
 
 	const handleTouchEnd = useCallback((ev) => {
-		if (ev.target.className.includes('Button')) {
+		const {selectedItem} = mutableRef.current;
+		const {clientX} = ev.changedTouches[0];
+		const targetItemIndex = getNextIndexFromPosition(clientX, 0);
+
+		if (ev.target.className.includes('Button') && Number(selectedItem?.style.order) - 1 === targetItemIndex) {
 			return;
 		}
 
-		if (mutableRef.current.selectedItem) {
+		if (selectedItem) {
 			// Cancel mouse event to deselect a selected item when it is tapped
 			ev.preventDefault();
 
@@ -735,15 +739,15 @@ const EditableWrapper = (props) => {
 		}
 		mutableRef.current.isDraggingItem = false;
 		mutableRef.current.isDragging = false;
-	}, [finalizeEditing, finalizeOrders, findItemNode, selectItemBy, startEditing]);
+	}, [getNextIndexFromPosition, finalizeEditing, finalizeOrders, findItemNode, selectItemBy, startEditing]);
 
 	const handleDragStart = useCallback((ev) => {
 		const {selectedItem} = mutableRef.current;
 		// Index of dragged item
-		const dragTagetIndex = getNextIndexFromPosition(ev.x, 0);
+		const dragTagetItemIndex = getNextIndexFromPosition(ev.x, 0);
 
 		mutableRef.current.isDragging = true;
-		if (selectedItem && Number(selectedItem.style.order) - 1 === dragTagetIndex) {
+		if (selectedItem && Number(selectedItem.style.order) - 1 === dragTagetItemIndex) {
 			mutableRef.current.isDraggingItem = true;
 		}
 	}, [getNextIndexFromPosition]);
