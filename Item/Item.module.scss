@@ -1,4 +1,4 @@
-// Item.module.less
+// Item.module.scss
 //
 @use "../styles/color-mixins";
 @use "../styles/colors";
@@ -98,7 +98,7 @@
 		@include mixins.sand-enact-locale-line-height(variables.$sand-item-label-line-height, variables.$sand-tallglyph-item-label-line-height);
 	}
 
-	@mixin sand-custom-text {
+	@include mixins.sand-custom-text-large {
 		font-size: variables.$sand-item-font-size-large;
 		@include mixins.sand-enact-locale-line-height(variables.$sand-item-line-height-large, variables.$sand-tallglyph-item-line-height-large);
 
@@ -129,7 +129,7 @@
 
 		@include mixins.enact-locale-tallglyph-values(font-size, variables.$sand-item-small-font-size);
 
-		@mixin sand-custom-text {
+		@include mixins.sand-custom-text-large {
 			font-size: variables.$sand-item-small-font-size-large;
 			@include mixins.sand-enact-locale-line-height(variables.$sand-item-small-line-height-large, variables.$sand-tallglyph-item-small-line-height-large);
 		}
