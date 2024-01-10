@@ -66,6 +66,25 @@
     }
 }
 
+//
+// Custom Text Size Mixins
+//
+@mixin sand-custom-text-size($values...) {
+    @if (length($values) == 1) {
+        @include sand-custom-text-large {
+            font-size: $values;
+        }
+    } @else if (length($values) == 2) {
+        @include sand-custom-text-large {
+            font-size: nth($values, 1);
+        }
+
+        @include sand-custom-text-locale {
+            font-size: nth($values, 2);
+        }
+    }
+}
+
 @mixin sand-custom-text-large {
     // Generic rule applicator for large text mode
     &:global(.largeText) {
@@ -73,7 +92,7 @@
     }
 }
 
-@mixin sand-custom-text-large-locale {
+@mixin sand-custom-text-locale {
     // Generic rule applicator for latin and non-latin large text mode
     @include enact-locale(non-latin) {
         @include sand-custom-text-large {
