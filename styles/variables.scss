@@ -109,7 +109,7 @@ $sand-button-height: 144px;
 $sand-button-icon-h-margin: 30px;
 $sand-button-icon-margin-end: $sand-button-icon-h-margin;
 $sand-button-icon-margin-start: 0;
-$sand-button-icon-padding: 0 (($sand-button-height - $sand-icon-large-size) / 2);
+$sand-button-icon-padding: 0 calc(($sand-button-height - $sand-icon-large-size) / 2);
 $sand-button-icon-position-after-margin-end: $sand-button-icon-margin-start;
 $sand-button-icon-position-after-margin-start: $sand-button-icon-margin-end;
 $sand-button-icon-position-after-small-margin-end: 0;
@@ -119,7 +119,7 @@ $sand-button-icon-position-after-small-margin-start: $sand-button-icon-small-mar
 $sand-button-icon-small-margin-start: 0;
 $sand-button-small-height-large: 144px;
 $sand-button-small-height: 108px;
-$sand-button-icon-small-padding: 0 (($sand-button-small-height - $sand-icon-small-size) / 2);
+$sand-button-icon-small-padding: 0 calc(($sand-button-small-height - $sand-icon-small-size) / 2);
 $sand-button-max-width: 900px;
 $sand-button-min-width: 540px; // If this changes, update `overflow` computed value from Alert.js
 $sand-button-focusexpand-focus-bg-transform: scale(1.05);
@@ -137,7 +137,7 @@ $sand-button-colordot-border-radius: 6px;
 $sand-button-colordot-width: 60px;
 $sand-button-colordot-height: 12px;
 $sand-button-colordot-h-margin: 24px;
-$sand-button-colordot-padding-start: ($sand-button-h-padding / 2);
+$sand-button-colordot-padding-start: calc($sand-button-h-padding / 2);
 $sand-button-small-colordot-bottom: 12px;
 $sand-button-small-colordot-width: 48px;
 $sand-button-small-colordot-padding-start: 30px;
