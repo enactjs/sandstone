@@ -98,14 +98,14 @@
 		//.enact-locale-line-height(@sand-item-label-line-height, @sand-tallglyph-item-label-line-height);
 	}
 
-	@mixin sand-custom-text {
-		font-size: variables.$sand-item-font-size-large;
-		//.enact-locale-line-height(@sand-item-line-height-large, @sand-tallglyph-item-line-height-large);
-
-		.label {
-			font-size: variables.$sand-item-label-font-size-large;
-		}
-	};
+	//.sand-custom-text({
+	//	font-size: variables.$sand-item-font-size-large;
+	//	//.enact-locale-line-height(@sand-item-line-height-large, @sand-tallglyph-item-line-height-large);
+	//
+	//	.label {
+	//		font-size: variables.$sand-item-label-font-size-large;
+	//	}
+	//});
 
 	&.large { /* Needed to prevent global class being added in the DOM */ }
 
