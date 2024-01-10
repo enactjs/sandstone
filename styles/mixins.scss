@@ -1,5 +1,4 @@
 @use "../styles/variables";
-@use "../../enact/packages/ui/styles/mixins" as uiMixins;
 @import "../../enact/packages/spotlight/styles/mixins";
 @import "../../enact/packages/ui/styles/mixins";
 
@@ -15,7 +14,7 @@
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled {
     @if content-exists() {
-        @include uiMixins.disabled {
+        @include disabled {
             opacity: 1; // reset standard disabled rule.
             @content;
         }
@@ -66,5 +65,18 @@
         @include sand-custom-text-large {
             @content;
         }
+    }
+}
+
+// Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
+//
+// Set line-height for normal and tallglyphs with 0, 1 or 2 arguments
+// Ex:
+//   @include enact-locale-line-height();              ->  normal: default; tallglyphs: default;
+//   @include enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
+//   @include enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
+@mixin sand-enact-locale-line-height($normal: variables.$sand-common-line-height, $tallglyph: variables.$sand-tallglyph-line-height, $target: normal) {
+    @if ($target == normal) {
+        @include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target);
     }
 }
