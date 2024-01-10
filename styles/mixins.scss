@@ -16,7 +16,7 @@
 @mixin sand-taparea($element-size) {
     @if (variables.$sand-smallest-tappable-size > $element-size) {
         // Take the size of the minimum tappable area, and subtract the element's current size.
-        $_tap-offset: -((variables.$sand-smallest-tappable-size - $element-size) / 2);
+        $_tap-offset: -calc((variables.$sand-smallest-tappable-size - $element-size) / 2);
 
         &::before {
             content: "";
