@@ -23,7 +23,7 @@ class VideoSourceSwap extends Component {
 		this.state = {
 			videoTitles: ['Big Buck Bunny', 'Sintel', 'VideoTest'],
 			playlist: [
-				'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+				'http://download.blender.org/peach/trailer/trailer_1080p.ogg',
 				'http://media.w3.org/2010/05/sintel/trailer.mp4',
 				'http://media.w3.org/2010/05/video/movie_300.mp4'
 			],
@@ -154,7 +154,7 @@ class VideoPlayerWithfastForwardMode extends Component {
 					title={'Big Buck Bunny'}
 				>
 					<Video>
-						<source src={'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'} />
+						<source src={'http://download.blender.org/peach/trailer/trailer_1080p.ogg'} />
 					</Video>
 					<MediaControls>
 						<Button
@@ -195,7 +195,7 @@ class VideoPlayerWithLayer extends Component {
 					title={'Big Buck Bunny'}
 				>
 					<Video>
-						<source src={'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'} />
+						<source src={'http://download.blender.org/peach/trailer/trailer_1080p.ogg'} />
 					</Video>
 				</VideoPlayer>
 				<div style={{left: 0, top: 0, bottom: 0, width: 500, backgroundColor: "green", position: "absolute"}}>{"screen saver"}</div>

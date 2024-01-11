@@ -36,7 +36,7 @@ const renderItem = ({index, ...rest}) => {
 const VideoPlayerView = () => (
 	<div style={{width: ri.scaleToRem(1280), height: ri.scaleToRem(800)}}>
 		<VideoPlayer poster="http://media.w3.org/2010/05/bunny/poster.png" title="Downton Abbey">
-			<source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
+			<source src="http://download.blender.org/peach/trailer/trailer_1080p.ogg" type="video/ogg" />
 			<infoComponents>DTV REC 08:22 THX 16:9</infoComponents>
 			<MediaControls actionGuideButtonAriaLabel="More">
 				<bottomComponents>
