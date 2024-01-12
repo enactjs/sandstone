@@ -25,7 +25,7 @@ import PropTypes from 'prop-types';
 import {MarqueeDecorator, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
-import componentCss from './Item.module.less';
+import componentCss from './Item.module.scss';
 
 const MarqueeBase = ({...rest}) => {
 	// eslint-disable-next-line enact/prop-types
