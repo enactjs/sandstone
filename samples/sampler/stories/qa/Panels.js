@@ -411,6 +411,7 @@ export const WithEditableScroller = (args) => {
 											spotlightId={`item_${index}`}
 											aria-label={`Icon ${item.index}`}
 											className={css.editableIconItem}
+											css={css}
 											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
