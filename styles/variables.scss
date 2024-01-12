@@ -31,7 +31,19 @@ $sand-spotlight-focus-shadow-height: 36px;
 
 // Font Sizes
 // ---------------------------------------
+$sand-item-font-size:               60px;
+$sand-item-font-size-large:         72px;
+$sand-item-label-font-size:         48px;
+$sand-item-label-font-size-large:   54px;
+$sand-item-small-font-size:         60px;
+$sand-item-small-label-font-size:   48px;
 $sand-keyguide-font-size:           60px;
+
+// Other Font Properties
+// ---------------------------------------
+$sand-spottable-font-weight: 600;
+$sand-common-line-height: 1.3em;
+$sand-tallglyph-line-height: 1.5em;
 
 // ---------------------------------------
 // Component Rules
@@ -52,9 +64,15 @@ $sand-icon-small-size-large: ($sand-icon-small-size * 1.2);
 
 // Item
 // ---------------------------------------
+$sand-item-font-weight: $sand-spottable-font-weight;
+$sand-item-line-height: $sand-common-line-height;
 $sand-item-height: 156px;
 $sand-item-height-large: $sand-item-height;
 $sand-item-shadow-height: $sand-spotlight-focus-shadow-height;
+$sand-item-small-font-size-large:   72px;
+$sand-item-small-font-weight: $sand-item-font-weight;
+$sand-item-small-line-height: $sand-common-line-height;
+$sand-item-small-label-line-height: $sand-item-small-line-height;
 $sand-item-withlabel-height: 240px;
 $sand-item-vertical-padding: 6px;
 $sand-item-inline-max-width: 480px;
@@ -65,6 +83,7 @@ $sand-item-margin: 0 $sand-component-spacing $sand-component-spacing-bottom $san
 $sand-item-small-height: 126px;
 $sand-item-small-height-large: $sand-item-small-height;
 $sand-item-small-withlabel-height: 210px;
+$sand-tallglyph-item-line-height: $sand-tallglyph-line-height;
 
 // Checkbox
 // ---------------------------------------
