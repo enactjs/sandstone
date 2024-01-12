@@ -56,6 +56,17 @@
 			&:focus {
 				transform: none;
 			}
+			&.labelOnFocus:focus {
+				.labelContainer {
+					display: none;
+				}
+			}
+		}
+
+		&.selected .editableIconItem.labelOnFocus {
+			.label, .labelContainer {
+				display: block;
+			}
 		}
 
 		.iconItem {
