@@ -805,6 +805,7 @@ const VideoPlayerBase = class extends Component {
 		this.prevCommand = (props.noAutoPlay ? 'pause' : 'play');
 		this.showMiniFeedback = false;
 		this.speedIndex = 0;
+		this.seekingMode = true;
 		this.id = this.generateId();
 		this.selectPlaybackRates('fastForward');
 		this.sliderKnobProportion = 0;
@@ -1337,7 +1338,7 @@ const VideoPlayerBase = class extends Component {
 			// Standard media properties
 			currentTime: el.currentTime,
 			duration: el.duration,
-			paused: el.playbackRate !== 1 || el.paused,
+			paused: this.state.seekingMode ? (el.playbackRate !== 1 || el.paused) : el.paused,
 			playbackRate: el.playbackRate,
 
 			// Non-standard state computed from properties
@@ -1381,7 +1382,7 @@ const VideoPlayerBase = class extends Component {
 		return {
 			currentTime       : this.video.currentTime,
 			duration          : this.state.duration,
-			paused            : this.video.playbackRate !== 1 || this.video.paused,
+			paused            : this.state.seekingMode ? (this.video.playbackRate !== 1 || this.video.paused) : this.video.paused,
 			playbackRate      : this.video.playbackRate,
 			proportionLoaded  : this.video.proportionLoaded,
 			proportionPlayed  : this.video.proportionPlayed || 0
@@ -1415,11 +1416,13 @@ const VideoPlayerBase = class extends Component {
 			return false;
 		}
 
+		if (this.state.seekingMode) {
+			this.setPlaybackRate(1);
+		}
 		this.speedIndex = 0;
 		// must happen before send() to ensure feedback uses the right value
 		// TODO: refactor into this.state member
 		this.prevCommand = 'play';
-		this.setPlaybackRate(1);
 		this.send('play');
 		this.announce($L('Play'));
 		this.startDelayedMiniFeedbackHide(5000);
@@ -1439,11 +1442,13 @@ const VideoPlayerBase = class extends Component {
 			return false;
 		}
 
+		if (this.state.seekingMode) {
+			this.setPlaybackRate(1);
+		}
 		this.speedIndex = 0;
 		// must happen before send() to ensure feedback uses the right value
 		// TODO: refactor into this.state member
 		this.prevCommand = 'pause';
-		this.setPlaybackRate(1);
 		this.send('pause');
 		this.announce($L('Pause'));
 		this.stopDelayedMiniFeedbackHide();
@@ -1503,6 +1508,7 @@ const VideoPlayerBase = class extends Component {
 			return false;
 		}
 
+		this.setState({seekingMode : true});
 		let shouldResumePlayback = false;
 
 		switch (this.prevCommand) {
@@ -1562,6 +1568,7 @@ const VideoPlayerBase = class extends Component {
 			return false;
 		}
 
+		this.setState({seekingMode: true});
 		const rateForSlowRewind = this.props.playbackRateHash['slowRewind'];
 		let shouldResumePlayback = false,
 			command = 'rewind';
@@ -1617,6 +1624,21 @@ const VideoPlayerBase = class extends Component {
 		return true;
 	};
 
+	/**
+	 * Change the playback speed in a controlled playback mode,
+	 * such as YouTube, rather than fast forward or rewind.
+	 *
+	 * @function
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @public
+	 */
+	setPlaybackSpeed = (rate) => {
+		this.setState({seekingMode: false});
+		this.setPlaybackRate(rate);
+
+		return true;
+	};
+
 	// Creates a proxy to the video node if Proxy is supported
 	videoProxy = typeof Proxy !== 'function' ? null : new Proxy({}, {
 		get: (target, name) => {
@@ -1649,7 +1671,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Sets the playback rate type (from the keys of {@link sandstone/VideoPlayer.VideoPlayer.playbackRateHash|playbackRateHash}).
+	 * Sets the playback rate type for video seeking (from the keys of {@link sandstone/VideoPlayer.VideoPlayer.playbackRateHash|playbackRateHash}).
 	 *
 	 * @param {String} cmd - Key of the playback rate type.
 	 * @private
@@ -1690,8 +1712,10 @@ const VideoPlayerBase = class extends Component {
 	 * @private
 	 */
 	setPlaybackRate = (rate) => {
-		// Stop rewind (if happening)
-		this.stopRewindJob();
+		if (this.state.seekingMode) {
+			// Stop rewind (if happening)
+			this.stopRewindJob();
+		}
 
 		// Make sure rate is a string
 		this.playbackRate = String(rate);
@@ -1701,9 +1725,11 @@ const VideoPlayerBase = class extends Component {
 			// ReactDOM throws error for setting negative value for playbackRate
 			this.video.playbackRate = pbNumber < 0 ? 0 : pbNumber;
 
-			// For supporting cross browser behavior
-			if (pbNumber < 0) {
-				this.beginRewind();
+			if (this.state.seekingMode) {
+				// For supporting cross browser behavior
+				if (pbNumber < 0) {
+					this.beginRewind();
+				}
 			}
 		} else {
 			// Set native playback rate
@@ -2233,6 +2259,7 @@ const VideoPlayer = ApiDecorator(
 		'play',
 		'rewind',
 		'seek',
+		'setPlaybackSpeed',
 		'showControls',
 		'showFeedback',
 		'toggleControls'

@@ -2,6 +2,7 @@ import Button from '@enact/sandstone/Button';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
 import {select} from '@enact/storybook-utils/addons/controls';
+import Popup from '@enact/sandstone/Popup';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 
@@ -207,3 +208,81 @@ class VideoPlayerWithLayer extends Component {
 export const ShowBackbutton = () => <VideoPlayerWithLayer />;
 
 ShowBackbutton.storyName = 'Show a back button and a control panel';
+class VideoPlayerWithExpandedMediaControls extends Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			openExtention: false,
+			openSelectingPlayback: false,
+			selectedSpeed: 1
+		};
+		this.playbackSpeedArray = [0.25, 0.75, 1, 1.25, 2];
+	}
+
+	componentDidUpdate (_, prevState) {
+		if (prevState.selectedSpeed !== this.state.selectedSpeed) {
+			this.videoPlayer.setPlaybackSpeed(this.state.selectedSpeed);
+		}
+	}
+
+	setVideoPlayer = (node) => {
+		this.videoPlayer = node;
+	};
+
+	handleMoreButton = () => {
+		this.setState(({openExtention}) => ({
+			openExtention: !openExtention
+		}));
+	};
+
+	handlePlaySpeedButton = () => {
+		this.setState(({openSelectingPlayback}) => ({
+			openSelectingPlayback: !openSelectingPlayback
+		}));
+	};
+
+	handleClickSpeed = (speed) => {
+		this.setState({openSelectingPlayback: false, selectedSpeed: speed});
+	};
+
+	render () {
+		return (
+			<div>
+				<VideoPlayer
+					feedbackHideDelay={0}
+					muted
+					ref={this.setVideoPlayer}
+					title="Sintel"
+				>
+					<Video>
+						<source src="http://media.w3.org/2010/05/sintel/trailer.mp4" />
+					</Video>
+					<MediaControls>
+						<Button
+							icon="list"
+							onClick={this.handleMoreButton}
+						/>
+						{this.state.openExtention &&
+						<Button
+							icon="playspeed"
+							onClick={this.handlePlaySpeedButton}
+						/>}
+						<Popup open={this.state.openSelectingPlayback} position="bottom">
+							<div> Select Playback Speed </div>
+							<br />
+							<div>
+								{this.playbackSpeedArray.map((speed) => (
+									<Button onClick={() => this.handleClickSpeed(speed)}>{speed}</Button>
+								))}
+							</div>
+						</Popup>
+					</MediaControls>
+				</VideoPlayer>
+			</div>
+		);
+	}
+}
+
+export const WithExpandedMediaControls = () => <VideoPlayerWithExpandedMediaControls />;
+
+WithExpandedMediaControls.storyName = 'with expanded media controls';
