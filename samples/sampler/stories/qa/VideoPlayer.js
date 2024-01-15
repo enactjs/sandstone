@@ -241,7 +241,7 @@ class VideoPlayerWithExpandedMediaControls extends Component {
 		}));
 	};
 
-	handleClickSpeed = (speed) => {
+	handleClickSpeed = (speed) => () => {
 		this.setState({openSelectingPlayback: false, selectedSpeed: speed});
 	};
 
@@ -271,9 +271,9 @@ class VideoPlayerWithExpandedMediaControls extends Component {
 							<div> Select Playback Speed </div>
 							<br />
 							<div>
-								{this.playbackSpeedArray.map((speed) => (
-									<Button onClick={() => this.handleClickSpeed(speed)}>{speed}</Button>
-								))}
+								{this.playbackSpeedArray.map((speed) => {
+									return <Button onClick={this.handleClickSpeed(speed)}>{speed}</Button>;
+								})}
 							</div>
 						</Popup>
 					</MediaControls>
