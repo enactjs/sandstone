@@ -38,17 +38,17 @@ updateDataSize(size);
 // Set up some defaults for info and controls
 const prop = {
 	moreButtonColor: ['', 'red', 'green', 'yellow', 'blue'],
-	videoTitles: ['Sintel', 'Big Buck Bunny', 'VideoTest', 'Bad Video Source'],
+	videoTitles: ['Sintel', 'Cosmos Laundromat', 'VideoTest', 'Bad Video Source'],
 	videos: {
 		Sintel: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
-		'Big Buck Bunny': 'http://download.blender.org/peach/trailer/trailer_1080p.ogg',
+		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4',
 		VideoTest: 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
 	},
 	posters: {
 		Sintel: 'http://media.w3.org/2010/05/sintel/poster.png',
-		'Big Buck Bunny': 'http://media.w3.org/2010/05/bunny/poster.png',
+		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1-2k-png/14029.png',
 		VideoTest: 'http://media.w3.org/2010/05/video/poster.png',
 		'Bad Video Source': 'http://media.w3.org/2010/05/video/poster.png'
 	},
