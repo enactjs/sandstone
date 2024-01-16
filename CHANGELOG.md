@@ -2,8 +2,16 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
 ### Added
+
 - `sandstone/VideoPlayer` to support to set playback speed
+
+### Fixed
+
+- `sandstone/VirtualList` to have proper scroll position when item with affordance is larger than scroll area
+
 ## [2.7.13] - 2023-12-08
 
 ### Changed
