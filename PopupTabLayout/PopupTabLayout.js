@@ -26,7 +26,7 @@ import Panels, {Panel} from '../Panels';
 import TabLayout, {TabLayoutContext, Tab} from '../TabLayout';
 import Popup from '../Popup';
 
-import componentCss from './PopupTabLayout.module.less';
+import componentCss from './PopupTabLayout.module.scss';
 
 // List all of the props from PopupTabLayout that we want to move from this component's root onto PopupTabLayout.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',

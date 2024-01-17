@@ -1,0 +1,108 @@
+// TabGroup.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.tab {
+	font-size: variables.$sand-tablayout-tab-font-size;
+
+	&.horizontal {
+		&.button {
+			display: block;
+			margin: variables.$sand-tablayout-tab-horizontal-margin;
+			padding: variables.$sand-tablayout-tab-horizontal-padding;
+			height: variables.$sand-tablayout-tab-horizontal-button-height;
+
+			.client {
+				@include mixins.sand-spotlight-margin;
+			}
+
+			&.selected {
+				.client::after {
+					content: "";
+					position: absolute;
+					@include mixins.position(auto, 0, 0, 0);
+					height: variables.$sand-tablayout-tab-horizontal-selected-border-width;
+				}
+			}
+		}
+	}
+
+	&.vertical {
+		margin-bottom: variables.$sand-tablayout-tab-vertical-margin-bottom;
+
+		&.button {
+			display: block;
+			height: variables.$sand-tablayout-tab-vertical-button-height;
+			@include mixins.sand-custom-text-large {
+				font-size: variables.$sand-tablayout-tab-font-size;
+				min-width: variables.$sand-button-height;
+			}
+		}
+
+		.client {
+			text-align: left;
+
+			@include mixins.enact-locale-rtl("") {
+				text-align: right;
+			}
+		}
+	}
+
+	@include skin.applySkins {
+		&.horizontal {
+			&.button {
+				&.selected {
+					.bg {
+						opacity: 0;
+					}
+				}
+
+				.client::after {
+					background-color: colors.$sand-tablayout-tab-horizontal-selected-border-color;
+				}
+
+				@include mixins.focus {
+					.bg {
+						opacity: 1;
+					}
+
+					.client::after {
+						background-color: unset;
+					}
+				}
+			}
+		}
+	}
+}
+
+@include skin.applySkins(true) {
+	.tabGroup {
+		.horizontalLine {
+			width: 100%;
+			margin: 0;
+			border: 0 none transparent;
+			border-bottom: variables.$sand-tablayout-tab-horizontal-border-width solid colors.$sand-tablayout-tab-horizontal-border-color;
+		}
+
+		.tab {
+			&.vertical {
+				&.button {
+					&.selected {
+						.bg {
+							/* Override TabLayout */
+						}
+					}
+
+					@include mixins.focus {
+						.bg {
+							/* Override TabLayout */
+						}
+					}
+				}
+			}
+		}
+	}
+}

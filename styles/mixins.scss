@@ -35,16 +35,70 @@
     }
 }
 
-// Add a padding to your component.
+@mixin sand-spotlight-margin($values...) {
+    @if (length($values) == 0) {
+        /**
+          * Add a margin to your component which includes the standard sandstone spotlight margin only on
+          * the sides.
+          */
+        margin-left: variables.$sand-spotlight-outset;
+        margin-right: variables.$sand-spotlight-outset;
+    } @else if (length($values) == 1) {
+        /**
+          * Add a margin to your component which includes the standard sandstone spotlight margin on the
+          * sides and uses the argument for margin on the top and bottom.
+          */
+        margin: nth($values, 1) variables.$sand-spotlight-outset;
+    } @else if (length($values) == 2) {
+        /**
+          * Add a margin to your component which includes the standard sandstone spotlight margin on the
+          * sides and uses the two arguments for margin on the top and bottom respectively.
+          */
+        margin: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
+    }
+}
+
 @mixin sand-spotlight-padding($values...) {
     @if (length($values) == 0) {
+        /**
+          * Add a padding to your component which includes the standard sandstone spotlight padding only on
+          * the sides.
+          */
         padding-left: variables.$sand-spotlight-outset;
         padding-right: variables.$sand-spotlight-outset;
     } @else if (length($values) == 1) {
+        /**
+		 * Add a padding to your component which includes the standard sandstone spotlight padding on the
+		 * sides and uses the argument for padding on the top and bottom.
+		 */
         padding: nth($values, 1) variables.$sand-spotlight-outset;
     } @else if (length($values) == 2) {
+        /**
+          * Add a padding to your component which includes the standard sandstone spotlight padding on the
+          * sides and uses the two arguments for padding on the top and bottom respectively.
+          */
         padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
     }
+}
+
+//
+// Mixin classes for creating the sandstone text classes
+//
+
+// Text base provides family, weight, and size
+// Accepts 0, 1 or 2 arguments
+// The first argument allows overriding the font size, defaulting to
+// the default body font size, the 2nd argument is used privately by
+// ThemeDecorator to override the target of the rules.
+@mixin sand-text-base($font-size: variables.$sand-body-font-size, $target: normal) {
+    @include sand-font($target: $target) {
+        font-weight: variables.$sand-non-latin-font-weight;
+    }
+
+    font-weight: normal;
+    font-size: $font-size;
+
+    @include sand-enact-locale-line-height(variables.$sand-body-font-weight, variables.$sand-tallglyph-body-line-height, $target);
 }
 
 //
@@ -127,4 +181,17 @@
     font-weight: variables.$sand-button-small-font-weight;
 
     @include font-kerning;
+}
+
+// Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
+//
+// Set line-height for normal and tallglyphs with 0, 1 or 2 arguments
+// Ex:
+//   @include enact-locale-line-height();              ->  normal: default; tallglyphs: default;
+//   @include enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
+//   @include enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
+@mixin sand-enact-locale-line-height($normal: variables.$sand-common-line-height, $tallglyph: variables.$sand-tallglyph-line-height, $target: normal) {
+    @if ($target == normal) {
+        @include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target);
+    }
 }

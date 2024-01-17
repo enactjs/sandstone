@@ -24,7 +24,7 @@ import warning from 'warning';
 
 import Skinnable from '../Skinnable';
 
-import componentCss from './Popup.module.less';
+import componentCss from './Popup.module.scss';
 
 const isDown = is('down');
 const isLeft = is('left');
