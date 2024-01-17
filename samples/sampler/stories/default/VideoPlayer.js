@@ -48,7 +48,7 @@ const prop = {
 	},
 	posters: {
 		Sintel: 'http://media.w3.org/2010/05/sintel/poster.png',
-		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1-2k-png/14029.png',
+		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1-2k-png/07580.png',
 		VideoTest: 'http://media.w3.org/2010/05/video/poster.png',
 		'Bad Video Source': 'http://media.w3.org/2010/05/video/poster.png'
 	},
