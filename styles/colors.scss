@@ -69,6 +69,7 @@ $sand-fullscreen-bg-color: var(--sand-fullscreen-bg-color, $sand-bg-color);
 $sand-overlay-text-shadow: 0 4px 4px rgb($sand-shadow-color-rgb, 75%);
 $sand-overlay-bg-color-rgb: rgb(87, 94, 102); // #575e66
 $sand-overlay-bg-color: var(--sand-overlay-bg-color-rgb, $sand-overlay-bg-color-rgb); // #575e66
+$sand-popup-bg-color-rgba: rgb(87, 94, 102, 0.9);
 
 $sand-selection-color: var(--sand-selection-color, #4c5059);
 $sand-selection-bg-color: var(--sand-selection-bg-color, #3399ff);
@@ -216,7 +217,7 @@ $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
 
 // Popup
 // ---------------------------------------
-$sand-popup-bg-color: rgb($sand-overlay-bg-color-rgb, 90%);
+$sand-popup-bg-color: var(--sand-popup-bg-color-rgba, $sand-popup-bg-color-rgba);
 $sand-popup-scrimtransparent-bg-color: rgb($sand-overlay-bg-color-rgb, 95%);
 
 // PopupTabLayout
