@@ -1,9 +1,9 @@
 const ScrollerPage = require('../ScrollerPage');
-const {enableEditModeLongPress, expectFocusedItem} = require('../Scroller-utils');
+const {expectFocusedItem, expectItemWrapperClass} = require('../Scroller-utils');
 
-describe('Scroller With Editable Select Item By Long Press', function () {
+describe('Scroller With Editable Select Item By Press', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open('WithEditableSelectItemByLongPress');
+		await ScrollerPage.open('WithEditableSelectItemByPress');
 	});
 
 	it('should change item position with editableCentered [QWTC-570]', async function () {
@@ -20,10 +20,10 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		await ScrollerPage.spotlightDown();
 		// Check for leftmost item's position.
 		const leftmostItemRect = Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100;
-		await enableEditModeLongPress();
+		await ScrollerPage.spotlightSelect();
 		await expectFocusedItem(0);
 		// Step5-2 Verify: Image 0 rises upper.
-		await expect(await ScrollerPage.checkEditableItem()).to.be.true();
+		await expectItemWrapperClass('tests_ui_apps_Scroller_WithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_selected');
 
 		// Step 6: 5-way Right.
 		await ScrollerPage.spotlightRight();
