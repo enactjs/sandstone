@@ -22,6 +22,7 @@ const
 
 const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible) => {
 	let spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+	let consumeKeyUpTarget = null;
 
 	const setNavigableFilter = ({filterTarget}) => {
 		spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
@@ -62,8 +63,8 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 		};
 	};
 
-	const consumeEventWithFocus = (ev) => {
-		const {target} = ev;
+	const consumeEventKeyDownWithFocus = (ev) => {
+		const {keyCode, target} = ev;
 		let nextTarget;
 
 		if (isBody(target)) {
@@ -82,6 +83,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 			// Enter or Cancel key on scroll thumb.
 			// Scroll body get focus.
 			nextTarget = target.closest(`.${css.focusableBody}`);
+			consumeKeyUpTarget = isCancel(keyCode) && nextTarget || null;
 		}
 
 		if (nextTarget) {
@@ -89,6 +91,14 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 			ev.preventDefault();
 			ev.nativeEvent.stopImmediatePropagation();
 		}
+	};
+
+	const consumeEventKeyUp = (ev) => {
+		const {keyCode, target} = ev;
+		if (isCancel(keyCode) && target === consumeKeyUpTarget) {
+			ev.nativeEvent.stopImmediatePropagation();
+		}
+		consumeKeyUpTarget = null;
 	};
 
 	return {
@@ -106,7 +116,10 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 		onKeyDown: handle(
 			forward('onKeyDown'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
-			consumeEventWithFocus
+			consumeEventKeyDownWithFocus
+		),
+		onKeyUp: handle(
+			consumeEventKeyUp
 		),
 		setNavigableFilter
 	};
