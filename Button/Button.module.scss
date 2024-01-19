@@ -43,7 +43,7 @@
 
 	.icon {
 		flex-shrink: 0;
-		@include mixins.margin-start-end(variables.$sand-button-icon-margin-start variables.$sand-button-icon-margin-end);
+		@include mixins.margin-start-end(variables.$sand-button-icon-margin-start, variables.$sand-button-icon-margin-end);
 	}
 
 	// Button with icon and text
@@ -57,7 +57,7 @@
 		}
 
 		.icon {
-			@include mixins.margin-start-end(variables.$sand-button-icon-position-after-margin-start variables.$sand-button-icon-position-after-margin-end);
+			@include mixins.margin-start-end(variables.$sand-button-icon-position-after-margin-start, variables.$sand-button-icon-position-after-margin-end);
 		}
 	}
 
@@ -65,7 +65,7 @@
 	&.green,
 	&.yellow,
 	&.blue {
-		@include mixins.padding-start-end(variables.$sand-button-colordot-padding-start variables.$sand-button-h-padding);
+		@include mixins.padding-start-end(variables.$sand-button-colordot-padding-start, variables.$sand-button-h-padding);
 
 		// IconButton-like Button scenario
 		.client::before {
@@ -95,7 +95,7 @@
 					// Colored side-bar
 					bottom: 50%;
 					transform: translateY(50%);
-					@include mixins.position-start-end(-(variables.$sand-button-colordot-width) initial);
+					@include mixins.position-start-end(-(variables.$sand-button-colordot-width), initial);
 				}
 			}
 		}
@@ -143,12 +143,12 @@
 		}
 
 		.icon {
-			@include mixins.margin-start-end(variables.$sand-button-icon-small-margin-start variables.$sand-button-icon-small-margin-end);
+			@include mixins.margin-start-end(variables.$sand-button-icon-small-margin-start, variables.$sand-button-icon-small-margin-end);
 		}
 
 		&.iconAfter {
 			.icon {
-				@include mixins.margin-start-end(variables.$sand-button-icon-position-after-small-margin-start variables.$sand-button-icon-position-after-small-margin-end);
+				@include mixins.margin-start-end(variables.$sand-button-icon-position-after-small-margin-start, variables.$sand-button-icon-position-after-small-margin-end);
 			}
 		}
 
@@ -156,7 +156,7 @@
 		&.green,
 		&.yellow,
 		&.blue {
-			@include mixins.padding-start-end(variables.$sand-button-small-colordot-padding-start variables.$sand-button-small-h-padding);
+			@include mixins.padding-start-end(variables.$sand-button-small-colordot-padding-start, variables.$sand-button-small-h-padding);
 
 			// IconButton-like Button scenario
 			.client::before {
@@ -172,7 +172,7 @@
 
 					&::before {
 						bottom: 50%;
-						@include mixins.position-start-end(-(variables.$sand-button-small-colordot-width) initial);
+						@include mixins.position-start-end(-(variables.$sand-button-small-colordot-width), initial);
 					}
 				}
 
