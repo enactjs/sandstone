@@ -1,6 +1,6 @@
 @use "../styles/variables";
-@import "../../enact/packages/spotlight/styles/mixins";
-@import "../../enact/packages/ui/styles/mixins";
+@import "~@enact/spotlight/styles/mixins";
+@import "~@enact/ui/styles/mixins";
 
 @function default($args...) {
     @each $arg in $args {
@@ -31,6 +31,26 @@
     } @else if (length($values) == 2) {
         padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
     }
+}
+
+//
+// Mixin classes for creating the sandstone text classes
+//
+
+// Text base provides family, weight, and size
+// Accepts 0, 1 or 2 arguments
+// The first argument allows overriding the font size, defaulting to
+// the default body font size, the 2nd argument is used privately by
+// ThemeDecorator to override the target of the rules.
+@mixin sand-text-base($font-size: variables.$sand-body-font-size, $target: normal) {
+    @include sand-font($target: $target) {
+        font-weight: variables.$sand-non-latin-font-weight;
+    }
+
+    font-weight: normal;
+    font-size: $font-size;
+
+    @include sand-enact-locale-line-height(variables.$sand-body-font-weight, variables.$sand-tallglyph-body-line-height, $target)
 }
 
 //
