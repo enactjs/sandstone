@@ -127,7 +127,7 @@
 			line-height: variables.$sand-item-small-label-line-height;
 		}
 
-		@include mixins.enact-locale-tallglyph-values(font-size, variables.$sand-item-small-font-size);
+		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-item-small-font-size);
 
 		@include mixins.sand-custom-text-large {
 			font-size: variables.$sand-item-small-font-size-large;
