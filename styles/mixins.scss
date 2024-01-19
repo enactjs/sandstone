@@ -1,6 +1,6 @@
 @use "../styles/variables";
-@import "~@enact/spotlight/styles/mixins";
-@import "~@enact/ui/styles/mixins";
+@import "../../enact/packages/spotlight/styles/mixins";
+@import "../../enact/packages/ui/styles/mixins";
 
 @function default($args...) {
     @each $arg in $args {
