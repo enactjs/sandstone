@@ -566,11 +566,13 @@ const EditableWrapper = (props) => {
 		const {selectedItem, selectedItemLabel} = mutableRef.current;
 		const orders = finalizeOrders();
 
+		selectedItem.children[1].ariaLabel = '';
 		finalizeEditing(orders);
 		if (selectItemBy === 'press') {
+			Spotlight.setPointerMode(false);
+			Spotlight.focus(target);
 			focusItem(target);
 		}
-		selectedItem.children[1].ariaLabel = '';
 		setTimeout(() => {
 			announceRef.current.announce(
 				selectedItemLabel + $L('Movement completed'),
@@ -590,7 +592,7 @@ const EditableWrapper = (props) => {
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
-					completeEditingByKeyDown(target);
+					completeEditingByKeyDown(selectedItem.children[1]);
 					mutableRef.current.needToPreventEvent = true;
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
@@ -602,7 +604,7 @@ const EditableWrapper = (props) => {
 				}, holdDuration - 300);
 			}
 		} else if (is('down', keyCode) && target.getAttribute('role') !== 'button' && !repeat && selectedItem) {
-			completeEditingByKeyDown(target);
+			completeEditingByKeyDown(selectedItem.children[1]);
 			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
