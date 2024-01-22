@@ -10,17 +10,13 @@ before_install:
 install:
     - npm config set prefer-offline false
     - npm install -g codecov
-    - git clone --branch=develop --depth 1 https://github.com/enactjs/cli ../cli
-    - pushd ../cli
-    - npm install
-    - npm link
-    - popd
-    - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
+    - npm install -g @enact/cli@6.0.4
+    - git clone --branch=release/4.7.x.develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
-    - npm run interlink
+    - npm run lerna link
     - popd
     - rm -fr node_modules/@enact
     - npm install
