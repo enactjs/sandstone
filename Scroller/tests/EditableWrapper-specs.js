@@ -1,4 +1,5 @@
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
 import {render, fireEvent, screen} from '@testing-library/react';
 
@@ -90,6 +91,7 @@ describe('Editable Scroller', () => {
 		test(
 			'should not have selected class and custom selected class and should have custom focused class when item is unselected',
 			() => {
+				Spotlight.setPointerMode(false);
 				render(<Scroller
 					direction="horizontal"
 					editable={{

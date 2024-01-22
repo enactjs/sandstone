@@ -2,8 +2,8 @@ import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
-import Spotlight, {getDirection} from '@enact/spotlight';
-import {getContainersForNode} from '@enact/spotlight/src/container';
+import Spotlight, {getDirection, isEnter} from '@enact/spotlight';
+import {getContainersForNode, isWithinOverflowContainer} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement, getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
 import {getLastPointerPosition, getPointerMode, setPointerMode} from '@enact/spotlight/src/pointer';
@@ -683,6 +683,8 @@ const EditableWrapper = (props) => {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
 				}
+			} else if (is('enter', keyCode)) {
+				completeEditingByKeyDown(mutableRef.current.selectedItem.children[1]);
 			}
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
