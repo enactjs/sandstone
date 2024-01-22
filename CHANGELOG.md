@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` with `editable` prop to handle focus properly when complete editing by 4-way key in pointer mode
 - `sandstone/VirtualList` to have proper scroll position when item with affordance is larger than scroll area
 
 ## [2.7.13] - 2023-12-08
