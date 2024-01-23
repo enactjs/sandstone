@@ -390,6 +390,7 @@ const TabLayoutBase = kind({
 
 	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleClick, handleEnter, handleFlick, handleFocus, handleTabsTransitionEnd, index, onCollapse, onSelect, orientation, tabOrientation, tabSize, tabs, type, ...rest}) => {
 		delete rest.anchorTo;
+		delete rest.disableBackKeyNavigation;
 		delete rest.onExpand;
 		delete rest.onTabAnimationEnd;
 		delete rest.rtl;
