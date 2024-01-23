@@ -658,8 +658,8 @@ const EditableWrapper = (props) => {
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
 			}
 		} else {
-			mutableRef.current.lastKeyEventTargetElement = ev.target;
-			if (ev.target.getAttribute('role') === 'button') {
+			mutableRef.current.lastKeyEventTargetElement = target;
+			if (target.getAttribute('role') === 'button') {
 				return;
 			}
 		}
