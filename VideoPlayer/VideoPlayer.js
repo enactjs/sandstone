@@ -1406,6 +1406,7 @@ const VideoPlayerBase = class extends Component {
 
 	/**
 	 * Programmatically plays the current media.
+	 * If play during fast forwarding or rewinding, the playback speed will be update to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1432,6 +1433,7 @@ const VideoPlayerBase = class extends Component {
 
 	/**
 	 * Programmatically pauses the current media.
+	 * If pause during fast forwarding or rewinding, the playback speed will be update to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1497,7 +1499,9 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Changes the playback speed.
+	 * Fast forward to play the current media for seeking.
+	 * It is changes the playback rate.
+	 * If play during fast forwarding, playback speed will be update to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1557,7 +1561,9 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Changes the playback speed.
+	 * Rewind to play the current media for seeking.
+	 * It is changes the playback rate.
+	 * If play during rewinding, playback speed will be update to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1625,8 +1631,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Change the playback speed in a controlled playback mode,
-	 * such as YouTube, rather than fast forward or rewind.
+	 * Set the playback speed.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
