@@ -108,17 +108,17 @@ describe('Scroller', () => {
 
 				const scroller = screen.getByTestId(id);
 				const scrollBody = scroller.children.item(0);
-				const virticalScrollbar = screen.getByLabelText("scroll up or down with up down button press ok button to read text");
+				const verticalScrollbar = screen.getByLabelText("scroll up or down with up down button press ok button to read text");
 
 				const expected = "spottable";
 
 				// dispatching key event to increase code coverage
-				focus(virticalScrollbar);
-				pressDownKey(virticalScrollbar);
-				pressEnterKey(virticalScrollbar);
+				focus(verticalScrollbar);
+				pressDownKey(verticalScrollbar);
+				pressEnterKey(verticalScrollbar);
 
 				expect(scrollBody).toHaveClass(expected);
-				expect(virticalScrollbar).toHaveClass(expected);
+				expect(verticalScrollbar).toHaveClass(expected);
 			}
 		);
 
@@ -138,12 +138,12 @@ describe('Scroller', () => {
 
 				const scroller = screen.getByTestId(id);
 				const scrollBody = scroller.children.item(0);
-				const virticalScrollbar = screen.getByLabelText("scroll up or down with up down button");
+				const verticalScrollbar = screen.getByLabelText("scroll up or down with up down button");
 
 				const expected = "spottable";
 
 				expect(scrollBody).not.toHaveClass(expected);
-				expect(virticalScrollbar).toHaveClass(expected);
+				expect(verticalScrollbar).toHaveClass(expected);
 			}
 		);
 	});
