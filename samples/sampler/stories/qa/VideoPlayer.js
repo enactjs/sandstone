@@ -1,8 +1,8 @@
 import Button from '@enact/sandstone/Button';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
+import Popup from '@enact/sandstone/Popup';
 import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
 import {select} from '@enact/storybook-utils/addons/controls';
-import Popup from '@enact/sandstone/Popup';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 
@@ -212,7 +212,6 @@ class VideoPlayerWithExpandedMediaControls extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			openExtention: false,
 			openSelectingPlayback: false,
 			selectedSpeed: 1
 		};
@@ -227,12 +226,6 @@ class VideoPlayerWithExpandedMediaControls extends Component {
 
 	setVideoPlayer = (node) => {
 		this.videoPlayer = node;
-	};
-
-	handleMoreButton = () => {
-		this.setState(({openExtention}) => ({
-			openExtention: !openExtention
-		}));
 	};
 
 	handlePlaySpeedButton = () => {
@@ -259,14 +252,9 @@ class VideoPlayerWithExpandedMediaControls extends Component {
 					</Video>
 					<MediaControls>
 						<Button
-							icon="list"
-							onClick={this.handleMoreButton}
-						/>
-						{this.state.openExtention &&
-						<Button
 							icon="playspeed"
 							onClick={this.handlePlaySpeedButton}
-						/>}
+						/>
 						<Popup open={this.state.openSelectingPlayback} position="bottom">
 							<div> Select Playback Speed </div>
 							<br />

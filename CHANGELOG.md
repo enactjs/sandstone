@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/VideoPlayer` to support to set playback speed
+- `sandstone/VideoPlayer` support for playback speed adjustment
 
 ### Fixed
 
