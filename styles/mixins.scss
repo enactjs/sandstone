@@ -15,22 +15,22 @@
 @mixin sand-spotlight-padding($values...) {
 	@if (length($values) == 0) {
 		/*
-		  * Add a padding to your component which includes the standard sandstone spotlight padding only on
-		  * the sides.
-		  */
+		* Add a padding to your component which includes the standard sandstone spotlight padding only on
+		* the sides.
+		*/
 		padding-left: variables.$sand-spotlight-outset;
 		padding-right: variables.$sand-spotlight-outset;
 	} @else if (length($values) == 1) {
 		/*
-		 * Add a padding to your component which includes the standard sandstone spotlight padding on the
-		 * sides and uses the argument for padding on the top and bottom.
-		 */
+		* Add a padding to your component which includes the standard sandstone spotlight padding on the
+		* sides and uses the argument for padding on the top and bottom.
+		*/
 		padding: nth($values, 1) variables.$sand-spotlight-outset;
 	} @else if (length($values) == 2) {
 		/*
-		  * Add a padding to your component which includes the standard sandstone spotlight padding on the
-		  * sides and uses the two arguments for padding on the top and bottom respectively.
-		  */
+		* Add a padding to your component which includes the standard sandstone spotlight padding on the
+		* sides and uses the two arguments for padding on the top and bottom respectively.
+		*/
 		padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
 	}
 }
