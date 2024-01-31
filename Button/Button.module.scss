@@ -101,10 +101,10 @@
 		}
 	}
 
-	//**
-	//* The marquee container of the client area. Added by {@link sandstone/MarqueeDecorator}.
-	//* @public
-	//*/
+	/*
+	* The marquee container of the client area. Added by {@link sandstone/MarqueeDecorator}.
+	* @public
+	*/
 	.marquee {
 		flex-grow: 1;
 	}
