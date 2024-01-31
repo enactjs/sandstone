@@ -4,78 +4,78 @@
 @import "../../enact/packages/ui/styles/mixins";
 
 @function default($args...) {
-    @each $arg in $args {
-        @if not variable-exists(#{$arg}) {
-            @return true;
-        }
-    }
-    @return false;
+	@each $arg in $args {
+		@if not variable-exists(#{$arg}) {
+			@return true;
+		}
+	}
+	@return false;
 }
 
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled {
-    @if content-exists() {
-        @include uiMixins.disabled {
-            opacity: 1; // reset standard disabled rule.
-            @content;
-        }
-    }
+	@if content-exists() {
+		@include uiMixins.disabled {
+			opacity: 1; // reset standard disabled rule.
+			@content;
+		}
+	}
 }
 
 @mixin sand-spotlight-padding($values...) {
-    @if (length($values) == 0) {
-        /**
-          * Add a padding to your component which includes the standard sandstone spotlight padding only on
-          * the sides.
-          */
-        padding-left: variables.$sand-spotlight-outset;
-        padding-right: variables.$sand-spotlight-outset;
-    } @else if (length($values) == 1) {
-        /**
+	@if (length($values) == 0) {
+		/**
+		  * Add a padding to your component which includes the standard sandstone spotlight padding only on
+		  * the sides.
+		  */
+		padding-left: variables.$sand-spotlight-outset;
+		padding-right: variables.$sand-spotlight-outset;
+	} @else if (length($values) == 1) {
+		/**
 		 * Add a padding to your component which includes the standard sandstone spotlight padding on the
 		 * sides and uses the argument for padding on the top and bottom.
 		 */
-        padding: nth($values, 1) variables.$sand-spotlight-outset;
-    } @else if (length($values) == 2) {
-        /**
-          * Add a padding to your component which includes the standard sandstone spotlight padding on the
-          * sides and uses the two arguments for padding on the top and bottom respectively.
-          */
-        padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
-    }
+		padding: nth($values, 1) variables.$sand-spotlight-outset;
+	} @else if (length($values) == 2) {
+		/**
+		  * Add a padding to your component which includes the standard sandstone spotlight padding on the
+		  * sides and uses the two arguments for padding on the top and bottom respectively.
+		  */
+		padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
+	}
 }
 
 //
 // Sandstone Font Applicator
 //
 @mixin sand-font(
-    $family: variables.$sand-font-family,
-    $non-latin-family: variables.$sand-non-latin-font-family,
+	$family: variables.$sand-font-family,
+	$non-latin-family: variables.$sand-non-latin-font-family,
 	$target: normal
 ) {
-    @if content-exists() {
-        font-family: $family;
+	@if content-exists() {
+		font-family: $family;
 
-        @include enact-locale(non-latin, $target) {
-            font-family: $non-latin-family;
+		@include enact-locale(non-latin, $target) {
+			font-family: $non-latin-family;
 
-            @content;
-        }
-    }
+			@content;
+		}
+	}
 }
 
 @mixin sand-custom-text-large {
-    // Generic rule applicator for large text mode
-    &:global(.largeText) {
-        @content;
-    }
+	// Generic rule applicator for large text mode
+	&:global(.largeText) {
+		@content;
+	}
 }
 
 @mixin sand-custom-text-locale {
-    // Generic rule applicator for latin and non-latin large text mode
-    @include enact-locale(non-latin) {
-        @include sand-custom-text-large {
-            @content;
-        }
-    }
+	// Generic rule applicator for latin and non-latin large text mode
+	@include enact-locale(non-latin) {
+		@include sand-custom-text-large {
+			@content;
+		}
+	}
 }
