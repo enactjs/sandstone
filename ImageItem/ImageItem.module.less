@@ -14,7 +14,7 @@
 	}
 
 	&:not(.fullImage) {
-		&::before {
+		&::before, &::after {
 			content: '';
 			position: absolute;
 			.position(0);
@@ -177,6 +177,14 @@
 
 			&::before {
 				.sand-spotlight-focus-bg-colors();
+
+				outline: 12px solid rgb(260, 260, 260);
+				outline-offset: -12px;
+			}
+
+			&:after {
+				outline: 9px solid black;
+				outline-offset: -21px;
 			}
 
 			.selectionIcon {
@@ -193,6 +201,17 @@
 				&.fullImage .image {
 					transform: @sand-imageitem-vertical-focus-image-transform;
 					box-shadow: @sand-imageitem-focus-bg-shadow;
+
+					outline: 12px solid rgb(260, 260, 260);
+					outline-offset: -12px;
+
+					&::before {
+						content: '';
+						position: absolute;
+						.position(0);
+						outline: 9px solid black;
+						outline-offset: -21px;
+					}
 				}
 			}
 
