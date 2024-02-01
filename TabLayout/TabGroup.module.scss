@@ -23,7 +23,7 @@
 				.client::after {
 					content: "";
 					position: absolute;
-					@include mixins.position(auto, 0, 0, 0);
+					@include mixins.position(auto 0 0 0);
 					height: variables.$sand-tablayout-tab-horizontal-selected-border-width;
 				}
 			}
