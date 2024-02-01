@@ -57,7 +57,12 @@
 	}
 
 	.focus({
-		transform: @sand-iconitem-focus-transform;
+		// transform: @sand-iconitem-focus-transform;
+
+		.content {
+			outline: 12px solid rgb(230,230,230);
+			outline-offset: 9px;
+		}
 
 		&.labelOnFocus {
 			.icon {

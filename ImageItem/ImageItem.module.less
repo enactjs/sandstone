@@ -177,6 +177,8 @@
 
 			&::before {
 				.sand-spotlight-focus-bg-colors();
+				outline: 12px solid rgb(230, 230, 230);
+				outline-offset: 9px;	
 			}
 
 			.selectionIcon {
@@ -191,8 +193,9 @@
 
 			&.vertical {
 				&.fullImage .image {
-					transform: @sand-imageitem-vertical-focus-image-transform;
 					box-shadow: @sand-imageitem-focus-bg-shadow;
+					outline: 12px solid rgb(230, 230, 230);
+					outline-offset: 9px;
 				}
 			}
 
