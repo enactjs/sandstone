@@ -562,15 +562,18 @@ const EditableWrapper = (props) => {
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerHandle, scrollContentRef]);
 
-	const completeEditingByKeyDown = useCallback((target) => {
+	const completeEditingByKeyDown = useCallback(() => {
 		const {selectedItem, selectedItemLabel} = mutableRef.current;
+		const focusTarget = selectedItem.children[1];
 		const orders = finalizeOrders();
 
+		selectedItem.children[1].ariaLabel = '';
 		finalizeEditing(orders);
 		if (selectItemBy === 'press') {
-			focusItem(target);
+			Spotlight.setPointerMode(false);
+			Spotlight.focus(focusTarget);
+			focusItem(focusTarget);
 		}
-		selectedItem.children[1].ariaLabel = '';
 		setTimeout(() => {
 			announceRef.current.announce(
 				selectedItemLabel + $L('Movement completed'),
@@ -590,7 +593,7 @@ const EditableWrapper = (props) => {
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
-					completeEditingByKeyDown(target);
+					completeEditingByKeyDown();
 					mutableRef.current.needToPreventEvent = true;
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
@@ -602,7 +605,7 @@ const EditableWrapper = (props) => {
 				}, holdDuration - 300);
 			}
 		} else if (is('down', keyCode) && target.getAttribute('role') !== 'button' && !repeat && selectedItem) {
-			completeEditingByKeyDown(target);
+			completeEditingByKeyDown();
 			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
@@ -651,12 +654,12 @@ const EditableWrapper = (props) => {
 
 		if (is('cancel', keyCode)) {
 			if (selectedItem) {
-				completeEditingByKeyDown(target);
+				completeEditingByKeyDown();
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
 			}
 		} else {
-			mutableRef.current.lastKeyEventTargetElement = ev.target;
-			if (ev.target.getAttribute('role') === 'button') {
+			mutableRef.current.lastKeyEventTargetElement = target;
+			if (target.getAttribute('role') === 'button') {
 				return;
 			}
 		}

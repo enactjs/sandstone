@@ -3,6 +3,15 @@
 @import "../../enact/packages/spotlight/styles/mixins";
 @import "../../enact/packages/ui/styles/mixins";
 
+@function default($args...) {
+	@each $arg in $args {
+		@if not variable-exists(#{$arg}) {
+			@return true;
+		}
+	}
+	@return false;
+}
+
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled {
     @if content-exists() {
@@ -106,14 +115,14 @@
 //
 @mixin sand-font(
     $family: variables.$sand-font-family,
-    $nlfamily: variables.$sand-non-latin-font-family,
-    $target: normal
+	$non-latin-family: variables.$sand-non-latin-font-family,
+	$target: normal
 ) {
     @if content-exists() {
         font-family: $family;
 
         @include enact-locale(non-latin, $target) {
-            font-family: $nlfamily;
+            font-family: $non-latin-family;
 
             @content;
         }
