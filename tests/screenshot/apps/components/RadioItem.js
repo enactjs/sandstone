@@ -64,6 +64,7 @@ const RadioItemTests = [
 	// Focused
 	...withConfig({focus: true}, [
 		<RadioItem>Focused RadioItem</RadioItem>,
+		// [QWTC-2231]
 		<RadioItem disabled>Focused RadioItem</RadioItem>,
 		<RadioItem inline>Focused Inline RadioItem</RadioItem>,
 		<RadioItem disabled inline>Focused RadioItem Not Checked</RadioItem>,

@@ -73,6 +73,7 @@ const LtrTests = [
 	...withProps({type: 'mini'}, baseTests),
 
 	// Centered
+	// [QWTC-1875]
 	...withProps({type: 'standard', centered: true}, baseTests),
 	...withProps({type: 'standard', centered: true, slotAfter: dropIn.doubleButtons}, baseTests),
 	...withProps({type: 'standard', centered: true, slotBefore: dropIn.doubleButtons}, baseTests),
@@ -81,6 +82,7 @@ const LtrTests = [
 	...withProps({type: 'compact', centered: true}, baseTests),
 
 	// Standard Type Slots
+	// [QWTC-2137]
 	...withProps({type: 'standard', slotAfter: dropIn.singleButton}, baseTests),
 	...withProps({type: 'standard', slotAfter: dropIn.doubleButtons}, baseTests),
 	...withProps({type: 'standard', slotAfter: dropIn.singleButton, slotBefore: dropIn.singleButton}, baseTests),

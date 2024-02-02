@@ -17,6 +17,7 @@ const renderItem = () => ({index, ...rest}) => { // eslint-disable-line enact/di
 };
 
 const VirtualListTests = [
+	// [QWTC-2339] The Light skin tested on 'tests/screenshot/specs/light/Light-specs*.js'.
 	<div>
 		<VirtualList
 			dataSize={10}

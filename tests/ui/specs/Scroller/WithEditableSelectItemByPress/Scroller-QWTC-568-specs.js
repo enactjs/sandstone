@@ -1,18 +1,17 @@
 const ScrollerPage = require('../ScrollerPage');
-const {enableEditModeLongPress, expectFocusedItem} = require('../Scroller-utils');
+const {expectFocusedItem} = require('../Scroller-utils');
 
-describe('Scroller With Editable Select Item By Long Press', function () {
+describe('Scroller With Editable Select Item By Press', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open('WithEditableSelectItemByLongPress');
+		await ScrollerPage.open('WithEditableSelectItemByPress');
 	});
 
 	it('should remove item with remove button [QWTC-568]', async function () {
 		// Step 3: 5-way Spot and Select Image 0.
 		// Step 3-1 Verify: Spotlight is on image 0.
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.spotlightDown();
 		await expectFocusedItem(0);
-		await enableEditModeLongPress();
+		await ScrollerPage.spotlightSelect();
 
 		// Step 4-1: 5-way Up one time.
 		// Step 4 Verify: Spotlight is on 'trash' icon.
