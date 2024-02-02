@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.5.12] - 2024-02-02
+
+### Fixed
+
+- `sandstone/WizardPanels` to read out the correct step when using `current` prop
+
 ## [2.5.11] - 2023-06-07
 
 ### Fixed
