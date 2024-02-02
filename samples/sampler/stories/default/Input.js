@@ -89,7 +89,7 @@ select('numberInputField', _Input, prop.numericKind, ConfigNumberPopup);
 boolean('customize min/max', _Input, ConfigNumberPopup, false);
 range('maxLength', _Input, ConfigNumberPopup, {min: 0, max: 20}, 4, {if: {arg:'customize min/max', truthy: true}});
 range('minLength', _Input, ConfigNumberPopup, {min: 0, max: 20}, 0, {if: {arg:'customize min/max', truthy: true}});
-range('length', _Input, ConfigNumberPopup, {min: 1, max: 20}, 4);
+range('length', _Input, ConfigNumberPopup, {min: 1, max: 20}, 4, {if: {arg:'customize min/max', truthy: false}});
 select('size', _Input, prop.size, Config);
 text('placeholder', _Input, Config, 'placeholder string');
 boolean('disabled', _Input, Config);
