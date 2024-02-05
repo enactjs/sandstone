@@ -35,7 +35,7 @@ export const _TransferList = (args) => (
 boolean('disabled', _TransferList, Config, false);
 number('firstListMinCapacity', _TransferList, Config);
 number('firstListMaxCapacity', _TransferList, Config);
-select('firstListOperation', _TransferList, ['move', 'copy', 'delete'], Config, 'move');
+select('firstListOperation', _TransferList, ['copy', 'delete', 'move'], Config, 'copy');
 number('itemSize', _TransferList, Config, 201);
 select('listComponent', _TransferList, ['VirtualList', 'VirtualGridList'], Config, 'VirtualList');
 boolean('moveElementOnSpotlightDirections', _TransferList, Config, false);
@@ -43,7 +43,7 @@ boolean('noMultipleSelect', _TransferList, Config, false);
 select('orientation', _TransferList, ['horizontal', 'vertical'], Config, 'horizontal');
 number('secondListMinCapacity', _TransferList, Config);
 number('secondListMaxCapacity', _TransferList, Config);
-select('secondListOperation', _TransferList, ['move', 'copy', 'delete'], Config, 'move');
+select('secondListOperation', _TransferList, ['copy', 'delete', 'move'], Config, 'copy');
 boolean('showSelectionOrder', _TransferList, Config, false);
 
 _TransferList.storyName = 'TransferList';
