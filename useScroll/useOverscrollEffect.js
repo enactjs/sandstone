@@ -74,12 +74,12 @@ const useOverscrollEffect = (props, instances) => {
 
 	// Functions
 
-	function clearOverscrollEffect (orientation, edge) {
+	const clearOverscrollEffect = useCallback((orientation, edge) => {
 		mutableRef.current.overscrollJobs[orientation][edge].startAfter(overscrollTimeout, orientation, edge, overscrollTypeNone, 0);
 		scrollContainerHandle.current.setOverscrollStatus(orientation, edge, overscrollTypeNone, 0);
-	}
+	}, [scrollContainerHandle]);
 
-	function checkAndApplyOverscrollEffectByDirection (direction) {
+	const checkAndApplyOverscrollEffectByDirection = useCallback((direction) => {
 		const
 			orientation = (direction === 'up' || direction === 'down') ? 'vertical' : 'horizontal',
 			bounds = scrollContainerHandle.current.getScrollBounds(),
@@ -92,7 +92,7 @@ const useOverscrollEffect = (props, instances) => {
 
 			scrollContainerHandle.current.checkAndApplyOverscrollEffect(orientation, edge, overscrollTypeOnce);
 		}
-	}
+	}, [scrollContainerHandle]);
 
 	// Return
 

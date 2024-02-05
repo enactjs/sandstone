@@ -125,13 +125,13 @@ const useEventFocus = (props, instances) => {
 		}
 	}, [calculateAndScrollTo, scrollContainerHandle, scrollMode, spottable, themeScrollContentHandle]);
 
-	function hasFocus () {
+	const hasFocus = useCallback(() => {
 		const current = Spotlight.getCurrent();
 
 		if (current && scrollContainerRef.current) {
 			return utilDOM.containsDangerously(scrollContainerRef, current);
 		}
-	}
+	}, [scrollContainerRef]);
 
 	// Return
 
@@ -149,46 +149,7 @@ const useEventKey = (props, instances, context) => {
 
 	// Functions
 
-	function handleKeyDown (ev) {
-		const {keyCode, repeat, target} = ev;
-
-		forward('onKeyDown', ev, props);
-
-		if (isPageUp(keyCode) || isPageDown(keyCode)) {
-			ev.preventDefault();
-		}
-
-		spottable.current.animateOnFocus = true;
-
-		if (!repeat && hasFocus()) {
-			let direction = null;
-
-			if (isPageUp(keyCode) || isPageDown(keyCode)) {
-				if (props.direction === 'vertical' || props.direction === 'both') {
-					direction = isPageUp(keyCode) ? 'up' : 'down';
-
-					if (isContent(target)) {
-						ev.stopPropagation();
-						scrollByPage(direction);
-					}
-					if (props.overscrollEffectOn.pageKey) {
-						checkAndApplyOverscrollEffectByDirection(direction);
-					}
-				}
-			} else if (getDirection(keyCode) && (scrollMode === 'translate' || scrollMode === 'native' && !Spotlight.getPointerMode())) {
-				const element = Spotlight.getCurrent();
-
-				scrollContainerHandle.current.lastInputType = 'arrowKey';
-				direction = getDirection(keyCode);
-
-				if (props.overscrollEffectOn.arrowKey && !(element ? getTargetByDirectionFromElement(direction, element) : null)) {
-					checkAndApplyOverscrollEffectByDirection(direction);
-				}
-			}
-		}
-	}
-
-	function scrollByPage (pageKeyDirection) {
+	const scrollByPage = useCallback((pageKeyDirection) => {
 		const
 			{scrollTop} = scrollContainerHandle.current,
 			focusedItem = Spotlight.getCurrent(),
@@ -250,9 +211,48 @@ const useEventKey = (props, instances, context) => {
 
 			scrollContainerHandle.current.scrollToAccumulatedTarget(pageDistance, true, props.overscrollEffectOn.pageKey);
 		}
-	}
+	}, [props, scrollContainerHandle, scrollContentRef, scrollMode, spottable, themeScrollContentHandle]);
 
-	function scrollByPageOnPointerMode (ev) {
+	const handleKeyDown = useCallback((ev) => {
+		const {keyCode, repeat, target} = ev;
+
+		forward('onKeyDown', ev, props);
+
+		if (isPageUp(keyCode) || isPageDown(keyCode)) {
+			ev.preventDefault();
+		}
+
+		spottable.current.animateOnFocus = true;
+
+		if (!repeat && hasFocus()) {
+			let direction = null;
+
+			if (isPageUp(keyCode) || isPageDown(keyCode)) {
+				if (props.direction === 'vertical' || props.direction === 'both') {
+					direction = isPageUp(keyCode) ? 'up' : 'down';
+
+					if (isContent(target)) {
+						ev.stopPropagation();
+						scrollByPage(direction);
+					}
+					if (props.overscrollEffectOn.pageKey) {
+						checkAndApplyOverscrollEffectByDirection(direction);
+					}
+				}
+			} else if (getDirection(keyCode) && (scrollMode === 'translate' || scrollMode === 'native' && !Spotlight.getPointerMode())) {
+				const element = Spotlight.getCurrent();
+
+				scrollContainerHandle.current.lastInputType = 'arrowKey';
+				direction = getDirection(keyCode);
+
+				if (props.overscrollEffectOn.arrowKey && !(element ? getTargetByDirectionFromElement(direction, element) : null)) {
+					checkAndApplyOverscrollEffectByDirection(direction);
+				}
+			}
+		}
+	}, [checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, props, scrollByPage, scrollContainerHandle, scrollMode, spottable]);
+
+	const scrollByPageOnPointerMode = useCallback((ev) => {
 		const {keyCode, repeat} = ev;
 
 		forward('onKeyDown', ev, props);
@@ -273,7 +273,7 @@ const useEventKey = (props, instances, context) => {
 		}
 
 		return false; // means to be propagated
-	}
+	}, [checkAndApplyOverscrollEffectByDirection, props, scrollByPage, spottable]);
 
 	// Return
 
@@ -365,7 +365,7 @@ const useEventMouse = (props, instances) => {
 
 	// Functions
 
-	function handleFlick ({direction}) {
+	const handleFlick = useCallback(({direction}) => {
 		const
 			{canScrollHorizontally, canScrollVertically} = scrollContainerHandle.current,
 			bounds = scrollContainerHandle.current.getScrollBounds(),
@@ -378,10 +378,10 @@ const useEventMouse = (props, instances) => {
 		if ((
 			direction === 'vertical' && canScrollVertically(bounds) ||
 			direction === 'horizontal' && canScrollHorizontally(bounds)
-		) && !props['data-spotlight-container-disabled']) {
+		) && !spotlightContainerDisabled) {
 			themeScrollContentHandle.current.setContainerDisabled(true);
 		}
-	}
+	}, [scrollContainerHandle, spotlightContainerDisabled, themeScrollContentHandle]);
 
 	const handleMouseDown = useCallback((ev) => {
 		if (spotlightContainerDisabled) {
@@ -528,7 +528,7 @@ const useEventVoice = (props, instances) => {
 		}
 	}, [props.direction, props.overscrollEffectOn.pageKey, scrollContainerHandle]);
 
-	function addVoiceEventListener (scrollContentRef) {
+	const addVoiceEventListener = useCallback((scrollContentRef) => {
 		if (platform.webos) {
 			utilEvent('webOSVoice').addEventListener(scrollContentRef, handleVoice);
 
@@ -539,7 +539,7 @@ const useEventVoice = (props, instances) => {
 				}
 			}
 		}
-	}
+	}, [handleVoice, scrollContainerHandle]);
 
 	const removeVoiceEventListener = useCallback((scrollContentRef) => {
 		if (platform.webos) {

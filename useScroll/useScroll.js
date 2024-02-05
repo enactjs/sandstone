@@ -92,6 +92,10 @@ const useThemeScroll = (props, instances) => {
 
 	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef});
 
+	const isContent = useCallback((element) => {
+		return (element && utilDOM.containsDangerously(scrollContentRef, element));
+	}, [scrollContentRef]);
+
 	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
 	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
@@ -139,10 +143,6 @@ const useThemeScroll = (props, instances) => {
 	}, [alertScrollbarTrack, onInteractionForScroll, scrollbarTrackCss]);
 
 	// Functions
-
-	function isContent (element) {
-		return (element && utilDOM.containsDangerously(scrollContentRef, element));
-	}
 
 	const scrollTo = useCallback((opt) => {
 		mutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
@@ -255,13 +255,13 @@ const useThemeScroll = (props, instances) => {
 	}, []);
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
-	function addEventListeners (ref) { // `ref` is always `scrollContentRef`.
+	const addEventListeners = useCallback((ref) => { // `ref` is always `scrollContentRef`.
 		utilEvent('focusin').addEventListener(ref, handleFocus);
 
 		if (ref.current) {
 			addVoiceEventListener(ref);
 		}
-	}
+	}, [addVoiceEventListener, handleFocus]);
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
 	const removeEventListeners = useCallback((ref) => { // `ref` is always `scrollContentRef`.
@@ -414,9 +414,9 @@ const useScroll = (props) => {
 	} =  useThemeScroll(props, instance);
 
 	const testRef = useRef(() => {})
-	if (testRef.current !== handleMouseDown) {
-		testRef.current = handleMouseDown;
-		console.log('new')
+	if (testRef.current !== addEventListeners) {
+		testRef.current = addEventListeners;
+		console.log('new');
 	}
 
 	// Render
