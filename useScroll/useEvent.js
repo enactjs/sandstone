@@ -8,7 +8,7 @@ import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {constants} from '@enact/ui/useScroll';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
-import {useEffect, useRef} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
@@ -19,7 +19,7 @@ const useEventFocus = (props, instances) => {
 
 	// Functions
 
-	const startScrollOnFocus = (pos) => {
+	const startScrollOnFocus = useCallback((pos) => {
 		if (pos) {
 			const
 				{top, left} = pos,
@@ -57,9 +57,9 @@ const useEventFocus = (props, instances) => {
 				}
 			}
 		}
-	};
+	}, [props.overscrollEffectOn, scrollContainerHandle, scrollMode, spottable, themeScrollContentHandle]);
 
-	function calculateAndScrollTo () {
+	const calculateAndScrollTo = useCallback(() => {
 		const
 			positionFn = themeScrollContentHandle.current.calculatePositionOnFocus,
 			scrollContentNode = scrollContentRef.current,
@@ -98,9 +98,9 @@ const useEventFocus = (props, instances) => {
 			// update `scrollHeight`
 			scrollContainerHandle.current.bounds.scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
 		}
-	}
+	}, [props.direction, scrollContainerHandle, scrollContentRef, scrollMode, spottable, startScrollOnFocus, themeScrollContentHandle]);
 
-	function handleFocus (ev) {
+	const handleFocus = useCallback((ev) => {
 		const shouldPreventScrollByFocus = themeScrollContentHandle.current.shouldPreventScrollByFocus ?
 			themeScrollContentHandle.current.shouldPreventScrollByFocus() :
 			false;
@@ -123,7 +123,7 @@ const useEventFocus = (props, instances) => {
 		} else if (themeScrollContentHandle.current.setLastFocusedNode) {
 			themeScrollContentHandle.current.setLastFocusedNode(ev.target);
 		}
-	}
+	}, [calculateAndScrollTo, scrollContainerHandle, scrollMode, spottable, themeScrollContentHandle]);
 
 	function hasFocus () {
 		const current = Spotlight.getCurrent();
@@ -360,7 +360,7 @@ onWindowReady(() => {
 });
 
 const useEventMouse = (props, instances) => {
-	const {scrollMode} = props;
+	const {scrollMode, 'data-spotlight-container-disabled': spotlightContainerDisabled} = props;
 	const {themeScrollContentHandle, scrollContainerHandle} = instances;
 
 	// Functions
@@ -383,13 +383,13 @@ const useEventMouse = (props, instances) => {
 		}
 	}
 
-	function handleMouseDown (ev) {
-		if (props['data-spotlight-container-disabled']) {
+	const handleMouseDown = useCallback((ev) => {
+		if (spotlightContainerDisabled) {
 			ev.preventDefault();
 		} else if (scrollMode === 'native') {
 			themeScrollContentHandle.current.setContainerDisabled(false);
 		}
-	}
+	}, [scrollMode, spotlightContainerDisabled, themeScrollContentHandle]);
 
 	// Return
 
@@ -402,13 +402,13 @@ const useEventMouse = (props, instances) => {
 const useEventTouch = () => {
 	// Functions
 
-	function handleTouchStart () {
+	const handleTouchStart = useCallback(() => {
 		const focusedItem = Spotlight.getCurrent();
 
 		if (!Spotlight.isPaused() && focusedItem) {
 			focusedItem.blur();
 		}
-	}
+	}, []);
 
 	// Return
 
@@ -429,7 +429,7 @@ const useEventVoice = (props, instances) => {
 
 	// Functions
 
-	const updateFocusAfterVoiceControl = () => {
+	const updateFocusAfterVoiceControl = useCallback(() => {
 		const
 			spotItem = Spotlight.getCurrent(),
 			scrollContainerNode = scrollContainerRef.current;
@@ -453,21 +453,21 @@ const useEventVoice = (props, instances) => {
 				}
 			}
 		}
-	};
+	}, [scrollContainerRef]);
 
-	function stopVoice () {
+	const stopVoice = useCallback(() => {
 		if (mutableRef.current.isVoiceControl) {
 			mutableRef.current.isVoiceControl = false;
 			updateFocusAfterVoiceControl();
 		}
-	}
+	}, [updateFocusAfterVoiceControl]);
 
 	const isReachedEdge = (scrollPos, ltrBound, rtlBound, isRtl = false) => {
 		const bound = isRtl ? rtlBound : ltrBound;
 		return (bound === 0 && scrollPos === 0) || (bound > 0 && scrollPos >= bound - 1);
 	};
 
-	const handleVoice = (e) => {
+	const handleVoice = useCallback((e) => {
 		const
 			isHorizontal = (props.direction === 'horizontal'),
 			isRtl = scrollContainerHandle.current.rtl,
@@ -526,7 +526,7 @@ const useEventVoice = (props, instances) => {
 
 			e.preventDefault();
 		}
-	};
+	}, [props.direction, props.overscrollEffectOn.pageKey, scrollContainerHandle]);
 
 	function addVoiceEventListener (scrollContentRef) {
 		if (platform.webos) {
@@ -541,12 +541,12 @@ const useEventVoice = (props, instances) => {
 		}
 	}
 
-	function removeVoiceEventListener (scrollContentRef) {
+	const removeVoiceEventListener = useCallback((scrollContentRef) => {
 		if (platform.webos) {
 			utilEvent('webOSVoice').removeEventListener(scrollContentRef, handleVoice);
 			scrollContentRef.current.removeAttribute('data-webos-voice-intent');
 		}
-	}
+	}, [handleVoice]);
 
 	// Return
 
@@ -558,18 +558,18 @@ const useEventVoice = (props, instances) => {
 };
 
 const useEventWheel = (props, instances) => {
-	const {dataSize, scrollMode, snapToCenter} = props;
+	const {dataSize, scrollMode, snapToCenter, 'data-spotlight-container-disabled': spotlightContainerDisabled} = props;
 	const {themeScrollContentHandle, scrollContainerHandle, scrollContentHandle, scrollContentRef, spottable} = instances;
 
 	// Functions
-	function initializeWheeling () {
-		if (!props['data-spotlight-container-disabled']) {
+	const initializeWheeling = useCallback(() => {
+		if (!spotlightContainerDisabled) {
 			themeScrollContentHandle.current.setContainerDisabled(true);
 		}
 		spottable.current.isWheeling = true;
-	}
+	}, [spottable, spotlightContainerDisabled, themeScrollContentHandle]);
 
-	function handleWheel ({delta}) {
+	const handleWheel = useCallback(({delta}) => {
 		const focusedItem = Spotlight.getCurrent();
 
 		if (focusedItem) {
@@ -579,14 +579,14 @@ const useEventWheel = (props, instances) => {
 		if (delta !== 0) {
 			initializeWheeling();
 		}
-	}
+	}, [initializeWheeling]);
 
 	/*
 	 * wheel event handler;
 	 * - for horizontal scroll, supports wheel action on any children nodes since web engine cannot support this
 	 * - for vertical scroll, supports wheel action on scrollbars only
 	 */
-	function handleWheelNative (ev) {
+	const handleWheelNative = useCallback((ev) => {
 		const overscrollEffectRequired = props.overscrollEffectOn.wheel;
 		const bounds = scrollContainerHandle.current.getScrollBounds();
 		const canScrollHorizontally = scrollContainerHandle.current.canScrollHorizontally(bounds);
@@ -696,7 +696,7 @@ const useEventWheel = (props, instances) => {
 		if (needToHideScrollbarTrack) {
 			scrollContainerHandle.current.startHidingScrollbarTrack();
 		}
-	}
+	}, [dataSize, initializeWheeling, props.overscrollEffectOn.wheel, scrollContainerHandle, scrollContentHandle, scrollContentRef, snapToCenter, spottable, themeScrollContentHandle]);
 
 	// Return
 
