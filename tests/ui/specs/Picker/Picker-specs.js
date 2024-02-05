@@ -19,7 +19,7 @@ describe('Picker', function () {
 					expect(await newValue).to.equal('Banana');
 				});
 
-				it('should change the value backward when decrementing the picker', async function () {
+				it('should change the value backward when decrementing the picker [QWTC-2209]', async function () {
 					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
 					await Page.spotlightSelect();
 					await Page.spotlightLeft();

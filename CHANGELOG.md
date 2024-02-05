@@ -6,6 +6,29 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` with `editable` prop to remain focused on the selected item when completing edit by down or enter key in pointer mode
+- `sandstone/Scroller` not to forward `onBack` handler of `sandstone/Panels` when focus moves from scroll thumb to BodyText via back key
+- `sandstone/VirtualList` to have proper scroll position when item with affordance is larger than scroll area
+
+## [2.7.13] - 2023-12-08
+
+### Changed
+
+- `sandstone/Dropdown` to read out more details
+- `sandstone/Scroller` with `editable` prop to complete editing when 'down' key is pressed during editing
+- `sandstone/Slider` to read out more details
+- `sandstone/TabLayout` to move focus from tab contents to tab menu via back key
+- `sandstone/TabLayout` to read out more details
+
+### Fixed
+
+- `sandstone/Scroller` with `editable` prop to rearrange items properly when moving pointer very fast
+- `sandstone/Scroller` with `editable` prop to complete editing when focus left by 5-way key in pointer mode
+
+## [2.7.12] - 2023-10-23
+
+### Fixed
+
 - `sandstone/Scroller` to read out the announcement of completion properly when `editable` is given
 
 ## [2.7.11] - 2023-10-13
@@ -30,7 +53,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Panels.Header` to not show `slotAfter` in incorrect position at first rendering when `centered` is given
-- `sandstone/Scroller` to read out properly when `editable` is given 
+- `sandstone/Scroller` to read out properly when `editable` is given
 
 ## [2.7.8] - 2023-08-31
 

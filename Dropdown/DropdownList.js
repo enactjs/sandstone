@@ -3,12 +3,14 @@ import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spotlight from '@enact/spotlight';
+import IdProvider from '@enact/ui/internal/IdProvider';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Component} from 'react';
 import ReactDOM from 'react-dom';
 
+import $L from '../internal/$L';
 import Icon from '../Icon';
 import Item from '../Item';
 import Skinnable from '../Skinnable';
@@ -50,6 +52,14 @@ const DropdownListBase = kind({
 				key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 			}))
 		]),
+
+		/**
+		 * The `id` of DropdownList referred to when setting aria-labelledby
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		id: PropTypes.string,
 
 		/*
 		 * Called when an item is selected.
@@ -131,7 +141,7 @@ const DropdownListBase = kind({
 		itemSize: () => 126
 	},
 
-	render: ({dataSize, itemSize, scrollTo, width, ...rest}) => {
+	render: ({dataSize, id, itemSize, scrollTo, width, ...rest}) => {
 		delete rest.children;
 		delete rest.onSelect;
 		delete rest.selected;
@@ -139,16 +149,19 @@ const DropdownListBase = kind({
 		delete rest.width;
 
 		return (
-			<VirtualList
-				{...rest}
-				cbScrollTo={scrollTo}
-				dataSize={dataSize}
-				itemSize={ri.scale(itemSize)}
-				style={{
-					height: ri.scaleToRem((itemSize * dataSize) + 36),
-					width: typeof width === 'number' ? ri.scaleToRem(width) : null
-				}}
-			/>
+			<div role="region" aria-labelledby={`${id}_dropdownlist`}>
+				<div id={`${id}_dropdownlist`} aria-label={$L('Dropdown list opened')} />
+				<VirtualList
+					{...rest}
+					cbScrollTo={scrollTo}
+					dataSize={dataSize}
+					itemSize={ri.scale(itemSize)}
+					style={{
+						height: ri.scaleToRem((itemSize * dataSize) + 36),
+						width: typeof width === 'number' ? ri.scaleToRem(width) : null
+					}}
+				/>
+			</div>
 		);
 	}
 });
@@ -307,6 +320,10 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 const DropdownListDecorator = compose(
 	DropdownListSpotlightDecorator,
+	IdProvider({
+		generateProp: null,
+		prefix: 'dl_'
+	}),
 	Skinnable({variantsProp: 'skinVariants'})
 );
 

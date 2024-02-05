@@ -38,7 +38,7 @@ describe('TabGroup specs', () => {
 		);
 
 		const expected = 3;
-		const actual = screen.getByRole('group').children;
+		const actual = screen.getByRole('tablist').children;
 
 		expect(actual).toHaveLength(expected);
 	});
@@ -46,7 +46,7 @@ describe('TabGroup specs', () => {
 	test('should render group even if it has no tabs', () => {
 		render(<TabGroup tabs={[]} />);
 
-		const tabGroup = screen.getByRole('group');
+		const tabGroup = screen.getByRole('tablist');
 		expect(tabGroup).toBeInTheDocument();
 	});
 
@@ -140,7 +140,7 @@ describe('TabGroup specs', () => {
 			/>
 		);
 
-		await user.click(screen.getByRole('group').children[0]);
+		await user.click(screen.getByRole('tablist').children[0]);
 
 		const expected = {type: 'onTabClick'};
 		const actual = handleTabClick.mock.calls.length && handleTabClick.mock.calls[0][0];

@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import Button from '../../Button';
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
 const keyDown = (keyCode) => (tab) => fireEvent.keyDown(tab, {keyCode});
@@ -335,6 +336,38 @@ describe('TabLayout specs', () => {
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onExpand\' with \'onExpand\' type when pressing \'backKey\' on a tab content', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout collapsed onExpand={spy} rtl={false}>
+				<Tab icon="home" title="Home">
+					<Button>Button</Button>
+				</Tab>
+			</TabLayout>
+		);
+
+		fireEvent.keyUp(screen.getByRole('button'), {keyCode: 27});
+
+		const expected = {type: 'onExpand'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should not call \'onExpand\' when \'disableBackKeyNavigation\' prop is true and pressing \'backKey\' on a tab content', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout collapsed disableBackKeyNavigation onExpand={spy} rtl={false}>
+				<Tab icon="home" title="Home">
+					<Button>Button</Button>
+				</Tab>
+			</TabLayout>
+		);
+
+		fireEvent.keyUp(screen.getByRole('button'), {keyCode: 27});
+		expect(spy).not.toHaveBeenCalled();
 	});
 
 	test('should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {

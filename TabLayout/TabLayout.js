@@ -143,6 +143,14 @@ const TabLayoutBase = kind({
 		}),
 
 		/**
+		 * Disable back key behavior which moves focus from tab contents to tab menu
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		disableBackKeyNavigation: PropTypes.bool,
+
+		/**
 		 * The currently selected tab.
 		 *
 		 * @type {Number}
@@ -281,13 +289,16 @@ const TabLayoutBase = kind({
 			const {keyCode, target} = ev;
 			const {anchorTo, collapsed, orientation, 'data-spotlight-id': spotlightId, rtl, type} = props;
 			const popupPanelRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${popupTabLayoutComponentCss.panel}`);
+			const tabLayoutContentRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`);
 
-			if (forwardWithPrevent('onKeyUp', ev, props) && type === 'popup' && is('cancel')(keyCode) && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') {
-				if (collapsed) {
-					forward('onExpand', ev, props);
+			if (forwardWithPrevent('onKeyUp', ev, props) && is('cancel')(keyCode)) {
+				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && !props.disableBackKeyNavigation && !Spotlight.getPointerMode() && tabLayoutContentRef?.contains(target))) {
+					if (collapsed) {
+						forward('onExpand', ev, props);
+					}
+					Spotlight.focus(`[data-spotlight-id='${spotlightId}-tabs-expanded']`);
+					ev.stopPropagation();
 				}
-				Spotlight.move('left');
-				ev.stopPropagation();
 			} else if (is('enter')(keyCode) && !collapsed && document.querySelector(`[data-spotlight-id='${spotlightId}-tabs-expanded']`).contains(target) && target.tagName !== 'INPUT') {
 				Spotlight.setPointerMode(false);
 
@@ -379,6 +390,7 @@ const TabLayoutBase = kind({
 
 	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleClick, handleEnter, handleFlick, handleFocus, handleTabsTransitionEnd, index, onCollapse, onSelect, orientation, tabOrientation, tabSize, tabs, type, ...rest}) => {
 		delete rest.anchorTo;
+		delete rest.disableBackKeyNavigation;
 		delete rest.onExpand;
 		delete rest.onTabAnimationEnd;
 		delete rest.rtl;
