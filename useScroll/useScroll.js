@@ -139,7 +139,7 @@ const useThemeScroll = (props, instances) => {
 			cbAlertScrollbarTrack: alertScrollbarTrack,
 			onInteractionForScroll,
 			scrollbarTrackCss
-		}
+		};
 	}, [alertScrollbarTrack, onInteractionForScroll, scrollbarTrackCss]);
 
 	// Functions
@@ -188,7 +188,7 @@ const useThemeScroll = (props, instances) => {
 		if (Spotlight.getPointerMode() && !isItemFocused) {
 			Spotlight.focus(scrollContainerRef.current, {enterTo: 'topmost'});
 		}
-	}, [scrollContainerRef, themeScrollContentHandle])
+	}, [scrollContainerRef, themeScrollContentHandle]);
 
 	const start = useCallback((animate) => {
 		if (scrollMode === 'native' && !animate) {
@@ -413,10 +413,11 @@ const useScroll = (props) => {
 		stop // scrollMode 'translate'
 	} =  useThemeScroll(props, instance);
 
-	const testRef = useRef(() => {})
+	const testRef = useRef(() => {});
+
 	if (testRef.current !== addEventListeners) {
 		testRef.current = addEventListeners;
-		console.log('new');
+		console.log('new'); // eslint-disable-line no-console
 	}
 
 	// Render
