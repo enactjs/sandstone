@@ -57,7 +57,20 @@
 	}
 
 	.focus({
-		transform: @sand-iconitem-focus-transform;
+		// transform: @sand-iconitem-focus-transform;
+
+		.content {
+			outline: 12px solid rgb(260, 260, 260);
+			outline-offset: 9px;
+		}
+
+		.content::before {
+			content: '';
+			position: absolute;
+			.position(0);
+			outline: 9px solid black;
+			border-radius: @sand-iconitem-border-radius;
+		}
 
 		&.labelOnFocus {
 			.icon {
