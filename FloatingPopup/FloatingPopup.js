@@ -66,9 +66,11 @@ const FloatingPopupContainer = kind({
 
 	render: ({children, className, position, ...rest}) => {
 		return (
-			<div className={css.FloatingPopup}>
-				<div className={className} style={position} {...rest}>{children}</div>
-			</div>
+			<FloatingPopupBase>
+				<div className={css.FloatingPopup}>
+					<div className={className} style={position} {...rest}>{children}</div>
+				</div>
+			</FloatingPopupBase>
 		);
 	}
 });
@@ -123,7 +125,8 @@ class FloatingPopup extends Component {
 	};
 
 	static defaultProps = {
-		open: false
+		open: false,
+		position: {left:300, top:300}
 	};
 
 	constructor (props) {
@@ -149,9 +152,7 @@ class FloatingPopup extends Component {
 				scrimType="none"
 			>
 				<FloatingPopupContainer position={position} className={className} {...rest}>
-					<FloatingPopupBase>
-						{children}
-					</FloatingPopupBase>
+					{children}
 				</FloatingPopupContainer>
 			</FloatingLayer>
 		);
@@ -159,4 +160,4 @@ class FloatingPopup extends Component {
 }
 
 export default FloatingPopup;
-export {FloatingPopupContainer, FloatingPopupBase, FloatingPopup};
+export {FloatingPopup, FloatingPopupBase, FloatingPopupContainer};
