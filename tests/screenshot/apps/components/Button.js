@@ -11,7 +11,9 @@ const ButtonTests = [
 		textSize: 'large',
 		component: <Button>click me</Button>
 	},
+	// [QWTC-2232] Checking of the expanded button will be confirmed in other test cases(QWTC-1832).
 	<Button disabled>click me</Button>,
+	// [QWTC-2232] end
 
 	// [QWTC-2255] - Color Underbar displays Icon with 'minWidth' and with 'Disabled'
 	<Button color="red" icon="minus" iconPosition="after" minWidth={false} disabled />,
@@ -148,8 +150,10 @@ const ButtonTests = [
 
 	// Focused with light wrapper
 	...withConfig({focus: true, wrapper: {light: true, padded: true}}, [
+		// [QWTC-2232]
 		<Button>Focused button</Button>,
 		<Button disabled>Focused button</Button>,
+		// [QWTC-2232] end
 		<Button>Focused Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Button>,
 		{
 			textSize: 'large',

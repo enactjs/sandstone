@@ -1,9 +1,9 @@
 const ScrollerPage = require('../ScrollerPage');
-const {enableEditModeLongPress, expectFocusedItem} = require('../Scroller-utils');
+const {expectFocusedItem, expectItemWrapperClass} = require('../Scroller-utils');
 
-describe('Scroller With Editable Select Item By Long Press', function () {
+describe('Scroller With Editable Select Item By Press', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open('WithEditableSelectItemByLongPress');
+		await ScrollerPage.open('WithEditableSelectItemByPress');
 	});
 
 	it('should change item position with 5-way mode [QWTC-569]', async function () {
@@ -11,9 +11,9 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		await ScrollerPage.spotlightDown();
 		// Step 3-1 Verify: Spotlight is on Image 0.
 		await expectFocusedItem(0);
-		await enableEditModeLongPress();
+		await ScrollerPage.spotlightSelect();
 		// Step 3-2 Verify: Image 0 rises upper
-		expect(await ScrollerPage.checkEditableItem()).to.be.true();
+		await expectItemWrapperClass('tests_ui_apps_Scroller_WithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_selected');
 
 		// Step 4: 5-way Right.
 		await ScrollerPage.spotlightRight();
@@ -26,7 +26,7 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		// Step 5: 5-way Right 3 times.
 		// Step 5 Verify: Image are switched for each 5-way right.
 		await ScrollerPage.spotlightRight();
-		await enableEditModeLongPress();
+		await ScrollerPage.spotlightSelect();
 		await ScrollerPage.spotlightRight();
 		await ScrollerPage.spotlightRight();
 		await ScrollerPage.spotlightRight();
@@ -42,7 +42,7 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		// Step 6: 5-way Left.
 		// Step 6 Verify: Position of Image 0 and Image 4 are switched.
 		await ScrollerPage.spotlightLeft();
-		await enableEditModeLongPress();
+		await ScrollerPage.spotlightSelect();
 		await ScrollerPage.spotlightRight();
 		await expectFocusedItem(4);
 	});
