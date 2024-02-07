@@ -134,7 +134,7 @@ const HeaderBase = kind({
 		 * Determines what triggers the header content to start its animation.
 		 *
 		 * @type {('focus'|'hover'|'render')}
-		 * @default 'hover'
+		 * @default 'render'
 		 * @public
 		 */
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),

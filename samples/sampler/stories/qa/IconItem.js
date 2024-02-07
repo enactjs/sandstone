@@ -269,6 +269,7 @@ export const EditableIcon = (args) => {
 											{...item.iconItemProps}
 											aria-label={`Icon ${item.index}`}
 											className={css.editableIconItem}
+											css={css}
 											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
