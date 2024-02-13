@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Scroller from '@enact/sandstone/Scroller';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
