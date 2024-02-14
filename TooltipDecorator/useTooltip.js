@@ -1,5 +1,3 @@
-/* global MutationObserver ResizeObserver */
-
 import {forward} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
 import {useI18nContext} from '@enact/i18n/I18nDecorator';
