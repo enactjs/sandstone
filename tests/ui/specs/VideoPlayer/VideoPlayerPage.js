@@ -95,7 +95,7 @@ class VideoPlayerPage extends Page {
 			videoPlayerSpotlightDisabled,
 			videoPlayerProps,
 			videoPlayerProps2,
-			videoPlayerPlaybackSpeed,
+			videoPlayerPlaybackSpeed
 		};
 	}
 

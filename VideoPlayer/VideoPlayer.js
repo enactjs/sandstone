@@ -1406,7 +1406,7 @@ const VideoPlayerBase = class extends Component {
 
 	/**
 	 * Programmatically plays the current media.
-	 * If play during fast forwarding or rewinding, the playback speed will be update to normal.
+	 * If you play during fast forwarding or rewinding, the playback speed updates to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1433,7 +1433,7 @@ const VideoPlayerBase = class extends Component {
 
 	/**
 	 * Programmatically pauses the current media.
-	 * If pause during fast forwarding or rewinding, the playback speed will be update to normal.
+	 * If you pause during fast forwarding or rewinding, the playback speed updates to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1499,9 +1499,9 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Fast forward to play the current media for seeking.
-	 * It is changes the playback rate.
-	 * If play during fast forwarding, playback speed will be update to normal.
+	 * Fast forward the current media for seeking.
+	 * It changes the playback rate.
+	 * If you play or pause during fastforwarding, the playback speed update to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1561,9 +1561,9 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Rewind to play the current media for seeking.
-	 * It is changes the playback rate.
-	 * If play during rewinding, playback speed will be update to normal.
+	 * Rewind the current media for seeking.
+	 * It changes the playback rate.
+	 * If you play or pause during rewinding, the playback speed updates to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1631,13 +1631,17 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Set the playback speed.
+	 * Sets the playback speed.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	setPlaybackSpeed = (rate) => {
+		if (this.state.sourceUnavailable) {
+			return false;
+		}
+
 		this.setState({seekingMode: false});
 		this.setPlaybackRate(rate);
 

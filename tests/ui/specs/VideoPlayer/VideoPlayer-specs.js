@@ -8,7 +8,7 @@ describe('VideoPlayer', function () {
 		videoPlayerSpotlightDisabled,
 		videoPlayerProps,
 		videoPlayerProps2,
-		videoPlayerPlaybackSpeed,
+		videoPlayerPlaybackSpeed
 	} = Page.components;
 
 	describe('default', function () {
