@@ -1501,7 +1501,7 @@ const VideoPlayerBase = class extends Component {
 	/**
 	 * Fast forward the current media for seeking.
 	 * It changes the playback rate.
-	 * If you play or pause during fastforwarding, the playback speed update to normal.
+	 * If you play or pause during fastforwarding, the playback speed updates to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
