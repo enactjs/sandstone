@@ -41,7 +41,6 @@ import RangePicker from '../views/RangePicker';
 import ReadAlert from '../views/ReadAlert';
 import Region from '../views/Region';
 import Scroller from '../views/Scroller';
-import ScrollerWithBodyTextFocus from '../views/ScrollerWithBodyTextFocus';
 import Slider from '../views/Slider';
 import Spinner from '../views/Spinner';
 import Switch from '../views/Switch';
@@ -93,7 +92,6 @@ const views = [
 	{title: 'ReadAlert', view: ReadAlert},
 	{title: 'Region', view: Region},
 	{title: 'Scroller', view: Scroller},
-	{title: 'ScrollerWithBodyTextFocus', view: ScrollerWithBodyTextFocus},
 	{title: 'Slider', view: Slider},
 	{title: 'Spinner', view: Spinner},
 	{title: 'Switch', view: Switch},
