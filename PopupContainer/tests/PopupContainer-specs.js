@@ -3,33 +3,33 @@ import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 
-import {FloatingPopup} from '../FloatingPopup';
+import {PopupContainer} from '../PopupContainer';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
-describe('FloatingPopup specs', () => {
+describe('PopupContainer specs', () => {
 	test('should be rendered opened if open is set to true', () => {
 		render(
 			<FloatingLayerController>
-                <FloatingPopup open><div>floatingPopup</div></FloatingPopup>
+                <PopupContainer open><div>PopupContainer</div></PopupContainer>
 			</FloatingLayerController>
 		);
 
-		const floatingPopup = screen.getByText('floatingPopup');
+		const popupContainer = screen.getByText('PopupContainer');
 
-		expect(floatingPopup).toBeInTheDocument();
+		expect(popupContainer).toBeInTheDocument();
 	});
 
 	test('should not be rendered if open is set to false', () => {
 		render(
 			<FloatingLayerController>
-				<FloatingPopup><div>FloatingPopup</div></FloatingPopup>
+				<PopupContainer><div>PopupContainer</div></PopupContainer>
 			</FloatingLayerController>
 		);
 
-		const floatingPopup = screen.queryByText('FloatingPopup');
+		const popupContainer = screen.queryByText('PopupContainer');
 
-		expect(floatingPopup).toBeNull();
+		expect(popupContainer).toBeNull();
 	});
 });
 

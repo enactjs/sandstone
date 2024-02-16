@@ -43,7 +43,6 @@ export default {
 
 const PopupTabLayoutSamplesBase = ({args, rtl}) => {
 	const includeIcons = args['include icons'];
-
 	const [open, setOpenState] = useState(false);
 	const toggleOpen = () => setOpenState(!open);
 	const handleClose = compose(toggleOpen, action('onClose'));
