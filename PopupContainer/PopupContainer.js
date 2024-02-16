@@ -39,11 +39,25 @@ const PopupContainerBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		position: PropTypes.object
+		position: PropTypes.object,
+		/**
+		 * Whether rtl locale.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		rtl: PropTypes.bool,
+		/**
+		 * Control for rlt position of user.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		rtlDirection: PropTypes.bool
 	},
 
 	defaultProps: {
-		position: {left: 300, top: 300},
+		position: {left: 300, top: 300}
 	},
 
 	styles: {
@@ -52,12 +66,12 @@ const PopupContainerBase = kind({
 	},
 
 	computed: {
-		style: ({position, rtl, rtlDirection}) => ((rtl && rtlDirection) ? 
-			{transform: `translate(${position.left * (-1)}px,${position.top}px`}: 
+		style: ({position, rtl, rtlDirection}) => ((rtl && rtlDirection) ?
+			{transform: `translate(${position.left * (-1)}px,${position.top}px`} :
 			{transform: `translate(${position.left}px,${position.top}px`}),
 		directionStyle: ({rtlDirection, rtl}) => ((rtl && rtlDirection) ? {direction: 'rtl'} : {direction: 'ltr'})
 	},
-	render: ({children, className, directionStyle, rtlDirection, rtl, style, ...rest}) => {
+	render: ({children, className, directionStyle, style, ...rest}) => {
 		return (
 			<div style={directionStyle}>
 				<div className={css.PopupContainer}>
@@ -120,8 +134,8 @@ class PopupContainer extends Component {
 		position: PropTypes.object,
 
 		/**
-		 * Use to rtl direction.
-		 * 
+		 * Control for rlt position of user.
+		 *
 		 * @type {Boolean}
 		 * @public
 		 */
@@ -130,7 +144,7 @@ class PopupContainer extends Component {
 
 	static defaultProps = {
 		open: false,
-		position: {left:300, top:300}
+		position: {left: 300, top: 300}
 	};
 
 	constructor (props) {
@@ -144,7 +158,7 @@ class PopupContainer extends Component {
 	handleOpen = (ev) => {
 		forward('onOpen', ev, this.props);
 	};
-	
+
 	render () {
 		const {className, open, position, children, rtlDirection, ...rest} = this.props;
 
@@ -154,11 +168,11 @@ class PopupContainer extends Component {
 				onOpen={this.handleOpen}
 				onClose={this.handleClose}
 				scrimType="none"
-		>
-			<I18nPopupContainer className={className} position={position} rtlDirection={rtlDirection} {...rest}>
-				{children}
-			</I18nPopupContainer>
-		</FloatingLayer>
+			>
+				<I18nPopupContainer className={className} position={position} rtlDirection={rtlDirection} {...rest}>
+					{children}
+				</I18nPopupContainer>
+			</FloatingLayer>
 		);
 	}
 }

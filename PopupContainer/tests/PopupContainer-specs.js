@@ -11,7 +11,7 @@ describe('PopupContainer specs', () => {
 	test('should be rendered opened if open is set to true', () => {
 		render(
 			<FloatingLayerController>
-                <PopupContainer open><div>PopupContainer</div></PopupContainer>
+				<PopupContainer open><div>PopupContainer</div></PopupContainer>
 			</FloatingLayerController>
 		);
 

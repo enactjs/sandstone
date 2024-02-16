@@ -1,9 +1,9 @@
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import BodyText from '@enact/sandstone/BodyText';
 import PopupContainer from '@enact/sandstone/PopupContainer';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, object} from '@enact/storybook-utils/addons/controls';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 
 import {svgGenerator} from '../helper/svg';
 import PropTypes from 'prop-types';
@@ -60,7 +60,7 @@ const PopupContainerSamples = I18nContextDecorator(
 	PopupContainerBaseSample
 );
 
-export const _PopupContainer = (args) => <PopupContainerSamples args={args}/>;
+export const _PopupContainer = (args) => <PopupContainerSamples args={args} />;
 
 boolean('open', _PopupContainer, Config);
 object('position', _PopupContainer, Config, {'left': 300, 'top': 300});

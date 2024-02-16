@@ -426,7 +426,6 @@ WithScroller.parameters = {
 
 const WithVariousItemsSamplesBase = ({args, rtl}) => {
 	const defaultOpen = true;
-	console.log('rtl = ', rtl)
 	const [open, setOpenState] = useState(defaultOpen);
 	const [popupOpen, setPopupOpenState] = useState(false);
 	const toggleOpen = () => setOpenState(!open);
