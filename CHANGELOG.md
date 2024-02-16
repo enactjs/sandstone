@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` with `editable` prop to remain focused on the selected item when completing edit by down or enter key in pointer mode
+- `sandstone/Scroller` not to forward `onBack` handler of `sandstone/Panels` when focus moves from scroll thumb to BodyText via back key
 
 ## [2.8.0] - 2024-02.07
 
