@@ -37,7 +37,7 @@ import css from './Alert.module.less';
  * @public
  */
 const AlertBase = kind({
-	// name: 'Alert',
+	name: 'Alert',
 
 	propTypes: /** @lends sandstone/Alert.AlertBase.prototype */ {
 		/**
