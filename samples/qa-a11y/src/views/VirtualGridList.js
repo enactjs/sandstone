@@ -17,6 +17,7 @@ const svgGenerator = (width, height, bgColor, textColor, customText) => (
 	`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23${textColor}'%3E${customText}%3C/text%3E%3C/svg%3E`
 );
 
+// eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => {
 	const {caption, label, src} = items[index];
 

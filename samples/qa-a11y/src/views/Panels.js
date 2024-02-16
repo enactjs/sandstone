@@ -17,7 +17,7 @@ const PanelsView = () => {
 
 	const nextPanel = () => setIndex(1);
 	const prevPanel = () => setIndex(0);
-	const customItem = ({index: itemIndex, ...rest}) => {
+	const customItem = ({index: itemIndex, ...rest}) => { // eslint-disable-line enact/prop-types
 		return (
 			<Item {...rest} onClick={nextPanel}>
 				{itemList[itemIndex]}
