@@ -32,14 +32,13 @@ const PopupContents = () => (
 	</div>
 );
 
-const PopupContainerBaseSample = ({args, rtl}) => {
-	const rtlDirection = args['rtlDirection'] ? args['rtlDirection'] : rtl;
+const PopupContainerBaseSample = ({args}) => {
 	return (
 		<div>
 			<PopupContainer
 				open={args['open']}
 				position={args['position']}
-				rtlDirection={rtlDirection}
+				// forceDirection={args['forceDirection']}
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
 			>
@@ -64,7 +63,7 @@ export const _PopupContainer = (args) => <PopupContainerSamples args={args} />;
 
 boolean('open', _PopupContainer, Config);
 object('position', _PopupContainer, Config, {'left': 300, 'top': 300});
-boolean('rtlDirection', _PopupContainer, Config, true);
+// select('forceDirection', _PopupContainer,[null, 'ltr', 'rtl'], Config, null);
 
 _PopupContainer.storyName = 'PopupContainer';
 _PopupContainer.parameters = {

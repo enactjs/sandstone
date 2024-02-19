@@ -13,13 +13,12 @@
  * @exports PopupContainerBase
  */
 
-import FloatingLayer from '@enact/ui/FloatingLayer';
-import kind from '@enact/core/kind';
-import {Component} from 'react';
-import PropTypes from 'prop-types';
 import {forward, forwardCustom} from '@enact/core/handle';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-
+import kind from '@enact/core/kind';
+// import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import FloatingLayer from '@enact/ui/FloatingLayer';
+import PropTypes from 'prop-types';
+import {Component} from 'react';
 
 import css from './PopupContainer.module.less';
 
@@ -28,11 +27,20 @@ import css from './PopupContainer.module.less';
  * @class PopupContainerBase
  * @memberof sandstone/PopupContainer
  * @ui
- * @public
+ * @private
  */
 const PopupContainerBase = kind({
 	name: 'PopupContainerBase',
+
 	propTypes: /** @lends sandstone/PopupContainer.PopupContainerBase.prototype */ {
+		/**
+		 * Force direction like ltr, rtl.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		forceDirection: PropTypes.string,
+
 		/**
 		 * Position of the PopupContainer on the screen.
 		 *
@@ -40,24 +48,18 @@ const PopupContainerBase = kind({
 		 * @public
 		 */
 		position: PropTypes.object,
+
 		/**
 		 * Whether rtl locale.
 		 *
-		 * @type {Object}
-		 * @public
+		 * @type {Boolean}
+		 * @private
 		 */
-		rtl: PropTypes.bool,
-		/**
-		 * Control for rlt position of user.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		rtlDirection: PropTypes.bool
+		rtl: PropTypes.bool
 	},
 
 	defaultProps: {
-		position: {left: 300, top: 300}
+		position: {left: 0, top: 0}
 	},
 
 	styles: {
@@ -66,11 +68,27 @@ const PopupContainerBase = kind({
 	},
 
 	computed: {
-		style: ({position, rtl, rtlDirection}) => ((rtl && rtlDirection) ?
-			{transform: `translate(${position.left * (-1)}px,${position.top}px`} :
-			{transform: `translate(${position.left}px,${position.top}px`}),
-		directionStyle: ({rtlDirection, rtl}) => ((rtl && rtlDirection) ? {direction: 'rtl'} : {direction: 'ltr'})
+		style: ({position, rtl, forceDirection}) => {
+			if (forceDirection === 'rtl') {
+				return {transform: `translate(${position.left * (-1)}px,${position.top}px`};
+			}
+			if (forceDirection === 'ltr') {
+				return {transform: `translate(${position.left}px,${position.top}px`};
+			}
+			if (rtl) {
+				return {transform: `translate(${position.left * (-1)}px,${position.top}px`};
+			}
+			if (!rtl) {
+				return {transform: `translate(${position.left}px,${position.top}px`};
+			}
+		},
+		directionStyle: ({forceDirection, rtl}) => {
+			if (forceDirection) return {direction : forceDirection};
+			if (!forceDirection && rtl) return {direction: 'rtl'};
+			if (!forceDirection && !rtl) return {direction: 'ltr'};
+		}
 	},
+
 	render: ({children, className, directionStyle, style, ...rest}) => {
 		return (
 			<div style={directionStyle}>
@@ -82,10 +100,10 @@ const PopupContainerBase = kind({
 	}
 });
 
-const I18nPopupContainer = I18nContextDecorator(
-	{rtlProp: 'rtl'},
-	PopupContainerBase
-);
+// const I18nPopupContainer = I18nContextDecorator(
+//	 {rtlProp: 'rtl'},
+//	 PopupContainerBase
+// );
 
 /**
  *
@@ -93,11 +111,19 @@ const I18nPopupContainer = I18nContextDecorator(
  * @memberof sandstone/PopupContainer
  * @extends sandstone/PopupContainerBase
  * @ui
- * @public
+ * @private
  */
 class PopupContainer extends Component {
 
 	static propTypes = /** @lends sandstone/PopupContainer.PopupContainer.prototype */ {
+		/**
+		 * Force direction like rtl, ltr.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		forceDirection: PropTypes.string,
+
 		/**
 		 * Called when the user has attempted to close the popup.
 		 *
@@ -131,20 +157,12 @@ class PopupContainer extends Component {
 		 * @type {Object}
 		 * @public
 		 */
-		position: PropTypes.object,
-
-		/**
-		 * Control for rlt position of user.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		rtlDirection: PropTypes.bool
+		position: PropTypes.object
 	};
 
 	static defaultProps = {
 		open: false,
-		position: {left: 300, top: 300}
+		position: {left: 0, top: 0}
 	};
 
 	constructor (props) {
@@ -160,7 +178,7 @@ class PopupContainer extends Component {
 	};
 
 	render () {
-		const {className, open, position, children, rtlDirection, ...rest} = this.props;
+		const {className, open, position, children, forceDirection, ...rest} = this.props;
 
 		return (
 			<FloatingLayer
@@ -169,9 +187,9 @@ class PopupContainer extends Component {
 				onClose={this.handleClose}
 				scrimType="none"
 			>
-				<I18nPopupContainer className={className} position={position} rtlDirection={rtlDirection} {...rest}>
+				<PopupContainerBase className={className} position={position} forceDirection={forceDirection} {...rest}>
 					{children}
-				</I18nPopupContainer>
+				</PopupContainerBase>
 			</FloatingLayer>
 		);
 	}
