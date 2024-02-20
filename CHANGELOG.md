@@ -2,11 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [2.8.0] - 2024-02.07
+## [unreleased]
 
 ### Added
 
 - `sandstone/VideoPlayer` support for playback speed adjustment
+
+## [2.8.0] - 2024-02.07
 
 ### Fixed
 
