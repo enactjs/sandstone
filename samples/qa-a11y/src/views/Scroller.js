@@ -117,7 +117,12 @@ const ScrollerView = () => {
 				horizontalScrollThumbAriaLabel={customAriaLabel ? 'This is horizontal scroll thumb' : null}
 			>
 				<div style={audioGuidance ? null : {width: ri.scaleToRem(6000)}}>
-					{audioGuidance ? <Container>{bodyText.map((x, i) => <SpottableDiv className={css.focusableBodyText} key={i}>{x}</SpottableDiv>)}</Container> : bodyText.map((x, i) => <Fragment key={i}>{x}</Fragment>)}
+					{audioGuidance ?
+						<Container>
+							{bodyText.map((x, i) => <SpottableDiv className={css.focusableBodyText} key={i}>{x}</SpottableDiv>)}
+						</Container> :
+						bodyText.map((x, i) => <Fragment key={i}>{x}</Fragment>)
+					}
 				</div>
 			</Cell>
 		</Layout>
