@@ -1,10 +1,9 @@
-import handle, {forProp, forwardCustom, forwardCustomWithPrevent, not} from '@enact/core/handle';
+import handle, {forProp, forwardCustomWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
-import {Cell, Column, Row} from '@enact/ui/Layout';
+import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
@@ -14,7 +13,6 @@ import compose from 'ramda/src/compose';
 import {createContext} from 'react';
 
 import $L from '../internal/$L';
-import Button from '../Button';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
 import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton} from '../internal/Panels';
@@ -67,15 +65,6 @@ const WizardPanelsBase = kind({
 		'aria-label': PropTypes.string,
 
 		/**
-		 * Hint string read when focusing the close button.
-		 *
-		 * @type {String}
-		 * @default 'Exit Quick Guide'
-		 * @private
-		 */
-		closeButtonAriaLabel: PropTypes.string,
-
-		/**
 		 * Obtains a reference to the root node.
 		 *
 		 * @type {Function|Object}
@@ -103,14 +92,6 @@ const WizardPanelsBase = kind({
 		* @public
 		*/
 		footer: PropTypes.node,
-
-		/**
-		* When `true`, indicates full screen size content
-		*
-		* @type {Boolean}
-		* @private
-		*/
-		fullScreenContent: PropTypes.bool,
 
 		/**
 		* The currently selected panel.
@@ -189,14 +170,6 @@ const WizardPanelsBase = kind({
 		* @public
 		*/
 		onChange: PropTypes.func,
-
-		/**
-		 * Called when the close button is clicked.
-		 *
-		 * @type {Function}
-		 * @private
-		 */
-		onClose: PropTypes.func,
 
 		/**
 		 * Called when the next button is clicked in WizardPanel.
@@ -324,13 +297,9 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
-		onClose: forwardCustom('onClose'),
 		onNextClick: handle(
 			forwardCustomWithPrevent('onNextClick'),
-			(ev, {'data-spotlight-id': spotlightId, fullScreenContent, index, onChange, totalPanels}) => {
-				if (fullScreenContent) {
-					Spotlight.set(spotlightId, {enterTo: 'last-focused'});
-				}
+			(ev, {index, onChange, totalPanels}) => {
 				if (onChange && index !== totalPanels) {
 					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
@@ -374,76 +343,16 @@ const WizardPanelsBase = kind({
 				noSubtitle
 			}
 		),
-		closeButton: ({closeButtonAriaLabel, onClose, totalPanels}) => {
-			return (
-				totalPanels ? <Button
-					aria-label={closeButtonAriaLabel == null ? $L('Exit Quick Guide') : closeButtonAriaLabel}
-					className={css.close}
-					icon="closex"
-					onClick={onClose}
-					size="small"
-				/> : null
-			);
-		},
-		steps: ({current, fullScreenContent, index, noSteps, total, totalPanels}) => {
+		steps: ({current, index, noSteps, total, totalPanels}) => {
 			const currentStep = (noSteps && 1) || ((typeof current === 'number' && current > 0) ? current : (index + 1));
 			const totalSteps = (noSteps && 1) || ((typeof total === 'number' && total > 0) ? total : totalPanels);
 
-			return ( fullScreenContent ?
-				<Steps
-					className={css.steps}
-					pastIcon={'circle'}
-					currentIcon={'circle'}
-					futureIcon={'circle'}
-					current={currentStep}
-					layout="quickGuidePanels"
-					total={totalSteps}
-				/> :
+			return (
 				<Steps
 					className={css.steps}
 					current={currentStep}
 					slot="slotAbove"
 					total={totalSteps}
-				/>
-			);
-		},
-		prevNavigationButton: ({fullScreenContent, index, onPrevClick, prevButton, prevButtonVisibility}) => {
-			const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
-
-			return (
-				<NavigationButton
-					aria-label={$L('Previous')}
-					backgroundOpacity="transparent"
-					component={prevButton}
-					focusEffectIconOnly
-					icon="arrowlargeleft"
-					className={css.navigationButton}
-					iconFlip="auto"
-					minWidth={false}
-					onClick={onPrevClick}
-					slot={fullScreenContent ? null : 'slotBefore'}
-					visible={isPrevButtonVisible}
-				/>
-			);
-		},
-		nextNavigationButton: ({fullScreenContent, index, nextButton, nextButtonVisibility, onNextClick, totalPanels}) => {
-			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
-
-			return (
-				<NavigationButton
-					aria-label={$L('Next')}
-					backgroundOpacity="transparent"
-					component={nextButton}
-					focusEffectIconOnly
-					className={css.navigationButton}
-					icon="arrowlargeright"
-					iconFlip="auto"
-					iconPosition="after"
-					id={fullScreenContent ? 'fullScreenNextButton' : null}
-					minWidth={false}
-					onClick={onNextClick}
-					slot={fullScreenContent ? null : 'slotAfter'}
-					visible={isNextButtonVisible}
 				/>
 			);
 		}
@@ -452,66 +361,33 @@ const WizardPanelsBase = kind({
 	render: ({
 		'aria-label': ariaLabel,
 		children,
-		closeButton,
 		footer,
-		fullScreenContent,
 		index,
-		prevNavigationButton,
-		nextNavigationButton,
+		nextButton,
+		nextButtonVisibility,
 		noAnimation,
 		noSubtitle,
+		onNextClick,
+		onPrevClick,
 		onTransition,
 		onWillTransition,
+		prevButton,
+		prevButtonVisibility,
 		reverseTransition,
 		steps,
 		subtitle,
 		title,
+		totalPanels,
 		...rest
 	}) => {
-		delete rest.closeButtonAriaLabel;
 		delete rest.current;
-		delete rest.nextButton;
-		delete rest.nextButtonVisibility;
 		delete rest.noSteps;
-		delete rest.onClose;
-		delete rest.onNextClick;
-		delete rest.onPrevClick;
-		delete rest.prevButton;
-		delete rest.prevButtonVisibility;
 		delete rest.total;
-		delete rest.totalPanels;
-		if (fullScreenContent) {
-			// eslint-disable-next-line enact/prop-types
-			delete rest.hideChildren;
-		}
 
-		return ( fullScreenContent ?
-			<article role="region" aria-labelledby={`quickguidepanel_index_${index}`} ref={rest.componentRef}>
-				<Column aria-label={ariaLabel} id={`quickguidepanel_index_${index}`} {...rest}>
-					<Row className={css.fullScreenContentHeader}>
-						{steps}
-						{closeButton}
-					</Row>
-					<Row className={css.fullScreenNavigationButtonContainer}>
-						<Cell shrink>
-							{prevNavigationButton}
-						</Cell>
-						<Cell />
-						<Cell shrink>
-							{nextNavigationButton}
-						</Cell>
-					</Row>
-					<ViewManager
-						arranger={BasicArranger}
-						duration={400}
-						noAnimation
-						onTransition={onTransition}
-						onWillTransition={onWillTransition}
-					>
-						{children}
-					</ViewManager>
-				</Column>
-			</article> :
+		const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
+		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
+
+		return (
 			<DecoratedPanelBase
 				{...rest}
 				header={
@@ -527,8 +403,31 @@ const WizardPanelsBase = kind({
 						type="wizard"
 					>
 						{steps}
-						{prevNavigationButton}
-						{nextNavigationButton}
+						<NavigationButton
+							aria-label={$L('Previous')}
+							backgroundOpacity="transparent"
+							component={prevButton}
+							focusEffectIconOnly
+							icon="arrowlargeleft"
+							iconFlip="auto"
+							minWidth={false}
+							onClick={onPrevClick}
+							slot="slotBefore"
+							visible={isPrevButtonVisible}
+						/>
+						<NavigationButton
+							aria-label={$L('Next')}
+							backgroundOpacity="transparent"
+							component={nextButton}
+							focusEffectIconOnly
+							icon="arrowlargeright"
+							iconFlip="auto"
+							iconPosition="after"
+							minWidth={false}
+							onClick={onNextClick}
+							slot="slotAfter"
+							visible={isNextButtonVisible}
+						/>
 					</HeaderContainer>
 				}
 				panelType="wizard"
@@ -573,7 +472,7 @@ const WizardPanelsDecorator = compose(
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
 		// prefer any spottable within the panel body (content or footer) followed by header
-		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *, .${css.footer} *`, 'header > *', `#fullScreenNextButton`, `.${css.close} *`],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *, .${css.footer} *`, 'header > *'],
 		enterTo: 'default-element'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),
