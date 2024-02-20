@@ -185,7 +185,6 @@ class PopupContainer extends Component {
 		const {open, children, ...rest} = this.props;
 		delete rest.onClose;
 		delete rest.onOpen;
-		delete rest.open;
 
 		return (
 			<FloatingLayer
