@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VirtualList` to show the focused item properly when switching from pointer mode to 5-way mode
+
 ## [2.8.0] - 2024-02.07
 
 ### Fixed

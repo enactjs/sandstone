@@ -15,6 +15,7 @@ const
 	isPageDown = is('pageDown'),
 	isRight = is('right'),
 	isUp = is('up'),
+	isPointerHide = is('pointerHide'),
 	getNumberValue = (index) => {
 		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
 		let number = +index;
@@ -195,12 +196,20 @@ const useEventKey = (props, instances, context) => {
 								directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
 
 							/* istanbul ignore if */
-							if (repeat && isLeaving) { // if focus is about to leave items by holding down an arrowy key
-								ev.preventDefault();
-								if (spotlightId && !getContainerConfig(spotlightId)?.continue5WayHold) {
-									ev.stopPropagation();
+							if (isLeaving) {
+								if (repeat) { // if focus is about to leave items by holding down an arrowy key
+									ev.preventDefault();
+									if (spotlightId && !getContainerConfig(spotlightId)?.continue5WayHold) {
+										ev.stopPropagation();
+									}
+								} else if (!candidate && ev.timeStamp - mutableRef.current.pointerHideTimeStamp < 30) {
+									// No candidate
+									// Spotlight will focus the same item again, then a list scrolls to show the focused item
+									// 30 is an arbitrary value
+									target.blur();
+									mutableRef.current.pointerHideTimeStamp = 0;
 								}
-							} else if (!isLeaving) {
+							} else {
 								handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
 							}
 						}
@@ -214,6 +223,8 @@ const useEventKey = (props, instances, context) => {
 				}
 			} else if (isPageUp(keyCode) || isPageDown(keyCode)) {
 				handlePageUpDownKeyDown();
+			} else if (isPointerHide(keyCode)) {
+				mutableRef.current.pointerHideTimeStamp = ev.timeStamp;
 			}
 		}
 
