@@ -89,7 +89,7 @@ const PopupContainerBase = kind({
 		}
 	},
 
-	render: ({children, className, directionStyle, style, ...rest}) => {
+	render: ({children, directionStyle, ...rest}) => {
 		delete rest.forceDirection;
 		delete rest.position;
 		delete rest.rtl;
@@ -97,7 +97,7 @@ const PopupContainerBase = kind({
 		return (
 			<div style={directionStyle}>
 				<div className={css.PopupContainer}>
-					<div className={className} style={style} {...rest}>{children}</div>
+					<div {...rest}>{children}</div>
 				</div>
 			</div>
 		);
@@ -182,7 +182,7 @@ class PopupContainer extends Component {
 	};
 
 	render () {
-		const {className, open, position, children, forceDirection, ...rest} = this.props;
+		const {open, children, ...rest} = this.props;
 		delete rest.onClose;
 		delete rest.onOpen;
 		delete rest.open;
@@ -194,7 +194,7 @@ class PopupContainer extends Component {
 				onClose={this.handleClose}
 				scrimType="none"
 			>
-				<PopupContainerBase className={className} position={position} forceDirection={forceDirection} {...rest}>
+				<PopupContainerBase {...rest}>
 					{children}
 				</PopupContainerBase>
 			</FloatingLayer>
