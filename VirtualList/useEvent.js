@@ -195,7 +195,7 @@ const useEventKey = (props, instances, context) => {
 								directions.left && column === 0 ||
 								directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
 
-							/* istanbul ignore if */
+							/* istanbul ignore next */
 							if (isLeaving) {
 								if (repeat) { // if focus is about to leave items by holding down an arrowy key
 									ev.preventDefault();
@@ -224,6 +224,7 @@ const useEventKey = (props, instances, context) => {
 			} else if (isPageUp(keyCode) || isPageDown(keyCode)) {
 				handlePageUpDownKeyDown();
 			} else if (isPointerHide(keyCode)) {
+				/* istanbul ignore next */
 				mutableRef.current.pointerHideTimeStamp = ev.timeStamp;
 			}
 		}
