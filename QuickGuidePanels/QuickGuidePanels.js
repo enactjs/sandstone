@@ -374,6 +374,10 @@ const QuickGuidePanelsBase = kind({
 		delete rest.prevButton;
 		delete rest.prevButtonVisibility;
 		delete rest.totalPanels;
+		// eslint-disable-next-line enact/prop-types
+		delete rest.hideChildren;
+		// eslint-disable-next-line enact/prop-types
+		delete rest.reverseTransition;
 
 		return (
 			<article role="region" aria-labelledby={`quickguidepanel_index_${index}`} ref={rest.componentRef}>
