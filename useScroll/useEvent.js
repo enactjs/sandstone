@@ -9,6 +9,7 @@ import {constants} from '@enact/ui/useScroll';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
+import {getContainersForNode, getContainerConfig, getContainerNode} from '@enact/spotlight/src/container';
 
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
@@ -62,8 +63,16 @@ const useEventFocus = (props, instances) => {
 	function calculateAndScrollTo () {
 		const
 			positionFn = themeScrollContentHandle.current.calculatePositionOnFocus,
-			scrollContentNode = scrollContentRef.current,
-			spotItem = Spotlight.getCurrent();
+			scrollContentNode = scrollContentRef.current;
+		let	spotItem = Spotlight.getCurrent();
+
+		const containerIds = getContainersForNode(spotItem);
+		for (let i = containerIds.length - 1; i >= 0; i--) {
+			if (getContainerConfig(containerIds[i]).focusToContainer) {
+				spotItem = getContainerNode(containerIds[i]);
+				break;
+			}
+		}
 
 		if (spotItem && positionFn && utilDOM.containsDangerously(scrollContentNode, spotItem)) {
 			const lastPos = spottable.current.lastScrollPositionOnFocus;
