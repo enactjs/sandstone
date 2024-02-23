@@ -9,8 +9,10 @@ import componentCss from './TransferList.module.less';
 
 const ButtonList = ({
 	disabled,
+	firstListOrderFixed,
 	firstListMaxCapacity,
 	firstListMinCapacity,
+	handleRemoveItems,
 	handleRemoveSelected,
 	moveIntoFirstSelected,
 	moveIntoSecondSelected,
@@ -54,6 +56,13 @@ const ButtonList = ({
 						icon={orientation === 'vertical' ? 'triangleup' : 'triangleleft'}
 						iconOnly
 						onClick={selectIntoFirstAll}
+						size="small"
+					/>
+					<Button
+						disabled={!(selectedItems?.find((item) => (item.list === 'first' && !firstListOrderFixed) || item.list === 'second')) || disabled}
+						icon="trash"
+						iconOnly
+						onClick={handleRemoveItems}
 						size="small"
 					/>
 					<Button

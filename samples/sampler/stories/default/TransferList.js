@@ -16,6 +16,7 @@ export const _TransferList = (args) => (
 	<TransferList
 		disabled={args['disabled']}
 		firstList={['BBC World News', 'CNN International', 'CNBC', 'Fox News', 'MTV', 'Euro News', 'ESPN', 'Fox Sports']}
+		firstListOrderFixed={args['firstListOrderFixed']}
 		firstListMaxCapacity={args['firstListMaximumCapacity']}
 		firstListMinCapacity={args['firstListMinCapacity']}
 		firstListOperation={args['firstListOperation']}
@@ -33,6 +34,7 @@ export const _TransferList = (args) => (
 );
 
 boolean('disabled', _TransferList, Config, false);
+boolean('firstListOrderFixed', _TransferList, Config, false);
 number('firstListMinCapacity', _TransferList, Config);
 number('firstListMaxCapacity', _TransferList, Config);
 select('firstListOperation', _TransferList, ['copy', 'delete', 'move'], Config, 'copy');
