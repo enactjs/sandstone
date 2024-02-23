@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VirtualList.VirtualGridList` to show the focused item properly when focus moved toward on unscrollable direction
+
 ## [2.8.0] - 2024-02.07
 
 ### Fixed
