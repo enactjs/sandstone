@@ -74,7 +74,7 @@ describe('QuickGuidePanel Specs', () => {
 			const spy = jest.fn();
 			let index = 0;
 			const {rerender} = render(
-				<QuickGuidePanels index={index} onWillTransition={spy} noAnimation>
+				<QuickGuidePanels index={index} onWillTransition={spy}>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
 				</QuickGuidePanels>
@@ -84,7 +84,7 @@ describe('QuickGuidePanel Specs', () => {
 			index++;
 
 			rerender(
-				<QuickGuidePanels index={index} onWillTransition={spy} noAnimation>
+				<QuickGuidePanels index={index} onWillTransition={spy}>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
 				</QuickGuidePanels>
@@ -105,7 +105,7 @@ describe('QuickGuidePanel Specs', () => {
 			const spy = jest.fn();
 			let index = 0;
 			const {rerender} = render(
-				<QuickGuidePanels index={index} onTransition={spy} noAnimation>
+				<QuickGuidePanels index={index} onTransition={spy}>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
 				</QuickGuidePanels>
@@ -115,7 +115,7 @@ describe('QuickGuidePanel Specs', () => {
 			index++;
 
 			rerender(
-				<QuickGuidePanels index={index} onTransition={spy} noAnimation>
+				<QuickGuidePanels index={index} onTransition={spy}>
 					<Panel>I gots contents</Panel>
 					<Panel>I gots contents2</Panel>
 				</QuickGuidePanels>
