@@ -29,31 +29,46 @@ export const RecordProvider = ({children}) => {
 };
 
 const SELECT_ITEM = 'recordReducer/SELECTITEM';
-const INCREASE = 'recordReducer/INCREASE';
-const DECREASE = 'recordReducer/DECREASE';
+const ADD_ITEM = 'recordReducer/ADDITEM';
+const CHANGE_DATASIZE = 'recordReducer/CHANGEDATASIZE';
 
-export const selectItem = () => ({ type: SELECT_ITEM });
-export const increase = () => ({ type: INCREASE });
-export const decrease = () => ({ type: DECREASE });
+export const selectItem = (dataIndex) => ({ type: SELECT_ITEM, dataIndex });
+export const addItem = () => ({ type: ADD_ITEM });
+export const changeDataSize = () => ({ type: CHANGE_DATASIZE });
 
 export default function recordReducer(state, action) {
 	switch(action.type) {
 		case(SELECT_ITEM): {
 			const 
-			selectedItems = state.selectedItems,
-			isSelected = selectedItems.includes(action.payload);
+				selectedItems = state.selectedItems,
+				isSelected = selectedItems.includes(action.payload);
 
-		if (state.showOverlay) {
-			if (isSelected) {
-				let id = selectedItems.indexOf(action.payload);
-				if (id >= 0) {
-					selectedItems.splice(id, 1);
+			if (state.showOverlay) {
+				if (isSelected) {
+					let id = selectedItems.indexOf(action.payload);
+					if (id >= 0) {
+						selectedItems.splice(id, 1);
+					}
+				} else {
+					selectedItems.push(action.payload);
 				}
-			} else {
-				selectedItems.push(action.payload);
 			}
+			Object.assign(state, {selectedItems});
+			break;
 		}
-		Object.assign(state, {selectedItems});
+		case(ADD_ITEM): {
+			const
+				addedKey = Object.keys(state.data).length,
+				newData = Object.assign({}, state.data);
+			let newDataOrder = state.dataOrder.concat(addedKey);
+	
+			newData[addedKey] = action.payload;
+	
+			Object.assign(state, {data: newData, dataOrder: newDataOrder, dataSize: newDataOrder.length, selectedItems: []});
+			break;
+		}
+		case(CHANGE_DATASIZE): {	
+			Object.assign(state, {dataSize: action.payload});
 		}
 	}
 }

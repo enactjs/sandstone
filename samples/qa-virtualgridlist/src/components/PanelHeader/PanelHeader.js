@@ -24,6 +24,8 @@ import {
 	selectionEnable as selectionEnableAction,
 	setData as setAction
 } from '../../store';
+import { useContext } from 'react';
+import { RecordContext, RecordDispatchContext } from '../../context/RecordContext';
 
 const PanelHeader = kind({
 	name: 'PanelHeader',
@@ -52,6 +54,7 @@ const PanelHeader = kind({
 			addItem(createRecord({recordIndex, showOverlay}));
 		},
 		changeMinHeight: (ev, {changeMinHeight}) => {
+			console.log('changeMinHeigth', {changeMinHeight});
 			changeMinHeight(ev.value);
 		},
 		changeMinWidth: (ev, {changeMinWidth}) => {
@@ -220,4 +223,128 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
+const PanelHeaderComponent = (props) => {
+	const dispatch = useContext(RecordDispatchContext);
+	const {data, showOverlay} = useContext(RecordContext);
+	console.log(data);
+
+	const addMockItem = (ev, {addItem, dataSize: recordIndex, showOverlay}) => {
+		addItem(createRecord({recordIndex, showOverlay}));
+	};
+	const changeMinHeight = (ev, {changeMinHeight}) => {
+		changeMinHeight(ev.value);
+	};
+	const changeMinWidth = (ev, {changeMinWidth}) => {
+		changeMinWidth(ev.value);
+	};
+	const changeSpacing = (ev, {changeSpacing}) => {
+		changeSpacing(ev.value);
+	};
+	const deleteItem = (ev, {deleteItem}) => {
+		deleteItem();
+	};
+	const deleteSelectedItem = (ev, {deleteSelectedItem}) => {
+		deleteSelectedItem();
+	};
+	const selectAll = (ev, {selectAll}) => {
+		selectAll();
+	};
+	const setData = (ev, {changeDataSize, dataSize, showOverlay, setData}) => {
+		changeDataSize(ev.value);
+		for (let i = 0; i <= ev.value; i++) {
+			setData(ev.value, createRecord({recordIndex: dataSize + i, showOverlay}));
+		}
+	};
+	const showSelectionOverlayHandler = (ev, {selectionEnable}) => {
+		selectionEnable();
+	};
+
+	const tooltipText = data.showOverlay ? 'Previous' : 'Selection';
+
+	const changeListProps = ({changeMinHeight, changeMinWidth, changeSpacing, data, setData, showOverlay}) => {
+		if (!showOverlay) {
+			const inputWidth = {width: '5em'};
+
+			return (
+				<Row style={{direction: 'ltr'}}>
+					<Cell>
+						<label>dataSize:</label>
+						<Input size="small" onChange={setData} style={inputWidth} type="number" value={data.dataSize} />
+					</Cell>
+					<Cell>
+						<label>minHeightSize:</label>
+						<Input size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={data.minHeight} />
+					</Cell>
+					<Cell>
+						<label>minWidthSize:</label>
+						<Input size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={data.minWidth} />
+					</Cell>
+					<Cell>
+						<label>spacingSize:</label>
+						<Input size="small" onChange={changeSpacing} style={inputWidth} type="number" value={data.spacing} />
+					</Cell>
+				</Row>
+			);
+		}
+	}
+	return (
+		<Header {...props}>
+			<Row>
+				<Cell shrink>
+					{/* add button */}
+					{!showOverlay && <Button icon="plus" onClick={addMockItem} size="small" tooltipText="Add Item" />}
+				</Cell>
+				<Cell shrink>
+					{/* delete button */}
+					{!showOverlay && <Button icon="minus" onClick={deleteItem} size="small" tooltipText="Delete Item" />}
+				</Cell>
+				<Cell shrink>
+					{/* delete selected button */}
+					{showOverlay && <Button size="small" onClick={deleteSelectedItem}>Delete</Button>}
+				</Cell>
+				<Cell shrink>
+					{/* select all button */}
+					{showOverlay && <Button size="small" onClick={selectAll}>Select/DeSelect All</Button>}
+				</Cell>
+				<Cell shrink>
+					{/* selection previous button */}
+					<Button size="small" onClick={showSelectionOverlayHandler}>{tooltipText}</Button>
+				</Cell>
+				<Cell>
+					{/* change direction button */}
+					{!showOverlay && <CheckboxItem onClick={data.onChangeDirection}>Horizontal</CheckboxItem>}
+				</Cell>
+				<Cell>
+					{/* chnage scroll mode */}
+					{!showOverlay && <ScrollModeSwitch defaultSelected={data.nativeScroll} onToggle={data.onChangeScrollMode} />}
+				</Cell>
+				<Cell>
+					<LocaleSwitch />
+				</Cell>
+			</Row>
+			{changeListProps}
+		</Header>
+	)
+};
+
+PanelHeaderComponent.PropTypes = {
+	showOverlay: PropTypes.bool.isRequired,
+	addItem: PropTypes.func,
+	changeDataSize: PropTypes.func,
+	changeMinHeight: PropTypes.func,
+	changeMinWidth: PropTypes.func,
+	changeSpacing: PropTypes.func,
+	data: PropTypes.any,
+	dataSize: PropTypes.number,
+	deleteItem: PropTypes.func,
+	deleteSelectedItem: PropTypes.func,
+	nativeScroll: PropTypes.bool,
+	onChangeDirection: PropTypes.func,
+	onChangeScrollMode: PropTypes.func,
+	selectAll: PropTypes.func,
+	selectionEnable: PropTypes.func,
+	setData: PropTypes.func
+};
+
+export {PanelHeaderComponent};
 export default connect(mapStateToProps, mapDispatchToProps)(PanelHeader);
