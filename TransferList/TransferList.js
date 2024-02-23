@@ -72,15 +72,6 @@ const TransferListBase = kind({
 		firstList: PropTypes.array,
 
 		/**
-		 * Fixes the order of items on the first list.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		firstListOrderFixed: PropTypes.bool,
-
-		/**
 		 * Sets the maximum number of items for the first list.
 		 *
 		 * @type {Number}
@@ -104,6 +95,15 @@ const TransferListBase = kind({
 		 * @public
 		 */
 		firstListOperation: PropTypes.oneOf(['move', 'copy', 'delete']),
+
+		/**
+		 * Fixes the order of items on the first list.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		firstListOrderFixed: PropTypes.bool,
 
 		/**
 		 * The height of the list container.
@@ -289,7 +289,7 @@ const TransferListBase = kind({
 			const dragOverOrder = Number(element.getAttribute('order'));
 			currentElement.current = dragOverOrder > 0 ? element : currentElement.current;
 			dragOverElement.current = parseInt(element.id.split('-')[0]);
-		}, [])
+		}, []);
 
 		// Cleanup for removing css animations and borders
 		const removeDropBorder = useCallback((element) => {
@@ -864,25 +864,25 @@ const TransferListBase = kind({
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal, secondListOperation);
 		}, [firstListLocal, firstListOrderFixed, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);
 
-		// Remove all the items from the list that are in the `selectedItems`
+		// Remove all selected items from the list
 		const handleRemoveItems = useCallback(() => {
 			// Make a copy of all lists
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
 
-				selectedItems.map((item) => {
-					// Check if items are from the first list and if the order of items is fixed
-					if (item.list === 'first' && firstListOrderFixed) return;
+			selectedItems.map((item) => {
+				// Check if items are from the first list and if the order of items is fixed
+				if (item.list === 'first' && firstListOrderFixed) return;
 
-					// Check from which list are items and remove them
-					if (item.list === 'first') {
-						tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
-					} else {
-						tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
-					}
-					tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-				});
+				// Check from which list are items and remove them
+				if (item.list === 'first') {
+					tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
+				} else {
+					tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
+				}
+				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+			});
 
 			// If the state is externally controlled, use the provided functions
 			if (setFirstList !== null && setSecondList !== null) {

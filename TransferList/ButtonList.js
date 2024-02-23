@@ -106,6 +106,23 @@ ButtonList.propTypes = {
 	firstListMinCapacity: PropTypes.number,
 
 	/**
+	 * Fixes the order of items on the first list.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	firstListOrderFixed: PropTypes.bool,
+
+	/**
+	 * A function that removes all selected items from the list.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	handleRemoveItems: PropTypes.func,
+
+	/**
 	 * A function that removes all the items from the selected list.
 	 *
 	 * @type {Function}
