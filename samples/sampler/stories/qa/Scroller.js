@@ -6,7 +6,7 @@ import {Heading} from '@enact/sandstone/Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
-import {Scroller, ScrollerContentContainerDecorator} from '@enact/sandstone/Scroller';
+import {Scroller, ContentContainerDecorator} from '@enact/sandstone/Scroller';
 import {Header} from '@enact/sandstone/Panels';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
@@ -1234,7 +1234,7 @@ const renderImageItemForVG = ({index, ...rest}) => { // eslint-disable-line enac
 	);
 };
 
-const ListContainer = ScrollerContentContainerDecorator(
+const ListContainer = ContentContainerDecorator(
 	{enterTo: 'last-focused'},
 	'div'
 );
@@ -1254,12 +1254,12 @@ const List = () => (
 	</ListContainer>
 );
 
-export const WithScrollTargetContainer = (args) => {
+export const WithScrollToContentContainerOnFocus = (args) => {
 	updateDataSize(10);
 
 	return (
 		<Scroller
-			scrollToContainerOnFocus={args['scrollToContainerOnFocus']}
+			scrollToContentContainerOnFocus={args['scrollToContentContainerOnFocus']}
 		>
 			<List />
 			<List />
@@ -1270,6 +1270,6 @@ export const WithScrollTargetContainer = (args) => {
 	);
 };
 
-boolean('scrollToContainerOnFocus', WithScrollTargetContainer, Config, true);
+boolean('scrollToContentContainerOnFocus', WithScrollToContentContainerOnFocus, Config, true);
 
-WithScrollTargetContainer.storyName = 'With Scroll Target Container';
+WithScrollToContentContainerOnFocus.storyName = 'With Content Container';

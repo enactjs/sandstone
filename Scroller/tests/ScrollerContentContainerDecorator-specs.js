@@ -2,13 +2,13 @@ import '@testing-library/jest-dom';
 import {getContainerConfig, getContainerId} from '@enact/spotlight/src/container';
 import {render, screen} from '@testing-library/react';
 
-import {ScrollerContentContainerDecorator} from '../Scroller';
+import {ContentContainerDecorator} from '../Scroller';
 
-describe('ScrollerContentContainerDecorator', () => {
+describe('ContentContainerDecorator', () => {
 	test(
-		'should set \'scrollTargetOnDescendantsFocus\' container config to true',
+		'should set \'positionTargetOnDescendantsFocus\' container config to true',
 		() => {
-			const Container = ScrollerContentContainerDecorator('div');
+			const Container = ContentContainerDecorator('div');
 
 			render(
 				<Container data-testid="container-id" />
@@ -17,7 +17,7 @@ describe('ScrollerContentContainerDecorator', () => {
 			const containerId = getContainerId(screen.getByTestId('container-id'));
 			const containerConfig = getContainerConfig(containerId);
 
-			const actual = containerConfig.scrollTargetOnDescendantsFocus;
+			const actual = containerConfig.positionTargetOnDescendantsFocus;
 			const expected = true;
 
 			expect(actual).toBe(expected);

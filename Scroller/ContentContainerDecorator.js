@@ -2,7 +2,7 @@ import hoc from '@enact/core/hoc';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
 const defaultConfig = {
-	scrollTargetOnDescendantsFocus: true
+	positionTargetOnDescendantsFocus: true
 };
 
 /**
@@ -12,11 +12,11 @@ const defaultConfig = {
  * @memberof sandstone/Scroller
  * @public
  */
-const ScrollerContentContainerDecorator = hoc(defaultConfig, (config, Wrapped) => {
+const ContentContainerDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	return SpotlightContainerDecorator(config, Wrapped);
 });
 
-export default ScrollerContentContainerDecorator;
+export default ContentContainerDecorator;
 export {
-	ScrollerContentContainerDecorator
+	ContentContainerDecorator
 };
