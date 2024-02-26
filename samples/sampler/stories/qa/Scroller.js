@@ -1254,7 +1254,7 @@ const List = () => (
 	</ListContainer>
 );
 
-export const ScrollTargetContainer = (args) => {
+export const WithScrollTargetContainer = (args) => {
 	updateDataSize(10);
 
 	return (
@@ -1270,6 +1270,6 @@ export const ScrollTargetContainer = (args) => {
 	);
 };
 
-boolean('scrollToContainerOnFocus', ScrollTargetContainer, Config, true);
+boolean('scrollToContainerOnFocus', WithScrollTargetContainer, Config, true);
 
-ScrollTargetContainer.storyName = 'With Scroll Target Container';
+WithScrollTargetContainer.storyName = 'With Scroll Target Container';
