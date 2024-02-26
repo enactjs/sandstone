@@ -14,15 +14,15 @@ const ImageList = (props) => {
 	const calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
 	const renderItem = useCallback(({...renderRest}) => (<ImageItemComponent {...renderRest} />), []);
-	
+
 	return (
 		<VirtualGridList
+			{...props}
 			className={props.direction === 'horizontal' ? css.horizontalPadding : css.verticalPadding}
 			dataSize={dataOrder.length}
 			itemRenderer={renderItem}
 			itemSize={{minHeight: calculateOfSize(minHeight), minWidth: calculateOfSize(minWidth)}}
 			spacing={calculateOfSize(spacing)}
-			{...props}
 		/>
 	);
 };
