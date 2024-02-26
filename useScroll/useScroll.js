@@ -324,6 +324,7 @@ const useScroll = (props) => {
 		} = props;
 
 	delete rest.scrollbarTrackCss;
+	delete rest.scrollToContainerOnFocus;
 
 	// Mutable value
 

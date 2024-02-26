@@ -3,13 +3,13 @@ import platform from '@enact/core/platform';
 import {onWindowReady} from '@enact/core/snapshot';
 import {clamp} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
+import {getScrollTargetOnDescendantsFocus} from '@enact/spotlight/src/container';
 import {getRect} from '@enact/spotlight/src/utils';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {constants} from '@enact/ui/useScroll';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
-import {getContainersForNode, getContainerConfig, getContainerNode} from '@enact/spotlight/src/container';
 
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
@@ -66,12 +66,8 @@ const useEventFocus = (props, instances) => {
 			scrollContentNode = scrollContentRef.current;
 		let	spotItem = Spotlight.getCurrent();
 
-		const containerIds = getContainersForNode(spotItem);
-		for (let i = containerIds.length - 1; i >= 0; i--) {
-			if (getContainerConfig(containerIds[i]).focusToContainer) {
-				spotItem = getContainerNode(containerIds[i]);
-				break;
-			}
+		if (props.scrollToContainerOnFocus) {
+			spotItem = getScrollTargetOnDescendantsFocus(spotItem);
 		}
 
 		if (spotItem && positionFn && utilDOM.containsDangerously(scrollContentNode, spotItem)) {

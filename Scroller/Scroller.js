@@ -32,6 +32,7 @@ import ScrollbarPlaceholder from '../useScroll/ScrollbarPlaceholder';
 import Skinnable from '../Skinnable';
 
 import {EditableShape, EditableWrapper} from './EditableWrapper';
+import {ScrollerContentContainerDecorator} from './ScrollerContentContainerDecorator';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
@@ -419,6 +420,14 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	scrollMode: PropTypes.oneOf(['native', 'translate']),
 
 	/**
+	 * Scroll to the container created by ScrollContentContainer when descendants get focused
+	 *
+	 * @type {Boolean}
+	 * @public
+	 */
+	scrollToContainerOnFocus: PropTypes.bool,
+
+	/**
 	 * Specifies how to show vertical scrollbar.
 	 *
 	 * @type {('auto'|'visible'|'hidden')}
@@ -476,5 +485,6 @@ Scroller.defaultProps = {
 
 export default Scroller;
 export {
-	Scroller
+	Scroller,
+	ScrollerContentContainerDecorator
 };
