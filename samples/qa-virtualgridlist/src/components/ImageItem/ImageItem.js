@@ -9,8 +9,8 @@ const ImageItemComponent = (props) => {
 
 	const {data, selectedItems} = useContext(RecordContext);
 	const dispatch = useContext(RecordDispatchContext);
-	
-	const onClick = () => (dispatch(selectItemAction(dataIndex)))
+
+	const onClick = () => (dispatch(selectItemAction(dataIndex)));
 
 	return (
 		<ImageItem
