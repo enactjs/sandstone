@@ -420,7 +420,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	scrollMode: PropTypes.oneOf(['native', 'translate']),
 
 	/**
-	 * Scroll to the container created by ScrollContentContainer when descendants get focused
+	 * Scroll to the container created by {@link sandstone/Scroller.ScrollerContentContainerDecorator|ScrollerContentContainerDecorator} when descendants get focused
 	 *
 	 * @type {Boolean}
 	 * @public
