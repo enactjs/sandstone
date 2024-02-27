@@ -5,6 +5,7 @@
 //
 
 @use "./colors";
+@use "./variables";
 @import "./mixins";
 
 // ---------------------------------------
@@ -30,6 +31,8 @@
 	@include sand-bg-colors {
 		background-color: colors.$sand-spotlight-bg-color;
 		will-change: box-shadow;
+
+		@content;
 	};
 }
 
@@ -39,6 +42,8 @@
 	@include sand-bg-colors {
 		background-color: colors.$sand-spotlight-bg-color;
 		box-shadow: colors.$sand-spotlight-focus-shadow;
+
+		@content;
 	};
 }
 
@@ -64,4 +69,50 @@
 // This should be used on children of a root component node.
 @mixin sand-disabled-focus-content-colors {
 	opacity: colors.$sand-disabled-focus-content-opacity;
+}
+
+// The technique below is special handling for opaque buttons, which have an opaque
+// color defined for the initial background-color. This means we can't use the
+// traditional opacity change to animate the difference. Instead, this smoothly applies
+// (via transition) a series of filters that match the spotlight-focus bg color. The
+// values were manually calculated to perfectly match, taking the resting bg-color and
+// adjusting it to become the focus-bg-color. If either color value changes, these
+// adjustments must be recalculated. This is not automatic. It may be possible to
+// autonomously calculate this in the future...
+// Button single-color mixins
+@mixin sand-button-resting-bg-color {
+	background-color: colors.$sand-button-bg-color;
+}
+
+@mixin sand-button-selected-bg-color {
+	background-color: colors.$sand-button-selected-bg-color;
+	filter: colors.$sand-button-selected-filter;
+}
+
+@mixin sand-button-focus-bg-color {
+	background-color: colors.$sand-button-focus-bg-color;
+	filter: colors.$sand-button-focus-filter;
+}
+
+// Button state mixins
+@mixin sand-button-resting-bg-colors () {
+	@include sand-spotlight-resting-bg-colors($opacity: 0) {
+		@include sand-button-resting-bg-color;
+		will-change: transform, filter;
+		transition: transform variables.$sand-button-focus-duration ease-out;
+
+		@content;
+	}
+}
+
+@mixin sand-button-selected-colors {
+	@include sand-bg-colors {
+		@include sand-button-selected-bg-color;
+	}
+}
+
+@mixin sand-button-focus-bg-colors {
+	@include sand-spotlight-focus-bg-colors {
+		@include sand-button-focus-bg-color;
+	}
 }
