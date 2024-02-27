@@ -33,7 +33,7 @@ describe('Editable Scroller', function () {
 		await expectItemWrapperClass('tests_ui_apps_Scroller_WithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_noBefore');
 	});
 
-	it('Should hide item with hide button', async function () {
+	it('Should hide item with hide button [QWTC-12770]', async function () {
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
 		await expectFocusedIconItem('0');
@@ -51,7 +51,7 @@ describe('Editable Scroller', function () {
 		await expectDisabledItem('0');
 	});
 
-	it('Should focus item properly when move with 5-way keys', async function () {
+	it('Should focus item properly when move with 5-way keys[QWTC-12962]', async function () {
 		await ScrollerPage.spotlightDown();
 		await expectFocusedIconItem('0');
 
@@ -80,7 +80,7 @@ describe('Editable Scroller', function () {
 		await expectFocusedIconItem('0');
 	});
 
-	it('Should release selected Item when focus leaves scroll container', async function () {
+	it('Should release selected Item when focus leaves scroll container [QWTC-12789]', async function () {
 		await ScrollerPage.spotlightDown();
 		await ScrollerPage.spotlightSelect();
 		await expectFocusedIconItem('0');
