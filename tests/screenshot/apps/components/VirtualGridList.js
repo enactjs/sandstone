@@ -100,6 +100,7 @@ class SnapToCenterVGL extends Component {
 }
 
 const VirtualGridListTests = [
+	// [QWTC-2107]
 	<div>
 		<VirtualGridList
 			dataSize={items.length}
@@ -117,6 +118,7 @@ const VirtualGridListTests = [
 			verticalScrollbar="visible"
 		/>
 	</div>,
+	// [QWTC-2107]
 	<div>
 		<VirtualGridList
 			dataSize={items.length}
