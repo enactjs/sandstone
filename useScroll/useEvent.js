@@ -559,9 +559,6 @@ const useEventVoice = (props, instances) => {
 
 const useEventWheel = (props, instances) => {
 	const {dataSize, scrollMode, snapToCenter} = props;
-	useEffect(()=> {
-		console.log('props:', props)
-	}, [props]);
 	const {themeScrollContentHandle, scrollContainerHandle, scrollContentHandle, scrollContentRef, spottable} = instances;
 
 	// Functions
