@@ -1,0 +1,7 @@
+// utils.scss
+// utility functions
+
+@function get-right-value($list) {
+	$values: nth($list, 2);
+	@return $values;
+}

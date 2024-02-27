@@ -1,5 +1,59 @@
+@use './utils';
+
 // Variables
 //
+
+//
+// GUI Guide definition library
+//
+// These values come directly from the design guide file. Any changes to that file should be set
+// here first, with measurement adjustments to be preformed on the component value definition lines
+// below.
+//
+// Usage:
+//   * These values should be the most basic literal values. Do not use math in this library;
+//     those belong in the component definitions.
+//   * Always use the full 4-value format for margin and padding defined here for predictability.
+//   * Keep the mixins and their rules alphabetized.
+//   * Spacing for readability is OK.
+//   * Each mixin represents a top-level component.
+//
+$guide: (
+	// Common sizes
+	// 60px - tiny
+	// 78px - small
+	// 90px - medium
+	// 108px - large
+	// 150px - huge
+
+	// Component Definition Mixins
+	header: (
+		compact-padding: 60px,
+		compact-title-font-size: 90px,
+		compact-title-line-height: 72px,
+
+		mini-margin: 0 0 36px 0,
+		mini-padding: 60px 60px 45px 60px,
+		mini-title-font-size: 90px,
+		mini-title-line-height: 80px,
+
+		standard-padding: 108px 150px 73px 150px,
+		standard-title-font-size: 108px,
+		standard-title-line-height: 127px,
+		standard-titles-gap: 18px,
+		standard-subtitle-font-size: 60px,
+		standard-subtitle-line-height: 70px,
+
+		wizard-padding: 108px 150px 66px 150px,
+		wizard-title-font-size: 144px,
+		wizard-title-line-height: 169px,
+		wizard-titles-gap: 12px
+	),
+
+	panel: (
+		body-padding: 0 150px
+	)
+);
 
 // App
 // ---------------------------------------
@@ -31,6 +85,12 @@ $sand-spotlight-focus-shadow-height: 36px;
 
 // Font Sizes
 // ---------------------------------------
+$sand-base-font-size:               60px;
+$sand-body-font-size:               $sand-base-font-size;
+$sand-button-font-size-large:       96px;
+$sand-button-font-size:             78px;
+$sand-button-small-font-size-large: 72px;
+$sand-button-small-font-size:       60px;
 $sand-item-font-size:               60px;
 $sand-item-font-size-large:         72px;
 $sand-item-label-font-size:         48px;
@@ -38,6 +98,10 @@ $sand-item-label-font-size-large:   54px;
 $sand-item-small-font-size:         60px;
 $sand-item-small-label-font-size:   48px;
 $sand-keyguide-font-size:           60px;
+$sand-tablayout-tab-font-size:      66px;
+
+$sand-non-latin-button-large-font-size: 72px;
+$sand-non-latin-button-small-font-size: 54px;
 
 // Other Font Properties
 // ---------------------------------------
@@ -55,6 +119,29 @@ $sand-spottable-font-weight: 600;
 $sand-common-line-height: 1.3em;
 $sand-tallglyph-line-height: 1.5em;
 
+// Body
+$sand-body-font-family: $sand-font-family;
+$sand-body-font-style: normal;
+$sand-body-font-weight: normal;
+$sand-body-line-height: $sand-body-font-size + 6;
+$sand-non-latin-body-font-weight: $sand-non-latin-font-weight-light;
+$sand-non-latin-body-font-style: $sand-body-font-style;
+$sand-tallglyph-body-line-height: 1.7em;
+$sand-non-latin-body-line-height: $sand-tallglyph-body-line-height; // "non-latin" variable retained for legacy code safety.
+
+// Button
+$sand-button-font-family: $sand-alt-font-family;
+$sand-button-font-style: normal;
+$sand-button-font-weight: $sand-spottable-font-weight;
+$sand-button-small-font-family: $sand-button-font-family;
+$sand-button-small-font-style: $sand-button-font-style;
+$sand-button-small-font-weight: $sand-button-font-weight;
+$sand-non-latin-button-font-family: $sand-non-latin-font-family-bold;
+$sand-non-latin-button-font-style: $sand-button-font-style;
+$sand-non-latin-button-font-weight: $sand-non-latin-font-weight-bold;
+$sand-non-latin-button-small-font-style: $sand-button-small-font-style;
+$sand-non-latin-button-small-font-weight: $sand-non-latin-font-weight-bold;
+
 // ---------------------------------------
 // Component Rules
 // ---------------------------------------
@@ -71,6 +158,58 @@ $sand-icon-tiny-size: 60px;
 $sand-icon-margin: 24px;
 $sand-icon-large-size-large: ($sand-icon-large-size * 1.2);
 $sand-icon-small-size-large: ($sand-icon-small-size * 1.2);
+
+// Button
+// ---------------------------------------
+$sand-button-border-width: 6px;
+$sand-button-bg-opacity: 1;
+$sand-button-transparent-bg-opacity: 0;
+$sand-button-transparent-selected-bg-opacity: 1;
+$sand-button-margin: 0 $sand-component-spacing;
+$sand-button-focusexpand-margin: 6px utils.get-right-value($sand-button-margin); // 6px provides enough space for the expanded focus state
+$sand-button-h-padding: 60px;
+$sand-button-with-icon-h-padding: $sand-spotlight-outset;
+$sand-button-height-large: 192px;
+$sand-button-height: 144px;
+$sand-button-icon-h-margin: 30px;
+$sand-button-icon-margin-end: $sand-button-icon-h-margin;
+$sand-button-icon-margin-start: 0;
+$sand-button-icon-padding: 0 calc(($sand-button-height - $sand-icon-large-size) / 2);
+$sand-button-icon-position-after-margin-end: $sand-button-icon-margin-start;
+$sand-button-icon-position-after-margin-start: $sand-button-icon-margin-end;
+$sand-button-icon-position-after-small-margin-end: 0;
+$sand-button-icon-small-h-margin: $sand-button-icon-h-margin;
+$sand-button-icon-small-margin-end: $sand-button-icon-small-h-margin;
+$sand-button-icon-position-after-small-margin-start: $sand-button-icon-small-margin-end;
+$sand-button-icon-small-margin-start: 0;
+$sand-button-small-height-large: 144px;
+$sand-button-small-height: 108px;
+$sand-button-icon-small-padding: 0 calc(($sand-button-small-height - $sand-icon-small-size) / 2);
+$sand-button-max-width: 900px;
+$sand-button-min-width: 540px; // If this changes, update `overflow` computed value from Alert.js
+$sand-button-focusexpand-focus-bg-transform: scale(1.05);
+$sand-button-focusexpand-pressed-bg-transform: scale(1.02);
+$sand-button-focus-duration: $sand-spotlight-focus-animation-duration;
+$sand-button-small-margin: $sand-button-margin;
+$sand-button-small-focusexpand-margin: $sand-button-focusexpand-margin;
+$sand-button-small-h-padding: 48px;
+$sand-button-small-max-width: $sand-button-max-width;
+$sand-button-small-min-width: 300px;
+$sand-button-small-focusexpand-focus-bg-transform: scale(1.1);
+$sand-button-small-focusexpand-pressed-bg-transform: scale(1.04);
+$sand-button-colordot-bottom: 18px;
+$sand-button-colordot-border-radius: 6px;
+$sand-button-colordot-width: 60px;
+$sand-button-colordot-height: 12px;
+$sand-button-colordot-h-margin: 24px;
+$sand-button-colordot-padding-start: calc($sand-button-h-padding / 2);
+$sand-button-small-colordot-bottom: 12px;
+$sand-button-small-colordot-width: 48px;
+$sand-button-small-colordot-padding-start: 30px;
+$sand-button-icon-only-colordot-width: 66px;
+$sand-button-icon-only-colordot-height: 9px;
+$sand-button-collapse-duration: 300ms;
+$sand-button-collapsable-icon-margin: 0 24px;
 
 // Item
 // ---------------------------------------
@@ -115,6 +254,12 @@ $sand-keyguide-position-right: 150px;
 $sand-keyguide-width: 750px;
 $sand-keyguide-item-height: 120px;
 
+// Panels
+// ---------------------------------------
+$sand-panel-padding: 0;
+$sand-panel-body-padding-top: nth(map-get(map-get($guide, panel), body-padding), 1); // Used in this file only, for consistency
+$sand-panel-body-padding: $sand-panel-body-padding-top (nth(map-get(map-get($guide, panel), body-padding), 2) - $sand-component-spacing);
+
 // Popup
 // ---------------------------------------
 $sand-popup-padding: 48px 72px;
@@ -124,3 +269,27 @@ $sand-popup-position-top-margin: 150px 120px 78px 120px; // 78px is the amount o
 $sand-popup-position-right-margin: 120px 60px 120px $sand-component-spacing;
 $sand-popup-position-bottom-margin: 0 120px 150px 120px;
 $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
+
+// TabLayout
+// ---------------------------------------
+$sand-tablayout-collapse-duration: 250ms;
+$sand-tablayout-vertical-content-margin-top: 0;
+$sand-tablayout-horizontal-content-margin-top: 96px;
+$sand-tablayout-horizontal-tabs-margin: 0 $sand-component-spacing;
+$sand-tablayout-tab-vertical-button-height: 156px;
+$sand-tablayout-tab-vertical-margin-bottom: 24px;
+$sand-tablayout-tab-horizontal-button-height: 132px;
+$sand-tablayout-tab-horizontal-margin: 0;
+$sand-tablayout-tab-horizontal-padding: 0;
+$sand-tablayout-tab-horizontal-border-width: calc(6px/ 3); // foolishness to get a correctly scalable 2px at 4k
+$sand-tablayout-tab-horizontal-selected-border-width: 6px;
+
+// PopupTabLayout
+// ---------------------------------------
+$sand-popuptablayout-margin: 120px 60px;
+$sand-popuptablayout-tabs-padding: $sand-component-spacing 0 ($sand-component-spacing - $sand-tablayout-tab-vertical-margin-bottom) 0;
+$sand-popuptablayout-tabs-content-spacing: 36px;
+$sand-popuptablayout-tabs-content-border-radius: $sand-popup-border-radius;
+$sand-popuptablayout-content-margin: 0;
+$sand-popuptablayout-panel-body-padding: $sand-panel-body-padding-top (108px - $sand-component-spacing - $sand-spotlight-outset) (78px - $sand-component-spacing-bottom);
+

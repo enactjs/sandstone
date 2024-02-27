@@ -1,0 +1,152 @@
+// Popup.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+// Module level variables, for use only in this file
+$popupTabLayout-max-height: calc(100vh - (nth(variables.$sand-popuptablayout-margin, 1) + nth(variables.$sand-popuptablayout-margin, 1)));
+
+.popupTabLayout {
+	// Override Popup (more precedence)
+	&.popup {
+		margin: variables.$sand-popuptablayout-margin;
+		max-height: $popupTabLayout-max-height;
+	}
+	// Override TabLayout (more precedence)
+	.tabLayout {
+		.tabs {
+			bottom: auto; // Override the bottom:0 set by TabLayout which allows the use of an un-sized scroller, but is uncooperative with this layout (a shrinking container)
+		}
+
+		&.collapsed { /* Override TabLayout */ }
+
+		.tabGroup {
+			.tab {
+				&.vertical {
+					&.button {
+						&.selected {
+							.bg {
+								/* Override TabLayout */
+							}
+						}
+
+						@include mixins.focus {
+							.bg {
+								/* Override TabLayout */
+							}
+						}
+					}
+
+					&.collapsed {
+						&.button {
+							&.selected {
+								.bg {
+									/* Override TabLayout */
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.tabs {
+		padding: variables.$sand-popuptablayout-tabs-padding;
+		margin-right: variables.$sand-popuptablayout-tabs-content-spacing;
+	}
+
+	.tabsExpanded {
+		/* Override TabLayout */
+	}
+
+	.content {
+		margin-top: variables.$sand-popuptablayout-content-margin; // Overrides a TabLayout style
+		height: 100%;
+	}
+
+	.panels::before {
+		content: "";
+		position: absolute;
+		@include mixins.position(0);
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		background-color: transparent;
+
+		.tabs,
+		.content .panels::before {
+			border-radius: variables.$sand-popuptablayout-tabs-content-border-radius;
+			box-shadow: colors.$sand-popuptablayout-shadow;
+		}
+
+		&.scrimTranslucent {
+			.tabs,
+			.content .panels::before {
+				background-color: colors.$sand-popuptablayout-bg-color;
+			}
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.tabs,
+			.content .panels::before {
+				background-color: colors.$sand-popuptablayout-scrimtransparent-bg-color;
+			}
+		}
+	}
+}
+
+// Overrides for Popup
+.popupTransitionContainer {
+	width: 100%;
+}
+
+.popup {
+	> .body {
+		position: relative;
+		padding: 0;
+		// Overrides padding for Popup in RTL
+		@include mixins.enact-locale-rtl("") {
+			padding: 0;
+		}
+	}
+}
+
+// Overrides for Panels
+.panels {
+	position: relative;
+	@include mixins.position(auto);
+	max-height: 100%;
+
+	> .viewport {
+		position: static;
+		@include mixins.position(auto);
+	}
+}
+
+// Overrides for Panel
+.panel {
+	padding: 0;
+	max-height: $popupTabLayout-max-height;
+
+	> .body {
+		display: flex;
+		flex-direction: column;
+		flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
+		padding: variables.$sand-popuptablayout-panel-body-padding;
+	}
+}
+
+// Supporting concave click area
+.popup > .body {
+	pointer-events: none;
+
+	.tabs,
+	.content > .panels {
+		pointer-events: auto;
+	}
+}

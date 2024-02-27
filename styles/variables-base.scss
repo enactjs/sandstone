@@ -1,6 +1,8 @@
+@use './variables';
+
 // Alert
 // ---------------------------------------
-$sand-alert-overlay-border-radius: $sand-popup-border-radius;
+$sand-alert-overlay-border-radius: variables.$sand-popup-border-radius;
 
 // Button
 // ---------------------------------------

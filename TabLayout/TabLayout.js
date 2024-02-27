@@ -33,8 +33,8 @@ import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './Refocu
 import TabGroup from './TabGroup';
 import Tab from './Tab';
 
-import componentCss from './TabLayout.module.less';
-import popupTabLayoutComponentCss from '../PopupTabLayout/PopupTabLayout.module.less';
+import componentCss from './TabLayout.module.scss';
+import popupTabLayoutComponentCss from '../PopupTabLayout/PopupTabLayout.module.scss';
 
 const TabLayoutContext = createContext(null);
 

@@ -154,6 +154,24 @@ $sand-spotlight-focus-shadow:         0 36px 36px $sand-shadow-color; // Used in
 $sand-alert-bg-color: $sand-fullscreen-bg-color;
 $sand-alert-overlay-shadow: 0 36px 36px $sand-shadow-color;
 
+// Header
+// ---------------------------------------
+$sand-header-text-shadow: 6px 12px 12px $sand-shadow-color;
+
+// Button
+// ---------------------------------------
+$sand-button-text-color: $sand-component-text-color;
+$sand-button-bg-color: $sand-component-bg-color;
+$sand-button-border-color: transparent;
+$sand-button-focus-bg-color: $sand-focus-bg-color;
+$sand-button-selected-text-color: $sand-component-text-color;
+$sand-button-selected-bg-color: $sand-selected-bg-color;
+$sand-button-focus-filter: none;
+$sand-button-selected-filter: none;
+$sand-button-transparent-text-color: $sand-text-color;
+$sand-button-focus-icononly-bg-color: '';
+$sand-button-text-shadow: $sand-header-text-shadow;
+
 // Checkbox
 // ---------------------------------------
 $sand-checkbox-text-color: transparent;
@@ -195,3 +213,19 @@ $sand-keyguide-colordot-red-color: $sand-remote-button-red-color;
 $sand-keyguide-colordot-green-color: $sand-remote-button-green-color;
 $sand-keyguide-colordot-yellow-color: $sand-remote-button-yellow-color;
 $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
+
+// Popup
+// ---------------------------------------
+$sand-popup-bg-color: rgb($sand-overlay-bg-color-rgb, 90%);
+$sand-popup-scrimtransparent-bg-color: rgb($sand-overlay-bg-color-rgb, 95%);
+
+// PopupTabLayout
+// ---------------------------------------
+$sand-popuptablayout-bg-color: $sand-popup-bg-color;
+$sand-popuptablayout-scrimtransparent-bg-color: $sand-popup-scrimtransparent-bg-color;
+$sand-popuptablayout-shadow: 0 42px 24px $sand-shadow-color;
+
+// TabLayout
+// ---------------------------------------
+$sand-tablayout-tab-horizontal-border-color: rgb($sand-text-color-rgb, 50%);
+$sand-tablayout-tab-horizontal-selected-border-color: $sand-selected-color;
