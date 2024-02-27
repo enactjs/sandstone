@@ -9,7 +9,7 @@ import img from '../../images/600x600.png';
 import css from './ImageItem.module.less';
 
 // vertical ImageItem doesn't render well without defined styles right now.
-const verticalStyle = {height: ri.scale(540), width: ri.scale(640)};
+const verticalStyle = {height: ri.scale(520), width: ri.scale(640)};
 
 const defaultImageItemTests = [
 	// Vertical
