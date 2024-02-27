@@ -7,7 +7,7 @@ const IconTests = [
 	<Icon size="tiny">minus</Icon>,
 	<Icon size="medium">minus</Icon>,
 	<Icon size="large">minus</Icon>,
-	<Icon size={120}>minus</Icon>,
+	<Icon size={150}>minus</Icon>,
 	<Icon>💣</Icon>, // [QWTC-2251] testing 'custom-icon' using unicode character
 	<Icon size="tiny">💣</Icon>,
 	<Icon size="medium">💣</Icon>,
