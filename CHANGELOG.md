@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/VirtualList.VirtualGridList` to show the focused item properly when focus moved toward on unscrollable direction
+- `sandstone/VirtualList.VirtualGridList` to show the focused item fully when focus moves via 5-way keys inside a list
 
 ## [2.8.0] - 2024-02.07
 
