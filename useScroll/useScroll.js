@@ -430,7 +430,7 @@ const useScroll = (props) => {
 		...rest,
 		...scrollProps,
 		assignProperties,
-		noScrollByDrag: !platform.touchscreen,
+		noScrollByDrag: !platform.touchScreen,
 		addEventListeners,
 		applyOverscrollEffect,
 		clearOverscrollEffect,
