@@ -529,7 +529,7 @@ const useEventVoice = (props, instances) => {
 	};
 
 	function addVoiceEventListener (scrollContentRef) {
-		if (platform.webos) {
+		if (platform.type === 'webos') {
 			utilEvent('webOSVoice').addEventListener(scrollContentRef, handleVoice);
 
 			if (scrollContainerHandle && scrollContainerHandle.current && scrollContainerHandle.current.getScrollBounds) {
@@ -542,7 +542,7 @@ const useEventVoice = (props, instances) => {
 	}
 
 	function removeVoiceEventListener (scrollContentRef) {
-		if (platform.webos) {
+		if (platform.type === 'webos') {
 			utilEvent('webOSVoice').removeEventListener(scrollContentRef, handleVoice);
 			scrollContentRef.current.removeAttribute('data-webos-voice-intent');
 		}
