@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
+
 ## [2.8.0] - 2024-02.07
 
 ### Fixed

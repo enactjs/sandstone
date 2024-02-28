@@ -66,6 +66,7 @@ const useEventFocus = (props, instances) => {
 			scrollContentNode = scrollContentRef.current;
 		let	spotItem = Spotlight.getCurrent();
 
+		// Scroll to the container created by ContentContainerDecorator when descendants get focused
 		if (props.scrollToContentContainerOnFocus) {
 			spotItem = getPositionTargetOnFocus(spotItem);
 		}
