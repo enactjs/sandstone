@@ -31,6 +31,7 @@ import Scrollbar from '../useScroll/Scrollbar';
 import ScrollbarPlaceholder from '../useScroll/ScrollbarPlaceholder';
 import Skinnable from '../Skinnable';
 
+import {ContentContainerDecorator} from './ContentContainerDecorator';
 import {EditableShape, EditableWrapper} from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
 
@@ -70,7 +71,7 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll(rest);
+	} = useScroll({...rest, scrollToContentContainerOnFocus: true});
 
 	const {
 		className,
@@ -476,5 +477,6 @@ Scroller.defaultProps = {
 
 export default Scroller;
 export {
+	ContentContainerDecorator,
 	Scroller
 };
