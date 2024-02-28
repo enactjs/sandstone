@@ -2,7 +2,7 @@ import hoc from '@enact/core/hoc';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
 const defaultConfig = {
-	positionTargetOnDescendantsFocus: true
+	positionTargetOnFocus: true
 };
 
 /**

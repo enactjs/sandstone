@@ -6,7 +6,7 @@ import {ContentContainerDecorator} from '../Scroller';
 
 describe('ContentContainerDecorator', () => {
 	test(
-		'should set \'positionTargetOnDescendantsFocus\' container config to true',
+		'should set \'positionTargetOnFocus\' container config to true',
 		() => {
 			const Container = ContentContainerDecorator('div');
 
@@ -17,7 +17,7 @@ describe('ContentContainerDecorator', () => {
 			const containerId = getContainerId(screen.getByTestId('container-id'));
 			const containerConfig = getContainerConfig(containerId);
 
-			const actual = containerConfig.positionTargetOnDescendantsFocus;
+			const actual = containerConfig.positionTargetOnFocus;
 			const expected = true;
 
 			expect(actual).toBe(expected);

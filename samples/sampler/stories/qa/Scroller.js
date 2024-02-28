@@ -6,8 +6,8 @@ import {Heading} from '@enact/sandstone/Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
-import {Scroller, ContentContainerDecorator} from '@enact/sandstone/Scroller';
 import {Header} from '@enact/sandstone/Panels';
+import {ContentContainerDecorator, Scroller} from '@enact/sandstone/Scroller';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -1254,13 +1254,11 @@ const List = () => (
 	</ListContainer>
 );
 
-export const WithScrollToContentContainerOnFocus = (args) => {
+export const WithContentContainerOnFocus = () => {
 	updateDataSize(10);
 
 	return (
-		<Scroller
-			scrollToContentContainerOnFocus={args['scrollToContentContainerOnFocus']}
-		>
+		<Scroller>
 			<List />
 			<List />
 			<List />
@@ -1270,6 +1268,4 @@ export const WithScrollToContentContainerOnFocus = (args) => {
 	);
 };
 
-boolean('scrollToContentContainerOnFocus', WithScrollToContentContainerOnFocus, Config, true);
-
-WithScrollToContentContainerOnFocus.storyName = 'With Content Container';
+WithContentContainerOnFocus.storyName = 'With Content Container';

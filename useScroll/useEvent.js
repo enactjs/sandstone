@@ -3,7 +3,7 @@ import platform from '@enact/core/platform';
 import {onWindowReady} from '@enact/core/snapshot';
 import {clamp} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
-import {getPositionTargetOnDescendantsFocus} from '@enact/spotlight/src/container';
+import {getPositionTargetOnFocus} from '@enact/spotlight/src/container';
 import {getRect} from '@enact/spotlight/src/utils';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {constants} from '@enact/ui/useScroll';
@@ -67,7 +67,7 @@ const useEventFocus = (props, instances) => {
 		let	spotItem = Spotlight.getCurrent();
 
 		if (props.scrollToContentContainerOnFocus) {
-			spotItem = getPositionTargetOnDescendantsFocus(spotItem);
+			spotItem = getPositionTargetOnFocus(spotItem);
 		}
 
 		if (spotItem && positionFn && utilDOM.containsDangerously(scrollContentNode, spotItem)) {

@@ -31,8 +31,8 @@ import Scrollbar from '../useScroll/Scrollbar';
 import ScrollbarPlaceholder from '../useScroll/ScrollbarPlaceholder';
 import Skinnable from '../Skinnable';
 
-import {EditableShape, EditableWrapper} from './EditableWrapper';
 import {ContentContainerDecorator} from './ContentContainerDecorator';
+import {EditableShape, EditableWrapper} from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
@@ -71,7 +71,7 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll(rest);
+	} = useScroll({...rest, scrollToContentContainerOnFocus: true});
 
 	const {
 		className,
@@ -418,14 +418,6 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	scrollMode: PropTypes.oneOf(['native', 'translate']),
-
-	/**
-	 * Scroll to the container created by {@link sandstone/Scroller.ContentContainerDecorator|ContentContainerDecorator} when descendants get focused
-	 *
-	 * @type {Boolean}
-	 * @public
-	 */
-	scrollToContentContainerOnFocus: PropTypes.bool,
 
 	/**
 	 * Specifies how to show vertical scrollbar.
