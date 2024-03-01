@@ -110,7 +110,7 @@ ButtonList.propTypes = {
 	 *
 	 * @type {Boolean}
 	 * @default false
-	 * @public
+	 * @private
 	 */
 	firstListOrderFixed: PropTypes.bool,
 
