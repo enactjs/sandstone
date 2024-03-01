@@ -9,7 +9,7 @@ import componentCss from './TransferList.module.less';
 
 const ButtonList = ({
 	disabled,
-	firstListOrderFixed,
+	elementsAreDragged,
 	firstListMaxCapacity,
 	firstListMinCapacity,
 	handleRemoveItems,
@@ -17,6 +17,7 @@ const ButtonList = ({
 	moveIntoFirstSelected,
 	moveIntoSecondSelected,
 	moveOnSpotlight,
+	onDragOver,
 	orientation,
 	secondListMaxCapacity,
 	secondListMinCapacity,
@@ -59,10 +60,12 @@ const ButtonList = ({
 						size="small"
 					/>
 					<Button
-						disabled={!(selectedItems?.find((item) => (item.list === 'first' && !firstListOrderFixed) || item.list === 'second')) || disabled}
+						disabled={disabled || !elementsAreDragged}
 						icon="trash"
 						iconOnly
 						onClick={handleRemoveItems}
+						onDragOver={onDragOver}
+						onDrop={handleRemoveItems}
 						size="small"
 					/>
 					<Button
@@ -90,6 +93,14 @@ ButtonList.propTypes = {
 	disabled: PropTypes.bool,
 
 	/**
+	 * Disables Remove Button when items are not selected or dragged
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	elementsAreDragged: PropTypes.bool,
+
+	/**
 	 * Sets the maximum number of items for the first list.
 	 *
 	 * @type {Number}
@@ -104,15 +115,6 @@ ButtonList.propTypes = {
 	 * @private
 	 */
 	firstListMinCapacity: PropTypes.number,
-
-	/**
-	 * Fixes the order of items on the first list.
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @public
-	 */
-	firstListOrderFixed: PropTypes.bool,
 
 	/**
 	 * A function that removes all selected items from the list.

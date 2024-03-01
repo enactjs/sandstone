@@ -249,6 +249,7 @@ const TransferListBase = kind({
 	},
 
 	render: ({css, disabled, firstList, firstListOrderFixed, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleSelect, orientation, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+		const [elementsAreDragged, setElementsAreDragged] = useState(false);
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [position, setPosition] = useState(null);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
@@ -388,6 +389,11 @@ const TransferListBase = kind({
 			removeDropBorder(currentElement.current);
 		}, [removeDropBorder, updateCurrentElement]);
 
+		// Handle for `dragend` event - change state if `selectedItems` is empty
+		const dragendEventListenerFunction = useCallback(() => {
+			setElementsAreDragged(!!selectedItems?.find((item) => (item.list === 'first' && !firstListOrderFixed) || item.list === 'second'));
+		}, [firstListOrderFixed, selectedItems]);
+
 		// Handler for `dragover` event - apply the drop border on dragged-over item
 		const dragoverListenerFunction = useCallback((ev) => {
 			updateCurrentElement(ev);
@@ -417,7 +423,8 @@ const TransferListBase = kind({
 			dragImageNode?.current?.(!isMultiple, (nodeRef) => {
 				ev.dataTransfer.setDragImage(nodeRef, 0, 0);
 			});
-		}, [selectedItems.length]);
+			setElementsAreDragged(!(list === "first" && firstListOrderFixed));
+		}, [firstListOrderFixed, selectedItems.length]);
 
 		// Handler for `touchStart` event - in case of touch events, set the `startDragElement` to the item we are dragging
 		const handleTouchStart = useCallback((ev) => {
@@ -564,7 +571,7 @@ const TransferListBase = kind({
 				element.setAttribute('order', orderCounter + 1);
 				orderCounter++;
 
-				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
+				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop', 'dragend'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
 						return element.addEventListener('dragstart', startListenerFunction);
@@ -581,9 +588,12 @@ const TransferListBase = kind({
 					if (event === 'drop') {
 						return element.addEventListener('drop', dropEventListenerFunction);
 					}
+					if (event === 'dragend') {
+						return element.addEventListener('dragend', dragendEventListenerFunction);
+					}
 				});
 			});
-		}, [css.draggableItem, dragoverListenerFunction, dropEventListenerFunction, startListenerFunction]);
+		}, [css.draggableItem, dragendEventListenerFunction, dragoverListenerFunction, dropEventListenerFunction, startListenerFunction]);
 
 		// Inside this useEffect we add all event listeners to all the items, and handle the scroll behavior when the items are transferred
 		useEffect(() => {
@@ -609,10 +619,15 @@ const TransferListBase = kind({
 					element.removeEventListener('dragover', dragoverListenerFunction);
 					element.removeEventListener('dragstart', startListenerFunction);
 					element.removeEventListener('drop', dropEventListenerFunction);
+					element.removeEventListener('dragend', dragendEventListenerFunction);
 				});
 				clearTimeout(updateElements);
 			};
-		}, [dragOverElement, dragoverListenerFunction, dropEventListenerFunction, firstListLocal, handleTouchEndFirst, handleTouchEndSecond, handleTouchMove, handleTouchStart, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		}, [dragOverElement, dragendEventListenerFunction, dragoverListenerFunction, dropEventListenerFunction, firstListLocal, handleTouchEndFirst, handleTouchEndSecond, handleTouchMove, handleTouchStart, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+
+		useEffect(() => {
+			dragendEventListenerFunction();
+		}, [dragendEventListenerFunction]);
 
 		// Handle move/copy/delete the selected items into the first list by 5-way or transfer buttons
 		const moveIntoFirstSelected = useCallback(() => {
@@ -865,24 +880,31 @@ const TransferListBase = kind({
 		}, [firstListLocal, firstListOrderFixed, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);
 
 		// Remove all selected items from the list
-		const handleRemoveItems = useCallback(() => {
+		const handleRemoveItems = useCallback((ev) => {
 			// Make a copy of all lists
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
+			const {index, list} = getTransferData(ev.dataTransfer);
 
-			selectedItems.map((item) => {
+			const removeItem = (item) => {
 				// Check if items are from the first list and if the order of items is fixed
 				if (item.list === 'first' && firstListOrderFixed) return;
 
 				// Check from which list are items and remove them
-				if (item.list === 'first') {
-					tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
-				} else {
-					tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
-				}
+				const itemsList = item.list === 'first' ? tempFirst : tempSecond;
+				itemsList.splice(itemsList.findIndex((element) => element === item.element), 1);
 				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-			});
+			}
+
+			if (!selectedItems.length || selectedItems?.at(0).list !== list) {
+				const element = list === 'first' ? tempFirst[index] : tempSecond[index]
+				removeItem({element, index, list})
+			} else {
+				selectedItems.map((item) => {
+					removeItem(item);
+				});
+			}
 
 			// If the state is externally controlled, use the provided functions
 			if (setFirstList !== null && setSecondList !== null) {
@@ -982,6 +1004,7 @@ const TransferListBase = kind({
 				</Cell>
 				<ButtonList
 					disabled={disabled}
+					elementsAreDragged={elementsAreDragged}
 					firstListOrderFixed={firstListOrderFixed}
 					firstListMaxCapacity={firstListMaxCapacity}
 					firstListMinCapacity={firstListMinCapacity}
@@ -990,6 +1013,7 @@ const TransferListBase = kind({
 					moveIntoFirstSelected={moveIntoFirstSelected}
 					moveIntoSecondSelected={moveIntoSecondSelected}
 					moveOnSpotlight={moveOnSpotlight}
+					onDragOver={handlePreventDefault}
 					orientation={orientation}
 					secondListMaxCapacity={secondListMaxCapacity}
 					secondListMinCapacity={secondListMinCapacity}
