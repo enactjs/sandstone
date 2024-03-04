@@ -806,6 +806,9 @@ const TransferListBase = kind({
 			if (firstListCopy.length <= firstListMinCapacity || firstListCopy.length - selectedItems.length < firstListMinCapacity) return;
 			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
 
+			// Disables remove button on `dragend` event
+			dragendEventListenerFunction();
+
 			// Check if we are dropping on the same list
 			if (list === 'second') {
 				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
@@ -831,7 +834,7 @@ const TransferListBase = kind({
 			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'second'});
 
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal, firstListOperation);
-		}, [firstListLocal, firstListMinCapacity, firstListOperation, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
+		}, [dragendEventListenerFunction, firstListLocal, firstListMinCapacity, firstListOperation, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
 		// Handle drop action for the first list
 		const onDropFirstHandler = useCallback((ev) => {
@@ -849,6 +852,9 @@ const TransferListBase = kind({
 			// Check for min-max lists capacities
 			if (secondListCopy.length <= secondListMinCapacity || secondListCopy.length - selectedItems.length < secondListMinCapacity) return;
 			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
+
+			// Disables remove button on `dragend` event
+			dragendEventListenerFunction();
 
 			// Check if we are dropping on the same list
 			if (list === 'first') {
@@ -877,7 +883,7 @@ const TransferListBase = kind({
 			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'first'});
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal, secondListOperation);
-		}, [firstListLocal, firstListOrderFixed, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);
+		}, [dragendEventListenerFunction, firstListLocal, firstListOrderFixed, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);
 
 		// Remove all selected items from the list
 		const handleRemoveItems = useCallback((ev) => {
@@ -885,7 +891,6 @@ const TransferListBase = kind({
 			let tempFirst = [...firstListLocal],
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
-			const {index, list} = getTransferData(ev.dataTransfer);
 
 			const removeItem = (item) => {
 				// Check if items are from the first list and if the order of items is fixed
@@ -895,11 +900,13 @@ const TransferListBase = kind({
 				const itemsList = item.list === 'first' ? tempFirst : tempSecond;
 				itemsList.splice(itemsList.findIndex((element) => element === item.element), 1);
 				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-			}
+			};
 
-			if (!selectedItems.length || selectedItems?.at(0).list !== list) {
-				const element = list === 'first' ? tempFirst[index] : tempSecond[index]
-				removeItem({element, index, list})
+			// Check if items were selected or dragged without selection
+			if (!selectedItems.length) {
+				const {index, list} = getTransferData(ev.dataTransfer);
+				const element = list === 'first' ? tempFirst[index] : tempSecond[index];
+				removeItem({element, index, list});
 			} else {
 				selectedItems.map((item) => {
 					removeItem(item);

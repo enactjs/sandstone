@@ -157,6 +157,14 @@ ButtonList.propTypes = {
 	moveOnSpotlight: PropTypes.bool,
 
 	/**
+	 * A function which indicates that the remove button is a draggable location.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	onDragOver: PropTypes.func,
+
+	/**
 	 * The orientation for the button list.
 	 *
 	 * @type {('horizontal', 'vertical')}
