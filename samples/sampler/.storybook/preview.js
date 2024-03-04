@@ -98,7 +98,7 @@ export const parameters = {
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
-	'font scale': getObjectType('font scale', '1', fontScales),
+	'font scale': getObjectType('font scale', 1, fontScales),
 	'high contrast': getBooleanType('high contrast'),
 	'skin': getObjectType('skin', 'neutral', skins),
 	'background': getObjectType('background', 'default', backgrounds),
