@@ -48,6 +48,15 @@ const skins = {
 	'Light': 'light'
 };
 
+const fontScales = {
+	'1': 1,
+	'1.2': 1.2,
+	'1.4': 1.4,
+	'1.6': 1.6,
+	'1.8': 1.8,
+	'2': 2
+};
+
 configureActions();
 
 if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
@@ -89,13 +98,14 @@ export const parameters = {
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
+	'font scale': getObjectType('font scale', '1', fontScales),
 	'high contrast': getBooleanType('high contrast'),
 	'skin': getObjectType('skin', 'neutral', skins),
 	'background': getObjectType('background', 'default', backgrounds),
 	'debug aria': getBooleanType('debug aria'),
 	'debug layout': getBooleanType('debug layout'),
 	'debug spotlight': getBooleanType('debug spotlight'),
-	'debug sprites': getBooleanType('debug sprites')
+	'debug sprites': getBooleanType('debug sprites'),
 };
 
 export const decorators = [ThemeEnvironment];
