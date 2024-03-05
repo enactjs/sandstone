@@ -9,7 +9,6 @@ import componentCss from './TransferList.module.less';
 
 const ButtonList = ({
 	disabled,
-	elementsAreDragged,
 	firstListMaxCapacity,
 	firstListMinCapacity,
 	handleRemoveItems,
@@ -19,6 +18,7 @@ const ButtonList = ({
 	moveOnSpotlight,
 	onDragOver,
 	orientation,
+	removeButtonActive,
 	secondListMaxCapacity,
 	secondListMinCapacity,
 	selectIntoFirstAll,
@@ -60,7 +60,7 @@ const ButtonList = ({
 						size="small"
 					/>
 					<Button
-						disabled={disabled || !elementsAreDragged}
+						disabled={disabled || !removeButtonActive}
 						icon="trash"
 						iconOnly
 						onClick={handleRemoveItems}
@@ -91,14 +91,6 @@ ButtonList.propTypes = {
 	 * @private
 	 */
 	disabled: PropTypes.bool,
-
-	/**
-	 * Disables Remove Button when items are not selected or dragged
-	 *
-	 * @type {Boolean}
-	 * @private
-	 */
-	elementsAreDragged: PropTypes.bool,
 
 	/**
 	 * Sets the maximum number of items for the first list.
@@ -171,6 +163,14 @@ ButtonList.propTypes = {
 	 * @private
 	 */
 	orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+	/**
+	 * Disables Remove Button when items are not selected or dragged
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	removeButtonActive: PropTypes.bool,
 
 	/**
 	 * Sets the maximum number of items for the second list.

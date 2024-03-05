@@ -97,7 +97,7 @@ const TransferListBase = kind({
 		firstListOperation: PropTypes.oneOf(['move', 'copy', 'delete']),
 
 		/**
-		 * Fixes the order of items on the first list.
+		 * Fixes the order of items on the first list. The items cannot be re-arranged or deleted
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -1011,7 +1011,6 @@ const TransferListBase = kind({
 				</Cell>
 				<ButtonList
 					disabled={disabled}
-					elementsAreDragged={elementsAreDragged}
 					firstListOrderFixed={firstListOrderFixed}
 					firstListMaxCapacity={firstListMaxCapacity}
 					firstListMinCapacity={firstListMinCapacity}
@@ -1022,6 +1021,7 @@ const TransferListBase = kind({
 					moveOnSpotlight={moveOnSpotlight}
 					onDragOver={handlePreventDefault}
 					orientation={orientation}
+					removeButtonActive={elementsAreDragged}
 					secondListMaxCapacity={secondListMaxCapacity}
 					secondListMinCapacity={secondListMinCapacity}
 					selectIntoFirstAll={selectIntoFirstAll}
