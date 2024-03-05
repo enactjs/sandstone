@@ -249,6 +249,7 @@ const TransferListBase = kind({
 	},
 
 	render: ({css, disabled, firstList, firstListOrderFixed, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleSelect, orientation, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+		// This state variable is a boolean flag that tracks whether any elements within the lists are currently being dragged
 		const [elementsAreDragged, setElementsAreDragged] = useState(false);
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [position, setPosition] = useState(null);
