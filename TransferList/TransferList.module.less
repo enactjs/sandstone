@@ -34,30 +34,46 @@
         &[disabled] {
             cursor: not-allowed;
         }
+
+        * {
+            pointer-events: none;
+        }
     }
 
     .overAbove {
         border-top: 6px solid white;
-        color: #666565;
-        transform: translateY(15px);
+
+        * {
+            transform: translateY(3px);
+            transition-duration: 300ms;
+        }
     }
 
     .overBelow {
         border-bottom: 6px solid white;
-        color: #666565;
-        transform: translateY(-15px);
+
+        * {
+            transform: translateY(-3px);
+            transition-duration: 300ms;
+        }
     }
 
     .overLeft {
         border-left: 6px solid white;
-        color: #666565;
-        transform: translateX(21px);
+
+        * {
+            transform: translateX(6px);
+            transition-duration: 300ms;
+        }
     }
 
     .overRight {
         border-right: 6px solid white;
-        color: #666565;
-        transform: translateX(-21px);
+
+        * {
+            transform: translateX(-6px);
+            transition-duration: 300ms;
+        }
     }
 
     .selectionContainer {

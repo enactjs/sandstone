@@ -11,11 +11,14 @@ const ButtonList = ({
 	disabled,
 	firstListMaxCapacity,
 	firstListMinCapacity,
+	handleRemoveItems,
 	handleRemoveSelected,
 	moveIntoFirstSelected,
 	moveIntoSecondSelected,
 	moveOnSpotlight,
+	onDragOver,
 	orientation,
+	removeButtonActive,
 	secondListMaxCapacity,
 	secondListMinCapacity,
 	selectIntoFirstAll,
@@ -54,6 +57,15 @@ const ButtonList = ({
 						icon={orientation === 'vertical' ? 'triangleup' : 'triangleleft'}
 						iconOnly
 						onClick={selectIntoFirstAll}
+						size="small"
+					/>
+					<Button
+						disabled={disabled || !removeButtonActive}
+						icon="trash"
+						iconOnly
+						onClick={handleRemoveItems}
+						onDragOver={onDragOver}
+						onDrop={handleRemoveItems}
 						size="small"
 					/>
 					<Button
@@ -97,6 +109,14 @@ ButtonList.propTypes = {
 	firstListMinCapacity: PropTypes.number,
 
 	/**
+	 * A function that removes all selected items from the list.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	handleRemoveItems: PropTypes.func,
+
+	/**
 	 * A function that removes all the items from the selected list.
 	 *
 	 * @type {Function}
@@ -129,12 +149,28 @@ ButtonList.propTypes = {
 	moveOnSpotlight: PropTypes.bool,
 
 	/**
+	 * A function which indicates that the remove button is a draggable location.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	onDragOver: PropTypes.func,
+
+	/**
 	 * The orientation for the button list.
 	 *
 	 * @type {('horizontal', 'vertical')}
 	 * @private
 	 */
 	orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+	/**
+	 * Disables Remove Button when items are not selected or dragged
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	removeButtonActive: PropTypes.bool,
 
 	/**
 	 * Sets the maximum number of items for the second list.

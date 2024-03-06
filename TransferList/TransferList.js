@@ -105,6 +105,15 @@ const TransferListBase = kind({
 		firstListOperation: PropTypes.oneOf(['move', 'copy', 'delete']),
 
 		/**
+		 * Fixes the order of items on the first list. The items cannot be re-arranged or deleted
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		firstListOrderFixed: PropTypes.bool,
+
+		/**
 		 * The height of the list container.
 		 *
 		 * @type {Number}
@@ -227,6 +236,7 @@ const TransferListBase = kind({
 	defaultProps: {
 		disabled: false,
 		firstList: {},
+		firstListOrderFixed: false,
 		height: 999,
 		itemSize: 201,
 		listComponent: 'VirtualList',
@@ -246,7 +256,9 @@ const TransferListBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({css, disabled, firstList, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleSelect, orientation, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+	render: ({css, disabled, firstList, firstListOrderFixed, firstListMaxCapacity, firstListMinCapacity, firstListOperation, height: defaultHeight, itemSize: defaultItemSize, listComponent, moveOnSpotlight, noMultipleSelect, orientation, secondList, secondListMaxCapacity, secondListMinCapacity, secondListOperation, setFirstList, setSecondList, showSelectionOrder, verticalHeight}) => {
+		// This state variable is a boolean flag that tracks whether any elements within the lists are currently being dragged
+		const [elementsAreDragged, setElementsAreDragged] = useState(false);
 		const [firstListLocal, setFirstListLocal] = useState(firstList);
 		const [position, setPosition] = useState(null);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
@@ -260,7 +272,7 @@ const TransferListBase = kind({
 		const width = orientation === 'horizontal' ? 'inherit' : '100%';
 		let isAboveDropPosition = useRef(false);
 		let currentElement = useRef();
-		let dragOverElement = useRef();
+		let dragOverElement = useRef(null);
 		let dragImageNode = useRef();
 		let startDragElement = useRef();
 		let scrollToRefFirst = useRef(null);
@@ -274,42 +286,55 @@ const TransferListBase = kind({
 			scrollToRefSecond.current = scrollTo;
 		}, []);
 
-		// Apply animation and above/below border when dragging items. We also set the drop position of the dragged item (above/below)
-		const applyDropBorder = useCallback((element, ev, isAboveCurrentElement, isBelowCurrentElement) => {
-			// Check if the drop position of the element we start dragging is not its initial position for horizontal VirtualList
-			if (startDragElement.current !== element && (!isVertical || !isDefaultListComponent)) {
-				// Check if the position of the dragged item is above the element we drag over
-				if ((ev.offsetY < currentElement.current.offsetHeight / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-					currentElement.current.classList.add(`${css.overAbove}`);
-					currentElement.current.classList.remove(`${css.overBelow}`);
-					isAboveDropPosition.current = true;
-				} else {
-					currentElement.current.classList.add(`${css.overBelow}`);
-					currentElement.current.classList.remove(`${css.overAbove}`);
-					isAboveDropPosition.current = false;
-				}
-			// Check if the drop position of the element we start dragging is not its initial position for vertical or VirtualGridList
-			} else if (startDragElement.current !== element) {
-				// Check if the position of the dragged item is on the left side of the element we drag over
-				if ((ev.offsetX < currentElement.current.offsetWidth / 3 || isAboveCurrentElement) && !isBelowCurrentElement) {
-					currentElement.current.classList.add(`${css.overLeft}`);
-					currentElement.current.classList.remove(`${css.overRight}`);
-					isAboveDropPosition.current = true;
-				} else {
-					currentElement.current.classList.add(`${css.overRight}`);
-					currentElement.current.classList.remove(`${css.overLeft}`);
-					isAboveDropPosition.current = false;
-				}
+		// Update current element on `dragleave` and `dragover` events
+		const updateCurrentElement = useCallback((ev) => {
+			let element;
+			// Check if the item is rendered by `CheckboxItem` or `ImageItem`
+			if (!ev.target.children.length) {
+				element = ev.target.parentElement;
+			} else {
+				element = ev.currentTarget;
 			}
-		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical]);
+
+			const dragOverOrder = Number(element.getAttribute('order'));
+			currentElement.current = dragOverOrder > 0 ? element : currentElement.current;
+			dragOverElement.current = parseInt(element.id.split('-')[0]);
+		}, []);
 
 		// Cleanup for removing css animations and borders
 		const removeDropBorder = useCallback((element) => {
-			element.classList.remove(`${css.overAbove}`);
-			element.classList.remove(`${css.overBelow}`);
-			element.classList.remove(`${css.overLeft}`);
-			element.classList.remove(`${css.overRight}`);
+			element.classList.remove(`${css.overAbove}`, `${css.overBelow}`, `${css.overLeft}`, `${css.overRight}`);
 		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight]);
+
+		// Apply animation and above/below border when dragging items. We also set the drop position of the dragged item (above/below)
+		const applyDropBorder = useCallback((element, ev, isAboveCurrentElement, isBelowCurrentElement) => {
+			// Check list orientation and component type
+			const isVerticalOrIsDefault = !isVertical || !isDefaultListComponent;
+
+			// Get the cursor position in item
+			const clientRect = currentElement.current.getBoundingClientRect();
+			const cursorPositionX = ev.clientX - clientRect.left;
+			const cursorPositionY = ev.clientY - clientRect.top;
+
+			const borderClassAbove = isVerticalOrIsDefault ? css.overAbove : css.overLeft;
+			const borderClassBelow = isVerticalOrIsDefault ? css.overBelow : css.overRight;
+			const cursorPosition = isVerticalOrIsDefault ? cursorPositionY : cursorPositionX;
+			const offsetValue = currentElement.current[`${isVerticalOrIsDefault ? 'offsetHeight' : 'offsetWidth'}`];
+
+			// Check if the drop position of the element we start dragging is not its initial position for horizontal VirtualList
+			if (startDragElement.current !== currentElement.current) {
+				// Check if the position of the dragged item is above the element we drag over
+				if ((cursorPosition <= offsetValue / 2 || isAboveCurrentElement) && !isBelowCurrentElement) {
+					removeDropBorder(currentElement.current);
+					currentElement.current.classList.add(borderClassAbove);
+					isAboveDropPosition.current = true;
+				} else {
+					removeDropBorder(currentElement.current);
+					currentElement.current.classList.add(borderClassBelow);
+					isAboveDropPosition.current = false;
+				}
+			}
+		}, [css.overAbove, css.overBelow, css.overLeft, css.overRight, isDefaultListComponent, isVertical, removeDropBorder]);
 
 		// Handle the operations between the two lists
 		const rearrangeLists = useCallback((sourceList, destinationList, draggedElementIndex, draggedElementList, dragOverElementIndex, setSourceList, setDestinationList, sourceOperation) => {
@@ -368,37 +393,30 @@ const TransferListBase = kind({
 
 		// Handler for `dragleave` event - remove the drop border
 		const dropEventListenerFunction = useCallback((ev) => {
-			let element;
-			// Check if the item is rendered by `CheckboxItem` or `ImageItem`
-			if (!ev.target.children.length) {
-				element = ev.target.parentElement;
-			} else {
-				element = ev.currentTarget;
-			}
+			updateCurrentElement(ev);
 
-			removeDropBorder(element);
-		}, [removeDropBorder]);
+			removeDropBorder(currentElement.current);
+		}, [removeDropBorder, updateCurrentElement]);
+
+		// Handle for `dragend` event - change state if `selectedItems` is empty
+		const dragendEventListenerFunction = useCallback(() => {
+			setElementsAreDragged(!!selectedItems?.find((item) => (item.list === 'first' && !firstListOrderFixed) || item.list === 'second'));
+		}, [firstListOrderFixed, selectedItems]);
 
 		// Handler for `dragover` event - apply the drop border on dragged-over item
 		const dragoverListenerFunction = useCallback((ev) => {
-			let element;
-			// Check if the item is rendered by `CheckboxItem` or `ImageItem`
-			if (!ev.target.children.length) {
-				element = ev.target.parentElement;
-			} else {
-				element = ev.currentTarget;
-			}
+			updateCurrentElement(ev);
 
 			const startDragOrder = Number(startDragElement.current.getAttribute('order'));
-			const dragOverOrder = Number(element.getAttribute('order'));
+			const dragOverOrder = Number(currentElement.current.getAttribute('order'));
+			const dragOverList = currentElement.current.id.split('-')[1];
 			const isAboveCurrentElement = startDragOrder - 1 === dragOverOrder;
 			const isBelowCurrentElement = startDragOrder + 1 === dragOverOrder;
 
-			currentElement.current = dragOverOrder > 0 ? element : currentElement.current;
-			dragOverElement.current = parseInt(element.id.split('-')[0]);
-
-			applyDropBorder(element, ev, isAboveCurrentElement, isBelowCurrentElement);
-		}, [applyDropBorder]);
+			// Apply Drop Border only if the order of items in the first list are not fixed
+			if (firstListOrderFixed && dragOverList === 'first') return;
+			applyDropBorder(currentElement.current, ev, isAboveCurrentElement, isBelowCurrentElement);
+		}, [applyDropBorder, firstListOrderFixed, updateCurrentElement]);
 
 		// Identify which item(s) is/are going to be dragged and set drag image accordingly
 		const startListenerFunction = useCallback((ev) => {
@@ -414,7 +432,8 @@ const TransferListBase = kind({
 			dragImageNode?.current?.(!isMultiple, (nodeRef) => {
 				ev.dataTransfer.setDragImage(nodeRef, 0, 0);
 			});
-		}, [selectedItems.length]);
+			setElementsAreDragged(!(list === "first" && firstListOrderFixed));
+		}, [firstListOrderFixed, selectedItems.length]);
 
 		// Handler for `touchStart` event - in case of touch events, set the `startDragElement` to the item we are dragging
 		const handleTouchStart = useCallback((ev) => {
@@ -513,12 +532,11 @@ const TransferListBase = kind({
 		const handleScroll = useCallback(() => {
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
-
 			selectCheckboxItem.forEach(element => {
 				element.setAttribute('order', `${orderCounter + 1}`);
 				orderCounter++;
 
-				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop'];
+				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop', 'dragend'];
 				eventListeners.forEach(event => {
 					if (event === 'dragstart') {
 						return element.addEventListener('dragstart', startListenerFunction);
@@ -535,9 +553,12 @@ const TransferListBase = kind({
 					if (event === 'drop') {
 						return element.addEventListener('drop', dropEventListenerFunction);
 					}
+					if (event === 'dragend') {
+						return element.addEventListener('dragend', dragendEventListenerFunction);
+					}
 				});
 			});
-		}, [css.draggableItem, dragoverListenerFunction, dropEventListenerFunction, startListenerFunction]);
+		}, [css.draggableItem, dragendEventListenerFunction, dragoverListenerFunction, dropEventListenerFunction, startListenerFunction]);
 
 		// Inside this useEffect we add all event listeners to all the items, and handle the scroll behavior when the items are transferred
 		useEffect(() => {
@@ -563,10 +584,15 @@ const TransferListBase = kind({
 					element.removeEventListener('dragover', dragoverListenerFunction);
 					element.removeEventListener('dragstart', startListenerFunction);
 					element.removeEventListener('drop', dropEventListenerFunction);
+					element.removeEventListener('dragend', dragendEventListenerFunction);
 				});
 				clearTimeout(updateElements);
 			};
-		}, [dragOverElement, dragoverListenerFunction, dropEventListenerFunction, firstListLocal, handleTouchEndFirst, handleTouchEndSecond, handleTouchMove, handleTouchStart, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+		}, [dragOverElement, dragendEventListenerFunction, dragoverListenerFunction, dropEventListenerFunction, firstListLocal, handleTouchEndFirst, handleTouchEndSecond, handleTouchMove, handleTouchStart, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
+
+		useEffect(() => {
+			dragendEventListenerFunction();
+		}, [dragendEventListenerFunction]);
 
 		// Handle move/copy/delete the selected items into the first list by 5-way or transfer buttons
 		const moveIntoFirstSelected = useCallback(() => {
@@ -672,6 +698,9 @@ const TransferListBase = kind({
 			const isListCapacityExceeded = checkListsCapacity('second', index, firstListCopy, list, listsCapacity, secondListCopy, selectedItems);
 			if (isListCapacityExceeded) return;
 
+			// Disables remove button on `dragend` event
+			dragendEventListenerFunction();
+
 			// Check if we are dropping on the same list
 			const isSameList = checkForSameList('second', dragOverElement, index, isAboveDropPosition, list, secondListCopy, selectedItems, setSecondListLocal, setPosition);
 			if (isSameList) return;
@@ -680,10 +709,14 @@ const TransferListBase = kind({
 			setSelectedItemsPosition(dragOverElement, index, list, firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal, firstListOperation);
-		}, [firstListLocal, firstListMinCapacity, firstListOperation, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
+		}, [dragendEventListenerFunction, firstListLocal, firstListMinCapacity, firstListOperation, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
 
 		// Handle drop action for the first list
 		const onDropFirstHandler = useCallback((ev) => {
+			// Check if the order of items from the first list is fixed
+			const startDragList = startDragElement.current?.id.split('-')[1];
+			if (firstListOrderFixed && startDragList !== 'second') return;
+
 			const {index, list} = getTransferData(ev.dataTransfer);
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
@@ -694,6 +727,9 @@ const TransferListBase = kind({
 			const isListCapacityExceeded = checkListsCapacity('first', index, firstListCopy, list, listsCapacity, secondListCopy, selectedItems);
 			if (isListCapacityExceeded) return;
 
+			// Disables remove button on `dragend` event
+			dragendEventListenerFunction();
+
 			// Check if we are dropping on the same list
 			const isSameList = checkForSameList('first', dragOverElement, index, isAboveDropPosition, list, firstListCopy, selectedItems, setFirstListLocal, setPosition);
 			if (isSameList) return;
@@ -702,7 +738,46 @@ const TransferListBase = kind({
 			setSelectedItemsPosition(dragOverElement, index, list, secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal, secondListOperation);
-		}, [firstListLocal, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);
+		}, [dragendEventListenerFunction, firstListLocal, firstListOrderFixed, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);
+
+		// Remove all selected items from the list
+		const handleRemoveItems = useCallback((ev) => {
+			// Make a copy of all lists
+			let tempFirst = [...firstListLocal],
+				tempSecond = [...secondListLocal],
+				tempSelected = [...selectedItems];
+
+			const removeItem = (item) => {
+				// Check if items are from the first list and if the order of items is fixed
+				if (item.list === 'first' && firstListOrderFixed) return;
+
+				// Check from which list are items and remove them
+				const itemsList = item.list === 'first' ? tempFirst : tempSecond;
+				itemsList.splice(itemsList.findIndex((element) => element === item.element), 1);
+				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
+			};
+
+			// Check if items were selected or dragged without selection
+			if (!selectedItems.length) {
+				const {index, list} = getTransferData(ev.dataTransfer);
+				const element = list === 'first' ? tempFirst[index] : tempSecond[index];
+				removeItem({element, index, list});
+			} else {
+				selectedItems.map((item) => {
+					removeItem(item);
+				});
+			}
+
+			// If the state is externally controlled, use the provided functions
+			if (setFirstList !== null && setSecondList !== null) {
+				setFirstList(tempFirst);
+				setSecondList(tempSecond);
+			} else {
+				setFirstListLocal(tempFirst);
+				setSecondListLocal(tempSecond);
+			}
+			setSelectedItems(tempSelected);
+		}, [firstListLocal, firstListOrderFixed, secondListLocal, selectedItems, setFirstList, setSecondList]);
 
 		// Remove all the items in the `selectedItems` array
 		const handleRemoveSelected = useCallback(() => setSelectedItems([]), []);
@@ -791,13 +866,17 @@ const TransferListBase = kind({
 				</Cell>
 				<ButtonList
 					disabled={disabled}
+					firstListOrderFixed={firstListOrderFixed}
 					firstListMaxCapacity={firstListMaxCapacity}
 					firstListMinCapacity={firstListMinCapacity}
+					handleRemoveItems={handleRemoveItems}
 					handleRemoveSelected={handleRemoveSelected}
 					moveIntoFirstSelected={moveIntoFirstSelected}
 					moveIntoSecondSelected={moveIntoSecondSelected}
 					moveOnSpotlight={moveOnSpotlight}
+					onDragOver={handlePreventDefault}
 					orientation={orientation}
+					removeButtonActive={elementsAreDragged}
 					secondListMaxCapacity={secondListMaxCapacity}
 					secondListMinCapacity={secondListMinCapacity}
 					selectIntoFirstAll={selectIntoFirstAll}
