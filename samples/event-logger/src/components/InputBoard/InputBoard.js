@@ -84,8 +84,8 @@ const InputBoard = ({className}) => {
 
 	const onAddEventLog =
 		useCallback(
-			(timeoutId, eventName, isDOMElement, isCapturing, eventObject) =>
-				dispatch(addEventLogAction(timeoutId, eventName, isDOMElement, isCapturing, eventObject)), [dispatch]
+			(eventName, eventObject, isDOMElement, isCapturing, timeoutId) =>
+				dispatch(addEventLogAction(eventName, eventObject, isDOMElement, isCapturing, timeoutId)), [dispatch]
 		);
 	const onRemoveEventLog =
 		useCallback(
@@ -94,8 +94,8 @@ const InputBoard = ({className}) => {
 		);
 	const onUpdateEventLog =
 		useCallback(
-			(prevTimeoutId, postTimeoutId, eventObject) =>
-				dispatch(updateEventLogAction(prevTimeoutId, postTimeoutId, eventObject)), [dispatch]
+			(eventObject, prevTimeoutId, postTimeoutId) =>
+				dispatch(updateEventLogAction(eventObject, prevTimeoutId, postTimeoutId)), [dispatch]
 		);
 
 	const prevActiveEvents = usePrevious(activeEvents);
