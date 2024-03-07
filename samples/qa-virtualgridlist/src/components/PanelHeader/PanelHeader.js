@@ -29,7 +29,7 @@ import {
 import createRecord from '../../utils';
 
 const PanelHeader = (props) => {
-	const {nativeScroll, onChangeScrollMode, onChangeDirection} = props;
+	const {nativeScroll, onChangeDirection, onChangeScrollMode} = props;
 
 	const dispatch = useContext(RecordDispatchContext);
 	const {dataSize, minHeight, minWidth, showOverlay, spacing} = useContext(RecordContext);
