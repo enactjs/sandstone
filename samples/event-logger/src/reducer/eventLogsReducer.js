@@ -17,11 +17,11 @@ function findFirstIndexMatchingEvent (logs, eventName) {
 		}
 	}
 	return -1;
-};
+}
 
-export default function eventLogsReducer(state, action) {
-	switch(action.type) {
-		case(ADD_EVENT_LOG): {
+export default function eventLogsReducer (state, action) {
+	switch (action.type) {
+		case (ADD_EVENT_LOG): {
 			const newState = [...state.eventLogs, {
 				eventName: action.eventName,
 				eventObject: action.eventObject,
@@ -29,9 +29,9 @@ export default function eventLogsReducer(state, action) {
 				isCapturing: action.isCapturing,
 				timeoutId: action.timeoutId
 			}];
-			return {eventLogs: newState}
+			return {eventLogs: newState};
 		}
-		case(REMOVE_EVENT_LOG): {
+		case (REMOVE_EVENT_LOG): {
 			const
 				index = findFirstIndexMatchingEvent(state.eventLogs, action.eventName),
 				logs = state.eventLogs.slice();
@@ -40,7 +40,7 @@ export default function eventLogsReducer(state, action) {
 
 			return {eventLogs: logs};
 		}
-		case(UPDATE_EVENT_LOG): {
+		case (UPDATE_EVENT_LOG): {
 			const index = state.eventLogs.findIndex(log => log.timeoutId === action.prevTimeoutId);
 			if (index >= 0) {
 				const

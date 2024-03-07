@@ -21,7 +21,7 @@ const ImageItemComponent = (props) => {
 			/* eslint-disable react/jsx-no-bind */
 			onClick={onClick}
 		>{data[dataIndex].caption}</ImageItem>
-	)
+	);
 };
 
 export default ImageItemComponent;

@@ -25,6 +25,6 @@ const App = (props) => {
 			<MainPanel title="Third" onClick={pushPanel} />
 			<MainPanel title="Fourth" />
 		</Panels>
-	)
-}
+	);
+};
 export default ThemeDecorator(App);

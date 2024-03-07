@@ -12,16 +12,16 @@ export const EventLoggerDispatchContext = createContext(null);
 
 const initialData = {
 	activeEventsReducer: {
-		activeEvents: new Array(eventCategory.length).fill(false),
+		activeEvents: new Array(eventCategory.length).fill(false)
 	},
 	eventCapturingOnReducer: {
-		eventCapturingOn: false,
+		eventCapturingOn: false
 	},
 	eventLogsReducer: {
-		eventLogs: [],
+		eventLogs: []
 	},
 	syntheticEventOnReducer: {
-		syntheticEventOn: false,
+		syntheticEventOn: false
 	},
 	timerIndexReducer: {
 		timerIndex: 0
@@ -29,13 +29,13 @@ const initialData = {
 };
 
 const combineReducers = (reducers) => (state, action) =>
-  Object.keys(reducers).reduce(
-    (acc, prop) => ({
-      ...acc,
-      [prop]: reducers[prop](acc[prop], action),
-    }),
-    state
-  );
+	Object.keys(reducers).reduce(
+		(acc, prop) => ({
+			...acc,
+			[prop]: reducers[prop](acc[prop], action)
+		}),
+		state
+	);
 
 export const EventLoggerProvider = ({children}) => {
 	const [state, dispatch] = useReducer(combineReducers({
@@ -43,7 +43,7 @@ export const EventLoggerProvider = ({children}) => {
 		eventCapturingOnReducer,
 		eventLogsReducer,
 		syntheticEventOnReducer,
-		timerIndexReducer,
+		timerIndexReducer
 	}), initialData);
 
 	return (
@@ -52,5 +52,5 @@ export const EventLoggerProvider = ({children}) => {
 				{children}
 			</EventLoggerDispatchContext.Provider>
 		</EventLoggerContext.Provider>
-	)
+	);
 };

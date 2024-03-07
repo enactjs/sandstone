@@ -5,6 +5,7 @@ import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {Header} from '@enact/sandstone/Panels';
 import {InputField as Input} from '@enact/sandstone/Input';
 import {Cell, Row} from '@enact/ui/Layout';
+import PropTypes from 'prop-types';
 import {useContext, useState} from 'react';
 
 import LocaleSwitch from '../LocaleSwitch';
@@ -71,7 +72,7 @@ const PanelHeader = (props) => {
 
 		for (let i = 0; i <= ev.value; i++) {
 			dispatch(setDataAction(createRecord({recordIndex: Number(dataSize) + i, showOverlay}), ev.value));
-		};
+		}
 	};
 	const showSelectionOverlayHandler = () => {
 		dispatch(selectionEnableAction());
@@ -133,7 +134,13 @@ const PanelHeader = (props) => {
 				</Row>
 			}
 		</Header>
-	)
+	);
+};
+
+PanelHeader.propTypes = {
+	nativeScroll: PropTypes.bool,
+	onChangeDirection: PropTypes.func,
+	onChangeScrollMode: PropTypes.func
 };
 
 export default PanelHeader;

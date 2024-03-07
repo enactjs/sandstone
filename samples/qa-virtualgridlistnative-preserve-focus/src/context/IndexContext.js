@@ -13,7 +13,7 @@ export const IndexProvider = ({children}) => {
 				{children}
 			</IndexDispatchContext.Provider>
 		</IndexContext.Provider>
-	)
+	);
 };
 
 /* action type */
@@ -23,15 +23,15 @@ const DECREASE_INDEX = 'indexReducer/DECREASEINDEX';
 export const increaseIndex = () => ({type: INCREASE_INDEX});
 export const decreaseIndex = () => ({type: DECREASE_INDEX});
 
-export default function indexReducer(state, action) {
-	switch(action.type) {
-		case(INCREASE_INDEX): {
+export default function indexReducer (state, action) {
+	switch (action.type) {
+		case (INCREASE_INDEX): {
 			const newIndex = state.index += 1;
-			return {...state, index: newIndex}
+			return {...state, index: newIndex};
 		}
-		case(DECREASE_INDEX): {
+		case (DECREASE_INDEX): {
 			const newIndex = state.index > 0 ? state.index - 1 : 0;
-			return {...state, index: newIndex}
+			return {...state, index: newIndex};
 		}
 	}
 }

@@ -13,7 +13,7 @@ export const ListProvider = ({children}) => {
 				{children}
 			</ListDispatchContext.Provider>
 		</ListContext.Provider>
-	)
+	);
 };
 
 /* action type */
@@ -23,15 +23,15 @@ export const setData = (dataSize, isDisabled) => ({type: SET_DATA, dataSize, isD
 
 const isItemDisabled = (index, mod) => !(index % mod === 0);
 
-export default function listReducer(state, action) {
-	switch(action.type) {
-		case(SET_DATA): {
+export default function listReducer (state, action) {
+	switch (action.type) {
+		case (SET_DATA): {
 			const newListItems = [];
 
 			for (let i = 0; i < action.dataSize; i++) {
 				newListItems.push({content: 'Item ' + ('00' + i).slice(-3), disabled: isItemDisabled(i, action.isDisabled ? 15 : 1)});
 			}
-			return {...state, listItems: newListItems}
+			return {...state, listItems: newListItems};
 		}
 	}
 }

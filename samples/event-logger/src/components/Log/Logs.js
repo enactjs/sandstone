@@ -23,9 +23,7 @@ const Logs = kind({
 		const {eventLogsReducer} = useContext(EventLoggerContext);
 		const {eventLogs} = eventLogsReducer;
 
-		const logs = eventLogs.map((log, index) => {
-			return <Log className={css.log} log={log} key={index}/>
-		});
+		const logs = eventLogs.map((log, index) => <Log className={css.log} log={log} key={index} />);
 		return (
 			<Scroller className={css.content}>
 				{logs}

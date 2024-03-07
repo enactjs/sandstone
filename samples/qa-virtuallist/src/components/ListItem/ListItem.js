@@ -5,7 +5,7 @@ import {useContext} from 'react';
 import {ListContext} from '../../context/ListContext';
 
 const ListItem = (props) => {
-	const {children, index, rest} = props;
+	const {children, index, ...rest} = props;
 	const {listItems} = useContext(ListContext);
 	const disabled = listItems[index].disabled;
 
@@ -17,8 +17,8 @@ const ListItem = (props) => {
 };
 
 ListItem.propTypes = {
-	index: PropTypes.number,
-	children: PropTypes.any
+	children: PropTypes.any,
+	index: PropTypes.number
 };
 
 export default ListItem;
