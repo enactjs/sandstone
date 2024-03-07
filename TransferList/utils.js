@@ -1,5 +1,5 @@
 // Check for lists capacity
-export const checkListsCapacity = (currentListForDrop, index = null, firstListCopy, list, listsCapacity, secondListCopy, selectedItems) => {
+export const checkListsCapacity = (currentListForDrop, firstListCopy, listsCapacity, secondListCopy, selectedItems, index = null, list = null) => {
 	const listCopy = currentListForDrop === 'first' ? secondListCopy : firstListCopy;
 
 	// If there are selected items and the dragged item is not one of them, cancel the drop
@@ -18,6 +18,15 @@ export const checkListsCapacity = (currentListForDrop, index = null, firstListCo
 
 	return false;
 };
+
+export const getTouchElementData = (ev, startDragElement) => {
+	let element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY).closest('[draggable]');
+	const list = element.id.split('-')[1];
+	const [startElementIndex, startElementList] = startDragElement.current.id.split('-');
+	if (startDragElement.current === element) return null;
+
+	return {element, list, startElementIndex, startElementList};
+}
 
 // Get the transferred item and return the index and the list
 export const getTransferData = (dataTransferObj) => {
@@ -58,14 +67,16 @@ export const performSelectAllOperation = (concatList, currentList, listOperation
 	const isStateControlledExternally = setFirstList !== null && setSecondList !== null;
 	const setFirstListState = isStateControlledExternally ? setFirstList : setFirstListLocal;
 	const setSecondListState = isStateControlledExternally ? setSecondList : setSecondListLocal;
+	const moveCopyList = currentList === 'first' ? setSecondListState : setFirstListState;
+	const moveDeleteList = currentList === 'first' ? setFirstListState : setSecondListState;
 
 	// In case of moving or copying, add all the items from one list to another
 	if (listOperation === 'move' || listOperation === 'copy') {
-		currentList === 'first' ? setSecondListState(concatList) : setFirstListState(concatList);
+		moveCopyList(concatList)
 	}
 	// In case of moving or deleting, empty the list from where we are performing actions
 	if (listOperation === 'move' || listOperation === 'delete') {
-		currentList === 'first' ? setFirstListState([]) : setSecondListState([]);
+		moveDeleteList([]);
 	}
 
 	setSelectedItems([]);
@@ -105,7 +116,7 @@ export const checkForSameList = (currentListForDrop, dragOverElement, index, isA
 };
 
 // If the state is externally controlled, use the provided functions
-export const setItemsOnMove = (setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected) => {
+export const setItemsState = (setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected) => {
 	if (setFirstList !== null && setSecondList !== null) {
 		setFirstList(tempFirst);
 		setSecondList(tempSecond);

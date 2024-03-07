@@ -1,5 +1,6 @@
 import {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
+import {memo} from 'react';
 
 import Button from '../Button';
 
@@ -213,4 +214,4 @@ ButtonList.propTypes = {
 	selectIntoSecondAll: PropTypes.func
 };
 
-export default ButtonList;
+export default memo(ButtonList);
