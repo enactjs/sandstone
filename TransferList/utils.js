@@ -101,8 +101,6 @@ export const rearrangeList = (dragOverElementIndex, isAbove, itemIndex, list, li
 
 // Check if we are dropping on the same list
 export const checkForSameList = (currentListForDrop, dragOverElement, index, isAboveDropPosition, list, listCopy, selectedItems, setListLocal, setPosition, removeBorder = null) => {
-	// const {index, list} = getTransferData(ev.dataTransfer);
-
 	if (list === currentListForDrop) {
 		setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: list});
 
