@@ -26,7 +26,7 @@ export const getTouchElementData = (ev, startDragElement) => {
 	if (startDragElement.current === element) return null;
 
 	return {element, list, startElementIndex, startElementList};
-}
+};
 
 // Get the transferred item and return the index and the list
 export const getTransferData = (dataTransferObj) => {
@@ -72,7 +72,7 @@ export const performSelectAllOperation = (concatList, currentList, listOperation
 
 	// In case of moving or copying, add all the items from one list to another
 	if (listOperation === 'move' || listOperation === 'copy') {
-		moveCopyList(concatList)
+		moveCopyList(concatList);
 	}
 	// In case of moving or deleting, empty the list from where we are performing actions
 	if (listOperation === 'move' || listOperation === 'delete') {
@@ -123,7 +123,7 @@ export const setItemsState = (setFirstList, setFirstListLocal, setSecondList, se
 		setSecondListLocal(tempSecond);
 	}
 	setSelectedItems(tempSelected);
-}
+};
 
 // Set new position for the items after the drop action
 export const setSelectedItemsPosition = (dragOverElement, index, list, listCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems) => {

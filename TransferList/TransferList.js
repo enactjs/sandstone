@@ -511,7 +511,7 @@ const TransferListBase = kind({
 			if (isListCapacityExceeded) return;
 
 			// In case of dropping items into the same list with touch events
-			const isSameList = checkForSameList('first', dragOverElement, startElementIndex, isAboveDropPosition, startElementList, secondListCopy, selectedItems,setSecondListLocal, setPosition, removeDropBorder(element));
+			const isSameList = checkForSameList('first', dragOverElement, startElementIndex, isAboveDropPosition, startElementList, secondListCopy, selectedItems, setSecondListLocal, setPosition, removeDropBorder(element));
 			if (isSameList) return;
 
 			// Check if the selected item is already present in the selected items array
