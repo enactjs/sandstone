@@ -3,6 +3,7 @@ import platform from '@enact/core/platform';
 import {onWindowReady} from '@enact/core/snapshot';
 import {clamp} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
+import {getPositionTargetOnFocus} from '@enact/spotlight/src/container';
 import {getRect} from '@enact/spotlight/src/utils';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {constants} from '@enact/ui/useScroll';
@@ -62,8 +63,13 @@ const useEventFocus = (props, instances) => {
 	function calculateAndScrollTo () {
 		const
 			positionFn = themeScrollContentHandle.current.calculatePositionOnFocus,
-			scrollContentNode = scrollContentRef.current,
-			spotItem = Spotlight.getCurrent();
+			scrollContentNode = scrollContentRef.current;
+		let	spotItem = Spotlight.getCurrent();
+
+		// Scroll to the container created by ContentContainerDecorator when descendants get focused
+		if (props.scrollToContentContainerOnFocus) {
+			spotItem = getPositionTargetOnFocus(spotItem);
+		}
 
 		if (spotItem && positionFn && utilDOM.containsDangerously(scrollContentNode, spotItem)) {
 			const lastPos = spottable.current.lastScrollPositionOnFocus;
@@ -529,7 +535,7 @@ const useEventVoice = (props, instances) => {
 	};
 
 	function addVoiceEventListener (scrollContentRef) {
-		if (platform.webos) {
+		if (platform.type === 'webos') {
 			utilEvent('webOSVoice').addEventListener(scrollContentRef, handleVoice);
 
 			if (scrollContainerHandle && scrollContainerHandle.current && scrollContainerHandle.current.getScrollBounds) {
@@ -542,7 +548,7 @@ const useEventVoice = (props, instances) => {
 	}
 
 	function removeVoiceEventListener (scrollContentRef) {
-		if (platform.webos) {
+		if (platform.type === 'webos') {
 			utilEvent('webOSVoice').removeEventListener(scrollContentRef, handleVoice);
 			scrollContentRef.current.removeAttribute('data-webos-voice-intent');
 		}

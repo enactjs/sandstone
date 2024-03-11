@@ -6,7 +6,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
 - `sandstone/VideoPlayer` support for playback speed adjustment
+
+### Fixed
+
+- `sandstone/VirtualList` to show the focused item properly when switching from pointer mode to 5-way mode
+- `sandstone/VirtualList.VirtualGridList` to show the focused item fully when focus moves via 5-way keys inside a list
 
 ## [2.8.0] - 2024-02.07
 

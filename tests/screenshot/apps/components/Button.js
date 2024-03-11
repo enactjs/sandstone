@@ -209,6 +209,9 @@ const ButtonTests = [
 		// [QWTC-1831]
 		<Button icon="rotate">Focused button</Button>,
 
+		// [QWTC-2531]
+		<Button disabled icon="forward" size="samll" tooltipText="tooltip" tooltipType="transparent">Focused button</Button>,
+
 		// roundBorder
 		<Button roundBorder>Focused button</Button>,
 		<Button roundBorder size="small">Focused button</Button>,
