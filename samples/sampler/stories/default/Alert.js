@@ -31,6 +31,14 @@ const prop = {
 				<Button>Button Label</Button>
 				<Button>Button Label</Button>
 			</buttons>
+		),
+		'4 buttons': (
+			<buttons>
+				<Button>Button Label</Button>
+				<Button>Button Label</Button>
+				<Button>Button Label</Button>
+				<Button>Button Label</Button>
+			</buttons>
 		)
 	}
 };
@@ -58,7 +66,7 @@ export const _Alert = (args) => (
 );
 
 boolean('open', _Alert, Config);
-select('buttons', _Alert, ['no buttons', '1 button', '2 buttons', '3 buttons'], Config, '2 buttons');
+select('buttons', _Alert, ['no buttons', '1 button', '2 buttons', '3 buttons', '4 buttons'], Config, '2 buttons');
 text('title', _Alert, Config, 'Fullscreen Alert Title');
 select('type', _Alert, ['fullscreen', 'overlay'], Config);
 text('children', _Alert, Config, 'Additional text content for Alert');
