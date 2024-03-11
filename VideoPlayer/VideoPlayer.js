@@ -1635,6 +1635,8 @@ const VideoPlayerBase = class extends Component {
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @param {Number} rate - The desired playback rate.
+	 * @returns {Boolean} Returns true if speed changes successfully.
 	 * @public
 	 */
 	setPlaybackSpeed = (rate) => {
