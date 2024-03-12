@@ -72,16 +72,16 @@ export const parameters = {
 	},
 	docs: {
 		container: DocsContainer,
-		// story: {
-		// 	inline: false,
-		// 	iframeHeight: ri.scaleToRem(900)
-		// },
-		// page: () => (
-		// 	<>
-		// 		<Title />
-		// 		<Primary />
-		// 	</>
-		// ),
+		story: {
+			inline: false,
+			iframeHeight: ri.scaleToRem(900)
+		},
+		page: () => (
+			<>
+				<Title />
+				<Primary />
+			</>
+		),
 		theme: themes.light
 	},
 	options: {

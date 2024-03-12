@@ -24,7 +24,7 @@
     "@enact/i18n": "^4.8.0",
     "@enact/sandstone": "../../",
     "@enact/spotlight": "^4.8.0",
-    "@enact/storybook-utils": "^5.1.2",
+    "@enact/storybook-utils": "enactjs/storybook-utils#feature/WRP-569",
     "@enact/ui": "^4.8.0",
     "@storybook/addons": "^7.6.17",
     "@storybook/addon-docs": "^7.6.17",
