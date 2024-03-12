@@ -113,6 +113,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Scroller` back key behavior to match the latest UX when `editable` is given
+- `sandstone/ThemeDecorator` to pass `rootId` to `spotlight/SpotlightRootDecorator`
 
 ### Fixed
 
