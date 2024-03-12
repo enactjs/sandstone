@@ -1,25 +1,22 @@
 const ScrollerPage = require('../ScrollerPage');
 const {expectFocusedItem} = require('../Scroller-utils');
 
-describe.skip('Editable Scroller', function () {
+describe('Scroller With Editable Select Item By Press', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open('EditableItem');
+		await ScrollerPage.open('WithEditableSelectItemByPress');
 	});
 
-	it('Should remove item with remove button [QWTC-568]', async function () {
+	it('should remove item with remove button [QWTC-568]', async function () {
 		// Step 3: 5-way Spot and Select Image 0.
 		// Step 3-1 Verify: Spotlight is on image 0.
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.spotlightSelect();
 		await expectFocusedItem(0);
+		await ScrollerPage.spotlightSelect();
 
-		// Step 4-1: 5-way Up.
-		// Step 4-2: 5-way Up a few times again.
+		// Step 4-1: 5-way Up one time.
 		// Step 4 Verify: Spotlight is on 'trash' icon.
 		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.spotlightUp();
-		await ScrollerPage.buttonRemoveItem.isFocused();
+		await expect(await ScrollerPage.buttonRemoveItem.isFocused()).to.be.true();
 
 		// Step 5: 5-way Select
 		await ScrollerPage.spotlightSelect();

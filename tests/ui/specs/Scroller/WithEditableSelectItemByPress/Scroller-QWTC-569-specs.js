@@ -1,19 +1,19 @@
 const ScrollerPage = require('../ScrollerPage');
-const {expectFocusedItem} = require('../Scroller-utils');
+const {expectFocusedItem, expectItemWrapperClass} = require('../Scroller-utils');
 
-describe.skip('Editable Scroller', function () {
+describe('Scroller With Editable Select Item By Press', function () {
 	beforeEach(async function () {
-		await ScrollerPage.open('EditableItem');
+		await ScrollerPage.open('WithEditableSelectItemByPress');
 	});
 
-	it('Should change item position with 5-way mode [QWTC-569]', async function () {
+	it('should change item position with 5-way mode [QWTC-569]', async function () {
 		// Step 3: 5-way Spot and Select Image 0.
 		await ScrollerPage.spotlightDown();
 		// Step 3-1 Verify: Spotlight is on Image 0.
 		await expectFocusedItem(0);
 		await ScrollerPage.spotlightSelect();
 		// Step 3-2 Verify: Image 0 rises upper
-		expect(await ScrollerPage.checkEditableItem()).to.be.true();
+		await expectItemWrapperClass('tests_ui_apps_Scroller_WithEditableSelectItemByPress_ScrollerWithEditableSelectItemByPress_selected');
 
 		// Step 4: 5-way Right.
 		await ScrollerPage.spotlightRight();

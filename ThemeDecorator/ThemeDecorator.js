@@ -257,7 +257,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		componentDidMount () {
-			if (spotlight && platform.webos) {
+			if (spotlight && platform.type === 'webos') {
 				activateInputType(true);
 				requestInputType = new LS2Request().send({
 					service: 'luna://com.webos.surfacemanager',

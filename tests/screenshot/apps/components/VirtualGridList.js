@@ -5,6 +5,8 @@ import img from '../../images/600x600.png';
 import ImageItem from '../../../../ImageItem';
 import {VirtualGridList} from '../../../../VirtualList';
 
+import {withConfig} from './utils';
+
 const items = [];
 const defaultDataSize = 10;
 
@@ -100,6 +102,7 @@ class SnapToCenterVGL extends Component {
 }
 
 const VirtualGridListTests = [
+	// [QWTC-2107], [QWTC-2109]
 	<div>
 		<VirtualGridList
 			dataSize={items.length}
@@ -117,6 +120,7 @@ const VirtualGridListTests = [
 			verticalScrollbar="visible"
 		/>
 	</div>,
+	// [QWTC-2107]
 	<div>
 		<VirtualGridList
 			dataSize={items.length}
@@ -151,7 +155,15 @@ const VirtualGridListTests = [
 	</div>,
 	<div>
 		<SnapToCenterVGL />
-	</div>
+	</div>,
+	// [QWTC-2109]
+	...withConfig({locale: 'ar-SA'}, [
+		<VirtualGridList
+			dataSize={items.length}
+			itemSize={{minWidth: ri.scale(270), minHeight: ri.scale(270)}}
+			itemRenderer={renderItem}
+		/>
+	])
 ];
 
 export default VirtualGridListTests;

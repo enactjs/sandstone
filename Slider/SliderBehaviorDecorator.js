@@ -2,6 +2,7 @@ import {forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import Pause from '@enact/spotlight/Pause';
+import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import {Component, createRef} from 'react';
 
@@ -94,12 +95,12 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		getValueText () {
-			const {'aria-valuetext': ariaValueText, min, orientation, value = min} = this.props;
+			const {'aria-valuetext': ariaValueText, max, min, orientation, value = min} = this.props;
 			const {useHintText} = this.state;
 
 			const valueText = (ariaValueText != null) ? ariaValueText : value;
-			const verticalHint = `${valueText} ${$L('change a value with up down button')}`;
-			const horizontalHint = `${valueText} ${$L('change a value with left right button')}`;
+			const verticalHint = `${new IString($L('From {startValue} to {lastValue}')).format({startValue: min, lastValue: max})} ${valueText} ${$L('change a value with up down button')}`;
+			const horizontalHint = `${new IString($L('From {startValue} to {lastValue}')).format({startValue: min, lastValue: max})} ${valueText} ${$L('change a value with left right button')}`;
 
 			if (useHintText) {
 				return orientation === 'horizontal' ? horizontalHint : verticalHint;
@@ -131,7 +132,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		handleDragStart () {
 			// on platforms with a touchscreen, we want to focus slider when dragging begins
-			if (platform.touchscreen) {
+			if (platform.touchScreen) {
 				this.focusSlider();
 			}
 			this.paused.pause();

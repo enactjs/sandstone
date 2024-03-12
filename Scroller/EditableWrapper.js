@@ -4,9 +4,9 @@ import {is} from '@enact/core/keymap';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getContainersForNode} from '@enact/spotlight/src/container';
-import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
+import {getTargetByDirectionFromElement, getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import Accelerator from '@enact/spotlight/Accelerator';
-import {getLastPointerPosition, setPointerMode} from '@enact/spotlight/src/pointer';
+import {getLastPointerPosition, getPointerMode, setPointerMode} from '@enact/spotlight/src/pointer';
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
@@ -113,8 +113,8 @@ const EditableWrapper = (props) => {
 		// Position for restoring focus after removing item
 		nextSpotlightRect: null,
 
-		// Last move direction
-		lastMoveDirection: null,
+		// Move direction from the starting position to the current position
+		moveDirection: null,
 
 		// Last mouse position
 		lastMouseClientX: null,
@@ -131,6 +131,9 @@ const EditableWrapper = (props) => {
 		needToPreventEvent: null,
 
 		lastInputDirection: null,
+
+		isDraggingItem: false,
+		isDragging: false,
 
 		// initialSelected
 		initialSelected: editable?.initialSelected
@@ -151,7 +154,7 @@ const EditableWrapper = (props) => {
 		mutableRef.current.focusedItem = null;
 		mutableRef.current.selectedItem = null;
 		mutableRef.current.selectedItemLabel = '';
-		mutableRef.current.lastMoveDirection = null;
+		mutableRef.current.moveDirection = null;
 		mutableRef.current.prevToIndex = null;
 		mutableRef.current.initialSelected = null;
 		wrapperRef.current.style.setProperty('--selected-item-offset', '0px');
@@ -161,7 +164,7 @@ const EditableWrapper = (props) => {
 
 	// Finalize the order
 	const finalizeOrders = useCallback(() => {
-		const {fromIndex, lastMoveDirection, prevToIndex, rearrangedItems, selectedItem} = mutableRef.current;
+		const {fromIndex, moveDirection, prevToIndex, rearrangedItems, selectedItem} = mutableRef.current;
 		let orders = Array.from({length: dataSize}, (_, i) => i + 1);
 
 		if (rearrangedItems.length > 0) {
@@ -171,17 +174,17 @@ const EditableWrapper = (props) => {
 			rearrangedItems.forEach((item) => {
 				const order = Number(item.style.order);
 				selectedOrder = order;
-				item.style.order = order - lastMoveDirection;
+				item.style.order = order - moveDirection;
 				item.classList.remove(componentCss.rearrangedTransform, componentCss.rearranged);
 
-				if (lastMoveDirection > 0) {
+				if (moveDirection > 0) {
 					changedOrder.push(order);
 				} else {
 					changedOrder.unshift(order);
 				}
 			});
 
-			if (lastMoveDirection > 0) {
+			if (moveDirection > 0) {
 				changedOrder.push(Number(selectedItem.style.order));
 			} else {
 				changedOrder.unshift(Number(selectedItem.style.order));
@@ -319,17 +322,17 @@ const EditableWrapper = (props) => {
 	}, []);
 
 	// Add rearranged items
-	const addRearrangedItems = useCallback(({moveDirection, toIndex}) => {
-		// Set the moveDirection to css variable
+	const addRearrangedItems = useCallback(({currentMoveDirection, toIndex}) => {
+		// Set the currentMoveDirection to css variable
 		const {rtl} = scrollContainerHandle.current;
-		wrapperRef.current.style.setProperty('--move-direction', moveDirection * (rtl ? -1 : 1));
+		wrapperRef.current.style.setProperty('--move-direction', currentMoveDirection * (rtl ? -1 : 1));
 
 		const {fromIndex, rearrangedItems, selectedItem} = mutableRef.current;
-		const getNextElement = (item) => moveDirection > 0 ? item.nextElementSibling : item.previousElementSibling;
+		const getNextElement = (item) => currentMoveDirection > 0 ? item.nextElementSibling : item.previousElementSibling;
 		let sibling = getNextElement(selectedItem);
 		let lastRearrangedItem;
-		let start = moveDirection > 0 ? toIndex : fromIndex;
-		let end = moveDirection > 0 ? fromIndex : toIndex;
+		let start = currentMoveDirection > 0 ? toIndex : fromIndex;
+		let end = currentMoveDirection > 0 ? fromIndex : toIndex;
 
 		while (start > end && sibling) {
 			sibling?.classList.add(componentCss.rearranged, componentCss.rearrangedTransform);
@@ -347,7 +350,7 @@ const EditableWrapper = (props) => {
 			readOutCurrentPosition(lastRearrangedItem.ariaLabel || lastRearrangedItem.textContent);
 		}
 
-		mutableRef.current.lastMoveDirection = moveDirection;
+		mutableRef.current.moveDirection = currentMoveDirection;
 
 	}, [readOutCurrentPosition, scrollContainerHandle]);
 
@@ -374,7 +377,7 @@ const EditableWrapper = (props) => {
 		if (selectedItem) {
 			// Bail out when index is out of scope
 			if (toIndex < mutableRef.current.hideIndex && toIndex >= 0) {
-				const {fromIndex, itemWidth, lastMoveDirection, prevToIndex, rearrangedItems} = mutableRef.current;
+				const {fromIndex, itemWidth, moveDirection, prevToIndex, rearrangedItems} = mutableRef.current;
 
 				// Set the selected item's offset to css variable
 				const offset = (toIndex - fromIndex) * itemWidth;
@@ -383,18 +386,19 @@ const EditableWrapper = (props) => {
 				// If the current toIndex is new,
 				if (toIndex !== prevToIndex) {
 					// Determine the direction of move from the latest from index
-					const moveDirection = Math.sign(toIndex - prevToIndex);
+					const currentMoveDirection = Math.sign(toIndex - prevToIndex);
 					// If the direction is changed and there are rearranged items, we remove them first.
-					if (lastMoveDirection && moveDirection !== lastMoveDirection && rearrangedItems.length > 0) {
-						const numToRemove = moveDirection > 0 ? toIndex - prevToIndex : prevToIndex - toIndex;
+					if (moveDirection && currentMoveDirection !== moveDirection && rearrangedItems.length > 0) {
+						const numToRemove = currentMoveDirection > 0 ? toIndex - prevToIndex : prevToIndex - toIndex;
+						const needToAddItems = numToRemove > rearrangedItems.length;
 						removeRearrangedItems(numToRemove);
 
 						// When there's jump, meaning, numToRemove is bigger than 0, we need to add an item
-						if (numToRemove > rearrangedItems.length) {
-							addRearrangedItems({moveDirection, toIndex});
+						if (needToAddItems) {
+							addRearrangedItems({currentMoveDirection, toIndex});
 						}
 					} else {
-						addRearrangedItems({moveDirection, toIndex});
+						addRearrangedItems({currentMoveDirection, toIndex});
 					}
 
 					mutableRef.current.prevToIndex = toIndex;
@@ -520,8 +524,8 @@ const EditableWrapper = (props) => {
 		// Coordinate calculation in RTL locales is not supported in chrome below 85
 		const scrollContentOffset = scrollContentRef.current.scrollLeft * (rtl ? -1 : 1) - centeredOffset;
 		const clientXFromContent = (rtl ? bodyWidth - x : x) + scrollContentOffset;
-		const moveDirection = (itemWidth * (prevToIndex + 0.5) < clientXFromContent) ? 1 : -1; // 1: To next index , -1: To prev index
-		const moveTolerance = itemWidth * tolerance * moveDirection;
+		const direction = (itemWidth * (prevToIndex + 0.5) < clientXFromContent) ? 1 : -1; // 1: To next index , -1: To prev index
+		const moveTolerance = itemWidth * tolerance * direction;
 
 		return Math.floor((clientXFromContent - moveTolerance) / itemWidth);
 	}, [scrollContainerHandle, scrollContentRef]);
@@ -558,27 +562,39 @@ const EditableWrapper = (props) => {
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerHandle, scrollContentRef]);
 
+	const completeEditingByKeyDown = useCallback(() => {
+		const {selectedItem, selectedItemLabel} = mutableRef.current;
+		const focusTarget = selectedItem.children[1];
+		const orders = finalizeOrders();
+
+		selectedItem.children[1].ariaLabel = '';
+		finalizeEditing(orders);
+		if (selectItemBy === 'press') {
+			Spotlight.setPointerMode(false);
+			Spotlight.focus(focusTarget);
+			focusItem(focusTarget);
+		}
+		setTimeout(() => {
+			announceRef.current.announce(
+				selectedItemLabel + $L('Movement completed'),
+				true
+			);
+			setTimeout(() => {
+				selectedItem.children[1].ariaLabel = `${selectedItem.ariaLabel} ${$L('Press the OK button to move or press the up button to select other options.')}`;
+			}, completeAnnounceDelay);
+		}, completeAnnounceDelay);
+	}, [finalizeEditing, finalizeOrders, focusItem, selectItemBy]);
+
 	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
-		const {focusedItem, selectedItem, selectedItemLabel} = mutableRef.current;
+		const {focusedItem, selectedItem} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
-					const orders = finalizeOrders();
-					finalizeEditing(orders);
-					if (selectItemBy === 'press') {
-						focusItem(target);
-					}
+					completeEditingByKeyDown();
 					mutableRef.current.needToPreventEvent = true;
-
-					setTimeout(() => {
-						announceRef.current.announce(
-							selectedItemLabel + $L('Movement completed'),
-							true
-						);
-					}, completeAnnounceDelay);
 				} else if (selectItemBy === 'press') {
 					startEditing(targetItemNode);
 					mutableRef.current.needToPreventEvent = true;
@@ -588,6 +604,9 @@ const EditableWrapper = (props) => {
 					startEditing(targetItemNode);
 				}, holdDuration - 300);
 			}
+		} else if (is('down', keyCode) && target.getAttribute('role') !== 'button' && !repeat && selectedItem) {
+			completeEditingByKeyDown();
+			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
 				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button') {
@@ -616,6 +635,7 @@ const EditableWrapper = (props) => {
 
 				// Check if focus leaves scroll container.
 				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					setPointerMode(false);
 					Spotlight.move(getDirection(keyCode));
 
 					const orders = finalizeOrders();
@@ -626,32 +646,20 @@ const EditableWrapper = (props) => {
 				}
 			}
 		}
-	}, [finalizeEditing, finalizeOrders, findItemNode, focusItem, moveItemsByKeyDown, reset, selectItemBy, startEditing]);
+	}, [finalizeEditing, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing, completeEditingByKeyDown]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		const {keyCode, target} = ev;
-		const {selectedItem, selectedItemLabel} = mutableRef.current;
+		const {selectedItem} = mutableRef.current;
 
 		if (is('cancel', keyCode)) {
 			if (selectedItem) {
-				const orders = finalizeOrders();
-				finalizeEditing(orders);
-				if (selectItemBy === 'press') {
-					focusItem(target);
-				}
-
-				setTimeout(() => {
-					announceRef?.current?.announce(
-						selectedItemLabel + $L('Movement completed'),
-						true
-					);
-				}, completeAnnounceDelay);
-
+				completeEditingByKeyDown();
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
 			}
 		} else {
-			mutableRef.current.lastKeyEventTargetElement = ev.target;
-			if (ev.target.getAttribute('role') === 'button') {
+			mutableRef.current.lastKeyEventTargetElement = target;
+			if (target.getAttribute('role') === 'button') {
 				return;
 			}
 		}
@@ -662,7 +670,104 @@ const EditableWrapper = (props) => {
 			ev.preventDefault();
 			mutableRef.current.needToPreventEvent = false;
 		}
-	}, [finalizeEditing, finalizeOrders, focusItem, selectItemBy]);
+	}, [completeEditingByKeyDown]);
+
+	const handleGlobalKeyDownCapture = useCallback((ev) => {
+		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && mutableRef.current.selectedItem) {
+			const {keyCode} = ev;
+			const position = getLastPointerPosition();
+			const direction = getDirection(keyCode);
+			if (direction) {
+				const nextTarget = getTargetByDirectionFromPosition(direction, position, mutableRef.current.spotlightId);
+
+				if (!scrollContainerRef.current.contains(nextTarget)) {
+					const orders = finalizeOrders();
+					finalizeEditing(orders);
+				}
+			}
+		}
+	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
+
+	const handleTouchMove = useCallback((ev) => {
+		if (mutableRef.current.selectedItem) {
+			// Prevent scrolling by dragging when item is selected
+			ev.preventDefault();
+		}
+
+		if (mutableRef.current.isDraggingItem && !ev.target.className.includes('Button')) {
+			const {clientX} = ev.targetTouches[0];
+			mutableRef.current.lastMouseClientX = clientX;
+
+			const toIndex = getNextIndexFromPosition(clientX, 0.33);
+
+			if (toIndex !== mutableRef.current.prevToIndex) {
+				scrollContainerHandle.current.start({
+					targetX: clientX,
+					targetY: 0
+				});
+				mutableRef.current.lastInputType = 'touch';
+				moveItems(toIndex);
+			}
+		}
+
+	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle]);
+
+	const handleTouchEnd = useCallback((ev) => {
+		const {selectedItem} = mutableRef.current;
+		const {clientX} = ev.changedTouches[0];
+		const targetItemIndex = getNextIndexFromPosition(clientX, 0);
+
+		if (ev.target.className.includes('Button') && Number(selectedItem?.style.order) - 1 === targetItemIndex) {
+			return;
+		}
+
+		if (selectedItem) {
+			// Cancel mouse event to deselect a selected item when it is tapped
+			ev.preventDefault();
+
+			// Finalize orders and forward `onComplete` event
+			const orders = finalizeOrders();
+			finalizeEditing(orders);
+		} else if (!mutableRef.current.isDragging) {
+			// Cancel mouse event to select a item when it is tapped
+			ev.preventDefault();
+
+			const targetItemNode = findItemNode(ev.target);
+			if (selectItemBy === 'press') {
+				if (targetItemNode && targetItemNode.dataset.index) {
+					mutableRef.current.targetItemNode = targetItemNode;
+					startEditing(targetItemNode);
+				}
+			}
+		}
+		mutableRef.current.isDraggingItem = false;
+		mutableRef.current.isDragging = false;
+	}, [getNextIndexFromPosition, finalizeEditing, finalizeOrders, findItemNode, selectItemBy, startEditing]);
+
+	const handleDragStart = useCallback((ev) => {
+		const {selectedItem} = mutableRef.current;
+		// Index of dragged item
+		const dragTagetItemIndex = getNextIndexFromPosition(ev.x, 0);
+
+		mutableRef.current.isDragging = true;
+		if (selectedItem && Number(selectedItem.style.order) - 1 === dragTagetItemIndex) {
+			mutableRef.current.isDraggingItem = true;
+		}
+	}, [getNextIndexFromPosition]);
+
+	useLayoutEffect(() => {
+		const available = typeof document === 'object';
+
+		if (available) {
+			document.addEventListener('keydown', handleGlobalKeyDownCapture, {capture: true});
+		}
+
+		return () => {
+			if (available) {
+				document.removeEventListener('keydown', handleGlobalKeyDownCapture, {capture: true});
+			}
+		};
+	}, [handleGlobalKeyDownCapture]);
 
 	useEffect(() => {
 		if (mutableRef.current.nextSpotlightRect !== null) {
@@ -693,14 +798,16 @@ const EditableWrapper = (props) => {
 		const scrollContainer = scrollContainerRef.current;
 		if (scrollContainer) {
 			scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+			scrollContainer.addEventListener('touchmove', handleTouchMove);
 		}
 
 		return () => {
 			if (scrollContainer) {
 				scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+				scrollContainer.removeEventListener('touchmove', handleTouchMove);
 			}
 		};
-	}, [handleMouseLeave, scrollContainerRef]);
+	}, [handleMouseLeave, handleTouchMove, scrollContainerRef]);
 
 	useLayoutEffect(() => {
 		if (removeItemFuncRef) {
@@ -801,6 +908,8 @@ const EditableWrapper = (props) => {
 			onKeyUpCapture={handleKeyUpCapture}
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
+			onDragStart={handleDragStart}
+			onTouchEnd={handleTouchEnd}
 			ref={wrapperRef}
 		>
 			{children}
