@@ -1635,7 +1635,8 @@ const VideoPlayerBase = class extends Component {
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
-	 * @param {Number} rate - The desired playback rate. This value is passed to the playbackRate property of HTMLMediaElement. please see: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate
+	 * @param {Number} rate - The desired playback rate. This value is passed to the playbackRate property of HTMLMediaElement.
+	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate|MDN playbackRate property doc}
 	 * @returns {Boolean} Returns true if speed changes successfully.
 	 * @public
 	 */
