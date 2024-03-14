@@ -110,13 +110,12 @@ const InputBoard = ({className}) => {
 
 			if (lastLog.eventName === ev.type) {
 				const index = findLastIndexOfMatchingEvent(eventLogsRef.current, ev.type, isDOMElement, isCapturing);
-
 				if (index >= 0) {
 					window.clearTimeout(eventLogsRef.current[index].timeoutId);
 					onUpdateEventLog(
+						eventObject,
 						eventLogsRef.current[index].timeoutId,
-						window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndexRef.current]),
-						eventObject
+						window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndexRef.current])
 					);
 					return;
 				}
@@ -136,7 +135,7 @@ const InputBoard = ({className}) => {
 			() => onRemoveEventLog(ev.type, isDOMElement, isCapturing),
 			timergroup[timerIndexRef.current]);
 
-		onAddEventLog(timeoutId, ev.type, isDOMElement, isCapturing, eventObject);
+		onAddEventLog(ev.type, eventObject, isDOMElement, isCapturing, timeoutId);
 	}, [onAddEventLog, onRemoveEventLog, onUpdateEventLog]);
 
 	const handleEvent = useCallback((eventType, isDOMElement) => {
