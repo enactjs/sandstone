@@ -1406,7 +1406,7 @@ const VideoPlayerBase = class extends Component {
 
 	/**
 	 * Programmatically plays the current media.
-	 * If you play during fast forwarding or rewinding, the playback speed updates to normal.
+	 * If you call this function during fast forwarding or rewinding, the playback speed will be set to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1433,7 +1433,7 @@ const VideoPlayerBase = class extends Component {
 
 	/**
 	 * Programmatically pauses the current media.
-	 * If you pause during fast forwarding or rewinding, the playback speed updates to normal.
+	 * If you call this function during fast forwarding or rewinding, the playback speed will be set to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1459,7 +1459,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Set the media playback time index
+	 * Sets the media playback time index.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1499,9 +1499,9 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Fast forward the current media for seeking.
-	 * It changes the playback rate.
-	 * If you play or pause during fastforwarding, the playback speed updates to normal.
+	 * Fast forwards the current media for seeking.
+	 * This function changes the playback rate.
+	 * If you call `play` or `pause` during fast forwarding, the playback speed will be set to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1561,9 +1561,9 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Rewind the current media for seeking.
-	 * It changes the playback rate.
-	 * If you play or pause during rewinding, the playback speed updates to normal.
+	 * Rewinds the current media for seeking.
+	 * This function changes the playback rate.
+	 * If you call `play` or `pause` during rewinding, the playback speed will be set to normal.
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
@@ -1635,9 +1635,9 @@ const VideoPlayerBase = class extends Component {
 	 *
 	 * @function
 	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
-	 * @param {Number} rate - The desired playback rate. This value is passed to the playbackRate property of HTMLMediaElement.
-	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate|MDN playbackRate property doc}
-	 * @returns {Boolean} Returns true if speed changes successfully.
+	 * @param {Number} rate - The desired playback rate. This value is passed to the `playbackRate` property of `HTMLMediaElement`.
+	 * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playbackRate|MDN playbackRate property}
+	 * @returns {Boolean} Returns true if the speed changes successfully.
 	 * @public
 	 */
 	setPlaybackSpeed = (rate) => {
