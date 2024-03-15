@@ -1,7 +1,8 @@
 import Button from '@enact/sandstone/Button';
 import {MediaControls} from '@enact/sandstone/MediaPlayer';
-import VideoPlayer, {Video} from '@enact/sandstone/VideoPlayer';
-import {select} from '@enact/storybook-utils/addons/controls';
+import VideoPlayer, {Video, VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {select, number} from '@enact/storybook-utils/addons/controls';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 
@@ -207,3 +208,51 @@ class VideoPlayerWithLayer extends Component {
 export const ShowBackbutton = () => <VideoPlayerWithLayer />;
 
 ShowBackbutton.storyName = 'Show a back button and a control panel';
+
+const Config = mergeComponentMetadata('VideoPlayer', VideoPlayerBase, VideoPlayer);
+
+class VideoPlayerWithExpandedMediaControls extends Component {
+	constructor (props) {
+		super(props);
+	}
+
+	componentDidUpdate (prevProps) {
+		const speed = this.props.args['playbackSpeed'];
+
+		if (speed !== prevProps.args.playbackSpeed) {
+			this.videoPlayer.setPlaybackSpeed(speed);
+		}
+	}
+
+	setVideoPlayer = (node) => {
+		this.videoPlayer = node;
+	};
+
+	render () {
+		return (
+			<div>
+				<VideoPlayer
+					feedbackHideDelay={0}
+					muted
+					ref={this.setVideoPlayer}
+					title="Sintel"
+				>
+					<Video>
+						<source src="http://media.w3.org/2010/05/sintel/trailer.mp4" />
+					</Video>
+				</VideoPlayer>
+			</div>
+		);
+	}
+}
+VideoPlayerWithExpandedMediaControls.propTypes = {
+	args: PropTypes.object
+};
+
+export const WithExpandedMediaControls = (args) => <VideoPlayerWithExpandedMediaControls args={args} />;
+
+number('playbackSpeed', WithExpandedMediaControls, Config, 1);
+
+WithExpandedMediaControls.storyName = 'with expanded media controls';
+
+
