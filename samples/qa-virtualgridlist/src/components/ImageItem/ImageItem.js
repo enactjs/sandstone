@@ -11,7 +11,6 @@ const ImageItemComponent = (props) => {
 	const dispatch = useContext(RecordDispatchContext);
 
 	const onClick = () => (dispatch(selectItemAction(dataIndex)));
-
 	return (
 		<ImageItem
 			label={data[dataIndex].subCaption}
@@ -20,6 +19,7 @@ const ImageItemComponent = (props) => {
 			selected={selectedItems.includes(dataIndex)}
 			/* eslint-disable react/jsx-no-bind */
 			onClick={onClick}
+			{...props}
 		>{data[dataIndex].caption}</ImageItem>
 	);
 };

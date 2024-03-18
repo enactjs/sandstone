@@ -29,7 +29,7 @@ import {
 import createRecord from '../../utils';
 
 const PanelHeader = (props) => {
-	const {nativeScroll, onChangeDirection, onChangeScrollMode} = props;
+	const {nativeScroll, onChangeDirection, onChangeScrollMode, ...rest} = props;
 
 	const dispatch = useContext(RecordDispatchContext);
 	const {dataSize, minHeight, minWidth, showOverlay, spacing} = useContext(RecordContext);
@@ -79,7 +79,7 @@ const PanelHeader = (props) => {
 	};
 
 	return (
-		<Header {...props}>
+		<Header {...rest}>
 			<Row>
 				<Cell shrink>
 					{/* add button */}
