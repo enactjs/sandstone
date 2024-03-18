@@ -11,15 +11,18 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import {createContext} from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
 import {BasicArranger, CancelDecorator, NavigationButton} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
-import {WizardPanelsRouter} from '../WizardPanels/utils';
+import {QuickGuidePanelsRouter} from './utils';
 
 import css from './QuickGuidePanels.module.less';
+
+const QuickGuidePanelsContext = createContext(null);
 
 /**
  * A QuickGuidePaenls that has steps with corresponding panels and panels have full screen size content.
@@ -27,13 +30,7 @@ import css from './QuickGuidePanels.module.less';
  * @example
  * 	<QuickGuidePanels>
  *		<QuickGuidePanels.Panel>
- *			<Scroller>
- *				lorem ipsum ...
- *			</Scroller>
- *			<footer>
- *				<Button>OK</Button>
- *				<Button>Cancel</Button>
- *			</footer>
+ *			QuickGuidePanelsContent
  *		</QuickGuidePanels.Panel>
  *	</QuickGuidePanels>
  *
@@ -367,17 +364,19 @@ const QuickGuidePanelsBase = kind({
 		steps,
 		...rest
 	}) => {
+		delete rest.closeButtonAriaLabel;
+		delete rest.current;
 		delete rest.nextButton;
 		delete rest.nextButtonVisibility;
+		delete rest.onClose;
 		delete rest.onNextClick;
 		delete rest.onPrevClick;
 		delete rest.prevButton;
 		delete rest.prevButtonVisibility;
+		delete rest.total;
 		delete rest.totalPanels;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.hideChildren;
-		// eslint-disable-next-line enact/prop-types
-		delete rest.reverseTransition;
 
 		return (
 			<article role="region" aria-labelledby={`quickguidepanel_index_${index}`} ref={rest.componentRef}>
@@ -426,7 +425,7 @@ const QuickGuidePanelsDecorator = compose(
 		enterTo: 'default-element'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),
-	WizardPanelsRouter,
+	QuickGuidePanelsRouter,
 	Skinnable
 );
 
@@ -458,5 +457,6 @@ export default QuickGuidePanels;
 export {
 	QuickGuidePanels,
 	QuickGuidePanelsBase,
+	QuickGuidePanelsContext,
 	QuickGuidePanelsDecorator
 };

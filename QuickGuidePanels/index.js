@@ -1,10 +1,10 @@
 import {QuickGuidePanels} from './QuickGuidePanels';
-import Panel from '../WizardPanels/Panel';
+import QuickGuidePanel from './QuickGuidePanel';
 
-QuickGuidePanels.Panel = Panel;
+QuickGuidePanels.Panel = QuickGuidePanel;
 
 export default QuickGuidePanels;
 export {
-	Panel,
+	QuickGuidePanel,
 	QuickGuidePanels
 };
