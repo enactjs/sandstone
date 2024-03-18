@@ -1,29 +1,28 @@
-import {connect} from 'react-redux';
+import {useContext} from 'react';
 import ImageItem from '@enact/sandstone/ImageItem';
 
-import {selectItem} from '../../store';
+import {RecordContext, RecordDispatchContext} from '../../context/RecordContext';
+import {selectItem as selectItemAction} from '../../context/RecordContext';
 
-const mapStateToProps = ({data: {data: allItems, selectedItems}}, {['data-index']: dataIndex}) => {
-	const {
-		caption: children,
-		subCaption: label,
-		showSelection,
-		src
-	} = allItems[dataIndex];
+const ImageItemComponent = (props) => {
+	const {['data-index']: dataIndex} = props;
 
-	return {
-		children,
-		label,
-		selected: selectedItems.includes(dataIndex),
-		showSelection,
-		src
-	};
+	const {data, selectedItems} = useContext(RecordContext);
+	const dispatch = useContext(RecordDispatchContext);
+
+	const onClick = () => (dispatch(selectItemAction(dataIndex)));
+	return (
+		<ImageItem
+			label={data[dataIndex].subCaption}
+			src={data[dataIndex].src}
+			showSelection={data[dataIndex].showSelection}
+			selected={selectedItems.includes(dataIndex)}
+			/* eslint-disable react/jsx-no-bind */
+			onClick={onClick}
+			{...props}
+		>{data[dataIndex].caption}</ImageItem>
+	);
 };
 
-const mapDispatchToProps = (dispatch, {['data-index']: dataIndex}) => {
-	return {
-		onClick: () => dispatch(selectItem(dataIndex))
-	};
-};
+export default ImageItemComponent;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ImageItem);
