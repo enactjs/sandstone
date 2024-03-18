@@ -10,9 +10,9 @@ describe('QuickGuidePanel Specs', () => {
 		() => {
 			render(
 				<QuickGuidePanels index={2}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
-					<Panel>Last!</Panel>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
+					<QuickGuidePanel>Last!</QuickGuidePanel>
 				</QuickGuidePanels>
 			);
 
@@ -32,9 +32,9 @@ describe('QuickGuidePanel Specs', () => {
 		async () => {
 			render(
 				<QuickGuidePanels index={0}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
-					<Panel>Last!</Panel>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
+					<QuickGuidePanel>Last!</QuickGuidePanel>
 				</QuickGuidePanels>
 			);
 
@@ -54,9 +54,9 @@ describe('QuickGuidePanel Specs', () => {
 		async () => {
 			render(
 				<QuickGuidePanels index={0}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
-					<Panel>Last!</Panel>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
+					<QuickGuidePanel>Last!</QuickGuidePanel>
 				</QuickGuidePanels>
 			);
 
@@ -75,8 +75,8 @@ describe('QuickGuidePanel Specs', () => {
 			let index = 0;
 			const {rerender} = render(
 				<QuickGuidePanels index={index} onWillTransition={spy}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
 				</QuickGuidePanels>
 			);
 
@@ -85,8 +85,8 @@ describe('QuickGuidePanel Specs', () => {
 
 			rerender(
 				<QuickGuidePanels index={index} onWillTransition={spy}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
 				</QuickGuidePanels>
 			);
 
@@ -106,8 +106,8 @@ describe('QuickGuidePanel Specs', () => {
 			let index = 0;
 			const {rerender} = render(
 				<QuickGuidePanels index={index} onTransition={spy}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
 				</QuickGuidePanels>
 			);
 
@@ -116,8 +116,8 @@ describe('QuickGuidePanel Specs', () => {
 
 			rerender(
 				<QuickGuidePanels index={index} onTransition={spy}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
 				</QuickGuidePanels>
 			);
 
@@ -139,9 +139,9 @@ describe('QuickGuidePanel Specs', () => {
 
 			render(
 				<QuickGuidePanels index={1} onChange={handleChange} onNextClick={handleNextClick}>
-					<Panel />
-					<Panel />
-					<Panel />
+					<QuickGuidePanel />
+					<QuickGuidePanel />
+					<QuickGuidePanel />
 				</QuickGuidePanels>
 			);
 
@@ -170,9 +170,9 @@ describe('QuickGuidePanel Specs', () => {
 
 			render(
 				<QuickGuidePanels index={2} onChange={handleChange} onPrevClick={handlePrevClick}>
-					<Panel />
-					<Panel />
-					<Panel />
+					<QuickGuidePanel />
+					<QuickGuidePanel />
+					<QuickGuidePanel />
 				</QuickGuidePanels>
 			);
 
@@ -198,7 +198,7 @@ describe('QuickGuidePanel Specs', () => {
 			const ref = jest.fn();
 			render(
 				<QuickGuidePanels ref={ref}>
-					<Panel />
+					<QuickGuidePanel />
 				</QuickGuidePanels>
 			);
 
@@ -217,7 +217,7 @@ describe('QuickGuidePanel Specs', () => {
 
 			render(
 				<QuickGuidePanels onClose={handleClose}>
-					<Panel />
+					<QuickGuidePanel />
 				</QuickGuidePanels>
 			);
 
