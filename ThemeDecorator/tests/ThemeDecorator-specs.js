@@ -67,7 +67,7 @@ describe('ThemeDecorator', () => {
 		const App = ThemeDecorator(config, AppRoot);
 		render(<App />);
 
-		const result = requestLastInputType({ onSuccess: jest.fn(), onFailure: jest.fn() });
+		const result = requestLastInputType({onSuccess: jest.fn(), onFailure: jest.fn()});
 
 		expect(result).toBeNull(); // Assert null return on non-TV platform
 	});
