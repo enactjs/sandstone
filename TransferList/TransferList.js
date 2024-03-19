@@ -480,15 +480,15 @@ const TransferListBase = kind({
 			// An object where we have lists capacity
 			const listsCapacity = {firstListMaxCapacity, secondListMinCapacity};
 			// Check for lists capacity
-			const isListCapacityExceeded = checkListsCapacity('second', startElementIndex, firstListCopy, list, listsCapacity, secondListCopy, selectedItems);
+			const isListCapacityExceeded = checkListsCapacity('first', firstListCopy, listsCapacity, secondListCopy, selectedItems);
 			if (isListCapacityExceeded) return;
 
 			// Check if we are dropping on the same list with touch events
-			const isSameList = checkForSameList('second', dragOverElement, startElementIndex, isAboveDropPosition, startElementList, firstListCopy, selectedItems, setFirstListLocal, setPosition, removeDropBorder(element));
+			const isSameList = checkForSameList('first', dragOverElement, startElementIndex, isAboveDropPosition, list, firstListCopy, selectedItems, setFirstListLocal, setPosition, removeDropBorder(element));
 			if (isSameList) return;
 
 			// Check if the selected item is already present in the selected items array
-			setSelectedItemsPosition(dragOverElement, startElementIndex, 'second', firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+			setSelectedItemsPosition(dragOverElement, startElementIndex, startElementList, firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(firstListCopy, secondListCopy, startElementIndex, startElementList, dragOverElement.current, setFirstListLocal, setSecondListLocal, firstListOperation);
 
@@ -507,15 +507,15 @@ const TransferListBase = kind({
 			// An object where we have lists capacity
 			const listsCapacity = {firstListMinCapacity, secondListMaxCapacity};
 			// Check for lists capacity
-			const isListCapacityExceeded = checkListsCapacity('first', startElementIndex, firstListCopy, list, listsCapacity, secondListCopy, selectedItems);
+			const isListCapacityExceeded = checkListsCapacity('second', firstListCopy, listsCapacity, secondListCopy, selectedItems);
 			if (isListCapacityExceeded) return;
 
 			// In case of dropping items into the same list with touch events
-			const isSameList = checkForSameList('first', dragOverElement, startElementIndex, isAboveDropPosition, startElementList, secondListCopy, selectedItems, setSecondListLocal, setPosition, removeDropBorder(element));
+			const isSameList = checkForSameList('second', dragOverElement, startElementIndex, isAboveDropPosition, list, secondListCopy, selectedItems, setSecondListLocal, setPosition, removeDropBorder(element));
 			if (isSameList) return;
 
 			// Check if the selected item is already present in the selected items array
-			setSelectedItemsPosition(dragOverElement, startElementIndex, 'first', secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+			setSelectedItemsPosition(dragOverElement, startElementIndex, startElementList, secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(secondListCopy, firstListCopy, startElementIndex, startElementList, dragOverElement.current, setSecondListLocal, setFirstListLocal, secondListOperation);
 
@@ -696,7 +696,7 @@ const TransferListBase = kind({
 			if (isSameList) return;
 
 			// Set new position for the items after the drop action
-			setSelectedItemsPosition(dragOverElement, index, 'second', firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+			setSelectedItemsPosition(dragOverElement, index, list, firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal, firstListOperation);
 		}, [dragendEventListenerFunction, firstListLocal, firstListMinCapacity, firstListOperation, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
@@ -725,7 +725,7 @@ const TransferListBase = kind({
 			if (isSameList) return;
 
 			// Set new position for the items after the drop action
-			setSelectedItemsPosition(dragOverElement, index, 'first', secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+			setSelectedItemsPosition(dragOverElement, index, list, secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal, secondListOperation);
 		}, [dragendEventListenerFunction, firstListLocal, firstListOrderFixed, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);

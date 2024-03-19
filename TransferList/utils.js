@@ -3,7 +3,7 @@ export const checkListsCapacity = (currentListForDrop, firstListCopy, listsCapac
 	const listCopy = currentListForDrop === 'first' ? secondListCopy : firstListCopy;
 
 	// If there are selected items and the dragged item is not one of them, cancel the drop
-	if (index) {
+	if (index && list) {
 		if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === listCopy[index] && pair.list === list) === -1) return true;
 	}
 
@@ -53,7 +53,6 @@ export const performMoveOperation = (list, listLocal, listOperation, selectedIte
 		if (listOperation === 'move' || listOperation === 'copy') {
 			// Block duplicated items in the same list
 			if  (tempMoveOrCopy.includes(item.element)) return;
-			// tempMoveOrCopy = [...tempMoveOrCopy, listLocal[listLocal.findIndex(element => element === item.element)]];
 			tempMoveOrCopy.push(listLocal[listLocal.findIndex(element => element === item.element)]);
 		}
 		// In case of moving or deleting, remove the item from the second list
