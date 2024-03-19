@@ -1,4 +1,5 @@
 import Spotlight from '@enact/spotlight';
+import {requestLastInputType} from '@enact/webos/lastInputType';
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/react';
 
@@ -59,6 +60,16 @@ describe('ThemeDecorator', () => {
 		const appRoot = screen.getByTestId('app');
 
 		expect(appRoot).not.toHaveClass('bg');
+	});
+
+	test('should not call \'requestLastInputType\' when running in a non-TV platform', () => {
+		const config = {spotlight: true};
+		const App = ThemeDecorator(config, AppRoot);
+		render(<App />);
+
+		const result = requestLastInputType({onSuccess: jest.fn(), onFailure: jest.fn()});
+
+		expect(result).toBeNull(); //Assert null return on non-TV platform
 	});
 
 	describe('AccessibilityDecorator', () => {
