@@ -63,7 +63,7 @@ describe('ThemeDecorator', () => {
 	});
 
 	test('should not call \'requestLastInputType\' when running in a non-TV platform`', () => {
-		const config = {spotlight: true}
+		const config = {spotlight: true};
 		const App = ThemeDecorator(config, AppRoot);
 		render(<App />);
 
