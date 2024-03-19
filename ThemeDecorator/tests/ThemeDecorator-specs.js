@@ -69,7 +69,7 @@ describe('ThemeDecorator', () => {
 
 		const result = requestLastInputType({onSuccess: jest.fn(), onFailure: jest.fn()});
 
-		expect(result).toBeNull(); //Assert null return on non-TV platform
+		expect(result).toBeNull(); // Assert null return on non-TV platform
 	});
 
 	describe('AccessibilityDecorator', () => {

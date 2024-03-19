@@ -260,14 +260,16 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				activateInputType(true);
 				requestInputType = requestLastInputType({
 					onSuccess: function (res) {
-						res.lastInputType === 'key' || res.lastInputType === 'mouse' || res.lastInputType === 'touch' ?
-							setInputType(res.lastInputType) :
-							activateInputType(false)
+						if (res.lastInputType === 'key' || res.lastInputType === 'mouse' || res.lastInputType === 'touch') {
+							setInputType(res.lastInputType);
+						} else {
+							activateInputType(false);
+						}
 					},
 					onFailure: function () {
 						activateInputType(false);
 					}
-				})
+				});
 			}
 		}
 
