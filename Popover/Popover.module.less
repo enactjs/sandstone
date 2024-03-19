@@ -1,0 +1,29 @@
+// Popover.module.less
+//
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+
+.popoverContainer {
+	.popover {
+		max-height: 100%;
+		max-width: 100%;
+		border-radius: @sand-popup-border-radius;
+		.sand-text-base();
+		.padding-start-end(@sand-popup-padding);
+		box-sizing: border-box;
+		pointer-events: auto;
+		.locale-japanese-line-break();
+		text-align: center;
+	}
+}
+
+.htmlButton {
+	padding: 0;
+	border-style: none;
+	border-radius: @sand-popup-border-radius;
+
+	.button {
+		margin: 0;
+	}
+}
