@@ -553,7 +553,7 @@ const TransferListBase = kind({
 
 				if (position === null) return;
 
-				const scrollTo = position.list === 'first' ? scrollToRefFirst : scrollToRefSecond;
+				const scrollTo = position.list === 'first' ? scrollToRefSecond : scrollToRefFirst;
 				scrollTo.current({index: position.index});
 
 				setPosition(null);
@@ -597,7 +597,7 @@ const TransferListBase = kind({
 			// If the state is externally controlled, use the provided functions
 			setItemsState(setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected);
 
-			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: tempFirst.length - 1, list: 'first'});
+			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: tempFirst.length - 1, list: 'second'});
 		}, [firstListLocal, firstListMaxCapacity, secondListLocal, secondListOperation, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		// Handle move/copy/delete all item from the second list into the first list
@@ -607,7 +607,7 @@ const TransferListBase = kind({
 			// Perform items actions based on `secondListOperation`
 			performSelectAllOperation(concatList, 'second', secondListOperation, setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems);
 
-			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
+			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
 		}, [firstListLocal, secondListLocal, secondListOperation, setFirstList, setSecondList]);
 
 		// Handle move/copy/delete the selected items into the second list by 5-way or transfer buttons
@@ -629,7 +629,7 @@ const TransferListBase = kind({
 			// If the state is externally controlled, use the provided functions
 			setItemsState(setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected);
 
-			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: tempSecond.length - 1, list: 'second'});
+			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: tempSecond.length - 1, list: 'first'});
 		}, [firstListLocal, firstListMinCapacity, firstListOperation, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		// Handle move/copy/delete all item into the second list
@@ -639,7 +639,7 @@ const TransferListBase = kind({
 			// Perform items actions based on `firstListOperation`
 			performSelectAllOperation(concatList, 'first', firstListOperation, setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems);
 
-			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
+			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
 		}, [firstListLocal, firstListOperation, secondListLocal, setFirstList, setSecondList]);
 
 		// Adds or removes items from the selectedList
