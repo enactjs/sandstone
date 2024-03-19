@@ -55,11 +55,6 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
 	disableFullscreen: false,
 
 	/**
-	 * Font scale for large text mode.
-	 */
-	fontScale: 1,
-
-	/**
 	 * Enables a floating layer for popup components.
 	 *
 	 * If not applied, app will be responsible for applying the decorator.
