@@ -4,9 +4,9 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import Image from '../Image';
 
 const src = {
-	hd: 'https://via.placeholder.com/200x200',
-	fhd: 'https://via.placeholder.com/300x300',
-	uhd: 'https://via.placeholder.com/600x600'
+	hd: 'https://placehold.co/200x200',
+	fhd: 'https://placehold.co/300x300',
+	uhd: 'https://placehold.co/600x600'
 };
 
 describe('Image', () => {
@@ -18,7 +18,7 @@ describe('Image', () => {
 		fireEvent(window, new Event('resize'));
 
 		const actual = image.getAttribute('src');
-		const expected = 'https://via.placeholder.com/300x300';
+		const expected = 'https://placehold.co/300x300';
 
 		expect(actual).toBe(expected);
 	});
