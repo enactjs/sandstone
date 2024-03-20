@@ -1,4 +1,4 @@
-import {forwardRef, useCallback, useImperativeHandle, useRef, useState} from 'react';
+import {forwardRef, memo, useCallback, useImperativeHandle, useRef, useState} from 'react';
 import {flushSync} from 'react-dom';
 
 import css from './TransferList.module.less';
@@ -81,4 +81,4 @@ const DragImage = forwardRef((props, ref) => {
 	>{content}</div>);
 });
 
-export default DragImage;
+export default memo(DragImage);

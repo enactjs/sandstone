@@ -23,7 +23,17 @@ import VirtualList, {VirtualGridList} from '../VirtualList';
 import ButtonList from './ButtonList';
 import CustomDragImage from './CustomDragImage';
 import {renderImageItem, renderItem} from './RenderItem';
-import {getTransferData, handlePreventDefault, rearrangeList} from './utils';
+import {
+	checkForSameList,
+	checkListsCapacity,
+	getTouchElementData,
+	getTransferData,
+	handlePreventDefault,
+	performMoveOperation,
+	performSelectAllOperation,
+	setItemsState,
+	setSelectedItemsPosition
+} from './utils';
 
 import componentCss from './TransferList.module.less';
 
@@ -263,10 +273,10 @@ const TransferListBase = kind({
 		const itemSize = ri.scale(defaultItemSize);
 		const width = orientation === 'horizontal' ? 'inherit' : '100%';
 		let isAboveDropPosition = useRef(false);
-		let currentElement = useRef();
+		let currentElement = useRef(null);
 		let dragOverElement = useRef(null);
-		let dragImageNode = useRef();
-		let startDragElement = useRef();
+		let dragImageNode = useRef(null);
+		let startDragElement = useRef(null);
 		let scrollToRefFirst = useRef(null);
 		let scrollToRefSecond = useRef(null);
 
@@ -453,8 +463,6 @@ const TransferListBase = kind({
 
 					setTouchOverElement(element);
 				} else {
-					applyDropBorder(element, ev, isAboveCurrentElement, isBelowCurrentElement);
-
 					setTouchOverElement(element);
 				}
 			}
@@ -462,50 +470,25 @@ const TransferListBase = kind({
 
 		// Handler for `onTouchEnd` for the first list
 		const handleTouchEndFirst = useCallback((ev) => {
-			let element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY).closest('[draggable]');
-			const list = element.id.split('-')[1];
-			const [startElementIndex, startElementList] = startDragElement.current.id.split('-');
-			if (startDragElement.current === element) return;
+			const data = getTouchElementData(ev, startDragElement);
+			if (!data) return;
+			const {element, list, startElementIndex, startElementList} = data;
 
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
 
-			// if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list) === -1) return;
+			// An object where we have lists capacity
+			const listsCapacity = {firstListMaxCapacity, secondListMinCapacity};
+			// Check for lists capacity
+			const isListCapacityExceeded = checkListsCapacity('first', firstListCopy, listsCapacity, secondListCopy, selectedItems);
+			if (isListCapacityExceeded) return;
 
-			// Check for min-max lists capacities
-			if (secondListCopy.length <= secondListMinCapacity || secondListCopy.length - selectedItems.length < secondListMinCapacity) return;
-			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
-
-			// In case of dropping items into the same list with touch events
-			if (list === 'first') {
-				// Set the correct position when dropping the item
-				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
-
-				// Rearrange the list
-				rearrangeList(dragOverElement.current, isAboveDropPosition.current, startElementIndex, firstListCopy, 'first', setFirstListLocal);
-
-				removeDropBorder(element);
-
-				return;
-			}
+			// Check if we are dropping on the same list with touch events
+			const isSameList = checkForSameList('first', dragOverElement, startElementIndex, isAboveDropPosition, list, firstListCopy, selectedItems, setFirstListLocal, setPosition, removeDropBorder(element));
+			if (isSameList) return;
 
 			// Check if the selected item is already present in the selected items array
-			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[startElementIndex] && pair.list === startElementList);
-
-			if (potentialIndex !== -1) {
-				const selectedListCopy = [...selectedItems];
-				// If we are allowed to select multiple items, we can store an array of selected items, if not only one item can be selected
-				if (!noMultipleSelect) {
-					selectedItems.map((item) => {
-						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-					});
-				} else {
-					selectedListCopy.splice(potentialIndex, 1);
-				}
-				setSelectedItems(selectedListCopy);
-			}
-
-			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'first'});
+			setSelectedItemsPosition(dragOverElement, startElementIndex, startElementList, firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(firstListCopy, secondListCopy, startElementIndex, startElementList, dragOverElement.current, setFirstListLocal, setSecondListLocal, firstListOperation);
 
@@ -514,50 +497,25 @@ const TransferListBase = kind({
 
 		// Handler for `onTouchEnd` for the second list
 		const handleTouchEndSecond = useCallback((ev) => {
-			let element = document.elementFromPoint(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY).closest('[draggable]');
-			const list = element.id.split('-')[1];
-			const [startElementIndex, startElementList] = startDragElement.current.id.split('-');
-
-			if (startDragElement.current === element) return;
+			const data = getTouchElementData(ev, startDragElement);
+			if (!data) return;
+			const {element, list, startElementIndex, startElementList} = data;
 
 			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
 
-			// if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list) === -1) return;
-
-			// Check for min-max lists capacities
-			if (firstListCopy.length <= firstListMinCapacity || firstListCopy.length - selectedItems.length < firstListMinCapacity) return;
-			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
+			// An object where we have lists capacity
+			const listsCapacity = {firstListMinCapacity, secondListMaxCapacity};
+			// Check for lists capacity
+			const isListCapacityExceeded = checkListsCapacity('second', firstListCopy, listsCapacity, secondListCopy, selectedItems);
+			if (isListCapacityExceeded) return;
 
 			// In case of dropping items into the same list with touch events
-			if (list === 'second') {
-				// Set the correct position when dropping the item
-				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
-
-				rearrangeList(dragOverElement.current, isAboveDropPosition.current, startElementIndex, secondListCopy, 'second', setSecondListLocal);
-
-				removeDropBorder(element);
-
-				return;
-			}
+			const isSameList = checkForSameList('second', dragOverElement, startElementIndex, isAboveDropPosition, list, secondListCopy, selectedItems, setSecondListLocal, setPosition, removeDropBorder(element));
+			if (isSameList) return;
 
 			// Check if the selected item is already present in the selected items array
-			const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[startElementIndex] && pair.list === startElementList);
-
-			if (potentialIndex !== -1) {
-				const selectedListCopy = [...selectedItems];
-				// If we are allowed to select multiple items, we can store an array of selected items, if not only one item can be selected
-				if (!noMultipleSelect) {
-					selectedItems.map((item) => {
-						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-					});
-				} else {
-					selectedListCopy.splice(potentialIndex, 1);
-				}
-				setSelectedItems(selectedListCopy);
-			}
-
-			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'second'});
+			setSelectedItemsPosition(dragOverElement, startElementIndex, startElementList, secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(secondListCopy, firstListCopy, startElementIndex, startElementList, dragOverElement.current, setSecondListLocal, setFirstListLocal, secondListOperation);
 
@@ -569,29 +527,21 @@ const TransferListBase = kind({
 			const selectCheckboxItem = document.querySelectorAll(`.${css.draggableItem}`);
 			let orderCounter = 0;
 			selectCheckboxItem.forEach(element => {
-				element.setAttribute('order', orderCounter + 1);
+				element.setAttribute('order', `${orderCounter + 1}`);
 				orderCounter++;
 
-				const eventListeners = ['dragstart', 'dragover', 'dragenter', 'dragleave', 'drop', 'dragend'];
-				eventListeners.forEach(event => {
-					if (event === 'dragstart') {
-						return element.addEventListener('dragstart', startListenerFunction);
-					}
-					if (event === 'dragover') {
-						return element.addEventListener('dragover', dragoverListenerFunction);
-					}
-					if (event === 'dragenter') {
-						return element.addEventListener('dragenter', dragoverListenerFunction);
-					}
-					if (event === 'dragleave') {
-						return element.addEventListener('dragleave', dropEventListenerFunction);
-					}
-					if (event === 'drop') {
-						return element.addEventListener('drop', dropEventListenerFunction);
-					}
-					if (event === 'dragend') {
-						return element.addEventListener('dragend', dragendEventListenerFunction);
-					}
+				const eventListeners = {
+					'dragstart': startListenerFunction,
+					'dragover': dragoverListenerFunction,
+					'dragenter': dragoverListenerFunction,
+					'dragleave': dropEventListenerFunction,
+					'drop': dropEventListenerFunction,
+					'dragend': dragendEventListenerFunction
+				};
+
+				Object.entries(eventListeners).forEach((entry) => {
+					const [type, listener] = entry;
+					return element.addEventListener(type, listener);
 				});
 			});
 		}, [css.draggableItem, dragendEventListenerFunction, dragoverListenerFunction, dropEventListenerFunction, startListenerFunction]);
@@ -603,11 +553,8 @@ const TransferListBase = kind({
 
 				if (position === null) return;
 
-				if (position.list === 'first') {
-					scrollToRefFirst.current({index: position.index});
-				} else {
-					scrollToRefSecond.current({index: position.index});
-				}
+				const scrollTo = position.list === 'first' ? scrollToRefSecond : scrollToRefFirst;
+				scrollTo.current({index: position.index});
 
 				setPosition(null);
 			}, 100);
@@ -626,6 +573,7 @@ const TransferListBase = kind({
 			};
 		}, [dragOverElement, dragendEventListenerFunction, dragoverListenerFunction, dropEventListenerFunction, firstListLocal, handleTouchEndFirst, handleTouchEndSecond, handleTouchMove, handleTouchStart, listComponent, position, secondListLocal, selectedItems, startDragElement]); // eslint-disable-line react-hooks/exhaustive-deps
 
+		// Inside this useEffect we are checking for selected items and enabling the remove button
 		useEffect(() => {
 			dragendEventListenerFunction();
 		}, [dragendEventListenerFunction]);
@@ -637,59 +585,29 @@ const TransferListBase = kind({
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
 
-			// Check for min-max capacity
-			if (tempSecond.length <= secondListMinCapacity || tempSecond.length - tempSelected.length < secondListMinCapacity) return;
-			if (tempFirst.length >= firstListMaxCapacity || tempFirst.length + tempSelected.length > firstListMaxCapacity) return;
+			// An object where we have lists capacity
+			const listsCapacity = {firstListMaxCapacity, secondListMinCapacity};
+			// Check for lists capacity
+			const isListCapacityExceeded = checkListsCapacity('first', tempFirst, listsCapacity, tempSecond, selectedItems);
+			if (isListCapacityExceeded) return;
 
-			selectedItems.map((item) => {
-				if (item.list !== 'second') return;
-				// In case of moving or copying, add the items to the first list
-				if (secondListOperation === 'move' || secondListOperation === 'copy') {
-					// Block duplicated items in the same list
-					if (tempFirst.includes(item.element)) return;
-					tempFirst = [...tempFirst, secondListLocal[secondListLocal.findIndex(element => element === item.element)]];
-				}
-				// In case of moving or deleting, remove the item from the second list
-				if (secondListOperation === 'move' || secondListOperation === 'delete') tempSecond.splice(tempSecond.findIndex((element) => element === item.element), 1);
-				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-			});
+			// Move selected items
+			performMoveOperation('second', secondListLocal, secondListOperation, selectedItems, tempFirst, tempSecond, tempSelected);
 
 			// If the state is externally controlled, use the provided functions
-			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(tempFirst);
-				setSecondList(tempSecond);
-			} else {
-				setFirstListLocal(tempFirst);
-				setSecondListLocal(tempSecond);
-			}
-			setSelectedItems(tempSelected);
+			setItemsState(setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected);
 
-			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: tempFirst.length - 1, list: 'first'});
+			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: tempFirst.length - 1, list: 'second'});
 		}, [firstListLocal, firstListMaxCapacity, secondListLocal, secondListOperation, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		// Handle move/copy/delete all item from the second list into the first list
 		const selectIntoFirstAll = useCallback(() => {
 			const concatList = secondListLocal.concat(firstListLocal.filter((item) => secondListLocal.indexOf(item) < 0));
 
-			// If the state is externally controlled, use the provided functions
-			if (setFirstList !== null && setSecondList !== null) {
-				// In case of moving or copying, add all the items from the second list to the first list
-				if (secondListOperation === 'move' || secondListOperation === 'copy') {
-					setFirstList(concatList);
-				}
-				// In case of moving or deleting, empty the second list
-				if (secondListOperation === 'move' || secondListOperation === 'delete') setSecondList([]);
-			} else {
-				// In case of moving or copying, add all the items from the second list to the first list
-				if (secondListOperation === 'move' || secondListOperation === 'copy') {
-					setFirstListLocal(concatList);
-				}
-				// In case of moving or deleting, empty the second list
-				if (secondListOperation === 'move' || secondListOperation === 'delete') setSecondListLocal([]);
-			}
-			setSelectedItems([]);
+			// Perform items actions based on `secondListOperation`
+			performSelectAllOperation(concatList, 'second', secondListOperation, setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems);
 
-			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
+			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
 		}, [firstListLocal, secondListLocal, secondListOperation, setFirstList, setSecondList]);
 
 		// Handle move/copy/delete the selected items into the second list by 5-way or transfer buttons
@@ -699,59 +617,29 @@ const TransferListBase = kind({
 				tempSecond = [...secondListLocal],
 				tempSelected = [...selectedItems];
 
-			// Check for min-max capacity
-			if (tempFirst.length <= firstListMinCapacity || tempFirst.length - tempSelected.length < firstListMinCapacity) return;
-			if (tempSecond.length >= secondListMaxCapacity || tempSecond.length + tempSelected.length > secondListMaxCapacity) return;
+			// An object where we have lists capacity
+			const listsCapacity = {firstListMinCapacity, secondListMaxCapacity};
+			// Check for lists capacity
+			const isListCapacityExceeded = checkListsCapacity('second', tempFirst, listsCapacity, tempSecond, selectedItems);
+			if (isListCapacityExceeded) return;
 
-			selectedItems.map((item) => {
-				if (item.list !== 'first') return;
-				// In case of moving or copying, add the items to the second list
-				if (firstListOperation === 'move' || firstListOperation === 'copy') {
-					// Block duplicated items in the same list
-					if  (tempSecond.includes(item.element)) return;
-					tempSecond = [...tempSecond, firstListLocal[firstListLocal.findIndex(element => element === item.element)]];
-				}
-				// In case of moving or deleting, remove the item from the second list
-				if (firstListOperation === 'move' || firstListOperation === 'delete') tempFirst.splice(tempFirst.findIndex((element) => element === item.element), 1);
-				tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-			});
+			// Move selected items
+			performMoveOperation('first', firstListLocal, firstListOperation, selectedItems, tempSecond, tempFirst, tempSelected);
 
 			// If the state is externally controlled, use the provided functions
-			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(tempFirst);
-				setSecondList(tempSecond);
-			} else {
-				setFirstListLocal(tempFirst);
-				setSecondListLocal(tempSecond);
-			}
-			setSelectedItems(tempSelected);
+			setItemsState(setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected);
 
-			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: tempSecond.length - 1, list: 'second'});
+			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: tempSecond.length - 1, list: 'first'});
 		}, [firstListLocal, firstListMinCapacity, firstListOperation, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		// Handle move/copy/delete all item into the second list
 		const selectIntoSecondAll = useCallback(() => {
 			const concatList = secondListLocal.concat(firstListLocal.filter((item) => secondListLocal.indexOf(item) < 0));
 
-			// If the state is externally controlled, use the provided functions
-			if (setFirstList !== null && setSecondList !== null) {
-				// In case of moving or copying, add all the items from the first list to the second list
-				if (firstListOperation === 'move' || firstListOperation === 'copy') {
-					setSecondList(concatList);
-				}
-				// In case of moving or deleting, empty the first list
-				if (firstListOperation === 'move' || firstListOperation === 'delete') setFirstList([]);
-			} else {
-				// In case of moving or copying, add all the items from the first list to the second list
-				if (firstListOperation === 'move' || firstListOperation === 'copy') {
-					setSecondListLocal(concatList);
-				}
-				// In case of moving or deleting, empty the first list
-				if (firstListOperation === 'move' || firstListOperation === 'delete') setFirstListLocal([]);
-			}
-			setSelectedItems([]);
+			// Perform items actions based on `firstListOperation`
+			performSelectAllOperation(concatList, 'first', firstListOperation, setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems);
 
-			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'second'});
+			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: (firstListLocal.length + secondListLocal.length) - 1, list: 'first'});
 		}, [firstListLocal, firstListOperation, secondListLocal, setFirstList, setSecondList]);
 
 		// Adds or removes items from the selectedList
@@ -775,21 +663,15 @@ const TransferListBase = kind({
 
 		// Change item position with arrow keys
 		const reorderList = (list, index, inc, element) => {
-			if (list === 'first' && moveOnSpotlight) {
-				if (index + inc < 0 || index + inc >= firstListLocal.length) return;
+			if (moveOnSpotlight) {
+				const listLocal = list === 'first' ? firstListLocal : secondListLocal;
+				const setListLocal = list === 'first' ? setFirstListLocal : setSecondListLocal;
+				if (index + inc < 0 || index + inc >= listLocal.length) return;
 
-				let firstListTemp = firstListLocal;
-				firstListTemp.splice(index, 1);
-				firstListTemp.splice(index + inc, 0, element);
-				setFirstListLocal(firstListTemp);
-				setSelectedItems([{element, index: index + inc, list}]);
-			} else if (list === 'second' && moveOnSpotlight) {
-				if (index + inc < 0 || index + inc >= secondListLocal.length) return;
-
-				let secondListTemp = secondListLocal;
-				secondListTemp.splice(index, 1);
-				secondListTemp.splice(index + inc, 0, element);
-				setSecondListLocal(secondListTemp);
+				const listTemp = listLocal;
+				listTemp.splice(index, 1);
+				listTemp.splice(index + inc, 0, element);
+				setListLocal(listTemp);
 				setSelectedItems([{element, index: index + inc, list}]);
 			}
 		};
@@ -797,42 +679,24 @@ const TransferListBase = kind({
 		// Handle drop actions for the second list
 		const onDropSecondHandler = useCallback((ev) => {
 			const {index, list} = getTransferData(ev.dataTransfer);
-			const secondListCopy = [...secondListLocal];
 			const firstListCopy = [...firstListLocal];
+			const secondListCopy = [...secondListLocal];
 
-			// If there are selected items and the dragged item is not one of them, cancel the drop
-			if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list) === -1) return;
-
-			// Check for min-max lists capacities
-			if (firstListCopy.length <= firstListMinCapacity || firstListCopy.length - selectedItems.length < firstListMinCapacity) return;
-			if (secondListCopy.length >= secondListMaxCapacity || secondListCopy.length + selectedItems.length > secondListMaxCapacity) return;
+			// An object where we have lists capacity
+			const listsCapacity = {firstListMinCapacity, secondListMaxCapacity};
+			// Check for lists capacity
+			const isListCapacityExceeded = checkListsCapacity('second', firstListCopy, listsCapacity, secondListCopy, selectedItems, index, list);
+			if (isListCapacityExceeded) return;
 
 			// Disables remove button on `dragend` event
 			dragendEventListenerFunction();
 
 			// Check if we are dropping on the same list
-			if (list === 'second') {
-				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'second'});
+			const isSameList = checkForSameList('second', dragOverElement, index, isAboveDropPosition, list, secondListCopy, selectedItems, setSecondListLocal, setPosition);
+			if (isSameList) return;
 
-				rearrangeList(dragOverElement.current, isAboveDropPosition.current, index, secondListCopy, 'second', setSecondListLocal);
-				return;
-			}
-
-			// Check if the selected item is already present in the selected items array
-			const potentialIndex = selectedItems.findIndex((pair) => pair.element === firstListCopy[index] && pair.list === list);
-
-			const selectedListCopy = [...selectedItems];
-			// If we are allowed to select multiple items, we can store an array of selected items, if not only one item can be selected
-			if (!noMultipleSelect) {
-				selectedItems.map((item) => {
-					selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-				});
-			} else {
-				selectedListCopy.splice(potentialIndex, 1);
-			}
-			setSelectedItems(selectedListCopy);
-
-			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'second'});
+			// Set new position for the items after the drop action
+			setSelectedItemsPosition(dragOverElement, index, list, firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal, firstListOperation);
 		}, [dragendEventListenerFunction, firstListLocal, firstListMinCapacity, firstListOperation, noMultipleSelect, rearrangeLists, secondListLocal, selectedItems, secondListMaxCapacity]);
@@ -847,41 +711,21 @@ const TransferListBase = kind({
 			const firstListCopy = [...firstListLocal];
 			const secondListCopy = [...secondListLocal];
 
-			// If there are selected items and the dragged item is not one of them, cancel the drop
-			if (selectedItems.length && selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list) === -1) return;
-
-			// Check for min-max lists capacities
-			if (secondListCopy.length <= secondListMinCapacity || secondListCopy.length - selectedItems.length < secondListMinCapacity) return;
-			if (firstListCopy.length >= firstListMaxCapacity || firstListCopy.length + selectedItems.length > firstListMaxCapacity) return;
+			// An object where we have lists capacity
+			const listsCapacity = {firstListMaxCapacity, secondListMinCapacity};
+			// Check for lists capacity
+			const isListCapacityExceeded = checkListsCapacity('first', firstListCopy, listsCapacity, secondListCopy, selectedItems, index, list);
+			if (isListCapacityExceeded) return;
 
 			// Disables remove button on `dragend` event
 			dragendEventListenerFunction();
 
 			// Check if we are dropping on the same list
-			if (list === 'first') {
-				setPosition({index: (selectedItems.length + parseInt(dragOverElement.current)) - 2, list: 'first'});
+			const isSameList = checkForSameList('first', dragOverElement, index, isAboveDropPosition, list, firstListCopy, selectedItems, setFirstListLocal, setPosition);
+			if (isSameList) return;
 
-				rearrangeList(dragOverElement.current, isAboveDropPosition.current, index, firstListCopy, 'first', setFirstListLocal);
-				return;
-			}
-
-			// Check if the selected item is already present in the selected items array
-			const potentialIndex = selectedItems.findIndex((pair) => pair.element === secondListCopy[index] && pair.list === list);
-
-			if (potentialIndex !== -1) {
-				const selectedListCopy = [...selectedItems];
-				// If we are allowed to select multiple items, we can store an array of selected items, if not only one item can be selected
-				if (!noMultipleSelect) {
-					selectedItems.map((item) => {
-						selectedListCopy.splice(selectedListCopy.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
-					});
-				} else {
-					selectedListCopy.splice(potentialIndex, 1);
-				}
-				setSelectedItems(selectedListCopy);
-			}
-
-			setPosition({index: ((selectedItems.length / 2) + parseInt(dragOverElement.current)) - 2, list: 'first'});
+			// Set new position for the items after the drop action
+			setSelectedItemsPosition(dragOverElement, index, list, secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
 
 			rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal, secondListOperation);
 		}, [dragendEventListenerFunction, firstListLocal, firstListOrderFixed, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);
@@ -915,14 +759,7 @@ const TransferListBase = kind({
 			}
 
 			// If the state is externally controlled, use the provided functions
-			if (setFirstList !== null && setSecondList !== null) {
-				setFirstList(tempFirst);
-				setSecondList(tempSecond);
-			} else {
-				setFirstListLocal(tempFirst);
-				setSecondListLocal(tempSecond);
-			}
-			setSelectedItems(tempSelected);
+			setItemsState(setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected);
 		}, [firstListLocal, firstListOrderFixed, secondListLocal, selectedItems, setFirstList, setSecondList]);
 
 		// Remove all the items in the `selectedItems` array
