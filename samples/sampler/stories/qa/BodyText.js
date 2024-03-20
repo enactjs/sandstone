@@ -64,6 +64,5 @@ export const WithTextWrapBalance = (args) => (
 
 boolean('centered', WithTextWrapBalance, BodyText);
 boolean('noWrap', WithTextWrapBalance, BodyText);
-select('children', WithTextWrapBalance, stringsToChoose, BodyText, stringsToChoose[0]);
 
 WithTextWrapBalance.storyName = 'With Text Wrap Balance';
