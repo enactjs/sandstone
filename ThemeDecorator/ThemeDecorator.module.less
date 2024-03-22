@@ -14,7 +14,7 @@
 @import "../styles/variables.less";
 
 .applySkins({
-	color: @sand-text-color;
+	// color: @sand-text-color;
 
 	::selection {
 		color: @sand-selection-color;
@@ -62,9 +62,9 @@
 // as well as skins. The high-contrast mixin (in skin.less) refers to high-contrast
 // and the skins node as descent, rather than on the same node. This allows the
 // styling to be applied without costly duplication of all rules in the skin mixin.
-.applySkins({
-	&.bg,
-	> .bg {
-		background-color: @sand-bg-color;
-	}
-});
+//.applySkins({
+//	&.bg,
+//	> .bg {
+//		background-color: @sand-bg-color;
+//	}
+//});
