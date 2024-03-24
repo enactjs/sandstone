@@ -405,6 +405,155 @@ select('verticalScrollbar', EditableList, prop.scrollbarOption, Config);
 
 EditableList.storyName = 'With Editable Items';
 
+export const EditableList2 = (args) => {
+	const dataSize = 3;
+	const [items, setItems] = useState(itemsArr);
+	const [editMode, setEditMode] = useState(true);
+	const removeItem = useRef();
+	const hideItem = useRef();
+	const showItem = useRef();
+	const focusItem = useRef();
+	const divRef = useRef();
+	const mutableRef = useRef({
+		hideIndex: null
+	});
+
+	useLayoutEffect(() => {
+		itemsArr = [];
+		for (let i = 0; i < dataSize; i++) {
+			itemsArr.push(populateItems({index: i}));
+		}
+		setItems(itemsArr);
+		mutableRef.current.hideIndex = dataSize;
+	}, [dataSize]);
+
+	const onClickModeButton = useCallback(() => {
+		setEditMode(mode => !mode);
+	}, [setEditMode]);
+
+	const onClickRemoveButton = useCallback((ev) => {
+		if (removeItem.current) {
+			removeItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const onClickHideButton = useCallback((ev) => {
+		if (hideItem.current) {
+			hideItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const onClickShowButton = useCallback((ev) => {
+		if (showItem.current) {
+			showItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const onFocusItem = useCallback((ev) => {
+		if (focusItem.current) {
+			focusItem.current(ev.target);
+		}
+	}, []);
+
+	const handleComplete = useCallback((ev) => {
+		const {orders, hideIndex} = ev;
+		mutableRef.current.hideIndex = hideIndex;
+
+		// change data from the new orders
+		const newItems = [];
+
+		orders.forEach(order => {
+			newItems.push(items[order - 1]);
+		});
+
+		for (let i = 0; i < orders.length; i++) {
+			newItems[i].hidden = (i >= hideIndex);
+		}
+
+		setItems(newItems);
+	}, [items]);
+
+	useEffect(() => {
+		divRef.current.addEventListener('keydown', (ev) => {
+			const {keyCode} = ev;
+			if (isCancel(keyCode)) {
+				setEditMode(false);
+			}
+		});
+	}, [divRef]);
+
+	return (
+		<div ref={divRef}>
+			<Container>
+				<Scroller
+					direction="horizontal"
+					editable={{
+						centered: args['editableCentered'],
+						css,
+						hideIndex: mutableRef.current.hideIndex,
+						onComplete: handleComplete,
+						removeItemFuncRef: removeItem,
+						hideItemFuncRef: hideItem,
+						showItemFuncRef: showItem,
+						focusItemFuncRef: focusItem,
+						selectItemBy: 'press'
+					}}
+					focusableScrollbar={args['focusableScrollbar']}
+					horizontalScrollbar={args['horizontalScrollbar']}
+					hoverToScroll={args['hoverToScroll']}
+					key={args['scrollMode']}
+					noScrollByWheel={args['noScrollByWheel']}
+					onClick={action('onClickScroller')}
+					onKeyDown={action('onKeyDown')}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollMode={args['scrollMode']}
+					spotlightDisabled={args['spotlightDisabled']}
+					verticalScrollbar={args['verticalScrollbar']}
+				>
+					{
+						items.map((item, index) => {
+							return (
+								<div key={item.index} className={classNames(css.itemWrapper, {[css.editableWrapperHideElement]: item.hidden})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
+										{/*{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}*/}
+										{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
+										{item.disabled ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
+									</ContainerDivWithLeaveForConfig>
+									<ImageItem
+										src={item.src}
+										className={css.imageItem}
+										disabled={item.disabled}
+										onClick={action('onClickItem')}
+										onFocus={onFocusItem}
+									>
+										{`Image ${item.index}`}
+									</ImageItem>
+								</div>
+							);
+						})
+					}
+				</Scroller>
+			</Container>
+		</div>
+	);
+};
+
+boolean('editableCentered', EditableList2, Config, true);
+number('editableDataSize', EditableList2, Config, 20);
+select('focusableScrollbar', EditableList2, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', EditableList2, prop.scrollbarOption, Config);
+boolean('hoverToScroll', EditableList2, Config, true);
+boolean('noScrollByWheel', EditableList2, Config);
+select('scrollMode', EditableList2, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', EditableList2, Config, false);
+select('verticalScrollbar', EditableList2, prop.scrollbarOption, Config);
+
+EditableList2.storyName = 'Items with smooth exit animation';
+
 export const EditableListWithLongPress = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
