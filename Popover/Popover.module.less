@@ -6,22 +6,66 @@
 
 .popoverContainer {
 	.popover {
-		max-height: 100%;
-		max-width: 100%;
+		border: none;
 		border-radius: @sand-popup-border-radius;
 		.sand-text-base();
 		.padding-start-end(@sand-popup-padding);
 		box-sizing: border-box;
 		pointer-events: auto;
 		.locale-japanese-line-break();
-		text-align: center;
+
+		&.bottom,
+		&.top {
+			width: auto;
+		}
+
+		&.left,
+		&.right {
+			height: auto;
+		}
+
+		&.top {
+			margin: 150px 120px auto 120px;
+		}
+
+		&.right {
+			margin: 120px 60px 120px auto;
+		}
+
+		&.bottom {
+			margin: auto 120px 150px 120px;
+		}
+
+		&.left {
+			margin: 120px auto 120px 60px;
+		}
+
+		&.fullscreen {
+			border-radius: 0;
+			height: 100%;
+			width: 100%;
+		}
 	}
 }
 
-.htmlButton {
+.applySkins({
+	.popover {
+		color: @sand-text-color-rgb;
+		background-color: @sand-popup-bg-color;
+
+		&.translucent {
+			&::backdrop {
+				background-color: rgba(0, 0, 0, 0.3);
+			}
+		}
+	}
+});
+
+.popoverButton {
 	padding: 0;
 	border-style: none;
 	border-radius: @sand-popup-border-radius;
+	background-color: transparent;
 
 	.button {
 		margin: 0;

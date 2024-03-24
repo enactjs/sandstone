@@ -14,12 +14,25 @@ export const _Popover = (args) => (
 		popover={args['popover']}
 		popoverTarget={args['popoverTarget']}
 		popoverTargetAction={args['popoverTargetAction']}
-	/>
+		position={args['position']}
+		scrimType={args['scrimType']}
+	>
+		<div>{args['children']}</div>
+	</Popover>
 );
 
 select('popover', _Popover, ['auto', 'manual'], Config, 'auto');
 text('popoverTarget', _Popover, Config, 'my-popover');
 select('popoverTargetAction', _Popover, ['hide', 'show', 'toggle'], Config, 'toggle');
+select(
+	'position',
+	_Popover,
+	['bottom', 'center', 'fullscreen', 'left', 'right', 'top'],
+	Config,
+	'center'
+);
+select('scrimType', _Popover, ['translucent', 'transparent'], Config, 'translucent');
+text('children', _Popover, Config, 'Hello Popup');
 
 _Popover.storyName = 'Popover';
 _Popover.parameters = {
