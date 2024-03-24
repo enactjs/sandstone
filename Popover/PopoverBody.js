@@ -62,6 +62,15 @@ const PopoverBodyDecorator = hoc(PopoverBodyDefaultConfig, (config, Wrapped) => 
 			id: PropTypes.string,
 
 			/**
+			 * Disables transition animation.
+			 *
+			 * @type {Boolean}
+			 * @default false
+			 * @public
+			 */
+			noAnimation: PropTypes.bool,
+
+			/**
 			 * A global attribute that turns an element into a popover element.
 			 *
 			 * @type {('auto'|'manual')}
@@ -96,14 +105,15 @@ const PopoverBodyDecorator = hoc(PopoverBodyDefaultConfig, (config, Wrapped) => 
 
 		computed: {
 			className: ({position, styler}) => styler.append(position),
-			popoverClassName: ({css, position, scrimType, styler}) => styler.join(css.popover, position, scrimType)
+			popoverClassName: ({css, noAnimation, position, scrimType, styler}) => styler.join(css.popover, {noAnimation: noAnimation}, position, scrimType)
 		},
 
-		render: ({children, id, popover, popoverClassName}) => {
+		render: ({children, id, noAnimation, popover, popoverClassName}) => {
 			return (
 				<Wrapped
 					className={popoverClassName}
 					id={id}
+					noAnimation={noAnimation}
 					popover={popover}
 				>
 					{children}

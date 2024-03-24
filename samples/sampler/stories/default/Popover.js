@@ -1,6 +1,6 @@
 import Popover from '@enact/sandstone/Popover';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {select, text} from '@enact/storybook-utils/addons/controls';
+import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 
 const Config = mergeComponentMetadata('Popover', Popover);
 
@@ -11,6 +11,7 @@ export default {
 
 export const _Popover = (args) => (
 	<Popover
+		noAnimation={args['noAnimation']}
 		popover={args['popover']}
 		popoverTarget={args['popoverTarget']}
 		popoverTargetAction={args['popoverTargetAction']}
@@ -21,6 +22,7 @@ export const _Popover = (args) => (
 	</Popover>
 );
 
+boolean('noAnimation', _Popover, Config);
 select('popover', _Popover, ['auto', 'manual'], Config, 'auto');
 text('popoverTarget', _Popover, Config, 'my-popover');
 select('popoverTargetAction', _Popover, ['hide', 'show', 'toggle'], Config, 'toggle');

@@ -31,6 +31,15 @@ const Popover = kind({
 		children: PropTypes.node.isRequired,
 
 		/**
+		 * Disables transition animation.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noAnimation: PropTypes.bool,
+
+		/**
 		 * A global attribute that turns an element into a popover element.
 		 *
 		 * @type {('auto'|'manual')}
@@ -78,6 +87,7 @@ const Popover = kind({
 	},
 
 	defaultProps: {
+		noAnimation: false,
 		popover: 'auto',
 		popoverTargetAction: 'toggle',
 		position: 'center',
@@ -89,7 +99,7 @@ const Popover = kind({
 		publicClassNames: ['popover']
 	},
 
-	render: ({children, popover, popoverTarget, popoverTargetAction, position, scrimType}) => {
+	render: ({children, noAnimation, popover, popoverTarget, popoverTargetAction, position, scrimType}) => {
 		return (
 			<Layout className={componentCss.popoverContainer}>
 				<PopoverControl
@@ -100,6 +110,7 @@ const Popover = kind({
 				</PopoverControl>
 				<PopoverBody
 					id={popoverTarget}
+					noAnimation={noAnimation}
 					popover={popover}
 					position={position}
 					scrimType={scrimType}
