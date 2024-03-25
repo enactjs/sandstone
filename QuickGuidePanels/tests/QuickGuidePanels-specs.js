@@ -1,3 +1,4 @@
+import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
 import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -69,7 +70,7 @@ describe('QuickGuidePanel Specs', () => {
 	);
 
 	test(
-		'should fire onWillTransition with target index and type',
+		'should fire `onWillTransition` with target index and type in pointer mode',
 		async () => {
 			const spy = jest.fn();
 			let index = 0;
@@ -100,7 +101,43 @@ describe('QuickGuidePanel Specs', () => {
 	);
 
 	test(
-		'should fire onTransition with target index and type',
+		'should fire `onWillTransition` with target index and type in 5-way mode',
+		async () => {
+			Spotlight.setPointerMode(false);
+			const spy = jest.fn();
+			let index = 0;
+			const {rerender} = render(
+				<QuickGuidePanels index={index} onWillTransition={spy}>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents3</QuickGuidePanel>
+				</QuickGuidePanels>
+			);
+
+			spy.mockClear();
+			const nextButton = screen.getByLabelText('Next');
+			Spotlight.focus(nextButton);
+			index++;
+
+			rerender(
+				<QuickGuidePanels index={index} onWillTransition={spy}>
+					<QuickGuidePanel>I gots contents</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents2</QuickGuidePanel>
+					<QuickGuidePanel>I gots contents3</QuickGuidePanel>
+				</QuickGuidePanels>
+			);
+
+			const expected = {index, type: 'onWillTransition'};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			await waitFor(() => {
+				expect(actual).toMatchObject(expected);
+			});
+		}
+	);
+
+	test(
+		'should fire `onTransition` with target index and type',
 		async () => {
 			const spy = jest.fn();
 			let index = 0;

@@ -1,3 +1,4 @@
+import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -411,7 +412,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should fire onWillTransition with target index and type',
+		'should fire `onWillTransition` with target index and type in pointer mode',
 		async () => {
 			const spy = jest.fn();
 			let index = 0;
@@ -442,7 +443,43 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should fire onTransition with target index and type',
+		'should fire `onWillTransition` with target index and type in 5-way mode',
+		async () => {
+			Spotlight.setPointerMode(false);
+			const spy = jest.fn();
+			let index = 0;
+			const {rerender} = render(
+				<WizardPanels index={index} onWillTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel>I gots contents3</Panel>
+				</WizardPanels>
+			);
+
+			spy.mockClear();
+			const nextButton = screen.getByLabelText('Next');
+			Spotlight.focus(nextButton);
+			index++;
+
+			rerender(
+				<WizardPanels index={index} onWillTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel>I gots contents3</Panel>
+				</WizardPanels>
+			);
+
+			const expected = {index, type: 'onWillTransition'};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			await waitFor(() => {
+				expect(actual).toMatchObject(expected);
+			});
+		}
+	);
+
+	test(
+		'should fire `onTransition` with target index and type',
 		async () => {
 			const spy = jest.fn();
 			let index = 0;
