@@ -108,12 +108,11 @@ const PopoverBodyDecorator = hoc(PopoverBodyDefaultConfig, (config, Wrapped) => 
 			popoverClassName: ({css, noAnimation, position, scrimType, styler}) => styler.join(css.popover, {noAnimation: noAnimation}, position, scrimType)
 		},
 
-		render: ({children, id, noAnimation, popover, popoverClassName}) => {
+		render: ({children, id, popover, popoverClassName}) => {
 			return (
 				<Wrapped
 					className={popoverClassName}
 					id={id}
-					noAnimation={noAnimation}
 					popover={popover}
 				>
 					{children}
