@@ -67,7 +67,7 @@ const DropdownView = () => (
 			</Dropdown>
 			<br />
 			<Dropdown
-				alt="Aria-lablelled with Placeholder and title"
+				alt="Aria-lablelled with Placeholder and title (Should not read title and Placeholder)"
 				aria-label="This is a Label."
 				placeholder="Placeholder"
 				title="Title"
@@ -76,7 +76,7 @@ const DropdownView = () => (
 			</Dropdown>
 			<br />
 			<Dropdown
-				alt="Aria-lablelled and Disabled with Placeholder and title"
+				alt="Aria-lablelled and Disabled with Placeholder and title (Should not read title and Placeholder)"
 				aria-label="This is a Label."
 				disabled
 				placeholder="Placeholder"
@@ -106,6 +106,7 @@ const DropdownView = () => (
 
 		<Section className={appCss.marginTop} title="Aria-labelled Dropdown based on selected option's aria-label">
 			<A11yDropdown
+				alt="Aria-labelled with Placeholder, Title and Aria-labelled Options (Should not read title and Placeholder)"
 				aria-label="This is a Label."
 				placeholder="Placeholder"
 				title="Title"
