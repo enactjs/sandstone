@@ -1,3 +1,4 @@
+import {BasicArranger} from '@enact/sandstone/internal/Panels';
 import {PageViews} from '@enact/sandstone/PageViews';
 import Item from '@enact/sandstone/Item';
 import {Cell, Row, Column} from '@enact/ui/Layout';
@@ -10,7 +11,7 @@ export default {
 };
 
 export const _PageViews = () => (
-	<PageViews>
+	<PageViews arranger={BasicArranger}>
 		<PageViews.Page>
 			<div style={{padding: '24px'}}>
 				<Item>Item 1</Item>

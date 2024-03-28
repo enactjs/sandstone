@@ -3,14 +3,14 @@ import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Row, Column, Cell} from '@enact/ui/Layout';
-import ViewManager from '@enact/ui/ViewManager';
+import ViewManager, {shape} from '@enact/ui/ViewManager';
 import Button from '../Button';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import Changeable from '@enact/ui/Changeable';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 
-import {BasicArranger} from '../internal/Panels';
+import {CrossFadeArranger} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 import {PageViewsRouter} from './PageViewsRouter';
@@ -20,13 +20,18 @@ import css from './PageViews.module.less';
 const PageViewsBase = kind({
 	name: 'PageViews',
 	propTypes: {
+		arranger: shape,
 		componentRef: EnactPropTypes.ref,
 		current: PropTypes.number,
 		index: PropTypes.number,
+		noAnimation: PropTypes.bool,
 		onTransition: PropTypes.func,
 		onWillTransition: PropTypes.func,
 		reverseTransition: PropTypes.bool,
 		totalIndex: PropTypes.number
+	},
+	defaultProps: {
+		arranger: CrossFadeArranger
 	},
 	styles: {
 		css,
@@ -78,8 +83,10 @@ const PageViewsBase = kind({
 		}
 	},
 	render: ({
+		arranger,
 		children,
 		index,
+		noAnimation,
 		onNextClick,
 		onPrevClick,
 		onTransition,
@@ -95,23 +102,24 @@ const PageViewsBase = kind({
 
 		return (
 			<div {...rest}>
-				<Column>
+				<Column style={{overflow: 'hidden'}}>
 					<Row style={{height: '100%'}}>
 						<Cell className={css.navButton} shrink>
 							{isPrevButtonVisible ? <Button id="PrevNavButton" icon="arrowlargeleft" onClick={onPrevClick} /> : null}
 						</Cell>
-						<Cell className={css.page}>
-							<ViewManager
-								arranger={BasicArranger}
-								duration={400}
-								index={index}
-								onTransition={onTransition}
-								onWillTransition={onWillTransition}
-								noAnimation
-								reverseTransition={reverseTransition}
-							>
-								{children}
-							</ViewManager>
+						<Cell
+							component={ViewManager}
+							id="Content"
+							arranger={arranger}
+							duration={400}
+							style={{overflow: 'hidden'}}
+							index={index}
+							noAnimation={noAnimation}
+							onTransition={onTransition}
+							onWillTransition={onWillTransition}
+							reverseTransition={reverseTransition}
+						>
+							{children}
 						</Cell>
 						<Cell className={css.navButton} shrink>
 							{isNextButtonVisible ? <Button id="NextNavButton" icon="arrowlargeright" onClick={onNextClick} /> : null}
@@ -130,7 +138,7 @@ const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
-		defaultElement: [`.${spotlightDefaultClass}`, `.${css.page} *`, '#NextNavButton', '#PrevNavButton'],
+		defaultElement: [`.${spotlightDefaultClass}`, `#Content *`, '#NextNavButton', '#PrevNavButton'],
 		enterTo: 'last-focused'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),

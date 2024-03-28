@@ -1,7 +1,7 @@
 function Page ({
 	children
 }) {
-	return <div>{children}</div>;
+	return <div style={{height: '100%'}}>{children}</div>;
 }
 
 export default Page;
