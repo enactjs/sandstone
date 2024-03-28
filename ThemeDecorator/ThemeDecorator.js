@@ -8,14 +8,13 @@
 import {setDefaultTargetById} from '@enact/core/dispatcher';
 import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
-import platform from '@enact/core/platform';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
 import {Component} from 'react';
 import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import SpotlightRootDecorator, {activateInputType, getInputType as getLastInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
-import LS2Request from '@enact/webos/LS2Request';
+import {requestLastInputType} from '@enact/webos/lastInputType';
 import PropTypes from 'prop-types';
 
 import Skinnable from '../Skinnable';
@@ -257,14 +256,15 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		componentDidMount () {
-			if (spotlight && platform.type === 'webos') {
+			if (spotlight) {
 				activateInputType(true);
-				requestInputType = new LS2Request().send({
-					service: 'luna://com.webos.surfacemanager',
-					method: 'getLastInputType',
-					subscribe: true,
+				requestInputType = requestLastInputType({
 					onSuccess: function (res) {
-						setInputType(res.lastInputType);
+						if (res.lastInputType === 'key' || res.lastInputType === 'mouse' || res.lastInputType === 'touch') {
+							setInputType(res.lastInputType);
+						} else {
+							activateInputType(false);
+						}
 					},
 					onFailure: function () {
 						activateInputType(false);
