@@ -1,16 +1,15 @@
 import handle, {forwardCustomWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
+import Changeable from '@enact/ui/Changeable';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
-
-import Button from '../Button';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import Changeable from '@enact/ui/Changeable';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 
+import Button from '../Button';
 import {CrossFadeArranger} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
@@ -24,7 +23,6 @@ const PageViewsBase = kind({
 	propTypes: {
 		arranger: shape,
 		componentRef: EnactPropTypes.ref,
-		current: PropTypes.number,
 		index: PropTypes.number,
 		noAnimation: PropTypes.bool,
 		onTransition: PropTypes.func,
@@ -34,8 +32,8 @@ const PageViewsBase = kind({
 		type: PropTypes.string
 	},
 	defaultProps: {
-		type: 'default',
-		arranger: CrossFadeArranger
+		arranger: CrossFadeArranger,
+		type: 'default'
 	},
 	styles: {
 		css,
@@ -73,46 +71,46 @@ const PageViewsBase = kind({
 		}
 	},
 	computed: {
-		className: ({type, styler}) => {
+		className: ({styler, type}) => {
 			return styler.append(type);
 		},
 		prevNavigationButton: ({index, onPrevClick}) => {
 			const isPrevButtonVisible = index !== 0;
 			return (
 				<Cell className={css.navButton} shrink>
-					{isPrevButtonVisible ? <Button id="PrevNavButton" icon="arrowlargeleft" onClick={onPrevClick} /> : null}
+					{isPrevButtonVisible ? <Button icon="arrowlargeleft" id="PrevNavButton" onClick={onPrevClick} /> : null}
 				</Cell>
 			);
 		},
-		nextNavigationButton: ({index, totalIndex, onNextClick}) => {
+		nextNavigationButton: ({index, onNextClick, totalIndex}) => {
 			const isNextButtonVisible = index < totalIndex - 1;
 
 			return (
 				<Cell className={css.navButton} shrink>
-					{isNextButtonVisible ? <Button id="NextNavButton" icon="arrowlargeright" onClick={onNextClick} /> : null}
+					{isNextButtonVisible ? <Button icon="arrowlargeright" id="NextNavButton" onClick={onNextClick} /> : null}
 				</Cell>
 			);
 		},
-		steps: ({index, totalIndex, type, onPrevClick, onNextClick}) => {
+		steps: ({index, onNextClick, onPrevClick, totalIndex, type}) => {
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
 			return (
 				type === 'default' ?
-					<Column className={css.stepArea} style={{height: '72px'}} align="center center">
+					<Column align="center center" className={css.stepsArea}>
 						<Steps
+							current={index + 1}
 							pastIcon={'circle'}
 							currentIcon={'circle'}
 							futureIcon={'circle'}
-							current={index + 1}
 							layout="quickGuidePanels"
 							total={totalIndex}
 						/>
 					</Column> :
-					<Column className={css.stepArea} style={{height: '96px'}} align="center center">
+					<Column align="center center" className={css.stepsArea}>
 						<Row className={css.steps}>
-							<Cell className={css.navButton} shrink>{isPrevButtonVisible ? <Button id="PrevNavButton" icon="arrowlargeleft" onClick={onPrevClick} /> : null}</Cell>
+							<Cell className={css.navButton} shrink>{isPrevButtonVisible ? <Button icon="arrowlargeleft" id="PrevNavButton" onClick={onPrevClick} /> : null}</Cell>
 							<Cell shrink>{index + 1} / {totalIndex}</Cell>
-							<Cell className={css.navButton} shrink>{isNextButtonVisible ? <Button id="NextNavButton" icon="arrowlargeright" onClick={onNextClick} /> : null}</Cell>
+							<Cell className={css.navButton} shrink>{isNextButtonVisible ? <Button icon="arrowlargeright" id="NextNavButton" onClick={onNextClick} /> : null}</Cell>
 						</Row>
 					</Column>
 			);
@@ -122,20 +120,20 @@ const PageViewsBase = kind({
 		arranger,
 		children,
 		index,
+		nextNavigationButton,
 		noAnimation,
 		onTransition,
 		onWillTransition,
+		prevNavigationButton,
 		reverseTransition,
 		steps,
-		prevNavigationButton,
-		nextNavigationButton,
 		type,
 		...rest
 	}) => {
 
 		delete rest.componentRef;
-		delete rest.onPrevClick;
 		delete rest.onNextClick;
+		delete rest.onPrevClick;
 		delete rest.totalIndex;
 
 		return (
@@ -145,16 +143,16 @@ const PageViewsBase = kind({
 					<Row style={{height: '100%'}}>
 						{type === 'default' ? prevNavigationButton : null}
 						<Cell
-							component={ViewManager}
-							id="PageViewsContent"
 							arranger={arranger}
+							component={ViewManager}
 							duration={400}
-							style={{overflow: 'hidden'}}
+							id="PageViewsContent"
 							index={index}
 							noAnimation={noAnimation}
 							onTransition={onTransition}
 							onWillTransition={onWillTransition}
 							reverseTransition={reverseTransition}
+							style={{overflow: 'hidden'}}
 						>
 							{children}
 						</Cell>
