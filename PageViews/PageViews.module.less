@@ -6,10 +6,6 @@
 	display: inline-flex;
 	flex-direction: column;
 
-	.page {
-		background-color: #4c5059
-	}
-
     .navButton {
 		text-align: center;
 		display: flex;
@@ -17,7 +13,19 @@
 		width: 2*@sand-button-small-height;
 	}
 
-	.steps {
-		text-align: center;
+	&.list {
+		.stepsArea {
+			height: 96px;
+		}
+		.steps {
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+	}
+	&.default {
+		.stepsArea {
+			height: 72px;
+		}
 	}
 }

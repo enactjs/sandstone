@@ -1,17 +1,22 @@
 import {BasicArranger} from '@enact/sandstone/internal/Panels';
 import {PageViews} from '@enact/sandstone/PageViews';
 import Item from '@enact/sandstone/Item';
+import {select} from '@enact/storybook-utils/addons/controls';
 import {Cell, Row, Column} from '@enact/ui/Layout';
 
 PageViews.displayName = 'PageViews';
+
+const propOptions = {
+	type: ['default', 'list']
+};
 
 export default {
 	title: 'Sandstone/PageViews',
 	component: 'PageViews'
 };
 
-export const _PageViews = () => (
-	<PageViews arranger={BasicArranger}>
+export const _PageViews = (args) => (
+	<PageViews arranger={BasicArranger} type={args['type']}>
 		<PageViews.Page>
 			<div style={{padding: '24px'}}>
 				<Item>Item 1</Item>
@@ -56,6 +61,8 @@ export const _PageViews = () => (
 		</PageViews.Page>
 	</PageViews>
 );
+
+select('type', _PageViews, propOptions.type, 'default');
 
 _PageViews.storyName = 'PageViews';
 _PageViews.parameters = {
