@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
 import Button from '../Button';
+import $L from '../internal/$L';
 import {CrossFadeArranger} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
@@ -78,7 +79,7 @@ const PageViewsBase = kind({
 			const isPrevButtonVisible = index !== 0;
 			return (
 				<Cell className={css.navButton} shrink>
-					{isPrevButtonVisible ? <Button icon="arrowlargeleft" id="PrevNavButton" onClick={onPrevClick} /> : null}
+					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" id="PrevNavButton" onClick={onPrevClick} /> : null}
 				</Cell>
 			);
 		},
@@ -87,7 +88,7 @@ const PageViewsBase = kind({
 
 			return (
 				<Cell className={css.navButton} shrink>
-					{isNextButtonVisible ? <Button icon="arrowlargeright" id="NextNavButton" onClick={onNextClick} /> : null}
+					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" id="NextNavButton" onClick={onNextClick} /> : null}
 				</Cell>
 			);
 		},
@@ -108,9 +109,9 @@ const PageViewsBase = kind({
 					</Column> :
 					<Column align="center center" className={css.stepsArea}>
 						<Row className={css.steps}>
-							<Cell className={css.navButton} shrink>{isPrevButtonVisible ? <Button icon="arrowlargeleft" id="PrevNavButton" onClick={onPrevClick} /> : null}</Cell>
+							<Cell className={css.navButton} shrink>{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" id="PrevNavButton" onClick={onPrevClick} /> : null}</Cell>
 							<Cell shrink>{index + 1} / {totalIndex}</Cell>
-							<Cell className={css.navButton} shrink>{isNextButtonVisible ? <Button icon="arrowlargeright" id="NextNavButton" onClick={onNextClick} /> : null}</Cell>
+							<Cell className={css.navButton} shrink>{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" id="NextNavButton" onClick={onNextClick} /> : null}</Cell>
 						</Row>
 					</Column>
 			);
