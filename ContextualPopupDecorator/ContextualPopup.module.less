@@ -82,9 +82,19 @@
 		}
 
 		.arrow {
+			mix-blend-mode: @sand-contextualpopup-arrow-mix-blend-mode;
+			stroke: @sand-overlay-border-color;
+			stroke-width: @sand-overlay-border-width;
+
 			.arrowFill {
 				fill: @sand-contextualpopup-bg-color;
 			}
+		}
+
+		.borderLine {
+			border-color: @sand-overlay-border-color;
+			border-width: @sand-overlay-border-width;
+			border-style: @sand-overlay-border-style;
 		}
 	});
 }

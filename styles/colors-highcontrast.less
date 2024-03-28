@@ -5,6 +5,12 @@
 // Universal Color Definitions
 // ---------------------------------------
 
+// UI Conceptual Colors
+// ---------------------------------------
+
+@sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 0, 0, 0);
+@sand-overlay-border-color: var(--sand-overlay-border-color, #7c848b);
+@sand-overlay-border-style: var(--sand-overlay-border-style, solid);
 
 // ---------------------------------------
 // Component Colors
@@ -12,7 +18,34 @@
 
 // Alert
 // ---------------------------------------
-@sand-alert-overlay-bg-color: @sand-alert-bg-color; // different from neutral
+
+// common colors
+@sand-alert-overlay-bg-color-rgb: var(--sand-alert-overlay-bg-color-rgb, 0, 0, 0);
+@sand-alert-overlay-bg-color-opacity: 100%;
+@sand-alert-overlay-text-color-rgb: var(--sand-alert-overlay-text-color-rgb, 230, 230, 230); // #e6e6e6
+@sand-alert-overlay-text-sub-color: var(--sand-alert-overlay-text-sub-color, #abaeb3);
+@sand-alert-overlay-focus-text-color: var(--sand-alert-overlay-focus-text-color, #ffffff);
+@sand-alert-overlay-disabled-selected-color: var(--sand-alert-overlay-disabled-selected-color, #ffffff);
+@sand-alert-overlay-disabled-selected-bg-color: var(--sand-alert-overlay-disabled-selected-bg-color, #788688);
+@sand-alert-overlay-disabled-selected-focus-color: var(--sand-alert-overlay-disabled-selected-focus-color, #e6e6e6);
+@sand-alert-overlay-disabled-selected-focus-bg-color: var(--sand-alert-overlay-disabled-selected-focus-bg-color, #4c5059);
+
+// component colors
+@sand-alert-overlay-progress-color-rgb: var(--sand-alert-overlay-progress-color-rgb, 55, 58, 65); // #373a41
+@sand-alert-overlay-progress-bg-color-rgb: var(--sand-alert-overlay-progress-bg-color-rgb, 161, 161, 161); //  #a1a1a166, 40% alpha by default
+@sand-alert-overlay-progress-bg-color-alpha: var(--sand-alert-overlay-progress-bg-color-alpha, 40%);
+@sand-alert-overlay-checkbox-color: var(--sand-alert-overlay-checkbox-color, #858b92);
+@sand-alert-overlay-checkbox-disabled-selected-text-color: var(--sand-alert-overlay-checkbox-disabled-selected-text-color, #ffffff);
+@sand-alert-overlay-formcheckboxitem-focus-text-color: var(--sand-alert-overlay-formcheckboxitem-focus-text-color, @sand-alert-overlay-focus-text-color);
+@sand-alert-overlay-item-disabled-focus-bg-color: var(--sand-alert-overlay-item-disabled-focus-bg-color, #989ca2);
+
+// ---------------------------------------
+// Component Colors
+// ---------------------------------------
+
+// ContextualPopup
+// ---------------------------------------
+@sand-contextualpopup-arrow-mix-blend-mode: multiply;
 
 // Input
 // ---------------------------------------
