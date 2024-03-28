@@ -13,7 +13,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {BasicArranger} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
-import {WizardPanelsRouter} from './PageViewsRouter';
+import {PageViewsRouter} from './PageViewsRouter';
 
 import css from './PageViews.module.less';
 
@@ -26,8 +26,7 @@ const PageViewsBase = kind({
 		onTransition: PropTypes.func,
 		onWillTransition: PropTypes.func,
 		reverseTransition: PropTypes.bool,
-		total: PropTypes.number,
-		totalPanels: PropTypes.number
+		totalIndex: PropTypes.number
 	},
 	styles: {
 		css,
@@ -37,9 +36,9 @@ const PageViewsBase = kind({
 	handlers: {
 		onNextClick: handle(
 			forwardCustomWithPrevent('onNextClick'),
-			(ev, {index, onChange, totalPanels}) => {
-				if (onChange && index !== totalPanels) {
-					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
+			(ev, {index, onChange, totalIndex}) => {
+				if (onChange && index !== totalIndex) {
+					const nextIndex = index < (totalIndex - 1) ? (index + 1) : index;
 					onChange({type: 'onChange', index: nextIndex});
 				}
 			}
@@ -65,18 +64,15 @@ const PageViewsBase = kind({
 		}
 	},
 	computed: {
-		steps: ({current, index, total, totalPanels}) => {
-			const currentStep = (typeof current === 'number' && current > 0) ? current : (index + 1);
-			const totalSteps = (typeof total === 'number' && total > 0) ? total : totalPanels;
-
+		steps: ({index, totalIndex}) => {
 			return (
 				<Steps
 					pastIcon={'circle'}
 					currentIcon={'circle'}
 					futureIcon={'circle'}
-					current={currentStep}
+					current={index + 1}
 					layout="quickGuidePanels"
-					total={totalSteps}
+					total={totalIndex}
 				/>
 			);
 		}
@@ -89,12 +85,12 @@ const PageViewsBase = kind({
 		onTransition,
 		onWillTransition,
 		reverseTransition,
+		totalIndex,
 		steps,
-		totalPanels,
 		...rest
 	}) => {
 		const isPrevButtonVisible = index !== 0;
-		const isNextButtonVisible = index < totalPanels - 1;
+		const isNextButtonVisible = index < totalIndex - 1;
 		delete rest.componentRef;
 
 		return (
@@ -102,12 +98,13 @@ const PageViewsBase = kind({
 				<Column>
 					<Row style={{height: '100%'}}>
 						<Cell className={css.navButton} shrink>
-							{isPrevButtonVisible ? <Button id="NavButton" icon="arrowlargeleft" onClick={onPrevClick} /> : null}
+							{isPrevButtonVisible ? <Button id="PrevNavButton" icon="arrowlargeleft" onClick={onPrevClick} /> : null}
 						</Cell>
 						<Cell className={css.page}>
 							<ViewManager
 								arranger={BasicArranger}
 								duration={400}
+								index={index}
 								onTransition={onTransition}
 								onWillTransition={onWillTransition}
 								noAnimation
@@ -117,7 +114,7 @@ const PageViewsBase = kind({
 							</ViewManager>
 						</Cell>
 						<Cell className={css.navButton} shrink>
-							{isNextButtonVisible ? <Button id="NavButton" icon="arrowlargeright" onClick={onNextClick} /> : null}
+							{isNextButtonVisible ? <Button id="NextNavButton" icon="arrowlargeright" onClick={onNextClick} /> : null}
 						</Cell>
 					</Row>
 					<Cell className={css.steps} shrink>
@@ -133,11 +130,11 @@ const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
-		defaultElement: [`.${spotlightDefaultClass}`, '#NavButton'],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${css.page} *`, '#NextNavButton', '#PrevNavButton'],
 		enterTo: 'last-focused'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),
-	WizardPanelsRouter,
+	PageViewsRouter,
 	Skinnable
 );
 
