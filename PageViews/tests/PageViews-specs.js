@@ -6,7 +6,7 @@ import {PageViews, Page} from '../';
 
 describe('PageViews Specs', () => {
 	test(
-		'should show next button on the first view',
+		'should show next button on the first page',
 		() => {
 			render(
 				<PageViews index={0}>
@@ -22,7 +22,7 @@ describe('PageViews Specs', () => {
 	);
 
 	test(
-		'should show previous button on the last view',
+		'should show previous button on the last page',
 		() => {
 			render(
 				<PageViews index={1}>
@@ -100,7 +100,7 @@ describe('PageViews Specs', () => {
 	);
 
 	test(
-		'should fire `onNextClick` and `onChange` with type when go to the next panel',
+		'should fire `onNextClick` and `onChange` with type when go to the next page',
 		async () => {
 			const handleChange = jest.fn();
 			const handleNextClick = jest.fn();
@@ -131,7 +131,7 @@ describe('PageViews Specs', () => {
 	);
 
 	test(
-		'should fire `onPrevClick` and `onChange` with type when go to the previous panel',
+		'should fire `onPrevClick` and `onChange` with type when go to the previous page',
 		async () => {
 			const handleChange = jest.fn();
 			const handlePrevClick = jest.fn();
