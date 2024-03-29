@@ -907,7 +907,7 @@ describe('Popup', function () {
 
 				await Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4-1).
-				await $('#popup7').moveTo({xOffset: 300 , yOffset: 0});
+				await $('#popup7').moveTo({xOffset: 300, yOffset: 0});
 				// Click on the blank area to change to 5-way.
 				await $('#popup7').click();
 				await Page.spotlightLeft();
