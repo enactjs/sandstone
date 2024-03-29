@@ -10,11 +10,11 @@ import useToggleRole from '../WizardPanels/useToggleRole';
 
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
-function useReverseTransition (index) {
+function useReverseTransition (index, rtl) {
 	const prevIndex = useRef(index);
 	let reverse = false;
 	if (prevIndex.current !== index) {
-		reverse = index < prevIndex.current;
+		reverse = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
 	}
 	prevIndex.current = index;
 	return  {reverseTransition: reverse};
@@ -42,7 +42,7 @@ function PageViewsRouter (Wrapped) {
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element'});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
-		const {reverseTransition} = useReverseTransition(index);
+		const {reverseTransition} = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
