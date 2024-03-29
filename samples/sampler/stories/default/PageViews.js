@@ -7,7 +7,7 @@ import {Cell, Row, Column} from '@enact/ui/Layout';
 PageViews.displayName = 'PageViews';
 
 const propOptions = {
-	type: ['default', 'list']
+	pageIndicatorType: ['dot', 'number']
 };
 
 export default {
@@ -16,7 +16,7 @@ export default {
 };
 
 export const _PageViews = (args) => (
-	<PageViews arranger={BasicArranger} type={args['type']}>
+	<PageViews arranger={BasicArranger} pageIndicatorType={args['pageIndicatorType']}>
 		<PageViews.Page>
 			<div style={{padding: '24px'}}>
 				<Item>Item 1</Item>
@@ -62,7 +62,7 @@ export const _PageViews = (args) => (
 	</PageViews>
 );
 
-select('type', _PageViews, propOptions.type, 'default');
+select('pageIndicatorType', _PageViews, propOptions.pageIndicatorType, 'dot');
 
 _PageViews.storyName = 'PageViews';
 _PageViews.parameters = {

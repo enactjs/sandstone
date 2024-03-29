@@ -82,6 +82,20 @@ const PageViewsBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
+		 * Type of page indicator.
+		 *
+		 * There are two types:
+		 *
+		 * * `dot` - Indicates pages by dots. Used for pages less than 10 pages.
+		 * * `number` - Indicates pages by current page number and total number of pages.
+		 *
+		 * @type {('dot'|'number')}
+		 * @default 'dot'
+		 * @public
+		 */
+		pageIndicatorType: PropTypes.oneOf(['dot', 'number']),
+
+		/**
 		 * Explicitly sets the ViewManager transition direction.
 		 *
 		 * @type {Boolean}
@@ -95,25 +109,11 @@ const PageViewsBase = kind({
 		 * @type {Number}
 		 * @private
 		 */
-		totalIndex: PropTypes.number,
-
-		/**
-		 * Type of PageViews.
-		 *
-		 * There are two types: //TODO: update type name
-		 *
-		 * * `default` -
-		 * * `list` -
-		 *
-		 * @type {('default'|'list')}
-		 * @default 'default'
-		 * @public
-		 */
-		type: PropTypes.oneOf(['default', 'list'])
+		totalIndex: PropTypes.number
 	},
 	defaultProps: {
 		arranger: CrossFadeArranger,
-		type: 'default'
+		pageIndicatorType: 'dot'
 	},
 	styles: {
 		css,
@@ -151,8 +151,8 @@ const PageViewsBase = kind({
 		}
 	},
 	computed: {
-		className: ({styler, type}) => {
-			return styler.append(type);
+		className: ({pageIndicatorType, styler}) => {
+			return styler.append(pageIndicatorType);
 		},
 		prevNavigationButton: ({index, onPrevClick}) => {
 			const isPrevButtonVisible = index !== 0;
@@ -171,11 +171,11 @@ const PageViewsBase = kind({
 				</Cell>
 			);
 		},
-		steps: ({index, onNextClick, onPrevClick, totalIndex, type}) => {
+		steps: ({index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
 			return (
-				type === 'default' ?
+				pageIndicatorType === 'dot' ?
 					<Column align="center center" className={css.stepsArea}>
 						<Steps
 							current={index + 1}
@@ -208,10 +208,10 @@ const PageViewsBase = kind({
 		noAnimation,
 		onTransition,
 		onWillTransition,
+		pageIndicatorType,
 		prevNavigationButton,
 		reverseTransition,
 		steps,
-		type,
 		...rest
 	}) => {
 
@@ -222,10 +222,10 @@ const PageViewsBase = kind({
 
 		return (
 			<div {...rest}>
-				{type === 'default' ? steps : null}
+				{pageIndicatorType === 'dot' ? steps : null}
 				<Column style={{overflow: 'hidden'}}>
 					<Row style={{height: '100%'}}>
-						{type === 'default' ? prevNavigationButton : null}
+						{pageIndicatorType === 'dot' ? prevNavigationButton : null}
 						<Cell
 							arranger={arranger}
 							component={ViewManager}
@@ -240,10 +240,10 @@ const PageViewsBase = kind({
 						>
 							{children}
 						</Cell>
-						{type === 'default' ? nextNavigationButton : null}
+						{pageIndicatorType === 'dot' ? nextNavigationButton : null}
 					</Row>
 				</Column>
-				{type === 'list' ? steps : null}
+				{pageIndicatorType === 'number' ? steps : null}
 			</div>
 		);
 	}
