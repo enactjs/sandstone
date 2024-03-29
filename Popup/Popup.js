@@ -213,7 +213,7 @@ const PopupBase = kind({
 		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
 		// Otherwise, `aria-live` will be usually `off`.
 		'aria-live': ({'aria-live': live, noAlertRole}) => ((typeof live !== 'undefined') ? live : (!noAlertRole && 'off' || null)),
-		className: ({position, styler}) => styler.append(position),
+		className: ({position, styler}) => styler.append(position, position === 'fullscreen' ? null : componentCss.outline),
 		direction: ({position}) => transitionDirection[position],
 		// When passing `role` prop to the Popup, the prop should work first.
 		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
