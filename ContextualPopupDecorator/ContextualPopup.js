@@ -152,7 +152,8 @@ const ContextualPopupBase = kind({
 				fixedSize: direction === 'above' || direction === 'below'
 			},
 			direction.split(' '),
-			offset
+			offset,
+			css.outline
 		)
 	},
 
