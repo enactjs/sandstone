@@ -82,7 +82,6 @@
 		}
 
 		.arrow {
-			mix-blend-mode: @sand-contextualpopup-arrow-mix-blend-mode;
 			stroke: @sand-overlay-outline-color;
 			stroke-width: @sand-overlay-outline-width;
 
@@ -93,8 +92,9 @@
 
 		.outline {
 			outline-color: @sand-overlay-outline-color;
-			outline-width: @sand-overlay-outline-width;
 			outline-style: @sand-overlay-outline-style;
+			outline-width: @sand-overlay-outline-width;
+			outline-offset: -@sand-overlay-outline-width;
 		}
 	});
 }
