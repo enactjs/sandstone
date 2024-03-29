@@ -23,7 +23,8 @@ describe('PopupTabLayout', function () {
 				expect(await popupTabLayout.currentView.getAttribute('id')).to.equal('display');
 
 				// Step 5-1: Position the Pointer inside the Picture Modes panel and 5-way Right to change to 5-way mode.
-				await $('#display').moveTo({xOffset: 0, yOffset: -300});
+				const panelSize = await $('#display').getSize();
+				await $('#display').moveTo({xOffset: -(panelSize.width / 2) - 1, yOffset: -(panelSize.height / 2) - 1});
 				await Page.spotlightRight();
 				// Step 5-1 Verify: Spotlight is on the 'back' button
 				expect(await Page.getAriaLabel()).to.equal('go to previous');
