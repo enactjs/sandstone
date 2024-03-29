@@ -21,16 +21,95 @@ import css from './PageViews.module.less';
 
 const PageViewsBase = kind({
 	name: 'PageViews',
-	propTypes: {
+	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
+		/**
+		 * Set of functions that control how the pages are transitioned into and out of the
+		 * viewport.
+		 *
+		 * @see {@link ui/ViewManager.SlideArranger}
+		 * @type {ui/ViewManager.Arranger}
+		 * @default ui/ViewManager.SlideLeftArranger
+		 * @public
+		 */
 		arranger: shape,
+
+		/**
+		 * {@link sandstone/PageViews.Page|Page} to be rendered
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		children: PropTypes.node,
+
+		/**
+		 * Obtains a reference to the root node.
+		 *
+		 * @type {Function|Object}
+		 * @public
+		 */
 		componentRef: EnactPropTypes.ref,
+
+		/**
+		 * Index of the active page.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
 		index: PropTypes.number,
+
+		/**
+		 * Disables page transitions.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
 		noAnimation: PropTypes.bool,
+
+		/**
+		 * Called when a transition completes.
+		 *
+		 * @type {Function}
+		 */
 		onTransition: PropTypes.func,
+
+		/**
+		 * Called before a transition begins.
+		 *
+		 * @type {Function}
+		 */
 		onWillTransition: PropTypes.func,
+
+		/**
+		 * Explicitly sets the ViewManager transition direction.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
 		reverseTransition: PropTypes.bool,
+
+		/**
+		 * The total number of pages.
+		 *
+		 * @type {Number}
+		 * @private
+		 */
 		totalIndex: PropTypes.number,
-		type: PropTypes.string
+
+		/**
+		 * Type of PageViews.
+		 *
+		 * There are two types: //TODO: update type name
+		 *
+		 * * `default` -
+		 * * `list` -
+		 *
+		 * @type {('default'|'list')}
+		 * @default 'default'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['default', 'list'])
 	},
 	defaultProps: {
 		arranger: CrossFadeArranger,

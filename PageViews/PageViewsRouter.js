@@ -79,7 +79,7 @@ function PageViewsRouter (Wrapped) {
 		componentRef: EnactPropTypes.ref,
 
 		/**
-		* The spotlight id for the panel
+		* The spotlight id for the panel.
 		*
 		* @type {String}
 		* @private
@@ -104,7 +104,7 @@ function PageViewsRouter (Wrapped) {
 		noAnimation: PropTypes.bool,
 
 		/**
-		* Called when a transition completes
+		* Called when a transition completes.
 		*
 		* @type {Function}
 		* @private
@@ -112,7 +112,7 @@ function PageViewsRouter (Wrapped) {
 		onTransition: PropTypes.func,
 
 		/**
-		* Called when a transition begins
+		* Called when a transition begins.
 		*
 		* @type {Function}
 		* @private
@@ -120,7 +120,7 @@ function PageViewsRouter (Wrapped) {
 		onWillTransition: PropTypes.func,
 
 		/**
-		 * Used to determine the transition direction
+		 * Used to determine the transition direction.
 		 *
 		 * @type {Boolean}
 		 * @private
