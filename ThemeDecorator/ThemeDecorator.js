@@ -66,6 +66,15 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
 	float: true,
 
 	/**
+	 * Font scale value for large text mode.
+	 *
+	 * @type {Number}
+	 * @default 1
+	 * @public
+	 */
+	fontScale: 1,
+
+	/**
 	 * Options for I18nDecorator.
 	 *
 	 * May be `false` to prevent applying the decorator. If not applied, app will be responsible for
