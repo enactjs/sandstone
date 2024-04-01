@@ -284,7 +284,7 @@ const TransferListBase = kind({
 		let scrollToRefSecond = useRef(null);
 
 		useEffect(() => {
-			setSelectedItemsList(selectedItems[0] ? selectedItems[0].list : "none")
+			setSelectedItemsList(selectedItems[0] ? selectedItems[0].list : "none");
 		}, [selectedItems]);
 
 		const getScrollToFirst = useCallback((scrollTo) => {
@@ -823,7 +823,7 @@ const TransferListBase = kind({
 		return (
 			<Layout
 				align="center"
-				className={classnames(componentCss.transferList, {[componentCss.vertical]: orientation==="vertical"})}
+				className={classnames(componentCss.transferList, {[componentCss.vertical]: orientation === "vertical"})}
 				orientation={orientation}
 			>
 				<CustomDragImage listComponent={listComponent} ref={dragImageNode} />
