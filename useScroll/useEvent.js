@@ -307,6 +307,9 @@ const pointerTracker = (ev) => {
 
 const pageKeyHandler = (ev) => {
 	const {keyCode} = ev;
+	if (isPageUp(keyCode) || isPageDown(keyCode) || (keyCode === 35) || (keyCode === 36)) {
+		ev.preventDefault();
+	}
 
 	if (Spotlight.getPointerMode() && !Spotlight.getCurrent() && (isPageUp(keyCode) || isPageDown(keyCode))) {
 		const
