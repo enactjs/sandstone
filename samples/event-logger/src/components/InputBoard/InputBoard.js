@@ -59,7 +59,6 @@ const InputBoard = ({className}) => {
 	const isCapturingEvent = true;
 
 	const dispatch = useContext(EventLoggerDispatchContext);
-
 	const {
 		activeEventsReducer,
 		eventCapturingOnReducer,
@@ -81,6 +80,7 @@ const InputBoard = ({className}) => {
 	const reactHandlers = useRef();
 	const syntheticEventOnRef = useRef();
 	const timerIndexRef = useRef();
+	const beforeTimeoutId = useRef();
 
 	const onAddEventLog =
 		useCallback(
@@ -111,12 +111,15 @@ const InputBoard = ({className}) => {
 			if (lastLog.eventName === ev.type) {
 				const index = findLastIndexOfMatchingEvent(eventLogsRef.current, ev.type, isDOMElement, isCapturing);
 				if (index >= 0) {
+					// Exception handling for issue where the previous 'timeoutId' is updated once more after being updated
+					if (beforeTimeoutId.current === eventLogsRef.current[index].timeoutId) return;
+
+					beforeTimeoutId.current = eventLogsRef.current[index].timeoutId;
+
 					window.clearTimeout(eventLogsRef.current[index].timeoutId);
-					onUpdateEventLog(
-						eventObject,
-						eventLogsRef.current[index].timeoutId,
-						window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndexRef.current])
-					);
+					const newTimeoutId = window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndexRef.current]);
+
+					onUpdateEventLog(eventObject, eventLogsRef.current[index].timeoutId, newTimeoutId);
 					return;
 				}
 			}

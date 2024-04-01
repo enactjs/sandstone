@@ -41,7 +41,7 @@ export default function eventLogsReducer (state, action) {
 			return {eventLogs: logs};
 		}
 		case (UPDATE_EVENT_LOG): {
-			const index = state.eventLogs.findIndex(log =>  log.timeoutId === action.prevTimeoutId);
+			const index = state.eventLogs.findIndex(log => log.timeoutId === action.prevTimeoutId);
 			const logs = state.eventLogs.slice();
 
 			if (index >= 0) {
@@ -52,7 +52,7 @@ export default function eventLogsReducer (state, action) {
 				};
 				logs.splice(index, 1, log);
 			}
-			return {eventLogs:logs};
+			return {eventLogs: logs};
 		}
 		default: {
 			return state;
