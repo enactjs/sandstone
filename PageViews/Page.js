@@ -1,3 +1,11 @@
+/**
+ * Page for {@link sandstone/PageViews.PageViews|PageViews}.
+ *
+ * @class Page
+ * @memberof sandstone/PageViews
+ * @ui
+ * @public
+ */
 function Page ({
 	children
 }) {

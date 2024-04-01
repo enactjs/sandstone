@@ -19,6 +19,21 @@ import {PageViewsRouter} from './PageViewsRouter';
 
 import css from './PageViews.module.less';
 
+/**
+ * A PageViews that has page indicator with corresponding pages.
+ *
+ * @example
+ * 	<PageViews>
+ *		<PageViews.Page>
+ *			lorem ipsum ...
+ *		</PageViews.Page>
+ *	</PageViews>
+ *
+ * @class PageViewsBase
+ * @memberof sandstone/PageViews
+ * @ui
+ * @public
+ */
 const PageViewsBase = kind({
 	name: 'PageViews',
 	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
@@ -261,6 +276,17 @@ const PageViewsDecorator = compose(
 	Skinnable
 );
 
+/**
+ * A PageViews that can navigate through different pages.
+ * Expects {@link sandstone/PageViews.Page|Page} as children.
+ *
+ * @class PageViews
+ * @memberof sandstone/PageViews
+ * @extends sandstone/PageViews.PageViewsBase
+ * @mixes ui/Changeable.Changeable
+ * @ui
+ * @public
+ */
 const PageViews = PageViewsDecorator(PageViewsBase);
 
 export default PageViews;
