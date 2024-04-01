@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {memo} from 'react';
 
 import Button from '../Button';
+import TooltipDecorator from '../TooltipDecorator';
+const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 import {handleSpotlightBounds} from './utils';
 
@@ -30,7 +32,7 @@ const ButtonList = ({
 		<Cell className={componentCss.listButtons} style={{flexDirection: orientation === 'vertical' ? 'row' : 'column'}}>
 			{!moveOnSpotlight ?
 				<>
-					<Button
+					<TooltipButton
 						disabled={disabled || !!secondListMaxCapacity || !!firstListMinCapacity}
 						icon={orientation === 'vertical' ? 'triangledown' : 'triangleright'}
 						iconOnly
@@ -38,29 +40,37 @@ const ButtonList = ({
 						onSpotlightLeft={orientation === 'vertical' ? handleSpotlightBounds : null}
 						onSpotlightUp={orientation === 'horizontal' ? handleSpotlightBounds : null}
 						size="small"
+						tooltipText="move all to second"
+						tooltipPosition="right middle"
 					/>
-					<Button
+					<TooltipButton
 						disabled={!(selectedItems?.find((item) => item.list === "first")) || disabled}
 						icon={orientation === 'vertical' ? 'arrowlargedown' : 'arrowsmallright'}
 						iconOnly
 						onClick={moveIntoSecondSelected}
 						size="small"
+						tooltipText="move to second"
+						tooltipPosition="right middle"
 					/>
-					<Button
+					<TooltipButton
 						disabled={!(selectedItems?.find((item) => item.list === "second")) || disabled}
 						icon={orientation === 'vertical' ? 'arrowlargeup' : 'arrowsmallleft'}
 						iconOnly
 						onClick={moveIntoFirstSelected}
 						size="small"
+						tooltipText="move to first"
+						tooltipPosition="right middle"
 					/>
-					<Button
+					<TooltipButton
 						disabled={disabled || !!firstListMaxCapacity || !!secondListMinCapacity}
 						icon={orientation === 'vertical' ? 'triangleup' : 'triangleleft'}
 						iconOnly
 						onClick={selectIntoFirstAll}
 						size="small"
+						tooltipText="move all to first"
+						tooltipPosition="right middle"
 					/>
-					<Button
+					<TooltipButton
 						disabled={disabled || !removeButtonActive}
 						icon="trash"
 						iconOnly
@@ -68,8 +78,10 @@ const ButtonList = ({
 						onDragOver={onDragOver}
 						onDrop={handleRemoveItems}
 						size="small"
+						tooltipText="delete"
+						tooltipPosition="right middle"
 					/>
-					<Button
+					<TooltipButton
 						disabled={disabled}
 						icon="refresh"
 						iconOnly
@@ -77,6 +89,8 @@ const ButtonList = ({
 						onSpotlightDown={orientation === 'horizontal' ? handleSpotlightBounds : null}
 						onSpotlightRight={orientation === 'vertical' ? handleSpotlightBounds : null}
 						size="small"
+						tooltipText="deselect"
+						tooltipPosition="right middle"
 					/>
 				</> : ''
 			}

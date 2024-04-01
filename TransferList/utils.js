@@ -49,14 +49,14 @@ export const handleSpotlightBounds = ev => {
 export const performMoveOperation = (list, listLocal, listOperation, selectedItems, tempMoveOrCopy, tempMoveOrDelete, tempSelected) => {
 	selectedItems.map((item) => {
 		if (item.list !== list) return;
+		// In case of moving or deleting, remove the item from the second list
+		if (listOperation === 'move' || listOperation === 'delete') tempMoveOrDelete.splice(tempMoveOrDelete.findIndex((element) => element === item.element), 1);
 		// In case of moving or copying, add the items to the second list
 		if (listOperation === 'move' || listOperation === 'copy') {
 			// Block duplicated items in the same list
 			if  (tempMoveOrCopy.includes(item.element)) return;
 			tempMoveOrCopy.push(listLocal[listLocal.findIndex(element => element === item.element)]);
 		}
-		// In case of moving or deleting, remove the item from the second list
-		if (listOperation === 'move' || listOperation === 'delete') tempMoveOrDelete.splice(tempMoveOrDelete.findIndex((element) => element === item.element), 1);
 		tempSelected.splice(tempSelected.findIndex((pair) => pair.element === item.element && pair.list === item.list), 1);
 	});
 };

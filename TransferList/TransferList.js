@@ -13,10 +13,12 @@ import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
+import BodyText from '../BodyText';
 import Skinnable from '../Skinnable';
 import VirtualList, {VirtualGridList} from '../VirtualList';
 
@@ -265,6 +267,7 @@ const TransferListBase = kind({
 		const [position, setPosition] = useState(null);
 		const [secondListLocal, setSecondListLocal] = useState(secondList);
 		const [selectedItems, setSelectedItems] = useState([]);
+		const [selectedItemsList, setSelectedItemsList] = useState("");
 		const [touchOverElement, setTouchOverElement] = useState(null);
 
 		const height = ri.scaleToRem(orientation === 'horizontal' ? defaultHeight : verticalHeight);
@@ -279,6 +282,10 @@ const TransferListBase = kind({
 		let startDragElement = useRef(null);
 		let scrollToRefFirst = useRef(null);
 		let scrollToRefSecond = useRef(null);
+
+		useEffect(() => {
+			setSelectedItemsList(selectedItems[0] ? selectedItems[0].list : "none")
+		}, [selectedItems]);
 
 		const getScrollToFirst = useCallback((scrollTo) => {
 			scrollToRefFirst.current = scrollTo;
@@ -598,6 +605,8 @@ const TransferListBase = kind({
 			setItemsState(setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected);
 
 			if (secondListOperation === 'move' || secondListOperation === 'copy') setPosition({index: tempFirst.length - 1, list: 'second'});
+
+			setSelectedItems([]);
 		}, [firstListLocal, firstListMaxCapacity, secondListLocal, secondListOperation, selectedItems, setFirstList, setSecondList, secondListMinCapacity]);
 
 		// Handle move/copy/delete all item from the second list into the first list
@@ -630,6 +639,8 @@ const TransferListBase = kind({
 			setItemsState(setFirstList, setFirstListLocal, setSecondList, setSecondListLocal, setSelectedItems, tempFirst, tempSecond, tempSelected);
 
 			if (firstListOperation === 'move' || firstListOperation === 'copy') setPosition({index: tempSecond.length - 1, list: 'first'});
+
+			setSelectedItems([]);
 		}, [firstListLocal, firstListMinCapacity, firstListOperation, secondListLocal, selectedItems, setFirstList, setSecondList, secondListMaxCapacity]);
 
 		// Handle move/copy/delete all item into the second list
@@ -810,7 +821,11 @@ const TransferListBase = kind({
 		};
 
 		return (
-			<Layout align="center" className={componentCss.transferList} orientation={orientation}>
+			<Layout
+				align="center"
+				className={classnames(componentCss.transferList, {[componentCss.vertical]: orientation==="vertical"})}
+				orientation={orientation}
+			>
 				<CustomDragImage listComponent={listComponent} ref={dragImageNode} />
 				<Cell
 					className={componentCss.listCell}
@@ -823,6 +838,12 @@ const TransferListBase = kind({
 					size="40%"
 					style={{height: height, width: width}}
 				>
+					<BodyText
+						className={classnames(componentCss.selectedCounter, componentCss.selectedCounterTop)}
+						centered
+					>
+						{selectedItemsList === 'first' ? selectedItems.length : "0"} items selected
+					</BodyText>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
 							cbScrollTo={getScrollToFirst}
@@ -877,6 +898,14 @@ const TransferListBase = kind({
 					size="40%"
 					style={{height: height, width: width}}
 				>
+					{orientation === "horizontal" &&
+						<BodyText
+							className={classnames(componentCss.selectedCounter, componentCss.selectedCounterTop)}
+							centered
+						>
+							{selectedItemsList === 'second' ? selectedItems.length : "0"} items selected
+						</BodyText>
+					}
 					{listComponent === 'VirtualList' ?
 						<VirtualList
 							cbScrollTo={getScrollToSecond}
@@ -900,6 +929,14 @@ const TransferListBase = kind({
 							}}
 							onScrollStop={handleScroll}
 						/> }
+					{orientation === "vertical" &&
+						<BodyText
+							className={classnames(componentCss.selectedCounter, componentCss.selectedCounterBottom)}
+							centered
+						>
+							{selectedItemsList === 'second' ? selectedItems.length : "0"} items selected
+						</BodyText>
+					}
 				</Cell>
 			</Layout>
 		);
