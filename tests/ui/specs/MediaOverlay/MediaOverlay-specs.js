@@ -9,19 +9,19 @@ describe('MediaOverlay', function () {
 	});
 
 	it('should have focus on first mediaOverlay at start', async function () {
-		expect(await mediaOverlay1.self.isFocused()).to.be.true();
+		expect(await mediaOverlay1.self.isFocused()).toBe(true);
 	});
 
 	it('should move focus on second mediaOverlay on 5-way down', async function () {
-		expect(await mediaOverlay1.self.isFocused()).to.be.true();
+		expect(await mediaOverlay1.self.isFocused()).toBe(true);
 		await Page.spotlightDown();
-		expect(await mediaOverlay2LongText.self.isFocused()).to.be.true();
+		expect(await mediaOverlay2LongText.self.isFocused()).toBe(true);
 	});
 
 	it('should have animated Marquee when having long text', async function () {
-		expect(await mediaOverlay2LongText.valueText).to.equal('Media Overlay very long text');
+		expect(await mediaOverlay2LongText.valueText).toBe('Media Overlay very long text');
 		await browser.pause(3000);
-		expect(await mediaOverlay2LongText.isMarqueeAnimated).to.be.true();
+		expect(await mediaOverlay2LongText.isMarqueeAnimated).toBe(true);
 	});
 
 });

@@ -16,16 +16,16 @@ describe('Change `wrap` dynamically', function () {
 		await Page.buttonLeft.moveTo();
 		await Page.spotlightRight();
 		// TODO: expectFocusedItem is not working in case of wrap
-		await expectFocusedItem(0, 'focus');
+		await expectFocusedItem(0,);
 		// Step 6: 5-Way Up to move focus to the last item in the list.
 		await Page.spotlightUp();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
 		// Step 6-2 Verify: Spotlight displays on the last item.
-		await expectFocusedItem(99, 'focus 2');
+		await expectFocusedItem(99);
 		// Step 7: 5-Way Down to move focus to the first item in the list.
 		await Page.spotlightDown();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
 		// Step 7-2 Verify: Spotlight displays on the first item.
-		await expectFocusedItem(0, 'focus 3');
+		await expectFocusedItem(0);
 	});
 });
