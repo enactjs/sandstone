@@ -6,6 +6,7 @@ import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlig
 import Changeable from '@enact/ui/Changeable';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
+import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
@@ -22,6 +23,7 @@ import css from './PageViews.module.less';
 const PageViewsBase = kind({
 	name: 'PageViews',
 	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
+		'aria-label': PropTypes.string,
 		/**
 		 * Set of functions that control how the pages are transitioned into and out of the
 		 * viewport.
@@ -151,6 +153,10 @@ const PageViewsBase = kind({
 		}
 	},
 	computed: {
+		'aria-label': ({children, index, totalIndex}) => {
+			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
+			return `${pageHint} ${children[index].props['aria-label'] || ''}`;
+		},
 		className: ({pageIndicatorType, styler}) => {
 			return styler.append(pageIndicatorType);
 		},
@@ -201,8 +207,10 @@ const PageViewsBase = kind({
 		}
 	},
 	render: ({
+		'aria-label': ariaLabel,
 		arranger,
 		children,
+		componentRef,
 		index,
 		nextNavigationButton,
 		noAnimation,
@@ -221,9 +229,9 @@ const PageViewsBase = kind({
 		delete rest.totalIndex;
 
 		return (
-			<div {...rest}>
+			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
 				{pageIndicatorType === 'dot' ? steps : null}
-				<Column style={{overflow: 'hidden'}}>
+				<Column aria-label={ariaLabel} id={`pageViews_index_${index}`} style={{overflow: 'hidden'}}>
 					<Row style={{height: '100%'}}>
 						{pageIndicatorType === 'dot' ? prevNavigationButton : null}
 						<Cell
