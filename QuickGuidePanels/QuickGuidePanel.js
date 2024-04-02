@@ -1,6 +1,6 @@
 import {useContext, useEffect} from 'react';
 
-import {QuickGuidePanelsContext} from './QuickGuidePanels';
+import {WizardPanelsContext} from '../internal/Panels/utils';
 
 /**
  * QuickGuidePanel that sets the children for
@@ -17,7 +17,7 @@ function QuickGuidePanel ({
 	nextButton,
 	prevButton
 }) {
-	const set = useContext(QuickGuidePanelsContext);
+	const set = useContext(WizardPanelsContext);
 
 	useEffect(() => {
 		if (set) {

@@ -1,7 +1,7 @@
 import Slottable from '@enact/ui/Slottable';
 import {useContext, useEffect} from 'react';
 
-import {WizardPanelsContext} from './WizardPanels';
+import {WizardPanelsContext} from '../internal/Panels/utils';
 
 /**
  * Panel that sets the children, footer, subtitle, and title for

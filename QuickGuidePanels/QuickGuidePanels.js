@@ -11,18 +11,15 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext} from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
 import {BasicArranger, CancelDecorator, NavigationButton} from '../internal/Panels';
+import WizardPanelsRouter from '../internal/Panels/utils';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
-import {QuickGuidePanelsRouter} from './utils';
 
 import css from './QuickGuidePanels.module.less';
-
-const QuickGuidePanelsContext = createContext(null);
 
 /**
  * A QuickGuidePaenls that has steps with corresponding panels and panels have full screen size content.
@@ -425,7 +422,7 @@ const QuickGuidePanelsDecorator = compose(
 		enterTo: 'default-element'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),
-	QuickGuidePanelsRouter,
+	WizardPanelsRouter({componentType: 'QuickGuidePanels'}),
 	Skinnable
 );
 
@@ -457,6 +454,5 @@ export default QuickGuidePanels;
 export {
 	QuickGuidePanels,
 	QuickGuidePanelsBase,
-	QuickGuidePanelsContext,
 	QuickGuidePanelsDecorator
 };

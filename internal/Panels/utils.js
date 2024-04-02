@@ -1,13 +1,15 @@
 import {useRef, useState, useCallback, Children} from 'react';
+import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
 import PropTypes from 'prop-types';
+import {createContext} from 'react';
 
-import {useAutoFocus} from '../internal/Panels';
-
+import useAutoFocus from './useAutoFocus';
 import useFocusOnTransition from './useFocusOnTransition';
 import useToggleRole from './useToggleRole';
-import {WizardPanelsContext} from './WizardPanels';
+
+const WizardPanelsContext = createContext(null);
 
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
@@ -25,6 +27,10 @@ function useReverseTransition (index = -1, rtl) {
 	return prev;
 }
 
+const defaultConfig = {
+	componentType: 'WizardPanels'
+};
+
 /**
  * WizardPanelsRouter passes the children, footer, subtitle, and title from
  * {@link sandstone/WizardPanels.Panel|WizardPanel} to
@@ -32,9 +38,10 @@ function useReverseTransition (index = -1, rtl) {
  *
  * @class WizardPanelsRouter
  * @memberof sandstone/WizardPanels
+ * @hoc
  * @private
  */
-function WizardPanelsRouter (Wrapped) {
+const WizardPanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 	const WizardPanelsProvider = ({
 		children,
 		componentRef,
@@ -42,16 +49,15 @@ function WizardPanelsRouter (Wrapped) {
 		index,
 		onTransition,
 		onWillTransition,
+		rtl,
 		subtitle,
 		title,
-		rtl,
 		...rest
 	}) => {
 		const [panel, setPanel] = useState(null);
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
-		const {reverseTransition, prevIndex} = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
@@ -63,6 +69,7 @@ function WizardPanelsRouter (Wrapped) {
 		}, [a11yOnWillTransition, focusOnWillTransition]);
 
 		const totalPanels = panel ? Children.count(children) : 0;
+		const {reverseTransition, prevIndex} = useReverseTransition(index, rtl);
 		const currentTitle = panel && panel.title ? panel.title : title;
 		const currentSubTitle = panel && panel.subtitle ? panel.subtitle : subtitle;
 		// eslint-disable-next-line enact/prop-types
@@ -71,25 +78,43 @@ function WizardPanelsRouter (Wrapped) {
 		return (
 			<WizardPanelsContext.Provider value={setPanel}>
 				{Children.toArray(children)[index]}
-				<Wrapped
-					{...rest}
-					{...panel}
-					{...transition}
-					componentRef={ref}
-					data-spotlight-id={spotlightId}
-					index={index}
-					onWillTransition={handleWillTransition}
-					title={currentTitle}
-					subtitle={currentSubTitle}
-					totalPanels={totalPanels}
-					reverseTransition={reverseTransition}
-				>
-					{panel && panel.children ? (
-						<div className="enact-fit" key={`panel${prevIndex}`}>
-							{panel.children}
-						</div>
-					) : null}
-				</Wrapped>
+				{config.componentType === 'WizardPanels' ?
+					<Wrapped
+						{...rest}
+						{...panel}
+						{...transition}
+						componentRef={ref}
+						data-spotlight-id={spotlightId}
+						index={index}
+						onWillTransition={handleWillTransition}
+						title={currentTitle}
+						subtitle={currentSubTitle}
+						totalPanels={totalPanels}
+						reverseTransition={reverseTransition}
+					>
+						{panel && panel.children ? (
+							<div className="enact-fit" key={`panel${prevIndex}`}>
+								{panel.children}
+							</div>
+						) : null}
+					</Wrapped> : <Wrapped
+						{...rest}
+						{...panel}
+						{...transition}
+						componentRef={ref}
+						data-spotlight-id={spotlightId}
+						index={index}
+						onWillTransition={handleWillTransition}
+						totalPanels={totalPanels}
+					>
+						{panel && panel.children ? (
+							<div className="enact-fit" key={`panel${prevIndex}`}>
+								{panel.children}
+							</div>
+						) : null}
+					</Wrapped>
+				}
+
 			</WizardPanelsContext.Provider>
 		);
 	};
@@ -190,9 +215,10 @@ function WizardPanelsRouter (Wrapped) {
 	};
 
 	return WizardPanelsProvider;
-}
+});
 
 export default WizardPanelsRouter;
 export {
-	WizardPanelsRouter
+	WizardPanelsRouter,
+	WizardPanelsContext
 };

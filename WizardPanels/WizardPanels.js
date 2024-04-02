@@ -10,20 +10,17 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
 import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton} from '../internal/Panels';
+import WizardPanelsRouter from '../internal/Panels/utils';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
-import {WizardPanelsRouter} from './utils';
-
 import css from './WizardPanels.module.less';
 
-const WizardPanelsContext = createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 const HeaderContainer = SpotlightContainerDecorator(Header);
 
@@ -508,6 +505,5 @@ export default WizardPanels;
 export {
 	WizardPanels,
 	WizardPanelsBase,
-	WizardPanelsContext,
 	WizardPanelsDecorator
 };
