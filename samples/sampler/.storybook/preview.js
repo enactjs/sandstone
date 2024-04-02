@@ -67,9 +67,6 @@ if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
 }
 
 export const parameters = {
-	controls: {
-		expanded: true
-	},
 	docs: {
 		container: DocsContainer,
 		story: {

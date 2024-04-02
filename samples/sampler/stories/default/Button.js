@@ -43,7 +43,7 @@ const threeWayBoolean = (value) => {
 
 export default {
 	title: 'Sandstone/Button',
-	component: Button
+	component: 'Button'
 };
 
 export const _Button = (args) => (

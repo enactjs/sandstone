@@ -64,7 +64,6 @@ const StorybookDecorator = (story, config = {}) => {
 	if (Object.keys(classes).length > 0) {
 		classes.debug = true;
 	}
-console.log(config.viewMode)
 
 	return (
 		<Theme
@@ -75,8 +74,7 @@ console.log(config.viewMode)
 			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
 			highContrast={JSON.parse(globals['high contrast'])}
 			style={{
-				'--sand-env-background': globals.background === 'default' ? '' : globals.background,
-				//'--sand-docs-mode': config.viewMode === 'docs' ? 'static' : 'absolute'
+				'--sand-env-background': globals.background === 'default' ? '' : globals.background
 			}}
 			skin={globals.skin}
 			{...hasProps ? config.parameters.props : null}

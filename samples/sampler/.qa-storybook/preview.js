@@ -53,6 +53,10 @@ configureActions();
 export const parameters = {
 	docs: {
 		container: DocsContainer,
+		story: {
+			inline: false,
+			iframeHeight: ri.scaleToRem(600)
+		},
 		page: () => (
 			<>
 				<Title />

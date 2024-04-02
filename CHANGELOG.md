@@ -14,6 +14,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/VirtualList` to show the focused item properly when switching from pointer mode to 5-way mode
 - `sandstone/VirtualList.VirtualGridList` to show the focused item fully when focus moves via 5-way keys inside a list
 
+### Changed
+
+- `sandstone/ThemeDecorator` to pass `rootId` to `spotlight/SpotlightRootDecorator`
+
 ## [2.8.0] - 2024-02.07
 
 ### Fixed
@@ -114,7 +118,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Scroller` back key behavior to match the latest UX when `editable` is given
-- `sandstone/ThemeDecorator` to pass `rootId` to `spotlight/SpotlightRootDecorator`
 
 ### Fixed
 
