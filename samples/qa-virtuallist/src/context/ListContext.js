@@ -3,8 +3,10 @@ import {createContext, useReducer} from "react";
 export const ListContext = createContext(null);
 export const ListDispatchContext = createContext(null);
 
+const initialData = {listItems: []};
+
 export const ListProvider = ({children}) => {
-	const initialData = {listItems: []};
+
 	const [state, dispatch] = useReducer(listReducer, initialData);
 
 	return (
@@ -31,7 +33,8 @@ export default function listReducer (state, action) {
 			for (let i = 0; i < action.dataSize; i++) {
 				newListItems.push({content: 'Item ' + ('00' + i).slice(-3), disabled: isItemDisabled(i, action.isDisabled ? 15 : 1)});
 			}
-			return {...state, listItems: newListItems};
+
+			return {listItems: newListItems};
 		}
 	}
 }

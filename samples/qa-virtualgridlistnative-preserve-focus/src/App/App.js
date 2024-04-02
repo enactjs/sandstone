@@ -27,4 +27,5 @@ const App = (props) => {
 		</Panels>
 	);
 };
+
 export default ThemeDecorator(App);

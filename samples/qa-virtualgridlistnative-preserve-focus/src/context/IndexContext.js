@@ -3,8 +3,9 @@ import {createContext, useReducer} from 'react';
 export const IndexContext = createContext(null);
 export const IndexDispatchContext = createContext(null);
 
+const initialData = {index: 0};
+
 export const IndexProvider = ({children}) => {
-	const initialData = {index: 0};
 	const [state, dispatch] = useReducer(indexReducer, initialData);
 
 	return (
@@ -27,11 +28,10 @@ export default function indexReducer (state, action) {
 	switch (action.type) {
 		case (INCREASE_INDEX): {
 			const newIndex = state.index += 1;
-			return {...state, index: newIndex};
+			return {index: newIndex};
 		}
 		case (DECREASE_INDEX): {
-			const newIndex = state.index > 0 ? state.index - 1 : 0;
-			return {...state, index: newIndex};
+			return {index: state.index > 0 ? state.index - 1 : 0};
 		}
 	}
 }
