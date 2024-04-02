@@ -1,12 +1,9 @@
-import {useRef, useCallback, Children} from 'react';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
 import PropTypes from 'prop-types';
+import {useRef, useCallback, Children} from 'react';
 
-import {useAutoFocus} from '../internal/Panels';
-
-import useFocusOnTransition from '../WizardPanels/useFocusOnTransition';
-import useToggleRole from '../WizardPanels/useToggleRole';
+import {useAutoFocus, useFocusOnTransition, useToggleRole} from '../internal/Panels';
 
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.

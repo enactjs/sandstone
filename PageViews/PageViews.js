@@ -20,6 +20,21 @@ import {PageViewsRouter} from './PageViewsRouter';
 
 import css from './PageViews.module.less';
 
+/**
+ * A PageViews that has page indicator with corresponding pages.
+ *
+ * @example
+ * 	<PageViews>
+ *		<PageViews.Page>
+ *			lorem ipsum ...
+ *		</PageViews.Page>
+ *	</PageViews>
+ *
+ * @class PageViewsBase
+ * @memberof sandstone/PageViews
+ * @ui
+ * @public
+ */
 const PageViewsBase = kind({
 	name: 'PageViews',
 	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
@@ -31,7 +46,7 @@ const PageViewsBase = kind({
 		 * @see {@link ui/ViewManager.SlideArranger}
 		 * @type {ui/ViewManager.Arranger}
 		 * @default ui/ViewManager.SlideLeftArranger
-		 * @public
+		 * @private
 		 */
 		arranger: shape,
 
@@ -73,6 +88,7 @@ const PageViewsBase = kind({
 		 * Called when a transition completes.
 		 *
 		 * @type {Function}
+		 * @public
 		 */
 		onTransition: PropTypes.func,
 
@@ -80,6 +96,7 @@ const PageViewsBase = kind({
 		 * Called before a transition begins.
 		 *
 		 * @type {Function}
+		 * @public
 		 */
 		onWillTransition: PropTypes.func,
 
@@ -231,20 +248,19 @@ const PageViewsBase = kind({
 		return (
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
 				{pageIndicatorType === 'dot' ? steps : null}
-				<Column aria-label={ariaLabel} id={`pageViews_index_${index}`} style={{overflow: 'hidden'}}>
-					<Row style={{height: '100%'}}>
+				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
+					<Row className={css.horizontalLayout}>
 						{pageIndicatorType === 'dot' ? prevNavigationButton : null}
 						<Cell
 							arranger={arranger}
+							className={css.viewManager}
 							component={ViewManager}
 							duration={400}
-							id="PageViewsContent"
 							index={index}
 							noAnimation={noAnimation}
 							onTransition={onTransition}
 							onWillTransition={onWillTransition}
 							reverseTransition={reverseTransition}
-							style={{overflow: 'hidden'}}
 						>
 							{children}
 						</Cell>
@@ -261,7 +277,7 @@ const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
-		defaultElement: [`.${spotlightDefaultClass}`, `#PageViewsContent *`, '#NextNavButton', '#PrevNavButton'],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${css.viewManager} *`, `.${css.navButton} *`],
 		enterTo: 'last-focused'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),
@@ -269,6 +285,17 @@ const PageViewsDecorator = compose(
 	Skinnable
 );
 
+/**
+ * A PageViews that can navigate through different pages.
+ * Expects {@link sandstone/PageViews.Page|Page} as children.
+ *
+ * @class PageViews
+ * @memberof sandstone/PageViews
+ * @extends sandstone/PageViews.PageViewsBase
+ * @mixes ui/Changeable.Changeable
+ * @ui
+ * @public
+ */
 const PageViews = PageViewsDecorator(PageViewsBase);
 
 export default PageViews;

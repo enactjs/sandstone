@@ -18,12 +18,9 @@ import $L from '../internal/$L';
 import Button from '../Button';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
-import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, useAutoFocus} from '../internal/Panels';
+import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, useAutoFocus, useFocusOnTransition, useToggleRole} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
-
-import useFocusOnTransition from './useFocusOnTransition';
-import useToggleRole from './useToggleRole';
 
 import css from './WizardPanels.module.less';
 

@@ -6,7 +6,7 @@ import {PageViews, Page} from '../';
 
 describe('PageViews Specs', () => {
 	test(
-		'should show next button on the first page',
+		'should show next button and hide previous button on the first page',
 		() => {
 			render(
 				<PageViews index={0}>
@@ -16,13 +16,15 @@ describe('PageViews Specs', () => {
 			);
 
 			const nextButton = screen.getByLabelText('Next');
+			const prevButton = screen.queryByLabelText('Previous');
 
 			expect(nextButton).toBeInTheDocument();
+			expect(prevButton).toBeNull();
 		}
 	);
 
 	test(
-		'should show previous button on the last page',
+		'should show previous button and hide next button on the last page',
 		() => {
 			render(
 				<PageViews index={1}>
@@ -32,8 +34,10 @@ describe('PageViews Specs', () => {
 			);
 
 			const prevButton = screen.getByLabelText('Previous');
+			const nextButton = screen.queryByLabelText('Next');
 
 			expect(prevButton).toBeInTheDocument();
+			expect(nextButton).toBeNull();
 		}
 	);
 
