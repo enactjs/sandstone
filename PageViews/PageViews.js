@@ -240,20 +240,19 @@ const PageViewsBase = kind({
 		return (
 			<div {...rest}>
 				{pageIndicatorType === 'dot' ? steps : null}
-				<Column style={{overflow: 'hidden'}}>
-					<Row style={{height: '100%'}}>
+				<Column className={css.contentsArea}>
+					<Row className={css.horizontalLayout}>
 						{pageIndicatorType === 'dot' ? prevNavigationButton : null}
 						<Cell
 							arranger={arranger}
+							className={css.viewManager}
 							component={ViewManager}
 							duration={400}
-							id="PageViewsContent"
 							index={index}
 							noAnimation={noAnimation}
 							onTransition={onTransition}
 							onWillTransition={onWillTransition}
 							reverseTransition={reverseTransition}
-							style={{overflow: 'hidden'}}
 						>
 							{children}
 						</Cell>
@@ -270,7 +269,7 @@ const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
-		defaultElement: [`.${spotlightDefaultClass}`, `#PageViewsContent *`, '#NextNavButton', '#PrevNavButton'],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${css.viewManager} *`, `.${css.navButton} *`],
 		enterTo: 'last-focused'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),

@@ -4,6 +4,8 @@ import Item from '@enact/sandstone/Item';
 import {select} from '@enact/storybook-utils/addons/controls';
 import {Cell, Row, Column} from '@enact/ui/Layout';
 
+import css from './PageViews.module.less';
+
 PageViews.displayName = 'PageViews';
 
 const propOptions = {
@@ -17,14 +19,14 @@ export default {
 
 export const _PageViews = (args) => (
 	<PageViews arranger={BasicArranger} pageIndicatorType={args['pageIndicatorType']}>
-		<PageViews.Page>
-			<div style={{padding: '24px'}}>
+		<PageViews.Page css={css}>
+			<div>
 				<Item>Item 1</Item>
 				<Item>Item 2</Item>
 			</div>
 		</PageViews.Page>
-		<PageViews.Page>
-			<Column style={{padding: '24px'}}>
+		<PageViews.Page css={css}>
+			<Column>
 				<Row style={{padding: '12px'}}>
 					<Cell>Country</Cell>
 					<Cell>City</Cell>
