@@ -44,7 +44,7 @@ const PageViewsBase = kind({
 		 * @see {@link ui/ViewManager.SlideArranger}
 		 * @type {ui/ViewManager.Arranger}
 		 * @default ui/ViewManager.SlideLeftArranger
-		 * @public
+		 * @private
 		 */
 		arranger: shape,
 
@@ -86,6 +86,7 @@ const PageViewsBase = kind({
 		 * Called when a transition completes.
 		 *
 		 * @type {Function}
+		 * @public
 		 */
 		onTransition: PropTypes.func,
 
@@ -93,6 +94,7 @@ const PageViewsBase = kind({
 		 * Called before a transition begins.
 		 *
 		 * @type {Function}
+		 * @public
 		 */
 		onWillTransition: PropTypes.func,
 
