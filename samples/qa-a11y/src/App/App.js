@@ -29,6 +29,7 @@ import Input from '../views/Input';
 import InputField from '../views/InputField';
 import ItemView from '../views/Item';
 import Option from '../views/Option';
+import PageViews from '../views/PageViews';
 import Panels from '../views/Panels';
 import Picker from '../views/Picker';
 import Popup from '../views/Popup';
@@ -80,6 +81,7 @@ const views = [
 	{title: 'Input', view: Input},
 	{title: 'InputField', view: InputField},
 	{title: 'Item', view: ItemView},
+	{title: 'PageViews', view: PageViews},
 	{isHeader: false, title: 'Panels', view: Panels},
 	{title: 'Picker', view: Picker},
 	{title: 'Popup', view: Popup},

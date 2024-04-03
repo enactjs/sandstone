@@ -1,6 +1,14 @@
 /**
  * Provides a Sandstone styled pages component with page indicator and navigation buttons.
  *
+ * Usage:
+ * ```
+ * <PageViews>
+ *		<PageViews.Page aria-label="This is a description for page">
+ *			lorem ipsum ...
+ *		</PageViews.Page>
+ * </PageViews>
+ * ```
  * @module sandstone/PageViews
  * @exports PageViews
  */
