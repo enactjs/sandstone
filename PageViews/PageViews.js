@@ -199,28 +199,28 @@ const PageViewsBase = kind({
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
 			return (
-				pageIndicatorType === 'dot' ?
-					<Column align="center center" className={css.stepsArea}>
-						<Steps
-							current={index + 1}
-							pastIcon={'circle'}
-							currentIcon={'circle'}
-							futureIcon={'circle'}
-							layout="quickGuidePanels"
-							total={totalIndex}
-						/>
-					</Column> :
-					<Column align="center center" className={css.stepsArea}>
+				<div>
+					{pageIndicatorType === 'dot' ?
+						<Row className={css.steps}>
+							<Steps
+								current={index + 1}
+								pastIcon={'circle'}
+								currentIcon={'circle'}
+								futureIcon={'circle'}
+								layout="quickGuidePanels"
+								total={totalIndex}
+							/>
+						</Row> :
 						<Row className={css.steps}>
 							<Cell className={css.navButton} shrink>
-								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} /> : null}
+								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowsmallleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>
 							<Cell shrink>{index + 1} / {totalIndex}</Cell>
 							<Cell className={css.navButton} shrink>
-								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} /> : null}
+								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowsmallright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
 							</Cell>
-						</Row>
-					</Column>
+						</Row>}
+				</div>
 			);
 		}
 	},

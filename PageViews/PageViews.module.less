@@ -13,20 +13,18 @@
 		width: 2*@sand-button-small-height;
 	}
 
-	&.number {
-		.stepsArea {
-			height: 192px;
-		}
-		.steps {
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-		}
+	.steps {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
 	}
-	&.dot {
-		.stepsArea {
-			height: 144px;
-		}
+
+	&.number .steps {
+		height: 252px;
+	}
+
+	&.dot .steps {
+		height: 144px;
 	}
 
 	.contentsArea, .viewManager{
