@@ -7,7 +7,7 @@
  *		<PageViews.Page aria-label="This is a description for page">
  *			lorem ipsum ...
  *		</PageViews.Page>
- *	</PageViews>
+ * </PageViews>
  * ```
  * @module sandstone/PageViews
  * @exports PageViews
