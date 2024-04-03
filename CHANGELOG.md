@@ -10,6 +10,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
 - `sandstone/VideoPlayer` prop `setPlaybackSpeed` to support playback speed adjustment
 
+### Changed
+
+- Popup family components to enhance contrast in high-contrast mode for improved visibility
+
 ### Fixed
 
 - `sandstone/VirtualList` to show the focused item properly when switching from pointer mode to 5-way mode
