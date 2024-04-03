@@ -61,7 +61,7 @@ const defaultConfig = {
 	 * @default false
 	 * @private
 	 */
-	noOutline: PropTypes.bool,
+	noOutline: false,
 
 	/**
 	 * Arranger for Panels
