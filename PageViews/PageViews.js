@@ -77,6 +77,14 @@ const PageViewsBase = kind({
 		index: PropTypes.number,
 
 		/**
+		 * Offset to apply to the position of the navigation buttons.
+		 *
+		 * @type {Number}
+		 * @private
+		 */
+		navigationButtonOffset: PropTypes.number,
+
+		/**
 		 * Disables page transitions.
 		 *
 		 * @type {Boolean}
@@ -178,20 +186,20 @@ const PageViewsBase = kind({
 		className: ({pageIndicatorType, styler}) => {
 			return styler.append(pageIndicatorType);
 		},
-		prevNavigationButton: ({index, onPrevClick}) => {
+		prevNavigationButton: ({index, onPrevClick, navigationButtonOffset}) => {
 			const isPrevButtonVisible = index !== 0;
 			return (
 				<Cell className={css.navButton} shrink>
-					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} /> : null}
+					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} style={{top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null}} /> : null}
 				</Cell>
 			);
 		},
-		nextNavigationButton: ({index, onNextClick, totalIndex}) => {
+		nextNavigationButton: ({index, onNextClick, totalIndex, navigationButtonOffset}) => {
 			const isNextButtonVisible = index < totalIndex - 1;
 
 			return (
 				<Cell className={css.navButton} shrink>
-					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} /> : null}
+					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} style={{top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null}} /> : null}
 				</Cell>
 			);
 		},
