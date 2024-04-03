@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/PageViews` component
 - `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
 - `sandstone/VideoPlayer` prop `setPlaybackSpeed` to support playback speed adjustment
 
