@@ -25,7 +25,7 @@ import css from './PageViews.module.less';
  *
  * @example
  * 	<PageViews>
- *		<PageViews.Page>
+ *		<PageViews.Page aria-label="This is a description for page">
  *			lorem ipsum ...
  *		</PageViews.Page>
  *	</PageViews>
@@ -39,6 +39,7 @@ const PageViewsBase = kind({
 	name: 'PageViews',
 	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
 		'aria-label': PropTypes.string,
+
 		/**
 		 * Set of functions that control how the pages are transitioned into and out of the
 		 * viewport.

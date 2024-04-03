@@ -6,13 +6,13 @@ const PageViewsView = () => (
 	<Panel>
 		<Header title="A title for panel" subtitle="A subtitle for panel" />
 		<PageViews>
-			<Page aria-label={'This is description for page 1'} >
-				Page 1 with contents description (`This is description for page 1`)
+			<Page aria-label={'This is a description for page 1'} >
+				Page 1 with contents description (`This is a description for page 1`)
 				<Item>Item 1</Item>
 				<Item>Item 2</Item>
 			</Page>
-			<Page aria-label={'This is description for page 2'}>
-				Page 2 with contents description (`This is description for page 2`)
+			<Page aria-label={'This is a description for page 2'}>
+				Page 2 with contents description (`This is a description for page 2`)
 			</Page>
 			<Page>
 				Page 3 without contents description

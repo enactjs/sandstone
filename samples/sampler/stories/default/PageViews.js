@@ -19,13 +19,13 @@ export default {
 
 export const _PageViews = (args) => (
 	<PageViews arranger={BasicArranger} pageIndicatorType={args['pageIndicatorType']}>
-		<PageViews.Page aria-label="This is description for page 1" css={css}>
+		<PageViews.Page aria-label="This is a description for page 1" css={css}>
 			<div>
 				<Item>Item 1</Item>
 				<Item>Item 2</Item>
 			</div>
 		</PageViews.Page>
-		<PageViews.Page aria-label="This is description for page 2" css={css}>
+		<PageViews.Page aria-label="This is a description for page 2" css={css}>
 			<Column>
 				<Row style={{padding: '12px'}}>
 					<Cell>Country</Cell>
