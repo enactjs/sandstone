@@ -12,7 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- Popup components to show black background in high-contrast mode for better visibility
+- Popup family components to enhance contrast in high-contrast mode for improved visibility
 
 ### Fixed
 
