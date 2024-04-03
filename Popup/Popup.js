@@ -124,7 +124,7 @@ const PopupBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Disables the border line for high contrast mode.
+		 * Disables the outline in high contrast mode.
 		 *
 		 * @type {Boolean}
 		 * @default false

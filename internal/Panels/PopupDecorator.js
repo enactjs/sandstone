@@ -55,7 +55,7 @@ const defaultConfig = {
 	noAlertRole: false,
 
 	/**
-	 * Disables the border line for high contrast mode.
+	 * Disables the outline in high contrast mode.
 	 *
 	 * @type {Boolean}
 	 * @default false
