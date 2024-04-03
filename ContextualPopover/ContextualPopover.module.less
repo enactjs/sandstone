@@ -1,0 +1,136 @@
+// ContextualPopover.module.less
+//
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+
+.popoverContainer {
+	.contextualPopover {
+		.sand-body-text();
+		position: absolute;
+		min-height: 192px;
+		min-width: 192px;
+		padding: @sand-contextualpopup-padding;
+		background-clip: padding-box;
+		-webkit-background-clip: padding-box;
+		-moz-background-clip: padding-box;
+		box-sizing: border-box;
+		border: none;
+		anchor-default: --contextual-popover;
+
+		&.above {
+			bottom: anchor(top);
+			left: anchor(left);
+			right: anchor(right);
+
+			&.overlap {
+				margin-bottom: -@sand-contextualpopup-offset-overlap;
+			}
+
+			&.small {
+				margin-bottom: @sand-contextualpopup-offset-small;
+			}
+		}
+
+		&.below {
+			top: anchor(bottom);
+			left: anchor(left);
+			right: anchor(right);
+
+			&.overlap {
+				margin-top: -@sand-contextualpopup-offset-overlap;
+			}
+
+			&.small {
+				margin-top: @sand-contextualpopup-offset-small;
+			}
+		}
+
+		&.right {
+			left: anchor(right);
+			right: anchor(left);
+
+			&.top,
+			&.middle,
+			&.bottom {
+				&.overlap {
+					margin-left: -@sand-contextualpopup-offset-overlap;
+				}
+				&.small {
+					margin-left: @sand-contextualpopup-offset-small;
+				}
+			}
+		}
+
+		&.left  {
+			left: anchor(left);
+			right: anchor(left);
+			translate: -100% 0;
+
+			&.top,
+			&.middle,
+			&.bottom {
+				&.overlap {
+					margin-left: @sand-contextualpopup-offset-overlap;
+				}
+
+				&.small {
+					margin-left: -@sand-contextualpopup-offset-small;
+				}
+			}
+		}
+
+		&.bottom {
+			top: anchor(bottom);
+			bottom: auto;
+		}
+
+		&.middle {
+			top: anchor(center);
+			bottom: anchor(center);
+		}
+
+		&.top {
+			top: auto;
+			bottom: anchor(top);
+		}
+
+		&.center {
+			left: anchor(center);
+			right: anchor(center);
+			translate: -50% 0;
+		}
+
+		&.above,
+		&.below {
+			&.right {
+				left: anchor(right);
+				right: anchor(right);
+				translate: -100% 0;
+			}
+
+			&.left {
+				right: anchor(left);
+				left: anchor(left);
+				translate: 0 0;
+			}
+		}
+	}
+}
+
+.applySkins({
+	.contextualPopover {
+		color: @sand-text-color-rgb;
+		background-color: @sand-contextualpopup-bg-color;
+		border-radius: @sand-contextualpopup-border-radius;
+		box-shadow: @sand-contextualpopup-shadow;
+	}
+});
+
+.contextualButton {
+	padding: 0;
+	border-style: none;
+	border-radius: @sand-popup-border-radius;
+	background-color: transparent;
+	anchor-name: --contextual-popover;
+}
