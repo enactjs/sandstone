@@ -299,4 +299,30 @@ describe('Scroller', function () {
 			expect((await ScrollerPage.getScrollThumbPosition()).horizontal > initialHorizontalScrollThumbPosition).to.be.true();
 		});
 	});
+
+	describe('Page Scroll', function () {
+		it('should scroll with pressed pageUp/Down key only when pointer is in the Scroller.', async function () {
+			await ScrollerPage.open();
+			let verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			expect(await verticalScrollTumbPosition).to.equal('0');
+			await ScrollerPage.scroller.moveTo();
+			await ScrollerPage.pageDown();
+			await ScrollerPage.delay(1000);
+			verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			expect(await verticalScrollTumbPosition).not.to.equal('0');
+			await ScrollerPage.pageUp();
+			await ScrollerPage.delay(1000);
+			verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			expect(await verticalScrollTumbPosition).to.equal('0');
+			await ScrollerPage.buttonHideScrollbar.moveTo();
+			await ScrollerPage.pageDown();
+			await ScrollerPage.delay(1000);
+			verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			expect(await verticalScrollTumbPosition).to.equal('0');
+			await ScrollerPage.pageUp();
+			await ScrollerPage.delay(1000);
+			verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			expect(await verticalScrollTumbPosition).to.equal('0');
+		});
+	});
 });
