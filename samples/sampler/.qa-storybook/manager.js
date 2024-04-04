@@ -11,5 +11,5 @@ addons.setConfig({
 	panelPosition: 'bottom',
 	bottomPanelHeight: 300,
 	rightPanelWidth: 300,
-	navSize: 300,
+	navSize: 300
 });
