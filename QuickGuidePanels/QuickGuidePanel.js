@@ -9,7 +9,7 @@ import {PanelsContext} from '../internal/Panels/PanelsRouter';
  * @class QuickGuidePanel
  * @memberof sandstone/QuickGuidePanels
  * @ui
- * @private
+ * @public
  */
 function QuickGuidePanel ({
 	'aria-label': ariaLabel,
@@ -53,7 +53,7 @@ function QuickGuidePanel ({
  * ```
  *
  * @name nextButton
- * @memberof sandstone/QuickGuidePanels.Panel.prototype
+ * @memberof sandstone/QuickGuidePanels.QuickGuidePanel.prototype
  * @type {Boolean|Component}
  * @public
  */
@@ -73,7 +73,7 @@ function QuickGuidePanel ({
  * ```
  *
  * @name PrevButton
- * @memberof sandstone/QuickGuidePanels.Panel.prototype
+ * @memberof sandstone/QuickGuidePanels.QuickGuidePanel.prototype
  * @type {Boolean|Component}
  * @public
  */
