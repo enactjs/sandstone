@@ -181,7 +181,7 @@ const PageViewsBase = kind({
 	computed: {
 		'aria-label': ({children, index, totalIndex}) => {
 			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
-			return `${pageHint} ${children[index].props['aria-label'] || ''}`;
+			return `${pageHint} ${children && children[index]?.props['aria-label'] || ''}`;
 		},
 		className: ({pageIndicatorType, styler}) => {
 			return styler.append(pageIndicatorType);
