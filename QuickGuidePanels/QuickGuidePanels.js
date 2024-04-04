@@ -15,7 +15,7 @@ import compose from 'ramda/src/compose';
 import $L from '../internal/$L';
 import Button from '../Button';
 import {BasicArranger, CancelDecorator, NavigationButton} from '../internal/Panels';
-import WizardPanelsRouter from '../internal/Panels/utils';
+import PanelsRouter from '../internal/Panels/PanelsRouter';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
@@ -422,7 +422,7 @@ const QuickGuidePanelsDecorator = compose(
 		enterTo: 'default-element'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),
-	WizardPanelsRouter({componentType: 'QuickGuidePanels'}),
+	PanelsRouter({type: 'quickGuide'}),
 	Skinnable
 );
 

@@ -15,7 +15,7 @@ import $L from '../internal/$L';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
 import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton} from '../internal/Panels';
-import WizardPanelsRouter from '../internal/Panels/utils';
+import PanelsRouter from '../internal/Panels/PanelsRouter';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
@@ -473,7 +473,7 @@ const WizardPanelsDecorator = compose(
 		enterTo: 'default-element'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),
-	WizardPanelsRouter,
+	PanelsRouter,
 	Skinnable
 );
 

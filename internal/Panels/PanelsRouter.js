@@ -9,7 +9,7 @@ import useAutoFocus from './useAutoFocus';
 import useFocusOnTransition from './useFocusOnTransition';
 import useToggleRole from './useToggleRole';
 
-const WizardPanelsContext = createContext(null);
+const PanelsContext = createContext(null);
 
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
@@ -28,21 +28,23 @@ function useReverseTransition (index = -1, rtl) {
 }
 
 const defaultConfig = {
-	componentType: 'WizardPanels'
+	type: 'wizard'
 };
 
 /**
- * WizardPanelsRouter passes the children, footer, subtitle, and title from
+ * PanelsRouter passes the children, footer, subtitle, and title from
  * {@link sandstone/WizardPanels.Panel|WizardPanel} to
- * {@link sandstone/WizardPanels.WizardPanelsBase|WizardPanelsBase}.
+ * {@link sandstone/WizardPanels.WizardPanelsBase|WizardPanelsBase} and passes the children from
+ * {@link sandstone/QuickGuidePanels.QuickGuidePanel|QuickGuidePanel} to
+ * {@link sandstone/QuickGuidePanels.QuickGuidePanelsBase|QuickGuidePanelsBase}.
  *
- * @class WizardPanelsRouter
- * @memberof sandstone/WizardPanels
+ * @class PanelsRouter
+ * @memberof sandstone/internal/Panels
  * @hoc
  * @private
  */
-const WizardPanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
-	const WizardPanelsProvider = ({
+const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
+	const PanelsProvider = ({
 		children,
 		componentRef,
 		'data-spotlight-id': spotlightId,
@@ -76,9 +78,9 @@ const WizardPanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		delete rest.onBack;
 
 		return (
-			<WizardPanelsContext.Provider value={setPanel}>
+			<PanelsContext.Provider value={setPanel}>
 				{Children.toArray(children)[index]}
-				{config.componentType === 'WizardPanels' ?
+				{config.type === 'wizard' ?
 					<Wrapped
 						{...rest}
 						{...panel}
@@ -115,11 +117,11 @@ const WizardPanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 					</Wrapped>
 				}
 
-			</WizardPanelsContext.Provider>
+			</PanelsContext.Provider>
 		);
 	};
 
-	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsRouter.prototype */  {
+	PanelsProvider.propTypes =  /** @lends sandstone/internal/Panels.PanelsRouter.prototype */  {
 		/**
 		 * Obtains a reference to the root node.
 		 *
@@ -208,17 +210,17 @@ const WizardPanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		title: PropTypes.string
 	};
 
-	WizardPanelsProvider.defaultProps = {
+	PanelsProvider.defaultProps = {
 		index: 0,
 		subtitle: '',
 		title: ''
 	};
 
-	return WizardPanelsProvider;
+	return PanelsProvider;
 });
 
-export default WizardPanelsRouter;
+export default PanelsRouter;
 export {
-	WizardPanelsRouter,
-	WizardPanelsContext
+	PanelsRouter,
+	PanelsContext
 };
