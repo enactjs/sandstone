@@ -40,16 +40,6 @@ const QuickGuidePanelsBase = kind({
 	name: 'QuickGuidePanels',
 
 	propTypes: /** @lends sandstone/QuickGuidePanels.QuickGuidePanelsBase.prototype */ {
-		/**
-		 * The "aria-label" for the Panel.
-		 *
-		 * By default, the panel will be labeled by its {@link sandstone/Panels.Header|Header}.
-		 * When `aria-label` is set, it will be used instead to provide an accessibility label for
-		 * the panel.
-		 *
-		 * @type {String}
-		 * @public
-		 */
 		'aria-label': PropTypes.string,
 
 		/**
@@ -428,7 +418,7 @@ const QuickGuidePanelsDecorator = compose(
 
 /**
  * A QuickGuidePanels that can step through different panels.
- * Expects {@link sandstone/QuickGuidePanels.Panel|QuickGuidePanel} as children.
+ * Expects {@link sandstone/QuickGuidePanels.QuickGuidePanel|QuickGuidePanel} as children.
  *
  * @class QuickGuidePanels
  * @memberof sandstone/QuickGuidePanels
