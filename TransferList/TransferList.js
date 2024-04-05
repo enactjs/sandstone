@@ -284,7 +284,7 @@ const TransferListBase = kind({
 		let scrollToRefSecond = useRef(null);
 
 		useEffect(() => {
-			setSelectedItemsList(selectedItems[0] ? selectedItems[0].list : "none");
+			setSelectedItemsList(selectedItems[0] ? selectedItems[0].list : "");
 		}, [selectedItems]);
 
 		const getScrollToFirst = useCallback((scrollTo) => {
@@ -842,7 +842,7 @@ const TransferListBase = kind({
 						className={classnames(componentCss.selectedCounter, componentCss.selectedCounterTop)}
 						centered
 					>
-						{selectedItemsList === 'first' ? selectedItems.length : "0"} items selected
+						{selectedItemsList === 'first' ? selectedItems.length : 0} items selected
 					</BodyText>
 					{listComponent === 'VirtualList' ?
 						<VirtualList
@@ -903,7 +903,7 @@ const TransferListBase = kind({
 							className={classnames(componentCss.selectedCounter, componentCss.selectedCounterTop)}
 							centered
 						>
-							{selectedItemsList === 'second' ? selectedItems.length : "0"} items selected
+							{selectedItemsList === 'second' ? selectedItems.length : 0} items selected
 						</BodyText>
 					}
 					{listComponent === 'VirtualList' ?

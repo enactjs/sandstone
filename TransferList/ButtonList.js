@@ -4,11 +4,12 @@ import {memo} from 'react';
 
 import Button from '../Button';
 import TooltipDecorator from '../TooltipDecorator';
-const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 import {handleSpotlightBounds} from './utils';
 
 import componentCss from './TransferList.module.less';
+
+const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 const ButtonList = ({
 	disabled,
