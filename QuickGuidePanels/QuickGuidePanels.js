@@ -98,7 +98,7 @@ const QuickGuidePanelsBase = kind({
 		nextButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		 * Specifies when and how to show `nextButton` on QuickGuidePanels.
+		 * Specifies when and how to show `nextButton` on QuickGuidePanel.
 		 *
 		 * * `'auto'` will display the `nextButton` on every `QuickGuidePanels.Panel` except the last
 		 * * `'always'` will always display the `nextButton`
@@ -132,7 +132,7 @@ const QuickGuidePanelsBase = kind({
 		onClose: PropTypes.func,
 
 		/**
-		 * Called when the next button is clicked in QuickGuidePanels.
+		 * Called when the next button is clicked in QuickGuidePanel.
 		 *
 		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
 		 *
@@ -142,7 +142,7 @@ const QuickGuidePanelsBase = kind({
 		onNextClick: PropTypes.func,
 
 		/**
-		 * Called when previous button is clicked in QuickGuidePanels.
+		 * Called when previous button is clicked in QuickGuidePanel.
 		 *
 		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
 		 *
@@ -184,7 +184,7 @@ const QuickGuidePanelsBase = kind({
 		prevButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		 * Specifies when and how to show `prevButton` on QuickGuidePanels.
+		 * Specifies when and how to show `prevButton` on QuickGuidePanel.
 		 *
 		 * * `'auto'` will display the `prevButton` on every `QuickGuidePanels.Panel` except the first
 		 * * `'always'` will always display the `prevButton`

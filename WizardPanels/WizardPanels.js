@@ -117,7 +117,7 @@ const WizardPanelsBase = kind({
 		nextButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		 * Specifies when and how to show `nextButton` on WizardPanels.
+		 * Specifies when and how to show `nextButton` on WizardPanel.
 		 *
 		 * * `'auto'` will display the `nextButton` on every `WizardPanels.Panel` except the last
 		 * * `'always'` will always display the `nextButton`
@@ -168,7 +168,7 @@ const WizardPanelsBase = kind({
 		onChange: PropTypes.func,
 
 		/**
-		 * Called when the next button is clicked in WizardPanels.
+		 * Called when the next button is clicked in WizardPanel.
 		 *
 		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
 		 *
@@ -178,7 +178,7 @@ const WizardPanelsBase = kind({
 		onNextClick: PropTypes.func,
 
 		/**
-		 * Called when previous button is clicked in WizardPanels.
+		 * Called when previous button is clicked in WizardPanel.
 		 *
 		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
 		 *
@@ -220,7 +220,7 @@ const WizardPanelsBase = kind({
 		prevButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		 * Specifies when and how to show `prevButton` on WizardPanels.
+		 * Specifies when and how to show `prevButton` on WizardPanel.
 		 *
 		 * * `'auto'` will display the `prevButton` on every `WizardPanels.Panel` except the first
 		 * * `'always'` will always display the `prevButton`
