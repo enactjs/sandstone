@@ -65,7 +65,7 @@
 
 		.thumb {
 			height: var(--scrollbar-thumb-size);
-			transform: translateY(var(--scrollbar-thumb-progress));
+			transform: translateY(calc(var(--scrollbar-thumb-progress) * var(--scrollbar-thumb-progress-ratio)));
 			will-change: transform;
 
 			&:focus {
