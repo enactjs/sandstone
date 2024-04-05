@@ -89,8 +89,8 @@ const ButtonList = ({
 						iconOnly
 						onClick={handleRemoveSelected}
 						size="small"
-						tooltipText="deselect"
 						tooltipPosition="right middle"
+						tooltipText="deselect"
 					/>
 					<TooltipButton
 						disabled={disabled}
@@ -100,8 +100,8 @@ const ButtonList = ({
 						onSpotlightDown={orientation === 'horizontal' ? handleSpotlightBounds : null}
 						onSpotlightRight={orientation === 'vertical' ? handleSpotlightBounds : null}
 						size="small"
-						tooltipText="restore lists"
 						tooltipPosition="right middle"
+						tooltipText="restore lists"
 					/>
 				</> : ''
 			}
