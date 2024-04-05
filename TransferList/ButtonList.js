@@ -17,6 +17,7 @@ const ButtonList = ({
 	firstListMinCapacity,
 	handleRemoveItems,
 	handleRemoveSelected,
+	handleRestoreLists,
 	moveIntoFirstSelected,
 	moveIntoSecondSelected,
 	moveOnSpotlight,
@@ -83,14 +84,23 @@ const ButtonList = ({
 						tooltipPosition="right middle"
 					/>
 					<TooltipButton
+						disabled={disabled || !selectedItems.length}
+						icon="circle"
+						iconOnly
+						onClick={handleRemoveSelected}
+						size="small"
+						tooltipText="deselect"
+						tooltipPosition="right middle"
+					/>
+					<TooltipButton
 						disabled={disabled}
 						icon="refresh"
 						iconOnly
-						onClick={handleRemoveSelected}
+						onClick={handleRestoreLists}
 						onSpotlightDown={orientation === 'horizontal' ? handleSpotlightBounds : null}
 						onSpotlightRight={orientation === 'vertical' ? handleSpotlightBounds : null}
 						size="small"
-						tooltipText="deselect"
+						tooltipText="restore lists"
 						tooltipPosition="right middle"
 					/>
 				</> : ''
@@ -139,6 +149,14 @@ ButtonList.propTypes = {
 	 * @private
 	 */
 	handleRemoveSelected: PropTypes.func,
+
+	/**
+	 * A function that restores elements from both lists.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	handleRestoreLists: PropTypes.func,
 
 	/**
 	 * A function that moves all the selected items into the first list.
