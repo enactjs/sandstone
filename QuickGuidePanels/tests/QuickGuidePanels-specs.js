@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import {QuickGuidePanel, QuickGuidePanels} from '../';
 
-describe('QuickGuidePanel Specs', () => {
+describe('QuickGuidePanels Specs', () => {
 	test(
 		'should hide next button on the last view',
 		() => {

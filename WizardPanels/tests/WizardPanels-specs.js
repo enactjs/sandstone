@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import {Panel, WizardPanels} from '../';
 
-describe('WizardPanel Specs', () => {
+describe('WizardPanels Specs', () => {
 	test(
 		'should have title in `Header`',
 		() => {

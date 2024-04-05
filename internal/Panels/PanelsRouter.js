@@ -60,6 +60,7 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
+		const {reverseTransition, prevIndex} = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
@@ -71,7 +72,6 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		}, [a11yOnWillTransition, focusOnWillTransition]);
 
 		const totalPanels = panel ? Children.count(children) : 0;
-		const {reverseTransition, prevIndex} = useReverseTransition(index, rtl);
 		const currentTitle = panel && panel.title ? panel.title : title;
 		const currentSubTitle = panel && panel.subtitle ? panel.subtitle : subtitle;
 		// eslint-disable-next-line enact/prop-types
@@ -116,7 +116,6 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 						) : null}
 					</Wrapped>
 				}
-
 			</PanelsContext.Provider>
 		);
 	};

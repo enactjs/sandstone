@@ -98,14 +98,14 @@ const QuickGuidePanelsBase = kind({
 		nextButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		 * Specifies when and how to show `nextButton` on QuickGuidePanel.
+		 * Specifies when and how to show `nextButton` on QuickGuidePanels.
 		 *
-		 * * `'auto'` will display the `nextButton` on every `QuickGuidePanel.Panel` except the last
+		 * * `'auto'` will display the `nextButton` on every `QuickGuidePanels.Panel` except the last
 		 * * `'always'` will always display the `nextButton`
 		 * * `'never'` will always hide the `nextButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
-		 * case, a customized `nextButton` on QuickGuidePanel.Panel will take precedence over the
+		 * case, a customized `nextButton` on QuickGuidePanels.Panel will take precedence over the
 		 * `nextButtonVisibility` value.
 		 *
 		 * @type {('auto'|'always'|'never')}
@@ -132,7 +132,7 @@ const QuickGuidePanelsBase = kind({
 		onClose: PropTypes.func,
 
 		/**
-		 * Called when the next button is clicked in QuickGuidePanel.
+		 * Called when the next button is clicked in QuickGuidePanels.
 		 *
 		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
 		 *
@@ -142,7 +142,7 @@ const QuickGuidePanelsBase = kind({
 		onNextClick: PropTypes.func,
 
 		/**
-		 * Called when previous button is clicked in QuickGuidePanel.
+		 * Called when previous button is clicked in QuickGuidePanels.
 		 *
 		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
 		 *
@@ -184,14 +184,14 @@ const QuickGuidePanelsBase = kind({
 		prevButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		 * Specifies when and how to show `prevButton` on QuickGuidePanel.
+		 * Specifies when and how to show `prevButton` on QuickGuidePanels.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `QuickGuidePanel.Panel` except the first
+		 * * `'auto'` will display the `prevButton` on every `QuickGuidePanels.Panel` except the first
 		 * * `'always'` will always display the `prevButton`
 		 * * `'never'` will always hide the `prevButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
-		 * if user provides a customized `prevButton` on QuickGuidePanel.Panel will take precedence over the `prevButtonVisibility` value.
+		 * if user provides a customized `prevButton` on QuickGuidePanels.Panel will take precedence over the `prevButtonVisibility` value.
 		 *
 		 * @type {('auto'|'always'|'never')}
 		 * @default 'auto'

@@ -14,8 +14,7 @@ import compose from 'ramda/src/compose';
 import $L from '../internal/$L';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
-import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton} from '../internal/Panels';
-import PanelsRouter from '../internal/Panels/PanelsRouter';
+import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, PanelsRouter} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
@@ -118,14 +117,14 @@ const WizardPanelsBase = kind({
 		nextButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		 * Specifies when and how to show `nextButton` on WizardPanel.
+		 * Specifies when and how to show `nextButton` on WizardPanels.
 		 *
-		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last
+		 * * `'auto'` will display the `nextButton` on every `WizardPanels.Panel` except the last
 		 * * `'always'` will always display the `nextButton`
 		 * * `'never'` will always hide the `nextButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
-		 * case, a customized `nextButton` on WizardPanel.Panel will take precedence over the
+		 * case, a customized `nextButton` on WizardPanels.Panel will take precedence over the
 		 * `nextButtonVisibility` value.
 		 *
 		 * @type {('auto'|'always'|'never')}
@@ -169,7 +168,7 @@ const WizardPanelsBase = kind({
 		onChange: PropTypes.func,
 
 		/**
-		 * Called when the next button is clicked in WizardPanel.
+		 * Called when the next button is clicked in WizardPanels.
 		 *
 		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
 		 *
@@ -179,7 +178,7 @@ const WizardPanelsBase = kind({
 		onNextClick: PropTypes.func,
 
 		/**
-		 * Called when previous button is clicked in WizardPanel.
+		 * Called when previous button is clicked in WizardPanels.
 		 *
 		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
 		 *
@@ -221,14 +220,14 @@ const WizardPanelsBase = kind({
 		prevButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		 * Specifies when and how to show `prevButton` on WizardPanel.
+		 * Specifies when and how to show `prevButton` on WizardPanels.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first
+		 * * `'auto'` will display the `prevButton` on every `WizardPanels.Panel` except the first
 		 * * `'always'` will always display the `prevButton`
 		 * * `'never'` will always hide the `prevButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
-		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
+		 * if user provides a customized `prevButton` on WizardPanels.Panel will take precedence over the `prevButtonVisibility` value.
 		 *
 		 * @type {('auto'|'always'|'never')}
 		 * @default 'auto'
