@@ -489,7 +489,7 @@ const TransferListBase = kind({
 			const isListCapacityExceeded = checkListsCapacity('first', firstListCopy, listsCapacity, secondListCopy, selectedItems);
 			if (isListCapacityExceeded && (list !== 'first')) return;
 
-			setSelectedItemsPosition(dragOverElement, startElementIndex, startElementList, firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+			setSelectedItemsPosition(dragOverElement, startElementIndex, startElementList, firstListCopy, noMultipleSelect, list === 'first', selectedItems, setPosition, setSelectedItems);
 			// Check if we are dropping on the same list with touch events
 			if (list === 'first') {
 				// Check if the selected item is already present in the selected items array
@@ -516,7 +516,7 @@ const TransferListBase = kind({
 			const isListCapacityExceeded = checkListsCapacity('second', firstListCopy, listsCapacity, secondListCopy, selectedItems);
 			if (isListCapacityExceeded && (list !== 'second')) return;
 
-			setSelectedItemsPosition(dragOverElement, startElementIndex, startElementList, secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+			setSelectedItemsPosition(dragOverElement, startElementIndex, startElementList, secondListCopy, noMultipleSelect, list === 'second', selectedItems, setPosition, setSelectedItems);
 			// In case of dropping items into the same list with touch events
 			if (list === 'second') {
 				// Check if the selected item is already present in the selected items array
@@ -558,8 +558,13 @@ const TransferListBase = kind({
 				handleScroll();
 
 				if (position === null) return;
+				let scrollTo;
+				if (!position.sameList) {
+					scrollTo = position.list === 'first' ? scrollToRefSecond : scrollToRefFirst;
+				} else {
+					scrollTo = position.list === 'first' ? scrollToRefFirst : scrollToRefSecond;
+				}
 
-				const scrollTo = position.list === 'first' ? scrollToRefSecond : scrollToRefFirst;
 				scrollTo.current({index: position.index});
 
 				setPosition(null);
@@ -704,11 +709,11 @@ const TransferListBase = kind({
 			// Check if we are dropping on the same list
 			if (list === 'second') {
 				// Set new position for the items after the drop action
-				setSelectedItemsPosition(dragOverElement, index, list, secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+				setSelectedItemsPosition(dragOverElement, index, list, secondListCopy, noMultipleSelect, true, selectedItems, setPosition, setSelectedItems);
 				rearrangeLists(secondListCopy, secondListCopy, index, list, dragOverElement.current, setSecondListLocal, setSecondListLocal, secondListOperation);
 			} else {
 				// Set new position for the items after the drop action
-				setSelectedItemsPosition(dragOverElement, index, list, firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+				setSelectedItemsPosition(dragOverElement, index, list, firstListCopy, noMultipleSelect, false, selectedItems, setPosition, setSelectedItems);
 				rearrangeLists(firstListCopy, secondListCopy, index, list, dragOverElement.current, setFirstListLocal, setSecondListLocal, firstListOperation);
 			}
 		}, [dragendEventListenerFunction, firstListLocal, firstListMinCapacity, firstListOperation, noMultipleSelect, rearrangeLists, secondListLocal, secondListOperation, selectedItems, secondListMaxCapacity]);
@@ -736,11 +741,11 @@ const TransferListBase = kind({
 			// Check if we are dropping on the same list
 			if (list === 'first') {
 				// Set new position for the items after the drop action
-				setSelectedItemsPosition(dragOverElement, index, list, firstListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+				setSelectedItemsPosition(dragOverElement, index, list, firstListCopy, noMultipleSelect, true, selectedItems, setPosition, setSelectedItems);
 				rearrangeLists(firstListCopy, firstListCopy, index, list, dragOverElement.current, setFirstListLocal, setFirstListLocal, firstListOperation);
 			} else {
 				// Set new position for the items after the drop action
-				setSelectedItemsPosition(dragOverElement, index, list, secondListCopy, noMultipleSelect, selectedItems, setPosition, setSelectedItems);
+				setSelectedItemsPosition(dragOverElement, index, list, secondListCopy, noMultipleSelect, false, selectedItems, setPosition, setSelectedItems);
 				rearrangeLists(secondListCopy, firstListCopy, index, list, dragOverElement.current, setSecondListLocal, setFirstListLocal, secondListOperation);
 			}
 		}, [dragendEventListenerFunction, firstListLocal, firstListOperation, firstListOrderFixed, firstListMaxCapacity, noMultipleSelect, rearrangeLists, secondListLocal, secondListMinCapacity, secondListOperation, selectedItems]);
