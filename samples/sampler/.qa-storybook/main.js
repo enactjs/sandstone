@@ -9,7 +9,7 @@ module.exports = {
 		disableTelemetry: true
 	},
 	docs: {
-		autodocs: false,
+		autodocs: true,
 	},
 	features: {
 		postcss: false,

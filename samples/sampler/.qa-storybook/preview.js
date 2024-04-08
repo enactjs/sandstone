@@ -54,15 +54,15 @@ export const parameters = {
 	docs: {
 		container: DocsContainer,
 		story: {
-			inline: false,
+			inline: true,
 			iframeHeight: ri.scaleToRem(600)
 		},
-		page: () => (
-			<>
-				<Title />
-				<Stories />
-			</>
-		),
+		// page: () => (
+		// 	<>
+		// 		<Title />
+		// 		<Stories />
+		// 	</>
+		// ),
 		theme: themes.light
 	},
 	options: {
