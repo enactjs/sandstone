@@ -3,15 +3,6 @@
 @import "../../enact/packages/spotlight/styles/mixins";
 @import "../../enact/packages/ui/styles/mixins";
 
-@function default($args...) {
-	@each $arg in $args {
-		@if not variable-exists(#{$arg}) {
-			@return true;
-		}
-	}
-	@return false;
-}
-
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled {
     @if content-exists() {

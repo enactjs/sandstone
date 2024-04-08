@@ -236,7 +236,7 @@ const PickerBase = (props) => {
 
 	useEffect(() => {
 		const currentPicker = containerRef.current;
-		if (platform.webos) currentPicker.addEventListener('webOSVoice', handleVoice);
+		if (platform.type === 'webos') currentPicker.addEventListener('webOSVoice', handleVoice);
 
 		if (joined) {
 			currentPicker.addEventListener('wheel', handleWheel);
@@ -248,7 +248,7 @@ const PickerBase = (props) => {
 			if (joined) {
 				currentPicker.removeEventListener('wheel', handleWheel);
 			}
-			if (platform.webos) {
+			if (platform.type === 'webos') {
 				currentPicker.removeEventListener('webOSVoice', handleVoice);
 			}
 		});

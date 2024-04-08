@@ -86,7 +86,7 @@ const MediaSliderDecorator = hoc((config, Wrapped) => {
 			this.handleMouseOver = this.handleMouseOver.bind(this);
 			this.handleMouseOut = this.handleMouseOut.bind(this);
 			this.handleMouseMove = this.handleMouseMove.bind(this);
-			if (platform.touch) {
+			if (platform.touchEvent) {
 				this.handleTouchMove = this.handleTouchMove.bind(this);
 			}
 
@@ -195,7 +195,7 @@ const MediaSliderDecorator = hoc((config, Wrapped) => {
 
 			delete rest.onKnobMove;
 
-			if (platform.touch) {
+			if (platform.touchEvent) {
 				rest.onTouchMove = this.handleTouchMove;
 			}
 
