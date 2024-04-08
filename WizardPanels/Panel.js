@@ -1,7 +1,7 @@
 import Slottable from '@enact/ui/Slottable';
 import {useContext, useEffect} from 'react';
 
-import {WizardPanelsContext} from './WizardPanels';
+import {PanelsContext} from '../internal/Panels/PanelsRouter';
 
 /**
  * Panel that sets the children, footer, subtitle, and title for
@@ -21,7 +21,7 @@ function PanelBase ({
 	subtitle,
 	title
 }) {
-	const set = useContext(WizardPanelsContext);
+	const set = useContext(PanelsContext);
 
 	useEffect(() => {
 		if (set) {
