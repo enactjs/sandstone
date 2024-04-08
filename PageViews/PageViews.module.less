@@ -1,0 +1,38 @@
+@import "../styles/variables.less";
+
+.pageViews {
+	height: 100%;
+	width: 100%;
+	display: inline-flex;
+	flex-direction: column;
+
+    .navButton {
+		text-align: center;
+		display: flex;
+		align-items: center;
+		width: 2*@sand-button-small-height;
+		justify-content: center;
+	}
+
+	.steps {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	&.number .steps {
+		height: 252px;
+	}
+
+	&.dot .steps {
+		height: 144px;
+	}
+
+	.contentsArea, .viewManager{
+		overflow: hidden;
+	}
+
+	.horizontalLayout {
+		height: 100%;
+	}
+}
