@@ -1,25 +1,21 @@
-import Slottable from '@enact/ui/Slottable';
 import {useContext, useEffect} from 'react';
 
 import {PanelsContext} from '../internal/Panels/PanelsRouter';
 
 /**
- * Panel that sets the children, footer, subtitle, and title for
- * {@link sandstone/WizardPanels.WizardPanels|WizardPanels}.
+ * QuickGuidePanel that sets the children for
+ * {@link sandstone/QuickGuidePanels.QuickGuidePanels|QuickGuidePanels}.
  *
- * @class PanelBase
- * @memberof sandstone/WizardPanels
+ * @class QuickGuidePanel
+ * @memberof sandstone/QuickGuidePanels
  * @ui
- * @private
+ * @public
  */
-function PanelBase ({
+function QuickGuidePanel ({
 	'aria-label': ariaLabel,
 	children,
-	footer,
 	nextButton,
-	prevButton,
-	subtitle,
-	title
+	prevButton
 }) {
 	const set = useContext(PanelsContext);
 
@@ -28,40 +24,19 @@ function PanelBase ({
 			set({
 				'aria-label': ariaLabel,
 				children,
-				footer,
 				nextButton,
-				prevButton,
-				subtitle,
-				title
+				prevButton
 			});
 		}
 	}, [
 		ariaLabel,
 		children,
-		footer,
 		nextButton,
 		prevButton,
-		subtitle,
-		set,
-		title
+		set
 	]);
 	return null;
 }
-
-/**
- * Panel that sets the children, footer, subtitle, and title for
- * {@link sandstone/WizardPanels.WizardPanels|WizardPanels}.
- *
- * @class Panel
- * @memberof sandstone/WizardPanels
- * @ui
- * @public
- */
-const Panel = Slottable(
-	{slots: ['footer', 'subtitle', 'title']},
-	PanelBase
-);
-
 
 /**
  * The button to use in place of the standard next button.
@@ -70,7 +45,7 @@ const Panel = Slottable(
  *
  * If `false`, the button will not show. If set to a component, or `true`, the button will
  * show. This will override the setting of
- * {@link sandstone/WizardPanels.WizardPanelsBase.nextButtonVisibility|nextButtonVisibility}.
+ * {@link sandstone/QuickGuidePanels.QuickGuidePanelsBase.nextButtonVisibility|nextButtonVisibility}.
  *
  * Example:
  * ```
@@ -78,7 +53,7 @@ const Panel = Slottable(
  * ```
  *
  * @name nextButton
- * @memberof sandstone/WizardPanels.Panel.prototype
+ * @memberof sandstone/QuickGuidePanels.QuickGuidePanel.prototype
  * @type {Boolean|Component}
  * @public
  */
@@ -90,7 +65,7 @@ const Panel = Slottable(
  *
  * If `false`, the button will not show. If set to a component, or `true`, the button will
  * show. This will override the setting of
- * {@link sandstone/WizardPanels.WizardPanelsBase.prevButtonVisibility|prevButtonVisibility}.
+ * {@link sandstone/QuickGuidePanels.QuickGuidePanelsBase.prevButtonVisibility|prevButtonVisibility}.
  *
  * Example:
  * ```
@@ -98,13 +73,12 @@ const Panel = Slottable(
  * ```
  *
  * @name PrevButton
- * @memberof sandstone/WizardPanels.Panel.prototype
+ * @memberof sandstone/QuickGuidePanels.QuickGuidePanel.prototype
  * @type {Boolean|Component}
  * @public
  */
 
-export default Panel;
+export default QuickGuidePanel;
 export {
-	Panel,
-	PanelBase
+	QuickGuidePanel
 };
