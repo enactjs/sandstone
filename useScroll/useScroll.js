@@ -324,6 +324,7 @@ const useScroll = (props) => {
 		} = props;
 
 	delete rest.scrollbarTrackCss;
+	delete rest.scrollToContentContainerOnFocus;
 
 	// Mutable value
 
@@ -429,7 +430,7 @@ const useScroll = (props) => {
 		...rest,
 		...scrollProps,
 		assignProperties,
-		noScrollByDrag: !platform.touchscreen,
+		noScrollByDrag: !platform.touchScreen,
 		addEventListeners,
 		applyOverscrollEffect,
 		clearOverscrollEffect,

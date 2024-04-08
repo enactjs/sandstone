@@ -1,6 +1,5 @@
 'use strict';
 const {getComponent, Page} = require('@enact/ui-test-utils/utils');
-
 class VideoPlayerInterface {
 	constructor (id) {
 		this.id = id;
@@ -89,7 +88,15 @@ class VideoPlayerPage extends Page {
 		const videoPlayerSpotlightDisabled = new VideoPlayerInterface('videoPlayerSpotlightDisabled');
 		const videoPlayerProps = new VideoPlayerInterface('videoPlayerProps');
 		const videoPlayerProps2 = new VideoPlayerInterface('videoPlayerProps2');
-		this.components = {videoPlayerDefault, videoPlayerDisabled, videoPlayerSpotlightDisabled, videoPlayerProps, videoPlayerProps2};
+		const videoPlayerPlaybackSpeed = new VideoPlayerInterface('videoPlayerPlaybackSpeed');
+		this.components = {
+			videoPlayerDefault,
+			videoPlayerDisabled,
+			videoPlayerSpotlightDisabled,
+			videoPlayerProps,
+			videoPlayerProps2,
+			videoPlayerPlaybackSpeed
+		};
 	}
 
 	async open (specification = '', urlExtra) {

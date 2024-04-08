@@ -1,12 +1,14 @@
 import {add, is} from '@enact/core/keymap';
 import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
+import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
+import {Heading} from '@enact/sandstone/Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
-import Scroller from '@enact/sandstone/Scroller';
 import {Header} from '@enact/sandstone/Panels';
-import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
+import {ContentContainerDecorator, Scroller} from '@enact/sandstone/Scroller';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -1221,3 +1223,49 @@ select('scrollMode', WithInputFields, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', WithInputFields, Config, false);
 
 WithInputFields.storyName = 'With InputFields';
+
+const renderImageItemForVG = ({index, ...rest}) => { // eslint-disable-line enact/prop-types
+	const {text, subText, source} = imageItems[index];
+
+	return (
+		<ImageItem {...rest} label={subText} src={source}>
+			{text}
+		</ImageItem>
+	);
+};
+
+const ListContainer = ContentContainerDecorator(
+	{enterTo: 'last-focused'},
+	'div'
+);
+
+const List = () => (
+	<ListContainer>
+		<Heading>Title</Heading>
+		<div style={{height: ri.scale(480)}}>
+			<VirtualGridList
+				dataSize={imageItems.length}
+				direction="horizontal"
+				itemRenderer={renderImageItemForVG}
+				itemSize={{minWidth: ri.scale(600), minHeight: ri.scale(480)}}
+				horizontalScrollbar="hidden"
+			/>
+		</div>
+	</ListContainer>
+);
+
+export const WithContentContainerOnFocus = () => {
+	updateDataSize(10);
+
+	return (
+		<Scroller>
+			<List />
+			<List />
+			<List />
+			<List />
+			<List />
+		</Scroller>
+	);
+};
+
+WithContentContainerOnFocus.storyName = 'With Content Container';
