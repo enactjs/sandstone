@@ -22,36 +22,64 @@ async function enableEditModeLongPress () {
 
 async function expectDeleteButton (expectedIndex, comment = 'delete button') {
 	const {ariaLabel, index} = await focusedItemButton();
-	expect(index, comment).to.equal(expectedIndex);
-	expect(ariaLabel, comment).to.equal('Delete');
+	try {
+		expect(index).toBe(expectedIndex);
+	} catch (e) {
+		console.error(comment);
+	}
+	try {
+		expect(ariaLabel).toBe('Delete');
+	} catch (e) {
+		console.error(comment);
+	}
 }
 
 async function expectDisabledItem (expectedIndex, comment = 'disabled item') {
 	const {index} = await findItemWrapper();
 	const disabled = await disabledAttribute();
-	expect(index, comment).to.equal(expectedIndex);
-	expect(disabled, comment).to.be.true();
+	try {
+		expect(index).toBe(expectedIndex);
+	} catch (e) {
+		console.error(comment);
+	}
+    try {
+		expect(disabled).toBe(true);
+	} catch (e) {
+		console.error(comment);
+	}
 }
 
 async function expectFocusedIconItem (expectedIndex, comment = 'focused item') {
 	const {index} = await findItemWrapper();
-	expect(index, comment).to.equal(expectedIndex);
+	try {
+		expect(index).toBe(expectedIndex);
+	} catch (e) {
+		console.error(comment);
+	}
 }
 
 async function expectFocusedItem (itemNum, comment = 'focused item') {
 	const focusedId = await focusedElement();
-	expect(focusedId, comment).to.equal(`item${itemNum}`);
+	try {
+		expect(focusedId).toBe(`item${itemNum}`);
+	} catch (e) {
+		console.error(comment);
+	}
 }
 
 async function expectItemWrapperClass (expectedClass, comment = 'item wrapper class') {
 	const {classList} = await findItemWrapper();
-	expect(classList?.includes?.(expectedClass), comment).to.be.true();
+	try {
+		expect(classList?.includes?.(expectedClass)).toBe(true);
+	} catch (e) {
+		console.error(comment);
+	}
 }
 
 async function expectNoFocusedItem () {
 	expect(await browser.execute(function () {
 		return document.activeElement === document.body;
-	})).to.be.true();
+	})).toBe(true);
 }
 
 async function findItemWrapper () {

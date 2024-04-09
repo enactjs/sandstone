@@ -17,7 +17,7 @@ describe('Horizontal Scroller', function () {
 		// Step 4: 5-way Up
 		await ScrollerPage.spotlightUp();
 		// Step 4 Verify: The list does not scroll.
-		expect(await ScrollerPage.getScrollThumbPosition().horizontal).to.be.equal(initialThumbPosition);
+		expect(await ScrollerPage.getScrollThumbPosition().horizontal).toBe(initialThumbPosition);
 		// for initializing
 		await ScrollerPage.spotlightDown();
 
@@ -29,7 +29,7 @@ describe('Horizontal Scroller', function () {
 		// Step 6: 5-way Down.
 		await ScrollerPage.spotlightDown();
 		// Step 6 Verify: The list does not scroll.
-		expect(await ScrollerPage.getScrollThumbPosition().horizontal).to.be.equal(initialThumbPosition);
+		expect(await ScrollerPage.getScrollThumbPosition().horizontal).toBe(initialThumbPosition);
 
 		// Step 7-2: 5-way Select and 5-way Left in the blank area of the viewport to enter 5-way.
 		await ScrollerPage.showPointerByKeycode();
@@ -42,7 +42,7 @@ describe('Horizontal Scroller', function () {
 		// Step 8: 5-way Up
 		await ScrollerPage.spotlightUp();
 		// Step 8 Verify: The list does not scroll.
-		expect(await ScrollerPage.getScrollThumbPosition().horizontal).to.be.equal(initialThumbPosition);
+		expect(await ScrollerPage.getScrollThumbPosition().horizontal).toBe(initialThumbPosition);
 
 		// Step 9: 5-way Spot 'Button 1'.
 		await ScrollerPage.spotlightDown();
@@ -50,6 +50,6 @@ describe('Horizontal Scroller', function () {
 		// Step 10: 5-way Down.
 		await ScrollerPage.spotlightDown();
 		// Step 10 Verify: The list does not scroll.
-		expect(await ScrollerPage.getScrollThumbPosition().horizontal).to.be.equal(initialThumbPosition);
+		expect(await ScrollerPage.getScrollThumbPosition().horizontal).toBe(initialThumbPosition);
 	});
 });

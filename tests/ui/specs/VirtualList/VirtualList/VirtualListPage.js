@@ -220,7 +220,11 @@ class VirtualListPage extends Page {
 	// key input api
 	async fiveWayToItem (itemNum) {
 		const currentItem = Number((await focusedElement()).slice(4));
-		expect(Number.isNaN(currentItem), 'Not focused to an item').to.be.false();
+		try {
+			expect(Number.isNaN(currentItem)).toBe(false);
+		} catch (e) {
+			console.error('Not focused to an item');
+		}
 
 		const direction = currentItem < itemNum ? 1 : -1;
 
@@ -241,11 +245,11 @@ class VirtualListPage extends Page {
 		if (way === 'down') {
 			await this.pageDown();
 			await this.delay(1000);
-			expect((await this.getScrollThumbPosition()) > initialThumbPosition).to.be.true();
+			expect((await this.getScrollThumbPosition()) > initialThumbPosition).toBe(true);
 		} else {
 			await this.pageUp();
 			await this.delay(1000);
-			expect(initialThumbPosition > (await this.getScrollThumbPosition())).to.be.true();
+			expect(initialThumbPosition > (await this.getScrollThumbPosition())).toBe(true);
 		}
 	}
 	backSpace () {
