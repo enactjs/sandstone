@@ -5,9 +5,13 @@ import NavigationButton from './NavigationButton';
 import PopupDecorator from './PopupDecorator';
 import Viewport, {PanelsStateContext} from './Viewport';
 import useAutoFocus, {AutoFocusDecorator} from './useAutoFocus';
+import useFocusOnTransition from './useFocusOnTransition';
+import useToggleRole from './useToggleRole';
 
 export {
 	useAutoFocus,
+	useFocusOnTransition,
+	useToggleRole,
 	AutoFocusDecorator,
 	BasicArranger,
 	CancelDecorator,
