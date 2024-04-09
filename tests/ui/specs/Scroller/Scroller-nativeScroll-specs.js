@@ -89,7 +89,7 @@ describe('Scroller', function () {
 			await ScrollerPage.buttonTop.moveTo();
 			// Step 4 Verify: Spotlight is on the (x) button.
 
-			expect(await ScrollerPage.buttonTop.isFocused(), 'focus').toBe(true);
+			expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
 			// Step 5: Press 5-Way Down.
 			await ScrollerPage.spotlightDown();
 			// Step 5 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
