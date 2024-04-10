@@ -5,6 +5,12 @@
 
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled {
+	@if content-exists() {
+		@include disabled {
+			opacity: 1; // reset standard disabled rule.
+			@content;
+		}
+	}
     @if content-exists() {
         @include disabled {
             opacity: 1; // reset standard disabled rule.
