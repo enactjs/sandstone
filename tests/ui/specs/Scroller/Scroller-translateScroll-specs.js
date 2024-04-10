@@ -4,7 +4,7 @@ describe('Scroller', function () {
 
 	it('should meet initial conditions', async function () {
 		await ScrollerPage.open();
-        expect(await ScrollerPage.buttonHideScrollbar.isFocused()).toBe(true);
+		expect(await ScrollerPage.buttonHideScrollbar.isFocused()).toBe(true);
 	});
 
 	describe('FocusableScrollbar knobs', function () {
@@ -38,7 +38,7 @@ describe('Scroller', function () {
 			// Step 4: Hover on the (x) button. This case replaced 'X' button to 'Top' button.
 			await ScrollerPage.buttonTop.moveTo();
 			// Step 4 Verify: Spotlight is on the (x) button.
-            expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
+			expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
 
 			// Step 5: Press 5-Way Right.
 			await ScrollerPage.spotlightRight();

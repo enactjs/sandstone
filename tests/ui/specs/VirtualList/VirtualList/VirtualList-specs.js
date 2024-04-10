@@ -4,7 +4,7 @@ const Page = require('./VirtualListPage'),
 describe('VirtualList', function () {
 	it('should meet initial conditions', async function () {
 		await Page.open();
-        expect(await Page.buttonHideScrollbar.isFocused()).toBe(true);
+		expect(await Page.buttonHideScrollbar.isFocused()).toBe(true);
 	});
 
 	describe('LTR locale', function () {
@@ -40,7 +40,7 @@ describe('VirtualList', function () {
 			// Verify Step 4: 1. Spotlight displays on the first item.
 			await expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 5: Scroll thumb's position appears shortly at the top of the Scrollbar track.
-            expect(await Page.getScrollThumbPosition()).toBe('0');
+			expect(await Page.getScrollThumbPosition()).toBe('0');
 			// Step 6. Press Channel Down.
 			await Page.pageDown();
 			// Verify Step 6: 1. Spotlight hides.
@@ -59,7 +59,7 @@ describe('VirtualList', function () {
 			await waitUntilFocused(29, 'focus last Item');
 			await Page.delay(1000);
 			// Verify Step 10: Scroll thumb's position appears shortly at the bottom of the Scrollbar track.
-            expect(await Page.getScrollThumbPosition()).toBe('1');
+			expect(await Page.getScrollThumbPosition()).toBe('1');
 			// Step 11: 5-way Spot the first item.
 			await Page.pageUp();
 			await waitUntilFocused(23, 'focus Item 23');
@@ -71,7 +71,7 @@ describe('VirtualList', function () {
 			// Verify Step 11: Spotlight displays on the first item.
 			await waitUntilFocused(0, 'focus Item 0');
 			// Verify Step 12: Scroll thumb's position appears shortly at the top of the Scrollbar track.
-            expect(await Page.getScrollThumbPosition()).toBe('0');
+			expect(await Page.getScrollThumbPosition()).toBe('0');
 		});
 
 		// TODO: Will need lots of comments update to match the TC in JIra

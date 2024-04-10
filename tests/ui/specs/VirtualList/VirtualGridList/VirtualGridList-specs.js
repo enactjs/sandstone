@@ -7,7 +7,7 @@ describe('VirtualGridList', function () {
 	});
 
 	it('should meet initial conditions', async function () {
-        expect(await Page.buttonHideScrollbar.isFocused()).toBe(true);
+		expect(await Page.buttonHideScrollbar.isFocused()).toBe(true);
 	});
 
 	describe('LTR locale', function () {

@@ -42,7 +42,7 @@ async function expectDisabledItem (expectedIndex, comment = 'disabled item') {
 	} catch (e) {
 		console.error(comment);
 	}
-    try {
+	try {
 		expect(disabled).toBe(true);
 	} catch (e) {
 		console.error(comment);

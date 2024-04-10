@@ -4,7 +4,7 @@ describe('Scroller', function () {
 
 	it('should meet initial conditions', async function () {
 		await ScrollerPage.open();
-        expect(await ScrollerPage.buttonHideScrollbar.isFocused()).toBe(true);
+		expect(await ScrollerPage.buttonHideScrollbar.isFocused()).toBe(true);
 	});
 
 	describe('FocusableScrollbar knobs', function () {
@@ -36,7 +36,7 @@ describe('Scroller', function () {
 			// Step 4: Hover on the (x) button. This case replaced 'X' button to 'Top' button.
 			await ScrollerPage.buttonTop.moveTo();
 			// Step 4 Verify: Spotlight is on the (x) button.
-            expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
+			expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
 
 			// Step 5: Press 5-Way Right.
 			await ScrollerPage.spotlightRight();
@@ -108,15 +108,15 @@ describe('Scroller', function () {
 			// Step 7: Press any 5-Way direction key.
 			// Step 7 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
 			await ScrollerPage.spotlightLeft();
-            expect(await ScrollerPage.buttonLeft.isFocused()).toBe(true);
+			expect(await ScrollerPage.buttonLeft.isFocused()).toBe(true);
 			await ScrollerPage.spotlightRight();
 			expect(await ScrollerPage.verticalScrollThumb.isFocused()).toBe(true);
 			await ScrollerPage.spotlightRight();
-            expect(await ScrollerPage.buttonRight.isFocused()).toBe(true);
+			expect(await ScrollerPage.buttonRight.isFocused()).toBe(true);
 			await ScrollerPage.spotlightLeft();
 			expect(await ScrollerPage.verticalScrollThumb.isFocused()).toBe(true);
 			await ScrollerPage.spotlightUp();
-            expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
+			expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
 			await ScrollerPage.spotlightDown();
 			expect(await ScrollerPage.verticalScrollThumb.isFocused()).toBe(true);
 

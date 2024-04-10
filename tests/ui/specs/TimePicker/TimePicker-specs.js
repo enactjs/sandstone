@@ -326,7 +326,7 @@ describe('TimePicker', function () {
 
 		it('should move to the next picker with 5-way OK key in es-ES locale [QWTC-2541]', async function () {
 			// Step 6 Verify: There is no meridiem in ES.
-            expect(await timePicker.meridiem.isExisting()).toBe(false);
+			expect(await timePicker.meridiem.isExisting()).toBe(false);
 
 			// Step 7-1: Hover on the hour picker.
 			await Page.showPointerByKeycode();
@@ -355,7 +355,7 @@ describe('TimePicker', function () {
 		});
 
 		it('should not have a meridiem picker', async function () {
-            expect(await timePicker.meridiem.isExisting()).toBe(false);
+			expect(await timePicker.meridiem.isExisting()).toBe(false);
 		});
 
 		it('should display hours in 24-hour format', async function () {

@@ -36,9 +36,9 @@ describe('Spotlight', function () {
 		await Page.open();
 		await Page.spotlightDown();
 		await Page.spotlightRight();
-        expect(await Page.itemA.isFocused()).toBe(true);
+		expect(await Page.itemA.isFocused()).toBe(true);
 		await Page.spotlightLeft();
-        expect(await Page.item2.isFocused()).toBe(true);
+		expect(await Page.item2.isFocused()).toBe(true);
 	});
 
 	it('should spot nearest control in container when leaving pointer mode with a target in direction', async function () {

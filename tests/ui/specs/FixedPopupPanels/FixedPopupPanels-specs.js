@@ -102,13 +102,13 @@ describe('FixedPopupPanels', function () {
 			);
 
 			// Focus should remain in the picker
-            expect(await pickerContainsFocused).toBe(true);
+			expect(await pickerContainsFocused).toBe(true);
 		});
 
 		it('should not allow 5-way navigation out and remain open when spotlightRestrict="self-only" and scrim="none"', async function () {
 			await Page.open('?scrimType="none"&spotlightRestrict="self-only"');
 
-            expect(await Interface.openButton.isFocused()).toBe(true);
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 
