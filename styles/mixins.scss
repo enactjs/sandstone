@@ -225,3 +225,7 @@
         @include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target);
     }
 }
+
+@mixin sand-enact-locale-tallglyph($rule, $value, $target: normal) {
+    @include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
+}

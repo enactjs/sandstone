@@ -13,7 +13,7 @@
 
 	&.small {
 		font-size: variables.$sand-body-small-font-size;
-		@include mixins.enact-locale-tallglyph(font-size, variables.$sand-tallglyph-body-small-font-size);
+		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-body-small-font-size);
 
 		@include mixins.sand-locale-non-latin("") {
 			font-size: variables.$sand-non-latin-body-small-font-size;
