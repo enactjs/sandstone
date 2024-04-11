@@ -264,6 +264,15 @@ $sand-checkbox-border-width: 4px;
 $sand-checkbox-container-position: calc(($sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
 $sand-checkbox-container-border-radius: $sand-item-border-radius;
 
+// ContextualMenu
+// ---------------------------------------
+$sand-contextualmenu-container-padding: 36px 0;
+$sand-contextualmenu-max-items: 5;
+$sand-contextualmenu-innercontainer-max-height: $sand-contextualmenu-max-items * $sand-item-small-height;
+$sand-contextualmenu-max-height: ($sand-contextualmenu-innercontainer-max-height + nth($sand-contextualmenu-container-padding, 1) + nth($sand-contextualmenu-container-padding, 1));
+$sand-contextualmenu-large-width: 960px;
+$sand-contextualmenu-small-width: 612px;
+
 // Keyguide
 // ---------------------------------------
 $sand-keyguide-colordot-height: 12px;
