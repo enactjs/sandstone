@@ -5,7 +5,7 @@ import $L from '../internal/$L';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
 import DateTime from '../internal/DateTime';
 
-import css from './DatePicker.module.less';
+import css from './DatePicker.module.scss';
 
 /**
  * A date selection component.
