@@ -69,6 +69,8 @@ $sand-fullscreen-bg-color: var(--sand-fullscreen-bg-color, $sand-bg-color);
 $sand-overlay-text-shadow: 0 4px 4px rgb($sand-shadow-color-rgb, 75%);
 $sand-overlay-bg-color-rgb: rgb(87, 94, 102); // #575e66
 $sand-overlay-bg-color: var(--sand-overlay-bg-color-rgb, $sand-overlay-bg-color-rgb); // #575e66
+$sand-overlay-outline-color: var(--sand-overlay-outline-color, transparent);
+$sand-overlay-outline-style: var(--sand-overlay-outline-style, none);
 
 $sand-selection-color: var(--sand-selection-color, #4c5059);
 $sand-selection-bg-color: var(--sand-selection-bg-color, #3399ff);
@@ -203,6 +205,15 @@ $sand-checkbox-indeterminate-focus-text-color: $sand-component-focus-text-color;
 $sand-checkbox-indeterminate-focus-bg-color: $sand-checkbox-focus-bg-color;
 $sand-checkbox-indeterminate-focus-border-color: $sand-checkbox-focus-border-color;
 $sand-checkbox-standalone-bg-disabled-focus-bg-color: $sand-disabled-focus-bg-color;
+
+// ContextualPopup
+// ---------------------------------------
+$sand-contextualpopup-bg-color: $sand-overlay-bg-color;
+$sand-contextualpopup-shadow: 0 24px 60px $sand-shadow-color;
+
+// HolePunchScrim
+// ---------------------------------------
+$sand-holepunchscrim-bg-color: fade(#000000, 60%); // should be black
 
 // Item
 // ---------------------------------------

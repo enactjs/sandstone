@@ -63,6 +63,7 @@ $sand-app-keepout: 48px;
 // ---------------------------------------
 $sand-component-spacing: 36px;
 $sand-component-spacing-bottom: 30px;
+$sand-overlay-outline-width: 0.0625rem; // 3px
 $sand-smallest-tappable-size: 168px;
 $sand-translate-center: translate(-50%, -50%);
 $sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -272,6 +273,14 @@ $sand-contextualmenu-innercontainer-max-height: $sand-contextualmenu-max-items *
 $sand-contextualmenu-max-height: ($sand-contextualmenu-innercontainer-max-height + nth($sand-contextualmenu-container-padding, 1) + nth($sand-contextualmenu-container-padding, 1));
 $sand-contextualmenu-large-width: 960px;
 $sand-contextualmenu-small-width: 612px;
+
+// ContextualPopup
+// ---------------------------------------
+$sand-contextualpopup-padding: 36px 0;
+$sand-contextualpopup-arrow-height: 60px;
+$sand-contextualpopup-arrow-width: 60px;
+$sand-contextualpopup-offset-overlap: 36px;	// used as inverse of small to cause overlap
+$sand-contextualpopup-offset-small: 18px;
 
 // Keyguide
 // ---------------------------------------
