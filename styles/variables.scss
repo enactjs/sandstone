@@ -282,6 +282,29 @@ $sand-contextualpopup-arrow-width: 60px;
 $sand-contextualpopup-offset-overlap: 36px;	// used as inverse of small to cause overlap
 $sand-contextualpopup-offset-small: 18px;
 
+// Dropdown
+// ---------------------------------------
+$sand-dropdown-margin: 0 $sand-spotlight-outset; // this extra margin used to align dropdown container with the outer element
+$sand-dropdown-min-width: 300px;
+$sand-dropdown-tiny-width: 480px;
+$sand-dropdown-small-width: $sand-button-min-width;
+$sand-dropdown-medium-width: 690px;
+$sand-dropdown-large-width: 780px;
+$sand-dropdown-x-large-width: 1050px;
+$sand-dropdown-huge-width: 1380px;
+$sand-dropdown-list-tiny-width: ($sand-dropdown-tiny-width - $sand-button-border-width);
+$sand-dropdown-list-small-width: ($sand-dropdown-small-width - $sand-button-border-width);
+$sand-dropdown-list-medium-width: ($sand-dropdown-medium-width - $sand-button-border-width);
+$sand-dropdown-list-large-width: ($sand-dropdown-large-width - $sand-button-border-width);
+$sand-dropdown-list-x-large-width: ($sand-dropdown-x-large-width - $sand-button-border-width);
+$sand-dropdown-list-huge-width: ($sand-dropdown-huge-width - $sand-button-border-width);
+$sand-dropdown-max-items: 5;
+$sand-dropdown-list-min-width: $sand-dropdown-min-width;
+$sand-dropdown-list-max-height: ($sand-dropdown-max-items * $sand-item-small-height + $sand-item-shadow-height);
+$sand-dropdown-list-max-height-large: ($sand-dropdown-max-items * $sand-item-small-height-large + $sand-item-shadow-height);
+$sand-dropdown-title-font-style: italic;
+$sand-non-italic-dropdown-title-font-style: normal;
+
 // Keyguide
 // ---------------------------------------
 $sand-keyguide-colordot-height: 12px;

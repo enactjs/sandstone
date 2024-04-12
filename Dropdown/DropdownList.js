@@ -16,7 +16,7 @@ import Item from '../Item';
 import Skinnable from '../Skinnable';
 import VirtualList from '../VirtualList';
 
-import css from './Dropdown.module.less';
+import css from './Dropdown.module.scss';
 import {compareChildren} from '../internal/util';
 
 const isSelectedValid = ({children, selected}) => Array.isArray(children) && children[selected] != null;
