@@ -216,6 +216,12 @@ $sand-contextualpopup-shadow: 0 24px 60px $sand-shadow-color;
 $sand-dropdown-title-color: $sand-text-sub-color;
 $sand-dropdown-selected-text-color: $sand-selected-text-color;
 
+// FormCheckboxItem
+// ---------------------------------------
+$sand-formcheckboxitem-disabled-text-color: inherit;
+$sand-formcheckboxitem-disabled-focus-text-color: $sand-formcheckboxitem-disabled-text-color;
+
+
 // HolePunchScrim
 // ---------------------------------------
 $sand-holepunchscrim-bg-color: fade(#000000, 60%); // should be black

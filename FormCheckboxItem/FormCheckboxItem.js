@@ -22,7 +22,7 @@ import Skinnable from '../Skinnable';
 import {CheckboxBase} from '../Checkbox';
 import {ItemBase, ItemDecorator} from '../Item';
 
-import componentCss from './FormCheckboxItem.module.less';
+import componentCss from './FormCheckboxItem.module.scss';
 
 const Item = ItemDecorator(ItemBase);
 
