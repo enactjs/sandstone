@@ -8,6 +8,10 @@ import PropTypes from 'prop-types';
 
 import css from './ThemeEnvironment.module.less';
 
+// custom theme imports
+import {hexToRGB} from '../../utils/hexToRGB';
+import {generateStylesheet} from '../../utils/generateStylesheet';
+
 const reloadPage = () => {
 	const {protocol, host, pathname} = window.parent.location;
 	window.parent.location.href = protocol + '//' + host + pathname;
@@ -65,6 +69,11 @@ const StorybookDecorator = (story, config = {}) => {
 		classes.debug = true;
 	}
 
+	// console.log('xaxa', globals);
+	const {ComponentBackgroundColor='#7D848C', FocusBackgroundColor='#E6E6E6', PopupBackgroundColor='#575E66', ComponentTextColor='#E6E6E6', SubTextColor='#ABAEB3'} = globals;
+	const colors = generateStylesheet(globals, ComponentBackgroundColor, FocusBackgroundColor, PopupBackgroundColor, ComponentTextColor, SubTextColor);
+	console.log('xaxaxa', colors)
+
 	return (
 		<Theme
 			className={classnames(classes)}
@@ -74,7 +83,13 @@ const StorybookDecorator = (story, config = {}) => {
 			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
 			highContrast={JSON.parse(globals['high contrast'])}
 			style={{
-				'--sand-env-background': globals.background === 'default' ? '' : globals.background
+				'--sand-env-background': globals.background === 'default' ? '' : globals.background,
+				// '--sand-text-color-rgb': '194, 46, 46',
+				colors,
+				// '--sand-component-bg-color': '#519a51',
+				// '--sand-component-text-color-rgb': hexToRGB(config.globals.ComponentTextColor) || '255, 0, 0',
+				// '--sand-component-text-sub-color-rgb': '0, 0, 255',
+				// '--sand-overlay-bg-color-rgb': '0, 0, 255'
 			}}
 			skin={globals.skin}
 			{...hasProps ? config.parameters.props : null}
