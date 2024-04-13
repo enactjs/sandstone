@@ -21,10 +21,10 @@ describe('Verify locale Change', function () {
 		// Verify 5-1: VirtualList sample displays in RTL (Right to Left.)
 		// Check that the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
 		await Page.buttonLeft.moveTo();
-		expect(await Page.buttonLeft.isFocused());
+		expect(await Page.buttonLeft.isFocused()).toBe(true);
 		await Page.spotlightLeft();
 		await Page.spotlightLeft();
-		expect(await Page.buttonRight.isFocused());
+		expect(await Page.buttonRight.isFocused()).toBe(true);
 		// Verify 5-2: Vertical Scrollbar displays on the left side.
 		expect((await Page.getListRect()).left).toBe((await Page.getVerticalScrollbarRect()).left);
 	});
