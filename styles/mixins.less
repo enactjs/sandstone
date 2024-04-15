@@ -304,3 +304,22 @@
 .enact-locale-line-height(@normal: @sand-common-line-height; @tallglyph: @sand-tallglyph-line-height; @target: normal) when (default()) {
 	.enact-locale-tallglyph(line-height; @normal; @tallglyph; @target);
 }
+
+.sand-focus-highlight() {
+	:global(.enact-a11y-focus-highlight) & {
+		transform: none;
+		outline: 12px solid rgb(230,230,230);
+		outline-offset: 9px;
+	}
+}
+
+.sand-focus-highlight(@target) {
+	&:global(.focusHighlight) {
+		transform: none;
+		.@{target} {
+			transform: none;
+			outline: 12px solid rgb(230,230,230);
+			outline-offset: 9px;	
+		}
+	}
+}
