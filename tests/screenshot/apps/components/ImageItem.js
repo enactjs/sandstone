@@ -68,7 +68,13 @@ const ImageItemTests = [
 	...withProps({disabled: true}, defaultImageItemTests),
 
 	// Centered and disabled.
-	...withProps({centered: true, disabled: true}, defaultImageItemTests)
+	...withProps({centered: true, disabled: true}, defaultImageItemTests),
+	...withConfig({
+		focusHighlight: true,
+		focus: true
+	}, [
+		<ImageItem src={img} style={verticalStyle} orientation="vertical" />
+	])
 ];
 
 export default ImageItemTests;
