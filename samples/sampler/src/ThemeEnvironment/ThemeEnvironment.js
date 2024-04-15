@@ -72,6 +72,7 @@ const StorybookDecorator = (story, config = {}) => {
 			description={hasInfoText ? config.parameters.info.text : null}
 			locale={globals.locale}
 			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
+			focusHighlight={JSON.parse(globals['focus highlight'])}
 			highContrast={JSON.parse(globals['high contrast'])}
 			style={{
 				'--sand-env-background': globals.background === 'default' ? '' : globals.background

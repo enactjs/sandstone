@@ -23,6 +23,18 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 			/**
 			 * Enables additional features to help users visually differentiate components.
 			 *
+			 * The UI library will be responsible for using this information to add focus ring
+			 * to some components.
+			 *
+			 * @type {Boolean}
+			 * @default false
+			 * @public
+			 */
+			focusHighlight: PropTypes.bool,
+
+			/**
+			 * Enables additional features to help users visually differentiate components.
+			 *
 			 * The UI library will be responsible for using this information to adjust
 			 * the components' contrast to this preset.
 			 *
@@ -85,6 +97,7 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		};
 
 		static defaultProps = {
+			focusHighlight: false,
 			highContrast: false,
 			textSize: 'normal'
 		};
@@ -106,12 +119,14 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		resizeRegistry = Registry.create();
 
 		render () {
-			const {className, highContrast, skinVariants, textSize, ...props} = this.props;
-			const accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
+			const {className, focusHighlight, highContrast, skinVariants, textSize, ...props} = this.props;
+			let accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
+			accessibilityClassName = focusHighlight ? `enact-a11y-focus-highlight ${accessibilityClassName}` : `${accessibilityClassName}`;
 			const combinedClassName = className ? `${className} ${accessibilityClassName}` : accessibilityClassName;
 			const variants = objectify(skinVariants);
 			if (highContrast) variants.highContrast = true;
 			if (textSize === 'large') variants.largeText = true;
+			if (focusHighlight) variants.focusHighlight = true;
 
 			return (
 				<ResizeContext.Provider value={this.resizeRegistry.register}>
