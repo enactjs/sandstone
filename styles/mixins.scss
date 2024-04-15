@@ -1,7 +1,7 @@
 @use "../styles/variables";
 @use "../styles/variables-base";
-@import "../../enact/packages/spotlight/styles/mixins";
-@import "../../enact/packages/ui/styles/mixins";
+@import "@enact/spotlight/styles/mixins";
+@import "@enact/ui/styles/mixins";
 
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
 @mixin sand-disabled {
