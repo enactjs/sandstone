@@ -15,13 +15,9 @@ async function hitTest (_selector) {
 	}, _selector);
 }
 
-async function expectFocusedItem (itemNum, comment = 'focused item') {
+async function expectFocusedItem (itemNum) {
 	const focusedId = await focusedElement();
-	try {
-		expect(focusedId).toBe(`item${itemNum}`);
-	} catch (e) {
-		console.error(comment);
-	}
+	expect(focusedId).toBe(`item${itemNum}`);
 }
 
 async function expectNoFocusedItem () {

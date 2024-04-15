@@ -220,11 +220,7 @@ class VirtualListPage extends Page {
 	// key input api
 	async fiveWayToItem (itemNum) {
 		const currentItem = Number((await focusedElement()).slice(4));
-		try {
-			expect(Number.isNaN(currentItem)).toBe(false);
-		} catch (e) {
-			console.error('Not focused to an item');
-		}
+		expect(Number.isNaN(currentItem)).toBe(false);
 
 		const direction = currentItem < itemNum ? 1 : -1;
 
