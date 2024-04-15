@@ -63,6 +63,11 @@
 		&:not(.selected,.focused) .editableIconItem {
 			&:focus {
 				transform: none;
+				:global(.enact-a11y-focus-highlight) & {
+					.content {
+						outline: none;
+					}
+				}
 			}
 			&.labelOnFocus:focus {
 				.labelContainer {
@@ -90,6 +95,9 @@
 		}
 
 		.editableIconItem {
+			:global(.enact-a11y-focus-highlight) & {
+				transform: none;
+			}
 			transform: scale(1.2);
 		}
 	}
@@ -101,6 +109,12 @@
 
 		.editableIconItem {
 			transform: scale(1.2);
+			.content {
+				.sand-focus-highlight();
+			}
+			:global(.enact-a11y-focus-highlight) & {
+				transform: none;
+			}
 		}
 
 		.arrow() {

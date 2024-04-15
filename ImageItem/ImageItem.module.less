@@ -190,9 +190,12 @@
 			}
 
 			&.vertical {
-				&.fullImage .image {
-					transform: @sand-imageitem-vertical-focus-image-transform;
-					box-shadow: @sand-imageitem-focus-bg-shadow;
+				&.fullImage {
+					.sand-focus-highlight(image);
+					& .image {
+						transform: @sand-imageitem-vertical-focus-image-transform;
+						box-shadow: @sand-imageitem-focus-bg-shadow;
+					}
 				}
 			}
 
