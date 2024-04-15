@@ -82,6 +82,7 @@ const IconItemTests = [
 
 	// Bordered and disabled.
 	...withProps({bordered: true, disabled: true}, defaultIconItemTests),
+
 	...withConfig({
 		focusHighlight: true,
 		focus: true

@@ -73,9 +73,9 @@ export const parameters = {
 
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
-	'focus highlight':getBooleanType('focus highlight'),
 	'large text': getBooleanType('large text'),
 	'high contrast': getBooleanType('high contrast'),
+	'focus highlight':getBooleanType('focus highlight'),
 	'skin': getObjectType('skin', 'neutral', skins),
 	'background': getObjectType('background', 'default', backgrounds),
 	'debug aria': getBooleanType('debug aria'),

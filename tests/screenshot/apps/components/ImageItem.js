@@ -69,6 +69,7 @@ const ImageItemTests = [
 
 	// Centered and disabled.
 	...withProps({centered: true, disabled: true}, defaultImageItemTests),
+
 	...withConfig({
 		focusHighlight: true,
 		focus: true
