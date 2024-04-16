@@ -1,4 +1,5 @@
 @use "../styles/variables";
+@use "../styles/variables-base";
 @import "@enact/spotlight/styles/mixins";
 @import "@enact/ui/styles/mixins";
 
@@ -8,6 +9,28 @@
 		@include disabled {
 			opacity: 1; // reset standard disabled rule.
 			@content;
+		}
+	}
+}
+
+@mixin sand-taparea($element-size) {
+	@if (variables.$sand-smallest-tappable-size > $element-size) {
+		// Take the size of the minimum tappable area, and subtract the element's current size.
+		$_tap-offset: -(calc((variables.$sand-smallest-tappable-size - $element-size) / 2));
+
+		&::before {
+			content: "";
+			position: absolute;
+			top: $_tap-offset;
+			right: $_tap-offset;
+			bottom: $_tap-offset;
+			left: $_tap-offset;
+			border-radius: variables-base.$sand-button-border-radius;
+		}
+	} @else if (variables.$sand-smallest-tappable-size <= $element-size) {
+		// Remove the tappable area if the tap area is smaller than the element's current size.
+		&::before {
+			content: none;
 		}
 	}
 }
@@ -54,6 +77,25 @@
 	}
 }
 
+//
+// Custom Text Size Mixins
+//
+@mixin sand-custom-text-size($values...) {
+	@if (length($values) == 1) {
+		@include sand-custom-text-large {
+			font-size: $values;
+		}
+	} @else if (length($values) == 2) {
+		@include sand-custom-text-large {
+			font-size: nth($values, 1);
+		}
+
+		@include sand-custom-text-locale {
+			font-size: nth($values, 2);
+		}
+	}
+}
+
 @mixin sand-custom-text-large {
 	// Generic rule applicator for large text mode
 	&:global(.largeText) {
@@ -70,6 +112,34 @@
 	}
 }
 
+@mixin sand-large-button-text {
+	@include sand-font(variables.$sand-button-font-family, variables.$sand-non-latin-button-font-family) {
+		font-size: variables.$sand-non-latin-button-large-font-size;
+		font-style: variables.$sand-non-latin-button-font-style;
+		font-weight: variables.$sand-non-latin-button-font-weight;
+	}
+
+	font-size: variables.$sand-button-font-size;
+	font-style: variables.$sand-button-font-style;
+	font-weight: variables.$sand-button-font-weight;
+
+	@include font-kerning;
+}
+
+@mixin sand-small-button-text {
+	@include sand-font(variables.$sand-button-small-font-family, variables.$sand-non-latin-button-font-family) {
+		font-size: variables.$sand-non-latin-button-small-font-size;
+		font-style: variables.$sand-non-latin-button-small-font-style;
+		font-weight: variables.$sand-non-latin-button-small-font-weight;
+	}
+
+	font-size: variables.$sand-button-small-font-size;
+	font-style: variables.$sand-button-small-font-style;
+	font-weight: variables.$sand-button-small-font-weight;
+
+	@include font-kerning;
+}
+
 // Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
 //
 // Set line-height for normal and tallglyphs with 0, 1 or 2 arguments
@@ -78,11 +148,11 @@
 //   @include enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
 //   @include enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
 @mixin sand-enact-locale-line-height($normal: variables.$sand-common-line-height, $tallglyph: variables.$sand-tallglyph-line-height, $target: normal) {
-	@if ($target == normal) {
-		@include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target, variables.$locale-tallglyph-languages);
-	}
+  @if ($target == normal) {
+    @include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target, variables.$locale-tallglyph-languages);
+  }
 }
 
 @mixin sand-enact-locale-tallglyph($rule, $value, $target: normal) {
-	@include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
+  @include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
 }
