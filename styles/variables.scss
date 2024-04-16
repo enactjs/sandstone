@@ -1,3 +1,5 @@
+@use './utils';
+
 // Variables
 //
 
@@ -31,6 +33,10 @@ $sand-spotlight-focus-shadow-height: 36px;
 
 // Font Sizes
 // ---------------------------------------
+$sand-button-font-size-large:       96px;
+$sand-button-font-size:             78px;
+$sand-button-small-font-size-large: 72px;
+$sand-button-small-font-size:       60px;
 $sand-item-font-size:               60px;
 $sand-item-font-size-large:         72px;
 $sand-item-label-font-size:         48px;
@@ -38,6 +44,9 @@ $sand-item-label-font-size-large:   54px;
 $sand-item-small-font-size:         60px;
 $sand-item-small-label-font-size:   48px;
 $sand-keyguide-font-size:           60px;
+
+$sand-non-latin-button-large-font-size: 72px;
+$sand-non-latin-button-small-font-size: 54px;
 
 // Other Font Properties
 // ---------------------------------------
@@ -55,6 +64,19 @@ $sand-spottable-font-weight: 600;
 $sand-common-line-height: 1.3em;
 $sand-tallglyph-line-height: 1.5em;
 
+// Button
+$sand-button-font-family: $sand-alt-font-family;
+$sand-button-font-style: normal;
+$sand-button-font-weight: $sand-spottable-font-weight;
+$sand-button-small-font-family: $sand-button-font-family;
+$sand-button-small-font-style: $sand-button-font-style;
+$sand-button-small-font-weight: $sand-button-font-weight;
+$sand-non-latin-button-font-family: $sand-non-latin-font-family-bold;
+$sand-non-latin-button-font-style: $sand-button-font-style;
+$sand-non-latin-button-font-weight: $sand-non-latin-font-weight-bold;
+$sand-non-latin-button-small-font-style: $sand-button-small-font-style;
+$sand-non-latin-button-small-font-weight: $sand-non-latin-font-weight-bold;
+
 // ---------------------------------------
 // Component Rules
 // ---------------------------------------
@@ -71,6 +93,58 @@ $sand-icon-tiny-size: 60px;
 $sand-icon-margin: 24px;
 $sand-icon-large-size-large: ($sand-icon-large-size * 1.2);
 $sand-icon-small-size-large: ($sand-icon-small-size * 1.2);
+
+// Button
+// ---------------------------------------
+$sand-button-border-width: 6px;
+$sand-button-bg-opacity: 1;
+$sand-button-transparent-bg-opacity: 0;
+$sand-button-transparent-selected-bg-opacity: 1;
+$sand-button-margin: 0 $sand-component-spacing;
+$sand-button-focusexpand-margin: 6px utils.get-right-value($sand-button-margin); // 6px provides enough space for the expanded focus state
+$sand-button-h-padding: 60px;
+$sand-button-with-icon-h-padding: $sand-spotlight-outset;
+$sand-button-height-large: 192px;
+$sand-button-height: 144px;
+$sand-button-icon-h-margin: 30px;
+$sand-button-icon-margin-end: $sand-button-icon-h-margin;
+$sand-button-icon-margin-start: 0;
+$sand-button-icon-padding: 0 calc(($sand-button-height - $sand-icon-large-size) / 2);
+$sand-button-icon-position-after-margin-end: $sand-button-icon-margin-start;
+$sand-button-icon-position-after-margin-start: $sand-button-icon-margin-end;
+$sand-button-icon-position-after-small-margin-end: 0;
+$sand-button-icon-small-h-margin: $sand-button-icon-h-margin;
+$sand-button-icon-small-margin-end: $sand-button-icon-small-h-margin;
+$sand-button-icon-position-after-small-margin-start: $sand-button-icon-small-margin-end;
+$sand-button-icon-small-margin-start: 0;
+$sand-button-small-height-large: 144px;
+$sand-button-small-height: 108px;
+$sand-button-icon-small-padding: 0 calc(($sand-button-small-height - $sand-icon-small-size) / 2);
+$sand-button-max-width: 900px;
+$sand-button-min-width: 540px; // If this changes, update `overflow` computed value from Alert.js
+$sand-button-focusexpand-focus-bg-transform: scale(1.05);
+$sand-button-focusexpand-pressed-bg-transform: scale(1.02);
+$sand-button-focus-duration: $sand-spotlight-focus-animation-duration;
+$sand-button-small-margin: $sand-button-margin;
+$sand-button-small-focusexpand-margin: $sand-button-focusexpand-margin;
+$sand-button-small-h-padding: 48px;
+$sand-button-small-max-width: $sand-button-max-width;
+$sand-button-small-min-width: 300px;
+$sand-button-small-focusexpand-focus-bg-transform: scale(1.1);
+$sand-button-small-focusexpand-pressed-bg-transform: scale(1.04);
+$sand-button-colordot-bottom: 18px;
+$sand-button-colordot-border-radius: 6px;
+$sand-button-colordot-width: 60px;
+$sand-button-colordot-height: 12px;
+$sand-button-colordot-h-margin: 24px;
+$sand-button-colordot-padding-start: calc($sand-button-h-padding / 2);
+$sand-button-small-colordot-bottom: 12px;
+$sand-button-small-colordot-width: 48px;
+$sand-button-small-colordot-padding-start: 30px;
+$sand-button-icon-only-colordot-width: 66px;
+$sand-button-icon-only-colordot-height: 9px;
+$sand-button-collapse-duration: 300ms;
+$sand-button-collapsable-icon-margin: 0 24px;
 
 // Item
 // ---------------------------------------
