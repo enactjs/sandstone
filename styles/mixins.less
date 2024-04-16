@@ -305,21 +305,27 @@
 	.enact-locale-tallglyph(line-height; @normal; @tallglyph; @target);
 }
 
-.sand-focus-highlight() {
-	:global(.enact-a11y-focus-highlight) & {
-		transform: none;
-		outline: 12px solid rgb(230,230,230);
-		outline-offset: 9px;
-	}
+.sand-focus-highlight-effect() {
+	transform: none;       
+	outline: 12px solid rgb(230,230,230);
+	outline-offset: 9px;  
 }
 
+.sand-focus-highlight() {
+    .focus({
+   	 	&:global(.focusHighlight) {
+           .sand-focus-highlight-effect();
+         }
+    });
+};
+
 .sand-focus-highlight(@target) {
-	&:global(.focusHighlight) {
-		transform: none;
-		.@{target} {
-			transform: none;
-			outline: 12px solid rgb(230,230,230);
-			outline-offset: 9px;	
-		}
-	}
-}
+    .focus({
+   	 	&:global(.focusHighlight) {
+            transform: none;
+            .@{target} {
+				.sand-focus-highlight-effect(); 
+            }
+        }
+    });
+};
