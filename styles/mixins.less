@@ -313,19 +313,19 @@
 
 .sand-focus-highlight() {
     .focus({
-   	 	&:global(.focusHighlight) {
-           .sand-focus-highlight-effect();
-         }
+		&:global(.focusHighlight) {
+			.sand-focus-highlight-effect();
+		}
     });
 };
 
 .sand-focus-highlight(@target) {
-    .focus({
-   	 	&:global(.focusHighlight) {
-            transform: none;
-            .@{target} {
+	.focus({
+		&:global(.focusHighlight) {
+			transform: none;
+			.@{target} {
 				.sand-focus-highlight-effect(); 
-            }
+			}
         }
     });
 };
