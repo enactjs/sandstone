@@ -97,8 +97,6 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		};
 
 		static defaultProps = {
-			focusRing: false,
-			highContrast: false,
 			textSize: 'normal'
 		};
 
