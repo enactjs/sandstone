@@ -305,7 +305,7 @@
 	.enact-locale-tallglyph(line-height; @normal; @tallglyph; @target);
 }
 
-.sand-focus-highlight-effect() {
+.sand-focus-ring() {
 	transform: none;       
 	outline: 12px solid rgb(230,230,230);
 	outline-offset: 9px;  
@@ -314,7 +314,7 @@
 .sand-focus-highlight() {
     .focus({
 		&:global(.focusHighlight) {
-			.sand-focus-highlight-effect();
+			.sand-focus-ring();
 		}
     });
 };
@@ -324,7 +324,7 @@
 		&:global(.focusHighlight) {
 			transform: none;
 			.@{target} {
-				.sand-focus-highlight-effect(); 
+				.sand-focus-ring(); 
 			}
         }
     });
