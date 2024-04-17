@@ -87,8 +87,8 @@ const IconItemTests = [
 		focusRing: true,
 		focus: true
 	}, [
-		<IconItem background="#000000" icon="usb" style={style} />,
-		<IconItem background="#000000" icon="usb" label="Label" style={style} />
+		<IconItem background="#1b1b1b" icon="usb" style={style} />,
+		<IconItem background="#1b1b1b" icon="usb" label="Label" style={style} />
 	])
 ];
 

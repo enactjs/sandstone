@@ -74,7 +74,7 @@ const ImageItemTests = [
 		focusRing: true,
 		focus: true
 	}, [
-		<ImageItem src={img} style={verticalStyle} orientation="vertical" />
+		<ImageItem src={img} style={{height: ri.scale(360), width: ri.scale(240)}} orientation="vertical" />
 	])
 ];
 
