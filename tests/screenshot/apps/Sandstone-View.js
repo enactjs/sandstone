@@ -139,7 +139,7 @@ const ExportedApp = (props) => {
 	// Common test parameters
 	let skin = url.searchParams.get('skin');
 	let highContrast = url.searchParams.get('highContrast') === 'true';
-	let focusHighlight = url.searchParams.get('focusHighlight') === 'true';
+	let focusRing = url.searchParams.get('focusRing') === 'true';
 
 	// Legacy test parameters
 	let locale = url.searchParams.get('locale');
@@ -149,7 +149,7 @@ const ExportedApp = (props) => {
 	if (props.testId >= 0 && components[props.component] && components[props.component][props.testId]) {
 		locale = components[props.component][props.testId].locale;
 		textSize = components[props.component][props.testId].textSize;
-		focusHighlight = components[props.component][props.testId].focusHighlight;
+		focusRing = components[props.component][props.testId].focusRing;
 		// If focus enabled by test, use auto-focus to set an initial focus
 		noAutoFocus = !components[props.component][props.testId].focus;
 
@@ -168,9 +168,9 @@ const ExportedApp = (props) => {
 			delete skinVariants.largeText;
 			textSize = 'large';
 		}
-		if (skinVariants.focusHighlight) {
-			delete skinVariants.focusHighlight;
-			focusHighlight = true;
+		if (skinVariants.focusRing) {
+			delete skinVariants.focusRing;
+			focusRing = true;
 		}
 		if (Object.keys(skinVariants).length) {
 			// eslint-disable-next-line no-console
@@ -185,7 +185,7 @@ const ExportedApp = (props) => {
 	}, []);
 
 	return (
-		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusHighlight={focusHighlight} />
+		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
 	);
 };
 

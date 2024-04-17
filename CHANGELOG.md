@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/ThemeDecorator.AccessibilityDecorator` prop `focusHighlight` to support focus ring to IcomItem and ImageItem
+- `sandstone/ThemeDecorator.AccessibilityDecorator` prop `focusRing` to support focus ring to IcomItem and ImageItem
 
 ## [2.9.0-alpha.1] - 2024-04-09
 

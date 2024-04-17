@@ -313,7 +313,7 @@
 
 .sand-focus-highlight() {
     .focus({
-		&:global(.focusHighlight) {
+		&:global(.focusRing) {
 			.sand-focus-ring();
 		}
     });
@@ -321,7 +321,7 @@
 
 .sand-focus-highlight(@target) {
 	.focus({
-		&:global(.focusHighlight) {
+		&:global(.focusRing) {
 			transform: none;
 			.@{target} {
 				.sand-focus-ring(); 

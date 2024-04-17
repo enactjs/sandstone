@@ -505,7 +505,7 @@ NavigatingIntoOverflowContainers.parameters = {
 
 const SpottableDiv = Spottable(Skinnable('div'));
 
-export const FocusHighlight = () => (
+export const FocusRing = () => (
 	<Row>
 		<SpottableDiv className={css.spottableDiv1}>
 			<Image className={css.image} src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')} />
@@ -516,7 +516,7 @@ export const FocusHighlight = () => (
 	</Row>
 );
 
-FocusHighlight.storyName = 'Spottable with Focus Highlight';
+FocusRing.storyName = 'Spottable with Focus Ring';
 
 export const KitchenSink = (args) => (
 	<Column>

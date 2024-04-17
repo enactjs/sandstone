@@ -30,7 +30,7 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 			 * @default false
 			 * @public
 			 */
-			focusHighlight: PropTypes.bool,
+			focusRing: PropTypes.bool,
 
 			/**
 			 * Enables additional features to help users visually differentiate components.
@@ -97,7 +97,7 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		};
 
 		static defaultProps = {
-			focusHighlight: false,
+			focusRing: false,
 			highContrast: false,
 			textSize: 'normal'
 		};
@@ -119,14 +119,14 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		resizeRegistry = Registry.create();
 
 		render () {
-			const {className, focusHighlight, highContrast, skinVariants, textSize, ...props} = this.props;
+			const {className, focusRing, highContrast, skinVariants, textSize, ...props} = this.props;
 			let accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
-			accessibilityClassName = focusHighlight ? `enact-a11y-focus-highlight ${accessibilityClassName}` : `${accessibilityClassName}`;
+			accessibilityClassName = focusRing ? `enact-a11y-focus-ring ${accessibilityClassName}` : `${accessibilityClassName}`;
 			const combinedClassName = className ? `${className} ${accessibilityClassName}` : accessibilityClassName;
 			const variants = objectify(skinVariants);
 			if (highContrast) variants.highContrast = true;
 			if (textSize === 'large') variants.largeText = true;
-			if (focusHighlight) variants.focusHighlight = true;
+			if (focusRing) variants.focusRing = true;
 
 			return (
 				<ResizeContext.Provider value={this.resizeRegistry.register}>

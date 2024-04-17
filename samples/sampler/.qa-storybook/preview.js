@@ -75,7 +75,7 @@ export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
 	'high contrast': getBooleanType('high contrast'),
-	'focus highlight':getBooleanType('focus highlight'),
+	'focus ring':getBooleanType('focus ring'),
 	'skin': getObjectType('skin', 'neutral', skins),
 	'background': getObjectType('background', 'default', backgrounds),
 	'debug aria': getBooleanType('debug aria'),

@@ -84,7 +84,7 @@ const IconItemTests = [
 	...withProps({bordered: true, disabled: true}, defaultIconItemTests),
 
 	...withConfig({
-		focusHighlight: true,
+		focusRing: true,
 		focus: true
 	}, [
 		<IconItem background="#000000" icon="usb" style={style} />,

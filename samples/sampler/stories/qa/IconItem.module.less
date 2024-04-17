@@ -63,7 +63,7 @@
 		&:not(.selected,.focused) .editableIconItem {
 			&:focus {
 				transform: none;
-				:global(.enact-a11y-focus-highlight) & {
+				:global(.enact-a11y-focus-ring) & {
 					.content {
 						outline: none;
 					}
@@ -95,7 +95,7 @@
 		}
 
 		.editableIconItem {
-			:global(.enact-a11y-focus-highlight) & {
+			:global(.enact-a11y-focus-ring) & {
 				transform: none;
 			}
 			transform: scale(1.2);
@@ -109,7 +109,7 @@
 
 		.editableIconItem {
 			transform: scale(1.2);
-			:global(.enact-a11y-focus-highlight) & {
+			:global(.enact-a11y-focus-ring) & {
 				.content {
 					.sand-focus-ring();
 				}

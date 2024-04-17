@@ -71,7 +71,7 @@ const ImageItemTests = [
 	...withProps({centered: true, disabled: true}, defaultImageItemTests),
 
 	...withConfig({
-		focusHighlight: true,
+		focusRing: true,
 		focus: true
 	}, [
 		<ImageItem src={img} style={verticalStyle} orientation="vertical" />

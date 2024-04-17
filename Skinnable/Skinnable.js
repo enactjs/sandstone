@@ -15,7 +15,7 @@ const defaultConfig = {
 		light: 'light',
 		game: 'game'
 	},
-	allowedVariants: ['focusHighlight', 'highContrast', 'largeText', 'grayscale'],
+	allowedVariants: ['focusRing', 'highContrast', 'largeText', 'grayscale'],
 	defaultVariants: null
 };
 
