@@ -229,7 +229,7 @@ $sand-heading-subtitle-text-color: $sand-text-sub-color;
 
 // HolePunchScrim
 // ---------------------------------------
-$sand-holepunchscrim-bg-color: fade(#000000, 60%); // should be black
+$sand-holepunchscrim-bg-color: fade-out(#000000, 0.4); // should be black
 
 // Item
 // ---------------------------------------

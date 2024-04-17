@@ -21,7 +21,7 @@
 
   ::selection {
     color: colors.$sand-selection-color;
-    background-color: colors.$sand-selected-bg-color;
+    background-color: colors.$sand-selection-bg-color;
   }
 
   @include mixins.disabled {

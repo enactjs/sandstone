@@ -71,6 +71,13 @@
 	// Skin colors
 	@include skin.applySkins {
 		background-color: colors.$sand-popup-bg-color;
+
+		&.outline {
+			outline-color: colors.$sand-overlay-outline-color;
+			outline-style: colors.$sand-overlay-outline-style;
+			outline-width: variables.$sand-overlay-outline-width;
+			outline-offset: -(variables.$sand-overlay-outline-width);
+		}
 	}
 }
 
