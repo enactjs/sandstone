@@ -129,4 +129,36 @@ describe('VirtualList', function () {
 			await expectFocusedItem(5, 'focus Item 05');
 		});
 	});
+
+	describe('Page Scroll', function () {
+		it('should scroll with pressed pageUp/Down key only when focus is in the VirtualList.', async function () {
+			await Page.open();
+			// Scroll thumb is on the initial position
+			expect(await Page.getScrollThumbPosition()).to.equal('0');
+			// Move focus to VirtualList
+			await (await Page.item(0)).moveTo();
+			// Scroll by pageDown key
+			await Page.pageDown();
+			await Page.delay(1000);
+			// VirtualList is scrolled and scroll thumb is moved
+			expect(await Page.getScrollThumbPosition()).not.to.equal('0');
+			// Scroll by pageUp key
+			await Page.pageUp();
+			await Page.delay(1000);
+			// VirtualList is scrolled and scroll thumb is moved to initial position
+			expect(await Page.getScrollThumbPosition()).to.equal('0');
+			// Move focus to buttonHideScrollbar
+			await (await Page.buttonHideScrollbar).moveTo();
+			// Press pageDown key
+			await Page.pageDown();
+			await Page.delay(1000);
+			// VirtualList is not scrolled and scroll thumb is not moved
+			expect(await Page.getScrollThumbPosition()).to.equal('0');
+			// Press pageUp key
+			await Page.pageUp();
+			await Page.delay(1000);
+			// VirtualList is not scrolled and scroll thumb is not moved
+			expect(await Page.getScrollThumbPosition()).to.equal('0');
+		});
+	});
 });
