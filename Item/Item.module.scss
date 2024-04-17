@@ -1,4 +1,4 @@
-// Item.module.less
+// Item.module.scss
 //
 @use "../styles/color-mixins";
 @use "../styles/colors";
@@ -15,7 +15,7 @@
 	@include mixins.sand-spotlight-padding(variables.$sand-item-vertical-padding);
 
 	font-weight: variables.$sand-item-font-weight;
-	//@include mixins.enact-locale-line-height(variables.$sand-item-line-height, variables.$sand-tallglyph-item-line-height);
+	@include mixins.sand-enact-locale-line-height(variables.$sand-item-line-height, variables.$sand-tallglyph-item-line-height);
 	height: variables.$sand-item-height;
 	display: flex;
 	position: relative;
@@ -95,17 +95,17 @@
 	.label {
 		font-size: variables.$sand-item-label-font-size;
 		font-weight: inherit;
-		//.enact-locale-line-height(@sand-item-label-line-height, @sand-tallglyph-item-label-line-height);
+		@include mixins.sand-enact-locale-line-height(variables.$sand-item-label-line-height, variables.$sand-tallglyph-item-label-line-height);
 	}
 
-	//.sand-custom-text({
-	//	font-size: variables.$sand-item-font-size-large;
-	//	//.enact-locale-line-height(@sand-item-line-height-large, @sand-tallglyph-item-line-height-large);
-	//
-	//	.label {
-	//		font-size: variables.$sand-item-label-font-size-large;
-	//	}
-	//});
+	@include mixins.sand-custom-text-large {
+		font-size: variables.$sand-item-font-size-large;
+		@include mixins.sand-enact-locale-line-height(variables.$sand-item-line-height-large, variables.$sand-tallglyph-item-line-height-large);
+
+		.label {
+			font-size: variables.$sand-item-label-font-size-large;
+		}
+	};
 
 	&.large { /* Needed to prevent global class being added in the DOM */ }
 
@@ -114,7 +114,7 @@
 
 		font-weight: variables.$sand-item-small-font-weight;
 		height: variables.$sand-item-small-height;
-		//.enact-locale-line-height(@sand-item-small-line-height, @sand-tallglyph-item-small-line-height);
+		@include mixins.sand-enact-locale-line-height(variables.$sand-item-small-line-height, variables.$sand-tallglyph-item-small-line-height);
 
 		&.hasLabel {
 			height: variables.$sand-item-small-withlabel-height;
@@ -127,17 +127,15 @@
 			line-height: variables.$sand-item-small-label-line-height;
 		}
 
-		//.enact-locale-tallglyph({
-		//	font-size: variables.$sand-item-small-font-size;
-		//});
-		//
-		//.sand-custom-text({
-		//	font-size: variables.$sand-item-small-font-size-large;
-		//	//.enact-locale-line-height(@sand-item-small-line-height-large, @sand-tallglyph-item-small-line-height-large);
-		//});
+		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-item-small-font-size);
+
+		@include mixins.sand-custom-text-large {
+			font-size: variables.$sand-item-small-font-size-large;
+			@include mixins.sand-enact-locale-line-height(variables.$sand-item-small-line-height-large, variables.$sand-tallglyph-item-small-line-height-large);
+		}
 	}
 
-	//.locale-japanese-line-break();
+	@include mixins.locale-japanese-line-break;
 
 	// Skin colors
 	@include skin.applySkins {

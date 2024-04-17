@@ -139,3 +139,20 @@
 
 	@include font-kerning;
 }
+
+// Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
+//
+// Set line-height for normal and tallglyphs with 0, 1 or 2 arguments
+// Ex:
+//   @include enact-locale-line-height();              ->  normal: default; tallglyphs: default;
+//   @include enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
+//   @include enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
+@mixin sand-enact-locale-line-height($normal: variables.$sand-common-line-height, $tallglyph: variables.$sand-tallglyph-line-height, $target: normal) {
+	@if ($target == normal) {
+		@include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target, variables.$locale-tallglyph-languages);
+	}
+}
+
+@mixin sand-enact-locale-tallglyph($rule, $value, $target: normal) {
+	@include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
+}
