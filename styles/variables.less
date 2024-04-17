@@ -87,6 +87,7 @@
 // ---------------------------------------
 @sand-component-spacing: 36px;
 @sand-component-spacing-bottom: 30px;
+@sand-overlay-outline-width: 0.0625rem; // 3px
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -841,6 +842,21 @@
 // ---------------------------------------
 @sand-progressbutton-icon-font-size: (@sand-icon-tiny-size / 2);
 
+// QuickGuidePanels
+// ---------------------------------------
+@sand-quickguidepanels-close-button-margin-top: (
+	.extract(#guide.header[standard-padding], top)[]
+	- #guide.get-edge-size-difference(
+		#guide.header[standard-title-line-height],
+		@sand-heading-title-font-size,
+		@sand-heading-title-line-height
+	)[@result]
+) + 10px;
+@sand-quickguidepanels-close-button-margin-end:   150px;
+@sand-quickguidepanels-navigation-button-margin:  0 12px;
+@sand-quickguidepanels-container-margin-top:      828px;
+@sand-quickguidepanels-steps-margin-top:          90px;
+
 // RadioItem
 // ---------------------------------------
 @sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
@@ -1001,15 +1017,3 @@
 @sand-wizardpanels-content-margin: 0 0 150px 0;
 @sand-wizardpanels-footer-margin: 0 0 (102px - @sand-app-keepout) 0;
 @sand-wizardpanels-button-icon-text-gap: 54px;
-@sand-wizardpanels-fullScreenContent-close-button-margin-top: (
-	.extract(#guide.header[standard-padding], top)[]
-	- #guide.get-edge-size-difference(
-		#guide.header[standard-title-line-height],
-		@sand-heading-title-font-size,
-		@sand-heading-title-line-height
-	)[@result]
-) + 10px;
-@sand-wizardpanels-fullScreenContent-close-button-margin-end:   150px;
-@sand-wizardpanels-fullScreenContent-navigation-button-margin:  0 12px;
-@sand-wizardpanels-fullScreenContent-container-margin-top:      828px;
-@sand-wizardpanels-fullScreenContent-steps-margin-top:          90px;
