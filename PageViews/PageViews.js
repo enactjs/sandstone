@@ -223,7 +223,7 @@ const PageViewsBase = kind({
 							<Cell className={css.navButton} shrink>
 								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowsmallleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>
-							<Cell shrink>{index + 1} / {totalIndex}</Cell>
+							<Cell className={css.pageNumber} shrink>{index + 1}</Cell><Cell className={css.separator} shrink>/</Cell><Cell className={css.pageNumber} shrink>{totalIndex}</Cell>
 							<Cell className={css.navButton} shrink>
 								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowsmallright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
 							</Cell>
