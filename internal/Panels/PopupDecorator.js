@@ -55,6 +55,15 @@ const defaultConfig = {
 	noAlertRole: false,
 
 	/**
+	 * Disables the outline in high contrast mode.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	noOutline: false,
+
+	/**
 	 * Arranger for Panels
 	 *
 	 * @type {Object}
@@ -75,7 +84,7 @@ const defaultConfig = {
  * @memberof sandstone/Panels
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {className: cfgClassName, css, noAlertRole, panelArranger, panelType} = config;
+	const {className: cfgClassName, css, noAlertRole, noOutline, panelArranger, panelType} = config;
 	const CancelableWrapped = CancelDecorator({cancel: 'onBack'}, Wrapped);
 
 	const Decorator = kind({
@@ -242,7 +251,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			delete rest.width;
 
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} no5WayClose noAlertRole={noAlertRole} noAnimation={noAnimation} onClose={onClose}>
+				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} no5WayClose noAlertRole={noAlertRole} noAnimation={noAnimation} noOutline={noOutline} onClose={onClose}>
 					<CancelableWrapped
 						{...rest}
 						arranger={panelArranger}

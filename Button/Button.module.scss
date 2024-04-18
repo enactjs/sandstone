@@ -1,0 +1,450 @@
+// Button.module.scss
+//
+@use "../styles/colors";
+@use "../styles/color-mixins";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+@use "../styles/variables-base";
+
+.button {
+	//default is size="large"
+	@include mixins.sand-large-button-text;
+	height: variables.$sand-button-height;
+	line-height: (variables.$sand-button-height - (2 * variables.$sand-button-border-width));
+	min-width: variables.$sand-button-height;
+	max-width: variables.$sand-button-max-width;
+	padding: 0 variables.$sand-button-h-padding;
+	margin: variables.$sand-button-margin;
+	text-align: center;
+	vertical-align: middle;
+	--button-height: 144px;
+
+	@include mixins.sand-custom-text-large {
+		font-size: variables.$sand-button-font-size-large;
+		height: variables.$sand-button-height-large;
+		min-width: variables.$sand-button-height-large;
+		line-height: (variables.$sand-button-height-large - (2 * variables.$sand-button-border-width));
+		--button-height: 192px;
+	}
+
+	&.focusStatic {
+		/* Defined to prevent global export */
+	}
+
+	&.focusExpand {
+		margin: variables.$sand-button-focusexpand-margin;
+	}
+
+	.client {
+		padding: variables.$sand-button-border-width 0;	// We account for the button border-width here, since that is applied to .bg, not .client. Having these match means the text doesn't overlap the border
+		border-radius: inherit;
+	}
+
+	.icon {
+		flex-shrink: 0;
+		@include mixins.margin-start-end(variables.$sand-button-icon-margin-start, variables.$sand-button-icon-margin-end);
+	}
+
+	// Button with icon and text
+	&.hasIcon {
+		padding: 0 variables.$sand-button-with-icon-h-padding;
+	}
+
+	&.iconAfter {
+		.client {
+			flex-direction: row-reverse;
+		}
+
+		.icon {
+			@include mixins.margin-start-end(variables.$sand-button-icon-position-after-margin-start, variables.$sand-button-icon-position-after-margin-end);
+		}
+	}
+
+	&.red,
+	&.green,
+	&.yellow,
+	&.blue {
+		@include mixins.padding-start-end(variables.$sand-button-colordot-padding-start, variables.$sand-button-h-padding);
+
+		// IconButton-like Button scenario
+		.client::before {
+			// Colored under-bar
+			content: "";
+			position: absolute;
+			bottom: variables.$sand-button-colordot-bottom;
+			left: 50%;
+			width: variables.$sand-button-colordot-width;
+			height: variables.$sand-button-colordot-height;
+			border-radius: variables.$sand-button-colordot-border-radius;
+			transform: translate(-50%, 50%);
+		}
+
+		// Standard Button Scenario
+		&.minWidth {
+			// Update icon's margin to allow more room for the colordot
+			.icon {
+				-webkit-margin-start: 0;
+			}
+
+			.client {
+				-webkit-margin-start: variables.$sand-button-colordot-width;
+				-webkit-padding-start: variables.$sand-button-colordot-h-margin; // The gap between the color-dot and the content matches the space between the regular icon and the text
+
+				&::before {
+					// Colored side-bar
+					bottom: 50%;
+					transform: translateY(50%);
+					@include mixins.position-start-end(-(variables.$sand-button-colordot-width), initial);
+				}
+			}
+		}
+	}
+
+	/*
+	* The marquee container of the client area. Added by {@link sandstone/MarqueeDecorator}.
+	* @public
+	*/
+	.marquee {
+		flex-grow: 1;
+	}
+
+	// Only center the text if there is no icon and no color. We'll explicitly override Marquee's
+	// alignment for this case, relying on the parent node's alignment preference (inherit).
+	// Otherwise, the default is to just leave alignment to Marquee to handle.
+	&:not(.hasIcon):not(.hasColor) {
+		.marquee {
+			text-align: inherit;
+		}
+	}
+
+	&.minWidth {
+		min-width: variables.$sand-button-min-width;
+	}
+
+	&.small {
+		@include mixins.sand-small-button-text;
+		height: variables.$sand-button-small-height;
+		min-width: variables.$sand-button-small-height;
+		max-width: variables.$sand-button-small-max-width;
+		line-height: (variables.$sand-button-small-height - (2 * variables.$sand-button-border-width));
+		margin: variables.$sand-button-small-margin;
+		padding-left: variables.$sand-button-small-h-padding;
+		padding-right: variables.$sand-button-small-h-padding;
+		--button-height: 108px;
+
+		&.focusExpand {
+			margin: variables.$sand-button-small-focusexpand-margin;
+		}
+
+		// Standard Button Scenario
+		&.minWidth {
+			min-width: variables.$sand-button-small-min-width;
+		}
+
+		.icon {
+			@include mixins.margin-start-end(variables.$sand-button-icon-small-margin-start, variables.$sand-button-icon-small-margin-end);
+		}
+
+		&.iconAfter {
+			.icon {
+				@include mixins.margin-start-end(variables.$sand-button-icon-position-after-small-margin-start, variables.$sand-button-icon-position-after-small-margin-end);
+			}
+		}
+
+		&.red,
+		&.green,
+		&.yellow,
+		&.blue {
+			@include mixins.padding-start-end(variables.$sand-button-small-colordot-padding-start, variables.$sand-button-small-h-padding);
+
+			// IconButton-like Button scenario
+			.client::before {
+				bottom: variables.$sand-button-small-colordot-bottom;
+				width: variables.$sand-button-small-colordot-width;
+				height: variables.$sand-button-colordot-height;
+			}
+
+			// Standard Button Scenario
+			&.minWidth {
+				.client {
+					-webkit-margin-start: variables.$sand-button-small-colordot-width;
+
+					&::before {
+						bottom: 50%;
+						@include mixins.position-start-end(-(variables.$sand-button-small-colordot-width), initial);
+					}
+				}
+
+				.icon {
+					-webkit-margin-start: 0;
+				}
+
+				&.iconAfter {
+					.icon {
+						// Override the above rule
+						-webkit-margin-start: variables.$sand-button-icon-position-after-small-margin-start;
+					}
+				}
+			}
+		}
+
+		@include mixins.sand-custom-text-large {
+			font-size: variables.$sand-button-small-font-size-large;
+			height: variables.$sand-button-small-height-large;
+			min-width: variables.$sand-button-small-height-large;
+			line-height: (variables.$sand-button-small-height-large - (2 * variables.$sand-button-border-width));
+			--button-height: 144px;
+
+			&.minWidth {
+				min-width: variables.$sand-button-small-min-width;
+			}
+		}
+	}
+
+	// IconButton rules
+	&.iconOnly {
+		.client {
+			padding: 0;
+
+			.marquee {
+				display: none;
+			}
+		}
+
+		&.iconAfter,
+		&.iconBefore,
+		&.large,
+		&.small {
+			padding: variables.$sand-button-icon-small-padding;
+			@include mixins.padding-start-end(nth(variables.$sand-button-icon-small-padding, 2), nth(variables.$sand-button-icon-small-padding, 2));
+
+			.icon {
+				margin: 0; // reset margins for `IconButton`
+
+				@include mixins.sand-custom-text-large {
+					width: 100%;
+				}
+			}
+
+			&.red,
+			&.green,
+			&.yellow,
+			&.blue {
+				.client::before {
+					width: variables.$sand-button-icon-only-colordot-width;
+					height: variables.$sand-button-icon-only-colordot-height;
+				}
+			}
+		}
+
+		&.large {
+			padding: variables.$sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
+		}
+
+		&.red,
+		&.green,
+		&.yellow,
+		&.blue {
+			.client::before {
+				width: variables.$sand-button-icon-only-colordot-width;
+				height: variables.$sand-button-icon-only-colordot-height;
+			}
+		}
+	}
+
+	// Collapsable only has an effect if there is both an icon and text.
+	&.collapsable.hasIcon:not(.iconOnly) {
+		padding-left: 0;
+		padding-right: 0;
+		transition: min-width variables.$sand-button-collapse-duration ease-out;
+
+		.icon {
+			margin: variables.$sand-button-collapsable-icon-margin;
+		}
+
+		.marquee {
+			margin: 0;
+			opacity: 1;
+			transition: opacity variables.$sand-button-collapse-duration ease-out;
+			will-change: opacity;
+		}
+
+		&.collapsed {
+			.marquee {
+				opacity: 0;
+			}
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		& {
+			border-radius: variables-base.$sand-button-border-radius;
+			@include mixins.sand-taparea(variables.$sand-button-height);
+		}
+
+		&,
+		:global(.enact-a11y-high-contrast) & {
+			color: colors.$sand-button-text-color;
+		}
+
+		.bg {
+			@include color-mixins.sand-button-resting-bg-colors;
+			border-width: variables-base.$sand-button-bg-border-width;
+			border-style: variables-base.$sand-button-bg-border-style;
+			border-color: colors.$sand-button-border-color;
+			border-radius: variables-base.$sand-button-border-radius;
+		}
+
+		&.opaque {
+			color: colors.$sand-button-text-color;
+
+			.bg {
+				opacity: variables.$sand-button-bg-opacity;
+			}
+		}
+
+		&.transparent {
+			color: colors.$sand-button-transparent-text-color;
+
+			.bg {
+				opacity: variables.$sand-button-transparent-bg-opacity;
+			}
+
+			&.shadowed .client {
+				text-shadow: colors.$sand-button-text-shadow;
+			}
+		}
+
+		&.red .client::before {
+			background-color: colors.$sand-remote-button-red-color;
+		}
+		&.green .client::before {
+			background-color: colors.$sand-remote-button-green-color;
+		}
+		&.yellow .client::before {
+			background-color: colors.$sand-remote-button-yellow-color;
+		}
+		&.blue .client::before {
+			background-color: colors.$sand-remote-button-blue-color;
+		}
+
+		&.small {
+			@include mixins.sand-taparea(variables.$sand-button-small-height);
+		}
+
+		&.iconOnly {
+			.bg {
+				border: variables-base.$sand-button-icononly-bg-border;
+				border-radius: variables-base.$sand-button-icononly-border-radius;
+			}
+		}
+
+		&.roundBorder {
+			.bg {
+				border-radius: calc(var(--button-height) / 2);
+			}
+		}
+
+		&.selected {
+			color: colors.$sand-button-selected-text-color;
+
+			.bg {
+				@include color-mixins.sand-button-selected-colors;
+			}
+
+			&.opaque {
+				.bg {
+					opacity: variables.$sand-button-bg-opacity;
+				}
+			}
+
+			&.transparent {
+				.bg {
+					opacity: variables.$sand-button-transparent-selected-bg-opacity;
+				}
+			}
+		}
+
+		@include mixins.focus {
+			@include color-mixins.sand-spotlight-focus-text-colors;
+
+			.bg {
+				@include color-mixins.sand-button-focus-bg-colors;
+			}
+
+			.client {
+				text-shadow: none;
+			}
+
+			&.iconOnly {
+				.bg {
+					background-color: colors.$sand-button-focus-icononly-bg-color;
+				}
+			}
+
+			&.focusExpand {
+				.bg {
+					@include color-mixins.sand-bg-colors {
+						transform: variables.$sand-button-focusexpand-focus-bg-transform;
+					}
+				}
+
+				&.small .bg {
+					@include color-mixins.sand-bg-colors {
+						transform: variables.$sand-button-small-focusexpand-focus-bg-transform;
+					}
+				}
+			}
+		}
+
+		// Button-non-disabled rules
+		&:not([disabled]) {
+			@include mixins.focus {
+				z-index: 1;
+
+				&.focusExpand {
+					&.pressed,
+					&:active {
+						.bg {
+							@include color-mixins.sand-bg-colors {
+								transform: variables.$sand-button-focusexpand-pressed-bg-transform;
+							}
+						}
+
+						&.small {
+							.bg {
+								@include color-mixins.sand-bg-colors {
+									transform: variables.$sand-button-small-focusexpand-pressed-bg-transform;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		@include mixins.sand-disabled {
+			.client {
+				@include color-mixins.sand-disabled-colors;
+			}
+
+			&.opaque {
+				.bg {
+					@include color-mixins.sand-disabled-bg-colors;
+				}
+			}
+
+			@include mixins.focus {
+				.bg {
+					@include color-mixins.sand-disabled-focus-bg-colors;
+				}
+
+				.client {
+					@include color-mixins.sand-disabled-focus-content-colors;
+				}
+			}
+		}
+	}
+}

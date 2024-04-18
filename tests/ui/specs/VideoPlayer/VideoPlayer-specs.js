@@ -7,7 +7,8 @@ describe('VideoPlayer', function () {
 		videoPlayerDisabled,
 		videoPlayerSpotlightDisabled,
 		videoPlayerProps,
-		videoPlayerProps2
+		videoPlayerProps2,
+		videoPlayerPlaybackSpeed
 	} = Page.components;
 
 	describe('default', function () {
@@ -352,6 +353,41 @@ describe('VideoPlayer', function () {
 			await Page.delay(250);
 
 			expect(await videoPlayerProps2.mediaTitleInfoComponent.isExisting()).to.equal(true);
+		});
+	});
+
+	describe('playback speed', function () {
+		beforeEach(async function () {
+			await Page.open('PlaybackSpeed');
+		});
+
+		it('should playback speed to 1 when paused in fastforward mode', async function () {
+			await Page.delay(1000);
+			await Page.spotlightDown();
+			await Page.spotlightDown();
+			await Page.spotlightSelect();
+			await Page.delay(500);
+			await Page.spotlightSelect();
+
+			expect(await videoPlayerPlaybackSpeed.video.getAttribute('playbackrate')).to.equal('1.25');
+
+			await Page.spotlightUp();
+			await Page.spotlightSelect();
+
+			expect(await videoPlayerPlaybackSpeed.video.getAttribute('playbackrate')).to.equal('1');
+		});
+
+		it('should playback speed to 2 when pressed playspeed button', async function () {
+			await Page.delay(1000);
+			await Page.spotlightDown();
+			await Page.spotlightDown();
+			await Page.spotlightSelect();
+			await Page.delay(500);
+
+			await Page.spotlightRight();
+			await Page.spotlightSelect();
+
+			expect(await videoPlayerPlaybackSpeed.video.getAttribute('playbackRate')).to.equal('2');
 		});
 	});
 });
