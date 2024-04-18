@@ -11,80 +11,74 @@
 			@content;
 		}
 	}
-    @if content-exists() {
-        @include disabled {
-            opacity: 1; // reset standard disabled rule.
-            @content;
-        }
-    }
 }
 
 @mixin sand-taparea($element-size) {
-    @if (variables.$sand-smallest-tappable-size > $element-size) {
-        // Take the size of the minimum tappable area, and subtract the element's current size.
-        $_tap-offset: -(calc((variables.$sand-smallest-tappable-size - $element-size) / 2));
+	@if (variables.$sand-smallest-tappable-size > $element-size) {
+		// Take the size of the minimum tappable area, and subtract the element's current size.
+		$_tap-offset: -(calc((variables.$sand-smallest-tappable-size - $element-size) / 2));
 
-        &::before {
-            content: "";
-            position: absolute;
-            top: $_tap-offset;
-            right: $_tap-offset;
-            bottom: $_tap-offset;
-            left: $_tap-offset;
-            border-radius: variables-base.$sand-button-border-radius;
-        }
-    } @else if (variables.$sand-smallest-tappable-size <= $element-size) {
-        // Remove the tappable area if the tap area is smaller than the element's current size.
-        &::before {
-            content: none;
-        }
-    }
+		&::before {
+			content: "";
+			position: absolute;
+			top: $_tap-offset;
+			right: $_tap-offset;
+			bottom: $_tap-offset;
+			left: $_tap-offset;
+			border-radius: variables-base.$sand-button-border-radius;
+		}
+	} @else if (variables.$sand-smallest-tappable-size <= $element-size) {
+		// Remove the tappable area if the tap area is smaller than the element's current size.
+		&::before {
+			content: none;
+		}
+	}
 }
 
 @mixin sand-spotlight-margin($values...) {
-    @if (length($values) == 0) {
-        /**
-          * Add a margin to your component which includes the standard sandstone spotlight margin only on
-          * the sides.
-          */
-        margin-left: variables.$sand-spotlight-outset;
-        margin-right: variables.$sand-spotlight-outset;
-    } @else if (length($values) == 1) {
-        /**
-          * Add a margin to your component which includes the standard sandstone spotlight margin on the
-          * sides and uses the argument for margin on the top and bottom.
-          */
-        margin: nth($values, 1) variables.$sand-spotlight-outset;
-    } @else if (length($values) == 2) {
-        /**
-          * Add a margin to your component which includes the standard sandstone spotlight margin on the
-          * sides and uses the two arguments for margin on the top and bottom respectively.
-          */
-        margin: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
-    }
+	@if (length($values) == 0) {
+		/**
+		  * Add a margin to your component which includes the standard sandstone spotlight margin only on
+		  * the sides.
+		  */
+		margin-left: variables.$sand-spotlight-outset;
+		margin-right: variables.$sand-spotlight-outset;
+	} @else if (length($values) == 1) {
+		/**
+		  * Add a margin to your component which includes the standard sandstone spotlight margin on the
+		  * sides and uses the argument for margin on the top and bottom.
+		  */
+		margin: nth($values, 1) variables.$sand-spotlight-outset;
+	} @else if (length($values) == 2) {
+		/**
+		  * Add a margin to your component which includes the standard sandstone spotlight margin on the
+		  * sides and uses the two arguments for margin on the top and bottom respectively.
+		  */
+		margin: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
+	}
 }
 
 @mixin sand-spotlight-padding($values...) {
-    @if (length($values) == 0) {
-        /**
-          * Add a padding to your component which includes the standard sandstone spotlight padding only on
-          * the sides.
-          */
-        padding-left: variables.$sand-spotlight-outset;
-        padding-right: variables.$sand-spotlight-outset;
-    } @else if (length($values) == 1) {
-        /**
-		 * Add a padding to your component which includes the standard sandstone spotlight padding on the
-		 * sides and uses the argument for padding on the top and bottom.
-		 */
-        padding: nth($values, 1) variables.$sand-spotlight-outset;
-    } @else if (length($values) == 2) {
-        /**
-          * Add a padding to your component which includes the standard sandstone spotlight padding on the
-          * sides and uses the two arguments for padding on the top and bottom respectively.
-          */
-        padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
-    }
+	@if (length($values) == 0) {
+		/*
+		* Add a padding to your component which includes the standard sandstone spotlight padding only on
+		* the sides.
+		*/
+		padding-left: variables.$sand-spotlight-outset;
+		padding-right: variables.$sand-spotlight-outset;
+	} @else if (length($values) == 1) {
+		/*
+		* Add a padding to your component which includes the standard sandstone spotlight padding on the
+		* sides and uses the argument for padding on the top and bottom.
+		*/
+		padding: nth($values, 1) variables.$sand-spotlight-outset;
+	} @else if (length($values) == 2) {
+		/*
+		* Add a padding to your component which includes the standard sandstone spotlight padding on the
+		* sides and uses the two arguments for padding on the top and bottom respectively.
+		*/
+		padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
+	}
 }
 
 //
@@ -97,75 +91,75 @@
 // the default body font size, the 2nd argument is used privately by
 // ThemeDecorator to override the target of the rules.
 @mixin sand-text-base($font-size: variables.$sand-body-font-size, $target: normal) {
-    @include sand-font($target: $target) {
-        font-weight: variables.$sand-non-latin-font-weight;
-    }
+	@include sand-font($target: $target) {
+		font-weight: variables.$sand-non-latin-font-weight;
+	}
 
-    font-weight: normal;
-    font-size: $font-size;
+	font-weight: normal;
+	font-size: $font-size;
 
-    @include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height, $target);
+	@include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height, $target);
 }
 
 //
 // Sandstone Font Applicator
 //
 @mixin sand-font(
-    $family: variables.$sand-font-family,
+	$family: variables.$sand-font-family,
 	$non-latin-family: variables.$sand-non-latin-font-family,
 	$target: normal
 ) {
-    @if content-exists() {
-        font-family: $family;
+	@if content-exists() {
+		font-family: $family;
 
-        @include enact-locale(non-latin, $target) {
-            font-family: $non-latin-family;
+		@include enact-locale(non-latin, $target) {
+			font-family: $non-latin-family;
 
-            @content;
-        }
-    }
+			@content;
+		}
+	}
 }
 
 // Generic Non-Latin Font Rule generator
 @mixin sand-locale-non-latin($target) {
-    @include enact-locale(non-latin, $target) {
-        @content;
-    }
+	@include enact-locale(non-latin, $target) {
+		@content;
+	}
 }
 
 //
 // Custom Text Size Mixins
 //
 @mixin sand-custom-text-size($values...) {
-    @if (length($values) == 1) {
-        @include sand-custom-text-large {
-            font-size: $values;
-        }
-    } @else if (length($values) == 2) {
-        @include sand-custom-text-large {
-            font-size: nth($values, 1);
-        }
+	@if (length($values) == 1) {
+		@include sand-custom-text-large {
+			font-size: $values;
+		}
+	} @else if (length($values) == 2) {
+		@include sand-custom-text-large {
+			font-size: nth($values, 1);
+		}
 
-        @include sand-custom-text-locale {
-            font-size: nth($values, 2);
-        }
-    }
+		@include sand-custom-text-locale {
+			font-size: nth($values, 2);
+		}
+	}
 }
 
 @mixin sand-custom-text-large {
-    // Generic rule applicator for large text mode
-    &:global(.largeText) {
-        @content;
-    }
+	// Generic rule applicator for large text mode
+	&:global(.largeText) {
+		@content;
+	}
 }
 
 @mixin sand-custom-text-locale {
-    // Generic rule applicator for latin and non-latin large text mode
-    @include enact-locale(non-latin) {
-        @include sand-custom-text-large {
-            @content;
-        }
-    }
+	// Generic rule applicator for latin and non-latin large text mode
+	@include enact-locale(non-latin) {
+		@include sand-custom-text-large {
+			@content;
+		}
+	}
 }
 
 //
@@ -173,50 +167,50 @@
 //
 
 @mixin sand-body-text {
-    font-weight: variables.$sand-body-font-weight;
-    font-size: variables.$sand-body-font-size;
-    font-style: variables.$sand-body-font-style;
+	font-weight: variables.$sand-body-font-weight;
+	font-size: variables.$sand-body-font-size;
+	font-style: variables.$sand-body-font-style;
 
-    @include sand-font(variables.$sand-body-font-family, variables.$sand-non-latin-font-family-light) {
-        font-weight: variables.$sand-non-latin-body-font-weight;
-        font-size: variables.$sand-non-latin-body-font-size;
-        font-style: variables.$sand-non-latin-body-font-style;
-    };
+	@include sand-font(variables.$sand-body-font-family, variables.$sand-non-latin-font-family-light) {
+		font-weight: variables.$sand-non-latin-body-font-weight;
+		font-size: variables.$sand-non-latin-body-font-size;
+		font-style: variables.$sand-non-latin-body-font-style;
+	};
 
-    @include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height);
+	@include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height);
 
-    a:link {color: inherit; text-decoration:none;}
-    a:visited {color: inherit; text-decoration:none;}
-    a:hover {color: inherit; text-decoration:none;}
-    a:active {color: inherit; text-decoration:none;}
+	a:link {color: inherit; text-decoration:none;}
+	a:visited {color: inherit; text-decoration:none;}
+	a:hover {color: inherit; text-decoration:none;}
+	a:active {color: inherit; text-decoration:none;}
 }
 
 @mixin sand-large-button-text {
-    @include sand-font(variables.$sand-button-font-family, variables.$sand-non-latin-button-font-family) {
-        font-size: variables.$sand-non-latin-button-large-font-size;
-        font-style: variables.$sand-non-latin-button-font-style;
-        font-weight: variables.$sand-non-latin-button-font-weight;
-    }
+	@include sand-font(variables.$sand-button-font-family, variables.$sand-non-latin-button-font-family) {
+		font-size: variables.$sand-non-latin-button-large-font-size;
+		font-style: variables.$sand-non-latin-button-font-style;
+		font-weight: variables.$sand-non-latin-button-font-weight;
+	}
 
-    font-size: variables.$sand-button-font-size;
-    font-style: variables.$sand-button-font-style;
-    font-weight: variables.$sand-button-font-weight;
+	font-size: variables.$sand-button-font-size;
+	font-style: variables.$sand-button-font-style;
+	font-weight: variables.$sand-button-font-weight;
 
-    @include font-kerning;
+	@include font-kerning;
 }
 
 @mixin sand-small-button-text {
-    @include sand-font(variables.$sand-button-small-font-family, variables.$sand-non-latin-button-font-family) {
-        font-size: variables.$sand-non-latin-button-small-font-size;
-        font-style: variables.$sand-non-latin-button-small-font-style;
-        font-weight: variables.$sand-non-latin-button-small-font-weight;
-    }
+	@include sand-font(variables.$sand-button-small-font-family, variables.$sand-non-latin-button-font-family) {
+		font-size: variables.$sand-non-latin-button-small-font-size;
+		font-style: variables.$sand-non-latin-button-small-font-style;
+		font-weight: variables.$sand-non-latin-button-small-font-weight;
+	}
 
-    font-size: variables.$sand-button-small-font-size;
-    font-style: variables.$sand-button-small-font-style;
-    font-weight: variables.$sand-button-small-font-weight;
+	font-size: variables.$sand-button-small-font-size;
+	font-style: variables.$sand-button-small-font-style;
+	font-weight: variables.$sand-button-small-font-weight;
 
-    @include font-kerning;
+	@include font-kerning;
 }
 
 // Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
@@ -227,11 +221,11 @@
 //   @include enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
 //   @include enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
 @mixin sand-enact-locale-line-height($normal: variables.$sand-common-line-height, $tallglyph: variables.$sand-tallglyph-line-height, $target: normal) {
-    @if ($target == normal) {
-        @include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target);
-    }
+	@if ($target == normal) {
+		@include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target, variables.$locale-tallglyph-languages);
+	}
 }
 
 @mixin sand-enact-locale-tallglyph($rule, $value, $target: normal) {
-    @include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
+	@include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
 }

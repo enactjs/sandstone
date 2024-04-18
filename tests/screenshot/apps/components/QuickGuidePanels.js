@@ -1,25 +1,25 @@
-import QuickGuidePanels, {Panel} from '../../../../QuickGuidePanels';
+import QuickGuidePanels, {QuickGuidePanel} from '../../../../QuickGuidePanels';
 
 import {withConfig} from './utils';
 
 const defaultQuickGuidePanelsTests = [
 	<QuickGuidePanels>
-		<Panel>View 1</Panel>
-		<Panel>View 2</Panel>
-		<Panel>View 3</Panel>
+		<QuickGuidePanel>View 1</QuickGuidePanel>
+		<QuickGuidePanel>View 2</QuickGuidePanel>
+		<QuickGuidePanel>View 3</QuickGuidePanel>
 	</QuickGuidePanels>,
 	<QuickGuidePanels index={1}>
-		<Panel>View 1</Panel>
-		<Panel>View 2</Panel>
-		<Panel>View 3</Panel>
+		<QuickGuidePanel>View 1</QuickGuidePanel>
+		<QuickGuidePanel>View 2</QuickGuidePanel>
+		<QuickGuidePanel>View 3</QuickGuidePanel>
 	</QuickGuidePanels>,
 	<QuickGuidePanels index={2}>
-		<Panel>View 1</Panel>
-		<Panel>View 2</Panel>
-		<Panel>View 3</Panel>
+		<QuickGuidePanel>View 1</QuickGuidePanel>
+		<QuickGuidePanel>View 2</QuickGuidePanel>
+		<QuickGuidePanel>View 3</QuickGuidePanel>
 	</QuickGuidePanels>,
 	<QuickGuidePanels>
-		<Panel>View 1</Panel>
+		<QuickGuidePanel>View 1</QuickGuidePanel>
 	</QuickGuidePanels>
 ];
 
