@@ -103,6 +103,9 @@ $sand-tablayout-tab-font-size:      66px;
 $sand-non-latin-button-large-font-size: 72px;
 $sand-non-latin-button-small-font-size: 54px;
 
+$sand-non-latin-button-large-font-size: 72px;
+$sand-non-latin-button-small-font-size: 54px;
+
 // Other Font Properties
 // ---------------------------------------
 $sand-font-family: "Sandstone";        // Formerly weight: 700
@@ -215,6 +218,8 @@ $sand-button-collapsable-icon-margin: 0 24px;
 // ---------------------------------------
 $sand-item-font-weight: $sand-spottable-font-weight;
 $sand-item-line-height: $sand-common-line-height;
+$sand-item-line-height-large: $sand-item-line-height;
+$sand-item-label-line-height: $sand-item-line-height;
 $sand-item-height: 156px;
 $sand-item-height-large: $sand-item-height;
 $sand-item-shadow-height: $sand-spotlight-focus-shadow-height;
@@ -222,6 +227,7 @@ $sand-item-small-font-size-large:   72px;
 $sand-item-small-font-weight: $sand-item-font-weight;
 $sand-item-small-line-height: $sand-common-line-height;
 $sand-item-small-label-line-height: $sand-item-small-line-height;
+$sand-item-small-line-height-large: $sand-item-small-line-height;
 $sand-item-withlabel-height: 240px;
 $sand-item-vertical-padding: 6px;
 $sand-item-inline-max-width: 480px;
@@ -233,6 +239,10 @@ $sand-item-small-height: 126px;
 $sand-item-small-height-large: $sand-item-small-height;
 $sand-item-small-withlabel-height: 210px;
 $sand-tallglyph-item-line-height: $sand-tallglyph-line-height;
+$sand-tallglyph-item-line-height-large: $sand-tallglyph-item-line-height;
+$sand-tallglyph-item-label-line-height: $sand-tallglyph-item-line-height;
+$sand-tallglyph-item-small-line-height: $sand-tallglyph-line-height;
+$sand-tallglyph-item-small-line-height-large: $sand-tallglyph-item-small-line-height;
 
 // Checkbox
 // ---------------------------------------

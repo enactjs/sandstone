@@ -8,7 +8,7 @@
 @use "../styles/variables-base";
 
 .button {
-	 //default is size="large"
+	//default is size="large"
 	@include mixins.sand-large-button-text;
 	height: variables.$sand-button-height;
 	line-height: (variables.$sand-button-height - (2 * variables.$sand-button-border-width));
@@ -101,10 +101,10 @@
 		}
 	}
 
-	//**
-	//* The marquee container of the client area. Added by {@link sandstone/MarqueeDecorator}.
-	//* @public
-	//*/
+	/*
+	* The marquee container of the client area. Added by {@link sandstone/MarqueeDecorator}.
+	* @public
+	*/
 	.marquee {
 		flex-grow: 1;
 	}
@@ -217,7 +217,7 @@
 		&.large,
 		&.small {
 			padding: variables.$sand-button-icon-small-padding;
-			@include mixins.padding-start-end(nth(variables.$sand-button-icon-small-padding, 2) nth(variables.$sand-button-icon-small-padding, 2));
+			@include mixins.padding-start-end(nth(variables.$sand-button-icon-small-padding, 2), nth(variables.$sand-button-icon-small-padding, 2));
 
 			.icon {
 				margin: 0; // reset margins for `IconButton`
