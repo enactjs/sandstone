@@ -1,6 +1,6 @@
 {
   "name": "@enact/sandstone",
-  "version": "2.8.0",
+  "version": "2.9.0-alpha.1",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "repository": {
     "type": "git",
@@ -42,11 +42,11 @@
     "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^4.8.0",
-    "@enact/i18n": "^4.8.0",
-    "@enact/spotlight": "^4.8.0",
-    "@enact/ui": "^4.8.0",
-    "@enact/webos": "^4.8.0",
+    "@enact/core": "^4.9.0-alpha.1",
+    "@enact/i18n": "^4.9.0-alpha.1",
+    "@enact/spotlight": "^4.9.0-alpha.1",
+    "@enact/ui": "^4.9.0-alpha.1",
+    "@enact/webos": "^4.9.0-alpha.1",
     "classnames": "^2.5.1",
     "invariant": "^2.2.4",
     "prop-types": "^15.8.1",
@@ -54,15 +54,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "warning": "^4.0.3",
-    "ilib": "^14.20.0"
+    "ilib": "14.19.0"
   },
   "peerDependencies": {
-    "ilib": "^14.20.0 || ^14.20.0-webos1"
+    "ilib": "14.19.0 || 14.19.0-webos1"
   },
   "devDependencies": {
     "@enact/docs-utils": "^0.4.8",
     "@enact/ui-test-utils": "^1.0.7",
     "eslint-config-enact-proxy": "^1.0.7",
-    "ilib": "^14.20.0"
+    "ilib": "14.19.0"
   }
 }
