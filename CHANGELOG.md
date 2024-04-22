@@ -2,7 +2,7 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [2.9.0-alpha.2] - 2024-04-22
 
 ### Added
 
