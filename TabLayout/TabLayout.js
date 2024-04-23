@@ -270,13 +270,14 @@ const TabLayoutBase = kind({
 			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target) && target.tagName !== 'INPUT') {
 				Spotlight.setPointerMode(false);
 				ev.preventDefault();
-				if (Spotlight.move(direction)) {
+
+				Spotlight.set(spotlightId, {navigableFilter: null});
+				const nextTarget = getTargetByDirectionFromElement(direction, target);
+				Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
+
+				if (!document.querySelector(`.${componentCss.tabs}`).contains(nextTarget) && Spotlight.move(direction)) {
 					ev.stopPropagation();
 				} else if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
-					Spotlight.set(spotlightId, {navigableFilter: null});
-					const nextTarget = getTargetByDirectionFromElement(direction, target);
-					Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
-
 					if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
 						forward('onExpand', ev, props);
 					}
