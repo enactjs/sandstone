@@ -3,7 +3,7 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
-import {Panel, Header} from '@enact/sandstone/Panels';
+import Panels, {Panel, Header} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -474,3 +474,28 @@ export const WithInputField = () => {
 };
 
 WithInputField.storyName = 'With InputField';
+
+export const InPanels = () => {
+	return (
+		<Panels index={1} noCloseButton>
+			<Panel />
+			<Panel>
+				<Header title="Header Title" />
+				<TabLayout>
+					<Tab icon="home" title="Tab 0">
+						<Item>First Item</Item>
+						<Item>Second Item</Item>
+
+					</Tab>
+					<Tab icon="gear" title="Tab 1">
+						<BodyText>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+						</BodyText>
+					</Tab>
+				</TabLayout>
+			</Panel>
+		</Panels>
+	);
+};
+
+InPanels.storyName = 'in Panels';
