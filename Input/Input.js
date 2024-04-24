@@ -363,6 +363,7 @@ const InputPopupBase = kind({
 		children,
 		css,
 		defaultValue,
+		disabled,
 		inputFieldSpotlightId,
 		noBackButton,
 		noSubmitButton,
@@ -395,6 +396,7 @@ const InputPopupBase = kind({
 			});
 		}
 		const id = `inputPopup`;
+		const openPopup = !disabled && open;
 		const ariaLabelledBy = popupAriaLabel ? null : `${id}_title ${id}_subtitle`;
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
@@ -427,7 +429,7 @@ const InputPopupBase = kind({
 					className={popupClassName}
 					noAlertRole
 					noAnimation
-					open={open}
+					open={openPopup}
 					role="region"
 				>
 					{popupType === 'fullscreen' ? backButton : null}
