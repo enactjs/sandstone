@@ -22,9 +22,8 @@ describe('onKeyDown [QWTC-2062]', function () {
 		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('1');
 	});
 
-	// TODO: Fix to wrap bug [ENYO-6468]
-	it.skip('should prevent bubbling when wrapping', async function () {
-		await Page.spotlightRight();
+
+	it('should prevent bubbling when wrapping', async function () {
 		await Page.spotlightRight();
 		await Page.spotlightSelect();
 		await Page.buttonLeft.moveTo();
@@ -36,16 +35,15 @@ describe('onKeyDown [QWTC-2062]', function () {
 		await Page.spotlightDown();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
 		await expectFocusedItem(0, 'focus 3');
-		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('0');
+		expect(await Page.list.getAttribute('data-keydown-events')).to.be.null();
 	});
 
-	it.skip('should prevent bubbling when wrapping', async function () {
+	it('should prevent bubbling when wrapping', async function () {
 		// Wrap knobs Setting
 		await Page.spotlightRight();
 		await Page.spotlightSelect();
-		await Page.spotlightDown();
+		await Page.buttonLeft.moveTo();
 		await Page.spotlightRight();
-		// TODO: expectFocusedItem is not working in case of wrap
 		await expectFocusedItem(0, 'focus');
 		await Page.spotlightUp();
 		await Page.spotlightUp();
@@ -54,7 +52,7 @@ describe('onKeyDown [QWTC-2062]', function () {
 		await Page.spotlightDown();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
 		await expectFocusedItem(0, 'focus 3');
-		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('0');
+		expect(await Page.list.getAttribute('data-keydown-events')).to.be.null();
 	});
 
 	it('should allow bubbling while navigating out of a list using visible focusableScrollbar via items', async function () {
