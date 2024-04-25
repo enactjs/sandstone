@@ -11,9 +11,9 @@
  */
 
 import Pure from '@enact/ui/internal/Pure';
-import DateFactory from 'ilib/lib/DateFactory';
-import DateFmt from 'ilib/lib/DateFmt';
-import LocaleInfo from 'ilib/lib/LocaleInfo';
+import {DateFactory} from '@enact/i18n/iLibLink';
+import {DateFmt} from '@enact/i18n/iLibLink';
+import {LocaleInfo} from '@enact/i18n/iLibLink';
 
 import {DateTimeDecorator} from '../internal/DateTime';
 import Skinnable from '../Skinnable';

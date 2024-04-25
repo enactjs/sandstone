@@ -2,7 +2,7 @@ import kind from '@enact/core/kind';
 import {memoize} from '@enact/core/util';
 import ilib from '@enact/i18n';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import NumFmt from 'ilib/lib/NumFmt';
+import {NumFmt} from '@enact/i18n/iLibLink';
 import PropTypes from 'prop-types';
 
 import Tooltip from '../TooltipDecorator/Tooltip';

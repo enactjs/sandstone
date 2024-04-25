@@ -11,7 +11,7 @@ import {memoize} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
-import DateFactory from 'ilib/lib/DateFactory';
+import {DateFactory} from '@enact/i18n/iLibLink';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 

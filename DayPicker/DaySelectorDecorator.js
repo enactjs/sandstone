@@ -2,8 +2,8 @@ import {forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {coerceArray, memoize} from '@enact/core/util';
 import ilib from '@enact/i18n';
-import DateFmt from 'ilib/lib/DateFmt';
-import LocaleInfo from 'ilib/lib/LocaleInfo';
+import {DateFmt} from '@enact/i18n/iLibLink';
+import {LocaleInfo} from '@enact/i18n/iLibLink';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
 

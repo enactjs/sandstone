@@ -1,7 +1,7 @@
 /* global ILIB_SANDSTONE_PATH */
 
 import {getIStringFromBundle} from '@enact/i18n/src/resBundle';
-import ResBundle from 'ilib/lib/ResBundle';
+import {ResBundle} from '@enact/i18n/iLibLink';
 
 // The ilib.ResBundle for the active locale used by $L
 let resBundle;

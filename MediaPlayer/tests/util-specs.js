@@ -1,5 +1,5 @@
 import {memoize} from '@enact/core/util';
-import DurationFmt from 'ilib/lib/DurationFmt';
+import {DurationFmt} from '@enact/i18n/iLibLink';
 import {render} from '@testing-library/react';
 
 import {countReactChildren, parseTime, secondsToPeriod, secondsToTime} from '../util';

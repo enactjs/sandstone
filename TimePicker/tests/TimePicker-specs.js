@@ -1,4 +1,4 @@
-import ilib from 'ilib';
+import ilib from '@enact/i18n';
 import '@testing-library/jest-dom';
 import {act, fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

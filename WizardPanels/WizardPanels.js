@@ -9,7 +9,7 @@ import {Cell, Column, Row} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
-import IString from 'ilib/lib/IString';
+import {IString} from '@enact/i18n/iLibLink';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {createContext, useRef, useState, useCallback, Children} from 'react';

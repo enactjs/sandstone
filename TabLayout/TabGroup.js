@@ -6,7 +6,7 @@ import Group from '@enact/ui/Group';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
-import IString from 'ilib/lib/IString';
+import {IString} from '@enact/i18n/iLibLink';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useMemo} from 'react';

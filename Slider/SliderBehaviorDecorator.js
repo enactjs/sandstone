@@ -2,7 +2,7 @@ import {forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import Pause from '@enact/spotlight/Pause';
-import IString from 'ilib/lib/IString';
+import {IString} from '@enact/i18n/iLibLink';
 import PropTypes from 'prop-types';
 import {Component, createRef} from 'react';
 

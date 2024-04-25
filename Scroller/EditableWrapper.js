@@ -10,7 +10,7 @@ import {getLastPointerPosition, getPointerMode, setPointerMode} from '@enact/spo
 import {Announce} from '@enact/ui/AnnounceDecorator';
 import Touchable from '@enact/ui/Touchable';
 import classNames from 'classnames';
-import IString from 'ilib/lib/IString';
+import {IString} from '@enact/i18n/iLibLink';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
 
