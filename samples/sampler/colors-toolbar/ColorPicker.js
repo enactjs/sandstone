@@ -1,6 +1,6 @@
 import {useGlobals} from '@storybook/api';
 import PropTypes from 'prop-types';
-import React, {useCallback, useState} from 'react'; // eslint-disable-line
+import React, {useCallback} from 'react'; // eslint-disable-line
 
 import {
 	BACKGROUNDCOLOR_ADDON_ID,

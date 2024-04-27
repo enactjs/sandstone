@@ -5,12 +5,14 @@ import kind from '@enact/core/kind';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import PropTypes from 'prop-types';
+import {useEffect} from 'react';
 
 import css from './ThemeEnvironment.module.less';
 
 // custom theme imports
-import {hexToRGB} from '../../utils/hexToRGB';
 import {generateStylesheet} from '../../utils/generateStylesheet';
+import LS2Request from '@enact/webos/LS2Request';
+import {platform} from '@enact/webos/platform';
 
 const reloadPage = () => {
 	const {protocol, host, pathname} = window.parent.location;
@@ -69,10 +71,45 @@ const StorybookDecorator = (story, config = {}) => {
 		classes.debug = true;
 	}
 
-	// console.log('xaxa', globals);
+	// beginning of custom theme code
+	const request = new LS2Request();
+	useEffect(() => {
+		if (platform.tv) {
+			request.send({
+				service: 'luna://com.webos.service.settings/',
+				method: 'getSystemSettings',
+				parameters: {
+					category: 'customUi',
+					keys: ['theme']
+				},
+				onSuccess: (res) => {
+					console.log(res);
+				}
+			});
+		}
+
+		// SET THEME KEY EMPTY STRING
+		// request.send({
+		// 	service: 'luna://com.webos.service.settings/',
+		// 	method: 'setSystemSettings',
+		// 	parameters: {
+		// 		category: 'customUi',
+		// 		settings: {
+		// 			theme: ''
+		// 		}
+		// 	},
+		// 	onSuccess: (res) => {
+		// 		console.log(res)
+		// 	}
+		// });
+	}, []);
+
 	const {ComponentBackgroundColor='#7D848C', FocusBackgroundColor='#E6E6E6', PopupBackgroundColor='#575E66', ComponentTextColor='#E6E6E6', SubTextColor='#ABAEB3'} = globals;
-	const colors = generateStylesheet(globals, ComponentBackgroundColor, FocusBackgroundColor, PopupBackgroundColor, ComponentTextColor, SubTextColor);
-	console.log('xaxaxa', colors)
+	const generatedColors = generateStylesheet(ComponentBackgroundColor, FocusBackgroundColor, PopupBackgroundColor, ComponentTextColor, SubTextColor);
+	const background = {'--sand-env-background': globals.background === 'default' ? '' : globals.background};
+	const mergedStyles = {...generatedColors, ...background};
+
+	// end of custom theme code
 
 	return (
 		<Theme
@@ -82,15 +119,7 @@ const StorybookDecorator = (story, config = {}) => {
 			locale={globals.locale}
 			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
 			highContrast={JSON.parse(globals['high contrast'])}
-			style={{
-				'--sand-env-background': globals.background === 'default' ? '' : globals.background,
-				// '--sand-text-color-rgb': '194, 46, 46',
-				colors,
-				// '--sand-component-bg-color': '#519a51',
-				// '--sand-component-text-color-rgb': hexToRGB(config.globals.ComponentTextColor) || '255, 0, 0',
-				// '--sand-component-text-sub-color-rgb': '0, 0, 255',
-				// '--sand-overlay-bg-color-rgb': '0, 0, 255'
-			}}
+			style={mergedStyles}
 			skin={globals.skin}
 			{...hasProps ? config.parameters.props : null}
 		>

@@ -95,8 +95,7 @@ export const globalTypes = {
 	'debug aria': getBooleanType('debug aria'),
 	'debug layout': getBooleanType('debug layout'),
 	'debug spotlight': getBooleanType('debug spotlight'),
-	'debug sprites': getBooleanType('debug sprites'),
-	// custom theme globals
+	'debug sprites': getBooleanType('debug sprites')
 };
 
 export const decorators = [ThemeEnvironment];
