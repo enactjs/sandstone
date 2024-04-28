@@ -7,6 +7,27 @@ import {themes} from '@storybook/theming';
 
 import ThemeEnvironment from '../src/ThemeEnvironment';
 
+// custom decorator imports
+import {addDecorator} from '@storybook/react';
+import {CustomStoryDecorator} from '../colors-toolbar/CustomStoryDecorator';
+import {platform} from '@enact/webos/platform';
+
+// if running in webos environment, render a list of color pickers in every story
+export const GlobalDecorator = (Story) => {
+	if (!platform.tv) {
+		return (
+			<div style={{padding: '20px'}}>
+				<CustomStoryDecorator />
+				<Story />
+			</div>
+		)
+	} else {
+		return null;
+	}
+};
+
+addDecorator(GlobalDecorator);
+
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
 	'local': '',
