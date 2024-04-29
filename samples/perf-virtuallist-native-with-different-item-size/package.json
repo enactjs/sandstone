@@ -28,7 +28,7 @@
     "@enact/spotlight": "^4.9.0-alpha.1",
     "@enact/ui": "^4.9.0-alpha.1",
     "ilib": "14.19.0",
-    "react": "^18.2.0",
+    "react": "18.2.0",
     "react-dom": "^18.2.0"
   }
 }
