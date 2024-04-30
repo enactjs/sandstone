@@ -1,0 +1,44 @@
+@import "../styles/variables.less";
+
+.pageViews {
+	height: 100%;
+	width: 100%;
+	display: inline-flex;
+	flex-direction: column;
+
+    .navButton {
+		text-align: center;
+		display: flex;
+		align-items: center;
+		width: 216px;
+		justify-content: center;
+	}
+
+	.steps {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	&.number .steps {
+		height: 252px;
+		.pageNumber {
+			width: 126px;
+		}
+		.separator {
+			width: 60px;
+		}
+	}
+
+	&.dot .steps {
+		height: 132px;
+	}
+
+	.contentsArea, .viewManager{
+		overflow: hidden;
+	}
+
+	.horizontalLayout {
+		height: 100%;
+	}
+}
