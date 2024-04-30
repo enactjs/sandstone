@@ -278,10 +278,8 @@ const TabLayoutBase = kind({
 
 				if (!isNextTargetInTabs && Spotlight.move(direction)) {
 					ev.stopPropagation();
-				} else if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
-					if (isNextTargetInTabs) {
-						forward('onExpand', ev, props);
-					}
+				} else if (isNextTargetInTabs && document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
+					forward('onExpand', ev, props);
 				}
 			} else if (is('enter')(keyCode) && !collapsed && document.querySelector(`[data-spotlight-id='${spotlightId}-tabs-expanded']`).contains(target) && target.tagName !== 'INPUT') {
 				ev.stopPropagation();
