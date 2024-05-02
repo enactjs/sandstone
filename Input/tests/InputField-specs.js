@@ -304,3 +304,25 @@ describe('InputField Specs', () => {
 		expect(inputField).toHaveAttribute(expectedAttribute, customLabel);
 	});
 });
+
+describe('UserAgent test', () => {
+	test('without userAgent', async () => {
+		const handleChange = jest.fn();
+		const value = 'blah';
+		const user = userEvent.setup();
+		render(<InputField onChange={handleChange} type="passwordtel" />);
+		const inputField = screen.getByPlaceholderText('');
+
+		await user.type(inputField, value);
+	});
+
+	test('with userAgent', async () => {
+		const handleChange = jest.fn();
+		const value = 'blah';
+		const user = userEvent.setup();
+		render(<InputField onChange={handleChange} type="passwordtel" userAgent="Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 WebAppManager" />);
+		const inputField = screen.getByPlaceholderText('');
+
+		await user.type(inputField, value);
+	});
+});
