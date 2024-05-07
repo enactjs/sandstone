@@ -276,7 +276,7 @@ const PageViewsBase = kind({
 						{pageIndicatorType === 'dot' ? nextNavigationButton : null}
 					</Row>
 				</Column>
-				{totalIndex > 1 && pageIndicatorType === 'number' ? steps : null}
+				{pageIndicatorType === 'number' ? steps : null}
 			</div>
 		);
 	}

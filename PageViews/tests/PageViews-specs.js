@@ -166,10 +166,10 @@ describe('PageViews Specs', () => {
 	);
 
 	test(
-		'should show steps if total pages are more than one',
+		'should show steps if `pageIndicatorType` is "dot" and total pages are more than one',
 		() => {
 			render(
-				<PageViews total={2}>
+				<PageViews total={2} pageIndicatorType="dot">
 					<Page />
 					<Page />
 				</PageViews>
@@ -181,16 +181,55 @@ describe('PageViews Specs', () => {
 	);
 
 	test(
-		'should not show steps if total page is one',
+		'should not show steps if `pageIndicatorType` is "dot" and total page is one',
 		() => {
 			render(
-				<PageViews total={1}>
+				<PageViews total={1} pageIndicatorType="dot">
 					<Page />
 				</PageViews>
 			);
 
 			const steps = screen.queryByRole('list');
 			expect(steps).toBeNull();
+		}
+	);
+
+	test(
+		'should show steps if `pageIndicatorType` is "number" and total pages are more than one',
+		() => {
+			const total = 2;
+			render(
+				<PageViews total={total} pageIndicatorType="number">
+					<Page />
+					<Page />
+				</PageViews>
+			);
+
+			const pageNumber = screen.getByText(1);
+			const separator = screen.getByText('/');
+			const totalNumber = screen.getByText(total);
+			expect(pageNumber).toBeInTheDocument();
+			expect(separator).toBeInTheDocument();
+			expect(totalNumber).toBeInTheDocument();
+		}
+	);
+
+	test(
+		'should show steps if `pageIndicatorType` is "number" and total page is one',
+		() => {
+			const total = 1;
+			render(
+				<PageViews total={total} pageIndicatorType="number">
+					<Page />
+				</PageViews>
+			);
+
+			const pageNumber = screen.getAllByText(1)[0];
+			const separator = screen.getByText('/');
+			const totalNumber = screen.getAllByText(total)[1];
+			expect(pageNumber).toBeInTheDocument();
+			expect(separator).toBeInTheDocument();
+			expect(totalNumber).toBeInTheDocument();
 		}
 	);
 });
