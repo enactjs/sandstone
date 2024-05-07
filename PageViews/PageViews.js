@@ -246,17 +246,17 @@ const PageViewsBase = kind({
 		prevNavigationButton,
 		reverseTransition,
 		steps,
+		totalIndex,
 		...rest
 	}) => {
 
 		delete rest.componentRef;
 		delete rest.onNextClick;
 		delete rest.onPrevClick;
-		delete rest.totalIndex;
 
 		return (
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
-				{pageIndicatorType === 'dot' ? steps : null}
+				{totalIndex > 1 && pageIndicatorType === 'dot' ? steps : null}
 				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
 					<Row className={css.horizontalLayout}>
 						{pageIndicatorType === 'dot' ? prevNavigationButton : null}
@@ -276,7 +276,7 @@ const PageViewsBase = kind({
 						{pageIndicatorType === 'dot' ? nextNavigationButton : null}
 					</Row>
 				</Column>
-				{pageIndicatorType === 'number' ? steps : null}
+				{totalIndex > 1 && pageIndicatorType === 'number' ? steps : null}
 			</div>
 		);
 	}

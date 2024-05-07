@@ -165,4 +165,32 @@ describe('PageViews Specs', () => {
 		}
 	);
 
+	test(
+		'should show steps if total pages are more than one',
+		() => {
+			render(
+				<PageViews total={2}>
+					<Page />
+					<Page />
+				</PageViews>
+			);
+
+			const steps = screen.getByRole('list');
+			expect(steps).toBeInTheDocument();
+		}
+	);
+
+	test(
+		'should not show steps if total page is one',
+		() => {
+			render(
+				<PageViews total={1}>
+					<Page />
+				</PageViews>
+			);
+
+			const steps = screen.queryByRole('list');
+			expect(steps).toBeNull();
+		}
+	);
 });
