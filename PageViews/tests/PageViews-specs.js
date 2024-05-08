@@ -169,7 +169,7 @@ describe('PageViews Specs', () => {
 		'should show steps if `pageIndicatorType` is "dot" and total pages are more than one',
 		() => {
 			render(
-				<PageViews total={2} pageIndicatorType="dot">
+				<PageViews pageIndicatorType="dot">
 					<Page />
 					<Page />
 				</PageViews>
@@ -184,7 +184,7 @@ describe('PageViews Specs', () => {
 		'should not show steps if `pageIndicatorType` is "dot" and total page is one',
 		() => {
 			render(
-				<PageViews total={1} pageIndicatorType="dot">
+				<PageViews pageIndicatorType="dot">
 					<Page />
 				</PageViews>
 			);
@@ -199,7 +199,7 @@ describe('PageViews Specs', () => {
 		() => {
 			const total = 2;
 			render(
-				<PageViews total={total} pageIndicatorType="number">
+				<PageViews pageIndicatorType="number">
 					<Page />
 					<Page />
 				</PageViews>
@@ -219,7 +219,7 @@ describe('PageViews Specs', () => {
 		() => {
 			const total = 1;
 			render(
-				<PageViews total={total} pageIndicatorType="number">
+				<PageViews pageIndicatorType="number">
 					<Page />
 				</PageViews>
 			);
