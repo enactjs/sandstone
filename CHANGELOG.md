@@ -4,6 +4,18 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
+
+## [2.9.0-alpha.2] - 2024-04-22
+
+### Added
+
+- `sandstone/ThemeDecorator.AccessibilityDecorator` prop `focusRing` to support focus ring to IcomItem and ImageItem
+
+## [2.9.0-alpha.1] - 2024-04-09
+
 ### Added
 
 - `sandstone/PageViews` component
@@ -13,6 +25,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - Popup family components to enhance contrast in high-contrast mode for improved visibility
+
+### Fixed
+
+- `sandstone/VirtualList` to show the focused item properly when switching from pointer mode to 5-way mode
+- `sandstone/VirtualList.VirtualGridList` to show the focused item fully when focus moves via 5-way keys inside a list
+
+## [2.7.15] - 2024-03-05
+
+### Added
+
+- `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
 
 ### Fixed
 
@@ -32,6 +55,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/WizardPanels` to read out the correct step when using `current` prop
+
+## [2.7.14] - 2024-01-23
+
+No significant changes.
 
 ## [2.7.13] - 2023-12-08
 
