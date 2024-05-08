@@ -5,7 +5,7 @@ import kind from '@enact/core/kind';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import PropTypes from 'prop-types';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 import css from './ThemeEnvironment.module.less';
 
@@ -13,6 +13,7 @@ import css from './ThemeEnvironment.module.less';
 import {generateStylesheet} from '../../utils/generateStylesheet';
 import LS2Request from '@enact/webos/LS2Request';
 import {platform} from '@enact/webos/platform';
+import {AppContext, customColorsContext} from '../../colors-toolbar/constants';
 
 const reloadPage = () => {
 	const {protocol, host, pathname} = window.parent.location;
@@ -73,6 +74,27 @@ const StorybookDecorator = (story, config = {}) => {
 
 	// beginning of custom theme code
 	const request = new LS2Request();
+	const [context, setContext] = useState(customColorsContext);
+
+	const defaultKeyThemeValue = JSON.stringify({
+		"version": "0.1",
+		"activeTheme": "defaultTheme",
+		"backgroundColor": "#000000",
+		"componentBackgroundColor": "#7D848C",
+		"focusBackgroundColor": "#E6E6E6",
+		"popupBackgroundColor": "#575E66",
+		"subtitleTextColor": "#ABAEB3",
+		"textColor": "#E6E6E6",
+		colors: generateStylesheet(
+			"#000000",
+			"#7D848C",
+			"#E6E6E6",
+			"#575E66",
+			"#ABAEB3",
+			"#E6E6E6"
+		)
+	});
+
 	useEffect(() => {
 		if (platform.tv) {
 			request.send({
@@ -83,7 +105,25 @@ const StorybookDecorator = (story, config = {}) => {
 					keys: ['theme']
 				},
 				onSuccess: (res) => {
-					console.log(res);
+					// console.log(res);
+					if (res.settings.theme !== '' && res) {
+						const parsedKeyData = JSON.parse(res.settings.theme);
+						setContext({...parsedKeyData});
+						// if `theme` key is an empty string, update the context with a default value, then make a SET call to service settings and set
+						// `theme` key  with a default value
+					} else if (res.settings.theme === '') {
+						setContext(JSON.parse(defaultKeyThemeValue));
+						request.send({
+							service: 'luna://com.webos.service.settings/',
+							method: 'setSystemSettings',
+							parameters: {
+								category: 'customUi',
+								settings: {
+									theme: defaultKeyThemeValue
+								}
+							}
+						});
+					}
 				}
 			});
 		}
@@ -104,27 +144,35 @@ const StorybookDecorator = (story, config = {}) => {
 		// });
 	}, []);
 
-	const {ComponentBackgroundColor='#7D848C', FocusBackgroundColor='#E6E6E6', PopupBackgroundColor='#575E66', ComponentTextColor='#E6E6E6', SubTextColor='#ABAEB3'} = globals;
-	const generatedColors = generateStylesheet(ComponentBackgroundColor, FocusBackgroundColor, PopupBackgroundColor, ComponentTextColor, SubTextColor);
+	const {
+		componentBackgroundColor,
+		focusBackgroundColor,
+		popupBackgroundColor,
+		textColor,
+		subtitleTextColor
+	} = platform.tv ? context : globals;
+	const generatedColors = generateStylesheet(componentBackgroundColor, focusBackgroundColor, popupBackgroundColor, textColor, subtitleTextColor);
 	const background = {'--sand-env-background': globals.background === 'default' ? '' : globals.background};
 	const mergedStyles = {...generatedColors, ...background};
 
 	// end of custom theme code
 
 	return (
-		<Theme
-			className={classnames(classes)}
-			title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
-			description={hasInfoText ? config.parameters.info.text : null}
-			locale={globals.locale}
-			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
-			highContrast={JSON.parse(globals['high contrast'])}
-			style={mergedStyles}
-			skin={globals.skin}
-			{...hasProps ? config.parameters.props : null}
-		>
-			{sample}
-		</Theme>
+		<AppContext.Provider value={{context, setContext}}>
+			<Theme
+				className={classnames(classes)}
+				title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
+				description={hasInfoText ? config.parameters.info.text : null}
+				locale={globals.locale}
+				textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
+				highContrast={JSON.parse(globals['high contrast'])}
+				style={mergedStyles}
+				skin={globals.skin}
+				{...hasProps ? config.parameters.props : null}
+			>
+				{sample}
+			</Theme>
+		</AppContext.Provider>
 	);
 };
 

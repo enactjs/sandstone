@@ -14,7 +14,7 @@ import {platform} from '@enact/webos/platform';
 
 // if running in webos environment, render a list of color pickers in every story
 export const GlobalDecorator = (Story) => {
-	if (!platform.tv) {
+	if (platform.tv) {
 		return (
 			<div style={{padding: '20px'}}>
 				<CustomStoryDecorator />
@@ -22,7 +22,7 @@ export const GlobalDecorator = (Story) => {
 			</div>
 		)
 	} else {
-		return null;
+		return <Story />;
 	}
 };
 

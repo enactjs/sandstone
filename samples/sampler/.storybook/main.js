@@ -1,9 +1,9 @@
 /* global __dirname */
 
 const webpack = require('@enact/storybook-utils/configs/webpack');
-const {platform} = require('@enact/core/platform');
+// const {platform} = require('@enact/core/platform');
 
-const renderColorsToolbar = platform.webos ? '' : '../colors-toolbar/manager.js';
+// const renderColorsToolbar = platform.webos ? '' : '../colors-toolbar/manager.js';
 
 module.exports = {
 	core: {
@@ -21,7 +21,7 @@ module.exports = {
 		'@enact/storybook-utils/addons/controls',
 		'@enact/storybook-utils/addons/docs',
 		'@enact/storybook-utils/addons/toolbars',
-		renderColorsToolbar
+		'../colors-toolbar/manager.js'
 	],
 	webpackFinal: async (config, {configType}) => {
 		return webpack(config, configType, __dirname);

@@ -1,3 +1,16 @@
+import {createContext} from 'react';
+
+export const customColorsContext = {
+	activeTheme: 'defaultTheme',
+	componentBackgroundColor: '#7D848C',
+	focusBackgroundColor: '#E6E6E6',
+	popupBackgroundColor: '#575E66',
+	subtitleTextColor: '#ABAEB3',
+	textColor: '#E6E6E6'
+};
+
+export const AppContext = createContext(null);
+
 export const BACKGROUNDCOLOR_ADDON_ID = "ComponentBackgroundColor";
 export const BACKGROUNDCOLOR_DEFAULT_VALUE = "#7D848C";
 
