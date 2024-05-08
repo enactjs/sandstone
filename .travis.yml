@@ -2,7 +2,7 @@ dist: focal
 language: node_js
 node_js:
     - lts/*
-    - 21
+    - "21"
 sudo: false
 before_install:
     - sudo apt-get update
