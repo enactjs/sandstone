@@ -160,7 +160,7 @@ export const _PageViews = (args) => {
 				</PageViews>
 			);
 	}
-}
+};
 
 select('pageIndicatorType', _PageViews, propOptions.pageIndicatorType, 'dot');
 number('total', _PageViews, 0);
