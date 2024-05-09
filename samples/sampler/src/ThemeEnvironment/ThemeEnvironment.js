@@ -144,13 +144,40 @@ const StorybookDecorator = (story, config = {}) => {
 		// });
 	}, []);
 
+	function extractColorValue(globals, colorName) {
+		if (!globals) {
+			return null;
+		}
+		const colorMatch = globals.match(new RegExp(`${colorName}:!hex\\((\\w+)\\)`));
+		if (colorMatch) {
+			return '#' + colorMatch[1];
+		}
+		return null;
+	}
+
+	function getFromURL(colorName) {
+		const urlObj = new URL(window.location.href);
+		const globals = urlObj.searchParams.get('globals');
+		return extractColorValue(globals, colorName);
+	}
+
+	const localColors = {
+		componentBackgroundColor: getFromURL('componentBackgroundColor') || '#7D848C',
+		focusBackgroundColor: getFromURL('focusBackgroundColor') || '#E6E6E6',
+		popupBackgroundColor: getFromURL('popupBackgroundColor') || '#575E66',
+		textColor: getFromURL('textColor') || '#E6E6E6',
+		subtitleTextColor: getFromURL('subtitleTextColor') || '#ABAEB3'
+	}
+	console.log(globals);
+
 	const {
 		componentBackgroundColor,
 		focusBackgroundColor,
 		popupBackgroundColor,
 		textColor,
 		subtitleTextColor
-	} = platform.tv ? context : globals;
+	} = platform.tv ? context : localColors;
+
 	const generatedColors = generateStylesheet(componentBackgroundColor, focusBackgroundColor, popupBackgroundColor, textColor, subtitleTextColor);
 	const background = {'--sand-env-background': globals.background === 'default' ? '' : globals.background};
 	const mergedStyles = {...generatedColors, ...background};

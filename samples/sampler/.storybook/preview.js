@@ -117,7 +117,13 @@ export const globalTypes = {
 	'debug aria': getBooleanType('debug aria'),
 	'debug layout': getBooleanType('debug layout'),
 	'debug spotlight': getBooleanType('debug spotlight'),
-	'debug sprites': getBooleanType('debug sprites')
+	'debug sprites': getBooleanType('debug sprites'),
+	// custom theme globalTypes
+	'componentBackgroundColor': 'string',
+	'focusBackgroundColor': 'string',
+	'popupBackgroundColor': 'string',
+	'textColor': 'string',
+	'subtitleTextColor': 'string'
 };
 
 export const decorators = [ThemeEnvironment];
