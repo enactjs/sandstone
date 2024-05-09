@@ -1,6 +1,6 @@
 import {handle, forwardCustom, forwardCustomWithPrevent, returnsTrue} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {parseUserAgent, platform} from '@enact/core/platform';
+import {platform} from '@enact/core/platform';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
 import {useAnnounce} from '@enact/ui/AnnounceDecorator';
@@ -223,8 +223,6 @@ const InputFieldBase = kind({
 		 */
 		type: PropTypes.string,
 
-		userAgent: PropTypes.string,
-
 		/**
 		 * The value of the input.
 		 *
@@ -240,8 +238,7 @@ const InputFieldBase = kind({
 		invalid: false,
 		placeholder: '',
 		size: 'small',
-		type: 'text',
-		userAgent: null
+		type: 'text'
 	},
 
 	styles: {
@@ -253,15 +250,9 @@ const InputFieldBase = kind({
 	handlers: {
 		onChange: handle(
 			forwardCustomWithPrevent('onBeforeChange', ev => ({value: ev.target.value})),
-			returnsTrue((ev, {announce, type, userAgent}) => {
+			returnsTrue((ev, {announce, type}) => {
 				if (type === 'passwordtel') {
-					let platformType = 'unknown';
-					if (userAgent) {
-						platformType = parseUserAgent(userAgent).type;
-					} else {
-						platformType = platform.type;
-					}
-					if (platformType === 'webos') {
+					if (platform.type === 'webos') {
 						readAlert($L('hidden'));
 					} else {
 						announce($L('hidden'));
@@ -307,7 +298,6 @@ const InputFieldBase = kind({
 		delete rest.invalidMessage;
 		delete rest.onBeforeChange;
 		delete rest.rtl;
-		delete rest.userAgent;
 
 		return (
 			<div

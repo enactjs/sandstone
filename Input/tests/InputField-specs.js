@@ -306,21 +306,24 @@ describe('InputField Specs', () => {
 });
 
 describe('UserAgent test', () => {
-	test('without userAgent', async () => {
+	const mockUserAgent = 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 WebAppManager';
+
+	beforeEach(() => {
+		Object.defineProperty(globalThis.navigator, "userAgent", {
+			value: mockUserAgent,
+			configurable: true
+		});
+	});
+
+	afterEach(() => {
+		delete globalThis.navigator.userAgent;
+	});
+
+	test('userAgent test 1', async () => {
 		const handleChange = jest.fn();
 		const value = 'blah';
 		const user = userEvent.setup();
 		render(<InputField onChange={handleChange} type="passwordtel" />);
-		const inputField = screen.getByPlaceholderText('');
-
-		await user.type(inputField, value);
-	});
-
-	test('with userAgent', async () => {
-		const handleChange = jest.fn();
-		const value = 'blah';
-		const user = userEvent.setup();
-		render(<InputField onChange={handleChange} type="passwordtel" userAgent="Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 WebAppManager" />);
 		const inputField = screen.getByPlaceholderText('');
 
 		await user.type(inputField, value);
