@@ -1,6 +1,6 @@
 import {handle, forwardCustom, forwardCustomWithPrevent, returnsTrue} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {platform} from '@enact/core/platform';
+import platform from '@enact/core/platform';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
 import {useAnnounce} from '@enact/ui/AnnounceDecorator';

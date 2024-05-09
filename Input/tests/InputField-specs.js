@@ -1,6 +1,6 @@
 /* global globalThis */
 
-import {resetDetectedPlatform} from '@enact/core/platform';
+import {resetPlatformDescription} from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
@@ -11,6 +11,10 @@ import {InputField} from '../';
 const isPaused = () => Spotlight.isPaused() ? 'paused' : 'not paused';
 
 describe('InputField Specs', () => {
+	afterEach(() => {
+		resetPlatformDescription();
+	});
+
 	test('should have an input element', () => {
 		render(<InputField />);
 		const inputField = screen.getByLabelText('Input field');
@@ -42,6 +46,40 @@ describe('InputField Specs', () => {
 
 		expect(handleChange).toHaveBeenCalled();
 		expect(actual).toMatchObject(expected);
+	});
+
+	test('should set alert "aria-label" value as "hidden" when the text changes with type passwordtel', async () => {
+		const handleChange = jest.fn();
+		const value = 'blah';
+		const user = userEvent.setup();
+		render(<InputField onChange={handleChange} type="passwordtel" />);
+		const inputField = screen.getByPlaceholderText('');
+
+		await user.type(inputField, value);
+
+		const announceAriaLabel = screen.getByLabelText('hidden');
+
+		expect(announceAriaLabel).toBeInTheDocument();
+	});
+
+	test('should throw a console warning when the text changes with type passwordtel on webOSTV', async () => {
+		Object.defineProperty(globalThis.navigator, "userAgent", {
+			value: 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 WebAppManager',
+			configurable: true
+		});
+
+		const consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+		const handleChange = jest.fn();
+		const value = 'blah';
+		const user = userEvent.setup();
+		render(<InputField onChange={handleChange} type="passwordtel" />);
+		const inputField = screen.getByPlaceholderText('');
+
+		await user.type(inputField, value);
+
+		expect(consoleSpy).toHaveBeenCalled();
+
+		delete globalThis.navigator.userAgent;
 	});
 
 	test('should forward an event with a stopPropagation method from onChange handler', () => {
@@ -308,43 +346,3 @@ describe('InputField Specs', () => {
 	});
 });
 
-describe('UserAgent test', () => {
-	const mockUserAgent1 = 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 WebAppManager';  // webOSTV
-	const mockUserAgent2 = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15';  // Safari on macOS
-
-	test('userAgent test 1', async () => {
-		Object.defineProperty(globalThis.navigator, "userAgent", {
-			value: mockUserAgent1,
-			configurable: true
-		});
-
-		const handleChange = jest.fn();
-		const value = 'blah';
-		const user = userEvent.setup();
-		render(<InputField onChange={handleChange} type="passwordtel" />);
-		const inputField = screen.getByPlaceholderText('');
-
-		await user.type(inputField, value);
-
-		delete globalThis.navigator.userAgent;
-	});
-
-	test('userAgent test 2', async () => {
-		resetDetectedPlatform();
-
-		Object.defineProperty(globalThis.navigator, "userAgent", {
-			value: mockUserAgent2,
-			configurable: true
-		});
-
-		const handleChange = jest.fn();
-		const value = 'blah';
-		const user = userEvent.setup();
-		render(<InputField onChange={handleChange} type="passwordtel" />);
-		const inputField = screen.getByPlaceholderText('');
-
-		await user.type(inputField, value);
-
-		delete globalThis.navigator.userAgent;
-	});
-});
