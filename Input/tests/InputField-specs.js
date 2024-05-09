@@ -1,5 +1,6 @@
 /* global globalThis */
 
+import {resetDetectedPlatform} from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
@@ -308,20 +309,15 @@ describe('InputField Specs', () => {
 });
 
 describe('UserAgent test', () => {
-	const mockUserAgent = 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 WebAppManager';
-
-	beforeEach(() => {
-		Object.defineProperty(globalThis.navigator, "userAgent", {
-			value: mockUserAgent,
-			configurable: true
-		});
-	});
-
-	afterEach(() => {
-		delete globalThis.navigator.userAgent;
-	});
+	const mockUserAgent1 = 'Mozilla/5.0 (Web0S; Linux/SmartTV) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 WebAppManager';  // webOSTV
+	const mockUserAgent2 = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15';  // Safari on macOS
 
 	test('userAgent test 1', async () => {
+		Object.defineProperty(globalThis.navigator, "userAgent", {
+			value: mockUserAgent1,
+			configurable: true
+		});
+
 		const handleChange = jest.fn();
 		const value = 'blah';
 		const user = userEvent.setup();
@@ -329,5 +325,26 @@ describe('UserAgent test', () => {
 		const inputField = screen.getByPlaceholderText('');
 
 		await user.type(inputField, value);
+
+		delete globalThis.navigator.userAgent;
+	});
+
+	test('userAgent test 2', async () => {
+		resetDetectedPlatform();
+
+		Object.defineProperty(globalThis.navigator, "userAgent", {
+			value: mockUserAgent2,
+			configurable: true
+		});
+
+		const handleChange = jest.fn();
+		const value = 'blah';
+		const user = userEvent.setup();
+		render(<InputField onChange={handleChange} type="passwordtel" />);
+		const inputField = screen.getByPlaceholderText('');
+
+		await user.type(inputField, value);
+
+		delete globalThis.navigator.userAgent;
 	});
 });
