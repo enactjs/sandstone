@@ -176,3 +176,28 @@
 @mixin sand-enact-locale-tallglyph($rule, $value, $target: normal) {
 	@include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
 }
+
+@mixin sand-focus-ring {
+	transform: none;
+	outline: 12px solid rgb(230,230,230);
+	outline-offset: 9px;
+}
+
+@mixin sand-focus-highlight($target: '') {
+	@if $target == '' {
+		@include focus {
+			&:global(.focusRing) {
+				@include sand-focus-ring;
+			}
+		}
+	} @else {
+		@include focus {
+			&:global(.focusRing) {
+				transform: none;
+				.#{$target} {
+					@include sand-focus-ring;
+				}
+			}
+		}
+	}
+}

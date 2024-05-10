@@ -39,6 +39,8 @@ $sand-button-font-size-large:       96px;
 $sand-button-font-size:             78px;
 $sand-button-small-font-size-large: 72px;
 $sand-button-small-font-size:       60px;
+$sand-iconitem-label-font-size:     42px;
+$sand-iconitem-title-font-size:     36px;
 $sand-item-font-size:               60px;
 $sand-item-font-size-large:         72px;
 $sand-item-label-font-size:         48px;
@@ -105,6 +107,19 @@ $sand-icon-tiny-size: 60px;
 $sand-icon-margin: 24px;
 $sand-icon-large-size-large: ($sand-icon-large-size * 1.2);
 $sand-icon-small-size-large: ($sand-icon-small-size * 1.2);
+
+// IconItem
+// ---------------------------------------
+$sand-iconitem-border-radius: 48px;
+$sand-iconitem-border-style: solid;
+$sand-iconitem-border-width: 4px;
+$sand-iconitem-focus-transform: scale(1.2);
+$sand-iconitem-font-weight: 600;
+$sand-iconitem-icon-margin: $sand-icon-margin $sand-icon-margin 12px;
+$sand-iconitem-label-line-height: 48px;
+$sand-iconitem-label-padding: 0 12px;
+$sand-iconitem-title-line-height: 42px;
+$sand-iconitem-title-margin: 18px 0 0 0;
 
 // Button
 // ---------------------------------------
