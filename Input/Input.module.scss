@@ -47,7 +47,7 @@
 
 		&::before {
 			position: absolute;
-			.position(0);
+			@include mixins.position(0);
 			content: '';
 			z-index: -1;
 
@@ -86,7 +86,7 @@
 	}
 
 	.keypad {
-		@include mixins.enact-locale-rtl {
+		@include mixins.enact-locale-rtl(self) {
 			direction: rtl;
 		}
 	}
