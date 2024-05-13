@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- Support for QHD displays
+
 ### Fixed
 
 - `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
