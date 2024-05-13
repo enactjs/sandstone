@@ -43,10 +43,7 @@ const PanelsBase = kind({
 
 const Theme = ThemeDecorator({overlay: false}, PanelsBase);
 
-const StorybookDecorator = (story, config = {}) => {
-	// Executing `story` here allows the story controls to register and render before the global variable below.
-	const sample = story();
-
+const StorybookDecorator = (Story, config = {}) => {
 	const {globals} = config;
 
 	const componentName = config.kind.replace(/^([^/]+)\//, '');
@@ -74,13 +71,14 @@ const StorybookDecorator = (story, config = {}) => {
 			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
 			focusRing={JSON.parse(globals['focus ring'])}
 			highContrast={JSON.parse(globals['high contrast'])}
+			screenScale={JSON.parse(globals['screen scale'])}
 			style={{
 				'--sand-env-background': globals.background === 'default' ? '' : globals.background
 			}}
 			skin={globals.skin}
 			{...hasProps ? config.parameters.props : null}
 		>
-			{sample}
+			<Story />
 		</Theme>
 	);
 };
