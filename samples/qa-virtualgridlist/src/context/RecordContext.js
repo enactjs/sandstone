@@ -70,6 +70,9 @@ export default function recordReducer (state, action) {
 		case (CHANGE_DATASIZE): {
 			return {...state, dataSize: action.size};
 		}
+		case (CHANGE_MIN_WIDTH): {
+			return {...state, minWidth: action.size};
+		}
 		case (CHANGE_MIN_HEIGHT): {
 			return {...state, minHeight: action.size};
 		}
@@ -85,6 +88,7 @@ export default function recordReducer (state, action) {
 				newData[i] = state.data[i];
 				newDataOrder.push(i);
 			}
+
 			return {...state, data: newData, dataOrder: newDataOrder, dataSize: newDataOrder.length, selectedItems: []};
 		}
 		case (DELETE_SELECTED_ITEM): {

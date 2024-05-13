@@ -6,7 +6,7 @@ import {Header} from '@enact/sandstone/Panels';
 import {InputField as Input} from '@enact/sandstone/Input';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import {useContext, useState} from 'react';
+import {useContext} from 'react';
 
 import LocaleSwitch from '../LocaleSwitch';
 import ScrollModeSwitch from '../ScrollModeSwitch';
@@ -34,11 +34,6 @@ const PanelHeader = (props) => {
 	const dispatch = useContext(RecordDispatchContext);
 	const {dataSize, minHeight, minWidth, showOverlay, spacing} = useContext(RecordContext);
 
-	const [dataSizeValue, setDataSizeValue] = useState(dataSize);
-	const [minHeightValue, setMinHeightValue] = useState(minHeight);
-	const [minWidthValue, setMinWidthValue] = useState(minWidth);
-	const [spacingValue, setSpacingValue] = useState(spacing);
-
 	const tooltipText = showOverlay ? 'Previous' : 'Selection';
 	const inputWidth = {width: '5em'};
 
@@ -46,15 +41,12 @@ const PanelHeader = (props) => {
 		dispatch(addItemAction(createRecord({recordIndex: dataSize, showOverlay})));
 	};
 	const changeMinHeight = (ev) => {
-		setMinHeightValue(ev.value);
 		dispatch(changeMinHeightAction(ev.value));
 	};
 	const changeMinWidth = (ev) => {
-		setMinWidthValue(ev.value);
 		dispatch(changeMinWidthAction(ev.value));
 	};
 	const changeSpacing = (ev) => {
-		setSpacingValue(ev.value);
 		dispatch(changeSpacingAction(ev.value));
 	};
 	const deleteItem = () => {
@@ -67,7 +59,6 @@ const PanelHeader = (props) => {
 		dispatch(selectAllAction());
 	};
 	const setData = (ev) => {
-		setDataSizeValue(ev.value);
 		dispatch(changeDataSizeAction(ev.value));
 
 		for (let i = 0; i <= ev.value; i++) {
@@ -117,19 +108,19 @@ const PanelHeader = (props) => {
 				<Row style={{direction: 'ltr'}}>
 					<Cell>
 						<label>dataSize:</label>
-						<Input size="small" onChange={setData} style={inputWidth} type="number" value={dataSizeValue} />
+						<Input size="small" onChange={setData} style={inputWidth} type="number" value={dataSize} />
 					</Cell>
 					<Cell>
 						<label>minHeightSize:</label>
-						<Input size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={minHeightValue} />
+						<Input size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={minHeight} />
 					</Cell>
 					<Cell>
 						<label>minWidthSize:</label>
-						<Input size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={minWidthValue} />
+						<Input size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={minWidth} />
 					</Cell>
 					<Cell>
 						<label>spacingSize:</label>
-						<Input size="small" onChange={changeSpacing} style={inputWidth} type="number" value={spacingValue} />
+						<Input size="small" onChange={changeSpacing} style={inputWidth} type="number" value={spacing} />
 					</Cell>
 				</Row>
 			}
