@@ -1,9 +1,6 @@
 /* global __dirname */
 
 const webpack = require('@enact/storybook-utils/configs/webpack');
-// const {platform} = require('@enact/core/platform');
-
-// const renderColorsToolbar = platform.webos ? '' : '../colors-toolbar/manager.js';
 
 module.exports = {
 	core: {

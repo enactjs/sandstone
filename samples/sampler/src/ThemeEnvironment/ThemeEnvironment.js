@@ -126,39 +126,40 @@ const StorybookDecorator = (story, config = {}) => {
 					}
 				}
 			});
+
+			// SET THEME KEY EMPTY STRING
+			// request.send({
+			// 	service: 'luna://com.webos.service.settings/',
+			// 	method: 'setSystemSettings',
+			// 	parameters: {
+			// 		category: 'customUi',
+			// 		settings: {
+			// 			theme: ''
+			// 		}
+			// 	},
+			// 	onSuccess: (res) => {
+			// 		console.log(res)
+			// 	}
+			// });
 		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-		// SET THEME KEY EMPTY STRING
-		// request.send({
-		// 	service: 'luna://com.webos.service.settings/',
-		// 	method: 'setSystemSettings',
-		// 	parameters: {
-		// 		category: 'customUi',
-		// 		settings: {
-		// 			theme: ''
-		// 		}
-		// 	},
-		// 	onSuccess: (res) => {
-		// 		console.log(res)
-		// 	}
-		// });
-	}, []);
-
-	function extractColorValue(globals, colorName) {
-		if (!globals) {
+	// parse globals and extract hex color
+	function extractColorValue (globalColors, colorName) {
+		if (!globalColors) {
 			return null;
 		}
-		const colorMatch = globals.match(new RegExp(`${colorName}:!hex\\((\\w+)\\)`));
+		const colorMatch = globalColors.match(new RegExp(`${colorName}:!hex\\((\\w+)\\)`));
 		if (colorMatch) {
 			return '#' + colorMatch[1];
 		}
 		return null;
 	}
 
-	function getFromURL(colorName) {
+	function getFromURL (colorName) {
 		const urlObj = new URL(window.location.href);
-		const globals = urlObj.searchParams.get('globals');
-		return extractColorValue(globals, colorName);
+		const globalColors = urlObj.searchParams.get('globals');
+		return extractColorValue(globalColors, colorName);
 	}
 
 	const localColors = {
@@ -167,8 +168,7 @@ const StorybookDecorator = (story, config = {}) => {
 		popupBackgroundColor: getFromURL('popupBackgroundColor') || '#575E66',
 		textColor: getFromURL('textColor') || '#E6E6E6',
 		subtitleTextColor: getFromURL('subtitleTextColor') || '#ABAEB3'
-	}
-	console.log(globals);
+	};
 
 	const {
 		componentBackgroundColor,
@@ -178,9 +178,21 @@ const StorybookDecorator = (story, config = {}) => {
 		subtitleTextColor
 	} = platform.tv ? context : localColors;
 
+	// merge `generatedColors` with `background` image(global type) into the style object
 	const generatedColors = generateStylesheet(componentBackgroundColor, focusBackgroundColor, popupBackgroundColor, textColor, subtitleTextColor);
 	const background = {'--sand-env-background': globals.background === 'default' ? '' : globals.background};
 	const mergedStyles = {...generatedColors, ...background};
+
+	// some components render on a `floatingLayer` which is a sibling of `Theme`, so we need to apply colors to <floatLayer> as well
+	useEffect(() => {
+		const floatLayerElement = document.getElementById("floatLayer");
+		// Apply the generated styles to the <floatLayer> element
+		for (const property in generatedColors) {
+			if (generatedColors.hasOwnProperty(property)) { // eslint-disable-line
+				floatLayerElement.style.setProperty(property, generatedColors[property]);
+			}
+		}
+	}, [generatedColors]);
 
 	// end of custom theme code
 

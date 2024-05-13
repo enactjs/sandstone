@@ -1,10 +1,10 @@
 import {IconButton, Icons, TooltipLinkList, WithTooltip} from '@storybook/components';
 import PropTypes from 'prop-types';
-import React, {memo} from 'react';
+import React from 'react';
 
 import ColorPicker from './ColorPicker';
 
-const ToolbarButton = memo(({active = true, buttonName, colorPickerType, tooltipName}) => {
+const ToolbarButton = React.memo(({active = true, buttonName, colorPickerType, tooltipName}) => {
 	const tooltipLink = {
 		center: <ColorPicker colorPickerType={colorPickerType} />,
 		id: colorPickerType,

@@ -49,9 +49,9 @@ export const generateStylesheet = (componentBackgroundColor, focusBackgroundColo
 		'--sand-keyguide-bg-color-rgb': '55, 58, 65',
 		'--sand-slider-disabled-knob-bg-color': '#666666',
 		'--sand-alert-overlay-bg-color-rgb': '202, 203, 204',
-		'--sand-alert-overlay-text-color-rgb': '46, 50, 57',
+		'--sand-alert-overlay-text-color-rgb': `${textColorRGB}`,
 		'--sand-alert-overlay-text-sub-color': '#2E3239',
-		'--sand-alert-overlay-focus-text-color': '#575E66',
+		'--sand-alert-overlay-focus-text-color': `${subTextColorRGB}`,
 		'--sand-alert-overlay-disabled-selected-color': '#FFFFFF',
 		'--sand-alert-overlay-disabled-selected-bg-color': '#788688',
 		'--sand-alert-overlay-disabled-selected-focus-color': `${focusBackgroundColor}`,
@@ -62,5 +62,5 @@ export const generateStylesheet = (componentBackgroundColor, focusBackgroundColo
 		'--sand-alert-overlay-checkbox-disabled-selected-color': '#FFFFFF',
 		'--sand-alert-overlay-formcheckboxitem-focus-text-color': '#575E66',
 		'--sand-alert-overlay-item-disabled-focus-bg-color': '#989CA2'
-	}
+	};
 };
