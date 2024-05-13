@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
 
+### Added
+
+- `QHD` (2560x1440) resolution
+
 ## [2.9.0-alpha.2] - 2024-04-22
 
 ### Added
