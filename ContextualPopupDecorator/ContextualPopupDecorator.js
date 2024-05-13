@@ -558,9 +558,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @returns {undefined}
 		 */
 		positionContextualPopup = () => {
-			if (this.containerNode && this.clientNode.current) {
+			if (this.containerNode && this.clientNode?.current?.childNodes[0]) {
 				const containerNode = this.containerNode.getBoundingClientRect();
-				const {top, left, bottom, right, width, height} = this.clientNode.current.getBoundingClientRect();
+				const {top, left, bottom, right, width, height} = this.clientNode.current.childNodes[0].getBoundingClientRect();
 				const clientNode = {top, left, bottom, right, width, height};
 				clientNode.left = this.props.rtl ? window.innerWidth - right : left;
 				clientNode.right = this.props.rtl ? window.innerWidth - left : right;
@@ -714,8 +714,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			let holeBounds;
-			if (this.clientNode.current && holepunchScrim) {
-				holeBounds = this.clientNode.current.getBoundingClientRect();
+			if (this.clientNode?.current?.childNodes[0] && holepunchScrim) {
+				holeBounds = this.clientNode.current.childNodes[0].getBoundingClientRect();
 			}
 
 			delete rest.direction;
