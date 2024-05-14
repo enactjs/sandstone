@@ -230,7 +230,7 @@ $sand-popup-scrimtransparent-bg-color: rgb($sand-overlay-bg-color-rgb, 95%);
 // ---------------------------------------
 $sand-inputfield-text-color: $sand-text-color;
 $sand-inputfield-placeholder-color: rgb($sand-component-text-color-rgb, 20%);
-$sand-inputfield-placeholder-active-color: rgb($sand-component-focus-text-color-rgb, 40%);
+$sand-inputfield-placeholder-active-color: rgba($sand-component-focus-text-color-rgb, 40%);
 $sand-inputfield-focus-text-color: $sand-component-focus-text-color;
 $sand-inputfield-disabled-text-color: inherit;
 $sand-inputfield-invalid-color: $sand-invalid-color;

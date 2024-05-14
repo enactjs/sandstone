@@ -19,9 +19,14 @@
 
 	// Input
 	// ---------------------------------------
-	--sand-overlay-bg-color-rgb: rgb(87, 94, 102); // different from neutral
+	--sand-overlay-bg-color-rgb: rgb(0, 0, 0); // different from neutral
 
 	// KeyGuide
 	// ---------------------------------------
 	--sand-keyguide-bg-color-rgb: rgb(55, 58, 65); // no alpha
+
+	// Popup
+	// ---------------------------------------
+	--sand-popup-bg-color: rgb(0, 0, 0); // no alpha
+	--sand-popup-scrimtransparent-bg-color: rgb(0, 0, 0); // no alpha
 }

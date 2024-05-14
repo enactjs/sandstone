@@ -43,7 +43,7 @@
 		cursor: default;
 	}
 
-	@include mixins.enact-locale-rtl(self) {
+	@include mixins.enact-locale-rtl(normal) {
 		text-align: right;
 	}
 }
@@ -159,7 +159,7 @@
 				@include mixins.input-placeholder {
 					font-weight: variables.$sand-inputfield-placeholder-focus-font-weight;
 					color: colors.$sand-inputfield-placeholder-active-color;
-				};
+				}
 			}
 		}
 
