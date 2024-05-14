@@ -1,9 +1,6 @@
 // CustomStoryDecorator styles
 
-@import '~@enact/sandstone/styles/colors.less';
 @import '~@enact/sandstone/styles/mixins.less';
-@import '~@enact/sandstone/styles/variables.less';
-@import '~@enact/sandstone/styles/skin.less';
 
 .colorPickersBlock {
   	width: 30%;
@@ -13,43 +10,42 @@
 	bottom: 51px;
 	background: #2e3239;
 	border-radius: 30px;
-	padding: 6px;
+	padding: 12px;
 }
 
 .colorPicker {
 	color: #e6e6e6;
-	.focus {
-		background: green;
+
+	.focus({
+		--sand-focus-bg-color-rgb: 230, 230, 230;
+	})
+}
+
+.colorPopup {
+	--sand-overlay-bg-color-rgb: 87, 94, 102;
+	--sand-text-color-rgb: 230, 230, 230;
+}
+
+.colorPickerSliders {
+	.colorSlider {
+		--sand-focus-bg-color-rgb: 230, 230, 230;
 	}
-	//&.colorPopup {
-	//	background-color: red;
-	//}
-	//.applySkins({
-	//	.focus({
-	//		.bg {
-	//			//.sand-spotlight-focus-bg-colors();
-	//			background: green;
-	//		}
-	//	});
-	//})
-
-	//.popup {
-	//	--sand-overlay-bg-color-rgb: 87, 94, 102;
-	//	background: red;
-	//}
 }
-&.colorPopup {
-	color: black !important;
-	background-color: red;
-}
-
-//.applySkins({
-//	&.popup {
-//		--sand-overlay-bg-color-rgb: 87, 94, 102;
-//		background: red;
-//	}
-//});
 
 .scrollerColors {
 	--sand-progress-color-rgb: 230, 230, 230;
+}
+
+.resetButtonBlock {
+	border-top: 3px solid #e6e6e6;
+	padding-top: 9px;
+}
+
+.resetButton {
+	--sand-component-bg-color: #7D848C;
+	--sand-component-text-color-rgb: 230, 230, 230;
+
+	.focus({
+		--sand-focus-bg-color-rgb: 230, 230, 230;
+	})
 }

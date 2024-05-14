@@ -2,6 +2,7 @@
 import LS2Request from '@enact/webos/LS2Request';
 import {useCallback, useContext} from 'react';
 
+import Button from '../../../Button';
 import {ColorPicker as SandstoneColorPicker} from '../../../ColorPicker';
 import {generateStylesheet} from '../utils/generateStylesheet';
 import Scroller from '../../../Scroller';
@@ -63,6 +64,36 @@ export const CustomStoryDecorator = () => {
 		onColorChange('subtitleTextColor', ev);
 	}, [onColorChange]);
 
+	const handleResetButton = useCallback(() => {
+		// a copy of the context object is created
+		const newContext = Object.assign({}, context);
+		// generate the new stylesheet with default sandstone colors
+		newContext.colors = generateStylesheet(
+			newContext.backgroundColor,
+			newContext.componentBackgroundColor,
+			newContext.focusBackgroundColor,
+			newContext.popupBackgroundColor,
+			newContext.subtitleTextColor,
+			newContext.textColor,
+			newContext.preset
+		);
+		setContext(newContext);
+
+		request.send({
+			service: 'luna://com.webos.service.settings/',
+			method: 'setSystemSettings',
+			parameters: {
+				category: 'customUi',
+				settings: {
+					theme: JSON.stringify(newContext)
+				}
+			},
+			onSuccess: () => {
+				console.log('setSystemSettings onSuccess'); // eslint-disable-line no-console
+			}
+		});
+	}, []); // eslint-disable-line
+
 	return (
 		<div className={css.colorPickersBlock}>
 			<Scroller className={css.scrollerColors}>
@@ -101,6 +132,9 @@ export const CustomStoryDecorator = () => {
 					colorHandler={handleSubTextColor}
 					text="Subtitle Text Color"
 				/>
+				<div className={css.resetButtonBlock}>
+					<Button className={css.resetButton} css={css} onClick={handleResetButton}>Reset default colors</Button>
+				</div>
 			</Scroller>
 		</div>
 	);
