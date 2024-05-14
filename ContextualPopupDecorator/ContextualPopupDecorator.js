@@ -273,7 +273,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 			this.id = this.generateId();
-			this.clientNode = createRef(null);
+			this.clientSiblingRef = createRef(null);
 			this.MARGIN = ri.scale(noArrow ? 0 : 12);
 			this.ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
 			this.ARROW_OFFSET = noArrow ? 0 : ri.scale(36); // actual distance of the svg arrow displayed to offset overlaps with the container. Offset is when `noArrow` is false.
@@ -558,9 +558,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @returns {undefined}
 		 */
 		positionContextualPopup = () => {
-			if (this.containerNode && this.clientNode?.current?.childNodes[0]) {
+			if (this.containerNode && this.clientSiblingRef?.current?.previousElementSibling) {
 				const containerNode = this.containerNode.getBoundingClientRect();
-				const {top, left, bottom, right, width, height} = this.clientNode.current.childNodes[0].getBoundingClientRect();
+				const {top, left, bottom, right, width, height} = this.clientSiblingRef.current.previousElementSibling.getBoundingClientRect();
 				const clientNode = {top, left, bottom, right, width, height};
 				clientNode.left = this.props.rtl ? window.innerWidth - right : left;
 				clientNode.right = this.props.rtl ? window.innerWidth - left : right;
@@ -714,8 +714,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			let holeBounds;
-			if (this.clientNode?.current?.childNodes[0] && holepunchScrim) {
-				holeBounds = this.clientNode.current.childNodes[0].getBoundingClientRect();
+			if (this.clientSiblingRef?.current?.previousElementSibling && holepunchScrim) {
+				holeBounds = this.clientSiblingRef.current.previousElementSibling.getBoundingClientRect();
 			}
 
 			delete rest.direction;
@@ -759,9 +759,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							</ContextualPopupContainer>
 						</Fragment>
 					</FloatingLayer>
-					<div ref={this.clientNode}>
+					<>
 						<Wrapped {...rest} />
-					</div>
+						<div style={{display: 'none'}} ref={this.clientSiblingRef} />
+					</>
 				</div>
 			);
 		}
