@@ -1,6 +1,6 @@
-import {useGlobals} from '@storybook/api';
 import PropTypes from 'prop-types';
 import React, {useCallback} from 'react'; // eslint-disable-line
+import {useGlobals} from '@storybook/api';
 
 import {
 	BACKGROUNDCOLOR_ADDON_ID,
@@ -9,13 +9,12 @@ import {
 	FOCUSBGCOLOR_DEFAULT_VALUE,
 	POPUPBGCOLOR_ADDON_ID,
 	POPUPBGCOLOR_DEFAULT_VALUE,
+	SUBTEXTCOLOR_DEFAULT_VALUE,
 	TEXT_ADDON_ID,
-	TEXT_DEFAULT_VALUE,
-	SUBTEXTCOLOR_DEFAULT_VALUE
+	TEXT_DEFAULT_VALUE
 } from './constants';
 
 const ColorPicker = ({colorPickerType}) => {
-	// const [colorValue, updateColorValue] = useState(undefined);
 	const [globals, updateGlobals] = useGlobals();
 
 	const getDefaultColor = () => {

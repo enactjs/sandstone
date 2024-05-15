@@ -9,14 +9,15 @@ import ThemeEnvironment from '../src/ThemeEnvironment';
 
 // custom decorator imports
 import {addDecorator} from '@storybook/react';
-import {CustomStoryDecorator} from '../colors-toolbar/CustomStoryDecorator';
 import {platform} from '@enact/webos/platform';
+
+import {CustomStoryDecorator} from '../colors-toolbar/CustomStoryDecorator';
 
 // if running in webos environment, render a list of color pickers in every story
 export const GlobalDecorator = (Story) => {
 	if (platform.tv) {
 		return (
-			<div style={{padding: '20px'}}>
+			<div style={{padding: '21px'}}>
 				<CustomStoryDecorator />
 				<Story />
 			</div>
@@ -122,8 +123,8 @@ export const globalTypes = {
 	'componentBackgroundColor': 'string',
 	'focusBackgroundColor': 'string',
 	'popupBackgroundColor': 'string',
-	'textColor': 'string',
-	'subtitleTextColor': 'string'
+	'subtitleTextColor': 'string',
+	'textColor': 'string'
 };
 
 export const decorators = [ThemeEnvironment];

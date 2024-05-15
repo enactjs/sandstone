@@ -2,11 +2,12 @@
 import LS2Request from '@enact/webos/LS2Request';
 import {useCallback, useContext} from 'react';
 
-import Button from '../../../Button';
-import {ColorPicker as SandstoneColorPicker} from '../../../ColorPicker';
-import {generateStylesheet} from '../utils/generateStylesheet';
-import Scroller from '../../../Scroller';
+import Button from '@enact/sandstone/Button';
+import {ColorPicker as SandstoneColorPicker} from '@enact/sandstone/ColorPicker';
+import Scroller from '@enact/sandstone/Scroller';
+
 import {AppContext} from './constants';
+import {generateStylesheet} from '../utils/generateStylesheet';
 
 import css from './CustomStoryDecorator.module.less';
 

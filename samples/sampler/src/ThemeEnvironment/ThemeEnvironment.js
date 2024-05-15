@@ -10,10 +10,11 @@ import {useEffect, useState} from 'react';
 import css from './ThemeEnvironment.module.less';
 
 // custom theme imports
-import {generateStylesheet} from '../../utils/generateStylesheet';
 import LS2Request from '@enact/webos/LS2Request';
 import {platform} from '@enact/webos/platform';
+
 import {AppContext, customColorsContext} from '../../colors-toolbar/constants';
+import {generateStylesheet} from '../../utils/generateStylesheet';
 
 const reloadPage = () => {
 	const {protocol, host, pathname} = window.parent.location;
@@ -126,21 +127,6 @@ const StorybookDecorator = (story, config = {}) => {
 					}
 				}
 			});
-
-			// SET THEME KEY EMPTY STRING
-			// request.send({
-			// 	service: 'luna://com.webos.service.settings/',
-			// 	method: 'setSystemSettings',
-			// 	parameters: {
-			// 		category: 'customUi',
-			// 		settings: {
-			// 			theme: ''
-			// 		}
-			// 	},
-			// 	onSuccess: (res) => {
-			// 		console.log(res)
-			// 	}
-			// });
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
