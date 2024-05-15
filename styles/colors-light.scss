@@ -3,14 +3,16 @@
 @mixin applyColorsLight {
   // common colors
   --sand-bg-color: #cacbcc;
-  --sand-text-color-rgb: rgb(46, 50, 57); // #2e3239
+  --sand-text-color-rgb-base: 46, 50, 57; // #2e3239
+  --sand-text-color-rgb: rgb(var(--sand-text-color-rgb-base)); // #2e3239
   --sand-text-sub-color: #2e3239;
   --sand-focus-text-color: #575e66;
   --sand-disabled-selected-color: #ffffff;
   --sand-disabled-selected-bg-color: #788688;
   --sand-disabled-selected-focus-color: #e6e6e6;
   --sand-disabled-selected-focus-bg-color: #4c5059;
-  --sand-overlay-bg-color-rgb: rgb(187, 187, 187); // #bbbbbb
+  --sand-overlay-bg-color-rgb-base: 187, 187, 187; // #bbbbbb
+  --sand-overlay-bg-color-rgb: rgb(var(--sand-overlay-bg-color-rgb-base)); // #bbbbbb
   --sand-progress-color-rgb: rgb(55, 58, 65); // #373a41
   --sand-progress-bg-color-rgb: rgb(161, 161, 161); // #a1a1a1
   --sand-progress-bg-color-alpha: 40%;

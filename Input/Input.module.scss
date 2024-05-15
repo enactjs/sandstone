@@ -86,8 +86,8 @@
 	}
 
 	.keypad {
-		@include mixins.enact-locale-rtl(normal) {
-			direction: rtl;
+		@include mixins.enact-locale-rtl("") {
+			direction: ltr;
 		}
 	}
 

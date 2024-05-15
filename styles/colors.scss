@@ -217,20 +217,20 @@ $sand-imageitem-focus-selection-icon-color: $sand-imageitem-selection-icon-color
 $sand-imageitem-focus-selection-icon-bg-color: $sand-imageitem-selection-icon-bg-color;
 $sand-imageitem-selected-selection-icon-color: $sand-selected-color;
 $sand-imageitem-selected-selection-icon-bg-color: $sand-toggle-on-bg-color;
-$sand-imageitem-selected-image-border-color: rgb($sand-selected-color-rgb, 70%);
+$sand-imageitem-selected-image-border-color: rgba(var(--sand-selected-color-rgb-base, (230, 230, 230)), 70%);
 $sand-imageitem-selected-focus-selection-icon-color: $sand-imageitem-selected-selection-icon-color;
 $sand-imageitem-selected-focus-selection-icon-bg-color: $sand-imageitem-selected-selection-icon-bg-color;
 
 // Popup
 // ---------------------------------------
-$sand-popup-bg-color: rgb($sand-overlay-bg-color-rgb, 90%);
-$sand-popup-scrimtransparent-bg-color: rgb($sand-overlay-bg-color-rgb, 95%);
+$sand-popup-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 90%);
+$sand-popup-scrimtransparent-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 95%);
 
 // InputField
 // ---------------------------------------
 $sand-inputfield-text-color: $sand-text-color;
-$sand-inputfield-placeholder-color: rgb($sand-component-text-color-rgb, 20%);
-$sand-inputfield-placeholder-active-color: rgba($sand-component-focus-text-color-rgb, 40%);
+$sand-inputfield-placeholder-color: rgba(var(--sand-component-text-color-rgb-base, (230, 230, 230)), 20%);
+$sand-inputfield-placeholder-active-color: rgba(var(--sand-component-focus-text-color-rgb, (76, 80, 89)), 40%);
 $sand-inputfield-focus-text-color: $sand-component-focus-text-color;
 $sand-inputfield-disabled-text-color: inherit;
 $sand-inputfield-invalid-color: $sand-invalid-color;
@@ -240,9 +240,9 @@ $sand-inputfield-invalid-tooltip-color: $sand-invalid-sub-color;
 // ---------------------------------------
 $sand-input-fullscreen-background-color: $sand-fullscreen-bg-color;
 $sand-input-overlay-background-color: $sand-popup-bg-color;
-$sand-input-numbercell-background-color: rgb($sand-text-color-rgb, 20%);
+$sand-input-numbercell-background-color: rgba(var(--sand-text-color-rgb-base, (230, 230, 230)), 20%);
 $sand-input-invalid-tooltip-color: $sand-inputfield-invalid-tooltip-color;
-$sand-input-numberfield-disabled-color: rgb($sand-component-focus-text-color-rgb, $sand-disabled-focus-content-opacity * 100%);
+$sand-input-numberfield-disabled-color: rgba(var(--sand-component-focus-text-color-rgb, (76, 80, 89)), $sand-disabled-focus-content-opacity * 100%);
 $sand-input-numberfield-disabled-opacity: $sand-disabled-focus-bg-opacity;
 
 

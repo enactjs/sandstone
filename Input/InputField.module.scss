@@ -43,7 +43,7 @@
 		cursor: default;
 	}
 
-	@include mixins.enact-locale-rtl(normal) {
+	@include mixins.enact-locale-rtl("") {
 		text-align: right;
 	}
 }
