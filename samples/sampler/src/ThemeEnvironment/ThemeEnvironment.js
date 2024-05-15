@@ -144,31 +144,13 @@ const StorybookDecorator = (story, config = {}) => {
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	// parse globals and extract hex color
-	function extractColorValue (globalColors, colorName) {
-		if (!globalColors) {
-			return null;
-		}
-		const colorMatch = globalColors.match(new RegExp(`${colorName}:!hex\\((\\w+)\\)`));
-		if (colorMatch) {
-			return '#' + colorMatch[1];
-		}
-		return null;
-	}
-
-	function getFromURL (colorName) {
-		const urlObj = new URL(window.location.href);
-		const globalColors = urlObj.searchParams.get('globals');
-		return extractColorValue(globalColors, colorName);
-	}
-
-	const localColors = {
-		componentBackgroundColor: getFromURL('componentBackgroundColor') || '#7D848C',
-		focusBackgroundColor: getFromURL('focusBackgroundColor') || '#E6E6E6',
-		popupBackgroundColor: getFromURL('popupBackgroundColor') || '#575E66',
-		textColor: getFromURL('textColor') || '#E6E6E6',
-		subtitleTextColor: getFromURL('subtitleTextColor') || '#ABAEB3'
-	};
+	const [localColors, setLocalColors] = useState({
+		componentBackgroundColor: '#7D848C',
+		focusBackgroundColor: '#E6E6E6',
+		popupBackgroundColor: '#575E66',
+		textColor: '#E6E6E6',
+		subtitleTextColor: '#ABAEB3'
+	});
 
 	const {
 		componentBackgroundColor,
@@ -182,6 +164,17 @@ const StorybookDecorator = (story, config = {}) => {
 	const generatedColors = generateStylesheet(componentBackgroundColor, focusBackgroundColor, popupBackgroundColor, textColor, subtitleTextColor);
 	const background = {'--sand-env-background': globals.background === 'default' ? '' : globals.background};
 	const mergedStyles = {...generatedColors, ...background};
+
+	// update custom colors when a new color is picked from color picker
+	useEffect(() => {
+		setLocalColors({
+			componentBackgroundColor: globals.componentBackgroundColor || '#7D848C',
+			focusBackgroundColor: globals.focusBackgroundColor || '#E6E6E6',
+			popupBackgroundColor: globals.popupBackgroundColor || '#575E66',
+			textColor: globals.textColor || '#E6E6E6',
+			subtitleTextColor: globals.subtitleTextColor || '#ABAEB3'
+		});
+	}, [globals]);
 
 	// some components render on a `floatingLayer` which is a sibling of `Theme`, so we need to apply colors to <floatLayer> as well
 	useEffect(() => {

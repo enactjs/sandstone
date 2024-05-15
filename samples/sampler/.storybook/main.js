@@ -25,15 +25,5 @@ module.exports = {
 	},
 	typescript: {
 		reactDocgen: false
-	},
-	// custom theme globals
-	parameters: {
-		globalsColors: {
-			componentBackgroundColor: '#7D848C',
-			focusBackgroundColor: '#E6E6E6',
-			popupBackgroundColor: '#575E66',
-			textColor: '#E6E6E6',
-			subtitleTextColor:'#ABAEB3'
-		}
 	}
 }

@@ -8,7 +8,7 @@ export const generateStylesheet = (componentBackgroundColor, focusBackgroundColo
 
 	// return stylesheet for default sandstone theme
 	return {
-		// '--sand-bg-color': `${backgroundColor}`,
+		// '--sand-bg-color': `${backgroundColor}`, - left it commented because we already have a background global
 		'--sand-text-color-rgb': `${textColorRGB}`,
 		'--sand-text-sub-color': `${subTextColor}`,
 		'--sand-shadow-color-rgb': '0, 0, 0',
