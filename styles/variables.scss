@@ -354,7 +354,7 @@ $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
 // ProgressBar
 // ---------------------------------------
 $sand-progressbar-bar-thickness: 12px;
-$sand-progressbar-bar-border-radius: ($sand-progressbar-bar-thickness / 2);
+$sand-progressbar-bar-border-radius: calc($sand-progressbar-bar-thickness / 2);
 $sand-progressbar-margin: $sand-component-spacing;
 $sand-progressbar-vertical-min-height: 240px;
 $sand-progressbar-radial-size: 72px;
