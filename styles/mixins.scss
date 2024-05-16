@@ -186,6 +186,11 @@
 	@include font-kerning;
 }
 
+@mixin sand-font-number {
+	// content: "Applying .sand-font-number";
+	@include sand-font(variables.$sand-number-font-family, variables.$sand-number-font-family);
+}
+
 // Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
 //
 // Set line-height for normal and tallglyphs with 0, 1 or 2 arguments

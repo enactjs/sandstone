@@ -351,6 +351,23 @@ $sand-popup-position-right-margin: 120px 60px 120px $sand-component-spacing;
 $sand-popup-position-bottom-margin: 0 120px 150px 120px;
 $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
 
+// ProgressBar
+// ---------------------------------------
+$sand-progressbar-bar-thickness: 12px;
+$sand-progressbar-bar-border-radius: ($sand-progressbar-bar-thickness / 2);
+$sand-progressbar-margin: $sand-component-spacing;
+$sand-progressbar-vertical-min-height: 240px;
+$sand-progressbar-radial-size: 72px;
+$sand-progressbar-radial-thickness: 9px;
+$sand-progressbar-anchor-width: 6px;
+$sand-progressbar-anchor-height: 48px;
+$sand-progressbar-tooltip-offset: 30px;
+$sand-progressbar-tooltip-above-offset: ($sand-progressbar-tooltip-offset + $sand-progressbar-bar-thickness);
+$sand-progressbar-tooltip-below-offset: $sand-progressbar-tooltip-above-offset;
+$sand-progressbar-tooltip-before-offset: $sand-progressbar-tooltip-below-offset;
+$sand-progressbar-tooltip-after-offset: $sand-progressbar-tooltip-above-offset;
+$sand-progressbar-tooltip-radial-offset: $sand-progressbar-tooltip-above-offset;
+
 // Input
 // ---------------------------------------
 $sand-input-popup-component-v-spacing: 42px;

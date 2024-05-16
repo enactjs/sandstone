@@ -59,7 +59,7 @@
 
 	.progressBar {
 		position: absolute;
-		@include mixins.position(auto, 0, 0);
+		@include mixins.position(auto 0 0);
 		margin: variables.$sand-mediaoverlay-progressbar-margin;
 	}
 

@@ -231,6 +231,13 @@ $sand-mediaoverlay-subtitle-color: $sand-text-sub-color;
 $sand-popup-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 90%);
 $sand-popup-scrimtransparent-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 95%);
 
+// ProgressBar
+// ---------------------------------------
+$sand-progressbar-bar-bg-color: rgba(var(--sand-progress-bg-color-rgb-base, (55, 58, 65)), var(--sand-progress-bg-color-alpha, 100%));
+$sand-progressbar-load-bg-color: rgba(var(--sand-progress-color-rgb-base, (230, 230, 230)), 30%);
+$sand-progressbar-fill-bg-color: $sand-progress-color;
+$sand-progressbar-highlighted-fill-bg-color: $sand-progress-highlighted-color;
+
 // InputField
 // ---------------------------------------
 $sand-inputfield-text-color: $sand-text-color;
