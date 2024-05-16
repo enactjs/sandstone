@@ -2,6 +2,22 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- Support for QHD displays
+
+### Fixed
+
+- `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
+
+## [2.9.0-alpha.2] - 2024-04-22
+
+### Added
+
+- `sandstone/ThemeDecorator.AccessibilityDecorator` prop `focusRing` to support focus ring to IcomItem and ImageItem
+
 ## [2.9.0-alpha.1] - 2024-04-09
 
 ### Added

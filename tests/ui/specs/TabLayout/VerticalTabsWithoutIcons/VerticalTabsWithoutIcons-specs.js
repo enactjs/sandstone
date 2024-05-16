@@ -3,6 +3,7 @@ const Page = require('../TabLayoutPage');
 describe('TabLayout', function () {
 	beforeEach(async function () {
 		await Page.open('VerticalTabsWithoutIcons');
+		await Page.delay(500);
 	});
 
 	describe('vertical tabs without icons', function () {
