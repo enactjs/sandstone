@@ -106,7 +106,6 @@ const StorybookDecorator = (story, config = {}) => {
 					keys: ['theme']
 				},
 				onSuccess: (res) => {
-					// console.log(res);
 					if (res.settings.theme !== '' && res) {
 						const parsedKeyData = JSON.parse(res.settings.theme);
 						setContext({...parsedKeyData});

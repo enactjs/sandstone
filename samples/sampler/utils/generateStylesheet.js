@@ -6,9 +6,9 @@ export const generateStylesheet = (componentBackgroundColor, focusBackgroundColo
 	const focusBgColorRGB = hexToRGB(focusBackgroundColor);
 	const popupBgColorRGB = hexToRGB(popupBackgroundColor);
 
-	// return stylesheet for default sandstone theme
+	// return stylesheet based on received colors
 	return {
-		// '--sand-bg-color': `${backgroundColor}`, - left it commented because we already have a background global
+		// '--sand-bg-color': `${backgroundColor}`, - left it commented because we already have a background global in Storybook
 		'--sand-text-color-rgb': `${textColorRGB}`,
 		'--sand-text-sub-color': `${subTextColor}`,
 		'--sand-shadow-color-rgb': '0, 0, 0',

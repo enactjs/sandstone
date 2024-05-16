@@ -29,8 +29,7 @@ export const CustomStoryDecorator = () => {
 			newContext.focusBackgroundColor,
 			newContext.popupBackgroundColor,
 			newContext.subtitleTextColor,
-			newContext.textColor,
-			newContext.preset
+			newContext.textColor
 		);
 		setContext(newContext);
 
@@ -75,8 +74,7 @@ export const CustomStoryDecorator = () => {
 			newContext.focusBackgroundColor,
 			newContext.popupBackgroundColor,
 			newContext.subtitleTextColor,
-			newContext.textColor,
-			newContext.preset
+			newContext.textColor
 		);
 		setContext(newContext);
 
