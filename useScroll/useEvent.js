@@ -603,7 +603,7 @@ const useEventWheel = (props, instances) => {
 		const negativeDelta = eventDelta < 0;
 		const {scrollTop, scrollLeft} = scrollContainerHandle.current;
 		const offset = snapToCenter ? scrollContentHandle.current.primary.gridSize : 0;
-		let delta = 0;
+		let delta = eventDelta;
 		let needToHideScrollbarTrack = false;
 
 		if (typeof window !== 'undefined') {
