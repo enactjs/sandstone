@@ -1,0 +1,123 @@
+// MediaOverlay.module.scss
+//
+@use "../styles/color-mixins.scss";
+@use "../styles/colors.scss";
+@use "../styles/mixins.scss";
+@use "../styles/skin.scss";
+@use "../styles/variables.scss";
+
+.mediaOverlay {
+	display: block;
+	position: relative;
+	width: variables.$sand-mediaoverlay-width;
+	height: auto;
+	padding: variables.$sand-mediaoverlay-padding;
+
+	.bg {
+		position: absolute;
+		@include mixins.position(0);
+		border-radius: variables.$sand-mediaoverlay-border-radius;
+	}
+
+	.mediaContainer {
+		position: relative;
+	}
+
+	.media {
+		display: block;
+		position: relative; // it is for z-index;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+
+	.image,
+	.textLayout {
+		position: absolute;
+		@include mixins.position(0);
+	}
+
+	.textLayout {
+		margin: variables.$sand-mediaoverlay-textlayout-margin;
+	}
+
+	.image {
+		margin: 0;
+		height: auto;
+		width: auto;
+	}
+
+	.text {
+		@include mixins.sand-font {
+			font-size: variables.$sand-mediaoverlay-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+		}
+		font-size: variables.$sand-mediaoverlay-font-size;
+		line-height: variables.$sand-mediaoverlay-line-height;
+		font-weight: variables.$sand-mediaoverlay-font-weight;
+	}
+
+	.progressBar {
+		position: absolute;
+		@include mixins.position(auto, 0, 0);
+		margin: variables.$sand-mediaoverlay-progressbar-margin;
+	}
+
+	.captionContainer {
+		> :first-child {
+			margin-top: variables.$sand-mediaoverlay-caption-margin-top;
+		}
+
+		> :last-child {
+			margin-bottom: variables.$sand-mediaoverlay-caption-margin-bottom;
+		}
+    }
+
+	.caption,
+	.subtitle {
+		@include mixins.sand-font {
+			font-size: variables.$sand-mediaoverlay-caption-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+		}
+		font-size: variables.$sand-mediaoverlay-caption-font-size;
+		line-height: variables.$sand-mediaoverlay-line-height;
+	}
+
+	.title {
+		@include mixins.sand-font {
+			font-size: variables.$sand-mediaoverlay-title-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+		}
+		font-size: variables.$sand-mediaoverlay-title-font-size;
+		line-height: variables.$sand-mediaoverlay-line-height;
+	}
+
+	@include skin.applySkins {
+		.bg {
+			@include color-mixins.sand-spotlight-resting-bg-colors;
+		}
+
+		.caption,
+		.title {
+			color: colors.$sand-mediaoverlay-caption-color;
+		}
+
+		.subtitle {
+			color: colors.$sand-mediaoverlay-subtitle-color;
+		}
+
+		@include mixins.focus {
+			@include color-mixins.sand-spotlight-focus-text-colors;
+
+			.caption,
+			.title,
+			.subtitle {
+				color: inherit;
+			}
+
+			.bg {
+				@include color-mixins.sand-spotlight-focus-bg-colors;
+			}
+		}
+	}
+}

@@ -221,6 +221,11 @@ $sand-imageitem-selected-image-border-color: rgba(var(--sand-selected-color-rgb-
 $sand-imageitem-selected-focus-selection-icon-color: $sand-imageitem-selected-selection-icon-color;
 $sand-imageitem-selected-focus-selection-icon-bg-color: $sand-imageitem-selected-selection-icon-bg-color;
 
+// MediaOverlay
+// ---------------------------------------
+$sand-mediaoverlay-caption-color: $sand-text-color;
+$sand-mediaoverlay-subtitle-color: $sand-text-sub-color;
+
 // Popup
 // ---------------------------------------
 $sand-popup-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 90%);
