@@ -306,7 +306,6 @@ const useScroll = (props) => {
 		{
 			className,
 			'data-spotlight-container': spotlightContainer,
-			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			'data-webos-voice-disabled': voiceDisabled,
 			'data-webos-voice-focused': voiceFocused,
@@ -318,6 +317,7 @@ const useScroll = (props) => {
 			noAffordance,
 			scrollMode,
 			snapToCenter,
+			spotlightContainerDisabled,
 			style,
 			verticalScrollThumbAriaLabel,
 			...rest

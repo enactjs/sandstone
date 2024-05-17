@@ -58,8 +58,8 @@ import componentCss from './Slider.module.less';
  * @ui
  * @public
  */
-const SliderBase = (props) => {
-	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = props;
+const SliderBase = ({activateOnSelect = false, active = false, className, css, disabled = false, focused, keyFrequency = [1], max = 100, min = 0, showAnchor, step = 1, wheelInterval = 0, ...rest}) => {
+	const props = {activateOnSelect, active, disabled, keyFrequency, max, min, step, wheelInterval, ...rest};
 
 	validateSteppedOnce(p => p.knobStep, {
 		component: 'Slider',
@@ -67,7 +67,7 @@ const SliderBase = (props) => {
 		valueName: 'max'
 	})(props);
 
-	const step = validateSteppedOnce(p => p.step, {
+	const validatedStep = validateSteppedOnce(p => p.step, {
 		component: 'Slider',
 		valueName: 'max'
 	})(props);
@@ -162,11 +162,13 @@ const SliderBase = (props) => {
 			className={componentClassName}
 			css={mergedCss}
 			disabled={disabled}
+			max={max}
+			min={min}
 			progressBarComponent={
 				<ProgressBar css={mergedCss} />
 			}
 			ref={ref}
-			step={step}
+			step={validatedStep}
 			tooltipComponent={
 				<ComponentOverride
 					component={tooltip}
@@ -401,17 +403,6 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * @public
 	 */
 	wheelInterval: PropTypes.number
-};
-
-SliderBase.defaultProps = {
-	activateOnSelect: false,
-	active: false,
-	disabled: false,
-	keyFrequency: [1],
-	max: 100,
-	min: 0,
-	step: 1,
-	wheelInterval: 0
 };
 
 /**

@@ -32,7 +32,49 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
+let VirtualList = (props) => {
+	const {
+		'data-spotlight-container-disabled': spotlightContainerDisabled = false,
+		cbScrollTo = nop,
+		direction = 'vertical',
+		horizontalScrollbar = 'auto',
+		hoverToScroll,
+		itemSize,
+		noAffordance = false,
+		noScrollByDrag = false,
+		noScrollByWheel = false,
+		onScroll = nop,
+		onScrollStart = nop,
+		onScrollStop = nop,
+		overscrollEffectOn: {arrowKey = false, drag = true, pageKey = false, track = false, wheel = true} = {},
+		pageScroll = false,
+		role = 'list',
+		scrollMode = 'native',
+		verticalScrollbar = 'auto',
+		wrap = false,
+		...rest
+	} = props;
+
+	const virtualListProps = {
+		spotlightContainerDisabled,
+		cbScrollTo,
+		direction,
+		horizontalScrollbar,
+		noAffordance,
+		noScrollByDrag,
+		noScrollByWheel,
+		onScroll,
+		onScrollStart,
+		onScrollStop,
+		overscrollEffectOn: {arrowKey, drag, pageKey, track, wheel},
+		pageScroll,
+		role,
+		scrollMode,
+		verticalScrollbar,
+		wrap,
+		...rest
+	};
+
 	const itemSizeProps = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -43,7 +85,7 @@ let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
 		};
 
 	warning(
-		!itemSizeProps.itemSizes || !rest.cbScrollTo,
+		!itemSizeProps.itemSizes || !cbScrollTo,
 		'VirtualList with `minSize` in `itemSize` prop does not support `cbScrollTo` prop'
 	);
 
@@ -64,7 +106,7 @@ let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll({...rest, ...itemSizeProps});
+	} = useScroll({...virtualListProps, ...itemSizeProps});
 
 	const {
 		className,
@@ -488,31 +530,6 @@ VirtualList = Skinnable(
 	)
 );
 
-VirtualList.defaultProps = {
-	'data-spotlight-container-disabled': false,
-	cbScrollTo: nop,
-	direction: 'vertical',
-	horizontalScrollbar: 'auto',
-	noAffordance: false,
-	noScrollByDrag: false,
-	noScrollByWheel: false,
-	onScroll: nop,
-	onScrollStart: nop,
-	onScrollStop: nop,
-	overscrollEffectOn: {
-		arrowKey: false,
-		drag: true,
-		pageKey: false,
-		track: false,
-		wheel: true
-	},
-	pageScroll: false,
-	role: 'list',
-	scrollMode: 'native',
-	verticalScrollbar: 'auto',
-	wrap: false
-};
-
 /**
  * A Sandstone-styled scrollable and spottable virtual grid list component.
  *
@@ -522,7 +539,48 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = ({hoverToScroll, ...rest}) => {
+let VirtualGridList = (props) => {
+	const {
+		'data-spotlight-container-disabled': spotlightContainerDisabled = false,
+		cbScrollTo = nop,
+		direction = 'vertical',
+		horizontalScrollbar = 'auto',
+		hoverToScroll,
+		noAffordance = false,
+		noScrollByDrag = false,
+		noScrollByWheel = false,
+		onScroll = nop,
+		onScrollStart = nop,
+		onScrollStop = nop,
+		overscrollEffectOn: {arrowKey = false, drag = true, pageKey = false, track = false, wheel = true} = {},
+		pageScroll = false,
+		role = 'list',
+		scrollMode = 'native',
+		verticalScrollbar = 'auto',
+		wrap = false,
+		...rest
+	} = props;
+
+	const virtualGridListProps = {
+		spotlightContainerDisabled,
+		cbScrollTo,
+		direction,
+		horizontalScrollbar,
+		noAffordance,
+		noScrollByDrag,
+		noScrollByWheel,
+		onScroll,
+		onScrollStart,
+		onScrollStop,
+		overscrollEffectOn: {arrowKey, drag, pageKey, track, wheel},
+		pageScroll,
+		role,
+		scrollMode,
+		verticalScrollbar,
+		wrap,
+		...rest
+	};
+
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -538,7 +596,7 @@ let VirtualGridList = ({hoverToScroll, ...rest}) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll(rest);
+	} = useScroll(virtualGridListProps);
 
 	const {
 		className,
@@ -966,31 +1024,6 @@ VirtualGridList = Skinnable(
 		)
 	)
 );
-
-VirtualGridList.defaultProps = {
-	'data-spotlight-container-disabled': false,
-	cbScrollTo: nop,
-	direction: 'vertical',
-	horizontalScrollbar: 'auto',
-	noAffordance: false,
-	noScrollByDrag: false,
-	noScrollByWheel: false,
-	onScroll: nop,
-	onScrollStart: nop,
-	onScrollStop: nop,
-	overscrollEffectOn: {
-		arrowKey: false,
-		drag: true,
-		pageKey: false,
-		track: false,
-		wheel: true
-	},
-	pageScroll: false,
-	role: 'list',
-	scrollMode: 'native',
-	verticalScrollbar: 'auto',
-	wrap: false
-};
 
 export default VirtualList;
 export {
