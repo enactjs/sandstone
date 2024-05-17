@@ -75,7 +75,7 @@ let Scroller = (props) => {
 	} = props;
 
 	const scrollerProps = {
-		spotlightContainerDisabled,
+		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		cbScrollTo,
 		direction,
 		fadeOut,

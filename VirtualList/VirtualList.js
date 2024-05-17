@@ -56,7 +56,7 @@ let VirtualList = (props) => {
 	} = props;
 
 	const virtualListProps = {
-		spotlightContainerDisabled,
+		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		cbScrollTo,
 		direction,
 		horizontalScrollbar,
@@ -562,7 +562,7 @@ let VirtualGridList = (props) => {
 	} = props;
 
 	const virtualGridListProps = {
-		spotlightContainerDisabled,
+		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		cbScrollTo,
 		direction,
 		horizontalScrollbar,
