@@ -272,3 +272,9 @@ $sand-keyguide-colordot-red-color: $sand-remote-button-red-color;
 $sand-keyguide-colordot-green-color: $sand-remote-button-green-color;
 $sand-keyguide-colordot-yellow-color: $sand-remote-button-yellow-color;
 $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
+
+// Tooltip
+// ---------------------------------------
+$sand-tooltip-bg-color:               $sand-focus-bg-color;
+$sand-tooltip-text-color:             $sand-component-focus-text-color;
+$sand-tooltip-shadow:                 0 18px 12px $sand-shadow-color;

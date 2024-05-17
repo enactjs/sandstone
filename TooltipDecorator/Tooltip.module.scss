@@ -1,0 +1,457 @@
+// Tooltip.module.scss
+//
+@use "../styles/colors.scss";
+@use "../styles/mixins.scss";
+@use "../styles/skin.scss";
+@use "../styles/variables.scss";
+
+@mixin tail ($origin, $rotate, $skewX, $skewY) {
+	left: 0;
+	transform-origin: $origin;
+	transform: rotate($rotate) skew($skewX, $skewY);
+}
+
+@mixin centerTail ($origin, $rotate, $skew) {
+	transform-origin: $origin;
+	transform: rotate($rotate) skew($skew, $skew);
+}
+
+.tooltip {
+	position: absolute;
+	z-index: 1;
+	pointer-events: none;
+
+	// You'll notice tiny adjustments to the position: 0.99px, 1px, 8px, etc. in the following code.
+	// These are to account for sub-pixel rendering on scaled or "imperfect" rendering scenarios
+	// where hairline gaps can be seen between the tail and the body.
+
+	.tooltipArrow {
+		position: absolute;
+		width: variables.$sand-tooltip-point-width;
+		height: variables.$sand-tooltip-point-height;
+		z-index: 1;
+
+		&::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+	}
+	&.rightArrow,
+	&.leftArrow {
+		.tooltipArrow {
+			width: variables.$sand-tooltip-point-height;
+			height: variables.$sand-tooltip-point-width;
+		}
+	}
+	&.centerArrow .tooltipArrow {
+		width: variables.$sand-tooltip-point-height;
+		height: variables.$sand-tooltip-point-width;
+		left: 50%;
+	}
+	&.middleArrow .tooltipArrow {
+		width: variables.$sand-tooltip-point-width;
+		height: variables.$sand-tooltip-point-height;
+		top: 50%;
+	}
+
+	.tooltipLabel {
+		--sand-tooltip-label-width: auto;
+
+		@include mixins.sand-small-button-text;
+		font-size: variables.$sand-tooltip-label-font-size;
+		font-weight: variables.$sand-tooltip-font-weight;
+		line-height: variables.$sand-tooltip-label-height;
+		white-space: nowrap;
+		width: var(--sand-tooltip-label-width); // assign a width if necessary, but without a width, "auto" is just fine.
+		padding: variables.$sand-tooltip-padding;
+		border-radius: variables.$sand-tooltip-border-radius;
+
+		@include mixins.enact-locale-rtl {
+			text-align: right;
+		}
+
+		&.marquee {
+			max-width: var(--sand-tooltip-label-width, variables.$sand-tooltip-marquee-width); // If using a marquee, use the preferred width, and if none is provided, fall back to our default variable.
+		}
+
+		&.multi {
+			white-space: normal;
+			@include mixins.locale-japanese-line-break;
+		}
+	}
+
+	&.balloon { /* Needed to prevent global class being added in the DOM */ }
+
+	&.transparent {
+		.tooltipLabel {
+			font-weight: variables.$sand-tooltip-transparent-font-weight;
+			font-size: 36px;
+		}
+		.tooltipArrow {
+			display: none;
+		}
+		&.below {
+			.tooltipLabel {
+				margin-top: variables.$sand-tooltip-transparent-label-offset;
+			}
+		}
+		&.above {
+			.tooltipLabel {
+				margin-bottom: variables.$sand-tooltip-transparent-label-offset;
+			}
+		}
+		&.left {
+			.tooltipLabel {
+				margin-right: variables.$sand-tooltip-transparent-label-offset;
+			}
+		}
+		&.right {
+			.tooltipLabel {
+				margin-left: variables.$sand-tooltip-transparent-label-offset;
+			}
+		}
+	}
+
+	// Positioning for the arrow and label
+	&.below {
+		.tooltipArrow {
+			top: variables.$sand-tooltip-arrow-offset;
+		}
+
+		.tooltipLabel {
+			margin-top: variables.$sand-tooltip-margin-offset;
+		}
+
+		&.leftArrow {
+			.tooltipArrow {
+				right: 0;
+				overflow: hidden;
+
+				&::after {
+					@include tail(top right, -45deg, -45deg, -5deg);
+				}
+			}
+
+			.tooltipLabel {
+				text-align: right;
+				border-top-right-radius: 0;
+			}
+		}
+
+		&.centerArrow {
+			.tooltipArrow {
+				left: 50%;
+
+				&::after {
+					top: variables.$sand-tooltip-arrow-offset;
+					@include centerTail(top left, 45deg, 5deg);
+				}
+			}
+		}
+
+		&.rightArrow {
+			.tooltipArrow {
+				left: 0;
+				overflow: hidden;
+
+				&::after {
+					@include tail(top left, 45deg, 45deg, 5deg);
+				}
+			}
+
+			.tooltipLabel {
+				border-top-left-radius: 0;
+			}
+		}
+	}
+
+	&.above {
+		.tooltipArrow {
+			bottom: variables.$sand-tooltip-arrow-offset;
+		}
+
+		.tooltipLabel {
+			margin-bottom: variables.$sand-tooltip-margin-offset;
+		}
+
+		&.leftArrow {
+			.tooltipArrow {
+				right: 0;
+				overflow: hidden;
+
+				&::after {
+					@include tail(bottom right, 45deg, 45deg, 5deg);
+				}
+			}
+
+			.tooltipLabel {
+				text-align: right;
+				border-bottom-right-radius: 0;
+			}
+		}
+
+		&.centerArrow {
+			.tooltipArrow::after {
+				bottom: variables.$sand-tooltip-arrow-offset;
+				@include centerTail(bottom left, -45deg, -5deg);
+			}
+		}
+
+		&.rightArrow {
+			.tooltipArrow {
+				left: 0;
+				overflow: hidden;
+
+				&::after {
+					@include tail(bottom left, -45deg, -45deg, -5deg);
+				}
+			}
+
+			.tooltipLabel {
+				border-bottom-left-radius: 0;
+			}
+		}
+	}
+
+	&.left {
+		.tooltipArrow {
+			right: variables.$sand-tooltip-arrow-offset;
+		}
+
+		.tooltipLabel {
+			margin-right: calc(#{variables.$sand-tooltip-margin-offset} - 1px);
+		}
+
+		&.topArrow {
+			.tooltipArrow {
+				bottom: 0;
+				overflow: hidden;
+
+				&::after {
+					@include tail(bottom right, -45deg, 5deg, 45deg);
+				}
+			}
+
+			.tooltipLabel {
+				border-bottom-right-radius: 0;
+			}
+		}
+
+		&.middleArrow {
+			.tooltipArrow::after {
+				right: variables.$sand-tooltip-arrow-offset;
+				@include centerTail(top right, 45deg, -5deg);
+			}
+		}
+
+		&.bottomArrow {
+			.tooltipArrow {
+				overflow: hidden;
+
+				&::after {
+					@include tail(top right, 45deg, 5deg, -45deg);
+				}
+			}
+
+			.tooltipLabel {
+				border-top-right-radius: 0;
+			}
+		}
+	}
+
+	&.right {
+		.tooltipArrow {
+			left: variables.$sand-tooltip-arrow-offset;
+		}
+
+		.tooltipLabel {
+			margin-left: variables.$sand-tooltip-margin-offset;
+		}
+
+		&.topArrow {
+			.tooltipArrow {
+				bottom: 0;
+				overflow: hidden;
+
+				&::after {
+					@include tail(bottom left, 45deg, -5deg, -45deg);
+				}
+			}
+
+			.tooltipLabel {
+				border-bottom-left-radius: 0;
+			}
+		}
+
+		&.middleArrow {
+			.tooltipArrow::after {
+				left: variables.$sand-tooltip-arrow-offset;
+				@include centerTail(top left, -45deg, 5deg);
+			}
+		}
+
+		&.bottomArrow {
+			.tooltipArrow {
+				overflow: hidden;
+
+				&::after {
+					@include tail(top left, -45deg, 5deg, 45deg);
+				}
+			}
+			.tooltipLabel {
+				border-top-left-radius: 0;
+			}
+		}
+	}
+
+	// Absolute positioning mode - anchor position rules
+	&.absolute {
+		width: 0;
+		height: 0;
+		top: var(--tooltip-position-top);
+		left: var(--tooltip-position-left);
+
+		.tooltipAnchor {
+			position: absolute;
+		}
+
+		&.below {
+			top: calc(var(--tooltip-position-top) + #{variables.$sand-tooltip-offset});
+
+			&.transparent {
+				top: calc(var(--tooltip-position-top) + #{variables.$sand-tooltip-transparent-label-offset});
+			}
+
+			&.leftArrow .tooltipAnchor {	transform: translateX(-100%);	}
+			&.centerArrow .tooltipAnchor {	transform: translateX(-50%);	}
+			&.rightArrow .tooltipAnchor {	/* transform: translate(0, 0); */	}
+		}
+
+		&.above {
+			top: calc(var(--tooltip-position-top) - #{variables.$sand-tooltip-offset});
+
+			&.transparent {
+				top: calc(var(--tooltip-position-top) - #{variables.$sand-tooltip-transparent-label-offset});
+			}
+
+			&.leftArrow .tooltipAnchor {	transform: translate(-100%, -100%);	}
+			&.centerArrow .tooltipAnchor {	transform: translate(-50%, -100%);	}
+			&.rightArrow .tooltipAnchor {	transform: translate(0, -100%);	}
+		}
+
+		&.left {
+			left: calc(var(--tooltip-position-left) - #{variables.$sand-tooltip-offset});
+
+			&.transparent {
+				left: calc(var(--tooltip-position-left) - #{variables.$sand-tooltip-transparent-label-offset});
+			}
+
+			&.topArrow .tooltipAnchor {	transform: translate(-100%, -100%);	}
+			&.middleArrow .tooltipAnchor {	transform: translate(-100%, -50%);	}
+			&.bottomArrow .tooltipAnchor {	transform: translate(-100%, 0);	}
+		}
+
+		&.right {
+			left: calc(var(--tooltip-position-left) + #{variables.$sand-tooltip-offset});
+
+			&.transparent {
+				left: calc(var(--tooltip-position-left) + #{variables.$sand-tooltip-transparent-label-offset});
+			}
+
+			&.topArrow .tooltipAnchor {	transform: translate(0, -100%);	}
+			&.middleArrow .tooltipAnchor {	transform: translate(0, -50%);	}
+			&.bottomArrow .tooltipAnchor {	/* transform: translate(0, 0); */	}
+		}
+	}
+
+	// Relative positioning mode - position rules
+	&.relative {
+		&.below {
+			top: calc(100% + #{variables.$sand-tooltip-offset});
+
+			&.transparent {
+				top: calc(100% + #{variables.$sand-tooltip-transparent-label-offset});
+			}
+
+			&.leftArrow {	right: 50%;	}
+			&.centerArrow,
+			&.rightArrow {	left: 50%;	}
+
+			&.centerArrow {	transform: translateX(-50%);	}
+		}
+
+		&.above {
+			bottom: calc(100% + #{variables.$sand-tooltip-offset});
+
+			&.transparent {
+				bottom: calc(100% + #{variables.$sand-tooltip-transparent-label-offset});
+			}
+
+			&.leftArrow {	right: 50%;	}
+			&.centerArrow,
+			&.rightArrow {	left: 50%;	}
+
+			&.centerArrow {	transform: translateX(-50%);	}
+		}
+
+		&.left {
+			right: calc(100% + #{variables.$sand-tooltip-offset});
+
+			&.transparent {
+				right: calc(100% + #{variables.$sand-tooltip-transparent-label-offset});
+			}
+
+			&.topArrow {	bottom: 50%;	}
+			&.middleArrow,
+			&.bottomArrow {	top: 50%;	}
+
+			&.middleArrow {	transform: translateY(-50%);	}
+		}
+
+		&.right {
+			left: calc(100% + #{variables.$sand-tooltip-offset});
+
+			&.transparent {
+				left: calc(100% + #{variables.$sand-tooltip-transparent-label-offset});
+			}
+
+			&.topArrow {	bottom: 50%;	}
+			&.middleArrow,
+			&.bottomArrow {	top: 50%;	}
+
+			&.middleArrow {	transform: translateY(-50%);	}
+		}
+	}
+
+	@include mixins.enact-locale-rtl {
+		direction: ltr;
+
+		.tooltipAnchor {
+			direction: rtl;
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		filter: drop-shadow(colors.$sand-tooltip-shadow);
+
+		&.transparent {
+			filter: none;
+			.tooltipLabel {
+				color: #fff;
+				background-color: transparent;
+			}
+		}
+
+		.tooltipArrow::after {
+			background: colors.$sand-tooltip-bg-color;
+		}
+
+		.tooltipLabel {
+			color: colors.$sand-tooltip-text-color;
+			background-color: colors.$sand-tooltip-bg-color;
+		}
+	}
+}
