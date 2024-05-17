@@ -188,7 +188,7 @@
 
 @mixin sand-font-number {
 	// content: "Applying .sand-font-number";
-	@include sand-font(variables.$sand-number-font-family, variables.$sand-number-font-family);
+	@include sand-font(variables.$sand-number-font-family, variables.$sand-number-font-family) {};
 }
 
 // Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.

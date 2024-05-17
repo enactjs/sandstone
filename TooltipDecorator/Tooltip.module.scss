@@ -68,7 +68,7 @@
 		padding: variables.$sand-tooltip-padding;
 		border-radius: variables.$sand-tooltip-border-radius;
 
-		@include mixins.enact-locale-rtl {
+		@include mixins.enact-locale-rtl("") {
 			text-align: right;
 		}
 
@@ -425,7 +425,7 @@
 		}
 	}
 
-	@include mixins.enact-locale-rtl {
+	@include mixins.enact-locale-rtl("") {
 		direction: ltr;
 
 		.tooltipAnchor {
