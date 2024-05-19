@@ -15,7 +15,7 @@
  */
 
 import {QuickGuidePanels} from './QuickGuidePanels';
-import QuickGuidePanel from './QuickGuidePanel';
+import {QuickGuidePanel as Panel} from './QuickGuidePanel';
 
 /**
  * A shortcut to access {@link sandstone/QuickGuidePanels.QuickGuidePanel}
@@ -24,10 +24,10 @@ import QuickGuidePanel from './QuickGuidePanel';
  * @static
  * @memberof sandstone/QuickGuidePanels.QuickGuidePanels
  */
-QuickGuidePanels.Panel = QuickGuidePanel;
+QuickGuidePanels.Panel = Panel;
 
 export default QuickGuidePanels;
 export {
-	QuickGuidePanel,
+	Panel,
 	QuickGuidePanels
 };
