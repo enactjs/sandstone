@@ -69,7 +69,7 @@ const PageViewsBase = kind({
 
 		/**
 		 * When `true`, maximize its contents area.
-		 *  
+		 *
 		 * @type {Boolean}
 		 * @public
 		 */
