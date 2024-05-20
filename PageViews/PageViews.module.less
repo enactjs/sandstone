@@ -34,11 +34,31 @@
 		height: 132px;
 	}
 
-	.contentsArea, .viewManager{
+	&.full .steps {
+		position: absolute;
+		align-self: center;
+		bottom: 0px;
+		height: 132px;
+	}
+
+	.contentsArea {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.viewManager {
 		overflow: hidden;
 	}
 
 	.horizontalLayout {
 		height: 100%;
 	}
+}
+
+.navButtonContainer {
+	overflow: hidden;
+	z-index: 10;
+	top: ~"calc(50% - " (@sand-button-height+12)/2 ~")";
+	position: absolute;
+	width: 100%;
 }
