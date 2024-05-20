@@ -58,21 +58,33 @@ import componentCss from './Slider.module.less';
  * @ui
  * @public
  */
-const SliderBase = ({activateOnSelect = false, active = false, className, css, disabled = false, focused, keyFrequency = [1], max = 100, min = 0, showAnchor, step = 1, wheelInterval = 0, ...rest}) => {
-	const props = {activateOnSelect, active, disabled, keyFrequency, max, min, step, wheelInterval, ...rest};
+const sliderDefaultProps = {
+	activateOnSelect: false,
+	active: false,
+	disabled: false,
+	keyFrequency: [1],
+	max: 100,
+	min: 0,
+	step: 1,
+	wheelInterval: 0
+};
+
+const SliderBase = (props) => {
+	const sliderProps = Object.assign({}, sliderDefaultProps, props);
+	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = sliderProps;
 
 	validateSteppedOnce(p => p.knobStep, {
 		component: 'Slider',
 		stepName: 'knobStep',
 		valueName: 'max'
-	})(props);
+	})(sliderProps);
 
-	const validatedStep = validateSteppedOnce(p => p.step, {
+	const step = validateSteppedOnce(p => p.step, {
 		component: 'Slider',
 		valueName: 'max'
-	})(props);
+	})(sliderProps);
 
-	const tooltip = props.tooltip === true ? ProgressBarTooltip : props.tooltip;
+	const tooltip = sliderProps.tooltip === true ? ProgressBarTooltip : sliderProps.tooltip;
 
 	const spotlightAccelerator = useRef();
 	const ref = useRef();
@@ -101,7 +113,7 @@ const SliderBase = ({activateOnSelect = false, active = false, className, css, d
 			forKey('enter'),
 			forward('onActivate')
 		)
-	}, props, spotlightAccelerator);
+	}, sliderProps, spotlightAccelerator);
 
 	const nativeEventHandlers = useHandlers({
 		onWheel: handle(
@@ -113,7 +125,7 @@ const SliderBase = ({activateOnSelect = false, active = false, className, css, d
 				handleDecrementByWheel
 			])
 		)
-	}, props, context);
+	}, sliderProps, context);
 
 	// if the props includes a css map, merge them together
 	let mergedCss = usePublicClassNames({componentCss, customCss: css, publicClassNames: true});
@@ -162,13 +174,11 @@ const SliderBase = ({activateOnSelect = false, active = false, className, css, d
 			className={componentClassName}
 			css={mergedCss}
 			disabled={disabled}
-			max={max}
-			min={min}
 			progressBarComponent={
 				<ProgressBar css={mergedCss} />
 			}
 			ref={ref}
-			step={validatedStep}
+			step={step}
 			tooltipComponent={
 				<ComponentOverride
 					component={tooltip}

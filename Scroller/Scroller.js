@@ -53,44 +53,32 @@ let scrollerId = 0;
  * @ui
  * @public
  */
-let Scroller = (props) => {
-	const {
-		'aria-label': ariaLabel,
-		'data-spotlight-container-disabled': spotlightContainerDisabled = false,
-		cbScrollTo = nop,
-		direction = 'both',
-		fadeOut = false,
-		focusableScrollbar = false,
-		horizontalScrollbar = 'auto',
-		hoverToScroll,
-		noScrollByDrag = false,
-		noScrollByWheel = false,
-		onScroll = nop,
-		onScrollStart = nop,
-		onScrollStop = nop,
-		overscrollEffectOn: {arrowKey = false, drag = true, pageKey = false, track = false, wheel = true} = {},
-		scrollMode = 'native',
-		verticalScrollbar = 'auto',
-		...rest
-	} = props;
+const scrollerDefaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'both',
+	fadeOut: false,
+	focusableScrollbar: false,
+	horizontalScrollbar: 'auto',
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: true,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	scrollMode: 'native',
+	verticalScrollbar: 'auto'
+};
 
-	const scrollerProps = {
-		'data-spotlight-container-disabled': spotlightContainerDisabled,
-		cbScrollTo,
-		direction,
-		fadeOut,
-		focusableScrollbar,
-		horizontalScrollbar,
-		noScrollByDrag,
-		noScrollByWheel,
-		onScroll,
-		onScrollStart,
-		onScrollStop,
-		overscrollEffectOn: {arrowKey, drag, pageKey, track, wheel},
-		scrollMode,
-		verticalScrollbar,
-		...rest
-	};
+let Scroller = (props) => {
+	const scrollerProps = Object.assign({}, scrollerDefaultProps, props);
+	const {'aria-label': ariaLabel, hoverToScroll, ...rest} = scrollerProps;
 
 	const id = `scroller_${++scrollerId}_content`;
 
@@ -109,7 +97,7 @@ let Scroller = (props) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll({...scrollerProps, scrollToContentContainerOnFocus: true});
+	} = useScroll({...rest, scrollToContentContainerOnFocus: true});
 
 	const {
 		className,
@@ -120,19 +108,19 @@ let Scroller = (props) => {
 		editableWrapperProps,
 		focusableBodyProps,
 		themeScrollContentProps
-	} = useThemeScroller(scrollerProps, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
-	const {children, editable} = scrollerProps;
+	const {children, direction, editable} = rest;
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const ScrollBody = scrollerProps.focusableScrollbar === 'byEnter' ? SpottableDiv : Fragment;
+	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : Fragment;
 
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
-					{scrollerProps.focusableScrollbar ? <ScrollbarPlaceholder /> : null}
+					{rest.focusableScrollbar ? <ScrollbarPlaceholder /> : null}
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle}>
 						{(editable && direction === 'horizontal') ?
 							<EditableWrapper {...editableWrapperProps} /> :

@@ -32,48 +32,34 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = (props) => {
-	const {
-		'data-spotlight-container-disabled': spotlightContainerDisabled = false,
-		cbScrollTo = nop,
-		direction = 'vertical',
-		horizontalScrollbar = 'auto',
-		hoverToScroll,
-		itemSize,
-		noAffordance = false,
-		noScrollByDrag = false,
-		noScrollByWheel = false,
-		onScroll = nop,
-		onScrollStart = nop,
-		onScrollStop = nop,
-		overscrollEffectOn: {arrowKey = false, drag = true, pageKey = false, track = false, wheel = true} = {},
-		pageScroll = false,
-		role = 'list',
-		scrollMode = 'native',
-		verticalScrollbar = 'auto',
-		wrap = false,
-		...rest
-	} = props;
+const virtualListDefaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'vertical',
+	horizontalScrollbar: 'auto',
+	noAffordance: false,
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: true,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	pageScroll: false,
+	role: 'list',
+	scrollMode: 'native',
+	verticalScrollbar: 'auto',
+	wrap: false
+};
 
-	const virtualListProps = {
-		'data-spotlight-container-disabled': spotlightContainerDisabled,
-		cbScrollTo,
-		direction,
-		horizontalScrollbar,
-		noAffordance,
-		noScrollByDrag,
-		noScrollByWheel,
-		onScroll,
-		onScrollStart,
-		onScrollStop,
-		overscrollEffectOn: {arrowKey, drag, pageKey, track, wheel},
-		pageScroll,
-		role,
-		scrollMode,
-		verticalScrollbar,
-		wrap,
-		...rest
-	};
+let VirtualList = (props) => {
+	const virtualListProps = Object.assign({}, virtualListDefaultProps, props);
+	const {itemSize, hoverToScroll, ...rest} = virtualListProps;
 
 	const itemSizeProps = itemSize && itemSize.minSize ?
 		{
@@ -85,7 +71,7 @@ let VirtualList = (props) => {
 		};
 
 	warning(
-		!itemSizeProps.itemSizes || !cbScrollTo,
+		!itemSizeProps.itemSizes || !rest.cbScrollTo,
 		'VirtualList with `minSize` in `itemSize` prop does not support `cbScrollTo` prop'
 	);
 
@@ -106,7 +92,7 @@ let VirtualList = (props) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll({...virtualListProps, ...itemSizeProps});
+	} = useScroll({...rest, ...itemSizeProps});
 
 	const {
 		className,
@@ -539,47 +525,34 @@ VirtualList = Skinnable(
  * @ui
  * @public
  */
-let VirtualGridList = (props) => {
-	const {
-		'data-spotlight-container-disabled': spotlightContainerDisabled = false,
-		cbScrollTo = nop,
-		direction = 'vertical',
-		horizontalScrollbar = 'auto',
-		hoverToScroll,
-		noAffordance = false,
-		noScrollByDrag = false,
-		noScrollByWheel = false,
-		onScroll = nop,
-		onScrollStart = nop,
-		onScrollStop = nop,
-		overscrollEffectOn: {arrowKey = false, drag = true, pageKey = false, track = false, wheel = true} = {},
-		pageScroll = false,
-		role = 'list',
-		scrollMode = 'native',
-		verticalScrollbar = 'auto',
-		wrap = false,
-		...rest
-	} = props;
+const virtualGridListDefaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'vertical',
+	horizontalScrollbar: 'auto',
+	noAffordance: false,
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: true,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	pageScroll: false,
+	role: 'list',
+	scrollMode: 'native',
+	verticalScrollbar: 'auto',
+	wrap: false
+};
 
-	const virtualGridListProps = {
-		'data-spotlight-container-disabled': spotlightContainerDisabled,
-		cbScrollTo,
-		direction,
-		horizontalScrollbar,
-		noAffordance,
-		noScrollByDrag,
-		noScrollByWheel,
-		onScroll,
-		onScrollStart,
-		onScrollStop,
-		overscrollEffectOn: {arrowKey, drag, pageKey, track, wheel},
-		pageScroll,
-		role,
-		scrollMode,
-		verticalScrollbar,
-		wrap,
-		...rest
-	};
+let VirtualGridList = (props) => {
+	const virtualGridListProps = Object.assign({}, virtualGridListDefaultProps, props);
+	const {hoverToScroll, ...rest} = virtualGridListProps;
 
 	const {
 		// Variables
@@ -596,7 +569,7 @@ let VirtualGridList = (props) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll(virtualGridListProps);
+	} = useScroll(rest);
 
 	const {
 		className,
