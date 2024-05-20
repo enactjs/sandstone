@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - Support for QHD displays
+- `sandstone/PageViews` prop `fullContents` to maximize its contents area
 
 ### Fixed
 
