@@ -68,7 +68,7 @@ const PageViewsBase = kind({
 		componentRef: EnactPropTypes.ref,
 
 		/**
-		 * When `true`, the contents of the page use the full area
+		 * When `true`, the contents of the page use the entire area
 		 * 
 		 * @type {Boolean}
 		 * @default false
