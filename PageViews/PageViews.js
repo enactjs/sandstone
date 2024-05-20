@@ -69,7 +69,7 @@ const PageViewsBase = kind({
 
 		/**
 		 * When `true`, the contents of the page use the entire area
-		 * 
+		 *
 		 * @type {Boolean}
 		 * @default false
 		 * @public
@@ -290,18 +290,18 @@ const PageViewsBase = kind({
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
 				{!fullContents && pageIndicatorType === 'dot' ? <div>{steps}</div> : null}
 				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
-					{fullContents ? 
+					{fullContents ?
 						<>
 							<Row className={css.horizontalLayout}>{renderViewManager}</Row>
 							<Row className={css.navButtonContainer}>{pageIndicatorType === 'dot' ? renderPrevButton : null}<Cell />{pageIndicatorType === 'dot' ? renderNextButton : null}</Row>
 							{steps}
-						</> : 
+						</> :
 						<Row className={css.horizontalLayout}>
 							{pageIndicatorType === 'dot' ? renderPrevButton : null}
 							{renderViewManager}
 							{pageIndicatorType === 'dot' ? renderNextButton : null}
 						</Row>
-					}	
+					}
 				</Column>
 				{!fullContents && pageIndicatorType === 'number' ? <div>{steps}</div> : null}
 			</div>
