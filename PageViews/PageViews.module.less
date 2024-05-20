@@ -21,7 +21,7 @@
 	}
 
 	&.number .steps {
-		height: 252px;
+		min-height: 252px;
 		.pageNumber {
 			width: 126px;
 		}
@@ -31,14 +31,14 @@
 	}
 
 	&.dot .steps {
-		height: 132px;
+		min-height: 132px;
 	}
 
-	&.full .steps {
+	&.fullContents .steps {
 		position: absolute;
 		align-self: center;
 		bottom: 0px;
-		height: 132px;
+		min-height: 132px;
 	}
 
 	.contentsArea {
@@ -58,7 +58,7 @@
 .navButtonContainer {
 	overflow: hidden;
 	z-index: 10;
-	top: ~"calc(50% - " (@sand-button-height+12)/2 ~")";
+	top: ~"calc(50% - " (@sand-button-height + 12) / 2 ~")";
 	position: absolute;
 	width: 100%;
 }

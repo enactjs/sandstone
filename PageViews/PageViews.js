@@ -68,10 +68,9 @@ const PageViewsBase = kind({
 		componentRef: EnactPropTypes.ref,
 
 		/**
-		 * When `true`, the contents of the page use the entire area
-		 *
+		 * When `true`, maximize its contents area.
+		 *  
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		fullContents: PropTypes.bool,
@@ -193,7 +192,7 @@ const PageViewsBase = kind({
 			return `${pageHint} ${children?.[index]?.props['aria-label'] || ''}`;
 		},
 		className: ({fullContents, pageIndicatorType, styler}) => {
-			return styler.append({full: fullContents}, pageIndicatorType);
+			return styler.append({fullContents}, pageIndicatorType);
 		},
 		renderPrevButton: ({index, onPrevClick, navigationButtonOffset}) => {
 			const isPrevButtonVisible = index !== 0;
@@ -288,7 +287,7 @@ const PageViewsBase = kind({
 
 		return (
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
-				{!fullContents && pageIndicatorType === 'dot' ? <div>{steps}</div> : null}
+				{!fullContents && pageIndicatorType === 'dot' ? steps : null}
 				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
 					{fullContents ?
 						<>
@@ -303,7 +302,7 @@ const PageViewsBase = kind({
 						</Row>
 					}
 				</Column>
-				{!fullContents && pageIndicatorType === 'number' ? <div>{steps}</div> : null}
+				{!fullContents && pageIndicatorType === 'number' ? steps : null}
 			</div>
 		);
 	}
