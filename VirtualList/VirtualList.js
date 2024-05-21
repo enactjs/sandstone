@@ -516,6 +516,8 @@ VirtualList = Skinnable(
 	)
 );
 
+VirtualList.defaultPropValues = virtualListDefaultProps;
+
 /**
  * A Sandstone-styled scrollable and spottable virtual grid list component.
  *
@@ -997,6 +999,8 @@ VirtualGridList = Skinnable(
 		)
 	)
 );
+
+VirtualGridList.defaultPropValues = virtualGridListDefaultProps;
 
 export default VirtualList;
 export {

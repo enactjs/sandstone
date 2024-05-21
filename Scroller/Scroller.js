@@ -478,6 +478,8 @@ Scroller = Skinnable(
 	)
 );
 
+Scroller.defaultPropValues = scrollerDefaultProps;
+
 export default Scroller;
 export {
 	ContentContainerDecorator,

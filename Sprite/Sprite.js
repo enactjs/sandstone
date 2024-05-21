@@ -350,6 +350,9 @@ const SpriteBase = kind({
 	}
 });
 
+SpriteBase.defaultPropValues = {
+	iterations: Infinity
+};
 
 export default SpriteBase;
 export {
