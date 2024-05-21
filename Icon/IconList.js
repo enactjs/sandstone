@@ -211,7 +211,7 @@ export default {
 	show              : 0x0F018E, // show
 	hide              : 0x0F018F, // hide
 	wifi15g           : 0x0F0191, // wifi1_5g
-	wifi25g		      : 0x0F0192, // wifi2_5g
+	wifi25g           : 0x0F0192, // wifi2_5g
 	wifi35g           : 0x0F0193, // wifi3_5g
 	wifi45g           : 0x0F0194, // wifi4_5g
 	wifilock15g       : 0x0F0195, // wifilock1_5g
