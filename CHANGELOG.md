@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Marquee` to remove override function duplicated with the Enact
 - `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
 
 ## [2.9.0-alpha.2] - 2024-04-22
