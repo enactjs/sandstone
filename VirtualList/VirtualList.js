@@ -23,15 +23,6 @@ import {useThemeVirtualList} from './useThemeVirtualList';
 
 const nop = () => {};
 
-/**
- * A Sandstone-styled scrollable and spottable virtual list component.
- *
- * @class VirtualList
- * @memberof sandstone/VirtualList
- * @extends ui/VirtualList.VirtualListBasic
- * @ui
- * @public
- */
 const virtualListDefaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
@@ -57,6 +48,15 @@ const virtualListDefaultProps = {
 	wrap: false
 };
 
+/**
+ * A Sandstone-styled scrollable and spottable virtual list component.
+ *
+ * @class VirtualList
+ * @memberof sandstone/VirtualList
+ * @extends ui/VirtualList.VirtualListBasic
+ * @ui
+ * @public
+ */
 let VirtualList = (props) => {
 	const virtualListProps = Object.assign({}, virtualListDefaultProps, props);
 	const {itemSize, hoverToScroll, ...rest} = virtualListProps;
@@ -518,15 +518,6 @@ VirtualList = Skinnable(
 
 VirtualList.defaultPropValues = virtualListDefaultProps;
 
-/**
- * A Sandstone-styled scrollable and spottable virtual grid list component.
- *
- * @class VirtualGridList
- * @memberof sandstone/VirtualList
- * @extends ui/VirtualList.VirtualListBasic
- * @ui
- * @public
- */
 const virtualGridListDefaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
@@ -552,6 +543,15 @@ const virtualGridListDefaultProps = {
 	wrap: false
 };
 
+/**
+ * A Sandstone-styled scrollable and spottable virtual grid list component.
+ *
+ * @class VirtualGridList
+ * @memberof sandstone/VirtualList
+ * @extends ui/VirtualList.VirtualListBasic
+ * @ui
+ * @public
+ */
 let VirtualGridList = (props) => {
 	const virtualGridListProps = Object.assign({}, virtualGridListDefaultProps, props);
 	const {hoverToScroll, ...rest} = virtualGridListProps;

@@ -48,16 +48,6 @@ import {
 
 import componentCss from './Slider.module.less';
 
-/**
- * Range-selection input component.
- *
- * @class SliderBase
- * @extends ui/Slider.SliderBase
- * @omit progressBarComponent
- * @memberof sandstone/Slider
- * @ui
- * @public
- */
 const sliderDefaultProps = {
 	activateOnSelect: false,
 	active: false,
@@ -69,6 +59,16 @@ const sliderDefaultProps = {
 	wheelInterval: 0
 };
 
+/**
+ * Range-selection input component.
+ *
+ * @class SliderBase
+ * @extends ui/Slider.SliderBase
+ * @omit progressBarComponent
+ * @memberof sandstone/Slider
+ * @ui
+ * @public
+ */
 const SliderBase = (props) => {
 	const sliderProps = Object.assign({}, sliderDefaultProps, props);
 	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = sliderProps;

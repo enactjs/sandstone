@@ -39,20 +39,6 @@ const nop = () => {};
 const SpottableDiv = Spottable('div');
 let scrollerId = 0;
 
-/**
- * A Sandstone-styled Scroller, useScroll applied.
- *
- * Usage:
- * ```
- * <Scroller>Scroll me.</Scroller>
- * ```
- *
- * @class Scroller
- * @memberof sandstone/Scroller
- * @extends ui/Scroller.ScrollerBasic
- * @ui
- * @public
- */
 const scrollerDefaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
@@ -76,6 +62,20 @@ const scrollerDefaultProps = {
 	verticalScrollbar: 'auto'
 };
 
+/**
+ * A Sandstone-styled Scroller, useScroll applied.
+ *
+ * Usage:
+ * ```
+ * <Scroller>Scroll me.</Scroller>
+ * ```
+ *
+ * @class Scroller
+ * @memberof sandstone/Scroller
+ * @extends ui/Scroller.ScrollerBasic
+ * @ui
+ * @public
+ */
 let Scroller = (props) => {
 	const scrollerProps = Object.assign({}, scrollerDefaultProps, props);
 	const {'aria-label': ariaLabel, hoverToScroll, ...rest} = scrollerProps;
