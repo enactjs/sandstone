@@ -35,7 +35,7 @@ const defaultConfig = {
  * PanelsRouter passes the children, footer, subtitle, and title from
  * {@link sandstone/WizardPanels.Panel|WizardPanel} to
  * {@link sandstone/WizardPanels.WizardPanelsBase|WizardPanelsBase} and passes the children from
- * {@link sandstone/QuickGuidePanels.QuickGuidePanel|QuickGuidePanel} to
+ * {@link sandstone/QuickGuidePanels.Panel|QuickGuidePanel} to
  * {@link sandstone/QuickGuidePanels.QuickGuidePanelsBase|QuickGuidePanelsBase}.
  *
  * @class PanelsRouter
