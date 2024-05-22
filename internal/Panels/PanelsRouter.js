@@ -48,12 +48,12 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		children,
 		componentRef,
 		'data-spotlight-id': spotlightId,
-		index,
+		index = 0,
 		onTransition,
 		onWillTransition,
 		rtl,
-		subtitle,
-		title,
+		subtitle = '',
+		title = '',
 		...rest
 	}) => {
 		const [panel, setPanel] = useState(null);
@@ -207,12 +207,6 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		* @private
 		*/
 		title: PropTypes.string
-	};
-
-	PanelsProvider.defaultProps = {
-		index: 0,
-		subtitle: '',
-		title: ''
 	};
 
 	return PanelsProvider;
