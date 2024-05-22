@@ -10,7 +10,7 @@
  * </QuickGuidePanels>
  * ```
  * @module sandstone/QuickGuidePanels
- * @exports QuickGuidePanel
+ * @exports Panel
  * @exports QuickGuidePanels
  */
 
