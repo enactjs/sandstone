@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
+- `sandstone/QuickGuidePanels` to export `Panel` instead of `QuickGuidePanel`
 
 ## [2.9.0-alpha.2] - 2024-04-22
 
