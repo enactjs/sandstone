@@ -209,5 +209,13 @@ export default {
 	wowcast           : 0x0F018C, // wowcast
 	exclamation       : 0x0F018D, // exclamation
 	show              : 0x0F018E, // show
-	hide              : 0x0F018F  // hide
+	hide              : 0x0F018F, // hide
+	wifi15g           : 0x0F0191, // wifi1_5g
+	wifi25g           : 0x0F0192, // wifi2_5g
+	wifi35g           : 0x0F0193, // wifi3_5g
+	wifi45g           : 0x0F0194, // wifi4_5g
+	wifilock15g       : 0x0F0195, // wifilock1_5g
+	wifilock25g       : 0x0F0196, // wifilock2_5g
+	wifilock35g       : 0x0F0197, // wifilock3_5g
+	wifilock45g       : 0x0F0198 // wifilock4_5g
 };

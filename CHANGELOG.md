@@ -7,6 +7,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - Support for QHD displays
+- `sandstone/Icon` supported icon list, adding new wifi5G icons
+- `sandstone/PageViews` prop `fullContents` to maximize its contents area
 
 ### Fixed
 
