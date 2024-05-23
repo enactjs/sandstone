@@ -236,10 +236,11 @@ const PageViewsBase = kind({
 		steps: ({index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
+			const isStepVisible = totalIndex !== 1;
 			return (
 				<>
 					{pageIndicatorType !== 'number' ?
-						<Row className={css.steps}>
+						<Row className={isStepVisible ? css.steps : css.hiddenSteps}>
 							<Steps
 								current={index + 1}
 								pastIcon={'circle'}
@@ -269,7 +270,6 @@ const PageViewsBase = kind({
 		index,
 		pageIndicatorType,
 		steps,
-		totalIndex,
 		renderPrevButton,
 		renderNextButton,
 		renderViewManager,
@@ -282,12 +282,13 @@ const PageViewsBase = kind({
 		delete rest.onTransition;
 		delete rest.onNextClick;
 		delete rest.onPrevClick;
-    delete rest.onWillTransition;
+		delete rest.onWillTransition;
 		delete rest.reverseTransition;
-    
+		delete rest.totalIndex;
+
 		return (
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
-				{!fullContents && totalIndex > 1 && pageIndicatorType === 'dot' ? steps : null}
+				{!fullContents && pageIndicatorType === 'dot' ? steps : null}
 				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
 					{fullContents ?
 						<>
