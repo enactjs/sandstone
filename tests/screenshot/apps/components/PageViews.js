@@ -28,6 +28,10 @@ const BaseTests = [
 		wrapper: {full: true}
 	},
 	{
+		component: <Panel><Header title="title of panel" subtitle="subtitle of panel" /><PageViews fullContents index={2}>{PageComponents}</PageViews></Panel>,
+		wrapper: {full: true}
+	},
+	{
 		component: <Panel><Header title="title of panel" subtitle="subtitle of panel" /><PageViews pageIndicatorType="number" index={0}>{PageComponents}</PageViews></Panel>,
 		wrapper: {full: true}
 	},
