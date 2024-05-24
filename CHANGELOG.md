@@ -2,6 +2,19 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.9.0-alpha.3] - 2024-05-24
+
+### Added
+
+- Support for QHD displays
+- `sandstone/Icon` supported icon list, adding new wifi5G icons
+- `sandstone/PageViews` prop `fullContents` to maximize its contents area
+
+### Fixed
+
+- `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
+- `sandstone/QuickGuidePanels` to export `Panel` instead of `QuickGuidePanel`
+
 ## [2.9.0-alpha.2] - 2024-04-22
 
 ### Added

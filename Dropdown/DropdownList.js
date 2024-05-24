@@ -118,11 +118,13 @@ const DropdownListBase = kind({
 				child = {children: child};
 			}
 			const data = child.children;
+			const {key, ...restChild} = {...child};
 
 			return (
 				<Item
 					{...rest}
-					{...child}
+					{...restChild}
+					key={key}
 					slotAfter={slotAfter}
 					data-selected={isSelected}
 					// eslint-disable-next-line react/jsx-no-bind

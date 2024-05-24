@@ -10,24 +10,24 @@
  * </QuickGuidePanels>
  * ```
  * @module sandstone/QuickGuidePanels
- * @exports QuickGuidePanel
+ * @exports Panel
  * @exports QuickGuidePanels
  */
 
 import {QuickGuidePanels} from './QuickGuidePanels';
-import QuickGuidePanel from './QuickGuidePanel';
+import {Panel} from './Panel';
 
 /**
- * A shortcut to access {@link sandstone/QuickGuidePanels.QuickGuidePanel}
+ * A shortcut to access {@link sandstone/QuickGuidePanels.Panel}
  *
  * @name Panel
  * @static
  * @memberof sandstone/QuickGuidePanels.QuickGuidePanels
  */
-QuickGuidePanels.Panel = QuickGuidePanel;
+QuickGuidePanels.Panel = Panel;
 
 export default QuickGuidePanels;
 export {
-	QuickGuidePanel,
+	Panel,
 	QuickGuidePanels
 };
