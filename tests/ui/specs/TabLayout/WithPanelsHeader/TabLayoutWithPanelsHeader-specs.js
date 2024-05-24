@@ -6,7 +6,7 @@ describe('TabLayout', function () {
 	});
 
 	describe('With Panels Header', function () {
-		it('should spot tab instead of button in Header', async function () {
+		it('should spot tab instead of button in Header - [WRQ-18041]', async function () {
 			// Focus item1 in Tab 1 contents.
 			await Page.spotlightRight();
 			expect(await $('#item1').isFocused()).to.be.true();
