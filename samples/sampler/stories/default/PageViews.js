@@ -103,7 +103,7 @@ export const _PageViews = (args) => {
 
 boolean('fullContents', _PageViews, Config, false);
 select('pageIndicatorType', _PageViews, propOptions.pageIndicatorType, Config, 'dot');
-number('total', _PageViews, 0);
+number('total', _PageViews, Config, 0);
 
 _PageViews.storyName = 'PageViews';
 _PageViews.parameters = {
