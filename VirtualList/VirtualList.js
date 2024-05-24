@@ -23,6 +23,31 @@ import {useThemeVirtualList} from './useThemeVirtualList';
 
 const nop = () => {};
 
+const virtualListDefaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'vertical',
+	horizontalScrollbar: 'auto',
+	noAffordance: false,
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: true,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	pageScroll: false,
+	role: 'list',
+	scrollMode: 'native',
+	verticalScrollbar: 'auto',
+	wrap: false
+};
+
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
  *
@@ -32,7 +57,10 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
+let VirtualList = (props) => {
+	const virtualListProps = Object.assign({}, virtualListDefaultProps, props);
+	const {itemSize, hoverToScroll, ...rest} = virtualListProps;
+
 	const itemSizeProps = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -488,7 +516,9 @@ VirtualList = Skinnable(
 	)
 );
 
-VirtualList.defaultProps = {
+VirtualList.defaultPropValues = virtualListDefaultProps;
+
+const virtualGridListDefaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'vertical',
@@ -522,7 +552,10 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = ({hoverToScroll, ...rest}) => {
+let VirtualGridList = (props) => {
+	const virtualGridListProps = Object.assign({}, virtualGridListDefaultProps, props);
+	const {hoverToScroll, ...rest} = virtualGridListProps;
+
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -967,30 +1000,7 @@ VirtualGridList = Skinnable(
 	)
 );
 
-VirtualGridList.defaultProps = {
-	'data-spotlight-container-disabled': false,
-	cbScrollTo: nop,
-	direction: 'vertical',
-	horizontalScrollbar: 'auto',
-	noAffordance: false,
-	noScrollByDrag: false,
-	noScrollByWheel: false,
-	onScroll: nop,
-	onScrollStart: nop,
-	onScrollStop: nop,
-	overscrollEffectOn: {
-		arrowKey: false,
-		drag: true,
-		pageKey: false,
-		track: false,
-		wheel: true
-	},
-	pageScroll: false,
-	role: 'list',
-	scrollMode: 'native',
-	verticalScrollbar: 'auto',
-	wrap: false
-};
+VirtualGridList.defaultPropValues = virtualGridListDefaultProps;
 
 export default VirtualList;
 export {
