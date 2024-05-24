@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import ImageItem from '../ImageItem';
 
-import css from './ImageList.module.less';
+import * as css from './ImageList.module.less';
 
 const ImageList = ({imageitems, minHeight, minWidth, spacing, ...rest}) => {
 	const calculateOfSize = (size) => ri.scale(parseInt(size) || 0);

@@ -3,7 +3,7 @@ import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
 
-import css from './Picker.module.less';
+import * as css from './Picker.module.less';
 
 const Config = mergeComponentMetadata('RangePicker', RangePickerBase, RangePicker);
 

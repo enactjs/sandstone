@@ -8,7 +8,7 @@ import img from '../../images/600x600.png';
 
 import {withConfig} from './utils';
 
-import css from './Scroller.module.less';
+import * as css from './Scroller.module.less';
 
 const dataSize = 3;
 const imageItems = Array.from({length: dataSize}, (v, i) => i);

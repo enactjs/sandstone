@@ -5,7 +5,7 @@ import {onlyUpdateForProps} from '../internal/util';
 
 import {secondsToPeriod, secondsToTime} from './util';
 
-import css from './Times.module.less';
+import * as css from './Times.module.less';
 
 /**
  * Sandstone-styled formatted time component.

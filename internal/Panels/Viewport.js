@@ -14,7 +14,7 @@ import {startCapture, stopCapture} from './captureKeys';
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
 import {ContextAsDefaults} from './util';
 
-import css from './Viewport.module.less';
+import * as css from './Viewport.module.less';
 
 const PanelsStateContext = createContext({});
 

@@ -18,7 +18,7 @@ import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
 import Sprite from '../Sprite';
 
-import componentCss from './TabGroup.module.less';
+import * as componentCss from './TabGroup.module.less';
 
 const MAX_TABS_BEFORE_SCROLLING = 7;
 

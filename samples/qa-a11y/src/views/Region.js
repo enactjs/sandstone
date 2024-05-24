@@ -4,9 +4,9 @@ import kind from '@enact/core/kind';
 import Button from '@enact/sandstone/Button';
 import Region from '@enact/sandstone/Region';
 
-import css from './Region.module.less';
+import * as css from './Region.module.less';
 
-import appCss from '../App/App.module.less';
+import * as appCss from '../App/App.module.less';
 
 const RegionView = kind({
 	name: 'RegionView',

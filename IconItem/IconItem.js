@@ -30,7 +30,7 @@ import Image from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
-import componentCss from './IconItem.module.less';
+import * as componentCss from './IconItem.module.less';
 
 /**
  * The shape for image of {@link sandstone/IconItem|IconItem}.

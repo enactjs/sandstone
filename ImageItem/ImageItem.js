@@ -30,7 +30,7 @@ import Skinnable from '../Skinnable';
 
 import AsyncRenderChildren from './AsyncRenderChildren';
 
-import componentCss from './ImageItem.module.less';
+import * as componentCss from './ImageItem.module.less';
 
 const
 	defaultPlaceholder =

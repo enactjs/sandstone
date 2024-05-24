@@ -2,7 +2,7 @@ import RadioItem from '@enact/sandstone/RadioItem';
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import * as appCss from '../App/App.module.less';
 
 const RadioItemView = () => (
 	<>

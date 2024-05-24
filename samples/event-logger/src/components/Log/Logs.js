@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 
 import Log from './Log';
 
-import css from './Log.module.less';
+import * as css from './Log.module.less';
 
 const Logs = kind({
 	name: 'LogBase',

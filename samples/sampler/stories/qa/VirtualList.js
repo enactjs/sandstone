@@ -15,7 +15,7 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import PropTypes from 'prop-types';
 import {Component, useCallback, useState} from 'react';
 
-import css from './VirtualList.module.less';
+import * as css from './VirtualList.module.less';
 
 const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 

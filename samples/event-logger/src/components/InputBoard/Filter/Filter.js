@@ -10,7 +10,7 @@ import eventCategory from '../../../constants/eventCategory';
 import {isSyntheticEventOn} from '../../../store/slices/syntheticEventOnSlice';
 import {setTimerIndex} from '../../../store/slices/timerIndexSlice';
 
-import css from './Filter.module.less';
+import * as css from './Filter.module.less';
 
 const Filter = () => {
 	const dispatch = useDispatch();
