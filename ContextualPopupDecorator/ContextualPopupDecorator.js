@@ -593,7 +593,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		getClientNode = (node) => {
-			this.clientNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
+			// this.clientNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
 		};
 
 		handle = handle.bind(this);
