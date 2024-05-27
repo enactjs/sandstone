@@ -8,7 +8,6 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Component} from 'react';
-import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
 import Icon from '../Icon';
