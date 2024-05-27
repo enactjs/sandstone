@@ -8,8 +8,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/PageViews` to hide dot page indicator when there is only one page
 
-### Changed
-
 ## [2.9.0-alpha.3] - 2024-05-24
 
 ### Added
