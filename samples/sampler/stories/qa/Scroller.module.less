@@ -48,7 +48,7 @@
 	.focused { // public class for focused item
 		.removeButton {
 			display: inline-block;
-		}	
+		}
 	}
 
 	.selected { // public class for selected item
@@ -77,4 +77,110 @@
 			right: -30px;
 		}
 	}
+}
+
+@keyframes change-color {
+	0% {color:#7FFF00;}
+	50% {color:#6495ED;}
+	100% {color:#FF8C00}
+}
+
+.bodyTextAnimated {
+	animation: change-color linear forwards;
+	animation-timeline: scroll();
+}
+
+@keyframes show-when-on-center {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+		width: 1200px;
+		height: 900px;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+.smallImageItem {
+	opacity: 0;
+	margin: 0 auto !important;
+	animation: show-when-on-center linear forwards;
+	animation-timeline: view(0% 0%);
+}
+
+@keyframes slide-left {
+	0% {
+		margin-left: 100%;
+	}
+	100% {
+		margin-left: 0;
+	}
+}
+
+.bodyTextSlideLeft {
+	margin-left: 100%;
+	width: 100%;
+	animation: slide-left linear forwards;
+	animation-timeline: view();
+	animation-range: 0% 1500px;
+}
+
+html {
+	--card-height: 40vw;
+	--card-margin: 4vw;
+	--card-top-offset: 200px;
+	--outline-width: 0px;
+}
+
+@keyframes scale {
+	to {
+		transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+	}
+}
+
+.card {
+	position: sticky;
+	top: 0;
+	padding-top: calc(var(--index) * var(--card-top-offset));
+
+	--index0: calc(var(--index) - 1); /* 0-based index */
+	--reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+	--reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
+}
+
+.card1 {--index: 1;}
+.card2 {--index: 2;}
+.card3 {--index: 3;}
+.card4 {--index: 4;}
+
+.cards {
+	padding-bottom: calc(var(--numcards) * var(--card-top-offset));
+	/* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+	margin-bottom: var(--card-margin);
+
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(var(--numcards), var(--card-height));
+	gap: var(--card-margin);
+
+	--numcards: 4;
+	view-timeline-name: --cards-element-scrolls-in-body;
+}
+
+.cardContent {
+	display: grid;
+	grid-template-areas: "text img";
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+	border-radius: 60px;
+
+	--start-range: calc(var(--index0) / var(--numcards) * 100%);
+	--end-range: calc((var(--index)) / var(--numcards) * 100%);
+
+	animation: linear scale forwards;
+	animation-timeline: --cards-element-scrolls-in-body;
+	animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
 }

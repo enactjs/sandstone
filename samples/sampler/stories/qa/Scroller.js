@@ -3,6 +3,7 @@ import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
 import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
 import {Heading} from '@enact/sandstone/Heading';
+import Image from '@enact/sandstone/Image';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
@@ -1178,6 +1179,84 @@ select('focusableScrollbar', WithLongContents, prop.focusableScrollbarOption, Co
 select('scrollMode', WithLongContents, prop.scrollModeOption, Config);
 
 WithLongContents.storyName = 'With Long Contents';
+
+let imageItems2 = [];
+
+const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
+
+for (let j = 1; j < 4; j++) {
+	imageItems2.push(
+		<ImageItem
+			src={svgGenerator(600, 600, color, 'ffffff', `Image ${j}`)}
+			className={css.smallImageItem}
+			style={{
+				width: ri.scaleToRem(240),
+				height: ri.scaleToRem(150)
+			}}
+		>
+			{`Image ${j}`}
+		</ImageItem>
+	);
+}
+
+let images = [];
+
+for (let k = 1; k < 5; k++) {
+	images.push(
+		<div className={classNames(css.card, css[`card${k}`])}>
+			<Image
+				className={css.cardContent}
+				src={`https://picsum.photos/id/${k + 10}/1000/1600`}
+				sizing={'fill'}
+				style={{
+					height: '450px',
+					width: '100%'
+				}}
+			></Image>
+		</div>
+	);
+}
+
+export const WithScrollAnimation = (args) => {
+	const content = `
+	The goal of Enact is to provide the building blocks for creating robust and maintainable applications. To that end, we’ve pulled together the best solutions for internationalization (i18n), accessibility (a11y), focus management, linting, testing and building. Then, we created a set of reusable components and behaviors on top of that. We combined these pieces and ensured that they work together seamlessly, allowing developers to focus on implementation.
+	Easy to Use
+	Enact builds atop the excellent React library, and provides a full framework to the developer. The recent boom of web technologies and related tools has led to a plethora of options available. In fact, getting started might be the most difficult part of building a modern web application.
+	Performant
+	Beyond initial setup, Enact continues to provide benefits. It was built with performance in mind, and conscious decisions were made to ensure that applications remain performant as they grow in size and complexity. This ranges from the way components are rendered to how data flows through application.
+	Customizable
+	Enact has a full set of customizable widgets that can be tuned and tweaked to the particular style of each project. Using our experience in building full UI libraries for a broad swath of devices ranging from TVs to watches, we have created a widget library whose components can easily be composed to create complex views and applications.
+	Adaptable
+	Enact was designed to produce native quality applications for a wide variety embedded web platforms. Read about Enact’s use cases and how it helps solve problems for Automotive, Robotics, TV and more.
+	`;
+	const longContents = content.repeat(4);
+
+	return (
+		<Scroller
+			focusableScrollbar={true}
+			key={args['scrollMode']}
+			onKeyDown={action('onKeyDown')}
+			onScrollStart={action('onScrollStart')}
+			onScrollStop={action('onScrollStop')}
+		>
+			<BodyText style={{whiteSpace: 'pre-line'}} className={css.bodyTextAnimated}>
+				{longContents}
+			</BodyText>
+			{imageItems2}
+			<BodyText style={{whiteSpace: 'pre-line'}} className={css.bodyTextSlideLeft}>
+				{longContents}
+			</BodyText>
+			<div className={css.cards}>
+				{images}
+			</div>
+			<BodyText style={{whiteSpace: 'pre-line'}} className={css.bodyTextAnimated}>
+				{longContents}
+			</BodyText>
+		</Scroller>
+	);
+};
+
+WithScrollAnimation.storyName = 'With scroll animation';
 
 export const WithInputFields = (args) => (
 	<Scroller
