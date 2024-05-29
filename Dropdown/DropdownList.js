@@ -8,6 +8,7 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Component} from 'react';
+import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
 import Icon from '../Icon';
@@ -220,6 +221,8 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				this.props.handleSpotlightPause(false);
 			}
 
+			// eslint-disable-next-line react/no-find-dom-node
+			this.node = ReactDOM.findDOMNode(this);
 			Spotlight.set(this.node.dataset.spotlightId, {
 				defaultElement: '[data-selected="true"]',
 				enterTo: 'default-element'

@@ -20,6 +20,7 @@ import ri from '@enact/ui/resolution';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import {Component, Fragment} from 'react';
+import ReactDOM from 'react-dom';
 
 import {ContextualPopup} from './ContextualPopup';
 import HolePunchScrim from './HolePunchScrim';
@@ -591,8 +592,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.containerNode = node;
 		};
 
-		getClientNode = (node) => { // eslint-disable-line no-unused-vars
-			// this.clientNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
+		getClientNode = (node) => {
+			this.clientNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
 		};
 
 		handle = handle.bind(this);
