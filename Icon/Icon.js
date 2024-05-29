@@ -350,6 +350,14 @@ const IconBase = kind({
  * exclamation
  * show
  * hide
+ * wifi15g
+ * wifi25g
+ * wifi35g
+ * wifi45g
+ * wifilock15g
+ * wifilock25g
+ * wifilock35g
+ * wifilock45g
  * ```
  *
  * @name iconList

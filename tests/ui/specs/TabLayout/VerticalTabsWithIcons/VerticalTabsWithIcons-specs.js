@@ -4,6 +4,7 @@ describe('TabLayout', function () {
 
 	beforeEach(async function () {
 		await Page.open('VerticalTabsWithIcons');
+		await Page.delay(500);
 	});
 
 	describe('vertical tabs with icons', function () {
