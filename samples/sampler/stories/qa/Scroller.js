@@ -1186,16 +1186,18 @@ const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toSt
 
 for (let j = 1; j < 4; j++) {
 	imageItems2.push(
-		<ImageItem
-			src={svgGenerator(600, 600, color, 'ffffff', `Image ${j}`)}
-			className={css.smallImageItem}
-			style={{
-				width: ri.scaleToRem(240),
-				height: ri.scaleToRem(150)
-			}}
-		>
-			{`Image ${j}`}
-		</ImageItem>
+		<div className={css.smallImageItemContainer}>
+			<ImageItem
+				src={svgGenerator(600, 600, color, 'ffffff', `Image ${j}`)}
+				className={css.smallImageItem}
+				style={{
+					width: ri.scaleToRem(240),
+					height: ri.scaleToRem(150)
+				}}
+			>
+				{`Image ${j}`}
+			</ImageItem>
+		</div>
 	);
 }
 
