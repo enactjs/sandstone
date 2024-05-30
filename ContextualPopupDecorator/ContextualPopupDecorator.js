@@ -19,8 +19,7 @@ import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import {Component, Fragment} from 'react';
-import ReactDOM from 'react-dom';
+import {Component, Fragment, createRef} from 'react';
 
 import {ContextualPopup} from './ContextualPopup';
 import HolePunchScrim from './HolePunchScrim';
@@ -274,7 +273,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 			this.id = this.generateId();
-
+			this.clientSiblingRef = createRef(null);
 			this.MARGIN = ri.scale(noArrow ? 0 : 12);
 			this.ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
 			this.ARROW_OFFSET = noArrow ? 0 : ri.scale(36); // actual distance of the svg arrow displayed to offset overlaps with the container. Offset is when `noArrow` is false.
@@ -559,9 +558,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @returns {undefined}
 		 */
 		positionContextualPopup = () => {
-			if (this.containerNode && this.clientNode) {
+			if (this.containerNode && this.clientSiblingRef?.current?.previousElementSibling) {
 				const containerNode = this.containerNode.getBoundingClientRect();
-				const {top, left, bottom, right, width, height} = this.clientNode.getBoundingClientRect();
+				const {top, left, bottom, right, width, height} = this.clientSiblingRef.current.previousElementSibling.getBoundingClientRect();
 				const clientNode = {top, left, bottom, right, width, height};
 				clientNode.left = this.props.rtl ? window.innerWidth - right : left;
 				clientNode.right = this.props.rtl ? window.innerWidth - left : right;
@@ -590,10 +589,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		getContainerNode = (node) => {
 			this.containerNode = node;
-		};
-
-		getClientNode = (node) => {
-			this.clientNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
 		};
 
 		handle = handle.bind(this);
@@ -719,8 +714,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			let holeBounds;
-			if (this.clientNode && holepunchScrim) {
-				holeBounds = this.clientNode.getBoundingClientRect();
+			if (this.clientSiblingRef?.current?.previousElementSibling && holepunchScrim) {
+				holeBounds = this.clientSiblingRef.current.previousElementSibling.getBoundingClientRect();
 			}
 
 			delete rest.direction;
@@ -764,7 +759,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							</ContextualPopupContainer>
 						</Fragment>
 					</FloatingLayer>
-					<Wrapped ref={this.getClientNode} {...rest} />
+					<>
+						<Wrapped {...rest} />
+						<div style={{display: 'none'}} ref={this.clientSiblingRef} />
+					</>
 				</div>
 			);
 		}
