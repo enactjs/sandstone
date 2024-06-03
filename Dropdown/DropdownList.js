@@ -311,7 +311,6 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 					<Wrapped {...props} onFocus={this.handleFocus} scrollTo={this.setScrollTo} />
 					<div style={{display: 'none'}} ref={this.clientSiblingRef} />
 				</>
-
 			);
 		}
 	};
