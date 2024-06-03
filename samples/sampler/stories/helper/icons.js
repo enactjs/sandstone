@@ -91,7 +91,15 @@ export const wifiIcons = [
 	'wifilock1',
 	'wifilock2',
 	'wifilock3',
-	'wifilock4'
+	'wifilock4',
+	'wifi15g',
+	'wifi25g',
+	'wifi35g',
+	'wifi45g',
+	'wifilock15g',
+	'wifilock25g',
+	'wifilock35g',
+	'wifilock45g'
 ].sort();
 
 export const speakerIcons = [
