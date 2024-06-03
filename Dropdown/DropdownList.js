@@ -205,6 +205,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		constructor (props) {
 			super(props);
+
 			this.clientSiblingRef = createRef(null);
 			this.state = {
 				prevChildren: props.children,
