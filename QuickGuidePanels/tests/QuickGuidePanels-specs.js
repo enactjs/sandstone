@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {QuickGuidePanel, QuickGuidePanels} from '../';
+import {Panel as QuickGuidePanel, QuickGuidePanels} from '../';
 
 describe('QuickGuidePanels Specs', () => {
 	test(
