@@ -6,7 +6,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/ContextualPopupDecorator` and `sandstone/Dropdown` to have sibling DOM node as alternative to findDOMNode API which will be removed in React 19
 - `sandstone/PageViews` to hide dot page indicator when there is only one page
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to show the outline appropriately in high-contrast mode
 
 ## [2.9.0-alpha.3] - 2024-05-24
 
