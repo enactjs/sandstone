@@ -272,11 +272,6 @@ const ColorPickerBase = kind({
 		text: PropTypes.string
 	},
 
-	defaultProps: {
-		disabled: false,
-		popupOpen: false
-	},
-
 	handlers: {
 		handleClosePopup: (ev, {onTogglePopup}) => {
 			onTogglePopup();
@@ -293,7 +288,7 @@ const ColorPickerBase = kind({
 		publicClassNames: true
 	},
 
-	render: ({color, colorHandler, css, disabled, handleClosePopup, handleOpenPopup, popupOpen, presetColors, text, ...rest}) => {
+	render: ({color, colorHandler, css, disabled = false, handleClosePopup, handleOpenPopup, popupOpen = false, presetColors, text, ...rest}) => {
 		delete rest.onTogglePopup;
 
 		const CloseIcon = useCallback((props) => <Icon {...props} css={css} />, [css]);
