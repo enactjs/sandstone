@@ -270,16 +270,16 @@ const TabLayoutBase = kind({
 			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target) && target.tagName !== 'INPUT') {
 				Spotlight.setPointerMode(false);
 				ev.preventDefault();
-				if (Spotlight.move(direction)) {
-					ev.stopPropagation();
-				} else if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
-					Spotlight.set(spotlightId, {navigableFilter: null});
-					const nextTarget = getTargetByDirectionFromElement(direction, target);
-					Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
 
-					if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
-						forward('onExpand', ev, props);
-					}
+				Spotlight.set(spotlightId, {navigableFilter: null});
+				const nextTarget = getTargetByDirectionFromElement(direction, target);
+				const isNextTargetInTabs = nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget);
+				Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
+
+				if (!isNextTargetInTabs && Spotlight.move(direction)) {
+					ev.stopPropagation();
+				} else if (isNextTargetInTabs && document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
+					forward('onExpand', ev, props);
 				}
 			} else if (is('enter')(keyCode) && !collapsed && document.querySelector(`[data-spotlight-id='${spotlightId}-tabs-expanded']`).contains(target) && target.tagName !== 'INPUT') {
 				ev.stopPropagation();

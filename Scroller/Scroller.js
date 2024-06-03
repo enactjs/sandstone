@@ -39,6 +39,29 @@ const nop = () => {};
 const SpottableDiv = Spottable('div');
 let scrollerId = 0;
 
+const scrollerDefaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'both',
+	fadeOut: false,
+	focusableScrollbar: false,
+	horizontalScrollbar: 'auto',
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: true,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	scrollMode: 'native',
+	verticalScrollbar: 'auto'
+};
+
 /**
  * A Sandstone-styled Scroller, useScroll applied.
  *
@@ -53,7 +76,10 @@ let scrollerId = 0;
  * @ui
  * @public
  */
-let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
+let Scroller = (props) => {
+	const scrollerProps = Object.assign({}, scrollerDefaultProps, props);
+	const {'aria-label': ariaLabel, hoverToScroll, ...rest} = scrollerProps;
+
 	const id = `scroller_${++scrollerId}_content`;
 
 	// Hooks
@@ -452,28 +478,7 @@ Scroller = Skinnable(
 	)
 );
 
-Scroller.defaultProps = {
-	'data-spotlight-container-disabled': false,
-	cbScrollTo: nop,
-	direction: 'both',
-	fadeOut: false,
-	focusableScrollbar: false,
-	horizontalScrollbar: 'auto',
-	noScrollByDrag: false,
-	noScrollByWheel: false,
-	onScroll: nop,
-	onScrollStart: nop,
-	onScrollStop: nop,
-	overscrollEffectOn: {
-		arrowKey: false,
-		drag: true,
-		pageKey: false,
-		track: false,
-		wheel: true
-	},
-	scrollMode: 'native',
-	verticalScrollbar: 'auto'
-};
+Scroller.defaultPropValues = scrollerDefaultProps;
 
 export default Scroller;
 export {
