@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Skinnable from '../Skinnable';
 
 import TooltipLabel from './TooltipLabel';
-import componentCss from './Tooltip.module.less';
+import componentCss from './Tooltip.module.scss';
 
 
 // Set the default Arrow Anchor value based on the type of tooltip

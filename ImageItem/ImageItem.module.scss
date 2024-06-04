@@ -1,0 +1,211 @@
+// ImageItem.module.scss
+//
+@use '../styles/color-mixins.scss';
+@use '../styles/colors.scss';
+@use '../styles/mixins.scss';
+@use '../styles/skin.scss';
+@use '../styles/variables.scss';
+
+.imageItem {
+	position: relative;
+	font-weight: variables.$sand-imageitem-font-weight;
+
+	.image {
+		display: block;
+		margin: 0;
+	}
+
+	&:not(.fullImage) {
+		&::before {
+			content: '';
+			position: absolute;
+			@include mixins.position(0);
+			border-radius: variables.$sand-imageitem-border-radius;
+		}
+	}
+
+	.selectionContainer {
+		background-color: transparent;
+		pointer-events: none;
+		@include mixins.position(0);
+		position: absolute;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&::after {
+			content: '';
+			position: absolute;
+			@include mixins.position(0);
+			border-width: variables.$sand-imageitem-image-border-width;
+			border-style: solid;
+		}
+
+		.selectionIcon {
+			position: relative;
+			display: block;
+			border-radius: 50%;
+			margin: 0;
+		}
+	}
+
+	.caption {
+		font-size: variables.$sand-imageitem-caption-font-size;
+		line-height: variables.$sand-imageitem-caption-line-height;
+	@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-imageitem-caption-font-size);
+	}
+
+	.label {
+		font-size: variables.$sand-imageitem-label-font-size;
+		line-height: variables.$sand-imageitem-label-line-height;
+		margin-top: variables.$sand-imageitem-label-margin-top;
+		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-imageitem-label-font-size);
+	}
+
+	&.vertical {
+		&.fullImage {
+			padding: variables.$sand-imageitem-vertical-full-image-padding;
+
+			.image {
+				transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+				will-change: transform, box-shadow;
+
+				.selectionIcon {
+					transition: transform 200ms ease-in-out;
+				}
+			}
+		}
+
+		&:not(.fullImage) {
+			padding: variables.$sand-imageitem-vertical-padding;
+			margin: variables.$sand-imageitem-margin;
+		}
+
+		.selectionIcon {
+			width: variables.$sand-imageitem-vertical-selection-icon-size;
+			height: variables.$sand-imageitem-vertical-selection-icon-size;
+			line-height: variables.$sand-imageitem-vertical-selection-icon-size;
+		}
+
+		.captions {
+			margin-top: variables.$sand-imageitem-vertical-captions-margin-top;
+		}
+
+		.imageIcon {
+			height: variables.$sand-imageitem-vertical-image-icon-size;
+			width: variables.$sand-imageitem-vertical-image-icon-size;
+			margin: variables.$sand-imageitem-vertical-image-icon-margin;
+		}
+
+		.label {
+			height: variables.$sand-imageitem-vertical-label-height;
+		}
+
+		.placeholderCaption {
+			height: variables.$sand-imageitem-placeholder-caption-height;
+		}
+
+		.placeholderLabel {
+			height: variables.$sand-imageitem-placeholder-label-height;
+		}
+	}
+
+	&.horizontal {
+		@include mixins.sand-spotlight-padding(variables.$sand-imageitem-horizontal-padding);
+		margin: variables.$sand-imageitem-margin;
+
+		.image {
+			width: variables.$sand-imageitem-horizontal-image-width;
+			height: variables.$sand-imageitem-horizontal-image-height;
+			margin: variables.$sand-imageitem-horizontal-image-margin;
+
+			@include mixins.enact-locale-rtl(normal) {
+				margin: variables.$sand-imageitem-horizontal-image-margin-rtl;
+			}
+		}
+
+		.selectionIcon {
+			width: variables.$sand-imageitem-horizontal-selection-icon-size;
+			height: variables.$sand-imageitem-horizontal-selection-icon-size;
+			line-height: variables.$sand-imageitem-horizontal-selection-icon-size;
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		&::before {
+			@include color-mixins.sand-spotlight-resting-bg-colors;
+		}
+
+		.selectionContainer::after {
+			border-color: colors.$sand-imageitem-image-border-color;
+		}
+
+		.selectionIcon {
+			background-color: colors.$sand-imageitem-selection-icon-bg-color;
+			color: colors.$sand-imageitem-selection-icon-color;
+		}
+
+		.caption {
+			color: colors.$sand-imageitem-caption-color;
+		}
+
+		.label {
+			color: colors.$sand-imageitem-label-color;
+		}
+
+		&.selected {
+			.selectionContainer::after {
+				border-color: colors.$sand-imageitem-selected-image-border-color;
+			}
+
+			.selectionIcon {
+				background-color: colors.$sand-imageitem-selected-selection-icon-bg-color;
+				color: colors.$sand-imageitem-selected-selection-icon-color;
+			}
+		}
+
+		&.vertical {
+			&.fullImage {
+				@include mixins.sand-focus-highlight(image);
+			}
+		}
+
+		@include mixins.focus {
+			@include color-mixins.sand-spotlight-focus-text-colors;
+
+			@include mixins.disabled {
+				@include mixins.vendor-opacity(colors.$sand-disabled-opacity)
+			}
+
+			&::before {
+				@include color-mixins.sand-spotlight-focus-bg-colors;
+			}
+
+			.selectionIcon {
+				background-color: colors.$sand-imageitem-focus-selection-icon-bg-color;
+				color: colors.$sand-imageitem-focus-selection-icon-color;
+			}
+
+			.caption,
+			.label {
+				color: inherit;
+			}
+
+			&.vertical {
+				&.fullImage .image {
+					transform: variables.$sand-imageitem-vertical-focus-image-transform;
+					box-shadow: colors.$sand-imageitem-focus-bg-shadow;
+				}
+			}
+
+			&.selected {
+				.selectionIcon {
+					background-color: colors.$sand-imageitem-selected-focus-selection-icon-bg-color;
+					color: colors.$sand-imageitem-selected-focus-selection-icon-color;
+				}
+			}
+		}
+	}
+}

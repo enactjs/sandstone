@@ -1,0 +1,290 @@
+// Input.module.scss
+//
+@use "../styles/color-mixins.scss";
+@use "../styles/colors.scss";
+@use "../styles/mixins.scss";
+@use "../styles/skin.scss";
+@use "../styles/variables.scss";
+
+.inputPopupWrapper {
+	display: inline;
+}
+
+.popup {
+	.numberField,
+	.number,
+	.password,
+	.separated {
+		/* Available for customization */
+	}
+
+	.back {
+		position: absolute;
+
+		@include mixins.sand-custom-text-large {
+			@include mixins.sand-small-button-text;
+		}
+	}
+
+	.body {
+		line-height: 0; // This removes an undesirable layout shift occurring when a number is entered into the numberCells (Popup adds a line-height to all children).
+	}
+
+	.titles {
+		max-width: 100%;
+		width: 100%;
+	}
+
+	.fieldWrapper {
+		display: inline-block;
+		position: relative;
+	}
+
+	.joined,
+	.numberCell {
+		position: relative;
+		z-index: 0;
+
+		&::before {
+			position: absolute;
+			@include mixins.position(0);
+			content: '';
+			z-index: -1;
+
+			border-radius: variables.$sand-input-numbercell-border-radius;
+		}
+	}
+
+	.inputArea {
+		text-align: center;
+	}
+
+	.numberCell {
+		justify-content: center;
+		align-items: center;
+		display: flex;
+
+		&:not(.password) {
+			font-family: variables.$sand-input-number-font-family;
+		}
+	}
+
+	.submitButton {
+		display: block;
+		margin: variables.$sand-input-overlay-submitbutton-margin;
+	}
+
+	.inputArea {
+		.tooltip {
+			margin-top: variables.$sand-input-invalid-tooltip-margin-top;
+
+			.tooltipLabel {
+				font-size: variables.$sand-input-invalid-tooltip-font-size;
+				font-weight: variables.$sand-input-invalid-tooltip-font-weight;
+			}
+		}
+	}
+
+	.keypad {
+		@include mixins.enact-locale-rtl("") {
+			direction: ltr;
+		}
+	}
+
+	&.fullscreen {
+		.back {
+			top: variables.$sand-input-fullscreen-back-button-top;
+
+			@include mixins.position-start-end(variables.$sand-input-fullscreen-back-button-start, initial);
+		}
+
+		.body {
+			padding: variables.$sand-input-fullscreen-padding;
+		}
+
+		.title {
+			@include mixins.sand-font-size(variables.$sand-input-fullscreen-title-font-size, variables.$sand-non-latin-input-fullscreen-title-font-size)
+		}
+
+		.numberCell {
+			width: variables.$sand-input-fullscreen-numbercell-width;
+			height: variables.$sand-input-fullscreen-numbercell-height;
+			font-size: variables.$sand-input-fullscreen-numbercell-font-size;
+			margin: variables.$sand-input-fullscreen-numbercell-margin;
+		}
+
+		.joined {
+			min-width: variables.$sand-input-fullscreen-numberfield-width;
+			width: calc(var(--input-max-number-length) * #{variables.$sand-input-fullscreen-numberfield-font-size});
+			height: variables.$sand-input-fullscreen-numberfield-height;
+			line-height: variables.$sand-input-fullscreen-numberfield-height;
+			letter-spacing: variables.$sand-input-fullscreen-numberfield-letter-spacing;
+			text-indent: variables.$sand-input-fullscreen-numberfield-letter-spacing; // account for the letter spacing offset
+			font-size: variables.$sand-input-fullscreen-numberfield-font-size;
+			margin: variables.$sand-input-fullscreen-numberfield-margin;
+			padding: variables.$sand-input-fullscreen-numberfield-padding;
+		}
+
+		.keypad {
+			margin: variables.$sand-input-fullscreen-keypad-margin;
+			max-width: 100vw;
+
+			:global(.enact-orientation-portrait) & {
+				margin: variables.$sand-portrait-input-fullscreen-keypad-margin;
+				width: variables.$sand-portrait-input-fullscreen-keypad-width;
+			}
+		}
+
+		.key {
+			margin: variables.$sand-input-fullscreen-keypad-key-margin;
+
+			:global(.enact-orientation-portrait) & {
+				margin: variables.$sand-portrait-input-fullscreen-keypad-key-margin;
+			}
+		}
+
+		.buttonArea {
+			margin: variables.$sand-input-fullscreen-buttonarea-margin;
+			display: flex;
+			justify-content: center;
+		}
+
+		.inputArea,
+		.buttonArea {
+			margin-top: variables.$sand-input-popup-component-v-spacing;
+		}
+
+		.inputArea {
+			.textField {
+				width: variables.$sand-input-fullscreen-textfield-width;
+			}
+
+			:global(.enact-orientation-portrait) & {
+				margin: variables.$sand-portrait-input-fullscreen-number-inputarea-margin;
+			}
+		}
+
+		.tooltip {
+			.tooltipLabel {
+				max-width: variables.$sand-input-fullscreen-invalid-tooltip-width;
+			}
+		}
+
+		&.text,
+		&.password,
+		&.url {
+			.inputArea {
+				margin: variables.$sand-input-fullscreen-inputarea-margin;
+
+				:global(.enact-orientation-portrait) & {
+					margin: variables.$sand-portrait-input-fullscreen-text-inputarea-margin;
+				}
+			}
+		}
+	}
+
+	&.overlay {
+		.back {
+			top: variables.$sand-input-overlay-back-button-top;
+
+			@include mixins.position-start-end(variables.$sand-input-overlay-back-button-start, initial);
+		}
+
+		.body {
+			padding: variables.$sand-input-overlay-padding;
+		}
+
+		.title {
+			margin: variables.$sand-input-overlay-title-margin;
+
+			@include mixins.sand-font-size(variables.$sand-input-overlay-title-font-size, variables.$sand-non-latin-input-overlay-title-font-size);
+		}
+
+		.inputArea {
+			margin: variables.$sand-input-overlay-inputarea-margin;
+
+			.textField {
+				width: variables.$sand-input-overlay-textfield-width;
+			}
+		}
+
+		.numberCell {
+			width: variables.$sand-input-overlay-numbercell-width;
+			height: variables.$sand-input-overlay-numbercell-height;
+			font-size: variables.$sand-input-overlay-numbercell-font-size;
+			margin: variables.$sand-input-overlay-numbercell-margin;
+		}
+
+		.joined {
+			min-width: variables.$sand-input-overlay-numberfield-width;
+			width: calc(var(--input-max-number-length) * #{variables.$sand-input-overlay-numberfield-font-size});
+			height: variables.$sand-input-overlay-numberfield-height;
+			line-height: variables.$sand-input-overlay-numberfield-height;
+			letter-spacing: variables.$sand-input-overlay-numberfield-letter-spacing;
+			text-indent: variables.$sand-input-overlay-numberfield-letter-spacing; // account for the letter spacing offset
+			font-size: variables.$sand-input-overlay-numberfield-font-size;
+			margin: variables.$sand-input-overlay-numberfield-margin;
+			padding: variables.$sand-input-overlay-numberfield-padding;
+		}
+
+		.keypad {
+			margin: variables.$sand-input-overlay-keypad-margin;
+			width: variables.$sand-input-overlay-keypad-width;
+		}
+
+		.buttonArea {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			margin: variables.$sand-input-overlay-buttonarea-margin;
+		}
+
+		.tooltip {
+			.tooltipLabel {
+				max-width: variables.$sand-input-overlay-invalid-tooltip-width;
+			}
+		}
+	}
+
+	@include skin.applySkins {
+		background-color: colors.$sand-input-fullscreen-background-color;
+
+		.numberCell {
+			&::before {
+				background-color: colors.$sand-input-numbercell-background-color;
+			}
+		}
+
+		// Style joined numeric inputs and active cells like a focused input
+		.joined,
+		.numberCell.active {
+			color: colors.$sand-inputfield-focus-text-color;
+
+			&::before {
+				@include color-mixins.sand-spotlight-focus-bg-colors;
+				// Remove drop shadow for this input-like field
+				box-shadow: none;
+			}
+
+			@include mixins.sand-disabled {
+				color: colors.$sand-input-numberfield-disabled-color;
+
+				&::before {
+					opacity: colors.$sand-input-numberfield-disabled-opacity;
+				}
+			}
+		}
+
+		.inputArea {
+			.tooltip {
+				.tooltipLabel {
+					color: colors.$sand-input-invalid-tooltip-color;
+				}
+			}
+		}
+
+		&.overlay {
+			background-color: colors.$sand-input-overlay-background-color;
+		}
+	}
+}

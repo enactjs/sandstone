@@ -1,0 +1,98 @@
+// IconItem.module.scss
+//
+@use '../styles/colors.scss';
+@use '../styles/mixins.scss';
+@use '../styles/skin.scss';
+@use '../styles/variables.scss';
+
+.iconItem {
+	position: relative;
+	transition: transform 200ms ease-in-out;
+	will-change: transform;
+
+	.content {
+		box-sizing: border-box;
+		background-size: contain;
+		border-radius: variables.$sand-iconitem-border-radius;
+		font-weight: variables.$sand-iconitem-font-weight;
+	}
+
+	&.bordered .content {
+		border-width: variables.$sand-iconitem-border-width;
+		border-style: variables.$sand-iconitem-border-style;
+	}
+
+	&:not(.labelOnFocus) .icon {
+		margin: variables.$sand-iconitem-icon-margin;
+	}
+
+	.image {
+		display: block;
+		margin: 0;
+	}
+
+	.labelContainer {
+		width: 100%;
+	}
+
+	.label {
+		font-size: variables.$sand-iconitem-label-font-size;
+		line-height: variables.$sand-iconitem-label-line-height;
+		padding: variables.$sand-iconitem-label-padding;
+	}
+
+	.title {
+		font-size: variables.$sand-iconitem-title-font-size;
+		line-height: variables.$sand-iconitem-title-line-height;
+		margin: variables.$sand-iconitem-title-margin;
+	}
+
+	&.labelOnFocus {
+		.label, .labelContainer {
+			display: none;
+		}
+	}
+
+	&.titleOnFocus .title {
+		visibility: hidden;
+	}
+
+	@include mixins.focus {
+		transform: variables.$sand-iconitem-focus-transform;
+
+		&.labelOnFocus {
+			.icon {
+				margin: variables.$sand-iconitem-icon-margin;
+			}
+
+			.label, .labelContainer {
+				display: block;
+			}
+		}
+
+		&.titleOnFocus .title {
+			visibility: visible;
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		&.bordered .content {
+			border-color: colors.$sand-iconitem-border-color;
+		}
+
+		.label {
+			color: colors.$sand-iconitem-label-color;
+		}
+
+		&.darkLabel .label {
+			color: colors.$sand-iconitem-label-dark-color;
+		}
+
+		@include mixins.disabled {
+			@include mixins.vendor-opacity(colors.$sand-iconitem-disabled-opacity);
+		}
+
+		@include mixins.sand-focus-highlight(content);
+	}
+}

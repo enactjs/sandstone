@@ -21,7 +21,7 @@ import InputFieldDecoratorIcon from './InputFieldDecoratorIcon';
 import InputFieldSpotlightDecorator from './InputFieldSpotlightDecorator';
 import {calcAriaLabel, extractInputProps} from './util';
 
-import componentCss from './InputField.module.less';
+import componentCss from './InputField.module.scss';
 
 /**
  * A Sandstone styled input component.
