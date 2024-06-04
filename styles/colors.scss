@@ -273,6 +273,25 @@ $sand-keyguide-colordot-green-color: $sand-remote-button-green-color;
 $sand-keyguide-colordot-yellow-color: $sand-remote-button-yellow-color;
 $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
 
+// Slider
+// ---------------------------------------
+$sand-slider-bar-bg-color: $sand-progressbar-bar-bg-color;
+$sand-slider-load-bg-color: $sand-progressbar-load-bg-color;
+$sand-slider-fill-bg-color: $sand-progress-slider-color;
+$sand-slider-knob-bg-color: $sand-slider-fill-bg-color;
+$sand-slider-knob-border-color: transparent;
+$sand-slider-focus-bar-bg-color: $sand-slider-bar-bg-color;
+$sand-slider-focus-load-bg-color: $sand-slider-load-bg-color;
+$sand-slider-focus-fill-bg-color: $sand-focus-bg-color;
+$sand-slider-focus-knob-bg-color: $sand-slider-focus-fill-bg-color;
+$sand-slider-focus-knob-border-color: $sand-slider-knob-border-color;
+$sand-slider-focus-knob-shadow: 0 6px 12px rgb($sand-shadow-color-rgb, 50%);
+$sand-slider-active-bar-bg-color: $sand-slider-focus-bar-bg-color;
+$sand-slider-active-load-bg-color: $sand-slider-focus-load-bg-color;
+$sand-slider-active-fill-bg-color: $sand-slider-focus-fill-bg-color;
+$sand-slider-disabled-bar-opacity: 0.4;
+$sand-slider-disabled-focus-knob-bg-color: $sand-slider-focus-knob-bg-color;
+
 // Tooltip
 // ---------------------------------------
 $sand-tooltip-bg-color:               $sand-focus-bg-color;
