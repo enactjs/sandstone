@@ -3,6 +3,58 @@
 // Variables
 //
 
+//
+// GUI Guide definition library
+//
+// These values come directly from the design guide file. Any changes to that file should be set
+// here first, with measurement adjustments to be preformed on the component value definition lines
+// below.
+//
+// Usage:
+//   * These values should be the most basic literal values. Do not use math in this library;
+//     those belong in the component definitions.
+//   * Always use the full 4-value format for margin and padding defined here for predictability.
+//   * Keep the mixins and their rules alphabetized.
+//   * Spacing for readability is OK.
+//   * Each mixin represents a top-level component.
+//
+$guide: (
+	// Common sizes
+	// 60px - tiny
+	// 78px - small
+	// 90px - medium
+	// 108px - large
+	// 150px - huge
+
+	// Component Definition Mixins
+	header: (
+		compact-padding: 60px,
+		compact-title-font-size: 90px,
+		compact-title-line-height: 72px,
+
+		mini-margin: 0 0 36px 0,
+		mini-padding: 60px 60px 45px 60px,
+		mini-title-font-size: 90px,
+		mini-title-line-height: 80px,
+
+		standard-padding: 108px 150px 73px 150px,
+		standard-title-font-size: 108px,
+		standard-title-line-height: 127px,
+		standard-titles-gap: 18px,
+		standard-subtitle-font-size: 60px,
+		standard-subtitle-line-height: 70px,
+
+		wizard-padding: 108px 150px 66px 150px,
+		wizard-title-font-size: 144px,
+		wizard-title-line-height: 169px,
+		wizard-titles-gap: 12px
+	),
+
+	panel: (
+		body-padding: 0 150px
+	)
+);
+
 // App
 // ---------------------------------------
 $sand-app-keepout: 48px;
@@ -11,6 +63,7 @@ $sand-app-keepout: 48px;
 // ---------------------------------------
 $sand-component-spacing: 36px;
 $sand-component-spacing-bottom: 30px;
+$sand-overlay-outline-width: 0.0625rem; // 3px
 $sand-smallest-tappable-size: 168px;
 $sand-translate-center: translate(-50%, -50%);
 $sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -46,6 +99,10 @@ $sand-item-label-font-size-large:   54px;
 $sand-item-small-font-size:         60px;
 $sand-item-small-label-font-size:   48px;
 $sand-keyguide-font-size:           60px;
+$sand-tablayout-tab-font-size:      66px;
+
+$sand-non-latin-button-large-font-size: 72px;
+$sand-non-latin-button-small-font-size: 54px;
 
 $sand-non-latin-button-large-font-size: 72px;
 $sand-non-latin-button-small-font-size: 54px;
@@ -208,6 +265,12 @@ $sand-keyguide-position-right: 150px;
 $sand-keyguide-width: 750px;
 $sand-keyguide-item-height: 120px;
 
+// Panels
+// ---------------------------------------
+$sand-panel-padding: 0;
+$sand-panel-body-padding-top: nth(map-get(map-get($guide, panel), body-padding), 1); // Used in this file only, for consistency
+$sand-panel-body-padding: $sand-panel-body-padding-top (nth(map-get(map-get($guide, panel), body-padding), 2) - $sand-component-spacing);
+
 // Popup
 // ---------------------------------------
 $sand-popup-padding: 48px 72px;
@@ -217,3 +280,27 @@ $sand-popup-position-top-margin: 150px 120px 78px 120px; // 78px is the amount o
 $sand-popup-position-right-margin: 120px 60px 120px $sand-component-spacing;
 $sand-popup-position-bottom-margin: 0 120px 150px 120px;
 $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
+
+// TabLayout
+// ---------------------------------------
+$sand-tablayout-collapse-duration: 250ms;
+$sand-tablayout-vertical-content-margin-top: 0;
+$sand-tablayout-horizontal-content-margin-top: 96px;
+$sand-tablayout-horizontal-tabs-margin: 0 $sand-component-spacing;
+$sand-tablayout-tab-vertical-button-height: 156px;
+$sand-tablayout-tab-vertical-margin-bottom: 24px;
+$sand-tablayout-tab-horizontal-button-height: 132px;
+$sand-tablayout-tab-horizontal-margin: 0;
+$sand-tablayout-tab-horizontal-padding: 0;
+$sand-tablayout-tab-horizontal-border-width: calc(6px/ 3); // foolishness to get a correctly scalable 2px at 4k
+$sand-tablayout-tab-horizontal-selected-border-width: 6px;
+
+// PopupTabLayout
+// ---------------------------------------
+$sand-popuptablayout-margin: 120px 60px;
+$sand-popuptablayout-tabs-padding: $sand-component-spacing 0 ($sand-component-spacing - $sand-tablayout-tab-vertical-margin-bottom) 0;
+$sand-popuptablayout-tabs-content-spacing: 36px;
+$sand-popuptablayout-tabs-content-border-radius: $sand-popup-border-radius;
+$sand-popuptablayout-content-margin: 0;
+$sand-popuptablayout-panel-body-padding: $sand-panel-body-padding-top (108px - $sand-component-spacing - $sand-spotlight-outset) (78px - $sand-component-spacing-bottom);
+
