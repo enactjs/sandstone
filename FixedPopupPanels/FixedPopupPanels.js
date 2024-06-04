@@ -36,6 +36,7 @@ const FixedPopupPanelsDecorator = compose(
 		className: 'fixedPopupPanels',
 		css,
 		noAlertRole: true,
+		noOutline: true,
 		panelArranger: BasicArranger,
 		panelType: 'fixedPopup'
 	})
