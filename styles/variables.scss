@@ -445,6 +445,10 @@ $sand-popup-position-right-margin: 120px 60px 120px $sand-component-spacing;
 $sand-popup-position-bottom-margin: 0 120px 150px 120px;
 $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
 
+// Scrim
+// ---------------------------------------
+$sand-scrim-color: fade(black, 30%);
+
 // Slider
 // ---------------------------------------
 $sand-slider-bar-height: $sand-progressbar-bar-thickness;
@@ -458,6 +462,18 @@ $sand-slider-tooltip-above-offset: ($sand-progressbar-bar-thickness / 2);
 $sand-slider-tooltip-below-offset: ($sand-progressbar-bar-thickness / -2);
 $sand-slider-tooltip-before-offset: ($sand-progressbar-bar-thickness / 2);
 $sand-slider-tooltip-after-offset: ($sand-progressbar-bar-thickness / -2);
+
+// Spinner
+// ---------------------------------------
+$sand-spinner-size: 96px;
+$sand-spinner-small-size: 48px;
+$sand-spinner-small-size-large: 84px;
+$sand-spinner-time: 1.25s;		// Length of the spinner animation
+$sand-spinner-line-width: 6px;
+$sand-spinner-small-line-width: 6px;
+$sand-spinner-line-margin: 24px;
+$sand-spinner-small-line-margin: 12px;
+$sand-spinner-font-weight: bold;
 
 // Tooltip
 // ---------------------------------------

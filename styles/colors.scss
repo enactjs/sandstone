@@ -292,6 +292,14 @@ $sand-slider-active-fill-bg-color: $sand-slider-focus-fill-bg-color;
 $sand-slider-disabled-bar-opacity: 0.4;
 $sand-slider-disabled-focus-knob-bg-color: $sand-slider-focus-knob-bg-color;
 
+// Spinner
+// ---------------------------------------
+$sand-spinner-head-color: $sand-spinner-color;
+$sand-spinner-empty-color: rgb($sand-spinner-color-rgb, 20%);
+$sand-spinner-bg-color: $sand-component-bg-color;
+$sand-spinner-text-color: $sand-component-text-color;
+$sand-spinner-text-shadow-color: $sand-shadow-color;
+
 // Tooltip
 // ---------------------------------------
 $sand-tooltip-bg-color:               $sand-focus-bg-color;
