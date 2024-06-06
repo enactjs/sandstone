@@ -1,5 +1,6 @@
 // Slider.module.scss
 //
+@use "sass:math";
 @use "../styles/colors.scss";
 @use "../styles/mixins.scss";
 @use "../styles/skin.scss";
@@ -41,7 +42,7 @@
 			height: variables.$sand-slider-knob-height;
 			width: variables.$sand-slider-knob-width;
 			transform: $knob-transform-resting;
-			border-radius: (variables.$sand-slider-knob-height / 2);
+			border-radius: math.div(variables.$sand-slider-knob-height, 2);
 			border: variables.$sand-button-border-width solid transparent;
 			box-sizing: border-box;
 			will-change: transform;
@@ -90,12 +91,12 @@
 		.knob::before {
 			height: variables.$sand-slider-knob-height-large;
 			width: variables.$sand-slider-knob-width-large;
-			border-radius: (variables.$sand-slider-knob-height-large / 2);
+			border-radius: math.div(variables.$sand-slider-knob-height-large, 2);
 		}
 	}
 
 	&.horizontal {
-		$h-gap: (variables.$sand-slider-knob-width / 2);
+		$h-gap: math.div(variables.$sand-slider-knob-width, 2);
 		$v-gap: variables.$sand-slider-knob-height - variables.$sand-slider-bar-height;
 		width: auto;
 		padding: $v-gap $h-gap;
@@ -110,14 +111,14 @@
 		}
 
 		@include mixins.sand-custom-text-large {
-			$h-gap-large: (variables.$sand-slider-knob-width-large / 2);
-			padding: ((variables.$sand-slider-knob-height-large - variables.$sand-slider-bar-height) / 2) $h-gap-large;
+			$h-gap-large: math.div(variables.$sand-slider-knob-width-large, 2);
+			padding: math.div((variables.$sand-slider-knob-height-large - variables.$sand-slider-bar-height), 2) $h-gap-large;
 		}
 	}
 
 	&.vertical {
 		$h-gap: (variables.$sand-slider-knob-height - variables.$sand-slider-bar-height);
-		$v-gap: (variables.$sand-slider-knob-width / 2);
+		$v-gap: math.div(variables.$sand-slider-knob-width, 2);
 		padding: $v-gap $h-gap;
 		min-height: 240px;
 		display: inline-block;
@@ -134,8 +135,8 @@
 		}
 
 		@include mixins.sand-custom-text-large {
-			$v-gap-large: (variables.$sand-slider-knob-width / 2);
-			padding: $v-gap-large ((variables.$sand-slider-knob-height-large - variables.$sand-slider-bar-height) / 2);
+			$v-gap-large: math.div(variables.$sand-slider-knob-width, 2);
+			padding: $v-gap-large math.div((variables.$sand-slider-knob-height-large - variables.$sand-slider-bar-height), 2);
 		}
 	}
 
