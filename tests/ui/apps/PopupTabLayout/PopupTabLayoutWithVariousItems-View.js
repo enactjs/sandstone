@@ -1,21 +1,22 @@
 import {add, is} from '@enact/core/keymap';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import spotlight from '@enact/spotlight';
 import {Cell} from '@enact/ui/Layout'
 import {useCallback, useState} from 'react';
 
+import Button from '../../../../Button';
+import Dropdown from '../../../../Dropdown';
+import Icon from '../../../../Icon';
+import Input, {InputField} from '../../../../Input';
+import Item from '../../../../Item';
 import {Header} from '../../../../Panels'
+import Popup from '../../../../Popup';
 import PopupTabLayout, {Tab, TabPanel, TabPanels} from '../../../../PopupTabLayout';
+import Slider from '../../../../Slider';
+import Scroller from '../../../../Scroller';
 import ThemeDecorator from '../../../../ThemeDecorator';
 
 import UrlPropsDecorator from '../../components/UrlPropsDecorator';
-import Button from "../../../../Button";
-import Item from "../../../../Item";
-import Icon from "../../../../Icon";
-import Slider from "../../../../Slider";
-import Dropdown from "../../../../Dropdown";
-import Scroller from "../../../../Scroller";
-import Input, {InputField} from "../../../../Input";
-import Popup from "../../../../Popup";
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
@@ -34,7 +35,7 @@ const navNext = (callback, value) => () => {
 	callback(index);
 };
 
-function App() {
+function AppBase({rtl}) {
 	const [popupOpen, setPopupOpenState] = useState(false);
 	const [indexDisplay, setIndexDisplay] = useState(0);
 	const [indexSound, setIndexSound] = useState(0);
@@ -63,7 +64,7 @@ function App() {
 	const handleKeyDown = (setState, state) => (ev) => {
 		const {keyCode} = ev;
 
-		if (isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
+		if (!rtl && isRight(keyCode) && ev.target && !ev.target.hasAttribute('disabled')) {
 			navNext(setState, state)();
 		}
 	};
@@ -76,18 +77,18 @@ function App() {
 						<Header title="Display Settings" type="compact" />
 						<Cell>
 							<span>This is the first panel.</span>
-							<Button id="button1" size="small" disabled onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Button1</Button>
+							<Button size="small" disabled onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Button1</Button>
 							<br/>
 							<br/>
-							<Button id="button2" size="small">Button2</Button>
+							<Button size="small">Button2</Button>
 							<Button size="small" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Button3</Button>
 							<br/>
 							<br/>
 							<Item id="colorAdjust" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)} slotAfter={<Icon>arrowlargeright</Icon>}>Color Adjust</Item>
 							<Slider/>
 							<br/>
-							<Button id="button4" size="small" disabled>Button4</Button>
-							<Dropdown id="dropdown" width={100} style={{margin: 0}} title="A dropdown">
+							<Button size="small" disabled>Button4</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
 								{['a', 'b', 'c', 'd', 'e', 'f']}
 							</Dropdown>
 							<br/>
@@ -98,17 +99,17 @@ function App() {
 						<Header title="Color Adjust" type="compact" slotAfter={<Button iconOnly icon="help" />} />
 						<Cell>
 							<span>This is the second panel.</span>
-							<Button id="button1" size="small" disabled>Button1</Button>
-							<Dropdown id="dropdown" width={100} style={{margin: 0}} title="A dropdown">
+							<Button size="small" disabled>Button1</Button>
+							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
 								{['a', 'b', 'c', 'd', 'e', 'f']}
 							</Dropdown>
 							<br />
 							<br />
-							<Button id="button2" size="small" disabled>Button2</Button>
+							<Button size="small" disabled>Button2</Button>
 							<Button id="button3" size="small">Button3</Button>
 							<br />
 							<br />
-							<Button id="sliderButton" size="small">Slider</Button><Slider style={{display: 'inline-block', width: '30%'}} />
+							<Button size="small">Slider</Button><Slider style={{display: 'inline-block', width: '30%'}} />
 							<br />
 							<br />
 						</Cell>
@@ -120,25 +121,25 @@ function App() {
 					<TabPanel>
 						<Header title="Sound Settings" type="compact" />
 						<Scroller>
-							<Item id="advancedAudio" onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Advanced Audio</Item>
-							<Item id="volume" onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Volume</Item>
-							<Item id="selectMode" onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Select Mode</Item>
-							<Item id="soundOut" onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Sound Out</Item>
-							<Item id="balance" onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Balance</Item>
-							<Item id="equalizer" onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Equalizer</Item>
-							<Item id="applyToAllInputs" onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Apply to All inputs</Item>
-							<Item id="reset" onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Reset</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Advanced Audio</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Volume</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Select Mode</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Sound Out</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Balance</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Equalizer</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Apply to All inputs</Item>
+							<Item onClick={handleSoundNext} onKeyDown={handleKeyDown(setIndexSound, indexSound)} slotAfter={<Icon>arrowsmallright</Icon>}>Reset</Item>
 						</Scroller>
 					</TabPanel>
 					<TabPanel>
 						<Header title="Advanced Audio" type="compact" />
-						<Item id="balance">Balance</Item>
-						<InputField id="inputField" defaultValue="value" />
-						<Input id="input" size="small" value="Input" noBackButton />
-						<Button id="popupButton" onClick={handleOpenPopup} size="small" >Open</Button>
-						<Popup id="popup" open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
-							<Button id="closeButton" onClick={handleClosePopup}>Close</Button>
-							<Button id="dummyButton">Dummy</Button>
+						<Item >Balance</Item>
+						<InputField defaultValue="value" />
+						<Input size="small" value="Input" noBackButton />
+						<Button onClick={handleOpenPopup} size="small" >Open</Button>
+						<Popup open={popupOpen} onKeyUp={handleKeyUpOnPopup}>
+							<Button onClick={handleClosePopup}>Close</Button>
+							<Button>Dummy</Button>
 						</Popup>
 					</TabPanel>
 				</TabPanels>
@@ -146,5 +147,10 @@ function App() {
 		</PopupTabLayout>
 	);
 }
+
+const App = I18nContextDecorator(
+	{rtlProp: 'rtl'},
+	AppBase
+);
 
 export default UrlPropsDecorator(ThemeDecorator(App));

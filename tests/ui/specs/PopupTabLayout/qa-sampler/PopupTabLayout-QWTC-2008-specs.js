@@ -1,10 +1,8 @@
 const Page = require('../PopupTabLayoutPage');
-const {getFocusedText} = require("../../utils");
+const {getFocusedText} = require('../../utils');
 
 describe('qa sampler', function () {
-	const {
-		popupTabLayout
-	} = Page.components;
+	const {popupTabLayout} = Page.components;
 
 	beforeEach(async function() {
 		await Page.open('WithVariousItems');
@@ -13,7 +11,7 @@ describe('qa sampler', function () {
 	describe('PopupTabLayout', function () {
 		it('should navigate with left and right key [QWTC-2008]', async function () {
 			// Step 3: Hover on Color Adjust inside Display Settings and 5-way right
-			await $('#colorAdjust').moveTo({xOffset: 0, yOffset: 0});
+			await $('#colorAdjust').moveTo();
 			await Page.spotlightRight();
 			// Step 3 Verify: The Panel Color Adjust displays and tabs are collapsed
 			expect(await popupTabLayout.currentView.getAttribute('id')).toBe('display');
@@ -22,12 +20,12 @@ describe('qa sampler', function () {
 
 			// Step 4: Hover on the help button '?' and 5-way left two times
 			const helpButton = await popupTabLayout.helpButton();
-			await helpButton.moveTo({xOffset: 0, yOffset: 0});
+			await helpButton.moveTo();
 			await Page.spotlightLeft();
 			await Page.spotlightLeft();
 			// Step 4 Verify: Spotlight moves to the back button and stays at the back button
-			const prevButton = await popupTabLayout.prevButton();
-			expect(await prevButton.isFocused()).toBe(true);
+			const backButton = await popupTabLayout.backButton();
+			expect(await backButton.isFocused()).toBe(true);
 
 			// Step 5: Hover on the collapsed tabs on the left
 			await popupTabLayout.collapsedTabs.moveTo();
@@ -39,7 +37,7 @@ describe('qa sampler', function () {
 			expect(await popupTabLayout.isCollapsed).toBe(false);
 
 			// Step 6: Hover on 'Button 3' button and press 5-way left two times
-			await $('#button3').moveTo({xOffset: 0, yOffset: 0});
+			await $('#button3').moveTo();
 			await Page.spotlightLeft();
 			await Page.spotlightLeft();
 			await Page.delay(500);

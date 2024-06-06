@@ -8,7 +8,7 @@ const getTabs = getComponent({component: 'TabLayout', child: 'tabsExpanded'});
 const getCollapsedTabs = getComponent({component: 'TabLayout', child: 'tabs'});
 const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
 const getHelpButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotAfter', el));
-const getPrevButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotBefore', el));
+const getBackButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotBefore', el));
 
 class PopupTabLayoutInterface {
 	constructor (id) {
@@ -27,8 +27,8 @@ class PopupTabLayoutInterface {
 	async helpButton () {
 		return await getHelpButton(this.self);
 	}
-	async prevButton () {
-		return await getPrevButton(this.self);
+	async backButton () {
+		return await getBackButton(this.self);
 	}
 
 	get self () {
