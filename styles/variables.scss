@@ -1,3 +1,4 @@
+@use 'sass:math';
 @use './utils';
 
 // Variables
@@ -219,7 +220,7 @@ $sand-button-height: 144px;
 $sand-button-icon-h-margin: 30px;
 $sand-button-icon-margin-end: $sand-button-icon-h-margin;
 $sand-button-icon-margin-start: 0;
-$sand-button-icon-padding: 0 calc(($sand-button-height - $sand-icon-large-size) / 2);
+$sand-button-icon-padding: 0 math.div(($sand-button-height - $sand-icon-large-size), 2);
 $sand-button-icon-position-after-margin-end: $sand-button-icon-margin-start;
 $sand-button-icon-position-after-margin-start: $sand-button-icon-margin-end;
 $sand-button-icon-position-after-small-margin-end: 0;
@@ -247,7 +248,7 @@ $sand-button-colordot-border-radius: 6px;
 $sand-button-colordot-width: 60px;
 $sand-button-colordot-height: 12px;
 $sand-button-colordot-h-margin: 24px;
-$sand-button-colordot-padding-start: calc($sand-button-h-padding / 2);
+$sand-button-colordot-padding-start: math.div($sand-button-h-padding, 2);
 $sand-button-small-colordot-bottom: 12px;
 $sand-button-small-colordot-width: 48px;
 $sand-button-small-colordot-padding-start: 30px;
@@ -354,7 +355,7 @@ $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
 // ProgressBar
 // ---------------------------------------
 $sand-progressbar-bar-thickness: 12px;
-$sand-progressbar-bar-border-radius: calc($sand-progressbar-bar-thickness / 2);
+$sand-progressbar-bar-border-radius: math.div($sand-progressbar-bar-thickness, 2);
 $sand-progressbar-margin: $sand-component-spacing;
 $sand-progressbar-vertical-min-height: 240px;
 $sand-progressbar-radial-size: 72px;
@@ -419,14 +420,14 @@ $sand-input-invalid-tooltip-margin-top: $sand-inputfield-invalid-tooltip-margin-
 // ---------------------------------------
 $sand-checkbox-border-radius: $sand-common-circular-corners;
 $sand-checkbox-border-width: 4px;
-$sand-checkbox-container-position: calc(($sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
+$sand-checkbox-container-position: math.div(($sand-icon-tiny-size - 120px), 2);  // Container's total dimensions should be `120px` defined in the GUI spec
 $sand-checkbox-container-border-radius: $sand-item-border-radius;
 
 // Keyguide
 // ---------------------------------------
 $sand-keyguide-colordot-height: 12px;
 $sand-keyguide-colordot-width: 60px;
-$sand-keyguide-colordot-margin: 0 calc(($sand-icon-small-size - $sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+$sand-keyguide-colordot-margin: 0 math.div(($sand-icon-small-size - $sand-keyguide-colordot-width), 2); // Keep this centered by adapting its margins
 $sand-keyguide-colordot-border-radius: 6px;
 $sand-keyguide-icon-margin-right: 48px;
 $sand-keyguide-padding: 24px 0;
@@ -456,12 +457,12 @@ $sand-slider-knob-width: 48px;
 $sand-slider-knob-width-large: $sand-slider-knob-width;
 $sand-slider-knob-height: $sand-slider-knob-width;
 $sand-slider-knob-height-large: $sand-slider-knob-height;
-$sand-slider-tooltip-offset: ($sand-slider-knob-height / 2);
+$sand-slider-tooltip-offset: math.div($sand-slider-knob-height, 2);
 $sand-slider-knob-resting-state-scale: 0.75;
-$sand-slider-tooltip-above-offset: ($sand-progressbar-bar-thickness / 2);
-$sand-slider-tooltip-below-offset: ($sand-progressbar-bar-thickness / -2);
-$sand-slider-tooltip-before-offset: ($sand-progressbar-bar-thickness / 2);
-$sand-slider-tooltip-after-offset: ($sand-progressbar-bar-thickness / -2);
+$sand-slider-tooltip-above-offset: math.div($sand-progressbar-bar-thickness, 2);
+$sand-slider-tooltip-below-offset: math.div($sand-progressbar-bar-thickness, -2);
+$sand-slider-tooltip-before-offset: math.div($sand-progressbar-bar-thickness, 2);
+$sand-slider-tooltip-after-offset: math.div($sand-progressbar-bar-thickness, -2);
 
 // Spinner
 // ---------------------------------------
