@@ -1,12 +1,13 @@
 // Spinner.module.scss
 //
+@use "sass:math";
 @use "../styles/colors.scss";
 @use "../styles/mixins.scss";
 @use "../styles/skin.scss";
 @use "../styles/variables.scss";
 
 @keyframes spin {
-	$turn-offset: (2 / 8);
+	$turn-offset: math.div(2, 8);
 	0%   { transform: rotate(0turn + $turn-offset); }
 	33%   { transform: rotate(0.25turn + $turn-offset); }
 	80%   { transform: rotate(0.7turn + $turn-offset); }
@@ -15,19 +16,19 @@
 }
 @keyframes rotate1 {
 	0%, 100% { transform: rotate(0turn); }
-	33% { transform: rotate((1turn / 8)); }
+	33% { transform: rotate(math.div(1turn, 8)); }
 }
 @keyframes rotate2 {
 	0%, 100% { transform: rotate(0turn); }
-	33% { transform: rotate((2turn / 8)); }
+	33% { transform: rotate(math.div(2turn, 8)); }
 }
 @keyframes rotate3 {
 	0%, 100% { transform: rotate(0turn); }
-	33% { transform: rotate((3turn / 8)); }
+	33% { transform: rotate(math.div(3turn, 8)); }
 }
 @keyframes rotate4 {
 	0%, 100% { transform: rotate(0turn); }
-	33% { transform: rotate((4turn / 8)); }
+	33% { transform: rotate(math.div(4turn, 8)); }
 }
 
 .spinner {
@@ -52,7 +53,7 @@
 		border-radius: 999px;
 		overflow: hidden;
 		margin: 0 auto;
-		-webkit-mask-image: radial-gradient(transparent calc(#{variables.$sand-spinner-size} / 2 - #{variables.$sand-spinner-line-width} - 1px), black calc(#{variables.$sand-spinner-size} / 2 - #{variables.$sand-spinner-line-width})); // These colors control masking, not visible colors
+		-webkit-mask-image: radial-gradient(transparent (math.div(variables.$sand-spinner-size, 2) - variables.$sand-spinner-line-width - 1px), black (math.div(variables.$sand-spinner-size, 2) - variables.$sand-spinner-line-width)); // These colors control masking, not visible colors
 		animation: none variables.$sand-spinner-time linear infinite;
 		animation-name: spin;
 		animation-play-state: paused;
@@ -95,7 +96,7 @@
 			right: 0;
 			bottom: 50%;
 			left: 0;
-			clip-path: circle(calc(#{variables.$sand-spinner-line-width} / 2) at 50% calc(#{variables.$sand-spinner-line-width} / 2));
+			clip-path: circle(math.div(variables.$sand-spinner-line-width, 2) at 50% math.div(variables.$sand-spinner-line-width, 2));
 			transform-origin: bottom;
 		}
 	}
@@ -121,10 +122,10 @@
 		}
 
 		.decorator {
-			-webkit-mask-image: radial-gradient(transparent calc(#{variables.$sand-spinner-small-size} / 2 - #{variables.$sand-spinner-small-line-width} - 1px), black calc(#{variables.$sand-spinner-small-size} / 2 - #{variables.$sand-spinner-small-line-width}));
+			-webkit-mask-image: radial-gradient(transparent (math.div(variables.$sand-spinner-small-size, 2) - variables.$sand-spinner-small-line-width - 1px), black (math.div(variables.$sand-spinner-small-size, 2) - variables.$sand-spinner-small-line-width));
 
 			.cap {
-				clip-path: circle(calc(#{variables.$sand-spinner-small-line-width} / 2) at 50% calc(#{variables.$sand-spinner-small-line-width} / 2));
+				clip-path: circle(math.div(variables.$sand-spinner-small-line-width, 2) at 50% math.div(variables.$sand-spinner-small-line-width, 2));
 			}
 		}
 
@@ -137,13 +138,13 @@
 			}
 
 			.decorator {
-				-webkit-mask-image: radial-gradient(transparent calc(#{variables.$sand-spinner-small-size-large} / 2 - #{variables.$sand-spinner-small-line-width} - 1px), black calc(#{variables.$sand-spinner-small-size-large} / 2 - #{variables.$sand-spinner-small-line-width}));
+				-webkit-mask-image: radial-gradient(transparent (math.div(variables.$sand-spinner-small-size-large, 2) - variables.$sand-spinner-small-line-width - 1px), black (math.div(variables.$sand-spinner-small-size-large, 2) - variables.$sand-spinner-small-line-width));
 			}
 		}
 	}
 
 	&.content {
-		padding: calc((#{variables.$sand-button-height} - #{variables.$sand-spinner-size}) / 2);
+		padding: math.div((variables.$sand-button-height - variables.$sand-spinner-size), 2);
 	}
 
 	&.running .decorator {
