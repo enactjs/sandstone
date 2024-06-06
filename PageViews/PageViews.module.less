@@ -18,10 +18,14 @@
 		align-items: center;
 		justify-content: center;
 		text-align: center;
+		&.hidden {
+			min-height: 132px;
+			visibility: hidden;
+		}
 	}
 
 	&.number .steps {
-		height: 252px;
+		min-height: 252px;
 		.pageNumber {
 			width: 126px;
 		}
@@ -31,14 +35,34 @@
 	}
 
 	&.dot .steps {
-		height: 132px;
+		min-height: 132px;
 	}
 
-	.contentsArea, .viewManager{
+	&.fullContents .steps {
+		position: absolute;
+		align-self: center;
+		bottom: 0px;
+		min-height: 132px;
+	}
+
+	.contentsArea {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.viewManager {
 		overflow: hidden;
 	}
 
 	.horizontalLayout {
 		height: 100%;
 	}
+}
+
+.navButtonContainer {
+	overflow: hidden;
+	z-index: 10;
+	top: ~"calc(50% - " (@sand-button-height + 12) / 2 ~")";
+	position: absolute;
+	width: 100%;
 }
