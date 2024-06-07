@@ -26,7 +26,7 @@ import {useRef, useMemo, useLayoutEffect} from 'react';
 
 import Image from '../Image';
 
-import css from './Sprite.module.less';
+import css from './Sprite.module.scss';
 
 const createKeyframe = ({dimension, axis, vertical, offset}) => {
 	const x = scaleToRem(vertical ? axis : dimension);
