@@ -120,6 +120,22 @@
 	}
 }
 
+// Convenience method added to simply set the font size. Please don't use this inside the framework
+// as it will generate a significant amount of selectors and rules that might not be minified.
+// The framework offers more direct and more efficient means of assigning multiple rules at once.
+// This is primarily a convenience for external app developers.
+// Usage:
+//    0 args -> default size for latin is applied to both latin and non-latin
+//    1 arg  -> that size is applied to both latin and non-latin
+//    2 args -> first is applied to latin, second to non-latin
+@mixin sand-font-size($font-size: $sand-body-font-size, $non-latin-font-size: $font-size) {
+	font-size: $font-size;
+
+	@include enact-locale(non-latin) {
+		font-size: $non-latin-font-size;
+	}
+}
+
 // Generic Non-Latin Font Rule generator
 @mixin sand-locale-non-latin($target) {
 	@include enact-locale(non-latin, $target) {
@@ -211,6 +227,14 @@
 	font-weight: variables.$sand-button-small-font-weight;
 
 	@include font-kerning;
+}
+
+// Uses Webkit specific styles to have multi-line ellipsis
+@mixin sand-multi-line-ellipsis($lines) {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: $lines;
+	-webkit-box-orient: vertical;
 }
 
 // Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.

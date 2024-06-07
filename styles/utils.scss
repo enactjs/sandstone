@@ -5,3 +5,18 @@
 	$values: nth($list, 2);
 	@return $values;
 }
+
+// Function to check if a value is a number
+@function is-number($value) {
+	@return type-of($value) == 'number';
+}
+
+// Function to check if a value is in 'em' units
+@function is-em($value) {
+	@return is-number($value) and unit($value) == "em";
+}
+
+// Function to check if a value is in percentage
+@function is-percentage($value) {
+	@return is-number($value) and unit($value) == "%";
+}

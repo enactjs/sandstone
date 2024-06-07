@@ -16,7 +16,7 @@ import {AutoFocusDecorator} from '../internal/Panels';
 import {ContextAsDefaults} from '../internal/Panels/util';
 import {FloatingLayerIdProvider} from '../internal/Panels';
 
-import componentCss from './Panel.module.less';
+import componentCss from './Panel.module.scss';
 
 let panelId = 0;
 
