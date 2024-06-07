@@ -75,7 +75,7 @@
 	font-weight: normal;
 	font-size: $font-size;
 
-	@include sand-enact-locale-line-height(variables.$sand-body-font-weight, variables.$sand-tallglyph-body-line-height, $target)
+	@include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height, $target)
 }
 
 //
@@ -199,9 +199,7 @@
 //   @include enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
 //   @include enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
 @mixin sand-enact-locale-line-height($normal: variables.$sand-common-line-height, $tallglyph: variables.$sand-tallglyph-line-height, $target: normal) {
-	@if ($target == normal) {
-		@include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target, variables.$locale-tallglyph-languages);
-	}
+	@include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target, variables.$locale-tallglyph-languages);
 }
 
 @mixin sand-enact-locale-tallglyph($rule, $value, $target: normal) {
