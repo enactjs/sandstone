@@ -259,7 +259,7 @@ $sand-button-icon-position-after-small-margin-start: $sand-button-icon-small-mar
 $sand-button-icon-small-margin-start: 0;
 $sand-button-small-height-large: 144px;
 $sand-button-small-height: 108px;
-$sand-button-icon-small-padding: 0 calc(($sand-button-small-height - $sand-icon-small-size) / 2);
+$sand-button-icon-small-padding: 0 math.div(($sand-button-small-height - $sand-icon-small-size), 2);
 $sand-button-max-width: 900px;
 $sand-button-min-width: 540px; // If this changes, update `overflow` computed value from Alert.js
 $sand-button-focusexpand-focus-bg-transform: scale(1.05);
