@@ -28,7 +28,7 @@ module.exports = {
 				createIndex,
 			},
 			...(indexers || [])
-		]
+		];
 	},
 	stories: ['./../stories/qa/*.js'],
 	addons: [

@@ -27,7 +27,7 @@ module.exports = {
 				createIndex,
 			},
 			...(indexers || [])
-		]
+		];
 	},
 	stories: ['./../stories/default/*.js'],
 	addons: [
