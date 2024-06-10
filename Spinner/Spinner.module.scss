@@ -1,10 +1,10 @@
 // Spinner.module.scss
 //
 @use "sass:math";
-@use "../styles/colors.scss";
-@use "../styles/mixins.scss";
-@use "../styles/skin.scss";
-@use "../styles/variables.scss";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 @keyframes spin {
 	$turn-offset: math.div(2, 8);
