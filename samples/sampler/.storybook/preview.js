@@ -54,8 +54,8 @@ if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
 	const GA_MEASUREMENT_ID  = "G-ZNPW7ST2D8";
 	const options = {
 		gtagOptions: {
-			content_group: 'storybook',
-		},
+			content_group: 'storybook'
+		}
 	};
 
 	ReactGA4.initialize(GA_MEASUREMENT_ID, options);
