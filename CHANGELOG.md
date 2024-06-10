@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Removed
+
+- `sandstone/Input.InputPopupBase` prop `value`
+
 ## [2.9.0-alpha.4] - 2024-06-05
 
 ### Changed
