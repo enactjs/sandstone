@@ -1,5 +1,6 @@
 // utils.scss
 // utility functions
+@use "sass:math";
 
 @function get-right-value($list) {
 	$values: nth($list, 2);
@@ -19,4 +20,15 @@
 // Function to check if a value is in percentage
 @function is-percentage($value) {
 	@return is-number($value) and unit($value) == "%";
+}
+
+// Function to remove the unit of a length
+// @param {Number} $number - Number to remove unit from
+// @return {Number} - Unitless number
+@function strip-unit($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+		@return math.div($number, $number * 0 + 1);
+	}
+
+	@return $number;
 }

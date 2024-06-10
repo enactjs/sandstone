@@ -22,20 +22,12 @@
 
 // Guide Standard Functions
 
-@function strip-unit($number) {
-	@if type-of($number) == 'number' and not unitless($number) {
-		@return $number / ($number * 0 + 1);
-	}
-
-	@return $number;
-}
-
 // get-edge-size-difference
 //
 // Given the GUI guide line-height and the Enact framework line-height, calculate the difference
 @function get-size-difference ($guide-size, $font-size, $line-height: null) {
 	@if ($line-height != null) and (utils.is-em($line-height) or utils.is-percentage($line-height)) {
-		@return calc($font-size * strip-unit($line-height) - $guide-size);
+		@return calc($font-size * utils.strip-unit($line-height) - $guide-size);
 	} @else {
 		@return calc($font-size - $guide-size);
 	}
@@ -290,7 +282,7 @@ $sand-button-collapsable-icon-margin: 0 24px;
 // ---------------------------------------
 $sand-header-slotabove-margin: 0 (-$sand-component-spacing) 30px (-$sand-component-spacing); // Negative margins accommodate the component-spacing
 $sand-header-slotbelow-margin: 18px (-$sand-component-spacing) 0 (-$sand-component-spacing); // Negative margins accommodate the component-spacing
-$sand-header-subtitle-height: calc($sand-heading-subtitle-font-size * strip-unit($sand-heading-subtitle-line-height));
+$sand-header-subtitle-height: calc($sand-heading-subtitle-font-size * utils.strip-unit($sand-heading-subtitle-line-height));
 // STOP! READ THE FOLLOWING BEFORE EDITING.
 //
 // Panel imposes no padding so Header is fully responsible for its own positioning. The code below
@@ -463,8 +455,8 @@ $sand-picker-margin: 0 $sand-component-spacing;
 $sand-picker-item-padding: 0 $sand-spotlight-outset;
 $sand-picker-joined-vertical-border-radius: 24px;
 $sand-picker-focus-duration: $sand-spotlight-focus-animation-duration;
-$sand-picker-value-height: calc($sand-picker-font-size * strip-unit($sand-picker-line-height)); // Determine the height of the item given the font size and relative (em) line height.
-$sand-picker-joined-value-height: calc($sand-picker-joined-font-size * strip-unit($sand-picker-line-height)); // Determine the height of the item given the font size and relative (em) line height.
+$sand-picker-value-height: calc($sand-picker-font-size * utils.strip-unit($sand-picker-line-height)); // Determine the height of the item given the font size and relative (em) line height.
+$sand-picker-joined-value-height: calc($sand-picker-joined-font-size * utils.strip-unit($sand-picker-line-height)); // Determine the height of the item given the font size and relative (em) line height.
 $sand-picker-vertical-height: 362px;
 $sand-picker-joined-horizontal-border-radius: 960px;
 $sand-picker-joined-horizontal-height: 210px;
