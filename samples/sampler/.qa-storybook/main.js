@@ -16,7 +16,7 @@ module.exports = {
 		name: '@storybook/react-webpack5',
 		options: {}
 	},
-	experimental_indexers: (indexers) => {
+	experimental_indexers: (indexers) => { // eslint-disable-line camelcase
 		const createIndex = async (fileName, opts) => {
 			const code = readFileSync(fileName, {encoding: 'utf-8'});
 			return loadCsf(code, {...opts, fileName}).parse().indexInputs;
