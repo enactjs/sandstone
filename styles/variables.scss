@@ -22,14 +22,22 @@
 
 // Guide Standard Functions
 
+@function strip-unit($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+
+	@return $number;
+}
+
 // get-edge-size-difference
 //
 // Given the GUI guide line-height and the Enact framework line-height, calculate the difference
 @function get-size-difference ($guide-size, $font-size, $line-height: null) {
 	@if ($line-height != null) and (utils.is-em($line-height) or utils.is-percentage($line-height)) {
-		@return calc(#{$guide-size} - (#{$font-size} * #{$line-height}));
+		@return calc($font-size * strip-unit($line-height) - $guide-size);
 	} @else {
-		@return calc(#{$guide-size} - #{$font-size});
+		@return calc($font-size - $guide-size);
 	}
 }
 
@@ -40,9 +48,9 @@
 // Results returned in `$results`
 @function get-edge-size-difference ($guide-size, $font-size, $line-height: null) {
 	@if ($line-height != null) and (utils.is-em($line-height) or utils.is-percentage($line-height)) {
-		@return (get-size-difference(#{$guide-size}, #{$font-size}, #{$line-height}) / 2);
+		@return math.div(get-size-difference($guide-size, $font-size, $line-height), 2);
 	} @else {
-		@return (get-size-difference(#{$guide-size}, #{$font-size}) / 2);
+		@return math.div(get-size-difference($guide-size, $font-size), 2);
 	}
 }
 
@@ -69,7 +77,7 @@ $guide: (
 		standard-title-font-size: 108px,
 		standard-title-line-height: 127px,
 		standard-titles-gap: 18px,
-		standard-subtitle-font-size: 10px,
+		standard-subtitle-font-size: 60px,
 		standard-subtitle-line-height: 70px,
 
 		wizard-padding: 108px 150px 66px 150px,
@@ -282,7 +290,7 @@ $sand-button-collapsable-icon-margin: 0 24px;
 // ---------------------------------------
 $sand-header-slotabove-margin: 0 (-$sand-component-spacing) 30px (-$sand-component-spacing); // Negative margins accommodate the component-spacing
 $sand-header-slotbelow-margin: 18px (-$sand-component-spacing) 0 (-$sand-component-spacing); // Negative margins accommodate the component-spacing
-$sand-header-subtitle-height: calc(#{$sand-heading-subtitle-font-size} * #{$sand-heading-subtitle-line-height});
+$sand-header-subtitle-height: calc($sand-heading-subtitle-font-size * strip-unit($sand-heading-subtitle-line-height));
 // STOP! READ THE FOLLOWING BEFORE EDITING.
 //
 // Panel imposes no padding so Header is fully responsible for its own positioning. The code below
@@ -455,8 +463,8 @@ $sand-picker-margin: 0 $sand-component-spacing;
 $sand-picker-item-padding: 0 $sand-spotlight-outset;
 $sand-picker-joined-vertical-border-radius: 24px;
 $sand-picker-focus-duration: $sand-spotlight-focus-animation-duration;
-$sand-picker-value-height: calc($sand-picker-font-size * #{$sand-picker-line-height}); // Determine the height of the item given the font size and relative (em) line height.
-$sand-picker-joined-value-height: calc($sand-picker-joined-font-size * #{$sand-picker-line-height}); // Determine the height of the item given the font size and relative (em) line height.
+$sand-picker-value-height: calc($sand-picker-font-size * strip-unit($sand-picker-line-height)); // Determine the height of the item given the font size and relative (em) line height.
+$sand-picker-joined-value-height: calc($sand-picker-joined-font-size * strip-unit($sand-picker-line-height)); // Determine the height of the item given the font size and relative (em) line height.
 $sand-picker-vertical-height: 362px;
 $sand-picker-joined-horizontal-border-radius: 960px;
 $sand-picker-joined-horizontal-height: 210px;
@@ -478,8 +486,8 @@ $sand-picker-joined-horizontal-vedge-gap: math.div(($sand-picker-joined-horizont
 // Math to find the margin-bottom of the item given the height of the item and the
 // desired distance from the top.
 $sand-picker-joined-horizontal-value-offset: calc((
-	(48px - #{$sand-picker-joined-horizontal-vedge-gap}) - // 48px - 15px = 33px
-	((#{$sand-picker-joined-value-height} - 78px) / 2) // (78px - 99px / 2) = 10.5px
+	(48px - $sand-picker-joined-horizontal-vedge-gap) - // 48px - 15px = 33px
+	(($sand-picker-joined-value-height - 78px) / 2) // (78px - 99px / 2) = 10.5px
 ) * 2);
 
 // $sand-picker-indicator-bottom: -($sand-picker-joined-horizontal-height - 30px - $sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it allows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
