@@ -1,3 +1,4 @@
+@use "sass:math";
 @use './utils';
 
 // Variables
@@ -119,7 +120,7 @@ $sand-button-icon-position-after-small-margin-start: $sand-button-icon-small-mar
 $sand-button-icon-small-margin-start: 0;
 $sand-button-small-height-large: 144px;
 $sand-button-small-height: 108px;
-$sand-button-icon-small-padding: 0 calc(($sand-button-small-height - $sand-icon-small-size) / 2);
+$sand-button-icon-small-padding: 0 math.div(($sand-button-small-height - $sand-icon-small-size), 2);
 $sand-button-max-width: 900px;
 $sand-button-min-width: 540px; // If this changes, update `overflow` computed value from Alert.js
 $sand-button-focusexpand-focus-bg-transform: scale(1.05);
@@ -137,7 +138,7 @@ $sand-button-colordot-border-radius: 6px;
 $sand-button-colordot-width: 60px;
 $sand-button-colordot-height: 12px;
 $sand-button-colordot-h-margin: 24px;
-$sand-button-colordot-padding-start: calc($sand-button-h-padding / 2);
+$sand-button-colordot-padding-start: math.div($sand-button-h-padding, 2);
 $sand-button-small-colordot-bottom: 12px;
 $sand-button-small-colordot-width: 48px;
 $sand-button-small-colordot-padding-start: 30px;
@@ -180,14 +181,14 @@ $sand-tallglyph-item-small-line-height-large: $sand-tallglyph-item-small-line-he
 // ---------------------------------------
 $sand-checkbox-border-radius: $sand-common-circular-corners;
 $sand-checkbox-border-width: 4px;
-$sand-checkbox-container-position: calc(($sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
+$sand-checkbox-container-position: math.div(($sand-icon-tiny-size - 120px), 2);  // Container's total dimensions should be `120px` defined in the GUI spec
 $sand-checkbox-container-border-radius: $sand-item-border-radius;
 
 // Keyguide
 // ---------------------------------------
 $sand-keyguide-colordot-height: 12px;
 $sand-keyguide-colordot-width: 60px;
-$sand-keyguide-colordot-margin: 0 calc(($sand-icon-small-size - $sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+$sand-keyguide-colordot-margin: 0 math.div(($sand-icon-small-size - $sand-keyguide-colordot-width), 2); // Keep this centered by adapting its margins
 $sand-keyguide-colordot-border-radius: 6px;
 $sand-keyguide-icon-margin-right: 48px;
 $sand-keyguide-padding: 24px 0;
