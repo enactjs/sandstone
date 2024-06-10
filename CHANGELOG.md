@@ -8,7 +8,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ContextualPopupDecorator` and `sandstone/Dropdown` to have sibling DOM node as alternative to findDOMNode API which will be removed in React 19
 - `sandstone/PageViews` to hide dot page indicator when there is only one page
-- `sandstone/ThemeDecorator` to pass `rootId` to `spotlight/SpotlightRootDecorator`
 
 ### Fixed
 
