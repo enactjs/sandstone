@@ -64,10 +64,9 @@
 }
 
 .navButtonContainer {
-	$button-height: #{variables.$sand-button-height + 12};
 	overflow: hidden;
 	z-index: 10;
-	top: calc(50% - math.div(#{$button-height}, 2));
+	top: calc(50% - (#{variables.$sand-button-height + 12} / 2));
 	position: absolute;
 	width: 100%;
 }
