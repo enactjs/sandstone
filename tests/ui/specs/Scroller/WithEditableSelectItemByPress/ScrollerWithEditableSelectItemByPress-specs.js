@@ -88,7 +88,7 @@ describe('Editable Scroller', function () {
 		await ScrollerPage.spotlightUp();
 		await ScrollerPage.spotlightUp();
 
-		expect(await ScrollerPage.buttonNativeScroll.isFocused()).to.be.true();
+		expect(await ScrollerPage.buttonNativeScroll.isFocused()).toBe(true);
 	});
 
 	it('should remove item with remove button when item is selected', async function () {
@@ -195,7 +195,7 @@ describe('Editable Scroller', function () {
 
 		const expectedResult = Math.floor(itemLeftDistanceCentered / 100) * 100;
 		const result = Math.floor(itemRightDistanceCentered / 100) * 100;
-		await expect(expectedResult).to.be.equal(result);
+		await expect(expectedResult).toBe(result);
 
 		// Set Editable Center to false.
 		await ScrollerPage.spotlightUp();
@@ -205,7 +205,7 @@ describe('Editable Scroller', function () {
 
 		// Verify: Item 0 is not centered.
 		const itemLeftDistanceNotCentered = (await ScrollerPage.getActiveElementRect()).left;
-		await expect(itemLeftDistanceCentered).not.to.be.equal(itemLeftDistanceNotCentered);
+		await expect(itemLeftDistanceCentered).not.toBe(itemLeftDistanceNotCentered);
 	});
 
 	it('should scroll through list', async function () {
@@ -219,7 +219,7 @@ describe('Editable Scroller', function () {
 
 		// Verify: Item 9 is displayed in Viewport.
 		const element = await $('#item9');
-		await expect(await element.isDisplayedInViewport()).to.be.true();
+		await expect(await element.isDisplayedInViewport()).toBe(true);
 	});
 
 	it('Should unselect the selected item with 5-way down [QWTC-13660]', async function () {
@@ -270,7 +270,7 @@ describe('Editable Scroller', function () {
 			await removeButton.click();
 
 			// Verify: Item 0 is deleted.
-			await expect(await item0.isExisting()).to.be.false();
+			await expect(await item0.isExisting()).toBe(false);
 		});
 
 		// It will be checked after the Java version update on the TV.
@@ -291,7 +291,7 @@ describe('Editable Scroller', function () {
 			await removeButton.click();
 
 			// Verify: Item 0 is deleted.
-			await expect(await item0.isExisting()).to.be.false();
+			await expect(await item0.isExisting()).toBe(false);
 		});
 
 		it('should hide item', async function () {
@@ -306,14 +306,14 @@ describe('Editable Scroller', function () {
 			await item0.click();
 
 			// Verify: Show Button is displayed - item is hidden.
-			await expect(await showButton.isDisplayedInViewport()).to.be.true();
+			await expect(await showButton.isDisplayedInViewport()).toBe(true);
 
 			// Click on Show Button.
 			await showButton.click();
 			await item0.scrollIntoView();
 
 			// Verify: Show Button is not displayed.
-			await expect(await showButton.isDisplayedInViewport()).to.be.false();
+			await expect(await showButton.isDisplayedInViewport()).toBe(false);
 		});
 
 		// It will be checked after the Java version update on the TV.
@@ -407,7 +407,7 @@ describe('Editable Scroller', function () {
 
 			const expectedResult = Math.floor(itemLeftDistanceCentered / 100) * 100;
 			const result = Math.floor(itemRightDistanceCentered / 100) * 100;
-			await expect(expectedResult).to.be.equal(result);
+			await expect(expectedResult).toBe(result);
 
 			// CLick on Editable Centered Button.
 			const editableCenteredButton = await $('#editableCentered');
@@ -416,7 +416,7 @@ describe('Editable Scroller', function () {
 			// Verify: Item 0 is not centered.
 			await item0.click();
 			const itemLeftDistanceNotCentered = (await ScrollerPage.getActiveElementRect()).left;
-			await expect(itemLeftDistanceCentered).not.to.be.equal(itemLeftDistanceNotCentered);
+			await expect(itemLeftDistanceCentered).not.toBe(itemLeftDistanceNotCentered);
 		});
 
 		it('should scroll through list', async function () {
@@ -429,7 +429,7 @@ describe('Editable Scroller', function () {
 			// Verify: Item 9 is displayed in Viewport.
 			const item9 = await $('#item9');
 			await item9.scrollIntoView();
-			await expect(await item9.isDisplayedInViewport()).to.be.true();
+			await expect(await item9.isDisplayedInViewport()).toBe(true);
 		});
 	});
 });

@@ -7,13 +7,13 @@ module.exports = {
 
 // Expect blocks
 async function expectChecked (checkboxItem) {
-	expect(await checkboxItem.isChecked).to.be.true();
+	expect(await checkboxItem.isChecked).toBe(true);
 }
 
 async function expectUnchecked (checkboxItem) {
-	expect(await checkboxItem.isChecked).to.be.false();
+	expect(await checkboxItem.isChecked).toBe(false);
 }
 
 async function expectInline (checkboxItem1, checkboxItem2) {
-	expect(await checkboxItem1.getLocation().x === checkboxItem2.getLocation().x).to.be.false();
+	expect((await checkboxItem1.getLocation().x) === checkboxItem2.getLocation().x).toBe(false);
 }

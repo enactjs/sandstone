@@ -21,7 +21,7 @@ describe('qa-VirtualGridList translate mode', function () {
 		await Page.pageDown();
 		await Page.delay(1000);
 		// Step 4 Verify: Image 10 is the first item on the first fully visible row.
-		expect(await Page.itemOffsetBottomById(10)).to.be.above(itemSize.height);
+		expect(await Page.itemOffsetBottomById(10)).toBeGreaterThan(itemSize.height);
 
 		// Step 5: Position the pointer between image8 and image9.
 		await (await Page.item(8)).moveTo({xOffset: itemSize.width + 1, yOffset: itemSize.height - 1});
@@ -32,7 +32,7 @@ describe('qa-VirtualGridList translate mode', function () {
 		await Page.pageUp();
 		await Page.delay(1000);
 		// Step 6 Verify: Image 0 is the first item on the first fully visible row.
-		expect(await Page.itemOffsetBottomById(0)).to.be.equal(itemSize.height);
+		expect(await Page.itemOffsetBottomById(0)).toBe(itemSize.height);
 		await expectNoFocusedItem();
 
 	});
