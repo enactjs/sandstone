@@ -4,7 +4,7 @@ const Page = require('./VirtualListPage'),
 describe('VirtualList', function () {
 	it('should meet initial conditions', async function () {
 		await Page.open();
-		expect(await Page.buttonHideScrollbar.isFocused(), 'focus').to.be.true();
+		expect(await Page.buttonHideScrollbar.isFocused()).toBe(true);
 	});
 
 	describe('LTR locale', function () {
@@ -20,7 +20,7 @@ describe('VirtualList', function () {
 
 		it('should position Scrollbar Track on right side in LTR [QWTC-2113]', async function () {
 			// Verify Step 2.2: The Scrollbar track displays shortly right aligned.
-			expect(await Page.getListRect().right).to.equal(await Page.getVerticalScrollbarRect().right);
+			expect(await Page.getListRect().right).toBe(await Page.getVerticalScrollbarRect().right);
 		});
 
 		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [QWTC-2115]', async function () {
@@ -40,7 +40,7 @@ describe('VirtualList', function () {
 			// Verify Step 4: 1. Spotlight displays on the first item.
 			await expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 5: Scroll thumb's position appears shortly at the top of the Scrollbar track.
-			expect(await Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
+			expect(await Page.getScrollThumbPosition()).toBe('0');
 			// Step 6. Press Channel Down.
 			await Page.pageDown();
 			// Verify Step 6: 1. Spotlight hides.
@@ -59,7 +59,7 @@ describe('VirtualList', function () {
 			await waitUntilFocused(29, 'focus last Item');
 			await Page.delay(1000);
 			// Verify Step 10: Scroll thumb's position appears shortly at the bottom of the Scrollbar track.
-			expect(await Page.getScrollThumbPosition(), 'Down').to.be.equal('1');
+			expect(await Page.getScrollThumbPosition()).toBe('1');
 			// Step 11: 5-way Spot the first item.
 			await Page.pageUp();
 			await waitUntilFocused(23, 'focus Item 23');
@@ -71,7 +71,7 @@ describe('VirtualList', function () {
 			// Verify Step 11: Spotlight displays on the first item.
 			await waitUntilFocused(0, 'focus Item 0');
 			// Verify Step 12: Scroll thumb's position appears shortly at the top of the Scrollbar track.
-			expect(await Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
+			expect(await Page.getScrollThumbPosition()).toBe('0');
 		});
 
 		// TODO: Will need lots of comments update to match the TC in JIra
@@ -95,7 +95,7 @@ describe('VirtualList', function () {
 			await Page.spotlightUp();
 			// Verify Step 5: 1. The list *does not* Scroll Down.
 			// Check the bottomVisibleItem is still the same as the one before 5-way Up to check the list did not scroll Down
-			expect(Number(bottomId.slice(4)) === ((Number((await Page.bottomVisibleItemId()).slice(4)))) - 1).to.be.true();
+			expect(Number(bottomId.slice(4)) === ((Number((await Page.bottomVisibleItemId()).slice(4)))) - 1).toBe(true);
 			// Verify Step 5: 2. The Spotted item is placed above the item on the Bottom.
 			await expectFocusedItem(Number((bottomId.slice(4))), 'focus bottomId');
 			// Step 6: 5-way Up to the first item ('*Item 000*').

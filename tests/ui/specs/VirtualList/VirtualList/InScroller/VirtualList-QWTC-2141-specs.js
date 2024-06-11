@@ -18,8 +18,8 @@ describe('Horizontal VirtualList in Scroller', function () {
 		}
 		await Page.delay(300);
 		// Step 3 Verify: The last Horizontal VirtualList scrolls horizontally.
-		expect(Number(await Page.getScrollThumbPosition(2))).to.above(0);
+		expect(Number(await Page.getScrollThumbPosition(2))).toBeGreaterThan(0);
 		// The Vertical Scroller does scroll.
-		expect(initialVerticalThumbPosition).to.be.equal(await Page.getScrollThumbPosition(3));
+		expect(initialVerticalThumbPosition).toBe(await Page.getScrollThumbPosition(3));
 	});
 });

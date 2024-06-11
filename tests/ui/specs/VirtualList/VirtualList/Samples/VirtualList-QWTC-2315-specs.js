@@ -14,20 +14,20 @@ describe('VirtualList Samples', function () {
 		await Page.buttonLeft.moveTo();
 		await Page.spotlightRight();
 		await expectFocusedItem(0);
-		expect(await Page.textContent()).to.equal('Item 00');
+		expect(await Page.textContent()).toBe('Item 00');
 		// Verify 1-3: The second item shows 'Item 001'.
 		await Page.spotlightDown();
 		await expectFocusedItem(1);
-		expect(await Page.textContent()).to.equal('Item 01');
+		expect(await Page.textContent()).toBe('Item 01');
 		// Step 3: 5-way Spot and Select 'Chid Props' toggle button.
 		await Page.buttonChildProps.click();
 		// Verify 3-1: The first item shows 'Item 000 child props'.
 		await (await Page.item(0)).moveTo();
 		await expectFocusedItem(0);
-		expect(await Page.textContent()).to.equal('Item 00 child props');
+		expect(await Page.textContent()).toBe('Item 00 child props');
 		// Verify 3-2: The second item shows 'Item 001 child props'.
 		await Page.spotlightDown();
 		await expectFocusedItem(1);
-		expect(await Page.textContent()).to.equal('Item 01 child props');
+		expect(await Page.textContent()).toBe('Item 01 child props');
 	});
 });
