@@ -34,7 +34,7 @@ describe('Scroller With Editable Select Item By Press', function () {
 		await expectFocusedItem(1);
 
 		// Step 6-2 Verify: Items still horizontally center align in Scroller.
-		await expect(leftmostItemRect).to.be.equal(Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100);
+		await expect(leftmostItemRect).toBe(Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100);
 
 	});
 });

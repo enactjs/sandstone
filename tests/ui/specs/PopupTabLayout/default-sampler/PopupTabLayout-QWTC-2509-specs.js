@@ -13,11 +13,11 @@ describe('default sampler', function () {
 			// Step 3-2: 5-wayu Right to Pcitures Modes.
 			await Page.spotlightRight();
 			// Step 3-2 Verify: Spotlight is on Pictures Modes.
-			expect(await browser.execute(getFocusedText)).to.equal('Picture Modes');
+			expect(await browser.execute(getFocusedText)).toBe('Picture Modes');
 			// Step 4: 5-way Up.
 			await Page.spotlightUp();
 			// Step 4 Verify: Spotlight stays on Pictures Modes
-			expect(await browser.execute(getFocusedText)).to.equal('Picture Modes');
+			expect(await browser.execute(getFocusedText)).toBe('Picture Modes');
 		});
 	});
 });
