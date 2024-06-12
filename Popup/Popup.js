@@ -283,7 +283,7 @@ const OpenState = {
  *
  * @class Popup
  * @memberof sandstone/Popup
- * @extends sandstone/Popup.PopupBase
+ * @extends sandstone/Popup#PopupBase
  * @ui
  * @public
  */

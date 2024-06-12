@@ -14,7 +14,7 @@ import css from './FlexiblePopupPanels.module.less';
  * {@link ui/Slottable.Slottable|slots} for components.
  *
  * @class Header
- * @extends sandstone/Panels.Header
+ * @extends sandstone/Panels#Header
  * @memberof sandstone/FlexiblePopupPanels
  * @ui
  * @public

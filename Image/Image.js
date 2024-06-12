@@ -30,7 +30,7 @@ import componentCss from './Image.module.less';
  *
  * @class ImageBase
  * @memberof sandstone/Image
- * @extends ui/Image.Image
+ * @extends ui/Image#Image
  * @ui
  * @public
  */
@@ -161,7 +161,7 @@ const ImageDecorator = compose(
  *
  * @class Image
  * @memberof sandstone/Image
- * @extends sandstone/Image.ImageBase
+ * @extends sandstone/Image#ImageBase
  * @mixes sandstone/Image.ImageDecorator
  * @ui
  * @public

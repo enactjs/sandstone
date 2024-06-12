@@ -85,7 +85,7 @@ ItemContent.propTypes = {
  *
  * @class ItemBase
  * @memberof sandstone/Item
- * @extends ui/Item.ItemBase
+ * @extends ui/Item#ItemBase
  * @ui
  * @public
  */
@@ -328,7 +328,7 @@ const ItemDecorator = compose(
  *
  * @class Item
  * @memberof sandstone/Item
- * @extends sandstone/Item.ItemBase
+ * @extends sandstone/Item#ItemBase
  * @mixes sandstone/Item.ItemDecorator
  * @ui
  * @public

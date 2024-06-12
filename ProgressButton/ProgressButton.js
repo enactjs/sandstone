@@ -24,8 +24,8 @@ import componentCss from './ProgressButton.module.less';
  *
  * @class ProgressButtonBase
  * @memberof sandstone/ProgressButton
- * @extends sandstone/Button.ButtonBase
- * @extends sandstone/ProgressBar.ProgressBar
+ * @extends sandstone/Button#ButtonBase
+ * @extends sandstone/ProgressBar#ProgressBar
  * @ui
  * @public
  */
@@ -126,7 +126,7 @@ const ProgressButtonBase = kind({
  *
  * @class ProgressButton
  * @memberof sandstone/ProgressButton
- * @extends sandstone/ProgressButton.ProgressButtonBase
+ * @extends sandstone/ProgressButton#ProgressButtonBase
  * @ui
  * @public
  */

@@ -34,7 +34,7 @@ Switch.displayName = 'Switch';
  *
  * @class SwitchItemBase
  * @memberof sandstone/SwitchItem
- * @extends sandstone/Item.Item
+ * @extends sandstone/Item#Item
  * @omit iconComponent
  * @ui
  * @public
@@ -124,7 +124,7 @@ const SwitchItemDecorator = compose(
  *
  * @class SwitchItem
  * @memberof sandstone/SwitchItem
- * @extends sandstone/SwitchItem.SwitchItemBase
+ * @extends sandstone/SwitchItem#SwitchItemBase
  * @mixes sandstone/SwitchItem.SwitchItemDecorator
  * @ui
  * @public

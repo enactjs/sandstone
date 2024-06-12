@@ -72,7 +72,7 @@ const scrollerDefaultProps = {
  *
  * @class Scroller
  * @memberof sandstone/Scroller
- * @extends ui/Scroller.ScrollerBasic
+ * @extends ui/Scroller#ScrollerBasic
  * @ui
  * @public
  */
