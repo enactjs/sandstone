@@ -26,7 +26,7 @@ describe('Datasize change', function () {
 		await expectFocusedItem(3, 'focus item3');
 		await Page.spotlightDown();
 		// Check to go out of the list.
-		expect(await Page.buttonLeft.isFocused(), 'lastitem verify').to.be.true();
+		expect(await Page.buttonLeft.isFocused()).toBe(true);
 		// Step 4-1: Place the mouse cursor/pointer underneath the last item.
 		// TODO: Need to Flick event handling api.
 		await Page.showPointerByKeycode();
