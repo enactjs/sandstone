@@ -13,7 +13,7 @@
         "@enact/i18n": "^4.9.0-alpha.3",
         "@enact/sandstone": "../../",
         "@enact/spotlight": "^4.9.0-alpha.3",
-        "@enact/storybook-utils": "enactjs/storybook-utils#feature/storybook8",
+        "@enact/storybook-utils": "enactjs/storybook-utils#feature/enact_v5",
         "@enact/ui": "^4.9.0-alpha.3",
         "@storybook/addon-docs": "^8.1.6",
         "@storybook/builder-webpack5": "^8.1.6",
@@ -20814,7 +20814,7 @@
     },
     "node_modules/@enact/storybook-utils": {
       "version": "5.1.4",
-      "resolved": "git+ssh://git@github.com/enactjs/storybook-utils.git#599f37a09843328e3d86dd8a8fcac38f6a1c2b2b",
+      "resolved": "git+ssh://git@github.com/enactjs/storybook-utils.git#ac998dafc43ee8c4dba5179d1059923203bea116",
       "license": "Apache-2.0",
       "dependencies": {
         "@enact/dev-utils": "^6.1.0",
