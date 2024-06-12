@@ -66,6 +66,15 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
 	float: true,
 
 	/**
+	 * Font scale value for large text mode.
+	 *
+	 * @type {Number}
+	 * @default 1
+	 * @public
+	 */
+	fontScale: 1,
+
+	/**
 	 * Options for I18nDecorator.
 	 *
 	 * May be `false` to prevent applying the decorator. If not applied, app will be responsible for
@@ -168,7 +177,7 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
  * @public
  */
 const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {accessible, ri, i18n, spotlight, float, noAutoFocus, overlay,
+	const {accessible, ri, i18n, spotlight, float, noAutoFocus, overlay, fontScale,
 		skin, disableFullscreen, rootId} = config;
 
 	// Apply classes depending on screen type (overlay / fullscreen)
@@ -181,7 +190,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 	let App = Wrapped;
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
-	if (ri) App = ResolutionDecorator(ri, App);
+	if (ri) App = ResolutionDecorator({...ri, fontScale}, App);
 	if (i18n) {
 		// Apply the @enact/i18n decorator around the font decorator so the latter will update the
 		// font stylesheet when the locale changes

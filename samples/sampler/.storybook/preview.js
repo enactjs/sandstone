@@ -48,6 +48,18 @@ const skins = {
 	'Light': 'light'
 };
 
+const fontScales = {
+	'1': 1,
+	'1.2': 1.2,
+	'1.4': 1.4,
+	'1.6': 1.6,
+	'1.8': 1.8,
+	'2': 2,
+	'3': 3,
+	'4': 4,
+	'5': 5
+};
+
 configureActions();
 
 if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
@@ -89,6 +101,7 @@ export const parameters = {
 export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
+	'font scale': getObjectType('font scale', 1, fontScales),
 	'high contrast': getBooleanType('high contrast'),
 	'focus ring':getBooleanType('focus ring'),
 	'skin': getObjectType('skin', 'neutral', skins),

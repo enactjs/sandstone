@@ -71,6 +71,7 @@ const StorybookDecorator = (story, config = {}) => {
 			title={componentName === config.name ? `${config.kind}`.replace(/\//g, ' ').trim() : `${componentName} ${config.name}`}
 			description={hasInfoText ? config.parameters.info.text : null}
 			locale={globals.locale}
+			fontScale={JSON.parse(globals['font scale'])}
 			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
 			focusRing={JSON.parse(globals['focus ring'])}
 			highContrast={JSON.parse(globals['high contrast'])}
