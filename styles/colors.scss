@@ -220,7 +220,8 @@ $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
 // ---------------------------------------
 $sand-popup-bg-color-rgb: var(--sand-popup-bg-color-rgb, (87, 94, 102, 0.9));
 $sand-popup-bg-color: rgb($sand-popup-bg-color-rgb);
-$sand-popup-scrimtransparent-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 95%);
+$sand-popup-scrimtransparent-bg-color-rgb: var(--sand-popup-scrimtransparent-bg-color, (87, 94, 102, 0.95));
+$sand-popup-scrimtransparent-bg-color: rgb($sand-popup-scrimtransparent-bg-color-rgb);
 
 // PopupTabLayout
 // ---------------------------------------
