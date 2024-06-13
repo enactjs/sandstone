@@ -53,16 +53,11 @@
     "ramda": "^0.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "warning": "^4.0.3",
-    "ilib": "^14.19.0"
-  },
-  "peerDependencies": {
-    "ilib": "^14.19.0 || ^14.19.0-webos1"
+    "warning": "^4.0.3"
   },
   "devDependencies": {
     "@enact/docs-utils": "^0.4.7",
     "@enact/ui-test-utils": "^1.0.6",
-    "eslint-config-enact-proxy": "^1.0.7",
-    "ilib": "^14.19.0"
+    "eslint-config-enact-proxy": "^1.0.7"
   }
 }
