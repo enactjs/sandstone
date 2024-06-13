@@ -75,7 +75,7 @@
 	font-weight: normal;
 	font-size: $font-size;
 
-	@include sand-enact-locale-line-height(variables.$sand-body-font-weight, variables.$sand-tallglyph-body-line-height, $target)
+	@include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height, $target)
 }
 
 //
