@@ -4,6 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `create`
+
+## [2.9.0-alpha.4] - 2024-06-05
+
 ### Changed
 
 - `sandstone/ContextualPopupDecorator` and `sandstone/Dropdown` to have sibling DOM node as alternative to findDOMNode API which will be removed in React 19
