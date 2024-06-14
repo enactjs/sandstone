@@ -187,13 +187,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		// font stylesheet when the locale changes
 		App = I18nDecorator(
 			{
-				...i18n,
-				// We use the latin fonts (with non-Latin fallback) for these languages (even though
-				// their scripts are non-latin)
-				latinLanguageOverrides: ['ko', 'ha', 'el', 'bg', 'mk', 'mn', 'ru', 'uk', 'kk'],
-				// We use the non-latin fonts for these languages (even though their scripts are
-				// technically considered latin)
-				nonLatinLanguageOverrides: ['en-JP']
+				...i18n
 			},
 			I18nFontDecorator(
 				App
