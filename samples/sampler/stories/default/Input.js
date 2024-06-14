@@ -1,7 +1,11 @@
+// import {useWhisper} from '@chengsokdara/use-whisper';
+import {useWhisper} from '../../../../../use-whisper/src';
 import Input, {InputBase, InputPopup, InputPopupBase} from '@enact/sandstone/Input';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, range, select, text} from '@enact/storybook-utils/addons/controls';
+
+import {useEffect, useState} from 'react';
 
 Input.displayName = 'Input';
 const Config = mergeComponentMetadata('Input', InputPopupBase, InputBase, Input);
@@ -22,6 +26,25 @@ export default {
 };
 
 export const _Input = (args) => {
+	const [transcriptText, setTranscriptText] = useState('');
+	const {
+		recording,
+		speaking,
+		transcribing,
+		transcript,
+		pauseRecording,
+		startRecording,
+		stopRecording
+	} = useWhisper({
+		apiKey: "AZURE_OPENAI_API_KEY",
+		// removeSilence: true,
+		streaming: true,
+		timeSlice: 20_000,
+		whisperConfig: {
+			language: 'ko'
+		}
+	});
+
 	const propOptions = {
 		// Actions
 		onBeforeChange: action('onBeforeChange'),
@@ -47,6 +70,16 @@ export const _Input = (args) => {
 		backButtonAriaLabel: args['backButtonAriaLabel']
 	};
 
+	useEffect(() => {
+		if (recording) {
+			setTranscriptText('');
+		}
+	}, [recording]);
+
+	useEffect(() => {
+		setTranscriptText(t => (t + ' ' + (transcript.text || '')));
+	}, [transcript.text]);
+
 	// Numeric specific props
 	if (propOptions.type === 'number' || propOptions.type === 'passwordnumber') {
 		propOptions.numberInputField = args['numberInputField'];
@@ -69,7 +102,13 @@ export const _Input = (args) => {
 
 	return (
 		<div>
-			<Input {...propOptions} />
+			<Input
+				{...propOptions}
+				recording={recording}
+				startRecording={startRecording}
+				stopRecording={stopRecording}
+				transcriptText={transcriptText}
+			/>
 		</div>
 	);
 };

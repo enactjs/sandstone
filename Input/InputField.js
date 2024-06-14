@@ -194,6 +194,8 @@ const InputFieldBase = kind({
 		 */
 		placeholder: PropTypes.string,
 
+		recording: PropTypes.bool,
+
 		/**
 		 * Indicates the content's text direction is right-to-left.
 		 *
@@ -210,6 +212,8 @@ const InputFieldBase = kind({
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
+
+		transcriptText: PropTypes.string,
 
 		/**
 		 * The type of input.
@@ -280,7 +284,14 @@ const InputFieldBase = kind({
 			}
 		},
 		// ensure we have a value so the internal <input> is always controlled
-		value: ({value}) => typeof value === 'number' ? value : (value || '')
+		value: ({value, transcriptText, recording}) => {
+			if (recording) {
+				value = (value || '') + (transcriptText || '');
+			} else {
+				value = value || transcriptText;
+			}
+			return (value);
+		}
 	},
 
 	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {

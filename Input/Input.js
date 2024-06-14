@@ -224,6 +224,8 @@ const InputPopupBase = kind({
 		 */
 		onOpenPopup: PropTypes.func,
 
+		onRecording: PropTypes.func,
+
 		/**
 		 * Opens the popup.
 		 *
@@ -257,6 +259,8 @@ const InputPopupBase = kind({
 		 */
 		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
 
+		recording: PropTypes.bool,
+
 		/**
 		 * Size of the input field.
 		 *
@@ -265,6 +269,9 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
+
+		startRecording: PropTypes.func,
+		stopRecording: PropTypes.func,
 
 		/**
 		 * Subtitle below the title of popup.
@@ -283,6 +290,8 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		title: PropTypes.string,
+
+		transcriptText: PropTypes.string,
 
 		/**
 		 * Type of the input.
@@ -323,6 +332,13 @@ const InputPopupBase = kind({
 	},
 
 	handlers: {
+		onRecording: (ev, {recording, startRecording, stopRecording}) => {
+			if (!recording) {
+				startRecording();
+			} else {
+				stopRecording();
+			}
+		},
 		onShow: handle(
 			forwardCustom('onShow'),
 			(ev, {type}) => !type.includes('number'),
@@ -369,6 +385,7 @@ const InputPopupBase = kind({
 		numberInputField,
 		onBeforeChange,
 		onClose,
+		onRecording,
 		onNumberComplete,
 		onInputKeyDown,
 		onShow,
@@ -377,9 +394,11 @@ const InputPopupBase = kind({
 		popupAriaLabel,
 		popupClassName,
 		popupType,
+		recording,
 		size,
 		subtitle,
 		title,
+		transcriptText,
 		type,
 		value,
 		maxLength,
@@ -457,21 +476,33 @@ const InputPopupBase = kind({
 									numberInputField={numberInputField}
 									noSubmitButton={noSubmitButton}
 								/> :
-								<InputField
-									{...inputProps}
-									className={classnames(css.textField, spotlightDefaultClass)}
-									css={css}
-									maxLength={maxLength}
-									minLength={minLength}
-									size={size}
-									autoFocus
-									type={type}
-									defaultValue={defaultValue || value}
-									placeholder={placeholder}
-									onBeforeChange={onBeforeChange}
-									onKeyDown={onInputKeyDown}
-									spotlightId={inputFieldSpotlightId}
-								/>
+								<>
+									<InputField
+										{...inputProps}
+										className={classnames(css.textField, spotlightDefaultClass)}
+										css={css}
+										disabled={recording}
+										maxLength={maxLength}
+										minLength={minLength}
+										size={size}
+										autoFocus
+										type={type}
+										defaultValue={defaultValue || value}
+										placeholder={placeholder}
+										onBeforeChange={onBeforeChange}
+										onKeyDown={onInputKeyDown}
+										recording={recording}
+										spotlightId={inputFieldSpotlightId}
+										transcriptText={transcriptText}
+									/>
+									<Button
+										size="small"
+										backgroundOpacity="transparent"
+										selected={recording}
+										onClick={onRecording}
+										icon="voice"
+									/>
+								</>
 							}
 						</Cell>
 						<Cell shrink className={css.buttonArea}>{children}</Cell>
