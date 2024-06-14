@@ -143,14 +143,6 @@ const TabLayoutBase = kind({
 		}),
 
 		/**
-		 * Disable back key behavior which moves focus from tab contents to tab menu
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		disableBackKeyNavigation: PropTypes.bool,
-
-		/**
 		 * The currently selected tab.
 		 *
 		 * @type {Number}
@@ -270,16 +262,16 @@ const TabLayoutBase = kind({
 			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target) && target.tagName !== 'INPUT') {
 				Spotlight.setPointerMode(false);
 				ev.preventDefault();
-				if (Spotlight.move(direction)) {
-					ev.stopPropagation();
-				} else if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
-					Spotlight.set(spotlightId, {navigableFilter: null});
-					const nextTarget = getTargetByDirectionFromElement(direction, target);
-					Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
 
-					if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
-						forward('onExpand', ev, props);
-					}
+				Spotlight.set(spotlightId, {navigableFilter: null});
+				const nextTarget = getTargetByDirectionFromElement(direction, target);
+				const isNextTargetInTabs = nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget);
+				Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
+
+				if (!isNextTargetInTabs && Spotlight.move(direction)) {
+					ev.stopPropagation();
+				} else if (isNextTargetInTabs && document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
+					forward('onExpand', ev, props);
 				}
 			} else if (is('enter')(keyCode) && !collapsed && document.querySelector(`[data-spotlight-id='${spotlightId}-tabs-expanded']`).contains(target) && target.tagName !== 'INPUT') {
 				ev.stopPropagation();
@@ -292,7 +284,7 @@ const TabLayoutBase = kind({
 			const tabLayoutContentRef = document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`);
 
 			if (forwardWithPrevent('onKeyUp', ev, props) && is('cancel')(keyCode)) {
-				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && !props.disableBackKeyNavigation && !Spotlight.getPointerMode() && tabLayoutContentRef?.contains(target))) {
+				if ((type === 'popup' && popupPanelRef?.contains(target) && popupPanelRef?.dataset.index === '0') || (type === 'normal' && !Spotlight.getPointerMode() && tabLayoutContentRef?.contains(target))) {
 					if (collapsed) {
 						forward('onExpand', ev, props);
 					}
@@ -390,7 +382,6 @@ const TabLayoutBase = kind({
 
 	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleClick, handleEnter, handleFlick, handleFocus, handleTabsTransitionEnd, index, onCollapse, onSelect, orientation, tabOrientation, tabSize, tabs, type, ...rest}) => {
 		delete rest.anchorTo;
-		delete rest.disableBackKeyNavigation;
 		delete rest.onExpand;
 		delete rest.onTabAnimationEnd;
 		delete rest.rtl;
