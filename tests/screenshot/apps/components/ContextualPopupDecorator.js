@@ -13,6 +13,13 @@ const ContextualPopupButton = props => (
 	</Wrapped>
 );
 
+const WrappedNoArrow = ContextualPopupDecorator({noArrow: true},Button);
+const ContextualPopupButtonNoArrow = props => (
+	<WrappedNoArrow open {...props} popupComponent={Popup}>
+		Button
+	</WrappedNoArrow>
+);
+
 const padded = ri.scaleToRem(120);
 const wrapper = {
 	padded
@@ -34,6 +41,21 @@ const ContextualPopupDecoratorTests = [
 		<ContextualPopupButton direction="right middle" />,
 		<ContextualPopupButton direction="right top" />,
 		<ContextualPopupButton direction="right bottom" />,
+		<ContextualPopupButtonNoArrow offset="none" />,
+		<ContextualPopupButtonNoArrow direction="above center" offset="none" />,
+		<ContextualPopupButtonNoArrow direction="below center" offset="none" />,
+		<ContextualPopupButtonNoArrow direction="left middle" offset="none" />,
+		<ContextualPopupButtonNoArrow direction="right middle" offset="none" />,
+		<ContextualPopupButtonNoArrow offset="overlap" />,
+		<ContextualPopupButtonNoArrow direction="above center" offset="overlap" />,
+		<ContextualPopupButtonNoArrow direction="below center" offset="overlap" />,
+		<ContextualPopupButtonNoArrow direction="left middle" offset="overlap" />,
+		<ContextualPopupButtonNoArrow direction="right middle" offset="overlap" />,
+		<ContextualPopupButtonNoArrow offset="small" />,
+		<ContextualPopupButtonNoArrow direction="above center" offset="small" />,
+		<ContextualPopupButtonNoArrow direction="below center" offset="small" />,
+		<ContextualPopupButtonNoArrow direction="left middle" offset="small" />,
+		<ContextualPopupButtonNoArrow direction="right middle" offset="small" />,
 		// *************************************************************
 		// locale = 'ar-SA'
 		// *************************************************************
