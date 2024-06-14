@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Input.InputPopupBase` to close the popup when the `disabled` prop is true
+- `sandstone/Input` to close the popup when `disabled` prop is `true`
 
 ## [2.9.0-alpha.4] - 2024-06-05
 
