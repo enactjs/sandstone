@@ -358,6 +358,7 @@ const IconBase = kind({
  * wifilock25g
  * wifilock35g
  * wifilock45g
+ * create
  * ```
  *
  * @name iconList

@@ -127,6 +127,7 @@ export const settingsIcons = [
 	'cameradis',
 	'changepassword',
 	'checker',
+	'create',
 	'demosync',
 	'dns',
 	'exclamation',

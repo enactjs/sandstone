@@ -217,5 +217,6 @@ export default {
 	wifilock15g       : 0x0F0195, // wifilock1_5g
 	wifilock25g       : 0x0F0196, // wifilock2_5g
 	wifilock35g       : 0x0F0197, // wifilock3_5g
-	wifilock45g       : 0x0F0198 // wifilock4_5g
+	wifilock45g       : 0x0F0198, // wifilock4_5g
+	create            : 0x0F0199 // create
 };
