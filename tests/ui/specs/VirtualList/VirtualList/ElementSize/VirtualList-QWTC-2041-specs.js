@@ -13,7 +13,7 @@ describe('spotlight size compare', function () {
 		await Page.buttonLeft.moveTo();
 		await Page.spotlightRight();
 		const defaultSpotlightSize = await Page.spotlightSize();
-		expect(defaultSpotlightSize).to.equal(78);
+		expect(defaultSpotlightSize).toBe(78);
 		// Step 4: Knobs > VirtualList > itemSize > 300
 		await Page.inputfieldItemSize.moveTo();
 		await Page.spotlightSelect();
@@ -26,13 +26,13 @@ describe('spotlight size compare', function () {
 		await Page.backKey();
 		// Verify item size
 		const curItemSize = await Page.getItemSize();
-		expect(curItemSize.height).to.equal(150);
-		expect(curItemSize.width).to.equal(defaultItemSize.width);
+		expect(curItemSize.height).toBe(150);
+		expect(curItemSize.width).toBe(defaultItemSize.width);
 		await Page.spotlightDown();
 		await (await Page.item(2)).moveTo();
 		await expectFocusedItem(2);
 		const curSpotlightSize = await Page.spotlightSize();
-		expect(curSpotlightSize).to.equal(150);
+		expect(curSpotlightSize).toBe(150);
 		// Step 4: Knobs > VirtualList > itemSize > 50
 		await Page.inputfieldItemSize.moveTo();
 		await Page.spotlightSelect();
@@ -44,12 +44,12 @@ describe('spotlight size compare', function () {
 		await Page.backKey();
 		// Verify item size
 		const newItemSize = await Page.getItemSize();
-		expect(newItemSize.height).to.equal(25);
-		expect(newItemSize.width).to.equal(defaultItemSize.width);
+		expect(newItemSize.height).toBe(25);
+		expect(newItemSize.width).toBe(defaultItemSize.width);
 		await Page.spotlightDown();
 		await (await Page.item(4)).moveTo();
 		await expectFocusedItem(4);
 		const newSpotlightSize = await Page.spotlightSize();
-		expect(newSpotlightSize).to.equal(25);
+		expect(newSpotlightSize).toBe(25);
 	});
 });
