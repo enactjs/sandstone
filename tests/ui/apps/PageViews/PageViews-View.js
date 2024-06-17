@@ -9,20 +9,20 @@ import Item from "../../../../Item";
 spotlight.setPointerMode(false);
 
 const app = (props) => <div {...props}>
-    <PageViews arranger={BasicArranger} fullContents={false} pageIndicatorType='dot'>
-        <PageViews.Page id='PageViewsPage1' aria-label="This is a description for page 1">
-            <div style={{padding: '24px', width: '50%'}}>
-                <Item id='PageViewsItem1'>Item 1</Item>
-                <Item>Item 2</Item>
-            </div>
-        </PageViews.Page>
-        <PageViews.Page id='PageViewsPage2' aria-label="This is a description for page 2">
-            <div style={{padding: '24px', width: '50%'}}>
-                <Item id='PageViewsItem3'>Item 3</Item>
-                <Item>Item 4</Item>
-            </div>
-        </PageViews.Page>
-    </PageViews>
+	<PageViews arranger={BasicArranger} fullContents={false} pageIndicatorType="dot">
+		<PageViews.Page id="PageViewsPage1" aria-label="This is a description for page 1">
+			<div style={{padding: '24px', width: '50%'}}>
+				<Item id="PageViewsItem1">Item 1</Item>
+				<Item>Item 2</Item>
+			</div>
+		</PageViews.Page>
+		<PageViews.Page id="PageViewsPage2" aria-label="This is a description for page 2">
+			<div style={{padding: '24px', width: '50%'}}>
+				<Item id="PageViewsItem3">Item 3</Item>
+				<Item>Item 4</Item>
+			</div>
+		</PageViews.Page>
+	</PageViews>
 </div>;
 
 export default ThemeDecorator(app);

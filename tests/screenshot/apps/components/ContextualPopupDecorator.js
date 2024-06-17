@@ -13,7 +13,7 @@ const ContextualPopupButton = props => (
 	</Wrapped>
 );
 
-const WrappedNoArrow = ContextualPopupDecorator({noArrow: true},Button);
+const WrappedNoArrow = ContextualPopupDecorator({noArrow: true}, Button);
 const ContextualPopupButtonNoArrow = props => (
 	<WrappedNoArrow open {...props} popupComponent={Popup}>
 		Button

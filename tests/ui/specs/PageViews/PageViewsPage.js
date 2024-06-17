@@ -2,57 +2,57 @@
 const {Page} = require('@enact/ui-test-utils/utils');
 
 class PageViewsInterface {
-    constructor(id) {
-        this.id = `${id}`;
-    }
+	constructor (id) {
+		this.id = `${id}`;
+	}
 
-    get self() {
-        return $(`#${this.id}`);
-    }
+	get self () {
+		return $(`#${this.id}`);
+	}
 
-    get nextButton() {
-        return $(`#NextNavButton`);
-    }
+	get nextButton () {
+		return $(`#NextNavButton`);
+	}
 
-    get prevButton() {
-        return $(`#PrevNavButton`);
-    }
+	get prevButton () {
+		return $(`#PrevNavButton`);
+	}
 
-    get isPageExist () {
-        return this.self.isExisting();
-    }
+	get isPageExist () {
+		return this.self.isExisting();
+	}
 }
 
 class ItemInterface {
-    constructor(id) {
-        this.id = `${id}`;
-    }
+	constructor (id) {
+		this.id = `${id}`;
+	}
 
-    get self() {
-        return $(`#${this.id}`);
-    }
+	get self () {
+		return $(`#${this.id}`);
+	}
 }
 
 class PageViewsPage extends Page {
-    constructor () {
-        super();
-        this.title = 'PageView Test';
-        const pageViewsPage1 = new PageViewsInterface('PageViewsPage1');
-        const pageViewsPage2 = new PageViewsInterface('PageViewsPage2');
-        const pageViewsItem1 = new ItemInterface('PageViewsItem1');
-        const pageViewsItem3 = new ItemInterface('PageViewsItem3');
+	constructor () {
+		super();
+		this.title = 'PageView Test';
+		const pageViewsPage1 = new PageViewsInterface('PageViewsPage1');
+		const pageViewsPage2 = new PageViewsInterface('PageViewsPage2');
+		const pageViewsItem1 = new ItemInterface('PageViewsItem1');
+		const pageViewsItem3 = new ItemInterface('PageViewsItem3');
 
-        this.components = {
-            pageViewsPage1,
-            pageViewsPage2,
-            pageViewsItem1,
-            pageViewsItem3
-        };
-    }
+		this.components = {
+			pageViewsPage1,
+			pageViewsPage2,
+			pageViewsItem1,
+			pageViewsItem3
+		};
+	}
 
-    async open (urlExtra) {
-        await super.open('PageViews-View', urlExtra);
-    }
+	async open (urlExtra) {
+		await super.open('PageViews-View', urlExtra);
+	}
 }
 
 module.exports = new PageViewsPage();

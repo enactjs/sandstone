@@ -78,7 +78,7 @@ const ImageItemTests = [
 	]),
 
 	// RTL
-	...withConfig({locale: 'ar-SA'}, defaultImageItemTests),
+	...withConfig({locale: 'ar-SA'}, defaultImageItemTests)
 ];
 
 export default ImageItemTests;

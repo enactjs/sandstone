@@ -7,29 +7,29 @@ import spotlight from '@enact/spotlight';
 spotlight.setPointerMode(false);
 
 const app = (props) => <div {...props}>
-    <div style={{padding:'20px'}}>
-        <Checkbox
-            id='Checkbox1'
-        ></Checkbox>
-    </div>
-    <div style={{padding:'20px'}}>
-        <Checkbox
-            id='Checkbox2'
-            selected={true}
-        ></Checkbox>
-    </div>
-    <div style={{padding:'20px'}}>
-        <Checkbox
-            id='Checkbox3'
-            indeterminate={true}
-        ></Checkbox>
-    </div>
-    <div style={{padding:'20px'}}>
-        <Checkbox
-            id='Checkbox4'
-            disabled={true}
-        ></Checkbox>
-    </div>
+	<div style={{padding: '20px'}}>
+		<Checkbox
+			id="Checkbox1"
+		/>
+	</div>
+	<div style={{padding: '20px'}}>
+		<Checkbox
+			id="Checkbox2"
+			selected
+		/>
+	</div>
+	<div style={{padding: '20px'}}>
+		<Checkbox
+			id="Checkbox3"
+			indeterminate
+		/>
+	</div>
+	<div style={{padding: '20px'}}>
+		<Checkbox
+			id="Checkbox4"
+			disabled
+		/>
+	</div>
 </div>;
 
 export default ThemeDecorator(app);
