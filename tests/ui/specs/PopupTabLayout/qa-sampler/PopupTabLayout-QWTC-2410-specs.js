@@ -15,10 +15,10 @@ describe('qa sampler', function () {
 			await Page.spotlightDown();
 			await Page.spotlightDown();
 			await Page.spotlightDown();
-			expect(await browser.execute(getFocusedText)).to.equal('button');
+			expect(await browser.execute(getFocusedText)).toBe('button');
 
 			// Step 3 Verify: There is enough padding between the last button and the Popup.
-			expect(await Page.buttonPadding()).to.equal(27);
+			expect(await Page.buttonPadding()).toBe(27);
 		});
 	});
 });
