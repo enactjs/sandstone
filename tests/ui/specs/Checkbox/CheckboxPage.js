@@ -32,7 +32,7 @@ class CheckboxPage extends Page {
 		};
 	}
 
-	async open(urlExtra) {
+	async open (urlExtra) {
 		await super.open('Checkbox-View', urlExtra);
 	}
 }
