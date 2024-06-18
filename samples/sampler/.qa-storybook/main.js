@@ -31,6 +31,7 @@ module.exports = {
 		];
 	},
 	stories: ['./../stories/qa/*.js'],
+	staticDirs: ['../public'],
 	addons: [
 		'@enact/storybook-utils/addons/actions',
 		'@enact/storybook-utils/addons/controls',
