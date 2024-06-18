@@ -36,6 +36,7 @@ describe('PageViews', function () {
 
 			expect(await pageViewsPage2.isPageExist).toBe(true);
 
+			await browser.pause(500);
 			await Page.spotlightLeft();
 			await Page.spotlightSelect();
 
