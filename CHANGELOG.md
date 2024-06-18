@@ -2,15 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Input` to close the popup when `disabled` prop is `true`
+
 ## [2.9.0-beta.1] - 2024-06-17
 
 ### Added
 
 - `sandstone/Icon` supported icon list, adding new icon `create`
-
-### Changed
-
-- `sandstone/Input` to close the popup when `disabled` prop is `true`
 
 ## [2.9.0-alpha.4] - 2024-06-05
 
