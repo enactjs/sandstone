@@ -25,7 +25,7 @@ describe('SwitchItem', function () {
 		describe('5-way', function () {
 			it('should select the item when selected', async function () {
 				await Page.spotlightSelect();
-				expect(switchItem.isSelected).toBe(true)
+				expect(switchItem.isSelected).toBe(true);
 			});
 
 			it('should re-unselect the item when selected twice', async function () {

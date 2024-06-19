@@ -1,4 +1,4 @@
-const {focusedElement, expectFocusedItem, expectNoFocusedItem} = require('../../VirtualList/VirtualList-utils');
+const {expectFocusedItem, expectNoFocusedItem} = require('../../VirtualList/VirtualList-utils');
 const ScrollerPage = require('../ScrollerPage');
 
 describe('Scroller List Of Things', function () {
