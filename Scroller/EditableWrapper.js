@@ -30,7 +30,7 @@ const TouchableDiv = Touchable('div');
  *  It has an event object contains `orders` array which app can use for repopulate items.
  * @property {Function|Object} [blurItemFuncRef] Obtains a reference to `blurItem` function.
  *  If you would like to remove `focused` CSS class to an item, you can get the reference to `blurItem` function via `useRef`.
- * `blurItem` function need to be called with an item node when an item is blurred.
+ * `blurItem` function needs to be called with an item node when an item is blurred.
  * @property {Boolean} [centered] Centers the contents of the scroller.
  * @property {Object} [css] Customizes the component by mapping the supplied collection of CSS class names to the
  *  corresponding internal elements and states of this component.
@@ -41,7 +41,7 @@ const TouchableDiv = Touchable('div');
  * * `focused` - The focused item class
  * @property {Function|Object} [focusItemFuncRef] Obtains a reference to `focusItem` function.
  *  If you would like to use `focused` CSS class to an item, you can get the reference to `focusItem` function via `useRef`.
- * `focusItem` function need to be called with an item node when an item is focused.
+ * `focusItem` function needs to be called with an item node when an item is focused.
  * @property {Function|Object} [hideItemFuncRef] Obtains a reference to `hideItem` function.
  *  If you would like to hide an item, you can get the reference to `hideItem` function via `useRef`.
  * @property {Function|Object} [removeItemFuncRef] Obtains a reference to `removeItem` function.
