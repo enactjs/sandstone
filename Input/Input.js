@@ -292,6 +292,7 @@ const InputPopupBase = kind({
 		title: PropTypes.string,
 
 		transcriptText: PropTypes.string,
+		setTranscriptText: PropTypes.func,
 
 		/**
 		 * Type of the input.
@@ -332,13 +333,6 @@ const InputPopupBase = kind({
 	},
 
 	handlers: {
-		onRecording: (ev, {recording, startRecording, stopRecording}) => {
-			if (!recording) {
-				startRecording();
-			} else {
-				stopRecording();
-			}
-		},
 		onShow: handle(
 			forwardCustom('onShow'),
 			(ev, {type}) => !type.includes('number'),
@@ -397,6 +391,9 @@ const InputPopupBase = kind({
 		recording,
 		size,
 		subtitle,
+		startRecording,
+		stopRecording,
+		setTranscriptText,
 		title,
 		transcriptText,
 		type,
@@ -476,33 +473,26 @@ const InputPopupBase = kind({
 									numberInputField={numberInputField}
 									noSubmitButton={noSubmitButton}
 								/> :
-								<>
-									<InputField
-										{...inputProps}
-										className={classnames(css.textField, spotlightDefaultClass)}
-										css={css}
-										disabled={recording}
-										maxLength={maxLength}
-										minLength={minLength}
-										size={size}
-										autoFocus
-										type={type}
-										defaultValue={defaultValue || value}
-										placeholder={placeholder}
-										onBeforeChange={onBeforeChange}
-										onKeyDown={onInputKeyDown}
-										recording={recording}
-										spotlightId={inputFieldSpotlightId}
-										transcriptText={transcriptText}
-									/>
-									<Button
-										size="small"
-										backgroundOpacity="transparent"
-										selected={recording}
-										onClick={onRecording}
-										icon="voice"
-									/>
-								</>
+								<InputField
+									{...inputProps}
+									className={classnames(css.textField, spotlightDefaultClass)}
+									css={css}
+									maxLength={maxLength}
+									minLength={minLength}
+									size={size}
+									autoFocus
+									type={type}
+									defaultValue={defaultValue || value}
+									placeholder={placeholder}
+									onBeforeChange={onBeforeChange}
+									onKeyDown={onInputKeyDown}
+									recording={recording}
+									setTranscriptText={setTranscriptText}
+									startRecording={startRecording}
+									stopRecording={stopRecording}
+									spotlightId={inputFieldSpotlightId}
+									transcriptText={transcriptText}
+								/>
 							}
 						</Cell>
 						<Cell shrink className={css.buttonArea}>{children}</Cell>

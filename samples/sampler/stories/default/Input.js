@@ -39,7 +39,7 @@ export const _Input = (args) => {
 		apiKey: "AZURE_OPENAI_API_KEY",
 		// removeSilence: true,
 		streaming: true,
-		timeSlice: 20_000,
+		timeSlice: 10_000,
 		whisperConfig: {
 			language: 'ko'
 		}
@@ -71,13 +71,7 @@ export const _Input = (args) => {
 	};
 
 	useEffect(() => {
-		if (recording) {
-			setTranscriptText('');
-		}
-	}, [recording]);
-
-	useEffect(() => {
-		setTranscriptText(t => (t + ' ' + (transcript.text || '')));
+		setTranscriptText(transcript.text);
 	}, [transcript.text]);
 
 	// Numeric specific props
@@ -105,6 +99,7 @@ export const _Input = (args) => {
 			<Input
 				{...propOptions}
 				recording={recording}
+				setTranscriptText={setTranscriptText}
 				startRecording={startRecording}
 				stopRecording={stopRecording}
 				transcriptText={transcriptText}
