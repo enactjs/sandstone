@@ -6,6 +6,7 @@ import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlig
 import Changeable from '@enact/ui/Changeable';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
+import classNames from 'classnames';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -236,10 +237,11 @@ const PageViewsBase = kind({
 		steps: ({index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
+			const isStepVisible = totalIndex !== 1;
 			return (
 				<>
 					{pageIndicatorType !== 'number' ?
-						<Row className={css.steps}>
+						<Row className={classNames(css.steps, {[css.hidden]: !isStepVisible})}>
 							<Steps
 								current={index + 1}
 								pastIcon={'circle'}

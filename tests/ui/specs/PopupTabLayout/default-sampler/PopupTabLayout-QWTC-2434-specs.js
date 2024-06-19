@@ -15,7 +15,7 @@ describe('default sampler', function () {
 			await Page.spotlightSelect();
 			await Page.delay(500);
 			// Step 4 Verify: Spotlight is on the Tab Vivid under Picture Modes.
-			expect(await browser.execute(getFocusedText)).to.equal('Vivid');
+			expect(await browser.execute(getFocusedText)).toBe('Vivid');
 		});
 	});
 });
