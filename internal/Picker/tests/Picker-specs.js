@@ -15,7 +15,7 @@ describe('Picker Specs', () => {
 		render(
 			<Picker index={0} max={0} min={0} />
 		);
-		const valueText = screen.getAllByRole('button')[0].nextElementSibling;
+		const valueText = screen.getAllByRole('button')[0].nextElementSibling.nextElementSibling; // there is a dummy sibling by Spottable
 
 		const expectedValue = '0';
 		const expectedAttribute = 'aria-valuetext';
@@ -47,7 +47,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		await user.click(picker.lastElementChild);
+		await user.click(picker.lastElementChild.previousElementSibling); // there is a dummy sibling by Spottable
 
 		const expected = -1;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -92,7 +92,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		await user.click(picker.lastElementChild);
+		await user.click(picker.lastElementChild.previousElementSibling); // there is a dummy sibling by Spottable
 
 		const expected = 1;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -124,7 +124,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getByLabelText('3 next item').parentElement;
 
-		await user.click(picker.lastElementChild);
+		await user.click(picker.lastElementChild.previousElementSibling); // there is a dummy sibling by Spottable
 
 		const expected = 0;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -225,7 +225,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getByLabelText('0 next item').parentElement;
 
-		await user.click(picker.lastElementChild);
+		await user.click(picker.lastElementChild.previousElementSibling); // there is a dummy sibling by Spottable
 
 		const expected = 9;
 		const actual = handleChange.mock.calls[0][0].value;
@@ -523,7 +523,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getByLabelText('0 press ok button to change the value');
 
-		const expected = 1;
+		const expected = 2; // there is a dummy sibling by Spottable
 		// The indicator will be a child of picker's children
 		// With it there will be 2 child elements
 		const actual = picker.children.item(0).children.length;
@@ -539,7 +539,7 @@ describe('Picker Specs', () => {
 		);
 		const picker = screen.getByRole('spinbutton', {hidden: true});
 
-		const expected = 1;
+		const expected = 2; // there is a dummy sibling by Spottable
 		// The indicator will be a child of picker's children
 		// With it there will be 2 child elements
 		const actual = picker.children.length;
@@ -558,7 +558,7 @@ describe('Picker Specs', () => {
 		const picker = screen.getByRole('spinbutton', {hidden: true});
 
 		const expected = 3;
-		const actual = picker.children.item(1).children.length;
+		const actual = picker.children.item(2).children.length; // there is a dummy sibling by Spottable
 
 		expect(actual).toBe(expected);
 	});
@@ -643,7 +643,7 @@ describe('Picker Specs', () => {
 					<PickerItem>4</PickerItem>
 				</Picker>
 			);
-			const pickerItem = screen.getByLabelText('2 next item').nextElementSibling;
+			const pickerItem = screen.getByLabelText('2 next item').nextElementSibling.nextElementSibling; // there is a dummy sibling by Spottable
 			// I chosen this and not getByText because in get by test you have to go 4 parentElements up
 
 			const expectedAttribute = 'aria-valuetext';

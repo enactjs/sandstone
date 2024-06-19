@@ -22,11 +22,11 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^4.9.0-alpha.1",
-    "@enact/i18n": "^4.9.0-alpha.1",
+    "@enact/core": "^4.9.0-beta.1",
+    "@enact/i18n": "^4.9.0-beta.1",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^4.9.0-alpha.1",
-    "@enact/ui": "^4.9.0-alpha.1",
+    "@enact/spotlight": "^4.9.0-beta.1",
+    "@enact/ui": "^4.9.0-beta.1",
     "classnames": "^2.5.1",
     "ilib": "14.19.0",
     "react": "^18.3.1",
