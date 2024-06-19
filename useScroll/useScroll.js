@@ -31,7 +31,7 @@ import {
 import useOverscrollEffect from './useOverscrollEffect';
 import {useSpotlightRestore} from './useSpotlight';
 
-import overscrollCss from './OverscrollEffect.module.less';
+import * as overscrollCss from './OverscrollEffect.module.less';
 import * as css from './useScroll.module.less';
 
 const

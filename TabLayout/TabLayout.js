@@ -34,7 +34,7 @@ import TabGroup from './TabGroup';
 import Tab from './Tab';
 
 import * as componentCss from './TabLayout.module.less';
-import popupTabLayoutComponentCss from '../PopupTabLayout/PopupTabLayout.module.less';
+import * as popupTabLayoutComponentCss from '../PopupTabLayout/PopupTabLayout.module.less';
 
 const TabLayoutContext = createContext(null);
 
