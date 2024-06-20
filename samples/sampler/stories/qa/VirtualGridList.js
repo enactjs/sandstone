@@ -119,13 +119,17 @@ class MyVirtualList extends Component {
 					direction="vertical"
 					itemRenderer={this.renderItem}
 					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
-					key={select('scrollMode', prop.scrollModeOption, Config)}
-					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					key={this.props.args['scrollMode']}
+					scrollMode={this.props.args['scrollMode']}
 				/>
 			</div>
 		);
 	}
 }
+
+MyVirtualList.propTypes = {
+	args: PropTypes.array
+};
 
 class ButtonAndVirtualGridList extends Component {
 	constructor (props) {
@@ -136,7 +140,7 @@ class ButtonAndVirtualGridList extends Component {
 	}
 
 	renderPopup = (rest) => {
-		return <MyVirtualList {...rest} closePopup={this.closePopup} />;
+		return <MyVirtualList {...rest} closePopup={this.closePopup} args={this.props.args} />;
 	};
 
 	openPopup = () => {
@@ -166,6 +170,7 @@ class ButtonAndVirtualGridList extends Component {
 }
 
 ButtonAndVirtualGridList.propTypes = {
+	args: PropTypes.array,
 	rtl: PropTypes.bool
 };
 
@@ -221,7 +226,7 @@ HorizontalVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridListSamples />;
+export const WithButtonSpotlightGoesToCorrectTarget = (args) => <ButtonAndVirtualGridListSamples args={args} />;
 
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
 WithButtonSpotlightGoesToCorrectTarget.parameters = {
@@ -229,6 +234,8 @@ WithButtonSpotlightGoesToCorrectTarget.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+select('scrollMode', WithButtonSpotlightGoesToCorrectTarget, prop.scrollModeOption, Config);
 
 export const HorizontalSquaredVirtualGridList = (args) => (
 	<VirtualGridList
