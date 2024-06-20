@@ -32,7 +32,7 @@ function App (props) {
 				<div>Test Test Test Test Test Test</div>
 			</Scroller>
 		</div>
-	)
+	);
 }
 
 export default ThemeDecorator(App);

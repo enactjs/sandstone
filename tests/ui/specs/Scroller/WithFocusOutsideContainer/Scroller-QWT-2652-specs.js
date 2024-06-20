@@ -18,7 +18,7 @@ describe('Scroller', function () {
 
 	describe('5-way RTL', function () {
 		beforeEach(async function () {
-			await ScrollerPage.open('WithFocusOutsideContainer', '?locale=ar-SA')
+			await ScrollerPage.open('WithFocusOutsideContainer', '?locale=ar-SA');
 		});
 
 		it('should spotlight an outside of container element with \'native\' scrollMode', async function () {

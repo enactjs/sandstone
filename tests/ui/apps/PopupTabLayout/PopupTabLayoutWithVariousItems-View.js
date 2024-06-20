@@ -1,7 +1,7 @@
 import {add, is} from '@enact/core/keymap';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import spotlight from '@enact/spotlight';
-import {Cell} from '@enact/ui/Layout'
+import {Cell} from '@enact/ui/Layout';
 import {useCallback, useState} from 'react';
 
 import Button from '../../../../Button';
@@ -9,7 +9,7 @@ import Dropdown from '../../../../Dropdown';
 import Icon from '../../../../Icon';
 import Input, {InputField} from '../../../../Input';
 import Item from '../../../../Item';
-import {Header} from '../../../../Panels'
+import {Header} from '../../../../Panels';
 import Popup from '../../../../Popup';
 import PopupTabLayout, {Tab, TabPanel, TabPanels} from '../../../../PopupTabLayout';
 import Slider from '../../../../Slider';
@@ -35,7 +35,7 @@ const navNext = (callback, value) => () => {
 	callback(index);
 };
 
-function AppBase({rtl}) {
+function AppBase ({rtl}) {
 	const [popupOpen, setPopupOpenState] = useState(false);
 	const [indexDisplay, setIndexDisplay] = useState(0);
 	const [indexSound, setIndexSound] = useState(0);
@@ -78,21 +78,21 @@ function AppBase({rtl}) {
 						<Cell>
 							<span>This is the first panel.</span>
 							<Button size="small" disabled onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Button1</Button>
-							<br/>
-							<br/>
+							<br />
+							<br />
 							<Button size="small">Button2</Button>
 							<Button size="small" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)}>Button3</Button>
-							<br/>
-							<br/>
+							<br />
+							<br />
 							<Item id="colorAdjust" onClick={handleDisplayNext} onKeyDown={handleKeyDown(setIndexDisplay, indexDisplay)} slotAfter={<Icon>arrowlargeright</Icon>}>Color Adjust</Item>
-							<Slider/>
-							<br/>
+							<Slider />
+							<br />
 							<Button size="small" disabled>Button4</Button>
 							<Dropdown width={100} style={{margin: 0}} title="A dropdown">
 								{['a', 'b', 'c', 'd', 'e', 'f']}
 							</Dropdown>
-							<br/>
-							<br/>
+							<br />
+							<br />
 						</Cell>
 					</TabPanel>
 					<TabPanel>

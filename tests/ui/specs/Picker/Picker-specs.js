@@ -205,7 +205,7 @@ describe('Picker', function () {
 					await browser.pause(500);
 					const newValue = extractValue(pickerJoinedChangedByArrow);
 					expect(await newValue).toBe('Apple');
-				})
+				});
 			});
 
 			describe('pointer', function () {

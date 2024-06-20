@@ -4,7 +4,7 @@ const {getFocusedText} = require('../../utils');
 describe('qa sampler', function () {
 	const {popupTabLayout} = Page.components;
 
-	beforeEach(async function() {
+	beforeEach(async function () {
 		await Page.open('WithVariousItems');
 	});
 
