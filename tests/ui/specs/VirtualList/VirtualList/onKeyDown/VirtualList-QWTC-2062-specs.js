@@ -26,8 +26,8 @@ describe('onKeyDown [QWTC-2062]', function () {
 	it('should prevent bubbling when wrapping', async function () {
 		await Page.spotlightRight();
 		await Page.spotlightSelect();
-		await Page.buttonLeft.moveTo();
-		await Page.spotlightRight();
+		await Page.buttonTop.moveTo();
+		await Page.spotlightDown();
 		await expectFocusedItem(0);
 		await Page.spotlightUp();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
@@ -42,8 +42,8 @@ describe('onKeyDown [QWTC-2062]', function () {
 		// Wrap knobs Setting
 		await Page.spotlightRight();
 		await Page.spotlightSelect();
-		await Page.buttonLeft.moveTo();
-		await Page.spotlightRight();
+		await Page.buttonTop.moveTo();
+		await Page.spotlightDown();
 		await expectFocusedItem(0);
 		await Page.spotlightUp();
 		await Page.spotlightUp();
