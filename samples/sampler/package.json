@@ -24,7 +24,7 @@
     "@enact/i18n": "^4.9.0-beta.1",
     "@enact/sandstone": "../../",
     "@enact/spotlight": "^4.9.0-beta.1",
-    "@enact/storybook-utils": "enactjs/storybook-utils#feature/enact_v5",
+    "@enact/storybook-utils": "github:enactjs/storybook-utils#feature/WRQ-19494",
     "@enact/ui": "^4.9.0-beta.1",
     "@storybook/addon-docs": "^8.1.6",
     "@storybook/builder-webpack5": "^8.1.6",

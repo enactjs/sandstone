@@ -13,7 +13,7 @@
         "@enact/i18n": "^4.9.0-beta.1",
         "@enact/sandstone": "../../",
         "@enact/spotlight": "^4.9.0-beta.1",
-        "@enact/storybook-utils": "enactjs/storybook-utils#feature/enact_v5",
+        "@enact/storybook-utils": "github:enactjs/storybook-utils#feature/WRQ-19494",
         "@enact/ui": "^4.9.0-beta.1",
         "@storybook/addon-docs": "^8.1.6",
         "@storybook/builder-webpack5": "^8.1.6",
@@ -20814,7 +20814,7 @@
     },
     "node_modules/@enact/storybook-utils": {
       "version": "5.1.4",
-      "resolved": "git+ssh://git@github.com/enactjs/storybook-utils.git#ac998dafc43ee8c4dba5179d1059923203bea116",
+      "resolved": "git+ssh://git@github.com/enactjs/storybook-utils.git#4f9cd56b9a6fe0341899ddc208d405ac8cbaf587",
       "license": "Apache-2.0",
       "dependencies": {
         "@enact/dev-utils": "^6.1.0",
@@ -20822,7 +20822,7 @@
         "@storybook/addon-controls": "^8.1.6",
         "@storybook/addon-toolbars": "^8.1.6",
         "babel-preset-enact": "^0.1.7",
-        "css-loader": "^6.11.0",
+        "css-loader": "^7.1.2",
         "less": "^4.2.0",
         "less-loader": "^12.2.0",
         "mini-css-extract-plugin": "^2.8.1",
@@ -20837,6 +20837,51 @@
       },
       "engines": {
         "node": ">=18.12.0"
+      }
+    },
+    "node_modules/@enact/storybook-utils/node_modules/css-loader": {
+      "version": "7.1.2",
+      "resolved": "https://registry.npmjs.org/css-loader/-/css-loader-7.1.2.tgz",
+      "integrity": "sha512-6WvYYn7l/XEGN8Xu2vWFt9nVzrCn39vKyTEFf/ExEyoksJjjSZV/0/35XPlMbpnr6VGhZIUg5yJrL8tGfes/FA==",
+      "dependencies": {
+        "icss-utils": "^5.1.0",
+        "postcss": "^8.4.33",
+        "postcss-modules-extract-imports": "^3.1.0",
+        "postcss-modules-local-by-default": "^4.0.5",
+        "postcss-modules-scope": "^3.2.0",
+        "postcss-modules-values": "^4.0.0",
+        "postcss-value-parser": "^4.2.0",
+        "semver": "^7.5.4"
+      },
+      "engines": {
+        "node": ">= 18.12.0"
+      },
+      "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/webpack"
+      },
+      "peerDependencies": {
+        "@rspack/core": "0.x || 1.x",
+        "webpack": "^5.27.0"
+      },
+      "peerDependenciesMeta": {
+        "@rspack/core": {
+          "optional": true
+        },
+        "webpack": {
+          "optional": true
+        }
+      }
+    },
+    "node_modules/@enact/storybook-utils/node_modules/semver": {
+      "version": "7.6.2",
+      "resolved": "https://registry.npmjs.org/semver/-/semver-7.6.2.tgz",
+      "integrity": "sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==",
+      "bin": {
+        "semver": "bin/semver.js"
+      },
+      "engines": {
+        "node": ">=10"
       }
     },
     "node_modules/@enact/ui": {
@@ -51700,15 +51745,15 @@
       }
     },
     "@enact/storybook-utils": {
-      "version": "git+ssh://git@github.com/enactjs/storybook-utils.git#ac998dafc43ee8c4dba5179d1059923203bea116",
-      "from": "@enact/storybook-utils@enactjs/storybook-utils#feature/enact_v5",
+      "version": "git+ssh://git@github.com/enactjs/storybook-utils.git#4f9cd56b9a6fe0341899ddc208d405ac8cbaf587",
+      "from": "@enact/storybook-utils@enactjs/storybook-utils#feature/WRQ-19494",
       "requires": {
         "@enact/dev-utils": "^6.1.0",
         "@storybook/addon-actions": "^8.1.6",
         "@storybook/addon-controls": "^8.1.6",
         "@storybook/addon-toolbars": "^8.1.6",
         "babel-preset-enact": "^0.1.7",
-        "css-loader": "^6.11.0",
+        "css-loader": "^7.1.2",
         "less": "^4.2.0",
         "less-loader": "^12.2.0",
         "mini-css-extract-plugin": "^2.8.1",
@@ -51720,6 +51765,28 @@
         "postcss-normalize": "^10.0.1",
         "postcss-preset-env": "^9.5.4",
         "postcss-resolution-independence": "^1.1.5"
+      },
+      "dependencies": {
+        "css-loader": {
+          "version": "7.1.2",
+          "resolved": "https://registry.npmjs.org/css-loader/-/css-loader-7.1.2.tgz",
+          "integrity": "sha512-6WvYYn7l/XEGN8Xu2vWFt9nVzrCn39vKyTEFf/ExEyoksJjjSZV/0/35XPlMbpnr6VGhZIUg5yJrL8tGfes/FA==",
+          "requires": {
+            "icss-utils": "^5.1.0",
+            "postcss": "^8.4.33",
+            "postcss-modules-extract-imports": "^3.1.0",
+            "postcss-modules-local-by-default": "^4.0.5",
+            "postcss-modules-scope": "^3.2.0",
+            "postcss-modules-values": "^4.0.0",
+            "postcss-value-parser": "^4.2.0",
+            "semver": "^7.5.4"
+          }
+        },
+        "semver": {
+          "version": "7.6.2",
+          "resolved": "https://registry.npmjs.org/semver/-/semver-7.6.2.tgz",
+          "integrity": "sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w=="
+        }
       }
     },
     "@enact/ui": {
