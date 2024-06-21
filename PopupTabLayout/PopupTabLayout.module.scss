@@ -81,6 +81,10 @@ $popupTabLayout-max-height: calc(100vh - (nth(variables.$sand-popuptablayout-mar
 		.content .panels::before {
 			border-radius: variables.$sand-popuptablayout-tabs-content-border-radius;
 			box-shadow: colors.$sand-popuptablayout-shadow;
+			outline-color: colors.$sand-overlay-outline-color;
+			outline-width: variables.$sand-overlay-outline-width;
+			outline-style: colors.$sand-overlay-outline-style;
+			outline-offset: -(variables.$sand-overlay-outline-width);
 		}
 
 		&.scrimTranslucent {
