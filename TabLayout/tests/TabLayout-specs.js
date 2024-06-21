@@ -356,10 +356,15 @@ describe('TabLayout specs', () => {
 		expect(actual).toMatchObject(expected);
 	});
 
-	test('should not call \'onExpand\' when \'disableBackKeyNavigation\' prop is true and pressing \'backKey\' on a tab content', () => {
+	test('should not call \'onExpand\' when preventDefault is called in onKeyUp handler when pressing \'backKey\' on a tab content', () => {
 		const spy = jest.fn();
+		const handleKeyUp = (ev) => {
+			if (ev.keyCode === 27) {
+				ev.preventDefault();
+			}
+		};
 		render(
-			<TabLayout collapsed disableBackKeyNavigation onExpand={spy} rtl={false}>
+			<TabLayout collapsed onKeyUp={handleKeyUp} onExpand={spy} rtl={false}>
 				<Tab icon="home" title="Home">
 					<Button>Button</Button>
 				</Tab>
