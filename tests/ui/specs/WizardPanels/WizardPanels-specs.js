@@ -20,7 +20,7 @@ describe('WizardPanels', function () {
 				const expected = 'Button A';
 				const actual = await browser.execute(getFocusedTextContent);
 
-				expect(actual).to.be.equal(expected);
+				expect(actual).toBe(expected);
 			});
 		});
 	});
@@ -35,13 +35,13 @@ describe('WizardPanels', function () {
 			await Page.spotlightSelect();
 
 			await wizardPanels.waitForLeave(1);
-			expect(await wizardPanels.view2.isExisting()).to.be.true();
+			expect(await wizardPanels.view2.isExisting()).toBe(true);
 
 			await wizardPanels.focusPrevButton();
 			await Page.spotlightSelect();
 
 			await wizardPanels.waitForLeave(2);
-			expect(await wizardPanels.view1.isExisting()).to.be.true();
+			expect(await wizardPanels.view1.isExisting()).toBe(true);
 		});
 
 		it('should navigate back with back key', async function () {
@@ -49,12 +49,12 @@ describe('WizardPanels', function () {
 			await Page.spotlightSelect();
 
 			await wizardPanels.waitForLeave(1);
-			expect(await wizardPanels.view2.isExisting()).to.be.true();
+			expect(await wizardPanels.view2.isExisting()).toBe(true);
 
 			await Page.backKey();
 
 			await wizardPanels.waitForLeave(2);
-			expect(await wizardPanels.view1.isExisting()).to.be.true();
+			expect(await wizardPanels.view1.isExisting()).toBe(true);
 		});
 
 		it('should focus on back button in header on left key', async function () {
@@ -62,26 +62,26 @@ describe('WizardPanels', function () {
 			await Page.spotlightSelect();
 
 			await wizardPanels.waitForLeave(1);
-			expect(await wizardPanels.view2.isExisting()).to.be.true();
+			expect(await wizardPanels.view2.isExisting()).toBe(true);
 
 			await Page.spotlightUp();
-			expect(await (await wizardPanels.prevButton()).isFocused()).to.be.true();
+			expect(await (await wizardPanels.prevButton()).isFocused()).toBe(true);
 
 			await Page.spotlightRight();
-			expect(await (await wizardPanels.nextButton()).isFocused()).to.be.true();
+			expect(await (await wizardPanels.nextButton()).isFocused()).toBe(true);
 
 			await Page.spotlightLeft();
-			expect(await (await wizardPanels.prevButton()).isFocused()).to.be.true();
+			expect(await (await wizardPanels.prevButton()).isFocused()).toBe(true);
 
 		});
 
 		it('should focus an eligible navigation button when leaving the contents or footer via 5-way left or right - [QWTC-2536]', async function () {
-			expect('OK').to.be.equal(await browser.execute(getFocusedTextContent));
+			expect('OK').toBe(await browser.execute(getFocusedTextContent));
 
 			await Page.spotlightRight();
 			await Page.spotlightRight();
 
-			expect(await (await wizardPanels.nextButton()).isFocused()).to.be.true();
+			expect(await (await wizardPanels.nextButton()).isFocused()).toBe(true);
 		});
 
 	});
@@ -89,18 +89,18 @@ describe('WizardPanels', function () {
 	describe('Pointer', function () {
 		it('should navigate between views', async function () {
 			await (await wizardPanels.nextButton()).moveTo();
-			expect(await (await wizardPanels.nextButton()).isFocused()).to.be.true();
+			expect(await (await wizardPanels.nextButton()).isFocused()).toBe(true);
 			await (await wizardPanels.nextButton()).click();
 
 			await wizardPanels.waitForLeave(1);
-			expect(await wizardPanels.view2.isExisting()).to.be.true();
+			expect(await wizardPanels.view2.isExisting()).toBe(true);
 
 			await (await wizardPanels.prevButton()).moveTo();
-			expect(await (await wizardPanels.prevButton()).isFocused()).to.be.true();
+			expect(await (await wizardPanels.prevButton()).isFocused()).toBe(true);
 			await (await wizardPanels.prevButton()).click();
 
 			await wizardPanels.waitForLeave(2);
-			expect(await wizardPanels.view1.isExisting()).to.be.true();
+			expect(await wizardPanels.view1.isExisting()).toBe(true);
 		});
 	});
 
@@ -111,7 +111,7 @@ describe('WizardPanels', function () {
 			const expected = 'OK';
 			const actual = await browser.execute(getFocusedTextContent);
 
-			expect(actual).to.be.equal(expected);
+			expect(actual).toBe(expected);
 		});
 
 		it('should focus a navigation button on mount if no focusable elements exist in the body - [QWTC-2533]', async function () {
@@ -119,7 +119,7 @@ describe('WizardPanels', function () {
 
 			await wizardPanels.waitForEnter(4);
 
-			expect(await (await wizardPanels.prevButton()).isFocused()).to.be.true();
+			expect(await (await wizardPanels.prevButton()).isFocused()).toBe(true);
 		});
 
 		it('should select contents over buttons - [QWTC-2389]', async function () {
@@ -130,7 +130,7 @@ describe('WizardPanels', function () {
 			const expected = 'Button A';
 			const actual = await browser.execute(getFocusedTextContent);
 
-			expect(actual).to.be.equal(expected);
+			expect(actual).toBe(expected);
 		});
 
 		it('should select buttons over header - [QWTC-2390]', async function () {
@@ -145,7 +145,7 @@ describe('WizardPanels', function () {
 			const expected = 'OK';
 			const actual = await browser.execute(getFocusedTextContent);
 
-			expect(actual).to.be.equal(expected);
+			expect(actual).toBe(expected);
 		});
 
 		it('should select header when no other options are available - [QWTC-2391]', async function () {
@@ -161,7 +161,7 @@ describe('WizardPanels', function () {
 			await Page.spotlightSelect();
 			await wizardPanels.waitForLeave(3);
 
-			expect(await (await wizardPanels.prevButton()).isFocused()).to.be.true();
+			expect(await (await wizardPanels.prevButton()).isFocused()).toBe(true);
 		});
 
 		it('should select `.spottable-default` when it exists - [QWTC-2413]', async function () {
@@ -184,7 +184,7 @@ describe('WizardPanels', function () {
 			const expected = 'Second';
 			const actual = await browser.execute(getFocusedTextContent);
 
-			expect(actual).to.be.equal(expected);
+			expect(actual).toBe(expected);
 		});
 	});
 });
