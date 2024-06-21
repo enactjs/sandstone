@@ -13,7 +13,7 @@ describe('VirtualList Samples', function () {
 		await Page.buttonJumpToItem.moveTo();
 		await Page.spotlightSelect();
 		const topId = await Page.topVisibleItemId();
-		expect(topId).to.equal('item10');
+		expect(topId).toBe('item10');
 		await expectFocusedItem(10);
 		// Step2-2: 5-way Spot the '035 - Čeština - Česká republika'(item35 for this test) item.
 		await Page.fiveWayToItem(35);

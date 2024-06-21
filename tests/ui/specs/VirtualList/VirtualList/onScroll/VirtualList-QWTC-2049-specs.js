@@ -17,7 +17,7 @@ describe('onScrollStart/Stop Events behavior ', function () {
 			// Verify Step 4.1: Displays 'onScrollStart'
 			// Verify Step 4.2: Displays 'onScrollStop' as soon as the list stops.
 			await Page.delay(1000);
-			expect(Number(await Page.list.getAttribute('data-scrolling-events'))).to.be.above(index);
+			expect(Number(await Page.list.getAttribute('data-scrolling-events'))).toBeGreaterThan(index);
 		}
 		// Step 5:5-way Up several times(approximately 10 times) until the entire list starts to scroll.
 		for (; index < 21; index++) {
@@ -27,7 +27,7 @@ describe('onScrollStart/Stop Events behavior ', function () {
 				// Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
 				await Page.delay(1000);
 				// five-way Up 10 times to item17> item 7. Until the list wii be able to scrolled up, scroll event does not occur(7 times).
-				expect(Number(await Page.list.getAttribute('data-scrolling-events'))).to.be.above(index - 7);
+				expect(Number(await Page.list.getAttribute('data-scrolling-events'))).toBeGreaterThan(index - 7);
 			}
 		}
 	});

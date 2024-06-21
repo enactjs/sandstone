@@ -98,7 +98,7 @@ const PickerBase = (props) => {
 
 	const {
 		'aria-valuetext': ariaValueText,
-		changedBy,
+		changedBy = 'enter',
 		children,
 		css: customCss,
 		disabled,
@@ -109,11 +109,11 @@ const PickerBase = (props) => {
 		min,
 		onChange,
 		onSpotlightDisappear,
-		orientation,
+		orientation = 'horizontal',
 		reverse,
-		spotlightDisabled,
-		step,
-		value,
+		spotlightDisabled = false,
+		step = 1,
+		value = 0,
 		width,
 		wrap,
 		...rest
@@ -437,7 +437,7 @@ const PickerBase = (props) => {
 	}, [changedBy, joined, orientation, pressed, props, width]);
 
 	const calcValueText = useCallback(() => {
-		const {accessibilityHint} = props;
+		const {accessibilityHint = ''} = props;
 		let valueTextVariable = value;
 
 		// Sometimes this.props.value is not equal to node text content. For example, when `PM`
@@ -457,7 +457,7 @@ const PickerBase = (props) => {
 	}, [children, index, props, value]);
 
 	const calcButtonLabel = useCallback((next, valueTextProp) => {
-		const {decrementAriaLabel, incrementAriaLabel} = props;
+		const {decrementAriaLabel, incrementAriaLabel, type = 'string'} = props;
 		const titleText = props.title ? props.title + ' ' : '';
 		let label;
 		if (orientation === 'vertical') {
@@ -470,7 +470,7 @@ const PickerBase = (props) => {
 			return titleText + label;
 		}
 
-		if (props.type === 'number') {
+		if (type === 'number') {
 			return titleText + `${valueTextProp} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
 		} else {
 			return titleText + `${valueTextProp} ${next ? $L('next item') : $L('previous item')}`;
@@ -1019,16 +1019,6 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 * @public
 	 */
 	wrap: PropTypes.bool
-};
-
-PickerBase.defaultProps = {
-	accessibilityHint: '',
-	changedBy: 'enter',
-	orientation: 'horizontal',
-	spotlightDisabled: false,
-	step: 1,
-	type: 'string',
-	value: 0
 };
 
 const Picker = IdProvider(

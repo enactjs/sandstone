@@ -35,7 +35,7 @@ const defaultConfig = {
  * PanelsRouter passes the children, footer, subtitle, and title from
  * {@link sandstone/WizardPanels.Panel|WizardPanel} to
  * {@link sandstone/WizardPanels.WizardPanelsBase|WizardPanelsBase} and passes the children from
- * {@link sandstone/QuickGuidePanels.QuickGuidePanel|QuickGuidePanel} to
+ * {@link sandstone/QuickGuidePanels.Panel|QuickGuidePanel} to
  * {@link sandstone/QuickGuidePanels.QuickGuidePanelsBase|QuickGuidePanelsBase}.
  *
  * @class PanelsRouter
@@ -48,12 +48,12 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		children,
 		componentRef,
 		'data-spotlight-id': spotlightId,
-		index,
+		index = 0,
 		onTransition,
 		onWillTransition,
 		rtl,
-		subtitle,
-		title,
+		subtitle = '',
+		title = '',
 		...rest
 	}) => {
 		const [panel, setPanel] = useState(null);
@@ -207,12 +207,6 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		* @private
 		*/
 		title: PropTypes.string
-	};
-
-	PanelsProvider.defaultProps = {
-		index: 0,
-		subtitle: '',
-		title: ''
 	};
 
 	return PanelsProvider;

@@ -418,7 +418,7 @@ const QuickGuidePanelsDecorator = compose(
 
 /**
  * A QuickGuidePanels that can step through different panels.
- * Expects {@link sandstone/QuickGuidePanels.QuickGuidePanel|QuickGuidePanel} as children.
+ * Expects {@link sandstone/QuickGuidePanels.Panel|Panel} as children.
  *
  * @class QuickGuidePanels
  * @memberof sandstone/QuickGuidePanels
