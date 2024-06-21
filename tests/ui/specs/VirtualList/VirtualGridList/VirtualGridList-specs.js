@@ -7,7 +7,7 @@ describe('VirtualGridList', function () {
 	});
 
 	it('should meet initial conditions', async function () {
-		expect(await Page.buttonHideScrollbar.isFocused(), 'focus').to.be.true();
+		expect(await Page.buttonHideScrollbar.isFocused()).toBe(true);
 	});
 
 	describe('LTR locale', function () {
@@ -29,7 +29,7 @@ describe('VirtualGridList', function () {
 			await Page.numPad(4);
 			await Page.spotlightLeft();
 			// Step 4 Verify: Scrollbar track does not display to the right as the data size is the minimal size of 4.
-			expect((await Page.scrollBar).error.message.slice(0, 15)).to.equal('no such element');
+			expect((await Page.scrollBar).error.message.slice(0, 15)).toBe('no such element');
 		});
 	});
 });

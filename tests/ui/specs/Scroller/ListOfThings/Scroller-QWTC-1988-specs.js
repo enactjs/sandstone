@@ -20,7 +20,7 @@ describe('Scroller List Of Things', function () {
 		await ScrollerPage.delay(1000);
 		await expectFocusedItem(6);
 		// Step 4 Verify: Spotlight is on the Item closest to the previously focused Item's location.
-		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).to.equal(firstPrevItemLocation);
+		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).toBe(firstPrevItemLocation);
 
 		// Step5: 5-way Down several times to the last visible item on the current viewport.
 		const bottomVisibleIdNum = Number((await ScrollerPage.bottomVisibleItemId()).slice(4));
@@ -38,14 +38,14 @@ describe('Scroller List Of Things', function () {
 		await ScrollerPage.delay(1000);
 		await expectFocusedItem(17);
 		// Step 6 Verify: Spotlight is on the Item closest to the previously focused Item's location.
-		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).to.equal(secondPrevItemLocation);
+		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).toBe(secondPrevItemLocation);
 
 		// Step 7:Press Channel Up.
 		await ScrollerPage.pageUp();
 		await ScrollerPage.delay(1000);
 		await expectFocusedItem(12);
 		// Step 7 Verify: Spotlight is on the Item closest to the previously focused Item's location.
-		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).to.equal(secondPrevItemLocation);
+		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).toBe(secondPrevItemLocation);
 
 		// Step 8: 5-way Up several times to the first visible item on the current viewport.
 		const topVisibleItemIdNum = Number((await ScrollerPage.topVisibleItemId()).slice(4));
@@ -63,7 +63,7 @@ describe('Scroller List Of Things', function () {
 		await ScrollerPage.delay(1000);
 		await expectFocusedItem(0);
 		// Step 9 Verify: Spotlight is on the Item closest to the previously focused Item's location.
-		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).to.equal(thirdPrevItemLocation);
+		expect(Math.floor((await ScrollerPage.getActiveElementRect()).top / 100) * 100).toBe(thirdPrevItemLocation);
 
 		// Step 10: Wave the Pointer.
 		await ScrollerPage.showPointerByKeycode();
@@ -80,6 +80,6 @@ describe('Scroller List Of Things', function () {
 		// Spotlight will display again when the pointer hides.
 		await ScrollerPage.hidePointerByKeycode();
 		// Spotlight displays on top-level item.
-		await expect(5).to.equal(Number((await focusedElement()).slice(4)));
+		await expect(5).toBe(Number((await focusedElement()).slice(4)));
 	});
 });

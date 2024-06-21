@@ -8,6 +8,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Input.InputPopupBase` prop `value`
 
+## [2.9.0-beta.1] - 2024-06-17
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `create`
+
 ## [2.9.0-alpha.4] - 2024-06-05
 
 ### Changed
