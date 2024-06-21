@@ -20,7 +20,7 @@ describe('TabLayout', function () {
 						await Page.spotlightRight();
 					});
 					// check that layout is collapsed
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 				});
 
 				it('should expand tabs when focus is moved to a Spottable component in the tabs container - [QWTC-1892]', async function () {
@@ -31,12 +31,12 @@ describe('TabLayout', function () {
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.spotlightRight();
 					});
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 					// Step 4: Back to the tabs
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.spotlightLeft();
 					});
-					expect(await Page.tabLayout.isCollapsed).to.be.false();
+					expect(await Page.tabLayout.isCollapsed).toBe(false);
 				});
 
 				it('should expand tabs when focus is moved to a Spottable component in the tabs container via back key', async function () {
@@ -47,12 +47,12 @@ describe('TabLayout', function () {
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.spotlightRight();
 					});
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 					// Back to the tabs
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.backKey();
 					});
-					expect(await Page.tabLayout.isCollapsed).to.be.false();
+					expect(await Page.tabLayout.isCollapsed).toBe(false);
 				});
 
 				it('should collapse tabs when focus is moved to a Spottable component in the content container via 5-way Select', async function () {
@@ -65,7 +65,7 @@ describe('TabLayout', function () {
 						await Page.spotlightSelect();
 					});
 					// check that layout is collapsed
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 				});
 
 				it('should not show disabled tab contents when focused', async function () {
@@ -80,7 +80,7 @@ describe('TabLayout', function () {
 					await Page.spotlightDown();
 					await Page.delay(1000);
 
-					expect(await (await Page.tabLayout.view(3)).isExisting()).to.be.true();
+					expect(await (await Page.tabLayout.view(3)).isExisting()).toBe(true);
 
 					// 5-way down to fifth tab
 					await Page.spotlightDown();
@@ -96,14 +96,14 @@ describe('TabLayout', function () {
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.spotlightRight();
 					});
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 					// Set pointer mode
 					await Page.tabLayout.hoverTabs();
 					// When pointer mode is true, focus does not move to tabs via back key
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.backKey();
 					});
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 				});
 
 				it('should collapse and expand tabs when focus is moved between `Spottable` components in the content and tabs containers via pointer move - [QWTC-1891]', async  function () {
@@ -116,12 +116,12 @@ describe('TabLayout', function () {
 					// move pointer to Spottable component in content container
 					await $('#button2').moveTo();
 					// check that layout is collapsed
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 
 					// go back to hover the tabs
 					await (await Page.tabLayout.tabItems())[0].moveTo();
 					// check that layout is not collapsed
-					expect(await Page.tabLayout.isCollapsed).to.be.false();
+					expect(await Page.tabLayout.isCollapsed).toBe(false);
 				});
 			});
 		});

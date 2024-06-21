@@ -13,7 +13,7 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		await enableEditModeLongPress();
 
 		await ScrollerPage.spotlightUp();
-		await expect(await ScrollerPage.buttonRemoveItem.isFocused()).to.be.true();
+		await expect(await ScrollerPage.buttonRemoveItem.isFocused()).toBe(true);
 
 		await ScrollerPage.spotlightSelect();
 		await expectFocusedItem(1);
@@ -27,7 +27,7 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		await ScrollerPage.spotlightDown();
 		await expectFocusedItem(0);
 		await enableEditModeLongPress();
-		expect(await ScrollerPage.checkEditableItem()).to.be.true();
+		expect(await ScrollerPage.checkEditableItem()).toBe(true);
 
 		await ScrollerPage.spotlightRight();
 		await ScrollerPage.spotlightSelect();
@@ -66,7 +66,7 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		const leftmostItemRect = Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100;
 		await enableEditModeLongPress();
 		await expectFocusedItem(0);
-		await expect(await ScrollerPage.checkEditableItem()).to.be.true();
+		await expect(await ScrollerPage.checkEditableItem()).toBe(true);
 
 		await ScrollerPage.spotlightRight();
 		await ScrollerPage.spotlightSelect();
@@ -74,7 +74,7 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		await ScrollerPage.spotlightLeft();
 		await expectFocusedItem(1);
 
-		await expect(leftmostItemRect).to.be.equal(Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100);
+		await expect(leftmostItemRect).toBe(Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100);
 
 	});
 });

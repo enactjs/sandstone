@@ -16,12 +16,12 @@ describe('VirtualList with another VirtualList', function () {
 		await Page.spotlightDown();
 		await Page.spotlightDown();
 		await Page.spotlightDown();
-		await expect(await focusedElement()).to.equal('Item1 08');
+		await expect(await focusedElement()).toBe('Item1 08');
 
 		// Select the focused item to update the second list's number of items
 		await Page.spotlightSelect();
 
 		// Check if the focus is NOT moved
-		await expect(await focusedElement()).to.equal('Item1 08');
+		await expect(await focusedElement()).toBe('Item1 08');
 	});
 });
