@@ -21,7 +21,7 @@ describe('Scroller List Of Things', function () {
 		// Step 4-2: 5-way Right.
 		await ScrollerPage.spotlightRight();
 		// Step 4 Verify: Spotlight is on the verticalScrollbar Scroll Thumb..
-		expect(await ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
+		expect(await ScrollerPage.verticalScrollThumb.isFocused()).toBe(true);
 
 		// Step 5-1: Knobs > Scroller > spotlightDisabled > check
 		await ScrollerPage.buttonSpotlightDisabled.moveTo();
@@ -33,7 +33,7 @@ describe('Scroller List Of Things', function () {
 		// Step 5-3: 5-way Right.
 		await ScrollerPage.spotlightRight();
 		// Step 5-3 Verify: verticalScrollbar Scroll Thumb cannot be spotted.
-		expect(await ScrollerPage.verticalScrollThumb.isFocused()).to.be.false();
+		expect(await ScrollerPage.verticalScrollThumb.isFocused()).toBe(false);
 
 		// Step 6-1: Knobs > Scroller > spotlightDisabled > uncheck
 		await ScrollerPage.buttonSpotlightDisabled.moveTo();
@@ -49,7 +49,7 @@ describe('Scroller List Of Things', function () {
 		// Step 6-3: 5-way Down.
 		await ScrollerPage.spotlightDown();
 		// Step 6 Verify: Spotlight is on the horizontalScrollbar Scroll Thumb.
-		expect(await ScrollerPage.horizontalScrollThumb.isFocused()).to.be.true();
+		expect(await ScrollerPage.horizontalScrollThumb.isFocused()).toBe(true);
 
 		// Step 7-1: Knobs > Scroller > spotlightDisabled > check
 		await ScrollerPage.buttonSpotlightDisabled.moveTo();
@@ -61,6 +61,6 @@ describe('Scroller List Of Things', function () {
 		// Step 7-2 Verify: Item 99 cannot be spotted.
 		await expectNoFocusedItem();
 		// Step 7-3 Verify: horizontalScrollbar Scroll Thumb cannot be spotted.
-		expect(await ScrollerPage.horizontalScrollThumb.isFocused()).to.be.false();
+		expect(await ScrollerPage.horizontalScrollThumb.isFocused()).toBe(false);
 	});
 });

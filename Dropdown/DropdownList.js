@@ -2,6 +2,7 @@ import kind from '@enact/core/kind';
 import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
+import {WithRef} from '@enact/core/internal/WithRef';
 import Spotlight from '@enact/spotlight';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import ri from '@enact/ui/resolution';
@@ -177,6 +178,8 @@ const ReadyState = {
 };
 
 const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
+	const WrappedWithRef = WithRef(Wrapped);
+
 	return class extends Component {
 		static displayName = 'DropdownListSpotlightDecorator';
 
@@ -289,7 +292,8 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		handleFocus = (ev) => {
 			const current = ev.target;
-			const dropdownListNode = this.clientSiblingRef?.current?.previousElementSibling;
+			const dropdownListNode = this.clientSiblingRef?.current;
+
 			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
 				current.dataset['index'] != null && dropdownListNode.contains(current)
 			) {
@@ -308,10 +312,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			delete props.handleSpotlightPause;
 
 			return (
-				<>
-					<Wrapped {...props} onFocus={this.handleFocus} scrollTo={this.setScrollTo} />
-					<div style={{display: 'none'}} ref={this.clientSiblingRef} />
-				</>
+				<WrappedWithRef {...props} onFocus={this.handleFocus} outermostRef={this.clientSiblingRef} referrerName="DropdownList" scrollTo={this.setScrollTo} />
 			);
 		}
 	};
