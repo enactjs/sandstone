@@ -1,6 +1,7 @@
 import {forwardCustom} from '@enact/core/handle';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {is} from '@enact/core/keymap';
+import {platform} from '@enact/core/platform';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getContainersForNode} from '@enact/spotlight/src/container';
@@ -139,6 +140,9 @@ const EditableWrapper = (props) => {
 
 		isDraggingItem: false,
 		isDragging: false,
+
+		// Flag for determining the key pressed from pointer mode
+		pressedKeyFromPointer: false,
 
 		// initialSelected
 		initialSelected: editable?.initialSelected
@@ -686,21 +690,35 @@ const EditableWrapper = (props) => {
 		}
 	}, [completeEditingByKeyDown]);
 
-	const handleGlobalKeyDownCapture = useCallback((ev) => {
-		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && (mutableRef.current.selectedItem || mutableRef.current.focusedItem)) {
-			const {keyCode} = ev;
-			const position = getLastPointerPosition();
-			const direction = getDirection(keyCode);
-			if (direction) {
-				const nextTarget = getTargetByDirectionFromPosition(direction, position, mutableRef.current.spotlightId);
+	const finalizeForPointerHide = useCallback((keyCode) => {
+		const position = getLastPointerPosition();
+		const direction = getDirection(keyCode);
 
-				if (!scrollContainerRef.current.contains(nextTarget)) {
-					const orders = finalizeOrders();
-					finalizeEditing(orders);
-				}
+		if (direction) {
+			const nextTarget = getTargetByDirectionFromPosition(direction, position, mutableRef.current.spotlightId);
+
+			if (!scrollContainerRef.current.contains(nextTarget)) {
+				const orders = finalizeOrders();
+				finalizeEditing(orders);
 			}
 		}
 	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
+
+	const handleGlobalKeyDownCapture = useCallback(({keyCode}) => {
+		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && (mutableRef.current.selectedItem || mutableRef.current.focusedItem)) {
+			if (platform.type === 'webos') {
+				// Set the flag when the key is from the pointer mode
+				if (is('pointerHide', keyCode)) {
+					mutableRef.current.pressedKeyFromPointer = true;
+				}
+			} else {
+				finalizeForPointerHide(keyCode);
+			}
+		} else if (mutableRef.current.pressedKeyFromPointer) {
+			mutableRef.current.pressedKeyFromPointer = false;
+			finalizeForPointerHide(keyCode);
+		}
+	}, [finalizeForPointerHide, scrollContainerRef]);
 
 	const handleTouchMove = useCallback((ev) => {
 		if (mutableRef.current.selectedItem) {
