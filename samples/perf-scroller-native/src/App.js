@@ -2,7 +2,7 @@ import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
-import css from './App.module.less';
+import * as css from './App.module.less';
 
 const
 	items = [],

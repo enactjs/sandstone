@@ -24,7 +24,7 @@ import {CheckboxBase} from '../Checkbox';
 import {ItemBase, ItemDecorator} from '../Item';
 import Skinnable from '../Skinnable';
 
-import componentCss from './CheckboxItem.module.less';
+import * as componentCss from './CheckboxItem.module.less';
 
 const Item = ItemDecorator(ItemBase);
 

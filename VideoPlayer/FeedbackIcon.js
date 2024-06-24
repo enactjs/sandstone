@@ -6,7 +6,7 @@ import Skinnable from '../Skinnable';
 import Icon from '../Icon';
 import iconMap from './FeedbackIcons.js';
 
-import css from './Feedback.module.less';
+import * as css from './Feedback.module.less';
 
 
 /**

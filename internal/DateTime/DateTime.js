@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Heading from '../../Heading';
 
-import componentCss from './DateTime.module.less';
+import * as componentCss from './DateTime.module.less';
 
 /**
  * {@link sandstone/internal/DateTime.DateTime} provides the surrounding

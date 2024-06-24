@@ -2,7 +2,7 @@ import Item from '@enact/sandstone/Item';
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import * as appCss from '../App/App.module.less';
 
 const ItemView = () => (
 	<>

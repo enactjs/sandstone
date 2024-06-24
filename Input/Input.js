@@ -24,7 +24,7 @@ import NumberField from './NumberField';
 import InputField from './InputField';
 import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFieldProps, limitNumberLength} from './util';
 
-import componentCss from './Input.module.less';
+import * as componentCss from './Input.module.less';
 
 const prepareInputEventPayload = ev => ({value: ev.target.value});
 const isPasswordType = type => type && type.includes('password');

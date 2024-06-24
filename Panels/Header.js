@@ -20,7 +20,7 @@ import Skinnable from '../Skinnable';
 import {PanelsStateContext} from '../internal/Panels';
 import {useContextAsDefaults} from '../internal/Panels/util';
 
-import componentCss from './Header.module.less';
+import * as componentCss from './Header.module.less';
 
 const hasChildren = (children) => (Children.toArray(children).filter(Boolean).length > 0);
 

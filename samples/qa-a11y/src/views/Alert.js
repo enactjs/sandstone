@@ -4,7 +4,7 @@ import Button from '@enact/sandstone/Button';
 import Section from '../components/Section';
 import useArrayState from '../components/useArrayState';
 
-import appCss from '../App/App.module.less';
+import * as appCss from '../App/App.module.less';
 
 const AlertView = () => {
 	const [open, handleOpen] = useArrayState(8);

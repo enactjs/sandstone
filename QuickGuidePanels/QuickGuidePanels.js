@@ -19,7 +19,7 @@ import PanelsRouter from '../internal/Panels/PanelsRouter';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
-import css from './QuickGuidePanels.module.less';
+import * as css from './QuickGuidePanels.module.less';
 
 /**
  * A QuickGuidePaenls that has steps with corresponding panels and panels have full screen size content.

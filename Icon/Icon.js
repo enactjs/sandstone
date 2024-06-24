@@ -23,7 +23,7 @@ import Skinnable from '../Skinnable';
 
 import iconList from './IconList.js';
 
-import componentCss from './Icon.module.less';
+import * as componentCss from './Icon.module.less';
 
 /**
  * Renders a sandstone-styled icon without any behavior.

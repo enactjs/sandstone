@@ -3,7 +3,7 @@ import Button from '@enact/sandstone/Button';
 
 import {withConfig, withProps} from './utils';
 
-import css from './Layout.module.less';
+import * as css from './Layout.module.less';
 
 const rowTestCases = [
 	// horizontal

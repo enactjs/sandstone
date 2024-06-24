@@ -2,7 +2,7 @@ import RangePicker from '../../../../RangePicker';
 
 import {withConfig} from './utils';
 
-import css from './Picker.module.less';
+import * as css from './Picker.module.less';
 
 // ***NOTES:***
 // 'min' and 'max' are required for the image to be valid.

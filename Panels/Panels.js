@@ -10,7 +10,7 @@ import Skinnable from '../Skinnable';
 
 import {getSharedProps, deleteSharedProps} from '../internal/Panels/util';
 
-import componentCss from './Panels.module.less';
+import * as componentCss from './Panels.module.less';
 
 /**
  * Basic Panels component without a default {@link ui/ViewManager.Arranger|arranger}

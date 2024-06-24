@@ -46,7 +46,7 @@ import {
 	handleIncrementByWheel
 } from './utils';
 
-import componentCss from './Slider.module.less';
+import * as componentCss from './Slider.module.less';
 
 const sliderDefaultProps = {
 	activateOnSelect: false,

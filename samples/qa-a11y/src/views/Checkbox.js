@@ -2,7 +2,7 @@ import Checkbox from '@enact/sandstone/Checkbox';
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import * as appCss from '../App/App.module.less';
 
 const CheckboxView = () => (
 	<>

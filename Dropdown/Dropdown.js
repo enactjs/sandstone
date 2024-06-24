@@ -42,7 +42,7 @@ import Skinnable from '../Skinnable';
 
 import DropdownList, {isSelectedValid} from './DropdownList';
 
-import css from './Dropdown.module.less';
+import * as css from './Dropdown.module.less';
 
 const pause = new Pause('dropdown');
 

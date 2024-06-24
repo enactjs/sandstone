@@ -1,5 +1,5 @@
 import Marquee from '../../../../Marquee';
-import css from './Marquee.module.less';
+import * as css from './Marquee.module.less';
 
 const MarqueeTests = [
 	<Marquee />,

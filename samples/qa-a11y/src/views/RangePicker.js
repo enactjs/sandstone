@@ -3,7 +3,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import * as appCss from '../App/App.module.less';
 
 const SpotlightContainerSection = SpotlightContainerDecorator({enterTo: 'default-element', preserveId: true}, Section);
 

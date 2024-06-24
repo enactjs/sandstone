@@ -2,7 +2,7 @@ import Button from '../../../../Button';
 
 import {withConfig, withProps} from './utils';
 
-import css from './Button.module.less';
+import * as css from './Button.module.less';
 
 const ButtonTests = [
 	<Button>click me</Button>,

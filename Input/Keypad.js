@@ -14,7 +14,7 @@ import Button from '../Button';
 import $L from '../internal/$L';
 import WindowEventable from '../internal/WindowEventable';
 
-import css from './Input.module.less';
+import * as css from './Input.module.less';
 
 add('number', [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]); // Establish all number keys as 'number' keyword.
 add('backspace', 8);

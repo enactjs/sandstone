@@ -27,7 +27,7 @@ import {Marquee, MarqueeController} from '../Marquee';
 import ProgressBar from '../ProgressBar';
 import Skinnable from '../Skinnable';
 
-import componentCss from './MediaOverlay.module.less';
+import * as componentCss from './MediaOverlay.module.less';
 
 /**
  * A media component with image and text overlay support.

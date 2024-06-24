@@ -6,7 +6,7 @@ import {onlyUpdateForProps} from '../internal/util';
 import FeedbackIcon from './FeedbackIcon';
 import states from './FeedbackIcons.js';
 
-import css from './Feedback.module.less';
+import * as css from './Feedback.module.less';
 
 /**
  * Feedback {@link sandstone/VideoPlayer}. This displays the media's playback rate and other

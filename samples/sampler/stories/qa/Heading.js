@@ -6,7 +6,7 @@ import {select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import IString from 'ilib/lib/IString';
 
-import css from './Heading.module.less';
+import * as css from './Heading.module.less';
 
 Heading.displayName = 'Heading';
 

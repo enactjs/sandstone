@@ -20,7 +20,7 @@ import Heading from '../Heading';
 import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 
-import componentCss from './RangePicker.module.less';
+import * as componentCss from './RangePicker.module.less';
 
 const digits = (num) => {
 	// minor optimization

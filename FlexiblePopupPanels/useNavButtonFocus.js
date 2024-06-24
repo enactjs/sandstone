@@ -2,7 +2,7 @@ import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
 import {useRef} from 'react';
 
-import css from './FlexiblePopupPanels.module.less';
+import * as css from './FlexiblePopupPanels.module.less';
 
 const prevButtonSelector = `.${css.navCellBefore} .${css.navButton}`;
 const nextButtonSelector = `.${css.navCellAfter} .${css.navButton}`;

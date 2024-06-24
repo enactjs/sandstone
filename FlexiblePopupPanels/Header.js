@@ -7,7 +7,7 @@ import {PanelsStateContext} from '../internal/Panels';
 import {ContextAsDefaults} from '../internal/Panels/util';
 import DefaultHeader from '../Panels/Header';
 
-import css from './FlexiblePopupPanels.module.less';
+import * as css from './FlexiblePopupPanels.module.less';
 
 /**
  * A header component for `FlexiblePopupPanels.Panel` with a `title` and `subtitle`, supporting several configurable

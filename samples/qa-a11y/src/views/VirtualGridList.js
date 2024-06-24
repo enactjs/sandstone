@@ -7,7 +7,7 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import {useState} from 'react';
 
-import css from './VirtualGridList.module.less';
+import * as css from './VirtualGridList.module.less';
 
 const items = [];
 

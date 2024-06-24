@@ -19,7 +19,7 @@ import Steps from '../Steps';
 
 import {PageViewsRouter} from './PageViewsRouter';
 
-import css from './PageViews.module.less';
+import * as css from './PageViews.module.less';
 
 /**
  * A PageViews that has page indicator with corresponding pages.

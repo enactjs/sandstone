@@ -3,7 +3,7 @@ import Icon from '../../../../Icon';
 
 import {withConfig, withProps, LoremString} from './utils';
 
-import css from './Item.module.less';
+import * as css from './Item.module.less';
 
 // Short text
 const commonItemTests = [

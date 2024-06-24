@@ -10,7 +10,7 @@ import IconItem from '../../../../../IconItem';
 import {InputField} from '../../../../../Input';
 import Scroller from '../../../../../Scroller/Scroller';
 import ThemeDecorator from '../../../../../ThemeDecorator/ThemeDecorator';
-import css from './ScrollerWithEditableSelectItemByPress.module.less';
+import * as css from './ScrollerWithEditableSelectItemByPress.module.less';
 
 const ScrollerContainer = SpotlightContainerDecorator('div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');

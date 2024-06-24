@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Marquee from '../Marquee';
 
-import css from './Tooltip.module.less';
+import * as css from './Tooltip.module.less';
 
 
 /**
