@@ -397,7 +397,7 @@ const InputPopupBase = kind({
 		}
 		const id = `inputPopup`;
 		const ariaLabelledBy = popupAriaLabel ? null : `${id}_title ${id}_subtitle`;
-		const inputProps = extractInputFieldProps({...rest, disabled});
+		const inputProps = extractInputFieldProps({disabled, ...rest});
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 		// Set up the back button
 		const backButton = (!noBackButton ? (
