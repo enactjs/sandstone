@@ -18,19 +18,19 @@ export const IndexProvider = ({children}) => {
 };
 
 /* action type */
-const INCREASE_INDEX = 'indexReducer/INCREASEINDEX';
-const DECREASE_INDEX = 'indexReducer/DECREASEINDEX';
+const INCREASE_INDEX = 'indexReducer/INCREASE_INDEX';
+const DECREASE_INDEX = 'indexReducer/DECREASE_INDEX';
 
 export const increaseIndex = () => ({type: INCREASE_INDEX});
 export const decreaseIndex = () => ({type: DECREASE_INDEX});
 
 export default function indexReducer (state, action) {
 	switch (action.type) {
-		case (INCREASE_INDEX): {
+		case INCREASE_INDEX: {
 			const newIndex = state.index += 1;
 			return {index: newIndex};
 		}
-		case (DECREASE_INDEX): {
+		case DECREASE_INDEX: {
 			return {index: state.index > 0 ? state.index - 1 : 0};
 		}
 	}

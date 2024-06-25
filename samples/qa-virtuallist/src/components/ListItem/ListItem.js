@@ -6,7 +6,7 @@ import {ListContext} from '../../context/ListContext';
 
 const ListItem = (props) => {
 	const {children, index, ...rest} = props;
-	const disabled = useContext(ListContext).listItems[index];
+	const {disabled} = useContext(ListContext).listItems[index];
 
 	return (
 		<Item {...rest} disabled={disabled}>

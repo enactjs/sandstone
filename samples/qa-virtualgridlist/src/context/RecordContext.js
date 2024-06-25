@@ -1,6 +1,6 @@
-import {createContext, useReducer} from "react";
+import {createContext, useReducer} from 'react';
 
-import {initializeRecords} from "../utils";
+import {initializeRecords} from '../utils';
 
 export const RecordContext = createContext(null);
 export const RecordDispatchContext = createContext(null);
@@ -19,17 +19,17 @@ export const RecordProvider = ({children}) => {
 };
 
 /* action type */
-const ADD_ITEM = 'recordReducer/ADDITEM';
-const CHANGE_DATASIZE = 'recordReducer/CHANGEDATASIZE';
-const CHANGE_MIN_HEIGHT = 'recordReducer/CHANGEMINHEIGHT';
-const CHANGE_MIN_WIDTH = 'recordReducer/CHANGEMINWIDTH';
-const CHANGE_SPACING = 'recordReducer/CHANGESPACING';
-const DELETE_ITEM = 'recordReducer/DELETEITEM';
-const DELETE_SELECTED_ITEM = 'recordReducer/DELETESELECTEDITEM';
-const SELECT_ALL = 'recordReducer/SELECTALL';
-const SELECT_ITEM = 'recordReducer/SELECTITEM';
-const SELECTION_ENABLE = 'recordReducer/SELECTIONENABLE';
-const SET_DATA = 'recordReducer/SETDATA';
+const ADD_ITEM = 'recordReducer/ADD_ITEM';
+const CHANGE_DATASIZE = 'recordReducer/CHANGE_DATASIZE';
+const CHANGE_MIN_HEIGHT = 'recordReducer/CHANGE_MIN_HEIGHT';
+const CHANGE_MIN_WIDTH = 'recordReducer/CHANGE_MIN_WIDTH';
+const CHANGE_SPACING = 'recordReducer/CHANGE_SPACING';
+const DELETE_ITEM = 'recordReducer/DELETE_ITEM';
+const DELETE_SELECTED_ITEM = 'recordReducer/DELETE_SELECTED_ITEM';
+const SELECT_ALL = 'recordReducer/SELECT_ALL';
+const SELECT_ITEM = 'recordReducer/SELECT_ITEM';
+const SELECTION_ENABLE = 'recordReducer/SELECTION_ENABLE';
+const SET_DATA = 'recordReducer/SET_DATA';
 
 const addItem = (item) => ({type: ADD_ITEM, item});
 const changeDataSize = (size) => ({type: CHANGE_DATASIZE, size});
@@ -59,7 +59,7 @@ export {
 
 export default function recordReducer (state, action) {
 	switch (action.type) {
-		case (ADD_ITEM): {
+		case ADD_ITEM: {
 			const addedKey = Object.keys(state.data).length;
 			const newData = Object.assign({}, state.data);
 			let newDataOrder = state.dataOrder.concat(addedKey);
@@ -67,19 +67,19 @@ export default function recordReducer (state, action) {
 			newData[addedKey] = action.item;
 			return {...state, data: newData, dataOrder: newDataOrder, dataSize: newDataOrder.length, selectedItems: []};
 		}
-		case (CHANGE_DATASIZE): {
+		case CHANGE_DATASIZE: {
 			return {...state, dataSize: action.size};
 		}
-		case (CHANGE_MIN_WIDTH): {
+		case CHANGE_MIN_WIDTH: {
 			return {...state, minWidth: action.size};
 		}
-		case (CHANGE_MIN_HEIGHT): {
+		case CHANGE_MIN_HEIGHT: {
 			return {...state, minHeight: action.size};
 		}
-		case (CHANGE_SPACING): {
+		case CHANGE_SPACING: {
 			return {...state, spacing: action.size};
 		}
-		case (DELETE_ITEM): {
+		case DELETE_ITEM: {
 			const newData = {};
 			const newDataOrder = [];
 
@@ -90,7 +90,7 @@ export default function recordReducer (state, action) {
 
 			return {...state, data: newData, dataOrder: newDataOrder, dataSize: newDataOrder.length, selectedItems: []};
 		}
-		case (DELETE_SELECTED_ITEM): {
+		case DELETE_SELECTED_ITEM: {
 			const newData = {};
 			const newDataOrder = [];
 			const selectedItems = state.selectedItems;
@@ -103,7 +103,7 @@ export default function recordReducer (state, action) {
 			}
 			return {...state, data: newData, dataOrder: newDataOrder, dataSize: newDataOrder.length, selectedItems: []};
 		}
-		case (SELECT_ALL): {
+		case SELECT_ALL: {
 			const selectedItems = state.selectedItems;
 
 			if (selectedItems.length === state.dataOrder.length) {
@@ -115,7 +115,7 @@ export default function recordReducer (state, action) {
 			}
 			return {...state, selectedItems};
 		}
-		case (SELECT_ITEM): {
+		case SELECT_ITEM: {
 			const selectedItems = state.selectedItems;
 			const isSelected = selectedItems.includes(action.dataIndex);
 
@@ -131,7 +131,7 @@ export default function recordReducer (state, action) {
 			}
 			return {...state, selectedItems};
 		}
-		case (SELECTION_ENABLE): {
+		case SELECTION_ENABLE: {
 			const newData = {};
 
 			Object.keys(state.data).forEach((id) => {
@@ -140,7 +140,7 @@ export default function recordReducer (state, action) {
 
 			return {...state, data: newData, showOverlay: !state.showOverlay};
 		}
-		case (SET_DATA): {
+		case SET_DATA: {
 			let newData = {};
 			let newDataOrder = [];
 

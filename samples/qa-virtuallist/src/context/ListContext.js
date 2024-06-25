@@ -18,7 +18,7 @@ export const ListProvider = ({children}) => {
 };
 
 /* action type */
-const SET_DATA = 'listReducer/SETDATA';
+const SET_DATA = 'listReducer/SET_DATA';
 
 export const setData = (dataSize, isDisabled) => ({type: SET_DATA, dataSize, isDisabled});
 
@@ -26,7 +26,7 @@ const isItemDisabled = (index, mod) => !(index % mod === 0);
 
 export default function listReducer (state, action) {
 	switch (action.type) {
-		case (SET_DATA): {
+		case SET_DATA: {
 			const newListItems = [];
 
 			for (let i = 0; i < action.dataSize; i++) {

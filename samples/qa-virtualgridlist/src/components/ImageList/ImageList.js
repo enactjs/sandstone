@@ -3,7 +3,7 @@ import ri from '@enact/ui/resolution';
 import {useCallback, useContext} from 'react';
 import PropTypes from 'prop-types';
 
-import ImageItemComponent from '../ImageItem';
+import ImageItemComponent from '../ImageItem/ImageItemComponent';
 import {RecordContext} from '../../context/RecordContext';
 
 import css from './ImageList.module.less';

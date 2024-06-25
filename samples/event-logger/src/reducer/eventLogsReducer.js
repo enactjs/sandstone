@@ -1,7 +1,7 @@
 /* action type */
-const ADD_EVENT_LOG = 'eventLogsReducer/ADDEVENTLOG';
-const REMOVE_EVENT_LOG = 'eventLogsReducer/REMOVEEVENTLOG';
-const UPDATE_EVENT_LOG = 'eventLogsReducer/UPDATEEVENTLOG';
+const ADD_EVENT_LOG = 'eventLogsReducer/ADD_EVENT_LOG';
+const REMOVE_EVENT_LOG = 'eventLogsReducer/REMOVE_EVENT_LOG';
+const UPDATE_EVENT_LOG = 'eventLogsReducer/UPDATE_EVENT_LOG';
 
 export const addEventLog = (eventName, eventObject, isDOMElement, isCapturing, timeoutId) =>
 	({type: ADD_EVENT_LOG, eventName, eventObject, isDOMElement, isCapturing, timeoutId});
@@ -21,7 +21,7 @@ function findFirstIndexMatchingEvent (logs, eventName) {
 
 export default function eventLogsReducer (state, action) {
 	switch (action.type) {
-		case (ADD_EVENT_LOG): {
+		case ADD_EVENT_LOG: {
 			const newState = [...state.eventLogs, {
 				eventName: action.eventName,
 				eventObject: action.eventObject,
@@ -31,7 +31,7 @@ export default function eventLogsReducer (state, action) {
 			}];
 			return {eventLogs: newState};
 		}
-		case (REMOVE_EVENT_LOG): {
+		case REMOVE_EVENT_LOG: {
 			const
 				index = findFirstIndexMatchingEvent(state.eventLogs, action.eventName),
 				logs = state.eventLogs.slice();
@@ -40,7 +40,7 @@ export default function eventLogsReducer (state, action) {
 
 			return {eventLogs: logs};
 		}
-		case (UPDATE_EVENT_LOG): {
+		case UPDATE_EVENT_LOG: {
 			const index = state.eventLogs.findIndex(log => log.timeoutId === action.prevTimeoutId);
 			const logs = state.eventLogs.slice();
 
