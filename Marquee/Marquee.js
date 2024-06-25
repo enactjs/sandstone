@@ -12,18 +12,23 @@
  * @exports MarqueeDecorator
  */
 
+import hoc from '@enact/core/hoc';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {
 	MarqueeBase,
 	MarqueeController,
 	MarqueeDecorator as UiMarqueeDecorator
 } from '@enact/ui/Marquee';
-import compose from 'ramda/src/compose';
 
-const MarqueeDecorator = compose(
-    I18nContextDecorator({rtlProp: 'rtl', localeProp: 'locale'}),
-    UiMarqueeDecorator
-);
+const MarqueeDecorator = hoc(null, (config, Wrapped) => {
+	return I18nContextDecorator(
+		{rtlProp: 'rtl', localeProp: 'locale'},
+		UiMarqueeDecorator(
+			config,
+			Wrapped
+		)
+	);
+});
 
 const Marquee = MarqueeDecorator('div');
 
