@@ -1,8 +1,7 @@
 import {useContext} from 'react';
 import ImageItem from '@enact/sandstone/ImageItem';
 
-import {RecordContext, RecordDispatchContext} from '../../context/RecordContext';
-import {selectItem as selectItemAction} from '../../context/RecordContext';
+import {RecordContext, RecordDispatchContext, selectItem as selectItemAction} from '../../context/RecordContext';
 
 const ImageItemComponent = (props) => {
 	const {['data-index']: dataIndex} = props;
@@ -11,6 +10,7 @@ const ImageItemComponent = (props) => {
 	const dispatch = useContext(RecordDispatchContext);
 
 	const onClick = () => (dispatch(selectItemAction(dataIndex)));
+
 	return (
 		<ImageItem
 			label={data[dataIndex].subCaption}
@@ -25,4 +25,3 @@ const ImageItemComponent = (props) => {
 };
 
 export default ImageItemComponent;
-

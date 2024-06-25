@@ -1,4 +1,5 @@
 import {createContext, useReducer} from "react";
+
 import {initializeRecords} from "../utils";
 
 export const RecordContext = createContext(null);
@@ -59,9 +60,8 @@ export {
 export default function recordReducer (state, action) {
 	switch (action.type) {
 		case (ADD_ITEM): {
-			const
-				addedKey = Object.keys(state.data).length,
-				newData = Object.assign({}, state.data);
+			const addedKey = Object.keys(state.data).length;
+			const newData = Object.assign({}, state.data);
 			let newDataOrder = state.dataOrder.concat(addedKey);
 
 			newData[addedKey] = action.item;
@@ -80,9 +80,8 @@ export default function recordReducer (state, action) {
 			return {...state, spacing: action.size};
 		}
 		case (DELETE_ITEM): {
-			const
-				newData = {},
-				newDataOrder = [];
+			const newData = {};
+			const newDataOrder = [];
 
 			for (let i = 0; i < state.dataOrder.length - 1; i++) {
 				newData[i] = state.data[i];
@@ -92,11 +91,10 @@ export default function recordReducer (state, action) {
 			return {...state, data: newData, dataOrder: newDataOrder, dataSize: newDataOrder.length, selectedItems: []};
 		}
 		case (DELETE_SELECTED_ITEM): {
-			const
-				newData = {},
-				newDataOrder = [],
-				selectedItems = state.selectedItems,
-				filteredDataOrder = state.dataOrder.filter((item) => !selectedItems.includes(item));
+			const newData = {};
+			const newDataOrder = [];
+			const selectedItems = state.selectedItems;
+			const filteredDataOrder = state.dataOrder.filter((item) => !selectedItems.includes(item));
 
 			for (let i = 0; i < filteredDataOrder.length; i++) {
 				const newId = filteredDataOrder[i];
@@ -118,9 +116,8 @@ export default function recordReducer (state, action) {
 			return {...state, selectedItems};
 		}
 		case (SELECT_ITEM): {
-			const
-				selectedItems = state.selectedItems,
-				isSelected = selectedItems.includes(action.dataIndex);
+			const selectedItems = state.selectedItems;
+			const isSelected = selectedItems.includes(action.dataIndex);
 
 			if (state.showOverlay) {
 				if (isSelected) {
@@ -144,9 +141,8 @@ export default function recordReducer (state, action) {
 			return {...state, data: newData, showOverlay: !state.showOverlay};
 		}
 		case (SET_DATA): {
-			let
-				newData = {},
-				newDataOrder = [];
+			let newData = {};
+			let newDataOrder = [];
 
 			if (action.index > state.dataOrder.length) {
 				const addedKey = Object.keys(state.data).length;

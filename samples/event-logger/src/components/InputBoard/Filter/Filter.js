@@ -10,7 +10,6 @@ import {setEventCapturing as setEventCapturingAction} from '../../../reducer/eve
 import {isSyntheticEventOn as isSyntheticEventOnAction} from '../../../reducer/syntheticEventOnReducer';
 import {setTimerIndex as setTimerIndexAction} from '../../../reducer/timerIndexReducer';
 
-
 import css from './Filter.module.less';
 
 const Filter = () => {

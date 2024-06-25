@@ -25,7 +25,6 @@ import {
 	RecordContext,
 	RecordDispatchContext
 } from '../../context/RecordContext';
-
 import createRecord from '../../utils';
 
 const PanelHeader = (props) => {

@@ -1,4 +1,4 @@
-import {createContext, useReducer} from "react";
+import {createContext, useReducer} from 'react';
 
 export const ListContext = createContext(null);
 export const ListDispatchContext = createContext(null);
@@ -6,7 +6,6 @@ export const ListDispatchContext = createContext(null);
 const initialData = {listItems: []};
 
 export const ListProvider = ({children}) => {
-
 	const [state, dispatch] = useReducer(listReducer, initialData);
 
 	return (
