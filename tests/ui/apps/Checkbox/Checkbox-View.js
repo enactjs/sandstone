@@ -15,7 +15,7 @@ const app = (props) => <div {...props}>
 	<div style={{padding: '20px'}}>
 		<Checkbox
 			id="Checkbox2"
-			selected
+			defaultSelected
 		/>
 	</div>
 	<div style={{padding: '20px'}}>

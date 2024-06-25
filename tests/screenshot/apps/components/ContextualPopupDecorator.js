@@ -41,6 +41,9 @@ const ContextualPopupDecoratorTests = [
 		<ContextualPopupButton direction="right middle" />,
 		<ContextualPopupButton direction="right top" />,
 		<ContextualPopupButton direction="right bottom" />,
+		// *************************************************************
+		// ContextualPopupButton with no arrow
+		// *************************************************************
 		<ContextualPopupButtonNoArrow offset="none" />,
 		<ContextualPopupButtonNoArrow direction="above center" offset="none" />,
 		<ContextualPopupButtonNoArrow direction="below center" offset="none" />,
@@ -64,7 +67,13 @@ const ContextualPopupDecoratorTests = [
 			<ContextualPopupButton direction="above center" />,
 			<ContextualPopupButton direction="below center" />,
 			<ContextualPopupButton direction="left middle" />,
-			<ContextualPopupButton direction="right middle" />
+			<ContextualPopupButton direction="right middle" />,
+			// *************************************************************
+			// ContextualPopupButton with no arrow
+			// *************************************************************
+			<ContextualPopupButtonNoArrow offset="none" />,
+			<ContextualPopupButtonNoArrow offset="overlap" />,
+			<ContextualPopupButtonNoArrow offset="small" />
 		])
 	]),
 	// *************************************************************

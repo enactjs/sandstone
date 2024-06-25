@@ -75,7 +75,7 @@ describe('Checkbox', function () {
 			await Page.spotlightDown();
 			await Page.spotlightSelect();
 
-			expect(await checkbox2.isChecked).toBe(true);
+			expect(await checkbox2.isChecked).toBe(false);
 		});
 	});
 
@@ -108,7 +108,7 @@ describe('Checkbox', function () {
 		it('should get unchecked', async function () {
 			await checkbox2.self.click();
 
-			expect(await checkbox2.isChecked).toBe(true);
+			expect(await checkbox2.isChecked).toBe(false);
 		});
 	});
 });
