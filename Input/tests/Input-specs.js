@@ -516,16 +516,5 @@ describe('Input specs', () => {
 
 			expect(buttonSubmit).toBeNull();
 		});
-
-		test('should close popup when disable is set to true', () => {
-			render(
-				<FloatingLayerController>
-					<Input open disabled />
-				</FloatingLayerController>
-			);
-			const actual = screen.getAllByLabelText('- Input field')[0].parentElement.nextElementSibling.children.length === 0;
-
-			expect(actual).toBeTruthy();
-		});
 	});
 });

@@ -396,7 +396,6 @@ const InputPopupBase = kind({
 			});
 		}
 		const id = `inputPopup`;
-		const openPopup = !disabled && open;
 		const ariaLabelledBy = popupAriaLabel ? null : `${id}_title ${id}_subtitle`;
 		const inputProps = extractInputFieldProps({...rest, disabled});
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
@@ -405,6 +404,7 @@ const InputPopupBase = kind({
 			<Button
 				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 				className={css.back}
+				disabled={disabled}
 				icon="arrowhookleft"
 				iconFlip="auto"
 				onClick={onClose}
@@ -429,7 +429,7 @@ const InputPopupBase = kind({
 					className={popupClassName}
 					noAlertRole
 					noAnimation
-					open={openPopup}
+					open={open}
 					role="region"
 				>
 					{popupType === 'fullscreen' ? backButton : null}
