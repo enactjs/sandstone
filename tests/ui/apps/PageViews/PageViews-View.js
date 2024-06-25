@@ -1,5 +1,5 @@
 import {BasicArranger} from '../../../../internal/Panels';
-import Item from "../../../../Item";
+import Item from '../../../../Item';
 import {PageViews} from '../../../../PageViews';
 import ThemeDecorator from '../../../../ThemeDecorator';
 import spotlight from '@enact/spotlight';

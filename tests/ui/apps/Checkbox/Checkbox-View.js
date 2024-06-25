@@ -1,4 +1,4 @@
-import Checkbox from "../../../../Checkbox";
+import Checkbox from '../../../../Checkbox';
 import ThemeDecorator from '../../../../ThemeDecorator';
 import spotlight from '@enact/spotlight';
 
