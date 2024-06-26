@@ -20,7 +20,7 @@ import {
 	MarqueeDecorator as UiMarqueeDecorator
 } from '@enact/ui/Marquee';
 
-const MarqueeDecorator = hoc(null, (config, Wrapped) => {
+const MarqueeDecorator = hoc((config, Wrapped) => {
 	return I18nContextDecorator(
 		{rtlProp: 'rtl', localeProp: 'locale'},
 		UiMarqueeDecorator(
