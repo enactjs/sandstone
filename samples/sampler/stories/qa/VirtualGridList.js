@@ -84,6 +84,11 @@ const ContextualPopupButton = ContextualPopupDecorator(Button);
 let lastIndex = 0;
 
 class MyVirtualList extends Component {
+	constructor (props) {
+		super();
+		this.scrollMode = props.scrollMode;
+
+	}
 	componentDidMount () {
 		this.scrollTo({index: lastIndex, animate: false, focus: true});
 	}
@@ -110,6 +115,7 @@ class MyVirtualList extends Component {
 	render () {
 		let props = {...this.props};
 		delete props.closePopup;
+		delete props.scrollMode;
 
 		return (
 			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
@@ -119,8 +125,8 @@ class MyVirtualList extends Component {
 					direction="vertical"
 					itemRenderer={this.renderItem}
 					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
-					key={this.props.args['scrollMode']}
-					scrollMode={this.props.args['scrollMode']}
+					key={this.scrollMode}
+					scrollMode={this.scrollMode}
 				/>
 			</div>
 		);
@@ -128,19 +134,20 @@ class MyVirtualList extends Component {
 }
 
 MyVirtualList.propTypes = {
-	args: PropTypes.array
+	scrollMode: PropTypes.string
 };
 
 class ButtonAndVirtualGridList extends Component {
 	constructor (props) {
 		super(props);
+		this.scrollMode = props.scrollMode;
 		this.state = {
 			isPopup: false
 		};
 	}
 
 	renderPopup = (rest) => {
-		return <MyVirtualList {...rest} closePopup={this.closePopup} args={this.props.args} />;
+		return <MyVirtualList {...rest} closePopup={this.closePopup} scrollMode={this.scrollMode}/>;
 	};
 
 	openPopup = () => {
@@ -152,6 +159,9 @@ class ButtonAndVirtualGridList extends Component {
 	};
 
 	render () {
+		let props = {...this.props};
+		delete props.scrollMode;
+
 		return (
 			<div>
 				<ContextualPopupButton
@@ -170,8 +180,8 @@ class ButtonAndVirtualGridList extends Component {
 }
 
 ButtonAndVirtualGridList.propTypes = {
-	args: PropTypes.array,
-	rtl: PropTypes.bool
+	rtl: PropTypes.bool,
+	scrollMode: PropTypes.string
 };
 
 const ButtonAndVirtualGridListSamples = I18nContextDecorator (
@@ -226,7 +236,7 @@ HorizontalVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-export const WithButtonSpotlightGoesToCorrectTarget = (args) => <ButtonAndVirtualGridListSamples args={args} />;
+export const WithButtonSpotlightGoesToCorrectTarget = (args) => <ButtonAndVirtualGridListSamples scrollMode={args['scrollMode']} />;
 
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
 WithButtonSpotlightGoesToCorrectTarget.parameters = {
