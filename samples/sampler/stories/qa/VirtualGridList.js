@@ -147,7 +147,7 @@ class ButtonAndVirtualGridList extends Component {
 	}
 
 	renderPopup = (rest) => {
-		return <MyVirtualList {...rest} closePopup={this.closePopup} scrollMode={this.scrollMode}/>;
+		return <MyVirtualList {...rest} closePopup={this.closePopup} scrollMode={this.scrollMode} />;
 	};
 
 	openPopup = () => {
