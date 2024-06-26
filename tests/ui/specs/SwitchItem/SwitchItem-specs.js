@@ -1,6 +1,5 @@
 const Page = require('./SwitchItemPage');
 
-// Skipping until SwitchItem is updated to handle the new Item structure
 describe('SwitchItem', function () {
 
 	beforeEach(async function () {
