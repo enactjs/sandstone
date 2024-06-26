@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Input` back button to disabled when `disabled` prop is `true`
+- `sandstone/Input` back button to be disabled when `disabled` prop is `true`
 
 ## [2.9.0-beta.1] - 2024-06-17
 
