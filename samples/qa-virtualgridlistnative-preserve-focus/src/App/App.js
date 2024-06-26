@@ -1,46 +1,31 @@
-import kind from '@enact/core/kind';
+/* eslint-disable react/jsx-no-bind */
+
 import {Panels} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useContext} from 'react';
 
-import {decreaseIndex, increaseIndex} from '../store';
+import {
+	decreaseIndex as decreaseAction,
+	increaseIndex as increaseAction,
+	IndexContext,
+	IndexDispatchContext
+} from '../context/IndexContext';
 import MainPanel from '../views/MainPanel';
 
-const App = kind({
-	name: 'App',
+const App = (props) => {
+	const dispatch = useContext(IndexDispatchContext);
+	const {index} = useContext(IndexContext);
+	const pushPanel = () => dispatch(increaseAction());
+	const popPanel = () => dispatch(decreaseAction());
 
-	propTypes: {
-		index: PropTypes.number,
-		popPanel: PropTypes.func,
-		pushPanel: PropTypes.func
-	},
-
-	defaultProps: {
-		index: 0
-	},
-
-	render: ({index, pushPanel, popPanel, ...rest}) => {
-		return (
-			<Panels {...rest} onBack={popPanel} index={index}>
-				<MainPanel title="First" onClick={pushPanel} />
-				<MainPanel title="Second" onClick={pushPanel} />
-				<MainPanel title="Third" onClick={pushPanel} />
-				<MainPanel title="Fourth" />
-			</Panels>
-		);
-	}
-});
-
-const mapStateToProps = ({index}) => ({
-	index
-});
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		pushPanel: () => dispatch(increaseIndex()),
-		popPanel: () => dispatch(decreaseIndex())
-	};
+	return (
+		<Panels {...props} onBack={popPanel} index={index}>
+			<MainPanel title="First" onClick={pushPanel} />
+			<MainPanel title="Second" onClick={pushPanel} />
+			<MainPanel title="Third" onClick={pushPanel} />
+			<MainPanel title="Fourth" />
+		</Panels>
+	);
 };
 
-export default ThemeDecorator(connect(mapStateToProps, mapDispatchToProps)(App));
+export default ThemeDecorator(App);

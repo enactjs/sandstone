@@ -1,28 +1,23 @@
 import Item from '@enact/sandstone/Item';
-import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
-import {useSelector} from 'react-redux';
+import {useContext} from 'react';
 
-const ListItem = kind({
-	name: 'ListItem',
-	functional: true,
-	propTypes: {
-		children: PropTypes.any,
-		dispatch: PropTypes.func,
-		index: PropTypes.number
-	},
-	render: ({children, ...rest}) => {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const disabled = useSelector(({listItems}) => listItems[rest.index].disabled);
-		delete rest.index;
-		delete rest.dispatch;
+import {ListContext} from '../../context/ListContext';
 
-		return (
-			<Item {...rest} disabled={disabled}>
-				{children}
-			</Item>
-		);
-	}
-});
+const ListItem = (props) => {
+	const {children, index, ...rest} = props;
+	const {disabled} = useContext(ListContext).listItems[index];
+
+	return (
+		<Item {...rest} disabled={disabled}>
+			{children}
+		</Item>
+	);
+};
+
+ListItem.propTypes = {
+	children: PropTypes.any,
+	index: PropTypes.number
+};
 
 export default ListItem;

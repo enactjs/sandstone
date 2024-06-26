@@ -1,9 +1,13 @@
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import {useCallback, useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 
-import {addEventLog, removeEventLog, updateEventLog} from '../../store/slices/eventLogsSlice';
 import eventCategory from '../../constants/eventCategory';
+import {EventLoggerContext, EventLoggerDispatchContext} from '../../context/EventLoggerContext';
+import {
+	addEventLog as addEventLogAction,
+	removeEventLog as removeEventLogAction,
+	updateEventLog as updateEventLogAction
+} from '../../reducer/eventLogsReducer';
 
 import eventRegData from './Event/EventRegistrationData';
 import Filter from './Filter';
@@ -54,7 +58,20 @@ function usePrevious (value) {
 const InputBoard = ({className}) => {
 	const isCapturingEvent = true;
 
-	const dispatch = useDispatch();
+	const dispatch = useContext(EventLoggerDispatchContext);
+	const {
+		activeEventsReducer,
+		eventCapturingOnReducer,
+		eventLogsReducer,
+		syntheticEventOnReducer,
+		timerIndexReducer
+	} = useContext(EventLoggerContext);
+
+	const {activeEvents} = activeEventsReducer;
+	const {eventCapturingOn} = eventCapturingOnReducer;
+	const {eventLogs} = eventLogsReducer;
+	const {syntheticEventOn} = syntheticEventOnReducer;
+	const {timerIndex} = timerIndexReducer;
 
 	const divRef = useRef();
 	const eventCapturingOnRef = useRef();
@@ -63,16 +80,23 @@ const InputBoard = ({className}) => {
 	const reactHandlers = useRef();
 	const syntheticEventOnRef = useRef();
 	const timerIndexRef = useRef();
+	const beforeTimeoutId = useRef();
 
-	const activeEvents = useSelector((state) => state.activeEvents);
-	const eventCapturingOn = useSelector((state) => state.eventCapturingOn);
-	const eventLogs = useSelector((state) => state.eventLogs);
-	const syntheticEventOn = useSelector((state) => state.syntheticEventOn);
-	const timerIndex = useSelector((state) => state.timerIndex);
-
-	const onAddEventLog = useCallback((timeoutId, eventName, isDOMElement, isCapturing, eventObject) => dispatch(addEventLog(timeoutId, eventName, isDOMElement, isCapturing, eventObject)), [dispatch]);
-	const onRemoveEventLog = useCallback((eventName, isDOMElement, isCapturing) => dispatch(removeEventLog(eventName, isDOMElement, isCapturing)), [dispatch]);
-	const onUpdateEventLog = useCallback((prevTimeoutId, postTimeoutId, eventObject) => dispatch(updateEventLog(prevTimeoutId, postTimeoutId, eventObject)), [dispatch]);
+	const onAddEventLog =
+		useCallback(
+			(eventName, eventObject, isDOMElement, isCapturing, timeoutId) =>
+				dispatch(addEventLogAction(eventName, eventObject, isDOMElement, isCapturing, timeoutId)), [dispatch]
+		);
+	const onRemoveEventLog =
+		useCallback(
+			(eventName, isDOMElement, isCapturing) =>
+				dispatch(removeEventLogAction(eventName, isDOMElement, isCapturing)), [dispatch]
+		);
+	const onUpdateEventLog =
+		useCallback(
+			(eventObject, prevTimeoutId, postTimeoutId) =>
+				dispatch(updateEventLogAction(eventObject, prevTimeoutId, postTimeoutId)), [dispatch]
+		);
 
 	const prevActiveEvents = usePrevious(activeEvents);
 
@@ -86,14 +110,16 @@ const InputBoard = ({className}) => {
 
 			if (lastLog.eventName === ev.type) {
 				const index = findLastIndexOfMatchingEvent(eventLogsRef.current, ev.type, isDOMElement, isCapturing);
-
 				if (index >= 0) {
+					// Exception handling for issue where the previous 'timeoutId' is updated once more after being updated
+					if (beforeTimeoutId.current === eventLogsRef.current[index].timeoutId) return;
+
+					beforeTimeoutId.current = eventLogsRef.current[index].timeoutId;
+
 					window.clearTimeout(eventLogsRef.current[index].timeoutId);
-					onUpdateEventLog(
-						eventLogsRef.current[index].timeoutId,
-						window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndexRef.current]),
-						eventObject
-					);
+					const newTimeoutId = window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndexRef.current]);
+
+					onUpdateEventLog(eventObject, eventLogsRef.current[index].timeoutId, newTimeoutId);
 					return;
 				}
 			}
@@ -112,7 +138,7 @@ const InputBoard = ({className}) => {
 			() => onRemoveEventLog(ev.type, isDOMElement, isCapturing),
 			timergroup[timerIndexRef.current]);
 
-		onAddEventLog(timeoutId, ev.type, isDOMElement, isCapturing, eventObject);
+		onAddEventLog(ev.type, eventObject, isDOMElement, isCapturing, timeoutId);
 	}, [onAddEventLog, onRemoveEventLog, onUpdateEventLog]);
 
 	const handleEvent = useCallback((eventType, isDOMElement) => {
