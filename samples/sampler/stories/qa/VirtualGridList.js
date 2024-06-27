@@ -153,7 +153,6 @@ class ButtonAndVirtualGridList extends Component {
 	};
 
 	render () {
-
 		return (
 			<div>
 				<ContextualPopupButton
