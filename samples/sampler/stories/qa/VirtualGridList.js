@@ -109,10 +109,10 @@ class MyVirtualList extends Component {
 
 	render () {
 		const {scrollMode, ...rest} = this.props;
-		delete props.closePopup;
+		delete rest.closePopup;
 
 		return (
-			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
+			<div {...rest} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
 				<VirtualGridList
 					cbScrollTo={this.getScrollTo}
 					dataSize={itemList.length}
