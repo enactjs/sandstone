@@ -160,7 +160,7 @@ class MarqueeWithContentChanged extends Component {
 					<li>Click again to return to a short string without marquee.</li>
 				</ol>
 				<Button onClick={this.handleClick}>{'Click Me'}</Button>
-				<Marquee style={{width: '800px'}} marqueeOn={'render'}>
+				<Marquee style={{width: ri.scaleToRem(800)}} marqueeOn={'render'}>
 					{texts[this.state.count]}
 				</Marquee>
 			</div>
@@ -192,7 +192,7 @@ class MarqueeSynchronizedWithContentChanged extends Component {
 				</ol>
 				<Button onClick={this.handleClick}>{'Click Me'}</Button>
 				<Controller>
-					<Marquee style={{width: '800px'}} marqueeOn={'render'}>
+					<Marquee style={{width: ri.scaleToRem(800)}} marqueeOn={'render'}>
 						{texts[this.state.count]}
 					</Marquee>
 				</Controller>
