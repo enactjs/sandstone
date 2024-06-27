@@ -84,11 +84,6 @@ const ContextualPopupButton = ContextualPopupDecorator(Button);
 let lastIndex = 0;
 
 class MyVirtualList extends Component {
-	constructor (props) {
-		super();
-		this.scrollMode = props.scrollMode;
-
-	}
 	componentDidMount () {
 		this.scrollTo({index: lastIndex, animate: false, focus: true});
 	}
@@ -113,9 +108,8 @@ class MyVirtualList extends Component {
 	};
 
 	render () {
-		let props = {...this.props};
+		let {scrollMode, ...props} = this.props;
 		delete props.closePopup;
-		delete props.scrollMode;
 
 		return (
 			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
@@ -125,8 +119,8 @@ class MyVirtualList extends Component {
 					direction="vertical"
 					itemRenderer={this.renderItem}
 					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
-					key={this.scrollMode}
-					scrollMode={this.scrollMode}
+					key={scrollMode}
+					scrollMode={scrollMode}
 				/>
 			</div>
 		);
@@ -159,8 +153,6 @@ class ButtonAndVirtualGridList extends Component {
 	};
 
 	render () {
-		let props = {...this.props};
-		delete props.scrollMode;
 
 		return (
 			<div>
