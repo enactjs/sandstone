@@ -134,14 +134,13 @@ MyVirtualList.propTypes = {
 class ButtonAndVirtualGridList extends Component {
 	constructor (props) {
 		super(props);
-		this.scrollMode = props.scrollMode;
 		this.state = {
 			isPopup: false
 		};
 	}
 
 	renderPopup = (rest) => {
-		return <MyVirtualList {...rest} closePopup={this.closePopup} scrollMode={this.scrollMode} />;
+		return <MyVirtualList {...rest} closePopup={this.closePopup} scrollMode={this.props.scrollMode} />;
 	};
 
 	openPopup = () => {
