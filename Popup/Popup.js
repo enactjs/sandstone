@@ -616,19 +616,21 @@ class Popup extends Component {
 
 		off('keydown', this.handleKeyDown);
 
-		if (containerNode && containerNode.contains(current)) {
-			Spotlight.disableSelector(lastContainerId);
-		}
 		// if there is no currently-spotted control or it is wrapped by the popup's container, we
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (!Spotlight.isPaused() && !Spotlight.focus(activator)) {
-				Spotlight.focus();
+			if (!Spotlight.isPaused()) {
+				if (activator) {
+					if (!Spotlight.focus(activator)) {
+						Spotlight.focus();
+					}
+				} else {
+					Spotlight.disableSelector(lastContainerId);
+					Spotlight.focus();
+					Spotlight.enableSelector(lastContainerId);
+				}
 			}
-		}
-		if (containerNode && containerNode.contains(current)) {
-			Spotlight.enableSelector(lastContainerId);
 		}
 	};
 
