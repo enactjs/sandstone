@@ -108,7 +108,7 @@ class MyVirtualList extends Component {
 	};
 
 	render () {
-		let {scrollMode, ...props} = this.props;
+		const {scrollMode, ...rest} = this.props;
 		delete props.closePopup;
 
 		return (
