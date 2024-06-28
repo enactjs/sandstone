@@ -228,14 +228,14 @@ HorizontalVirtualGridList.parameters = {
 
 export const WithButtonSpotlightGoesToCorrectTarget = (args) => <ButtonAndVirtualGridListSamples scrollMode={args['scrollMode']} />;
 
+select('scrollMode', WithButtonSpotlightGoesToCorrectTarget, prop.scrollModeOption, Config);
+
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
 WithButtonSpotlightGoesToCorrectTarget.parameters = {
 	controls: {
 		hideNoControlsWarning: true
 	}
 };
-
-select('scrollMode', WithButtonSpotlightGoesToCorrectTarget, prop.scrollModeOption, Config);
 
 export const HorizontalSquaredVirtualGridList = (args) => (
 	<VirtualGridList
