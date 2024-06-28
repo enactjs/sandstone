@@ -14,7 +14,7 @@ const extractValues = async (picker) => {
 // Validations are self-contained 'it' statements
 function validateTitle (picker, title) {
 	it('should have correct title', async function () {
-		expect(await picker.titleText).to.equal(title);
+		expect(await picker.titleText).toBe(title);
 	});
 }
 

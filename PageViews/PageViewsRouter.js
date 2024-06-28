@@ -29,7 +29,7 @@ function PageViewsRouter (Wrapped) {
 		children,
 		componentRef,
 		'data-spotlight-id': spotlightId,
-		index,
+		index = 0,
 		onTransition,
 		onWillTransition,
 		rtl,
@@ -123,10 +123,6 @@ function PageViewsRouter (Wrapped) {
 		 * @private
 		 */
 		rtl: PropTypes.bool
-	};
-
-	PageViewsProvider.defaultProps = {
-		index: 0
 	};
 
 	return PageViewsProvider;
