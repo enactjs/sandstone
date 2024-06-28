@@ -10,12 +10,12 @@ describe('FixedPopupPanels', function () {
 	describe('5-way', function () {
 
 		it('should not set focus in the popup panel when the popup is closed', async function () {
-			expect(await Interface.closeButton.isFocused(), 'focus Close button').to.be.true();
+			expect(await Interface.closeButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 			await Page.delay(500);
 
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 		});
 	});
 });
