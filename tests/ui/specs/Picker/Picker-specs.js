@@ -179,14 +179,32 @@ describe('Picker', function () {
 
 		describe('joined', function () {
 			const picker = Page.components.pickerJoined;
+			const pickerJoinedChangedByArrow = Page.components.pickerJoinedChangedByArrow;
 
 			describe('5-way', function () {
 				it('should increase the value on 5-way select', async function () {
-					await await picker.focusJoined();
+					await picker.focusJoined();
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
 					expect(await newValue).toBe('Banana');
+				});
+
+				it('should increase the value on 5-way right', async function () {
+					await pickerJoinedChangedByArrow.focusJoined();
+					await Page.spotlightRight();
+					await browser.pause(500);
+					const newValue = extractValue(pickerJoinedChangedByArrow);
+					await browser.pause(500);
+					expect(await newValue).toBe('Banana');
+				});
+
+				it('should decrease the value on 5-way left', async function () {
+					await pickerJoinedChangedByArrow.focusJoined();
+					await Page.spotlightLeft();
+					await browser.pause(500);
+					const newValue = extractValue(pickerJoinedChangedByArrow);
+					expect(await newValue).toBe('Apple');
 				});
 			});
 
