@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {getLastContainer} from '@enact/spotlight/src/container';
 import Transition from '@enact/ui/Transition';
 import {forward, forwardCustom} from '@enact/core/handle';
 import warning from 'warning';
@@ -611,6 +612,7 @@ class Popup extends Component {
 
 		const current = Spotlight.getCurrent();
 		const containerNode = getContainerNode(this.state.containerId);
+		const lastContainerId = getLastContainer();
 
 		off('keydown', this.handleKeyDown);
 
@@ -618,8 +620,16 @@ class Popup extends Component {
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (!Spotlight.isPaused() && !Spotlight.focus(activator)) {
-				Spotlight.focus();
+			if (!Spotlight.isPaused()) {
+				if (activator) {
+					if (!Spotlight.focus(activator)) {
+						Spotlight.focus();
+					}
+				} else {
+					Spotlight.disableSelector(lastContainerId);
+					Spotlight.focus();
+					Spotlight.enableSelector(lastContainerId);
+				}
 			}
 		}
 	};
