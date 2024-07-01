@@ -160,9 +160,42 @@ class MarqueeWithContentChanged extends Component {
 					<li>Click again to return to a short string without marquee.</li>
 				</ol>
 				<Button onClick={this.handleClick}>{'Click Me'}</Button>
-				<Marquee style={{width: '800px'}} marqueeOn={'render'}>
+				<Marquee style={{width: ri.scaleToRem(800)}} marqueeOn={'render'}>
 					{texts[this.state.count]}
 				</Marquee>
+			</div>
+		);
+	}
+}
+
+class MarqueeSynchronizedWithContentChanged extends Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			count: 0
+		};
+	}
+
+	handleClick = () => {
+		this.setState(({count}) => ({count: ++count % 3}));
+	};
+
+	render () {
+		return (
+			<div>
+				<ol>
+					<li>Click once to show the ellipsis just before the text marquees the first time.</li>
+					<li>
+						Click a second time to show the ellipsis just before the text marquees the first time
+					</li>
+					<li>Click again to return to a short string without marquee.</li>
+				</ol>
+				<Button onClick={this.handleClick}>{'Click Me'}</Button>
+				<Controller>
+					<Marquee style={{width: ri.scaleToRem(800)}} marqueeOn={'render'}>
+						{texts[this.state.count]}
+					</Marquee>
+				</Controller>
 			</div>
 		);
 	}
@@ -357,6 +390,15 @@ export const WithContentChanged = () => <MarqueeWithContentChanged />;
 
 WithContentChanged.storyName = 'with Content Changed';
 WithContentChanged.parameters = {
+	controls: {
+		hideNoControlsWarning: true
+	}
+};
+
+export const SynchronizedWithContentChanged = () => <MarqueeSynchronizedWithContentChanged />;
+
+SynchronizedWithContentChanged.storyName = 'Synchronized with Content Changed';
+SynchronizedWithContentChanged.parameters = {
 	controls: {
 		hideNoControlsWarning: true
 	}

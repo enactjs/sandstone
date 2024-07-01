@@ -740,7 +740,7 @@ describe('Popup', function () {
 				expect(await popup.buttonCancel.isFocused()).toBe(true);
 			});
 
-			it.skip('should not spot Buttons Outside of Popup - [QWTC-1901]', async function () {
+			it('should not spot Buttons Outside of Popup - [QWTC-1901]', async function () {
 				await popupCommon.buttonPopup6.click();
 				await Page.waitForOpen(popup);
 
@@ -748,7 +748,7 @@ describe('Popup', function () {
 				await expectOpen(popupCommon);
 
 				// Hover a button outside Popup (step 4)
-				$('#buttonPopup9').moveTo({xOffset: 200, yOffset: 200});
+				await $('#buttonPopup9').moveTo({xOffset: 200, yOffset: 200});
 				// Test spotlight cannot leave popup (step 4)
 				await Page.spotlightUp();
 
@@ -756,7 +756,9 @@ describe('Popup', function () {
 				expect(await popup.buttonOK.isFocused()).toBe(true);
 
 				// Hover the button 'spotlightRestrict - self-only' outside of the popup (step 6)
-				await Page.spotlightUp();
+				await Page.spotlightSelect();
+				// wait for popup closes
+				await Page.delay(1000);
 
 				// Check spotlight is on the button 'spotlightRestrict - self-only' outside popup (verify step 6)
 				expect(await popupCommon.buttonPopup6.isFocused()).toBe(true);
