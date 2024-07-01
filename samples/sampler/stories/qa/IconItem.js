@@ -89,6 +89,7 @@ export const EditableIcon = (args) => {
 	const hideItem = useRef();
 	const showItem = useRef();
 	const focusItem = useRef();
+	const blurItem = useRef();
 	const divRef = useRef();
 	const mutableRef = useRef({
 		hideIndex: null,
@@ -144,6 +145,12 @@ export const EditableIcon = (args) => {
 	const onFocusItem = useCallback((ev) => {
 		if (focusItem.current) {
 			focusItem.current(ev.target);
+		}
+	}, []);
+
+	const onMouseLeaveItem = useCallback((ev) => {
+		if (blurItem.current) {
+			blurItem.current(ev.target);
 		}
 	}, []);
 
@@ -239,6 +246,7 @@ export const EditableIcon = (args) => {
 							removeItemFuncRef: removeItem,
 							hideItemFuncRef: hideItem,
 							showItemFuncRef: showItem,
+							blurItemFuncRef: blurItem,
 							focusItemFuncRef: focusItem,
 							initialSelected: mutableRef.current.initialSelected,
 							selectItemBy: 'press'
@@ -259,7 +267,15 @@ export const EditableIcon = (args) => {
 						{
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}} disabled={item.iconItemProps['disabled'] || item.hidden}>
+									<div
+										aria-label={`Icon ${item.index}`}
+										className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})}
+										data-index={item.index}
+										disabled={item.iconItemProps['disabled'] || item.hidden}
+										key={item.index}
+										onMouseLeave={onMouseLeaveItem}
+										style={{order: index + 1}}
+									>
 										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
 											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
 											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
