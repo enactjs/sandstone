@@ -25,6 +25,16 @@
 	}
 }
 
+// Assign the standard disabled rules of backgrounds to bg nodes.
+// This should be used on children of a root component node.
+@mixin sand-disabled-focus-bg-colors {
+	opacity: colors.$sand-disabled-focus-bg-opacity;
+
+	@include sand-bg-colors{
+		@content;
+	}
+}
+
 @mixin sand-spotlight-resting-bg-colors($opacity: 0) {
 	opacity: $opacity;
 
