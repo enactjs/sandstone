@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
+
 ### Changed
 
 - `sandstone/PageViews` styling to match the latest GUI
