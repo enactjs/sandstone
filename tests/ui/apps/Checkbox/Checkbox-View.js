@@ -9,24 +9,24 @@ spotlight.setPointerMode(false);
 const app = (props) => <div {...props}>
 	<div style={{padding: '20px'}}>
 		<Checkbox
-			id="Checkbox1"
+			id="normalCheckbox"
 		/>
 	</div>
 	<div style={{padding: '20px'}}>
 		<Checkbox
-			id="Checkbox2"
+			id="selectedCheckbox"
 			defaultSelected
 		/>
 	</div>
 	<div style={{padding: '20px'}}>
 		<Checkbox
-			id="Checkbox3"
+			id="indeterminateCheckbox"
 			indeterminate
 		/>
 	</div>
 	<div style={{padding: '20px'}}>
 		<Checkbox
-			id="Checkbox4"
+			id="disabledCheckbox"
 			disabled
 		/>
 	</div>

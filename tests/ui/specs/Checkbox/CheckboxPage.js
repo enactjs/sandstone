@@ -19,16 +19,16 @@ class CheckboxPage extends Page {
 	constructor () {
 		super();
 		this.title = 'Checkbox Test';
-		const checkbox1 = new CheckboxInterface('Checkbox1');
-		const checkbox2 = new CheckboxInterface('Checkbox2');
-		const checkbox3 = new CheckboxInterface('Checkbox3');
-		const checkbox4 = new CheckboxInterface('Checkbox4');
+		const normalCheckbox = new CheckboxInterface('normalCheckbox');
+		const selectedCheckbox = new CheckboxInterface('selectedCheckbox');
+		const indeterminateCheckbox = new CheckboxInterface('indeterminateCheckbox');
+		const disabledCheckbox = new CheckboxInterface('disabledCheckbox');
 
 		this.components = {
-			checkbox1,
-			checkbox2,
-			checkbox3,
-			checkbox4
+			normalCheckbox,
+			selectedCheckbox,
+			indeterminateCheckbox,
+			disabledCheckbox
 		};
 	}
 

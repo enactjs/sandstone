@@ -7,23 +7,23 @@ describe('Checkbox', function () {
 	});
 
 	const {
-		checkbox1,
-		checkbox2,
-		checkbox3,
-		checkbox4
+		normalCheckbox,
+		selectedCheckbox,
+		indeterminateCheckbox,
+		disabledCheckbox
 	} = Page.components;
 
 	describe('default', function () {
 		it('should focus on load', async function () {
-			expect(await checkbox1.self.isFocused()).toBe(true);
+			expect(await normalCheckbox.self.isFocused()).toBe(true);
 		});
 
 		it('should not be checked', async function () {
-			expect(await checkbox1.isChecked).toBe(false);
+			expect(await normalCheckbox.isChecked).toBe(false);
 		});
 
 		it('should be checked', async function () {
-			expect(await checkbox2.isChecked).toBe(true);
+			expect(await selectedCheckbox.isChecked).toBe(true);
 		});
 	});
 
@@ -31,21 +31,21 @@ describe('Checkbox', function () {
 		it('should focus', async function () {
 			await Page.spotlightDown();
 
-			expect(await checkbox2.self.isFocused()).toBe(true);
+			expect(await selectedCheckbox.self.isFocused()).toBe(true);
 
 			await Page.spotlightDown();
 
-			expect(await checkbox3.self.isFocused()).toBe(true);
+			expect(await indeterminateCheckbox.self.isFocused()).toBe(true);
 
 			await Page.spotlightDown();
 
-			expect(await checkbox4.self.isFocused()).toBe(true);
+			expect(await disabledCheckbox.self.isFocused()).toBe(true);
 		});
 
 		it('should get checked', async function () {
 			await Page.spotlightSelect();
 
-			expect(await checkbox1.isChecked).toBe(true);
+			expect(await normalCheckbox.isChecked).toBe(true);
 		});
 
 		it('should get checked (indeterminate)', async function () {
@@ -53,13 +53,13 @@ describe('Checkbox', function () {
 			await Page.spotlightDown();
 			await Page.spotlightSelect();
 
-			expect(await checkbox3.isChecked).toBe(true);
+			expect(await indeterminateCheckbox.isChecked).toBe(true);
 		});
 
 		it('should re-uncheck the item when selected twice', async function () {
 			await Page.spotlightSelect();
 			await Page.spotlightSelect();
-			expect(await checkbox1.isChecked).toBe(false);
+			expect(await normalCheckbox.isChecked).toBe(false);
 		});
 
 		it('should not get checked', async function () {
@@ -68,47 +68,47 @@ describe('Checkbox', function () {
 			await Page.spotlightDown();
 			await Page.spotlightSelect();
 
-			expect(await checkbox4.isChecked).toBe(false);
+			expect(await disabledCheckbox.isChecked).toBe(false);
 		});
 
 		it('should get unchecked', async function () {
 			await Page.spotlightDown();
 			await Page.spotlightSelect();
 
-			expect(await checkbox2.isChecked).toBe(false);
+			expect(await selectedCheckbox.isChecked).toBe(false);
 		});
 	});
 
 	describe('pointer', function () {
 		it('should get checked', async function () {
-			await checkbox1.self.click();
+			await normalCheckbox.self.click();
 
-			expect(await checkbox1.isChecked).toBe(true);
+			expect(await normalCheckbox.isChecked).toBe(true);
 		});
 
 		it('should get checked (indeterminate)', async function () {
-			await checkbox3.self.click();
+			await indeterminateCheckbox.self.click();
 
-			expect(await checkbox3.isChecked).toBe(true);
+			expect(await indeterminateCheckbox.isChecked).toBe(true);
 		});
 
 		it('should re-uncheck the item when selected twice', async function () {
-			await checkbox1.self.click();
-			await checkbox1.self.click();
+			await normalCheckbox.self.click();
+			await normalCheckbox.self.click();
 
-			expect(await checkbox1.isChecked).toBe(false);
+			expect(await normalCheckbox.isChecked).toBe(false);
 		});
 
 		it('should not get checked', async function () {
-			await checkbox4.self.click();
+			await disabledCheckbox.self.click();
 
-			expect(await checkbox4.isChecked).toBe(false);
+			expect(await disabledCheckbox.isChecked).toBe(false);
 		});
 
 		it('should get unchecked', async function () {
-			await checkbox2.self.click();
+			await selectedCheckbox.self.click();
 
-			expect(await checkbox2.isChecked).toBe(false);
+			expect(await selectedCheckbox.isChecked).toBe(false);
 		});
 	});
 });
