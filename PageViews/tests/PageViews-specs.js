@@ -63,7 +63,7 @@ describe('PageViews Specs', () => {
 		'should show previous button and hide next button on the last page when pageIndicatorType is `number`',
 		() => {
 			render(
-				<PageViews index={1}>
+				<PageViews pageIndicatorType="number" index={1}>
 					<Page>I gots contents</Page>
 					<Page>I gots contents</Page>
 				</PageViews>
