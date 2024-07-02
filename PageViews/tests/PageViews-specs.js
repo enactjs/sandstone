@@ -24,7 +24,43 @@ describe('PageViews Specs', () => {
 	);
 
 	test(
+		'should show next button and hide previous button on the first page when pageIndicatorType is `number`',
+		() => {
+			render(
+				<PageViews pageIndicatorType="number" index={0}>
+					<Page>I gots contents</Page>
+					<Page>I gots contents</Page>
+				</PageViews>
+			);
+
+			const nextButton = screen.getByLabelText('Next');
+			const prevButton = screen.queryByLabelText('Previous');
+
+			expect(nextButton).toBeInTheDocument();
+			expect(prevButton).toBeNull();
+		}
+	);
+
+	test(
 		'should show previous button and hide next button on the last page',
+		() => {
+			render(
+				<PageViews index={1}>
+					<Page>I gots contents</Page>
+					<Page>I gots contents</Page>
+				</PageViews>
+			);
+
+			const prevButton = screen.getByLabelText('Previous');
+			const nextButton = screen.queryByLabelText('Next');
+
+			expect(prevButton).toBeInTheDocument();
+			expect(nextButton).toBeNull();
+		}
+	);
+
+	test(
+		'should show previous button and hide next button on the last page when pageIndicatorType is `number`',
 		() => {
 			render(
 				<PageViews index={1}>
