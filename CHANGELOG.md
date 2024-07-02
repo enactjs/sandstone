@@ -6,6 +6,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Icon` supported icon list, adding new icon `create`
+- `sandstone/Icon` supported icon list, adding new wifi5G icons
 - `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
 
 ## [2.7.16] - 2024-05-13
