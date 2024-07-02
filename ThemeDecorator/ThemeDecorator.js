@@ -106,6 +106,8 @@ const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.default
 	 * @public
 	 */
 	ri: {
+		intermediateScreenHandling: 'scale',
+		matchSmallerScreenType: true,
 		screenTypes
 	},
 
