@@ -27,12 +27,12 @@
 		"@enact/sandstone": "../../",
 		"@enact/spotlight": "^4.9.0-beta.1",
 		"@enact/ui": "^4.9.0-beta.1",
-		"@reduxjs/toolkit": "^2.2.2",
-		"ilib": "14.19.0",
+		"@reduxjs/toolkit": "^2.2.6",
+		"ilib": "14.20.0",
 		"prop-types": "^15.8.1",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
-		"react-redux": "^9.1.0",
+		"react-redux": "^9.1.2",
 		"redux": "^5.0.1"
 	}
 }
