@@ -211,11 +211,11 @@ class VirtualGridListPage extends Page {
 		if (way === 'down') {
 			await this.pageDown();
 			await this.delay(1000);
-			expect((await this.scrollThumbPosition()) > initialThumbPosition).to.be.true();
+			expect((await this.scrollThumbPosition()) > initialThumbPosition).toBe(true);
 		} else {
 			await this.pageUp();
 			await this.delay(1000);
-			expect(initialThumbPosition > (await this.scrollThumbPosition())).to.be.true();
+			expect(initialThumbPosition > (await this.scrollThumbPosition())).toBe(true);
 		}
 	}
 

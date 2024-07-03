@@ -235,6 +235,7 @@ export const EditableList = (args) => {
 	const hideItem = useRef();
 	const showItem = useRef();
 	const focusItem = useRef();
+	const blurItem = useRef();
 	const divRef = useRef();
 	const mutableRef = useRef({
 		hideIndex: null
@@ -280,6 +281,12 @@ export const EditableList = (args) => {
 		}
 	}, []);
 
+	const onMouseLeaveItem = useCallback((ev) => {
+		if (blurItem.current) {
+			blurItem.current(ev.target);
+		}
+	}, []);
+
 	const handleComplete = useCallback((ev) => {
 		const {orders, hideIndex} = ev;
 		mutableRef.current.hideIndex = hideIndex;
@@ -322,6 +329,7 @@ export const EditableList = (args) => {
 							removeItemFuncRef: removeItem,
 							hideItemFuncRef: hideItem,
 							showItemFuncRef: showItem,
+							blurItemFuncRef: blurItem,
 							focusItemFuncRef: focusItem,
 							selectItemBy: 'press'
 						}}
@@ -341,7 +349,14 @@ export const EditableList = (args) => {
 						{
 							items.map((item, index) => {
 								return (
-									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.disabled})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+									<div
+										aria-label={`Image ${item.index}`}
+										className={classNames(css.itemWrapper, {[css.hidden]: item.disabled})}
+										data-index={item.index}
+										key={item.index}
+										onMouseLeave={onMouseLeaveItem}
+										style={{order: index + 1}}
+									>
 										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
 											{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
 											{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
