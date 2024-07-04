@@ -363,6 +363,7 @@ const InputPopupBase = kind({
 		children,
 		css,
 		defaultValue,
+		disabled,
 		inputFieldSpotlightId,
 		noBackButton,
 		noSubmitButton,
@@ -396,13 +397,14 @@ const InputPopupBase = kind({
 		}
 		const id = `inputPopup`;
 		const ariaLabelledBy = popupAriaLabel ? null : `${id}_title ${id}_subtitle`;
-		const inputProps = extractInputFieldProps(rest);
+		const inputProps = extractInputFieldProps({disabled, ...rest});
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 		// Set up the back button
 		const backButton = (!noBackButton ? (
 			<Button
 				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 				className={css.back}
+				disabled={disabled}
 				icon="arrowhookleft"
 				iconFlip="auto"
 				onClick={onClose}

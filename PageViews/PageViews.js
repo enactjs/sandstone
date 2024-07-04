@@ -202,7 +202,7 @@ const PageViewsBase = kind({
 			};
 			return (
 				<Cell className={css.navButton} shrink>
-					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} style={navigationButtonStyle} /> : null}
+					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" style={navigationButtonStyle} /> : null}
 				</Cell>
 			);
 		},
@@ -213,7 +213,7 @@ const PageViewsBase = kind({
 			};
 			return (
 				<Cell className={css.navButton} shrink>
-					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} style={navigationButtonStyle} /> : null}
+					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" style={navigationButtonStyle} /> : null}
 				</Cell>
 			);
 		},
@@ -253,11 +253,11 @@ const PageViewsBase = kind({
 						</Row> :
 						<Row className={css.steps}>
 							<Cell className={css.navButton} shrink>
-								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowsmallleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
+								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>
 							<Cell className={css.pageNumber} shrink>{index + 1}</Cell><Cell className={css.separator} shrink>/</Cell><Cell className={css.pageNumber} shrink>{totalIndex}</Cell>
 							<Cell className={css.navButton} shrink>
-								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowsmallright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
+								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
 							</Cell>
 						</Row>}
 				</>
