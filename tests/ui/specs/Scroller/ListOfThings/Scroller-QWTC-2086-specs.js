@@ -6,7 +6,7 @@ describe('Scroller List Of Things', function () {
 		await ScrollerPage.open('ListOfThings');
 	});
 
-	it.skip('should spotlightDisabled disables with focusableScrollbar [QWTC-2086]', async function () {
+	it('should spotlightDisabled disables with focusableScrollbar [QWTC-2086]', async function () {
 		// Step 3-1: Knobs > Scroller > focusableScrollbar > true
 		// In this view, It is default setting that scrollbar is visible.
 		await ScrollerPage.dropdownFocusableScrollbar.moveTo();
@@ -45,6 +45,7 @@ describe('Scroller List Of Things', function () {
 			await ScrollerPage.pageDown();
 			await ScrollerPage.delay(700);
 		}
+		await ScrollerPage.spotlightUp();
 		await expectFocusedItem(99);
 		// Step 6-3: 5-way Down.
 		await ScrollerPage.spotlightDown();
@@ -54,13 +55,10 @@ describe('Scroller List Of Things', function () {
 		// Step 7-1: Knobs > Scroller > spotlightDisabled > check
 		await ScrollerPage.buttonSpotlightDisabled.moveTo();
 		await ScrollerPage.spotlightSelect();
-		// Step 7-2: 5-way Spot Item 99.
-		await $('#item99').moveTo();
-		// Step 7-3: 5-way Down.
-		await ScrollerPage.spotlightDown();
-		// Step 7-2 Verify: Item 99 cannot be spotted.
-		await expectNoFocusedItem();
-		// Step 7-3 Verify: horizontalScrollbar Scroll Thumb cannot be spotted.
-		expect(await ScrollerPage.horizontalScrollThumb.isFocused()).toBe(false);
+		// In UI test view, it is not able to verify that 5-way spot item99 visually.
+		// So verify 7-2 and 7-3 are replaced with below code that spotlight is not on any item in list when press 5-way up on bottom button.
+		await ScrollerPage.buttonBottom.moveTo();
+		await ScrollerPage.spotlightUp();
+		expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
 	});
 });
