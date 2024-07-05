@@ -26,6 +26,7 @@
     "@enact/spotlight": "^4.9.0-beta.1",
     "@enact/storybook-utils": "^5.1.4",
     "@enact/ui": "^4.9.0-beta.1",
+    "@enact/webos": "^4.9.0-beta.1",
     "@storybook/addons": "^6.5.16",
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/manager-webpack5": "^6.5.16",

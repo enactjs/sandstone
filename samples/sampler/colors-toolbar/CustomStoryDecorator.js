@@ -1,10 +1,9 @@
 // this component has been added as an alternative of built-in HTML color picker which does not work in webos environment
-import LS2Request from '@enact/webos/LS2Request';
-import {useCallback, useContext} from 'react';
-
 import Button from '@enact/sandstone/Button';
 import {ColorPicker as SandstoneColorPicker} from '@enact/sandstone/ColorPicker';
 import Scroller from '@enact/sandstone/Scroller';
+import LS2Request from '@enact/webos/LS2Request';
+import {useCallback, useContext} from 'react';
 
 import {AppContext} from './constants';
 import {generateStylesheet} from '../utils/generateStylesheet';
@@ -20,11 +19,10 @@ export const CustomStoryDecorator = () => {
 	const onColorChange = useCallback((color, newColor) => {
 		// a copy of the context object is created
 		const newContext = Object.assign({}, context);
-		// update the color value on the newly created object with what gets received from `event` (handleBackgroundColor)
+		// update the color value on the newly created object with what gets received from `event` (handleComponentBgColor, handleFocusBgColor...)
 		newContext[color] = newColor;
 		// generate the new stylesheet based on the updated color
 		newContext.colors = generateStylesheet(
-			newContext.backgroundColor,
 			newContext.componentBackgroundColor,
 			newContext.focusBackgroundColor,
 			newContext.popupBackgroundColor,
@@ -69,7 +67,6 @@ export const CustomStoryDecorator = () => {
 		const newContext = Object.assign({}, context);
 		// generate the new stylesheet with default sandstone colors
 		newContext.colors = generateStylesheet(
-			newContext.backgroundColor,
 			newContext.componentBackgroundColor,
 			newContext.focusBackgroundColor,
 			newContext.popupBackgroundColor,

@@ -2,8 +2,18 @@
 
 @import '~@enact/sandstone/styles/mixins.less';
 
+// CSS variables needed to override generated custom colors
+// Note: These variables need to be updated when corresponding value from sandstone/styles/colors.less is changed
+@sand-text-color: #e6e6e6;
+@sand-focus-bg-color-rgb: 230, 230, 230;
+@sand-overlay-bg-color-rgb: 87, 94, 102;
+@sand-text-color-rgb: 230, 230, 230;
+@sand-progress-color-rgb: 230, 230, 230;
+@sand-component-bg-color: #7D848C;
+@sand-component-text-color-rgb: 230, 230, 230;
+
 .colorPickersBlock {
-  	width: 30%;
+	width: 30%;
 	height: 65%;
 	position: absolute;
 	right: 51px;
@@ -14,26 +24,26 @@
 }
 
 .colorPicker {
-	color: #e6e6e6;
+	color: @sand-text-color;
 
 	.focus({
-		--sand-focus-bg-color-rgb: 230, 230, 230;
+		--sand-focus-bg-color-rgb: @sand-focus-bg-color-rgb;
 	})
 }
 
 .colorPopup {
-	--sand-overlay-bg-color-rgb: 87, 94, 102;
-	--sand-text-color-rgb: 230, 230, 230;
+	--sand-overlay-bg-color-rgb: @sand-overlay-bg-color-rgb;
+	--sand-text-color-rgb: @sand-text-color-rgb;
 }
 
 .colorPickerSliders {
 	.colorSlider {
-		--sand-focus-bg-color-rgb: 230, 230, 230;
+		--sand-focus-bg-color-rgb: @sand-focus-bg-color-rgb;
 	}
 }
 
 .scrollerColors {
-	--sand-progress-color-rgb: 230, 230, 230;
+	--sand-progress-color-rgb: @sand-progress-color-rgb;
 }
 
 .resetButtonBlock {
@@ -42,10 +52,10 @@
 }
 
 .resetButton {
-	--sand-component-bg-color: #7D848C;
-	--sand-component-text-color-rgb: 230, 230, 230;
+	--sand-component-bg-color: @sand-component-bg-color;
+	--sand-component-text-color-rgb: @sand-component-text-color-rgb;
 
 	.focus({
-		--sand-focus-bg-color-rgb: 230, 230, 230;
+		--sand-focus-bg-color-rgb: @sand-focus-bg-color-rgb;
 	})
 }
