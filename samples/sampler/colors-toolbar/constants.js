@@ -3,12 +3,12 @@ import {createContext} from 'react';
 // Object containing the default CSS values of Sandstone used for generating custom theme
 // NOTE: These values need to be updated when corresponding value from sandstone/styles/colors.less is changed
 export const defaultSandstoneColors = {
-	componentBackgroundColor: '#7D848C', // equivalent of @sand-component-bg-color - styles/colors.less
-	focusBackgroundColor: '#E6E6E6', // equivalent of @sand-focus-bg-color-rgb - styles/colors.less
-	popupBackgroundColor: '#575E66', // equivalent of @sand-overlay-bg-color-rgb - styles/colors.less
-	subtitleTextColor: '#ABAEB3', // equivalent of @sand-text-sub-color - styles/colors.less
-	textColor: '#E6E6E6' // equivalent of @sand-text-color-rgb - styles/colors.less
-}
+	componentBackgroundColor: '#7d848c', // equivalent of @sand-component-bg-color - styles/colors.less
+	focusBackgroundColor: '#e6e6e6', // equivalent of @sand-focus-bg-color-rgb - styles/colors.less
+	popupBackgroundColor: '#575e66', // equivalent of @sand-overlay-bg-color-rgb - styles/colors.less
+	subtitleTextColor: '#abaeb3', // equivalent of @sand-text-sub-color - styles/colors.less
+	textColor: '#e6e6e6' // equivalent of @sand-text-color-rgb - styles/colors.less
+};
 
 export const customColorsContext = {
 	activeTheme: 'defaultTheme',
@@ -16,7 +16,7 @@ export const customColorsContext = {
 	focusBackgroundColor: defaultSandstoneColors.focusBackgroundColor,
 	popupBackgroundColor: defaultSandstoneColors.popupBackgroundColor,
 	subtitleTextColor: defaultSandstoneColors.subtitleTextColor,
-	textColor: defaultSandstoneColors.textColor,
+	textColor: defaultSandstoneColors.textColor
 };
 
 export const AppContext = createContext(null);
