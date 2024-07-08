@@ -13,7 +13,7 @@ import css from './ThemeEnvironment.module.less';
 import LS2Request from '@enact/webos/LS2Request';
 import {platform} from '@enact/webos/platform';
 
-import {AppContext, customColorsContext} from '../../colors-toolbar/constants';
+import {AppContext, customColorsContext, defaultSandstoneColors} from '../../colors-toolbar/constants';
 import {generateStylesheet} from '../../utils/generateStylesheet';
 
 const reloadPage = () => {
@@ -73,28 +73,9 @@ const StorybookDecorator = (story, config = {}) => {
 		classes.debug = true;
 	}
 
-	// beginning of custom theme code
+	// ---> beginning of custom theme code
 	const request = new LS2Request();
 	const [context, setContext] = useState(customColorsContext);
-
-	const defaultKeyThemeValue = JSON.stringify({
-		"version": "0.1",
-		"activeTheme": "defaultTheme",
-		"backgroundColor": "#000000",
-		"componentBackgroundColor": "#7D848C",
-		"focusBackgroundColor": "#E6E6E6",
-		"popupBackgroundColor": "#575E66",
-		"subtitleTextColor": "#ABAEB3",
-		"textColor": "#E6E6E6",
-		colors: generateStylesheet(
-			"#000000",
-			"#7D848C",
-			"#E6E6E6",
-			"#575E66",
-			"#ABAEB3",
-			"#E6E6E6"
-		)
-	});
 
 	useEffect(() => {
 		if (platform.tv) {
@@ -105,24 +86,12 @@ const StorybookDecorator = (story, config = {}) => {
 					category: 'customUi',
 					keys: ['theme']
 				},
+				subscribe: true,
 				onSuccess: (res) => {
+					// update context with received data from `theme` key
 					if (res.settings.theme !== '' && res) {
 						const parsedKeyData = JSON.parse(res.settings.theme);
 						setContext({...parsedKeyData});
-						// if `theme` key is an empty string, update the context with a default value, then make a SET call to service settings and set
-						// `theme` key  with a default value
-					} else if (res.settings.theme === '') {
-						setContext(JSON.parse(defaultKeyThemeValue));
-						request.send({
-							service: 'luna://com.webos.service.settings/',
-							method: 'setSystemSettings',
-							parameters: {
-								category: 'customUi',
-								settings: {
-									theme: defaultKeyThemeValue
-								}
-							}
-						});
 					}
 				}
 			});
@@ -130,34 +99,34 @@ const StorybookDecorator = (story, config = {}) => {
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const [localColors, setLocalColors] = useState({
-		componentBackgroundColor: '#7D848C',
-		focusBackgroundColor: '#E6E6E6',
-		popupBackgroundColor: '#575E66',
-		textColor: '#E6E6E6',
-		subtitleTextColor: '#ABAEB3'
+		componentBackgroundColor: defaultSandstoneColors.componentBackgroundColor,
+		focusBackgroundColor: defaultSandstoneColors.focusBackgroundColor,
+		popupBackgroundColor: defaultSandstoneColors.popupBackgroundColor,
+		subtitleTextColor: defaultSandstoneColors.subtitleTextColor,
+		textColor: defaultSandstoneColors.textColor
 	});
 
 	const {
 		componentBackgroundColor,
 		focusBackgroundColor,
 		popupBackgroundColor,
-		textColor,
-		subtitleTextColor
+		subtitleTextColor,
+		textColor
 	} = platform.tv ? context : localColors;
 
 	// merge `generatedColors` with `background` image(global type) into the style object
-	const generatedColors = generateStylesheet(componentBackgroundColor, focusBackgroundColor, popupBackgroundColor, textColor, subtitleTextColor);
+	const generatedColors = generateStylesheet(componentBackgroundColor, focusBackgroundColor, popupBackgroundColor, subtitleTextColor, textColor);
 	const background = {'--sand-env-background': globals.background === 'default' ? '' : globals.background};
 	const mergedStyles = {...generatedColors, ...background};
 
 	// update custom colors when a new color is picked from color picker
 	useEffect(() => {
 		setLocalColors({
-			componentBackgroundColor: globals.componentBackgroundColor || '#7D848C',
-			focusBackgroundColor: globals.focusBackgroundColor || '#E6E6E6',
-			popupBackgroundColor: globals.popupBackgroundColor || '#575E66',
-			textColor: globals.textColor || '#E6E6E6',
-			subtitleTextColor: globals.subtitleTextColor || '#ABAEB3'
+			componentBackgroundColor: globals.componentBackgroundColor || defaultSandstoneColors.componentBackgroundColor,
+			focusBackgroundColor: globals.focusBackgroundColor || defaultSandstoneColors.focusBackgroundColor,
+			popupBackgroundColor: globals.popupBackgroundColor || defaultSandstoneColors.popupBackgroundColor,
+			subtitleTextColor: globals.subtitleTextColor || defaultSandstoneColors.subtitleTextColor,
+			textColor: globals.textColor || defaultSandstoneColors.textColor
 		});
 	}, [globals]);
 
@@ -171,8 +140,7 @@ const StorybookDecorator = (story, config = {}) => {
 			}
 		}
 	}, [generatedColors]);
-
-	// end of custom theme code
+	// <--- end of custom theme code
 
 	return (
 		<AppContext.Provider value={{context, setContext}}>
