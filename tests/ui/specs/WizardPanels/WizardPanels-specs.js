@@ -187,7 +187,7 @@ describe('WizardPanels', function () {
 			expect(actual).toBe(expected);
 		});
 
-		it('should focus buttons when navigating with 5-way - [QWZ-5190]', async function () {
+		it('should focus buttons when navigating with 5-way - [QWTC-2012]', async function () {
 			// Step 3: 5-way Spot and 5-way Select the Right Paging Control (>)
 			await Page.spotlightRight(); // spot Cancel button
 			await Page.spotlightRight(); // spot Next View button

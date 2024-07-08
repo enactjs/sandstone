@@ -6,7 +6,7 @@ describe('Scroller', function () {
 			await ScrollerPage.open('WithFocusOutsideContainer');
 		});
 
-		it('should spotlight an outside of container element with \'native\' scrollMode [QWT-2652]', async function () {
+		it('should spotlight an outside of container element with native scrollMode [QWTC-1998]', async function () {
 			// Step 3: Spot one of the buttons (items) and 5-way left to 'focus to me' button
 			await ScrollerPage.spotlightRight();
 			await ScrollerPage.spotlightLeft();
@@ -21,7 +21,7 @@ describe('Scroller', function () {
 			await ScrollerPage.open('WithFocusOutsideContainer', '?locale=ar-SA');
 		});
 
-		it('should spotlight an outside of container element with \'native\' scrollMode', async function () {
+		it('should spotlight an outside of container element with native scrollMode', async function () {
 			// Spot one of the buttons (items) and 5-way right to 'focus to me' button
 			await ScrollerPage.spotlightLeft();
 			await ScrollerPage.spotlightRight();
