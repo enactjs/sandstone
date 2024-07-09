@@ -57,10 +57,10 @@
     "ilib": "14.19.0"
   },
   "peerDependencies": {
-    "ilib": "14.19.0 || 14.19.0-webos1"
+    "ilib": "^14.19.0 || ^14.19.0-webos1"
   },
   "devDependencies": {
-    "@enact/docs-utils": "^0.4.8",
+    "@enact/docs-utils": "^0.4.9",
     "@enact/ui-test-utils": "^1.0.8",
     "eslint-config-enact-proxy": "^1.0.7",
     "ilib": "14.19.0"
