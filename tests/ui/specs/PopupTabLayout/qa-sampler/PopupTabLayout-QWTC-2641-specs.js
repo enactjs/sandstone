@@ -9,7 +9,7 @@ describe('qa sampler', function () {
 	});
 
 	describe('PopupTabLayout', function () {
-		it('should navigate with left and right key [QWT-2008]', async function () {
+		it('should navigate with left and right key [QWTC-2641]', async function () {
 			// Step 3: Hover on Color Adjust inside Display Settings and 5-way right
 			await $('#colorAdjust').moveTo();
 			await Page.spotlightRight();
