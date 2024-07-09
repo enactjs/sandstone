@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/Input.InputPopupBase` prop `value`
+
 ### Added
 
 - `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
