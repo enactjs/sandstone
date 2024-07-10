@@ -1,6 +1,6 @@
 const Page = require('./FixedPopupPanelsWithPopupOpenPage');
 
-describe('FixedPopupPanels', function () {
+describe('FixedPopupPanelsWithPopupOpen', function () {
 	const Interface = Page.fixedPopupPanels;
 
 	beforeEach(async function () {
@@ -8,7 +8,6 @@ describe('FixedPopupPanels', function () {
 	});
 
 	describe('5-way', function () {
-
 		it('should not set focus in the popup panel when the popup is closed', async function () {
 			expect(await Interface.closeButton.isFocused()).toBe(true);
 
