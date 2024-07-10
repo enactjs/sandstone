@@ -91,7 +91,7 @@ const StorybookDecorator = (story, config = {}) => {
 						document.body?.appendChild(sheet);
 					}
 				}
-			})
+			});
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 	// <--- end of custom theme code
