@@ -4,7 +4,10 @@ import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import LS2Request from '@enact/webos/LS2Request';
+import {platform} from '@enact/webos/platform';
 import PropTypes from 'prop-types';
+import {useEffect} from 'react';
 
 import css from './ThemeEnvironment.module.less';
 
@@ -64,6 +67,34 @@ const StorybookDecorator = (story, config = {}) => {
 	if (Object.keys(classes).length > 0) {
 		classes.debug = true;
 	}
+
+	// ---> beginning of custom theme code
+	const request = new LS2Request();
+
+	useEffect(() => {
+		if (platform.tv) {
+			request.send({
+				service: 'luna://com.webos.service.settings/',
+				method: 'getSystemSettings',
+				parameters: {
+					category: 'customUi',
+					keys: ['theme']
+				},
+				subscribe: true,
+				onSuccess: (res) => {
+					// Create a new style sheet and append fetched colors on it
+					if (typeof document !== 'undefined') {
+						const sheet = document.createElement('style');
+						sheet.id = 'custom-skin';
+						sheet.innerHTML = JSON.parse(res.settings.theme).colors;
+						document.getElementById('custom-skin')?.remove();
+						document.body?.appendChild(sheet);
+					}
+				}
+			})
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	// <--- end of custom theme code
 
 	return (
 		<Theme
