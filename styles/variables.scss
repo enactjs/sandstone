@@ -34,6 +34,8 @@ $sand-spotlight-focus-shadow-height: 36px;
 
 // Font Sizes
 // ---------------------------------------
+$sand-base-font-size:               60px;
+$sand-body-font-size:               $sand-base-font-size;
 $sand-button-font-size-large:       96px;
 $sand-button-font-size:             78px;
 $sand-button-small-font-size-large: 72px;
@@ -64,6 +66,16 @@ $sand-non-latin-font-weight-bold: 700;
 $sand-spottable-font-weight: 600;
 $sand-common-line-height: 1.3em;
 $sand-tallglyph-line-height: 1.5em;
+
+// Body
+$sand-body-font-family: $sand-font-family;
+$sand-body-font-style: normal;
+$sand-body-font-weight: normal;
+$sand-body-line-height: $sand-body-font-size + 6;
+$sand-non-latin-body-font-weight: $sand-non-latin-font-weight-light;
+$sand-non-latin-body-font-style: $sand-body-font-style;
+$sand-tallglyph-body-line-height: 1.7em;
+$sand-non-latin-body-line-height: $sand-tallglyph-body-line-height; // "non-latin" variable retained for legacy code safety.
 
 // Button
 $sand-button-font-family: $sand-alt-font-family;
