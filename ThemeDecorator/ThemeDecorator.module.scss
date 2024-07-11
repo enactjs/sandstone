@@ -1,0 +1,71 @@
+// Sandstone Base App styles
+//
+
+// Core Rules
+@use "@enact/ui/styles/core";
+
+// Sandstone Rules
+@use "../styles/color-mixins";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+// Sandstone Internal Rules
+@import "../styles/internal/fonts";
+
+@include core.coreMixin; // Core style was included as mixin because @import in SCSS will be deprecated
+
+@include skin.applySkins(true) {
+	color: colors.$sand-text-color;
+
+	::selection {
+		color: colors.$sand-selection-color;
+		background-color: colors.$sand-selected-bg-color;
+	}
+
+	@include mixins.disabled {
+		@include color-mixins.sand-disabled-colors;
+
+		cursor: default;
+
+		@include mixins.disabled(parent) {
+			opacity: 1;
+		}
+	}
+}
+
+.root {
+	@include mixins.sand-text-base(variables.$sand-base-font-size, self);
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: normal;
+	// Prevent Chrome from highlighting tapped elements
+	-webkit-tap-highlight-color: transparent;
+
+	&.bg,
+	& > .bg {
+		padding: variables.$sand-app-keepout;
+	}
+
+	@include mixins.enact-locale-rtl(self) {
+		direction: rtl;
+	}
+
+	:focus {
+		// Prevent Chrome's default focus treatment
+		outline: none;
+	}
+}
+
+// Skin colors
+// This is outside the `.root` class above because high-contrast is applied to root
+// as well as skins. The high-contrast mixin (in skin.less) refers to high-contrast
+// and the skins node as descent, rather than on the same node. This allows the
+// styling to be applied without costly duplication of all rules in the skin mixin.
+@include skin.applySkins(true) {
+	&.bg,
+	> .bg {
+		background-color: colors.$sand-bg-color;
+	}
+}
