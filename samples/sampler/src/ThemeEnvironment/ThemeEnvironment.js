@@ -68,12 +68,10 @@ const StorybookDecorator = (story, config = {}) => {
 		classes.debug = true;
 	}
 
-	// ---> beginning of custom theme code
-	const request = new LS2Request();
-
+	/* Custom theme support */
 	useEffect(() => {
 		if (platform.tv) {
-			request.send({
+			new LS2Request().send({
 				service: 'luna://com.webos.service.settings/',
 				method: 'getSystemSettings',
 				parameters: {
@@ -90,11 +88,11 @@ const StorybookDecorator = (story, config = {}) => {
 						document.getElementById('custom-skin')?.remove();
 						document.body?.appendChild(sheet);
 					}
-				}
+				},
+				onFailure: () => {} // prevent warning on unsupported platforms
 			});
 		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
-	// <--- end of custom theme code
+	}, []);
 
 	return (
 		<Theme
