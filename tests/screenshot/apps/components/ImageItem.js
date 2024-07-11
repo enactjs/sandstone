@@ -75,7 +75,10 @@ const ImageItemTests = [
 		focus: true
 	}, [
 		<ImageItem src={img} style={{height: ri.scale(360), width: ri.scale(480)}} orientation="vertical" />
-	])
+	]),
+
+	// RTL
+	...withConfig({locale: 'ar-SA'}, defaultImageItemTests)
 ];
 
 export default ImageItemTests;
