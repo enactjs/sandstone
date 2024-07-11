@@ -68,7 +68,7 @@ const StorybookDecorator = (story, config = {}) => {
 		classes.debug = true;
 	}
 
-	/* Custom theme support */
+	/* Custom theme support for the webOS device only */
 	useEffect(() => {
 		if (platform.tv) {
 			new LS2Request().send({
