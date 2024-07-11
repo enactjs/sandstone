@@ -7,6 +7,28 @@ import {themes} from '@storybook/theming';
 
 import ThemeEnvironment from '../src/ThemeEnvironment';
 
+// custom decorator imports
+import {addDecorator} from '@storybook/react';
+import {platform} from '@enact/webos/platform';
+
+import {CustomStoryDecorator} from '../colors-toolbar/CustomStoryDecorator';
+
+// if running in webos environment, render a list of color pickers in every story
+export const GlobalDecorator = (Story) => {
+	if (platform.tv) {
+		return (
+			<div style={{padding: '21px'}}>
+				<CustomStoryDecorator />
+				<Story />
+			</div>
+		)
+	} else {
+		return <Story />;
+	}
+};
+
+addDecorator(GlobalDecorator);
+
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
 	'local': '',
@@ -96,7 +118,13 @@ export const globalTypes = {
 	'debug aria': getBooleanType('debug aria'),
 	'debug layout': getBooleanType('debug layout'),
 	'debug spotlight': getBooleanType('debug spotlight'),
-	'debug sprites': getBooleanType('debug sprites')
+	'debug sprites': getBooleanType('debug sprites'),
+	// custom theme globalTypes
+	'componentBackgroundColor': 'string',
+	'focusBackgroundColor': 'string',
+	'popupBackgroundColor': 'string',
+	'subtitleTextColor': 'string',
+	'textColor': 'string'
 };
 
 export const decorators = [ThemeEnvironment];
