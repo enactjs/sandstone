@@ -3,7 +3,7 @@ import ri from '@enact/ui/resolution';
 import {useCallback, useContext} from 'react';
 import PropTypes from 'prop-types';
 
-import ImageItemComponent from '../ImageItem/ImageItemComponent';
+import ImageListItem from '../ImageListItem';
 import {RecordContext} from '../../context/RecordContext';
 
 import css from './ImageList.module.less';
@@ -13,7 +13,7 @@ const ImageList = (props) => {
 
 	const calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
-	const renderItem = useCallback(({...renderRest}) => (<ImageItemComponent {...renderRest} />), []);
+	const renderItem = useCallback(({...renderRest}) => (<ImageListItem {...renderRest} />), []);
 
 	return (
 		<VirtualGridList

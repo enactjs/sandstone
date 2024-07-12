@@ -1,9 +1,9 @@
-import {useContext} from 'react';
 import ImageItem from '@enact/sandstone/ImageItem';
+import {useContext} from 'react';
 
 import {RecordContext, RecordDispatchContext, selectItem as selectItemAction} from '../../context/RecordContext';
 
-const ImageItemComponent = (props) => {
+const ImageListItem = (props) => {
 	const {['data-index']: dataIndex} = props;
 
 	const {data, selectedItems} = useContext(RecordContext);
@@ -24,4 +24,4 @@ const ImageItemComponent = (props) => {
 	);
 };
 
-export default ImageItemComponent;
+export default ImageListItem;
