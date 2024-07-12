@@ -96,7 +96,7 @@ const PanelHeader = (props) => {
 					{!showOverlay && <CheckboxItem onClick={onChangeDirection}>Horizontal</CheckboxItem>}
 				</Cell>
 				<Cell>
-					{/* chnage scroll mode */}
+					{/* change scroll mode */}
 					{!showOverlay && <ScrollModeSwitch defaultSelected={nativeScroll} onToggle={onChangeScrollMode} />}
 				</Cell>
 				<Cell>
