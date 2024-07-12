@@ -43,6 +43,17 @@ html {
 // Fix for margin added around zoom-area
 body {
 	margin: 0;
+	--sand-color-base: #2a0000;
+	--sand-color-point: #ff5050;
+	--sand-bg-color: var(--sand-color-base, #2a0000);
+	--sand-text-color-rgb: 255, 255, 255;
+	--sand-component-bg-color: rgb(from var(--sand-color-point, #ffffff) r g b / 0.5);
+	--sand-focus-bg-color-rgb: 255, 255, 255;
+	--sand-component-focus-text-color-rgb: 0, 0, 0;
+	--sand-selected-bg-color: rgba(255, 255, 255, 0.15);
+	--sand-overlay-bg-color-rgb: 255, 255, 255;
+	--sand-overlay-bg-color-opacity: 30%; // new variable
+	--sand-disabled-opacity: 0.3; // new variable
 }
 
 // Fix or scrollable tabs area
