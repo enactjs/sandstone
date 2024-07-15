@@ -2,7 +2,7 @@
 //
 
 // Core Rules
-@use "../../enact/packages/ui/styles/core";
+@use "@enact/ui/styles/core";
 
 // Sandstone Rules
 @use "../styles/color-mixins";
@@ -17,45 +17,45 @@
 @include core.coreMixin; // Core style was included as mixin because @import in SCSS will be deprecated
 
 @include skin.applySkins(true) {
-  color: colors.$sand-text-color;
+	color: colors.$sand-text-color;
 
-  ::selection {
-    color: colors.$sand-selection-color;
-    background-color: colors.$sand-selection-bg-color;
-  }
+	::selection {
+		color: colors.$sand-selection-color;
+		background-color: colors.$sand-selection-bg-color;
+	}
 
-  @include mixins.disabled {
-    @include color-mixins.sand-disabled-colors;
+	@include mixins.disabled {
+		@include color-mixins.sand-disabled-colors;
 
-    cursor: default;
+		cursor: default;
 
-    @include mixins.disabled(parent) {
-      opacity: 1;
-    }
-  }
+		@include mixins.disabled(parent) {
+			opacity: 1;
+		}
+	}
 }
 
 .root {
-  @include mixins.sand-text-base(variables.$sand-base-font-size, self);
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  // Prevent Chrome from highlighting tapped elements
-  -webkit-tap-highlight-color: transparent;
+	@include mixins.sand-text-base(variables.$sand-base-font-size, self);
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: normal;
+	// Prevent Chrome from highlighting tapped elements
+	-webkit-tap-highlight-color: transparent;
 
-  &.bg,
-  & > .bg {
-    padding: variables.$sand-app-keepout;
-  }
+	&.bg,
+	& > .bg {
+		padding: variables.$sand-app-keepout;
+	}
 
-  @include mixins.enact-locale-rtl(self) {
-    direction: rtl;
-  }
+	@include mixins.enact-locale-rtl(self) {
+		direction: rtl;
+	}
 
-  :focus {
-    // Prevent Chrome's default focus treatment
-    outline: none;
-  }
+	:focus {
+		// Prevent Chrome's default focus treatment
+		outline: none;
+	}
 }
 
 // Skin colors
@@ -64,8 +64,8 @@
 // and the skins node as descent, rather than on the same node. This allows the
 // styling to be applied without costly duplication of all rules in the skin mixin.
 @include skin.applySkins(true) {
-  &.bg,
-  > .bg {
-    background-color: colors.$sand-bg-color;
-  }
+	&.bg,
+	> .bg {
+		background-color: colors.$sand-bg-color;
+	}
 }

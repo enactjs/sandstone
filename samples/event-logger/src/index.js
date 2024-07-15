@@ -1,15 +1,13 @@
 /* global ENACT_PACK_ISOMORPHIC */
 import {createRoot, hydrateRoot} from 'react-dom/client';
-import {Provider} from 'react-redux';
 
 import App from './App';
-import configureAppStore from './store';
+import {EventLoggerProvider} from './context/EventLoggerContext';
 
-const store = configureAppStore();
 const appElement = (
-	<Provider store={store}>
+	<EventLoggerProvider>
 		<App />
-	</Provider>
+	</EventLoggerProvider>
 );
 
 if (typeof window !== 'undefined') {

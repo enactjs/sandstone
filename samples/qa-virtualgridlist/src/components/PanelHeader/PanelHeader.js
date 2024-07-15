@@ -1,19 +1,18 @@
-import kind from '@enact/core/kind';
+/* eslint-disable react/jsx-no-bind */
+
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {Header} from '@enact/sandstone/Panels';
 import {InputField as Input} from '@enact/sandstone/Input';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useContext} from 'react';
 
 import LocaleSwitch from '../LocaleSwitch';
 import ScrollModeSwitch from '../ScrollModeSwitch';
 
-import createRecord from '../../utils';
-
 import {
-	addItem as addAction,
+	addItem as addItemAction,
 	changeDataSize as changeDataSizeAction,
 	changeMinHeight as changeMinHeightAction,
 	changeMinWidth as changeMinWidthAction,
@@ -22,202 +21,116 @@ import {
 	deleteSelectedItem as deleteSelectedAction,
 	selectAll as selectAllAction,
 	selectionEnable as selectionEnableAction,
-	setData as setAction
-} from '../../store';
+	setData as setDataAction,
+	RecordContext,
+	RecordDispatchContext
+} from '../../context/RecordContext';
+import createRecord from '../../utils';
 
-const PanelHeader = kind({
-	name: 'PanelHeader',
+const PanelHeader = (props) => {
+	const {nativeScroll, onChangeDirection, onChangeScrollMode, ...rest} = props;
 
-	propTypes: {
-		showOverlay: PropTypes.bool.isRequired,
-		addItem: PropTypes.func,
-		changeDataSize: PropTypes.func,
-		changeMinHeight: PropTypes.func,
-		changeMinWidth: PropTypes.func,
-		changeSpacing: PropTypes.func,
-		data: PropTypes.any,
-		dataSize: PropTypes.number,
-		deleteItem: PropTypes.func,
-		deleteSelectedItem: PropTypes.func,
-		nativeScroll: PropTypes.bool,
-		onChangeDirection: PropTypes.func,
-		onChangeScrollMode: PropTypes.func,
-		selectAll: PropTypes.func,
-		selectionEnable: PropTypes.func,
-		setData: PropTypes.func
-	},
+	const dispatch = useContext(RecordDispatchContext);
+	const {dataSize, minHeight, minWidth, showOverlay, spacing} = useContext(RecordContext);
 
-	handlers: {
-		addMockItem: (ev, {addItem, dataSize: recordIndex, showOverlay}) => {
-			addItem(createRecord({recordIndex, showOverlay}));
-		},
-		changeMinHeight: (ev, {changeMinHeight}) => {
-			changeMinHeight(ev.value);
-		},
-		changeMinWidth: (ev, {changeMinWidth}) => {
-			changeMinWidth(ev.value);
-		},
-		changeSpacing: (ev, {changeSpacing}) => {
-			changeSpacing(ev.value);
-		},
-		deleteItem: (ev, {deleteItem}) => {
-			deleteItem();
-		},
-		deleteSelectedItem: (ev, {deleteSelectedItem}) => {
-			deleteSelectedItem();
-		},
-		selectAll: (ev, {selectAll}) => {
-			selectAll();
-		},
-		setData: (ev, {changeDataSize, dataSize, showOverlay, setData}) => {
-			changeDataSize(ev.value);
-			for (let i = 0; i <= ev.value; i++) {
-				setData(ev.value, createRecord({recordIndex: dataSize + i, showOverlay}));
-			}
-		},
-		showSelectionOverlayHandler: (ev, {selectionEnable}) => {
-			selectionEnable();
+	const tooltipText = showOverlay ? 'Previous' : 'Selection';
+	const inputWidth = {width: '5em'};
+
+	const addMockItem = () => {
+		dispatch(addItemAction(createRecord({recordIndex: dataSize, showOverlay})));
+	};
+	const changeMinHeight = (ev) => {
+		dispatch(changeMinHeightAction(ev.value));
+	};
+	const changeMinWidth = (ev) => {
+		dispatch(changeMinWidthAction(ev.value));
+	};
+	const changeSpacing = (ev) => {
+		dispatch(changeSpacingAction(ev.value));
+	};
+	const deleteItem = () => {
+		dispatch(deleteAction());
+	};
+	const deleteSelectedItem = () => {
+		dispatch(deleteSelectedAction());
+	};
+	const selectAll = () => {
+		dispatch(selectAllAction());
+	};
+	const setData = (ev) => {
+		dispatch(changeDataSizeAction(ev.value));
+
+		for (let i = 0; i <= ev.value; i++) {
+			dispatch(setDataAction(createRecord({recordIndex: Number(dataSize) + i, showOverlay}), ev.value));
 		}
-	},
+	};
+	const showSelectionOverlayHandler = () => {
+		dispatch(selectionEnableAction());
+	};
 
-	computed: {
-		addButton: ({addMockItem, showOverlay}) => {
-			if (!showOverlay) {
-				return (<Button icon="plus" onClick={addMockItem} size="small" tooltipText="Add Item" />);
-			}
-		},
-		changeDirectionButton: ({onChangeDirection, showOverlay}) => {
-			if (!showOverlay) {
-				return (<CheckboxItem onClick={onChangeDirection}>Horizontal</CheckboxItem>);
-			}
-		},
-		changeListProps: ({changeMinHeight, changeMinWidth, changeSpacing, data, setData, showOverlay}) => {
-			if (!showOverlay) {
-				const inputWidth = {width: '5em'};
-
-				return (
-					<Row style={{direction: 'ltr'}}>
-						<Cell>
-							<label>dataSize:</label>
-							<Input size="small" onChange={setData} style={inputWidth} type="number" value={data.dataSize} />
-						</Cell>
-						<Cell>
-							<label>minHeightSize:</label>
-							<Input size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={data.minHeight} />
-						</Cell>
-						<Cell>
-							<label>minWidthSize:</label>
-							<Input size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={data.minWidth} />
-						</Cell>
-						<Cell>
-							<label>spacingSize:</label>
-							<Input size="small" onChange={changeSpacing} style={inputWidth} type="number" value={data.spacing} />
-						</Cell>
-					</Row>
-				);
-			}
-		},
-		changeScrollMode: ({nativeScroll, onChangeScrollMode, showOverlay}) => {
-			if (!showOverlay) {
-				return (<ScrollModeSwitch defaultSelected={nativeScroll} onToggle={onChangeScrollMode} />);
-			}
-		},
-		deleteButton: ({deleteItem, showOverlay}) => {
-			if (!showOverlay) {
-				return (<Button icon="minus" onClick={deleteItem} size="small" tooltipText="Delete Item" />);
-			}
-		},
-		deleteSelectedButton: ({deleteSelectedItem, showOverlay}) => {
-			if (showOverlay) {
-				return (<Button size="small" onClick={deleteSelectedItem}>Delete</Button>);
-			}
-		},
-		selectAllButton: ({selectAll, showOverlay}) => {
-			if (showOverlay) {
-				return (<Button size="small" onClick={selectAll}>Select/DeSelect All</Button>);
-			}
-		},
-		selectionPreviousButton: ({showOverlay, showSelectionOverlayHandler}) => {
-			const tooltipText = showOverlay ? 'Previous' : 'Selection';
-
-			return (
-				<Button size="small" onClick={showSelectionOverlayHandler}>{tooltipText}</Button>
-			);
-		}
-	},
-
-	render: ({addButton, changeDirectionButton, changeListProps, changeScrollMode, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
-		delete rest.addItem;
-		delete rest.addMockItem;
-		delete rest.changeDataSize;
-		delete rest.changeMinHeight;
-		delete rest.changeMinWidth;
-		delete rest.changeSpacing;
-		delete rest.dataSize;
-		delete rest.deleteItem;
-		delete rest.deleteSelectedItem;
-		delete rest.nativeScroll;
-		delete rest.onChangeDirection;
-		delete rest.onChangeScrollMode;
-		delete rest.selectAll;
-		delete rest.selectionEnable;
-		delete rest.setData;
-		delete rest.showOverlay;
-		delete rest.showSelectionOverlayHandler;
-
-		return (
-			<Header {...rest}>
-				<Row>
-					<Cell shrink>
-						{addButton}
-					</Cell>
-					<Cell shrink>
-						{deleteButton}
-					</Cell>
-					<Cell shrink>
-						{deleteSelectedButton}
-					</Cell>
-					<Cell shrink>
-						{selectAllButton}
-					</Cell>
-					<Cell shrink>
-						{selectionPreviousButton}
+	return (
+		<Header {...rest}>
+			<Row>
+				<Cell shrink>
+					{/* add button */}
+					{!showOverlay && <Button icon="plus" onClick={addMockItem} size="small" tooltipText="Add Item" />}
+				</Cell>
+				<Cell shrink>
+					{/* delete button */}
+					{!showOverlay && <Button icon="minus" onClick={deleteItem} size="small" tooltipText="Delete Item" />}
+				</Cell>
+				<Cell shrink>
+					{/* delete selected button */}
+					{showOverlay && <Button size="small" onClick={deleteSelectedItem}>Delete</Button>}
+				</Cell>
+				<Cell shrink>
+					{/* select all button */}
+					{showOverlay && <Button size="small" onClick={selectAll}>Select/DeSelect All</Button>}
+				</Cell>
+				<Cell shrink>
+					{/* selection previous button */}
+					<Button size="small" onClick={showSelectionOverlayHandler}>{tooltipText}</Button>
+				</Cell>
+				<Cell>
+					{/* change direction button */}
+					{!showOverlay && <CheckboxItem onClick={onChangeDirection}>Horizontal</CheckboxItem>}
+				</Cell>
+				<Cell>
+					{/* change scroll mode */}
+					{!showOverlay && <ScrollModeSwitch defaultSelected={nativeScroll} onToggle={onChangeScrollMode} />}
+				</Cell>
+				<Cell>
+					<LocaleSwitch />
+				</Cell>
+			</Row>
+			{!showOverlay &&
+				<Row style={{direction: 'ltr'}}>
+					<Cell>
+						<label>dataSize:</label>
+						<Input size="small" onChange={setData} style={inputWidth} type="number" value={dataSize} />
 					</Cell>
 					<Cell>
-						{changeDirectionButton}
+						<label>minHeightSize:</label>
+						<Input size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={minHeight} />
 					</Cell>
 					<Cell>
-						{changeScrollMode}
+						<label>minWidthSize:</label>
+						<Input size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={minWidth} />
 					</Cell>
 					<Cell>
-						<LocaleSwitch />
+						<label>spacingSize:</label>
+						<Input size="small" onChange={changeSpacing} style={inputWidth} type="number" value={spacing} />
 					</Cell>
 				</Row>
-				{changeListProps}
-			</Header>
-		);
-	}
-});
-
-const mapStateToProps = ({data}) => ({
-	data: data,
-	dataSize: data.dataOrder.length,
-	showOverlay: data.showOverlay
-});
-
-const mapDispatchToProps = (dispatch) => {
-	return {
-		addItem: (item) => dispatch(addAction(item)),
-		changeDataSize: (size) => dispatch(changeDataSizeAction(size)),
-		changeMinHeight: (size) => dispatch(changeMinHeightAction(size)),
-		changeMinWidth: (size) => dispatch(changeMinWidthAction(size)),
-		changeSpacing: (size) => dispatch(changeSpacingAction(size)),
-		deleteItem: () => dispatch(deleteAction()),
-		deleteSelectedItem: () => dispatch(deleteSelectedAction()),
-		selectAll: () => dispatch(selectAllAction()),
-		selectionEnable: () => dispatch(selectionEnableAction()),
-		setData: (item, index) => dispatch(setAction(item, index))
-	};
+			}
+		</Header>
+	);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PanelHeader);
+PanelHeader.propTypes = {
+	nativeScroll: PropTypes.bool,
+	onChangeDirection: PropTypes.func,
+	onChangeScrollMode: PropTypes.func
+};
+
+export default PanelHeader;
