@@ -1,29 +1,31 @@
 import Heading from '@enact/sandstone/Heading';
 import Picker from '@enact/sandstone/Picker';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import {useCallback} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useCallback, useContext} from 'react';
 
-import {activateEvent} from '../../../store/slices/activeEventsSlice';
-import {setEventCapturing} from '../../../store/slices/eventCapturingOnSlice';
 import eventCategory from '../../../constants/eventCategory';
-import {isSyntheticEventOn} from '../../../store/slices/syntheticEventOnSlice';
-import {setTimerIndex} from '../../../store/slices/timerIndexSlice';
+import {EventLoggerContext, EventLoggerDispatchContext} from '../../../context/EventLoggerContext';
+import {activateEvent as activateEventAction} from '../../../reducer/activeEventsReducer';
+import {setEventCapturing as setEventCapturingAction} from '../../../reducer/eventCapturingOnReducer';
+import {isSyntheticEventOn as isSyntheticEventOnAction} from '../../../reducer/syntheticEventOnReducer';
+import {setTimerIndex as setTimerIndexAction} from '../../../reducer/timerIndexReducer';
 
 import css from './Filter.module.less';
 
 const Filter = () => {
-	const dispatch = useDispatch();
+	const dispatch = useContext(EventLoggerDispatchContext);
 
-	const activeEvents = useSelector((state) => state.activeEvents);
-	const eventCapturingOn = useSelector((state) => state.eventCapturingOn);
-	const syntheticEventOn = useSelector((state) => state.syntheticEventOn);
-	const timerIndex = useSelector((state) => state.timerIndex);
+	const {activeEventsReducer, eventCapturingOnReducer, syntheticEventOnReducer, timerIndexReducer} = useContext(EventLoggerContext);
 
-	const onActivateEvent = useCallback((index, selected) => dispatch(activateEvent(index, selected)), [dispatch]);
-	const onSetTimerIndex = useCallback((delay) => dispatch(setTimerIndex(delay)), [dispatch]);
-	const onSetEventCapturing = useCallback((value) => dispatch(setEventCapturing(value)), [dispatch]);
-	const onIsSyntheticEventOn = useCallback((value) => dispatch(isSyntheticEventOn(value)), [dispatch]);
+	const {activeEvents} = activeEventsReducer;
+	const {eventCapturingOn} = eventCapturingOnReducer;
+	const {syntheticEventOn} = syntheticEventOnReducer;
+	const {timerIndex} = timerIndexReducer;
+
+	const onActivateEvent = useCallback((index, selected) => dispatch(activateEventAction(index, selected)), [dispatch]);
+	const onSetTimerIndex = useCallback((delay) => dispatch(setTimerIndexAction(delay)), [dispatch]);
+	const onSetEventCapturing = useCallback((value) => dispatch(setEventCapturingAction(value)), [dispatch]);
+	const onIsSyntheticEventOn = useCallback((value) => dispatch(isSyntheticEventOnAction(value)), [dispatch]);
 
 	const handleEventCategory = (index) => {
 		return function ({selected}) {

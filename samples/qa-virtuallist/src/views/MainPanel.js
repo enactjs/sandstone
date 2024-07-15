@@ -6,27 +6,27 @@ import VirtualList from '@enact/sandstone/VirtualList';
 import {Cell, Row} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useCallback, useContext, useEffect, useState} from 'react';
 
 import ListItem from '../components/ListItem';
 import LocaleSwitch from '../components/LocaleSwitch';
 import ScrollModeSwitch from '../components/ScrollModeSwitch';
-import {setData} from '../store';
+import {setData as setDataAction, ListContext, ListDispatchContext} from '../context/ListContext';
 
 import css from './MainPanel.module.less';
 
 const childProps = {text: ' child props'};
 
 const MainPanel = ({...rest}) => {
-	const dispatch = useDispatch();
+	const dispatch = useContext(ListDispatchContext);
+	const {listItems} = useContext(ListContext);
+
 	const [hasChildProps, setHasChildProps] = useState(false);
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [nativeScroll, setNativeScroll] = useState(true);
 	const [value, setValue] = useState('');
 
-	const listItems = useSelector(({listItems:storeListItems}) => storeListItems);
-	const changeData = useCallback((dataSize, isDisabledData) => dispatch(setData(dataSize, isDisabledData)), [dispatch]);
+	const changeData = useCallback((dataSize, isDisabledData) => dispatch(setDataAction(dataSize, isDisabledData)), [dispatch]);
 
 	useEffect(() => {
 		changeData(200, false);
