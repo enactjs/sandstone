@@ -11,15 +11,17 @@
 .button {
 	//default is size="large"
 	@include mixins.sand-large-button-text;
-	height: variables.$sand-button-height;
-	line-height: (variables.$sand-button-height - (2 * variables.$sand-button-border-width));
-	min-width: variables.$sand-button-height;
-	max-width: variables.$sand-button-max-width;
-	padding: 0 variables.$sand-button-h-padding;
-	margin: variables.$sand-button-margin;
-	text-align: center;
-	vertical-align: middle;
-	--button-height: 144px;
+	& {
+		height: variables.$sand-button-height;
+		line-height: (variables.$sand-button-height - (2 * variables.$sand-button-border-width));
+		min-width: variables.$sand-button-height;
+		max-width: variables.$sand-button-max-width;
+		padding: 0 variables.$sand-button-h-padding;
+		margin: variables.$sand-button-margin;
+		text-align: center;
+		vertical-align: middle;
+		--button-height: 144px;
+	}
 
 	@include mixins.sand-custom-text-large {
 		font-size: variables.$sand-button-font-size-large;
