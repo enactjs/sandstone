@@ -95,8 +95,10 @@
 		font-weight: variables.$sand-non-latin-font-weight;
 	}
 
-	font-weight: normal;
-	font-size: $font-size;
+	& {
+		font-weight: normal;
+		font-size: $font-size;
+	}
 
 	@include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height, $target);
 }

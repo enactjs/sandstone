@@ -37,11 +37,13 @@
 
 .root {
 	@include mixins.sand-text-base(variables.$sand-base-font-size, self);
-	font-weight: normal;
-	font-style: normal;
-	letter-spacing: normal;
-	// Prevent Chrome from highlighting tapped elements
-	-webkit-tap-highlight-color: transparent;
+	& {
+		font-weight: normal;
+		font-style: normal;
+		letter-spacing: normal;
+		// Prevent Chrome from highlighting tapped elements
+		-webkit-tap-highlight-color: transparent;
+	}
 
 	&.bg,
 	& > .bg {

@@ -52,9 +52,11 @@
 			font-size: variables.$sand-mediaoverlay-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
-		font-size: variables.$sand-mediaoverlay-font-size;
-		line-height: variables.$sand-mediaoverlay-line-height;
-		font-weight: variables.$sand-mediaoverlay-font-weight;
+		& {
+			font-size: variables.$sand-mediaoverlay-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+			font-weight: variables.$sand-mediaoverlay-font-weight;
+		}
 	}
 
 	.progressBar {
@@ -79,8 +81,10 @@
 			font-size: variables.$sand-mediaoverlay-caption-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
-		font-size: variables.$sand-mediaoverlay-caption-font-size;
-		line-height: variables.$sand-mediaoverlay-line-height;
+		& {
+			font-size: variables.$sand-mediaoverlay-caption-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+		}
 	}
 
 	.title {
