@@ -12,10 +12,9 @@
 @use "../styles/variables";
 
 // Sandstone Internal Rules
-@use "../styles/internal/fonts";
+@import "../styles/internal/fonts";
 
 @include core.coreMixin; // Core style was included as mixin because @import in SCSS will be deprecated
-@include fonts.sand-fonts-mixin; // Font style was included as mixin because @import in SCSS will be deprecated
 
 @include skin.applySkins(true) {
 	color: colors.$sand-text-color;

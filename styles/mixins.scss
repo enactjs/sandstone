@@ -35,6 +35,29 @@
 	}
 }
 
+@mixin sand-spotlight-margin($values...) {
+	@if (length($values) == 0) {
+		/**
+		  * Add a margin to your component which includes the standard sandstone spotlight margin only on
+		  * the sides.
+		  */
+		margin-left: variables.$sand-spotlight-outset;
+		margin-right: variables.$sand-spotlight-outset;
+	} @else if (length($values) == 1) {
+		/**
+		  * Add a margin to your component which includes the standard sandstone spotlight margin on the
+		  * sides and uses the argument for margin on the top and bottom.
+		  */
+		margin: nth($values, 1) variables.$sand-spotlight-outset;
+	} @else if (length($values) == 2) {
+		/**
+		  * Add a margin to your component which includes the standard sandstone spotlight margin on the
+		  * sides and uses the two arguments for margin on the top and bottom respectively.
+		  */
+		margin: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
+	}
+}
+
 @mixin sand-spotlight-padding($values...) {
 	@if (length($values) == 0) {
 		/*
@@ -75,7 +98,7 @@
 	font-weight: normal;
 	font-size: $font-size;
 
-	@include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height, $target)
+	@include sand-enact-locale-line-height(variables.$sand-body-line-height, variables.$sand-tallglyph-body-line-height, $target);
 }
 
 //
