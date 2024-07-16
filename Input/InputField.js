@@ -10,7 +10,8 @@ import {readAlert} from '@enact/webos/speech';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {Fragment} from 'react';
+import {Fragment, useEffect, useState} from 'react';
+import * as toxicityClassifier from '@tensorflow-models/toxicity';
 
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
@@ -22,6 +23,41 @@ import InputFieldSpotlightDecorator from './InputFieldSpotlightDecorator';
 import {calcAriaLabel, extractInputProps} from './util';
 
 import componentCss from './InputField.module.less';
+
+const ToxicityTooltip = ({value, ...rest}) => {
+	const [model, setModel] = useState(null);
+	const [message, setMessage] = useState('Model loading...');
+
+	useEffect(() => {
+		async function loadModel () {
+			setModel(await toxicityClassifier.load(0.6));
+			setMessage('OK');
+		}
+		loadModel();
+	}, []);
+
+	useEffect(() => {
+		if (model) {
+			const predictToxicity = async () => {
+				const predictions = await model?.classify([value]);
+				const results = predictions?.filter((item) => item.results[0].match === true).map((item) => item.label);
+				if (results?.length === 0) {
+					setMessage('OK');
+				} else {
+					setMessage(results.join(', '));
+				}
+			};
+			predictToxicity(value);
+		}
+	}, [model, value]);
+
+	return (
+		<Tooltip {...rest}>
+			{message}
+		</Tooltip>
+	);
+};
+
 
 /**
  * A Sandstone styled input component.
@@ -279,11 +315,18 @@ const InputFieldBase = kind({
 				);
 			}
 		},
+		toxicityTooltip: ({css, invalid, value}) => {
+			if (!invalid) {
+				return (
+					<ToxicityTooltip css={css} marquee relative type="transparent" value={value} />
+				);
+			}
+		},
 		// ensure we have a value so the internal <input> is always controlled
 		value: ({value}) => typeof value === 'number' ? value : (value || '')
 	},
 
-	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
+	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, toxicityTooltip, value, ...rest}) => {
 		const inputProps = extractInputProps(rest);
 		const voiceProps = extractVoiceProps(rest);
 		const isPasswordtel = type === 'passwordtel';
@@ -323,6 +366,7 @@ const InputFieldBase = kind({
 				/>
 				<InputFieldDecoratorIcon position="after" size={size}>{iconAfter}</InputFieldDecoratorIcon>
 				{invalidTooltip}
+				{toxicityTooltip}
 			</div>
 		);
 	}
