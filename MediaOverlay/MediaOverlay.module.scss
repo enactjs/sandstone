@@ -92,8 +92,10 @@
 			font-size: variables.$sand-mediaoverlay-title-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
-		font-size: variables.$sand-mediaoverlay-title-font-size;
-		line-height: variables.$sand-mediaoverlay-line-height;
+		& {
+			font-size: variables.$sand-mediaoverlay-title-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+		}
 	}
 
 	@include skin.applySkins {
