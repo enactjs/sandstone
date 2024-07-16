@@ -9,14 +9,16 @@
 .input {
 	@include mixins.sand-body-text;
 
-	padding: 0;
-	border: 0;
-	cursor: pointer;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	flex-grow: 1;
-	text-indent: variables.$sand-inputfield-text-indent;
+	& {
+		padding: 0;
+		border: 0;
+		cursor: pointer;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		flex-grow: 1;
+		text-indent: variables.$sand-inputfield-text-indent;
+	}
 
 	&[type=number] {
 		-moz-appearance: textfield;

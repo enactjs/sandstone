@@ -188,9 +188,11 @@
 		font-weight: variables.$sand-non-latin-button-font-weight;
 	}
 
-	font-size: variables.$sand-button-font-size;
-	font-style: variables.$sand-button-font-style;
-	font-weight: variables.$sand-button-font-weight;
+	& {
+		font-size: variables.$sand-button-font-size;
+		font-style: variables.$sand-button-font-style;
+		font-weight: variables.$sand-button-font-weight;
+	}
 
 	@include font-kerning;
 }
@@ -202,9 +204,11 @@
 		font-weight: variables.$sand-non-latin-button-small-font-weight;
 	}
 
-	font-size: variables.$sand-button-small-font-size;
-	font-style: variables.$sand-button-small-font-style;
-	font-weight: variables.$sand-button-small-font-weight;
+	& {
+		font-size: variables.$sand-button-small-font-size;
+		font-style: variables.$sand-button-small-font-style;
+		font-weight: variables.$sand-button-small-font-weight;
+	}
 
 	@include font-kerning;
 }
