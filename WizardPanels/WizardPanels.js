@@ -10,6 +10,8 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import {useEffect, useState} from 'react';
+import SpeechRecognition, {useSpeechRecognition} from 'react-speech-recognition';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
@@ -384,6 +386,8 @@ const WizardPanelsBase = kind({
 		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
+			<>
+			<Dictaphone onNextClick={onNextClick} onPrevClick={onPrevClick} />
 			<DecoratedPanelBase
 				{...rest}
 				header={
@@ -451,9 +455,60 @@ const WizardPanelsBase = kind({
 					</Cell>
 				</Column>
 			</DecoratedPanelBase>
+			</>
 		);
 	}
 });
+
+const useDebounce = (value, delay) => {
+	const [debouncedValue, setDebouncedValue] = useState(value);
+	
+	useEffect(() => {
+	  const timer = setTimeout(() => {
+		setDebouncedValue(value);
+	  }, delay);
+  
+	  return () => {
+		clearTimeout(timer);
+	  };
+	}, [value]);
+  
+	return debouncedValue;
+  };
+
+const Dictaphone = (props) => {
+	const {onNextClick, onPrevClick} = props;
+	const {
+	  transcript,
+	  listening,
+	  resetTranscript,
+	  browserSupportsSpeechRecognition
+	} = useSpeechRecognition();
+  
+	if (!browserSupportsSpeechRecognition) {
+	  return <span>Browser doesn't support speech recognition.</span>;
+	}
+
+	const debouncedText = useDebounce(transcript, 1000);
+
+	useEffect(() => {
+		if(debouncedText.includes('오른') || debouncedText.includes('우측')) {
+			onNextClick();
+		} else if (debouncedText.includes('왼') || debouncedText.includes('좌측')) {
+			onPrevClick();
+		}
+	}, [debouncedText]);
+
+	return (
+	  <>
+		<p>Microphone: {listening ? 'on' : 'off'}</p>
+		<button size="small" onClick={SpeechRecognition.startListening}>Start</button>
+		<button size="small" onClick={SpeechRecognition.stopListening}>Stop</button>
+		<button size="small" onClick={resetTranscript}>Reset</button>
+		<p>{transcript}</p>
+	  </>
+	);
+  };
 
 const WizardPanelsDecorator = compose(
 	ForwardRef({prop: 'componentRef'}),
