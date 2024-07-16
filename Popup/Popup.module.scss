@@ -14,8 +14,10 @@
 	.body {
 		@include mixins.sand-text-base;
 		@include mixins.padding-start-end(variables.$sand-popup-padding);
-		box-sizing: border-box;
-		pointer-events: auto;
+		& {
+			box-sizing: border-box;
+			pointer-events: auto;
+		}
 		@include mixins.locale-japanese-line-break;
 	}
 

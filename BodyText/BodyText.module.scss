@@ -5,9 +5,12 @@
 
 .bodyText {
 	@include mixins.sand-body-text;
-	margin: variables.$sand-bodytext-margin;
-	padding: variables.$sand-bodytext-padding;
-	white-space: normal;
+
+	& {
+		margin: variables.$sand-bodytext-margin;
+		padding: variables.$sand-bodytext-padding;
+		white-space: normal;
+	}
 
 	&.large { /* Needed to prevent global class being added in the DOM */ }
 
