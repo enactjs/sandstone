@@ -50,7 +50,6 @@
 			@include mixins.position(0);
 			content: '';
 			z-index: -1;
-
 			border-radius: variables.$sand-input-numbercell-border-radius;
 		}
 	}
