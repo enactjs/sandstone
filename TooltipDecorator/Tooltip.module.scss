@@ -91,24 +91,29 @@
 			font-weight: variables.$sand-tooltip-transparent-font-weight;
 			font-size: 36px;
 		}
+
 		.tooltipArrow {
 			display: none;
 		}
+
 		&.below {
 			.tooltipLabel {
 				margin-top: variables.$sand-tooltip-transparent-label-offset;
 			}
 		}
+
 		&.above {
 			.tooltipLabel {
 				margin-bottom: variables.$sand-tooltip-transparent-label-offset;
 			}
 		}
+
 		&.left {
 			.tooltipLabel {
 				margin-right: variables.$sand-tooltip-transparent-label-offset;
 			}
 		}
+
 		&.right {
 			.tooltipLabel {
 				margin-left: variables.$sand-tooltip-transparent-label-offset;

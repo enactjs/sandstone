@@ -7,7 +7,6 @@ import Marquee from '../Marquee';
 
 import css from './Tooltip.module.scss';
 
-
 /**
  * {@link sandstone/TooltipDecorator.TooltipLabel} is a stateless tooltip component with
  * Sandstone styling applied.
