@@ -1,15 +1,13 @@
 /* global ENACT_PACK_ISOMORPHIC */
-import {Provider} from 'react-redux';
 import {createRoot, hydrateRoot} from 'react-dom/client';
 
 import App from './App';
-import configureStore from './store';
+import {IndexProvider} from './context/IndexContext';
 
-const store = configureStore();
 const appElement = (
-	<Provider store={store}>
+	<IndexProvider>
 		<App />
-	</Provider>
+	</IndexProvider>
 );
 
 // In a browser environment, render the app to the document.
