@@ -3,7 +3,7 @@ import {useId} from '@enact/ui/internal/IdProvider';
 import PropTypes from 'prop-types';
 import {useLayoutEffect, useEffect, useCallback} from 'react';
 
-import css from './TabGroup.module.less';
+import * as css from './TabGroup.module.less';
 
 function getTabsSpotlightId (spotlightId, collapsed) {
 	return `${spotlightId}-tabs-${collapsed ? 'collapsed' : 'expanded'}`;

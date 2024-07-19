@@ -4,7 +4,7 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback} from 'react';
 
-import css from './SampleVirtualGridList.module.less';
+import * as css from './SampleVirtualGridList.module.less';
 
 const svgGenerator = (width, height, bgColor, textColor, customText) => (
 	`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${width} ${height}' width='${width}' height='${height}'%3E` +

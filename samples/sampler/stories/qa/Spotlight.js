@@ -25,7 +25,7 @@ import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {Component, cloneElement} from 'react';
 
-import css from './Spotlight.module.less';
+import * as css from './Spotlight.module.less';
 
 import docs from '../../images/icon-enact-docs.png';
 import {svgGenerator} from '../helper/svg';

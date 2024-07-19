@@ -20,7 +20,7 @@ import {BasicArranger, PopupDecorator, Viewport} from '../internal/Panels';
 import DefaultPanel from '../Panels/Panel';
 import DefaultHeader from '../Panels/Header';
 
-import css from './FixedPopupPanels.module.less';
+import * as css from './FixedPopupPanels.module.less';
 
 /**
  * Adds popup functionality and `rtl` prop to {@link sandstone/FixedPopupPanels|FixedPopupPanels}.

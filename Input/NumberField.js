@@ -16,7 +16,7 @@ import Tooltip from '../TooltipDecorator/Tooltip';
 import Keypad from './Keypad';
 import {DEFAULT_LENGTH, SEPARATE_DIGITS_LIMIT, convertToPasswordFormat} from './util';
 
-import componentCss from './Input.module.less';
+import * as componentCss from './Input.module.less';
 
 const getSeparated = (prefer, max) => (prefer === 'separated' || (prefer === 'auto' && max <= SEPARATE_DIGITS_LIMIT));
 

@@ -17,7 +17,7 @@ import {ButtonBase, ButtonDecorator} from '../Button';
 import Icon from '../Icon';
 import ProgressBar from '../ProgressBar';
 
-import componentCss from './ProgressButton.module.less';
+import * as componentCss from './ProgressButton.module.less';
 
 /**
  * Renders a sandstone-styled progress button.

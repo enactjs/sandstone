@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import ImageListItem from '../ImageListItem';
 import {RecordContext} from '../../context/RecordContext';
 
-import css from './ImageList.module.less';
+import * as css from './ImageList.module.less';
 
 const ImageList = (props) => {
 	const {dataOrder, minHeight, minWidth, spacing} = useContext(RecordContext);

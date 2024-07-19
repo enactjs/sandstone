@@ -1,6 +1,6 @@
 import Slider, {SliderTooltip as Tooltip} from '../../../../Slider';
 
-import css from './Slider.module.less';
+import * as css from './Slider.module.less';
 
 const SliderTests = [
 	<Slider />,

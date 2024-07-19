@@ -20,7 +20,7 @@ import Toggleable from '@enact/ui/Toggleable';
 import Icon from '../Icon';
 import Skinnable from '../Skinnable';
 
-import componentCss from './Switch.module.less';
+import * as componentCss from './Switch.module.less';
 
 /**
  * Renders the base level DOM structure of the component.

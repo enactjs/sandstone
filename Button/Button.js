@@ -26,7 +26,7 @@ import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
 import TooltipDecorator from '../TooltipDecorator';
 
-import componentCss from './Button.module.less';
+import * as componentCss from './Button.module.less';
 
 /**
  * A button component.

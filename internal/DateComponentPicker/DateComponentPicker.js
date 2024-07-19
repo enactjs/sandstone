@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import Picker, {PickerItem} from '../Picker';
 
-import css from './DateComponentPicker.module.less';
+import * as css from './DateComponentPicker.module.less';
 
 /**
  * {@link sandstone/internal/DataComponentPicker.DateComponentPickerBase} allows the selection of one

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Status from '../Status';
 
-import css from './FontList.module.less';
+import * as css from './FontList.module.less';
 
 const FontList = kind({
 	name: 'FontList',

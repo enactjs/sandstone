@@ -23,7 +23,7 @@ import {Component, useCallback, useEffect, useLayoutEffect, useRef, useState} fr
 
 import {svgGenerator} from '../helper/svg';
 
-import css from './Scroller.module.less';
+import * as css from './Scroller.module.less';
 
 add('cancel', 27);
 const isCancel = is('cancel');

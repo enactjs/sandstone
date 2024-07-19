@@ -25,7 +25,7 @@ import {Component, Fragment, createRef} from 'react';
 import {ContextualPopup} from './ContextualPopup';
 import HolePunchScrim from './HolePunchScrim';
 
-import css from './ContextualPopupDecorator.module.less';
+import * as css from './ContextualPopupDecorator.module.less';
 
 const PositionToDirection = {
 	above: 'up',

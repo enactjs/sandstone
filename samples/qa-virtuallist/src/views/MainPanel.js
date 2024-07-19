@@ -13,7 +13,7 @@ import LocaleSwitch from '../components/LocaleSwitch';
 import ScrollModeSwitch from '../components/ScrollModeSwitch';
 import {setData as setDataAction, ListContext, ListDispatchContext} from '../context/ListContext';
 
-import css from './MainPanel.module.less';
+import * as css from './MainPanel.module.less';
 
 const childProps = {text: ' child props'};
 

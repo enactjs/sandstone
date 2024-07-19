@@ -9,7 +9,7 @@ import {platform} from '@enact/webos/platform';
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
 
-import css from './ThemeEnvironment.module.less';
+import * as css from './ThemeEnvironment.module.less';
 
 const reloadPage = () => {
 	const {protocol, host, pathname} = window.parent.location;

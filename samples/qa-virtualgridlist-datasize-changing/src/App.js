@@ -5,7 +5,7 @@ import Spottable from '@enact/spotlight/Spottable';
 import ri from '@enact/ui/resolution';
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
-import css from './App.module.less';
+import * as css from './App.module.less';
 
 const maxDataSize = 50;
 const items = [];
