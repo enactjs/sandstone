@@ -52,7 +52,7 @@ const VirtualListView = () => {
 					onClick={handleToggleRole}
 					selected={role}
 				>
-					X of Y feature
+					Read X of Y
 				</CheckboxItem>
 			</Cell>
 			<VirtualList

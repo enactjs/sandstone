@@ -93,7 +93,7 @@ const VirtualGridListView = () => {
 					onToggle={handleToggleRole}
 					selected={role}
 				>
-					X of Y feature
+					Read X of Y
 				</CheckboxItem>
 			</Cell>
 			<VirtualGridList
