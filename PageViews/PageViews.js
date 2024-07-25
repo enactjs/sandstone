@@ -249,6 +249,7 @@ const PageViewsBase = kind({
 								futureIcon={'circle'}
 								layout="highlightCurrentStep"
 								total={totalIndex}
+								size={30}
 							/>
 						</Row> :
 						<Row className={css.steps}>

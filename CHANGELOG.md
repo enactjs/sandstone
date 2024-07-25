@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Steps` prop `size` to accept Number type
+
 ## [2.9.0] - 2024-07-17
 
 ### Added

@@ -131,11 +131,14 @@ const StepsBase = kind({
 
 		 * This accepts any `size` supported by {@link sandstone/Icon}.
 		 *
-		 * @type {('large'|'medium'|'small'|'tiny')}
+		 * @type {('large'|'medium'|'small'|'tiny'|Number)}
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.oneOf(['large', 'medium', 'small', 'tiny']),
+		size: PropTypes.oneOfType([
+			PropTypes.oneOf(['large', 'medium', 'small', 'tiny']),
+			PropTypes.number
+		]),
 
 		/**
 		 * Indicate which steps to skip.

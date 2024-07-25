@@ -296,6 +296,7 @@ const QuickGuidePanelsBase = kind({
 					current={currentStep}
 					layout="highlightCurrentStep"
 					total={totalSteps}
+					size={30}
 				/>
 			);
 		},
