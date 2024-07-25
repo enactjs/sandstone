@@ -109,10 +109,10 @@ const StepsBase = kind({
 
 		/**
 		 * @type {String}
-		 * @default 'wizardPanels'
+		 * @default 'highlightCompletedStep'
 		 * @private
 		 */
-		layout: PropTypes.string,
+		layout: PropTypes.oneOf(['highlightCompletedStep', 'highlightCurrentStep']),
 
 		/**
 		 * The icon to use for indicating all steps preceding the current step.
@@ -179,7 +179,8 @@ const StepsBase = kind({
 		futureIcon: 'numbers',
 		size: 'small',
 		skipIcon: 'minus',
-		total: 2
+		total: 2,
+		layout: 'highlightCompletedStep'
 	},
 
 	styles: {
@@ -216,7 +217,7 @@ const StepsBase = kind({
 				}
 
 				return {
-					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), dots: layout === 'quickGuidePanels'}),
+					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), highlightCurrent: layout === 'highlightCurrentStep'}),
 					key: `step${stepNum}`,
 					children
 				};

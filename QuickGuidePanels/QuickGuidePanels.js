@@ -294,7 +294,7 @@ const QuickGuidePanelsBase = kind({
 					currentIcon={'circle'}
 					futureIcon={'circle'}
 					current={currentStep}
-					layout="quickGuidePanels"
+					layout="highlightCurrentStep"
 					total={totalSteps}
 				/>
 			);

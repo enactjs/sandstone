@@ -247,7 +247,7 @@ const PageViewsBase = kind({
 								pastIcon={'circle'}
 								currentIcon={'circle'}
 								futureIcon={'circle'}
-								layout="quickGuidePanels"
+								layout="highlightCurrentStep"
 								total={totalIndex}
 							/>
 						</Row> :
