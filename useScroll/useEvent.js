@@ -44,7 +44,7 @@ const useEventFocus = (props, instances) => {
 			} else {
 				const
 					scrollHorizontally = bounds.maxLeft > 0 && Math.abs(left - scrollContainerHandle.current.scrollLeft) > epsilon,
-					scrollVertically = bounds.maxTop > 0 && Math.abs(top - scrollContainerHandle.current.scrollTop) > epsilon;
+					scrollVertically = bounds.maxTop > scrollContainerHandle.current.scrollTop && Math.abs(top - scrollContainerHandle.current.scrollTop) > epsilon;
 
 				if (scrollHorizontally || scrollVertically) {
 					scrollContainerHandle.current.start({
