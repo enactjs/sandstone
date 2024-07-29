@@ -11,16 +11,22 @@
 		/* Available for customization */
 	}
 
-	font-size: variables.$sand-item-font-size;
+	& {
+		font-size: variables.$sand-item-font-size;
+	}
 	@include mixins.sand-spotlight-padding(variables.$sand-item-vertical-padding);
 
-	font-weight: variables.$sand-item-font-weight;
+	& {
+		font-weight: variables.$sand-item-font-weight;
+	}
 	@include mixins.sand-enact-locale-line-height(variables.$sand-item-line-height, variables.$sand-tallglyph-item-line-height);
-	height: variables.$sand-item-height;
-	display: flex;
-	position: relative;
-	color: inherit;
-	margin: variables.$sand-item-margin;
+	& {
+		height: variables.$sand-item-height;
+		display: flex;
+		position: relative;
+		color: inherit;
+		margin: variables.$sand-item-margin;
+	}
 
 	.bg {
 		position: absolute;

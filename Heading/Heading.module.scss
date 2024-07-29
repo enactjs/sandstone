@@ -29,16 +29,20 @@
 		@include mixins.sand-font(variables.$sand-heading-title-font-family, variables.$sand-non-latin-font-family);
 		@include mixins.sand-enact-locale-line-height(variables.$sand-heading-title-line-height, variables.$sand-tallglyph-heading-title-line-height);
 		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-heading-title-font-size);
-		font-weight: variables.$sand-heading-title-font-weight;
-		font-size: variables.$sand-heading-title-font-size;
+		& {
+			font-weight: variables.$sand-heading-title-font-weight;
+			font-size: variables.$sand-heading-title-font-size;
+		}
 		@include mixins.font-kerning;
 	}
 	&.subtitle {
 		@include mixins.sand-font(variables.$sand-heading-subtitle-font-family, variables.$sand-non-latin-font-family);
 		@include mixins.sand-enact-locale-line-height(variables.$sand-heading-subtitle-line-height, variables.$sand-tallglyph-heading-subtitle-line-height);
 		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-heading-subtitle-font-size);
-		font-weight: variables.$sand-heading-subtitle-font-weight;
-		font-size: variables.$sand-heading-subtitle-font-size;
+		& {
+			font-weight: variables.$sand-heading-subtitle-font-weight;
+			font-size: variables.$sand-heading-subtitle-font-size;
+		}
 	}
 
 	&.large {
