@@ -1,5 +1,5 @@
 @use "sass:math";
-@use './utils';
+@use "./utils";
 
 // Variables
 //
@@ -101,9 +101,6 @@ $sand-item-small-font-size:         60px;
 $sand-item-small-label-font-size:   48px;
 $sand-keyguide-font-size:           60px;
 $sand-tablayout-tab-font-size:      66px;
-
-$sand-non-latin-button-large-font-size: 72px;
-$sand-non-latin-button-small-font-size: 54px;
 
 $sand-non-latin-button-large-font-size: 72px;
 $sand-non-latin-button-small-font-size: 54px;
