@@ -1,5 +1,4 @@
 import {handle, forKey, forward, forwardCustom} from '@enact/core/handle';
-import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
@@ -291,18 +290,7 @@ const InputPopupBase = kind({
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel']),
-
-		/**
-		 * Initial value of the input.
-		 *
-		 * This value is used for setting the `defaultValue` of the `InputField`.
-		 * @see {@link sandstone/Input.InputField}
-		 * @type {String|Number}
-		 * @public
-		 * @deprecated Will be removed in 3.0.0. Use {@link sandstone/Input.InputPopupBase.defaultValue|defaultValue} instead.
-		 */
-		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber', 'url', 'tel', 'passwordtel'])
 	},
 
 	defaultProps: {
@@ -312,8 +300,7 @@ const InputPopupBase = kind({
 		size: 'small',
 		subtitle: '',
 		title: '',
-		type: 'text',
-		value: '' // value is provided by Changeable, but will be null if defaultValue wasn't specified by the consumer
+		type: 'text'
 	},
 
 	styles: {
@@ -382,19 +369,10 @@ const InputPopupBase = kind({
 		subtitle,
 		title,
 		type,
-		value,
 		maxLength,
 		minLength,
 		...rest
 	}) => {
-		/* istanbul ignore next */
-		if (value) {
-			deprecate({
-				name: 'sandstone/Input.InputPopupBase.value',
-				replacedBy: 'sandstone/Input.InputPopupBase.defaultValue',
-				until: '3.0.0'
-			});
-		}
 		const id = `inputPopup`;
 		const ariaLabelledBy = popupAriaLabel ? null : `${id}_title ${id}_subtitle`;
 		const inputProps = extractInputFieldProps({disabled, ...rest});
@@ -451,7 +429,7 @@ const InputPopupBase = kind({
 									announce={announce}
 									maxLength={limitNumberLength(popupType, maxLength)}
 									minLength={limitNumberLength(popupType, minLength)}
-									defaultValue={defaultValue || value}
+									defaultValue={defaultValue}
 									onBeforeChange={onBeforeChange}
 									onComplete={onNumberComplete}
 									showKeypad
@@ -468,7 +446,7 @@ const InputPopupBase = kind({
 									size={size}
 									autoFocus
 									type={type}
-									defaultValue={defaultValue || value}
+									defaultValue={defaultValue}
 									placeholder={placeholder}
 									onBeforeChange={onBeforeChange}
 									onKeyDown={onInputKeyDown}
