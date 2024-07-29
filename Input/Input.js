@@ -223,6 +223,8 @@ const InputPopupBase = kind({
 		 */
 		onOpenPopup: PropTypes.func,
 
+		onRecording: PropTypes.func,
+
 		/**
 		 * Opens the popup.
 		 *
@@ -256,6 +258,8 @@ const InputPopupBase = kind({
 		 */
 		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
 
+		recording: PropTypes.bool,
+
 		/**
 		 * Size of the input field.
 		 *
@@ -264,6 +268,9 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
+
+		startRecording: PropTypes.func,
+		stopRecording: PropTypes.func,
 
 		/**
 		 * Subtitle below the title of popup.
@@ -282,6 +289,9 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		title: PropTypes.string,
+
+		transcriptText: PropTypes.string,
+		setTranscriptText: PropTypes.func,
 
 		/**
 		 * Type of the input.
@@ -357,6 +367,7 @@ const InputPopupBase = kind({
 		numberInputField,
 		onBeforeChange,
 		onClose,
+		onRecording,
 		onNumberComplete,
 		onInputKeyDown,
 		onShow,
@@ -365,9 +376,14 @@ const InputPopupBase = kind({
 		popupAriaLabel,
 		popupClassName,
 		popupType,
+		recording,
 		size,
 		subtitle,
+		startRecording,
+		stopRecording,
+		setTranscriptText,
 		title,
+		transcriptText,
 		type,
 		maxLength,
 		minLength,
@@ -450,7 +466,12 @@ const InputPopupBase = kind({
 									placeholder={placeholder}
 									onBeforeChange={onBeforeChange}
 									onKeyDown={onInputKeyDown}
+									recording={recording}
+									setTranscriptText={setTranscriptText}
+									startRecording={startRecording}
+									stopRecording={stopRecording}
 									spotlightId={inputFieldSpotlightId}
+									transcriptText={transcriptText}
 								/>
 							}
 						</Cell>

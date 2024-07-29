@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {Fragment} from 'react';
 
+import Button from '../Button';
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
 import Tooltip from '../TooltipDecorator/Tooltip';
@@ -156,7 +157,7 @@ const InputFieldBase = kind({
 		 * @param {Object} event
 		 * @public
 		 */
-		onChange: PropTypes.func,
+		onChangeValue: PropTypes.func,
 
 		/**
 		 * Called when clicked.
@@ -194,6 +195,8 @@ const InputFieldBase = kind({
 		 */
 		placeholder: PropTypes.string,
 
+		recording: PropTypes.bool,
+
 		/**
 		 * Indicates the content's text direction is right-to-left.
 		 *
@@ -210,6 +213,11 @@ const InputFieldBase = kind({
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
+
+		startRecording: PropTypes.func,
+		stopRecording: PropTypes.func,
+		transcriptText: PropTypes.string,
+		setTranscriptText: PropTypes.func,
 
 		/**
 		 * The type of input.
@@ -259,7 +267,10 @@ const InputFieldBase = kind({
 					}
 				}
 			}),
-			forwardCustom('onChange', ev => ({value: ev.target.value}))
+			forwardCustom('onChangeValue', (ev, {setTranscriptText}) => {
+				setTranscriptText('');
+				return {value: ev.target.value};
+			})
 		)
 	},
 
@@ -280,10 +291,13 @@ const InputFieldBase = kind({
 			}
 		},
 		// ensure we have a value so the internal <input> is always controlled
-		value: ({value}) => typeof value === 'number' ? value : (value || '')
+		value: ({value, transcriptText}) => {
+			value = (value || '') + (transcriptText ? ' '+transcriptText : '');
+			return (value);
+		}
 	},
 
-	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
+	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, onChangeValue, stopRecording, startRecording, setTranscriptText, placeholder, recording, size, type, value, ...rest}) => {
 		const inputProps = extractInputProps(rest);
 		const voiceProps = extractVoiceProps(rest);
 		const isPasswordtel = type === 'passwordtel';
@@ -323,6 +337,17 @@ const InputFieldBase = kind({
 				/>
 				<InputFieldDecoratorIcon position="after" size={size}>{iconAfter}</InputFieldDecoratorIcon>
 				{invalidTooltip}
+				<Button
+					color={recording ? "red" : null}
+					size="small"
+					backgroundOpacity="opaque"
+					onClick={recording? (async() => await stopRecording()) : (async() => {
+						onChangeValue({value});
+						await startRecording();
+					})}
+					icon="voice"
+				>
+				</Button>	
 			</div>
 		);
 	}
@@ -353,7 +378,7 @@ const AnnounceDecorator = Wrapped => function AnnounceDecorator (props) {
 const InputFieldDecorator = compose(
 	Pure,
 	I18nContextDecorator({rtlProp: 'rtl'}),
-	Changeable,
+	Changeable({change: 'onChangeValue'}),
 	InputFieldSpotlightDecorator,
 	AnnounceDecorator,
 	Skinnable
