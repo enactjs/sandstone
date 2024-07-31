@@ -1,6 +1,7 @@
 import ColorPickerGrid from '@enact/sandstone/ColorPickerGrid';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {Fragment} from 'react';
+import {_Button} from "./Button";
 
 ColorPickerGrid.displayName = 'ColorPicker';
 
@@ -19,4 +20,9 @@ export const _ColorPickerGrid = () => {
 	);
 };
 
-_ColorPickerGrid.storyName = 'Color Picker Grid';
+_ColorPickerGrid.storyName = 'ColorPickerGrid';
+_ColorPickerGrid.parameters = {
+	info: {
+		text: 'The basic Color Picker Grid'
+	}
+};
