@@ -6,39 +6,67 @@
 	display: inline-flex;
 	flex-direction: column;
 
-    .navButton {
+	.navButton {
 		text-align: center;
 		display: flex;
 		align-items: center;
-		width: 216px;
+		width: @sand-pageviews-navigation-button-area-width;
 		justify-content: center;
+	}
+
+	&.number .navButton {
+		width: @sand-pageviews-number-navigation-button-area-width;
 	}
 
 	.steps {
 		align-items: center;
 		justify-content: center;
 		text-align: center;
+		&.hidden {
+			min-height: @sand-pageviews-steps-area-min-height;
+			visibility: hidden;
+		}
 	}
 
 	&.number .steps {
-		height: 252px;
+		min-height: @sand-pageviews-number-steps-area-min-height;
 		.pageNumber {
-			width: 126px;
+			width: @sand-pageviews-number-steps-number-width;
 		}
 		.separator {
-			width: 60px;
+			width: @sand-pageviews-number-steps-separator-width;
 		}
 	}
 
 	&.dot .steps {
-		height: 132px;
+		min-height: @sand-pageviews-dot-steps-area-min-height;
 	}
 
-	.contentsArea, .viewManager{
+	&.fullContents .steps {
+		position: absolute;
+		align-self: center;
+		bottom: @sand-pageviews-full-steps-position-bottom;
+		min-height: @sand-pageviews-full-steps-area-min-height;
+	}
+
+	.contentsArea {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.viewManager {
 		overflow: hidden;
 	}
 
 	.horizontalLayout {
 		height: 100%;
 	}
+}
+
+.navButtonContainer {
+	overflow: hidden;
+	z-index: 10;
+	top: ~"calc(50% - " (@sand-button-height + 12) / 2 ~")";
+	position: absolute;
+	width: 100%;
 }

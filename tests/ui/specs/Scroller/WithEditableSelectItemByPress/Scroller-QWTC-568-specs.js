@@ -16,7 +16,7 @@ describe('Scroller With Editable Select Item By Press', function () {
 		// Step 4-1: 5-way Up one time.
 		// Step 4 Verify: Spotlight is on 'trash' icon.
 		await ScrollerPage.spotlightUp();
-		await expect(await ScrollerPage.buttonRemoveItem.isFocused()).to.be.true();
+		await expect(await ScrollerPage.buttonRemoveItem.isFocused()).toBe(true);
 
 		// Step 5: 5-way Select
 		await ScrollerPage.spotlightSelect();

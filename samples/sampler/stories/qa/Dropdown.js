@@ -98,12 +98,13 @@ class PositionChangingDropdown extends Component {
 
 	render () {
 		const testProps = this.props.args['open'] ? {key: 0, open: true} : {key: 1}; // To prevent to reuse Dropdown, use key.
+		const {key, ...rest} = testProps;
 
 		return (
 			<div style={{display: 'flex'}}>
 				<Dropdown title="first" onSelect={this.handleSelect}>{['a', 'b', 'c']}</Dropdown>
 				{this.state.isShow ? <Dropdown title="second">{['a', 'b', 'c']}</Dropdown> : null}
-				<Dropdown title="third" onSelect={this.handleSelect} {...testProps}>{['a', 'b', 'c']}</Dropdown>
+				<Dropdown title="third" key={key} onSelect={this.handleSelect} {...rest}>{['a', 'b', 'c']}</Dropdown>
 			</div>
 		);
 	}

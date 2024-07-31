@@ -3,15 +3,15 @@ import {useContext, useEffect} from 'react';
 import {PanelsContext} from '../internal/Panels/PanelsRouter';
 
 /**
- * QuickGuidePanel that sets the children for
+ * Panel that sets the children for
  * {@link sandstone/QuickGuidePanels.QuickGuidePanels|QuickGuidePanels}.
  *
- * @class QuickGuidePanel
+ * @class Panel
  * @memberof sandstone/QuickGuidePanels
  * @ui
  * @public
  */
-function QuickGuidePanel ({
+function Panel ({
 	'aria-label': ariaLabel,
 	children,
 	nextButton,
@@ -53,7 +53,7 @@ function QuickGuidePanel ({
  * ```
  *
  * @name nextButton
- * @memberof sandstone/QuickGuidePanels.QuickGuidePanel.prototype
+ * @memberof sandstone/QuickGuidePanels.Panel.prototype
  * @type {Boolean|Component}
  * @public
  */
@@ -73,12 +73,12 @@ function QuickGuidePanel ({
  * ```
  *
  * @name PrevButton
- * @memberof sandstone/QuickGuidePanels.QuickGuidePanel.prototype
+ * @memberof sandstone/QuickGuidePanels.Panel.prototype
  * @type {Boolean|Component}
  * @public
  */
 
-export default QuickGuidePanel;
+export default Panel;
 export {
-	QuickGuidePanel
+	Panel
 };
