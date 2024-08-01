@@ -10,7 +10,7 @@ import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 import TabLayout, {Tab} from '../TabLayout';
 
-import ColorPickerGrid from "./ColorPickerGrid";
+import ColorPickerGrid from './ColorPickerGrid';
 
 import componentsCss from './ColorPickerPOC.module.less';
 
