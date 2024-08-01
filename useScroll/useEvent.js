@@ -603,7 +603,7 @@ const useEventWheel = (props, instances) => {
 		const negativeDelta = eventDelta < 0;
 		const {scrollTop, scrollLeft} = scrollContainerHandle.current;
 		const offset = snapToCenter ? scrollContentHandle.current.primary.gridSize : 0;
-		let delta = eventDelta;
+		let delta = 0;
 		let needToHideScrollbarTrack = false;
 
 		if (typeof window !== 'undefined') {
@@ -615,6 +615,7 @@ const useEventWheel = (props, instances) => {
 		// FIXME This routine is a temporary support for horizontal wheel scroll.
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
 		if (canScrollVertically) { // This routine handles wheel events on scrollbars for vertical scroll.
+			delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
 			if (negativeDelta && scrollTop > 0 + offset || positiveDelta && scrollTop < bounds.maxTop - offset) {
 				if (!spottable.current.isWheeling) {
 					initializeWheeling();
@@ -622,7 +623,6 @@ const useEventWheel = (props, instances) => {
 
 				// If ev.target is a descendant of scrollContent, the event will be handled on scroll event handler.
 				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target) || snapToCenter) {
-					delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
 					needToHideScrollbarTrack = !delta;
 
 					ev.preventDefault();
@@ -632,6 +632,7 @@ const useEventWheel = (props, instances) => {
 
 				ev.stopPropagation();
 			} else {
+				delta = 0;
 				if (overscrollEffectRequired && (negativeDelta && scrollTop <= 0 || positiveDelta && scrollTop >= bounds.maxTop)) {
 					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
@@ -639,17 +640,18 @@ const useEventWheel = (props, instances) => {
 				needToHideScrollbarTrack = true;
 			}
 		} else if (canScrollHorizontally) { // this routine handles wheel events on any children for horizontal scroll.
+			delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
 			if (negativeDelta && scrollLeft > 0 + offset || positiveDelta && scrollLeft < bounds.maxLeft - offset) {
 				if (!spottable.current.isWheeling) {
 					initializeWheeling();
 				}
 
-				delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
 				needToHideScrollbarTrack = !delta;
 
 				ev.preventDefault();
 				ev.stopPropagation();
 			} else {
+				delta = 0;
 				if (overscrollEffectRequired && (negativeDelta && scrollLeft <= 0 || positiveDelta && scrollLeft >= bounds.maxLeft)) {
 					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
