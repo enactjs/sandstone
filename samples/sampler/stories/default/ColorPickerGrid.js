@@ -1,7 +1,6 @@
-import ColorPickerGrid from '@enact/sandstone/ColorPickerGrid';
+import ColorPickerGrid from '@enact/sandstone/ColorPickerPOC/ColorPickerGrid';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {Fragment} from 'react';
-import {_Button} from "./Button";
 
 ColorPickerGrid.displayName = 'ColorPicker';
 

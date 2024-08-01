@@ -11,19 +11,17 @@
  * @exports ColorPickerGridDecorator
  * @private
  */
-import {forwardCustom} from "@enact/core/handle";
 import Spottable from '@enact/spotlight/Spottable';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback} from 'react';
 
 import Skinnable from '../Skinnable';
 
 import {rgbToHex} from './utils';
 
 import componentCss from './ColorPickerGrid.module.less';
-
 
 const SpottableDiv = Spottable('div');
 
@@ -55,21 +53,11 @@ const colors = [
  */
 
 const ColorPickerGridBase = (props) => {
-	const {className, ...rest} = props;
-
-	const [currentColor, setCurrentColor] = useState();
+	const {className, selectedColorHandler, ...rest} = props;
 
 	const handleClick = useCallback((e) => {
-		setCurrentColor(rgbToHex(e.target.style.backgroundColor));
-	}, []);
-
-
-	useEffect(() => {
-		if (currentColor) {
-			forwardCustom('onChange', () => ({value: currentColor}))(null, props);
-			// TODO pass current color to parent component
-		}
-	}, [currentColor, props]);
+		selectedColorHandler(rgbToHex(e.target.style.backgroundColor));
+	}, [selectedColorHandler]);
 
 	return (
 		<div className={classnames(componentCss.colorPicker, className)} {...rest} >
@@ -113,12 +101,12 @@ ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPickerGrid.ColorPicke
 	disabled: PropTypes.bool,
 
 	/**
-	 * A function to run when the current value changes.
+	 * A function to run when the current color changes.
 	 *
 	 * @type {Function}
 	 * @public
 	 */
-	onChange: PropTypes.func
+	selectedColorHandler: PropTypes.func
 };
 
 /**
