@@ -19,7 +19,7 @@ import {useCallback} from 'react';
 
 import Skinnable from '../Skinnable';
 
-import {rgbToHex} from './utils';
+import {rgbStringToHex} from './utils';
 
 import componentCss from './ColorPickerGrid.module.less';
 
@@ -56,7 +56,7 @@ const ColorPickerGridBase = (props) => {
 	const {className, selectedColorHandler, ...rest} = props;
 
 	const handleClick = useCallback((e) => {
-		selectedColorHandler(rgbToHex(e.target.style.backgroundColor));
+		selectedColorHandler(rgbStringToHex(e.target.style.backgroundColor));
 	}, [selectedColorHandler]);
 
 	return (

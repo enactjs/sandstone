@@ -1,4 +1,4 @@
-function rgbToHex (rgbString) {
+function rgbStringToHex (rgbString) {
 	if (rgbString.indexOf("rgb(") !== 0) return false;
 
 	let a = rgbString.substring(4).split(","); // an array ("204","204","153)")
@@ -13,5 +13,5 @@ function rgbToHex (rgbString) {
 }
 
 export {
-	rgbToHex
+	rgbStringToHex
 };
