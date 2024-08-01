@@ -78,6 +78,13 @@ const FavoriteColors = ({colorHandler, colors = [], css, selectedColor = '#3455e
 	);
 };
 
+FavoriteColors.propTypes = {
+	colorHandler: PropTypes.func,
+	colors: PropTypes.array,
+	css: PropTypes.object,
+	selectedColor: PropTypes.string
+};
+
 const ColorPickerPOCBase = kind({
 	name: 'ColorPickerPOC',
 
@@ -103,7 +110,7 @@ const ColorPickerPOCBase = kind({
 		css: componentsCss
 	},
 
-	render: ({color, open, colors, css, onChangeColor, ...rest}) => {
+	render: ({color, open, colors, css, onChangeColor}) => {
 
 		return (
 			<Popup open={open} position={'center'}>
