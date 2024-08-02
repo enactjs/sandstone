@@ -12,6 +12,12 @@ function rgbStringToHex (rgbString) {
 	return ("#" + a[0] + a[1] + a[2]).toUpperCase();
 }
 
+// Utilities functions for spectrum color picker
+function spectrumRgbToHex (r, g, b) {
+	return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
 export {
-	rgbStringToHex
+	rgbStringToHex,
+	spectrumRgbToHex
 };

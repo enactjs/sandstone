@@ -107,7 +107,7 @@ const ColorPickerPOCBase = ({color, colors = [], css, onChangeColor, open, ...re
 						</Tab>
 						<Tab style={{width: ri.scaleToRem(400)}} title={'Spectrum'}>
 							<div className={componentsCss.colorPicker}>
-								<ColorPickerSpectrum selectedColorHandler={setSelectedColor} />
+								<ColorPickerSpectrum selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
 						<Tab style={{width: ri.scaleToRem(400)}} title={'Sliders'}>
