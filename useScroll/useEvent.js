@@ -640,18 +640,17 @@ const useEventWheel = (props, instances) => {
 				needToHideScrollbarTrack = true;
 			}
 		} else if (canScrollHorizontally) { // this routine handles wheel events on any children for horizontal scroll.
-			delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
 			if (negativeDelta && scrollLeft > 0 + offset || positiveDelta && scrollLeft < bounds.maxLeft - offset) {
 				if (!spottable.current.isWheeling) {
 					initializeWheeling();
 				}
 
+				delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
 				needToHideScrollbarTrack = !delta;
 
 				ev.preventDefault();
 				ev.stopPropagation();
 			} else {
-				delta = 0;
 				if (overscrollEffectRequired && (negativeDelta && scrollLeft <= 0 || positiveDelta && scrollLeft >= bounds.maxLeft)) {
 					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
