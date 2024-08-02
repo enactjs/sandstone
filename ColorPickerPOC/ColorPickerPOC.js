@@ -5,9 +5,10 @@ import Toggleable from '@enact/ui/Toggleable';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useCallback, useState} from 'react';
+import {useCallback, useRef, useState} from 'react';
 
 import {Button, ButtonBase} from '../Button';
+import Icon from '../Icon';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 import TabLayout, {Tab} from '../TabLayout';
@@ -19,16 +20,26 @@ const SpottableButton = Spottable(ButtonBase);
 const FavoriteColors = ({colorHandler, colors = [], css, selectedColor = '#3455eb'}) => {
 	const [currentColor, setCurrentColor] = useState(selectedColor);
 	const [favoriteColors, setFavoriteColors] = useState(colors);
+	const [editMode, setEditMode] = useState(false);
+	const timerRef = useRef(null);
 
 	const onSelectFavoriteColor = useCallback((ev) => {
+		if (editMode) {
+			const target = ev.target.offsetParent.id;
+			const [buttonColor, buttonIndex] = target.split('-');
+			setFavoriteColors(prevState =>
+				prevState.filter((stateColor, index) =>
+					!(stateColor === buttonColor && index === Number(favoriteColors.length - buttonIndex - 1))));
+			return;
+		}
 		const color = ev.target.offsetParent.id;
 		setCurrentColor(color);
 
 		colorHandler({currentColor: color, favoriteColors});
-	}, [colorHandler, favoriteColors]);
+	}, [colorHandler, favoriteColors, editMode]);
 
 	const addNewFavoriteColor = useCallback(() => {
-		if (favoriteColors.length > 6) favoriteColors.shift();
+		if (favoriteColors.length > 10) favoriteColors.shift();
 
 		setFavoriteColors(prevState => {
 			const colorsState = [...prevState, selectedColor];
@@ -39,6 +50,10 @@ const FavoriteColors = ({colorHandler, colors = [], css, selectedColor = '#3455e
 	}, [colorHandler, currentColor, favoriteColors, selectedColor]);
 
 	const onAddNewFavoriteColor = useCallback(() => {
+		if (editMode) {
+			setEditMode(false);
+			return;
+		}
 		if (!document.startViewTransition) {
 			addNewFavoriteColor();
 			return;
@@ -47,31 +62,79 @@ const FavoriteColors = ({colorHandler, colors = [], css, selectedColor = '#3455e
 		document.startViewTransition(() => {
 			addNewFavoriteColor();
 		});
-	}, [addNewFavoriteColor]);
+	}, [addNewFavoriteColor, editMode]);
+
+	const onMouseDown = useCallback(() => {
+		timerRef.current = setTimeout(() => {
+			setEditMode(true);
+		}, 1000);
+
+	}, [timerRef]);
+
+	const onMouseUp = useCallback(() => {
+		clearTimeout(timerRef.current);
+	}, []);
 
 	return (
 		<div>
 			<Row className={css.presetColorsRow}>
 				<Cell align={'end'}>
-					{favoriteColors.length >= 4 && <Button backgroundOpacity={'opaque'} className={css.addButton} onClick={onAddNewFavoriteColor} size={'small'} style={{marginInline: 0}} roundBorder icon={'plus'} />}
 					{favoriteColors.slice(4, 8).map((color, index) => {
 						return (
-							<SpottableButton key={color + '_' + index} id={color} minWidth={false} onClick={onSelectFavoriteColor} className={css.presetColor} size={'small'} style={{backgroundColor: color, marginInline: 0}} />
+							<SpottableButton
+								className={css.presetColor}
+								id={`${color}-${index}`}
+								onMouseDown={onMouseDown}
+								onMouseUp={onMouseUp}
+								key={`${color}_${index}`}
+								minWidth={false}
+								onClick={onSelectFavoriteColor}
+								size={'small'}
+								style={{backgroundColor: color, marginInline: 0}}
+							>
+								{editMode && <Icon className={css.deleteButton} size={'tiny'}>trash</Icon>}
+							</SpottableButton>
 						);
 					})}
 				</Cell>
 				<Cell align={'end'}>
-					{favoriteColors.length < 4 && <Button backgroundOpacity={'opaque'} className={css.addButton} onClick={onAddNewFavoriteColor} size={'small'} style={{marginInline: 0}} roundBorder icon={'plus'} />}
+					{favoriteColors.length < 6 &&
+						<Button
+							backgroundOpacity={'opaque'}
+							className={css.addButton}
+							icon={editMode ? 'check' : 'plus'}
+							onClick={onAddNewFavoriteColor}
+							roundBorder
+							size={'small'}
+							style={{marginInline: 0}}
+						/>
+					}
 					{favoriteColors.slice(0, 4).reverse().map((color, index) => {
 						return (
-							<SpottableButton key={color + '_' + index} id={color} minWidth={false} onClick={onSelectFavoriteColor} className={css.presetColor} size={'small'} style={{backgroundColor: color, marginInline: 0}} />
+							<SpottableButton
+								className={css.presetColor}
+								id={`${color}-${index}`}
+								onMouseDown={onMouseDown}
+								onMouseUp={onMouseUp}
+								key={`${color}_${index}`}
+								minWidth={false}
+								onClick={onSelectFavoriteColor}
+								size={'small'}
+								style={{backgroundColor: color, marginInline: 0}}
+							>
+								{editMode && <Icon className={css.deleteButton} size={'tiny'}>trash</Icon>}
+							</SpottableButton>
 						);
 					})}
 				</Cell>
 			</Row>
 			<Row className={css.presetColorsRow}>
 				<Cell>
-					<SpottableButton minWidth={false} className={css.currentColor} style={{backgroundColor: currentColor, marginInline: 0}} />
+					<div
+						className={css.currentColor}
+						// minWidth={false}
+						style={{backgroundColor: currentColor}}
+					/>
 				</Cell>
 			</Row>
 		</div>
