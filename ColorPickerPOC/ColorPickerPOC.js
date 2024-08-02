@@ -11,6 +11,7 @@ import Skinnable from '../Skinnable';
 import TabLayout, {Tab} from '../TabLayout';
 
 import ColorPickerGrid from './ColorPickerGrid';
+import ColorPickerSpectrum from './ColorPickerSpectrum';
 
 import componentsCss from './ColorPickerPOC.module.less';
 
@@ -106,7 +107,7 @@ const ColorPickerPOCBase = ({color, colors = [], css, onChangeColor, open, ...re
 						</Tab>
 						<Tab style={{width: ri.scaleToRem(400)}} title={'Spectrum'}>
 							<div className={componentsCss.colorPicker}>
-								Spectrum
+								<ColorPickerSpectrum selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
 						<Tab style={{width: ri.scaleToRem(400)}} title={'Sliders'}>
