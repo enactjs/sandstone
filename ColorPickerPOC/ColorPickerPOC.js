@@ -1,46 +1,35 @@
 import Spottable from '@enact/spotlight/Spottable';
-import {Cell, Row} from '@enact/ui/Layout';
+import {Cell, Column, Row} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import {Button, ButtonBase} from '../Button';
+import {ButtonBase} from '../Button';
 import Icon from '../Icon';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 import TabLayout, {Tab} from '../TabLayout';
 
 import ColorPickerGrid from './ColorPickerGrid';
+import {generateOppositeColor} from './utils';
 
 import componentsCss from './ColorPickerPOC.module.less';
 
 const SpottableButton = Spottable(ButtonBase);
 
 const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', selectedColorHandler}) => {
-	const [favoriteColors, setFavoriteColors] = useState(colors);
+	const [clickEnabled, setClickEnabled] = useState(true);
 	const [editMode, setEditMode] = useState(false);
+	const [favoriteColors, setFavoriteColors] = useState(colors);
+
 	const timerRef = useRef(null);
 
-	const onSelectFavoriteColor = useCallback((ev) => {
-		if (editMode) {
-			const target = ev.target.offsetParent.id;
-			const [buttonColor, buttonIndex] = target.split('-');
-			setFavoriteColors(prevState =>
-				prevState.filter((stateColor, index) =>
-					!(stateColor === buttonColor && index === Number(favoriteColors.length - buttonIndex - 1))));
-			return;
-		}
-		const color = ev.target.offsetParent.id;
-		selectedColorHandler(color);
-		colorHandler({currentColor: color, favoriteColors});
-	}, [colorHandler, editMode, favoriteColors, selectedColorHandler]);
-
 	const addNewFavoriteColor = useCallback(() => {
-		if (favoriteColors.length > 6) favoriteColors.shift();
-
+		if (favoriteColors.includes(selectedColor)) return;
 		setFavoriteColors(prevState => {
 			const colorsState = [...prevState, selectedColor];
+			if (colorsState.length > 8) colorsState.shift();
 			colorHandler({selectedColor, favoriteColors: colorsState});
 
 			return colorsState;
@@ -52,44 +41,59 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 			setEditMode(false);
 			return;
 		}
-		if (!document.startViewTransition) {
-			addNewFavoriteColor();
+		addNewFavoriteColor();
+	}, [addNewFavoriteColor, editMode]);
+
+	const onSelectFavoriteColor = useCallback((ev) => {
+		if (!clickEnabled) return;
+		const target = ev.target.offsetParent.id || ev.target.id;
+		const [buttonColor, buttonIndex] = target.split('-');
+		if (editMode && clickEnabled) {
+			setFavoriteColors(prevState =>
+				prevState.filter((stateColor, index) => {
+					return 	!(stateColor === buttonColor && index === Number(buttonIndex))
+				}))
 			return;
 		}
-
-		document.startViewTransition(() => {
-			addNewFavoriteColor();
-		});
-	}, [addNewFavoriteColor, editMode]);
+		selectedColorHandler(buttonColor);
+		colorHandler({currentColor: buttonColor, favoriteColors});
+	}, [clickEnabled, colorHandler, editMode, favoriteColors, selectedColorHandler]);
 
 	const onMouseDown = useCallback(() => {
 		timerRef.current = setTimeout(() => {
 			setEditMode(true);
+			setClickEnabled(false);
 		}, 1000);
-
-	}, [timerRef]);
+	}, []);
 
 	const onMouseUp = useCallback(() => {
 		clearTimeout(timerRef.current);
+		setTimeout(() => {
+			setClickEnabled(true);
+		}, 100);
 	}, []);
 
 	return (
 		<div>
-			<Row className={componentsCss.presetColorsRow}>
+			<Row className={componentsCss.favoriteColorsRow}>
 				<Cell align={'end'}>
-					{favoriteColors.length >= 4 && <Button backgroundOpacity={'opaque'} className={componentsCss.addButton} onClick={onAddNewFavoriteColor} size={'small'} style={{marginInline: 0}} roundBorder icon={'plus'} />}
 					{favoriteColors.slice(4, 8).map((color, index) => {
 						return (
 							<SpottableButton
-								className={componentsCss.presetColor}
-								id={`${color}-${index}`}
-								onMouseDown={onMouseDown}
-								onMouseUp={onMouseUp}
-								key={`${color}_${index}`}
+								className={componentsCss.favoriteColor}
+								id={`${color}-${index + 4}`}
+								key={`${color}_${index + 4}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
+								onMouseDown={onMouseDown}
+								onMouseUp={onMouseUp}
+								onSpotlightDown={onSelectFavoriteColor}
 								size={'small'}
-								style={{backgroundColor: color, marginInline: 0}}
+								style={{
+									backgroundColor: color,
+									borderColor: generateOppositeColor(color),
+									color: generateOppositeColor(color)
+								}}
 							>
 								{editMode && <Icon className={componentsCss.deleteButton} size={'tiny'}>trash</Icon>}
 							</SpottableButton>
@@ -97,41 +101,44 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 					})}
 				</Cell>
 				<Cell align={'end'}>
-					{favoriteColors.length < 6 &&
-						<Button
-							backgroundOpacity={'opaque'}
-							className={componentsCss.addButton}
-							icon={editMode ? 'check' : 'plus'}
-							onClick={onAddNewFavoriteColor}
-							roundBorder
-							size={'small'}
-							style={{marginInline: 0}}
-						/>
-					}
-					{favoriteColors.slice(0, 4).reverse().map((color, index) => {
+					{favoriteColors.slice(0, 4).map((color, index) => {
 						return (
 							<SpottableButton
-								className={componentsCss.presetColor}
+								className={componentsCss.favoriteColor}
 								id={`${color}-${index}`}
-								onMouseDown={onMouseDown}
-								onMouseUp={onMouseUp}
 								key={`${color}_${index}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
+								onMouseDown={onMouseDown}
+								onMouseUp={onMouseUp}
 								size={'small'}
-								style={{backgroundColor: color, marginInline: 0}}
+								style={{
+									backgroundColor: color,
+									borderColor: generateOppositeColor(color),
+									color: generateOppositeColor(color)
+								}}
 							>
-								{editMode && <Icon className={css.deleteButton} size={'tiny'}>trash</Icon>}
+								{editMode && <Icon className={componentsCss.deleteButton} size={'tiny'}>trash</Icon>}
 							</SpottableButton>
 						);
 					})}
 				</Cell>
 			</Row>
-			<Row className={componentsCss.presetColorsRow}>
-				<Cell>
-					<SpottableButton minWidth={false} className={componentsCss.currentColor} style={{backgroundColor: selectedColor, marginInline: 0}} />
-				</Cell>
-			</Row>
+			<Column align={'center'}>
+				<SpottableButton
+					className={componentsCss.currentColor}
+					minWidth={false}
+					onClick={onAddNewFavoriteColor}
+					onSpotlightDown={onAddNewFavoriteColor}
+					style={{
+						backgroundColor: selectedColor,
+						borderColor: generateOppositeColor(selectedColor),
+						color: generateOppositeColor(selectedColor)
+					}}
+				>
+					<Icon size={'large'}>{editMode ? 'check' : 'plus'}</Icon>
+				</SpottableButton>
+			</Column>
 		</div>
 	);
 };
@@ -145,7 +152,7 @@ FavoriteColors.propTypes = {
 };
 
 
-const ColorPickerPOCBase = ({color, colors = [], css, onChangeColor, open, ...rest}) => {
+const ColorPickerPOCBase = ({color = '#eb4034', colors = [], css, onChangeColor, open, ...rest}) => {
 	const [selectedColor, setSelectedColor] = useState(color);
 
 	useEffect(() => {
@@ -157,7 +164,7 @@ const ColorPickerPOCBase = ({color, colors = [], css, onChangeColor, open, ...re
 	return (
 		<Popup open={open} position={'center'} {...rest}>
 			<Row>
-				<Cell size={'80%'}>
+				<Cell size={'75%'}>
 					<TabLayout css={css} orientation={'horizontal'}>
 						<Tab style={{width: ri.scaleToRem(400)}} title={'Grid'}>
 							<div className={componentsCss.colorPicker}>
@@ -176,8 +183,16 @@ const ColorPickerPOCBase = ({color, colors = [], css, onChangeColor, open, ...re
 						</Tab>
 					</TabLayout>
 				</Cell>
-				<Cell align={'end'} size={'20%'}>
-					<FavoriteColors colors={colors} css={css} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} colorHandler={onChangeColor} />
+				<Cell align={'end'} size={'25%'}>
+					<Column>
+						<FavoriteColors
+							colorHandler={onChangeColor}
+							colors={colors}
+							css={css}
+							selectedColor={selectedColor}
+							selectedColorHandler={setSelectedColor}
+						/>
+					</Column>
 				</Cell>
 			</Row>
 		</Popup>
