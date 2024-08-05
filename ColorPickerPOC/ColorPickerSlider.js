@@ -8,6 +8,16 @@ import {hexToRGB, rgbObjectToHex} from './utils';
 
 import componentCss from './ColorPickerSlider.module.less';
 
+const temp = ({red, green, blue}) => {
+    let r = red/255,
+        g = green/255,
+        b = blue/255;
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let l = (max + min) / 2;
+
+    return l*100;
+}
+
 const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...props}) => {
     const {red, green, blue} = hexToRGB(selectedColor);
 
@@ -35,7 +45,10 @@ const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...
                             min={0}
                             noFill
                             onChange={changeValueRed}
-                            style={{backgroundImage: `linear-gradient(to right, rgb(0,${green},${blue}), rgb(255,${green},${blue}))`}}
+                            style={{
+                                '--sand-slider-knob-border-color': temp({red, green, blue}) < 50 ? 'antiquewhite' : '#444444',
+                                backgroundImage: `linear-gradient(to right, rgb(0,${green},${blue}), rgb(255,${green},${blue}))`
+                            }}
                             value={red}
                         />
                     </Cell>
@@ -54,7 +67,10 @@ const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...
                             min={0}
                             noFill
                             onChange={changeValueGreen}
-                            style={{backgroundImage: `linear-gradient(to right, rgb(${red},0,${blue}), rgb(${red},255,${blue}))`}}
+                            style={{
+                                '--sand-slider-knob-border-color': temp({red, green, blue}) < 50 ? 'antiquewhite' : '#444444',
+                                backgroundImage: `linear-gradient(to right, rgb(${red},0,${blue}), rgb(${red},255,${blue}))`
+                            }}
                             value={green}
                         />
                     </Cell>
@@ -71,7 +87,10 @@ const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...
                             min={0}
                             noFill
                             onChange={changeValueBlue}
-                            style={{backgroundImage: `linear-gradient(to right, rgb(${red},${green},0), rgb(${red},${green},255))`}}
+                            style={{
+                                '--sand-slider-knob-border-color': temp({red, green, blue}) < 50 ? 'antiquewhite' : '#444444',
+                                backgroundImage: `linear-gradient(to right, rgb(${red},${green},0), rgb(${red},${green},255))`
+                            }}
                             value={blue}
                         />
                     </Cell>
