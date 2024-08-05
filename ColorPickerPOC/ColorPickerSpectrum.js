@@ -1,32 +1,11 @@
-import Spottable from '@enact/spotlight/Spottable';
+// import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 import {spectrumRgbToHex} from './utils';
+import SpectrumIndicator from './SpectrumIndicator';
 
 import css from './ColorPickerSpectrum.module.less';
-
-const SpottableDiv = Spottable('div');
-
-const CircleIndicatorBase = ({bgColor, x, y}) => {
-	return (
-		<SpottableDiv className={css.circleIndicator}
-			 style={{
-				 position: 'absolute',
-				 left: x-11,
-				 top: y-11,
-				 width: 21,
-				 height: 21,
-				 borderRadius: 99,
-				 border: '2px solid #808080',
-				 backgroundColor: bgColor,
-				 pointerEvents: 'none'
-			 }}
-		/>
-	);
-};
-
-
 
 const SpectrumColorPickerBase = (props) => {
 	const {selectedColor, selectedColorHandler} = props;
@@ -35,6 +14,7 @@ const SpectrumColorPickerBase = (props) => {
 	const [indicatorY, setIndicatorY] = useState(0);
 	const [isDragging, setIsDragging] = useState(false);
 	const [indicatorBgColor, setIndicatorBgColor] = useState('transparent');
+	const [isIndicatorActive, setIsIndicatorActive] = useState(false);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -93,6 +73,7 @@ const SpectrumColorPickerBase = (props) => {
 		const imageData = ctx.getImageData(x, y, 1, 1);
 		const hexColor = spectrumRgbToHex(imageData.data[0], imageData.data[1], imageData.data[2]);
 		setIndicatorBgColor(hexColor);
+		setIsIndicatorActive(false);
 	}, [canvasRef, setIndicatorX, setIndicatorY, setIsDragging, spectrumRgbToHex]);
 
 	const handleCanvasPointerLeave = useCallback((e) => {
@@ -145,15 +126,24 @@ const SpectrumColorPickerBase = (props) => {
 				style={{touchAction: 'none'}}
 				width={400}
 			/>
-			<CircleIndicatorBase bgColor={indicatorBgColor} x={indicatorX} y={indicatorY} />
+			<SpectrumIndicator
+				bgColor={indicatorBgColor}
+				canvasRef={canvasRef}
+				isIndicatorActive={isIndicatorActive}
+				setIsIndicatorActive={setIsIndicatorActive}
+				setIndicatorX={setIndicatorX}
+				setIndicatorY={setIndicatorY}
+				x={indicatorX}
+				y={indicatorY}
+			/>
 		</div>
 	);
 };
 
-const SpectrumColorPickerDecorator = compose(
-	Spottable
-);
+// const SpectrumColorPickerDecorator = compose(
+// 	// SpotlightContainerDecorator
+// );
+//
+// const SpectrumColorPicker = SpectrumColorPickerDecorator(SpectrumColorPickerBase);
 
-const SpectrumColorPicker = SpectrumColorPickerDecorator(SpectrumColorPickerBase);
-
-export default SpectrumColorPicker;
+export default SpectrumColorPickerBase;
