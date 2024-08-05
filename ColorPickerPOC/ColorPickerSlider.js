@@ -8,7 +8,7 @@ import {hexToRGB, rgbObjectToHex} from './utils';
 
 import componentCss from './ColorPickerSlider.module.less';
 
-const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
+const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...props}) => {
     const {red, green, blue} = hexToRGB(selectedColor);
 
     const changeValueRed = useCallback((ev) => {
