@@ -15,7 +15,7 @@ function rgbStringToHex (rgbString) {
 const generateOppositeColor = (hexColor) => {
 	hexColor = hexColor.replace('#', '');
 
-	const bigint = parseInt(hexColor, 16)
+	const bigint = parseInt(hexColor, 16);
 	const r = (bigint >> 16) & 255;
 	const g = (bigint >> 8) & 255;
 	const b = bigint & 255;
@@ -23,7 +23,7 @@ const generateOppositeColor = (hexColor) => {
 	const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
 	return luminance > 128 ? '#101720CC' : '#FFFFFFCC';
-}
+};
 
 export {
 	rgbStringToHex,

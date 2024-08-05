@@ -20,9 +20,10 @@ const SpottableButton = Spottable(ButtonBase);
 
 const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', selectedColorHandler}) => {
 	const [clickEnabled, setClickEnabled] = useState(true);
-	const [editMode, setEditMode] = useState(false);
+	const [editEnabled, setEditEnabled] = useState(false);
 	const [favoriteColors, setFavoriteColors] = useState(colors);
 
+	const shakeEffectRef = useRef(null);
 	const timerRef = useRef(null);
 
 	const addNewFavoriteColor = useCallback(() => {
@@ -37,36 +38,44 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 	}, [colorHandler, favoriteColors, selectedColor]);
 
 	const onAddNewFavoriteColor = useCallback(() => {
-		if (editMode) {
-			setEditMode(false);
+		if (editEnabled) {
+			setEditEnabled(false);
 			return;
 		}
 		addNewFavoriteColor();
-	}, [addNewFavoriteColor, editMode]);
+	}, [addNewFavoriteColor, editEnabled]);
 
 	const onSelectFavoriteColor = useCallback((ev) => {
 		if (!clickEnabled) return;
-		const target = ev.target.offsetParent.id || ev.target.id;
-		const [buttonColor, buttonIndex] = target.split('-');
-		if (editMode && clickEnabled) {
+		const targetId = ev.target.offsetParent.id || ev.target.id;
+		const [buttonColor, buttonIndex] = targetId.split('-');
+		if (editEnabled && clickEnabled) {
 			setFavoriteColors(prevState =>
 				prevState.filter((stateColor, index) => {
-					return 	!(stateColor === buttonColor && index === Number(buttonIndex))
-				}))
+					return 	!(stateColor === buttonColor && index === Number(buttonIndex));
+				}));
 			return;
 		}
 		selectedColorHandler(buttonColor);
 		colorHandler({currentColor: buttonColor, favoriteColors});
-	}, [clickEnabled, colorHandler, editMode, favoriteColors, selectedColorHandler]);
+	}, [clickEnabled, colorHandler, editEnabled, favoriteColors, selectedColorHandler]);
 
-	const onMouseDown = useCallback(() => {
+	const onMouseDown = useCallback((ev) => {
+		if (editEnabled) return;
+		const target = ev.target.id ? ev.target : ev.target.offsetParent;
+		shakeEffectRef.current = setTimeout(() => {
+			target.classList.add(componentsCss.shakeFavoriteColor);
+		}, 300);
 		timerRef.current = setTimeout(() => {
-			setEditMode(true);
+			setEditEnabled(true);
 			setClickEnabled(false);
 		}, 1000);
-	}, []);
+	}, [editEnabled]);
 
-	const onMouseUp = useCallback(() => {
+	const onMouseUp = useCallback((ev) => {
+		const target = ev.target.id ? ev.target : ev.target.offsetParent;
+		target.classList.remove(componentsCss.shakeFavoriteColor);
+		clearTimeout(shakeEffectRef.current);
 		clearTimeout(timerRef.current);
 		setTimeout(() => {
 			setClickEnabled(true);
@@ -87,7 +96,6 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 								onClick={onSelectFavoriteColor}
 								onMouseDown={onMouseDown}
 								onMouseUp={onMouseUp}
-								onSpotlightDown={onSelectFavoriteColor}
 								size={'small'}
 								style={{
 									backgroundColor: color,
@@ -95,7 +103,7 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 									color: generateOppositeColor(color)
 								}}
 							>
-								{editMode && <Icon className={componentsCss.deleteButton} size={'tiny'}>trash</Icon>}
+								{editEnabled && <Icon className={componentsCss.deleteButton} size={'tiny'}>trash</Icon>}
 							</SpottableButton>
 						);
 					})}
@@ -118,7 +126,7 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 									color: generateOppositeColor(color)
 								}}
 							>
-								{editMode && <Icon className={componentsCss.deleteButton} size={'tiny'}>trash</Icon>}
+								{editEnabled && <Icon className={componentsCss.deleteButton} size={'tiny'}>trash</Icon>}
 							</SpottableButton>
 						);
 					})}
@@ -129,14 +137,13 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 					className={componentsCss.currentColor}
 					minWidth={false}
 					onClick={onAddNewFavoriteColor}
-					onSpotlightDown={onAddNewFavoriteColor}
 					style={{
 						backgroundColor: selectedColor,
 						borderColor: generateOppositeColor(selectedColor),
 						color: generateOppositeColor(selectedColor)
 					}}
 				>
-					<Icon size={'large'}>{editMode ? 'check' : 'plus'}</Icon>
+					<Icon className={componentsCss.currentColorIcon} size={'large'}>{editEnabled ? 'check' : 'plus'}</Icon>
 				</SpottableButton>
 			</Column>
 		</div>
