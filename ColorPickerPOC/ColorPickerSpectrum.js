@@ -6,9 +6,11 @@ import {spectrumRgbToHex} from './utils';
 
 import css from './ColorPickerSpectrum.module.less';
 
+const SpottableDiv = Spottable('div');
+
 const CircleIndicatorBase = ({bgColor, x, y}) => {
 	return (
-		<div className={css.circleIndicator}
+		<SpottableDiv className={css.circleIndicator}
 			 style={{
 				 position: 'absolute',
 				 left: x-11,
@@ -24,7 +26,7 @@ const CircleIndicatorBase = ({bgColor, x, y}) => {
 	);
 };
 
-const SpottableCircleIndicator = Spottable(CircleIndicatorBase);
+
 
 const SpectrumColorPickerBase = (props) => {
 	const {selectedColor, selectedColorHandler} = props;
@@ -143,7 +145,7 @@ const SpectrumColorPickerBase = (props) => {
 				style={{touchAction: 'none'}}
 				width={400}
 			/>
-			<SpottableCircleIndicator bgColor={indicatorBgColor} x={indicatorX} y={indicatorY} />
+			<CircleIndicatorBase bgColor={indicatorBgColor} x={indicatorX} y={indicatorY} />
 		</div>
 	);
 };
