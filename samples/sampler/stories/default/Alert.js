@@ -44,6 +44,7 @@ export const _Alert = (args) => (
 	<Alert
 		open={args['open']}
 		onClose={action('onClose')}
+		showLongTitle={args['showLongTitle']}
 		title={args['title']}
 		type={args['type']}
 	>
@@ -59,6 +60,7 @@ export const _Alert = (args) => (
 
 boolean('open', _Alert, Config);
 select('buttons', _Alert, ['no buttons', '1 button', '2 buttons', '3 buttons'], Config, '2 buttons');
+boolean('showLongTitle', _Alert, Config);
 text('title', _Alert, Config, 'Fullscreen Alert Title');
 select('type', _Alert, ['fullscreen', 'overlay'], Config);
 text('children', _Alert, Config, 'Additional text content for Alert');

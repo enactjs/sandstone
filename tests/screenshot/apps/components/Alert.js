@@ -15,6 +15,7 @@ import {withConfig, withProps, LoremString} from './utils';
 // Only type: 'fullscreen' supports title prop
 const fullscreenTests = [
 	<Alert open title="Title" />,
+	<Alert open showLongTitle title="Long Title Long Title Long Title Long Title" />,
 	<Alert open>Alert!</Alert>,
 	<Alert open>{LoremString}</Alert>
 ];
