@@ -51,8 +51,7 @@ body {
 	--sand-focus-bg-color-rgb: 255, 255, 255;
 	--sand-component-focus-text-color-rgb: 0, 0, 0;
 	--sand-selected-bg-color: rgba(255, 255, 255, 0.15);
-	--sand-overlay-bg-color-rgb: 255, 255, 255;
-	--sand-overlay-bg-color-opacity: 30%; // new variable
+	--sand-overlay-bg-color: color(from var(--sand-color-base) srgb calc((r * 2 + 1) / 3) calc((g * 2 + 1) / 3) calc((b * 2 + 1) / 3));
 	--sand-disabled-opacity: 0.3; // new variable
 }
 

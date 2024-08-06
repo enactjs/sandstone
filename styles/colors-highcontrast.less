@@ -8,7 +8,7 @@
 // UI Conceptual Colors
 // ---------------------------------------
 
-@sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 0, 0, 0);
+@sand-overlay-bg-color: var(--sand-overlay-bg-color, #000000);
 @sand-overlay-outline-color: var(--sand-overlay-outline-color, #7c848b);
 @sand-overlay-outline-style: var(--sand-overlay-outline-style, solid);
 
@@ -16,7 +16,7 @@
 // ---------------------------------------
 
 // common colors
-@sand-alert-overlay-bg-color-rgb: var(--sand-alert-overlay-bg-color-rgb, 0, 0, 0);
+@sand-alert-overlay-bg-color: var(--sand-alert-overlay-bg-color, #000000);
 @sand-alert-overlay-bg-color-opacity: 100%;
 @sand-alert-overlay-text-color-rgb: var(--sand-alert-overlay-text-color-rgb, 230, 230, 230); // #e6e6e6
 @sand-alert-overlay-text-sub-color: var(--sand-alert-overlay-text-sub-color, #abaeb3);
@@ -36,7 +36,7 @@
 
 // Input
 // ---------------------------------------
-@sand-input-fullscreen-background-color: rgb(@sand-overlay-bg-color-rgb); // different from neutral
+@sand-input-fullscreen-background-color: @sand-overlay-bg-color; // different from neutral
 
 // KeyGuide
 // ---------------------------------------
@@ -44,5 +44,5 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: rgb(@sand-overlay-bg-color-rgb); // no alpha
-@sand-popup-scrimtransparent-bg-color: rgb(@sand-overlay-bg-color-rgb); // no alpha
+@sand-popup-bg-color: @sand-overlay-bg-color; // no alpha
+@sand-popup-scrimtransparent-bg-color: @sand-overlay-bg-color; // no alpha
