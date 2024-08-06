@@ -55,25 +55,25 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 	}, [canvasRef, selectedColorHandler, x, y]);
 
 	const handleSpotlightDown = useCallback(() => {
-		if (isIndicatorActive && y <= canvasRef.current.clientHeight - 1) {
+		if (isIndicatorActive && y < canvasRef.current.clientHeight - 1) {
 			setY(y++);
 		}
 	}, [canvasRef, isIndicatorActive, setY, y]);
 
 	const handleSpotlightLeft = useCallback(() => {
-		if (isIndicatorActive && x >= 0) {
+		if (isIndicatorActive && x > 0) {
 			setX(x--);
 		}
 	}, [isIndicatorActive, setX, x]);
 
 	const handleSpotlightRight = useCallback(() => {
-		if (isIndicatorActive && x <= canvasRef.current.clientWidth) {
+		if (isIndicatorActive && x < canvasRef.current.clientWidth) {
 			setX(x++);
 		}
 	}, [canvasRef, isIndicatorActive, setX, x]);
 
 	const handleSpotlightUp = useCallback(() => {
-		if (isIndicatorActive && y >= 0) {
+		if (isIndicatorActive && y > 0) {
 			setY(y--);
 		}
 	}, [isIndicatorActive, setY, y]);
