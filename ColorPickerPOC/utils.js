@@ -12,6 +12,16 @@ function rgbStringToHex (rgbString) {
 	return ("#" + a[0] + a[1] + a[2]).toUpperCase();
 }
 
+function rgbToHex (r, g, b) {
+	return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+const getHexColorFromGradient = (canvasRef, x, y) => {
+	const ctx = canvasRef.current.getContext('2d');
+	const imageData = ctx.getImageData(x, y, 1, 1);
+	return rgbToHex(imageData.data[0], imageData.data[1], imageData.data[2]);
+};
+
 const generateOppositeColor = (hexColor) => {
 	hexColor = hexColor.replace('#', '');
 
@@ -46,6 +56,7 @@ const rgbObjectToHex = (rgbColor) => {
 
 export {
 	generateOppositeColor,
+	getHexColorFromGradient,
 	hexToRGB,
 	rgbObjectToHex,
 	rgbStringToHex
