@@ -26,6 +26,6 @@ const generateOppositeColor = (hexColor) => {
 };
 
 export {
-	rgbStringToHex,
-	generateOppositeColor
+	generateOppositeColor,
+	rgbStringToHex
 };
