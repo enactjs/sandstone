@@ -49,6 +49,7 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 		if (!clickEnabled) return;
 		const targetId = ev.target.offsetParent.id || ev.target.id;
 		const [buttonColor, buttonIndex] = targetId.split('-');
+
 		if (editEnabled && clickEnabled) {
 			setFavoriteColors(prevState =>
 				prevState.filter((stateColor, index) => {
@@ -56,6 +57,7 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 				}));
 			return;
 		}
+
 		selectedColorHandler(buttonColor);
 		colorHandler({currentColor: buttonColor, favoriteColors});
 	}, [clickEnabled, colorHandler, editEnabled, favoriteColors, selectedColorHandler]);
@@ -63,18 +65,22 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 	const onMouseDown = useCallback((ev) => {
 		if (editEnabled) return;
 		const target = ev.target.id ? ev.target : ev.target.offsetParent;
+
 		shakeEffectRef.current = setTimeout(() => {
 			target.classList.add(componentsCss.shakeFavoriteColor);
 		}, 300);
+
 		timerRef.current = setTimeout(() => {
 			setEditEnabled(true);
 			setClickEnabled(false);
+			target.classList.remove(componentsCss.shakeFavoriteColor);
 		}, 1000);
 	}, [editEnabled]);
 
 	const onMouseUp = useCallback((ev) => {
 		const target = ev.target.id ? ev.target : ev.target.offsetParent;
 		target.classList.remove(componentsCss.shakeFavoriteColor);
+
 		clearTimeout(shakeEffectRef.current);
 		clearTimeout(timerRef.current);
 		setTimeout(() => {
