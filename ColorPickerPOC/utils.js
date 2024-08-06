@@ -35,8 +35,29 @@ const generateOppositeColor = (hexColor) => {
 	return luminance > 128 ? '#101720CC' : '#FFFFFFCC';
 };
 
+const hexToRGB = (hexColor) => {
+	let internalColor = hexColor.replace('#', '').split('');
+
+	return {
+		red: parseInt(internalColor[0] + internalColor[1], 16),
+		green: parseInt(internalColor[2] + internalColor[3], 16),
+		blue: parseInt(internalColor[4] + internalColor[5], 16)
+	};
+};
+
+const rgbObjectToHex = (rgbColor) => {
+	let {red, green, blue} = rgbColor;
+	red = red < 16 ? `0${red.toString(16)}` : red.toString(16);
+	green = green < 16 ? `0${green.toString(16)}` : green.toString(16);
+	blue = blue < 16 ? `0${blue.toString(16)}` : blue.toString(16);
+
+	return `#${red}${green}${blue}`;
+};
+
 export {
-	rgbStringToHex,
 	generateOppositeColor,
-	getHexColorFromGradient
+	getHexColorFromGradient,
+	hexToRGB,
+	rgbObjectToHex,
+	rgbStringToHex
 };
