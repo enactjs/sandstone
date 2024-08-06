@@ -4,21 +4,11 @@ import {useCallback} from 'react';
 
 import Slider from '../Slider';
 
-import {hexToRGB, rgbObjectToHex} from './utils';
+import {generateOppositeColor, hexToRGB, rgbObjectToHex} from './utils';
 
 import componentCss from './ColorPickerSlider.module.less';
 
-const temp = ({red, green, blue}) => {
-    let r = red/255,
-        g = green/255,
-        b = blue/255;
-    let max = Math.max(r, g, b), min = Math.min(r, g, b);
-    let l = (max + min) / 2;
-
-    return l*100;
-}
-
-const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...props}) => {
+const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
     const {red, green, blue} = hexToRGB(selectedColor);
 
     const changeValueRed = useCallback((ev) => {
@@ -34,7 +24,7 @@ const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...
     }, [green, red, selectedColorHandler]);
 
     return (
-        <div {...props}>
+        <div {...props} style={{height: '320px', width: '450px'}}>
             <Cell>
                 <Cell className={componentCss.labelText}>Red</Cell>
                 <Row>
@@ -46,7 +36,7 @@ const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...
                             noFill
                             onChange={changeValueRed}
                             style={{
-                                '--sand-slider-knob-border-color': temp({red, green, blue}) < 50 ? 'antiquewhite' : '#444444',
+                                '--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
                                 backgroundImage: `linear-gradient(to right, rgb(0,${green},${blue}), rgb(255,${green},${blue}))`
                             }}
                             value={red}
@@ -68,7 +58,7 @@ const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...
                             noFill
                             onChange={changeValueGreen}
                             style={{
-                                '--sand-slider-knob-border-color': temp({red, green, blue}) < 50 ? 'antiquewhite' : '#444444',
+                                '--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
                                 backgroundImage: `linear-gradient(to right, rgb(${red},0,${blue}), rgb(${red},255,${blue}))`
                             }}
                             value={green}
@@ -88,7 +78,7 @@ const ColorPickerSlider = ({selectedColor = '#000000', selectedColorHandler, ...
                             noFill
                             onChange={changeValueBlue}
                             style={{
-                                '--sand-slider-knob-border-color': temp({red, green, blue}) < 50 ? 'antiquewhite' : '#444444',
+                                '--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
                                 backgroundImage: `linear-gradient(to right, rgb(${red},${green},0), rgb(${red},${green},255))`
                             }}
                             value={blue}

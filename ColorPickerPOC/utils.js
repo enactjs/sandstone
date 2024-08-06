@@ -45,13 +45,8 @@ const rgbObjectToHex = (rgbColor) => {
 };
 
 export {
-<<<<<<< HEAD
+	generateOppositeColor,
 	hexToRGB,
 	rgbObjectToHex,
-	rgbStringToHex,
-	generateOppositeColor
-=======
-	generateOppositeColor,
 	rgbStringToHex
->>>>>>> refs/remotes/origin/feature/ColorPickerPOC
 };

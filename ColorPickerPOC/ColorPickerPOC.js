@@ -12,8 +12,8 @@ import Skinnable from '../Skinnable';
 import TabLayout, {Tab} from '../TabLayout';
 
 import ColorPickerGrid from './ColorPickerGrid';
-import {generateOppositeColor} from './utils';
 import ColorPickerSlider from './ColorPickerSlider';
+import {generateOppositeColor} from './utils';
 
 import componentsCss from './ColorPickerPOC.module.less';
 
