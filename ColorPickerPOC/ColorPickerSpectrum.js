@@ -1,13 +1,12 @@
-// import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import compose from 'ramda/src/compose';
+import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import {spectrumRgbToHex} from './utils';
+import {getHexColorFromGradient} from './utils';
 import SpectrumIndicator from './SpectrumIndicator';
 
 import css from './ColorPickerSpectrum.module.less';
 
-const SpectrumColorPickerBase = (props) => {
+const SpectrumColorPicker = (props) => {
 	const {selectedColor, selectedColorHandler} = props;
 	const canvasRef = useRef(null);
 	const [indicatorX, setIndicatorX] = useState(0);
@@ -20,19 +19,19 @@ const SpectrumColorPickerBase = (props) => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext('2d');
 
-		const createColorGradient = (canvas, ctx) => {
-			for(let i = 0; i < canvas.width; i++) {
-				const luminosity = 1 - (i / canvas.width); // Max luminosity on the left, min luminosity on the right
-				const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+		const createColorGradient = (canvasElement, context) => {
+			for (let i = 0; i < canvasElement.width; i++) {
+				const luminosity = 1 - (i / canvasElement.width); // Max luminosity on the left, min luminosity on the right
+				const gradient = context.createLinearGradient(0, 0, 0, canvasElement.height);
 				gradient.addColorStop(0, `hsl(0, 100%, ${luminosity * 100}%)`); // Red
-				gradient.addColorStop(1/6, `hsl(30, 100%, ${luminosity * 100}%)`); // Orange
-				gradient.addColorStop(2/6, `hsl(60, 100%, ${luminosity * 100}%)`); // Yellow
-				gradient.addColorStop(3/6, `hsl(120, 100%, ${luminosity * 100}%)`); // Green
-				gradient.addColorStop(4/6, `hsl(180, 100%, ${luminosity * 100}%)`); // Blue
-				gradient.addColorStop(5/6, `hsl(240, 100%, ${luminosity * 100}%)`); // Indigo
+				gradient.addColorStop(1 / 6, `hsl(30, 100%, ${luminosity * 100}%)`); // Orange
+				gradient.addColorStop(2 / 6, `hsl(60, 100%, ${luminosity * 100}%)`); // Yellow
+				gradient.addColorStop(3 / 6, `hsl(120, 100%, ${luminosity * 100}%)`); // Green
+				gradient.addColorStop(4 / 6, `hsl(180, 100%, ${luminosity * 100}%)`); // Blue
+				gradient.addColorStop(5 / 6, `hsl(240, 100%, ${luminosity * 100}%)`); // Indigo
 				gradient.addColorStop(1, `hsl(269, 100%, ${luminosity * 100}%)`); // Violet
-				ctx.fillStyle = gradient;
-				ctx.fillRect(i, 0, 1, canvas.height);
+				context.fillStyle = gradient;
+				context.fillRect(i, 0, 1, canvasElement.height);
 			}
 		};
 		createColorGradient(canvas, ctx);
@@ -57,7 +56,7 @@ const SpectrumColorPickerBase = (props) => {
 			}
 		};
 		positionIndicator();
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleCanvasPointerDown = useCallback((e) => {
 		const canvas = canvasRef.current;
@@ -69,23 +68,18 @@ const SpectrumColorPickerBase = (props) => {
 		setIndicatorY(y);
 		setIsDragging(true);
 
-		const ctx = canvas.getContext('2d');
-		const imageData = ctx.getImageData(x, y, 1, 1);
-		const hexColor = spectrumRgbToHex(imageData.data[0], imageData.data[1], imageData.data[2]);
+		const hexColor = getHexColorFromGradient(canvasRef, indicatorX, indicatorY);
 		setIndicatorBgColor(hexColor);
 		setIsIndicatorActive(false);
-	}, [canvasRef, setIndicatorX, setIndicatorY, setIsDragging, spectrumRgbToHex]);
+	}, [canvasRef, indicatorX, indicatorY, setIndicatorX, setIndicatorY, setIsDragging]);
 
-	const handleCanvasPointerLeave = useCallback((e) => {
+	const handleCanvasPointerLeave = useCallback(() => {
 		setIsDragging(false);
 
-		const canvas = canvasRef.current;
-		const ctx = canvas.getContext('2d');
-		const imageData = ctx.getImageData(indicatorX, indicatorY, 1, 1);
-		const hexColor = spectrumRgbToHex(imageData.data[0], imageData.data[1], imageData.data[2]);
+		const hexColor = getHexColorFromGradient(canvasRef, indicatorX, indicatorY);
 		selectedColorHandler(hexColor);
 		setIndicatorBgColor(hexColor);
-	}, [canvasRef, indicatorX, indicatorY, setIsDragging, selectedColorHandler, spectrumRgbToHex]);
+	}, [canvasRef, indicatorX, indicatorY, setIsDragging, selectedColorHandler]);
 
 	const handleCanvasPointerMove = useCallback((e) => {
 		if (isDragging) {
@@ -97,22 +91,17 @@ const SpectrumColorPickerBase = (props) => {
 			setIndicatorX(x);
 			setIndicatorY(y);
 
-			const ctx = canvas.getContext('2d');
-			const imageData = ctx.getImageData(indicatorX, indicatorY, 1, 1);
-			const hexColor = spectrumRgbToHex(imageData.data[0], imageData.data[1], imageData.data[2]);
+			const hexColor = getHexColorFromGradient(canvasRef, indicatorX, indicatorY);
 			setIndicatorBgColor(hexColor);
 		}
-	}, [canvasRef, indicatorX, indicatorY, isDragging, selectedColorHandler, spectrumRgbToHex]);
+	}, [canvasRef, indicatorX, indicatorY, isDragging]);
 
 	const handleCanvasPointerUp = useCallback(() => {
-		const canvas = canvasRef.current;
-		const ctx = canvas.getContext('2d');
-		const imageData = ctx.getImageData(indicatorX, indicatorY, 1, 1);
-		const hexColor = spectrumRgbToHex(imageData.data[0], imageData.data[1], imageData.data[2]);
+		const hexColor = getHexColorFromGradient(canvasRef, indicatorX, indicatorY);
 		selectedColorHandler(hexColor);
 		setIndicatorBgColor(hexColor);
 		setIsDragging(false);
-	}, [canvasRef, indicatorX, indicatorY, setIsDragging, selectedColorHandler, spectrumRgbToHex]);
+	}, [canvasRef, indicatorX, indicatorY, setIsDragging, selectedColorHandler]);
 
 	return (
 		<div className={css.colorPicker}>
@@ -130,9 +119,11 @@ const SpectrumColorPickerBase = (props) => {
 				bgColor={indicatorBgColor}
 				canvasRef={canvasRef}
 				isIndicatorActive={isIndicatorActive}
+				selectedColorHandler={selectedColorHandler}
 				setIsIndicatorActive={setIsIndicatorActive}
-				setIndicatorX={setIndicatorX}
-				setIndicatorY={setIndicatorY}
+				setIndicatorBgColor={setIndicatorBgColor}
+				setX={setIndicatorX}
+				setY={setIndicatorY}
 				x={indicatorX}
 				y={indicatorY}
 			/>
@@ -140,10 +131,10 @@ const SpectrumColorPickerBase = (props) => {
 	);
 };
 
-// const SpectrumColorPickerDecorator = compose(
-// 	// SpotlightContainerDecorator
-// );
-//
-// const SpectrumColorPicker = SpectrumColorPickerDecorator(SpectrumColorPickerBase);
+SpectrumColorPicker.displayName = 'SpectrumColorPicker';
+SpectrumColorPicker.propTypes = {
+	selectedColor: PropTypes.string,
+	selectedColorHandler: PropTypes.func
+};
 
-export default SpectrumColorPickerBase;
+export default SpectrumColorPicker;
