@@ -12,6 +12,7 @@ export default {
 
 export const _ColorPicker = () => (
 	<ColorPicker
+		color={colors[0]}
 		colors={colors}
 		onChangeColor={action('onChangeColor')}
 		open
