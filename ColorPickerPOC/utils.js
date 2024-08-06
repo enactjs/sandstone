@@ -17,7 +17,21 @@ function spectrumRgbToHex (r, g, b) {
 	return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
 }
 
+const generateOppositeColor = (hexColor) => {
+	hexColor = hexColor.replace('#', '');
+
+	const bigint = parseInt(hexColor, 16);
+	const r = (bigint >> 16) & 255;
+	const g = (bigint >> 8) & 255;
+	const b = bigint & 255;
+
+	const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+	return luminance > 128 ? '#101720CC' : '#FFFFFFCC';
+};
+
 export {
 	rgbStringToHex,
-	spectrumRgbToHex
+	spectrumRgbToHex,
+	generateOppositeColor
 };
