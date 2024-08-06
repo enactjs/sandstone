@@ -24,7 +24,7 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 	}, [green, red, selectedColorHandler]);
 
 	return (
-		<div {...props} style={{height: '320px', width: '450px'}}>
+		<div {...props} className={componentCss.sliderContainer}>
 			<Cell>
 				<Cell className={componentCss.labelText}>Red</Cell>
 				<Row>
