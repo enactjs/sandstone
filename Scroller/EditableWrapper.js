@@ -262,7 +262,7 @@ const EditableWrapper = (props) => {
 
 	const blurItem = useCallback((target) => {
 		const itemNode = findItemNode(target);
-		if (itemNode && !mutableRef.current.selectedItem) {
+		if (getPointerMode() && itemNode && !mutableRef.current.selectedItem) {
 			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
 			mutableRef.current.focusedItem = null;
 			mutableRef.current.prevToIndex = null;
