@@ -19,7 +19,7 @@ import {useCallback} from 'react';
 
 import Skinnable from '../Skinnable';
 
-import {rgbStringToHex} from './utils';
+import {generateOppositeColor, rgbStringToHex} from './utils';
 
 import componentCss from './ColorPickerGrid.module.less';
 
@@ -67,7 +67,7 @@ const ColorPickerGridBase = (props) => {
 						<div className={componentCss.colorsColumn} key={rowIndex}>
 							{
 								colors[rowIndex].map((color, colorIndex) => {
-									return <SpottableDiv className={componentCss.colorBlock} onClick={handleClick} style={{backgroundColor: color}} key={colorIndex} />;
+									return <SpottableDiv className={componentCss.colorBlock} onClick={handleClick} style={{backgroundColor: color, '--sand-colorpicker-grid-focus-border-color': generateOppositeColor(color)}} key={colorIndex} />;
 								})
 							}
 						</div>
