@@ -1,0 +1,130 @@
+// ProgressBar.module.scss
+//
+@use "../styles/colors.scss";
+@use "../styles/mixins.scss";
+@use "../styles/skin.scss";
+@use "../styles/variables.scss";
+
+
+@mixin radial-bar-styles {
+	border-color: inherit;
+	border-width: variables.$sand-progressbar-radial-thickness;
+}
+
+.progressBar {
+	height: variables.$sand-progressbar-bar-thickness;
+	margin: variables.$sand-progressbar-margin;
+
+	&.showAnchor {
+		&::after {
+			content: "";
+			position: absolute;
+			transform: variables.$sand-translate-center;
+		}
+	}
+
+	.bar {
+		border-radius: variables.$sand-progressbar-bar-border-radius;
+		overflow: hidden;
+	}
+
+	&.horizontal {
+		&.showAnchor {
+			&::after {
+				width: variables.$sand-progressbar-anchor-width;
+				height: variables.$sand-progressbar-anchor-height;
+				top: 50%;
+				left: calc(var(--ui-progressbar-proportion-anchor) * 100%);
+			}
+		}
+	}
+
+	&.vertical {
+		min-height: variables.$sand-progressbar-vertical-min-height;
+		width: variables.$sand-progressbar-bar-thickness;
+
+		&.showAnchor {
+			&::after {
+				width: variables.$sand-progressbar-anchor-height;
+				height: variables.$sand-progressbar-anchor-width;
+				bottom: calc(var(--ui-progressbar-proportion-anchor) * 100%);
+				left: 50%;
+				transform: translate(-50%, 50%);
+			}
+		}
+	}
+
+	&.radial {
+		height: variables.$sand-progressbar-radial-size;
+		width: variables.$sand-progressbar-radial-size;
+
+		.bar {
+			@include radial-bar-styles;
+			overflow: visible;
+		}
+
+		.fill,
+		.load {
+			@include mixins.position(-#{variables.$sand-progressbar-radial-thickness});
+
+			&::before,
+			&::after {
+				@include radial-bar-styles;
+			}
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		.bar {
+			background-color: colors.$sand-progressbar-bar-bg-color;
+		}
+
+		.fill {
+			background-color: colors.$sand-progressbar-fill-bg-color;
+		}
+
+		.load {
+			background-color: colors.$sand-progressbar-load-bg-color;
+		}
+
+		&.radial {
+			.bar,
+			.fill,
+			.load {
+				background-color: transparent;
+			}
+
+			.bar {
+				border-color: colors.$sand-progressbar-bar-bg-color;
+			}
+
+			.fill {
+				border-color: colors.$sand-progressbar-fill-bg-color;
+			}
+
+			.load {
+				border-color: colors.$sand-progressbar-load-bg-color;
+			}
+		}
+
+		&.highlighted {
+			.fill {
+				background-color: colors.$sand-progressbar-highlighted-fill-bg-color;
+			}
+
+			&.radial {
+				.fill {
+					background-color: transparent;
+					border-color: colors.$sand-progressbar-highlighted-fill-bg-color;
+				}
+			}
+		}
+
+		&.showAnchor {
+			&::after {
+				background-color: colors.$sand-progressbar-bar-bg-color;
+			}
+		}
+	}
+}

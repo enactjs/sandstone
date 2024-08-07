@@ -135,6 +135,14 @@
 	}
 }
 
+@mixin sand-font-size($font-size: variables.$sand-body-font-size, $nlfont-size: $font-size) {
+	font-size: $font-size;
+
+	@include enact-locale(non-latin) {
+		font-size: $nlfont-size;
+	}
+}
+
 //
 // Custom Text Size Mixins
 //
@@ -225,6 +233,11 @@
 	@include font-kerning;
 }
 
+@mixin sand-font-number {
+	// content: "Applying .sand-font-number";
+	@include sand-font(variables.$sand-number-font-family, variables.$sand-number-font-family) {};
+}
+
 // Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
 //
 // Set line-height for normal and tallglyphs with 0, 1 or 2 arguments
@@ -232,12 +245,43 @@
 //   @include enact-locale-line-height();              ->  normal: default; tallglyphs: default;
 //   @include enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
 //   @include enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
-@mixin sand-enact-locale-line-height($normal: variables.$sand-common-line-height, $tallglyph: variables.$sand-tallglyph-line-height, $target: normal) {
-	@if ($target == normal) {
-		@include enact-locale-tallglyph(line-height, $normal, $tallglyph, $target, variables.$locale-tallglyph-languages);
+@mixin sand-enact-locale-line-height($values...) {
+	@if (length($values) == 0) {
+		@include enact-locale-tallglyph(line-height, variables.$sand-common-line-height, variables.$sand-tallglyph-line-height, normal, variables.$locale-tallglyph-languages);
+	} @else if(length($values) == 1) {
+		@include enact-locale-tallglyph(line-height, $values, variables.$sand-tallglyph-line-height, normal, variables.$locale-tallglyph-languages);
+	} @else if(length($values) == 2) {
+		@include enact-locale-tallglyph(line-height, nth($values, 1), nth($values, 2), normal, variables.$locale-tallglyph-languages);
+	} @else if(length($values) == 3) {
+		@include enact-locale-tallglyph(line-height, nth($values, 1), nth($values, 2), nth($values, 3), variables.$locale-tallglyph-languages);
 	}
 }
 
 @mixin sand-enact-locale-tallglyph($rule, $value, $target: normal) {
 	@include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
+}
+
+@mixin sand-focus-ring {
+	transform: none;
+	outline: 12px solid rgb(230,230,230);
+	outline-offset: 9px;
+}
+
+@mixin sand-focus-highlight($target: '') {
+	@if $target == '' {
+		@include focus {
+			&:global(.focusRing) {
+				@include sand-focus-ring;
+			}
+		}
+	} @else {
+		@include focus {
+			&:global(.focusRing) {
+				transform: none;
+				.#{$target} {
+					@include sand-focus-ring;
+				}
+			}
+		}
+	}
 }

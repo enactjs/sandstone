@@ -1,0 +1,107 @@
+// ProgressBarTooltip.module.scss
+//
+@use '../styles/mixins.scss';
+@use '../styles/variables.scss';
+
+.tooltip {
+	--tooltip-progress-proportion: 0;
+	--tooltip-progress-percent: calc(var(--tooltip-progress-proportion) * 100%);
+
+	.tooltipLabel {
+		@include mixins.sand-font-number;
+	}
+
+	@mixin before {
+		&.left,
+		&.before,
+		:global(.enact-locale-right-to-left) &.after {
+			@content;
+		}
+	}
+
+	@mixin after {
+		&.right,
+		&.after,
+		:global(.enact-locale-right-to-left) &.before {
+			@content;
+		}
+	}
+
+	&.horizontal {
+		left: var(--tooltip-progress-percent);
+
+		&.above {
+			bottom: variables.$sand-progressbar-tooltip-above-offset;
+		}
+
+		&.below {
+			top: variables.$sand-progressbar-tooltip-below-offset;
+		}
+	}
+
+	&.vertical {
+		bottom: var(--tooltip-progress-percent);
+
+		// Left side
+		@include before {
+			right: variables.$sand-progressbar-tooltip-before-offset;
+		}
+
+		// Right side
+		@include after {
+			left: variables.$sand-progressbar-tooltip-after-offset;
+		}
+	}
+
+	&.radial {
+		left: 50%;
+		bottom: 50%;
+
+		&.above,
+		&.below {
+			@include before {
+				left: 50%;
+			}
+
+			@include after {
+				left: 50%;
+			}
+
+			&.center {
+				left: 50%;
+			}
+		}
+
+		&.center {
+			&.above {
+				bottom: calc(100% + #{variables.$sand-progressbar-tooltip-radial-offset});
+			}
+			&.below {
+				top: calc(100% + #{variables.$sand-progressbar-tooltip-radial-offset});
+			}
+		}
+
+		@include before {
+			left: -(variables.$sand-progressbar-tooltip-radial-offset);
+
+			&.above {
+				bottom: calc(100% + #{variables.$sand-progressbar-tooltip-radial-offset});
+			}
+			&.below {
+				top: calc(100% + #{variables.$sand-progressbar-tooltip-radial-offset});
+			}
+		}
+
+		@include after {
+			left: calc(100% + #{variables.$sand-progressbar-tooltip-radial-offset});
+
+			&.above {
+				bottom: calc(100% + #{variables.$sand-progressbar-tooltip-radial-offset});
+			}
+
+			&.below {
+				top: calc(100% + #{variables.$sand-progressbar-tooltip-radial-offset});
+			}
+		}
+	}
+}

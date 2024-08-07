@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import Tooltip from '../TooltipDecorator/Tooltip';
 
-import componentCss from './ProgressBarTooltip.module.less';
+import componentCss from './ProgressBarTooltip.module.scss';
 
 const verticalPositions = ['before', 'after', 'left', 'right'];
 const isVerticalModeRadial = (orientation, position) => orientation === 'radial' && verticalPositions.includes(position);

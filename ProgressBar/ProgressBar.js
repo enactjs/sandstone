@@ -22,7 +22,7 @@ import compose from 'ramda/src/compose';
 import Skinnable from '../Skinnable';
 import {ProgressBarTooltip} from './ProgressBarTooltip';
 
-import componentCss from './ProgressBar.module.less';
+import componentCss from './ProgressBar.module.scss';
 
 /**
  * Renders a sandstone-styled progress bar.
