@@ -687,7 +687,9 @@ const EditableWrapper = (props) => {
 	}, [completeEditingByKeyDown]);
 
 	const handleGlobalKeyDownCapture = useCallback((ev) => {
-		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && (mutableRef.current.selectedItem || mutableRef.current.focusedItem)) {
+		const {focusedItem, selectedItem} = mutableRef.current;
+
+		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && (selectedItem || focusedItem)) {
 			const {keyCode} = ev;
 			const position = getLastPointerPosition();
 			const direction = getDirection(keyCode);
@@ -697,10 +699,23 @@ const EditableWrapper = (props) => {
 				if (!scrollContainerRef.current.contains(nextTarget)) {
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
+				} else if ((is('left', keyCode) || is('right', keyCode)) && selectedItem) {
+					moveItemsByKeyDown(ev);
+				} else if (is('down', keyCode) && selectedItem) {
+					completeEditingByKeyDown();
+				} else if (is('up', keyCode) && nextTarget.getAttribute('role') !== 'button') {
+					setPointerMode(false);
+					Spotlight.focus(nextTarget);
+				}
+			} else if (is('enter', keyCode)) {
+				if (selectedItem) {
+					completeEditingByKeyDown();
+				} else {
+					startEditing(focusedItem);
 				}
 			}
 		}
-	}, [finalizeEditing, finalizeOrders, scrollContainerRef]);
+	}, [completeEditingByKeyDown, finalizeEditing, finalizeOrders, moveItemsByKeyDown, scrollContainerRef, startEditing]);
 
 	const handleTouchMove = useCallback((ev) => {
 		if (mutableRef.current.selectedItem) {
