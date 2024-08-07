@@ -5,7 +5,7 @@ import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
 
-import css from './HolePunchScrim.module.less';
+import css from './HolePunchScrim.module.scss';
 
 const autoUnit = (size) => (typeof size === 'number' ? unit(size, 'rem') : size);
 

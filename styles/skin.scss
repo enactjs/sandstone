@@ -12,9 +12,11 @@
         $selector: "&";
     }
 
+    // Neutral Skin
     #{$selector}:global(.neutral) {
         @content;
 
+        // High Contrast Variant
         :global(.enact-a11y-high-contrast) &:global(.highContrast) {
             @include colors-highcontrast.applyColorsHighContrast;
             @content;

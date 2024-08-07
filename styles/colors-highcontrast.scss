@@ -1,6 +1,6 @@
 @use "./colors";
 
-// colors-highcontrast.less (neutral skin + high-contrast variant)
+// colors-highcontrast.scss (neutral skin + high-contrast variant)
 //
 
 @mixin applyColorsHighContrast {
@@ -11,6 +11,7 @@
 	// UI Conceptual Colors
 	// ---------------------------------------
 
+	--sand-overlay-bg-color-rgb: rgb(0, 0, 0);
 	--sand-overlay-outline-color: #7c848b;
 	--sand-overlay-outline-style: solid;
 

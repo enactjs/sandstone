@@ -296,10 +296,12 @@
 
 		.bg {
 			@include color-mixins.sand-button-resting-bg-colors;
-			border-width: variables-base.$sand-button-bg-border-width;
-			border-style: variables-base.$sand-button-bg-border-style;
-			border-color: colors.$sand-button-border-color;
-			border-radius: variables-base.$sand-button-border-radius;
+			& {
+				border-width: variables-base.$sand-button-bg-border-width;
+				border-style: variables-base.$sand-button-bg-border-style;
+				border-color: colors.$sand-button-border-color;
+				border-radius: variables-base.$sand-button-border-radius;
+			}
 		}
 
 		&.opaque {

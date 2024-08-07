@@ -64,8 +64,10 @@
 		* Add a padding to your component which includes the standard sandstone spotlight padding only on
 		* the sides.
 		*/
-		padding-left: variables.$sand-spotlight-outset;
-		padding-right: variables.$sand-spotlight-outset;
+		& {
+			padding-left: variables.$sand-spotlight-outset;
+			padding-right: variables.$sand-spotlight-outset;
+		}
 	} @else if (length($values) == 1) {
 		/*
 		* Add a padding to your component which includes the standard sandstone spotlight padding on the
@@ -79,7 +81,9 @@
 		* Add a padding to your component which includes the standard sandstone spotlight padding on the
 		* sides and uses the two arguments for padding on the top and bottom respectively.
 		*/
-		padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
+		& {
+			padding: nth($values, 1) variables.$sand-spotlight-outset nth($values, 2);
+		}
 	}
 }
 
@@ -121,6 +125,13 @@
 
 			@content;
 		}
+	}
+}
+
+// Generic Non-Latin Font Rule generator
+@mixin sand-locale-non-latin($target) {
+	@include enact-locale(non-latin, $target) {
+		@content;
 	}
 }
 
@@ -167,10 +178,15 @@
 	}
 }
 
+//
+// Text definitions
+//
+
 @mixin sand-body-text {
 	font-weight: variables.$sand-body-font-weight;
 	font-size: variables.$sand-body-font-size;
 	font-style: variables.$sand-body-font-style;
+
 	@include sand-font(variables.$sand-body-font-family, variables.$sand-non-latin-font-family-light) {
 		font-weight: variables.$sand-non-latin-body-font-weight;
 		font-size: variables.$sand-non-latin-body-font-size;

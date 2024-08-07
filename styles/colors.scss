@@ -151,6 +151,11 @@ $sand-spotlight-focus-shadow:         0 36px 36px $sand-shadow-color; // Used in
 // Component Colors
 // ---------------------------------------
 
+// ActionGuide
+// ---------------------------------------
+$sand-actionguide-label-color: $sand-text-sub-color;
+$sand-actionguide-icon-color: $sand-actionguide-label-color;
+
 // Alert
 // ---------------------------------------
 $sand-alert-bg-color: $sand-fullscreen-bg-color;
@@ -200,6 +205,31 @@ $sand-checkbox-indeterminate-focus-text-color: $sand-component-focus-text-color;
 $sand-checkbox-indeterminate-focus-bg-color: $sand-checkbox-focus-bg-color;
 $sand-checkbox-indeterminate-focus-border-color: $sand-checkbox-focus-border-color;
 $sand-checkbox-standalone-bg-disabled-focus-bg-color: $sand-disabled-focus-bg-color;
+
+// ContextualPopup
+// ---------------------------------------
+$sand-contextualpopup-bg-color: $sand-overlay-bg-color;
+$sand-contextualpopup-shadow: 0 24px 60px $sand-shadow-color;
+
+// Dropdown
+// ---------------------------------------
+$sand-dropdown-title-color: $sand-text-sub-color;
+$sand-dropdown-selected-text-color: $sand-selected-text-color;
+
+// FormCheckboxItem
+// ---------------------------------------
+$sand-formcheckboxitem-disabled-text-color: inherit;
+$sand-formcheckboxitem-disabled-focus-text-color: $sand-formcheckboxitem-disabled-text-color;
+
+// Heading
+// ---------------------------------------
+$sand-heading-text-color: $sand-text-color;
+$sand-heading-border-color: $sand-heading-text-color;
+$sand-heading-subtitle-text-color: $sand-text-sub-color;
+
+// HolePunchScrim
+// ---------------------------------------
+$sand-holepunchscrim-bg-color: fade-out(#000000, 0.4); // should be black
 
 // IconItem
 // ---------------------------------------

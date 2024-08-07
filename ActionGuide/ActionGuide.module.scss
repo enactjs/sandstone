@@ -1,0 +1,34 @@
+// ActionGuide.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.actionGuide {
+	text-align: center;
+	max-width: variables.$sand-actionguide-max-width;
+	margin: 0 auto;
+	line-height: 0;
+
+	.label {
+		@include mixins.sand-font(variables.$sand-actionguide-label-font-size);
+		font-size: variables.$sand-actionguide-label-font-size;
+		height: variables.$sand-actionguide-label-height;
+		line-height: variables.$sand-actionguide-label-height;
+	}
+
+	.icon {
+		margin: variables.$sand-actionguide-icon-margin;
+	}
+
+	@include skin.applySkins {
+		.icon {
+			color: colors.$sand-actionguide-icon-color;
+		}
+
+		.label {
+			color: colors.$sand-actionguide-label-color;
+		}
+	}
+}

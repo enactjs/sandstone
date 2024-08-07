@@ -200,7 +200,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			)
 		);
 	}
-	if (spotlight) App = SpotlightRootDecorator({noAutoFocus}, App);
+	if (spotlight) App = SpotlightRootDecorator({noAutoFocus, rootId}, App);
 	if (skin) App = Skinnable(App);
 	if (accessible) App = AccessibilityDecorator(App);
 
