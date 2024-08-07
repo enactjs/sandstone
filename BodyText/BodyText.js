@@ -19,7 +19,7 @@ import Pure from '@enact/ui/internal/Pure';
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
 
-import componentCss from './BodyText.module.less';
+import componentCss from './BodyText.module.scss';
 
 // Create a Marquee using BodyText as the base
 const MarqueeBodyText = MarqueeDecorator(UiBodyText);

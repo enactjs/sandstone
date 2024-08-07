@@ -1,0 +1,40 @@
+// BodyText.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.bodyText {
+	@include mixins.sand-body-text;
+
+	& {
+		margin: variables.$sand-bodytext-margin;
+		padding: variables.$sand-bodytext-padding;
+		white-space: normal;
+	}
+
+	&.large { /* Needed to prevent global class being added in the DOM */ }
+
+	&.small {
+		font-size: variables.$sand-body-small-font-size;
+		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-body-small-font-size);
+
+		@include mixins.sand-locale-non-latin("") {
+			font-size: variables.$sand-non-latin-body-small-font-size;
+		}
+	}
+
+	@include mixins.enact-locale-rtl("") {
+		text-align: right;
+
+		&.centered {
+			text-align: center;
+		}
+	}
+
+	&.noWrap {
+		/* Support for single-line, provided for extensibility */
+		white-space: nowrap;
+	}
+
+	@include mixins.locale-japanese-line-break;
+}

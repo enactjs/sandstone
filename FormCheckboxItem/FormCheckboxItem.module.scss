@@ -1,0 +1,56 @@
+// FormCheckboxItem.module.less
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.formCheckboxItem {
+	&.hasSlotBefore {
+		.checkbox {
+			margin-inline-end: variables.$sand-formcheckboxitem-checkbox-margin-end;
+		}
+	}
+
+	// FormCheckboxItem should not increase in size when in `largeText` mode
+	@include mixins.sand-custom-text-large {
+		font-size: variables.$sand-item-font-size;
+
+		@include mixins.enact-locale-line-height(variables.$sand-item-line-height, variables.$sand-tallglyph-item-line-height);
+	}
+}
+
+.item {
+	@include skin.applySkins {
+		@include mixins.focus {
+			color: colors.$sand-formcheckboxitem-focus-text-color;
+
+			.bg {
+				background-color: transparent;
+				opacity: 0;
+			}
+
+			@include mixins.disabled {
+				color: colors.$sand-formcheckboxitem-disabled-focus-text-color;
+
+				.bg {
+					opacity: 0;
+				}
+
+				.slotBefore {
+					// Overrides Item's rule, setting all content fields to the content opacity.
+					// Standalone Checkbox handles this coloration on its own, so that rule isn't
+					// needed, so we reset it back to default here.
+					opacity: initial;
+				}
+				&.hasSlotBefore .slotBefore > :last-child {
+					opacity: colors.$sand-disabled-focus-content-opacity;
+				}
+			}
+		}
+
+		@include mixins.disabled {
+			color: colors.$sand-formcheckboxitem-disabled-text-color;
+		}
+	}
+}

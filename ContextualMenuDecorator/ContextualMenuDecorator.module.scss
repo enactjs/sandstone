@@ -1,0 +1,49 @@
+// ContextualMenuDecorator
+//
+//@use "../styles/colors";
+@use "../styles/skin";
+@use "../styles/variables";
+
+/*
+// our convention is to use camelCase class name on the root node of the component. however, we do
+// not have a way to set that class on ContextualPopupDecorator's root so we can't use it right now
+// but keeping it around as a future note.
+.contextualMenu {
+	@include skin.applySkins {
+		&.popup {
+			// add theme styles
+		}
+	}
+}
+*/
+
+.popup {
+	max-height: variables.$sand-contextualmenu-max-height;
+	overflow: hidden;
+
+	/*
+	// in order to override the default ContextualPopupDecorator's container padding style, we
+	// need to use an arbitrary additional CSS rule for precedence
+	*/
+	&.container {
+		min-width: variables.$sand-contextualmenu-small-width;
+		padding: variables.$sand-contextualmenu-container-padding;
+
+		.innerContainer {
+			max-height: variables.$sand-contextualmenu-innercontainer-max-height;
+		}
+
+		&.small {
+			width: variables.$sand-contextualmenu-small-width;
+		}
+
+		&.large {
+			width: variables.$sand-contextualmenu-large-width;
+		}
+
+		// Passed as itemProps css to Item to remove inter-item spacing
+		.item {
+			margin-bottom: 0;
+		}
+	}
+}

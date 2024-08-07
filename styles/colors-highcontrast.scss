@@ -1,6 +1,6 @@
 @use "./colors";
 
-// colors-highcontrast.less (neutral skin + high-contrast variant)
+// colors-highcontrast.scss (neutral skin + high-contrast variant)
 //
 
 @mixin applyColorsHighContrast {
@@ -8,6 +8,12 @@
 	// Universal Color Definitions
 	// ---------------------------------------
 
+	// UI Conceptual Colors
+	// ---------------------------------------
+
+	--sand-overlay-bg-color-rgb: rgb(0, 0, 0);
+	--sand-overlay-outline-color: #7c848b;
+	--sand-overlay-outline-style: solid;
 
 	// ---------------------------------------
 	// Component Colors
@@ -16,10 +22,6 @@
 	// Alert
 	// ---------------------------------------
 	--sand-fullscreen-bg-color: #000000; // different from neutral
-
-	// Input
-	// ---------------------------------------
-	--sand-overlay-bg-color-rgb: rgb(87, 94, 102); // different from neutral
 
 	// KeyGuide
 	// ---------------------------------------
