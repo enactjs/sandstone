@@ -157,6 +157,29 @@ $sand-non-latin-button-font-weight: $sand-non-latin-font-weight-bold;
 $sand-non-latin-button-small-font-style: $sand-button-small-font-style;
 $sand-non-latin-button-small-font-weight: $sand-non-latin-font-weight-bold;
 
+// Heading
+$sand-heading-line-height: $sand-common-line-height;
+$sand-heading-font-style: normal;
+$sand-heading-title-font-family: $sand-alt-font-family;
+$sand-heading-title-font-weight: normal;
+$sand-heading-title-line-height: $sand-heading-line-height;
+$sand-heading-subtitle-font-family: $sand-font-family;
+$sand-heading-subtitle-font-weight: normal;
+$sand-heading-subtitle-line-height: 1.4em;
+$sand-heading-large-font-family: $sand-font-family;
+$sand-heading-large-font-weight: $sand-spottable-font-weight;
+$sand-heading-medium-font-family: $sand-heading-large-font-family;
+$sand-heading-medium-font-weight: $sand-heading-large-font-weight;
+$sand-heading-small-font-family: $sand-heading-large-font-family;
+$sand-heading-small-font-weight: $sand-heading-large-font-weight;
+$sand-heading-tiny-font-family: $sand-heading-large-font-family;
+$sand-heading-tiny-font-weight: $sand-heading-large-font-weight;
+$sand-heading-letter-spacing: 0;
+$sand-non-latin-heading-font-family: $sand-non-latin-font-family-bold;
+$sand-tallglyph-heading-title-line-height: 1.5em;
+$sand-tallglyph-heading-line-height: $sand-tallglyph-heading-title-line-height;
+$sand-tallglyph-heading-subtitle-line-height: $sand-tallglyph-heading-title-line-height;
+
 // ---------------------------------------
 // Component Rules
 // ---------------------------------------
@@ -171,6 +194,30 @@ $sand-actionguide-icon-margin: -24px 0 -18px 0;
 // ---------------------------------------
 $sand-bodytext-margin: 0 $sand-component-spacing $sand-body-font-size $sand-component-spacing;
 $sand-bodytext-padding: 0;
+
+// Heading
+// ---------------------------------------
+$sand-heading-border-width: 1px;
+$sand-heading-margin: 0 $sand-component-spacing (1.5 * $sand-spotlight-outset) $sand-component-spacing;
+$sand-heading-padding: 0 0 18px 0;
+$sand-heading-spacing-title: 0;
+$sand-heading-spacing-subtitle: 0;
+$sand-heading-spacing-large: 78px;
+$sand-heading-spacing-medium: 42px;
+$sand-heading-spacing-small: 18px;
+
+// Icon
+// ---------------------------------------
+$sand-icon-font-family: "Sandstone Icons";
+$sand-icon-large-size: 108px;
+$sand-icon-other-font-family: "LG Icons";
+$sand-icon-medium-size: 90px;
+$sand-icon-small-size: 78px;
+$sand-icon-size: var(--icon-size, $sand-icon-small-size);
+$sand-icon-tiny-size: 60px;
+$sand-icon-margin: 24px;
+$sand-icon-large-size-large: ($sand-icon-large-size * 1.2);
+$sand-icon-small-size-large: ($sand-icon-small-size * 1.2);
 
 // Button
 // ---------------------------------------
@@ -224,6 +271,36 @@ $sand-button-icon-only-colordot-height: 9px;
 $sand-button-collapse-duration: 300ms;
 $sand-button-collapsable-icon-margin: 0 24px;
 
+// Item
+// ---------------------------------------
+$sand-item-font-weight: $sand-spottable-font-weight;
+$sand-item-line-height: $sand-common-line-height;
+$sand-item-line-height-large: $sand-item-line-height;
+$sand-item-label-line-height: $sand-item-line-height;
+$sand-item-height: 156px;
+$sand-item-height-large: $sand-item-height;
+$sand-item-shadow-height: $sand-spotlight-focus-shadow-height;
+$sand-item-small-font-size-large:   72px;
+$sand-item-small-font-weight: $sand-item-font-weight;
+$sand-item-small-line-height: $sand-common-line-height;
+$sand-item-small-label-line-height: $sand-item-small-line-height;
+$sand-item-small-line-height-large: $sand-item-small-line-height;
+$sand-item-withlabel-height: 240px;
+$sand-item-vertical-padding: 6px;
+$sand-item-inline-max-width: 480px;
+$sand-item-border-radius: 12px;
+$sand-item-slotafter-spacing: 54px;
+$sand-item-slotbefore-spacing: 54px;
+$sand-item-margin: 0 $sand-component-spacing $sand-component-spacing-bottom $sand-component-spacing;
+$sand-item-small-height: 126px;
+$sand-item-small-height-large: $sand-item-small-height;
+$sand-item-small-withlabel-height: 210px;
+$sand-tallglyph-item-line-height: $sand-tallglyph-line-height;
+$sand-tallglyph-item-line-height-large: $sand-tallglyph-item-line-height;
+$sand-tallglyph-item-label-line-height: $sand-tallglyph-item-line-height;
+$sand-tallglyph-item-small-line-height: $sand-tallglyph-line-height;
+$sand-tallglyph-item-small-line-height-large: $sand-tallglyph-item-small-line-height;
+
 // Checkbox
 // ---------------------------------------
 $sand-checkbox-border-radius: $sand-common-circular-corners;
@@ -274,81 +351,6 @@ $sand-non-italic-dropdown-title-font-style: normal;
 // FormCheckboxItem
 // ---------------------------------------
 $sand-formcheckboxitem-checkbox-margin-end: abs($sand-checkbox-container-position); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
-
-// Heading
-// ---------------------------------------
-$sand-heading-border-width: 1px;
-$sand-heading-margin: 0 $sand-component-spacing (1.5 * $sand-spotlight-outset) $sand-component-spacing;
-$sand-heading-padding: 0 0 18px 0;
-$sand-heading-spacing-title: 0;
-$sand-heading-spacing-subtitle: 0;
-$sand-heading-spacing-large: 78px;
-$sand-heading-spacing-medium: 42px;
-$sand-heading-spacing-small: 18px;
-$sand-heading-line-height: $sand-common-line-height;
-$sand-heading-font-style: normal;
-$sand-heading-title-font-family: $sand-alt-font-family;
-$sand-heading-title-font-weight: normal;
-$sand-heading-title-line-height: $sand-heading-line-height;
-$sand-heading-subtitle-font-family: $sand-font-family;
-$sand-heading-subtitle-font-weight: normal;
-$sand-heading-subtitle-line-height: 1.4em;
-$sand-heading-large-font-family: $sand-font-family;
-$sand-heading-large-font-weight: $sand-spottable-font-weight;
-$sand-heading-medium-font-family: $sand-heading-large-font-family;
-$sand-heading-medium-font-weight: $sand-heading-large-font-weight;
-$sand-heading-small-font-family: $sand-heading-large-font-family;
-$sand-heading-small-font-weight: $sand-heading-large-font-weight;
-$sand-heading-tiny-font-family: $sand-heading-large-font-family;
-$sand-heading-tiny-font-weight: $sand-heading-large-font-weight;
-$sand-heading-letter-spacing: 0;
-$sand-non-latin-heading-font-family: $sand-non-latin-font-family-bold;
-$sand-tallglyph-heading-title-line-height: 1.5em;
-$sand-tallglyph-heading-line-height: $sand-tallglyph-heading-title-line-height;
-$sand-tallglyph-heading-subtitle-line-height: $sand-tallglyph-heading-title-line-height;
-
-// Icon
-// ---------------------------------------
-$sand-icon-font-family: "Sandstone Icons";
-$sand-icon-large-size: 108px;
-$sand-icon-other-font-family: "LG Icons";
-$sand-icon-medium-size: 90px;
-$sand-icon-small-size: 78px;
-$sand-icon-size: var(--icon-size, $sand-icon-small-size);
-$sand-icon-tiny-size: 60px;
-$sand-icon-margin: 24px;
-$sand-icon-large-size-large: ($sand-icon-large-size * 1.2);
-$sand-icon-small-size-large: ($sand-icon-small-size * 1.2);
-
-// Item
-// ---------------------------------------
-$sand-item-font-weight: $sand-spottable-font-weight;
-$sand-item-line-height: $sand-common-line-height;
-$sand-item-line-height-large: $sand-item-line-height;
-$sand-item-label-line-height: $sand-item-line-height;
-$sand-item-height: 156px;
-$sand-item-height-large: $sand-item-height;
-$sand-item-shadow-height: $sand-spotlight-focus-shadow-height;
-$sand-item-small-font-size-large:   72px;
-$sand-item-small-font-weight: $sand-item-font-weight;
-$sand-item-small-line-height: $sand-common-line-height;
-$sand-item-small-label-line-height: $sand-item-small-line-height;
-$sand-item-small-line-height-large: $sand-item-small-line-height;
-$sand-item-withlabel-height: 240px;
-$sand-item-vertical-padding: 6px;
-$sand-item-inline-max-width: 480px;
-$sand-item-border-radius: 12px;
-$sand-item-slotafter-spacing: 54px;
-$sand-item-slotbefore-spacing: 54px;
-$sand-item-margin: 0 $sand-component-spacing $sand-component-spacing-bottom $sand-component-spacing;
-$sand-item-small-height: 126px;
-$sand-item-small-height-large: $sand-item-small-height;
-$sand-item-small-withlabel-height: 210px;
-$sand-tallglyph-item-line-height: $sand-tallglyph-line-height;
-$sand-tallglyph-item-line-height-large: $sand-tallglyph-item-line-height;
-$sand-tallglyph-item-label-line-height: $sand-tallglyph-item-line-height;
-$sand-tallglyph-item-small-line-height: $sand-tallglyph-line-height;
-$sand-tallglyph-item-small-line-height-large: $sand-tallglyph-item-small-line-height;
 
 // Keyguide
 // ---------------------------------------
@@ -401,3 +403,4 @@ $sand-popuptablayout-tabs-content-spacing: 36px;
 $sand-popuptablayout-tabs-content-border-radius: $sand-popup-border-radius;
 $sand-popuptablayout-content-margin: 0;
 $sand-popuptablayout-panel-body-padding: $sand-panel-body-padding-top (108px - $sand-component-spacing - $sand-spotlight-outset) (78px - $sand-component-spacing-bottom);
+
