@@ -7,25 +7,30 @@
 	min-width: 800px;
 }
 
-.currentColor {
-	border-radius: 24px;
-	border: 9px solid;
-	height: 240px;
-	transition: transform .2s;
-	width: 100%;
+.selectedColorColumn {
+	margin-top: 15px;
 
-	.currentColorIcon {
+	.selectedColor {
+		border-radius: 24px;
+		border: 9px solid;
+		height: 240px;
 		transition: transform .2s;
-	}
+		width: 100%;
 
-	.focus({
-		box-shadow: 0 0 12px 6px inset;
-
-		.currentColorIcon {
-			transform: scale(1.2);
+		.selectedColorIcon {
+			transition: transform .2s;
 		}
-	});
+
+		.focus({
+			box-shadow: 0 0 12px 6px inset;
+
+			.selectedColorIcon {
+				transform: scale(1.2);
+			}
+		});
+	}
 }
+
 
 .favoriteColorsRow {
 	text-align: center;

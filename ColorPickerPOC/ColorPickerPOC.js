@@ -20,24 +20,22 @@ import componentsCss from './ColorPickerPOC.module.less';
 
 const SpottableButton = Spottable(ButtonBase);
 
-const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', selectedColorHandler}) => {
+const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedColor = '#3455eb', selectedColorHandler}) => {
 	const [clickEnabled, setClickEnabled] = useState(true);
 	const [editEnabled, setEditEnabled] = useState(false);
-	const [favoriteColors, setFavoriteColors] = useState(colors);
 
 	const shakeEffectRef = useRef(null);
 	const timerRef = useRef(null);
 
 	const addNewFavoriteColor = useCallback(() => {
 		if (favoriteColors.includes(selectedColor)) return;
-		setFavoriteColors(prevState => {
-			const colorsState = [...prevState, selectedColor];
+		favoriteColorsHandler(() => {
+			const colorsState = [...favoriteColors, selectedColor];
 			if (colorsState.length > 8) colorsState.shift();
-			colorHandler({selectedColor, favoriteColors: colorsState});
 
 			return colorsState;
 		});
-	}, [colorHandler, favoriteColors, selectedColor]);
+	}, [favoriteColors, favoriteColorsHandler, selectedColor]);
 
 	const onAddNewFavoriteColor = useCallback(() => {
 		if (editEnabled) {
@@ -53,16 +51,18 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 		const [buttonColor, buttonIndex] = targetId.split('-');
 
 		if (editEnabled && clickEnabled) {
-			setFavoriteColors(prevState =>
-				prevState.filter((stateColor, index) => {
-					return 	!(stateColor === buttonColor && index === Number(buttonIndex));
-				}));
+			const filteredColors = favoriteColors.filter((color, index) => {
+				return 	!(color === buttonColor && index === Number(buttonIndex));
+			});
+
+			favoriteColorsHandler(filteredColors);
+			selectedColorHandler(selectedColor);
 			return;
 		}
 
+		favoriteColorsHandler(favoriteColors);
 		selectedColorHandler(buttonColor);
-		colorHandler({currentColor: buttonColor, favoriteColors});
-	}, [clickEnabled, colorHandler, editEnabled, favoriteColors, selectedColorHandler]);
+	}, [clickEnabled, editEnabled, favoriteColors, favoriteColorsHandler, selectedColorHandler]);
 
 	const onMouseDown = useCallback((ev) => {
 		if (editEnabled) return;
@@ -127,6 +127,7 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 								onClick={onSelectFavoriteColor}
 								onMouseDown={onMouseDown}
 								onMouseUp={onMouseUp}
+								onPointerDown={onMouseDown}
 								size={'small'}
 								style={{
 									backgroundColor: color,
@@ -140,9 +141,9 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 					})}
 				</Cell>
 			</Row>
-			<Column align={'center'}>
+			<Column align={'center'} className={componentsCss.selectedColorColumn}>
 				<SpottableButton
-					className={componentsCss.currentColor}
+					className={componentsCss.selectedColor}
 					minWidth={false}
 					onClick={onAddNewFavoriteColor}
 					style={{
@@ -151,7 +152,7 @@ const FavoriteColors = ({colorHandler, colors = [], selectedColor = '#3455eb', s
 						color: generateOppositeColor(selectedColor)
 					}}
 				>
-					<Icon className={componentsCss.currentColorIcon} size={'large'}>{editEnabled ? 'check' : 'plus'}</Icon>
+					<Icon className={componentsCss.selectedColorIcon} size={'large'}>{editEnabled ? 'check' : 'plus'}</Icon>
 				</SpottableButton>
 			</Column>
 		</div>
@@ -162,19 +163,22 @@ FavoriteColors.propTypes = {
 	colorHandler: PropTypes.func,
 	colors: PropTypes.array,
 	css: PropTypes.object,
+	favoriteColors: PropTypes.array,
+	favoriteColorsHandler: PropTypes.func,
 	selectedColor: PropTypes.string,
 	selectedColorHandler: PropTypes.func
 };
 
 
 const ColorPickerPOCBase = ({color = '#eb4034', colors = [], css, onChangeColor, open, ...rest}) => {
+	const [favoriteColors, setFavoriteColors] = useState(colors);
 	const [selectedColor, setSelectedColor] = useState(color);
 
 	useEffect(() => {
-		if (selectedColor) {
-			onChangeColor({currentColor: selectedColor});
+		if (selectedColor || favoriteColors) {
+			onChangeColor({selectedColor, favoriteColors});
 		}
-	}, [onChangeColor, selectedColor]);
+	}, [favoriteColors, onChangeColor, selectedColor]);
 
 	return (
 		<Popup open={open} position={'center'} {...rest}>
@@ -204,6 +208,8 @@ const ColorPickerPOCBase = ({color = '#eb4034', colors = [], css, onChangeColor,
 							colorHandler={onChangeColor}
 							colors={colors}
 							css={css}
+							favoriteColors={favoriteColors}
+							favoriteColorsHandler={setFavoriteColors}
 							selectedColor={selectedColor}
 							selectedColorHandler={setSelectedColor}
 						/>
