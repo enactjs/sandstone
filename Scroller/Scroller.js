@@ -77,7 +77,13 @@ const scrollerDefaultProps = {
  * @public
  */
 let Scroller = (props) => {
-	const scrollerProps = Object.assign({}, scrollerDefaultProps, props);
+	const scrollerProps = Object.assign({}, props);
+	for (const prop in scrollerDefaultProps) {
+		if (scrollerProps[prop] === undefined) {
+			scrollerProps[prop] = scrollerDefaultProps[prop];
+		}
+	}
+
 	const {'aria-label': ariaLabel, hoverToScroll, ...rest} = scrollerProps;
 
 	const id = `scroller_${++scrollerId}_content`;

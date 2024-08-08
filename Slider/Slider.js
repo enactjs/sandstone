@@ -70,7 +70,12 @@ const sliderDefaultProps = {
  * @public
  */
 const SliderBase = (props) => {
-	const sliderProps = Object.assign({}, sliderDefaultProps, props);
+	const sliderProps = Object.assign({}, props);
+	for (const prop in sliderDefaultProps) {
+		if (sliderProps[prop] === undefined) {
+			sliderProps[prop] = sliderDefaultProps[prop];
+		}
+	}
 	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = sliderProps;
 
 	validateSteppedOnce(p => p.knobStep, {
