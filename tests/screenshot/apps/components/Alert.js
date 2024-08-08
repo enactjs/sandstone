@@ -9,9 +9,9 @@ import Scroller from '../../../../Scroller';
 
 import img from '../../images/300x300.png';
 
-import css from './Alert.module.less';
 import {withConfig, withProps, LoremString} from './utils';
 
+import css from './Alert.module.less';
 
 // Only type: 'fullscreen' supports title prop
 const fullscreenTests = [

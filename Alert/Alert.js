@@ -71,9 +71,9 @@ const AlertBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `alert` - The root class name
+		 * * `content` - The content node of the alert
 		 * * `fullscreen` - The alert node with fullscreen
 		 * * `title` - The title node of the fullscreen alert
-		 * * `content` - The content node of the alert
 		 *
 		 * @type {Object}
 		 * @public
@@ -158,7 +158,7 @@ const AlertBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'alert',
-		publicClassNames: ['alert', 'fullscreen', 'title', 'content']
+		publicClassNames: ['alert', 'content', 'fullscreen', 'title']
 	},
 
 	computed: {

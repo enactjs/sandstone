@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Alert` public class names `alert`, `fullscreen`, `title`, and `content`
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
 
 ## [2.9.0] - 2024-07-17
 
