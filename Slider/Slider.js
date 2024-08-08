@@ -72,6 +72,7 @@ const sliderDefaultProps = {
 const SliderBase = (props) => {
 	const sliderProps = Object.assign({}, props);
 	for (const prop in sliderDefaultProps) {
+		// eslint-disable-next-line no-undefined
 		if (sliderProps[prop] === undefined) {
 			sliderProps[prop] = sliderDefaultProps[prop];
 		}

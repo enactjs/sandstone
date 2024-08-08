@@ -79,6 +79,7 @@ const scrollerDefaultProps = {
 let Scroller = (props) => {
 	const scrollerProps = Object.assign({}, props);
 	for (const prop in scrollerDefaultProps) {
+		// eslint-disable-next-line no-undefined
 		if (scrollerProps[prop] === undefined) {
 			scrollerProps[prop] = scrollerDefaultProps[prop];
 		}

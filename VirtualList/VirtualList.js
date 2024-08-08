@@ -60,6 +60,7 @@ const virtualListDefaultProps = {
 let VirtualList = (props) => {
 	const virtualListProps = Object.assign({}, props);
 	for (const prop in virtualListDefaultProps) {
+		// eslint-disable-next-line no-undefined
 		if (virtualListProps[prop] === undefined) {
 			virtualListProps[prop] = virtualListDefaultProps[prop];
 		}
@@ -560,6 +561,7 @@ const virtualGridListDefaultProps = {
 let VirtualGridList = (props) => {
 	const virtualGridListProps = Object.assign({}, props);
 	for (const prop in virtualGridListDefaultProps) {
+		// eslint-disable-next-line no-undefined
 		if (virtualGridListProps[prop] === undefined) {
 			virtualGridListProps[prop] = virtualGridListDefaultProps[prop];
 		}
