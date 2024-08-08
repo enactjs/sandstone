@@ -58,7 +58,13 @@ const virtualListDefaultProps = {
  * @public
  */
 let VirtualList = (props) => {
-	const virtualListProps = Object.assign({}, virtualListDefaultProps, props);
+	const virtualListProps = Object.assign({}, props);
+	for (const prop in virtualListDefaultProps) {
+		// eslint-disable-next-line no-undefined
+		if (virtualListProps[prop] === undefined) {
+			virtualListProps[prop] = virtualListDefaultProps[prop];
+		}
+	}
 	const {itemSize, hoverToScroll, ...rest} = virtualListProps;
 
 	const itemSizeProps = itemSize && itemSize.minSize ?
@@ -553,7 +559,13 @@ const virtualGridListDefaultProps = {
  * @public
  */
 let VirtualGridList = (props) => {
-	const virtualGridListProps = Object.assign({}, virtualGridListDefaultProps, props);
+	const virtualGridListProps = Object.assign({}, props);
+	for (const prop in virtualGridListDefaultProps) {
+		// eslint-disable-next-line no-undefined
+		if (virtualGridListProps[prop] === undefined) {
+			virtualGridListProps[prop] = virtualGridListDefaultProps[prop];
+		}
+	}
 	const {hoverToScroll, ...rest} = virtualGridListProps;
 
 	const {
