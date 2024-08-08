@@ -23,7 +23,7 @@ import Popup from '../Popup';
 
 import AlertImage from './AlertImage';
 
-import css from './Alert.module.less';
+import componentCss from './Alert.module.less';
 
 /**
  * A modal Alert component.
@@ -63,6 +63,22 @@ const AlertBase = kind({
 		 * @public
 		 */
 		children: PropTypes.node,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 * 
+		 * * `alert` - The root class name
+		 * * `fullscreen` - The alert node with fullscreen
+		 * * `title` - The title node of the fullscreen alert
+		 * * `content` - The content node of the alert
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * The `id` of Alert referred to when generating ids for `'title'` and `'buttons'`.
@@ -140,13 +156,13 @@ const AlertBase = kind({
 	},
 
 	styles: {
-		css,
+		css: componentCss,
 		className: 'alert',
 		publicClassNames: ['alert', 'fullscreen', 'title', 'content']
 	},
 
 	computed: {
-		buttons: ({buttons}) => {
+		buttons: ({buttons, css}) => {
 			return mapAndFilterChildren(buttons, (button, index) => (
 				<Cell className={css.buttonCell} key={`button${index}`} shrink>
 					{button}

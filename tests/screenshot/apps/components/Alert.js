@@ -9,6 +9,7 @@ import Scroller from '../../../../Scroller';
 
 import img from '../../images/300x300.png';
 
+import css from './Alert.module.less';
 import {withConfig, withProps, LoremString} from './utils';
 
 
@@ -16,7 +17,8 @@ import {withConfig, withProps, LoremString} from './utils';
 const fullscreenTests = [
 	<Alert open title="Title" />,
 	<Alert open>Alert!</Alert>,
-	<Alert open>{LoremString}</Alert>
+	<Alert open>{LoremString}</Alert>,
+	<Alert open title="Loooooooooooooooooooooong Title with custom width" css={css}>{LoremString}</Alert>
 ];
 
 // Only type: 'overlay' supports children
