@@ -69,7 +69,7 @@ const AlertBase = kind({
 		 * corresponding internal elements and states of this component.
 		 *
 		 * The following classes are supported:
-		 * 
+		 *
 		 * * `alert` - The root class name
 		 * * `fullscreen` - The alert node with fullscreen
 		 * * `title` - The title node of the fullscreen alert
