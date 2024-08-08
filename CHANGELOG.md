@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Alert` `showLongTitle` prop to show full title without marquee animation regardless of the length of title
+- `sandstone/Alert` public class names `alert`, `fullscreen`, `title`, and `content`
 
 ## [2.9.0] - 2024-07-17
 

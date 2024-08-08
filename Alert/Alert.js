@@ -110,15 +110,6 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Show full title without marquee animation regardless of the length of title.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		showLongTitle: PropTypes.bool,
-
-		/**
 		 * The primary text displayed.
 		 *
 		 * Only shown when `type="fullscreen"`.
@@ -145,13 +136,13 @@ const AlertBase = kind({
 
 	defaultProps: {
 		open: false,
-		type: 'fullscreen',
-		showLongTitle: false
+		type: 'fullscreen'
 	},
 
 	styles: {
 		css,
-		className: 'alert'
+		className: 'alert',
+		publicClassNames: ['alert', 'fullscreen', 'title', 'content']
 	},
 
 	computed: {
@@ -189,7 +180,7 @@ const AlertBase = kind({
 		}
 	},
 
-	render: ({buttons, contentComponent, children, id, image, overflow, title, type, showLongTitle, ...rest}) => {
+	render: ({buttons, contentComponent, children, css, id, image, overflow, title, type, ...rest}) => {
 		const fullscreen = (type === 'fullscreen');
 		const position = (type === 'overlay' ? 'bottom' : type);
 		const showTitle = (fullscreen && title);
@@ -208,7 +199,7 @@ const AlertBase = kind({
 				>
 					<Layout align="center center" orientation={layoutOrientation}>
 						{image ? <Cell shrink className={css.alertImage}>{image}</Cell> : null}
-						{showTitle ? <Cell shrink><Heading marqueeDisabled={showLongTitle} size="title" alignment="center" className={classnames(css.title, showLongTitle ? css.longTitle : null)} id={`${id}_title`}>{title}</Heading></Cell> : null}
+						{showTitle ? <Cell shrink><Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading></Cell> : null}
 						<Cell shrink align={fullscreen || overflow ? 'center' : ''} component={contentComponent} className={classnames(css.content, overflow ? null : css.full)} id={`${id}_content`}>
 							{children}
 						</Cell>

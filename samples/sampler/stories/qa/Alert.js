@@ -31,7 +31,6 @@ export const WithLongTitle = (args) => (
 	<Alert
 		open={args['open']}
 		onClose={action('onClose')}
-		showLongTitle={args['showLongTitle']}
 		title={args['title']}
 		type={args['type']}
 	>
@@ -49,7 +48,6 @@ export const WithLongTitle = (args) => (
 );
 
 boolean('open', WithLongTitle, Config);
-boolean('showLongTitle', WithLongTitle, Config);
 text('title', WithLongTitle, Config, inputData.longTitle);
 select('type', WithLongTitle, ['fullscreen', 'overlay'], Config);
 text('children', WithLongTitle, Config, 'Additional text content for Alert');
@@ -63,7 +61,6 @@ export const WithLongChildren = (args) => (
 	<Alert
 		open={args['open']}
 		onClose={action('onClose')}
-		showLongTitle={args['showLongTitle']}
 		title={args['title']}
 		type={args['type']}
 	>
@@ -81,7 +78,6 @@ export const WithLongChildren = (args) => (
 );
 
 boolean('open', WithLongChildren, Config);
-boolean('showLongTitle', WithLongChildren, Config);
 text('title', WithLongChildren, Config, 'Fullscreen Alert Title');
 select('type', WithLongChildren, ['fullscreen', 'overlay'], Config);
 text('children', WithLongChildren, Config, inputData.longChildren);
@@ -95,7 +91,6 @@ export const WithLongTitleAndLongChildren = (args) => (
 	<Alert
 		open={args['open']}
 		onClose={action('onClose')}
-		showLongTitle={args['showLongTitle']}
 		title={args['title']}
 		type={args['type']}
 	>
@@ -113,7 +108,6 @@ export const WithLongTitleAndLongChildren = (args) => (
 );
 
 boolean('open', WithLongTitleAndLongChildren, Config);
-boolean('showLongTitle', WithLongTitleAndLongChildren, Config);
 text('title', WithLongTitleAndLongChildren, Config, inputData.longTitle);
 select('type', WithLongTitleAndLongChildren, ['fullscreen', 'overlay'], Config);
 text('children', WithLongTitleAndLongChildren, Config, inputData.longChildren);
@@ -127,7 +121,6 @@ export const WithDifferentTypesOfComponentsAndLongChildren = (args) => (
 	<Alert
 		open={args['open']}
 		onClose={action('onClose')}
-		showLongTitle={args['showLongTitle']}
 		title={args['title']}
 		type={args['type']}
 	>
@@ -156,7 +149,6 @@ export const WithDifferentTypesOfComponentsAndLongChildren = (args) => (
 );
 
 boolean('open', WithDifferentTypesOfComponentsAndLongChildren, Config, true);
-boolean('showLongTitle', WithDifferentTypesOfComponentsAndLongChildren, Config);
 text('title', WithDifferentTypesOfComponentsAndLongChildren, Config, 'Overlay Alert Title');
 select('type', WithDifferentTypesOfComponentsAndLongChildren, ['fullscreen', 'overlay'], Config, 'overlay');
 text('children', WithDifferentTypesOfComponentsAndLongChildren, Config, inputData.longChildren);
