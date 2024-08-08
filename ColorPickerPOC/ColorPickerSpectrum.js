@@ -107,7 +107,7 @@ const SpectrumColorPicker = (props) => {
 		<div className={css.colorPicker}>
 			<canvas
 				ref={canvasRef}
-				height={400}
+				height={300}
 				onPointerDown={handleCanvasPointerDown}
 				onPointerLeave={handleCanvasPointerLeave}
 				onPointerMove={handleCanvasPointerMove}
