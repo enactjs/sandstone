@@ -93,7 +93,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 	return (
 		<div>
 			<Row className={componentsCss.favoriteColorsRow}>
-				<Cell>
+				<Cell align="end">
 					{favoriteColors.slice(4, 8).map((color, index) => {
 						return (
 							<SpottableButton
@@ -118,7 +118,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 						);
 					})}
 				</Cell>
-				<Cell>
+				<Cell align="end">
 					{favoriteColors.slice(0, 4).map((color, index) => {
 						return (
 							<SpottableButton
