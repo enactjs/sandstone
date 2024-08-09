@@ -106,7 +106,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								onMouseUp={onReleaseHandler}
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
-								size={'small'}
+								size="small"
 								style={{
 									backgroundColor: color,
 									borderColor: generateOppositeColor(color),
@@ -131,7 +131,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								onMouseUp={onReleaseHandler}
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
-								size={'small'}
+								size="small"
 								style={{
 									backgroundColor: color,
 									borderColor: generateOppositeColor(color),
@@ -144,7 +144,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 					})}
 				</Cell>
 			</Row>
-			<Column align={'center'} className={componentsCss.selectedColorColumn}>
+			<Column align="center" className={componentsCss.selectedColorColumn}>
 				<SpottableButton
 					className={componentsCss.selectedColor}
 					minWidth={false}
@@ -155,7 +155,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 						color: generateOppositeColor(selectedColor)
 					}}
 				>
-					<Icon className={componentsCss.selectedColorIcon} size={'large'}>{editEnabled ? 'check' : 'plus'}</Icon>
+					<Icon className={componentsCss.selectedColorIcon} size="large">{editEnabled ? 'check' : 'plus'}</Icon>
 				</SpottableButton>
 			</Column>
 		</div>
