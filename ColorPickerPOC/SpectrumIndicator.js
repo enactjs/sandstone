@@ -40,10 +40,10 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 			setIndicatorBgColor(hexColor);
 		}
 
-		if(isIndicatorActive){
-			if(holding){
-				if(prevKey === keyCode) {
-					if(stepValue < 10) {
+		if (isIndicatorActive) {
+			if (holding) {
+				if (prevKey === keyCode) {
+					if (stepValue < 10) {
 						setStepValue(prevValue => prevValue + 1);
 					}
 				} else {
