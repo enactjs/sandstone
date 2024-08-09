@@ -1,6 +1,6 @@
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import Slider from '../Slider';
 
@@ -64,6 +64,12 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 	const [localRed, setLocalRed] = useState(red);
 	const [localGreen, setLocalGreen] = useState(green);
 	const [localBlue, setLocalBlue] = useState(blue);
+
+	useEffect(() => {
+		setLocalRed(red);
+		setLocalGreen(green);
+		setLocalBlue(blue);
+	}, [selectedColor]);
 
 	const changeValueRed = useCallback((ev) => {
 		setLocalRed(ev.value);
@@ -176,6 +182,12 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 	const [hue, setHue] = useState(h);
 	const [saturation, setSaturation] = useState(s);
 	const [lightness, setLightness] = useState(l);
+
+	useEffect(() => {
+		setHue(h);
+		setSaturation(s);
+		setLightness(l);
+	}, [selectedColor]);
 
 	const changeValueHue = useCallback((ev) => {
 		setHue(ev.value);
