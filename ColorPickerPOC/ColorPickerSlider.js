@@ -17,8 +17,8 @@ const hueGradient = (saturation, lightness) => {
 	hsla(40, ${saturation}%, ${lightness}%, 1),
 	hsla(50, ${saturation}%, ${lightness}%, 1),
 	hsla(60, ${saturation}%, ${lightness}%, 1),
-	hsla(70, ${saturation}%, ${lightness}%, 1)
-	,hsla(80, ${saturation}%, ${lightness}%, 1),
+	hsla(70, ${saturation}%, ${lightness}%, 1),
+	hsla(80, ${saturation}%, ${lightness}%, 1),
 	hsla(90, ${saturation}%, ${lightness}%, 1),
 	hsla(100, ${saturation}%, ${lightness}%, 1),
 	hsla(110, ${saturation}%, ${lightness}%, 1),
