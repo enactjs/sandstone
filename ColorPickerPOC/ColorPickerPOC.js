@@ -12,7 +12,7 @@ import Skinnable from '../Skinnable';
 import TabLayout, {Tab} from '../TabLayout';
 
 import ColorPickerGrid from './ColorPickerGrid';
-import ColorPickerSlider from './ColorPickerSlider';
+import ColorPickerSlider, {ColorPickerSliderHSL} from './ColorPickerSlider'; // eslint-disable-line no-unused-vars
 import ColorPickerSpectrum from './ColorPickerSpectrum';
 import {generateOppositeColor} from './utils';
 
@@ -201,6 +201,7 @@ const ColorPickerPOCBase = ({color = '#eb4034', colors = [], css, onChangeColor,
 						<Tab style={{width: ri.scaleToRem(400)}} title={'Sliders'}>
 							<div className={componentsCss.colorPicker}>
 								<ColorPickerSlider selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+								{/* <ColorPickerSliderHSL selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />*/}
 							</div>
 						</Tab>
 					</TabLayout>
