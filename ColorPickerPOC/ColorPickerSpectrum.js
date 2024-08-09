@@ -1,3 +1,4 @@
+import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
@@ -107,13 +108,13 @@ const SpectrumColorPicker = (props) => {
 		<div className={css.colorPicker}>
 			<canvas
 				ref={canvasRef}
-				height={300}
+				height={ri.scale(600)}
 				onPointerDown={handleCanvasPointerDown}
 				onPointerLeave={handleCanvasPointerLeave}
 				onPointerMove={handleCanvasPointerMove}
 				onPointerUp={handleCanvasPointerUp}
 				style={{touchAction: 'none'}}
-				width={400}
+				width={ri.scale(800)}
 			/>
 			<SpectrumIndicator
 				bgColor={indicatorBgColor}
