@@ -1,10 +1,10 @@
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 
 import Slider from '../Slider';
 
-import {generateOppositeColor, hexToHSL, hexToRGB, hslToHex, rgbObjectToHex} from './utils';
+import {generateOppositeColor, hexToHSL, hexToRGB, hslToHex, hslToRGBString, rgbObjectToHex} from './utils';
 
 import componentCss from './ColorPickerSlider.module.less';
 
@@ -61,18 +61,25 @@ const lightnessGradient = (hue, saturation) => {
 
 const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 	const {red, green, blue} = hexToRGB(selectedColor);
+	const [localRed, setLocalRed] = useState(red);
+	const [localGreen, setLocalGreen] = useState(green);
+	const [localBlue, setLocalBlue] = useState(blue);
 
 	const changeValueRed = useCallback((ev) => {
-		selectedColorHandler(rgbObjectToHex({red: ev.value, green, blue}));
-	}, [blue, green, selectedColorHandler]);
+		setLocalRed(ev.value);
+	}, []);
 
 	const changeValueGreen = useCallback((ev) => {
-		selectedColorHandler(rgbObjectToHex({red, green: ev.value, blue}));
-	}, [blue, red, selectedColorHandler]);
+		setLocalGreen(ev.value);
+	}, []);
 
 	const changeValueBlue = useCallback((ev) => {
-		selectedColorHandler(rgbObjectToHex({red, green, blue: ev.value}));
-	}, [green, red, selectedColorHandler]);
+		setLocalBlue(ev.value);
+	}, []);
+
+	const changeSelectedColor = useCallback(() => {
+		selectedColorHandler(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue}));
+	}, [localBlue, localGreen, localRed, selectedColorHandler]);
 
 	return (
 		<div {...props} className={componentCss.sliderContainer}>
@@ -82,25 +89,27 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 					<Cell
 						className={componentCss.sliderCell}
 						size="80%"
-						style={{backgroundImage: `linear-gradient(to right, rgb(0,${green},${blue}), rgb(255,${green},${blue}))`}}
+						style={{backgroundImage: `linear-gradient(to right, rgb(0,${localGreen},${localBlue}), rgb(255,${localGreen},${localBlue}))`}}
 					>
 						<Slider
 							css={componentCss}
 							max={255}
 							min={0}
 							noFill
+							onBlur={changeSelectedColor}
 							onChange={changeValueRed}
+							onPointerUp={changeSelectedColor}
 							style={{
-								'--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
-								'--sand-focus-bg-color-rgb': `${red},${green},${blue}`,
-								'--sand-progress-slider-color': selectedColor
+								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
+								'--sand-focus-bg-color-rgb': `${localRed},${localGreen},${localBlue}`,
+								'--sand-progress-slider-color': rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})
 							}}
-							value={red}
+							value={localRed}
 						/>
 					</Cell>
 					<Cell
 						className={componentCss.outputText}
-					>{red}</Cell>
+					>{localRed}</Cell>
 				</Row>
 			</Cell>
 			<Cell className={componentCss.cellElement}>
@@ -109,23 +118,25 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 					<Cell
 						className={componentCss.sliderCell}
 						size="80%"
-						style={{backgroundImage: `linear-gradient(to right, rgb(${red},0,${blue}), rgb(${red},255,${blue}))`}}
+						style={{backgroundImage: `linear-gradient(to right, rgb(${localRed},0,${localBlue}), rgb(${localRed},255,${localBlue}))`}}
 					>
 						<Slider
 							css={componentCss}
 							max={255}
 							min={0}
 							noFill
+							onBlur={changeSelectedColor}
 							onChange={changeValueGreen}
+							onPointerUp={changeSelectedColor}
 							style={{
-								'--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
-								'--sand-focus-bg-color-rgb': `${red},${green},${blue}`,
-								'--sand-progress-slider-color': selectedColor
+								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
+								'--sand-focus-bg-color-rgb': `${localRed},${localGreen},${localBlue}`,
+								'--sand-progress-slider-color': rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})
 							}}
-							value={green}
+							value={localGreen}
 						/>
 					</Cell>
-					<Cell className={componentCss.outputText}>{green}</Cell>
+					<Cell className={componentCss.outputText}>{localGreen}</Cell>
 				</Row>
 			</Cell>
 			<Cell className={componentCss.cellElement}>
@@ -134,23 +145,25 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 					<Cell
 						className={componentCss.sliderCell}
 						size="80%"
-						style={{backgroundImage: `linear-gradient(to right, rgb(${red},${green},0), rgb(${red},${green},255))`}}
+						style={{backgroundImage: `linear-gradient(to right, rgb(${localRed},${localGreen},0), rgb(${localRed},${localGreen},255))`}}
 					>
 						<Slider
 							css={componentCss}
 							max={255}
 							min={0}
 							noFill
+							onBlur={changeSelectedColor}
 							onChange={changeValueBlue}
+							onPointerUp={changeSelectedColor}
 							style={{
-								'--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
-								'--sand-focus-bg-color-rgb': `${red},${green},${blue}`,
-								'--sand-progress-slider-color': selectedColor
+								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
+								'--sand-focus-bg-color-rgb': `${localRed},${localGreen},${localBlue}`,
+								'--sand-progress-slider-color': rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})
 							}}
-							value={blue}
+							value={localBlue}
 						/>
 					</Cell>
-					<Cell className={componentCss.outputText}>{blue}</Cell>
+					<Cell className={componentCss.outputText}>{localBlue}</Cell>
 				</Row>
 			</Cell>
 		</div>
@@ -158,20 +171,27 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 };
 
 const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) => {
-	const {h: hue, s: saturation, l: lightness} = hexToHSL(selectedColor);
-	const {red, green, blue} = hexToRGB(selectedColor);
+	const {h, s, l} = hexToHSL(selectedColor);
+
+	const [hue, setHue] = useState(h);
+	const [saturation, setSaturation] = useState(s);
+	const [lightness, setLightness] = useState(l);
 
 	const changeValueHue = useCallback((ev) => {
-		selectedColorHandler(hslToHex({h: ev.value, s: saturation, l: lightness}));
-	}, [saturation, lightness, selectedColorHandler]);
+		setHue(ev.value);
+	}, []);
 
 	const changeValueSaturation = useCallback((ev) => {
-		selectedColorHandler(hslToHex({h: hue, s: ev.value, l: lightness}));
-	}, [hue, lightness, selectedColorHandler]);
+		setSaturation(ev.value);
+	}, []);
 
 	const changeValueLightness = useCallback((ev) => {
-		selectedColorHandler(hslToHex({h: hue, s: saturation, l: ev.value}));
-	}, [hue, saturation, selectedColorHandler]);
+		setLightness(ev.value);
+	}, []);
+
+	const changeSelectedColor = useCallback(() => {
+		selectedColorHandler(hslToHex({h: hue, s: saturation, l: lightness}));
+	}, [hue, saturation, lightness, selectedColorHandler]);
 
 	return (
 		<div {...props} className={componentCss.sliderContainer}>
@@ -188,11 +208,13 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 							max={359}
 							min={0}
 							noFill
+							onBlur={changeSelectedColor}
 							onChange={changeValueHue}
+							onPointerUp={changeSelectedColor}
 							style={{
-								'--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
-								'--sand-focus-bg-color-rgb': `${red},${green},${blue}`,
-								'--sand-progress-slider-color': selectedColor
+								'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
+								'--sand-focus-bg-color-rgb': hslToRGBString({h: hue, s: saturation, l: lightness}),
+								'--sand-progress-slider-color': hslToHex({h: hue, s: saturation, l: lightness})
 							}}
 							value={hue}
 						/>
@@ -215,11 +237,13 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 							max={100}
 							min={0}
 							noFill
+							onBlur={changeSelectedColor}
 							onChange={changeValueSaturation}
+							onPointerUp={changeSelectedColor}
 							style={{
-								'--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
-								'--sand-focus-bg-color-rgb': `${red},${green},${blue}`,
-								'--sand-progress-slider-color': selectedColor
+								'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
+								'--sand-focus-bg-color-rgb': hslToRGBString({h: hue, s: saturation, l: lightness}),
+								'--sand-progress-slider-color': hslToHex({h: hue, s: saturation, l: lightness})
 							}}
 							value={saturation}
 						/>
@@ -240,11 +264,13 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 							max={100}
 							min={0}
 							noFill
+							onBlur={changeSelectedColor}
 							onChange={changeValueLightness}
+							onPointerUp={changeSelectedColor}
 							style={{
-								'--sand-slider-knob-border-color': generateOppositeColor(selectedColor),
-								'--sand-focus-bg-color-rgb': `${red},${green},${blue}`,
-								'--sand-progress-slider-color': selectedColor
+								'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
+								'--sand-focus-bg-color-rgb': hslToRGBString({h: hue, s: saturation, l: lightness}),
+								'--sand-progress-slider-color': hslToHex({h: hue, s: saturation, l: lightness})
 							}}
 							value={lightness}
 						/>
