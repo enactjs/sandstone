@@ -62,9 +62,9 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 
 		favoriteColorsHandler(favoriteColors);
 		selectedColorHandler(buttonColor);
-	}, [clickEnabled, editEnabled, favoriteColors, favoriteColorsHandler, selectedColorHandler]);
+	}, [clickEnabled, editEnabled, favoriteColors, favoriteColorsHandler, selectedColor, selectedColorHandler]);
 
-	const onMouseDown = useCallback((ev) => {
+	const onPressHandler = useCallback((ev) => {
 		if (editEnabled) return;
 		const target = ev.target.id ? ev.target : ev.target.offsetParent;
 
@@ -79,7 +79,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 		}, 1000);
 	}, [editEnabled]);
 
-	const onMouseUp = useCallback((ev) => {
+	const onReleaseHandler = useCallback((ev) => {
 		const target = ev.target.id ? ev.target : ev.target.offsetParent;
 		target.classList.remove(componentsCss.shakeFavoriteColor);
 
@@ -93,7 +93,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 	return (
 		<div>
 			<Row className={componentsCss.favoriteColorsRow}>
-				<Cell align={'end'}>
+				<Cell>
 					{favoriteColors.slice(4, 8).map((color, index) => {
 						return (
 							<SpottableButton
@@ -102,8 +102,10 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								key={`${color}_${index + 4}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
-								onMouseDown={onMouseDown}
-								onMouseUp={onMouseUp}
+								onMouseDown={onPressHandler}
+								onMouseUp={onReleaseHandler}
+								onPointerDown={onPressHandler}
+								onPointerUp={onReleaseHandler}
 								size={'small'}
 								style={{
 									backgroundColor: color,
@@ -116,7 +118,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 						);
 					})}
 				</Cell>
-				<Cell align={'end'}>
+				<Cell>
 					{favoriteColors.slice(0, 4).map((color, index) => {
 						return (
 							<SpottableButton
@@ -125,9 +127,10 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								key={`${color}_${index}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
-								onMouseDown={onMouseDown}
-								onMouseUp={onMouseUp}
-								onPointerDown={onMouseDown}
+								onMouseDown={onPressHandler}
+								onMouseUp={onReleaseHandler}
+								onPointerDown={onPressHandler}
+								onPointerUp={onReleaseHandler}
 								size={'small'}
 								style={{
 									backgroundColor: color,
