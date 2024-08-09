@@ -4,6 +4,7 @@
 
 .labelText {
   font-size: 42px;
+  margin-bottom: 12px;
 }
 
 .outputText {
@@ -13,16 +14,38 @@
   color: #444444;
   display: grid;
   justify-content: end;
-  padding-right: 24px;
+  margin-left: 30px;
+  padding-right: 21px;
+}
+
+.outputTextPercent {
+  align-content: center;
+  background-color: #eeeeee;
+  border-radius: 12px;
+  color: #444444;
+  display: grid;
+  justify-content: end;
+  margin-left: 30px;
 }
 
 .slider {
-  --sand-focus-bg-color-rgb: transparent;
   --sand-progress-bg-color-rgb: transparent;
-  --sand-progress-slider-color: transparent;
   border-radius: 99px;
   height: 42px;
-  margin-left: 0;
+  margin-left: 18px;
+  margin-right: 18px;
+
+  .knob {
+    &::before {
+      border-radius: 99px;
+      height: 120px;
+      width: 120px;
+    }
+  }
+}
+
+.sliderCell {
+  border-radius: 99px;
 }
 
 .sliderContainer {
