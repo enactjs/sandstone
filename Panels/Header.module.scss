@@ -33,9 +33,11 @@
 
 			@include mixins.sand-custom-text-large {
 				@include mixins.sand-small-button-text;
-				height: variables.$sand-button-small-height;
-				line-height: calc(#{variables.$sand-button-small-height} - (2 * #{variables.$sand-button-border-width}));
-				min-width: variables.$sand-button-small-height;
+				& {
+					height: variables.$sand-button-small-height;
+					line-height: calc(#{variables.$sand-button-small-height} - (2 * #{variables.$sand-button-border-width}));
+					min-width: variables.$sand-button-small-height;
+				}
 			}
 		}
 
@@ -164,7 +166,9 @@
 
 		.title {
 			@include mixins.sand-font-size(variables.$sand-header-wizard-title-font-size, variables.$sand-non-latin-header-wizard-title-font-size);
-			padding: variables.$sand-header-wizard-title-padding;
+			& {
+				padding: variables.$sand-header-wizard-title-padding;
+			}
 		}
 
 		.subtitle {
