@@ -15,6 +15,8 @@ const SpectrumColorPicker = (props) => {
 	const [isDragging, setIsDragging] = useState(false);
 	const [indicatorBgColor, setIndicatorBgColor] = useState('transparent');
 	const [isIndicatorActive, setIsIndicatorActive] = useState(false);
+	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
+	const [canvasWidth, setCanvasWidth] = useState(ri.scale(800));
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -57,7 +59,15 @@ const SpectrumColorPicker = (props) => {
 			}
 		};
 		positionIndicator();
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+		const handleResize = () => {
+			setCanvasHeight(canvas.parentElement.clientHeight);
+			setCanvasWidth(canvas.parentElement.clientWidth);
+		};
+
+		window.addEventListener('resize', handleResize);
+		handleResize();
+	}, [canvasWidth, canvasHeight]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleCanvasPointerDown = useCallback((e) => {
 		const canvas = canvasRef.current;
@@ -107,14 +117,15 @@ const SpectrumColorPicker = (props) => {
 	return (
 		<div className={css.colorPicker}>
 			<canvas
+				className={css.gradientCanvas}
+				id="canvas"
 				ref={canvasRef}
-				height={ri.scale(600)}
+				height={canvasHeight}
 				onPointerDown={handleCanvasPointerDown}
 				onPointerLeave={handleCanvasPointerLeave}
 				onPointerMove={handleCanvasPointerMove}
 				onPointerUp={handleCanvasPointerUp}
-				style={{touchAction: 'none'}}
-				width={ri.scale(800)}
+				width={canvasWidth}
 			/>
 			<SpectrumIndicator
 				bgColor={indicatorBgColor}
