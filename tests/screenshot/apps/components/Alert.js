@@ -18,7 +18,6 @@ const fullscreenTests = [
 	<Alert open title="Title" />,
 	<Alert open>Alert!</Alert>,
 	<Alert open>{LoremString}</Alert>,
-	<Alert open>{LoremString}</Alert>,
 	<Alert open title="Loooooooooooooooooooooong Title with custom width" css={css}>{LoremString}</Alert>
 ];
 
