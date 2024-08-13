@@ -1,0 +1,135 @@
+// Dropdown.module.less
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+@use "../styles/variables-base";
+
+.dropdown {
+	display: inline-block;
+	margin: variables.$sand-dropdown-margin;
+	min-width: variables.$sand-dropdown-min-width;
+
+	&.tinyWidth {
+		.title,
+		.button {
+			width: variables.$sand-dropdown-tiny-width;
+		}
+	}
+
+	&.smallWidth {
+		.title,
+		.button {
+			width: variables.$sand-dropdown-small-width;
+		}
+	}
+
+	&.mediumWidth {
+		.title,
+		.button {
+			width: variables.$sand-dropdown-medium-width;
+		}
+	}
+
+	&.largeWidth {
+		.title,
+		.button {
+			width: variables.$sand-dropdown-large-width;
+		}
+	}
+
+	&.x-largeWidth {
+		.title,
+		.button {
+			width: variables.$sand-dropdown-x-large-width;
+		}
+	}
+
+	&.hugeWidth {
+		.title,
+		.button {
+			width: variables.$sand-dropdown-huge-width;
+		}
+	}
+
+	.title {
+		min-width: variables.$sand-dropdown-min-width;
+		font-style: variables.$sand-dropdown-title-font-style;
+
+		:global(.enact-locale-non-italic) & {
+			font-style: variables.$sand-non-italic-dropdown-title-font-style;
+		}
+	}
+
+	&.hasTitle .button {
+		margin-top: 0;
+	}
+
+	.button {
+		min-width: unset;
+		max-width: unset;
+
+		&:not([disabled]) {
+			@include mixins.focus {
+				&.pressed,
+				&:active {
+					.bg {
+						animation-name: none;
+					}
+				}
+			}
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		.title {
+			color: colors.$sand-dropdown-title-color;
+		}
+	}
+}
+
+.dropdownList {
+	max-height: variables.$sand-dropdown-list-max-height;
+	min-width: variables.$sand-dropdown-list-min-width;
+
+	&.tiny {
+		width: variables.$sand-dropdown-list-tiny-width;
+	}
+
+	&.small {
+		width: variables.$sand-dropdown-list-small-width;
+	}
+
+	&.medium {
+		width: variables.$sand-dropdown-list-medium-width;
+	}
+
+	&.large {
+		width: variables.$sand-dropdown-list-large-width;
+	}
+
+	&.x-large {
+		width: variables.$sand-dropdown-list-x-large-width
+	}
+
+	&.huge {
+		width: variables.$sand-dropdown-list-huge-width;
+	}
+
+	@include mixins.sand-custom-text-large {
+		max-height: variables.$sand-dropdown-list-max-height-large;
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		border-radius: variables-base.$sand-dropdown-border-radius;
+
+		[data-selected="true"] {
+			&:not(:focus) {
+				color: colors.$sand-dropdown-selected-text-color;
+			}
+		}
+	}
+}

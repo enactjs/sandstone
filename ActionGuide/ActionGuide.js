@@ -20,7 +20,7 @@ import Button from '../Button';
 import {Marquee} from '../Marquee';
 import Skinnable from '../Skinnable';
 
-import componentCss from './ActionGuide.module.less';
+import componentCss from './ActionGuide.module.scss';
 
 /**
  * An Action Guide component.

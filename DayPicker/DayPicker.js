@@ -26,7 +26,7 @@ import Skinnable from '../Skinnable';
 
 import {DaySelectorDecorator, getSelectedDayString} from './DaySelectorDecorator';
 
-import css from './DayPicker.module.less';
+import css from './DayPicker.module.scss';
 
 /**
  * A day of the week selection component.

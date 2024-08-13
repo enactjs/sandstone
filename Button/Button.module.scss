@@ -11,15 +11,17 @@
 .button {
 	//default is size="large"
 	@include mixins.sand-large-button-text;
-	height: variables.$sand-button-height;
-	line-height: (variables.$sand-button-height - (2 * variables.$sand-button-border-width));
-	min-width: variables.$sand-button-height;
-	max-width: variables.$sand-button-max-width;
-	padding: 0 variables.$sand-button-h-padding;
-	margin: variables.$sand-button-margin;
-	text-align: center;
-	vertical-align: middle;
-	--button-height: 144px;
+	& {
+		height: variables.$sand-button-height;
+		line-height: (variables.$sand-button-height - (2 * variables.$sand-button-border-width));
+		min-width: variables.$sand-button-height;
+		max-width: variables.$sand-button-max-width;
+		padding: 0 variables.$sand-button-h-padding;
+		margin: variables.$sand-button-margin;
+		text-align: center;
+		vertical-align: middle;
+		--button-height: 144px;
+	}
 
 	@include mixins.sand-custom-text-large {
 		font-size: variables.$sand-button-font-size-large;
@@ -125,14 +127,16 @@
 
 	&.small {
 		@include mixins.sand-small-button-text;
-		height: variables.$sand-button-small-height;
-		min-width: variables.$sand-button-small-height;
-		max-width: variables.$sand-button-small-max-width;
-		line-height: (variables.$sand-button-small-height - (2 * variables.$sand-button-border-width));
-		margin: variables.$sand-button-small-margin;
-		padding-left: variables.$sand-button-small-h-padding;
-		padding-right: variables.$sand-button-small-h-padding;
-		--button-height: 108px;
+		& {
+			height: variables.$sand-button-small-height;
+			min-width: variables.$sand-button-small-height;
+			max-width: variables.$sand-button-small-max-width;
+			line-height: (variables.$sand-button-small-height - (2 * variables.$sand-button-border-width));
+			margin: variables.$sand-button-small-margin;
+			padding-left: variables.$sand-button-small-h-padding;
+			padding-right: variables.$sand-button-small-h-padding;
+			--button-height: 108px;
+		}
 
 		&.focusExpand {
 			margin: variables.$sand-button-small-focusexpand-margin;
@@ -292,10 +296,12 @@
 
 		.bg {
 			@include color-mixins.sand-button-resting-bg-colors;
-			border-width: variables-base.$sand-button-bg-border-width;
-			border-style: variables-base.$sand-button-bg-border-style;
-			border-color: colors.$sand-button-border-color;
-			border-radius: variables-base.$sand-button-border-radius;
+			& {
+				border-width: variables-base.$sand-button-bg-border-width;
+				border-style: variables-base.$sand-button-bg-border-style;
+				border-color: colors.$sand-button-border-color;
+				border-radius: variables-base.$sand-button-border-radius;
+			}
 		}
 
 		&.opaque {
