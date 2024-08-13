@@ -1,5 +1,5 @@
-import {addons} from '@storybook/manager-api';
 import ri from '@enact/ui/resolution';
+import {addons} from '@storybook/manager-api';
 import {create} from '@storybook/theming';
 
 addons.setConfig({
