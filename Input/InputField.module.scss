@@ -1,0 +1,254 @@
+// Input.module.scss
+//
+@use "../styles/colors";
+@use "../styles/color-mixins";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.input {
+	@include mixins.sand-body-text;
+
+	& {
+		padding: 0;
+		border: 0;
+		cursor: pointer;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		flex-grow: 1;
+		text-indent: variables.$sand-inputfield-text-indent;
+	}
+
+	&[type=number] {
+		-moz-appearance: textfield;
+
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+		}
+
+		&:hover {
+			-moz-appearance: none;
+		}
+	}
+
+	&[placeholder] {
+		text-overflow: ellipsis;
+	}
+
+	@include mixins.focus {
+		cursor: text;
+	}
+
+	@include mixins.disabled {
+		cursor: default;
+	}
+
+	@include mixins.enact-locale-rtl("") {
+		text-align: right;
+	}
+}
+
+.inputField {
+	display: inline-flex;
+	position: relative;
+	padding: variables.$sand-inputfield-padding;
+	margin: variables.$sand-inputfield-margin;
+	box-sizing: border-box;
+	vertical-align: middle;
+	align-items: center;
+
+	.bg {
+		position: absolute;
+		@include mixins.position(0);
+
+		& {
+			border-radius: variables.$sand-inputfield-border-radius;
+		}
+	}
+
+	.input,
+	.inputHighlight {
+		z-index: 1;
+		font-size: variables.$sand-input-font-size;
+		font-weight: variables.$sand-inputfield-font-weight;
+	}
+
+	.input,
+	.inputHighlight {
+		line-height: variables.$sand-inputfield-height;
+		height: variables.$sand-inputfield-height;
+		vertical-align: middle;
+	}
+
+	.input.passwordtel {
+		-webkit-text-security: disc;
+	}
+
+	.inputHighlight {
+		position: absolute;
+		top: 0;
+		height: variables.$sand-inputfield-highlight-height;
+		max-width: variables.$sand-inputfield-highlight-max-width;
+		overflow: hidden;
+		letter-spacing: 0.1px;
+		pointer-events: none;
+		opacity: 0;
+		z-index: -1;
+	}
+
+	&.large {
+		/* Defined to prevent global export */
+	}
+
+	&.small {
+		height: variables.$sand-inputfield-small-height;
+
+		.input {
+			font-size: variables.$sand-inputfield-small-font-size;
+			height: variables.$sand-inputfield-small-height;
+			line-height: variables.$sand-inputfield-small-height;
+		}
+
+		.inputHighlight {
+			line-height: variables.$sand-inputfield-small-height;
+			height: variables.$sand-inputfield-small-height;
+			max-width: variables.$sand-inputfield-highlight-small-max-width;
+		}
+	}
+
+	// RIGBY NOTE: multiline is a NOT YET IMPLEMENTED feature that combines <input> and <textarea>
+	// into one control, to simplify input handling.
+	&.multiline {
+		display: block;
+		padding: 24px 36px;
+		border-radius: 24px;
+	}
+
+	// an Input that isn't spottable is behaviorly disabled but not visually
+	&:not(:global(.spottable)) .input {
+		pointer-events: none;
+	}
+
+	.tooltip {
+		margin-top: variables.$sand-inputfield-invalid-tooltip-margin-top;
+
+		.tooltipLabel {
+			font-size: variables.$sand-inputfield-invalid-tooltip-font-size;
+			font-weight: variables.$sand-inputfield-invalid-tooltip-font-weight;
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		color: colors.$sand-inputfield-text-color;
+
+		.bg {
+			@include color-mixins.sand-spotlight-resting-bg-colors(variables.$sand-inputfield-bg-opacity);
+		}
+
+		.input {
+			background: transparent;
+			color: inherit;
+
+
+			@include mixins.input-placeholder {
+				font-weight: variables.$sand-inputfield-placeholder-font-weight;
+				color: colors.$sand-inputfield-placeholder-color;
+			}
+
+			&:focus-within {
+				color: colors.$sand-inputfield-focus-text-color;
+
+				@include mixins.input-placeholder {
+					font-weight: variables.$sand-inputfield-placeholder-focus-font-weight;
+					color: colors.$sand-inputfield-placeholder-active-color;
+				}
+			}
+		}
+
+		&.invalid input {
+			color: colors.$sand-inputfield-invalid-color;
+		}
+
+		.inputHighlight {
+			color: transparent;
+			background-color: transparent;
+			// Set `.inputHighlight` background color to make it appear that the text is highlighted
+			// when `.input` has transparent background and when `.inputField` has focus, but not `.input`.
+			// background-color: $sand-spotlight-color;
+		}
+
+		.tooltip {
+			.tooltipLabel {
+				color: colors.$sand-inputfield-invalid-tooltip-color;
+			}
+		}
+
+		// For when the field container has spotlight focus
+		@include mixins.focus {
+			color: colors.$sand-inputfield-focus-text-color;
+
+			.bg {
+				@include color-mixins.sand-spotlight-focus-bg-colors();
+			}
+
+			.input {
+				@include mixins.input-placeholder {
+					font-weight: variables.$sand-inputfield-placeholder-focus-font-weight;
+					color: colors.$sand-inputfield-placeholder-active-color;
+				}
+			}
+
+			// Set `.inputHighlight` opacity to make it appear that the text is highlighted
+			// when `.input` has transparent background and when `.inputField` has focus, but not `.input`.
+			// .inputHighlight {
+			// 	opacity: 1;
+			// }
+		}
+
+		// For when the HTML input field has focus (someone is typing)
+		&:focus-within {
+			color: colors.$sand-inputfield-focus-text-color;
+
+			.bg {
+				@include color-mixins.sand-spotlight-focus-bg-colors();
+
+				& {
+					box-shadow: none;
+				}
+			}
+		}
+
+		@include mixins.sand-disabled {
+			.bg {
+				@include color-mixins.sand-disabled-focus-bg-colors {
+					filter: brightness(0.28); // Adjusting the background color to match the gui designs. Filter-shift the color.
+				} // Apply a proper opacity to the disabled background, according to the designs.
+			}
+
+			.input {
+				@include color-mixins.sand-disabled-colors;
+
+				& {
+					color: colors.$sand-inputfield-disabled-text-color;
+				}
+			}
+
+			@include mixins.focus {
+				.bg {
+					@include color-mixins.sand-disabled-focus-bg-colors;
+
+					& {
+						filter: unset;
+					}
+				}
+
+				.input {
+					@include color-mixins.sand-disabled-focus-content-colors;
+				}
+			}
+		}
+	}
+}

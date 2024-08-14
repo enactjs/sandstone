@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 
 import Marquee from '../Marquee';
 
-import css from './Tooltip.module.less';
-
+import css from './Tooltip.module.scss';
 
 /**
  * {@link sandstone/TooltipDecorator.TooltipLabel} is a stateless tooltip component with

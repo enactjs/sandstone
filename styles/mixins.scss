@@ -151,6 +151,14 @@
 	}
 }
 
+@mixin sand-font-size($font-size: variables.$sand-body-font-size, $nlfont-size: $font-size) {
+	font-size: $font-size;
+
+	@include enact-locale(non-latin) {
+		font-size: $nlfont-size;
+	}
+}
+
 //
 // Custom Text Size Mixins
 //
@@ -184,6 +192,11 @@
 			@content;
 		}
 	}
+}
+
+@mixin sand-font-number {
+	// content: "Applying .sand-font-number";
+	@include sand-font(variables.$sand-number-font-family, variables.$sand-number-font-family) {};
 }
 
 //
@@ -270,4 +283,29 @@
 
 @mixin sand-enact-locale-tallglyph($rule, $value, $target: normal) {
 	@include enact-locale-tallglyph-values($rule, $value, $target, variables.$locale-tallglyph-languages);
+}
+
+@mixin sand-focus-ring {
+	transform: none;
+	outline: 12px solid rgb(230,230,230);
+	outline-offset: 9px;
+}
+
+@mixin sand-focus-highlight($target: '') {
+	@if $target == '' {
+		@include focus {
+			&:global(.focusRing) {
+				@include sand-focus-ring;
+			}
+		}
+	} @else {
+		@include focus {
+			&:global(.focusRing) {
+				transform: none;
+				.#{$target} {
+					@include sand-focus-ring;
+				}
+			}
+		}
+	}
 }
