@@ -1,8 +1,8 @@
-// Icon.module.less
+// Icon.module.scss
 //
-@use "../styles/mixins.scss";
-@use "../styles/skin.scss";
-@use "../styles/variables.scss";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 // Create a module-level LESS variable containing a our CSS variable with a default assigned.
 // Assign the default here, rather than assigning it on every usage of --icon-size.

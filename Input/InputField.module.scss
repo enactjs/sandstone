@@ -1,10 +1,10 @@
 // Input.module.scss
 //
-@use "../styles/color-mixins.scss";
-@use "../styles/colors.scss";
-@use "../styles/mixins.scss";
-@use "../styles/skin.scss";
-@use "../styles/variables.scss";
+@use "../styles/colors";
+@use "../styles/color-mixins";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 .input {
 	@include mixins.sand-body-text;
@@ -62,7 +62,10 @@
 	.bg {
 		position: absolute;
 		@include mixins.position(0);
-		border-radius: variables.$sand-inputfield-border-radius;
+
+		& {
+			border-radius: variables.$sand-inputfield-border-radius;
+		}
 	}
 
 	.input,
@@ -174,7 +177,7 @@
 			background-color: transparent;
 			// Set `.inputHighlight` background color to make it appear that the text is highlighted
 			// when `.input` has transparent background and when `.inputField` has focus, but not `.input`.
-			// background-color: @sand-spotlight-color;
+			// background-color: $sand-spotlight-color;
 		}
 
 		.tooltip {
@@ -211,7 +214,10 @@
 
 			.bg {
 				@include color-mixins.sand-spotlight-focus-bg-colors();
-				box-shadow: none;
+
+				& {
+					box-shadow: none;
+				}
 			}
 		}
 
@@ -224,13 +230,19 @@
 
 			.input {
 				@include color-mixins.sand-disabled-colors;
-				color: colors.$sand-inputfield-disabled-text-color;
+
+				& {
+					color: colors.$sand-inputfield-disabled-text-color;
+				}
 			}
 
 			@include mixins.focus {
 				.bg {
 					@include color-mixins.sand-disabled-focus-bg-colors;
-					filter: unset;
+
+					& {
+						filter: unset;
+					}
 				}
 
 				.input {

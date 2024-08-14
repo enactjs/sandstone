@@ -1,9 +1,9 @@
 // Tooltip.module.scss
 //
-@use "../styles/colors.scss";
-@use "../styles/mixins.scss";
-@use "../styles/skin.scss";
-@use "../styles/variables.scss";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 @mixin tail ($origin, $rotate, $skewX, $skewY) {
 	left: 0;
@@ -38,6 +38,7 @@
 			height: 100%;
 		}
 	}
+
 	&.rightArrow,
 	&.leftArrow {
 		.tooltipArrow {
@@ -45,11 +46,13 @@
 			height: variables.$sand-tooltip-point-width;
 		}
 	}
+
 	&.centerArrow .tooltipArrow {
 		width: variables.$sand-tooltip-point-height;
 		height: variables.$sand-tooltip-point-width;
 		left: 50%;
 	}
+
 	&.middleArrow .tooltipArrow {
 		width: variables.$sand-tooltip-point-width;
 		height: variables.$sand-tooltip-point-height;
@@ -60,6 +63,7 @@
 		--sand-tooltip-label-width: auto;
 
 		@include mixins.sand-small-button-text;
+
 		& {
 			font-size: variables.$sand-tooltip-label-font-size;
 			font-weight: variables.$sand-tooltip-font-weight;
@@ -413,7 +417,6 @@
 			&.topArrow {	bottom: 50%;	}
 			&.middleArrow,
 			&.bottomArrow {	top: 50%;	}
-
 			&.middleArrow {	transform: translateY(-50%);	}
 		}
 
@@ -427,7 +430,6 @@
 			&.topArrow {	bottom: 50%;	}
 			&.middleArrow,
 			&.bottomArrow {	top: 50%;	}
-
 			&.middleArrow {	transform: translateY(-50%);	}
 		}
 	}
@@ -446,6 +448,7 @@
 
 		&.transparent {
 			filter: none;
+
 			.tooltipLabel {
 				color: #fff;
 				background-color: transparent;

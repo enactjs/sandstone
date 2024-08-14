@@ -1,10 +1,10 @@
 // MediaOverlay.module.scss
 //
-@use "../styles/color-mixins.scss";
-@use "../styles/colors.scss";
-@use "../styles/mixins.scss";
-@use "../styles/skin.scss";
-@use "../styles/variables.scss";
+@use "../styles/colors";
+@use "../styles/color-mixins";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 .mediaOverlay {
 	display: block;
@@ -16,7 +16,10 @@
 	.bg {
 		position: absolute;
 		@include mixins.position(0);
-		border-radius: variables.$sand-mediaoverlay-border-radius;
+
+		& {
+			border-radius: variables.$sand-mediaoverlay-border-radius;
+		}
 	}
 
 	.mediaContainer {
@@ -52,6 +55,7 @@
 			font-size: variables.$sand-mediaoverlay-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
+
 		& {
 			font-size: variables.$sand-mediaoverlay-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
@@ -62,7 +66,10 @@
 	.progressBar {
 		position: absolute;
 		@include mixins.position(auto 0 0);
-		margin: variables.$sand-mediaoverlay-progressbar-margin;
+
+		& {
+			margin: variables.$sand-mediaoverlay-progressbar-margin;
+		}
 	}
 
 	.captionContainer {
@@ -81,6 +88,7 @@
 			font-size: variables.$sand-mediaoverlay-caption-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
+
 		& {
 			font-size: variables.$sand-mediaoverlay-caption-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
@@ -92,6 +100,7 @@
 			font-size: variables.$sand-mediaoverlay-title-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
+
 		& {
 			font-size: variables.$sand-mediaoverlay-title-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
