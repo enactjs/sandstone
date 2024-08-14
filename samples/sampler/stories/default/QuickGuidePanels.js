@@ -21,10 +21,10 @@ export default {
 };
 
 export const _QuickGuidePanels = (args) => {
-	const screenWidth = window.screen.width;
-	const screenHeight = window.screen.height;
-	const widthratio = screenWidth / 1920;
-	const heightratio = screenHeight / 1080;
+	const screenWidth = window?.screen.width;
+	const screenHeight = window?.screen.height;
+	const widthRatio = screenWidth / 1920;
+	const heightRatio = screenHeight / 1080;
 
 	return (
 		<>
@@ -67,7 +67,7 @@ export const _QuickGuidePanels = (args) => {
 						</div>
 						<div className={css.svg}>
 							<svg width="100%" height="100%" fill="rgba(87, 94, 102, 0.3)">
-								<path d={`M0 0 h${screenWidth} v${screenHeight} h-${screenWidth}z M${184 * widthratio} ${100 * heightratio} v${100 * heightratio} h${200 * widthratio} v-${100 * heightratio}z`} />
+								<path d={`M0 0 h${screenWidth} v${screenHeight} h-${screenWidth}z M${184 * widthRatio} ${100 * heightRatio} v${100 * heightRatio} h${200 * widthRatio} v-${100 * heightRatio}z`} />
 							</svg>
 						</div>
 					</QuickGuidePanels.Panel>
@@ -77,7 +77,7 @@ export const _QuickGuidePanels = (args) => {
 						</div>
 						<div className={css.svg}>
 							<svg width="100%" height="100%" fill="rgba(87, 94, 102, 0.3)">
-								<path d={`M0 0 h${screenWidth} v${screenHeight} h-${screenWidth}z M${184 * widthratio} ${232 * heightratio} v${100 * heightratio} h${200 * widthratio} v-${100 * heightratio}z`} />
+								<path d={`M0 0 h${screenWidth} v${screenHeight} h-${screenWidth}z M${184 * widthRatio} ${232 * heightRatio} v${100 * heightRatio} h${200 * widthRatio} v-${100 * heightRatio}z`} />
 							</svg>
 						</div>
 					</QuickGuidePanels.Panel>
