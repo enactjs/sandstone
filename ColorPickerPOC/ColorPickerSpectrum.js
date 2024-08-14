@@ -9,14 +9,14 @@ import css from './ColorPickerSpectrum.module.less';
 
 const SpectrumColorPicker = (props) => {
 	const {selectedColor, selectedColorHandler} = props;
+	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
 	const canvasRef = useRef(null);
+	const [canvasWidth, setCanvasWidth] = useState(ri.scale(800));
+	const [indicatorBgColor, setIndicatorBgColor] = useState('transparent');
 	const [indicatorX, setIndicatorX] = useState(0);
 	const [indicatorY, setIndicatorY] = useState(0);
 	const [isDragging, setIsDragging] = useState(false);
-	const [indicatorBgColor, setIndicatorBgColor] = useState('transparent');
 	const [isIndicatorActive, setIsIndicatorActive] = useState(false);
-	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
-	const [canvasWidth, setCanvasWidth] = useState(ri.scale(800));
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -118,7 +118,6 @@ const SpectrumColorPicker = (props) => {
 		<div className={css.colorPicker}>
 			<canvas
 				className={css.gradientCanvas}
-				id="canvas"
 				ref={canvasRef}
 				height={canvasHeight}
 				onPointerDown={handleCanvasPointerDown}
