@@ -15,6 +15,24 @@
 	--sand-overlay-outline-color: #7c848b;
 	--sand-overlay-outline-style: solid;
 
+	// Overlay Alert
+	// ---------------------------------------
+
+	// common colors
+	--sand-alert-overlay-bg-color-rgb-base: 0, 0, 0;
+	--sand-alert-overlay-bg-color-rgb: rgb(var(--sand-alert-overlay-bg-color-rgb-base));
+	--sand-alert-overlay-text-color-rgb: rgb(230, 230, 230); // #e6e6e6
+	--sand-alert-overlay-text-sub-color: #abaeb3;
+	--sand-alert-overlay-focus-text-color: #ffffff;
+
+	// component colors
+	--sand-alert-overlay-progress-color-rgb: rgb(230, 230, 230); // #e6e6e6
+	--sand-alert-overlay-progress-bg-color-rgb: rgb(55, 58, 65); // #373a41
+	--sand-alert-overlay-progress-bg-color-alpha: 100%;
+	--sand-alert-overlay-checkbox-color: #e6e6e6;
+	--sand-alert-overlay-checkbox-disabled-selected-text-color: #4c5059;
+	--sand-alert-overlay-item-disabled-focus-bg-color: #e6e6e6;
+
 	// ---------------------------------------
 	// Component Colors
 	// ---------------------------------------
@@ -23,7 +41,17 @@
 	// ---------------------------------------
 	--sand-fullscreen-bg-color: #000000; // different from neutral
 
+	// Input
+	// ---------------------------------------
+	--sand-overlay-bg-color-rgb-base: 0, 0, 0; // different from neutral
+	--sand-overlay-bg-color-rgb: rgb(var(--sand-overlay-bg-color-rgb-base)); // different from neutral
+
 	// KeyGuide
 	// ---------------------------------------
 	--sand-keyguide-bg-color-rgb: rgb(55, 58, 65); // no alpha
+
+	// Popup
+	// ---------------------------------------
+	--sand-popup-bg-color: rgb(0, 0, 0); // no alpha
+	--sand-popup-scrimtransparent-bg-color: rgb(0, 0, 0); // no alpha
 }
