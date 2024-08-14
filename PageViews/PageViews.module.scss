@@ -13,8 +13,12 @@
 		text-align: center;
 		display: flex;
 		align-items: center;
-		width: 216px;
+		width: variables.$sand-pageviews-navigation-button-area-width;
 		justify-content: center;
+	}
+
+	&.number .navButton {
+		width: variables.$sand-pageviews-number-navigation-button-area-width;
 	}
 
 	.steps {
@@ -23,30 +27,30 @@
 		text-align: center;
 
 		&.hidden {
-			min-height: 132px;
+			min-height: variables.$sand-pageviews-steps-area-min-height;
 			visibility: hidden;
 		}
 	}
 
 	&.number .steps {
-		min-height: 252px;
+		min-height: variables.$sand-pageviews-number-steps-area-min-height;
 		.pageNumber {
-			width: 126px;
+			width: variables.$sand-pageviews-number-steps-number-width;
 		}
 		.separator {
-			width: 60px;
+			width: variables.$sand-pageviews-number-steps-separator-width;
 		}
 	}
 
 	&.dot .steps {
-		min-height: 132px;
+		min-height: variables.$sand-pageviews-dot-steps-area-min-height;
 	}
 
 	&.fullContents .steps {
 		position: absolute;
 		align-self: center;
-		bottom: 0;
-		min-height: 132px;
+		bottom: variables.$sand-pageviews-full-steps-position-bottom;
+		min-height: variables.$sand-pageviews-full-steps-area-min-height;
 	}
 
 	.contentsArea {
