@@ -9,14 +9,16 @@
 .input {
 	@include mixins.sand-body-text;
 
-	padding: 0;
-	border: 0;
-	cursor: pointer;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	flex-grow: 1;
-	text-indent: variables.$sand-inputfield-text-indent;
+	& {
+		padding: 0;
+		border: 0;
+		cursor: pointer;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		flex-grow: 1;
+		text-indent: variables.$sand-inputfield-text-indent;
+	}
 
 	&[type=number] {
 		-moz-appearance: textfield;
@@ -60,7 +62,10 @@
 	.bg {
 		position: absolute;
 		@include mixins.position(0);
-		border-radius: variables.$sand-inputfield-border-radius;
+
+		& {
+			border-radius: variables.$sand-inputfield-border-radius;
+		}
 	}
 
 	.input,
@@ -209,7 +214,10 @@
 
 			.bg {
 				@include color-mixins.sand-spotlight-focus-bg-colors();
-				box-shadow: none;
+
+				& {
+					box-shadow: none;
+				}
 			}
 		}
 
@@ -222,13 +230,19 @@
 
 			.input {
 				@include color-mixins.sand-disabled-colors;
-				color: colors.$sand-inputfield-disabled-text-color;
+
+				& {
+					color: colors.$sand-inputfield-disabled-text-color;
+				}
 			}
 
 			@include mixins.focus {
 				.bg {
 					@include color-mixins.sand-disabled-focus-bg-colors;
-					filter: unset;
+
+					& {
+						filter: unset;
+					}
 				}
 
 				.input {

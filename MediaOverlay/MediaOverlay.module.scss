@@ -52,15 +52,21 @@
 			font-size: variables.$sand-mediaoverlay-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
-		font-size: variables.$sand-mediaoverlay-font-size;
-		line-height: variables.$sand-mediaoverlay-line-height;
-		font-weight: variables.$sand-mediaoverlay-font-weight;
+
+		& {
+			font-size: variables.$sand-mediaoverlay-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+			font-weight: variables.$sand-mediaoverlay-font-weight;
+		}
 	}
 
 	.progressBar {
 		position: absolute;
 		@include mixins.position(auto 0 0);
-		margin: variables.$sand-mediaoverlay-progressbar-margin;
+
+		& {
+			margin: variables.$sand-mediaoverlay-progressbar-margin;
+		}
 	}
 
 	.captionContainer {
@@ -79,8 +85,11 @@
 			font-size: variables.$sand-mediaoverlay-caption-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
-		font-size: variables.$sand-mediaoverlay-caption-font-size;
-		line-height: variables.$sand-mediaoverlay-line-height;
+
+		& {
+			font-size: variables.$sand-mediaoverlay-caption-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+		}
 	}
 
 	.title {
@@ -88,8 +97,11 @@
 			font-size: variables.$sand-mediaoverlay-title-font-size;
 			line-height: variables.$sand-mediaoverlay-line-height;
 		}
-		font-size: variables.$sand-mediaoverlay-title-font-size;
-		line-height: variables.$sand-mediaoverlay-line-height;
+
+		& {
+			font-size: variables.$sand-mediaoverlay-title-font-size;
+			line-height: variables.$sand-mediaoverlay-line-height;
+		}
 	}
 
 	@include skin.applySkins {

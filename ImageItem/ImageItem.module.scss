@@ -113,7 +113,9 @@
 
 	&.horizontal {
 		@include mixins.sand-spotlight-padding(variables.$sand-imageitem-horizontal-padding);
-		margin: variables.$sand-imageitem-margin;
+		& {
+			margin: variables.$sand-imageitem-margin;
+		}
 
 		.image {
 			width: variables.$sand-imageitem-horizontal-image-width;

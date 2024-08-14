@@ -60,13 +60,16 @@
 		--sand-tooltip-label-width: auto;
 
 		@include mixins.sand-small-button-text;
-		font-size: variables.$sand-tooltip-label-font-size;
-		font-weight: variables.$sand-tooltip-font-weight;
-		line-height: variables.$sand-tooltip-label-height;
-		white-space: nowrap;
-		width: var(--sand-tooltip-label-width); // assign a width if necessary, but without a width, "auto" is just fine.
-		padding: variables.$sand-tooltip-padding;
-		border-radius: variables.$sand-tooltip-border-radius;
+
+		& {
+			font-size: variables.$sand-tooltip-label-font-size;
+			font-weight: variables.$sand-tooltip-font-weight;
+			line-height: variables.$sand-tooltip-label-height;
+			white-space: nowrap;
+			width: var(--sand-tooltip-label-width); // assign a width if necessary, but without a width, "auto" is just fine.
+			padding: variables.$sand-tooltip-padding;
+			border-radius: variables.$sand-tooltip-border-radius;
+		}
 
 		@include mixins.enact-locale-rtl("") {
 			text-align: right;
@@ -89,24 +92,29 @@
 			font-weight: variables.$sand-tooltip-transparent-font-weight;
 			font-size: 36px;
 		}
+
 		.tooltipArrow {
 			display: none;
 		}
+
 		&.below {
 			.tooltipLabel {
 				margin-top: variables.$sand-tooltip-transparent-label-offset;
 			}
 		}
+
 		&.above {
 			.tooltipLabel {
 				margin-bottom: variables.$sand-tooltip-transparent-label-offset;
 			}
 		}
+
 		&.left {
 			.tooltipLabel {
 				margin-right: variables.$sand-tooltip-transparent-label-offset;
 			}
 		}
+
 		&.right {
 			.tooltipLabel {
 				margin-left: variables.$sand-tooltip-transparent-label-offset;

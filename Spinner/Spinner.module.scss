@@ -14,18 +14,22 @@
 	85%   { transform: rotate(0.75turn + $turn-offset); }
 	100%  { transform: rotate(1turn + $turn-offset); }
 }
+
 @keyframes rotate1 {
 	0%, 100% { transform: rotate(0turn); }
 	33% { transform: rotate(math.div(1turn, 8)); }
 }
+
 @keyframes rotate2 {
 	0%, 100% { transform: rotate(0turn); }
 	33% { transform: rotate(math.div(2turn, 8)); }
 }
+
 @keyframes rotate3 {
 	0%, 100% { transform: rotate(0turn); }
 	33% { transform: rotate(math.div(3turn, 8)); }
 }
+
 @keyframes rotate4 {
 	0%, 100% { transform: rotate(0turn); }
 	33% { transform: rotate(math.div(4turn, 8)); }
@@ -103,9 +107,12 @@
 
 	.client {
 		@include mixins.sand-body-text;
-		font-weight: variables.$sand-spinner-font-weight;
-		margin-top: variables.$sand-spotlight-outset;
-		max-width: 696px;
+
+		& {
+			font-weight: variables.$sand-spinner-font-weight;
+			margin-top: variables.$sand-spotlight-outset;
+			max-width: 696px;
+		}
 	}
 
 	&.medium { /* Needed to prevent global class being added in the DOM */ }
