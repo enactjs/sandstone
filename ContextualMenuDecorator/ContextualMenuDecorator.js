@@ -18,7 +18,7 @@ import Item from '../Item';
 import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 
-import css from './ContextualMenuDecorator.module.less';
+import css from './ContextualMenuDecorator.module.scss';
 
 // The maximum number of visible items. More than this number invokes a scroller.
 // When updating this value, you must also set the max-items LESS variable.

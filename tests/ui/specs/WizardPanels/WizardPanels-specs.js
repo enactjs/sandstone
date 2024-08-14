@@ -186,5 +186,26 @@ describe('WizardPanels', function () {
 
 			expect(actual).toBe(expected);
 		});
+
+		it('should focus buttons when navigating with 5-way - [QWTC-2012]', async function () {
+			// Step 3: 5-way Spot and 5-way Select the Right Paging Control (>)
+			await Page.spotlightRight(); // spot Cancel button
+			await Page.spotlightRight(); // spot Next View button
+			await Page.spotlightSelect();
+			// Step 3 Verify: View 2 page content displays and Spotlight is on Button A button
+			await wizardPanels.waitForLeave(1);
+			expect(await wizardPanels.view2.isExisting()).toBe(true);
+			const firstActual = await browser.execute(getFocusedTextContent);
+			expect(firstActual).toBe('Button A');
+
+			// Step 4: 5-way Spot and 5-way Select the Left Paging Control (<)
+			await Page.spotlightUp(); // spot Previous View button
+			await Page.spotlightSelect();
+			// Step 4 Verify: View 1 page content displays and Spotlight is on OK button
+			await wizardPanels.waitForLeave(2);
+			expect(await wizardPanels.view1.isExisting()).toBe(true);
+			const secondActual = await browser.execute(getFocusedTextContent);
+			expect(secondActual).toBe('OK');
+		});
 	});
 });

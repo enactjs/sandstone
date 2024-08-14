@@ -1,0 +1,104 @@
+// ContextualPopup.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+@use "../styles/variables-base";
+
+.contextualPopup {
+	@include mixins.sand-body-text;
+	& {
+		position: absolute;
+	}
+
+	.container {
+		position: absolute;
+		min-height: 192px;
+		min-width: 192px;
+		padding: variables.$sand-contextualpopup-padding;
+		background-clip: padding-box;
+		-webkit-background-clip: padding-box;
+		-moz-background-clip: padding-box;
+		box-sizing: border-box;
+
+		&.none,
+		&.center { /* Needed to prevent global class being added in the DOM */ }
+
+		&.above {
+			&.overlap {	margin-top: variables.$sand-contextualpopup-offset-overlap; }
+			&.small { margin-top: -(variables.$sand-contextualpopup-offset-small); }
+		}
+		&.below {
+			&.overlap {	margin-top: -(variables.$sand-contextualpopup-offset-overlap); }
+			&.small { margin-top: variables.$sand-contextualpopup-offset-small; }
+		}
+		&.right {
+			&.top,
+			&.middle,
+			&.bottom {
+				&.overlap { margin-left: -(variables.$sand-contextualpopup-offset-overlap); }
+				&.small { margin-left: variables.$sand-contextualpopup-offset-small; }
+			}
+		}
+		&.left  {
+			&.top,
+			&.middle,
+			&.bottom {
+				&.overlap { margin-left: variables.$sand-contextualpopup-offset-overlap; }
+				&.small { margin-left: -(variables.$sand-contextualpopup-offset-small); }
+			}
+		}
+
+		&.fixedSize {
+			overflow: hidden;
+		}
+	}
+
+	@include mixins.enact-locale-rtl("") {
+		.container {
+			direction: rtl;
+		}
+	}
+
+	.arrow {
+		position: absolute;
+		height: variables.$sand-contextualpopup-arrow-height;
+		width: variables.$sand-contextualpopup-arrow-width;
+
+		&.above {
+			transform: rotate(180deg);
+		}
+		&.left {
+			transform: rotate(90deg);
+		}
+		&.right {
+			transform: rotate(-90deg);
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		.container {
+			background-color: colors.$sand-contextualpopup-bg-color;
+			border-radius: variables-base.$sand-contextualpopup-border-radius;
+			box-shadow: colors.$sand-contextualpopup-shadow;
+		}
+
+		.arrow {
+			stroke: colors.$sand-overlay-outline-color;
+			stroke-width: variables.$sand-overlay-outline-width;
+
+			.arrowFill {
+				fill: colors.$sand-contextualpopup-bg-color;
+			}
+		}
+
+		.outline {
+			outline-color: colors.$sand-overlay-outline-color;
+			outline-style: colors.$sand-overlay-outline-style;
+			outline-width: variables.$sand-overlay-outline-width;
+			outline-offset: -(variables.$sand-overlay-outline-width);
+		}
+	}
+}

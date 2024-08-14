@@ -35,7 +35,7 @@ import Slider from '../Slider';
 
 import {hexToHSL, HSLToHex} from './utils';
 
-import componentCss from './ColorPicker.module.less';
+import componentCss from './ColorPicker.module.scss';
 
 const SpottableButton = Spottable(ButtonBase);
 

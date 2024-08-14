@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Skinnable from '../Skinnable';
 
-import css from './ContextualPopup.module.less';
+import css from './ContextualPopup.module.scss';
 
 /**
  * An SVG arrow for {@link sandstone/ContextualPopupDecorator/ContextualPopup.ContextualPopup}.

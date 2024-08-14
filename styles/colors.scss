@@ -68,7 +68,9 @@ $sand-fullscreen-bg-color: var(--sand-fullscreen-bg-color, $sand-bg-color);
 //$sand-overlay-text-color: var(--sand-overlay-text-color);
 $sand-overlay-text-shadow: 0 4px 4px rgb($sand-shadow-color-rgb, 75%);
 $sand-overlay-bg-color-rgb: rgb(87, 94, 102); // #575e66
-$sand-overlay-bg-color: var(--sand-overlay-bg-color-rgb, $sand-overlay-bg-color-rgb); // #575e66
+$sand-overlay-bg-color: var(--sand-overlay-bg-color-rgb, $sand-overlay-bg-color-rgb);
+$sand-overlay-outline-color: var(--sand-overlay-outline-color, transparent);
+$sand-overlay-outline-style: var(--sand-overlay-outline-style, none);
 
 $sand-selection-color: var(--sand-selection-color, #4c5059);
 $sand-selection-bg-color: var(--sand-selection-bg-color, #3399ff);
@@ -149,6 +151,11 @@ $sand-spotlight-focus-shadow:         0 36px 36px $sand-shadow-color; // Used in
 // Component Colors
 // ---------------------------------------
 
+// ActionGuide
+// ---------------------------------------
+$sand-actionguide-label-color: $sand-text-sub-color;
+$sand-actionguide-icon-color: $sand-actionguide-label-color;
+
 // Alert
 // ---------------------------------------
 $sand-alert-bg-color: $sand-fullscreen-bg-color;
@@ -199,6 +206,31 @@ $sand-checkbox-indeterminate-focus-bg-color: $sand-checkbox-focus-bg-color;
 $sand-checkbox-indeterminate-focus-border-color: $sand-checkbox-focus-border-color;
 $sand-checkbox-standalone-bg-disabled-focus-bg-color: $sand-disabled-focus-bg-color;
 
+// ContextualPopup
+// ---------------------------------------
+$sand-contextualpopup-bg-color: $sand-overlay-bg-color;
+$sand-contextualpopup-shadow: 0 24px 60px $sand-shadow-color;
+
+// Dropdown
+// ---------------------------------------
+$sand-dropdown-title-color: $sand-text-sub-color;
+$sand-dropdown-selected-text-color: $sand-selected-text-color;
+
+// FormCheckboxItem
+// ---------------------------------------
+$sand-formcheckboxitem-disabled-text-color: inherit;
+$sand-formcheckboxitem-disabled-focus-text-color: $sand-formcheckboxitem-disabled-text-color;
+
+// Heading
+// ---------------------------------------
+$sand-heading-text-color: $sand-text-color;
+$sand-heading-border-color: $sand-heading-text-color;
+$sand-heading-subtitle-text-color: $sand-text-sub-color;
+
+// HolePunchScrim
+// ---------------------------------------
+$sand-holepunchscrim-bg-color: fade-out(#000000, 0.4); // should be black
+
 // IconItem
 // ---------------------------------------
 $sand-iconitem-disabled-opacity: 0.4;
@@ -221,23 +253,6 @@ $sand-imageitem-selected-image-border-color: rgba(var(--sand-selected-color-rgb-
 $sand-imageitem-selected-focus-selection-icon-color: $sand-imageitem-selected-selection-icon-color;
 $sand-imageitem-selected-focus-selection-icon-bg-color: $sand-imageitem-selected-selection-icon-bg-color;
 
-// MediaOverlay
-// ---------------------------------------
-$sand-mediaoverlay-caption-color: $sand-text-color;
-$sand-mediaoverlay-subtitle-color: $sand-text-sub-color;
-
-// Popup
-// ---------------------------------------
-$sand-popup-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 90%);
-$sand-popup-scrimtransparent-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 95%);
-
-// ProgressBar
-// ---------------------------------------
-$sand-progressbar-bar-bg-color: rgba(var(--sand-progress-bg-color-rgb-base, (55, 58, 65)), var(--sand-progress-bg-color-alpha, 100%));
-$sand-progressbar-load-bg-color: rgba(var(--sand-progress-color-rgb-base, (230, 230, 230)), 30%);
-$sand-progressbar-fill-bg-color: $sand-progress-color;
-$sand-progressbar-highlighted-fill-bg-color: $sand-progress-highlighted-color;
-
 // InputField
 // ---------------------------------------
 $sand-inputfield-text-color: $sand-text-color;
@@ -257,7 +272,6 @@ $sand-input-invalid-tooltip-color: $sand-inputfield-invalid-tooltip-color;
 $sand-input-numberfield-disabled-color: rgba(var(--sand-component-focus-text-color-rgb, (76, 80, 89)), $sand-disabled-focus-content-opacity * 100%);
 $sand-input-numberfield-disabled-opacity: $sand-disabled-focus-bg-opacity;
 
-
 // Item
 // ---------------------------------------
 $sand-item-label-color: $sand-text-sub-color;
@@ -272,6 +286,35 @@ $sand-keyguide-colordot-red-color: $sand-remote-button-red-color;
 $sand-keyguide-colordot-green-color: $sand-remote-button-green-color;
 $sand-keyguide-colordot-yellow-color: $sand-remote-button-yellow-color;
 $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
+
+// MediaOverlay
+// ---------------------------------------
+$sand-mediaoverlay-caption-color: $sand-text-color;
+$sand-mediaoverlay-subtitle-color: $sand-text-sub-color;
+
+// Popup
+// ---------------------------------------
+$sand-popup-bg-color-rgb-base: var(--sand-overlay-bg-color-rgb-base, (87, 94, 102));
+$sand-popup-bg-color: rgba($sand-popup-bg-color-rgb-base, 90%);
+$sand-popup-scrimtransparent-bg-color: rgba($sand-popup-bg-color-rgb-base, 95%);
+
+// PopupTabLayout
+// ---------------------------------------
+$sand-popuptablayout-bg-color: $sand-popup-bg-color;
+$sand-popuptablayout-scrimtransparent-bg-color: $sand-popup-scrimtransparent-bg-color;
+$sand-popuptablayout-shadow: 0 42px 24px $sand-shadow-color;
+
+// ProgressBar
+// ---------------------------------------
+$sand-progressbar-bar-bg-color: rgba(var(--sand-progress-bg-color-rgb-base, (55, 58, 65)), var(--sand-progress-bg-color-alpha, 100%));
+$sand-progressbar-load-bg-color: rgba(var(--sand-progress-color-rgb-base, (230, 230, 230)), 30%);
+$sand-progressbar-fill-bg-color: $sand-progress-color;
+$sand-progressbar-highlighted-fill-bg-color: $sand-progress-highlighted-color;
+
+// TabLayout
+// ---------------------------------------
+$sand-tablayout-tab-horizontal-border-color: rgb($sand-text-color-rgb, 50%);
+$sand-tablayout-tab-horizontal-selected-border-color: $sand-selected-color;
 
 // Slider
 // ---------------------------------------

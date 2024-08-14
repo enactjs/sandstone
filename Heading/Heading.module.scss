@@ -1,0 +1,114 @@
+// Heading.module.less
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.heading {
+	margin: variables.$sand-heading-margin;
+	padding: variables.$sand-heading-padding;
+	letter-spacing: variables.$sand-heading-letter-spacing;
+	font-style: variables.$sand-heading-font-style;
+
+	:global(.enact-locale-non-italic) & {
+		font-style: variables.$sand-heading-font-style;
+	}
+
+	@include mixins.sand-enact-locale-line-height(variables.$sand-heading-line-height, variables.$sand-tallglyph-heading-line-height);
+
+	// Only the following sizes get a bottom border
+	&.large,
+	&.medium,
+	&.small,
+	&.tiny {
+		border-bottom: variables.$sand-heading-border-width solid transparent;
+	}
+
+	&.title {
+		@include mixins.sand-font(variables.$sand-heading-title-font-family, variables.$sand-non-latin-font-family);
+		@include mixins.sand-enact-locale-line-height(variables.$sand-heading-title-line-height, variables.$sand-tallglyph-heading-title-line-height);
+		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-heading-title-font-size);
+		& {
+			font-weight: variables.$sand-heading-title-font-weight;
+			font-size: variables.$sand-heading-title-font-size;
+		}
+		@include mixins.font-kerning;
+	}
+	&.subtitle {
+		@include mixins.sand-font(variables.$sand-heading-subtitle-font-family, variables.$sand-non-latin-font-family);
+		@include mixins.sand-enact-locale-line-height(variables.$sand-heading-subtitle-line-height, variables.$sand-tallglyph-heading-subtitle-line-height);
+		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-heading-subtitle-font-size);
+		& {
+			font-weight: variables.$sand-heading-subtitle-font-weight;
+			font-size: variables.$sand-heading-subtitle-font-size;
+		}
+	}
+
+	&.large {
+		font-family: variables.$sand-heading-large-font-family;
+		font-weight: variables.$sand-heading-large-font-weight;
+		font-size: variables.$sand-heading-large-font-size;
+	}
+
+	&.medium {
+		font-family: variables.$sand-heading-medium-font-family;
+		font-weight: variables.$sand-heading-medium-font-weight;
+		font-size: variables.$sand-heading-medium-font-size;
+	}
+
+	&.small {
+		font-family: variables.$sand-heading-small-font-family;
+		font-weight: variables.$sand-heading-small-font-weight;
+		font-size: variables.$sand-heading-small-font-size;
+	}
+
+	&.tiny {
+		font-family: variables.$sand-heading-tiny-font-family;
+		font-weight: variables.$sand-heading-tiny-font-weight;
+		font-size: variables.$sand-heading-tiny-font-size;
+	}
+
+	// Margin-bottom is set up this way so the presence of the line does not affect the height of the Heading.
+	// We simply toggle the color from transparent to "colored" below, leaving the height untouched.
+	&.titleSpacing {
+		margin-bottom: variables.$sand-heading-spacing-title;
+	}
+
+	&.subtitleSpacing {
+		margin-bottom: variables.$sand-heading-spacing-subtitle;
+	}
+
+	&.largeSpacing {
+		margin-bottom: (variables.$sand-heading-spacing-large - variables.$sand-heading-border-width);
+		min-height: (variables.$sand-heading-spacing-large - variables.$sand-heading-border-width);
+	}
+
+	&.mediumSpacing {
+		margin-bottom: (variables.$sand-heading-spacing-medium - variables.$sand-heading-border-width);
+		min-height: (variables.$sand-heading-spacing-medium - variables.$sand-heading-border-width);
+	}
+
+	&.smallSpacing {
+		margin-bottom: (variables.$sand-heading-spacing-small - variables.$sand-heading-border-width);
+		min-height: (variables.$sand-heading-spacing-small - variables.$sand-heading-border-width);
+	}
+
+	&.noneSpacing {
+		margin-bottom: 0;
+		min-height: 0;
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		color: colors.$sand-heading-text-color;
+
+		&.subtitle {
+			color: colors.$sand-heading-subtitle-text-color;
+		}
+
+		&.showLine {
+			border-bottom-color: colors.$sand-heading-border-color;
+		}
+	}
+}
