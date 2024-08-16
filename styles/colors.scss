@@ -263,6 +263,12 @@ $sand-inputfield-disabled-text-color: inherit;
 $sand-inputfield-invalid-color: $sand-invalid-color;
 $sand-inputfield-invalid-tooltip-color: $sand-invalid-sub-color;
 
+// Popup
+// ---------------------------------------
+$sand-popup-bg-color-rgb-base: var(--sand-overlay-bg-color-rgb-base, (87, 94, 102));
+$sand-popup-bg-color: rgba($sand-popup-bg-color-rgb-base, 90%);
+$sand-popup-scrimtransparent-bg-color: rgba($sand-popup-bg-color-rgb-base, 95%);
+
 // Input
 // ---------------------------------------
 $sand-input-fullscreen-background-color: $sand-fullscreen-bg-color;
@@ -291,12 +297,6 @@ $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
 // ---------------------------------------
 $sand-mediaoverlay-caption-color: $sand-text-color;
 $sand-mediaoverlay-subtitle-color: $sand-text-sub-color;
-
-// Popup
-// ---------------------------------------
-$sand-popup-bg-color-rgb-base: var(--sand-overlay-bg-color-rgb-base, (87, 94, 102));
-$sand-popup-bg-color: rgba($sand-popup-bg-color-rgb-base, 90%);
-$sand-popup-scrimtransparent-bg-color: rgba($sand-popup-bg-color-rgb-base, 95%);
 
 // PopupTabLayout
 // ---------------------------------------
