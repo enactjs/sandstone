@@ -1,0 +1,21 @@
+// WizardPanels.module.scss
+//
+@use "../styles/skin";
+@use "../styles/variables";
+
+.wizardPanels {
+	&.noSteps {
+		.steps {
+			visibility: hidden;
+		}
+	}
+
+	.content {
+		margin: variables.$sand-wizardpanels-content-margin;
+	}
+
+	.footer {
+		text-align: center;
+		margin: variables.$sand-wizardpanels-footer-margin;
+	}
+}

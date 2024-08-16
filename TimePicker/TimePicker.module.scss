@@ -1,0 +1,49 @@
+// TimePicker.module.scss
+//
+@use "../styles/color-mixins";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.timePicker {
+	.timeSeparator {
+		vertical-align: inherit;
+		display: inline-block;
+		margin: variables.$sand-timepicker-colon-margin;
+	}
+
+	.pickers {
+		display: flex;
+		align-items: center;
+
+		@include mixins.enact-locale-rtl("") {
+			// RTL uses a special order:
+			// Reading from right to left, the sequence is "minute : hour meridiem"
+			.hourPicker {
+				order: 3;
+				margin-inline-start: nth(variables.$sand-datecomponentpicker-margin, 1);
+			}
+
+			.timeSeparator {
+				order: 2;
+			}
+
+			.minutePicker {
+				order: 1;
+				margin-inline-start: 0;
+			}
+
+			.meridiemPicker {
+				order: 4;
+			}
+		}
+	}
+
+	@include skin.applySkins {
+		.timeSeparator {
+			@include mixins.sand-disabled {
+				@include color-mixins.sand-disabled-colors;
+			}
+		}
+	}
+}
