@@ -1,0 +1,16 @@
+// Picker.module.less
+//
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.title {
+	@include mixins.margin-start-end(variables.$sand-picker-title-margin-left, nth(variables.$sand-heading-margin, 2));
+
+	&.inlineTitle {
+		display: inline-block;
+		max-width: variables.$sand-picker-title-max-width;
+		line-height: variables.$sand-picker-value-height;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+}

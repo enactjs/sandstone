@@ -1,0 +1,21 @@
+// Panels.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.panels {
+	pointer-events: none;
+
+	> * {
+		pointer-events: auto;
+	}
+
+	.viewport {
+		/* CSS Overrides */
+	}
+
+	@include mixins.enact-locale-rtl("") {
+		direction: ltr;
+	}
+}
