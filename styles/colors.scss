@@ -348,6 +348,17 @@ $sand-spinner-text-shadow-color: $sand-shadow-color;
 $sand-steps-step-dot-color: $sand-component-text-color;
 $sand-steps-step-focused-dot-color: rgb(111, 118, 128, 1);
 
+// Switch
+// ---------------------------------------
+$sand-switch-color: $sand-toggle-off-color;
+$sand-switch-bg-color: $sand-toggle-off-bg-color;
+$sand-switch-focus-color: $sand-switch-color;
+$sand-switch-selected-color: $sand-toggle-on-color;
+$sand-switch-selected-bg-color: $sand-toggle-on-bg-color;
+$sand-switch-selected-focus-color: $sand-switch-selected-color;
+$sand-switch-disabled-selected-color: $sand-switch-color;
+$sand-switch-disabled-selected-bg-color: $sand-switch-bg-color;
+
 // Tooltip
 // ---------------------------------------
 $sand-tooltip-bg-color:               $sand-focus-bg-color;

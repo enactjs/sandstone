@@ -867,6 +867,22 @@ $sand-steps-step-past-opacity: 1;
 $sand-steps-step-current-opacity: 1;
 $sand-steps-step-future-opacity: 0.2;
 
+// Switch
+// ---------------------------------------
+$sand-switch-border-radius: 960px;
+$sand-switch-height: 60px;
+$sand-switch-width: 114px;
+$sand-switch-icon-height: $sand-switch-height;
+$sand-switch-icon-line-height: $sand-switch-height;
+$sand-switch-height-large: $sand-icon-small-size-large;
+$sand-switch-width-large: 162px;
+$sand-switch-icon-height-large: $sand-icon-small-size-large;
+$sand-switch-icon-line-height-large: $sand-switch-icon-height-large;
+$sand-switch-spottable-margin: 18px ($sand-component-spacing + 30px);
+$sand-switch-spottable-border-radius: $sand-item-border-radius;
+$sand-switch-spottable-position-top-bottom: -18px; // These correlate with the numbers from 'margin" above
+$sand-switch-spottable-position-left-right: -30px; // These correlate with the numbers from 'margin" above
+
 // Tooltip
 // ---------------------------------------
 $sand-tooltip-font-weight: 600;
