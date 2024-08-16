@@ -9,8 +9,8 @@ import css from './ColorPickerSpectrum.module.less';
 
 const SpectrumColorPicker = (props) => {
 	const {selectedColor, selectedColorHandler} = props;
-	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
 	const canvasRef = useRef(null);
+	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
 	const [canvasWidth, setCanvasWidth] = useState(ri.scale(800));
 	const [indicatorBgColor, setIndicatorBgColor] = useState('transparent');
 	const [indicatorX, setIndicatorX] = useState(0);
@@ -67,7 +67,7 @@ const SpectrumColorPicker = (props) => {
 
 		window.addEventListener('resize', handleResize);
 		handleResize();
-	}, [canvasWidth, canvasHeight]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [canvasHeight, canvasWidth]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleCanvasPointerDown = useCallback((e) => {
 		const canvas = canvasRef.current;
@@ -118,12 +118,12 @@ const SpectrumColorPicker = (props) => {
 		<div className={css.colorPicker}>
 			<canvas
 				className={css.gradientCanvas}
-				ref={canvasRef}
 				height={canvasHeight}
 				onPointerDown={handleCanvasPointerDown}
 				onPointerLeave={handleCanvasPointerLeave}
 				onPointerMove={handleCanvasPointerMove}
 				onPointerUp={handleCanvasPointerUp}
+				ref={canvasRef}
 				width={canvasWidth}
 			/>
 			<SpectrumIndicator
