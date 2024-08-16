@@ -1,0 +1,224 @@
+// Header.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.header {
+	position: relative;
+	max-width: 100%;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: top left;
+	@include mixins.border-box;
+
+	///
+	/// Begin states of header configuration
+	///
+
+	.titlesRow {
+		padding-bottom: variables.$sand-header-subtitle-height;
+
+		// The following alters .subtitle to be removed from the measurement calculations for so the
+		// title can vertically align with the side buttons (ignoring the dimensions of subtitle).
+		.subtitle {
+			position: absolute;
+			right: 0;
+			left: 0;
+		}
+
+		.back {
+			margin-inline-start: 0;
+
+			@include mixins.sand-custom-text-large {
+				@include mixins.sand-small-button-text;
+				& {
+					height: variables.$sand-button-small-height;
+					line-height: calc(#{variables.$sand-button-small-height} - (2 * #{variables.$sand-button-border-width}));
+					min-width: variables.$sand-button-small-height;
+				}
+			}
+		}
+
+		.close {
+			margin-inline-end: 0;
+		}
+	}
+
+	&.wizard {
+		.titlesRow {
+			padding-bottom: calc(#{variables.$sand-header-subtitle-height} * #{variables.$sand-header-wizard-subtitle-lines});
+		}
+	}
+
+	.slotBefore,
+	.slotAfter,
+	.slotSizer {
+		white-space: nowrap;
+	}
+
+	.slotSizer {
+		display: inline-block;
+	}
+
+	&.centered {
+		.slotAbove,
+		.slotBelow {
+			text-align: center;
+		}
+	}
+
+	///
+	/// Begin child node rules configuration, shared across multiple types
+	///
+
+	.title,
+	.subtitle {
+		margin: 0;
+	}
+
+	.slotAbove {
+		margin: variables.$sand-header-slotabove-margin;
+	}
+
+	// Align `slotAfter` contents to the right LTR
+	.slotAfter {
+		text-align: right;
+
+		// Align `slotAfter` contents to the left in RTL
+		@include mixins.enact-locale-rtl("") {
+			text-align: left;
+		}
+	}
+
+	.slotBelow {
+		margin: variables.$sand-header-slotbelow-margin;
+	}
+
+	///
+	/// Begin "types" rules configuration
+	///
+
+	// Most types intend for the first and last buttons on the left and right
+	// butt right up against the edge, for alignment with the content.
+	.standard,
+	.compact,
+	.mini {
+		.slotBefore > *:first-child {
+			margin-inline-start: 0;
+		}
+		.slotAfter > *:last-child {
+			margin-inline-end: 0;
+		}
+	}
+
+	// Standard Header
+	&.standard {
+		margin: variables.$sand-header-standard-margin;
+		padding: variables.$sand-header-standard-padding;
+
+		.subtitle,
+		.title {
+			padding: variables.$sand-header-standard-title-padding;
+		}
+
+		.subtitle {
+			margin: variables.$sand-header-standard-subtitle-margin;
+		}
+	}
+
+	// Compact Header
+	&.compact {
+		margin: variables.$sand-header-compact-margin;
+		padding: variables.$sand-header-compact-padding;
+
+		.title {
+			padding: variables.$sand-header-compact-title-padding;
+		}
+
+		.subtitle {
+			padding: variables.$sand-header-compact-subtitle-padding;
+		}
+
+		.title {
+			@include mixins.sand-font-size(variables.$sand-header-compact-title-font-size, variables.$sand-non-latin-header-compact-title-font-size);
+		}
+	}
+
+	// Wizard Header
+	&.wizard {
+		margin: variables.$sand-header-wizard-margin;
+		padding: variables.$sand-header-wizard-padding;
+
+		&.noSubtitle {
+			padding-bottom: variables.$sand-header-wizard-nosubtitle-padding-bottom;
+		}
+
+		.titleContainer {
+			// absolutely position the incoming title
+			&:nth-child(2) {
+				top: 0;
+				position: absolute;
+				width: 100%;
+			}
+		}
+
+		.title {
+			@include mixins.sand-font-size(variables.$sand-header-wizard-title-font-size, variables.$sand-non-latin-header-wizard-title-font-size);
+			& {
+				padding: variables.$sand-header-wizard-title-padding;
+			}
+		}
+
+		.subtitle {
+			@include mixins.sand-multi-line-ellipsis(variables.$sand-header-wizard-subtitle-lines);
+			padding: variables.$sand-header-wizard-subtitle-padding;
+		}
+
+		&.centered {
+			.subtitle {
+				text-align: center;
+			}
+		}
+	}
+
+	// Mini Header
+	&.mini {
+		margin: variables.$sand-header-mini-margin;
+		padding: variables.$sand-header-mini-padding;
+
+		.titlesRow {
+			padding: 0;
+		}
+
+		.titleCell {
+			width: auto;
+		}
+
+		.title {
+			@include mixins.sand-font-size(variables.$sand-header-mini-title-font-size, variables.$sand-non-latin-header-mini-title-font-size);
+		}
+
+		&.withSubtitle:not(.noSubtitle) {
+			.titlesRow {
+				padding-bottom: variables.$sand-header-subtitle-height;
+			}
+		}
+	}
+
+	&.noSubtitle {
+		.titlesRow {
+			padding-bottom: 0;
+		}
+	}
+
+	@include skin.applySkins {
+		&.shadowed {	
+			.subtitle,
+			.title {
+				text-shadow: colors.$sand-header-text-shadow;
+			}
+		}
+	}
+}

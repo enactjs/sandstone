@@ -1,0 +1,44 @@
+// Panel.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.panel {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	padding: variables.$sand-panel-padding;
+	box-sizing: border-box;
+	display: inline-flex;
+	flex-direction: column;
+	vertical-align: top;
+	white-space: initial;  // Restore the viewport-inherited white-space property
+
+	.body {
+		position: relative;
+		padding: variables.$sand-panel-body-padding;
+		flex: 1;
+		min-height: 0;
+		opacity: 0;
+		transition: opacity 200ms ease-out;
+		will-change: opacity;
+
+		&.noHeader {
+			padding-top: 0;
+		}
+
+		&.visible {
+			opacity: 1;
+		}
+	}
+
+	&:global(.enact-fit) {
+		height: auto;
+	}
+
+	@include mixins.enact-locale-rtl("") {
+		direction: rtl;
+	}
+}

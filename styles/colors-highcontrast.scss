@@ -11,7 +11,8 @@
 	// UI Conceptual Colors
 	// ---------------------------------------
 
-	--sand-overlay-bg-color-rgb: rgb(0, 0, 0);
+	--sand-overlay-bg-color-rgb-base: 0, 0, 0;
+	--sand-overlay-bg-color-rgb: rgb(var(--sand-overlay-bg-color-rgb-base));
 	--sand-overlay-outline-color: #7c848b;
 	--sand-overlay-outline-style: solid;
 
@@ -52,6 +53,9 @@
 
 	// Popup
 	// ---------------------------------------
-	--sand-popup-bg-color: rgb(0, 0, 0); // no alpha
-	--sand-popup-scrimtransparent-bg-color: rgb(0, 0, 0); // no alpha
+	--sand-popup-bg-color-rgb: 0, 0, 0;
+
+	// PopupTabLayout
+	// ---------------------------------------
+	--sand-popup-scrimtransparent-bg-color: var(--sand-overlay-bg-color-rgb-base);
 }
