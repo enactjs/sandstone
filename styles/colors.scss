@@ -253,23 +253,6 @@ $sand-imageitem-selected-image-border-color: rgba(var(--sand-selected-color-rgb-
 $sand-imageitem-selected-focus-selection-icon-color: $sand-imageitem-selected-selection-icon-color;
 $sand-imageitem-selected-focus-selection-icon-bg-color: $sand-imageitem-selected-selection-icon-bg-color;
 
-// MediaOverlay
-// ---------------------------------------
-$sand-mediaoverlay-caption-color: $sand-text-color;
-$sand-mediaoverlay-subtitle-color: $sand-text-sub-color;
-
-// Popup
-// ---------------------------------------
-$sand-popup-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 90%);
-$sand-popup-scrimtransparent-bg-color: rgba(var(--sand-overlay-bg-color-rgb-base, (87, 94, 102)), 95%);
-
-// ProgressBar
-// ---------------------------------------
-$sand-progressbar-bar-bg-color: rgba(var(--sand-progress-bg-color-rgb-base, (55, 58, 65)), var(--sand-progress-bg-color-alpha, 100%));
-$sand-progressbar-load-bg-color: rgba(var(--sand-progress-color-rgb-base, (230, 230, 230)), 30%);
-$sand-progressbar-fill-bg-color: $sand-progress-color;
-$sand-progressbar-highlighted-fill-bg-color: $sand-progress-highlighted-color;
-
 // InputField
 // ---------------------------------------
 $sand-inputfield-text-color: $sand-text-color;
@@ -280,6 +263,12 @@ $sand-inputfield-disabled-text-color: inherit;
 $sand-inputfield-invalid-color: $sand-invalid-color;
 $sand-inputfield-invalid-tooltip-color: $sand-invalid-sub-color;
 
+// Popup
+// ---------------------------------------
+$sand-popup-bg-color-rgb-base: var(--sand-overlay-bg-color-rgb-base, (87, 94, 102));
+$sand-popup-bg-color: rgba($sand-popup-bg-color-rgb-base, 90%);
+$sand-popup-scrimtransparent-bg-color: rgba($sand-popup-bg-color-rgb-base, 95%);
+
 // Input
 // ---------------------------------------
 $sand-input-fullscreen-background-color: $sand-fullscreen-bg-color;
@@ -288,7 +277,6 @@ $sand-input-numbercell-background-color: rgba(var(--sand-text-color-rgb-base, (2
 $sand-input-invalid-tooltip-color: $sand-inputfield-invalid-tooltip-color;
 $sand-input-numberfield-disabled-color: rgba(var(--sand-component-focus-text-color-rgb, (76, 80, 89)), $sand-disabled-focus-content-opacity * 100%);
 $sand-input-numberfield-disabled-opacity: $sand-disabled-focus-bg-opacity;
-
 
 // Item
 // ---------------------------------------
@@ -305,12 +293,10 @@ $sand-keyguide-colordot-green-color: $sand-remote-button-green-color;
 $sand-keyguide-colordot-yellow-color: $sand-remote-button-yellow-color;
 $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
 
-// Popup
+// MediaOverlay
 // ---------------------------------------
-$sand-popup-bg-color-rgb: var(--sand-popup-bg-color-rgb, (87, 94, 102, 0.9));
-$sand-popup-bg-color: rgb($sand-popup-bg-color-rgb);
-$sand-popup-scrimtransparent-bg-color-rgb: var(--sand-popup-scrimtransparent-bg-color, (87, 94, 102, 0.95));
-$sand-popup-scrimtransparent-bg-color: rgb($sand-popup-scrimtransparent-bg-color-rgb);
+$sand-mediaoverlay-caption-color: $sand-text-color;
+$sand-mediaoverlay-subtitle-color: $sand-text-sub-color;
 
 // PopupTabLayout
 // ---------------------------------------
@@ -318,10 +304,44 @@ $sand-popuptablayout-bg-color: $sand-popup-bg-color;
 $sand-popuptablayout-scrimtransparent-bg-color: $sand-popup-scrimtransparent-bg-color;
 $sand-popuptablayout-shadow: 0 42px 24px $sand-shadow-color;
 
+// ProgressBar
+// ---------------------------------------
+$sand-progressbar-bar-bg-color: rgba(var(--sand-progress-bg-color-rgb-base, (55, 58, 65)), var(--sand-progress-bg-color-alpha, 100%));
+$sand-progressbar-load-bg-color: rgba(var(--sand-progress-color-rgb-base, (230, 230, 230)), 30%);
+$sand-progressbar-fill-bg-color: $sand-progress-color;
+$sand-progressbar-highlighted-fill-bg-color: $sand-progress-highlighted-color;
+
 // TabLayout
 // ---------------------------------------
 $sand-tablayout-tab-horizontal-border-color: rgb($sand-text-color-rgb, 50%);
 $sand-tablayout-tab-horizontal-selected-border-color: $sand-selected-color;
+
+// Slider
+// ---------------------------------------
+$sand-slider-bar-bg-color: $sand-progressbar-bar-bg-color;
+$sand-slider-load-bg-color: $sand-progressbar-load-bg-color;
+$sand-slider-fill-bg-color: $sand-progress-slider-color;
+$sand-slider-knob-bg-color: $sand-slider-fill-bg-color;
+$sand-slider-knob-border-color: transparent;
+$sand-slider-focus-bar-bg-color: $sand-slider-bar-bg-color;
+$sand-slider-focus-load-bg-color: $sand-slider-load-bg-color;
+$sand-slider-focus-fill-bg-color: $sand-focus-bg-color;
+$sand-slider-focus-knob-bg-color: $sand-slider-focus-fill-bg-color;
+$sand-slider-focus-knob-border-color: $sand-slider-knob-border-color;
+$sand-slider-focus-knob-shadow: 0 6px 12px rgb($sand-shadow-color-rgb, 50%);
+$sand-slider-active-bar-bg-color: $sand-slider-focus-bar-bg-color;
+$sand-slider-active-load-bg-color: $sand-slider-focus-load-bg-color;
+$sand-slider-active-fill-bg-color: $sand-slider-focus-fill-bg-color;
+$sand-slider-disabled-bar-opacity: 0.4;
+$sand-slider-disabled-focus-knob-bg-color: $sand-slider-focus-knob-bg-color;
+
+// Spinner
+// ---------------------------------------
+$sand-spinner-head-color: $sand-spinner-color;
+$sand-spinner-empty-color: rgb($sand-spinner-color-rgb, 20%);
+$sand-spinner-bg-color: $sand-component-bg-color;
+$sand-spinner-text-color: $sand-component-text-color;
+$sand-spinner-text-shadow-color: $sand-shadow-color;
 
 // Tooltip
 // ---------------------------------------

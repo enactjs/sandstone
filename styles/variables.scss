@@ -299,6 +299,17 @@ $sand-heading-spacing-large: 78px;
 $sand-heading-spacing-medium: 42px;
 $sand-heading-spacing-small: 18px;
 
+// Heading
+// ---------------------------------------
+$sand-heading-border-width: 1px;
+$sand-heading-margin: 0 $sand-component-spacing (1.5 * $sand-spotlight-outset) $sand-component-spacing;
+$sand-heading-padding: 0 0 18px 0;
+$sand-heading-spacing-title: 0;
+$sand-heading-spacing-subtitle: 0;
+$sand-heading-spacing-large: 78px;
+$sand-heading-spacing-medium: 42px;
+$sand-heading-spacing-small: 18px;
+
 // Icon
 // ---------------------------------------
 $sand-icon-font-family: "Sandstone Icons";
@@ -340,7 +351,7 @@ $sand-button-height: 144px;
 $sand-button-icon-h-margin: 30px;
 $sand-button-icon-margin-end: $sand-button-icon-h-margin;
 $sand-button-icon-margin-start: 0;
-$sand-button-icon-padding: 0 calc(($sand-button-height - $sand-icon-large-size) / 2);
+$sand-button-icon-padding: 0 math.div(($sand-button-height - $sand-icon-large-size), 2);
 $sand-button-icon-position-after-margin-end: $sand-button-icon-margin-start;
 $sand-button-icon-position-after-margin-start: $sand-button-icon-margin-end;
 $sand-button-icon-position-after-small-margin-end: 0;
@@ -816,3 +827,47 @@ $sand-popuptablayout-tabs-content-border-radius: $sand-popup-border-radius;
 $sand-popuptablayout-content-margin: 0;
 $sand-popuptablayout-panel-body-padding: $sand-panel-body-padding-top (108px - $sand-component-spacing - $sand-spotlight-outset) (78px - $sand-component-spacing-bottom);
 
+// Scrim
+// ---------------------------------------
+$sand-scrim-color: fade(black, 30%);
+
+// Slider
+// ---------------------------------------
+$sand-slider-bar-height: $sand-progressbar-bar-thickness;
+$sand-slider-knob-width: 48px;
+$sand-slider-knob-width-large: $sand-slider-knob-width;
+$sand-slider-knob-height: $sand-slider-knob-width;
+$sand-slider-knob-height-large: $sand-slider-knob-height;
+$sand-slider-tooltip-offset: math.div($sand-slider-knob-height, 2);
+$sand-slider-knob-resting-state-scale: 0.75;
+$sand-slider-tooltip-above-offset: math.div($sand-progressbar-bar-thickness, 2);
+$sand-slider-tooltip-below-offset: math.div($sand-progressbar-bar-thickness, -2);
+$sand-slider-tooltip-before-offset: math.div($sand-progressbar-bar-thickness, 2);
+$sand-slider-tooltip-after-offset: math.div($sand-progressbar-bar-thickness, -2);
+
+// Spinner
+// ---------------------------------------
+$sand-spinner-size: 96px;
+$sand-spinner-small-size: 48px;
+$sand-spinner-small-size-large: 84px;
+$sand-spinner-time: 1.25s;		// Length of the spinner animation
+$sand-spinner-line-width: 6px;
+$sand-spinner-small-line-width: 6px;
+$sand-spinner-line-margin: 24px;
+$sand-spinner-small-line-margin: 12px;
+$sand-spinner-font-weight: bold;
+
+// Tooltip
+// ---------------------------------------
+$sand-tooltip-font-weight: 600;
+$sand-tooltip-transparent-font-weight: normal;
+$sand-tooltip-offset: 24px;
+$sand-tooltip-transparent-label-offset: 0px;
+$sand-tooltip-arrow-offset: 0;
+$sand-tooltip-point-width: 25px; // actual value is 24px. +1px to ensure no gaps
+$sand-tooltip-point-height: 25px; // actual value is 24px. +1px to ensure no gaps
+$sand-tooltip-border-radius: 12px;
+$sand-tooltip-label-height: 1.5em;
+$sand-tooltip-padding: (15px - calc((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
+$sand-tooltip-margin-offset: 18px; // GUI for the length of the arrow
+$sand-tooltip-marquee-width: 600px;

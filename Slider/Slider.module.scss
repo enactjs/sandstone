@@ -1,0 +1,312 @@
+// Slider.module.scss
+//
+@use "sass:math";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.slider {
+	$knob-transform-resting: variables.$sand-translate-center scale(variables.$sand-slider-knob-resting-state-scale);
+	$knob-transform-active: variables.$sand-translate-center scale(1);
+
+	position: relative;
+	margin: 0 variables.$sand-spotlight-outset;
+	// Set both the V and H sizes here, so they can be easily overridden, both internally below and by component consumers.
+	height: variables.$sand-slider-bar-height;
+	width: variables.$sand-slider-bar-height;
+	box-sizing: content-box;
+	direction: ltr;
+	touch-action: none;
+
+	.progressBar {
+		position: relative;
+		height: 100%;
+		width: 100%;
+
+		.bar {
+			border-radius: variables.$sand-progressbar-bar-border-radius;
+			overflow: hidden;
+		}
+	}
+
+	.knob {
+		--sand-tooltip-offset: variables.$sand-slider-tooltip-offset;
+
+		position: absolute;
+		will-change: transform;
+
+		&::before {
+			content: "";
+			position: absolute;
+			height: variables.$sand-slider-knob-height;
+			width: variables.$sand-slider-knob-width;
+			transform: $knob-transform-resting;
+			border-radius: math.div(variables.$sand-slider-knob-height, 2);
+			border: variables.$sand-button-border-width solid transparent;
+			box-sizing: border-box;
+			will-change: transform;
+			transition: transform ease-out 100ms;
+		}
+	}
+
+	&.showAnchor {
+		.knob {
+			z-index: 1;
+		}
+
+		.progressBar {
+			&::after {
+				content: "";
+				position: absolute;
+				transform: variables.$sand-translate-center;
+			}
+
+			&.horizontal {
+				&::after {
+					width: variables.$sand-progressbar-anchor-width;
+					height: variables.$sand-progressbar-anchor-height;
+					top: 50%;
+					left: calc(var(--ui-progressbar-proportion-anchor) * 100%);
+				}
+			}
+
+			&.vertical {
+				&::after {
+					width: variables.$sand-progressbar-anchor-height;
+					height: variables.$sand-progressbar-anchor-width;
+					bottom: calc(var(--ui-progressbar-proportion-anchor) * 100%);
+					left: 50%;
+					transform: translate(-50%, 50%);
+				}
+			}
+		}
+	}
+
+	@include mixins.disabled {
+		touch-action: auto;
+	}
+
+	@include mixins.sand-custom-text-large {
+		.knob::before {
+			height: variables.$sand-slider-knob-height-large;
+			width: variables.$sand-slider-knob-width-large;
+			border-radius: math.div(variables.$sand-slider-knob-height-large, 2);
+		}
+	}
+
+	&.horizontal {
+		$h-gap: math.div(variables.$sand-slider-knob-width, 2);
+		$v-gap: variables.$sand-slider-knob-height - variables.$sand-slider-bar-height;
+
+		width: auto;
+		padding: $v-gap $h-gap;
+
+		.fill,
+		.load {
+			height: 100%;
+		}
+
+		.knob {
+			left: calc(var(--ui-slider-proportion-end-knob) * 100%);
+		}
+
+		@include mixins.sand-custom-text-large {
+			$h-gap-large: math.div(variables.$sand-slider-knob-width-large, 2);
+
+			padding: math.div((variables.$sand-slider-knob-height-large - variables.$sand-slider-bar-height), 2) $h-gap-large;
+		}
+	}
+
+	&.vertical {
+		$h-gap: (variables.$sand-slider-knob-height - variables.$sand-slider-bar-height);
+		$v-gap: math.div(variables.$sand-slider-knob-width, 2);
+
+		padding: $v-gap $h-gap;
+		min-height: 240px;
+		display: inline-block;
+		vertical-align: top;
+
+		.fill,
+		.load {
+			width: 100%;
+		}
+
+		.knob {
+			bottom: calc(var(--ui-slider-proportion-end-knob) * 100%);
+			top: auto;
+		}
+
+		@include mixins.sand-custom-text-large {
+			$v-gap-large: math.div(variables.$sand-slider-knob-width, 2);
+
+			padding: $v-gap-large math.div((variables.$sand-slider-knob-height-large - variables.$sand-slider-bar-height), 2);
+		}
+	}
+
+	@include skin.applySkins {
+		.bar {
+			background-color: colors.$sand-slider-bar-bg-color;
+		}
+
+		.fill {
+			background-color: colors.$sand-slider-fill-bg-color;
+		}
+
+		.load {
+			background-color: colors.$sand-slider-load-bg-color;
+		}
+
+		.knob::before {
+			background-color: colors.$sand-slider-knob-bg-color;
+			border-color: colors.$sand-slider-knob-border-color;
+		}
+
+		@include mixins.focus {
+			background-color: transparent;
+
+			.bar {
+				background-color: colors.$sand-slider-focus-bar-bg-color;
+			}
+
+			.fill {
+				background-color: colors.$sand-slider-focus-fill-bg-color;
+			}
+
+			.load {
+				background-color: colors.$sand-slider-focus-load-bg-color;
+			}
+
+			.knob::before {
+				background-color: colors.$sand-slider-focus-knob-bg-color;
+				border-color: colors.$sand-slider-focus-knob-border-color;
+				box-shadow: colors.$sand-slider-focus-knob-shadow;
+				transform: $knob-transform-resting;
+			}
+
+			&.active,
+			&.pressed {
+				.bar {
+					background-color: colors.$sand-slider-active-bar-bg-color;
+				}
+
+				.fill {
+					background-color: colors.$sand-slider-active-fill-bg-color;
+				}
+
+				.load {
+					background-color: colors.$sand-slider-active-load-bg-color;
+				}
+
+				.knob::before {
+					transform: $knob-transform-active;
+				}
+			}
+
+			@include mixins.disabled {
+				.bar {
+					opacity: colors.$sand-slider-disabled-bar-opacity;
+				}
+
+				.knob::before {
+					background-color: colors.$sand-slider-disabled-focus-knob-bg-color;
+					border-color: colors.$sand-slider-focus-knob-border-color;
+					transform: $knob-transform-resting;
+				}
+			}
+		}
+
+		:global(.spotlight-input-touch) &.pressed {
+			.bar {
+				background-color: colors.$sand-slider-active-bar-bg-color;
+			}
+
+			.fill {
+				background-color: colors.$sand-slider-active-fill-bg-color;
+			}
+
+			.load {
+				background-color: colors.$sand-slider-active-load-bg-color;
+			}
+
+			.knob::before {
+				background-color: colors.$sand-slider-focus-knob-bg-color;
+				border-color: colors.$sand-slider-focus-knob-border-color;
+				box-shadow: colors.$sand-slider-focus-knob-shadow;
+				transform: $knob-transform-active;
+			}
+		}
+
+		@include mixins.disabled {
+			opacity: 1;
+
+			.bar {
+				opacity: colors.$sand-slider-disabled-bar-opacity;
+			}
+
+			.knob::before {
+				background-color: colors.$sand-slider-disabled-knob-bg-color;
+				border-color: colors.$sand-slider-knob-border-color;
+			}
+
+			&.showAnchor {
+				.progressBar {
+					&::after {
+						opacity: colors.$sand-slider-disabled-bar-opacity;
+					}
+				}
+			}
+		}
+
+		&.noFill {
+			.fill {
+				background-color: transparent;
+			}
+
+			@include mixins.focus {
+				&,
+				&.active,
+				&.pressed {
+					.fill {
+						background-color: transparent;
+					}
+				}
+			}
+		}
+
+		&.showAnchor {
+			.progressBar {
+				&::after {
+					background-color: colors.$sand-progressbar-bar-bg-color;
+				}
+			}
+		}
+	}
+}
+
+.tooltip {
+	// Offset tooltip origin because `.knob` centered tooltip within the progressbar (when tooltip original origin is at the edge of `.progressbar`).
+	&.horizontal {
+		&.above {
+			transform: translateY(variables.$sand-slider-tooltip-above-offset);
+		}
+
+		&.below {
+			transform: translateY(variables.$sand-slider-tooltip-below-offset);
+		}
+	}
+
+	&.vertical {
+		&.left,
+		&.before,
+		:global(.enact-locale-right-to-left) &.after {
+			transform: translateX(variables.$sand-slider-tooltip-before-offset);
+		}
+
+		&.right,
+		&.after,
+		:global(.enact-locale-right-to-left) &.before {
+			transform: translateX(variables.$sand-slider-tooltip-after-offset);
+		}
+	}
+}
