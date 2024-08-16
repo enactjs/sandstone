@@ -1,10 +1,10 @@
 // Input.module.scss
 //
-@use "../styles/color-mixins.scss";
-@use "../styles/colors.scss";
-@use "../styles/mixins.scss";
-@use "../styles/skin.scss";
-@use "../styles/variables.scss";
+@use "../styles/colors";
+@use "../styles/color-mixins";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 .inputPopupWrapper {
 	display: inline;
@@ -48,10 +48,12 @@
 		&::before {
 			position: absolute;
 			@include mixins.position(0);
-			content: '';
-			z-index: -1;
 
-			border-radius: variables.$sand-input-numbercell-border-radius;
+			& {
+				content: '';
+				z-index: -1;
+				border-radius: variables.$sand-input-numbercell-border-radius;
+			}
 		}
 	}
 
@@ -94,7 +96,6 @@
 	&.fullscreen {
 		.back {
 			top: variables.$sand-input-fullscreen-back-button-top;
-
 			@include mixins.position-start-end(variables.$sand-input-fullscreen-back-button-start, initial);
 		}
 
@@ -186,7 +187,6 @@
 	&.overlay {
 		.back {
 			top: variables.$sand-input-overlay-back-button-top;
-
 			@include mixins.position-start-end(variables.$sand-input-overlay-back-button-start, initial);
 		}
 
@@ -196,7 +196,6 @@
 
 		.title {
 			margin: variables.$sand-input-overlay-title-margin;
-
 			@include mixins.sand-font-size(variables.$sand-input-overlay-title-font-size, variables.$sand-non-latin-input-overlay-title-font-size);
 		}
 
@@ -263,7 +262,9 @@
 			&::before {
 				@include color-mixins.sand-spotlight-focus-bg-colors;
 				// Remove drop shadow for this input-like field
-				box-shadow: none;
+				& {
+					box-shadow: none;
+				}
 			}
 
 			@include mixins.sand-disabled {

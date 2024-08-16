@@ -1,10 +1,10 @@
 // ImageItem.module.scss
 //
-@use '../styles/color-mixins.scss';
-@use '../styles/colors.scss';
-@use '../styles/mixins.scss';
-@use '../styles/skin.scss';
-@use '../styles/variables.scss';
+@use "../styles/colors.scss";
+@use "../styles/color-mixins.scss";
+@use "../styles/mixins.scss";
+@use "../styles/skin.scss";
+@use "../styles/variables.scss";
 
 .imageItem {
 	position: relative;
@@ -20,7 +20,9 @@
 			content: '';
 			position: absolute;
 			@include mixins.position(0);
-			border-radius: variables.$sand-imageitem-border-radius;
+			& {
+				border-radius: variables.$sand-imageitem-border-radius;
+			}
 		}
 	}
 
@@ -28,18 +30,22 @@
 		background-color: transparent;
 		pointer-events: none;
 		@include mixins.position(0);
-		position: absolute;
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		& {
+			position: absolute;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 
 		&::after {
 			content: '';
 			position: absolute;
 			@include mixins.position(0);
-			border-width: variables.$sand-imageitem-image-border-width;
-			border-style: solid;
+
+			& {
+				border-width: variables.$sand-imageitem-image-border-width;
+				border-style: solid;
+			}
 		}
 
 		.selectionIcon {
@@ -53,7 +59,7 @@
 	.caption {
 		font-size: variables.$sand-imageitem-caption-font-size;
 		line-height: variables.$sand-imageitem-caption-line-height;
-	@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-imageitem-caption-font-size);
+		@include mixins.sand-enact-locale-tallglyph(font-size, variables.$sand-tallglyph-imageitem-caption-font-size);
 	}
 
 	.label {
@@ -113,6 +119,7 @@
 
 	&.horizontal {
 		@include mixins.sand-spotlight-padding(variables.$sand-imageitem-horizontal-padding);
+
 		& {
 			margin: variables.$sand-imageitem-margin;
 		}
