@@ -10,7 +10,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import SpeechRecognition, {useSpeechRecognition} from 'react-speech-recognition';
 
 import $L from '../internal/$L';
@@ -388,6 +388,7 @@ const WizardPanelsBase = kind({
 		return (
 			<>
 			<Dictaphone onNextClick={onNextClick} onPrevClick={onPrevClick} />
+			<Qa />
 			<DecoratedPanelBase
 				{...rest}
 				header={
@@ -508,6 +509,110 @@ const Dictaphone = (props) => {
 		<p>{transcript}</p>
 	  </>
 	);
+  };
+
+  const Qa = () => {
+	const [ready, setReady] = useState(null);
+	const [progressItems, setProgressItems] = useState([]);
+
+	const [disabled, setDisabled] = useState(false);
+	const [question, setQuestion] = useState("");
+	const [answer, setAnswer] = useState();
+	
+	const [context, setContext] = useState(`
+		The wizard panels is a panel bundle that can be flipped to the right (next panel) and left (previous panel).
+		Each panel has a right and left button, representing next and previous, respectively.
+		onChange. onNextClick. onPrevClick. onTransition. onWillTransition.
+		onChange Called when the index value is changed.
+		onNextClick Called when the next button is clicked in WizardPanel.
+		onPrevClick Called when previous button is clicked in WizardPanel.
+		onTransition Called when a transition completes.
+		onWillTransition Called before a transition begins.
+	`);
+
+	const worker = useRef(null);
+
+	useEffect(() => {
+		if(!worker.current) {
+			worker.current = new Worker(new URL('./worker.js', import.meta.url), {
+				type: 'module'
+			});
+		}
+		const onMessageReceived = (e) => {
+			switch (e.data.status) {
+			  case 'initiate':
+				setReady(false);
+				setProgressItems(prev => [...prev, e.data]);
+				break;
+	  
+			  case 'progress':
+				setDisabled(true);
+				setProgressItems(
+				  prev => prev.map(item => {
+					if (item.file === e.data.file) {
+					  return { ...item, progress: e.data.progress }
+					}
+					return item;
+				  })
+				);
+				break;
+	  
+			  case 'done':
+				setProgressItems(
+				  prev => prev.filter(item => item.file !== e.data.file)
+				);
+				break;
+	  
+			  case 'ready':
+				setReady(true);
+				break;
+	  
+			  case 'update':
+				break;
+	  
+			  case 'complete':
+				setAnswer(e.data.response);
+				setDisabled(false);
+				break;
+			}
+		  };
+	 
+		 worker.current.addEventListener('message', onMessageReceived);
+	 
+		 return () => worker.current.removeEventListener('message', onMessageReceived);
+	});
+
+	const handleSubmit = async (event) => {
+		event.preventDefault();
+		worker.current.postMessage({
+		  type: 'ask',
+		  question: question,
+		  context: context
+		})
+	}
+	return (
+		<>
+			{/* Context & question form */}
+			<div as="form" direction="column" width="100%">
+				<label>Question</label>
+				<input name="question" onChange={(e) => setQuestion(e.target.value)} />
+			</div>
+			<button disabled={disabled} type="submit" onClick={handleSubmit} style={{marginLeft: "auto"}}>
+					Submit
+			</button>
+			{ready === false && (
+				<div>Loading models...</div>
+			)}
+			{progressItems.map((data, index) => (
+			<div key={index}>
+				<label>{data.file} (only run once)</label>
+				<div width="100%" variation="linear" percentage={data.progress} />
+			</div>
+			))}
+			{answer && (
+				<div marginTop={20}>The answer is: {answer}</div>
+			)}
+	  </>);
   };
 
 const WizardPanelsDecorator = compose(
