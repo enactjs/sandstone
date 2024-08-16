@@ -857,6 +857,16 @@ $sand-spinner-line-margin: 24px;
 $sand-spinner-small-line-margin: 12px;
 $sand-spinner-font-weight: bold;
 
+// Steps
+// ---------------------------------------
+$sand-steps-step-number-font-weight: 600;
+$sand-steps-margin: 0;
+$sand-steps-step-margin: 0 $sand-component-spacing;
+$sand-steps-step-width: 48px;
+$sand-steps-step-past-opacity: 1;
+$sand-steps-step-current-opacity: 1;
+$sand-steps-step-future-opacity: 0.2;
+
 // Tooltip
 // ---------------------------------------
 $sand-tooltip-font-weight: 600;
