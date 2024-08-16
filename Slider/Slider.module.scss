@@ -1,10 +1,10 @@
 // Slider.module.scss
 //
 @use "sass:math";
-@use "../styles/colors.scss";
-@use "../styles/mixins.scss";
-@use "../styles/skin.scss";
-@use "../styles/variables.scss";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 .slider {
 	$knob-transform-resting: variables.$sand-translate-center scale(variables.$sand-slider-knob-resting-state-scale);
@@ -98,6 +98,7 @@
 	&.horizontal {
 		$h-gap: math.div(variables.$sand-slider-knob-width, 2);
 		$v-gap: variables.$sand-slider-knob-height - variables.$sand-slider-bar-height;
+
 		width: auto;
 		padding: $v-gap $h-gap;
 
@@ -112,6 +113,7 @@
 
 		@include mixins.sand-custom-text-large {
 			$h-gap-large: math.div(variables.$sand-slider-knob-width-large, 2);
+
 			padding: math.div((variables.$sand-slider-knob-height-large - variables.$sand-slider-bar-height), 2) $h-gap-large;
 		}
 	}
@@ -119,6 +121,7 @@
 	&.vertical {
 		$h-gap: (variables.$sand-slider-knob-height - variables.$sand-slider-bar-height);
 		$v-gap: math.div(variables.$sand-slider-knob-width, 2);
+
 		padding: $v-gap $h-gap;
 		min-height: 240px;
 		display: inline-block;
@@ -136,6 +139,7 @@
 
 		@include mixins.sand-custom-text-large {
 			$v-gap-large: math.div(variables.$sand-slider-knob-width, 2);
+
 			padding: $v-gap-large math.div((variables.$sand-slider-knob-height-large - variables.$sand-slider-bar-height), 2);
 		}
 	}

@@ -74,6 +74,7 @@
 			clip-path: polygon(100% 0, 0 3%, 100% 100%); // Cut each segment into a 1/8th wedge, with a little overhang to avoid a subpixel gap from rounding error
 			transform-origin: bottom right;
 		}
+
 		.fan1,
 		.fan2,
 		.fan3,
@@ -85,16 +86,20 @@
 			animation-play-state: paused;
 			animation-fill-mode: both;
 		}
+
 		.fan2 {
 			animation-name: rotate2;
 		}
+
 		.fan3 {
 			animation-name: rotate3;
 		}
+
 		.fan4,
 		.cap {
 			animation-name: rotate4;
 		}
+
 		.cap {
 			top: 0;
 			right: 0;
@@ -188,6 +193,7 @@
 			.fan4 {
 				background-color: colors.$sand-spinner-color;
 			}
+
 			.cap {
 				background-color: colors.$sand-spinner-head-color;
 			}

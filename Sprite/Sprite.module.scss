@@ -1,8 +1,8 @@
 // Sprite.module.scss
 //
-@use "../styles/mixins.scss";
-@use "../styles/skin.scss";
-@use "../styles/variables.scss";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
 
 .sprite {
 	display: inline-block;
