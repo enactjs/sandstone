@@ -11,7 +11,7 @@ import FeedbackContent from './FeedbackContent';
 import states from './FeedbackIcons.js';
 import {secondsToTime} from '../MediaPlayer/';
 
-import css from './FeedbackTooltip.module.less';
+import css from './FeedbackTooltip.module.scss';
 
 /**
  * FeedbackTooltip {@link sandstone/VideoPlayer}. This displays the media's playback rate and

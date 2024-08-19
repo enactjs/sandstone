@@ -298,6 +298,11 @@ $sand-keyguide-colordot-blue-color: $sand-remote-button-blue-color;
 $sand-mediaoverlay-caption-color: $sand-text-color;
 $sand-mediaoverlay-subtitle-color: $sand-text-sub-color;
 
+// MediaPlayer
+// ---------------------------------------
+$sand-mediaplayer-slider-knob-color: $sand-progress-color;
+$sand-mediaplayer-slider-tooltip-text-shadow: $sand-overlay-text-shadow;
+
 // PopupTabLayout
 // ---------------------------------------
 $sand-popuptablayout-bg-color: $sand-popup-bg-color;
@@ -364,3 +369,14 @@ $sand-switch-disabled-selected-bg-color: $sand-switch-bg-color;
 $sand-tooltip-bg-color:               $sand-focus-bg-color;
 $sand-tooltip-text-color:             $sand-component-focus-text-color;
 $sand-tooltip-shadow:                 0 18px 12px $sand-shadow-color;
+
+// VideoPlayer
+// ---------------------------------------
+$sand-video-feedback-mini-bg-color: fade(#000000, 50%); // should be black
+$sand-video-feedback-mini-text-color: $sand-focus-text-color;
+$sand-video-slider-tooltip-color: $sand-text-color;
+$sand-video-slider-tooltip-thumbnail-border-color: $sand-text-color;
+$sand-video-player-bottom-bg-color: transparent;
+$sand-video-player-title-color: $sand-focus-text-color;
+$sand-video-player-title-text-shadow: 0 4px 4px rgb($sand-shadow-color-rgb, 75%);
+$sand-video-player-scrim-gradient-color: linear-gradient(180deg, transparent 0%, #000 100%);

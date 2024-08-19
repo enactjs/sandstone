@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {onlyUpdateForProps} from '../internal/util';
 import Marquee from '../Marquee';
 
-import css from './MediaTitle.module.less';
+import css from './MediaTitle.module.scss';
 
 /**
  * MediaTitle {@link sandstone/VideoPlayer}.

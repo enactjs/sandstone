@@ -51,7 +51,7 @@ import FeedbackContent from './FeedbackContent';
 import FeedbackTooltip from './FeedbackTooltip';
 import Video from './Video';
 
-import css from './VideoPlayer.module.less';
+import css from './VideoPlayer.module.scss';
 
 const isEnter = is('enter');
 const isLeft = is('left');

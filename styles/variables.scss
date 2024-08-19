@@ -902,6 +902,38 @@ $sand-tooltip-padding: (15px - calc((81px - 63px) / 2)) 48px; // Including the m
 $sand-tooltip-margin-offset: 18px; // GUI for the length of the arrow
 $sand-tooltip-marquee-width: 600px;
 
+// Video
+// ---------------------------------------
+$sand-video-back-button-left:                      150px;
+$sand-video-back-button-top:                       114px;
+$sand-video-slider-tooltip-arrow-border-left-right: 18px;
+$sand-video-slider-tooltip-arrow-border-top:       24px;
+$sand-video-slider-tooltip-position-bottom:        42px;
+$sand-video-slider-tooltip-shift-position-bottom:  $sand-video-slider-tooltip-position-bottom + $sand-video-slider-tooltip-arrow-border-top;
+$sand-video-slider-tooltip-margin-bottom:          6px;
+$sand-video-slider-tooltip-font-size:              48px;
+$sand-video-slider-tooltip-font-weight:            normal;
+$sand-video-slider-tooltip-line-height:            72px;
+$sand-video-slider-tooltip-gutter-width:           42px;
+$sand-video-slider-tooltip-thumbnail-border-width: 6px;
+$sand-video-slider-tooltip-thumbnail-width:  426px;
+$sand-video-slider-tooltip-thumbnail-height: 240px;
+$sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
+$sand-video-feedback-icon-font-size:               1.25em;
+$sand-video-feedback-mini-font-weight:             normal;
+$sand-video-feedback-mini-font-style:              normal;
+$sand-video-feedback-mini-position-top:            60px;
+$sand-video-feedback-mini-position-left:           60px;
+$sand-video-feedback-mini-padding-side:            66px;
+$sand-video-feedback-mini-font-size:               66px;
+$sand-video-feedback-mini-line-height:             120px;
+$sand-video-feedback-message-font-weight:          600;
+$sand-video-player-badge-text-size:                48px;
+$sand-video-player-info-margin:                    0 66px 84px;
+$sand-video-player-padding-bottom:                 60px;
+$sand-video-player-padding-side:                   84px;
+$sand-video-player-title-size:                     78px;
+
 // WizardPanels
 // ---------------------------------------
 $sand-wizardpanels-content-margin: 0 0 150px 0;
