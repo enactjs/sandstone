@@ -19,6 +19,7 @@
 
 import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
+import {setDefaultProps} from '@enact/core/util';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
@@ -70,13 +71,7 @@ const sliderDefaultProps = {
  * @public
  */
 const SliderBase = (props) => {
-	const sliderProps = Object.assign({}, props);
-	for (const prop in sliderDefaultProps) {
-		// eslint-disable-next-line no-undefined
-		if (sliderProps[prop] === undefined) {
-			sliderProps[prop] = sliderDefaultProps[prop];
-		}
-	}
+	const sliderProps = setDefaultProps(props, sliderDefaultProps);
 	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = sliderProps;
 
 	validateSteppedOnce(p => p.knobStep, {
