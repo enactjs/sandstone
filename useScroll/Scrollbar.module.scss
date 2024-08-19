@@ -1,0 +1,31 @@
+// Scrollbar.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.scrollbar {
+	background: none;
+	border-color: transparent;
+	opacity: 1;
+	pointer-events: none;
+	transition: opacity 100ms ease-out;
+	will-change: opacity;
+
+	&.horizontal {
+		@include mixins.enact-locale-rtl("") {
+			// Flip the entire bar horizontally in RTL mode, and force it to remain in LTR.
+			direction: ltr;
+			transform: scaleX(-1);
+		}
+	}
+
+	&.focusableScrollbar {
+		pointer-events: auto;
+	}
+
+	/* ScrollbarTrack */
+	.scrollbarTrackShown {
+		opacity: 1;
+	}
+}

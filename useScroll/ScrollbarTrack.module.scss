@@ -1,0 +1,118 @@
+// ScrollbarTrack.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.scrollbarTrack {
+	--scrollbar-track-margin: variables.$sand-scrollbar-track-margin;
+	--scrollbar-thumb-size-ratio: 1;
+	--scrollbar-thumb-progress-ratio: 0;
+	--scrollbar-thumb-size: calc(100% * var(--scrollbar-thumb-size-ratio));
+	--scrollbar-thumb-progress: calc(((1 - var(--scrollbar-thumb-size-ratio)) * var(--scrollbar-thumb-progress-ratio)) * 100%);
+
+	position: relative;
+	height: 100%;
+	width: 100%;
+	background-color: colors.$sand-scrollbar-track-bg-color;
+	border-radius: variables.$sand-scrollbar-track-border-radius;
+	opacity: 0;
+	transition: opacity 100ms ease-out;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	&.focusableScrollbar {
+		// Always show the scrollbar
+		opacity: 1;
+		--scrollbar-track-margin: variables.$sand-scrollbar-track-focusable-margin;
+	}
+
+	.thumb {
+		background: colors.$sand-scrollbar-thumb-bg-color;
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: variables.$sand-scrollbar-thumb-border-radius;
+
+		@include mixins.focus {
+			position: absolute;
+			background-color: colors.$sand-scrollbar-thumb-focus-bg-color;
+			box-shadow: variables.$sand-scrollbar-thumb-focus-box-shadow colors.$sand-scrollbar-thumb-focus-box-shadow-color;
+			border-radius: variables.$sand-scrollbar-thumb-focus-border-radius;
+
+			.directionIndicator {
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-top: variables.$sand-scrollbar-thumb-focus-direction-indicator-height solid transparent;
+				border-bottom: variables.$sand-scrollbar-thumb-focus-direction-indicator-height solid colors.$sand-scrollbar-thumb-focus-direction-indicator-color;
+				border-right: variables.$sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
+				border-left: variables.$sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
+			}
+		}
+
+		:global(.spotlight-input-touch) & {
+			pointer-events: none;
+		}
+	}
+
+	&.vertical {
+		margin: 0 var(--scrollbar-track-margin);
+		width: variables.$sand-scrollbar-track-width;
+
+		.thumb {
+			height: var(--scrollbar-thumb-size);
+			top: var(--scrollbar-thumb-progress);
+			will-change: top;
+
+			&:focus {
+				width: variables.$sand-scrollbar-thumb-focus-width;
+				left: variables.$sand-scrollbar-thumb-focus-left;
+
+				.directionIndicator.backward {
+					top: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-top - variables.$sand-scrollbar-thumb-focus-direction-indicator-height);
+					left: variables.$sand-scrollbar-thumb-focus-direction-indicator-left;
+				}
+
+				.directionIndicator.forward {
+					transform: rotate(180deg);
+					bottom: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-top - variables.$sand-scrollbar-thumb-focus-direction-indicator-height);
+					left: variables.$sand-scrollbar-thumb-focus-direction-indicator-left;
+				}
+			}
+		}
+	}
+
+	&:not(.vertical) {
+		margin: var(--scrollbar-track-margin) 0;
+		height: variables.$sand-scrollbar-track-width;
+
+		.thumb {
+			width: var(--scrollbar-thumb-size);
+			left: var(--scrollbar-thumb-progress);
+			will-change: left;
+			top: 50%;
+			transform: translateY(-50%);
+
+			@include mixins.focus {
+				height: variables.$sand-scrollbar-thumb-focus-width;
+
+				.directionIndicator.backward {
+					transform: rotate(-90deg);
+					left: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-top - variables.$sand-scrollbar-thumb-focus-direction-indicator-height);
+					top: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-left/2);
+				}
+
+				.directionIndicator.forward {
+					transform: rotate(90deg);
+					right: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-top - variables.$sand-scrollbar-thumb-focus-direction-indicator-height);
+					top: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-left/2);
+				}
+			}
+		}
+	}
+}

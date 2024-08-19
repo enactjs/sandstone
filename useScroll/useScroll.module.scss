@@ -1,0 +1,66 @@
+// useScroll.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.verticalPadding {
+	@include mixins.padding-start-end(0, variables.$sand-scrollbar-focusable-size - variables.$sand-scrollbar-size);
+}
+
+.scroll {
+	--scroll-scrollbar-size: variables.$sand-scrollbar-size;
+
+	box-sizing: border-box;
+	overflow: hidden;
+
+	&.focusableScrollbar {
+		--scroll-scrollbar-size: variables.$sand-scrollbar-focusable-size;
+	}
+
+	.verticalScrollbar {
+		position: absolute;
+		width: var(--scroll-scrollbar-size);
+		height: calc(100% - 2 * variables.$sand-scrollbar-padding);
+		right: 0;
+		top: 0;
+		padding: variables.$sand-scrollbar-padding 0;
+	}
+
+	@include mixins.enact-locale-rtl("") {
+		.verticalScrollbar {
+			left: 0;
+			right: initial;
+		}
+	}
+
+	.horizontalScrollbar {
+		position: absolute;
+		width: calc(100% - 2 * variables.$sand-scrollbar-padding);
+		height: var(--scroll-scrollbar-size);
+		left: 0;
+		bottom: 0;
+		padding: 0 variables.$sand-scrollbar-padding;
+	}
+
+	&.bidirectional {
+		.verticalScrollbar {
+			height: calc(100% - 2 * variables.$sand-scrollbar-padding - var(--scroll-scrollbar-size));
+		}
+
+		.horizontalScrollbar {
+			width: calc(100% - 2 * variables.$sand-scrollbar-padding -  var(--scroll-scrollbar-size));
+			left: 0;
+		}
+
+		@include mixins.enact-locale-rtl("") {
+			.horizontalScrollbar {
+				left: var(--scroll-scrollbar-size);
+			}
+		}
+	}
+
+	.scrollContent {
+		box-sizing: border-box;
+	}
+}

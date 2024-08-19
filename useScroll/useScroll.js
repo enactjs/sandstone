@@ -31,8 +31,8 @@ import {
 import useOverscrollEffect from './useOverscrollEffect';
 import {useSpotlightRestore} from './useSpotlight';
 
-import overscrollCss from './OverscrollEffect.module.less';
-import css from './useScroll.module.less';
+import overscrollCss from './OverscrollEffect.module.scss';
+import css from './useScroll.module.scss';
 
 const
 	arrowKeyMultiplier = 0.2,
