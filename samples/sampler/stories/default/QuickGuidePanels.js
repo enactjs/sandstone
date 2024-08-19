@@ -5,7 +5,6 @@ import SwitchItem from '@enact/sandstone/SwitchItem';
 import QuickGuidePanels from '@enact/sandstone/QuickGuidePanels';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {number, select} from '@enact/storybook-utils/addons/controls';
-import ri from '@enact/ui/resolution';
 
 import css from './QuickGuidePanels.module.less';
 
@@ -28,8 +27,8 @@ export const _QuickGuidePanels = (args) => {
 
 	return (
 		<>
-			<Panel style={{margin: ri.scaleToRem(240)}}>
-				<Button size="small" style={{marginLeft: ri.scaleToRem(64), marginBottom: ri.scaleToRem(160)}}>Button</Button>
+			<Panel css={css}>
+				<Button css={css} focusEffect="static" size="small">Button</Button>
 				<br />
 				<SwitchItem inline>item</SwitchItem>
 			</Panel>
