@@ -235,6 +235,7 @@ const StepsBase = kind({
 		delete rest.current;
 		delete rest.currentIcon;
 		delete rest.futureIcon;
+		delete rest.highlightCurrentOnly;
 		delete rest.pastIcon;
 		delete rest.skip;
 		delete rest.skipIcon;
