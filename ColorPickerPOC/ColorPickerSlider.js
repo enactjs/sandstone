@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {useCallback, useEffect, useState} from 'react';
 
 import Slider from '../Slider';
+import SwitchItem from '../SwitchItem';
 
 import {generateOppositeColor, hexToHSL, hexToRGB, hslToHex, hslToRGBString, rgbObjectToHex} from './utils';
 
@@ -59,7 +60,7 @@ const lightnessGradient = (hue, saturation) => {
 	hsla(${hue}, ${saturation}%, 100%, 1))`;
 };
 
-const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
+const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) => {
 	const {red, green, blue} = hexToRGB(selectedColor);
 	const [localRed, setLocalRed] = useState(red);
 	const [localGreen, setLocalGreen] = useState(green);
@@ -69,7 +70,7 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 		setLocalRed(red);
 		setLocalGreen(green);
 		setLocalBlue(blue);
-	}, [selectedColor]);
+	}, [blue, green, red]);
 
 	const changeValueRed = useCallback((ev) => {
 		setLocalRed(ev.value);
@@ -98,12 +99,14 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 						style={{backgroundImage: `linear-gradient(to right, rgb(0,${localGreen},${localBlue}), rgb(255,${localGreen},${localBlue}))`}}
 					>
 						<Slider
+							activateOnSelect
 							css={componentCss}
 							max={255}
 							min={0}
 							noFill
 							onBlur={changeSelectedColor}
 							onChange={changeValueRed}
+							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
@@ -127,12 +130,14 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 						style={{backgroundImage: `linear-gradient(to right, rgb(${localRed},0,${localBlue}), rgb(${localRed},255,${localBlue}))`}}
 					>
 						<Slider
+							activateOnSelect
 							css={componentCss}
 							max={255}
 							min={0}
 							noFill
 							onBlur={changeSelectedColor}
 							onChange={changeValueGreen}
+							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
@@ -154,12 +159,14 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 						style={{backgroundImage: `linear-gradient(to right, rgb(${localRed},${localGreen},0), rgb(${localRed},${localGreen},255))`}}
 					>
 						<Slider
+							activateOnSelect
 							css={componentCss}
 							max={255}
 							min={0}
 							noFill
 							onBlur={changeSelectedColor}
 							onChange={changeValueBlue}
+							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
@@ -187,7 +194,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 		setHue(h);
 		setSaturation(s);
 		setLightness(l);
-	}, [selectedColor]);
+	}, [h, l, s]);
 
 	const changeValueHue = useCallback((ev) => {
 		setHue(ev.value);
@@ -216,12 +223,14 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 						style={{backgroundImage: hueGradient(saturation, lightness)}}
 					>
 						<Slider
+							activateOnSelect
 							css={componentCss}
-							max={359}
+							max={360}
 							min={0}
 							noFill
 							onBlur={changeSelectedColor}
 							onChange={changeValueHue}
+							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
@@ -245,12 +254,14 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 						style={{backgroundImage: `linear-gradient(to right, hsl(${hue}, 0%, ${lightness}%), hsl(${hue}, 100%, ${lightness}%))`}}
 					>
 						<Slider
+							activateOnSelect
 							css={componentCss}
 							max={100}
 							min={0}
 							noFill
 							onBlur={changeSelectedColor}
 							onChange={changeValueSaturation}
+							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
@@ -272,12 +283,14 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 						style={{backgroundImage: lightnessGradient(hue, saturation)}}
 					>
 						<Slider
+							activateOnSelect
 							css={componentCss}
 							max={100}
 							min={0}
 							noFill
 							onBlur={changeSelectedColor}
 							onChange={changeValueLightness}
+							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
@@ -294,6 +307,32 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 	);
 };
 
+const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
+	const [pickerType, setPickerType] = useState(false);
+
+	const handleSwitch = useCallback(() => {
+		setPickerType(type => !type);
+	}, [setPickerType]);
+
+	return (
+		<div {...props}>
+			<SwitchItem
+				value={pickerType}
+				onToggle={handleSwitch}
+				style={{
+					height: '40px'
+				}}
+			>
+				{pickerType ? 'HSL Picker' : 'RGB picker'}
+			</SwitchItem>
+			{pickerType ?
+				<ColorPickerSliderHSL selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} />				:
+				<ColorPickerSliderRGB selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} />
+			}
+		</div>
+	);
+};
+
 ColorPickerSlider.propTypes = {
 	selectedColor: PropTypes.string,
 	selectedColorHandler: PropTypes.func
@@ -304,8 +343,14 @@ ColorPickerSliderHSL.propTypes = {
 	selectedColorHandler: PropTypes.func
 };
 
+ColorPickerSliderRGB.propTypes = {
+	selectedColor: PropTypes.string,
+	selectedColorHandler: PropTypes.func
+};
+
 export {
 	ColorPickerSlider,
-	ColorPickerSliderHSL
+	ColorPickerSliderHSL,
+	ColorPickerSliderRGB
 };
 export default ColorPickerSlider;

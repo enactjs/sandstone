@@ -1,3 +1,5 @@
+@import '../styles/mixins.less';
+
 .cellElement {
   margin-top: 21px;
 }
@@ -31,15 +33,21 @@
 .slider {
   --sand-progress-bg-color-rgb: transparent;
   border-radius: 99px;
-  height: 42px;
+  height: 33px;
   margin-left: 18px;
   margin-right: 18px;
+
+  .focus({
+    .knob {
+      transform: scale(1.1);
+    }
+  });
 
   .knob {
     &::before {
       border-radius: 99px;
-      height: 120px;
-      width: 120px;
+      height: 102px;
+      width: 102px;
     }
   }
 }
