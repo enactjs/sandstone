@@ -468,6 +468,8 @@ const SliderDecorator = compose(
 
 const Slider = SliderDecorator(SliderBase);
 
+Slider.defaultPropValues = sliderDefaultProps;
+
 /**
  * A {@link sandstone/TooltipDecorator.Tooltip|Tooltip} specifically adapted for use with
  * {@link sandstone/ProgressBar.ProgressBar|ProgressBar} or
