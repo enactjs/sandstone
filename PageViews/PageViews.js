@@ -252,10 +252,10 @@ const PageViewsBase = kind({
 						<Row className={classNames(css.steps, {[css.hidden]: !isStepVisible})}>
 							<Steps
 								current={index + 1}
-								pastIcon="circle"
 								currentIcon="circle"
 								futureIcon="circle"
-								layout="highlightCurrentStep"
+								highlightCurrentOnly
+								pastIcon="circle"
 								total={totalIndex}
 								size={30}
 							/>

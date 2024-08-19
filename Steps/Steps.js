@@ -95,6 +95,17 @@ const StepsBase = kind({
 		futureIcon: PropTypes.string,
 
 		/**
+		 * Defines how to represent the current step.
+		 *
+		 * When `true`, highlight effect will be applied only to the current icon.
+		 * When `false`,highlight effect will be applied to past and current icons.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		highlightCurrentOnly: PropTypes.bool,
+
+		/**
 		 * Defines a custom element to use as the icon component.
 		 *
 		 * Use the `css` prop and public class name override system to target the classes applied to
@@ -106,13 +117,6 @@ const StepsBase = kind({
 		 * @public
 		 */
 		iconComponent: EnactPropTypes.component,
-
-		/**
-		 * @type {String}
-		 * @default 'highlightCompletedStep'
-		 * @private
-		 */
-		layout: PropTypes.oneOf(['highlightCompletedStep', 'highlightCurrentStep']),
 
 		/**
 		 * The icon to use for indicating all steps preceding the current step.
@@ -182,8 +186,7 @@ const StepsBase = kind({
 		futureIcon: 'numbers',
 		size: 'small',
 		skipIcon: 'minus',
-		total: 2,
-		layout: 'highlightCompletedStep'
+		total: 2
 	},
 
 	styles: {
@@ -193,7 +196,7 @@ const StepsBase = kind({
 	},
 
 	computed: {
-		steps: ({current, pastIcon, currentIcon, futureIcon, layout, skip, skipIcon, total, styler}) => {
+		steps: ({current, pastIcon, currentIcon, futureIcon, highlightCurrentOnly, skip, skipIcon, total, styler}) => {
 			skip = coerceArray(skip);
 			return Array.from(Array(total)).map((el, index) => {
 				const stepNum = index + 1;
@@ -220,7 +223,7 @@ const StepsBase = kind({
 				}
 
 				return {
-					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), highlightCurrent: layout === 'highlightCurrentStep'}),
+					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), highlightCurrentOnly}),
 					key: `step${stepNum}`,
 					children
 				};
@@ -233,7 +236,6 @@ const StepsBase = kind({
 		delete rest.currentIcon;
 		delete rest.futureIcon;
 		delete rest.pastIcon;
-		delete rest.layout;
 		delete rest.skip;
 		delete rest.skipIcon;
 		delete rest.total;
