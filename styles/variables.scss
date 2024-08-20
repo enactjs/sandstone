@@ -209,6 +209,11 @@ $sand-spottable-font-weight: 600;
 $sand-common-line-height: 1.3em;
 $sand-tallglyph-line-height: 1.5em;
 
+// Alert
+$sand-alert-font-family: $sand-font-family;
+$sand-alert-font-weight: normal;
+$sand-alert-line-height: normal;
+
 // Body
 $sand-body-font-family: $sand-font-family;
 $sand-body-font-style: normal;
@@ -276,6 +281,13 @@ $sand-picker-line-height: 1.5em;
 // ---------------------------------------
 // Component Rules
 // ---------------------------------------
+
+// AlertImage
+// ---------------------------------------
+$sand-alert-image-thumbnail-width: 450px;
+$sand-alert-image-thumbnail-height: 252px;
+$sand-alert-image-icon-size: 240px;
+$sand-alert-image-icon-border-radius: 12px;
 
 // ActionGuide
 // ---------------------------------------
@@ -387,6 +399,29 @@ $sand-button-icon-only-colordot-width: 66px;
 $sand-button-icon-only-colordot-height: 9px;
 $sand-button-collapse-duration: 300ms;
 $sand-button-collapsable-icon-margin: 0 24px;
+
+// Alert
+// ---------------------------------------
+$sand-alert-buttons-margin-top: 180px;
+$sand-alert-max-buttons-margin-top: 300px;
+$sand-alert-fullscreen-button-spacing: 60px;
+$sand-alert-fullscreen-image-spacing: 30px;
+$sand-alert-fullscreen-max-width: 2028px;
+$sand-alert-overlay-button-spacing: 30px;
+$sand-alert-overlay-buttons-margin: 0 0 0 126px; // If this changes, update `overflow` computed value from Alert.js
+$sand-alert-overlay-noimage-text-gap: 30px;
+$sand-alert-overlay-image-text-gap: $sand-alert-overlay-noimage-text-gap + 18px;
+$sand-alert-overlay-text-button-gap: (198px - nth($sand-alert-overlay-buttons-margin, 4) - nth($sand-button-margin, 2));
+$sand-alert-overlay-content-width: 1200px; // If this changes, update `overflow` computed value from Alert.js
+$sand-alert-overlay-image-margin: 0;
+$sand-alert-overlay-margin-bottom: 360px;
+$sand-alert-overlay-padding-top-bottom: 60px;
+$sand-alert-overlay-padding-left: 60px;
+$sand-alert-overlay-padding-right: (90px - nth($sand-button-margin, 2));
+$sand-portrait-alert-overlay-noimage-content-width: 1020px;
+$sand-portrait-alert-overlay-content-width: 822px;
+$sand-portrait-alert-overlay-buttons-margin: 0 0 0 78px;
+$sand-portrait-alert-overlay-text-button-gap: (150px - nth($sand-portrait-alert-overlay-buttons-margin, 4) - nth($sand-button-margin, 2));
 
 // Header
 // ---------------------------------------

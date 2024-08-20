@@ -2,7 +2,7 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 
 import Image from '../Image';
-import componentCss from './AlertImage.module.less';
+import componentCss from './AlertImage.module.scss';
 
 /**
  * An image for use in an Alert.

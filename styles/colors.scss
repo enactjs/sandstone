@@ -108,7 +108,7 @@ $sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
 // ---------------------------------------
 
 // common colors
-$sand-alert-overlay-bg-color-rgb: rgb(202, 203, 204); // #cacbcc
+$sand-alert-overlay-bg-color-rgb: 202, 203, 204; // #cacbcc
 $sand-alert-overlay-bg-color-opacity: 95%;
 $sand-alert-overlay-bg-color: var(--sand-alert-overlay-bg-color-rgb, $sand-alert-overlay-bg-color-rgb);
 $sand-alert-overlay-text-color-rgb: rgb(46, 50, 57); // #2e3239
