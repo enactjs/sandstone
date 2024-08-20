@@ -18,7 +18,7 @@ const fullscreenTests = [
 	<Alert open title="Title" />,
 	<Alert open>Alert!</Alert>,
 	<Alert open>{LoremString}</Alert>,
-	<Alert open title="Loooooooooooooooooooooong Title with custom width" css={css}>{LoremString}</Alert>
+	<Alert open title="Loooooooooooooooooooooong title with custom width" css={css}>{LoremString}</Alert>
 ];
 
 // Only type: 'overlay' supports children
