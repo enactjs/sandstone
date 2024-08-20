@@ -158,7 +158,7 @@ const AlertBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'alert',
-		publicClassName: ['alert', 'content', 'fullscreen', 'title']
+		publicClassNames: ['alert', 'content', 'fullscreen', 'title']
 	},
 
 	computed: {
