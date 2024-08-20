@@ -30,7 +30,6 @@ export const listIcons = [
 ].sort();
 
 export const mediaIcons = [
-	'background',
 	'backward',
 	'circle',
 	'demooptions',
@@ -115,12 +114,10 @@ export const speakerIcons = [
 export const deviceIcons = [
 	'btspeaker',
 	'controller',
-	'eraser',
 	'headset',
 	'keyboard',
 	'mobile',
 	'mouse',
-	'pen',
 	'remotecontrol',
 	'router',
 	'transponder',
@@ -185,6 +182,12 @@ export const settingsIcons = [
 	'tvguidefvp',
 	'voiced',
 	'wowcast'
+].sort();
+
+export const drawingIcons = [
+	'background',
+	'eraser',
+	'pen'
 ].sort();
 
 export default Object.keys(icons).sort();
