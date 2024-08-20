@@ -48,13 +48,14 @@
     "@enact/ui": "^4.9.0-beta.1",
     "@enact/webos": "^4.9.0-beta.1",
     "classnames": "^2.5.1",
+    "ilib": "^14.19.0 || ^14.19.0-webos1",
     "invariant": "^2.2.4",
+    "ollama": "^0.5.8",
     "prop-types": "^15.8.1",
     "ramda": "^0.30.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "warning": "^4.0.3",
-    "ilib": "14.19.0"
+    "warning": "^4.0.3"
   },
   "peerDependencies": {
     "ilib": "^14.19.0 || ^14.19.0-webos1"

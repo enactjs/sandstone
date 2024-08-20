@@ -8,6 +8,7 @@ import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
+import ollama from 'ollama/browser';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useEffect, useState} from 'react';
@@ -505,6 +506,7 @@ const Dictaphone = (props) => {
   const Search = (props) => {
 	const {onNextClick, onPrevClick, onChange, onTransition, sentence} = props;
 	//const [sentence, setSentence] = useState("");
+
 	const [answer, setAnswer] = useState("");
 
 	const functionObject = {
@@ -514,7 +516,7 @@ const Dictaphone = (props) => {
 		onTransition: onTransition
 	};
 	const fetchData = async () => {
-		const response = await fetch('https://localhost:3000/ask-query', {
+		/*const response = await fetch('https://localhost:3000/ask-query', {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -526,12 +528,22 @@ const Dictaphone = (props) => {
 						sentence : ${sentence}
 						API list : onPrevClick, onNextClick, onChange, onTransition`
 			})
+		});*/
+	
+		const response = await ollama.chat({
+			model: 'gemma2',
+			messages: [{ role: 'user', content: `WizardPanel is a component that has multiple panels and allows you to move the panels to the left and right.
+							Please answer which API among the API list the following sentence is close to.
+							Please give the answer in the format of API: api name. for example, if response is onTransition, API: onTransition
+							sentence : ${sentence}
+							API list : onPrevClick, onNextClick, onChange, onTransition`}],
 		});
 
-		return response.json();
+		return response;
 	}
 	const handleSubmit = () => {
-		fetchData().then(response => setAnswer(response.reply));
+		//fetchData().then(response => setAnswer(response.reply));
+		fetchData().then(response => setAnswer(response.message.content))
 	}
 
 	useEffect(() => {
