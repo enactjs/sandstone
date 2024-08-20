@@ -33,10 +33,10 @@ export const _QuickGuidePanels = (args) => {
 				<SwitchItem inline>item</SwitchItem>
 			</Panel>
 			<Popup
+				css={css}
 				open
 				position="fullscreen"
 				scrimType="transparent"
-				style={{backgroundColor: 'transparent'}}
 			>
 				<QuickGuidePanels
 					current={args['current']}
@@ -51,8 +51,8 @@ export const _QuickGuidePanels = (args) => {
 				>
 					<QuickGuidePanels.Panel>
 						<div className={css.guide}>
-							This is a guide to sandstone components<br />
-							Sample needs to be run with FHD or 4K dimensions
+							This is a guide to Sandstone components.<br />
+							This sample needs to be run with FHD or 4K dimensions.
 						</div>
 						<div className={css.svg}>
 							<svg width="100%" height="100%" fill="rgba(87, 94, 102, 0.3)">
@@ -62,7 +62,7 @@ export const _QuickGuidePanels = (args) => {
 					</QuickGuidePanels.Panel>
 					<QuickGuidePanels.Panel>
 						<div className={css.guide}>
-							This is a sandstone button component
+							This is a Sandstone Button component.
 						</div>
 						<div className={css.svg}>
 							<svg width="100%" height="100%" fill="rgba(87, 94, 102, 0.3)">
@@ -72,7 +72,7 @@ export const _QuickGuidePanels = (args) => {
 					</QuickGuidePanels.Panel>
 					<QuickGuidePanels.Panel aria-label={'aria test'}>
 						<div className={css.guide}>
-							This is a sandstone switch component
+							This is a Sandstone SwitchItem component.
 						</div>
 						<div className={css.svg}>
 							<svg width="100%" height="100%" fill="rgba(87, 94, 102, 0.3)">
