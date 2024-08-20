@@ -98,7 +98,7 @@ const StepsBase = kind({
 		 * Defines how to represent the current step.
 		 *
 		 * When `true`, highlight effect will be applied only to the current icon.
-		 * When `false`,highlight effect will be applied to past and current icons.
+		 * When `false`, highlight effect will be applied to past and current icons.
 		 *
 		 * @type {Boolean}
 		 * @public

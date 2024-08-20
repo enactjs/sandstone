@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
+
 ### Fixed
 
 - `sandstone/Steps` prop `size` to accept number type

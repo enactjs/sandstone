@@ -18,7 +18,6 @@
 
 		&.highlightCurrentOnly {
 			font-size: @sand-steps-step-highlight-current-only-font-size;
-			opacity: @sand-steps-step-past-opacity;
 			margin: @sand-steps-step-highlight-current-only-margin;
 
 			&.current {
@@ -26,7 +25,7 @@
 			}
 
 			&.future {
-				opacity: @sand-steps-step-past-opacity;
+				opacity: @sand-steps-step-highlight-current-only-future-opacity;
 			}
 		}
 
@@ -47,7 +46,7 @@
 .applySkins({
 	.step {
 		&.highlightCurrentOnly {
-			color: @sand-steps-step-highlight-current-only-focused-color;
+			color: @sand-steps-step-highlight-current-only-color;
 			&.current {
 				color: @sand-steps-step-highlight-current-only-current-color;
 			}
