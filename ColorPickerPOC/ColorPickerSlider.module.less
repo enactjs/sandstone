@@ -1,61 +1,46 @@
-@import '../styles/mixins.less';
+@import "../styles/mixins.less";
 
-.cellElement {
-  margin-top: 21px;
+.switchCell {
+	margin-top: -63px;
+	padding: 0 30px;
 }
 
 .labelText {
-  font-size: 42px;
-  margin-bottom: 12px;
+	font-size: 42px;
+	margin-bottom: 12px;
 }
 
 .outputText {
-  align-content: center;
-  background-color: #eeeeee;
-  border-radius: 12px;
-  color: #444444;
-  display: grid;
-  justify-content: end;
-  margin-left: 30px;
-  padding-right: 21px;
-}
-
-.outputTextPercent {
-  align-content: center;
-  background-color: #eeeeee;
-  border-radius: 12px;
-  color: #444444;
-  display: grid;
-  justify-content: end;
-  margin-left: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #eeeeee;
+	border-radius: 12px;
+	margin-left: 30px;
 }
 
 .slider {
-  --sand-progress-bg-color-rgb: transparent;
-  border-radius: 99px;
-  height: 33px;
-  margin-left: 18px;
-  margin-right: 18px;
+	--sand-progress-bg-color-rgb: transparent;
+	border-radius: 99px;
+	height: 33px;
+	margin-left: 18px;
+	margin-right: 18px;
 
-  .focus({
-    .knob {
-      transform: scale(1.1);
-    }
-  });
+	.focus({
+		.knob {
+			transform: scale(1.1);
+		}
+	});
 
-  .knob {
-    &::before {
-      border-radius: 99px;
-      height: 102px;
-      width: 102px;
-    }
-  }
+	.knob {
+		&::before {
+			border-radius: 99px;
+			height: 102px;
+			width: 102px;
+		}
+	}
 }
 
 .sliderCell {
-  border-radius: 99px;
-}
-
-.sliderContainer {
-  width: 900px;
+	border-radius: 99px;
 }

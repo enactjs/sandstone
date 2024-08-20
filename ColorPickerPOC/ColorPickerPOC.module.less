@@ -1,4 +1,8 @@
-@import '../styles/mixins.less';
+@import "../styles/mixins.less";
+
+.pickerTabLayout {
+	align-items: center;
+}
 
 .colorPicker {
 	display: flex;
@@ -16,7 +20,6 @@
 		height: 240px;
 		margin-inline: 0;
 		transition: transform .2s;
-		width: 95%;
 
 		.selectedColorIcon {
 			transition: transform .2s;
@@ -33,8 +36,6 @@
 }
 
 .favoriteColorsRow {
-	text-align: center;
-
 	.favoriteColor {
 		border-radius: 50%;
 		border: 6px solid;
