@@ -10,7 +10,7 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useEffect, useState, useRef} from 'react';
+import {useEffect, useState} from 'react';
 import SpeechRecognition, {useSpeechRecognition} from 'react-speech-recognition';
 
 import $L from '../internal/$L';
@@ -387,75 +387,74 @@ const WizardPanelsBase = kind({
 
 		return (
 			<>
-			<Dictaphone onNextClick={onNextClick} onPrevClick={onPrevClick} />
-			<Qa />
-			<DecoratedPanelBase
-				{...rest}
-				header={
-					<HeaderContainer
-						aria-label={ariaLabel}
-						arranger={noAnimation ? null : CrossFadeArranger}
-						centered
-						css={css}
-						noCloseButton
-						noSubtitle={noSubtitle}
-						subtitle={subtitle}
-						title={title}
-						type="wizard"
-					>
-						{steps}
-						<NavigationButton
-							aria-label={$L('Previous')}
-							backgroundOpacity="transparent"
-							component={prevButton}
-							focusEffectIconOnly
-							icon="arrowlargeleft"
-							iconFlip="auto"
-							minWidth={false}
-							onClick={onPrevClick}
-							slot="slotBefore"
-							visible={isPrevButtonVisible}
-						/>
-						<NavigationButton
-							aria-label={$L('Next')}
-							backgroundOpacity="transparent"
-							component={nextButton}
-							focusEffectIconOnly
-							icon="arrowlargeright"
-							iconFlip="auto"
-							iconPosition="after"
-							minWidth={false}
-							onClick={onNextClick}
-							slot="slotAfter"
-							visible={isNextButtonVisible}
-						/>
-					</HeaderContainer>
-				}
-				panelType="wizard"
-			>
-				<Column>
-					<Cell className={css.content}>
-						{/* skip creating ViewManager when there aren't children to avoid animating
-							the first panel into the viewport */}
-						{children ? (
-							<ViewManager
-								arranger={BasicArranger}
-								duration={400}
-								onTransition={onTransition}
-								onWillTransition={onWillTransition}
-								noAnimation={noAnimation}
-								reverseTransition={reverseTransition}
-							>
-								{children}
-							</ViewManager>
-						) : null}
-					</Cell>
-					<Cell className={css.footer} component="footer" key={index} shrink>
-						{/* This should probably use portals */}
-						{footer}
-					</Cell>
-				</Column>
-			</DecoratedPanelBase>
+				<Dictaphone onNextClick={onNextClick} onPrevClick={onPrevClick} onChange={rest.onChange} onTransition={onTransition} />
+				<DecoratedPanelBase
+					{...rest}
+					header={
+						<HeaderContainer
+							aria-label={ariaLabel}
+							arranger={noAnimation ? null : CrossFadeArranger}
+							centered
+							css={css}
+							noCloseButton
+							noSubtitle={noSubtitle}
+							subtitle={subtitle}
+							title={title}
+							type="wizard"
+						>
+							{steps}
+							<NavigationButton
+								aria-label={$L('Previous')}
+								backgroundOpacity="transparent"
+								component={prevButton}
+								focusEffectIconOnly
+								icon="arrowlargeleft"
+								iconFlip="auto"
+								minWidth={false}
+								onClick={onPrevClick}
+								slot="slotBefore"
+								visible={isPrevButtonVisible}
+							/>
+							<NavigationButton
+								aria-label={$L('Next')}
+								backgroundOpacity="transparent"
+								component={nextButton}
+								focusEffectIconOnly
+								icon="arrowlargeright"
+								iconFlip="auto"
+								iconPosition="after"
+								minWidth={false}
+								onClick={onNextClick}
+								slot="slotAfter"
+								visible={isNextButtonVisible}
+							/>
+						</HeaderContainer>
+					}
+					panelType="wizard"
+				>
+					<Column>
+						<Cell className={css.content}>
+							{/* skip creating ViewManager when there aren't children to avoid animating
+								the first panel into the viewport */}
+							{children ? (
+								<ViewManager
+									arranger={BasicArranger}
+									duration={400}
+									onTransition={onTransition}
+									onWillTransition={onWillTransition}
+									noAnimation={noAnimation}
+									reverseTransition={reverseTransition}
+								>
+									{children}
+								</ViewManager>
+							) : null}
+						</Cell>
+						<Cell className={css.footer} component="footer" key={index} shrink>
+							{/* This should probably use portals */}
+							{footer}
+						</Cell>
+					</Column>
+				</DecoratedPanelBase>
 			</>
 		);
 	}
@@ -478,7 +477,6 @@ const useDebounce = (value, delay) => {
   };
 
 const Dictaphone = (props) => {
-	const {onNextClick, onPrevClick} = props;
 	const {
 	  transcript,
 	  listening,
@@ -492,14 +490,6 @@ const Dictaphone = (props) => {
 
 	const debouncedText = useDebounce(transcript, 1000);
 
-	useEffect(() => {
-		if(debouncedText.includes('오른') || debouncedText.includes('우측')) {
-			onNextClick();
-		} else if (debouncedText.includes('왼') || debouncedText.includes('좌측')) {
-			onPrevClick();
-		}
-	}, [debouncedText]);
-
 	return (
 	  <>
 		<p>Microphone: {listening ? 'on' : 'off'}</p>
@@ -507,110 +497,72 @@ const Dictaphone = (props) => {
 		<button size="small" onClick={SpeechRecognition.stopListening}>Stop</button>
 		<button size="small" onClick={resetTranscript}>Reset</button>
 		<p>{transcript}</p>
+		<Search sentence={debouncedText} {...props} />
 	  </>
 	);
   };
 
-  const Qa = () => {
-	const [ready, setReady] = useState(null);
-	const [progressItems, setProgressItems] = useState([]);
+  const Search = (props) => {
+	const {onNextClick, onPrevClick, onChange, onTransition, sentence} = props;
+	//const [sentence, setSentence] = useState("");
+	const [answer, setAnswer] = useState("");
 
-	const [disabled, setDisabled] = useState(false);
-	const [question, setQuestion] = useState("");
-	const [answer, setAnswer] = useState();
-	
-	const [context, setContext] = useState(`
-		The wizard panels is a panel bundle that can be flipped to the right (next panel) and left (previous panel).
-		Each panel has a right and left button, representing next and previous, respectively.
-		onChange. onNextClick. onPrevClick. onTransition. onWillTransition.
-		onChange Called when the index value is changed.
-		onNextClick Called when the next button is clicked in WizardPanel.
-		onPrevClick Called when previous button is clicked in WizardPanel.
-		onTransition Called when a transition completes.
-		onWillTransition Called before a transition begins.
-	`);
+	const functionObject = {
+		onNextClick: onNextClick,
+		onPrevClick: onPrevClick,
+		onChange: onChange,
+		onTransition: onTransition
+	};
+	const fetchData = async () => {
+		const response = await fetch('https://localhost:3000/ask-query', {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				query: `WizardPanel is a component that has multiple panels and allows you to move the panels to the left and right.
+						Please answer which API among the API list the following sentence is close to.
+						Please give the answer in the format of API: api name. for example, if response is onTransition, API: onTransition
+						sentence : ${sentence}
+						API list : onPrevClick, onNextClick, onChange, onTransition`
+			})
+		});
 
-	const worker = useRef(null);
+		return response.json();
+	}
+	const handleSubmit = () => {
+		fetchData().then(response => setAnswer(response.reply));
+	}
 
 	useEffect(() => {
-		if(!worker.current) {
-			worker.current = new Worker(new URL('./worker.js', import.meta.url), {
-				type: 'module'
-			});
-		}
-		const onMessageReceived = (e) => {
-			switch (e.data.status) {
-			  case 'initiate':
-				setReady(false);
-				setProgressItems(prev => [...prev, e.data]);
-				break;
-	  
-			  case 'progress':
-				setDisabled(true);
-				setProgressItems(
-				  prev => prev.map(item => {
-					if (item.file === e.data.file) {
-					  return { ...item, progress: e.data.progress }
-					}
-					return item;
-				  })
-				);
-				break;
-	  
-			  case 'done':
-				setProgressItems(
-				  prev => prev.filter(item => item.file !== e.data.file)
-				);
-				break;
-	  
-			  case 'ready':
-				setReady(true);
-				break;
-	  
-			  case 'update':
-				break;
-	  
-			  case 'complete':
-				setAnswer(e.data.response);
-				setDisabled(false);
-				break;
-			}
-		  };
-	 
-		 worker.current.addEventListener('message', onMessageReceived);
-	 
-		 return () => worker.current.removeEventListener('message', onMessageReceived);
-	});
+		if (answer === '') return;
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
-		worker.current.postMessage({
-		  type: 'ask',
-		  question: question,
-		  context: context
-		})
-	}
+		const name = answer.split('API: ')[1].split(' ')[0];
+		if (functionObject[name]) {
+			functionObject[name]();
+			setAnswer("");
+		}
+		
+	}, [answer]);
+
+	useEffect(() => {
+		if (sentence === '') return;
+
+		handleSubmit();
+	}, [sentence]);
+
 	return (
 		<>
-			{/* Context & question form */}
-			<div as="form" direction="column" width="100%">
-				<label>Question</label>
-				<input name="question" onChange={(e) => setQuestion(e.target.value)} />
+			{/*<div as="form" direction="column" width="100%">
+				<label>sentence</label>
+				<input name="sentence" onChange={(e) => setSentence(e.target.value)} />
 			</div>
-			<button disabled={disabled} type="submit" onClick={handleSubmit} style={{marginLeft: "auto"}}>
+			<button type="submit" onClick={handleSubmit} style={{marginLeft: "auto"}}>
 					Submit
 			</button>
-			{ready === false && (
-				<div>Loading models...</div>
-			)}
-			{progressItems.map((data, index) => (
-			<div key={index}>
-				<label>{data.file} (only run once)</label>
-				<div width="100%" variation="linear" percentage={data.progress} />
-			</div>
-			))}
+			*/}
 			{answer && (
-				<div marginTop={20}>The answer is: {answer}</div>
+				<div>The answer is: {answer}</div>
 			)}
 	  </>);
   };
