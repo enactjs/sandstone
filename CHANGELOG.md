@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+
 ### Fixed
 
 - `sandstone/Scroller`, `sandstone/Slider`, `sandstone/VirtualList` and `sandstone/VirtualList.VirtualGridList` to set prop value to default when `undefined` is passed for the prop value
