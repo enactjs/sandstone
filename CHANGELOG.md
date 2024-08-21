@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+
 ### Fixed
 
 - `sandstone/Scroller` with `editable` prop to move item via 5-way keys in pointer mode
