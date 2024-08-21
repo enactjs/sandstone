@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller`, `sandstone/Slider`, `sandstone/VirtualList` and `sandstone/VirtualList.VirtualGridList` to set prop value to default when `undefined` is passed for the prop value
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
 
 ## [2.9.0] - 2024-07-17
 
