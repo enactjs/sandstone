@@ -689,6 +689,8 @@ const EditableWrapper = (props) => {
 	const handleGlobalKeyDownCapture = useCallback((ev) => {
 		const {focusedItem, selectedItem} = mutableRef.current;
 
+		// If the pointer mode is `true` and the focused component is not contained in scrollContainerRef,
+		// only `handleGlobalKeyDownCapture` is called instead of `handleKeyDownCapture`
 		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && (selectedItem || focusedItem)) {
 			const {keyCode} = ev;
 			const position = getLastPointerPosition();
@@ -697,20 +699,26 @@ const EditableWrapper = (props) => {
 				const nextTarget = getTargetByDirectionFromPosition(direction, position, mutableRef.current.spotlightId);
 
 				if (!scrollContainerRef.current.contains(nextTarget)) {
+					// If the nextTarget is not contained in scrollContainerRef, complete editing
 					const orders = finalizeOrders();
 					finalizeEditing(orders);
 				} else if ((is('left', keyCode) || is('right', keyCode)) && selectedItem) {
+					// When an item is selected and press the `left` or `right` key, move the selectedItem in that direction
 					moveItemsByKeyDown(ev);
 				} else if (is('down', keyCode) && selectedItem) {
+					// When an item is selected and press the `down` key, complete editing and focus the selectedItem
 					completeEditingByKeyDown();
 				} else if (is('up', keyCode) && nextTarget.getAttribute('role') !== 'button') {
+					// When the nextTarget is the item and press the `up` key, focus the nextTarget to move focus successfully to the button above the item
 					setPointerMode(false);
 					Spotlight.focus(nextTarget);
 				}
 			} else if (is('enter', keyCode)) {
 				if (selectedItem) {
+					// When an item is selected and press the `enter` key, complete editing and focus the selectedItem
 					completeEditingByKeyDown();
 				} else {
+					// When an item is focused and press the `enter` key, start editing
 					startEditing(focusedItem);
 				}
 			}
