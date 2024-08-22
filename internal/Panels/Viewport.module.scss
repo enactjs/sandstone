@@ -14,6 +14,9 @@
 	}
 
 	// force directionality for relative positioning below
+	& {
+
+	}
 	direction: ltr;
 	& > * {
 		// reset direction in views for RTL locales
