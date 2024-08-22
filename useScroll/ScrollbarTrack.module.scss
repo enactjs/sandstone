@@ -7,7 +7,7 @@
 @use "../styles/variables";
 
 .scrollbarTrack {
-	--scrollbar-track-margin: variables.$sand-scrollbar-track-margin;
+	--scrollbar-track-margin: #{variables.$sand-scrollbar-track-margin};
 	--scrollbar-thumb-size-ratio: 1;
 	--scrollbar-thumb-progress-ratio: 0;
 	--scrollbar-thumb-size: calc(100% * var(--scrollbar-thumb-size-ratio));
@@ -28,7 +28,7 @@
 	&.focusableScrollbar {
 		// Always show the scrollbar
 		opacity: 1;
-		--scrollbar-track-margin: variables.$sand-scrollbar-track-focusable-margin;
+		--scrollbar-track-margin: #{variables.$sand-scrollbar-track-focusable-margin};
 	}
 
 	.thumb {
