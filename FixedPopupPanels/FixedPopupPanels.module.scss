@@ -5,7 +5,7 @@
 @use "../styles/variables";
 
 // Module level variables, for use only in this file
-$fixedpopuppanels-max-height: calc(100vh - nth(variables.$sand-fixedpopuppanels-margin, 1) + nth(variables.$sand-fixedpopuppanels-margin, 1));
+$fixedpopuppanels-max-height: calc(100vh - (nth(variables.$sand-fixedpopuppanels-margin, 1) + nth(variables.$sand-fixedpopuppanels-margin, 1)));
 
 .fixedPopupPanels {
 	// Overrides for Panels - the & just refers to this element. Using a block here to visually compartmentalize the overrides apart from the general styles.
