@@ -1,5 +1,6 @@
 // ScrollbarTrack.module.scss
 //
+@use "sass:math";
 @use "../styles/colors";
 @use "../styles/mixins";
 @use "../styles/skin";
@@ -50,8 +51,8 @@
 				height: 0;
 				border-top: variables.$sand-scrollbar-thumb-focus-direction-indicator-height solid transparent;
 				border-bottom: variables.$sand-scrollbar-thumb-focus-direction-indicator-height solid colors.$sand-scrollbar-thumb-focus-direction-indicator-color;
-				border-right: variables.$sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
-				border-left: variables.$sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
+				border-right: math.div(variables.$sand-scrollbar-thumb-focus-direction-indicator-width, 2) solid transparent;
+				border-left: math.div(variables.$sand-scrollbar-thumb-focus-direction-indicator-width, 2) solid transparent;
 			}
 		}
 
@@ -74,13 +75,13 @@
 				left: variables.$sand-scrollbar-thumb-focus-left;
 
 				.directionIndicator.backward {
-					top: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-top - variables.$sand-scrollbar-thumb-focus-direction-indicator-height);
+					top: calc(#{variables.$sand-scrollbar-thumb-focus-direction-indicator-top} - #{variables.$sand-scrollbar-thumb-focus-direction-indicator-height});
 					left: variables.$sand-scrollbar-thumb-focus-direction-indicator-left;
 				}
 
 				.directionIndicator.forward {
 					transform: rotate(180deg);
-					bottom: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-top - variables.$sand-scrollbar-thumb-focus-direction-indicator-height);
+					bottom: calc(#{variables.$sand-scrollbar-thumb-focus-direction-indicator-top} - #{variables.$sand-scrollbar-thumb-focus-direction-indicator-height});
 					left: variables.$sand-scrollbar-thumb-focus-direction-indicator-left;
 				}
 			}
@@ -103,14 +104,14 @@
 
 				.directionIndicator.backward {
 					transform: rotate(-90deg);
-					left: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-top - variables.$sand-scrollbar-thumb-focus-direction-indicator-height);
-					top: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-left/2);
+					left: calc(#{variables.$sand-scrollbar-thumb-focus-direction-indicator-top} - #{variables.$sand-scrollbar-thumb-focus-direction-indicator-height});
+					top: math.div(variables.$sand-scrollbar-thumb-focus-direction-indicator-left, 2);
 				}
 
 				.directionIndicator.forward {
 					transform: rotate(90deg);
-					right: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-top - variables.$sand-scrollbar-thumb-focus-direction-indicator-height);
-					top: calc(variables.$sand-scrollbar-thumb-focus-direction-indicator-left/2);
+					right: calc(#{variables.$sand-scrollbar-thumb-focus-direction-indicator-top} - #{variables.$sand-scrollbar-thumb-focus-direction-indicator-height});
+					top: math.div(variables.$sand-scrollbar-thumb-focus-direction-indicator-left, 2);
 				}
 			}
 		}
