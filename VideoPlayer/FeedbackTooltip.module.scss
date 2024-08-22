@@ -1,0 +1,105 @@
+// FeedbackTooltip.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.feedbackTooltip {
+	position: absolute;
+	bottom: variables.$sand-video-slider-tooltip-position-bottom;
+
+	&.shift {
+		bottom: variables.$sand-video-slider-tooltip-shift-position-bottom;
+
+		.content {
+			position: absolute;
+			@include mixins.position(auto 0 0 0);
+		}
+	}
+
+	&.hidden {
+		display: none;
+	}
+
+	.thumbnail,
+	.content {
+		pointer-events: none;
+		will-change: transform;
+	}
+
+	.thumbnail {
+		border-width: variables.$sand-video-slider-tooltip-thumbnail-border-width;
+		border-style: solid;
+		border-radius: 0;
+		overflow: hidden;
+		transition: opacity 250ms;
+
+		.image {
+			margin: 0;
+			width: variables.$sand-video-slider-tooltip-thumbnail-width;
+			height: variables.$sand-video-slider-tooltip-thumbnail-height;
+		}
+	}
+
+	&.thumbnailDeactivated {
+		.thumbnail {
+			opacity: variables.$sand-video-slider-tooltip-deactivated-thumbnail-opacity;
+		}
+	}
+
+	.content {
+		@include mixins.sand-font(variables.$sand-video-slider-tooltip-font-size, variables.$sand-video-slider-tooltip-font-weight);
+		@include mixins.sand-font-number;
+
+		& {
+			font-size: variables.$sand-video-slider-tooltip-font-size;
+			font-weight: variables.$sand-video-slider-tooltip-font-weight;
+			line-height: variables.$sand-video-slider-tooltip-line-height;
+			white-space: nowrap;
+			text-align: center;
+			margin-bottom: variables.$sand-video-slider-tooltip-margin-bottom;
+		}
+	}
+
+	.alignmentContainer {
+		position: relative;
+		right: 50%;
+	}
+
+	.arrowContainer {
+		position: absolute;
+		left: 0;
+		right: 0;
+
+		&.hidden {
+			display: none;
+		}
+
+		.arrow {
+			margin: auto;
+			width: 0;
+			height: 0;
+			border-top: variables.$sand-video-slider-tooltip-arrow-border-top solid;
+			border-right: variables.$sand-video-slider-tooltip-arrow-border-left-right solid;
+			border-left: variables.$sand-video-slider-tooltip-arrow-border-left-right solid;
+		}
+	}
+
+	@include skin.applySkins {
+		.thumbnail {
+			border-color: colors.$sand-video-slider-tooltip-thumbnail-border-color;
+		}
+
+		.arrow {
+			border-top-color: colors.$sand-video-slider-tooltip-thumbnail-border-color;
+			border-right-color: transparent;
+			border-left-color: transparent;
+		}
+
+		.content {
+			color: colors.$sand-video-slider-tooltip-color;
+			text-shadow: colors.$sand-mediaplayer-slider-tooltip-text-shadow;
+		}
+	}
+}

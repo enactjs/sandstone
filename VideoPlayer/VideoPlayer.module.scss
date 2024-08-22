@@ -1,0 +1,139 @@
+// VideoPlayer.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.videoPlayer {
+	// Set by counting the IconButtons inside the side components.
+	--liftDistance: 0px;
+
+	overflow: hidden;
+
+	.video {
+		height: 100%;
+		width: 100%;
+	}
+
+	.preloadVideo {
+		display: none;
+	}
+
+	.overlay {
+		position: absolute;
+		@include mixins.position(0);
+
+		&::after {
+			content: "";
+			position: absolute;
+			@include mixins.position(auto 0 0 0);
+
+			& {
+				height: 80%;
+				transform-origin: bottom;
+				// Fancier gradient for future reference. Keeping linear-gradient as specified from Enyo.
+				// background-image: radial-gradient(rgba(0, 0, 0, 0) 50%, #000000 100%);
+				// background-size: 170% 200%;
+				// background-position: bottom center;
+			}
+		}
+	}
+
+	.fullscreen {
+		.miniFeedback {
+			@include mixins.sand-font-number;
+
+			& {
+				position: absolute;
+				z-index: 50;  // Value assigned as part of the VideoPlayer API so layers may be inserted in-between
+				top: variables.$sand-video-feedback-mini-position-top;
+				left: variables.$sand-video-feedback-mini-position-left;
+				font-weight: variables.$sand-video-feedback-mini-font-weight;
+				font-style: variables.$sand-video-feedback-mini-font-style;
+				font-size: variables.$sand-video-feedback-mini-font-size;
+				padding: 0 variables.$sand-video-feedback-mini-padding-side;
+				line-height: variables.$sand-video-feedback-mini-line-height;
+				bottom: auto;
+				pointer-events: none;
+			}
+		}
+
+		.back {
+			position: absolute;
+			z-index: 100; // Value assigned as part of the VideoPlayer API so layers may be inserted in-between
+			top: variables.$sand-video-back-button-top;
+			@include mixins.position-start-end(variables.$sand-video-back-button-left, initial);
+		}
+
+		.bottom {
+			position: absolute;
+			z-index: 100;  // Value assigned as part of the VideoPlayer API so layers may be inserted in-between
+			bottom: variables.$sand-video-player-padding-bottom;
+			left: variables.$sand-video-player-padding-side;
+			right: variables.$sand-video-player-padding-side;
+
+			&.lift {
+				transform: translateY(calc(var(--liftDistance) * -1));
+				transition: transform 0.3s linear;
+			}
+
+			&.hidden {
+				pointer-events: none;
+
+				.sliderContainer {
+					position: absolute;
+					width: 100%;
+				}
+			}
+
+			.infoFrame {
+				display: flex;
+				margin: variables.$sand-video-player-info-margin;
+			}
+
+			.sliderContainer {
+				display: flex;
+				align-items: center;
+
+				> *:first-child {
+					text-align: right;
+				}
+
+				@include mixins.enact-locale-rtl("") {
+					direction: ltr;
+				}
+			}
+		}
+	}
+
+	.controlsHandleAbove {
+		pointer-events: none;
+		position: absolute;
+		@include mixins.position(0 0 auto 0);
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		.fullscreen {
+			.miniFeedback {
+				background-color: colors.$sand-video-feedback-mini-bg-color;
+				color: colors.$sand-video-feedback-mini-text-color;
+			}
+
+			.bottom {
+				background-color: colors.$sand-video-player-bottom-bg-color;
+
+				.infoFrame {
+					text-shadow: colors.$sand-video-player-title-text-shadow;
+				}
+			}
+		}
+
+		.overlay {
+			&.scrim::after {
+				background: colors.$sand-video-player-scrim-gradient-color;
+			}
+		}
+	}
+}

@@ -1,0 +1,43 @@
+// Feedback.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.feedback {
+	display: inline-block;
+	margin-inline-end: variables.$sand-video-slider-tooltip-gutter-width;
+
+	&.hidden {
+		display: none;
+	}
+
+	> * {
+		display: inline-block;
+		margin: 0;
+		margin-inline-end: variables.$sand-video-slider-tooltip-gutter-width;
+
+		&:last-child {
+			margin-inline-end: 0;
+		}
+	}
+
+	.message {
+		@include mixins.sand-font(variables.$sand-video-feedback-message-font-weight);
+
+		& {
+			font-weight: variables.$sand-video-feedback-message-font-weight;
+		}
+	}
+
+	.icon {
+		font-size: variables.$sand-video-feedback-icon-font-size;
+		height: inherit;  // Use the height and line-height from the parent element to always middle align the icon, regardless of the container's size
+		line-height: inherit;
+		vertical-align: bottom;
+
+		@include skin.applySkins {
+			color: inherit;
+		}
+	}
+}

@@ -1,0 +1,170 @@
+// Switch.module.scss
+//
+@use "../styles/color-mixins";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.switch {
+	display: inline-block;
+	position: relative;
+
+	.client {
+		border-radius: variables.$sand-switch-border-radius;
+		width: variables.$sand-switch-width;
+		height: variables.$sand-switch-height;
+		position: relative;
+		text-align: left;
+		cursor: default;
+	}
+
+	.icon {
+		visibility: visible;
+		left: 0;
+		width: variables.$sand-switch-icon-height;
+		height: inherit;
+		font-size: variables.$sand-switch-icon-font-size;
+		line-height: variables.$sand-switch-icon-line-height;
+		margin: 0;
+		vertical-align: top;
+	}
+
+	&.selected {
+		.icon {
+			left: (variables.$sand-switch-width - variables.$sand-switch-height);
+		}
+	}
+
+	&.animated {
+		.client {
+			transition: background-color 200ms;
+		}
+
+		.icon {
+			transition: left 200ms, color 200ms;
+		}
+	}
+
+	// The switch is acting a standalone capacity and is Spottable
+	@include mixins.spottable {
+		margin: variables.$sand-switch-spottable-margin;
+
+		.bg {
+			position: absolute;
+			@include mixins.position(variables.$sand-switch-spottable-position-top-bottom variables.$sand-switch-spottable-position-left-right);
+
+			& {
+				z-index: -1;
+			}
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		.client {
+			background-color: colors.$sand-switch-bg-color;
+		}
+
+		.icon {
+			background-color: transparent;
+			color: colors.$sand-switch-color;
+		}
+
+		&.selected {
+			.client {
+				background-color: colors.$sand-switch-selected-bg-color;
+			}
+
+			.icon {
+				color: colors.$sand-switch-selected-color;
+			}
+		}
+
+		@include mixins.disabled {
+			&.selected {
+				.client {
+					background-color: colors.$sand-switch-disabled-selected-bg-color;
+				}
+
+				.icon {
+					color: colors.$sand-switch-disabled-selected-color;
+				}
+			}
+		}
+
+		// Standalone Switch
+		@include mixins.spottable {
+			@include mixins.sand-taparea(variables.$sand-switch-height);
+
+			.bg {
+				border-radius: variables.$sand-switch-spottable-border-radius;
+				@include color-mixins.sand-spotlight-resting-bg-colors;
+			}
+		}
+
+		@include mixins.focus {
+			.bg {
+				@include color-mixins.sand-spotlight-focus-bg-colors;
+			}
+
+			.icon {
+				color: colors.$sand-switch-focus-color;
+			}
+
+			&.selected {
+				.icon {
+					color: colors.$sand-switch-selected-focus-color;
+				}
+			}
+		}
+
+		@include mixins.sand-disabled {
+			.client {
+				@include color-mixins.sand-disabled-colors;
+			}
+
+			@include mixins.focus {
+				.bg {
+					@include color-mixins.sand-disabled-focus-bg-colors;
+				}
+				.client {
+					@include color-mixins.sand-disabled-focus-content-colors;
+				}
+			}
+		}
+	}
+}
+
+// Keep the switch handle (the icon) a constant color regardless of focus state.
+@include skin.applySkins(true) {
+	@include mixins.focus(parent) {
+		.switch {
+			.icon {
+				color: colors.$sand-switch-focus-color;
+			}
+
+			&.selected {
+				.icon {
+					color: colors.$sand-switch-selected-focus-color;
+				}
+			}
+		}
+	}
+}
+
+@include skin.applySkins(true) {
+	@include mixins.disabled {
+		.switch {
+			&.selected {
+				.client {
+					background-color: colors.$sand-switch-disabled-selected-bg-color;
+				}
+
+				.icon {
+					color: colors.$sand-switch-disabled-selected-color;
+				}
+			}
+		}
+	}
+}

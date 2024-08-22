@@ -23,7 +23,7 @@ import compose from 'ramda/src/compose';
 import Icon from '../Icon';
 import Skinnable from '../Skinnable';
 
-import componentCss from './Steps.module.less';
+import componentCss from './Steps.module.scss';
 
 /**
  * Renders a sandstone-styled steps component only basic behavior.

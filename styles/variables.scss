@@ -380,6 +380,10 @@ $sand-button-icon-only-colordot-height: 9px;
 $sand-button-collapse-duration: 300ms;
 $sand-button-collapsable-icon-margin: 0 24px;
 
+// Date and Time Picker
+$sand-datecomponentpicker-margin: 24px;
+$sand-timepicker-colon-margin: 0 6px;
+
 // Alert
 // ---------------------------------------
 $sand-alert-buttons-margin-top: 180px;
@@ -894,6 +898,25 @@ $sand-popuptablayout-panel-body-padding: $sand-panel-body-padding-top (108px - $
 // ---------------------------------------
 $sand-scrim-color: fade(black, 30%);
 
+// Scrollbar
+// ---------------------------------------
+$sand-scrollbar-padding: 30px;
+$sand-scrollbar-size: 36px;
+$sand-scrollbar-focusable-size: 60px;
+$sand-scrollbar-track-margin: 12px;
+$sand-scrollbar-track-focusable-margin: 24px;
+$sand-scrollbar-track-width: 12px;
+$sand-scrollbar-track-border-radius: 12px;
+$sand-scrollbar-thumb-border-radius: 12px;
+$sand-scrollbar-thumb-focus-width: 30px;
+$sand-scrollbar-thumb-focus-left: -9px;
+$sand-scrollbar-thumb-focus-border-radius: 12px;
+$sand-scrollbar-thumb-focus-box-shadow: 0 36px 36px;
+$sand-scrollbar-thumb-focus-direction-indicator-width: 18px;
+$sand-scrollbar-thumb-focus-direction-indicator-height: 12px;
+$sand-scrollbar-thumb-focus-direction-indicator-top: 6px;
+$sand-scrollbar-thumb-focus-direction-indicator-left: 6px;
+
 // Scroller
 // ---------------------------------------
 $sand-scroll-fade-out-size: 48px;
@@ -919,6 +942,22 @@ $sand-slider-tooltip-below-offset: math.div($sand-progressbar-bar-thickness, -2)
 $sand-slider-tooltip-before-offset: math.div($sand-progressbar-bar-thickness, 2);
 $sand-slider-tooltip-after-offset: math.div($sand-progressbar-bar-thickness, -2);
 
+// MediaPlayer
+// ---------------------------------------
+$sand-mediaplayer-button-client-padding: 0 18px;
+$sand-mediaplayer-button-border-radius: 96px;
+$sand-mediaplayer-button-height: 180px;
+$sand-mediaplayer-controls-actionguide-padding-top: 78px;
+$sand-mediaplayer-controls-actionguide-time: 0.2s;		// Length of the animation
+$sand-mediaplayer-controls-button-margin-start: 90px;
+$sand-mediaplayer-controls-morebuttons-margin-start: 228px;
+$sand-mediaplayer-controls-moreComponents-margin-top: 42px;
+$sand-mediaplayer-controls-moreComponents-time: 0.3s;		// Length of the animation
+$sand-mediaplayer-slider-height: 12px;
+$sand-mediaplayer-slider-knob-resting-state-scale: $sand-slider-knob-resting-state-scale;
+$sand-mediaplayer-slider-knob-size: 48px;
+$sand-mediaplayer-slider-tap-area: 162px;
+
 // Spinner
 // ---------------------------------------
 $sand-spinner-size: 96px;
@@ -930,6 +969,32 @@ $sand-spinner-small-line-width: 6px;
 $sand-spinner-line-margin: 24px;
 $sand-spinner-small-line-margin: 12px;
 $sand-spinner-font-weight: bold;
+
+// Steps
+// ---------------------------------------
+$sand-steps-step-number-font-weight: 600;
+$sand-steps-margin: 0;
+$sand-steps-step-margin: 0 $sand-component-spacing;
+$sand-steps-step-width: 48px;
+$sand-steps-step-past-opacity: 1;
+$sand-steps-step-current-opacity: 1;
+$sand-steps-step-future-opacity: 0.2;
+
+// Switch
+// ---------------------------------------
+$sand-switch-border-radius: 960px;
+$sand-switch-height: 60px;
+$sand-switch-width: 114px;
+$sand-switch-icon-height: $sand-switch-height;
+$sand-switch-icon-line-height: $sand-switch-height;
+$sand-switch-height-large: $sand-icon-small-size-large;
+$sand-switch-width-large: 162px;
+$sand-switch-icon-height-large: $sand-icon-small-size-large;
+$sand-switch-icon-line-height-large: $sand-switch-icon-height-large;
+$sand-switch-spottable-margin: 18px ($sand-component-spacing + 30px);
+$sand-switch-spottable-border-radius: $sand-item-border-radius;
+$sand-switch-spottable-position-top-bottom: -18px; // These correlate with the numbers from 'margin" above
+$sand-switch-spottable-position-left-right: -30px; // These correlate with the numbers from 'margin" above
 
 // Tooltip
 // ---------------------------------------

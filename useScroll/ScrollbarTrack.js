@@ -8,7 +8,7 @@ import {forwardRef, useCallback, useEffect, useRef} from 'react';
 
 import $L from '../internal/$L';
 
-import css from './ScrollbarTrack.module.less';
+import css from './ScrollbarTrack.module.scss';
 
 const nop = () => {};
 const

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import {onlyUpdateForProps} from '../internal/util';
 
-import css from './VideoPlayer.module.less';
+import css from './VideoPlayer.module.scss';
 
 /**
  * Overlay {@link sandstone/VideoPlayer}. This covers the Video piece of the
