@@ -1,0 +1,82 @@
+// MediaControls.module.less
+//
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.controlsFrame {
+	position: relative;
+	display: block;
+
+	&.hidden {
+		will-change: opacity;
+		opacity: 0;
+	}
+
+	.mediaControls {
+		text-align: center;
+		direction: ltr;
+		white-space: nowrap;
+
+		> *:first-child {
+			margin-inline-start: 0;
+		}
+	}
+
+	.actionGuide {
+		padding-top: variables.$sand-mediaplayer-controls-actionguide-padding-top;
+		transition: opacity variables.$sand-mediaplayer-controls-actionguide-time linear;
+
+		&.hidden {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+	.moreComponents {
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 0;
+		opacity: 0;
+
+		&.hidden {
+			visibility: hidden;
+		}
+
+		.moreButtonsComponents {
+			> * {
+				margin: 0;
+				margin-inline-start: variables.$sand-mediaplayer-controls-morebuttons-margin-start;
+
+				&:first-child {
+					margin-inline-start: 0;
+				}
+			}
+		}
+
+		> :first-child {
+			margin-top: variables.$sand-mediaplayer-controls-moreComponents-margin-top;
+		}
+	}
+
+	.button {
+		height: variables.$sand-mediaplayer-button-height;
+		min-width: variables.$sand-mediaplayer-button-height;
+		margin: 0;
+		margin-inline-start: variables.$sand-mediaplayer-controls-button-margin-start;
+
+		.client {
+			padding: variables.$sand-mediaplayer-button-client-padding;
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		.button {
+			.bg {
+				border-radius: variables.$sand-mediaplayer-button-border-radius;
+			}
+		}
+	}
+}

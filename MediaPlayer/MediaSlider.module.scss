@@ -1,0 +1,139 @@
+// MediaSlider.module.scss
+//
+@use "sass:math";
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.sliderFrame {
+	$knob-transform-active: variables.$sand-translate-center scale(1);
+	$knob-transform-resting: variables.$sand-translate-center scale(variables.$sand-mediaplayer-slider-knob-resting-state-scale);
+	$slider-padding-v: math.div((variables.$sand-mediaplayer-slider-tap-area - variables.$sand-mediaplayer-slider-height), 2);
+	$slider-padding-h: variables.$sand-mediaplayer-slider-knob-size;
+	flex: 1 0 auto;
+
+	&.hidden {
+		will-change: opacity;
+		opacity: 0;
+	}
+
+	.mediaSlider {
+		margin: 0 $slider-padding-h;
+		padding: $slider-padding-v 0;
+		height: variables.$sand-mediaplayer-slider-height;
+
+		// Add a tap area that extends to the edges of the screen, to make the slider more accessible
+		&::before {
+			content: "";
+			position: absolute;
+			@include mixins.position(0 -#{variables.$sand-video-player-padding-side});
+		}
+
+		// Grow the knob when the Slider gets spotted
+		@include mixins.focus {
+			.knob::before {
+				opacity: 1;
+			}
+
+			&.active,
+			&.pressed {
+				.knob::before {
+					transform: $knob-transform-active;
+				}
+			}
+		}
+
+		@include mixins.spottable {
+			&.pressed {
+				.knob::before {
+					transform: $knob-transform-active;
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	// Knob
+	.knob {
+		$activate-transition-function: cubic-bezier(0.15, 0.85, 0.6, 1.65);
+		//@slide-transition-function:    cubic-bezier(0.15, 0.85, 0.53, 1.09);
+
+		//transition: transform @slide-transition-function 0.2s;
+
+		&::before {
+			width: variables.$sand-mediaplayer-slider-knob-size;
+			height: variables.$sand-mediaplayer-slider-knob-size;
+			border-width: 0;
+			border-radius: variables.$sand-mediaplayer-slider-knob-size;
+			transform: $knob-transform-resting;
+			opacity: 0;
+			will-change: transform, opacity;
+			transition: transform $activate-transition-function 0.2s, opacity ease 0.2s;
+		}
+	}
+
+	&.scrubbing {
+		.knob {
+			display: block;
+		}
+	}
+}
+
+@include skin.applySkins(true) {
+	.sliderFrame {
+		.slider {
+			.bar {
+				background-color: colors.$sand-mediaslider-bar-bg-color;
+			}
+
+			.fill {
+				background-color: colors.$sand-mediaslider-fill-bg-color;
+			}
+
+			.knob {
+				&::before {
+					background-color: colors.$sand-mediaplayer-slider-knob-color;
+				}
+			}
+
+			@include mixins.focus {
+				.bar {
+					background-color: colors.$sand-mediaslider-bar-bg-color;
+				}
+
+				.fill {
+					background-color: colors.$sand-mediaslider-fill-bg-color;
+				}
+
+				@include mixins.disabled {
+					.bar {
+						opacity: colors.$sand-mediaslider-disabled-bar-opacity;
+					}
+				}
+			}
+
+			:global(.spotlight-input-touch) &.pressed {
+				.bar {
+					background-color: colors.$sand-mediaslider-bar-bg-color;
+				}
+
+				.fill {
+					background-color: colors.$sand-mediaslider-fill-bg-color;
+				}
+
+				.knob {
+					&::before {
+						background-color: colors.$sand-mediaplayer-slider-knob-color;
+					}
+				}
+			}
+
+			@include mixins.disabled {
+				.bar {
+					opacity: colors.$sand-mediaslider-disabled-bar-opacity;
+				}
+			}
+		}
+	}
+}

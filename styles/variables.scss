@@ -879,6 +879,22 @@ $sand-slider-tooltip-below-offset: math.div($sand-progressbar-bar-thickness, -2)
 $sand-slider-tooltip-before-offset: math.div($sand-progressbar-bar-thickness, 2);
 $sand-slider-tooltip-after-offset: math.div($sand-progressbar-bar-thickness, -2);
 
+// MediaPlayer
+// ---------------------------------------
+$sand-mediaplayer-button-client-padding: 0 18px;
+$sand-mediaplayer-button-border-radius: 96px;
+$sand-mediaplayer-button-height: 180px;
+$sand-mediaplayer-controls-actionguide-padding-top: 78px;
+$sand-mediaplayer-controls-actionguide-time: 0.2s;		// Length of the animation
+$sand-mediaplayer-controls-button-margin-start: 90px;
+$sand-mediaplayer-controls-morebuttons-margin-start: 228px;
+$sand-mediaplayer-controls-moreComponents-margin-top: 42px;
+$sand-mediaplayer-controls-moreComponents-time: 0.3s;		// Length of the animation
+$sand-mediaplayer-slider-height: 12px;
+$sand-mediaplayer-slider-knob-resting-state-scale: $sand-slider-knob-resting-state-scale;
+$sand-mediaplayer-slider-knob-size: 48px;
+$sand-mediaplayer-slider-tap-area: 162px;
+
 // Spinner
 // ---------------------------------------
 $sand-spinner-size: 96px;
