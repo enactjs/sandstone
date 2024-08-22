@@ -102,8 +102,6 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								key={`${color}_${index + 4}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
-								onMouseDown={onPressHandler}
-								onMouseUp={onReleaseHandler}
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
 								size="small"
@@ -127,8 +125,6 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								key={`${color}_${index}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
-								onMouseDown={onPressHandler}
-								onMouseUp={onReleaseHandler}
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
 								size="small"
@@ -176,6 +172,11 @@ FavoriteColors.propTypes = {
 const ColorPickerPOCBase = ({color = '#eb4034', colors = [], css, onChangeColor, open, ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
 	const [selectedColor, setSelectedColor] = useState(color);
+
+	// useEffect(() => {
+	// 	setSelectedColor(color);
+	// 	setFavoriteColors(colors);
+	// }, [color, colors]);
 
 	useEffect(() => {
 		if (selectedColor || favoriteColors) {
