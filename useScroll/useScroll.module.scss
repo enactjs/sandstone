@@ -21,7 +21,7 @@
 	.verticalScrollbar {
 		position: absolute;
 		width: var(--scroll-scrollbar-size);
-		height: calc(100% - 2 * variables.$sand-scrollbar-padding);
+		height: calc(100% - 2 * #{variables.$sand-scrollbar-padding});
 		right: 0;
 		top: 0;
 		padding: variables.$sand-scrollbar-padding 0;
@@ -36,7 +36,7 @@
 
 	.horizontalScrollbar {
 		position: absolute;
-		width: calc(100% - 2 * variables.$sand-scrollbar-padding);
+		width: calc(100% - 2 * #{variables.$sand-scrollbar-padding});
 		height: var(--scroll-scrollbar-size);
 		left: 0;
 		bottom: 0;
@@ -45,11 +45,11 @@
 
 	&.bidirectional {
 		.verticalScrollbar {
-			height: calc(100% - 2 * variables.$sand-scrollbar-padding - var(--scroll-scrollbar-size));
+			height: calc(100% - 2 * #{variables.$sand-scrollbar-padding} - var(--scroll-scrollbar-size));
 		}
 
 		.horizontalScrollbar {
-			width: calc(100% - 2 * variables.$sand-scrollbar-padding -  var(--scroll-scrollbar-size));
+			width: calc(100% - 2 * #{variables.$sand-scrollbar-padding} -  var(--scroll-scrollbar-size));
 			left: 0;
 		}
 
