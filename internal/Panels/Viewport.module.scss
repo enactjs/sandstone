@@ -15,9 +15,9 @@
 
 	// force directionality for relative positioning below
 	& {
-
+		direction: ltr;
 	}
-	direction: ltr;
+
 	& > * {
 		// reset direction in views for RTL locales
 		@include mixins.enact-locale-rtl("") {
