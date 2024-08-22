@@ -277,6 +277,8 @@ $sand-input-number-font-family: $sand-body-font-family;
 
 // Picker
 $sand-picker-line-height: 1.5em;
+$sand-tallglyph-picker-line-height: $sand-tallglyph-body-line-height;
+$sand-picker-joined-font-weight: $sand-spottable-font-weight;
 
 // ---------------------------------------
 // Component Rules
@@ -299,28 +301,6 @@ $sand-actionguide-icon-margin: -24px 0 -18px 0;
 // ---------------------------------------
 $sand-bodytext-margin: 0 $sand-component-spacing $sand-body-font-size $sand-component-spacing;
 $sand-bodytext-padding: 0;
-
-// Heading
-// ---------------------------------------
-$sand-heading-border-width: 1px;
-$sand-heading-margin: 0 $sand-component-spacing (1.5 * $sand-spotlight-outset) $sand-component-spacing;
-$sand-heading-padding: 0 0 18px 0;
-$sand-heading-spacing-title: 0;
-$sand-heading-spacing-subtitle: 0;
-$sand-heading-spacing-large: 78px;
-$sand-heading-spacing-medium: 42px;
-$sand-heading-spacing-small: 18px;
-
-// Heading
-// ---------------------------------------
-$sand-heading-border-width: 1px;
-$sand-heading-margin: 0 $sand-component-spacing (1.5 * $sand-spotlight-outset) $sand-component-spacing;
-$sand-heading-padding: 0 0 18px 0;
-$sand-heading-spacing-title: 0;
-$sand-heading-spacing-subtitle: 0;
-$sand-heading-spacing-large: 78px;
-$sand-heading-spacing-medium: 42px;
-$sand-heading-spacing-small: 18px;
 
 // Icon
 // ---------------------------------------
@@ -648,6 +628,32 @@ $sand-progressbar-tooltip-before-offset: $sand-progressbar-tooltip-below-offset;
 $sand-progressbar-tooltip-after-offset: $sand-progressbar-tooltip-above-offset;
 $sand-progressbar-tooltip-radial-offset: $sand-progressbar-tooltip-above-offset;
 
+// QuickGuidePanels
+// ---------------------------------------
+$sand-quickguidepanels-close-button-margin-top:
+	calc(nth(map-get(map-get($guide, header), standard-padding), 1) -
+		get-edge-size-difference(
+			map-get(map-get($guide, header), standard-title-line-height),
+			$sand-heading-title-font-size,
+			$sand-heading-title-line-height
+		) + 10px);
+$sand-quickguidepanels-close-button-margin-end:   150px;
+$sand-quickguidepanels-navigation-button-margin:  0 12px;
+$sand-quickguidepanels-container-margin-top:      828px;
+$sand-quickguidepanels-steps-margin-top:          90px;
+
+// RadioItem
+// ---------------------------------------
+$sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
+// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
+// this value must be specifically considered as to not impose layout issues related to, for
+// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
+$sand-radioitem-indicator-border-radius: $sand-common-circular-corners;
+
+// Scrim
+// ---------------------------------------
+$sand-scrim-color: fade(black, 30%);
+
 // Input
 // ---------------------------------------
 $sand-input-popup-component-v-spacing: 42px;
@@ -824,6 +830,28 @@ $sand-popup-position-right-margin: 120px 60px 120px $sand-component-spacing;
 $sand-popup-position-bottom-margin: 0 120px 150px 120px;
 $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
 
+// FixedPopupPanels
+// ---------------------------------------
+$sand-fixedpopuppanels-width: 1140px;
+$sand-fixedpopuppanels-half-width: 1716px;
+$sand-fixedpopuppanels-margin: nth($sand-popup-position-left-margin, 1) nth($sand-popup-position-left-margin, 2);
+$sand-fixedpopuppanels-border-radius: $sand-popup-border-radius;
+$sand-fixedpopuppanels-panel-padding: 0;
+$sand-fixedpopuppanels-panel-body-padding: $sand-panel-body-padding-top calc(108px - ($sand-component-spacing + $sand-spotlight-outset)) calc(78px - $sand-component-spacing-bottom);
+
+// FlexiblePopupPanels
+// ---------------------------------------
+$sand-flexiblepopuppanels-min-width: 1140px;
+$sand-flexiblepopuppanels-margin: 108px 0;
+$sand-flexiblepopuppanels-padding: 0 calc($sand-component-spacing + $sand-button-small-height) calc(36px + (18px * 1.75));  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+$sand-flexiblepopuppanels-panel-border-radius: $sand-popup-border-radius;
+$sand-flexiblepopuppanels-panel-margin: 0 12px;
+$sand-flexiblepopuppanels-panel-padding: 60px (60px - $sand-component-spacing);
+$sand-flexiblepopuppanels-header-padding: $sand-button-height + ($sand-component-spacing * 2);
+$sand-flexiblepopuppanels-navbutton-margin: 12px;
+$sand-flexiblepopuppanels-small-width: 600px;
+$sand-flexiblepopuppanels-large-width: 1320px;
+
 // TabLayout
 // ---------------------------------------
 $sand-tablayout-collapse-duration: 250ms;
@@ -866,6 +894,17 @@ $sand-popuptablayout-panel-body-padding: $sand-panel-body-padding-top (108px - $
 // ---------------------------------------
 $sand-scrim-color: fade(black, 30%);
 
+// Scroller
+// ---------------------------------------
+$sand-scroll-fade-out-size: 48px;
+$sand-scroll-fade-out-offset: 24px;
+$sand-scroll-vertical-fade-out-padding: $sand-scroll-fade-out-size 0;
+$sand-scroll-horizontal-fade-out-padding: 0 $sand-scroll-fade-out-size;
+$sand-scroll-hover-area-size: 120px;
+$sand-scroll-focusablebody-padding: 72px 48px 72px 90px;
+$sand-scroll-focusablebody-padding-rtl: 72px 90px 72px 48px;
+$sand-scroll-focusablebody-focus-border-radius: 12px;
+
 // Slider
 // ---------------------------------------
 $sand-slider-bar-height: $sand-progressbar-bar-thickness;
@@ -906,3 +945,57 @@ $sand-tooltip-label-height: 1.5em;
 $sand-tooltip-padding: (15px - calc((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
 $sand-tooltip-margin-offset: 18px; // GUI for the length of the arrow
 $sand-tooltip-marquee-width: 600px;
+
+// Video
+// ---------------------------------------
+$sand-video-back-button-left:                      150px;
+$sand-video-back-button-top:                       114px;
+$sand-video-slider-tooltip-arrow-border-left-right: 18px;
+$sand-video-slider-tooltip-arrow-border-top:       24px;
+$sand-video-slider-tooltip-position-bottom:        42px;
+$sand-video-slider-tooltip-shift-position-bottom:  $sand-video-slider-tooltip-position-bottom + $sand-video-slider-tooltip-arrow-border-top;
+$sand-video-slider-tooltip-margin-bottom:          6px;
+$sand-video-slider-tooltip-font-size:              48px;
+$sand-video-slider-tooltip-font-weight:            normal;
+$sand-video-slider-tooltip-line-height:            72px;
+$sand-video-slider-tooltip-gutter-width:           42px;
+$sand-video-slider-tooltip-thumbnail-border-width: 6px;
+$sand-video-slider-tooltip-thumbnail-width:  426px;
+$sand-video-slider-tooltip-thumbnail-height: 240px;
+$sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
+$sand-video-feedback-icon-font-size:               1.25em;
+$sand-video-feedback-mini-font-weight:             normal;
+$sand-video-feedback-mini-font-style:              normal;
+$sand-video-feedback-mini-position-top:            60px;
+$sand-video-feedback-mini-position-left:           60px;
+$sand-video-feedback-mini-padding-side:            66px;
+$sand-video-feedback-mini-font-size:               66px;
+$sand-video-feedback-mini-line-height:             120px;
+$sand-video-feedback-message-font-weight:          600;
+$sand-video-player-badge-text-size:                48px;
+$sand-video-player-info-margin:                    0 66px 84px;
+$sand-video-player-padding-bottom:                 60px;
+$sand-video-player-padding-side:                   84px;
+$sand-video-player-title-size:                     78px;
+
+// MediaPlayer
+// ---------------------------------------
+$sand-mediaplayer-button-client-padding: 0 18px;
+$sand-mediaplayer-button-border-radius: 96px;
+$sand-mediaplayer-button-height: 180px;
+$sand-mediaplayer-controls-actionguide-padding-top: 78px;
+$sand-mediaplayer-controls-actionguide-time: 0.2s;		// Length of the animation
+$sand-mediaplayer-controls-button-margin-start: 90px;
+$sand-mediaplayer-controls-morebuttons-margin-start: 228px;
+$sand-mediaplayer-controls-moreComponents-margin-top: 42px;
+$sand-mediaplayer-controls-moreComponents-time: 0.3s;		// Length of the animation
+$sand-mediaplayer-slider-height: 12px;
+$sand-mediaplayer-slider-knob-resting-state-scale: $sand-slider-knob-resting-state-scale;
+$sand-mediaplayer-slider-knob-size: 48px;
+$sand-mediaplayer-slider-tap-area: 162px;
+
+// WizardPanels
+// ---------------------------------------
+$sand-wizardpanels-content-margin: 0 0 150px 0;
+$sand-wizardpanels-footer-margin: 0 0 (102px - $sand-app-keepout) 0;
+$sand-wizardpanels-button-icon-text-gap: 54px;

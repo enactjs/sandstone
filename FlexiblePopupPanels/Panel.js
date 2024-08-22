@@ -7,7 +7,7 @@ import $L from '../internal/$L';
 import {NavigationButton, PanelsStateContext} from '../internal/Panels';
 import {PanelBase as DefaultPanel, PanelDecorator} from '../Panels/Panel';
 
-import css from './FlexiblePopupPanels.module.less';
+import css from './FlexiblePopupPanels.module.scss';
 
 function clamp (val, total) {
 	// The extra two `total` values here accommodate negative values

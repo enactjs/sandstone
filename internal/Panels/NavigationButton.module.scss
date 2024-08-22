@@ -1,0 +1,39 @@
+// NavigationButton.module.scss
+//
+@use "../../styles/colors";
+@use "../../styles/mixins";
+@use "../../styles/skin";
+@use "../../styles/variables";
+
+.button.hasIcon {
+	&.small {
+		padding: variables.$sand-button-icon-small-padding;
+		& .bg {
+			width: variables.$sand-button-small-height;
+		}
+	}
+	&.large {
+		padding: variables.$sand-button-icon-padding;
+		& .bg {
+			width: variables.$sand-button-height;
+		}
+	}
+	&.iconAfter {
+		.bg {
+			@include mixins.position-start-end(auto, 0);
+		}
+		.icon {
+			@include mixins.margin-start-end(variables.$sand-wizardpanels-button-icon-text-gap, 0);
+		}
+	}
+	&.iconBefore {
+		.icon {
+			@include mixins.margin-start-end(0, variables.$sand-wizardpanels-button-icon-text-gap);
+		}
+	}
+	@include skin.applySkins {
+		.client :not(.icon) {
+			color: colors.$sand-text-color;
+		}
+	}
+}

@@ -1,5 +1,6 @@
 import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
+import ProgressBar from '@enact/sandstone/ProgressBar';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
@@ -53,7 +54,12 @@ export const _Alert = (args) => (
 			</image>
 		) : null}
 		{prop.buttons[args['buttons']]}
-		{args['children']}
+		{
+			<div>
+				<div>This is ProgressBar</div>
+				<ProgressBar backgroundProgress={0.5} progress={0.25} disabled/>
+			</div>
+		}
 	</Alert>
 );
 

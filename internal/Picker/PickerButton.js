@@ -8,7 +8,7 @@ import Touchable from '@enact/ui/Touchable';
 import Icon from '../../Icon';
 import Button from '../../Button';
 
-import css from './Picker.module.less';
+import css from './Picker.module.scss';
 
 const JoinedPickerButtonBase = kind({
 	name: 'JoinedPickerButtonBase',

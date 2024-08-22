@@ -23,7 +23,7 @@ import Skinnable from '../Skinnable';
 
 import {countReactChildren} from './util';
 
-import css from './MediaControls.module.less';
+import css from './MediaControls.module.scss';
 
 const DivComponent = ({mediaControlsRef, ...rest}) => (<div ref={mediaControlsRef} {...rest} />);
 

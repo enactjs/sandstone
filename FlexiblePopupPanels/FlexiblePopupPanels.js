@@ -7,7 +7,7 @@ import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels
 
 import {NavButtonFocusDecorator} from './useNavButtonFocus';
 
-import css from './FlexiblePopupPanels.module.less';
+import css from './FlexiblePopupPanels.module.scss';
 
 /**
  * An instance of {@link sandstone/Panels.Panels|Panels} which restricts the `Panel` to the left

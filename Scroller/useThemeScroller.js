@@ -12,7 +12,7 @@ import {affordanceSize} from '../useScroll';
 
 import {useEventKey} from './useEvent';
 
-import css from './Scroller.module.less';
+import css from './Scroller.module.scss';
 import scrollbarTrackCss from '../useScroll/ScrollbarTrack.module.less';
 
 const

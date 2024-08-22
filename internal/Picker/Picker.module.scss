@@ -1,0 +1,299 @@
+// Picker.module.less
+//
+@use "sass:math";
+@use "../../styles/colors";
+@use "../../styles/color-mixins";
+@use "../../styles/mixins";
+@use "../../styles/skin";
+@use "../../styles/variables";
+
+.picker {
+	vertical-align: bottom;
+	position: relative;
+	text-align: center;
+	margin: variables.$sand-picker-margin;
+
+	.sizingPlaceholder,
+	.valueWrapper {
+		@include mixins.sand-text-base(variables.$sand-picker-font-size);
+		& {
+			max-width: 960px;
+		}
+
+		.item {
+			&.numeric {
+				@include mixins.sand-font-number();
+			}
+		}
+	}
+
+	.sizingPlaceholder {
+		height: 0;
+		visibility: hidden;
+		padding-left: nth(variables.$sand-picker-item-padding, 2);
+		padding-right: nth(variables.$sand-picker-item-padding, 2);
+		line-height: 0;
+	}
+
+	.valueWrapper {
+		margin-left: auto;
+		margin-right: auto;
+		height: variables.$sand-picker-value-height;
+		line-height: variables.$sand-picker-value-height;
+		position: relative;
+
+		@include mixins.sand-enact-locale-tallglyph(height, variables.$sand-tallglyph-picker-line-height);
+		@include mixins.sand-enact-locale-tallglyph(height, variables.$sand-tallglyph-picker-line-height);
+	}
+
+	.item {
+		padding: variables.$sand-picker-item-padding;
+	}
+
+	// Special rules for small size for a more compact view
+	&.small {
+		.sizingPlaceholder,
+		.item {
+			padding-left: math.div(nth(variables.$sand-picker-item-padding, 2), 2);
+			padding-right: math.div(nth(variables.$sand-picker-item-padding, 2), 2);
+		}
+	}
+
+	.viewManager {
+		overflow: hidden;
+		height: 100%;
+
+		> .item:nth-child(2) {
+			// the second element in the ViewManager should be offset by the container height
+			// so the transition can position two relative views next to each other safely.
+			top: -100%;
+		}
+	}
+
+	.item {
+		position: relative;
+	}
+
+	.incrementer,
+	.decrementer {
+		cursor: pointer;
+		margin: 0;
+		position: relative;
+		line-height: 1em; // Set the line height to the font size, whatever the font size is.
+
+		@include mixins.disabled {
+			cursor: default;
+		}
+	}
+
+	&.horizontal {
+		@include mixins.enact-locale-rtl("") {
+			flex-direction: row-reverse;
+		};
+
+		.incrementer {
+			order: 3;
+		}
+		.decrementer {
+			order: 1;
+		}
+		.valueWrapper {
+			order: 2;
+		}
+	}
+
+	&.vertical {
+		height: variables.$sand-picker-vertical-height;
+	}
+
+	&.joined {
+		&::before {
+			content: "";
+			position: absolute;
+			@include mixins.position(0);
+		}
+
+		.sizingPlaceholder,
+		.valueWrapper {
+			font-weight: variables.$sand-picker-joined-font-weight;
+		}
+
+		.icon {
+			margin: 0;
+		}
+
+		&.horizontal:not(.arrow) {
+			height: variables.$sand-picker-joined-horizontal-height;
+			padding: variables.$sand-picker-joined-horizontal-padding;
+
+			&::before {
+				border-radius: variables.$sand-picker-joined-horizontal-border-radius;
+			}
+
+			.sizingPlaceholder,
+			.valueWrapper {
+				font-size: variables.$sand-picker-joined-font-size;
+			}
+
+			.valueWrapper {
+				height: variables.$sand-picker-joined-value-height;
+				line-height: variables.$sand-picker-joined-value-height;
+				margin-bottom: variables.$sand-picker-joined-horizontal-value-offset;
+			}
+
+			.item {
+				// This "fixes" an issue with horizontal+joined+noAnimation which casuses
+				// a de-focus to happen on click. Here, we turn off pointer events, so that
+				// event can't be fired by item, and he Picker will not become de-focused.
+				pointer-events: none;
+			}
+
+			.indicatorContainer {
+				margin: 0 auto;
+				line-height: 0;
+				white-space: nowrap;
+
+				.indicator {
+					display: inline-block;
+					width: variables.$sand-picker-indicator-width;
+					height: variables.$sand-picker-indicator-height;
+					margin: variables.$sand-picker-indicator-margin;
+					border-radius: variables.$sand-picker-indicator-border-radius;
+					transform: scale(variables.$sand-picker-indicator-inactive-scale);
+					vertical-align: middle;
+					will-change: transform;
+					transition: transform variables.$sand-picker-focus-duration ease-out;
+
+					&.active {
+						transform: scale(variables.$sand-picker-indicator-active-scale);
+					}
+				}
+			}
+		}
+
+		&.horizontal.arrow, &.vertical {
+			&::before {
+				border-radius: variables.$sand-picker-joined-vertical-border-radius;
+			}
+		}
+
+		&.horizontal.arrow {
+			.incrementer,
+			.decrementer {
+				line-height: calc(#{variables.$sand-button-small-height} - (2 * #{variables.$sand-button-border-width}));
+				height: variables.$sand-button-small-height;
+				margin: variables.$sand-button-small-focusexpand-margin;
+				padding: variables.$sand-button-icon-small-padding;
+			}
+		}
+
+		&.vertical {
+			.valueWrapper {
+				height: variables.$sand-picker-joined-value-height;
+				line-height: variables.$sand-picker-joined-value-height;
+			}
+		}
+	}
+
+	&.small .valueWrapper {
+		width: variables.$sand-picker-small-value-width;
+	}
+	&.medium .valueWrapper {
+		width: variables.$sand-picker-medium-value-width;
+	}
+	&.large .valueWrapper {
+		width: variables.$sand-picker-large-value-width;
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		color: colors.$sand-picker-text-color;
+
+		&.joined {
+			color: colors.$sand-picker-joined-text-color;
+
+			&.horizontal:not(.arrow) {
+				color: colors.$sand-picker-joined-horizontal-text-color;
+
+				&::before {
+					@include color-mixins.sand-spotlight-resting-bg-colors(1);
+					background-color: colors.$sand-picker-joined-horizontal-bg-color;
+				}
+
+				.indicator {
+					background-color: colors.$sand-picker-indicator-inactive-bg-color;
+
+					&.active {
+						background-color: colors.$sand-picker-indicator-active-bg-color;
+					}
+				}
+			}
+
+			&.horizontal.arrow, &.vertical {
+				&::before {
+					@include color-mixins.sand-spotlight-resting-bg-colors();
+				}
+
+				.incrementer,
+				.decrementer {
+					color: colors.$sand-picker-joined-incrementer-color;
+				}
+			}
+
+			@include mixins.focus {
+				:global(.spotlight-input-key)#{&},
+				:global(.spotlight-input-mouse)#{&} {
+					@include color-mixins.sand-spotlight-focus-text-colors();
+
+					&.horizontal:not(.arrow) {
+						&::before {
+							@include color-mixins.sand-spotlight-focus-bg-colors();
+							background-color: colors.$sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+							filter: saturate(0) brightness(1.89);
+						}
+					}
+
+					&.horizontal.arrow, &.vertical {
+						&::before {
+							@include color-mixins.sand-spotlight-focus-bg-colors();
+						}
+
+						.incrementer,
+						.decrementer {
+							color: colors.$sand-picker-joined-focus-incrementer-color;
+						}
+					}
+
+					@include mixins.sand-disabled {
+						color: colors.$sand-picker-joined-focus-disabled-text-color;
+
+						&::before {
+							@include color-mixins.sand-disabled-focus-bg-colors();
+						}
+
+						.valueWrapper {
+							@include color-mixins.sand-disabled-focus-content-colors();
+						}
+
+						.indicator {
+							background-color: colors.$sand-picker-joined-focus-disabled-indicator-bg-color;
+							opacity: colors.$sand-picker-joined-focus-disabled-indicator-opacity;
+
+							&.active {
+								opacity: colors.$sand-picker-joined-focus-disabled-indicator-active-opacity;
+							}
+						}
+					}
+
+					.indicator {
+						background-color: colors.$sand-picker-indicator-inactive-focus-bg-color;
+
+						&.active {
+							background-color: colors.$sand-picker-indicator-active-focus-bg-color;
+						}
+					}
+				}
+			}
+		}
+	}
+}

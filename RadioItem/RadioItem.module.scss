@@ -1,0 +1,84 @@
+// RadioItem.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+// Local mixin to make rule application more consistent.
+@mixin radioIconColors ($color, $bg, $border) {
+	color: $color;
+	background-color: $bg;
+	box-shadow: 0 0 0 variables.$sand-radioitem-indicator-border-width $border;
+}
+
+.radioItem {
+	.icon {
+		margin: 0;
+	}
+
+	@include skin.applySkins {
+		.icon {
+			@include radioIconColors(
+				colors.$sand-radioitem-indicator-color,
+				colors.$sand-radioitem-indicator-bg-color,
+				colors.$sand-radioitem-indicator-border-color
+			);
+			border-radius: variables.$sand-radioitem-indicator-border-radius;
+		}
+
+		&.selected {
+			.icon {
+				@include radioIconColors(
+					colors.$sand-radioitem-selected-indicator-color,
+					colors.$sand-radioitem-selected-indicator-bg-color,
+					colors.$sand-radioitem-selected-indicator-border-color
+				);
+			}
+		}
+
+		@include mixins.disabled {
+			&.selected {
+				.icon {
+					@include radioIconColors(
+						colors.$sand-radioitem-disabled-selected-color,
+						colors.$sand-radioitem-disabled-selected-bg-color,
+						colors.$sand-radioitem-disabled-selected-border-color
+					);
+				}
+			}
+		}
+
+		@include mixins.focus {
+			.icon {
+				@include radioIconColors(
+					colors.$sand-radioitem-focus-indicator-color,
+					colors.$sand-radioitem-focus-indicator-bg-color,
+					colors.$sand-radioitem-focus-indicator-border-color
+				);
+			}
+
+			&.selected {
+				.icon {
+					@include radioIconColors(
+						colors.$sand-radioitem-selected-focus-indicator-color,
+						colors.$sand-radioitem-selected-focus-indicator-bg-color,
+						colors.$sand-radioitem-selected-focus-indicator-border-color
+					);
+				}
+			}
+
+			@include mixins.disabled {
+				&.selected {
+					.icon {
+						@include radioIconColors(
+							colors.$sand-radioitem-focus-disabled-selected-color,
+							colors.$sand-radioitem-focus-disabled-selected-bg-color,
+							colors.$sand-radioitem-focus-disabled-selected-border-color
+						);
+					}
+				}
+			}
+		}
+	}
+}

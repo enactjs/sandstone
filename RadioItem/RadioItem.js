@@ -19,7 +19,7 @@ import compose from 'ramda/src/compose';
 import Icon from '../Icon';
 import {ItemBase, ItemDecorator} from '../Item';
 
-import componentCss from './RadioItem.module.less';
+import componentCss from './RadioItem.module.scss';
 
 const Item = ItemDecorator(ItemBase);
 

@@ -1,0 +1,30 @@
+// RangePicker.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.rangePicker {
+	.valueWrapper {
+		@include mixins.sand-font-number();
+	}
+
+	&.joined {
+		&.horizontal:not(.arrow) {
+			.valueWrapper {
+				margin-bottom: 0; // Keep the text (numbers) centered
+			}
+		}
+	}
+}
+
+.title {
+	@include mixins.margin-start-end(variables.$sand-picker-title-margin-left, nth(variables.$sand-heading-margin, 2));
+
+	&.inlineTitle {
+		display: inline-block;
+		max-width: variables.$sand-picker-title-max-width;
+		line-height: variables.$sand-picker-value-height;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+}

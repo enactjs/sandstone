@@ -23,7 +23,7 @@ import {extractVoiceProps, onlyUpdateForProps} from '../util';
 import PickerButton from './PickerButton';
 import SpottablePicker from './SpottablePicker';
 
-import componentCss from './Picker.module.less';
+import componentCss from './Picker.module.scss';
 
 const holdConfig = {
 	events: [

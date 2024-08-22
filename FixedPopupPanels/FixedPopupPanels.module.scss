@@ -1,0 +1,87 @@
+
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+// Module level variables, for use only in this file
+$fixedpopuppanels-max-height: calc(100vh - nth(variables.$sand-fixedpopuppanels-margin, 1) + nth(variables.$sand-fixedpopuppanels-margin, 1));
+
+.fixedPopupPanels {
+	// Overrides for Panels - the & just refers to this element. Using a block here to visually compartmentalize the overrides apart from the general styles.
+	& {
+		position: relative;
+		@include mixins.position(auto);
+		max-height: 100%;
+
+		.viewport {
+			position: static;
+			@include mixins.position(auto);
+			pointer-events: auto;
+		}
+	}
+
+	&.fullHeight {
+		.viewport {
+			height: 100%;
+		}
+	}
+
+	&.narrow {
+		width: variables.$sand-fixedpopuppanels-width;
+	}
+
+	&.half {
+		width: variables.$sand-fixedpopuppanels-half-width;
+	}
+
+	> .body {
+		pointer-events: inherit;
+		padding: 0;
+
+		@include mixins.enact-locale-rtl("") {
+			padding: 0;
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		background-color: transparent;
+
+		// Overrides for Viewport
+		.viewport {
+			border-radius: variables.$sand-fixedpopuppanels-border-radius;
+			box-shadow: colors.$sand-fixedpopuppanels-shadow;
+			outline-color: colors.$sand-overlay-outline-color;
+			outline-style: colors.$sand-overlay-outline-style;
+			outline-width: variables.$sand-overlay-outline-width;
+			outline-offset: -#{variables.$sand-overlay-outline-width};
+		}
+
+		&.scrimTranslucent {
+			.viewport {
+				background-color: colors.$sand-fixedpopuppanels-bg-color;
+			}
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.viewport {
+				background-color: colors.$sand-fixedpopuppanels-scrimtransparent-bg-color;
+			}
+		}
+	}
+}
+
+// Overrides for Panel
+.panel {
+	padding: variables.$sand-fixedpopuppanels-panel-padding;
+	max-height: $fixedpopuppanels-max-height;
+
+	> .body {
+		display: flex;
+		flex-direction: column;
+		padding: variables.$sand-fixedpopuppanels-panel-body-padding;
+		flex: 1 1 auto;
+	}
+}

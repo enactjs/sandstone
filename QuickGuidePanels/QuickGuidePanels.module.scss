@@ -1,0 +1,33 @@
+// QuickGuidePanels.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.quickGuidePanels {
+	.contentHeader {
+		z-index: 10;
+		flex-direction: row-reverse;
+
+		.steps {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			margin-top: variables.$sand-quickguidepanels-steps-margin-top;
+		}
+
+		.close {
+			position: absolute;
+			top: variables.$sand-quickguidepanels-close-button-margin-top;
+			margin-inline-end: variables.$sand-quickguidepanels-close-button-margin-end;
+		}
+	}
+}
+
+.navigationButtonContainer {
+	z-index: 10;
+	margin-top: variables.$sand-quickguidepanels-container-margin-top;
+
+	.navigationButton {
+		margin: variables.$sand-quickguidepanels-navigation-button-margin;
+	}
+}
