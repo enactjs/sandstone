@@ -9,13 +9,13 @@
 }
 
 .scroll {
-	--scroll-scrollbar-size: variables.$sand-scrollbar-size;
+	--scroll-scrollbar-size: #{variables.$sand-scrollbar-size};
 
 	box-sizing: border-box;
 	overflow: hidden;
 
 	&.focusableScrollbar {
-		--scroll-scrollbar-size: variables.$sand-scrollbar-focusable-size;
+		--scroll-scrollbar-size: #{variables.$sand-scrollbar-focusable-size};
 	}
 
 	.verticalScrollbar {
