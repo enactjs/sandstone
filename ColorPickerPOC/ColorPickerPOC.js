@@ -174,11 +174,6 @@ const ColorPickerPOCBase = ({color = '#eb4034', colors = [], css, onChangeColor,
 	const [selectedColor, setSelectedColor] = useState(color);
 
 	useEffect(() => {
-		setSelectedColor(color);
-		setFavoriteColors(colors);
-	}, [color, colors]);
-
-	useEffect(() => {
 		if (selectedColor || favoriteColors) {
 			onChangeColor({selectedColor, favoriteColors});
 		}
