@@ -5,7 +5,7 @@ import {isValidElement} from 'react';
 
 import Button from '../../Button';
 
-import componentCss from './NavigationButton.module.less';
+import componentCss from './NavigationButton.module.scss';
 
 const NavigationButton = kind({
 	name: 'NavigationButton',
