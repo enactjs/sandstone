@@ -12,7 +12,7 @@ import Skinnable from '../Skinnable';
 import TabLayout, {Tab} from '../TabLayout';
 
 import ColorPickerGrid from './ColorPickerGrid';
-import ColorPickerSlider, {ColorPickerSliderHSL} from './ColorPickerSlider'; // eslint-disable-line no-unused-vars
+import ColorPickerSlider from './ColorPickerSlider';
 import ColorPickerSpectrum from './ColorPickerSpectrum';
 import {generateOppositeColor} from './utils';
 
@@ -184,29 +184,28 @@ const ColorPickerPOCBase = ({color = '#eb4034', colors = [], css, onChangeColor,
 	}, [favoriteColors, onChangeColor, selectedColor]);
 
 	return (
-		<Popup open={open} position={'center'} {...rest}>
+		<Popup open={open} position="center" {...rest}>
 			<Row>
-				<Cell size={'75%'}>
-					<TabLayout css={css} orientation={'horizontal'}>
-						<Tab style={{width: ri.scaleToRem(400)}} title={'Grid'}>
+				<Cell size="75%">
+					<TabLayout className={componentsCss.pickerTabLayout} css={css} orientation="horizontal">
+						<Tab style={{width: ri.scaleToRem(400)}} title="Grid">
 							<div className={componentsCss.colorPicker}>
 								<ColorPickerGrid selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
-						<Tab style={{width: ri.scaleToRem(400)}} title={'Spectrum'}>
+						<Tab style={{width: ri.scaleToRem(400)}} title="Spectrum">
 							<div className={componentsCss.colorPicker}>
 								<ColorPickerSpectrum selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
-						<Tab style={{width: ri.scaleToRem(400)}} title={'Sliders'}>
+						<Tab style={{width: ri.scaleToRem(400)}} title="Sliders">
 							<div className={componentsCss.colorPicker}>
 								<ColorPickerSlider selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
-								{/* <ColorPickerSliderHSL selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />*/}
 							</div>
 						</Tab>
 					</TabLayout>
 				</Cell>
-				<Cell align={'end'} size={'25%'}>
+				<Cell align="end" size="25%">
 					<Column>
 						<FavoriteColors
 							colorHandler={onChangeColor}

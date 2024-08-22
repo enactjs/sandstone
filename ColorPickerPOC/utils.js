@@ -107,7 +107,7 @@ const hslToHex = ({h, s, l}) => {
 		r = 0; g = x; b = c;
 	} else if (240 <= h && h < 300) {
 		r = x; g = 0; b = c;
-	} else if (300 <= h && h < 360) {
+	} else if (300 <= h && h <= 360) {
 		r = c; g = 0; b = x;
 	}
 	// Having obtained RGB, convert channels to hex
@@ -152,7 +152,7 @@ const hslToRGBString = ({h, s, l}) => {
 		r = 0; g = x; b = c;
 	} else if (240 <= h && h < 300) {
 		r = x; g = 0; b = c;
-	} else if (300 <= h && h < 360) {
+	} else if (300 <= h && h <= 360) {
 		r = c; g = 0; b = x;
 	}
 
