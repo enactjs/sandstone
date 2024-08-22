@@ -5,7 +5,7 @@
 
 .times {
 	@include mixins.sand-text-base(variables.$sand-mediaplayer-times-text-size);
-	@include mixins.sand-font-number();
+	@include mixins.sand-font-number;
 
 	& {
 		white-space: nowrap;
