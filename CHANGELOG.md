@@ -12,6 +12,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Icon` supported icon list, adding new icons
 
+### Fixed
+
+- `sandstone/Steps` prop `size` to accept Number type
+
 ## [2.9.0] - 2024-07-17
 
 ### Added

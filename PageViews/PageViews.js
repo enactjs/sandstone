@@ -247,8 +247,9 @@ const PageViewsBase = kind({
 								pastIcon={'circle'}
 								currentIcon={'circle'}
 								futureIcon={'circle'}
-								layout="quickGuidePanels"
+								layout="highlightCurrentStep"
 								total={totalIndex}
+								size={30}
 							/>
 						</Row> :
 						<Row className={css.steps}>

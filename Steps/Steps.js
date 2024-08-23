@@ -109,10 +109,10 @@ const StepsBase = kind({
 
 		/**
 		 * @type {String}
-		 * @default 'wizardPanels'
+		 * @default 'highlightCompletedStep'
 		 * @private
 		 */
-		layout: PropTypes.string,
+		layout: PropTypes.oneOf(['highlightCompletedStep', 'highlightCurrentStep']),
 
 		/**
 		 * The icon to use for indicating all steps preceding the current step.
@@ -131,11 +131,14 @@ const StepsBase = kind({
 
 		 * This accepts any `size` supported by {@link sandstone/Icon}.
 		 *
-		 * @type {('large'|'medium'|'small'|'tiny')}
+		 * @type {('large'|'medium'|'small'|'tiny'|Number)}
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.oneOf(['large', 'medium', 'small', 'tiny']),
+		size: PropTypes.oneOfType([
+			PropTypes.oneOf(['large', 'medium', 'small', 'tiny']),
+			PropTypes.number
+		]),
 
 		/**
 		 * Indicate which steps to skip.
@@ -179,7 +182,8 @@ const StepsBase = kind({
 		futureIcon: 'numbers',
 		size: 'small',
 		skipIcon: 'minus',
-		total: 2
+		total: 2,
+		layout: 'highlightCompletedStep'
 	},
 
 	styles: {
@@ -216,7 +220,7 @@ const StepsBase = kind({
 				}
 
 				return {
-					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), dots: layout === 'quickGuidePanels'}),
+					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), highlightCurrent: layout === 'highlightCurrentStep'}),
 					key: `step${stepNum}`,
 					children
 				};
