@@ -67,7 +67,8 @@ $sand-fullscreen-bg-color: var(--sand-fullscreen-bg-color, $sand-bg-color);
 
 //$sand-overlay-text-color: var(--sand-overlay-text-color);
 $sand-overlay-text-shadow: 0 4px 4px rgb($sand-shadow-color-rgb, 75%);
-$sand-overlay-bg-color-rgb: rgb(87, 94, 102); // #575e66
+$sand-overlay-bg-color-rgb-base: 87, 94, 102;
+$sand-overlay-bg-color-rgb: rgb($sand-overlay-bg-color-rgb-base); // #575e66
 $sand-overlay-bg-color: var(--sand-overlay-bg-color-rgb, $sand-overlay-bg-color-rgb);
 $sand-overlay-outline-color: var(--sand-overlay-outline-color, transparent);
 $sand-overlay-outline-style: var(--sand-overlay-outline-style, none);
@@ -265,20 +266,20 @@ $sand-inputfield-invalid-tooltip-color: $sand-invalid-sub-color;
 
 // Popup
 // ---------------------------------------
-$sand-popup-bg-color-rgb-base: var(--sand-overlay-bg-color-rgb-base, (87, 94, 102));
+$sand-popup-bg-color-rgb-base: var(--sand-overlay-bg-color-rgb-base, ($sand-overlay-bg-color-rgb-base));
 $sand-popup-bg-color: rgba($sand-popup-bg-color-rgb-base, 90%);
 $sand-popup-scrimtransparent-bg-color: rgba($sand-popup-bg-color-rgb-base, 95%);
 
 // FixedPopupPanels
 // ---------------------------------------
-$sand-fixedpopuppanels-bg-color: rgba(var(--sand-flexible-popup-panles-bg-color-rgb, (87, 94, 102, 90%)));
-$sand-fixedpopuppanels-scrimtransparent-bg-color: $sand-popup-scrimtransparent-bg-color;
+$sand-fixedpopuppanels-bg-color: rgba(var(--sand-fixed-popup-panles-bg-color-rgb, ($sand-overlay-bg-color-rgb-base, 90%)));
+$sand-fixedpopuppanels-scrimtransparent-bg-color: rgba(var(--sand-fixed-popup-panles-bg-color-rgb, ($sand-overlay-bg-color-rgb-base, 95%)));
 $sand-fixedpopuppanels-shadow: 0 36px 36px $sand-shadow-color;
 
 // FlexiblePopupPanels
 // ---------------------------------------
 $sand-flexiblepopuppanels-panel-bg-color: $sand-fixedpopuppanels-bg-color;
-$sand-flexiblepopuppanels-panel-scrimtransparent-bg-color: $sand-popup-scrimtransparent-bg-color;
+$sand-flexiblepopuppanels-panel-scrimtransparent-bg-color: $sand-fixedpopuppanels-scrimtransparent-bg-color;
 $sand-flexiblepopuppanels-panel-shadow: 0 36px 36px $sand-shadow-color;
 
 // Input

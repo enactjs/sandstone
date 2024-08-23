@@ -57,7 +57,7 @@ export const _Alert = (args) => (
 		{
 			<div>
 				<div>This is ProgressBar</div>
-				<ProgressBar backgroundProgress={0.5} progress={0.25} disabled/>
+				<ProgressBar backgroundProgress={0.5} progress={0.25} disabled />
 			</div>
 		}
 	</Alert>
