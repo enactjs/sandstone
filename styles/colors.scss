@@ -68,7 +68,7 @@ $sand-fullscreen-bg-color: var(--sand-fullscreen-bg-color, $sand-bg-color);
 //$sand-overlay-text-color: var(--sand-overlay-text-color);
 $sand-overlay-text-shadow: 0 4px 4px rgb($sand-shadow-color-rgb, 75%);
 $sand-overlay-bg-color-rgb-base: 87, 94, 102;
-$sand-overlay-bg-color-rgb: rgb($sand-overlay-bg-color-rgb-base); // #575e66
+$sand-overlay-bg-color-rgb: rgb(nth($sand-overlay-bg-color-rgb-base, 1), nth($sand-overlay-bg-color-rgb-base, 2), nth($sand-overlay-bg-color-rgb-base, 3)); // #575e66
 $sand-overlay-bg-color: var(--sand-overlay-bg-color-rgb, $sand-overlay-bg-color-rgb);
 $sand-overlay-outline-color: var(--sand-overlay-outline-color, transparent);
 $sand-overlay-outline-style: var(--sand-overlay-outline-style, none);
