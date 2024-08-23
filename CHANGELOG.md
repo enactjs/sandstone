@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
 
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
 ### Fixed
 
 - `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
