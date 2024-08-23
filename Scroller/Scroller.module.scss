@@ -20,11 +20,9 @@
 	}
 
 	@include mixins.focus {
-		:global(.spotlight-input-key)#{&} {
-			&::before {
-				background-color: colors.$sand-scroll-focusablebody-focus-bg-color;
-				opacity: 1;
-			}
+		&::before {
+			background-color: colors.$sand-scroll-focusablebody-focus-bg-color;
+			opacity: 1;
 		}
 	}
 }
