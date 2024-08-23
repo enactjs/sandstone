@@ -352,6 +352,11 @@ $sand-progressbar-load-bg-color: rgba(var(--sand-progress-color-rgb-base, (230, 
 $sand-progressbar-fill-bg-color: $sand-progress-color;
 $sand-progressbar-highlighted-fill-bg-color: $sand-progress-highlighted-color;
 
+// ProgressButton
+// ---------------------------------------
+$sand-progressbutton-bar-color: $sand-component-text-sub-color;
+$sand-progressbutton-focus-fill-color: $sand-component-focus-text-color;
+
 // RadioItem
 // ---------------------------------------
 $sand-radioitem-indicator-color: transparent;

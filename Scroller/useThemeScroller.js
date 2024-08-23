@@ -13,7 +13,7 @@ import {affordanceSize} from '../useScroll';
 import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.scss';
-import scrollbarTrackCss from '../useScroll/ScrollbarTrack.module.less';
+import scrollbarTrackCss from '../useScroll/ScrollbarTrack.module.scss';
 
 const
 	isCancel = is('cancel'),
