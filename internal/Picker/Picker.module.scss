@@ -22,7 +22,7 @@
 
 		.item {
 			&.numeric {
-				@include mixins.sand-font-number();
+				@include mixins.sand-font-number;
 			}
 		}
 	}
@@ -231,7 +231,7 @@
 
 			&.horizontal.arrow, &.vertical {
 				&::before {
-					@include color-mixins.sand-spotlight-resting-bg-colors();
+					@include color-mixins.sand-spotlight-resting-bg-colors;
 				}
 
 				.incrementer,
@@ -241,56 +241,53 @@
 			}
 
 			@include mixins.focus {
-				:global(.spotlight-input-key)#{&},
-				:global(.spotlight-input-mouse)#{&} {
-					@include color-mixins.sand-spotlight-focus-text-colors();
+				@include color-mixins.sand-spotlight-focus-text-colors;
 
-					&.horizontal:not(.arrow) {
-						&::before {
-							@include color-mixins.sand-spotlight-focus-bg-colors();
-							background-color: colors.$sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
-							filter: saturate(0) brightness(1.89);
-						}
+				&.horizontal:not(.arrow) {
+					&::before {
+						@include color-mixins.sand-spotlight-focus-bg-colors;
+						background-color: colors.$sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+						filter: saturate(0) brightness(1.89);
+					}
+				}
+
+				&.horizontal.arrow, &.vertical {
+					&::before {
+						@include color-mixins.sand-spotlight-focus-bg-colors;
 					}
 
-					&.horizontal.arrow, &.vertical {
-						&::before {
-							@include color-mixins.sand-spotlight-focus-bg-colors();
-						}
+					.incrementer,
+					.decrementer {
+						color: colors.$sand-picker-joined-focus-incrementer-color;
+					}
+				}
 
-						.incrementer,
-						.decrementer {
-							color: colors.$sand-picker-joined-focus-incrementer-color;
-						}
+				@include mixins.sand-disabled {
+					color: colors.$sand-picker-joined-focus-disabled-text-color;
+
+					&::before {
+						@include color-mixins.sand-disabled-focus-bg-colors;
 					}
 
-					@include mixins.sand-disabled {
-						color: colors.$sand-picker-joined-focus-disabled-text-color;
-
-						&::before {
-							@include color-mixins.sand-disabled-focus-bg-colors();
-						}
-
-						.valueWrapper {
-							@include color-mixins.sand-disabled-focus-content-colors();
-						}
-
-						.indicator {
-							background-color: colors.$sand-picker-joined-focus-disabled-indicator-bg-color;
-							opacity: colors.$sand-picker-joined-focus-disabled-indicator-opacity;
-
-							&.active {
-								opacity: colors.$sand-picker-joined-focus-disabled-indicator-active-opacity;
-							}
-						}
+					.valueWrapper {
+						@include color-mixins.sand-disabled-focus-content-colors;
 					}
 
 					.indicator {
-						background-color: colors.$sand-picker-indicator-inactive-focus-bg-color;
+						background-color: colors.$sand-picker-joined-focus-disabled-indicator-bg-color;
+						opacity: colors.$sand-picker-joined-focus-disabled-indicator-opacity;
 
 						&.active {
-							background-color: colors.$sand-picker-indicator-active-focus-bg-color;
+							opacity: colors.$sand-picker-joined-focus-disabled-indicator-active-opacity;
 						}
+					}
+				}
+
+				.indicator {
+					background-color: colors.$sand-picker-indicator-inactive-focus-bg-color;
+
+					&.active {
+						background-color: colors.$sand-picker-indicator-active-focus-bg-color;
 					}
 				}
 			}
