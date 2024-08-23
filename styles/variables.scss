@@ -634,7 +634,7 @@ $sand-progressbar-tooltip-radial-offset: $sand-progressbar-tooltip-above-offset;
 
 // ProgressButton
 // ---------------------------------------
-$sand-progressbutton-icon-font-size: ($sand-icon-tiny-size / 2);
+$sand-progressbutton-icon-font-size: math.div($sand-icon-tiny-size, 2);
 
 // QuickGuidePanels
 // ---------------------------------------
