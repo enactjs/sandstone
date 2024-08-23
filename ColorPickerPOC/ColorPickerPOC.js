@@ -17,6 +17,7 @@ import ColorPickerSpectrum from './ColorPickerSpectrum';
 import {generateOppositeColor} from './utils';
 
 import componentsCss from './ColorPickerPOC.module.less';
+import Spotlight, {getDirection} from "../../enact/packages/spotlight";
 
 const SpottableButton = Spottable(ButtonBase);
 
@@ -90,6 +91,35 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 		}, 100);
 	}, []);
 
+	const handleKeyDown = useCallback((ev) => {
+		if(ev.keyCode === 13) {
+			const target = ev.target.id ? ev.target : ev.target.offsetParent;
+
+			shakeEffectRef.current = setTimeout(() => {
+				target.classList.add(componentsCss.shakeFavoriteColor);
+			}, 300);
+
+			timerRef.current = setTimeout(() => {
+				setEditEnabled(true);
+				setClickEnabled(false);
+				target.classList.remove(componentsCss.shakeFavoriteColor);
+			}, 1000);
+		}
+	}, [editEnabled]);
+
+	const handleKeyUp = useCallback((ev) => {
+		if(ev.keyCode === 13) {
+			const target = ev.target.id ? ev.target : ev.target.offsetParent;
+			target.classList.remove(componentsCss.shakeFavoriteColor);
+
+			clearTimeout(shakeEffectRef.current);
+			clearTimeout(timerRef.current);
+			setTimeout(() => {
+				setClickEnabled(true);
+			}, 100);
+		}
+	}, []);
+
 	return (
 		<div>
 			<Row className={componentsCss.favoriteColorsRow}>
@@ -102,6 +132,8 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								key={`${color}_${index + 4}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
+								onKeyDown={handleKeyDown}
+								onKeyUp={handleKeyUp}
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
 								size="small"
@@ -125,6 +157,8 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								key={`${color}_${index}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
+								onKeyDown={handleKeyDown}
+								onKeyUp={handleKeyUp}
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
 								size="small"
