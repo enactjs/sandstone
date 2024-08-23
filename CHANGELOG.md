@@ -9,6 +9,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
 - `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
 
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
 ### Fixed
 
 - `sandstone/Steps` prop `size` to accept number type
