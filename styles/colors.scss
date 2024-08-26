@@ -335,6 +335,10 @@ $sand-scrollbar-thumb-focus-bg-color: $sand-focus-bg-color;
 $sand-scrollbar-thumb-focus-direction-indicator-color: rgb($sand-component-focus-text-color-rgb, 40%);
 $sand-scrollbar-thumb-focus-box-shadow-color: $sand-shadow-color;
 
+// Scroller
+// ---------------------------------------
+$sand-scroll-focusablebody-focus-bg-color: rgb($sand-focus-bg-color-rgb, 10%);
+
 // Slider
 // ---------------------------------------
 $sand-slider-bar-bg-color: $sand-progressbar-bar-bg-color;
