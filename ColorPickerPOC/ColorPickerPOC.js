@@ -17,7 +17,6 @@ import ColorPickerSpectrum from './ColorPickerSpectrum';
 import {generateOppositeColor} from './utils';
 
 import componentsCss from './ColorPickerPOC.module.less';
-import Spotlight, {getDirection} from "../../enact/packages/spotlight";
 
 const SpottableButton = Spottable(ButtonBase);
 
@@ -67,32 +66,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 
 	const onPressHandler = useCallback((ev) => {
 		if (editEnabled) return;
-		const target = ev.target.id ? ev.target : ev.target.offsetParent;
-
-		shakeEffectRef.current = setTimeout(() => {
-			target.classList.add(componentsCss.shakeFavoriteColor);
-		}, 300);
-
-		timerRef.current = setTimeout(() => {
-			setEditEnabled(true);
-			setClickEnabled(false);
-			target.classList.remove(componentsCss.shakeFavoriteColor);
-		}, 1000);
-	}, [editEnabled]);
-
-	const onReleaseHandler = useCallback((ev) => {
-		const target = ev.target.id ? ev.target : ev.target.offsetParent;
-		target.classList.remove(componentsCss.shakeFavoriteColor);
-
-		clearTimeout(shakeEffectRef.current);
-		clearTimeout(timerRef.current);
-		setTimeout(() => {
-			setClickEnabled(true);
-		}, 100);
-	}, []);
-
-	const handleKeyDown = useCallback((ev) => {
-		if(ev.keyCode === 13) {
+		if (ev.type === 'pointerdown' || (ev.type === 'keydown' && ev.keyCode === 13)) {
 			const target = ev.target.id ? ev.target : ev.target.offsetParent;
 
 			shakeEffectRef.current = setTimeout(() => {
@@ -107,17 +81,15 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 		}
 	}, [editEnabled]);
 
-	const handleKeyUp = useCallback((ev) => {
-		if(ev.keyCode === 13) {
-			const target = ev.target.id ? ev.target : ev.target.offsetParent;
-			target.classList.remove(componentsCss.shakeFavoriteColor);
+	const onReleaseHandler = useCallback((ev) => {
+		const target = ev.target.id ? ev.target : ev.target.offsetParent;
+		target.classList.remove(componentsCss.shakeFavoriteColor);
 
-			clearTimeout(shakeEffectRef.current);
-			clearTimeout(timerRef.current);
-			setTimeout(() => {
-				setClickEnabled(true);
-			}, 100);
-		}
+		clearTimeout(shakeEffectRef.current);
+		clearTimeout(timerRef.current);
+		setTimeout(() => {
+			setClickEnabled(true);
+		}, 100);
 	}, []);
 
 	return (
@@ -132,8 +104,8 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								key={`${color}_${index + 4}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
-								onKeyDown={handleKeyDown}
-								onKeyUp={handleKeyUp}
+								onKeyDown={onPressHandler}
+								onKeyUp={onReleaseHandler}
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
 								size="small"
@@ -157,8 +129,8 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								key={`${color}_${index}`}
 								minWidth={false}
 								onClick={onSelectFavoriteColor}
-								onKeyDown={handleKeyDown}
-								onKeyUp={handleKeyUp}
+								onKeyDown={onPressHandler}
+								onKeyUp={onReleaseHandler}
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
 								size="small"
