@@ -42,37 +42,22 @@ export default {
 };
 
 export const _Alert = (args) => (
-	// <Alert
-	// 	open={args['open']}
-	// 	onClose={action('onClose')}
-	// 	title={args['title']}
-	// 	type={args['type']}
-	// >
-	// 	{args['image'] ? (
-	// 		<image>
-	// 			<AlertImage src={args['src']} type={args['type (image)']} />
-	// 		</image>
-	// 	) : null}
-	// 	{prop.buttons[args['buttons']]}
-	// 	{
-	// 		<div>
-	// 			<div>This is ProgressBar</div>
-	// 			<ProgressBar backgroundProgress={0.5} progress={0.25} disabled />
-	// 		</div>
-	// 	}
-	// </Alert>
-	<Alert open type="overlay" title="With Progressbar">
-		<div>
-			<div>This is ProgressBar</div>
-			<div>
-				<ProgressBar backgroundProgress={0.5} progress={0.25} disabled={args['disabled']} />
-			</div>
-
-		</div>
+	<Alert
+		open={args['open']}
+		onClose={action('onClose')}
+		title={args['title']}
+		type={args['type']}
+	>
+		{args['image'] ? (
+			<image>
+				<AlertImage src={args['src']} type={args['type (image)']} />
+			</image>
+		) : null}
+		{prop.buttons[args['buttons']]}
+		{args['children']}
 	</Alert>
 );
 
-boolean('disabled', _Alert, Config);
 boolean('open', _Alert, Config);
 select('buttons', _Alert, ['no buttons', '1 button', '2 buttons', '3 buttons'], Config, '2 buttons');
 text('title', _Alert, Config, 'Fullscreen Alert Title');

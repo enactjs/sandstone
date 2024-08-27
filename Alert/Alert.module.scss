@@ -166,10 +166,8 @@
 
 			@include overrideAlertColors;
 
-			.content {
-				* {
-					@include overrideAlertColors;
-				}
+			* {
+				@include overrideAlertColors;
 			}
 		}
 	}
