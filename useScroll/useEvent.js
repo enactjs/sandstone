@@ -615,6 +615,7 @@ const useEventWheel = (props, instances) => {
 		// FIXME This routine is a temporary support for horizontal wheel scroll.
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
 		if (canScrollVertically) { // This routine handles wheel events on scrollbars for vertical scroll.
+			delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
 			if (negativeDelta && scrollTop > 0 + offset || positiveDelta && scrollTop < bounds.maxTop - offset) {
 				if (!spottable.current.isWheeling) {
 					initializeWheeling();
@@ -622,7 +623,6 @@ const useEventWheel = (props, instances) => {
 
 				// If ev.target is a descendant of scrollContent, the event will be handled on scroll event handler.
 				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target) || snapToCenter) {
-					delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
 					needToHideScrollbarTrack = !delta;
 
 					ev.preventDefault();
@@ -632,6 +632,7 @@ const useEventWheel = (props, instances) => {
 
 				ev.stopPropagation();
 			} else {
+				delta = 0;
 				if (overscrollEffectRequired && (negativeDelta && scrollTop <= 0 || positiveDelta && scrollTop >= bounds.maxTop)) {
 					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce);
 				}
