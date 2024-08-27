@@ -1,6 +1,5 @@
 import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
-import ProgressBar from '@enact/sandstone/ProgressBar';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
