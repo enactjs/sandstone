@@ -292,6 +292,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				on('keydown', this.handleKeyDown);
 				on('keyup', this.handleKeyUp);
 			}
+			window.addEventListener('resize', this.handleResize);
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
@@ -341,6 +342,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				off('keyup', this.handleKeyUp);
 			}
 			Spotlight.remove(this.state.containerId);
+			window.removeEventListener('resize', this.handleResize);
 		}
 
 		generateId = () => {
@@ -350,6 +352,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		getContainerNodeWidth () {
 			return this.containerNode && this.containerNode.getBoundingClientRect().width || 0;
 		}
+
+		handleResize = () => {
+			this.positionContextualPopup();
+		};
 
 		updateLeaveFor (activator) {
 			Spotlight.set(this.state.containerId, {
