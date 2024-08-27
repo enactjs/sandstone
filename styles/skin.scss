@@ -6,26 +6,7 @@
 @use "colors-game-green";
 @use "colors-game-orange";
 
-@mixin overrideAlertColors {
-    /* Override colors inside overlay type Alert */
-    --sand-bg-color: #{colors.$sand-alert-overlay-bg-color};
-    --sand-text-color-rgb: #{colors.$sand-alert-overlay-text-color};
-    --sand-text-sub-color: #{colors.$sand-alert-overlay-text-sub-color};
-    --sand-focus-text-color: #{colors.$sand-alert-overlay-focus-text-color};
-    --sand-disabled-selected-color: #{colors.$sand-alert-overlay-disabled-selected-color};
-    --sand-disabled-selected-bg-color: #{colors.$sand-alert-overlay-disabled-selected-bg-color};
-    --sand-disabled-selected-focus-color: #{colors.$sand-alert-overlay-disabled-selected-focus-color};
-    --sand-disabled-selected-focus-bg-color: #{colors.$sand-alert-overlay-disabled-selected-focus-bg-color};
-    --sand-progress-color-rgb: #{colors.$sand-alert-overlay-progress-color};
-    --sand-progress-bg-color-rgb: #{colors.$sand-alert-overlay-progress-bg-color};
-    --sand-progress-bg-color-alpha: #{colors.$sand-alert-overlay-progress-bg-color-alpha};
-    --sand-checkbox-color: #{colors.$sand-alert-overlay-checkbox-color};
-    --sand-checkbox-disabled-selected-text-color: #{colors.$sand-alert-overlay-checkbox-disabled-selected-text-color};
-    --sand-formcheckboxitem-focus-text-color: #{colors.$sand-alert-overlay-formcheckboxitem-focus-text-color};
-    --sand-item-disabled-focus-bg-color: #{colors.$sand-alert-overlay-item-disabled-focus-bg-color};
-}
-
-@mixin applySkins($parent: false, $alertOverride: false) {
+@mixin applySkins($parent: false) {
     $selector: "";
 
     @if $parent == false {

@@ -19,7 +19,7 @@
     "test-ui": "start-tests tests/ui/wdio.conf.js",
     "test-ui-docker": "start-tests tests/ui/wdio.docker.conf.js",
     "test-ui-tv": "start-tests tests/ui/wdio.tv.conf.js",
-    "test-ss": "start-tests tests/screenshot/wdio.conf.js",
+    "test-ss": "start-tests tests/screenshot/wdio.conf.js --component Alert",
     "test-ss-docker": "start-tests tests/screenshot/wdio.docker.conf.js",
     "test-ss-tv": "start-tests tests/screenshot/wdio.tv.conf.js",
     "test-json": "enact test --json",

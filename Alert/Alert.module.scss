@@ -18,7 +18,8 @@
 	--sand-disabled-selected-focus-color: #{colors.$sand-alert-overlay-disabled-selected-focus-color};
 	--sand-disabled-selected-focus-bg-color: #{colors.$sand-alert-overlay-disabled-selected-focus-bg-color};
 	--sand-progress-color-rgb: #{colors.$sand-alert-overlay-progress-color};
-	--sand-progress-bg-color-rgb: #{colors.$sand-alert-overlay-progress-bg-color};
+	--sand-progress-color-rgb-base: var(--sand-alert-overlay-progress-color-rgb-base, 55, 58, 65);
+	--sand-progress-bg-color-rgb-base: var(--sand-alert-overlay-progress-bg-color-rgb-base, 161, 161, 161);
 	--sand-progress-bg-color-alpha: #{colors.$sand-alert-overlay-progress-bg-color-alpha};
 	--sand-checkbox-color: #{colors.$sand-alert-overlay-checkbox-color};
 	--sand-checkbox-disabled-selected-text-color: #{colors.$sand-alert-overlay-checkbox-disabled-selected-text-color};
@@ -163,10 +164,12 @@
 			background-color: rgba(colors.$sand-alert-overlay-bg-color, colors.$sand-alert-overlay-bg-color-opacity);
 			box-shadow: colors.$sand-alert-overlay-shadow;
 
-			@include overrideAlertColors();
+			@include overrideAlertColors;
 
 			.content {
-				@include overrideAlertColors();
+				* {
+					@include overrideAlertColors;
+				}
 			}
 		}
 	}
