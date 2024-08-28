@@ -24,7 +24,7 @@
 	--sand-progress-color-rgb-base: var(--sand-alert-overlay-progress-color-rgb-base, 55, 58, 65);
 	--sand-progress-color-rgb: #{colors.$sand-alert-overlay-progress-color};
 	--sand-scrollbar-thumb-bg-color-rgb: var(--sand-progress-color-rgb-base);
-	--sand-scrollbar-track-bg-color-rgb: rgb(--sand-progress-bg-color-rgb-base);
+	--sand-scrollbar-track-bg-color-rgb: var(--sand-progress-bg-color-rgb-base);
 	--sand-text-color-rgb: #{colors.$sand-alert-overlay-text-color};
 	--sand-text-sub-color: #{colors.$sand-alert-overlay-text-sub-color};
 }
