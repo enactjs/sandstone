@@ -267,8 +267,8 @@ $sand-inputfield-invalid-tooltip-color: $sand-invalid-sub-color;
 // Popup
 // ---------------------------------------
 $sand-popup-bg-color-rgb-base: var(--sand-overlay-bg-color-rgb-base, ($sand-overlay-bg-color-rgb-base));
-$sand-popup-bg-color: rgba($sand-popup-bg-color-rgb-base, 90%);
-$sand-popup-scrimtransparent-bg-color: rgba($sand-popup-bg-color-rgb-base, 95%);
+$sand-popup-bg-color: rgba($sand-popup-bg-color-rgb-base, var(--sand-popup-bg-color-rgb-alpha, 90%));
+$sand-popup-scrimtransparent-bg-color: rgba($sand-popup-bg-color-rgb-base, var(--sand-popup-bg-color-rgb-alpha, 95%));
 
 // FixedPopupPanels
 // ---------------------------------------
