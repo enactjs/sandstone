@@ -11,9 +11,9 @@ import css from './Page.module.scss';
  * @ui
  * @public
  */
-
 const Page = kind({
 	name: 'Page',
+
 	propTypes: /** @lends sandstone/PageViews.Page.prototype */ {
 		/**
 		 * Contents of the page.
@@ -36,18 +36,19 @@ const Page = kind({
 		 */
 		css: PropTypes.object
 	},
+
 	styles: {
-		css: css,
+		css,
 		className: 'page',
 		publicClassNames: true
 	},
+
 	render: ({children, ...rest}) => {
 		return (
 			<div {...rest}>
 				{children}
 			</div>
 		);
-
 	}
 });
 
