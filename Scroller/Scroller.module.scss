@@ -1,4 +1,4 @@
-// Scroller.module.less
+// Scroller.module.scss
 //
 @use "../styles/colors";
 @use "../styles/mixins";
@@ -15,8 +15,11 @@
 		content: '';
 		position: absolute;
 		@include mixins.position(0);
-		border-radius: variables.$sand-scroll-focusablebody-focus-border-radius;
-		opacity: 0;
+
+		& {
+			border-radius: variables.$sand-scroll-focusablebody-focus-border-radius;
+			opacity: 0;
+		}
 	}
 
 	@include mixins.focus {
