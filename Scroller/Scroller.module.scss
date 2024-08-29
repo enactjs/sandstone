@@ -1,0 +1,52 @@
+// Scroller.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.focusableBody {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	overflow: inherit;
+
+	&::before {
+		content: '';
+		position: absolute;
+		@include mixins.position(0);
+
+		& {
+			border-radius: variables.$sand-scroll-focusablebody-focus-border-radius;
+			opacity: 0;
+		}
+	}
+
+	@include mixins.focus {
+		&::before {
+			background-color: colors.$sand-scroll-focusablebody-focus-bg-color;
+			opacity: 1;
+		}
+	}
+}
+
+.verticalFadeout {
+	padding: variables.$sand-scroll-vertical-fade-out-padding;
+	mask-image: linear-gradient(transparent, #000 variables.$sand-scroll-fade-out-size, #000 calc(100% - #{variables.$sand-scroll-fade-out-size}), transparent 100%);
+
+	.focusableBody & {
+		padding: variables.$sand-scroll-focusablebody-padding;
+		@include mixins.enact-locale-rtl("") {
+			padding: variables.$sand-scroll-focusablebody-padding-rtl;
+		}
+
+		& {
+			mask-image: linear-gradient(transparent variables.$sand-scroll-fade-out-offset, #000 calc(#{variables.$sand-scroll-fade-out-offset} + #{variables.$sand-scroll-fade-out-size}), #000 calc(100% - #{variables.$sand-scroll-fade-out-size} - #{variables.$sand-scroll-fade-out-offset}), transparent calc(100% - #{variables.$sand-scroll-fade-out-offset}));
+		}
+	}
+}
+
+.horizontalFadeout {
+	padding: variables.$sand-scroll-horizontal-fade-out-padding;
+	mask-image: linear-gradient(to right, transparent, #000 variables.$sand-scroll-fade-out-size, #000 calc(100% - #{variables.$sand-scroll-fade-out-size}), transparent 100%);
+}

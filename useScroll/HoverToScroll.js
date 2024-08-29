@@ -9,7 +9,7 @@ import {useCallback, useLayoutEffect, useRef, useState} from 'react';
 
 import {getLastInputType} from '../ThemeDecorator';
 
-import css from './HoverToScroll.module.less';
+import css from './HoverToScroll.module.scss';
 
 const {epsilon} = constants;
 const nop = () => {};

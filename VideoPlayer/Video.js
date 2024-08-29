@@ -6,7 +6,7 @@ import Slottable from '@enact/ui/Slottable';
 import compose from 'ramda/src/compose';
 import {isValidElement, Component, Fragment} from 'react';
 
-import css from './VideoPlayer.module.less';
+import css from './VideoPlayer.module.scss';
 
 import PropTypes from 'prop-types';
 

@@ -18,7 +18,7 @@ import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvid
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
-import css from './WizardPanels.module.less';
+import css from './WizardPanels.module.scss';
 
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 const HeaderContainer = SpotlightContainerDecorator(Header);

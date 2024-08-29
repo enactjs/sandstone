@@ -1,0 +1,15 @@
+// useThemeVirtualList.module.scss
+//
+@use "../styles/colors";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.scaled {
+	transform: variables.$sand-imageitem-vertical-focus-image-transform;
+}
+
+@include skin.applySkins(true) {
+	.scaled {
+		box-shadow: colors.$sand-imageitem-focus-bg-shadow;
+	}
+}

@@ -22,7 +22,7 @@ import {ItemBase, ItemDecorator} from '../Item';
 import Skinnable from '../Skinnable';
 import {SwitchBase} from '../Switch';
 
-import componentCss from './SwitchItem.module.less';
+import componentCss from './SwitchItem.module.scss';
 
 const Item = ItemDecorator(ItemBase);
 

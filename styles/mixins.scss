@@ -118,7 +118,9 @@
 	$target: normal
 ) {
 	@if content-exists() {
-		font-family: $family;
+		& {
+			font-family: $family;
+		}
 
 		@include enact-locale(non-latin, $target) {
 			font-family: $non-latin-family;

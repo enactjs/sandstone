@@ -1,0 +1,33 @@
+// HoverToScroll.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.hoverToScroll {
+	position: absolute;
+	z-index: 10;
+	pointer-events: none;
+	:global(.spotlight-input-mouse) & {
+		pointer-events: auto;
+	}
+
+	&.vertical {
+		width: 100%;
+		height: variables.$sand-scroll-hover-area-size;
+		&.after {
+			bottom: 0;
+		}
+	}
+	&.horizontal {
+		width: variables.$sand-scroll-hover-area-size;
+		height: 100%;
+
+		&.before {
+			@include mixins.position-start-end(0, auto);
+		}
+
+		&.after {
+			@include mixins.position-start-end(auto, 0);
+		}
+	}
+}

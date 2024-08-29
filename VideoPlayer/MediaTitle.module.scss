@@ -1,0 +1,84 @@
+// MediaTitle.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.titleFrame {
+	--infoComponentsOffset: 0;
+
+	$badges-present-transition: transform 500ms ease-in-out;
+
+	position: relative;
+	flex-grow: 1;
+	opacity: 1;
+	@include mixins.margin-start-end(0, variables.$sand-spotlight-outset);
+
+	&.hidden {
+		transition: opacity 1000ms ease-in-out;
+		opacity: 0;
+	}
+
+	// Title
+	.title {
+		position: absolute;
+		bottom: -10px;
+		width: 100%;
+		@include mixins.sand-text-base(variables.$sand-video-player-title-size);
+
+		& {
+			line-height: variables.$sand-heading-title-line-height;
+			transition: $badges-present-transition;
+
+		}
+
+		@include mixins.font-kerning;
+
+		&.infoVisible {
+			transform: translateY(calc(var(--infoComponentsOffset) * -1)) translateZ(0);
+		}
+
+		@include mixins.sand-enact-locale-tallglyph(
+			// The font-size .times is the same as .title in tallglyph locales so no
+			// vertical adjustment is required to align their baselines
+			bottom, 0);
+	}
+
+	// Badges and title components
+	.infoComponents {
+		vertical-align: super;
+		font-size: 54px;
+
+		&.hidden {
+			opacity: 0;
+		}
+
+		&.visible {
+			transition: opacity 500ms ease-in-out;
+		}
+
+		> * {
+			display: inline-block;
+			margin: 0 12px;
+		}
+
+		.badgeTextIcon {
+			font-family: variables.$sand-font-family-bold;
+			font-size: variables.$sand-video-player-badge-text-size;
+			text-align: center;
+			white-space: nowrap;
+			display: inline-block;
+		}
+
+		.fontLgIcons {
+			font-family: "LG Icons";
+		}
+	}
+
+	@include skin.applySkins {
+		.titleFrame {
+			color: colors.$sand-video-player-title-color;
+		}
+	}
+}

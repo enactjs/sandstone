@@ -13,7 +13,7 @@ import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
-import css from './useThemeVirtualList.module.less';
+import css from './useThemeVirtualList.module.scss';
 
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');

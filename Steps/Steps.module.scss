@@ -1,0 +1,62 @@
+// Steps.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.steps {
+	margin: variables.$sand-steps-margin;
+
+	.step {
+		margin: variables.$sand-steps-step-margin;
+
+		&.numbers {
+			@include mixins.sand-font-number();
+
+			& {
+				font-size: variables.$sand-steps-step-number-font-size;
+				font-weight: variables.$sand-steps-step-number-font-weight;
+			}
+		}
+
+		&.dots {
+			font-size: variables.$sand-steps-step-dot-font-size;
+			opacity: variables.$sand-steps-step-past-opacity;
+			margin: 0;
+			width: variables.$sand-steps-step-width;
+
+			&.current {
+				font-size: variables.$sand-steps-step-current-dot-font-size;
+			}
+
+			&.future {
+				opacity:  variables.$sand-steps-step-past-opacity;
+			}
+		}
+
+		&.past {
+			opacity:  variables.$sand-steps-step-past-opacity;
+		}
+
+		&.current {
+			opacity: variables.$sand-steps-step-current-opacity;
+		}
+
+		&.future {
+			opacity: variables.$sand-steps-step-future-opacity;
+		}
+	}
+}
+
+@include skin.applySkins(true) {
+	.step {
+		&.dots {
+			color: colors.$sand-steps-step-focused-dot-color;
+
+			&.current {
+				color: colors.$sand-steps-step-dot-color;
+			}
+		}
+	}
+};

@@ -6,7 +6,7 @@ import Slider from '../Slider';
 import MediaKnob from './MediaKnob';
 import MediaSliderDecorator from './MediaSliderDecorator';
 
-import css from './MediaSlider.module.less';
+import css from './MediaSlider.module.scss';
 
 /**
  * The base component to render a customized {@link sandstone/Slider.Slider|Slider} for use in

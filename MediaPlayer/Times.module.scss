@@ -1,0 +1,26 @@
+// Times.module.scss
+//
+@use "../styles/mixins";
+@use "../styles/variables";
+
+.times {
+	@include mixins.sand-text-base(variables.$sand-mediaplayer-times-text-size);
+	@include mixins.sand-font-number;
+
+	& {
+		white-space: nowrap;
+		min-width: variables.$sand-mediaplayer-times-min-width;
+	}
+
+	> * {
+		display: inline-block;
+	}
+
+	.separator {
+		padding: 0 1ex;
+	}
+
+	@include mixins.enact-locale-rtl("") {
+		direction: ltr;
+	}
+}
