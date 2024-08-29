@@ -2,6 +2,7 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 
 import Image from '../Image';
+
 import componentCss from './AlertImage.module.scss';
 
 /**

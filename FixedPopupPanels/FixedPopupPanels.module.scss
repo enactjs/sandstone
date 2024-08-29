@@ -13,12 +13,18 @@ $fixedpopuppanels-max-height: calc(100vh - (nth(variables.$sand-fixedpopuppanels
 	& {
 		position: relative;
 		@include mixins.position(auto);
-		max-height: 100%;
+
+		& {
+			max-height: 100%;
+		}
 
 		.viewport {
 			position: static;
 			@include mixins.position(auto);
-			pointer-events: auto;
+
+			& {
+				pointer-events: auto;
+			}
 		}
 	}
 

@@ -26,6 +26,7 @@
 		.bg {
 			@include mixins.position-start-end(auto, 0);
 		}
+
 		.icon {
 			@include mixins.margin-start-end(variables.$sand-wizardpanels-button-icon-text-gap, 0);
 		}

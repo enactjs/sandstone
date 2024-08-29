@@ -53,7 +53,8 @@
 			margin: variables.$sand-flexiblepopuppanels-navbutton-margin;
 
 			@include mixins.sand-custom-text-large {
-				@include mixins.sand-small-button-text();
+				@include mixins.sand-small-button-text;
+
 				& {
 					height: variables.$sand-button-small-height;
 					line-height: calc(#{variables.$sand-button-small-height} - (2 * #{variables.$sand-button-border-width}));

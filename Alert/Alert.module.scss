@@ -34,7 +34,6 @@
 }
 
 .alert {
-
 	&.noImage { /* Needed to prevent global class being added in the DOM */ }
 
 	&.fullscreen {
@@ -56,7 +55,7 @@
 		&.noTitle {
 			.content {
 				@include mixins.sand-font-size(variables.$sand-alert-notitle-content-font-size, variables.$sand-tallglyph-alert-notitle-content-font-size);
-				@include mixins.sand-enact-locale-line-height();
+				@include mixins.sand-enact-locale-line-height;
 			}
 		}
 
@@ -99,6 +98,7 @@
 						nth(variables.$sand-alert-overlay-buttons-margin, 4),
 						nth(variables.$sand-alert-overlay-buttons-margin, 2)
 				);
+
 				:global(.enact-orientation-portrait) & {
 					margin: variables.$sand-portrait-alert-overlay-buttons-margin;
 					@include mixins.margin-start-end(
@@ -109,7 +109,7 @@
 		}
 
 		.content {
-			@include mixins.sand-alert-overlay-content();
+			@include mixins.sand-alert-overlay-content;
 
 			:global(.enact-locale-ja) &,
 			:global(.enact-locale-zh) & {
@@ -162,7 +162,6 @@
 		&.overlay {
 			margin-bottom: variables.$sand-alert-overlay-margin-bottom;
 			border-radius: variables-base.$sand-alert-overlay-border-radius;
-
 			background-color: rgba(colors.$sand-alert-overlay-bg-color, colors.$sand-alert-overlay-bg-color-opacity);
 			box-shadow: colors.$sand-alert-overlay-shadow;
 

@@ -5,14 +5,20 @@
 .viewport {
 	position: absolute;
 	@include mixins.position(0);
-	overflow: hidden;
-	white-space: nowrap;  // Avoid awkward positioning when using non-positioned panels
+
+	& {
+		overflow: hidden;
+		white-space: nowrap;  // Avoid awkward positioning when using non-positioned panels
+	}
 
 	&.transitioning::before {
 		content: "";
 		position: absolute;
 		@include mixins.position(0);
-		z-index: 10000;
+
+		& {
+			z-index: 10000;
+		}
 	}
 
 	// force directionality for relative positioning below
