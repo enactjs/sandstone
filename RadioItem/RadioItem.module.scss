@@ -24,7 +24,10 @@
 				colors.$sand-radioitem-indicator-bg-color,
 				colors.$sand-radioitem-indicator-border-color
 			);
-			border-radius: variables.$sand-radioitem-indicator-border-radius;
+
+			& {
+				border-radius: variables.$sand-radioitem-indicator-border-radius;
+			}
 		}
 
 		&.selected {

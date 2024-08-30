@@ -16,6 +16,7 @@
 	.sizingPlaceholder,
 	.valueWrapper {
 		@include mixins.sand-text-base(variables.$sand-picker-font-size);
+
 		& {
 			max-width: 960px;
 		}
@@ -94,9 +95,11 @@
 		.incrementer {
 			order: 3;
 		}
+
 		.decrementer {
 			order: 1;
 		}
+
 		.valueWrapper {
 			order: 2;
 		}
@@ -198,9 +201,11 @@
 	&.small .valueWrapper {
 		width: variables.$sand-picker-small-value-width;
 	}
+
 	&.medium .valueWrapper {
 		width: variables.$sand-picker-medium-value-width;
 	}
+
 	&.large .valueWrapper {
 		width: variables.$sand-picker-large-value-width;
 	}
@@ -217,7 +222,10 @@
 
 				&::before {
 					@include color-mixins.sand-spotlight-resting-bg-colors(1);
-					background-color: colors.$sand-picker-joined-horizontal-bg-color;
+
+					& {
+						background-color: colors.$sand-picker-joined-horizontal-bg-color;
+					}
 				}
 
 				.indicator {
@@ -246,8 +254,11 @@
 				&.horizontal:not(.arrow) {
 					&::before {
 						@include color-mixins.sand-spotlight-focus-bg-colors;
-						background-color: colors.$sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
-						filter: saturate(0) brightness(1.89);
+
+						& {
+							background-color: colors.$sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+							filter: saturate(0) brightness(1.89);
+						}
 					}
 				}
 
