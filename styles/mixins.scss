@@ -35,6 +35,13 @@
 	}
 }
 
+@mixin sand-word-break {
+	& {
+		overflow-wrap: break-word;
+		word-break: keep-all;
+	}
+}
+
 @mixin sand-spotlight-margin($values...) {
 	@if (length($values) == 0) {
 		/**
@@ -138,7 +145,7 @@
 //    0 args -> default size for latin is applied to both latin and non-latin
 //    1 arg  -> that size is applied to both latin and non-latin
 //    2 args -> first is applied to latin, second to non-latin
-@mixin sand-font-size($font-size: $sand-body-font-size, $non-latin-font-size: $font-size) {
+@mixin sand-font-size($font-size: variables.$sand-body-font-size, $non-latin-font-size: $font-size) {
 	font-size: $font-size;
 
 	@include enact-locale(non-latin) {
@@ -204,6 +211,18 @@
 //
 // Text definitions
 //
+
+@mixin sand-alert-overlay-content {
+	font-weight: variables.$sand-alert-font-weight;
+	font-size: variables.$sand-alert-overlay-font-size;
+	text-align: initial;
+
+	@include sand-enact-locale-line-height(variables.$sand-alert-line-height, variables.$sand-tallglyph-body-line-height);
+	@include sand-font(variables.$sand-alert-font-family, variables.$sand-non-latin-font-family-light);
+
+	@include sand-word-break();
+	@include locale-japanese-line-break();
+}
 
 @mixin sand-body-text {
 	font-weight: variables.$sand-body-font-weight;

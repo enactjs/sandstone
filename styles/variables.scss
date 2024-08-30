@@ -169,8 +169,8 @@ $sand-mediaplayer-times-text-size:    48px;
 $sand-picker-font-size:             54px;
 $sand-picker-joined-font-size:      66px;
 $sand-steps-step-number-font-size:  54px;
-$sand-steps-step-dot-font-size:     30px;
-$sand-steps-step-current-dot-font-size:  48px;
+$sand-steps-step-highlight-current-only-font-size:         24px;
+$sand-steps-step-highlight-current-only-current-font-size: 42px;
 $sand-switch-icon-font-size:        84px;
 $sand-switch-icon-font-size-large:  138px;
 $sand-tablayout-tab-font-size:      66px;
@@ -208,6 +208,11 @@ $sand-non-latin-font-weight-bold: 700;
 $sand-spottable-font-weight: 600;
 $sand-common-line-height: 1.3em;
 $sand-tallglyph-line-height: 1.5em;
+
+// Alert
+$sand-alert-font-family: $sand-font-family;
+$sand-alert-font-weight: normal;
+$sand-alert-line-height: normal;
 
 // Body
 $sand-body-font-family: $sand-font-family;
@@ -272,10 +277,19 @@ $sand-input-number-font-family: $sand-body-font-family;
 
 // Picker
 $sand-picker-line-height: 1.5em;
+$sand-tallglyph-picker-line-height: $sand-tallglyph-body-line-height;
+$sand-picker-joined-font-weight: $sand-spottable-font-weight;
 
 // ---------------------------------------
 // Component Rules
 // ---------------------------------------
+
+// AlertImage
+// ---------------------------------------
+$sand-alert-image-thumbnail-width: 450px;
+$sand-alert-image-thumbnail-height: 252px;
+$sand-alert-image-icon-size: 240px;
+$sand-alert-image-icon-border-radius: 12px;
 
 // ActionGuide
 // ---------------------------------------
@@ -287,28 +301,6 @@ $sand-actionguide-icon-margin: -24px 0 -18px 0;
 // ---------------------------------------
 $sand-bodytext-margin: 0 $sand-component-spacing $sand-body-font-size $sand-component-spacing;
 $sand-bodytext-padding: 0;
-
-// Heading
-// ---------------------------------------
-$sand-heading-border-width: 1px;
-$sand-heading-margin: 0 $sand-component-spacing (1.5 * $sand-spotlight-outset) $sand-component-spacing;
-$sand-heading-padding: 0 0 18px 0;
-$sand-heading-spacing-title: 0;
-$sand-heading-spacing-subtitle: 0;
-$sand-heading-spacing-large: 78px;
-$sand-heading-spacing-medium: 42px;
-$sand-heading-spacing-small: 18px;
-
-// Heading
-// ---------------------------------------
-$sand-heading-border-width: 1px;
-$sand-heading-margin: 0 $sand-component-spacing (1.5 * $sand-spotlight-outset) $sand-component-spacing;
-$sand-heading-padding: 0 0 18px 0;
-$sand-heading-spacing-title: 0;
-$sand-heading-spacing-subtitle: 0;
-$sand-heading-spacing-large: 78px;
-$sand-heading-spacing-medium: 42px;
-$sand-heading-spacing-small: 18px;
 
 // Icon
 // ---------------------------------------
@@ -391,6 +383,29 @@ $sand-button-collapsable-icon-margin: 0 24px;
 // Date and Time Picker
 $sand-datecomponentpicker-margin: 24px;
 $sand-timepicker-colon-margin: 0 6px;
+
+// Alert
+// ---------------------------------------
+$sand-alert-buttons-margin-top: 180px;
+$sand-alert-max-buttons-margin-top: 300px;
+$sand-alert-fullscreen-button-spacing: 60px;
+$sand-alert-fullscreen-image-spacing: 30px;
+$sand-alert-fullscreen-max-width: 2028px;
+$sand-alert-overlay-button-spacing: 30px;
+$sand-alert-overlay-buttons-margin: 0 0 0 126px; // If this changes, update `overflow` computed value from Alert.js
+$sand-alert-overlay-noimage-text-gap: 30px;
+$sand-alert-overlay-image-text-gap: $sand-alert-overlay-noimage-text-gap + 18px;
+$sand-alert-overlay-text-button-gap: (198px - nth($sand-alert-overlay-buttons-margin, 4) - nth($sand-button-margin, 2));
+$sand-alert-overlay-content-width: 1200px; // If this changes, update `overflow` computed value from Alert.js
+$sand-alert-overlay-image-margin: 0;
+$sand-alert-overlay-margin-bottom: 360px;
+$sand-alert-overlay-padding-top-bottom: 60px;
+$sand-alert-overlay-padding-left: 60px;
+$sand-alert-overlay-padding-right: (90px - nth($sand-button-margin, 2));
+$sand-portrait-alert-overlay-noimage-content-width: 1020px;
+$sand-portrait-alert-overlay-content-width: 822px;
+$sand-portrait-alert-overlay-buttons-margin: 0 0 0 78px;
+$sand-portrait-alert-overlay-text-button-gap: (150px - nth($sand-portrait-alert-overlay-buttons-margin, 4) - nth($sand-button-margin, 2));
 
 // Header
 // ---------------------------------------
@@ -617,6 +632,36 @@ $sand-progressbar-tooltip-before-offset: $sand-progressbar-tooltip-below-offset;
 $sand-progressbar-tooltip-after-offset: $sand-progressbar-tooltip-above-offset;
 $sand-progressbar-tooltip-radial-offset: $sand-progressbar-tooltip-above-offset;
 
+// ProgressButton
+// ---------------------------------------
+$sand-progressbutton-icon-font-size: math.div($sand-icon-tiny-size, 2);
+
+// QuickGuidePanels
+// ---------------------------------------
+$sand-quickguidepanels-close-button-margin-top:
+	calc(nth(map-get(map-get($guide, header), standard-padding), 1) -
+		get-edge-size-difference(
+			map-get(map-get($guide, header), standard-title-line-height),
+			$sand-heading-title-font-size,
+			$sand-heading-title-line-height
+		) + 10px);
+$sand-quickguidepanels-close-button-margin-end:   150px;
+$sand-quickguidepanels-navigation-button-margin:  0 12px;
+$sand-quickguidepanels-container-margin-top:      828px;
+$sand-quickguidepanels-steps-margin-top:          90px;
+
+// RadioItem
+// ---------------------------------------
+$sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
+// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
+// this value must be specifically considered as to not impose layout issues related to, for
+// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
+$sand-radioitem-indicator-border-radius: $sand-common-circular-corners;
+
+// Scrim
+// ---------------------------------------
+$sand-scrim-color: fade(black, 30%);
+
 // Input
 // ---------------------------------------
 $sand-input-popup-component-v-spacing: 42px;
@@ -793,6 +838,28 @@ $sand-popup-position-right-margin: 120px 60px 120px $sand-component-spacing;
 $sand-popup-position-bottom-margin: 0 120px 150px 120px;
 $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
 
+// FixedPopupPanels
+// ---------------------------------------
+$sand-fixedpopuppanels-width: 1140px;
+$sand-fixedpopuppanels-half-width: 1716px;
+$sand-fixedpopuppanels-margin: nth($sand-popup-position-left-margin, 1) nth($sand-popup-position-left-margin, 2);
+$sand-fixedpopuppanels-border-radius: $sand-popup-border-radius;
+$sand-fixedpopuppanels-panel-padding: 0;
+$sand-fixedpopuppanels-panel-body-padding: $sand-panel-body-padding-top calc(108px - ($sand-component-spacing + $sand-spotlight-outset)) calc(78px - $sand-component-spacing-bottom);
+
+// FlexiblePopupPanels
+// ---------------------------------------
+$sand-flexiblepopuppanels-min-width: 1140px;
+$sand-flexiblepopuppanels-margin: 108px 0;
+$sand-flexiblepopuppanels-padding: 0 calc($sand-component-spacing + $sand-button-small-height) calc(36px + (18px * 1.75));  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+$sand-flexiblepopuppanels-panel-border-radius: $sand-popup-border-radius;
+$sand-flexiblepopuppanels-panel-margin: 0 12px;
+$sand-flexiblepopuppanels-panel-padding: 60px (60px - $sand-component-spacing);
+$sand-flexiblepopuppanels-header-padding: $sand-button-height + ($sand-component-spacing * 2);
+$sand-flexiblepopuppanels-navbutton-margin: 12px;
+$sand-flexiblepopuppanels-small-width: 600px;
+$sand-flexiblepopuppanels-large-width: 1320px;
+
 // TabLayout
 // ---------------------------------------
 $sand-tablayout-collapse-duration: 250ms;
@@ -912,10 +979,11 @@ $sand-spinner-font-weight: bold;
 $sand-steps-step-number-font-weight: 600;
 $sand-steps-margin: 0;
 $sand-steps-step-margin: 0 $sand-component-spacing;
-$sand-steps-step-width: 48px;
+$sand-steps-step-highlight-current-only-margin: 9px;
 $sand-steps-step-past-opacity: 1;
 $sand-steps-step-current-opacity: 1;
 $sand-steps-step-future-opacity: 0.2;
+$sand-steps-step-highlight-current-only-future-opacity: 1;
 
 // Switch
 // ---------------------------------------
@@ -979,6 +1047,22 @@ $sand-video-player-info-margin:                    0 66px 84px;
 $sand-video-player-padding-bottom:                 60px;
 $sand-video-player-padding-side:                   84px;
 $sand-video-player-title-size:                     78px;
+
+// MediaPlayer
+// ---------------------------------------
+$sand-mediaplayer-button-client-padding: 0 18px;
+$sand-mediaplayer-button-border-radius: 96px;
+$sand-mediaplayer-button-height: 180px;
+$sand-mediaplayer-controls-actionguide-padding-top: 78px;
+$sand-mediaplayer-controls-actionguide-time: 0.2s;		// Length of the animation
+$sand-mediaplayer-controls-button-margin-start: 90px;
+$sand-mediaplayer-controls-morebuttons-margin-start: 228px;
+$sand-mediaplayer-controls-moreComponents-margin-top: 42px;
+$sand-mediaplayer-controls-moreComponents-time: 0.3s;		// Length of the animation
+$sand-mediaplayer-slider-height: 12px;
+$sand-mediaplayer-slider-knob-resting-state-scale: $sand-slider-knob-resting-state-scale;
+$sand-mediaplayer-slider-knob-size: 48px;
+$sand-mediaplayer-slider-tap-area: 162px;
 
 // WizardPanels
 // ---------------------------------------

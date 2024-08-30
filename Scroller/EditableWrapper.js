@@ -16,7 +16,7 @@ import {useCallback, useEffect, useLayoutEffect, useRef} from 'react';
 
 import $L from '../internal/$L';
 
-import componentCss from './EditableWrapper.module.less';
+import componentCss from './EditableWrapper.module.scss';
 
 const completeAnnounceDelay = 300; // An arbitrary delay at a level that is not ignored by the new focus element
 const TouchableDiv = Touchable('div');

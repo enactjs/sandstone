@@ -17,6 +17,14 @@
 		justify-content: center;
 	}
 
+	.navButtonContainer {
+		overflow: hidden;
+		z-index: 10;
+		top: calc(50% - (#{variables.$sand-button-height + 12} / 2));
+		position: absolute;
+		width: 100%;
+	}
+
 	&.number .navButton {
 		width: variables.$sand-pageviews-number-navigation-button-area-width;
 	}
@@ -34,9 +42,11 @@
 
 	&.number .steps {
 		min-height: variables.$sand-pageviews-number-steps-area-min-height;
+
 		.pageNumber {
 			width: variables.$sand-pageviews-number-steps-number-width;
 		}
+
 		.separator {
 			width: variables.$sand-pageviews-number-steps-separator-width;
 		}
@@ -65,12 +75,4 @@
 	.horizontalLayout {
 		height: 100%;
 	}
-}
-
-.navButtonContainer {
-	overflow: hidden;
-	z-index: 10;
-	top: calc(50% - (#{variables.$sand-button-height + 12} / 2));
-	position: absolute;
-	width: 100%;
 }

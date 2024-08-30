@@ -1,0 +1,42 @@
+// Viewport.module.scss
+//
+@use "../../styles/mixins";
+
+.viewport {
+	position: absolute;
+	@include mixins.position(0);
+
+	& {
+		overflow: hidden;
+		white-space: nowrap;  // Avoid awkward positioning when using non-positioned panels
+	}
+
+	&.transitioning::before {
+		content: "";
+		position: absolute;
+		@include mixins.position(0);
+
+		& {
+			z-index: 10000;
+		}
+	}
+
+	// force directionality for relative positioning below
+	& {
+		direction: ltr;
+	}
+
+	& > * {
+		// reset direction in views for RTL locales
+		@include mixins.enact-locale-rtl("") {
+			direction: rtl;
+		}
+	}
+
+	> :nth-child(2) {
+		// the second element in the ViewManager should be offset by the container width
+		// so the transition can position two static views next to each other safely,
+		// since transform is not available (to offset by its own width).
+		left: -100%;
+	}
+}

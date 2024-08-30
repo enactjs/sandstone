@@ -1,0 +1,175 @@
+// Alert.module.scss
+//
+@use "../styles/colors";
+@use "../styles/colors-light";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+@use "../styles/variables-base";
+
+@mixin overrideAlertColors {
+	/* Override colors inside overlay type Alert */
+	--sand-bg-color: #{colors.$sand-alert-overlay-bg-color};
+	--sand-checkbox-color: #{colors.$sand-alert-overlay-checkbox-color};
+	--sand-checkbox-disabled-selected-text-color: #{colors.$sand-alert-overlay-checkbox-disabled-selected-text-color};
+	--sand-disabled-selected-bg-color: #{colors.$sand-alert-overlay-disabled-selected-bg-color};
+	--sand-disabled-selected-color: #{colors.$sand-alert-overlay-disabled-selected-color};
+	--sand-disabled-selected-focus-bg-color: #{colors.$sand-alert-overlay-disabled-selected-focus-bg-color};
+	--sand-disabled-selected-focus-color: #{colors.$sand-alert-overlay-disabled-selected-focus-color};
+	--sand-focus-text-color: #{colors.$sand-alert-overlay-focus-text-color};
+	--sand-formcheckboxitem-focus-text-color: #{colors.$sand-alert-overlay-formcheckboxitem-focus-text-color};
+	--sand-item-disabled-focus-bg-color: #{colors.$sand-alert-overlay-item-disabled-focus-bg-color};
+	--sand-progress-bg-color-alpha: #{colors.$sand-alert-overlay-progress-bg-color-alpha};
+	--sand-progress-bg-color-rgb-base: var(--sand-alert-overlay-progress-bg-color-rgb-base, 161, 161, 161);
+	--sand-progress-color-rgb-base: var(--sand-alert-overlay-progress-color-rgb-base, 55, 58, 65);
+	--sand-progress-color-rgb: #{colors.$sand-alert-overlay-progress-color};
+	--sand-scrollbar-thumb-bg-color-rgb: var(--sand-progress-color-rgb-base);
+	--sand-scrollbar-track-bg-color-rgb: var(--sand-progress-bg-color-rgb-base);
+	--sand-text-color-rgb: #{colors.$sand-alert-overlay-text-color};
+	--sand-text-sub-color: #{colors.$sand-alert-overlay-text-sub-color};
+}
+
+.alertWrapper {
+	display: inline;
+}
+
+.alert {
+	&.noImage { /* Needed to prevent global class being added in the DOM */ }
+
+	&.fullscreen {
+		.alertImage {
+			margin-bottom: variables.$sand-alert-fullscreen-image-spacing;
+		}
+
+		.title,
+		.content {
+			max-width: variables.$sand-alert-fullscreen-max-width;
+		}
+
+		.content {
+			margin: 0;
+			overflow: hidden;
+			max-height: 60%; // Set a reasonable cutoff for a maximum bound
+		}
+
+		&.noTitle {
+			.content {
+				@include mixins.sand-font-size(variables.$sand-alert-notitle-content-font-size, variables.$sand-tallglyph-alert-notitle-content-font-size);
+				@include mixins.sand-enact-locale-line-height;
+			}
+		}
+
+		&.maxButtons {
+			.buttonContainer {
+				margin-top: variables.$sand-alert-max-buttons-margin-top;
+			}
+		}
+
+		.title {
+			@include mixins.sand-font-size(variables.$sand-alert-title-font-size, variables.$sand-tallglyph-alert-title-font-size);
+		}
+
+		.buttonContainer {
+			margin-top: variables.$sand-alert-buttons-margin-top;
+
+			// Every buttonCell after the first one
+			.buttonCell + .buttonCell {
+				margin-top: variables.$sand-alert-fullscreen-button-spacing;
+			}
+		}
+	}
+
+	&.overlay {
+		.alertImage {
+			margin: variables.$sand-alert-overlay-image-margin;
+		}
+
+		.buttonContainer {
+			box-sizing: border-box;
+
+			// Every buttonCell after the first one
+			.buttonCell + .buttonCell {
+				margin-top: variables.$sand-alert-overlay-button-spacing;
+			}
+
+			&.full {
+				margin: variables.$sand-alert-overlay-buttons-margin;
+				@include mixins.margin-start-end(
+						nth(variables.$sand-alert-overlay-buttons-margin, 4),
+						nth(variables.$sand-alert-overlay-buttons-margin, 2)
+				);
+
+				:global(.enact-orientation-portrait) & {
+					margin: variables.$sand-portrait-alert-overlay-buttons-margin;
+					@include mixins.margin-start-end(
+							nth(variables.$sand-portrait-alert-overlay-buttons-margin, 4),
+							nth(variables.$sand-portrait-alert-overlay-buttons-margin, 2), parent);
+				}
+			}
+		}
+
+		.content {
+			@include mixins.sand-alert-overlay-content;
+
+			:global(.enact-locale-ja) &,
+			:global(.enact-locale-zh) & {
+				overflow-wrap: normal;
+				word-break: normal;
+			}
+
+			&.full {
+				margin-bottom: 0;
+				width: variables.$sand-alert-overlay-content-width;
+				@include mixins.margin-start-end(variables.$sand-alert-overlay-image-text-gap, variables.$sand-alert-overlay-text-button-gap);
+
+				:global(.enact-orientation-portrait) & {
+					width: variables.$sand-portrait-alert-overlay-content-width;
+					@include mixins.margin-start-end(variables.$sand-alert-overlay-image-text-gap, variables.$sand-portrait-alert-overlay-text-button-gap, parent);
+				}
+			}
+		}
+
+		&.noImage {
+			.content {
+				@include mixins.margin-start-end(variables.$sand-alert-overlay-noimage-text-gap, variables.$sand-alert-overlay-text-button-gap);
+
+				:global(.enact-orientation-portrait) & {
+					width: variables.$sand-portrait-alert-overlay-noimage-content-width;
+					@include mixins.margin-start-end(variables.$sand-alert-overlay-noimage-text-gap, variables.$sand-portrait-alert-overlay-text-button-gap, parent);
+				}
+
+			}
+		}
+	}
+}
+
+.popup {
+	&.overlay {
+		width: fit-content;
+		margin-left: auto;
+		margin-right: auto;
+
+		.body {
+			padding-top: variables.$sand-alert-overlay-padding-top-bottom;
+			padding-bottom: variables.$sand-alert-overlay-padding-top-bottom;
+			@include mixins.padding-start-end(variables.$sand-alert-overlay-padding-left, variables.$sand-alert-overlay-padding-right);
+		}
+	}
+
+	@include skin.applySkins {
+		background-color: colors.$sand-alert-bg-color;
+
+		&.overlay {
+			margin-bottom: variables.$sand-alert-overlay-margin-bottom;
+			border-radius: variables-base.$sand-alert-overlay-border-radius;
+			background-color: rgba(colors.$sand-alert-overlay-bg-color, colors.$sand-alert-overlay-bg-color-opacity);
+			box-shadow: colors.$sand-alert-overlay-shadow;
+
+			@include overrideAlertColors;
+
+			* {
+				@include overrideAlertColors;
+			}
+		}
+	}
+}

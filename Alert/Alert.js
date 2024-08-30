@@ -23,7 +23,7 @@ import Popup from '../Popup';
 
 import AlertImage from './AlertImage';
 
-import componentCss from './Alert.module.less';
+import componentCss from './Alert.module.scss';
 
 /**
  * A modal Alert component.

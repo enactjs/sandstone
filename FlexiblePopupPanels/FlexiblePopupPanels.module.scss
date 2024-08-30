@@ -1,0 +1,218 @@
+// FlexiblePopupPanels.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+.flexiblePopupPanels {
+	// Override for Popup
+	&.popup {
+		padding: variables.$sand-flexiblepopuppanels-margin; // redirect this to padding for simpler size calculation
+		margin: 0;
+		max-height: 100vh;
+		min-width: variables.$sand-flexiblepopuppanels-min-width;
+		box-sizing: border-box;
+
+		&.narrow { /* Needed to prevent global class being added in the DOM */ }
+	}
+
+	.viewport {
+		position: relative;
+
+		.panel {
+			padding: variables.$sand-flexiblepopuppanels-padding;
+			// The next line is very long, but it calculates the maximum height by adding up all
+			// of the paddings between this node and the edge of the screen, top and bottom.
+			// If the margin or padding configuration changes, this will likely need to be updated.
+			$popuppanels-margin: calc(nth(variables.$sand-flexiblepopuppanels-margin, 1) * 2);
+			// Adding + 0px will prevent the value from being interpreted as a string if the value does not have a unit type
+			$popuppanels-padding: nth(variables.$sand-flexiblepopuppanels-padding, 1) + 0px;
+			height: calc(100vh - ($popuppanels-margin + $popuppanels-padding + $popuppanels-padding));
+		}
+	}
+
+	// this block is "tricks" the layout so the following .navButton rules position the before
+	// button correctly in LTR and RTL locales
+	.navCellBefore {
+		direction: rtl;
+
+		@include mixins.enact-locale-rtl("") {
+			direction: ltr;
+		}
+	}
+
+	.navCellAfter {
+		/* identifies the "after" cell */
+	}
+
+	.body {
+		.navButton {
+			position: absolute;
+			transform: translate(0, -50%);
+			margin: variables.$sand-flexiblepopuppanels-navbutton-margin;
+
+			@include mixins.sand-custom-text-large {
+				@include mixins.sand-small-button-text;
+
+				& {
+					height: variables.$sand-button-small-height;
+					line-height: calc(#{variables.$sand-button-small-height} - (2 * #{variables.$sand-button-border-width}));
+					min-width: variables.$sand-button-small-height;
+				}
+			}
+		}
+	}
+
+	> .body {
+		position: relative;
+		pointer-events: none;
+		padding: 0;
+		@include mixins.enact-locale-rtl("") {
+			padding: 0;
+		}
+	}
+
+	&.fullHeight {
+		.bodyLayout {
+			height: 100%;
+		}
+	}
+
+	// Skin colors
+	@include skin.applySkins {
+		background-color: transparent;
+
+		.header,
+		.content {
+			border-radius: variables.$sand-flexiblepopuppanels-panel-border-radius;
+			box-shadow: colors.$sand-flexiblepopuppanels-panel-shadow;
+			outline-color: colors.$sand-overlay-outline-color;
+			outline-style: colors.$sand-overlay-outline-style;
+			outline-width: variables.$sand-overlay-outline-width;
+			outline-offset: -#{variables.$sand-overlay-outline-width};
+		}
+
+		&.scrimTranslucent {
+			.header,
+			.content {
+				background-color: colors.$sand-flexiblepopuppanels-panel-bg-color;
+			}
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.header,
+			.content {
+				background-color: colors.$sand-flexiblepopuppanels-panel-scrimtransparent-bg-color;
+			}
+		}
+	}
+}
+
+// Overrides for Panel
+.panel {
+	pointer-events: none;
+
+	> .body {
+		padding: 0;
+	}
+
+	.bodyLayout {
+		// This `-webkit-fill-available` value is a bit funny. It only updates
+		// after a "hard" layout recalculation, not all the time, so the content
+		// dimensions could change, but it won't update until something triggers
+		// it, like a height, width, or some other related prop also changes.
+		// This value, however, does do exactly what we need. Fill up to a point
+		// and not expand beyond that.
+		max-height: -webkit-fill-available; // Expand to the bounds, then stop.
+		pointer-events: auto;
+	}
+
+	// Target class-less Header container to capture pointer events that fall into the margin of header, outside its DOM box.
+	> *:first-child {
+		pointer-events: auto;
+	}
+
+	.header {
+		margin-left: nth(variables.$sand-flexiblepopuppanels-panel-margin, 2);
+		margin-right: nth(variables.$sand-flexiblepopuppanels-panel-margin, 2);
+
+		&.showBack {
+			margin-left: variables.$sand-flexiblepopuppanels-header-padding;
+		}
+	}
+
+	.content {
+		margin: variables.$sand-flexiblepopuppanels-panel-margin;
+		padding: variables.$sand-flexiblepopuppanels-panel-padding;
+		box-sizing: border-box;
+	}
+
+	&.auto { /* Availble for export */ }
+
+	// These calculations are here (rather than the variables file) because they're
+	// implementation-specific rather than being generally useful due to the container
+	// requiring border-box sizing in one dimension and content-box in the other.
+	// The following adds the left margin, left padding, width, right padding, and right margin
+	$panel-small-width: calc(
+		nth(variables.$sand-flexiblepopuppanels-panel-margin, 2)
+		+ nth(variables.$sand-flexiblepopuppanels-padding, 2)
+		+ #{variables.$sand-flexiblepopuppanels-small-width}
+		+ nth(variables.$sand-flexiblepopuppanels-padding, 2)
+		+ nth(variables.$sand-flexiblepopuppanels-panel-margin, 2)
+	);
+	// The following adds the left margin, left padding, width, right padding, and right margin
+	$panel-large-width: calc(
+		nth(variables.$sand-flexiblepopuppanels-panel-margin, 2)
+		+ nth(variables.$sand-flexiblepopuppanels-padding, 2)
+		+ #{variables.$sand-flexiblepopuppanels-large-width}
+		+ nth(variables.$sand-flexiblepopuppanels-padding, 2)
+		+ nth(variables.$sand-flexiblepopuppanels-panel-margin, 2)
+	);
+
+	// With a panel width defined, the container (viewport) extends to the width of both child panels,
+	// so we must only offset `left` by 50%, half as much, since now the container is twice as large.
+	&.small,
+	&.large {
+		&:nth-child(2) {
+			// For sized panels that are the same width
+			left: -50%;
+		}
+
+		.bodyLayout {
+			width: 100%;
+		}
+	}
+
+	&.small {
+		width: $panel-small-width;
+	}
+
+	// Customize control over transitioning between panels of different dimensions.
+	// We offset by the width of the other panel so ViewManager's Arranger's transform
+	// can continue to use relative sizing.
+	&.small	+ &.large {
+		left: -#{$panel-small-width};
+	}
+
+	&.large {
+		width: $panel-large-width;
+	}
+
+	&.large	+ &.small {
+		left: -#{$panel-large-width};
+	}
+
+	@include mixins.enact-locale-rtl("") {
+		// force the body to LTR maintain left alignment of panel contents
+		> .body {
+			direction: ltr;
+
+			// but reset direction for content
+			.bodyLayout {
+				direction: rtl;
+			}
+		}
+	}
+}

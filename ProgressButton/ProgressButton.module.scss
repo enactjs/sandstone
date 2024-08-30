@@ -1,0 +1,42 @@
+// ProgressButton.module.scss
+//
+@use "../styles/colors";
+@use "../styles/mixins";
+@use "../styles/skin";
+@use "../styles/variables";
+
+
+.progressButton {
+	.progressContainer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.icon {
+		position: absolute;
+		margin: 0;
+		font-size: variables.$sand-progressbutton-icon-font-size;
+	}
+
+	.progressBar {
+		margin: 0;
+		text-align: initial;
+	}
+
+	@include skin.applySkins {
+		.progressBar.radial {
+			.bar {
+				border-color: colors.$sand-progressbutton-bar-color;
+			}
+		}
+
+		@include mixins.focus {
+			.progressBar.radial {
+				.fill {
+					border-color: colors.$sand-progressbutton-focus-fill-color;
+				}
+			}
+		}
+	}
+}

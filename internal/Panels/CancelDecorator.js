@@ -2,7 +2,7 @@ import hoc from '@enact/core/hoc';
 import Cancelable from '@enact/ui/Cancelable';
 import Spotlight from '@enact/spotlight';
 
-import css from './Viewport.module.less';
+import css from './Viewport.module.scss';
 
 const defaultConfig = {
 	cancel: null,

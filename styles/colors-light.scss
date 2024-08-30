@@ -30,15 +30,22 @@
 	// Overlay Alert
 	// --------------------------------------
 
+	// FixedPopupPanles
+	// ---------------------------------------
+	--sand-fixed-popup-panles-bg-color-rgb: 187, 187, 187, 90%;
+	--sand-fixed-popup-panles-scrimtransparent-bg-color-rgb: 187, 187, 187, 95%;
+
 	// common colors
-	--sand-alert-overlay-bg-color-rgb: rgb(0, 0, 0);
+	--sand-alert-overlay-bg-color-rgb: 0, 0, 0;
 	--sand-alert-overlay-text-color-rgb: rgb(230, 230, 230);
 	--sand-alert-overlay-text-sub-color: #abaeb3;
 	--sand-alert-overlay-focus-text-color: #ffffff;
 
 	// component colors
-	--sand-alert-overlay-progress-color-rgb: rgb(230, 230, 230);
-	--sand-alert-overlay-progress-bg-color-rgb: rgb(55, 58, 65);
+	--sand-alert-overlay-progress-color-rgb-base: 230, 230, 230;
+	--sand-alert-overlay-progress-color-rgb: rgb(var(--sand-alert-overlay-progress-color-rgb-base));
+	--sand-alert-overlay-progress-bg-color-rgb-base: 55, 58, 65;
+	--sand-alert-overlay-progress-bg-color-rgb: rgb(var(--sand-alert-overlay-progress-bg-color-rgb-base));
 	--sand-alert-overlay-progress-bg-color-alpha: 100%;
 	--sand-alert-overlay-checkbox-color: #e6e6e6;
 	--sand-alert-overlay-checkbox-disabled-selected-text-color: #4c5059;

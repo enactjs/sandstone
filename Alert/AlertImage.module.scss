@@ -1,0 +1,18 @@
+// AlertImage.module.scss
+//
+@use "../styles/variables";
+
+.alertImage {
+	margin: 0;
+
+	&.thumbnail {
+		width: variables.$sand-alert-image-thumbnail-width;
+		height: variables.$sand-alert-image-thumbnail-height;
+	}
+
+	&.icon {
+		width: variables.$sand-alert-image-icon-size;
+		height: variables.$sand-alert-image-icon-size;
+		border-radius: variables.$sand-alert-image-icon-border-radius;
+	}
+}

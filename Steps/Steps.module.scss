@@ -20,18 +20,16 @@
 			}
 		}
 
-		&.dots {
-			font-size: variables.$sand-steps-step-dot-font-size;
-			opacity: variables.$sand-steps-step-past-opacity;
-			margin: 0;
-			width: variables.$sand-steps-step-width;
+		&.highlightCurrentOnly {
+			font-size: variables.$sand-steps-step-highlight-current-only-font-size;
+			margin: variables.$sand-steps-step-highlight-current-only-margin;
 
 			&.current {
-				font-size: variables.$sand-steps-step-current-dot-font-size;
+				font-size: variables.$sand-steps-step-highlight-current-only-current-font-size;
 			}
 
 			&.future {
-				opacity:  variables.$sand-steps-step-past-opacity;
+				opacity:  variables.$sand-steps-step-highlight-current-only-future-opacity;
 			}
 		}
 
@@ -51,12 +49,12 @@
 
 @include skin.applySkins(true) {
 	.step {
-		&.dots {
-			color: colors.$sand-steps-step-focused-dot-color;
+		&.highlightCurrentOnly {
+			color: colors.$sand-steps-step-highlight-current-only-color;
 
 			&.current {
-				color: colors.$sand-steps-step-dot-color;
+				color: colors.$sand-steps-step-highlight-current-only-current-color;
 			}
 		}
 	}
-};
+}
