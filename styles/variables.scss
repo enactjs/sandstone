@@ -169,8 +169,8 @@ $sand-mediaplayer-times-text-size:    48px;
 $sand-picker-font-size:             54px;
 $sand-picker-joined-font-size:      66px;
 $sand-steps-step-number-font-size:  54px;
-$sand-steps-step-dot-font-size:     30px;
-$sand-steps-step-current-dot-font-size:  48px;
+$sand-steps-step-highlight-current-only-font-size:         24px;
+$sand-steps-step-highlight-current-only-current-font-size: 42px;
 $sand-switch-icon-font-size:        84px;
 $sand-switch-icon-font-size-large:  138px;
 $sand-tablayout-tab-font-size:      66px;
@@ -979,10 +979,11 @@ $sand-spinner-font-weight: bold;
 $sand-steps-step-number-font-weight: 600;
 $sand-steps-margin: 0;
 $sand-steps-step-margin: 0 $sand-component-spacing;
-$sand-steps-step-width: 48px;
+$sand-steps-step-highlight-current-only-margin: 9px;
 $sand-steps-step-past-opacity: 1;
 $sand-steps-step-current-opacity: 1;
 $sand-steps-step-future-opacity: 0.2;
+$sand-steps-step-highlight-current-only-future-opacity: 1;
 
 // Switch
 // ---------------------------------------

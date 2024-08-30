@@ -21,13 +21,13 @@
 			margin-inline-end: variables.$sand-quickguidepanels-close-button-margin-end;
 		}
 	}
-}
 
-.navigationButtonContainer {
-	z-index: 10;
-	margin-top: variables.$sand-quickguidepanels-container-margin-top;
+	.navigationButtonContainer {
+		z-index: 10;
+		margin-top: variables.$sand-quickguidepanels-container-margin-top;
 
-	.navigationButton {
-		margin: variables.$sand-quickguidepanels-navigation-button-margin;
+		.navigationButton {
+			margin: variables.$sand-quickguidepanels-navigation-button-margin;
+		}
 	}
 }
