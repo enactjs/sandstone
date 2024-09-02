@@ -1,3 +1,5 @@
+// PageViews.module.less
+//
 @import "../styles/variables.less";
 
 .pageViews {
@@ -12,6 +14,14 @@
 		align-items: center;
 		width: @sand-pageviews-navigation-button-area-width;
 		justify-content: center;
+	}
+
+	.navButtonContainer {
+		overflow: hidden;
+		z-index: 10;
+		top: ~"calc(50% - " (@sand-button-height + 12) / 2 ~")";
+		position: absolute;
+		width: 100%;
 	}
 
 	&.number .navButton {
@@ -61,12 +71,4 @@
 	.horizontalLayout {
 		height: 100%;
 	}
-}
-
-.navButtonContainer {
-	overflow: hidden;
-	z-index: 10;
-	top: ~"calc(50% - " (@sand-button-height + 12) / 2 ~")";
-	position: absolute;
-	width: 100%;
 }
