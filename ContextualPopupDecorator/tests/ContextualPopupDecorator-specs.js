@@ -505,4 +505,35 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(scrimDivFirst).toHaveClass(expectedFirst);
 		expect(scrimDivSecond).toHaveClass(expectedSecond);
 	});
+
+	test('should re-positino when change window size', () => {
+		const Root = FloatingLayerDecorator('div');
+		render(
+			<Root>
+				<ContextualButton open popupComponent={() => <div><Button>Button</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		const contextualPopup = screen.getByRole('alert');
+		const actual = contextualPopup.children.item(0);
+
+		expect(actual).toHaveStyle('left: 500px');
+
+		global.Element.prototype.getBoundingClientRect = jest.fn(() => {
+			return {
+				width: 1800,
+				height: 1000,
+				top: 100,
+				left: 100,
+				bottom: 0,
+				right: 0
+			};
+		});
+
+		fireEvent(window, new Event('resize'));
+
+		expect(actual).toHaveStyle('left: 100px');
+	});
 });
