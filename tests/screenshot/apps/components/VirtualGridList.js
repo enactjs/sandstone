@@ -162,6 +162,16 @@ const VirtualGridListTests = [
 			dataSize={items.length}
 			itemSize={{minWidth: ri.scale(270), minHeight: ri.scale(270)}}
 			itemRenderer={renderItem}
+		/>,
+		<VirtualGridList
+			dataSize={items.length}
+			direction="horizontal"
+			itemRenderer={renderItem}
+			itemSize={{
+				minWidth: ri.scale(180),
+				minHeight: ri.scale(270)
+			}}
+			style={{height: ri.scale(300)}}
 		/>
 	])
 ];
