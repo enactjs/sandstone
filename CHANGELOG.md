@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Steps` prop `size` to accept number type
+- `sandstone/ContextualPopupDecorator` to re-position when window size is changed
 
 ## [2.9.0] - 2024-07-17
 
