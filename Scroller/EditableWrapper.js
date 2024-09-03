@@ -705,6 +705,8 @@ const EditableWrapper = (props) => {
 				} else if ((is('left', keyCode) || is('right', keyCode)) && selectedItem) {
 					// When an item is selected and press the `left` or `right` key, move the selectedItem in that direction
 					moveItemsByKeyDown(ev);
+					ev.preventDefault();
+					ev.stopPropagation();
 				} else if (is('down', keyCode) && selectedItem) {
 					// When an item is selected and press the `down` key, complete editing and focus the selectedItem
 					completeEditingByKeyDown();
