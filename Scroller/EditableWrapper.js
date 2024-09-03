@@ -623,7 +623,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
-				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button') {
+				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && target.getAttribute('role') !== 'button') {
 					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 						if (repeat) {
 							SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
