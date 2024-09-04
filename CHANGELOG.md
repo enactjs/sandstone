@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
 
 ### Changed
 
@@ -14,7 +15,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
 - `sandstone/Scroller` to show the focus effect of the body on PC environments when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Steps` prop `size` to accept number type
 
 ## [2.9.0] - 2024-07-17
 

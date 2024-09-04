@@ -95,6 +95,17 @@ const StepsBase = kind({
 		futureIcon: PropTypes.string,
 
 		/**
+		 * Defines how to represent the current step.
+		 *
+		 * When `true`, highlight effect will be applied only to the current icon.
+		 * When `false`, highlight effect will be applied to past and current icons.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		highlightCurrentOnly: PropTypes.bool,
+
+		/**
 		 * Defines a custom element to use as the icon component.
 		 *
 		 * Use the `css` prop and public class name override system to target the classes applied to
@@ -106,13 +117,6 @@ const StepsBase = kind({
 		 * @public
 		 */
 		iconComponent: EnactPropTypes.component,
-
-		/**
-		 * @type {String}
-		 * @default 'wizardPanels'
-		 * @private
-		 */
-		layout: PropTypes.string,
 
 		/**
 		 * The icon to use for indicating all steps preceding the current step.
@@ -131,11 +135,14 @@ const StepsBase = kind({
 
 		 * This accepts any `size` supported by {@link sandstone/Icon}.
 		 *
-		 * @type {('large'|'medium'|'small'|'tiny')}
+		 * @type {('large'|'medium'|'small'|'tiny'|Number)}
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.oneOf(['large', 'medium', 'small', 'tiny']),
+		size: PropTypes.oneOfType([
+			PropTypes.oneOf(['large', 'medium', 'small', 'tiny']),
+			PropTypes.number
+		]),
 
 		/**
 		 * Indicate which steps to skip.
@@ -189,7 +196,7 @@ const StepsBase = kind({
 	},
 
 	computed: {
-		steps: ({current, pastIcon, currentIcon, futureIcon, layout, skip, skipIcon, total, styler}) => {
+		steps: ({current, pastIcon, currentIcon, futureIcon, highlightCurrentOnly, skip, skipIcon, total, styler}) => {
 			skip = coerceArray(skip);
 			return Array.from(Array(total)).map((el, index) => {
 				const stepNum = index + 1;
@@ -216,7 +223,7 @@ const StepsBase = kind({
 				}
 
 				return {
-					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), dots: layout === 'quickGuidePanels'}),
+					className: styler.join('step', {numbers, past, current: present, future, skip: (skipStep && !present), highlightCurrentOnly}),
 					key: `step${stepNum}`,
 					children
 				};
@@ -228,8 +235,8 @@ const StepsBase = kind({
 		delete rest.current;
 		delete rest.currentIcon;
 		delete rest.futureIcon;
+		delete rest.highlightCurrentOnly;
 		delete rest.pastIcon;
-		delete rest.layout;
 		delete rest.skip;
 		delete rest.skipIcon;
 		delete rest.total;
