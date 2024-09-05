@@ -2,6 +2,16 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.7.18] - 2024-09-05
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
 ## [2.7.17] - 2024-07-08
 
 ### Added
