@@ -506,7 +506,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(scrimDivSecond).toHaveClass(expectedSecond);
 	});
 
-	test('should re-positino when change window size', () => {
+	test('should update its position when the window size has been changed', () => {
 		const Root = FloatingLayerDecorator('div');
 		render(
 			<Root>
