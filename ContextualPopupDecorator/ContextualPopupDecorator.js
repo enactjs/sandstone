@@ -272,6 +272,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				activator: null
 			};
 
+			this.resizeObserver;
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 			this.id = this.generateId();
@@ -292,7 +293,15 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				on('keydown', this.handleKeyDown);
 				on('keyup', this.handleKeyUp);
 			}
-			window.addEventListener('resize', this.handleResize);
+
+			this.resizeObserver = new ResizeObserver(() => {
+				this.positionContextualPopup();
+			});
+
+			if(!this.clientSiblingRef?.current) {
+				return;
+			}
+			this.resizeObserver.observe(document.body);
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
@@ -342,7 +351,11 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				off('keyup', this.handleKeyUp);
 			}
 			Spotlight.remove(this.state.containerId);
-			window.removeEventListener('resize', this.handleResize);
+
+			if (this.resizeObserver) {
+				this.resizeObserver.disconnect();
+				this.resizeObserver = null;
+			}
 		}
 
 		generateId = () => {
@@ -352,10 +365,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		getContainerNodeWidth () {
 			return this.containerNode && this.containerNode.getBoundingClientRect().width || 0;
 		}
-
-		handleResize = () => {
-			this.positionContextualPopup();
-		};
 
 		updateLeaveFor (activator) {
 			Spotlight.set(this.state.containerId, {
