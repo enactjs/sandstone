@@ -2,6 +2,62 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
+### Fixed
+
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
+- `sandstone/Steps` prop `size` to accept number type
+
+## [2.9.0] - 2024-07-17
+
+### Added
+
+- `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
+
+### Changed
+
+- `sandstone/PageViews` styling to match the latest GUI
+
+### Fixed
+
+- `sandstone/Input` back button to be disabled when `disabled` prop is `true`
+- `sandstone/Popup` to restore focus when a popup is open by default and then closed
+
+## [3.0.0-alpha.1] - 2024-07-11
+
+### Removed
+
+- `sandstone/Input.InputPopupBase` prop `value`
+
+### Added
+
+- `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
+
+### Changed
+
+- `sandstone/PageViews` styling to match the latest GUI
+
+### Fixed
+
+- `sandstone/Input` back button to be disabled when `disabled` prop is `true`
+- `sandstone/Popup` to restore focus when a popup is open by default and then closed
+
+## [2.9.0-beta.1] - 2024-06-17
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `create`
+
 ## [2.9.0-alpha.4] - 2024-06-05
 
 ### Changed
