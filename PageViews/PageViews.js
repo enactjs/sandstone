@@ -125,7 +125,7 @@ const PageViewsBase = kind({
 		 *
 		 * @type {('top'|'bottom')}
 		 * @default 'bottom'
-		 * @public
+		 * @private
 		 */
 		pageIndicatorPosition: PropTypes.oneOf(['top', 'bottom']),
 

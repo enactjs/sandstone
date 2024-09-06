@@ -7,7 +7,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
-- `sandstone/Pageviews` `pageIndicatorPosition` prop to provide a way to determine where to place the page indicator
 - `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
 
 ### Changed
