@@ -16,7 +16,7 @@ const PageComponents = [
 
 const BaseTests = [
 	{
-		component: <Panel><Header title="title of panel" subtitle="subtitle of panel" /><PageViews index={0}>{PageComponents[0]}</PageViews></Panel>,
+		component: <Panel><Header title="title of panel" subtitle="subtitle of panel" /><PageViews index={0} pageIndicatorPosition="top">{PageComponents[0]}</PageViews></Panel>,
 		wrapper: {full: true}
 	},
 	{
