@@ -13,6 +13,8 @@ const keyDown = (keyCode) => (picker) => fireEvent.keyDown(picker, {keyCode});
 
 const leftKeyDown = keyDown(37);
 
+let MockObserverInstance;
+
 describe('ContextualPopupDecorator Specs', () => {
 	beforeEach(() => {
 		global.Element.prototype.getBoundingClientRect = jest.fn(() => {
@@ -25,6 +27,13 @@ describe('ContextualPopupDecorator Specs', () => {
 				right: 0
 			};
 		});
+
+		MockObserverInstance = {
+			observe: jest.fn(),
+			disconnect: jest.fn(),
+		};
+
+		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
 	});
 
 	test('should emit onOpen event with type when opening', () => {
@@ -506,34 +515,19 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(scrimDivSecond).toHaveClass(expectedSecond);
 	});
 
-	test('should update its position when the window size has been changed', () => {
+	test('should creates and observes with ResizeObserver', () => {
 		const Root = FloatingLayerDecorator('div');
 		render(
 			<Root>
-				<ContextualButton open popupComponent={() => <div><Button>Button</Button></div>}>
+				<ContextualButton data-testid="contextualButton" open popupComponent={() => <div><Button>Button</Button></div>}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
 
-		const contextualPopup = screen.getByRole('alert');
-		const actual = contextualPopup.children.item(0);
+		const contextualButton = screen.getByTestId('contextualButton');
 
-		expect(actual).toHaveStyle('left: 500px');
-
-		global.Element.prototype.getBoundingClientRect = jest.fn(() => {
-			return {
-				width: 1800,
-				height: 1000,
-				top: 100,
-				left: 100,
-				bottom: 0,
-				right: 0
-			};
-		});
-
-		fireEvent(window, new Event('resize'));
-
-		expect(actual).toHaveStyle('left: 100px');
+		expect(contextualButton).toBeInTheDocument();
+		expect(MockObserverInstance.observe).toHaveBeenCalled();
 	});
 });

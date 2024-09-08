@@ -298,10 +298,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				this.positionContextualPopup();
 			});
 
-			if(!this.clientSiblingRef?.current) {
-				return;
+			if(this.clientSiblingRef?.current) {
+				this.resizeObserver.observe(document.body);
 			}
-			this.resizeObserver.observe(document.body);
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
