@@ -10,7 +10,18 @@ const ContextualButton = ContextualMenuDecorator(Button);
 const Root = FloatingLayerDecorator('div');
 const items = new Array(3).fill().map((i, index) => `Option ${index + 1}`);
 
+let MockObserverInstance;
+
 describe('ContextualMenuDecorator Specs', () => {
+	beforeEach(() => {
+		MockObserverInstance = {
+			observe: jest.fn(),
+			disconnect: jest.fn(),
+		};
+
+		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
+	});
+
 	test('should render component into FloatingLayer if open', () => {
 		render(
 			<Root>
