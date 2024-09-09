@@ -1,3 +1,7 @@
+const checkHex = (hex) => {
+	return !/^#[0-9A-F]{6}$/i.test(hex);
+};
+
 function rgbStringToHex (rgbString) {
 	if (rgbString.indexOf("rgb(") !== 0) return false;
 
@@ -173,6 +177,7 @@ const rgbObjectToHex = (rgbColor) => {
 };
 
 export {
+	checkHex,
 	generateOppositeColor,
 	getHexColorFromGradient,
 	hexToHSL,
