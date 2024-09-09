@@ -16,18 +16,16 @@
 			font-weight: @sand-steps-step-number-font-weight;
 		}
 
-		&.dots {
-			font-size: @sand-steps-step-dot-font-size;
-			opacity: @sand-steps-step-past-opacity;
-			margin: 0;
-			width: @sand-steps-step-width;
+		&.highlightCurrentOnly {
+			font-size: @sand-steps-step-highlight-current-only-font-size;
+			margin: @sand-steps-step-highlight-current-only-margin;
 
 			&.current {
-				font-size: @sand-steps-step-current-dot-font-size;
+				font-size: @sand-steps-step-highlight-current-only-current-font-size;
 			}
 
 			&.future {
-				opacity:  @sand-steps-step-past-opacity;
+				opacity: @sand-steps-step-highlight-current-only-future-opacity;
 			}
 		}
 
@@ -47,10 +45,10 @@
 
 .applySkins({
 	.step {
-		&.dots {
-			color: @sand-steps-step-focused-dot-color;
+		&.highlightCurrentOnly {
+			color: @sand-steps-step-highlight-current-only-color;
 			&.current {
-				color: @sand-steps-step-dot-color;
+				color: @sand-steps-step-highlight-current-only-current-color;
 			}
 		}
 	}
