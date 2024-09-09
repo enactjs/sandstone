@@ -1,7 +1,7 @@
 // ThemeEnvrionment.module.less
 //
-@use "@enact/sandstone/styles/variables.scss";
-@use "@enact/sandstone/styles/mixins.scss";
+@use "~@enact/sandstone/styles/variables.scss";
+@use "~@enact/sandstone/styles/mixins.scss";
 
 // from @enact/ui/styles/core.scss. Can't import global mixins.
 @mixin enact-selectable {
