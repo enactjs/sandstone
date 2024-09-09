@@ -219,7 +219,7 @@ describe('Editable Scroller', function () {
 
 		// Verify: Item 9 is displayed in Viewport.
 		const element = await $('#item9');
-		await expect(await element.isDisplayedInViewport()).toBe(true);
+		await expect(await element.isDisplayed([isWithinViewport=true])).toBe(true);
 	});
 
 	it('Should unselect the selected item with 5-way down [QWTC-13660]', async function () {
@@ -306,14 +306,14 @@ describe('Editable Scroller', function () {
 			await item0.click();
 
 			// Verify: Show Button is displayed - item is hidden.
-			await expect(await showButton.isDisplayedInViewport()).toBe(true);
+			await expect(await showButton.isDisplayed([isWithinViewport=true])).toBe(true);
 
 			// Click on Show Button.
 			await showButton.click();
 			await item0.scrollIntoView();
 
 			// Verify: Show Button is not displayed.
-			await expect(await showButton.isDisplayedInViewport()).toBe(false);
+			await expect(await showButton.isDisplayed([isWithinViewport=true])).toBe(false);
 		});
 
 		// It will be checked after the Java version update on the TV.
@@ -429,7 +429,7 @@ describe('Editable Scroller', function () {
 			// Verify: Item 9 is displayed in Viewport.
 			const item9 = await $('#item9');
 			await item9.scrollIntoView();
-			await expect(await item9.isDisplayedInViewport()).toBe(true);
+			await expect(await item9.isDisplayed([isWithinViewport=true])).toBe(true);
 		});
 	});
 });
