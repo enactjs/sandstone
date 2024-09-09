@@ -104,7 +104,9 @@
 				transform: none;
 			}
 
-			transform: scale(1.2);
+			& {
+				transform: scale(1.2);
+			}
 		}
 	}
 
@@ -121,7 +123,9 @@
 					@include mixins.sand-focus-ring;
 				}
 
-				transform: none;
+				& {
+					transform: none;
+				}
 			}
 		}
 
