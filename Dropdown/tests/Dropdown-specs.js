@@ -18,12 +18,12 @@ describe('Dropdown', () => {
 	beforeEach(() => {
 		MockObserverInstance = {
 			observe: jest.fn(),
-			disconnect: jest.fn(),
+			disconnect: jest.fn()
 		};
 
 		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
 	});
-	
+
 	test('should have default `placeholder` when a value is not provided', () => {
 		render(
 			<DropdownBase>

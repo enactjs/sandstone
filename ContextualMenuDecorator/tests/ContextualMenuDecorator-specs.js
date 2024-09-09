@@ -16,7 +16,7 @@ describe('ContextualMenuDecorator Specs', () => {
 	beforeEach(() => {
 		MockObserverInstance = {
 			observe: jest.fn(),
-			disconnect: jest.fn(),
+			disconnect: jest.fn()
 		};
 
 		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);

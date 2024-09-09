@@ -30,7 +30,7 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		MockObserverInstance = {
 			observe: jest.fn(),
-			disconnect: jest.fn(),
+			disconnect: jest.fn()
 		};
 
 		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);

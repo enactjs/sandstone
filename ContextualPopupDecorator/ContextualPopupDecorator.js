@@ -1,3 +1,5 @@
+/* global ResizeObserver */
+
 /**
  * A higher-order component to add a Sandstone styled popup to a component.
  *
@@ -272,7 +274,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				activator: null
 			};
 
-			this.resizeObserver;
+			this.resizeObserver = null;
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 			this.id = this.generateId();
@@ -294,11 +296,13 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				on('keyup', this.handleKeyUp);
 			}
 
-			this.resizeObserver = new ResizeObserver(() => {
-				this.positionContextualPopup();
-			});
+			if (typeof ResizeObserver === 'function') {
+				this.resizeObserver = new ResizeObserver(() => {
+					this.positionContextualPopup();
+				});
+			}
 
-			if(this.clientSiblingRef?.current) {
+			if (this.clientSiblingRef?.current) {
 				this.resizeObserver.observe(document.body);
 			}
 		}
