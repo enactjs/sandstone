@@ -340,4 +340,3 @@ describe('InputField Specs', () => {
 		expect(inputField).toHaveAttribute(expectedAttribute, customLabel);
 	});
 });
-
