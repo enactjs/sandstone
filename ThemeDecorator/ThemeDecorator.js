@@ -6,8 +6,8 @@
  */
 
 import {setDefaultTargetById} from '@enact/core/dispatcher';
-import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
+import {addAll} from '@enact/core/keymap';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
 import SpotlightRootDecorator, {activateInputType, getInputType as getLastInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
