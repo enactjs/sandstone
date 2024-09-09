@@ -1,6 +1,6 @@
 // VirtualList.module.scss
 //
-@use '@enact/sandstone/styles/mixins.scss';
+@use '~@enact/sandstone/styles/mixins.scss';
 
 .verticalPadding {
 	@include mixins.padding-start-end(0, 36px);

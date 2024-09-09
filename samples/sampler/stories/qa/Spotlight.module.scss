@@ -1,8 +1,8 @@
 // Spotlight.module.scss
 //
-@use "@enact/sandstone/styles/colors.scss";
-@use "@enact/sandstone/styles/mixins.scss";
-@use "@enact/sandstone/styles/skin.scss";
+@use "~@enact/sandstone/styles/colors.scss";
+@use "~@enact/sandstone/styles/mixins.scss";
+@use "~@enact/sandstone/styles/skin.scss";
 
 .spottableitem {
 	@include skin.applySkins {

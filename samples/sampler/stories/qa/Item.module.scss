@@ -1,7 +1,7 @@
 // Item.module.scss
 //
-@use "@enact/spotlight/styles/mixins.scss";
-@use "@enact/sandstone/styles/skin.scss";
+@use "~@enact/spotlight/styles/mixins.scss";
+@use "~@enact/sandstone/styles/skin.scss";
 
 .item {
 	@include skin.applySkins {
