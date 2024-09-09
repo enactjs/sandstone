@@ -6,6 +6,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
+// import css from './VirtualList.module.scss';
 import css from './VirtualList.module.less';
 
 const prop = {

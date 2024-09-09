@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import RangePicker from '../../RangePicker';
 
-import css from './DateComponentPicker.module.less';
+import css from './DateComponentPicker.module.scss';
 
 /**
  * {@link sandstone/internal/DataComponentPicker.DateComponentRangePicker} allows the selection of

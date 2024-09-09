@@ -1,0 +1,25 @@
+// DateTime.module.scss
+//
+@use "../../styles/variables";
+
+.dateTime {
+	display: inline-block;
+
+	.heading {
+		font-weight: normal;
+	}
+
+	.pickers {
+		vertical-align: middle;
+		// direction: ltr;
+		margin: variables.$sand-component-spacing;
+
+		> *:first-child {
+			margin-inline-start: 0
+		}
+
+		> *:nth-last-child(2) {
+			margin-inline-end: 0
+		}
+	}
+}

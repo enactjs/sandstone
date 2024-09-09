@@ -2,7 +2,7 @@ import ProgressBar, {ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 
-import css from './ProgressBar.module.less';
+import css from './ProgressBar.module.scss';
 
 const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBar);
 const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', ProgressBarTooltip);

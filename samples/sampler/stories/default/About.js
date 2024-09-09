@@ -7,7 +7,7 @@ import {boolean} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 
-import css from './About.module.less';
+import css from './About.module.scss';
 
 const edgeDotKeepout = 12;
 BodyText.displayName = 'BodyText';

@@ -1,0 +1,51 @@
+// Item.module.scss
+//
+@use "@enact/spotlight/styles/mixins.scss";
+@use "@enact/sandstone/styles/skin.scss";
+
+.item {
+	@include skin.applySkins {
+		border-left: 48px solid orangered;
+
+		@include mixins.focus {
+			& {
+				border-left: 48px solid green;
+			}
+		}
+
+		.bg {
+			border-radius: 0;
+		}
+
+		.itemContent,
+		.slotAfter,
+		.slotBefore {
+			color: orange;
+		}
+
+		.content {
+			font-weight: 100;
+		}
+
+		.label {
+			color: white;
+		}
+
+		@include mixins.focus {
+			.itemContent,
+			.slotAfter,
+			.slotBefore {
+				color: green;
+			}
+
+			.label {
+				font-style: italic;
+			}
+		}
+	}
+}
+
+.itemContainer {
+	width: 912px;
+	height: 810px;
+}

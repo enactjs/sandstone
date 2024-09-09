@@ -1,0 +1,11 @@
+// Picker.module.scss
+//
+
+.title {
+	width: 300px;
+
+	&.inlineTitle {
+		margin-left: 0;
+		width: 240px;
+	}
+}

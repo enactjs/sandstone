@@ -1,0 +1,21 @@
+// Button.module.scss
+//
+
+@mixin highlight {
+	background: rgba(0, 100, 200, 0.2);
+	border: 1px solid rgba(0, 100, 200, 0.4);
+}
+
+.tapArea {
+	&:first-child {
+		@include highlight;
+	}
+
+	&:before {
+		@include highlight;
+	}
+}
+
+.bgColor {
+	background-color: rgb(255, 0, 0);
+}

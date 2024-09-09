@@ -1,0 +1,19 @@
+// Scroller.module.scss
+//
+@use "@enact/sandstone/styles/mixins.scss";
+
+.verticalPadding {
+	@include mixins.padding-start-end(0, 36px);
+}
+
+.horizontalPadding {
+	padding-bottom: 36px;
+}
+
+.verticalPadding.bodyText {
+	@include mixins.padding-start-end(0, 60px);
+}
+
+.horizontalPadding.bodyText {
+	padding-bottom: 60px;
+}

@@ -13,7 +13,7 @@ import Section from './components/KitchenSinkSection';
 import PickerAddRemove from './components/PickerAddRemove';
 import PickerRTL from './components/PickerRTL';
 
-import css from './Picker.module.less';
+import css from './Picker.module.scss';
 
 Picker.displayName = 'Picker';
 

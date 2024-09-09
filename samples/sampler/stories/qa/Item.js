@@ -12,7 +12,7 @@ import icons from '../helper/icons';
 
 import Section from './components/KitchenSinkSection';
 
-import css from './Item.module.less';
+import css from './Item.module.scss';
 
 const iconNames = ['', ...icons];
 
