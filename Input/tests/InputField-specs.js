@@ -1,6 +1,5 @@
 /* global globalThis */
 
-import {resetPlatformDescription} from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
@@ -11,10 +10,6 @@ import {InputField} from '../';
 const isPaused = () => Spotlight.isPaused() ? 'paused' : 'not paused';
 
 describe('InputField Specs', () => {
-	afterEach(() => {
-		resetPlatformDescription();
-	});
-
 	test('should have an input element', () => {
 		render(<InputField />);
 		const inputField = screen.getByLabelText('Input field');
