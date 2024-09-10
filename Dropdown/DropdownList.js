@@ -2,13 +2,13 @@ import kind from '@enact/core/kind';
 import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
+import {WithRef} from '@enact/core/internal/WithRef';
 import Spotlight from '@enact/spotlight';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {Component} from 'react';
-import ReactDOM from 'react-dom';
+import {Component, createRef} from 'react';
 
 import $L from '../internal/$L';
 import Icon from '../Icon';
@@ -118,11 +118,13 @@ const DropdownListBase = kind({
 				child = {children: child};
 			}
 			const data = child.children;
+			const {key, ...restChild} = {...child};
 
 			return (
 				<Item
 					{...rest}
-					{...child}
+					{...restChild}
+					key={key}
 					slotAfter={slotAfter}
 					data-selected={isSelected}
 					// eslint-disable-next-line react/jsx-no-bind
@@ -176,6 +178,8 @@ const ReadyState = {
 };
 
 const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
+	const WrappedWithRef = WithRef(Wrapped);
+
 	return class extends Component {
 		static displayName = 'DropdownListSpotlightDecorator';
 
@@ -205,6 +209,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		constructor (props) {
 			super(props);
 
+			this.clientSiblingRef = createRef(null);
 			this.state = {
 				prevChildren: props.children,
 				prevFocused: null,
@@ -218,13 +223,6 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			if (this.props.handleSpotlightPause) {
 				this.props.handleSpotlightPause(false);
 			}
-
-			// eslint-disable-next-line react/no-find-dom-node
-			this.node = ReactDOM.findDOMNode(this);
-			Spotlight.set(this.node.dataset.spotlightId, {
-				defaultElement: '[data-selected="true"]',
-				enterTo: 'default-element'
-			});
 		}
 
 		componentDidUpdate () {
@@ -294,8 +292,10 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		handleFocus = (ev) => {
 			const current = ev.target;
+			const dropdownListNode = this.clientSiblingRef?.current;
+
 			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
-				current.dataset['index'] != null && this.node.contains(current)
+				current.dataset['index'] != null && dropdownListNode.contains(current)
 			) {
 				const focusedIndex = Number(current.dataset['index']);
 				const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
@@ -312,7 +312,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			delete props.handleSpotlightPause;
 
 			return (
-				<Wrapped {...props} onFocus={this.handleFocus} scrollTo={this.setScrollTo} />
+				<WrappedWithRef {...props} onFocus={this.handleFocus} outermostRef={this.clientSiblingRef} referrerName="DropdownList" scrollTo={this.setScrollTo} />
 			);
 		}
 	};

@@ -283,19 +283,23 @@ const QuickGuidePanelsBase = kind({
 				/> : null
 			);
 		},
-		steps: ({current, index, total, totalPanels}) => {
-			const currentStep = (typeof current === 'number' && current > 0) ? current : (index + 1);
-			const totalSteps = (typeof total === 'number' && total > 0) ? total : totalPanels;
+		nextNavigationButton: ({index, nextButton, nextButtonVisibility, onNextClick, totalPanels}) => {
+			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 			return (
-				<Steps
-					className={css.steps}
-					pastIcon={'circle'}
-					currentIcon={'circle'}
-					futureIcon={'circle'}
-					current={currentStep}
-					layout="quickGuidePanels"
-					total={totalSteps}
+				<NavigationButton
+					aria-label={$L('Next')}
+					backgroundOpacity="transparent"
+					className={css.navigationButton}
+					component={nextButton}
+					focusEffectIconOnly
+					icon="arrowlargeright"
+					iconFlip="auto"
+					iconPosition="after"
+					id="nextButton"
+					minWidth={false}
+					onClick={onNextClick}
+					visible={isNextButtonVisible}
 				/>
 			);
 		},
@@ -306,10 +310,10 @@ const QuickGuidePanelsBase = kind({
 				<NavigationButton
 					aria-label={$L('Previous')}
 					backgroundOpacity="transparent"
+					className={css.navigationButton}
 					component={prevButton}
 					focusEffectIconOnly
 					icon="arrowlargeleft"
-					className={css.navigationButton}
 					iconFlip="auto"
 					minWidth={false}
 					onClick={onPrevClick}
@@ -317,23 +321,20 @@ const QuickGuidePanelsBase = kind({
 				/>
 			);
 		},
-		nextNavigationButton: ({index, nextButton, nextButtonVisibility, onNextClick, totalPanels}) => {
-			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
+		steps: ({current, index, total, totalPanels}) => {
+			const currentStep = (typeof current === 'number' && current > 0) ? current : (index + 1);
+			const totalSteps = (typeof total === 'number' && total > 0) ? total : totalPanels;
 
 			return (
-				<NavigationButton
-					aria-label={$L('Next')}
-					backgroundOpacity="transparent"
-					component={nextButton}
-					focusEffectIconOnly
-					className={css.navigationButton}
-					icon="arrowlargeright"
-					iconFlip="auto"
-					iconPosition="after"
-					id="nextButton"
-					minWidth={false}
-					onClick={onNextClick}
-					visible={isNextButtonVisible}
+				<Steps
+					className={css.steps}
+					current={currentStep}
+					currentIcon="circle"
+					futureIcon="circle"
+					highlightCurrentOnly
+					pastIcon="circle"
+					total={totalSteps}
+					size={30}
 				/>
 			);
 		}
@@ -344,10 +345,10 @@ const QuickGuidePanelsBase = kind({
 		children,
 		closeButton,
 		index,
-		prevNavigationButton,
 		nextNavigationButton,
 		onTransition,
 		onWillTransition,
+		prevNavigationButton,
 		steps,
 		...rest
 	}) => {
@@ -418,7 +419,7 @@ const QuickGuidePanelsDecorator = compose(
 
 /**
  * A QuickGuidePanels that can step through different panels.
- * Expects {@link sandstone/QuickGuidePanels.QuickGuidePanel|QuickGuidePanel} as children.
+ * Expects {@link sandstone/QuickGuidePanels.Panel|Panel} as children.
  *
  * @class QuickGuidePanels
  * @memberof sandstone/QuickGuidePanels

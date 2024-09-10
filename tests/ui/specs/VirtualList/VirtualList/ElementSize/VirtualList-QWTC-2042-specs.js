@@ -13,7 +13,7 @@ describe('spotlight size compare', function () {
 		const defaultSpotlightSize = await Page.spotlightSize();
 		// Step 3 Verify: The default value for the 'spacing' knob is 0.
 		const defaultSpacing = await Page.itemSpacing();
-		expect(defaultSpacing).to.equal(0);
+		expect(defaultSpacing).toBe(0);
 		// Step 4: Knobs > VirtualList > spacing > 100
 		await Page.inputfieldSpacing.moveTo();
 		await Page.spotlightSelect();
@@ -26,13 +26,13 @@ describe('spotlight size compare', function () {
 		// 100 spacing value is 50 for 4k and 25 for FHD.
 		// Step 4 Verify: The gap between items grows bigger.
 		const changedSpacing = await Page.itemSpacing();
-		expect(changedSpacing).to.equal(50);
+		expect(changedSpacing).toBe(50);
 		// Step5-1: Hover an item.
 		await Page.spotlightDown();
 		await (await Page.item(5)).moveTo();
 		await expectFocusedItem(5);
 		// Step5 Verify: The spotlight size does not change.
-		expect(await Page.spotlightSize()).to.equal(defaultSpotlightSize);
+		expect(await Page.spotlightSize()).toBe(defaultSpotlightSize);
 		// Step 6: Knobs > VirtualList > spacing > 50
 		await Page.inputfieldSpacing.moveTo();
 		await Page.spotlightSelect();
@@ -44,12 +44,12 @@ describe('spotlight size compare', function () {
 		await Page.backKey();
 		// 50 spacing value is 50 for 4k and 25 for FHD.
 		const newSpacing = await Page.itemSpacing();
-		expect(newSpacing).to.equal(25);
+		expect(newSpacing).toBe(25);
 		// Step7-1: Hover an item.
 		await Page.spotlightDown();
 		await (await Page.item(3)).moveTo();
 		await expectFocusedItem(3);
 		// Step7 Verify: The spotlight size does not change.
-		expect(await Page.spotlightSize()).to.equal(defaultSpotlightSize);
+		expect(await Page.spotlightSize()).toBe(defaultSpotlightSize);
 	});
 });

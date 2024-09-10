@@ -1,4 +1,4 @@
-import QuickGuidePanels, {QuickGuidePanel} from '../../../../QuickGuidePanels';
+import QuickGuidePanels, {Panel as QuickGuidePanel} from '../../../../QuickGuidePanels';
 
 import {withConfig} from './utils';
 

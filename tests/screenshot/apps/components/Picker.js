@@ -101,7 +101,7 @@ const PickerTests = [
 	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
 	<Picker width="medium" wrap joined changedBy="arrow" noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
 	// Ellipsis Displays with RTL Text in LTR Locale - [QWTC-2199]
-	// Marked part automated as cannnot check for marquee (step 4 - part 2)
+	// Marked part automated as cannot check for marquee (step 4 - part 2)
 	// Step 3 - part 1: The RTL text displays. The Right arrow button is disabled.
 	// Step 4 - part 1: Ellipsis display on the left side of the text.
 	<Picker value={3} width="medium">{pickerList.airports}</Picker>,
@@ -121,14 +121,14 @@ const PickerTests = [
 	<Picker value={1} orientation="vertical">{pickerList.vegetables}</Picker>,
 
 	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [QWTC-2216]
-	// Marked part auotomated due to one click required
+	// Marked part automated due to one click required
 	<Picker value={0} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	<Picker value={1} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	<Picker value={2} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	<Picker value={3} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	// end of [QWTC-2216]
 
-	// oneItem: Change 'orientation'to Vertical, 'joined', 'disabled' dynamically - [QWTC-2212]
+	// oneItem: Change 'orientation' to Vertical, 'joined', 'disabled' dynamically - [QWTC-2212]
 	// Step 2 Picker is disabled (since it only has one item).
 	<Picker orientation="vertical">{pickerList.oneAirport}</Picker>,
 	// end of [QWTC-2212]

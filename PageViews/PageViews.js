@@ -6,13 +6,14 @@ import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlig
 import Changeable from '@enact/ui/Changeable';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
+import classNames from 'classnames';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
 import Button from '../Button';
 import $L from '../internal/$L';
-import {CrossFadeArranger} from '../internal/Panels';
+import {BasicArranger} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
@@ -37,6 +38,7 @@ import css from './PageViews.module.less';
  */
 const PageViewsBase = kind({
 	name: 'PageViews',
+
 	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
 		'aria-label': PropTypes.string,
 
@@ -52,7 +54,7 @@ const PageViewsBase = kind({
 		arranger: shape,
 
 		/**
-		 * {@link sandstone/PageViews.Page|Page} to be rendered
+		 * {@link sandstone/PageViews.Page|Page} to be rendered.
 		 *
 		 * @type {Node}
 		 * @public
@@ -66,6 +68,14 @@ const PageViewsBase = kind({
 		 * @public
 		 */
 		componentRef: EnactPropTypes.ref,
+
+		/**
+		 * When `true`, maximize its contents area.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		fullContents: PropTypes.bool,
 
 		/**
 		 * Index of the active page.
@@ -114,7 +124,7 @@ const PageViewsBase = kind({
 		 *
 		 * There are two types:
 		 *
-		 * * `dot` - Indicates pages by dots. Used for pages less than 10 pages.
+		 * * `dot` - Indicates pages by dots.
 		 * * `number` - Indicates pages by current page number and total number of pages.
 		 *
 		 * @type {('dot'|'number')}
@@ -139,21 +149,25 @@ const PageViewsBase = kind({
 		 */
 		totalIndex: PropTypes.number
 	},
+
 	defaultProps: {
-		arranger: CrossFadeArranger,
+		arranger: BasicArranger,
 		pageIndicatorType: 'dot'
 	},
+
 	styles: {
 		css,
 		className: 'pageViews',
 		publicClassNames: true
 	},
+
 	handlers: {
 		onNextClick: handle(
 			forwardCustomWithPrevent('onNextClick'),
 			(ev, {index, onChange, totalIndex}) => {
 				if (onChange && index !== totalIndex) {
 					const nextIndex = index < (totalIndex - 1) ? (index + 1) : index;
+
 					onChange({type: 'onChange', index: nextIndex});
 				}
 			}
@@ -163,6 +177,7 @@ const PageViewsBase = kind({
 			(ev, {index, onChange}) => {
 				if (onChange && index !== 0) {
 					const prevIndex = index > 0 ? (index - 1) : index;
+
 					onChange({type: 'onChange', index: prevIndex});
 				}
 			}
@@ -178,105 +193,127 @@ const PageViewsBase = kind({
 			}
 		}
 	},
+
 	computed: {
 		'aria-label': ({children, index, totalIndex}) => {
 			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
 			return `${pageHint} ${children?.[index]?.props['aria-label'] || ''}`;
 		},
-		className: ({pageIndicatorType, styler}) => {
-			return styler.append(pageIndicatorType);
-		},
-		prevNavigationButton: ({index, onPrevClick, navigationButtonOffset}) => {
-			const isPrevButtonVisible = index !== 0;
-			return (
-				<Cell className={css.navButton} shrink>
-					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} style={{top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null}} /> : null}
-				</Cell>
-			);
-		},
-		nextNavigationButton: ({index, onNextClick, totalIndex, navigationButtonOffset}) => {
+		className: ({fullContents, pageIndicatorType, styler}) => styler.append({fullContents}, pageIndicatorType),
+		renderNextButton: ({onNextClick, index, totalIndex, navigationButtonOffset}) => {
 			const isNextButtonVisible = index < totalIndex - 1;
+			const navigationButtonStyle = {
+				top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null
+			};
 
 			return (
 				<Cell className={css.navButton} shrink>
-					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} style={{top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null}} /> : null}
+					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" style={navigationButtonStyle} /> : null}
+				</Cell>
+			);
+		},
+		renderPrevButton: ({index, onPrevClick, navigationButtonOffset}) => {
+			const isPrevButtonVisible = index !== 0;
+			const navigationButtonStyle = {
+				top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null
+			};
+
+			return (
+				<Cell className={css.navButton} shrink>
+					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" style={navigationButtonStyle} /> : null}
+				</Cell>
+			);
+		},
+		renderViewManager: ({arranger, index, noAnimation, onTransition, onWillTransition, reverseTransition, children}) => {
+			return (
+				<Cell
+					arranger={arranger}
+					className={css.viewManager}
+					component={ViewManager}
+					duration={400}
+					index={index}
+					noAnimation={noAnimation}
+					onTransition={onTransition}
+					onWillTransition={onWillTransition}
+					reverseTransition={reverseTransition}
+				>
+					{children}
 				</Cell>
 			);
 		},
 		steps: ({index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
+			const isStepVisible = totalIndex !== 1;
+
 			return (
-				<div>
-					{pageIndicatorType === 'dot' ?
-						<Row className={css.steps}>
+				<>
+					{pageIndicatorType !== 'number' ?
+						<Row className={classNames(css.steps, {[css.hidden]: !isStepVisible})}>
 							<Steps
 								current={index + 1}
-								pastIcon={'circle'}
-								currentIcon={'circle'}
-								futureIcon={'circle'}
-								layout="quickGuidePanels"
+								currentIcon="circle"
+								futureIcon="circle"
+								highlightCurrentOnly
+								pastIcon="circle"
 								total={totalIndex}
+								size={30}
 							/>
 						</Row> :
 						<Row className={css.steps}>
 							<Cell className={css.navButton} shrink>
-								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowsmallleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
+								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>
 							<Cell className={css.pageNumber} shrink>{index + 1}</Cell><Cell className={css.separator} shrink>/</Cell><Cell className={css.pageNumber} shrink>{totalIndex}</Cell>
 							<Cell className={css.navButton} shrink>
-								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowsmallright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
+								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
 							</Cell>
 						</Row>}
-				</div>
+				</>
 			);
 		}
 	},
+
 	render: ({
 		'aria-label': ariaLabel,
-		arranger,
-		children,
 		componentRef,
+		fullContents,
 		index,
-		nextNavigationButton,
-		noAnimation,
-		onTransition,
-		onWillTransition,
 		pageIndicatorType,
-		prevNavigationButton,
-		reverseTransition,
+		renderNextButton,
+		renderPrevButton,
+		renderViewManager,
 		steps,
 		...rest
 	}) => {
-
-		delete rest.componentRef;
+		delete rest.arranger;
+		delete rest.children;
+		delete rest.noAnimation;
+		delete rest.onTransition;
 		delete rest.onNextClick;
 		delete rest.onPrevClick;
+		delete rest.onWillTransition;
+		delete rest.reverseTransition;
 		delete rest.totalIndex;
 
 		return (
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
-				{pageIndicatorType === 'dot' ? steps : null}
+				{!fullContents && pageIndicatorType === 'dot' ? steps : null}
 				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
-					<Row className={css.horizontalLayout}>
-						{pageIndicatorType === 'dot' ? prevNavigationButton : null}
-						<Cell
-							arranger={arranger}
-							className={css.viewManager}
-							component={ViewManager}
-							duration={400}
-							index={index}
-							noAnimation={noAnimation}
-							onTransition={onTransition}
-							onWillTransition={onWillTransition}
-							reverseTransition={reverseTransition}
-						>
-							{children}
-						</Cell>
-						{pageIndicatorType === 'dot' ? nextNavigationButton : null}
-					</Row>
+					{fullContents ?
+						<>
+							<Row className={css.horizontalLayout}>{renderViewManager}</Row>
+							<Row className={css.navButtonContainer}>{pageIndicatorType === 'dot' ? renderPrevButton : null}<Cell />{pageIndicatorType === 'dot' ? renderNextButton : null}</Row>
+							{steps}
+						</> :
+						<Row className={css.horizontalLayout}>
+							{pageIndicatorType === 'dot' ? renderPrevButton : null}
+							{renderViewManager}
+							{pageIndicatorType === 'dot' ? renderNextButton : null}
+						</Row>
+					}
 				</Column>
-				{pageIndicatorType === 'number' ? steps : null}
+				{!fullContents && pageIndicatorType === 'number' ? steps : null}
 			</div>
 		);
 	}

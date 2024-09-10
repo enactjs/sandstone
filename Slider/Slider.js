@@ -19,6 +19,7 @@
 
 import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
+import {setDefaultProps} from '@enact/core/util';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
@@ -48,6 +49,17 @@ import {
 
 import componentCss from './Slider.module.less';
 
+const sliderDefaultProps = {
+	activateOnSelect: false,
+	active: false,
+	disabled: false,
+	keyFrequency: [1],
+	max: 100,
+	min: 0,
+	step: 1,
+	wheelInterval: 0
+};
+
 /**
  * Range-selection input component.
  *
@@ -59,20 +71,21 @@ import componentCss from './Slider.module.less';
  * @public
  */
 const SliderBase = (props) => {
-	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = props;
+	const sliderProps = setDefaultProps(props, sliderDefaultProps);
+	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = sliderProps;
 
 	validateSteppedOnce(p => p.knobStep, {
 		component: 'Slider',
 		stepName: 'knobStep',
 		valueName: 'max'
-	})(props);
+	})(sliderProps);
 
 	const step = validateSteppedOnce(p => p.step, {
 		component: 'Slider',
 		valueName: 'max'
-	})(props);
+	})(sliderProps);
 
-	const tooltip = props.tooltip === true ? ProgressBarTooltip : props.tooltip;
+	const tooltip = sliderProps.tooltip === true ? ProgressBarTooltip : sliderProps.tooltip;
 
 	const spotlightAccelerator = useRef();
 	const ref = useRef();
@@ -101,7 +114,7 @@ const SliderBase = (props) => {
 			forKey('enter'),
 			forward('onActivate')
 		)
-	}, props, spotlightAccelerator);
+	}, sliderProps, spotlightAccelerator);
 
 	const nativeEventHandlers = useHandlers({
 		onWheel: handle(
@@ -113,7 +126,7 @@ const SliderBase = (props) => {
 				handleDecrementByWheel
 			])
 		)
-	}, props, context);
+	}, sliderProps, context);
 
 	// if the props includes a css map, merge them together
 	let mergedCss = usePublicClassNames({componentCss, customCss: css, publicClassNames: true});
@@ -403,17 +416,6 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	wheelInterval: PropTypes.number
 };
 
-SliderBase.defaultProps = {
-	activateOnSelect: false,
-	active: false,
-	disabled: false,
-	keyFrequency: [1],
-	max: 100,
-	min: 0,
-	step: 1,
-	wheelInterval: 0
-};
-
 /**
  * Sandstone-specific slider behaviors to apply to {@link sandstone/Slider.SliderBase|SliderBase}.
  *
@@ -465,6 +467,8 @@ const SliderDecorator = compose(
  */
 
 const Slider = SliderDecorator(SliderBase);
+
+Slider.defaultPropValues = sliderDefaultProps;
 
 /**
  * A {@link sandstone/TooltipDecorator.Tooltip|Tooltip} specifically adapted for use with

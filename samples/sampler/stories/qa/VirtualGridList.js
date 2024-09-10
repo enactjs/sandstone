@@ -108,24 +108,28 @@ class MyVirtualList extends Component {
 	};
 
 	render () {
-		let props = {...this.props};
-		delete props.closePopup;
+		const {scrollMode, ...rest} = this.props;
+		delete rest.closePopup;
 
 		return (
-			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
+			<div {...rest} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
 				<VirtualGridList
 					cbScrollTo={this.getScrollTo}
 					dataSize={itemList.length}
 					direction="vertical"
 					itemRenderer={this.renderItem}
 					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
-					key={select('scrollMode', prop.scrollModeOption, Config)}
-					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					key={scrollMode}
+					scrollMode={scrollMode}
 				/>
 			</div>
 		);
 	}
 }
+
+MyVirtualList.propTypes = {
+	scrollMode: PropTypes.string
+};
 
 class ButtonAndVirtualGridList extends Component {
 	constructor (props) {
@@ -136,7 +140,7 @@ class ButtonAndVirtualGridList extends Component {
 	}
 
 	renderPopup = (rest) => {
-		return <MyVirtualList {...rest} closePopup={this.closePopup} />;
+		return <MyVirtualList {...rest} closePopup={this.closePopup} scrollMode={this.props.scrollMode} />;
 	};
 
 	openPopup = () => {
@@ -166,7 +170,8 @@ class ButtonAndVirtualGridList extends Component {
 }
 
 ButtonAndVirtualGridList.propTypes = {
-	rtl: PropTypes.bool
+	rtl: PropTypes.bool,
+	scrollMode: PropTypes.string
 };
 
 const ButtonAndVirtualGridListSamples = I18nContextDecorator (
@@ -221,7 +226,9 @@ HorizontalVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridListSamples />;
+export const WithButtonSpotlightGoesToCorrectTarget = (args) => <ButtonAndVirtualGridListSamples scrollMode={args['scrollMode']} />;
+
+select('scrollMode', WithButtonSpotlightGoesToCorrectTarget, prop.scrollModeOption, Config);
 
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
 WithButtonSpotlightGoesToCorrectTarget.parameters = {
