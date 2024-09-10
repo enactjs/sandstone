@@ -146,37 +146,58 @@ h2 {
 			content: "Role:\0020" attr(role);
 		}
 
-		--aria-label: "";
+		& {
+			--aria-label: "";
+		}
+
 		[aria-label]::after {
 			--aria-label: "label:\0020'" attr(aria-label) "'\0020/\0020";
 		}
 
-		--aria-valuetext: "";
+		& {
+			--aria-valuetext: "";
+		}
+
 		[aria-valuetext]::after {
 			--aria-valuetext: "valuetext:\0020'" attr(aria-valuetext) "'\0020/\0020";
 		}
 
-		--aria-checked: "";
+		& {
+			--aria-checked: "";
+		}
+
 		[aria-checked]::after {
 			--aria-checked: "checked:\0020'" attr(aria-checked) "'\0020/\0020";
 		}
 
-		--aria-live: "";
+		& {
+			--aria-live: "";
+		}
+
 		[aria-live]::after {
 			--aria-live: "live:\0020'" attr(aria-live) "'\0020/\0020";
 		}
 
-		--aria-labelledby: "";
+		& {
+			--aria-labelledby: "";
+		}
+
 		[aria-labelledby]::after {
 			--aria-labelledby: "labelledby:\0020'" attr(aria-labelledby) "'\0020/\0020";
 		}
 
-		--aria-owns: "";
+		& {
+			--aria-owns: "";
+		}
+
 		[aria-owns]::after {
 			--aria-owns: "owns:\0020'" attr(aria-owns) "'\0020/\0020";
 		}
 
-		--aria-disabled: "";
+		& {
+			--aria-disabled: "";
+		}
+
 		[aria-disabled="true"]::after {
 			--aria-disabled: "disabled:\0020'" attr(aria-disabled) "'\0020/\0020";
 		}
