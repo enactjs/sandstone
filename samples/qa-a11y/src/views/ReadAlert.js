@@ -6,7 +6,7 @@ import {useCallback, useEffect, useState} from 'react';
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import appCss from '../App/App.module.scss';
 
 const ReadAlertView = () => {
 	const [audioGuidance, setAudioGuidance] = useState(false);

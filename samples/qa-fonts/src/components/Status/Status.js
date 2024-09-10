@@ -1,7 +1,7 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 
-import css from './Status.module.less';
+import css from './Status.module.scss';
 
 const Status = kind({
 	name: 'Status',

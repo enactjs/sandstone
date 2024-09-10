@@ -7,7 +7,7 @@ import {EventLoggerContext} from '../../context/EventLoggerContext';
 
 import Log from './Log';
 
-import css from './Log.module.less';
+import css from './Log.module.scss';
 
 const Logs = kind({
 	name: 'LogBase',

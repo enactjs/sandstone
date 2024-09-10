@@ -5,7 +5,7 @@ import {useCallback} from 'react';
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import appCss from '../App/App.module.scss';
 
 const Option = (props) => {
 	const {handleDebug, isDebugMode} = props;

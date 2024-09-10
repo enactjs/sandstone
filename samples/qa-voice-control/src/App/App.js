@@ -6,7 +6,7 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import Panels, {Panel} from '@enact/sandstone/Panels';
 import {Fragment, useState} from 'react';
 
-import css from './App.module.less';
+import css from './App.module.scss';
 import Home from './Home';
 
 import DataWebosVoiceChecked from '../views/attribute/DataWebosVoiceChecked';

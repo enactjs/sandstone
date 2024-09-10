@@ -54,7 +54,7 @@ import VirtualGridList from '../views/VirtualGridList';
 import VirtualList from '../views/VirtualList';
 import WizardPanels from '../views/WizardPanels';
 
-import appCss from './App.module.less';
+import appCss from './App.module.scss';
 import Home from './Home';
 import View from './View';
 
