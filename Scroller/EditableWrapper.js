@@ -127,8 +127,6 @@ const EditableWrapper = (props) => {
 		// Last InputType which moves Items
 		lastInputType: null,
 
-		lastKeyEventTargetElement: null,
-
 		// Timer for holding key input
 		keyHoldTimerId: null,
 
@@ -623,7 +621,7 @@ const EditableWrapper = (props) => {
 			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			if (selectedItem) {
-				if (mutableRef.current.lastKeyEventTargetElement?.getAttribute('role') !== 'button' && target.getAttribute('role') !== 'button') {
+				if (target.getAttribute('role') !== 'button') {
 					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 						if (repeat) {
 							SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
@@ -663,18 +661,13 @@ const EditableWrapper = (props) => {
 	}, [finalizeEditing, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing, completeEditingByKeyDown]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
-		const {keyCode, target} = ev;
+		const {keyCode} = ev;
 		const {selectedItem} = mutableRef.current;
 
 		if (is('cancel', keyCode)) {
 			if (selectedItem) {
 				completeEditingByKeyDown();
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
-			}
-		} else {
-			mutableRef.current.lastKeyEventTargetElement = target;
-			if (target.getAttribute('role') === 'button') {
-				return;
 			}
 		}
 
