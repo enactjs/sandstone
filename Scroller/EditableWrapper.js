@@ -661,7 +661,7 @@ const EditableWrapper = (props) => {
 	}, [finalizeEditing, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing, completeEditingByKeyDown]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
-		const {keyCode} = ev;
+		const {keyCode, target} = ev;
 		const {selectedItem} = mutableRef.current;
 
 		if (is('cancel', keyCode)) {
@@ -669,6 +669,8 @@ const EditableWrapper = (props) => {
 				completeEditingByKeyDown();
 				ev.stopPropagation(); // To prevent onCancel by CancelDecorator
 			}
+		} else if (target.getAttribute('role') === 'button') {
+			return;
 		}
 
 		clearTimeout(mutableRef.current.timer);
