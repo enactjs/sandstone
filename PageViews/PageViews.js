@@ -40,8 +40,6 @@ const PageViewsBase = kind({
 	name: 'PageViews',
 
 	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
-		'aria-label': PropTypes.string,
-
 		/**
 		 * Set of functions that control how the pages are transitioned into and out of the
 		 * viewport.
@@ -195,10 +193,6 @@ const PageViewsBase = kind({
 	},
 
 	computed: {
-		'aria-label': ({children, index, totalIndex}) => {
-			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
-			return `${pageHint} ${children?.[index]?.props['aria-label'] || ''}`;
-		},
 		className: ({fullContents, pageIndicatorType, styler}) => styler.append({fullContents}, pageIndicatorType),
 		renderNextButton: ({onNextClick, index, totalIndex, navigationButtonOffset}) => {
 			const isNextButtonVisible = index < totalIndex - 1;
@@ -241,6 +235,10 @@ const PageViewsBase = kind({
 				</Cell>
 			);
 		},
+		stepHintAriaLabel: ({children, index, totalIndex}) => {
+			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
+			return `${pageHint} ${children?.[index]?.props['aria-label'] || ''}`;
+		},
 		steps: ({index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
@@ -275,7 +273,6 @@ const PageViewsBase = kind({
 	},
 
 	render: ({
-		'aria-label': ariaLabel,
 		componentRef,
 		fullContents,
 		index,
@@ -283,6 +280,7 @@ const PageViewsBase = kind({
 		renderNextButton,
 		renderPrevButton,
 		renderViewManager,
+		stepHintAriaLabel,
 		steps,
 		...rest
 	}) => {
@@ -299,7 +297,7 @@ const PageViewsBase = kind({
 		return (
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
 				{!fullContents && pageIndicatorType === 'dot' ? steps : null}
-				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
+				<Column aria-label={stepHintAriaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
 					{fullContents ?
 						<>
 							<Row className={css.horizontalLayout}>{renderViewManager}</Row>

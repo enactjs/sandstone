@@ -39,6 +39,19 @@ function Panel ({
 }
 
 /**
+ * The aria-label for the Panel.
+ *
+ * Example:
+ * ```
+ * <QuickGuidePanels.Panel aria-label="This is a description for panel">
+ * ```
+ * @name aria-label
+ * @type {String}
+ * @memberof sandstone/QuickGuidePanels.Panel.prototype
+ * @public
+ */
+
+/**
  * The button to use in place of the standard next button.
  *
  * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
