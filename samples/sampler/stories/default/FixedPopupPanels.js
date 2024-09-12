@@ -6,7 +6,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 
-import css from './FixedPopupPanels.module.less';
+import css from './FixedPopupPanels.module.scss';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 Config.defaultProps.position = 'right';

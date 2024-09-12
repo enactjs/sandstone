@@ -3,7 +3,7 @@ import kind from '@enact/core/kind';
 import InputBoard from '../components/InputBoard';
 import Logs from '../components/Log';
 
-import css from './MainView.module.less';
+import css from './MainView.module.scss';
 
 const MainView = kind({
 	name: 'MainView',

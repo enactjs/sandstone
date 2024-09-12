@@ -7,7 +7,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 
-import css from './Scroller.module.less';
+import css from './Scroller.module.scss';
 
 const prop = {
 	direction: ['both', 'horizontal', 'vertical'],

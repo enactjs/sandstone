@@ -3,7 +3,7 @@ import {useState} from 'react';
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import appCss from '../App/App.module.scss';
 
 const SelectableImageItem = (props) => {
 	const [checked, setChecked] = useState(false);

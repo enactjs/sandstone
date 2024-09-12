@@ -6,7 +6,7 @@ import {useState} from 'react';
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import appCss from '../App/App.module.scss';
 
 const ProgressButtonView = () => {
 	const [value, setValue] = useState(0);

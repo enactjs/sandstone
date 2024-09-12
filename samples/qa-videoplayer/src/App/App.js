@@ -3,7 +3,7 @@ import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import MainPanel from '../views/MainPanel';
 
-import css from './App.module.less';
+import css from './App.module.scss';
 
 const App = kind({
 	name: 'App',

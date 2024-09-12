@@ -1,7 +1,7 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 
-import css from './Log.module.less';
+import css from './Log.module.scss';
 
 const Log = kind({
 	name: 'Log',

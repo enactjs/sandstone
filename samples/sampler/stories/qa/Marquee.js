@@ -11,7 +11,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 import {Component} from 'react';
 
-import css from './Marquee.module.less';
+import css from './Marquee.module.scss';
 
 Marquee.displayName = 'Marquee';
 

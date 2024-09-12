@@ -1,0 +1,38 @@
+// QuickGuidePanels.module.scss
+//
+@use "~@enact/sandstone/styles/skin.scss";
+
+.button {
+	&.small {
+		margin-bottom: 162px;
+		margin-left: 64px;
+	}
+}
+
+.guide {
+	position: relative;
+	z-index: 10;
+	margin: 60px;
+}
+
+.panel {
+	margin: 240px;
+}
+
+.popup {
+	@include skin.applySkins {
+		background-color: transparent;
+	}
+
+	.body {
+		padding: 0;
+	}
+}
+
+.svg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}

@@ -3,7 +3,7 @@ import Group from '@enact/ui/Group';
 
 import Section from '../components/Section';
 
-import appCss from '../App/App.module.less';
+import appCss from '../App/App.module.scss';
 
 const GroupView = () => (
 	<>

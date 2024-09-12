@@ -1,0 +1,8 @@
+// FontList.module.scss
+//
+
+.list {
+	+ .list {
+		margin-top: 1em;
+	}
+}

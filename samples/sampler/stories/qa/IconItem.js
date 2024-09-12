@@ -18,7 +18,7 @@ import gameHomeIcon from '../../images/icon_app_game.png';
 import homeOfficeIcon from '../../images/icon_app_homeoffice.png';
 import mediaDiscoveryIcon from '../../images/icon_app_mediadiscovery.png';
 
-import css from './IconItem.module.less';
+import css from './IconItem.module.scss';
 
 add('cancel', 27);
 const isCancel = is('cancel');

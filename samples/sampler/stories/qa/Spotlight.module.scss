@@ -1,0 +1,40 @@
+// Spotlight.module.scss
+//
+@use "~@enact/sandstone/styles/colors.scss";
+@use "~@enact/sandstone/styles/mixins.scss";
+@use "~@enact/sandstone/styles/skin.scss";
+
+.spottableitem {
+	@include skin.applySkins {
+		background-color: transparent;
+		color: colors.$sand-text-color;
+		@include mixins.focus {
+			background-color: colors.$sand-spotlight-bg-color;
+			color: colors.$sand-spotlight-text-color;
+		}
+	}
+}
+
+.spottableDiv1 {
+	@include skin.applySkins {
+		@include mixins.sand-focus-highlight;
+	}
+
+	@include mixins.focus {
+		transform: scale(1.1);
+	}
+
+	& .image {
+		margin: 0;
+	}
+}
+
+.spottableDiv2 {
+	@include skin.applySkins {
+		@include mixins.sand-focus-highlight(image);
+	}
+
+	@include mixins.focus {
+		transform: scale(1.1);
+	}
+}

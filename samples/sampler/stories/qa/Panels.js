@@ -25,7 +25,7 @@ import homeOfficeIcon from '../../images/icon_app_homeoffice.png';
 import mediaDiscoveryIcon from '../../images/icon_app_mediadiscovery.png';
 import {svgGenerator} from '../helper/svg';
 
-import css from './Panels.module.less';
+import css from './Panels.module.scss';
 
 const Config = mergeComponentMetadata('Panels', Panels);
 

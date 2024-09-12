@@ -6,7 +6,7 @@ import QuickGuidePanels from '@enact/sandstone/QuickGuidePanels';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {number, select} from '@enact/storybook-utils/addons/controls';
 
-import css from './QuickGuidePanels.module.less';
+import css from './QuickGuidePanels.module.scss';
 
 QuickGuidePanels.displayName = 'QuickGuidePanels';
 

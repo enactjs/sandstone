@@ -5,7 +5,7 @@ import {Cell, Row} from '@enact/ui/Layout';
 
 import Heading from '@enact/sandstone/Heading';
 
-import css from './Section.module.less';
+import css from './Section.module.scss';
 
 //
 // A "section" to be used in Kitchen-Sink style QA stories

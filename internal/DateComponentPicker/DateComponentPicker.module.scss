@@ -1,0 +1,21 @@
+// DateComponentPicker.module.scss
+//
+@use "../../styles/mixins";
+@use "../../styles/variables";
+
+.dateComponentPicker {
+	display: inline-block;
+	text-align: center;
+	margin: variables.$sand-datecomponentpicker-margin;
+	vertical-align: inherit;
+
+	.label {
+		@include mixins.sand-body-text;
+
+		& {
+			text-align: center;
+			padding: 36px variables.$sand-spotlight-outset;
+			white-space: nowrap;
+		}
+	}
+}

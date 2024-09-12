@@ -8,7 +8,7 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
 import {svgGenerator} from '../helper/svg';
 
-import css from './VirtualGridList.module.less';
+import css from './VirtualGridList.module.scss';
 
 const prop = {
 		direction: {horizontal: 'horizontal', vertical: 'vertical'},
