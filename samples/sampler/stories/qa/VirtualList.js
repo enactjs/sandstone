@@ -548,54 +548,44 @@ const variableItemSizes = fixedItemSizes.map((size, index) => {
 	return index % 2  ? size * 2  : size;
 });
 
-class VirtualListWithChangingSizes extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			variableItemSizesMode: false
-		};
-	}
+// eslint-disable-next-line enact/prop-types, enact/display-name
+const renderVirtualListItem = (variableItemSizesMode) => ({index, ...rest}) => {
+	return (
+		<Item {...rest} style={{width: variableItemSizesMode && index % 2 ? ri.scaleToRem(720) : ri.scaleToRem(360), margin: ri.scaleToRem(15)}}>
+			{`item ${index}`}
+		</Item>
+	);
+};
 
-	handleDataSize = () => {
-		this.setState(prevState => ({
-			variableItemSizesMode: !prevState.variableItemSizesMode
-		}));
-	};
+export const UpdateItemsBetweenFixedAndVariableSizes = () => {
+	const [variableItemSizesMode, setVariableItemSizesMode] = useState(false);
+	const handleDataSize = useCallback(() => {
+		setVariableItemSizesMode(!variableItemSizesMode);
+	}, [variableItemSizesMode]);
 
-	renderItem = (variableItemSizesMode) => ({index, ...rest}) => {
-		return (
-			<Item {...rest} style={{width: variableItemSizesMode && index % 2 ? ri.scaleToRem(720) : ri.scaleToRem(360), margin: ri.scaleToRem(15)}}>
-				{`item ${index}`}
-			</Item>
-		);
-	};
+	return (
+		<Column>
+			<Cell shrink>
+				<Button size="small" onClick={handleDataSize}>Update Items</Button>
+			</Cell>
+			<br />
+			<br />
+			<Cell>
+				<VirtualList
+					dataSize={16}
+					direction="horizontal"
+					itemRenderer={renderVirtualListItem(variableItemSizesMode)}
+					itemSize={{
+						size: variableItemSizesMode ? variableItemSizes : fixedItemSizes,
+						minSize: Math.min(...variableItemSizes)
+					}}
+				/>
+			</Cell>
+		</Column>
+	);
+};
 
-	render () {
-		return (
-			<Column>
-				<Cell shrink>
-					<Button size="small" onClick={this.handleDataSize}>Update Items</Button>
-				</Cell>
-				<br />
-				<br />
-				<Cell>
-					<VirtualList
-						dataSize={16}
-						direction="horizontal"
-						itemRenderer={this.renderItem(this.state.variableItemSizesMode)}
-						itemSize={{
-							size: this.state.variableItemSizesMode ? variableItemSizes : fixedItemSizes,
-							minSize: Math.min(...variableItemSizes)
-						}}
-					/>
-				</Cell>
-			</Column>
-		);
-	}
-}
-
-export const UpdateItemsBetweenFixedAndVariableSizes = () => <VirtualListWithChangingSizes />;
-VirtualListWithChangingSizes.storyName = 'Update Items Between Fixed And Variable Sizes';
-VirtualListWithChangingSizes.parameters = {
+UpdateItemsBetweenFixedAndVariableSizes.storyName = 'Update Items Between Fixed And Variable Sizes';
+UpdateItemsBetweenFixedAndVariableSizes.parameters = {
 	propTables: [Config]
 };
