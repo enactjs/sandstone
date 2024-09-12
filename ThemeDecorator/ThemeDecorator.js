@@ -6,24 +6,26 @@
  */
 
 import {setDefaultTargetById} from '@enact/core/dispatcher';
-import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
+import {addAll} from '@enact/core/keymap';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
-import {Component} from 'react';
-import classNames from 'classnames';
-import {ResolutionDecorator} from '@enact/ui/resolution';
-import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import SpotlightRootDecorator, {activateInputType, getInputType as getLastInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
+import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
+import {ResolutionDecorator} from '@enact/ui/resolution';
+import {configure} from '@enact/ui/Touchable';
 import {requestLastInputType} from '@enact/webos/lastInputType';
+import platform from '@enact/webos/platform';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import {Component} from 'react';
 
 import Skinnable from '../Skinnable';
 
-import I18nFontDecorator from './I18nFontDecorator';
 import AccessibilityDecorator from './AccessibilityDecorator';
+import I18nFontDecorator from './I18nFontDecorator';
 import screenTypes from './screenTypes.json';
+
 import css from './ThemeDecorator.module.less';
-import {configure} from '@enact/ui/Touchable';
 
 /**
  * Default config for `ThemeDecorator`.
@@ -256,7 +258,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		componentDidMount () {
-			if (spotlight) {
+			if (spotlight && platform.tv) {
 				activateInputType(true);
 				requestInputType = requestLastInputType({
 					onSuccess: function (res) {
