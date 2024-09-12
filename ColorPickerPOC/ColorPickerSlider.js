@@ -90,7 +90,7 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 	}, [localBlue, localGreen, localRed, selectedColorHandler]);
 
 	return (
-		<Layout {...props}>
+		<Layout {...props} className={componentCss.slidersContainer}>
 			<Cell>
 				<Cell className={componentCss.labelText}>Red</Cell>
 				<Row>
@@ -208,7 +208,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 	}, [hue, saturation, lightness, selectedColorHandler]);
 
 	return (
-		<Layout {...props}>
+		<Layout {...props} className={componentCss.slidersContainer}>
 			<Cell>
 				<Cell>
 					<Cell className={componentCss.labelText}>Hue</Cell>
@@ -314,28 +314,33 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 		selectedColorHandler(ev.value);
 	}, [selectedColorHandler]);
 
-	const handleSwitch = useCallback((ev) => {
+	const handleSelect = useCallback((ev) => {
 		setPickerType(ev.data);
 	}, [setPickerType]);
 
 	return (
-		<Cell {...props} className={componentCss.switchCell}>
-			<Row>
-				<Dropdown
-					onSelect={handleSwitch}
-					placeholder={pickerType}
-					size="small"
-				>
-					{['RGB Picker', 'HSL Picker']}
-				</Dropdown>
-				<InputField
-					className={componentCss.hexInput}
-					invalid={checkHex(selectedColor)}
-					invalidMessage="Use a 6 characters hex code"
-					onBlur={handleBlur}
-					onChange={handleInputChange}
-					value={selectedColor.toUpperCase()}
-				/>
+		<Cell {...props} className={componentCss.sliderPickerContainer}>
+			<Row className={componentCss.containerRow}>
+				<Cell size="60%">
+					<Dropdown
+						className={componentCss.pickerSelect}
+						onSelect={handleSelect}
+						placeholder={pickerType}
+						size="small"
+					>
+						{['RGB Picker', 'HSL Picker']}
+					</Dropdown>
+				</Cell>
+				<Cell size="40%">
+					<InputField
+						className={componentCss.hexInput}
+						invalid={checkHex(selectedColor)}
+						invalidMessage="Use a 6 characters hex code"
+						onBlur={handleBlur}
+						onChange={handleInputChange}
+						value={selectedColor.toUpperCase()}
+					/>
+				</Cell>
 			</Row>
 			{pickerType === 'HSL Picker' ?
 				<ColorPickerSliderHSL selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} /> :
