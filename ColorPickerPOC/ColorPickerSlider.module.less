@@ -1,47 +1,71 @@
 @import "../styles/mixins.less";
 
-.switchCell {
+.sliderPickerContainer {
 	margin-top: -63px;
-	padding: 0 30px;
-}
 
-.labelText {
-	font-size: 42px;
-	margin: 9px 0;
-}
-
-.outputText {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #eeeeee;
-	color: rgb(76, 80, 89);
-	border-radius: 12px;
-	margin-left: 30px;
-}
-
-.slider {
-	--sand-progress-bg-color-rgb: transparent;
-	border-radius: 99px;
-	height: 33px;
-	margin-left: 18px;
-	margin-right: 18px;
-
-	.focus({
-		.knob {
-			transform: scale(1.1);
-		}
-	});
-
-	.knob {
-		&::before {
-			border-radius: 99px;
-			height: 102px;
-			width: 102px;
-		}
+	.containerRow {
+		padding-bottom: 30px;
 	}
 }
 
-.sliderCell {
-	border-radius: 99px;
+.slidersContainer {
+	padding: 0 30px;
+
+	.labelText {
+		font-size: 42px;
+		margin: 9px 0;
+	}
+
+	.sliderCell {
+		border-radius: 99px;
+	}
+
+	.slider {
+		--sand-progress-bg-color-rgb: transparent;
+		border-radius: 99px;
+		height: 33px;
+		margin-left: 18px;
+		margin-right: 18px;
+
+		.focus({
+			.knob {
+				transform: scale(1.1);
+			}
+		});
+
+		.knob {
+			&::before {
+				border-radius: 99px;
+				height: 102px;
+				width: 102px;
+			}
+		}
+	}
+
+	.outputText {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #eeeeee;
+		color: rgb(76, 80, 89);
+		border-radius: 12px;
+		margin-left: 30px;
+	}
+}
+
+.pickerSelect {
+	margin: 0;
+	height: 129px;
+
+	[role*=button] {
+		height: 129px;
+	}
+}
+
+.hexInput {
+	width: 402px;
+
+	input {
+		width: 372px;
+	}
 }

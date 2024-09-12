@@ -2,12 +2,13 @@ import Layout, {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useState} from 'react';
 
+import Dropdown from '../Dropdown';
 import Slider from '../Slider';
-import SwitchItem from '../SwitchItem';
 
-import {generateOppositeColor, hexToHSL, hexToRGB, hslToHex, hslToRGBString, rgbObjectToHex} from './utils';
+import {checkHex, generateOppositeColor, hexToHSL, hexToRGB, hslToHex, hslToRGBString, rgbObjectToHex} from './utils';
 
 import componentCss from './ColorPickerSlider.module.less';
+import {InputField} from '../Input';
 
 const hueGradient = (saturation, lightness) => {
 	return `linear-gradient(to right, 
@@ -89,7 +90,7 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 	}, [localBlue, localGreen, localRed, selectedColorHandler]);
 
 	return (
-		<Layout {...props}>
+		<Layout {...props} className={componentCss.slidersContainer}>
 			<Cell>
 				<Cell className={componentCss.labelText}>Red</Cell>
 				<Row>
@@ -207,7 +208,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 	}, [hue, saturation, lightness, selectedColorHandler]);
 
 	return (
-		<Layout {...props}>
+		<Layout {...props} className={componentCss.slidersContainer}>
 			<Cell>
 				<Cell>
 					<Cell className={componentCss.labelText}>Hue</Cell>
@@ -235,7 +236,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 								value={hue}
 							/>
 						</Cell>
-						<Cell className={componentCss.outputText} size="20%">{hue}%</Cell>
+						<Cell className={componentCss.outputText} size="20%">{hue}</Cell>
 					</Row>
 				</Cell>
 				<Cell>
@@ -302,23 +303,47 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 };
 
 const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
-	const [pickerType, setPickerType] = useState(false);
+	const [pickerType, setPickerType] = useState('RGB Picker');
 
-	const handleSwitch = useCallback(() => {
-		setPickerType(type => !type);
+	const handleBlur = useCallback(() => {
+		if (checkHex(selectedColor)) selectedColorHandler('#000000');
+	}, [selectedColor, selectedColorHandler]);
+
+	const handleInputChange = useCallback((ev) => {
+		if (ev.value.length > 7 || ev.value.length < 1) return;
+		selectedColorHandler(ev.value);
+	}, [selectedColorHandler]);
+
+	const handleSelect = useCallback((ev) => {
+		setPickerType(ev.data);
 	}, [setPickerType]);
 
 	return (
-		<Cell {...props} className={componentCss.switchCell}>
-			<SwitchItem
-				onToggle={handleSwitch}
-				size="small"
-				value={pickerType}
-			>
-				{pickerType ? 'HSL Picker' : 'RGB picker'}
-			</SwitchItem>
-			{pickerType ?
-				<ColorPickerSliderHSL selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} />				:
+		<Cell {...props} className={componentCss.sliderPickerContainer}>
+			<Row className={componentCss.containerRow}>
+				<Cell size="60%">
+					<Dropdown
+						className={componentCss.pickerSelect}
+						onSelect={handleSelect}
+						placeholder={pickerType}
+						size="small"
+					>
+						{['RGB Picker', 'HSL Picker']}
+					</Dropdown>
+				</Cell>
+				<Cell size="40%">
+					<InputField
+						className={componentCss.hexInput}
+						invalid={checkHex(selectedColor)}
+						invalidMessage="Use a 6 characters hex code"
+						onBlur={handleBlur}
+						onChange={handleInputChange}
+						value={selectedColor.toUpperCase()}
+					/>
+				</Cell>
+			</Row>
+			{pickerType === 'HSL Picker' ?
+				<ColorPickerSliderHSL selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} /> :
 				<ColorPickerSliderRGB selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} />
 			}
 		</Cell>
