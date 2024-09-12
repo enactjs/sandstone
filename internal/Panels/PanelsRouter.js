@@ -80,7 +80,7 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		return (
 			<PanelsContext.Provider value={setPanel}>
 				{Children.toArray(children)[index]}
-				{config.type === 'wizard' ?
+				{panel && (config.type === 'wizard' ?
 					<Wrapped
 						{...rest}
 						{...panel}
@@ -94,7 +94,7 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 						totalPanels={totalPanels}
 						reverseTransition={reverseTransition}
 					>
-						{panel && panel.children ? (
+						{panel.children ? (
 							<div className="enact-fit" key={`panel${prevIndex}`}>
 								{panel.children}
 							</div>
@@ -109,13 +109,13 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 						onWillTransition={handleWillTransition}
 						totalPanels={totalPanels}
 					>
-						{panel && panel.children ? (
+						{panel.children ? (
 							<div className="enact-fit" key={`panel${prevIndex}`}>
 								{panel.children}
 							</div>
 						) : null}
 					</Wrapped>
-				}
+				)}
 			</PanelsContext.Provider>
 		);
 	};

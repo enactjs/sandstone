@@ -496,7 +496,7 @@ const HeaderBase = kind({
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					{titleCell}
+					{!(centered && (!slotBeforeRef.current || !slotAfterRef.current)) && titleCell}
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}
@@ -565,7 +565,6 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 			slotAfterRef,
 			slotSize: unit(slotSize, 'rem')
 		};
-
 		return <Wrapped {...props} {...measurableProps} />;
 	};
 };
