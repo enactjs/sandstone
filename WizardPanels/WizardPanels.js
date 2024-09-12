@@ -396,6 +396,7 @@ const WizardPanelsBase = kind({
 						noSubtitle={noSubtitle}
 						subtitle={subtitle}
 						title={title}
+						totalPanels={totalPanels}
 						type="wizard"
 					>
 						{steps}

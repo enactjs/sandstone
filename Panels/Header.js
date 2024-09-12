@@ -325,6 +325,14 @@ const HeaderBase = kind({
 		titleId: PropTypes.string,
 
 		/**
+		 * Total number of Panels.
+		 * 
+		 * @type {number}
+		 * @private
+		 */
+		totalPanels: PropTypes.number,
+
+		/**
 		 * Set the type of header to be used.
 		 *
 		 * @type {('compact'|'mini'|'standard'|'wizard')}
@@ -336,7 +344,8 @@ const HeaderBase = kind({
 	defaultProps: {
 		marqueeOn: 'render',
 		noSubtitle: false,
-		type: 'standard'
+		type: 'standard',
+		totalPanels: 1,
 	},
 
 	styles: {
@@ -438,6 +447,8 @@ const HeaderBase = kind({
 		slotBeforeRef,
 		slotSize,
 		titleCell,
+		totalPanels,
+		type,
 		...rest
 	}) => {
 		delete rest.arranger;
@@ -447,7 +458,6 @@ const HeaderBase = kind({
 		delete rest.subtitleId;
 		delete rest.title;
 		delete rest.titleId;
-		delete rest.type;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
@@ -480,12 +490,28 @@ const HeaderBase = kind({
 		// the cell sizes don't need to be synced.
 		const syncCellSize = (centered ? slotSize : null);
 
+		const numberOfSlotSize = Number(slotSize.split('rem')[0]);
+
 		// Hide slots for the first render to avoid unexpected positioning when 'centered' is given.
 		// After the first render, HeaderMeasurementDecorator measures widths of slots and set right 'slotSize'.
 		const hideSlots = {
-			opacity: centered && (!slotBeforeRef.current || !slotAfterRef.current) ? '0' : null
+			opacity: centered && numberOfSlotSize === 0 ? '0' : null
 		};
 
+		// If the subtitle is long, the width of the subtitle becomes narrow as the slot size is measured,
+		// so check the slot size as well.
+		let renderTitleCell = null;
+
+		if (type === 'wizard') {
+			if (numberOfSlotSize > 0) {
+				renderTitleCell = titleCell;
+			} else if (numberOfSlotSize === 0 && (slotAfterRef.current || slotBeforeRef.current) && totalPanels === 1) {
+				renderTitleCell = titleCell;
+			}
+		} else {
+			renderTitleCell = titleCell;
+		}
+		
 		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
 			<header {...rest}>
@@ -496,7 +522,7 @@ const HeaderBase = kind({
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					{!(centered && (!slotBeforeRef.current || !slotAfterRef.current)) && titleCell}
+					{renderTitleCell}
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}
