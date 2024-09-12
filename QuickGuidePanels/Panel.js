@@ -85,7 +85,7 @@ function Panel ({
  * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
  * ```
  *
- * @name PrevButton
+ * @name prevButton
  * @memberof sandstone/QuickGuidePanels.Panel.prototype
  * @type {Boolean|Component}
  * @public
