@@ -557,7 +557,7 @@ const renderVirtualListItem = (variableItemSizesMode) => ({index, ...rest}) => {
 	);
 };
 
-export const UpdateItemsBetweenFixedAndVariableSizes = () => {
+export const WithChangingFixedAndVariableItemSizes = () => {
 	const [variableItemSizesMode, setVariableItemSizesMode] = useState(false);
 	const handleDataSize = useCallback(() => {
 		setVariableItemSizesMode(!variableItemSizesMode);
@@ -585,7 +585,7 @@ export const UpdateItemsBetweenFixedAndVariableSizes = () => {
 	);
 };
 
-UpdateItemsBetweenFixedAndVariableSizes.storyName = 'Update Items Between Fixed And Variable Sizes';
-UpdateItemsBetweenFixedAndVariableSizes.parameters = {
+WithChangingFixedAndVariableItemSizes.storyName = 'With Changing Fixed And Variable Item Sizes';
+WithChangingFixedAndVariableItemSizes.parameters = {
 	propTables: [Config]
 };
