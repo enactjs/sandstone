@@ -3,6 +3,7 @@
 @use "colors";
 @use "colors-light";
 @use "colors-highcontrast";
+@use "colors-game";
 @use "colors-game-green";
 @use "colors-game-orange";
 
@@ -32,6 +33,7 @@
 
     // Game Skin
     #{$selector}:global(.game) {
+        @include colors-game.applyColorsGame;
         @content;
 
         :global(.green) & {
