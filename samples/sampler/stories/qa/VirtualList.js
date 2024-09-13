@@ -585,7 +585,7 @@ export const WithChangingFixedAndVariableItemSizes = () => {
 	);
 };
 
-WithChangingFixedAndVariableItemSizes.storyName = 'With Changing Fixed And Variable Item Sizes';
+WithChangingFixedAndVariableItemSizes.storyName = 'with Changing Fixed And Variable Item Sizes';
 WithChangingFixedAndVariableItemSizes.parameters = {
 	propTables: [Config]
 };
