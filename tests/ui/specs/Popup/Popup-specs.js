@@ -907,10 +907,9 @@ describe('Popup', function () {
 
 				await expectOpen(popupCommon);
 
-				const popupSize = await $('#popup7').getSize();
 				await Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4-1).
-				await $('#popup7').moveTo({xOffset: 300, yOffset: 0});
+				await $('#popup7').moveTo(); // pointer is positioned in the center of popup to the right of Cancel button
 				// Click on the blank area to change to 5-way.
 				await $('#popup7').click();
 				await Page.spotlightLeft();

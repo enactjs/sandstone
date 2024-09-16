@@ -24,7 +24,6 @@ describe('PopupTabLayout', function () {
 
 				// Step 5-1: Position the Pointer inside the Picture Modes panel and 5-way Right to change to 5-way mode.
 				const panelSize = await $('#display').getSize();
-				console.log('AAAA', panelSize);
 				await $('#display').moveTo({xOffset: panelSize.width / 2 - 1, yOffset: -panelSize.height / 2.5});
 				await Page.spotlightRight();
 				// Step 5-1 Verify: Spotlight is on the 'back' button
