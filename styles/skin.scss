@@ -6,6 +6,7 @@
 @use "colors-game";
 @use "colors-game-green";
 @use "colors-game-orange";
+@use "variables-game";
 
 @mixin applySkins($parent: false) {
     $selector: "";
@@ -34,6 +35,7 @@
     // Game Skin
     #{$selector}:global(.game) {
         @include colors-game.applyColorsGame;
+        @include variables-game.applyVariablesGame;
         @content;
 
         :global(.green) & {
