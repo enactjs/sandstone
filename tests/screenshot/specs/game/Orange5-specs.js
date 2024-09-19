@@ -7,6 +7,6 @@ runTest({
 	Page: Page,
 	skin: 'game',
 	highContrast: false,
-	green: true,
+	orange: true,
 	concurrency: 5
 });
