@@ -198,7 +198,7 @@ const ExportedApp = (props) => {
 	}, []);
 
 	return (
-		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
+		<WrappedApp {...props} skin={skin} highContrast={highContrast} orange={orange} green={green} locale={locale} textSize={textSize} focusRing={focusRing} />
 	);
 };
 
