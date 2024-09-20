@@ -141,10 +141,6 @@ const ExportedApp = (props) => {
 	let highContrast = url.searchParams.get('highContrast') === 'true';
 	let focusRing = url.searchParams.get('focusRing') === 'true';
 
-	// Test Game Skin
-	let green = url.searchParams.get('green') === 'true';
-	let orange = url.searchParams.get('orange') === 'true';
-
 	// Legacy test parameters
 	let locale = url.searchParams.get('locale');
 	let textSize = url.searchParams.get('textSize') === 'large' ? 'large' : 'normal';
@@ -168,15 +164,6 @@ const ExportedApp = (props) => {
 			delete skinVariants.highContrast;
 			highContrast = true;
 		}
-		// Test Game Skin
-		if (skinVariants.green) {
-			delete skinVariants.highContrast;
-			green = true;
-		}
-		if (skinVariants.orange) {
-			delete skinVariants.highContrast;
-			orange = true;
-		}
 		if (skinVariants.largeText) {
 			delete skinVariants.largeText;
 			textSize = 'large';
@@ -198,7 +185,7 @@ const ExportedApp = (props) => {
 	}, []);
 
 	return (
-		<WrappedApp {...props} skin={skin} highContrast={highContrast} orange={orange} green={green} locale={locale} textSize={textSize} focusRing={focusRing} />
+		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
 	);
 };
 
