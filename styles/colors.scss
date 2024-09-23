@@ -1,3 +1,5 @@
+@use "./utils";
+
 // colors.scss (neutral skin)
 //
 
@@ -225,7 +227,7 @@ $sand-formcheckboxitem-disabled-focus-text-color: $sand-formcheckboxitem-disable
 // Heading
 // ---------------------------------------
 $sand-heading-text-color: $sand-text-color;
-$sand-heading-border-color: $sand-heading-text-color;
+$sand-heading-border-color: var(--sand-heading-border-color, $sand-heading-text-color);
 $sand-heading-subtitle-text-color: $sand-text-sub-color;
 
 // HolePunchScrim
@@ -295,7 +297,7 @@ $sand-input-numberfield-disabled-opacity: $sand-disabled-focus-bg-opacity;
 // ---------------------------------------
 $sand-item-label-color: $sand-text-sub-color;
 $sand-item-focus-label-color: var(--sand-item-focus-label-color, inherit);
-$sand-item-focus-background: var(--sand-item-focus-background, '');
+$sand-item-focus-background: var(--sand-item-focus-background, $sand-text-color-rgb);
 
 // KeyGuide
 // ---------------------------------------
