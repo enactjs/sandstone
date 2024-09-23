@@ -19,7 +19,7 @@ import Steps from '../Steps';
 
 import {PageViewsRouter} from './PageViewsRouter';
 
-import css from './PageViews.module.less';
+import componentCss from './PageViews.module.less';
 
 /**
  * A PageViews that has page indicator with corresponding pages.
@@ -68,6 +68,20 @@ const PageViewsBase = kind({
 		componentRef: EnactPropTypes.ref,
 
 		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `pageViews` - The root component class
+		 * * `navButton` - The navButton component class
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
 		 * When `true`, maximize its contents area.
 		 *
 		 * @type {Boolean}
@@ -83,14 +97,6 @@ const PageViewsBase = kind({
 		 * @public
 		 */
 		index: PropTypes.number,
-
-		/**
-		 * Offset to apply to the position of the navigation buttons.
-		 *
-		 * @type {Number}
-		 * @private
-		 */
-		navigationButtonOffset: PropTypes.number,
 
 		/**
 		 * Disables page transitions.
@@ -154,7 +160,7 @@ const PageViewsBase = kind({
 	},
 
 	styles: {
-		css,
+		css: componentCss,
 		className: 'pageViews',
 		publicClassNames: true
 	},
@@ -194,31 +200,25 @@ const PageViewsBase = kind({
 
 	computed: {
 		className: ({fullContents, pageIndicatorType, styler}) => styler.append({fullContents}, pageIndicatorType),
-		renderNextButton: ({onNextClick, index, totalIndex, navigationButtonOffset}) => {
+		renderNextButton: ({css, onNextClick, index, totalIndex}) => {
 			const isNextButtonVisible = index < totalIndex - 1;
-			const navigationButtonStyle = {
-				top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null
-			};
 
 			return (
-				<Cell className={css.navButton} shrink>
-					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" style={navigationButtonStyle} /> : null}
+				<Cell className={css.navButtonCell} shrink>
+					{isNextButtonVisible ? <Button aria-label={$L('Next')} className={css.navButton} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
 				</Cell>
 			);
 		},
-		renderPrevButton: ({index, onPrevClick, navigationButtonOffset}) => {
+		renderPrevButton: ({css, index, onPrevClick}) => {
 			const isPrevButtonVisible = index !== 0;
-			const navigationButtonStyle = {
-				top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null
-			};
 
 			return (
-				<Cell className={css.navButton} shrink>
-					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" style={navigationButtonStyle} /> : null}
+				<Cell className={css.navButtonCell} shrink>
+					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} className={css.navButton} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 				</Cell>
 			);
 		},
-		renderViewManager: ({arranger, index, noAnimation, onTransition, onWillTransition, reverseTransition, children}) => {
+		renderViewManager: ({arranger, css, index, noAnimation, onTransition, onWillTransition, reverseTransition, children}) => {
 			return (
 				<Cell
 					arranger={arranger}
@@ -239,7 +239,7 @@ const PageViewsBase = kind({
 			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
 			return `${pageHint} ${children?.[index]?.props['aria-label'] || ''}`;
 		},
-		steps: ({index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
+		steps: ({css, index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
 			const isStepVisible = totalIndex !== 1;
@@ -259,12 +259,12 @@ const PageViewsBase = kind({
 							/>
 						</Row> :
 						<Row className={css.steps}>
-							<Cell className={css.navButton} shrink>
-								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
+							<Cell className={css.navButtonCell} shrink>
+								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} className={css.navButton} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>
 							<Cell className={css.pageNumber} shrink>{index + 1}</Cell><Cell className={css.separator} shrink>/</Cell><Cell className={css.pageNumber} shrink>{totalIndex}</Cell>
-							<Cell className={css.navButton} shrink>
-								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
+							<Cell className={css.navButtonCell} shrink>
+								{isNextButtonVisible ? <Button aria-label={$L('Next')} className={css.navButton} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
 							</Cell>
 						</Row>}
 				</>
@@ -273,6 +273,7 @@ const PageViewsBase = kind({
 	},
 
 	render: ({
+		css,
 		componentRef,
 		fullContents,
 		index,
@@ -321,7 +322,7 @@ const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
-		defaultElement: [`.${spotlightDefaultClass}`, `.${css.viewManager} *`, `.${css.navButton} *`],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.viewManager} *`, `.${componentCss.navButtonCell} *`],
 		enterTo: 'last-focused'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),

@@ -3,6 +3,7 @@ import Item from '@enact/sandstone/Item';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import {Cell, Row, Column} from '@enact/ui/Layout';
+import css from './PageViews.module.less';
 
 PageViews.displayName = 'PageViews';
 
@@ -17,7 +18,7 @@ export default {
 };
 
 export const _PageViews = (args) => (
-	<PageViews fullContents={args['fullContents']} pageIndicatorType={args['pageIndicatorType']}>
+	<PageViews css={css} fullContents={args['fullContents']} pageIndicatorType={args['pageIndicatorType']}>
 		<PageViews.Page aria-label="This is a description for page 1">
 			<div style={{padding: '24px', width: '50%'}}>
 				<Item>Item 1</Item>
