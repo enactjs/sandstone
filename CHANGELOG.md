@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
+
 ## [2.9.1] - 2024-09-09
 
 ### Added
