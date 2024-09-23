@@ -686,6 +686,7 @@ const EditableWrapper = (props) => {
 
 		// If the pointer mode is `true` and the focused component is not contained in scrollContainerRef,
 		// only `handleGlobalKeyDownCapture` is called instead of `handleKeyDownCapture`
+		// Below is mainly for handling key pressed while pointer mode is `true`.
 		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && (selectedItem || focusedItem)) {
 			const {keyCode} = ev;
 			const position = getLastPointerPosition();
