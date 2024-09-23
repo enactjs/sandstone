@@ -487,7 +487,7 @@ const HeaderBase = kind({
 		const hideSlots = {
 			opacity: centered && numberOfSlotSize === 0 ? '0' : null
 		};
-	
+
 		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
 			<header {...rest}>
@@ -498,7 +498,7 @@ const HeaderBase = kind({
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					{(type === 'wizard' && (slotBefore.props.visible || slotAfter.props.visible) && numberOfSlotSize === 0) ? null : titleCell}
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && numberOfSlotSize === 0) ? null : titleCell}
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}
@@ -567,6 +567,7 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 			slotAfterRef,
 			slotSize: unit(slotSize, 'rem')
 		};
+
 		return <Wrapped {...props} {...measurableProps} />;
 	};
 };
