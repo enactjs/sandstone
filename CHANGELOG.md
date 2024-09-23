@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Panels.Header` to show subtitle and title after slotSize is fixed in WizardPanels
 - `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
 - `sandstone/Steps` prop `size` to accept number type
 
