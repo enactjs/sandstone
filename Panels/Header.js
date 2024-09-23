@@ -480,12 +480,10 @@ const HeaderBase = kind({
 		// the cell sizes don't need to be synced.
 		const syncCellSize = (centered ? slotSize : null);
 
-		const numberOfSlotSize = Number(slotSize.split('rem')[0]);
-
 		// Hide slots for the first render to avoid unexpected positioning when 'centered' is given.
 		// After the first render, HeaderMeasurementDecorator measures widths of slots and set right 'slotSize'.
 		const hideSlots = {
-			opacity: centered && numberOfSlotSize === 0 ? '0' : null
+			opacity: centered && slotSize === '0rem' ? '0' : null
 		};
 
 		// The side Cells are always present, even if empty, to support the measurement ref.
@@ -498,7 +496,7 @@ const HeaderBase = kind({
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && numberOfSlotSize === 0) ? null : titleCell}
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? null : titleCell}
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}
