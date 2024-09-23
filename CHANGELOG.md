@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Panels.Header` to show subtitle and title after slotSize is fixed in WizardPanels
+
 ## [2.9.1] - 2024-09-09
 
 ### Added
