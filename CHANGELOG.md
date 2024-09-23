@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Panels.Header` to show title and subtitle properly in WizardPanels
+- `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
 
 ## [2.9.1] - 2024-09-09
 
