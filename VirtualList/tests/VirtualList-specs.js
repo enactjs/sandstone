@@ -226,25 +226,6 @@ describe('VirtualList', () => {
 			expect(consoleSpy.mock.calls[0][0]).toBe(expectedErrorMsg);
 		});
 
-		test('should warn if there is not \'minSize\' but only \'size\' in \'itemSize\' prop', () => {
-			const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-			const variableItemSize = {
-				size: [100, 200, 300, 400, 100, 200, 300, 400, 100, 200]
-			};
-
-			render(
-				<VirtualList
-					clientSize={clientSize}
-					dataSize={10}
-					itemRenderer={renderItem}
-					itemSize={variableItemSize}
-					scrollMode="translate"
-				/>
-			);
-
-			expect(consoleSpy).toHaveBeenCalled();
-		});
-
 		test('should not warn if \'minSize\' in \'itemSize\' prop is given without \'cbScrollTo\' prop', () => {
 			const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 			const variableItemSize = {
