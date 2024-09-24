@@ -11,7 +11,6 @@ import {ContentContainerDecorator, Scroller} from '@enact/sandstone/Scroller';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import {getPointerMode} from '@enact/spotlight/src/pointer';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, range, select} from '@enact/storybook-utils/addons/controls';
@@ -283,7 +282,7 @@ export const EditableList = (args) => {
 	}, []);
 
 	const onMouseLeaveItem = useCallback((ev) => {
-		if (blurItem.current && getPointerMode()) {
+		if (blurItem.current && Spotlight.getPointerMode()) {
 			blurItem.current(ev.target);
 		}
 	}, []);
