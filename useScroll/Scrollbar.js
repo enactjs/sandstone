@@ -6,7 +6,7 @@ import {memo, useCallback} from 'react';
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';
 
-import componentCss from './Scrollbar.module.less';
+import componentCss from './Scrollbar.module.scss';
 
 const useThemeScrollbar = (props) => {
 	const {
