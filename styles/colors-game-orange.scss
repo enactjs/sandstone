@@ -12,9 +12,9 @@
   --sand-game-skin-color-01: #{utils.hex-to-rgb-values(#eb5e00)};
   --sand-game-skin-color-02: #{utils.hex-to-rgb-values(#d75431)};
 
-  --sand-game-skin-heading-border-color: #{utils.hex-to-rgb-values(#ea5e00)};
+  --sand-game-skin-heading-border-color: rgba(#{utils.hex-to-rgb-values(#ea5e00)});
   --sand-game-skin-item-focus-bg-gradient-1: rgba(#{utils.hex-to-rgb-values(#562907)}, 0);
-  --sand-game-skin-item-focus-bg-gradient-2: #{utils.hex-to-rgb-values(#a85c37)};
+  --sand-game-skin-item-focus-bg-gradient-2: rgba(#{utils.hex-to-rgb-values(#a85c37)});
 
 
   // UI Conceptual Colors
