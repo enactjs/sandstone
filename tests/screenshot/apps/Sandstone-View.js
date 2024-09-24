@@ -182,7 +182,14 @@ const ExportedApp = (props) => {
 
 	useEffect(() => {
 		document.querySelector('#root').classList.add('spotlight-input-key');
-	}, []);
+
+		// Game Skin Variants
+		const greenVariant = url.searchParams.get('green') === 'true';
+		const orangeVariant = url.searchParams.get('orange') === 'true';
+		const skinVariants = objectify(components[props.component][props.testId].skinVariants);
+		if (greenVariant || skinVariants.green) document.querySelector('#root').classList.add('green');
+		if (orangeVariant || skinVariants.orange) document.querySelector('#root').classList.add('orange');
+	}, [props.component, props.testId]);
 
 	return (
 		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
