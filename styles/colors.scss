@@ -368,8 +368,8 @@ $sand-radioitem-focus-indicator-color: transparent;
 $sand-radioitem-focus-indicator-bg-color: transparent;
 $sand-radioitem-focus-indicator-border-color: $sand-component-focus-text-color-rgb;
 $sand-radioitem-selected-indicator-color: $sand-selected-color;
-$sand-radioitem-selected-indicator-bg-color: $sand-toggle-on-bg-color;
-$sand-radioitem-selected-indicator-border-color: $sand-radioitem-selected-indicator-bg-color;
+$sand-radioitem-selected-indicator-bg-color: var(--sand-radioitem-selected-indicator-bg-color, $sand-toggle-on-bg-color);
+$sand-radioitem-selected-indicator-border-color: var(--sand-radioitem-selected-indicator-border-color, $sand-radioitem-selected-indicator-bg-color);
 $sand-radioitem-selected-focus-indicator-color: $sand-radioitem-selected-indicator-color;
 $sand-radioitem-selected-focus-indicator-bg-color:  $sand-radioitem-selected-indicator-bg-color;
 $sand-radioitem-selected-focus-indicator-border-color: $sand-radioitem-selected-focus-indicator-bg-color;
@@ -444,7 +444,7 @@ $sand-switch-disabled-selected-bg-color: $sand-switch-bg-color;
 // Tooltip
 // ---------------------------------------
 $sand-tooltip-bg-color:               $sand-focus-bg-color;
-$sand-tooltip-text-color:             $sand-component-focus-text-color;
+$sand-tooltip-text-color:             $sand-component-focus-text-color-rgb;
 $sand-tooltip-shadow:                 0 18px 12px $sand-shadow-color;
 
 // VideoPlayer
