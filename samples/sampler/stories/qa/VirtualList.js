@@ -542,3 +542,50 @@ WithContainerItemsHaveSpottableControls.storyName = 'with container items have s
 WithContainerItemsHaveSpottableControls.parameters = {
 	propTables: [Config]
 };
+
+const fixedItemSizes = new Array(16).fill(ri.scale(390));
+const variableItemSizes = fixedItemSizes.map((size, index) => {
+	return index % 2  ? size * 2  : size;
+});
+
+// eslint-disable-next-line enact/prop-types, enact/display-name
+const renderVirtualListItem = (variableItemSizesMode) => ({index, ...rest}) => {
+	return (
+		<Item {...rest} style={{width: variableItemSizesMode && index % 2 ? ri.scaleToRem(720) : ri.scaleToRem(360), margin: ri.scaleToRem(15)}}>
+			{`item ${index}`}
+		</Item>
+	);
+};
+
+export const WithChangingFixedAndVariableItemSizes = () => {
+	const [variableItemSizesMode, setVariableItemSizesMode] = useState(false);
+	const handleDataSize = useCallback(() => {
+		setVariableItemSizesMode(!variableItemSizesMode);
+	}, [variableItemSizesMode]);
+
+	return (
+		<Column>
+			<Cell shrink>
+				<Button size="small" onClick={handleDataSize}>Update Items</Button>
+			</Cell>
+			<br />
+			<br />
+			<Cell>
+				<VirtualList
+					dataSize={16}
+					direction="horizontal"
+					itemRenderer={renderVirtualListItem(variableItemSizesMode)}
+					itemSize={{
+						size: variableItemSizesMode ? variableItemSizes : fixedItemSizes,
+						minSize: Math.min(...variableItemSizes)
+					}}
+				/>
+			</Cell>
+		</Column>
+	);
+};
+
+WithChangingFixedAndVariableItemSizes.storyName = 'with changing fixed and variable item sizes';
+WithChangingFixedAndVariableItemSizes.parameters = {
+	propTables: [Config]
+};
