@@ -10,51 +10,50 @@ describe('onKeyDown [QWTC-2062]', function () {
 		await Page.spotlightSelect();
 		await Page.buttonLeft.moveTo();
 		await Page.spotlightRight();
-		await expectFocusedItem(0, 'focus 1');
+		await expectFocusedItem(0);
 		await Page.spotlightDown();
-		await expectFocusedItem(1, 'focus 2');
+		await expectFocusedItem(1);
 		await Page.spotlightUp();
-		await expectFocusedItem(0, 'focus 3');
-		expect(await Page.list.getAttribute('data-keydown-events')).to.be.null();
+		await expectFocusedItem(0);
+		expect(await Page.list.getAttribute('data-keydown-events')).toBeNull();
 		await Page.spotlightRight();
 		await Page.spotlightLeft();
-		await expectFocusedItem(0, 'focus 7');
-		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('1');
+		await expectFocusedItem(0);
+		expect(await Page.list.getAttribute('data-keydown-events')).toBe('1');
 	});
 
-	// TODO: Fix to wrap bug [ENYO-6468]
+	// TODO: Need to be analysis why failure only occur on jenkins ui-test.
 	it.skip('should prevent bubbling when wrapping', async function () {
 		await Page.spotlightRight();
-		await Page.spotlightRight();
 		await Page.spotlightSelect();
-		await Page.buttonLeft.moveTo();
-		await Page.spotlightRight();
-		await expectFocusedItem(0, 'focus 1');
+		await Page.buttonTop.moveTo();
+		await Page.spotlightDown();
+		await expectFocusedItem(0);
 		await Page.spotlightUp();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
-		await expectFocusedItem(99, 'focus 2');
+		await expectFocusedItem(99);
 		await Page.spotlightDown();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
-		await expectFocusedItem(0, 'focus 3');
-		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('0');
+		await expectFocusedItem(0);
+		expect(await Page.list.getAttribute('data-keydown-events')).toBeNull();
 	});
 
+	// TODO: Need to be analysis why failure only occur on jenkins ui-test.
 	it.skip('should prevent bubbling when wrapping', async function () {
 		// Wrap knobs Setting
 		await Page.spotlightRight();
 		await Page.spotlightSelect();
+		await Page.buttonTop.moveTo();
 		await Page.spotlightDown();
-		await Page.spotlightRight();
-		// TODO: expectFocusedItem is not working in case of wrap
-		await expectFocusedItem(0, 'focus');
+		await expectFocusedItem(0);
 		await Page.spotlightUp();
 		await Page.spotlightUp();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
-		await expectFocusedItem(99, 'focus 2');
+		await expectFocusedItem(99);
 		await Page.spotlightDown();
 		await Page.delay(1500);  // TODO: Need better way to detect scroll end
-		await expectFocusedItem(0, 'focus 3');
-		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('0');
+		await expectFocusedItem(0);
+		expect(await Page.list.getAttribute('data-keydown-events')).toBeNull();
 	});
 
 	it('should allow bubbling while navigating out of a list using visible focusableScrollbar via items', async function () {
@@ -68,16 +67,16 @@ describe('onKeyDown [QWTC-2062]', function () {
 		await Page.spotlightDown();
 		await Page.buttonLeft.moveTo();
 		await Page.spotlightRight();
-		await expectFocusedItem(0, 'focus 1');
+		await expectFocusedItem(0);
 		await Page.spotlightUp();
 		await Page.spotlightDown();
 		await Page.spotlightLeft();
 		await Page.spotlightRight();
-		await expectFocusedItem(0, 'focus 2');
+		await expectFocusedItem(0);
 		await Page.fiveWayToItem(9);
-		await expectFocusedItem(9, 'focus 3');
+		await expectFocusedItem(9);
 		await Page.spotlightDown();
-		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('3');
+		expect(await Page.list.getAttribute('data-keydown-events')).toBe('3');
 	});
 
 	// Need mochaOpts - timeout set to 60000 to pass
@@ -94,23 +93,23 @@ describe('onKeyDown [QWTC-2062]', function () {
 		await Page.spotlightDown();
 		await Page.buttonLeft.moveTo();
 		await Page.spotlightRight();
-		await expectFocusedItem(0, 'focus 1');
+		await expectFocusedItem(0);
 		await Page.spotlightUp();
-		expect(await Page.buttonTop.isFocused(), 'focus 2').to.be.true();
+		expect(await Page.buttonTop.isFocused()).toBe(true);
 		await Page.spotlightDown();
 		await Page.spotlightLeft();
-		expect(await Page.buttonLeft.isFocused(), 'focus 3').to.be.true();
+		expect(await Page.buttonLeft.isFocused()).toBe(true);
 		await Page.spotlightRight();
 		await Page.spotlightRight();
-		expect(await Page.buttonRight.isFocused(), 'focus 4').to.be.true();
+		expect(await Page.buttonRight.isFocused()).toBe(true);
 		await Page.spotlightLeft();
-		await expectFocusedItem(0, 'focus 5');
+		await expectFocusedItem(0);
 		await Page.fiveWayToItem(9);
-		await expectFocusedItem(9, 'focus 6');
+		await expectFocusedItem(9);
 		await Page.delay(1500);
 		await Page.spotlightDown();
-		expect(await Page.buttonBottom.isFocused(), 'focus 7').to.be.true();
-		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('4');
+		expect(await Page.buttonBottom.isFocused()).toBe(true);
+		expect(await Page.list.getAttribute('data-keydown-events')).toBe('4');
 	});
 
 	// Need mochaOpts - timeout set to 60000 to pass
@@ -125,22 +124,22 @@ describe('onKeyDown [QWTC-2062]', function () {
 		await Page.spotlightDown();
 		await Page.buttonLeft.moveTo();
 		await Page.spotlightRight();
-		await expectFocusedItem(0, 'focus 1');
+		await expectFocusedItem(0);
 		await Page.spotlightUp();
-		expect(await Page.buttonTop.isFocused(), 'focus 2').to.be.true();
+		expect(await Page.buttonTop.isFocused()).toBe(true);
 		await Page.spotlightDown();
 		await Page.spotlightLeft();
-		expect(await Page.buttonLeft.isFocused(), 'focus 3').to.be.true();
+		expect(await Page.buttonLeft.isFocused()).toBe(true);
 		await Page.spotlightRight();
 		await Page.spotlightRight();
-		expect(await Page.buttonRight.isFocused(), 'focus 4').to.be.true();
+		expect(await Page.buttonRight.isFocused()).toBe(true);
 		await Page.spotlightLeft();
-		await expectFocusedItem(0, 'focus 5');
+		await expectFocusedItem(0);
 		await Page.fiveWayToItem(9);
-		await expectFocusedItem(9, 'focus 6');
+		await expectFocusedItem(9);
 		await Page.delay(1500);
 		await Page.spotlightDown();
-		expect(await Page.buttonBottom.isFocused(), 'focus 7').to.be.true();
-		expect(await Page.list.getAttribute('data-keydown-events')).to.equal('4');
+		expect(await Page.buttonBottom.isFocused()).toBe(true);
+		expect(await Page.list.getAttribute('data-keydown-events')).toBe('4');
 	});
 });

@@ -4,7 +4,10 @@ import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import LS2Request from '@enact/webos/LS2Request';
+import {platform} from '@enact/webos/platform';
 import PropTypes from 'prop-types';
+import {useEffect} from 'react';
 
 import css from './ThemeEnvironment.module.less';
 
@@ -41,7 +44,7 @@ const PanelsBase = kind({
 	)
 });
 
-const Theme = ThemeDecorator({overlay: false}, PanelsBase);
+const Theme = ThemeDecorator({overlay: false, rootId: 'storybook-root'}, PanelsBase);
 
 const StorybookDecorator = (story, config = {}) => {
 	// Executing `story` here allows the story controls to register and render before the global variable below.
@@ -65,6 +68,32 @@ const StorybookDecorator = (story, config = {}) => {
 		classes.debug = true;
 	}
 
+	/* Custom theme support for the webOS device only */
+	useEffect(() => {
+		if (platform.tv) {
+			new LS2Request().send({
+				service: 'luna://com.webos.service.settings/',
+				method: 'getSystemSettings',
+				parameters: {
+					category: 'customUi',
+					keys: ['theme']
+				},
+				subscribe: true,
+				onSuccess: (res) => {
+					// Create a new style sheet and append fetched colors on it
+					if (typeof document !== 'undefined') {
+						const sheet = document.createElement('style');
+						sheet.id = 'custom-skin';
+						sheet.innerHTML = JSON.parse(res.settings.theme).colors;
+						document.getElementById('custom-skin')?.remove();
+						document.body?.appendChild(sheet);
+					}
+				},
+				onFailure: () => {} // prevent warning on unsupported platforms
+			});
+		}
+	}, []);
+
 	return (
 		<Theme
 			className={classnames(classes)}
@@ -72,6 +101,7 @@ const StorybookDecorator = (story, config = {}) => {
 			description={hasInfoText ? config.parameters.info.text : null}
 			locale={globals.locale}
 			textSize={JSON.parse(globals['large text']) ? 'large' : 'normal'}
+			focusRing={JSON.parse(globals['focus ring'])}
 			highContrast={JSON.parse(globals['high contrast'])}
 			style={{
 				'--sand-env-background': globals.background === 'default' ? '' : globals.background

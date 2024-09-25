@@ -18,7 +18,7 @@ describe('Change ItemSize', function () {
 		await Page.spotlightDown();
 
 		// Step 3 Verify: The width of items grow bigger.
-		expect((await Page.getItemSize()).width).to.be.above(400);
+		expect((await Page.getItemSize()).width).toBeGreaterThan(400);
 
 		// Step 4: Knobs > VirtualGridList > ItemSize.minHeight > 700
 		await Page.inputMinHeight.moveTo();
@@ -32,6 +32,6 @@ describe('Change ItemSize', function () {
 		await Page.backKey();
 
 		// Step4 Verify: The height of items grow bigger.
-		expect((await Page.getItemSize()).height).to.be.above(350);
+		expect((await Page.getItemSize()).height).toBeGreaterThan(350);
 	});
 });

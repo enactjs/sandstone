@@ -28,6 +28,9 @@ const TouchableDiv = Touchable('div');
  * @memberof sandstone/Scroller
  * @property {Function} onComplete The callback function called when editing is finished.
  *  It has an event object contains `orders` array which app can use for repopulate items.
+ * @property {Function|Object} [blurItemFuncRef] Obtains a reference to `blurItem` function.
+ *  If you would like to remove `focused` CSS class to an item, you can get the reference to `blurItem` function via `useRef`.
+ * `blurItem` function needs to be called with an item node when an item is blurred.
  * @property {Boolean} [centered] Centers the contents of the scroller.
  * @property {Object} [css] Customizes the component by mapping the supplied collection of CSS class names to the
  *  corresponding internal elements and states of this component.
@@ -38,7 +41,7 @@ const TouchableDiv = Touchable('div');
  * * `focused` - The focused item class
  * @property {Function|Object} [focusItemFuncRef] Obtains a reference to `focusItem` function.
  *  If you would like to use `focused` CSS class to an item, you can get the reference to `focusItem` function via `useRef`.
- * `focusItem` function need to be called with an item node when an item is focused.
+ * `focusItem` function needs to be called with an item node when an item is focused.
  * @property {Function|Object} [hideItemFuncRef] Obtains a reference to `hideItem` function.
  *  If you would like to hide an item, you can get the reference to `hideItem` function via `useRef`.
  * @property {Function|Object} [removeItemFuncRef] Obtains a reference to `removeItem` function.
@@ -51,6 +54,7 @@ const TouchableDiv = Touchable('div');
  */
 const EditableShape = PropTypes.shape({
 	onComplete: PropTypes.func.isRequired,
+	blurItemFuncRef: EnactPropTypes.ref,
 	centered: PropTypes.bool,
 	css: PropTypes.object,
 	focusItemFuncRef: EnactPropTypes.ref,
@@ -87,6 +91,7 @@ const EditableWrapper = (props) => {
 	const hideItemFuncRef = editable?.hideItemFuncRef;
 	const showItemFuncRef = editable?.showItemFuncRef;
 	const focusItemFuncRef = editable?.focusItemFuncRef;
+	const blurItemFuncRef = editable?.blurItemFuncRef;
 	const mergedCss = usePublicClassNames({componentCss, customCss, publicClassNames: true});
 
 	const dataSize = children?.length;
@@ -252,6 +257,15 @@ const EditableWrapper = (props) => {
 			mutableRef.current.focusedItem = itemNode;
 			mutableRef.current.focusedItem?.classList.add(customCss.focused);
 			mutableRef.current.prevToIndex = Number(itemNode.style.order) - 1;
+		}
+	}, [customCss.focused, findItemNode]);
+
+	const blurItem = useCallback((target) => {
+		const itemNode = findItemNode(target);
+		if (itemNode && !mutableRef.current.selectedItem) {
+			mutableRef.current.focusedItem?.classList.remove(customCss.focused);
+			mutableRef.current.focusedItem = null;
+			mutableRef.current.prevToIndex = null;
 		}
 	}, [customCss.focused, findItemNode]);
 
@@ -673,7 +687,7 @@ const EditableWrapper = (props) => {
 	}, [completeEditingByKeyDown]);
 
 	const handleGlobalKeyDownCapture = useCallback((ev) => {
-		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && mutableRef.current.selectedItem) {
+		if (getPointerMode() && !scrollContainerRef.current.contains(Spotlight.getCurrent()) && (mutableRef.current.selectedItem || mutableRef.current.focusedItem)) {
 			const {keyCode} = ev;
 			const position = getLastPointerPosition();
 			const direction = getDirection(keyCode);
@@ -832,6 +846,12 @@ const EditableWrapper = (props) => {
 			focusItemFuncRef.current = focusItem;
 		}
 	}, [focusItem, focusItemFuncRef]);
+
+	useLayoutEffect(() => {
+		if (blurItemFuncRef) {
+			blurItemFuncRef.current = blurItem;
+		}
+	}, [blurItem, blurItemFuncRef]);
 
 	useEffect(() => {
 		// addEventListener to moveItems while scrolled

@@ -27,9 +27,9 @@ const updateDataSize = (dataSize) => {
 		const index = i;
 		const color = Math.floor(Math.random() * (0x1000000 - 0x101010) + 0x101010).toString(16);
 		const source = {
-			hd: `http://via.placeholder.com/200x200/${color}/ffffff/png?text=Image+${index}`,
-			fhd: `http://via.placeholder.com/300x300/${color}/ffffff/png?text=Image+${index}`,
-			uhd: `http://via.placeholder.com/600x600/${color}/ffffff/png?text=Image+${index}`
+			hd: `https://placehold.co/200x200/${color}/ffffff/png?text=Image+${index}`,
+			fhd: `https://placehold.co/300x300/${color}/ffffff/png?text=Image+${index}`,
+			uhd: `https://placehold.co/600x600/${color}/ffffff/png?text=Image+${index}`
 		};
 		imageItems.push({source, index});
 	}

@@ -6,6 +6,111 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
+### Fixed
+
+- `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
+- `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
+- `sandstone/Steps` prop `size` to accept number type
+
+## [2.9.0] - 2024-07-17
+
+### Added
+
+- `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
+
+### Changed
+
+- `sandstone/PageViews` styling to match the latest GUI
+
+### Fixed
+
+- `sandstone/Input` back button to be disabled when `disabled` prop is `true`
+- `sandstone/Popup` to restore focus when a popup is open by default and then closed
+
+## [3.0.0-alpha.1] - 2024-07-11
+
+### Removed
+
+- `sandstone/Input.InputPopupBase` prop `value`
+
+### Added
+
+- `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
+
+### Changed
+
+- `sandstone/PageViews` styling to match the latest GUI
+
+### Fixed
+
+- `sandstone/Input` back button to be disabled when `disabled` prop is `true`
+- `sandstone/Popup` to restore focus when a popup is open by default and then closed
+
+## [2.9.0-beta.1] - 2024-06-17
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `create`
+
+## [2.9.0-alpha.4] - 2024-06-05
+
+### Changed
+
+- `sandstone/ContextualPopupDecorator` and `sandstone/Dropdown` to have sibling DOM node as alternative to findDOMNode API which will be removed in React 19
+- `sandstone/PageViews` to hide dot page indicator when there is only one page
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to show the outline appropriately in high-contrast mode
+
+## [2.9.0-alpha.3] - 2024-05-24
+
+### Added
+
+- Support for QHD displays
+- `sandstone/Icon` supported icon list, adding new wifi5G icons
+- `sandstone/PageViews` prop `fullContents` to maximize its contents area
+
+### Fixed
+
+- `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
+- `sandstone/QuickGuidePanels` to export `Panel` instead of `QuickGuidePanel`
+
+## [2.9.0-alpha.2] - 2024-04-22
+
+### Added
+
+- `sandstone/ThemeDecorator.AccessibilityDecorator` prop `focusRing` to support focus ring to IcomItem and ImageItem
+
+## [2.9.0-alpha.1] - 2024-04-09
+
+### Added
+
+- `sandstone/PageViews` component
+- `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
+- `sandstone/VideoPlayer` prop `setPlaybackSpeed` to support playback speed adjustment
+
+### Changed
+
+- Popup family components to enhance contrast in high-contrast mode for improved visibility
+
+### Fixed
+
+- `sandstone/VirtualList` to show the focused item properly when switching from pointer mode to 5-way mode
+- `sandstone/VirtualList.VirtualGridList` to show the focused item fully when focus moves via 5-way keys inside a list
+
+## [2.7.15] - 2024-03-05
+
+### Added
+
 - `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
 
 ### Fixed
@@ -26,6 +131,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/WizardPanels` to read out the correct step when using `current` prop
+
+## [2.7.14] - 2024-01-23
+
+No significant changes.
 
 ## [2.7.13] - 2023-12-08
 

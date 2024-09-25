@@ -37,7 +37,7 @@ describe('TabGroup specs', () => {
 			/>
 		);
 
-		const expected = 3;
+		const expected = 3 * 2; // each tab has two children due to a dummy sibling by Spottable
 		const actual = screen.getByRole('tablist').children;
 
 		expect(actual).toHaveLength(expected);

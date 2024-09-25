@@ -68,7 +68,17 @@ const ImageItemTests = [
 	...withProps({disabled: true}, defaultImageItemTests),
 
 	// Centered and disabled.
-	...withProps({centered: true, disabled: true}, defaultImageItemTests)
+	...withProps({centered: true, disabled: true}, defaultImageItemTests),
+
+	...withConfig({
+		focusRing: true,
+		focus: true
+	}, [
+		<ImageItem src={img} style={{height: ri.scale(360), width: ri.scale(480)}} orientation="vertical" />
+	]),
+
+	// RTL
+	...withConfig({locale: 'ar-SA'}, defaultImageItemTests)
 ];
 
 export default ImageItemTests;
