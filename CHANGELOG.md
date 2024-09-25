@@ -15,6 +15,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
+- `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
 - `sandstone/Steps` prop `size` to accept number type
 - `sandstone/ContextualPopupDecorator` to update its position when the window size has been resized
 
