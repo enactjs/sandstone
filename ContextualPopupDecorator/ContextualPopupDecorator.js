@@ -301,10 +301,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					this.positionContextualPopup();
 				});
 			}
-
-			if (this.clientSiblingRef?.current) {
-				this.resizeObserver.observe(document.body);
-			}
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
@@ -611,6 +607,18 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		getContainerNode = (node) => {
 			this.containerNode = node;
+
+			if (this.resizeObserver) {
+				if (node) {
+					// It is not easy to trigger changed position of activator,
+					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
+					// This implementation is dependent on the current structure of FloatingLayer,
+					// so if the structure have changed, below code needs to be changed accordingly.
+					this.resizeObserver.observe(node?.parentElement?.parentElement);
+				} else {
+					this.resizeObserver.disconnect();
+				}
+			}
 		};
 
 		handle = handle.bind(this);

@@ -515,7 +515,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(scrimDivSecond).toHaveClass(expectedSecond);
 	});
 
-	test('should creates and observes with ResizeObserver', () => {
+	test('should create and observe with `ResizeObserver`', () => {
 		const Root = FloatingLayerDecorator('div');
 		render(
 			<Root>
