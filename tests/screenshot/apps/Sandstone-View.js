@@ -141,6 +141,11 @@ const ExportedApp = (props) => {
 	let highContrast = url.searchParams.get('highContrast') === 'true';
 	let focusRing = url.searchParams.get('focusRing') === 'true';
 
+	// Game Skin Variants
+	const greenVariant = url.searchParams.get('green') === 'true';
+	const orangeVariant = url.searchParams.get('orange') === 'true';
+	const gameSkinVariants = objectify(components[props.component][props.testId].skinVariants);
+
 	// Legacy test parameters
 	let locale = url.searchParams.get('locale');
 	let textSize = url.searchParams.get('textSize') === 'large' ? 'large' : 'normal';
@@ -184,15 +189,12 @@ const ExportedApp = (props) => {
 		document.querySelector('#root').classList.add('spotlight-input-key');
 
 		// Game Skin Variants
-		const greenVariant = url.searchParams.get('green') === 'true';
-		const orangeVariant = url.searchParams.get('orange') === 'true';
-		const skinVariants = objectify(components[props.component][props.testId].skinVariants);
-		if (greenVariant || skinVariants.green) document.querySelector('#root').classList.add('green');
-		if (orangeVariant || skinVariants.orange) document.querySelector('#root').classList.add('orange');
+		if (greenVariant || gameSkinVariants.green) document.querySelector('#root').classList.add('green');
+		if (orangeVariant || gameSkinVariants.orange) document.querySelector('#root').classList.add('orange');
 	}, [props.component, props.testId]);
 
 	return (
-		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
+		<WrappedApp {...props} skin={skin} highContrast={highContrast} green={greenVariant} orange={orangeVariant} locale={locale} textSize={textSize} focusRing={focusRing} />
 	);
 };
 
