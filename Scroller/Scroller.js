@@ -16,6 +16,7 @@
  * @exports Scroller
  */
 
+import {setDefaultProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Spottable from '@enact/spotlight/Spottable';
@@ -77,7 +78,7 @@ const scrollerDefaultProps = {
  * @public
  */
 let Scroller = (props) => {
-	const scrollerProps = Object.assign({}, scrollerDefaultProps, props);
+	const scrollerProps = setDefaultProps(props, scrollerDefaultProps);
 	const {'aria-label': ariaLabel, hoverToScroll, ...rest} = scrollerProps;
 
 	const id = `scroller_${++scrollerId}_content`;
