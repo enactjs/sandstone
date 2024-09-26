@@ -191,7 +191,7 @@ const ExportedApp = (props) => {
 		// Game Skin Variants
 		if (greenVariant || gameSkinVariants.green) document.querySelector('#root').classList.add('green');
 		if (orangeVariant || gameSkinVariants.orange) document.querySelector('#root').classList.add('orange');
-	}, [props.component, props.testId]);
+	}, [gameSkinVariants.green, gameSkinVariants.orange, greenVariant, orangeVariant]);
 
 	return (
 		<WrappedApp {...props} skin={skin} highContrast={highContrast} green={greenVariant} orange={orangeVariant} locale={locale} textSize={textSize} focusRing={focusRing} />
