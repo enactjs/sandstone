@@ -13,8 +13,6 @@ const keyDown = (keyCode) => (picker) => fireEvent.keyDown(picker, {keyCode});
 
 const leftKeyDown = keyDown(37);
 
-let MockObserverInstance;
-
 describe('ContextualPopupDecorator Specs', () => {
 	beforeEach(() => {
 		global.Element.prototype.getBoundingClientRect = jest.fn(() => {
@@ -27,13 +25,6 @@ describe('ContextualPopupDecorator Specs', () => {
 				right: 0
 			};
 		});
-
-		MockObserverInstance = {
-			observe: jest.fn(),
-			disconnect: jest.fn()
-		};
-
-		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
 	});
 
 	test('should emit onOpen event with type when opening', () => {
@@ -516,6 +507,14 @@ describe('ContextualPopupDecorator Specs', () => {
 	});
 
 	test('should create and observe with `ResizeObserver`', () => {
+		const originalObserver = global.ResizeObserver;
+
+		const MockObserverInstance = {
+			observe: jest.fn(),
+			disconnect: jest.fn()
+		};
+		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
+
 		const Root = FloatingLayerDecorator('div');
 		render(
 			<Root>
@@ -529,5 +528,7 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		expect(contextualButton).toBeInTheDocument();
 		expect(MockObserverInstance.observe).toHaveBeenCalled();
+
+		global.ResizeObserver = originalObserver;
 	});
 });

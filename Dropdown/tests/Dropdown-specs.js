@@ -12,18 +12,7 @@ const children = ['option1', 'option2', 'option3'];
 const placeholder = 'Dropdown select';
 const title = 'Options';
 
-let MockObserverInstance;
-
 describe('Dropdown', () => {
-	beforeEach(() => {
-		MockObserverInstance = {
-			observe: jest.fn(),
-			disconnect: jest.fn()
-		};
-
-		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
-	});
-
 	test('should have default `placeholder` when a value is not provided', () => {
 		render(
 			<DropdownBase>
