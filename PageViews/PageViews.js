@@ -1,7 +1,7 @@
 import handle, {forwardCustomWithPrevent} from '@enact/core/handle';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import Changeable from '@enact/ui/Changeable';
