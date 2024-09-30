@@ -436,3 +436,43 @@ WithEditableScroller.parameters = {
 		noPanels: true
 	}
 };
+
+export const WithFocusableScrollbar = () => {
+	const [panelIndex, setPanelIndex] = useState(0);
+
+	const forward = useCallback(() => {
+		setPanelIndex(panelIndex + 1);
+	}, [panelIndex]);
+
+	const backward = useCallback(() => {
+		setPanelIndex(panelIndex - 1);
+	}, [panelIndex]);
+
+	return (
+		<Panels
+			index={panelIndex}
+			noCloseButton
+			onBack={backward}
+		>
+			<Panel aria-label="This is a Panel 0">
+				<Header title="Panel 0" />
+				<Scroller>
+					<Button onClick={forward}>Next</Button>
+				</Scroller>
+			</Panel>
+			<Panel aria-label="This is a Panel 1">
+				<Header title="Panel 1" />
+				<Scroller focusableScrollbar>
+					<Button onClick={backward}>Previous</Button>
+				</Scroller>
+			</Panel>
+		</Panels>
+	);
+};
+
+WithFocusableScrollbar.storyName = 'with focusable scrollbar';
+WithFocusableScrollbar.parameters = {
+	props: {
+		noPanels: true
+	}
+};
