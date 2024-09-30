@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
+
 ## [2.9.2] - 2024-09-26
 
 ### Fixed
