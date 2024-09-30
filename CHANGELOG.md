@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/VideoPlayer` to show only the mini feedback using play/pause key
+- `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
 
 ## [2.9.2] - 2024-09-26
 
