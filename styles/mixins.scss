@@ -35,6 +35,13 @@
 	}
 }
 
+@mixin sand-item-icon-tap-area-adjust {
+	&.small > .small-icon-tap-area {
+		left: -(variables.$sand-spotlight-outset);
+		right: -(variables.$sand-spotlight-outset);
+	}
+}
+
 @mixin sand-word-break {
 	& {
 		overflow-wrap: break-word;
@@ -160,14 +167,6 @@
 	}
 }
 
-@mixin sand-font-size($font-size: variables.$sand-body-font-size, $nlfont-size: $font-size) {
-	font-size: $font-size;
-
-	@include enact-locale(non-latin) {
-		font-size: $nlfont-size;
-	}
-}
-
 //
 // Custom Text Size Mixins
 //
@@ -212,6 +211,26 @@
 // Text definitions
 //
 
+@mixin sand-alert-title {
+	@include sand-font(variables.$sand-alert-font-family, variables.$sand-non-latin-font-family-light);
+	@include sand-enact-locale-line-height(variables.$sand-alert-line-height, variables.$sand-tallglyph-body-line-height);
+
+	& {
+		font-size: variables.$sand-alert-title-font-size;
+		font-weight: variables.$sand-alert-font-weight;
+	}
+}
+
+@mixin sand-alert-subtitle {
+	@include sand-font(variables.$sand-alert-font-family, variables.$sand-non-latin-font-family-light);
+	@include sand-enact-locale-line-height(variables.$sand-alert-line-height);
+
+	& {
+		font-size: variables.$sand-alert-subtitle-font-size;
+		font-weight: variables.$sand-alert-font-weight;
+	}
+}
+
 @mixin sand-alert-overlay-content {
 	font-weight: variables.$sand-alert-font-weight;
 	font-size: variables.$sand-alert-overlay-font-size;
@@ -220,8 +239,8 @@
 	@include sand-enact-locale-line-height(variables.$sand-alert-line-height, variables.$sand-tallglyph-body-line-height);
 	@include sand-font(variables.$sand-alert-font-family, variables.$sand-non-latin-font-family-light);
 
-	@include sand-word-break();
-	@include locale-japanese-line-break();
+	@include sand-word-break;
+	@include locale-japanese-line-break;
 }
 
 @mixin sand-body-text {
@@ -283,7 +302,7 @@
 	-webkit-box-orient: vertical;
 }
 
-// Add an extension to the .enact-locale-line-height mixin defined in ~@ui which has defaults specific to sandstone.
+// Add an extension to the `enact-locale-line-height` mixin defined in ~@ui which has defaults specific to sandstone.
 //
 // Set line-height for normal and tallglyphs with 0, 1 or 2 arguments
 // Ex:
@@ -323,6 +342,7 @@
 		@include focus {
 			&:global(.focusRing) {
 				transform: none;
+
 				.#{$target} {
 					@include sand-focus-ring;
 				}
