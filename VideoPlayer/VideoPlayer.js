@@ -812,6 +812,7 @@ const VideoPlayerBase = class extends Component {
 		this.mediaControlsSpotlightId = props.spotlightId + '_mediaControls';
 		this.jumpButtonPressed = null;
 		this.playerRef = createRef();
+		this.playbackRate = 1;
 
 		// Re-render-necessary State
 		this.state = {
