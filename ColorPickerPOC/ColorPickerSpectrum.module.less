@@ -1,0 +1,22 @@
+// ColorPickerSpectrum.module.less
+//
+@import '../styles/colors.less';
+@import '../styles/mixins.less';
+@import '../styles/variables.less';
+
+.colorPicker {
+	position: relative;
+}
+
+.circleIndicator {
+	border: 3px solid #808080;
+	height: 48px;
+	border-radius: 99px;
+	pointer-events: none;
+	position: absolute;
+	width: 48px;
+
+	.focus({
+		border: 6px solid #000;
+	})
+}
