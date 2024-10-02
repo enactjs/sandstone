@@ -69,6 +69,14 @@ function PageViewsRouter (Wrapped) {
 
 	PageViewsProvider.propTypes =  /** @lends sandstone/PageViews.PageViewsRouter.prototype */  {
 		/**
+		 * Sets the strategy used to automatically focus an element within the PageViews upon render.
+		 *
+		 * @type {('default-element'|'last-focused'|'none'|String)}
+		 * @public
+		 */
+		autoFocus: PropTypes.string,
+
+		/**
 		 * Obtains a reference to the root node.
 		 *
 		 * @type {Function|Object}
