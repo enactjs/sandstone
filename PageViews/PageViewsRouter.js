@@ -26,6 +26,7 @@ function useReverseTransition (index, rtl) {
  */
 function PageViewsRouter (Wrapped) {
 	const PageViewsProvider = ({
+		autoFocus = 'default-element',
 		children,
 		componentRef,
 		'data-spotlight-id': spotlightId,
@@ -37,8 +38,8 @@ function PageViewsRouter (Wrapped) {
 	}) => {
 		const totalIndex = Children.count(children);
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
-		const autoFocus = useAutoFocus({autoFocus: 'default-element'});
-		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
+		const autoFocusRef = useAutoFocus({autoFocus});
+		const ref = useChainRefs(autoFocusRef, a11yRef, componentRef);
 		const {reverseTransition} = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
