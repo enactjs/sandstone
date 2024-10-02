@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "@enact/ui/styles/utils" as uiUtils;
 @use "./utils";
 
 // Variables
@@ -335,7 +336,7 @@ $sand-button-bg-opacity: 1;
 $sand-button-transparent-bg-opacity: 0;
 $sand-button-transparent-selected-bg-opacity: 1;
 $sand-button-margin: 0 $sand-component-spacing;
-$sand-button-focusexpand-margin: 6px utils.get-right-value($sand-button-margin); // 6px provides enough space for the expanded focus state
+$sand-button-focusexpand-margin: 6px uiUtils.extract($sand-button-margin, right); // 6px provides enough space for the expanded focus state
 $sand-button-h-padding: 60px;
 $sand-button-with-icon-h-padding: $sand-spotlight-outset;
 $sand-button-height-large: 192px;
@@ -395,17 +396,17 @@ $sand-alert-overlay-button-spacing: 30px;
 $sand-alert-overlay-buttons-margin: 0 0 0 126px; // If this changes, update `overflow` computed value from Alert.js
 $sand-alert-overlay-noimage-text-gap: 30px;
 $sand-alert-overlay-image-text-gap: $sand-alert-overlay-noimage-text-gap + 18px;
-$sand-alert-overlay-text-button-gap: (198px - nth($sand-alert-overlay-buttons-margin, 4) - nth($sand-button-margin, 2));
+$sand-alert-overlay-text-button-gap: (198px - uiUtils.extract($sand-alert-overlay-buttons-margin, left) - uiUtils.extract($sand-button-margin, right));
 $sand-alert-overlay-content-width: 1200px; // If this changes, update `overflow` computed value from Alert.js
 $sand-alert-overlay-image-margin: 0;
 $sand-alert-overlay-margin-bottom: 360px;
 $sand-alert-overlay-padding-top-bottom: 60px;
 $sand-alert-overlay-padding-left: 60px;
-$sand-alert-overlay-padding-right: (90px - nth($sand-button-margin, 2));
+$sand-alert-overlay-padding-right: (90px - uiUtils.extract($sand-button-margin, right));
 $sand-portrait-alert-overlay-noimage-content-width: 1020px;
 $sand-portrait-alert-overlay-content-width: 822px;
 $sand-portrait-alert-overlay-buttons-margin: 0 0 0 78px;
-$sand-portrait-alert-overlay-text-button-gap: (150px - nth($sand-portrait-alert-overlay-buttons-margin, 4) - nth($sand-button-margin, 2));
+$sand-portrait-alert-overlay-text-button-gap: (150px - uiUtils.extract($sand-portrait-alert-overlay-buttons-margin, left) - uiUtils.extract($sand-button-margin, right));
 
 // Header
 // ---------------------------------------
@@ -423,19 +424,19 @@ $sand-header-subtitle-height: calc($sand-heading-subtitle-font-size * utils.stri
 // values in the guide.
 $sand-header-standard-margin: 0;
 $sand-header-standard-padding:
-		calc(nth(map-get(map-get($guide, header), standard-padding), 1)
+		calc(#{uiUtils.extract(map-get(map-get($guide, header), standard-padding), top)}
 		- get-edge-size-difference(
 				map-get(map-get($guide, header), standard-title-line-height),
 				$sand-heading-title-font-size,
 				$sand-heading-title-line-height
 			)
 		)
-		nth(map-get(map-get($guide, header), standard-padding), 2)
-		nth(map-get(map-get($guide, header), standard-padding), 3)
-		nth(map-get(map-get($guide, header), standard-padding), 4);
+		uiUtils.extract(map-get(map-get($guide, header), standard-padding), right)
+		uiUtils.extract(map-get(map-get($guide, header), standard-padding), bottom)
+		uiUtils.extract(map-get(map-get($guide, header), standard-padding), left);
 $sand-header-standard-title-padding: 0;
 $sand-header-standard-subtitle-margin:
-		calc(nth(map-get(map-get($guide, header), standard-titles-gap), 1)
+		calc(#{uiUtils.extract(map-get(map-get($guide, header), standard-titles-gap), top)}
 		- get-edge-size-difference(
 			map-get(map-get($guide, header), standard-title-line-height),
 			$sand-heading-title-font-size,
@@ -450,59 +451,59 @@ $sand-header-standard-subtitle-margin:
 	0 0 0;
 $sand-header-compact-margin: 0;
 $sand-header-compact-padding:
-		calc(nth(map-get(map-get($guide, header), compact-padding), 1)
+		calc(#{uiUtils.extract(map-get(map-get($guide, header), compact-padding), top)}
 		- get-edge-size-difference(
 				map-get(map-get($guide, header), compact-title-line-height),
 				$sand-header-compact-title-font-size,
 				$sand-heading-title-line-height
 			)
 		)
-		nth(map-get(map-get($guide, header), compact-padding), 1)
-		calc(nth(map-get(map-get($guide, header), compact-padding), 1)
+		uiUtils.extract(map-get(map-get($guide, header), compact-padding), right)
+		calc(#{uiUtils.extract(map-get(map-get($guide, header), compact-padding), bottom)}
 		- get-edge-size-difference(
 				map-get(map-get($guide, header), compact-title-line-height),
 				$sand-header-compact-title-font-size,
 				$sand-heading-title-line-height
 			)
 		)
-		nth(map-get(map-get($guide, header), compact-padding), 1);
+		uiUtils.extract(map-get(map-get($guide, header), compact-padding), left);
 $sand-header-compact-title-padding: 0;
 $sand-header-compact-subtitle-padding: 0;
 $sand-header-mini-margin:
 	6px
 	$sand-component-spacing
-	nth(map-get(map-get($guide, header), mini-padding), 3)
+	uiUtils.extract(map-get(map-get($guide, header), mini-padding), bottom)
 	$sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
 $sand-header-mini-margin: map-get(map-get($guide, header), mini-margin);
 $sand-header-mini-padding:
-		calc(nth(map-get(map-get($guide, header), mini-padding), 1)
+		calc(#{uiUtils.extract(map-get(map-get($guide, header), mini-padding), top)}
 		- get-edge-size-difference(
 				map-get(map-get($guide, header), mini-title-line-height),
 				$sand-header-mini-title-font-size,
 				$sand-heading-title-line-height
 			)
 		)
-		nth(map-get(map-get($guide, header), mini-padding), 2)
-		calc(nth(map-get(map-get($guide, header), mini-padding), 3)
+		uiUtils.extract(map-get(map-get($guide, header), mini-padding), right)
+		calc(#{uiUtils.extract(map-get(map-get($guide, header), mini-padding), bottom)}
 		- get-edge-size-difference(
 				map-get(map-get($guide, header), mini-title-line-height),
 				$sand-header-mini-title-font-size,
 				$sand-heading-title-line-height
 			)
 		)
-		nth(map-get(map-get($guide, header), mini-padding), 4);
+		uiUtils.extract(map-get(map-get($guide, header), mini-padding), left);
 $sand-header-wizard-margin: 0;
 $sand-header-wizard-padding:
-		calc(nth(map-get(map-get($guide, header), wizard-padding), 1)
+		calc(#{uiUtils.extract(map-get(map-get($guide, header), wizard-padding), top)}
 		- get-edge-size-difference(
 				map-get(map-get($guide, header), wizard-title-line-height),
 				$sand-header-wizard-title-font-size,
 				$sand-heading-title-line-height
 			)
 		)
-		nth(map-get(map-get($guide, header), wizard-padding), 2)
-		nth(map-get(map-get($guide, header), wizard-padding), 3)
-		nth(map-get(map-get($guide, header), wizard-padding), 4); // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
+		uiUtils.extract(map-get(map-get($guide, header), wizard-padding), right)
+		uiUtils.extract(map-get(map-get($guide, header), wizard-padding), bottom)
+		uiUtils.extract(map-get(map-get($guide, header), wizard-padding), left); // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
 $sand-header-wizard-nosubtitle-padding-bottom: 42px;
 $sand-header-wizard-title-padding: 0;
 $sand-header-wizard-subtitle-padding: 0;
@@ -639,7 +640,7 @@ $sand-progressbutton-icon-font-size: math.div($sand-icon-tiny-size, 2);
 // QuickGuidePanels
 // ---------------------------------------
 $sand-quickguidepanels-close-button-margin-top:
-	calc(nth(map-get(map-get($guide, header), standard-padding), 1) -
+	calc(#{uiUtils.extract(map-get(map-get($guide, header), standard-padding), top)} -
 		get-edge-size-difference(
 			map-get(map-get($guide, header), standard-title-line-height),
 			$sand-heading-title-font-size,
@@ -666,7 +667,7 @@ $sand-scrim-color: fade(black, 30%);
 // ---------------------------------------
 $sand-input-popup-component-v-spacing: 42px;
 $sand-input-numbercell-border-radius: 12px;
-$sand-input-fullscreen-padding: (210px - nth($sand-popup-padding, 1)) (264px - nth($sand-popup-padding, 2)) (246px - nth($sand-popup-padding, 1)) (264px - nth($sand-popup-padding, 2));
+$sand-input-fullscreen-padding: (210px - uiUtils.extract($sand-popup-padding, top)) (264px - uiUtils.extract($sand-popup-padding, right)) (246px - uiUtils.extract($sand-popup-padding, bottom)) (264px - uiUtils.extract($sand-popup-padding, left));
 $sand-input-fullscreen-numbercell-width: 246px;
 $sand-input-fullscreen-numbercell-height: 300px;
 $sand-input-fullscreen-numbercell-margin: 0 18px;
@@ -688,7 +689,7 @@ $sand-portrait-input-fullscreen-keypad-margin: 600px auto 0 auto;
 $sand-portrait-input-fullscreen-keypad-key-margin: 45px;
 $sand-portrait-input-fullscreen-text-inputarea-margin: 672px 0 0 0;
 $sand-portrait-input-fullscreen-number-inputarea-margin: 96px 0 0 0;
-$sand-input-overlay-padding: (90px - nth($sand-popup-padding, 1)) (90px - nth($sand-popup-padding, 2)) (90px - nth($sand-popup-padding, 1)) (90px - nth($sand-popup-padding, 2));
+$sand-input-overlay-padding: (90px - uiUtils.extract($sand-popup-padding, top)) (90px - uiUtils.extract($sand-popup-padding, right)) (90px - uiUtils.extract($sand-popup-padding, bottom)) (90px - uiUtils.extract($sand-popup-padding, left));
 $sand-input-overlay-inputarea-margin: 96px 0 0 0;
 $sand-input-overlay-numbercell-width: 174px;
 $sand-input-overlay-numbercell-height: 210px;
@@ -721,7 +722,7 @@ $sand-checkbox-container-border-radius: $sand-item-border-radius;
 $sand-contextualmenu-container-padding: 36px 0;
 $sand-contextualmenu-max-items: 5;
 $sand-contextualmenu-innercontainer-max-height: $sand-contextualmenu-max-items * $sand-item-small-height;
-$sand-contextualmenu-max-height: ($sand-contextualmenu-innercontainer-max-height + nth($sand-contextualmenu-container-padding, 1) + nth($sand-contextualmenu-container-padding, 1));
+$sand-contextualmenu-max-height: ($sand-contextualmenu-innercontainer-max-height + uiUtils.extract($sand-contextualmenu-container-padding, top) + uiUtils.extract($sand-contextualmenu-container-padding, bottom));
 $sand-contextualmenu-large-width: 960px;
 $sand-contextualmenu-small-width: 612px;
 
@@ -758,7 +759,7 @@ $sand-non-italic-dropdown-title-font-style: normal;
 
 // FormCheckboxItem
 // ---------------------------------------
-$sand-formcheckboxitem-checkbox-margin-end: abs($sand-checkbox-container-position); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
+$sand-formcheckboxitem-checkbox-margin-end: abs(uiUtils.extract($sand-checkbox-container-position, right)); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
 
 // Keyguide
 // ---------------------------------------
@@ -788,12 +789,12 @@ $sand-pageviews-number-steps-separator-width: 60px;
 // Panels
 // ---------------------------------------
 $sand-panel-padding: 0;
-$sand-panel-body-padding-top: nth(map-get(map-get($guide, panel), body-padding), 1); // Used in this file only, for consistency
-$sand-panel-body-padding: $sand-panel-body-padding-top (nth(map-get(map-get($guide, panel), body-padding), 2) - $sand-component-spacing);
+$sand-panel-body-padding-top: uiUtils.extract(map-get(map-get($guide, panel), body-padding), top); // Used in this file only, for consistency
+$sand-panel-body-padding: $sand-panel-body-padding-top (uiUtils.extract(map-get(map-get($guide, panel), body-padding), right) - $sand-component-spacing);
 
 // Picker
 // ----------------------------------------
-$sand-picker-title-margin-left: nth($sand-heading-margin, 4) + nth($sand-button-margin, 2) + nth($sand-button-icon-small-padding, 2);
+$sand-picker-title-margin-left: uiUtils.extract($sand-heading-margin, left) + uiUtils.extract($sand-button-margin, left) + uiUtils.extract($sand-button-icon-small-padding, left);
 $sand-picker-title-max-width: 480px;
 $sand-picker-margin: 0 $sand-component-spacing;
 $sand-picker-item-padding: 0 $sand-spotlight-outset;
@@ -842,7 +843,7 @@ $sand-popup-position-left-margin: 120px $sand-component-spacing 120px 60px;
 // ---------------------------------------
 $sand-fixedpopuppanels-width: 1140px;
 $sand-fixedpopuppanels-half-width: 1716px;
-$sand-fixedpopuppanels-margin: nth($sand-popup-position-left-margin, 1) nth($sand-popup-position-left-margin, 2);
+$sand-fixedpopuppanels-margin: uiUtils.extract($sand-popup-position-left-margin, top) uiUtils.extract($sand-popup-position-left-margin, right);
 $sand-fixedpopuppanels-border-radius: $sand-popup-border-radius;
 $sand-fixedpopuppanels-panel-padding: 0;
 $sand-fixedpopuppanels-panel-body-padding: $sand-panel-body-padding-top calc(108px - ($sand-component-spacing + $sand-spotlight-outset)) calc(78px - $sand-component-spacing-bottom);

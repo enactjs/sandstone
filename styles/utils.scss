@@ -2,11 +2,6 @@
 // utility functions
 @use "sass:math";
 
-@function get-right-value($list) {
-	$values: nth($list, 2);
-	@return $values;
-}
-
 // Function to check if a value is a number
 @function is-number($value) {
 	@return type-of($value) == 'number';
