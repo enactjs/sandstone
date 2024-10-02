@@ -1,6 +1,7 @@
 import handle, {forwardCustomWithPrevent} from '@enact/core/handle';
-import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
+import kind from '@enact/core/kind';
+import {cap} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import Changeable from '@enact/ui/Changeable';
@@ -120,6 +121,15 @@ const PageViewsBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
+		 * Specifies on which side (`'top'` or `'bottom'`) the page indicator appears.
+		 *
+		 * @type {('top'|'bottom')}
+		 * @default 'bottom'
+		 * @private
+		 */
+		pageIndicatorPosition: PropTypes.oneOf(['top', 'bottom']),
+
+		/**
 		 * Type of page indicator.
 		 *
 		 * There are two types:
@@ -152,6 +162,7 @@ const PageViewsBase = kind({
 
 	defaultProps: {
 		arranger: BasicArranger,
+		pageIndicatorPosition: 'bottom',
 		pageIndicatorType: 'dot'
 	},
 
@@ -199,7 +210,7 @@ const PageViewsBase = kind({
 			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
 			return `${pageHint} ${children?.[index]?.props['aria-label'] || ''}`;
 		},
-		className: ({fullContents, pageIndicatorType, styler}) => styler.append({fullContents}, pageIndicatorType),
+		className: ({fullContents, pageIndicatorPosition, pageIndicatorType, styler}) => styler.append({fullContents}, `indicator${cap(pageIndicatorPosition)}`, pageIndicatorType),
 		renderNextButton: ({onNextClick, index, totalIndex, navigationButtonOffset}) => {
 			const isNextButtonVisible = index < totalIndex - 1;
 			const navigationButtonStyle = {
@@ -279,6 +290,7 @@ const PageViewsBase = kind({
 		componentRef,
 		fullContents,
 		index,
+		pageIndicatorPosition,
 		pageIndicatorType,
 		renderNextButton,
 		renderPrevButton,
@@ -298,7 +310,7 @@ const PageViewsBase = kind({
 
 		return (
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
-				{!fullContents && pageIndicatorType === 'dot' ? steps : null}
+				{!fullContents && pageIndicatorPosition === 'top' ? steps : null}
 				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
 					{fullContents ?
 						<>
@@ -313,7 +325,7 @@ const PageViewsBase = kind({
 						</Row>
 					}
 				</Column>
-				{!fullContents && pageIndicatorType === 'number' ? steps : null}
+				{!fullContents && pageIndicatorPosition === 'bottom' ? steps : null}
 			</div>
 		);
 	}
