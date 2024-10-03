@@ -4,7 +4,7 @@
 
 // Function to check if a value is a number
 @function is-number($value) {
-	@return type-of($value) == 'number';
+	@return type-of($value) == number;
 }
 
 // Function to check if a value is in 'em' units
@@ -21,7 +21,7 @@
 // @param {Number} $number - Number to remove unit from
 // @return {Number} - Unitless number
 @function strip-unit($number) {
-	@if type-of($number) == 'number' and not unitless($number) {
+	@if type-of($number) == number and not unitless($number) {
 		@return math.div($number, $number * 0 + 1);
 	}
 
