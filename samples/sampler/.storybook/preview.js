@@ -1,5 +1,8 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
+import ri from '@enact/ui/resolution';
+import {DocsContainer, Primary, Title} from '@storybook/addon-docs';
+import {themes} from '@storybook/theming';
 import ReactGA4 from "react-ga4";
 
 import ThemeEnvironment from '../src/ThemeEnvironment';
@@ -64,6 +67,20 @@ if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
 }
 
 export const parameters = {
+	docs: {
+		container: DocsContainer,
+		story: {
+			inline: false,
+			iframeHeight: ri.scaleToRem(600)
+		},
+		page: () => (
+			<>
+				<Title />
+				<Primary />
+			</>
+		),
+		theme: themes.light
+	},
 	options: {
 		storySort: {
 			method: 'alphabetical'

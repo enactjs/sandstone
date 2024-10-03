@@ -8,6 +8,9 @@ module.exports = {
 	core: {
 		disableTelemetry: true
 	},
+	docs: {
+		autodocs: true,
+	},
 	features: {
 		postcss: false,
 		warnOnLegacyHierarchySeparator: false
