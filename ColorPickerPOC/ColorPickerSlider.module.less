@@ -1,30 +1,71 @@
-.cellElement {
-  margin-top: 21px;
+@import "../styles/mixins.less";
+
+.sliderPickerContainer {
+	margin-top: -63px;
+
+	.containerRow {
+		padding-bottom: 30px;
+	}
 }
 
-.labelText {
-  font-size: 42px;
+.slidersContainer {
+	padding: 0 30px;
+
+	.labelText {
+		font-size: 42px;
+		margin: 9px 0;
+	}
+
+	.sliderCell {
+		border-radius: 99px;
+	}
+
+	.slider {
+		--sand-progress-bg-color-rgb: transparent;
+		border-radius: 99px;
+		height: 33px;
+		margin-left: 18px;
+		margin-right: 18px;
+
+		.focus({
+			.knob {
+				transform: scale(1.1);
+			}
+		});
+
+		.knob {
+			&::before {
+				border-radius: 99px;
+				height: 102px;
+				width: 102px;
+			}
+		}
+	}
+
+	.outputText {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #eeeeee;
+		color: rgb(76, 80, 89);
+		border-radius: 12px;
+		margin-left: 30px;
+	}
 }
 
-.outputText {
-  align-content: center;
-  background-color: #eeeeee;
-  border-radius: 12px;
-  color: #444444;
-  display: grid;
-  justify-content: end;
-  padding-right: 24px;
+.pickerSelect {
+	margin: 0;
+	height: 129px;
+
+	[role*=button] {
+		height: 129px;
+	}
 }
 
-.slider {
-  --sand-focus-bg-color-rgb: transparent;
-  --sand-progress-bg-color-rgb: transparent;
-  --sand-progress-slider-color: transparent;
-  border-radius: 99px;
-  height: 42px;
-  margin-left: 0;
-}
+.hexInput {
+	width: 402px;
 
-.sliderContainer {
-  width: 900px;
+	input {
+		width: 372px;
+	}
 }

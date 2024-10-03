@@ -2,7 +2,7 @@ import {is} from '@enact/core/keymap';
 import Spottable from '@enact/spotlight/Spottable';
 import spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import {getHexColorFromGradient} from './utils';
 
@@ -11,6 +11,9 @@ import css from './ColorPickerSpectrum.module.less';
 const SpottableDiv = Spottable('div');
 
 const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHandler, setIsIndicatorActive, setIndicatorBgColor, setX, setY, x, y}) => {
+	const [holding, setHolding] = useState(false);
+	const [prevKey, setPrevKey] = useState('');
+	const [stepValue, setStepValue] = useState(1);
 
 	// resume spotlight when indicator is not active
 	useEffect(() => {
@@ -36,7 +39,22 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 			const hexColor = getHexColorFromGradient(canvasRef, x, y);
 			setIndicatorBgColor(hexColor);
 		}
-	}, [canvasRef, x, y, isIndicatorActive, setIsIndicatorActive, setIndicatorBgColor]);
+
+		if (isIndicatorActive) {
+			if (holding) {
+				if (prevKey === keyCode) {
+					if (stepValue < 10) {
+						setStepValue(prevValue => prevValue + 1);
+					}
+				} else {
+					setStepValue(1);
+				}
+			} else {
+				setHolding(true);
+				setPrevKey(keyCode);
+			}
+		}
+	}, [canvasRef, holding, isIndicatorActive, prevKey, setIndicatorBgColor, setIsIndicatorActive, stepValue, x, y]);
 
 	const handleOnKeyUp = useCallback(({keyCode}) => {
 		if (is('down', keyCode)) {
@@ -52,31 +70,35 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 			const hexColor = getHexColorFromGradient(canvasRef, x, y);
 			selectedColorHandler(hexColor);
 		}
+
+		setHolding(false);
+		setPrevKey('');
+		setStepValue(1);
 	}, [canvasRef, selectedColorHandler, x, y]);
 
 	const handleSpotlightDown = useCallback(() => {
-		if (isIndicatorActive && y < canvasRef.current.clientHeight - 1) {
-			setY(y++);
+		if (isIndicatorActive && y + stepValue <= canvasRef.current.clientHeight - 1) {
+			setY(y + stepValue);
 		}
-	}, [canvasRef, isIndicatorActive, setY, y]);
+	}, [canvasRef, isIndicatorActive, setY, stepValue, y]);
 
 	const handleSpotlightLeft = useCallback(() => {
-		if (isIndicatorActive && x > 0) {
-			setX(x--);
+		if (isIndicatorActive && x - stepValue >= 0) {
+			setX(x - stepValue);
 		}
-	}, [isIndicatorActive, setX, x]);
+	}, [isIndicatorActive, setX, stepValue, x]);
 
 	const handleSpotlightRight = useCallback(() => {
-		if (isIndicatorActive && x < canvasRef.current.clientWidth) {
-			setX(x++);
+		if (isIndicatorActive && x + stepValue <= canvasRef.current.clientWidth) {
+			setX(x + stepValue);
 		}
-	}, [canvasRef, isIndicatorActive, setX, x]);
+	}, [canvasRef, isIndicatorActive, setX, stepValue, x]);
 
 	const handleSpotlightUp = useCallback(() => {
-		if (isIndicatorActive && y > 0) {
-			setY(y--);
+		if (isIndicatorActive && y - stepValue >= 0) {
+			setY(y - stepValue);
 		}
-	}, [isIndicatorActive, setY, y]);
+	}, [isIndicatorActive, setY, stepValue, y]);
 
 	return (
 		<SpottableDiv

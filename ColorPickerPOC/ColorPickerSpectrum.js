@@ -1,3 +1,4 @@
+import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
@@ -9,10 +10,12 @@ import css from './ColorPickerSpectrum.module.less';
 const SpectrumColorPicker = (props) => {
 	const {selectedColor, selectedColorHandler} = props;
 	const canvasRef = useRef(null);
+	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
+	const [canvasWidth, setCanvasWidth] = useState(ri.scale(800));
+	const [indicatorBgColor, setIndicatorBgColor] = useState('transparent');
 	const [indicatorX, setIndicatorX] = useState(0);
 	const [indicatorY, setIndicatorY] = useState(0);
 	const [isDragging, setIsDragging] = useState(false);
-	const [indicatorBgColor, setIndicatorBgColor] = useState('transparent');
 	const [isIndicatorActive, setIsIndicatorActive] = useState(false);
 
 	useEffect(() => {
@@ -56,7 +59,15 @@ const SpectrumColorPicker = (props) => {
 			}
 		};
 		positionIndicator();
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+		const handleResize = () => {
+			setCanvasHeight(canvas.parentElement.clientHeight);
+			setCanvasWidth(canvas.parentElement.clientWidth);
+		};
+
+		window.addEventListener('resize', handleResize);
+		handleResize();
+	}, [canvasHeight, canvasWidth]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleCanvasPointerDown = useCallback((e) => {
 		const canvas = canvasRef.current;
@@ -106,14 +117,14 @@ const SpectrumColorPicker = (props) => {
 	return (
 		<div className={css.colorPicker}>
 			<canvas
-				ref={canvasRef}
-				height={300}
+				className={css.gradientCanvas}
+				height={canvasHeight}
 				onPointerDown={handleCanvasPointerDown}
 				onPointerLeave={handleCanvasPointerLeave}
 				onPointerMove={handleCanvasPointerMove}
 				onPointerUp={handleCanvasPointerUp}
-				style={{touchAction: 'none'}}
-				width={400}
+				ref={canvasRef}
+				width={canvasWidth}
 			/>
 			<SpectrumIndicator
 				bgColor={indicatorBgColor}
