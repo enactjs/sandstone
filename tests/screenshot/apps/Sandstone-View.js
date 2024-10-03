@@ -189,8 +189,14 @@ const ExportedApp = (props) => {
 		document.querySelector('#root').classList.add('spotlight-input-key');
 
 		// Game Skin Variants
-		if (greenVariant || gameSkinVariants.green) document.querySelector('#sandstone-test-wrapper').classList.add('green');
-		if (orangeVariant || gameSkinVariants.orange) document.querySelector('#sandstone-test-wrapper').classList.add('orange');
+		if (greenVariant || gameSkinVariants.green) {
+			document.querySelector('#root').classList.add('green');
+			document.querySelector('#sandstone-test-wrapper').classList.add('green');
+		}
+		if (orangeVariant || gameSkinVariants.orange) {
+			document.querySelector('#root').classList.add('orange');
+			document.querySelector('#sandstone-test-wrapper').classList.add('orange');
+		}
 	}, [gameSkinVariants.green, gameSkinVariants.orange, greenVariant, orangeVariant]);
 
 	return (
