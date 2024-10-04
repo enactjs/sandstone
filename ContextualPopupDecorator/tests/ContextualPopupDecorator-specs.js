@@ -531,7 +531,7 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		rerender(
 			<Root>
-				<ContextualButton data-testid="contextualButton" popupComponent={() => <div><Button>Button</Button></div>}>
+				<ContextualButton>
 					Hello
 				</ContextualButton>
 			</Root>
