@@ -74,7 +74,10 @@ const PageViewsBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `pageViews` - The root component class
+		 * * `contentsArea` - The contentsArea component class
 		 * * `navButton` - The navButton component class
+		 * * `navButtonContainer` - Applied to the container containing navButtons in fullContents mode
+		 * * `steps` - The step component class
 		 *
 		 * @type {Object}
 		 * @public
