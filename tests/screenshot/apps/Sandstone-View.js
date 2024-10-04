@@ -200,7 +200,7 @@ const ExportedApp = (props) => {
 	}, [gameSkinVariants.green, gameSkinVariants.orange, greenVariant, orangeVariant]);
 
 	return (
-		<WrappedApp id="sandstone-test-wrapper" {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
+		<WrappedApp id="sandstone-test-wrapper" className={greenVariant || gameSkinVariants.green ? 'green' : orangeVariant || gameSkinVariants.orange ? 'orange' : ''} {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
 	);
 };
 
