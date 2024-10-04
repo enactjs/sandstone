@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` with `editable` prop to move item via 5-way keys in pointer mode
 - `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
 
 ## [2.9.2] - 2024-09-26

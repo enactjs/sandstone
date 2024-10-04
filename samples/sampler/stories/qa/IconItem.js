@@ -2,6 +2,7 @@ import {add, is} from '@enact/core/keymap';
 import Button from '@enact/sandstone/Button';
 import IconItem from '@enact/sandstone/IconItem';
 import Scroller from '@enact/sandstone/Scroller';
+import Spotlight from '@enact/spotlight';
 import $L from '@enact/sandstone/internal/$L';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -149,7 +150,7 @@ export const EditableIcon = (args) => {
 	}, []);
 
 	const onMouseLeaveItem = useCallback((ev) => {
-		if (blurItem.current) {
+		if (blurItem.current && Spotlight.getPointerMode()) {
 			blurItem.current(ev.target);
 		}
 	}, []);
