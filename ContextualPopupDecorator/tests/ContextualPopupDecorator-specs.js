@@ -506,7 +506,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(scrimDivSecond).toHaveClass(expectedSecond);
 	});
 
-	test('should create and observe with `ResizeObserver`', () => {
+	test('should create and observe with `ResizeObserver` and disconnect when the popup close', () => {
 		const originalObserver = global.ResizeObserver;
 
 		const MockObserverInstance = {
@@ -516,7 +516,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
 
 		const Root = FloatingLayerDecorator('div');
-		render(
+		const {rerender} = render(
 			<Root>
 				<ContextualButton data-testid="contextualButton" open popupComponent={() => <div><Button>Button</Button></div>}>
 					Hello
@@ -528,6 +528,16 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		expect(contextualButton).toBeInTheDocument();
 		expect(MockObserverInstance.observe).toHaveBeenCalled();
+
+		rerender(
+			<Root>
+				<ContextualButton data-testid="contextualButton" popupComponent={() => <div><Button>Button</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		expect(MockObserverInstance.disconnect).toHaveBeenCalled();
 
 		global.ResizeObserver = originalObserver;
 	});
