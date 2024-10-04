@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 import {objectify} from '@enact/ui/Skinnable/util';
 import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils';
 import spotlight from '@enact/spotlight';
-import {Component as ReactComponent, cloneElement, useEffect} from 'react';
+import {Component as ReactComponent, cloneElement, useEffect, useCallback} from 'react';
 
 import ThemeDecorator from '../../../ThemeDecorator';
 
@@ -199,8 +199,14 @@ const ExportedApp = (props) => {
 		}
 	}, [gameSkinVariants.green, gameSkinVariants.orange, greenVariant, orangeVariant]);
 
+	const getGameSkinVariant = useCallback(() => {
+		if (greenVariant || gameSkinVariants.green) return 'green';
+		if (orangeVariant || gameSkinVariants.orange) return 'orange';
+		return '';
+	}, [gameSkinVariants.green, gameSkinVariants.orange, greenVariant, orangeVariant]);
+
 	return (
-		<WrappedApp id="sandstone-test-wrapper" className={greenVariant || gameSkinVariants.green ? 'green' : orangeVariant || gameSkinVariants.orange ? 'orange' : ''} {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
+		<WrappedApp id="sandstone-test-wrapper" className={getGameSkinVariant()} {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
 	);
 };
 
