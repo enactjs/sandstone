@@ -54,15 +54,15 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "warning": "^4.0.3",
-    "ilib": "14.19.0"
+    "ilib": "^14.20.0"
   },
   "peerDependencies": {
-    "ilib": "^14.19.0 || ^14.19.0-webos1"
+    "ilib": "^14.20.0 || ^14.20.0-webos1"
   },
   "devDependencies": {
-    "@enact/docs-utils": "^0.4.9",
-    "@enact/ui-test-utils": "^1.0.8",
-    "eslint-config-enact-proxy": "^1.0.7",
-    "tsx": "^4.19.0"
+    "@enact/docs-utils": "^0.4.10",
+    "@enact/ui-test-utils": "^1.0.9",
+    "eslint-config-enact-proxy": "^1.0.8",
+	"tsx": "^4.19.0"
   }
 }
