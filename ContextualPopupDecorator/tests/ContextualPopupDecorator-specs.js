@@ -515,23 +515,24 @@ describe('ContextualPopupDecorator Specs', () => {
 		};
 		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
 
+		const message = 'goodbye';
 		const Root = FloatingLayerDecorator('div');
 		const {rerender} = render(
 			<Root>
-				<ContextualButton data-testid="contextualButton" open popupComponent={() => <div><Button>Button</Button></div>}>
+				<ContextualButton open popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
 
-		const contextualButton = screen.getByTestId('contextualButton');
+		const contextualButton = screen.getByRole('button');
 
 		expect(contextualButton).toBeInTheDocument();
 		expect(MockObserverInstance.observe).toHaveBeenCalled();
 
 		rerender(
 			<Root>
-				<ContextualButton>
+				<ContextualButton popupComponent={() => message}> 
 					Hello
 				</ContextualButton>
 			</Root>
