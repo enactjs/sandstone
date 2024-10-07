@@ -223,7 +223,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 			const generalSelected = generalizeSelected(selectedDay, state);
 			const content = getSelectedDayString(generalSelected, '', dayNameLength);
 
-			forwardCustom('onSelect', () => ({selected: selectedDay, content}))(null, daySelectorDecoratorProps);
+			forwardCustom('onSelect', () => ({selected: generalSelected, content}))(null, daySelectorDecoratorProps);
 		}, [dayNameLength, daySelectorDecoratorProps, state]);
 
 		return (
