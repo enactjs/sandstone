@@ -532,7 +532,7 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		rerender(
 			<Root>
-				<ContextualButton popupComponent={() => message}> 
+				<ContextualButton popupComponent={() => message}>
 					Hello
 				</ContextualButton>
 			</Root>
