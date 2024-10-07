@@ -73,12 +73,12 @@ export const parameters = {
 			inline: false,
 			iframeHeight: ri.scaleToRem(600)
 		},
-		page: () => (
-			<>
-				<Title />
-				<Primary />
-			</>
-		),
+		// page: () => (
+		// 	<>
+		// 		<Title />
+		// 		<Primary />
+		// 	</>
+		// ),
 		theme: themes.light
 	},
 	options: {
