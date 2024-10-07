@@ -517,7 +517,7 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		const message = 'goodbye';
 		const Root = FloatingLayerDecorator('div');
-		const {rerender} = render(
+		render(
 			<Root>
 				<ContextualButton open popupComponent={() => message}>
 					Hello
