@@ -26,7 +26,7 @@ function useReverseTransition (index, rtl) {
  */
 function PageViewsRouter (Wrapped) {
 	const PageViewsProvider = ({
-		autoFocus = 'default-element',
+		autoFocus,
 		children,
 		componentRef,
 		'data-spotlight-id': spotlightId,
@@ -70,9 +70,11 @@ function PageViewsRouter (Wrapped) {
 	PageViewsProvider.propTypes =  /** @lends sandstone/PageViews.PageViewsRouter.prototype */  {
 		/**
 		 * Sets the strategy used to automatically focus an element within the PageViews upon render.
+		 * When set to 'none', focus is not set only on the first render.
 		 *
 		 * @type {('default-element'|'last-focused'|'none'|String)}
-		 * @public
+		 * @default 'default-element'
+		 * @private
 		 */
 		autoFocus: PropTypes.string,
 

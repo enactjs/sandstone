@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/PageViews` prop `autoFocus` to set whether focus element automatically or not
 - `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
 
 ### Changed
@@ -15,7 +16,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/PageViews` not to focus element automatically when `autoFocus` prop is set `none`
 - `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
 - `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
 - `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
