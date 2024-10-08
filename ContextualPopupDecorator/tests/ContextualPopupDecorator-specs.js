@@ -506,7 +506,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(scrimDivSecond).toHaveClass(expectedSecond);
 	});
 
-	test('should create and observe with `ResizeObserver` and disconnect when the popup close', () => {
+	test('should create and observe with `ResizeObserver` when the popup opened and disconnect when the popup closed', () => {
 		const originalObserver = global.ResizeObserver;
 
 		const MockObserverInstance = {
