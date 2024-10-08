@@ -13,8 +13,6 @@ const keyDown = (keyCode) => (picker) => fireEvent.keyDown(picker, {keyCode});
 
 const leftKeyDown = keyDown(37);
 
-let MockObserverInstance;
-
 describe('ContextualPopupDecorator Specs', () => {
 	beforeEach(() => {
 		global.Element.prototype.getBoundingClientRect = jest.fn(() => {
@@ -27,12 +25,6 @@ describe('ContextualPopupDecorator Specs', () => {
 				right: 0
 			};
 		});
-
-		MockObserverInstance = {
-			observe: jest.fn(),
-			disconnect: jest.fn()
-		};
-		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
 	});
 
 	test('should emit onOpen event with type when opening', () => {
@@ -515,40 +507,38 @@ describe('ContextualPopupDecorator Specs', () => {
 	});
 
 	test('should create and observe with `ResizeObserver` and disconnect when the popup close', () => {
-		//const originalObserver = global.ResizeObserver;
+		const originalObserver = global.ResizeObserver;
 
-		/*const MockObserverInstance = {
+		const MockObserverInstance = {
 			observe: jest.fn(),
 			disconnect: jest.fn()
 		};
 		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
-		*/
-		const message = 'goodbye';
+
 		const Root = FloatingLayerDecorator('div');
-		render(
+		const {rerender} = render(
 			<Root>
-				<ContextualButton open popupComponent={() => message}>
+				<ContextualButton data-testid="contextualButton" open popupComponent={() => <div><Button>Button</Button></div>}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
 
-		const contextualButton = screen.getByRole('button');
+		const contextualButton = screen.getByTestId('contextualButton');
 
 		expect(contextualButton).toBeInTheDocument();
 		expect(MockObserverInstance.observe).toHaveBeenCalled();
 
-		/*
 		rerender(
 			<Root>
-				<ContextualButton popupComponent={() => message}>
+				<ContextualButton data-testid="contextualButton" popupComponent={() => <div><Button>Button</Button></div>}>
 					Hello
 				</ContextualButton>
 			</Root>
 		);
 
 		expect(MockObserverInstance.disconnect).toHaveBeenCalled();
-		*/
-		//global.ResizeObserver = originalObserver;
+
+		global.ResizeObserver = originalObserver;
 	});
 });
