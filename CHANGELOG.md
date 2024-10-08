@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/MediaControls` props `jumpBackwardAriaLabel` and `jumpForwardAriaLabel` to override aria-label of jumpButtons
 - `sandstone/PageViews.Page` and `sandstone/QuickGuidePanels.Panel` prop `aria-label`
 - `sandstone/QuickGuidePanels` props `closeButtonAriaLabel` and `onClose`
 - `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
