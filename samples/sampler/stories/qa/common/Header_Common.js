@@ -54,7 +54,6 @@ export const makeCustomizedConfig = (customDefaults) => {
 			backButtonBackgroundOpacity: 'opaque',
 			centered: false,
 			closeButtonBackgroundOpacity: 'opaque',
-			noBackButton: false,
 			noCloseButton: false,
 			slotAbove: 'none',
 			slotBefore: 'no buttons',
@@ -71,10 +70,8 @@ export const commonProps = (args) => {
 	return {
 		type: args['type'],
 		centered: args['centered'],
-		backButtonAvailable: args['backButtonAvailable'],
 		backButtonBackgroundOpacity: args['backButtonBackgroundOpacity'],
 		closeButtonBackgroundOpacity: args['closeButtonBackgroundOpacity'],
-		noBackButton: args['noBackButton'],
 		noCloseButton: args['noCloseButton'],
 		marqueeOn: args['marqueeOn'],
 		slotAbove: prop.above[args['slotAbove']],
