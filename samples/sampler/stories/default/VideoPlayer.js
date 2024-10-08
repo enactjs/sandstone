@@ -173,8 +173,10 @@ export const _VideoPlayer = (args) => {
 				</infoComponents>
 				<MediaControls
 					actionGuideButtonAriaLabel={args['actionGuideButtonAriaLabel']}
+					jumpBackwardAriaLabel={args['jumpBackwardAriaLabel']}
 					jumpBackwardIcon={args['jumpBackwardIcon']}
 					jumpButtonsDisabled={args['jumpButtonsDisabled']}
+					jumpForwardAriaLabel={args['jumpForwardAriaLabel']}
 					jumpForwardIcon={args['jumpForwardIcon']}
 					noJumpButtons={args['noJumpButtons']}
 					rateChangeDisabled={args['rateChangeDisabled']}
@@ -238,8 +240,10 @@ text(
 	MediaControlsConfig,
 	''
 );
+text('jumpBackwardAriaLabel', _VideoPlayer, MediaControlsConfig, '');
 select('jumpBackwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpbackward');
 boolean('jumpButtonsDisabled', _VideoPlayer, MediaControlsConfig);
+text('jumpForwardAriaLabel', _VideoPlayer, MediaControlsConfig, '');
 select('jumpForwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpforward');
 boolean('noJumpButtons', _VideoPlayer, MediaControlsConfig);
 boolean('rateChangeDisabled', _VideoPlayer, MediaControlsConfig);
