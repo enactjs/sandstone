@@ -9,7 +9,7 @@ import {setDefaultTargetById} from '@enact/core/dispatcher';
 import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
-import {Component} from 'react';
+import {useEffect} from 'react';
 import classNames from 'classnames';
 import {ResolutionDecorator} from '@enact/ui/resolution';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
@@ -242,20 +242,15 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	// set the DOM node ID of the React DOM tree root
 	setDefaultTargetById(rootId);
 
-	const Decorator = class extends Component {
-		static displayName = 'ThemeDecorator';
+	const Decorator = (props) => {
+		const {skin: skinProp, ...rest} = props;
+		const skinName = skinProp || 'neutral';
+		const className = classNames(css.root, props.className, 'sandstone-theme', 'enact-unselectable', {
+			[bgClassName]: !float,
+			'enact-fit': !disableFullscreen
+		});
 
-		static propTypes = /** @lends sandstone/ThemeDecorator.prototype */ {
-			/**
-			 * Assign a skin.
-			 *
-			 * @type {String}
-			 * @private
-			 */
-			skin: PropTypes.string
-		};
-
-		componentDidMount () {
+		useEffect(() => {
 			if (spotlight) {
 				activateInputType(true);
 				requestInputType = requestLastInputType({
@@ -271,26 +266,28 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					}
 				});
 			}
-		}
 
-		componentWillUnmount () {
-			if (requestInputType) {
-				requestInputType.cancel();
-			}
-		}
+			return () => {
+				if (requestInputType) {
+					requestInputType.cancel();
+				}
+			};
+		}, []);
 
-		render () {
-			const {skin: skinProp, ...rest} = this.props;
-			const skinName = skinProp || 'neutral';
-			const className = classNames(css.root, this.props.className, 'sandstone-theme', 'enact-unselectable', {
-				[bgClassName]: !float,
-				'enact-fit': !disableFullscreen
-			});
+		return (
+			<App {...rest} skin={skinName} className={className} />
+		);
+	};
 
-			return (
-				<App {...rest} skin={skinName} className={className} />
-			);
-		}
+	Decorator.displayName = "ThemeDecorator";
+	Decorator.propTypes = /** @lends sandstone/ThemeDecorator.prototype */ {
+		/**
+		 * Assign a skin.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		skin: PropTypes.string
 	};
 
 	return Decorator;
