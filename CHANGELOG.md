@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/MediaControls` props `jumpBackwardAriaLabel` and `jumpForwardAriaLabel` to override aria-label of jumpButtons
+
 ### Fixed
 
 - `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
@@ -15,6 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
 - `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
+- `sandstone/Scroller` to focus the topmost element after scroll by voice control
 - `sandstone/Scroller` to read out properly when `sandstone/Panels` has `sandstone/Scroller` with `focusableScrollbar`
 
 ## [2.9.1] - 2024-09-09
