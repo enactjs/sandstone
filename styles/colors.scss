@@ -109,10 +109,10 @@ $sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
 // ---------------------------------------
 
 // common colors
-$sand-alert-overlay-bg-color-rgb: 202, 203, 204; // #cacbcc
-$sand-alert-overlay-bg-color-opacity: 95%;
+$sand-alert-overlay-bg-color-rgb: var(--sand-alert-overlay-bg-color-rgb, 202, 203, 204); // #cacbcc
+$sand-alert-overlay-bg-color-opacity: var(--sand-alert-overlay-bg-color-opacity, 95%);
 $sand-alert-overlay-bg-color: var(--sand-alert-overlay-bg-color-rgb, $sand-alert-overlay-bg-color-rgb);
-$sand-alert-overlay-text-color-rgb: rgb(46, 50, 57); // #2e3239
+$sand-alert-overlay-text-color-rgb: var(--sand-alert-overlay-text-color-rgb, rgb(46, 50, 57)); // #2e3239
 $sand-alert-overlay-text-color: var(--sand-alert-overlay-text-color-rgb, $sand-alert-overlay-text-color-rgb); // #2e3239
 $sand-alert-overlay-text-sub-color: var(--sand-alert-overlay-text-sub-color, #2e3239);
 $sand-alert-overlay-focus-text-color: var(--sand-alert-overlay-focus-text-color, #575e66);
@@ -160,7 +160,7 @@ $sand-actionguide-icon-color: $sand-actionguide-label-color;
 // Alert
 // ---------------------------------------
 $sand-alert-bg-color: $sand-fullscreen-bg-color;
-$sand-alert-overlay-shadow: 0 36px 36px $sand-shadow-color;
+$sand-alert-overlay-shadow: var(--sand-alert-overlay-shadow, 0 36px 36px $sand-shadow-color);
 
 // Header
 // ---------------------------------------
@@ -170,14 +170,14 @@ $sand-header-text-shadow: 6px 12px 12px $sand-shadow-color;
 // ---------------------------------------
 $sand-button-text-color: $sand-component-text-color;
 $sand-button-bg-color: $sand-component-bg-color;
-$sand-button-border-color: transparent;
+$sand-button-border-color: var(--sand-button-border-color, transparent);
 $sand-button-focus-bg-color: $sand-focus-bg-color;
 $sand-button-selected-text-color: $sand-component-text-color;
 $sand-button-selected-bg-color: $sand-selected-bg-color;
 $sand-button-focus-filter: none;
 $sand-button-selected-filter: none;
 $sand-button-transparent-text-color: $sand-text-color;
-$sand-button-focus-icononly-bg-color: '';
+$sand-button-focus-icononly-bg-color: var(--sand-button-focus-icononly-bg-color, $sand-focus-bg-color);
 $sand-button-text-shadow: $sand-header-text-shadow;
 
 // Checkbox
@@ -225,7 +225,7 @@ $sand-formcheckboxitem-disabled-focus-text-color: $sand-formcheckboxitem-disable
 // Heading
 // ---------------------------------------
 $sand-heading-text-color: $sand-text-color;
-$sand-heading-border-color: $sand-heading-text-color;
+$sand-heading-border-color: var(--sand-heading-border-color, $sand-heading-text-color);
 $sand-heading-subtitle-text-color: $sand-text-sub-color;
 
 // HolePunchScrim
@@ -294,8 +294,8 @@ $sand-input-numberfield-disabled-opacity: $sand-disabled-focus-bg-opacity;
 // Item
 // ---------------------------------------
 $sand-item-label-color: $sand-text-sub-color;
-$sand-item-focus-label-color: inherit;
-$sand-item-focus-background: '';
+$sand-item-focus-label-color: var(--sand-item-focus-label-color, inherit);
+$sand-item-focus-background: var(--sand-item-focus-background, $sand-text-color-rgb);
 
 // KeyGuide
 // ---------------------------------------
@@ -366,8 +366,8 @@ $sand-radioitem-focus-indicator-color: transparent;
 $sand-radioitem-focus-indicator-bg-color: transparent;
 $sand-radioitem-focus-indicator-border-color: $sand-component-focus-text-color-rgb;
 $sand-radioitem-selected-indicator-color: $sand-selected-color;
-$sand-radioitem-selected-indicator-bg-color: $sand-toggle-on-bg-color;
-$sand-radioitem-selected-indicator-border-color: $sand-radioitem-selected-indicator-bg-color;
+$sand-radioitem-selected-indicator-bg-color: var(--sand-radioitem-selected-indicator-bg-color, $sand-toggle-on-bg-color);
+$sand-radioitem-selected-indicator-border-color: var(--sand-radioitem-selected-indicator-border-color, $sand-radioitem-selected-indicator-bg-color);
 $sand-radioitem-selected-focus-indicator-color: $sand-radioitem-selected-indicator-color;
 $sand-radioitem-selected-focus-indicator-bg-color:  $sand-radioitem-selected-indicator-bg-color;
 $sand-radioitem-selected-focus-indicator-border-color: $sand-radioitem-selected-focus-indicator-bg-color;
@@ -388,8 +388,8 @@ $sand-tablayout-tab-horizontal-selected-border-color: $sand-selected-color;
 // ---------------------------------------
 $sand-scrollbar-track-bg-color: rgba(var(--sand-scrollbar-track-bg-color-rgb, 55, 58, 65), 50%);
 $sand-scrollbar-thumb-bg-color: rgba(var(--sand-scrollbar-thumb-bg-color-rgb, 230, 230, 230), 60%);
-$sand-scrollbar-thumb-focus-bg-color: $sand-focus-bg-color;
-$sand-scrollbar-thumb-focus-direction-indicator-color: rgba($sand-component-focus-text-color, 40%);
+$sand-scrollbar-thumb-focus-bg-color: $sand-focus-bg-color-rgb;
+$sand-scrollbar-thumb-focus-direction-indicator-color: rgba(76, 80, 89, 40%); // Reference: conversion rgb with custom properties to rgba "rgba($sand-component-focus-text-color, 40%);"
 $sand-scrollbar-thumb-focus-box-shadow-color: $sand-shadow-color;
 
 // Scroller

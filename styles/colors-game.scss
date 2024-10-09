@@ -1,3 +1,5 @@
+@use "./utils";
+
 // colors-game.scss (game skin)
 // (violet)
 
@@ -6,50 +8,52 @@
 // ---------------------------------------
 
 // colors
-$sand-game-skin-color-01: var(--sand-game-skin-color-01, #a273c8);
-$sand-game-skin-color-02: var(--sand-game-skin-color-02, #8b31d7);
+@mixin applyColorsGame {
+	--sand-game-skin-color-01: #{utils.hex-to-rgb-values(#a273c8)};
+	--sand-game-skin-color-02: #{utils.hex-to-rgb-values(#8b31d7)};
 
-$sand-game-skin-heading-border-color: var(--sand-game-skin-heading-border-color, #8151ff);
-$sand-game-skin-item-focus-bg-gradient-1: var(--sand-game-skin-item-focus-bg-gradient-1, rgba(#603091, 0%/100.0%));
-$sand-game-skin-item-focus-bg-gradient-2: var(--sand-game-skin-item-focus-bg-gradient-2, #6d2fa1);
-
-
-// UI Conceptual Colors
-// ---------------------------------------
-
-// common colors
-
-$sand-component-bg-color: var(--sand-component-bg-color, #2d224c);
-$sand-focus-bg-color: var(--sand-focus-bg-color, #6d2fa1);
-$sand-component-focus-text-color-rgb: var(--sand-component-focus-text-color-rgb, rgb(230, 230, 230)); // #e6e6e6
+	--sand-game-skin-heading-border-color: rgba(#{utils.hex-to-rgb-values(#8151ff)});
+	--sand-game-skin-item-focus-bg-gradient-1: rgba(#{utils.hex-to-rgb-values(#603091)}, 0);
+	--sand-game-skin-item-focus-bg-gradient-2: rgba(#{utils.hex-to-rgb-values(#6d2fa1)});
 
 
-// ---------------------------------------
-// Component Colors
-// ---------------------------------------
+	// UI Conceptual Colors
+	// ---------------------------------------
 
-// Alert
-// ---------------------------------------
-$sand-alert-overlay-text-color-rgb: var(--sand-alert-overlay-text-color-rgb, rgb(255, 255, 255)); // #ffffff
-$sand-alert-overlay-bg-color-rgb: var(--sand-alert-overlay-bg-color-rgb, rgb(0, 0, 0)); // #000000
-$sand-alert-overlay-bg-color-opacity: 75%;
-$sand-alert-overlay-shadow: 0 36px 24px rgba(#000, 30%/100.0%), inset 0 0 0 3px rgba($sand-game-skin-color-01, 75%/100.0%);
+	// common colors
 
-// Button
-// --------------------------------------
-$sand-button-border-color: rgba($sand-game-skin-color-01, 50%/100.0%);
-$sand-button-focus-icononly-bg-color: rgba($sand-game-skin-color-02, 50%/100.0%);
+	--sand-component-bg-color: #2d224c;
+	--sand-focus-bg-color-rgb: #6d2fa1;
+	--sand-component-focus-text-color-rgb: 230, 230, 230; // #e6e6e6
 
-// Heading
-// ---------------------------------------
-$sand-heading-border-color: $sand-game-skin-heading-border-color;
 
-// Item
-// ---------------------------------------
-$sand-item-focus-background: linear-gradient(270deg, $sand-game-skin-item-focus-bg-gradient-1, $sand-game-skin-item-focus-bg-gradient-2);
-$sand-item-focus-label-color: #abaeb3;
+	// ---------------------------------------
+	// Component Colors
+	// ---------------------------------------
 
-// RadioItem
-// ---------------------------------------
-$sand-radioitem-selected-indicator-bg-color: $sand-game-skin-color-02;
-$sand-radioitem-selected-indicator-border-color: $sand-game-skin-color-02;
+	// Alert
+	// ---------------------------------------
+	--sand-alert-overlay-text-color-rgb: rgb(255, 255, 255); // #ffffff
+	--sand-alert-overlay-bg-color-rgb: 0, 0, 0; // #000000
+	--sand-alert-overlay-bg-color-opacity: 75%;
+	--sand-alert-overlay-shadow: #{0 36px 24px rgba(#000, 0.3), inset 0 0 0 3px rgba(var(--sand-game-skin-color-01), 0.75)};
+
+	// Button
+	// --------------------------------------
+	--sand-button-border-color: rgba(var(--sand-game-skin-color-01), 0.5);
+	--sand-button-focus-icononly-bg-color: rgba(var(--sand-game-skin-color-02), 0.5);
+
+	// Heading
+	// ---------------------------------------
+	--sand-heading-border-color: var(--sand-game-skin-heading-border-color);
+
+	// Item
+	// ---------------------------------------
+	--sand-item-focus-background: #{linear-gradient(270deg, var(--sand-game-skin-item-focus-bg-gradient-1), var(--sand-game-skin-item-focus-bg-gradient-2))};
+	--sand-item-focus-label-color: #abaeb3;
+
+	// RadioItem
+	// ---------------------------------------
+	--sand-radioitem-selected-indicator-bg-color: rgb(var(--sand-game-skin-color-02));
+	--sand-radioitem-selected-indicator-border-color: rgb(var(--sand-game-skin-color-02));
+}

@@ -2,6 +2,15 @@
 // utility functions
 @use "sass:math";
 
+// Function that converts HEX color to RGBA color
+@function hex-to-rgb-values($hex) {
+	$red: red($hex);
+	$green: green($hex);
+	$blue: blue($hex);
+
+	@return $red, $green, $blue;
+}
+
 // Function to check if a value is a number
 @function is-number($value) {
 	@return type-of($value) == number;

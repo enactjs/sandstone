@@ -1,3 +1,5 @@
+@use "./utils";
+
 // colors-game-green.less (game skin)
 // (green)
 
@@ -6,22 +8,22 @@
 // ---------------------------------------
 
 @mixin applyColorsGameGreen {
-  // colors
-  --sand-game-skin-color-01: #00ffc2;
-  --sand-game-skin-color-02: #45c194;
+	// colors
+	--sand-game-skin-color-01: #{utils.hex-to-rgb-values(#00ffc2)};
+	--sand-game-skin-color-02: #{utils.hex-to-rgb-values(#45c194)};
 
-  --sand-game-skin-heading-border-color: #3e6354;
-  --sand-game-skin-item-focus-bg-gradient-1: fade-out(#00ffbc, 0);
-  --sand-game-skin-item-focus-bg-gradient-2: fade-out(#00ffc2, 0.53);
+	--sand-game-skin-heading-border-color: rgba(#{utils.hex-to-rgb-values(#3e6354)});
+	--sand-game-skin-item-focus-bg-gradient-1: rgba(#{utils.hex-to-rgb-values(#00ffbc)}, 0);
+	--sand-game-skin-item-focus-bg-gradient-2: rgba(#{utils.hex-to-rgb-values(#00ffc2), 0.47});
 
 
-  // UI Conceptual Colors
-  // ---------------------------------------
+	// UI Conceptual Colors
+	// ---------------------------------------
 
-  // common colors
+	// common colors
 
-  --sand-component-bg-color: #1F2C24;
-  --sand-focus-bg-color: #3ea07d;
+	--sand-component-bg-color: #1F2C24;
+	--sand-focus-bg-color-rgb: #3ea07d;
 }
 
 

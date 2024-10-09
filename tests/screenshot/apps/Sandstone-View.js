@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 import {objectify} from '@enact/ui/Skinnable/util';
 import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils';
 import spotlight from '@enact/spotlight';
-import {Component as ReactComponent, cloneElement, useEffect} from 'react';
+import {Component as ReactComponent, cloneElement, useEffect, useCallback} from 'react';
 
 import ThemeDecorator from '../../../ThemeDecorator';
 
@@ -141,6 +141,11 @@ const ExportedApp = (props) => {
 	let highContrast = url.searchParams.get('highContrast') === 'true';
 	let focusRing = url.searchParams.get('focusRing') === 'true';
 
+	// Game Skin Variants
+	const greenVariant = url.searchParams.get('green') === 'true';
+	const orangeVariant = url.searchParams.get('orange') === 'true';
+	const gameSkinVariants = objectify(components[props.component][props.testId].skinVariants);
+
 	// Legacy test parameters
 	let locale = url.searchParams.get('locale');
 	let textSize = url.searchParams.get('textSize') === 'large' ? 'large' : 'normal';
@@ -182,10 +187,26 @@ const ExportedApp = (props) => {
 
 	useEffect(() => {
 		document.querySelector('#root').classList.add('spotlight-input-key');
-	}, []);
+
+		// Game Skin Variants
+		if (greenVariant || gameSkinVariants.green) {
+			document.querySelector('#root').classList.add('green');
+			document.querySelector('#sandstone-test-wrapper').classList.add('green');
+		}
+		if (orangeVariant || gameSkinVariants.orange) {
+			document.querySelector('#root').classList.add('orange');
+			document.querySelector('#sandstone-test-wrapper').classList.add('orange');
+		}
+	}, [gameSkinVariants.green, gameSkinVariants.orange, greenVariant, orangeVariant]);
+
+	const getGameSkinVariant = useCallback(() => {
+		if (greenVariant || gameSkinVariants.green) return 'green';
+		if (orangeVariant || gameSkinVariants.orange) return 'orange';
+		return '';
+	}, [gameSkinVariants.green, gameSkinVariants.orange, greenVariant, orangeVariant]);
 
 	return (
-		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
+		<WrappedApp id="sandstone-test-wrapper" className={getGameSkinVariant()} {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} focusRing={focusRing} />
 	);
 };
 

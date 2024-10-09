@@ -2,27 +2,27 @@
 
 // Alert
 // ---------------------------------------
-$sand-alert-overlay-border-radius: variables.$sand-popup-border-radius;
+$sand-alert-overlay-border-radius: var(--sand-alert-overlay-border-radius, variables.$sand-popup-border-radius);
 
 // Button
 // ---------------------------------------
-$sand-button-border-radius: 12px;
-$sand-button-bg-border-width: '';
-$sand-button-bg-border-style: none;
-$sand-button-icononly-border-radius: '';
-$sand-button-icononly-bg-border: '';
+$sand-button-border-radius: var(--sand-button-border-radius, 12px);
+$sand-button-bg-border-width: var(--sand-button-bg-border-width, 0);
+$sand-button-bg-border-style: var(--sand-button-bg-border-style, none);
+$sand-button-icononly-border-radius: var(--sand-button-icononly-border-radius, 12px);
+$sand-button-icononly-bg-border: var(--sand-button-icononly-bg-border, 0);
 
 // ContextualPopup
 // ---------------------------------------
-$sand-contextualpopup-border-radius: ($sand-button-border-radius * 2);
+$sand-contextualpopup-border-radius: calc($sand-button-border-radius * 2);
 
 // Dropdown
 // ---------------------------------------
 $sand-dropdown-border-radius: $sand-button-border-radius;
 
 // Heading
-$sand-heading-font-style: normal;
-$sand-heading-padding: 0 0 18px 0;
+$sand-heading-font-style: var(--sand-heading-font-style, normal);
+$sand-heading-padding: var(--sand-heading-padding, 0 0 18px 0);
 
 // HolePunchScrim
 // ---------------------------------------
@@ -30,8 +30,8 @@ $sand-holepunchscrim-border-radius: $sand-button-border-radius;
 
 // Item
 // ---------------------------------------
-$sand-item-font-weight: 600;
-$sand-item-border-radius: 12px;
+$sand-item-font-weight: var(--sand-item-font-weight, 600);
+$sand-item-border-radius: var(--sand-item-border-radius, 12px);
 
 // Scroller
 // ---------------------------------------
