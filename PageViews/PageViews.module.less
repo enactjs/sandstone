@@ -33,7 +33,7 @@
 		justify-content: center;
 		text-align: center;
 		&.hidden {
-			min-height: @sand-pageviews-steps-area-hidden-min-height;
+			min-height: @sand-pageviews-steps-area-min-height;
 			visibility: hidden;
 		}
 	}
@@ -53,8 +53,9 @@
 		min-height: @sand-pageviews-dot-steps-area-min-height;
 		align-items: center;
 		.step {
-			line-height: @sand-pageviews-dot-steps-area-min-height;
-			height: @sand-pageviews-dot-steps-area-min-height
+			&.future, &.past {
+				height: @sand-pageviews-dot-steps-step-offset;
+			}
 		}
 	}
 
@@ -63,6 +64,14 @@
 		align-self: center;
 		bottom: @sand-pageviews-full-steps-position-bottom;
 		min-height: @sand-pageviews-full-steps-area-min-height;
+	}
+
+	&.fullContents .steps {
+		.step {
+			&.future, &.past {
+				height: @sand-pageviews-fullContents-steps-step-offset;
+			}
+		}
 	}
 
 	.contentsArea {
