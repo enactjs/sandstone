@@ -325,7 +325,7 @@ const PageViewsBase = kind({
  *
  * @name autoFocus
  * @type {('default-element'|'last-focused'|'none'|String)}
- * @memberof sandstone/PageViews.prototype
+ * @memberof sandstone/PageViews
  * @default 'last-focused'
  * @public
  */
