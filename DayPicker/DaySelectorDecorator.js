@@ -243,6 +243,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 	};
 
 	DaySelector.displayName = "DaySelectorDecorator";
+
 	DaySelector.propTypes = /** @lends sandstone/DayPicker.DaySelectorDecorator.prototype */ {
 		/**
 		 * The "aria-label" for the selector.
@@ -299,6 +300,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 		 */
 		selected: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
 	};
+
 	DaySelector.defaultPropValues = daySelectorDecoratorDefaultProps;
 
 	return DaySelector;
