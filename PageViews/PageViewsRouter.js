@@ -73,7 +73,7 @@ function PageViewsRouter (Wrapped) {
 		 * When set to 'none', focus is not set only on the first render.
 		 *
 		 * @type {('default-element'|'last-focused'|'none'|String)}
-		 * @default 'default-element'
+		 * @default 'last-focused'
 		 * @private
 		 */
 		autoFocus: PropTypes.string,

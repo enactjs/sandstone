@@ -54,16 +54,6 @@ const PageViewsBase = kind({
 		arranger: shape,
 
 		/**
-		 * Sets the strategy used to automatically focus an element within the PageViews upon render.
-		 * When set to 'none', focus is not set only on the first render.
-		 *
-		 * @type {('default-element'|'last-focused'|'none'|String)}
-		 * @default 'default-element'
-		 * @public
-		 */
-		autoFocus: PropTypes.string,
-
-		/**
 		 * {@link sandstone/PageViews.Page|Page} to be rendered.
 		 *
 		 * @type {Node}
@@ -328,6 +318,17 @@ const PageViewsBase = kind({
 		);
 	}
 });
+
+/**
+ * Sets the strategy used to automatically focus an element within the PageViews upon render.
+ * When set to 'none', focus is not set only on the first render.
+ *
+ * @name autoFocus
+ * @type {('default-element'|'last-focused'|'none'|String)}
+ * @memberof sandstone/PageViews.prototype
+ * @default 'last-focused'
+ * @public
+ */
 
 const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
