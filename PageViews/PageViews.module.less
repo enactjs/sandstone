@@ -33,7 +33,7 @@
 		justify-content: center;
 		text-align: center;
 		&.hidden {
-			min-height: @sand-pageviews-steps-area-hidden-min-height;
+			min-height: @sand-pageviews-steps-area-min-height;
 			visibility: hidden;
 		}
 	}
@@ -53,8 +53,9 @@
 		min-height: @sand-pageviews-dot-steps-area-min-height;
 		align-items: center;
 		.step {
-			line-height: @sand-pageviews-dot-steps-area-min-height;
-			height: @sand-pageviews-dot-steps-area-min-height
+			&.future, &.past {
+				height: @sand-pageviews-dot-steps-step-offset;
+			}
 		}
 	}
 
