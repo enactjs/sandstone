@@ -331,6 +331,17 @@ const PageViewsBase = kind({
 	}
 });
 
+/**
+ * Sets the strategy used to automatically focus an element within the PageViews upon render.
+ * When set to 'none', focus is not set only on the first render.
+ *
+ * @name autoFocus
+ * @type {('default-element'|'last-focused'|'none'|String)}
+ * @memberof sandstone/PageViews.PageViews.prototype
+ * @default 'last-focused'
+ * @public
+ */
+
 const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
 	SpotlightContainerDecorator({

@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/PageViews` prop `autoFocus` to set whether focus element automatically or not
+
 ### Fixed
 
 - `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
