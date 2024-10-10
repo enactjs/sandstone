@@ -282,7 +282,7 @@ export const EditableList = (args) => {
 	}, []);
 
 	const onMouseLeaveItem = useCallback((ev) => {
-		if (blurItem.current) {
+		if (blurItem.current && Spotlight.getPointerMode()) {
 			blurItem.current(ev.target);
 		}
 	}, []);

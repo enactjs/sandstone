@@ -1,3 +1,4 @@
+import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import '@testing-library/jest-dom';
 import {render, fireEvent, screen} from '@testing-library/react';
@@ -107,6 +108,8 @@ describe('Editable Scroller', () => {
 				>
 					{editableScrollerContents}
 				</Scroller>);
+				Spotlight.setPointerMode(false);
+
 				const item = screen.getByLabelText('Icon 0');
 				pressEnterKey(item);
 				pressEnterKey(item);
