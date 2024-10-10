@@ -5,7 +5,7 @@ import {getDirection, Spotlight} from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import {lockPointer, releasePointer} from './pointer';
 
@@ -57,16 +57,11 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const forwardKeyUp = forward('onKeyUp');
 
 	const InputSpotlight = (props) => {
-		const paused = new Pause('InputSpotlightDecorator');
+		const paused = useMemo(() => new Pause('InputSpotlightDecorator'), []);
 		const [downTarget, setDownTarget] = useState();
 		const [focused, setFocused] = useState(null);
 		const [fromMouse, setFromMouse] = useState(false);
 		const [node, setNode] = useState(null);
-
-		const handleKeyDown = handle(
-			forwardWithPrevent('onKeyDown'),
-			call('onKeyDown')
-		);
 
 		const prevStatus = useRef({
 			focused: null,
@@ -88,8 +83,8 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						releasePointer(node);
 					}
 				}
-			}
-		}, []);
+			};
+		}, [focused, node, paused, props]);
 
 		const updateFocus = useCallback(() => {
 			// focus node if `InputSpotlightDecorator` is pausing Spotlight or if Spotlight is paused
@@ -124,14 +119,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			prevStatus.current.focused = focused;
 			prevStatus.current.node = node;
-		}, []);
+		}, [focused, fromMouse, node, paused, props]);
 
 		const focus = useCallback((focusedValue, nodeValue, fromMouseValue) => {
 			setFocused(focusedValue);
 			setNode(nodeValue);
 			setFromMouse(fromMouseValue);
 			updateFocus();
-		}, []);
+		}, [updateFocus]);
 
 		const blur = useCallback(() => {
 			if (focused || node) {
@@ -139,15 +134,15 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				setNode(null);
 				updateFocus();
 			}
-		}, []);
+		}, [focused, node, updateFocus]);
 
 		const focusDecorator = useCallback((decorator) => {
 			focus('decorator', decorator, false);
-		}, []);
+		}, [focus]);
 
 		const focusInput = useCallback((decorator, fromMouseValue) => {
 			focus('input', decorator.querySelector('input'), fromMouseValue);
-		}, []);
+		}, [focus]);
 
 		const onBlur = useCallback((ev) => {
 			if (!props.autoFocus) {
@@ -176,12 +171,20 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					blur();
 				}
 			}
+		}, [blur, focusDecorator, focused, node, props]);
+
+		const updateDownTarget = useCallback((ev) => {
+			const {repeat, target} = ev;
+
+			if (!repeat) {
+				setDownTarget(target);
+			}
 		}, []);
 
 		const onMouseDown = useCallback((ev) => {
 			const {disabled, spotlightDisabled} = props;
 
-			setDownTarget(ev);
+			updateDownTarget(ev);
 			// focus the <input> whenever clicking on any part of the component to ensure both that
 			// the <input> has focus and Spotlight is paused.
 			if (!disabled && !spotlightDisabled) {
@@ -189,7 +192,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			forwardMouseDown(ev, props);
-		}, []);
+		}, [focusInput, props, updateDownTarget]);
 
 		const onFocus = useCallback((ev) => {
 			forwardFocus(ev, props);
@@ -200,14 +203,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				focusInput(ev.currentTarget, false);
 				ev.stopPropagation();
 			}
-		}, []);
+		}, [focusInput, focused, props]);
 
 		const onKeyDown = useCallback((ev) => {
 			const {currentTarget, keyCode, target} = ev;
 
 			// cache the target if this is the first keyDown event to ensure the component had focus
 			// when the key interaction started
-			setDownTarget(ev);
+			updateDownTarget(ev);
 
 			if (focused === 'input') {
 				const isDown = is('down', keyCode);
@@ -258,7 +261,12 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					stopImmediate(ev);
 				}
 			}
-		}, []);
+		}, [blur, focusDecorator, focused, paused, updateDownTarget]);
+
+		const handleKeyDown = handle(
+			forwardWithPrevent('onKeyDown', onKeyDown),
+			call('onKeyDown')
+		);
 
 		const onKeyUp = useCallback((ev) => {
 			const {dismissOnEnter} = props;
@@ -281,15 +289,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			forwardKeyUp(ev, props);
-		}, []);
-
-		const updateDownTarget = useCallback((ev) => {
-			const {repeat, target} = ev;
-
-			if (!repeat) {
-				setDownTarget(target);
-			}
-		}, []);
+		}, [downTarget, focusDecorator, focusInput, focused, props]);
 
 		return (
 			<Component
