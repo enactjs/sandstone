@@ -124,6 +124,14 @@ const MediaControlsBase = kind({
 		bottomComponents: PropTypes.node,
 
 		/**
+		 * The `aria-label` for the jumpBackward button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		jumpBackwardAriaLabel: PropTypes.string,
+
+		/**
 		 * Jump backward {@link sandstone/Icon.Icon|icon} name. Accepts any
 		 * {@link sandstone/Icon.Icon|icon} component type.
 		 *
@@ -140,6 +148,14 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		jumpButtonsDisabled: PropTypes.bool,
+
+		/**
+		 * The `aria-label` for the jumpForward button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		jumpForwardAriaLabel: PropTypes.string,
 
 		/**
 		 * Jump forward {@link sandstone/Icon.Icon|icon} name. Accepts any
@@ -348,8 +364,10 @@ const MediaControlsBase = kind({
 		actionGuideShowing,
 		children,
 		id,
+		jumpBackwardAriaLabel,
 		jumpBackwardIcon,
 		jumpButtonsDisabled,
+		jumpForwardAriaLabel,
 		jumpForwardIcon,
 		bottomComponents,
 		mediaControlsRef,
@@ -379,9 +397,9 @@ const MediaControlsBase = kind({
 		return (
 			<OuterContainer {...rest} id={id} mediaControlsRef={mediaControlsRef} spotlightId={spotlightId}>
 				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled} onKeyDown={onKeyDownFromMediaButtons}>
-					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					{noJumpButtons ? null : <MediaButton aria-label={jumpBackwardAriaLabel || $L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={spotlightDefaultClass} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
-					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					{noJumpButtons ? null : <MediaButton aria-label={jumpForwardAriaLabel || $L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
 					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} buttonAriaLabel={actionGuideButtonAriaLabel} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
