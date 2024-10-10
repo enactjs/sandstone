@@ -2,6 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/PageViews.Page` and `sandstone/QuickGuidePanels.Panel` prop `aria-label`
+- `sandstone/QuickGuidePanels` props `closeButtonAriaLabel` and `onClose`
+
 ## [3.0.0-alpha.2] - 2024-10-08
 
 ### Added
