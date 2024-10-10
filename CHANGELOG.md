@@ -55,6 +55,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
+- `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Steps` prop `size` to accept number type
 
 ## [2.7.18] - 2024-09-05
