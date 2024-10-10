@@ -4,9 +4,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/Scroller` with `editable` prop to move item via 5-way keys in pointer mode
+
+## [3.0.0-alpha.2] - 2024-10-08
+
 ### Added
 
 - `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/MediaControls` props `jumpBackwardAriaLabel` and `jumpForwardAriaLabel` to override aria-label of jumpButtons
 - `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
 
 ### Changed
@@ -18,8 +25,43 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
 - `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
 - `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
-- `sandstone/Scroller` with `editable` prop to move item via 5-way keys in pointer mode
+- `sandstone/Scroller` to focus the topmost element after scroll by voice control
+- `sandstone/Scroller` to read out properly when `sandstone/Panels` has `sandstone/Scroller` with `focusableScrollbar`
 - `sandstone/Steps` prop `size` to accept number type
+- `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
+
+## [2.9.2] - 2024-09-26
+
+### Fixed
+
+- `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
+- `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
+
+## [2.9.1] - 2024-09-09
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
+### Fixed
+
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
+- `sandstone/Steps` prop `size` to accept number type
+
+## [2.7.18] - 2024-09-05
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
 
 ## [2.9.0] - 2024-07-17
 
