@@ -4,8 +4,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/MediaControls` props `jumpBackwardAriaLabel` and `jumpForwardAriaLabel` to override aria-label of jumpButtons
+
 ### Fixed
 
+- `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
 - `sandstone/Scroller` with `editable` prop to move item via 5-way keys in pointer mode
 - `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
 
