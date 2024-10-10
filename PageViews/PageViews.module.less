@@ -66,6 +66,14 @@
 		min-height: @sand-pageviews-full-steps-area-min-height;
 	}
 
+	&.fullContents .steps {
+		.step {
+			&.future, &.past {
+				height: @sand-pageviews-fullContents-steps-step-offset;
+			}
+		}
+	}
+
 	.contentsArea {
 		position: relative;
 		overflow: hidden;
