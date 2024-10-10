@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` with `editable` prop to move item via 5-way keys in pointer mode
+
 ## [3.0.0-alpha.2] - 2024-10-08
 
 ### Added
