@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
+- `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
 
 ## [3.0.0-alpha.2] - 2024-10-08
 
