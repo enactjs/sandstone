@@ -55,8 +55,10 @@
 	&.fullContents .steps {
 		position: absolute;
 		align-self: center;
-		bottom: @sand-pageviews-full-steps-position-bottom;
-		min-height: @sand-pageviews-full-steps-area-min-height;
+	}
+
+	&.fullContents.indicatorBottom .steps {
+		bottom: @sand-pageviews-full-contents-bottom-steps-bottom;
 	}
 
 	.contentsArea {
