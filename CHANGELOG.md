@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
+
 ## [2.7.18] - 2024-09-05
 
 ### Added
