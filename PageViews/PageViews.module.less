@@ -21,11 +21,11 @@
 	}
 
 	.navButtonContainer {
-		overflow: hidden;
-		z-index: 10;
-		top: ~"calc(50% - " (@sand-button-height + 12) / 2 ~")";
 		position: absolute;
 		width: 100%;
+		height: @sand-button-height;
+		top: ~"calc(50% - "@sand-button-height / 2 ~")";
+		z-index: 10;
 	}
 
 	&.number .navButtonCell {
@@ -59,8 +59,10 @@
 	&.fullContents .steps {
 		position: absolute;
 		align-self: center;
-		bottom: @sand-pageviews-full-steps-position-bottom;
-		min-height: @sand-pageviews-full-steps-area-min-height;
+	}
+
+	&.fullContents.indicatorBottom .steps {
+		bottom: @sand-pageviews-full-contents-bottom-steps-bottom;
 	}
 
 	.contentsArea {
