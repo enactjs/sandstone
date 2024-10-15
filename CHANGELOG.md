@@ -2,6 +2,20 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.9.3] - 2024-10-15
+
+### Added
+
+- `sandstone/MediaControls` props `jumpBackwardAriaLabel` and `jumpForwardAriaLabel` to override aria-label of jumpButtons
+- `sandstone/PageViews` prop `autoFocus` to set whether focus element automatically or not
+
+### Fixed
+
+- `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
+- `sandstone/Scroller` to focus the topmost element after scroll by voice control
+- `sandstone/Scroller` to read out properly when `sandstone/Panels` has `sandstone/Scroller` with `focusableScrollbar`
+- `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
+
 ## [2.9.2] - 2024-09-26
 
 ### Fixed

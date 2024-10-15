@@ -37,7 +37,7 @@ const ScrollbarPlaceholder = () => {
 		}, 0); // Wait for unmounting placeholder node.
 	}, []);
 
-	return (showPlaceholder ? (<SpotlightPlaceholder onSpotlightDisappear={resetFocus} data-spotlight-ignore-restore />) : null);
+	return (showPlaceholder ? (<SpotlightPlaceholder aria-hidden onSpotlightDisappear={resetFocus} data-spotlight-ignore-restore />) : null);
 };
 
 ScrollbarPlaceholder.displayName = 'ScrollbarPlaceholder';

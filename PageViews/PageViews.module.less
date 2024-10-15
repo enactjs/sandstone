@@ -17,11 +17,11 @@
 	}
 
 	.navButtonContainer {
-		overflow: hidden;
-		z-index: 10;
-		top: ~"calc(50% - " (@sand-button-height + 12) / 2 ~")";
 		position: absolute;
 		width: 100%;
+		height: @sand-button-height;
+		top: ~"calc(50% - "@sand-button-height / 2 ~")";
+		z-index: 10;
 	}
 
 	&.number .navButton {
