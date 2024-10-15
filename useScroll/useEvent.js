@@ -262,7 +262,6 @@ const useEventKey = (props, instances, context) => {
 		const {keyCode, repeat} = ev;
 
 		forward('onKeyDown', ev, props);
-		ev.preventDefault();
 
 		spottable.current.animateOnFocus = true;
 
@@ -308,21 +307,25 @@ const pointerTracker = (ev) => {
 const pageKeyHandler = (ev) => {
 	const {keyCode} = ev;
 
-	if (Spotlight.getPointerMode() && !Spotlight.getCurrent() && (isPageUp(keyCode) || isPageDown(keyCode))) {
-		const
-			{x, y} = lastPointer,
-			elem = document.elementFromPoint(x, y);
+	if (isPageUp(keyCode) || isPageDown(keyCode)) {
+		ev.preventDefault();
 
-		if (elem) {
-			for (const [key, value] of scrollers) {
-				if (utilDOM.containsDangerously(value, elem)) {
-					/* To handle page keys in nested scrollable components,
-					 * break the loop only when `scrollByPageOnPointerMode` returns `true`.
-					 * This approach assumes that an inner scrollable component is
-					 * mounted earlier than an outer scrollable component.
-					 */
-					if (key.scrollByPageOnPointerMode(ev)) {
-						break;
+		if (Spotlight.getPointerMode() && !Spotlight.getCurrent()) {
+			const
+				{x, y} = lastPointer,
+				elem = document.elementFromPoint(x, y);
+
+			if (elem) {
+				for (const [key, value] of scrollers) {
+					if (utilDOM.containsDangerously(value, elem)) {
+						/* To handle page keys in nested scrollable components,
+						 * break the loop only when `scrollByPageOnPointerMode` returns `true`.
+						 * This approach assumes that an inner scrollable component is
+						 * mounted earlier than an outer scrollable component.
+						 */
+						if (key.scrollByPageOnPointerMode(ev)) {
+							break;
+						}
 					}
 				}
 			}
