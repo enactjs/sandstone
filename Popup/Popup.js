@@ -406,6 +406,10 @@ const Popup = (props) => {
 		}
 	}, [handleKeyDown, open]);
 
+	const handleDismiss = useCallback((ev) => {
+		forwardCustom('onClose', () => ({detail: ev?.detail}))(null, props);
+	}, [props]);
+
 	const handleFloatingLayerOpen = useCallback(() => {
 		if (!noAnimation && popupOpen !== OpenState.OPEN) {
 			setPopupOpen(OpenState.OPENING);
@@ -413,10 +417,6 @@ const Popup = (props) => {
 			spotPopupContent();
 		}
 	}, [noAnimation, open, popupOpen, spotPopupContent]);
-
-	const handleDismiss = useCallback((ev) => {
-		forwardCustom('onClose', () => ({detail: ev?.detail}))(null, props);
-	}, [props]);
 
 	const handlePopupHide = useCallback((ev) => {
 		forwardHide(ev, props);
@@ -510,6 +510,9 @@ const Popup = (props) => {
 
 		checkScrimNone(props);
 	}, [floatLayerOpen, noAnimation, open, popupOpen, props, spotActivator, spotPopupContent]);
+
+	delete rest.no5WayClose;
+	delete rest.onClose;
 
 	return (
 		<FloatingLayer
