@@ -102,7 +102,7 @@ class ScrollerPage extends Page {
 	async getScrollerRect () {
 		return await browser.execute(function (_scrollContentSelector) {
 			const scroller = document.querySelector(_scrollContentSelector);
-			return scroller.getBoundingClientRect();
+			return scroller.getBoundingClientRect().toJSON();
 		}, scrollContentSelector);
 	}
 	async getScrollThumbRect () {
@@ -197,7 +197,7 @@ class ScrollerPage extends Page {
 
 	async getActiveElementRect () {
 		return await browser.execute(function () {
-			return document.activeElement.getBoundingClientRect();
+			return document.activeElement.getBoundingClientRect().toJSON();
 		});
 	}
 

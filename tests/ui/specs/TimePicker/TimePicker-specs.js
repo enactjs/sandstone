@@ -98,7 +98,7 @@ describe('TimePicker', function () {
 					const {minute} = await extractValues(timePicker);
 					// Step 3-1: Hover on the hour Picker.
 					await Page.showPointerByKeycode();
-					await $('#timePickerDefault').moveTo({xOffset: 100, yOffset: 100});
+					await $('#timePickerDefault').moveTo({xOffset: -50, yOffset: 0});
 					// Step 3-2: Press 5-way Left.
 					await Page.spotlightLeft();
 					// Step 3-1 Verify: Spotlight on the hour picker.
@@ -126,7 +126,7 @@ describe('TimePicker', function () {
 				it('should move to the next picker with 5-way OK key [QWTC-2541]', async function () {
 					// Step 3-1: Hover on the hour Picker.
 					await Page.showPointerByKeycode();
-					await $('#timePickerDefault').moveTo({xOffset: 100, yOffset: 100});
+					await $('#timePickerDefault').moveTo({xOffset: -50, yOffset: 0});
 					// Step 3-2: Press 5-way Left.
 					await Page.spotlightLeft();
 					// Step 3-1 Verify: Spotlight on the hour picker.
@@ -294,7 +294,7 @@ describe('TimePicker', function () {
 		it('should move to the next picker with 5-way OK key in ar-SA locale [QWTC-2541]', async function () {
 			// Step 10-1: hover on the hour picker.
 			await Page.showPointerByKeycode();
-			await $('#timePickerDefault').moveTo({xOffset: 200, yOffset: 100});
+			await $('#timePickerDefault').moveTo({xOffset: -50, yOffset: 0});
 			// Step 10-1 Verify: Spotlight on the hour picker.
 			await expect(await timePicker.hour.isFocused()).toBe(true);
 			// Step 10-2: Press 5-way Right.

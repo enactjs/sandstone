@@ -18,6 +18,7 @@ describe('Scroller With Editable Select Item By Press', function () {
 		// In this test, partially automated(step5~6). Step3~4 will be worked in screenshot test.
 		// Step 5: 5-way Spot and Select on item 0.
 		await ScrollerPage.spotlightDown();
+		await ScrollerPage.spotlightLeft(); // ensure focus is on first item
 		// Check for leftmost item's position.
 		const leftmostItemRect = Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100;
 		await ScrollerPage.spotlightSelect();

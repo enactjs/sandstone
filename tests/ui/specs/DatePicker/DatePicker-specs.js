@@ -95,7 +95,7 @@ describe('DatePicker', function () {
 				it('should focus move with 5-way select key [QWTC-2540]', async function () {
 					// Step 3: Hover and 5-way Left and Select on the Month picker.
 					await Page.showPointerByKeycode();
-					await $('#datePickerDefault').moveTo({xOffset: 100, yOffset: 200});
+					await $('#datePickerDefault').moveTo({xOffset: -150, yOffset: 0});
 					expect(await datePicker.month.isFocused()).toBe(true);
 					await Page.spotlightLeft();
 					await Page.spotlightSelect();
@@ -325,7 +325,7 @@ describe('DatePicker', function () {
 		it('should focus move with 5-way select key in RTL [QWTC-2540]', async function () {
 			// Step 7: Hover and 5-way Right and Select on the DayPicker
 			await Page.showPointerByKeycode();
-			await $('#datePickerDefault').moveTo({xOffset: 400, yOffset: 200});
+			await $('#datePickerDefault').moveTo({xOffset: 150, yOffset: 0});
 			expect(await datePicker.day.isFocused()).toBe(true);
 			await Page.spotlightRight();
 			await Page.spotlightSelect();

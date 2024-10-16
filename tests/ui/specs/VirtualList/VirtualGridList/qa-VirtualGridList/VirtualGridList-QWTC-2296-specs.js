@@ -13,7 +13,7 @@ describe('qa-VirtualGridList translate mode', function () {
 
 		// Step 3: Position the pointer between image2 and image3.
 		const itemSize = await Page.getItemSize();
-		await (await Page.item(2)).moveTo({xOffset: itemSize.width + 1, yOffset: 0});
+		await (await Page.item(2)).moveTo({xOffset: itemSize.width / 2 + 1, yOffset: 0});
 		// Step 3 Verify: Spotlight hides.
 		await expectNoFocusedItem();
 
@@ -24,7 +24,7 @@ describe('qa-VirtualGridList translate mode', function () {
 		expect(await Page.itemOffsetBottomById(10)).toBeGreaterThan(itemSize.height);
 
 		// Step 5: Position the pointer between image8 and image9.
-		await (await Page.item(8)).moveTo({xOffset: itemSize.width + 1, yOffset: itemSize.height - 1});
+		await (await Page.item(8)).moveTo({xOffset: itemSize.width / 2 + 1, yOffset: 0});
 		// Step 5 Verify: Spotlight hides.
 		await expectNoFocusedItem();
 
