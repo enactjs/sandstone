@@ -24,11 +24,6 @@ describe('TooltipDecorator', function () {
 			Page.delay(500);
 			expect(await tooltipButtonDefault.tooltipText).toBe('Hello Tooltip Button Default');
 		});
-
-		it('should focus the disabled button when hovered', async function () {
-			await tooltipButtonDisabled.hover();
-			expect(await tooltipButtonDisabled.self.isFocused()).toBe(true);
-		});
 	});
 
 	describe('5-way', function () {
@@ -60,6 +55,13 @@ describe('TooltipDecorator', function () {
 			expect(await tooltipButtonWithMarquee.tooltipText).toBe('A long tooltip to test marquee');
 			Page.delay(1500);
 			expect(await tooltipButtonWithMarquee.isMarqueeAnimated).toBe(true);
+		});
+	});
+
+	describe('disabled', function () {
+		it('should focus the disabled button when hovered', async function () {
+			await tooltipButtonDisabled.hover();
+			expect(await tooltipButtonDisabled.self.isFocused()).toBe(true);
 		});
 	});
 });
