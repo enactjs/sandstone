@@ -12,6 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
 - `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Slider` to correctly focus slider when dragging begins, on platforms with a touchscreen
 
 ## [3.0.0-alpha.2] - 2024-10-08
 
