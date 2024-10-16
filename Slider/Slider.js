@@ -145,12 +145,14 @@ const SliderBase = (props) => {
 	}, [keyFrequency]);
 
 	useLayoutEffect(() => {
-		if (sliderRef) {
-			sliderRef.current.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+		const sliderRefCurrent = sliderRef.current;
+
+		if (sliderRefCurrent) {
+			sliderRefCurrent.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
 		}
 		return () => {
-			if (sliderRef) {
-				sliderRef.current.removeEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+			if (sliderRefCurrent) {
+				sliderRefCurrent.removeEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
 			}
 		};
 
