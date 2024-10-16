@@ -18,6 +18,7 @@
  */
 
 import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import useHandlers from '@enact/core/useHandlers';
 import {setDefaultProps} from '@enact/core/util';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
@@ -343,6 +344,14 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	 * @public
 	 */
 	showAnchor: PropTypes.bool,
+
+	/**
+	 * Called with the reference to the Slider node.
+	 *
+	 * @type {Object|Function}
+	 * @public
+	 */
+	sliderRef: EnactPropTypes.ref,
 
 	/**
 	 * The amount to increment or decrement the value.
