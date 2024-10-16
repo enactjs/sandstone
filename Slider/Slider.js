@@ -16,7 +16,8 @@
  * @exports SliderDecorator
  * @exports SliderTooltip
  */
-
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import ForwardRef from '@enact/ui/ForwardRef';
 import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {setDefaultProps} from '@enact/core/util';
@@ -145,8 +146,10 @@ const SliderBase = (props) => {
 		spotlightAccelerator.current = new Accelerator(keyFrequency);
 	}, [keyFrequency]);
 
+	const componentRef = useRef();
 	useLayoutEffect(() => {
 		const sliderRef = ref.current;
+		componentRef.current = ref.current;
 
 		if (sliderRef) {
 			sliderRef.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
@@ -179,6 +182,7 @@ const SliderBase = (props) => {
 				<ProgressBar css={mergedCss} />
 			}
 			ref={ref}
+			componentRef
 			step={step}
 			tooltipComponent={
 				<ComponentOverride
@@ -194,6 +198,7 @@ const SliderBase = (props) => {
 SliderBase.displayName = 'Slider';
 
 SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
+	componentRef: EnactPropTypes.ref,
 	/**
 	 * Activates the component when selected so that it may be manipulated via the directional
 	 * input keys.
@@ -429,6 +434,7 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
  * @public
  */
 const SliderDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
 	Pure,
 	Changeable,
 	SliderBehaviorDecorator,
