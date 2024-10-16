@@ -427,7 +427,7 @@ const Popup = (props) => {
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === containerId.current) {
 			spotActivator(activator);
 		}
-	}, []);
+	}, [activator, props, spotActivator]);
 
 	const handlePopupShow = useCallback((ev) => {
 		forwardShow(ev, props);
