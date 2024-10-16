@@ -72,7 +72,7 @@ const sliderDefaultProps = {
  */
 const SliderBase = (props) => {
 	const sliderProps = setDefaultProps(props, sliderDefaultProps);
-	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = sliderProps;
+	const {active, className, css, disabled, focused, keyFrequency, showAnchor, sliderRef, ...rest} = sliderProps;
 
 	validateSteppedOnce(p => p.knobStep, {
 		component: 'Slider',
@@ -88,7 +88,6 @@ const SliderBase = (props) => {
 	const tooltip = sliderProps.tooltip === true ? ProgressBarTooltip : sliderProps.tooltip;
 
 	const spotlightAccelerator = useRef();
-	const ref = useRef();
 	const {current: context} = useRef({lastWheelTimeStamp: 0});
 
 	const handlers = useHandlers({
@@ -146,18 +145,16 @@ const SliderBase = (props) => {
 	}, [keyFrequency]);
 
 	useLayoutEffect(() => {
-		const sliderRef = ref.current;
-
 		if (sliderRef) {
-			sliderRef.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+			sliderRef.current.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
 		}
 		return () => {
 			if (sliderRef) {
-				sliderRef.removeEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+				sliderRef.current.removeEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
 			}
 		};
 
-	}, [ref, nativeEventHandlers.onWheel]);
+	}, [sliderRef, nativeEventHandlers.onWheel]);
 
 	delete rest.activateOnSelect;
 	delete rest.knobStep;
@@ -178,7 +175,7 @@ const SliderBase = (props) => {
 			progressBarComponent={
 				<ProgressBar css={mergedCss} />
 			}
-			ref={ref}
+			ref={sliderRef}
 			step={step}
 			tooltipComponent={
 				<ComponentOverride
