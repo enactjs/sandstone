@@ -182,7 +182,7 @@ const SliderBase = (props) => {
 				<ProgressBar css={mergedCss} />
 			}
 			ref={ref}
-			componentRef
+			componentRef={componentRef}
 			step={step}
 			tooltipComponent={
 				<ComponentOverride
