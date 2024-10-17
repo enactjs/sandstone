@@ -299,20 +299,22 @@ const popupDefaultProps = {
  * @public
  */
 const Popup = (props) => {
-	const {noAnimation, noAutoDismiss, open, scrimType, ...rest} = setDefaultProps(props, popupDefaultProps);
+	const allComponentProps = setDefaultProps(props, popupDefaultProps);
+	const {noAnimation, open} = allComponentProps;
+	const {noAutoDismiss, scrimType, ...rest} = allComponentProps;
 
 	const [activator, setActivator] = useState(null);
 	const [floatLayerOpen, setFloatLayerOpen] = useState(open ?? false);
 	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
 	const [prevOpen, setPrevOpen] = useState(!open);
 
-	const containerId = useRef(null);
-	const paused = useRef(null);
+	const containerId = useRef(Spotlight.add());
+	const paused = useRef(new Pause('Popup'));
 	const prevActivator = useRef(null);
 	const prevProps = useRef(null);
 
 	const handleKeyDown = useCallback((ev) => {
-		const {onClose, no5WayClose, position, spotlightRestrict} = props;
+		const {onClose, no5WayClose, position, spotlightRestrict} = allComponentProps;
 
 		if (no5WayClose) return;
 
@@ -350,11 +352,11 @@ const Popup = (props) => {
 					ev.stopPropagation();
 					// set the pointer mode to false on keydown
 					Spotlight.setPointerMode(false);
-					forwardCustom('onClose')(null, props);
+					forwardCustom('onClose')(null, allComponentProps);
 				}
 			}
 		}
-	}, [props]);
+	}, [allComponentProps]);
 
 	const spotActivator = useCallback((evActivator) => {
 		paused.current.resume();
@@ -408,8 +410,8 @@ const Popup = (props) => {
 	}, [handleKeyDown, open]);
 
 	const handleDismiss = useCallback((ev) => {
-		forwardCustom('onClose', () => ({detail: ev?.detail}))(null, props);
-	}, [props]);
+		forwardCustom('onClose', () => ({detail: ev?.detail}))(null, allComponentProps);
+	}, [allComponentProps]);
 
 	const handleFloatingLayerOpen = useCallback(() => {
 		if (!noAnimation && popupOpen !== OpenState.OPEN) {
@@ -420,7 +422,7 @@ const Popup = (props) => {
 	}, [noAnimation, open, popupOpen, spotPopupContent]);
 
 	const handlePopupHide = useCallback((ev) => {
-		forwardHide(ev, props);
+		forwardHide(ev, allComponentProps);
 
 		setFloatLayerOpen(false);
 		setActivator(null);
@@ -428,26 +430,17 @@ const Popup = (props) => {
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === containerId.current) {
 			spotActivator(activator);
 		}
-	}, [activator, props, spotActivator]);
+	}, [activator, allComponentProps, spotActivator]);
 
 	const handlePopupShow = useCallback((ev) => {
-		forwardShow(ev, props);
+		forwardShow(ev, allComponentProps);
 
 		setPopupOpen(OpenState.OPEN);
 
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === containerId.current) {
 			spotPopupContent();
 		}
-	}, [props, spotPopupContent]);
-
-	useEffect(() => {
-		paused.current = new Pause('Popup');
-		containerId.current = Spotlight.add();
-	}, []);
-
-	useEffect(() => {
-		prevActivator.current = activator;
-	}, [activator]);
+	}, [allComponentProps, spotPopupContent]);
 
 	useEffect(() => {
 		if (open !== prevOpen) {
@@ -473,25 +466,25 @@ const Popup = (props) => {
 		}
 	}, [activator, floatLayerOpen, noAnimation, open, popupOpen, prevOpen]);
 
-	// Spot the content after it's mounted.
 	useEffect(() => {
-		if (open) {
-			// If the popup is open on mount, we need to pause spotlight so nothing steals focus
-			// while the popup is rendering.
-			paused.current.pause();
-			if (getContainerNode(containerId.current)) {
-				spotPopupContent();
-			}
-		}
+		prevActivator.current = activator;
+	}, [activator]);
 
-		const id = containerId.current;
+	useEffect(() => {
+		checkScrimNone(allComponentProps);
+		prevProps.current = allComponentProps;
+	}, [allComponentProps]);
+
+	useEffect(() => {
 		return () => {
 			if (open) {
 				off('keydown', handleKeyDown);
 			}
-			Spotlight.remove(id);
+			if (!open) {
+				Spotlight.remove(containerId.current);
+			}
 		};
-	}, [handleKeyDown, open, spotPopupContent]);
+	}, [handleKeyDown, open]);
 
 	useEffect(() => {
 		if (open !== prevProps.current?.open) {
@@ -506,20 +499,19 @@ const Popup = (props) => {
 					paused.current.pause();
 				}
 			} else if (open) {
-				forwardShow(null, props);
+				forwardShow(null, allComponentProps);
 				spotPopupContent();
 			} else if (prevProps.current?.open) {
-				forwardHide(null, props);
+				forwardHide(null, allComponentProps);
 				spotActivator(prevActivator.current);
 			}
-			prevProps.current = props;
 		}
 
-		checkScrimNone(props);
-	}, [noAnimation, open, popupOpen, props, spotActivator, spotPopupContent]);
+		checkScrimNone(allComponentProps);
+	}, [allComponentProps, noAnimation, open, popupOpen, spotActivator, spotPopupContent]);
 
-	delete rest.no5WayClose;
-	delete rest.onClose;
+	delete allComponentProps.no5WayClose;
+	delete allComponentProps.onClose;
 
 	return (
 		<FloatingLayer
