@@ -3,6 +3,7 @@ import Button from '@enact/sandstone/Button';
 import IconItem from '@enact/sandstone/IconItem';
 import Scroller from '@enact/sandstone/Scroller';
 import $L from '@enact/sandstone/internal/$L';
+import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
@@ -63,7 +64,7 @@ const populateItems = ({index}) => {
 		} : null,
 		label: (function () {
 			if (index === 1) return 'USB';
-			else if (index === 6) return 'Gallery';
+			else if (index === 6) return 'Gallery long very long title';
 		})(),
 		labelColor: index === 6 ? 'dark' : null,
 		labelOn: index === 6 ? 'focus' : null,
@@ -144,12 +145,13 @@ export const EditableIcon = (args) => {
 
 	const onFocusItem = useCallback((ev) => {
 		if (focusItem.current) {
+			console.log("QA sampler onFocusItem!!!");
 			focusItem.current(ev.target);
 		}
 	}, []);
 
 	const onMouseLeaveItem = useCallback((ev) => {
-		if (blurItem.current) {
+		if (blurItem.current && Spotlight.getPointerMode()) {
 			blurItem.current(ev.target);
 		}
 	}, []);
@@ -230,6 +232,8 @@ export const EditableIcon = (args) => {
 			document.removeEventListener('keyup', handleGlobalKeyUp);
 		});
 	}, [handleGlobalKeyUp]);
+	
+	console.log("QA sampler render!!!!!!");
 
 	return (
 		<div ref={divRef}>
@@ -266,6 +270,7 @@ export const EditableIcon = (args) => {
 					>
 						{
 							items.map((item, index) => {
+								console.log("item render,", item.iconItemProps['label']);
 								return (
 									<div
 										aria-label={`Icon ${item.index}`}
@@ -287,6 +292,7 @@ export const EditableIcon = (args) => {
 											className={css.editableIconItem}
 											css={css}
 											disabled={item.iconItemProps['disabled'] || item.hidden}
+											label={item.iconItemProps['label']}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
 										/>
@@ -319,6 +325,7 @@ export const EditableIcon = (args) => {
 												aria-label={`Icon ${item.index} ${$L('Press and hold the OK button to edit.')}`}
 												className={css.iconItem}
 												disabled={item.iconItemProps['disabled'] || item.hidden}
+												label={item.iconItemProps['label']}
 												onClick={action('onClickItem')}
 											/>
 										</div>

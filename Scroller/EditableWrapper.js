@@ -152,7 +152,7 @@ const EditableWrapper = (props) => {
 	// Reset values
 	const reset = useCallback(() => {
 		const {focusedItem, selectedItem, spotlightId} = mutableRef.current;
-
+		
 		focusedItem?.classList.remove(customCss.focused);
 		selectedItem?.classList.remove(componentCss.selected, customCss.selected, componentCss.rearranged);
 
@@ -579,13 +579,16 @@ const EditableWrapper = (props) => {
 	const completeEditingByKeyDown = useCallback(() => {
 		const {selectedItem, selectedItemLabel} = mutableRef.current;
 		const focusTarget = selectedItem.children[1];
+		console.log("completeEditingByKeyDown called");
+		console.log("focusTarget: ", focusTarget);
 		const orders = finalizeOrders();
 
 		selectedItem.children[1].ariaLabel = '';
 		finalizeEditing(orders);
 		if (selectItemBy === 'press') {
-			Spotlight.setPointerMode(false);
-			Spotlight.focus(focusTarget);
+			console.log("focusItem called");
+			//Spotlight.setPointerMode(false);
+			//Spotlight.focus(focusTarget);
 			focusItem(focusTarget);
 		}
 		setTimeout(() => {
@@ -607,6 +610,7 @@ const EditableWrapper = (props) => {
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
+					console.log("handleKeyDownCapture enter key pressed");
 					completeEditingByKeyDown();
 					mutableRef.current.needToPreventEvent = true;
 				} else if (selectItemBy === 'press') {
