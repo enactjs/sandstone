@@ -16,9 +16,9 @@
  * @exports SliderDecorator
  * @exports SliderTooltip
  */
-import EnactPropTypes from '@enact/core/internal/prop-types';
-import ForwardRef from '@enact/ui/ForwardRef';
+
 import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import useHandlers from '@enact/core/useHandlers';
 import {setDefaultProps} from '@enact/core/util';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
@@ -73,7 +73,7 @@ const sliderDefaultProps = {
  */
 const SliderBase = (props) => {
 	const sliderProps = setDefaultProps(props, sliderDefaultProps);
-	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = sliderProps;
+	const {active, className, css, disabled, focused, keyFrequency, showAnchor, sliderRef, ...rest} = sliderProps;
 
 	validateSteppedOnce(p => p.knobStep, {
 		component: 'Slider',
@@ -89,7 +89,6 @@ const SliderBase = (props) => {
 	const tooltip = sliderProps.tooltip === true ? ProgressBarTooltip : sliderProps.tooltip;
 
 	const spotlightAccelerator = useRef();
-	const ref = useRef();
 	const {current: context} = useRef({lastWheelTimeStamp: 0});
 
 	const handlers = useHandlers({
@@ -146,21 +145,17 @@ const SliderBase = (props) => {
 		spotlightAccelerator.current = new Accelerator(keyFrequency);
 	}, [keyFrequency]);
 
-	const componentRef = useRef();
 	useLayoutEffect(() => {
-		const sliderRef = ref.current;
-		componentRef.current = ref.current;
-
 		if (sliderRef) {
-			sliderRef.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+			sliderRef.current.addEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
 		}
 		return () => {
 			if (sliderRef) {
-				sliderRef.removeEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
+				sliderRef.current.removeEventListener('wheel', nativeEventHandlers.onWheel, {passive: false});
 			}
 		};
 
-	}, [ref, nativeEventHandlers.onWheel]);
+	}, [sliderRef, nativeEventHandlers.onWheel]);
 
 	delete rest.activateOnSelect;
 	delete rest.knobStep;
@@ -181,8 +176,7 @@ const SliderBase = (props) => {
 			progressBarComponent={
 				<ProgressBar css={mergedCss} />
 			}
-			ref={ref}
-			componentRef={componentRef}
+			ref={sliderRef}
 			step={step}
 			tooltipComponent={
 				<ComponentOverride
@@ -198,7 +192,6 @@ const SliderBase = (props) => {
 SliderBase.displayName = 'Slider';
 
 SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
-	componentRef: EnactPropTypes.ref,
 	/**
 	 * Activates the component when selected so that it may be manipulated via the directional
 	 * input keys.
@@ -351,6 +344,14 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
 	showAnchor: PropTypes.bool,
 
 	/**
+	 * Called with the reference to the Slider node.
+	 *
+	 * @type {Object|Function}
+	 * @public
+	 */
+	sliderRef: EnactPropTypes.ref,
+
+	/**
 	 * The amount to increment or decrement the value.
 	 *
 	 * It must evenly divide into the range designated by `min` and `max`.
@@ -434,7 +435,6 @@ SliderBase.propTypes = /** @lends sandstone/Slider.SliderBase.prototype */ {
  * @public
  */
 const SliderDecorator = compose(
-	ForwardRef({prop: 'componentRef'}),
 	Pure,
 	Changeable,
 	SliderBehaviorDecorator,
