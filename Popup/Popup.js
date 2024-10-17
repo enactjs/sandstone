@@ -476,12 +476,13 @@ const Popup = (props) => {
 	}, [allComponentProps]);
 
 	useEffect(() => {
+		const id = containerId.current;
 		return () => {
 			if (open) {
 				off('keydown', handleKeyDown);
 			}
 			if (!open) {
-				Spotlight.remove(containerId.current);
+				Spotlight.remove(id);
 			}
 		};
 	}, [handleKeyDown, open]);
