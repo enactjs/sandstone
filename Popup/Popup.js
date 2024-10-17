@@ -303,12 +303,13 @@ const Popup = (props) => {
 
 	const [activator, setActivator] = useState(null);
 	const [floatLayerOpen, setFloatLayerOpen] = useState(open ?? false);
-	const [popupOpen, setPopupOpen] = useState(OpenState.CLOSED);
+	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
 	const [prevOpen, setPrevOpen] = useState(!open);
 
-	const containerId = useRef(Spotlight.add());
-	const paused = useRef(new Pause('Popup'));
+	const containerId = useRef(null);
+	const paused = useRef(null);
 	const prevActivator = useRef(null);
+	const prevProps = useRef(null);
 
 	const handleKeyDown = useCallback((ev) => {
 		const {onClose, no5WayClose, position, spotlightRestrict} = props;
@@ -440,6 +441,15 @@ const Popup = (props) => {
 	}, [props, spotPopupContent]);
 
 	useEffect(() => {
+		paused.current = new Pause('Popup');
+		containerId.current = Spotlight.add();
+	}, []);
+
+	useEffect(() => {
+		prevActivator.current = activator;
+	}, [activator]);
+
+	useEffect(() => {
 		if (open !== prevOpen) {
 			if (open) {
 				setPopupOpen(noAnimation || floatLayerOpen ? OpenState.OPEN : OpenState.CLOSED);
@@ -463,10 +473,6 @@ const Popup = (props) => {
 		}
 	}, [activator, floatLayerOpen, noAnimation, open, popupOpen, prevOpen]);
 
-	useEffect(() => {
-		prevActivator.current = activator;
-	}, [activator]);
-
 	// Spot the content after it's mounted.
 	useEffect(() => {
 		if (open) {
@@ -488,7 +494,7 @@ const Popup = (props) => {
 	}, [handleKeyDown, open, spotPopupContent]);
 
 	useEffect(() => {
-		if (open !== floatLayerOpen) {
+		if (open !== prevProps.current?.open) {
 			if (!noAnimation) {
 				if (!open && popupOpen === OpenState.CLOSED) {
 					// If the popup is supposed to be closed (!this.props.open) and is actually
@@ -502,14 +508,15 @@ const Popup = (props) => {
 			} else if (open) {
 				forwardShow(null, props);
 				spotPopupContent();
-			} else if (floatLayerOpen) {
+			} else if (prevProps.current?.open) {
 				forwardHide(null, props);
 				spotActivator(prevActivator.current);
 			}
+			prevProps.current = props;
 		}
 
 		checkScrimNone(props);
-	}, [floatLayerOpen, noAnimation, open, popupOpen, props, spotActivator, spotPopupContent]);
+	}, [noAnimation, open, popupOpen, props, spotActivator, spotPopupContent]);
 
 	delete rest.no5WayClose;
 	delete rest.onClose;
