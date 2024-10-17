@@ -168,7 +168,7 @@ const SpinnerBase = kind({
  * @memberof sandstone/Spinner
  * @private
  */
-const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
+const SpinnerSpotlightDecorator2 = hoc((config, Wrapped) => {
 	return class extends Component {
 		static displayName = 'SpinnerSpotlightDecorator';
 
@@ -216,6 +216,72 @@ const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 			);
 		}
 	};
+});
+
+/**
+ * A higher-order component that pauses spotlight when `blockClickOn` prop is `'screen'`.
+ *
+ * Resumes spotlight when unmounted. However, spotlight is not paused when `blockClickOn` prop is
+ * `'container'`. Blocking spotlight within the container is up to app implementation.
+ *
+ * @hoc
+ * @memberof sandstone/Spinner
+ * @private
+ */
+const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
+	const SpinnerSpotlight = (props) => {
+
+	}
+
+	SpinnerSpotlight.displayName = 'SpinnerSpotlightDecorator';
+
+	SpinnerSpotlight.propTypes = /** @lends sandstone/Spinner.Spinner.prototype */ {
+		/**
+		 * Determines how far the click-blocking should extend.
+		 *
+		 * It can be either `'screen'`, `'container'`, or `null`. `'screen'` pauses spotlight.
+		 * Changing this property to `'screen'` after creation is not supported.
+		 *
+		 * @type {('screen'|'container')}
+		 * @default null
+		 * @public
+		 */
+		blockClickOn: PropTypes.oneOf(['screen', 'container', null])
+	};
+
+
+	// return class extends Component {
+	//
+	// 	constructor (props) {
+	// 		super(props);
+	//
+	// 		this.paused = new Pause('Spinner');
+	// 		const {blockClickOn} = props;
+	// 		const current = Spotlight.getCurrent();
+	//
+	// 		if (blockClickOn === 'screen') {
+	// 			this.paused.pause();
+	// 			if (current) {
+	// 				current.blur();
+	// 			}
+	// 		}
+	// 	}
+	//
+	// 	componentWillUnmount () {
+	// 		const {blockClickOn} = this.props;
+	//
+	// 		if (blockClickOn === 'screen') {
+	// 			Spotlight.focus();
+	// 			this.paused.resume();
+	// 		}
+	// 	}
+	//
+	// 	render () {
+	// 		return (
+	// 			<Wrapped {...this.props} />
+	// 		);
+	// 	}
+	// };
 });
 
 /**
