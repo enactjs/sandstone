@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Icon` supported icon list, adding a new icon `indicator`
 - `sandstone/PageViews` prop `autoFocus` to set whether focus element automatically or not
 
 ### Fixed

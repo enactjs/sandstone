@@ -392,6 +392,7 @@ const IconBase = kind({
  * jumpforward10
  * logout
  * sketch
+ * indicator
  * ```
  *
  * @name iconList

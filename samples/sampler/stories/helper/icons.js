@@ -150,6 +150,7 @@ export const settingsIcons = [
 	'hide',
 	'home',
 	'index',
+	'indicator',
 	'keymouse',
 	'keymousedis',
 	'location',
