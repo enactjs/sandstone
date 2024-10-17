@@ -25,7 +25,7 @@ const sliderDefaultProps = {
 	max: 100,
 	min: 0,
 	orientation: 'horizontal'
-}
+};
 
 // Adds sandstone-specific slider behaviors
 // * aria-valuetext handling
@@ -44,7 +44,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const SliderBehavior = (props) => {
 		const sliderBehaviorProps = setDefaultProps(props, sliderDefaultProps);
 
-		const [paused] = useState(()=>new Pause());
+		const [paused] = useState(() => new Pause());
 		const sliderRef = useRef();
 		const [active, setActive] = useState(false);
 		const [dragging, setDragging] = useState(false);
@@ -57,14 +57,14 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				setUseHintText(false);
 				setPrevValue(sliderBehaviorProps.value);
 			}
-		}, [sliderBehaviorProps.value]);
+		}, [prevValue, sliderBehaviorProps.value]);
 
 
 		useEffect(() => {
 			return () => {
 				paused.resume();
 			};
-		}, []);
+		}, [paused]);
 
 		const getValueText = useCallback(() => {
 			const {'aria-valuetext': ariaValueText, max, min, orientation, value = min} = sliderBehaviorProps;
@@ -126,7 +126,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				forward('onKeyDown', ev, sliderBehaviorProps);
 			}
 			forwardSpotlightEvents(ev, sliderBehaviorProps);
-		}, [emitSpotlightEvents, sliderBehaviorProps]);
+		}, [sliderBehaviorProps]);
 
 		const sliderProps = Object.assign({}, sliderBehaviorProps);
 
