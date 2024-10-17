@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
+
 ## [2.9.3] - 2024-10-15
 
 ### Added
