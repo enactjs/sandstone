@@ -300,13 +300,13 @@ const popupDefaultProps = {
  */
 const Popup = (props) => {
 	const allComponentProps = setDefaultProps(props, popupDefaultProps);
-	const {noAnimation, open} = allComponentProps;
-	const {noAutoDismiss, scrimType, ...rest} = allComponentProps;
+	const {noAnimation, open, position, spotlightRestrict} = allComponentProps;
+	const {noAutoDismiss, no5WayClose, onClose, scrimType, ...rest} = allComponentProps;
 
 	const [activator, setActivator] = useState(null);
-	const [floatLayerOpen, setFloatLayerOpen] = useState(open ?? false);
+	const [floatLayerOpen, setFloatLayerOpen] = useState(open);
 	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
-	const [prevOpen, setPrevOpen] = useState(!open);
+	const [prevOpen, setPrevOpen] = useState(open);
 
 	const containerId = useRef(Spotlight.add());
 	const paused = useRef(new Pause('Popup'));
@@ -314,8 +314,6 @@ const Popup = (props) => {
 	const prevProps = useRef(null);
 
 	const handleKeyDown = useCallback((ev) => {
-		const {onClose, no5WayClose, position, spotlightRestrict} = allComponentProps;
-
 		if (no5WayClose) return;
 
 		const keyCode = ev.keyCode;
@@ -356,7 +354,7 @@ const Popup = (props) => {
 				}
 			}
 		}
-	}, [allComponentProps]);
+	}, [allComponentProps, no5WayClose, onClose, position, spotlightRestrict]);
 
 	const spotActivator = useCallback((evActivator) => {
 		paused.current.resume();
@@ -510,9 +508,6 @@ const Popup = (props) => {
 
 		checkScrimNone(allComponentProps);
 	}, [allComponentProps, noAnimation, open, popupOpen, spotActivator, spotPopupContent]);
-
-	delete allComponentProps.no5WayClose;
-	delete allComponentProps.onClose;
 
 	return (
 		<FloatingLayer
