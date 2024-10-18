@@ -309,9 +309,8 @@ const Popup = (props) => {
 	const [prevOpen, setPrevOpen] = useState(open);
 
 	const containerId = useRef(Spotlight.add());
+	const componentMounted = useRef(false);
 	const paused = useRef(new Pause('Popup'));
-	const prevActivator = useRef(null);
-	const prevProps = useRef(null);
 
 	const handleKeyDown = useCallback((ev) => {
 		if (no5WayClose) return;
@@ -407,6 +406,54 @@ const Popup = (props) => {
 		}
 	}, [handleKeyDown, open]);
 
+	const getDerivedStateFromProps = useCallback(() => {
+		if (open !== prevOpen) {
+			if (open) {
+				setPopupOpen(noAnimation || floatLayerOpen ? OpenState.OPEN : OpenState.CLOSED);
+				setFloatLayerOpen(true);
+				setActivator(Spotlight.getCurrent());
+				setPrevOpen(open);
+			} else {
+				// Disables the spotlight conatiner of popup when `noAnimation` set
+				if (noAnimation) {
+					const node = getContainerNode(containerId.current);
+					if (node) {
+						node.dataset['spotlightContainerDisabled'] = true;
+					}
+				}
+
+				setPopupOpen(OpenState.CLOSED);
+				setFloatLayerOpen(popupOpen === OpenState.OPEN ? !noAnimation : false);
+				setActivator(noAnimation ? null : activator);
+				setPrevOpen(open);
+			}
+		}
+	}, [activator, floatLayerOpen, noAnimation, open, popupOpen, prevOpen]);
+
+	const handleComponentUpdate = useCallback(() => {
+		if (open !== prevOpen) {
+			if (!noAnimation) {
+				if (!open && popupOpen === OpenState.CLOSED) {
+					// If the popup is supposed to be closed (!this.props.open) and is actually
+					// fully closed (OpenState.CLOSED), we must resume spotlight navigation. This
+					// can occur when quickly toggling a Popup open and closed.
+					paused.current.resume();
+				} else {
+					// Otherwise, we pause spotlight so it is locked until the popup is ready
+					paused.current.pause();
+				}
+			} else if (open) {
+				forwardShow(null, allComponentProps);
+				spotPopupContent();
+			} else if (prevOpen) {
+				forwardHide(null, allComponentProps);
+				spotActivator(activator);
+			}
+		}
+
+		checkScrimNone(allComponentProps);
+	}, [activator, allComponentProps, noAnimation, open, popupOpen, prevOpen, spotActivator, spotPopupContent]);
+
 	const handleDismiss = useCallback((ev) => {
 		forwardCustom('onClose', () => ({detail: ev?.detail}))(null, allComponentProps);
 	}, [allComponentProps]);
@@ -441,73 +488,33 @@ const Popup = (props) => {
 	}, [allComponentProps, spotPopupContent]);
 
 	useEffect(() => {
-		if (open !== prevOpen) {
-			if (open) {
-				setPopupOpen(noAnimation || floatLayerOpen ? OpenState.OPEN : OpenState.CLOSED);
-				setFloatLayerOpen(true);
-				setActivator(Spotlight.getCurrent());
-				setPrevOpen(open);
-			} else {
-				// Disables the spotlight conatiner of popup when `noAnimation` set
-				if (noAnimation) {
-					const node = getContainerNode(containerId.current);
-					if (node) {
-						node.dataset['spotlightContainerDisabled'] = true;
-					}
-				}
+		componentMounted.current = true;
 
-				setPopupOpen(OpenState.CLOSED);
-				setFloatLayerOpen(popupOpen === OpenState.OPEN ? !noAnimation : false);
-				setActivator(noAnimation ? null : activator);
-				setPrevOpen(open);
-			}
-		}
-	}, [activator, floatLayerOpen, noAnimation, open, popupOpen, prevOpen]);
+		return () => {
+			componentMounted.current = false;
+		};
+	}, []);
 
 	useEffect(() => {
-		prevActivator.current = activator;
-	}, [activator]);
+		getDerivedStateFromProps();
+	}, [getDerivedStateFromProps, handleComponentUpdate]);
 
 	useEffect(() => {
 		checkScrimNone(allComponentProps);
-		prevProps.current = allComponentProps;
 	}, [allComponentProps]);
 
 	useEffect(() => {
 		const id = containerId.current;
+
 		return () => {
-			if (open) {
-				off('keydown', handleKeyDown);
-			}
-			if (!open) {
+			if (componentMounted.current === false) {
+				if (open) {
+					off('keydown', handleKeyDown);
+				}
 				Spotlight.remove(id);
 			}
 		};
 	}, [handleKeyDown, open]);
-
-	useEffect(() => {
-		if (open !== prevProps.current?.open) {
-			if (!noAnimation) {
-				if (!open && popupOpen === OpenState.CLOSED) {
-					// If the popup is supposed to be closed (!this.props.open) and is actually
-					// fully closed (OpenState.CLOSED), we must resume spotlight navigation. This
-					// can occur when quickly toggling a Popup open and closed.
-					paused.current.resume();
-				} else {
-					// Otherwise, we pause spotlight so it is locked until the popup is ready
-					paused.current.pause();
-				}
-			} else if (open) {
-				forwardShow(null, allComponentProps);
-				spotPopupContent();
-			} else if (prevProps.current?.open) {
-				forwardHide(null, allComponentProps);
-				spotActivator(prevActivator.current);
-			}
-		}
-
-		checkScrimNone(allComponentProps);
-	}, [allComponentProps, noAnimation, open, popupOpen, spotActivator, spotPopupContent]);
 
 	return (
 		<FloatingLayer
