@@ -64,7 +64,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			return () => {
 				paused.resume();
 			};
-		}, [paused]);
+		});
 
 		const getValueText = useCallback(() => {
 			const {'aria-valuetext': ariaValueText, max, min, orientation, value = min} = sliderBehaviorProps;
