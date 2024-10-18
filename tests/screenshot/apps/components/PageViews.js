@@ -5,6 +5,8 @@ import {Panel, Header} from '../../../../Panels';
 
 import {withConfig} from './utils';
 
+import css from './PageViews.module.less';
+
 const PageComponents = [
 	<Page>Page 1</Page>,
 	<Page>
@@ -49,6 +51,10 @@ const BaseTests = [
 	},
 	{
 		component: <Panel><Header title="title of panel" subtitle="subtitle of panel" /><PageViews index={2}>{PageComponents}</PageViews></Panel>,
+		wrapper: {full: true}
+	},
+	{
+		component: <Panel><Header title="title of panel" subtitle="subtitle of panel" /><PageViews css={css} index={1}>{PageComponents}</PageViews></Panel>,
 		wrapper: {full: true}
 	},
 	{
