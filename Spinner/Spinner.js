@@ -16,7 +16,7 @@ import hoc from '@enact/core/hoc';
 import PropTypes from 'prop-types';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
-import {Component} from 'react';
+import {Component, useEffect} from 'react';
 import Pause from '@enact/spotlight/Pause';
 import UiSpinnerBase from '@enact/ui/Spinner';
 import Spotlight from '@enact/spotlight';
@@ -168,7 +168,7 @@ const SpinnerBase = kind({
  * @memberof sandstone/Spinner
  * @private
  */
-const SpinnerSpotlightDecorator2 = hoc((config, Wrapped) => {
+const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 	return class extends Component {
 		static displayName = 'SpinnerSpotlightDecorator';
 
@@ -194,17 +194,22 @@ const SpinnerSpotlightDecorator2 = hoc((config, Wrapped) => {
 			const current = Spotlight.getCurrent();
 
 			if (blockClickOn === 'screen') {
+				console.log("inside if");
 				this.paused.pause();
 				if (current) {
 					current.blur();
 				}
 			}
+
+			console.log(this.paused);
+			console.log(current)
 		}
 
 		componentWillUnmount () {
 			const {blockClickOn} = this.props;
 
 			if (blockClickOn === 'screen') {
+				console.log("unmount");
 				Spotlight.focus();
 				this.paused.resume();
 			}
@@ -228,10 +233,33 @@ const SpinnerSpotlightDecorator2 = hoc((config, Wrapped) => {
  * @memberof sandstone/Spinner
  * @private
  */
-const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
+const SpinnerSpotlightDecorator2 = hoc((config, Wrapped) => {
 	const SpinnerSpotlight = (props) => {
+		const paused = new Pause('Spinner');
+		const {blockClickOn} = props;
+		const current = Spotlight.getCurrent();
 
-	}
+		if (blockClickOn === 'screen') {
+			console.log("inside if");
+			paused.pause();
+			if (current) {
+				current.blur();
+			}
+		}
+
+		useEffect(() => {
+			return () => {
+				if (blockClickOn === 'screen') {
+					Spotlight.focus();
+					paused.resume();
+				}
+			};
+		}, [blockClickOn, paused]);
+
+		return (
+			<Wrapped {...props} />
+		);
+	};
 
 	SpinnerSpotlight.displayName = 'SpinnerSpotlightDecorator';
 
@@ -249,39 +277,7 @@ const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 		blockClickOn: PropTypes.oneOf(['screen', 'container', null])
 	};
 
-
-	// return class extends Component {
-	//
-	// 	constructor (props) {
-	// 		super(props);
-	//
-	// 		this.paused = new Pause('Spinner');
-	// 		const {blockClickOn} = props;
-	// 		const current = Spotlight.getCurrent();
-	//
-	// 		if (blockClickOn === 'screen') {
-	// 			this.paused.pause();
-	// 			if (current) {
-	// 				current.blur();
-	// 			}
-	// 		}
-	// 	}
-	//
-	// 	componentWillUnmount () {
-	// 		const {blockClickOn} = this.props;
-	//
-	// 		if (blockClickOn === 'screen') {
-	// 			Spotlight.focus();
-	// 			this.paused.resume();
-	// 		}
-	// 	}
-	//
-	// 	render () {
-	// 		return (
-	// 			<Wrapped {...this.props} />
-	// 		);
-	// 	}
-	// };
+	return SpinnerSpotlight;
 });
 
 /**
