@@ -365,7 +365,7 @@ const Popup = (props) => {
 		const containerNode = getContainerNode(containerId.current);
 		const lastContainerId = getLastContainer();
 
-		off('keydown', handleKeyDown);
+		off('keydown', handleKeyDown, containerNode);
 
 		// if there is no currently-spotted control or it is wrapped by the popup's container, we
 		// know it's safe to change focus
@@ -391,7 +391,7 @@ const Popup = (props) => {
 		// only spot the activator if the popup is open
 		if (!open) return;
 
-		on('keydown', handleKeyDown);
+		on('keydown', handleKeyDown, getContainerNode(containerId.current));
 
 		if (!Spotlight.isPaused() && !Spotlight.focus(containerId.current)) {
 			const current = Spotlight.getCurrent();
@@ -509,7 +509,7 @@ const Popup = (props) => {
 		return () => {
 			if (componentMounted.current === false) {
 				if (open) {
-					off('keydown', handleKeyDown);
+					off('keydown', handleKeyDown, getContainerNode(id));
 				}
 				Spotlight.remove(id);
 			}
