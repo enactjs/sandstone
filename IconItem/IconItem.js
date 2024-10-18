@@ -27,7 +27,7 @@ import compose from 'ramda/src/compose';
 
 import Icon from '../Icon';
 import Image from '../Image';
-import {MarqueeDecorator, MarqueeController} from '../Marquee';
+import {MarqueeController, MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './IconItem.module.less';
@@ -184,7 +184,7 @@ const IconItemBase = kind({
 		 * @public
 		 */
 		labelOn: PropTypes.oneOf(['focus', 'render']),
-		
+
 		/**
 		 * The order of the item.
 		 * Invalidates Marquee when the order changes.
