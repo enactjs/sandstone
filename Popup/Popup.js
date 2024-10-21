@@ -312,7 +312,7 @@ const Popup = (props) => {
 	const componentMounted = useRef(false);
 	const paused = useRef(new Pause('Popup'));
 
-	const handleKeyDown = useCallback((ev) => {
+	const handleKeyDown = (ev) => {
 		if (no5WayClose) return;
 
 		const keyCode = ev.keyCode;
@@ -353,27 +353,29 @@ const Popup = (props) => {
 				}
 			}
 		}
-	}, [allComponentProps, no5WayClose, onClose, position, spotlightRestrict]);
+	};
 
-	const spotActivator = useCallback((evActivator) => {
+	const handleKeyDownRef = useRef(handleKeyDown);
+
+	const spotActivator = useCallback(() => {
 		paused.current.resume();
 
 		// only spot the activator if the popup is closed
 		if (open) return;
 
 		const current = Spotlight.getCurrent();
-		const containerNode = getContainerNode(containerId.current);
+		const containerNode = getContainerNode(containerId);
 		const lastContainerId = getLastContainer();
 
-		off('keydown', handleKeyDown, containerNode);
+		off('keydown', handleKeyDownRef.current);
 
 		// if there is no currently-spotted control or it is wrapped by the popup's container, we
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
 			if (!Spotlight.isPaused()) {
-				if (evActivator) {
-					if (!Spotlight.focus(evActivator)) {
+				if (activator) {
+					if (!Spotlight.focus(activator)) {
 						Spotlight.focus();
 					}
 				} else {
@@ -383,7 +385,7 @@ const Popup = (props) => {
 				}
 			}
 		}
-	}, [handleKeyDown, open]);
+	}, [activator, open]);
 
 	const spotPopupContent = useCallback(() => {
 		paused.current.resume();
@@ -391,7 +393,7 @@ const Popup = (props) => {
 		// only spot the activator if the popup is open
 		if (!open) return;
 
-		on('keydown', handleKeyDown, getContainerNode(containerId.current));
+		on('keydown', handleKeyDownRef.current);
 
 		if (!Spotlight.isPaused() && !Spotlight.focus(containerId.current)) {
 			const current = Spotlight.getCurrent();
@@ -404,7 +406,7 @@ const Popup = (props) => {
 			}
 			Spotlight.setActiveContainer(containerId.current);
 		}
-	}, [handleKeyDown, open]);
+	}, [open]);
 
 	const getDerivedStateFromProps = useCallback(() => {
 		if (open !== prevOpen) {
@@ -433,7 +435,7 @@ const Popup = (props) => {
 	const handleComponentUpdate = useCallback(() => {
 		if (open !== prevOpen) {
 			if (!noAnimation) {
-				if (!open && popupOpen === OpenState.CLOSED) {
+				if (!open && popupOpen === OpenState.OPENING || !open && popupOpen === OpenState.OPEN) {
 					// If the popup is supposed to be closed (!this.props.open) and is actually
 					// fully closed (OpenState.CLOSED), we must resume spotlight navigation. This
 					// can occur when quickly toggling a Popup open and closed.
@@ -447,12 +449,12 @@ const Popup = (props) => {
 				spotPopupContent();
 			} else if (prevOpen) {
 				forwardHide(null, allComponentProps);
-				spotActivator(activator);
+				spotActivator();
 			}
 		}
 
 		checkScrimNone(allComponentProps);
-	}, [activator, allComponentProps, noAnimation, open, popupOpen, prevOpen, spotActivator, spotPopupContent]);
+	}, [allComponentProps, noAnimation, open, popupOpen, prevOpen, spotActivator, spotPopupContent]);
 
 	const handleDismiss = useCallback((ev) => {
 		forwardCustom('onClose', () => ({detail: ev?.detail}))(null, allComponentProps);
@@ -473,9 +475,9 @@ const Popup = (props) => {
 		setActivator(null);
 
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === containerId.current) {
-			spotActivator(activator);
+			spotActivator();
 		}
-	}, [activator, allComponentProps, spotActivator]);
+	}, [allComponentProps, spotActivator]);
 
 	const handlePopupShow = useCallback((ev) => {
 		forwardShow(ev, allComponentProps);
@@ -497,24 +499,29 @@ const Popup = (props) => {
 
 	useEffect(() => {
 		getDerivedStateFromProps();
-	}, [getDerivedStateFromProps, handleComponentUpdate]);
+	}, [getDerivedStateFromProps]);
+
+	useEffect(() => {
+		handleComponentUpdate();
+	}, [handleComponentUpdate]);
 
 	useEffect(() => {
 		checkScrimNone(allComponentProps);
 	}, [allComponentProps]);
 
 	useEffect(() => {
-		const id = containerId.current;
+		const idRef = containerId.current;
+		const keyDownRef = handleKeyDownRef.current;
 
 		return () => {
 			if (componentMounted.current === false) {
 				if (open) {
-					off('keydown', handleKeyDown, getContainerNode(id));
+					off('keydown', keyDownRef);
 				}
-				Spotlight.remove(id);
+				Spotlight.remove(idRef);
 			}
 		};
-	}, [handleKeyDown, open]);
+	}, [open]);
 
 	return (
 		<FloatingLayer
