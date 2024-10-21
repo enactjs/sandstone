@@ -28,7 +28,7 @@
 		width: @sand-pageviews-number-navigation-button-area-width;
 	}
 
-	.steps {
+	.stepsRow {
 		align-items: center;
 		justify-content: center;
 		text-align: center;
@@ -38,7 +38,7 @@
 		}
 	}
 
-	&.number .steps {
+	&.number .stepsRow {
 		min-height: @sand-pageviews-number-steps-area-min-height;
 		.pageNumber {
 			width: @sand-pageviews-number-steps-number-width;
@@ -48,11 +48,13 @@
 		}
 	}
 
-	&.dot .steps {
-		min-height: @sand-pageviews-dot-steps-area-min-height;
+	&.dot {
+		.stepsRow {
+			min-height: @sand-pageviews-dot-steps-area-min-height;
+		}
 	}
 
-	&.fullContents .steps {
+	&.fullContents .stepsRow {
 		position: absolute;
 		align-self: center;
 		bottom: @sand-pageviews-full-steps-position-bottom;

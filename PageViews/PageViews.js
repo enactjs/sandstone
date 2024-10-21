@@ -249,18 +249,18 @@ const PageViewsBase = kind({
 			return (
 				<>
 					{pageIndicatorType !== 'number' ?
-						<Row className={classNames(css.steps, {[css.hidden]: !isStepVisible})}>
+						<Row className={classNames(css.stepsRow, {[css.hidden]: !isStepVisible})}>
 							<Steps
 								current={index + 1}
-								currentIcon="circle"
-								futureIcon="circle"
+								currentIcon="indicator"
+								futureIcon="indicator"
 								highlightCurrentOnly
-								pastIcon="circle"
+								pastIcon="indicator"
 								total={totalIndex}
-								size={30}
+								size={18}
 							/>
 						</Row> :
-						<Row className={css.steps}>
+						<Row className={css.stepsRow}>
 							<Cell className={css.navButton} shrink>
 								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>
