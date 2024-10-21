@@ -9,7 +9,8 @@ import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import {
 	// Component as ReactComponent,
-	useCallback, useEffect, useMemo, useState} from 'react';
+	useCallback, useEffect, useMemo, useRef, useState
+} from 'react';
 
 import {lockPointer, releasePointer} from './pointer';
 
@@ -400,12 +401,20 @@ const defaultConfig = {
 	const forwardKeyUp = forward('onKeyUp');
 
 	const InputSpotlight = ({...props}) => {
+		const {onSpotlightDisappear} = props;
 		const paused = useMemo(() => new Pause('InputSpotlightDecorator'), []);
 		const [downTarget, setDownTarget] = useState();
-		const [focused, setFocused] = useState(null);
+		// const [focused, setFocused] = useState(null);
+		const focused = useRef(null);
 		const [fromMouse, setFromMouse] = useState(false);
-		const [node, setNode] = useState(null);
-		const [prevStatus, setPrevStatus] = useState({
+		// const [node, setNode] = useState(null);
+		const node = useRef(null);
+		// const [prevStatus, setPrevStatus] = useState({
+		// 	focused: null,
+		// 	node: null
+		// });
+
+		const prevStatus = useRef({
 			focused: null,
 			node: null
 		});
@@ -414,69 +423,67 @@ const defaultConfig = {
 			return () => {
 				paused.resume();
 
-				if (focused === 'input') {
-					const {onSpotlightDisappear} = props;
-
+				if (focused.current === 'input') {
 					if (onSpotlightDisappear) {
 						onSpotlightDisappear();
 					}
 
 					if (!noLockPointer) {
-						releasePointer(node);
+						releasePointer(node.current);
 					}
 				}
 			};
-		// }, [focused, node, paused, props]);
-		}, []);
+		}, [paused, onSpotlightDisappear]);
+		// }, []);
 
 		const updateFocus = useCallback(() => {
 			// focus node if `InputSpotlightDecorator` is pausing Spotlight or if Spotlight is paused
 			if (
-				node &&
-				Spotlight.getCurrent() !== node &&
+				node.current &&
+				Spotlight.getCurrent() !== node.current &&
 				(paused.isPaused() || !Spotlight.isPaused())
 			) {
 				if (fromMouse) {
-					node.focus({preventScroll: true});
+					node.current.focus({preventScroll: true});
 				} else {
-					node.focus();
+					node.current.focus();
 				}
 			}
 
-			const focusChanged = focused !== prevStatus.focused;
+			const focusChanged = focused.current !== prevStatus.current.focused;
 			if (focusChanged) {
-				if (focused === 'input') {
+				if (focused.current === 'input') {
 					forwardCustom('onActivate')(null, props);
 					if (!noLockPointer) {
-						lockPointer(node);
+						lockPointer(node.current);
 					}
 					paused.pause();
-				} else if (prevStatus.focused === 'input') {
+				} else if (prevStatus.current.focused === 'input') {
 					forwardCustom('onDeactivate')(null, props);
 					if (!noLockPointer) {
-						releasePointer(prevStatus.node);
+						releasePointer(prevStatus.current.node);
 					}
 					paused.resume();
 				}
 			}
 
-			setPrevStatus({focused: focused, node: node});
-		}, [focused, fromMouse, node, paused, prevStatus, props]);
+			prevStatus.current = {focused: focused.current, node: node.current};
+		}, [fromMouse, paused, props]);
 
 		const focus = useCallback((focusedValue, nodeValue, fromMouseValue) => {
-			setFocused(focusedValue);
+			focused.current = focusedValue;
 			setFromMouse(fromMouseValue);
-			setNode(nodeValue);
+			node.current = nodeValue;
 			updateFocus();
 		}, [updateFocus]);
 
 		const blur = useCallback(() => {
-			if (focused || node) {
-				setFocused(null);
-				setNode(null);
+			if (focused.current || node.current) {
+				focused.current = null;
+				node.current = null;
 				updateFocus();
 			}
-		}, [focused, node, updateFocus]);
+		}, [updateFocus]);
 
 		const focusDecorator = useCallback((decorator) => {
 			focus('decorator', decorator, false);
@@ -493,9 +500,9 @@ const defaultConfig = {
 						blur();
 						forwardBlur(ev, props);
 					} else {
-						setFocused('decorator');
+						focused.current = 'decorator';
 						setFromMouse(false);
-						setNode(ev.currentTarget);
+						node.current = ev.currentTarget;
 						ev.stopPropagation();
 					}
 				} else if (!ev.currentTarget.contains(ev.relatedTarget)) {
@@ -504,7 +511,7 @@ const defaultConfig = {
 					blur();
 				}
 			} else if (isBubbling(ev)) {
-				if (focused === 'input' && node === ev.target && ev.currentTarget !== ev.relatedTarget) {
+				if (focused.current === 'input' && node.current === ev.target && ev.currentTarget !== ev.relatedTarget) {
 					blur();
 					forwardBlur(ev, props);
 				} else {
@@ -513,7 +520,7 @@ const defaultConfig = {
 					blur();
 				}
 			}
-		}, [blur, focusDecorator, focused, node, props]);
+		}, [blur, focusDecorator, props]);
 
 		const updateDownTarget = (ev) => {
 			const {repeat, target} = ev;
@@ -541,11 +548,11 @@ const defaultConfig = {
 
 			// when in autoFocus mode, focusing the decorator directly will cause it to
 			// forward the focus onto the <input>
-			if (!isBubbling(ev) && (props.autoFocus && focused === null && !Spotlight.getPointerMode())) {
+			if (!isBubbling(ev) && (props.autoFocus && focused.current === null && !Spotlight.getPointerMode())) {
 				focusInput(ev.currentTarget, false);
 				ev.stopPropagation();
 			}
-		}, [focusInput, focused, props]);
+		}, [focusInput, props]);
 
 		const onKeyDown = (ev) => {
 			const {currentTarget, keyCode, target} = ev;
@@ -554,7 +561,7 @@ const defaultConfig = {
 			// when the key interaction started
 			updateDownTarget(ev);
 
-			if (focused === 'input') {
+			if (focused.current === 'input') {
 				const isDown = is('down', keyCode);
 				const isLeft = is('left', keyCode);
 				const isRight = is('right', keyCode);
@@ -607,6 +614,7 @@ const defaultConfig = {
 
 		const handleKeyDown = handle(
 			forwardWithPrevent('onKeyDown'),
+			call('onKeyDown'),
 			(ev) => onKeyDown(ev)
 		);
 
@@ -620,28 +628,29 @@ const defaultConfig = {
 				setDownTarget(null);
 
 				if (!props.disabled) {
-					if (focused === 'input' && dismissOnEnter && is('enter', keyCode)) {
+					if (focused.current === 'input' && dismissOnEnter && is('enter', keyCode)) {
 						focusDecorator(currentTarget);
 						// prevent Enter onKeyPress which triggers an onMouseDown via Spotlight
 						ev.preventDefault();
-					} else if (focused !== 'input' && is('enter', keyCode)) {
+					} else if (focused.current !== 'input' && is('enter', keyCode)) {
 						focusInput(currentTarget, false);
 					}
 				}
 			}
 
 			forwardKeyUp(ev, props);
-		}, [downTarget, focusDecorator, focusInput, focused, props]);
+		}, [downTarget, focusDecorator, focusInput, props]);
 
-		delete props.autoFocus;
-		delete props.onActivate;
-		delete props.onDeactivate;
+		const newProps = Object.assign({}, props);
+		delete newProps.autoFocus;
+		delete newProps.onActivate;
+		delete newProps.onDeactivate;
 
 		console.log(focused);
 
 		return (
 			<Component
-				{...props}
+				{...newProps}
 				onBlur={onBlur}
 				onMouseDown={onMouseDown}
 				onFocus={onFocus}
