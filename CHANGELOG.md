@@ -2,6 +2,20 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/PageViews` prop `autoFocus` to set whether focus element automatically or not
+- `sandstone/PageViews.Page` and `sandstone/QuickGuidePanels.Panel` prop `aria-label`
+- `sandstone/QuickGuidePanels` props `closeButtonAriaLabel` and `onClose`
+
+### Fixed
+
+- `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
+- `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` with `editable` prop to move an item via 5-way keys properly in pointer mode
+
 ## [3.0.0-alpha.2] - 2024-10-08
 
 ### Added
