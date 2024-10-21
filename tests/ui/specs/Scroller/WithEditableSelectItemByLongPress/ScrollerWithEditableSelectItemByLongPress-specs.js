@@ -63,7 +63,6 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		await ScrollerPage.backKey();
 
 		await ScrollerPage.spotlightDown();
-		await ScrollerPage.spotlightLeft(); // ensure spotlight is on first item
 		const leftmostItemRect = Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100;
 		await enableEditModeLongPress();
 		await expectFocusedItem(0);

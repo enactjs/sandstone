@@ -137,7 +137,7 @@ class VirtualGridListPage extends Page {
 	async bottomRightVisibleItemId () {
 		return await browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
-				{bottom, width} = scroller.getBoundingClientRect().toJSON();
+				{bottom, width} = scroller.getBoundingClientRect();
 
 			let currentY = bottom - 1;
 
@@ -170,7 +170,7 @@ class VirtualGridListPage extends Page {
 		return await browser.execute(function (_listItemSelector, _scrollableSelector, _index) {
 			const itemContent = document.querySelectorAll(_listItemSelector)[_index];
 			const scroller = document.querySelector(_scrollableSelector);
-			return Math.round(itemContent.getBoundingClientRect().toJSON().bottom - scroller.getBoundingClientRect().toJSON().top);
+			return Math.round(itemContent.getBoundingClientRect().bottom - scroller.getBoundingClientRect().top);
 		}, listItemSelector, scrollableSelector, index);
 	}
 

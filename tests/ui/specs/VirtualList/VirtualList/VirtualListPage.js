@@ -79,13 +79,13 @@ class VirtualListPage extends Page {
 
 	async getVerticalScrollbarRect () {
 		return await browser.execute(function (_verticalScrollbarSelector) {
-			return document.querySelector(_verticalScrollbarSelector).getBoundingClientRect().toJSON();
+			return document.querySelector(_verticalScrollbarSelector).getBoundingClientRect();
 		}, verticalScrollbarSelector);
 	}
 
 	async getVerticalScrollbarTrackRect () {
 		return await browser.execute(function (_verticalScrollbarTrackSelector) {
-			return document.querySelector(_verticalScrollbarTrackSelector).getBoundingClientRect().toJSON();
+			return document.querySelector(_verticalScrollbarTrackSelector).getBoundingClientRect();
 		}, verticalScrollbarTrackSelector);
 	}
 
@@ -109,7 +109,7 @@ class VirtualListPage extends Page {
 
 	async getListRect () {
 		return await browser.execute(function (_scrollContentSelector) {
-			return document.querySelector(_scrollContentSelector).getBoundingClientRect().toJSON();
+			return document.querySelector(_scrollContentSelector).getBoundingClientRect();
 		}, scrollContentSelector);
 	}
 

@@ -29,7 +29,7 @@ describe('VirtualGridList', function () {
 			await Page.numPad(4);
 			await Page.spotlightLeft();
 			// Step 4 Verify: Scrollbar track does not display to the right as the data size is the minimal size of 4.
-			expect((await Page.scrollBar).error.message.slice(0, 21)).toBe('Couldn\'t find element');
+			expect((await Page.scrollBar).error.message.slice(0, 15)).toBe('no such element');
 		});
 	});
 });
