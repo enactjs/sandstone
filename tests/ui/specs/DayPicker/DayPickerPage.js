@@ -16,7 +16,7 @@ class DayPickerInterface {
 	}
 
 	item (index) {
-		return element(`.DayPicker_DayPicker_item[data-index="${index}"]`, this.self);
+		return element(`#${this.id} .DayPicker_DayPicker_item[data-index="${index}"]`, this.self);
 	}
 
 	async extractSelectedDayString () {

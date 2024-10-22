@@ -126,7 +126,7 @@ describe('DatePicker', function () {
 					const {month} = await extractValues(datePicker);
 					await datePicker.month.click();
 					expect(await datePicker.month.isFocused()).toBe(true);
-					await datePicker.incrementer(datePicker.month).click();
+					await datePicker.incrementer('month').click();
 					const {month: value} = await extractValues(datePicker);
 					const expected = month < 12 ? month + 1 : 1;
 					expect(value).toBe(expected);
@@ -136,7 +136,7 @@ describe('DatePicker', function () {
 					const {month} = await extractValues(datePicker);
 					await datePicker.month.click();
 					expect(await datePicker.month.isFocused()).toBe(true);
-					await datePicker.decrementer(datePicker.month).click();
+					await datePicker.decrementer('month').click();
 					const {month: value} = await extractValues(datePicker);
 					const expected = month > 1 ? month - 1 : 12;
 					expect(value).toBe(expected);
@@ -147,7 +147,7 @@ describe('DatePicker', function () {
 					const numDays = daysInMonth({month, year});
 					await datePicker.day.click();
 					expect(await datePicker.day.isFocused()).toBe(true);
-					await datePicker.incrementer(datePicker.day).click();
+					await datePicker.incrementer('day').click();
 					const {day: value} = await extractValues(datePicker);
 					const expected = day !== numDays ? day + 1 : 1;
 					expect(value).toBe(expected);
@@ -158,7 +158,7 @@ describe('DatePicker', function () {
 					const numDays = daysInMonth({month, year});
 					await datePicker.day.click();
 					expect(await datePicker.day.isFocused()).toBe(true);
-					await datePicker.decrementer(datePicker.day).click();
+					await datePicker.decrementer('day').click();
 					const {day: value} = await extractValues(datePicker);
 					const expected = day !== 1 ? day - 1 : numDays;
 					expect(value).toBe(expected);
@@ -168,7 +168,7 @@ describe('DatePicker', function () {
 					const {year} = await extractValues(datePicker);
 					await datePicker.year.click();
 					expect(await datePicker.year.isFocused()).toBe(true);
-					await datePicker.incrementer(datePicker.year).click();
+					await datePicker.incrementer('year').click();
 					const {year: value} = await extractValues(datePicker);
 					const expected = year + 1;
 					expect(value).toBe(expected);
@@ -178,7 +178,7 @@ describe('DatePicker', function () {
 					const {year} = await extractValues(datePicker);
 					await datePicker.year.click();
 					expect(await datePicker.year.isFocused()).toBe(true);
-					await datePicker.decrementer(datePicker.year).click();
+					await datePicker.decrementer('year').click();
 					const {year: value} = await extractValues(datePicker);
 					const expected = year - 1;
 					expect(value).toBe(expected);
@@ -228,7 +228,7 @@ describe('DatePicker', function () {
 				await datePicker.day.click();
 				expect(await datePicker.day.isFocused()).toBe(true);
 
-				await datePicker.incrementer(datePicker.day).click();
+				await datePicker.incrementer('day').click();
 				browser.pause(500);
 				const {day: value} = await extractValues(datePicker);
 				expect(value).toBe(1);
@@ -238,7 +238,7 @@ describe('DatePicker', function () {
 				await datePicker.day.click();
 				expect(await datePicker.day.isFocused()).toBe(true);
 
-				await datePicker.decrementer(datePicker.day).click();
+				await datePicker.decrementer('day').click();
 				browser.pause(500);
 				const {day: value} = await extractValues(datePicker);
 				expect(value).toBe(1);
@@ -262,15 +262,15 @@ describe('DatePicker', function () {
 				const {day, month, year} = await extractValues(datePicker);
 				await datePicker.month.click();
 				expect(await datePicker.month.isFocused()).toBe(true);
-				await datePicker.decrementer(datePicker.month).click();
+				await datePicker.decrementer('month').click();
 
 				await datePicker.day.click();
 				expect(await datePicker.day.isFocused()).toBe(true);
-				await datePicker.decrementer(datePicker.day).click();
+				await datePicker.decrementer('day').click();
 
 				await datePicker.year.click();
 				expect(await datePicker.year.isFocused()).toBe(true);
-				await datePicker.decrementer(datePicker.year).click();
+				await datePicker.decrementer('year').click();
 
 				browser.pause(500);
 
@@ -284,15 +284,15 @@ describe('DatePicker', function () {
 
 				await datePicker.month.click();
 				expect(await datePicker.month.isFocused()).toBe(true);
-				await datePicker.incrementer(datePicker.month).click();
+				await datePicker.incrementer('month').click();
 
 				await datePicker.day.click();
 				expect(await datePicker.day.isFocused()).toBe(true);
-				await datePicker.incrementer(datePicker.day).click();
+				await datePicker.incrementer('day').click();
 
 				await datePicker.year.click();
 				expect(await datePicker.year.isFocused()).toBe(true);
-				await datePicker.incrementer(datePicker.year).click();
+				await datePicker.incrementer('year').click();
 
 				browser.pause(500);
 				expect(await day).toBe(6);
@@ -350,35 +350,35 @@ describe('DatePicker', function () {
 		const datePickerCheckMaxValue = Page.components.datePickerCheckMaxValue;
 		it('should check minimum end-value', async function () {
 			// Step 3-1: Click on  Year Down picker until the Year 1900 displays.
-			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
-			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
-			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
-			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
-			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
+			await datePickerCheckMinValue.decrementer('year').click();
+			await datePickerCheckMinValue.decrementer('year').click();
+			await datePickerCheckMinValue.decrementer('year').click();
+			await datePickerCheckMinValue.decrementer('year').click();
+			await datePickerCheckMinValue.decrementer('year').click();
 			// Step 3 Verify: Year Value changes to 1900.
 			expect((await extractValues(datePickerCheckMinValue)).year).toBe(1900);
 
 			// check disabled picker does not work when value reached minimum end-value.
-			await datePickerCheckMinValue.decrementer(datePickerCheckMinValue.year).click();
+			await datePickerCheckMinValue.decrementer('year').click();
 			expect((await extractValues(datePickerCheckMinValue)).year).toBe(1900);
-			await datePickerCheckMinValue.incrementer(datePickerCheckMinValue.year).click();
+			await datePickerCheckMinValue.incrementer('year').click();
 			expect((await extractValues(datePickerCheckMinValue)).year).toBe(1901);
 		});
 
 		it('should check maximum end-value', async function () {
 			// Step 3-1: Click on  Year Up picker until the Year 2099 displays.
-			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
-			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
-			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
-			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
-			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
+			await datePickerCheckMaxValue.incrementer('year').click();
+			await datePickerCheckMaxValue.incrementer('year').click();
+			await datePickerCheckMaxValue.incrementer('year').click();
+			await datePickerCheckMaxValue.incrementer('year').click();
+			await datePickerCheckMaxValue.incrementer('year').click();
 			// Step 3 Verify: Year Value changes to 2099.
 			expect((await extractValues(datePickerCheckMaxValue)).year).toBe(2099);
 
 			// check disabled picker does not work when value reached maximum end-value.
-			await datePickerCheckMaxValue.incrementer(datePickerCheckMaxValue.year).click();
+			await datePickerCheckMaxValue.incrementer('year').click();
 			expect((await extractValues(datePickerCheckMaxValue)).year).toBe(2099);
-			await datePickerCheckMaxValue.decrementer(datePickerCheckMaxValue.year).click();
+			await datePickerCheckMaxValue.decrementer('year').click();
 			expect((await extractValues(datePickerCheckMaxValue)).year).toBe(2098);
 		});
 	});

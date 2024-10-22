@@ -1,7 +1,5 @@
 'use strict';
-const {element, getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
-
-const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});
+const {element, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 class ImageItemInterface {
 	constructor (id) {
@@ -16,10 +14,10 @@ class ImageItemInterface {
 		return $(`#${this.id}`);
 	}
 	get textContent () {
-		return getText(element('.ImageItem_ImageItem_caption', this.self));
+		return getText(element(`#${this.id} .ImageItem_ImageItem_caption`, this.self));
 	}
 	get valueText () {
-		return getText(getMarqueeText(this.self));
+		return getText($(`#${this.id} > div .enact_ui_Marquee_Marquee_text`));
 	}
 	get image () {
 		return $(`#${this.id} .ImageItem_ImageItem_image`).isExisting();
