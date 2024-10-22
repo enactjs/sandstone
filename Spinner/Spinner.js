@@ -16,7 +16,7 @@ import hoc from '@enact/core/hoc';
 import PropTypes from 'prop-types';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
-import {Component, useEffect} from 'react';
+import {useEffect, useMemo} from 'react';
 import Pause from '@enact/spotlight/Pause';
 import UiSpinnerBase from '@enact/ui/Spinner';
 import Spotlight from '@enact/spotlight';
@@ -170,12 +170,11 @@ const SpinnerBase = kind({
  */
 const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 	const SpinnerSpotlight = (props) => {
-		const paused = new Pause('Spinner');
+		const paused = useMemo(() => new Pause('Spinner'), []);
 		const {blockClickOn} = props;
 		const current = Spotlight.getCurrent();
 
 		if (blockClickOn === 'screen') {
-			console.log("inside if");
 			paused.pause();
 			if (current) {
 				current.blur();
