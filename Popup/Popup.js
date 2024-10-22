@@ -308,8 +308,8 @@ const Popup = (props) => {
 	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
 	const [prevOpen, setPrevOpen] = useState(open);
 
-	const containerId = useRef(null);
 	const componentMounted = useRef(false);
+	const containerId = useRef(null);
 	const paused = useRef(new Pause('Popup'));
 
 	const handleKeyDown = (ev) => {
@@ -490,8 +490,8 @@ const Popup = (props) => {
 	}, [allComponentProps, spotPopupContent]);
 
 	useEffect(() => {
-		containerId.current = Spotlight.add();
 		componentMounted.current = true;
+		containerId.current = Spotlight.add();
 
 		return () => {
 			componentMounted.current = false;
@@ -500,11 +500,8 @@ const Popup = (props) => {
 
 	useEffect(() => {
 		getDerivedStateFromProps();
-	}, [getDerivedStateFromProps]);
-
-	useEffect(() => {
 		handleComponentUpdate();
-	}, [handleComponentUpdate]);
+	}, [getDerivedStateFromProps, handleComponentUpdate]);
 
 	useEffect(() => {
 		checkScrimNone(allComponentProps);
