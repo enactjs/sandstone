@@ -308,7 +308,7 @@ const Popup = (props) => {
 	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
 	const [prevOpen, setPrevOpen] = useState(open);
 
-	const containerId = useRef(Spotlight.add());
+	const containerId = useRef(null);
 	const componentMounted = useRef(false);
 	const paused = useRef(new Pause('Popup'));
 
@@ -364,7 +364,7 @@ const Popup = (props) => {
 		if (open) return;
 
 		const current = Spotlight.getCurrent();
-		const containerNode = getContainerNode(containerId);
+		const containerNode = getContainerNode(containerId.current);
 		const lastContainerId = getLastContainer();
 
 		off('keydown', handleKeyDownRef.current);
@@ -490,6 +490,7 @@ const Popup = (props) => {
 	}, [allComponentProps, spotPopupContent]);
 
 	useEffect(() => {
+		containerId.current = Spotlight.add();
 		componentMounted.current = true;
 
 		return () => {
