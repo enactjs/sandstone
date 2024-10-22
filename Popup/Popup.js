@@ -304,7 +304,7 @@ const Popup = (props) => {
 	const {noAutoDismiss, no5WayClose, onClose, scrimType, ...rest} = allComponentProps;
 
 	const [activator, setActivator] = useState(null);
-	const [containerId, setContainerId] = useState(null);
+	const [containerId, setContainerId] = useState(Spotlight.add());
 	const [floatLayerOpen, setFloatLayerOpen] = useState(open);
 	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
 	const [prevOpen, setPrevOpen] = useState(open);
