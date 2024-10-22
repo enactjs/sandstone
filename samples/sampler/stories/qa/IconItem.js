@@ -288,7 +288,6 @@ export const EditableIcon = (args) => {
 											className={css.editableIconItem}
 											css={css}
 											disabled={item.iconItemProps['disabled'] || item.hidden}
-											label={item.iconItemProps['label']}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
 											order={index}
