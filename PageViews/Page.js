@@ -52,6 +52,19 @@ const Page = kind({
 	}
 });
 
+/**
+ * The aria-label for the page.
+ *
+ * Example:
+ * ```
+ * <PageViews.Page aria-label="This is a description for page">
+ * ```
+ * @name aria-label
+ * @type {String}
+ * @memberof sandstone/PageViews.Page.prototype
+ * @public
+ */
+
 export default Page;
 export {
 	Page
