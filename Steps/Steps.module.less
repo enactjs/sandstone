@@ -2,7 +2,6 @@
 //
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
-@import "../styles/skin.less";
 
 .steps {
 	margin: @sand-steps-margin;
@@ -17,13 +16,6 @@
 		}
 
 		&.highlightCurrentOnly {
-			font-size: @sand-steps-step-highlight-current-only-font-size;
-			margin: @sand-steps-step-highlight-current-only-margin;
-
-			&.current {
-				font-size: @sand-steps-step-highlight-current-only-current-font-size;
-			}
-
 			&.future {
 				opacity: @sand-steps-step-highlight-current-only-future-opacity;
 			}
@@ -42,14 +34,3 @@
 		}
 	}
 }
-
-.applySkins({
-	.step {
-		&.highlightCurrentOnly {
-			color: @sand-steps-step-highlight-current-only-color;
-			&.current {
-				color: @sand-steps-step-highlight-current-only-current-color;
-			}
-		}
-	}
-});

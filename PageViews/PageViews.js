@@ -22,6 +22,11 @@ import {PageViewsRouter} from './PageViewsRouter';
 
 import componentCss from './PageViews.module.less';
 
+const PageIndicator = ({className}) => {
+	const mergedClasses = classNames(componentCss.pageIndicator, className);
+	return (<div className={mergedClasses} />);
+};
+
 /**
  * A PageViews that has page indicator with corresponding pages.
  *
@@ -78,7 +83,7 @@ const PageViewsBase = kind({
 		 * * `contentsArea` - The contentsArea component class
 		 * * `navButton` - The navButton component class
 		 * * `navButtonContainer` - Applied to the container containing navButtons in fullContents mode
-		 * * `steps` - The step component class
+		 * * `stepsRow` - The step component class
 		 *
 		 * @type {Object}
 		 * @public
@@ -261,18 +266,16 @@ const PageViewsBase = kind({
 			return (
 				<>
 					{pageIndicatorType !== 'number' ?
-						<Row className={classNames(css.steps, {[css.hidden]: !isStepVisible})}>
+						<Row className={classNames(css.stepsRow, {[css.hidden]: !isStepVisible})}>
 							<Steps
+								css={css}
 								current={index + 1}
-								currentIcon="circle"
-								futureIcon="circle"
 								highlightCurrentOnly
-								pastIcon="circle"
+								iconComponent={PageIndicator}
 								total={totalIndex}
-								size={30}
 							/>
 						</Row> :
-						<Row className={css.steps}>
+						<Row className={css.stepsRow}>
 							<Cell className={css.navButtonCell} shrink>
 								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} className={css.navButton} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>

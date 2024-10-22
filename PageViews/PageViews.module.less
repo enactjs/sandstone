@@ -1,5 +1,6 @@
 // PageViews.module.less
 //
+@import '../styles/skin.less';
 @import "../styles/variables.less";
 
 .pageViews {
@@ -32,7 +33,7 @@
 		width: @sand-pageviews-number-navigation-button-area-width;
 	}
 
-	.steps {
+	.stepsRow {
 		align-items: center;
 		justify-content: center;
 		text-align: center;
@@ -42,7 +43,7 @@
 		}
 	}
 
-	&.number .steps {
+	&.number .stepsRow {
 		min-height: @sand-pageviews-number-steps-area-min-height;
 		.pageNumber {
 			width: @sand-pageviews-number-steps-number-width;
@@ -52,16 +53,33 @@
 		}
 	}
 
-	&.dot .steps {
-		min-height: @sand-pageviews-dot-steps-area-min-height;
+	&.dot {
+		.steps {
+			display: flex;
+			align-items: center;
+			min-height: @sand-pageviews-dot-steps-area-min-height;
+		}
+
+		.pageIndicator {
+			width: @sand-pageviews-dot-stpes-page-indicator-size;
+			height: @sand-pageviews-dot-stpes-page-indicator-size;
+			margin: @sand-pageviews-dot-stpes-page-indicator-margin;
+			border-radius: @sand-pageviews-dot-stpes-page-indicator-border-radius;
+
+			&.current {
+				width: @sand-pageviews-dot-stpes-page-indicator-current-size;
+				height: @sand-pageviews-dot-stpes-page-indicator-current-size;
+				margin: @sand-pageviews-dot-stpes-page-indicator-current-margin;
+			}
+		}
 	}
 
-	&.fullContents .steps {
+	&.fullContents .stepsRow {
 		position: absolute;
 		align-self: center;
 	}
 
-	&.fullContents.indicatorBottom .steps {
+	&.fullContents.indicatorBottom .stepsRow {
 		bottom: @sand-pageviews-full-contents-bottom-steps-bottom;
 	}
 
@@ -77,4 +95,14 @@
 	.horizontalLayout {
 		height: 100%;
 	}
+
+	.applySkins({
+		.pageIndicator {
+			background-color: @sand-pageviews-page-indicator-bg-color;
+
+			&.current {
+				background-color: @sand-pageviews-page-indicator-current-bg-color;
+			}
+		}
+	})
 }
