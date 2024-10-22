@@ -1,11 +1,11 @@
 import {forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
-import {setDefaultProps} from "@enact/core/util";
+import {setDefaultProps} from '@enact/core/util';
 import Pause from '@enact/spotlight/Pause';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 
 import $L from '../internal/$L';
 
@@ -44,7 +44,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const SliderBehavior = (props) => {
 		const sliderBehaviorProps = setDefaultProps(props, sliderDefaultProps);
 
-		const [paused] = useState(() => new Pause());
+		const paused = useMemo(() => new Pause(), []);
 		const sliderRef = useRef();
 		const [active, setActive] = useState(false);
 		const [dragging, setDragging] = useState(false);
@@ -64,7 +64,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			return () => {
 				paused.resume();
 			};
-		});
+		}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const getValueText = useCallback(() => {
 			const {'aria-valuetext': ariaValueText, max, min, orientation, value = min} = sliderBehaviorProps;
@@ -161,6 +161,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	};
 
 	SliderBehavior.displayName = 'SliderBehaviorDecorator';
+
 	SliderBehavior.propTypes = {
 		activateOnSelect: PropTypes.bool,
 		'aria-valuetext': PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
