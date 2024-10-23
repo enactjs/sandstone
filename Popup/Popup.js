@@ -395,8 +395,6 @@ const Popup = (props) => {
 
 		on('keydown', handleKeyDownRef.current);
 
-		console.log(getContainerNode(containerId));
-
 		if (!Spotlight.isPaused() && !Spotlight.focus(containerId)) {
 			const current = Spotlight.getCurrent();
 
