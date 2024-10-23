@@ -17,6 +17,7 @@ import kind from '@enact/core/kind';
 import {coerceArray} from '@enact/core/util';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Repeater from '@enact/ui/Repeater';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
@@ -24,6 +25,11 @@ import Icon from '../Icon';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Steps.module.less';
+
+const PageIndicator = ({className}) => {
+	const mergedClasses = classNames(componentCss.pageIndicator, className);
+	return (<div className={mergedClasses} />);
+};
 
 /**
  * Renders a sandstone-styled steps component only basic behavior.
@@ -231,11 +237,10 @@ const StepsBase = kind({
 		}
 	},
 
-	render: ({iconComponent, size, steps, ...rest}) => {
+	render: ({highlightCurrentOnly, iconComponent, size, steps, ...rest}) => {
 		delete rest.current;
 		delete rest.currentIcon;
 		delete rest.futureIcon;
-		delete rest.highlightCurrentOnly;
 		delete rest.pastIcon;
 		delete rest.skip;
 		delete rest.skipIcon;
@@ -244,7 +249,7 @@ const StepsBase = kind({
 			<Repeater
 				{...rest}
 				component="div"
-				childComponent={iconComponent}
+				childComponent={highlightCurrentOnly ? PageIndicator : iconComponent}
 				itemProps={{size}}
 			>
 				{steps}

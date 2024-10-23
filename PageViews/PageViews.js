@@ -21,11 +21,6 @@ import {PageViewsRouter} from './PageViewsRouter';
 
 import css from './PageViews.module.less';
 
-const PageIndicator = ({className}) => {
-	const mergedClasses = classNames(css.pageIndicator, className);
-	return (<div className={mergedClasses} />);
-};
-
 /**
  * A PageViews that has page indicator with corresponding pages.
  *
@@ -259,7 +254,6 @@ const PageViewsBase = kind({
 								css={css}
 								current={index + 1}
 								highlightCurrentOnly
-								iconComponent={PageIndicator}
 								total={totalIndex}
 							/>
 						</Row> :

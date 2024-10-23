@@ -1,6 +1,7 @@
 // Steps.module.less
 //
 @import "../styles/mixins.less";
+@import '../styles/skin.less';
 @import "../styles/variables.less";
 
 .steps {
@@ -33,4 +34,27 @@
 			opacity: @sand-steps-step-future-opacity;
 		}
 	}
+
+	.pageIndicator {
+		width: @sand-steps-pageindicator-size;
+		height: @sand-steps-pageindicator-size;
+		margin: @sand-steps-pageindicator-margin;
+		border-radius: @sand-steps-pageindicator-border-radius;
+
+		&.current {
+			width: @sand-steps-pageindicator-current-size;
+			height: @sand-steps-pageindicator-current-size;
+			margin: @sand-steps-pageindicator-current-margin;
+		}
+	}
+
+	.applySkins({
+		.pageIndicator {
+			background-color: @sand-steps-pageindicator-bg-color;
+
+			&.current {
+				background-color: @sand-steps-pageindicator-current-bg-color;
+			}
+		}
+	});
 }

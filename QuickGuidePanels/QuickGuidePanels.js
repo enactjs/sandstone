@@ -8,12 +8,13 @@ import {Cell, Column, Row} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
+import classNames from 'classnames';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
-import $L from '../internal/$L';
 import Button from '../Button';
+import $L from '../internal/$L';
 import {BasicArranger, CancelDecorator, NavigationButton} from '../internal/Panels';
 import PanelsRouter from '../internal/Panels/PanelsRouter';
 import Skinnable from '../Skinnable';
@@ -327,14 +328,10 @@ const QuickGuidePanelsBase = kind({
 
 			return (
 				<Steps
-					className={css.steps}
+					css={css}
 					current={currentStep}
-					currentIcon="circle"
-					futureIcon="circle"
 					highlightCurrentOnly
-					pastIcon="circle"
 					total={totalSteps}
-					size={30}
 				/>
 			);
 		}
