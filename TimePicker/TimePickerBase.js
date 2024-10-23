@@ -48,7 +48,7 @@ const HourPicker = (props) => {
 			{hours}
 		</DateComponentPicker>
 	);
-}
+};
 
 HourPicker.propTypes = {
 	hasMeridiem: PropTypes.bool,
