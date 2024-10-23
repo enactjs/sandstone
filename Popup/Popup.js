@@ -373,7 +373,7 @@ const Popup = (props) => {
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (Spotlight.isPaused()) {
+			if (!paused.isPaused()) {
 				if (activator) {
 					if (!Spotlight.focus(activator)) {
 						Spotlight.focus();
