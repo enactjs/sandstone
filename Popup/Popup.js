@@ -306,11 +306,11 @@ const Popup = (props) => {
 	const [activator, setActivator] = useState(null);
 	const [containerId, setContainerId] = useState(Spotlight.add());
 	const [floatLayerOpen, setFloatLayerOpen] = useState(open);
+	const [paused, setPaused] = useState(new Pause('Popup'));
 	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
 	const [prevOpen, setPrevOpen] = useState(open);
 
 	const componentMounted = useRef(false);
-	const paused = useRef(new Pause('Popup'));
 
 	const handleKeyDown = (ev) => {
 		if (no5WayClose) return;
@@ -358,7 +358,7 @@ const Popup = (props) => {
 	const handleKeyDownRef = useRef(handleKeyDown);
 
 	const spotActivator = useCallback(() => {
-		paused.current.resume();
+		paused.resume();
 
 		// only spot the activator if the popup is closed
 		if (open) return;
@@ -373,7 +373,7 @@ const Popup = (props) => {
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (!Spotlight.isPaused()) {
+			if (Spotlight.isPaused()) {
 				if (activator) {
 					if (!Spotlight.focus(activator)) {
 						Spotlight.focus();
@@ -385,10 +385,10 @@ const Popup = (props) => {
 				}
 			}
 		}
-	}, [activator, containerId, open]);
+	}, [activator, containerId, open, paused]);
 
 	const spotPopupContent = useCallback(() => {
-		paused.current.resume();
+		paused.resume();
 
 		// only spot the activator if the popup is open
 		if (!open) return;
@@ -406,7 +406,7 @@ const Popup = (props) => {
 			}
 			Spotlight.setActiveContainer(containerId);
 		}
-	}, [containerId, open]);
+	}, [containerId, open, paused]);
 
 	const getDerivedStateFromProps = useCallback(() => {
 		if (open !== prevOpen) {
@@ -439,10 +439,10 @@ const Popup = (props) => {
 					// If the popup is supposed to be closed (!this.props.open) and is actually
 					// fully closed (OpenState.CLOSED), we must resume spotlight navigation. This
 					// can occur when quickly toggling a Popup open and closed.
-					paused.current.resume();
+					paused.resume();
 				} else {
 					// Otherwise, we pause spotlight so it is locked until the popup is ready
-					paused.current.pause();
+					paused.pause();
 				}
 			} else if (open) {
 				forwardShow(null, allComponentProps);
@@ -454,7 +454,7 @@ const Popup = (props) => {
 		}
 
 		checkScrimNone(allComponentProps);
-	}, [allComponentProps, noAnimation, open, popupOpen, prevOpen, spotActivator, spotPopupContent]);
+	}, [allComponentProps, noAnimation, open, paused, popupOpen, prevOpen, spotActivator, spotPopupContent]);
 
 	const handleDismiss = useCallback((ev) => {
 		forwardCustom('onClose', () => ({detail: ev?.detail}))(null, allComponentProps);
@@ -492,6 +492,7 @@ const Popup = (props) => {
 	useEffect(() => {
 		componentMounted.current = true;
 		setContainerId(Spotlight.add());
+		setPaused(new Pause('Popup'));
 
 		return () => {
 			componentMounted.current = false;
@@ -500,15 +501,15 @@ const Popup = (props) => {
 
 	// Spot the content after it's mounted.
 	useEffect(() => {
-		if (open) {
+		if (open && componentMounted.current) {
 			// If the popup is open on mount, we need to pause spotlight so nothing steals focus
 			// while the popup is rendering.
-			paused.current.pause();
+			paused.pause();
 			if (getContainerNode(containerId)) {
 				spotPopupContent();
 			}
 		}
-	}, [containerId, open, spotPopupContent]);
+	}, [containerId, open, paused, spotPopupContent]);
 
 	useEffect(() => {
 		getDerivedStateFromProps();
