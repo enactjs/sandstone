@@ -58,7 +58,7 @@ select('incrementIcon', _RangePicker, ['', ...incrementIcons], Config);
 boolean('inlineTitle', _RangePicker, Config);
 boolean('joined', _RangePicker, Config);
 boolean('noAnimation', _RangePicker, Config);
-select('orientation', _RangePicker, prop.orientation, Config, 'horizontal');
+select('orientation', _RangePicker, prop.orientation, Config);
 number('step', _RangePicker, Config, 5);
 text('title', _RangePicker, Config);
 select('width', _RangePicker, prop.width, Config, 'small');

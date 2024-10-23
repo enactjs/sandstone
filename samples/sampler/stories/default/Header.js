@@ -96,16 +96,14 @@ select(
 	'backButtonBackgroundOpacity',
 	PanelsHeader,
 	['opaque', 'transparent'],
-	Config,
-	'transparent'
+	Config
 );
 boolean('centered', PanelsHeader, Config);
 select(
 	'closeButtonBackgroundOpacity',
 	PanelsHeader,
 	['opaque', 'transparent'],
-	Config,
-	'transparent'
+	Config
 );
 select('marqueeOn', PanelsHeader, prop.marqueeOn, Config);
 boolean('noCloseButton', PanelsHeader, Config);
