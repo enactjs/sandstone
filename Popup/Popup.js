@@ -373,7 +373,7 @@ const Popup = (props) => {
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (!paused.isPaused()) {
+			if (!Spotlight.isPaused()) {
 				if (activator) {
 					if (!Spotlight.focus(activator)) {
 						Spotlight.focus();
@@ -394,6 +394,8 @@ const Popup = (props) => {
 		if (!open) return;
 
 		on('keydown', handleKeyDownRef.current);
+
+		console.log(getContainerNode(containerId));
 
 		if (!Spotlight.isPaused() && !Spotlight.focus(containerId)) {
 			const current = Spotlight.getCurrent();
@@ -501,7 +503,7 @@ const Popup = (props) => {
 
 	// Spot the content after it's mounted.
 	useEffect(() => {
-		if (open && componentMounted.current) {
+		if (open && prevOpen) {
 			// If the popup is open on mount, we need to pause spotlight so nothing steals focus
 			// while the popup is rendering.
 			paused.pause();
@@ -509,7 +511,7 @@ const Popup = (props) => {
 				spotPopupContent();
 			}
 		}
-	}, [containerId, open, paused, spotPopupContent]);
+	}, [containerId, open, paused, prevOpen, spotPopupContent]);
 
 	useEffect(() => {
 		getDerivedStateFromProps();
