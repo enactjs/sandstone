@@ -1,7 +1,5 @@
 'use strict';
-const {element, getSubComponent, getText, Page} = require('@enact/ui-test-utils/utils');
-
-const getMarqueeText = getSubComponent({lib: 'ui', component:'Marquee', child:'text'});
+const {element, getText, Page} = require('@enact/ui-test-utils/utils');
 
 
 class SwitchItemInterface {
@@ -17,10 +15,10 @@ class SwitchItemInterface {
 		return $(`#${this.id}`);
 	}
 	get valueText () {
-		return getText(getMarqueeText(this.self));
+		return getText($(`#${this.id} > div .enact_ui_Marquee_Marquee_text`));
 	}
 	get isSelected () {
-		return element('.Switch_Switch_selected', this.self).isExisting();
+		return element(`#${this.id} .Switch_Switch_selected`, this.self).isExisting();
 	}
 	get isInline () {
 		return $(`#${this.id}.Item_Item_inline`).isExisting();
