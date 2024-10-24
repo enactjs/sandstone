@@ -512,6 +512,12 @@ const Popup = (props) => {
 	}, []);
 
 	useEffect(() => {
+		if (!open && activator) {
+			Spotlight.focus(activator)
+		}
+	}, [activator, open]);
+
+	useEffect(() => {
 		getDerivedStateFromProps();
 		handleComponentUpdate();
 	}, [getDerivedStateFromProps, handleComponentUpdate]);
