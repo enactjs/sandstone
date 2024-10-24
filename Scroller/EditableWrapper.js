@@ -582,8 +582,11 @@ const EditableWrapper = (props) => {
 		selectedItem.children[1].ariaLabel = '';
 		finalizeEditing(orders);
 		if (selectItemBy === 'press') {
-			Spotlight.setPointerMode(false);
-			Spotlight.focus(focusTarget);
+			if (getPointerMode()) {
+				Spotlight.setPointerMode(false);
+				Spotlight.focus(focusTarget);
+			}
+
 			focusItem(focusTarget);
 		}
 		setTimeout(() => {

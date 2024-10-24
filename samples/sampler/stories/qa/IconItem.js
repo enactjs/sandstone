@@ -64,7 +64,7 @@ const populateItems = ({index}) => {
 		} : null,
 		label: (function () {
 			if (index === 1) return 'USB';
-			else if (index === 6) return 'Gallery';
+			else if (index === 6) return 'Gallery label that has very long text';
 		})(),
 		labelColor: index === 6 ? 'dark' : null,
 		labelOn: index === 6 ? 'focus' : null,
@@ -290,6 +290,7 @@ export const EditableIcon = (args) => {
 											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
+											order={index}
 										/>
 									</div>
 								);
