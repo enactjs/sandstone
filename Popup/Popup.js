@@ -507,7 +507,7 @@ const Popup = (props) => {
 				off('keydown', keyDownRef);
 			}
 			Spotlight.remove(idRef);
-		}
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -515,10 +515,6 @@ const Popup = (props) => {
 		getDerivedStateFromProps();
 		handleComponentUpdate();
 	}, [getDerivedStateFromProps, handleComponentUpdate]);
-
-	useEffect(() => {
-		checkScrimNone(allComponentProps);
-	}, [allComponentProps]);
 
 	return (
 		<FloatingLayer
@@ -533,7 +529,7 @@ const Popup = (props) => {
 				data-webos-voice-exclusive
 				onHide={handlePopupHide}
 				onShow={handlePopupShow}
-				open={popupOpen >= OpenState.OPENING}
+				open={popupOpen >= OpenState.OPENING && open}
 				spotlightId={containerId.current}
 			/>
 		</FloatingLayer>
