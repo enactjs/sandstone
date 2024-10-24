@@ -202,6 +202,7 @@ const StepsBase = kind({
 	},
 
 	computed: {
+		iconComponent: ({highlightCurrentOnly, iconComponent}) => ((highlightCurrentOnly && iconComponent === Icon) ? PageIndicator : iconComponent),
 		steps: ({current, pastIcon, currentIcon, futureIcon, highlightCurrentOnly, skip, skipIcon, total, styler}) => {
 			skip = coerceArray(skip);
 			return Array.from(Array(total)).map((el, index) => {
@@ -237,10 +238,11 @@ const StepsBase = kind({
 		}
 	},
 
-	render: ({highlightCurrentOnly, iconComponent, size, steps, ...rest}) => {
+	render: ({iconComponent, size, steps, ...rest}) => {
 		delete rest.current;
 		delete rest.currentIcon;
 		delete rest.futureIcon;
+		delete rest.highlightCurrentOnly;
 		delete rest.pastIcon;
 		delete rest.skip;
 		delete rest.skipIcon;
@@ -249,7 +251,7 @@ const StepsBase = kind({
 			<Repeater
 				{...rest}
 				component="div"
-				childComponent={highlightCurrentOnly ? PageIndicator : iconComponent}
+				childComponent={iconComponent}
 				itemProps={{size}}
 			>
 				{steps}
