@@ -513,7 +513,7 @@ const Popup = (props) => {
 
 	useEffect(() => {
 		if (!open && activator) {
-			Spotlight.focus(activator)
+			Spotlight.focus(activator);
 		}
 	}, [activator, open]);
 
