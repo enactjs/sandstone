@@ -91,7 +91,7 @@ describe('TimePicker', function () {
 					for (let i = 12; i; i -= 1) {
 						await Page.spotlightDown();
 					}
-					expect(meridiem !== timePicker.item(timePicker.meridiem).getText()).toBe(true);
+					expect(meridiem !== timePicker.item('meridiem').getText()).toBe(true);
 				});
 
 				it('should be able to change values with 5-way up and down keys [QWTC-2549]', async function () {
@@ -157,7 +157,7 @@ describe('TimePicker', function () {
 				// Start of [QWTC-2098] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
 				it('should increase the hour when incrementing the picker', async function () {
 					const {hour} = await extractValues(timePicker);
-					await timePicker.incrementer(timePicker.hour).click();
+					await timePicker.incrementer('hour').click();
 					const {hour: value} = await extractValues(timePicker);
 					const expected = hour < 12 ? hour + 1 : 1;
 					expect(value).toBe(expected);
@@ -165,7 +165,7 @@ describe('TimePicker', function () {
 
 				it('should decrease the hour when decrementing the picker]', async function () {
 					const {hour} = await extractValues(timePicker);
-					await timePicker.decrementer(timePicker.hour).click();
+					await timePicker.decrementer('hour').click();
 					const {hour: value} = await extractValues(timePicker);
 					const expected = hour > 1 ? hour - 1 : 12;
 					expect(value).toBe(expected);
@@ -175,7 +175,7 @@ describe('TimePicker', function () {
 					const {minute} = await extractValues(timePicker);
 					await timePicker.minute.click();
 					await browser.waitUntil(async () => await timePicker.minute.isFocused(), {timeout: 1500,  interval: 100});
-					await timePicker.incrementer(timePicker.minute).click();
+					await timePicker.incrementer('minute').click();
 					const {minute: value} = await extractValues(timePicker);
 					const expected = minute !== 59 ? minute + 1 : 0;
 					expect(value).toBe(expected);
@@ -185,7 +185,7 @@ describe('TimePicker', function () {
 					const {minute} = await extractValues(timePicker);
 					await timePicker.minute.click();
 					await browser.waitUntil(async () => await timePicker.minute.isFocused(), {timeout: 1500,  interval: 100});
-					await timePicker.decrementer(timePicker.minute).click();
+					await timePicker.decrementer('minute').click();
 					const {minute: value} = await extractValues(timePicker);
 					const expected = minute !== 0 ? minute - 1 : 59;
 					expect(value).toBe(expected);
@@ -196,7 +196,7 @@ describe('TimePicker', function () {
 					const value = timePicker.timeLabel;
 					// 12 hours ought to change the value text if meridiem changes
 					for (let i = 12; i; i -= 1) {
-						await timePicker.decrementer(timePicker.hour).click();
+						await timePicker.decrementer('hour').click();
 					}
 					expect(value !== timePicker.timeLabel).toBe(true);
 				});
@@ -236,7 +236,7 @@ describe('TimePicker', function () {
 					await timePicker.hour.click();
 					expect(await timePicker.hour.isFocused()).toBe(true);
 
-					await timePicker.incrementer(timePicker.hour).click();
+					await timePicker.incrementer('hour').click();
 					browser.pause(500);
 					const {hour: value} = await extractValues(timePicker);
 					expect(value).toBe(12);
@@ -251,15 +251,15 @@ describe('TimePicker', function () {
 
 				await timePicker.minute.click();
 				expect(await timePicker.minute.isFocused()).toBe(true);
-				await timePicker.decrementer(timePicker.minute).click();
+				await timePicker.decrementer('minute').click();
 
 				await timePicker.hour.click();
 				expect(await timePicker.hour.isFocused()).toBe(true);
-				await timePicker.decrementer(timePicker.hour).click();
+				await timePicker.decrementer('hour').click();
 
 				await timePicker.meridiem.click();
 				expect(await timePicker.meridiem.isFocused()).toBe(true);
-				await timePicker.decrementer(timePicker.meridiem).click();
+				await timePicker.decrementer('meridiem').click();
 
 				browser.pause(500);
 				expect(hour).toBe(12);
@@ -370,10 +370,10 @@ describe('TimePicker', function () {
 			await timePicker.hour.click();
 			expect(await timePicker.hour.isFocused()).toBe(true);
 
-			await timePicker.decrementer(timePicker.hour).click();
+			await timePicker.decrementer('hour').click();
 			expect((await extractValues(timePicker)).hour).toBe(23);
 			// now increment
-			await timePicker.incrementer(timePicker.hour).click();
+			await timePicker.incrementer('hour').click();
 			expect((await extractValues(timePicker)).hour).toBe(0);
 		});
 
@@ -383,7 +383,7 @@ describe('TimePicker', function () {
 			await timePicker.hour.click();
 			expect(await timePicker.hour.isFocused()).toBe(true);
 
-			await timePicker.decrementer(timePicker.hour).click();
+			await timePicker.decrementer('hour').click();
 			expect((await extractValues(timePicker)).hour).toBe(23);
 		});
 	});

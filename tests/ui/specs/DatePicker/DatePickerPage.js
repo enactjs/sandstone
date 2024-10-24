@@ -34,14 +34,14 @@ class PickerInterface {
 		return element('.internal_DateTime_DateTime_heading', this.self);
 	}
 
-	decrementer (value) {
-		return $(`#${this.id} .DatePicker_DatePicker_${value} > .internal_Picker_Picker_decrementer`);
+	decrementer (type) {
+		return $(`#${this.id} .DatePicker_DatePicker_${type} > .internal_Picker_Picker_decrementer`);
 	}
-	incrementer (value) {
-		return $(`#${this.id} .DatePicker_DatePicker_${value} > .internal_Picker_Picker_incrementer`);
+	incrementer (type) {
+		return $(`#${this.id} .DatePicker_DatePicker_${type} > .internal_Picker_Picker_incrementer`);
 	}
-	item (value) {
-		return $(`#${this.id} .DatePicker_DatePicker_${value} > .internal_Picker_Picker_valueWrapper`);
+	item (type) {
+		return $(`#${this.id} .DatePicker_DatePicker_${type} > .internal_Picker_Picker_valueWrapper`);
 	}
 
 }

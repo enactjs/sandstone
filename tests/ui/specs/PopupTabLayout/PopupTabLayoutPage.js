@@ -43,6 +43,12 @@ class PopupTabLayoutInterface {
 	get isCollapsed () {
 		return hasClass('collapsed', this.tabLayout);
 	}
+	get displayTab () {
+		return $('.TabLayout_TabLayout_tabsExpanded > div .Button_Button_button:nth-child(1)');
+	}
+	get soundTab () {
+		return $('.TabLayout_TabLayout_tabsExpanded > div .Button_Button_button:nth-child(2)');
+	}
 	// get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
 	get tabItems () {
 		return this.tabs.$$('.Button_Button_button');

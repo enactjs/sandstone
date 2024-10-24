@@ -1,8 +1,7 @@
 'use strict';
-const {componentSelector, getComponent, getSubComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
+const {componentSelector, getComponent, getText, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const getIcon = getComponent({component:'Icon'});
-const getMarqueeText = getSubComponent({lib: 'ui', component:'Marquee', child:'text'});
 
 class FormCheckboxItemInterface {
 	constructor (id) {
@@ -19,7 +18,7 @@ class FormCheckboxItemInterface {
 		return $(`#${this.id}`);
 	}
 	get valueText () {
-		return getText(getMarqueeText(this.self));
+		return getText($(`#${this.id} > div .enact_ui_Marquee_Marquee_text`));
 	}
 	get labelText () {
 		return $(`#${this.id} .Item_Item_label`).getText();

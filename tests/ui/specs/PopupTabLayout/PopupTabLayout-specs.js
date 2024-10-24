@@ -130,9 +130,9 @@ describe('PopupTabLayout', function () {
 
 				it('should not lose focus with spotlight left', async function () {
 					// Attempt to focus left
-					expect(await popupTabLayout.tabItems[0].isFocused()).toBe(true);
+					expect(await popupTabLayout.tabItems[1].isFocused()).toBe(true);
 					await Page.spotlightLeft();
-					expect(await popupTabLayout.tabItems[0].isFocused()).toBe(true);
+					expect(await popupTabLayout.tabItems[1].isFocused()).toBe(true);
 				});
 
 				it('should suppress 5-way select during transition', async function () {

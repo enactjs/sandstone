@@ -25,15 +25,15 @@ class RangePickerInterface {
 	}
 
 	decrementer (rangePicker) {
-		return element('.internal_Picker_Picker_decrementer', rangePicker);
+		return element(`.${this.className} .internal_Picker_Picker_decrementer`, rangePicker);
 	}
 
 	incrementer (rangePicker) {
-		return element('.internal_Picker_Picker_incrementer', rangePicker);
+		return element(`.${this.className} .internal_Picker_Picker_incrementer`, rangePicker);
 	}
 
 	currentValue (rangePicker) {
-		return element('.internal_Picker_Picker_valueWrapper', rangePicker);
+		return element(`.${this.className} .internal_Picker_Picker_valueWrapper`, rangePicker);
 	}
 }
 
