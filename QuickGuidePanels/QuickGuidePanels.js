@@ -337,14 +337,10 @@ const QuickGuidePanelsBase = kind({
 
 			return (
 				<Steps
-					className={css.steps}
+					css={css}
 					current={currentStep}
-					currentIcon="circle"
-					futureIcon="circle"
 					highlightCurrentOnly
-					pastIcon="circle"
 					total={totalSteps}
-					size={30}
 				/>
 			);
 		}
