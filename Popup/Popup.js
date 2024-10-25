@@ -435,8 +435,8 @@ const Popup = (props) => {
 		if (open !== prevOpen) {
 			if (!noAnimation) {
 				if (!open && popupOpen === OpenState.OPENING || !open && popupOpen === OpenState.OPEN) {
-					// If the popup is supposed to be closed (!this.props.open) and is actually
-					// fully closed (OpenState.CLOSED), we must resume spotlight navigation. This
+					// If the popup is supposed to be closed (!open) and is actually not fully
+					// closed (OpenState.OPENING or OpenState.OPEN), we must resume spotlight navigation. This
 					// can occur when quickly toggling a Popup open and closed.
 					paused.current.resume();
 				} else {
