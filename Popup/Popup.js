@@ -372,7 +372,7 @@ const Popup = (props) => {
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (!Spotlight.isPaused()) {
+			if (!Spotlight.isPaused() || !paused.current.isPaused()) {
 				if (activator) {
 					if (!Spotlight.focus(activator)) {
 						Spotlight.focus();
@@ -510,12 +510,6 @@ const Popup = (props) => {
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	useEffect(() => {
-		if (!open && activator) {
-			Spotlight.focus(activator);
-		}
-	}, [activator, open]);
 
 	useEffect(() => {
 		getDerivedStateFromProps();
