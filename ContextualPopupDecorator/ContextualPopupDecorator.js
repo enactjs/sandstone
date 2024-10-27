@@ -286,6 +286,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (props.setApiProvider) {
 				props.setApiProvider(this);
 			}
+
+			if (typeof ResizeObserver === 'function') {
+				this.resizeObserver = new ResizeObserver(() => {
+					this.positionContextualPopup();
+				});
+			};
 		}
 
 		componentDidMount () {
@@ -603,18 +609,14 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		getClientNode = (node) => {
 			this.clientNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
 
-			if (!this.resizeObserver && typeof ResizeObserver === 'function') {
-				this.resizeObserver = new ResizeObserver(() => {
-					this.positionContextualPopup();
-				});
-			};
-
-			if (this.clientNode) {
-				// It is not easy to trigger changed position of activator,
-				// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
-				// This implementation is dependent on the current structure of FloatingLayer,
-				// so if the structure have changed, below code needs to be changed accordingly.
-				this.resizeObserver.observe(this.clientNode?.parentElement?.parentElement);
+			if (this.resizeObserver) {
+				if (this.clientNode) {
+					// It is not easy to trigger changed position of activator,
+					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
+					// This implementation is dependent on the current structure of FloatingLayer,
+					// so if the structure have changed, below code needs to be changed accordingly.
+					this.resizeObserver.observe(this.clientNode?.parentElement?.parentElement);
+				}
 			}
 		};
 
