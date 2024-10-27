@@ -291,7 +291,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				this.resizeObserver = new ResizeObserver(() => {
 					this.positionContextualPopup();
 				});
-			};
+			}
 		}
 
 		componentDidMount () {
