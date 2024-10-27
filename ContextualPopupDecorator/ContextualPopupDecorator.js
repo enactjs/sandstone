@@ -293,12 +293,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				on('keydown', this.handleKeyDown);
 				on('keyup', this.handleKeyUp);
 			}
-
-			if (typeof ResizeObserver === 'function') {
-				this.resizeObserver = new ResizeObserver(() => {
-					this.positionContextualPopup();
-				});
-			}
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
@@ -609,16 +603,18 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		getClientNode = (node) => {
 			this.clientNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
 
-			if (this.resizeObserver) {
-				if (node) {
-					// It is not easy to trigger changed position of activator,
-					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
-					// This implementation is dependent on the current structure of FloatingLayer,
-					// so if the structure have changed, below code needs to be changed accordingly.
-					this.resizeObserver.observe(node?.parentElement?.parentElement);
-				} else {
-					this.resizeObserver.disconnect();
-				}
+			if (!this.resizeObserver && typeof ResizeObserver === 'function') {
+				this.resizeObserver = new ResizeObserver(() => {
+					this.positionContextualPopup();
+				});
+			};
+
+			if (this.clientNode) {
+				// It is not easy to trigger changed position of activator,
+				// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
+				// This implementation is dependent on the current structure of FloatingLayer,
+				// so if the structure have changed, below code needs to be changed accordingly.
+				this.resizeObserver.observe(this.clientNode?.parentElement?.parentElement);
 			}
 		};
 
