@@ -34,11 +34,11 @@ const HourPicker = (props) => {
 	useEffect(() => {
 		const hoursArray = props.hasMeridiem ? hours12 : hours24;
 
-		if (props.value !== prevValue) {
+		if (prevValue !== props.value) {
 			setNoAnimation(hoursArray[prevValue] === hoursArray[props.value]);
 			setPrevValue(props.value);
 		}
-	}, [prevValue, props.hasMeridiem, props.value]);
+	}, [prevValue, props]);
 
 	const {hasMeridiem, ...rest} = props;
 	const hours = hasMeridiem ? hours12 : hours24;
