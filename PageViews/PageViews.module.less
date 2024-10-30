@@ -9,6 +9,10 @@
 	flex-direction: column;
 
 	.navButton {
+		/* CSS Overrides */
+	}
+
+	.navButtonCell {
 		text-align: center;
 		display: flex;
 		align-items: center;
@@ -24,11 +28,11 @@
 		z-index: 10;
 	}
 
-	&.number .navButton {
+	&.number .navButtonCell {
 		width: @sand-pageviews-number-navigation-button-area-width;
 	}
 
-	.steps {
+	.stepsRow {
 		align-items: center;
 		justify-content: center;
 		text-align: center;
@@ -38,7 +42,7 @@
 		}
 	}
 
-	&.number .steps {
+	&.number .stepsRow {
 		min-height: @sand-pageviews-number-steps-area-min-height;
 		.pageNumber {
 			width: @sand-pageviews-number-steps-number-width;
@@ -49,15 +53,17 @@
 	}
 
 	&.dot .steps {
+		display: flex;
+		align-items: center;
 		min-height: @sand-pageviews-dot-steps-area-min-height;
 	}
 
-	&.fullContents .steps {
+	&.fullContents .stepsRow {
 		position: absolute;
 		align-self: center;
 	}
 
-	&.fullContents.indicatorBottom .steps {
+	&.fullContents.indicatorBottom .stepsRow {
 		bottom: @sand-pageviews-full-contents-bottom-steps-bottom;
 	}
 
