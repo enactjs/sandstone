@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
+
 ## [2.9.4] - 2024-10-29
 
 ### Fixed
@@ -20,7 +26,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
 - `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
 - `sandstone/Scroller` to focus the topmost element after scroll by voice control
 - `sandstone/Scroller` to read out properly when `sandstone/Panels` has `sandstone/Scroller` with `focusableScrollbar`
