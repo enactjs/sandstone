@@ -370,7 +370,6 @@ const Popup = (props) => {
 		const lastContainerId = getLastContainer();
 
 		off('keydown', handleKeyDownRef.current);
-		setAddedEventListener(false);
 
 		// if there is no currently-spotted control or it is wrapped by the popup's container, we
 		// know it's safe to change focus
@@ -397,7 +396,6 @@ const Popup = (props) => {
 		if (!open) return;
 
 		on('keydown', handleKeyDownRef.current);
-		setAddedEventListener(true);
 
 		if (!Spotlight.isPaused() && !Spotlight.focus(containerId.current)) {
 			const current = Spotlight.getCurrent();
@@ -510,7 +508,6 @@ const Popup = (props) => {
 		return () => {
 			if (open) {
 				off('keydown', keyDownRef);
-				setAddedEventListener(false);
 			}
 			Spotlight.remove(idRef);
 		};
@@ -524,12 +521,12 @@ const Popup = (props) => {
 
 	// Remove the keydown listener and add a new listener when the handleKeyDown function is re-created
 	useEffect(() => {
-		if (addedEventListener) {
+		if (open && handleKeyDownRef.current !== handleKeyDown) {
 			off('keydown', handleKeyDownRef.current);
 			handleKeyDownRef.current = handleKeyDown;
-			on('keydown', handleKeyDownRef.current);
+			on('keydown', handleKeyDown);
 		}
-	}, [addedEventListener, handleKeyDown]);
+	}, [handleKeyDown, open]);
 
 	return (
 		<FloatingLayer
