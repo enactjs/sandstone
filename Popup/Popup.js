@@ -306,7 +306,6 @@ const Popup = (props) => {
 	Object.assign(rest, {noAnimation, position, spotlightRestrict});
 
 	const [activator, setActivator] = useState(null);
-	const [addedEventListener, setAddedEventListener] = useState(false);
 	const [floatLayerOpen, setFloatLayerOpen] = useState(open);
 	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
 	const [prevOpen, setPrevOpen] = useState(open);
