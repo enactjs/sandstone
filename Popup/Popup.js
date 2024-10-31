@@ -300,10 +300,13 @@ const popupDefaultProps = {
  */
 const Popup = (props) => {
 	const allComponentProps = setDefaultProps(props, popupDefaultProps);
-	const {noAnimation, open, position, spotlightRestrict} = allComponentProps;
-	const {noAutoDismiss, no5WayClose, onClose, scrimType, ...rest} = allComponentProps;
+	const {noAnimation, noAutoDismiss, no5WayClose, onClose, open, position, scrimType, spotlightRestrict, ...rest} = allComponentProps;
+
+	// Assigned the needed props to the rest object for the child component
+	Object.assign(rest, {noAnimation, position, spotlightRestrict});
 
 	const [activator, setActivator] = useState(null);
+	const [addedEventListener, setAddedEventListener] = useState(false);
 	const [floatLayerOpen, setFloatLayerOpen] = useState(open);
 	const [popupOpen, setPopupOpen] = useState(open ? OpenState.OPEN : OpenState.CLOSED);
 	const [prevOpen, setPrevOpen] = useState(open);
@@ -311,7 +314,7 @@ const Popup = (props) => {
 	const containerId = useRef(Spotlight.add());
 	const paused = useRef(new Pause('Popup'));
 
-	const handleKeyDown = (ev) => {
+	const handleKeyDown = useCallback((ev) => {
 		if (no5WayClose) return;
 
 		const keyCode = ev.keyCode;
@@ -352,7 +355,7 @@ const Popup = (props) => {
 				}
 			}
 		}
-	};
+	}, [allComponentProps, no5WayClose, onClose, position, spotlightRestrict]);
 
 	const handleKeyDownRef = useRef(handleKeyDown);
 
@@ -367,6 +370,7 @@ const Popup = (props) => {
 		const lastContainerId = getLastContainer();
 
 		off('keydown', handleKeyDownRef.current);
+		setAddedEventListener(false);
 
 		// if there is no currently-spotted control or it is wrapped by the popup's container, we
 		// know it's safe to change focus
@@ -393,6 +397,7 @@ const Popup = (props) => {
 		if (!open) return;
 
 		on('keydown', handleKeyDownRef.current);
+		setAddedEventListener(true);
 
 		if (!Spotlight.isPaused() && !Spotlight.focus(containerId.current)) {
 			const current = Spotlight.getCurrent();
@@ -505,6 +510,7 @@ const Popup = (props) => {
 		return () => {
 			if (open) {
 				off('keydown', keyDownRef);
+				setAddedEventListener(false);
 			}
 			Spotlight.remove(idRef);
 		};
@@ -515,6 +521,15 @@ const Popup = (props) => {
 		getDerivedStateFromProps();
 		handleComponentUpdate();
 	}, [getDerivedStateFromProps, handleComponentUpdate]);
+
+	// Remove the keydown listener and add a new listener when the handleKeyDown function is re-created
+	useEffect(() => {
+		if (addedEventListener) {
+			off('keydown', handleKeyDownRef.current);
+			handleKeyDownRef.current = handleKeyDown;
+			on('keydown', handleKeyDownRef.current);
+		}
+	}, [addedEventListener, handleKeyDown]);
 
 	return (
 		<FloatingLayer
@@ -529,7 +544,7 @@ const Popup = (props) => {
 				data-webos-voice-exclusive
 				onHide={handlePopupHide}
 				onShow={handlePopupShow}
-				open={popupOpen >= OpenState.OPENING && open}
+				open={popupOpen >= OpenState.OPENING}
 				spotlightId={containerId.current}
 			/>
 		</FloatingLayer>
