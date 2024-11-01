@@ -501,14 +501,12 @@ const Popup = (props) => {
 			}
 		}
 
-		const idRef = containerId.current;
-		const keyDownRef = handleKeyDownRef.current;
-
 		return () => {
 			if (open) {
-				off('keydown', keyDownRef);
+				off('keydown', handleKeyDownRef.current);
 			}
-			Spotlight.remove(idRef);
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+			Spotlight.remove(containerId.current);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -518,7 +516,7 @@ const Popup = (props) => {
 		handleComponentUpdate();
 	}, [getDerivedStateFromProps, handleComponentUpdate]);
 
-	// Remove the keydown listener and add a new listener when the handleKeyDown function is re-created
+	// Remove the keydown listener and add a new listener when the handleKeyDown function is re-created and Popup is open
 	useEffect(() => {
 		if (open && handleKeyDownRef.current !== handleKeyDown) {
 			off('keydown', handleKeyDownRef.current);
