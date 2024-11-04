@@ -1,5 +1,6 @@
+/* global ENACT_PACK_ISOMORPHIC */
 import enactPkg from '@enact/core/package.json';
-import {render} from 'react-dom';
+import {createRoot, hydrateRoot} from 'react-dom/client';
 
 import appPkg from '../package.json';
 
@@ -8,10 +9,11 @@ import App from './App';
 const appElement = (<App />);
 
 if (typeof window !== 'undefined') {
-	render(
-		appElement,
-		document.getElementById('root')
-	);
+	if (ENACT_PACK_ISOMORPHIC) {
+		hydrateRoot(document.getElementById('root'), appElement);
+	} else {
+		createRoot(document.getElementById('root')).render(appElement);
+	}
 
 	let versionDiv = document.createElement('div');
 	versionDiv.id = 'version_info';

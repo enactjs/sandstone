@@ -197,6 +197,14 @@ const TabLayoutBase = kind({
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
+		/**
+		 * Indicates the content's text direction is right-to-left.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		rtl: PropTypes.bool,
+
 		/*
 		 * State of possible skin variants.
 		 *
@@ -205,14 +213,6 @@ const TabLayoutBase = kind({
 		 * @type {Object}
 		 */
 		skinVariants: PropTypes.object,
-
-		/**
-		 * Indicates the content's text direction is right-to-left.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
 
 		/**
 		 * Assign a custom size to horizontal tabs.
