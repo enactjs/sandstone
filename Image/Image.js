@@ -109,12 +109,12 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {
 		return <Wrapped {...props} />;
 	};
 
-	ResponsiveImage.displayName = 'ResponsiveImageDecorator';
-	ResponsiveImage.propTypes = {
+	ResponsiveImageDecorator.displayName = 'ResponsiveImageDecorator';
+	ResponsiveImageDecorator.propTypes = {
 		src: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 	};
 
-	return ResponsiveImage;
+	return ResponsiveImageDecorator;
 });
 
 /**
