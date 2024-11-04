@@ -91,7 +91,8 @@ const ImageBase = kind({
 // This is ripe for refactoring, and could probably move into UI to be generalized, but that's for
 // another time. -B 2018-05-01
 const ResponsiveImageDecorator = hoc((config, Wrapped) => {
-	const ResponsiveImage = (props) => {
+	// eslint-disable-next-line no-shadow
+	const ResponsiveImageDecorator = (props) => {
 		const [, setSrc] = useState(selectSrc(props.src));
 
 		useEffect(() => {
@@ -115,7 +116,6 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {
 
 	return ResponsiveImage;
 });
-
 
 /**
  * Sandstone-specific behaviors to apply to {@link sandstone/Image.ImageBase|Image}.
