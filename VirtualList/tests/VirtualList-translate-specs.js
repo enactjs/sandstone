@@ -460,44 +460,23 @@ describe('VirtualList with translate \'scrollMode\'', () => {
 			act(() => myScrollTo({align: 'bottom', animate: false}));
 		});
 
-		test.skip('should scroll to the given align with scrollTo when \'itemSizes\' is given', (done) => {
+		test('should warn if both \'minSize\' in \'itemSize\' prop and \'cbScrollTo\' prop are given', () => {
 			const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-			const itemSizes = [100, 200, 300, 400, 100, 200, 300, 400, 100, 200];
-			const itemSizeSum = itemSizes.reduce((sum, value) => sum + value); // 2300
+			const variableItemSize = {
+				minSize: itemSize,
+				size: [100, 200, 300, 400, 100, 200, 300, 400, 100, 200]
+			};
 
-			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = itemSizeSum - clientSize.clientHeight + 30;
-				const actual = resultScrollTop;
-
-				expect(actual).toBe(expected);
-			});
-
-			const {rerender} = render(
+			render(
 				<VirtualList
 					cbScrollTo={getScrollTo}
 					clientSize={clientSize}
 					dataSize={10}
 					itemRenderer={renderItem}
-					itemSize={itemSize}
-					onScrollStop={onScrollStop}
+					itemSize={variableItemSize}
 					scrollMode="translate"
 				/>
 			);
-
-			rerender(
-				<VirtualList
-					cbScrollTo={getScrollTo}
-					clientSize={clientSize}
-					dataSize={dataSize}
-					itemRenderer={renderItem}
-					itemSize={itemSize}
-					itemSizes={itemSizes}
-					onScrollStop={onScrollStop}
-					scrollMode="translate"
-				/>
-			);
-
-			act(() => myScrollTo({align: 'bottom', animate: false}));
 
 			const expectedErrorMsg = 'Warning: VirtualList with `minSize` in `itemSize` prop does not support `cbScrollTo` prop';
 			expect(consoleSpy).toHaveBeenCalled();

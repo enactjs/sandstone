@@ -88,6 +88,7 @@ const SliderTests = [
 		},
 		focus: true
 	},
+	// [QWTC-2192]
 	{
 		component: <Slider tooltip={<Tooltip position="above" />} disabled value={40} backgroundProgress={0.5} />,
 		wrapper: {

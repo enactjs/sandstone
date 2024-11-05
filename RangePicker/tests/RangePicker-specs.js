@@ -15,11 +15,12 @@ describe('RangePicker Specs', () => {
 		expect(textField).toHaveClass(expected);
 	});
 
-	test('should increase by step amount on increment press', () => {
+	test('should increase by step amount on increment press', async () => {
+		const user = userEvent.setup();
 		render(<RangePicker min={0} max={100} defaultValue={10} step={1} noAnimation />);
 		const incrementButton = screen.getByText('▶');
 
-		userEvent.click(incrementButton);
+		await user.click(incrementButton);
 
 		const textField = screen.getByText('11');
 		const expected = 'item';
@@ -28,11 +29,12 @@ describe('RangePicker Specs', () => {
 		expect(textField).toHaveClass(expected);
 	});
 
-	test('should decrease by step amount on decrement press', () => {
+	test('should decrease by step amount on decrement press', async () => {
+		const user = userEvent.setup();
 		render(<RangePicker min={0} max={100} defaultValue={10} step={1} noAnimation />);
 		const decrementButton = screen.getByText('◀');
 
-		userEvent.click(decrementButton);
+		await user.click(decrementButton);
 
 		const textField = screen.getByText('9');
 		const expected = 'item';

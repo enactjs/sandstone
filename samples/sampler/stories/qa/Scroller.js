@@ -1,11 +1,14 @@
+import {add, is} from '@enact/core/keymap';
 import Button from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
+import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
+import {Heading} from '@enact/sandstone/Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {InputField} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
-import Scroller from '@enact/sandstone/Scroller';
 import {Header} from '@enact/sandstone/Panels';
-import {FixedPopupPanels, Panel} from '@enact/sandstone/FixedPopupPanels';
+import {ContentContainerDecorator, Scroller} from '@enact/sandstone/Scroller';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -14,12 +17,16 @@ import {boolean, number, range, select} from '@enact/storybook-utils/addons/cont
 import Group from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import {Component, useCallback, useLayoutEffect, useRef, useState} from 'react';
+import {Component, useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import {svgGenerator} from '../helper/svg';
 
 import css from './Scroller.module.less';
+
+add('cancel', 27);
+const isCancel = is('cancel');
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
@@ -218,7 +225,202 @@ for (let i = 0; i < 20; i++) {
 	itemsArr.push(populateItems({index: i}));
 }
 
+const ContainerDivWithLeaveForConfig = SpotlightContainerDecorator({leaveFor: {left: '', right: ''}}, 'div');
+
 export const EditableList = (args) => {
+	const dataSize = args['editableDataSize'];
+	const [items, setItems] = useState(itemsArr);
+	const [editMode, setEditMode] = useState(false);
+	const removeItem = useRef();
+	const hideItem = useRef();
+	const showItem = useRef();
+	const focusItem = useRef();
+	const blurItem = useRef();
+	const divRef = useRef();
+	const mutableRef = useRef({
+		hideIndex: null
+	});
+
+	useLayoutEffect(() => {
+		itemsArr = [];
+		for (let i = 0; i < dataSize; i++) {
+			itemsArr.push(populateItems({index: i}));
+		}
+		setItems(itemsArr);
+		mutableRef.current.hideIndex = dataSize;
+	}, [dataSize]);
+
+	const onClickModeButton = useCallback(() => {
+		setEditMode(mode => !mode);
+	}, [setEditMode]);
+
+	const onClickRemoveButton = useCallback((ev) => {
+		if (removeItem.current) {
+			removeItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const onClickHideButton = useCallback((ev) => {
+		if (hideItem.current) {
+			hideItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const onClickShowButton = useCallback((ev) => {
+		if (showItem.current) {
+			showItem.current();
+		}
+		ev.preventDefault();
+	}, []);
+
+	const onFocusItem = useCallback((ev) => {
+		if (focusItem.current) {
+			focusItem.current(ev.target);
+		}
+	}, []);
+
+	const onMouseLeaveItem = useCallback((ev) => {
+		if (blurItem.current && Spotlight.getPointerMode()) {
+			blurItem.current(ev.target);
+		}
+	}, []);
+
+	const handleComplete = useCallback((ev) => {
+		const {orders, hideIndex} = ev;
+		mutableRef.current.hideIndex = hideIndex;
+
+		// change data from the new orders
+		const newItems = [];
+
+		orders.forEach(order => {
+			newItems.push(items[order - 1]);
+		});
+
+		for (let i = 0; i < orders.length; i++) {
+			newItems[i].disabled = (i >= hideIndex);
+		}
+
+		setItems(newItems);
+	}, [items]);
+
+	useEffect(() => {
+		divRef.current.addEventListener('keydown', (ev) => {
+			const {keyCode} = ev;
+			if (isCancel(keyCode)) {
+				setEditMode(false);
+			}
+		});
+	}, [divRef]);
+
+	return (
+		<div ref={divRef}>
+			<Container>
+				{editMode ? <Button style={{marginLeft: '36px'}} onClick={onClickModeButton} icon="arrowhookleft" /> : <Button style={{marginLeft: '36px'}} onClick={onClickModeButton} icon="edit" />}
+				{editMode ?
+					<Scroller
+						direction="horizontal"
+						editable={{
+							centered: args['editableCentered'],
+							css,
+							hideIndex: mutableRef.current.hideIndex,
+							onComplete: handleComplete,
+							removeItemFuncRef: removeItem,
+							hideItemFuncRef: hideItem,
+							showItemFuncRef: showItem,
+							blurItemFuncRef: blurItem,
+							focusItemFuncRef: focusItem,
+							selectItemBy: 'press'
+						}}
+						focusableScrollbar={args['focusableScrollbar']}
+						horizontalScrollbar={args['horizontalScrollbar']}
+						hoverToScroll={args['hoverToScroll']}
+						key={args['scrollMode']}
+						noScrollByWheel={args['noScrollByWheel']}
+						onClick={action('onClickScroller')}
+						onKeyDown={action('onKeyDown')}
+						onScrollStart={action('onScrollStart')}
+						onScrollStop={action('onScrollStop')}
+						scrollMode={args['scrollMode']}
+						spotlightDisabled={args['spotlightDisabled']}
+						verticalScrollbar={args['verticalScrollbar']}
+					>
+						{
+							items.map((item, index) => {
+								return (
+									<div
+										aria-label={`Image ${item.index}`}
+										className={classNames(css.itemWrapper, {[css.hidden]: item.disabled})}
+										data-index={item.index}
+										key={item.index}
+										onMouseLeave={onMouseLeaveItem}
+										style={{order: index + 1}}
+									>
+										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
+											{item.disabled ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
+											{item.disabled ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
+											{item.disabled ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
+										</ContainerDivWithLeaveForConfig>
+										<ImageItem
+											src={item.src}
+											className={css.imageItem}
+											disabled={item.disabled}
+											onClick={action('onClickItem')}
+											onFocus={onFocusItem}
+										>
+											{`Image ${item.index}`}
+										</ImageItem>
+									</div>
+								);
+							})
+						}
+					</Scroller> :
+					<Scroller
+						direction="horizontal"
+						onClick={action('onClickScroller')}
+						onKeyDown={action('onKeyDown')}
+						onScrollStart={action('onScrollStart')}
+						onScrollStop={action('onScrollStop')}
+					>
+						<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
+							items.map((item, index) => {
+								return (
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.disabled})} aria-label={`Image ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+										<div className={css.removeButtonContainer} />
+										<ImageItem
+											aria-label={`Image ${item.index}. Edit mode to press and hold OK key`}
+											src={item.src}
+											className={css.imageItem}
+											disabled={item.disabled}
+											onClick={action('onClickItem')}
+										>
+											{`Image ${item.index}`}
+										</ImageItem>
+									</div>
+								);
+							})}
+						</div>
+					</Scroller>
+				}
+			</Container>
+		</div>
+	);
+};
+
+boolean('editableCentered', EditableList, Config, true);
+number('editableDataSize', EditableList, Config, 20);
+select('focusableScrollbar', EditableList, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', EditableList, prop.scrollbarOption, Config);
+boolean('hoverToScroll', EditableList, Config, true);
+boolean('noScrollByWheel', EditableList, Config);
+select('scrollMode', EditableList, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', EditableList, Config, false);
+select('verticalScrollbar', EditableList, prop.scrollbarOption, Config);
+
+EditableList.storyName = 'With Editable Items';
+
+export const EditableListWithLongPress = (args) => {
 	const dataSize = args['editableDataSize'];
 	const [items, setItems] = useState(itemsArr);
 	const removeItem = useRef();
@@ -236,7 +438,6 @@ export const EditableList = (args) => {
 			removeItem.current();
 		}
 		ev.preventDefault();
-		ev.stopPropagation();
 	}, []);
 
 	const handleComplete = useCallback((ev) => {
@@ -296,17 +497,17 @@ export const EditableList = (args) => {
 	);
 };
 
-boolean('editableCentered', EditableList, Config, true);
-number('editableDataSize', EditableList, Config, 20);
-select('focusableScrollbar', EditableList, prop.focusableScrollbarOption, Config);
-select('horizontalScrollbar', EditableList, prop.scrollbarOption, Config);
-boolean('hoverToScroll', EditableList, Config, true);
-boolean('noScrollByWheel', EditableList, Config);
-select('scrollMode', EditableList, prop.scrollModeOption, Config);
-boolean('spotlightDisabled', EditableList, Config, false);
-select('verticalScrollbar', EditableList, prop.scrollbarOption, Config);
+boolean('editableCentered', EditableListWithLongPress, Config, true);
+number('editableDataSize', EditableListWithLongPress, Config, 20);
+select('focusableScrollbar', EditableListWithLongPress, prop.focusableScrollbarOption, Config);
+select('horizontalScrollbar', EditableListWithLongPress, prop.scrollbarOption, Config);
+boolean('hoverToScroll', EditableListWithLongPress, Config, true);
+boolean('noScrollByWheel', EditableListWithLongPress, Config);
+select('scrollMode', EditableListWithLongPress, prop.scrollModeOption, Config);
+boolean('spotlightDisabled', EditableListWithLongPress, Config, false);
+select('verticalScrollbar', EditableListWithLongPress, prop.scrollbarOption, Config);
 
-EditableList.storyName = 'with editable items';
+EditableListWithLongPress.storyName = 'With Editable Items Trigger By Long Press';
 
 export const ListOfThingsInFixedPopupPanels = (args) => (
 	<FixedPopupPanels
@@ -1037,3 +1238,49 @@ select('scrollMode', WithInputFields, prop.scrollModeOption, Config);
 boolean('spotlightDisabled', WithInputFields, Config, false);
 
 WithInputFields.storyName = 'With InputFields';
+
+const renderImageItemForVG = ({index, ...rest}) => { // eslint-disable-line enact/prop-types
+	const {text, subText, source} = imageItems[index];
+
+	return (
+		<ImageItem {...rest} label={subText} src={source}>
+			{text}
+		</ImageItem>
+	);
+};
+
+const ListContainer = ContentContainerDecorator(
+	{enterTo: 'last-focused'},
+	'div'
+);
+
+const List = () => (
+	<ListContainer>
+		<Heading>Title</Heading>
+		<div style={{height: ri.scale(480)}}>
+			<VirtualGridList
+				dataSize={imageItems.length}
+				direction="horizontal"
+				itemRenderer={renderImageItemForVG}
+				itemSize={{minWidth: ri.scale(600), minHeight: ri.scale(480)}}
+				horizontalScrollbar="hidden"
+			/>
+		</div>
+	</ListContainer>
+);
+
+export const WithContentContainerOnFocus = () => {
+	updateDataSize(10);
+
+	return (
+		<Scroller>
+			<List />
+			<List />
+			<List />
+			<List />
+			<List />
+		</Scroller>
+	);
+};
+
+WithContentContainerOnFocus.storyName = 'With Content Container';

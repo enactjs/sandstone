@@ -1,0 +1,97 @@
+// IconItem.module.less
+//
+@import '../styles/mixins.less';
+@import '../styles/variables.less';
+@import '../styles/skin.less';
+
+.iconItem {
+	position: relative;
+	transition: transform 200ms ease-in-out;
+	will-change: transform;
+
+	.content {
+		box-sizing: border-box;
+		background-size: contain;
+		border-radius: @sand-iconitem-border-radius;
+		font-weight: @sand-iconitem-font-weight;
+	}
+
+	&.bordered .content {
+		border-width: @sand-iconitem-border-width;
+		border-style: @sand-iconitem-border-style;
+	}
+
+	&:not(.labelOnFocus) .icon {
+		margin: @sand-iconitem-icon-margin;
+	}
+
+	.image {
+		display: block;
+		margin: 0;
+	}
+
+	.labelContainer {
+		width: 100%;
+	}
+
+	.label {
+		font-size: @sand-iconitem-label-font-size;
+		line-height: @sand-iconitem-label-line-height;
+		padding: @sand-iconitem-label-padding;
+	}
+
+	.title {
+		font-size: @sand-iconitem-title-font-size;
+		line-height: @sand-iconitem-title-line-height;
+		margin: @sand-iconitem-title-margin;
+	}
+
+	&.labelOnFocus {
+		.label, .labelContainer {
+			display: none;
+		}
+	}
+
+	&.titleOnFocus .title {
+		visibility: hidden;
+	}
+
+	.focus({
+		transform: @sand-iconitem-focus-transform;
+
+		&.labelOnFocus {
+			.icon {
+				margin: @sand-iconitem-icon-margin;
+			}
+
+			.label, .labelContainer {
+				display: block;
+			}
+		}
+
+		&.titleOnFocus .title {
+			visibility: visible;
+		}
+	});
+
+	// Skin colors
+	.applySkins({
+		&.bordered .content {
+			border-color: @sand-iconitem-border-color;
+		}
+
+		.label {
+			color: @sand-iconitem-label-color;
+		}
+
+		&.darkLabel .label {
+			color: @sand-iconitem-label-dark-color;
+		}
+
+		.disabled ({
+			.vendor-opacity(@sand-iconitem-disabled-opacity);
+		});
+
+		.sand-focus-highlight(content);
+	});
+}

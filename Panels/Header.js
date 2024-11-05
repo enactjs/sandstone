@@ -15,6 +15,7 @@ import {Children, useContext, useState} from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
+import Skinnable from '../Skinnable';
 
 import {PanelsStateContext} from '../internal/Panels';
 import {useContextAsDefaults} from '../internal/Panels/util';
@@ -133,7 +134,7 @@ const HeaderBase = kind({
 		 * Determines what triggers the header content to start its animation.
 		 *
 		 * @type {('focus'|'hover'|'render')}
-		 * @default 'hover'
+		 * @default 'render'
 		 * @public
 		 */
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
@@ -180,6 +181,14 @@ const HeaderBase = kind({
 		 * @public
 		 */
 		onClose: PropTypes.func,
+
+		/**
+		 * Adds shadow to the text contents.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		shadowed: PropTypes.bool,
 
 		/**
 		 * A location for arbitrary elements to be placed above the title
@@ -337,10 +346,11 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, noSubtitle, type, styler, subtitle}) => styler.append(
+		className: ({centered, children, noSubtitle, type, shadowed, styler, subtitle}) => styler.append(
 			{
 				centered,
 				noSubtitle,
+				shadowed,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				withChildren: hasChildren(children),
 				withSubtitle: subtitle
@@ -420,6 +430,7 @@ const HeaderBase = kind({
 		noCloseButton,
 		onBack,
 		onClose,
+		shadowed,
 		slotAbove,
 		slotAfter,
 		slotAfterRef,
@@ -427,6 +438,7 @@ const HeaderBase = kind({
 		slotBeforeRef,
 		slotSize,
 		titleCell,
+		type,
 		...rest
 	}) => {
 		delete rest.arranger;
@@ -436,7 +448,6 @@ const HeaderBase = kind({
 		delete rest.subtitleId;
 		delete rest.title;
 		delete rest.titleId;
-		delete rest.type;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
@@ -447,6 +458,7 @@ const HeaderBase = kind({
 				icon="arrowhookleft"
 				iconFlip="auto"
 				onClick={onBack}
+				shadowed={shadowed}
 				size="small"
 			/>
 		) : null);
@@ -459,6 +471,7 @@ const HeaderBase = kind({
 				className={css.close}
 				icon="closex"
 				onClick={onClose}
+				shadowed={shadowed}
 				size="small"
 			/>
 		) : null);
@@ -467,18 +480,24 @@ const HeaderBase = kind({
 		// the cell sizes don't need to be synced.
 		const syncCellSize = (centered ? slotSize : null);
 
+		// Hide slots for the first render to avoid unexpected positioning when 'centered' is given.
+		// After the first render, HeaderMeasurementDecorator measures widths of slots and set right 'slotSize'.
+		const hideSlots = {
+			opacity: centered && slotSize === '0rem' ? '0' : null
+		};
+
 		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
-					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
+					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotBeforeRef} className={css.slotSizer}>
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					{titleCell}
-					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? null : titleCell}
+					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}
 						</span>
@@ -555,7 +574,8 @@ const HeaderDecorator = compose(
 	SpotlightContainerDecorator,
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	ContextAsDefaultsHeader,
-	HeaderMeasurementDecorator
+	HeaderMeasurementDecorator,
+	Skinnable
 );
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.

@@ -142,4 +142,13 @@ describe('Header Specs', () => {
 		expect(closeButtonAriaLabel).toBeInTheDocument();
 		expect(slotAfter).toHaveClass('slotAfter');
 	});
+
+	test ('should set close button `shadowed` to true when `shadowed` is set to true', () => {
+		render(<Header shadowed><title>title</title></Header>);
+
+		const button = screen.getByRole('button');
+		const expected = 'button shadowed';
+
+		expect(button).toHaveClass(expected);
+	});
 });

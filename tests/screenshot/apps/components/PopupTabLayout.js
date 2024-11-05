@@ -72,12 +72,23 @@ const tabWithSizedBlockFat = SimpleTab({title: 'Fat', icon: 'stop', style: {widt
 const tabWithSizedBlockTall = SimpleTab({title: 'Tall', icon: 'stop', style: {height: 9600, width: 500}});
 
 const PopupTabLayoutTests = [
+	// QWTC-2423 start
 	{
 		component: <PopupTabLayout open>{tabs}</PopupTabLayout>,
 		wrapper: {full: true}
 	},
 	{
+		component: <PopupTabLayout open>{tabs}</PopupTabLayout>,
+		locale: 'ar-SA',
+		wrapper: {full: true}
+	},
+	// QWTC-2423 end
+	{
 		component: <PopupTabLayout open scrimType="transparent">{tabs}</PopupTabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <PopupTabLayout open scrimType="none">{tabs}</PopupTabLayout>,
 		wrapper: {full: true}
 	},
 	{

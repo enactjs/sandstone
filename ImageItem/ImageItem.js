@@ -3,7 +3,7 @@
  *
  * @example
  * <ImageItem
- *   src="http://via.placeholder.com/100x100/9037ab/ffffff/png?text=Image0"
+ *   src="https://placehold.co/100x100/9037ab/ffffff/png?text=Image0"
  *   label="A secondary caption"
  * >
  * 	The primary caption for the image
@@ -155,7 +155,7 @@ const ImageItemBase = kind({
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
-		 * Placeholder image used while {@link sandstone/ImageItem.ImageItem#src|src}
+		 * Placeholder image used while {@link sandstone/ImageItem.ImageItemBase.src|src}
 		 * is loaded.
 		 *
 		 * @type {String}
@@ -327,7 +327,7 @@ const ImageItemDecorator = compose(
  * Usage:
  * ```
  * <ImageItem
- *   src="http://via.placeholder.com/100x100/9037ab/ffffff/png?text=Image0"
+ *   src="https://placehold.co/100x100/9037ab/ffffff/png?text=Image0"
  *   label="A secondary caption"
  * >
  * 	The primary caption for the image

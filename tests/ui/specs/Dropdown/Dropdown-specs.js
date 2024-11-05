@@ -97,7 +97,37 @@ describe('Dropdown', function () {
 			const wrapper = $('#wrapper');
 			await wrapper.click({x: 0, y: 0});
 			// Verify Step 8: The 'Default' Dropdown is closed.
-			expect(await dropdown.list.isExisting()).to.not.be.true();
+			expect(await dropdown.list.isExisting()).not.toBe(true);
+		});
+
+		it('should move Spotlight to the next/previous item on PageDown/PageUp', async function () {
+			const dropdown = Page.components.dropdownMoreChildren;
+
+			// 5-way Spot and 5-way Select the 'More Children' Dropdown.
+			await Page.openDropdown(dropdown);
+			// Verify: The 'Default' Dropdown opens.
+			// Verify: Spotlight is on the first option.
+			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
+
+			// ChannelDown(PageDown).
+			// Verify: Spotlight is on the fifth option.
+			await Page.pageDown();
+			waitForFocusedText(dropdown, 'five', 500, undefined, 100);
+
+			// ChannelDown(PageDown) to the last option.
+			// Verify: Spotlight is on the ninth option.
+			await Page.pageDown();
+			waitForFocusedText(dropdown, 'nine', 500, undefined, 100);
+
+			// ChannelUp(PageUp).
+			// Verify: Spotlight is on the sixth option.
+			await Page.pageUp();
+			waitForFocusedText(dropdown, 'six', 500, undefined, 100);
+
+			// ChannelUp(PageUp) to the first option.
+			// Verify: Spotlight is on the first option.
+			await Page.pageUp();
+			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 		});
 	});
 
@@ -118,7 +148,7 @@ describe('Dropdown', function () {
 			await wrapper.click({x: 0, y: 0});
 
 			// Verify Step 3: that the floating list no longer exists (Dropdown is closed)
-			expect(await dropdown.list.isExisting()).to.not.be.true();
+			expect(await dropdown.list.isExisting()).not.toBe(true);
 		});
 	});
 
@@ -138,12 +168,12 @@ describe('Dropdown', function () {
 			// Step 4: Press the *Back* key on the remote.
 			await Page.backKey();
 			// Verify Step 4: The Dropdown closes.
-			expect(await dropdown.list.isExisting()).to.not.be.true();
+			expect(await dropdown.list.isExisting()).not.toBe(true);
 
 			// Step 5: Click on the Dropdown placeholder "No selection".
 			await dropdown.button.click();
 			// Verify Step 5: The Dropdown opens.
-			expect(await dropdown.list.isExisting()).to.be.true();
+			expect(await dropdown.list.isExisting()).toBe(true);
 
 			// Step 6: Move the pointer over any Option.  Moving to  Item 'two' here.
 			await dropdown.item(1).moveTo();
@@ -153,7 +183,7 @@ describe('Dropdown', function () {
 			// Step 7: Press the *Back* key on the remote.
 			await Page.backKey();
 			// Verify Step 7: Dropdown closes.
-			expect(await dropdown.list.isExisting()).to.not.be.true();
+			expect(await dropdown.list.isExisting()).not.toBe(true);
 		});
 	});
 
@@ -172,7 +202,7 @@ describe('Dropdown', function () {
 			// TODO: This refocuses the first dropdown which is being blurred for some reason with
 			// Scroller. Once that bug is resolved, this can be removed.
 			await Page.spotlightLeft();
-			expect(await Page.components.dropdown1.button.isFocused()).to.be.true();
+			expect(await Page.components.dropdown1.button.isFocused()).toBe(true);
 
 			await Page.spotlightDown();
 			await Page.delay(250);
@@ -181,7 +211,7 @@ describe('Dropdown', function () {
 			expect(getDropdownOffset(
 				await Page.components.dropdown1.self,
 				await $('#scroller')
-			)).to.not.equal(0);
+			)).not.toBe(0);
 
 			await Page.spotlightUp();
 			await Page.delay(250);
@@ -191,7 +221,7 @@ describe('Dropdown', function () {
 				await Page.components.dropdown1.self,
 				await $('#scroller')
 			);
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 	});
 });

@@ -35,7 +35,7 @@ const Tab = kind({
 		/**
 		 * The icon content of the tab.
 		 *
-		 * @see {@link ui/Icon.Icon.children}
+		 * @see {@link ui/Icon.IconBase.children}
 		 * @type {String|Object}
 		 * @public
 		 */

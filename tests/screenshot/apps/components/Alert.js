@@ -11,12 +11,14 @@ import img from '../../images/300x300.png';
 
 import {withConfig, withProps, LoremString} from './utils';
 
+import css from './Alert.module.less';
 
 // Only type: 'fullscreen' supports title prop
 const fullscreenTests = [
 	<Alert open title="Title" />,
 	<Alert open>Alert!</Alert>,
-	<Alert open>{LoremString}</Alert>
+	<Alert open>{LoremString}</Alert>,
+	<Alert open title="Loooooooooooooooooooooong title with custom width" css={css}>{LoremString}</Alert>
 ];
 
 // Only type: 'overlay' supports children

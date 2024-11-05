@@ -205,5 +205,51 @@ export default {
 	camera            : 0x0F0188, // camera
 	cameradis         : 0x0F0189, // camera_dis
 	gamepad           : 0x0F018A, // gamepad
-	gamepaddis        : 0x0F018B  // gamepad_dis
+	gamepaddis        : 0x0F018B, // gamepad_dis
+	wowcast           : 0x0F018C, // wowcast
+	exclamation       : 0x0F018D, // exclamation
+	show              : 0x0F018E, // show
+	hide              : 0x0F018F, // hide
+	wifi15g           : 0x0F0191, // wifi1_5g
+	wifi25g           : 0x0F0192, // wifi2_5g
+	wifi35g           : 0x0F0193, // wifi3_5g
+	wifi45g           : 0x0F0194, // wifi4_5g
+	wifilock15g       : 0x0F0195, // wifilock1_5g
+	wifilock25g       : 0x0F0196, // wifilock2_5g
+	wifilock35g       : 0x0F0197, // wifilock3_5g
+	wifilock45g       : 0x0F0198, // wifilock4_5g
+	create            : 0x0F0199, // create
+	background        : 0x0F019A, // background
+	pen               : 0x0F019B, // pen
+	eraser            : 0x0F019C, // eraser
+	mediaplayer       : 0x0F019D, // mediaplayer
+	location          : 0x0F019E, // location
+	exit              : 0x0F019F, // exit
+	movies            : 0x0F01A0, // movies
+	mycontents        : 0x0F01A1, // mycontents
+	accessibility     : 0x0F01A2, // accessibility
+	seemore           : 0x0F01A3, // see_more
+	trailer           : 0x0F01A4, // trailer
+	onnow             : 0x0F01A5, // onnow
+	tvguidefvp        : 0x0F01A6, // tvguide_fvp
+	pcnotconnected    : 0x0F01A7, // pc_not_connected
+	fileppt           : 0x0F01A8, // file_ppt
+	textinput         : 0x0F01A9, // textinput
+	pagewidth         : 0x0F01AA, // pagewidth
+	index             : 0x0F01AB, // index
+	colorpicker       : 0x0F01AC, // colorpicker
+	ear               : 0x0F01AD, // ear
+	hand              : 0x0F01AE, // hand
+	remotecontrol     : 0x0F01AF, // remotecontrol
+	channelscheduling : 0x0F01B0, // channelscheduling
+	smartfunction     : 0x0F01B1, // smartfunction
+	appscontents      : 0x0F01B2, // appscontents
+	deviceconnect     : 0x0F01B3, // deviceconnect
+	move              : 0x0F01B4, // move
+	voiced            : 0x0F01B5, // voiced
+	auracast          : 0x0F01B6, // auracast
+	jumpbackward10    : 0x0F01B7, // jumpbackward_10
+	jumpforward10     : 0x0F01B8, // jumpforward_10
+	logout            : 0x0F01B9, // logout
+	sketch            : 0x0F01BA // sketch
 };

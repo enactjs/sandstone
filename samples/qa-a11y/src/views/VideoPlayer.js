@@ -35,8 +35,8 @@ const renderItem = ({index, ...rest}) => {
 
 const VideoPlayerView = () => (
 	<div style={{width: ri.scaleToRem(1280), height: ri.scaleToRem(800)}}>
-		<VideoPlayer poster="http://media.w3.org/2010/05/bunny/poster.png" title="Downton Abbey">
-			<source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
+		<VideoPlayer poster="http://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1-2k-png/07580.png" title="Cosmos Laundromat">
+			<source src="http://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4" type="video/mp4" />
 			<infoComponents>DTV REC 08:22 THX 16:9</infoComponents>
 			<MediaControls actionGuideButtonAriaLabel="More">
 				<bottomComponents>

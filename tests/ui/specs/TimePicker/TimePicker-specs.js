@@ -30,7 +30,7 @@ describe('TimePicker', function () {
 					await Page.spotlightUp();
 					const {hour: value} = await extractValues(timePicker);
 					const expected = hour < 12 ? hour + 1 : 1;
-					expect(value).to.equal(expected);
+					expect(value).toBe(expected);
 				});
 
 				it('should decrease the hour when decrementing the picker', async function () {
@@ -39,7 +39,7 @@ describe('TimePicker', function () {
 					await Page.spotlightDown();
 					const {hour: value} = await extractValues(timePicker);
 					const expected = hour > 1 ? hour - 1 : 12;
-					expect(value).to.equal(expected);
+					expect(value).toBe(expected);
 				});
 
 				it('should increase the minute when incrementing the picker', async function () {
@@ -49,7 +49,7 @@ describe('TimePicker', function () {
 					await Page.spotlightUp();
 					const {minute: value} = await extractValues(timePicker);
 					const expected = minute !== 59 ? minute + 1 : 0;
-					expect(value).to.equal(expected);
+					expect(value).toBe(expected);
 				});
 
 				it('should decrease the minute when decrementing the picker', async function () {
@@ -59,7 +59,7 @@ describe('TimePicker', function () {
 					await Page.spotlightDown();
 					const {minute: value} = await extractValues(timePicker);
 					const expected = minute !== 0 ? minute - 1 : 59;
-					expect(value).to.equal(expected);
+					expect(value).toBe(expected);
 				});
 
 				it('should update value text when incrementing the meridiem picker', async function () {
@@ -70,7 +70,7 @@ describe('TimePicker', function () {
 					await Page.spotlightUp();
 					const newTime = timePicker.timeLabel;
 					const value = time !== newTime;
-					expect(value).to.equal(true);
+					expect(value).toBe(true);
 				});
 
 				it('should update value text when decrementing the meridiem picker', async function () {
@@ -81,7 +81,7 @@ describe('TimePicker', function () {
 					await Page.spotlightDown();
 					const newTime = timePicker.timeLabel;
 					const value = time !== newTime;
-					expect(value).to.equal(true);
+					expect(value).toBe(true);
 				});
 				// End of [QWTC-2104] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
 
@@ -91,7 +91,7 @@ describe('TimePicker', function () {
 					for (let i = 12; i; i -= 1) {
 						await Page.spotlightDown();
 					}
-					expect(meridiem !== timePicker.item(timePicker.meridiem).getText()).to.be.true();
+					expect(meridiem !== timePicker.item(timePicker.meridiem).getText()).toBe(true);
 				});
 
 				it('should be able to change values with 5-way up and down keys [QWTC-2549]', async function () {
@@ -102,25 +102,25 @@ describe('TimePicker', function () {
 					// Step 3-2: Press 5-way Left.
 					await Page.spotlightLeft();
 					// Step 3-1 Verify: Spotlight on the hour picker.
-					expect(await timePicker.hour.isFocused()).to.equal(true);
+					expect(await timePicker.hour.isFocused()).toBe(true);
 					// Step 3-3: Press 5-way ok.
 					await Page.spotlightSelect();
 					// Step 3-2 Verify: Spotlight moves to minute picker.
-					expect(await timePicker.minute.isFocused()).to.equal(true);
+					expect(await timePicker.minute.isFocused()).toBe(true);
 
 					// Step 4: Press 5-way Up on the minute picker.
 					await Page.spotlightUp();
 					const expected = minute !== 59 ? minute + 1 : 0;
 					// Step 4-1 Verify: Spotlight on the minute picker.
 					// Step 4-2 Verify: The minute value is changed upward.
-					expect(await timePicker.minute.isFocused()).to.equal(true);
-					expect((await extractValues(timePicker)).minute).to.equal(expected);
+					expect(await timePicker.minute.isFocused()).toBe(true);
+					expect((await extractValues(timePicker)).minute).toBe(expected);
 					// Step 5: Press 5-way Down on the minute picker.
 					await Page.spotlightDown();
 					// Step 5-1 Verify: Spotlight on the minute picker.
 					// Step 5-2 Verify: The minute value is changed downward.
-					expect(await timePicker.minute.isFocused()).to.equal(true);
-					expect((await extractValues(timePicker)).minute).to.equal(minute);
+					expect(await timePicker.minute.isFocused()).toBe(true);
+					expect((await extractValues(timePicker)).minute).toBe(minute);
 				});
 
 				it('should move to the next picker with 5-way OK key [QWTC-2541]', async function () {
@@ -130,21 +130,21 @@ describe('TimePicker', function () {
 					// Step 3-2: Press 5-way Left.
 					await Page.spotlightLeft();
 					// Step 3-1 Verify: Spotlight on the hour picker.
-					expect(await timePicker.hour.isFocused()).to.equal(true);
+					expect(await timePicker.hour.isFocused()).toBe(true);
 					// Step 3-3: Press 5-way ok.
 					await Page.spotlightSelect();
 					// Step 3-2 Verify: Spotlight moves to minute picker.
-					expect(await timePicker.minute.isFocused()).to.equal(true);
+					expect(await timePicker.minute.isFocused()).toBe(true);
 
 					// Step 4: Press 5-way ok on the minute picker.
 					await Page.spotlightSelect();
 					// Step 4 Verify: Spotlight moves to the meridiem picker.
-					expect(await timePicker.meridiem.isFocused()).to.equal(true);
+					expect(await timePicker.meridiem.isFocused()).toBe(true);
 
 					// Step 5: Press 5-way ok on the meridiem picker.
 					await Page.spotlightSelect();
 					// Step 5 Verify: Spotlight still on the meridiem picker.
-					expect(await timePicker.meridiem.isFocused()).to.equal(true);
+					expect(await timePicker.meridiem.isFocused()).toBe(true);
 				});
 			});
 
@@ -160,7 +160,7 @@ describe('TimePicker', function () {
 					await timePicker.incrementer(timePicker.hour).click();
 					const {hour: value} = await extractValues(timePicker);
 					const expected = hour < 12 ? hour + 1 : 1;
-					expect(value).to.equal(expected);
+					expect(value).toBe(expected);
 				});
 
 				it('should decrease the hour when decrementing the picker]', async function () {
@@ -168,7 +168,7 @@ describe('TimePicker', function () {
 					await timePicker.decrementer(timePicker.hour).click();
 					const {hour: value} = await extractValues(timePicker);
 					const expected = hour > 1 ? hour - 1 : 12;
-					expect(value).to.equal(expected);
+					expect(value).toBe(expected);
 				});
 
 				it('should increase the minute when incrementing the picker]', async function () {
@@ -178,7 +178,7 @@ describe('TimePicker', function () {
 					await timePicker.incrementer(timePicker.minute).click();
 					const {minute: value} = await extractValues(timePicker);
 					const expected = minute !== 59 ? minute + 1 : 0;
-					expect(value).to.equal(expected);
+					expect(value).toBe(expected);
 				});
 
 				it('should decrease the minute when decrementing the picker', async function () {
@@ -188,7 +188,7 @@ describe('TimePicker', function () {
 					await timePicker.decrementer(timePicker.minute).click();
 					const {minute: value} = await extractValues(timePicker);
 					const expected = minute !== 0 ? minute - 1 : 59;
-					expect(value).to.equal(expected);
+					expect(value).toBe(expected);
 				});
 				// End of [QWTC-2098] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
 
@@ -198,7 +198,7 @@ describe('TimePicker', function () {
 					for (let i = 12; i; i -= 1) {
 						await timePicker.decrementer(timePicker.hour).click();
 					}
-					expect(value !== timePicker.timeLabel).to.be.true();
+					expect(value !== timePicker.timeLabel).toBe(true);
 				});
 			});
 		});
@@ -214,9 +214,9 @@ describe('TimePicker', function () {
 
 					const {hour, minute, meridiem} = await extractValues(timePicker);
 
-					expect(hour).to.equal(12);
-					expect(minute).to.equal(0);
-					expect(meridiem).to.equal('AM');
+					expect(hour).toBe(12);
+					expect(minute).toBe(0);
+					expect(meridiem).toBe('AM');
 				});
 			});
 		});
@@ -234,12 +234,12 @@ describe('TimePicker', function () {
 			describe('pointer', function () {
 				it('should not update hour on click', async function () {
 					await timePicker.hour.click();
-					expect(await timePicker.hour.isFocused()).to.be.true();
+					expect(await timePicker.hour.isFocused()).toBe(true);
 
 					await timePicker.incrementer(timePicker.hour).click();
 					browser.pause(500);
 					const {hour: value} = await extractValues(timePicker);
-					expect(value).to.equal(12);
+					expect(value).toBe(12);
 				});
 			});
 		});
@@ -250,21 +250,21 @@ describe('TimePicker', function () {
 				const {hour, minute, meridiem} = await extractValues(timePicker);
 
 				await timePicker.minute.click();
-				expect(await timePicker.minute.isFocused()).to.be.true();
+				expect(await timePicker.minute.isFocused()).toBe(true);
 				await timePicker.decrementer(timePicker.minute).click();
 
 				await timePicker.hour.click();
-				expect(await timePicker.hour.isFocused()).to.be.true();
+				expect(await timePicker.hour.isFocused()).toBe(true);
 				await timePicker.decrementer(timePicker.hour).click();
 
 				await timePicker.meridiem.click();
-				expect(await timePicker.meridiem.isFocused()).to.be.true();
+				expect(await timePicker.meridiem.isFocused()).toBe(true);
 				await timePicker.decrementer(timePicker.meridiem).click();
 
 				browser.pause(500);
-				expect(hour).to.equal(12);
-				expect(minute).to.equal(0);
-				expect(meridiem).to.equal('AM');
+				expect(hour).toBe(12);
+				expect(minute).toBe(0);
+				expect(meridiem).toBe('AM');
 			});
 
 		});
@@ -296,24 +296,24 @@ describe('TimePicker', function () {
 			await Page.showPointerByKeycode();
 			await $('#timePickerDefault').moveTo({xOffset: 200, yOffset: 100});
 			// Step 10-1 Verify: Spotlight on the hour picker.
-			await expect(await timePicker.hour.isFocused()).to.equal(true);
+			await expect(await timePicker.hour.isFocused()).toBe(true);
 			// Step 10-2: Press 5-way Right.
 			await Page.spotlightRight();
-			await expect(await timePicker.minute.isFocused()).to.equal(true);
+			await expect(await timePicker.minute.isFocused()).toBe(true);
 			// Step 10-3: Press 5-way ok.
 			await Page.spotlightSelect();
 			// Step 10-2 Verify: Spotlight moves to the hour picker.
-			await expect(await timePicker.hour.isFocused()).to.equal(true);
+			await expect(await timePicker.hour.isFocused()).toBe(true);
 
 			// Step 11: 5-way ok on the hour picker.
 			await Page.spotlightSelect();
 			// Step 11 Verify: Spotlight moves on the meridiem picker.
-			await expect(await timePicker.meridiem.isFocused()).to.equal(true);
+			await expect(await timePicker.meridiem.isFocused()).toBe(true);
 
 			// Step 12: 5-way ok on the meridiem picker.
 			await Page.spotlightSelect();
 			// Step 12 Verify: Spotlight still on the meridiem picker.
-			await expect(await timePicker.meridiem.isFocused()).to.equal(true);
+			await expect(await timePicker.meridiem.isFocused()).toBe(true);
 		});
 	});
 
@@ -326,7 +326,7 @@ describe('TimePicker', function () {
 
 		it('should move to the next picker with 5-way OK key in es-ES locale [QWTC-2541]', async function () {
 			// Step 6 Verify: There is no meridiem in ES.
-			expect(await timePicker.meridiem.isExisting(), 'meridiem exists').to.be.false();
+			expect(await timePicker.meridiem.isExisting()).toBe(false);
 
 			// Step 7-1: Hover on the hour picker.
 			await Page.showPointerByKeycode();
@@ -334,16 +334,16 @@ describe('TimePicker', function () {
 			// Step 7-2: Press 5-way Left.
 			await Page.spotlightLeft();
 			// Step 7-1 Verify: Spotlight on the hour picker.
-			await expect(await timePicker.hour.isFocused()).to.equal(true);
+			await expect(await timePicker.hour.isFocused()).toBe(true);
 			// Step 7-3: Press 5-way ok.
 			await Page.spotlightSelect();
 			// Step 7-2 Verify: Spotlight moves to minute picker.
-			await expect(await timePicker.minute.isFocused()).to.equal(true);
+			await expect(await timePicker.minute.isFocused()).toBe(true);
 
 			// Step 8: Press 5-way ok on the minute picker.
 			await Page.spotlightSelect();
 			// Step 8 Verify: Spotlight still on the minute picker.
-			await expect(await timePicker.minute.isFocused()).to.equal(true);
+			await expect(await timePicker.minute.isFocused()).toBe(true);
 		});
 	});
 
@@ -355,11 +355,11 @@ describe('TimePicker', function () {
 		});
 
 		it('should not have a meridiem picker', async function () {
-			expect(await timePicker.meridiem.isExisting(), 'meridiem exists').to.be.false();
+			expect(await timePicker.meridiem.isExisting()).toBe(false);
 		});
 
 		it('should display hours in 24-hour format', async function () {
-			expect((await extractValues(timePicker)).hour).to.equal(0); // midnight hour
+			expect((await extractValues(timePicker)).hour).toBe(0); // midnight hour
 		});
 
 		it('should increment hours from 23 to 0', async function () {
@@ -368,23 +368,23 @@ describe('TimePicker', function () {
 
 			// go to 23 first
 			await timePicker.hour.click();
-			expect(await timePicker.hour.isFocused()).to.be.true();
+			expect(await timePicker.hour.isFocused()).toBe(true);
 
 			await timePicker.decrementer(timePicker.hour).click();
-			expect((await extractValues(timePicker)).hour).to.equal(23);
+			expect((await extractValues(timePicker)).hour).toBe(23);
 			// now increment
 			await timePicker.incrementer(timePicker.hour).click();
-			expect((await extractValues(timePicker)).hour).to.equal(0);
+			expect((await extractValues(timePicker)).hour).toBe(0);
 		});
 
 		it('should decrement hours from 0 to 23', async function () {
 			// FIXME: replace with trigger for expandable open (or replace with defaultOpen picker)
 			await Page.delay(500);
 			await timePicker.hour.click();
-			expect(await timePicker.hour.isFocused()).to.be.true();
+			expect(await timePicker.hour.isFocused()).toBe(true);
 
 			await timePicker.decrementer(timePicker.hour).click();
-			expect((await extractValues(timePicker)).hour).to.equal(23);
+			expect((await extractValues(timePicker)).hour).toBe(23);
 		});
 	});
 

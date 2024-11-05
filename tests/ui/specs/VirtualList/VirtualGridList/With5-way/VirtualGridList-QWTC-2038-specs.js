@@ -20,6 +20,6 @@ describe('Navigate with 5-way', function () {
 		// Step 4-4: 5-way Right.
 		await Page.spotlightRight();
 		// Step 4 Verify: Spotlight is on the '*X*' close button.
-		expect(await Page.buttonTop.isFocused()).to.be.true();
+		expect(await Page.buttonTop.isFocused()).toBe(true);
 	});
 });

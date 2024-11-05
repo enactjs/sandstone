@@ -1,7 +1,7 @@
 import Slottable from '@enact/ui/Slottable';
 import {useContext, useEffect} from 'react';
 
-import {WizardPanelsContext} from './WizardPanels';
+import {PanelsContext} from '../internal/Panels/PanelsRouter';
 
 /**
  * Panel that sets the children, footer, subtitle, and title for
@@ -21,7 +21,7 @@ function PanelBase ({
 	subtitle,
 	title
 }) {
-	const set = useContext(WizardPanelsContext);
+	const set = useContext(PanelsContext);
 
 	useEffect(() => {
 		if (set) {
@@ -70,7 +70,7 @@ const Panel = Slottable(
  *
  * If `false`, the button will not show. If set to a component, or `true`, the button will
  * show. This will override the setting of
- * {@link sandstone/WizardPanels.WizardPanels#nextButtonVisibility|nextButtonVisibility}.
+ * {@link sandstone/WizardPanels.WizardPanelsBase.nextButtonVisibility|nextButtonVisibility}.
  *
  * Example:
  * ```
@@ -90,14 +90,14 @@ const Panel = Slottable(
  *
  * If `false`, the button will not show. If set to a component, or `true`, the button will
  * show. This will override the setting of
- * {@link sandstone/WizardPanels.WizardPanels#prevButtonVisibility|prevButtonVisibility}.
+ * {@link sandstone/WizardPanels.WizardPanelsBase.prevButtonVisibility|prevButtonVisibility}.
  *
  * Example:
  * ```
  * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
  * ```
  *
- * @name PrevButton
+ * @name prevButton
  * @memberof sandstone/WizardPanels.Panel.prototype
  * @type {Boolean|Component}
  * @public

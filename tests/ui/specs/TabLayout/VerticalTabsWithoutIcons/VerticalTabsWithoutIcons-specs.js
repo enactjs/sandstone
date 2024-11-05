@@ -3,6 +3,7 @@ const Page = require('../TabLayoutPage');
 describe('TabLayout', function () {
 	beforeEach(async function () {
 		await Page.open('VerticalTabsWithoutIcons');
+		await Page.delay(500);
 	});
 
 	describe('vertical tabs without icons', function () {
@@ -17,7 +18,7 @@ describe('TabLayout', function () {
 						await Page.spotlightRight();
 					});
 					// check that layout is collapsed
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 				});
 
 				it('should expand tabs when focus is moved to a Spottable component in the tabs container - [QWTC-1894]', async function () {
@@ -28,13 +29,13 @@ describe('TabLayout', function () {
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.spotlightRight();
 					});
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 					// Step 4: Back to the tabs
 					await Page.waitTransitionEnd(1500, 'waiting for Panel transition', async () => {
 						await Page.spotlightLeft();
 					});
-					expect(await Page.tabLayout.isCollapsed).to.be.false();
-					expect(await (await Page.tabLayout.tabItems())[1].isFocused()).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(false);
+					expect(await (await Page.tabLayout.tabItems())[1].isFocused()).toBe(true);
 				});
 			});
 			describe('pointer interaction', function () {
@@ -49,11 +50,11 @@ describe('TabLayout', function () {
 					// move pointer to Spottable component in content container
 					await $('#button2').moveTo();
 					// check that layout is collapsed
-					expect(await Page.tabLayout.isCollapsed).to.be.true();
+					expect(await Page.tabLayout.isCollapsed).toBe(true);
 					// go back to tabs
 					await $('[data-webos-voice-intent=Select]').moveTo(); // test note: this is different from tabs with icons since this item doesn't exist while expanded, spotlight can't focus it when the mouse moves over the scroller in TabGroup
 					// check that layout is not collapsed
-					expect(await Page.tabLayout.isCollapsed).to.be.false();
+					expect(await Page.tabLayout.isCollapsed).toBe(false);
 				});
 
 				it('should return spotlight after click on navigation button - [QWTC-2503]', async function () {
@@ -64,10 +65,10 @@ describe('TabLayout', function () {
 					await Page.delay(500);
 					// Step 4-3: Click on Home tab.
 					await $$('.TabLayout_TabLayout_tabGroup')[1].click();
-					// STep 4-4: Hover on ImageItem 1 again.
+					// Step 4-4: Hover on ImageItem 1 again.
 					await $('#button1').moveTo();
 					// step 4 Verify: Spotlight is on ImageItem 1.
-					expect(await $('#button1').isFocused()).to.be.true();
+					expect(await $('#button1').isFocused()).toBe(true);
 				});
 			});
 		});

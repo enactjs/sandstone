@@ -38,17 +38,17 @@ updateDataSize(size);
 // Set up some defaults for info and controls
 const prop = {
 	moreButtonColor: ['', 'red', 'green', 'yellow', 'blue'],
-	videoTitles: ['Sintel', 'Big Buck Bunny', 'VideoTest', 'Bad Video Source'],
+	videoTitles: ['Sintel', 'Cosmos Laundromat', 'VideoTest', 'Bad Video Source'],
 	videos: {
 		Sintel: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
-		'Big Buck Bunny': 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4',
 		VideoTest: 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
 	},
 	posters: {
 		Sintel: 'http://media.w3.org/2010/05/sintel/poster.png',
-		'Big Buck Bunny': 'http://media.w3.org/2010/05/bunny/poster.png',
+		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1-2k-png/07580.png',
 		VideoTest: 'http://media.w3.org/2010/05/video/poster.png',
 		'Bad Video Source': 'http://media.w3.org/2010/05/video/poster.png'
 	},
@@ -173,8 +173,10 @@ export const _VideoPlayer = (args) => {
 				</infoComponents>
 				<MediaControls
 					actionGuideButtonAriaLabel={args['actionGuideButtonAriaLabel']}
+					jumpBackwardAriaLabel={args['jumpBackwardAriaLabel']}
 					jumpBackwardIcon={args['jumpBackwardIcon']}
 					jumpButtonsDisabled={args['jumpButtonsDisabled']}
+					jumpForwardAriaLabel={args['jumpForwardAriaLabel']}
 					jumpForwardIcon={args['jumpForwardIcon']}
 					noJumpButtons={args['noJumpButtons']}
 					rateChangeDisabled={args['rateChangeDisabled']}
@@ -195,6 +197,7 @@ export const _VideoPlayer = (args) => {
 							}}
 							itemRenderer={renderItem}
 							spacing={ri.scale(12)}
+							hoverToScroll
 						/>
 					</bottomComponents>
 					<Button size="small" icon="list" />
@@ -237,8 +240,10 @@ text(
 	MediaControlsConfig,
 	''
 );
+text('jumpBackwardAriaLabel', _VideoPlayer, MediaControlsConfig, '');
 select('jumpBackwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpbackward');
 boolean('jumpButtonsDisabled', _VideoPlayer, MediaControlsConfig);
+text('jumpForwardAriaLabel', _VideoPlayer, MediaControlsConfig, '');
 select('jumpForwardIcon', _VideoPlayer, icons, MediaControlsConfig, 'jumpforward');
 boolean('noJumpButtons', _VideoPlayer, MediaControlsConfig);
 boolean('rateChangeDisabled', _VideoPlayer, MediaControlsConfig);

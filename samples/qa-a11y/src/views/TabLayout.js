@@ -1,11 +1,13 @@
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
-import Image from '@enact/sandstone/Image';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
-import {Header} from '@enact/sandstone/Panels';
+import {Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
+import Spotlight from '@enact/spotlight';
 import {scaleToRem} from '@enact/ui/resolution';
+import {useCallback} from 'react';
 
 const tabsWithIcons = [
 	{title: 'Home', icon: 'home'},
@@ -19,19 +21,35 @@ const svgGenerator = (width, height, bgColor, textColor, customText) => (
 	`%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='36px' fill='%23${textColor}'%3E${customText}%3C/text%3E%3C/svg%3E`
 );
 const images = new Array(20).fill().map( (_, i) =>
-	<Image
+	<ImageItem
+		inline
 		key={`image${i}`}
 		caption="Image"
 		src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')}
-		style={{marginBottom: scaleToRem(96)}}
-	/>
+		style={{width: scaleToRem(180), height: scaleToRem(120)}}
+	>
+		{`ImageItem ${i + 1}`}
+	</ImageItem>
 );
 
+const containerSpotlightId = 'qa-a11y-tablayout-view-container';
+
 const TabLayoutView = () => {
+	const handleExpand = useCallback(() => {
+		Spotlight.set(containerSpotlightId, {
+			restrict: 'self-first'
+		});
+	}, []);
+	const handleCollapse = useCallback(() => {
+		Spotlight.set(containerSpotlightId, {
+			restrict: 'self-only'
+		});
+	}, []);
+
 	return (
-		<>
+		<Panel spotlightId={containerSpotlightId}>
 			<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
-			<TabLayout>
+			<TabLayout onCollapse={handleCollapse} onExpand={handleExpand}>
 				<Tab
 					icon={tabsWithIcons[0].icon}
 					title={tabsWithIcons[0].title}
@@ -57,7 +75,7 @@ const TabLayoutView = () => {
 					<Item slotBefore={<Icon>playcircle</Icon>}>Single Item</Item>
 				</Tab>
 			</TabLayout>
-		</>
+		</Panel>
 	);
 };
 

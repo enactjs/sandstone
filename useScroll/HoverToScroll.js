@@ -62,7 +62,8 @@ const HoverToScrollBase = (props) => {
 
 	const mutableRef = useRef({
 		hoveredPosition: null,
-		hoverToScrollRafId: null
+		hoverToScrollRafId: null,
+		stopScrollByHover: false
 	});
 
 	const [after, setAfter] = useState();
@@ -83,6 +84,8 @@ const HoverToScrollBase = (props) => {
 				getLastPointerPosition()
 			);
 			scrollContainer.stop();
+		} else if (is('pointerHide', keyCode)) {
+			mutableRef.current.stopScrollByHover = true;
 		}
 	}, [direction, scrollContainer]);
 
@@ -102,6 +105,7 @@ const HoverToScrollBase = (props) => {
 			window.cancelAnimationFrame(mutableRef.current.hoverToScrollRafId);
 			mutableRef.current.hoverToScrollRafId = null;
 			mutableRef.current.hoveredPosition = null;
+			mutableRef.current.stopScrollByHover = false;
 			if (typeof document === 'object') {
 				document.removeEventListener('keydown', handleGlobalKeyDown, {capture: true});
 			}
@@ -121,9 +125,10 @@ const HoverToScrollBase = (props) => {
 						hoverToScrollMultiplier[direction]; // a scrolling speed factor
 
 					mutableRef.current.hoveredPosition = position;
+					mutableRef.current.stopScrollByHover = false;
 
 					const scrollByHover = () => {
-						if (getLastInputType() === 'mouse') {
+						if (!mutableRef.current.stopScrollByHover && getLastInputType() === 'mouse') {
 							scrollContainer.scrollTo({
 								position: {
 									[axis]: clamp(

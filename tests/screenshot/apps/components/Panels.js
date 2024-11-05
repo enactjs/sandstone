@@ -38,6 +38,11 @@ const PanelsTests = [
 		component: <Panels index={1} noBackButton>{PanelComponents}</Panels>,
 		wrapper: {full: true}
 	},
+	{
+		title: 'with opaque back and close button',
+		component: <Panels index={1} backButtonBackgroundOpacity="opaque" closeButtonBackgroundOpacity="opaque">{PanelComponents}</Panels>,
+		wrapper: {full: true}
+	},
 	// RTL
 	{
 		locale: 'ar-SA',
@@ -71,8 +76,14 @@ const PanelsTests = [
 	},
 	{
 		locale: 'ar-SA',
-		title: 'locale = ar-SA,,with header and no back button',
+		title: 'locale = ar-SA, with header and no back button',
 		component: <Panels index={1} noBackButton>{PanelComponents}</Panels>,
+		wrapper: {full: true}
+	},
+	{
+		locale: 'ar-SA',
+		title: 'locale = ar-SA, with opaque back and close button',
+		component: <Panels index={1} backButtonBackgroundOpacity="opaque" closeButtonBackgroundOpacity="opaque">{PanelComponents}</Panels>,
 		wrapper: {full: true}
 	}
 ];

@@ -14,7 +14,7 @@ describe('Panel', function () {
 
 	describe('focus management', () => {
 		it('should focus header buttons when no focusable content exists', async () => {
-			expect(await Page.panel1.nextButton.isFocused()).to.be.true();
+			expect(await Page.panel1.nextButton.isFocused()).toBe(true);
 		});
 
 		it('should focus the first button in the body when navigating forward and `autoFocus="last-focused"` ', async () => {
@@ -26,7 +26,7 @@ describe('Panel', function () {
 			const expected = 'Panel2 Button 1';
 			const actual = Page.focusedText;
 
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 
 		it('should restore focus when navigating backward and `autoFocus="last-focused"`', async () => {
@@ -64,7 +64,7 @@ describe('Panel', function () {
 			const expected = 'Panel3 Button 2';
 			const actual = Page.focusedText;
 
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 
 		it('should focus nothing when `autoFocus="none"` ', async () => {
@@ -86,7 +86,7 @@ describe('Panel', function () {
 			const expected = null;
 			const actual = Page.focusedText;
 
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 
 		it('should focus the first button when `hideChildren=false` ', async () => {
@@ -100,7 +100,7 @@ describe('Panel', function () {
 			const expected = 'Panel5 Button 1';
 			const actual = Page.focusedText;
 
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 
 		it('should focus the `default-element` when moving forward', async () => {
@@ -114,7 +114,7 @@ describe('Panel', function () {
 			const expected = 'Panel6 Button 2';
 			const actual = Page.focusedText;
 
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 
 		// this test passed manually but fails in automation because the 'last-focused' element
@@ -139,7 +139,7 @@ describe('Panel', function () {
 			const expected = true;
 			const actual = Page.panel6.nextButton.isFocused();
 
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 	});
 
@@ -159,7 +159,7 @@ describe('Panel', function () {
 			const expected = true;
 			const actual = Page.panel1.self.isDisplayedInViewport();
 
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 	});
 });

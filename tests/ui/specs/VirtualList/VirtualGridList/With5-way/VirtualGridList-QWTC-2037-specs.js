@@ -46,7 +46,7 @@ describe('Navigate with 5-way', function () {
 		await Page.delay(300);
 
 		// check if the previous item partially cut off.
-		expect(await Page.itemOffsetBottomById(10)).to.be.below((await Page.getItemSize()).height);
+		expect(await Page.itemOffsetBottomById(10)).toBeLessThan((await Page.getItemSize()).height);
 		// Step 4 Verify: Spotlight is on the last item.
 		await expectFocusedItem(16);
 
@@ -55,6 +55,6 @@ describe('Navigate with 5-way', function () {
 		// Step 5-2: 5-way Right again before the list stop scrolling.
 		await Page.spotlightRight();
 		// Step 5 Verify: The last item must show at least partially.
-		expect(await Page.itemOffsetTopById(16)).to.be.above(0);
+		expect(await Page.itemOffsetTopById(16)).toBeGreaterThan(0);
 	});
 });

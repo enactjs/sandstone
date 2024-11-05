@@ -6,11 +6,11 @@ module.exports = {
 
 // Expect blocks
 async function expectChecked (formCheckboxItem) {
-	expect(await formCheckboxItem.isChecked).to.be.true();
-	expect(await formCheckboxItem.icon.isVisible()).to.be.true();
+	expect(await formCheckboxItem.isChecked).toBe(true);
+	expect(await formCheckboxItem.icon.isVisible()).toBe(true);
 }
 
 async function expectUnchecked (formCheckboxItem) {
-	expect(await formCheckboxItem.isChecked).to.be.false();
-	expect(await formCheckboxItem.icon.isVisible()).to.be.false();
+	expect(await formCheckboxItem.isChecked).toBe(false);
+	expect(await formCheckboxItem.icon.isVisible()).toBe(false);
 }

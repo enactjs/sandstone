@@ -29,6 +29,7 @@ function FixPopupPanels (props) {
 const EachPanel = withConfig(
 	{wrapper: {full: true}},
 	[
+		// [QWTC-2429]
 		{
 			title: 'with standard Panel Components',
 			component: <FixPopupPanels />
@@ -74,6 +75,7 @@ const FixedPopupPanelsTests = [
 		{fullHeight: true},
 		EachPanel.map(o => ({...o, title: `${o.title} fullHeight`}))
 	),
+	// [QWTC-2429]
 	...withConfig(
 		{locale: 'ar-SA'},
 		EachPanel.map(o => ({...o, title: `locale = ar-SA, ${o.title}`}))

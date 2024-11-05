@@ -32,6 +32,23 @@ const renderItem = ({index, ...rest}) => {
 	);
 };
 
+// eslint-disable-next-line enact/prop-types
+const renderItemWithRole = ({index, ...rest}) => {
+	const {caption, label, src} = items[index];
+	return (
+		<ImageItem
+			aria-posinset={index + 1}
+			aria-setsize={items.length}
+			label={label}
+			role="listitem"
+			src={src}
+			{...rest}
+		>
+			{caption}
+		</ImageItem>
+	);
+};
+
 for (let i = 0; i < 100; i++) {
 	const
 		count = ('00' + i).slice(-3),
@@ -50,10 +67,12 @@ for (let i = 0; i < 100; i++) {
 const VirtualGridListView = () => {
 	const [native, setNative] = useState(true);
 	const [horizontal, setHorizontal] = useState(false);
+	const [role, setRole] = useState(false);
 	const scrollMode = native ? 'native' : 'translate';
 
 	const handleToggleScrollMode = () => setNative(!native);
 	const handleToggleOrientation = () => setHorizontal(!horizontal);
+	const handleToggleRole = () => setRole(!role);
 
 	return (
 		<Layout orientation="vertical">
@@ -70,12 +89,18 @@ const VirtualGridListView = () => {
 				>
 					Native
 				</CheckboxItem>
+				<CheckboxItem
+					onToggle={handleToggleRole}
+					selected={role}
+				>
+					Read X of Y
+				</CheckboxItem>
 			</Cell>
 			<VirtualGridList
 				className={horizontal ? css.horizontalPadding : css.verticalPadding}
 				dataSize={items.length}
 				direction={horizontal ? 'horizontal' : 'vertical'}
-				itemRenderer={renderItem}
+				itemRenderer={role ? renderItemWithRole : renderItem}
 				itemSize={{
 					minWidth: ri.scale(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
 					minHeight: ri.scale(678) // 606px(size of expanded ImageItem) + 36px(for shadow) * 2

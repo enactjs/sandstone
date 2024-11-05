@@ -12,22 +12,22 @@ describe('Picker', function () {
 
 			describe('5-way', function () {
 				it('should change the value forward when incrementing the picker', async function () {
-					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementer(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
-				it('should change the value backward when decrementing the picker', async function () {
-					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
+				it('should change the value backward when decrementing the picker [QWTC-2209]', async function () {
+					expect(await picker.incrementer(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await Page.spotlightLeft();
-					expect(await picker.decrementer(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementer(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = await extractValue(picker);
-					expect(newValue).to.equal('Apple');
+					expect(newValue).toBe('Apple');
 				});
 			});
 
@@ -36,16 +36,16 @@ describe('Picker', function () {
 					await picker.incrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should decrease the value when decrementing the picker', async function () {
 					await picker.incrementer(picker.self).click();
-					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementer(picker.self).isFocused()).toBe(true);
 					await picker.decrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue = await extractValue(picker);
-					expect(newValue).to.equal('Apple');
+					expect(newValue).toBe('Apple');
 				});
 
 				it('should not change the value of the picker forward when the current value is the last', async function () {
@@ -54,18 +54,18 @@ describe('Picker', function () {
 					await picker.incrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue1 = await extractValue(picker);
-					expect(newValue1).to.equal('Durian');
+					expect(newValue1).toBe('Durian');
 					await picker.incrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue2 = await extractValue(picker);
-					expect(newValue2).to.equal('Durian');
+					expect(newValue2).toBe('Durian');
 				});
 
 				it('should not change the value backwards when the current value is the first', async function () {
 					await picker.decrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue = await extractValue(picker);
-					expect(newValue).to.equal('Apple');
+					expect(newValue).toBe('Apple');
 				});
 			});
 		});
@@ -76,7 +76,7 @@ describe('Picker', function () {
 
 			it('should have the default value selected', async function () {
 				const newValue = extractValue(picker);
-				expect(await newValue).to.equal('Banana');
+				expect(await newValue).toBe('Banana');
 			});
 		});
 
@@ -90,7 +90,7 @@ describe('Picker', function () {
 					await picker.focus();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal(await oldValue);
+					expect(await newValue).toBe(await oldValue);
 				});
 			});
 
@@ -100,7 +100,7 @@ describe('Picker', function () {
 					await picker.incrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal(await oldValue);
+					expect(await newValue).toBe(await oldValue);
 				});
 
 				it('should not change the value backward when clicking the decrementer', async function () {
@@ -108,7 +108,7 @@ describe('Picker', function () {
 					await picker.decrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal(await oldValue);
+					expect(await newValue).toBe(await oldValue);
 				});
 			});
 		});
@@ -119,22 +119,22 @@ describe('Picker', function () {
 			describe('5-way', function () {
 				it('should change the value forward when incrementing the picker', async function () {
 					await picker.focus();
-					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementer(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should change the value backward when decrementing the picker', async function () {
 					await picker.focus();
 					await Page.spotlightSelect();
 					await Page.spotlightLeft();
-					expect(await picker.decrementer(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementer(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 			});
 
@@ -143,16 +143,16 @@ describe('Picker', function () {
 					await picker.incrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should decrease the value when decrementing the picker', async function () {
 					await picker.incrementer(picker.self).click();
-					expect(await picker.incrementer(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementer(picker.self).isFocused()).toBe(true);
 					await picker.decrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 
 				it('should wrap value when incrementing the picker and current value is the last', async function () {
@@ -161,32 +161,50 @@ describe('Picker', function () {
 					await picker.incrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue1 = extractValue(picker);
-					expect(await newValue1).to.equal('Durian');
+					expect(await newValue1).toBe('Durian');
 					await picker.incrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue2 = extractValue(picker);
-					expect(await newValue2).to.equal('Apple');
+					expect(await newValue2).toBe('Apple');
 				});
 
 				it('should wrap the value when decrementing the picker and current value is the first', async function () {
 					await picker.decrementer(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Durian');
+					expect(await newValue).toBe('Durian');
 				});
 			});
 		});
 
 		describe('joined', function () {
 			const picker = Page.components.pickerJoined;
+			const pickerJoinedChangedByArrow = Page.components.pickerJoinedChangedByArrow;
 
 			describe('5-way', function () {
 				it('should increase the value on 5-way select', async function () {
-					await await picker.focusJoined();
+					await picker.focusJoined();
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
+				});
+
+				it('should increase the value on 5-way right', async function () {
+					await pickerJoinedChangedByArrow.focusJoined();
+					await Page.spotlightRight();
+					await browser.pause(500);
+					const newValue = extractValue(pickerJoinedChangedByArrow);
+					await browser.pause(500);
+					expect(await newValue).toBe('Banana');
+				});
+
+				it('should decrease the value on 5-way left', async function () {
+					await pickerJoinedChangedByArrow.focusJoined();
+					await Page.spotlightLeft();
+					await browser.pause(500);
+					const newValue = extractValue(pickerJoinedChangedByArrow);
+					expect(await newValue).toBe('Apple');
 				});
 			});
 
@@ -195,7 +213,7 @@ describe('Picker', function () {
 					await picker.self.click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should wrap the value when current value is equal to max', async function () {
@@ -204,11 +222,11 @@ describe('Picker', function () {
 					await picker.self.click();
 					await browser.pause(500);
 					const newValue1 = extractValue(picker);
-					expect(await newValue1).to.equal('Durian');
+					expect(await newValue1).toBe('Durian');
 					await picker.self.click();
 					await browser.pause(500);
 					const newValue2 = extractValue(picker);
-					expect(await newValue2).to.equal('Apple');
+					expect(await newValue2).toBe('Apple');
 				});
 			});
 		});
@@ -221,25 +239,25 @@ describe('Picker', function () {
 			describe('5-way', function () {
 				it('should change the value forward when incrementing the picker', async function () {
 					await picker.focus();
-					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementerVertical(picker.self).isFocused()).toBe(true);
 					await Page.spotlightDown();
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should change the value backward when decrementing the picker', async function () {
 					await picker.focus();
-					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementerVertical(picker.self).isFocused()).toBe(true);
 					await Page.spotlightDown();
-					expect(await picker.incrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementerVertical(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await Page.spotlightUp();
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 			});
 
@@ -248,7 +266,7 @@ describe('Picker', function () {
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should decrease the value when decrementing the picker', async function () {
@@ -256,7 +274,7 @@ describe('Picker', function () {
 					await picker.decrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 
 				it('should not increase the value when incrementing the picker and current value is equal to max', async function () {
@@ -265,18 +283,18 @@ describe('Picker', function () {
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue1 = extractValue(picker);
-					expect(await newValue1).to.equal('Durian');
+					expect(await newValue1).toBe('Durian');
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue2 = extractValue(picker);
-					expect(await newValue2).to.equal('Durian');
+					expect(await newValue2).toBe('Durian');
 				});
 
 				it('should not decrease the value when decrementing the picker and current value is equal to min', async function () {
 					await picker.decrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 			});
 		});
@@ -287,13 +305,13 @@ describe('Picker', function () {
 			describe('5-way', function () {
 				it('should not update on select', async function () {
 					await picker.focus();
-					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementerVertical(picker.self).isFocused()).toBe(true);
 					const oldValue = extractValue(picker);
 					await Page.spotlightSelect();
 					await picker.focus();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal(await oldValue);
+					expect(await newValue).toBe(await oldValue);
 				});
 			});
 
@@ -303,7 +321,7 @@ describe('Picker', function () {
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal(await oldValue);
+					expect(await newValue).toBe(await oldValue);
 				});
 
 				it('should not decrease the value when clicking the decrementer', async function () {
@@ -311,7 +329,7 @@ describe('Picker', function () {
 					await picker.decrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal(await oldValue);
+					expect(await newValue).toBe(await oldValue);
 				});
 			});
 		});
@@ -322,47 +340,47 @@ describe('Picker', function () {
 			describe('5-way', function () {
 				it('should change the value forward when incrementing the picker', async function () {
 					await picker.focus();
-					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementerVertical(picker.self).isFocused()).toBe(true);
 					await Page.spotlightDown();
-					expect(await picker.incrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementerVertical(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should change the value backward when decrementing the picker', async function () {
 					await picker.focus();
-					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementerVertical(picker.self).isFocused()).toBe(true);
 					await Page.spotlightDown();
-					expect(await picker.incrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementerVertical(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await Page.spotlightUp();
-					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementerVertical(picker.self).isFocused()).toBe(true);
 					await Page.spotlightSelect();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 			});
 
 			describe('pointer', function () {
 				it('should increase the value when incrementing the picker', async function () {
 					await picker.incrementerVertical(picker.self).click();
-					expect(await picker.incrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementerVertical(picker.self).isFocused()).toBe(true);
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should decrease the value when decrementing the picker', async function () {
 					await picker.incrementerVertical(picker.self).click();
-					expect(await picker.incrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.incrementerVertical(picker.self).isFocused()).toBe(true);
 					await picker.decrementerVertical(picker.self).click();
-					expect(await picker.decrementerVertical(picker.self).isFocused()).to.be.true();
+					expect(await picker.decrementerVertical(picker.self).isFocused()).toBe(true);
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 
 				it('should wrap value when incrementing the picker and current value is equal to max', async function () {
@@ -371,18 +389,18 @@ describe('Picker', function () {
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue1 = extractValue(picker);
-					expect(await newValue1).to.equal('Durian');
+					expect(await newValue1).toBe('Durian');
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue2 = extractValue(picker);
-					expect(await newValue2).to.equal('Apple');
+					expect(await newValue2).toBe('Apple');
 				});
 
 				it('should wrap the value when decrementing the picker and current value is equal to min', async function () {
 					await picker.decrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Durian');
+					expect(await newValue).toBe('Durian');
 				});
 			});
 		});
@@ -396,7 +414,7 @@ describe('Picker', function () {
 					await Page.spotlightDown();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should decrease the value on 5-way down', async function () {
@@ -405,7 +423,7 @@ describe('Picker', function () {
 					await Page.spotlightUp();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 
 				it('should not increase the value on 5-way up when current value is equal to max', async function () {
@@ -415,11 +433,11 @@ describe('Picker', function () {
 					await Page.spotlightDown();
 					await browser.pause(500);
 					const newValue1 = extractValue(picker);
-					expect(await newValue1).to.equal('Durian');
+					expect(await newValue1).toBe('Durian');
 					await Page.spotlightDown();
 					await browser.pause(500);
 					const newValue2 = extractValue(picker);
-					expect(await newValue2).to.equal('Durian');
+					expect(await newValue2).toBe('Durian');
 				});
 
 				it('should not decrease the value on 5-way down when current value is equal to min', async function () {
@@ -427,7 +445,7 @@ describe('Picker', function () {
 					await Page.spotlightUp();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 			});
 
@@ -436,7 +454,7 @@ describe('Picker', function () {
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should decrease the value when on decrementer click', async function () {
@@ -445,7 +463,7 @@ describe('Picker', function () {
 					await picker.decrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 
 				it('should not increase the value when incrementing the picker and current value is equal to max', async function () {
@@ -454,18 +472,18 @@ describe('Picker', function () {
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue1 = extractValue(picker);
-					expect(await newValue1).to.equal('Durian');
+					expect(await newValue1).toBe('Durian');
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue2 = extractValue(picker);
-					expect(await newValue2).to.equal('Durian');
+					expect(await newValue2).toBe('Durian');
 				});
 
 				it('should not decrease the value when decrementing the picker and current value is equal to min', async function () {
 					await picker.decrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 			});
 		});
@@ -479,7 +497,7 @@ describe('Picker', function () {
 					await Page.spotlightDown();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should decrease the value on 5-way down', async function () {
@@ -488,7 +506,7 @@ describe('Picker', function () {
 					await Page.spotlightUp();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 
 				it('should wrap the value on 5-way up when current value is equal to max', async function () {
@@ -498,11 +516,11 @@ describe('Picker', function () {
 					await Page.spotlightDown();
 					await browser.pause(500);
 					const newValue1 = extractValue(picker);
-					expect(await newValue1).to.equal('Durian');
+					expect(await newValue1).toBe('Durian');
 					await Page.spotlightDown();
 					await browser.pause(500);
 					const newValue2 = extractValue(picker);
-					expect(await newValue2).to.equal('Apple');
+					expect(await newValue2).toBe('Apple');
 				});
 
 				it('should wrap the value on 5-way down when current value is equal to min', async function () {
@@ -510,7 +528,7 @@ describe('Picker', function () {
 					await Page.spotlightUp();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Durian');
+					expect(await newValue).toBe('Durian');
 				});
 			});
 
@@ -519,7 +537,7 @@ describe('Picker', function () {
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Banana');
+					expect(await newValue).toBe('Banana');
 				});
 
 				it('should decrease the value when on decrementer click', async function () {
@@ -527,7 +545,7 @@ describe('Picker', function () {
 					await picker.decrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Apple');
+					expect(await newValue).toBe('Apple');
 				});
 
 				it('should wrap the value when incrementing the picker and current value is equal to max', async function () {
@@ -536,18 +554,18 @@ describe('Picker', function () {
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue1 = extractValue(picker);
-					expect(await newValue1).to.equal('Durian');
+					expect(await newValue1).toBe('Durian');
 					await picker.incrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue2 = extractValue(picker);
-					expect(await newValue2).to.equal('Apple');
+					expect(await newValue2).toBe('Apple');
 				});
 
 				it('should wrap the value when decrementing the picker and current value is equal to min', async function () {
 					await picker.decrementerVertical(picker.self).click();
 					await browser.pause(500);
 					const newValue = extractValue(picker);
-					expect(await newValue).to.equal('Durian');
+					expect(await newValue).toBe('Durian');
 				});
 			});
 		});

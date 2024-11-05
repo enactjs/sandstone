@@ -2,6 +2,368 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/PageViews` prop `autoFocus` to set whether focus element automatically or not
+- `sandstone/PageViews.Page` and `sandstone/QuickGuidePanels.Panel` prop `aria-label`
+- `sandstone/QuickGuidePanels` props `closeButtonAriaLabel` and `onClose`
+
+### Fixed
+
+- `sandstone/IconItem` to restart marquee after done editing in `sandstone/Scroller` with `editable` prop
+- `sandstone/PageViews` and `sandstone/QuickGuidePanels` dot page indicators to be aligned center
+- `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
+- `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` with `editable` prop to move an item via 5-way keys properly in pointer mode
+
+## [3.0.0-alpha.2] - 2024-10-08
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/MediaControls` props `jumpBackwardAriaLabel` and `jumpForwardAriaLabel` to override aria-label of jumpButtons
+- `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
+### Fixed
+
+- `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
+- `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
+- `sandstone/Scroller` to focus the topmost element after scroll by voice control
+- `sandstone/Scroller` to read out properly when `sandstone/Panels` has `sandstone/Scroller` with `focusableScrollbar`
+- `sandstone/Steps` prop `size` to accept number type
+- `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
+
+## [2.9.2] - 2024-09-26
+
+### Fixed
+
+- `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
+- `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
+
+## [2.9.1] - 2024-09-09
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
+### Fixed
+
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
+- `sandstone/Steps` prop `size` to accept number type
+
+## [2.7.18] - 2024-09-05
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
+## [2.9.0] - 2024-07-17
+
+### Added
+
+- `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
+
+### Changed
+
+- `sandstone/PageViews` styling to match the latest GUI
+
+### Fixed
+
+- `sandstone/Input` back button to be disabled when `disabled` prop is `true`
+- `sandstone/Popup` to restore focus when a popup is open by default and then closed
+
+## [3.0.0-alpha.1] - 2024-07-11
+
+### Removed
+
+- `sandstone/Input.InputPopupBase` prop `value`
+
+### Added
+
+- `sandstone/Scroller` `editable.blurItemFuncRef` prop to provide a function for blurring the focused item
+
+### Changed
+
+- `sandstone/PageViews` styling to match the latest GUI
+
+### Fixed
+
+- `sandstone/Input` back button to be disabled when `disabled` prop is `true`
+- `sandstone/Popup` to restore focus when a popup is open by default and then closed
+
+## [2.9.0-beta.1] - 2024-06-17
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `create`
+
+## [2.9.0-alpha.4] - 2024-06-05
+
+### Changed
+
+- `sandstone/ContextualPopupDecorator` and `sandstone/Dropdown` to have sibling DOM node as alternative to findDOMNode API which will be removed in React 19
+- `sandstone/PageViews` to hide dot page indicator when there is only one page
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to show the outline appropriately in high-contrast mode
+
+## [2.9.0-alpha.3] - 2024-05-24
+
+### Added
+
+- Support for QHD displays
+- `sandstone/Icon` supported icon list, adding new wifi5G icons
+- `sandstone/PageViews` prop `fullContents` to maximize its contents area
+
+### Fixed
+
+- `sandstone/TabLayout` to move focus properly by 5-way directional key when it is in Panels
+- `sandstone/QuickGuidePanels` to export `Panel` instead of `QuickGuidePanel`
+
+## [2.9.0-alpha.2] - 2024-04-22
+
+### Added
+
+- `sandstone/ThemeDecorator.AccessibilityDecorator` prop `focusRing` to support focus ring to IcomItem and ImageItem
+
+## [2.9.0-alpha.1] - 2024-04-09
+
+### Added
+
+- `sandstone/PageViews` component
+- `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
+- `sandstone/VideoPlayer` prop `setPlaybackSpeed` to support playback speed adjustment
+
+### Changed
+
+- Popup family components to enhance contrast in high-contrast mode for improved visibility
+
+### Fixed
+
+- `sandstone/VirtualList` to show the focused item properly when switching from pointer mode to 5-way mode
+- `sandstone/VirtualList.VirtualGridList` to show the focused item fully when focus moves via 5-way keys inside a list
+
+## [2.7.15] - 2024-03-05
+
+### Added
+
+- `sandstone/Scroller.ContentContainerDecorator` to allow component to be a scroll target when its descendant is focused
+
+### Fixed
+
+- `sandstone/VirtualList` to show the focused item properly when switching from pointer mode to 5-way mode
+- `sandstone/VirtualList.VirtualGridList` to show the focused item fully when focus moves via 5-way keys inside a list
+
+## [2.8.0] - 2024-02.07
+
+### Fixed
+
+- `sandstone/Scroller` with `editable` prop to remain focused on the selected item when completing edit by down or enter key in pointer mode
+- `sandstone/Scroller` not to forward `onBack` handler of `sandstone/Panels` when focus moves from scroll thumb to BodyText via back key
+- `sandstone/VirtualList` to have proper scroll position when item with affordance is larger than scroll area
+
+## [2.5.12] - 2024-02-02
+
+### Fixed
+
+- `sandstone/WizardPanels` to read out the correct step when using `current` prop
+
+## [2.7.14] - 2024-01-23
+
+No significant changes.
+
+## [2.7.13] - 2023-12-08
+
+### Changed
+
+- `sandstone/Dropdown` to read out more details
+- `sandstone/Scroller` with `editable` prop to complete editing when 'down' key is pressed during editing
+- `sandstone/Slider` to read out more details
+- `sandstone/TabLayout` to move focus from tab contents to tab menu via back key
+- `sandstone/TabLayout` to read out more details
+
+### Fixed
+
+- `sandstone/Scroller` with `editable` prop to rearrange items properly when moving pointer very fast
+- `sandstone/Scroller` with `editable` prop to complete editing when focus left by 5-way key in pointer mode
+
+## [2.7.12] - 2023-10-23
+
+### Fixed
+
+- `sandstone/Scroller` to read out the announcement of completion properly when `editable` is given
+
+## [2.7.11] - 2023-10-13
+
+### Fixed
+
+- `sandstone/TabLayout` to revert 2.7.9 fix that change back key behavior
+
+## [2.7.10] - 2023-09-20
+
+### Fixed
+
+- `sandstone/Scroller` to not show console error when an abnormal `editable.initialSelected` is given
+- `sandstone/VirtualList` to not snatch focus from other list on the first render
+
+## [2.7.9] - 2023-09-12
+
+### Changed
+
+- `sandstone/TabLayout` back key behavior to match the latest UX
+
+### Fixed
+
+- `sandstone/Panels.Header` to not show `slotAfter` in incorrect position at first rendering when `centered` is given
+- `sandstone/Scroller` to read out properly when `editable` is given
+
+## [2.7.8] - 2023-08-31
+
+### Changed
+
+- `sandstone/IconItem` to match the latest design
+
+### Fixed
+
+- `sandstone/QuickGuidePanels` to focus the last focused button when navigating between views
+
+## [2.7.7] - 2023-08-22
+
+### Added
+
+- `sandstone/QuickGuidePanels` read out feature to support A11y
+
+### Fixed
+
+- `sandstone/Scroller` to support hiding all items when `editable` is given
+- `sandstone/Scroller` to not lose focus by back key when `editable` is given
+
+## [2.7.6] - 2023-08-10
+
+### Changed
+
+- `sandstone/TabLayout` enter key behavior to match the latest UX
+
+### Fixed
+
+- `sandstone/Dropdown' to focus properly the first option and the last option via page up and page down
+- `sandstone/QuickGuidePanels` to not lose focus when the last view is displayed
+
+## [2.7.5] - 2023-08-04
+
+### Added
+
+- `sandstone/Scroller` prop `editable.initialSelected` to allow start edit mode with selected item
+
+### Changed
+
+- `sandstone/Scroller` back key behavior to match the latest UX when `editable` is given
+
+### Fixed
+
+- `sandstone/Scroller` to handle focus moving properly when `editable` is given
+- `sandstone/Scroller` to not select disabled item in scroller when `editable` is given
+- `sandstone/VirtualList` to move focus properly by 5-way directional key hold when `spotlight/SpotlightContainerDecorator` config option `continue5WayHold` is set
+
+## [2.7.4] - 2023-07-19
+
+### Fixed
+
+- `sandstone/VirtualList.VirtualGridList` to not scale DOM out of a list by wheeling when `snapToCenter`
+
+## [2.7.3] - 2023-07-14
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll properly by hovering inside a nested scroller
+
+## [2.7.2] - 2023-06-30
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icons `exclamation`, `show`, and `hide`
+- `sandstone/Scroller` to support showing buttons when an item is focused and `editable` is given
+- `sandstone/QuickGuidePanels` prop `onClose`
+
+### Fixed
+
+- `sandstone/QuickGuidePanels` to update a close button position properly in RTL locales
+- `sandstone/Scroller` to focus properly when item is selected and `editable` is given
+- `sandstone/VirtualList` to not lose focus when a focused item is removed by reduced `dataSize`
+
+## [2.5.11] - 2023-06-07
+
+### Fixed
+
+- `sandstone/VideoPlayer` to keep showing media controls while a user is wheeling
+
+## [2.7.1] - 2023-06-02
+
+### Added
+
+- `sandstone/Scroller` to support hiding items when `editable` is given
+- `sandstone/QuickGuidePanels` component
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to stop scrolling by `hoverToScroll` when the pointer disappears
+- `sandstone/VideoPlayer` to focus the play/pause button when the playback controls is shown using the 5-way down key
+- `sandstone/VideoPlayer` to keep showing media controls while a user is wheeling
+- `sandstone/WizardPanels` to read out the correct step when using `current` prop
+
+## [2.7.0] - 2023-04-25
+
+### Added
+
+- `sandstone/IconItem` component
+
+### Changed
+
+- `sandstone/Alert` alignment of text content to be left for fullscreen type
+
+### Fixed
+
+- `sandstone/Picker` to include `type` in the event payload for `onChange`
+- `sandstone/Scroller` and `sandstone/VirtualList` to handle focus properly via page up at the first page and page down at the last page
+- `sandstone/WizardPanels` to restore focus properly after a transition
+
+## [2.5.10] - 2023-04-13
+
+### Fixed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to handle focus properly via page up at the first page and page down at the last page
+
+## [2.6.3] - 2023-03-17
+
+### Added
+
+- `sandstone/Button` and `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
+- `sandstone/Icon` supported icon list, adding a new icon `wowcast`
+
+## [2.5.9] - 2023-03-16
+
+### Added
+
+- `sandstone/Button` and `sandstone/Panels.Header` prop `shadowed` to add shadow to text and buttons
+- `sandstone/Icon` supported icon list, adding a new icon `wowcast`
+
 ## [2.6.2] - 2023-03-09
 
 ### Added
@@ -9,6 +371,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` prop `roundBorder`, to make both sides of button fully rounded
 
 ### Fixed
+
 - `sandstone/DayPicker` to handle number typed `selected` prop properly in es-ES locale
 
 ## [2.6.1] - 2023-02-03
@@ -34,7 +397,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/MediaPlayer.MediaControls` to disable buttons when hidden
 - `sandstone/MediaPlayer.MediaControls` to show round buttons correctly in high-contrast mode
-- `sandstone/TabLayout` to not cropped and apply orientation properly when `orientation` prop is vertical 
+- `sandstone/TabLayout` to not cropped and apply orientation properly when `orientation` prop is vertical
 
 ## [2.5.8] - 2023-01-31
 

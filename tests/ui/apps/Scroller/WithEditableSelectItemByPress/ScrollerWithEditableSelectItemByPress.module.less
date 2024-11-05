@@ -1,0 +1,106 @@
+.scrollerWrapper {
+	--selected-item-offset: 0;
+	display: flex;
+	flex-direction: row;
+	min-width: fit-content;
+	padding-top: 60px;
+
+	.hidden {
+		.iconItem {
+			display: none;
+		}
+	}
+}
+
+.centered {
+	justify-content: center;
+}
+
+.wrapper { // public class for editable wrapper
+	padding-left: 36px;
+	padding-right: 36px;
+
+	.removeButtonContainer {
+		height: 156px;
+
+		&:hover ~ .editableIconItem {
+			transform: none;
+		}
+		&:focus-within ~ .editableIconItem {
+			transform: none;
+		}
+
+		.removeButton {
+			display: none;
+		}
+	}
+
+	.itemWrapper {
+		text-align: center;
+
+		&:is([disabled]):not(.hidden).focused {
+			.removeButton {
+				display: none;
+			}
+		}
+
+		.editableIconItem {
+			width: 312px;
+			height: 240px;
+			margin: 60px;
+		}
+
+		&:not(.selected,.focused) .editableIconItem {
+			&:focus {
+				transform: none;
+			}
+		}
+
+		.iconItem {
+			width: 312px;
+			height: 240px;
+			margin: 60px;
+		}
+	}
+
+	.focused { // public class for focused item
+		.removeButton {
+			display: inline-block;
+		}
+
+		.editableIconItem {
+			transform: scale(1.2);
+		}
+	}
+
+	.selected { // public class for selected item
+		.removeButton {
+			display: inline-block;
+		}
+
+		.editableIconItem {
+			transform: scale(1.2);
+		}
+
+		.arrow() {
+			font-family: "Sandstone Icons";
+			font-size: 108px;
+			position: absolute;
+			top: 15%;
+			background: none;
+			opacity: 1;
+		}
+
+		&:not(.hidden):not(.noBefore)::before {
+			content: '\EFFF3';
+			.arrow();
+			left: -30px;
+		}
+
+		&:not(.hidden):not(.noAfter)::after {
+			content: '\EFFF4';
+			.arrow();
+			right: -30px;
+		}
+	}
+}

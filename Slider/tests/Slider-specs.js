@@ -51,7 +51,7 @@ describe('Slider', () => {
 		const slider = screen.getByRole('slider');
 
 		const expectedAttribute = 'aria-valuetext';
-		const expectedValue = '0 change a value with left right button';
+		const expectedValue = 'From 0 to 100 0 change a value with left right button';
 
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});
@@ -61,7 +61,7 @@ describe('Slider', () => {
 		const slider = screen.getByRole('slider');
 
 		const expectedAttribute = 'aria-valuetext';
-		const expectedValue = '0 change a value with up down button';
+		const expectedValue = 'From 0 to 100 0 change a value with up down button';
 
 		expect(slider).toHaveAttribute(expectedAttribute, expectedValue);
 	});

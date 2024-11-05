@@ -15,15 +15,15 @@ async function hitTest (_selector) {
 	}, _selector);
 }
 
-async function expectFocusedItem (itemNum, comment = 'focused item') {
+async function expectFocusedItem (itemNum) {
 	const focusedId = await focusedElement();
-	expect(focusedId, comment).to.equal(`item${itemNum}`);
+	expect(focusedId).toBe(`item${itemNum}`);
 }
 
 async function expectNoFocusedItem () {
 	expect(await browser.execute(function () {
 		return document.activeElement === document.body;
-	})).to.be.true();
+	})).toBe(true);
 }
 
 async function waitUntilFocused (itemNum, comment = '') {
@@ -35,20 +35,22 @@ async function waitUntilFocused (itemNum, comment = '') {
 		const focusedId = await focusedElement();
 		return target === focusedId;
 	}, {timeout: 1500, timeoutMsg: `timed out waiting to focus index ${itemNum}${comment}`});
+	await browser.pause(500);
 }
 
 async function waitUntilVisible (itemNum) {
 	await browser.waitUntil(function () {
 		return hitTest(`#item${itemNum}`);
 	},  {timeout: 1500, timeoutMsg: `timed out waiting until visible index ${itemNum}`});
+	await browser.pause(500);
 }
 
 async function isScrolling () {
-	return await $('#scrolling').getText() === 'Scrolling';
+	return (await $('#scrolling').getText()) === 'Scrolling';
 }
 
 async function isNotScrolling () {
-	return await $('#scrolling').getText() === 'Not Scrolling';
+	return (await $('#scrolling').getText()) === 'Not Scrolling';
 }
 
 /**

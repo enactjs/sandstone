@@ -81,12 +81,12 @@
 		&.minWidth {
 			// Update icon's margin to allow more room for the colordot
 			.icon {
-				-webkit-margin-start: 0;
+				margin-inline-start: 0;
 			}
 
 			.client {
-				-webkit-margin-start: @sand-button-colordot-width;
-				-webkit-padding-start: @sand-button-colordot-h-margin; // The gap between the color-dot and the content matches the space between the regular icon and the text
+				margin-inline-start: @sand-button-colordot-width;
+				padding-inline-start: @sand-button-colordot-h-margin; // The gap between the color-dot and the content matches the space between the regular icon and the text
 
 				&::before {
 					// Colored side-bar
@@ -165,7 +165,7 @@
 			// Standard Button Scenario
 			&.minWidth {
 				.client {
-					-webkit-margin-start: @sand-button-small-colordot-width;
+					margin-inline-start: @sand-button-small-colordot-width;
 
 					&::before {
 						bottom: 50%;
@@ -174,13 +174,13 @@
 				}
 
 				.icon {
-					-webkit-margin-start: 0;
+					margin-inline-start: 0;
 				}
 
 				&.iconAfter {
 					.icon {
 						// Override the above rule
-						-webkit-margin-start: @sand-button-icon-position-after-small-margin-start;
+						margin-inline-start: @sand-button-icon-position-after-small-margin-start;
 					}
 				}
 			}
@@ -308,6 +308,10 @@
 			.bg {
 				opacity: @sand-button-transparent-bg-opacity;
 			}
+
+			&.shadowed .client {
+				text-shadow: @sand-button-text-shadow;
+			}
 		}
 
 		&.red .client::before {
@@ -365,6 +369,10 @@
 
 			.bg {
 				.sand-button-focus-bg-colors();
+			}
+
+			.client {
+				text-shadow: none;
 			}
 
 			&.iconOnly {

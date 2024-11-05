@@ -1,4 +1,4 @@
-import {adaptEvent, call, handle, forKey, forward, oneOf, preventDefault, returnsTrue, stopImmediate} from '@enact/core/handle';
+import {adaptEvent, call, handle, forKey, forward, forwardCustom, oneOf, preventDefault, returnsTrue, stopImmediate} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import {calcProportion} from '@enact/ui/Slider/utils';
@@ -59,7 +59,7 @@ const handleKeyUp = handle(
 	forKey('enter'),
 	// prevent sandstone/Slider from activating the knob
 	preventDefault,
-	adaptEvent(call('getEventPayload'), forward('onChange'))
+	adaptEvent(call('getEventPayload'), forwardCustom('onChange', ev => ev))
 );
 
 /**
@@ -86,7 +86,7 @@ const MediaSliderDecorator = hoc((config, Wrapped) => {
 			this.handleMouseOver = this.handleMouseOver.bind(this);
 			this.handleMouseOut = this.handleMouseOut.bind(this);
 			this.handleMouseMove = this.handleMouseMove.bind(this);
-			if (platform.touch) {
+			if (platform.touchEvent) {
 				this.handleTouchMove = this.handleTouchMove.bind(this);
 			}
 
@@ -105,13 +105,12 @@ const MediaSliderDecorator = hoc((config, Wrapped) => {
 
 		componentDidUpdate (prevProps, prevState) {
 			if (prevState.x !== this.state.x) {
-				forward('onKnobMove', this.getEventPayload('onKnobMove'), this.props);
+				forwardCustom('onKnobMove', ev => ev)(this.getEventPayload(), this.props);
 			}
 		}
 
-		getEventPayload (type) {
+		getEventPayload () {
 			return {
-				type,
 				value: this.state.x,
 				proportion: this.state.x
 			};
@@ -196,7 +195,7 @@ const MediaSliderDecorator = hoc((config, Wrapped) => {
 
 			delete rest.onKnobMove;
 
-			if (platform.touch) {
+			if (platform.touchEvent) {
 				rest.onTouchMove = this.handleTouchMove;
 			}
 

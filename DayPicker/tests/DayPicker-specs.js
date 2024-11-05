@@ -40,25 +40,27 @@ describe('DayPicker', () => {
 		expect(selectedDay).toHaveClass(expected);
 	});
 
-	test('should emit an onSelect event with \'onSelect\' type when selecting days', () => {
+	test('should emit an onSelect event with \'onSelect\' type when selecting days', async () => {
 		ilib.setLocale('en-US');
 
 		const handleSelect = jest.fn();
+		const user = userEvent.setup();
 		render(<DayPicker onSelect={handleSelect} />);
 		const item = screen.getAllByRole('checkbox')[2];
 
-		userEvent.click(item);
+		await user.click(item);
 
 		expect(handleSelect).toHaveBeenCalledWith({content: 'Mon', selected: [1], type: 'onSelect'});
 	});
 
-	test('should include \'content\' in onSelect event payload which respects dayNameLength', () => {
+	test('should include \'content\' in onSelect event payload which respects dayNameLength', async () => {
 		const handleSelect = jest.fn();
+		const user = userEvent.setup();
 		render(<DayPicker onSelect={handleSelect} dayNameLength="short" />);
 
 		// select Monday
 		const item = screen.getByText('Monday');
-		userEvent.click(item);
+		await user.click(item);
 
 		const expected = {
 			// M is the "short" value from ilib for Monday
@@ -108,15 +110,16 @@ describe('DayPicker', () => {
 	});
 
 	describe('with alternate first day of week', () => {
-		test('should accept and emit a generalized selected array', () => {
+		test('should accept and emit a generalized selected array', async () => {
 			ilib.setLocale('es-ES');
 
 			const handleSelect = jest.fn();
+			const user = userEvent.setup();
 			render(<DayPicker defaultSelected={[0]} locale="es-ES" onSelect={handleSelect} />);
 
 			// select Lunes (Monday) which is the first day of the week for es-ES
 			const item = screen.getAllByRole('checkbox')[0];
-			userEvent.click(item);
+			await user.click(item);
 
 			const expected = {
 				// Expect Sunday (0) and Monday (1) to be selected

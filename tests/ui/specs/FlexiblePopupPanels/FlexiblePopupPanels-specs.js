@@ -9,7 +9,7 @@ describe('FlexiblePopupPanels', function () {
 
 	describe('5-way', function () {
 		it('should open FlexiblePopupPanels and navigate to Panel - [QWTC-2506]', async function () {
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 
@@ -38,7 +38,7 @@ describe('FlexiblePopupPanels', function () {
 		});
 
 		it('should respect Panel autoFocus setting - [QWTC-2507]', async function () {
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 

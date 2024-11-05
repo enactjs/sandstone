@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import Button from '../../Button';
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
 const keyDown = (keyCode) => (tab) => fireEvent.keyDown(tab, {keyCode});
@@ -121,6 +122,8 @@ describe('TabLayout specs', () => {
 
 		const expected = {
 			type: 'onTabAnimationEnd',
+			preventDefault: expect.any(Function),
+			stopPropagation: expect.any(Function),
 			collapsed: true
 		};
 		const actual = spy.mock.calls[0][0];
@@ -144,8 +147,9 @@ describe('TabLayout specs', () => {
 		expect(spy).not.toHaveBeenCalled();
 	});
 
-	test('should call \'onSelect\' with \'onSelect\' type when clicking on a tab', () => {
+	test('should call \'onSelect\' with \'onSelect\' type when clicking on a tab', async () => {
 		const spy = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TabLayout onSelect={spy} orientation="vertical">
 				<Tab icon="home" title="Home">
@@ -157,7 +161,7 @@ describe('TabLayout specs', () => {
 			</TabLayout>
 		);
 
-		userEvent.click(screen.getAllByTestId('tab')[1]);
+		await user.click(screen.getAllByTestId('tab')[1]);
 
 		const expected = {type: 'onSelect'};
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
@@ -165,10 +169,10 @@ describe('TabLayout specs', () => {
 		expect(actual).toMatchObject(expected);
 	});
 
-	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab', () => {
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'vertial\' and \'ltr\'', () => {
 		const spy = jest.fn();
 		render(
-			<TabLayout onSelect={spy} orientation="vertical">
+			<TabLayout onSelect={spy} orientation="vertical" rtl={false}>
 				<Tab icon="home" title="Home">
 					<div>Home</div>
 				</Tab>
@@ -179,6 +183,106 @@ describe('TabLayout specs', () => {
 		);
 
 		const tab = screen.getAllByTestId('tab')[1];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
+
+		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'vertial\' and \'rtl\'', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout onSelect={spy} orientation="vertical" rtl>
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[0];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
+
+		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'end\' and \'ltr\'', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout onSelect={spy} anchorTo="end" rtl={false}>
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[0];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
+
+		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'end\' and \'rtl\'', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout onSelect={spy} anchorTo="end" rtl>
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[0];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
+
+		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'right\'', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout onSelect={spy} anchorTo="right">
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[0];
+		enterKeyDown(tab);
+		enterKeyUp(tab);
+
+		const expected = {type: 'onSelect'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onSelect\' with \'onSelect\' type when pressing \'Enter\' on a tab while \'horizontal\'', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout onSelect={spy} orientation="horizontal">
+				<Tab data-testid="tab" title="Home">
+					<div>Home</div>
+				</Tab>
+			</TabLayout>
+		);
+
+		const tab = screen.getAllByTestId('tab')[0];
 		enterKeyDown(tab);
 		enterKeyUp(tab);
 
@@ -232,6 +336,43 @@ describe('TabLayout specs', () => {
 		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
 
 		expect(actual).toMatchObject(expected);
+	});
+
+	test('should call \'onExpand\' with \'onExpand\' type when pressing \'backKey\' on a tab content', () => {
+		const spy = jest.fn();
+		render(
+			<TabLayout collapsed onExpand={spy} rtl={false}>
+				<Tab icon="home" title="Home">
+					<Button>Button</Button>
+				</Tab>
+			</TabLayout>
+		);
+
+		fireEvent.keyUp(screen.getByRole('button'), {keyCode: 27});
+
+		const expected = {type: 'onExpand'};
+		const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should not call \'onExpand\' when preventDefault is called in onKeyUp handler when pressing \'backKey\' on a tab content', () => {
+		const spy = jest.fn();
+		const handleKeyUp = (ev) => {
+			if (ev.keyCode === 27) {
+				ev.preventDefault();
+			}
+		};
+		render(
+			<TabLayout collapsed onKeyUp={handleKeyUp} onExpand={spy} rtl={false}>
+				<Tab icon="home" title="Home">
+					<Button>Button</Button>
+				</Tab>
+			</TabLayout>
+		);
+
+		fireEvent.keyUp(screen.getByRole('button'), {keyCode: 27});
+		expect(spy).not.toHaveBeenCalled();
 	});
 
 	test('should call \'onTabAnimationEnd\' even if \'Spotlight\' is paused and pointer mode \'false\'', () => {

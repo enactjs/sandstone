@@ -71,6 +71,7 @@ function FlexPopupPanels (props) {
 const EachPanel = withConfig(
 	{wrapper: {full: true}},
 	[
+		// [QWTC-2424]
 		{
 			title: 'with standard Panel Components',
 			component: <FlexPopupPanels open />
@@ -145,6 +146,7 @@ const FlexiblePopupPanelsTests = [
 		{prevButtonVisibility: false},
 		EachPanel.map(o => ({...o, title: `${o.title} prevButtonVisibility`}))
 	),
+	// [QWTC-2424]
 	...withConfig(
 		{locale: 'ar-SA'},
 		EachPanel.map(o => ({...o, title: `locale = ar-SA, ${o.title}`}))

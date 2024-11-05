@@ -1,4 +1,4 @@
-import {handle, adaptEvent, forwardCustom, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
+import {handle, forwardCustom, forwardCustomWithPrevent, returnsTrue} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import platform from '@enact/core/platform';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -249,26 +249,17 @@ const InputFieldBase = kind({
 
 	handlers: {
 		onChange: handle(
-			adaptEvent(
-				ev => ({
-					type: 'onBeforeChange',
-					value: ev.target.value
-				}),
-				forwardWithPrevent('onBeforeChange')
-			),
+			forwardCustomWithPrevent('onBeforeChange', ev => ({value: ev.target.value})),
 			returnsTrue((ev, {announce, type}) => {
 				if (type === 'passwordtel') {
-					if (platform.webos) {
+					if (platform.type === 'webos') {
 						readAlert($L('hidden'));
 					} else {
 						announce($L('hidden'));
 					}
 				}
 			}),
-			forwardCustom('onChange', ev => ({
-				stopPropagation: () => ev.stopPropagation(),
-				value: ev.target.value
-			}))
+			forwardCustom('onChange', ev => ({value: ev.target.value}))
 		)
 	},
 

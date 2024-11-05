@@ -37,6 +37,8 @@ export const mediaIcons = [
 	'forward',
 	'home',
 	'info',
+	'jumpbackward10',
+	'jumpforward10',
 	'liveplay',
 	'liverecord',
 	'lyrics',
@@ -91,7 +93,15 @@ export const wifiIcons = [
 	'wifilock1',
 	'wifilock2',
 	'wifilock3',
-	'wifilock4'
+	'wifilock4',
+	'wifi15g',
+	'wifi25g',
+	'wifi35g',
+	'wifi45g',
+	'wifilock15g',
+	'wifilock25g',
+	'wifilock35g',
+	'wifilock45g'
 ].sort();
 
 export const speakerIcons = [
@@ -108,37 +118,76 @@ export const deviceIcons = [
 	'keyboard',
 	'mobile',
 	'mouse',
+	'remotecontrol',
 	'router',
 	'transponder',
 	'voice'
 ].sort();
 
 export const settingsIcons = [
+	'appscontents',
+	'accessibility',
+	'auracast',
 	'bluetooth',
 	'camera',
 	'cameradis',
 	'changepassword',
+	'channelscheduling',
 	'checker',
+	'colorpicker',
+	'create',
 	'demosync',
+	'deviceconnect',
 	'dns',
+	'ear',
+	'exclamation',
+	'exit',
+	'fileppt',
 	'gamepad',
 	'gamepaddis',
 	'gear',
+	'hand',
+	'hide',
 	'home',
+	'index',
 	'keymouse',
 	'keymousedis',
+	'location',
+	'logout',
+	'mediaplayer',
 	'miniplayer',
 	'moodmode',
+	'move',
+	'movies',
 	'musicsrc',
+	'mycontents',
 	'newfeature',
+	'onnow',
+	'pagewidth',
+	'pcnotconnected',
 	'picture',
 	'plug',
 	'powercircle',
 	'r2rappcall',
 	'screenpower',
+	'seemore',
+	'show',
+	'sketch',
+	'smartfunction',
 	'spanner',
 	'subtitle',
-	'support'
+	'support',
+	'textinput',
+	'trailer',
+	'tvguidefvp',
+	'voiced',
+	'wowcast'
+].sort();
+
+export const drawingIcons = [
+	'background',
+	'eraser',
+	'pen'
 ].sort();
 
 export default Object.keys(icons).sort();

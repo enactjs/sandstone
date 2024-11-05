@@ -18,6 +18,7 @@ import FormCheckboxItem from './components/FormCheckboxItem';
 import Header from './components/Header';
 import Heading from './components/Heading';
 import Icon from './components/Icon';
+import IconItem from './components/IconItem';
 import Image from './components/Image';
 import ImageItem from './components/ImageItem';
 import Input from './components/Input';
@@ -27,6 +28,7 @@ import KeyGuide from './components/KeyGuide';
 import Layout from './components/Layout';
 import Marquee from './components/Marquee';
 import MediaOverlay from './components/MediaOverlay';
+import PageViews from './components/PageViews';
 import Panel from './components/Panel';
 import Panels from './components/Panels';
 import Picker from './components/Picker';
@@ -34,6 +36,7 @@ import Popup from './components/Popup';
 import PopupTabLayout from './components/PopupTabLayout';
 import ProgressBar from './components/ProgressBar';
 import ProgressButton from './components/ProgressButton';
+import QuickGuidePanels from './components/QuickGuidePanels';
 import RadioItem from './components/RadioItem';
 import RangePicker from './components/RangePicker';
 import Region from './components/Region';
@@ -70,6 +73,7 @@ const components = {
 	Header,
 	Heading,
 	Icon,
+	IconItem,
 	Image,
 	ImageItem,
 	Input,
@@ -79,6 +83,7 @@ const components = {
 	Layout,
 	Marquee,
 	MediaOverlay,
+	PageViews,
 	Panel,
 	Panels,
 	Picker,
@@ -86,6 +91,7 @@ const components = {
 	PopupTabLayout,
 	ProgressBar,
 	ProgressButton,
+	QuickGuidePanels,
 	RadioItem,
 	RangePicker,
 	Region,

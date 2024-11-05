@@ -68,6 +68,8 @@
 //@sand-overlay-text-color: var(--sand-overlay-text-color);
 @sand-overlay-text-shadow: 0 4px 4px rgb(@sand-shadow-color-rgb, 75%);
 @sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 87, 94, 102); // #575e66
+@sand-overlay-outline-color: var(--sand-overlay-outline-color, transparent);
+@sand-overlay-outline-style: var(--sand-overlay-outline-style, none);
 
 @sand-selection-color: var(--sand-selection-color, #4c5059);
 @sand-selection-bg-color: var(--sand-selection-bg-color, #3399ff);
@@ -98,7 +100,7 @@
 @sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
 @sand-keyguide-bg-color-rgb: var(--sand-keyguide-bg-color-rgb, 55, 58, 65); // #373a41
 @sand-slider-disabled-knob-bg-color: var(--sand-slider-disabled-knob-bg-color, #666666);
-
+@sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
 
 // Overlay Alert
 // ---------------------------------------
@@ -166,6 +168,7 @@
 @sand-button-selected-filter: none;
 @sand-button-transparent-text-color: @sand-text-color;
 @sand-button-focus-icononly-bg-color: '';
+@sand-button-text-shadow: @sand-header-text-shadow;
 
 // Checkbox
 // ---------------------------------------
@@ -221,6 +224,10 @@
 @sand-formcheckboxitem-disabled-text-color: inherit;
 @sand-formcheckboxitem-disabled-focus-text-color: @sand-formcheckboxitem-disabled-text-color;
 
+// Header
+// ---------------------------------------
+@sand-header-text-shadow: 6px 12px 12px @sand-shadow-color;
+
 // Heading
 // ---------------------------------------
 @sand-heading-text-color: @sand-text-color;
@@ -230,6 +237,12 @@
 // HolePunchScrim
 // ---------------------------------------
 @sand-holepunchscrim-bg-color: fade(#000000, 60%); // should be black
+
+// IconItem
+// ---------------------------------------
+@sand-iconitem-disabled-opacity: 0.4;
+@sand-iconitem-label-color: @sand-text-color;
+@sand-iconitem-label-dark-color: @sand-component-focus-text-color;
 
 // ImageItem
 // ---------------------------------------
@@ -396,6 +409,11 @@
 @sand-spinner-bg-color: @sand-component-bg-color;
 @sand-spinner-text-color: @sand-component-text-color;
 @sand-spinner-text-shadow-color: @sand-shadow-color;
+
+// Steps
+// ---------------------------------------
+@sand-steps-pageindicator-bg-color: rgb(111, 118, 128, 1);
+@sand-steps-pageindicator-current-bg-color: @sand-component-text-color;
 
 // Switch
 // ---------------------------------------

@@ -26,9 +26,9 @@ describe('qa-VirtualGridList', function () {
 		// Wait for scroll animation
 		await Page.delay(300);
 
-		expect(await Page.scrollThumbPosition()).to.equal('1');
+		expect(await Page.scrollThumbPosition()).toBe('1');
 		// Step 3-2 Verify: The 101th item with 'Image 100' sticks to the bottom in the list.
 		await Page.spotlightDown();
-		expect(await Page.buttonBottom.isFocused()).to.be.true();
+		expect(await Page.buttonBottom.isFocused()).toBe(true);
 	});
 });

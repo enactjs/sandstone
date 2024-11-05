@@ -29,12 +29,14 @@ import Input from '../views/Input';
 import InputField from '../views/InputField';
 import ItemView from '../views/Item';
 import Option from '../views/Option';
+import PageViews from '../views/PageViews';
 import Panels from '../views/Panels';
 import Picker from '../views/Picker';
 import Popup from '../views/Popup';
 import PopupTabLayout from '../views/PopupTabLayout';
 import ProgressBar from '../views/ProgressBar';
 import ProgressButton from '../views/ProgressButton';
+import QuickGuidePanels from '../views/QuickGuidePanels';
 import RadioItem from '../views/RadioItem';
 import RangePicker from '../views/RangePicker';
 import ReadAlert from '../views/ReadAlert';
@@ -79,12 +81,14 @@ const views = [
 	{title: 'Input', view: Input},
 	{title: 'InputField', view: InputField},
 	{title: 'Item', view: ItemView},
+	{title: 'PageViews', view: PageViews},
 	{isHeader: false, title: 'Panels', view: Panels},
 	{title: 'Picker', view: Picker},
 	{title: 'Popup', view: Popup},
 	{title: 'PopupTabLayout', view: PopupTabLayout},
 	{title: 'ProgressBar', view: ProgressBar},
 	{title: 'ProgressButton', view: ProgressButton},
+	{noCloseButton: true, title: 'QuickGuidePanels', view: QuickGuidePanels},
 	{title: 'RadioItem', view: RadioItem},
 	{title: 'RangePicker', view: RangePicker},
 	{title: 'ReadAlert', view: ReadAlert},

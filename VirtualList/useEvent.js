@@ -1,5 +1,6 @@
 import {is} from '@enact/core/keymap';
 import Spotlight, {getDirection} from '@enact/spotlight';
+import {getContainerConfig} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
@@ -14,6 +15,7 @@ const
 	isPageDown = is('pageDown'),
 	isRight = is('right'),
 	isUp = is('up'),
+	isPointerHide = is('pointerHide'),
 	getNumberValue = (index) => {
 		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
 		let number = +index;
@@ -137,11 +139,12 @@ const useEventKey = (props, instances, context) => {
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
 					const candidate = getTargetByDirectionFromElement(direction, target);
-					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
+					const candidateInside = utilDOM.containsDangerously(ev.currentTarget, candidate);
+					const candidateIndex = candidate && candidateInside && candidate.dataset && getNumberValue(candidate.dataset.index);
 					let isLeaving = false;
 
 					if (isNotItem) { // if the focused node is not an item
-						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
+						if (!candidateInside) { // if the candidate is out of a list
 							isLeaving = true;
 						}
 					} else if (index >= 0 && candidateIndex !== index) { // the focused node is an item and focus will move out of the item
@@ -192,10 +195,21 @@ const useEventKey = (props, instances, context) => {
 								directions.left && column === 0 ||
 								directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
 
-							if (repeat && isLeaving) { // if focus is about to leave items by holding down an arrowy key
-								ev.preventDefault();
-								ev.stopPropagation();
-							} else if (!isLeaving) {
+							/* istanbul ignore next */
+							if (isLeaving) {
+								if (repeat) { // if focus is about to leave items by holding down an arrowy key
+									ev.preventDefault();
+									if (spotlightId && !getContainerConfig(spotlightId)?.continue5WayHold) {
+										ev.stopPropagation();
+									}
+								} else if (!candidate && ev.timeStamp - mutableRef.current.pointerHideTimeStamp < 30) {
+									// No candidate
+									// Spotlight will focus the same item again, then a list scrolls to show the focused item
+									// 30 is an arbitrary value
+									target.blur();
+									mutableRef.current.pointerHideTimeStamp = 0;
+								}
+							} else {
 								handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
 							}
 						}
@@ -209,6 +223,9 @@ const useEventKey = (props, instances, context) => {
 				}
 			} else if (isPageUp(keyCode) || isPageDown(keyCode)) {
 				handlePageUpDownKeyDown();
+			} else if (isPointerHide(keyCode)) {
+				/* istanbul ignore next */
+				mutableRef.current.pointerHideTimeStamp = ev.timeStamp;
 			}
 		}
 

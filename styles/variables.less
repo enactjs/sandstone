@@ -87,6 +87,7 @@
 // ---------------------------------------
 @sand-component-spacing: 36px;
 @sand-component-spacing-bottom: 30px;
+@sand-overlay-outline-width: 0.0625rem; // 3px
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -131,6 +132,8 @@
 @sand-heading-tiny-font-size:       48px;
 @sand-heading-subtitle-font-size:   #guide.header[standard-subtitle-font-size];
 @sand-heading-title-font-size:      #guide.header[standard-title-font-size];
+@sand-iconitem-label-font-size:     42px;
+@sand-iconitem-title-font-size:     36px;
 @sand-imageitem-caption-font-size:  60px;
 @sand-imageitem-label-font-size:    48px;
 @sand-input-font-size:              78px;
@@ -596,6 +599,19 @@
 @sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
 @sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
 
+// IconItem
+// ---------------------------------------
+@sand-iconitem-border-radius: 48px;
+@sand-iconitem-border-style: solid;
+@sand-iconitem-border-width: 4px;
+@sand-iconitem-focus-transform: scale(1.2);
+@sand-iconitem-font-weight: 600;
+@sand-iconitem-icon-margin: @sand-icon-margin @sand-icon-margin 12px;
+@sand-iconitem-label-line-height: 48px;
+@sand-iconitem-label-padding: 0 12px;
+@sand-iconitem-title-line-height: 42px;
+@sand-iconitem-title-margin: 18px 0 0 0;
+
 // ImageItem
 // ---------------------------------------
 @sand-imageitem-margin: @sand-item-margin;
@@ -741,6 +757,17 @@
 @sand-mediaplayer-slider-knob-size: 48px;
 @sand-mediaplayer-slider-tap-area: 162px;
 
+// PageViews
+// ---------------------------------------
+@sand-pageviews-navigation-button-area-width: 216px;
+@sand-pageviews-steps-area-min-height: 132px;
+@sand-pageviews-dot-steps-area-min-height: @sand-pageviews-steps-area-min-height;
+@sand-pageviews-full-contents-bottom-steps-bottom: 0;
+@sand-pageviews-number-navigation-button-area-width: 108px;
+@sand-pageviews-number-steps-area-min-height: 252px;
+@sand-pageviews-number-steps-number-width: 126px;
+@sand-pageviews-number-steps-separator-width: 60px;
+
 // Panels
 // ---------------------------------------
 @sand-panel-padding: 0;
@@ -824,6 +851,22 @@
 // ---------------------------------------
 @sand-progressbutton-icon-font-size: (@sand-icon-tiny-size / 2);
 
+// QuickGuidePanels
+// ---------------------------------------
+@sand-quickguidepanels-close-button-margin-top: (
+	.extract(#guide.header[standard-padding], top)[]
+	- #guide.get-edge-size-difference(
+		#guide.header[standard-title-line-height],
+		@sand-heading-title-font-size,
+		@sand-heading-title-line-height
+	)[@result]
+) + 10px;
+@sand-quickguidepanels-close-button-margin-end: 150px;
+@sand-quickguidepanels-navigation-button-margin: 0 12px;
+@sand-quickguidepanels-container-margin-top: 828px;
+@sand-quickguidepanels-steps-margin-top: 90px;
+@sand-quickguidepanels-steps-min-height: 48px;
+
 // RadioItem
 // ---------------------------------------
 @sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
@@ -900,6 +943,12 @@
 @sand-steps-step-past-opacity: 1;
 @sand-steps-step-current-opacity: 1;
 @sand-steps-step-future-opacity: 0.2;
+@sand-steps-step-highlight-current-only-future-opacity: 1;
+@sand-steps-pageindicator-size: 18px;
+@sand-steps-pageindicator-margin: 0 15px;
+@sand-steps-pageindicator-border-radius: 999px;
+@sand-steps-pageindicator-current-size: 30px;
+@sand-steps-pageindicator-current-margin: 0 9px;
 
 // Switch
 // ---------------------------------------

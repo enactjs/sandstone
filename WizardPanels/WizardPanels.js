@@ -1,8 +1,7 @@
 /* global ENACT_PACK_NO_ANIMATION */
-import handle, {adaptEvent, forProp, forwardCustomWithPrevent, forwardWithPrevent, not} from '@enact/core/handle';
+import handle, {forProp, forwardCustomWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import useChainRefs from '@enact/core/useChainRefs';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
@@ -12,21 +11,16 @@ import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {createContext, useRef, useState, useCallback, Children} from 'react';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
-import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, useAutoFocus} from '../internal/Panels';
+import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, PanelsRouter} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
-import useFocusOnTransition from './useFocusOnTransition';
-import useToggleRole from './useToggleRole';
-
 import css from './WizardPanels.module.less';
 
-const WizardPanelsContext = createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 const HeaderContainer = SpotlightContainerDecorator(Header);
 
@@ -126,12 +120,12 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `nextButton` on WizardPanel.
 		 *
-		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last
+		 * * `'auto'` will display the `nextButton` on every `WizardPanels.Panel` except the last
 		 * * `'always'` will always display the `nextButton`
 		 * * `'never'` will always hide the `nextButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
-		 * case, a customized `nextButton` on WizardPanel.Panel will take precedence over the
+		 * case, a customized `nextButton` on WizardPanels.Panel will take precedence over the
 		 * `nextButtonVisibility` value.
 		 *
 		 * @type {('auto'|'always'|'never')}
@@ -229,12 +223,12 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on WizardPanel.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first
+		 * * `'auto'` will display the `prevButton` on every `WizardPanels.Panel` except the first
 		 * * `'always'` will always display the `prevButton`
 		 * * `'never'` will always hide the `prevButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
-		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
+		 * if user provides a customized `prevButton` on WizardPanels.Panel will take precedence over the `prevButtonVisibility` value.
 		 *
 		 * @type {('auto'|'always'|'never')}
 		 * @default 'auto'
@@ -301,7 +295,7 @@ const WizardPanelsBase = kind({
 
 	handlers: {
 		onNextClick: handle(
-			adaptEvent(() => ({type: 'onNextClick'}), forwardWithPrevent('onNextClick')),
+			forwardCustomWithPrevent('onNextClick'),
 			(ev, {index, onChange, totalPanels}) => {
 				if (onChange && index !== totalPanels) {
 					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
@@ -311,7 +305,7 @@ const WizardPanelsBase = kind({
 			}
 		),
 		onPrevClick: handle(
-			adaptEvent(() => ({type: 'onPrevClick'}), forwardWithPrevent('onPrevClick')),
+			forwardCustomWithPrevent('onPrevClick'),
 			(ev, {index, onChange}) => {
 				if (onChange && index !== 0) {
 					const prevIndex = index > 0 ? (index - 1) : index;
@@ -333,10 +327,11 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
-		'aria-label': ({'aria-label': label, index, noSteps, subtitle, title}) => {
+		'aria-label': ({'aria-label': label, current, index, noSteps, subtitle, title}) => {
 			if (label) return label;
 
-			const step = noSteps ? '' : new IString($L('step {num}')).format({num: index + 1}) + ' ';
+			const stepNum = (typeof current === 'number' && current > 0) ? current : (index + 1);
+			const step = noSteps ? '' : new IString($L('step {num}')).format({num: stepNum}) + ' ';
 			return `${step}${title} ${subtitle}`;
 		},
 		className: ({noSteps, noSubtitle, styler}) => styler.append(
@@ -383,8 +378,8 @@ const WizardPanelsBase = kind({
 		totalPanels,
 		...rest
 	}) => {
-		delete rest.noSteps;
 		delete rest.current;
+		delete rest.noSteps;
 		delete rest.total;
 
 		const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
@@ -462,189 +457,6 @@ const WizardPanelsBase = kind({
 	}
 });
 
-// single-index ViewManagers need some help knowing when the transition direction needs to change
-// because the index is always 0 from its perspective.
-function useReverseTransition (index = -1, rtl) {
-	const prevIndex = useRef(index);
-	const reverse = useRef(rtl);
-	// If the index was changed, the panel transition is occured on the next cycle by `Panel`
-	const prev = {reverseTransition: reverse.current, prevIndex: prevIndex.current};
-
-	if (prevIndex.current !== index) {
-		reverse.current = rtl ? (index > prevIndex.current) : (index < prevIndex.current);
-		prevIndex.current = index;
-	}
-
-	return prev;
-}
-
-/**
- * WizardPanelsRouter passes the children, footer, subtitle, and title from
- * {@link sandstone/WizardPanels.Panel|WizardPanel} to
- * {@link sandstone/WizardPanels.WizardPanelsBase|WizardPanelsBase}.
- *
- * @class WizardPanelsRouter
- * @memberof sandstone/WizardPanels
- * @private
- */
-const WizardPanelsRouter = (Wrapped) => {
-	const WizardPanelsProvider = ({
-		children,
-		componentRef,
-		'data-spotlight-id': spotlightId,
-		index,
-		onTransition,
-		onWillTransition,
-		subtitle,
-		title,
-		rtl,
-		...rest
-	}) => {
-		const [panel, setPanel] = useState(null);
-		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
-		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
-		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
-		const {reverseTransition, prevIndex} = useReverseTransition(index, rtl);
-		const {
-			onWillTransition: focusOnWillTransition,
-			...transition
-		} = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
-
-		const handleWillTransition = useCallback((ev) => {
-			focusOnWillTransition(ev);
-			a11yOnWillTransition(ev);
-		}, [a11yOnWillTransition, focusOnWillTransition]);
-
-		const totalPanels = panel ? Children.count(children) : 0;
-		const currentTitle = panel && panel.title ? panel.title : title;
-		const currentSubTitle = panel && panel.subtitle ? panel.subtitle : subtitle;
-		// eslint-disable-next-line enact/prop-types
-		delete rest.onBack;
-
-		return (
-			<WizardPanelsContext.Provider value={setPanel}>
-				{Children.toArray(children)[index]}
-				<Wrapped
-					{...rest}
-					{...panel}
-					{...transition}
-					componentRef={ref}
-					data-spotlight-id={spotlightId}
-					index={index}
-					onWillTransition={handleWillTransition}
-					title={currentTitle}
-					subtitle={currentSubTitle}
-					totalPanels={totalPanels}
-					reverseTransition={reverseTransition}
-				>
-					{panel && panel.children ? (
-						<div className="enact-fit" key={`panel${prevIndex}`}>
-							{panel.children}
-						</div>
-					) : null}
-				</Wrapped>
-			</WizardPanelsContext.Provider>
-		);
-	};
-
-	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsRouter.prototype */  {
-		/**
-		 * Obtains a reference to the root node.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		componentRef: EnactPropTypes.ref,
-
-		/**
-		* The spotlight id for the panel
-		*
-		* @type {String}
-		* @private
-		*/
-		'data-spotlight-id': PropTypes.string,
-
-		/**
-		* The currently selected step.
-		*
-		* @type {Number}
-		* @default 0
-		* @private
-		*/
-		index: PropTypes.number,
-
-		/**
-		 * Disables panel transitions.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		noAnimation: PropTypes.bool,
-
-		/**
-		* Called when a transition completes
-		*
-		* @type {Function}
-		* @private
-		*/
-		onTransition: PropTypes.func,
-
-		/**
-		* Called when a transition begins
-		*
-		* @type {Function}
-		* @private
-		*/
-		onWillTransition: PropTypes.func,
-
-		/**
-		 * Used to determine the transition direction
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
-
-		/**
-		* The "default" subtitle for WizardPanels if subtitle isn't explicitly set in
-		* {@link sandstone/WizardPanels.Panel|Panel}.
-		* @example
-		* 	<WizardPanels subtitle="Subtitle">
-		*		<WizardPanels.Panel>
-		*			lorem ipsum ...
-		*		</WizardPanels.Panel>
-		*	</WizardPanels>
-		*
-		* @type {String}
-		* @private
-		*/
-		subtitle: PropTypes.string,
-
-		/**
-		* The "default" title for WizardPanels if title isn't explicitly set in
-		* {@link sandstone/WizardPanels.Panel|Panel}.
-		* @example
-		* 	<WizardPanels title="Title">
-		*		<WizardPanels.Panel>
-		*			lorem ipsum ...
-		*		</WizardPanels.Panel>
-		*	</WizardPanels>
-		*
-		* @type {String}
-		* @private
-		*/
-		title: PropTypes.string
-	};
-
-	WizardPanelsProvider.defaultProps = {
-		index: 0,
-		subtitle: '',
-		title: ''
-	};
-
-	return WizardPanelsProvider;
-};
-
 const WizardPanelsDecorator = compose(
 	ForwardRef({prop: 'componentRef'}),
 	Changeable({prop: 'index'}),
@@ -662,7 +474,7 @@ const WizardPanelsDecorator = compose(
 		enterTo: 'default-element'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),
-	WizardPanelsRouter,
+	PanelsRouter,
 	Skinnable
 );
 
@@ -694,6 +506,5 @@ export default WizardPanels;
 export {
 	WizardPanels,
 	WizardPanelsBase,
-	WizardPanelsContext,
 	WizardPanelsDecorator
 };

@@ -9,7 +9,7 @@ describe('FixedPopupPanels', function () {
 		it('should open FixedPopupPanels and navigate to Panel', async function () {
 			await Page.open();
 
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 
@@ -30,7 +30,7 @@ describe('FixedPopupPanels', function () {
 		it('should navigate to the previous panel with left key on an Item', async function () {
 			await Page.open();
 
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 
@@ -51,7 +51,7 @@ describe('FixedPopupPanels', function () {
 		it('should not go to the previous panel with left key on the back button', async function () {
 			await Page.open();
 
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 			await Page.delay(500);
@@ -74,14 +74,14 @@ describe('FixedPopupPanels', function () {
 			const expected = 'Example Item 1 on Panel 2';
 			const actual = browser.execute(getFocusedText);
 
-			expect(await actual).to.equal(expected);
+			expect(await actual).toBe(expected);
 		});
 
 		it('should not duplicate 5-way actions', async function () {
 			// using special configuration to allow spotlight to escape the popup if the test fails
 			await Page.open('?scrimType="none"&spotlightRestrict="self-only"');
 
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 
@@ -102,13 +102,13 @@ describe('FixedPopupPanels', function () {
 			);
 
 			// Focus should remain in the picker
-			expect(await pickerContainsFocused, 'Picker is focused').to.be.true();
+			expect(await pickerContainsFocused).toBe(true);
 		});
 
 		it('should not allow 5-way navigation out and remain open when spotlightRestrict="self-only" and scrim="none"', async function () {
 			await Page.open('?scrimType="none"&spotlightRestrict="self-only"');
 
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 
@@ -116,13 +116,13 @@ describe('FixedPopupPanels', function () {
 
 			await Page.spotlightLeft();
 
-			expect(await Interface.item1.isFocused(), 'focus Item 1').to.be.true();
+			expect(await Interface.item1.isFocused()).toBe(true);
 		});
 
 		it('should allow 5-way navigation out and remain open when spotlightRestrict="self-first" and scrim="none"', async function () {
 			await Page.open('?scrimType="none"&spotlightRestrict="self-first"');
 
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 
@@ -130,7 +130,7 @@ describe('FixedPopupPanels', function () {
 
 			await Page.spotlightLeft();
 
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			// verify the popup remains open
 			await Interface.waitForOpen();

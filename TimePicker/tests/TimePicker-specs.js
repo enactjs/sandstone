@@ -11,14 +11,15 @@ import TimePicker, {timeToLocaleString} from '../TimePicker';
 describe('TimePicker', () => {
 	// Suite-wide setup
 
-	test('should emit an onChange event when changing the hour', () => {
+	test('should emit an onChange event when changing the hour', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
 		);
 		const hourPicker = screen.getAllByText('▲')[0];
 
-		userEvent.click(hourPicker);
+		await user.click(hourPicker);
 
 		const expected = 1;
 		const expectedType = {type: 'onChange', value: new Date(2000, 6, 15, 4, 30)};
@@ -28,14 +29,15 @@ describe('TimePicker', () => {
 		expect(actual).toMatchObject(expectedType);
 	});
 
-	test('should emit an onChange event when changing the minute', () => {
+	test('should emit an onChange event when changing the minute', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
 		);
 		const minutePicker = screen.getAllByText('▲')[1];
 
-		userEvent.click(minutePicker);
+		await user.click(minutePicker);
 
 		const expected = 1;
 		const expectedType = {type: 'onChange', value: new Date(2000, 6, 15, 3, 31)};
@@ -45,14 +47,15 @@ describe('TimePicker', () => {
 		expect(actual).toMatchObject(expectedType);
 	});
 
-	test('should emit an onChange event when changing the meridiem', () => {
+	test('should emit an onChange event when changing the meridiem', async () => {
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 		render(
 			<TimePicker onChange={handleChange} value={new Date(2000, 6, 15, 3, 30)} locale="en-US" />
 		);
 		const meridiemPicker = screen.getAllByText('▲')[2];
 
-		userEvent.click(meridiemPicker);
+		await user.click(meridiemPicker);
 
 		const expected = 1;
 		const expectedType = {type: 'onChange', value: new Date(2000, 6, 15, 15, 30)};

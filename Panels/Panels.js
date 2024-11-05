@@ -1,6 +1,6 @@
 /* global ENACT_PACK_NO_ANIMATION */
 import kind from '@enact/core/kind';
-import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
+import handle, {forwardCustomWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
@@ -220,10 +220,7 @@ const PanelsBase = kind({
 
 	handlers: {
 		onBack: handle(
-			adaptEvent(
-				(ev, {index}) => ({type: 'onBack', index: Math.max(index - 1, 0)}),
-				forwardWithPrevent('onBack')
-			)
+			forwardCustomWithPrevent('onBack', (ev, {index}) => ({index: Math.max(index - 1, 0)}))
 		)
 	},
 

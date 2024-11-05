@@ -41,7 +41,7 @@ const IconBase = kind({
 		/**
 		 * The icon content.
 		 *
-		 * @see {@link ui/Icon.Icon.children}
+		 * @see {@link ui/Icon.IconBase.children}
 		 * @type {String|Object}
 		 * @public
 		 */
@@ -346,6 +346,52 @@ const IconBase = kind({
  * cameradis
  * gamepad
  * gamepaddis
+ * wowcast
+ * exclamation
+ * show
+ * hide
+ * wifi15g
+ * wifi25g
+ * wifi35g
+ * wifi45g
+ * wifilock15g
+ * wifilock25g
+ * wifilock35g
+ * wifilock45g
+ * create
+ * background
+ * pen
+ * eraser
+ * mediaplayer
+ * location
+ * exit
+ * movies
+ * mycontents
+ * accessibility
+ * seemore
+ * trailer
+ * onnow
+ * tvguidefvp
+ * pcnotconnected
+ * fileppt
+ * textinput
+ * pagewidth
+ * index
+ * colorpicker
+ * ear
+ * hand
+ * remotecontrol
+ * channelscheduling
+ * smartfunction
+ * appscontents
+ * deviceconnect
+ * move
+ * voiced
+ * auracast
+ * jumpbackward10
+ * jumpforward10
+ * logout
+ * sketch
  * ```
  *
  * @name iconList

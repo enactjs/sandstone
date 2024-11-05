@@ -17,7 +17,7 @@ const app = (props) => <div {...props}>
 				<Heading>Image Item Default</Heading>
 				<ImageItem
 					id="imageItem1"
-					src="http://via.placeholder.com/300x400/9037ab/ffffff/png?text=Image0"
+					src="https://placehold.co/300x400/9037ab/ffffff/png?text=Image0"
 					style={{width: ri.scaleToRem(420), height: ri.scaleToRem(399)}}
 				>
 					Caption
@@ -27,7 +27,7 @@ const app = (props) => <div {...props}>
 				<Heading>Image Item with long caption</Heading>
 				<ImageItem
 					id="imageItem2"
-					src="http://via.placeholder.com/300x400/9037ab/ffffff/png?text=Image0"
+					src="https://placehold.co/300x400/9037ab/ffffff/png?text=Image0"
 					style={{width: ri.scaleToRem(420), height: ri.scaleToRem(399)}}
 				>
 					Image Item with longer caption has Marquee applied
@@ -38,7 +38,7 @@ const app = (props) => <div {...props}>
 				<ImageItem
 					centered
 					id="imageItem3"
-					src="http://via.placeholder.com/300x400/9037ab/ffffff/png?text=Image0"
+					src="https://placehold.co/300x400/9037ab/ffffff/png?text=Image0"
 					style={{width: ri.scaleToRem(420), height: ri.scaleToRem(399)}}
 				>
 					Centered
@@ -51,7 +51,7 @@ const app = (props) => <div {...props}>
 				<ImageItem
 					disabled
 					id="imageItem4"
-					src="http://via.placeholder.com/300x400/9037ab/ffffff/png?text=Image0"
+					src="https://placehold.co/300x400/9037ab/ffffff/png?text=Image0"
 					style={{width: ri.scaleToRem(420), height: ri.scaleToRem(399)}}
 				>
 					Image Item disabled
@@ -63,7 +63,7 @@ const app = (props) => <div {...props}>
 					id="imageItem5"
 					selected
 					showSelection
-					src="http://via.placeholder.com/300x400/9037ab/ffffff/png?text=Image0"
+					src="https://placehold.co/300x400/9037ab/ffffff/png?text=Image0"
 					style={{width: ri.scaleToRem(420), height: ri.scaleToRem(399)}}
 				>
 					Image Item selected
@@ -74,7 +74,7 @@ const app = (props) => <div {...props}>
 				<ImageItem
 					id="imageItem6"
 					label="Label"
-					src="http://via.placeholder.com/300x400/9037ab/ffffff/png?text=Image0"
+					src="https://placehold.co/300x400/9037ab/ffffff/png?text=Image0"
 					style={{width: ri.scaleToRem(420), height: ri.scaleToRem(399)}}
 				>
 					Image Item with label

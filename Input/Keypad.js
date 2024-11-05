@@ -4,7 +4,7 @@
 
 import kind from '@enact/core/kind';
 import {add} from '@enact/core/keymap';
-import {handle, oneOf, forKey, forward, adaptEvent} from '@enact/core/handle';
+import {handle, oneOf, forKey, forward, forwardCustom} from '@enact/core/handle';
 import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
@@ -42,7 +42,7 @@ const Key = kind({
 	handlers: {
 		onClick: handle(
 			forward('onClick'),
-			adaptEvent((ev, {children: key}) => ({key}), forward('onKeyButtonClick'))
+			forwardCustom('onKeyButtonClick', (ev, {children: key}) => ({key}))
 		)
 	},
 

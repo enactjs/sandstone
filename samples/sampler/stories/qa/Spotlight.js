@@ -5,6 +5,7 @@ import Heading from '@enact/sandstone/Heading';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
+import Image from '@enact/sandstone/Image';
 import Picker from '@enact/sandstone/Picker';
 import Popup from '@enact/sandstone/Popup';
 import RadioItem from '@enact/sandstone/RadioItem';
@@ -27,6 +28,7 @@ import {Component, cloneElement} from 'react';
 import css from './Spotlight.module.less';
 
 import docs from '../../images/icon-enact-docs.png';
+import {svgGenerator} from '../helper/svg';
 
 const Container = SpotlightContainerDecorator({enterTo: 'last-focused'}, 'div');
 
@@ -500,6 +502,21 @@ NavigatingIntoOverflowContainers.parameters = {
 		hideNoControlsWarning: true
 	}
 };
+
+const SpottableDiv = Spottable(Skinnable('div'));
+
+export const FocusRing = () => (
+	<Row>
+		<SpottableDiv className={css.spottableDiv1}>
+			<Image className={css.image} src={svgGenerator(360, 240, 'd8d8d8', '6e6e6e', '360 X 240')} />
+		</SpottableDiv>
+		<SpottableDiv className={css.spottableDiv2}>
+			<Image className={css.image} src={svgGenerator(360, 240, '7ed31d', 'ffffff', '360 X 240')} />
+		</SpottableDiv>
+	</Row>
+);
+
+FocusRing.storyName = 'Spottable with Focus Ring';
 
 export const KitchenSink = (args) => (
 	<Column>
