@@ -302,7 +302,7 @@ const Popup = (props) => {
 	const allComponentProps = setDefaultProps(props, popupDefaultProps);
 	const {noAnimation, noAutoDismiss, no5WayClose, onClose, open, position, scrimType, spotlightRestrict, ...rest} = allComponentProps;
 
-	// Assigned the needed props to the rest object for the child component
+	// Assign the needed props to the rest object for the child component
 	Object.assign(rest, {noAnimation, position, spotlightRestrict});
 
 	const [activator, setActivator] = useState(null);
@@ -311,6 +311,8 @@ const Popup = (props) => {
 	const [prevOpen, setPrevOpen] = useState(open);
 
 	const containerId = useRef(Spotlight.add());
+	const handleKeyDownRef = useRef(null);
+	const openRef = useRef(open);
 	const paused = useRef(new Pause('Popup'));
 
 	const handleKeyDown = useCallback((ev) => {
@@ -356,13 +358,11 @@ const Popup = (props) => {
 		}
 	}, [allComponentProps, no5WayClose, onClose, position, spotlightRestrict]);
 
-	const handleKeyDownRef = useRef(handleKeyDown);
-
 	const spotActivator = useCallback(() => {
 		paused.current.resume();
 
 		// only spot the activator if the popup is closed
-		if (open) return;
+		if (open && handleKeyDownRef.current === handleKeyDown) return;
 
 		const current = Spotlight.getCurrent();
 		const containerNode = getContainerNode(containerId.current);
@@ -386,13 +386,13 @@ const Popup = (props) => {
 				}
 			}
 		}
-	}, [activator, open]);
+	}, [activator, handleKeyDown, open]);
 
 	const spotPopupContent = useCallback(() => {
 		paused.current.resume();
 
 		// only spot the activator if the popup is open
-		if (!open) return;
+		if (!open && handleKeyDownRef.current === handleKeyDown) return;
 
 		on('keydown', handleKeyDownRef.current);
 
@@ -407,7 +407,7 @@ const Popup = (props) => {
 			}
 			Spotlight.setActiveContainer(containerId.current);
 		}
-	}, [open]);
+	}, [handleKeyDown, open]);
 
 	const getDerivedStateFromProps = useCallback(() => {
 		if (open !== prevOpen) {
@@ -502,7 +502,7 @@ const Popup = (props) => {
 		}
 
 		return () => {
-			if (open) {
+			if (openRef.current) {
 				off('keydown', handleKeyDownRef.current);
 			}
 			// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -521,9 +521,13 @@ const Popup = (props) => {
 		if (open && handleKeyDownRef.current !== handleKeyDown) {
 			off('keydown', handleKeyDownRef.current);
 			handleKeyDownRef.current = handleKeyDown;
-			on('keydown', handleKeyDown);
+			on('keydown', handleKeyDownRef.current);
 		}
 	}, [handleKeyDown, open]);
+
+	useEffect(() => {
+		openRef.current = open;
+	}, [open]);
 
 	return (
 		<FloatingLayer
