@@ -1,14 +1,11 @@
 'use strict';
-const {element, getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
+const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getTabPanels = getComponent({component: 'PopupTabLayout', child: 'panels'});
 const getTabLayout = getComponent({component: 'TabLayout'});
 const getTabs = getComponent({component: 'TabLayout', child: 'tabsExpanded'});
 const getCollapsedTabs = getComponent({component: 'TabLayout', child: 'tabs'});
-const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
-const getHelpButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotAfter', el));
-const getBackButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotBefore', el));
 
 class PopupTabLayoutInterface {
 	constructor (id) {
@@ -25,10 +22,10 @@ class PopupTabLayoutInterface {
 	}
 
 	async helpButton () {
-		return await getHelpButton(this.self);
+		return $('.Panels_Header_slotAfter > span > div');
 	}
 	async backButton () {
-		return await getBackButton(this.self);
+		return $('.Panels_Header_slotBefore > span > div');
 	}
 
 	get self () {
@@ -45,6 +42,12 @@ class PopupTabLayoutInterface {
 	}
 	get isCollapsed () {
 		return hasClass('collapsed', this.tabLayout);
+	}
+	get displayTab () {
+		return $('.TabLayout_TabLayout_tabsExpanded > div .Button_Button_button:nth-child(1)');
+	}
+	get soundTab () {
+		return $('.TabLayout_TabLayout_tabsExpanded > div .Button_Button_button:nth-child(2)');
 	}
 	// get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
 	get tabItems () {

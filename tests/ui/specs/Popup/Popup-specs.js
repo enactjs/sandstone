@@ -695,7 +695,7 @@ describe('Popup', function () {
 
 				await Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4)
-				await $('#popup6').moveTo({xOffset: 800, yOffset: 200});
+				await $('#popup6').moveTo({xOffset: 200, yOffset: 0});
 
 				// 5-way to the Cancel button
 				await Page.spotlightLeft();
@@ -728,7 +728,7 @@ describe('Popup', function () {
 				// Wave the pointer to change to cursor mode (step 5)
 				await Page.showPointerByKeycode();
 				// Position the pointer on the right of the Cancel button inside popup
-				await $('#popup6').moveTo({xOffset: 800, yOffset: 200});
+				await $('#popup6').moveTo({xOffset: 200, yOffset: 0});
 
 				// Spotlight on button in popup is blur (verify step 5)
 				expect(await popup.buttonOK.isFocused()).toBe(false);
@@ -907,10 +907,9 @@ describe('Popup', function () {
 
 				await expectOpen(popupCommon);
 
-				const popupSize = await $('#popup7').getSize();
 				await Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4-1).
-				await $('#popup7').moveTo({xOffset: popupSize.width - 1, yOffset: popupSize.height - 1});
+				await $('#popup7').moveTo(); // pointer is positioned in the center of popup to the right of Cancel button
 				// Click on the blank area to change to 5-way.
 				await $('#popup7').click();
 				await Page.spotlightLeft();

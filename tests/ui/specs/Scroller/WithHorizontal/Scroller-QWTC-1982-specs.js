@@ -33,7 +33,7 @@ describe('Horizontal Scroller', function () {
 
 		// Step 7-2: 5-way Select and 5-way Left in the blank area of the viewport to enter 5-way.
 		await ScrollerPage.showPointerByKeycode();
-		await $('#item0').moveTo({xOffset: 0, yOffset: 300});
+		await $('#item0').moveTo();
 		// Step 7-3: 5-way Spot 'Button 1'.
 		await ScrollerPage.spotlightLeft();
 		// Step 7 Verify: Spotlight is on 'Button 1'.

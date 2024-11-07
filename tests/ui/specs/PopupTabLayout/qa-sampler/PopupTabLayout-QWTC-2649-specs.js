@@ -33,8 +33,8 @@ describe('qa-sampler', function () {
 			const backButton = await popupTabLayout.backButton();
 			expect(await backButton.isFocused()).toBe(true);
 
-			// Step 7: Hove on the help button '?' and 5-way left
-			await helpButton.moveTo({xOffset: 0, yOffset: 0});
+			// Step 7: Hover on the help button '?' and 5-way left
+			await helpButton.moveTo({xOffset: 1, yOffset: 1});
 			await Page.spotlightLeft();
 			// Step 7 Verify: Spotlight is on the Tab 'Display' and tabs are expanded
 			await Page.delay(500);

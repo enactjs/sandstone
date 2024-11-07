@@ -1,10 +1,7 @@
 'use strict';
 const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
-const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getScroller = getComponent({lib: 'ui', component: 'useScroll', child: 'scroll'});
-const getTabs = getComponent({component: 'TabLayout', child: 'tabsExpanded'});
-const getCollapsedTabs = getComponent({component: 'TabLayout', child: 'tabs'});
 
 class TabLayoutInterface {
 	constructor (id) {
@@ -25,10 +22,10 @@ class TabLayoutInterface {
 	}
 
 	get content () {
-		return getContent(this.self);
+		return $(`#${this.id} .TabLayout_TabLayout_content > div`);
 	}
 	async currentView () {
-		return (await this.content).$('div');
+		return (await this.content);
 	}
 	get isCollapsed () {
 		return hasClass('collapsed', this.self);
@@ -37,14 +34,18 @@ class TabLayoutInterface {
 		return browser.$(this.selector);
 	}
 	async tabItems () {
-		return await (await this.tabs()).$$('.Button_Button_button');
+		if (await this.isCollapsed) {
+			return await $$(`.TabLayout_TabLayout_tabs > div .TabLayout_TabGroup_tab`);
+		} else {
+			return await $$(`.TabLayout_TabLayout_tabsExpanded > div .TabLayout_TabGroup_tab`);
+		}
 	}
 	async tabs () {
 		if (await this.isCollapsed) {
-			return getCollapsedTabs(this.self);
+			return await $(`#${this.id} .TabLayout_TabLayout_tabs`);
 		}
 
-		return await getTabs(this.self);
+		return await $(`#${this.id} .TabLayout_TabLayout_tabsExpanded`);
 	}
 	get tabsScroller () {
 		return getScroller(this.self);

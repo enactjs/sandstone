@@ -24,23 +24,23 @@ class PickerInterface {
 	}
 
 	decrementer (picker) {
-		return element('.internal_Picker_Picker_decrementer', picker);
+		return element(`.${this.className} .internal_Picker_Picker_decrementer`, picker);
 	}
 
 	incrementer (picker) {
-		return element('.internal_Picker_Picker_incrementer', picker);
+		return element(`.${this.className} .internal_Picker_Picker_incrementer`, picker);
 	}
 
 	decrementerVertical (picker) {
-		return element('.internal_Picker_Picker_incrementer', picker);
+		return element(`.${this.className} .internal_Picker_Picker_incrementer`, picker);
 	}
 
 	incrementerVertical (picker) {
-		return element('.internal_Picker_Picker_decrementer', picker);
+		return element(`.${this.className} .internal_Picker_Picker_decrementer`, picker);
 	}
 
 	currentValue (picker) {
-		return element('.internal_Picker_Picker_valueWrapper', picker);
+		return element(`.${this.className} .internal_Picker_Picker_valueWrapper`, picker);
 	}
 }
 

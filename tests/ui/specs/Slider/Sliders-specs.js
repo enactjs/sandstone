@@ -7,6 +7,20 @@ describe('Slider', function () {
 			await Page.open();
 		});
 
+		describe('touch', function () {
+			it('should change knob position with wheel', async function () {
+				await slider.knob.moveTo();
+				await browser.action('wheel').scroll({
+					origin: await slider.self,
+					deltaX: 500,
+					deltaY: 0,
+					duration: 1000
+				}).perform();
+
+				await browser.pause(2000);
+			});
+		});
+
 		describe('default', function () {
 			const slider = Page.components.sliderDefault;
 

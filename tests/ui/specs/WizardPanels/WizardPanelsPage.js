@@ -1,9 +1,6 @@
 'use strict';
-const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
+const {Page} = require('@enact/ui-test-utils/utils');
 
-const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
-const getNextButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotAfter', el));
-const getPrevButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotBefore', el));
 const viewSelector = view => `#view${view}`;
 
 class WizardPanelsInterface {
@@ -33,10 +30,10 @@ class WizardPanelsInterface {
 	}
 
 	async nextButton () {
-		return await getNextButton(this.self);
+		return await $('.Panels_Header_slotAfter > span > div');
 	}
 	async prevButton () {
-		return await getPrevButton(this.self);
+		return await $('.Panels_Header_slotBefore > span > div');
 	}
 
 	get view1 () {
