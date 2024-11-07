@@ -34,8 +34,8 @@
 @sand-component-inactive-indicator-bg-color: var(--sand-component-inactive-indicator-bg-color, #9da2a7);
 
 @sand-focus-text-color: var(--sand-focus-text-color, #ffffff);
-@sand-focus-bg-color-rgb: var(--sand-focus-bg-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-focus-bg-color: rgb(@sand-focus-bg-color-rgb);
+// To Be Removed @sand-focus-bg-color-rgb: var(--sand-focus-bg-color-rgb, 230, 230, 230); // #e6e6e6
+@sand-focus-bg-color: var(--sand-focus-bg-color, #e6e6e6);
 @sand-component-focus-text-color-rgb: var(--sand-component-focus-text-color-rgb, 76, 80, 89); // #4c5059
 @sand-component-focus-text-color: rgb(@sand-component-focus-text-color-rgb);
 @sand-component-focus-active-indicator-bg-color: var(--sand-component-focus-active-indicator-bg-color, #4c5059);
@@ -382,7 +382,7 @@
 
 // Scroller
 // ---------------------------------------
-@sand-scroll-focusablebody-focus-bg-color: rgb(@sand-focus-bg-color-rgb, 10%);
+@sand-scroll-focusablebody-focus-bg-color: ~"color(from" @sand-focus-bg-color ~"srgb r g b / 0.1)";
 
 // Slider
 // ---------------------------------------
