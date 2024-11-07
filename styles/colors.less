@@ -89,8 +89,8 @@
 @sand-progress-highlighted-color: var(--sand-progress-highlighted-color, #ffffff);
 @sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
 
-@sand-spinner-color-rgb: var(--sand-spinner-color, 255, 255, 255); // #ffffff
-@sand-spinner-color: rgb(@sand-spinner-color-rgb);
+// To Be Removed @sand-spinner-color-rgb: var(--sand-spinner-color, 255, 255, 255); // #ffffff
+@sand-spinner-color: var(--sand-spinner-color, #ffffff);
 
 @sand-invalid-color: #ff0000;
 @sand-invalid-sub-color: #fb5656;
@@ -407,7 +407,7 @@
 // Spinner
 // ---------------------------------------
 @sand-spinner-head-color: @sand-spinner-color;
-@sand-spinner-empty-color: rgb(@sand-spinner-color-rgb, 20%);
+@sand-spinner-empty-color: ~"color(from" @sand-spinner-color ~"srgb r g b / 0.2)";
 @sand-spinner-bg-color: @sand-component-bg-color;
 @sand-spinner-text-color: @sand-component-text-color;
 @sand-spinner-text-shadow-color: @sand-shadow-common-color;
