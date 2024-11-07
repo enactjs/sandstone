@@ -68,7 +68,8 @@
 
 //@sand-overlay-text-color: var(--sand-overlay-text-color);
 @sand-overlay-text-shadow: 0 4px 4px ~"color(from" @sand-shadow-color ~"srgb r g b / 0.75)";
-@sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 87, 94, 102); // #575e66
+// To Be Removed @sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 87, 94, 102); // #575e66
+@sand-overlay-bg-color: var(--sand-overlay-bg-color, #575e66);
 @sand-overlay-outline-color: var(--sand-overlay-outline-color, transparent);
 @sand-overlay-outline-style: var(--sand-overlay-outline-style, none);
 
@@ -200,7 +201,7 @@
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextualpopup-bg-color: rgb(@sand-overlay-bg-color-rgb);
+@sand-contextualpopup-bg-color: @sand-overlay-bg-color;
 @sand-contextualpopup-shadow: 0 24px 60px @sand-shadow-common-color;
 
 // Dropdown
@@ -330,8 +331,8 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: rgb(@sand-overlay-bg-color-rgb, 90%);
-@sand-popup-scrimtransparent-bg-color: rgb(@sand-overlay-bg-color-rgb, 95%);
+@sand-popup-bg-color: ~"color(from" @sand-overlay-bg-color ~"srgb r g b / 0.9)";
+@sand-popup-scrimtransparent-bg-color: ~"color(from" @sand-overlay-bg-color ~"srgb r g b / 0.95)";
 
 // PopupTabLayout
 // ---------------------------------------
