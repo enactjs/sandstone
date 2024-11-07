@@ -33,6 +33,12 @@ const InputTests = [
 	// RTL overlay number input tests
 	...withConfig({locale: 'ar-SA'}, [
 		...withProps({popupType: 'overlay'}, BaseTests.slice(5))
+	]),
+
+	// Large text mode
+	...withConfig({textSize: 'large'}, [
+		...withProps({popupType: 'fullscreen'}, BaseTests),
+		...withProps({popupType: 'overlay'}, BaseTests)
 	])
 ];
 
