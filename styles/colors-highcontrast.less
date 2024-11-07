@@ -8,7 +8,8 @@
 // UI Conceptual Colors
 // ---------------------------------------
 
-@sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 0, 0, 0);
+// To Be Removed @sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 0, 0, 0);
+@sand-overlay-bg-color: var(--sand-overlay-bg-color, #000000);
 @sand-overlay-outline-color: var(--sand-overlay-outline-color, #7c848b);
 @sand-overlay-outline-style: var(--sand-overlay-outline-style, solid);
 
@@ -36,7 +37,7 @@
 
 // Input
 // ---------------------------------------
-@sand-input-fullscreen-background-color: rgb(@sand-overlay-bg-color-rgb); // different from neutral
+@sand-input-fullscreen-background-color: @sand-overlay-bg-color; // different from neutral
 
 // KeyGuide
 // ---------------------------------------
@@ -44,5 +45,5 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: rgb(@sand-overlay-bg-color-rgb); // no alpha
-@sand-popup-scrimtransparent-bg-color: rgb(@sand-overlay-bg-color-rgb); // no alpha
+@sand-popup-bg-color: @sand-overlay-bg-color; // no alpha
+@sand-popup-scrimtransparent-bg-color: @sand-overlay-bg-color; // no alpha
