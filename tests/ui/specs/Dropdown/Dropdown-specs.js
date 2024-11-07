@@ -187,6 +187,53 @@ describe('Dropdown', function () {
 		});
 	});
 
+	describe('touch/wheel tests', function () {
+		beforeEach(async function () {
+			await Page.open();
+		});
+		const dropdown = Page.components.dropdownMoreChildren;
+
+		it('touch', async function () {
+			await Page.openDropdown(dropdown);
+			await browser.action('pointer', {
+				parameters: {pointerType: 'touch'}
+			})
+				.move({duration: 0, origin: await dropdown.list})
+				.down()
+				.move({duration: 0, origin: await dropdown.list, y: -100})
+				.up()
+				.perform()
+
+			await browser.pause(2000);
+
+			await browser.action('pointer', {
+				parameters: {pointerType: 'touch'}
+			})
+				.move({duration: 0, origin: await dropdown.list, y: -100})
+				.down()
+				.move({duration: 0, origin: await dropdown.list, y: 0})
+				.up()
+				.perform()
+
+			await browser.pause(2000);
+			// TODO: write assertions to check scrollThumb position
+		});
+
+		// TODO: select item in the list with touch action
+
+		it('wheel', async function () {
+			await Page.openDropdown(dropdown);
+			await browser.action('wheel').scroll({
+				origin: await dropdown.list,
+				deltaX: 0,
+				deltaY: 100,
+				duration: 1000
+			}).perform();
+
+			// TODO: write assertions to check scrollThumb position
+		});
+	});
+
 	describe('in scroller', function () {
 		beforeEach(async function () {
 			await Page.open('InScroller');
