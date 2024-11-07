@@ -41,8 +41,8 @@
 @sand-component-focus-active-indicator-bg-color: var(--sand-component-focus-active-indicator-bg-color, #4c5059);
 @sand-component-focus-inactive-indicator-bg-color: var(--sand-component-focus-inactive-indicator-bg-color, #b8b9bb);
 
-@sand-selected-color-rgb: var(--sand-selected-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-selected-color: rgb(@sand-selected-color-rgb);
+// To Be Removed @sand-selected-color-rgb: var(--sand-selected-color-rgb, 230, 230, 230); // #e6e6e6
+@sand-selected-color: var(--sand-selected-color, #e6e6e6);
 @sand-selected-text-color: var(--sand-selected-text-color, @sand-text-color);
 @sand-selected-bg-color: var(--sand-selected-bg-color, #3e454d);
 
@@ -257,7 +257,7 @@
 @sand-imageitem-focus-selection-icon-bg-color: @sand-imageitem-selection-icon-bg-color;
 @sand-imageitem-selected-selection-icon-color: @sand-selected-color;
 @sand-imageitem-selected-selection-icon-bg-color: @sand-toggle-on-bg-color;
-@sand-imageitem-selected-image-border-color: rgb(@sand-selected-color-rgb, 70%);
+@sand-imageitem-selected-image-border-color: ~"color(from" @sand-selected-color ~"srgb r g b / 0.7)";
 @sand-imageitem-selected-focus-selection-icon-color: @sand-imageitem-selected-selection-icon-color;
 @sand-imageitem-selected-focus-selection-icon-bg-color: @sand-imageitem-selected-selection-icon-bg-color;
 
