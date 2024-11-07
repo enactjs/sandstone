@@ -27,8 +27,8 @@
 @sand-shadow-common-color: ~"color(from" @sand-shadow-color ~"srgb r g b / 0.3)";
 // To Be Removed @sand-component-text-color-rgb: var(--sand-component-text-color-rgb, 230, 230, 230); // #e6e6e6
 @sand-component-text-color: var(--sand-component-text-color, #e6e6e6);
-@sand-component-text-sub-color-rgb: var(--sand-component-text-sub-color-rgb, 171, 174, 179); // #abaeb3
-@sand-component-text-sub-color: rgb(@sand-component-text-sub-color-rgb);
+// To Be Removed @sand-component-text-sub-color-rgb: var(--sand-component-text-sub-color-rgb, 171, 174, 179); // #abaeb3
+@sand-component-text-sub-color: var(--sand-component-text-sub-color, #abaeb3);
 @sand-component-bg-color: var(--sand-component-bg-color, #7d848c);
 @sand-component-active-indicator-bg-color: var(--sand-component-active-indicator-bg-color, #e6e6e6);
 @sand-component-inactive-indicator-bg-color: var(--sand-component-inactive-indicator-bg-color, #9da2a7);
@@ -321,7 +321,7 @@
 @sand-picker-joined-horizontal-text-color: @sand-component-text-color;
 @sand-picker-joined-horizontal-bg-color: @sand-component-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
-@sand-picker-joined-incrementer-color: rgb(@sand-component-text-sub-color-rgb, 50%);
+@sand-picker-joined-incrementer-color: ~"color(from" @sand-component-text-sub-color ~"srgb r g b / 0.5)";
 @sand-picker-joined-focus-incrementer-color: @sand-component-focus-text-color;
 @sand-picker-joined-focus-disabled-text-color: @sand-picker-indicator-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicator-active-focus-bg-color;
