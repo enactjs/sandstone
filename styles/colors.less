@@ -81,8 +81,8 @@
 @sand-toggle-on-color: var(--sand-toggle-on-color, @sand-selected-color);
 @sand-toggle-on-bg-color: var(--sand-toggle-on-bg-color, #30ad6b);
 
-@sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-progress-color: rgb(@sand-progress-color-rgb);
+// To Be Removed @sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230); // #e6e6e6
+@sand-progress-color: var(--sand-progress-color, #e6e6e6);
 @sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
 @sand-progress-bg-color-alpha: var(--sand-progress-bg-color-alpha, 100%);
 @sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb, @sand-progress-bg-color-alpha);
@@ -308,7 +308,7 @@
 
 // MediaSlider
 // ---------------------------------------
-@sand-mediaslider-bar-bg-color: rgb(@sand-progress-color-rgb, 30%);
+@sand-mediaslider-bar-bg-color: ~"color(from" @sand-progress-color ~"srgb r g b / 0.3)";
 @sand-mediaslider-disabled-bar-opacity: 0.3;
 @sand-mediaslider-fill-bg-color: @sand-progress-color;
 
@@ -343,7 +343,7 @@
 // ProgressBar
 // ---------------------------------------
 @sand-progressbar-bar-bg-color: @sand-progress-bg-color;
-@sand-progressbar-load-bg-color: rgb(@sand-progress-color-rgb, 30%);
+@sand-progressbar-load-bg-color: ~"color(from" @sand-progress-color ~"srgb r g b / 0.3)";
 @sand-progressbar-fill-bg-color: @sand-progress-color;
 @sand-progressbar-highlighted-fill-bg-color: @sand-progress-highlighted-color;
 
@@ -376,7 +376,7 @@
 // Scrollbar
 // ---------------------------------------
 @sand-scrollbar-track-bg-color: rgb(@sand-progress-bg-color-rgb, 50%);
-@sand-scrollbar-thumb-bg-color: rgb(@sand-progress-color-rgb, 60%);
+@sand-scrollbar-thumb-bg-color: ~"color(from" @sand-progress-color ~"srgb r g b / 0.6)";
 @sand-scrollbar-thumb-focus-bg-color: @sand-focus-bg-color;
 @sand-scrollbar-thumb-focus-direction-indicator-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b / 0.4)";
 @sand-scrollbar-thumb-focus-box-shadow-color: @sand-shadow-common-color;
