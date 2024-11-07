@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/IconItem` to restart marquee after done editing in `sandstone/Scroller` with `editable` prop
+- `sandstone/Input` to have 3 columns of keys with in large text mode when `type` prop is `number` or `passwordnumber`, and `popupType` prop is `overlay` or screen is portrait mode
 - `sandstone/PageViews` and `sandstone/QuickGuidePanels` dot page indicators to be aligned center
 - `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
 - `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
