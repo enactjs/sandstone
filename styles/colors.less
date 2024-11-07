@@ -36,8 +36,8 @@
 @sand-focus-text-color: var(--sand-focus-text-color, #ffffff);
 // To Be Removed @sand-focus-bg-color-rgb: var(--sand-focus-bg-color-rgb, 230, 230, 230); // #e6e6e6
 @sand-focus-bg-color: var(--sand-focus-bg-color, #e6e6e6);
-@sand-component-focus-text-color-rgb: var(--sand-component-focus-text-color-rgb, 76, 80, 89); // #4c5059
-@sand-component-focus-text-color: rgb(@sand-component-focus-text-color-rgb);
+// To Be Removed @sand-component-focus-text-color-rgb: var(--sand-component-focus-text-color-rgb, 76, 80, 89); // #4c5059
+@sand-component-focus-text-color: var(--sand-component-focus-text-color, #4c5059);
 @sand-component-focus-active-indicator-bg-color: var(--sand-component-focus-active-indicator-bg-color, #4c5059);
 @sand-component-focus-inactive-indicator-bg-color: var(--sand-component-focus-inactive-indicator-bg-color, #b8b9bb);
 
@@ -267,14 +267,14 @@
 @sand-input-overlay-background-color: @sand-popup-bg-color;
 @sand-input-numbercell-background-color: ~"color(from" @sand-text-color ~"srgb r g b / 0.2)";
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
-@sand-input-numberfield-disabled-color: rgb(@sand-component-focus-text-color-rgb, @sand-disabled-focus-content-opacity * 100%);
+@sand-input-numberfield-disabled-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b /" @sand-disabled-focus-content-opacity ~")";
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
 // ---------------------------------------
 @sand-inputfield-text-color: @sand-text-color;
 @sand-inputfield-placeholder-color: ~"color(from" @sand-component-text-color ~"srgb r g b / 0.2)";
-@sand-inputfield-placeholder-active-color: rgb(@sand-component-focus-text-color-rgb, 40%);
+@sand-inputfield-placeholder-active-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b / 0.4)";
 @sand-inputfield-focus-text-color: @sand-component-focus-text-color;
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-invalid-color: @sand-invalid-color;
@@ -377,7 +377,7 @@
 @sand-scrollbar-track-bg-color: rgb(@sand-progress-bg-color-rgb, 50%);
 @sand-scrollbar-thumb-bg-color: rgb(@sand-progress-color-rgb, 60%);
 @sand-scrollbar-thumb-focus-bg-color: @sand-focus-bg-color;
-@sand-scrollbar-thumb-focus-direction-indicator-color: rgb(@sand-component-focus-text-color-rgb, 40%);
+@sand-scrollbar-thumb-focus-direction-indicator-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b / 0.4)";
 @sand-scrollbar-thumb-focus-box-shadow-color: @sand-shadow-common-color;
 
 // Scroller
