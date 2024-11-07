@@ -25,8 +25,8 @@
 // To Be Removed @sand-shadow-color-rgb: var(--sand-shadow-color-rgb, 0, 0, 0);
 @sand-shadow-color: var(--sand-shadow-color, #000000);
 @sand-shadow-common-color: ~"color(from" @sand-shadow-color ~"srgb r g b / 0.3)";
-@sand-component-text-color-rgb: var(--sand-component-text-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-component-text-color: rgb(@sand-component-text-color-rgb);
+// To Be Removed @sand-component-text-color-rgb: var(--sand-component-text-color-rgb, 230, 230, 230); // #e6e6e6
+@sand-component-text-color: var(--sand-component-text-color, #e6e6e6);
 @sand-component-text-sub-color-rgb: var(--sand-component-text-sub-color-rgb, 171, 174, 179); // #abaeb3
 @sand-component-text-sub-color: rgb(@sand-component-text-sub-color-rgb);
 @sand-component-bg-color: var(--sand-component-bg-color, #7d848c);
@@ -273,7 +273,7 @@
 // InputField
 // ---------------------------------------
 @sand-inputfield-text-color: @sand-text-color;
-@sand-inputfield-placeholder-color: rgb(@sand-component-text-color-rgb, 20%);
+@sand-inputfield-placeholder-color: ~"color(from" @sand-component-text-color ~"srgb r g b / 0.2)";
 @sand-inputfield-placeholder-active-color: rgb(@sand-component-focus-text-color-rgb, 40%);
 @sand-inputfield-focus-text-color: @sand-component-focus-text-color;
 @sand-inputfield-disabled-text-color: inherit;
