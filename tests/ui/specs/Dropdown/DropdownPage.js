@@ -2,6 +2,8 @@
 
 const {element, componentSelector, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
+const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
+
 class DropdownInterface {
 	constructor (id) {
 		this.id = id;
@@ -40,6 +42,13 @@ class DropdownInterface {
 
 	get self () {
 		return element(`#${this.id}`, browser);
+	}
+
+	async getScrollThumbPosition (index = 0) {
+		return await browser.execute(function (_scrollbarSelector, _index) {
+			const scrollbar = document.querySelectorAll(_scrollbarSelector)[_index];
+			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
+		}, scrollbarSelector, index);
 	}
 
 }
