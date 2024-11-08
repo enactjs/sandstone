@@ -39,7 +39,7 @@
 	}
 
 	.applySkins({
-		background: @sand-keyguide-bg-color;
+		background: ~"color(from" @sand-keyguide-bg-color ~"srgb r g b /" @sand-keyguide-bg-color-alpha ~")";
 
 		.red {
 			background-color: @sand-keyguide-colordot-red-color;
