@@ -41,7 +41,7 @@ describe('VirtualGridList', function () {
 			deltaX: 0,
 			deltaY: 1000,
 			duration: 200,
-			pause: 1000,
+			pause: 1000
 		}).perform();
 
 		const currentScrollThumbPosition = await Page.scrollThumbPosition();
@@ -71,7 +71,7 @@ describe('VirtualGridList', function () {
 			deltaX: 1000,
 			deltaY: 0,
 			duration: 200,
-			pause: 1000,
+			pause: 1000
 		}).perform();
 		await browser.pause(2000);
 
@@ -84,7 +84,7 @@ describe('VirtualGridList', function () {
 			deltaX: -1000,
 			deltaY: 0,
 			duration: 200,
-			pause: 1000,
+			pause: 1000
 		}).perform();
 		await browser.pause(2000);
 
@@ -133,7 +133,7 @@ describe('VirtualGridList', function () {
 			.down()
 			.move({duration: 1000, origin: await Page.list, x: 0, y: 50})
 			.up()
-			.perform()
+			.perform();
 
 		const currScrollThumbPosition = await Page.scrollThumbPosition();
 

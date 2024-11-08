@@ -195,6 +195,7 @@ describe('Dropdown', function () {
 
 		it('touch', async function () {
 			await Page.openDropdown(dropdown);
+			const initialScrollThumbPosition = await dropdown.getScrollThumbPosition();
 			await browser.action('pointer', {
 				parameters: {pointerType: 'touch'}
 			})
@@ -202,9 +203,10 @@ describe('Dropdown', function () {
 				.down()
 				.move({duration: 0, origin: await dropdown.list, y: -100})
 				.up()
-				.perform()
+				.perform();
 
-			await browser.pause(2000);
+			let currentScrollThumbPosition = await dropdown.getScrollThumbPosition();
+			expect(currentScrollThumbPosition > initialScrollThumbPosition).toBe(true);
 
 			await browser.action('pointer', {
 				parameters: {pointerType: 'touch'}
@@ -213,16 +215,15 @@ describe('Dropdown', function () {
 				.down()
 				.move({duration: 0, origin: await dropdown.list, y: 0})
 				.up()
-				.perform()
+				.perform();
 
-			await browser.pause(2000);
-			// TODO: write assertions to check scrollThumb position
+			currentScrollThumbPosition = await dropdown.getScrollThumbPosition();
+			expect(currentScrollThumbPosition === initialScrollThumbPosition).toBe(true);
 		});
-
-		// TODO: select item in the list with touch action
 
 		it('wheel', async function () {
 			await Page.openDropdown(dropdown);
+			const initialScrollThumbPosition = await dropdown.getScrollThumbPosition();
 			await browser.action('wheel').scroll({
 				origin: await dropdown.list,
 				deltaX: 0,
@@ -230,7 +231,8 @@ describe('Dropdown', function () {
 				duration: 1000
 			}).perform();
 
-			// TODO: write assertions to check scrollThumb position
+			const currentScrollThumbPosition = await dropdown.getScrollThumbPosition();
+			expect(currentScrollThumbPosition > initialScrollThumbPosition).toBe(true);
 		});
 	});
 
