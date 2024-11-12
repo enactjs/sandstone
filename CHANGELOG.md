@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icons `ai`, `alert01`, and `alert02`
+
 ## [2.9.4] - 2024-10-29
 
 ### Fixed
