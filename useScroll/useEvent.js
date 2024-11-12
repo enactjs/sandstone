@@ -435,6 +435,49 @@ const useEventVoice = (props, instances) => {
 
 	// Functions
 
+	const focusSpottableNode = (spotlightId, bounds, subtask) => {
+		const isVertical = mutableRef.current.voiceControlDirection === 'vertical';
+		const first = isVertical ? 'top' : 'left';
+		const last = isVertical ? 'bottom' : 'right';
+
+		const candidates = Spotlight.getSpottableDescendants(spotlightId);
+
+		const recursiveFocus = (nodes, viewportBounds, isSubtask) => {
+			for (let i = 0; i < nodes.length; i++) {
+				const nodeBounds = nodes[i].getBoundingClientRect();
+
+				if (nodeBounds[first] >= viewportBounds[first] && nodeBounds[last] <= viewportBounds[last]) {
+					Spotlight.focus(nodes[i]);
+
+					return true;
+				} else if (!isSubtask &&
+						viewportBounds[first] <= nodeBounds[first] && nodeBounds[first] <= viewportBounds[last] && nodeBounds[last] >= viewportBounds[last]) {
+
+					if (recursiveFocus(Spotlight.getSpottableDescendants(nodes[i].dataset.spotlightId), viewportBounds, true)) {
+						return true;
+					}
+
+					Spotlight.focus(nodes[i]);
+
+					return true;
+				} else if (!isSubtask &&
+						nodeBounds[first] <= viewportBounds[first] && viewportBounds[first] <= nodeBounds[last] && nodeBounds[last] <= viewportBounds[last]) {
+
+					if (recursiveFocus(Spotlight.getSpottableDescendants(nodes[i].dataset.spotlightId), viewportBounds, true)) {
+						return true;
+					}
+
+					Spotlight.focus(nodes[i === nodes.length - 1 ? i : i + 1]);
+
+					return true;
+				}
+			}
+			return false;
+		};
+
+		return recursiveFocus(candidates, bounds, subtask);
+	};
+
 	const updateFocusAfterVoiceControl = () => {
 		const
 			spotItem = Spotlight.getCurrent(),
@@ -449,15 +492,7 @@ const useEventVoice = (props, instances) => {
 
 			/* if the focused element is out of the viewport, find another spottable element in the viewport */
 			if (spotItemBounds[last] <= viewportBounds[first] || spotItemBounds[first] >= viewportBounds[last]) {
-				const nodes = Spotlight.getSpottableDescendants(scrollContainerNode.dataset.spotlightId);
-				for (let i = 0; i < nodes.length; i++) {
-					const nodeBounds = nodes[i].getBoundingClientRect();
-
-					if (nodeBounds[first] >= viewportBounds[first] && nodeBounds[last] <= viewportBounds[last]) {
-						Spotlight.focus(nodes[i]);
-						break;
-					}
-				}
+				focusSpottableNode(scrollContainerNode.dataset.spotlightId, viewportBounds, false);
 			}
 		}
 	};
