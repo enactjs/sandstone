@@ -448,7 +448,6 @@ const useEventVoice = (props, instances) => {
 
 				if (nodeBounds[first] >= viewportBounds[first] && nodeBounds[last] <= viewportBounds[last]) {
 					Spotlight.focus(nodes[i]);
-
 					return true;
 				} else if (!isSubtask &&
 						viewportBounds[first] <= nodeBounds[first] && nodeBounds[first] <= viewportBounds[last] && nodeBounds[last] >= viewportBounds[last]) {
@@ -458,7 +457,6 @@ const useEventVoice = (props, instances) => {
 					}
 
 					Spotlight.focus(nodes[i]);
-
 					return true;
 				} else if (!isSubtask &&
 						nodeBounds[first] <= viewportBounds[first] && viewportBounds[first] <= nodeBounds[last] && nodeBounds[last] <= viewportBounds[last]) {
@@ -468,7 +466,6 @@ const useEventVoice = (props, instances) => {
 					}
 
 					Spotlight.focus(nodes[i === nodes.length - 1 ? i : i + 1]);
-
 					return true;
 				}
 			}

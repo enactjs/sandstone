@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` to focus even when the node boundery goes out the viewport by voice control
+
 ## [2.9.4] - 2024-10-29
 
 ### Fixed
