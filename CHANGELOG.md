@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Input` keypad layout when `type` prop is `number` or `passwordnumber` and the screen is in portrait mode or `popupType` prop is `overlay` and in large text mode
+
 ## [2.9.4] - 2024-10-29
 
 ### Fixed
