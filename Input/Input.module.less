@@ -131,6 +131,10 @@
 				margin: @sand-portrait-input-fullscreen-keypad-margin;
 				width: @sand-portrait-input-fullscreen-keypad-width;
 			}
+
+			:global(.enact-orientation-portrait):global(.enact-text-large) & {
+				width: @sand-portrait-input-fullscreen-keypad-width-large;
+			}
 		}
 
 		.key {
@@ -228,6 +232,10 @@
 		.keypad {
 			margin: @sand-input-overlay-keypad-margin;
 			width: @sand-input-overlay-keypad-width;
+
+			:global(.enact-text-large) & {
+				width: @sand-input-overlay-keypad-width-large;
+			}
 		}
 
 		.buttonArea {
