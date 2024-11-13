@@ -1,8 +1,7 @@
 dist: jammy
 language: node_js
 node_js:
-    - lts/*
-    - "20"
+    - "16"
 sudo: false
 before_install:
     - sudo apt-get update
