@@ -12,7 +12,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
 - `sandstone/IconItem` to restart marquee after done editing in `sandstone/Scroller` with `editable` prop
+- `sandstone/Input` keypad layout when `type` prop is `number` or `passwordnumber` and the screen is in portrait mode or `popupType` prop is `overlay` and in large text mode
 - `sandstone/PageViews` and `sandstone/QuickGuidePanels` dot page indicators to be aligned center
 - `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
 - `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
