@@ -8,6 +8,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Icon` supported icon list, adding new icons `ai`, `alert01`, and `alert02`
 
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
+- `sandstone/Input` keypad layout when `type` prop is `number` or `passwordnumber` and the screen is in portrait mode or `popupType` prop is `overlay` and in large text mode
+
 ## [2.9.4] - 2024-10-29
 
 ### Fixed
