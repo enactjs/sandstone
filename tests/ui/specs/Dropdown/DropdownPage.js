@@ -10,7 +10,7 @@ class DropdownInterface {
 	}
 
 	async focusActivator () {
-		return await browser.execute((el) => el.focus(), await this.self.$('[role="button"]'));
+		return await browser.execute((el) => el.focus(), await $(`#${this.id} > div .Dropdown_Dropdown_button`));
 	}
 
 	get button () {
