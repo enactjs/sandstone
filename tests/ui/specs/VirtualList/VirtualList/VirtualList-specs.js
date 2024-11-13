@@ -128,61 +128,59 @@ describe('VirtualList', function () {
 			await (await Page.item(5)).moveTo();
 			await expectFocusedItem(5, 'focus Item 05');
 		});
-	});
 
-	it('touch vertical', async function () {
-		const initialScrollThumbPosition = await Page.getScrollThumbPosition();
-		await browser.action('pointer', {
-			parameters: {pointerType: 'touch'}
-		})
-			.move({x: 500, y: 500})
-			.down()
-			.move({duration: 1000, x: 500, y: 200})
-			.up()
-			.perform();
+		it('touch vertical', async function () {
+			const initialScrollThumbPosition = await Page.getScrollThumbPosition();
+			await browser.action('pointer', {
+				parameters: {pointerType: 'touch'}
+			})
+				.move({x: 600, y: 600})
+				.down()
+				.move({duration: 500, x: 600, y: 300})
+				.up()
+				.perform();
 
-		await browser.pause(2000);
+			const currentScrollThumbPosition = await Page.getScrollThumbPosition();
+			expect(currentScrollThumbPosition > initialScrollThumbPosition).toBe(true);
 
-		const currentScrollThumbPosition = await Page.getScrollThumbPosition();
-		expect(currentScrollThumbPosition > initialScrollThumbPosition).toBe(true);
+			await browser.action('pointer', {
+				parameters: {pointerType: 'touch'}
+			})
+				.move({x: 600, y: 300})
+				.down()
+				.move({duration: 500, x: 600, y: 600})
+				.up()
+				.perform();
 
-		await browser.action('pointer', {
-			parameters: {pointerType: 'touch'}
-		})
-			.move({x: 500, y: 200})
-			.down()
-			.move({duration: 1000, x: 500, y: 500})
-			.up()
-			.perform();
+			const finalScrollThumbPosition = await Page.getScrollThumbPosition();
+			expect(finalScrollThumbPosition === initialScrollThumbPosition).toBe(true);
+		});
 
-		const finalScrollThumbPosition = await Page.getScrollThumbPosition();
-		expect(finalScrollThumbPosition === initialScrollThumbPosition).toBe(true);
-	});
+		it('wheel vertical', async function () {
+			const initialScrollThumbPosition = await Page.getScrollThumbPosition();
+			// position pointer inside VL and wheel down
+			await browser.action('wheel').scroll({
+				x: 600,
+				y: 600,
+				deltaX: 0,
+				deltaY: 500,
+				duration: 500
+			}).perform();
 
-	it('wheel vertical', async function () {
-		const initialScrollThumbPosition = await Page.getScrollThumbPosition();
-		// position pointer inside VL and wheel down
-		await browser.action('wheel').scroll({
-			x: 500,
-			y: 200,
-			deltaX: 0,
-			deltaY: 500,
-			duration: 1000
-		}).perform();
+			const currentScrollThumbPosition = await Page.getScrollThumbPosition();
+			expect(currentScrollThumbPosition > initialScrollThumbPosition).toBe(true);
 
-		const currentScrollThumbPosition = await Page.getScrollThumbPosition();
-		expect(currentScrollThumbPosition > initialScrollThumbPosition).toBe(true);
+			// position pointer inside VL and wheel up
+			await browser.action('wheel').scroll({
+				x: 600,
+				y: 600,
+				deltaX: 0,
+				deltaY: -500,
+				duration: 500
+			}).perform();
 
-		// position pointer inside VL and wheel up
-		await browser.action('wheel').scroll({
-			x: 500,
-			y: 200,
-			deltaX: 0,
-			deltaY: -500,
-			duration: 1000
-		}).perform();
-
-		const finalScrollThumbPosition = await Page.getScrollThumbPosition();
-		expect(finalScrollThumbPosition === initialScrollThumbPosition).toBe(true);
+			const finalScrollThumbPosition = await Page.getScrollThumbPosition();
+			expect(finalScrollThumbPosition === initialScrollThumbPosition).toBe(true);
+		});
 	});
 });

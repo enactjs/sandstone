@@ -37,7 +37,7 @@ describe('VirtualGridList', function () {
 		const initialScrollThumbPosition = await Page.scrollThumbPosition();
 		await browser.action('wheel').scroll({
 			x: 700,
-			y: 200,
+			y: 300,
 			deltaX: 0,
 			deltaY: 1000,
 			duration: 200,
@@ -51,7 +51,7 @@ describe('VirtualGridList', function () {
 		// verify scroll returns to original position
 		await browser.action('wheel').scroll({
 			x: 700,
-			y: 200,
+			y: 300,
 			deltaX: 0,
 			deltaY: -1000,
 			duration: 200,
@@ -67,26 +67,24 @@ describe('VirtualGridList', function () {
 		const initialScrollThumbPosition = await Page.scrollThumbPosition();
 		await browser.action('wheel').scroll({
 			x: 700,
-			y: 200,
+			y: 300,
 			deltaX: 1000,
 			deltaY: 0,
 			duration: 200,
 			pause: 1000
 		}).perform();
-		await browser.pause(2000);
 
 		const currentScrollThumbPosition = await Page.scrollThumbPosition();
 		expect(currentScrollThumbPosition > initialScrollThumbPosition).toBe(true);
 
 		await browser.action('wheel').scroll({
 			x: 700,
-			y: 200,
+			y: 300,
 			deltaX: -1000,
 			deltaY: 0,
 			duration: 200,
 			pause: 1000
 		}).perform();
-		await browser.pause(2000);
 
 		const finalScrollThumbPosition = await Page.scrollThumbPosition();
 		expect(finalScrollThumbPosition === initialScrollThumbPosition).toBe(true);
@@ -138,7 +136,5 @@ describe('VirtualGridList', function () {
 		const currScrollThumbPosition = await Page.scrollThumbPosition();
 
 		expect(currScrollThumbPosition > initialScrollThumbPosition).toBe(true);
-
-		await browser.pause(3000);
 	});
 });
