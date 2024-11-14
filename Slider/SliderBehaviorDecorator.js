@@ -1,5 +1,6 @@
 import {forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
+import {WithRef} from '@enact/core/internal/WithRef';
 import platform from '@enact/core/platform';
 import Pause from '@enact/spotlight/Pause';
 import IString from 'ilib/lib/IString';
@@ -39,6 +40,7 @@ const defaultConfig = {
 // * Managing focused state to show/hide tooltip
 const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {emitSpotlightEvents} = config;
+	const WrappedWithRef = WithRef(Wrapped);
 
 	return class extends Component {
 		static displayName = 'SliderBehaviorDecorator';
@@ -110,7 +112,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		focusSlider () {
-			let slider = this.sliderRef.current.node;
+			let slider = this.sliderRef.current;
 			if (slider.getAttribute('role') !== 'slider') {
 				slider = slider.querySelector('[role="slider"]');
 			}
@@ -176,7 +178,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			return (
-				<Wrapped
+				<WrappedWithRef
 					role="slider"
 					{...props}
 					active={this.state.active}
@@ -187,7 +189,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					onDragStart={this.handleDragStart}
 					onDragEnd={this.handleDragEnd}
 					onFocus={this.handleFocus}
-					ref={this.sliderRef}
+					outermostRef={this.sliderRef}
 				/>
 			);
 		}
