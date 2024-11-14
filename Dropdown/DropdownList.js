@@ -8,7 +8,7 @@ import IdProvider from '@enact/ui/internal/IdProvider';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {Component, createRef} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import $L from '../internal/$L';
 import Icon from '../Icon';
@@ -180,102 +180,60 @@ const ReadyState = {
 const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 	const WrappedWithRef = WithRef(Wrapped);
 
-	return class extends Component {
-		static displayName = 'DropdownListSpotlightDecorator';
+	// eslint-disable-next-line no-shadow
+	const DropdownListSpotlightDecorator = (props) => {
+		const clientSiblingRef = useRef(null);
+		const [state, setState] = useState({
+			prevChildren: props.children,
+			prevFocused: null,
+			prevSelected: props.selected,
+			prevSelectedKey: getKey(props),
+			ready: isSelectedValid(props) ? ReadyState.INIT : ReadyState.DONE
+		});
+		const scrollToRef = useRef(() => {});
+		const lastFocusedKey = useRef(null);
 
-		static propTypes = {
-			/*
-			 * Passed by DropdownBase to resume Spotlight
-			 *
-			 * @type {Function}
-			 */
-			handleSpotlightPause: PropTypes.func,
+		useEffect(() => {
+			if (props.handleSpotlightPause) {
+				props.handleSpotlightPause(false);
+			}
+		}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-			/*
-			 * Called when an item receives focus.
-			 *
-			 * @type {Function}
-			 */
-			onFocus: PropTypes.func,
-
-			/*
-			 * Index of the selected item.
-			 *
-			 * @type {Number}
-			 */
-			selected: PropTypes.number
+		const focusSelected = () => {
+			setState(value => {
+				return {...value, ready: ReadyState.DONE};
+			});
 		};
 
-		constructor (props) {
-			super(props);
-
-			this.clientSiblingRef = createRef(null);
-			this.state = {
-				prevChildren: props.children,
-				prevFocused: null,
-				prevSelected: this.props.selected,
-				prevSelectedKey: getKey(props),
-				ready: isSelectedValid(props) ? ReadyState.INIT : ReadyState.DONE
-			};
-		}
-
-		componentDidMount () {
-			if (this.props.handleSpotlightPause) {
-				this.props.handleSpotlightPause(false);
-			}
-		}
-
-		componentDidUpdate () {
-			if (this.state.ready === ReadyState.INIT) {
-				this.scrollIntoView();
-			} else if (this.state.ready === ReadyState.SCROLLED) {
-				this.focusSelected();
-			} else {
-				const key = getKey(this.props);
-				const keysDiffer = key && this.state.prevSelectedKey && key !== this.state.prevSelectedKey;
-
-				if (keysDiffer ||
-					((!key || !this.state.prevSelectedKey) && this.state.prevSelected !== this.props.selected) ||
-					!compareChildren(this.state.prevChildren, this.props.children)
-				) {
-					this.resetFocus(keysDiffer);
-				}
-			}
-		}
-
-		setScrollTo = (scrollTo) => {
-			this.scrollTo = scrollTo;
-		};
-
-		resetFocus (keysDiffer) {
+		const resetFocus = useCallback((keysDiffer) => {
 			let adjustedFocusIndex;
 
-			if (!keysDiffer && this.lastFocusedKey) {
-				const targetIndex = indexFromKey(this.props.children, this.lastFocusedKey);
+			if (!keysDiffer && lastFocusedKey.current) {
+				const targetIndex = indexFromKey(props.children, lastFocusedKey.current);
 				if (targetIndex >= 0) {
 					adjustedFocusIndex = targetIndex;
 				}
 			}
 
-			this.setState({
-				prevChildren: this.props.children,
+			setState({
+				prevChildren: props.children,
 				prevFocused: adjustedFocusIndex,
-				prevSelected: this.props.selected,
-				prevSelectedKey: getKey(this.props),
+				prevSelected: props.selected,
+				prevSelectedKey: getKey(props),
 				ready: ReadyState.INIT
 			});
-		}
+		}, [props]);
 
-		scrollIntoView = () => {
-			let {selected} = this.props;
+		const scrollIntoView = useCallback(() => {
+			let {selected} = props;
 
-			if (this.state.prevFocused == null && !isSelectedValid(this.props)) {
+			if (state.prevFocused == null && !isSelectedValid(props)) {
 				selected = 0;
-			} else if (this.state.prevFocused != null) {
-				selected = this.state.prevFocused;
+			} else if (state.prevFocused != null) {
+				selected = state.prevFocused;
 			}
 
-			this.scrollTo({
+			scrollToRef.current({
 				animate: false,
 				focus: true,
 				index: selected,
@@ -283,39 +241,83 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				stickTo: 'start' // offset from the top of the dropdown
 			});
 
-			this.setState({ready: ReadyState.SCROLLED});
-		};
+			setState(value => {
+				return {...value, ready: ReadyState.SCROLLED};
+			});
+		}, [props, state.prevFocused]);
 
-		focusSelected () {
-			this.setState({ready: ReadyState.DONE});
-		}
+		useEffect(() => {
+			if (state.ready === ReadyState.INIT) {
+				scrollIntoView();
+			} else if (state.ready === ReadyState.SCROLLED) {
+				focusSelected();
+			} else {
+				const key = getKey(props);
+				const keysDiffer = key && state.prevSelectedKey && key !== state.prevSelectedKey;
 
-		handleFocus = (ev) => {
+				if (keysDiffer ||
+					((!key || !state.prevSelectedKey) && state.prevSelected !== props.selected) ||
+					!compareChildren(state.prevChildren, props.children)
+				) {
+					resetFocus(keysDiffer);
+				}
+			}
+		}, [props, resetFocus, scrollIntoView, state]);
+
+		const setScrollTo = useCallback((scrollTo) => {
+			scrollToRef.current = scrollTo;
+		}, []);
+
+		const handleFocus = useCallback((ev) => {
 			const current = ev.target;
-			const dropdownListNode = this.clientSiblingRef?.current;
+			const dropdownListNode = clientSiblingRef?.current;
 
-			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
+			if (state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
 				current.dataset['index'] != null && dropdownListNode.contains(current)
 			) {
 				const focusedIndex = Number(current.dataset['index']);
-				const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
-				this.lastFocusedKey = lastFocusedKey;
+				lastFocusedKey.current = getKey({children: props.children, selected: focusedIndex});
 			}
 
-			if (this.props.onFocus) {
-				this.props.onFocus(ev);
+			if (props.onFocus) {
+				props.onFocus(ev);
 			}
-		};
+		}, [props, state.ready]);
 
-		render () {
-			const props = {...this.props};
-			delete props.handleSpotlightPause;
+		const newProps = Object.assign({}, props);
+		delete newProps.handleSpotlightPause;
 
-			return (
-				<WrappedWithRef {...props} onFocus={this.handleFocus} outermostRef={this.clientSiblingRef} referrerName="DropdownList" scrollTo={this.setScrollTo} />
-			);
-		}
+		return (
+			<WrappedWithRef {...newProps} onFocus={handleFocus} outermostRef={clientSiblingRef} referrerName="DropdownList" scrollTo={setScrollTo} />
+		);
 	};
+
+	DropdownListSpotlightDecorator.displayName = 'DropdownListSpotlightDecorator';
+
+	DropdownListSpotlightDecorator.propTypes = {
+		/*
+         * Passed by DropdownBase to resume Spotlight
+         *
+         * @type {Function}
+         */
+		handleSpotlightPause: PropTypes.func,
+
+		/*
+         * Called when an item receives focus.
+         *
+         * @type {Function}
+         */
+		onFocus: PropTypes.func,
+
+		/*
+         * Index of the selected item.
+         *
+         * @type {Number}
+         */
+		selected: PropTypes.number
+	};
+
+	return DropdownListSpotlightDecorator;
 });
 
 const DropdownListDecorator = compose(
