@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icons `ai`, `alert01`, and `alert02`
+
 ### Fixed
 
 - `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
