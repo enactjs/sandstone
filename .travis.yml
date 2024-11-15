@@ -1,8 +1,7 @@
-dist: focal
+dist: jammy
 language: node_js
 node_js:
-    - lts/*
-    - "20"
+    - "16"
 sudo: false
 before_install:
     - sudo apt-get update
@@ -10,7 +9,11 @@ before_install:
 install:
     - npm config set prefer-offline false
     - npm install -g codecov
-    - npm install -g @enact/cli@6.0.4
+    - git clone --branch=release/6.0.x.develop --depth 1 https://github.com/enactjs/cli ../cli
+    - pushd ../cli
+    - npm install
+    - npm link
+    - popd
     - git clone --branch=release/4.7.x.develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm install
