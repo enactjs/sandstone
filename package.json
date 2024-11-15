@@ -1,6 +1,6 @@
 {
   "name": "@enact/sandstone",
-  "version": "2.7.18",
+  "version": "2.7.19",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "repository": {
     "type": "git",
