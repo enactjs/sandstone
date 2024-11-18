@@ -284,11 +284,11 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			}
 		}, [props, state.ready]);
 
-		const newProps = Object.assign({}, props);
-		delete newProps.handleSpotlightPause;
+		const wrappedComponentProps = Object.assign({}, props);
+		delete wrappedComponentProps.handleSpotlightPause;
 
 		return (
-			<WrappedWithRef {...newProps} onFocus={handleFocus} outermostRef={clientSiblingRef} referrerName="DropdownList" scrollTo={setScrollTo} />
+			<WrappedWithRef {...wrappedComponentProps} onFocus={handleFocus} outermostRef={clientSiblingRef} referrerName="DropdownList" scrollTo={setScrollTo} />
 		);
 	};
 
