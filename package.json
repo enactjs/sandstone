@@ -56,6 +56,7 @@
     "warning": "^4.0.3",
     "ilib": "^14.20.0"
   },
+
   "peerDependencies": {
     "ilib": "^14.20.0 || ^14.20.0-webos1"
   },
