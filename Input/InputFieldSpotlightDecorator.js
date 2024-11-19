@@ -39,7 +39,6 @@ const defaultConfig = {
 	noLockPointer: false
 };
 
-
 /**
  * A higher-order component that manages the
  * spotlight behavior for an {@link sandstone/Input.Input}
@@ -62,8 +61,8 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		const {onSpotlightDisappear} = props;
 		const paused = useMemo(() => new Pause('InputSpotlightDecorator'), []);
 		const [downTarget, setDownTarget] = useState();
-		const focused = useRef(null);
 		const [fromMouse, setFromMouse] = useState(false);
+		const focused = useRef(null);
 		const node = useRef(null);
 		const prevStatus = useRef({
 			focused: null,
@@ -287,14 +286,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			forwardKeyUp(ev, props);
 		}, [downTarget, focusDecorator, focusInput, props]);
 
-		const newProps = Object.assign({}, props);
-		delete newProps.autoFocus;
-		delete newProps.onActivate;
-		delete newProps.onDeactivate;
+		const componentProps = Object.assign({}, props);
+		delete componentProps.autoFocus;
+		delete componentProps.onActivate;
+		delete componentProps.onDeactivate;
 
 		return (
 			<Component
-				{...newProps}
+				{...componentProps}
 				onBlur={onBlur}
 				onMouseDown={onMouseDown}
 				onFocus={onFocus}
