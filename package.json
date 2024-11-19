@@ -1,6 +1,6 @@
 {
   "name": "@enact/sandstone",
-  "version": "2.9.4",
+  "version": "2.9.5",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "repository": {
     "type": "git",
@@ -42,11 +42,11 @@
     "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^4.9.3",
-    "@enact/i18n": "^4.9.3",
-    "@enact/spotlight": "^4.9.3",
-    "@enact/ui": "^4.9.3",
-    "@enact/webos": "^4.9.3",
+    "@enact/core": "^4.9.4",
+    "@enact/i18n": "^4.9.4",
+    "@enact/spotlight": "^4.9.4",
+    "@enact/ui": "^4.9.4",
+    "@enact/webos": "^4.9.4",
     "classnames": "^2.5.1",
     "invariant": "^2.2.4",
     "prop-types": "^15.8.1",
