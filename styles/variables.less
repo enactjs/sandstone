@@ -162,8 +162,6 @@
 @sand-picker-font-size:             54px;
 @sand-picker-joined-font-size:      66px;
 @sand-steps-step-number-font-size:  54px;
-@sand-steps-step-highlight-current-only-font-size:         24px;
-@sand-steps-step-highlight-current-only-current-font-size: 42px;
 @sand-switch-icon-font-size:        84px;
 @sand-switch-icon-font-size-large:  138px;
 @sand-tablayout-tab-font-size:      66px;
@@ -661,6 +659,7 @@
 @sand-input-fullscreen-back-button-top: 132px;
 @sand-input-fullscreen-back-button-start: 96px;
 @sand-portrait-input-fullscreen-keypad-width: 702px;
+@sand-portrait-input-fullscreen-keypad-width-large: 846px;
 @sand-portrait-input-fullscreen-keypad-margin: 600px auto 0 auto;
 @sand-portrait-input-fullscreen-keypad-key-margin: 45px;
 @sand-portrait-input-fullscreen-text-inputarea-margin: 672px 0 0 0;
@@ -677,6 +676,7 @@
 @sand-input-overlay-numberfield-letter-spacing: 36px;
 @sand-input-overlay-keypad-margin: 132px auto 0 auto;
 @sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
+@sand-input-overlay-keypad-width-large: ((@sand-component-spacing + (@sand-button-height-large) + @sand-component-spacing) * 3);
 @sand-input-overlay-buttonarea-margin: 84px 0 0 0;
 @sand-input-overlay-submitbutton-margin: 84px auto 0 auto;
 @sand-input-overlay-invalid-tooltip-width: 738px;
@@ -863,10 +863,11 @@
 		@sand-heading-title-line-height
 	)[@result]
 ) + 10px;
-@sand-quickguidepanels-close-button-margin-end:   150px;
-@sand-quickguidepanels-navigation-button-margin:  0 12px;
-@sand-quickguidepanels-container-margin-top:      828px;
-@sand-quickguidepanels-steps-margin-top:          90px;
+@sand-quickguidepanels-close-button-margin-end: 150px;
+@sand-quickguidepanels-navigation-button-margin: 0 12px;
+@sand-quickguidepanels-container-margin-top: 828px;
+@sand-quickguidepanels-steps-margin-top: 90px;
+@sand-quickguidepanels-steps-min-height: 48px;
 
 // RadioItem
 // ---------------------------------------
@@ -941,11 +942,15 @@
 @sand-steps-step-number-font-weight: 600;
 @sand-steps-margin: 0;
 @sand-steps-step-margin: 0 @sand-component-spacing;
-@sand-steps-step-highlight-current-only-margin: 9px;
 @sand-steps-step-past-opacity: 1;
 @sand-steps-step-current-opacity: 1;
 @sand-steps-step-future-opacity: 0.2;
 @sand-steps-step-highlight-current-only-future-opacity: 1;
+@sand-steps-pageindicator-size: 18px;
+@sand-steps-pageindicator-margin: 0 15px;
+@sand-steps-pageindicator-border-radius: 999px;
+@sand-steps-pageindicator-current-size: 30px;
+@sand-steps-pageindicator-current-margin: 0 9px;
 
 // Switch
 // ---------------------------------------
