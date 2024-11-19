@@ -125,8 +125,11 @@ export const deviceIcons = [
 ].sort();
 
 export const settingsIcons = [
+	'ai',
 	'appscontents',
 	'accessibility',
+	'alert01',
+	'alert02',
 	'auracast',
 	'bluetooth',
 	'camera',
