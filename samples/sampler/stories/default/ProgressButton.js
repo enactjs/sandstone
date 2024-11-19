@@ -27,7 +27,7 @@ const prop = {
 	},
 	color: ['', 'red', 'green', 'yellow', 'blue'],
 	icons: ['', ...iconNames],
-	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
+	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': 'false', 'false (ignore)': 'false'},
 	size: ['', 'small', 'large']
 };
 
@@ -71,7 +71,7 @@ boolean('showProgress', _ProgressButton, Config);
 select('backgroundOpacity', _ProgressButton, prop.backgroundOpacity, Config);
 select('color', _ProgressButton, prop.color, Config);
 select('icon', _ProgressButton, prop.icons, Config);
-select('minWidth', _ProgressButton, prop.minWidth, Config);
+select('minWidth', _ProgressButton, prop.minWidth, Config, '');
 range('progress', _ProgressButton, Config, {min: 0, max: 1, step: 0.01}, 0.4);
 select('size', _ProgressButton, prop.size, Config);
 text('children', _ProgressButton, Config, 'Update');

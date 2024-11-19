@@ -19,6 +19,9 @@ import compose from 'ramda/src/compose';
 import {svgGenerator} from '../helper/svg';
 
 const Config = mergeComponentMetadata('Panels', Panels);
+Config.defaultProps.backButtonBackgroundOpacity = 'transparent';
+Config.defaultProps.closeButtonBackgroundOpacity = 'transparent';
+
 const HeaderConfig = mergeComponentMetadata('Header', Header);
 
 const items = [];
@@ -217,15 +220,13 @@ select(
 	'backButtonBackgroundOpacity',
 	_Panels,
 	['opaque', 'transparent'],
-	Config,
-	'transparent'
+	Config
 );
 select(
 	'closeButtonBackgroundOpacity',
 	_Panels,
 	['opaque', 'transparent'],
-	Config,
-	'transparent'
+	Config
 );
 boolean('noAnimation', _Panels, Panels, false);
 boolean('noBackButton', _Panels, Panels, false);

@@ -334,6 +334,8 @@ const HeaderBase = kind({
 	},
 
 	defaultProps: {
+		backButtonBackgroundOpacity: 'transparent',
+		closeButtonBackgroundOpacity: 'transparent',
 		marqueeOn: 'render',
 		noSubtitle: false,
 		type: 'standard'

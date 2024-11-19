@@ -56,6 +56,7 @@ const sliderDefaultProps = {
 	keyFrequency: [1],
 	max: 100,
 	min: 0,
+	orientation: 'horizontal',
 	step: 1,
 	wheelInterval: 0
 };
