@@ -242,7 +242,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 		);
 	};
 
-	DaySelector.displayName = "DaySelectorDecorator";
+	DaySelector.displayName = 'DaySelectorDecorator';
 
 	DaySelector.propTypes = /** @lends sandstone/DayPicker.DaySelectorDecorator.prototype */ {
 		/**
