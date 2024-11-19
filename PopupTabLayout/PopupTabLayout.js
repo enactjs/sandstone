@@ -192,6 +192,11 @@ const PopupTabLayoutBase = kind({
 		 */
 		open: PropTypes.bool,
 
+		/**
+		 * Optimizes PopupTabLayout without Popup when true.
+		 *
+		 * @private
+		 */
 		optimized: PropTypes.bool,
 
 		/**
@@ -311,7 +316,25 @@ const PopupTabLayoutBase = kind({
 
 const OptimizedFocusDecorator = hoc((config, Wrapped) => {
 	return class extends Component {
-		static distplayName = 'OptimizedFocusDecorator';
+		static displayName = 'OptimizedFocusDecorator';
+
+		static propTypes = /** @lends sandstone/OptimizedFocusDecorator.prototype */ {
+			/**
+			 * Controls the visibility of the PopupTabLayout.
+			 *
+			 * @type {Boolean}
+			 * @private
+			 */
+			open: PropTypes.bool,
+
+			/**
+			 * The container id.
+			 *
+			 * @type {String}
+			 * @private
+			 */
+			spotlightId: PropTypes.string
+		};
 
 		constructor (props) {
 			super(props);
@@ -328,7 +351,7 @@ const OptimizedFocusDecorator = hoc((config, Wrapped) => {
 			}
 		}
 
-		componentDidUpdate(prevProps) {
+		componentDidUpdate (prevProps) {
 			if (this.props.open !== prevProps.open) {
 				if (this.props.open) {
 					Spotlight.focus(this.props.spotlightId);
