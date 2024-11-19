@@ -281,7 +281,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		);
 	};
 
-	Decorator.displayName = "ThemeDecorator";
+	Decorator.displayName = 'ThemeDecorator';
 	Decorator.propTypes = /** @lends sandstone/ThemeDecorator.prototype */ {
 		/**
 		 * Assign a skin.
