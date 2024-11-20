@@ -9,7 +9,7 @@
 
 .popupTabLayout {
 	// Override Popup (more precedence)
-	&.popup {
+	&.popup, &.optimized{
 		margin: @sand-popuptablayout-margin;
 		max-height: @popupTabLayout-max-height;
 	}
@@ -141,7 +141,7 @@
 }
 
 // Supporting concave click area
-.popup > .body {
+.popup > .body, .optimized {
 	pointer-events: none;
 
 	.tabs,

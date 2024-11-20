@@ -10,15 +10,19 @@
  */
 
 import {forKey, forProp, forward, forwardCustom, handle, preventDefault, stop} from '@enact/core/handle';
+import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import useHandlers from '@enact/core/useHandlers';
 import {cap} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
+import Pause from '@enact/spotlight/Pause';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {getContainersForNode, getContainerNode} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
+import {IdProvider} from '@enact/ui/internal/IdProvider';
 import PropTypes from 'prop-types';
-import {useContext, useEffect} from 'react';
+import {Component, useContext, useEffect} from 'react';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
@@ -32,6 +36,11 @@ import componentCss from './PopupTabLayout.module.less';
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
 	'position', 'scrimType', 'spotlightId', 'spotlightRestrict', 'id', 'className',
 	'style', 'noAnimation', 'onClose'];
+
+const OptimizedContainer = SpotlightContainerDecorator(
+	{enterTo: 'default-element', preserveId: true},
+	'div'
+);
 
 /**
  * Tabbed Layout component in a floating Popup.
@@ -184,6 +193,13 @@ const PopupTabLayoutBase = kind({
 		open: PropTypes.bool,
 
 		/**
+		 * Optimizes PopupTabLayout without Popup when true.
+		 *
+		 * @private
+		 */
+		optimized: PropTypes.bool,
+
+		/**
 		 * Orientation of the tabs.
 		 *
 		 * @type {('vertical')}
@@ -259,10 +275,11 @@ const PopupTabLayoutBase = kind({
 	},
 
 	computed: {
-		className: ({collapsed, scrimType, styler}) => styler.append({collapsed}, `scrim${cap(scrimType)}`)
+		className: ({collapsed, optimized, scrimType, styler}) => styler.append({collapsed, optimized}, `scrim${cap(scrimType)}`),
+		PopupComponent: ({optimized}) => optimized ? OptimizedContainer : Popup
 	},
 
-	render: ({children, css, ...rest}) => {
+	render: ({children, css, optimized, PopupComponent, ...rest}) => {
 		// Extract all relevant popup props
 		const popupProps = {};
 		for (const prop in rest) {
@@ -272,8 +289,15 @@ const PopupTabLayoutBase = kind({
 			}
 		}
 
+		if (!optimized) {
+			popupProps.noAlertRole = true;
+			popupProps.css = css;
+		} else {
+			delete popupProps.scrimType;
+		}
+
 		return (
-			<Popup {...popupProps} css={css} noAlertRole>
+			<PopupComponent {...popupProps}>
 				<TabLayout
 					{...rest}
 					css={css}
@@ -283,11 +307,61 @@ const PopupTabLayoutBase = kind({
 				>
 					{children}
 				</TabLayout>
-			</Popup>
+			</PopupComponent>
 		);
 	}
 });
 
+const OptimizedFocusDecorator = hoc((config, Wrapped) => {
+	return class extends Component {
+		static displayName = 'OptimizedFocusDecorator';
+
+		static propTypes = /** @lends sandstone/PopupTabLayout.OptimizedFocusDecorator.prototype */ {
+			/**
+			 * Controls the visibility of the PopupTabLayout.
+			 *
+			 * @type {Boolean}
+			 * @private
+			 */
+			open: PropTypes.bool,
+
+			/**
+			 * The container id.
+			 *
+			 * @type {String}
+			 * @private
+			 */
+			spotlightId: PropTypes.string
+		};
+
+		constructor (props) {
+			super(props);
+			this.paused = new Pause('PopupTabLayout');
+			if (props.open) {
+				this.paused.pause();
+			}
+		}
+
+		componentDidMount () {
+			if (this.props.open) {
+				this.paused.resume();
+				Spotlight.focus(this.props.spotlightId);
+			}
+		}
+
+		componentDidUpdate (prevProps) {
+			if (this.props.open !== prevProps.open) {
+				if (this.props.open) {
+					Spotlight.focus(this.props.spotlightId);
+				}
+			}
+		}
+
+		render () {
+			return <Wrapped {...this.props} style={!this.props.open ? {display: 'none'} : null} />;
+		}
+	};
+});
 
 /**
  * Add behaviors to PopupTabLayout.
@@ -299,6 +373,8 @@ const PopupTabLayoutBase = kind({
  * @public
  */
 const PopupTabLayoutDecorator = compose(
+	IdProvider({idProp: 'spotlightId', prefix: 'sand-popuptablayout-', generateProp: null}),
+	OptimizedFocusDecorator,
 	Skinnable
 );
 
