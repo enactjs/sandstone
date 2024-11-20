@@ -28,23 +28,23 @@ const hours12 = [
  * @private
  */
 const HourPicker = (props) => {
-	const [noAnimation, setNoAnimation] = useState(false);
-	const [prevValue, setPrevValue] = useState(props.value);
-
-	useEffect(() => {
-		const hoursArray = props.hasMeridiem ? hours12 : hours24;
-
-		if (prevValue !== props.value) {
-			setNoAnimation(hoursArray[prevValue] === hoursArray[props.value]);
-			setPrevValue(props.value);
-		}
-	}, [prevValue, props]);
-
-	const {hasMeridiem, ...rest} = props;
+	const {hasMeridiem, value, ...rest} = props;
 	const hours = hasMeridiem ? hours12 : hours24;
 
+	const [noAnimation, setNoAnimation] = useState(false);
+	const [prevValue, setPrevValue] = useState(value);
+
+	useEffect(() => {
+		if (prevValue !== value) {
+			const hoursArray = hasMeridiem ? hours12 : hours24;
+
+			setNoAnimation(hoursArray[prevValue] === hoursArray[value]);
+			setPrevValue(value);
+		}
+	}, [hasMeridiem, prevValue, value]);
+
 	return (
-		<DateComponentPicker {...rest} noAnimation={noAnimation}>
+		<DateComponentPicker {...rest} noAnimation={noAnimation} value={value}>
 			{hours}
 		</DateComponentPicker>
 	);
