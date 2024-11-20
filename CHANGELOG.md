@@ -10,6 +10,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/PageViews.Page` and `sandstone/QuickGuidePanels.Panel` prop `aria-label`
 - `sandstone/QuickGuidePanels` props `closeButtonAriaLabel` and `onClose`
 
+### Changed
+
+- CSS variables with suffix '-rgb' to without suffix and its value to hex format
+
 ### Fixed
 
 - `sandstone/IconItem` to restart marquee after done editing in `sandstone/Scroller` with `editable` prop
