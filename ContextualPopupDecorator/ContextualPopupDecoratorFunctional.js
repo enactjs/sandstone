@@ -103,7 +103,43 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			containerId: Spotlight.add(props.popupSpotlightId),
 			activator: null
 		});
+
+		// constructor variables
+		const resizeObserver = false;
+		const overflow = {};
+		const adjustDirection = props.direction;
 		const clientSiblingRef = useRef(null);
+		const generateId = () => {
+			return Math.random().toString(36).substr(2, 8);
+		};
+		const id = generateId();
+
+		const MARGIN = ri.scale(noArrow ? 0 : 12);
+		const ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
+		const ARROW_OFFSET = noArrow ? 0 : ri.scale(36); // actual distance of the svg arrow displayed to offset overlaps with the container. Offset is when `noArrow` is false.
+		const KEEPOUT = ri.scale(24); // keep out distance on the edge of the screen
+
+		if (props.setApiProvider) {
+			props.setApiProvider({
+				...state,
+				resizeObserver,
+				overflow,
+				adjustDirection,
+				clientSiblingRef,
+				id,
+				MARGIN,
+				ARROW_WIDTH,
+				ARROW_OFFSET,
+				KEEPOUT
+			})
+		}
+		// END constructor variable
+
+		// Lifecycle methods
+		useEffect(() => {
+
+		}, []);
+		// END Lifecycle methods
 
 		//////////// - HANDLERS
 		const updateLeaveFor = (activator) => {
@@ -129,12 +165,43 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			forwardCustom('onClose')(null, props);
 		};
 
+		// const positionContextualPopup = () => {
+		// 	if (this.containerNode && this.clientSiblingRef?.current) {
+		// 		const containerNode = this.containerNode.getBoundingClientRect();
+		// 		const {top, left, bottom, right, width, height} = this.clientSiblingRef.current.getBoundingClientRect();
+		// 		const clientNode = {top, left, bottom, right, width, height};
+		//
+		// 		clientNode.left = this.props.rtl ? window.innerWidth - right : left;
+		// 		clientNode.right = this.props.rtl ? window.innerWidth - left : right;
+		//
+		// 		this.calcOverflow(containerNode, clientNode);
+		// 		this.adjustDirection();
+		//
+		// 		const arrowPosition = this.getArrowPosition(containerNode, clientNode),
+		// 			containerPosition = this.getContainerPosition(containerNode, clientNode);
+		//
+		// 		if ((this.state.direction !== this.adjustedDirection) ||
+		// 			(this.state.arrowPosition.left !== arrowPosition.left) ||
+		// 			(this.state.arrowPosition.top !== arrowPosition.top) ||
+		// 			(this.state.containerPosition.left !== containerPosition.left) ||
+		// 			(this.state.containerPosition.right !== containerPosition.right) ||
+		// 			(this.state.containerPosition.top !== containerPosition.top)
+		// 		) {
+		// 			this.setState({
+		// 				direction: this.adjustedDirection,
+		// 				arrowPosition,
+		// 				containerPosition
+		// 			});
+		// 		}
+		// 	}
+		// };
+
 		// TODO: uncomment below lines and take a look
 		const handleOpen = (ev) => {
 			forward('onOpen', ev, props);
 			// this.positionContextualPopup();
 			const current = Spotlight.getCurrent();
-			// this.updateLeaveFor(current);
+			updateLeaveFor(current);
 			setState(prevState => ({
 				activator: current
 			}));
@@ -173,11 +240,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			// 	}
 			// }
 		};
-
-		const generateId = () => {
-			return Math.random().toString(36).substr(2, 8);
-		};
-		const id = generateId();
 
 		/////////// - this is from render method
 		const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, popupProps, skin, ...rest} = props;
