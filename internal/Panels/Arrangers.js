@@ -129,6 +129,9 @@ const deferArrange = (config, keyframes, options) => {
 /**
  * Arranger that slides panels in from the right and out to the left.
  *
+ * This arranger is visually same as {@link ui/ViewManager.SlideLeftArranger} when transition but uses transform percentages instead of pixel values.
+ * Because BasicArranger is an optimized version of {@link ui/ViewManager.SlideLeftArranger}, {@link ui/ViewManager.SlideLeftArranger} can be written in documentation instead of BasicArranger in unavoidable case.
+ *
  * @type {Arranger}
  * @private
  */
