@@ -96,7 +96,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		spotlightRestrict = 'self-first',
 		...props
 	}) => {
-		console.log('props', props);
 		const [state, setState] = useState({
 			arrowPosition: {top: 0, left: 0},
 			containerPosition: {top: 0, left: 0, right: 0},
@@ -105,7 +104,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		});
 
 		// constructor variables
-		const resizeObserver = false;
+		let resizeObserver = false;
 		const overflow = {};
 		const adjustDirection = props.direction;
 		const clientSiblingRef = useRef(null);
@@ -113,6 +112,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return Math.random().toString(36).substr(2, 8);
 		};
 		const id = generateId();
+		let containerNode = useRef(null);
 
 		const MARGIN = ri.scale(noArrow ? 0 : 12);
 		const ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
@@ -133,6 +133,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				KEEPOUT
 			})
 		}
+
+		const prevProps = useRef({open});
+		const prevState = useRef({state})
 		// END constructor variable
 
 		// Lifecycle methods
@@ -226,19 +229,19 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		// TODO: uncomment below lines and take a look
 		const getContainerNode = (node) => {
-			this.containerNode = node;
+			containerNode = node;
 
-			// if (this.resizeObserver) {
-			// 	if (node) {
-			// 		// It is not easy to trigger changed position of activator,
-			// 		// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
-			// 		// This implementation is dependent on the current structure of FloatingLayer,
-			// 		// so if the structure have changed, below code needs to be changed accordingly.
-			// 		this.resizeObserver.observe(node?.parentElement?.parentElement);
-			// 	} else {
-			// 		this.resizeObserver.disconnect();
-			// 	}
-			// }
+			if (resizeObserver) {
+				if (node) {
+					// It is not easy to trigger changed position of activator,
+					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
+					// This implementation is dependent on the current structure of FloatingLayer,
+					// so if the structure have changed, below code needs to be changed accordingly.
+					resizeObserver.observe(node?.parentElement?.parentElement);
+				} else {
+					resizeObserver.disconnect();
+				}
+			}
 		};
 
 		/////////// - this is from render method
