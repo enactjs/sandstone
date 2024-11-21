@@ -519,26 +519,26 @@ export const FocusRing = () => (
 FocusRing.storyName = 'Spottable with Focus Ring';
 
 export const FocusWithPreventScroll = () => {
-	const handleClick1 = useCallback(() => {
+	const handleClickNotPrevented = useCallback(() => {
 		Spotlight.focus('#FocusWithPreventScrollTarget1');
 	}, []);
 
-	const handleClick2 = useCallback(() => {
+	const handleClickPrevented = useCallback(() => {
 		Spotlight.focus('#FocusWithPreventScrollTarget2', {preventScroll: true});
 	}, []);
 
 	return (
 		<>
-			<p>Click on the first button calls Spotlight.focus() to focus the second button for each scroller.</p>
+			<p>Press OK button on the first button calls Spotlight.focus() to focus the second button for each scroller.</p>
 			Without preventScroll option.
 			<div className={css.shortPureScroller}>
-				<Button className={css.block} onClick={handleClick1}>Click this button</Button>
+				<Button className={css.block} onClick={handleClickNotPrevented}>Press OK on this button</Button>
 				<Button className={css.block} id="FocusWithPreventScrollTarget1">To be scrolled</Button>
 			</div>
 			<br />
 			With preventScroll: true option.
 			<div className={css.shortPureScroller}>
-				<Button className={css.block} onClick={handleClick2}>Click this button</Button>
+				<Button className={css.block} onClick={handleClickPrevented}>Press OK on this button</Button>
 				<Button className={css.block} id="FocusWithPreventScrollTarget2">Not to be scrolled</Button>
 			</div>
 		</>
