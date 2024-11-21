@@ -9,6 +9,10 @@
 	flex-direction: column;
 
 	.navButton {
+		/* CSS Overrides */
+	}
+
+	.navButtonCell {
 		text-align: center;
 		display: flex;
 		align-items: center;
@@ -17,18 +21,18 @@
 	}
 
 	.navButtonContainer {
-		overflow: hidden;
-		z-index: 10;
-		top: ~"calc(50% - " (@sand-button-height + 12) / 2 ~")";
 		position: absolute;
 		width: 100%;
+		height: @sand-button-height;
+		top: ~"calc(50% - "@sand-button-height / 2 ~")";
+		z-index: 10;
 	}
 
-	&.number .navButton {
+	&.number .navButtonCell {
 		width: @sand-pageviews-number-navigation-button-area-width;
 	}
 
-	.steps {
+	.stepsRow {
 		align-items: center;
 		justify-content: center;
 		text-align: center;
@@ -38,7 +42,7 @@
 		}
 	}
 
-	&.number .steps {
+	&.number .stepsRow {
 		min-height: @sand-pageviews-number-steps-area-min-height;
 		.pageNumber {
 			width: @sand-pageviews-number-steps-number-width;
@@ -49,14 +53,18 @@
 	}
 
 	&.dot .steps {
+		display: flex;
+		align-items: center;
 		min-height: @sand-pageviews-dot-steps-area-min-height;
 	}
 
-	&.fullContents .steps {
+	&.fullContents .stepsRow {
 		position: absolute;
 		align-self: center;
-		bottom: @sand-pageviews-full-steps-position-bottom;
-		min-height: @sand-pageviews-full-steps-area-min-height;
+	}
+
+	&.fullContents.indicatorBottom .stepsRow {
+		bottom: @sand-pageviews-full-contents-bottom-steps-bottom;
 	}
 
 	.contentsArea {
