@@ -19,6 +19,7 @@
 
 import {forKey, forProp, forward, forwardWithPrevent, handle, not} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
+import {setDefaultProps} from '@enact/core/util';
 import {usePublicClassNames} from '@enact/core/usePublicClassNames';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
@@ -70,7 +71,7 @@ const sliderDefaultProps = {
  * @public
  */
 const SliderBase = (props) => {
-	const sliderProps = Object.assign({}, sliderDefaultProps, props);
+	const sliderProps = setDefaultProps(props, sliderDefaultProps);
 	const {active, className, css, disabled, focused, keyFrequency, showAnchor, ...rest} = sliderProps;
 
 	validateSteppedOnce(p => p.knobStep, {
@@ -466,6 +467,8 @@ const SliderDecorator = compose(
  */
 
 const Slider = SliderDecorator(SliderBase);
+
+Slider.defaultPropValues = sliderDefaultProps;
 
 /**
  * A {@link sandstone/TooltipDecorator.Tooltip|Tooltip} specifically adapted for use with

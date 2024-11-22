@@ -1,9 +1,6 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
-import {DocsContainer, Primary, Title} from '@enact/storybook-utils/addons/docs';
-import ri from '@enact/ui/resolution';
 import ReactGA4 from "react-ga4";
-import {themes} from '@storybook/theming';
 
 import ThemeEnvironment from '../src/ThemeEnvironment';
 
@@ -54,8 +51,8 @@ if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
 	const GA_MEASUREMENT_ID  = "G-ZNPW7ST2D8";
 	const options = {
 		gtagOptions: {
-			content_group: 'storybook',
-		},
+			content_group: 'storybook' // eslint-disable-line camelcase
+		}
 	};
 
 	ReactGA4.initialize(GA_MEASUREMENT_ID, options);
@@ -67,18 +64,6 @@ if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
 }
 
 export const parameters = {
-	docs: {
-		container: DocsContainer,
-		inlineStories: false,
-		iframeHeight: ri.scaleToRem(900),
-		page: () => (
-			<>
-				<Title />
-				<Primary />
-			</>
-		),
-		theme: themes.light
-	},
 	options: {
 		storySort: {
 			method: 'alphabetical'

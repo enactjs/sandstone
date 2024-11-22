@@ -44,7 +44,7 @@ const PanelsBase = kind({
 	)
 });
 
-const Theme = ThemeDecorator({overlay: false}, PanelsBase);
+const Theme = ThemeDecorator({overlay: false, rootId: 'storybook-root'}, PanelsBase);
 
 const StorybookDecorator = (story, config = {}) => {
 	// Executing `story` here allows the story controls to register and render before the global variable below.

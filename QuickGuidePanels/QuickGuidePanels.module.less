@@ -11,8 +11,10 @@
 		.steps {
 			display: flex;
 			justify-content: center;
+			align-items: center;
 			width: 100%;
 			margin-top: @sand-quickguidepanels-steps-margin-top;
+			min-height: @sand-quickguidepanels-steps-min-height;
 		}
 
 		.close {
@@ -21,13 +23,13 @@
 			margin-inline-end: @sand-quickguidepanels-close-button-margin-end;
 		}
 	}
-}
 
-.navigationButtonContainer {
-	z-index: 10;
-	margin-top: @sand-quickguidepanels-container-margin-top;
+	.navigationButtonContainer {
+		z-index: 10;
+		margin-top: @sand-quickguidepanels-container-margin-top;
 
-	.navigationButton {
-		margin: @sand-quickguidepanels-navigation-button-margin;
+		.navigationButton {
+			margin: @sand-quickguidepanels-navigation-button-margin;
+		}
 	}
 }

@@ -1,6 +1,7 @@
 import handle, {forwardCustomWithPrevent} from '@enact/core/handle';
-import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
+import kind from '@enact/core/kind';
+import {cap} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import Changeable from '@enact/ui/Changeable';
@@ -13,13 +14,13 @@ import compose from 'ramda/src/compose';
 
 import Button from '../Button';
 import $L from '../internal/$L';
-import {CrossFadeArranger} from '../internal/Panels';
+import {BasicArranger} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
 import {PageViewsRouter} from './PageViewsRouter';
 
-import css from './PageViews.module.less';
+import componentCss from './PageViews.module.less';
 
 /**
  * A PageViews that has page indicator with corresponding pages.
@@ -38,9 +39,8 @@ import css from './PageViews.module.less';
  */
 const PageViewsBase = kind({
 	name: 'PageViews',
-	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
-		'aria-label': PropTypes.string,
 
+	propTypes: /** @lends sandstone/PageViews.PageViewsBase.prototype */ {
 		/**
 		 * Set of functions that control how the pages are transitioned into and out of the
 		 * viewport.
@@ -53,7 +53,7 @@ const PageViewsBase = kind({
 		arranger: shape,
 
 		/**
-		 * {@link sandstone/PageViews.Page|Page} to be rendered
+		 * {@link sandstone/PageViews.Page|Page} to be rendered.
 		 *
 		 * @type {Node}
 		 * @public
@@ -67,6 +67,23 @@ const PageViewsBase = kind({
 		 * @public
 		 */
 		componentRef: EnactPropTypes.ref,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `pageViews` - The root component class
+		 * * `contentsArea` - The contentsArea component class
+		 * * `navButton` - The navButton component class
+		 * * `navButtonContainer` - Applied to the container containing navButtons in fullContents mode
+		 * * `stepsRow` - The step component class
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * When `true`, maximize its contents area.
@@ -84,14 +101,6 @@ const PageViewsBase = kind({
 		 * @public
 		 */
 		index: PropTypes.number,
-
-		/**
-		 * Offset to apply to the position of the navigation buttons.
-		 *
-		 * @type {Number}
-		 * @private
-		 */
-		navigationButtonOffset: PropTypes.number,
 
 		/**
 		 * Disables page transitions.
@@ -119,11 +128,20 @@ const PageViewsBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
+		 * Specifies on which side (`'top'` or `'bottom'`) the page indicator appears.
+		 *
+		 * @type {('top'|'bottom')}
+		 * @default 'bottom'
+		 * @private
+		 */
+		pageIndicatorPosition: PropTypes.oneOf(['top', 'bottom']),
+
+		/**
 		 * Type of page indicator.
 		 *
 		 * There are two types:
 		 *
-		 * * `dot` - Indicates pages by dots. Used for pages less than 10 pages.
+		 * * `dot` - Indicates pages by dots.
 		 * * `number` - Indicates pages by current page number and total number of pages.
 		 *
 		 * @type {('dot'|'number')}
@@ -148,21 +166,26 @@ const PageViewsBase = kind({
 		 */
 		totalIndex: PropTypes.number
 	},
+
 	defaultProps: {
-		arranger: CrossFadeArranger,
+		arranger: BasicArranger,
+		pageIndicatorPosition: 'bottom',
 		pageIndicatorType: 'dot'
 	},
+
 	styles: {
-		css,
+		css: componentCss,
 		className: 'pageViews',
 		publicClassNames: true
 	},
+
 	handlers: {
 		onNextClick: handle(
 			forwardCustomWithPrevent('onNextClick'),
 			(ev, {index, onChange, totalIndex}) => {
 				if (onChange && index !== totalIndex) {
 					const nextIndex = index < (totalIndex - 1) ? (index + 1) : index;
+
 					onChange({type: 'onChange', index: nextIndex});
 				}
 			}
@@ -172,6 +195,7 @@ const PageViewsBase = kind({
 			(ev, {index, onChange}) => {
 				if (onChange && index !== 0) {
 					const prevIndex = index > 0 ? (index - 1) : index;
+
 					onChange({type: 'onChange', index: prevIndex});
 				}
 			}
@@ -187,37 +211,28 @@ const PageViewsBase = kind({
 			}
 		}
 	},
+
 	computed: {
-		'aria-label': ({children, index, totalIndex}) => {
-			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
-			return `${pageHint} ${children?.[index]?.props['aria-label'] || ''}`;
-		},
-		className: ({fullContents, pageIndicatorType, styler}) => {
-			return styler.append({fullContents}, pageIndicatorType);
-		},
-		renderPrevButton: ({index, onPrevClick, navigationButtonOffset}) => {
-			const isPrevButtonVisible = index !== 0;
-			const navigationButtonStyle = {
-				top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null
-			};
-			return (
-				<Cell className={css.navButton} shrink>
-					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" style={navigationButtonStyle} /> : null}
-				</Cell>
-			);
-		},
-		renderNextButton: ({onNextClick, index, totalIndex, navigationButtonOffset}) => {
+		className: ({fullContents, pageIndicatorPosition, pageIndicatorType, styler}) => styler.append({fullContents}, `indicator${cap(pageIndicatorPosition)}`, pageIndicatorType),
+		renderNextButton: ({css, onNextClick, index, totalIndex}) => {
 			const isNextButtonVisible = index < totalIndex - 1;
-			const navigationButtonStyle = {
-				top: typeof navigationButtonOffset === 'number' ? (navigationButtonOffset) : null
-			};
+
 			return (
-				<Cell className={css.navButton} shrink>
-					{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" style={navigationButtonStyle} /> : null}
+				<Cell className={css.navButtonCell} shrink>
+					{isNextButtonVisible ? <Button aria-label={$L('Next')} className={css.navButton} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
 				</Cell>
 			);
 		},
-		renderViewManager: ({arranger, index, noAnimation, onTransition, onWillTransition, reverseTransition, children}) => {
+		renderPrevButton: ({css, index, onPrevClick}) => {
+			const isPrevButtonVisible = index !== 0;
+
+			return (
+				<Cell className={css.navButtonCell} shrink>
+					{isPrevButtonVisible ? <Button aria-label={$L('Previous')} className={css.navButton} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
+				</Cell>
+			);
+		},
+		renderViewManager: ({arranger, css, index, noAnimation, onTransition, onWillTransition, reverseTransition, children}) => {
 			return (
 				<Cell
 					arranger={arranger}
@@ -234,51 +249,56 @@ const PageViewsBase = kind({
 				</Cell>
 			);
 		},
-		steps: ({index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
+		stepHintAriaLabel: ({children, index, totalIndex}) => {
+			const pageHint = new IString($L('Page {current} out of {total}')).format({current: index + 1, total: totalIndex});
+			return `${pageHint} ${children?.[index]?.props['aria-label'] || ''}`;
+		},
+		steps: ({css, index, onNextClick, onPrevClick, pageIndicatorType, totalIndex}) => {
 			const isPrevButtonVisible = index !== 0;
 			const isNextButtonVisible = index < totalIndex - 1;
 			const isStepVisible = totalIndex !== 1;
+
 			return (
 				<>
 					{pageIndicatorType !== 'number' ?
-						<Row className={classNames(css.steps, {[css.hidden]: !isStepVisible})}>
+						<Row className={classNames(css.stepsRow, {[css.hidden]: !isStepVisible})}>
 							<Steps
+								css={css}
 								current={index + 1}
-								pastIcon={'circle'}
-								currentIcon={'circle'}
-								futureIcon={'circle'}
-								layout="quickGuidePanels"
+								highlightCurrentOnly
 								total={totalIndex}
 							/>
 						</Row> :
-						<Row className={css.steps}>
-							<Cell className={css.navButton} shrink>
-								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
+						<Row className={css.stepsRow}>
+							<Cell className={css.navButtonCell} shrink>
+								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} className={css.navButton} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>
 							<Cell className={css.pageNumber} shrink>{index + 1}</Cell><Cell className={css.separator} shrink>/</Cell><Cell className={css.pageNumber} shrink>{totalIndex}</Cell>
-							<Cell className={css.navButton} shrink>
-								{isNextButtonVisible ? <Button aria-label={$L('Next')} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
+							<Cell className={css.navButtonCell} shrink>
+								{isNextButtonVisible ? <Button aria-label={$L('Next')} className={css.navButton} icon="arrowlargeright" iconFlip="auto" id="NextNavButton" onClick={onNextClick} size="small" /> : null}
 							</Cell>
 						</Row>}
 				</>
 			);
 		}
 	},
+
 	render: ({
-		'aria-label': ariaLabel,
+		css,
 		componentRef,
 		fullContents,
 		index,
+		pageIndicatorPosition,
 		pageIndicatorType,
-		steps,
-		renderPrevButton,
 		renderNextButton,
+		renderPrevButton,
 		renderViewManager,
+		stepHintAriaLabel,
+		steps,
 		...rest
 	}) => {
 		delete rest.arranger;
 		delete rest.children;
-		delete rest.componentRef;
 		delete rest.noAnimation;
 		delete rest.onTransition;
 		delete rest.onNextClick;
@@ -289,8 +309,8 @@ const PageViewsBase = kind({
 
 		return (
 			<div role="region" aria-labelledby={`pageViews_index_${index}`} ref={componentRef} {...rest}>
-				{!fullContents && pageIndicatorType === 'dot' ? steps : null}
-				<Column aria-label={ariaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
+				{!fullContents && pageIndicatorPosition === 'top' ? steps : null}
+				<Column aria-label={stepHintAriaLabel} className={css.contentsArea} id={`pageViews_index_${index}`} >
 					{fullContents ?
 						<>
 							<Row className={css.horizontalLayout}>{renderViewManager}</Row>
@@ -304,17 +324,28 @@ const PageViewsBase = kind({
 						</Row>
 					}
 				</Column>
-				{!fullContents && pageIndicatorType === 'number' ? steps : null}
+				{!fullContents && pageIndicatorPosition === 'bottom' ? steps : null}
 			</div>
 		);
 	}
 });
 
+/**
+ * Sets the strategy used to automatically focus an element within the PageViews upon render.
+ * When set to 'none', focus is not set only on the first render.
+ *
+ * @name autoFocus
+ * @type {('default-element'|'last-focused'|'none'|String)}
+ * @memberof sandstone/PageViews.PageViews.prototype
+ * @default 'last-focused'
+ * @public
+ */
+
 const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
-		defaultElement: [`.${spotlightDefaultClass}`, `.${css.viewManager} *`, `.${css.navButton} *`],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.viewManager} *`, `.${componentCss.navButtonCell} *`],
 		enterTo: 'last-focused'
 	}),
 	I18nContextDecorator({rtlProp: 'rtl'}),

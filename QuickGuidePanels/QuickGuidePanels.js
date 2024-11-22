@@ -40,6 +40,16 @@ const QuickGuidePanelsBase = kind({
 	name: 'QuickGuidePanels',
 
 	propTypes: /** @lends sandstone/QuickGuidePanels.QuickGuidePanelsBase.prototype */ {
+		/**
+		 * The aria-label for the Panel.
+		 *
+		 * Example:
+ 		 * ```
+		 * <QuickGuidePanels.Panel aria-label="This is a description for panel">
+		 * ```
+		 * @type {String}
+		 * @private
+		 */
 		'aria-label': PropTypes.string,
 
 		/**
@@ -47,7 +57,7 @@ const QuickGuidePanelsBase = kind({
 		 *
 		 * @type {String}
 		 * @default 'Exit Quick Guide'
-		 * @private
+		 * @public
 		 */
 		closeButtonAriaLabel: PropTypes.string,
 
@@ -127,7 +137,7 @@ const QuickGuidePanelsBase = kind({
 		 * Called when the close button is clicked.
 		 *
 		 * @type {Function}
-		 * @private
+		 * @public
 		 */
 		onClose: PropTypes.func,
 
@@ -265,7 +275,7 @@ const QuickGuidePanelsBase = kind({
 	},
 
 	computed: {
-		'aria-label': ({'aria-label': label, current, index}) => {
+		stepHintAriaLabel: ({'aria-label': label, current, index}) => {
 			if (label) return label;
 
 			const stepNum = (typeof current === 'number' && current > 0) ? current : (index + 1);
@@ -283,19 +293,23 @@ const QuickGuidePanelsBase = kind({
 				/> : null
 			);
 		},
-		steps: ({current, index, total, totalPanels}) => {
-			const currentStep = (typeof current === 'number' && current > 0) ? current : (index + 1);
-			const totalSteps = (typeof total === 'number' && total > 0) ? total : totalPanels;
+		nextNavigationButton: ({index, nextButton, nextButtonVisibility, onNextClick, totalPanels}) => {
+			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 			return (
-				<Steps
-					className={css.steps}
-					pastIcon={'circle'}
-					currentIcon={'circle'}
-					futureIcon={'circle'}
-					current={currentStep}
-					layout="quickGuidePanels"
-					total={totalSteps}
+				<NavigationButton
+					aria-label={$L('Next')}
+					backgroundOpacity="transparent"
+					className={css.navigationButton}
+					component={nextButton}
+					focusEffectIconOnly
+					icon="arrowlargeright"
+					iconFlip="auto"
+					iconPosition="after"
+					id="nextButton"
+					minWidth={false}
+					onClick={onNextClick}
+					visible={isNextButtonVisible}
 				/>
 			);
 		},
@@ -306,10 +320,10 @@ const QuickGuidePanelsBase = kind({
 				<NavigationButton
 					aria-label={$L('Previous')}
 					backgroundOpacity="transparent"
+					className={css.navigationButton}
 					component={prevButton}
 					focusEffectIconOnly
 					icon="arrowlargeleft"
-					className={css.navigationButton}
 					iconFlip="auto"
 					minWidth={false}
 					onClick={onPrevClick}
@@ -317,37 +331,30 @@ const QuickGuidePanelsBase = kind({
 				/>
 			);
 		},
-		nextNavigationButton: ({index, nextButton, nextButtonVisibility, onNextClick, totalPanels}) => {
-			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
+		steps: ({current, index, total, totalPanels}) => {
+			const currentStep = (typeof current === 'number' && current > 0) ? current : (index + 1);
+			const totalSteps = (typeof total === 'number' && total > 0) ? total : totalPanels;
 
 			return (
-				<NavigationButton
-					aria-label={$L('Next')}
-					backgroundOpacity="transparent"
-					component={nextButton}
-					focusEffectIconOnly
-					className={css.navigationButton}
-					icon="arrowlargeright"
-					iconFlip="auto"
-					iconPosition="after"
-					id="nextButton"
-					minWidth={false}
-					onClick={onNextClick}
-					visible={isNextButtonVisible}
+				<Steps
+					css={css}
+					current={currentStep}
+					highlightCurrentOnly
+					total={totalSteps}
 				/>
 			);
 		}
 	},
 
 	render: ({
-		'aria-label': ariaLabel,
 		children,
 		closeButton,
 		index,
-		prevNavigationButton,
 		nextNavigationButton,
 		onTransition,
 		onWillTransition,
+		prevNavigationButton,
+		stepHintAriaLabel,
 		steps,
 		...rest
 	}) => {
@@ -367,7 +374,7 @@ const QuickGuidePanelsBase = kind({
 
 		return (
 			<article role="region" aria-labelledby={`quickguidepanel_index_${index}`} ref={rest.componentRef}>
-				<Column aria-label={ariaLabel} id={`quickguidepanel_index_${index}`} {...rest}>
+				<Column aria-label={stepHintAriaLabel} id={`quickguidepanel_index_${index}`} {...rest}>
 					<Row className={css.contentHeader}>
 						{steps}
 						{closeButton}

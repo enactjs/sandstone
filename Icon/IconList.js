@@ -218,5 +218,41 @@ export default {
 	wifilock25g       : 0x0F0196, // wifilock2_5g
 	wifilock35g       : 0x0F0197, // wifilock3_5g
 	wifilock45g       : 0x0F0198, // wifilock4_5g
-	create            : 0x0F0199 // create
+	create            : 0x0F0199, // create
+	background        : 0x0F019A, // background
+	pen               : 0x0F019B, // pen
+	eraser            : 0x0F019C, // eraser
+	mediaplayer       : 0x0F019D, // mediaplayer
+	location          : 0x0F019E, // location
+	exit              : 0x0F019F, // exit
+	movies            : 0x0F01A0, // movies
+	mycontents        : 0x0F01A1, // mycontents
+	accessibility     : 0x0F01A2, // accessibility
+	seemore           : 0x0F01A3, // see_more
+	trailer           : 0x0F01A4, // trailer
+	onnow             : 0x0F01A5, // onnow
+	tvguidefvp        : 0x0F01A6, // tvguide_fvp
+	pcnotconnected    : 0x0F01A7, // pc_not_connected
+	fileppt           : 0x0F01A8, // file_ppt
+	textinput         : 0x0F01A9, // textinput
+	pagewidth         : 0x0F01AA, // pagewidth
+	index             : 0x0F01AB, // index
+	colorpicker       : 0x0F01AC, // colorpicker
+	ear               : 0x0F01AD, // ear
+	hand              : 0x0F01AE, // hand
+	remotecontrol     : 0x0F01AF, // remotecontrol
+	channelscheduling : 0x0F01B0, // channelscheduling
+	smartfunction     : 0x0F01B1, // smartfunction
+	appscontents      : 0x0F01B2, // appscontents
+	deviceconnect     : 0x0F01B3, // deviceconnect
+	move              : 0x0F01B4, // move
+	voiced            : 0x0F01B5, // voiced
+	auracast          : 0x0F01B6, // auracast
+	jumpbackward10    : 0x0F01B7, // jumpbackward_10
+	jumpforward10     : 0x0F01B8, // jumpforward_10
+	logout            : 0x0F01B9, // logout
+	sketch            : 0x0F01BA, // sketch
+	ai                : 0x0F01BB, // ai
+	alert01           : 0x0F01BC, // alert.01
+	alert02           : 0x0F01BD // alert.02
 };
