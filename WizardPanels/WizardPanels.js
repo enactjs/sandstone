@@ -1,4 +1,4 @@
-import handle, {forProp, forwardCustomWithPrevent, not, preventDefault} from '@enact/core/handle';
+import handle, {forProp, forwardCustomWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -393,79 +393,76 @@ const WizardPanelsBase = kind({
 		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
-			<>
-				<DecoratedPanelBase
-					{...rest}
-					header={
-						<HeaderContainer
-							aria-label={ariaLabel}
-							arranger={noAnimation ? null : CrossFadeArranger}
-							centered
-							css={css}
-							noCloseButton
-							noSubtitle={noSubtitle}
-							subtitle={subtitle}
-							title={title}
-							type="wizard"
-						>
-							{steps}
-							<NavigationButton
-								aria-label={$L('Previous')}
-								backgroundOpacity="transparent"
-								component={prevButton}
-								focusEffectIconOnly
-								icon="arrowlargeleft"
-								iconFlip="auto"
-								minWidth={false}
-								onClick={onPrevClick}
-								slot="slotBefore"
-								visible={isPrevButtonVisible}
-							/>
-							<NavigationButton
-								aria-label={$L('Next')}
-								backgroundOpacity="transparent"
-								component={nextButton}
-								focusEffectIconOnly
-								icon="arrowlargeright"
-								iconFlip="auto"
-								iconPosition="after"
-								minWidth={false}
-								onClick={onNextClick}
-								slot="slotAfter"
-								visible={isNextButtonVisible}
-							/>
-						</HeaderContainer>
-					}
-					panelType="wizard"
-				>
-					<Column>
-						<Cell className={css.content}>
-							{/* skip creating ViewManager when there aren't children to avoid animating
-								the first panel into the viewport */}
-							{children ? (
-								<ViewManager
-									arranger={BasicArranger}
-									duration={400}
-									onTransition={onTransition}
-									onWillTransition={onWillTransition}
-									noAnimation={noAnimation}
-									reverseTransition={reverseTransition}
-								>
-									{children}
-								</ViewManager>
-							) : null}
-						</Cell>
-						<Cell className={css.footer} component="footer" key={index} shrink>
-							{/* This should probably use portals */}
-							{footer}
-						</Cell>
-					</Column>
-				</DecoratedPanelBase>
-			</>
+			<DecoratedPanelBase
+				{...rest}
+				header={
+					<HeaderContainer
+						aria-label={ariaLabel}
+						arranger={noAnimation ? null : CrossFadeArranger}
+						centered
+						css={css}
+						noCloseButton
+						noSubtitle={noSubtitle}
+						subtitle={subtitle}
+						title={title}
+						type="wizard"
+					>
+						{steps}
+						<NavigationButton
+							aria-label={$L('Previous')}
+							backgroundOpacity="transparent"
+							component={prevButton}
+							focusEffectIconOnly
+							icon="arrowlargeleft"
+							iconFlip="auto"
+							minWidth={false}
+							onClick={onPrevClick}
+							slot="slotBefore"
+							visible={isPrevButtonVisible}
+						/>
+						<NavigationButton
+							aria-label={$L('Next')}
+							backgroundOpacity="transparent"
+							component={nextButton}
+							focusEffectIconOnly
+							icon="arrowlargeright"
+							iconFlip="auto"
+							iconPosition="after"
+							minWidth={false}
+							onClick={onNextClick}
+							slot="slotAfter"
+							visible={isNextButtonVisible}
+						/>
+					</HeaderContainer>
+				}
+				panelType="wizard"
+			>
+				<Column>
+					<Cell className={css.content}>
+						{/* skip creating ViewManager when there aren't children to avoid animating
+							the first panel into the viewport */}
+						{children ? (
+							<ViewManager
+								arranger={BasicArranger}
+								duration={400}
+								onTransition={onTransition}
+								onWillTransition={onWillTransition}
+								noAnimation={noAnimation}
+								reverseTransition={reverseTransition}
+							>
+								{children}
+							</ViewManager>
+						) : null}
+					</Cell>
+					<Cell className={css.footer} component="footer" key={index} shrink>
+						{/* This should probably use portals */}
+						{footer}
+					</Cell>
+				</Column>
+			</DecoratedPanelBase>
 		);
 	}
 });
-
 
 const WizardPanelsDecorator = compose(
 	ForwardRef({prop: 'componentRef'}),
