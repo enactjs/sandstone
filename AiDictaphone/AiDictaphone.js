@@ -36,7 +36,6 @@ const AiDictaphone = (props) => {
 	  browserSupportsSpeechRecognition
 	} = useSpeechRecognition();
     const { children, ...rest } = props;
-    console.log('props', props);
 
 	if (!browserSupportsSpeechRecognition) {
 	  return <span>Browser doesn't support speech recognition.</span>;
@@ -89,7 +88,7 @@ const AiDictaphone = (props) => {
     };
 
 	const getComponentApi = async (query) => {
-		const response = await fetch('https://3000-myelyn-kim-myelyn.bee0.lge.com/ask-query', {
+		const response = await fetch('https://localhost:3000/ask-query', {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -113,7 +112,7 @@ const AiDictaphone = (props) => {
 	};
 
     const getComponent = async () => {
-        const response = await fetch('https://3000-myelyn-kim-myelyn.bee0.lge.com/ask-query', {
+        const response = await fetch('https://localhost:3000/ask-query', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
