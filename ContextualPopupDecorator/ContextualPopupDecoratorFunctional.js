@@ -105,8 +105,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		// constructor variables
 		let resizeObserver = false;
-		const overflow = {};
-		const adjustDirection = props.direction;
+		let overflow = {};
+		let adjustedDirection = direction;
 		const clientSiblingRef = useRef(null);
 		const generateId = () => {
 			return Math.random().toString(36).substr(2, 8);
@@ -124,7 +124,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				...state,
 				resizeObserver,
 				overflow,
-				adjustDirection,
+				adjustedDirection,
 				clientSiblingRef,
 				id,
 				MARGIN,
@@ -134,14 +134,371 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			})
 		}
 
-		const prevProps = useRef({open});
-		const prevState = useRef({state})
+		const prevProps = useRef({open, direction});
+		const prevState = useRef({state});
 		// END constructor variable
 
-		// Lifecycle methods
-		useEffect(() => {
+		const handleDirectionalKey = (ev) => {
+			// prevent default page scrolling
+			ev.preventDefault();
+			// stop propagation to prevent default spotlight behavior
+			ev.stopPropagation();
+			// set the pointer mode to false on keydown
+			Spotlight.setPointerMode(false);
+		}
 
-		}, []);
+		const spotPopupContent = () => {
+			const {containerId} = state;
+			const spottableDescendants = Spotlight.getSpottableDescendants(containerId);
+			if (spotlightRestrict === 'self-only' && spottableDescendants.length && Spotlight.getCurrent()) {
+				Spotlight.getCurrent().blur();
+			}
+
+			if (!Spotlight.focus(containerId)) {
+				Spotlight.setActiveContainer(containerId);
+			}
+		};
+
+		// handle key event from outside (i.e. the activator) to the popup container
+		const handleKeyDown = (ev) => {
+			const {activator, containerId} = state;
+			const {spotlightRestrict} = props;
+			const current = Spotlight.getCurrent();
+			const direction = getDirection(ev.keyCode);
+
+			if (!direction) return;
+
+			const hasSpottables = Spotlight.getSpottableDescendants(containerId).length > 0;
+			const spotlessSpotlightModal = spotlightRestrict === 'self-only' && !hasSpottables;
+			const shouldSpotPopup = current === activator && direction === PositionToDirection[adjustedDirection.split(' ')[0]] && hasSpottables;
+
+			if (shouldSpotPopup || spotlessSpotlightModal) {
+				handleDirectionalKey(ev);
+
+				// we guard against attempting a focus change by verifying the case where a
+				// spotlightModal popup contains no spottable components
+				if (!spotlessSpotlightModal && shouldSpotPopup) {
+					spotPopupContent();
+				}
+			}
+		};
+
+		const handleKeyUp = handle(
+			forProp('open', true),
+			forKey('enter'),
+			() => Spotlight.getCurrent() === state.activator,
+			stop,
+			forwardCustom('onClose')
+		);
+
+		// Lifecycle methods
+		// componentDidMount and componentWillUnmount
+		useEffect(() => {
+			if (open) {
+				on('keydown', handleKeyDown);
+				on('keyup', handleKeyUp);
+			}
+
+			if (typeof ResizeObserver === 'function') {
+				resizeObserver = new ResizeObserver(() => {
+					positionContextualPopup();
+				});
+			}
+
+			return () => {
+				if (open) {
+					off('keydown', handleKeyDown);
+					off('keyup', handleKeyUp);
+				}
+				Spotlight.remove(state.containerId);
+
+				if (resizeObserver) {
+					resizeObserver.disconnect();
+					resizeObserver = null;
+				}
+			}
+		}, [open, state]);
+
+		const getContainerNodeWidth = () => {
+			return containerNode.current && containerNode.current.getBoundingClientRect().width || 0;
+		}
+
+		const getContainerAdjustedPosition = () => {
+			const position = adjustedDirection;
+			const arr = adjustedDirection.split(' ');
+			let direction = null;
+			let anchor = null;
+
+			if (arr.length === 2) {
+				[direction, anchor] = arr;
+			} else {
+				direction = position;
+			}
+
+			return {anchor, direction};
+		};
+
+		const calcOverflow = (container, client) => {
+			let containerHeight, containerWidth;
+			const {anchor, direction} = getContainerAdjustedPosition();
+
+			if (direction === 'above' || direction === 'below') {
+				containerHeight = container.height;
+				containerWidth = (container.width - client.width) / 2;
+			} else {
+				containerHeight = (container.height - client.height) / 2;
+				containerWidth = container.width;
+			}
+
+			overflow = {
+				isOverTop: anchor === 'top' && (direction === 'left' || direction === 'right') ?
+					!(client.top > KEEPOUT) :
+					client.top - containerHeight - ARROW_OFFSET - MARGIN - KEEPOUT < 0,
+				isOverBottom: anchor === 'bottom' && (direction === 'left' || direction === 'right') ?
+					client.bottom + KEEPOUT > window.innerHeight :
+					client.bottom + containerHeight + ARROW_OFFSET + MARGIN + KEEPOUT > window.innerHeight,
+				isOverLeft: anchor === 'left' && (direction === 'above' || direction === 'below') ?
+					!(client.left > KEEPOUT) :
+					client.left - containerWidth - ARROW_OFFSET - MARGIN - KEEPOUT < 0,
+				isOverRight: anchor === 'right' && (direction === 'above' || direction === 'below') ?
+					client.right + KEEPOUT > window.innerWidth :
+					client.right + containerWidth + ARROW_OFFSET + MARGIN + KEEPOUT > window.innerWidth
+			};
+		};
+
+		const adjustDirection = () => {
+			const {anchor, direction} = getContainerAdjustedPosition();
+
+			if (overflow.isOverTop && !overflow.isOverBottom && direction === 'above') {
+				adjustedDirection = anchor ? `below ${anchor}` : 'below';
+			} else if (overflow.isOverBottom && !overflow.isOverTop && direction === 'below') {
+				adjustedDirection = anchor ? `above ${anchor}` : 'above';
+			} else if (overflow.isOverLeft && !overflow.isOverRight && direction === 'left' && !props.rtl) {
+				adjustedDirection = anchor ? `right ${anchor}` : 'right';
+			} else if (overflow.isOverRight && !overflow.isOverLeft && direction === 'right' && !props.rtl) {
+				adjustedDirection = anchor ? `left ${anchor}` : 'left';
+			}
+		};
+
+		const adjustRTL = (position) => {
+			let pos = position;
+			if (props.rtl) {
+				const tmpLeft = pos.left;
+				pos.left = pos.right;
+				pos.right = tmpLeft;
+			}
+			return pos;
+		}
+
+		const getArrowPosition = (containerNode, clientNode) => {
+			const position = {};
+			const {anchor, direction} = getContainerAdjustedPosition();
+
+			if (direction === 'above' || direction === 'below') {
+				if (overflow.isOverRight && !overflow.isOverLeft) {
+					position.left = window.innerWidth - ((containerNode.width + ARROW_WIDTH) / 2) - KEEPOUT;
+				} else if (!overflow.isOverRight && overflow.isOverLeft) {
+					position.left = ((containerNode.width - ARROW_WIDTH) / 2) + KEEPOUT;
+				} else if (anchor === 'left') {
+					position.left = clientNode.left + (containerNode.width - ARROW_WIDTH) / 2;
+				} else if (anchor === 'right') {
+					position.left = clientNode.right - containerNode.width + (containerNode.width - ARROW_WIDTH) / 2;
+				} else {
+					position.left = clientNode.left + (clientNode.width - ARROW_WIDTH) / 2;
+				}
+			} else if (overflow.isOverBottom && !overflow.isOverTop) {
+				position.top = window.innerHeight - ((containerNode.height + ARROW_WIDTH) / 2) - KEEPOUT;
+			} else if (!overflow.isOverBottom && overflow.isOverTop) {
+				position.top = ((containerNode.height - ARROW_WIDTH) / 2) + KEEPOUT;
+			} else if (anchor === 'top') {
+				position.top = clientNode.top + (containerNode.height - ARROW_WIDTH) / 2;
+			} else if (anchor === 'bottom') {
+				position.top = clientNode.bottom - containerNode.height + (containerNode.height - ARROW_WIDTH) / 2;
+			} else {
+				position.top = clientNode.top + (clientNode.height - ARROW_WIDTH) / 2;
+			}
+
+			switch (direction) {
+				case 'above':
+					position.top = clientNode.top - ARROW_WIDTH - MARGIN;
+					break;
+				case 'below':
+					position.top = clientNode.bottom + MARGIN;
+					break;
+				case 'left':
+					position.left = props.rtl ? clientNode.left + clientNode.width + MARGIN : clientNode.left - ARROW_WIDTH - MARGIN;
+					break;
+				case 'right':
+					position.left = props.rtl ? clientNode.left - ARROW_WIDTH - MARGIN : clientNode.left + clientNode.width + MARGIN;
+					break;
+				default:
+					return {};
+			}
+
+			return adjustRTL(position);
+		};
+
+		const centerContainerPosition = (containerNode, clientNode) => {
+			const pos = {};
+			const {anchor, direction} = getContainerAdjustedPosition();
+
+			if (direction === 'above' || direction === 'below') {
+				if (overflow.isOverLeft) {
+					// anchor to the left of the screen
+					pos.left = KEEPOUT;
+				} else if (overflow.isOverRight) {
+					// anchor to the right of the screen
+					pos.left = window.innerWidth - containerNode.width - KEEPOUT;
+				} else if (anchor) {
+					if (anchor === 'center') {
+						// center horizontally
+						pos.left = clientNode.left + (clientNode.width - containerNode.width) / 2;
+					} else if (anchor === 'left') {
+						// anchor to the left side of the activator
+						pos.left = clientNode.left;
+					} else {
+						// anchor to the right side of the activator
+						pos.left = clientNode.right - containerNode.width;
+					}
+				} else {
+					// anchor to the left side of the activator, matching its width
+					pos.left = clientNode.left;
+					pos.width = clientNode.width;
+				}
+
+			} else if (direction === 'left' || direction === 'right') {
+				if (overflow.isOverTop) {
+					// anchor to the top of the screen
+					pos.top = KEEPOUT;
+				} else if (overflow.isOverBottom) {
+					// anchor to the bottom of the screen
+					pos.top = window.innerHeight - containerNode.height - KEEPOUT;
+				} else if (anchor === 'middle') {
+					// center vertically
+					pos.top = clientNode.top - (containerNode.height - clientNode.height) / 2;
+				} else if (anchor === 'top') {
+					// anchor to the top of the activator
+					pos.top = clientNode.top;
+				} else {
+					// anchor to the bottom of the activator
+					pos.top = clientNode.bottom - containerNode.height;
+				}
+			}
+
+			return pos;
+		}
+
+		const getContainerPosition =  (containerNode, clientNode) => {
+			const position = centerContainerPosition(containerNode, clientNode);
+			const {direction} = getContainerAdjustedPosition();
+
+			switch (direction) {
+				case 'above':
+					position.top = clientNode.top - ARROW_OFFSET - containerNode.height - MARGIN;
+					break;
+				case 'below':
+					position.top = clientNode.bottom + ARROW_OFFSET + MARGIN;
+					break;
+				case 'right':
+					position.left = props.rtl ? clientNode.left - containerNode.width - ARROW_OFFSET - MARGIN : clientNode.right + ARROW_OFFSET + MARGIN;
+					break;
+				case 'left':
+					position.left = props.rtl ? clientNode.right + ARROW_OFFSET + MARGIN : clientNode.left - containerNode.width - ARROW_OFFSET - MARGIN;
+					break;
+			}
+
+			return adjustRTL(position);
+		}
+
+		/**
+		 * Position the popup in relation to the activator.
+		 *
+		 * Position is based on the dimensions of the popup and its activator. If the popup does not
+		 * fit in the specified direction, it will automatically flip to the opposite direction.
+		 *
+		 * @method
+		 * @memberof sandstone/ContextualPopupDecorator.ContextualPopupDecorator.prototype
+		 * @public
+		 * @returns {undefined}
+		 */
+		const positionContextualPopup = () => {
+			if (containerNode.current && clientSiblingRef?.current) {
+				const containerNodeRect = containerNode.current.getBoundingClientRect();
+				const {top, left, bottom, right, width, height} = clientSiblingRef.current.getBoundingClientRect();
+				const clientNode = {top, left, bottom, right, width, height};
+
+				clientNode.left = props.rtl ? window.innerWidth - right : left;
+				clientNode.right = props.rtl ? window.innerWidth - left : right;
+
+				calcOverflow(containerNodeRect, clientNode);
+				adjustDirection();
+
+				const arrowPosition = getArrowPosition(containerNodeRect, clientNode),
+					containerPosition = getContainerPosition(containerNodeRect, clientNode);
+
+				if ((state.direction !== adjustedDirection) ||
+					(state.arrowPosition.left !== arrowPosition.left) ||
+					(state.arrowPosition.top !== arrowPosition.top) ||
+					(state.containerPosition.left !== containerPosition.left) ||
+					(state.containerPosition.right !== containerPosition.right) ||
+					(state.containerPosition.top !== containerPosition.top)
+				) {
+					setState(prevState => ({
+						...prevState,
+						direction: adjustedDirection,
+						arrowPosition,
+						containerPosition
+					}));
+				}
+			}
+		};
+
+		const spotActivator = (activator) => {
+			if (!Spotlight.getPointerMode() && activator && activator === Spotlight.getCurrent()) {
+				activator.blur();
+			}
+			if (!Spotlight.focus(activator)) {
+				Spotlight.focus();
+			}
+		};
+
+		// getSnapshotBeforeUpdate and componentDidUpdate
+		useEffect(() => {
+			const snapshot = {
+				containerWidth: getContainerNodeWidth()
+			};
+
+			if (prevProps.current.open && !open) {
+				const current = Spotlight.getCurrent();
+				snapshot.shouldSpotActivator = (
+					// isn't set
+					!current ||
+					// is on the activator and we want to re-spot it so a11y read out can occur
+					current === prevState.current.state.activator ||
+					// is within the popup
+					containerNode.current.contains(current)
+				);
+			}
+
+			if (prevProps.current.direction !== direction ||
+				snapshot.containerWidth !== getContainerNodeWidth() ||
+				(prevProps.current.open && open)) {
+				adjustedDirection = direction;
+				// NOTE: `setState` is called and will cause re-render
+				positionContextualPopup();
+			}
+
+			if (open && !prevProps.current.open) {
+				on('keydown', handleKeyDown);
+				on('keyup', handleKeyUp);
+			} else if (!open && prevProps.current.open) {
+				off('keydown', handleKeyDown);
+				off('keyup', handleKeyUp);
+				if (snapshot && snapshot.shouldSpotActivator) {
+					spotActivator(prevState.current.state.activator);
+				}
+			}
+		}, [containerNode, direction, prevProps.current, prevState.current, open]);
 		// END Lifecycle methods
 
 		//////////// - HANDLERS
@@ -168,47 +525,16 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			forwardCustom('onClose')(null, props);
 		};
 
-		// const positionContextualPopup = () => {
-		// 	if (this.containerNode && this.clientSiblingRef?.current) {
-		// 		const containerNode = this.containerNode.getBoundingClientRect();
-		// 		const {top, left, bottom, right, width, height} = this.clientSiblingRef.current.getBoundingClientRect();
-		// 		const clientNode = {top, left, bottom, right, width, height};
-		//
-		// 		clientNode.left = this.props.rtl ? window.innerWidth - right : left;
-		// 		clientNode.right = this.props.rtl ? window.innerWidth - left : right;
-		//
-		// 		this.calcOverflow(containerNode, clientNode);
-		// 		this.adjustDirection();
-		//
-		// 		const arrowPosition = this.getArrowPosition(containerNode, clientNode),
-		// 			containerPosition = this.getContainerPosition(containerNode, clientNode);
-		//
-		// 		if ((this.state.direction !== this.adjustedDirection) ||
-		// 			(this.state.arrowPosition.left !== arrowPosition.left) ||
-		// 			(this.state.arrowPosition.top !== arrowPosition.top) ||
-		// 			(this.state.containerPosition.left !== containerPosition.left) ||
-		// 			(this.state.containerPosition.right !== containerPosition.right) ||
-		// 			(this.state.containerPosition.top !== containerPosition.top)
-		// 		) {
-		// 			this.setState({
-		// 				direction: this.adjustedDirection,
-		// 				arrowPosition,
-		// 				containerPosition
-		// 			});
-		// 		}
-		// 	}
-		// };
-
-		// TODO: uncomment below lines and take a look
 		const handleOpen = (ev) => {
 			forward('onOpen', ev, props);
-			// this.positionContextualPopup();
+			positionContextualPopup();
 			const current = Spotlight.getCurrent();
 			updateLeaveFor(current);
 			setState(prevState => ({
+				...prevState,
 				activator: current
 			}));
-			// this.spotPopupContent();
+			spotPopupContent();
 		};
 
 		// TODO: uncomment below lines and take a look
@@ -219,17 +545,16 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			if (!direction) return;
 
-			// this.handleDirectionalKey(ev);
-			//
-			// // if focus moves outside the popup's container, issue the `onClose` event
-			// if (Spotlight.move(direction) && !this.containerNode.contains(Spotlight.getCurrent())) {
-			// 	forwardCustom('onClose')(null, this.props);
-			// }
+			handleDirectionalKey(ev);
+
+			// if focus moves outside the popup's container, issue the `onClose` event
+			if (Spotlight.move(direction) && !containerNode.current.contains(Spotlight.getCurrent())) {
+				forwardCustom('onClose')(null, this.props);
+			}
 		};
 
-		// TODO: uncomment below lines and take a look
 		const getContainerNode = (node) => {
-			containerNode = node;
+			containerNode.current = node;
 
 			if (resizeObserver) {
 				if (node) {
