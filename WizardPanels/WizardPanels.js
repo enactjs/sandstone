@@ -1,4 +1,4 @@
-import handle, {forProp, forwardCustomWithPrevent, not} from '@enact/core/handle';
+import handle, {forProp, forwardCustomWithPrevent, not, preventDefault} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -8,11 +8,8 @@ import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
 import IString from 'ilib/lib/IString';
-import ollama from 'ollama/browser';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useEffect, useState} from 'react';
-import SpeechRecognition, {useSpeechRecognition} from 'react-speech-recognition';
 
 import $L from '../internal/$L';
 import {Header} from '../Panels';
@@ -383,12 +380,20 @@ const WizardPanelsBase = kind({
 		delete rest.noSteps;
 		delete rest.total;
 
+		// for POC
+		document.addEventListener('customSpeech', (e) => {
+			if (e.detail === 'onNextClick') {
+				onNextClick();
+			} else if (e.detail === 'onPrevClick') {
+				onPrevClick();
+			}
+		});
+
 		const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
 		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
 			<>
-				<Dictaphone onNextClick={onNextClick} onPrevClick={onPrevClick} onChange={rest.onChange} onTransition={onTransition} />
 				<DecoratedPanelBase
 					{...rest}
 					header={
@@ -461,123 +466,6 @@ const WizardPanelsBase = kind({
 	}
 });
 
-const useDebounce = (value, delay) => {
-	const [debouncedValue, setDebouncedValue] = useState(value);
-	
-	useEffect(() => {
-	  const timer = setTimeout(() => {
-		setDebouncedValue(value);
-	  }, delay);
-  
-	  return () => {
-		clearTimeout(timer);
-	  };
-	}, [value]);
-  
-	return debouncedValue;
-  };
-
-const Dictaphone = (props) => {
-	const {
-	  transcript,
-	  listening,
-	  resetTranscript,
-	  browserSupportsSpeechRecognition
-	} = useSpeechRecognition();
-  
-	if (!browserSupportsSpeechRecognition) {
-	  return <span>Browser doesn't support speech recognition.</span>;
-	}
-
-	const debouncedText = useDebounce(transcript, 1000);
-
-	return (
-	  <>
-		<p>Microphone: {listening ? 'on' : 'off'}</p>
-		<button size="small" onClick={SpeechRecognition.startListening}>Start</button>
-		<button size="small" onClick={SpeechRecognition.stopListening}>Stop</button>
-		<button size="small" onClick={resetTranscript}>Reset</button>
-		<p>{transcript}</p>
-		<Search sentence={debouncedText} {...props} />
-	  </>
-	);
-  };
-
-  const Search = (props) => {
-	const {onNextClick, onPrevClick, onChange, onTransition, sentence} = props;
-	//const [sentence, setSentence] = useState("");
-
-	const [answer, setAnswer] = useState("");
-
-	const functionObject = {
-		onNextClick: onNextClick,
-		onPrevClick: onPrevClick,
-		onChange: onChange,
-		onTransition: onTransition
-	};
-	const fetchData = async () => {
-		/*const response = await fetch('https://localhost:3000/ask-query', {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				query: `WizardPanel is a component that has multiple panels and allows you to move the panels to the left and right.
-						Please answer which API among the API list the following sentence is close to.
-						Please give the answer in the format of API: api name. for example, if response is onTransition, API: onTransition
-						sentence : ${sentence}
-						API list : onPrevClick, onNextClick, onChange, onTransition`
-			})
-		});*/
-	
-		const response = await ollama.chat({
-			model: 'gemma2',
-			messages: [{ role: 'user', content: `WizardPanel is a component that has multiple panels and allows you to move the panels to the left and right.
-							Please answer which API among the API list the following sentence is close to.
-							Please give the answer in the format of API: api name. for example, if response is onTransition, API: onTransition
-							sentence : ${sentence}
-							API list : onPrevClick, onNextClick, onChange, onTransition`}],
-		});
-
-		return response;
-	}
-	const handleSubmit = () => {
-		//fetchData().then(response => setAnswer(response.reply));
-		fetchData().then(response => setAnswer(response.message.content))
-	}
-
-	useEffect(() => {
-		if (answer === '') return;
-
-		const name = answer.split('API: ')[1].split(' ')[0];
-		if (functionObject[name]) {
-			functionObject[name]();
-			setAnswer("");
-		}
-		
-	}, [answer]);
-
-	useEffect(() => {
-		if (sentence === '') return;
-
-		handleSubmit();
-	}, [sentence]);
-
-	return (
-		<>
-			{/*<div as="form" direction="column" width="100%">
-				<label>sentence</label>
-				<input name="sentence" onChange={(e) => setSentence(e.target.value)} />
-			</div>
-			<button type="submit" onClick={handleSubmit} style={{marginLeft: "auto"}}>
-					Submit
-			</button>
-			*/}
-			{answer && (
-				<div>The answer is: {answer}</div>
-			)}
-	  </>);
-  };
 
 const WizardPanelsDecorator = compose(
 	ForwardRef({prop: 'componentRef'}),
