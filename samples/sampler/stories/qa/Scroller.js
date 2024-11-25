@@ -1284,3 +1284,35 @@ export const WithContentContainerOnFocus = () => {
 };
 
 WithContentContainerOnFocus.storyName = 'With Content Container';
+
+export const WithFixedPopupPanels = () => {
+	const [open, setOpenState] = useState(false);
+
+	const handleOpen = useCallback(() => {
+		setOpenState(true);
+	}, [setOpenState]);
+
+	const handleClose = useCallback(() => {
+		setOpenState(false);
+	}, [setOpenState]);
+
+	return (
+		<>
+			<Scroller>
+				<Button onClick={handleOpen}>
+					Open FixedPopupPanels
+				</Button>
+				<div style={{height: ri.scaleToRem(2400)}} />
+			</Scroller>
+			<FixedPopupPanels open={open} onClose={handleClose}>
+				<FixedPopupPanels.Panel>
+					<Header title="Panel" />
+					<Item>Item A</Item>
+					<Item>Item B</Item>
+				</FixedPopupPanels.Panel>
+			</FixedPopupPanels>
+		</>
+	);
+};
+
+WithFixedPopupPanels.storyName = 'With FixedPopupPanels'
