@@ -1315,4 +1315,4 @@ export const WithFixedPopupPanels = () => {
 	);
 };
 
-WithFixedPopupPanels.storyName = 'With FixedPopupPanels'
+WithFixedPopupPanels.storyName = 'With FixedPopupPanels';
