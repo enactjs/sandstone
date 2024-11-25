@@ -1,8 +1,7 @@
 dist: jammy
 language: node_js
 node_js:
-    - lts/*
-    - "22"
+    - 21
 sudo: false
 before_install:
     - curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-4.4.gpg --dearmor
