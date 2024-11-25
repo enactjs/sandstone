@@ -6,7 +6,28 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Icon` supported icon list, adding new icons `ai`, `alert01`, and `alert02`
+- `sandstone/PageViews` prop `autoFocus` to set whether focus element automatically or not
+- `sandstone/PageViews.Page` and `sandstone/QuickGuidePanels.Panel` prop `aria-label`
+- `sandstone/QuickGuidePanels` props `closeButtonAriaLabel` and `onClose`
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
+- `sandstone/IconItem` to restart marquee after done editing in `sandstone/Scroller` with `editable` prop
+- `sandstone/Input` keypad layout when `type` prop is `number` or `passwordnumber` and the screen is in portrait mode or `popupType` prop is `overlay` and in large text mode
+- `sandstone/PageViews` and `sandstone/QuickGuidePanels` dot page indicators to be aligned center
+- `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
+- `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` with `editable` prop to move an item via 5-way keys properly in pointer mode
+- `sandstone/Slider` to not show console error when dragging with touch
+
+## [3.0.0-alpha.2] - 2024-10-08
+
+### Added
+
 - `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/MediaControls` props `jumpBackwardAriaLabel` and `jumpForwardAriaLabel` to override aria-label of jumpButtons
 - `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
 
 ### Changed
@@ -18,7 +39,43 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
 - `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
 - `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
+- `sandstone/Scroller` to focus the topmost element after scroll by voice control
+- `sandstone/Scroller` to read out properly when `sandstone/Panels` has `sandstone/Scroller` with `focusableScrollbar`
 - `sandstone/Steps` prop `size` to accept number type
+- `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
+
+## [2.9.2] - 2024-09-26
+
+### Fixed
+
+- `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
+- `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
+
+## [2.9.1] - 2024-09-09
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+- `sandstone/Steps` prop `highlightCurrentOnly` to highlight and scale only the current step
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
+### Fixed
+
+- `sandstone/Scroller`, `sandstone/Slider`, and `sandstone/VirtualList` to have default prop when `undefined` prop is passed
+- `sandstone/Steps` prop `size` to accept number type
+
+## [2.7.18] - 2024-09-05
+
+### Added
+
+- `sandstone/Alert` public class names `alert`, `content`, `fullscreen`, and `title`
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
 
 ## [2.9.0] - 2024-07-17
 

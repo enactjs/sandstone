@@ -97,7 +97,7 @@ const Panel = Slottable(
  * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
  * ```
  *
- * @name PrevButton
+ * @name prevButton
  * @memberof sandstone/WizardPanels.Panel.prototype
  * @type {Boolean|Component}
  * @public
