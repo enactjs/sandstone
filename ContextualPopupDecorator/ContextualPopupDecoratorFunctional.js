@@ -572,8 +572,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		/////////// - this is from render method
 		const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, popupProps, skin, ...rest} = props;
 		const idFloatLayer = `${id}_floatLayer`;
-		scrimType = rest.scrimType;
-		delete rest.scrimType;
 
 		// 'holepunch' scrimType is specific to this component, not supported by floating layer
 		// so it must be swapped-out for one that FloatingLayer does support.
