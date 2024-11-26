@@ -1,7 +1,7 @@
 /**
  * A "sprite" is an animated sequence of cells.
  *
- * Cells, like a film-strip, are pre-arranged in one or more rows and one or more columns.
+ * Cells, like a filmstrip, are pre-arranged in one or more rows and one or more columns.
  * This component steps through those cells to create an animation.
  *
  * Example:
@@ -172,7 +172,7 @@ const SpriteBase = kind({
 		rows: PropTypes.number,
 
 		/**
-		 * The sprite-sheet image with all of the cells on it.
+		 * The sprite-sheet image with all the cells on it.
 		 *
 		 * @see {@link ui/Image.ImageBase.src}
 		 * @type {String|Object}

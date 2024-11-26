@@ -62,7 +62,7 @@ const ScrollingRepeater = ({className, ...rest}) => (
 );
 
 const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
-	// we might not need Skinnable at all here. If we want to skin the popup and it's defined as a
+	// we might not need Skinnable at all here. If we want to skin the popup, and it's defined as a
 	// private component in this module, we can wrap it with skinnable and style it as needed there.
 	const Component = Skinnable(
 		ContextualPopupDecorator(

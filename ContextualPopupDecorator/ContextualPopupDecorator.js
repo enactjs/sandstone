@@ -313,7 +313,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				snapshot.shouldSpotActivator = (
 					// isn't set
 					!current ||
-					// is on the activator and we want to re-spot it so a11y read out can occur
+					// is on the activator, and we want to re-spot it so a11y read out can occur
 					current === prevState.activator ||
 					// is within the popup
 					this.containerNode.contains(current)

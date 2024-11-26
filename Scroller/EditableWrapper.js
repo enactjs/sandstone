@@ -767,7 +767,7 @@ const EditableWrapper = (props) => {
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
 		} else if (!mutableRef.current.isDragging) {
-			// Cancel mouse event to select a item when it is tapped
+			// Cancel mouse event to select an item when it is tapped
 			ev.preventDefault();
 
 			const targetItemNode = findItemNode(ev.target);

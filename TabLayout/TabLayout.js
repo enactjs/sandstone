@@ -115,7 +115,7 @@ const TabLayoutBase = kind({
 		/**
 		 * Specify dimensions for the layout areas.
 		 *
-		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
+		 * All 4 combinations must be supplied: each of the elements, tabs and content in both
 		 * collapsed and expanded state.
 		 *
 		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
