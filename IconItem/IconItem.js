@@ -96,7 +96,7 @@ const IconItemBase = kind({
 		bordered: PropTypes.bool,
 
 		/**
-		 * The custom component rendred as the content of this IconItem.
+		 * The custom component rendered as the content of this IconItem.
 		 *
 		 * @type {Component}
 		 * @public
@@ -152,7 +152,7 @@ const IconItemBase = kind({
 
 		/**
 		 * Source and size for the image.
-		 * See the datails in {@link sandstone/IconItem.ImageShape|ImageShape}
+		 * See the details in {@link sandstone/IconItem.ImageShape|ImageShape}
 		 *
 		 * @type {sandstone/IconItem.ImageShape}
 		 * @public

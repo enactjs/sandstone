@@ -450,7 +450,7 @@ const TabLayoutDecorator = compose(
 	RefocusDecorator,
 	SpotlightContainerDecorator({
 		// using last-focused so we return to the last focused if it exists but fall through to
-		// default element if no focus has ocurred yet (e.g. on mount)
+		// default element if no focus has occurred yet (e.g. on mount)
 		enterTo: 'last-focused',
 		// favor the content when collapsed and the tabs otherwise
 		defaultElement: [`.${componentCss.horizontal} .${componentCss.tabs} *`, `.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]

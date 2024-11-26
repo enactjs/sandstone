@@ -116,7 +116,7 @@ const InputFieldTests = [
 		component: <InputField value="Simple value" type="number" />
 	},
 
-	// InputField field of type 'number'should be empty with letters as input
+	// InputField field of type 'number' should be empty with letters as input
 	{
 		locale: 'ar-SA',
 		component: <InputField value="Simple value" type="number" disabled />

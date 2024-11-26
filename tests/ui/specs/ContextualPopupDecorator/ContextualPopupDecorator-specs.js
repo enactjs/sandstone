@@ -71,7 +71,7 @@ describe('ContextualPopupDecorator', function () {
 				expect(await button2.self.isFocused()).toBe(false);
 			});
 
-			it('should close the popup and should have Spotlight on button on auto dismiss the ContexualPopup2', async function () {
+			it('should close the popup and should have Spotlight on button on auto dismiss the ContextualPopup2', async function () {
 				let popupButton = $('#popupButton2');
 
 				await button2.focus();
@@ -83,7 +83,7 @@ describe('ContextualPopupDecorator', function () {
 				expect(await button2.self.isFocused()).toBe(true);
 			});
 
-			it('should not close the popup and should not have Spotlight on button on auto dismiss the ContexualPopup3', async function () {
+			it('should not close the popup and should not have Spotlight on button on auto dismiss the ContextualPopup3', async function () {
 				let popupButton = $('#popupButton3');
 
 				await button3.focus();

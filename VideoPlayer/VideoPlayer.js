@@ -1807,7 +1807,7 @@ const VideoPlayerBase = class extends Component {
 			// More props from `ev` may be added here as needed, but a full copy via `...ev`
 			// overloads Storybook's Action Logger and likely has other perf fallout.
 			type: ev.type,
-			// Specific state variables are included in the outgoing calback payload, not all of them
+			// Specific state variables are included in the outgoing callback payload, not all of them
 			...this.getMediaState()
 		};
 	};

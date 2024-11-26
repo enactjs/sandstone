@@ -97,7 +97,7 @@ const TooltipBase = kind({
 		/**
 		 * Allows the tooltip to marquee.
 		 *
-		 * Specifying a {@link sandstone/TooltipDecorator.TooltipBase.width|width} restrects
+		 * Specifying a {@link sandstone/TooltipDecorator.TooltipBase.width|width} restricts
 		 * the marquee to that size.
 		 *
 		 * @type {Boolean}

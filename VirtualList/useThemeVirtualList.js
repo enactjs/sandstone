@@ -297,7 +297,7 @@ const useSpottable = (props, instances) => {
 			}
 
 			// Since the result is used as a target position to be scrolled,
-			// scrondaryPosition should be 0 here.
+			// secondaryPosition should be 0 here.
 			gridPosition.secondaryPosition = 0;
 
 			return scrollContentHandle.current.gridPositionToItemPosition(gridPosition);

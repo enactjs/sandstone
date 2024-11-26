@@ -21,9 +21,9 @@ const getLabelUnavailableSpace = function (tooltipWidth) {
 	const tooltipUnavailableEdge = ri.scale((108 / 2) + arrowWidth);
 
 	// cap the offset at 50% - that percentage
-	const tooltipUnavaliablePercentage = 0.5 - (tooltipUnavailableEdge / tooltipWidth);
+	const tooltipUnavailablePercentage = 0.5 - (tooltipUnavailableEdge / tooltipWidth);
 
-	return tooltipUnavaliablePercentage;
+	return tooltipUnavailablePercentage;
 };
 
 /**
@@ -113,7 +113,7 @@ const calcOverflow = function (tooltipNode, clientNode, tooltipDirection, edgeKe
 	const windowHeight = window.innerHeight;
 	const clientHorizontalCenter = clientNode.left + (clientNode.width / 2);
 	const tooltipSafeWidth = tooltipNode.width + edgeKeepout;
-	const tooltipCenterdSafeWidth = (tooltipNode.width / 2) + edgeKeepout;
+	const tooltipCenteredSafeWidth = (tooltipNode.width / 2) + edgeKeepout;
 	const rightDelta = tooltipSafeWidth > clientHorizontalCenter;
 	const leftDelta = tooltipSafeWidth > windowWidth - clientHorizontalCenter;
 	const isTooltipWide = (tooltipSafeWidth > windowWidth) || (leftDelta && rightDelta);
@@ -123,8 +123,8 @@ const calcOverflow = function (tooltipNode, clientNode, tooltipDirection, edgeKe
 		const isOverBottom = clientNode.bottom + tooltipNode.height + edgeKeepout;
 		const isOverLeft = clientHorizontalCenter - tooltipSafeWidth;
 		const isOverRight = clientHorizontalCenter + tooltipSafeWidth;
-		const isOverCenterLeft = clientHorizontalCenter - tooltipCenterdSafeWidth;
-		const isOverCenterRight = clientHorizontalCenter + tooltipCenterdSafeWidth;
+		const isOverCenterLeft = clientHorizontalCenter - tooltipCenteredSafeWidth;
+		const isOverCenterRight = clientHorizontalCenter + tooltipCenteredSafeWidth;
 		return {
 			isOverTop: (isOverTop < 0) ? isOverTop : false,
 			isOverBottom: (isOverBottom > windowHeight) ? (isOverBottom - windowHeight) : false,
@@ -202,7 +202,7 @@ const getPosition = function (clientNode, tooltipDirection) {
  * @private
  */
 const getLabelOffset = function (tooltipNode, tooltipDirection, tooltipPosition, overflow) {
-	// This method is irrelevent to left and right anchored tooltips, skip entirely.
+	// This method is irrelevant to left and right anchored tooltips, skip entirely.
 	if (tooltipDirection !== 'left' && tooltipDirection !== 'right') {
 		const tooltipWidth = tooltipNode.width;
 
