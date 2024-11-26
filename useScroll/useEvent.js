@@ -3,7 +3,7 @@ import platform from '@enact/core/platform';
 import {onWindowReady} from '@enact/core/snapshot';
 import {clamp} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
-import {getPositionTargetOnFocus} from '@enact/spotlight/src/container';
+import {getDeepSpottableDescendants, getPositionTargetOnFocus} from '@enact/spotlight/src/container';
 import {getRect} from '@enact/spotlight/src/utils';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {constants} from '@enact/ui/useScroll';
@@ -441,18 +441,19 @@ const useEventVoice = (props, instances) => {
 			scrollContainerNode = scrollContainerRef.current;
 
 		if (utilDOM.containsDangerously(scrollContainerNode, spotItem)) {
-			const
-				viewportBounds = scrollContainerNode.getBoundingClientRect(),
-				spotItemBounds = spotItem.getBoundingClientRect(),
-				nodes = Spotlight.getSpottableDescendants(scrollContainerNode.dataset.spotlightId),
-				first = mutableRef.current.voiceControlDirection === 'vertical' ? 'top' : 'left',
-				last = mutableRef.current.voiceControlDirection === 'vertical' ? 'bottom' : 'right';
+			const viewportBounds = scrollContainerNode.getBoundingClientRect();
+			const spotItemBounds = spotItem.getBoundingClientRect();
+			const isVertical = mutableRef.current.voiceControlDirection === 'vertical';
+			const first = isVertical ? 'top' : 'left';
+			const last = isVertical ? 'bottom' : 'right';
 
-			if (spotItemBounds[last] < viewportBounds[first] || spotItemBounds[first] > viewportBounds[last]) {
+			/* if the focused element is out of the viewport, find another spottable element in the viewport */
+			if (spotItemBounds[last] <= viewportBounds[first] || spotItemBounds[first] >= viewportBounds[last]) {
+				const nodes = getDeepSpottableDescendants(scrollContainerNode.dataset.spotlightId);
 				for (let i = 0; i < nodes.length; i++) {
 					const nodeBounds = nodes[i].getBoundingClientRect();
 
-					if (nodeBounds[first] > viewportBounds[first] && nodeBounds[last] < viewportBounds[last]) {
+					if (nodeBounds[first] >= viewportBounds[first] && nodeBounds[last] <= viewportBounds[last]) {
 						Spotlight.focus(nodes[i]);
 						break;
 					}

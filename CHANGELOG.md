@@ -6,6 +6,41 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control
+
+## [2.9.5] - 2024-11-19
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icons `ai`, `alert01`, and `alert02`
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when the screen orientation change
+- `sandstone/Input` keypad layout when `type` prop is `number` or `passwordnumber` and the screen is in portrait mode or `popupType` prop is `overlay` and in large text mode
+- `sandstone/Slider` to not show console error when dragging with touch
+
+## [2.9.4] - 2024-10-29
+
+### Fixed
+
+- `sandstone/IconItem` to restart marquee after done editing in `sandstone/Scroller` with `editable` prop
+- `sandstone/PageViews` and `sandstone/QuickGuidePanels` dot page indicators to be aligned center
+- `sandstone/Scroller` to focus content area properly on supported platforms when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` with `editable` prop to move an item via 5-way keys properly in pointer mode
+
+## [2.9.3] - 2024-10-15
+
+### Added
+
+- `sandstone/MediaControls` props `jumpBackwardAriaLabel` and `jumpForwardAriaLabel` to override aria-label of jumpButtons
+- `sandstone/PageViews` prop `autoFocus` to set whether focus element automatically or not
+
+### Fixed
+
+- `sandstone/PageViews` to not clip the shadow of navigation buttons when `fullContents` prop is `true`
+- `sandstone/Scroller` to focus the topmost element after scroll by voice control
+- `sandstone/Scroller` to read out properly when `sandstone/Panels` has `sandstone/Scroller` with `focusableScrollbar`
 - `sandstone/VideoPlayer` to show only the mini feedback when pressing play/pause key
 
 ## [2.9.2] - 2024-09-26
@@ -14,7 +49,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Panels.Header` to show title and subtitle properly in `sandstone/WizardPanels`
 - `sandstone/Scroller` to show scroll indicator when `focusableScrollbar` prop is `true`
-- `sandstone/Scroller` to read out properly when `sandstone/Panels` has `sandstone/Scroller` with `focusableScrollbar`
 
 ## [2.9.1] - 2024-09-09
 

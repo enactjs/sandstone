@@ -260,18 +260,15 @@ const PageViewsBase = kind({
 			return (
 				<>
 					{pageIndicatorType !== 'number' ?
-						<Row className={classNames(css.steps, {[css.hidden]: !isStepVisible})}>
+						<Row className={classNames(css.stepsRow, {[css.hidden]: !isStepVisible})}>
 							<Steps
+								css={css}
 								current={index + 1}
-								currentIcon="circle"
-								futureIcon="circle"
 								highlightCurrentOnly
-								pastIcon="circle"
 								total={totalIndex}
-								size={30}
 							/>
 						</Row> :
-						<Row className={css.steps}>
+						<Row className={css.stepsRow}>
 							<Cell className={css.navButton} shrink>
 								{isPrevButtonVisible ? <Button aria-label={$L('Previous')} icon="arrowlargeleft" iconFlip="auto" id="PrevNavButton" onClick={onPrevClick} size="small" /> : null}
 							</Cell>
@@ -330,6 +327,17 @@ const PageViewsBase = kind({
 		);
 	}
 });
+
+/**
+ * Sets the strategy used to automatically focus an element within the PageViews upon render.
+ * When set to 'none', focus is not set only on the first render.
+ *
+ * @name autoFocus
+ * @type {('default-element'|'last-focused'|'none'|String)}
+ * @memberof sandstone/PageViews.PageViews.prototype
+ * @default 'last-focused'
+ * @public
+ */
 
 const PageViewsDecorator = compose(
 	Changeable({prop: 'index'}),
