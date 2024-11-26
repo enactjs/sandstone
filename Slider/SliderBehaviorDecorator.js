@@ -1,10 +1,9 @@
 import {forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
-import platform from '@enact/core/platform';
 import Pause from '@enact/spotlight/Pause';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
-import {Component, createRef} from 'react';
+import {Component} from 'react';
 
 import $L from '../internal/$L';
 
@@ -69,7 +68,6 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.handleFocus = this.handleFocus.bind(this);
 			this.handleSpotlightEvents = this.handleSpotlightEvents.bind(this);
 			this.bounds = {};
-			this.sliderRef = createRef();
 
 			this.state = {
 				active: false,
@@ -109,14 +107,6 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			return valueText;
 		}
 
-		focusSlider () {
-			let slider = this.sliderRef.current.node;
-			if (slider.getAttribute('role') !== 'slider') {
-				slider = slider.querySelector('[role="slider"]');
-			}
-			slider.focus();
-		}
-
 		handleActivate () {
 			forwardCustom('onActivate')(null, this.props);
 			this.setState(toggleActive);
@@ -131,10 +121,6 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		handleDragStart () {
-			// on platforms with a touchscreen, we want to focus slider when dragging begins
-			if (platform.touchScreen) {
-				this.focusSlider();
-			}
 			this.paused.pause();
 			this.setState({dragging: true});
 		}
@@ -187,7 +173,6 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					onDragStart={this.handleDragStart}
 					onDragEnd={this.handleDragEnd}
 					onFocus={this.handleFocus}
-					ref={this.sliderRef}
 				/>
 			);
 		}
