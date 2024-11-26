@@ -530,14 +530,14 @@ export const FocusWithPreventScroll = () => {
 	return (
 		<>
 			<p>Press OK button on the first button calls Spotlight.focus() to focus the second button for each scroller.</p>
-			Without preventScroll option.
-			<div className={css.shortPureScroller}>
+			Without preventScroll option
+			<div className={css.scroller}>
 				<Button className={css.block} onClick={handleClickNotPrevented}>Press OK on this button</Button>
 				<Button className={css.block} id="FocusWithPreventScrollTarget1">To be scrolled</Button>
 			</div>
 			<br />
-			With preventScroll: true option.
-			<div className={css.shortPureScroller}>
+			With preventScroll: true option
+			<div className={css.scroller}>
 				<Button className={css.block} onClick={handleClickPrevented}>Press OK on this button</Button>
 				<Button className={css.block} id="FocusWithPreventScrollTarget2">Not to be scrolled</Button>
 			</div>
