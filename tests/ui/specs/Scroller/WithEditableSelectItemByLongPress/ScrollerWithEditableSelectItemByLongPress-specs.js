@@ -77,4 +77,38 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 		await expect(leftmostItemRect).toBe(Math.floor((await ScrollerPage.getActiveElementRect()).left / 100) * 100);
 
 	});
+
+	it('drag and drop', async function () {
+		const origin = await ScrollerPage.scroller;
+		const originSize = await origin.getSize();
+		const element = await $('#item1');
+		const elementSize = await element.getSize();
+
+		// Change position of Item0
+		await browser.action('pointer')
+			.move({duration: 500, x: elementSize.width, y: originSize.height / 2})
+			.down({button: 0}) // left button
+			.pause(600)
+			.move({duration: 500, x: elementSize.width * 2, y: originSize.height / 2})
+			.up({button: 0})
+			.perform()
+
+		// Verify: Item1 is first in the list
+		await browser.action('pointer')
+			.move({duration: 0, x: elementSize.width, y: originSize.height / 2})
+			.down({button: 0}) // left button
+			.pause(600)
+			.up({button: 0})
+			.perform()
+		await expectFocusedItem(1);
+
+		// Verify: Item3 keeps its original position
+		await browser.action('pointer')
+			.move({duration: 0, x: elementSize.width * 4, y: originSize.height / 2})
+			.down({button: 0}) // left button
+			.pause(600)
+			.up({button: 0})
+			.perform()
+		await expectFocusedItem(3);
+	});
 });
