@@ -89,7 +89,7 @@
 @sand-checkbox-disabled-selected-text-color: var(--sand-checkbox-disabled-selected-text-color, @sand-disabled-selected-color);
 @sand-formcheckboxitem-focus-text-color: var(--sand-formcheckboxitem-focus-text-color, @sand-focus-text-color);
 @sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
-@sand-keyguide-bg-color: var(--sand-keyguide-bg-color, rgb(var(--sand-keyguide-bg-color-rgb, 55, 58, 65))); // #373a41
+@sand-keyguide-bg-base-color: var(--sand-keyguide-bg-color, rgb(var(--sand-keyguide-bg-color-rgb, 55, 58, 65))); // #373a41
 @sand-keyguide-bg-color-opacity: var(--sand-keyguide-bg-color-opacity, 0.9);
 @sand-slider-disabled-knob-bg-color: var(--sand-slider-disabled-knob-bg-color, #666666);
 @sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
@@ -279,6 +279,7 @@
 
 // KeyGuide
 // ---------------------------------------
+@sand-keyguide-bg-color: ~"color(from" @sand-keyguide-bg-base-color ~"srgb r g b /" @sand-keyguide-bg-color-opacity ~")";
 @sand-keyguide-item-color: @sand-text-sub-color;
 @sand-keyguide-colordot-red-color: @sand-remote-button-red-color;
 @sand-keyguide-colordot-green-color: @sand-remote-button-green-color;
