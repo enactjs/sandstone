@@ -103,7 +103,6 @@ const adjustDirection = function (tooltipDirection, overflow, rtl) {
  * @param   {Object} tooltipNode        The `getBoundingClientRect` values for tooltip node
  * @param   {Object} clientNode         The `getBoundingClientRect` values for client node
  * @param   {String} tooltipDirection   Direction of tooltip
- * @param   {Number} tooltipHeight      Tooltip height
  * @param   {Number} edgeKeepout        Extra margin around the screen to avoid
  * @returns {Object}                    Tooltip's calculated overflow
  * @private
@@ -156,13 +155,8 @@ const calcOverflow = function (tooltipNode, clientNode, tooltipDirection, edgeKe
  *
  * @method
  * @memberof sandstone/TooltipDecorator
- * @param   {Object} tooltipNode        The `getBoundingClientRect` values for tooltip node
  * @param   {Object} clientNode         The `getBoundingClientRect` values for client node
- * @param   {String} arrowAnchor        Anchor position from `adjustAnchor`
  * @param   {String} tooltipDirection   Direction of tooltip
- * @param   {Number} tooltipHeight      Tooltip height
- * @param   {Object} overflow           Tooltip's calculated overflow from `calcOverflow`
- * @param   {Boolean} rtl               RTL mode
  * @returns {Object}                    Tooltip top and left position
  * @private
  */

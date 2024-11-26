@@ -254,7 +254,7 @@ const SpriteBase = kind({
 
 			for (let i = 0; i < sets; i++) {
 				const axisValue = (i * axis * -1);
-				const dimentionValue = ((steps - 0) * dimension * -1);
+				const dimensionValue = (steps * dimension * -1);
 				framesets.push(
 					createKeyframe({
 						offset: (i / sets),
@@ -265,7 +265,7 @@ const SpriteBase = kind({
 					createKeyframe({
 						offset: ((i + 1) / sets),
 						vertical,
-						dimension: dimentionValue,
+						dimension: dimensionValue,
 						axis: axisValue
 					})
 				);

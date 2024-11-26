@@ -181,7 +181,7 @@ describe('VideoPlayer', function () {
 		it('should display poster', async function () {
 			await Page.delay(1000);
 
-			expect(await videoPlayerDisabled.video.getAttribute('poster')).toBe('http://media.w3.org/2010/05/sintel/poster.png');
+			expect(await videoPlayerDisabled.video.getAttribute('poster')).toBe('https://media.w3.org/2010/05/sintel/poster.png');
 		});
 
 		describe('5-way', function () {
