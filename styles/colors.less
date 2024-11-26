@@ -75,7 +75,7 @@
 
 @sand-progress-color: var(--sand-progress-color, rgb(var(--sand-progress-color-rgb, 230, 230, 230))); // #e6e6e6
 @sand-progress-bg-color: var(--sand-progress-bg-color, rgb(var(--sand-progress-bg-color-rgb, 55, 58, 65))); // #373a41
-@sand-progress-bg-color-alpha: var(--sand-progress-bg-color-alpha, 1);
+@sand-progress-bg-color-opacity: var(--sand-progress-bg-color-opacity, 1);
 @sand-progress-highlighted-color: var(--sand-progress-highlighted-color, #ffffff);
 @sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
 
@@ -90,7 +90,7 @@
 @sand-formcheckboxitem-focus-text-color: var(--sand-formcheckboxitem-focus-text-color, @sand-focus-text-color);
 @sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
 @sand-keyguide-bg-color: var(--sand-keyguide-bg-color, rgb(var(--sand-keyguide-bg-color-rgb, 55, 58, 65))); // #373a41
-@sand-keyguide-bg-color-alpha: var(--sand-keyguide-bg-color-alpha, 0.9);
+@sand-keyguide-bg-color-opacity: var(--sand-keyguide-bg-color-opacity, 0.9);
 @sand-slider-disabled-knob-bg-color: var(--sand-slider-disabled-knob-bg-color, #666666);
 @sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
 
@@ -99,7 +99,7 @@
 
 // common colors
 @sand-alert-overlay-bg-color: var(--sand-alert-overlay-bg-color, rgb(var(--sand-alert-overlay-bg-color-rgb, 202, 203, 204))); // #cacbcc
-@sand-alert-overlay-bg-color-alpha: 0.95;
+@sand-alert-overlay-bg-color-opacity: 0.95;
 @sand-alert-overlay-text-color: var(--sand-alert-overlay-text-color, rgb(var(--sand-alert-overlay-text-color-rgb, 46, 50, 57))); // #2e3239
 @sand-alert-overlay-text-sub-color: var(--sand-alert-overlay-text-sub-color, #2e3239);
 @sand-alert-overlay-focus-text-color: var(--sand-alert-overlay-focus-text-color, #575e66);
@@ -111,7 +111,7 @@
 // component colors
 @sand-alert-overlay-progress-color: var(--sand-alert-overlay-progress-color, rgb(var(--sand-alert-overlay-progress-color-rgb, 55, 58, 65))); // #373a41
 @sand-alert-overlay-progress-bg-color: var(--sand-alert-overlay-progress-bg-color, rgb(var(--sand-alert-overlay-progress-bg-color-rgb, 161, 161, 161))); //  #a1a1a1);
-@sand-alert-overlay-progress-bg-color-alpha: var(--sand-alert-overlay-progress-bg-color-alpha, 0.4);
+@sand-alert-overlay-progress-bg-color-opacity: var(--sand-alert-overlay-progress-bg-color-opacity, 0.4);
 @sand-alert-overlay-checkbox-color: var(--sand-alert-overlay-checkbox-color, #858b92);
 @sand-alert-overlay-checkbox-disabled-selected-text-color: var(--sand-alert-overlay-checkbox-disabled-selected-text-color, #ffffff);
 @sand-alert-overlay-formcheckboxitem-focus-text-color: var(--sand-alert-overlay-formcheckboxitem-focus-text-color, @sand-alert-overlay-focus-text-color);
@@ -123,7 +123,7 @@
 @sand-disabled-opacity: 0.28;  // This value brings the standard text-color to the disabled text color specs
 @sand-disabled-bg-opacity: @sand-disabled-opacity;
 @sand-disabled-focus-content-opacity: 0.4;
-@sand-disabled-focus-content-color-alpha: 0.4;
+@sand-disabled-focus-content-color-opacity: 0.4;
 @sand-disabled-focus-bg-opacity: 0.585;  // This value brings the standard focus-background-color to the disabled+focus color specs
 
 
@@ -258,7 +258,7 @@
 @sand-input-overlay-background-color: @sand-popup-bg-color;
 @sand-input-numbercell-background-color: ~"color(from" @sand-text-color ~"srgb r g b / 0.2)";
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
-@sand-input-numberfield-disabled-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b /" @sand-disabled-focus-content-color-alpha ~")";
+@sand-input-numberfield-disabled-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b /" @sand-disabled-focus-content-color-opacity ~")";
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
@@ -331,7 +331,7 @@
 
 // ProgressBar
 // ---------------------------------------
-@sand-progressbar-bar-bg-color: ~"color(from" @sand-progress-bg-color ~"srgb r g b /" @sand-progress-bg-color-alpha ~")";
+@sand-progressbar-bar-bg-color: ~"color(from" @sand-progress-bg-color ~"srgb r g b /" @sand-progress-bg-color-opacity ~")";
 @sand-progressbar-load-bg-color: ~"color(from" @sand-progress-color ~"srgb r g b / 0.3)";
 @sand-progressbar-fill-bg-color: @sand-progress-color;
 @sand-progressbar-highlighted-fill-bg-color: @sand-progress-highlighted-color;
