@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Pageviews` `pageIndicatorPosition` prop to provide a way to determine where to place the page indicator
+
 ### Fixed
 
 - `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control
