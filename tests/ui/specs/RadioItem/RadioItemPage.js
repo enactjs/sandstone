@@ -1,8 +1,7 @@
 'use strict';
-const {getSubComponent, getText, componentSelector, hasClass, Page} = require('@enact/ui-test-utils/utils');
+const {getText, componentSelector, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const isSelected = hasClass(componentSelector({component: 'RadioItem', child: 'selected'}));
-const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});
 
 class RadioItemInterface {
 	constructor (id) {
@@ -17,7 +16,7 @@ class RadioItemInterface {
 		return $(`#${this.id}`);
 	}
 	get valueText () {
-		return getText(getMarqueeText(this.self));
+		return getText($(`#${this.id} > div .enact_ui_Marquee_Marquee_text`));
 	}
 	get isSelected () {
 		return isSelected(this.self);
