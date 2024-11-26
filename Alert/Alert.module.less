@@ -147,13 +147,13 @@
 			--sand-disabled-selected-focus-bg-color: @sand-alert-overlay-disabled-selected-focus-bg-color;
 			--sand-progress-color: @sand-alert-overlay-progress-color;
 			--sand-progress-bg-color: @sand-alert-overlay-progress-bg-color;
-			--sand-progress-bg-color-alpha: @sand-alert-overlay-progress-bg-color-alpha;
+			--sand-progress-bg-color-opacity: @sand-alert-overlay-progress-bg-color-opacity;
 			--sand-checkbox-color: @sand-alert-overlay-checkbox-color;
 			--sand-checkbox-disabled-selected-text-color: @sand-alert-overlay-checkbox-disabled-selected-text-color;
 			--sand-formcheckboxitem-focus-text-color: @sand-alert-overlay-formcheckboxitem-focus-text-color;
 			--sand-item-disabled-focus-bg-color: @sand-alert-overlay-item-disabled-focus-bg-color;
 
-			background-color: ~"color(from" @sand-alert-overlay-bg-color ~"srgb r g b /" @sand-alert-overlay-bg-color-alpha ~")";
+			background-color: ~"color(from" @sand-alert-overlay-bg-color ~"srgb r g b /" @sand-alert-overlay-bg-color-opacity ~")";
 			box-shadow: @sand-alert-overlay-shadow;
 		}
 	});
