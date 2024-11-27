@@ -142,7 +142,6 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				onFocus={handleFocus}
 			/>
 		);
-
 	};
 
 	SliderBehavior.displayName = 'SliderBehaviorDecorator';
