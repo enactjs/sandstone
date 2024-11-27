@@ -182,5 +182,67 @@ describe('VirtualList', function () {
 			const finalScrollThumbPosition = await Page.getScrollThumbPosition();
 			expect(finalScrollThumbPosition === initialScrollThumbPosition).toBe(true);
 		});
+
+		it('should scroll the list by holding Page Down/Page Up if pointer is inside of viewport', async function (){
+			const initialScrollThumbPosition = await Page.getScrollThumbPosition();
+			const pageDown = await Page.pageDownKey();
+			const pageUp = await Page.pageUpKey();
+
+			// position pointer inside the VL and hold Page Down
+			await browser.actions([
+				browser.action('pointer')
+					.move({duration: 500, x: 600, y: 600}),
+				browser.action('key')
+					.down(pageDown)
+					.pause(500)
+					.up(pageDown)
+			])
+			await browser.pause(500);
+			const currentScrollThumbPosition = await Page.getScrollThumbPosition();
+
+			expect(initialScrollThumbPosition < currentScrollThumbPosition).toBe(true);
+
+			// hold Page Up
+			await browser.action('key')
+				.down(pageUp)
+				.pause(500)
+				.up(pageUp)
+				.perform()
+			await browser.pause(500);
+			const finalScrollThumbPosition = await Page.getScrollThumbPosition();
+
+			expect(initialScrollThumbPosition === finalScrollThumbPosition).toBe(true);
+		});
+
+		it('should not scroll the list by holding Page Down/Page Up if pointer is outside of viewport', async function (){
+			const initialScrollThumbPosition = await Page.getScrollThumbPosition();
+			const pageDown = await Page.pageDownKey();
+			const pageUp = await Page.pageUpKey();
+
+			// position pointer outside the VL and hold Page Down
+			await browser.actions([
+				browser.action('pointer')
+					.move({duration: 500, x: 0, y: 0}),
+				browser.action('key')
+					.down(pageDown)
+					.pause(500)
+					.up(pageDown)
+			])
+			await browser.pause(500);
+			const currentScrollThumbPosition = await Page.getScrollThumbPosition();
+
+			expect(initialScrollThumbPosition < currentScrollThumbPosition).not.toBe(true);
+
+			// hold Page Up
+			await browser.action('key')
+				.down(pageUp)
+				.pause(500)
+				.up(pageUp)
+				.perform()
+			await browser.pause(500);
+			const finalScrollThumbPosition = await Page.getScrollThumbPosition();
+
+			expect(initialScrollThumbPosition === finalScrollThumbPosition).toBe(true);
+		});
 	});
 });

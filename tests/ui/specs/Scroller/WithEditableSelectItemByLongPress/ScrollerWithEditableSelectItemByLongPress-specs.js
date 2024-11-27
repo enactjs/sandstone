@@ -79,36 +79,32 @@ describe('Scroller With Editable Select Item By Long Press', function () {
 	});
 
 	it('drag and drop', async function () {
-		const origin = await ScrollerPage.scroller;
-		const originSize = await origin.getSize();
 		const element = await $('#item1');
 		const elementSize = await element.getSize();
 
 		// Change position of Item0
 		await browser.action('pointer')
-			.move({duration: 500, x: elementSize.width, y: originSize.height / 2})
+			.move({duration: 500, x: elementSize.width, y: 300})
 			.down({button: 0}) // left button
 			.pause(600)
-			.move({duration: 500, x: elementSize.width * 2, y: originSize.height / 2})
+			.move({duration: 500, x: elementSize.width * 2, y: 300})
+			.up({button: 0})
+			.down({button: 0})
 			.up({button: 0})
 			.perform()
+		await browser.pause(500);
+		await expectFocusedItem(0);
 
 		// Verify: Item1 is first in the list
 		await browser.action('pointer')
-			.move({duration: 0, x: elementSize.width, y: originSize.height / 2})
-			.down({button: 0}) // left button
-			.pause(600)
-			.up({button: 0})
+			.move({duration: 0, x: elementSize.width, y: 300})
 			.perform()
 		await expectFocusedItem(1);
 
-		// Verify: Item3 keeps its original position
+		// Verify: Item2 keeps its original position
 		await browser.action('pointer')
-			.move({duration: 0, x: elementSize.width * 4, y: originSize.height / 2})
-			.down({button: 0}) // left button
-			.pause(600)
-			.up({button: 0})
+			.move({duration: 0, x: elementSize.width * 3, y: 300})
 			.perform()
-		await expectFocusedItem(3);
+		await expectFocusedItem(2);
 	});
 });
