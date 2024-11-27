@@ -1,13 +1,34 @@
+/**
+ * Sandstone component that allows the user to choose a color from a spectrum.
+ *
+ * @example
+ * <ColorPickerSpectrum
+ *	 selectedColor="#FF00FF"
+ *	 selectedColorHandler={setSelectedColor}
+ * />
+ *
+ * @module sandstone/ColorPicker
+ * @exports ColorPickerSpectrum
+ * @private
+ */
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import {getHexColorFromGradient} from './utils';
 import SpectrumIndicator from './SpectrumIndicator';
+import {getHexColorFromGradient} from './utils';
 
 import css from './ColorPickerSpectrum.module.less';
 
-const SpectrumColorPicker = (props) => {
+/**
+ * A color picker component, ready to use in Sandstone applications.
+ *
+ * @class ColorPickerSpectrum
+ * @memberof sandstone/ColorPicker
+ * @ui
+ * @private
+ */
+const ColorPickerSpectrum = (props) => {
 	const {selectedColor, selectedColorHandler} = props;
 	const canvasRef = useRef(null);
 	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
@@ -142,10 +163,24 @@ const SpectrumColorPicker = (props) => {
 	);
 };
 
-SpectrumColorPicker.displayName = 'SpectrumColorPicker';
-SpectrumColorPicker.propTypes = {
+ColorPickerSpectrum.displayName = 'ColorPickerSpectrum';
+
+ColorPickerSpectrum.propTypes = {
+	/**
+	 * Indicates the selected color.
+	 *
+	 * @type {String}
+	 * @private
+	 */
 	selectedColor: PropTypes.string,
+
+	/**
+	 * Called when the selected color is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	selectedColorHandler: PropTypes.func
 };
 
-export default SpectrumColorPicker;
+export default ColorPickerSpectrum;

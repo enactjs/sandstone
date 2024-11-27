@@ -1,4 +1,4 @@
-import ColorPicker from '@enact/sandstone/ColorPickerPOC';
+import ColorPicker from '@enact/sandstone/ColorPicker';
 import {action} from '@enact/storybook-utils/addons/actions';
 
 ColorPicker.displayName = 'ColorPicker';

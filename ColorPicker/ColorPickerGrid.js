@@ -3,18 +3,17 @@
  *
  * @example
  * <ColorPickerGrid
+ * 	 selectedColorHandler={setSelectedColor}
  * />
  *
- * @module sandstone/ColorPickerGrid
+ * @module sandstone/ColorPicker
  * @exports ColorPickerGrid
  * @exports ColorPickerGridBase
- * @exports ColorPickerGridDecorator
  * @private
  */
 import Spottable from '@enact/spotlight/Spottable';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
 import {useCallback} from 'react';
 
 import Skinnable from '../Skinnable';
@@ -47,11 +46,10 @@ const colors = [
  * is within {@link sandstone/ColorPickerGrid|ColorPickerGrid}.
  *
  * @class ColorPickerGridBase
- * @memberof sandstone/ColorPickerGrid
+ * @memberof sandstone/ColorPicker
  * @ui
  * @private
  */
-
 const ColorPickerGridBase = (props) => {
 	const {className, selectedColorHandler, ...rest} = props;
 
@@ -64,7 +62,7 @@ const ColorPickerGridBase = (props) => {
 			{
 				colors.map((row, rowIndex) => {
 					return (
-						<div className={componentCss.colorsColumn} key={rowIndex}>
+						<div key={rowIndex}>
 							{
 								colors[rowIndex].map((color, colorIndex) => {
 									return <SpottableDiv className={componentCss.colorBlock} onClick={handleClick} style={{backgroundColor: color, '--sand-colorpicker-grid-focus-border-color': generateOppositeColor(color)}} key={colorIndex} />;
@@ -78,17 +76,9 @@ const ColorPickerGridBase = (props) => {
 	);
 };
 
-ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPickerGrid.ColorPickerGridBase.prototype */
-	/**
-	 * Customizes the component by mapping the supplied collection of CSS class names to the
-	 * corresponding internal elements and states of this component.
-	 *
-	 *
-	 * @type {Object}
-	 * @public
-	 */
-	css: PropTypes.object,
+ColorPickerGridBase.displayName = 'ColorPickerGridBase';
 
+ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPickerGrid.ColorPickerGridBase.prototype */
 	/**
 	 * Applies the `disabled` class.
 	 *
@@ -110,32 +100,18 @@ ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPickerGrid.ColorPicke
 };
 
 /**
- * Applies Sandstone specific behaviors to {@link sandstone/ColorPicker.ColorPickerBase|ColorPicker} components.
- *
- * @hoc
- * @memberof sandstone/ColorPickerGrid
- * @mixes sandstone/Skinnable.Skinnable
- * @private
- */
-const ColorPickerGridDecorator = compose(
-	Skinnable
-);
-
-/**
  * A color picker component, ready to use in Sandstone applications.
  *
  * @class ColorPickerGrid
- * @memberof sandstone/ColorPickerGrid
- * @extends sandstone/ColorPickerGrid.ColorPickerGridBase
- * @mixes sandstone/ColorPickerGrid.ColorPickerGridDecorator
+ * @memberof sandstone/ColorPicker
+ * @extends sandstone/ColorPicker.ColorPickerGridBase
  * @ui
  * @private
  */
-const ColorPickerGrid = ColorPickerGridDecorator(ColorPickerGridBase);
+const ColorPickerGrid = Skinnable(ColorPickerGridBase);
 
 export default ColorPickerGrid;
 export {
 	ColorPickerGrid,
-	ColorPickerGridBase,
-	ColorPickerGridDecorator
+	ColorPickerGridBase
 };

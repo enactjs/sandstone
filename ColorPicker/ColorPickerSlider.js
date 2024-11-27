@@ -1,14 +1,29 @@
+/**
+ * Sandstone component that allows the user to choose a color by using an RGB or an HSL color slider.
+ *
+ * @example
+ * <ColorPickerSlider
+ *	 selectedColor="#FF00FF"
+ *	 selectedColorHandler={setSelectedColor}
+ * />
+ *
+ * @module sandstone/ColorPicker
+ * @exports ColorPickerSlider
+ * @exports ColorPickerSliderRGB
+ * @exports ColorPickerSliderHSL
+ * @private
+ */
 import Layout, {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useState} from 'react';
 
 import Dropdown from '../Dropdown';
+import {InputField} from '../Input';
 import Slider from '../Slider';
 
 import {checkHex, generateOppositeColor, hexToHSL, hexToRGB, hslToHex, hslToRGBString, rgbObjectToHex} from './utils';
 
 import componentCss from './ColorPickerSlider.module.less';
-import {InputField} from '../Input';
 
 const hueGradient = (saturation, lightness) => {
 	return `linear-gradient(to right, 
@@ -61,6 +76,15 @@ const lightnessGradient = (hue, saturation) => {
 	hsla(${hue}, ${saturation}%, 100%, 1))`;
 };
 
+/**
+ * A color picker component that allows the user to choose a color by using an RGB color slider.
+ *
+ * @class ColorPickerSliderRGB
+ * @memberof sandstone/ColorPicker
+ * @extends sandstone/Slider.Slider
+ * @ui
+ * @private
+ */
 const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) => {
 	const {red, green, blue} = hexToRGB(selectedColor);
 	const [localRed, setLocalRed] = useState(red);
@@ -178,9 +202,37 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 	);
 };
 
+ColorPickerSliderRGB.displayName = 'ColorPickerSliderRGB';
+
+ColorPickerSliderRGB.propTypes = {
+	/**
+	 * Indicates the selected color.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	selectedColor: PropTypes.string,
+
+	/**
+	 * Called when the selected color is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	selectedColorHandler: PropTypes.func
+};
+
+/**
+ * A color picker component that allows the user to choose a color by using an HSL color slider.
+ *
+ * @class ColorPickerSliderHSL
+ * @memberof sandstone/ColorPicker
+ * @extends sandstone/Slider.Slider
+ * @ui
+ * @private
+ */
 const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) => {
 	const {h, s, l} = hexToHSL(selectedColor);
-
 	const [hue, setHue] = useState(h);
 	const [saturation, setSaturation] = useState(s);
 	const [lightness, setLightness] = useState(l);
@@ -302,6 +354,36 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 	);
 };
 
+ColorPickerSliderHSL.displayName = 'ColorPickerSliderHSL';
+
+ColorPickerSliderHSL.propTypes = {
+	/**
+	 * Indicates the selected color.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	selectedColor: PropTypes.string,
+
+	/**
+	 * Called when the selected color is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	selectedColorHandler: PropTypes.func
+};
+
+/**
+ * A color picker component, ready to use in Sandstone applications.
+ *
+ * @class ColorPickerSlider
+ * @memberof sandstone/ColorPicker
+ * @extends sandstone/ColorPickerSlider.ColorPickerSliderRGB
+ * @extends sandstone/ColorPickerSlider.ColorPickerSliderHSL
+ * @ui
+ * @private
+ */
 const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 	const [pickerType, setPickerType] = useState('RGB Picker');
 
@@ -350,18 +432,23 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 	);
 };
 
+ColorPickerSlider.displayName = 'ColorPickerSlider';
+
 ColorPickerSlider.propTypes = {
+	/**
+	 * Indicates the selected color.
+	 *
+	 * @type {String}
+	 * @private
+	 */
 	selectedColor: PropTypes.string,
-	selectedColorHandler: PropTypes.func
-};
 
-ColorPickerSliderHSL.propTypes = {
-	selectedColor: PropTypes.string,
-	selectedColorHandler: PropTypes.func
-};
-
-ColorPickerSliderRGB.propTypes = {
-	selectedColor: PropTypes.string,
+	/**
+	 * Called when the selected color is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	selectedColorHandler: PropTypes.func
 };
 

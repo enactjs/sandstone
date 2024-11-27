@@ -1,4 +1,4 @@
-import ColorPicker, {ColorPickerBase} from '@enact/sandstone/ColorPicker';
+import ColorPicker, {ColorPickerBase} from 'ColorPickerSettingsApp';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import {Fragment, useState} from 'react';
@@ -17,7 +17,7 @@ const presetColors = [
 ];
 
 export default {
-	title: 'Sandstone/ColorPicker',
+	title: 'Sandstone/ColorPickerSettingsApp',
 	component: 'ColorPicker'
 };
 

@@ -1,26 +1,21 @@
-// ColorPicker.module.less
+// ColorPickerGrid.module.less
 //
 @import "../styles/colors.less";
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .colorPicker {
-	.colorsColumn {
-		float: left;
-	}
+	display: flex;
 
 	.colorBlock {
-		border-color: transparent;
-		border-style: solid;
-		border-width: 9px;
+		border: 9px solid transparent;
 		height: 48px;
 		width: 48px;
 
 		.focus({
 			border-color: var(--sand-colorpicker-grid-focus-border-color);
 			box-shadow: 0 0 12px 3px inset;
-			// transform: scale(1.1);
-			// transition: all 0.375s cubic-bezier(0.4, 0, 0.2, 1);
+			transform: scale(1.1);
 		})
 	}
 }

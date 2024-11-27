@@ -1,6 +1,6 @@
 import {is} from '@enact/core/keymap';
-import Spottable from '@enact/spotlight/Spottable';
 import spotlight from '@enact/spotlight';
+import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useState} from 'react';
 
@@ -120,6 +120,7 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 };
 
 CircleIndicator.displayName = 'CircleIndicator';
+
 CircleIndicator.propTypes = {
 	bgColor: PropTypes.string,
 	canvasRef: PropTypes.any,
