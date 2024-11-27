@@ -1,11 +1,10 @@
 import {forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
-import platform from '@enact/core/platform';
 import {setDefaultProps} from '@enact/core/util';
 import Pause from '@enact/spotlight/Pause';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import $L from '../internal/$L';
 
@@ -45,7 +44,6 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		const sliderBehaviorProps = setDefaultProps(props, sliderDefaultProps);
 
 		const paused = useMemo(() => new Pause(), []);
-		const sliderRef = useRef();
 		const [active, setActive] = useState(false);
 		const [dragging, setDragging] = useState(false);
 		const [focused, setFocused] = useState(false);
@@ -80,14 +78,6 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			return valueText;
 		}, [sliderBehaviorProps, useHintText]);
 
-		const focusSlider = useCallback(() => {
-			let slider = sliderRef.current;
-			if (slider.getAttribute('role') !== 'slider') {
-				slider = slider.querySelector('[role="slider"]');
-			}
-			slider.focus();
-		}, [sliderRef]);
-
 		const handleActivate = useCallback(() => {
 			forwardCustom('onActivate')(null, sliderBehaviorProps);
 			setActive(prevState => !prevState);
@@ -100,13 +90,9 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}, [setFocused, setUseHintText, sliderBehaviorProps]);
 
 		const handleDragStart = useCallback(() => {
-			// on platforms with a touchscreen, we want to focus slider when dragging begins
-			if (platform.touchScreen) {
-				focusSlider();
-			}
 			paused.pause();
 			setDragging(true);
-		}, [focusSlider, paused, setDragging]);
+		}, [paused, setDragging]);
 
 		const handleDragEnd = useCallback(() => {
 			paused.resume();
@@ -154,7 +140,6 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				onDragStart={handleDragStart}
 				onDragEnd={handleDragEnd}
 				onFocus={handleFocus}
-				sliderRef={sliderRef}
 			/>
 		);
 
