@@ -300,7 +300,7 @@ const ColorPickerBase = ({color = '#eb4034', colors = [], css, onChangeColor, op
 
 ColorPickerBase.displayName = 'ColorPicker';
 
-ColorPickerBase.propTypes = {
+ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.prototype */
 	/**
 	 * Indicates the color.
 	 *
