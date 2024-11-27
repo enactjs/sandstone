@@ -182,7 +182,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 
 FavoriteColors.displayName = 'FavoriteColors';
 
-FavoriteColors.propTypes = {
+FavoriteColors.propTypes = {/** @lends sandstone/ColorPicker.FavoriteColors.prototype */
 	/**
 	 * Called when color is modified.
 	 *
