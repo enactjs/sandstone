@@ -6,7 +6,6 @@
  * 	 selectedColorHandler={setSelectedColor}
  * />
  *
- * @module sandstone/ColorPicker
  * @exports ColorPickerGrid
  * @exports ColorPickerGridBase
  * @private
@@ -78,7 +77,7 @@ const ColorPickerGridBase = (props) => {
 
 ColorPickerGridBase.displayName = 'ColorPickerGridBase';
 
-ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPickerGrid.ColorPickerGridBase.prototype */
+ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerGridBase.prototype */
 	/**
 	 * Applies the `disabled` class.
 	 *

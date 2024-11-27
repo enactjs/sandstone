@@ -7,7 +7,6 @@
  *	 selectedColorHandler={setSelectedColor}
  * />
  *
- * @module sandstone/ColorPicker
  * @exports ColorPickerSlider
  * @exports ColorPickerSliderRGB
  * @exports ColorPickerSliderHSL

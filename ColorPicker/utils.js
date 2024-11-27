@@ -26,10 +26,10 @@ const calculateHslToRgb = ({h, s, l}) => {
 	s = Math.max(0, Math.min(100, s)) / 100; // Clamp saturation to 0-100, then convert to 0-1
 	l = Math.max(0, Math.min(100, l)) / 100; // Clamp lightness to 0-100, then convert to 0-1
 
-	const c = (1 - Math.abs(2 * l - 1)) * s,        // Chroma
-		  x = c * (1 - Math.abs((h / 60) % 2 - 1)), // Second largest component
-		  m = l - c / 2;                               // Adjust lightness
-	let   r = 0, g = 0, b = 0;
+	const c = (1 - Math.abs(2 * l - 1)) * s; // Chroma
+	const x = c * (1 - Math.abs((h / 60) % 2 - 1)); // Second largest component
+	const m = l - c / 2; // Adjust lightness
+	let r = 0, g = 0, b = 0;
 
 	if (0 <= h && h < 60) {
 		r = c; g = x; b = 0;

@@ -7,7 +7,6 @@
  *	 selectedColorHandler={setSelectedColor}
  * />
  *
- * @module sandstone/ColorPicker
  * @exports ColorPickerSpectrum
  * @private
  */
