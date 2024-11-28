@@ -268,7 +268,7 @@ const EditableWrapper = (props) => {
 	}, [customCss.focused, findItemNode]);
 
 	const handleClickCapture = useCallback((ev) => {
-		if (ev.target.className.includes('Button')) {
+		if (ev.target.parentNode.parentNode.getAttribute('role') === 'button') {
 			return;
 		}
 		// Consume the event to prevent Item behavior
@@ -280,7 +280,7 @@ const EditableWrapper = (props) => {
 	}, []);
 
 	const handleMouseDown = useCallback((ev) => {
-		if (ev.target.className.includes('Button')) {
+		if (ev.target.parentNode.parentNode.getAttribute('role') === 'button') {
 			return;
 		}
 		if (mutableRef.current.selectedItem) {
@@ -732,7 +732,7 @@ const EditableWrapper = (props) => {
 			ev.preventDefault();
 		}
 
-		if (mutableRef.current.isDraggingItem && !ev.target.className.includes('Button')) {
+		if (mutableRef.current.isDraggingItem && ev.target.parentNode.parentNode.getAttribute('role') !== 'button') {
 			const {clientX} = ev.targetTouches[0];
 			mutableRef.current.lastMouseClientX = clientX;
 
@@ -755,7 +755,7 @@ const EditableWrapper = (props) => {
 		const {clientX} = ev.changedTouches[0];
 		const targetItemIndex = getNextIndexFromPosition(clientX, 0);
 
-		if (ev.target.className.includes('Button') && Number(selectedItem?.style.order) - 1 === targetItemIndex) {
+		if (ev.target.parentNode.parentNode.getAttribute('role') === 'button' && Number(selectedItem?.style.order) - 1 === targetItemIndex) {
 			return;
 		}
 
