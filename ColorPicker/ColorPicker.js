@@ -198,7 +198,7 @@ FavoriteColors.propTypes = {
 	 * Called when color is modified.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	colorHandler: PropTypes.func,
 
@@ -222,7 +222,7 @@ FavoriteColors.propTypes = {
 	 * Called when the favorite color is modified.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	favoriteColorsHandler: PropTypes.func,
 
@@ -230,7 +230,7 @@ FavoriteColors.propTypes = {
 	 * Indicates the selected color.
 	 *
 	 * @type {String}
-	 * @public
+	 * @private
 	 */
 	selectedColor: PropTypes.string,
 
@@ -238,7 +238,7 @@ FavoriteColors.propTypes = {
 	 * Called when the selected color is modified.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	selectedColorHandler: PropTypes.func
 };
