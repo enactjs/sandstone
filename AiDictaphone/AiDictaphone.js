@@ -39,7 +39,7 @@ const useDebounce = (value, delay) => {
 		return () => {
 			clearTimeout(timer);
 		};
-	}, [value, delay]);
+	}, [value]);
 
 	return debouncedValue;
 };
