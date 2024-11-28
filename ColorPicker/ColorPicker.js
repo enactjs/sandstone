@@ -13,7 +13,7 @@
  * @module sandstone/ColorPicker
  * @exports ColorPicker
  * @exports ColorPickerBase
- * @private
+ * @public
  */
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Column, Row} from '@enact/ui/Layout';

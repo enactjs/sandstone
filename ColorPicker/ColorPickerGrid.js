@@ -85,7 +85,7 @@ ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerGri
 	 *
 	 * @type {Boolean}
 	 * @default false
-	 * @public
+	 * @private
 	 */
 	disabled: PropTypes.bool,
 
@@ -93,7 +93,7 @@ ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerGri
 	 * A function to run when the current color changes.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	selectedColorHandler: PropTypes.func
 };
@@ -105,7 +105,7 @@ ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerGri
  * @memberof sandstone/ColorPicker
  * @extends sandstone/ColorPicker.ColorPickerGridBase
  * @ui
- * @public
+ * @private
  */
 const ColorPickerGrid = Skinnable(ColorPickerGridBase);
 
