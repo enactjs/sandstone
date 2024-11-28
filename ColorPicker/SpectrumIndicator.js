@@ -10,6 +10,14 @@ import css from './ColorPickerSpectrum.module.less';
 
 const SpottableDiv = Spottable('div');
 
+/**
+ * The circle indicator component used in spectrum color picker.
+ *
+ * @class CircleIndicator
+ * @memberof sandstone/ColorPicker
+ * @ui
+ * @private
+ */
 const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHandler, setIsIndicatorActive, setIndicatorBgColor, setX, setY, x, y}) => {
 	const [holding, setHolding] = useState(false);
 	const [prevKey, setPrevKey] = useState('');
@@ -122,15 +130,85 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 CircleIndicator.displayName = 'CircleIndicator';
 
 CircleIndicator.propTypes = {
+	/**
+	 * Indicates the background color of the circle indicator.
+	 *
+	 * @type {String}
+	 * @private
+	 */
 	bgColor: PropTypes.string,
+
+	/**
+	 * The canvas reference from the parent component.
+	 * Used to extract HEX color from canvas.
+	 *
+	 * @type {Node}
+	 * @private
+	 */
 	canvasRef: PropTypes.any,
+
+	/**
+	 * Indicates whether the circle indicator is active.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
 	isIndicatorActive: PropTypes.bool,
+
+	/**
+	 * Called when the selected color is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	selectedColorHandler: PropTypes.func,
+
+	/**
+	 * Called when bgColor is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	setIndicatorBgColor: PropTypes.func,
+
+	/**
+	 * Called when indicator active status is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	setIsIndicatorActive: PropTypes.func,
+
+	/**
+	 * Called when x coordinate of the indicator is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	setX: PropTypes.func,
+
+	/**
+	 * Called when y coordinate of the indicator is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	setY: PropTypes.func,
+
+	/**
+	 * Indicator's x-axis coordinate relative to the canvas.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
 	x: PropTypes.number,
+
+	/**
+	 * Indicator's y-axis coordinate relative to the canvas.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
 	y: PropTypes.number
 };
 
