@@ -52,24 +52,25 @@ const calculateHslToRgb = ({h, s, l}) => {
  * Converts red, green, and blue string to HEX color.
  *
  * @function
- * @param {String} rgbString
- * @returns {String} 6-digit HEX color
+ * @param {string} rgbString
+ * @returns {string|boolean} 6-digit HEX color if the input is valid, or `false` if the input is invalid
  * @private
  */
 const rgbStringToHex = (rgbString) => {
-	if (rgbString.indexOf("rgb(") !== 0) return false;
+	// Step 1: Check if the input starts with "rgb("
+	if (!rgbString.startsWith("rgb(")) return false;
 
-	let a = rgbString.substring(4).split(","); // an array ("204","204","153)")
+	// Step 2: Extract the numbers between "rgb(" and ")"
+	let a = rgbString.slice(4, -1).split(",").map(s => s.trim());
 
-	if (a.length < 3) return false; // still something wrong with the string
+	// Step 3: Validate that the array has exactly 3 valid RGB values (0–255)
+	if (
+		a.length !== 3 || // Ensure there are 3 values
+		!a.every(v => /^\d+$/.test(v) && +v >= 0 && +v <= 255) // Check for valid digits and range
+	) return false;
 
-	for (let i = 0; i < 3; i++) {
-		a[i] = parseInt(a[i]).toString(16); // parse integer, convert integer to hex string
-		a[i] = ((a[i].length === 1) ? "0" : "") + a[i].substring(0, 2);
-		// pad single digit hex numbers with a leading 0
-	}
-
-	return ("#" + a[0] + a[1] + a[2]).toUpperCase();
+	// Step 4: Convert each RGB value to a 2-digit hex string
+	return "#" + a.map(v => (+v).toString(16).padStart(2, "0")).join("").toUpperCase();
 };
 
 /**
@@ -177,7 +178,7 @@ const hexToHSL = (hexColor) => {
  *
  * @function
  * @param {String} hexColor
- * @returns {{red: number, green: number, blue: number}}	RGB values
+ * @returns {{red: number, green: number, blue: number}} RGB values
  * @private
  */
 const hexToRGB = (hexColor) => {
@@ -249,11 +250,12 @@ const hslToRGBString = ({h, s, l}) => {
  * Converts red, green, and blue values to HEX color.
  *
  * @function
- * @param {String} rgbColor
+ * @param {{red: number, green: number, blue: number}} rgbColor RGB values
  * @returns {String} 6-digit HEX color
  * @private
  */
 const rgbObjectToHex = (rgbColor) => {
+	console.log(rgbColor)
 	let {red, green, blue} = rgbColor;
 
 	red = red < 16 ? `0${Number(red).toString(16)}` : Number(red).toString(16);

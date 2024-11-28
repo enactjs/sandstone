@@ -40,7 +40,8 @@ const ColorPickerSpectrum = (props) => {
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
-		const ctx = canvas.getContext('2d');
+		const ctx = canvas.getContext('2d', {willReadFrequently: true});
+		// `willReadFrequently: true` parameter permits the browser to optimize for frequent getImageData() calls by avoiding hardware acceleration
 
 		const createColorGradient = (canvasElement, context) => {
 			for (let i = 0; i < canvasElement.width; i++) {
