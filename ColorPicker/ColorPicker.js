@@ -206,7 +206,7 @@ FavoriteColors.propTypes = {
 	 * Contains an array with colors.
 	 *
 	 * @type {Array}
-	 * @public
+	 * @private
 	 */
 	colors: PropTypes.array,
 
@@ -214,7 +214,7 @@ FavoriteColors.propTypes = {
 	 * Contains an array with the favorite colors.
 	 *
 	 * @type {Array}
-	 * @public
+	 * @private
 	 */
 	favoriteColors: PropTypes.array,
 
