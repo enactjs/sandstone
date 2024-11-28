@@ -105,7 +105,7 @@ ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerGri
  * @memberof sandstone/ColorPicker
  * @extends sandstone/ColorPicker.ColorPickerGridBase
  * @ui
- * @private
+ * @public
  */
 const ColorPickerGrid = Skinnable(ColorPickerGridBase);
 

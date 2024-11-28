@@ -36,6 +36,17 @@ import componentCss from './ColorPicker.module.less';
 
 const SpottableButton = Spottable(ButtonBase);
 
+/**
+ * The favorite colors component.
+ *
+ * This component is most often not used directly but may be composed within another component as it
+ * is within {@link sandstone/ColorPicker|ColorPicker}.
+ *
+ * @class FavoriteColors
+ * @memberof sandstone/ColorPicker
+ * @ui
+ * @private
+ */
 const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedColor = '#3455eb', selectedColorHandler}) => {
 	const [clickEnabled, setClickEnabled] = useState(true);
 	const [editEnabled, setEditEnabled] = useState(false);
@@ -182,12 +193,12 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 
 FavoriteColors.displayName = 'FavoriteColors';
 
-FavoriteColors.propTypes = {/** @lends sandstone/ColorPicker.FavoriteColors.prototype */
+FavoriteColors.propTypes = {
 	/**
 	 * Called when color is modified.
 	 *
 	 * @type {Function}
-	 * @private
+	 * @public
 	 */
 	colorHandler: PropTypes.func,
 
@@ -211,7 +222,7 @@ FavoriteColors.propTypes = {/** @lends sandstone/ColorPicker.FavoriteColors.prot
 	 * Called when the favorite color is modified.
 	 *
 	 * @type {Function}
-	 * @private
+	 * @public
 	 */
 	favoriteColorsHandler: PropTypes.func,
 
@@ -219,7 +230,7 @@ FavoriteColors.propTypes = {/** @lends sandstone/ColorPicker.FavoriteColors.prot
 	 * Indicates the selected color.
 	 *
 	 * @type {String}
-	 * @private
+	 * @public
 	 */
 	selectedColor: PropTypes.string,
 
@@ -227,7 +238,7 @@ FavoriteColors.propTypes = {/** @lends sandstone/ColorPicker.FavoriteColors.prot
 	 * Called when the selected color is modified.
 	 *
 	 * @type {Function}
-	 * @private
+	 * @public
 	 */
 	selectedColorHandler: PropTypes.func
 };
@@ -241,7 +252,7 @@ FavoriteColors.propTypes = {/** @lends sandstone/ColorPicker.FavoriteColors.prot
  * @class ColorPickerBase
  * @memberof sandstone/ColorPicker
  * @ui
- * @private
+ * @public
  */
 const ColorPickerBase = ({color = '#eb4034', colors = [], css, onChangeColor, open, ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
@@ -305,7 +316,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * Indicates the color.
 	 *
 	 * @type {String}
-	 * @private
+	 * @public
 	 */
 	color: PropTypes.string,
 
@@ -322,7 +333,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * corresponding internal elements and states of this component.
 	 *
 	 * @type {Object}
-	 * @private
+	 * @public
 	 */
 	css: PropTypes.object,
 
@@ -330,7 +341,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * Called when color is modified.
 	 *
 	 * @type {Function}
-	 * @private
+	 * @public
 	 */
 	onChangeColor: PropTypes.func,
 
