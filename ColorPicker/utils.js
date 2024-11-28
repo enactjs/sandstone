@@ -255,7 +255,6 @@ const hslToRGBString = ({h, s, l}) => {
  * @private
  */
 const rgbObjectToHex = (rgbColor) => {
-	console.log(rgbColor)
 	let {red, green, blue} = rgbColor;
 
 	red = red < 16 ? `0${Number(red).toString(16)}` : Number(red).toString(16);
