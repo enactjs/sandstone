@@ -12,7 +12,7 @@ import css from './Section.module.less';
 //
 // Accepts a title for the section, and children components.
 // Each child component should have an "alt" attribute that will be used as the title.
-// Typically. this is a 1-2 word "state" description of what the child is representing,
+// Typically, this is a 1-2 word "state" description of what the child is representing,
 // like "Normal", "Selected", or "With Icon"
 //
 // This is a cell, so `size` prop may be supplied as well, to fit multiple on one line
