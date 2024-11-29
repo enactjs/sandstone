@@ -93,8 +93,8 @@ const RangePickerBase = kind({
 		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
 		 * The default value for joined horizontal picker is `'enter'`.
-		 * If {@link sandstone/RangePicker.RangePicker#orientation|orientation} is `'vertical'` or
-		 * {@link sandstone/RangePicker.RangePicker#joined|joined} is undefined or is `false`, this prop is ignored.
+		 * If {@link sandstone/RangePicker.RangePickerBase.orientation|orientation} is `'vertical'` or
+		 * {@link sandstone/RangePicker.RangePickerBase.joined|joined} is undefined or is `false`, this prop is ignored.
 		 *
 		 * @type {('enter'|'arrow')}
 		 * @public
@@ -136,7 +136,7 @@ const RangePickerBase = kind({
 		 *
 		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * {@link sandstone/RangePicker.RangePicker#orientation|orientation} is changed.
+		 * {@link sandstone/RangePicker.RangePickerBase.orientation|orientation} is changed.
 		 *
 		 * @type {string}
 		 * @public
@@ -156,7 +156,7 @@ const RangePickerBase = kind({
 		 *
 		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * {@link sandstone/RangePicker.RangePicker#orientation|orientation} is changed.
+		 * {@link sandstone/RangePicker.RangePickerBase.orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public

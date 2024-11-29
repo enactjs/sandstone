@@ -67,8 +67,8 @@ const PickerBase = kind({
 		 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 		 *
 		 * The default value for joined horizontal picker is `'enter'`.
-		 * If {@link sandstone/Picker.Picker#orientation|orientation} is `'vertical'` or
-		 * {@link sandstone/Picker.Picker#joined|joined} is undefined or is `false`, this prop is ignored.
+		 * If {@link sandstone/Picker.PickerBase.orientation|orientation} is `'vertical'` or
+		 * {@link sandstone/Picker.PickerBase.joined|joined} is undefined or is `false`, this prop is ignored.
 		 *
 		 * @type {('enter'|'arrow')}
 		 * @public
@@ -107,7 +107,7 @@ const PickerBase = kind({
 		 *
 		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * {@link sandstone/Picker.Picker#orientation|orientation} is changed.
+		 * {@link sandstone/Picker.PickerBase.orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -127,7 +127,7 @@ const PickerBase = kind({
 		 *
 		 * All strings supported by {@link sandstone/Icon.Icon|Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * {@link sandstone/Picker.Picker#orientation|orientation} is changed.
+		 * {@link sandstone/Picker.PickerBase.orientation|orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public

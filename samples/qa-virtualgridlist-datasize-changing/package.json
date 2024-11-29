@@ -1,0 +1,34 @@
+{
+  "name": "qa-virtualgridlist-datasize-changing",
+  "version": "0.1.0",
+  "description": "A qa sample for testing focus handling during dataSize changing",
+  "author": "",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "enact serve",
+    "pack": "enact pack",
+    "pack-p": "enact pack -p",
+    "watch": "enact pack --watch",
+    "clean": "enact clean",
+    "lint": "enact lint --strict .",
+    "test": "enact test",
+    "test-watch": "enact test --watch"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": "",
+  "enact": {
+    "title": "QA VirtualGridList dataSize Changing",
+    "theme": "sandstone"
+  },
+  "dependencies": {
+    "@enact/core": "^5.0.0-alpha.2",
+    "@enact/i18n": "^5.0.0-alpha.2",
+    "@enact/sandstone": "../../",
+    "@enact/spotlight": "^5.0.0-alpha.2",
+    "@enact/ui": "^5.0.0-alpha.2",
+    "ilib": "^14.20.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

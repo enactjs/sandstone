@@ -16,18 +16,18 @@ describe('Navigate with Channel Up/Down key with translate mode', function () {
 		await Page.pageDown();
 		await Page.delay(500);
 		// Step 4-2 Verify: Scroll thumb in verticalScrollbar track moves down.
-		expect(Number(await Page.scrollThumbPosition()) > initialScrollThumbPosition).to.be.true();
+		expect(Number(await Page.scrollThumbPosition()) > initialScrollThumbPosition).toBe(true);
 		// Step 5: Channel Up more 2 times.
 		await Page.pageUp();
 		await Page.pageUp();
 		await Page.delay(500);
 		// Step 5-2 Verify: Scroll thumb's position is top of verticalScrollbar track.
-		expect(await Page.scrollThumbPosition()).to.equal('0');
+		expect(await Page.scrollThumbPosition()).toBe('0');
 		// Step 6: Channel Down 2 times.
 		// Step 6-2 Verify: Scroll thumb in verticalScrollbar track moves down with each press Channel Down key .
 		await Page.pageDown();
 		await Page.delay(500);
-		expect(Number(await Page.scrollThumbPosition()) > 0).to.be.true();
+		expect(Number(await Page.scrollThumbPosition()) > 0).toBe(true);
 		const curScrollThumbPosition = Number(Page.scrollThumbPosition());
 		await Page.pageDown();
 		await Page.delay(500);

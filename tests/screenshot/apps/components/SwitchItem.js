@@ -37,9 +37,11 @@ const SwitchItemTests = [
 	...withConfig({
 		focus: true
 	}, [
+		// [QWTC-2130]
 		<SwitchItem>Focused SwitchItem</SwitchItem>,
 		<SwitchItem selected>Focused SwitchItem</SwitchItem>,
 		<SwitchItem disabled>Focused SwitchItem</SwitchItem>,
+		// [QWTC-2130]
 		<SwitchItem disabled selected>Focused SwitchItem</SwitchItem>,
 		<SwitchItem inline>Focused SwitchItem</SwitchItem>,
 		<SwitchItem inline selected>Focused SwitchItem</SwitchItem>,

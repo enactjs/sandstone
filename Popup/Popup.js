@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {getLastContainer} from '@enact/spotlight/src/container';
 import Transition from '@enact/ui/Transition';
 import {forward, forwardCustom} from '@enact/core/handle';
 import warning from 'warning';
@@ -124,6 +125,15 @@ const PopupBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
+		 * Disables the outline in high contrast mode.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		noOutline: PropTypes.bool,
+
+		/**
 		 * Called after the popup's "hide" transition finishes.
 		 *
 		 * @type {Function}
@@ -213,7 +223,7 @@ const PopupBase = kind({
 		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
 		// Otherwise, `aria-live` will be usually `off`.
 		'aria-live': ({'aria-live': live, noAlertRole}) => ((typeof live !== 'undefined') ? live : (!noAlertRole && 'off' || null)),
-		className: ({position, styler}) => styler.append(position),
+		className: ({noOutline, position, styler}) => styler.append(position, position === 'fullscreen' || noOutline ? null : componentCss.outline),
 		direction: ({position}) => transitionDirection[position],
 		// When passing `role` prop to the Popup, the prop should work first.
 		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
@@ -224,6 +234,7 @@ const PopupBase = kind({
 
 	render: ({children, css, direction, noAnimation, onHide, onShow, open, position, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
 		delete rest.noAlertRole;
+		delete rest.noOutline;
 
 		return (
 			<TransitionContainer
@@ -349,7 +360,7 @@ class Popup extends Component {
 		 * Called after show transition has completed, and immediately with no transition.
 		 *
 		 * Note: The function does not run if Popup is initially opened and
-		 * {@link sandstone/Popup.PopupBase#noAnimation|noAnimation} is `true`.
+		 * {@link sandstone/Popup.PopupBase.noAnimation|noAnimation} is `true`.
 		 *
 		 * @type {Function}
 		 * @public
@@ -601,6 +612,7 @@ class Popup extends Component {
 
 		const current = Spotlight.getCurrent();
 		const containerNode = getContainerNode(this.state.containerId);
+		const lastContainerId = getLastContainer();
 
 		off('keydown', this.handleKeyDown);
 
@@ -608,8 +620,16 @@ class Popup extends Component {
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (!Spotlight.isPaused() && !Spotlight.focus(activator)) {
-				Spotlight.focus();
+			if (!Spotlight.isPaused()) {
+				if (activator) {
+					if (!Spotlight.focus(activator)) {
+						Spotlight.focus();
+					}
+				} else {
+					Spotlight.disableSelector(lastContainerId);
+					Spotlight.focus();
+					Spotlight.enableSelector(lastContainerId);
+				}
 			}
 		}
 	};

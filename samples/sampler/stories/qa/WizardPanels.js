@@ -360,3 +360,33 @@ _WizardPanelsWithAlert.parameters = {
 		noPanel: true
 	}
 };
+
+const WizardPanelsWithLongSubtitle = () => {
+	return (
+		<WizardPanels
+			total={2}
+			noAnimation
+		>
+			<Panel
+				title="title 0"
+				subtitle="This is very long text. It is very very long. This is very long text. It is very very long. This is very long text. It is very very long. This is very long text. It is very very long."
+			>
+				<Button>Button1</Button>
+				<Button>Button2</Button>
+			</Panel>
+			<Panel title="title 1">
+				<Button>Button3</Button>
+				<Button>Button4</Button>
+			</Panel>
+		</WizardPanels>
+	);
+};
+
+export const _WizardPanelsWithLongSubtitle = () => <WizardPanelsWithLongSubtitle />;
+
+_WizardPanelsWithLongSubtitle.storyName = 'with long subtitle';
+_WizardPanelsWithLongSubtitle.parameters = {
+	props: {
+		noPanel: true
+	}
+};

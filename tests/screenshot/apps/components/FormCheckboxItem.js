@@ -38,8 +38,10 @@ const slotBeforeFormCheckboxItemTests = (prefix) => {
 const FormCheckboxItemTests = [
 	// Basic
 	<FormCheckboxItem />,
+	// [QWTC-2120] start
 	...basicFormCheckboxItemTests(''),
 	...withConfig({focus: true}, basicFormCheckboxItemTests('Focused ')),
+	// [QWTC-2120] end
 	...withProps({indeterminate: true}, basicFormCheckboxItemTests('')),
 	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>,
 

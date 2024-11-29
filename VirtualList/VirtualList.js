@@ -6,6 +6,7 @@
  * @exports VirtualList
  */
 
+import {setDefaultProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
@@ -23,6 +24,31 @@ import {useThemeVirtualList} from './useThemeVirtualList';
 
 const nop = () => {};
 
+const virtualListDefaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'vertical',
+	horizontalScrollbar: 'auto',
+	noAffordance: false,
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: true,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	pageScroll: false,
+	role: 'list',
+	scrollMode: 'native',
+	verticalScrollbar: 'auto',
+	wrap: false
+};
+
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
  *
@@ -32,8 +58,11 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
-	const props = itemSize && itemSize.minSize ?
+let VirtualList = (props) => {
+	const virtualListProps = setDefaultProps(props, virtualListDefaultProps);
+	const {itemSize, hoverToScroll, ...rest} = virtualListProps;
+
+	const itemSizeProps = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
 			itemSizes: itemSize.size
@@ -43,7 +72,7 @@ let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
 		};
 
 	warning(
-		!rest.itemSizes || !rest.cbScrollTo,
+		!itemSizeProps.itemSizes || !rest.cbScrollTo,
 		'VirtualList with `minSize` in `itemSize` prop does not support `cbScrollTo` prop'
 	);
 
@@ -64,7 +93,7 @@ let VirtualList = ({itemSize, hoverToScroll, ...rest}) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll({...rest, ...props});
+	} = useScroll({...rest, ...itemSizeProps});
 
 	const {
 		className,
@@ -488,7 +517,9 @@ VirtualList = Skinnable(
 	)
 );
 
-VirtualList.defaultProps = {
+VirtualList.defaultPropValues = virtualListDefaultProps;
+
+const virtualGridListDefaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'vertical',
@@ -522,7 +553,10 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = ({hoverToScroll, ...rest}) => {
+let VirtualGridList = (props) => {
+	const virtualGridListProps = setDefaultProps(props, virtualGridListDefaultProps);
+	const {hoverToScroll, ...rest} = virtualGridListProps;
+
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -967,30 +1001,7 @@ VirtualGridList = Skinnable(
 	)
 );
 
-VirtualGridList.defaultProps = {
-	'data-spotlight-container-disabled': false,
-	cbScrollTo: nop,
-	direction: 'vertical',
-	horizontalScrollbar: 'auto',
-	noAffordance: false,
-	noScrollByDrag: false,
-	noScrollByWheel: false,
-	onScroll: nop,
-	onScrollStart: nop,
-	onScrollStop: nop,
-	overscrollEffectOn: {
-		arrowKey: false,
-		drag: true,
-		pageKey: false,
-		track: false,
-		wheel: true
-	},
-	pageScroll: false,
-	role: 'list',
-	scrollMode: 'native',
-	verticalScrollbar: 'auto',
-	wrap: false
-};
+VirtualGridList.defaultPropValues = virtualGridListDefaultProps;
 
 export default VirtualList;
 export {

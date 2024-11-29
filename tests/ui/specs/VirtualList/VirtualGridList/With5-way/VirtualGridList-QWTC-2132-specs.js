@@ -40,7 +40,7 @@ describe('Navigate with 5-way', function () {
 		await Page.delay(300);
 
 		// check if the previous item partially cut off.
-		expect(await Page.itemOffsetBottomById(8)).to.be.below((await Page.getItemSize()).height);
+		expect(await Page.itemOffsetBottomById(8)).toBeLessThan((await Page.getItemSize()).height);
 	});
 
 	describe('RTL', function () {
@@ -86,7 +86,7 @@ describe('Navigate with 5-way', function () {
 			await Page.delay(300);
 
 			// check if the previous item partially cut off.
-			expect(await Page.itemOffsetBottomById(8)).to.be.below((await Page.getItemSize()).height);
+			expect(await Page.itemOffsetBottomById(8)).toBeLessThan((await Page.getItemSize()).height);
 		});
 	});
 });

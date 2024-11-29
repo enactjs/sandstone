@@ -28,7 +28,7 @@ describe('qa-VirtualGridList', function () {
 		// Step 4: 5-way Right to item 14.
 		await Page.spotlightRight();
 		// Step 4-1 Verify: The list does not Scroll Right.
-		expect(await Page.scrollThumbPosition()).to.be.equal(curScrollThumbPosition);
+		expect(await Page.scrollThumbPosition()).toBe(curScrollThumbPosition);
 		// Step 4-2 Verify: Spotlight is on item 14.
 		await expectFocusedItem(14);
 	});

@@ -228,22 +228,26 @@ describe('Button', () => {
 	});
 
 	describe('events', () => {
-		test('should call onClick when not disabled', () => {
+		test('should call onClick when not disabled', async () => {
 			const handleClick = jest.fn();
+			const user = userEvent.setup();
+
 			render(<Button onClick={handleClick}>I am not a disabled Button</Button>);
 			const button = screen.getByText('I am not a disabled Button');
 
-			userEvent.click(button);
+			await user.click(button);
 
 			expect(handleClick).toBeCalled();
 		});
 
-		test('should not call onClick when disabled', () => {
+		test('should not call onClick when disabled', async () => {
 			const handleClick = jest.fn();
+			const user = userEvent.setup();
+
 			render(<Button disabled onClick={handleClick}>I am a disabled Button</Button>);
 			const button = screen.getByText('I am a disabled Button');
 
-			userEvent.click(button);
+			await user.click(button);
 
 			expect(handleClick).not.toBeCalled();
 		});

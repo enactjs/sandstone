@@ -47,10 +47,11 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toMatchObject(expectedType);
 	});
 
-	test('should emit onClose event with type when clicking on contextual button', () => {
+	test('should emit onClose event with type when clicking on contextual button', async () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
+		const user = userEvent.setup();
 		render(
 			<Root>
 				<ContextualButton onClose={handleClose} open popupComponent={() => message}>
@@ -60,7 +61,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		);
 		const contextualButton = screen.getByRole('button');
 
-		userEvent.click(contextualButton);
+		await user.click(contextualButton);
 
 		const expected = 1;
 		const expectedType = {type: 'onClose'};
@@ -104,10 +105,11 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(popup).toBeNull();
 	});
 
-	test('should not close popup when clicking outside if noAutoDismiss is true', () => {
+	test('should not close popup when clicking outside if noAutoDismiss is true', async () => {
 		const handleClose = jest.fn();
 		const Root = FloatingLayerDecorator('div');
 		const message = 'goodbye';
+		const user = userEvent.setup();
 		render(
 			<Root data-testid="outsideArea">
 				<ContextualButton noAutoDismiss onClose={handleClose} open popupComponent={() => message}>
@@ -117,7 +119,7 @@ describe('ContextualPopupDecorator Specs', () => {
 		);
 		const outsideArea = screen.getByTestId('outsideArea');
 
-		userEvent.click(outsideArea);
+		await user.click(outsideArea);
 
 		expect(handleClose).not.toHaveBeenCalled();
 	});
@@ -502,5 +504,41 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		expect(scrimDivFirst).toHaveClass(expectedFirst);
 		expect(scrimDivSecond).toHaveClass(expectedSecond);
+	});
+
+	test('should create and observe with `ResizeObserver` when the popup opened and disconnect when the popup closed', () => {
+		const originalObserver = global.ResizeObserver;
+
+		const MockObserverInstance = {
+			observe: jest.fn(),
+			disconnect: jest.fn()
+		};
+		global.ResizeObserver = jest.fn().mockImplementation(() => MockObserverInstance);
+
+		const Root = FloatingLayerDecorator('div');
+		const {rerender} = render(
+			<Root>
+				<ContextualButton data-testid="contextualButton" open popupComponent={() => <div><Button>Button</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		const contextualButton = screen.getByTestId('contextualButton');
+
+		expect(contextualButton).toBeInTheDocument();
+		expect(MockObserverInstance.observe).toHaveBeenCalled();
+
+		rerender(
+			<Root>
+				<ContextualButton data-testid="contextualButton" popupComponent={() => <div><Button>Button</Button></div>}>
+					Hello
+				</ContextualButton>
+			</Root>
+		);
+
+		expect(MockObserverInstance.disconnect).toHaveBeenCalled();
+
+		global.ResizeObserver = originalObserver;
 	});
 });

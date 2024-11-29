@@ -209,6 +209,7 @@ describe('FlexiblePopupPanels Specs', () => {
 	test('should fire `onNextClick` and `onChange` with each type in it when the next button is clicked', async () => {
 		const handleNextClick = jest.fn();
 		const handleChange = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<FloatingLayerController>
@@ -220,7 +221,7 @@ describe('FlexiblePopupPanels Specs', () => {
 			</FloatingLayerController>
 		);
 
-		userEvent.click(screen.getByLabelText('Next'));
+		await user.click(screen.getByLabelText('Next'));
 
 		const nextClickExpected = {type: 'onNextClick'};
 		const changeExpected = {type: 'onChange'};
@@ -240,6 +241,7 @@ describe('FlexiblePopupPanels Specs', () => {
 
 	test('should fire `onPrevClick` with type `onPrevClick` when the previous button is clicked', async () => {
 		const handlePrevClick = jest.fn();
+		const user = userEvent.setup();
 
 		render(
 			<FloatingLayerController>
@@ -251,7 +253,7 @@ describe('FlexiblePopupPanels Specs', () => {
 			</FloatingLayerController>
 		);
 
-		userEvent.click(screen.getByLabelText('Previous'));
+		await user.click(screen.getByLabelText('Previous'));
 
 		const expected = {type: 'onPrevClick'};
 

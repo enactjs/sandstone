@@ -98,7 +98,7 @@ const PickerBase = (props) => {
 
 	const {
 		'aria-valuetext': ariaValueText,
-		changedBy,
+		changedBy = 'enter',
 		children,
 		css: customCss,
 		disabled,
@@ -109,11 +109,11 @@ const PickerBase = (props) => {
 		min,
 		onChange,
 		onSpotlightDisappear,
-		orientation,
+		orientation = 'horizontal',
 		reverse,
-		spotlightDisabled,
-		step,
-		value,
+		spotlightDisabled = false,
+		step = 1,
+		value = 0,
 		width,
 		wrap,
 		...rest
@@ -149,11 +149,11 @@ const PickerBase = (props) => {
 		if (Number.isInteger(voiceIndex)) {
 			const voiceValue = min + voiceIndex;
 			if (onChange && voiceValue >= min && voiceValue <= max && voiceValue !== value) {
-				onChange({value: voiceValue});
+				forwardCustom('onChange', () => ({value: voiceValue}))(ev, props);
 				ev.preventDefault();
 			}
 		}
-	}, [max, min, onChange, value]);
+	}, [max, min, onChange, props, value]);
 
 	const computeNextValue = useCallback((delta) => {
 		const horizontalJoined = orientation === 'horizontal' && joined && changedBy === 'enter';
@@ -178,9 +178,9 @@ const PickerBase = (props) => {
 		setTransitionDirection(dir);
 		if (!disabled && onChange) {
 			const updatedValue = computeNextValue(dir * step);
-			onChange({value: updatedValue});
+			forwardCustom('onChange', () => ({value: updatedValue}))(null, props);
 		}
-	}, [adjustDirection, setTransitionDirection, disabled, onChange, computeNextValue, step]);
+	}, [adjustDirection, setTransitionDirection, disabled, onChange, computeNextValue, step, props]);
 
 	const setPressedState = useCallback((pressedValue) => {
 		if (joined) {
@@ -236,7 +236,7 @@ const PickerBase = (props) => {
 
 	useEffect(() => {
 		const currentPicker = containerRef.current;
-		if (platform.webos) currentPicker.addEventListener('webOSVoice', handleVoice);
+		if (platform.type === 'webos') currentPicker.addEventListener('webOSVoice', handleVoice);
 
 		if (joined) {
 			currentPicker.addEventListener('wheel', handleWheel);
@@ -248,7 +248,7 @@ const PickerBase = (props) => {
 			if (joined) {
 				currentPicker.removeEventListener('wheel', handleWheel);
 			}
-			if (platform.webos) {
+			if (platform.type === 'webos') {
 				currentPicker.removeEventListener('webOSVoice', handleVoice);
 			}
 		});
@@ -437,7 +437,7 @@ const PickerBase = (props) => {
 	}, [changedBy, joined, orientation, pressed, props, width]);
 
 	const calcValueText = useCallback(() => {
-		const {accessibilityHint} = props;
+		const {accessibilityHint = ''} = props;
 		let valueTextVariable = value;
 
 		// Sometimes this.props.value is not equal to node text content. For example, when `PM`
@@ -457,7 +457,7 @@ const PickerBase = (props) => {
 	}, [children, index, props, value]);
 
 	const calcButtonLabel = useCallback((next, valueTextProp) => {
-		const {decrementAriaLabel, incrementAriaLabel} = props;
+		const {decrementAriaLabel, incrementAriaLabel, type = 'string'} = props;
 		const titleText = props.title ? props.title + ' ' : '';
 		let label;
 		if (orientation === 'vertical') {
@@ -470,7 +470,7 @@ const PickerBase = (props) => {
 			return titleText + label;
 		}
 
-		if (props.type === 'number') {
+		if (type === 'number') {
 			return titleText + `${valueTextProp} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
 		} else {
 			return titleText + `${valueTextProp} ${next ? $L('next item') : $L('previous item')}`;
@@ -732,8 +732,8 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 *  * `'arrow'` allows the user to use the left or right keys to adjust the picker's value.
 	 *
 	 * The default value for joined horizontal picker is `'enter'`.
-	 * If {@link sandstone/internal/Picker.PickerBase#orientation|orientation} is `'vertical'` or
-	 * {@link sandstone/internal/Picker.PickerBase#joined|joined} is undefined or is `false`, this prop is ignored.
+	 * If {@link sandstone/internal/Picker.PickerBase.orientation|orientation} is `'vertical'` or
+	 * {@link sandstone/internal/Picker.PickerBase.joined|joined} is undefined or is `false`, this prop is ignored.
 	 *
 	 * @type {('enter'|'arrow')}
 	 * @default 'enter'
@@ -795,7 +795,7 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	/**
 	 * Assign a custom icon for the decrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
 	 * supported. Without a custom icon, the default is used, and is automatically changed when
-	 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
+	 * the {@link sandstone/internal/Picker.PickerBase.orientation|orientation} is changed.
 	 *
 	 * @type {String}
 	 * @public
@@ -831,7 +831,7 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	/**
 	 * Assign a custom icon for the incrementer. All strings supported by {@link sandstone/Icon.Icon|Icon} are
 	 * supported. Without a custom icon, the default is used, and is automatically changed when
-	 * the {@link sandstone/Icon.Icon#orientation|orientation} is changed.
+	 * the {@link sandstone/internal/Picker.PickerBase.orientation|orientation} is changed.
 	 *
 	 * @type {String}
 	 * @public
@@ -1019,16 +1019,6 @@ PickerBase.propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ 
 	 * @public
 	 */
 	wrap: PropTypes.bool
-};
-
-PickerBase.defaultProps = {
-	accessibilityHint: '',
-	changedBy: 'enter',
-	orientation: 'horizontal',
-	spotlightDisabled: false,
-	step: 1,
-	type: 'string',
-	value: 0
 };
 
 const Picker = IdProvider(

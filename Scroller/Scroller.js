@@ -16,6 +16,7 @@
  * @exports Scroller
  */
 
+import {setDefaultProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Spottable from '@enact/spotlight/Spottable';
@@ -31,12 +32,36 @@ import Scrollbar from '../useScroll/Scrollbar';
 import ScrollbarPlaceholder from '../useScroll/ScrollbarPlaceholder';
 import Skinnable from '../Skinnable';
 
+import {ContentContainerDecorator} from './ContentContainerDecorator';
 import {EditableShape, EditableWrapper} from './EditableWrapper';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
 const SpottableDiv = Spottable('div');
 let scrollerId = 0;
+
+const scrollerDefaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'both',
+	fadeOut: false,
+	focusableScrollbar: false,
+	horizontalScrollbar: 'auto',
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: true,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	scrollMode: 'native',
+	verticalScrollbar: 'auto'
+};
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -52,7 +77,10 @@ let scrollerId = 0;
  * @ui
  * @public
  */
-let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
+let Scroller = (props) => {
+	const scrollerProps = setDefaultProps(props, scrollerDefaultProps);
+	const {'aria-label': ariaLabel, hoverToScroll, ...rest} = scrollerProps;
+
 	const id = `scroller_${++scrollerId}_content`;
 
 	// Hooks
@@ -70,7 +98,7 @@ let Scroller = ({'aria-label': ariaLabel, hoverToScroll, ...rest}) => {
 		horizontalScrollbarProps,
 		verticalScrollbarProps,
 		hoverToScrollProps
-	} = useScroll(rest);
+	} = useScroll({...rest, scrollToContentContainerOnFocus: true});
 
 	const {
 		className,
@@ -451,30 +479,10 @@ Scroller = Skinnable(
 	)
 );
 
-Scroller.defaultProps = {
-	'data-spotlight-container-disabled': false,
-	cbScrollTo: nop,
-	direction: 'both',
-	fadeOut: false,
-	focusableScrollbar: false,
-	horizontalScrollbar: 'auto',
-	noScrollByDrag: false,
-	noScrollByWheel: false,
-	onScroll: nop,
-	onScrollStart: nop,
-	onScrollStop: nop,
-	overscrollEffectOn: {
-		arrowKey: false,
-		drag: true,
-		pageKey: false,
-		track: false,
-		wheel: true
-	},
-	scrollMode: 'native',
-	verticalScrollbar: 'auto'
-};
+Scroller.defaultPropValues = scrollerDefaultProps;
 
 export default Scroller;
 export {
+	ContentContainerDecorator,
 	Scroller
 };

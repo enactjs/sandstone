@@ -10,6 +10,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
+import Spotlight from '@enact/spotlight';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 import PropTypes from 'prop-types';
 import {Component} from 'react';
@@ -107,24 +108,28 @@ class MyVirtualList extends Component {
 	};
 
 	render () {
-		let props = {...this.props};
-		delete props.closePopup;
+		const {scrollMode, ...rest} = this.props;
+		delete rest.closePopup;
 
 		return (
-			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
+			<div {...rest} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
 				<VirtualGridList
 					cbScrollTo={this.getScrollTo}
 					dataSize={itemList.length}
 					direction="vertical"
 					itemRenderer={this.renderItem}
 					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
-					key={select('scrollMode', prop.scrollModeOption, Config)}
-					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					key={scrollMode}
+					scrollMode={scrollMode}
 				/>
 			</div>
 		);
 	}
 }
+
+MyVirtualList.propTypes = {
+	scrollMode: PropTypes.string
+};
 
 class ButtonAndVirtualGridList extends Component {
 	constructor (props) {
@@ -135,7 +140,7 @@ class ButtonAndVirtualGridList extends Component {
 	}
 
 	renderPopup = (rest) => {
-		return <MyVirtualList {...rest} closePopup={this.closePopup} />;
+		return <MyVirtualList {...rest} closePopup={this.closePopup} scrollMode={this.props.scrollMode} />;
 	};
 
 	openPopup = () => {
@@ -165,7 +170,8 @@ class ButtonAndVirtualGridList extends Component {
 }
 
 ButtonAndVirtualGridList.propTypes = {
-	rtl: PropTypes.bool
+	rtl: PropTypes.bool,
+	scrollMode: PropTypes.string
 };
 
 const ButtonAndVirtualGridListSamples = I18nContextDecorator (
@@ -220,7 +226,9 @@ HorizontalVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
-export const WithButtonSpotlightGoesToCorrectTarget = () => <ButtonAndVirtualGridListSamples />;
+export const WithButtonSpotlightGoesToCorrectTarget = (args) => <ButtonAndVirtualGridListSamples scrollMode={args['scrollMode']} />;
+
+select('scrollMode', WithButtonSpotlightGoesToCorrectTarget, prop.scrollModeOption, Config);
 
 WithButtonSpotlightGoesToCorrectTarget.storyName = 'with Button, Spotlight goes to correct target';
 WithButtonSpotlightGoesToCorrectTarget.parameters = {
@@ -348,6 +356,9 @@ SnapToCenterVirtualGridList.parameters = {
 	propTables: [Config]
 };
 
+const numOfListsInScroller = 4;
+const idOfListsInScroller = (index) => (`vgl_${index}`);
+
 const VirtualGridListInScroller = ({args, onNext, ...rest}) => {
 	const virtualGridListProps = {
 		...rest,
@@ -368,14 +379,16 @@ const VirtualGridListInScroller = ({args, onNext, ...rest}) => {
 
 	const virtualGridLists = [];
 
-	for (let i = 0; i < 4; i++) {
-		const id = `vgl_${i}`;
+	for (let i = 0; i < numOfListsInScroller; i++) {
+		const id = idOfListsInScroller(i);
 
 		virtualGridLists.push(
 			<VirtualGridList
 				{...virtualGridListProps}
+				hoverToScroll={args['hoverToScroll']}
 				id={id}
 				key={id}
+				noScrollByWheel={args['noScrollByWheel']}
 				spotlightId={id}
 			/>
 		);
@@ -399,6 +412,12 @@ class VirtualGridListInScrollerSamples extends Component {
 		this.state = {
 			index: 0
 		};
+	}
+
+	componentDidMount () {
+		for (let i = 0; i < numOfListsInScroller; i++) {
+			Spotlight.set(idOfListsInScroller(i), {continue5WayHold: true});
+		}
 	}
 
 	onBack = () => {
@@ -434,8 +453,10 @@ VirtualGridListInScrollerSamples.propTypes = {
 export const RestoreFocusInScroller = (args) => <VirtualGridListInScrollerSamples args={args} />;
 
 number('dataSize', RestoreFocusInScroller, Config, defaultDataSize);
+boolean('hoverToScroll', RestoreFocusInScroller, Config);
 number('minWidth', RestoreFocusInScroller, Config, 688);
 number('minHeight', RestoreFocusInScroller, Config, 570);
+boolean('noScrollByWheel', RestoreFocusInScroller, Config);
 number('spacing', RestoreFocusInScroller, Config, 0);
 
 RestoreFocusInScroller.storyName = 'in Scroller with restoring focus';

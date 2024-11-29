@@ -6,6 +6,24 @@
 	}
 }
 
+.scrollerWrapper {
+	--selected-item-offset: 0;
+	display: flex;
+	flex-direction: row;
+	min-width: fit-content;
+	padding-top: 60px;
+
+	.hidden {
+		.imageItem {
+			display: none;
+		}
+	}
+}
+
+.centered {
+	justify-content: center;
+}
+
 .wrapper { // public class for editable wrapper
 	padding-left: 36px;
 	padding-right: 36px;
@@ -27,6 +45,12 @@
 		}
 	}
 
+	.focused { // public class for focused item
+		.removeButton {
+			display: inline-block;
+		}	
+	}
+
 	.selected { // public class for selected item
 		.removeButton {
 			display: inline-block;
@@ -41,13 +65,13 @@
 			opacity: 1;
 		}
 
-		&::before {
+		&:not(.hidden)::before {
 			content: '\EFFF3';
 			.arrow();
 			left: -30px;
 		}
 
-		&::after {
+		&:not(.hidden)::after {
 			content: '\EFFF4';
 			.arrow();
 			right: -30px;

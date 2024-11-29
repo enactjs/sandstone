@@ -1,16 +1,13 @@
 /* global ENACT_PACK_ISOMORPHIC */
-import {Provider} from 'react-redux';
 import {createRoot, hydrateRoot} from 'react-dom/client';
 
 import App from './App';
-import configureAppStore from './store';
-
-const store = configureAppStore();
+import {RecordProvider} from './context/RecordContext';
 
 const appElement = (
-	<Provider store={store}>
+	<RecordProvider>
 		<App />
-	</Provider>
+	</RecordProvider>
 );
 
 // In a browser environment, render the app to the document.

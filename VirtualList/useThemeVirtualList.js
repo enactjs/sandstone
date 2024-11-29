@@ -38,6 +38,7 @@ const useSpottable = (props, instances) => {
 	// Mutable value
 
 	const mutableRef = useRef({
+		dataSize: 0,
 		isScrolledBy5way: false,
 		isScrolledByJump: false,
 		isScrollingBySnapToCenter: false,
@@ -143,6 +144,15 @@ const useSpottable = (props, instances) => {
 		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+	if (props.dataSize !== mutableRef.current.dataSize) {
+		const current = Spotlight.getCurrent();
+		if (current && props.scrollContainerContainsDangerously(current) && current.dataset?.index > props.dataSize - 1) {
+			// if a focused item is about to disappear
+			setPreservedIndex(props.dataSize - 1);
+		}
+		mutableRef.current.dataSize = props.dataSize;
+	}
+
 	// Functions
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
@@ -195,6 +205,7 @@ const useSpottable = (props, instances) => {
 					index: nextIndex,
 					stickTo,
 					offset: (allowAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
+					disallowNegativeOffset: true,
 					animate: !(isWrapped && wrap === 'noAnimation'),
 					focus: snapToCenter
 				});
@@ -252,7 +263,7 @@ const useSpottable = (props, instances) => {
 		const {pageScroll, direction} = props;
 		const {state: {numOfItems}, primary} = scrollContentHandle.current;
 		const allowAffordance = !(noAffordance || direction === 'horizontal');
-		const offsetToClientEnd = primary.clientSize - primary.gridSize - (!allowAffordance ? 0 : ri.scale(affordanceSize));
+		const offsetToClientEnd = Math.max(0, primary.clientSize - (snapToCenter ? primary.gridSize : primary.itemSize) - (!allowAffordance ? 0 : ri.scale(affordanceSize)));
 		const focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 		const offsetToCenter = snapToCenter ? (primary.clientSize / 2 - primary.gridSize / 2) : 0;
 
@@ -317,6 +328,7 @@ const useSpottable = (props, instances) => {
 	function removeScaleEffect () {
 		if (mutableRef.current.scaledTarget) {
 			mutableRef.current.scaledTarget.classList.remove(css.scaled);
+			mutableRef.current.scaledTarget = null;
 		}
 	}
 

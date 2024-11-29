@@ -5,13 +5,14 @@ const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
+const scrolledElementNativeSelector = '.enact_ui_VirtualList_VirtualList_virtualList';
+const scrolledElementTranslateSelector = '.enact_ui_VirtualList_VirtualList_content';
 
 class VirtualGridListPage extends Page {
 
 	constructor () {
 		super();
 		this.title = 'VirtualGridList Test';
-
 	}
 
 	async open (layout = '', urlExtra) {
@@ -89,6 +90,24 @@ class VirtualGridListPage extends Page {
 		}, scrollbarSelector, index);
 
 	}
+
+
+	async getScrollPositionNative () {
+		const el = await element(scrolledElementNativeSelector, browser);
+		return el.getProperty('scrollTop');
+	}
+
+	async getScrollPositionTranslate () {
+		const el = await element(scrolledElementTranslateSelector, browser);
+		const style = await el.getAttribute('style');
+		const matched = style.match(/transform: translate3d\(0px, (-*[0-9]+)px, 0px\)/);
+		if (matched) {
+			return Number.parseInt(matched[1]);
+		} else {
+			return 0;
+		}
+	}
+
 
 	async item (id) {
 		return await element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
@@ -192,11 +211,11 @@ class VirtualGridListPage extends Page {
 		if (way === 'down') {
 			await this.pageDown();
 			await this.delay(1000);
-			expect((await this.scrollThumbPosition()) > initialThumbPosition).to.be.true();
+			expect((await this.scrollThumbPosition()) > initialThumbPosition).toBe(true);
 		} else {
 			await this.pageUp();
 			await this.delay(1000);
-			expect(initialThumbPosition > (await this.scrollThumbPosition())).to.be.true();
+			expect(initialThumbPosition > (await this.scrollThumbPosition())).toBe(true);
 		}
 	}
 

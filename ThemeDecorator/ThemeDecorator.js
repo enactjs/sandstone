@@ -6,25 +6,26 @@
  */
 
 import {setDefaultTargetById} from '@enact/core/dispatcher';
-import {addAll} from '@enact/core/keymap';
 import hoc from '@enact/core/hoc';
-import platform from '@enact/core/platform';
+import {addAll} from '@enact/core/keymap';
 import I18nDecorator from '@enact/i18n/I18nDecorator';
-import {Component} from 'react';
-import classNames from 'classnames';
-import {ResolutionDecorator} from '@enact/ui/resolution';
-import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import SpotlightRootDecorator, {activateInputType, getInputType as getLastInputType, setInputType} from '@enact/spotlight/SpotlightRootDecorator';
-import LS2Request from '@enact/webos/LS2Request';
+import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
+import {ResolutionDecorator} from '@enact/ui/resolution';
+import {configure} from '@enact/ui/Touchable';
+import {requestLastInputType} from '@enact/webos/lastInputType';
+import platform from '@enact/webos/platform';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import {useEffect} from 'react';
 
 import Skinnable from '../Skinnable';
 
-import I18nFontDecorator from './I18nFontDecorator';
 import AccessibilityDecorator from './AccessibilityDecorator';
+import I18nFontDecorator from './I18nFontDecorator';
 import screenTypes from './screenTypes.json';
+
 import css from './ThemeDecorator.module.less';
-import {configure} from '@enact/ui/Touchable';
 
 /**
  * Default config for `ThemeDecorator`.
@@ -201,7 +202,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			)
 		);
 	}
-	if (spotlight) App = SpotlightRootDecorator({noAutoFocus}, App);
+	if (spotlight) App = SpotlightRootDecorator({noAutoFocus, rootId}, App);
 	if (skin) App = Skinnable(App);
 	if (accessible) App = AccessibilityDecorator(App);
 
@@ -243,54 +244,52 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	// set the DOM node ID of the React DOM tree root
 	setDefaultTargetById(rootId);
 
-	const Decorator = class extends Component {
-		static displayName = 'ThemeDecorator';
+	const Decorator = (props) => {
+		const {skin: skinProp, ...rest} = props;
+		const skinName = skinProp || 'neutral';
+		const className = classNames(css.root, props.className, 'sandstone-theme', 'enact-unselectable', {
+			[bgClassName]: !float,
+			'enact-fit': !disableFullscreen
+		});
 
-		static propTypes = /** @lends sandstone/ThemeDecorator.prototype */ {
-			/**
-			 * Assign a skin.
-			 *
-			 * @type {String}
-			 * @private
-			 */
-			skin: PropTypes.string
-		};
-
-		componentDidMount () {
-			if (spotlight && platform.webos) {
+		useEffect(() => {
+			if (spotlight && platform.tv) {
 				activateInputType(true);
-				requestInputType = new LS2Request().send({
-					service: 'luna://com.webos.surfacemanager',
-					method: 'getLastInputType',
-					subscribe: true,
+				requestInputType = requestLastInputType({
 					onSuccess: function (res) {
-						setInputType(res.lastInputType);
+						if (res.lastInputType === 'key' || res.lastInputType === 'mouse' || res.lastInputType === 'touch') {
+							setInputType(res.lastInputType);
+						} else {
+							activateInputType(false);
+						}
 					},
 					onFailure: function () {
 						activateInputType(false);
 					}
 				});
 			}
-		}
 
-		componentWillUnmount () {
-			if (requestInputType) {
-				requestInputType.cancel();
-			}
-		}
+			return () => {
+				if (requestInputType) {
+					requestInputType.cancel();
+				}
+			};
+		}, []);
 
-		render () {
-			const {skin: skinProp, ...rest} = this.props;
-			const skinName = skinProp || 'neutral';
-			const className = classNames(css.root, this.props.className, 'sandstone-theme', 'enact-unselectable', {
-				[bgClassName]: !float,
-				'enact-fit': !disableFullscreen
-			});
+		return (
+			<App {...rest} skin={skinName} className={className} />
+		);
+	};
 
-			return (
-				<App {...rest} skin={skinName} className={className} />
-			);
-		}
+	Decorator.displayName = 'ThemeDecorator';
+	Decorator.propTypes = /** @lends sandstone/ThemeDecorator.prototype */ {
+		/**
+		 * Assign a skin.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		skin: PropTypes.string
 	};
 
 	return Decorator;

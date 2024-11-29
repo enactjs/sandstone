@@ -65,25 +65,27 @@ describe('CheckboxItem Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should check the checkbox with one click', () => {
+	test('should check the checkbox with one click', async () => {
+		const user = userEvent.setup();
 		render(<Checkbox />);
 
 		const actual = screen.getByRole('checkbox');
 		const expected = 'selected';
 
-		userEvent.click(actual);
+		await user.click(actual);
 
 		expect(actual).toHaveClass(expected);
 	});
 
-	test('should uncheck the checkbox with two clicks', () => {
+	test('should uncheck the checkbox with two clicks', async () => {
+		const user = userEvent.setup();
 		render(<Checkbox />);
 
 		const actual = screen.getByRole('checkbox');
 		const expected = 'selected';
 
-		userEvent.click(actual);
-		userEvent.click(actual);
+		await user.click(actual);
+		await user.click(actual);
 
 		expect(actual).not.toHaveClass(expected);
 	});

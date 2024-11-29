@@ -26,6 +26,12 @@ const DatePickerTests = [
 		locale: 'ar-SA',
 		component: <DatePicker defaultValue={jan31} disabled />
 	},
+	// *************************************************************
+	// large text [QWTC-2092]
+	{
+		textSize: 'large',
+		component: <DatePicker defaultValue={jan31} disabled />
+	},
 
 	// *************************************************************
 	// focused

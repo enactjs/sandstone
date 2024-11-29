@@ -17,7 +17,7 @@ describe('RangePicker RTL', function () {
 			await browser.pause(500);
 			const newValue = extractValue(negativeRangePicker);
 			// Step 5 Verify: The minus sign displays to the Left of the number '5'.
-			expect(await newValue).to.equal(-5);
+			expect(await newValue).toBe(-5);
 		});
 
 		describe('change locale', function () {
@@ -29,7 +29,7 @@ describe('RangePicker RTL', function () {
 				// Check that the disabled pciker's position is left from defaultPicker.(in case LTR, it is right from defaultPicker.)
 				await Page.spotlightLeft();
 				await Page.spotlightLeft();
-				expect(await rangePickerDisabled.incrementer(rangePickerDisabled.self).isFocused()).to.be.true();
+				expect(await rangePickerDisabled.incrementer(rangePickerDisabled.self).isFocused()).toBe(true);
 
 				// Step 4: Click on Right arrow button 4 times.
 				await maxValueRangePicker.incrementer(maxValueRangePicker.self).click();
@@ -38,14 +38,14 @@ describe('RangePicker RTL', function () {
 				await maxValueRangePicker.incrementer(maxValueRangePicker.self).click();
 				await browser.pause(500);
 				// Step 4 Verify:  Number 20 displays.
-				expect(await extractValue(maxValueRangePicker)).to.equal(20);
+				expect(await extractValue(maxValueRangePicker)).toBe(20);
 
 				// Step 5: Click on Left arrow button 2 times.
 				await maxValueRangePicker.decrementer(maxValueRangePicker.self).click();
 				await maxValueRangePicker.decrementer(maxValueRangePicker.self).click();
 				await browser.pause(500);
 				// Step 5 Verify:  Number 10 displays.
-				expect(await extractValue(maxValueRangePicker)).to.equal(10);
+				expect(await extractValue(maxValueRangePicker)).toBe(10);
 			});
 		});
 	});

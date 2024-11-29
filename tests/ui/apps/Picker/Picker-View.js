@@ -15,6 +15,7 @@ const app = (props) => <div {...props}>
 		<Picker defaultValue={1} className="pickerWithDefaultValue">{pickerList}</Picker>
 		<Picker className="pickerWrap" wrap>{pickerList}</Picker>
 		<Picker className="pickerJoined" joined>{pickerList}</Picker>
+		<Picker className="pickerJoinedChangedByArrow" changedBy="arrow" joined>{pickerList}</Picker>
 	</div>
 	<div>
 		<Picker className="pickerVertical" orientation="vertical">{pickerList}</Picker>

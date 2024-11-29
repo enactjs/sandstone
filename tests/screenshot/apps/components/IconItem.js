@@ -81,7 +81,15 @@ const IconItemTests = [
 	...withProps({disabled: true}, defaultIconItemTests),
 
 	// Bordered and disabled.
-	...withProps({bordered: true, disabled: true}, defaultIconItemTests)
+	...withProps({bordered: true, disabled: true}, defaultIconItemTests),
+
+	...withConfig({
+		focusRing: true,
+		focus: true
+	}, [
+		<IconItem background="#1b1b1b" icon="usb" style={style} />,
+		<IconItem background="#1b1b1b" icon="usb" label="Label" style={style} />
+	])
 ];
 
 export default IconItemTests;

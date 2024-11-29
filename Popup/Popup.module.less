@@ -70,6 +70,13 @@
 	// Skin colors
 	.applySkins({
 		background-color: @sand-popup-bg-color;
+
+		&.outline {
+			outline-color: @sand-overlay-outline-color;
+			outline-style: @sand-overlay-outline-style;
+			outline-width: @sand-overlay-outline-width;
+			outline-offset: -@sand-overlay-outline-width;
+		}
 	});
 }
 

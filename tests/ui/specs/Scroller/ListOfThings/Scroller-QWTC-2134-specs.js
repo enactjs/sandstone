@@ -22,6 +22,6 @@ describe('Scroller List Of Things', function () {
 		await ScrollerPage.spotlightUp();
 
 		// Step 4 Verify: Spotlight is on the Close (x) button. (x) button is replaced top botton in this view.
-		expect(await ScrollerPage.buttonTop.isFocused()).to.be.true();
+		expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
 	});
 });

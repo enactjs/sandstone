@@ -18,6 +18,6 @@ describe('VirtualList Samples', function () {
 		// Step 4: 5-way Up twice.
 		// Step 4 Verify: Spotlight displays on the (x) Closing button. Since (x) button is replaced Top button in UI Test View, this test performed 5-way Up once.
 		await Page.spotlightUp();
-		expect(await Page.buttonTop.isFocused()).to.be.true();
+		expect(await Page.buttonTop.isFocused()).toBe(true);
 	});
 });

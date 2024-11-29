@@ -11,28 +11,28 @@ describe('Alert', () => {
 	// Using 5-way
 	describe('using 5-way', () => {
 		it('should spot the fullscreen alert button', async () => {
-			expect(await alertCommon.buttonFullscreen.isFocused()).to.be.true();
+			expect(await alertCommon.buttonFullscreen.isFocused()).toBe(true);
 		});
 
 		it('should spot the cancel button', async () => {
 			await Page.spotlightSelect();
 			await Page.spotlightRight();
 
-			expect(await components.alertFullscreen.buttonCancel.isFocused()).to.be.true();
+			expect(await components.alertFullscreen.buttonCancel.isFocused()).toBe(true);
 		});
 
 		it('should close the fullscreen alert using the ok button', async () => {
 			await Page.spotlightSelect();
 			await Page.spotlightSelect();
 
-			expect(await alertCommon.buttonFullscreen.isFocused()).to.be.true();
+			expect(await alertCommon.buttonFullscreen.isFocused()).toBe(true);
 		});
 
 		it('should close the fullscreen alert using the back key', async () => {
 			await Page.spotlightSelect();
 			await Page.backKey();
 
-			expect(await alertCommon.buttonFullscreen.isFocused()).to.be.true();
+			expect(await alertCommon.buttonFullscreen.isFocused()).toBe(true);
 		});
 
 		it('should spot the cancel button', async () => {
@@ -40,7 +40,7 @@ describe('Alert', () => {
 			await Page.spotlightSelect();
 			await Page.spotlightDown();
 
-			expect(await components.alertOverlay.buttonCancel.isFocused()).to.be.true();
+			expect(await components.alertOverlay.buttonCancel.isFocused()).toBe(true);
 		});
 
 		it('should close the overlay alert using the close button', async () => {
@@ -50,7 +50,7 @@ describe('Alert', () => {
 			await Page.spotlightSelect();
 			browser.pause(100);
 
-			expect(await alertCommon.buttonOverlay.isFocused()).to.be.true();
+			expect(await alertCommon.buttonOverlay.isFocused()).toBe(true);
 		});
 
 		it('should close the overlay alert using the back key', async () => {
@@ -58,14 +58,14 @@ describe('Alert', () => {
 			await Page.spotlightSelect();
 			await Page.backKey();
 
-			expect(await alertCommon.buttonOverlay.isFocused()).to.be.true();
+			expect(await alertCommon.buttonOverlay.isFocused()).toBe(true);
 		});
 	});
 
 	// Using pointer
 	describe('using pointer', () => {
 		it('should focus the fullscreen alert button', async () => {
-			expect(await alertCommon.buttonFullscreen.isFocused()).to.be.true();
+			expect(await alertCommon.buttonFullscreen.isFocused()).toBe(true);
 		});
 
 		it('should open the fullscreen alert', async () => {

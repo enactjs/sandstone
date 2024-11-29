@@ -1,0 +1,82 @@
+// PageViews.module.less
+//
+@import "../styles/variables.less";
+
+.pageViews {
+	height: 100%;
+	width: 100%;
+	display: inline-flex;
+	flex-direction: column;
+
+	.navButton {
+		/* CSS Overrides */
+	}
+
+	.navButtonCell {
+		text-align: center;
+		display: flex;
+		align-items: center;
+		width: @sand-pageviews-navigation-button-area-width;
+		justify-content: center;
+	}
+
+	.navButtonContainer {
+		position: absolute;
+		width: 100%;
+		height: @sand-button-height;
+		top: ~"calc(50% - "@sand-button-height / 2 ~")";
+		z-index: 10;
+	}
+
+	&.number .navButtonCell {
+		width: @sand-pageviews-number-navigation-button-area-width;
+	}
+
+	.stepsRow {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		&.hidden {
+			min-height: @sand-pageviews-steps-area-min-height;
+			visibility: hidden;
+		}
+	}
+
+	&.number .stepsRow {
+		min-height: @sand-pageviews-number-steps-area-min-height;
+		.pageNumber {
+			width: @sand-pageviews-number-steps-number-width;
+		}
+		.separator {
+			width: @sand-pageviews-number-steps-separator-width;
+		}
+	}
+
+	&.dot .steps {
+		display: flex;
+		align-items: center;
+		min-height: @sand-pageviews-dot-steps-area-min-height;
+	}
+
+	&.fullContents .stepsRow {
+		position: absolute;
+		align-self: center;
+	}
+
+	&.fullContents.indicatorBottom .stepsRow {
+		bottom: @sand-pageviews-full-contents-bottom-steps-bottom;
+	}
+
+	.contentsArea {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.viewManager {
+		overflow: hidden;
+	}
+
+	.horizontalLayout {
+		height: 100%;
+	}
+}

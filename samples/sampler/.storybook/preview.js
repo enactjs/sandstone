@@ -1,8 +1,6 @@
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {getBooleanType, getObjectType} from '@enact/storybook-utils/addons/controls';
-import {DocsContainer, Primary, Title} from '@enact/storybook-utils/addons/docs';
-import ri from '@enact/ui/resolution';
-import {themes} from '@storybook/theming';
+import ReactGA4 from "react-ga4";
 
 import ThemeEnvironment from '../src/ThemeEnvironment';
 
@@ -49,19 +47,23 @@ const skins = {
 
 configureActions();
 
+if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
+	const GA_MEASUREMENT_ID  = "G-ZNPW7ST2D8";
+	const options = {
+		gtagOptions: {
+			content_group: 'storybook' // eslint-disable-line camelcase
+		}
+	};
+
+	ReactGA4.initialize(GA_MEASUREMENT_ID, options);
+
+	const script = document.createElement("script");
+	script.src = `//cdn.cookie-script.com/s/3a846584c6b545a3d1ac4dcfc8ac15a2.js`;
+	script.type = "text/javascript";
+	document.body.appendChild(script);
+}
+
 export const parameters = {
-	docs: {
-		container: DocsContainer,
-		inlineStories: false,
-		iframeHeight: ri.scaleToRem(900),
-		page: () => (
-			<>
-				<Title />
-				<Primary />
-			</>
-		),
-		theme: themes.light
-	},
 	options: {
 		storySort: {
 			method: 'alphabetical'
@@ -73,6 +75,7 @@ export const globalTypes = {
 	'locale': getObjectType('locale', 'en-US', locales),
 	'large text': getBooleanType('large text'),
 	'high contrast': getBooleanType('high contrast'),
+	'focus ring':getBooleanType('focus ring'),
 	'skin': getObjectType('skin', 'neutral', skins),
 	'background': getObjectType('background', 'default', backgrounds),
 	'debug aria': getBooleanType('debug aria'),

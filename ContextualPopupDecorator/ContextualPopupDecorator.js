@@ -1,3 +1,5 @@
+/* global ResizeObserver */
+
 /**
  * A higher-order component to add a Sandstone styled popup to a component.
  *
@@ -11,6 +13,7 @@ import {on, off} from '@enact/core/dispatcher';
 import {handle, forProp, forKey, forward, forwardCustom, stop} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
+import {WithRef} from '@enact/core/internal/WithRef';
 import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -19,8 +22,7 @@ import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import {Component, Fragment} from 'react';
-import ReactDOM from 'react-dom';
+import {Component, Fragment, createRef} from 'react';
 
 import {ContextualPopup} from './ContextualPopup';
 import HolePunchScrim from './HolePunchScrim';
@@ -82,6 +84,7 @@ const ContextualPopupContainer = SpotlightContainerDecorator(
 
 const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {noArrow, noSkin, openProp} = config;
+	const WrappedWithRef = WithRef(Wrapped);
 
 	return class extends Component {
 		static displayName = 'ContextualPopupDecorator';
@@ -271,9 +274,11 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				activator: null
 			};
 
+			this.resizeObserver = null;
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 			this.id = this.generateId();
+			this.clientSiblingRef = createRef(null);
 
 			this.MARGIN = ri.scale(noArrow ? 0 : 12);
 			this.ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
@@ -289,6 +294,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (this.props.open) {
 				on('keydown', this.handleKeyDown);
 				on('keyup', this.handleKeyUp);
+			}
+
+			if (typeof ResizeObserver === 'function') {
+				this.resizeObserver = new ResizeObserver(() => {
+					this.positionContextualPopup();
+				});
 			}
 		}
 
@@ -339,6 +350,11 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				off('keyup', this.handleKeyUp);
 			}
 			Spotlight.remove(this.state.containerId);
+
+			if (this.resizeObserver) {
+				this.resizeObserver.disconnect();
+				this.resizeObserver = null;
+			}
 		}
 
 		generateId = () => {
@@ -559,10 +575,11 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @returns {undefined}
 		 */
 		positionContextualPopup = () => {
-			if (this.containerNode && this.clientNode) {
+			if (this.containerNode && this.clientSiblingRef?.current) {
 				const containerNode = this.containerNode.getBoundingClientRect();
-				const {top, left, bottom, right, width, height} = this.clientNode.getBoundingClientRect();
+				const {top, left, bottom, right, width, height} = this.clientSiblingRef.current.getBoundingClientRect();
 				const clientNode = {top, left, bottom, right, width, height};
+
 				clientNode.left = this.props.rtl ? window.innerWidth - right : left;
 				clientNode.right = this.props.rtl ? window.innerWidth - left : right;
 
@@ -590,10 +607,18 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		getContainerNode = (node) => {
 			this.containerNode = node;
-		};
 
-		getClientNode = (node) => {
-			this.clientNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
+			if (this.resizeObserver) {
+				if (node) {
+					// It is not easy to trigger changed position of activator,
+					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
+					// This implementation is dependent on the current structure of FloatingLayer,
+					// so if the structure have changed, below code needs to be changed accordingly.
+					this.resizeObserver.observe(node?.parentElement?.parentElement);
+				} else {
+					this.resizeObserver.disconnect();
+				}
+			}
 		};
 
 		handle = handle.bind(this);
@@ -719,8 +744,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			let holeBounds;
-			if (this.clientNode && holepunchScrim) {
-				holeBounds = this.clientNode.getBoundingClientRect();
+			if (this.clientSiblingRef?.current && holepunchScrim) {
+				holeBounds = this.clientSiblingRef.current.getBoundingClientRect();
 			}
 
 			delete rest.direction;
@@ -764,7 +789,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							</ContextualPopupContainer>
 						</Fragment>
 					</FloatingLayer>
-					<Wrapped ref={this.getClientNode} {...rest} />
+					<WrappedWithRef {...rest} outermostRef={this.clientSiblingRef} referrerName="ContextualPopup" />
 				</div>
 			);
 		}

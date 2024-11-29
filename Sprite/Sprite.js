@@ -174,7 +174,7 @@ const SpriteBase = kind({
 		/**
 		 * The sprite-sheet image with all of the cells on it.
 		 *
-		 * @see {@link ui/Image.Image.src}
+		 * @see {@link ui/Image.ImageBase.src}
 		 * @type {String|Object}
 		 * @public
 		 */
@@ -201,26 +201,13 @@ const SpriteBase = kind({
 		width: PropTypes.number
 	},
 
-	defaultProps: {
-		columns: 1,
-		duration: 1000,
-		height: 120,
-		iterations: Infinity,
-		offsetLeft: 0,
-		offsetTop: 0,
-		orientation: 'horizontal',
-		paused: false,
-		rows: 1,
-		width: 120
-	},
-
 	styles: {
 		css,
 		className: 'sprite'
 	},
 
 	computed: {
-		style: ({offsetTop, offsetLeft, rows, columns, height, width, style}) => ({
+		style: ({offsetTop = 0, offsetLeft = 0, rows = 1, columns = 1, height = 120, width = 120, style}) => ({
 			...style,
 			'--sand-sprite-offset-top': scaleToRem(offsetTop),
 			'--sand-sprite-offset-left': scaleToRem(offsetLeft),
@@ -232,17 +219,17 @@ const SpriteBase = kind({
 	},
 
 	render: ({
-		columns,
-		duration,
-		height,
-		iterations,
+		columns = 1,
+		duration = 1000,
+		height = 120,
+		iterations = Infinity,
 		onSpriteAnimation,
-		orientation,
-		paused,
-		rows,
+		orientation = 'horizontal',
+		paused = false,
+		rows = 1,
 		stopped,
 		src,
-		width,
+		width = 120,
 		...rest
 	}) => {
 		delete rest.offsetTop;
@@ -309,7 +296,7 @@ const SpriteBase = kind({
 						{
 							easing: `steps(${frameCount}, end)`,
 							duration,
-							iterations
+							iterations: iterations || Infinity
 						}
 					);
 
@@ -363,6 +350,9 @@ const SpriteBase = kind({
 	}
 });
 
+SpriteBase.defaultPropValues = {
+	iterations: Infinity
+};
 
 export default SpriteBase;
 export {

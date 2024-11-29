@@ -14,12 +14,23 @@ describe('TabLayout', function () {
 					const expected = 'view2';
 					const originalView = (await Page.tabLayout.currentView()).getAttribute('id');
 
-					expect(await originalView).to.equal('view1');
+					expect(await originalView).toBe('view1');
 					await Page.spotlightDown();
 					await Page.waitForExist(`#${expected}`);
 					const actual = (await Page.tabLayout.currentView()).getAttribute('id');
 
-					expect(await actual).to.equal(expected);
+					expect(await actual).toBe(expected);
+				});
+
+				it('should focus to tab content element via 5-way enter in tab menu', async function () {
+					const expected = 'Button One';
+					const originalView = (await Page.tabLayout.currentView()).getAttribute('id');
+
+					expect(await originalView).toBe('view1');
+					await Page.spotlightSelect();
+					const actual = await browser.execute(getFocusedText);
+
+					expect(actual).toBe(expected);
 				});
 
 				it('should not focus a spotlightDisabled tab', async function () {
@@ -32,7 +43,7 @@ describe('TabLayout', function () {
 					const expected = 'Five';
 					const actual = await browser.execute(getFocusedText);
 
-					expect(actual).to.equal(expected);
+					expect(actual).toBe(expected);
 				});
 			});
 
@@ -41,12 +52,12 @@ describe('TabLayout', function () {
 					const expected = 'view5';
 					const originalView = (await Page.tabLayout.currentView()).getAttribute('id');
 
-					expect(await originalView).to.equal('view1');
+					expect(await originalView).toBe('view1');
 					await (await Page.tabLayout.tabItems())[4].click();
 					await Page.waitForExist(`#${expected}`);
 					const actual = (await Page.tabLayout.currentView()).getAttribute('id');
 
-					expect(await actual).to.equal(expected);
+					expect(await actual).toBe(expected);
 				});
 			});
 		});
@@ -59,7 +70,7 @@ describe('TabLayout', function () {
 			const expected = 'One';
 			const actual = await browser.execute(getFocusedText);
 
-			expect(actual).to.equal(expected);
+			expect(actual).toBe(expected);
 		});
 
 		it('should focus the first tab content when collapsed', async function () {
@@ -68,7 +79,7 @@ describe('TabLayout', function () {
 			const expected = 'Button One';
 			const actual = await browser.execute(getFocusedText);
 
-			expect(actual).to.equal(expected);
+			expect(actual).toBe(expected);
 		});
 
 		it('should focus the tab for the selected index when expanded', async function () {
@@ -77,7 +88,7 @@ describe('TabLayout', function () {
 			const expected = 'Two';
 			const actual = await browser.execute(getFocusedText);
 
-			expect(actual).to.equal(expected);
+			expect(actual).toBe(expected);
 		});
 
 		it('should focus the content for the selected index when collapsed', async function () {
@@ -86,7 +97,7 @@ describe('TabLayout', function () {
 			const expected = 'Button Two';
 			const actual = await browser.execute(getFocusedText);
 
-			expect(actual).to.equal(expected);
+			expect(actual).toBe(expected);
 		});
 	});
 });

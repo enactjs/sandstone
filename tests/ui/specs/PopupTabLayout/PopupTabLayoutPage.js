@@ -1,10 +1,14 @@
 'use strict';
-const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
+const {element, getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getTabPanels = getComponent({component: 'PopupTabLayout', child: 'panels'});
 const getTabLayout = getComponent({component: 'TabLayout'});
 const getTabs = getComponent({component: 'TabLayout', child: 'tabsExpanded'});
+const getCollapsedTabs = getComponent({component: 'TabLayout', child: 'tabs'});
+const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
+const getHelpButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotAfter', el));
+const getBackButton = async el => await getComponent({component: 'Button'}, await getHeaderSlot('slotBefore', el));
 
 class PopupTabLayoutInterface {
 	constructor (id) {
@@ -18,6 +22,13 @@ class PopupTabLayoutInterface {
 
 	async hoverTabs () {
 		return await $(this.tabs.selector).moveTo();
+	}
+
+	async helpButton () {
+		return await getHelpButton(this.self);
+	}
+	async backButton () {
+		return await getBackButton(this.self);
 	}
 
 	get self () {
@@ -43,6 +54,9 @@ class PopupTabLayoutInterface {
 		return getTabs(this.self);
 	}
 	// get tabsScroller () {return getScroller(this.self);}
+	get collapsedTabs () {
+		return getCollapsedTabs(this.self);
+	}
 }
 
 class PopupTabLayoutPage extends Page {
@@ -56,12 +70,24 @@ class PopupTabLayoutPage extends Page {
 		};
 	}
 
-	async open (urlExtra) {
-		await super.open('PopupTabLayout-View', urlExtra);
+	async open (layout = '', urlExtra) {
+		await super.open(`PopupTabLayout${layout}-View`, urlExtra);
 	}
 
 	async waitForExist (selector, timeout) {
 		await $(selector).waitForExist({timeout});
+	}
+
+	async buttonPadding () {
+		return await browser.execute(function () {
+			return Math.round(document.querySelector('#withButtonDisplay').getBoundingClientRect().bottom - document.querySelector('#button').getBoundingClientRect().bottom);
+		});
+	}
+
+	async getAriaLabel () {
+		return await browser.execute(function () {
+			return document.activeElement.getAttribute('aria-label');
+		});
 	}
 }
 

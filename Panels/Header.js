@@ -134,7 +134,7 @@ const HeaderBase = kind({
 		 * Determines what triggers the header content to start its animation.
 		 *
 		 * @type {('focus'|'hover'|'render')}
-		 * @default 'hover'
+		 * @default 'render'
 		 * @public
 		 */
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
@@ -438,6 +438,7 @@ const HeaderBase = kind({
 		slotBeforeRef,
 		slotSize,
 		titleCell,
+		type,
 		...rest
 	}) => {
 		delete rest.arranger;
@@ -447,7 +448,6 @@ const HeaderBase = kind({
 		delete rest.subtitleId;
 		delete rest.title;
 		delete rest.titleId;
-		delete rest.type;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
@@ -480,18 +480,24 @@ const HeaderBase = kind({
 		// the cell sizes don't need to be synced.
 		const syncCellSize = (centered ? slotSize : null);
 
+		// Hide slots for the first render to avoid unexpected positioning when 'centered' is given.
+		// After the first render, HeaderMeasurementDecorator measures widths of slots and set right 'slotSize'.
+		const hideSlots = {
+			opacity: centered && slotSize === '0rem' ? '0' : null
+		};
+
 		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
-					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
+					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotBeforeRef} className={css.slotSizer}>
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					{titleCell}
-					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? null : titleCell}
+					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}
 						</span>

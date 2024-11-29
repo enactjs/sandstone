@@ -1,9 +1,29 @@
+@import "@enact/sandstone/styles/mixins.less";
+
 .scrollbarTrack {
 	background-color: white;
 
 	.thumb {
 		background-color: orangered;
 	}
+}
+
+.scrollerWrapper {
+	--selected-item-offset: 0;
+	display: flex;
+	flex-direction: row;
+	min-width: fit-content;
+	padding-top: 60px;
+
+	.hidden {
+		.iconItem {
+			display: none;
+		}
+	}
+}
+
+.centered {
+	justify-content: center;
 }
 
 .wrapper { // public class for editable wrapper
@@ -13,6 +33,10 @@
 	.removeButtonContainer {
 		height: 156px;
 
+		&:focus-within ~ .editableIconItem {
+			transform: none;
+		}
+
 		.removeButton {
 			display: none;
 		}
@@ -21,16 +45,73 @@
 	.itemWrapper {
 		text-align: center;
 
+		&:is([disabled]):not(.hidden).focused {
+			.removeButton {
+				display: none;
+			}
+		}
+
+		.editableIconItem {
+			width: 312px;
+			height: 240px;
+			margin: 60px;
+		}
+
+		&:not(.selected,.focused) .editableIconItem {
+			&:focus {
+				transform: none;
+				:global(.enact-a11y-focus-ring) & {
+					.content {
+						outline: none;
+					}
+				}
+			}
+			&.labelOnFocus:focus {
+				.labelContainer {
+					display: none;
+				}
+			}
+		}
+
+		&.selected .editableIconItem.labelOnFocus {
+			.label, .labelContainer {
+				display: block;
+			}
+		}
+
 		.iconItem {
 			width: 312px;
 			height: 240px;
-			margin: 24px;
+			margin: 60px;
+		}
+	}
+
+	.focused { // public class for focused item
+		.removeButton {
+			display: inline-block;
+		}
+
+		.editableIconItem {
+			:global(.enact-a11y-focus-ring) & {
+				transform: none;
+			}
+			transform: scale(1.2);
 		}
 	}
 
 	.selected { // public class for selected item
 		.removeButton {
 			display: inline-block;
+		}
+
+		.editableIconItem {
+			transform: scale(1.2);
+			:global(.enact-a11y-focus-ring) & {
+				.content {
+					.sand-focus-ring();
+				}
+				transform: none;
+			}
 		}
 
 		.arrow() {
@@ -42,16 +123,23 @@
 			opacity: 1;
 		}
 
-		&::before {
+		&:not(.hidden):not(.noBefore)::before {
 			content: '\EFFF3';
 			.arrow();
-			left: -30px;
+			.position-start-end(-30px, initial);
 		}
 
-		&::after {
+		&:not(.hidden):not(.noAfter)::after {
 			content: '\EFFF4';
 			.arrow();
-			right: -30px;
+			.position-start-end(initial, -30px);
 		}
+
+		.enact-locale-rtl({
+			&:not(.hidden):not(.noBefore)::before,
+			&:not(.hidden):not(.noAfter)::after {
+				transform: scaleX(-1);
+			}
+		});
 	}
 }

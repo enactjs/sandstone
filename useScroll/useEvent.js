@@ -3,6 +3,7 @@ import platform from '@enact/core/platform';
 import {onWindowReady} from '@enact/core/snapshot';
 import {clamp} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
+import {getPositionTargetOnFocus} from '@enact/spotlight/src/container';
 import {getRect} from '@enact/spotlight/src/utils';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {constants} from '@enact/ui/useScroll';
@@ -62,8 +63,13 @@ const useEventFocus = (props, instances) => {
 	function calculateAndScrollTo () {
 		const
 			positionFn = themeScrollContentHandle.current.calculatePositionOnFocus,
-			scrollContentNode = scrollContentRef.current,
-			spotItem = Spotlight.getCurrent();
+			scrollContentNode = scrollContentRef.current;
+		let	spotItem = Spotlight.getCurrent();
+
+		// Scroll to the container created by ContentContainerDecorator when descendants get focused
+		if (props.scrollToContentContainerOnFocus) {
+			spotItem = getPositionTargetOnFocus(spotItem);
+		}
 
 		if (spotItem && positionFn && utilDOM.containsDangerously(scrollContentNode, spotItem)) {
 			const lastPos = spottable.current.lastScrollPositionOnFocus;
@@ -435,18 +441,19 @@ const useEventVoice = (props, instances) => {
 			scrollContainerNode = scrollContainerRef.current;
 
 		if (utilDOM.containsDangerously(scrollContainerNode, spotItem)) {
-			const
-				viewportBounds = scrollContainerNode.getBoundingClientRect(),
-				spotItemBounds = spotItem.getBoundingClientRect(),
-				nodes = Spotlight.getSpottableDescendants(scrollContainerNode.dataset.spotlightId),
-				first = mutableRef.current.voiceControlDirection === 'vertical' ? 'top' : 'left',
-				last = mutableRef.current.voiceControlDirection === 'vertical' ? 'bottom' : 'right';
+			const viewportBounds = scrollContainerNode.getBoundingClientRect();
+			const spotItemBounds = spotItem.getBoundingClientRect();
+			const isVertical = mutableRef.current.voiceControlDirection === 'vertical';
+			const first = isVertical ? 'top' : 'left';
+			const last = isVertical ? 'bottom' : 'right';
 
-			if (spotItemBounds[last] < viewportBounds[first] || spotItemBounds[first] > viewportBounds[last]) {
+			/* if the focused element is out of the viewport, find another spottable element in the viewport */
+			if (spotItemBounds[last] <= viewportBounds[first] || spotItemBounds[first] >= viewportBounds[last]) {
+				const nodes = Spotlight.getSpottableDescendants(scrollContainerNode.dataset.spotlightId);
 				for (let i = 0; i < nodes.length; i++) {
 					const nodeBounds = nodes[i].getBoundingClientRect();
 
-					if (nodeBounds[first] > viewportBounds[first] && nodeBounds[last] < viewportBounds[last]) {
+					if (nodeBounds[first] >= viewportBounds[first] && nodeBounds[last] <= viewportBounds[last]) {
 						Spotlight.focus(nodes[i]);
 						break;
 					}
@@ -529,7 +536,7 @@ const useEventVoice = (props, instances) => {
 	};
 
 	function addVoiceEventListener (scrollContentRef) {
-		if (platform.webos) {
+		if (platform.type === 'webos') {
 			utilEvent('webOSVoice').addEventListener(scrollContentRef, handleVoice);
 
 			if (scrollContainerHandle && scrollContainerHandle.current && scrollContainerHandle.current.getScrollBounds) {
@@ -542,7 +549,7 @@ const useEventVoice = (props, instances) => {
 	}
 
 	function removeVoiceEventListener (scrollContentRef) {
-		if (platform.webos) {
+		if (platform.type === 'webos') {
 			utilEvent('webOSVoice').removeEventListener(scrollContentRef, handleVoice);
 			scrollContentRef.current.removeAttribute('data-webos-voice-intent');
 		}
@@ -673,7 +680,7 @@ const useEventWheel = (props, instances) => {
 
 				if (nextIndex > 0 && nextIndex < dataSize - 1) {
 					if (typeof document === 'object') {
-						const target = document.querySelector(`[data-index="${nextIndex}"] div`);
+						const target = scrollContentRef.current.querySelector(`[data-index="${nextIndex}"] > div`);
 
 						// remove effect
 						themeScrollContentHandle.current.removeScaleEffect();

@@ -252,7 +252,7 @@ const InputFieldBase = kind({
 			forwardCustomWithPrevent('onBeforeChange', ev => ({value: ev.target.value})),
 			returnsTrue((ev, {announce, type}) => {
 				if (type === 'passwordtel') {
-					if (platform.webos) {
+					if (platform.type === 'webos') {
 						readAlert($L('hidden'));
 					} else {
 						announce($L('hidden'));

@@ -11,8 +11,10 @@ const CheckboxItemTests = [
 	<CheckboxItem inline>CheckboxItem</CheckboxItem>,		// not selected
 	<CheckboxItem inline label="label">CheckboxItem</CheckboxItem>,		// not selected
 	<CheckboxItem disabled inline>CheckboxItem</CheckboxItem>,	// not selected
+	// [QWTC-1861]
 	<CheckboxItem selected>CheckboxItem Checked</CheckboxItem>,
 	<CheckboxItem selected label="label">CheckboxItem Checked</CheckboxItem>,
+	// [QWTC-1861]
 	<CheckboxItem selected disabled>CheckboxItem Checked</CheckboxItem>,
 	<CheckboxItem selected disabled label="label">CheckboxItem Checked</CheckboxItem>,
 	<CheckboxItem selected inline>CheckboxItem Checked</CheckboxItem>,
@@ -69,6 +71,8 @@ const CheckboxItemTests = [
 	...withConfig({focus: true}, [
 		<CheckboxItem>Hello Focused CheckboxItem</CheckboxItem>,
 		<CheckboxItem selected>Hello Focused CheckboxItem</CheckboxItem>,
+		// [QWTC-1861]
+		<CheckboxItem selected disabled>Hello Focused CheckboxItem</CheckboxItem>,
 		<CheckboxItem inline>Hello Focused CheckboxItem</CheckboxItem>,
 		<CheckboxItem inline selected>Hello Focused CheckboxItem</CheckboxItem>,
 		<CheckboxItem label="label"><Icon slot="slotBefore">home</Icon>Hello Focused CheckboxItem</CheckboxItem>,

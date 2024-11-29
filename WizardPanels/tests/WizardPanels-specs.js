@@ -1,10 +1,11 @@
+import Spotlight from '@enact/spotlight';
 import '@testing-library/jest-dom';
-import {render, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {Panel, WizardPanels} from '../';
 
-describe('WizardPanel Specs', () => {
+describe('WizardPanels Specs', () => {
 	test(
 		'should have title in `Header`',
 		() => {
@@ -411,7 +412,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should fire onWillTransition with target index and type',
+		'should fire `onWillTransition` with target index and type in pointer mode',
 		async () => {
 			const spy = jest.fn();
 			let index = 0;
@@ -442,7 +443,43 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should fire onTransition with target index and type',
+		'should fire `onWillTransition` with target index and type in 5-way mode',
+		async () => {
+			Spotlight.setPointerMode(false);
+			const spy = jest.fn();
+			let index = 0;
+			const {rerender} = render(
+				<WizardPanels index={index} onWillTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel>I gots contents3</Panel>
+				</WizardPanels>
+			);
+
+			spy.mockClear();
+			const nextButton = screen.getByLabelText('Next');
+			Spotlight.focus(nextButton);
+			index++;
+
+			rerender(
+				<WizardPanels index={index} onWillTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel>I gots contents3</Panel>
+				</WizardPanels>
+			);
+
+			const expected = {index, type: 'onWillTransition'};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			await waitFor(() => {
+				expect(actual).toMatchObject(expected);
+			});
+		}
+	);
+
+	test(
+		'should fire `onTransition` with target index and type',
 		async () => {
 			const spy = jest.fn();
 			let index = 0;
@@ -475,6 +512,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should advance on next click',
 		async () => {
+			const user = userEvent.setup();
 			render(
 				<WizardPanels index={1}>
 					<Panel />
@@ -484,7 +522,7 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const nextButton = screen.getByLabelText('Next');
-			userEvent.click(nextButton);
+			await user.click(nextButton);
 
 			await waitFor(() => {
 				const actual = screen.getByText('2');
@@ -499,6 +537,7 @@ describe('WizardPanel Specs', () => {
 		async () => {
 			const handleChange = jest.fn();
 			const handleNextClick = jest.fn();
+			const user = userEvent.setup();
 
 			render(
 				<WizardPanels index={1} onChange={handleChange} onNextClick={handleNextClick}>
@@ -511,7 +550,7 @@ describe('WizardPanel Specs', () => {
 			const nextButton = screen.getByLabelText('Next');
 			const expected = {type: 'onNextClick'};
 
-			userEvent.click(nextButton);
+			await user.click(nextButton);
 
 			await waitFor(() => {
 				expect(handleChange).toBeCalledWith({index: 2, type: 'onChange'});
@@ -527,6 +566,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should go back on prev click',
 		async () => {
+			const user = userEvent.setup();
 			render(
 				<WizardPanels defaultIndex={1}>
 					<Panel />
@@ -536,7 +576,7 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const prevButton = screen.getByLabelText('Previous');
-			userEvent.click(prevButton);
+			await user.click(prevButton);
 
 			await waitFor(() => {
 				const actual = screen.getByText('1');
@@ -551,6 +591,7 @@ describe('WizardPanel Specs', () => {
 		async () => {
 			const handleChange = jest.fn();
 			const handlePrevClick = jest.fn();
+			const user = userEvent.setup();
 
 			render(
 				<WizardPanels index={2} onChange={handleChange} onPrevClick={handlePrevClick}>
@@ -563,7 +604,7 @@ describe('WizardPanel Specs', () => {
 			const prevButton = screen.getByLabelText('Previous');
 			const expected = {type: 'onPrevClick'};
 
-			userEvent.click(prevButton);
+			await user.click(prevButton);
 
 			await waitFor(() => {
 				expect(handleChange).toBeCalledWith({index: 1, type: 'onChange'});
@@ -582,12 +623,12 @@ describe('WizardPanel Specs', () => {
 			render(
 				<WizardPanels defaultIndex={1}>
 					<Panel />
-					<Panel />
+					<Panel>test</Panel>
 					<Panel />
 				</WizardPanels>
 			);
 
-			userEvent.keyboard('{esc}');
+			fireEvent.keyUp(screen.getByText('test'), {keyCode: 27});
 
 			await waitFor(() => {
 				const actual = screen.getByText('1');
@@ -603,12 +644,12 @@ describe('WizardPanel Specs', () => {
 			render(
 				<WizardPanels defaultIndex={1} prevButtonVisibility="never">
 					<Panel />
-					<Panel />
+					<Panel>test</Panel>
 					<Panel />
 				</WizardPanels>
 			);
 
-			userEvent.keyboard('{esc}');
+			fireEvent.keyUp(screen.getByText('test'), {keyCode: 27});
 
 			await waitFor(() => {
 				const actual = screen.getByText('1');
@@ -625,12 +666,12 @@ describe('WizardPanel Specs', () => {
 			render(
 				<WizardPanels defaultIndex={1} onBack={spy}>
 					<Panel />
-					<Panel />
+					<Panel>test</Panel>
 					<Panel />
 				</WizardPanels>
 			);
 
-			userEvent.keyboard('{esc}');
+			fireEvent.keyUp(screen.getByText('test'), {keyCode: 27});
 
 			await waitFor(() => {
 				const actual = screen.getByText('1');
@@ -652,12 +693,12 @@ describe('WizardPanel Specs', () => {
 			render(
 				<WizardPanels defaultIndex={1} onBack={spy}>
 					<Panel />
-					<Panel />
+					<Panel>test</Panel>
 					<Panel />
 				</WizardPanels>
 			);
 
-			userEvent.keyboard('{esc}');
+			fireEvent.keyUp(screen.getByText('test'), {keyCode: 27});
 
 			await waitFor(() => {
 				const actual = screen.getByText('2');
@@ -774,6 +815,27 @@ describe('WizardPanel Specs', () => {
 
 			await waitFor(() => {
 				expect(steps).toBe(total);
+			});
+		}
+	);
+
+	test(
+		'should reflect the aria-label when "current" is set',
+		async () => {
+			const current = 2;
+			render(
+				<WizardPanels current={current}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const header = screen.getByRole('region').children[0].children[0];
+			const expected = `step ${current}  `;
+
+			await waitFor(() => {
+				expect(header).toHaveAttribute('aria-label', expected);
 			});
 		}
 	);

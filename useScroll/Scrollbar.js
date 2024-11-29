@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
 import {memo, useCallback} from 'react';
@@ -10,7 +11,7 @@ import componentCss from './Scrollbar.module.less';
 const useThemeScrollbar = (props) => {
 	const {
 		restProps,
-		scrollbarProps,
+		scrollbarProps: {className: scrollbarClassName, ...restScrollbarProps},
 		scrollbarTrackProps
 	} = useScrollbarBase(props);
 
@@ -25,7 +26,7 @@ const useThemeScrollbar = (props) => {
 	} = restProps;
 
 	const
-		{ref: scrollbarContainerRef} = scrollbarProps,
+		{ref: scrollbarContainerRef} = restScrollbarProps,
 		{ref: scrollbarTrackRef} = scrollbarTrackProps,
 		{vertical} = props;
 
@@ -63,7 +64,8 @@ const useThemeScrollbar = (props) => {
 	return {
 		restProps: rest,
 		scrollbarProps: {
-			...scrollbarProps,
+			...restScrollbarProps,
+			className: classNames(scrollbarClassName, {[componentCss.focusableScrollbar]: focusableScrollbar}),
 			onClick
 		},
 		scrollbarTrackProps: {
@@ -86,7 +88,8 @@ const useThemeScrollbar = (props) => {
  * @ui
  * @private
  */
-const ScrollbarBase = memo((props) => {
+const ScrollbarBase = memo(({css = componentCss, minThumbSize = 120, vertical = true, ...rest}) => {
+	const props = {css, minThumbSize, vertical, ...rest};
 	const {
 		restProps,
 		scrollbarProps,
@@ -147,12 +150,6 @@ ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ 
 	 * @public
 	 */
 	vertical: PropTypes.bool
-};
-
-ScrollbarBase.defaultProps = {
-	css: componentCss,
-	minThumbSize: 120,
-	vertical: true
 };
 
 /**

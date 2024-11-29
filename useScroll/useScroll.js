@@ -12,6 +12,7 @@ import {forward} from '@enact/core/handle';
 import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
+import {getContainerId} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
@@ -57,7 +58,7 @@ const dataIndexAttribute = 'data-index';
 const isIntersecting = (elem, container) => elem && intersects(getRect(container), getRect(elem));
 const getIntersectingElement = (elem, container) => isIntersecting(elem, container) && elem;
 const getTargetInViewByDirectionFromPosition = (direction, position, container) => {
-	const target = getTargetByDirectionFromPosition(direction, position, container);
+	const target = getTargetByDirectionFromPosition(direction, position, getContainerId(container));
 	return getIntersectingElement(target, container);
 };
 
@@ -323,6 +324,7 @@ const useScroll = (props) => {
 		} = props;
 
 	delete rest.scrollbarTrackCss;
+	delete rest.scrollToContentContainerOnFocus;
 
 	// Mutable value
 
@@ -428,7 +430,7 @@ const useScroll = (props) => {
 		...rest,
 		...scrollProps,
 		assignProperties,
-		noScrollByDrag: !platform.touchscreen,
+		noScrollByDrag: !platform.touchScreen,
 		addEventListeners,
 		applyOverscrollEffect,
 		clearOverscrollEffect,

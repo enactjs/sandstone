@@ -11,7 +11,7 @@ describe('FixedPopupPanelsWithoutPanel', function () {
 		});
 
 		it('should set focus to the activator when closed', async function () {
-			expect(await Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			expect(await Interface.openButton.isFocused()).toBe(true);
 
 			await Page.spotlightSelect();
 
