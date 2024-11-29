@@ -14,7 +14,6 @@ install:
     - npm install -g codecov
     - git clone --branch=master --depth 1 https://github.com/enactjs/cli ../cli
     - pushd ../cli
-    - npm uninstall @enact/ui-test-utils
     - npm install
     - npm link
     - popd
@@ -27,6 +26,7 @@ install:
     - npm run interlink
     - popd
     - rm -fr node_modules/@enact
+    - npm uninstall @enact/ui-test-utils
     - npm install
     - enact link
     - ls -al node_modules/@enact/docs-utils/
