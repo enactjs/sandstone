@@ -80,7 +80,6 @@ const lightnessGradient = (hue, saturation) => {
  *
  * @class ColorPickerSliderRGB
  * @memberof sandstone/ColorPicker
- * @extends sandstone/Slider.Slider
  * @ui
  * @private
  */
@@ -226,7 +225,6 @@ ColorPickerSliderRGB.propTypes = {
  *
  * @class ColorPickerSliderHSL
  * @memberof sandstone/ColorPicker
- * @extends sandstone/Slider.Slider
  * @ui
  * @private
  */
@@ -378,8 +376,6 @@ ColorPickerSliderHSL.propTypes = {
  *
  * @class ColorPickerSlider
  * @memberof sandstone/ColorPicker
- * @extends sandstone/ColorPickerSlider.ColorPickerSliderRGB
- * @extends sandstone/ColorPickerSlider.ColorPickerSliderHSL
  * @ui
  * @private
  */

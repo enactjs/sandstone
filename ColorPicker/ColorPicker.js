@@ -4,7 +4,6 @@
  *
  * @example
  * <ColorPicker
- * 	 colorHandler={onChangeColor}
  * 	 colors=["#eb4034", "#32a852", "#3455eb"]
  * 	 open
  * 	 selectedColor="#eb4034"
@@ -195,7 +194,7 @@ FavoriteColors.displayName = 'FavoriteColors';
 
 FavoriteColors.propTypes = {
 	/**
-	 * Called when color is modified.
+	 * Called when the selected color is modified.
 	 *
 	 * @type {Function}
 	 * @private
@@ -219,7 +218,7 @@ FavoriteColors.propTypes = {
 	favoriteColors: PropTypes.array,
 
 	/**
-	 * Called when the favorite color is modified.
+	 * Called when the favorite colors array is modified.
 	 *
 	 * @type {Function}
 	 * @private
@@ -313,7 +312,7 @@ ColorPickerBase.displayName = 'ColorPicker';
 
 ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.prototype */
 	/**
-	 * Indicates the color.
+	 * Indicates selected the color.
 	 *
 	 * @type {String}
 	 * @public
@@ -338,7 +337,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	css: PropTypes.object,
 
 	/**
-	 * Called when color is modified.
+	 * Called when the selected color is modified.
 	 *
 	 * @type {Function}
 	 * @public
@@ -357,6 +356,15 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	open: PropTypes.bool
 };
 
+/**
+ * A color picker component, ready to use in Sandstone applications.
+ *
+ * @class ColorPicker
+ * @memberof sandstone/ColorPicker
+ * @extends sandstone/ColorPicker.ColorPickerBase
+ * @ui
+ * @ublic
+ */
 const ColorPicker = Skinnable(ColorPickerBase);
 
 export default ColorPicker;

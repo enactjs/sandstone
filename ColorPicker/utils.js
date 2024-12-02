@@ -134,20 +134,17 @@ const generateOppositeColor = (hexColor) => {
  */
 const hexToHSL = (hexColor) => {
 	// Convert hex to RGB first
-	let r = 0, g = 0, b = 0;
-	r = parseInt(hexColor.slice(1, 3), 16);
-	g = parseInt(hexColor.slice(3, 5), 16);
-	b = parseInt(hexColor.slice(5), 16);
+	const r = parseInt(hexColor.slice(1, 3), 16) / 255;
+	const g = parseInt(hexColor.slice(3, 5), 16) / 255;
+	const b = parseInt(hexColor.slice(5), 16) / 255;
 
-	// Then convert RGB to HSL
-	r /= 255;
-	g /= 255;
-	b /= 255;
-	let cmin = Math.min(r, g, b),
-		cmax = Math.max(r, g, b),
-		delta = cmax - cmin,
-		h, s, l;
+	// Calculate cmin, cmax, and delta
+	const cmin = Math.min(r, g, b);
+	const cmax = Math.max(r, g, b);
+	const delta = cmax - cmin;
 
+	// Calculate hue
+	let h;
 	if (delta === 0) {
 		h = 0;
 	} else if (cmax === r) {
@@ -164,13 +161,17 @@ const hexToHSL = (hexColor) => {
 		h += 360;
 	}
 
-	l = (cmax + cmin) / 2;
-	s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+	// Calculate lightness
+	const l = (cmax + cmin) / 2;
 
-	s = +(s * 100).toFixed(1);
-	l = +(l * 100).toFixed(1);
+	// Calculate saturation
+	const s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
-	return {h: Math.round(h), s: Math.round(s), l: Math.round(l)};
+	return {
+		h: Math.round(h),
+		s: Math.round(s * 100),
+		l: Math.round(l * 100)
+	};
 };
 
 /**
