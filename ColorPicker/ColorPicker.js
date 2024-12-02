@@ -4,7 +4,6 @@
  *
  * @example
  * <ColorPicker
- * 	 colors=["#eb4034", "#32a852", "#3455eb"]
  * 	 open
  * 	 selectedColor="#eb4034"
  * />
