@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/QuickGuidePanels` to read out more details according to the latest UX guide
+
 ### Fixed
 
 - `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control

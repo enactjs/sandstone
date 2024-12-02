@@ -265,11 +265,11 @@ const QuickGuidePanelsBase = kind({
 	},
 
 	computed: {
-		'aria-label': ({'aria-label': label, current, index}) => {
+		'aria-label': ({'aria-label': label, current, index, totalPanels}) => {
 			if (label) return label;
 
 			const stepNum = (typeof current === 'number' && current > 0) ? current : (index + 1);
-			const step = new IString($L('step {num}')).format({num: stepNum}) + ' ';
+			const step = new IString($L('Page {num} out of {total}')).format({num: stepNum, total: totalPanels}) + ' ';
 			return `${step}`;
 		},
 		closeButton: ({closeButtonAriaLabel, onClose, totalPanels}) => {
