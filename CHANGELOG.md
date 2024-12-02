@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` to prevent the native scrolling behavior caused by keydown events when a popup is open
+
 ## [2.9.5] - 2024-11-19
 
 ### Added
