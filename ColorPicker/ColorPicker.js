@@ -3,7 +3,11 @@
  * either from a grid, or a spectrum, or RGB/HSL color sliders.
  *
  * @example
- * <ColorPicker />
+ * <ColorPicker
+ * 	 colors=['#eb4034', '#32a852', '#3455eb']
+ * 	 open
+ * 	 selectedColor="#eb4034"
+ * />
  *
  * @module sandstone/ColorPicker
  * @exports ColorPicker
