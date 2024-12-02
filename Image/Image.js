@@ -19,7 +19,7 @@ import Pure from '@enact/ui/internal/Pure';
 import {selectSrc} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {Component} from 'react';
+import {useEffect, useState} from 'react';
 
 import Skinnable from '../Skinnable';
 
@@ -91,44 +91,30 @@ const ImageBase = kind({
 // This is ripe for refactoring, and could probably move into UI to be generalized, but that's for
 // another time. -B 2018-05-01
 const ResponsiveImageDecorator = hoc((config, Wrapped) => {
-	return class extends Component {
-		static displayName = 'ResponsiveImageDecorator';
+	// eslint-disable-next-line no-shadow
+	const ResponsiveImageDecorator = (props) => {
+		const [, setSrc] = useState(selectSrc(props.src));
 
-		static propTypes = {
-			src: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-		};
-
-		constructor (props) {
-			super(props);
-			this.state = {
-				src: selectSrc(this.props.src)
+		useEffect(() => {
+			const handleResize = () => {
+				setSrc(selectSrc(props.src));
 			};
-		}
 
-		componentDidMount () {
-			window.addEventListener('resize', this.handleResize);
-		}
+			window.addEventListener('resize', handleResize);
+			return () => {
+				window.removeEventListener('resize', handleResize);
+			};
+		}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-		componentWillUnmount () {
-			window.removeEventListener('resize', this.handleResize);
-		}
-
-		handleResize = () => {
-			this.setState((state, props) => {
-				const src = selectSrc(props.src);
-				// Trigger a render and save the currently selected src for later comparisons
-				if (src !== state.src) {
-					return {src};
-				}
-
-				return null;
-			});
-		};
-
-		render () {
-			return <Wrapped {...this.props} />;
-		}
+		return <Wrapped {...props} />;
 	};
+
+	ResponsiveImageDecorator.displayName = 'ResponsiveImageDecorator';
+	ResponsiveImageDecorator.propTypes = {
+		src: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+	};
+
+	return ResponsiveImageDecorator;
 });
 
 /**
