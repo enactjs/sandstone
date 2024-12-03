@@ -91,6 +91,25 @@ describe('ColorPickerPOC', () => {
 			expect(red).not.toEqual(changedRed);
 			expect(green).not.toEqual(changedGreen);
 			expect(blue).not.toEqual(changedBlue);
+		});
+
+		test('should emit a selectedColorHandler event when changing sliders\' value', async () => {
+			const selectedColorHandler = jest.fn();
+			const selectedColor = "#eb4034";
+
+			render(<ColorPickerSlider selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} />);
+			const sliders = screen.getAllByRole('slider');
+
+			await changeSliderValueByKey(sliders[0], 30);
+			fireEvent.blur(sliders[0]);
+			expect(selectedColorHandler).toHaveBeenCalled();
+
+			await changeSliderValueByKey(sliders[1], 30, true);
+			fireEvent.blur(sliders[1]);
+			expect(selectedColorHandler).toHaveBeenCalled();
+
+			await changeSliderValueByKey(sliders[2], 30, true);
+			fireEvent.blur(sliders[2]);
 			expect(selectedColorHandler).toHaveBeenCalled();
 		});
 	});

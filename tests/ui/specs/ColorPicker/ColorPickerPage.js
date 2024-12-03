@@ -2,7 +2,7 @@
 const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
 const getTabs = getComponent({component: 'TabLayout', child: 'tabs'});
-const getGridColumns = getComponent({component: 'ColorPickerPOC', child: 'colorPicker'});
+const colorPicker = getComponent({component: 'ColorPickerPOC', child: 'colorPicker'});
 
 class ColorPickerInterface {
 	constructor (id) {
@@ -25,7 +25,7 @@ class ColorPickerInterface {
 		return await (await this.gridColumns()).$$('.ColorPickerPOC_ColorPickerGrid_colorBlock');
 	}
 	async gridColumns () {
-		return await getGridColumns(this.self);
+		return await colorPicker(this.self);
 	}
 
 	get selectedColor () {
@@ -38,6 +38,23 @@ class ColorPickerInterface {
 
 	get canvas () {
 		return element('.ColorPickerPOC_ColorPickerSpectrum_gradientCanvas', browser);
+	}
+
+	async sliders () {
+		return await (await this.sliderColorPicker()).$$('.ColorPickerPOC_ColorPickerSlider_sliderCell');
+	}
+	async slidersOutput () {
+		return await (await this.sliderColorPicker()).$$('.ColorPickerPOC_ColorPickerSlider_outputText');
+	}
+	async slidersLabel () {
+		return await (await this.sliderColorPicker()).$$('.ColorPickerPOC_ColorPickerSlider_labelText');
+	}
+	async sliderColorPicker () {
+		return await colorPicker(this.self);
+	}
+
+	get slidersDropdown () {
+		return element('.ColorPickerPOC_ColorPickerSlider_pickerSelect', browser);
 	}
 }
 
