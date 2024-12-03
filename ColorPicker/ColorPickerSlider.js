@@ -380,7 +380,7 @@ ColorPickerSliderHSL.propTypes = {
  * @private
  */
 const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
-	const [pickerType, setPickerType] = useState('RGB Picker');
+	const [pickerType, setPickerType] = useState('RGB');
 
 	const handleBlur = useCallback(() => {
 		if (checkHex(selectedColor)) selectedColorHandler('#000000');
@@ -405,7 +405,7 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 						placeholder={pickerType}
 						size="small"
 					>
-						{['RGB Picker', 'HSL Picker']}
+						{['RGB', 'HSL']}
 					</Dropdown>
 				</Cell>
 				<Cell size="40%">
@@ -419,7 +419,7 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 					/>
 				</Cell>
 			</Row>
-			{pickerType === 'HSL Picker' ?
+			{pickerType === 'HSL' ?
 				<ColorPickerSliderHSL selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} /> :
 				<ColorPickerSliderRGB selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} />
 			}
