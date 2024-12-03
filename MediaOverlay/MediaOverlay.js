@@ -3,7 +3,7 @@
  *
  * @example
  * <MediaOverlay text="overlay">
- *   <source src="https://media.w3.org/2010/05/sintel/trailer.mp4" />
+ *   <source src="http://media.w3.org/2010/05/sintel/trailer.mp4" />
  * </MediaOverlay>
  *
  * @module sandstone/MediaOverlay

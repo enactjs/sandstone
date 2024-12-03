@@ -24,9 +24,9 @@ class VideoSourceSwap extends Component {
 		this.state = {
 			videoTitles: ['Cosmos Laundromat', 'Sintel', 'VideoTest'],
 			playlist: [
-				'https://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4',
-				'https://media.w3.org/2010/05/sintel/trailer.mp4',
-				'https://media.w3.org/2010/05/video/movie_300.mp4'
+				'http://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4',
+				'http://media.w3.org/2010/05/sintel/trailer.mp4',
+				'http://media.w3.org/2010/05/video/movie_300.mp4'
 			],
 			cursor: 0,
 			preloadCursor: 1
@@ -155,7 +155,7 @@ class VideoPlayerWithfastForwardMode extends Component {
 					title={'Cosmos Laundromat'}
 				>
 					<Video>
-						<source src={'https://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4'} />
+						<source src={'http://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4'} />
 					</Video>
 					<MediaControls>
 						<Button
@@ -196,7 +196,7 @@ class VideoPlayerWithLayer extends Component {
 					title={'Cosmos Laundromat'}
 				>
 					<Video>
-						<source src={'https://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4'} />
+						<source src={'http://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4'} />
 					</Video>
 				</VideoPlayer>
 				<div style={{left: 0, top: 0, bottom: 0, width: 500, backgroundColor: "green", position: "absolute"}}>{"screen saver"}</div>
@@ -238,7 +238,7 @@ class VideoPlayerWithExpandedMediaControls extends Component {
 					title="Sintel"
 				>
 					<Video>
-						<source src="https://media.w3.org/2010/05/sintel/trailer.mp4" />
+						<source src="http://media.w3.org/2010/05/sintel/trailer.mp4" />
 					</Video>
 				</VideoPlayer>
 			</div>

@@ -40,8 +40,8 @@ npm test
 ```
 
 ## Links
-* [Sandstone API Docs](https://enactjs.com/docs/modules/sandstone/ActionGuide/)
-* [Sandstone Component Sampler](https://enactjs.com/sampler)
+* [Sandstone API Docs](http://enactjs.com/docs/modules/sandstone/ActionGuide/)
+* [Sandstone Component Sampler](http://enactjs.com/sampler)
 
 ## Copyright and License Information
 

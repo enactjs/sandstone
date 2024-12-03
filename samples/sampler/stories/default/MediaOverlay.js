@@ -9,9 +9,9 @@ const prop = {
 	marqueeOn: ['focus', 'hover', 'render'],
 	textAlign: ['start', 'center', 'end'],
 	videos: {
-		Sintel: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
-		'Cosmos Laundromat': 'https://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4',
-		VideoTest: 'https://media.w3.org/2010/05/video/movie_300.mp4',
+		Sintel: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
+		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4',
+		VideoTest: 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
 	},

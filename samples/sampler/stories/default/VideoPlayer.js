@@ -40,17 +40,17 @@ const prop = {
 	moreButtonColor: ['', 'red', 'green', 'yellow', 'blue'],
 	videoTitles: ['Sintel', 'Cosmos Laundromat', 'VideoTest', 'Bad Video Source'],
 	videos: {
-		Sintel: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
-		'Cosmos Laundromat': 'https://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4',
-		VideoTest: 'https://media.w3.org/2010/05/video/movie_300.mp4',
+		Sintel: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
+		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Pilot_Trailer_Cosmos_Laundromat.mp4',
+		VideoTest: 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
 	},
 	posters: {
-		Sintel: 'https://media.w3.org/2010/05/sintel/poster.png',
-		'Cosmos Laundromat': 'https://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1-2k-png/07580.png',
-		VideoTest: 'https://media.w3.org/2010/05/video/poster.png',
-		'Bad Video Source': 'https://media.w3.org/2010/05/video/poster.png'
+		Sintel: 'http://media.w3.org/2010/05/sintel/poster.png',
+		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1-2k-png/07580.png',
+		VideoTest: 'http://media.w3.org/2010/05/video/poster.png',
+		'Bad Video Source': 'http://media.w3.org/2010/05/video/poster.png'
 	},
 	events: [
 		'onAbort',

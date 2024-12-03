@@ -29,14 +29,14 @@ const locales = {
 
 const backgrounds = {
 	'Default (Based on Skin)': 'default',
-	'Strawberries (Red)':      '#bb3352 url("https://picsum.photos/1280/720?image=1080") no-repeat center/cover',
-	'Tunnel (Green)':          '#4e6a40 url("https://picsum.photos/1280/720?image=1063") no-repeat center/cover',
-	'Mountains (Blue)':        '#5985a8 url("https://picsum.photos/1280/720?image=930") no-repeat center/cover',
-	'Misty River':             '#71736d url("https://picsum.photos/1280/720?image=1044") no-repeat center/cover',
-	'Turbulant Tides':         '#547460 url("https://picsum.photos/1280/720?image=1053") no-repeat center/cover',
-	'Space Station':           '#7c4590 url("https://picsum.photos/1280/720?image=967") no-repeat center/cover',
-	'Warm Pup':                '#5d6542 url("https://picsum.photos/1280/720?image=1025") no-repeat center/cover',
-	'Random':                  '#555 url("https://picsum.photos/1280/720") no-repeat center/cover'
+	'Strawberries (Red)':      '#bb3352 url("http://picsum.photos/1280/720?image=1080") no-repeat center/cover',
+	'Tunnel (Green)':          '#4e6a40 url("http://picsum.photos/1280/720?image=1063") no-repeat center/cover',
+	'Mountains (Blue)':        '#5985a8 url("http://picsum.photos/1280/720?image=930") no-repeat center/cover',
+	'Misty River':             '#71736d url("http://picsum.photos/1280/720?image=1044") no-repeat center/cover',
+	'Turbulant Tides':         '#547460 url("http://picsum.photos/1280/720?image=1053") no-repeat center/cover',
+	'Space Station':           '#7c4590 url("http://picsum.photos/1280/720?image=967") no-repeat center/cover',
+	'Warm Pup':                '#5d6542 url("http://picsum.photos/1280/720?image=1025") no-repeat center/cover',
+	'Random':                  '#555 url("http://picsum.photos/1280/720") no-repeat center/cover'
 };
 
 const skins = {

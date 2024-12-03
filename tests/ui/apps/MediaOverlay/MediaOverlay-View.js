@@ -7,7 +7,7 @@ import spotlight from '@enact/spotlight';
 spotlight.setPointerMode(false);
 
 const videos = {
-	Sintel: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+	Sintel: 'http://media.w3.org/2010/05/sintel/trailer.mp4'
 };
 
 const app = (props) => <div {...props}>
