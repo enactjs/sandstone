@@ -292,7 +292,7 @@ ColorPickerBase.displayName = 'ColorPicker';
 
 ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.prototype */
 	/**
-	 * Indicates selected the color.
+	 * Indicates the selected color.
 	 *
 	 * @type {String}
 	 * @public
