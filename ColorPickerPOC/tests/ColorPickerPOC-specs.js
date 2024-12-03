@@ -2,9 +2,8 @@ import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import {ColorPickerPOC} from '../ColorPickerPOC';
 import ColorPickerGrid from '../ColorPickerGrid';
-import ColorPickerSpectrum from '../ColorPickerSpectrum';
+// import ColorPickerSpectrum from '../ColorPickerSpectrum';
 import ColorPickerSlider from '../ColorPickerSlider';
 
 describe('ColorPickerPOC', () => {
@@ -20,8 +19,8 @@ describe('ColorPickerPOC', () => {
 			const {container} = render(
 				<ColorPickerGrid onClick={onClickHandler} selectedColorHandler={selectedColorHandler} />
 			);
-			const colorsColumnDiv = container.querySelectorAll('.colorsColumn');
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[0];
+			const colorsColumnDiv = container.querySelectorAll('.colorsColumn'); // eslint-disable-line
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[0]; // eslint-disable-line
 
 			await user.click(secondColorBlock);
 			expect(onClickHandler).toHaveBeenCalled();

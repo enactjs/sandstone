@@ -9,7 +9,7 @@ spotlight.setPointerMode(false);
 
 const App = (props) => {
 	const [selectedColor, setSelectedColor] = useState('#eb4034');
-	const [favoriteColors, ] = useState(['#eb4034', '#32a852', '#3455eb']);
+	const [favoriteColors] = useState(['#eb4034', '#32a852', '#3455eb']);
 
 	return (
 		<div {...props}>

@@ -56,7 +56,7 @@ describe('ColorPicker', function () {
 		});
 
 		describe('5-way', function () {
-			it('should change selected color with 5-way keys', async function (){
+			it('should change selected color with 5-way keys', async function () {
 				await Page.spotlightDown();
 				await Page.spotlightSelect();
 				for (let i = 0; i < 20; i++) {
