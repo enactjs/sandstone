@@ -1290,11 +1290,11 @@ export const WithFixedPopupPanels = () => {
 
 	const handleOpen = useCallback(() => {
 		setOpenState(true);
-	}, [setOpenState]);
+	}, []);
 
 	const handleClose = useCallback(() => {
 		setOpenState(false);
-	}, [setOpenState]);
+	}, []);
 
 	return (
 		<>
@@ -1305,11 +1305,11 @@ export const WithFixedPopupPanels = () => {
 				<div style={{height: ri.scaleToRem(2400)}} />
 			</Scroller>
 			<FixedPopupPanels open={open} onClose={handleClose}>
-				<FixedPopupPanels.Panel>
+				<Panel>
 					<Header title="Panel" />
 					<Item>Item A</Item>
 					<Item>Item B</Item>
-				</FixedPopupPanels.Panel>
+				</Panel>
 			</FixedPopupPanels>
 		</>
 	);
