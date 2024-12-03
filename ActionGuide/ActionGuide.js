@@ -10,6 +10,7 @@
  * @exports ActionGuideDecorator
  */
 
+
 import kind from '@enact/core/kind';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
