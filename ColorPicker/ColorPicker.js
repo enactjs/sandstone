@@ -4,7 +4,7 @@
  *
  * @example
  * <ColorPicker
- * 	 colors=['#eb4034', '#32a852', '#3455eb']
+ * 	 onChangeColor={console.log}
  * 	 open
  * />
  *
@@ -193,22 +193,6 @@ FavoriteColors.displayName = 'FavoriteColors';
 
 FavoriteColors.propTypes = {
 	/**
-	 * Called when the selected color is modified.
-	 *
-	 * @type {Function}
-	 * @private
-	 */
-	colorHandler: PropTypes.func,
-
-	/**
-	 * Contains an array with colors.
-	 *
-	 * @type {Array}
-	 * @private
-	 */
-	colors: PropTypes.array,
-
-	/**
 	 * Contains an array with the favorite colors.
 	 *
 	 * @type {Array}
@@ -292,9 +276,6 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 				<Cell align="end" size="25%">
 					<Column>
 						<FavoriteColors
-							colorHandler={onChangeColor}
-							colors={colors}
-							css={css}
 							favoriteColors={favoriteColors}
 							favoriteColorsHandler={setFavoriteColors}
 							selectedColor={selectedColor}
