@@ -25,7 +25,7 @@ export default {
 	component: 'FlexiblePopupPanels'
 };
 
-export const FlexiblePopupPanels_ = (args) => {
+export const _FlexiblePopupPanels = (args) => {
 	const defaultOpen = false;
 	const [open, setOpenState] = useState(defaultOpen);
 	const toggleOpen = () => setOpenState(!open);
@@ -109,26 +109,26 @@ export const FlexiblePopupPanels_ = (args) => {
 	);
 };
 
-boolean('fullHeight', FlexiblePopupPanels_, Config);
-select('nextButtonVisibility', FlexiblePopupPanels_, propOptions.buttonVisibility, Config);
-boolean('noAnimation', FlexiblePopupPanels_, Config);
-boolean('noAutoDismiss', FlexiblePopupPanels_, Config);
-boolean('noCloseButton', FlexiblePopupPanels_, Config);
-select('prevButtonVisibility', FlexiblePopupPanels_, propOptions.buttonVisibility, Config);
-select('scrimType', FlexiblePopupPanels_, ['none', 'translucent', 'transparent'], Config, 'translucent');
+boolean('fullHeight', _FlexiblePopupPanels, Config);
+select('nextButtonVisibility', _FlexiblePopupPanels, propOptions.buttonVisibility, Config);
+boolean('noAnimation', _FlexiblePopupPanels, Config);
+boolean('noAutoDismiss', _FlexiblePopupPanels, Config);
+boolean('noCloseButton', _FlexiblePopupPanels, Config);
+select('prevButtonVisibility', _FlexiblePopupPanels, propOptions.buttonVisibility, Config);
+select('scrimType', _FlexiblePopupPanels, ['none', 'translucent', 'transparent'], Config, 'translucent');
 select(
 	'spotlightRestrict',
-	FlexiblePopupPanels_,
+	_FlexiblePopupPanels,
 	['self-first', 'self-only'],
 	Config,
 	'self-only'
 );
-select('size', FlexiblePopupPanels_, propOptions.size, PanelConfig);
-boolean('custom first Panel prevButton', FlexiblePopupPanels_, PanelConfig);
-boolean('custom last Panel nextButton', FlexiblePopupPanels_, PanelConfig);
+select('size', _FlexiblePopupPanels, propOptions.size, PanelConfig);
+boolean('custom first Panel prevButton', _FlexiblePopupPanels, PanelConfig);
+boolean('custom last Panel nextButton', _FlexiblePopupPanels, PanelConfig);
 
-FlexiblePopupPanels_.storyName = 'FlexiblePopupPanels';
-FlexiblePopupPanels_.parameters = {
+_FlexiblePopupPanels.storyName = 'FlexiblePopupPanels';
+_FlexiblePopupPanels.parameters = {
 	info: {
 		text:
 			'Intended for use with a single "control" at a time, to maximize the amount of background visible.'
