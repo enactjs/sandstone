@@ -991,7 +991,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	generateId = () => {
-		return Math.random().toString(36).substring(2, 10);
+		return Math.random().toString(36).substr(2, 8);
 	};
 
 	isTimeBeyondSelection (time) {
