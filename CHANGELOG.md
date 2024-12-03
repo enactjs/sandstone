@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control
 - `sandstone/Scroller` to prevent the native scrolling behavior caused by keydown events when a popup is open
 
 ## [3.0.0-alpha.3] - 2024-12-02
