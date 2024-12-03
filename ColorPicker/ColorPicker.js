@@ -362,7 +362,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
  * @memberof sandstone/ColorPicker
  * @extends sandstone/ColorPicker.ColorPickerBase
  * @ui
- * @ublic
+ * @public
  */
 const ColorPicker = Skinnable(ColorPickerBase);
 
