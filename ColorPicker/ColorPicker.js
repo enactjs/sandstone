@@ -252,7 +252,7 @@ FavoriteColors.propTypes = {
  * @ui
  * @public
  */
-const ColorPickerBase = ({color = '#eb4034', colors = [], css, onChangeColor, open, ...rest}) => {
+const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], css, onChangeColor, open, ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
 	const [selectedColor, setSelectedColor] = useState(color);
 
