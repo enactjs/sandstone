@@ -549,9 +549,9 @@ const variableItemSizes = fixedItemSizes.map((size, index) => {
 });
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
-const renderVirtualListItem = (data) => ({index, ...rest}) => {
+const renderVirtualListItem = (data, onClick = {}) => ({index, ...rest}) => {
 	return (
-		<Item {...rest} style={{width:data[index], margin: ri.scaleToRem(15)}}>
+		<Item {...rest} style={{width: data[index], margin: ri.scaleToRem(15)}} onClick={onClick(index)}>
 			{`item ${index}`}
 		</Item>
 	);
@@ -622,5 +622,48 @@ export const WithChangingItemSizes = () => {
 
 WithChangingItemSizes.storyName = 'with changing item sizes';
 WithChangingItemSizes.parameters = {
+	propTables: [Config]
+};
+
+const initializeItemSizes = (size) => {
+	const data = new Array(size).fill(ri.scale(390));
+	return data.map((val, index) => index % 2  ? val * 2  : val);
+}
+
+export const WithChangingDataSizeAndItemSizes = () => {
+	const [data, setData] = useState(initializeItemSizes(16));
+
+	const handleRestore = useCallback(() => {
+        setData(initializeItemSizes(16));
+    }, []);
+
+	const handleItemClick = useCallback(index => () => {
+        setData(data.filter((_, i) => i !== index));
+    }, [data]);
+
+	return (
+		<Column>
+			<Cell shrink>
+				<Button size="small" onClick={handleRestore}>Restore items</Button>
+			</Cell>
+			<br />
+			<br />
+			<Cell>
+				<VirtualList
+					dataSize={data.length}
+					direction="horizontal"
+					itemRenderer={renderVirtualListItem(data, handleItemClick)}
+					itemSize={{
+						size: data,
+						minSize: Math.min(...data)
+					}}
+				/>
+			</Cell>
+		</Column>
+	);
+};
+
+WithChangingDataSizeAndItemSizes.storyName = 'with changing dataSize and itemSizes';
+WithChangingDataSizeAndItemSizes.parameters = {
 	propTables: [Config]
 };
