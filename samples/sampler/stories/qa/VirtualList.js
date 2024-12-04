@@ -545,7 +545,7 @@ WithContainerItemsHaveSpottableControls.parameters = {
 
 const fixedItemSizes = new Array(16).fill(ri.scale(390));
 const variableItemSizes = fixedItemSizes.map((size, index) => {
-	return index % 2  ? size * 2  : size;
+	return index % 2 ? size * 2 : size;
 });
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
@@ -627,19 +627,19 @@ WithChangingItemSizes.parameters = {
 
 const initializeItemSizes = (size) => {
 	const data = new Array(size).fill(ri.scale(390));
-	return data.map((val, index) => index % 2  ? val * 2  : val);
-}
+	return data.map((val, index) => index % 2 ? val * 2 : val);
+};
 
 export const WithChangingDataSizeAndItemSizes = () => {
 	const [data, setData] = useState(initializeItemSizes(16));
 
 	const handleRestore = useCallback(() => {
-        setData(initializeItemSizes(16));
-    }, []);
+		setData(initializeItemSizes(16));
+	}, []);
 
 	const handleItemClick = useCallback(index => () => {
-        setData(data.filter((_, i) => i !== index));
-    }, [data]);
+		setData(data.filter((_, i) => i !== index));
+	}, [data]);
 
 	return (
 		<Column>
