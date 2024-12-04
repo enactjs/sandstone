@@ -374,7 +374,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 *
 	 * @type {('grid'|'spectrum'|'sliders')}
 	 * @default 'grid'
-	 * @private
+	 * @public
 	 */
 	type: PropTypes.oneOf(['grid', 'spectrum', 'sliders'])
 };
