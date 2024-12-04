@@ -128,7 +128,7 @@ export const _VideoPlayer = (args) => {
 			<label
 				style={{
 					outline: 'teal dashed 1px',
-					backgroundColor: 'rgba(0, 128, 128, 0.5)',
+					backgroundColor: 'rgb(0, 128, 128, 0.5)',
 					color: '#0bb',
 					position: 'absolute',
 					transform: 'translateY(-100%)',

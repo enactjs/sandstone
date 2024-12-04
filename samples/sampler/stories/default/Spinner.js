@@ -19,7 +19,7 @@ export const _Spinner = (args) => (
 			outline: 'teal dashed 1px',
 			position: 'relative',
 			padding: ri.scaleToRem(180),
-			backgroundColor: 'rgba(0, 187, 187, 0.5)'
+			backgroundColor: 'rgb(0, 187, 187, 0.5)'
 		}}
 	>
 		<div
@@ -43,7 +43,7 @@ export const _Spinner = (args) => (
 			<label
 				style={{
 					outline: 'teal dashed 1px',
-					backgroundColor: 'rgba(0, 128, 128, 0.5)',
+					backgroundColor: 'rgb(0, 128, 128, 0.5)',
 					color: '#0bb',
 					position: 'absolute',
 					transform: 'translateY(-100%)',

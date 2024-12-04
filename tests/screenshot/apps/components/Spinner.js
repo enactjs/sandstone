@@ -7,7 +7,7 @@ const SpinnerTests = [
 			outline: 'teal dashed 1px',
 			position: 'relative',
 			padding: ri.unit(90, 'rem'),
-			backgroundColor: 'rgba(0, 187, 187, 0.5)'
+			backgroundColor: 'rgb(0, 187, 187, 0.5)'
 		}}
 	>
 		<div
@@ -25,7 +25,7 @@ const SpinnerTests = [
 			outline: 'teal dashed 1px',
 			position: 'relative',
 			padding: ri.unit(90, 'rem'),
-			backgroundColor: 'rgba(0, 187, 187, 0.5)'
+			backgroundColor: 'rgb(0, 187, 187, 0.5)'
 		}}
 	>
 		<div
@@ -43,7 +43,7 @@ const SpinnerTests = [
 			outline: 'teal dashed 1px',
 			position: 'relative',
 			padding: ri.unit(90, 'rem'),
-			backgroundColor: 'rgba(0, 187, 187, 0.5)'
+			backgroundColor: 'rgb(0, 187, 187, 0.5)'
 		}}
 	>
 		<div
@@ -61,7 +61,7 @@ const SpinnerTests = [
 			outline: 'teal dashed 1px',
 			position: 'relative',
 			padding: ri.unit(90, 'rem'),
-			backgroundColor: 'rgba(0, 187, 187, 0.5)'
+			backgroundColor: 'rgb(0, 187, 187, 0.5)'
 		}}
 	>
 		<div
@@ -79,7 +79,7 @@ const SpinnerTests = [
 			outline: 'teal dashed 1px',
 			position: 'relative',
 			padding: ri.unit(90, 'rem'),
-			backgroundColor: 'rgba(0, 187, 187, 0.5)'
+			backgroundColor: 'rgb(0, 187, 187, 0.5)'
 		}}
 	>
 		<div
@@ -97,7 +97,7 @@ const SpinnerTests = [
 			outline: 'teal dashed 1px',
 			position: 'relative',
 			padding: ri.unit(90, 'rem'),
-			backgroundColor: 'rgba(0, 187, 187, 0.5)'
+			backgroundColor: 'rgb(0, 187, 187, 0.5)'
 		}}
 	>
 		<div
