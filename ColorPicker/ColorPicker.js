@@ -236,14 +236,29 @@ FavoriteColors.propTypes = {
  * @ui
  * @public
  */
-const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], css, onChangeColor, open, ...rest}) => {
+const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], css, onChangeColor, open, type = 'grid', ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
 	const [selectedColor, setSelectedColor] = useState(color);
+	const [tabLayoutIndex, setTabLayoutIndex] = useState(0);
 
 	useEffect(() => {
 		setFavoriteColors(colors);
 		setSelectedColor(color);
-	}, [color, colors]);
+
+		switch (type) {
+			case 'grid':
+				setTabLayoutIndex(0);
+				return;
+			case 'spectrum':
+				setTabLayoutIndex(1);
+				return;
+			case 'sliders':
+				setTabLayoutIndex(2);
+				return;
+			default:
+				setTabLayoutIndex(0);
+		}
+	}, [color, colors, type]);
 
 	useEffect(() => {
 		if (selectedColor || favoriteColors) {
@@ -251,22 +266,32 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 		}
 	}, [favoriteColors, onChangeColor, selectedColor]);
 
+	const handleGridClick = useCallback(() => {
+		setTabLayoutIndex(0);
+	}, [setTabLayoutIndex]);
+	const handleSpectrumClick = useCallback(() => {
+		setTabLayoutIndex(1);
+	}, [setTabLayoutIndex]);
+	const handleSlidersClick = useCallback(() => {
+		setTabLayoutIndex(2);
+	}, [setTabLayoutIndex]);
+
 	return (
 		<Popup open={open} position="center" {...rest}>
 			<Row>
 				<Cell size="75%">
-					<TabLayout className={componentCss.pickerTabLayout} css={css} orientation="horizontal">
-						<Tab style={{width: ri.scaleToRem(400)}} title="Grid">
+					<TabLayout className={componentCss.pickerTabLayout} css={css} index={tabLayoutIndex} orientation="horizontal">
+						<Tab onTabClick={handleGridClick} style={{width: ri.scaleToRem(400)}} title="Grid">
 							<div className={componentCss.colorPicker}>
 								<ColorPickerGrid selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
-						<Tab style={{width: ri.scaleToRem(400)}} title="Spectrum">
+						<Tab onTabClick={handleSpectrumClick} style={{width: ri.scaleToRem(400)}} title="Spectrum">
 							<div className={componentCss.colorPicker}>
 								<ColorPickerSpectrum selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
-						<Tab style={{width: ri.scaleToRem(400)}} title="Sliders">
+						<Tab onTabClick={handleSlidersClick} style={{width: ri.scaleToRem(400)}} title="Sliders">
 							<div className={componentCss.colorPicker}>
 								<ColorPickerSlider selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 							</div>
@@ -317,6 +342,15 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	css: PropTypes.object,
 
 	/**
+	 * Disables the color picker.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	disabled: PropTypes.bool,
+
+	/**
 	 * Called when the selected color is modified.
 	 *
 	 * @type {Function}
@@ -333,7 +367,16 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * @default false
 	 * @public
 	 */
-	open: PropTypes.bool
+	open: PropTypes.bool,
+
+	/**
+	 * Set the type of color picker to use.
+	 *
+	 * @type {('grid'|'spectrum'|'sliders')}
+	 * @default 'grid'
+	 * @private
+	 */
+	type: PropTypes.oneOf(['grid', 'spectrum', 'sliders'])
 };
 
 /**
