@@ -63,7 +63,7 @@ const CircleIndicator = ({bgColor, canvasRef, disabled, isIndicatorActive, selec
 				setPrevKey(keyCode);
 			}
 		}
-	}, [canvasRef, holding, isIndicatorActive, prevKey, setIndicatorBgColor, setIsIndicatorActive, stepValue, x, y]);
+	}, [canvasRef, disabled, holding, isIndicatorActive, prevKey, setIndicatorBgColor, setIsIndicatorActive, stepValue, x, y]);
 
 	const handleOnKeyUp = useCallback(({keyCode}) => {
 		if (is('down', keyCode)) {
