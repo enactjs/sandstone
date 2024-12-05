@@ -69,7 +69,7 @@ const SwitchBase = kind({
 
 	defaultProps: {
 		children: 'circle',
-		noAnimation: true, // typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
+		noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
 		selected: false
 	},
 
