@@ -55,7 +55,7 @@ export const _QuickGuidePanels = (args) => {
 							This sample needs to be run with FHD or 4K dimensions.
 						</div>
 						<div className={css.svg}>
-							<svg width="100%" height="100%" fill="rgb(87, 94, 102, 0.3)">
+							<svg width="100%" height="100%" fill="rgba(87, 94, 102, 0.3)">
 								<path d={`M0 0 h${screenWidth} v${screenHeight} h-${screenWidth}z`} />
 							</svg>
 						</div>
@@ -65,7 +65,7 @@ export const _QuickGuidePanels = (args) => {
 							This is a Sandstone Button component.
 						</div>
 						<div className={css.svg}>
-							<svg width="100%" height="100%" fill="rgb(87, 94, 102, 0.3)">
+							<svg width="100%" height="100%" fill="rgba(87, 94, 102, 0.3)">
 								<path d={`M0 0 h${screenWidth} v${screenHeight} h-${screenWidth}z M${184 * widthRatio} ${100 * heightRatio} v${100 * heightRatio} h${200 * widthRatio} v-${100 * heightRatio}z`} />
 							</svg>
 						</div>
@@ -75,7 +75,7 @@ export const _QuickGuidePanels = (args) => {
 							This is a Sandstone SwitchItem component.
 						</div>
 						<div className={css.svg}>
-							<svg width="100%" height="100%" fill="rgb(87, 94, 102, 0.3)">
+							<svg width="100%" height="100%" fill="rgba(87, 94, 102, 0.3)">
 								<path d={`M0 0 h${screenWidth} v${screenHeight} h-${screenWidth}z M${184 * widthRatio} ${232 * heightRatio} v${100 * heightRatio} h${200 * widthRatio} v-${100 * heightRatio}z`} />
 							</svg>
 						</div>

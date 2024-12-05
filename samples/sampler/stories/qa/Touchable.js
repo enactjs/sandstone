@@ -60,7 +60,7 @@ const TouchArea = kind({
 					width: moveTolerance * 2 + 'px',
 					borderRadius: '999px',
 					border: '1px solid orange',
-					backgroundColor: 'rgb(255, 180, 0, 0.3)',
+					backgroundColor: 'rgba(255, 180, 0, 0.3)',
 					pointerEvents: 'none',
 					touchAction: 'none'
 				}}

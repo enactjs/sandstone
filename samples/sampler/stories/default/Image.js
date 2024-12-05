@@ -35,7 +35,7 @@ export const _Image = (args) => (
 				border: '#ffa500 dashed 1px',
 				borderBottomWidth: 0,
 				borderRadius: '12px 12px 0 0',
-				backgroundColor: 'rgb(255, 165, 0, 0.5)',
+				backgroundColor: 'rgba(255, 165, 0, 0.5)',
 				color: '#fff',
 				position: 'absolute',
 				transform: 'translateX(-1px) translateY(-100%)',
