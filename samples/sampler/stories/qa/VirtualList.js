@@ -549,7 +549,7 @@ const variableItemSizes = fixedItemSizes.map((size, index) => {
 });
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
-const renderVirtualListItem = (data, onClick = {}) => ({index, ...rest}) => {
+const renderVirtualListItem = (data, onClick = () => {}) => ({index, ...rest}) => {
 	return (
 		<Item {...rest} style={{width: data[index], margin: ri.scaleToRem(15)}} onClick={onClick(index)}>
 			{`item ${index}`}
