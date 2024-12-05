@@ -116,7 +116,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 		<div {...rest} className={classNames(className, scrollbarTrackCss && scrollbarTrackCss.scrollbarTrack)} ref={ref}>
 			<ScrollbarThumb
 				aria-label={ariaLabel}
-				className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb)}
+				className={classNames(css.thumb, scrollbarTrackCss && scrollbarTrackCss.thumb, (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? css.noAnimation : null)}
 				data-spotlight-ignore-restore
 				onKeyDown={onKeyDown}
 			>

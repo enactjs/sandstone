@@ -95,7 +95,8 @@ const MediaTitleBase = kind({
 			infoVisible ? 'visible' : 'hidden'
 		),
 		className: ({visible, styler}) => styler.append(
-			visible ? 'visible' : 'hidden'
+			visible ? 'visible' : 'hidden',
+			{noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION}
 		),
 		titleClassName: ({infoVisible, styler}) => styler.join({
 			title: true,

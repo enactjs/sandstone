@@ -69,7 +69,10 @@ const HeaderBase = kind({
 	computed: {
 		backButtonAriaLabel: ({closeButtonAriaLabel}) => closeButtonAriaLabel == null ? $L('Exit app') : closeButtonAriaLabel,
 		backButtonBackgroundOpacity: ({closeButtonBackgroundOpacity}) => closeButtonBackgroundOpacity,
-		className: ({noCloseButton, styler}, {count}) => styler.append({'showBack': (count > 1 && noCloseButton)}),
+		className: ({noCloseButton, styler}, {count}) => styler.append({
+			'showBack': (count > 1 && noCloseButton),
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
+		}),
 		noBackButton: ({noCloseButton}) => noCloseButton
 	},
 

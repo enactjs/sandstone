@@ -361,7 +361,10 @@ const TabLayoutBase = kind({
 			<Fragment>{child.props.children}</Fragment>
 		)),
 		className: ({collapsed, anchorTo, orientation, styler}) => styler.append(
-			{collapsed: orientation === 'vertical' && collapsed},
+			{
+				collapsed: orientation === 'vertical' && collapsed,
+				noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
+			},
 			`anchor${cap(anchorTo)}`,
 			orientation
 		),

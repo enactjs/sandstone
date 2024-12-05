@@ -290,7 +290,21 @@
 						}
 					}
 				}
-			})
+			});
+
+			&.noAnimation {
+				.focus({
+					:global(.spotlight-input-mouse)& {
+						&.horizontal.arrow, &.vertical {
+							&::before {
+								.sand-spotlight-focus-bg-colors(@shadow: {
+									box-shadow: none;
+								});
+							}
+						}
+					}
+				})
+			}
 		}
 	});
 }

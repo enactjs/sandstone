@@ -70,6 +70,17 @@
 		}
 	}
 
+	&.noAnimation {
+		.title {
+			transition: none;
+		}
+
+		.infoComponents {
+			&.visible {
+				transition: none;
+			}
+		}
+	}
 	.applySkins({
 		.titleFrame {
 			color: @sand-video-player-title-color;

@@ -117,5 +117,15 @@
 				.sand-spotlight-focus-bg-colors();
 			}
 		});
+
+		&.noAnimation {
+			.focus({
+				.bg {
+					.sand-spotlight-focus-bg-colors(@shadow: {
+						box-shadow: none;
+					});
+				}
+			});
+		}
 	});
 }

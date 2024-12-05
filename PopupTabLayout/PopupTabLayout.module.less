@@ -86,6 +86,13 @@
 			outline-offset: -@sand-overlay-outline-width;
 		}
 
+		&.noAnimation {
+			.tabs,
+			.content .panels::before {
+				box-shadow: none;
+			}
+		}
+
 		&.scrimTranslucent {
 			.tabs,
 			.content .panels::before {

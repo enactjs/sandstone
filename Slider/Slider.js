@@ -133,6 +133,7 @@ const SliderBase = (props) => {
 
 	const componentClassName = classnames(
 		componentCss.slider,
+		(typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? componentCss.noAnimation : null,
 		className,
 		{
 			[mergedCss.active]: active,

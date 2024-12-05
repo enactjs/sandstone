@@ -669,7 +669,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 						{transform: 'none', opacity: 0, offset: 0},
 						{transform: `translateY(${-this.actionGuideHeight}px)`, opacity: 1, offset: 1}
 					], {
-						duration: animationDuration,
+						duration: (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? 0 : animationDuration,
 						fill: 'forwards'
 					});
 					this.animation.onfinish = this.handleFinish;

@@ -133,7 +133,7 @@ const PickerBase = (props) => {
 
 	let Component;
 	let arranger = horizontal ? SlideLeftArranger : SlideTopArranger;
-	let noAnimation = props.noAnimation || disabled;
+	let noAnimation = typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION || props.noAnimation || disabled;
 	let sizingPlaceholder = null;
 
 	const clearPressedState = useCallback(() => {
@@ -432,9 +432,10 @@ const PickerBase = (props) => {
 				[cssProps.decrementing]: (!decrementerDisabledProp && pressed === -1),
 				[cssProps.incrementing]: (!incrementerDisabledProp && pressed === 1)
 			},
-			classNameVariable
+			classNameVariable,
+			noAnimation ? cssProps.noAnimation : null
 		);
-	}, [changedBy, joined, orientation, pressed, props, width]);
+	}, [changedBy, joined, noAnimation, orientation, pressed, props, width]);
 
 	const calcValueText = useCallback(() => {
 		const {accessibilityHint = ''} = props;
