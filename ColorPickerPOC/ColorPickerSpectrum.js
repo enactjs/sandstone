@@ -45,18 +45,20 @@ const SpectrumColorPicker = (props) => {
 			for (let x = 0; x < canvas.width; x++) {
 				for (let y = 0; y < canvas.height; y++) {
 					const pixelIndex = (y * canvas.width * 4) + (x * 4);
-					const pixelColor = `#${imageData.data[pixelIndex].toString(16).padStart(2, '0')}${imageData.data[pixelIndex + 1].toString(16).padStart(2, '0')}${imageData.data[pixelIndex + 2].toString(16).padStart(2, '0')}`;
-					if (pixelColor === selectedColor) {
-						setIndicatorX(x);
-						setIndicatorY(y);
-						return;
-					} else {
-						// if the color is not found, position the indicator at the origin(0, 0) of the canvas
-						setIndicatorX(0);
-						setIndicatorY(0);
+					// Ensure pixelIndex is within bounds
+					if (pixelIndex < imageData.data.length - 4) {
+						const pixelColor = `#${imageData.data[pixelIndex].toString(16).padStart(2, '0')}${imageData.data[pixelIndex + 1].toString(16).padStart(2, '0')}${imageData.data[pixelIndex + 2].toString(16).padStart(2, '0')}`;
+						if (pixelColor === selectedColor) {
+							setIndicatorX(x);
+							setIndicatorY(y);
+							return;
+						}
 					}
 				}
 			}
+			// If the color is not found, position the indicator at the origin (0, 0) of the canvas
+			setIndicatorX(0);
+			setIndicatorY(0);
 		};
 		positionIndicator();
 
