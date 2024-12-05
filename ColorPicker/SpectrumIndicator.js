@@ -18,7 +18,7 @@ const SpottableDiv = Spottable('div');
  * @ui
  * @private
  */
-const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHandler, setIsIndicatorActive, setIndicatorBgColor, setX, setY, x, y}) => {
+const CircleIndicator = ({bgColor, canvasRef, disabled, isIndicatorActive, selectedColorHandler, setIsIndicatorActive, setIndicatorBgColor, setX, setY, x, y}) => {
 	const [holding, setHolding] = useState(false);
 	const [prevKey, setPrevKey] = useState('');
 	const [stepValue, setStepValue] = useState(1);
@@ -31,6 +31,7 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 	}, [isIndicatorActive]);
 
 	const handleOnKeyDown = useCallback(({keyCode}) => {
+		if (disabled) return;
 		if (is('enter', keyCode)) { // set indicator in active state and pause spotlight so no other containers get focus when selecting a color with 5-way
 			setIsIndicatorActive(!isIndicatorActive);
 			spotlight.pause();
@@ -117,6 +118,7 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 			onSpotlightLeft={handleSpotlightLeft}
 			onSpotlightRight={handleSpotlightRight}
 			onSpotlightUp={handleSpotlightUp}
+			spotlightDisabled={disabled}
 			style={{
 				left: x - 11,
 				top: y - 11,
@@ -146,6 +148,15 @@ CircleIndicator.propTypes = {
 	 * @private
 	 */
 	canvasRef: PropTypes.any,
+
+	/**
+	 * Applies a disabled style and prevents interacting with the component.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	disabled: PropTypes.bool,
 
 	/**
 	 * Indicates whether the circle indicator is active.

@@ -28,7 +28,7 @@ import css from './ColorPickerSpectrum.module.less';
  * @private
  */
 const ColorPickerSpectrum = (props) => {
-	const {selectedColor, selectedColorHandler} = props;
+	const {disabled, selectedColor, selectedColorHandler} = props;
 	const canvasRef = useRef(null);
 	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
 	const [canvasWidth, setCanvasWidth] = useState(ri.scale(800));
@@ -91,6 +91,7 @@ const ColorPickerSpectrum = (props) => {
 	}, [canvasHeight, canvasWidth]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleCanvasPointerDown = useCallback((e) => {
+		if (disabled) return;
 		const canvas = canvasRef.current;
 		const rect = canvas.getBoundingClientRect();
 		let x = e.clientX - rect.left;
@@ -103,7 +104,7 @@ const ColorPickerSpectrum = (props) => {
 		const hexColor = getHexColorFromGradient(canvasRef, indicatorX, indicatorY);
 		setIndicatorBgColor(hexColor);
 		setIsIndicatorActive(false);
-	}, [canvasRef, indicatorX, indicatorY, setIndicatorX, setIndicatorY, setIsDragging]);
+	}, [canvasRef, disabled, indicatorX, indicatorY, setIndicatorX, setIndicatorY, setIsDragging]);
 
 	const handleCanvasPointerLeave = useCallback(() => {
 		setIsDragging(false);
@@ -150,6 +151,7 @@ const ColorPickerSpectrum = (props) => {
 			<SpectrumIndicator
 				bgColor={indicatorBgColor}
 				canvasRef={canvasRef}
+				disabled={disabled}
 				isIndicatorActive={isIndicatorActive}
 				selectedColorHandler={selectedColorHandler}
 				setIsIndicatorActive={setIsIndicatorActive}
@@ -166,6 +168,15 @@ const ColorPickerSpectrum = (props) => {
 ColorPickerSpectrum.displayName = 'ColorPickerSpectrum';
 
 ColorPickerSpectrum.propTypes = {
+	/**
+	 * Applies a disabled style and prevents interacting with the component.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	disabled: PropTypes.bool,
+
 	/**
 	 * Indicates the selected color.
 	 *

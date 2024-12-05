@@ -45,7 +45,7 @@ const SpottableButton = Spottable(ButtonBase);
  * @ui
  * @private
  */
-const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedColor = '#3455eb', selectedColorHandler}) => {
+const FavoriteColors = ({disabled, favoriteColors = [], favoriteColorsHandler, selectedColor = '#3455eb', selectedColorHandler}) => {
 	const [clickEnabled, setClickEnabled] = useState(true);
 	const [editEnabled, setEditEnabled] = useState(false);
 
@@ -53,6 +53,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 	const timerRef = useRef(null);
 
 	const addNewFavoriteColor = useCallback(() => {
+		if (disabled) return;
 		if (favoriteColors.includes(selectedColor)) return;
 		favoriteColorsHandler(() => {
 			const colorsState = [...favoriteColors, selectedColor];
@@ -60,17 +61,19 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 
 			return colorsState;
 		});
-	}, [favoriteColors, favoriteColorsHandler, selectedColor]);
+	}, [disabled, favoriteColors, favoriteColorsHandler, selectedColor]);
 
 	const onAddNewFavoriteColor = useCallback(() => {
+		if (disabled) return;
 		if (editEnabled) {
 			setEditEnabled(false);
 			return;
 		}
 		addNewFavoriteColor();
-	}, [addNewFavoriteColor, editEnabled]);
+	}, [addNewFavoriteColor, disabled, editEnabled]);
 
 	const onSelectFavoriteColor = useCallback((ev) => {
+		if (disabled) return;
 		if (!clickEnabled) return;
 		const targetId = ev.target.offsetParent.id || ev.target.id;
 		const [buttonColor, buttonIndex] = targetId.split('-');
@@ -87,9 +90,10 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 
 		favoriteColorsHandler(favoriteColors);
 		selectedColorHandler(buttonColor);
-	}, [clickEnabled, editEnabled, favoriteColors, favoriteColorsHandler, selectedColor, selectedColorHandler]);
+	}, [clickEnabled, disabled, editEnabled, favoriteColors, favoriteColorsHandler, selectedColor, selectedColorHandler]);
 
 	const onPressHandler = useCallback((ev) => {
+		if (disabled) return;
 		if (editEnabled) return;
 		if (ev.type === 'pointerdown' || (ev.type === 'keydown' && ev.keyCode === 13)) {
 			const target = ev.target.id ? ev.target : ev.target.offsetParent;
@@ -104,7 +108,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 				target.classList.remove(componentCss.shakeFavoriteColor);
 			}, 1000);
 		}
-	}, [editEnabled]);
+	}, [disabled, editEnabled]);
 
 	const onReleaseHandler = useCallback((ev) => {
 		const target = ev.target.id ? ev.target : ev.target.offsetParent;
@@ -134,6 +138,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
 								size="small"
+								spotlightDisabled={disabled}
 								style={{
 									backgroundColor: color,
 									borderColor: generateOppositeColor(color),
@@ -159,6 +164,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 								onPointerDown={onPressHandler}
 								onPointerUp={onReleaseHandler}
 								size="small"
+								spotlightDisabled={disabled}
 								style={{
 									backgroundColor: color,
 									borderColor: generateOppositeColor(color),
@@ -176,6 +182,7 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 					className={componentCss.selectedColor}
 					minWidth={false}
 					onClick={onAddNewFavoriteColor}
+					spotlightDisabled={disabled}
 					style={{
 						backgroundColor: selectedColor,
 						borderColor: generateOppositeColor(selectedColor),
@@ -192,6 +199,15 @@ const FavoriteColors = ({favoriteColors = [], favoriteColorsHandler, selectedCol
 FavoriteColors.displayName = 'FavoriteColors';
 
 FavoriteColors.propTypes = {
+	/**
+	 * Applies a disabled style and prevents interacting with the component.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	disabled: PropTypes.bool,
+
 	/**
 	 * Contains an array with the favorite colors.
 	 *
@@ -236,7 +252,7 @@ FavoriteColors.propTypes = {
  * @ui
  * @public
  */
-const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], css, onChangeColor, open, type = 'grid', ...rest}) => {
+const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], css, disabled, onChangeColor, open, type = 'grid', ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
 	const [selectedColor, setSelectedColor] = useState(color);
 	const [tabLayoutIndex, setTabLayoutIndex] = useState(0);
@@ -261,39 +277,45 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 	}, [color, colors, type]);
 
 	useEffect(() => {
+		if (disabled) return;
 		if (selectedColor || favoriteColors) {
 			onChangeColor({selectedColor, favoriteColors});
 		}
-	}, [favoriteColors, onChangeColor, selectedColor]);
+	}, [disabled, favoriteColors, onChangeColor, selectedColor]);
 
 	const handleGridClick = useCallback(() => {
+		if (disabled) return;
 		setTabLayoutIndex(0);
-	}, [setTabLayoutIndex]);
+	}, [disabled, setTabLayoutIndex]);
+
 	const handleSpectrumClick = useCallback(() => {
+		if (disabled) return;
 		setTabLayoutIndex(1);
-	}, [setTabLayoutIndex]);
+	}, [disabled, setTabLayoutIndex]);
+
 	const handleSlidersClick = useCallback(() => {
+		if (disabled) return;
 		setTabLayoutIndex(2);
-	}, [setTabLayoutIndex]);
+	}, [disabled, setTabLayoutIndex]);
 
 	return (
-		<Popup open={open} position="center" {...rest}>
+		<Popup disabled={disabled} open={open} position="center" {...rest}>
 			<Row>
 				<Cell size="75%">
 					<TabLayout className={componentCss.pickerTabLayout} css={css} index={tabLayoutIndex} orientation="horizontal">
-						<Tab onTabClick={handleGridClick} style={{width: ri.scaleToRem(400)}} title="Grid">
+						<Tab onTabClick={handleGridClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Grid">
 							<div className={componentCss.colorPicker}>
-								<ColorPickerGrid selectedColorHandler={setSelectedColor} />
+								<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
-						<Tab onTabClick={handleSpectrumClick} style={{width: ri.scaleToRem(400)}} title="Spectrum">
+						<Tab onTabClick={handleSpectrumClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Spectrum">
 							<div className={componentCss.colorPicker}>
-								<ColorPickerSpectrum selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+								<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
-						<Tab onTabClick={handleSlidersClick} style={{width: ri.scaleToRem(400)}} title="Sliders">
+						<Tab onTabClick={handleSlidersClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Sliders">
 							<div className={componentCss.colorPicker}>
-								<ColorPickerSlider selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+								<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 							</div>
 						</Tab>
 					</TabLayout>
@@ -301,6 +323,7 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 				<Cell align="end" size="25%">
 					<Column>
 						<FavoriteColors
+							disabled={disabled}
 							favoriteColors={favoriteColors}
 							favoriteColorsHandler={setFavoriteColors}
 							selectedColor={selectedColor}
@@ -342,7 +365,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	css: PropTypes.object,
 
 	/**
-	 * Disables the color picker.
+	 * Applies a disabled style and prevents interacting with the component.
 	 *
 	 * @type {Boolean}
 	 * @default false

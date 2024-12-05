@@ -50,11 +50,12 @@ const colors = [
  * @private
  */
 const ColorPickerGridBase = (props) => {
-	const {className, selectedColorHandler, ...rest} = props;
+	const {className, disabled, selectedColorHandler, ...rest} = props;
 
 	const handleClick = useCallback((e) => {
+		if (disabled) return;
 		selectedColorHandler(rgbStringToHex(e.target.style.backgroundColor));
-	}, [selectedColorHandler]);
+	}, [disabled, selectedColorHandler]);
 
 	return (
 		<div className={classnames(componentCss.colorPicker, className)} {...rest} >
@@ -64,7 +65,7 @@ const ColorPickerGridBase = (props) => {
 						<div key={rowIndex}>
 							{
 								colors[rowIndex].map((color, colorIndex) => {
-									return <SpottableDiv className={componentCss.colorBlock} onClick={handleClick} style={{backgroundColor: color, '--sand-colorpicker-grid-focus-border-color': generateOppositeColor(color)}} key={colorIndex} />;
+									return <SpottableDiv className={componentCss.colorBlock} spotlightDisabled={disabled} onClick={handleClick} style={{backgroundColor: color, '--sand-colorpicker-grid-focus-border-color': generateOppositeColor(color)}} key={colorIndex} />;
 								})
 							}
 						</div>
@@ -79,9 +80,7 @@ ColorPickerGridBase.displayName = 'ColorPickerGridBase';
 
 ColorPickerGridBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerGridBase.prototype */
 	/**
-	 * Applies the `disabled` class.
-	 *
-	 * When `true`, the color picker is shown as disabled.
+	 * Applies a disabled style and prevents interacting with the component.
 	 *
 	 * @type {Boolean}
 	 * @default false

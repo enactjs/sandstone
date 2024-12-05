@@ -83,7 +83,7 @@ const lightnessGradient = (hue, saturation) => {
  * @ui
  * @private
  */
-const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) => {
+const ColorPickerSliderRGB = ({disabled, selectedColor, selectedColorHandler, ...props}) => {
 	const {red, green, blue} = hexToRGB(selectedColor);
 	const [localRed, setLocalRed] = useState(red);
 	const [localGreen, setLocalGreen] = useState(green);
@@ -124,6 +124,7 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 						<Slider
 							activateOnSelect
 							css={componentCss}
+							disabled={disabled}
 							max={255}
 							min={0}
 							noFill
@@ -131,6 +132,7 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 							onChange={changeValueRed}
 							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
+							spotlightDisabled={disabled}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
 								'--sand-focus-bg-color-rgb': `${localRed},${localGreen},${localBlue}`,
@@ -151,6 +153,7 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 						<Slider
 							activateOnSelect
 							css={componentCss}
+							disabled={disabled}
 							max={255}
 							min={0}
 							noFill
@@ -158,6 +161,7 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 							onChange={changeValueGreen}
 							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
+							spotlightDisabled={disabled}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
 								'--sand-focus-bg-color-rgb': `${localRed},${localGreen},${localBlue}`,
@@ -178,6 +182,7 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 						<Slider
 							activateOnSelect
 							css={componentCss}
+							disabled={disabled}
 							max={255}
 							min={0}
 							noFill
@@ -185,6 +190,7 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 							onChange={changeValueBlue}
 							onKeyUp={changeSelectedColor}
 							onPointerUp={changeSelectedColor}
+							spotlightDisabled={disabled}
 							style={{
 								'--sand-slider-knob-border-color': generateOppositeColor(rgbObjectToHex({red: localRed, green: localGreen, blue: localBlue})),
 								'--sand-focus-bg-color-rgb': `${localRed},${localGreen},${localBlue}`,
@@ -203,6 +209,15 @@ const ColorPickerSliderRGB = ({selectedColor, selectedColorHandler, ...props}) =
 ColorPickerSliderRGB.displayName = 'ColorPickerSliderRGB';
 
 ColorPickerSliderRGB.propTypes = {
+	/**
+	 * Applies a disabled style and prevents interacting with the component.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	disabled: PropTypes.bool,
+
 	/**
 	 * Indicates the selected color.
 	 *
@@ -228,7 +243,7 @@ ColorPickerSliderRGB.propTypes = {
  * @ui
  * @private
  */
-const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) => {
+const ColorPickerSliderHSL = ({disabled, selectedColor, selectedColorHandler, ...props}) => {
 	const {h, s, l} = hexToHSL(selectedColor);
 	const [hue, setHue] = useState(h);
 	const [saturation, setSaturation] = useState(s);
@@ -270,6 +285,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 							<Slider
 								activateOnSelect
 								css={componentCss}
+								disabled={disabled}
 								max={360}
 								min={0}
 								noFill
@@ -277,6 +293,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 								onChange={changeValueHue}
 								onKeyUp={changeSelectedColor}
 								onPointerUp={changeSelectedColor}
+								spotlightDisabled={disabled}
 								style={{
 									'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
 									'--sand-focus-bg-color-rgb': hslToRGBString({h: hue, s: saturation, l: lightness}),
@@ -299,6 +316,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 							<Slider
 								activateOnSelect
 								css={componentCss}
+								disabled={disabled}
 								max={100}
 								min={0}
 								noFill
@@ -306,6 +324,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 								onChange={changeValueSaturation}
 								onKeyUp={changeSelectedColor}
 								onPointerUp={changeSelectedColor}
+								spotlightDisabled={disabled}
 								style={{
 									'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
 									'--sand-focus-bg-color-rgb': hslToRGBString({h: hue, s: saturation, l: lightness}),
@@ -328,6 +347,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 							<Slider
 								activateOnSelect
 								css={componentCss}
+								disabled={disabled}
 								max={100}
 								min={0}
 								noFill
@@ -335,6 +355,7 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 								onChange={changeValueLightness}
 								onKeyUp={changeSelectedColor}
 								onPointerUp={changeSelectedColor}
+								spotlightDisabled={disabled}
 								style={{
 									'--sand-slider-knob-border-color': generateOppositeColor(hslToHex({h: hue, s: saturation, l: lightness})),
 									'--sand-focus-bg-color-rgb': hslToRGBString({h: hue, s: saturation, l: lightness}),
@@ -354,6 +375,15 @@ const ColorPickerSliderHSL = ({selectedColor, selectedColorHandler, ...props}) =
 ColorPickerSliderHSL.displayName = 'ColorPickerSliderHSL';
 
 ColorPickerSliderHSL.propTypes = {
+	/**
+	 * Applies a disabled style and prevents interacting with the component.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	disabled: PropTypes.bool,
+
 	/**
 	 * Indicates the selected color.
 	 *
@@ -379,7 +409,7 @@ ColorPickerSliderHSL.propTypes = {
  * @ui
  * @private
  */
-const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
+const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, ...props}) => {
 	const [pickerType, setPickerType] = useState('RGB');
 
 	const handleBlur = useCallback(() => {
@@ -401,9 +431,11 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 				<Cell size="60%">
 					<Dropdown
 						className={componentCss.pickerSelect}
+						disabled={disabled}
 						onSelect={handleSelect}
 						placeholder={pickerType}
 						size="small"
+						spotlightDisabled={disabled}
 					>
 						{['RGB', 'HSL']}
 					</Dropdown>
@@ -411,17 +443,19 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 				<Cell size="40%">
 					<InputField
 						className={componentCss.hexInput}
+						disabled={disabled}
 						invalid={checkHex(selectedColor)}
 						invalidMessage="Use a 6 characters hex code"
 						onBlur={handleBlur}
 						onChange={handleInputChange}
+						spotlightDisabled={disabled}
 						value={selectedColor.toUpperCase()}
 					/>
 				</Cell>
 			</Row>
 			{pickerType === 'HSL' ?
-				<ColorPickerSliderHSL selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} /> :
-				<ColorPickerSliderRGB selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} />
+				<ColorPickerSliderHSL disabled={disabled} selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} /> :
+				<ColorPickerSliderRGB disabled={disabled} selectedColor={selectedColor} selectedColorHandler={selectedColorHandler} />
 			}
 		</Cell>
 	);
@@ -430,6 +464,15 @@ const ColorPickerSlider = ({selectedColor, selectedColorHandler, ...props}) => {
 ColorPickerSlider.displayName = 'ColorPickerSlider';
 
 ColorPickerSlider.propTypes = {
+	/**
+	 * Applies a disabled style and prevents interacting with the component.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	disabled: PropTypes.bool,
+
 	/**
 	 * Indicates the selected color.
 	 *
