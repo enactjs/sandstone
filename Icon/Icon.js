@@ -395,6 +395,7 @@ const IconBase = kind({
  * ai
  * alert01
  * alert02
+ * calibration
  * ```
  *
  * @name iconList

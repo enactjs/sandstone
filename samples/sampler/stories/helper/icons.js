@@ -132,6 +132,7 @@ export const settingsIcons = [
 	'alert02',
 	'auracast',
 	'bluetooth',
+	'calibration',
 	'camera',
 	'cameradis',
 	'changepassword',

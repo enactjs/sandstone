@@ -10,7 +10,7 @@
 
 import {forward} from '@enact/core/handle';
 import platform from '@enact/core/platform';
-import Spotlight from '@enact/spotlight';
+import Spotlight, {getDirection} from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getContainerId} from '@enact/spotlight/src/container';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
@@ -270,6 +270,13 @@ const useThemeScroll = (props, instances) => {
 		}
 	}
 
+	function preventScroll (ev) {
+		if (Spotlight.isPaused() && getDirection(ev.keyCode)) {
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+	}
+
 	// Return
 
 	return {
@@ -285,6 +292,7 @@ const useThemeScroll = (props, instances) => {
 		handleTouchStart,
 		handleWheel,
 		removeEventListeners,
+		preventScroll,
 		scrollbarProps,
 		scrollStopOnScroll,
 		scrollTo,
@@ -405,6 +413,7 @@ const useScroll = (props) => {
 		handleTouchStart,
 		handleWheel,
 		removeEventListeners,
+		preventScroll, // scrollMode 'native'
 		scrollbarProps,
 		scrollStopOnScroll, // scrollMode 'native'
 		scrollTo,
@@ -417,6 +426,7 @@ const useScroll = (props) => {
 	if (scrollMode === 'translate') {
 		scrollProps.stop = stop;
 	} else {
+		scrollProps.preventScroll = preventScroll;
 		scrollProps.scrollStopOnScroll = scrollStopOnScroll;
 		scrollProps.start = start;
 	}
