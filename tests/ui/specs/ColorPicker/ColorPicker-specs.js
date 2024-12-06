@@ -48,6 +48,7 @@ describe('ColorPicker', function () {
 	describe('ColorPicker Spectrum', function () {
 		beforeEach(async () => {
 			await Page.spotlightRight();
+			await Page.spotlightSelect();
 			await browser.pause(500);
 		});
 
@@ -97,6 +98,7 @@ describe('ColorPicker', function () {
 		beforeEach(async () => {
 			await Page.spotlightRight();
 			await Page.spotlightRight();
+			await Page.spotlightSelect();
 			await browser.pause(500);
 		});
 
