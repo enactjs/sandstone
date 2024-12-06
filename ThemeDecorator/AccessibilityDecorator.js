@@ -32,7 +32,7 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		if (textSize === 'large') variants.largeText = true;
 		if (focusRing) variants.focusRing = true;
 
-		const resizeRegistry = useRef(Registry.create());
+		let resizeRegistry = useRef(Registry.create());
 		const context = useContext(ResizeContext);
 
 		useEffect(() => {
