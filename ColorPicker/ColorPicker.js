@@ -1,12 +1,9 @@
 /**
  * Sandstone component that allows the user to choose a color
- * either from a grid, or a spectrum, or RGB/HSL color sliders.
+ * either from a grid, a spectrum, or RGB/HSL color sliders.
  *
  * @example
- * <ColorPicker
- * 	 onChangeColor={console.log}
- * 	 open
- * />
+ * <ColorPicker open />
  *
  * @module sandstone/ColorPicker
  * @exports ColorPicker
@@ -281,7 +278,7 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 		if (selectedColor || favoriteColors) {
 			onChangeColor({selectedColor, favoriteColors});
 		}
-	}, [disabled, favoriteColors, onChangeColor, selectedColor]);
+	}, [disabled, favoriteColors, selectedColor]);
 
 	const handleGridClick = useCallback(() => {
 		if (disabled) return;

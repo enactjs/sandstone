@@ -3,6 +3,7 @@
  *
  * @example
  * <ColorPickerGrid
+ * 	 selectedColor="#FF00FF"
  * 	 selectedColorHandler={setSelectedColor}
  * />
  *
