@@ -1,4 +1,4 @@
-import ColorPickerPOC from '../../../../ColorPickerPOC';
+import ColorPicker from '../../../../ColorPicker';
 import ThemeDecorator from '../../../../ThemeDecorator';
 import spotlight from '@enact/spotlight';
 import {useState} from 'react';
@@ -13,7 +13,7 @@ const App = (props) => {
 
 	return (
 		<div {...props}>
-			<ColorPickerPOC
+			<ColorPicker
 				id="colorPicker"
 				color={typeof selectedColor === 'object' ? selectedColor.selectedColor : selectedColor}
 				colors={favoriteColors}

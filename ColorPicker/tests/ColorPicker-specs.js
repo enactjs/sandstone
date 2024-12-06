@@ -26,7 +26,7 @@ describe('ColorPickerPOC', () => {
 			const {container} = render(
 				<GridColorPicker onClick={onClickHandler} selectedColorHandler={selectedColorHandler} />
 			);
-			const colorsColumnDiv = container.querySelectorAll('.colorsColumn'); // eslint-disable-line
+			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
 			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[0]; // eslint-disable-line
 
 			await user.click(secondColorBlock);
