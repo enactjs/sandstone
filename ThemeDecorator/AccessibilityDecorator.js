@@ -4,7 +4,6 @@ import {ResizeContext} from '@enact/ui/Resizable';
 import {objectify} from '@enact/ui/Skinnable/util';
 import PropTypes from 'prop-types';
 import {useContext, useEffect, useRef} from 'react';
-import {setDefaultProps} from "@enact/core/util";
 
 /**
  * A higher-order component that classifies an application with a target set of font sizing rules.
