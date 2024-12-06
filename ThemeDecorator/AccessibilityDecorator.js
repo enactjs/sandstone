@@ -6,12 +6,6 @@ import PropTypes from 'prop-types';
 import {useContext, useEffect, useRef} from 'react';
 import {setDefaultProps} from "@enact/core/util";
 
-const defaultProps = {
-	max: 100,
-	min: 0,
-	orientation: 'horizontal'
-};
-
 /**
  * A higher-order component that classifies an application with a target set of font sizing rules.
  *
@@ -22,14 +16,7 @@ const defaultProps = {
  */
 const AccessibilityDecorator = hoc((config, Wrapped) => {
 	const Accesibility = (props) => {
-		const {
-			className,
-			focusRing,
-			highContrast,
-			skinVariants,
-			textSize,
-			...rest
-		} = setDefaultProps(props, defaultProps);
+		const {className, focusRing, highContrast, skinVariants, textSize = 'normal', ...rest} = props;
 		let accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
 		accessibilityClassName = focusRing ? `enact-a11y-focus-ring ${accessibilityClassName}` : `${accessibilityClassName}`;
 		const combinedClassName = className ? `${className} ${accessibilityClassName}` : accessibilityClassName;
@@ -38,8 +25,10 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		if (textSize === 'large') variants.largeText = true;
 		if (focusRing) variants.focusRing = true;
 
-		const resizeRegistry = useRef(Registry.create());
 		const context = useContext(ResizeContext);
+		const didMountRef = useRef(false);
+		const prevTextSize = useRef(textSize);
+		const resizeRegistry = useRef(Registry.create());
 
 		useEffect(() => {
 			resizeRegistry.current.parent = context;
@@ -48,9 +37,6 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 				resizeRegistry.current.parent = null;
 			};
 		});
-
-		const didMountRef = useRef(false);
-		const prevTextSize = useRef(textSize);
 
 		useEffect(() => {
 			if (didMountRef.current) {
