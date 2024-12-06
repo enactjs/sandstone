@@ -278,7 +278,7 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 		if (selectedColor || favoriteColors) {
 			onChangeColor({selectedColor, favoriteColors});
 		}
-	}, [disabled, favoriteColors, selectedColor]);
+	}, [disabled, favoriteColors, onChangeColor, selectedColor]);
 
 	const handleGridClick = useCallback(() => {
 		if (disabled) return;
