@@ -1,6 +1,6 @@
 import {is} from '@enact/core/keymap';
-import Spottable from '@enact/spotlight/Spottable';
 import spotlight from '@enact/spotlight';
+import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useState} from 'react';
 
@@ -10,7 +10,15 @@ import css from './ColorPickerSpectrum.module.less';
 
 const SpottableDiv = Spottable('div');
 
-const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHandler, setIsIndicatorActive, setIndicatorBgColor, setX, setY, x, y}) => {
+/**
+ * The circle indicator component used in spectrum color picker.
+ *
+ * @class CircleIndicator
+ * @memberof sandstone/ColorPicker
+ * @ui
+ * @private
+ */
+const CircleIndicator = ({bgColor, canvasRef, disabled, isIndicatorActive, selectedColorHandler, setIsIndicatorActive, setIndicatorBgColor, setX, setY, x, y}) => {
 	const [holding, setHolding] = useState(false);
 	const [prevKey, setPrevKey] = useState('');
 	const [stepValue, setStepValue] = useState(1);
@@ -23,6 +31,7 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 	}, [isIndicatorActive]);
 
 	const handleOnKeyDown = useCallback(({keyCode}) => {
+		if (disabled) return;
 		if (is('enter', keyCode)) { // set indicator in active state and pause spotlight so no other containers get focus when selecting a color with 5-way
 			setIsIndicatorActive(!isIndicatorActive);
 			spotlight.pause();
@@ -54,7 +63,7 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 				setPrevKey(keyCode);
 			}
 		}
-	}, [canvasRef, holding, isIndicatorActive, prevKey, setIndicatorBgColor, setIsIndicatorActive, stepValue, x, y]);
+	}, [canvasRef, disabled, holding, isIndicatorActive, prevKey, setIndicatorBgColor, setIsIndicatorActive, stepValue, x, y]);
 
 	const handleOnKeyUp = useCallback(({keyCode}) => {
 		if (is('down', keyCode)) {
@@ -109,6 +118,7 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 			onSpotlightLeft={handleSpotlightLeft}
 			onSpotlightRight={handleSpotlightRight}
 			onSpotlightUp={handleSpotlightUp}
+			spotlightDisabled={disabled}
 			style={{
 				left: x - 11,
 				top: y - 11,
@@ -120,16 +130,96 @@ const CircleIndicator = ({bgColor, canvasRef, isIndicatorActive, selectedColorHa
 };
 
 CircleIndicator.displayName = 'CircleIndicator';
+
 CircleIndicator.propTypes = {
+	/**
+	 * Indicates the background color of the circle indicator.
+	 *
+	 * @type {String}
+	 * @private
+	 */
 	bgColor: PropTypes.string,
+
+	/**
+	 * The canvas reference from the parent component.
+	 * Used to extract HEX color from canvas.
+	 *
+	 * @type {Node}
+	 * @private
+	 */
 	canvasRef: PropTypes.any,
+
+	/**
+	 * Applies a disabled style and prevents interacting with the component.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	disabled: PropTypes.bool,
+
+	/**
+	 * Indicates whether the circle indicator is active.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
 	isIndicatorActive: PropTypes.bool,
+
+	/**
+	 * Called when the selected color is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	selectedColorHandler: PropTypes.func,
+
+	/**
+	 * Called when bgColor is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	setIndicatorBgColor: PropTypes.func,
+
+	/**
+	 * Called when indicator active status is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	setIsIndicatorActive: PropTypes.func,
+
+	/**
+	 * Called when x coordinate of the indicator is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	setX: PropTypes.func,
+
+	/**
+	 * Called when y coordinate of the indicator is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	setY: PropTypes.func,
+
+	/**
+	 * Indicator's x-axis coordinate relative to the canvas.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
 	x: PropTypes.number,
+
+	/**
+	 * Indicator's y-axis coordinate relative to the canvas.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
 	y: PropTypes.number
 };
 

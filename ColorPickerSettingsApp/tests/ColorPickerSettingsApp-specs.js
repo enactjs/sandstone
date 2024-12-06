@@ -3,8 +3,8 @@ import '@testing-library/jest-dom';
 import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import ColorPicker from '../ColorPicker';
-import {hexToHSL, HSLToHex} from "../utils";
+import ColorPickerSettingsApp from '../ColorPickerSettingsApp';
+import {hexToHSL, HSLToHex} from '../utils';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
@@ -28,23 +28,23 @@ const sliderValues = (elements) => {
 	return values;
 };
 
-describe('ColorPicker', () => {
+describe('ColorPickerSettingsApp', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
-	test('should open and close ColorPicker popup', async () => {
+	test('should open and close ColorPickerSettingsApp popup', async () => {
 		const closeButtonText = '󯿵';
 		const user = userEvent.setup();
 
 		render(
 			<FloatingLayerController>
-				<ColorPicker />
+				<ColorPickerSettingsApp />
 			</FloatingLayerController>
 		);
 
-		const colorPickerButton = screen.getByRole('button');
-		await user.click(colorPickerButton);
+		const ColorPickerSettingsAppButton = screen.getByRole('button');
+		await user.click(ColorPickerSettingsAppButton);
 		const closeButton = screen.queryByText(closeButtonText);
 
 		expect(closeButton).not.toBeNull();
@@ -54,18 +54,18 @@ describe('ColorPicker', () => {
 		expect(screen.queryByText(closeButtonText)).toBeNull();
 	});
 
-	test('should not open ColorPicker popup if disabled is set to true', async () => {
+	test('should not open ColorPickerSettingsApp popup if disabled is set to true', async () => {
 		const closeButtonText = '󯿵';
 		const user = userEvent.setup();
 
 		render(
 			<FloatingLayerController>
-				<ColorPicker disabled />
+				<ColorPickerSettingsApp disabled />
 			</FloatingLayerController>
 		);
 
-		const colorPickerButton = screen.getByRole('button');
-		await user.click(colorPickerButton);
+		const ColorPickerSettingsAppButton = screen.getByRole('button');
+		await user.click(ColorPickerSettingsAppButton);
 
 		const closeButton = screen.queryByText(closeButtonText);
 
@@ -78,15 +78,15 @@ describe('ColorPicker', () => {
 
 		render(
 			<FloatingLayerController>
-				<ColorPicker text={text} />
+				<ColorPickerSettingsApp text={text} />
 			</FloatingLayerController>
 		);
 
-		const colorPickerText = screen.queryByText(text);
+		const ColorPickerSettingsAppText = screen.queryByText(text);
 
-		expect(colorPickerText).not.toBeNull();
+		expect(ColorPickerSettingsAppText).not.toBeNull();
 
-		await user.click(colorPickerText);
+		await user.click(ColorPickerSettingsAppText);
 		const popupText = screen.queryAllByText(text)[1];
 
 		expect(popupText).not.toBeUndefined();
@@ -97,14 +97,14 @@ describe('ColorPicker', () => {
 
 		render(
 			<FloatingLayerController>
-				<ColorPicker color={color} />
+				<ColorPickerSettingsApp color={color} />
 			</FloatingLayerController>
 		);
 
 		const expected = `background-image: ${color}`;
-		const colorPickerButton = screen.getByRole('button');
+		const ColorPickerSettingsAppButton = screen.getByRole('button');
 
-		expect(colorPickerButton).toHaveStyle(expected);
+		expect(ColorPickerSettingsAppButton).toHaveStyle(expected);
 	});
 
 	test('should have the presetColors', async () => {
@@ -114,12 +114,12 @@ describe('ColorPicker', () => {
 
 		render(
 			<FloatingLayerController>
-				<ColorPicker presetColors={presetColors} />
+				<ColorPickerSettingsApp presetColors={presetColors} />
 			</FloatingLayerController>
 		);
 
-		const colorPickerButton = screen.getByRole('button');
-		await user.click(colorPickerButton);
+		const ColorPickerSettingsAppButton = screen.getByRole('button');
+		await user.click(ColorPickerSettingsAppButton);
 
 		const buttons = screen.getAllByRole('button');
 		const buttonsWithSpecificStyle = buttons.filter(element => {
@@ -138,12 +138,12 @@ describe('ColorPicker', () => {
 
 		render(
 			<FloatingLayerController>
-				<ColorPicker color={color} colorHandler={colorHandler} presetColors={presetColors} />
+				<ColorPickerSettingsApp color={color} colorHandler={colorHandler} presetColors={presetColors} />
 			</FloatingLayerController>
 		);
 
-		const colorPickerButton = screen.getByRole('button');
-		await user.click(colorPickerButton);
+		const ColorPickerSettingsAppButton = screen.getByRole('button');
+		await user.click(ColorPickerSettingsAppButton);
 
 		const button = screen.getAllByRole('button')[2];
 		Object.defineProperty(button, 'offsetParent', {value: {id: presetColors[0]}});
@@ -160,12 +160,12 @@ describe('ColorPicker', () => {
 
 		render(
 			<FloatingLayerController>
-				<ColorPicker color={color} colorHandler={colorHandler} />
+				<ColorPickerSettingsApp color={color} colorHandler={colorHandler} />
 			</FloatingLayerController>
 		);
 
-		const colorPickerButton = screen.getByRole('button');
-		await user.click(colorPickerButton);
+		const ColorPickerSettingsAppButton = screen.getByRole('button');
+		await user.click(ColorPickerSettingsAppButton);
 
 		const sliders = screen.getAllByRole('slider');
 
