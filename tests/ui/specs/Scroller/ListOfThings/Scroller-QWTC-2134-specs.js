@@ -21,7 +21,7 @@ describe('Scroller List Of Things', function () {
 		// Step 4-3: Press 5-way Up.
 		await ScrollerPage.spotlightUp();
 
-		// Step 4 Verify: Spotlight is on the Close (x) button. (x) button is replaced top botton in this view.
+		// Step 4 Verify: Spotlight is on the Close (x) button. (x) button is replaced top bottom in this view.
 		expect(await ScrollerPage.buttonTop.isFocused()).toBe(true);
 	});
 });

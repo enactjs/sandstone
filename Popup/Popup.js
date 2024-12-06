@@ -311,7 +311,7 @@ class Popup extends Component {
 
 		/**
 		 * Indicates that the popup will not trigger `onClose` when the user presses the cancel/back (e.g. `ESC`) key or
-		 * taps outside of the popup.
+		 * taps outside the popup.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -616,7 +616,7 @@ class Popup extends Component {
 
 		off('keydown', this.handleKeyDown);
 
-		// if there is no currently-spotted control or it is wrapped by the popup's container, we
+		// if there is no currently-spotted control, or it is wrapped by the popup's container, we
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
@@ -647,7 +647,7 @@ class Popup extends Component {
 		if (!Spotlight.isPaused() && !Spotlight.focus(containerId)) {
 			const current = Spotlight.getCurrent();
 
-			// In cases where the container contains no spottable controls or we're in pointer-mode, focus
+			// In cases where the container contains no spottable controls, or we're in pointer-mode, focus
 			// cannot inherently set the active container or blur the active control, so we must do that
 			// here.
 			if (current) {

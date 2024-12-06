@@ -60,7 +60,7 @@ h2 {
 	.debug.aria,
 	.debug.aria + div {
 		// If the position of the `div` element including the following aria attributes, is `static`.
-		// Then the before and after psudo element will position incorrectly.
+		// Then the before and after pseudo element will position incorrectly.
 		[aria-label],
 		[aria-valuetext],
 		[aria-checked],
@@ -74,7 +74,7 @@ h2 {
 			}
 		}
 
-		// The before and after psudo element position and look
+		// The before and after pseudo element position and look
 		[aria-label]::after,
 		[aria-valuetext]::after,
 		[aria-checked]::after,
@@ -137,7 +137,7 @@ h2 {
 			color: black;
 		}
 
-		// The before and after psudo element content
+		// The before and after pseudo element content
 
 		[role]::before {
 			content: "Role:\0020" attr(role);

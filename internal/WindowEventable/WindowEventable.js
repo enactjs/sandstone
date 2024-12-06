@@ -26,7 +26,7 @@ const defaultConfig = {
 	globalNode: 'window'
 };
 
-// In config, extract all of the config stuff we know about. Everything else is an event.
+// In config, extract all the config stuff we know about. Everything else is an event.
 const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) => {
 	return class extends Component {
 
@@ -44,7 +44,7 @@ const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) =>
 
 			this.events = {};
 			for (let [evName, fn] of Object.entries(events)) {
-				// Tailored event names (convert from react style to browser style naming)
+				// Tailored event names (convert from React style to browser style naming)
 				if (evName.indexOf('on') === 0) evName = evName.substr(2).toLowerCase();
 
 				if (typeof fn === 'function') {

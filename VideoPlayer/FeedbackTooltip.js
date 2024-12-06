@@ -118,7 +118,7 @@ const FeedbackTooltipBase = kind({
 
 		/**
 		 * Set a thumbnail image source to show on VideoPlayer's Slider knob. This is a standard
-		 * {@link sandstone/Image} component so it supports all of the same options for the `src`
+		 * {@link sandstone/Image} component so it supports all the same options for the `src`
 		 * property. If no `thumbnailSrc` is set, no tooltip will display.
 		 *
 		 * @type {String|Object}

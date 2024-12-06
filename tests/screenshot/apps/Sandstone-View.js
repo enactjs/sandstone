@@ -45,7 +45,7 @@ function prepareTest (componentName, testId) {
 	const componentMetadata = components[componentName][testId];
 	let component;
 
-	// If test wants focus, set mode to 5-way so auto-focus works
+	// If test wants focus, set mode to 5-way so autofocus works
 	if (componentMetadata.focus) {
 		spotlight.setPointerMode(false);
 	}
@@ -150,7 +150,7 @@ const ExportedApp = (props) => {
 		locale = components[props.component][props.testId].locale;
 		textSize = components[props.component][props.testId].textSize;
 		focusRing = components[props.component][props.testId].focusRing;
-		// If focus enabled by test, use auto-focus to set an initial focus
+		// If focus enabled by test, use autofocus to set an initial focus
 		noAutoFocus = !components[props.component][props.testId].focus;
 
 		// Test can override values from the test runner

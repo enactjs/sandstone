@@ -109,8 +109,8 @@ describe('WizardPanels Specs', () => {
 		async () => {
 			render(
 				<WizardPanels index={2}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
 					<Panel nextButton>Last</Panel>
 				</WizardPanels>
 			);
@@ -129,8 +129,8 @@ describe('WizardPanels Specs', () => {
 		() => {
 			render(
 				<WizardPanels index={2}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
 					<Panel>Last!</Panel>
 				</WizardPanels>
 			);
@@ -150,8 +150,8 @@ describe('WizardPanels Specs', () => {
 		async () => {
 			render(
 				<WizardPanels index={0}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
 					<Panel>Last!</Panel>
 				</WizardPanels>
 			);
@@ -175,8 +175,8 @@ describe('WizardPanels Specs', () => {
 		async () => {
 			render(
 				<WizardPanels index={0}>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
 					<Panel>Last!</Panel>
 				</WizardPanels>
 			);
@@ -418,8 +418,8 @@ describe('WizardPanels Specs', () => {
 			let index = 0;
 			const {rerender} = render(
 				<WizardPanels index={index} onWillTransition={spy} noAnimation>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
 				</WizardPanels>
 			);
 
@@ -428,8 +428,8 @@ describe('WizardPanels Specs', () => {
 
 			rerender(
 				<WizardPanels index={index} onWillTransition={spy} noAnimation>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
 				</WizardPanels>
 			);
 
@@ -450,9 +450,9 @@ describe('WizardPanels Specs', () => {
 			let index = 0;
 			const {rerender} = render(
 				<WizardPanels index={index} onWillTransition={spy} noAnimation>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
-					<Panel>I gots contents3</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
+					<Panel>I got contents3</Panel>
 				</WizardPanels>
 			);
 
@@ -463,9 +463,9 @@ describe('WizardPanels Specs', () => {
 
 			rerender(
 				<WizardPanels index={index} onWillTransition={spy} noAnimation>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
-					<Panel>I gots contents3</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
+					<Panel>I got contents3</Panel>
 				</WizardPanels>
 			);
 
@@ -485,8 +485,8 @@ describe('WizardPanels Specs', () => {
 			let index = 0;
 			const {rerender} = render(
 				<WizardPanels index={index} onTransition={spy} noAnimation>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
 				</WizardPanels>
 			);
 
@@ -495,8 +495,8 @@ describe('WizardPanels Specs', () => {
 
 			rerender(
 				<WizardPanels index={index} onTransition={spy} noAnimation>
-					<Panel>I gots contents</Panel>
-					<Panel>I gots contents2</Panel>
+					<Panel>I got contents</Panel>
+					<Panel>I got contents2</Panel>
 				</WizardPanels>
 			);
 

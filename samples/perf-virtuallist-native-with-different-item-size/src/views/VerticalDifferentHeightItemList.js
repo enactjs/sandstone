@@ -28,7 +28,7 @@ const itemStyleDefault = {
 	lineHeight
 };
 
-const DifferenctHeightItem = ({index, items, style: itemStyleFromList, ...rest}) => {
+const DifferentHeightItem = ({index, items, style: itemStyleFromList, ...rest}) => {
 	const {title: children, height} = items[index],
 		itemStyle = {...itemStyleDefault, ...itemStyleFromList, height};
 
@@ -39,7 +39,7 @@ const DifferenctHeightItem = ({index, items, style: itemStyleFromList, ...rest})
 	);
 };
 
-DifferenctHeightItem.propTypes = {
+DifferentHeightItem.propTypes = {
 	index: PropTypes.number,
 	items: PropTypes.array
 };
@@ -68,7 +68,7 @@ const VerticalDifferentHeightItemList = (props) => {
 	}, []);
 
 	const renderItem = useCallback((renderProps) => {
-		return <DifferenctHeightItem {...renderProps} />;
+		return <DifferentHeightItem {...renderProps} />;
 	}, []);
 
 	return (

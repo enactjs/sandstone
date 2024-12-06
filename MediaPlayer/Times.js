@@ -22,7 +22,7 @@ const TimesBase = kind({
 		/**
 		 * An instance of a Duration Formatter from i18n.
 		 *
-		 * Must has a `format()` method that returns a string.
+		 * Must have a `format()` method that returns a string.
 		 *
 		 * @type {Object}
 		 * @required

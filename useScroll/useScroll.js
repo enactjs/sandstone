@@ -237,7 +237,7 @@ const useThemeScroll = (props, instances) => {
 		}
 
 		// oddly, Scroller manages scrollContainerHandle.current.bounds so if we don't update it here (it is also
-		// updated in calculateAndScrollTo but we might not have made it to that point), it will be
+		// updated in calculateAndScrollTo, but we might not have made it to that point), it will be
 		// out of date when we land back in this method next time.
 		scrollContainerHandle.current.bounds.scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
 	}
