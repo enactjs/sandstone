@@ -1,10 +1,10 @@
-import ColorPicker, {ColorPickerBase} from '@enact/sandstone/ColorPicker';
+import ColorPickerSettingsApp, {ColorPickerSettingsAppBase} from '@enact/sandstone/ColorPickerSettingsApp';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, text} from '@enact/storybook-utils/addons/controls';
 import {Fragment, useState} from 'react';
 
-ColorPicker.displayName = 'ColorPicker';
-const Config = mergeComponentMetadata('ColorPicker', ColorPickerBase, ColorPicker);
+ColorPickerSettingsApp.displayName = 'ColorPickerSettingsApp';
+const Config = mergeComponentMetadata('ColorPicker', ColorPickerSettingsAppBase, ColorPickerSettingsApp);
 
 const presetColors = [
 	'#FF0000',
@@ -17,8 +17,8 @@ const presetColors = [
 ];
 
 export default {
-	title: 'Sandstone/ColorPicker',
-	component: 'ColorPicker'
+	title: 'Sandstone/ColorPickerSettingsApp',
+	component: 'ColorPickerSettingsApp'
 };
 
 export const WithPresetColors = (args) => {
@@ -26,7 +26,7 @@ export const WithPresetColors = (args) => {
 
 	return (
 		<Fragment>
-			<ColorPicker
+			<ColorPickerSettingsApp
 				color={color}
 				colorHandler={setColor}
 				disabled={args.disabled}
