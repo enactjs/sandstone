@@ -80,7 +80,7 @@ const IconItemBase = kind({
 		 * The background color, gradient, or image of this item.
 		 * Accepts any format of color, gradient type value, and image url.
 		 *
-		 * Example: '#ff0000', 'radial-gradient(crimson, skyblue)', 'url(http://example.com/image.png) center / cover'
+		 * Example: '#ff0000', 'radial-gradient(crimson, skyblue)', 'url(https://example.com/image.png) center / cover'
 		 *
 		 * @type {String}
 		 * @public
