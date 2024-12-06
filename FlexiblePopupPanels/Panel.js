@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import handle, {forwardCustom, forwardCustomWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
@@ -208,7 +209,7 @@ const PanelBase = kind({
 						/>
 					</Cell>
 					<Cell
-						className={css.content}
+						className={classnames(css.content, (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? css.noAnimation : null)}
 						shrink={!contentCellSize}
 						size={contentCellSize}
 					>

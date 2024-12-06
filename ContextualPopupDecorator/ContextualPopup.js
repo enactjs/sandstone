@@ -149,7 +149,8 @@ const ContextualPopupBase = kind({
 		},
 		className: ({direction, offset, styler}) => styler.append(
 			{
-				fixedSize: direction === 'above' || direction === 'below'
+				fixedSize: direction === 'above' || direction === 'below',
+				noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
 			},
 			direction.split(' '),
 			offset,

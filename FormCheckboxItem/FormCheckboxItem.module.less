@@ -47,6 +47,15 @@
 			});
 		});
 
+		&.noAnimation {
+			.focus({
+				.bg {
+					background-color: transparent;
+					opacity: 0;
+				}
+			})
+		}
+
 		.disabled({
 			color: @sand-formcheckboxitem-disabled-text-color;
 		})

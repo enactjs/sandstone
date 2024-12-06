@@ -151,7 +151,7 @@ const ViewportBase = class extends Component {
 
 	static defaultProps = {
 		index: 0,
-		noAnimation: false
+		noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
 	};
 
 	constructor () {

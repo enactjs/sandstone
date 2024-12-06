@@ -9,6 +9,7 @@
  * @exports CheckboxBase
  */
 
+import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import Spottable from '@enact/spotlight/Spottable';
@@ -162,7 +163,7 @@ const CheckboxBase = kind({
 				disabled={disabled}
 				role="checkbox"
 			>
-				<div className={css.bg} />
+				<div className={classnames(css.bg, (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? css.noAnimation : null)} />
 				<Icon
 					size="tiny"
 					className={css.icon}
