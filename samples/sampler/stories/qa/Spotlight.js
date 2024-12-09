@@ -23,7 +23,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/controls';
 import {Row, Cell, Column} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
-import {Component, cloneElement} from 'react';
+import {Component, cloneElement, useCallback} from 'react';
 
 import css from './Spotlight.module.less';
 
@@ -517,6 +517,35 @@ export const FocusRing = () => (
 );
 
 FocusRing.storyName = 'Spottable with Focus Ring';
+
+export const FocusWithPreventScroll = () => {
+	const handleClickNotPrevented = useCallback(() => {
+		Spotlight.focus('#FocusWithPreventScrollTarget1');
+	}, []);
+
+	const handleClickPrevented = useCallback(() => {
+		Spotlight.focus('#FocusWithPreventScrollTarget2', {preventScroll: true});
+	}, []);
+
+	return (
+		<>
+			<p>Press OK button on the first button calls Spotlight.focus() to focus the second button for each scroller.</p>
+			Without preventScroll option
+			<div className={css.scroller}>
+				<Button className={css.block} onClick={handleClickNotPrevented}>Press OK on this button</Button>
+				<Button className={css.block} id="FocusWithPreventScrollTarget1">To be scrolled</Button>
+			</div>
+			<br />
+			With preventScroll: true option
+			<div className={css.scroller}>
+				<Button className={css.block} onClick={handleClickPrevented}>Press OK on this button</Button>
+				<Button className={css.block} id="FocusWithPreventScrollTarget2">Not to be scrolled</Button>
+			</div>
+		</>
+	);
+};
+
+FocusWithPreventScroll.storyName = 'Focus with preventScroll';
 
 export const KitchenSink = (args) => (
 	<Column>
