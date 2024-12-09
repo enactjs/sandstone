@@ -1,14 +1,34 @@
+/**
+ * Sandstone component that allows the user to choose a color from a spectrum.
+ *
+ * @example
+ * <ColorPickerSpectrum
+ *	 selectedColor="#FF00FF"
+ *	 selectedColorHandler={setSelectedColor}
+ * />
+ *
+ * @exports ColorPickerSpectrum
+ * @private
+ */
 import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import {getHexColorFromGradient} from './utils';
 import SpectrumIndicator from './SpectrumIndicator';
+import {getHexColorFromGradient} from './utils';
 
 import css from './ColorPickerSpectrum.module.less';
 
-const SpectrumColorPicker = (props) => {
-	const {selectedColor, selectedColorHandler} = props;
+/**
+ * A color picker component, ready to use in Sandstone applications.
+ *
+ * @class ColorPickerSpectrum
+ * @memberof sandstone/ColorPicker
+ * @ui
+ * @private
+ */
+const ColorPickerSpectrum = (props) => {
+	const {disabled, selectedColor, selectedColorHandler} = props;
 	const canvasRef = useRef(null);
 	const [canvasHeight, setCanvasHeight] = useState(ri.scale(660));
 	const [canvasWidth, setCanvasWidth] = useState(ri.scale(800));
@@ -20,7 +40,8 @@ const SpectrumColorPicker = (props) => {
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
-		const ctx = canvas.getContext('2d');
+		const ctx = canvas.getContext('2d', {willReadFrequently: true});
+		// `willReadFrequently: true` parameter permits the browser to optimize for frequent getImageData() calls by avoiding hardware acceleration
 
 		const createColorGradient = (canvasElement, context) => {
 			for (let i = 0; i < canvasElement.width; i++) {
@@ -70,6 +91,7 @@ const SpectrumColorPicker = (props) => {
 	}, [canvasHeight, canvasWidth]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const handleCanvasPointerDown = useCallback((e) => {
+		if (disabled) return;
 		const canvas = canvasRef.current;
 		const rect = canvas.getBoundingClientRect();
 		let x = e.clientX - rect.left;
@@ -82,7 +104,7 @@ const SpectrumColorPicker = (props) => {
 		const hexColor = getHexColorFromGradient(canvasRef, indicatorX, indicatorY);
 		setIndicatorBgColor(hexColor);
 		setIsIndicatorActive(false);
-	}, [canvasRef, indicatorX, indicatorY, setIndicatorX, setIndicatorY, setIsDragging]);
+	}, [canvasRef, disabled, indicatorX, indicatorY, setIndicatorX, setIndicatorY, setIsDragging]);
 
 	const handleCanvasPointerLeave = useCallback(() => {
 		setIsDragging(false);
@@ -129,6 +151,7 @@ const SpectrumColorPicker = (props) => {
 			<SpectrumIndicator
 				bgColor={indicatorBgColor}
 				canvasRef={canvasRef}
+				disabled={disabled}
 				isIndicatorActive={isIndicatorActive}
 				selectedColorHandler={selectedColorHandler}
 				setIsIndicatorActive={setIsIndicatorActive}
@@ -142,10 +165,33 @@ const SpectrumColorPicker = (props) => {
 	);
 };
 
-SpectrumColorPicker.displayName = 'SpectrumColorPicker';
-SpectrumColorPicker.propTypes = {
+ColorPickerSpectrum.displayName = 'ColorPickerSpectrum';
+
+ColorPickerSpectrum.propTypes = {
+	/**
+	 * Applies a disabled style and prevents interacting with the component.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	disabled: PropTypes.bool,
+
+	/**
+	 * Indicates the selected color.
+	 *
+	 * @type {String}
+	 * @private
+	 */
 	selectedColor: PropTypes.string,
+
+	/**
+	 * Called when the selected color is modified.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
 	selectedColorHandler: PropTypes.func
 };
 
-export default SpectrumColorPicker;
+export default ColorPickerSpectrum;

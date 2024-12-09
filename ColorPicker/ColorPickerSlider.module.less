@@ -1,3 +1,5 @@
+// ColorPickerSlider.module.less
+//
 @import "../styles/mixins.less";
 
 .sliderPickerContainer {
@@ -24,8 +26,7 @@
 		--sand-progress-bg-color-rgb: transparent;
 		border-radius: 99px;
 		height: 33px;
-		margin-left: 18px;
-		margin-right: 18px;
+		margin: 0 18px;
 
 		.focus({
 			.knob {
@@ -35,6 +36,7 @@
 
 		.knob {
 			&::before {
+				--sand-slider-disabled-knob-bg-color: transparent;
 				border-radius: 99px;
 				height: 102px;
 				width: 102px;
