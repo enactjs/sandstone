@@ -3,7 +3,10 @@
  * either from a grid, a spectrum, or RGB/HSL color sliders.
  *
  * @example
- * <ColorPicker open />
+ * <ColorPicker
+ * 	 onChangeColor={() => console.log}
+ * 	 open
+ * />
  *
  * @module sandstone/ColorPicker
  * @exports ColorPicker
