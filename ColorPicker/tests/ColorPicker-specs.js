@@ -3,8 +3,8 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import GridColorPicker from '../ColorPickerGrid';
-import SpectrumColorPicker from '../ColorPickerSpectrum';
 import SliderColorPicker from '../ColorPickerSlider';
+import SpectrumColorPicker from '../ColorPickerSpectrum';
 
 describe('ColorPickerPOC', () => {
 	afterEach(() => {
@@ -14,7 +14,7 @@ describe('ColorPickerPOC', () => {
 	describe('Grid ColorPicker', () => {
 		test('should render Grid Color Picker', () => {
 			const {container} = render(<GridColorPicker />);
-			const colorPicker = container.querySelector('.colorPicker');
+			const colorPicker = container.querySelector('.colorPicker'); // eslint-disable-line testing-library/no-container
 
 			expect(colorPicker).toBeInTheDocument();
 		});
@@ -100,7 +100,7 @@ describe('ColorPickerPOC', () => {
 			return values;
 		};
 
-		test('should render Slider Color Picker', () => {
+		test('should render an RGB Slider Color Picker', () => {
 			const color = "#eb4034";
 			render(<SliderColorPicker selectedColor={color} />);
 			const sliders = screen.getAllByRole('slider');
@@ -133,11 +133,64 @@ describe('ColorPickerPOC', () => {
 			expect(blue).not.toEqual(changedBlue);
 		});
 
-		test('should emit a selectedColorHandler event when changing sliders\' value', async () => {
+		test('should emit a selectedColorHandler event when changing RGB sliders value', async () => {
 			const color = "#eb4034";
 			const selectedColorHandler = jest.fn();
 
 			render(<SliderColorPicker selectedColor={color} selectedColorHandler={selectedColorHandler} />);
+			const sliders = screen.getAllByRole('slider');
+
+			await changeSliderValueByKey(sliders[0], 30);
+			fireEvent.blur(sliders[0]);
+			expect(selectedColorHandler).toHaveBeenCalled();
+
+			await changeSliderValueByKey(sliders[1], 30, true);
+			fireEvent.blur(sliders[1]);
+			expect(selectedColorHandler).toHaveBeenCalled();
+
+			await changeSliderValueByKey(sliders[2], 30, true);
+			fireEvent.blur(sliders[2]);
+			expect(selectedColorHandler).toHaveBeenCalled();
+		});
+
+		test('should render an HSL Slider Color Picker', () => {
+			const color = "#eb4034";
+			render(<SliderColorPicker selectedColor={color} type="HSL" />);
+			const sliders = screen.getAllByRole('slider');
+			const [hue, saturation, lightness] = sliders;
+
+			expect(hue).toBeInTheDocument();
+			expect(saturation).toBeInTheDocument();
+			expect(lightness).toBeInTheDocument();
+		});
+
+		test('should change the value of hue/saturation/lightness sliders', async () => {
+			const color = "#eb4034";
+			const selectedColorHandler = jest.fn();
+
+			render(<SliderColorPicker selectedColor={color} selectedColorHandler={selectedColorHandler} type="HSL" />);
+			const sliders = screen.getAllByRole('slider');
+			const [hue, saturation, lightness] = sliderValues(sliders);
+
+			await changeSliderValueByKey(sliders[0], 30);
+			fireEvent.blur(sliders[0]);
+			await changeSliderValueByKey(sliders[1], 30, true);
+			fireEvent.blur(sliders[1]);
+			await changeSliderValueByKey(sliders[2], 30, true);
+			fireEvent.blur(sliders[2]);
+
+			const [changedHue, changedSaturation, changedLightness] = sliderValues(sliders);
+
+			expect(hue).not.toEqual(changedHue);
+			expect(saturation).not.toEqual(changedSaturation);
+			expect(lightness).not.toEqual(changedLightness);
+		});
+
+		test('should emit a selectedColorHandler event when changing HSL sliders value', async () => {
+			const color = "#eb4034";
+			const selectedColorHandler = jest.fn();
+
+			render(<SliderColorPicker selectedColor={color} selectedColorHandler={selectedColorHandler} type="HSL" />);
 			const sliders = screen.getAllByRole('slider');
 
 			await changeSliderValueByKey(sliders[0], 30);
