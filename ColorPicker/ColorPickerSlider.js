@@ -452,6 +452,7 @@ const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, type 
 						placeholder={pickerType}
 						selected={dropdownValue}
 						size="small"
+						spotlightDisabled={disabled}
 					>
 						{['RGB', 'HSL']}
 					</Dropdown>
@@ -503,16 +504,7 @@ ColorPickerSlider.propTypes = {
 	 * @type {Function}
 	 * @private
 	 */
-	selectedColorHandler: PropTypes.func,
-
-	/**
-	 * Set the type of color picker to use.
-	 *
-	 * @type {('RGB'|'HSL')}
-	 * @default 'RGB'
-	 * @private
-	 */
-	type: PropTypes.string
+	selectedColorHandler: PropTypes.func
 };
 
 export {
