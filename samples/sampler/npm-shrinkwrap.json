@@ -14,7 +14,7 @@
         "@enact/sandstone": "../../",
         "@enact/spotlight": "^5.0.0-alpha.3",
         "@enact/storybook-utils": "^6.0.0-rc.3",
-        "@enact/ui": "^5.0.0-alpha.2",
+        "@enact/ui": "^5.0.0-alpha.3",
         "@storybook/addon-docs": "^8.4.5",
         "@storybook/builder-webpack5": "^8.4.5",
         "@storybook/csf-tools": "^8.4.5",
@@ -21950,35 +21950,6 @@
       "resolved": "https://registry.npmjs.org/@types/doctrine/-/doctrine-0.0.9.tgz",
       "integrity": "sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==",
       "extraneous": true
-    },
-    "node_modules/@enact/storybook-utils/node_modules/@types/eslint": {
-      "version": "8.56.10",
-      "resolved": "https://registry.npmjs.org/@types/eslint/-/eslint-8.56.10.tgz",
-      "integrity": "sha512-Shavhk87gCtY2fhXDctcfS3e6FdxWkCx1iUZ9eEUbh7rTqlZT0/IzOkCOVt0fCjcFuZ9FPYfuezTBImfHCDBGQ==",
-      "optional": true,
-      "peer": true,
-      "dependencies": {
-        "@types/estree": "*",
-        "@types/json-schema": "*"
-      }
-    },
-    "node_modules/@enact/storybook-utils/node_modules/@types/eslint-scope": {
-      "version": "3.7.7",
-      "resolved": "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.7.tgz",
-      "integrity": "sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==",
-      "optional": true,
-      "peer": true,
-      "dependencies": {
-        "@types/eslint": "*",
-        "@types/estree": "*"
-      }
-    },
-    "node_modules/@enact/storybook-utils/node_modules/@types/estree": {
-      "version": "0.0.51",
-      "resolved": "https://registry.npmjs.org/@types/estree/-/estree-0.0.51.tgz",
-      "integrity": "sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==",
-      "optional": true,
-      "peer": true
     },
     "node_modules/@enact/storybook-utils/node_modules/@types/html-minifier-terser": {
       "version": "6.1.0",
