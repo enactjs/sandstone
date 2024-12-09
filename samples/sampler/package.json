@@ -17,7 +17,7 @@
   },
   "license": "Apache-2.0",
   "enact": {
-    "theme": "sandstone "
+    "theme": "sandstone"
   },
   "dependencies": {
     "@enact/core": "^5.0.0-alpha.3",
