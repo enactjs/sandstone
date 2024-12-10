@@ -10,8 +10,6 @@
  *
  * @function
  * @param {String} msg				Event name
- * @param	{Function}	fn					Event handler
- * @param	{Node}		[target=`document`]	Event listener target
  *
  * @returns {undefined}
  * @memberof sandstone/internal/validators
