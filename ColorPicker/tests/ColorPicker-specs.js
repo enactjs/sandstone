@@ -1,9 +1,10 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import '@testing-library/jest-dom';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import ColorPicker from '../ColorPicker';
+import {FavoriteColors} from '../ColorPicker';
 import GridColorPicker from '../ColorPickerGrid';
 import SliderColorPicker from '../ColorPickerSlider';
 import SpectrumColorPicker from '../ColorPickerSpectrum';
@@ -112,6 +113,165 @@ describe('ColorPicker', () => {
 
 	});
 
+	describe('FavoriteColors', () => {
+		test('should render favorite colors and a selected color containers', () => {
+			const favoriteColorsHandler = jest.fn();
+			const selectedColorHandler = jest.fn();
+			const {container} = render(
+				<FavoriteColors
+					favoriteColors={colors}
+					favoriteColorsHandler={favoriteColorsHandler}
+					selectedColor={colors[0]}
+					selectedColorHandler={selectedColorHandler}
+				/>
+			);
+			const favoriteColors = container.querySelectorAll('.favoriteColor');
+			const selectedColor = container.querySelector('.selectedColorColumn');
+
+			expect(favoriteColors[0]).toBeInTheDocument();
+			expect(selectedColor).toBeInTheDocument();
+		});
+
+		test('should update selectedColor when selecting a color', async () => {
+			const onChangeColorHandler = jest.fn();
+			const user = userEvent.setup();
+			const {container} = render(
+				<FloatingLayerController>
+					<ColorPicker
+						color={colors[0]}
+						colors={colors}
+						onChangeColor={onChangeColorHandler}
+						open
+						type="grid"
+					/>
+				</FloatingLayerController>
+			);
+			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line
+			const selectedColor = container.querySelector('.selectedColor');
+
+			await user.click(secondColorBlock);
+
+			expect(secondColorBlock).toHaveStyle({backgroundColor: 'rgb(0, 55, 74)'});
+			expect(selectedColor).toHaveStyle({backgroundColor: 'rgb(0, 55, 74)'});
+		});
+
+		test('should update favorite colors after clicking a color from the color picker', async () => {
+			const onChangeColorHandler = jest.fn();
+			const user = userEvent.setup();
+			const {container} = render(
+				<FloatingLayerController>
+					<ColorPicker
+						color={colors[0]}
+						colors={colors}
+						onChangeColor={onChangeColorHandler}
+						open
+					/>
+				</FloatingLayerController>
+			);
+			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line
+			const selectedColor = container.querySelector('.selectedColor');
+
+			await user.click(secondColorBlock);
+			await user.click(selectedColor);
+
+			const favoriteColors = screen.getAllByRole('button');
+
+			expect(secondColorBlock).toHaveStyle({backgroundColor: 'rgb(0, 55, 74)'});
+			expect(selectedColor).toHaveStyle({backgroundColor: 'rgb(0, 55, 74)'});
+			// last added favorite color should have the same background color
+			expect(favoriteColors[3]).toHaveStyle({backgroundColor: 'rgb(0, 55, 74)'});
+
+		});
+
+		test('should not update favoriteColors when ColorPicker is disabled', async () => {
+			const onChangeColorHandler = jest.fn();
+			const user = userEvent.setup();
+			const {container} = render(
+				<FloatingLayerController>
+					<ColorPicker
+						color={colors[0]}
+						colors={colors}
+						disabled
+						onChangeColor={onChangeColorHandler}
+						open
+					/>
+				</FloatingLayerController>
+			);
+			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line
+			const selectedColor = container.querySelector('.selectedColor');
+			const favoriteColorsContainer = screen.getAllByRole('button');
+
+			await user.click(secondColorBlock);
+			await user.click(selectedColor);
+
+			expect(onChangeColorHandler).not.toHaveBeenCalled();
+			// check if three favorite colors blocks and one selected color block is rendered
+			expect(favoriteColorsContainer[0]).toBeInTheDocument();
+			expect(favoriteColorsContainer[1]).toBeInTheDocument();
+			expect(favoriteColorsContainer[2]).toBeInTheDocument();
+			expect(favoriteColorsContainer[3]).toBeInTheDocument();
+			expect(favoriteColorsContainer[4]).toBe(undefined);
+		});
+
+		test('should update selectedColor after clicking a favorite color', async () => {
+			const onChangeColorHandler = jest.fn();
+			const user = userEvent.setup();
+			render(
+				<FloatingLayerController>
+					<ColorPicker
+						color={colors[0]}
+						colors={colors}
+						disabled
+						onChangeColor={onChangeColorHandler}
+						open
+					/>
+				</FloatingLayerController>
+			);
+			const favoriteColorsContainer = screen.getAllByRole('button');
+			const firstFavoriteColor = favoriteColorsContainer[0];
+
+			user.click(firstFavoriteColor);
+			const selectedColorButton = favoriteColorsContainer[3];
+
+			expect(firstFavoriteColor).toHaveStyle({backgroundColor: 'rgb(235, 64, 52)'});
+			expect(selectedColorButton).toHaveStyle({backgroundColor: 'rgb(235, 64, 52)'});
+		});
+
+		test('should render a "trash" icon after long click on a favorite color block', async () => {
+			const onChangeColorHandler = jest.fn();
+			const user = userEvent.setup();
+			render(
+				<FloatingLayerController>
+					<ColorPicker
+						color={colors[0]}
+						colors={colors}
+						onChangeColor={onChangeColorHandler}
+						open
+					/>
+				</FloatingLayerController>
+			);
+			const favoriteColors = screen.getAllByRole('button');
+			const firstFavoriteColor = favoriteColors[0];
+
+			await act(async () => {
+				// Simulate long press
+				await user.pointer({
+					keys: "[MouseLeft>]",
+					target: firstFavoriteColor,
+				});
+				// Wait for 1 second to simulate the duration of the long press
+				await new Promise((resolve) => setTimeout(resolve, 1000));
+			});
+
+			const expected = 983077; // decimal converted charCode of Unicode 'trash' character
+
+			expect(firstFavoriteColor.textContent.codePointAt()).toBe(expected);
+		});
+	});
+
 	describe('Grid ColorPicker', () => {
 		test('should render Grid Color Picker', () => {
 			const {container} = render(<GridColorPicker />);
@@ -128,7 +288,7 @@ describe('ColorPicker', () => {
 				<GridColorPicker onClick={onClickHandler} selectedColorHandler={selectedColorHandler} />
 			);
 			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[0]; // eslint-disable-line
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line
 
 			await user.click(secondColorBlock);
 			expect(onClickHandler).toHaveBeenCalled();

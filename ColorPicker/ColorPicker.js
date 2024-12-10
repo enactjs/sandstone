@@ -416,5 +416,6 @@ const ColorPicker = Skinnable(ColorPickerBase);
 export default ColorPicker;
 export {
 	ColorPicker,
-	ColorPickerBase
+	ColorPickerBase,
+	FavoriteColors
 };
