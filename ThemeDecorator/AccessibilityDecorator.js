@@ -25,7 +25,6 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		if (focusRing) variants.focusRing = true;
 
 		const context = useContext(ResizeContext);
-		const didMountRef = useRef(false);
 		const prevTextSize = useRef(textSize);
 		const resizeRegistry = useRef(Registry.create());
 
@@ -36,18 +35,15 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 				// eslint-disable-next-line react-hooks/exhaustive-deps
 				resizeRegistry.current.parent = null;
 			};
-		});
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, []);
 
 		useEffect(() => {
-			if (didMountRef.current) {
-				if (prevTextSize.current !== textSize) {
-					resizeRegistry.current.notify({});
-					prevTextSize.current = textSize;
-				}
-			} else {
-				didMountRef.current = true;
+			if (prevTextSize.current !== textSize) {
+				resizeRegistry.current.notify({});
+				prevTextSize.current = textSize;
 			}
-		});
+		}, [textSize]);
 
 		return (
 			<ResizeContext.Provider value={resizeRegistry.current.register}>
