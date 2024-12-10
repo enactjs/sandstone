@@ -8,7 +8,7 @@ const IconTests = [
 	<Icon size="medium">minus</Icon>,
 	<Icon size="large">minus</Icon>,
 	<Icon size={120}>minus</Icon>,
-	<Icon>💣</Icon>, // [QWTC-2251] testing 'custom-icon' using unicode character
+	<Icon>💣</Icon>, // [QWTC-2251] testing 'custom-icon' using Unicode character
 	<Icon size="tiny">💣</Icon>,
 	<Icon size="medium">💣</Icon>,
 	<Icon size="large">💣</Icon>,
@@ -76,7 +76,7 @@ const IconTests = [
 
 	{
 		locale: 'ar-SA',
-		component: <Icon>💣</Icon>  // testing 'custom-icon' using unicode character
+		component: <Icon>💣</Icon>  // testing 'custom-icon' using Unicode character
 	},
 	{
 		locale: 'ar-SA',

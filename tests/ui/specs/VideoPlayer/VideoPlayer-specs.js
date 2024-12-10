@@ -119,7 +119,7 @@ describe('VideoPlayer', function () {
 				}
 
 				expect(await videoPlayerDefault.playButton.isFocused()).toBe(true);
-				// Setp 4-2: 5-way Down again.
+				// Step 4-2: 5-way Down again.
 				// Step 4-3: 5-way Select.
 				// Step 4-4: 5-way Up quickly.
 				await Page.spotlightDown();

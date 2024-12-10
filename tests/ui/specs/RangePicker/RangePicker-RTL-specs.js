@@ -26,7 +26,7 @@ describe('RangePicker RTL', function () {
 			});
 
 			it('should decrement/increment in ar-SA [QWTC-2145]', async function () {
-				// Check that the disabled pciker's position is left from defaultPicker.(in case LTR, it is right from defaultPicker.)
+				// Check that the disabled picker's position is left from defaultPicker.(in case LTR, it is right from defaultPicker.)
 				await Page.spotlightLeft();
 				await Page.spotlightLeft();
 				expect(await rangePickerDisabled.incrementer(rangePickerDisabled.self).isFocused()).toBe(true);

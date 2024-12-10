@@ -116,7 +116,7 @@ const MediaControlsBase = kind({
 		actionGuideLabel: PropTypes.string,
 
 		/**
-		 * These components are placed below the action guide. Typically these will be media playlist controls.
+		 * These components are placed below the action guide. Typically, these will be media playlist controls.
 		 *
 		 * @type {Node}
 		 * @public
@@ -446,7 +446,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			actionGuideLabel: PropTypes.string,
 
 			/**
-			 * These components are placed below the children. Typically these will be media playlist items.
+			 * These components are placed below the children. Typically, these will be media playlist items.
 			 *
 			 * @type {Node}
 			 * @public
@@ -568,7 +568,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			playPauseButtonDisabled: PropTypes.bool,
 
 			/**
-			 * Disables the media playback-rate control via rewind and fast forward keys
+			 * Disables the media playback-rate control via rewind and fast-forward keys
 			 *
 			 * @type {Boolean}
 			 * @public

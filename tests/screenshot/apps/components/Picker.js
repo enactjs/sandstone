@@ -52,7 +52,7 @@ const PickerTests = [
 	},
 	// end of [QWTC-2214]
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWTC-2215]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', 'decrementIcon' dynamically - [QWTC-2215]
 	// Marked part automated due to Marquee and Click actions
 	// Step 2: Tall characters display fully and are not truncated.
 	<Picker width="large">{pickerList.tall}</Picker>,
@@ -133,7 +133,7 @@ const PickerTests = [
 	<Picker orientation="vertical">{pickerList.oneAirport}</Picker>,
 	// end of [QWTC-2212]
 
-	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [QWTC-2213]
+	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', 'decrementIcon' dynamically - Vertical Picker - [QWTC-2213]
 	<Picker orientation="vertical" />,
 	// step 3:  Picker displays vertically.
 	<Picker value={2} width="medium" orientation="vertical">{pickerList.vegetables}</Picker>,
@@ -232,7 +232,7 @@ const PickerTests = [
 		component: <Picker>{pickerList.oneAirport}</Picker>
 	},
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [QWTC-2215]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'changedBy', 'noAnimation', 'disabled', 'incrementIcon', 'decrementIcon' dynamically - [QWTC-2215]
 	// Marked part automated due to Marquee and Click actions
 	// Step 2: Tall characters display fully and are not truncated.
 	{
@@ -442,7 +442,7 @@ const PickerTests = [
 	},
 	// end of [QWTC-2212]
 
-	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [QWTC-2213]
+	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', 'decrementIcon' dynamically - Vertical Picker - [QWTC-2213]
 	{
 		locale: 'ar-SA',
 		component: <Picker orientation="vertical" />

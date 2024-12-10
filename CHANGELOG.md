@@ -320,7 +320,7 @@ No significant changes.
 
 ### Fixed
 
-- `sandstone/Dropdown' to focus properly the first option and the last option via page up and page down
+- `sandstone/Dropdown` to focus properly the first option and the last option via page up and page down
 - `sandstone/QuickGuidePanels` to not lose focus when the last view is displayed
 
 ## [2.7.5] - 2023-08-04

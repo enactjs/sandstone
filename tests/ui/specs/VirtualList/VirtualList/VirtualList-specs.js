@@ -102,7 +102,7 @@ describe('VirtualList', function () {
 			await Page.fiveWayToItem(0);
 			// Verify Step 6:  1. The list Scroll Down. 2. The Spotted item is placed on the Top.
 			await expectFocusedItem(Number((await Page.topVisibleItemId()).slice(4)), 'focus Item 00');
-			await expectFocusedItem(0, 'focus Item 00');  // to double check it is really top item
+			await expectFocusedItem(0, 'focus Item 00');  // to double-check it is really top item
 		});
 
 		it('should Spotlight with Pointer wave [QWTC-2055]', async function () {
