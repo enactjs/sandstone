@@ -251,5 +251,9 @@ export default {
 	jumpbackward10    : 0x0F01B7, // jumpbackward_10
 	jumpforward10     : 0x0F01B8, // jumpforward_10
 	logout            : 0x0F01B9, // logout
-	sketch            : 0x0F01BA // sketch
+	sketch            : 0x0F01BA, // sketch
+	ai                : 0x0F01BB, // ai
+	alert01           : 0x0F01BC, // alert.01
+	alert02           : 0x0F01BD, // alert.02
+	calibration       : 0x0F01BE // calibration
 };
