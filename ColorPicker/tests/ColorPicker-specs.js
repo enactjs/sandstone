@@ -8,6 +8,7 @@ import {FavoriteColors} from '../ColorPicker';
 import GridColorPicker from '../ColorPickerGrid';
 import SliderColorPicker from '../ColorPickerSlider';
 import SpectrumColorPicker from '../ColorPickerSpectrum';
+import {hexToHSL, hslToHex} from '../utils';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
@@ -113,7 +114,7 @@ describe('ColorPicker', () => {
 
 	});
 
-	describe('FavoriteColors', () => {
+	describe('Favorite Colors', () => {
 		test('should render favorite colors and a selected color containers', () => {
 			const favoriteColorsHandler = jest.fn();
 			const selectedColorHandler = jest.fn();
@@ -125,8 +126,8 @@ describe('ColorPicker', () => {
 					selectedColorHandler={selectedColorHandler}
 				/>
 			);
-			const favoriteColors = container.querySelectorAll('.favoriteColor');
-			const selectedColor = container.querySelector('.selectedColorColumn');
+			const favoriteColors = container.querySelectorAll('.favoriteColor'); // eslint-disable-line testing-library/no-container
+			const selectedColor = container.querySelector('.selectedColorColumn'); // eslint-disable-line testing-library/no-container
 
 			expect(favoriteColors[0]).toBeInTheDocument();
 			expect(selectedColor).toBeInTheDocument();
@@ -146,9 +147,9 @@ describe('ColorPicker', () => {
 					/>
 				</FloatingLayerController>
 			);
-			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line
-			const selectedColor = container.querySelector('.selectedColor');
+			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line testing-library/no-container
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line testing-library/no-container
+			const selectedColor = container.querySelector('.selectedColor'); // eslint-disable-line testing-library/no-container
 
 			await user.click(secondColorBlock);
 
@@ -169,9 +170,9 @@ describe('ColorPicker', () => {
 					/>
 				</FloatingLayerController>
 			);
-			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line
-			const selectedColor = container.querySelector('.selectedColor');
+			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line testing-library/no-container
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line testing-library/no-container
+			const selectedColor = container.querySelector('.selectedColor'); // eslint-disable-line testing-library/no-container
 
 			await user.click(secondColorBlock);
 			await user.click(selectedColor);
@@ -199,9 +200,9 @@ describe('ColorPicker', () => {
 					/>
 				</FloatingLayerController>
 			);
-			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line
-			const selectedColor = container.querySelector('.selectedColor');
+			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line testing-library/no-container
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line testing-library/no-container
+			const selectedColor = container.querySelector('.selectedColor'); // eslint-disable-line testing-library/no-container
 			const favoriteColorsContainer = screen.getAllByRole('button');
 
 			await user.click(secondColorBlock);
@@ -213,7 +214,7 @@ describe('ColorPicker', () => {
 			expect(favoriteColorsContainer[1]).toBeInTheDocument();
 			expect(favoriteColorsContainer[2]).toBeInTheDocument();
 			expect(favoriteColorsContainer[3]).toBeInTheDocument();
-			expect(favoriteColorsContainer[4]).toBe(undefined);
+			expect(favoriteColorsContainer[4]).toBe(undefined); // eslint-disable-line no-undefined
 		});
 
 		test('should update selectedColor after clicking a favorite color', async () => {
@@ -260,7 +261,7 @@ describe('ColorPicker', () => {
 				// Simulate long press
 				await user.pointer({
 					keys: "[MouseLeft>]",
-					target: firstFavoriteColor,
+					target: firstFavoriteColor
 				});
 				// Wait for 1 second to simulate the duration of the long press
 				await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -388,7 +389,7 @@ describe('ColorPicker', () => {
 			const color = "#eb4034";
 			const selectedColorHandler = jest.fn();
 			const {container} = render(<SpectrumColorPicker selectedColor={color} selectedColorHandler={selectedColorHandler} />);
-			const indicator = container.querySelector('.circleIndicator');
+			const indicator = container.querySelector('.circleIndicator'); // eslint-disable-line testing-library/no-container
 
 			// await activate(indicator);
 			await fireEvent.keyDown(indicator, {keyCode: 39});
@@ -529,6 +530,47 @@ describe('ColorPicker', () => {
 			await changeSliderValueByKey(sliders[2], 30, true);
 			fireEvent.blur(sliders[2]);
 			expect(selectedColorHandler).toHaveBeenCalled();
+		});
+	});
+
+	describe('utils', () => {
+		test('should return hsl from hex color', () => {
+			const hexBlueColor = '#0000FF';
+			const hexGreenColor = '#00FF00';
+			const hexRedColor = '#FF0000';
+
+			const hslBlueColor = hexToHSL(hexBlueColor);
+			const hslGreenColor = hexToHSL(hexGreenColor);
+			const hslRedColor = hexToHSL(hexRedColor);
+
+			const expectedBlue = {h: 240, s: 100, l: 50};
+			const expectedGreen = {h: 120, s: 100, l: 50};
+			const expectedRed = {h: 0, s: 100, l: 50};
+
+			expect(hslBlueColor).toEqual(expectedBlue);
+			expect(hslGreenColor).toEqual(expectedGreen);
+			expect(hslRedColor).toEqual(expectedRed);
+		});
+
+		test('should return hex from hsl color', () => {
+			const hslAquaColor = hslToHex({h: 180, s: 100, l: 50});
+			const hslBlueColor = hslToHex({h: 240, s: 100, l: 50});
+			const hslFuchsiaColor = hslToHex({h: 300, s: 100, l: 50});
+			const hslRedColor = hslToHex({h: 0, s: 100, l: 50});
+			const hslYellowColor = hslToHex({h: 60, s: 100, l: 50});
+
+			const hexAquaColor = '#00ffff';
+			const hexBlueColor = '#0000ff';
+			const hexFuchsiaColor = '#ff00ff';
+			const hexRedColor = '#ff0000';
+			const hexYellowColor = '#ffff00';
+
+
+			expect(hslAquaColor).toEqual(hexAquaColor);
+			expect(hslBlueColor).toEqual(hexBlueColor);
+			expect(hslFuchsiaColor).toEqual(hexFuchsiaColor);
+			expect(hslRedColor).toEqual(hexRedColor);
+			expect(hslYellowColor).toEqual(hexYellowColor);
 		});
 	});
 });

@@ -504,7 +504,16 @@ ColorPickerSlider.propTypes = {
 	 * @type {Function}
 	 * @private
 	 */
-	selectedColorHandler: PropTypes.func
+	selectedColorHandler: PropTypes.func,
+
+	/**
+	 * Set the type of color picker to use.
+	 *
+	 * @type {('RGB'|'HSL')}
+	 * @default 'RGB'
+	 * @public
+	 */
+	type: PropTypes.string
 };
 
 export {
