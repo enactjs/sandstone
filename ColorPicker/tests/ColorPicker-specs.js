@@ -148,7 +148,7 @@ describe('ColorPicker', () => {
 				</FloatingLayerController>
 			);
 			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line testing-library/no-container
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line testing-library/no-container
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1];
 			const selectedColor = container.querySelector('.selectedColor'); // eslint-disable-line testing-library/no-container
 
 			await user.click(secondColorBlock);
@@ -171,7 +171,7 @@ describe('ColorPicker', () => {
 				</FloatingLayerController>
 			);
 			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line testing-library/no-container
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line testing-library/no-container
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1];
 			const selectedColor = container.querySelector('.selectedColor'); // eslint-disable-line testing-library/no-container
 
 			await user.click(secondColorBlock);
@@ -201,7 +201,7 @@ describe('ColorPicker', () => {
 				</FloatingLayerController>
 			);
 			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line testing-library/no-container
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line testing-library/no-container
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1];
 			const selectedColor = container.querySelector('.selectedColor'); // eslint-disable-line testing-library/no-container
 			const favoriteColorsContainer = screen.getAllByRole('button');
 
@@ -288,8 +288,8 @@ describe('ColorPicker', () => {
 			const {container} = render(
 				<GridColorPicker onClick={onClickHandler} selectedColorHandler={selectedColorHandler} />
 			);
-			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line
-			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1]; // eslint-disable-line
+			const colorsColumnDiv = container.querySelectorAll('.colorPicker'); // eslint-disable-line testing-library/no-container
+			const secondColorBlock = colorsColumnDiv[0].querySelectorAll('.colorBlock')[1];
 
 			await user.click(secondColorBlock);
 			expect(onClickHandler).toHaveBeenCalled();
@@ -312,7 +312,7 @@ describe('ColorPicker', () => {
 				})),
 				fillRect: jest.fn(),
 				getImageData: jest.fn(() => ({
-					data: new Uint8ClampedArray(800 * 600 * 4) // Mock image data with zeros
+					data: new Uint8ClampedArray(800 * 600 * 4) // Mock image data
 				}))
 			};
 
