@@ -637,7 +637,7 @@ export const HorizontalScroll = (args) => (
 	>
 		<div
 			style={{
-				width: ri.scaleToRem(14400, 'rem'),
+				width: ri.scaleToRem(14400),
 				padding: '1px'
 			}}
 		>
