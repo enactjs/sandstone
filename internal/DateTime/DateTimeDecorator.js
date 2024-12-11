@@ -5,15 +5,16 @@
  * @private
  */
 
-import handle, {call, forKey, forProp, forward, forwardCustom} from '@enact/core/handle';
+import {forKey, forProp, forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
+import {is} from '@enact/core/keymap';
 import {memoize} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import DateFactory from 'ilib/lib/DateFactory';
 import PropTypes from 'prop-types';
-import {Component, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 /*
  * Converts a JavaScript Date to unix time
@@ -25,6 +26,8 @@ import {Component, useEffect, useState} from 'react';
 const toTime = (date) => {
 	return date && date.getTime();
 };
+
+const isEnter = is('enter');
 
 /**
  * {@link sandstone/internal/DateTimeDecorator.DateTimeDecorator} provides common behavior for
@@ -47,226 +50,6 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 		return null;
 	});
 
-	// const Decorator = class extends Component {
-	// 	static displayName = 'DateTimeDecorator';
-	//
-	// 	static propTypes = /** @lends sandstone/internal/DateTimeDecorator.DateTimeDecorator.prototype */ {
-	// 		/**
-	// 		 * The current locale as a
-	// 		 * {@link https://tools.ietf.org/html/rfc5646|BCP 47 language tag}.
-	// 		 *
-	// 		 * @type {String}
-	// 		 * @public
-	// 		 */
-	// 		locale: PropTypes.string,
-	//
-	// 		/**
-	// 		 * Handler for `onChange` events
-	// 		 *
-	// 		 * @type {Function}
-	// 		 * @public
-	// 		 */
-	// 		onChange: PropTypes.func,
-	//
-	// 		/**
-	// 		 * Handler for `onComplete` event
-	// 		 *
-	// 		 * @type {Function}
-	// 		 * @public
-	// 		 */
-	// 		onComplete: PropTypes.func,
-	//
-	// 		/**
-	// 		 * When `true`, the date picker is expanded to select a new date.
-	// 		 *
-	// 		 * @type {Boolean}
-	// 		 * @public
-	// 		 */
-	// 		open: PropTypes.bool,
-	//
-	// 		/**
-	// 		 * Indicates the content's text direction is right-to-left.
-	// 		 *
-	// 		 * @type {Boolean}
-	// 		 * @private
-	// 		 */
-	// 		rtl: PropTypes.bool,
-	//
-	// 		/**
-	// 		 * The selected date
-	// 		 *
-	// 		 * @type {Date}
-	// 		 * @public
-	// 		 */
-	// 		value: PropTypes.instanceOf(Date)
-	// 	};
-	//
-	// 	constructor (props) {
-	// 		super(props);
-	//
-	// 		this.state = {
-	// 			initialValue: null,
-	// 			value: null
-	// 		};
-	//
-	// 		const newValue = toTime(this.props.value);
-	// 		const value = newValue || Date.now();
-	//
-	// 		// if no value was provided, we need to emit the onChange event for the generated value
-	// 		if (!newValue) {
-	// 			this.emitChange(this.toIDate(value));
-	// 		}
-	//
-	// 		this.handlers = {};
-	// 		if (handlers) {
-	// 			Object.keys(handlers).forEach(name => {
-	// 				this.handlers[name] = this.handlePickerChange.bind(this, handlers[name]);
-	// 			});
-	// 		}
-	// 	}
-	//
-	// 	static getDerivedStateFromProps (props, state) {
-	// 		let value = toTime(props.value);
-	//
-	// 		if (props.open && !props.disabled && state.initialValue == null && state.value == null) {
-	// 			// when the expandable opens, we cache the prop value so it can be restored on
-	// 			// cancel and set value to be the current time if unset in order to initialize the
-	// 			// pickers
-	// 			return {
-	// 				initialValue: value,
-	// 				value: value || Date.now()
-	// 			};
-	// 		} else if (state.value !== value) {
-	// 			// always respect a value change from props
-	// 			return {
-	// 				value
-	// 			};
-	// 		}
-	//
-	// 		return null;
-	// 	}
-	//
-	// 	/**
-	// 	 * Converts a Date to an IDate
-	// 	 *
-	// 	 * @param	{Date}	time	Date object
-	// 	 *
-	// 	 * @returns	{IDate}			ilib Date object
-	// 	 */
-	// 	toIDate (time) {
-	// 		if (time && this.props.locale) {
-	// 			return DateFactory({
-	// 				unixtime: time,
-	// 				timezone: 'local'
-	// 			});
-	// 		}
-	// 	}
-	//
-	// 	/**
-	// 	 * Updates the internal value in state
-	// 	 *
-	// 	 * @param	{IDate}		value	ilib Date object
-	// 	 *
-	// 	 * @returns {Number}			Updated internal value
-	// 	 */
-	// 	updateValue = (value) => {
-	// 		const {day, month, year} = value;
-	// 		const maxDays = value.cal.getMonLength(month, year);
-	// 		value.day = (day <= maxDays) ? day : maxDays;
-	//
-	// 		const date = DateFactory(value);
-	// 		const newValue = date.getTimeExtended();
-	// 		const changed =	this.props.value == null || this.props.value !== newValue;
-	//
-	// 		this.setState({
-	// 			value: newValue
-	// 		});
-	//
-	// 		if (changed) {
-	// 			this.emitChange(date);
-	// 		}
-	//
-	// 		return newValue;
-	// 	};
-	//
-	// 	emitChange = (date) => {
-	// 		forwardCustom('onChange', () => ({value: date ? date.getJSDate() : null}))(null, this.props);
-	// 	};
-	//
-	// 	handlePickerChange = (handler, ev) => {
-	// 		const value = this.toIDate(this.state.value);
-	// 		handler(ev, value, memoizedI18nConfig(this.props.locale));
-	// 		this.updateValue(value);
-	// 	};
-	//
-	// 	handleCancel = () => {
-	// 		const {initialValue, value} = this.state;
-	//
-	// 		// if we're cancelling, reset our state and emit an onChange with the initial value
-	// 		this.setState({
-	// 			value: null,
-	// 			initialValue: null,
-	// 			pickerValue: value
-	// 		});
-	//
-	// 		if (initialValue !== value) {
-	// 			this.emitChange(this.toIDate(initialValue));
-	// 		}
-	// 	};
-	//
-	// 	handleEnter = (ev) => {
-	// 		if (ev.target && ev.target.dataset.lastElement === 'true') {
-	// 			const value = this.state.value ? this.toIDate(this.state.value) : null;
-	//
-	// 			forwardCustom('onComplete', () => ({value: value ? value.getJSDate() : null}))(null, this.props);
-	// 		} else {
-	// 			Spotlight.move(this.props.rtl ? 'left' : 'right');
-	// 		}
-	// 	};
-	//
-	// 	handleKeyDown = handle(
-	// 		forward('onKeyDown'),
-	// 		forKey('enter'),
-	// 		forProp('disabled', false),
-	// 		call('handleEnter')
-	// 	).bindAs(this, 'handleKeyDown');
-	//
-	// 	render () {
-	// 		const value = this.toIDate(this.state.value);
-	// 		// pickerValue is only set when cancelling to prevent the unexpected changing of the
-	// 		// picker values before closing.
-	// 		const pickerValue = this.state.pickerValue ? this.toIDate(this.state.pickerValue) : value;
-	//
-	// 		let label = null;
-	// 		let props = null;
-	// 		let order = defaultOrder;
-	//
-	// 		const i18nConfig = memoizedI18nConfig(this.props.locale);
-	// 		if (i18nConfig) {
-	// 			if (value) {
-	// 				label = i18nConfig.formatter.format(value);
-	// 			}
-	// 			props = customProps(i18nConfig, pickerValue, this.props);
-	// 			order = i18nConfig.order;
-	// 		}
-	//
-	// 		const rest = Object.assign({}, this.props);
-	// 		delete rest.onComplete;
-	//
-	// 		return (
-	// 			<Wrapped
-	// 				{...rest}
-	// 				{...props}
-	// 				{...this.handlers}
-	// 				label={label}
-	// 				onKeyDown={this.handleKeyDown}
-	// 				order={order}
-	// 				value={value}
-	// 			/>
-	// 		);
-	// 	}
-	// };
-
 	const Decorator = (props) => {
 		const newValue = toTime(props.value);
 
@@ -286,24 +69,51 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 		 *
 		 * @returns	{IDate}			ilib Date object
 		 */
-		const toIDate = (time) => {
+		const toIDate = useCallback((time) => {
 			if (time && props.locale) {
 				return DateFactory({
 					unixtime: time,
 					timezone: 'local'
 				});
 			}
-		}
+		}, [props.locale]);
 
 		// if no value was provided, we need to emit the onChange event for the generated value
-		if (!newValue) {
-			emitChange(toIDate(value));
-		}
+		useEffect(() => {
+			if (!newValue) {
+				emitChange(toIDate(value));
+			}
+		}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+		/**
+		 * Updates the internal value in state
+		 *
+		 * @param	{IDate}		updatedValue	ilib Date object
+		 *
+		 * @returns {Number}			Updated internal value
+		 */
+		const updateValue = (updatedValue) => {
+			const {day, month, year} = updatedValue;
+			const maxDays = updatedValue.cal.getMonLength(month, year);
+			updatedValue.day = (day <= maxDays) ? day : maxDays;
+
+			const date = DateFactory(updatedValue);
+			const newUpdateValue = date.getTimeExtended();
+			const changed = props.value == null || props.value !== newUpdateValue;
+
+			setValue(newUpdateValue);
+
+			if (changed) {
+				emitChange(date);
+			}
+
+			return newUpdateValue;
+		};
 
 		const handlePickerChange = (handler, ev) => {
-			const newValue = toIDate(value);
-			handler(ev, newValue, memoizedI18nConfig(props.locale));
-			updateValue(newValue);
+			const changedValue = toIDate(value);
+			handler(ev, changedValue, memoizedI18nConfig(props.locale));
+			updateValue(changedValue);
 		};
 
 		const localHandlers = {};
@@ -314,73 +124,47 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 		}
 
 		useEffect(() => {
-			let newValue = toTime(props.value);
+			let newestValue = toTime(props.value);
 
 			if (props.open && !props.disabled && initialValue == null && value == null) {
 				// when the expandable opens, we cache the prop value so it can be restored on
 				// cancel and set value to be the current time if unset in order to initialize the
 				// pickers
-				setInitialValue(newValue);
-				setValue(newValue || Date.now());
-			} else if (value !== newValue) {
+				setInitialValue(newestValue);
+				setValue(newestValue || Date.now());
+			} else if (value !== newestValue) {
 				// always respect a value change from props
-				setValue(newValue);
+				setValue(newestValue);
 			}
-		}, [props]);
+		}, [initialValue, props, value]);
 
-		/**
-		 * Updates the internal value in state
-		 *
-		 * @param	{IDate}		value	ilib Date object
-		 *
-		 * @returns {Number}			Updated internal value
-		 */
-		const updateValue = (value) => {
-			const {day, month, year} = value;
-			const maxDays = value.cal.getMonLength(month, year);
-			value.day = (day <= maxDays) ? day : maxDays;
-
-			const date = DateFactory(value);
-			const newValue = date.getTimeExtended();
-			const changed =	props.value == null || props.value !== newValue;
-
-			setValue(newValue);
-
-			if (changed) {
-				emitChange(date);
-			}
-
-			return newValue;
-		};
-
-
-		const handleCancel = () => {
+		const handleCancel = () => { // eslint-disable-line no-unused-vars
 			// if we're cancelling, reset our state and emit an onChange with the initial value
-				setValue(null);
-				setInitialValue(null);
-				setPickerValue(value);
+			setValue(null);
+			setInitialValue(null);
+			setPickerValue(value);
 
 			if (initialValue !== value) {
 				emitChange(toIDate(initialValue));
 			}
 		};
 
-		const handleEnter = (ev) => {
+		const handleEnter = useCallback((ev) => {
 			if (ev.target && ev.target.dataset.lastElement === 'true') {
-				const newValue = value ? toIDate(value) : null;
+				const newestValue = value ? toIDate(value) : null;
 
-				forwardCustom('onComplete', () => ({value: newValue ? newValue.getJSDate() : null}))(null, props);
+				forwardCustom('onComplete', () => ({value: newestValue ? newestValue.getJSDate() : null}))(null, props);
 			} else {
 				Spotlight.move(props.rtl ? 'left' : 'right');
 			}
-		};
+		}, [props, toIDate, value]);
 
-		const handleKeyDown = (ev) => {
+		const handleKeyDown = useCallback((ev) => {
 			forward('onKeyDown');
 			forKey('enter');
 			forProp('disabled', false);
-			handleEnter(ev);
-		};
+			if (isEnter(ev.keyCode)) handleEnter(ev);
+		}, [handleEnter]);
 
 		const finalValue = toIDate(value);
 		// pickerValue is only set when cancelling to prevent the unexpected changing of the
