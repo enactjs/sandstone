@@ -8,6 +8,7 @@ PageViews.displayName = 'PageViews';
 
 const Config = mergeComponentMetadata('PageViews', PageViews);
 const propOptions = {
+	pageIndicatorPosition: ['bottom', 'top'],
 	pageIndicatorType: ['dot', 'number']
 };
 
@@ -66,6 +67,7 @@ export const _PageViews = (args) => (
 );
 
 boolean('fullContents', _PageViews, Config, false);
+select('pageIndicatorPosition', _PageViews, propOptions.pageIndicatorPosition, Config, 'bottom');
 select('pageIndicatorType', _PageViews, propOptions.pageIndicatorType, Config, 'dot');
 
 _PageViews.storyName = 'PageViews';
