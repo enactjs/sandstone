@@ -6,11 +6,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Icon` supported icon list, adding new icon `calibration`
 - `sandstone/Pageviews` `pageIndicatorPosition` prop to provide a way to determine where to place the page indicator
 
 ### Fixed
 
 - `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control
+- `sandstone/Scroller` to prevent the native scrolling behavior caused by keydown events when a popup is open
 
 ## [3.0.0-alpha.3] - 2024-12-02
 
