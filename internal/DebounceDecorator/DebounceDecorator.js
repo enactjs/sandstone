@@ -8,7 +8,7 @@
 import hoc from '@enact/core/hoc';
 import {Job} from '@enact/core/util';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 
 /**
  * Default config for {@link sandstone/internal/DebounceDecorator.DebounceDecorator}.
@@ -60,66 +60,67 @@ const defaultConfig = {
 const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {cancel, debounce, delay} = config;
 
-	return class extends Component {
-		static displayName = 'DebounceDecorator';
+	const Debounce = (props) => {
+		let debounceProps = props;
 
-		static propTypes = /** @lends sandstone/internal/DebounceDecorator.DebounceDecorator.prototype */ {
-			/**
-			 * Handler for `onChange` events
-			 *
-			 * `'onChange'` can be changed to a different prop name by specifying the `debounce`
-			 * config option.
-			 *
-			 * @see {@link sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig#debounce}
-			 * @name onChange
-			 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.prototype
-			 * @type {Function}
-			 * @public
-			 */
-			[debounce]: PropTypes.func
-		};
-
-		constructor (props) {
-			super(props);
-			this.job = new Job(this.emitEvent.bind(this), delay);
-		}
-
-		componentWillUnmount () {
-			this.job.stop();
-		}
-
-		emitEvent (ev) {
-			if (this.props[debounce]) {
-				this.props[debounce](ev);
+		const emitEvent = useCallback((ev) => {
+			if (props[debounce]) {
+				props[debounce](ev);
 			}
+		}, [props]);
+
+		const job = useMemo(() => new Job(emitEvent, delay), [emitEvent]);
+
+		useEffect(() => {
+			return () => {
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+				job.stop();
+			};
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, []);
+
+		const handleEvent = useCallback((ev) => {
+			job.start(ev);
+		}, [job]);
+
+		const handleCancel = useCallback((ev) => {
+			if (props[cancel]) {
+				props[cancel](ev);
+			}
+			job.stop();
+		}, [job, props]);
+
+		if (debounce || cancel) {
+			debounceProps = {...props};
+
+			if (debounce) debounceProps[debounce] = handleEvent;
+			if (cancel) debounceProps[cancel] = handleCancel;
 		}
 
-		handleEvent = (ev) => {
-			this.job.start(ev);
-		};
-
-		handleCancel = (ev) => {
-			if (this.props[cancel]) {
-				this.props[cancel](ev);
-			}
-			this.job.stop();
-		};
-
-		render () {
-			let props = this.props;
-
-			if (debounce || cancel) {
-				props = {...props};
-
-				if (debounce) props[debounce] = this.handleEvent;
-				if (cancel) props[cancel] = this.handleCancel;
-			}
-
-			return (
-				<Wrapped {...props} />
-			);
-		}
+		return (
+			<Wrapped {...debounceProps} />
+		);
 	};
+
+	Debounce.displayName = 'DebounceDecorator';
+
+	Debounce.propTypes = {/** @lends sandstone/internal/DebounceDecorator.DebounceDecorator.prototype */
+		/**
+		 * Handler for `onChange` events
+		 *
+		 * `'onChange'` can be changed to a different prop name by specifying the `debounce`
+		 * config option.
+		 *
+		 * @see {@link sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig#debounce}
+		 * @name onChange
+		 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.prototype
+		 * @type {Function}
+		 * @public
+		 */
+		[debounce]: PropTypes.func
+	};
+
+	return Debounce;
 });
 
 export default DebounceDecorator;
