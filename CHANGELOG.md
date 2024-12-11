@@ -7,7 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Icon` supported icon list, adding new icon `calibration`
-- `sandstone/Pageviews` `pageIndicatorPosition` prop to provide a way to determine where to place the page indicator
+- `sandstone/Pageviews` `pageIndicatorPosition` prop to set the position of the page indicator
 
 ### Fixed
 
