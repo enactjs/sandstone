@@ -511,7 +511,7 @@ ColorPickerSlider.propTypes = {
 	 *
 	 * @type {('RGB'|'HSL')}
 	 * @default 'RGB'
-	 * @public
+	 * @private
 	 */
 	type: PropTypes.string
 };
