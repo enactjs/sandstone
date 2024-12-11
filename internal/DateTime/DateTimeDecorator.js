@@ -52,7 +52,6 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 
 	const Decorator = (props) => {
 		const newValue = toTime(props.value);
-
 		const [initialValue, setInitialValue] = useState(null);
 		const [value, setValue] = useState(newValue || Date.now());
 		const [pickerValue, setPickerValue] = useState(null);
@@ -61,8 +60,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			forwardCustom('onChange', () => ({value: date ? date.getJSDate() : null}))(null, props);
 		};
 
-
-		/**
+		/*
 		 * Converts a Date to an IDate
 		 *
 		 * @param	{Date}	time	Date object
@@ -85,7 +83,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			}
 		}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-		/**
+		/*
 		 * Updates the internal value in state
 		 *
 		 * @param	{IDate}		updatedValue	ilib Date object
