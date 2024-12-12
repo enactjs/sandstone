@@ -1,10 +1,10 @@
 import hoc from '@enact/core/hoc';
-import Registry from '@enact/core/internal/Registry'
+import Registry from '@enact/core/internal/Registry';
 import {setDefaultProps} from '@enact/core/util';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {objectify} from '@enact/ui/Skinnable/util';
 import PropTypes from 'prop-types';
-import {useContext, useEffect, useRef} from 'react'
+import {useContext, useEffect, useRef} from 'react';
 
 const accessibilityDefaultProps = {
 	textSize: 'normal'
