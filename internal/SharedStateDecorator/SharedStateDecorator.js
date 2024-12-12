@@ -102,7 +102,8 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		useEffect(() => {
 			loadFromContext();
-		}, [loadFromContext]);
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, []);
 
 		useEffect(() => {
 			if (!prevNoSharedState && props.noSharedState) {
