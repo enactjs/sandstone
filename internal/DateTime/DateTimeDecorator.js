@@ -199,7 +199,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 	};
 
 	Decorator.displayName = 'DateTimeDecorator';
-	
+
 	Decorator.propTypes = /** @lends sandstone/internal/DateTimeDecorator.DateTimeDecorator.prototype */ {
 		/**
 		 * The current locale as a
