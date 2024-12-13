@@ -43,8 +43,9 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	const SharedStateDecorator = (props) => {
 		const context = useContext(SharedState);
-		let data = useRef({});
-		let [, setUpdateOnMountState] = useState(false);
+		const data = useRef({});
+		// eslint-disable-next-line no-unused-vars
+		const [updateOnMountState, setUpdateOnMountState] = useState(false);
 
 		const isUpdatable = () => {
 			const {[idProp]: id, noSharedState} = props;
@@ -97,21 +98,24 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}, [context, props]);
 
-		let sharedState = initSharedState();
-		const prevNoSharedState = useRef(props.noSharedState);
+		const sharedState = initSharedState();
+		const prevProps = useRef();
 
 		useEffect(() => {
 			loadFromContext();
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, []);
+		}, [loadFromContext]);
 
 		useEffect(() => {
-			if (!prevNoSharedState && props.noSharedState) {
-				data.current = {};
-			} else if (prevNoSharedState && !props.noSharedState) {
-				loadFromContext();
+			if (prevProps.current && prevProps.current.noSharedState !== props.noSharedState) {
+				if (!prevProps.noSharedState && props.noSharedState) {
+					data.current = {};
+				} else if (prevProps.noSharedState && !props.noSharedState) {
+					loadFromContext();
+				}
 			}
-		}, [props.noSharedState, loadFromContext]);
+
+			prevProps.current = props;
+		}, [loadFromContext, props]);
 
 		const {...wrappedComponentProps} = props;
 		delete wrappedComponentProps.noSharedState;
