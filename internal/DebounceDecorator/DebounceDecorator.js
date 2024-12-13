@@ -73,7 +73,6 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		useEffect(() => {
 			return () => {
-				// eslint-disable-next-line react-hooks/exhaustive-deps
 				job.stop();
 			};
 			// eslint-disable-next-line react-hooks/exhaustive-deps
