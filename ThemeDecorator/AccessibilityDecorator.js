@@ -1,9 +1,14 @@
 import hoc from '@enact/core/hoc';
 import Registry from '@enact/core/internal/Registry';
+import {setDefaultProps} from '@enact/core/util';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {objectify} from '@enact/ui/Skinnable/util';
 import PropTypes from 'prop-types';
 import {useContext, useEffect, useRef} from 'react';
+
+const accessibilityDefaultProps = {
+	textSize: 'normal'
+};
 
 /**
  * A higher-order component that classifies an application with a target set of font sizing rules.
@@ -15,7 +20,7 @@ import {useContext, useEffect, useRef} from 'react';
  */
 const AccessibilityDecorator = hoc((config, Wrapped) => {
 	const Accessibility = (props) => {
-		const {className, focusRing, highContrast, skinVariants, textSize = 'normal', ...rest} = props;
+		const {className, focusRing, highContrast, skinVariants, textSize, ...rest} = setDefaultProps(props, accessibilityDefaultProps);
 		let accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
 		accessibilityClassName = focusRing ? `enact-a11y-focus-ring ${accessibilityClassName}` : `${accessibilityClassName}`;
 		const combinedClassName = className ? `${className} ${accessibilityClassName}` : accessibilityClassName;
