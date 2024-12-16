@@ -1,4 +1,3 @@
-import {BasicArranger} from '../../../../internal/Panels';
 import Item from '../../../../Item';
 import {PageViews} from '../../../../PageViews';
 import Panels, {Panel, Header} from '../../../../Panels';
@@ -13,7 +12,7 @@ const PageViewsWithAutoFocus = props => (
 	<Panels {...props}>
 		<Panel autoFocus="none">
 			<Header title="PageViews with autoFocus" />
-			<PageViews autoFocus="none" arranger={BasicArranger} pageIndicatorType="dot">
+			<PageViews autoFocus="none" pageIndicatorType="dot">
 				<PageViews.Page id="PageViewsPage1" aria-label="This is a description for page 1">
 					<div style={{padding: '24px', width: '50%'}}>
 						<Item id="PageViewsItem1">Item 1</Item>
