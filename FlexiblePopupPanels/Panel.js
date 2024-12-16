@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import handle, {forwardCustom, forwardCustomWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
