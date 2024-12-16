@@ -77,8 +77,8 @@ const InputFieldTests = [
 
 		<InputField value="Focused Simple value" type="password" />,
 		<InputField value="Focused Simple value" type="password" disabled />,
-		<InputField value="https://enactjs.org" type="url" />,
-		<InputField value="https://enactjs.org" type="url" disabled />
+		<InputField value="https://enactjs.com" type="url" />,
+		<InputField value="https://enactjs.com" type="url" disabled />
 	]),
 
 	// *************************************************************
