@@ -43,7 +43,7 @@ const Filter = () => {
 	}, [onIsSyntheticEventOn]);
 
 	const
-		timergroup = ['3 sec', '5 sec', '10 sec'],
+		timerGroup = ['3 sec', '5 sec', '10 sec'],
 		eventItems = eventCategory.map((e, i) => {
 			const handler = handleEventCategory(i);
 			return (
@@ -109,7 +109,7 @@ const Filter = () => {
 						title="Timer"
 						value={timerIndex}
 					>
-						{timergroup}
+						{timerGroup}
 					</Picker>
 				</div>
 			</div>
