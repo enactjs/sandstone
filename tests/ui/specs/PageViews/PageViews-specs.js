@@ -67,7 +67,7 @@ describe('PageViews', function () {
 			await Page.open('AutoFocus');
 		});
 
-		it('should focus nothing when `autoFocus="none"` and the first screen', async function () {
+		it('should focus nothing when `autoFocus="none"` and it`s the first page', async function () {
 			const expected = null;
 			const actual = Page.focusedText;
 
