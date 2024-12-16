@@ -107,10 +107,12 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}, []);
 
 		useEffect(() => {
-			if (!prevProps.current.noSharedState && props.noSharedState) {
-				data.current = {};
-			} else if (prevProps.current.noSharedState && !props.noSharedState) {
-				loadFromContext();
+			if (prevProps.current && prevProps.current.noSharedState !== props.noSharedState) {
+				if (!prevProps.current.noSharedState && props.noSharedState) {
+					data.current = {};
+				} else if (prevProps.current.noSharedState && !props.noSharedState) {
+					loadFromContext();
+				}
 			}
 
 			prevProps.current = props;
