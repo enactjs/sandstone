@@ -47,13 +47,13 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		// eslint-disable-next-line no-unused-vars
 		const [updateOnMountState, setUpdateOnMountState] = useState(false);
 
-		const isUpdatable = () => {
+		const isUpdatable = useCallback(() => {
 			const {[idProp]: id, noSharedState} = props;
 
 			return !noSharedState && (id || id === 0);
-		};
+		}, [props]);
 
-		const initSharedState = () => {
+		const initSharedState = useCallback(() => {
 			return {
 				set: (key, value) => {
 					const {[idProp]: id} = props;
@@ -78,7 +78,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					}
 				}
 			};
-		};
+		}, [isUpdatable, props]);
 
 		const loadFromContext = useCallback(() => {
 			const {[idProp]: id, noSharedState} = props;
@@ -98,20 +98,19 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}, [context, props]);
 
-		const sharedState = initSharedState();
-		const prevProps = useRef();
+		const sharedState = useRef(initSharedState());
+		const prevProps = useRef(props);
 
 		useEffect(() => {
 			loadFromContext();
-		}, [loadFromContext]);
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, []);
 
 		useEffect(() => {
-			if (prevProps.current && prevProps.current.noSharedState !== props.noSharedState) {
-				if (!prevProps.noSharedState && props.noSharedState) {
-					data.current = {};
-				} else if (prevProps.noSharedState && !props.noSharedState) {
-					loadFromContext();
-				}
+			if (!prevProps.current.noSharedState && props.noSharedState) {
+				data.current = {};
+			} else if (prevProps.current.noSharedState && !props.noSharedState) {
+				loadFromContext();
 			}
 
 			prevProps.current = props;
@@ -121,7 +120,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		delete wrappedComponentProps.noSharedState;
 
 		return (
-			<SharedState.Provider value={sharedState}>
+			<SharedState.Provider value={sharedState.current}>
 				<Wrapped {...wrappedComponentProps} />
 			</SharedState.Provider>
 		);
