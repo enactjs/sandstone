@@ -2,12 +2,6 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
-
-### Changed
-
-- animation and shadow effects to be excluded with enact cli `--no-animation` build option
-
 ### Fixed
 
 - `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control

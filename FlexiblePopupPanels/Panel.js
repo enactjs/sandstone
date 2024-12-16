@@ -164,7 +164,7 @@ const PanelBase = kind({
 	},
 
 	computed: {
-		className: ({size, styler}) => styler.append(size),
+		className: ({size, styler}) => styler.append(size, {noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION}),
 		contentCellSize: ({size}) => {
 			// These values must be kept in sync with their LESS variable counterparts
 			switch (size) {
@@ -209,7 +209,7 @@ const PanelBase = kind({
 						/>
 					</Cell>
 					<Cell
-						className={classnames(css.content, (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? css.noAnimation : null)}
+						className={css.content}
 						shrink={!contentCellSize}
 						size={contentCellSize}
 					>

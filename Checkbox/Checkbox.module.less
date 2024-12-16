@@ -69,12 +69,11 @@
 			);
 			.bg {
 				.sand-spotlight-focus-bg-colors();
-
-				&.noAnimation {
-					.sand-spotlight-focus-bg-colors(@shadow: {
-						box-shadow: none;
-					});
-				}
+			}
+			&.noAnimation .bg {
+				.sand-spotlight-focus-bg-colors(@shadow: {
+					box-shadow: none;
+				});
 			}
 		};
 		.checkbox-colors(

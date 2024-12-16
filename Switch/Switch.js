@@ -82,8 +82,8 @@ const SwitchBase = kind({
 	computed: {
 		className: ({noAnimation, selected, styler}) => styler.append({
 			animated: !noAnimation,
-			selected,
-			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
+			selected
 		})
 	},
 

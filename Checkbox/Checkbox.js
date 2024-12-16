@@ -9,7 +9,6 @@
  * @exports CheckboxBase
  */
 
-import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import Spottable from '@enact/spotlight/Spottable';
@@ -146,7 +145,12 @@ const CheckboxBase = kind({
 	},
 
 	computed: {
-		className: ({indeterminate, selected, standalone, styler}) => styler.append({selected, standalone, indeterminate}),
+		className: ({indeterminate, selected, standalone, styler}) => styler.append({
+			selected,
+			standalone,
+			indeterminate,
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
+		}),
 		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, an not that icon's visual presence.
 	},
 
@@ -163,7 +167,7 @@ const CheckboxBase = kind({
 				disabled={disabled}
 				role="checkbox"
 			>
-				<div className={classnames(css.bg, (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? css.noAnimation : null)} />
+				<div className={css.bg} />
 				<Icon
 					size="tiny"
 					className={css.icon}

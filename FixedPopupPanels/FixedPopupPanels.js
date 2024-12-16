@@ -73,10 +73,12 @@ const fixedPopupPanelsHandlers = {
  */
 const FixedPopupPanelsBase = (props) => {
 	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
-	if (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) {
-		return <Viewport {...props} {...handlers} className={classnames(props.className, css.noAnimation)} noAnimation />;
-	}
-	return <Viewport {...props} {...handlers} />;
+	const noAnimationProps = (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? {
+		className: classnames(props.className, css.noAnimation),
+		noAnimation: true
+	} : null;
+
+	return <Viewport {...props} {...handlers} {...noAnimationProps} />;
 };
 
 /**
