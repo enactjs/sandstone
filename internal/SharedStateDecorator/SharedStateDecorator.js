@@ -98,7 +98,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}, [context, props]);
 
-		const sharedState = initSharedState();
+		const sharedState = useRef(initSharedState());
 		const prevProps = useRef(props);
 
 		useEffect(() => {
@@ -120,7 +120,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		delete wrappedComponentProps.noSharedState;
 
 		return (
-			<SharedState.Provider value={sharedState}>
+			<SharedState.Provider value={sharedState.current}>
 				<Wrapped {...wrappedComponentProps} />
 			</SharedState.Provider>
 		);
