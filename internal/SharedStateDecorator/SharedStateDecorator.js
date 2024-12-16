@@ -53,7 +53,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			return !noSharedState && (id || id === 0);
 		};
 
-		const initSharedState = () => {
+		const initSharedState = useCallback(() => {
 			return {
 				set: (key, value) => {
 					const {[idProp]: id} = props;
@@ -78,7 +78,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					}
 				}
 			};
-		};
+		}, [isUpdatable, props]);
 
 		const loadFromContext = useCallback(() => {
 			const {[idProp]: id, noSharedState} = props;
@@ -99,7 +99,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}, [context, props]);
 
 		const sharedState = initSharedState();
-		const prevProps = useRef();
+		const prevProps = useRef(props);
 
 		useEffect(() => {
 			loadFromContext();
@@ -107,12 +107,10 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}, []);
 
 		useEffect(() => {
-			if (prevProps.current && prevProps.current.noSharedState !== props.noSharedState) {
-				if (!prevProps.current.noSharedState && props.noSharedState) {
-					data.current = {};
-				} else if (prevProps.current.noSharedState && !props.noSharedState) {
-					loadFromContext();
-				}
+			if (!prevProps.current.noSharedState && props.noSharedState) {
+				data.current = {};
+			} else if (prevProps.current.noSharedState && !props.noSharedState) {
+				loadFromContext();
 			}
 
 			prevProps.current = props;
