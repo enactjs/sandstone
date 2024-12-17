@@ -95,7 +95,7 @@ const Keypad = kind({
 	}
 });
 
-// Setup a keypress handler for window that monitors each of the number keys and the backspace key
+// Set up a keypress handler for window that monitors each of the number keys and the backspace key
 const handleWindowKeyPress = handle(
 	oneOf(
 		[forKey('number'), forward('onAdd')],

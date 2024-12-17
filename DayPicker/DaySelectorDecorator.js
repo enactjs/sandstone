@@ -281,7 +281,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {
 		locale: PropTypes.string,
 
 		/**
-		 * Called when an day is selected or unselected.
+		 * Called when a day is selected or unselected.
 		 *
 		 * The event payload will be an object with the following members:
 		 * * `selected` - An array of numbers representing the selected days, 0 indexed

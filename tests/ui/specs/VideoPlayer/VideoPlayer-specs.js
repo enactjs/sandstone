@@ -119,7 +119,7 @@ describe('VideoPlayer', function () {
 				}
 
 				expect(await videoPlayerDefault.playButton.isFocused()).toBe(true);
-				// Setp 4-2: 5-way Down again.
+				// Step 4-2: 5-way Down again.
 				// Step 4-3: 5-way Select.
 				// Step 4-4: 5-way Up quickly.
 				await Page.spotlightDown();
@@ -181,7 +181,7 @@ describe('VideoPlayer', function () {
 		it('should display poster', async function () {
 			await Page.delay(1000);
 
-			expect(await videoPlayerDisabled.video.getAttribute('poster')).toBe('http://media.w3.org/2010/05/sintel/poster.png');
+			expect(await videoPlayerDisabled.video.getAttribute('poster')).toBe('https://media.w3.org/2010/05/sintel/poster.png');
 		});
 
 		describe('5-way', function () {

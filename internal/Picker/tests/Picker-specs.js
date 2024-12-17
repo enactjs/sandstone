@@ -644,7 +644,7 @@ describe('Picker Specs', () => {
 				</Picker>
 			);
 			const pickerItem = screen.getByLabelText('2 next item').nextElementSibling.nextElementSibling; // there is a dummy sibling by Spottable
-			// I chosen this and not getByText because in get by test you have to go 4 parentElements up
+			// I chose this and not getByText because in get by test you have to go 4 parentElements up
 
 			const expectedAttribute = 'aria-valuetext';
 			const expectedValue = '2';
@@ -662,7 +662,7 @@ describe('Picker Specs', () => {
 				</Picker>
 			);
 			const picker = screen.getByLabelText('2 press ok button to change the value').children.item(0);
-			// I chosen this and not getByText because in get by test you have to go 4 parentElements up
+			// I chose this and not getByText because in get by test you have to go 4 parentElements up
 
 			const expectedAttribute = 'aria-hidden';
 			const expectedValue = 'true';
@@ -680,7 +680,7 @@ describe('Picker Specs', () => {
 				</Picker>
 			);
 			const picker = screen.getByLabelText('2 press ok button to change the value').children.item(0);
-			// I chosen this and not getByText because in get by test you have to go 4 parentElements up
+			// I chose this and not getByText because in get by test you have to go 4 parentElements up
 
 			fireEvent.focus(picker);
 

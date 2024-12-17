@@ -50,7 +50,7 @@ describe('ContextualMenuDecorator', function () {
 			});
 
 			it('should not dismiss the menu on 5-way up from first menu item - [QWTC-1915]', async function () {
-				// The *Contextual Button* menu does not close. Spotlight is on on same item (verify step 6)
+				// The *Contextual Button* menu does not close. Spotlight is on same item (verify step 6)
 				await Page.spotlightUp();
 				expect(await menu2.isMenuExist).toBe(true);
 				expect(await menu2.item(0).isFocused()).toBe(true);

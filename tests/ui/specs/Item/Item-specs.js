@@ -49,7 +49,7 @@ describe('Item', function () {
 			});
 
 			describe('pointer', function () {
-			// Step 3 - Focus on the Item title. In sampler, the item has no label. Here we focusing on an item with a label.
+			// Step 3 - Focus on the Item title. In sampler, the item has no label. Here we focus on an item with a label.
 				it('should focus the third item when hovered - [QWTC-1820]', async function () {
 					await item3WithLabel.hover();
 					expect(await item3WithLabel.self.isFocused()).toBe(true);
