@@ -161,7 +161,7 @@ const DatePicker = Pure(
  * @function
  * @memberof sandstone/DatePicker
  * @param {Date} date `Date` to convert
- * @returns {String|Null} Converted date or `null` if `date` is invalid
+ * @returns {String|null} Converted date or `null` if `date` is invalid
  */
 const dateToLocaleString = (date) => {
 	if (!date) {
