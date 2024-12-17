@@ -650,15 +650,18 @@ const EditableWrapper = (props) => {
 					setPointerMode(false);
 					Spotlight.focus(selectedItem.children[1]);
 				// Check if focus leaves scroll container.
-				} else if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
-					setPointerMode(false);
-					Spotlight.move(getDirection(keyCode));
+				} else {
+					mutableRef.current.lastInputType = 'key';
+					if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+						setPointerMode(false);
+						Spotlight.move(getDirection(keyCode));
 
-					const orders = finalizeOrders();
-					finalizeEditing(orders);
+						const orders = finalizeOrders();
+						finalizeEditing(orders);
 
-					ev.preventDefault();
-					ev.stopPropagation();
+						ev.preventDefault();
+						ev.stopPropagation();
+					}
 				}
 			// Check if focus leaves scroll container.
 			} else if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !repeat) {
