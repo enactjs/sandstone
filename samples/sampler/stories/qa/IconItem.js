@@ -4,7 +4,6 @@ import IconItem from '@enact/sandstone/IconItem';
 import Scroller from '@enact/sandstone/Scroller';
 import $L from '@enact/sandstone/internal/$L';
 import Spotlight from '@enact/spotlight';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/controls';
@@ -78,7 +77,6 @@ for (let i = 0; i < 20; i++) {
 	itemsArr.push(populateItems({index: i}));
 }
 
-const Container = SpotlightContainerDecorator('div');
 const TouchableDiv = Touchable('div');
 
 export const EditableIcon = (args) => {
@@ -233,103 +231,101 @@ export const EditableIcon = (args) => {
 
 	return (
 		<div ref={divRef}>
-			<Container>
-				{editMode ? <Button style={{marginLeft: '36px'}} onClick={onClickModeButton} icon="arrowhookleft" /> : <Button style={{marginLeft: '36px'}} onClick={onClickModeButton} icon="edit" />}
-				{editMode ?
+			{editMode ? <Button style={{marginLeft: '36px'}} onClick={onClickModeButton} icon="arrowhookleft" /> : <Button style={{marginLeft: '36px'}} onClick={onClickModeButton} icon="edit" />}
+			{editMode ?
+				<Scroller
+					direction="horizontal"
+					editable={{
+						centered: args['editableCentered'],
+						css,
+						hideIndex: mutableRef.current.hideIndex,
+						onComplete: handleComplete,
+						removeItemFuncRef: removeItem,
+						hideItemFuncRef: hideItem,
+						showItemFuncRef: showItem,
+						blurItemFuncRef: blurItem,
+						focusItemFuncRef: focusItem,
+						initialSelected: mutableRef.current.initialSelected,
+						selectItemBy: 'press'
+					}}
+					focusableScrollbar={args['focusableScrollbar']}
+					horizontalScrollbar={args['horizontalScrollbar']}
+					hoverToScroll={args['hoverToScroll']}
+					key={args['scrollMode']}
+					noScrollByWheel={args['noScrollByWheel']}
+					onClick={action('onClickScroller')}
+					onKeyDown={action('onKeyDown')}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollMode={args['scrollMode']}
+					spotlightDisabled={args['spotlightDisabled']}
+					verticalScrollbar={args['verticalScrollbar']}
+				>
+					{
+						items.map((item, index) => {
+							return (
+								<div
+									aria-label={`Icon ${item.index}`}
+									className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})}
+									data-index={item.index}
+									disabled={item.iconItemProps['disabled'] || item.hidden}
+									key={item.index}
+									onMouseLeave={onMouseLeaveItem}
+									style={{order: index + 1}}
+								>
+									<div className={css.removeButtonContainer}>
+										{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
+										{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
+										{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
+									</div>
+									<IconItem
+										{...item.iconItemProps}
+										aria-label={`Icon ${item.index}`}
+										className={css.editableIconItem}
+										css={css}
+										disabled={item.iconItemProps['disabled'] || item.hidden}
+										onClick={action('onClickItem')}
+										onFocus={onFocusItem}
+										order={index}
+									/>
+								</div>
+							);
+						})
+					}
+				</Scroller> :
+				<TouchableDiv
+					onHoldStart={handleHoldStart}
+					onMouseDown={handleMouseDown}
+					onKeyDown={handleKeyDown}
+					onKeyUp={handleKeyUp}
+				>
 					<Scroller
 						direction="horizontal"
-						editable={{
-							centered: args['editableCentered'],
-							css,
-							hideIndex: mutableRef.current.hideIndex,
-							onComplete: handleComplete,
-							removeItemFuncRef: removeItem,
-							hideItemFuncRef: hideItem,
-							showItemFuncRef: showItem,
-							blurItemFuncRef: blurItem,
-							focusItemFuncRef: focusItem,
-							initialSelected: mutableRef.current.initialSelected,
-							selectItemBy: 'press'
-						}}
-						focusableScrollbar={args['focusableScrollbar']}
-						horizontalScrollbar={args['horizontalScrollbar']}
-						hoverToScroll={args['hoverToScroll']}
-						key={args['scrollMode']}
-						noScrollByWheel={args['noScrollByWheel']}
 						onClick={action('onClickScroller')}
 						onKeyDown={action('onKeyDown')}
+						onScroll={handleScroll}
 						onScrollStart={action('onScrollStart')}
 						onScrollStop={action('onScrollStop')}
-						scrollMode={args['scrollMode']}
-						spotlightDisabled={args['spotlightDisabled']}
-						verticalScrollbar={args['verticalScrollbar']}
 					>
-						{
+						<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
 							items.map((item, index) => {
 								return (
-									<div
-										aria-label={`Icon ${item.index}`}
-										className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})}
-										data-index={item.index}
-										disabled={item.iconItemProps['disabled'] || item.hidden}
-										key={item.index}
-										onMouseLeave={onMouseLeaveItem}
-										style={{order: index + 1}}
-									>
-										<div className={css.removeButtonContainer}>
-											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
-											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
-											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
-										</div>
+									<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}}>
+										<div className={css.removeButtonContainer} />
 										<IconItem
 											{...item.iconItemProps}
-											aria-label={`Icon ${item.index}`}
-											className={css.editableIconItem}
-											css={css}
+											aria-label={`Icon ${item.index} ${$L('Press and hold the OK button to edit.')}`}
+											className={css.iconItem}
 											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
-											onFocus={onFocusItem}
-											order={index}
 										/>
 									</div>
 								);
-							})
-						}
-					</Scroller> :
-					<TouchableDiv
-						onHoldStart={handleHoldStart}
-						onMouseDown={handleMouseDown}
-						onKeyDown={handleKeyDown}
-						onKeyUp={handleKeyUp}
-					>
-						<Scroller
-							direction="horizontal"
-							onClick={action('onClickScroller')}
-							onKeyDown={action('onKeyDown')}
-							onScroll={handleScroll}
-							onScrollStart={action('onScrollStart')}
-							onScrollStop={action('onScrollStop')}
-						>
-							<div className={classNames(css.scrollerWrapper, css.wrapper, {[css.centered]: args['editableCentered']})}> {
-								items.map((item, index) => {
-									return (
-										<div key={item.index} className={classNames(css.itemWrapper, {[css.hidden]: item.hidden})} aria-label={`Icon ${item.index}`} data-index={item.index} style={{order: index + 1}}>
-											<div className={css.removeButtonContainer} />
-											<IconItem
-												{...item.iconItemProps}
-												aria-label={`Icon ${item.index} ${$L('Press and hold the OK button to edit.')}`}
-												className={css.iconItem}
-												disabled={item.iconItemProps['disabled'] || item.hidden}
-												onClick={action('onClickItem')}
-											/>
-										</div>
-									);
-								})}
-							</div>
-						</Scroller>
-					</TouchableDiv>
-				}
-			</Container>
+							})}
+						</div>
+					</Scroller>
+				</TouchableDiv>
+			}
 		</div>
 	);
 };
