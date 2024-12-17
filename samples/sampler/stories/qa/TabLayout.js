@@ -10,7 +10,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
 import {Component, useState} from 'react';
 
-import icons from '../helper/icons';
+import {tabIcons} from '../helper/icons';
 
 TabLayout.displayName = 'TabLayout';
 const Config = mergeComponentMetadata('TabLayout', TabLayoutBase, TabLayout);
@@ -81,7 +81,7 @@ export const WithVariableNumberOfTabs = (args) => {
 				orientation={args['orientation']}
 			>
 				{Array.from({length: tabs}, (v, i) => (
-					<TabLayout.Tab title={`Tab ${i}`} icon={icons[i % icons.length]} key={`tab${i}`}>
+					<TabLayout.Tab title={`Tab ${i}`} icon={tabIcons[i % tabIcons.length]} key={`tab${i}`}>
 						<Scroller key={'view' + i}>
 							<Button>Tab {i} Top</Button>
 							<BodyText>
@@ -245,7 +245,7 @@ export const WithDisabledTabs = (args) => {
 				{Array.from({length: tabs}, (v, i) => (
 					<TabLayout.Tab
 						disabled={i % 2 === 1}
-						icon={icons[i % icons.length]}
+						icon={tabIcons[i % tabIcons.length]}
 						title={`Tab ${i}`}
 						key={`tab${i}`}
 					>
@@ -329,7 +329,7 @@ export const WithAllDisabledTabs = (args) => {
 				orientation={args['orientation']}
 			>
 				{Array.from({length: tabs}, (v, i) => (
-					<TabLayout.Tab disabled icon={icons[i % icons.length]} title={`Tab ${i}`} key={`tab${i}`}>
+					<TabLayout.Tab disabled icon={tabIcons[i % tabIcons.length]} title={`Tab ${i}`} key={`tab${i}`}>
 						<Scroller key={'view' + i}>
 							<Button>Tab {i} Top</Button>
 							<BodyText>

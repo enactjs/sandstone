@@ -269,7 +269,7 @@ const RangePickerBase = kind({
 
 		/**
 		 * Allows picker to continue from the start of the list after it reaches the end and
-		 * vice-versa.
+		 * vice versa.
 		 *
 		 * @type {Boolean}
 		 * @public

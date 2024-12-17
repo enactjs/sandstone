@@ -115,7 +115,7 @@ const TabLayoutBase = kind({
 		/**
 		 * Specify dimensions for the layout areas.
 		 *
-		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
+		 * All 4 combinations must be supplied: each of the elements, tabs and content in both
 		 * collapsed and expanded state.
 		 *
 		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
@@ -450,7 +450,7 @@ const TabLayoutDecorator = compose(
 	RefocusDecorator,
 	SpotlightContainerDecorator({
 		// using last-focused so we return to the last focused if it exists but fall through to
-		// default element if no focus has ocurred yet (e.g. on mount)
+		// default element if no focus has occurred yet (e.g. on mount)
 		enterTo: 'last-focused',
 		// favor the content when collapsed and the tabs otherwise
 		defaultElement: [`.${componentCss.horizontal} .${componentCss.tabs} *`, `.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
