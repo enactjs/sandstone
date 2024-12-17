@@ -43,7 +43,7 @@ describe('TabLayout', function () {
 				await $$('.TabLayout_TabGroup_tab')[0].click();
 				// Step 7-1 Verify: Icons expand to tabs on the left side.
 				expect(await Page.tabLayout.isCollapsed).toBe(false);
-				// Step 7-2: Click on the Change to 2rd tab button.
+				// Step 7-2: Click on the Change to 2nd tab button.
 				await $('#button1').click();
 				await Page.delay(500);
 				// Step 7-2 Verify: Tool icon with Button tab are selected.
@@ -83,7 +83,7 @@ describe('TabLayout', function () {
 
 				// Step 12-1: Click on the home icon.
 				await $$('.TabLayout_TabGroup_tab')[0].click();
-				// Step 12-2: Click on the Change to 2rd tab.
+				// Step 12-2: Click on the Change to 2nd tab.
 				await $('#button1').click();
 				await Page.delay(500);
 				// Step 12-1 Verify: Content of second navigation tab displays.

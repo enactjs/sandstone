@@ -22,7 +22,7 @@ import Steps from '../Steps';
 import css from './QuickGuidePanels.module.less';
 
 /**
- * A QuickGuidePaenls that has steps with corresponding panels and panels have full screen size content.
+ * A QuickGuidePanels that has steps with corresponding panels and panels have full screen size content.
  *
  * @example
  * 	<QuickGuidePanels>

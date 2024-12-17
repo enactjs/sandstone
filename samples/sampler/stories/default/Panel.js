@@ -88,7 +88,7 @@ export const PanelsPanel = (args) => (
 		</Header>
 		<TabLayout
 			onSelect={action('onSelect')}
-			// leaving this control out for now until we build out horizontal tabs
+			// leaving this control out for now until we build our horizontal tabs
 			// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
 		>
 			<Tab

@@ -26,7 +26,7 @@ import componentCss from './InputField.module.less';
 /**
  * A Sandstone styled input component.
  *
- * It supports start and end icons but it does not support Spotlight. Apps should use
+ * It supports start and end icons, but it does not support Spotlight. Apps should use
  * {@link sandstone/Input.InputField}.
  *
  * @class InputFieldBase

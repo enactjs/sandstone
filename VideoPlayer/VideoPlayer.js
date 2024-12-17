@@ -140,10 +140,10 @@ const AnnounceState = {
 	// The title should be announced
 	TITLE: 1,
 
-	// The title has been announce
+	// The title has been announced
 	TITLE_READ: 2,
 
-	// The infoComponents should be announce
+	// The infoComponents should be announced
 	INFO: 3,
 
 	// All announcements have been made
@@ -251,7 +251,7 @@ const VideoPlayerBase = class extends Component {
 		/**
 		 * Components placed below the title.
 		 *
-		 * Typically these will be media descriptor icons, like how many audio channels, what codec
+		 * Typically, these will be media descriptor icons, like how many audio channels, what codec
 		 * the video uses, but can also be a description for the video or anything else that seems
 		 * appropriate to provide information about the video to the user.
 		 *
@@ -389,7 +389,7 @@ const VideoPlayerBase = class extends Component {
 		noAutoShowMediaControls: PropTypes.bool,
 
 		/**
-		 * Hides media slider feedback when fast forward or rewind while media controls are hidden.
+		 * Hides media slider feedback when fast-forward or rewind while media controls are hidden.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -500,7 +500,7 @@ const VideoPlayerBase = class extends Component {
 		 * the current playback position.
 		 *
 		 * It is passed an object with a `seconds` key (float value) to indicate the current time
-		 * index. It can be used to update the `thumbnailSrc` to the reflect the current scrub
+		 * index. It can be used to update the `thumbnailSrc` to reflect the current scrub
 		 * position.
 		 *
 		 * @type {Function}
@@ -594,7 +594,7 @@ const VideoPlayerBase = class extends Component {
 
 		/**
 		 * Pauses the video when it reaches either the start or the end of the video during rewind,
-		 * slow rewind, fast forward, or slow forward.
+		 * slow rewind, fast-forward, or slow forward.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -702,7 +702,7 @@ const VideoPlayerBase = class extends Component {
 		/**
 		 * Thumbnail image source to show on the slider knob.
 		 *
-		 * This is a standard {@link sandstone/Image} component so it supports all of the same
+		 * This is a standard {@link sandstone/Image} component so it supports all the same
 		 * options for the `src` property. If no `thumbnailComponent` and no `thumbnailSrc` is set,
 		 * no tooltip will display.
 		 *
@@ -1695,7 +1695,7 @@ const VideoPlayerBase = class extends Component {
 	};
 
 	/**
-	 * Changes playbackRate to a valid value when initiating fast forward or rewind.
+	 * Changes playbackRate to a valid value when initiating fast-forward or rewind.
 	 *
 	 * @param {Number} idx - The index of the desired playback rate.
 	 * @private
@@ -1808,7 +1808,7 @@ const VideoPlayerBase = class extends Component {
 			// More props from `ev` may be added here as needed, but a full copy via `...ev`
 			// overloads Storybook's Action Logger and likely has other perf fallout.
 			type: ev.type,
-			// Specific state variables are included in the outgoing calback payload, not all of them
+			// Specific state variables are included in the outgoing callback payload, not all of them
 			...this.getMediaState()
 		};
 	};
@@ -1925,7 +1925,7 @@ const VideoPlayerBase = class extends Component {
 		forwardToggleMore(ev, this.props);
 
 		if (!showMoreComponents) {
-			this.startAutoCloseTimeout();	// Restore the timer since we are leaving "more.
+			this.startAutoCloseTimeout();	// Restore the timer since we are leaving "more".
 			// Restore the title-hide now that we're finished with "more".
 			this.startDelayedTitleHide();
 		} else {
@@ -2221,8 +2221,8 @@ const VideoPlayerBase = class extends Component {
  *
  * Example usage:
  * ```
- *	<VideoPlayer title="Hilarious Cat Video" poster="http://my.cat.videos/boots-poster.jpg">
- *		<source src="http://my.cat.videos/boots.mp4" type="video/mp4" />
+ *	<VideoPlayer title="Hilarious Cat Video" poster="https://my.cat.videos/boots-poster.jpg">
+ *		<source src="https://my.cat.videos/boots.mp4" type="video/mp4" />
  *		<infoComponents>A video about my cat Boots, wearing boots.</infoComponents>
  *		<MediaControls>
  *			<leftComponents><Button backgroundOpacity="translucent" icon="star" /></leftComponents>

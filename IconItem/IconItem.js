@@ -80,7 +80,7 @@ const IconItemBase = kind({
 		 * The background color, gradient, or image of this item.
 		 * Accepts any format of color, gradient type value, and image url.
 		 *
-		 * Example: '#ff0000', 'radial-gradient(crimson, skyblue)', 'url(http://example.com/image.png) center / cover'
+		 * Example: '#ff0000', 'radial-gradient(crimson, skyblue)', 'url(https://example.com/image.png) center / cover'
 		 *
 		 * @type {String}
 		 * @public
@@ -96,7 +96,7 @@ const IconItemBase = kind({
 		bordered: PropTypes.bool,
 
 		/**
-		 * The custom component rendred as the content of this IconItem.
+		 * The custom component rendered as the content of this IconItem.
 		 *
 		 * @type {Component}
 		 * @public
@@ -152,7 +152,7 @@ const IconItemBase = kind({
 
 		/**
 		 * Source and size for the image.
-		 * See the datails in {@link sandstone/IconItem.ImageShape|ImageShape}
+		 * See the details in {@link sandstone/IconItem.ImageShape|ImageShape}
 		 *
 		 * @type {sandstone/IconItem.ImageShape}
 		 * @public

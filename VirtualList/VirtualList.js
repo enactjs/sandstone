@@ -424,7 +424,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	}),
 
 	/**
-	 * When `true`, the list will scroll by page. Otherwise the list will scroll by item.
+	 * When `true`, the list will scroll by page. Otherwise, the list will scroll by item.
 	 *
 	 * @type {Boolean}
 	 * @default false
@@ -908,7 +908,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	}),
 
 	/**
-	 * When `true`, the list will scroll by page. Otherwise the list will scroll by item.
+	 * When `true`, the list will scroll by page. Otherwise, the list will scroll by item.
 	 *
 	 * @type {Boolean}
 	 * @default false
