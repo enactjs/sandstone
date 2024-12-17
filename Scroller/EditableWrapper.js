@@ -623,6 +623,7 @@ const EditableWrapper = (props) => {
 			completeEditingByKeyDown();
 			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
+			const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 			if (selectedItem) {
 				if (target.getAttribute('role') !== 'button') {
 					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
@@ -635,14 +636,39 @@ const EditableWrapper = (props) => {
 					}
 					ev.preventDefault();
 					ev.stopPropagation();
-				}
-			} else {
-				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
-
+				} else if (nextTarget?.getAttribute('role') !== 'button') {
+					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+						if (repeat) {
+							SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+						} else {
+							SpotlightAccelerator.reset();
+							moveItemsByKeyDown(ev);
+						}
+					}
+					ev.preventDefault();
+					ev.stopPropagation();
+					setPointerMode(false);
+					Spotlight.focus(selectedItem.children[1]);
 				// Check if focus leaves scroll container.
-				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !repeat) {
-					reset();
+				} else if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+					setPointerMode(false);
+					Spotlight.move(getDirection(keyCode));
+
+					const orders = finalizeOrders();
+					finalizeEditing(orders);
+
+					ev.preventDefault();
+					ev.stopPropagation();
 				}
+			// Check if focus leaves scroll container.
+			} else if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !repeat) {
+				setPointerMode(false);
+				Spotlight.move(getDirection(keyCode));
+
+				reset();
+
+				ev.preventDefault();
+				ev.stopPropagation();
 			}
 		} else if (is('up', keyCode) || is('down', keyCode)) {
 			if (selectedItem || focusedItem) {
