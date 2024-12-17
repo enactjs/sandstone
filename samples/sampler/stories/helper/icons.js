@@ -129,6 +129,7 @@ export const settingsIcons = [
 	'accessibility',
 	'auracast',
 	'bluetooth',
+	'calibration',
 	'camera',
 	'cameradis',
 	'changepassword',

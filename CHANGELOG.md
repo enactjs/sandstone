@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.7.20] - 2024-12-17
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `calibration`
+
 ## [2.7.19] - 2024-11-15
 
 ### Fixed
