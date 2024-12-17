@@ -600,6 +600,34 @@ const EditableWrapper = (props) => {
 		}, completeAnnounceDelay);
 	}, [finalizeEditing, finalizeOrders, focusItem, selectItemBy]);
 
+	const handleMoveItemsByKeyDown = useCallback((ev, repeat) => {
+		const {selectedItem} = mutableRef.current;
+		if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+			if (repeat) {
+				SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+			} else {
+				SpotlightAccelerator.reset();
+				moveItemsByKeyDown(ev);
+			}
+		}
+		ev.preventDefault();
+		ev.stopPropagation();
+	}, [moveItemsByKeyDown]);
+
+	const handleFocusLeaveScrollContainer = useCallback((ev, nextTarget) => {
+		const {keyCode} = ev;
+		if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+			setPointerMode(false);
+			Spotlight.move(getDirection(keyCode));
+
+			const orders = finalizeOrders();
+			finalizeEditing(orders);
+
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+	}, [finalizeEditing, finalizeOrders]);
+
 	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
 		const {focusedItem, selectedItem} = mutableRef.current;
@@ -624,73 +652,37 @@ const EditableWrapper = (props) => {
 			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
 			const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
+
 			if (selectedItem) {
+				// If keyDown event target is item(=not button), move item.
 				if (target.getAttribute('role') !== 'button') {
-					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-						if (repeat) {
-							SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
-						} else {
-							SpotlightAccelerator.reset();
-							moveItemsByKeyDown(ev);
-						}
-					}
-					ev.preventDefault();
-					ev.stopPropagation();
+					handleMoveItemsByKeyDown(ev, repeat);
+				// If keyDown event target is button and next spot target is item, move item and then spot selected item.
 				} else if (nextTarget?.getAttribute('role') !== 'button') {
-					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-						if (repeat) {
-							SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
-						} else {
-							SpotlightAccelerator.reset();
-							moveItemsByKeyDown(ev);
-						}
-					}
-					ev.preventDefault();
-					ev.stopPropagation();
+					handleMoveItemsByKeyDown(ev, repeat);
+
 					setPointerMode(false);
 					Spotlight.focus(selectedItem.children[1]);
-				// Check if focus leaves scroll container.
+				// If keyDown event target is button and next spot target is button, check whether focus leaves the scroll container.
 				} else {
+					// Set lastInputType to 'key' to prevent `handleMoveItemsByScroll` from being executed unexpectedly.
 					mutableRef.current.lastInputType = 'key';
-					if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
-						setPointerMode(false);
-						Spotlight.move(getDirection(keyCode));
-
-						const orders = finalizeOrders();
-						finalizeEditing(orders);
-
-						ev.preventDefault();
-						ev.stopPropagation();
-					}
+					// Check if focus leaves scroll container.
+					handleFocusLeaveScrollContainer(ev, nextTarget);
 				}
-			// Check if focus leaves scroll container.
 			} else if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !repeat) {
-				setPointerMode(false);
-				Spotlight.move(getDirection(keyCode));
-
-				reset();
-
-				ev.preventDefault();
-				ev.stopPropagation();
+				// Check if focus leaves scroll container.
+				handleFocusLeaveScrollContainer(ev, nextTarget);
 			}
 		} else if (is('up', keyCode) || is('down', keyCode)) {
 			if (selectedItem || focusedItem) {
 				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
 				// Check if focus leaves scroll container.
-				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
-					setPointerMode(false);
-					Spotlight.move(getDirection(keyCode));
-
-					const orders = finalizeOrders();
-					finalizeEditing(orders);
-
-					ev.preventDefault();
-					ev.stopPropagation();
-				}
+				handleFocusLeaveScrollContainer(ev, nextTarget);
 			}
 		}
-	}, [finalizeEditing, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing, completeEditingByKeyDown]);
+	}, [findItemNode, handleFocusLeaveScrollContainer, handleMoveItemsByKeyDown, selectItemBy, startEditing, completeEditingByKeyDown]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		const {keyCode, target} = ev;
