@@ -151,7 +151,7 @@ const CheckboxBase = kind({
 			indeterminate,
 			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
 		}),
-		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, an not that icon's visual presence.
+		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, and not that icon's visual presence.
 	},
 
 	render: ({children, css, disabled, selected, ...rest}) => {

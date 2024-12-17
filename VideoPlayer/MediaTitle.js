@@ -31,7 +31,7 @@ const MediaTitleBase = kind({
 		id: PropTypes.string.isRequired,
 
 		/**
-		 * Anything supplied to `children` will be rendered. Typically this will be informational
+		 * Anything supplied to `children` will be rendered. Typically, this will be informational
 		 * badges indicating aspect ratio, audio channels, etc., but it could also be a description.
 		 *
 		 * @type {Node}

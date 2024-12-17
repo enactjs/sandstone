@@ -171,7 +171,7 @@ const FadeAndSlideArranger = {
 };
 
 /**
- * Arranger that cross fade between panels.
+ * Arranger that cross-fade between panels.
  *
  * @type {Arranger}
  * @private

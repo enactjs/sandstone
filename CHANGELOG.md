@@ -4,9 +4,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `calibration`
+
 ### Fixed
 
 - `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control
+- `sandstone/Scroller` to prevent the native scrolling behavior caused by keydown events when a popup is open
 
 ## [3.0.0-alpha.3] - 2024-12-02
 
@@ -315,7 +320,7 @@ No significant changes.
 
 ### Fixed
 
-- `sandstone/Dropdown' to focus properly the first option and the last option via page up and page down
+- `sandstone/Dropdown` to focus properly the first option and the last option via page up and page down
 - `sandstone/QuickGuidePanels` to not lose focus when the last view is displayed
 
 ## [2.7.5] - 2023-08-04
