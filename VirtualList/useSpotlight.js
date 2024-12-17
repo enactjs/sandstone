@@ -43,7 +43,7 @@ const useSpotlightConfig = (props, instances) => {
 				lastFocusedPersist,
 
 				/*
-				 * Restores the data-index into the placeholder if its the only element. Tries to find a
+				 * Restores the data-index into the placeholder if it's the only element. Tries to find a
 				 * matching child otherwise.
 				 */
 				lastFocusedRestore,

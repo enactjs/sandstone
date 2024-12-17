@@ -304,7 +304,7 @@ const useSpottable = (props, instances) => {
 			// `focusedItem` that has a width that is bigger than `scrollBounds.clientWidth`.
 			nextScrollLeft += rtlDirection * ((newItemLeft + itemWidth) - (clientWidth + currentScrollLeft));
 		} else if (newItemLeft < currentScrollLeft) {
-			// If focus is outside of the view area to the left, move scroller to the left accordingly.
+			// If focus is outside the view area to the left, move scroller to the left accordingly.
 			nextScrollLeft += rtlDirection * (newItemLeft - currentScrollLeft);
 		}
 
