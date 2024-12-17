@@ -60,6 +60,15 @@ const virtualListDefaultProps = {
  */
 let VirtualList = (props) => {
 	const virtualListProps = setDefaultProps(props, virtualListDefaultProps);
+	if (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) {
+		virtualListProps.overscrollEffectOn = {
+			arrowKey: false,
+			drag: false,
+			pageKey: false,
+			track: false,
+			wheel: false
+		};
+	}
 	const {itemSize, hoverToScroll, ...rest} = virtualListProps;
 
 	const itemSizeProps = itemSize && itemSize.minSize ?
@@ -555,6 +564,15 @@ const virtualGridListDefaultProps = {
  */
 let VirtualGridList = (props) => {
 	const virtualGridListProps = setDefaultProps(props, virtualGridListDefaultProps);
+	if (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) {
+		virtualGridListProps.overscrollEffectOn = {
+			arrowKey: false,
+			drag: false,
+			pageKey: false,
+			track: false,
+			wheel: false
+		};
+	}
 	const {hoverToScroll, ...rest} = virtualGridListProps;
 
 	const {
