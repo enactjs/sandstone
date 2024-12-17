@@ -45,7 +45,7 @@ const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) =>
 			this.events = {};
 			for (let [evName, fn] of Object.entries(events)) {
 				// Tailored event names (convert from React style to browser style naming)
-				if (evName.indexOf('on') === 0) evName = evName.substr(2).toLowerCase();
+				if (evName.indexOf('on') === 0) evName = evName.substring(2).toLowerCase();
 
 				if (typeof fn === 'function') {
 					// Support functions passed directly into the config
