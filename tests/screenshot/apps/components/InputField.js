@@ -25,8 +25,8 @@ const InputFieldTests = [
 	<InputField value="1234567890" type="number" disabled />,
 	<InputField value="Simple value" type="password" />,
 	<InputField value="Simple value" type="password" disabled />,
-	<InputField value="http://enactjs.com" type="url" />,
-	<InputField value="http://enactjs.com" type="url" disabled />,
+	<InputField value="https://enactjs.com" type="url" />,
+	<InputField value="https://enactjs.com" type="url" disabled />,
 
 	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [QWTC-2165]
 	<InputField value={LoremString} />,
@@ -77,8 +77,8 @@ const InputFieldTests = [
 
 		<InputField value="Focused Simple value" type="password" />,
 		<InputField value="Focused Simple value" type="password" disabled />,
-		<InputField value="http://enactjs.org" type="url" />,
-		<InputField value="http://enactjs.org" type="url" disabled />
+		<InputField value="https://enactjs.com" type="url" />,
+		<InputField value="https://enactjs.com" type="url" disabled />
 	]),
 
 	// *************************************************************
@@ -140,11 +140,11 @@ const InputFieldTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <InputField value="http://enactjs.com" type="url" />
+		component: <InputField value="https://enactjs.com" type="url" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <InputField value="http://enactjs.com" type="url" disabled />
+		component: <InputField value="https://enactjs.com" type="url" disabled />
 	},
 
 	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [QWTC-2165]

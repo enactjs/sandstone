@@ -2220,8 +2220,8 @@ const VideoPlayerBase = class extends Component {
  *
  * Example usage:
  * ```
- *	<VideoPlayer title="Hilarious Cat Video" poster="http://my.cat.videos/boots-poster.jpg">
- *		<source src="http://my.cat.videos/boots.mp4" type="video/mp4" />
+ *	<VideoPlayer title="Hilarious Cat Video" poster="https://my.cat.videos/boots-poster.jpg">
+ *		<source src="https://my.cat.videos/boots.mp4" type="video/mp4" />
  *		<infoComponents>A video about my cat Boots, wearing boots.</infoComponents>
  *		<MediaControls>
  *			<leftComponents><Button backgroundOpacity="translucent" icon="star" /></leftComponents>

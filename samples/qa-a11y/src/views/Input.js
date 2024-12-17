@@ -21,7 +21,7 @@ const InputView = () => (
 			<Input alt="Password Type With Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="password" />
 			<Input alt="Disabled Password Type With Value" disabled subtitle="Subtitle" title="Title" type="password" value="1234" />
 			<Input alt="Url Type With Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="url" />
-			<Input alt="Disabled Url Type With Value" disabled subtitle="Subtitle" title="Title" type="url" value="http://enactjs.com" />
+			<Input alt="Disabled Url Type With Value" disabled subtitle="Subtitle" title="Title" type="url" value="https://enactjs.com" />
 		</Section>
 
 		<Section className={appCss.marginTop} title="With iconAfter">
