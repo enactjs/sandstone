@@ -8,7 +8,7 @@
 import hoc from '@enact/core/hoc';
 import {Job} from '@enact/core/util';
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useMemo} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 
 /**
  * Default config for {@link sandstone/internal/DebounceDecorator.DebounceDecorator}.
@@ -60,7 +60,8 @@ const defaultConfig = {
 const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {cancel, debounce, delay} = config;
 
-	const Debounce = (props) => {
+	// eslint-disable-next-line no-shadow
+	const DebounceDecorator = (props) => {
 		let debounceProps = props;
 
 		const emitEvent = useCallback((ev) => {
@@ -69,25 +70,25 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}, [props]);
 
-		const job = useMemo(() => new Job(emitEvent, delay), [emitEvent]);
+		const job = useRef(new Job(emitEvent, delay));
 
 		useEffect(() => {
 			return () => {
-				job.stop();
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+				job.current.stop();
 			};
-			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, []);
 
 		const handleEvent = useCallback((ev) => {
-			job.start(ev);
-		}, [job]);
+			job.current.start(ev);
+		}, []);
 
 		const handleCancel = useCallback((ev) => {
 			if (props[cancel]) {
 				props[cancel](ev);
 			}
-			job.stop();
-		}, [job, props]);
+			job.current.stop();
+		}, [props]);
 
 		if (debounce || cancel) {
 			debounceProps = {...props};
@@ -101,9 +102,9 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		);
 	};
 
-	Debounce.displayName = 'DebounceDecorator';
+	DebounceDecorator.displayName = 'DebounceDecorator';
 
-	Debounce.propTypes = {/** @lends sandstone/internal/DebounceDecorator.DebounceDecorator.prototype */
+	DebounceDecorator.propTypes = {/** @lends sandstone/internal/DebounceDecorator.DebounceDecorator.prototype */
 		/**
 		 * Handler for `onChange` events
 		 *
@@ -119,7 +120,7 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		[debounce]: PropTypes.func
 	};
 
-	return Debounce;
+	return DebounceDecorator;
 });
 
 export default DebounceDecorator;
