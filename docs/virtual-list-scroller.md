@@ -155,7 +155,7 @@ This document describes VirtualList, VirtualGridList, and Scroller.
     *   Do not change `cbScrollTo` prop after a list or a scroller is initially rendered. It does not have any effect.
 *   The binding of a callback function
     *   Please make sure the context of a callback function is properly bound. In general, your app component instance would be the right one.
-    *   We recommend to use ECMAScript 2015 (a.k.a ECMAScript 6 or ES6) arrow functions to handle binding.
+    *   We recommend to use ECMAScript 2015 (a.k.a. ECMAScript 6 or ES6) arrow functions to handle binding.
         *   [https://googlechrome.github.io/samples/arrows-es6/](https://googlechrome.github.io/samples/arrows-es6/)
         *   [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
 *   Example:

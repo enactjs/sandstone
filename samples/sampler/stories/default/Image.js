@@ -45,7 +45,7 @@ export const _Image = (args) => (
 				fontSize: '32px'
 			}}
 		>
-			Image Boundry
+			Image Boundary
 		</label>
 	</Image>
 );
