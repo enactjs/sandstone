@@ -28,7 +28,8 @@ const defaultConfig = {
 
 // In config, extract all the config stuff we know about. Everything else is an event.
 const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) => {
-	const Component = (props) => {
+	// eslint-disable-next-line no-shadow
+	const WindowEventable = (props) => {
 		useEffect(() => {
 			switch (globalNode) {
 				case 'window':
@@ -40,45 +41,47 @@ const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) =>
 			}
 
 			const localEvents = {};
-			for (let [evName, fn] of Object.entries(events)) {
+			for (let [eventName, fn] of Object.entries(events)) {
 				// Tailored event names (convert from React style to browser style naming)
-				if (evName.indexOf('on') === 0) evName = evName.substring(2).toLowerCase();
+				if (eventName.indexOf('on') === 0) {
+					eventName = eventName.substring(2).toLowerCase();
+				}
 
 				if (typeof fn === 'function') {
 					// Support functions passed directly into the config
-					localEvents[evName] = handle(eventPayload => fn(eventPayload, props));
+					localEvents[eventName] = handle(eventPayload => fn(eventPayload, props));
 				} else if (typeof fn === 'string') {
 					// Support strings, representing a callback in the props list
-					localEvents[evName] = handle(forward(fn, props));
+					localEvents[eventName] = handle(forward(fn, props));
 				}
 			}
 
 			if (typeof globalNode === 'object') {
-				for (const [evName, fn] of Object.entries(localEvents)) {
-					on(evName, fn, globalNode);
+				for (const [eventName, fn] of Object.entries(localEvents)) {
+					on(eventName, fn, globalNode);
 				}
 			}
 
 			return () => {
 				if (typeof globalNode === 'object') {
-					for (const [evName, fn] of Object.entries(localEvents)) {
-						off(evName, fn, globalNode);
+					for (const [eventName, fn] of Object.entries(localEvents)) {
+						off(eventName, fn, globalNode);
 					}
 				}
 			};
 		}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const rest = Object.assign({}, props);
-		for (const evName of Object.keys(events)) {
-			delete rest[evName];
+		for (const eventName of Object.keys(events)) {
+			delete rest[eventName];
 		}
 
 		return (<Wrapped {...rest} />);
 	};
 
-	Component.displayName = 'WindowEventable';
+	WindowEventable.displayName = 'WindowEventable';
 
-	return Component;
+	return WindowEventable;
 });
 
 export default WindowEventable;
