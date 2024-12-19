@@ -43,12 +43,15 @@ class ColorPickerInterface {
 	async sliders () {
 		return await (await this.sliderColorPicker()).$$('.ColorPicker_ColorPickerSlider_sliderCell');
 	}
+	
 	async slidersOutput () {
 		return await (await this.sliderColorPicker()).$$('.ColorPicker_ColorPickerSlider_outputText');
 	}
+	
 	async slidersLabel () {
 		return await (await this.sliderColorPicker()).$$('.ColorPicker_ColorPickerSlider_labelText');
 	}
+	
 	async sliderColorPicker () {
 		return await colorPicker(this.self);
 	}
