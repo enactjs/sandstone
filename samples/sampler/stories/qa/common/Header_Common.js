@@ -48,7 +48,7 @@ export const headerStoryConfig = {
 export const makeCustomizedConfig = (customDefaults) => {
 	const customizedConfig = Object.assign({}, Config); // Shallow copy this fn into a normal object
 	customizedConfig.defaultProps = Object.assign(
-		{}, // Fresh new defaltProps object
+		{}, // Fresh new defaultProps object
 		clone(Config.defaultProps), // Deep copy the defaultProps from our object into a fresh defaultProps object of our shallow copy (preserving all other props as their original references)
 		{
 			backButtonBackgroundOpacity: 'opaque',

@@ -184,9 +184,9 @@ const VideoBase = class extends Component {
 
 		if (playPromise) {
 			playPromise.then(() => {
-				// Auto-play started
+				// Autoplay started
 			}).catch(() => {
-				// Auto-play was prevented
+				// Autoplay was prevented
 			});
 		}
 	}
