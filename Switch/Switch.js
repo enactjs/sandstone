@@ -69,7 +69,7 @@ const SwitchBase = kind({
 
 	defaultProps: {
 		children: 'circle',
-		noAnimation: false,
+		noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
 		selected: false
 	},
 
@@ -82,6 +82,7 @@ const SwitchBase = kind({
 	computed: {
 		className: ({noAnimation, selected, styler}) => styler.append({
 			animated: !noAnimation,
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
 			selected
 		})
 	},

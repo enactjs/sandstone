@@ -145,7 +145,12 @@ const CheckboxBase = kind({
 	},
 
 	computed: {
-		className: ({indeterminate, selected, standalone, styler}) => styler.append({selected, standalone, indeterminate}),
+		className: ({indeterminate, selected, standalone, styler}) => styler.append({
+			selected,
+			standalone,
+			indeterminate,
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
+		}),
 		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, and not that icon's visual presence.
 	},
 

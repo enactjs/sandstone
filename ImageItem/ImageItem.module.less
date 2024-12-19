@@ -209,5 +209,29 @@
 				}
 			}
 		});
+
+		&.noAnimation {
+			&.vertical {
+				&.fullImage {
+					.image {
+						transition: none;
+					}
+				}
+			}
+
+			.focus({
+				&::before {
+					.sand-spotlight-focus-bg-colors(@shadow: {
+						box-shadow: none;
+					});
+				}
+
+				&.vertical {
+					&.fullImage .image {
+						box-shadow: none;
+					}
+				}
+			})
+		}
 	});
 }

@@ -179,6 +179,7 @@ const AlertBase = kind({
 		className: ({buttons, image, title, type, styler}) => styler.append(
 			{
 				maxButtons: (buttons && Children.toArray(buttons).filter(Boolean).length > 2),
+				noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
 				noImage: !image,
 				noTitle: (type === 'fullscreen') && !title
 			},

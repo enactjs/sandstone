@@ -9,6 +9,7 @@
  * @exports Header
  */
 
+import classnames from 'classnames';
 import {forKey, forProp, forward, forwardCustom, handle, preventDefault, stop} from '@enact/core/handle';
 import useHandlers from '@enact/core/useHandlers';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -72,7 +73,12 @@ const fixedPopupPanelsHandlers = {
  */
 const FixedPopupPanelsBase = (props) => {
 	const handlers = useHandlers(fixedPopupPanelsHandlers, props);
-	return <Viewport {...props} {...handlers} />;
+	const noAnimationProps = (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? {
+		className: classnames(props.className, css.noAnimation),
+		noAnimation: true
+	} : null;
+
+	return <Viewport {...props} {...handlers} {...noAnimationProps} />;
 };
 
 /**

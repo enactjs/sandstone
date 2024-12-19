@@ -265,7 +265,8 @@ const ImageItemBase = kind({
 			);
 		},
 		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
-			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
+			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc,
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
 		})
 	},
 

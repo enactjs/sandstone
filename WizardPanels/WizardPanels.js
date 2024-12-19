@@ -351,7 +351,8 @@ const WizardPanelsBase = kind({
 					total={totalSteps}
 				/>
 			);
-		}
+		},
+		noAnimation: ({noAnimation}) => (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || noAnimation
 	},
 
 	render: ({
