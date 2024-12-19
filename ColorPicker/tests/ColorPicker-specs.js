@@ -3,8 +3,7 @@ import '@testing-library/jest-dom';
 import {act, fireEvent, render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import ColorPicker from '../ColorPicker';
-import {FavoriteColors} from '../ColorPicker';
+import ColorPicker, {FavoriteColors}  from '../ColorPicker';
 import GridColorPicker from '../ColorPickerGrid';
 import SliderColorPicker from '../ColorPickerSlider';
 import SpectrumColorPicker from '../ColorPickerSpectrum';
