@@ -218,7 +218,9 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			405, // yellow
 			406, // blue
 			33, // channel up
-			34 // channel down
+			34, // channel down
+			35, // end
+			36 // home
 		],
 		red: 403,
 		green: 404,

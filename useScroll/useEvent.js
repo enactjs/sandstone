@@ -309,6 +309,7 @@ const pageKeyHandler = (ev) => {
 	const {keyCode} = ev;
 
 	if (Spotlight.getPointerMode() && !Spotlight.getCurrent() && (isPageUp(keyCode) || isPageDown(keyCode))) {
+		ev.preventDefault();
 		const
 			{x, y} = lastPointer,
 			elem = document.elementFromPoint(x, y);
