@@ -44,8 +44,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const SharedStateDecorator = (props) => {
 		const context = useContext(SharedState);
 		const data = useRef({});
-		// eslint-disable-next-line no-unused-vars
-		const [updateOnMountState, setUpdateOnMountState] = useState(false);
+		const [, setUpdateOnMountState] = useState(false);
 
 		const isUpdatable = useCallback(() => {
 			const {[idProp]: id, noSharedState} = props;
