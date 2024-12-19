@@ -1,19 +1,14 @@
 import {forward, forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
+import {setDefaultProps} from '@enact/core/util';
 import Pause from '@enact/spotlight/Pause';
 import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import $L from '../internal/$L';
 
 import {forwardSpotlightEvents} from './utils';
-
-const toggleActive = ({active}) => {
-	return {
-		active: !active
-	};
-};
 
 const defaultConfig = {
 	// FIXME: This is a compromise to maintain a single decorator for Slider and IncrementSlider
@@ -23,6 +18,12 @@ const defaultConfig = {
 	// spotlight events and also doesn't remove the spotlight directional callbacks from the props
 	// so the Wrapped component can fire them manually or use the callback for the default behavior.
 	emitSpotlightEvents: null
+};
+
+const sliderBehaviorDefaultProps = {
+	max: 100,
+	min: 0,
+	orientation: 'horizontal'
 };
 
 // Adds sandstone-specific slider behaviors
@@ -39,62 +40,33 @@ const defaultConfig = {
 const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {emitSpotlightEvents} = config;
 
-	return class extends Component {
-		static displayName = 'SliderBehaviorDecorator';
+	// eslint-disable-next-line no-shadow
+	const SliderBehaviorDecorator = (props) => {
+		const sliderBehaviorProps = setDefaultProps(props, sliderBehaviorDefaultProps);
 
-		static propTypes = {
-			activateOnSelect: PropTypes.bool,
-			'aria-valuetext': PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-			max: PropTypes.number,
-			min: PropTypes.number,
-			orientation: PropTypes.string,
-			value: PropTypes.number
-		};
+		const paused = useMemo(() => new Pause(), []);
+		const [active, setActive] = useState(false);
+		const [dragging, setDragging] = useState(false);
+		const [focused, setFocused] = useState(false);
+		const [useHintText, setUseHintText] = useState(true);
+		const [prevValue, setPrevValue] = useState(sliderBehaviorProps.value);
 
-		static defaultProps = {
-			max: 100,
-			min: 0,
-			orientation: 'horizontal'
-		};
-
-		constructor (props) {
-			super(props);
-
-			this.paused = new Pause();
-			this.handleActivate = this.handleActivate.bind(this);
-			this.handleBlur = this.handleBlur.bind(this);
-			this.handleDragEnd = this.handleDragEnd.bind(this);
-			this.handleDragStart = this.handleDragStart.bind(this);
-			this.handleFocus = this.handleFocus.bind(this);
-			this.handleSpotlightEvents = this.handleSpotlightEvents.bind(this);
-			this.bounds = {};
-
-			this.state = {
-				active: false,
-				dragging: false,
-				focused: false,
-				useHintText: true,
-				prevValue: props.value
-			};
-		}
-
-		static getDerivedStateFromProps (props, state) {
-			if (props.value !== state.prevValue) {
-				return {
-					useHintText: false,
-					prevValue: props.value
-				};
+		useEffect(() => {
+			if (sliderBehaviorProps.value !== prevValue) {
+				setUseHintText(false);
+				setPrevValue(sliderBehaviorProps.value);
 			}
-			return null;
-		}
+		}, [prevValue, sliderBehaviorProps.value]);
 
-		componentWillUnmount () {
-			this.paused.resume();
-		}
 
-		getValueText () {
-			const {'aria-valuetext': ariaValueText, max, min, orientation, value = min} = this.props;
-			const {useHintText} = this.state;
+		useEffect(() => {
+			return () => {
+				paused.resume();
+			};
+		}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+		const getValueText = useCallback(() => {
+			const {'aria-valuetext': ariaValueText, max, min, orientation, value = min} = sliderBehaviorProps;
 
 			const valueText = (ariaValueText != null) ? ariaValueText : value;
 			const verticalHint = `${new IString($L('From {startValue} to {lastValue}')).format({startValue: min, lastValue: max})} ${valueText} ${$L('change a value with up down button')}`;
@@ -105,78 +77,86 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			return valueText;
-		}
+		}, [sliderBehaviorProps, useHintText]);
 
-		handleActivate () {
-			forwardCustom('onActivate')(null, this.props);
-			this.setState(toggleActive);
-		}
+		const handleActivate = useCallback(() => {
+			forwardCustom('onActivate')(null, sliderBehaviorProps);
+			setActive(prevState => !prevState);
+		}, [sliderBehaviorProps]);
 
-		handleBlur (ev) {
-			forward('onBlur', ev, this.props);
-			this.setState({
-				focused: false,
-				useHintText: true
-			});
-		}
+		const handleBlur = useCallback((ev) => {
+			forward('onBlur', ev, sliderBehaviorProps);
+			setFocused(false);
+			setUseHintText(true);
+		}, [sliderBehaviorProps]);
 
-		handleDragStart () {
-			this.paused.pause();
-			this.setState({dragging: true});
-		}
+		const handleDragStart = useCallback(() => {
+			paused.pause();
+			setDragging(true);
+		}, [paused]);
 
-		handleDragEnd () {
-			this.paused.resume();
-			this.setState({dragging: false});
-		}
+		const handleDragEnd = useCallback(() => {
+			paused.resume();
+			setDragging(false);
+		}, [paused]);
 
-		handleFocus (ev) {
-			forward('onFocus', ev, this.props);
-			if (!this.props.activateOnSelect) {
-				this.handleActivate();
+		const handleFocus = useCallback((ev) => {
+			forward('onFocus', ev, sliderBehaviorProps);
+			if (!sliderBehaviorProps.activateOnSelect) {
+				handleActivate();
 			}
-			this.setState({focused: true});
-		}
+			setFocused(true);
+		}, [handleActivate, sliderBehaviorProps]);
 
-		handleSpotlightEvents (ev) {
+		const handleSpotlightEvents = useCallback((ev) => {
 			if (!emitSpotlightEvents) {
-				forward('onKeyDown', ev, this.props);
+				forward('onKeyDown', ev, sliderBehaviorProps);
 			}
+			forwardSpotlightEvents(ev, sliderBehaviorProps);
+		}, [sliderBehaviorProps]);
 
-			forwardSpotlightEvents(ev, this.props);
+		const sliderProps = Object.assign({}, sliderBehaviorProps);
+
+		if (!emitSpotlightEvents) {
+			// Remove spotlight props before hitting spottable since we've handled them uniquely
+			delete sliderProps.onSpotlightLeft;
+			delete sliderProps.onSpotlightRight;
+			delete sliderProps.onSpotlightUp;
+			delete sliderProps.onSpotlightDown;
+
+			sliderProps.onKeyDown = handleSpotlightEvents;
+		} else {
+			sliderProps[emitSpotlightEvents] = handleSpotlightEvents;
 		}
 
-		render () {
-			const props = Object.assign({}, this.props);
-
-			if (!emitSpotlightEvents) {
-				// Remove spotlight props before hitting spottable since we've handled them uniquely
-				delete props.onSpotlightLeft;
-				delete props.onSpotlightRight;
-				delete props.onSpotlightUp;
-				delete props.onSpotlightDown;
-
-				props.onKeyDown = this.handleSpotlightEvents;
-			} else {
-				props[emitSpotlightEvents] = this.handleSpotlightEvents;
-			}
-
-			return (
-				<Wrapped
-					role="slider"
-					{...props}
-					active={this.state.active}
-					aria-valuetext={this.getValueText()}
-					focused={this.state.focused || this.state.dragging}
-					onActivate={this.handleActivate}
-					onBlur={this.handleBlur}
-					onDragStart={this.handleDragStart}
-					onDragEnd={this.handleDragEnd}
-					onFocus={this.handleFocus}
-				/>
-			);
-		}
+		return (
+			<Wrapped
+				role="slider"
+				{...sliderProps}
+				active={active}
+				aria-valuetext={getValueText()}
+				focused={focused || dragging}
+				onActivate={handleActivate}
+				onBlur={handleBlur}
+				onDragStart={handleDragStart}
+				onDragEnd={handleDragEnd}
+				onFocus={handleFocus}
+			/>
+		);
 	};
+
+	SliderBehaviorDecorator.displayName = 'SliderBehaviorDecorator';
+
+	SliderBehaviorDecorator.propTypes = {
+		activateOnSelect: PropTypes.bool,
+		'aria-valuetext': PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+		max: PropTypes.number,
+		min: PropTypes.number,
+		orientation: PropTypes.string,
+		value: PropTypes.number
+	};
+
+	return SliderBehaviorDecorator;
 });
 
 export default SliderBehaviorDecorator;
