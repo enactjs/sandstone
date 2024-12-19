@@ -1,7 +1,8 @@
 dist: jammy
 language: node_js
 node_js:
-    - 21
+    - lts/*
+    - node
 sudo: false
 before_install:
     - curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-4.4.gpg --dearmor
@@ -18,12 +19,14 @@ install:
     - popd
     - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
+    - npm uninstall @enact/ui-test-utils -C packages/i18n
     - npm install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
     - npm run interlink
     - popd
     - rm -fr node_modules/@enact
+    - npm uninstall @enact/ui-test-utils
     - npm install
     - enact link
 script:
