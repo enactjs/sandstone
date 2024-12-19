@@ -25,9 +25,11 @@ describe('TooltipDecorator', function () {
 			expect(await tooltipButtonDefault.tooltipText).toBe('Hello Tooltip Button Default');
 		});
 
-		it('should focus the disabled button when hovered', async function () {
-			await tooltipButtonDisabled.hover();
-			expect(await tooltipButtonDisabled.self.isFocused()).toBe(true);
+		describe('disabled', function () {
+			it('should focus the disabled button when hovered', async function () {
+				await tooltipButtonDisabled.hover();
+				expect(await tooltipButtonDisabled.self.isFocused()).toBe(true);
+			});
 		});
 	});
 
