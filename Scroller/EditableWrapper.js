@@ -221,13 +221,17 @@ const EditableWrapper = (props) => {
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 
 			updateArrowIcon(mutableRef.current.fromIndex);
-			if (!mutableRef.current.initialSelected) {
-				setTimeout(() => {
+
+			setTimeout(() => {
+				if (item?.children[1]) {
+					item.children[1].ariaHidden = true;
+				}
+				if (!mutableRef.current.initialSelected) {
 					announceRef.current.announce(
 						mutableRef.current.selectedItemLabel + $L('Press the left/right button to move or press the up button to select other options.')
 					);
-				}, completeAnnounceDelay);
-			}
+				}
+			}, completeAnnounceDelay);
 		}
 	}, [customCss.focused, customCss.selected, updateArrowIcon]);
 
@@ -580,6 +584,8 @@ const EditableWrapper = (props) => {
 		const orders = finalizeOrders();
 
 		selectedItem.children[1].ariaLabel = '';
+		selectedItem.children[1].ariaHidden = false;
+
 		finalizeEditing(orders);
 		if (selectItemBy === 'press') {
 			if (getPointerMode()) {
