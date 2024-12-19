@@ -755,7 +755,7 @@ describe('Popup', function () {
 				// Check spotlight is NOT on buttons outside popup (verify step 4)
 				expect(await popup.buttonOK.isFocused()).toBe(true);
 
-				// Hover the button 'spotlightRestrict - self-only' outside of the popup (step 6)
+				// Hover the button 'spotlightRestrict - self-only' outside the popup (step 6)
 				await Page.spotlightSelect();
 				// wait for popup closes
 				await Page.delay(1000);
