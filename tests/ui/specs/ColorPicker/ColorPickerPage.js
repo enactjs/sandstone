@@ -17,7 +17,7 @@ class ColorPickerInterface {
 	async tabItems () {
 		return await (await this.tabs()).$$('.Button_Button_button');
 	}
-	
+
 	async tabs () {
 		return await getTabs(this.self);
 	}
@@ -25,7 +25,7 @@ class ColorPickerInterface {
 	async colorBlock () {
 		return await (await this.gridColumns()).$$('.ColorPicker_ColorPickerGrid_colorBlock');
 	}
-	
+
 	async gridColumns () {
 		return await colorPicker(this.self);
 	}
@@ -45,15 +45,15 @@ class ColorPickerInterface {
 	async sliders () {
 		return await (await this.sliderColorPicker()).$$('.ColorPicker_ColorPickerSlider_sliderCell');
 	}
-	
+
 	async slidersOutput () {
 		return await (await this.sliderColorPicker()).$$('.ColorPicker_ColorPickerSlider_outputText');
 	}
-	
+
 	async slidersLabel () {
 		return await (await this.sliderColorPicker()).$$('.ColorPicker_ColorPickerSlider_labelText');
 	}
-	
+
 	async sliderColorPicker () {
 		return await colorPicker(this.self);
 	}
