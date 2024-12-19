@@ -20,7 +20,7 @@ const defaultConfig = {
 	emitSpotlightEvents: null
 };
 
-const sliderDefaultProps = {
+const sliderBehaviorDefaultProps = {
 	max: 100,
 	min: 0,
 	orientation: 'horizontal'
@@ -40,8 +40,9 @@ const sliderDefaultProps = {
 const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {emitSpotlightEvents} = config;
 
-	const SliderBehavior = (props) => {
-		const sliderBehaviorProps = setDefaultProps(props, sliderDefaultProps);
+	// eslint-disable-next-line no-shadow
+	const SliderBehaviorDecorator = (props) => {
+		const sliderBehaviorProps = setDefaultProps(props, sliderBehaviorDefaultProps);
 
 		const paused = useMemo(() => new Pause(), []);
 		const [active, setActive] = useState(false);
@@ -81,23 +82,23 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		const handleActivate = useCallback(() => {
 			forwardCustom('onActivate')(null, sliderBehaviorProps);
 			setActive(prevState => !prevState);
-		}, [setActive, sliderBehaviorProps]);
+		}, [sliderBehaviorProps]);
 
 		const handleBlur = useCallback((ev) => {
 			forward('onBlur', ev, sliderBehaviorProps);
 			setFocused(false);
 			setUseHintText(true);
-		}, [setFocused, setUseHintText, sliderBehaviorProps]);
+		}, [sliderBehaviorProps]);
 
 		const handleDragStart = useCallback(() => {
 			paused.pause();
 			setDragging(true);
-		}, [paused, setDragging]);
+		}, [paused]);
 
 		const handleDragEnd = useCallback(() => {
 			paused.resume();
 			setDragging(false);
-		}, [paused, setDragging]);
+		}, [paused]);
 
 		const handleFocus = useCallback((ev) => {
 			forward('onFocus', ev, sliderBehaviorProps);
@@ -105,7 +106,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				handleActivate();
 			}
 			setFocused(true);
-		}, [handleActivate, setFocused, sliderBehaviorProps]);
+		}, [handleActivate, sliderBehaviorProps]);
 
 		const handleSpotlightEvents = useCallback((ev) => {
 			if (!emitSpotlightEvents) {
@@ -144,9 +145,9 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		);
 	};
 
-	SliderBehavior.displayName = 'SliderBehaviorDecorator';
+	SliderBehaviorDecorator.displayName = 'SliderBehaviorDecorator';
 
-	SliderBehavior.propTypes = {
+	SliderBehaviorDecorator.propTypes = {
 		activateOnSelect: PropTypes.bool,
 		'aria-valuetext': PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 		max: PropTypes.number,
@@ -155,7 +156,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		value: PropTypes.number
 	};
 
-	return SliderBehavior;
+	return SliderBehaviorDecorator;
 });
 
 export default SliderBehaviorDecorator;
