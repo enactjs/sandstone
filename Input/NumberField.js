@@ -102,7 +102,7 @@ const NumberFieldBase = kind({
 				({key}, {maxLength, value}) => ({value: normalizeValue(`${value}${key}`, maxLength)}),
 				handle(
 					returnsTrue(({value}, {announce, type}) => {
-						announce(type === 'password' ? $L('hidden') : String(value).substr(-1));
+						announce(type === 'password' ? $L('hidden') : String(value).slice(-1));
 					}),
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
