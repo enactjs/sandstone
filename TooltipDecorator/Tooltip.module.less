@@ -436,7 +436,7 @@
 	.applySkins({
 		filter: drop-shadow(@sand-tooltip-shadow);
 
-		&.noAnimation {
+		:global(.noAnimation) & {
 			filter: none;
 		}
 

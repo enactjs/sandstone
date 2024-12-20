@@ -70,10 +70,8 @@
 			.bg {
 				.sand-spotlight-focus-bg-colors();
 			}
-			&.noAnimation .bg {
-				.sand-spotlight-focus-bg-colors(@shadow: {
-					box-shadow: none;
-				});
+			&:global(.noAnimation) .bg {
+				box-shadow: none;
 			}
 		};
 		.checkbox-colors(

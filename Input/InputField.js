@@ -268,10 +268,7 @@ const InputFieldBase = kind({
 			const title = (value == null || value === '') ? placeholder : '';
 			return calcAriaLabel(title, type, value);
 		},
-		className: ({invalid, size, styler}) => styler.append({
-			invalid,
-			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
-		}, size),
+		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {

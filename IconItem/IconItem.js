@@ -230,8 +230,7 @@ const IconItemBase = kind({
 			bordered,
 			labelOnFocus: labelOn === 'focus',
 			titleOnFocus: titleOn === 'focus',
-			darkLabel: labelColor === 'dark',
-			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
+			darkLabel: labelColor === 'dark'
 		}),
 
 		children: ({background, children, css, icon, image, label, labelOn, order, title}) => {

@@ -200,12 +200,10 @@
 			// }
 		});
 
-		&.noAnimation {
+		:global(.noAnimation) & {
 			.focus({
 				.bg {
-					.sand-spotlight-focus-bg-colors(@shadow: {
-						box-shadow: none;
-					});
+					box-shadow: none;
 				}
 			})
 		}

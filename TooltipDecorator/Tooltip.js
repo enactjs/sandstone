@@ -188,15 +188,7 @@ const TooltipBase = kind({
 				return {transform: `translateX(${cappedPosition * 100}%)`};
 			}
 		},
-		className: ({direction, arrowAnchor, relative, type, styler}) => styler.append(
-			direction || defaultDirection(type),
-			`${arrowAnchor || defaultArrowAnchor(type)}Arrow`,
-			{
-				relative,
-				absolute: !relative,
-				noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
-			}, type
-		),
+		className: ({direction, arrowAnchor, relative, type, styler}) => styler.append(direction || defaultDirection(type), `${arrowAnchor || defaultArrowAnchor(type)}Arrow`, {relative, absolute: !relative}, type),
 		style: ({position, style}) => {
 			return {
 				...style,

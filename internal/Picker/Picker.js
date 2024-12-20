@@ -432,10 +432,9 @@ const PickerBase = (props) => {
 				[cssProps.decrementing]: (!decrementerDisabledProp && pressed === -1),
 				[cssProps.incrementing]: (!incrementerDisabledProp && pressed === 1)
 			},
-			classNameVariable,
-			noAnimation ? cssProps.noAnimation : null
+			classNameVariable
 		);
-	}, [changedBy, joined, noAnimation, orientation, pressed, props, width]);
+	}, [changedBy, joined, orientation, pressed, props, width]);
 
 	const calcValueText = useCallback(() => {
 		const {accessibilityHint = ''} = props;

@@ -202,10 +202,6 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'text']
 	},
 
-	computed: {
-		className: ({styler}) => styler.append({noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION})
-	},
-
 	render: ({caption, css, imageOverlay, loop, marqueeOn, mediaComponent, muted, noAutoPlay, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>

@@ -259,7 +259,7 @@ const PopupTabLayoutBase = kind({
 	},
 
 	computed: {
-		className: ({collapsed, scrimType, styler}) => styler.append({collapsed, noAnimation: (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION)}, `scrim${cap(scrimType)}`),
+		className: ({collapsed, scrimType, styler}) => styler.append({collapsed}, `scrim${cap(scrimType)}`),
 		noAnimation: ({noAnimation}) => (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || noAnimation
 	},
 

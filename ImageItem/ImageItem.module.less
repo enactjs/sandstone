@@ -210,7 +210,7 @@
 			}
 		});
 
-		&.noAnimation {
+		:global(.noAnimation) & {
 			&.vertical {
 				&.fullImage {
 					.image {
@@ -221,9 +221,7 @@
 
 			.focus({
 				&::before {
-					.sand-spotlight-focus-bg-colors(@shadow: {
-						box-shadow: none;
-					});
+					box-shadow: none;
 				}
 
 				&.vertical {

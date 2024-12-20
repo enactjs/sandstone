@@ -237,11 +237,7 @@ const ItemBase = kind({
 
 	computed: {
 		className: ({centered, label, selected, size, styler}) => styler.append({
-			centered,
-			hasLabel: label != null,
-			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
-			selected
-		}, size),
+			centered, selected, hasLabel: label != null}, size),
 		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 

@@ -126,10 +126,7 @@ const FormCheckboxItemBase = kind({
 	},
 
 	computed: {
-		className: ({slotBefore, styler}) => styler.append({
-			hasSlotBefore: hasChildren(slotBefore),
-			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
-		})
+		className: ({slotBefore, styler}) => styler.append({hasSlotBefore: hasChildren(slotBefore)})
 	},
 
 	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (

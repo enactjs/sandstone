@@ -2105,7 +2105,7 @@ const VideoPlayerBase = class extends Component {
 								null
 						}
 						<ControlsContainer
-							className={classnames(css.bottom, (this.state.mediaControlsVisible ? '' : ' ' + css.hidden), (this.state.infoVisible ? ' ' + css.lift : ''), (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION ? ' ' + css.noAnimation :  ''))}
+							className={classnames(css.bottom, (this.state.mediaControlsVisible ? '' : ' ' + css.hidden), (this.state.infoVisible ? ' ' + css.lift : ''))}
 							spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
 						>
 							{/*

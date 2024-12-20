@@ -156,7 +156,7 @@
 			background-color: rgb(@sand-alert-overlay-bg-color-rgb, @sand-alert-overlay-bg-color-opacity);
 			box-shadow: @sand-alert-overlay-shadow;
 
-			&.noAnimation {
+			:global(.noAnimation) & {
 				box-shadow: none;
 			}
 		}

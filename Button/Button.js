@@ -217,7 +217,6 @@ const ButtonBase = kind({
 				iconOnly,
 				collapsable,
 				collapsed,
-				noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
 				roundBorder,
 				shadowed: shadowed && (backgroundOpacity ? backgroundOpacity === 'transparent' : iconOnly)
 			},

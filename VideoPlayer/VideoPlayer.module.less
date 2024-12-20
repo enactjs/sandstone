@@ -70,7 +70,7 @@
 				transform: translateY(~"calc(var(--liftDistance) * -1)");
 				transition: transform 0.3s linear;
 
-				&.noAnimation {
+				:global(.noAnimation) & {
 					transition: none;
 				}
 			}
