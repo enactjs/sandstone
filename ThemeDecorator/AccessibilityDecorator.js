@@ -6,7 +6,7 @@ import {objectify} from '@enact/ui/Skinnable/util';
 import PropTypes from 'prop-types';
 import {useContext, useEffect, useRef} from 'react';
 
-const accessibilityDefaultProps = {
+const accessibilityDecoratorDefaultProps = {
 	textSize: 'normal'
 };
 
@@ -19,8 +19,9 @@ const accessibilityDefaultProps = {
  * @public
  */
 const AccessibilityDecorator = hoc((config, Wrapped) => {
-	const Accessibility = (props) => {
-		const {className, focusRing, highContrast, skinVariants, textSize, ...rest} = setDefaultProps(props, accessibilityDefaultProps);
+	// eslint-disable-next-line no-shadow
+	const AccessibilityDecorator = (props) => {
+		const {className, focusRing, highContrast, skinVariants, textSize, ...rest} = setDefaultProps(props, accessibilityDecoratorDefaultProps);
 		let accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
 		accessibilityClassName = focusRing ? `enact-a11y-focus-ring ${accessibilityClassName}` : `${accessibilityClassName}`;
 		const combinedClassName = className ? `${className} ${accessibilityClassName}` : accessibilityClassName;
@@ -57,9 +58,9 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		);
 	};
 
-	Accessibility.displayName = 'AccessibilityDecorator';
+	AccessibilityDecorator.displayName = 'AccessibilityDecorator';
 
-	Accessibility.propTypes = {/** @lends sandstone/ThemeDecorator.AccessibilityDecorator.prototype */
+	AccessibilityDecorator.propTypes = {/** @lends sandstone/ThemeDecorator.AccessibilityDecorator.prototype */
 		/**
 		 * Enables additional features to help users visually differentiate components.
 		 *
@@ -136,7 +137,7 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {
 		textSize: PropTypes.oneOf(['normal', 'large'])
 	};
 
-	return Accessibility;
+	return AccessibilityDecorator;
 });
 
 export default AccessibilityDecorator;
