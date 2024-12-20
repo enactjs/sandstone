@@ -1,6 +1,6 @@
 import {VideoPlayer} from '@enact/sandstone/VideoPlayer';
 
-const src = 'http://media.w3.org/2010/05/sintel/trailer.mp4';
+const src = 'https://media.w3.org/2010/05/sintel/trailer.mp4';
 
 const UseCaseVideoPlayer = () => {
 	return (
