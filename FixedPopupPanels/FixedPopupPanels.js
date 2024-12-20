@@ -14,7 +14,6 @@ import useHandlers from '@enact/core/useHandlers';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
-import classnames from 'classnames';
 import compose from 'ramda/src/compose';
 
 import {BasicArranger, PopupDecorator, Viewport} from '../internal/Panels';

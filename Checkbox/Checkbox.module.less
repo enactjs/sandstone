@@ -70,9 +70,6 @@
 			.bg {
 				.sand-spotlight-focus-bg-colors();
 			}
-			&:global(.noAnimation) .bg {
-				box-shadow: none;
-			}
 		};
 		.checkbox-colors(
 			@sand-checkbox-selected-focus-text-color,
@@ -173,6 +170,14 @@
 		.focus({
 			@checkbox-focus();
 		});
+
+		:global(.noAnimation) & {
+			.focus({
+				.bg{
+					box-shadow: none;
+				}
+			})
+		}
 
 		// Disabled
 		.sand-disabled({
