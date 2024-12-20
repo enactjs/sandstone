@@ -70,7 +70,16 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}, [props]);
 
-		const job = useRef(new Job(emitEvent, delay));
+		const emitEventRef = useRef(emitEvent);
+		const job = useRef(new Job(emitEventRef.current, delay));
+
+		useEffect(() => {
+			if (emitEvent !== emitEventRef.current) {
+				emitEventRef.current = emitEvent;
+				job.current.stop();
+				job.current = new Job(emitEvent, delay);
+			}
+		}, [emitEvent]);
 
 		useEffect(() => {
 			return () => {
