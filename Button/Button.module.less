@@ -422,6 +422,47 @@
 			});
 		}
 
+		:global(.noAnimation) & {
+			.focus({
+				.bg {
+					.sand-button-focus-bg-colors(@shadow: {
+						box-shadow: none;
+					});
+				}
+	
+				&.focusExpand {
+					.bg {
+						.sand-bg-colors({
+							transform: none;
+						});
+					}
+
+					&.small .bg {
+						.sand-bg-colors({
+							transform: none;
+						});
+					}
+
+					&.pressed,
+					&:active {
+						.bg {
+							.sand-bg-colors({
+								transform: none;
+							});
+						}
+
+						&.small {
+							.bg {
+								.sand-bg-colors({
+									transform: none;
+								});
+							}
+						}
+					}
+				}
+			});
+		}
+
 		.sand-disabled({
 			.client {
 				.sand-disabled-colors();

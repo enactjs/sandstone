@@ -209,5 +209,27 @@
 				}
 			}
 		});
+
+		:global(.noAnimation) & {
+			&.vertical {
+				&.fullImage {
+					.image {
+						transition: none;
+					}
+				}
+			}
+
+			.focus({
+				&::before {
+					box-shadow: none;
+				}
+
+				&.vertical {
+					&.fullImage .image {
+						box-shadow: none;
+					}
+				}
+			})
+		}
 	});
 }

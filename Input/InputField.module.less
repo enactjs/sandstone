@@ -200,6 +200,14 @@
 			// }
 		});
 
+		:global(.noAnimation) & {
+			.focus({
+				.bg {
+					box-shadow: none;
+				}
+			})
+		}
+
 		// For when the HTML input field has focus (someone is typing)
 		&:focus-within {
 			color: @sand-inputfield-focus-text-color;

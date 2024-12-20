@@ -248,7 +248,7 @@ const PanelsBase = kind({
 					generateId={generateId}
 					id={viewportId}
 					index={index}
-					noAnimation={noAnimation}
+					noAnimation={(typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || noAnimation}
 					noSharedState={noSharedState}
 					onTransition={onTransition}
 					onWillTransition={onWillTransition}

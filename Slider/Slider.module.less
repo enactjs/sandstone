@@ -231,6 +231,28 @@
 			}
 		}
 
+		:global(.noAnimation) & {
+			.focus({
+				.knob::before {
+					box-shadow: none;
+				}
+
+				&.active,
+				&.pressed {
+					.knob::before {
+						transform: @knob-transform-resting;
+					}
+				}
+			});
+
+			:global(.spotlight-input-touch) &.pressed {
+				.knob::before {
+					box-shadow: none;
+					transform: @knob-transform-resting;
+				}
+			}
+		}
+
 		.disabled({
 			opacity: 1;
 

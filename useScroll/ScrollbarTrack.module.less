@@ -54,6 +54,12 @@
 			}
 		});
 
+		:global(.noAnimation) & {
+			.focus({
+				box-shadow: none;
+			});
+		}
+
 		:global(.spotlight-input-touch) & {
 			pointer-events: none;
 		}

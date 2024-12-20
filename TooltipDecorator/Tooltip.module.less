@@ -436,6 +436,10 @@
 	.applySkins({
 		filter: drop-shadow(@sand-tooltip-shadow);
 
+		:global(.noAnimation) & {
+			filter: none;
+		}
+
 		&.transparent {
 			filter: none;
 			.tooltipLabel {
