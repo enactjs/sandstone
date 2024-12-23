@@ -118,34 +118,32 @@ const HoverToScrollBase = (props) => {
 			const bounds = scrollContainer.getScrollBounds();
 
 			return function ({pointerType}) {
-				if (pointerType === 'mouse') {
-					const distance =
-						(position === 'before' ? -1 : 1) * // scroll direction
-						bounds[clientSize] * // scroll page size
-						hoverToScrollMultiplier[direction]; // a scrolling speed factor
+				const distance =
+					(position === 'before' ? -1 : 1) * // scroll direction
+					bounds[clientSize] * // scroll page size
+					hoverToScrollMultiplier[direction]; // a scrolling speed factor
 
-					mutableRef.current.hoveredPosition = position;
-					mutableRef.current.stopScrollByHover = false;
+				mutableRef.current.hoveredPosition = position;
+				mutableRef.current.stopScrollByHover = false;
 
-					const scrollByHover = () => {
-						if (!mutableRef.current.stopScrollByHover && getLastInputType() === 'mouse') {
-							scrollContainer.scrollTo({
-								position: {
-									[axis]: clamp(
-										0,
-										bounds[maxPosition],
-										scrollContainer[scrollPosition] + distance
-									)
-								},
-								animate: false
-							});
-							startRaf(scrollByHover);
-						} else {
-							stopRaf(); // for other type input during hovering
-						}
-					};
-					startRaf(scrollByHover);
-				}
+				const scrollByHover = () => {
+					if (!mutableRef.current.stopScrollByHover) {
+						scrollContainer.scrollTo({
+							position: {
+								[axis]: clamp(
+									0,
+									bounds[maxPosition],
+									scrollContainer[scrollPosition] + distance
+								)
+							},
+							animate: false
+						});
+						startRaf(scrollByHover);
+					} else {
+						stopRaf(); // for other type input during hovering
+					}
+				};
+				startRaf(scrollByHover);
 			};
 		} else {
 			return nop;

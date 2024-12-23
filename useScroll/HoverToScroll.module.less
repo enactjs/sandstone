@@ -7,6 +7,9 @@
 	position: absolute;
 	z-index: 10;
 	pointer-events: none;
+	:global(.spotlight-input-touch) & {
+		pointer-events: var(--scroller-hover-to-scroll-by-touch, none);
+	}
 	:global(.spotlight-input-mouse) & {
 		pointer-events: auto;
 	}

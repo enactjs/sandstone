@@ -726,6 +726,14 @@ const EditableWrapper = (props) => {
 		}
 	}, [completeEditingByKeyDown, finalizeEditing, finalizeOrders, moveItemsByKeyDown, scrollContainerRef, startEditing]);
 
+	const handlePointerDown = useCallback((ev) => {
+		if (mutableRef.current.selectedItem) {
+			if (ev.target.hasPointerCapture(ev.pointerId)) {
+				ev.target.releasePointerCapture(ev.pointerId);
+			}
+		}
+	}, []);
+
 	const handleTouchMove = useCallback((ev) => {
 		if (mutableRef.current.selectedItem) {
 			// Prevent scrolling by dragging when item is selected
@@ -733,16 +741,13 @@ const EditableWrapper = (props) => {
 		}
 
 		if (mutableRef.current.isDraggingItem && ev.target?.parentNode?.parentNode.getAttribute('role') !== 'button') {
+			scrollContainerRef.current.style.setProperty('--scroller-hover-to-scroll-by-touch', 'auto');
 			const {clientX} = ev.targetTouches[0];
 			mutableRef.current.lastMouseClientX = clientX;
 
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
 			if (toIndex !== mutableRef.current.prevToIndex) {
-				scrollContainerHandle.current.start({
-					targetX: clientX,
-					targetY: 0
-				});
 				mutableRef.current.lastInputType = 'touch';
 				moveItems(toIndex);
 			}
@@ -780,6 +785,8 @@ const EditableWrapper = (props) => {
 		}
 		mutableRef.current.isDraggingItem = false;
 		mutableRef.current.isDragging = false;
+
+		scrollContainerRef.current.style.setProperty('--scroller-hover-to-scroll-by-touch', 'none');
 	}, [getNextIndexFromPosition, finalizeEditing, finalizeOrders, findItemNode, selectItemBy, startEditing]);
 
 	const handleDragStart = useCallback((ev) => {
@@ -953,6 +960,7 @@ const EditableWrapper = (props) => {
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
 			onDragStart={handleDragStart}
+			onPointerDown={handlePointerDown}
 			onTouchEnd={handleTouchEnd}
 			ref={wrapperRef}
 		>
