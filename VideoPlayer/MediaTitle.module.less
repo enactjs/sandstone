@@ -71,6 +71,10 @@
 	}
 
 	:global(.noAnimation) & {
+		&.hidden {
+			transition: none;
+		}
+
 		.title {
 			transition: none;
 		}
