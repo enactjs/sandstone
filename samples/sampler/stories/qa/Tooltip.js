@@ -305,6 +305,7 @@ export const TooltipOverflows = (args) => {
 	const tooltipPosition = args['tooltipPosition'];
 	const tooltipProps = args['tooltipProps'];
 	const tooltipRelative = args['tooltipRelative'];
+	const disabled = args['disabled'];
 	return (
 		<Layout
 			orientation="vertical"
@@ -319,6 +320,7 @@ export const TooltipOverflows = (args) => {
 				<Layout align="center space-between">
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -330,6 +332,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -341,6 +344,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -356,6 +360,7 @@ export const TooltipOverflows = (args) => {
 				<Layout align="center space-between">
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -367,6 +372,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -378,6 +384,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -393,6 +400,7 @@ export const TooltipOverflows = (args) => {
 				<Layout align="center space-between">
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -404,6 +412,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -415,6 +424,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<TooltipButton
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -436,6 +446,7 @@ text('tooltipText', TooltipOverflows, Config, 'tooltip position!');
 select('tooltipPosition', TooltipOverflows, prop.tooltipPosition, Config, 'above');
 object('tooltipProps', TooltipOverflows, Config, prop.ariaObject);
 boolean('tooltipRelative', TooltipOverflows, Config);
+boolean('disabled', TooltipOverflows, Config);
 
 TooltipOverflows.storyName = 'tooltip overflows';
 
