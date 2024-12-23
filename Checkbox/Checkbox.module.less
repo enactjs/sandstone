@@ -173,7 +173,7 @@
 
 		:global(.noAnimation) & {
 			.focus({
-				.bg{
+				.bg {
 					box-shadow: none;
 				}
 			})
@@ -203,6 +203,14 @@
 			@checkbox-focus();
 		}
 	});
+
+	:global(.noAnimation) & {
+		.focus({
+			& .checkbox .bg {
+				box-shadow: none;
+			}
+		});
+	}
 });
 
 .applySkins({
