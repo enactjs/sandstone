@@ -7,8 +7,6 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {useCallback, useLayoutEffect, useRef, useState} from 'react';
 
-import {getLastInputType} from '../ThemeDecorator';
-
 import css from './HoverToScroll.module.less';
 
 const {epsilon} = constants;
@@ -117,35 +115,33 @@ const HoverToScrollBase = (props) => {
 			const {axis, clientSize, maxPosition, scrollPosition} = getBoundsPropertyNames(direction);
 			const bounds = scrollContainer.getScrollBounds();
 
-			return function ({pointerType}) {
-				if (pointerType === 'mouse') {
-					const distance =
-						(position === 'before' ? -1 : 1) * // scroll direction
-						bounds[clientSize] * // scroll page size
-						hoverToScrollMultiplier[direction]; // a scrolling speed factor
+			return function () {
+				const distance =
+					(position === 'before' ? -1 : 1) * // scroll direction
+					bounds[clientSize] * // scroll page size
+					hoverToScrollMultiplier[direction]; // a scrolling speed factor
 
-					mutableRef.current.hoveredPosition = position;
-					mutableRef.current.stopScrollByHover = false;
+				mutableRef.current.hoveredPosition = position;
+				mutableRef.current.stopScrollByHover = false;
 
-					const scrollByHover = () => {
-						if (!mutableRef.current.stopScrollByHover && getLastInputType() === 'mouse') {
-							scrollContainer.scrollTo({
-								position: {
-									[axis]: clamp(
-										0,
-										bounds[maxPosition],
-										scrollContainer[scrollPosition] + distance
-									)
-								},
-								animate: false
-							});
-							startRaf(scrollByHover);
-						} else {
-							stopRaf(); // for other type input during hovering
-						}
-					};
-					startRaf(scrollByHover);
-				}
+				const scrollByHover = () => {
+					if (!mutableRef.current.stopScrollByHover) {
+						scrollContainer.scrollTo({
+							position: {
+								[axis]: clamp(
+									0,
+									bounds[maxPosition],
+									scrollContainer[scrollPosition] + distance
+								)
+							},
+							animate: false
+						});
+						startRaf(scrollByHover);
+					} else {
+						stopRaf(); // for other type input during hovering
+					}
+				};
+				startRaf(scrollByHover);
 			};
 		} else {
 			return nop;
