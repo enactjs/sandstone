@@ -19,7 +19,7 @@ install:
     - popd
     - git clone --branch=release/4.9.x.develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
-    - npm uninstall @enact/ui-test-utils -C packages/i18n
+    - npm uninstall @enact/ui-test-utils --prefix packages/i18n
     - npm install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
