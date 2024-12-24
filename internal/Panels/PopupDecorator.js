@@ -210,7 +210,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		defaultProps: {
 			fullHeight: false,
 			index: 0,
-			noAnimation: false,
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
 			position: 'right',
 			scrimType: 'translucent',
 			spotlightRestrict: 'self-only',

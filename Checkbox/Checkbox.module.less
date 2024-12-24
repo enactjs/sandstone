@@ -171,6 +171,14 @@
 			@checkbox-focus();
 		});
 
+		:global(.noAnimation) & {
+			.focus({
+				.bg {
+					box-shadow: none;
+				}
+			})
+		}
+
 		// Disabled
 		.sand-disabled({
 			.icon {
@@ -195,6 +203,14 @@
 			@checkbox-focus();
 		}
 	});
+
+	:global(.noAnimation) & {
+		.focus({
+			& .checkbox .bg {
+				box-shadow: none;
+			}
+		});
+	}
 });
 
 .applySkins({

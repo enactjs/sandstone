@@ -77,6 +77,10 @@
 			background-color: @sand-contextualpopup-bg-color;
 			border-radius: @sand-contextualpopup-border-radius;
 			box-shadow: @sand-contextualpopup-shadow;
+
+			:global(.noAnimation) & {
+				box-shadow: none;
+			}
 		}
 
 		.arrow {

@@ -240,7 +240,7 @@ const PageViewsBase = kind({
 					component={ViewManager}
 					duration={400}
 					index={index}
-					noAnimation={noAnimation}
+					noAnimation={(typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || noAnimation}
 					onTransition={onTransition}
 					onWillTransition={onWillTransition}
 					reverseTransition={reverseTransition}
