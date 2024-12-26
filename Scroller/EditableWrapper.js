@@ -777,7 +777,7 @@ const EditableWrapper = (props) => {
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
 
-			if (lastInputType === 'scroll') {
+			if (lastInputType === 'scroll' && mutableRef.current.isDragging) {
 				const offset = itemWidth * (!rtl ^ !(lastMouseClientX > scrollContentCenter) ? 1 : -1);
 				scrollContainerHandle.current.start({
 					targetX: scrollContentNode.scrollLeft + offset,
