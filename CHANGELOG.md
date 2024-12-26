@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled components
+- `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled component
 
 ## [2.9.6] - 2024-12-11
 
