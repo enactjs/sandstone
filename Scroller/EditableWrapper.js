@@ -743,6 +743,13 @@ const EditableWrapper = (props) => {
 		}
 
 		if (selectedItem) {
+			// Cancel mouse event to deselect a selected item when it is tapped
+			ev.preventDefault();
+
+			// Finalize orders and forward `onComplete` event
+			const orders = finalizeOrders();
+			finalizeEditing(orders);
+
 			if (lastInputType === 'scroll' && mutableRef.current.isDragging) {
 				const offset = itemWidth * (!rtl ^ !(lastMouseClientX > scrollContentCenter) ? 1 : -1);
 				scrollContainerHandle.current.start({
@@ -765,7 +772,7 @@ const EditableWrapper = (props) => {
 		mutableRef.current.isDraggingItem = false;
 		mutableRef.current.isDragging = false;
 		scrollContainerRef.current.style.setProperty('--scroller-hover-to-scroll-by-touch', 'none');
-	}, [getNextIndexFromPosition, findItemNode, scrollContainerHandle, scrollContainerRef, scrollContentRef, selectItemBy, startEditing]);
+	}, [getNextIndexFromPosition, finalizeEditing, finalizeOrders, findItemNode, scrollContainerHandle, scrollContainerRef, scrollContentRef, selectItemBy, startEditing]);
 
 	const handleDragStart = useCallback((ev) => {
 		const {selectedItem} = mutableRef.current;
