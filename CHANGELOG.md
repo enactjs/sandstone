@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` with `editable` prop to support touch input
+
 ## [2.7.20] - 2024-12-17
 
 ### Added
