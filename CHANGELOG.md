@@ -4,6 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled component
+
+## [2.9.6] - 2024-12-11
+
 ### Added
 
 - `sandstone/Icon` supported icon list, adding new icon `calibration`
@@ -12,7 +18,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control
 - `sandstone/Scroller` to prevent the native scrolling behavior caused by keydown events when a popup is open
-- `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled components
 
 ## [3.0.0-alpha.3] - 2024-12-02
 
