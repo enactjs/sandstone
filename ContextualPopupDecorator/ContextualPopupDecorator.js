@@ -1,3 +1,5 @@
+/* global ResizeObserver */
+
 /**
  * A higher-order component to add a Sandstone styled popup to a component.
  *
@@ -272,6 +274,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				activator: null
 			};
 
+			this.resizeObserver = null;
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 			this.id = this.generateId();
@@ -292,6 +295,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				on('keydown', this.handleKeyDown);
 				on('keyup', this.handleKeyUp);
 			}
+
+			if (typeof ResizeObserver === 'function') {
+				this.resizeObserver = new ResizeObserver(() => {
+					this.positionContextualPopup();
+				});
+			}
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
@@ -304,7 +313,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				snapshot.shouldSpotActivator = (
 					// isn't set
 					!current ||
-					// is on the activator and we want to re-spot it so a11y read out can occur
+					// is on the activator, and we want to re-spot it so a11y read out can occur
 					current === prevState.activator ||
 					// is within the popup
 					this.containerNode.contains(current)
@@ -341,10 +350,15 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				off('keyup', this.handleKeyUp);
 			}
 			Spotlight.remove(this.state.containerId);
+
+			if (this.resizeObserver) {
+				this.resizeObserver.disconnect();
+				this.resizeObserver = null;
+			}
 		}
 
 		generateId = () => {
-			return Math.random().toString(36).substr(2, 8);
+			return Math.random().toString(36).substring(2, 10);
 		};
 
 		getContainerNodeWidth () {
@@ -593,6 +607,18 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		getContainerNode = (node) => {
 			this.containerNode = node;
+
+			if (this.resizeObserver) {
+				if (node) {
+					// It is not easy to trigger changed position of activator,
+					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
+					// This implementation is dependent on the current structure of FloatingLayer,
+					// so if the structure have changed, below code needs to be changed accordingly.
+					this.resizeObserver.observe(node?.parentElement?.parentElement);
+				} else {
+					this.resizeObserver.disconnect();
+				}
+			}
 		};
 
 		handle = handle.bind(this);

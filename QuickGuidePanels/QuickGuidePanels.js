@@ -22,7 +22,7 @@ import Steps from '../Steps';
 import css from './QuickGuidePanels.module.less';
 
 /**
- * A QuickGuidePaenls that has steps with corresponding panels and panels have full screen size content.
+ * A QuickGuidePanels that has steps with corresponding panels and panels have full screen size content.
  *
  * @example
  * 	<QuickGuidePanels>
@@ -40,6 +40,16 @@ const QuickGuidePanelsBase = kind({
 	name: 'QuickGuidePanels',
 
 	propTypes: /** @lends sandstone/QuickGuidePanels.QuickGuidePanelsBase.prototype */ {
+		/**
+		 * The aria-label for the Panel.
+		 *
+		 * Example:
+ 		 * ```
+		 * <QuickGuidePanels.Panel aria-label="This is a description for panel">
+		 * ```
+		 * @type {String}
+		 * @private
+		 */
 		'aria-label': PropTypes.string,
 
 		/**
@@ -47,7 +57,7 @@ const QuickGuidePanelsBase = kind({
 		 *
 		 * @type {String}
 		 * @default 'Exit Quick Guide'
-		 * @private
+		 * @public
 		 */
 		closeButtonAriaLabel: PropTypes.string,
 
@@ -127,7 +137,7 @@ const QuickGuidePanelsBase = kind({
 		 * Called when the close button is clicked.
 		 *
 		 * @type {Function}
-		 * @private
+		 * @public
 		 */
 		onClose: PropTypes.func,
 
@@ -265,7 +275,7 @@ const QuickGuidePanelsBase = kind({
 	},
 
 	computed: {
-		'aria-label': ({'aria-label': label, current, index}) => {
+		stepHintAriaLabel: ({'aria-label': label, current, index}) => {
 			if (label) return label;
 
 			const stepNum = (typeof current === 'number' && current > 0) ? current : (index + 1);
@@ -327,21 +337,16 @@ const QuickGuidePanelsBase = kind({
 
 			return (
 				<Steps
-					className={css.steps}
+					css={css}
 					current={currentStep}
-					currentIcon="circle"
-					futureIcon="circle"
 					highlightCurrentOnly
-					pastIcon="circle"
 					total={totalSteps}
-					size={30}
 				/>
 			);
 		}
 	},
 
 	render: ({
-		'aria-label': ariaLabel,
 		children,
 		closeButton,
 		index,
@@ -349,6 +354,7 @@ const QuickGuidePanelsBase = kind({
 		onTransition,
 		onWillTransition,
 		prevNavigationButton,
+		stepHintAriaLabel,
 		steps,
 		...rest
 	}) => {
@@ -368,7 +374,7 @@ const QuickGuidePanelsBase = kind({
 
 		return (
 			<article role="region" aria-labelledby={`quickguidepanel_index_${index}`} ref={rest.componentRef}>
-				<Column aria-label={ariaLabel} id={`quickguidepanel_index_${index}`} {...rest}>
+				<Column aria-label={stepHintAriaLabel} id={`quickguidepanel_index_${index}`} {...rest}>
 					<Row className={css.contentHeader}>
 						{steps}
 						{closeButton}

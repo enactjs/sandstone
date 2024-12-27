@@ -290,7 +290,19 @@
 						}
 					}
 				}
-			})
+			});
+
+			:global(.noAnimation) & {
+				.focus({
+					:global(.spotlight-input-mouse)& {
+						&.horizontal.arrow, &.vertical {
+							&::before {
+								box-shadow: none;
+							}
+						}
+					}
+				})
+			}
 		}
 	});
 }

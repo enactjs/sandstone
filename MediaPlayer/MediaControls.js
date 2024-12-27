@@ -116,12 +116,20 @@ const MediaControlsBase = kind({
 		actionGuideLabel: PropTypes.string,
 
 		/**
-		 * These components are placed below the action guide. Typically these will be media playlist controls.
+		 * These components are placed below the action guide. Typically, these will be media playlist controls.
 		 *
 		 * @type {Node}
 		 * @public
 		 */
 		bottomComponents: PropTypes.node,
+
+		/**
+		 * The `aria-label` for the jumpBackward button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		jumpBackwardAriaLabel: PropTypes.string,
 
 		/**
 		 * Jump backward {@link sandstone/Icon.Icon|icon} name. Accepts any
@@ -140,6 +148,14 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		jumpButtonsDisabled: PropTypes.bool,
+
+		/**
+		 * The `aria-label` for the jumpForward button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		jumpForwardAriaLabel: PropTypes.string,
 
 		/**
 		 * Jump forward {@link sandstone/Icon.Icon|icon} name. Accepts any
@@ -348,8 +364,10 @@ const MediaControlsBase = kind({
 		actionGuideShowing,
 		children,
 		id,
+		jumpBackwardAriaLabel,
 		jumpBackwardIcon,
 		jumpButtonsDisabled,
+		jumpForwardAriaLabel,
 		jumpForwardIcon,
 		bottomComponents,
 		mediaControlsRef,
@@ -379,9 +397,9 @@ const MediaControlsBase = kind({
 		return (
 			<OuterContainer {...rest} id={id} mediaControlsRef={mediaControlsRef} spotlightId={spotlightId}>
 				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled} onKeyDown={onKeyDownFromMediaButtons}>
-					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					{noJumpButtons ? null : <MediaButton aria-label={jumpBackwardAriaLabel || $L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={spotlightDefaultClass} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
-					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					{noJumpButtons ? null : <MediaButton aria-label={jumpForwardAriaLabel || $L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
 					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} buttonAriaLabel={actionGuideButtonAriaLabel} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
@@ -428,7 +446,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			actionGuideLabel: PropTypes.string,
 
 			/**
-			 * These components are placed below the children. Typically these will be media playlist items.
+			 * These components are placed below the children. Typically, these will be media playlist items.
 			 *
 			 * @type {Node}
 			 * @public
@@ -550,7 +568,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			playPauseButtonDisabled: PropTypes.bool,
 
 			/**
-			 * Disables the media playback-rate control via rewind and fast forward keys
+			 * Disables the media playback-rate control via rewind and fast-forward keys
 			 *
 			 * @type {Boolean}
 			 * @public
@@ -651,7 +669,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 						{transform: 'none', opacity: 0, offset: 0},
 						{transform: `translateY(${-this.actionGuideHeight}px)`, opacity: 1, offset: 1}
 					], {
-						duration: animationDuration,
+						duration: (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? 0 : animationDuration,
 						fill: 'forwards'
 					});
 					this.animation.onfinish = this.handleFinish;

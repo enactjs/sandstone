@@ -3,6 +3,7 @@ import Button from '@enact/sandstone/Button';
 import IconItem from '@enact/sandstone/IconItem';
 import Scroller from '@enact/sandstone/Scroller';
 import $L from '@enact/sandstone/internal/$L';
+import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
@@ -63,7 +64,7 @@ const populateItems = ({index}) => {
 		} : null,
 		label: (function () {
 			if (index === 1) return 'USB';
-			else if (index === 6) return 'Gallery';
+			else if (index === 6) return 'Gallery label that has very long text';
 		})(),
 		labelColor: index === 6 ? 'dark' : null,
 		labelOn: index === 6 ? 'focus' : null,
@@ -149,7 +150,7 @@ export const EditableIcon = (args) => {
 	}, []);
 
 	const onMouseLeaveItem = useCallback((ev) => {
-		if (blurItem.current) {
+		if (blurItem.current && Spotlight.getPointerMode()) {
 			blurItem.current(ev.target);
 		}
 	}, []);
@@ -159,7 +160,7 @@ export const EditableIcon = (args) => {
 	}, [setEditMode]);
 
 	const handleMouseDown = useCallback((ev) => {
-		if (!ev.target.className.includes('Button')) {
+		if (ev.target?.parentNode?.parentNode.getAttribute('role') !== 'button') {
 			const targetItemNode = findItemNode(ev.target);
 			if (targetItemNode && targetItemNode.style.order) {
 				mutableRef.current.initialSelected.itemIndex = targetItemNode.style.order;
@@ -289,6 +290,7 @@ export const EditableIcon = (args) => {
 											disabled={item.iconItemProps['disabled'] || item.hidden}
 											onClick={action('onClickItem')}
 											onFocus={onFocusItem}
+											order={index}
 										/>
 									</div>
 								);

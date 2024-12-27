@@ -247,7 +247,7 @@ const TimePicker = Pure(
  * @function
  * @memberof sandstone/TimePicker
  * @param {Date} time `Date` to convert
- * @returns {String?} Converted date or `null` if `date` is invalid
+ * @returns {String|null} Converted date or `null` if `date` is invalid
  */
 const timeToLocaleString = (time) => {
 	if (!time) {

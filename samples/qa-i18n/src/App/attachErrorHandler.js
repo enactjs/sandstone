@@ -7,7 +7,7 @@ const handleError = (ev) => {
 	let stack = ev.error && ev.error.stack || null;
 
 	if (stack && stack.length > 512) {
-		// JSON must be limitted to 1024 characters so we truncate the stack to 512 for safety
+		// JSON must be limited to 1024 characters so we truncate the stack to 512 for safety
 		stack = ev.error.stack.substring(0, 512);
 	}
 

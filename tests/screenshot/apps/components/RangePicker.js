@@ -28,7 +28,7 @@ const RangePickerTests = [
 	<RangePicker width="large" min={0} max={100} value={5} />,
 	<RangePicker orientation="vertical" min={-10} max={10} value={0} />,
 
-	// 'orientation" changed to 'vertical' and 'width' changed to 'large' - [QWTC-2143]
+	// 'orientation' changed to 'vertical' and 'width' changed to 'large' - [QWTC-2143]
 	<RangePicker orientation="vertical" min={0} max={100} value={0} />,
 	<RangePicker orientation="vertical" width="medium" min={0} max={100} value={0} />,
 	<RangePicker orientation="vertical" width="large" min={0} max={100} value={0} />,
@@ -214,7 +214,7 @@ const RangePickerTests = [
 		component: <RangePicker orientation="vertical" min={-10} max={10} value={0} />
 	},
 
-	// Start of [QWTC-2143] - 'orientation" changed to 'vertical' and 'width' changed to 'large'
+	// Start of [QWTC-2143] - 'orientation' changed to 'vertical' and 'width' changed to 'large'
 	{
 		locale: 'ar-SA',
 		component: <RangePicker orientation="vertical" min={0} max={100} value={0} />

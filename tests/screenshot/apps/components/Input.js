@@ -11,7 +11,7 @@ const BaseTests = [
 	<Input open title="Input Test" subtitle="Additional text" value="value" type="password" />,
 	<Input open title="Input Test" subtitle="Additional text" value="1234" type="number" />,
 	<Input open title="Input Test" subtitle="Additional text" value="1234" type="passwordnumber" />,
-	<Input open title="Input Test" subtitle="Additional text" value="http://enactjs.com" type="url" />,
+	<Input open title="Input Test" subtitle="Additional text" value="https://enactjs.com" type="url" />,
 	<Input open title="Input Test" subtitle="Additional text" value="1234" type="number" length={10} />
 ];
 
@@ -33,6 +33,12 @@ const InputTests = [
 	// RTL overlay number input tests
 	...withConfig({locale: 'ar-SA'}, [
 		...withProps({popupType: 'overlay'}, BaseTests.slice(5))
+	]),
+
+	// Large text mode
+	...withConfig({textSize: 'large'}, [
+		...withProps({popupType: 'fullscreen'}, BaseTests),
+		...withProps({popupType: 'overlay'}, BaseTests)
 	])
 ];
 

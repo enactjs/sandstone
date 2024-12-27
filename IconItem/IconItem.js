@@ -27,7 +27,7 @@ import compose from 'ramda/src/compose';
 
 import Icon from '../Icon';
 import Image from '../Image';
-import {Marquee, MarqueeController} from '../Marquee';
+import {MarqueeController, MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './IconItem.module.less';
@@ -55,6 +55,15 @@ const ImageShape = PropTypes.shape({
 	src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
 });
 
+const MarqueeBase = ({...rest}) => {
+	// eslint-disable-next-line enact/prop-types
+	delete rest.order;
+
+	return <div {...rest} />;
+};
+
+const Marquee = MarqueeDecorator({invalidateProps: ['remeasure', 'order']}, MarqueeBase);
+
 /**
  * A Sandstone styled base component for {@link sandstone/IconItem.IconItem|IconItem}.
  *
@@ -71,7 +80,7 @@ const IconItemBase = kind({
 		 * The background color, gradient, or image of this item.
 		 * Accepts any format of color, gradient type value, and image url.
 		 *
-		 * Example: '#ff0000', 'radial-gradient(crimson, skyblue)', 'url(http://example.com/image.png) center / cover'
+		 * Example: '#ff0000', 'radial-gradient(crimson, skyblue)', 'url(https://example.com/image.png) center / cover'
 		 *
 		 * @type {String}
 		 * @public
@@ -87,7 +96,7 @@ const IconItemBase = kind({
 		bordered: PropTypes.bool,
 
 		/**
-		 * The custom component rendred as the content of this IconItem.
+		 * The custom component rendered as the content of this IconItem.
 		 *
 		 * @type {Component}
 		 * @public
@@ -143,7 +152,7 @@ const IconItemBase = kind({
 
 		/**
 		 * Source and size for the image.
-		 * See the datails in {@link sandstone/IconItem.ImageShape|ImageShape}
+		 * See the details in {@link sandstone/IconItem.ImageShape|ImageShape}
 		 *
 		 * @type {sandstone/IconItem.ImageShape}
 		 * @public
@@ -175,6 +184,15 @@ const IconItemBase = kind({
 		 * @public
 		 */
 		labelOn: PropTypes.oneOf(['focus', 'render']),
+
+		/**
+		 * The order of the item.
+		 * Invalidates Marquee when the order changes.
+		 *
+		 * @type {Number}
+		 * @private
+		 */
+		order: PropTypes.number,
 
 		/**
 		 * Title text showing below the icon.
@@ -215,7 +233,7 @@ const IconItemBase = kind({
 			darkLabel: labelColor === 'dark'
 		}),
 
-		children: ({background, children, css, icon, image, label, labelOn, title}) => {
+		children: ({background, children, css, icon, image, label, labelOn, order, title}) => {
 			if (children) return children;
 
 			let imageComponent;
@@ -246,7 +264,7 @@ const IconItemBase = kind({
 					</Cell>
 					{label ? (
 						<Cell shrink className={css.labelContainer}>
-							<Marquee alignment="center" className={css.label} marqueeOn="hover">{label}</Marquee>
+							<Marquee alignment="center" className={css.label} marqueeOn="focus" order={order}>{label}</Marquee>
 						</Cell>
 					) : null}
 				</Column>
@@ -256,7 +274,7 @@ const IconItemBase = kind({
 				title ? (
 					<Column>
 						{iconContent}
-						<Marquee alignment="center" className={css.title} marqueeOn="hover">{title}</Marquee>
+						<Marquee alignment="center" className={css.title} marqueeOn="focus" order={order}>{title}</Marquee>
 					</Column>
 				) : iconContent
 			);

@@ -542,3 +542,128 @@ WithContainerItemsHaveSpottableControls.storyName = 'with container items have s
 WithContainerItemsHaveSpottableControls.parameters = {
 	propTables: [Config]
 };
+
+const fixedItemSizes = new Array(16).fill(ri.scale(390));
+const variableItemSizes = fixedItemSizes.map((size, index) => {
+	return index % 2 ? size * 2 : size;
+});
+
+// eslint-disable-next-line enact/prop-types, enact/display-name
+const renderVirtualListItem = (data, onClick = () => {}) => ({index, ...rest}) => {
+	return (
+		<Item {...rest} style={{width: data[index], margin: ri.scaleToRem(15)}} onClick={onClick(index)}>
+			{`item ${index}`}
+		</Item>
+	);
+};
+
+export const WithChangingFixedAndVariableItemSizes = () => {
+	const [variableItemSizesMode, setVariableItemSizesMode] = useState(false);
+	const handleDataSize = useCallback(() => {
+		setVariableItemSizesMode(!variableItemSizesMode);
+	}, [variableItemSizesMode]);
+
+	return (
+		<Column>
+			<Cell shrink>
+				<Button size="small" onClick={handleDataSize}>Update Items</Button>
+			</Cell>
+			<br />
+			<br />
+			<Cell>
+				<VirtualList
+					dataSize={16}
+					direction="horizontal"
+					itemRenderer={renderVirtualListItem(variableItemSizesMode ? variableItemSizes : fixedItemSizes)}
+					itemSize={{
+						size: variableItemSizesMode ? variableItemSizes : fixedItemSizes,
+						minSize: Math.min(...variableItemSizes)
+					}}
+				/>
+			</Cell>
+		</Column>
+	);
+};
+
+WithChangingFixedAndVariableItemSizes.storyName = 'with changing fixed and variable item sizes';
+WithChangingFixedAndVariableItemSizes.parameters = {
+	propTables: [Config]
+};
+
+export const WithChangingItemSizes = () => {
+	const itemSizes = [ri.scale(240), ri.scale(360), ri.scale(720)];
+
+	const [isReversed, setIsReversed] = useState(false);
+	const handleDataSize = useCallback(() => {
+		setIsReversed(!isReversed);
+	}, [isReversed]);
+
+	return (
+		<Column>
+			<Cell shrink>
+				<Button size="small" onClick={handleDataSize}>Update Items</Button>
+			</Cell>
+			<br />
+			<br />
+			<Cell>
+				<VirtualList
+					dataSize={itemSizes.length}
+					direction="horizontal"
+					itemRenderer={renderVirtualListItem(isReversed ? [...itemSizes].reverse() : itemSizes)}
+					itemSize={{
+						size: isReversed ? [...itemSizes].reverse() : itemSizes,
+						minSize: Math.min(...itemSizes)
+					}}
+				/>
+			</Cell>
+		</Column>
+	);
+};
+
+WithChangingItemSizes.storyName = 'with changing item sizes';
+WithChangingItemSizes.parameters = {
+	propTables: [Config]
+};
+
+const initializeItemSizes = (size) => {
+	const data = new Array(size).fill(ri.scale(390));
+	return data.map((val, index) => index % 2 ? val * 2 : val);
+};
+
+export const WithChangingDataSizeAndItemSizes = () => {
+	const [data, setData] = useState(initializeItemSizes(16));
+
+	const handleRestore = useCallback(() => {
+		setData(initializeItemSizes(16));
+	}, []);
+
+	const handleItemClick = useCallback(index => () => {
+		setData(data.filter((_, i) => i !== index));
+	}, [data]);
+
+	return (
+		<Column>
+			<Cell shrink>
+				<Button size="small" onClick={handleRestore}>Restore items</Button>
+			</Cell>
+			<br />
+			<br />
+			<Cell>
+				<VirtualList
+					dataSize={data.length}
+					direction="horizontal"
+					itemRenderer={renderVirtualListItem(data, handleItemClick)}
+					itemSize={{
+						size: data,
+						minSize: Math.min(...data)
+					}}
+				/>
+			</Cell>
+		</Column>
+	);
+};
+
+WithChangingDataSizeAndItemSizes.storyName = 'with changing dataSize and itemSizes';
+WithChangingDataSizeAndItemSizes.parameters = {
+	propTables: [Config]
+};

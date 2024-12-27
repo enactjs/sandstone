@@ -16,7 +16,7 @@ import hoc from '@enact/core/hoc';
 import PropTypes from 'prop-types';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
-import {Component} from 'react';
+import {useEffect, useMemo} from 'react';
 import Pause from '@enact/spotlight/Pause';
 import UiSpinnerBase from '@enact/ui/Spinner';
 import Spotlight from '@enact/spotlight';
@@ -78,7 +78,7 @@ const SpinnerCore = kind({
 });
 
 /**
- * The base component, defining all of the properties.
+ * The base component, defining all the properties.
  *
  * @class SpinnerBase
  * @memberof sandstone/Spinner
@@ -169,53 +169,49 @@ const SpinnerBase = kind({
  * @private
  */
 const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
-	return class extends Component {
-		static displayName = 'SpinnerSpotlightDecorator';
+	const SpinnerSpotlight = (props) => {
+		const paused = useMemo(() => new Pause('Spinner'), []);
+		const {blockClickOn} = props;
+		const current = Spotlight.getCurrent();
 
-		static propTypes = /** @lends sandstone/Spinner.Spinner.prototype */ {
-			/**
-			 * Determines how far the click-blocking should extend.
-			 *
-			 * It can be either `'screen'`, `'container'`, or `null`. `'screen'` pauses spotlight.
-			 * Changing this property to `'screen'` after creation is not supported.
-			 *
-			 * @type {('screen'|'container')}
-			 * @default null
-			 * @public
-			 */
-			blockClickOn: PropTypes.oneOf(['screen', 'container', null])
-		};
+		if (blockClickOn === 'screen') {
+			paused.pause();
+			if (current) {
+				current.blur();
+			}
+		}
 
-		constructor (props) {
-			super(props);
-
-			this.paused = new Pause('Spinner');
-			const {blockClickOn} = props;
-			const current = Spotlight.getCurrent();
-
-			if (blockClickOn === 'screen') {
-				this.paused.pause();
-				if (current) {
-					current.blur();
+		useEffect(() => {
+			return () => {
+				if (blockClickOn === 'screen') {
+					Spotlight.focus();
+					paused.resume();
 				}
-			}
-		}
+			};
+		}, [blockClickOn, paused]);
 
-		componentWillUnmount () {
-			const {blockClickOn} = this.props;
-
-			if (blockClickOn === 'screen') {
-				Spotlight.focus();
-				this.paused.resume();
-			}
-		}
-
-		render () {
-			return (
-				<Wrapped {...this.props} />
-			);
-		}
+		return (
+			<Wrapped {...props} />
+		);
 	};
+
+	SpinnerSpotlight.displayName = 'SpinnerSpotlightDecorator';
+
+	SpinnerSpotlight.propTypes = /** @lends sandstone/Spinner.Spinner.prototype */ {
+		/**
+		 * Determines how far the click-blocking should extend.
+		 *
+		 * It can be either `'screen'`, `'container'`, or `null`. `'screen'` pauses spotlight.
+		 * Changing this property to `'screen'` after creation is not supported.
+		 *
+		 * @type {('screen'|'container')}
+		 * @default null
+		 * @public
+		 */
+		blockClickOn: PropTypes.oneOf(['screen', 'container', null])
+	};
+
+	return SpinnerSpotlight;
 });
 
 /**

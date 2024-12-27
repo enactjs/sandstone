@@ -49,10 +49,16 @@
 				height: 0;
 				border-top: @sand-scrollbar-thumb-focus-direction-indicator-height solid transparent;
 				border-bottom: @sand-scrollbar-thumb-focus-direction-indicator-height solid @sand-scrollbar-thumb-focus-direction-indicator-color;
-				border-right: @sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
-				border-left: @sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
+				border-right: (@sand-scrollbar-thumb-focus-direction-indicator-width / 2) solid transparent;
+				border-left: (@sand-scrollbar-thumb-focus-direction-indicator-width / 2) solid transparent;
 			}
 		});
+
+		:global(.noAnimation) & {
+			.focus({
+				box-shadow: none;
+			});
+		}
 
 		:global(.spotlight-input-touch) & {
 			pointer-events: none;
@@ -103,13 +109,13 @@
 				.directionIndicator.backward {
 					transform: rotate(-90deg);
 					left: calc(@sand-scrollbar-thumb-focus-direction-indicator-top - @sand-scrollbar-thumb-focus-direction-indicator-height);
-					top: calc(@sand-scrollbar-thumb-focus-direction-indicator-left/2);
+					top: calc(@sand-scrollbar-thumb-focus-direction-indicator-left / 2);
 				}
 
 				.directionIndicator.forward {
 					transform: rotate(90deg);
 					right: calc(@sand-scrollbar-thumb-focus-direction-indicator-top - @sand-scrollbar-thumb-focus-direction-indicator-height);
-					top: calc(@sand-scrollbar-thumb-focus-direction-indicator-left/2);
+					top: calc(@sand-scrollbar-thumb-focus-direction-indicator-left / 2);
 				}
 			})
 		}
