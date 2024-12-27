@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` with `editable` prop to support touch input
 - `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled component
 
 ## [2.7.20] - 2024-12-17
