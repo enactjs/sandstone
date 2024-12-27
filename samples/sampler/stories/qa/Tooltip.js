@@ -319,6 +319,7 @@ export const TooltipOverflows = (args) => {
 				<Layout align="center space-between">
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -330,6 +331,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -341,6 +343,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -356,6 +359,7 @@ export const TooltipOverflows = (args) => {
 				<Layout align="center space-between">
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -367,6 +371,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -378,6 +383,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -393,6 +399,7 @@ export const TooltipOverflows = (args) => {
 				<Layout align="center space-between">
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -404,6 +411,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -415,6 +423,7 @@ export const TooltipOverflows = (args) => {
 					</Cell>
 					<Cell shrink>
 						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
