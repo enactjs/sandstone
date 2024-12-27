@@ -298,6 +298,7 @@ TooltipToFollowComponentWhenChanged.parameters = {
 };
 
 export const TooltipOverflows = (args) => {
+	const disabled = args['disabled'];
 	const buttonAlignment = args['button alignment'];
 	const tooltipDelay = args['tooltipDelay'];
 	const tooltipText = args['tooltipText'];
@@ -429,6 +430,7 @@ export const TooltipOverflows = (args) => {
 	);
 };
 
+boolean('disabled', TooltipOverflows, Config);
 select('button alignment', TooltipOverflows, {'': null, start: 'start', end: 'end'}, Config);
 number('tooltipDelay', TooltipOverflows, Config, 500);
 text('tooltipText', TooltipOverflows, Config, 'tooltip position!');
