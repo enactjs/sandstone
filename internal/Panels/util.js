@@ -59,9 +59,9 @@ const ContextAsDefaults = hoc(defaultConfig, (config, Wrapped) => {
 
 		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props, sharedProps);
 
-		// The following generates a complete list of all of the props expected by Wrapped
+		// The following generates a complete list of all the props expected by Wrapped
 		// Using `pick`, add the specifically requested shared context props
-		// Using `omit`, exclude all of the shared props
+		// Using `omit`, exclude all the shared props
 		return provideContextAsDefaults(
 			<Wrapped
 				{...pick(config.props, contextProps)}

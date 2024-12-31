@@ -10,7 +10,7 @@ import {useCallback, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {Tooltip, defaultArrowAnchor, defaultDirection} from './Tooltip';
 import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition} from './util';
 
-let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
+let currentTooltip; // needed to know whether we should stop a showing job when unmounting
 
 const getTooltipDirection = (tooltipPosition, tooltipType) => {
 	const position = tooltipPosition || (defaultDirection(tooltipType) + ' ' + defaultArrowAnchor(tooltipType));

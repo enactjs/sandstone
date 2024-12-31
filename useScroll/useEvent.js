@@ -3,7 +3,7 @@ import platform from '@enact/core/platform';
 import {onWindowReady} from '@enact/core/snapshot';
 import {clamp} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
-import {getPositionTargetOnFocus} from '@enact/spotlight/src/container';
+import {getDeepSpottableDescendants, getPositionTargetOnFocus} from '@enact/spotlight/src/container';
 import {getRect} from '@enact/spotlight/src/utils';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {constants} from '@enact/ui/useScroll';
@@ -449,7 +449,7 @@ const useEventVoice = (props, instances) => {
 
 			/* if the focused element is out of the viewport, find another spottable element in the viewport */
 			if (spotItemBounds[last] <= viewportBounds[first] || spotItemBounds[first] >= viewportBounds[last]) {
-				const nodes = Spotlight.getSpottableDescendants(scrollContainerNode.dataset.spotlightId);
+				const nodes = getDeepSpottableDescendants(scrollContainerNode.dataset.spotlightId);
 				for (let i = 0; i < nodes.length; i++) {
 					const nodeBounds = nodes[i].getBoundingClientRect();
 

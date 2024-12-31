@@ -20,7 +20,7 @@ describe('Scroller List Of Things', function () {
 		expectFocusedItem(0);
 		// Step 4-2: 5-way Right.
 		await ScrollerPage.spotlightRight();
-		// Step 4 Verify: Spotlight is on the verticalScrollbar Scroll Thumb..
+		// Step 4 Verify: Spotlight is on the verticalScrollbar Scroll Thumb.
 		expect(await ScrollerPage.verticalScrollThumb.isFocused()).toBe(true);
 
 		// Step 5-1: Knobs > Scroller > spotlightDisabled > check

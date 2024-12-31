@@ -17,7 +17,7 @@
 import hoc from '@enact/core/hoc';
 import {handle, forward} from '@enact/core/handle';
 import {on, off} from '@enact/core/dispatcher';
-import {Component} from 'react';
+import {useEffect} from 'react';
 
 /*
  * Use the `globalNode` key in the config to change which node the relevant events are attached to.
@@ -26,13 +26,11 @@ const defaultConfig = {
 	globalNode: 'window'
 };
 
-// In config, extract all of the config stuff we know about. Everything else is an event.
+// In config, extract all the config stuff we know about. Everything else is an event.
 const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) => {
-	return class extends Component {
-
-		static displayName = 'WindowEventable';
-
-		componentDidMount () {
+	// eslint-disable-next-line no-shadow
+	const WindowEventable = (props) => {
+		useEffect(() => {
 			switch (globalNode) {
 				case 'window':
 					globalNode = window;
@@ -42,44 +40,48 @@ const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) =>
 					break;
 			}
 
-			this.events = {};
-			for (let [evName, fn] of Object.entries(events)) {
-				// Tailored event names (convert from react style to browser style naming)
-				if (evName.indexOf('on') === 0) evName = evName.substr(2).toLowerCase();
+			const localEvents = {};
+			for (let [eventName, fn] of Object.entries(events)) {
+				// Tailored event names (convert from React style to browser style naming)
+				if (eventName.indexOf('on') === 0) {
+					eventName = eventName.substring(2).toLowerCase();
+				}
 
 				if (typeof fn === 'function') {
 					// Support functions passed directly into the config
-					this.events[evName] = handle(eventPayload => fn(eventPayload, this.props));
+					localEvents[eventName] = handle(eventPayload => fn(eventPayload, props));
 				} else if (typeof fn === 'string') {
 					// Support strings, representing a callback in the props list
-					this.events[evName] = handle(forward(fn, this.props));
+					localEvents[eventName] = handle(forward(fn, props));
 				}
 			}
 
 			if (typeof globalNode === 'object') {
-				for (const [evName, fn] of Object.entries(this.events)) {
-					on(evName, fn, globalNode);
+				for (const [eventName, fn] of Object.entries(localEvents)) {
+					on(eventName, fn, globalNode);
 				}
 			}
-		}
 
-		componentWillUnmount () {
-			if (typeof globalNode === 'object') {
-				for (const [evName, fn] of Object.entries(this.events)) {
-					off(evName, fn, globalNode);
+			return () => {
+				if (typeof globalNode === 'object') {
+					for (const [eventName, fn] of Object.entries(localEvents)) {
+						off(eventName, fn, globalNode);
+					}
 				}
-			}
+			};
+		}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+		const rest = Object.assign({}, props);
+		for (const eventName of Object.keys(events)) {
+			delete rest[eventName];
 		}
 
-		render () {
-			const {...rest} = this.props;
-			for (const evName of Object.keys(events)) {
-				delete rest[evName];
-			}
-
-			return (<Wrapped {...rest} />);
-		}
+		return (<Wrapped {...rest} />);
 	};
+
+	WindowEventable.displayName = 'WindowEventable';
+
+	return WindowEventable;
 });
 
 export default WindowEventable;

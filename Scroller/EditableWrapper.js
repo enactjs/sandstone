@@ -268,7 +268,7 @@ const EditableWrapper = (props) => {
 	}, [customCss.focused, findItemNode]);
 
 	const handleClickCapture = useCallback((ev) => {
-		if (ev.target.className.includes('Button')) {
+		if (ev.target?.parentNode?.parentNode.getAttribute('role') === 'button') {
 			return;
 		}
 		// Consume the event to prevent Item behavior
@@ -280,7 +280,7 @@ const EditableWrapper = (props) => {
 	}, []);
 
 	const handleMouseDown = useCallback((ev) => {
-		if (ev.target.className.includes('Button')) {
+		if (ev.target?.parentNode?.parentNode.getAttribute('role') === 'button') {
 			return;
 		}
 		if (mutableRef.current.selectedItem) {
@@ -732,7 +732,7 @@ const EditableWrapper = (props) => {
 			ev.preventDefault();
 		}
 
-		if (mutableRef.current.isDraggingItem && !ev.target.className.includes('Button')) {
+		if (mutableRef.current.isDraggingItem && ev.target?.parentNode?.parentNode.getAttribute('role') !== 'button') {
 			const {clientX} = ev.targetTouches[0];
 			mutableRef.current.lastMouseClientX = clientX;
 
@@ -755,7 +755,7 @@ const EditableWrapper = (props) => {
 		const {clientX} = ev.changedTouches[0];
 		const targetItemIndex = getNextIndexFromPosition(clientX, 0);
 
-		if (ev.target.className.includes('Button') && Number(selectedItem?.style.order) - 1 === targetItemIndex) {
+		if (ev.target?.parentNode?.parentNode.getAttribute('role') === 'button' && Number(selectedItem?.style.order) - 1 === targetItemIndex) {
 			return;
 		}
 
@@ -767,7 +767,7 @@ const EditableWrapper = (props) => {
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
 		} else if (!mutableRef.current.isDragging) {
-			// Cancel mouse event to select a item when it is tapped
+			// Cancel mouse event to select an item when it is tapped
 			ev.preventDefault();
 
 			const targetItemNode = findItemNode(ev.target);
@@ -785,10 +785,10 @@ const EditableWrapper = (props) => {
 	const handleDragStart = useCallback((ev) => {
 		const {selectedItem} = mutableRef.current;
 		// Index of dragged item
-		const dragTagetItemIndex = getNextIndexFromPosition(ev.x, 0);
+		const dragTargetItemIndex = getNextIndexFromPosition(ev.x, 0);
 
 		mutableRef.current.isDragging = true;
-		if (selectedItem && Number(selectedItem.style.order) - 1 === dragTagetItemIndex) {
+		if (selectedItem && Number(selectedItem.style.order) - 1 === dragTargetItemIndex) {
 			mutableRef.current.isDraggingItem = true;
 		}
 	}, [getNextIndexFromPosition]);
@@ -968,7 +968,7 @@ EditableWrapper.propTypes = /** @lends sandstone/Scroller.EditableWrapper.protot
 	/**
 	 * Enables editing items in the scroller.
 	 * You can specify props for editable scroller as an object.
-	 * See the datails in {@link sandstone/Scroller.EditableShape|EditableShape}
+	 * See the details in {@link sandstone/Scroller.EditableShape|EditableShape}
 	 *
 	 * @type {sandstone/Scroller.EditableShape}
 	 * @public
