@@ -542,6 +542,16 @@ const EditableWrapper = (props) => {
 		return Math.floor((clientXFromContent - moveTolerance) / itemWidth);
 	}, [scrollContainerHandle, scrollContentRef]);
 
+	const handlePointerDown = useCallback((ev) => {
+		const {selectedItem} = mutableRef.current;
+
+		if (selectedItem) {
+			if (ev.target.hasPointerCapture(ev.pointerId)) {
+				ev.target.releasePointerCapture(ev.pointerId);
+			}
+		}
+	}, []);
+
 	const handleMouseMove = useCallback((ev) => {
 		const {clientX} = ev;
 		mutableRef.current.lastMouseClientX = clientX;
@@ -735,23 +745,23 @@ const EditableWrapper = (props) => {
 		if (mutableRef.current.isDraggingItem && ev.target?.parentNode?.parentNode.getAttribute('role') !== 'button') {
 			const {clientX} = ev.targetTouches[0];
 			mutableRef.current.lastMouseClientX = clientX;
+			scrollContainerRef.current.style.setProperty('--scroller-hover-to-scroll-by-touch', 'auto');
 
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
 			if (toIndex !== mutableRef.current.prevToIndex) {
-				scrollContainerHandle.current.start({
-					targetX: clientX,
-					targetY: 0
-				});
 				mutableRef.current.lastInputType = 'touch';
 				moveItems(toIndex);
 			}
 		}
-
-	}, [getNextIndexFromPosition, moveItems, scrollContainerHandle]);
+	}, [getNextIndexFromPosition, moveItems, scrollContainerRef]);
 
 	const handleTouchEnd = useCallback((ev) => {
-		const {selectedItem} = mutableRef.current;
+		const {itemWidth, lastInputType, lastMouseClientX, selectedItem} = mutableRef.current;
+		const {rtl} = scrollContainerHandle.current;
+		const scrollContentNode = scrollContentRef.current;
+		const scrollContentCenter = scrollContentNode.getBoundingClientRect().width / 2;
+
 		const {clientX} = ev.changedTouches[0];
 		const targetItemIndex = getNextIndexFromPosition(clientX, 0);
 
@@ -766,6 +776,14 @@ const EditableWrapper = (props) => {
 			// Finalize orders and forward `onComplete` event
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
+
+			if (lastInputType === 'scroll' && mutableRef.current.isDragging) {
+				const offset = itemWidth * (!rtl ^ !(lastMouseClientX > scrollContentCenter) ? 1 : -1);
+				scrollContainerHandle.current.start({
+					targetX: scrollContentNode.scrollLeft + offset,
+					targetY: 0
+				});
+			}
 		} else if (!mutableRef.current.isDragging) {
 			// Cancel mouse event to select a item when it is tapped
 			ev.preventDefault();
@@ -780,7 +798,8 @@ const EditableWrapper = (props) => {
 		}
 		mutableRef.current.isDraggingItem = false;
 		mutableRef.current.isDragging = false;
-	}, [getNextIndexFromPosition, finalizeEditing, finalizeOrders, findItemNode, selectItemBy, startEditing]);
+		scrollContainerRef.current.style.setProperty('--scroller-hover-to-scroll-by-touch', 'none');
+	}, [getNextIndexFromPosition, finalizeEditing, finalizeOrders, findItemNode, scrollContainerHandle, scrollContainerRef, scrollContentRef, selectItemBy, startEditing]);
 
 	const handleDragStart = useCallback((ev) => {
 		const {selectedItem} = mutableRef.current;
@@ -952,6 +971,7 @@ const EditableWrapper = (props) => {
 			onKeyUpCapture={handleKeyUpCapture}
 			onMouseDown={handleMouseDown}
 			onMouseMove={handleMouseMove}
+			onPointerDown={handlePointerDown}
 			onDragStart={handleDragStart}
 			onTouchEnd={handleTouchEnd}
 			ref={wrapperRef}
