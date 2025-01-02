@@ -10,6 +10,9 @@
 	:global(.spotlight-input-mouse) & {
 		pointer-events: auto;
 	}
+	:global(.spotlight-input-touch) & {
+		pointer-events: var(--scroller-hover-to-scroll-by-touch, none)
+	}
 	&.vertical {
 		width: 100%;
 		height: @sand-scroll-hover-area-size;
