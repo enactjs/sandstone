@@ -132,6 +132,7 @@ export const settingsIcons = [
 	'alert02',
 	'auracast',
 	'bluetooth',
+	'calibration',
 	'camera',
 	'cameradis',
 	'changepassword',
@@ -191,6 +192,29 @@ export const drawingIcons = [
 	'background',
 	'eraser',
 	'pen'
+].sort();
+
+export const tabIcons = [
+	'appscontents',
+	'bookmark',
+	'browser',
+	'closedcaption',
+	'folder',
+	'guide',
+	'heart',
+	'help',
+	'info',
+	'location',
+	'movies',
+	'music',
+	'network',
+	'notification',
+	'power',
+	'sound',
+	'speaker',
+	'star',
+	'support',
+	'timer'
 ].sort();
 
 export default Object.keys(icons).sort();

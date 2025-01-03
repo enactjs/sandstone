@@ -79,6 +79,15 @@ const scrollerDefaultProps = {
  */
 let Scroller = (props) => {
 	const scrollerProps = setDefaultProps(props, scrollerDefaultProps);
+	if (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) {
+		scrollerProps.overscrollEffectOn = {
+			arrowKey: false,
+			drag: false,
+			pageKey: false,
+			track: false,
+			wheel: false
+		};
+	}
 	const {'aria-label': ariaLabel, hoverToScroll, ...rest} = scrollerProps;
 
 	const id = `scroller_${++scrollerId}_content`;

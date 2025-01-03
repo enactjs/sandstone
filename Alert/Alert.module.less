@@ -155,6 +155,10 @@
 
 			background-color: ~"color(from" @sand-alert-overlay-bg-color ~"srgb r g b /" @sand-alert-overlay-bg-color-opacity ~")";
 			box-shadow: @sand-alert-overlay-shadow;
+
+			:global(.noAnimation) & {
+				box-shadow: none;
+			}
 		}
 	});
 }
