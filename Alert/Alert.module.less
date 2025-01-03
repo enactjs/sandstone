@@ -138,22 +138,22 @@
 
 			/* Override colors inside overlay type Alert */
 			--sand-bg-color: @sand-alert-overlay-bg-color;
-			--sand-text-color-rgb: @sand-alert-overlay-text-color-rgb;
+			--sand-text-color: @sand-alert-overlay-text-color;
 			--sand-text-sub-color: @sand-alert-overlay-text-sub-color;
 			--sand-focus-text-color: @sand-alert-overlay-focus-text-color;
 			--sand-disabled-selected-color: @sand-alert-overlay-disabled-selected-color;
 			--sand-disabled-selected-bg-color: @sand-alert-overlay-disabled-selected-bg-color;
 			--sand-disabled-selected-focus-color: @sand-alert-overlay-disabled-selected-focus-color;
 			--sand-disabled-selected-focus-bg-color: @sand-alert-overlay-disabled-selected-focus-bg-color;
-			--sand-progress-color-rgb: @sand-alert-overlay-progress-color-rgb;
-			--sand-progress-bg-color-rgb: @sand-alert-overlay-progress-bg-color-rgb;
-			--sand-progress-bg-color-alpha: @sand-alert-overlay-progress-bg-color-alpha;
+			--sand-progress-color: @sand-alert-overlay-progress-color;
+			--sand-progress-bg-color: @sand-alert-overlay-progress-bg-color;
+			--sand-progress-bg-color-opacity: @sand-alert-overlay-progress-bg-color-opacity;
 			--sand-checkbox-color: @sand-alert-overlay-checkbox-color;
 			--sand-checkbox-disabled-selected-text-color: @sand-alert-overlay-checkbox-disabled-selected-text-color;
 			--sand-formcheckboxitem-focus-text-color: @sand-alert-overlay-formcheckboxitem-focus-text-color;
 			--sand-item-disabled-focus-bg-color: @sand-alert-overlay-item-disabled-focus-bg-color;
 
-			background-color: rgb(@sand-alert-overlay-bg-color-rgb, @sand-alert-overlay-bg-color-opacity);
+			background-color: ~"color(from" @sand-alert-overlay-bg-color ~"srgb r g b /" @sand-alert-overlay-bg-color-opacity ~")";
 			box-shadow: @sand-alert-overlay-shadow;
 
 			:global(.noAnimation) & {
