@@ -60,6 +60,15 @@ const virtualListDefaultProps = {
  */
 let VirtualList = (props) => {
 	const virtualListProps = setDefaultProps(props, virtualListDefaultProps);
+	if (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) {
+		virtualListProps.overscrollEffectOn = {
+			arrowKey: false,
+			drag: false,
+			pageKey: false,
+			track: false,
+			wheel: false
+		};
+	}
 	const {itemSize, hoverToScroll, ...rest} = virtualListProps;
 
 	const itemSizeProps = itemSize && itemSize.minSize ?
@@ -415,7 +424,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	}),
 
 	/**
-	 * When `true`, the list will scroll by page. Otherwise the list will scroll by item.
+	 * When `true`, the list will scroll by page. Otherwise, the list will scroll by item.
 	 *
 	 * @type {Boolean}
 	 * @default false
@@ -555,6 +564,15 @@ const virtualGridListDefaultProps = {
  */
 let VirtualGridList = (props) => {
 	const virtualGridListProps = setDefaultProps(props, virtualGridListDefaultProps);
+	if (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) {
+		virtualGridListProps.overscrollEffectOn = {
+			arrowKey: false,
+			drag: false,
+			pageKey: false,
+			track: false,
+			wheel: false
+		};
+	}
 	const {hoverToScroll, ...rest} = virtualGridListProps;
 
 	const {
@@ -890,7 +908,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	}),
 
 	/**
-	 * When `true`, the list will scroll by page. Otherwise the list will scroll by item.
+	 * When `true`, the list will scroll by page. Otherwise, the list will scroll by item.
 	 *
 	 * @type {Boolean}
 	 * @default false

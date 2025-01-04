@@ -128,7 +128,7 @@
 	line-height: 0;
 
 	.icon {
-		margin: 0;	// Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
+		margin: 0;	// Needed to apply here instead of on `.checkbox` due to .icon.size precedence :(
 		border-radius: @sand-checkbox-border-radius;
 		position: relative;
 		text-align: center;
@@ -171,6 +171,14 @@
 			@checkbox-focus();
 		});
 
+		:global(.noAnimation) & {
+			.focus({
+				.bg {
+					box-shadow: none;
+				}
+			})
+		}
+
 		// Disabled
 		.sand-disabled({
 			.icon {
@@ -195,6 +203,14 @@
 			@checkbox-focus();
 		}
 	});
+
+	:global(.noAnimation) & {
+		.focus({
+			& .checkbox .bg {
+				box-shadow: none;
+			}
+		});
+	}
 });
 
 .applySkins({

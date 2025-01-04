@@ -54,6 +54,10 @@
 			outline-style: @sand-overlay-outline-style;
 			outline-width: @sand-overlay-outline-width;
 			outline-offset: -@sand-overlay-outline-width;
+
+			:global(.noAnimation) & {
+				box-shadow: none;
+			}
 		}
 
 		&.scrimTranslucent {

@@ -10,8 +10,8 @@ describe('PageViews Specs', () => {
 		() => {
 			render(
 				<PageViews index={0}>
-					<Page>I gots contents</Page>
-					<Page>I gots contents</Page>
+					<Page>I got contents</Page>
+					<Page>I got contents</Page>
 				</PageViews>
 			);
 
@@ -28,8 +28,8 @@ describe('PageViews Specs', () => {
 		() => {
 			render(
 				<PageViews pageIndicatorType="number" index={0}>
-					<Page>I gots contents</Page>
-					<Page>I gots contents</Page>
+					<Page>I got contents</Page>
+					<Page>I got contents</Page>
 				</PageViews>
 			);
 
@@ -46,8 +46,8 @@ describe('PageViews Specs', () => {
 		() => {
 			render(
 				<PageViews index={1}>
-					<Page>I gots contents</Page>
-					<Page>I gots contents</Page>
+					<Page>I got contents</Page>
+					<Page>I got contents</Page>
 				</PageViews>
 			);
 
@@ -64,8 +64,8 @@ describe('PageViews Specs', () => {
 		() => {
 			render(
 				<PageViews pageIndicatorType="number" index={1}>
-					<Page>I gots contents</Page>
-					<Page>I gots contents</Page>
+					<Page>I got contents</Page>
+					<Page>I got contents</Page>
 				</PageViews>
 			);
 
@@ -84,8 +84,8 @@ describe('PageViews Specs', () => {
 			let index = 0;
 			const {rerender} = render(
 				<PageViews index={index} onTransition={spy} noAnimation>
-					<Page>I gots contents</Page>
-					<Page>I gots contents2</Page>
+					<Page>I got contents</Page>
+					<Page>I got contents2</Page>
 				</PageViews>
 			);
 
@@ -94,8 +94,8 @@ describe('PageViews Specs', () => {
 
 			rerender(
 				<PageViews index={index} onTransition={spy} noAnimation>
-					<Page>I gots contents</Page>
-					<Page>I gots contents2</Page>
+					<Page>I got contents</Page>
+					<Page>I got contents2</Page>
 				</PageViews>
 			);
 
@@ -115,8 +115,8 @@ describe('PageViews Specs', () => {
 			let index = 0;
 			const {rerender} = render(
 				<PageViews index={index} onWillTransition={spy} noAnimation>
-					<Page>I gots contents</Page>
-					<Page>I gots contents2</Page>
+					<Page>I got contents</Page>
+					<Page>I got contents2</Page>
 				</PageViews>
 			);
 
@@ -125,8 +125,8 @@ describe('PageViews Specs', () => {
 
 			rerender(
 				<PageViews index={index} onWillTransition={spy} noAnimation>
-					<Page>I gots contents</Page>
-					<Page>I gots contents2</Page>
+					<Page>I got contents</Page>
+					<Page>I got contents2</Page>
 				</PageViews>
 			);
 

@@ -3,7 +3,7 @@
  *
  * _This is not intended to be directly included by external developers._ The purpose of this is to
  * override the existing "Sandstone" font family with a new typeface, conditionally when the system
- * locale matches the corrosponding locale for the font (defined in this component's code).
+ * locale matches the corresponding locale for the font (defined in this component's code).
  *
  */
 let {addLocalizedFont, generateFontRules, generateFontOverrideRules} = require('@enact/ui/internal/localized-fonts');

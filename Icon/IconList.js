@@ -254,5 +254,6 @@ export default {
 	sketch            : 0x0F01BA, // sketch
 	ai                : 0x0F01BB, // ai
 	alert01           : 0x0F01BC, // alert.01
-	alert02           : 0x0F01BD // alert.02
+	alert02           : 0x0F01BD, // alert.02
+	calibration       : 0x0F01BE // calibration
 };

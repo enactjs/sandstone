@@ -10,7 +10,7 @@ describe('Navigate Items with Channel Up/Down', function () {
 		// UI Test's item default size is 100.
 		// Step 4-1: Position the pointer on an item.
 		await (await Page.item(0)).moveTo();
-		// Step 4-2: 5-way Left to change into 5-way key mode. In this case, If press 5-way left, spotlight move to left button. Therefore 5-way left is replaced 5-way down.
+		// Step 4-2: 5-way Left to change into 5-way key mode. In this case, If press 5-way left, spotlight move to left button. Therefore, 5-way left is replaced 5-way down.
 		await Page.spotlightDown();
 		await expectFocusedItem(1);
 		// Step 5: Press Channel Down continuously until the bottom of the list displays.

@@ -116,7 +116,7 @@ const MediaControlsBase = kind({
 		actionGuideLabel: PropTypes.string,
 
 		/**
-		 * These components are placed below the action guide. Typically these will be media playlist controls.
+		 * These components are placed below the action guide. Typically, these will be media playlist controls.
 		 *
 		 * @type {Node}
 		 * @public
@@ -446,7 +446,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			actionGuideLabel: PropTypes.string,
 
 			/**
-			 * These components are placed below the children. Typically these will be media playlist items.
+			 * These components are placed below the children. Typically, these will be media playlist items.
 			 *
 			 * @type {Node}
 			 * @public
@@ -568,7 +568,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 			playPauseButtonDisabled: PropTypes.bool,
 
 			/**
-			 * Disables the media playback-rate control via rewind and fast forward keys
+			 * Disables the media playback-rate control via rewind and fast-forward keys
 			 *
 			 * @type {Boolean}
 			 * @public
@@ -669,7 +669,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {
 						{transform: 'none', opacity: 0, offset: 0},
 						{transform: `translateY(${-this.actionGuideHeight}px)`, opacity: 1, offset: 1}
 					], {
-						duration: animationDuration,
+						duration: (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) ? 0 : animationDuration,
 						fill: 'forwards'
 					});
 					this.animation.onfinish = this.handleFinish;

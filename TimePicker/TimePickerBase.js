@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {Component, Fragment} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import $L from '../internal/$L';
@@ -27,45 +27,33 @@ const hours12 = [
  * @ui
  * @private
  */
-class HourPicker extends Component {
-	static propTypes = {
-		hasMeridiem: PropTypes.bool,
-		value: PropTypes.number
-	};
+const HourPicker = (props) => {
+	const {hasMeridiem, value, ...rest} = props;
+	const hours = hasMeridiem ? hours12 : hours24;
 
-	constructor (props) {
-		super(props);
+	const [noAnimation, setNoAnimation] = useState(false);
+	const [prevValue, setPrevValue] = useState(value);
 
-		this.state = {
-			noAnimation: false,
-			prevValue: props.value
-		};
-	}
+	useEffect(() => {
+		if (prevValue !== value) {
+			const hoursArray = hasMeridiem ? hours12 : hours24;
 
-	static getDerivedStateFromProps (props, state) {
-		if (state.prevValue !== props.value) {
-			const hours = props.hasMeridiem ? hours12 : hours24;
-
-			return {
-				noAnimation: hours[state.prevValue] === hours[props.value],
-				prevValue: props.value
-			};
+			setNoAnimation(hoursArray[prevValue] === hoursArray[value]);
+			setPrevValue(value);
 		}
+	}, [hasMeridiem, prevValue, value]);
 
-		return null;
-	}
+	return (
+		<DateComponentPicker {...rest} noAnimation={noAnimation} value={value}>
+			{hours}
+		</DateComponentPicker>
+	);
+};
 
-	render () {
-		const {hasMeridiem, ...rest} = this.props;
-		const hours = hasMeridiem ? hours12 : hours24;
-
-		return (
-			<DateComponentPicker {...rest} noAnimation={this.state.noAnimation}>
-				{hours}
-			</DateComponentPicker>
-		);
-	}
-}
+HourPicker.propTypes = {
+	hasMeridiem: PropTypes.bool,
+	value: PropTypes.number
+};
 
 /**
 * {@link sandstone/TimePicker.TimePickerBase} is the stateless functional time picker

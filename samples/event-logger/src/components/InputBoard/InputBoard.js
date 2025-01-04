@@ -103,7 +103,7 @@ const InputBoard = ({className}) => {
 	const [showFilter, setShowFilter] = useState(true);
 
 	const sendEventLog = useCallback((ev, isDOMElement, eventObject, isCapturing) => {
-		const timergroup = [3000, 5000, 10000];
+		const timerGroup = [3000, 5000, 10000];
 
 		if (eventLogsRef.current && eventLogsRef.current.length > 0) {
 			const lastLog = eventLogsRef.current[eventLogsRef.current.length - 1];
@@ -117,7 +117,7 @@ const InputBoard = ({className}) => {
 					beforeTimeoutId.current = eventLogsRef.current[index].timeoutId;
 
 					window.clearTimeout(eventLogsRef.current[index].timeoutId);
-					const newTimeoutId = window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timergroup[timerIndexRef.current]);
+					const newTimeoutId = window.setTimeout(() => onRemoveEventLog(ev.type, isDOMElement, isCapturing), timerGroup[timerIndexRef.current]);
 
 					onUpdateEventLog(eventObject, eventLogsRef.current[index].timeoutId, newTimeoutId);
 					return;
@@ -136,7 +136,7 @@ const InputBoard = ({className}) => {
 
 		const timeoutId = window.setTimeout(
 			() => onRemoveEventLog(ev.type, isDOMElement, isCapturing),
-			timergroup[timerIndexRef.current]);
+			timerGroup[timerIndexRef.current]);
 
 		onAddEventLog(ev.type, eventObject, isDOMElement, isCapturing, timeoutId);
 	}, [onAddEventLog, onRemoveEventLog, onUpdateEventLog]);

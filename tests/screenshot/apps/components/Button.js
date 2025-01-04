@@ -30,7 +30,7 @@ const ButtonTests = [
 	// end [QWTC-1837]
 
 	// iconPosition = before (Default) + small (default) + large
-	// Leaving size small here as example but it is not required since it is the default.
+	// Leaving size small here as example, but it is not required since it is the default.
 	<Button size="small">click me</Button>,
 	<Button size="large">click me</Button>,
 	// iconPosition = before (Default) + icon + iconPosition + small (default) + large
@@ -162,7 +162,7 @@ const ButtonTests = [
 		<Button disabled>Focused button</Button>,
 
 		// iconPosition = before (Default) + small (default) + large
-		// Leaving size small here as example but it is not required since it is the default.
+		// Leaving size small here as example, but it is not required since it is the default.
 		<Button size="small">Focused button</Button>,
 		<Button size="large">Focused button</Button>,
 		// iconPosition = before (Default) + icon + iconPosition + small (default) + large
@@ -315,7 +315,7 @@ const ButtonTests = [
 		<Button>click me</Button>,
 
 		// iconPosition = before (Default) + small (default) + large
-		// Leaving size small here as example but it is not required since it is the default.
+		// Leaving size small here as example, but it is not required since it is the default.
 		<Button size="small">click me</Button>,
 		<Button size="large">click me</Button>,
 		// Icon only - iconPosition = before (Default) + icon + iconPosition + small (default) + large

@@ -30,7 +30,7 @@ describe('VirtualList Samples', function () {
 		// Wait for scroll animation
 		await Page.delay(500);
 
-		// Verify Spotlight displays on the 21st item ('Itme 20');
+		// Verify Spotlight displays on the 21st item ('Item 20');
 		await expectFocusedItem(Number((await Page.bottomVisibleItemId()).slice(4)));
 		await expectFocusedItem(20);
 	});

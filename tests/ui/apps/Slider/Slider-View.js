@@ -11,7 +11,7 @@ const app = (props) => <div {...props}>
 			<Heading>Slider default</Heading>
 			<Slider defaultValue={0} id="sliderDefault"  />
 
-			<Heading>Slider activate on slect</Heading>
+			<Heading>Slider activate on select</Heading>
 			<Slider activateOnSelect id="sliderActivateOnSelect"  />
 
 			<Heading>Slider custom progressAnchor</Heading>

@@ -50,8 +50,14 @@ class PageViewsPage extends Page {
 		};
 	}
 
-	async open (urlExtra) {
-		await super.open('PageViews-View', urlExtra);
+	async open (specification = '', urlExtra) {
+		await super.open(`PageViews${specification}-View`, urlExtra);
+	}
+
+	get focusedText () {
+		return browser.execute(() => {
+			return document.activeElement === document.body ? null : document.activeElement.textContent;
+		});
 	}
 }
 

@@ -225,6 +225,7 @@ const PopupBase = kind({
 		'aria-live': ({'aria-live': live, noAlertRole}) => ((typeof live !== 'undefined') ? live : (!noAlertRole && 'off' || null)),
 		className: ({noOutline, position, styler}) => styler.append(position, position === 'fullscreen' || noOutline ? null : componentCss.outline),
 		direction: ({position}) => transitionDirection[position],
+		noAnimation: ({noAnimation}) => (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || noAnimation,
 		// When passing `role` prop to the Popup, the prop should work first.
 		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
 		// Otherwise, `role` will be usually `alert`.
@@ -311,7 +312,7 @@ class Popup extends Component {
 
 		/**
 		 * Indicates that the popup will not trigger `onClose` when the user presses the cancel/back (e.g. `ESC`) key or
-		 * taps outside of the popup.
+		 * taps outside the popup.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -616,7 +617,7 @@ class Popup extends Component {
 
 		off('keydown', this.handleKeyDown);
 
-		// if there is no currently-spotted control or it is wrapped by the popup's container, we
+		// if there is no currently-spotted control, or it is wrapped by the popup's container, we
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
@@ -647,7 +648,7 @@ class Popup extends Component {
 		if (!Spotlight.isPaused() && !Spotlight.focus(containerId)) {
 			const current = Spotlight.getCurrent();
 
-			// In cases where the container contains no spottable controls or we're in pointer-mode, focus
+			// In cases where the container contains no spottable controls, or we're in pointer-mode, focus
 			// cannot inherently set the active container or blur the active control, so we must do that
 			// here.
 			if (current) {

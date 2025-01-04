@@ -8,6 +8,7 @@ PageViews.displayName = 'PageViews';
 
 const Config = mergeComponentMetadata('PageViews', PageViews);
 const propOptions = {
+	pageIndicatorPosition: ['bottom', 'top'],
 	pageIndicatorType: ['dot', 'number']
 };
 
@@ -17,7 +18,7 @@ export default {
 };
 
 export const _PageViews = (args) => (
-	<PageViews fullContents={args['fullContents']} pageIndicatorType={args['pageIndicatorType']}>
+	<PageViews fullContents={args['fullContents']} pageIndicatorPosition={args['pageIndicatorPosition']} pageIndicatorType={args['pageIndicatorType']}>
 		<PageViews.Page aria-label="This is a description for page 1">
 			<div style={{padding: '24px', width: '50%'}}>
 				<Item>Item 1</Item>
@@ -66,6 +67,7 @@ export const _PageViews = (args) => (
 );
 
 boolean('fullContents', _PageViews, Config, false);
+select('pageIndicatorPosition', _PageViews, propOptions.pageIndicatorPosition, Config, 'bottom');
 select('pageIndicatorType', _PageViews, propOptions.pageIndicatorType, Config, 'dot');
 
 _PageViews.storyName = 'PageViews';

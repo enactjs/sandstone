@@ -12,7 +12,7 @@ import Popup from '../../Popup';
 import CancelDecorator from './CancelDecorator';
 import TransitionDecorator from './TransitionDecorator';
 
-// List all of the props from Popup that we want to move from this component's root onto Popup.
+// List all the props from Popup that we want to move from this component's root onto Popup.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
 	'position', 'scrimType', 'spotlightId', 'spotlightRestrict'];
 
@@ -111,7 +111,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 *
 			 * Normally, the popup will flex in height to match the size of the content until the
 			 * screen bounds are met. Use this if you require a full-height popup but don't have
-			 * enough content to fill the space or you want a component to stretch to the edges.
+			 * enough content to fill the space, or you want a component to stretch to the edges.
 			 *
 			 * @type {Boolean}
 			 * @public
@@ -210,7 +210,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		defaultProps: {
 			fullHeight: false,
 			index: 0,
-			noAnimation: false,
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION,
 			position: 'right',
 			scrimType: 'translucent',
 			spotlightRestrict: 'self-only',

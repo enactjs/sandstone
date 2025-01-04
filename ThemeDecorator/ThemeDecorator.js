@@ -249,7 +249,8 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		const skinName = skinProp || 'neutral';
 		const className = classNames(css.root, props.className, 'sandstone-theme', 'enact-unselectable', {
 			[bgClassName]: !float,
-			'enact-fit': !disableFullscreen
+			'enact-fit': !disableFullscreen,
+			noAnimation: typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION
 		});
 
 		useEffect(() => {

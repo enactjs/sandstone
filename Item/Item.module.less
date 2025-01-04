@@ -160,6 +160,14 @@
 			}
 		});
 
+		:global(.noAnimation) & {
+			.focus({
+				.bg {
+					box-shadow: none;
+				}
+			})
+		}
+
 		.sand-disabled({
 			.slotBefore,
 			.itemContent,
