@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when the DOM tree changes
+
 ## [2.9.6] - 2024-12-11
 
 ### Added
