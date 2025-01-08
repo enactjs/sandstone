@@ -409,8 +409,19 @@ ColorPickerSliderHSL.propTypes = {
  * @ui
  * @private
  */
-const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, ...props}) => {
+const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, type = 'RGB', ...props}) => {
 	const [pickerType, setPickerType] = useState('RGB');
+	const [dropdownValue, setDropdownValue] = useState(0);
+
+	useEffect(() => {
+		if (type === 'RGB') {
+			setDropdownValue(0);
+			setPickerType('RGB');
+		} else if (type === 'HSL') {
+			setDropdownValue(1);
+			setPickerType('HSL');
+		}
+	}, [type]);
 
 	const handleBlur = useCallback(() => {
 		if (checkHex(selectedColor)) selectedColorHandler('#000000');
@@ -423,7 +434,12 @@ const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, ...pr
 
 	const handleSelect = useCallback((ev) => {
 		setPickerType(ev.data);
-	}, [setPickerType]);
+		if (ev.data === 'RGB') {
+			setDropdownValue(0);
+		} else if (ev.data === 'HSL') {
+			setDropdownValue(1);
+		}
+	}, [setDropdownValue, setPickerType]);
 
 	return (
 		<Cell {...props} className={componentCss.sliderPickerContainer}>
@@ -434,6 +450,7 @@ const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, ...pr
 						disabled={disabled}
 						onSelect={handleSelect}
 						placeholder={pickerType}
+						selected={dropdownValue}
 						size="small"
 						spotlightDisabled={disabled}
 					>
@@ -487,7 +504,16 @@ ColorPickerSlider.propTypes = {
 	 * @type {Function}
 	 * @private
 	 */
-	selectedColorHandler: PropTypes.func
+	selectedColorHandler: PropTypes.func,
+
+	/**
+	 * Set the type of color picker to use.
+	 *
+	 * @type {('RGB'|'HSL')}
+	 * @default 'RGB'
+	 * @private
+	 */
+	type: PropTypes.string
 };
 
 export {
