@@ -69,6 +69,10 @@
 			&.lift {
 				transform: translateY(~"calc(var(--liftDistance) * -1)");
 				transition: transform 0.3s linear;
+
+				:global(.noAnimation) & {
+					transition: none;
+				}
 			}
 
 			&.hidden {

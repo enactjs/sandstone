@@ -19,29 +19,23 @@
 // common colors
 @sand-bg-color: var(--sand-bg-color, #000000);
 
-@sand-text-color-rgb: var(--sand-text-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-text-color: rgb(@sand-text-color-rgb);
+@sand-text-color: var(--sand-text-color, #e6e6e6); // #e6e6e6
 @sand-text-sub-color: var(--sand-text-sub-color, #abaeb3);
-@sand-shadow-color-rgb: var(--sand-shadow-color-rgb, 0, 0, 0);
-@sand-shadow-color: rgb(@sand-shadow-color-rgb, 30%);
-@sand-component-text-color-rgb: var(--sand-component-text-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-component-text-color: rgb(@sand-component-text-color-rgb);
-@sand-component-text-sub-color-rgb: var(--sand-component-text-sub-color-rgb, 171, 174, 179); // #abaeb3
-@sand-component-text-sub-color: rgb(@sand-component-text-sub-color-rgb);
+@sand-shadow-base-color: var(--sand-shadow-color, #000000);
+@sand-shadow-color: ~"color(from" @sand-shadow-base-color ~"srgb r g b / 0.3)";
+@sand-component-text-color: var(--sand-component-text-color, #e6e6e6);
+@sand-component-text-sub-color: var(--sand-component-text-sub-color, #abaeb3);
 @sand-component-bg-color: var(--sand-component-bg-color, #7d848c);
 @sand-component-active-indicator-bg-color: var(--sand-component-active-indicator-bg-color, #e6e6e6);
 @sand-component-inactive-indicator-bg-color: var(--sand-component-inactive-indicator-bg-color, #9da2a7);
 
 @sand-focus-text-color: var(--sand-focus-text-color, #ffffff);
-@sand-focus-bg-color-rgb: var(--sand-focus-bg-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-focus-bg-color: rgb(@sand-focus-bg-color-rgb);
-@sand-component-focus-text-color-rgb: var(--sand-component-focus-text-color-rgb, 76, 80, 89); // #4c5059
-@sand-component-focus-text-color: rgb(@sand-component-focus-text-color-rgb);
+@sand-focus-bg-color: var(--sand-focus-bg-color, #e6e6e6);
+@sand-component-focus-text-color: var(--sand-component-focus-text-color, #4c5059);
 @sand-component-focus-active-indicator-bg-color: var(--sand-component-focus-active-indicator-bg-color, #4c5059);
 @sand-component-focus-inactive-indicator-bg-color: var(--sand-component-focus-inactive-indicator-bg-color, #b8b9bb);
 
-@sand-selected-color-rgb: var(--sand-selected-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-selected-color: rgb(@sand-selected-color-rgb);
+@sand-selected-color: var(--sand-selected-color, #e6e6e6);
 @sand-selected-text-color: var(--sand-selected-text-color, @sand-text-color);
 @sand-selected-bg-color: var(--sand-selected-bg-color, #3e454d);
 
@@ -66,8 +60,8 @@
 @sand-fullscreen-bg-color: var(--sand-fullscreen-bg-color, @sand-bg-color);
 
 //@sand-overlay-text-color: var(--sand-overlay-text-color);
-@sand-overlay-text-shadow: 0 4px 4px rgb(@sand-shadow-color-rgb, 75%);
-@sand-overlay-bg-color-rgb: var(--sand-overlay-bg-color-rgb, 87, 94, 102); // #575e66
+@sand-overlay-text-shadow: 0 4px 4px ~"color(from" @sand-shadow-base-color ~"srgb r g b / 0.75)";
+@sand-overlay-bg-color: var(--sand-overlay-bg-color, #575e66);
 @sand-overlay-outline-color: var(--sand-overlay-outline-color, transparent);
 @sand-overlay-outline-style: var(--sand-overlay-outline-style, none);
 
@@ -79,16 +73,11 @@
 @sand-toggle-on-color: var(--sand-toggle-on-color, @sand-selected-color);
 @sand-toggle-on-bg-color: var(--sand-toggle-on-bg-color, #30ad6b);
 
-@sand-progress-color-rgb: var(--sand-progress-color-rgb, 230, 230, 230); // #e6e6e6
-@sand-progress-color: rgb(@sand-progress-color-rgb);
-@sand-progress-bg-color-rgb: var(--sand-progress-bg-color-rgb, 55, 58, 65); // #373a41
-@sand-progress-bg-color-alpha: var(--sand-progress-bg-color-alpha, 100%);
-@sand-progress-bg-color: rgb(@sand-progress-bg-color-rgb, @sand-progress-bg-color-alpha);
+@sand-progress-color: var(--sand-progress-color, #e6e6e6);
+@sand-progress-bg-color: var(--sand-progress-bg-color, #373a41);
+@sand-progress-bg-color-opacity: var(--sand-progress-bg-color-opacity, 1);
 @sand-progress-highlighted-color: var(--sand-progress-highlighted-color, #ffffff);
 @sand-progress-slider-color: var(--sand-progress-slider-color, #8d9298);
-
-@sand-spinner-color-rgb: var(--sand-spinner-color, 255, 255, 255); // #ffffff
-@sand-spinner-color: rgb(@sand-spinner-color-rgb);
 
 @sand-invalid-color: #ff0000;
 @sand-invalid-sub-color: #fb5656;
@@ -97,20 +86,22 @@
 @sand-checkbox-color: var(--sand-checkbox-color, @sand-text-color);
 @sand-checkbox-disabled-selected-text-color: var(--sand-checkbox-disabled-selected-text-color, @sand-disabled-selected-color);
 @sand-formcheckboxitem-focus-text-color: var(--sand-formcheckboxitem-focus-text-color, @sand-focus-text-color);
+@sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
 @sand-item-disabled-focus-bg-color: var(--sand-item-disabled-focus-bg-color, #e6e6e6);
-@sand-keyguide-bg-color-rgb: var(--sand-keyguide-bg-color-rgb, 55, 58, 65); // #373a41
+@sand-keyguide-bg-base-color: var(--sand-keyguide-bg-color, #373a41);
+@sand-keyguide-bg-color-opacity: var(--sand-keyguide-bg-color-opacity, 0.9);
 @sand-slider-knob-border-color: var(--sand-slider-knob-border-color, transparent);
 @sand-slider-disabled-knob-bg-color: var(--sand-slider-disabled-knob-bg-color, #666666);
-@sand-iconitem-border-color: var(--sand-iconitem-border-color, #707070);
+@sand-spinner-color: var(--sand-spinner-color, #ffffff);
+@sand-steps-pageindicator-bg-color: var(--sand-steps-pageindicator-bg-color, #6f7680);
 
 // Overlay Alert
 // ---------------------------------------
 
 // common colors
-@sand-alert-overlay-bg-color-rgb: var(--sand-alert-overlay-bg-color-rgb, 202, 203, 204); // #cacbcc
-@sand-alert-overlay-bg-color-opacity: 95%;
-@sand-alert-overlay-bg-color: rgb(@sand-alert-overlay-bg-color-rgb);
-@sand-alert-overlay-text-color-rgb: var(--sand-alert-overlay-text-color-rgb, 46, 50, 57); // #2e3239
+@sand-alert-overlay-bg-color: var(--sand-alert-overlay-bg-color, #cacbcc);
+@sand-alert-overlay-bg-color-opacity: 0.95;
+@sand-alert-overlay-text-color: var(--sand-alert-overlay-text-color, #2e3239);
 @sand-alert-overlay-text-sub-color: var(--sand-alert-overlay-text-sub-color, #2e3239);
 @sand-alert-overlay-focus-text-color: var(--sand-alert-overlay-focus-text-color, #575e66);
 @sand-alert-overlay-disabled-selected-color: var(--sand-alert-overlay-disabled-selected-color, #ffffff);
@@ -119,9 +110,9 @@
 @sand-alert-overlay-disabled-selected-focus-bg-color: var(--sand-alert-overlay-disabled-selected-focus-bg-color, #4c5059);
 
 // component colors
-@sand-alert-overlay-progress-color-rgb: var(--sand-alert-overlay-progress-color-rgb, 55, 58, 65); // #373a41
-@sand-alert-overlay-progress-bg-color-rgb: var(--sand-alert-overlay-progress-bg-color-rgb, 161, 161, 161); //  #a1a1a166, 40% alpha by default
-@sand-alert-overlay-progress-bg-color-alpha: var(--sand-alert-overlay-progress-bg-color-alpha, 40%);
+@sand-alert-overlay-progress-color: var(--sand-alert-overlay-progress-color, #373a41);
+@sand-alert-overlay-progress-bg-color: var(--sand-alert-overlay-progress-bg-color, #a1a1a1);
+@sand-alert-overlay-progress-bg-color-opacity: var(--sand-alert-overlay-progress-bg-color-opacity, 0.4);
 @sand-alert-overlay-checkbox-color: var(--sand-alert-overlay-checkbox-color, #858b92);
 @sand-alert-overlay-checkbox-disabled-selected-text-color: var(--sand-alert-overlay-checkbox-disabled-selected-text-color, #ffffff);
 @sand-alert-overlay-formcheckboxitem-focus-text-color: var(--sand-alert-overlay-formcheckboxitem-focus-text-color, @sand-alert-overlay-focus-text-color);
@@ -133,6 +124,7 @@
 @sand-disabled-opacity: 0.28;  // This value brings the standard text-color to the disabled text color specs
 @sand-disabled-bg-opacity: @sand-disabled-opacity;
 @sand-disabled-focus-content-opacity: 0.4;
+@sand-disabled-focus-content-color-opacity: 0.4;
 @sand-disabled-focus-bg-opacity: 0.585;  // This value brings the standard focus-background-color to the disabled+focus color specs
 
 
@@ -200,7 +192,7 @@
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextualpopup-bg-color: rgb(@sand-overlay-bg-color-rgb);
+@sand-contextualpopup-bg-color: @sand-overlay-bg-color;
 @sand-contextualpopup-shadow: 0 24px 60px @sand-shadow-color;
 
 // Dropdown
@@ -257,7 +249,7 @@
 @sand-imageitem-focus-selection-icon-bg-color: @sand-imageitem-selection-icon-bg-color;
 @sand-imageitem-selected-selection-icon-color: @sand-selected-color;
 @sand-imageitem-selected-selection-icon-bg-color: @sand-toggle-on-bg-color;
-@sand-imageitem-selected-image-border-color: rgb(@sand-selected-color-rgb, 70%);
+@sand-imageitem-selected-image-border-color: ~"color(from" @sand-selected-color ~"srgb r g b / 0.7)";
 @sand-imageitem-selected-focus-selection-icon-color: @sand-imageitem-selected-selection-icon-color;
 @sand-imageitem-selected-focus-selection-icon-bg-color: @sand-imageitem-selected-selection-icon-bg-color;
 
@@ -265,16 +257,16 @@
 // ---------------------------------------
 @sand-input-fullscreen-background-color: @sand-fullscreen-bg-color;
 @sand-input-overlay-background-color: @sand-popup-bg-color;
-@sand-input-numbercell-background-color: rgb(@sand-text-color-rgb, 20%);
+@sand-input-numbercell-background-color: ~"color(from" @sand-text-color ~"srgb r g b / 0.2)";
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
-@sand-input-numberfield-disabled-color: rgb(@sand-component-focus-text-color-rgb, @sand-disabled-focus-content-opacity * 100%);
+@sand-input-numberfield-disabled-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b /" @sand-disabled-focus-content-color-opacity ~")";
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
 // ---------------------------------------
 @sand-inputfield-text-color: @sand-text-color;
-@sand-inputfield-placeholder-color: rgb(@sand-component-text-color-rgb, 20%);
-@sand-inputfield-placeholder-active-color: rgb(@sand-component-focus-text-color-rgb, 40%);
+@sand-inputfield-placeholder-color: ~"color(from" @sand-component-text-color ~"srgb r g b / 0.2)";
+@sand-inputfield-placeholder-active-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b / 0.4)";
 @sand-inputfield-focus-text-color: @sand-component-focus-text-color;
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-invalid-color: @sand-invalid-color;
@@ -288,7 +280,7 @@
 
 // KeyGuide
 // ---------------------------------------
-@sand-keyguide-bg-color: rgb(@sand-keyguide-bg-color-rgb, 90%);
+@sand-keyguide-bg-color: ~"color(from" @sand-keyguide-bg-base-color ~"srgb r g b /" @sand-keyguide-bg-color-opacity ~")";
 @sand-keyguide-item-color: @sand-text-sub-color;
 @sand-keyguide-colordot-red-color: @sand-remote-button-red-color;
 @sand-keyguide-colordot-green-color: @sand-remote-button-green-color;
@@ -307,7 +299,7 @@
 
 // MediaSlider
 // ---------------------------------------
-@sand-mediaslider-bar-bg-color: rgb(@sand-progress-color-rgb, 30%);
+@sand-mediaslider-bar-bg-color: ~"color(from" @sand-progress-color ~"srgb r g b / 0.3)";
 @sand-mediaslider-disabled-bar-opacity: 0.3;
 @sand-mediaslider-fill-bg-color: @sand-progress-color;
 
@@ -321,7 +313,7 @@
 @sand-picker-joined-horizontal-text-color: @sand-component-text-color;
 @sand-picker-joined-horizontal-bg-color: @sand-component-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
-@sand-picker-joined-incrementer-color: rgb(@sand-component-text-sub-color-rgb, 50%);
+@sand-picker-joined-incrementer-color: ~"color(from" @sand-component-text-sub-color ~"srgb r g b / 0.5)";
 @sand-picker-joined-focus-incrementer-color: @sand-component-focus-text-color;
 @sand-picker-joined-focus-disabled-text-color: @sand-picker-indicator-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicator-active-focus-bg-color;
@@ -330,8 +322,8 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: rgb(@sand-overlay-bg-color-rgb, 90%);
-@sand-popup-scrimtransparent-bg-color: rgb(@sand-overlay-bg-color-rgb, 95%);
+@sand-popup-bg-color: ~"color(from" @sand-overlay-bg-color ~"srgb r g b / 0.9)";
+@sand-popup-scrimtransparent-bg-color: ~"color(from" @sand-overlay-bg-color ~"srgb r g b / 0.95)";
 
 // PopupTabLayout
 // ---------------------------------------
@@ -341,8 +333,8 @@
 
 // ProgressBar
 // ---------------------------------------
-@sand-progressbar-bar-bg-color: @sand-progress-bg-color;
-@sand-progressbar-load-bg-color: rgb(@sand-progress-color-rgb, 30%);
+@sand-progressbar-bar-bg-color: ~"color(from" @sand-progress-bg-color ~"srgb r g b /" @sand-progress-bg-color-opacity ~")";
+@sand-progressbar-load-bg-color: ~"color(from" @sand-progress-color ~"srgb r g b / 0.3)";
 @sand-progressbar-fill-bg-color: @sand-progress-color;
 @sand-progressbar-highlighted-fill-bg-color: @sand-progress-highlighted-color;
 
@@ -374,15 +366,15 @@
 
 // Scrollbar
 // ---------------------------------------
-@sand-scrollbar-track-bg-color: rgb(@sand-progress-bg-color-rgb, 50%);
-@sand-scrollbar-thumb-bg-color: rgb(@sand-progress-color-rgb, 60%);
+@sand-scrollbar-track-bg-color: ~"color(from" @sand-progress-bg-color ~"srgb r g b / 0.5)";
+@sand-scrollbar-thumb-bg-color: ~"color(from" @sand-progress-color ~"srgb r g b / 0.6)";
 @sand-scrollbar-thumb-focus-bg-color: @sand-focus-bg-color;
-@sand-scrollbar-thumb-focus-direction-indicator-color: rgb(@sand-component-focus-text-color-rgb, 40%);
+@sand-scrollbar-thumb-focus-direction-indicator-color: ~"color(from" @sand-component-focus-text-color ~"srgb r g b / 0.4)";
 @sand-scrollbar-thumb-focus-box-shadow-color: @sand-shadow-color;
 
 // Scroller
 // ---------------------------------------
-@sand-scroll-focusablebody-focus-bg-color: rgb(@sand-focus-bg-color-rgb, 10%);
+@sand-scroll-focusablebody-focus-bg-color: ~"color(from" @sand-focus-bg-color ~"srgb r g b / 0.1)";
 
 // Slider
 // ---------------------------------------
@@ -395,7 +387,7 @@
 @sand-slider-focus-fill-bg-color: @sand-focus-bg-color;
 @sand-slider-focus-knob-bg-color: @sand-slider-focus-fill-bg-color;
 @sand-slider-focus-knob-border-color: @sand-slider-knob-border-color;
-@sand-slider-focus-knob-shadow: 0 6px 12px rgb(@sand-shadow-color-rgb, 50%);
+@sand-slider-focus-knob-shadow: 0 6px 12px ~"color(from" @sand-shadow-base-color ~"srgb r g b / 0.5)";
 @sand-slider-active-bar-bg-color: @sand-slider-focus-bar-bg-color;
 @sand-slider-active-load-bg-color: @sand-slider-focus-load-bg-color;
 @sand-slider-active-fill-bg-color: @sand-slider-focus-fill-bg-color;
@@ -405,14 +397,13 @@
 // Spinner
 // ---------------------------------------
 @sand-spinner-head-color: @sand-spinner-color;
-@sand-spinner-empty-color: rgb(@sand-spinner-color-rgb, 20%);
+@sand-spinner-empty-color: ~"color(from" @sand-spinner-color ~"srgb r g b / 0.2)";
 @sand-spinner-bg-color: @sand-component-bg-color;
 @sand-spinner-text-color: @sand-component-text-color;
 @sand-spinner-text-shadow-color: @sand-shadow-color;
 
 // Steps
 // ---------------------------------------
-@sand-steps-pageindicator-bg-color: rgb(111, 118, 128, 1);
 @sand-steps-pageindicator-current-bg-color: @sand-component-text-color;
 
 // Switch
@@ -428,7 +419,7 @@
 
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-tab-horizontal-border-color: rgb(@sand-text-color-rgb, 50%);
+@sand-tablayout-tab-horizontal-border-color: ~"color(from" @sand-text-color ~"srgb r g b / 0.5)";
 @sand-tablayout-tab-horizontal-selected-border-color: @sand-selected-color;
 
 // Tooltip
@@ -445,5 +436,5 @@
 @sand-video-slider-tooltip-thumbnail-border-color: @sand-text-color;
 @sand-video-player-bottom-bg-color: transparent;
 @sand-video-player-title-color: @sand-focus-text-color;
-@sand-video-player-title-text-shadow: 0 4px 4px rgb(@sand-shadow-color-rgb, 75%);
+@sand-video-player-title-text-shadow: 0 4px 4px ~"color(from" @sand-shadow-base-color ~"srgb r g b / 0.75)";
 @sand-video-player-scrim-gradient-color: linear-gradient(180deg, transparent 0%, #000 100%);
