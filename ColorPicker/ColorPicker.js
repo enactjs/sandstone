@@ -328,7 +328,7 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 			<Row>
 				<Cell size="75%">
 					<TabGroup
-						className={componentCss.pickerTabLayout}
+						className={componentCss.pickerTabGroup}
 						tabs={[
 							{title: 'Grid', onTabClick: handleGridClick},
 							{title: 'Spectrum', onTabClick: handleSpectrumClick},
