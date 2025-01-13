@@ -335,15 +335,15 @@ InScroller.parameters = {
 InScroller.storyName = 'in Scroller (PLAT-137855)';
 
 export const WithChaningPositionWhileDropdownOpen = () => {
-    const [isRemoved, remove] = useState(false);
+	const [isRemoved, remove] = useState(false);
 
-    useEffect(() => {
-        setTimeout(() => {
-            remove(true);
-        }, 2000);
-    }, []);
+	useEffect(() => {
+		setTimeout(() => {
+			remove(true);
+		}, 2000);
+	}, []);
 
-    return (
+	return (
 		<div>
 			{!isRemoved && (
 				<div style={{margin: '20px'}}>
@@ -354,7 +354,7 @@ export const WithChaningPositionWhileDropdownOpen = () => {
 				<Dropdown open>{['a', 'b', 'c']}</Dropdown>
 			</div>
 		</div>
-    );
+	);
 };
 
 WithChaningPositionWhileDropdownOpen.storyName = 'with changing position while dropdown open';
