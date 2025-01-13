@@ -253,7 +253,7 @@ FavoriteColors.propTypes = {
  * @ui
  * @public
  */
-const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], css, disabled, onChangeColor, open, type = 'grid', ...rest}) => {
+const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], disabled, onChangeColor, open, type = 'grid', ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
 	const [selectedColor, setSelectedColor] = useState(color);
 	const [tabLayoutIndex, setTabLayoutIndex] = useState(0);
@@ -303,19 +303,19 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 		if (tabLayoutIndex === 0) {
 			return (
 				<div className={componentCss.colorPicker}>
-					<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor}/>
+					<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
 				</div>
 			);
 		} else if (tabLayoutIndex === 1) {
 			return (
 				<div className={componentCss.colorPicker}>
-					<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor}/>
+					<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 				</div>
 			);
 		} else if (tabLayoutIndex === 2) {
 			return (
 				<div className={componentCss.colorPicker}>
-					<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor}/>
+					<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 				</div>
 			);
 		} else {
@@ -332,7 +332,7 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 						tabs={[
 							{title: 'Grid', onTabClick: handleGridClick},
 							{title: 'Spectrum', onTabClick: handleSpectrumClick},
-							{title: 'Sliders', onTabClick: handleSlidersClick},
+							{title: 'Sliders', onTabClick: handleSlidersClick}
 						]}
 						orientation="horizontal"
 						tabSize={400}
