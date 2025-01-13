@@ -8,7 +8,7 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
+import {Component, useEffect, useState} from 'react';
 
 const Config = mergeComponentMetadata(
 	'Dropdown',
@@ -333,3 +333,28 @@ InScroller.parameters = {
 };
 
 InScroller.storyName = 'in Scroller (PLAT-137855)';
+
+export const WithChaningPositionWhileDropdownOpen = () => {
+    const [isRemoved, remove] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            remove(true);
+        }, 2000);
+    }, []);
+
+    return (
+		<div>
+			{!isRemoved && (
+				<div style={{margin: '20px'}}>
+					<div>This is the line that will be removed.</div>
+				</div>
+			)}
+			<div>
+				<Dropdown open>{['a', 'b', 'c']}</Dropdown>
+			</div>
+		</div>
+    );
+};
+
+WithChaningPositionWhileDropdownOpen.storyName = 'with changing position while dropdown open';
