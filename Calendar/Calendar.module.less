@@ -22,19 +22,20 @@
 		display: flex;
 		flex-wrap: wrap;
 
-		.day {
+		.day,
+		.dayName {
 			width: 14.2%;
 			display: flex;
 			justify-content: center;
 
-			&.bodyText {
-				margin: @sand-calendar-spacing 0;
-			}
-
-			.button {
+			.dayNumber {
 				min-width: 48px;
 				border-radius: 50%;
 			}
+		}
+
+		.dayName {
+			margin: @sand-calendar-spacing 0;
 		}
 	}
 }
