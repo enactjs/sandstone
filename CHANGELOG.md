@@ -8,10 +8,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Icon` supported icon list, adding new icon `calibration`
 - `sandstone/Pageviews` `pageIndicatorPosition` prop to set the position of the page indicator
+- `tsx` as a devDependency
 
 ### Changed
 
 - CSS variables with suffix '-rgb' to without suffix and its value to hex format
+- component selectors from ui-tests views to work with `webdriverio` version 9
+- `isDisplayed` and `moveTo` methods to work with `webdriverio` version 9
 
 ### Fixed
 
