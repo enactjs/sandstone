@@ -1,2 +1,40 @@
 // Calendar.module.less
 //
+@import "../styles/variables.less";
+
+.calendar {
+	width: 1500px;
+	height: 1230px;
+	border: 1px solid white;
+	padding: @sand-calendar-spacing;
+
+	.header {
+		align-items: center;
+		padding-bottom: @sand-calendar-spacing;
+
+		.dropdown {
+			margin: 0;
+		}
+	}
+
+	.body {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+
+		.day {
+			width: 14.2%;
+			display: flex;
+			justify-content: center;
+
+			&.bodyText {
+				margin: @sand-calendar-spacing 0;
+			}
+
+			.button {
+				min-width: 48px;
+				border-radius: 50%;
+			}
+		}
+	}
+}
