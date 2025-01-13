@@ -15,7 +15,7 @@
  */
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Column, Row} from '@enact/ui/Layout';
-import ri from '@enact/ui/resolution';
+// import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
@@ -23,7 +23,8 @@ import {ButtonBase} from '../Button';
 import Icon from '../Icon';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
-import TabLayout, {Tab} from '../TabLayout';
+// import TabLayout, {Tab} from '../TabLayout';
+import TabGroup from '../TabLayout/TabGroup';
 
 import ColorPickerGrid from './ColorPickerGrid';
 import ColorPickerSlider from './ColorPickerSlider';
@@ -298,27 +299,45 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 		setTabLayoutIndex(2);
 	}, [disabled, setTabLayoutIndex]);
 
+	const renderContent = () => {
+		if (tabLayoutIndex === 0) {
+			return (
+				<div className={componentCss.colorPicker}>
+					<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor}/>
+				</div>
+			);
+		} else if (tabLayoutIndex === 1) {
+			return (
+				<div className={componentCss.colorPicker}>
+					<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor}/>
+				</div>
+			);
+		} else if (tabLayoutIndex === 2) {
+			return (
+				<div className={componentCss.colorPicker}>
+					<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor}/>
+				</div>
+			);
+		} else {
+			return <div>Loading</div>;
+		}
+	};
+
 	return (
 		<Popup disabled={disabled} open={open} position="center" {...rest}>
 			<Row>
 				<Cell size="75%">
-					<TabLayout className={componentCss.pickerTabLayout} css={css} index={tabLayoutIndex} orientation="horizontal">
-						<Tab onTabClick={handleGridClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Grid">
-							<div className={componentCss.colorPicker}>
-								<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
-							</div>
-						</Tab>
-						<Tab onTabClick={handleSpectrumClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Spectrum">
-							<div className={componentCss.colorPicker}>
-								<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
-							</div>
-						</Tab>
-						<Tab onTabClick={handleSlidersClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Sliders">
-							<div className={componentCss.colorPicker}>
-								<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
-							</div>
-						</Tab>
-					</TabLayout>
+					<TabGroup
+						className={componentCss.pickerTabLayout}
+						tabs={[
+							{title: 'Grid', onTabClick: handleGridClick},
+							{title: 'Spectrum', onTabClick: handleSpectrumClick},
+							{title: 'Sliders', onTabClick: handleSlidersClick},
+						]}
+						orientation="horizontal"
+						tabSize={400}
+					/>
+					{renderContent()}
 				</Cell>
 				<Cell align="end" size="25%">
 					<Column>
@@ -334,6 +353,43 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 			</Row>
 		</Popup>
 	);
+
+	// return (
+	// 	<Popup disabled={disabled} open={open} position="center" {...rest}>
+	// 		<Row>
+	// 			<Cell size="75%">
+	// 				<TabLayout className={componentCss.pickerTabLayout} css={css} index={tabLayoutIndex} orientation="horizontal">
+	// 					<Tab onTabClick={handleGridClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Grid">
+	// 						<div className={componentCss.colorPicker}>
+	// 							<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
+	// 						</div>
+	// 					</Tab>
+	// 					<Tab onTabClick={handleSpectrumClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Spectrum">
+	// 						<div className={componentCss.colorPicker}>
+	// 							<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+	// 						</div>
+	// 					</Tab>
+	// 					<Tab onTabClick={handleSlidersClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Sliders">
+	// 						<div className={componentCss.colorPicker}>
+	// 							<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+	// 						</div>
+	// 					</Tab>
+	// 				</TabLayout>
+	// 			</Cell>
+	// 			<Cell align="end" size="25%">
+	// 				<Column>
+	// 					<FavoriteColors
+	// 						disabled={disabled}
+	// 						favoriteColors={favoriteColors}
+	// 						favoriteColorsHandler={setFavoriteColors}
+	// 						selectedColor={selectedColor}
+	// 						selectedColorHandler={setSelectedColor}
+	// 					/>
+	// 				</Column>
+	// 			</Cell>
+	// 		</Row>
+	// 	</Popup>
+	// );
 };
 
 ColorPickerBase.displayName = 'ColorPicker';
