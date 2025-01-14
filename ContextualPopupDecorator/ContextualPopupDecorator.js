@@ -633,7 +633,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			if (this.mutationObserver) {
 				if (node) {
-					this.mutationObserver.observe(document.body, {attributes: true, childList: true, subtree: true});
+					this.mutationObserver.observe(document.body, {attributes: false, childList: true, subtree: true});
 				} else {
 					this.mutationObserver.disconnect();
 				}
