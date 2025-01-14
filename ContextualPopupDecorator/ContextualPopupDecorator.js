@@ -1,4 +1,4 @@
-/* global ResizeObserver */
+/* global MutationObserver ResizeObserver */
 
 /**
  * A higher-order component to add a Sandstone styled popup to a component.
@@ -301,6 +301,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					this.positionContextualPopup();
 				});
 			}
+
+			if (typeof MutationObserver === 'function') {
+				this.mutationObserver = new MutationObserver(() => {
+					this.positionContextualPopup();
+				});
+			}
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
@@ -354,6 +360,11 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (this.resizeObserver) {
 				this.resizeObserver.disconnect();
 				this.resizeObserver = null;
+			}
+
+			if (this.mutationObserver) {
+				this.mutationObserver.disconnect();
+				this.mutationObserver = null;
 			}
 		}
 
@@ -617,6 +628,14 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					this.resizeObserver.observe(node?.parentElement?.parentElement);
 				} else {
 					this.resizeObserver.disconnect();
+				}
+			}
+
+			if (this.mutationObserver) {
+				if (node) {
+					this.mutationObserver.observe(document.body, {attributes: false, childList: true, subtree: true});
+				} else {
+					this.mutationObserver.disconnect();
 				}
 			}
 		};
