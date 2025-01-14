@@ -26,7 +26,7 @@ export const _QuickGuidePanels = (args) => {
 	const heightRatio = screenHeight / 1080;
 
 	const Story = () => (
-		<>
+		<div>
 			<Panel css={css}>
 				<Button css={css} focusEffect="static" size="small">Button</Button>
 				<br />
@@ -82,7 +82,7 @@ export const _QuickGuidePanels = (args) => {
 					</QuickGuidePanels.Panel>
 				</QuickGuidePanels>
 			</Popup>
-		</>
+		</div>
 	);
 	return <Story />;
 };
