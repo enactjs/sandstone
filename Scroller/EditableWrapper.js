@@ -139,7 +139,9 @@ const EditableWrapper = (props) => {
 		isDragging: false,
 
 		// initialSelected
-		initialSelected: editable?.initialSelected
+		initialSelected: editable?.initialSelected,
+
+		needToMoveItemByScrollEvent: false
 	});
 	const announceRef = useRef({});
 
@@ -554,6 +556,7 @@ const EditableWrapper = (props) => {
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
 			mutableRef.current.lastInputType = 'mouse';
+			mutableRef.current.needToMoveItemByScrollEvent = true;
 			moveItems(toIndex);
 		}
 	}, [getNextIndexFromPosition, moveItems]);
@@ -668,8 +671,8 @@ const EditableWrapper = (props) => {
 					Spotlight.focus(selectedItem.children[1]);
 				// If keyDown event target is button and next spot target is button, check whether focus leaves the scroll container.
 				} else {
-					// Set lastInputType to 'key' to prevent `handleMoveItemsByScroll` from being executed unexpectedly.
-					mutableRef.current.lastInputType = 'key';
+					// Set needToMoveItemByScrollEvent to false to prevent `handleMoveItemsByScroll` from being executed unexpectedly.
+					mutableRef.current.needToMoveItemByScrollEvent = false;
 					// Check if focus leaves scroll container.
 					handleFocusLeaveScrollContainer(ev, nextTarget);
 				}
@@ -768,6 +771,7 @@ const EditableWrapper = (props) => {
 					targetY: 0
 				});
 				mutableRef.current.lastInputType = 'touch';
+				mutableRef.current.needToMoveItemByScrollEvent = true;
 				moveItems(toIndex);
 			}
 		}
@@ -909,8 +913,9 @@ const EditableWrapper = (props) => {
 			const bodyWidth = document.body.getBoundingClientRect().width;
 			const {lastMouseClientX, selectedItem} = mutableRef.current;
 			const {isHoveringToScroll, rtl} = scrollContainerHandle.current;
-			if (selectedItem && mutableRef.current.lastInputType !== 'key' && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+			if (selectedItem && mutableRef.current.lastInputType !== 'key' && mutableRef.current.needToMoveItemByScrollEvent && Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 				mutableRef.current.lastInputType = 'scroll';
+				mutableRef.current.needToMoveItemByScrollEvent = true;
 				if (isHoveringToScroll) {
 					const toIndex = getNextIndexFromPosition(lastMouseClientX, 0);
 					moveItems(!rtl ^ !(lastMouseClientX > bodyWidth / 2) ? toIndex + 1 : toIndex - 1);
