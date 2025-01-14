@@ -35,7 +35,7 @@ const MainPanel = () => {
 			<Panel>
 				{!removed && (
 					<div style={{margin: ri.scaleToRem(20)}}>
-						<BodyText>This line will remove after opening the dropdown.</BodyText>
+						<BodyText>This line will be removed after opening the dropdown.</BodyText>
 					</div>
 				)}
 				<Dropdown onClose={handleClose2} onOpen={handleOpen2} open={open2}>{['a', 'b', 'c']}</Dropdown>
