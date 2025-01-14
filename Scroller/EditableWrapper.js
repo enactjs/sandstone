@@ -224,7 +224,7 @@ const EditableWrapper = (props) => {
 
 			setTimeout(() => {
 				if (item?.children[1]) {
-					item.children[1].ariaHidden = true;
+					item.children[1].ariaLabel = '';
 				}
 				if (!mutableRef.current.initialSelected) {
 					announceRef.current.announce(
@@ -582,9 +582,6 @@ const EditableWrapper = (props) => {
 		const {selectedItem, selectedItemLabel} = mutableRef.current;
 		const focusTarget = selectedItem.children[1];
 		const orders = finalizeOrders();
-
-		selectedItem.children[1].ariaLabel = '';
-		selectedItem.children[1].ariaHidden = false;
 
 		finalizeEditing(orders);
 		if (selectItemBy === 'press') {
