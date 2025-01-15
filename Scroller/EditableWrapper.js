@@ -645,8 +645,6 @@ const EditableWrapper = (props) => {
 		const {focusedItem, selectedItem} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
-		mutableRef.current.lastInputType = 'key';
-
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
