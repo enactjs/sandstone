@@ -453,6 +453,7 @@ const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, type 
 						selected={dropdownValue}
 						size="small"
 						spotlightDisabled={disabled}
+						width="tiny"
 					>
 						{['RGB', 'HSL']}
 					</Dropdown>

@@ -24,20 +24,21 @@
 		--sand-progress-bg-color-opacity: 0;
 		border-radius: 99px;
 		margin: 0 18px;
+		height: 33px;
 
 		.focus({
 			.knob {
 				transform: scale(1.1);
 
 				&::before {
-					background-color: transparent;
+					background-color: var(--sand-progress-slider-color);
 				}
 			}
 		});
 
 		.knob {
 			&::before {
-				--sand-slider-disabled-knob-bg-color: transparent;
+				--sand-slider-disabled-knob-bg-color: var(--sand-progress-slider-color);
 				border-radius: 99px;
 				height: 102px;
 				width: 102px;
@@ -59,9 +60,11 @@
 .pickerSelect {
 	margin: 0;
 	height: 129px;
+	width: 402px;
 
 	[role*=button] {
 		height: 129px;
+		width: 402px;
 	}
 }
 
