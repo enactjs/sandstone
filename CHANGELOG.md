@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- Update dependencies including React 19.0.0
+
 ### Added
 
 - `sandstone/Icon` supported icon list, adding new icon `calibration`
