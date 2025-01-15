@@ -267,7 +267,7 @@ const QuickGuidePanelsBase = kind({
 	computed: {
 		'aria-label': ({'aria-label': label, current, index, totalPanels}) => {
 			const stepNum = (typeof current === 'number' && current > 0) ? current : (index + 1);
-			const step = new IString($L('Page {num} out of {total}')).format({num: stepNum, total: totalPanels}) + ' ';
+			const step = new IString($L('Page {current} out of {total}')).format({current: stepNum, total: totalPanels}) + ' ';
 
 			return `${step} ${label || ''}`;
 		},
