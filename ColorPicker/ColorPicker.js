@@ -15,7 +15,6 @@
  */
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Column, Row} from '@enact/ui/Layout';
-// import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
@@ -23,7 +22,6 @@ import {ButtonBase} from '../Button';
 import Icon from '../Icon';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
-// import TabLayout, {Tab} from '../TabLayout';
 import TabGroup from '../TabLayout/TabGroup';
 
 import ColorPickerGrid from './ColorPickerGrid';
@@ -146,7 +144,7 @@ const FavoriteColors = ({disabled, favoriteColors = [], favoriteColorsHandler, s
 									color: generateOppositeColor(color)
 								}}
 							>
-								{editEnabled && <Icon className={componentCss.deleteButton} size={'tiny'}>trash</Icon>}
+								{editEnabled && <Icon className={componentCss.deleteButton} size="tiny">trash</Icon>}
 							</SpottableButton>
 						);
 					})}
@@ -172,7 +170,7 @@ const FavoriteColors = ({disabled, favoriteColors = [], favoriteColorsHandler, s
 									color: generateOppositeColor(color)
 								}}
 							>
-								{editEnabled && <Icon className={componentCss.deleteButton} size={'tiny'}>trash</Icon>}
+								{editEnabled && <Icon className={componentCss.deleteButton} size="tiny">trash</Icon>}
 							</SpottableButton>
 						);
 					})}
@@ -302,21 +300,15 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 	const renderContent = () => {
 		if (tabLayoutIndex === 0) {
 			return (
-				<div className={componentCss.colorPicker}>
-					<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
-				</div>
+				<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
 			);
 		} else if (tabLayoutIndex === 1) {
 			return (
-				<div className={componentCss.colorPicker}>
-					<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
-				</div>
+				<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 			);
 		} else if (tabLayoutIndex === 2) {
 			return (
-				<div className={componentCss.colorPicker}>
-					<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
-				</div>
+				<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 			);
 		} else {
 			return <div>Loading</div>;
@@ -337,18 +329,18 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 						orientation="horizontal"
 						tabSize={400}
 					/>
-					{renderContent()}
+					<div className={componentCss.colorPicker}>
+						{renderContent()}
+					</div>
 				</Cell>
 				<Cell align="end" size="25%">
-					<Column>
-						<FavoriteColors
-							disabled={disabled}
-							favoriteColors={favoriteColors}
-							favoriteColorsHandler={setFavoriteColors}
-							selectedColor={selectedColor}
-							selectedColorHandler={setSelectedColor}
-						/>
-					</Column>
+					<FavoriteColors
+						disabled={disabled}
+						favoriteColors={favoriteColors}
+						favoriteColorsHandler={setFavoriteColors}
+						selectedColor={selectedColor}
+						selectedColorHandler={setSelectedColor}
+					/>
 				</Cell>
 			</Row>
 		</Popup>
