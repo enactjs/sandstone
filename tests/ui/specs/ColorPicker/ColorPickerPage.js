@@ -1,7 +1,6 @@
 'use strict';
 const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
-const getTabs = getComponent({component: 'TabLayout', child: 'tabs'});
 const colorPicker = getComponent({component: 'ColorPicker', child: 'colorPicker'});
 
 class ColorPickerInterface {
@@ -14,12 +13,8 @@ class ColorPickerInterface {
 		return browser.$(this.selector);
 	}
 
-	async tabItems () {
-		return await (await this.tabs()).$$('.Button_Button_button');
-	}
-
-	async tabs () {
-		return await getTabs(this.self);
+	async tabgroupTabs () {
+		return await $$('.TabLayout_TabGroup_tab');
 	}
 
 	async colorBlock () {
