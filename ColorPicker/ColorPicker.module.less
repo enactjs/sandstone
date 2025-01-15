@@ -1,6 +1,7 @@
 // ColorPicker.module.less
 //
 @import "../styles/mixins.less";
+@import "../styles//variables.less";
 
 @keyframes shakeColor {
 	0% { transform: translateX(0) }
@@ -11,24 +12,24 @@
 }
 
 .pickerTabGroup {
-	min-width: 1200px;
-	padding-bottom: 21px;
+	min-width: @sand-colorpicker-tabgroup-width;
+	padding-bottom: @sand-colorpicker-padding;
 }
 
 .colorPicker {
 	display: flex;
-	height: 702px;
+	height: @sand-colorpicker-height;
 	justify-content: center;
-	padding: 21px;
+	padding: @sand-colorpicker-padding;
 }
 
 .selectedColorColumn {
-	margin-top: 15px;
+	margin-top: @sand-colorpicker-favoritecolors-margin;
 
 	.selectedColor {
-		border-radius: 24px;
-		border: 9px solid;
-		height: 240px;
+		border-radius: @sand-colorpicker-favoritecolors-border-radius;
+		border: @sand-colorpicker-favoritecolors-border solid;
+		height: @sand-colorpicker-favoritecolors-height;
 		margin-inline: 0;
 		transition: transform .2s;
 
@@ -51,7 +52,7 @@
 
 	.favoriteColor {
 		border-radius: 50%;
-		border: 6px solid;
+		border: @sand-colorpicker-favoritecolor-border solid;
 		transition: transform .2s;
 
 		.deleteButton {

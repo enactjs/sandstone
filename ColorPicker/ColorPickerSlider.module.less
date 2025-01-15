@@ -1,30 +1,31 @@
 // ColorPickerSlider.module.less
 //
 @import "../styles/mixins.less";
+@import "../styles/variables.less";
 
 .sliderPickerContainer {
 	.containerRow {
-		padding-bottom: 30px;
+		padding-bottom: @sand-colorpicker-sliders-padding;
 	}
 }
 
 .slidersContainer {
-	padding: 0 30px;
+	padding: 0 @sand-colorpicker-sliders-padding;
 
 	.labelText {
-		font-size: 42px;
-		margin: 9px 0;
+		font-size: @sand-colorpicker-sliders-label-font-size;
+		margin: @sand-colorpicker-sliders-label-margin 0;
 	}
 
 	.sliderCell {
-		border-radius: 99px;
+		border-radius: @sand-colorpicker-sliders-slider-border-radius;
 	}
 
 	.slider {
 		--sand-progress-bg-color-opacity: 0;
-		border-radius: 99px;
-		margin: 0 18px;
-		height: 33px;
+		border-radius: @sand-colorpicker-sliders-slider-border-radius;
+		margin: 0 @sand-colorpicker-sliders-slider-margin;
+		height: @sand-colorpicker-sliders-slider-height;
 
 		.focus({
 			.knob {
@@ -39,9 +40,9 @@
 		.knob {
 			&::before {
 				--sand-slider-disabled-knob-bg-color: var(--sand-progress-slider-color);
-				border-radius: 99px;
-				height: 102px;
-				width: 102px;
+				border-radius: @sand-colorpicker-sliders-slider-border-radius;
+				height: @sand-colorpicker-sliders-knob-height;
+				width: @sand-colorpicker-sliders-knob-width;
 			}
 		}
 	}
@@ -52,26 +53,22 @@
 		align-items: center;
 		background-color: #eeeeee;
 		color: rgb(76, 80, 89);
-		border-radius: 12px;
-		margin-left: 30px;
+		border-radius: @sand-colorpicker-sliders-output-text-border-radius;
+		margin-left: @sand-colorpicker-sliders-output-text-margin-left;
 	}
 }
 
 .pickerSelect {
 	margin: 0;
-	height: 129px;
-	width: 402px;
+	height: @sand-colorpicker-sliders-dropdown-height;
+	width: @sand-colorpicker-sliders-dropdown-width;
 
 	[role*=button] {
-		height: 129px;
-		width: 402px;
+		height: @sand-colorpicker-sliders-dropdown-height;
+		width: @sand-colorpicker-sliders-dropdown-width;
 	}
 }
 
 .hexInput {
-	width: 402px;
-
-	input {
-		width: 372px;
-	}
+	width: @sand-colorpicker-sliders-hex-input-width;
 }
