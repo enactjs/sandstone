@@ -22,7 +22,7 @@ import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import {Component, Fragment, createRef} from 'react';
+import {Component, createRef} from 'react';
 
 import {ContextualPopup} from './ContextualPopup';
 import HolePunchScrim from './HolePunchScrim';
@@ -787,7 +787,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						open={open}
 						scrimType={scrimType}
 					>
-						<Fragment>
+						<div>
 							{holepunchScrim ? <HolePunchScrim holeBounds={holeBounds} /> : null}
 							<ContextualPopupContainer
 								{...ariaProps}
@@ -806,7 +806,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							>
 								<PopupComponent {...popupPropsRef} />
 							</ContextualPopupContainer>
-						</Fragment>
+						</div>
 					</FloatingLayer>
 					<WrappedWithRef {...rest} outermostRef={this.clientSiblingRef} referrerName="ContextualPopup" />
 				</div>

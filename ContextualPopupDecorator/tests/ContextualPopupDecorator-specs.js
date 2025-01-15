@@ -499,7 +499,7 @@ describe('ContextualPopupDecorator Specs', () => {
 			</Root>
 		);
 
-		const scrimDivSecond = screen.getByRole('alert').previousElementSibling;
+		const scrimDivSecond = screen.getByRole('alert').parentElement.previousElementSibling;
 		const expectedSecond = 'transparent';
 
 		expect(scrimDivFirst).toHaveClass(expectedFirst);
