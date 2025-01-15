@@ -124,7 +124,7 @@ const EditableWrapper = (props) => {
 		// Last mouse position
 		lastMouseClientX: null,
 
-		// Last InputType which moves Items
+		// Last InputType
 		lastInputType: null,
 
 		// Timer for holding key input
@@ -449,7 +449,6 @@ const EditableWrapper = (props) => {
 			});
 		}
 
-		mutableRef.current.lastInputType = 'key';
 		mutableRef.current.lastInputDirection = is('left', keyCode) ? 'left' : 'right';
 		moveItems(toIndex);
 
@@ -559,11 +558,11 @@ const EditableWrapper = (props) => {
 	const handleMouseMove = useCallback((ev) => {
 		const {clientX} = ev;
 		mutableRef.current.lastMouseClientX = clientX;
+		mutableRef.current.lastInputType = 'mouse';
 
 		if (mutableRef.current.selectedItem && Number(mutableRef.current.selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
-			mutableRef.current.lastInputType = 'mouse';
 			moveItems(toIndex);
 		}
 	}, [getNextIndexFromPosition, moveItems]);
@@ -646,6 +645,8 @@ const EditableWrapper = (props) => {
 		const {focusedItem, selectedItem} = mutableRef.current;
 		const targetItemNode = findItemNode(target);
 
+		mutableRef.current.lastInputType = 'key';
+
 		if (is('enter', keyCode) && target.getAttribute('role') !== 'button') {
 			if (!repeat) {
 				if (selectedItem) {
@@ -678,8 +679,6 @@ const EditableWrapper = (props) => {
 					Spotlight.focus(selectedItem.children[1]);
 				// If keyDown event target is button and next spot target is button, check whether focus leaves the scroll container.
 				} else {
-					// Set lastInputType to 'key' to prevent `handleMoveItemsByScroll` from being executed unexpectedly.
-					mutableRef.current.lastInputType = 'key';
 					// Check if focus leaves scroll container.
 					handleFocusLeaveScrollContainer(ev, nextTarget);
 				}
@@ -721,6 +720,8 @@ const EditableWrapper = (props) => {
 	const handleGlobalKeyDownCapture = useCallback((ev) => {
 		const {focusedItem, selectedItem} = mutableRef.current;
 
+		mutableRef.current.lastInputType = 'key';
+
 		// If the pointer mode is `true` and the focused component is not contained in scrollContainerRef,
 		// only `handleGlobalKeyDownCapture` is called instead of `handleKeyDownCapture`
 		// Below is mainly for handling key pressed while pointer mode is `true`.
@@ -761,6 +762,8 @@ const EditableWrapper = (props) => {
 	}, [completeEditingByKeyDown, finalizeEditing, finalizeOrders, moveItemsByKeyDown, scrollContainerRef, startEditing]);
 
 	const handleTouchMove = useCallback((ev) => {
+		mutableRef.current.lastInputType = 'touch';
+
 		if (mutableRef.current.selectedItem) {
 			// Prevent scrolling by dragging when item is selected
 			ev.preventDefault();
@@ -774,7 +777,6 @@ const EditableWrapper = (props) => {
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
 			if (toIndex !== mutableRef.current.prevToIndex) {
-				mutableRef.current.lastInputType = 'touch';
 				moveItems(toIndex);
 			}
 		}
