@@ -277,6 +277,10 @@ const RangePickerBase = kind({
 		wrap: PropTypes.bool
 	},
 
+	defaultProps: {
+		orientation: 'horizontal'
+	},
+
 	styles: {
 		css: componentCss,
 		className: 'rangePicker',

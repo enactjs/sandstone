@@ -12,9 +12,10 @@
  * @module sandstone/QuickGuidePanels
  * @exports Panel
  * @exports QuickGuidePanels
+ * @exports QuickGuidePanelsBase
  */
 
-import {QuickGuidePanels} from './QuickGuidePanels';
+import {QuickGuidePanels, QuickGuidePanelsBase} from './QuickGuidePanels';
 import {Panel} from './Panel';
 
 /**
@@ -29,5 +30,6 @@ QuickGuidePanels.Panel = Panel;
 export default QuickGuidePanels;
 export {
 	Panel,
-	QuickGuidePanels
+	QuickGuidePanels,
+	QuickGuidePanelsBase
 };

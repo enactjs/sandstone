@@ -10,6 +10,7 @@ import iconNames from '../helper/icons';
 // Button's prop `minWidth` defaults to true, and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean control and return `void 0` when `true`.
 Button.displayName = 'Button';
 const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBase, Button);
+Config.defaultProps.tooltipType = 'balloon';
 
 // Set up some defaults for info and controls
 const prop = {
@@ -22,7 +23,7 @@ const prop = {
 	iconFlip: ['', 'auto', 'both', 'horizontal', 'vertical'],
 	iconPosition: ['', 'before', 'after'],
 	icons: ['', ...iconNames],
-	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
+	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': 'false', 'false (ignore)': 'false'},
 	size: ['', 'small', 'large'],
 	tooltipType: ['', 'balloon', 'transparent']
 };
@@ -76,7 +77,7 @@ boolean('disabled', _Button, Config);
 select('icon', _Button, prop.icons, Config);
 select('iconFlip', _Button, prop.iconFlip, Config);
 select('iconPosition', _Button, prop.iconPosition, Config);
-select('minWidth', _Button, prop.minWidth, Config);
+select('minWidth', _Button, prop.minWidth, Config, '');
 boolean('roundBorder', _Button, Config);
 boolean('selected', _Button, Config);
 boolean('shadowed', _Button, Config);
