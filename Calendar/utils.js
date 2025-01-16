@@ -11,8 +11,8 @@ const createYearList = () => {
 	return years;
 };
 
-const getStartDayOfMonth = (month, year) => {
-	const startDate = new Date(year, month, 1).getDay();
+const getStartDayOfMonth = (firstDayOfWeek, month, year) => {
+	const startDate = new Date(year, month, 1).getDay() + firstDayOfWeek;
 	return startDate === 0 ? 7 : startDate;
 };
 

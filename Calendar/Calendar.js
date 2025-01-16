@@ -9,9 +9,11 @@
  * @private
  */
 
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useState} from 'react';
 
 import BodyText from '../BodyText';
@@ -19,6 +21,7 @@ import Button, {ButtonBase} from '../Button';
 import Dropdown from '../Dropdown';
 import Skinnable from '../Skinnable';
 
+import {CalendarSelectorDecorator} from './CalendarSelectorDecorator';
 import {createYearList, getStartDayOfMonth, isLeapYear, isToday} from './utils';
 
 import componentCss from './Calendar.module.less';
@@ -56,13 +59,14 @@ const defaultDate = new Date();
  * @ui
  * @private
  */
-const CalendarBase = ({css, disabled = false, selectedDate = defaultDate, setSelectedDate}) => {
+const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWeek, ilibData, selectedDate = defaultDate, setSelectedDate, ...rest}) => {
 	const [today, setToday] = useState(selectedDate);
 	const [month, setMonth] = useState(today.getMonth());
 	const [year, setYear] = useState(today.getFullYear());
 
 	const days = isLeapYear(year) ? DAYS_LEAP : DAYS;
-	const startDay = getStartDayOfMonth(month, year);
+	const startDay = getStartDayOfMonth(firstDayOfWeek, month, year);
+	console.log(firstDayOfWeek, month, startDay);
 	const yearIndex = YEARS.indexOf(year.toString());
 
 	useEffect(() => {
@@ -140,24 +144,27 @@ const CalendarBase = ({css, disabled = false, selectedDate = defaultDate, setSel
 			</Row>
 			<Row>
 				<Cell className={componentCss.body}>
-					{DAYS_OF_THE_WEEK.map((d) => (
+					{abbreviatedDayNames.map((d) => (
 						<BodyText className={componentCss.dayName} css={css} key={d}>
 							{d}
 						</BodyText>
 					))}
-					{Array(days[month] + (startDay - 1))
+					{Array(days[month] + (startDay  - 1))
 						.fill(null)
 						.map((_, index) => {
-							const d = index - (startDay - 2);
+							const d = index - (startDay  - 2);
 							return (
 								<div
 									className={componentCss.day}
 									key={index}
 								>
 									<SpottableButton
+										backgroundOpacity="transparent"
 										className={componentCss.dayNumber}
 										css={css}
 										onClick={!disabled && handleDaySelect}
+										minWidth={false}
+										roundBorder={true}
 										style={{border: isToday(today, d, month, year) ? `1px solid white` : '', color: disabled && '#4c5059'}}
 									>
 										{d > 0 ? d : ''}
@@ -216,6 +223,20 @@ CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype *
 };
 
 /**
+ * Applies Sandstone specific behaviors to {@link sandstone/Calendar.CalendarBase|Calendar} components.
+ *
+ * @hoc
+ * @memberof sandstone/Calendar
+ * @mixes sandstone/Skinnable.Skinnable
+ * @private
+ */
+const CalendarDecorator = compose(
+	I18nContextDecorator({localeProp: 'locale'}),
+	CalendarSelectorDecorator,
+	Skinnable
+);
+
+/**
  * A calendar component, ready to use in Sandstone applications.
  *
  * @class Calendar
@@ -224,7 +245,7 @@ CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype *
  * @ui
  * @private
  */
-const Calendar = Skinnable(CalendarBase);
+const Calendar = CalendarDecorator(CalendarBase);
 
 export default Calendar;
 export {
