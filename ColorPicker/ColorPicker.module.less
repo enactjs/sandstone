@@ -23,36 +23,12 @@
 	padding: @sand-colorpicker-padding;
 }
 
-.selectedColorColumn {
-	margin-top: @sand-colorpicker-favoritecolors-margin;
-
-	.selectedColor {
-		border-radius: @sand-colorpicker-favoritecolors-border-radius;
-		border: @sand-colorpicker-favoritecolors-border solid;
-		height: @sand-colorpicker-favoritecolors-height;
-		margin-inline: 0;
-		transition: transform .2s;
-
-		.selectedColorIcon {
-			transition: transform .2s;
-		}
-
-		.focus({
-			box-shadow: 0 0 12px 6px inset;
-
-			.selectedColorIcon {
-				transform: scale(1.2);
-			}
-		});
-	}
-}
-
 .favoriteColorsRow {
 	text-align: center;
 
 	.favoriteColor {
 		border-radius: 50%;
-		border: @sand-colorpicker-favoritecolor-border solid;
+		border: @sand-colorpicker-border-medium solid;
 		transition: transform .2s;
 
 		.deleteButton {
@@ -69,5 +45,30 @@
 	.shakeFavoriteColor {
 		animation: shakeColor 0.2s;
 		animation-iteration-count: infinite;
+	}
+}
+
+.selectedColorContainer {
+	justify-content: center;
+	margin-top: @sand-colorpicker-selectedcolor-margin;
+
+	.selectedColor {
+		border-radius: @sand-colorpicker-selectedcolor-border-radius;
+		border: @sand-colorpicker-border-medium solid;
+		height: @sand-colorpicker-selectedcolor-height;
+		margin-inline: 0;
+		transition: transform .2s;
+
+		.selectedColorIcon {
+			transition: transform .2s;
+		}
+
+		.focus({
+			box-shadow: 0 0 12px 6px inset;
+
+			.selectedColorIcon {
+				transform: scale(1.2);
+			}
+		});
 	}
 }

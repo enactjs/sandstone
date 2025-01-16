@@ -14,7 +14,7 @@
  * @public
  */
 import Spottable from '@enact/spotlight/Spottable';
-import {Cell, Column, Row} from '@enact/ui/Layout';
+import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
@@ -176,7 +176,7 @@ const FavoriteColors = ({disabled, favoriteColors = [], favoriteColorsHandler, s
 					})}
 				</Cell>
 			</Row>
-			<Column align="center" className={componentCss.selectedColorColumn}>
+			<Row className={componentCss.selectedColorContainer}>
 				<SpottableButton
 					className={componentCss.selectedColor}
 					minWidth={false}
@@ -190,7 +190,7 @@ const FavoriteColors = ({disabled, favoriteColors = [], favoriteColorsHandler, s
 				>
 					<Icon className={componentCss.selectedColorIcon} size="large">{editEnabled ? 'check' : 'plus'}</Icon>
 				</SpottableButton>
-			</Column>
+			</Row>
 		</div>
 	);
 };
@@ -365,15 +365,6 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * @public
 	 */
 	colors: PropTypes.array,
-
-	/**
-	 * Customizes the component by mapping the supplied collection of CSS class names to the
-	 * corresponding internal elements and states of this component.
-	 *
-	 * @type {Object}
-	 * @public
-	 */
-	css: PropTypes.object,
 
 	/**
 	 * Applies a disabled style and prevents interacting with the component.
