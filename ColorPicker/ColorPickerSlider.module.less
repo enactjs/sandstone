@@ -1,5 +1,6 @@
 // ColorPickerSlider.module.less
 //
+@import "../styles/colors.less";
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
 
@@ -63,8 +64,8 @@
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				background-color: #eeeeee;
-				color: rgb(76, 80, 89);
+				background-color: @sand-colorpicker-output-bg-color;
+				color: @sand-colorpicker-output-color;
 				border-radius: @sand-colorpicker-output-border-radius;
 				margin-left: @sand-colorpicker-margin-large;
 			}

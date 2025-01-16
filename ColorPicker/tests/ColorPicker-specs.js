@@ -126,7 +126,7 @@ describe('ColorPicker', () => {
 				/>
 			);
 			const favoriteColors = container.querySelectorAll('.favoriteColor'); // eslint-disable-line testing-library/no-container
-			const selectedColor = container.querySelector('.selectedColorColumn'); // eslint-disable-line testing-library/no-container
+			const selectedColor = container.querySelector('.selectedColorContainer'); // eslint-disable-line testing-library/no-container
 
 			expect(favoriteColors[0]).toBeInTheDocument();
 			expect(selectedColor).toBeInTheDocument();
