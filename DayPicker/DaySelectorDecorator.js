@@ -1,11 +1,11 @@
 import {forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
-import {coerceArray, memoize} from '@enact/core/util';
+import {coerceArray, memoize, setDefaultProps} from '@enact/core/util';
 import ilib from '@enact/i18n';
 import DateFmt from 'ilib/lib/DateFmt';
 import LocaleInfo from 'ilib/lib/LocaleInfo';
 import PropTypes from 'prop-types';
-import {Component} from 'react';
+import {useCallback} from 'react';
 
 import $L from '../internal/$L';
 
@@ -190,6 +190,11 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
 	}
 }
 
+const daySelectorDecoratorDefaultProps = {
+	dayNameLength: 'long',
+	disabled: false
+};
+
 /**
  * Applies Sandstone specific behaviors to {@link sandstone/DayPicker.DayPicker|DayPicker}.
  *
@@ -203,113 +208,102 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
  * @private
  */
 const DaySelectorDecorator = hoc((config, Wrapped) => {
-	return class extends Component {
+	const DaySelector = (props) => {
+		const daySelectorDecoratorProps = setDefaultProps(props, daySelectorDecoratorDefaultProps);
+		const {dayNameLength, locale, selected, ...rest} = daySelectorDecoratorProps;
 
-		static displayName = 'DaySelectorDecorator';
+		const state = getLocaleState(dayNameLength, locale);
+		const localSelected = localizeSelected(selected, state);
+		const abbreviatedDayNames = orderDays(state.abbreviatedDayNames, state);
+		const fullDayNames = orderDays(state.fullDayNames, state);
 
-		static propTypes = /** @lends sandstone/DayPicker.DaySelectorDecorator.prototype */ {
-			/**
-			 * The "aria-label" for the selector.
-			 *
-			 * @memberof sandstone/DayPicker.DaySelectorDecorator.prototype
-			 * @type {String}
-			 * @private
-			 */
-			'aria-label': PropTypes.string,
-
-			/**
-			 * The format for names of days.
-			 *
-			 * @type {('short'|'medium'|'long'|'full')}
-			 * @default 'long'
-			 * @public
-			 */
-			dayNameLength: PropTypes.oneOf(['short', 'medium', 'long', 'full']),
-
-			/**
-			 * Applies a disabled style and prevents interacting with the component.
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @public
-			 */
-			disabled: PropTypes.bool,
-
-			/**
-			 * Current locale.
-			 *
-			 * @type {String}
-			 * @public
-			 */
-			locale: PropTypes.string,
-
-			/**
-			 * Called when an day is selected or unselected.
-			 *
-			 * The event payload will be an object with the following members:
-			 * * `selected` - An array of numbers representing the selected days, 0 indexed
-			 * * `content` - Localized string representing the selected days
-			 *
-			 * @type {Function}
-			 * @public
-			 */
-			onSelect: PropTypes.func,
-
-			/**
-			 * An array of numbers (0-indexed) representing the selected days of the week.
-			 *
-			 * @type {Number|Number[]}
-			 * @public
-			 */
-			selected: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
-		};
-
-		static defaultProps = {
-			dayNameLength: 'long',
-			disabled: false
-		};
-
-		handleSelect = ({selected}) => {
-			const {dayNameLength, locale} = this.props;
-			const state = getLocaleState(dayNameLength, locale);
-
+		const handleSelect = useCallback(({selected: selectedDay}) => {
 			// adjust the selected value beforehand so getSelectedDayString always operates on the
 			// standard, "Sunday as index 0" format
-			selected = generalizeSelected(selected, state);
-			const content = getSelectedDayString(selected, '', dayNameLength);
+			const generalSelected = generalizeSelected(selectedDay, state);
+			const content = getSelectedDayString(generalSelected, '', dayNameLength);
 
-			forwardCustom('onSelect', () => ({selected, content}))(null, this.props);
-		};
+			forwardCustom('onSelect', () => ({selected: generalSelected, content}))(null, daySelectorDecoratorProps);
+		}, [dayNameLength, daySelectorDecoratorProps, state]);
 
-		render () {
-			const {dayNameLength, locale, selected, ...rest} = this.props;
-			const state = getLocaleState(dayNameLength, locale);
-
-			const localSelected = localizeSelected(selected, state);
-			const abbreviatedDayNames = orderDays(state.abbreviatedDayNames, state);
-			const fullDayNames = orderDays(state.fullDayNames, state);
-
-			delete rest.everyDayText;
-			delete rest.everyWeekdayText;
-			delete rest.everyWeekendText;
-			delete rest.selected;
-
-			return (
-				<Wrapped
-					{...rest}
-					onSelect={this.handleSelect}
-					selected={localSelected}
-				>
-					{abbreviatedDayNames.map((children, index) => ({
-						children,
-						// "short" dayNameLength can result in the same name so adding index
-						key: `${index} ${children}`,
-						'aria-label': fullDayNames[index]
-					}))}
-				</Wrapped>
-			);
-		}
+		return (
+			<Wrapped
+				{...rest}
+				onSelect={handleSelect}
+				selected={localSelected}
+			>
+				{abbreviatedDayNames.map((children, index) => ({
+					children,
+					// "short" dayNameLength can result in the same name so adding index
+					key: `${index} ${children}`,
+					'aria-label': fullDayNames[index]
+				}))}
+			</Wrapped>
+		);
 	};
+
+	DaySelector.displayName = 'DaySelectorDecorator';
+
+	DaySelector.propTypes = /** @lends sandstone/DayPicker.DaySelectorDecorator.prototype */ {
+		/**
+		 * The "aria-label" for the selector.
+		 *
+		 * @memberof sandstone/DayPicker.DaySelectorDecorator.prototype
+		 * @type {String}
+		 * @private
+		 */
+		'aria-label': PropTypes.string,
+
+		/**
+		 * The format for names of days.
+		 *
+		 * @type {('short'|'medium'|'long'|'full')}
+		 * @default 'long'
+		 * @public
+		 */
+		dayNameLength: PropTypes.oneOf(['short', 'medium', 'long', 'full']),
+
+		/**
+		 * Applies a disabled style and prevents interacting with the component.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
+		 * Current locale.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		locale: PropTypes.string,
+
+		/**
+		 * Called when a day is selected or unselected.
+		 *
+		 * The event payload will be an object with the following members:
+		 * * `selected` - An array of numbers representing the selected days, 0 indexed
+		 * * `content` - Localized string representing the selected days
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onSelect: PropTypes.func,
+
+		/**
+		 * An array of numbers (0-indexed) representing the selected days of the week.
+		 *
+		 * @type {Number|Number[]}
+		 * @public
+		 */
+		selected: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
+	};
+
+	DaySelector.defaultPropValues = daySelectorDecoratorDefaultProps;
+
+	return DaySelector;
 });
 
 export default DaySelectorDecorator;

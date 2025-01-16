@@ -74,6 +74,10 @@
 		}
 	});
 
+	:global(.noAnimation) & {
+		transition: none;
+	}
+
 	// Skin colors
 	.applySkins({
 		&.bordered .content {
@@ -89,7 +93,7 @@
 		}
 
 		.disabled ({
-			.vendor-opacity(@sand-iconitem-disabled-opacity);
+			opacity: @sand-iconitem-disabled-opacity;
 		});
 
 		.sand-focus-highlight(content);

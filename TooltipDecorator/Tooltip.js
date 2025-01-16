@@ -85,7 +85,7 @@ const TooltipBase = kind({
 		 * other. This prop accepts a value between -0.5 and 0.5 (representing 50% to the left or
 		 * right). This defaults to 0 offset (centered). It also automatically caps the value so it
 		 * never positions the tooltip label past the anchored arrow. If the tooltip label or arrow
-		 * has non-rectangular geometry (rounded corners, a wide tail, etc), you'll need to manually
+		 * has non-rectangular geometry (rounded corners, a wide tail, etc.), you'll need to manually
 		 * account for that in your provided offset value.
 		 *
 		 * @type {Number}
@@ -97,7 +97,7 @@ const TooltipBase = kind({
 		/**
 		 * Allows the tooltip to marquee.
 		 *
-		 * Specifying a {@link sandstone/TooltipDecorator.TooltipBase.width|width} restrects
+		 * Specifying a {@link sandstone/TooltipDecorator.TooltipBase.width|width} restricts
 		 * the marquee to that size.
 		 *
 		 * @type {Boolean}
