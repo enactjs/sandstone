@@ -207,7 +207,7 @@ CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype *
 	selectedDate: PropTypes.instanceOf(Date),
 
 	/**
-	 * Setter function for the today prop.
+	 * Setter function for the `selectedDate` prop.
 	 *
 	 * @type {Function}
 	 * @private
