@@ -1,8 +1,7 @@
 import Calendar, {CalendarBase} from '@enact/sandstone/Calendar';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean} from '@enact/storybook-utils/addons/controls';
-import {useEffect, useState} from "react";
+import {boolean} from '@enact/storybook-utils/addons/controls';;
 
 Calendar.displayName = 'Calendar';
 const Config = mergeComponentMetadata('Calendar', CalendarBase, Calendar);
@@ -13,7 +12,7 @@ export default {
 };
 
 export const _Calendar = (args) => {
-return (
+	return (
 		<Calendar
 			disabled={args['disabled']}
 			setSelectedDate={action('setSelectedDate')}
