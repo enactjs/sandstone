@@ -310,8 +310,6 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 			return (
 				<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
 			);
-		} else {
-			return <div>Loading</div>;
 		}
 	};
 
