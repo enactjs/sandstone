@@ -12,7 +12,15 @@ const createYearList = () => {
 };
 
 const getStartDayOfMonth = (firstDayOfWeek, month, year) => {
-	const startDate = new Date(year, month, 1).getDay() + firstDayOfWeek;
+	let startDate;
+	if (firstDayOfWeek === 0) {
+		startDate = new Date(year, month, 1).getDay() + 1;
+	} else if (firstDayOfWeek === 1) {
+		startDate = new Date(year, month, 1).getDay();
+	} else { // for locales where first day of week is Saturday
+		startDate = new Date(year, month, 1).getDay() + 2;
+	}
+
 	return startDate === 0 ? 7 : startDate;
 };
 

@@ -30,7 +30,6 @@ const SpottableButton = Spottable(ButtonBase);
 
 const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const DAYS_OF_THE_WEEK = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 const MONTHS = [
 	'January',
 	'February',
@@ -157,7 +156,7 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 								<div
 									className={componentCss.day}
 									key={index}
-								>
+								> { d > 0 ?
 									<SpottableButton
 										backgroundOpacity="transparent"
 										className={componentCss.dayNumber}
@@ -167,8 +166,10 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 										roundBorder={true}
 										style={{border: isToday(today, d, month, year) ? `1px solid white` : '', color: disabled && '#4c5059'}}
 									>
-										{d > 0 ? d : ''}
-									</SpottableButton>
+										{d}
+									</SpottableButton> :
+									<></>
+								}
 								</div>
 							);
 						})}
