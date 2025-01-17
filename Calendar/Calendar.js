@@ -148,22 +148,19 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 							{d}
 						</BodyText>
 					))}
-					{Array(days[month] + (startDay  - 1))
+					{Array(days[month] + (startDay - 1))
 						.fill(null)
 						.map((_, index) => {
-							const d = index - (startDay  - 2);
+							const d = index - (startDay - 2);
 							return (
 								<div
 									className={componentCss.day}
 									key={index}
 								> { d > 0 ?
 									<SpottableButton
-										backgroundOpacity="transparent"
 										className={componentCss.dayNumber}
 										css={css}
 										onClick={!disabled && handleDaySelect}
-										minWidth={false}
-										roundBorder={true}
 										style={{border: isToday(today, d, month, year) ? `1px solid white` : '', color: disabled && '#4c5059'}}
 									>
 										{d}
