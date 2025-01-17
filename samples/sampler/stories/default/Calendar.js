@@ -1,6 +1,7 @@
 import Calendar, {CalendarBase} from '@enact/sandstone/Calendar';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, select} from '@enact/storybook-utils/addons/controls';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean} from '@enact/storybook-utils/addons/controls';
 import {useEffect, useState} from "react";
 
 Calendar.displayName = 'Calendar';
@@ -11,41 +12,16 @@ export default {
 	component: 'Calendar'
 };
 
-const days = [6, 12, 15, 20, 22, 28];
-const months = [
-	'January',
-	'February',
-	'March',
-	'April',
-	'May',
-	'June',
-	'July',
-	'August',
-	'September',
-	'October',
-	'November',
-	'December'
-];
-const years = [2021, 2022, 2023, 2024, 2025, 2026];
-
 export const _Calendar = (args) => {
-	const [day, setDay] = useState(new Date(args['year'], months.indexOf(args['month']), args['day']));
-
-	useEffect(() => setDay(new Date(args['year'], months.indexOf(args['month']), args['day'])), [args]);
-
-	return (
+return (
 		<Calendar
 			disabled={args['disabled']}
-			selectedDate={day}
-			setSelectedDate={setDay}
+			setSelectedDate={action('setSelectedDate')}
 		/>
 	);
 };
 
 boolean('disabled', _Calendar, Config);
-select('day', _Calendar, days, Config, 6);
-select('month', _Calendar, months, Config, 'February');
-select('year', _Calendar, years, Config, 2025);
 
 _Calendar.storyName = 'Calendar';
 _Calendar.parameters = {
