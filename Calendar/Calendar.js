@@ -22,7 +22,7 @@ import Dropdown from '../Dropdown';
 import Skinnable from '../Skinnable';
 
 import {CalendarSelectorDecorator} from './CalendarSelectorDecorator';
-import {createYearList, getStartDayOfMonth, isLeapYear, isToday} from './utils';
+import {createYearList, getStartDayOfMonth, isLeapYear, isToday, toLocalYear} from './utils';
 
 import componentCss from './Calendar.module.less';
 
@@ -30,21 +30,10 @@ const SpottableButton = Spottable(ButtonBase);
 
 const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const MONTHS = [
-	'January',
-	'February',
-	'March',
-	'April',
-	'May',
-	'June',
-	'July',
-	'August',
-	'September',
-	'October',
-	'November',
-	'December'
-];
-const YEARS = createYearList();
+const YEARS = createYearList().map(year => {
+	console.log(year, toLocalYear(year));
+	return toLocalYear(year).toString()
+});
 const defaultDate = new Date();
 
 /**

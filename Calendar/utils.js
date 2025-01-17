@@ -1,11 +1,13 @@
 // Calendar utils.js
 //
 
+import DateFactory from 'ilib/lib/DateFactory';
+
 const createYearList = () => {
 	let years = [];
 	let startingPoint = 1900;
 	while (years.length < 200) {
-		years = [...years, startingPoint.toString()];
+		years = [...years, startingPoint];
 		startingPoint++;
 	}
 	return years;
@@ -32,9 +34,41 @@ const isToday = (today, day, month, year) => {
 	return (today.getDate() === day && today.getMonth() === month && today.getFullYear() === year);
 };
 
+/*
+ * Converts a gregorian year to local year
+ *
+ * @param	{Number}	year	gregorian year
+ *
+ * @returns	{Number}		local year
+ */
+const toLocalYear = (year) => {
+	console.log(DateFactory({
+		julianday: DateFactory({
+			year,
+			type: 'gregorian',
+			month: 1,
+			day: 1,
+			timezone: 'local'
+		}).getJulianDay(),
+		timezone: 'local'
+	}).getYears())
+	return DateFactory({
+		julianday: DateFactory({
+			year,
+			type: 'gregorian',
+			month: 1,
+			day: 1,
+			timezone: 'local'
+		}).getJulianDay(),
+		timezone: 'local'
+	}).getYears();
+};
+
+
 export {
 	createYearList,
 	getStartDayOfMonth,
 	isLeapYear,
-	isToday
+	isToday,
+	toLocalYear
 };
