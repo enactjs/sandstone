@@ -132,11 +132,11 @@ const generateOppositeColor = (hexColor) => {
  * @returns {{h: number, s: number, l: number}}	HSL values
  * @private
  */
-const hexToHSL = (hexColor) => {
+const hexToHSL = (hexColor = '#000000') => {
 	// Convert hex to RGB first
-	const r = parseInt(hexColor?.slice(1, 3), 16) / 255;
-	const g = parseInt(hexColor?.slice(3, 5), 16) / 255;
-	const b = parseInt(hexColor?.slice(5), 16) / 255;
+	const r = parseInt(hexColor.slice(1, 3), 16) / 255;
+	const g = parseInt(hexColor.slice(3, 5), 16) / 255;
+	const b = parseInt(hexColor.slice(5), 16) / 255;
 
 	// Calculate cmin, cmax, and delta
 	const cmin = Math.min(r, g, b);
@@ -182,8 +182,8 @@ const hexToHSL = (hexColor) => {
  * @returns {{red: number, green: number, blue: number}} RGB values
  * @private
  */
-const hexToRGB = (hexColor) => {
-	let internalColor = hexColor ? hexColor.replace('#', '').split('') : '000000';
+const hexToRGB = (hexColor = '000000') => {
+	let internalColor = hexColor.replace('#', '').split('');
 
 	return {
 		red: parseInt(internalColor[0] + internalColor[1], 16),
