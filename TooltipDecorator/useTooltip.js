@@ -139,9 +139,8 @@ const useTooltip = (props) => {
 			if (clientRef.current && !clientRef.current.contains(ev.relatedTarget)) {
 				hideTooltip();
 			}
-			showTooltip(ev.currentTarget);
 		}
-	}, [hideTooltip, props, showTooltip]);
+	}, [hideTooltip, props]);
 
 	const onFocus = useCallback((ev) => {
 		forward('onFocus', ev, props);
