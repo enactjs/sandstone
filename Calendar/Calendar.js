@@ -58,7 +58,7 @@ const defaultDate = new Date();
  * @ui
  * @private
  */
-const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWeek, ilibData, selectedDate = defaultDate, setSelectedDate, ...rest}) => {
+const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWeek, ilibData, monthsOfYear, selectedDate = defaultDate, setSelectedDate, ...rest}) => {
 	const [today, setToday] = useState(selectedDate);
 	const [month, setMonth] = useState(today.getMonth());
 	const [year, setYear] = useState(today.getFullYear());
@@ -112,7 +112,7 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 						style={{margin: 0}}
 						width="small"
 					>
-						{MONTHS}
+						{monthsOfYear}
 					</Dropdown>
 					<Dropdown
 						disabled={disabled}

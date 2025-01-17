@@ -15,6 +15,9 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 	const sdf = new DateFmt({length: dayNameLength});
 	const li = new LocaleInfo(ilib.getLocale());
 	const daysOfWeek = df.getDaysOfWeek();
+	const monthsOfYear = df.getMonthsOfYear()
+	monthsOfYear.shift(); // ilib returns an array with an undefined value at index 0;
+	console.log(df.getDateComponents());
 	const days = sdf.getDaysOfWeek();
 	const firstDayOfWeek = li.getFirstDayOfWeek();
 
@@ -22,6 +25,7 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 		abbreviatedDayNames: days,
 		firstDayOfWeek,
 		fullDayNames: daysOfWeek,
+		monthsOfYear
 	};
 
 	return state;
@@ -44,6 +48,7 @@ function getLocaleState (dayNameLength, locale) {
 			abbreviatedDayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 			firstDayOfWeek: 0,
 			fullDayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+			monthsOfYear: [undefined, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 		};
 	}
 
@@ -82,6 +87,7 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 				abbreviatedDayNames={abbreviatedDayNames}
 				firstDayOfWeek={state.firstDayOfWeek}
 				ilibData={state}
+				monthsOfYear={state.monthsOfYear}
 				//onSelect={handleSelect}
 			/>
 		);
