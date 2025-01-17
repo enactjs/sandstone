@@ -276,7 +276,7 @@ const ColorPickerSliderHSL = ({disabled, selectedColor, selectedColorHandler, ..
 			<Cell>
 				<Cell>
 					<Cell className={componentCss.labelText}>Hue</Cell>
-					<Row>
+					<Row className={componentCss.sliderRow}>
 						<Cell
 							className={componentCss.sliderCell}
 							size="70%"
@@ -307,7 +307,7 @@ const ColorPickerSliderHSL = ({disabled, selectedColor, selectedColorHandler, ..
 				</Cell>
 				<Cell>
 					<Cell className={componentCss.labelText}>Saturation</Cell>
-					<Row>
+					<Row className={componentCss.sliderRow}>
 						<Cell
 							className={componentCss.sliderCell}
 							size="70%"
@@ -338,7 +338,7 @@ const ColorPickerSliderHSL = ({disabled, selectedColor, selectedColorHandler, ..
 				</Cell>
 				<Cell>
 					<Cell className={componentCss.labelText}>Lightness</Cell>
-					<Row>
+					<Row className={componentCss.sliderRow}>
 						<Cell
 							className={componentCss.sliderCell}
 							size="70%"

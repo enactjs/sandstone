@@ -112,7 +112,7 @@ const getHexColorFromGradient = (canvasRef, x, y) => {
  * @private
  */
 const generateOppositeColor = (hexColor) => {
-	hexColor = hexColor !== undefined ? hexColor.replace('#', '') : '000000';
+	hexColor = hexColor.replace('#', '');
 
 	const bigint = parseInt(hexColor, 16);
 	const r = (bigint >> 16) & 255;
@@ -134,9 +134,9 @@ const generateOppositeColor = (hexColor) => {
  */
 const hexToHSL = (hexColor) => {
 	// Convert hex to RGB first
-	const r = parseInt(hexColor.slice(1, 3), 16) / 255;
-	const g = parseInt(hexColor.slice(3, 5), 16) / 255;
-	const b = parseInt(hexColor.slice(5), 16) / 255;
+	const r = parseInt(hexColor?.slice(1, 3), 16) / 255;
+	const g = parseInt(hexColor?.slice(3, 5), 16) / 255;
+	const b = parseInt(hexColor?.slice(5), 16) / 255;
 
 	// Calculate cmin, cmax, and delta
 	const cmin = Math.min(r, g, b);
@@ -183,7 +183,7 @@ const hexToHSL = (hexColor) => {
  * @private
  */
 const hexToRGB = (hexColor) => {
-	let internalColor = hexColor.replace('#', '').split('');
+	let internalColor = hexColor ? hexColor.replace('#', '').split('') : '000000';
 
 	return {
 		red: parseInt(internalColor[0] + internalColor[1], 16),
