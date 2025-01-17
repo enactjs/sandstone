@@ -440,6 +440,7 @@ const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, type 
 			setDropdownValue(1);
 		}
 	}, [setDropdownValue, setPickerType]);
+	const inputValue = selectedColor ? selectedColor.toUpperCase() : '#000000'
 
 	return (
 		<Cell {...props} className={componentCss.sliderPickerContainer}>
@@ -467,7 +468,7 @@ const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, type 
 						onBlur={handleBlur}
 						onChange={handleInputChange}
 						spotlightDisabled={disabled}
-						value={selectedColor.toUpperCase()}
+						value={inputValue}
 					/>
 				</Cell>
 			</Row>

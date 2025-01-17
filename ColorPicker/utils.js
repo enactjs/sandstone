@@ -112,7 +112,7 @@ const getHexColorFromGradient = (canvasRef, x, y) => {
  * @private
  */
 const generateOppositeColor = (hexColor) => {
-	hexColor = hexColor.replace('#', '');
+	hexColor = hexColor !== undefined ? hexColor.replace('#', '') : '000000';
 
 	const bigint = parseInt(hexColor, 16);
 	const r = (bigint >> 16) & 255;
