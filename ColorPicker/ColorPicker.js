@@ -14,8 +14,7 @@
  * @public
  */
 import Spottable from '@enact/spotlight/Spottable';
-import {Cell, Column, Row} from '@enact/ui/Layout';
-import ri from '@enact/ui/resolution';
+import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
@@ -23,7 +22,7 @@ import {ButtonBase} from '../Button';
 import Icon from '../Icon';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
-import TabLayout, {Tab} from '../TabLayout';
+import TabGroup from '../TabLayout/TabGroup';
 
 import ColorPickerGrid from './ColorPickerGrid';
 import ColorPickerSlider from './ColorPickerSlider';
@@ -145,7 +144,7 @@ const FavoriteColors = ({disabled, favoriteColors = [], favoriteColorsHandler, s
 									color: generateOppositeColor(color)
 								}}
 							>
-								{editEnabled && <Icon className={componentCss.deleteButton} size={'tiny'}>trash</Icon>}
+								{editEnabled && <Icon className={componentCss.deleteButton} size="tiny">trash</Icon>}
 							</SpottableButton>
 						);
 					})}
@@ -171,13 +170,13 @@ const FavoriteColors = ({disabled, favoriteColors = [], favoriteColorsHandler, s
 									color: generateOppositeColor(color)
 								}}
 							>
-								{editEnabled && <Icon className={componentCss.deleteButton} size={'tiny'}>trash</Icon>}
+								{editEnabled && <Icon className={componentCss.deleteButton} size="tiny">trash</Icon>}
 							</SpottableButton>
 						);
 					})}
 				</Cell>
 			</Row>
-			<Column align="center" className={componentCss.selectedColorColumn}>
+			<Row className={componentCss.selectedColorContainer}>
 				<SpottableButton
 					className={componentCss.selectedColor}
 					minWidth={false}
@@ -191,7 +190,7 @@ const FavoriteColors = ({disabled, favoriteColors = [], favoriteColorsHandler, s
 				>
 					<Icon className={componentCss.selectedColorIcon} size="large">{editEnabled ? 'check' : 'plus'}</Icon>
 				</SpottableButton>
-			</Column>
+			</Row>
 		</div>
 	);
 };
@@ -252,7 +251,7 @@ FavoriteColors.propTypes = {
  * @ui
  * @public
  */
-const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], css, disabled, onChangeColor, open, type = 'grid', ...rest}) => {
+const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], disabled, onChangeColor, open, type = 'grid', ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
 	const [selectedColor, setSelectedColor] = useState(color);
 	const [tabLayoutIndex, setTabLayoutIndex] = useState(0);
@@ -298,38 +297,50 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 		setTabLayoutIndex(2);
 	}, [disabled, setTabLayoutIndex]);
 
+	const renderContent = () => {
+		if (tabLayoutIndex === 0) {
+			return (
+				<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
+			);
+		} else if (tabLayoutIndex === 1) {
+			return (
+				<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+			);
+		} else if (tabLayoutIndex === 2) {
+			return (
+				<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+			);
+		} else {
+			return <div>Loading</div>;
+		}
+	};
+
 	return (
 		<Popup disabled={disabled} open={open} position="center" {...rest}>
 			<Row>
 				<Cell size="75%">
-					<TabLayout className={componentCss.pickerTabLayout} css={css} index={tabLayoutIndex} orientation="horizontal">
-						<Tab onTabClick={handleGridClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Grid">
-							<div className={componentCss.colorPicker}>
-								<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
-							</div>
-						</Tab>
-						<Tab onTabClick={handleSpectrumClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Spectrum">
-							<div className={componentCss.colorPicker}>
-								<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
-							</div>
-						</Tab>
-						<Tab onTabClick={handleSlidersClick} spotlightDisabled={disabled} style={{width: ri.scaleToRem(400)}} title="Sliders">
-							<div className={componentCss.colorPicker}>
-								<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
-							</div>
-						</Tab>
-					</TabLayout>
+					<TabGroup
+						className={componentCss.pickerTabGroup}
+						tabs={[
+							{title: 'Grid', onTabClick: handleGridClick},
+							{title: 'Spectrum', onTabClick: handleSpectrumClick},
+							{title: 'Sliders', onTabClick: handleSlidersClick}
+						]}
+						orientation="horizontal"
+						tabSize={400}
+					/>
+					<div className={componentCss.colorPicker}>
+						{renderContent()}
+					</div>
 				</Cell>
 				<Cell align="end" size="25%">
-					<Column>
-						<FavoriteColors
-							disabled={disabled}
-							favoriteColors={favoriteColors}
-							favoriteColorsHandler={setFavoriteColors}
-							selectedColor={selectedColor}
-							selectedColorHandler={setSelectedColor}
-						/>
-					</Column>
+					<FavoriteColors
+						disabled={disabled}
+						favoriteColors={favoriteColors}
+						favoriteColorsHandler={setFavoriteColors}
+						selectedColor={selectedColor}
+						selectedColorHandler={setSelectedColor}
+					/>
 				</Cell>
 			</Row>
 		</Popup>
@@ -354,15 +365,6 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * @public
 	 */
 	colors: PropTypes.array,
-
-	/**
-	 * Customizes the component by mapping the supplied collection of CSS class names to the
-	 * corresponding internal elements and states of this component.
-	 *
-	 * @type {Object}
-	 * @public
-	 */
-	css: PropTypes.object,
 
 	/**
 	 * Applies a disabled style and prevents interacting with the component.

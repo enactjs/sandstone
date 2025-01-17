@@ -9,20 +9,20 @@
 
 	.gradientCanvas {
 		height: 100%;
-		touch-action: none;
 		width: 100%;
+		touch-action: none;
 	}
-}
 
-.circleIndicator {
-	border: 3px solid #808080;
-	height: 48px;
-	border-radius: 99px;
-	pointer-events: none;
-	position: absolute;
-	width: 48px;
+	.circleIndicator {
+		position: absolute;
+		width: @sand-colorpicker-spectrum-circleindicator-size;
+		height: @sand-colorpicker-spectrum-circleindicator-size;
+		border: @sand-colorpicker-border-small solid @sand-colorpicker-spectrum-circleindicator-color;
+		border-radius: @sand-colorpicker-circle-border-radius;
+		pointer-events: none;
 
-	.focus({
-		border: 6px solid #000;
-	})
+		.focus({
+			border: @sand-colorpicker-border-medium solid @sand-colorpicker-spectrum-circleindicator-focus-color;
+		})
+	}
 }

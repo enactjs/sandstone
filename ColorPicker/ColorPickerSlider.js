@@ -115,7 +115,7 @@ const ColorPickerSliderRGB = ({disabled, selectedColor, selectedColorHandler, ..
 		<Layout {...props} className={componentCss.slidersContainer}>
 			<Cell>
 				<Cell className={componentCss.labelText}>Red</Cell>
-				<Row>
+				<Row className={componentCss.sliderRow}>
 					<Cell
 						className={componentCss.sliderCell}
 						size="70%"
@@ -144,7 +144,7 @@ const ColorPickerSliderRGB = ({disabled, selectedColor, selectedColorHandler, ..
 					<Cell className={componentCss.outputText} size="20%">{localRed}</Cell>
 				</Row>
 				<Cell className={componentCss.labelText}>Green</Cell>
-				<Row>
+				<Row className={componentCss.sliderRow}>
 					<Cell
 						className={componentCss.sliderCell}
 						size="70%"
@@ -173,7 +173,7 @@ const ColorPickerSliderRGB = ({disabled, selectedColor, selectedColorHandler, ..
 					<Cell className={componentCss.outputText} size="20%">{localGreen}</Cell>
 				</Row>
 				<Cell className={componentCss.labelText}>Blue</Cell>
-				<Row>
+				<Row className={componentCss.sliderRow}>
 					<Cell
 						className={componentCss.sliderCell}
 						size="70%"
@@ -443,7 +443,7 @@ const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, type 
 
 	return (
 		<Cell {...props} className={componentCss.sliderPickerContainer}>
-			<Row className={componentCss.containerRow}>
+			<Row>
 				<Cell size="60%">
 					<Dropdown
 						className={componentCss.pickerSelect}
@@ -453,6 +453,7 @@ const ColorPickerSlider = ({disabled, selectedColor, selectedColorHandler, type 
 						selected={dropdownValue}
 						size="small"
 						spotlightDisabled={disabled}
+						width="tiny"
 					>
 						{['RGB', 'HSL']}
 					</Dropdown>

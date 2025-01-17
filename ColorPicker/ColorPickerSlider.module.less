@@ -1,77 +1,74 @@
 // ColorPickerSlider.module.less
 //
+@import "../styles/colors.less";
 @import "../styles/mixins.less";
+@import "../styles/variables.less";
 
 .sliderPickerContainer {
-	margin-top: -63px;
+	.pickerSelect {
+		margin: 0;
+		height: @sand-colorpicker-dropdown-height;
+		width: @sand-colorpicker-input-width;
 
-	.containerRow {
-		padding-bottom: 30px;
-	}
-}
-
-.slidersContainer {
-	padding: 0 30px;
-
-	.labelText {
-		font-size: 42px;
-		margin: 9px 0;
-	}
-
-	.sliderCell {
-		border-radius: 99px;
-	}
-
-	.slider {
-		--sand-progress-bg-color-opacity: 0;
-		border-radius: 99px;
-		height: 33px;
-		margin: 0 18px;
-
-		.focus({
-			.knob {
-				transform: scale(1.1);
-
-				&::before {
-					background-color: transparent;
-				}
-			}
-		});
-
-		.knob {
-			&::before {
-				--sand-slider-disabled-knob-bg-color: transparent;
-				border-radius: 99px;
-				height: 102px;
-				width: 102px;
-			}
+		[role*=button] {
+			height: @sand-colorpicker-dropdown-height;
 		}
 	}
 
-	.outputText {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: #eeeeee;
-		color: rgb(76, 80, 89);
-		border-radius: 12px;
-		margin-left: 30px;
+	.hexInput {
+		width: @sand-colorpicker-input-width;
 	}
-}
 
-.pickerSelect {
-	margin: 0;
-	height: 129px;
+	.slidersContainer {
+		margin: @sand-colorpicker-margin-medium 0 0 @sand-colorpicker-margin-large;
 
-	[role*=button] {
-		height: 129px;
-	}
-}
+		.labelText {
+			font-size: @sand-colorpicker-slider-label-font-size;
+			margin: @sand-colorpicker-margin-small 0;
+		}
 
-.hexInput {
-	width: 402px;
+		.sliderRow {
+			justify-content: space-between;
 
-	input {
-		width: 372px;
+			.sliderCell {
+				border-radius: @sand-colorpicker-circle-border-radius;
+			}
+
+			.slider {
+				--sand-progress-bg-color-opacity: 0;
+				border-radius: @sand-colorpicker-circle-border-radius;
+				margin: 0 @sand-colorpicker-margin-medium;
+				height: @sand-colorpicker-slider-height;
+
+				.focus({
+					.knob {
+						transform: scale(1.1);
+
+						&::before {
+							background-color: var(--sand-progress-slider-color);
+						}
+					}
+				});
+
+				.knob {
+					&::before {
+						--sand-slider-disabled-knob-bg-color: var(--sand-progress-slider-color);
+						border-radius: @sand-colorpicker-circle-border-radius;
+						height: @sand-colorpicker-slider-knob-size;
+						width: @sand-colorpicker-slider-knob-size;
+					}
+				}
+			}
+
+			.outputText {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: @sand-colorpicker-output-bg-color;
+				color: @sand-colorpicker-output-color;
+				border-radius: @sand-colorpicker-output-border-radius;
+				margin-left: @sand-colorpicker-margin-large;
+			}
+		}
 	}
 }

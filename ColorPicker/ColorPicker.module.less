@@ -1,6 +1,7 @@
 // ColorPicker.module.less
 //
 @import "../styles/mixins.less";
+@import "../styles/variables.less";
 
 @keyframes shakeColor {
 	0% { transform: translateX(0) }
@@ -10,47 +11,16 @@
 	100% { transform: translateX(0) }
 }
 
-.pickerTabLayout {
-	align-items: center;
-	overflow: hidden;
-
-	> :first-child {
-		max-width: 100%; /* Fallback */
-		max-width: -webkit-fill-available; /* WebKit-specific */
-		max-width: stretch; /* Modern standard, for other browsers */
-	}
+.pickerTabGroup {
+	min-width: @sand-colorpicker-tabgroup-width;
+	padding-bottom: @sand-colorpicker-padding;
 }
 
 .colorPicker {
 	display: flex;
-	height: 702px;
+	height: @sand-colorpicker-height;
 	justify-content: center;
-	min-width: 800px;
-	padding: 0 21px;
-}
-
-.selectedColorColumn {
-	margin-top: 15px;
-
-	.selectedColor {
-		border-radius: 24px;
-		border: 9px solid;
-		height: 240px;
-		margin-inline: 0;
-		transition: transform .2s;
-
-		.selectedColorIcon {
-			transition: transform .2s;
-		}
-
-		.focus({
-			box-shadow: 0 0 12px 6px inset;
-
-			.selectedColorIcon {
-				transform: scale(1.2);
-			}
-		});
-	}
+	padding: @sand-colorpicker-padding;
 }
 
 .favoriteColorsRow {
@@ -58,7 +28,7 @@
 
 	.favoriteColor {
 		border-radius: 50%;
-		border: 6px solid;
+		border: @sand-colorpicker-border-medium solid;
 		transition: transform .2s;
 
 		.deleteButton {
@@ -75,5 +45,30 @@
 	.shakeFavoriteColor {
 		animation: shakeColor 0.2s;
 		animation-iteration-count: infinite;
+	}
+}
+
+.selectedColorContainer {
+	justify-content: center;
+	margin-top: @sand-colorpicker-selectedcolor-margin;
+
+	.selectedColor {
+		border-radius: @sand-colorpicker-selectedcolor-border-radius;
+		border: @sand-colorpicker-border-medium solid;
+		height: @sand-colorpicker-selectedcolor-height;
+		margin-inline: 0;
+		transition: transform .2s;
+
+		.selectedColorIcon {
+			transition: transform .2s;
+		}
+
+		.focus({
+			box-shadow: 0 0 12px 6px inset;
+
+			.selectedColorIcon {
+				transform: scale(1.2);
+			}
+		});
 	}
 }

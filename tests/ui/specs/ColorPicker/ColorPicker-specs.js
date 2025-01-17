@@ -8,10 +8,6 @@ describe('ColorPicker', function () {
 	const colorPicker = Page.components.colorPicker;
 
 	describe('ColorPicker Grid', function () {
-		it('should focus Grid tab', async function () {
-			expect(await (await colorPicker.tabItems())[0].isFocused()).toBe(true);
-		});
-
 		describe('5-way', function () {
 			it('should change selectedColor with 5-way keys', async function () {
 				// read background color of forth color block form first colors column
@@ -52,10 +48,6 @@ describe('ColorPicker', function () {
 			await browser.pause(500);
 		});
 
-		it('should focus Spectrum tab on 5-way Right', async function () {
-			expect(await (await colorPicker.tabItems())[1].isFocused()).toBe(true);
-		});
-
 		describe('5-way', function () {
 			it('should change selected color with 5-way keys', async function () {
 				await Page.spotlightDown();
@@ -63,9 +55,10 @@ describe('ColorPicker', function () {
 				for (let i = 0; i < 20; i++) {
 					await Page.spotlightDown();
 				}
-				for (let i = 0; i < 17; i++) {
+				for (let i = 0; i < 19; i++) {
 					await Page.spotlightRight();
 				}
+				await browser.pause(500);
 
 				const spectrumIndicatorStyle = await colorPicker.spectrumIndicator.getAttribute('style');
 				const spectrumIndicator = String(spectrumIndicatorStyle.split(';').filter(attr => attr.includes('background-color'))).trim();
@@ -78,7 +71,7 @@ describe('ColorPicker', function () {
 
 		describe('pointer', function () {
 			it('should change color when clicking on the canvas', async function () {
-				await (await colorPicker.tabItems())[1].click();
+				await (await colorPicker.tabgroupTabs())[1].click();
 				const canvas = await colorPicker.canvas;
 				await canvas.click();
 
@@ -100,10 +93,6 @@ describe('ColorPicker', function () {
 			await Page.spotlightRight();
 			await Page.spotlightSelect();
 			await browser.pause(500);
-		});
-
-		it('should focus Sliders tab on 5-way Right', async function () {
-			expect(await (await colorPicker.tabItems())[2].isFocused()).toBe(true);
 		});
 
 		describe('RGB Color Picker', function () {
