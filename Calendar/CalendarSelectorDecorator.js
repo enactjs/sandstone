@@ -78,7 +78,6 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 		const state = getLocaleState(dayNameLength, locale);
 
 		const abbreviatedDayNames = orderDays(state.abbreviatedDayNames, state);
-		// const fullDayNames = orderDays(state.fullDayNames, state);
 
 		return (
 			<Wrapped
@@ -86,7 +85,6 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 				abbreviatedDayNames={abbreviatedDayNames}
 				firstDayOfWeek={state.firstDayOfWeek}
 				monthsOfYear={state.monthsOfYear}
-				// onSelect={handleSelect}
 			/>
 		);
 	};

@@ -42,16 +42,6 @@ const isToday = (today, day, month, year) => {
  * @returns	{Number}		local year
  */
 const toLocalYear = (year) => {
-	// console.log(DateFactory({
-	// 	julianday: DateFactory({
-	// 		year,
-	// 		type: 'gregorian',
-	// 		month: 1,
-	// 		day: 1,
-	// 		timezone: 'local'
-	// 	}).getJulianDay(),
-	// 	timezone: 'local'
-	// }).getYears());
 	return DateFactory({
 		julianday: DateFactory({
 			year,
