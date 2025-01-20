@@ -106,7 +106,7 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 		 *
 		 * @type {('short'|'medium'|'long'|'full')}
 		 * @default 'long'
-		 * @public
+		 * @private
 		 */
 		dayNameLength: PropTypes.oneOf(['short', 'medium', 'long', 'full']),
 
@@ -114,7 +114,7 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 		 * Current locale.
 		 *
 		 * @type {String}
-		 * @public
+		 * @private
 		 */
 		locale: PropTypes.string,
 
@@ -126,7 +126,7 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 		 * * `content` - Localized string representing the selected days
 		 *
 		 * @type {Function}
-		 * @public
+		 * @private
 		 */
 		onSelect: PropTypes.func,
 
@@ -134,7 +134,7 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 		 * An array of numbers (0-indexed) representing the selected days of the week.
 		 *
 		 * @type {Number|Number[]}
-		 * @public
+		 * @private
 		 */
 		selected: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
 	};
