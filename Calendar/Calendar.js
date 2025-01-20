@@ -9,9 +9,11 @@
  * @private
  */
 
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useState} from 'react';
 
 import BodyText from '../BodyText';
@@ -19,7 +21,8 @@ import Button, {ButtonBase} from '../Button';
 import Dropdown from '../Dropdown';
 import Skinnable from '../Skinnable';
 
-import {createYearList, getStartDayOfMonth, isLeapYear, isToday} from './utils';
+import {CalendarSelectorDecorator} from './CalendarSelectorDecorator';
+import {createYearList, getStartDayOfMonth, isLeapYear, isToday, toLocalYear} from './utils';
 
 import componentCss from './Calendar.module.less';
 
@@ -27,22 +30,12 @@ const SpottableButton = Spottable(ButtonBase);
 
 const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const DAYS_OF_THE_WEEK = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-const MONTHS = [
-	'January',
-	'February',
-	'March',
-	'April',
-	'May',
-	'June',
-	'July',
-	'August',
-	'September',
-	'October',
-	'November',
-	'December'
-];
-const YEARS = createYearList();
+
+// TODO correctly convert year to local year (for ar-SA and thailand)
+const YEARS = createYearList().map(year => {
+	// console.log(year, toLocalYear(year));
+	return toLocalYear(year).toString();
+});
 const defaultDate = new Date();
 
 /**
@@ -56,13 +49,13 @@ const defaultDate = new Date();
  * @ui
  * @private
  */
-const CalendarBase = ({css, disabled = false, selectedDate = defaultDate, setSelectedDate}) => {
+const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWeek, monthsOfYear, selectedDate = defaultDate, setSelectedDate}) => {
 	const [today, setToday] = useState(selectedDate);
 	const [month, setMonth] = useState(today.getMonth());
 	const [year, setYear] = useState(today.getFullYear());
 
 	const days = isLeapYear(year) ? DAYS_LEAP : DAYS;
-	const startDay = getStartDayOfMonth(month, year);
+	const startDay = getStartDayOfMonth(firstDayOfWeek, month, year);
 	const yearIndex = YEARS.indexOf(year.toString());
 
 	useEffect(() => {
@@ -109,7 +102,7 @@ const CalendarBase = ({css, disabled = false, selectedDate = defaultDate, setSel
 						style={{margin: 0}}
 						width="small"
 					>
-						{MONTHS}
+						{monthsOfYear}
 					</Dropdown>
 					<Dropdown
 						disabled={disabled}
@@ -140,7 +133,7 @@ const CalendarBase = ({css, disabled = false, selectedDate = defaultDate, setSel
 			</Row>
 			<Row>
 				<Cell className={componentCss.body}>
-					{DAYS_OF_THE_WEEK.map((d) => (
+					{abbreviatedDayNames.map((d) => (
 						<BodyText className={componentCss.dayName} css={css} key={d}>
 							{d}
 						</BodyText>
@@ -154,14 +147,17 @@ const CalendarBase = ({css, disabled = false, selectedDate = defaultDate, setSel
 									className={componentCss.day}
 									key={index}
 								>
-									<SpottableButton
-										className={componentCss.dayNumber}
-										css={css}
-										onClick={!disabled && handleDaySelect}
-										style={{border: isToday(today, d, month, year) ? `1px solid white` : '', color: disabled && '#4c5059'}}
-									>
-										{d > 0 ? d : ''}
-									</SpottableButton>
+									{ d > 0 ?
+										<SpottableButton
+											className={componentCss.dayNumber}
+											css={css}
+											onClick={!disabled && handleDaySelect}
+											style={{border: isToday(today, d, month, year) ? `1px solid white` : '', color: disabled && '#4c5059'}}
+										>
+											{d}
+										</SpottableButton> :
+										<></>
+									}
 								</div>
 							);
 						})}
@@ -174,6 +170,14 @@ const CalendarBase = ({css, disabled = false, selectedDate = defaultDate, setSel
 CalendarBase.displayName = 'Calendar';
 
 CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype */
+	/**
+	 * List of days names of the week, in short format, for the current locale.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	abbreviatedDayNames: PropTypes.array,
+
 	/**
 	 * Customizes the component by mapping the supplied collection of CSS class names to the
 	 * corresponding internal elements and states of this component.
@@ -199,6 +203,22 @@ CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype *
 	disabled: PropTypes.bool,
 
 	/**
+	 * First day the week, for the current locale.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	firstDayOfWeek:	PropTypes.number,
+
+	/**
+	 * List of month names of the year, for the current locale.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	monthsOfYear: PropTypes.array,
+
+	/**
 	 * The selected day inside the Calendar.
 	 *
 	 * @type {Date}
@@ -216,6 +236,20 @@ CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype *
 };
 
 /**
+ * Applies Sandstone specific behaviors to {@link sandstone/Calendar.CalendarBase|Calendar} components.
+ *
+ * @hoc
+ * @memberof sandstone/Calendar
+ * @mixes sandstone/Skinnable.Skinnable
+ * @private
+ */
+const CalendarDecorator = compose(
+	I18nContextDecorator({localeProp: 'locale'}),
+	CalendarSelectorDecorator,
+	Skinnable
+);
+
+/**
  * A calendar component, ready to use in Sandstone applications.
  *
  * @class Calendar
@@ -224,7 +258,7 @@ CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype *
  * @ui
  * @private
  */
-const Calendar = Skinnable(CalendarBase);
+const Calendar = CalendarDecorator(CalendarBase);
 
 export default Calendar;
 export {

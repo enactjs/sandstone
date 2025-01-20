@@ -10,6 +10,7 @@ const locales = {
 	'en-US - US English': 'en-US',
 	'ko-KR - Korean': 'ko-KR',
 	'es-ES - Spanish, with alternate weekends': 'es-ES',
+	'fa_IR - Iran': 'fa_IR',
 	'am-ET - Amharic, 5 meridiems': 'am-ET',
 	'he-IL - Hebrew, RTL, no meridiem': 'he-IL',
 	'th-TH - Thai, with tallglyph characters': 'th-TH',
