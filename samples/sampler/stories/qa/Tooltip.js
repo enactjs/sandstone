@@ -15,7 +15,6 @@ import {Component} from 'react';
 import Section from './components/KitchenSinkSection';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
-const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 const prop = {
 	tooltipPosition: {
@@ -67,14 +66,14 @@ class TooltipTest extends Component {
 			<div>
 				Focus the button and click it before 5s has elapsed, and observe the console for errors
 				{this.state.showButton ? (
-					<TooltipButton
+					<Button
 						onClick={this.handleClick}
 						tooltipDelay={5000}
 						tooltipText="Tooltip position!"
 						tooltipRelative
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				) : null}
 			</div>
 		);
@@ -305,6 +304,7 @@ export const TooltipOverflows = (args) => {
 	const tooltipPosition = args['tooltipPosition'];
 	const tooltipProps = args['tooltipProps'];
 	const tooltipRelative = args['tooltipRelative'];
+	const disabled = args['disabled'];
 	return (
 		<Layout
 			orientation="vertical"
@@ -318,7 +318,8 @@ export const TooltipOverflows = (args) => {
 			<Cell shrink>
 				<Layout align="center space-between">
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -326,10 +327,11 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Top Left
-						</TooltipButton>
+						</Button>
 					</Cell>
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -337,10 +339,11 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Top
-						</TooltipButton>
+						</Button>
 					</Cell>
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -348,14 +351,15 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Top Right
-						</TooltipButton>
+						</Button>
 					</Cell>
 				</Layout>
 			</Cell>
 			<Cell shrink>
 				<Layout align="center space-between">
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -363,10 +367,11 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Left
-						</TooltipButton>
+						</Button>
 					</Cell>
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -374,10 +379,11 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Center
-						</TooltipButton>
+						</Button>
 					</Cell>
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -385,14 +391,15 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Right
-						</TooltipButton>
+						</Button>
 					</Cell>
 				</Layout>
 			</Cell>
 			<Cell shrink>
 				<Layout align="center space-between">
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -400,10 +407,11 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Bottom Left
-						</TooltipButton>
+						</Button>
 					</Cell>
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -411,10 +419,11 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Bottom
-						</TooltipButton>
+						</Button>
 					</Cell>
 					<Cell shrink>
-						<TooltipButton
+						<Button
+							disabled={disabled}
 							tooltipDelay={tooltipDelay}
 							tooltipText={tooltipText}
 							tooltipPosition={tooltipPosition}
@@ -422,7 +431,7 @@ export const TooltipOverflows = (args) => {
 							tooltipRelative={tooltipRelative}
 						>
 							Bottom Right
-						</TooltipButton>
+						</Button>
 					</Cell>
 				</Layout>
 			</Cell>
@@ -430,6 +439,7 @@ export const TooltipOverflows = (args) => {
 	);
 };
 
+boolean('disabled', TooltipOverflows, Config);
 select('button alignment', TooltipOverflows, {'': null, start: 'start', end: 'end'}, Config);
 number('tooltipDelay', TooltipOverflows, Config, 500);
 text('tooltipText', TooltipOverflows, Config, 'tooltip position!');
@@ -461,7 +471,7 @@ export const LongTooltipMarquees = (args) => {
 
 			<Row wrap>
 				<Section title="Transparent Tooltip" size="50%">
-					<TooltipButton
+					<Button
 						alt="Marquee checked"
 						disabled={disabled}
 						tooltipDelay={500}
@@ -471,10 +481,10 @@ export const LongTooltipMarquees = (args) => {
 						tooltipWidth={1000}
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				</Section>
 				<Section title="Balloon Tooltip" size="50%">
-					<TooltipButton
+					<Button
 						alt="Marquee checked"
 						disabled={disabled}
 						tooltipDelay={500}
@@ -484,10 +494,10 @@ export const LongTooltipMarquees = (args) => {
 						tooltipWidth={1000}
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				</Section>
 				<Section title="Transparent Tooltip" size="50%">
-					<TooltipButton
+					<Button
 						alt="Marquee unchecked"
 						disabled={disabled}
 						tooltipDelay={500}
@@ -496,10 +506,10 @@ export const LongTooltipMarquees = (args) => {
 						tooltipWidth={1000}
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				</Section>
 				<Section title="Balloon Tooltip" size="50%">
-					<TooltipButton
+					<Button
 						alt="Marquee unchecked"
 						disabled={disabled}
 						tooltipDelay={500}
@@ -508,7 +518,7 @@ export const LongTooltipMarquees = (args) => {
 						tooltipWidth={1000}
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				</Section>
 			</Row>
 
@@ -519,7 +529,7 @@ export const LongTooltipMarquees = (args) => {
 
 			<Row wrap>
 				<Section title="Transparent Tooltip" size="50%">
-					<TooltipButton
+					<Button
 						alt="Marquee checked"
 						disabled={disabled}
 						tooltipDelay={500}
@@ -530,10 +540,10 @@ export const LongTooltipMarquees = (args) => {
 						tooltipWidth={1000}
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				</Section>
 				<Section title="Balloon Tooltip" size="50%">
-					<TooltipButton
+					<Button
 						alt="Marquee checked"
 						disabled={disabled}
 						tooltipDelay={500}
@@ -544,10 +554,10 @@ export const LongTooltipMarquees = (args) => {
 						tooltipWidth={1000}
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				</Section>
 				<Section title="Transparent Tooltip" size="50%">
-					<TooltipButton
+					<Button
 						alt="Marquee unchecked"
 						disabled={disabled}
 						tooltipDelay={500}
@@ -557,10 +567,10 @@ export const LongTooltipMarquees = (args) => {
 						tooltipWidth={1000}
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				</Section>
 				<Section title="Balloon Tooltip" size="50%">
-					<TooltipButton
+					<Button
 						alt="Marquee unchecked"
 						disabled={disabled}
 						tooltipDelay={500}
@@ -570,7 +580,7 @@ export const LongTooltipMarquees = (args) => {
 						tooltipWidth={1000}
 					>
 						Click me
-					</TooltipButton>
+					</Button>
 				</Section>
 				<Heading spacing="large" size="large" showLine />
 			</Row>
