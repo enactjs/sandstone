@@ -30,9 +30,11 @@ const SpottableButton = Spottable(ButtonBase);
 
 const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+// TODO correctly convert year to local year (for ar-SA and thailand)
 const YEARS = createYearList().map(year => {
-	console.log(year, toLocalYear(year));
-	return toLocalYear(year).toString()
+	// console.log(year, toLocalYear(year));
+	return toLocalYear(year).toString();
 });
 const defaultDate = new Date();
 
@@ -47,14 +49,13 @@ const defaultDate = new Date();
  * @ui
  * @private
  */
-const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWeek, ilibData, monthsOfYear, selectedDate = defaultDate, setSelectedDate, ...rest}) => {
+const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWeek, monthsOfYear, selectedDate = defaultDate, setSelectedDate}) => {
 	const [today, setToday] = useState(selectedDate);
 	const [month, setMonth] = useState(today.getMonth());
 	const [year, setYear] = useState(today.getFullYear());
 
 	const days = isLeapYear(year) ? DAYS_LEAP : DAYS;
 	const startDay = getStartDayOfMonth(firstDayOfWeek, month, year);
-	console.log(firstDayOfWeek, month, startDay);
 	const yearIndex = YEARS.indexOf(year.toString());
 
 	useEffect(() => {
@@ -145,17 +146,18 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 								<div
 									className={componentCss.day}
 									key={index}
-								> { d > 0 ?
-									<SpottableButton
-										className={componentCss.dayNumber}
-										css={css}
-										onClick={!disabled && handleDaySelect}
-										style={{border: isToday(today, d, month, year) ? `1px solid white` : '', color: disabled && '#4c5059'}}
-									>
-										{d}
-									</SpottableButton> :
-									<></>
-								}
+								>
+									{ d > 0 ?
+										<SpottableButton
+											className={componentCss.dayNumber}
+											css={css}
+											onClick={!disabled && handleDaySelect}
+											style={{border: isToday(today, d, month, year) ? `1px solid white` : '', color: disabled && '#4c5059'}}
+										>
+											{d}
+										</SpottableButton> :
+										<></>
+									}
 								</div>
 							);
 						})}
@@ -168,6 +170,14 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 CalendarBase.displayName = 'Calendar';
 
 CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype */
+	/**
+	 * List of days names of the week, in short format, for the current locale.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	abbreviatedDayNames: PropTypes.array,
+
 	/**
 	 * Customizes the component by mapping the supplied collection of CSS class names to the
 	 * corresponding internal elements and states of this component.
@@ -191,6 +201,22 @@ CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype *
 	 * @private
 	 */
 	disabled: PropTypes.bool,
+
+	/**
+	 * First day the week, for the current locale.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	firstDayOfWeek:	PropTypes.number,
+
+	/**
+	 * List of month names of the year, for the current locale.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	monthsOfYear: PropTypes.array,
 
 	/**
 	 * The selected day inside the Calendar.

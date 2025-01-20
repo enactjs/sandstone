@@ -1,6 +1,5 @@
-import {forwardCustom} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
-import {coerceArray, memoize, setDefaultProps} from '@enact/core/util';
+import {memoize, setDefaultProps} from '@enact/core/util';
 import ilib from '@enact/i18n';
 import DateFmt from 'ilib/lib/DateFmt';
 import LocaleInfo from 'ilib/lib/LocaleInfo';
@@ -15,9 +14,9 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 	const sdf = new DateFmt({length: dayNameLength});
 	const li = new LocaleInfo(ilib.getLocale());
 	const daysOfWeek = df.getDaysOfWeek();
-	const monthsOfYear = df.getMonthsOfYear()
+	const monthsOfYear = df.getMonthsOfYear();
 	monthsOfYear.shift(); // ilib returns an array with an undefined value at index 0;
-	console.log(df.getDateComponents());
+
 	const days = sdf.getDaysOfWeek();
 	const firstDayOfWeek = li.getFirstDayOfWeek();
 
@@ -48,7 +47,7 @@ function getLocaleState (dayNameLength, locale) {
 			abbreviatedDayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 			firstDayOfWeek: 0,
 			fullDayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-			monthsOfYear: [undefined, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+			monthsOfYear: ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		};
 	}
 
@@ -56,7 +55,7 @@ function getLocaleState (dayNameLength, locale) {
 }
 
 const calendarSelectorDecoratorDefaultProps = {
-	dayNameLength: 'long',
+	dayNameLength: 'long'
 };
 
 /**
@@ -74,7 +73,7 @@ const calendarSelectorDecoratorDefaultProps = {
 const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 	const CalendarSelector = (props) => {
 		const calendarSelectorDecoratorProps = setDefaultProps(props, calendarSelectorDecoratorDefaultProps);
-		const {dayNameLength, locale, selectedDate, ...rest} = calendarSelectorDecoratorProps;
+		const {dayNameLength, locale, ...rest} = calendarSelectorDecoratorProps;
 
 		const state = getLocaleState(dayNameLength, locale);
 
@@ -86,9 +85,8 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 				{...rest}
 				abbreviatedDayNames={abbreviatedDayNames}
 				firstDayOfWeek={state.firstDayOfWeek}
-				ilibData={state}
 				monthsOfYear={state.monthsOfYear}
-				//onSelect={handleSelect}
+				// onSelect={handleSelect}
 			/>
 		);
 	};
