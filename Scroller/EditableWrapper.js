@@ -630,8 +630,8 @@ const EditableWrapper = (props) => {
 		const {keyCode} = ev;
 		if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
 			setPointerMode(false);
-			Spotlight.move(getDirection(keyCode));
-
+			Spotlight.focus(nextTarget);
+			// const result = Spotlight.move(getDirection(keyCode));
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
 
