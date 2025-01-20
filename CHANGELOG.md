@@ -2,7 +2,7 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [3.0.0-alpha.4] - 2025-01-21
 
 - Update dependencies including React 19.0.0
 
@@ -21,6 +21,40 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control
 - `sandstone/Scroller` to prevent the native scrolling behavior caused by keydown events when a popup is open
 - `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled component
+
+## [2.9.7] - 2025-01-16
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when the DOM tree changes
+
+## [2.7.21] - 2024-12-31
+
+### Fixed
+
+- `sandstone/Scroller` with `editable` prop to support touch input
+- `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled component
+
+## [2.7.20] - 2024-12-17
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `calibration`
+
+## [2.9.6] - 2024-12-11
+
+### Added
+
+- `sandstone/Icon` supported icon list, adding new icon `calibration`
+
+### Changed
+
+- `sandstone/QuickGuidePanels` to read out more details according to the latest UX guide
+
+### Fixed
+
+- `sandstone/Scroller` to focus properly when the spottable node is bigger than the size of viewport by voice control
+- `sandstone/Scroller` to prevent the native scrolling behavior caused by keydown events when a popup is open
 
 ## [3.0.0-alpha.3] - 2024-12-02
 
