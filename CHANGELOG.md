@@ -6,6 +6,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - Update dependencies including React 19.0.0
 
+### Changed
+
+- component selectors from ui-tests views to work with `webdriverio` version 9
+- `isDisplayed` and `moveTo` methods to work with `webdriverio` version 9
+
 ### Added
 
 - `sandstone/Icon` supported icon list, adding new icon `calibration`
@@ -14,8 +19,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - CSS variables with suffix '-rgb' to without suffix and its value to hex format
-- component selectors from ui-tests views to work with `webdriverio` version 9
-- `isDisplayed` and `moveTo` methods to work with `webdriverio` version 9
 
 ### Fixed
 
