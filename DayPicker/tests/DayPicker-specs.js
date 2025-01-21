@@ -29,7 +29,7 @@ describe('DayPicker', () => {
 		// We need to change the locale to firstDayOfWeek !== 0.
 		// If firstDayOfWeek === 0, the number type check conditional statement
 		// is skipped due to the fast execution path of localizeSelected(), which
-		// reduces code coverage..
+		// reduces code coverage.
 		ilib.setLocale('es-ES');
 
 		render(<DayPicker locale="es-ES" selected={1} />);

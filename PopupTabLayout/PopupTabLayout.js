@@ -28,7 +28,7 @@ import Popup from '../Popup';
 
 import componentCss from './PopupTabLayout.module.less';
 
-// List all of the props from PopupTabLayout that we want to move from this component's root onto PopupTabLayout.
+// List all the props from PopupTabLayout that we want to move from this component's root onto PopupTabLayout.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
 	'position', 'scrimType', 'spotlightId', 'spotlightRestrict', 'id', 'className',
 	'style', 'noAnimation', 'onClose'];
@@ -78,7 +78,7 @@ const PopupTabLayoutBase = kind({
 		/**
 		 * Specify dimensions for the layout areas.
 		 *
-		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
+		 * All 4 combinations must be supplied: each of the elements, tabs and content in both
 		 * collapsed and expanded state.
 		 *
 		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
@@ -259,7 +259,8 @@ const PopupTabLayoutBase = kind({
 	},
 
 	computed: {
-		className: ({collapsed, scrimType, styler}) => styler.append({collapsed}, `scrim${cap(scrimType)}`)
+		className: ({collapsed, scrimType, styler}) => styler.append({collapsed}, `scrim${cap(scrimType)}`),
+		noAnimation: ({noAnimation}) => (typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION) || noAnimation
 	},
 
 	render: ({children, css, ...rest}) => {

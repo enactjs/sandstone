@@ -84,6 +84,13 @@
 			outline-offset: -@sand-overlay-outline-width;
 		}
 
+		:global(.noAnimation) & {
+			.header,
+			.content{
+				box-shadow: none;
+			}
+		}
+
 		&.scrimTranslucent {
 			.header,
 			.content {
@@ -140,7 +147,7 @@
 		box-sizing: border-box;
 	}
 
-	&.auto { /* Availble for export */ }
+	&.auto { /* Available for export */ }
 
 	// These calculations are here (rather than the variables file) because they're
 	// implementation-specific rather than being generally useful due to the container

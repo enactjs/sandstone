@@ -1,4 +1,4 @@
-/* global ResizeObserver */
+/* global MutationObserver ResizeObserver */
 
 /**
  * A higher-order component to add a Sandstone styled popup to a component.
@@ -22,7 +22,7 @@ import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import {Component, Fragment, createRef} from 'react';
+import {Component, createRef} from 'react';
 
 import {ContextualPopup} from './ContextualPopup';
 import HolePunchScrim from './HolePunchScrim';
@@ -301,6 +301,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					this.positionContextualPopup();
 				});
 			}
+
+			if (typeof MutationObserver === 'function') {
+				this.mutationObserver = new MutationObserver(() => {
+					this.positionContextualPopup();
+				});
+			}
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
@@ -313,7 +319,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				snapshot.shouldSpotActivator = (
 					// isn't set
 					!current ||
-					// is on the activator and we want to re-spot it so a11y read out can occur
+					// is on the activator, and we want to re-spot it so a11y read out can occur
 					current === prevState.activator ||
 					// is within the popup
 					this.containerNode.contains(current)
@@ -355,10 +361,15 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				this.resizeObserver.disconnect();
 				this.resizeObserver = null;
 			}
+
+			if (this.mutationObserver) {
+				this.mutationObserver.disconnect();
+				this.mutationObserver = null;
+			}
 		}
 
 		generateId = () => {
-			return Math.random().toString(36).substr(2, 8);
+			return Math.random().toString(36).substring(2, 10);
 		};
 
 		getContainerNodeWidth () {
@@ -619,6 +630,14 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					this.resizeObserver.disconnect();
 				}
 			}
+
+			if (this.mutationObserver) {
+				if (node) {
+					this.mutationObserver.observe(document.body, {attributes: false, childList: true, subtree: true});
+				} else {
+					this.mutationObserver.disconnect();
+				}
+			}
 		};
 
 		handle = handle.bind(this);
@@ -768,7 +787,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						open={open}
 						scrimType={scrimType}
 					>
-						<Fragment>
+						<div>
 							{holepunchScrim ? <HolePunchScrim holeBounds={holeBounds} /> : null}
 							<ContextualPopupContainer
 								{...ariaProps}
@@ -787,7 +806,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							>
 								<PopupComponent {...popupPropsRef} />
 							</ContextualPopupContainer>
-						</Fragment>
+						</div>
 					</FloatingLayer>
 					<WrappedWithRef {...rest} outermostRef={this.clientSiblingRef} referrerName="ContextualPopup" />
 				</div>
