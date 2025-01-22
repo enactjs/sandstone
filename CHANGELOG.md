@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled component
+- `sandstone/Scroller` with `editable` prop focus behavior to match the latest UX
 
 ## [2.9.7] - 2025-01-16
 
