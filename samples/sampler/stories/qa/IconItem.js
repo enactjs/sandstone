@@ -160,7 +160,7 @@ export const EditableIcon = (args) => {
 	}, [setEditMode]);
 
 	const handleMouseDown = useCallback((ev) => {
-		if (!ev.target.className.includes('Button')) {
+		if (ev.target?.parentNode?.parentNode.getAttribute('role') !== 'button') {
 			const targetItemNode = findItemNode(ev.target);
 			if (targetItemNode && targetItemNode.style.order) {
 				mutableRef.current.initialSelected.itemIndex = targetItemNode.style.order;

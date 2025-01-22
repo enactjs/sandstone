@@ -3,7 +3,7 @@ import EnactPropTypes from '@enact/core/internal/prop-types';
 import PropTypes from 'prop-types';
 import Spottable from '@enact/spotlight/Spottable';
 
-const DivComponent = ({innerRef, ...rest}) => (<div ref={innerRef} {...rest} />);
+const DivComponent = ({innerRef, ...rest}) => (<div {...rest} ref={innerRef} />);
 
 DivComponent.propTypes = {
 	innerRef: EnactPropTypes.ref
