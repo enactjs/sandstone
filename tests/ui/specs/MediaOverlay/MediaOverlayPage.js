@@ -1,7 +1,5 @@
 'use strict';
-const {getSubComponent, getText, Page} = require('@enact/ui-test-utils/utils');
-
-const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});
+const {getText, Page} = require('@enact/ui-test-utils/utils');
 
 class MediaOverlayInterface {
 	constructor (id) {
@@ -19,7 +17,7 @@ class MediaOverlayInterface {
 	}
 
 	get valueText () {
-		return getText(getMarqueeText(this.self));
+		return getText($(this.marqueeAnimatedSelector));
 	}
 
 	get isMarqueeAnimated () {

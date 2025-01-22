@@ -31,7 +31,7 @@ describe('qa sampler', function () {
 			await popupTabLayout.collapsedTabs.moveTo();
 			// Wait for tabs to expand
 			await Page.delay(500);
-			await popupTabLayout.tabs.moveTo({xOffset: 20, yOffset: 20});
+			await popupTabLayout.tabs.moveTo({xOffset: 0, yOffset: -10});
 			// Step 5 Verify: Spotlight is on the Tab 'Display' and the tabs are expanded
 			expect(await browser.execute(getFocusedText)).toBe('Display');
 			expect(await popupTabLayout.isCollapsed).toBe(false);

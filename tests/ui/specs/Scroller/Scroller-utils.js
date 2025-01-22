@@ -68,7 +68,7 @@ async function findItemWrapper () {
 		return {
 			node: node ?? null,
 			index: index ?? null,
-			classList: node?.classList
+			classList: node?.classList?.value
 		};
 	});
 }
