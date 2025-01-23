@@ -627,10 +627,9 @@ const EditableWrapper = (props) => {
 	}, [moveItemsByKeyDown]);
 
 	const handleFocusLeaveScrollContainer = useCallback((ev, nextTarget) => {
-		const {keyCode} = ev;
 		if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
 			setPointerMode(false);
-			Spotlight.move(getDirection(keyCode));
+			Spotlight.focus(nextTarget);
 
 			const orders = finalizeOrders();
 			finalizeEditing(orders);
