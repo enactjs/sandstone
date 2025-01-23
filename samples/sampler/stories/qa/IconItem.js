@@ -79,7 +79,6 @@ for (let i = 0; i < 20; i++) {
 }
 
 const Container = SpotlightContainerDecorator('div');
-const ContainerDivWithLeaveForConfig = SpotlightContainerDecorator({leaveFor: {left: '', right: ''}}, 'div');
 const TouchableDiv = Touchable('div');
 
 export const EditableIcon = (args) => {
@@ -277,11 +276,11 @@ export const EditableIcon = (args) => {
 										onMouseLeave={onMouseLeaveItem}
 										style={{order: index + 1}}
 									>
-										<ContainerDivWithLeaveForConfig className={css.removeButtonContainer}>
+										<div className={css.removeButtonContainer}>
 											{item.hidden ? null : <Button aria-label="Delete" className={css.removeButton} onClick={onClickRemoveButton} icon="trash" />}
 											{item.hidden ? null : <Button aria-label="Hide" className={css.removeButton} onClick={onClickHideButton} icon="minus" />}
 											{item.hidden ? <Button aria-label="Show" className={css.removeButton} onClick={onClickShowButton} icon="plus" /> : null}
-										</ContainerDivWithLeaveForConfig>
+										</div>
 										<IconItem
 											{...item.iconItemProps}
 											aria-label={`Icon ${item.index}`}

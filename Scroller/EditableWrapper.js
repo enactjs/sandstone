@@ -124,7 +124,7 @@ const EditableWrapper = (props) => {
 		// Last mouse position
 		lastMouseClientX: null,
 
-		// Last InputType which moves Items
+		// Last InputType
 		lastInputType: null,
 
 		// Timer for holding key input
@@ -221,13 +221,17 @@ const EditableWrapper = (props) => {
 			mutableRef.current.prevToIndex = mutableRef.current.fromIndex;
 
 			updateArrowIcon(mutableRef.current.fromIndex);
-			if (!mutableRef.current.initialSelected) {
-				setTimeout(() => {
+
+			setTimeout(() => {
+				if (item?.children[1]) {
+					item.children[1].ariaLabel = '';
+				}
+				if (!mutableRef.current.initialSelected) {
 					announceRef.current.announce(
 						mutableRef.current.selectedItemLabel + $L('Press the left/right button to move or press the up button to select other options.')
 					);
-				}, completeAnnounceDelay);
-			}
+				}
+			}, completeAnnounceDelay);
 		}
 	}, [customCss.focused, customCss.selected, updateArrowIcon]);
 
@@ -445,7 +449,6 @@ const EditableWrapper = (props) => {
 			});
 		}
 
-		mutableRef.current.lastInputType = 'key';
 		mutableRef.current.lastInputDirection = is('left', keyCode) ? 'left' : 'right';
 		moveItems(toIndex);
 
@@ -555,11 +558,11 @@ const EditableWrapper = (props) => {
 	const handleMouseMove = useCallback((ev) => {
 		const {clientX} = ev;
 		mutableRef.current.lastMouseClientX = clientX;
+		mutableRef.current.lastInputType = 'mouse';
 
 		if (mutableRef.current.selectedItem && Number(mutableRef.current.selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
-			mutableRef.current.lastInputType = 'mouse';
 			moveItems(toIndex);
 		}
 	}, [getNextIndexFromPosition, moveItems]);
@@ -589,7 +592,6 @@ const EditableWrapper = (props) => {
 		const focusTarget = selectedItem.children[1];
 		const orders = finalizeOrders();
 
-		selectedItem.children[1].ariaLabel = '';
 		finalizeEditing(orders);
 		if (selectItemBy === 'press') {
 			if (getPointerMode()) {
@@ -609,6 +611,33 @@ const EditableWrapper = (props) => {
 			}, completeAnnounceDelay);
 		}, completeAnnounceDelay);
 	}, [finalizeEditing, finalizeOrders, focusItem, selectItemBy]);
+
+	const handleMoveItemsByKeyDown = useCallback((ev, repeat) => {
+		const {selectedItem} = mutableRef.current;
+		if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
+			if (repeat) {
+				SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
+			} else {
+				SpotlightAccelerator.reset();
+				moveItemsByKeyDown(ev);
+			}
+		}
+		ev.preventDefault();
+		ev.stopPropagation();
+	}, [moveItemsByKeyDown]);
+
+	const handleFocusLeaveScrollContainer = useCallback((ev, nextTarget) => {
+		if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
+			setPointerMode(false);
+			Spotlight.focus(nextTarget);
+
+			const orders = finalizeOrders();
+			finalizeEditing(orders);
+
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+	}, [finalizeEditing, finalizeOrders]);
 
 	const handleKeyDownCapture = useCallback((ev) => {
 		const {keyCode, repeat, target} = ev;
@@ -633,45 +662,36 @@ const EditableWrapper = (props) => {
 			completeEditingByKeyDown();
 			mutableRef.current.needToPreventEvent = true;
 		} else if (is('left', keyCode) || is('right', keyCode)) {
-			if (selectedItem) {
-				if (target.getAttribute('role') !== 'button') {
-					if (Number(selectedItem.style.order) - 1 < mutableRef.current.hideIndex) {
-						if (repeat) {
-							SpotlightAccelerator.processKey(ev, moveItemsByKeyDown);
-						} else {
-							SpotlightAccelerator.reset();
-							moveItemsByKeyDown(ev);
-						}
-					}
-					ev.preventDefault();
-					ev.stopPropagation();
-				}
-			} else {
-				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
+			const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
-				// Check if focus leaves scroll container.
-				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !repeat) {
-					reset();
+			if (selectedItem) {
+				// If keyDown event target is item(=not button), move item.
+				if (target.getAttribute('role') !== 'button') {
+					handleMoveItemsByKeyDown(ev, repeat);
+				// If keyDown event target is button and next spot target is item, move item and then spot selected item.
+				} else if (nextTarget?.getAttribute('role') !== 'button') {
+					handleMoveItemsByKeyDown(ev, repeat);
+
+					setPointerMode(false);
+					Spotlight.focus(selectedItem.children[1]);
+				// If keyDown event target is button and next spot target is button, check whether focus leaves the scroll container.
+				} else {
+					// Check if focus leaves scroll container.
+					handleFocusLeaveScrollContainer(ev, nextTarget);
 				}
+			} else if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId) && !repeat) {
+				// Check if focus leaves scroll container.
+				handleFocusLeaveScrollContainer(ev, nextTarget);
 			}
 		} else if (is('up', keyCode) || is('down', keyCode)) {
 			if (selectedItem || focusedItem) {
 				const nextTarget = getTargetByDirectionFromElement(getDirection(keyCode), target);
 
 				// Check if focus leaves scroll container.
-				if (nextTarget && !getContainersForNode(nextTarget).includes(mutableRef.current.spotlightId)) {
-					setPointerMode(false);
-					Spotlight.move(getDirection(keyCode));
-
-					const orders = finalizeOrders();
-					finalizeEditing(orders);
-
-					ev.preventDefault();
-					ev.stopPropagation();
-				}
+				handleFocusLeaveScrollContainer(ev, nextTarget);
 			}
 		}
-	}, [finalizeEditing, finalizeOrders, findItemNode, moveItemsByKeyDown, reset, selectItemBy, startEditing, completeEditingByKeyDown]);
+	}, [findItemNode, handleFocusLeaveScrollContainer, handleMoveItemsByKeyDown, selectItemBy, startEditing, completeEditingByKeyDown]);
 
 	const handleKeyUpCapture = useCallback((ev) => {
 		const {keyCode, target} = ev;
@@ -696,6 +716,8 @@ const EditableWrapper = (props) => {
 
 	const handleGlobalKeyDownCapture = useCallback((ev) => {
 		const {focusedItem, selectedItem} = mutableRef.current;
+
+		mutableRef.current.lastInputType = 'key';
 
 		// If the pointer mode is `true` and the focused component is not contained in scrollContainerRef,
 		// only `handleGlobalKeyDownCapture` is called instead of `handleKeyDownCapture`
@@ -737,6 +759,8 @@ const EditableWrapper = (props) => {
 	}, [completeEditingByKeyDown, finalizeEditing, finalizeOrders, moveItemsByKeyDown, scrollContainerRef, startEditing]);
 
 	const handleTouchMove = useCallback((ev) => {
+		mutableRef.current.lastInputType = 'touch';
+
 		if (mutableRef.current.selectedItem) {
 			// Prevent scrolling by dragging when item is selected
 			ev.preventDefault();
@@ -750,7 +774,6 @@ const EditableWrapper = (props) => {
 			const toIndex = getNextIndexFromPosition(clientX, 0.33);
 
 			if (toIndex !== mutableRef.current.prevToIndex) {
-				mutableRef.current.lastInputType = 'touch';
 				moveItems(toIndex);
 			}
 		}

@@ -7,6 +7,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/PageViews` to focus spottable components on the same line with arrows for navigation when `fullContents`
+- `sandstone/Scroller` with `editable` prop focus behavior to match the latest UX
+- `sandstone/Scroller` with `editable` prop to move focus properly when holding directional key
 - `sandstone/TooltipDecorator` to hide a tooltip when tapping outside of disabled component
 
 ## [2.9.7] - 2025-01-16
