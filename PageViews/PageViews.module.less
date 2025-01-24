@@ -22,6 +22,11 @@
 		height: @sand-button-height;
 		top: ~"calc(50% - "@sand-button-height / 2 ~")";
 		z-index: 10;
+		pointer-events: none;
+
+		& [role='button'] {
+			pointer-events: auto;
+		}
 	}
 
 	&.number .navButton {
@@ -59,6 +64,11 @@
 		align-self: center;
 		bottom: @sand-pageviews-full-steps-position-bottom;
 		min-height: @sand-pageviews-full-steps-area-min-height;
+		pointer-events: none;
+
+		& [role='button'] {
+			pointer-events: auto;
+		}
 	}
 
 	.contentsArea {

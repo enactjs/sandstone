@@ -74,4 +74,17 @@ describe('PageViews', function () {
 			expect(await actual).toBe(expected);
 		});
 	});
+
+	describe('pointerEvents', function () {
+
+		beforeEach(async function () {
+			await Page.open('PointerEvents');
+		});
+
+		it('should focus the button on the same line with arrow for next page', async function () {
+			await $('#PageViewsButton2').moveTo();
+
+			expect(await $('#PageViewsButton2').isFocused()).toBe(true);
+		});
+	});
 });
