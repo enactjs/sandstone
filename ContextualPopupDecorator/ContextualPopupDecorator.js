@@ -87,15 +87,15 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 	const WrappedWithRef = WithRef(Wrapped);
 
 	const _ContextualPopupDecorator = ({
-										   'data-webos-voice-exclusive': dataWebosVoiceExclusive = true,
-										   direction = 'below center',
-										   noAutoDismiss = false,
-										   offset = 'small',
-										   open = false,
-										   scrimType = 'none',
-										   spotlightRestrict = 'self-first',
-										   ...props
-									   }) => {
+		'data-webos-voice-exclusive': dataWebosVoiceExclusive = true,
+		direction = 'below center',
+		noAutoDismiss = false,
+		offset = 'small',
+		open = false,
+		scrimType = 'none',
+		spotlightRestrict = 'self-first',
+		...props
+	}) => {
 		const {setApiProvider, rtl, popupComponent: PopupComponent, popupClassName, popupProps, skin, ...rest} = props;
 
 		const [state, setState] = useState({
