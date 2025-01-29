@@ -1,4 +1,4 @@
-/* global ResizeObserver */
+/* global MutationObserver ResizeObserver */
 
 /**
  * A higher-order component to add a Sandstone styled popup to a component.
@@ -22,7 +22,7 @@ import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
-import {Fragment, createRef, useEffect, useRef, useState} from 'react';
+import {Component, useState, useRef, useEffect, Fragment} from 'react';
 
 import {ContextualPopup} from './ContextualPopup';
 import HolePunchScrim from './HolePunchScrim';
@@ -96,6 +96,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		spotlightRestrict = 'self-first',
 		...props
 	}) => {
+		const {setApiProvider, rtl, popupComponent: PopupComponent, popupClassName, popupProps, skin, ...rest} = props;
+
 		const [state, setState] = useState({
 			arrowPosition: {top: 0, left: 0},
 			containerPosition: {top: 0, left: 0, right: 0},
@@ -103,41 +105,44 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			activator: null
 		});
 
-		// constructor variables
-		let resizeObserver = false;
-		let overflow = {};
-		let adjustedDirection = direction;
-		const clientSiblingRef = useRef(null);
 		const generateId = () => {
-			return Math.random().toString(36).substr(2, 8);
+			return Math.random().toString(36).substring(2, 10);
 		};
-		const id = generateId();
+		// constructor variables
+		let resizeObserver = useRef(null);
+		let mutationObserver = useRef(null);
+		let overflow = useRef(null);
+		let adjustedDirection = useRef(direction);
+		const id = useRef(generateId());
+		let clientSiblingRef = useRef(null);
 		let containerNode = useRef(null);
 
-		const MARGIN = ri.scale(noArrow ? 0 : 12);
-		const ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
-		const ARROW_OFFSET = noArrow ? 0 : ri.scale(36); // actual distance of the svg arrow displayed to offset overlaps with the container. Offset is when `noArrow` is false.
-		const KEEPOUT = ri.scale(24); // keep out distance on the edge of the screen
+		let MARGIN = useRef(ri.scale(noArrow ? 0 : 12));
+		let ARROW_WIDTH = useRef(noArrow ? 0 : ri.scale(60)); // svg arrow width. used for arrow positioning
+		let ARROW_OFFSET = useRef(noArrow ? 0 : ri.scale(36)); // actual distance of the svg arrow displayed to offset overlaps with the container. Offset is when `noArrow` is false.
+		let KEEPOUT = useRef(ri.scale(24)); // keep out distance on the edge of the screen
 
-		if (props.setApiProvider) {
-			props.setApiProvider({
-				...state,
-				resizeObserver,
-				overflow,
-				adjustedDirection,
-				clientSiblingRef,
-				id,
-				MARGIN,
-				ARROW_WIDTH,
-				ARROW_OFFSET,
-				KEEPOUT
-			})
-		}
+		useEffect(() => {
+			if (setApiProvider) {
+				setApiProvider({
+					arrowPosition: state.arrowPosition,
+					containerPosition: state.containerPosition,
+					containerId: state.containerId,
+					activator: state.activator,
+					resizeObserver: resizeObserver.current,
+					overflow: overflow.current,
+					adjustedDirection: adjustedDirection.current,
+					id: id.current,
+					clientSiblingRef: clientSiblingRef.current,
+					MARGIN: MARGIN.current,
+					ARROW_WIDTH: ARROW_WIDTH.current,
+					ARROW_OFFSET: ARROW_OFFSET.current,
+					KEEPOUT: KEEPOUT.current
+				});
+			}
+		});
 
-		const prevProps = useRef({open, direction});
-		const prevState = useRef({state});
-		// END constructor variable
-
+		// 1
 		const handleDirectionalKey = (ev) => {
 			// prevent default page scrolling
 			ev.preventDefault();
@@ -147,7 +152,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			Spotlight.setPointerMode(false);
 		}
 
+		// 2
 		const spotPopupContent = () => {
+			const {spotlightRestrict} = props;
 			const {containerId} = state;
 			const spottableDescendants = Spotlight.getSpottableDescendants(containerId);
 			if (spotlightRestrict === 'self-only' && spottableDescendants.length && Spotlight.getCurrent()) {
@@ -159,6 +166,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		};
 
+		// 3
 		// handle key event from outside (i.e. the activator) to the popup container
 		const handleKeyDown = (ev) => {
 			const {activator, containerId} = state;
@@ -170,7 +178,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			const hasSpottables = Spotlight.getSpottableDescendants(containerId).length > 0;
 			const spotlessSpotlightModal = spotlightRestrict === 'self-only' && !hasSpottables;
-			const shouldSpotPopup = current === activator && direction === PositionToDirection[adjustedDirection.split(' ')[0]] && hasSpottables;
+			const shouldSpotPopup = current === activator && direction === PositionToDirection[adjustedDirection.current.split(' ')[0]] && hasSpottables;
 
 			if (shouldSpotPopup || spotlessSpotlightModal) {
 				handleDirectionalKey(ev);
@@ -183,6 +191,31 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		};
 
+		const getContainerNode = (node) => {
+			containerNode.current = node;
+
+			if (resizeObserver.current) {
+				if (node) {
+					// It is not easy to trigger changed position of activator,
+					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
+					// This implementation is dependent on the current structure of FloatingLayer,
+					// so if the structure have changed, below code needs to be changed accordingly.
+					resizeObserver.current.observe(node?.parentElement?.parentElement);
+				} else {
+					resizeObserver.current.disconnect();
+				}
+			}
+
+			if (mutationObserver.current) {
+				if (node) {
+					mutationObserver.current.observe(document.body, {attributes: false, childList: true, subtree: true});
+				} else {
+					mutationObserver.current.disconnect();
+				}
+			}
+		};
+
+		// 4
 		const handleKeyUp = handle(
 			forProp('open', true),
 			forKey('enter'),
@@ -191,8 +224,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			forwardCustom('onClose')
 		);
 
-		// Lifecycle methods
-		// componentDidMount and componentWillUnmount
+		/////////// LIFECYCLE METHODS
+		// componentDidMount() and componentWillUnmount()
 		useEffect(() => {
 			if (open) {
 				on('keydown', handleKeyDown);
@@ -201,6 +234,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			if (typeof ResizeObserver === 'function') {
 				resizeObserver = new ResizeObserver(() => {
+					positionContextualPopup();
+				});
+			}
+
+			if (typeof MutationObserver === 'function') {
+				mutationObserver = new MutationObserver(() => {
 					positionContextualPopup();
 				});
 			}
@@ -216,16 +255,23 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					resizeObserver.disconnect();
 					resizeObserver = null;
 				}
-			}
-		}, [open, state]);
 
+				if (mutationObserver) {
+					mutationObserver.disconnect();
+					mutationObserver = null;
+				}
+			};
+		}, []);
+
+		// 5
 		const getContainerNodeWidth = () => {
 			return containerNode.current && containerNode.current.getBoundingClientRect().width || 0;
 		}
 
+		// 6
 		const getContainerAdjustedPosition = () => {
-			const position = adjustedDirection;
-			const arr = adjustedDirection.split(' ');
+			const position = adjustedDirection.current;
+			const arr = adjustedDirection.current.split(' ');
 			let direction = null;
 			let anchor = null;
 
@@ -238,6 +284,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return {anchor, direction};
 		};
 
+		// 7
 		const calcOverflow = (container, client) => {
 			let containerHeight, containerWidth;
 			const {anchor, direction} = getContainerAdjustedPosition();
@@ -250,39 +297,41 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				containerWidth = container.width;
 			}
 
-			overflow = {
+			overflow.current = {
 				isOverTop: anchor === 'top' && (direction === 'left' || direction === 'right') ?
-					!(client.top > KEEPOUT) :
-					client.top - containerHeight - ARROW_OFFSET - MARGIN - KEEPOUT < 0,
+					!(client.top > KEEPOUT.current) :
+					client.top - containerHeight - ARROW_OFFSET.current - MARGIN.current - KEEPOUT.current < 0,
 				isOverBottom: anchor === 'bottom' && (direction === 'left' || direction === 'right') ?
-					client.bottom + KEEPOUT > window.innerHeight :
-					client.bottom + containerHeight + ARROW_OFFSET + MARGIN + KEEPOUT > window.innerHeight,
+					client.bottom + KEEPOUT.current > window.innerHeight :
+					client.bottom + containerHeight + ARROW_OFFSET.current + MARGIN.current + KEEPOUT.current > window.innerHeight,
 				isOverLeft: anchor === 'left' && (direction === 'above' || direction === 'below') ?
-					!(client.left > KEEPOUT) :
-					client.left - containerWidth - ARROW_OFFSET - MARGIN - KEEPOUT < 0,
+					!(client.left > KEEPOUT.current) :
+					client.left - containerWidth - ARROW_OFFSET.current - MARGIN.current - KEEPOUT.current < 0,
 				isOverRight: anchor === 'right' && (direction === 'above' || direction === 'below') ?
-					client.right + KEEPOUT > window.innerWidth :
-					client.right + containerWidth + ARROW_OFFSET + MARGIN + KEEPOUT > window.innerWidth
+					client.right + KEEPOUT.current > window.innerWidth :
+					client.right + containerWidth + ARROW_OFFSET.current + MARGIN.current + KEEPOUT.current > window.innerWidth
 			};
-		};
+		}
 
+		// 8
 		const adjustDirection = () => {
 			const {anchor, direction} = getContainerAdjustedPosition();
 
-			if (overflow.isOverTop && !overflow.isOverBottom && direction === 'above') {
-				adjustedDirection = anchor ? `below ${anchor}` : 'below';
-			} else if (overflow.isOverBottom && !overflow.isOverTop && direction === 'below') {
-				adjustedDirection = anchor ? `above ${anchor}` : 'above';
-			} else if (overflow.isOverLeft && !overflow.isOverRight && direction === 'left' && !props.rtl) {
-				adjustedDirection = anchor ? `right ${anchor}` : 'right';
-			} else if (overflow.isOverRight && !overflow.isOverLeft && direction === 'right' && !props.rtl) {
-				adjustedDirection = anchor ? `left ${anchor}` : 'left';
+			if (overflow.current.isOverTop && !overflow.current.isOverBottom && direction === 'above') {
+				adjustedDirection.current = anchor ? `below ${anchor}` : 'below';
+			} else if (overflow.current.isOverBottom && !overflow.current.isOverTop && direction === 'below') {
+				adjustedDirection.current = anchor ? `above ${anchor}` : 'above';
+			} else if (overflow.current.isOverLeft && !overflow.current.isOverRight && direction === 'left' && !rtl) {
+				adjustedDirection.current = anchor ? `right ${anchor}` : 'right';
+			} else if (overflow.current.isOverRight && !overflow.current.isOverLeft && direction === 'right' && !rtl) {
+				adjustedDirection.current = anchor ? `left ${anchor}` : 'left';
 			}
-		};
+		}
 
+		// 9
 		const adjustRTL = (position) => {
 			let pos = position;
-			if (props.rtl) {
+			if (rtl) {
 				const tmpLeft = pos.left;
 				pos.left = pos.right;
 				pos.right = tmpLeft;
@@ -290,65 +339,67 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return pos;
 		}
 
+		// 10
 		const getArrowPosition = (containerNode, clientNode) => {
 			const position = {};
 			const {anchor, direction} = getContainerAdjustedPosition();
 
 			if (direction === 'above' || direction === 'below') {
-				if (overflow.isOverRight && !overflow.isOverLeft) {
-					position.left = window.innerWidth - ((containerNode.width + ARROW_WIDTH) / 2) - KEEPOUT;
-				} else if (!overflow.isOverRight && overflow.isOverLeft) {
-					position.left = ((containerNode.width - ARROW_WIDTH) / 2) + KEEPOUT;
+				if (overflow.current.isOverRight && !overflow.current.isOverLeft) {
+					position.left = window.innerWidth - ((containerNode.width + ARROW_WIDTH.current) / 2) - KEEPOUT.current;
+				} else if (!overflow.current.isOverRight && overflow.current.isOverLeft) {
+					position.left = ((containerNode.width - ARROW_WIDTH.current) / 2) + KEEPOUT.current;
 				} else if (anchor === 'left') {
-					position.left = clientNode.left + (containerNode.width - ARROW_WIDTH) / 2;
+					position.left = clientNode.left + (containerNode.width - ARROW_WIDTH.current) / 2;
 				} else if (anchor === 'right') {
-					position.left = clientNode.right - containerNode.width + (containerNode.width - ARROW_WIDTH) / 2;
+					position.left = clientNode.right - containerNode.width + (containerNode.width - ARROW_WIDTH.current) / 2;
 				} else {
-					position.left = clientNode.left + (clientNode.width - ARROW_WIDTH) / 2;
+					position.left = clientNode.left + (clientNode.width - ARROW_WIDTH.current) / 2;
 				}
-			} else if (overflow.isOverBottom && !overflow.isOverTop) {
-				position.top = window.innerHeight - ((containerNode.height + ARROW_WIDTH) / 2) - KEEPOUT;
-			} else if (!overflow.isOverBottom && overflow.isOverTop) {
-				position.top = ((containerNode.height - ARROW_WIDTH) / 2) + KEEPOUT;
+			} else if (overflow.current.isOverBottom && !overflow.current.isOverTop) {
+				position.top = window.innerHeight - ((containerNode.height + ARROW_WIDTH.current) / 2) - KEEPOUT.current;
+			} else if (!overflow.current.isOverBottom && overflow.current.isOverTop) {
+				position.top = ((containerNode.height - ARROW_WIDTH.current) / 2) + KEEPOUT.current;
 			} else if (anchor === 'top') {
-				position.top = clientNode.top + (containerNode.height - ARROW_WIDTH) / 2;
+				position.top = clientNode.top + (containerNode.height - ARROW_WIDTH.current) / 2;
 			} else if (anchor === 'bottom') {
-				position.top = clientNode.bottom - containerNode.height + (containerNode.height - ARROW_WIDTH) / 2;
+				position.top = clientNode.bottom - containerNode.height + (containerNode.height - ARROW_WIDTH.current) / 2;
 			} else {
-				position.top = clientNode.top + (clientNode.height - ARROW_WIDTH) / 2;
+				position.top = clientNode.top + (clientNode.height - ARROW_WIDTH.current) / 2;
 			}
 
 			switch (direction) {
 				case 'above':
-					position.top = clientNode.top - ARROW_WIDTH - MARGIN;
+					position.top = clientNode.top - ARROW_WIDTH.current - MARGIN.current;
 					break;
 				case 'below':
-					position.top = clientNode.bottom + MARGIN;
+					position.top = clientNode.bottom + MARGIN.current;
 					break;
 				case 'left':
-					position.left = props.rtl ? clientNode.left + clientNode.width + MARGIN : clientNode.left - ARROW_WIDTH - MARGIN;
+					position.left = rtl ? clientNode.left + clientNode.width + MARGIN.current : clientNode.left - ARROW_WIDTH.current - MARGIN.current;
 					break;
 				case 'right':
-					position.left = props.rtl ? clientNode.left - ARROW_WIDTH - MARGIN : clientNode.left + clientNode.width + MARGIN;
+					position.left = rtl ? clientNode.left - ARROW_WIDTH.current - MARGIN.current : clientNode.left + clientNode.width + MARGIN.current;
 					break;
 				default:
 					return {};
 			}
 
 			return adjustRTL(position);
-		};
+		}
 
+		// 11
 		const centerContainerPosition = (containerNode, clientNode) => {
 			const pos = {};
 			const {anchor, direction} = getContainerAdjustedPosition();
 
 			if (direction === 'above' || direction === 'below') {
-				if (overflow.isOverLeft) {
+				if (overflow.current.isOverLeft) {
 					// anchor to the left of the screen
-					pos.left = KEEPOUT;
-				} else if (overflow.isOverRight) {
+					pos.left = KEEPOUT.current;
+				} else if (overflow.current.isOverRight) {
 					// anchor to the right of the screen
-					pos.left = window.innerWidth - containerNode.width - KEEPOUT;
+					pos.left = window.innerWidth - containerNode.width - KEEPOUT.current;
 				} else if (anchor) {
 					if (anchor === 'center') {
 						// center horizontally
@@ -367,12 +418,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 
 			} else if (direction === 'left' || direction === 'right') {
-				if (overflow.isOverTop) {
+				if (overflow.current.isOverTop) {
 					// anchor to the top of the screen
-					pos.top = KEEPOUT;
-				} else if (overflow.isOverBottom) {
+					pos.top = KEEPOUT.current;
+				} else if (overflow.current.isOverBottom) {
 					// anchor to the bottom of the screen
-					pos.top = window.innerHeight - containerNode.height - KEEPOUT;
+					pos.top = window.innerHeight - containerNode.height - KEEPOUT.current;
 				} else if (anchor === 'middle') {
 					// center vertically
 					pos.top = clientNode.top - (containerNode.height - clientNode.height) / 2;
@@ -388,28 +439,30 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return pos;
 		}
 
-		const getContainerPosition =  (containerNode, clientNode) => {
+		// 12
+		const getContainerPosition = (containerNode, clientNode) => {
 			const position = centerContainerPosition(containerNode, clientNode);
 			const {direction} = getContainerAdjustedPosition();
 
 			switch (direction) {
 				case 'above':
-					position.top = clientNode.top - ARROW_OFFSET - containerNode.height - MARGIN;
+					position.top = clientNode.top - ARROW_OFFSET.current - containerNode.height - MARGIN.current;
 					break;
 				case 'below':
-					position.top = clientNode.bottom + ARROW_OFFSET + MARGIN;
+					position.top = clientNode.bottom + ARROW_OFFSET.current + MARGIN.current;
 					break;
 				case 'right':
-					position.left = props.rtl ? clientNode.left - containerNode.width - ARROW_OFFSET - MARGIN : clientNode.right + ARROW_OFFSET + MARGIN;
+					position.left = rtl ? clientNode.left - containerNode.width - ARROW_OFFSET.current - MARGIN.current : clientNode.right + ARROW_OFFSET.current + MARGIN.current;
 					break;
 				case 'left':
-					position.left = props.rtl ? clientNode.right + ARROW_OFFSET + MARGIN : clientNode.left - containerNode.width - ARROW_OFFSET - MARGIN;
+					position.left = rtl ? clientNode.right + ARROW_OFFSET.current + MARGIN.current : clientNode.left - containerNode.width - ARROW_OFFSET.current - MARGIN.current;
 					break;
 			}
 
 			return adjustRTL(position);
 		}
 
+		// 13
 		/**
 		 * Position the popup in relation to the activator.
 		 *
@@ -427,8 +480,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				const {top, left, bottom, right, width, height} = clientSiblingRef.current.getBoundingClientRect();
 				const clientNode = {top, left, bottom, right, width, height};
 
-				clientNode.left = props.rtl ? window.innerWidth - right : left;
-				clientNode.right = props.rtl ? window.innerWidth - left : right;
+				clientNode.left = rtl ? window.innerWidth - right : left;
+				clientNode.right = rtl ? window.innerWidth - left : right;
 
 				calcOverflow(containerNodeRect, clientNode);
 				adjustDirection();
@@ -436,16 +489,16 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				const arrowPosition = getArrowPosition(containerNodeRect, clientNode),
 					containerPosition = getContainerPosition(containerNodeRect, clientNode);
 
-				if ((state.direction !== adjustedDirection) ||
+				if ((state.direction !== adjustedDirection.current) ||
 					(state.arrowPosition.left !== arrowPosition.left) ||
 					(state.arrowPosition.top !== arrowPosition.top) ||
 					(state.containerPosition.left !== containerPosition.left) ||
 					(state.containerPosition.right !== containerPosition.right) ||
 					(state.containerPosition.top !== containerPosition.top)
 				) {
-					setState(prevState => ({
+					setState((prevState) => ({
 						...prevState,
-						direction: adjustedDirection,
+						direction: adjustedDirection.current,
 						arrowPosition,
 						containerPosition
 					}));
@@ -453,6 +506,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		};
 
+		// 14
 		const spotActivator = (activator) => {
 			if (!Spotlight.getPointerMode() && activator && activator === Spotlight.getCurrent()) {
 				activator.blur();
@@ -463,45 +517,50 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		// getSnapshotBeforeUpdate and componentDidUpdate
+		const prevPropsRef = useRef({direction, open});
+		const prevStateRef = useRef(state);
+		console.log(prevStateRef.current, prevPropsRef.current);
 		useEffect(() => {
 			const snapshot = {
 				containerWidth: getContainerNodeWidth()
 			};
 
-			if (prevProps.current.open && !open) {
+			const prevProps = prevPropsRef.current;
+			const prevState = prevStateRef.current;
+			if (prevProps.open && !open) {
 				const current = Spotlight.getCurrent();
 				snapshot.shouldSpotActivator = (
 					// isn't set
 					!current ||
-					// is on the activator and we want to re-spot it so a11y read out can occur
-					current === prevState.current.state.activator ||
+					// is on the activator, and we want to re-spot it so a11y read out can occur
+					current === prevState.activator ||
 					// is within the popup
 					containerNode.current.contains(current)
 				);
 			}
 
-			if (prevProps.current.direction !== direction ||
+			if (prevProps.direction !== direction ||
 				snapshot.containerWidth !== getContainerNodeWidth() ||
-				(prevProps.current.open && open)) {
-				adjustedDirection = direction;
+				(prevProps.open && open)) {
+				adjustedDirection.current = direction;
 				// NOTE: `setState` is called and will cause re-render
 				positionContextualPopup();
 			}
 
-			if (open && !prevProps.current.open) {
+			if (open && !prevProps.open) {
 				on('keydown', handleKeyDown);
 				on('keyup', handleKeyUp);
-			} else if (!open && prevProps.current.open) {
+			} else if (!open && prevProps.open) {
 				off('keydown', handleKeyDown);
 				off('keyup', handleKeyUp);
 				if (snapshot && snapshot.shouldSpotActivator) {
-					spotActivator(prevState.current.state.activator);
+					spotActivator(prevState.activator);
 				}
 			}
-		}, [containerNode, direction, prevProps.current, prevState.current, open]);
-		// END Lifecycle methods
+		}, [direction, handleKeyDown, handleKeyUp, open, positionContextualPopup]);
+		////////// --- END OF LIFECYCLE METHODS
 
-		//////////// - HANDLERS
+		// 15
 		const updateLeaveFor = (activator) => {
 			Spotlight.set(state.containerId, {
 				leaveFor: {
@@ -513,31 +572,34 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			});
 		}
 
+		// 16
 		const handleClose = () => {
 			updateLeaveFor(null);
-			setState(prevState => ({
+			setState((prevState) => ({
 				...prevState,
 				activator: null
 			}));
 		};
 
+		// 17
 		const handleDismiss = () => {
 			forwardCustom('onClose')(null, props);
 		};
 
+		// 18
 		const handleOpen = (ev) => {
 			forward('onOpen', ev, props);
 			positionContextualPopup();
 			const current = Spotlight.getCurrent();
 			updateLeaveFor(current);
-			setState(prevState => ({
+			setState((prevState) => ({
 				...prevState,
 				activator: current
 			}));
 			spotPopupContent();
 		};
 
-		// TODO: uncomment below lines and take a look
+		// 19
 		// handle key event from contextual popup and closes the popup
 		const handleContainerKeyDown = (ev) => {
 			// Note: Container will be only rendered if `open`ed, therefore no need to check for `open`
@@ -549,28 +611,13 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			// if focus moves outside the popup's container, issue the `onClose` event
 			if (Spotlight.move(direction) && !containerNode.current.contains(Spotlight.getCurrent())) {
-				forwardCustom('onClose')(null, this.props);
+				forwardCustom('onClose')(null, props);
 			}
 		};
 
-		const getContainerNode = (node) => {
-			containerNode.current = node;
+		// 20
 
-			if (resizeObserver) {
-				if (node) {
-					// It is not easy to trigger changed position of activator,
-					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
-					// This implementation is dependent on the current structure of FloatingLayer,
-					// so if the structure have changed, below code needs to be changed accordingly.
-					resizeObserver.observe(node?.parentElement?.parentElement);
-				} else {
-					resizeObserver.disconnect();
-				}
-			}
-		};
-
-		/////////// - this is from render method
-		const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, popupProps, skin, ...rest} = props;
+		// render method
 		const idFloatLayer = `${id}_floatLayer`;
 
 		// 'holepunch' scrimType is specific to this component, not supported by floating layer
@@ -622,7 +669,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							arrowPosition={state.arrowPosition}
 							containerPosition={state.containerPosition}
 							containerRef={getContainerNode}
-							data-webos-voice-exclusive={voiceExclusive}
+							data-webos-voice-exclusive={dataWebosVoiceExclusive}
 							offset={noArrow ? offset : 'none'}
 							showArrow={!noArrow}
 							skin={skin}
