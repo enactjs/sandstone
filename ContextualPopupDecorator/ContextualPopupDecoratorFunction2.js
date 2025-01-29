@@ -142,7 +142,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		});
 
-		// 1
 		const handleDirectionalKey = (ev) => {
 			// prevent default page scrolling
 			ev.preventDefault();
@@ -152,7 +151,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			Spotlight.setPointerMode(false);
 		};
 
-		// 2
 		const spotPopupContent = useCallback(() => {
 			const {containerId} = state;
 			const spottableDescendants = Spotlight.getSpottableDescendants(containerId);
@@ -165,7 +163,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}, [spotlightRestrict, state]);
 
-		// 3
 		// handle key event from outside (i.e. the activator) to the popup container
 		const handleKeyDown = useCallback((ev) => {
 			const {activator, containerId} = state;
@@ -213,7 +210,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		};
 
-		// 4
 		const handleKeyUp = handle(
 			forProp('open', true),
 			forKey('enter'),
@@ -222,7 +218,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			forwardCustom('onClose')
 		);
 
-		// 6
 		const getContainerAdjustedPosition = () => {
 			const position = adjustedDirection.current;
 			const arr = adjustedDirection.current.split(' ');
@@ -238,7 +233,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return {anchor, direction};
 		};
 
-		// 7
 		const calcOverflow = (container, client) => {
 			let containerHeight, containerWidth;
 			const {anchor, direction} = getContainerAdjustedPosition(); // eslint-disable-line no-shadow
@@ -267,7 +261,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			};
 		};
 
-		// 8
 		const adjustDirection = () => {
 			const {anchor, direction} = getContainerAdjustedPosition(); // eslint-disable-line no-shadow
 
@@ -282,7 +275,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		};
 
-		// 9
 		const adjustRTL = (position) => {
 			let pos = position;
 			if (rtl) {
@@ -293,7 +285,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return pos;
 		};
 
-		// 10
 		const getArrowPosition = (containerNode, clientNode) => { // eslint-disable-line no-shadow
 			const position = {};
 			const {anchor, direction} = getContainerAdjustedPosition(); // eslint-disable-line no-shadow
@@ -342,7 +333,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return adjustRTL(position);
 		};
 
-		// 11
 		const centerContainerPosition = (containerNode, clientNode) => { // eslint-disable-line no-shadow
 			const pos = {};
 			const {anchor, direction} = getContainerAdjustedPosition(); // eslint-disable-line no-shadow
@@ -393,7 +383,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return pos;
 		};
 
-		// 12
 		const getContainerPosition = (containerNode, clientNode) => { // eslint-disable-line no-shadow
 			const position = centerContainerPosition(containerNode, clientNode);
 			const {direction} = getContainerAdjustedPosition(); // eslint-disable-line no-shadow
@@ -416,7 +405,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return adjustRTL(position);
 		};
 
-		// 13
 		/**
 		 * Position the popup in relation to the activator.
 		 *
@@ -450,17 +438,16 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					(state.containerPosition.right !== containerPosition.right) ||
 					(state.containerPosition.top !== containerPosition.top)
 				) {
-					setState((prevState) => ({
-						...prevState,
+					setState({
 						direction: adjustedDirection.current,
 						arrowPosition,
 						containerPosition
-					}));
+					});
 				}
 			}
 		}, [rtl, state]); // eslint-disable-line react-hooks/exhaustive-deps
 
-		/////////// LIFECYCLE METHODS
+		// LIFECYCLE METHODS
 		// componentDidMount() and componentWillUnmount()
 		useEffect(() => {
 			if (open) {
@@ -469,13 +456,13 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			if (typeof ResizeObserver === 'function') {
-				resizeObserver = new ResizeObserver(() => {
+				resizeObserver.current = new ResizeObserver(() => {
 					positionContextualPopup();
 				});
 			}
 
 			if (typeof MutationObserver === 'function') {
-				mutationObserver = new MutationObserver(() => {
+				mutationObserver.current = new MutationObserver(() => {
 					positionContextualPopup();
 				});
 			}
@@ -488,23 +475,21 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				Spotlight.remove(state.containerId);
 
 				if (resizeObserver) {
-					resizeObserver.disconnect();
-					resizeObserver = null;
+					resizeObserver.current.disconnect();
+					resizeObserver.current = null;
 				}
 
 				if (mutationObserver) {
-					mutationObserver.disconnect();
-					mutationObserver = null;
+					mutationObserver.current.disconnect();
+					mutationObserver.current = null;
 				}
 			};
-		}, []);
+		}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-		// 5
 		const getContainerNodeWidth = () => {
 			return containerNode.current && containerNode.current.getBoundingClientRect().width || 0;
-		}
+		};
 
-		// 14
 		const spotActivator = (activator) => {
 			if (!Spotlight.getPointerMode() && activator && activator === Spotlight.getCurrent()) {
 				activator.blur();
@@ -555,9 +540,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 			}
 		}, [direction, handleKeyDown, handleKeyUp, open, positionContextualPopup]);
-		////////// --- END OF LIFECYCLE METHODS
 
-		// 15
 		const updateLeaveFor = useCallback((activator) => {
 			Spotlight.set(state.containerId, {
 				leaveFor: {
@@ -569,34 +552,28 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			});
 		}, [state]);
 
-		// 16
 		const handleClose = useCallback(() => {
 			updateLeaveFor(null);
-			setState((prevState) => ({
-				...prevState,
+			setState({
 				activator: null
-			}));
+			});
 		}, [updateLeaveFor]);
 
-		// 17
 		const handleDismiss = useCallback(() => {
 			forwardCustom('onClose')(null, props);
 		}, [props]);
 
-		// 18
 		const handleOpen = useCallback((ev) => {
 			forward('onOpen', ev, props);
 			positionContextualPopup();
 			const current = Spotlight.getCurrent();
 			updateLeaveFor(current);
-			setState((prevState) => ({
-				...prevState,
+			setState({
 				activator: current
-			}));
+			});
 			spotPopupContent();
 		}, [positionContextualPopup, props, spotPopupContent, updateLeaveFor]);
 
-		// 19
 		// handle key event from contextual popup and closes the popup
 		const handleContainerKeyDown = useCallback((ev) => {
 			// Note: Container will be only rendered if `open`ed, therefore no need to check for `open`
@@ -607,12 +584,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			handleDirectionalKey(ev);
 
 			// if focus moves outside the popup's container, issue the `onClose` event
-			if (Spotlight.move(direction) && !containerNode.current.contains(Spotlight.getCurrent())) {
+			if (Spotlight.move(direction) && !containerNode?.current.contains(Spotlight.getCurrent())) {
 				forwardCustom('onClose')(null, props);
 			}
 		}, [props]);
-
-		// 20
 
 		// render method
 		const idFloatLayer = `${id}_floatLayer`;
