@@ -1,6 +1,6 @@
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
-import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator/ContextualPopupDecoratorFunction2';
+import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
