@@ -586,11 +586,11 @@ class Popup extends Component {
 		this.setState({
 			floatLayerOpen: false,
 			activator: null
+		}, () => {
+			if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
+				this.spotActivator(this.state.activator);
+			}
 		});
-
-		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
-			this.spotActivator(this.state.activator);
-		}
 	};
 
 	handlePopupShow = (ev) => {
