@@ -2,6 +2,12 @@
  * Sandstone component that allows the user to choose a color
  * either from a grid, a spectrum, or RGB/HSL color sliders.
  *
+ * @example
+ * <ColorPicker
+ *     onChangeColor={() => console.log}
+ *     open
+ * />
+ *
  * @module sandstone/ColorPicker
  * @exports ColorPicker
  * @exports ColorPickerBase
