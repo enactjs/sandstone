@@ -325,7 +325,6 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 							{title: 'Sliders', onTabClick: handleSlidersClick}
 						]}
 						orientation="horizontal"
-						tabSize={400}
 					/>
 					<div className={componentCss.colorPicker}>
 						{renderContent()}
