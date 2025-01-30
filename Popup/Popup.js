@@ -583,12 +583,12 @@ class Popup extends Component {
 		forwardHide(ev, this.props);
 
 		this.setState({
-			floatLayerOpen: false,
-			activator: null
+			floatLayerOpen: false
 		}, () => {
 			if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
 				this.spotActivator(this.state.activator);
 			}
+			this.setState({activator: null});
 		});
 	};
 
