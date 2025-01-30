@@ -27,6 +27,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/ContextualPopupDecorator` to update popup position properly when the DOM tree changes
+- `sandstone/Popup` to wait for state update before changing spotlight focus, on popup hide
 
 ## [2.7.21] - 2024-12-31
 
