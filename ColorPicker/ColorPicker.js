@@ -4,7 +4,6 @@
  *
  * @example
  * <ColorPicker
- *     onChangeColor={() => console.log}
  *     open
  * />
  *
@@ -32,6 +31,8 @@ import {generateOppositeColor} from './utils';
 import componentCss from './ColorPicker.module.less';
 
 const SpottableButton = Spottable(ButtonBase);
+
+const defaultColors = ['#eb4034', '#32a852', '#3455eb'];
 
 /**
  * The favorite colors component.
@@ -251,7 +252,7 @@ FavoriteColors.propTypes = {
  * @ui
  * @public
  */
-const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3455eb'], disabled, onChangeColor, open, type = 'grid', ...rest}) => {
+const ColorPickerBase = ({color = '#eb4034', colors = defaultColors, disabled, onChangeColor, open, type = 'grid', ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
 	const [selectedColor, setSelectedColor] = useState(color);
 	const [tabLayoutIndex, setTabLayoutIndex] = useState(0);
@@ -276,7 +277,7 @@ const ColorPickerBase = ({color = '#eb4034', colors = ['#eb4034', '#32a852', '#3
 	}, [color, colors, type]);
 
 	useEffect(() => {
-		if (disabled) return;
+		if (disabled || !onChangeColor) return;
 		if (selectedColor || favoriteColors) {
 			onChangeColor({selectedColor, favoriteColors});
 		}
