@@ -12,6 +12,7 @@
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Row} from '@enact/ui/Layout';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {useCallback, useEffect, useState} from 'react';
@@ -81,6 +82,8 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 	}, []);
 
 	const handleDaySelect = useCallback((event) => {
+		if (disabled) return;
+
 		const day = event.target.textContent ? event.target.textContent : event.target.parentElement.textContent;
 		const newDate = new Date(year, month, day);
 		if (setSelectedDate) setSelectedDate(newDate);
@@ -149,10 +152,10 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 								>
 									{ d > 0 ?
 										<SpottableButton
-											className={componentCss.dayNumber}
+											className={classNames(componentCss.dayNumber, isToday(today, d, month, year) ? componentCss.isToday : '')}
 											css={css}
-											onClick={!disabled && handleDaySelect}
-											style={{border: isToday(today, d, month, year) ? `1px solid white` : '', color: disabled && '#4c5059'}}
+											disabled={disabled}
+											onClick={handleDaySelect}
 										>
 											{d}
 										</SpottableButton> :
