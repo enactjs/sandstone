@@ -277,7 +277,20 @@ const ColorPickerBase = ({color = '#eb4034', colors = defaultColors, disabled, o
 	}, [color, colors, type]);
 
 	const handleFavouriteColors = useCallback(favColors => {
-		const newFavouriteColors = favColors();
+		const parameterType = typeof (favColors);
+		let newFavouriteColors = {};
+
+		switch (parameterType) {
+			case 'function':
+				newFavouriteColors = favColors();
+				break;
+			case 'object':
+				newFavouriteColors = favColors;
+				break;
+			default:
+				break;
+		}
+
 		setFavoriteColors(newFavouriteColors);
 		if (onChangeColor) onChangeColor({selectedColor, favoriteColors: newFavouriteColors});
 	}, [onChangeColor, selectedColor]);
