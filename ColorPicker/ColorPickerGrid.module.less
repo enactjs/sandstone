@@ -1,0 +1,20 @@
+// ColorPickerGrid.module.less
+//
+@import "../styles/colors.less";
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+
+.colorPicker {
+	display: flex;
+
+	.colorBlock {
+		border: @sand-colorpicker-border-large solid @sand-colorpicker-colorblock-border-color;
+		height: @sand-colorpicker-grid-colorblock-size;
+		width: @sand-colorpicker-grid-colorblock-size;
+
+		.focus({
+			border-color: var(--sand-colorpicker-grid-focus-border-color);
+			box-shadow: 0 0 12px 3px inset;
+		})
+	}
+}
