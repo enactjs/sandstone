@@ -10,7 +10,7 @@
 
 import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
-import {handle, forProp, forKey, forward, forwardCustom, stop} from '@enact/core/handle';
+import {handle, forKey, forward, forwardCustom, stop} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {WithRef} from '@enact/core/internal/WithRef';
@@ -109,7 +109,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return Math.random().toString(36).substring(2, 10);
 		};
 		// constructor variables
-		let resizeObserver = useRef(null);
+		let resizeObserver = null;
 		let mutationObserver = useRef(null);
 		let overflow = useRef(null);
 		let adjustedDirection = useRef(direction);
@@ -129,7 +129,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					containerPosition: state.containerPosition,
 					containerId: state.containerId,
 					activator: state.activator,
-					resizeObserver: resizeObserver.current,
+					resizeObserver,
 					overflow: overflow.current,
 					adjustedDirection: adjustedDirection.current,
 					id: id.current,
@@ -152,14 +152,13 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		const spotPopupContent = useCallback(() => {
-			const {containerId} = state;
-			const spottableDescendants = Spotlight.getSpottableDescendants(containerId);
+			const spottableDescendants = Spotlight.getSpottableDescendants(state.containerId);
 			if (spotlightRestrict === 'self-only' && spottableDescendants.length && Spotlight.getCurrent()) {
 				Spotlight.getCurrent().blur();
 			}
 
-			if (!Spotlight.focus(containerId)) {
-				Spotlight.setActiveContainer(containerId);
+			if (!Spotlight.focus(state.containerId)) {
+				Spotlight.setActiveContainer(state.containerId);
 			}
 		}, [spotlightRestrict, state]);
 
@@ -189,15 +188,15 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		const getContainerNode = (node) => {
 			containerNode.current = node;
 
-			if (resizeObserver.current) {
+			if (resizeObserver) {
 				if (node) {
 					// It is not easy to trigger changed position of activator,
 					// so we chose to observe the `div` element's size that has the real size below the root of floatLayer.
 					// This implementation is dependent on the current structure of FloatingLayer,
 					// so if the structure have changed, below code needs to be changed accordingly.
-					resizeObserver.current.observe(node?.parentElement?.parentElement);
+					resizeObserver.observe(node?.parentElement?.parentElement);
 				} else {
-					resizeObserver.current.disconnect();
+					resizeObserver.disconnect();
 				}
 			}
 
@@ -211,7 +210,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		const handleKeyUp = handle(
-			forProp('open', true),
 			forKey('enter'),
 			() => Spotlight.getCurrent() === state.activator,
 			stop,
@@ -438,11 +436,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					(state.containerPosition.right !== containerPosition.right) ||
 					(state.containerPosition.top !== containerPosition.top)
 				) {
-					setState({
+					setState((prevState) => ({
+						...prevState,
 						direction: adjustedDirection.current,
 						arrowPosition,
 						containerPosition
-					});
+					}));
 				}
 			}
 		}, [rtl, state]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -456,7 +455,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			if (typeof ResizeObserver === 'function') {
-				resizeObserver.current = new ResizeObserver(() => {
+				resizeObserver = new ResizeObserver(() => {
 					positionContextualPopup();
 				});
 			}
@@ -475,8 +474,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				Spotlight.remove(state.containerId);
 
 				if (resizeObserver) {
-					resizeObserver.current.disconnect();
-					resizeObserver.current = null;
+					resizeObserver.disconnect();
+					resizeObserver = null;
 				}
 
 				if (mutationObserver) {
@@ -539,7 +538,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 					spotActivator(prevState.activator);
 				}
 			}
-		}, [direction, handleKeyDown, handleKeyUp, open, positionContextualPopup]);
+		}, [direction, open]); // eslint-disable-line react-hooks/exhaustive-deps
 
 		const updateLeaveFor = useCallback((activator) => {
 			Spotlight.set(state.containerId, {
@@ -554,9 +553,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		const handleClose = useCallback(() => {
 			updateLeaveFor(null);
-			setState({
+			setState((prevState) => ({
+				...prevState,
 				activator: null
-			});
+			}));
 		}, [updateLeaveFor]);
 
 		const handleDismiss = useCallback(() => {
@@ -568,9 +568,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			positionContextualPopup();
 			const current = Spotlight.getCurrent();
 			updateLeaveFor(current);
-			setState({
+			setState((prevState) => ({
+				...prevState,
 				activator: current
-			});
+			}));
 			spotPopupContent();
 		}, [positionContextualPopup, props, spotPopupContent, updateLeaveFor]);
 
