@@ -455,7 +455,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			if (typeof ResizeObserver === 'function') {
-				resizeObserver = new ResizeObserver(() => {
+				resizeObserver.current = new ResizeObserver(() => {
 					positionContextualPopup();
 				});
 			}
@@ -473,12 +473,12 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 				Spotlight.remove(state.containerId);
 
-				if (resizeObserver) {
+				if (resizeObserver.current) {
 					resizeObserver.disconnect();
-					resizeObserver = null;
+					resizeObserver.current = null;
 				}
 
-				if (mutationObserver) {
+				if (mutationObserver.current) {
 					mutationObserver.current.disconnect();
 					mutationObserver.current = null;
 				}
