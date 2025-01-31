@@ -74,7 +74,6 @@ class FixedPopupPanelsWithPause extends Component {
 	}
 }
 
-// eslint-disable-next-line enact/prop-types
 const itemRenderer = ({index, ...rest}) => {
 	return <Item {...rest}>Item {index + 1}</Item>;
 };

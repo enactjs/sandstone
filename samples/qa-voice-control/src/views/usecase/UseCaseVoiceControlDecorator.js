@@ -10,13 +10,13 @@ const VoiceItem = VoiceControlDecorator(Item);
 const UseCaseVoiceControlDecorator = () => {
 	const handlePlayListControl = useCallback((e) => {
 		const {intent, control} = e.detail;
-		console.log('handlePlayControl > ', intent, control);	// eslint-disable-line no-console
+		console.log('handlePlayControl > ', intent, control);
 		e.preventDefault();
 	}, []);
 
 	const handlePlayContent = useCallback((e) => {
 		const {intent, value} = e.detail;
-		console.log('handlePlayContent > ', intent, value);	// eslint-disable-line no-console
+		console.log('handlePlayContent > ', intent, value);
 		e.preventDefault();
 	}, []);
 

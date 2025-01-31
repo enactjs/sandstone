@@ -31,7 +31,6 @@ function createResBundle (options) {
 
 	if (!opts.onLoad) return;
 
-	// eslint-disable-next-line no-new
 	new ResBundle({
 		...opts,
 		onLoad: (bundle) => {

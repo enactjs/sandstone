@@ -369,7 +369,6 @@ const QuickGuidePanelsBase = kind({
 		delete rest.prevButtonVisibility;
 		delete rest.total;
 		delete rest.totalPanels;
-		// eslint-disable-next-line enact/prop-types
 		delete rest.hideChildren;
 
 		return (

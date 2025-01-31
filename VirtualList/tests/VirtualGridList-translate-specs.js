@@ -55,7 +55,7 @@ describe('VirtualGridList with translate \'scrollMode\'', () => {
 			done();
 		};
 
-		renderItem = ({index, ...rest}) => { // eslint-disable-line enact/display-name
+		renderItem = ({index, ...rest}) => {
 			const {text, subText, source} = items[index];
 
 			return (

@@ -173,7 +173,6 @@ const ExportedApp = (props) => {
 			focusRing = true;
 		}
 		if (Object.keys(skinVariants).length) {
-			// eslint-disable-next-line no-console
 			console.warn(`Unknown skin variant in ${props.component} test ${props.testId}`);
 		}
 	}

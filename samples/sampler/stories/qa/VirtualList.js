@@ -43,7 +43,6 @@ const prop = {
 	}
 };
 
-// eslint-disable-next-line enact/prop-types
 const renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 	const style = vertical ?
 		{} :
@@ -155,7 +154,6 @@ const CustomHeader = (props) => {
 	);
 };
 
-// eslint-disable-next-line enact/prop-types
 const InPanels = ({className, title, ...rest}) => {
 	const [index, setIndex] = useState(0);
 	const handleSelectItem = useCallback(() => {
@@ -168,7 +166,6 @@ const InPanels = ({className, title, ...rest}) => {
 				<CustomHeader slot="header" title={`${title} Panel 0`} type="compact" />
 				<VirtualList
 					id="spotlight-list"
-					// eslint-disable-next-line enact/prop-types
 					itemRenderer={renderItem(Item, rest.itemSize, true, handleSelectItem)}
 					spotlightId="virtual-list"
 					{...rest}
@@ -548,7 +545,6 @@ const variableItemSizes = fixedItemSizes.map((size, index) => {
 	return index % 2 ? size * 2 : size;
 });
 
-// eslint-disable-next-line enact/prop-types, enact/display-name
 const renderVirtualListItem = (data, onClick = () => {}) => ({index, ...rest}) => {
 	return (
 		<Item {...rest} style={{width: data[index], margin: ri.scaleToRem(15)}} onClick={onClick(index)}>

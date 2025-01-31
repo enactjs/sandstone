@@ -33,7 +33,6 @@ const prop = {
 
 const items = [];
 
-// eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => {
 	const {text, subText, source} = items[index];
 
@@ -44,7 +43,6 @@ const renderItem = ({index, ...rest}) => {
 	);
 };
 
-// eslint-disable-next-line enact/prop-types
 const renderItemWithoutLabels = ({index, ...rest}) => {
 	const {source} = items[index];
 
@@ -90,7 +88,6 @@ class MyVirtualList extends Component {
 
 	closePopup (index) {
 		lastIndex = index;
-		// eslint-disable-next-line enact/prop-types
 		this.props.closePopup();
 	}
 

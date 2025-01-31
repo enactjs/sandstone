@@ -19,7 +19,7 @@ describe('VirtualGridList', () => {
 		items = [];
 		itemSize = {minWidth: 300, minHeight:240};
 
-		renderItem = ({index, ...rest}) => { // eslint-disable-line enact/display-name
+		renderItem = ({index, ...rest}) => {
 			const {text, subText, source} = items[index];
 
 			return (

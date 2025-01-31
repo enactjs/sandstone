@@ -14,7 +14,6 @@ import {svgGenerator} from '../helper/svg';
 const items = [];
 const size = 20;
 
-// eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => {
 	const {source} = items[index];
 

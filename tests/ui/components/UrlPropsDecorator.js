@@ -14,7 +14,6 @@ function UrlPropsDecorator (Wrapped) {
 				try {
 					value = JSON.parse(value);
 				} catch (e) {
-					// eslint-disable-next-line no-console
 					console.error(`Failed to handle URL parameter "${key}" with value "${value}"`);
 					return;
 				}

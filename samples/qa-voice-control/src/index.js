@@ -7,7 +7,7 @@ import App from './App';
 if (__DEV__ && typeof window !== 'undefined') {
 	import('./utils/spotlightDebugging')
 		.then(() => {
-			console.log('Spotlight debugging helpers loaded.');	// eslint-disable-line no-console
+			console.log('Spotlight debugging helpers loaded.');
 		});
 }
 

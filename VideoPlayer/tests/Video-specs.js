@@ -53,7 +53,7 @@ describe('VideoPlayer.Video', () => {
 			const expected = screen.getByTestId('video-id');
 
 			rerender(
-				<Video data-testid="video-id" source={undefined} /> // eslint-disable-line no-undefined
+				<Video data-testid="video-id" source={undefined} />
 			);
 
 			const actual = screen.getByTestId('video-id');

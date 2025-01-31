@@ -548,7 +548,7 @@ ListOfThingsInFixedPopupPanels.storyName = 'List of things in FixedPopupPanels';
 const imageItems = [];
 
 const renderImageItem = (props, index) => {
-	const {text, subText, source} = props; // eslint-disable-line enact/prop-types
+	const {text, subText, source} = props;
 
 	return (
 		<ImageItem
@@ -1239,7 +1239,7 @@ boolean('spotlightDisabled', WithInputFields, Config, false);
 
 WithInputFields.storyName = 'With InputFields';
 
-const renderImageItemForVG = ({index, ...rest}) => { // eslint-disable-line enact/prop-types
+const renderImageItemForVG = ({index, ...rest}) => {
 	const {text, subText, source} = imageItems[index];
 
 	return (

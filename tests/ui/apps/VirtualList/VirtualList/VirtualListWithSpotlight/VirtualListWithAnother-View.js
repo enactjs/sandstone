@@ -26,7 +26,6 @@ const listStyle = {
 
 const itemLists = [[], []];
 
-// eslint-disable-next-line enact/display-name
 const renderItem = (listIndex) => ({index, ...rest}) => {
 	const item = itemLists[listIndex][index].item;
 	return (

@@ -56,7 +56,6 @@ const ImageShape = PropTypes.shape({
 });
 
 const MarqueeBase = ({...rest}) => {
-	// eslint-disable-next-line enact/prop-types
 	delete rest.order;
 
 	return <div {...rest} />;

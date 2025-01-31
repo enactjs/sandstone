@@ -174,7 +174,7 @@ const populateItems = ({index}) => {
 			else return '#' + color;
 		})(),
 		bordered: index < 2,
-		icon: index === 0 ? 'demosync' : (index === 1 ? 'usb' : ''), // eslint-disable-line no-nested-ternary
+		icon: index === 0 ? 'demosync' : (index === 1 ? 'usb' : ''),
 		image: index > 1 ? {
 			src: imageSrcs[index % 5],
 			size: {

@@ -236,7 +236,7 @@ describe('TimePicker', () => {
 
 	describe('#timeToLocaleString', () => {
 		test('method should return \'null\' for an \'undefined\' time', () => {
-			const time = timeToLocaleString(undefined);		// eslint-disable-line no-undefined
+			const time = timeToLocaleString(undefined);
 
 			expect(time).toBeNull();
 		});

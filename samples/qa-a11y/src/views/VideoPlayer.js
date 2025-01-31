@@ -21,7 +21,6 @@ for (let i = 0; i < 20; i++) {
 	items.push({source});
 }
 
-// eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => {
 	const {source} = items[index];
 

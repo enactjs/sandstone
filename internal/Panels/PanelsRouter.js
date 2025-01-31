@@ -74,7 +74,6 @@ const PanelsRouter = hoc(defaultConfig, (config, Wrapped) => {
 		const totalPanels = panel ? Children.count(children) : 0;
 		const currentTitle = panel && panel.title ? panel.title : title;
 		const currentSubTitle = panel && panel.subtitle ? panel.subtitle : subtitle;
-		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
 		return (

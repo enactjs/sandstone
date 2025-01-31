@@ -61,7 +61,6 @@ const MarqueeI18nSamples = I18nContextDecorator(
 		name: 'I18nPanel',
 
 		handlers: {
-			// eslint-disable-next-line enact/prop-types
 			updateLocale: (ev, {updateLocale}) => updateLocale('ar-SA')
 		},
 

@@ -41,7 +41,6 @@ const items = [],
 		scrollModeOption: ['native', 'translate']
 	},
 	shouldAddLongContent = ({index, modIndex}) => (index % modIndex === 0 ? ` ${longContent}` : ''),
-	// eslint-disable-next-line enact/prop-types
 	renderItem = ({index, ...rest}) => {
 		const {children, label, src} = items[index];
 

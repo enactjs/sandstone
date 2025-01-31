@@ -197,7 +197,7 @@ describe('DatePicker', () => {
 
 	describe('#dateToLocaleString', () => {
 		test('method should return \'null\' for an \'undefined\' date', () => {
-			const actual = dateToLocaleString(undefined);		// eslint-disable-line no-undefined
+			const actual = dateToLocaleString(undefined);
 
 			expect(actual).toBeNull();
 		});

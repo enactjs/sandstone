@@ -53,7 +53,7 @@ describe('VirtualList with translate \'scrollMode\'', () => {
 			testCase();
 			done();
 		};
-		renderItem = ({index, ...rest}) => { // eslint-disable-line enact/display-name
+		renderItem = ({index, ...rest}) => {
 			return (
 				<Item {...rest}>
 					{items[index].name}

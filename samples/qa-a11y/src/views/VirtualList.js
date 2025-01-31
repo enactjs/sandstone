@@ -8,14 +8,12 @@ import ri from '@enact/ui/resolution';
 import {useState} from 'react';
 
 const items = [];
-// eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => (
 	<Item {...rest}>
 		{items[index]}
 	</Item>
 );
 
-// eslint-disable-next-line enact/prop-types
 const renderItemWithRole = ({index, ...rest}) => (
 	<Item
 		aria-posinset={index + 1}

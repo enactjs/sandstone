@@ -17,7 +17,7 @@
  */
 export const warn = (msg) => {
 	if (typeof console !== 'undefined') {
-		console.warn(msg);	// eslint-disable-line no-console
+		console.warn(msg);
 	}
 };
 

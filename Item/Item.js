@@ -28,14 +28,12 @@ import Skinnable from '../Skinnable';
 import componentCss from './Item.module.less';
 
 const MarqueeBase = ({...rest}) => {
-	// eslint-disable-next-line enact/prop-types
 	delete rest.contentSize;
 
 	return <div {...rest} />;
 };
 const Marquee = MarqueeDecorator({invalidateProps: ['remeasure', 'contentSize']}, MarqueeBase);
 
-// eslint-disable-next-line enact/prop-types
 const ItemContent = ({componentRef, content, contentSize, css, label, labelPosition, marqueeOn, ...rest}) => {
 	const LabelPositionClassname = {
 		[css.labelAbove]: labelPosition === 'above',

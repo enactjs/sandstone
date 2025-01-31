@@ -1,5 +1,3 @@
-/* global __dirname */
-
 const webpack = require('@enact/storybook-utils/configs/webpack');
 const {loadCsf} = require('@storybook/csf-tools');
 const {readFileSync}  = require('fs');
@@ -15,7 +13,7 @@ module.exports = {
 	framework: {
 		name: '@storybook/react-webpack5'
 	},
-	experimental_indexers: (indexers) => { // eslint-disable-line camelcase
+	experimental_indexers: (indexers) => {
 		const createIndex = async (fileName, opts) => {
 			const code = readFileSync(fileName, {encoding: 'utf-8'});
 			return loadCsf(code, {...opts, fileName}).parse().indexInputs;

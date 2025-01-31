@@ -1,4 +1,3 @@
-/* eslint-disable no-undefined */
 const Page = require('./DropdownPage');
 
 function waitForFocusedText (dropdown, text, timeout, timeoutMsg = `timed out waiting for ${text}`, interval = 250) {
