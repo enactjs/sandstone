@@ -276,16 +276,29 @@ const ColorPickerBase = ({color = '#eb4034', colors = defaultColors, disabled, o
 		}
 	}, [color, colors, type]);
 
-	useEffect(() => {
-		if (disabled || !onChangeColor) return;
-		if (selectedColor || favoriteColors) {
-			onChangeColor({selectedColor, favoriteColors});
-		}
-	}, [disabled, favoriteColors, onChangeColor, selectedColor]);
+	const handleFavouriteColors = useCallback(favColors => {
+		const newFavouriteColors = favColors();
+		setFavoriteColors(newFavouriteColors);
+		if (onChangeColor) onChangeColor({selectedColor, favoriteColors: newFavouriteColors});
+	}, [onChangeColor, selectedColor]);
 
 	const handleGridClick = useCallback(() => {
 		if (disabled) return;
 		setTabLayoutIndex(0);
+	}, [disabled, setTabLayoutIndex]);
+
+	const handleSelectedColor = useCallback(newColor => {
+		setSelectedColor((actualColor) => {
+			if (actualColor === newColor)  return actualColor;
+			if (onChangeColor) onChangeColor({selectedColor: newColor, favoriteColors});
+
+			return newColor;
+		});
+	}, [onChangeColor, favoriteColors]);
+
+	const handleSlidersClick = useCallback(() => {
+		if (disabled) return;
+		setTabLayoutIndex(2);
 	}, [disabled, setTabLayoutIndex]);
 
 	const handleSpectrumClick = useCallback(() => {
@@ -293,23 +306,18 @@ const ColorPickerBase = ({color = '#eb4034', colors = defaultColors, disabled, o
 		setTabLayoutIndex(1);
 	}, [disabled, setTabLayoutIndex]);
 
-	const handleSlidersClick = useCallback(() => {
-		if (disabled) return;
-		setTabLayoutIndex(2);
-	}, [disabled, setTabLayoutIndex]);
-
 	const renderContent = () => {
 		if (tabLayoutIndex === 0) {
 			return (
-				<ColorPickerGrid disabled={disabled} selectedColorHandler={setSelectedColor} />
+				<ColorPickerGrid disabled={disabled} selectedColorHandler={handleSelectedColor} />
 			);
 		} else if (tabLayoutIndex === 1) {
 			return (
-				<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+				<ColorPickerSpectrum disabled={disabled} selectedColor={selectedColor} selectedColorHandler={handleSelectedColor} />
 			);
 		} else if (tabLayoutIndex === 2) {
 			return (
-				<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={setSelectedColor} />
+				<ColorPickerSlider disabled={disabled} selectedColor={selectedColor} selectedColorHandler={handleSelectedColor} />
 			);
 		}
 	};
@@ -335,9 +343,9 @@ const ColorPickerBase = ({color = '#eb4034', colors = defaultColors, disabled, o
 					<FavoriteColors
 						disabled={disabled}
 						favoriteColors={favoriteColors}
-						favoriteColorsHandler={setFavoriteColors}
+						favoriteColorsHandler={handleFavouriteColors}
 						selectedColor={selectedColor}
-						selectedColorHandler={setSelectedColor}
+						selectedColorHandler={handleSelectedColor}
 					/>
 				</Cell>
 			</Row>
