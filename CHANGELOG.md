@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Popup` to wait for state update before changing spotlight focus, on popup hide
+
 ## [3.0.0-alpha.4] - 2025-01-21
 
 - Update dependencies including React 19.0.0
@@ -27,7 +33,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/ContextualPopupDecorator` to update popup position properly when the DOM tree changes
-- `sandstone/Popup` to wait for state update before changing spotlight focus, on popup hide
 
 ## [2.7.21] - 2024-12-31
 
