@@ -66,17 +66,12 @@
 	}
 
 	&.vertical {
-		&.fullImage {
-			padding: @sand-imageitem-vertical-full-image-padding;
+		padding: @sand-imageitem-vertical-full-image-padding;
+		transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
+		will-change: transform, box-shadow;
 
-			.image {
-				transition: transform 200ms ease-in-out, box-shadow 200ms ease-in-out;
-				will-change: transform, box-shadow;
-
-				.selectionIcon {
-					transition: transform 200ms ease-in-out;
-				}
-			}
+		.selectionIcon {
+			transition: transform 200ms ease-in-out;
 		}
 
 		&:not(.fullImage) {
@@ -169,9 +164,7 @@
 		}
 
 		&.vertical {
-			&.fullImage {
-				.sand-focus-highlight(image)
-			}
+			.sand-focus-highlight(image)
 		}
 
 		.focus({
@@ -196,10 +189,8 @@
 			}
 
 			&.vertical {
-				&.fullImage .image {
-					transform: @sand-imageitem-vertical-focus-image-transform;
-					box-shadow: @sand-imageitem-focus-bg-shadow;
-				}
+				transform: @sand-imageitem-vertical-focus-image-transform;
+				box-shadow: @sand-imageitem-focus-bg-shadow;
 			}
 
 			&.selected {
