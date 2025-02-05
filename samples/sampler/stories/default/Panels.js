@@ -49,7 +49,7 @@ export default {
 	component: 'Panels'
 };
 
-export const _Panels = (args) => {
+export const Panels_ = (args) => {
 	// hooks
 	const initialState = 0;
 	const [panelIndex, setState] = useState(initialState);
@@ -215,26 +215,26 @@ export const _Panels = (args) => {
 
 select(
 	'backButtonBackgroundOpacity',
-	_Panels,
+	Panels_,
 	['opaque', 'transparent'],
 	Config,
 	'transparent'
 );
 select(
 	'closeButtonBackgroundOpacity',
-	_Panels,
+	Panels_,
 	['opaque', 'transparent'],
 	Config,
 	'transparent'
 );
-boolean('noAnimation', _Panels, Panels, false);
-boolean('noBackButton', _Panels, Panels, false);
-boolean('noCloseButton', _Panels, Panels, false);
+boolean('noAnimation', Panels_, Panels, false);
+boolean('noBackButton', Panels_, Panels, false);
+boolean('noCloseButton', Panels_, Panels, false);
 
-boolean('centered', _Panels, HeaderConfig);
+boolean('centered', Panels_, HeaderConfig);
 
-_Panels.storyName = 'Panels';
-_Panels.parameters = {
+Panels_.storyName = 'Panels';
+Panels_.parameters = {
 	props: {
 		noPanels: true
 	}
