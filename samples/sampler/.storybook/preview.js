@@ -45,6 +45,18 @@ const skins = {
 	'Light': 'light'
 };
 
+const screenScale = {
+	'1': 1,
+	'1.2': 1.2,
+	'1.4': 1.4,
+	'1.6': 1.6,
+	'1.8': 1.8,
+	'2': 2,
+	'3': 3,
+	'4': 4,
+	'5': 5
+};
+
 configureActions();
 
 if (process.env.STORYBOOK_APPLY_GA_COOKIEBANNER) {
@@ -76,6 +88,7 @@ export const globalTypes = {
 	'large text': getBooleanType('large text'),
 	'high contrast': getBooleanType('high contrast'),
 	'focus ring':getBooleanType('focus ring'),
+	'screen scale': getObjectType('screen scale', 1, screenScale),
 	'skin': getObjectType('skin', 'neutral', skins),
 	'background': getObjectType('background', 'default', backgrounds),
 	'debug aria': getBooleanType('debug aria'),
