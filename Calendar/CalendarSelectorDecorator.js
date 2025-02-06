@@ -4,6 +4,7 @@ import ilib from '@enact/i18n';
 import DateFmt from 'ilib/lib/DateFmt';
 import LocaleInfo from 'ilib/lib/LocaleInfo';
 import PropTypes from 'prop-types';
+import {createYearList, getLocalDate} from './utils';
 
 function generalizeDay (day, firstDayOfWeek) {
 	return ((day + firstDayOfWeek) % 7);
@@ -19,12 +20,16 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 
 	const days = sdf.getDaysOfWeek();
 	const firstDayOfWeek = li.getFirstDayOfWeek();
+	const selectedDate = getLocalDate();
+	const years = createYearList();
 
 	const state = {
 		abbreviatedDayNames: days,
 		firstDayOfWeek,
 		fullDayNames: daysOfWeek,
-		monthsOfYear
+		monthsOfYear,
+		selectedDate,
+		years
 	};
 
 	return state;
@@ -85,6 +90,8 @@ const CalendarSelectorDecorator = hoc((config, Wrapped) => {
 				abbreviatedDayNames={abbreviatedDayNames}
 				firstDayOfWeek={state.firstDayOfWeek}
 				monthsOfYear={state.monthsOfYear}
+				selectedDate={state.selectedDate}
+				years={state.years}
 			/>
 		);
 	};

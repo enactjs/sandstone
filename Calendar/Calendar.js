@@ -15,7 +15,7 @@ import {Cell, Row} from '@enact/ui/Layout';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 
 import BodyText from '../BodyText';
 import Button, {ButtonBase} from '../Button';
@@ -23,21 +23,16 @@ import Dropdown from '../Dropdown';
 import Skinnable from '../Skinnable';
 
 import {CalendarSelectorDecorator} from './CalendarSelectorDecorator';
-import {createYearList, getStartDayOfMonth, isLeapYear, isToday, toLocalYear} from './utils';
+import {
+	getConvertedAndLocalDate,
+	getDaysOfYear,
+	getStartDayOfMonth,
+	isToday
+} from './utils';
 
 import componentCss from './Calendar.module.less';
 
 const SpottableButton = Spottable(ButtonBase);
-
-const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const DAYS_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-// TODO correctly convert year to local year (for ar-SA and thailand)
-const YEARS = createYearList().map(year => {
-	// console.log(year, toLocalYear(year));
-	return toLocalYear(year).toString();
-});
-const defaultDate = new Date();
 
 /**
  * The calendar base component which sets-up the component's structure.
@@ -50,14 +45,14 @@ const defaultDate = new Date();
  * @ui
  * @private
  */
-const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWeek, monthsOfYear, selectedDate = defaultDate, setSelectedDate}) => {
+const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWeek, monthsOfYear, selectedDate, setSelectedDate, years}) => {
 	const [today, setToday] = useState(selectedDate);
 	const [month, setMonth] = useState(today.getMonth());
 	const [year, setYear] = useState(today.getFullYear());
 
-	const days = isLeapYear(year) ? DAYS_LEAP : DAYS;
+	const days = useMemo(() => getDaysOfYear(year), [year]);
 	const startDay = getStartDayOfMonth(firstDayOfWeek, month, year);
-	const yearIndex = YEARS.indexOf(year.toString());
+	const yearIndex = years.findIndex((value) => new RegExp(`${year}`).test(value));
 
 	useEffect(() => {
 		setToday(selectedDate);
@@ -86,9 +81,10 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 
 		const day = event.target.textContent ? event.target.textContent : event.target.parentElement.textContent;
 		const newDate = new Date(year, month, day);
-		if (setSelectedDate) setSelectedDate(newDate);
+		const {convertedDate, localDateString} = getConvertedAndLocalDate(year, month + 1, day);
+		if (setSelectedDate) setSelectedDate({localDate: localDateString, selectedDate: convertedDate});
 		setToday(newDate);
-	}, [month, setSelectedDate, year]);
+	}, [disabled, month, setSelectedDate, year]);
 
 	const handleMonth = useCallback((event) => event.selected && setMonth(event.selected), []);
 
@@ -114,19 +110,19 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 						style={{margin: 0}}
 						width="tiny"
 					>
-						{YEARS}
+						{years}
 					</Dropdown>
 				</Cell>
 				<Cell shrink>
 					<Button
-						disabled={disabled || (year === parseInt(YEARS[0]) && month === 0)}
+						disabled={disabled || (year === parseInt(years[0]) && month === 0)}
 						onClick={handleArrowDecrement}
 						icon="arrowsmallleft"
 						iconOnly
 						size="small"
 					/>
 					<Button
-						disabled={disabled || (year === parseInt(YEARS[YEARS.length - 1]) && month === 11)}
+						disabled={disabled || (year === parseInt(years[years.length - 1]) && month === 11)}
 						onClick={handleArrowIncrement}
 						icon="arrowsmallright"
 						iconOnly
@@ -235,7 +231,15 @@ CalendarBase.propTypes = {/** @lends sandstone/Calendar.CalendarBase.prototype *
 	 * @type {Function}
 	 * @private
 	 */
-	setSelectedDate: PropTypes.func
+	setSelectedDate: PropTypes.func,
+
+	/**
+	 * List of years for the current locale.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	years: PropTypes.array
 };
 
 /**
