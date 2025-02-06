@@ -5,7 +5,7 @@ import calendarFactory from 'ilib/lib/CalendarFactory';
 import DateFactory from 'ilib/lib/DateFactory';
 import DateFmt from 'ilib/lib/DateFmt';
 
-/**
+/*
  * Returns an array of local years.
  *
  * @returns	{Array<number>}	An array containing local year values.
@@ -21,7 +21,7 @@ const createYearList = () => {
 	return years;
 };
 
-/**
+/*
  * Returns the position of the first day of the current month.
  *
  * @returns {number} The position of the first day of the current month.
@@ -41,7 +41,7 @@ const getStartDayOfMonth = (firstDayOfWeek, month, year) => {
 	return startDate === 0 ? 7 : startDate;
 };
 
-/**
+/*
  * Gets the number of days in each month for the local year.
  *
  * @returns	{Array}	An array where each element represents the number of days in a month for the current local year.
@@ -52,7 +52,7 @@ const getDaysOfYear = (year) => {
 		.map((_, index) => calendarFactory().getMonLength(index + 1, year));
 };
 
-/**
+/*
  * Checks if the given date is today.
  *
  * @returns	{Boolean}	Returns `true` if the date is today, otherwise `false`.
@@ -61,7 +61,7 @@ const isToday = (today, day, month, year) => {
 	return (today.getDate() === day && today.getMonth() === month && today.getFullYear() === year);
 };
 
-/**
+/*
  * Returns the current local date and time.
  *
  * @returns	{Date}	The current local date and time as a Date object.
@@ -72,7 +72,7 @@ const getLocalDate = () => {
 	return new Date(year, month - 1, day, hour, minute, second);
 };
 
-/**
+/*
  * Returns the local date in string format and as a Date object.
  *
  * @returns {{localDateString: String, convertedDate: Date}} An object containing:
