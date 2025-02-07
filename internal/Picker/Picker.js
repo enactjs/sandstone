@@ -92,7 +92,8 @@ const PickerBase = (props) => {
 	// will notify the user) when the component does not have focus
 	const [active, setActive] = useState(false);
 	const [pressed, setPressed] = useState(0);
-	const containerRef = useRef();
+	const containerRef = useRef(null);
+
 	const pickerButtonPressed = useRef(0);
 	const reverseTransition = useRef(false);
 
@@ -133,7 +134,7 @@ const PickerBase = (props) => {
 
 	let Component;
 	let arranger = horizontal ? SlideLeftArranger : SlideTopArranger;
-	let noAnimation = props.noAnimation || disabled;
+	let noAnimation = typeof ENACT_PACK_NO_ANIMATION !== 'undefined' && ENACT_PACK_NO_ANIMATION || props.noAnimation || disabled;
 	let sizingPlaceholder = null;
 
 	const clearPressedState = useCallback(() => {
