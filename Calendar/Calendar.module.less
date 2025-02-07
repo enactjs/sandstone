@@ -1,5 +1,7 @@
 // Calendar.module.less
 //
+@import "../styles/mixins.less";
+@import "../styles/skin.less";
 @import "../styles/variables.less";
 
 .calendar {
@@ -39,3 +41,39 @@
 		}
 	}
 }
+
+.applySkins({
+	.calendar {
+		border: 3px solid @sand-focus-text-color;
+	}
+
+	.dayNumber {
+		.focus({
+			.sand-button-focus-bg-colors();
+			.sand-spotlight-focus-text-colors();
+
+			.sand-disabled({
+				.sand-disabled-focus-bg-colors();
+			});
+
+			transform: @sand-button-focusexpand-focus-bg-transform;
+			transition-duration: @sand-button-focus-duration;
+
+			&:not([disabled]) {
+				&:active {
+					transform: none;
+				}
+			}
+		});
+
+		.sand-disabled({
+			& {
+				.sand-disabled-colors();
+			}
+		})
+	}
+
+	.isToday {
+		border: 6px solid @sand-focus-text-color;
+	}
+});
