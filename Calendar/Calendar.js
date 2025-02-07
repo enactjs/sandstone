@@ -146,7 +146,7 @@ const CalendarBase = ({abbreviatedDayNames, css, disabled = false, firstDayOfWee
 									className={componentCss.day}
 									key={index}
 								>
-									{ d > 0 ?
+									{d > 0 ?
 										<SpottableButton
 											className={classNames(componentCss.dayNumber, isToday(today, d, month, year) ? componentCss.isToday : '')}
 											css={css}
