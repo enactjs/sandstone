@@ -10,7 +10,7 @@
  * @module sandstone/ColorPicker
  * @exports ColorPicker
  * @exports ColorPickerBase
- * @public
+ * @private
  */
 import Spottable from '@enact/spotlight/Spottable';
 import {Cell, Row} from '@enact/ui/Layout';
@@ -250,7 +250,7 @@ FavoriteColors.propTypes = {
  * @class ColorPickerBase
  * @memberof sandstone/ColorPicker
  * @ui
- * @public
+ * @private
  */
 const ColorPickerBase = ({color = '#eb4034', colors = defaultColors, disabled, onChangeColor, open, type = 'grid', ...rest}) => {
 	const [favoriteColors, setFavoriteColors] = useState(colors);
@@ -373,7 +373,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * Indicates the selected color.
 	 *
 	 * @type {String}
-	 * @public
+	 * @private
 	 */
 	color: PropTypes.string,
 
@@ -381,7 +381,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * Contains an array with colors.
 	 *
 	 * @type {Array}
-	 * @public
+	 * @private
 	 */
 	colors: PropTypes.array,
 
@@ -390,7 +390,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 *
 	 * @type {Boolean}
 	 * @default false
-	 * @public
+	 * @private
 	 */
 	disabled: PropTypes.bool,
 
@@ -398,7 +398,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 * Called when the selected color is modified.
 	 *
 	 * @type {Function}
-	 * @public
+	 * @private
 	 */
 	onChangeColor: PropTypes.func,
 
@@ -409,7 +409,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 *
 	 * @type {Boolean}
 	 * @default false
-	 * @public
+	 * @private
 	 */
 	open: PropTypes.bool,
 
@@ -418,7 +418,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
 	 *
 	 * @type {('grid'|'spectrum'|'sliders')}
 	 * @default 'grid'
-	 * @public
+	 * @private
 	 */
 	type: PropTypes.oneOf(['grid', 'spectrum', 'sliders'])
 };
@@ -430,7 +430,7 @@ ColorPickerBase.propTypes = {/** @lends sandstone/ColorPicker.ColorPickerBase.pr
  * @memberof sandstone/ColorPicker
  * @extends sandstone/ColorPicker.ColorPickerBase
  * @ui
- * @public
+ * @private
  */
 const ColorPicker = Skinnable(ColorPickerBase);
 

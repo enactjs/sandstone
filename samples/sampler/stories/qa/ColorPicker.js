@@ -1,43 +1,35 @@
-import ColorPickerSettingsApp, {ColorPickerSettingsAppBase} from '@enact/sandstone/ColorPickerSettingsApp';
+import BodyText from '@enact/sandstone/BodyText';
+import ColorPicker from '@enact/sandstone/ColorPicker';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {boolean, text} from '@enact/storybook-utils/addons/controls';
-import {Fragment, useState} from 'react';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/controls';
 
-ColorPickerSettingsApp.displayName = 'ColorPickerSettingsApp';
-const Config = mergeComponentMetadata('ColorPicker', ColorPickerSettingsAppBase, ColorPickerSettingsApp);
+ColorPicker.displayName = 'ColorPicker';
+const Config = mergeComponentMetadata('ColorPicker', ColorPicker);
 
-const presetColors = [
-	'#FF0000',
-	'#00FF00',
-	'#0000FF',
-	'#FFFF00',
-	'#00FFFF',
-	'#FFFFFF',
-	'#000000'
-];
+const colors = ['#eb4034', '#32a852', '#3455eb'];
 
 export default {
-	title: 'Sandstone/ColorPickerSettingsApp',
-	component: 'ColorPickerSettingsApp'
+	title: 'Sandstone/ColorPicker',
+	component: 'ColorPicker'
 };
 
-export const WithPresetColors = (args) => {
-	const [color, setColor] = useState('#FF00FF');
+export const WithDefaultColors = (args) => (
+	<>
+		<ColorPicker
+			color={colors[0]}
+			colors={colors}
+			disabled={args['disabled']}
+			onChangeColor={action('onChangeColor')}
+			open={args['open']}
+			type={args['type']}
+		/>
+		<BodyText centered>Use CONTROLS to interact with ColorPicker.</BodyText>
+	</>
+);
 
-	return (
-		<Fragment>
-			<ColorPickerSettingsApp
-				color={color}
-				colorHandler={setColor}
-				disabled={args.disabled}
-				presetColors={presetColors}
-				text={args.text}
-			/>
-		</Fragment>
-	);
-};
+boolean('open', WithDefaultColors, Config);
+boolean('disabled', WithDefaultColors, Config);
+select('type', WithDefaultColors, ['grid', 'spectrum', 'sliders'], Config);
 
-boolean('disabled', WithPresetColors, Config, false);
-text('text', WithPresetColors, Config, 'Color Picker');
-
-WithPresetColors.storyName = 'with preset colors';
+WithDefaultColors.storyName = 'with default colors';
