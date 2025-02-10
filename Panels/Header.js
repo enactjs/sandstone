@@ -438,7 +438,6 @@ const HeaderBase = kind({
 		slotBeforeRef,
 		slotSize,
 		titleCell,
-		type,
 		...rest
 	}) => {
 		delete rest.arranger;
