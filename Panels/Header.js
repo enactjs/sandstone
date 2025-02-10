@@ -357,7 +357,7 @@ const HeaderBase = kind({
 			},
 			type
 		),
-		titleCell: ({arranger, centered, css, marqueeOn, noSubtitle, slotSize, subtitle, subtitleId, title, titleId, type}) => {
+		titleCell: ({arranger, centered, css, marqueeOn, noSubtitle, slotAfter, slotBefore, slotSize, subtitle, subtitleId, title, titleId, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
 			const titleHeading = (
@@ -371,7 +371,7 @@ const HeaderBase = kind({
 					alignment={centered ? 'center' : null}
 					className={css.title}
 				>
-					{title}
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? null : title}
 				</Heading>
 			);
 
@@ -387,7 +387,7 @@ const HeaderBase = kind({
 					alignment={centered ? 'center' : null}
 					className={css.subtitle}
 				>
-					{subtitle}
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? null : subtitle}
 				</Heading>
 			);
 
@@ -496,7 +496,7 @@ const HeaderBase = kind({
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? null : titleCell}
+					{titleCell}
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize} style={hideSlots}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}
