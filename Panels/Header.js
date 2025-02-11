@@ -371,7 +371,8 @@ const HeaderBase = kind({
 					alignment={centered ? 'center' : null}
 					className={css.title}
 				>
-					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? '' : title}
+					{/* WRR-19431: When a panel is added dynamically, a space has been added to set the height of the title when moving to the next panel.*/}
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? ' ' : title}
 				</Heading>
 			);
 
@@ -387,7 +388,8 @@ const HeaderBase = kind({
 					alignment={centered ? 'center' : null}
 					className={css.subtitle}
 				>
-					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? '' : subtitle}
+					{/* WRR-19431: When a panel is added dynamically, a space has been added to set the height of the subtitle when moving to the next panel.*/}
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? ' ' : subtitle}
 				</Heading>
 			);
 

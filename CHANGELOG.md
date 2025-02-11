@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Panels.Header` to match title style from the GUI in `sandstone/WizardPanels`
+- `sandstone/Panels.Header` to correct position when panel is added dynamically in `sandstone/WizardPanels`
 
 ## [2.9.8] - 2025-02-04
 
