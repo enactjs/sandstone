@@ -371,7 +371,7 @@ const HeaderBase = kind({
 					alignment={centered ? 'center' : null}
 					className={css.title}
 				>
-					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? null : title}
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? '' : title}
 				</Heading>
 			);
 
@@ -387,7 +387,7 @@ const HeaderBase = kind({
 					alignment={centered ? 'center' : null}
 					className={css.subtitle}
 				>
-					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? null : subtitle}
+					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? '' : subtitle}
 				</Heading>
 			);
 
