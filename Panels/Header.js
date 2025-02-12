@@ -371,7 +371,6 @@ const HeaderBase = kind({
 					alignment={centered ? 'center' : null}
 					className={css.title}
 				>
-					{/* WRR-19431: When a panel is added dynamically, a space has been added to set the height of the title when moving to the next panel.*/}
 					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? ' ' : title}
 				</Heading>
 			);
@@ -388,7 +387,6 @@ const HeaderBase = kind({
 					alignment={centered ? 'center' : null}
 					className={css.subtitle}
 				>
-					{/* WRR-19431: When a panel is added dynamically, a space has been added to set the height of the subtitle when moving to the next panel.*/}
 					{(type === 'wizard' && (slotBefore?.props?.visible || slotAfter?.props?.visible) && slotSize === '0rem') ? ' ' : subtitle}
 				</Heading>
 			);
@@ -449,6 +447,7 @@ const HeaderBase = kind({
 		delete rest.subtitleId;
 		delete rest.title;
 		delete rest.titleId;
+		delete rest.type;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
