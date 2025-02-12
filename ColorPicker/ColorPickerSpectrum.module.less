@@ -1,0 +1,28 @@
+// ColorPickerSpectrum.module.less
+//
+@import "../styles/colors.less";
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+
+.colorPicker {
+	position: relative;
+
+	.gradientCanvas {
+		height: 100%;
+		width: 100%;
+		touch-action: none;
+	}
+
+	.circleIndicator {
+		position: absolute;
+		width: @sand-colorpicker-spectrum-circleindicator-size;
+		height: @sand-colorpicker-spectrum-circleindicator-size;
+		border: @sand-colorpicker-border-small solid @sand-colorpicker-spectrum-circleindicator-color;
+		border-radius: @sand-colorpicker-circle-border-radius;
+		pointer-events: none;
+
+		.focus({
+			border: @sand-colorpicker-border-medium solid @sand-colorpicker-spectrum-circleindicator-focus-color;
+		})
+	}
+}
