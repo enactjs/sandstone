@@ -50,7 +50,7 @@
       },
       "devDependencies": {
         "@enact/docs-utils": "^0.4.10",
-        "@enact/ui-test-utils": "enactjs/ui-test-utils#feature/WRR-12625",
+        "@enact/ui-test-utils": "enactjs/ui-test-utils#feature/eslint9",
         "eslint-config-enact-proxy": "^1.0.8"
       },
       "peerDependencies": {
@@ -49617,14 +49617,14 @@
       }
     },
     "node_modules/@storybook/addon-docs": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/addon-docs/-/addon-docs-8.5.4.tgz",
-      "integrity": "sha512-dLDM1oycm50a2wJVtuPwoNLIBmy8Z9r7e0F9InsPu9iTZAZLb6C5lYDNXG7GkFrRU/Q2yqSb9q7upoV7UiPGWA==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/addon-docs/-/addon-docs-8.5.5.tgz",
+      "integrity": "sha512-pQVu6IAwcD7sV7i6alnugT1kHv2EMAhqeS5/Vq2JJoA/QaiHxF83f2L3eCVxP2nKbHYUttdBpIQ+acIsw3jx7Q==",
       "dependencies": {
         "@mdx-js/react": "^3.0.0",
-        "@storybook/blocks": "8.5.4",
-        "@storybook/csf-plugin": "8.5.4",
-        "@storybook/react-dom-shim": "8.5.4",
+        "@storybook/blocks": "8.5.5",
+        "@storybook/csf-plugin": "8.5.5",
+        "@storybook/react-dom-shim": "8.5.5",
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
         "ts-dedent": "^2.0.0"
@@ -49634,13 +49634,13 @@
         "url": "https://opencollective.com/storybook"
       },
       "peerDependencies": {
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       }
     },
     "node_modules/@storybook/blocks": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/blocks/-/blocks-8.5.4.tgz",
-      "integrity": "sha512-QLfQ5KX6m2FAsz1zjB+mUp9jEA+LCzIHo3BxLr/tWN3pIwSURoHs2wrHDXT2r+wu5CBesGvTKI4KUWlsxsOF9g==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/blocks/-/blocks-8.5.5.tgz",
+      "integrity": "sha512-O/59Dj2E4t3QtJkUyRgO0X4anAC5dx0M0gfsYACEUWFubhog9x5gw3xgPhFtc1UhezKBedM1nguqdPXHus1mTg==",
       "dependencies": {
         "@storybook/csf": "0.1.12",
         "@storybook/icons": "^1.2.12",
@@ -49653,7 +49653,7 @@
       "peerDependencies": {
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       },
       "peerDependenciesMeta": {
         "react": {
@@ -49665,11 +49665,11 @@
       }
     },
     "node_modules/@storybook/builder-webpack5": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/builder-webpack5/-/builder-webpack5-8.5.4.tgz",
-      "integrity": "sha512-bOcq7qrcW31Oy1RcR7utgr3SEYBvSj5wiQYHmRMgvAbcmWP80mP6scTHFdauvc/kzKE11Yri9CT/KG9GgoEm4g==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/builder-webpack5/-/builder-webpack5-8.5.5.tgz",
+      "integrity": "sha512-+eGXLJ7mliPUHsWqCNi8L9EWeE/fSjPEXKIOCzGmBEyG15d3nQmmazORnSXWLiTr0iH3fvCUKwB2XOwgjqUpSA==",
       "dependencies": {
-        "@storybook/core-webpack": "8.5.4",
+        "@storybook/core-webpack": "8.5.5",
         "@types/semver": "^7.3.4",
         "browser-assert": "^1.2.1",
         "case-sensitive-paths-webpack-plugin": "^2.4.0",
@@ -49699,7 +49699,7 @@
         "url": "https://opencollective.com/storybook"
       },
       "peerDependencies": {
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       },
       "peerDependenciesMeta": {
         "typescript": {
@@ -49708,9 +49708,9 @@
       }
     },
     "node_modules/@storybook/components": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/components/-/components-8.5.4.tgz",
-      "integrity": "sha512-z4lWN4W1cUqlhOFQ3Kg33Yu4uuoOvECQtxJqNHUPFsHNOtIbYIdUMCLwiJFUxrzdJXUnOqn5QTcsFerWX6Roag==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/components/-/components-8.5.5.tgz",
+      "integrity": "sha512-w86hFVLUqLRH9l1EEZGOVNLt8eRAXqaSHtLvTX9y/bPzN10Z98BABD2Qx/hbuqneH/vp98VPYPU/hoGOh3J1NA==",
       "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/storybook"
@@ -49720,9 +49720,9 @@
       }
     },
     "node_modules/@storybook/core": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/core/-/core-8.5.4.tgz",
-      "integrity": "sha512-x7SoqdDAi6+x7hFRF7SIcxKKNdj8E1pK0B9k6uf+cop16/mxNWazqQFJRpKRE66h/ImYqopMnpX3ASaa3Khm4w==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/core/-/core-8.5.5.tgz",
+      "integrity": "sha512-uQoMv6Zd941/vsjE8kP87pp1f5YHLyct+2J/FGUI5ukBOJLgS+K9khF82wfDL0JRULibV3b59g73tsttc3ZdcA==",
       "dependencies": {
         "@storybook/csf": "0.1.12",
         "better-opn": "^3.0.2",
@@ -49750,9 +49750,9 @@
       }
     },
     "node_modules/@storybook/core-webpack": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/core-webpack/-/core-webpack-8.5.4.tgz",
-      "integrity": "sha512-YOlzywqG4pVFYMzkmYuMrueI4swofOaoKvQjlVIE/8fP7vSu7HhhBbtlxowd0i08UjP/wSVq0zvxl9RGxHWq5Q==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/core-webpack/-/core-webpack-8.5.5.tgz",
+      "integrity": "sha512-Nty96QGmOCsxY+Dhc0wE/zytjcSj0Ao1dNZ7O7EFdKffTp5uQG0uio6Atn84RmqqLh6Sj9Qrb1WcO11qX9a0ZQ==",
       "dependencies": {
         "ts-dedent": "^2.0.0"
       },
@@ -49761,7 +49761,7 @@
         "url": "https://opencollective.com/storybook"
       },
       "peerDependencies": {
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       }
     },
     "node_modules/@storybook/csf": {
@@ -49773,9 +49773,9 @@
       }
     },
     "node_modules/@storybook/csf-plugin": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/csf-plugin/-/csf-plugin-8.5.4.tgz",
-      "integrity": "sha512-W368wMblH861QlW5gfZEwF/LYrWQ2NheXgikBfYv73se1WxvQCo8IMLXCNpgmYhse81GsvXRddKULGsqDSH37A==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/csf-plugin/-/csf-plugin-8.5.5.tgz",
+      "integrity": "sha512-R2i+s5eO7i88tuT6um7jidZ/wt0Ar5lEdb2M5bbnZjTZqRAF9YpoRgDDXwTYWyDz55CDTmpMU3O0BFXLeF+ZpQ==",
       "dependencies": {
         "unplugin": "^1.3.1"
       },
@@ -49784,13 +49784,13 @@
         "url": "https://opencollective.com/storybook"
       },
       "peerDependencies": {
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       }
     },
     "node_modules/@storybook/csf-tools": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/csf-tools/-/csf-tools-8.5.4.tgz",
-      "integrity": "sha512-kC4syabiz+D8qc4VqLwirnr8LS7wDLw9lQAxUKxtiIOymAoivYLPRkqVHXNnDzLUVRN/nCy1/CXXmRFdMd75OA==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/csf-tools/-/csf-tools-8.5.5.tgz",
+      "integrity": "sha512-Aw1bhfFIhDF1uKykDWcmdYf5R0pxfF1/1ig2UcjQrfH20EoPRKN666DlwHiJjdtvFzQlhemh3T1FqCvkI6pR6A==",
       "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/storybook"
@@ -49817,9 +49817,9 @@
       }
     },
     "node_modules/@storybook/instrumenter": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/instrumenter/-/instrumenter-8.5.4.tgz",
-      "integrity": "sha512-6Y2d6SNZslZl2UhkfH8Ml6SzKX5b2x/QRBwkLAAXc/xZcFdK5luAOPk/fW1BU7jEAPAjtn493V3oo2nGA5D22A==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/instrumenter/-/instrumenter-8.5.5.tgz",
+      "integrity": "sha512-t4PlhgMTAFt/vSoqaydtATlcKJTEypxGnwlzx4lg5snrzmhYrtDUXTD/t25rrC0EjbEf412mlSS9BYRaogBAbg==",
       "dependencies": {
         "@storybook/global": "^5.0.0",
         "@vitest/utils": "^2.1.1"
@@ -49829,13 +49829,13 @@
         "url": "https://opencollective.com/storybook"
       },
       "peerDependencies": {
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       }
     },
     "node_modules/@storybook/manager-api": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/manager-api/-/manager-api-8.5.4.tgz",
-      "integrity": "sha512-kFK5DM+4YPob0qdiXN5DJh33fDyQvNJb7IAobDS/rPo2L+t6M+DAgqEsXLQXT9nUbnUD9IcCjwEnjKa+EHU2RA==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/manager-api/-/manager-api-8.5.5.tgz",
+      "integrity": "sha512-JQgnFskT1lhgT05m9zTeeW1FZIQbXjzRWEWbqYLcaiAnhbTb7B0IN8y1SOFQRLxXFrNa38T1AVHJj//Zv7KR3g==",
       "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/storybook"
@@ -49845,12 +49845,12 @@
       }
     },
     "node_modules/@storybook/preset-react-webpack": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/preset-react-webpack/-/preset-react-webpack-8.5.4.tgz",
-      "integrity": "sha512-4T9wzY+G0TtyzAqlqFwOujffxxjxrJGY2vLtHVWNP5kTjqIdmmqes7LFz+69Pmily1qKJg+bIPkelu/MUBECRA==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/preset-react-webpack/-/preset-react-webpack-8.5.5.tgz",
+      "integrity": "sha512-tlyAmMxVcEShviR7o96FaQwT+Nuau5JDKUqKDBP5fm84gx3w6GM30K0T/pAg5eIbGWPemxULrSFUdfr32zFA/g==",
       "dependencies": {
-        "@storybook/core-webpack": "8.5.4",
-        "@storybook/react": "8.5.4",
+        "@storybook/core-webpack": "8.5.5",
+        "@storybook/react": "8.5.5",
         "@storybook/react-docgen-typescript-plugin": "1.0.6--canary.9.0c3f3b7.0",
         "@types/semver": "^7.3.4",
         "find-up": "^5.0.0",
@@ -49871,7 +49871,7 @@
       "peerDependencies": {
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       },
       "peerDependenciesMeta": {
         "typescript": {
@@ -49880,9 +49880,9 @@
       }
     },
     "node_modules/@storybook/preview-api": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/preview-api/-/preview-api-8.5.4.tgz",
-      "integrity": "sha512-V9cTl5uWRmWAA4hCmz97PxgP0QYq2DpJUpeSxt/+Hhhm1OYTxAYJWt6Y3pIfqEFhOFjQzZwTprzGYzVjk4S3DA==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/preview-api/-/preview-api-8.5.5.tgz",
+      "integrity": "sha512-TUJFeswIp2sYstrxLr97pWN+0qqkfN2iihe+cVfjsUEbW1pn0/SpqJVty3WKq44vCoUylulybzbSKkkN8+RYhA==",
       "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/storybook"
@@ -49892,16 +49892,16 @@
       }
     },
     "node_modules/@storybook/react": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/react/-/react-8.5.4.tgz",
-      "integrity": "sha512-4OipHaxH+IYqrYrX25kjrXTC3gj0NhpksYG/cfZ38MgLY+odFHGI7hNMgx9YMoaL/pnQRtnVjWaz2nIahsUXSA==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/react/-/react-8.5.5.tgz",
+      "integrity": "sha512-XWzKdQ6csiYbjs4oD6PBKpZi21fPDJ7h550CmyDobWiGqFDYhPOndUnfQvg7D6nr0fROlC+MrtvsrtECPeJSFQ==",
       "dependencies": {
-        "@storybook/components": "8.5.4",
+        "@storybook/components": "8.5.5",
         "@storybook/global": "^5.0.0",
-        "@storybook/manager-api": "8.5.4",
-        "@storybook/preview-api": "8.5.4",
-        "@storybook/react-dom-shim": "8.5.4",
-        "@storybook/theming": "8.5.4"
+        "@storybook/manager-api": "8.5.5",
+        "@storybook/preview-api": "8.5.5",
+        "@storybook/react-dom-shim": "8.5.5",
+        "@storybook/theming": "8.5.5"
       },
       "engines": {
         "node": ">=18.0.0"
@@ -49911,10 +49911,10 @@
         "url": "https://opencollective.com/storybook"
       },
       "peerDependencies": {
-        "@storybook/test": "8.5.4",
+        "@storybook/test": "8.5.5",
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
-        "storybook": "^8.5.4",
+        "storybook": "^8.5.5",
         "typescript": ">= 4.2.x"
       },
       "peerDependenciesMeta": {
@@ -49945,9 +49945,9 @@
       }
     },
     "node_modules/@storybook/react-dom-shim": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/react-dom-shim/-/react-dom-shim-8.5.4.tgz",
-      "integrity": "sha512-m6soTAZFlOH5L2CW3V3g1eJ9Z06Gzgv8urOrnqeBmyCTcpuzxs4GRf9whvu5x/ULZAuvAL77H53d9W1/UYI4sQ==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/react-dom-shim/-/react-dom-shim-8.5.5.tgz",
+      "integrity": "sha512-K4fR61jS9WJqXmrfczS1S7ukJjQw5vjTnxCJbqVpkpW9b5J0KpZr1aM6rvFLH6bNZPWefSRlRHeosaj5ro95IQ==",
       "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/storybook"
@@ -49955,17 +49955,17 @@
       "peerDependencies": {
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       }
     },
     "node_modules/@storybook/react-webpack5": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/react-webpack5/-/react-webpack5-8.5.4.tgz",
-      "integrity": "sha512-rXdvr2Ls22chU8BoiCFicaERKo3vZarrHeS4y++pL5ef+RIU0bnZitxGyhusolL6s2q36ZS6u+i1BXr//c0Ynw==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/react-webpack5/-/react-webpack5-8.5.5.tgz",
+      "integrity": "sha512-mDdJfLBCXm32EK5jeY1avFdRhzoyBDE3iHXqbf8Q2TSWH+FzLbMjLEJxNLiHmnnDo8Y8wIlL4mL/H+N/k5Zpbg==",
       "dependencies": {
-        "@storybook/builder-webpack5": "8.5.4",
-        "@storybook/preset-react-webpack": "8.5.4",
-        "@storybook/react": "8.5.4"
+        "@storybook/builder-webpack5": "8.5.5",
+        "@storybook/preset-react-webpack": "8.5.5",
+        "@storybook/react": "8.5.5"
       },
       "engines": {
         "node": ">=18.0.0"
@@ -49977,7 +49977,7 @@
       "peerDependencies": {
         "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
         "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta",
-        "storybook": "^8.5.4",
+        "storybook": "^8.5.5",
         "typescript": ">= 4.2.x"
       },
       "peerDependenciesMeta": {
@@ -49987,13 +49987,13 @@
       }
     },
     "node_modules/@storybook/test": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/test/-/test-8.5.4.tgz",
-      "integrity": "sha512-H7zV39GLiUSz/M7fJtv/NWOF1J99CTAqqXMaETwJU5wEpkj1Q3jzmWss+UFtl5x7f/OZC4niP9s9A3G8rZHpKw==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/test/-/test-8.5.5.tgz",
+      "integrity": "sha512-8hVvT+TopKmh9iKZdTHmMz4kelz+gKwjCquw59ynoZBZ4saJdEdqmIaoPaFPAJukuGAP7qQKO6AnYFsufNw4gw==",
       "dependencies": {
         "@storybook/csf": "0.1.12",
         "@storybook/global": "^5.0.0",
-        "@storybook/instrumenter": "8.5.4",
+        "@storybook/instrumenter": "8.5.5",
         "@testing-library/dom": "10.4.0",
         "@testing-library/jest-dom": "6.5.0",
         "@testing-library/user-event": "14.5.2",
@@ -50005,13 +50005,13 @@
         "url": "https://opencollective.com/storybook"
       },
       "peerDependencies": {
-        "storybook": "^8.5.4"
+        "storybook": "^8.5.5"
       }
     },
     "node_modules/@storybook/theming": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/@storybook/theming/-/theming-8.5.4.tgz",
-      "integrity": "sha512-mgMQDe6rF0fS3cDGx55KSzv0URA9Eefo89uoh2oKUmv5+M30067axNK62A9Ys03fSVcB11Iccen0cyu3SHeiyw==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/@storybook/theming/-/theming-8.5.5.tgz",
+      "integrity": "sha512-h/dsoA9RmWbIYjRNAVlJzjmrtLo5ZdNKEIZ0BDdpnuDhU3NEADtI4RrF4fwgoiA4ZNNUod0agvjUtzwgV1VF2Q==",
       "funding": {
         "type": "opencollective",
         "url": "https://opencollective.com/storybook"
@@ -53219,11 +53219,11 @@
       }
     },
     "node_modules/storybook": {
-      "version": "8.5.4",
-      "resolved": "https://registry.npmjs.org/storybook/-/storybook-8.5.4.tgz",
-      "integrity": "sha512-TMXXOprDjkt8GbTCgzZSi0sPYoKMfvN+9gGnU7gRa8s1C0QhqkE0lc6fq9pl8nahXPF5ala4gPOaxjQbuJUvNQ==",
+      "version": "8.5.5",
+      "resolved": "https://registry.npmjs.org/storybook/-/storybook-8.5.5.tgz",
+      "integrity": "sha512-F9+D5/sgo3WkxpB96ZmyW+mEmB5mM5+I6pbLrenFbeNvzgsgCAq0bqtJKqd9qWnGwa43iPxcl8c7/fE4qbeKvQ==",
       "dependencies": {
-        "@storybook/core": "8.5.4"
+        "@storybook/core": "8.5.5"
       },
       "bin": {
         "getstorybook": "bin/index.cjs",
