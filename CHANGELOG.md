@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.9.9] - 2025-02-13
+
+### Fixed
+
+- `sandstone/Panels.Header` to correct position when panel is added dynamically in `sandstone/WizardPanels`
+
 ## [2.9.8] - 2025-02-04
 
 ### Fixed
