@@ -299,4 +299,41 @@ describe('Scroller', function () {
 			expect((await ScrollerPage.getScrollThumbPosition()).horizontal > initialHorizontalScrollThumbPosition).toBe(true);
 		});
 	});
+
+	describe('Page Scroll', function () {
+		it('should scroll with pressed pageUp/Down key only when focus is in the Scroller.', async function () {
+			await ScrollerPage.open();
+			let verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			// Scroll thumb is on the initial position
+			expect(await verticalScrollTumbPosition).to.equal('0');
+			// Move focus to Scroller
+			await ScrollerPage.scroller.moveTo();
+			// Scroll by pageDown key
+			await ScrollerPage.pageDown();
+			await ScrollerPage.delay(1000);
+			verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			// Scroller is scrolled and scroll thumb is moved
+			expect(await verticalScrollTumbPosition).not.to.equal('0');
+			// Scroll by pageUp key
+			await ScrollerPage.pageUp();
+			await ScrollerPage.delay(1000);
+			verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			// Scroller is scrolled and scroll thumb is moved to initial position
+			expect(await verticalScrollTumbPosition).to.equal('0');
+			// Move focus to buttonHideScrollbar
+			await ScrollerPage.buttonHideScrollbar.moveTo();
+			// Press pageDown key
+			await ScrollerPage.pageDown();
+			await ScrollerPage.delay(1000);
+			verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			// Scroller is not scrolled and scroll thumb is not moved
+			expect(await verticalScrollTumbPosition).to.equal('0');
+			// Press pageUp key
+			await ScrollerPage.pageUp();
+			await ScrollerPage.delay(1000);
+			verticalScrollTumbPosition = (await ScrollerPage.getScrollThumbPosition()).vertical;
+			// Scroller is not scrolled and scroll thumb is not moved
+			expect(await verticalScrollTumbPosition).to.equal('0');
+		});
+	});
 });
