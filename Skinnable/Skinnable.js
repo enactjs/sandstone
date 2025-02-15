@@ -31,7 +31,7 @@ const defaultConfig = {
  *
  * @class Skinnable
  * @memberof sandstone/Skinnable
- * @extends ui/Skinnable.Skinnable
+ * @extends ui/Skinnable#Skinnable
  * @hoc
  * @public
  */

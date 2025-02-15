@@ -39,7 +39,7 @@ export {
 	 *
 	 * @see {@link ui/Marquee.Marquee}
 	 * @class Marquee
-	 * @extends ui/Marquee.Marquee
+	 * @extends ui/Marquee#Marquee
 	 * @memberof sandstone/Marquee
 	 * @ui
 	 * @public
@@ -51,7 +51,7 @@ export {
 	 *
 	 * @see {@link ui/Marquee.Marquee}
 	 * @class MarqueeBase
-	 * @extends ui/Marquee.MarqueeBase
+	 * @extends ui/Marquee#MarqueeBase
 	 * @memberof sandstone/Marquee
 	 * @ui
 	 * @public
@@ -64,7 +64,7 @@ export {
 	 * @see {@link ui/Marquee.MarqueeController}
 	 * @hoc
 	 * @name MarqueeController
-	 * @extends ui/Marquee.MarqueeController
+	 * @extends ui/Marquee#MarqueeController
 	 * @memberof sandstone/Marquee
 	 * @public
 	 */
@@ -76,7 +76,7 @@ export {
 	 * @see {@link ui/Marquee.MarqueeDecorator}
 	 * @hoc
 	 * @name MarqueeDecorator
-	 * @extends ui/Marquee.MarqueeDecorator
+	 * @extends ui/Marquee#MarqueeDecorator
 	 * @memberof sandstone/Marquee
 	 * @public
 	 */

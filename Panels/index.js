@@ -31,7 +31,7 @@ export {
 	 * @see {@link ui/Routable.Routable}
 	 * @hoc
 	 * @name Routable
-	 * @extends ui/Routable.Routable
+	 * @extends ui/Routable#Routable
 	 * @memberof sandstone/Panels
 	 * @public
 	 */
@@ -44,7 +44,7 @@ export {
 	 * @see {@link ui/Routable.Route}
 	 * @ui
 	 * @name Route
-	 * @extends ui/Routable.Route
+	 * @extends ui/Routable#Route
 	 * @memberof sandstone/Panels
 	 * @public
 	 */

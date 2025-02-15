@@ -368,7 +368,7 @@ const InputFieldDecorator = compose(
  *
  * @class InputField
  * @memberof sandstone/Input
- * @extends sandstone/Input.InputFieldBase
+ * @extends sandstone/Input#InputFieldBase
  * @mixes ui/Changeable.Changeable
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Skinnable.Skinnable
