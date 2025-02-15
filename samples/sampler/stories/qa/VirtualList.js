@@ -480,7 +480,7 @@ export const WithExtraItems = (args) => {
 				verticalScrollbar={args['verticalScrollbar']}
 				wrap={args['wrap']}
 			/>
-			<Cell shrink component={Item}>
+			<Cell shrink component={Item} style={{marginTop: '3px'}}>
 				extra item1
 			</Cell>
 			<Cell shrink component={Item}>
