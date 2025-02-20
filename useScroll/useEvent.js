@@ -459,6 +459,10 @@ const useEventVoice = (props, instances) => {
 					}
 				}
 			}
+		} else {
+			// There should be an element that receives focus even if spot Item disappears from the virtuallist or scroller.
+			const backupNodes = getDeepSpottableDescendants(scrollContainerNode.dataset.spotlightId);
+			Spotlight.focus(backupNodes[0]);
 		}
 	};
 
