@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller` to regains focus even when focus is lost by voice control
+- `sandstone/Scroller` to restore focus when focus is lost after scroll by voice control
 
 ## [2.9.9] - 2025-02-13
 
