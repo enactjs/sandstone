@@ -440,25 +440,31 @@ const useEventVoice = (props, instances) => {
 			spotItem = Spotlight.getCurrent(),
 			scrollContainerNode = scrollContainerRef.current;
 
-		if (utilDOM.containsDangerously(scrollContainerNode, spotItem)) {
-			const viewportBounds = scrollContainerNode.getBoundingClientRect();
-			const spotItemBounds = spotItem.getBoundingClientRect();
-			const isVertical = mutableRef.current.voiceControlDirection === 'vertical';
-			const first = isVertical ? 'top' : 'left';
-			const last = isVertical ? 'bottom' : 'right';
+		if (spotItem) {
+			if (utilDOM.containsDangerously(scrollContainerNode, spotItem)) {
+				const viewportBounds = scrollContainerNode.getBoundingClientRect();
+				const spotItemBounds = spotItem.getBoundingClientRect();
+				const isVertical = mutableRef.current.voiceControlDirection === 'vertical';
+				const first = isVertical ? 'top' : 'left';
+				const last = isVertical ? 'bottom' : 'right';
 
-			/* if the focused element is out of the viewport, find another spottable element in the viewport */
-			if (spotItemBounds[last] <= viewportBounds[first] || spotItemBounds[first] >= viewportBounds[last]) {
-				const nodes = getDeepSpottableDescendants(scrollContainerNode.dataset.spotlightId);
-				for (let i = 0; i < nodes.length; i++) {
-					const nodeBounds = nodes[i].getBoundingClientRect();
+				/* if the focused element is out of the viewport, find another spottable element in the viewport */
+				if (spotItemBounds[last] <= viewportBounds[first] || spotItemBounds[first] >= viewportBounds[last]) {
+					const nodes = getDeepSpottableDescendants(scrollContainerNode.dataset.spotlightId);
+					for (let i = 0; i < nodes.length; i++) {
+						const nodeBounds = nodes[i].getBoundingClientRect();
 
-					if (nodeBounds[first] >= viewportBounds[first] && nodeBounds[last] <= viewportBounds[last]) {
-						Spotlight.focus(nodes[i]);
-						break;
+						if (nodeBounds[first] >= viewportBounds[first] && nodeBounds[last] <= viewportBounds[last]) {
+							Spotlight.focus(nodes[i]);
+							break;
+						}
 					}
 				}
 			}
+		} else if (scrollContainerNode) {
+			// There should be an element that receives focus even if spot Item disappears from the virtuallist or scroller
+			const backupNodes = getDeepSpottableDescendants(scrollContainerNode.dataset.spotlightId);
+			Spotlight.focus(backupNodes[0]);
 		}
 	};
 
