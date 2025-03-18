@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when Wrapped component updated
+
 ## [2.9.10] - 2025-02-24
 
 ### Fixed

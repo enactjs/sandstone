@@ -84,7 +84,6 @@ const ContextualPopupContainer = SpotlightContainerDecorator(
 
 const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {noArrow, noSkin, openProp} = config;
-	const WrappedWithRef = WithRef(Wrapped);
 
 	return class extends Component {
 		static displayName = 'ContextualPopupDecorator';
@@ -743,6 +742,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		};
 
 		render () {
+			const WrappedWithRef = WithRef(Wrapped);
+
 			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
 			const idFloatLayer = `${this.id}_floatLayer`;
 			let scrimType = rest.scrimType;
