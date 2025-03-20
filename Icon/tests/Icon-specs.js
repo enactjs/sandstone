@@ -95,4 +95,22 @@ describe('Icon Specs', () => {
 		// Tests must run at a tiny simulated screen size.
 		expect(icon).toHaveStyle({'--icon-size': '8rem'});
 	});
+
+	test('should support RTL flip', () => {
+		render(<Icon data-testid="icon" rtl flip="auto">star</Icon>);
+
+		const expected = "flipHorizontal";
+		const icon = screen.getByTestId('icon');
+
+		expect(icon).toHaveClass(expected);
+	});
+
+	test('should not support RTL flip when locale is he-IL and children is \'help\'', () => {
+		render(<Icon data-testid="icon" rtl flip="auto" locale="he-IL">help</Icon>);
+
+		const expected = "flipHorizontal";
+		const icon = screen.getByTestId('icon');
+
+		expect(icon).not.toHaveClass(expected);
+	});
 });
