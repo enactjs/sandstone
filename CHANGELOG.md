@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Steps` to update opacity of future steps to match the GUI guide
+
 ## [2.9.10] - 2025-02-24
 
 ### Fixed
