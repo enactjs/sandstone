@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Icon` to not flip `help` icon in he-IL locale when `flip` prop is `auto`
+
 ## [2.9.10] - 2025-02-24
 
 ### Fixed
