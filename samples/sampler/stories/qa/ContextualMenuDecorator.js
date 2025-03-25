@@ -177,7 +177,7 @@ Overflows.storyName = 'Overflows';
 const MenuItem = (props) => {
 	const {type, ...rest} = props;
 
-	const style = useMemo((type) => {
+	const style = useMemo(() => {
 		if (type === 'vertical') {
 			return {height: '12.25rem', width: '16rem'};
 		}
