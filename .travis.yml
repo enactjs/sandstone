@@ -17,7 +17,7 @@ install:
     - npm install
     - npm link
     - popd
-    - git clone --branch=feature/WRR-21642 --depth 1 https://github.com/enactjs/enact ../enact
+    - git clone --branch=release/4.9.x.develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm uninstall @enact/ui-test-utils --prefix packages/i18n
     - npm install

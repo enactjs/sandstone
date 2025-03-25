@@ -5,9 +5,8 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-
 import PropTypes from 'prop-types';
-import {useCallback, useState} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 
 const Config = mergeComponentMetadata('ContextualMenuDecorator', ContextualMenuDecorator);
 const MenuButton = ContextualMenuDecorator({tooltipDestinationProp: 'decoration'}, Button);
@@ -178,17 +177,17 @@ Overflows.storyName = 'Overflows';
 const MenuItem = (props) => {
 	const {type, ...rest} = props;
 
-	const style = () => {
+	const style = useMemo((type) => {
 		if (type === 'vertical') {
 			return {height: '12.25rem', width: '16rem'};
 		}
 		return {width: '20rem'};
-	};
+	}, [type]);
 
 	return (
 		<ImageItem
 			{...rest}
-			style={style()}
+			style={style}
 			label="ImageItem"
 			orientation={type}
 		/>
