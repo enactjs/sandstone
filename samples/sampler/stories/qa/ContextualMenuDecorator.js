@@ -1,9 +1,12 @@
 import Button from '@enact/sandstone/Button';
 import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
+import ImageItem from '@enact/sandstone/ImageItem';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {range, select} from '@enact/storybook-utils/addons/controls';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
+import PropTypes from 'prop-types';
+import {useCallback, useMemo, useState} from 'react';
 
 const Config = mergeComponentMetadata('ContextualMenuDecorator', ContextualMenuDecorator);
 const MenuButton = ContextualMenuDecorator({tooltipDestinationProp: 'decoration'}, Button);
@@ -170,3 +173,46 @@ select('offset', Overflows, prop.offset, Config);
 select('popupWidth', Overflows, prop.popupWidth, Config);
 
 Overflows.storyName = 'Overflows';
+
+const MenuItem = (props) => {
+	const {type, ...rest} = props;
+
+	const style = useMemo(() => {
+		if (type === 'vertical') {
+			return {height: '12.25rem', width: '16rem'};
+		}
+		return {width: '20rem'};
+	}, [type]);
+
+	return (
+		<ImageItem
+			{...rest}
+			style={style}
+			label="ImageItem"
+			orientation={type}
+		/>
+	);
+};
+
+MenuItem.propTypes = {
+	type: PropTypes.string.isRequired
+};
+
+const Menu = ContextualMenuDecorator(MenuItem);
+
+export const WithChangingComponent = () => {
+	const [type, setType] = useState('vertical');
+
+	const handleClick = useCallback(() => {
+		setType(state => (state === 'vertical' ? 'horizontal' : 'vertical'));
+	}, []);
+
+	return (
+		<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
+			<Button onClick={handleClick}>Change Type</Button>
+			<Menu type={type} menuItems={['Option1', 'Option2']} />
+		</div>
+	);
+};
+
+WithChangingComponent.storyName = 'with changing component';
