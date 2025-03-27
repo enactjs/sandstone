@@ -2,6 +2,14 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [2.9.11] - 2025-03-27
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to update popup position properly when Wrapped component updated
+- `sandstone/Icon` to not flip `help` icon in he-IL locale when `flip` prop is `auto`
+- `sandstone/Steps` to update opacity of future steps to match the GUI guide
+
 ## [2.9.10] - 2025-02-24
 
 ### Fixed
