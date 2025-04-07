@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/InputField` to reset the Spotlight Accelerator instance at the appropriate time
+
 ## [2.9.11] - 2025-03-27
 
 ### Fixed
