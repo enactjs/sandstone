@@ -390,7 +390,7 @@ const EditableWrapper = (props) => {
 		const {selectedItem} = mutableRef.current;
 		const {rtl} = scrollContainerHandle.current;
 
-		if (selectedItem) {
+		if (selectedItem && !selectedItem.className.includes('hidden')) {
 			// Bail out when index is out of scope
 			if (toIndex < mutableRef.current.hideIndex && toIndex >= 0) {
 				const {fromIndex, itemWidth, moveDirection, prevToIndex, rearrangedItems} = mutableRef.current;
