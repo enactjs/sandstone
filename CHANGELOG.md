@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/InputField` to reset the Spotlight Accelerator instance at the appropriate time
+- `sandstone/InputField` to receive focus properly when navigating with directional keys
 
 ## [2.9.11] - 2025-03-27
 
