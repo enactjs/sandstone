@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to spot content only after the state has been updated, on popup open
+
 ## [2.9.11] - 2025-03-27
 
 ### Fixed
