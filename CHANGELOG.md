@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/ContextualPopupDecorator` to spot content only after the state has been updated, on popup open
+- `sandstone/InputField` to receive focus properly when navigating with directional keys
 
 ## [2.9.11] - 2025-03-27
 
