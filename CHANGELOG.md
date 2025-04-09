@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/InputField` to receive focus properly when navigating with directional keys
 - `limestone/Scroller` with `editable` prop to ignore hidden elements
 
 ## [2.9.11] - 2025-03-27

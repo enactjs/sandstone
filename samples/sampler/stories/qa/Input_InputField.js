@@ -1,3 +1,4 @@
+import {Button} from '@enact/sandstone/Button';
 import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
@@ -198,3 +199,19 @@ export const WithANumber = (args) => (
 select('size', WithANumber, propOptions.size, FieldConfig);
 
 WithANumber.storyName = 'with a number';
+
+export const InputFieldWithVKB = () => {
+	return (
+		<div>
+			<InputField autoFocus />
+			<Button>Hello</Button>
+		</div>
+	);
+};
+
+InputFieldWithVKB.storyName = 'with spotlight and VKB';
+InputFieldWithVKB.parameters = {
+	info: {
+		text: 'Observe when the spotlight is moved back to the inputField from another component.'
+	}
+};
