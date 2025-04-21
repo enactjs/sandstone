@@ -223,10 +223,10 @@ export const InputFieldWithSpotlightContainer = () => {
 	return (
 		<div>
 			<InputField autoFocus />
-                <SpotlightContainer>
-                    <Button>Previous</Button>
-                </SpotlightContainer>
-            <Button>Next</Button>
+			<SpotlightContainer>
+				<Button>Previous</Button>
+			</SpotlightContainer>
+			<Button>Next</Button>
 		</div>
 	);
 };
