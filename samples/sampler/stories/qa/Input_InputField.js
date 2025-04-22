@@ -3,6 +3,7 @@ import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
 import {iconNames, divMargin, propOptions, inputData} from './common/Input_Common';
 
@@ -213,5 +214,26 @@ InputFieldWithVKB.storyName = 'with spotlight and VKB';
 InputFieldWithVKB.parameters = {
 	info: {
 		text: 'Observe when the spotlight is moved back to the inputField from another component.'
+	}
+};
+
+const SpotlightContainer = SpotlightContainerDecorator('div');
+
+export const InputFieldWithSpotlightContainer = () => {
+	return (
+		<div>
+			<InputField autoFocus />
+			<SpotlightContainer>
+				<Button>Previous</Button>
+			</SpotlightContainer>
+			<Button>Next</Button>
+		</div>
+	);
+};
+
+InputFieldWithSpotlightContainer.storyName = 'with SpotlightContainer and VKB';
+InputFieldWithSpotlightContainer.parameters = {
+	info: {
+		text: 'Observe when the spotlight is moved to Next Button.'
 	}
 };

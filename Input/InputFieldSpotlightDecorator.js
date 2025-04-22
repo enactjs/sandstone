@@ -304,7 +304,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 				if (shouldSpotlightMove) {
 					const direction = getDirection(keyCode);
-					const {getPointerMode, move, resetSpotlightAccelerator, setPointerMode} = Spotlight;
+					const {getPointerMode, move, resetKeyHoldState, setPointerMode} = Spotlight;
 
 					if (getPointerMode()) {
 						setPointerMode(false);
@@ -317,7 +317,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					if (move(direction)) {
 						// if successful, reset the internal state
 						this.blur();
-						resetSpotlightAccelerator();
+						resetKeyHoldState();
 					} else {
 						// if there is no other spottable elements, focus `InputDecorator` instead
 						this.focusDecorator(currentTarget);
