@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/InputField` to receive focus properly when not contained in the same SpotlightContainerDecorator
+- `sandstone/InputField` to receive focus properly when not contained in the same SpotlightContainer
 
 ## [2.9.12] - 2025-04-16
 
