@@ -8,6 +8,8 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, range, select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
 
+import sintelPoster from '../../images/sintel_poster.png';
+
 import icons from '../helper/icons';
 import {svgGenerator} from '../helper/svg';
 
@@ -47,7 +49,7 @@ const prop = {
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
 	},
 	posters: {
-		Sintel: 'http://media.w3.org/2010/05/sintel/poster.png',
+		Sintel: sintelPoster,
 		'Cosmos Laundromat': 'http://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1-2k-png/07580.png',
 		VideoTest: 'http://media.w3.org/2010/05/video/poster.png',
 		'Bad Video Source': 'http://media.w3.org/2010/05/video/poster.png'
