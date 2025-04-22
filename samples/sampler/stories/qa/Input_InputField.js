@@ -231,7 +231,7 @@ export const InputFieldWithSpotlightContainer = () => {
 	);
 };
 
-InputFieldWithSpotlightContainer.storyName = 'with not same SpotlightContainer and VKB';
+InputFieldWithSpotlightContainer.storyName = 'with SpotlightContainer and VKB';
 InputFieldWithSpotlightContainer.parameters = {
 	info: {
 		text: 'Observe when the spotlight is moved to Next Button.'
