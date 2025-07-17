@@ -77,7 +77,7 @@ number('knobStep', _Slider, SliderConfig);
 number('max', _Slider, SliderConfig, 10);
 number('min', _Slider, SliderConfig, 0);
 boolean('noFill', _Slider, SliderConfig);
-select('orientation', _Slider, ['horizontal', 'vertical'], SliderConfig, 'horizontal');
+select('orientation', _Slider, ['horizontal', 'vertical'], SliderConfig);
 range(
 	'progressAnchor',
 	_Slider,

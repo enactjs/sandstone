@@ -19,6 +19,10 @@ const propOptions = {
 
 const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanelsBase, FlexiblePopupPanels);
 const PanelConfig = mergeComponentMetadata('Panel', PanelBase, Panel);
+Config.defaultProps = {
+	scrimType: 'translucent',
+	spotlightRestrict: 'self-only'
+};
 
 export default {
 	title: 'Sandstone/FlexiblePopupPanels',
@@ -115,13 +119,12 @@ boolean('noAnimation', _FlexiblePopupPanels, Config);
 boolean('noAutoDismiss', _FlexiblePopupPanels, Config);
 boolean('noCloseButton', _FlexiblePopupPanels, Config);
 select('prevButtonVisibility', _FlexiblePopupPanels, propOptions.buttonVisibility, Config);
-select('scrimType', _FlexiblePopupPanels, ['none', 'translucent', 'transparent'], Config, 'translucent');
+select('scrimType', _FlexiblePopupPanels, ['none', 'translucent', 'transparent'], Config);
 select(
 	'spotlightRestrict',
 	_FlexiblePopupPanels,
 	['self-first', 'self-only'],
-	Config,
-	'self-only'
+	Config
 );
 select('size', _FlexiblePopupPanels, propOptions.size, PanelConfig);
 boolean('custom first Panel prevButton', _FlexiblePopupPanels, PanelConfig);

@@ -1,8 +1,17 @@
 import Marquee from '@enact/sandstone/Marquee';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/controls';
+import {Marquee as uiMarquee} from '@enact/ui/Marquee';
 import ri from '@enact/ui/resolution';
 
+const Config = mergeComponentMetadata('Marquee', uiMarquee);
 Marquee.displayName = 'Marquee';
+
+const props = {
+	alignment: [null, 'left', 'right', 'center'],
+	forceDirection: [null, 'rtl', 'ltr'],
+	marqueeOn: ['focus', 'hover', 'render']
+};
 
 export default {
 	title: 'Sandstone/Marquee',
@@ -48,15 +57,15 @@ export const _Marquee = (args) => {
 	);
 };
 
-boolean('disabled', _Marquee, Marquee);
-select('alignment', _Marquee, [null, 'left', 'right', 'center'], Marquee);
-select('forceDirection', _Marquee, [null, 'rtl', 'ltr'], Marquee);
-number('marqueeDelay', _Marquee, Marquee, 1000);
-boolean('marqueeDisabled', _Marquee, Marquee);
-select('marqueeOn', _Marquee, ['hover', 'render'], Marquee, 'render');
-number('marqueeResetDelay', _Marquee, Marquee, 1000);
-text('marqueeSpacing', _Marquee, Marquee, '50%');
-number('marqueeSpeed', _Marquee, Marquee, 60);
+boolean('disabled', _Marquee, Config);
+select('alignment', _Marquee, [null, 'left', 'right', 'center'], Config);
+select('forceDirection', _Marquee, [null, 'rtl', 'ltr'], Config);
+number('marqueeDelay', _Marquee, Config, 1000);
+boolean('marqueeDisabled', _Marquee, Config);
+select('marqueeOn', _Marquee, ['hover', 'render'], Config, 'render');
+number('marqueeResetDelay', _Marquee, Config, 1000);
+text('marqueeSpacing', _Marquee, Config, '50%');
+number('marqueeSpeed', _Marquee, Config, 60);
 text(
 	'children',
 	_Marquee,
