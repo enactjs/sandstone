@@ -58,14 +58,14 @@ export const _Marquee = (args) => {
 };
 
 boolean('disabled', _Marquee, Config);
-select('alignment', _Marquee, [null, 'left', 'right', 'center'], Config);
-select('forceDirection', _Marquee, [null, 'rtl', 'ltr'], Config);
-number('marqueeDelay', _Marquee, Config, 1000);
+select('alignment', _Marquee, props.alignment, Config);
+select('forceDirection', _Marquee, props.forceDirection, Config);
+number('marqueeDelay', _Marquee, Config);
 boolean('marqueeDisabled', _Marquee, Config);
-select('marqueeOn', _Marquee, ['hover', 'render'], Config, 'render');
-number('marqueeResetDelay', _Marquee, Config, 1000);
-text('marqueeSpacing', _Marquee, Config, '50%');
-number('marqueeSpeed', _Marquee, Config, 60);
+select('marqueeOn', _Marquee, props.marqueeOn, Config, 'render');
+number('marqueeResetDelay', _Marquee, Config);
+text('marqueeSpacing', _Marquee, Config);
+number('marqueeSpeed', _Marquee, Config);
 text(
 	'children',
 	_Marquee,
