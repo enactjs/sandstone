@@ -143,7 +143,7 @@ export const WithVariableNumberOfTabs = (args) => {
 };
 
 range('Number of Tabs', WithVariableNumberOfTabs, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
-select('orientation', WithVariableNumberOfTabs, ['vertical', 'horizontal'], TabLayout, 'vertical');
+select('orientation', WithVariableNumberOfTabs, ['vertical', 'horizontal'], Config, 'vertical');
 
 WithVariableNumberOfTabs.storyName = 'With variable number of tabs';
 WithVariableNumberOfTabs.parameters = {
@@ -224,7 +224,7 @@ export const WithTabsWithoutIcons = (args) => {
 };
 
 range('Number of Tabs', WithTabsWithoutIcons, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
-select('orientation', WithTabsWithoutIcons, ['vertical', 'horizontal'], TabLayout, 'vertical');
+select('orientation', WithTabsWithoutIcons, ['vertical', 'horizontal'], Config, 'vertical');
 
 WithTabsWithoutIcons.storyName = 'With tabs without icons';
 WithTabsWithoutIcons.parameters = {
@@ -310,7 +310,7 @@ export const WithDisabledTabs = (args) => {
 };
 
 range('Number of Tabs', WithDisabledTabs, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
-select('orientation', WithDisabledTabs, ['vertical', 'horizontal'], TabLayout, 'vertical');
+select('orientation', WithDisabledTabs, ['vertical', 'horizontal'], Config, 'vertical');
 
 WithDisabledTabs.storyName = 'With disabled tabs';
 WithDisabledTabs.parameters = {
@@ -391,7 +391,7 @@ export const WithAllDisabledTabs = (args) => {
 };
 
 range('Number of Tabs', WithAllDisabledTabs, {groupId: 'TabLayout'}, {min: 0, max: 20, step: 1}, 3);
-select('orientation', WithAllDisabledTabs, ['vertical', 'horizontal'], TabLayout, 'vertical');
+select('orientation', WithAllDisabledTabs, ['vertical', 'horizontal'], Config, 'vertical');
 
 WithAllDisabledTabs.storyName = 'With all disabled tabs';
 WithAllDisabledTabs.parameters = {

@@ -7,6 +7,7 @@ import UiSpinner, {SpinnerBase as UiSpinnerBase} from '@enact/ui/Spinner';
 
 Spinner.displayName = 'Spinner';
 const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);
+Config.defaultProps.blockClickOn = 'null';
 
 export default {
 	title: 'Sandstone/Spinner',
@@ -78,7 +79,7 @@ export const _Spinner = (args) => (
 	</div>
 );
 
-select('blockClickOn', _Spinner, [null, 'container', 'screen'], Config);
+select('blockClickOn', _Spinner, ['null', 'container', 'screen'], Config);
 boolean('centered', _Spinner, Config);
 boolean('paused', _Spinner, Config);
 boolean('scrim', _Spinner, Config);

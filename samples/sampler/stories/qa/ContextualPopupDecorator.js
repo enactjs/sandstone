@@ -1,5 +1,5 @@
 import Button from '@enact/sandstone/Button';
-import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
+import {ContextualPopup, ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
 import Slider from '@enact/sandstone/Slider';
 import {select} from '@enact/storybook-utils/addons/controls';
@@ -8,7 +8,8 @@ import ri from '@enact/ui/resolution';
 import {Component} from 'react';
 
 const ContextualButton = ContextualPopupDecorator(Button);
-const Config = mergeComponentMetadata('ContextualButton', ContextualButton);
+const Config = mergeComponentMetadata('ContextualPopupDecorator', ContextualPopup, ContextualPopupDecorator);
+Config.defaultProps.spotlightRestrict = 'self-first';
 ContextualButton.displayName = 'ContextualButton';
 
 const buttonMargin = () => ({margin: ri.scaleToRem(24)});
@@ -118,8 +119,7 @@ select(
 		'right top',
 		'right bottom'
 	],
-	Config,
-	'below'
+	Config
 );
 select(
 	'spotlightRestrict',
@@ -256,8 +256,7 @@ select(
 		'right top',
 		'right bottom'
 	],
-	Config,
-	'below center'
+	Config
 );
 select(
 	'spotlightRestrict',

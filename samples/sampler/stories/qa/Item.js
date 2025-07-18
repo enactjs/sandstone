@@ -1,9 +1,11 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
-import Item from '@enact/sandstone/Item';
+import Item, {ItemBase} from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
+import UiItem, {ItemBase as UiItemBase} from '@enact/ui/Item';
 import {Row} from '@enact/ui/Layout';
 import {scale} from '@enact/ui/resolution';
 import {useCallback, useState} from 'react';
@@ -13,6 +15,8 @@ import icons from '../helper/icons';
 import Section from './components/KitchenSinkSection';
 
 import css from './Item.module.less';
+
+const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item);
 
 const iconNames = ['', ...icons];
 
@@ -51,8 +55,8 @@ export const WithLongText = (args) => (
 	</Item>
 );
 
-boolean('disabled', WithLongText, Item);
-text('Children', WithLongText, Item, inputData.longText);
+boolean('disabled', WithLongText, Config);
+text('Children', WithLongText, Config, inputData.longText);
 
 WithLongText.storyName = 'with long text';
 
@@ -62,8 +66,8 @@ export const WithTallCharacters = (args) => (
 	</Item>
 );
 
-boolean('disabled', WithTallCharacters, Item);
-select('value', WithTallCharacters, inputData.tallText, Item, inputData.tallText[2]);
+boolean('disabled', WithTallCharacters, Config);
+select('value', WithTallCharacters, inputData.tallText, Config, inputData.tallText[2]);
 
 WithTallCharacters.storyName = 'with tall characters';
 
@@ -73,8 +77,8 @@ export const WithExtraSpaces = (args) => (
 	</Item>
 );
 
-boolean('disabled', WithExtraSpaces, Item);
-text('Children', WithExtraSpaces, Item, inputData.extraSpaceText);
+boolean('disabled', WithExtraSpaces, Config);
+text('Children', WithExtraSpaces, Config, inputData.extraSpaceText);
 
 WithExtraSpaces.storyName = 'with extra spaces';
 
@@ -107,13 +111,13 @@ export const SampleForSpotabilityTest = (args) => (
 	</div>
 );
 
-text('Spottable Text', SampleForSpotabilityTest, Item, inputData.normalText);
-text('Disabled Text', SampleForSpotabilityTest, Item, inputData.disabledText);
-select('size', SampleForSpotabilityTest, ['small', 'large'], Item, 'large');
-select('iconBefore', SampleForSpotabilityTest, iconNames, Item, 'plus');
-text('Text with iconBefore', SampleForSpotabilityTest, Item, 'Item with text that is spottable with an icon (at the start of the string)');
-text('Text with iconAfter', SampleForSpotabilityTest, Item, 'Item with text that is spottable with an icon(at the end of the string)');
-select('iconAfter', SampleForSpotabilityTest, iconNames, Item, 'arrowhookright');
+text('Spottable Text', SampleForSpotabilityTest, Config, inputData.normalText);
+text('Disabled Text', SampleForSpotabilityTest, Config, inputData.disabledText);
+select('size', SampleForSpotabilityTest, ['small', 'large'], Config);
+select('iconBefore', SampleForSpotabilityTest, iconNames, Config, 'plus');
+text('Text with iconBefore', SampleForSpotabilityTest, Config, 'Item with text that is spottable with an icon (at the start of the string)');
+text('Text with iconAfter', SampleForSpotabilityTest, Config, 'Item with text that is spottable with an icon(at the end of the string)');
+select('iconAfter', SampleForSpotabilityTest, iconNames, Config, 'arrowhookright');
 
 SampleForSpotabilityTest.storyName = 'sample for spotability test';
 
@@ -156,12 +160,12 @@ export const WithDifferentTextLength = (args) => (
 	</Scroller>
 );
 
-boolean('disabled', WithDifferentTextLength, Item);
-boolean('inline', WithDifferentTextLength, Item);
-text('label', WithDifferentTextLength, Item, inputData.shortLabel);
-text('children2', WithDifferentTextLength, Item, inputData.longChildren);
-text('label2', WithDifferentTextLength, Item, inputData.longLabel);
-text('children', WithDifferentTextLength, Item, inputData.shortChildren);
+boolean('disabled', WithDifferentTextLength, Config);
+boolean('inline', WithDifferentTextLength, Config);
+text('label', WithDifferentTextLength, Config, inputData.shortLabel);
+text('children2', WithDifferentTextLength, Config, inputData.longChildren);
+text('label2', WithDifferentTextLength, Config, inputData.longLabel);
+text('children', WithDifferentTextLength, Config, inputData.shortChildren);
 
 WithDifferentTextLength.storyName = 'with different text length';
 
@@ -177,10 +181,10 @@ export const WithSpotlightDisabled = (args) => (
 	</div>
 );
 
-boolean('spotlightDisabled', WithSpotlightDisabled, Item, true);
-select('marqueeOn', WithSpotlightDisabled, ['render', 'hover'], Item, 'render');
-text('label', WithSpotlightDisabled, Item, inputData.shortLabel);
-text('children', WithSpotlightDisabled, Item, inputData.mediumChildren);
+boolean('spotlightDisabled', WithSpotlightDisabled, Config, true);
+select('marqueeOn', WithSpotlightDisabled, ['render', 'hover'], Config, 'render');
+text('label', WithSpotlightDisabled, Config, inputData.shortLabel);
+text('children', WithSpotlightDisabled, Config, inputData.mediumChildren);
 
 WithSpotlightDisabled.storyName = 'with spotlightDisabled';
 
@@ -262,8 +266,8 @@ export const WithCustomStyle = (args) => (
 	</Item>
 );
 
-text('label', WithCustomStyle, Item, inputData.shortLabel);
-text('children', WithCustomStyle, Item, inputData.shortChildren);
+text('label', WithCustomStyle, Config, inputData.shortLabel);
+text('children', WithCustomStyle, Config, inputData.shortChildren);
 
 WithCustomStyle.storyName = 'with custom style';
 

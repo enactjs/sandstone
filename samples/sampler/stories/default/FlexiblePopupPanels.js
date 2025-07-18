@@ -20,6 +20,8 @@ const propOptions = {
 const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanelsBase, FlexiblePopupPanels);
 const PanelConfig = mergeComponentMetadata('Panel', PanelBase, Panel);
 Config.defaultProps = {
+	nextButtonVisibility: 'auto',
+	prevButtonVisibility: 'auto',
 	scrimType: 'translucent',
 	spotlightRestrict: 'self-only'
 };
