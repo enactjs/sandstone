@@ -6,6 +6,7 @@ import {boolean, number, select, text} from '@enact/storybook-utils/addons/contr
 import iconNames from '../helper/icons';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipBase, Tooltip, TooltipDecorator);
+Config.defaultProps.tooltipType = 'balloon';
 const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 const prop = {
@@ -59,7 +60,7 @@ boolean('tooltipMarquee', _TooltipDecorator, Config);
 select('tooltipPosition', _TooltipDecorator, prop.tooltipPosition, Config, prop.tooltipPosition[0]);
 boolean('tooltipRelative', _TooltipDecorator, Config);
 text('tooltipText', _TooltipDecorator, Config, 'tooltip!');
-select('tooltipType', _TooltipDecorator, prop.tooltipType, Config, prop.tooltipType[0]);
+select('tooltipType', _TooltipDecorator, prop.tooltipType, Config);
 number('tooltipWidth', _TooltipDecorator, Config);
 text('children', _TooltipDecorator, Config, 'click me');
 

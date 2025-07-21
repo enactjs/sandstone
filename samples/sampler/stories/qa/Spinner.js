@@ -1,12 +1,16 @@
 import Button from '@enact/sandstone/Button';
 import {InputField} from '@enact/sandstone/Input';
-import Spinner from '@enact/sandstone/Spinner';
+import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/controls';
 import ri from '@enact/ui/resolution';
+import UiSpinner, {SpinnerBase as UiSpinnerBase} from '@enact/ui/Spinner';
 import {Component} from 'react';
 
 Spinner.displayName = 'Spinner';
+const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);
+Config.defaultProps.blockClickOn = 'null';
 
 // Set up some defaults for info and controls
 const prop = {
@@ -80,11 +84,11 @@ export const WithLongContent = (args) => (
 	</div>
 );
 
-boolean('transparent', WithLongContent, Spinner, false);
-boolean('centered', WithLongContent, Spinner, false);
-select('blockClickOn', WithLongContent, [null, 'container', 'screen'], Spinner);
-boolean('scrim', WithLongContent, Spinner, true);
-text('content', WithLongContent, Spinner, prop.longText);
+boolean('transparent', WithLongContent, Config, false);
+boolean('centered', WithLongContent, Config, false);
+select('blockClickOn', WithLongContent, ['null', 'container', 'screen'], Config);
+boolean('scrim', WithLongContent, Config, true);
+text('content', WithLongContent, Config, prop.longText);
 
 WithLongContent.storyName = 'with long content';
 
@@ -115,11 +119,11 @@ export const BlockingClickEvents = (args) => (
 	</div>
 );
 
-boolean('transparent', BlockingClickEvents, Spinner, false);
-boolean('centered', BlockingClickEvents, Spinner, false);
-select('blockClickOn', BlockingClickEvents, [null, 'container', 'screen'], Spinner);
-boolean('scrim', BlockingClickEvents, Spinner, true);
-text('content', BlockingClickEvents, Spinner);
+boolean('transparent', BlockingClickEvents, Config, false);
+boolean('centered', BlockingClickEvents, Config, false);
+select('blockClickOn', BlockingClickEvents, [null, 'container', 'screen'], Config);
+boolean('scrim', BlockingClickEvents, Config, true);
+text('content', BlockingClickEvents, Config);
 
 BlockingClickEvents.storyName = 'blocking click events';
 

@@ -1,10 +1,10 @@
-import ProgressBar, {ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
+import ProgressBar, {ProgressBarBase, ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {boolean, range, select} from '@enact/storybook-utils/addons/controls';
 
 import css from './ProgressBar.module.less';
 
-const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBar);
+const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBarBase);
 const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', ProgressBarTooltip);
 ProgressBar.displayName = 'ProgressBar';
 ProgressBarTooltip.displayName = 'ProgressBarTooltip';
@@ -68,8 +68,7 @@ select(
 	'orientation',
 	_ProgressBar,
 	['horizontal', 'vertical', 'radial'],
-	ProgressBarConfig,
-	'horizontal'
+	ProgressBarConfig
 );
 range(
 	'progress',
