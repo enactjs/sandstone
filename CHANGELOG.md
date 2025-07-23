@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/QuickGuidePanels` navigation buttons position
+
 ## [2.9.13] - 2025-04-24
 
 ### Fixed
