@@ -271,7 +271,7 @@ const useThemeScroll = (props, instances) => {
 	}
 
 	function preventScroll (ev) {
-		if (Spotlight.isPaused() && getDirection(ev.keyCode)) {
+		if (Spotlight.isPaused() && Spotlight.getPausedInstance() === 'Popup' && getDirection(ev.keyCode)) {
 			ev.preventDefault();
 			ev.stopPropagation();
 		}
