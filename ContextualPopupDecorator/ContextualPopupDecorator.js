@@ -667,7 +667,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.updateLeaveFor(current);
 			this.setState({
 				activator: current
-			}, () => this.spotPopupContent());
+			});
+			setTimeout(() => {
+				this.spotPopupContent();
+			});
 		};
 
 		handleClose = () => {
