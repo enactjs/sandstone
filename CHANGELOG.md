@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ContextualPopupDecorator` to focus content with timeout when popup opens
 - `sandstone/QuickGuidePanels` navigation buttons position
 - `sandstone/Scroller` to prevent the native scrolling behavior caused by keydown events only when a popup is open
 
