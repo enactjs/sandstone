@@ -153,7 +153,7 @@ const AppBase = ({className, rtl, updateLocale, ...rest}) => {
 	return (
 		<div className={classnames(className, debugAriaClass)}>
 			<Layout {...rest} className={appCss.layout}>
-				<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
+				<Cell component={Menu} id="menu" size="15%" spotlightId="menu">
 					<div className={appCss.jumpToView}>Jump To View: {jumpToView}</div>
 					{views.map((view, i) => (
 						<Item

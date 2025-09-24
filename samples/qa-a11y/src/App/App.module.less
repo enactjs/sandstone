@@ -1,3 +1,5 @@
+@import "~@enact/sandstone/styles/mixins.less";
+
 body {
 	position: fixed;
 	overflow: hidden;
@@ -23,6 +25,7 @@ h2 {
 .navItem {
 	height: 42px;
 	margin: 0;
+	.padding-start-end(6px, 0);
 
 	& > div {
 		pointer-events: none;
