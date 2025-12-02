@@ -255,5 +255,6 @@ export default {
 	ai                : 0x0F01BB, // ai
 	alert01           : 0x0F01BC, // alert.01
 	alert02           : 0x0F01BD, // alert.02
-	calibration       : 0x0F01BE // calibration
+	calibration       : 0x0F01BE, // calibration
+	homehub           : 0x0F01E1  // homehub
 };
